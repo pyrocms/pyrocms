@@ -1,0 +1,22 @@
+INTALL
+======
+
+1.) Unzip.
+
+2.) Upload.
+
+3.) Run the SQL files "tables.sql" and "default_data.sql" in /database
+
+4.) Set /public_html/config/config.php and /public_html/config/database.php
+
+5.) Permissions.
+	
+	cd /home/pyrocms/
+	chmod 777 codeigniter/cache
+	chmod 777 codeigniter/logs
+	chmod -R 777 public_html/temp
+	chmod -R 777 public_html/uploads
+
+6.) Go to your installation, login and make yourself an admin user account.
+
+7.) Delete demo@example.com.
