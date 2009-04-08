@@ -13,6 +13,7 @@
 		
 		<?= js('jquery/jquery.bgiframe.min.js'); ?>
 		<?= js('jquery/jquery.dimensions.js'); ?>
+		<?= js('jquery/jquery.imgareaselect.js'); ?>
 		<?= js('jquery/jquery.tooltip.min.js'); ?>
 		<?= js('jquery/jquery.tablesorter.min.js'); ?>
 		
@@ -45,6 +46,11 @@
 					
 					<!-- Inner Content -->
 					<div id="innerContent">
+					
+						<div id="dialog" class="hidden">
+							<div class="content"></div>
+					    </div>
+    
 						<?=$this->load->view('admin/result_messages') ?>
 					
 						<?=$page_output; ?>

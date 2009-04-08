@@ -16,7 +16,11 @@ INTALL
 	chmod 777 codeigniter/logs
 	chmod -R 777 public_html/temp
 	chmod -R 777 public_html/uploads
+	chmod -R 777 public_html/assets/img/galleries
+	chmod -R 777 public_html/assets/img/products
+	chmod -R 777 public_html/assets/img/staff
+	chmod -R 777 public_html/assets/img/suppliers
 
-6.) Go to your installation, login and make yourself an admin user account.
+6.) Go to your web root, login and make yourself an admin user account.
 
-7.) Delete demo@example.com.
+7.) Log into your new account and delete demo@example.com.

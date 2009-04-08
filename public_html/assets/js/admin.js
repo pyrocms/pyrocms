@@ -3,9 +3,40 @@ $(function() {
 	// Sort any tables with a class of 'sortable'
 	$(".listTable").tablesorter();
 	
-	// Make all delete confirmation links required a confirmation
-	$('a.confirm').click(function(){
-		return confirm('Are you sure you would like to delete this entry?');
+	// Confirmation box
+	$.ui.dialog.defaults.bgiframe = true;
+	var dialogSet;
+	$('a.confirm').click(function() {
+		
+		link = $(this).attr('href');
+
+		// Set the dialog content
+		$("#dialog").attr('title', 'Sure about that?').children('.content').text('Are you sure you would like to delete this? There can be no undoing!');
+		
+		// If not set up, set it
+		if(!dialogSet) {
+			dialogSet = true;
+			$("#dialog").dialog({
+				modal : true,
+				buttons: {
+					'Delete': function() {
+						$(this).dialog('close');
+						window.location.href = link;
+					},
+					Cancel: function() {
+						$(this).dialog('close');
+					}
+				}
+			});
+		}
+		
+		// If set up, just load it again
+		else {
+			$("#dialog").dialog('open');
+		}
+
+		// Always block the href, JS will send the user if they click delete
+		return false;
 	});
 	
 	// Set all date input boxes as datepickers
@@ -18,22 +49,7 @@ $(function() {
 	
 	
 	$(".tabs").tabs();
-	$.ui.dialog.defaults.bgiframe = true;
 	
-	
-	$("#welcome").dialog({ 
-		bgiframe: 	true, 
-		modal:		true
-	});
-
-	$(".features").click(function(){
-		$("#features").dialog({ 
-			bgiframe: 	true, 
-			modal:		true,
-			width: 		600 
-
-		});			
-	});
 
 	$(".close").click(function(){
 		$(this).parents(".message").hide("fast");
