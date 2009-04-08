@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2" type="admin">
+	<name>Settings</name>
+	<description>Allows admins and staff to change website settings such as site name and description.</description>
+	<required>1</required>
+	<is_frontend>1</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+</module>

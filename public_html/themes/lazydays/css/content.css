@@ -1,0 +1,32 @@
+/* GENERAL */
+
+.error-box, .notice-box, .success-box {
+	margin: 10px 15px;
+	padding:0.5em;
+        padding-left:3em;
+  
+	background-color: #444;  
+	background-image: url(../img/icons/quote.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 50%; 
+}
+
+.error-box {
+	background-image: url(../img/icons/stop.gif);
+}
+.notice-box {
+	background-image: url(../img/icons/exclamation.gif);
+}
+.success-box {
+	background-image: url(../img/icons/go.gif);
+}
+
+
+code {
+	background-color:#444444;
+	font-size:11px;
+	margin:10px 4px;
+	overflow:auto;
+	padding:8px;
+	font-family:courier new, sans-serif;
+}

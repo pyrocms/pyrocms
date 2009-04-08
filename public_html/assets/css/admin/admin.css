@@ -1,0 +1,9 @@
+@import 'tripoli.simple.css';
+
+@import 'layout.css';
+
+@import '../boxes.css';
+@import '../common.css';
+@import '../links.css';
+@import '../lists.css';
+@import '../text.css';

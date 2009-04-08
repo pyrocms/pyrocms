@@ -1,0 +1,142 @@
+
+#page-content,.button .expand,.ui-dialog .ui-dialog-titlebar-close,
+.ui-dialog-content .content,.listTable tbody a, ul.ui-tabs-nav ,#header .container ,
+#innerContent,#titleActions,#toolbarActions,#toolbarActions ul,#listHeader, .ui-tabs-nav, .ui-tabs-nav li,.ui-tabs-nav li a  {
+	zoom:1;
+}
+
+.newPost{
+	width:131px;
+}
+.container{
+	width:980px;
+}
+
+#header .viewWebsite,#header .viewWebsite span,#header .viewWebsite:hover,#header .viewWebsite:hover span{
+	background:none;
+}
+
+.button{
+	height:29px;
+}
+.bTR, .bBL,.bBottom, .bBR{
+	display:none;
+}
+#title,#title h2{
+	margin:0;
+}
+#innerContent{
+width:675px;
+}
+.button .expand{
+	display:none;
+}
+.content form legend{
+	margin:0px -8px 16px 0;
+	padding:0;
+}
+#login #innerContent{
+	width:300px;
+}
+ul.ui-tabs-nav {
+float:none;
+margin:0;
+background:#a5948a;
+}
+.ui-tabs-nav li {
+display:block;
+padding:0 0 0 10px;
+margin:0;
+}
+.ui-tabs-nav li a {
+	display:inline;
+	background:none;
+	overflow:hidden;
+	zoom:1;
+	padding:0;
+	margin:0;
+	margin-bottom:-2px;
+}
+.ui-tabs-nav li a span {
+	display:block;
+	float:left;
+	padding:5px;
+	margin:0;
+	background:#a5948a;
+	border-top:#666 1px solid;
+	border-left:#666 1px solid;
+	border-right:#666 1px solid;
+	height:auto;
+}
+.ui-tabs-nav li a:hover, .ui-tabs-nav li.ui-tabs-selected a {
+	background:none;
+	
+}
+.ui-tabs-nav li a:hover span, .ui-tabs-nav li.ui-tabs-selected a span {
+	background:#eff8fa;
+	border-top:#fff 1px solid;
+	border-left:#fff 1px solid;
+	border-right:#fff 1px solid;
+	border-bottom:none;
+}
+#innerContent,.listTable tbody td.last{
+	background:#ffffff;
+}
+#title,#title h2{
+	background:#72d4e3;
+}
+.listTable tbody{
+	border-right:#dddddd 1px solid;
+}
+.listTable thead th,.listTable thead th.first, .listTable thead th.first div,.listTable thead th.last, 
+.content form div.fieldsetBlock h3, .content form div.fieldsetBlock .header,
+#sidebar, #sidebar .bInner, #sidebar .bTR, #sidebar .bBL {
+	background:#a5948a;
+}
+.content form div.fieldsetBlock,.content form div.fieldsetBlock fieldset,#toolbarActions{
+	background:#eff8fa;
+}
+.listTable tfoot td, .listTable tfoot td .inner {
+	background:#eeeeee;
+}
+.button {
+	background:#72d4e3;
+	border:#666 1px solid;
+	cursor:pointer;
+}
+.button strong {
+	background:none;
+}
+.button:hover {
+	background:#333333;
+}
+.button:hover strong {
+	background-position:100% -210px;
+}
+/* Inactive */
+.buttonInactive, .inactive .button {
+	background:#a5948a;
+}
+.buttonInactive strong, .inactive .button strong {
+	background:none;
+}
+.buttonInactive:hover, .inactive .button:hover {
+	background:#eff8fa;
+}
+.buttonInactive:hover strong, .inactive .button:hover strong {
+	background:none;
+}
+button.small-button {
+	background:#eff8fa;
+	border:#a5948a 1px solid;
+
+}
+button.small-button strong {
+	background:none;
+}
+button.small-button:hover {
+	background:#ffffff;
+}
+button.small-button:hover strong {
+	background:none;
+}

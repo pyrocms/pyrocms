@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.6" type="content">
+	<name>Users</name>
+	<description>Let users register and log in to the site, and manage them via the control panel.</description>
+	<required>1</required>
+	<is_frontend>1</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/users/add">New user</new_item>
+		</admin>
+	</navigation>
+</module>

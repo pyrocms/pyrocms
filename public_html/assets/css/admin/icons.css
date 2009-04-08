@@ -1,0 +1,145 @@
+
+/* Style de base, commun à toutes les icones */
+.icon {
+	background-repeat:no-repeat;  
+	background-image:url("../img/icons.png");
+	background-position:-9999px -9999px;
+	width:22px;
+	height:22px;
+	display:inline-block;
+	vertical-align:middle;
+	margin-right:5px;
+	overflow:hidden;
+}
+.icon_loading { background:url("../img/common/icon_loading.gif") top left no-repeat; }
+.icon_add {background-position: -0px -0px; }
+.icon_back {background-position: -22px -0px; }
+.icon_backToWebsite {background-position: -44px -0px; }
+.icon_bin {background-position: -66px -0px; }
+.icon_breadcrumb {background-position: -88px -0px; }
+.icon_browser_firefox {background-position: -110px -0px; }
+.icon_browser_opera {background-position: -132px -0px; }
+.icon_browser_safari {background-position: -154px -0px; }
+.icon_close {background-position: -176px -0px; }
+.icon_code {background-position: -198px -0px; }
+.icon_datepicker {background-position: -0px -22px; }
+.icon_debug_log {background-position: -22px -22px; }
+.icon_debug_memory {background-position: -44px -22px; }
+.icon_debug_request {background-position: -66px -22px; }
+.icon_debug_session {background-position: -88px -22px; }
+.icon_debug_sql_log {background-position: -110px -22px; }
+.icon_debug_timer {background-position: -132px -22px; }
+.icon_debug_variables {background-position: -154px -22px; }
+.icon_delete {background-position: -176px -22px; }
+.icon_error {background-position: -198px -22px; }
+.icon_fake {background-position: -0px -44px; }
+.icon_ext_exe {background-position: -22px -44px; }
+.icon_ext_bat {background-position: -22px -44px; }
+.icon_ext_zip {background-position: -44px -44px; }
+.icon_ext_rar {background-position: -44px -44px; }
+.icon_ext_css {background-position: -66px -44px; }
+.icon_ext_default {background-position: -88px -44px; }
+.icon_ext_xls {background-position: -110px -44px; }
+.icon_ext_flv {background-position: -132px -44px; }
+.icon_ext_avi {background-position: -132px -44px; }
+.icon_ext_mpg {background-position: -132px -44px; }
+.icon_ext_mpeg {background-position: -132px -44px; }
+.icon_ext_wmv {background-position: -132px -44px; }
+.icon_ext_asf {background-position: -132px -44px; }
+.icon_ext_asx {background-position: -132px -44px; }
+.icon_ext_mov {background-position: -132px -44px; }
+.icon_ext_ram {background-position: -132px -44px; }
+.icon_ext_ogm {background-position: -132px -44px; }
+.icon_ext_mkv {background-position: -132px -44px; }
+.icon_ext_as {background-position: -154px -44px; }
+.icon_ext_swf {background-position: -154px -44px; }
+.icon_ext_fla {background-position: -154px -44px; }
+.icon_ext_htm {background-position: -176px -44px; }
+.icon_ext_html {background-position: -176px -44px; }
+.icon_ext_dhtml {background-position: -176px -44px; }
+.icon_ext_xhtml {background-position: -176px -44px; }
+.icon_ext_mp3 {background-position: -198px -44px; }
+.icon_ext_wav {background-position: -198px -44px; }
+.icon_ext_ogg {background-position: -198px -44px; }
+.icon_ext_wma {background-position: -198px -44px; }
+.icon_ext_pdf {background-position: -0px -66px; }
+.icon_ext_php {background-position: -22px -66px; }
+.icon_ext_php3 {background-position: -22px -66px; }
+.icon_ext_php4 {background-position: -22px -66px; }
+.icon_ext_gif {background-position: -44px -66px; }
+.icon_ext_bmp {background-position: -44px -66px; }
+.icon_ext_jpg {background-position: -44px -66px; }
+.icon_ext_jpeg {background-position: -44px -66px; }
+.icon_ext_png {background-position: -44px -66px; }
+.icon_ext_tiff {background-position: -44px -66px; }
+.icon_ext_ppt {background-position: -66px -66px; }
+.icon_ext_txt {background-position: -88px -66px; }
+.icon_ext_rtf {background-position: -88px -66px; }
+.icon_ext_log {background-position: -88px -66px; }
+.icon_ext_doc {background-position: -110px -66px; }
+.icon_ext_docx {background-position: -110px -66px; }
+.icon_flush {background-position: -132px -66px; }
+.icon_folder {background-position: -154px -66px; }
+.icon_google {background-position: -176px -66px; }
+.icon_help {background-position: -198px -66px; }
+.icon_information {background-position: -0px -88px; }
+.icon_logout {background-position: -22px -88px; }
+.icon_minus {background-position: -44px -88px; }
+.icon_msn {background-position: -66px -88px; }
+.icon_notice {background-position: -88px -88px; }
+.icon_passwordGenerate {background-position: -110px -88px; }
+.icon_plus {background-position: -132px -88px; }
+.icon_remove {background-position: -154px -88px; }
+.icon_reorder {background-position: -176px -88px; }
+.icon_required {background-position: -198px -88px; }
+.icon_restore {background-position: -0px -110px; }
+.icon_search {background-position: -22px -110px; }
+.icon_select_all {background-position: -44px -110px; }
+.icon_select_none {background-position: -66px -110px; }
+.icon_select_toggle {background-position: -88px -110px; }
+.icon_sort {background-position: -110px -110px; }
+.icon_sort_asc {background-position: -132px -110px; }
+.icon_sort_desc {background-position: -154px -110px; }
+.icon_success {background-position: -176px -110px; }
+.icon_toggleeditor {background-position: -198px -110px; }
+.icon_valid {background-position: -0px -132px; }
+.icon_yahoo {background-position: -22px -132px; }
+.icon_Chmod {background-position: -44px -132px; }
+.icon_Comment {background-position: -66px -132px; }
+.icon_Config {background-position: -88px -132px; }
+.icon_Config_add {background-position: -110px -132px; }
+.icon_Config_delete {background-position: -132px -132px; }
+.icon_Contact {background-position: -154px -132px; }
+.icon_Contact_add {background-position: -176px -132px; }
+.icon_Contact_delete {background-position: -198px -132px; }
+.icon_Deadend {background-position: -0px -154px; }
+.icon_Deadend_delete {background-position: -22px -154px; }
+.icon_Document {background-position: -44px -154px; }
+.icon_Document_add {background-position: -66px -154px; }
+.icon_Document_clear {background-position: -88px -154px; }
+.icon_Document_delete {background-position: -110px -154px; }
+.icon_Document_edit {background-position: -132px -154px; }
+.icon_Document_library {background-position: -154px -154px; }
+.icon_Document_select {background-position: -176px -154px; }
+.icon_Group {background-position: -198px -154px; }
+.icon_Group_add {background-position: -0px -176px; }
+.icon_Group_delete {background-position: -22px -176px; }
+.icon_Icon {background-position: -44px -176px; }
+.icon_Module {background-position: -66px -176px; }
+.icon_Module_add {background-position: -88px -176px; }
+.icon_Module_delete {background-position: -110px -176px; }
+.icon_Page {background-position: -132px -176px; }
+.icon_Page_add {background-position: -154px -176px; }
+.icon_Page_delete {background-position: -176px -176px; }
+.icon_Post {background-position: -198px -176px; }
+.icon_Post_add {background-position: -0px -198px; }
+.icon_Post_delete {background-position: -22px -198px; }
+.icon_Realisation {background-position: -44px -198px; }
+.icon_Realisation_add {background-position: -66px -198px; }
+.icon_Realisation_delete {background-position: -88px -198px; }
+.icon_Tag {background-position: -110px -198px; }
+.icon_Tag_add {background-position: -132px -198px; }
+.icon_Tag_delete {background-position: -154px -198px; }
+.icon_User {background-position: -176px -198px; }
+.icon_User_add {background-position: -198px -198px; }
+.icon_User_delete {background-position: -0px -220px; }

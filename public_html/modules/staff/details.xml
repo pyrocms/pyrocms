@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.5" type="content">
+	<name>Staff</name>
+	<description>Add staff to the system and show visitors their basic details and photograph.</description>
+	<is_frontend>1</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/staff/create">New staff member</new_item>
+		</admin>
+	</navigation>
+</module>

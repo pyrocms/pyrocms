@@ -1,0 +1,100 @@
+body, td, p, div, span
+{
+  font-family: Verdana, Tahoma, Arial, Helvetica, Sans-serif;
+  font-size: 10pt;
+  color: #303030;
+}
+body
+{
+  padding: 5px 5px 5px 5px;
+  margin: 2px 2px 2px 2px;
+  background-color: #f5f5f5;
+}
+.groupbox
+{
+  border: 1px solid #808080;
+  padding: 5px 5px 5px 5px;
+  margin:  5px 5px 5px 5px;
+}
+.innergroupbox
+{
+  border-bottom: 1px solid #808080;
+  padding: 5px 5px 5px 5px;
+}
+.buttonbox
+{
+  border-top: 1px solid #808080;
+  padding: 5px 5px 5px 5px;
+  margin:  5px 5px 5px 5px;
+  text-align: right;
+  white-space: nowrap;
+}
+.input
+{
+  border: 1px solid #b7b7b7;
+  vertical-align: absmiddle;
+  font-size: 9pt;
+  color: #404040;
+}
+.input3chars
+{
+  border: 1px solid #b7b7b7;
+  vertical-align: absmiddle;
+  font-size: 9pt;
+  color: #404040;
+  width: 30px;
+  text-align: right;
+}
+.input7chars
+{
+  border: 1px solid #b7b7b7;
+  vertical-align: absmiddle;
+  font-size: 9pt;
+  color: #404040;
+  width: 70px;
+  text-align: right;
+}
+.bt
+{
+  height: 19px;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	border : 1px outset #f2f2f2;
+	background: #D7D7D7;
+  background-image: url(../img/btbg.gif);
+  background-repeat: repeat-x;
+  vertical-align: absmiddle;
+}
+.buttonOff {
+	border : 2px outset #ffffff;
+}
+.buttonOn {
+	border : 2px inset #ffffff;
+}
+a, a:hover, a:active, a:visited
+{
+  color: #808080;
+}
+.info_message
+{
+  font-size: 0.8em;
+  color: #303030;
+}
+
+
+
+.spaw2dialogheader
+{
+  font-size: 10px; 
+  height: 19px; 
+  vertical-align: middle; 
+  background: url(../img/atab_bg.gif);
+  white-space: nowrap;
+}
+.spaw2contentbody
+{
+  background: url(../img/bg_pattern.jpg);
+  padding: 10px 10px 10px 10px; 
+}

@@ -1,0 +1,898 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>SPAW Editor PHP Edition v.2 Integrators Documentation</title>
+    <link href="documentation.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1 xml:lang="en-us">SPAW Editor PHP Edition v.2 Integrator's Guide</h1>
+    <h2><a id="toc">
+        Table of Contents</a></h2>
+    <ul>
+        <li><a href="#about">About</a> </li>
+        <li><a href="#requirements">System Requirements</a> </li>
+        <li><a href="#installation">Installation</a>
+            <ul><li><a href="#upgrade">Upgrade Information</a></li></ul></li>
+        <li><a href="#configuration">Configuration </a>
+            <ul><li><a href="#core_settings">Core Configuration Settings </a>
+                <ul><li><a href="#path">Path Related Settings</a> </li>
+                <li><a href="#defaults">Editor Defaults</a> </li>
+                <li><a href="#engine_settings">SPAW Engine Settings</a> </li>
+                <li><a href="#dropdown_data">Dropdown Data</a> </li>
+                <li><a href="#toolbar_sets">Toolbar Sets</a></li>
+                <li><a href="#colorpicker_colors">Colorpicker Predefined Colors</a></li></ul></li>
+            <li><a href="#spawfm_settings">SPAW File Manager Plugin Settings</a></li></ul></li>
+        <li><a href="#usage">Usage</a>
+            <ul><li><a href="#runtime_config">Changing Configuration At Runtime</a>
+                <ul><li><a href="#global_runtime_config">Global Configuration Settings</a> </li>
+                    <li><a href="#instance_runtime_config">Instance Configuration Settings</a> </li>
+                </ul>
+                </li>
+            <li><a href="#applying_settings">Applying Settings </a></li>
+            <li><a href="#pages">Adding Pages</a> </li>
+            <li><a href="#toolbars">Toolbars</a>
+                <ul><li><a href="#using_toolbars">Using Toolbars</a> </li>
+                <li><a href="#floating">Floating and/or Shared Toolbars</a> </li>
+                <li><a href="#custom_toolbars">Custom Toolbars</a></li></ul></li>
+            <li><a href="#fm_settings">FileManager Settings</a></li></ul></li>
+    </ul>
+    <h2><a id="about">
+        About</a></h2>
+    <p>SPAW Editor PHP Edition is a web based WYSIWYG HTML editor control used to replace
+        standard textarea fields in Content Management Systems (CMS) and other web based
+        solutions requiring advanced, non-technical user friendly HTML snippet editing.</p>
+    <p>This document is a guide for CMS developers describing aspects of SPAW Editor integration
+        in their respective systems. This guide doesn't contain any information on development
+        of SPAW Editor plug-ins, visual skins, localization or client usage. For a complete
+        guide, please, visit documentation section of our web site.</p>
+    <h2><a id="requirements">System Requirements</a></h2>
+    <p>SPAW Editor PHP Edition v.2 runs on any PHP4 (tested on newer versions) or PHP5
+        setup. In some cases extra configuration of SPAW Editor might be necessary.</p>
+    <h2><a id="installation">Installation</a></h2>
+    <p>Installation is as simple as extracting files from the archive and uploading them
+        to your web server. If this is a new SPAW v.2 installation then you also have to
+        copy (or rename) configuration file config.default.php to config.php in config subdirectory.
+        This step is necessary so you don't accidentally overwrite your configuration file
+        when upgrading to a newer version.</p>
+    <p>On most Apache/PHP installations you'll be able to see a working instance of SPAW
+        Editor v.2 by pointing your browser to demo/demo.php script under your SPAW directory.</p>
+    <h3><a id="upgrade">
+        Upgrade information</a></h3>
+    <p>
+        In case you are upgrading from SPAW Editor version 1.x you have 2 options.</p>
+    <p>
+        You can use wrappers for v.2 that allow you to seamlessly replace v.1.x installation
+        without changing a line of your code (provided you have used your 1.x in a standard
+        way and didn't use advanced techniques like dynamic image libraries). In this case
+        backup your SPAW 1.x directory and upload new files in the same directory where
+        SPAW 1.x files were residing.</p>
+    <p>
+        It is recommended, however, that you replace old code with new one. This way you
+        can take advantage of all the advanced v.2 features like multi-document interface,
+        floating toolbar, etc.
+    </p>
+    <p>
+        In both cases you'll need to configure SPAW v.2 because configuration subsystem
+        has changed dramatically.</p>
+    <h2><a id="configuration">
+        Configuration</a></h2>
+    <p>
+        SPAW v.1.x was configured by setting a bunch of global variables. This approach
+        is completely gone from SPAW v.2. From now all configuration settings are held in
+        a repository inside a special SpawConfig class. What you need to know is that configuration
+        values are set in config file by calling class method of SpawConfig class called
+        setStaticConfigItem. The method accepts 3 parameters: setting name, setting value
+        and a value specifying the way this setting is passed around different components
+        of SPAW Editor and plugins. All configurable options are set in default configuration
+        file so most of the time you, as integrator, will only need to modify the values
+        of the items found there. Configuration API is described in greater detail in plugin
+        developers guide.</p>
+    <p>
+        Plugins can have their own configuration settings which can be included in the global
+        configuration file (config/config.php) or in a local config file in config subdirectory
+        of plugins folder. It is safe to move plugin configuration settings from local config
+        files to the global config file for better maintainability (unless otherwise specified
+        by plugins author).</p>
+    <h3><a id="core_settings">
+        Core Configuration Settings</a></h3>
+    <p>
+        This section describes static (default for all instances) configuration settings
+        for features that come with core SPAW Editor PHP Edition v.2 distribution. You can
+        change values of these configuration parameters by modifying them in config/config.php
+        file. You can also modify these settings on per instance basis in your code (see
+        chapter on usage). Plugin related settings are described in their respective documentation.</p>
+    <h4><a id="path">
+        Path Related Settings</a></h4>
+    <p>
+        These settings determine locations SPAW uses to load it's files. These are automatically
+        calculated in most instances, but if you get errors in demo script or can't see
+        button images, etc. this is where the problem most likely is.</p>
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                <p>
+                    DOCUMENT_ROOT</p>
+            </td>
+            <td>
+                <p>
+                    Specifies a file system path to the root directory of your website. On most Apache/PHP
+                    installations this is calculated automatically</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    SPAW_ROOT</p>
+            </td>
+            <td>
+                <p>
+                    Specifies a file system path to the SPAW directory. Automatically calculated.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    SPAW_DIR</p>
+            </td>
+            <td>
+                <p>
+                    Specifies a path from web site root to the SPAW directory, that is if you access
+                    demo script by pointing your browser to <a href="http://mydomain.com/spaw/demo/demo.php">
+                        http://mydomain.com/spaw/demo/demo.php</a> SPAW_DIR should be set to '/spaw/'.
+                    Automatically calculated</p>
+            </td>
+        </tr>
+    </table>
+    <h4><a id="defaults">
+        Editor Defaults</a></h4>
+    <p>
+        These editor settings are used when certain properties aren't specified for SPAW
+        instance</p>
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                <p>
+                    default_lang</p>
+            </td>
+            <td>
+                <p>
+                    Specifies default GUI language. Default value – en (English)</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                default_output_charset</td>
+            <td>
+                Specifies character set to use for output. If empty string is specified charset
+                specified in language file will be used.</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    default_theme</p>
+            </td>
+            <td>
+                <p>
+                    Specifies default GUI theme (skin)</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    default_toolbarset</p>
+            </td>
+            <td>
+                <p>
+                    Specifies default toolbar set. Note: toolbar concept has changed dramatically from
+                    v.1.x.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    default_stylesheet</p>
+            </td>
+            <td>
+                <p>
+                    Specifies path to the default CSS stylesheet file to be used for editing area</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    default_width</p>
+            </td>
+            <td>
+                <p>
+                    Specifies default editor width</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    default_height</p>
+            </td>
+            <td>
+                <p>
+                    Specifies default editor height</p>
+            </td>
+        </tr>
+    </table>
+    <h4><a id="engine_settings">
+        SPAW Engine Settings</a></h4>
+    <p>
+        These settings determine inner behavior of various SPAW engine components</p>
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                <p>
+                    USE_ICONV</p>
+            </td>
+            <td>
+                <p>
+                    Specifies if language subsystem should use iconv functions to convert strings to
+                    the specified character set. If iconv is not available in your PHP installation
+                    set it to false. Otherwise you can leave it set to true even if you don't need charset
+                    conversion functionality.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                rendering_mode</td>
+            <td>
+                Specifies which HTML rendering method should be used. Applicable values are "xhtml"
+                and "builtin". "xhtml" mode uses SPAW's own rendering engine to produce well-formed
+                XHTML across browsers. "builtin" uses browsers internal engine which works faster
+                but produces different results across browsers.</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    beautify_xhtml_output</p>
+            </td>
+            <td>
+                <p>
+                    If set to true specifies that XHTML rendering subsystem should "beautify" output
+                    html structure by using indentation, etc.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                base_href</td>
+            <td>
+                Specifies protocol, host and port part (like http://mydomain.com) to be added to
+                urls returned from file manager. Use in conjunction with 'strip_absolute_urls' to
+                force absolute urls.</td>
+        </tr>
+        <tr>
+            <td>
+                strip_absolute_urls</td>
+            <td>
+                If set to true, SPAW will strip domain and path parts from all "local" (pointing
+                to the current web site and/or directory) urls in hyperlinks and images. Note: Microsoft
+                Internet Explorer converts all urls to absolute so this is a workaround to get rid
+                of the absolute part apended to the relative urls users enter.</td>
+        </tr>
+        <tr>
+            <td>
+                resizing_directions</td>
+            <td>
+                Specifies allowed direction in which users resize editor winow. Allowed values:
+                none, horizontal, vertical, both</td>
+        </tr>
+        <tr>
+            <td>
+                convert_html_entities</td>
+            <td>
+                Specifies that special characters should be converted to the respective html entities
+                like &amp;copy; etc.</td>
+        </tr>
+    </table>
+    <h4><a id="dropdown_data">
+        Dropdown Data</a></h4>
+    <p>
+        These items hold data used to populate dropdown lists in the toolbars and dialogs.
+        Values of these settings are PHP arrays. Array key goes to dropdowns option value,
+        array value is displayed as dropdown text.</p>
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <p>Name</p>
+            </td>
+            <td>
+                <p>Description</p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                <p>
+                    dropdown_data_core_style</p>
+            </td>
+            <td>
+                <p>
+                    List of CSS classes for the Styles dropdown. Empty string value removes class attribute
+                    from the HTML element</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                table_styles</td>
+            <td>
+                List of CCS classes used in table properties dialog</td>
+        </tr>
+        <tr>
+            <td>
+                dropdown_data_core_fontname</td>
+            <td>
+                List of font names for Fonts dropdown</td>
+        </tr>
+        <tr>
+            <td>
+                dropdown_data_core_fontsize</td>
+            <td>
+                List of font sizes for Fontsize dropdown</td>
+        </tr>
+        <tr>
+            <td>
+                dropdown_data_core_formatBlock</td>
+            <td>
+                List of paragraph styles for Paragraph dropdown</td>
+        </tr>
+        <tr>
+            <td>
+                a_targets</td>
+            <td>
+                List of hyperlink targets for Hyperlink dialog</td>
+        </tr>
+    </table>
+    <h4><a id="toolbar_sets">
+        Toolbar Sets</a></h4>
+    <p>
+        Toolbar sets are just lists of toolbars. You can specify toolbars to be shown in
+        your instance one by one or you can specify a toolbar set that contains all the
+        toolbars you need.&nbsp; The following table contains a list of predefined toolbar
+        sets. You can create your own toolbar sets. Standard toolbar names are: edit, format,
+        font, insert, table, tools and plugins. Theme developers specify places for specific
+        toolbars but you can substitute "standard" toolbar with your own. To substitute
+        a standard toolbar in toolbarset you set array key to standard toolbar name (like
+        format) and array value to your substitute toolbar name (like format_mini). See
+        "mini" toolbar set definition in default config file for a sample. Toolbar set config
+        item names start with "toolbarset_" followed by toolbar name. For detailed explanation
+        of toolbar customization read toolbar customization section below.</p>
+        <table>
+            <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+            </thead>
+            <tr>
+                <td>
+                    toolbarset_standard</td>
+                <td>
+                    <p>
+                        Includes all standard toolbars except "font"</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    toolbarset_all</td>
+                <td>
+                    Includes all standard toolbars</td>
+            </tr>
+            <tr>
+                <td>
+                    toolbarset_mini</td>
+                <td>
+                    Includes edit and tools toolbars and smaller version of format toolbar</td>
+            </tr>
+        </table>
+
+    <h4><a id="colorpicker_colors">
+        Colorpicker Predefined Colors</a></h4>
+    <p>Starting from version 2.0.3 you can customize predefined colors in colorpicker dialog.
+        To do that you set config item called "colorpicker_predefined_colors". The value
+        of this setting should be an array of 16 elements or less. Each element of the array
+        represents a predefined color in CSS compatible format.</p>
+    
+    <h3><a id="spawfm_settings">
+        SPAW File Manager Plugin Settings</a></h3>
+    <p>
+        File Manager plugin allows managing files on the server and selecting
+        them for embedding into the text being edited (i.e. images, flash movies). It's task also is
+        to let you control how your users access these files and what they can do with them.<br /> 
+        To configure SPAW File Manager to match your needs you have to specify two main parameters: a 
+        "global" settings array which specifies what can be done with the directories
+        accessible to SPAW File Manager, and a directories list. The global settings can be 
+        overriden for each specific directory so you can allow handling only images 
+        in your "Images" directory, only flash movies in your "Flash movies" directory and so on.
+        Here is the detailed description for each of these two main parameters:
+    
+    </p>
+        <table>
+            <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+            </thead>
+            <tr>
+                <td>PG_SPAWFM_SETTINGS</td>
+                <td>
+                    <p>"Global" settings for all directories, specified as setting => value pairs:<br />
+                    </p>
+                      <ul>
+                      <li><em>allow_upload</em> - boolean value, specifies files upload possibility, "false" by default;<br />
+                      <li><em>max_upload_filesize</em> - integer value, specifies max file size in 
+                      bytes to be uploaded (be warned that php.ini setting <em>upload_max_filesize</em> has higher priority
+                      so this setting should not exceed the latter), or zero to ignore (default value);<br />
+                      <li><em>max_img_width</em> - integer value, specifies max uploaded image width allowed, or zero to ignore (default value);<br />
+                      <li><em>max_img_height</em> - integer value, specifies max uploaded image height allowed, or zero to ignore (default value);<br />
+                      <li><em>chmod_to</em> - octal value of mode the uploaded file will be tried to chmod to, or false to omit (default value);<br /> 
+                      <li><em>allow_modify</em> - boolean value, specifies if deleting files is allowed, "false" by default;<br />
+                      <li><em>allowed_filetypes</em> - array of filetype names 
+                      (images/flash/documents/audio/video/archives/any), specifies
+                      files of which type(s) will be listed/allowed to upload. You can add
+                      your own filetypes or edit existing by adding/removing extensions
+                      in file /plugins/spawfm/config/config.php. All defined filetypes
+                      are allowed by default;<br />
+                      <li><em>recursive</em> - boolean value, specifies if viewing/opening subdirectories is allowed, "false" by default;<br />
+                      <li><em>allow_create_subdirectories</em> - boolean value, specifies if creating subdirectories is allowed ("recursive" setting must be true), "false" by default;<br />
+                      <li><em>allow_modify_subdirectories</em> - boolean value, specifies if renaming/deleting subdirectories is allowed ("recursive" setting must be true), "false" by default;<br />
+                      <li><em>forbid_extensions</em> - array of strings, specifies insecure extensions. Files having these extensions are not allowed to be uploaded (or renamed to). 
+                      Set to array('php') in default config file, not checked if this setting is omitted;<br />
+                      <li><em>forbid_extensions_strict</em> - boolean value, disallows extension strings in the middle of the filename (e.g. file.php.jpg - some webservers can be configured to 
+                      execute this file as PHP script if JPG extension is omitted, so this can be dangerous). This setting is set to "true" in default config file and considered "false" if not 
+                      set. It is checked only if "forbid_extensions" is specified.<br />
+                      </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>PG_SPAWFM_DIRECTORIES</td>
+                <td>
+                  <p>Specific directories to be accessible by SPAW File Manager. 
+                  Defined as an array, where each directory is a subarray with these
+                  key=>value pairs:<br />
+                  </p>
+                  <ul>
+                  <li><em>dir</em> - directory path, relative from domain URL (or "base_href" setting, if set). 
+                  Example: if your images are found at "www.domain.com/files/images/"
+                  then set this parameter to "/files/images/". Since version 2.0.2 this parameter can also be set to 
+                  absolute URL but the "fsdir" paramet must also be specified in this case. 
+                  This parameter is mandatory.<br />
+                  <li><em>fsdir</em> - absolute filesystem path (optional). If it is specified
+                  this is where the files will be looked for, otherwise files will be looked for 
+                  at the location specified in the <em>dir</em> parameter. In both cases SPAW File
+                  Manager will return the value specified in <em>dir</em> parameter as a 
+                  path in the web address of the file selected (prepended with the 'base_href' if 
+                  the latter is specified). Example: if your website is located at
+                  "/usr/data/www/domain/" and can be accessed as www.domain.com, but your
+                  image files are located at "/usr/data/www/other_domain/images/" and 
+                  they are accessible as http://www.domain.com/images/ - you have to set
+                  'dir' to "/images/" and 'fsdir' to "/usr/data/www/other_domain/images/".
+                  This parameter is optional.<br />
+                  <li><em>caption</em> - directory title to be seen by users in SPAW File Manager.
+                  Plain directory path will be shown if this is not specified, so 
+                  this is optional parameter.<br />
+                  <li><em>params</em> - array of any "global" settings you like to be overriden 
+                  for this directory, plus optional <em>default_dir</em> setting 
+                  (set this to "true" for this directory to be selected by default).
+                  This is optional parameter.
+                  </ul>
+                </td>
+            </tr>
+        </table> 
+        
+    <h2><a id="usage">
+        Usage</a></h2>
+    <p>
+        To use SPAW Editor in it's simpliest form you need to add only 3 lines of code to
+        your scripts.</p>
+    <ol>
+        <li>First you include SPAW's main include file like this:<br />
+            <code>include("spaw2/spaw.inc.php");</code></li>
+        <li>Then you create an instance of SpawEditor object<br />
+            <code>$spaw = new SpawEditor("spaw1", $content);</code>
+            <br />
+            where "spaw1" is the name of SPAW editor's instance (and it's first page, more on
+            pages later) and $content variable holds initial editor content</li><li>And then you replace your textarea with a call to SPAW's <code>show()</code> method (or <code>getHtml()</code>
+            if you want to get SPAW's code in a variable for later use)<br />
+            <code>$spaw-&gt;show();</code></li>
+    </ol>
+    <p>
+        <strong>IMPORTANT:</strong> Don't forget to place a call to <code>show()</code> method inside
+        your HTML form. You should also use POST as method attribute of your
+        form.</p>
+    <p>
+    </p>
+        <p>
+            When your form is submited you can get edited content by reading $_POST['spaw1']
+            (or $HTTP_POST_VARS['spaw1'] in older PHP4 versions)</p>
+    <h3>
+        <a id="runtime_config">Changing Configuration At Runtime</a></h3>
+    <p>
+        You can override configuration settings at runtime either on per-script/page or
+        per-instance basis</p>
+    <h4>
+        <a id="global_runtime_config">Global Configuration Settings</a></h4>
+    <p>
+        You can read and override settings set in configuration file by using static methods
+        of SpawConfig class. Here is the list of methods useful for these purposes:</p>
+        <table>
+            <thead>
+                <tr>
+                    <td style="width: 219px">
+                        <p>
+                            Method siganture</p>
+                    </td>
+                    <td>
+                        <p>
+                            Description</p>
+                    </td>
+                </tr>
+            </thead>
+            <tr>
+                <td style="width: 219px">
+                    getStaticConfigValue($name)</td>
+                <td>
+                    <p>
+                        Returns value of config variable with specified name</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    getStaticConfigValueElement($name, $index)</td>
+                <td>
+                    Provided specified configuration item value is array this method returns the value
+                    of specified element of the array</td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    setStaticConfigValue($name, $value)</td>
+                <td>
+                    Sets the value of specified config item. If there's no item with such name, new
+                    config item is created</td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    setStaticConfigValueElement($name, $index, $value)</td>
+                <td>
+                    Provided specified configuration item value is array this method sets the value
+                    of specified element of the array</td>
+            </tr>
+        </table>
+    <p>
+        <em>Note:</em> you should override global configuration settings before you create
+        the first instance of SpawEditor in your script</p>
+    <p>
+        The following example changes default height of all the editor instances on this
+        page to 500 pixels:</p>
+    <p>
+        <code>SpawConfig::setStaticConfigValue('default_height','500px');</code></p>
+    <h4>
+        <a id="instance_runtime_config">Instance Configuration Settings</a></h4>
+    <p>
+        You can change configuration settings for each instance of the editor on the page.
+        While specialized methods (see below) are available for most of the core settings
+        some core settings and all the plugin settings are only accessible via these methods
+        of SpawEditor class (see chapter on File Manager for examples):</p>
+        <table>
+            <tr>
+                <td style="width: 219px">
+                    <p>
+                        Method siganture</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    getConfigValue($name)</td>
+                <td>
+                    <p>
+                        Returns value of config variable with specified name</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    getConfigValueElement($name, $index)</td>
+                <td>
+                    Provided specified configuration item value is array this method returns the value
+                    of specified element of the array</td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    setConfigValue($name, $value)</td>
+                <td>
+                    Sets the value of specified config item. If there's no item with such name, new
+                    config item is created</td>
+            </tr>
+            <tr>
+                <td style="width: 219px">
+                    setConfigValueElement($name, $index, $value)</td>
+                <td>
+                    Provided specified configuration item value is array this method sets the value
+                    of specified element of the array</td>
+            </tr>
+        </table>
+    <br />
+    <h3><a id="applying_settings">
+        Applying Settings</a></h3>
+    <p>
+        SpawEditor class provides methods to overide default editor settings for current
+        SPAW instance</p>
+        <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Method siganture</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>            
+            <tr>
+                <td>
+                    setDimensions($width, $height)</td>
+                <td>
+                    <p>
+                        Sets editor window dimensions. Path desired width and height (as strings) to set
+                        new dimensions. To set only on of the dimensions path null as the other parameter</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    setTheme($theme)</td>
+                <td>
+                    Sets theme (skin). Pass theme name as parameter</td>
+            </tr>
+            <tr>
+                <td>
+                    setLanguage($lang, $output_charset)</td>
+                <td>
+                    Sets GUI language. $lang - 2 character language abbreviation ('en', 'lt', etc.),
+                    $output_charset - character set to use for output (don't specify if you want to
+                    use charset of the language file)</td>
+            </tr>
+            <tr>
+                <td>
+                    setStylesheet($filename)</td>
+                <td>
+                    Sets CSS stylesheet for editing area. Pass web path to the CSS file</td>
+            </tr>
+            <tr>
+                <td>
+                    hideModeStrip()</td>
+                <td>
+                    Hides mode (design/html) switches</td>
+            </tr>
+            <tr>
+                <td>
+                    hideStatusBar()</td>
+                <td>
+                    Hides status bar</td>
+            </tr>
+        </table>
+    <h3><a id="pages">
+        Adding Pages</a></h3>
+    <p>
+        You can edit multiple documents (html snippets) with a single instance of SPAW Editor
+        v.2. When you instantiate SpawEditor object, the first page with the same name as
+        editor itself is added. You add more pages (or overwrite current page data) by using
+        addPage($page) method. It acceps SpawEditorPage object as it's only parameter. SpawEditorPage
+        constructor accepts 4 arguments: $name - the name of the page (you can read the
+        code edited on this page by reading $_POST[$name] after submission), $caption -
+        this is what is shown to the user on page's tab, $value - initial page content and
+        $direction - text direction ('ltr' - for left-to-right, 'rtl' - for right-to-left,
+        default - 'ltr').
+    </p>
+    <p>
+        So, let's say you want your SPAW instance to have 2 pages: one for the English article
+        and one for it's Hebrew translation. You have initial content of the article and
+        it's translation retrieved into $article and $article_hebrew variables respectively.
+        You can do this with the following code:</p>
+    <p><code>
+        $spaw = new SpawEditor('article');<br />
+        // overwrite first page with meaningful caption and initial value<br />
+        $spaw-&gt;addPage(new SpawEditorPage("article","English article",$article)); //
+        left-to-right direction is assumed by default<br />
+        // add additional page for Hebrew translation<br />
+        $spaw-&gt;addPage(new SpawEditorPage("article_hebrew","Hebrew translation",$article_hebrew,
+        'rtl'));</code></p>
+    <h3><a id="toolbars">
+        Toolbars</a></h3>
+    <h4><a id="using_toolbars">
+        Using Toolbars</a></h4>
+        <p>
+            You can control which toolbars are included with your instance by adding a toolbar
+            set to your instance via addToolbarSet() method. You pass a toolbarset name (defined
+            in config file) as an argument to this method.</p>
+    <p>
+        You can also add toolbars without using toolbar sets with the following methods:</p>
+        <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Method siganture</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+            <tr>
+                <td>
+                    addToolbars($toolbar)</td>
+                <td>
+                    <p>
+                        You can pass as many toolbar names as you wish to add to your toolbar. For example
+                        this code <code style="white-space: nowrap;">$spaw-&gt;addToolbars("format","edit","insert");</code> adds format, edit and
+                        insert toolbars</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    addToolbar($toolbar, $substitute='')</td>
+                <td>
+                    Using this method you can add one toolbar at a time, but it allows you to substitute
+                    your own toolbar (see below) for a standard one. Let's say you don't want your users
+                    to add Flash movies. You can create your own toolbar called "insert_no_flash" and
+                    then use it in place of standard "insert" toolbar. To do this you call <code style="white-space: nowrap;">$spaw-&gt;addToolbar("insert_no_flash",
+                    "insert")</code>.</td>
+            </tr>
+        </table>
+    <p>
+    </p>
+    <h4><a id="floating">
+        Floating and/or Shared Toolbars</a></h4>
+    <p>
+        In SPAW Editor v.2 single toolbar can control one or several editor instances. It
+        can either be attached to one of the instances or floating around.</p>
+    <p>
+        To enable floating toolbar you call <code>setFloatingMode()</code> method. It accepts SpawEditor
+        instance as an argument. If you don't pass any arguments this instance of SpawEditor
+        uses it's own toolbar. If you pass other SpawEditor object this instance will be
+        controlled by toolbar of the instance you've passed.</p>
+    <p>
+        In case you don't want to use floating toolbars but still want several instances
+        controlled by a single toolbar you can use <code>setToolbarFrom()</code> method the same way
+        as you would use <code>setFloatingMode()</code></p>
+    <h4><a id="custom_toolbars">
+        Custom Toolbars</a></h4>
+    <p>
+        You can create custom toolbars by copying one of the standard toolbars in plugins/core/lib/toolbars/
+        subdirectory and removing/adding toolbar items in that file. Unless you are a plugin
+        developer (see plugin developers documentation) you only need to copy/paste or delete
+        rows in these files. Theme designers can designate special placements for standard
+        toolbars so, if you want your custom toolbar to appear in a place of standard toolbar
+        you should add it to the instance with addToolbar() method using standard toolbar
+        name as a substitute parameter.</p>
+    
+
+
+
+    <h3><a id="fm_settings">
+        FileManager Settings</a></h3>
+    <p>
+        <em>Note: when you change settings defined with SPAW_CFG_TRANSFER_SECURE transfer type
+            (for example FileManager settings described here) PHP session should be started
+            in your script (with session_start();) for these settings to propogate to dialogs
+            like FileManager</em></p>
+    <p>
+    All SPAW File Manager settings defined in the config file will apply to all SPAW 
+    editor instances you create. There will be cases when you will want to have different settings and/or directories
+    for different SPAW editor instances. Here is how you can set global File Manager settings for a specific 
+    SPAW Editor instance:</p>
+    <p>
+    <code>
+    // setting global SpawFm settings for a SPAW editor instance:<br />
+    $spaw-&gt;setConfigItem(<br />
+    &nbsp;&nbsp;'PG_SPAWFM_SETTINGS',<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'allow_upload'        =&gt; true,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'allow_modify'        =&gt; true,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'max_upload_filesize' =&gt; 0,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'allowed_filetypes'   =&gt; array('images', 'flash', 'documents'),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;),<br />
+    &nbsp;&nbsp;SPAW_CFG_TRANSFER_SECURE<br />
+    );
+    </code></p>
+    <p>Here is how you set directories available to the File Manager of a specific SPAW editor instance:</p>
+    <p>
+    <code>
+    // setting directories for a SPAW editor instance:<br />
+$spaw-&gt;setConfigItem(<br />
+&nbsp;&nbsp;'PG_SPAWFM_DIRECTORIES',<br />
+&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'dir'     =&gt; '/myuploads/images/2006/',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'caption' =&gt; 'Images 2006',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'params'  =&gt; array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'allowed_filetypes' =&gt; array('images')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;SPAW_CFG_TRANSFER_SECURE<br />
+);</code></p>
+    <p>
+    Sometimes redefining settings and/or directories for each SPAW Editor instance from scratch is 
+    not convenient, if they differ only slightly from the basic settings defined in config file. 
+    In this case a simplier way is to (re)define specific single global setting(s) and/or directories by one.<br />
+    NB: you should not use this method if no global filemanager settings and directories were defined before.</p>
+<p>
+<code>
+// redefining global settings<br />
+$spaw-&gt;setConfigValueElement('PG_SPAWFM_SETTINGS', 'allow_upload', true);<br />
+$spaw-&gt;setConfigValueElement('PG_SPAWFM_SETTINGS', 'allow_modify', true);
+</code></p>
+<p>
+<code>
+// adding additional directory with global settings<br />
+$new_dir = array(<br />
+&nbsp;&nbsp;'dir' =&gt; '/yet/another/dir/',<br />
+&nbsp;&nbsp;'caption' =&gt; 'Specific files',<br />
+);<br />
+$spaw-&gt;setConfigValueElement('PG_SPAWFM_DIRECTORIES', sizeof($spaw-&gt;getConfigValue('PG_SPAWFM_DIRECTORIES')), $new_dir);
+</code></p>
+<p>This way you can configure SPAW File Manager plugin to let you or your users to access
+exactly those files you want them to at the specific point of your nice application.
+</p>
+</body>
+</html>

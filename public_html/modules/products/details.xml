@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.3" type="content">
+	<name>Products</name>
+	<description>Show visitors what products you sell and allows images and price information to be added.</description>
+	<is_frontend>1</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/products/create">New product</new_item>
+		</admin>
+	</navigation>
+</module>

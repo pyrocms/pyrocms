@@ -1,0 +1,174 @@
+/*
+Theme instructions
+
+to create a new theme, just create a new directory inside the img directory 
+and put your theme's images inside. Then just replace "blue" by the directory's name. 
+ */
+
+html{
+	background:url(../../img/admin/blue/background.png);
+}
+#wrapper {
+	background:url(../../img/admin/blue/header.jpg) top left repeat-x;
+}
+#innerContent{
+	background:url(../../img/admin/blue/content_bg.png) repeat-y right;
+}
+.button {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 0 -180px;
+}
+.button strong {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 100% -150px;
+}
+.button .expand {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 100% -2250px;
+}
+button.small-button {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 0 -2970px;
+}
+button.small-button strong {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 100% -2940px;
+}
+button.small-button:hover {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 0 -3030px;
+}
+button.small-button:hover strong {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 100% -3000px;
+}
+.ui-dialog .ui-dialog-titlebar { 
+background:transparent url(../../img/admin/blue/sprite.png) no-repeat scroll 0 -990px;
+
+}
+.ui-dialog .ui-dialog-title { 
+background:transparent url(../../img/admin/blue/sprite.png) no-repeat scroll 100% -810px;
+} 
+.ui-dialog .ui-dialog-titlebar-close { 
+background: url(../../img/admin/blue/sprite.png) repeat scroll 100% -2880px;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover{
+	background: url(../../img/admin/blue/sprite.png) repeat scroll 100% -2910px;
+}
+.ui-dialog-content .content {
+	background:url(../../img/admin/blue/b1_bg.png) repeat-y right;
+}
+.listTable thead th, .listTable thead div {
+	background:url(../../img/admin/blue/sprite.png) no-repeat -10px -1170px;
+}
+.listTable thead th.first {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 10px -1170px;
+}
+.listTable thead th.first div {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 0px -1350px;
+}
+.listTable thead th.last {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 100% -1170px;
+}
+.listTable tbody td {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 1px -2310px; /* Align it with tfoot and thead */
+}
+.listTable tbody td a {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 0px -2310px; /* border bottom and left */
+}
+.listTable tbody td.last {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 100% -2700px; /* Shadow */
+}
+.listTable tbody td.last a {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 0px -2310px;
+}
+.listTable tfoot td {
+	background:url(../../img/admin/blue/sprite.png) 0px -2220px;
+}
+.listTable tfoot td .inner {
+	background:url(../../img/admin/blue/sprite.png) 100% -2040px;
+}
+.content form div.fieldsetBlock {
+	background:url(../../img/admin/blue/fieldset.png) -900px 100% no-repeat;
+}
+.content form div.fieldsetBlock  .bBR {
+	background:url(../../img/admin/blue/fieldset.png) -1790px -20px repeat-y;
+}
+.content form div.fieldsetBlock .header {
+	background:url(../../img/admin/blue/sprite.png) 100% -1170px;
+}
+.content form div.fieldsetBlock  h3 {
+	background:url(../../img/admin/blue/sprite.png) 0px -1350px;
+}
+.content form div.fieldsetBlock  fieldset {
+	background:url(../../img/admin/blue/fieldset.png) top right repeat-y;
+}
+.content form .field {
+	background:url(../../img/admin/blue/fieldset.png) 0px 100% no-repeat;
+}
+.ui-tabs-nav li a {
+	background:url(../../img/admin/blue/sprite.png) 0px -2790px no-repeat;
+}
+.ui-tabs-nav li a span {
+	background:url(../../img/admin/blue/sprite.png) 100% -2760px no-repeat;
+}
+.ui-tabs-nav li a:hover, .ui-tabs-nav li.ui-tabs-selected a {
+	background:url(../../img/admin/blue/sprite.png) 0px -2850px no-repeat;
+}
+.ui-tabs-nav li a:hover span, .ui-tabs-nav li.ui-tabs-selected a span {
+	background:url(../../img/admin/blue/sprite.png) 100% -2820px no-repeat;
+}
+.bTop, .bTop div, .bBottom, .bBottom div {
+	background-image:url(../../img/admin/blue/sprite.png);
+}
+#header a.viewWebsite {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 0px -60px;
+}
+#header a.viewWebsite span {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 100% -30px;
+}
+#sidebar, #sidebar .bInner, #sidebar .bTR, #sidebar .bBL {
+	background-image:url(../../img/admin/blue/sidebar.png)
+}
+#title {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 100% -810px;
+}
+#title h2 {
+	background:url(../../img/admin/blue/sprite.png) no-repeat 0px -990px;
+}
+#titleActions .listSearch .search {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 0 -420px;
+}
+#titleActions .listSearch .search input {
+	background:url("../../img/admin/blue/sprite.png") no-repeat 100% -390px;
+}
+#toolbarActions {	
+	background:url(../../img/admin/blue/sprite.png) 100% -2660px;
+}
+a {
+	color:#16aec5;
+}
+#sidebar li ul li {
+	color:#cfc5c5;
+}
+#sidebar li ul li a {
+	color:#cfc5c5;
+}
+#sidebar li ul li.active a {
+	color:#ffffff;
+}
+/* Background colors */
+.b2, thead.b2 td, tfoot.b2 td  {
+	background-color:#72d4e3;
+}
+.b3, thead.b3 td, tfoot.b3 td  {
+	background-color:#a5948a;
+}
+.b4 {
+	background-color:#ebf7f9;
+}
+#header {
+	background:#473c3b;
+}
+/* Borders */
+.b2 .alignLeft {
+	border-color:#aae5ee;
+}
+
+/* Tables */
+thead.b3 td:hover {
+	background-color:#775f51;
+}

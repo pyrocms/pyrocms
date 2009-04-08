@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2" type="content">
+	<name>Categories</name>
+	<description>Manage categories for articles, products, services, etc.</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+		
+			<new_item href="admin/categories/create">New category</new_item>
+		
+		</admin>
+	</navigation>
+</module>

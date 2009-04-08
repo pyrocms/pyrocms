@@ -1,0 +1,96 @@
+/* Blueprint ie.css */
+body {text-align:center;}
+#container {text-align:left;}
+* html legend {margin:-18px -8px 16px 0;padding:0;}
+ol {margin-left:2em;}
+sup {vertical-align:text-top;}
+sub {vertical-align:text-bottom;}
+html>body p code {*white-space:normal;}
+hr {margin:-8px auto 11px;}
+
+/* Tripoli */
+textarea { white-space: pre; }
+.content legend { margin-bottom:1.6em; }
+.content fieldset { padding-top:0; }
+sup,sub { font-size:100%; }
+.content legend:first-child { margin-top:0; }
+a abbr,a acronym { text-decoration:underline; }
+* html .content blockquote * { margin:.8em 0; _zoom:1; _overflow:visible; }
+* html .content textarea,* html .content input,.content input[type='submit'],.content input[type='button'] { padding:0; }
+
+/* 
+	ListSearch : realign 
+	Some pixel jag on the input field
+*/
+#titleActions .listSearch .search {
+	background-position:0 -419px;
+}
+#titleActions .listSearch .search input {
+	height:29px;
+	padding:0px;
+	line-height:25px;
+}
+#titleActions .listAdd .button span.icon {
+	margin-top:0px;
+}
+/* 
+	List Header 
+	Button element is too close to select box
+*/
+#listHeader .listActions select {
+	margin-right:5px;
+}
+
+/* 
+	Rounded borders in one image 
+	Will fix overflow bug
+*/
+.bImg .bInner {
+	display:inline-block;
+}
+
+/* 
+	Small button 
+	Fix strange padding-right in the button element
+*/
+button.small-button strong {
+	margin-right:-12px;
+}
+
+/* 
+	Close button 
+	A cursor on it
+*/
+.message .text a.close {
+	cursor:pointer;
+}
+
+/* 
+	Form editing
+	Right side of the form will be out of the overflow. 
+	We will cheat and move form and inside tabs element to aligne this correctly
+*/
+#formEdit {
+	margin-right:20px;
+}
+#formEdit .tabs {
+	margin-right:-10px;
+}
+
+/* 
+	Tabs
+	No cursor over tabs
+*/
+#formEdit ul.ui-tabs-nav a {
+	cursor:pointer;
+}
+
+/* 
+	Login screen
+	Align text on the left
+*/
+#login {
+	text-align:left;
+}
+
+

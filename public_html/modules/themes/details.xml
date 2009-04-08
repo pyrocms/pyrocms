@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2" type="admin">
+	<name>Themes</name>
+	<description>Allows admins and staff to change website theme, upload new themes and manage them.</description>
+	<required>1</required>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>setdefault</method>
+			<method>upload</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/themes/upload">Upload theme</new_item>
+		</admin>
+	</navigation>
+</module>

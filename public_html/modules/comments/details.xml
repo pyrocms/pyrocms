@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.4" type="content">
+	<name>Comments</name>
+	<description>Users and guests can write comments for almost anything with built-in cpatcha support.</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>0</is_backend>
+</module>

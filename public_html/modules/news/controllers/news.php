@@ -1,0 +1,82 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+class News extends Public_Controller {
+
+    function __construct() {
+        parent::Public_Controller();
+        
+        $this->load->model('news_m');
+        $this->load->module_model('categories', 'categories_m');
+        $this->load->module_model('comments', 'comments_m');
+        
+        $this->load->helper('text');
+        
+        // All pages within news will display an archive list
+        $this->data->archive_months = $this->news_m->getArchiveMonths();
+        
+    }
+
+    function index() {
+        $this->data->news = $this->news_m->getNews();
+        $this->layout->create('index', $this->data);
+    }
+
+    function category($category = 0) {
+    	
+    	if(!$category) redirect('news');
+    	
+        $this->data->category = $this->categories_m->getCategory($category);
+        $this->data->news = $this->news_m->getNews(array('category'=>$category));
+        
+        $this->layout->title('News | '.$this->data->category->title);
+        $this->layout->add_breadcrumb('News', 'news');
+        $this->layout->add_breadcrumb($this->data->category->title);
+        $this->layout->create('category', $this->data);
+    }
+    
+    function archive($year = NULL, $month = '01') {
+    	
+    	if(!$year) $year = date('Y');
+    	
+        $month_date = new DateTime($year.'-'.$month.'-01');
+        
+        $this->data->news = $this->news_m->getNews(array('year'=>$year, 'month'=>$month));
+        
+        $this->layout->title( $month_date->format("F 'y"), 'Archive', 'News' );
+        $this->layout->add_breadcrumb('News', 'news');
+        $this->layout->add_breadcrumb('Archive: '.$month_date->format("F 'y"));
+        $this->layout->create('archive', $this->data);
+    }
+    
+    // Public: View an article
+    function view($slug = '') {
+        
+    	if (!$slug or !$article = $this->news_m->getArticle($slug, 'live'))
+    	{
+    		redirect('news/index');
+    	}
+    	
+    	/*if($article->status != 'live' && !$this->user_lib->check_role('admin'))
+    	{
+    		exit('hidden, HA!!');
+    	}*/
+    	
+        $this->session->set_flashdata(array('referrer'=>$this->uri->uri_string));
+        
+        $this->data->article =& $article;
+        
+        $this->layout->title($article->title, 'News');
+        $this->layout->add_breadcrumb('News', 'news');
+        
+        if($article->category_id > 0)
+        {
+        	$this->layout->add_breadcrumb($article->category_title, 'news/category/'.$article->category_slug);
+        }
+        
+        $this->layout->add_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
+        $this->layout->create('view', $this->data);
+    }
+
+}
+
+?>

@@ -1,0 +1,78 @@
+/* filelist style for "list" view mode */
+body {
+  padding: 5px;
+  margin: 0px;
+}
+
+.fm_file {
+  border: 0px solid silver;
+  display: block;
+  white-space: nowrap;
+  vertical-align: bottom;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.7em;
+	line-height: 18px;
+}
+
+.fm_file_title {
+  display: inline; 
+  color: #000000;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: default;
+	padding: 2px;
+}
+
+.fm_file_title_sel {
+  display: inline; 
+  color: #FFFFFF;
+  background-color: #0A246A;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: default;
+	padding: 2px;
+}
+
+.fm_file_icon {
+  display: inline;
+  padding: 1px 3px 1px 0px; 
+  vertical-align: middle;
+  cursor: default;
+  height: 18px;
+}
+.fm_file_icon img {
+  width: 16px;
+  height: 16px;
+  display: inline;
+}
+
+.fm_file_icon_sel {
+  display: inline;
+  padding: 1px 3px 1px 0px; 
+  vertical-align: middle;
+	cursor: default;
+	height: 18px;
+}
+.fm_file_icon_sel img {
+  width: 16px;
+  height: 16px;
+  opacity: .9;
+	filter: alpha(opacity=50);
+	display: inline;
+}
+
+.fm_file_icon_big {
+  display: none; 
+}
+
+.fm_file_thumb {
+  display: none; 
+}
+
+.fm_file_icon_big_sel {
+  display: none; 
+}
+
+.fm_file_thumb_sel {
+  display: none; 
+}

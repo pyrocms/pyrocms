@@ -1,0 +1,80 @@
+body
+{
+    font-family: Lucida, Verdana, Arial, Helvetica;
+    font-size: 0.9em;
+    color: #303030;
+}
+h1
+{
+    background-color: #99ccff;
+    padding: 10px 10px 7px 10px;
+    border-bottom: 3px solid #303030;
+}
+h2
+{
+    background-color: #b0d8ff;
+    padding: 5px 10px 3px 10px;
+    border-bottom: 2px solid #303030;
+}
+h3
+{
+    background-color: #c1e0ff;
+    padding: 3px 10px 3px 10px;
+}
+h4
+{
+    border-bottom: 3px solid #c1e0ff;
+    padding: 3px 10px 3px 10px;
+}
+p
+{
+    padding: 0px 10px 0px 10px;
+}
+table
+{
+    margin: 0px 10px 0px 10px;
+    border: #99ccff 1px solid;
+    border-collapse: collapse;
+    width: 90%;
+}
+tr
+{
+    border-collapse: collapse;
+}
+td
+{
+    padding: 5px 5px 5px 5px;
+    border: #c1e0ff 1px solid;
+    vertical-align: top;
+}
+td p
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+thead
+{
+    background-color: #c1e0ff;
+    font-weight: bold;
+    border: #9bbdde 1px solid;
+}
+thead td
+{
+    border: #9bbdde 1px solid;
+}
+code
+{
+    font-size: 1em;
+    background-color: #eeeeee;
+}
+pre
+{
+    padding: 5px 10px 5px 10px;
+    background-color: #eeeeee;
+}
+.comment
+{
+    font-size: 0.8em;
+    font-style: italic;
+    color: #9bbdde;
+}

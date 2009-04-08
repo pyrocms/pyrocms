@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.5" type="admin">
+	<name>Navigation</name>
+	<description>Manage links on navigation menu's and all the navigation groups they belong to.</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+		<controller name="groups">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/navigation/create">New link</new_item>
+		</admin>
+	</navigation>
+</module>

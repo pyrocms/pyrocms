@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2" type="content">
+	<name>Newsletters</name>
+	<description>Let visitors subscribe via their email address</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>view</method>
+			<method>create</method>
+			<method>send</method>
+			<method>export</method>
+		</controller>
+	</controllers>
+	<navigation>
+		<admin>
+			<new_item href="admin/newsletters/create">New newsletter</new_item>
+		</admin>
+	</navigation>
+</module>

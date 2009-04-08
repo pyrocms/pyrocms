@@ -1,0 +1,24 @@
+/* TABS STYLING
+   Styling for various tabs used in the admin panel
+---------------------------------------------------------------------- */
+
+.settings-tabs li {
+	float:left;
+	list-style-type: none;
+	margin: 0.2em;
+	padding: 0 0 1px 0;
+}
+.settings-tabs li a {
+	display: block;
+	padding: .6em;
+}
+.settings-tabs li a:link, .settings-tabs li a:visited {
+	color: #000;
+	text-decoration: none;
+	background-color: #ebede0;
+}
+.settings-tabs li a:hover, .settings-tabs li a.current {
+	background-color: #6caa00;
+	color: #fff;
+	text-decoration: none;
+}

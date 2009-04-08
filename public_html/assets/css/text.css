@@ -1,0 +1,28 @@
+/* TEXT STYLES
+------------------------------------------------------------------------ */
+
+.text-indent1 { padding-left: 1.5em !important; }
+.text-indent2 { padding-left: 2em !important; }
+.text-indent3 { padding-left: 2.5em !important; }
+
+.text-small1 { font-size: 0.8em }
+.text-small2 { font-size: 0.7em }
+.text-small3 { font-size: 0.6em }
+
+.text-no-style, .text-no-style a  {
+	color: #000000;
+	text-decoration:none;
+}
+
+.bold {
+	font-weight:bold;
+}
+
+.default-input-text {
+	color:#AAAAAA;
+}
+
+code {
+	display:block;
+	white-space:pre;
+}

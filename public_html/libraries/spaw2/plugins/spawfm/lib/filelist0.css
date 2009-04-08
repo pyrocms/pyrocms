@@ -1,0 +1,22 @@
+/* default filelist style */
+body {
+  padding: 5px;
+  margin: 0px;
+}
+
+.fm_file {
+  /*display: none;*/
+}
+
+.fm_file_title { 
+}
+
+.fm_file_icon { 
+}
+
+.fm_file_icon_big { 
+}
+
+.fm_file_thumb { 
+}
+

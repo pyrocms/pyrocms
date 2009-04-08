@@ -1,0 +1,1617 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>SPAW Editor PHP Edition v.2 Plugin Developer's Guide</title>
+    <link href="documentation.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>
+        SPAW Editor PHP Edition v.2 Plugin Developer's Guide</h1>
+    <h2><a id="toc"></a>
+        Table of Contents</h2>
+    <ul>
+        <li><a href="#intro">Introduction</a> </li>
+        <li><a href="#directories">Plugin Directory Structure</a> </li>
+        <li><a href="#ui_plugins">UI Plugins</a>
+            <ul>
+                <li><a href="#configuration">Configuration</a></li>
+                <li><a href="#toolbars">Toolbars</a>
+                    <ul>
+                        <li><a href="#spawtbimage">SpawTbImage</a></li>
+                        <li><a href="#spawtbbutton">SpawTbButton</a></li>
+                        <li><a href="#spawtbdropdown">SpawTbDropdown</a></li>
+                    </ul>
+                </li>
+                <li><a href="#main_js">Main JavaScript Code</a></li>
+                <li><a href="#dialogs">Dialogs</a></li>
+                <li><a href="#localization">Localization</a></li>
+                <li><a href="#themes">Theme Support</a></li>
+            </ul>
+        </li>
+        <li><a href="#nui_plugins">Non-UI Plugins</a>
+            <ul>
+                <li><a href="#nui_configuration">Configuration</a></li>
+                <li><a href="#nui_js">JavaScript Code</a></li>
+                <li><a href="#events">Event Handling</a></li>
+            </ul>
+        </li>
+        <li><a href="#reference">Short SPAW Editor's JavaScript Engine Reference</a>
+            <ul>
+                <li><a href="#spawengine">SpawEngine Class</a></li>
+                <li><a href="#spaweditor">SpawEditor Class</a></li>
+                <li><a href="#spawutils">SpawUtils Class</a></li>
+            </ul>
+        </li>
+    </ul>
+    <h2><a id="intro"></a>
+        Introduction</h2>
+    <p>
+        Modular SPAW Editor v.2 architecture allows for easy extending of core features
+        by plugins. This guide is intended for plugin developers as a documentation of the
+        features available in the core to ease the development process. You can develop
+        plugins that add new features not currently found in the core, you can also make
+        a plugin to incorporate SPAW Editor closely into you CMS (like plugin to browse
+        your internal file management subsystem).</p>
+    <p>
+        SPAW Editor plugins can be divided into 3 categories:</p>
+    <ol>
+        <li><strong>UI Plugins</strong> - plugins that add new toolbar items, dialogs, etc.
+            and perform some actions when user activates these toolbar items. "Zoom" plugin
+            is an example of such plugin.</li>
+        <li><strong>Non-UI Plugins</strong> - these plugins hookup to some events in the editor
+            and perform their actions behind the scenes. Plugin that removes all formatting
+            before the page is submitted could be an example of such plugin.</li>
+        <li><strong>Mixed Plugins</strong> - combine both UI and non-UI techniques. An example
+            of such plugin could be a "smiley" plugin. It could include a toolbar button which
+            opens a dialog with available smilies and at the same time it could include a behind
+            the scene code which tracks what user is typing and replaces all :), :(, etc. with
+            appropriate images</li>
+    </ol>
+    <p>
+        <em>Note: it is recommended that you read "<a href="integrators.html">Integrators Guide</a>"
+            before reading this document</em></p>
+    <h2><a id="directories"></a>
+        Plugin Directory Structure</h2>
+    <p>
+        Each plugin has it's own directory under "plugins" subdirectory. That directory can
+        contain any directories and files but there are some directories and filename considerations
+        that have special meaning for SPAW engine:</p>
+        <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+          </thead>
+            <tr>
+                <td>
+                    <p>
+                        js</p>
+                </td>
+                <td>
+                    <p>
+                        This directory is mandatory. It should also contain at least one of the following
+                        subdirectories:</p>
+                    <ul>
+                        <li>common - for files with code that works in all supported browsers</li>
+                        <li>ie - for Microsoft Internet Explorer specific code</li>
+                        <li>gecko - for Gecko based browser specific code (Firefox, Mozilla, Netscape, etc.)</li>
+                        <li>opera - for Opera specific code</li>
+                    </ul>
+                    <p>
+                        Inside these directories could be any number of JavaScript code files with .js extension.
+                        These files will be included into main SPAW Editor's javascript file</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    config</td>
+                <td>
+                    This directory could be used to specify some plugin specific configuration parameters
+                    in file config.php (see <a href="#configuration">Configuration</a>)</td>
+            </tr>
+            <tr>
+                <td>
+                    dialogs</td>
+                <td>
+                    This is a directory where you should put all files that are included into SPAW's
+                    special dialog engine (see <a href="#dialogs">Dialogs</a>)</td>
+            </tr>
+            <tr>
+                <td>
+                    lib</td>
+                <td>
+                    This directory is where you put subdirectories for various other SPAW Engine related
+                    files. It can contain following subdirectories:<br />
+                    <ul>
+                        <li>lang - for language files (see <a href="#localization">Localization</a>) </li>
+                        <li>theme - for theme (skin) specific files (see <a href="#themes">Theme Support</a>)
+                        </li>
+                        <li>toolbars - for toolbar definition files (see <a href="#toolbars">Toolbars</a>) </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    <br />
+    <p>
+        You should avoid using above directory names for other purposes of your plugin (even
+        if you don't need them for their intended purpose)</p>
+    <h2><a id="ui_plugins"></a>
+        UI Plugins</h2>
+    <p>
+        Plugins can add their buttons and dropdown lists to the toolbar. These toolbar items
+        can perform various actions, they can also open plugin specific dialogs.</p>
+    <h3><a id="configuration"></a>
+        Configuration</h3>
+    <p>
+        Plugins can have their own configuration settings. These settings could be set in
+        the main SPAW's config file or in a config.php file inside "config" subdirectory
+        of plugin's directory. In first case it is easier for integrators to maintain configuration
+        parameters in a single place but in the second case your plugin is completely autonomous.</p>
+    <p>
+        As you may see from the extension config.php is a PHP file. SpawConfig class has
+        some methods to work with configuration settings. You should use SpawConfig::setStaticConfigItem
+        method to set global settings for your plugin. It accepts following arguments:</p>
+    <table>
+    <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+     </thead>
+        <tr>
+            <td>
+                $name</td>
+            <td>
+                Setting name. There's a naming convention that all plugins should name their settings
+                starting with&nbsp; "PG_&lt;pluginname&gt;_" (like "PG_SPAWFM_DIRECTORIES"). However
+                when you set configurable options for your dropdown you should use setting name
+                constructed like this: "dropdown_data_&lt;pluginname&gt;_&lt;dropdownname&gt; (for
+                example "dropdown_data_zoom_zoom") and specify array as a value. This way array
+                items will be automatically loaded as options in your dropdown list.</td>
+        </tr>
+        <tr>
+            <td>
+                $value</td>
+            <td>
+                Setting value. This could be of any PHP type however when you use transfer types
+                (see below) SPAW_CFG_TRANSFER_JS or SPAW_CFG_TRANSFER_REQUEST only simple value
+                types could be used.</td>
+        </tr>
+        <tr>
+            <td>
+                $transfer_type</td>
+            <td>
+                Specifies how this configuration item should be transferred across various parts
+                of the script. $transfer_type could be set to one of the following constants (default
+                is SPAW_CFG_TRANSFER_NONE):<br />
+                <ul>
+                    <li>SPAW_CFG_TRANSFER_NONE - setting with this transfer type could be accessed only
+                        from PHP inside the same page</li>
+                    <li>SPAW_CFG_TRANSFER_JS - setting is transfered to the client side and can be accessed
+                        with JavaScript configuration related methods (see below). Only simple value types
+                        are allowed as a value for such settings.</li>
+                    <li>SPAW_CFG_TRANSFER_REQUEST - setting is transfered to dialogs (opened via SPAW Engine)
+                        as HTTP GET parameter. Only simple value types are allowed as a value for such settings.</li>
+                    <li>SPAW_CFG_TRANSFER_SECURE - such settings are stored in PHP session and can be accessed
+                        from dialogs without passing them through the client. You should start PHP session
+                        in your script (by calling session_start() PHP function) to be able to use this
+                        feature.</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <p>
+        To access global static settings you can use one of the following SpawConfig methods</p>
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <p>
+                    Method signature</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                getStaticConfigValue($name)</td>
+            <td>
+                <p>
+                    Returns value of config variable with specified name</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                getStaticConfigValueElement($name, $index)</td>
+            <td>
+                Provided specified configuration item value is an array this method returns the value
+                of specified element of the array</td>
+        </tr>
+        <tr>
+            <td>
+                setStaticConfigValue($name, $value)</td>
+            <td>
+                Sets the value of specified config item. If there's no item with such name, new
+                config item is created</td>
+        </tr>
+        <tr>
+            <td>
+                setStaticConfigValueElement($name, $index, $value)</td>
+            <td>
+                Provided specified configuration item value is an array this method sets the value
+                of specified element of the array</td>
+        </tr>
+    </table>
+    <br />
+    <p>
+        Dialogs created using SPAW Engine's dialog techniques (see below) have access to
+        instance specific configuration settings via the following methods of $config object:</p>
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <p>
+                    Method signature</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                getConfigValue($name)</td>
+            <td>
+                <p>
+                    Returns value of config variable with specified name</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                getConfigValueElement($name, $index)</td>
+            <td>
+                Provided specified configuration item value is an array this method returns the value
+                of specified element of the array</td>
+        </tr>
+        <tr>
+            <td>
+                setConfigValue($name, $value)</td>
+            <td>
+                Sets the value of specified config item. If there's no item with such name, new
+                config item is created</td>
+        </tr>
+        <tr>
+            <td>
+                setConfigValueElement($name, $index, $value)</td>
+            <td>
+                Provided specified configuration item value is an array this method sets the value
+                of specified element of the array</td>
+        </tr>
+    </table>
+    <br />
+    <p>
+        Configuration settings set with SPAW_CFG_TRANSFER_JS transfer type could be accessed
+        from JavaScript using editor.getConfigValue(name) JavaScript method (see <a href="#reference">
+            Reference</a>
+        for details)</p>
+    <h3><a id="toolbars"></a>
+        Toolbars</h3>
+    <p>
+        Plugins can add their own items to toolbars. Unless your plugin adds a feature very
+        closely tied to one of the "standard" SPAW toolbars it is recommended that you add
+        your toolbar items to "plugins" toolbar. In case your plugin adds a lot of toolbar
+        items related to one subject (for example html forms plugin) you may consider creating
+        your own toolbar. Keep in mind that in this case your toolbar wont automatically
+        show up. Integrators will have to manually edit their config files or add your toolbar
+        from code (see <a href="integrators.html">Integrators Guide</a> for details).</p>
+    <p>
+        To add toolbar items you create a file (or files) in "lib/toolbars" subdirectory
+        of your plugin. You name the file like this: &lt;toolbarname&gt;.toolbar.php. Where
+        &lt;toolbarname&gt; is a name of toolbar to which your items should be added (see
+        <a href="integrators.html">Integrators Guide</a> for a list of standard toolbars). In this file you create a variable
+        called $items which holds an array of items of type inherited from SpawTbItem. Currently
+        there are 3 such types:</p>
+    <table>
+    <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+     </thead>        
+        <tr>
+            <td>
+                SpawTbImage</td>
+            <td>
+                <p>
+                    Represents static image in the toolbar. Mainly used to represent separator for logical
+                    grouping of other toolbar items</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                SpawTbButton</td>
+            <td>
+                Represents toolbar button</td>
+        </tr>
+        <tr>
+            <td>
+                SpawTbDropdown</td>
+            <td>
+                Represents dropdown list (combobox)</td>
+        </tr>
+    </table>
+    <p>
+        For example Zoom plugin adds a single dropdown to "plugins" toolbar by creating
+        "lib/toolbars/plugins.toolbar.php" file with the following contents:</p>
+    <p>
+    <code>
+        &lt;?php<br />
+    </code><code>$items = array (
+        <br />
+        &nbsp; new SpawTbDropdown('zoom', 'zoom', 'isZoomEnabled', 'zoomStatusCheck', 'zoomChange',
+        '', SPAW_AGENT_IE, false),<br />
+    </code><code>);
+        <br />
+        ?&gt;</code></p>
+    <p>
+        Toolbar item type constructors accept following arguments:</p>
+    <h4><a id="spawtbimage"></a>
+        SpawTbImage</h4>
+        <table>
+    <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+     </thead>        
+        <tr>
+            <td>
+                $module</td>
+            <td>
+                <p>
+                    Module (plugin) name</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                $name</td>
+            <td>
+                Toolbar item name</td>
+        </tr>
+        <tr>
+            <td>
+                $agent</td>
+            <td>
+                Optional. Supported user agent (browser). The following constants are defined representing
+                user agents:<br />
+                <ul>
+                    <li>SPAW_AGENT_ALL - all SPAW supported browsers</li>
+                    <li>SPAW_AGENT_IE - MS Internet Explorer version 5.5 or higher</li>
+                    <li>SPAW_AGENT_GECKO - Gecko based browsers (Firefox, Netscape, Mozilla, etc.)</li>
+                    <li>SPAW_AGENT_OPERA - Opera version 9 or higher</li>
+                </ul>
+                <p>
+                    Default value is SPAW_AGENT_ALL. These values could be combined using logical OR
+                    (|) operator. For example to specify that this item should show up in IE and Firefox
+                    but not in Opera you specify <code>SPAW_AGENT_IE | SPAW_AGENT_GECKO</code>.</p>
+            </td>
+        </tr>
+    </table>
+    <h4><a id="spawtbbutton"></a>
+        SpawTbButton</h4>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                $module</td>
+            <td>
+                <p>
+                    Module (plugin) name</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                $name</td>
+            <td>
+                Toolbar item name</td>
+        </tr>
+        <tr>
+            <td>
+                $on_enabled_check</td>
+            <td>
+                Name of the JavaScript method returning <em>true</em> if button is enabled and <em>false</em>
+                if it's not</td>
+        </tr>
+        <tr>
+            <td>
+                $on_pushed_check</td>
+            <td>
+                Name of the JavaScript method returning <em>true</em> if button should be currently
+                pushed and <em>false</em> otherwise (leave blank if button can't be in pushed state)</td>
+        </tr>
+        <tr>
+            <td>
+                $on_click</td>
+            <td>
+                Name of the JavaScript method that should be called when button is clicked</td>
+        </tr>
+        <tr>
+            <td>
+                $agent</td>
+            <td>
+                Optional. Supported user agent (browser). The following constants are defined representing
+                user agents:<br />
+                <ul>
+                    <li>SPAW_AGENT_ALL - all SPAW supported browsers </li>
+                    <li>SPAW_AGENT_IE - MS Internet Explorer version 5.5 or higher </li>
+                    <li>SPAW_AGENT_GECKO - Gecko based browsers (Firefox, Netscape, Mozilla, etc.) </li>
+                    <li>SPAW_AGENT_OPERA - Opera version 9 or higher </li>
+                </ul>
+                <p>
+                    Default value is SPAW_AGENT_ALL. These values could be combined using logical OR
+                    (|) operator. For example to specify that this item should show up in IE and Firefox
+                    but not in Opera you specify <code><span style="font-size: 14pt">SPAW_AGENT_IE | SPAW_AGENT_GECKO</span></code>.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                $show_in_context_menu</td>
+            <td>
+                Optional. If set to <em>true</em> specifies that toolbar item should be presented
+                in context menu (when applicable). Default value is <em>false</em>.</td>
+        </tr>
+    </table>
+    <h4><a id="spawtbdropdown"></a>
+        SpawTbDropdown</h4>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                $module</td>
+            <td>
+                <p>
+                    Module (plugin) name</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                $name</td>
+            <td>
+                Toolbar item name</td>
+        </tr>
+        <tr>
+            <td>
+                $on_enabled_check</td>
+            <td>
+                Name of the JavaScript method returning <em>true</em> if button is enabled and <em>false</em>
+                if it's not</td>
+        </tr>
+        <tr>
+            <td>
+                $on_status_check</td>
+            <td>
+                Name of the JavaScript method returning the value that should be currently selected
+                in the dropdown (for example font name of the currently selected block)</td>
+        </tr>
+        <tr>
+            <td>
+                $on_change</td>
+            <td>
+                Name of the JavaScript method that should be called when user selects new value
+                from the list</td>
+        </tr>
+        <tr>
+            <td>
+                $data</td>
+            <td>
+                Optional. Array with name/value pairs that are used for dropdown items. If not specified
+                (or not an array is specified) data from configuration is used (see <a href="#configuration">
+                    Configuration</a>).</td>
+        </tr>
+        <tr>
+            <td>
+                $agent</td>
+            <td>
+                Optional. Supported user agent (browser). The following constants are defined representing
+                user agents:<br />
+                <ul>
+                    <li>SPAW_AGENT_ALL - all SPAW supported browsers </li>
+                    <li>SPAW_AGENT_IE - MS Internet Explorer version 5.5 or higher </li>
+                    <li>SPAW_AGENT_GECKO - Gecko based browsers (Firefox, Netscape, Mozilla, etc.) </li>
+                    <li>SPAW_AGENT_OPERA - Opera version 9 or higher </li>
+                </ul>
+                <p>
+                    Default value is SPAW_AGENT_ALL. These values could be combined using logical OR
+                    (|) operator. For example to specify that this item should show up in IE and Firefox
+                    but not in Opera you specify <code><span style="font-size: 14pt">SPAW_AGENT_IE | SPAW_AGENT_GECKO</span></code>.</p>
+            </td>
+        </tr>
+    </table>
+
+        
+    <h3><a id="main_js"></a>
+        Main JavaScript Code</h3>
+    <p>
+        Plugins JavaScript code that needs to be loaded together with main SPAW Editor code
+        should be placed in <em>js</em> subdirectory of your plugins directory. Inside <em>js</em>
+        directory it should be placed in one of the subdirectories based on the browser
+        it is intended for. In case your code works in all supported browsers place it in
+        <em>js/common</em> subdirectory. If it works under MSIE only it should go to <em>js/ie</em>,
+        for Gecko - <em>js/gecko</em> and for Opera - <em>js/opera</em>.</p>
+    <p>
+        In case your code differs in one or just a few lines for various browsers it's better
+        to put it in common directory and then handle differences with "if" operator, but
+        when it differs dramatically it's easier to have several files than maintain complex
+        conditional statements in one file. It also saves download time for users because
+        they are served only the code for their used browser.</p>
+    <p>
+        Inside these directories you can place any number of JavaScript code files. Inside
+        these files you define a class named SpawPG&lt;pluginname&gt; (for example SpawPGzoom).
+        Then you define methods of the class. These methods are called by the engine when
+        needed (as you have defined in your toolbar item declaration).</p>
+    <p>
+        Here's a complete listing of the file js/ie/zoom.js for the Zoom plugin:</p>
+    <pre><code>// zoom plugin
+function SpawPGzoom()
+{
+}
+
+SpawPGzoom.zoomChange = function(editor, tbi, sender)
+{
+  if (tbi.is_enabled)
+  {
+    var pdoc = editor.getPageDoc(editor.getActivePage().name);
+    pdoc.body.style.zoom = sender.options[sender.selectedIndex].value;
+    sender.selectedIndex = 0;
+    editor.getPageIframeObject(editor.getActivePage().name).focus();
+    pdoc.designMode = 'on';
+    editor.updateToolbar();
+  }
+}
+
+SpawPGzoom.isZoomEnabled = function(editor, tbi)
+{
+  return editor.isInDesignMode();
+}
+
+SpawPGzoom.zoomStatusCheck = function(editor, tbi)
+{
+  if (tbi.is_enabled)
+  {
+    var pdoc = editor.getPageDoc(editor.getActivePage().name);
+    return pdoc.body.style.zoom;
+  }
+  else
+   return null;
+}
+</code>
+</pre>
+    <p>
+        As you may remember from Toolbars section of this guide Zoom plugin has it's toolbar
+        item defined like this:</p>
+    <p>
+        <code>&lt;?php<br />
+        $items = array (
+            <br />
+            &nbsp; new SpawTbDropdown('zoom', 'zoom', 'isZoomEnabled', 'zoomStatusCheck', 'zoomChange',
+            '', SPAW_AGENT_IE, false),<br />
+            );
+            <br />
+            ?&gt;</code></p>
+    <p>
+        So when SPAW Engine needs to check if Zoom dropdown list should be enabled it calls
+        SpawPGzoom.isZoomEnabled method. To get current zoom value it calls SpawPGzoom.zoomStatusCheck
+        and when users selects a new Zoom value from the list it calls SpawPGzoom.zoomChange
+        method.</p>
+    <p>
+        Toolbar related methods receive following arguments:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                editor</td>
+            <td>
+                <p>
+                    An instance of <em>SpawEditor</em> JavaScript class to which the actions should
+                    be applied</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                tbi</td>
+            <td>
+                Toolbar item object (an instance of <em>SpawTbItem</em> descendant class (<em>SpawTbImage</em>,
+                <em>SpawTbButton</em> or <em>SpawTbDropdown</em>)) that initiated this call</td>
+        </tr>
+        <tr>
+            <td>
+                sender</td>
+            <td>
+                Actual HTML/DOM object that initiated the call (like select object for dropdown
+                or image object for buttons)</td>
+        </tr>
+    </table>
+    <h3><a id="dialogs"></a>
+        Dialogs</h3>
+    <p>
+        Spaw Editor includes a mechanism to ease dialog development. You can concentrate
+        on functionality directly related to your plugin and SPAW's engine will handle the
+        rest (arguments, themes, localization, etc.).</p>
+    <p>
+        SpawEngine class includes a method called openDialog which opens SPAW's standard
+        dialog wrapper window. This method accepts following arguments:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                module</td>
+            <td>
+                <p>
+                    Plugin name</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                dialog</td>
+            <td>
+                Dialog name</td>
+        </tr>
+        <tr>
+            <td>
+                editor</td>
+            <td>
+                SpawEditor instance (current editor object)</td>
+        </tr>
+        <tr>
+            <td>
+                arguments</td>
+            <td>
+                Arguments that should be passed to the dialog (could be of any JavaScript datatype)</td>
+        </tr>
+        <tr>
+            <td>
+                querystring</td>
+            <td>
+                A string that will be added to the request url of the dialog (for example setting1=value1&amp;setting2=value2)</td>
+        </tr>
+        <tr>
+            <td>
+                callback</td>
+            <td>
+                Name of the function that should be called when returning from dialog (like 'SpawPGcore.hyperlinkClickCallback')</td>
+        </tr>
+        <tr>
+            <td>
+                tbi</td>
+            <td>
+                Toolbar item object (an instance of <em>SpawTbItem</em> descendant class (<em>SpawTbImage</em>,
+                <em>SpawTbButton</em> or <em>SpawTbDropdown</em>)) that initiated this call</td>
+        </tr>
+        <tr>
+            <td>
+                sender</td>
+            <td>
+                Actual HTML/DOM object that initiated the call (like select object for dropdown
+                or image object for buttons)</td>
+        </tr>
+    </table>
+    <br />
+    <p>
+        To open Hyperlink dialog core plugin calls this method like this:</p>
+    <pre><code>SpawPGcore.hyperlinkClick = function(editor, tbi, sender)
+{
+  if (tbi.is_enabled)
+  {
+    var a = editor.getSelectedElementByTagName("a");
+    editor.stripAbsoluteUrl(a);
+    SpawEngine.openDialog('core', 'hyperlink', editor, a, '', 'SpawPGcore.hyperlinkClickCallback', tbi, sender);
+  }
+}</code></pre>
+    <p>
+        This method opens <em>dialog.php</em> file which in turn includes <em>hyperlink.inc.php</em>
+        file in core plugins <em>dialogs</em> subdirectory (<em>plugins/core/dialogs/hyperlink.inc.php</em>).
+        So you have to name your dialogs body <em>&lt;dialogname&gt;.inc.php</em> and place
+        it in <em>dialogs</em> subdirectory of your plugins directory.</p>
+    <p>
+        <em>dialog.php</em> loads main Spaw Editor's include files, loads theme specific
+        header and footer and sets up a number of objects and variables you can use in your
+        dialog. Your dialog code is included in the middle (content part) of the dialog.
+        <em>dialog.php </em>uses PHP output buffering so you can modify HTTP headers if
+        you have a need for it.</p>
+    <p>
+        Here's a list of PHP objects and variables available to your part of the dialog:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                $lang</td>
+            <td>
+                <p>
+                    An instance of SpawLang class for handling localized of localized strings (see <a
+                        href="#localization">Localization</a>)</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                $config</td>
+            <td>
+                An instance of SpawConfig class holding global configuration options and instance
+                specific configuration options set with transfer type SPAW_CFG_TRANSFER_SECURE</td>
+        </tr>
+    </table>
+    <p>
+        In addition to PHP variables there's a number of JavaScript variables that hold
+        useful objects and information:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                spawEditor</td>
+            <td>
+                <p>
+                    Holds an instance of SpawEditor object referencing editor instance that initiated
+                    this dialog</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                spawArguments</td>
+            <td>
+                Holds whatever arguments you have passed to this dialog via openDialog method</td>
+        </tr>
+    </table>
+    <p>
+        For your dialogs to look consistently with the current editor's theme you should
+        use predefined CSS class names for your form elements:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                input</td>
+            <td>
+                <p>
+                    For general purpose text boxes (input type="text", textarea)</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                input3chars</td>
+            <td>
+                For text boxes that should hold up to 3 characters</td>
+        </tr>
+        <tr>
+            <td>
+                input7chars</td>
+            <td>
+                For text boxes that should hold up to 7 characters</td>
+        </tr>
+        <tr>
+            <td>
+                bt</td>
+            <td>
+                For buttons (input type="button")</td>
+        </tr>
+    </table>
+    <p>
+        To return data to the main window you call <em>SpawDialog.returnValue</em> method before
+        closing dialog window. This methods accepts one argument which is whatever you want
+        to return to the main window. This method calls a function you passed as <em>callback</em>
+        argument to the <em>openDialog</em> method. Callback functions should be defined
+        like this:</p>
+    <pre><code>SpawPGcore.hyperlinkClickCallback = function(editor, result, tbi, sender)
+{
+    // your code here
+}</code></pre>
+    <p>
+        It accepts 4 parameters:</p><table>
+    <thead>
+        <tr>
+            <td>
+                <p>
+                    Name</p>
+            </td>
+            <td>
+                <p>
+                    Description</p>
+            </td>
+        </tr>
+    </thead>
+    <tr>
+        <td>
+            editor</td>
+        <td>
+            <p>
+                An instance of SpawEditor class to which actions should be applied</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            result</td>
+        <td>
+            This is what you pass to <em>SpawDialog.returnValue</em>. Your callback function
+            should know what to do with it</td>
+    </tr>
+    <tr>
+        <td>
+            tbi</td>
+        <td>
+            Toolbar item object (an instance of <em>SpawTbItem</em> descendant class (<em>SpawTbImage</em>,
+            <em>SpawTbButton</em> or <em>SpawTbDropdown</em>)) that initiated this call</td>
+    </tr>
+    <tr>
+        <td>
+            sender</td>
+        <td>
+            Actual HTML/DOM object that initiated the call (like select object for dropdown
+            or image object for buttons)</td>
+    </tr>
+</table>
+    <h3><a id="localization"></a>
+        Localization</h3>
+    <p>
+        Spaw Editor includes a subsystem handling multilanguage support. You should use
+        it even if you only can make a language file for a single language. If community
+        likes your plugin there will be people who will translate it to their language.
+        <strong>
+        In general it is up to you which language files you provide for your plugin,
+            however,
+        we will only list (on our site) plugins that support at least English language.</strong></p>
+    <p>
+        Each plugin has it's own language files (in case it outputs anything to the client).
+        These files should be located in <em>lib/lang</em> subdirectory of your plugin.
+        Each language has it's own language file named <em>&lt;languagename&gt;.lang.inc.php</em>
+        where &lt;languagename&gt; is 2 character abbreviation of the language name (en
+        - English, fr - French, lt - Lithuanian, etc.). These files have the following structure:
+        there's <em>$spaw_lang_charset</em> variable set to the character set (encoding)
+        of the file. It is highly recommended that you use "utf-8" encoding whenever possible;
+        and <em>$spaw_lang_data</em> array which holds language specific strings. Each item
+        in this array is an array representing one block of language data (usually related
+        to a single logical block like toolbar item, dialog, etc.). The key is the name
+        of the block and the value is an array of strings where key represents string identifier
+        and value represents translation to the language of the file.</p>
+    <pre><code>$spaw_lang_data = array(
+  'cut' => array(
+    'title' => 'Cut'
+  ),
+  ...
+);</code></pre>
+    <p>
+        Each toolbar item should have it's own block named the same way as the item itself
+        (the same applies to dialogs). In the example above you can see a block for "cut"
+        toolbar item. Block item with reserved id "title" is used as alternative text for
+        toolbar items or for the title item in dropdown list or for the header of dialog.
+        Other array can be used by your script as needed.</p>
+    <p>
+        <em>SpawLang</em> PHP class provides method to retrieve language strings. It's called
+        <em>getMessage().</em> It accepts following arguments:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                $message</td>
+            <td>
+                <p>
+                    Message identifier ("title" in the above example)</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                $block</td>
+            <td>
+                Optional. Block identifier ("cut" in the above example). If no $block is specified
+                current block identifier is used (see below)</td>
+        </tr>
+        <tr>
+            <td>
+                $module</td>
+            <td>
+                Optional. Module (plugin) identifier representing plugin directory where the language
+                file is located. If no $module is specified current module identifier is used</td>
+        </tr>
+    </table>
+    <p>
+        Since this function is used a lot in dialogs there's a shortcut for it called <em>m()</em>
+        accepting the same list of arguments.</p>
+    <p>
+        Methods <em>setModule($module)</em> and <em>setBlock($block)</em> could be used
+        to set current module and block respectively.</p>
+    <p>
+        So, to output a language specific string in your dialog you use something like this:</p>
+    <pre><code>echo $lang->m('target','hyperlink','core');</code></pre>
+    <p>
+        or</p>
+    <pre><code>$lang->setModule('core');
+$lang->setBlock('hyperlink');
+echo $lang->m('target');</code></pre>
+    <p>
+        Both produce the same result but in the second case if you are working with lots
+        of strings for the hyperlink dialog you don't need to specify block and module names
+        over and over.</p>
+    <h3><a id="themes"></a>
+        Theme Support</h3>
+    <p>
+        Spaw Editor's engine tries to help fit your plugins into the overall look of the
+        editor as carefree as possible. If you use classes mentioned in Dialogs section
+        and avoid fancy styling your dialogs should look consistent with the rest of the
+        editor.
+    </p>
+    <p>
+        However you need to provide graphics for your toolbar buttons. Each theme should
+        include empty button images so you can easily add your image over it to get a fine
+        looking button. You can find these images in <em>plugins/core/lib/theme/&lt;themename&gt;/img/</em>.
+        The files should be named <em>tb__empty*.gif</em>. There could be different variants
+        for each button. For example default "spaw2" theme has 4 variants for each button:
+        <em>tb__empty.gif, tb__empty_down.gif, tb__empty_off.gif, tb__empty_over.gif</em>
+        representing normal, pushed, disabled and hovered buttons respectively. You should
+        create your own buttons from these and save them to files named <em>tb_&lt;youritemname&gt;[_variant].gif</em>
+        in your plugins <em>lib/theme/&lt;themename&gt;/img</em> subdirectory</p>
+    <p>
+        The engine includes a fallback mechanism displaying special default plugin button
+        in case your plugin doesn't have it's own button for current theme. However you
+        should make an effort to support as many of available themes as possible. <strong>We
+            will not list plugins that do not support at least default "spaw2" theme.</strong></p>
+    <h2><a id="nui_plugins"></a>
+        Non-UI Plugins</h2>
+    <p>
+        Not all plugins should require user interaction. Some plugins sit behind the scene
+        and perform their actions as a reaction to some events</p>
+    <h3><a id="nui_configuration"></a>
+        Configuration</h3>
+    <p>
+        Non-UI plugins can be configured in the same way as UI plugins. However only configuration
+        settings with transfer type SPAW_CFG_TRANSFER_JS make sense for non-UI plugins.
+        For example plugin that removes not allowed tags on form submission can have a configuration
+        setting with allowed tag names. (Note: currently only simple data types can be used
+        for SPAW_CFG_TRANSFER_JS transfer type configuration settings)</p>
+    <h3><a id="nui_js"></a>
+        JavaScript Code</h3>
+    <p>
+        You put your code in the same location as for UI plugins. There are no restrictions
+        on what should be inside these files, however, it is recommended that you stick
+        to the same naming conventions as with UI plugins: create a JavaScript class called
+        <em>SpawPG&lt;pluginname&gt;</em> and add your variables and functions as member
+        variables and methods of this class</p>
+    <h3><a id="events"></a>
+        Event Handling</h3>
+    <p>
+        Non-UI plugins sit silently waiting for some events to occur. Spaw Editor's engine
+        provides means for plugins to hookup to browser and SPAW specific events.</p>
+    <p>
+        You use <em>SpawEngine.addEventHandler()</em> method to hook-up your event handler
+        functions to specific events. This method accepts 3 parameters:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                evt_type</td>
+            <td>
+                <p>
+                    Event identifier. This is either a name of standard browser event (like 'click',
+                    'keypress', etc) or SPAW specific event (see below)</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                handler_fn</td>
+            <td>
+                The name of event handler function (for example "SpawEditor.rightClick")</td>
+        </tr>
+        <tr>
+            <td>
+                evt_target</td>
+            <td>
+                Optional. Name of the object to which the event handler should be hooked up. If
+                not specified the event is attached to all editor page documents (editing areas).
+                Applicable values:<br />
+                <ul>
+                    <li>"page_doc" (default) - document object of all editing areas (iframes)</li>
+                    <li>"page_iframe" - iframe object of all editor pages</li>
+                    <li>"page_body" - body object of all editor pages</li>
+                    <li>"form" - HTML form surrounding Spaw Editor</li>
+                    <li>"window" - window object</li>
+                    <li>"document" - main document object</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <p>
+        Here's a list of Spaw Editor specific events:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                spawinit</td>
+            <td>
+                <p>
+                    Occurs when each editor instance on a page is initialized</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                spawallinit</td>
+            <td>
+                Occurs when all SPAW instances on a page are initialized</td>
+        </tr>
+        <tr>
+            <td>
+                spawbeforepageswitch</td>
+            <td>
+                Occurs before active page is switched to another page</td>
+        </tr>
+        <tr>
+            <td>
+                spawpageswitch</td>
+            <td>
+                Occurs when active editor page has changed</td>
+        </tr>
+        <tr>
+            <td>
+                spawgethtml</td>
+            <td>
+                Occurs before content of the page is rendered to HTML</td>
+        </tr>
+        <tr>
+            <td>
+                spawbeforesubmit</td>
+            <td>
+                Occurs when page is about to be submitted to the server</td>
+        </tr>
+    </table>
+    <p>
+        Your script should include a handler for at least one event (unless it's UI plugin
+        or it just provides additional helper functions for other plugins). The best way to attach your events is inside a handler
+        for "spawallinit" event. This means that you should attach a handler to "spawallinit"
+        event right in your script file and then add other handlers inside this handler
+        for "spawallinit". Your handler function should accept 2 arguments: first is <em>SpawEditor</em>
+        instance that initiated the event, the second is JavaScript <em>event</em> object.</p>
+    <p>
+        Below is the whole code for a sample "stest" plugin. All it does is shows an alert
+        each time you press "s" key inside the editing area.</p>
+    <pre><code>function SpawPGstest()
+{
+}
+
+SpawPGstest.init = function(editor, event)
+{
+  SpawEngine.addEventHandler("keydown", "SpawPGstest.keyDown");
+}
+
+SpawPGstest.keyDown = function(editor, event)
+{
+  if (event.keyCode == 83)
+    alert('You\'ve pressed the "s" key');
+}
+
+SpawEngine.addEventHandler("spawallinit", "SpawPGstest.init");</code></pre>
+    <h2><a id="reference"></a>
+        Short SPAW Editor's JavaScript Engine Reference</h2>
+    <p>
+        Spaw Editor provides a framework for accessing and manipulating editor instances
+        and their content. This section list some of the objects and methods that could
+        be useful while developing plugins.</p>
+    <h3><a id="spawengine"></a>
+        SpawEngine Class</h3>
+    <p>
+        SpawEngine class provides methods for general Spaw Editor's engine operations. Here's
+        the list of useful "static" class methods</p>
+        <table>
+            <thead>
+                <tr>
+                    <td style="width: 272px">
+                        <p>
+                            Name</p>
+                    </td>
+                    <td>
+                        <p>
+                            Description</p>
+                    </td>
+                </tr>
+            </thead>
+            <tr>
+                <td style="width: 272px">
+                    getSpawDir()</td>
+                <td>
+                    <p>
+                        Returns virtual directory path where SPAW files are located</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 272px">
+                    getEditor(name)</td>
+                <td>
+                    Returns SpawEditor object for the editor with specified name</td>
+            </tr>
+            <tr>
+                <td style="width: 272px">
+                    isInitialized()</td>
+                <td>
+                    Returns true if all editor instances on the page have been initialized</td>
+            </tr>
+            <tr>
+                <td style="width: 272px">
+                    updateFields()</td>
+                <td>
+                    Updates HTML in all textareas behind all editor pages</td>
+            </tr>
+            <tr>
+                <td style="width: 272px">
+                    setActiveEditor(editor)</td>
+                <td>
+                    Sets specified editor as currently active editor</td>
+            </tr>
+            <tr>
+                <td style="width: 272px">
+                    openDialog(module, dialog, editor, arguments, querystring, callback, tbi, sender)</td>
+                <td>
+                    Opens standard dialogs (see <a href="#dialogs">Dialogs</a>)</td>
+            </tr>
+            <tr>
+                <td style="width: 272px">
+                    addEventHandler(evt_type, handler_fn, evt_target)</td>
+                <td>
+                    Attaches event handler function. See <a href="#events">Events</a>.</td>
+            </tr>
+        </table>
+    <h3><a id="spaweditor"></a>
+        SpawEditor Class</h3>
+    <p>
+        SpawEditor class represents editor instances on the page. Following is a list of
+        useful editor's instance methods and properties</p>
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 272px">
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td style="width: 272px">
+                name</td>
+            <td>
+                <p>
+                    Holds name of the editor</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getConfigValue(name)</td>
+            <td>
+                Returns the value of configuration item set with SPAW_CFG_TRANSFER_JS transfer type
+                (see <a href="#configuration">Configuration</a>)</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                isInitialized()</td>
+            <td>
+                Returns true if editor is initialized</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getToolbarItem(id)</td>
+            <td>
+                Returns toolbar item object with specified identifier</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getPage(id)</td>
+            <td>
+                Returns SpawEditorPage object with specified id</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                setActivePage(id)</td>
+            <td>
+                Sets page with specified id (name) as currently active editor's page</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getActivePage()</td>
+            <td>
+                Returns currently active editor's page as SpawEditorPage object</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                hidePage(page)</td>
+            <td>
+                Hides specified page (SpawEditorPage object should be passed as parameter)</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                showPage(page)</td>
+            <td>
+                Shows specified page (SpawEditorPage object should be passed as parameter)</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getTheme()</td>
+            <td>
+                Returns the name of editor's theme (skin)</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getPageInput(page_name)</td>
+            <td>
+                Returns underlying page's <em>textarea</em> (HTML mode code editing area). Page
+                name (id) should be passed as parameter.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getPageIframe(page_name)</td>
+            <td>
+                Returns <em>iframe</em> object representing WYSIWYG editing area. Page name (id)
+                should be passed as parameter. <em>Note: this and getPageIframeObject return the same
+                    object under Gecko and Opera but under MSIE getPageIframe returns object as a frame
+                    with it's inner document, etc. and getPageIframeObject returns iframe as an object
+                    of parent document.</em></td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getPageIframeObject(page_name)</td>
+            <td>
+                Returns <em>iframe</em> object representing WYSIWYG editing area. Page name (id)
+                should be passed as parameter.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getPageDoc(page_name)</td>
+            <td>
+                Returns <em>document</em> object of the WYSIWYG editing area. Page name (id) should
+                be passed as parameter.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getActivePageDoc()</td>
+            <td>
+                Returns <em>document</em> object of the WYSIWYG area of currently active editor's
+                page</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                updateToolbar()</td>
+            <td>
+                Updates toolbar items to reflect currently selected editing area state</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                updatePageInput(page)</td>
+            <td>
+                Updates page's HTML editing area's value from WYSIWYG value. SpawEditorPage object
+                should be passed as parameter.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                updatePageDoc(page)</td>
+            <td>
+                Updates page's WYSIWYG value from HTML editing area's value. SpawEditorPage object
+                should be passed as parameter.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getPageHtml(page)</td>
+            <td>
+                Returns HTML code of the current page. SpawEditorPage object should be passed as
+                parameter.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                updateFields()</td>
+            <td>
+                Updates HTML value of all editor pages</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                dom2xml(node)</td>
+            <td>
+                Returns inner HTML code of the provided DOM node and all it's children</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getCleanCode(node)</td>
+            <td>
+                Returns inner HTML code of the provided node with formatting and other "garbage"
+                (like MS Word tags) removed</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                cleanPageCode()</td>
+            <td>
+                Cleans active page code using getCleanCode method</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                showStatus(message)</td>
+            <td>
+                Shows specified message in editor's status bar</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getNodeAtSelection()</td>
+            <td>
+                Returns current selection as DOM node</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                insertNodeAtSelection(newNode)</td>
+            <td>
+                Inserts newNode into current selection on the active page</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getSelectionParent()</td>
+            <td>
+                Returns closest parent node holding complete selection on the active page</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getSelectedElementByTagName(tagName)</td>
+            <td>
+                Returns selected HTML element with specified tagName. For example, you have text
+                inside table cell selected and you call this method passing "table" as parameter,
+                this method will return table element inside which selected text is located. Returns
+                <em>null</em> if selection is not inside such element.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                addGlyphs(root)</td>
+            <td>
+                Adds border outline on tables with border="0" starting with specified DOM node</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                removeGlyphs(root)</td>
+            <td>
+                Removes border outline on tables with border="0" starting with specified DOM node</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                isInDesignMode()</td>
+            <td>
+                Returns true if active page is in Design (WYSIWYG) mode</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                getStrippedAbsoluteUrl(url, host_only)</td>
+            <td>
+                Removes local host and path part from urls. If host_only parameter is set to true
+                removes only the host part. Configuration variable "strip_absolute_urls" should
+                be set to true for this method to work</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                stripAbsoluteUrls()</td>
+            <td>
+                Removes local host and path part from hyperlinks and images on the active page.
+                Configuration variable "strip_absolute_urls" should be set to true for this method
+                to work</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                stripAbsoluteUrl(elm)</td>
+            <td>
+                Removes local host and path part from specified element. Configuration variable
+                "strip_absolute_urls" should be set to true for this method to work.</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                selectionWalk(func)<br />
+                <span class="comment">added in version 2.0.1</span></td>
+            <td>
+                Function specified (by reference) will be called on every node in current selection.
+                3 arguments will be passed to this function: node - the node itself, start_offset
+                - offset where selection starts, if node isn't fully selected, null otherwise, end_offset
+                - offset where selection ends, if not isn't fully selected, null otherwise</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                insertHtmlAtSelection(source)<br />
+                <span class="comment">added in version 2.0.1</span></td>
+            <td>
+                Inserts specified string (source) which could either be plain text or HTML into
+                selection</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                applyStyleToSelection(cssClass, styleName, styleValue)<br />
+                <span class="comment">added in version 2.0.7</span></td>
+            <td>
+                Applies specified CSS class or sets specified style setting to the selected content</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                removeStyleFromSelection(cssClass, styleName)<br />
+                <span class="comment">added in version 2.0.7</span></td>
+            <td>
+                Removes CSS class or specified style setting from selected content or it's parent elements (goes up the hierarchy until the appopriate attribute is found)</td>
+        </tr>
+    </table>
+    <h3><a id="spawutils"></a>
+        SpawUtils Class</h3>
+    <p>
+        SpawUtils class provides utility methods that might be useful. Here's a list of
+        "static" class methods</p>
+    <table>
+        <thead>
+            <tr>
+                <td style="width: 272px">
+                    <p>
+                        Name</p>
+                </td>
+                <td>
+                    <p>
+                        Description</p>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td style="width: 272px">
+                rtrim(txt)</td>
+            <td>
+                <p>
+                    Returns specified string with spacers trimmed from right</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                ltrim(txt)</td>
+            <td>
+                Returns specified string with spacers trimmed from left</td>
+        </tr>
+        <tr>
+            <td style="width: 272px">
+                trim(txt)</td>
+            <td>
+                Returns specified string with spacers trimmed from both sides</td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+
+</body>
+</html>

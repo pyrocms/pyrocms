@@ -1,0 +1,345 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+class Admin extends Admin_Controller {
+
+	function __construct() {
+		parent::Admin_Controller();
+		$this->load->model('staff_m');
+	}
+
+	// Admin: List all Staff Members
+	function index() {
+		// Create pagination links
+    	$total_rows = $this->staff_m->countStaff();
+    	$this->data->pagination = create_pagination('admin/staff/index', $total_rows);
+
+    	// Using this data, get the relevant results
+    	$this->data->staff = $this->staff_m->getStaff(array('limit' => $this->data->pagination['limit']));
+		
+		$this->layout->create('admin/index', $this->data);
+		return;
+	}
+
+	// Admin: Create a new Staff Member
+	function create() {
+		$this->load->library('validation');
+		
+		$rules['user_id'] = 'trim|numeric';
+		$rules['name'] = 'trim';
+		$rules['email'] = 'trim';
+		$rules['userfile'] = 'trim';
+		$rules['position'] = 'trim|required|max_length[40]';
+		$rules['body'] = 'trim|required';
+		$rules['fact'] = 'trim';
+		
+		// No user id? Force a name & email out of them
+		if(!$this->input->post('user_id')):
+			$rules['name'] .= '|required|max_length[40]|callback__check_title';
+			$rules['email'] .= '|required|valid_email';
+		endif;
+		
+		$this->validation->set_rules($rules);
+		
+		$fields['userfile'] = 'Photo';
+		$fields['body'] = 'Bio';
+		$this->validation->set_fields($fields);
+
+		if ($this->validation->run()) {
+			$upload_cfg['upload_path'] = './assets/img/staff';
+			$upload_cfg['overwrite'] = TRUE;
+			if($this->input->post('user_id'))
+			{
+				$upload_cfg['new_name'] = $this->input->post('user_id');
+			} else {
+				$upload_cfg['new_name'] = url_title($this->input->post('name'));
+			}
+			$upload_cfg['allowed_types'] = 'gif|jpg|png';
+			$this->load->library('upload', $upload_cfg);
+			if (($this->input->post('btnSave')) && ($this->upload->do_upload())) {
+				$image = $this->upload->data();
+				$this->_create_resize($image['file_name'], $this->config->item('staff_width'), $this->config->item('staff_height'));
+				$staff_id = $this->staff_m->newStaff($_POST, $image);
+				$this->session->set_flashdata('success', 'The staff member has been saved.');
+				redirect('admin/staff/crop/' . $staff_id);
+				return;
+			}
+			show_error($this->upload->display_errors());
+		}
+		
+		$spaw_cfg = array('name'=>'body', 'content'=>$this->validation->body);
+        $this->load->library('spaw', $spaw_cfg);
+		// setting directories for a SPAW editor instance:
+		$this->spaw->setConfigItem(
+			'PG_SPAWFM_DIRECTORIES',
+			  array(
+			    array(
+			      'dir'     => '/uploads/staff/flash/',
+			      'caption' => 'Flash movies', 
+			      'params'  => array(
+			        'allowed_filetypes' => array('flash')
+			      )
+			    ),
+			    array(
+			      'dir'     => '/uploads/staff/images/',
+			      'caption' => 'Images',
+			      'params'  => array(
+			        'default_dir' => true, // set directory as default (optional setting)
+			        'allowed_filetypes' => array('images')
+			      )
+			    ),
+			  ),
+			  SPAW_CFG_TRANSFER_SECURE
+		);
+            
+		$this->_user_select();
+		$this->layout->create('admin/create', $this->data);
+	}
+
+	// Admin: Edit a Staff Member
+	function edit($slug = '') {
+		
+		$this->load->library('validation');
+		$rules['user_id'] = 'trim|numeric';
+		$rules['slug'] = 'trim|numeric';
+		$rules['name'] = 'trim';
+		$rules['email'] = 'trim';
+		$rules['position'] = 'trim|required|max_length[40]';
+		$rules['body'] = 'trim|required';
+		$rules['fact'] = 'trim';
+		$rules['userfile'] = 'trim';
+		
+		// No user id? Force a name & email out of them
+		if(!$this->input->post('user_id')):
+			$rules['name'] .= '|required|max_length[40]|callback__check_title';
+			$rules['email'] .= '|required|valid_email';
+		endif;
+		
+		$this->validation->set_rules($rules);
+		
+		$fields['body'] = 'Bio';
+		$this->validation->set_fields($fields);
+
+		$this->data->member = $this->staff_m->getStaff( array("slug" => $slug) );
+			
+        foreach(array_keys($rules) as $field) {
+        	if(isset($_POST[$field]))
+        		$this->data->member->$field = $this->validation->$field;
+        }
+		
+		if ($this->validation->run()) 
+		{
+			if ($this->input->post('btnSave')) 
+			{
+				$data_array = $_POST;
+				if ($_FILES['userfile']['name']) 
+				{
+					$upload_cfg['upload_path'] = './assets/img/staff';
+					$upload_cfg['overwrite'] = TRUE;
+					if($this->input->post('user_id'))
+					{
+						$upload_cfg['new_name'] = $this->input->post('user_id');
+					} else {
+						$upload_cfg['new_name'] = url_title($this->input->post('name'));
+					}
+					$upload_cfg['allowed_types'] = 'gif|jpg|png';
+					$this->load->library('upload', $upload_cfg);
+					
+					if ($this->upload->do_upload()) 
+					{
+						$image = $this->upload->data();
+						$this->_create_resize($image['file_name'], $this->settings->item('staff_width'), $this->settings->item('staff_height'));
+						$data_array['filename'] = $image['file_name'];
+					}
+				}
+				
+				$this->staff_m->updateStaff($slug, $data_array);
+				$this->session->set_flashdata('success', 'The staff member has been saved.');
+				
+				if(isset($data_array['filename']))
+					redirect('admin/staff/crop/' . $slug);
+				else
+					redirect('admin/staff/index');
+
+				return;
+			}
+
+			show_error('An unexpected error occurred.');
+			
+		}	
+	    
+		$this->_user_select();
+		
+		$spaw_cfg = array('name'=>'body', 'content'=>$this->data->member->body);
+        $this->load->library('spaw', $spaw_cfg);
+		// setting directories for a SPAW editor instance:
+		$this->spaw->setConfigItem(
+			'PG_SPAWFM_DIRECTORIES',
+			  array(
+			    array(
+			      'dir'     => '/uploads/staff/flash/',
+			      'caption' => 'Flash movies', 
+			      'params'  => array(
+			        'allowed_filetypes' => array('flash')
+			      )
+			    ),
+			    array(
+			      'dir'     => '/uploads/staff/images/',
+			      'caption' => 'Images',
+			      'params'  => array(
+			        'default_dir' => true, // set directory as default (optional setting)
+			        'allowed_filetypes' => array('images')
+			      )
+			    ),
+			  ),
+			  SPAW_CFG_TRANSFER_SECURE
+		);
+		
+		$this->layout->create('admin/edit', $this->data);
+		return;
+	}
+
+	// Admin: Delete a Staff Member
+	function delete($slug = '') {
+    	$img_folder = './assets/img/staff/';
+    	// Delete one
+		if($slug)
+		{
+			$member_data = $this->staff_m->getStaff( array("slug" => $slug) );
+			if( !$this->_delete_file( $img_folder , $member_data->filename ) )
+			{
+				// end the delete process, cant delete normally.
+				redirect('admin/staff/index');
+			}
+			if($this->staff_m->deleteStaff($slug))
+			{
+				$this->session->set_flashdata('success', 'Staff member '.$slug.' successfully deleted.');
+			} else {
+				$this->session->set_flashdata('error', 'Error occurred while trying to delete staff member '.$slug);
+			}
+		} else {
+		// Delete multiple
+			if(isset($_POST['delete']))
+			{
+				$deleted = 0;
+				$to_delete = 0;
+				foreach ($this->input->post('delete') as $slug => $value) 
+				{
+					$member_data = $this->staff_m->getStaff( array("slug" => $slug) );
+					if( !$this->_delete_file( $img_folder , $member_data->filename ) )
+					{
+						// end the delete process, cant delete normally.
+						redirect('admin/staff/index');
+					}
+					if($this->staff_m->deleteStaff($slug))
+					{
+						$deleted++;
+					} else {
+						$this->session->set_flashdata('error', 'Error occurred while trying to delete staff member '.$slug);
+					}
+					$to_delete++;
+				}
+				if( $deleted > 0 ) $this->session->set_flashdata('success', $deleted.' staff members out of '.$to_delete.' successfully deleted.');
+			} else {
+				$this->session->set_flashdata('error', 'You need to select staff members first.');
+			}
+		}
+		
+		redirect('admin/staff/index');
+	}
+	
+	function _delete_file($folder = FALSE, $file = FALSE)
+	{
+		if(!$folder || !$file) 
+		{
+			$this->session->set_flashdata('error', "Please submit correct folder and file name.");
+		} else {
+			if(@file_exists($folder.$file))
+			{
+				if(@unlink($folder.$file)) 
+					return TRUE;
+				else
+					$this->session->set_flashdata('error', "Unable to delete file.");
+			} else {
+				$this->session->set_flashdata('error', "The file doesn't exist.");
+			}
+		}
+		return FALSE;
+	}
+
+	// Admin: Crop for Home Page
+    function crop($id = '') {
+        if (empty($id)) redirect('admin/staff/index');
+        
+        $this->load->library('validation');
+        $rules['x1'] = 'trim|required|numeric';
+        $rules['y1'] = 'trim|required|numeric';
+        $rules['x2'] = 'trim|required|numeric';
+        $rules['y2'] = 'trim|required|numeric';
+        $this->validation->set_rules($rules);
+        $this->validation->set_fields();
+        
+		if( $this->data->member = $this->staff_m->getStaff(array("slug" => $id)) )
+		{
+        	$this->data->image = $this->data->member->filename;
+    	}
+
+        if( empty($this->data->image) ) redirect('admin/staff/index');
+        
+		$this->load->library('image_lib');
+		$this->load->config('image_settings');
+		$this->data->image_data = $this->image_lib->get_image_properties('./assets/img/staff/'.$this->data->image, TRUE);
+
+        if ($this->validation->run()) {
+			// 1. Crope the image
+            $this->_create_home_crop($this->data->image, $this->input->post('x1'), $this->input->post('y1'), $this->input->post('x2'), $this->input->post('y2'));
+            // 2. Resize the image
+			$this->_create_resize($this->data->image, $this->config->item('staff_width'), $this->config->item('staff_height'));
+            redirect('admin/staff/index');
+            return;
+        } else {
+            $this->layout->create('admin/crop', $this->data);
+            return;
+        }
+    }
+
+    // Private: Create the Crop for Home Page
+    function _create_home_crop($image = '', $x = '', $y = '', $x2 = '', $y2 = '') {
+        $new_img = substr($image, 0, -4) . '_home' . substr($image, -4);
+        unset($img_cfg);
+        $img_cfg['source_image'] = './assets/img/staff/' . $image;
+        $img_cfg['maintain_ratio'] = FALSE;
+        $img_cfg['x_axis'] = $x;
+        $img_cfg['y_axis'] = $y;
+        $img_cfg['width'] = $x2 - $x;
+        $img_cfg['height'] = $y2 - $y;
+        $this->load->library('image_lib');
+        $this->image_lib->initialize($img_cfg);
+        $this->image_lib->crop();
+    }
+
+	// Private: Create resize of Cropped Image to ensure it's a certain size
+	function _create_resize($homeimg = '', $x, $y) {
+		unset($img_cfg);
+		$img_cfg['source_image'] = './assets/img/staff/' . $homeimg;
+		$img_cfg['new_image'] = './assets/img/staff/' . $homeimg;
+		$img_cfg['maintain_ratio'] = true;
+		$img_cfg['width'] = $x;
+		$img_cfg['height'] = $y;
+		$this->load->library('image_lib');
+		$this->image_lib->initialize($img_cfg);
+		$this->image_lib->resize();
+	}
+
+	function _user_select() {
+		$this->load->module_model('users', 'users_m');
+		$this->data->users = array(0=>'-- Not a user --');
+		foreach($this->users_m->getUsers(array('order'=>'full_name')) as $user):
+			$this->data->users[$user->id] = $user->full_name .' - '. $user->role;
+		endforeach;
+		
+		$this->layout->extra_head('<script type="text/javascript" src="' . base_url() . 'modules/staff/js/staff.js"></script>');
+	}
+	
+}
+
+?>
