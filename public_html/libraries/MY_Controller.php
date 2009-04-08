@@ -69,8 +69,7 @@ class Public_Controller extends MY_Controller {
 		// Go through all the groups 
     	foreach($this->data->groups as $group)
     	{
-	    	//... and get navigation links for each one
-    		$this->data->navigation[$group->abbrev] = (array) $this->navigation_m->getLinks(array(
+	    	$group_links = $this->navigation_m->getLinks(array(
     			'group'=>$group->id,
     			'order'=>'position, title'
     		));
@@ -78,22 +77,28 @@ class Public_Controller extends MY_Controller {
     		$has_current_link = false;
 
     		// Loop through all links and add a "current_link" property to show if it is active
-    		foreach($this->data->navigation[$group->abbrev] as &$link)
+    		if( !empty($group_links) )
     		{
-    			$full_match = site_url($this->uri->uri_string()) == $link->url;
-    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
-    			
-    			// Either the whole URI matches, or the first segment matches
-    			if($link->current_link = $full_match || $segment1_match)
-    			{
-    				$has_current_link = true;
-    			}
+	    		foreach($group_links as &$link)
+	    		{
+	    			$full_match = site_url($this->uri->uri_string()) == $link->url;
+	    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
+	    			
+	    			// Either the whole URI matches, or the first segment matches
+	    			if($link->current_link = $full_match || $segment1_match)
+	    			{
+	    				$has_current_link = true;
+	    			}
+	    		}
+	    		
+	    		// Assign it 
+	    		$this->data->navigation[$group->abbrev] = (array) $group_links;
     		}
     		
     		// No current link, set the first in the group
     		if(!$has_current_link)
     		{
-    			$this->data->navigation[$group->abbrev][0]->current_link = TRUE;
+    			$group_links[0]->current_link = TRUE;
     		}
     		
     	}

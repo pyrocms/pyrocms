@@ -4,7 +4,7 @@
 	<tr>
 		<th class="first"><div></div></th>
 		<th><a href="#">Category</a></th>
-		<th class="last"><span>Actions</span></th>
+		<th class="last width-10"><span>Actions</span></th>
 	</tr>
   </thead>
 	<tbody>    <? if ($categories): ?>

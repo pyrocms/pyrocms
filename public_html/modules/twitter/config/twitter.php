@@ -1,21 +1,12 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
-|--------------------------------------------------------------------------
-| Base Site URL
-|--------------------------------------------------------------------------
-|
-| URL to your CodeIgniter root. Typically this will be your base URL,
-| WITH a trailing slash:
-|
-|	http://www.your-site.com/
-|
-*/
-$config['twitter_news']		= TRUE;
+/* Note: This will soon be handled via the settings page, until then just set username and password and load view "my_tweets" */
 
-$config['twitter_username']	= 'styledna';
+$config['twitter_news']		= FALSE;
 
-$config['twitter_password']	= 'pjs13071988';
+$config['twitter_username']	= 'username';
+
+$config['twitter_password']	= 'password';
 
 $config['twitter_feed_count'] = 5;
 	
