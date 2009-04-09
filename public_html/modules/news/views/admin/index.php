@@ -32,8 +32,12 @@
             <td><?=date('M d, Y', $article->created_on);?></td>
             <td><?=ucfirst($article->status);?></td>
             <td>
-            	<?= anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, 'View', 'target="_blank"') . ' | ' .
-			  		anchor('admin/news/edit/' . $article->id, 'Edit') . ' | ' .
+            	<? if( $article->status == 'draft' ): ?>
+            	<?= anchor('admin/news/preview/'. $article->slug, 'Preview', 'rel="modal" target="_blank"') . ' | '; ?>
+            	<? else: ?>
+            	<?= anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, 'View', 'target="_blank"') . ' | '; ?>
+            	<? endif; ?>
+			  	<?= anchor('admin/news/edit/' . $article->id, 'Edit') . ' | ' .
 			  		anchor('admin/news/delete/' . $article->id, 'Delete', array('class'=>'confirm')); ?>
             </td>
         </tr>

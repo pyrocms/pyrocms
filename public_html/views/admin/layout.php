@@ -17,10 +17,11 @@
 		<?= js('jquery/jquery.tooltip.min.js'); ?>
 		<?= js('jquery/jquery.tablesorter.min.js'); ?>
 		
-        <?= js('admin.js'); ?>
+		<?= js('facebox.js').css('facebox.css'); ?>
+		
         <?=$extra_head_content; ?>
         
-		<?= css('admin/admin.css');?>
+		<?= js('admin.js').css('admin/admin.css');?>
         
 	</head>
 	<body>

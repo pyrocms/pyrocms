@@ -61,15 +61,8 @@ $(function() {
 		showURL:	false
 	});	
 	
-	$("#postList").tablesorter({ 
-        headers: { 
-            0: { 
-                sorter: false 
-            }
-		}
-     });
 	
-	
+	/* Admin left navigation dropdowns */
 	$("#side-nav li").not(".active").find("ul").hide();
 	$("#side-nav .button").click(function(){
 		$("#side-nav ul").hide();
@@ -82,5 +75,13 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 	});
+	
+	
+	/* Facebox modal window */
+   $('a[rel*=modal]').facebox({
+	   opacity : 0.4,
+	   loadingImage : '/assets/img/facebox/loading.gif',
+	   closeImage   : '/assets/img/facebox/closelabel.gif',
+   });
 	
 });

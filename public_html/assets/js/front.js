@@ -1,14 +1,12 @@
 // Set up all linkbox links
 $(function() {
-   $('a[@rel*=lightbox]').lightBox({
-	overlayBgColor: '#FFF',
-	overlayOpacity: 0.6,
-	imageLoading: '/assets/img/lightbox/loading.gif',
-	imageBtnClose: '/assets/img/lightbox/close.gif',
-	imageBtnPrev: '/assets/img/lightbox/prev.gif',
-	imageBtnNext: '/assets/img/lightbox/next.gif',
-	containerResizeSpeed: 350
-   });
+
+	/* Facebox modal window */
+	$('a[rel*=lightbox]').facebox({
+	   opacity : 0.4,
+	   loadingImage : '/assets/img/facebox/loading.gif',
+	   closeImage   : '/assets/img/facebox/closelabel.gif',
+	});
    
    	// ---------------------------------------------------------
 	// Name: Default Input Terms
