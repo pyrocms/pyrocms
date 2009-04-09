@@ -56,6 +56,10 @@
 						<?=$page_output; ?>
 					</div>
 					
+					<div class="bBottom">
+						<div></div>
+					</div>
+
 				</div>
 				
 			</div>
