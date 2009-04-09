@@ -11,6 +11,13 @@
 		<th class="last"><span>Actions</span></th>
 	</tr>
   </thead>
+  <tfoot>
+  	<tr>
+  		<td colspan="5">
+  			<div class="inner"></div>
+  		</td>
+  	</tr>
+  </tfoot>
 
 	<tbody>
 	<? if ($services): ?>

@@ -20,6 +20,13 @@
 		<th class="last"><span>Actions</span></th>
 	</tr>
   </thead>
+  <tfoot>
+  	<tr>
+  		<td colspan="7">
+  			<div class="inner"></div>
+  		</td>
+  	</tr>
+  </tfoot>
   
 	<tbody>
 	<? if (!empty($users)): ?>

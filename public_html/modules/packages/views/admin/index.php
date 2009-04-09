@@ -9,6 +9,13 @@
 		<th class="last"><span>Actions</span></th>
 	</tr>
   </thead>
+  <tfoot>
+  	<tr>
+  		<td colspan="4">
+  			<div class="inner"></div>
+  		</td>
+  	</tr>
+  </tfoot>
   
   <tbody>
 	<? if ($packages) {		foreach ($packages as $package) {			$featured = ($package->featured == 'Y') ? ' checked="checked"' : '';			echo '<tr>                        <td><input type="checkbox" name="featured[' . $package->slug . ']"' . $featured . ' /></td>                        <td>' . $package->title . '</td>                        <td>' . date('M d, Y', $package->updated_on) . '</td>                        <td>' . anchor('packages/' . $package->slug, 'View') . ' | '.

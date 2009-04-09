@@ -35,6 +35,13 @@
 				<th class="last width-10"><span>Actions</span></th>
 			</tr>
 		  </thead>
+		  <tfoot>
+		  	<tr>
+		  		<td colspan="5">
+		  			<div class="inner"></div>
+		  		</td>
+		  	</tr>
+		  </tfoot>
 		  
 		<tbody>
 		<? if (!empty($navigation[$group->abbrev])):
@@ -65,17 +72,17 @@
 	<p>There are no navigation groups.</p>
 <? endif; ?>
 
-<div class="fcc-table-buttons">
+<p>
 	<a href="<?=site_url('admin/navigation/create')?>"><img src="/assets/img/admin/fcc/btn-new.jpg" alt="New" title="New" /></a>
 	<input type="image" src="/assets/img/admin/fcc/btn-delete.jpg" alt="Delete" name="btnDelete" value="Delete" />
-</div>
+</p>
 
 <?=form_close(); ?>
 
 
 <script type="text/javascript">
-	jQuery(document).ready(function(){ 
-		jQuery('a.delete_group').click(function(){
+	$(document).ready(function(){ 
+		$('a.delete_group').click(function(){
 			return confirm('Are you sure you would like to delete this navigation group? This will delete ALL navigation links within the group, and the layout files will need to be edited to remove refference to it.');
 		});
 	});

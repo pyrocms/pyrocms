@@ -2,14 +2,21 @@
 
 <table border="0" class="listTable">
 	
-	  <thead>
-		<tr>
-			<th class="first"><div></div></th>
-			<th><a href="#">Product</a></th>
-			<th><a href="#">Updated</a></th>
-			<th class="last"><span>Actions</span></th>
-		</tr>
-	  </thead>
+  <thead>
+	<tr>
+		<th class="first"><div></div></th>
+		<th><a href="#">Product</a></th>
+		<th><a href="#">Updated</a></th>
+		<th class="last"><span>Actions</span></th>
+	</tr>
+  </thead>
+  <tfoot>
+  	<tr>
+  		<td colspan="4">
+  			<div class="inner"></div>
+  		</td>
+  	</tr>
+  </tfoot>
 	
 	<tbody>
 	<? if ($suppliers):

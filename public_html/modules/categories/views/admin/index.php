@@ -7,7 +7,13 @@
 		<th class="last width-10"><span>Actions</span></th>
 	</tr>
   </thead>
-	<tbody>    <? if ($categories): ?>
+  <tfoot>
+  	<tr>
+  		<td colspan="3">
+  			<div class="inner"></div>
+  		</td>
+  	</tr>
+  </tfoot>	<tbody>    <? if ($categories): ?>
         	<? foreach ($categories as $category): ?>
 		<tr>
 			<td><input type="checkbox" name="delete[<?= $category->slug;?>]" /></td>

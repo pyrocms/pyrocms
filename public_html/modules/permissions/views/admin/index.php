@@ -31,9 +31,16 @@
 				<th><a href="#">Module</a></th>
 				<th><a href="#">Controller</a></th>
 				<th><a href="#">Method</a></th>
-				<th class="last"><span>Actions</span></th>
+				<th class="last width-10"><span>Actions</span></th>
 			</tr>
 		  </thead>
+		  <tfoot>
+		  	<tr>
+		  		<td colspan="5">
+		  			<div class="inner"></div>
+		  		</td>
+		  	</tr>
+		  </tfoot>
 
 		<tbody>
 		<? if (!empty($rules[$role->abbrev])):

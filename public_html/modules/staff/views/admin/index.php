@@ -10,6 +10,13 @@
 		<th class="last"><span>Actions</span></th>
 	</tr>
   </thead>
+  <tfoot>
+  	<tr>
+  		<td colspan="4">
+  			<div class="inner"></div>
+  		</td>
+  	</tr>
+  </tfoot>
 		<tbody>
     <? if ($staff):?>    	<? foreach ($staff as $member): ?>        	<tr>				<td><input type="checkbox" name="delete[<?=$member->slug;?>]" /></td>				<td><?=anchor('admin/staff/edit/' . $member->slug, $member->name);?></td>				<td><?=date('M d, Y', $member->updated_on);?></td>
 				<td>
