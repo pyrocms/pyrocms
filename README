@@ -1,1 +1,26 @@
-Testing EGit Eclipse plugin. Updates coming soon.
+PyroCMS
+=======
+
+VERSION: 0.9-pre-alpha
+AUTHOR: Philip Sturgeon < email@philsturgeon.co.uk >
+
+DESCRIPTION
+-----------
+
+PyroCMS is a CMS built using the CodeIgniter PHP framework with modularity in mind. Lightweight, themeable and dynamic.
+
+
+INSTALLATION
+------------
+
+See INSTALL file for step-by-step installation instructions.
+
+
+BUGS / FEATURE REQUESTS
+-----------------------
+
+This project has a ticket/milestone planning page located at the URL below. Before reporting bugs or requesting any features, please check there is not already a ticket.
+
+    http://www.assembla.com/spaces/pyrocms/tickets
+
+If there is no ticket, please send an e-mail to < email@philsturgeon.co.uk >.
