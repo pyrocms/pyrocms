@@ -1,33 +1,29 @@
-<h2>Photos in this Gallery</h2>
+<? if ($photos): ?>
+ 
+<h3>Photos in this Gallery</h3>
 
 <div id="photos">
 
- <?
-if ($photos) {
-    echo form_open('admin/galleries/deletephoto');
-    foreach($photos as $photo){
-    	// echo '<a href="/assets/img/galleries/' . $this->uri->segment(4) . '/' . $photo->filename . '" title="' . $photo->description . '">' . image('galleries/' . $this->uri->segment(4) . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), $photo->description) . '</a><br />' . $photo->description . '<p></p>';
-    	echo "<div style=\"float:left;margin:5px;text-align:center;";
-    	echo "\"><input type=\"checkbox\" name=\"delete[".$photo->id."]\" /><br>".image('galleries/' . $this->uri->segment(4) . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description))."<br>";
+	<?=form_open('admin/galleries/deletephoto');?>
+    <? foreach($photos as $photo): ?>
+    	<div class="float-left align-center spacer-right">
+    		<input type="checkbox" name="delete[<?=$photo->id?>]" /><br />
+			<?=image('galleries/' . $this->uri->segment(4) . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description));?><br />
+		</div>
+	<? endforeach; ?>
+	
+	<br class="clear-both" />
+	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+	<?= form_close(); ?>
+</div>
 
-    	echo "</div>";
- 	
-     }
-		echo "<div class='clear'></div><p>&nbsp;</p>";
-		echo "<input type='submit' name='btnDelete' value='Delete Selected' />";
-		echo "</form>";
-        } else {
-            echo 'There are no photos in this gallery.';
-        }?>
+<? endif; ?>
 
-        </div>
+<hr class="clear-both" />
 
-<div class="clear-both"></div>
-<p>&nbsp;</p>
-<h2>Add a Photo</h2>
+<h3>Add a Photo</h3>
 
-<? $attributes = array('id' => 'gallery-upload-form'); ?>
-    <?= form_open_multipart('admin/galleries/upload/' . $this->uri->segment(4), $attributes); ?>
+<?= form_open_multipart('admin/galleries/upload/' . $this->uri->segment(4)); ?>
 
 <div class="field">
 	<label>Photo</label>
@@ -39,10 +35,6 @@ if ($photos) {
 	<input type="text" class="text" name="description" id="description" maxlength="100" />
 </div>
 
-<p>
-	<input type="image" src="/assets/img/admin/fcc/btn-save.jpg" value="Save" name="btnSave" class="fcc-submit-btn" />
-	 or 
-	<?= anchor('admin/galleries/index', 'Cancel'); ?>
-</p>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

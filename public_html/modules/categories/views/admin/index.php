@@ -1,5 +1,6 @@
+<?= form_open('admin/categories/delete'); ?>
+
 <table border="0" class="listTable">
-    
   <thead>
 	<tr>
 		<th class="first"><div></div></th>
@@ -29,11 +30,7 @@
     
     </tbody>
 </table>
-    
-<div class="fcc-table-buttons">
-    <a href="<?=site_url('admin/categories/create');?>"><img src="/assets/img/admin/fcc/btn-add.jpg" /></a> 	<? if (!empty($categories)):?>
- 		<input type="image" name="btnDelete" value="Delete" alt="Delete" src="/assets/img/admin/fcc/btn-delete.jpg" /> 	<? endif; ?>
- 	
-</div>
+
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
 
  <?=form_close(); ?>

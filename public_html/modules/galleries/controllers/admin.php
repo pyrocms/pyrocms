@@ -241,28 +241,28 @@ class Admin extends Admin_Controller {
     // Admin: Upload a photo
     function upload($slug = '') {
 		
-		if (empty($slug)) redirect('admin/galleries/index');
-            $this->load->library('validation');
-            $rules['userfile'] = 'trim';
-            $rules['description'] = 'trim';
-            $this->validation->set_rules($rules);
-            $this->validation->set_fields();
-            
-            $upload_cfg['upload_path'] = './assets/img/galleries/' . $slug;
-            $upload_cfg['allowed_types'] = 'gif|jpg|png';
-            $upload_cfg['max_size'] = '2048';
-    		$upload_cfg['overwrite'] = TRUE;
-            $this->load->library('upload', $upload_cfg);
-            
-            if (($this->validation->run()) && ($this->upload->do_upload())) {
-                $image = $this->upload->data();
-                $this->galleries_m->addPhoto($image, $slug, $this->input->post('description'));
-            }
-            
-            $this->data->photos = $this->galleries_m->getPhotos($slug);
-            
-            $this->layout->create('admin/upload', $this->data);
+		if (empty($slug)) exit('admin/galleries/index');
 
+		$this->load->library('validation');
+		$rules['userfile'] = 'trim';
+		$rules['description'] = 'trim|required';
+		$this->validation->set_rules($rules);
+		$this->validation->set_fields();
+		
+		$upload_cfg['upload_path'] = './assets/img/galleries/' . $slug;
+		$upload_cfg['allowed_types'] = 'gif|jpg|png';
+		$upload_cfg['max_size'] = '2048';
+    	$upload_cfg['overwrite'] = TRUE;
+		$this->load->library('upload', $upload_cfg);
+		
+		if (($this->validation->run()) && ($this->upload->do_upload())) {
+		    $image = $this->upload->data();
+		    $this->galleries_m->addPhoto($image, $slug, $this->input->post('description'));
+		}
+            
+		$this->data->photos = $this->galleries_m->getPhotos($slug);
+		
+		$this->layout->create('admin/upload', $this->data);
     }
     
     // Callback: from create()

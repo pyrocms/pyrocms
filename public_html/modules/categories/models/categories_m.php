@@ -50,17 +50,13 @@ class Categories_m extends Model {
     }
     
     function updateCategory($input, $old_slug) {
-        if ($input['btnSave']) {
             
-            $this->db->update('categories', array(
-            	'title'	=> $input['title'],
-            	'slug'	=> url_title(strtolower($input['title']))
-            ), array('slug'=>$old_slug));
+		$this->db->update('categories', array(
+            'title'	=> $input['title'],
+            'slug'	=> url_title(strtolower($input['title']))
+		), array('slug'=>$old_slug));
             
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+		return TRUE;
     }
     
     function deleteCategory($slug = '') {

@@ -37,7 +37,6 @@ class Layout {
     var $_page_title = '';
     var $_extra_head_content = '';
     var $_breadcrumbs = array();
-    var $_navigation = array();
 
     // Default wrapper files
     var $layout_file = 'layout.php';
@@ -94,7 +93,7 @@ class Layout {
 
      * @return    void
      */
-    function create($page_body = '', $data = NULL, $return = false, $module = '')
+    function create($page_body = '', $data = array(), $return = false, $module = '')
     {
         if($page_body != '') $this->page_body = $page_body;
         if($module != '')    $this->_module = $module;
@@ -107,14 +106,13 @@ class Layout {
 
         // Set the basic defaults
         $this->data->page_title				= $this->_page_title;
-        //$this->data->navigation           = $this->_create_navigation();
         $this->data->breadcrumbs            = $this->_create_breadcrumbs();
         $this->data->extra_head_content		= $this->_extra_head_content;
 
         // Disable sodding IE7's constant cacheing!!
         $this->CI->output->set_header("HTTP/1.0 200 OK");
         $this->CI->output->set_header("HTTP/1.1 200 OK");
-        $this->CI->output->set_header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        $this->CI->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
         $this->CI->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
         $this->CI->output->set_header("Cache-Control: post-check=0, pre-check=0, max-age=0");
         $this->CI->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
@@ -219,21 +217,6 @@ class Layout {
 
 
     /**
-     * Create navigations for a specific page
-     *
-     * @access    public
-     * @param    string
-     * @param    string
-     * @return    void
-     */
-
-    function navigation($links = array())
-    {
-        $this->_navigation = $this->_navigation + $links;
-    }
-
-
-    /**
      * Helps build custom breadcrumb trails
      *
      * @access    public
@@ -282,27 +265,6 @@ class Layout {
 
         return $this->_page_title;
     }
-
-
-    // Build the array into a string with anchors and ->'s
-    function _create_navigation()
-    {/* 
-        $nav_parts = array();
-
-        foreach($this->_navigation as $text => $link):
-
-            // Support javascript links
-            if(strpos($link, 'javascript:') === 0):
-                $nav_parts[] = '<a href="'.$link.'" title="'.$text.'">'.$text.'</a>';
-
-            else:
-                $nav_parts[] = anchor($link, $text);
-            endif;
-
-        endforeach;
-
-        return $nav_parts;
-    */} 
 
 
     // Build the array into a string with anchors and ->'s

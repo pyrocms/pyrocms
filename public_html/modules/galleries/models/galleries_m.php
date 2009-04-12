@@ -37,24 +37,20 @@ class Galleries_m extends Model {
     }
     
     function newGallery($input = array()) {
-        if ($input['btnSave']) {
-			$this->load->helper('date');
-            $slug = url_title($input['title']);
+		$this->load->helper('date');
+        $slug = url_title($input['title']);
 
-			if(!@mkdir('./assets/img/galleries/' . $slug)) return FALSE;
-            
-            $this->db->insert('galleries', array(
-            	'title'		=> $input['title'],
-            	'slug'			=> $slug,
-            	'description' 	=> $input['description'],
-            	'parent' 		=> $input['parent'],
-            	'updated_on'	=> now())
-            );
+		if( !@mkdir('./assets/img/galleries/' . $slug) ) return FALSE;
+
+		$this->db->insert('galleries', array(
+			'title'			=> $input['title'],
+			'slug'			=> $slug,
+			'description' 	=> $input['description'],
+            'parent' 		=> $input['parent'],
+            'updated_on'	=> now())
+		);
         
-        	return $this->db->insert_id();
-        } else {
-            return FALSE;
-        }
+        return $this->db->insert_id();
     }
 
     function getGalleries($params = array()) {
@@ -88,29 +84,32 @@ class Galleries_m extends Model {
     }
     
     function updateGallery($input, $oldslug) {
-        if ($input['btnSave']) {
-            $this->load->helper('date');
-            
-            $slug = url_title($input['title']);
-            
-            $this->db->update('galleries', array(
-            	'title'		=> $input['title'],
-            	'slug'			=> $slug,
-            	'description' 	=> $input['description'],
-            	'parent' 		=> $input['parent'],
-            	'updated_on'	=> now()
-            ), array('slug'=>$oldslug));
-            
-            $this->db->update('photos', array('gallery_slug'=>$slug), array('gallery_slug'=>$oldslug));
-            rename('./assets/img/galleries/' . $oldslug, './assets/img/galleries/' . $slug);
-            return TRUE;
-        } else {
-            return FALSE;
+
+        $this->load->helper('date');
+        
+        $slug = url_title($input['title']);
+        
+        $this->db->update('galleries', array(
+        	'title'		=> $input['title'],
+        	'slug'			=> $slug,
+        	'description' 	=> $input['description'],
+        	'parent' 		=> $input['parent'],
+        	'updated_on'	=> now()
+        ), array('slug'=>$oldslug));
+        
+        $this->db->update('photos', array('gallery_slug'=>$slug), array('gallery_slug'=>$oldslug));
+        
+        // No point trying a rename if it slug is not updated
+        if( $oldslug != $slug)
+        {
+        	rename('./assets/img/galleries/' . $oldslug, './assets/img/galleries/' . $slug);
         }
+        
+        return TRUE;
     }
 
     function deleteGallery($slug = '') {
-        // Photos are not deleted from the server for archival purposes
+        // Photos are not deleted from the server for archival purposes (an excuse by CI Lee for not implementing the delete?)
 		$this->db->delete('photos', array('gallery_slug'=>$slug));
         $this->db->delete('galleries', array('slug'=>$slug));
     	return $this->db->affected_rows();

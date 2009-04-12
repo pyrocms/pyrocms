@@ -2,7 +2,7 @@
 	<h3>Create gallery</h3>
 
 <? else: ?>
-	<h3>Edit gallery "<?= $category->title; ?>"</h3>
+	<h3>Edit gallery "<?= $gallery->title; ?>"</h3>
 <? endif; ?>
 
 <?= form_open($this->uri->uri_string()); ?>
@@ -25,10 +25,6 @@
 	<?= $this->spaw->show(); ?>
 </div>
 
-<p>
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/galleries/index', 'Cancel'); ?></span>
-</p>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>
