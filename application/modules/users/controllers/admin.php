@@ -56,11 +56,8 @@ class Admin extends Admin_Controller {
 	// Admin: Different actions
 	function action()
 	{
-		switch($this->input->post('submit'))
+		switch($this->input->post('btnAction'))
 		{
-			case 'add':
-				redirect('admin/users/add');
-			break;
 			case 'activate':
 				$this->activate();
 			break;
@@ -68,7 +65,7 @@ class Admin extends Admin_Controller {
 				$this->delete();
 			break;
 			default:
-				redirect('admin/users');
+				redirect('admin/users/index');
 			break;
 		}
 	}
@@ -201,48 +198,42 @@ class Admin extends Admin_Controller {
 	// Admin: Activate a User
 	function activate($id = 0) {
 
-    	// Activate one
-		if($id)
-		{	
-			if($this->users_m->activateUser($id))
-			{
-				$this->session->set_flashdata('success', 'User id: '.$id.' successfully activated.');
-			} else {
-				$this->session->set_flashdata('error', 'Error occurred while trying to activate user id: '.$id);
-			}
+    	$ids = ($id > 0) ? array($id) : $this->input->post('selected');
+		
 		// Activate multiple
-		} else {
-			if(isset($_POST['action_to']))
+		if( !empty($ids) )
+		{
+			$activated = 0;
+			$to_activate = 0;
+			foreach ($ids as $id)
 			{
-				$activated = 0;
-				$to_activate = 0;
-				foreach ($this->input->post('action_to') as $id => $value) {
-					if($this->users_m->activateUser($id))
-					{
-						$activated++;
-					}
-					$to_activate++;
+				if($this->users_m->activateUser($id))
+				{
+					$activated++;
 				}
-				$this->session->set_flashdata('success', $activated.' users out of '.$to_activate.' successfully activated.');
-			} else {
-				$this->session->set_flashdata('error', 'You need to select users first.');
+				$to_activate++;
 			}
+			$this->session->set_flashdata('success', $activated.' users out of '.$to_activate.' successfully activated.');
 		}
 		
-		redirect('admin/users');
-		return;
+		else
+		{
+			$this->session->set_flashdata('error', 'You need to select users first.');
+		}
+		
+		redirect('admin/users/index');
 	}
 
 	// Admin: Delete a User
 	function delete($id = 0) {
 
-		$ids = ($id > 0) ? array($id => '') : $this->input->post('action_to');
+		$ids = ($id > 0) ? array($id) : $this->input->post('selected');
 
 		if(!empty($ids))
 		{
 			$deleted = 0;
 			$to_delete = 0;
-			foreach (array_keys($ids) as $id)
+			foreach ($ids as $id)
 			{
 				// Make sure the admin is not trying to delete themself
 				if($this->user_lib->user_data->id == $id)
@@ -268,7 +259,7 @@ class Admin extends Admin_Controller {
 		// The array of id's to delete is empty
 		else $this->session->set_flashdata('error', 'You need to select users first.');
 			
-		redirect('admin/users');
+		redirect('admin/users/index');
 	}
 
 

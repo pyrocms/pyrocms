@@ -30,7 +30,7 @@
 	<? if (!empty($users)): ?>
 		<? foreach ($users as $member): ?>
 			<tr>
-				<td align="center"><input type="checkbox" name="action_to[<?= $member->id; ?>]" /></td>
+				<td align="center"><input type="checkbox" name="selected[]" value="<?= $member->id; ?>" /></td>
 				<td><?=$member->full_name; ?></td>
 				<td><?=anchor('admin/users/edit/' . $member->id, $member->email); ?></td>
 				<td><?=$member->role; ?></td>

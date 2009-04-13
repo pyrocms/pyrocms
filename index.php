@@ -23,7 +23,7 @@
 | NO TRAILING SLASH!
 |
 */
-	$system_folder = "../codeigniter";
+	$system_folder = "codeigniter";
 
 /*
 |---------------------------------------------------------------
@@ -40,7 +40,7 @@
 | NO TRAILING SLASH!
 |
 */
-	$application_folder = ".";
+	$application_folder = "application";
 
 /*
 |===============================================================

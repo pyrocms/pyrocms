@@ -145,10 +145,9 @@ if ( ! function_exists('delete_files'))
 			}
 		}
 		@closedir($current_dir);
-	
 		if ($del_dir == TRUE AND $level > 0)
 		{
-			@rmdir($path);
+			rmdir($path);
 		}
 	}
 }
