@@ -48,10 +48,6 @@
 	</tbody>
 </table>
 
-<p class="float-left">
-	<a href="<?=site_url('admin/newsletters/create'); ?>"><img src="/assets/img/admin/fcc/btn-new.jpg" /></a>
-</p>
-
 <p class="spacer-top float-right">
 	Export Subscribers: [<?= anchor('admin/newsletters/export', 'XML'); ?>]
 </p>

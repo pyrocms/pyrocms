@@ -5,8 +5,6 @@
 	<h3>Edit service "<?= $service->title; ?>"</h3>
 <? endif; ?>
 
-<?=$this->load->view('admin/result_messages') ?>
-
 <?= form_open($this->uri->uri_string()); ?>
 
 <div class="field">
@@ -24,10 +22,6 @@
 	<?= $this->spaw->show(); ?>
 </div>
 
-<p>
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/services/index', 'Cancel'); ?></span>
-</p>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

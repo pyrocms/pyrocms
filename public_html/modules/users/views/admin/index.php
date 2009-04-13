@@ -52,12 +52,6 @@
 	
 </table>
 
-<div class="fcc-table-buttons">
-	<input type="image" name="submit" value="add" src="/assets/img/admin/fcc/btn-add.jpg" />
-	
-	<? if (!empty($users)): ?>
-	<input type="image" name="submit" value="delete" src="/assets/img/admin/fcc/btn-delete.jpg" />
-	<? endif; ?>
-</div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
 
 <?=form_close(); ?>

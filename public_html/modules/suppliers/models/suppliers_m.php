@@ -91,6 +91,7 @@ class Suppliers_m extends Model {
     function deleteSupplier($id) {
         $this->db->delete('suppliers', array('id'=>$id));
         $this->db->delete('suppliers_categories', array('supplier_id'=>$id));
+        @unlink($folder.$file);
 		return $this->db->affected_rows();
     }
 

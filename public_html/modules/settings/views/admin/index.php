@@ -5,11 +5,9 @@
 	<? endforeach; ?>
 </ul>
 
-<br class="clear-both" />
+<hr class="clear-both" />
 
-    <?=$this->load->view('admin/result_messages') ?>
-
-<?= form_open('admin/settings/edit'.($current_section_slug == '' ? '' : '/section/'.$current_section_slug), 'class="fcc-form"');?>
+<?= form_open('admin/settings/edit'.($current_section_slug == '' ? '' : '/section/'.$current_section_slug));?>
 
 <? foreach($settings as $setting): ?>
 <div class="float-left width-half" style="min-height:7em">
@@ -19,10 +17,7 @@
 </div>
 <? endforeach; ?>
 
-<p class="clear-both">
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin', 'Cancel'); ?></span>
-</p>
+<hr class="clear-both" />
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save') )); ?>
 
 <?=form_close(); ?>

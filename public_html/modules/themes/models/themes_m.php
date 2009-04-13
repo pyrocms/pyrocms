@@ -5,9 +5,13 @@ class Themes_m extends Model {
 	function getThemes()
 	{
 		$themes = array();
-		foreach(glob(APPPATH.'themes/*', GLOB_ONLYDIR) as $theme)
+		foreach(glob(APPPATH.'themes/*', GLOB_ONLYDIR) as $name)
 		{
-			$themes[]->name = basename($theme);
+			$theme = new stdClass;
+			$theme->name = basename($name);
+			$theme->slug = urlencode($theme->name);
+			
+			$themes[] = $theme;
 		}
 		
 		return $themes;

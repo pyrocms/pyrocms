@@ -37,8 +37,6 @@ class Admin extends Admin_Controller {
 
     	$section_slug = $this->uri->segment(5, '');
     	
-    	if (!$this->input->post('btnSave')) redirect('admin/settings/index');
-        
         $this->load->library('validation');
 
         // Create dynamic validation rules

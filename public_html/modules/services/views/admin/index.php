@@ -41,9 +41,6 @@
 	</tbody>
 </table>
 
-<p>
-	<a href="<?=site_url('admin/services/create');?>"><img src="/assets/img/admin/fcc/btn-new.jpg" alt="New" title="New" /></a>
-	<input type="image" src="/assets/img/admin/fcc/btn-delete.jpg" alt="Delete" name="btnDelete" value="Delete" />
-</p>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
 
 <?=form_close();?>

@@ -28,9 +28,6 @@
  	</tbody>
 </table>
 
-<div class="fcc-table-buttons">
-    <a href="<?=site_url('admin/staff/create');?>"><img src="/assets/img/admin/fcc/btn-add.jpg" /></a>	<? if(!empty($staff)): ?>
-		<input type="image" name="btnDelete" value="Delete" src="/assets/img/admin/fcc/btn-delete.jpg" /> 	<? endif; ?>
-</div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
  
 <?=form_close(); ?>

@@ -64,9 +64,6 @@ class Permissions_m extends Model {
 		
 		if(!is_array($id))  $id = array('id'=>$id);
 		
-		// Dont delete... THE RULE! If this is gone, admins cant access the site...
-		$this->db->where('id != ', 1);
-		
 		$this->db->delete('permission_rules', $id);
         return $this->db->affected_rows();
 	}

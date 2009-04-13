@@ -7,5 +7,6 @@
 		
 		<? endforeach; ?>
 	</div>
-</div><div class="field">	<label>Change Logo</label>	<input type="file" class="text" name="userfile" id="userfile" /></div><div class="field">	<label>Description</label>	<textarea name="description" class="text" id="description" rows="10" cols="60"><?= $supplier->description; ?></textarea></div><p>	<input type="image" src="/assets/img/admin/fcc/btn-save.jpg" value="Save" name="btnSave" class="fcc-submit-btn" />      or     <span class="fcc-cancel"><?= anchor('admin/suppliers/index', 'Cancel'); ?></span></p>
+</div><div class="field">	<label>Change Logo</label>	<input type="file" class="text" name="userfile" id="userfile" /></div><div class="field">	<label>Description</label>	<textarea name="description" class="text" id="description" rows="10" cols="60"><?= $supplier->description; ?></textarea></div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

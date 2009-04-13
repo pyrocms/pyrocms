@@ -66,16 +66,21 @@ class Admin extends Admin_Controller {
         
         if ($this->validation->run()) {
         	
-            if ($this->services_m->newService($_POST)) {
-                $this->session->set_flashdata(array('success'=>'Your service was saved.'));
-                redirect('admin/services/index');
-                
-            } else {
-                $this->session->set_flashdata(array('error'=>'An error occured.'));
+            if ($this->services_m->newService($_POST))
+            {
+                $this->session->set_flashdata('success', 'The service "'.$this->input->post('title').'" was added.');
+            } 
+            
+            else
+            {
+                $this->session->set_flashdata('error', 'An error occured.');
             }
+            
+            redirect('admin/services/index');
         }
         
-        foreach(array_keys($rules) as $field) {
+        foreach(array_keys($rules) as $field)
+		{
         	$this->data->service->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
         }
         
@@ -131,7 +136,7 @@ class Admin extends Admin_Controller {
 
         if ($this->validation->run()) {
         	if ($this->services_m->updateService($_POST, $slug)) {
-        		$this->session->set_flashdata(array('success'=>'Your service was saved.'));
+        		$this->session->set_flashdata(array('success'=>'The service "'.$this->input->post('title').'" was saved.'));
         		redirect('admin/services/index', $this->data);
 
         	} else {
@@ -151,18 +156,20 @@ class Admin extends Admin_Controller {
 		
 		// Delete multiple
 		else:
-			foreach ($this->input->post('delete') as $slug => $value) {
+			foreach (array_keys($this->input->post('delete')) as $slug)
+			{
 				$this->services_m->deleteService($slug);
 			}
 		endif;
 
+        $this->session->set_flashdata('success', 'The service(s) were deleted.');
 		redirect('admin/services/index');
     }
     
     // Callback: from create()
     function _createTitleCheck($title = '') {
         if ($this->services_m->checkTitle($title)) {
-            $this->validation->set_message('_createTitleCheck', 'A service with this name already exists.');
+            $this->validation->set_message('_createTitleCheck', 'A service with the name "'.$title.'" already exists.');
             return FALSE;
         } else {
             return TRUE;

@@ -158,6 +158,7 @@ class Admin extends Admin_Controller {
 			$update_data['first_name'] = $this->input->post('first_name');
 			$update_data['last_name'] = $this->input->post('last_name');
 			$update_data['email'] = $this->input->post('email');
+			$update_data['is_active'] = $this->input->post('is_active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
 			if($this->input->post('role')) $update_data['role'] = $this->input->post('role');

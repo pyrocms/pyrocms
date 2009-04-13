@@ -25,10 +25,7 @@
 	<input type="file" name="userfile" id="userfile" class="text" />
 </div>
 <? endif; ?>
-<div class="field">	<label for="body">Description</label>	<?= $this->spaw->show(); ?></div><p>
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/products/index', 'Cancel'); ?></span>
-</p>
+<div class="field">	<label for="body">Description</label>	<?= $this->spaw->show(); ?></div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

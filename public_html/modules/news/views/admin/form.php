@@ -56,10 +56,6 @@
 	
 </fieldset>
 
-<p>
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/news/index', 'Cancel'); ?></span>
-</p>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

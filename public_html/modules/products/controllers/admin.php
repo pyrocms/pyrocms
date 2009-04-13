@@ -65,14 +65,17 @@ class Admin extends Admin_Controller {
 			$upload_cfg['overwrite'] = TRUE;
             $upload_cfg['allowed_types'] = 'gif|jpg|png';
             $this->load->library('upload', $upload_cfg);
-            if (($this->input->post('btnSave')) && ($this->upload->do_upload())) {
+            
+            if ($this->upload->do_upload()) {
                 $image = $this->upload->data();
                 $this->_create_resize($image['file_name'], $this->config->item('product_width'), $this->config->item('product_height'));
+                
                 $product_id = $this->products_m->newProduct($_POST, $image);
-                $this->session->set_flashdata('notice', 'Your product was saved.');
+                
+                $this->session->set_flashdata('success', 'Your product was saved.');
                 $this->_create_thumbnail($image['file_name']);
-                redirect('admin/products/crop/' . $product_id);
-                return;
+
+				redirect('admin/products/crop/' . $product_id);
             }
             show_error($this->upload->display_errors());
         }
@@ -160,13 +163,10 @@ class Admin extends Admin_Controller {
 		);
 
         if ($this->validation->run()) {
-            if ($this->input->post('btnSave')) {
-                $this->products_m->updateProduct($id, $_POST);
-                $this->session->set_flashdata('success', 'Your product was saved.');
-            } else {
-            	$this->session->set_flashdata('error', $this->upload->display_errors());
-            }
-            redirect('admin/products/index');
+        	$this->products_m->updateProduct($id, $_POST);
+			$this->session->set_flashdata('success', 'The product "'.$this->input->post('title').'" was saved.');
+			
+			redirect('admin/products/index');
         }
         
         $this->load->module_model('suppliers', 'suppliers_m');
@@ -195,7 +195,6 @@ class Admin extends Admin_Controller {
     
     // Admin: Delete a Product
     function delete() {
-        if (!$this->input->post('btnDelete')) redirect('admin/products/index');
 
 		$img_folder = './assets/img/products/';
 		$img_prefixes = array('_home', '_thumb');
@@ -210,26 +209,33 @@ class Admin extends Admin_Controller {
 				{
 					$img_info = $this->image_lib->explode_name( $image_data->filename );
 					// Delete original img first
-					if( !$this->_delete_file( $img_folder , $img_info['name'].$img_info['ext'] ) )
+					
+					$this->_delete_file( $img_folder , $img_info['name'].$img_info['ext'] );
+					/*if( !$this->_delete_file( $img_folder , $img_info['name'].$img_info['ext'] ) )
 					{
 						// end the delete process, cant delete normally.
 						redirect('admin/products/index');
-					}
+					}*/
+					
 					// Now delte images whit prefixes
 					foreach($img_prefixes as $prefix) 
 					{
-						if( !$this->_delete_file( $img_folder , $img_info['name'].$prefix.$img_info['ext'] ) )
+						$this->_delete_file( $img_folder , $img_info['name'].$prefix.$img_info['ext'] );
+/*						if( !$this->_delete_file( $img_folder , $img_info['name'].$prefix.$img_info['ext'] ) )
 						{
 							// end the delete process, cant delete normally.
 							redirect('admin/products/index');
 						}
+*/
 					}
 					// Images deleted, delete record from db
 					$this->products_m->deleteProductPhoto( $image_data->image_id );
 				}
 			}
 			// Now delte the products 
-			$this->products_m->deleteproduct($product);
+			$this->products_m->deleteProduct($product);
+			
+			$this->session->set_flashdata('success', 'This product was removed.');
         }
 
         redirect('admin/products/index');
@@ -243,15 +249,10 @@ class Admin extends Admin_Controller {
 		} else {
 			if(@file_exists($folder.$file))
 			{
-				if(@unlink($folder.$file)) 
-					return TRUE;
-				else
-					$this->session->set_flashdata('error', "Unable to delete file.");
-			} else {
-				$this->session->set_flashdata('error', "The file doesn't exist.");
+				// Try and delete the file. If we cant remove it, meh, keep the file
+				@unlink($folder.$file);
 			}
 		}
-		return FALSE;
 	}
     
     // Admin: Crop for Home Page

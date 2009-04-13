@@ -2,7 +2,7 @@
 
 <div class="field">
 	<label for="title">Title</label>
-	<?= form_input('title', $this->validation->title, 'class="text"'); ?>
+	<?= form_input('title', $package->title, 'class="text"'); ?>
 </div>
 
 <div class="field">
@@ -17,10 +17,6 @@
 </div>
 <? endif; ?>
 
-<p>
-	<input type="image" name="btnSave" value="Send" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/packages/index', 'Cancel'); ?></span>
-</p>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

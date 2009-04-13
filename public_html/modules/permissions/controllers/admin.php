@@ -46,8 +46,7 @@ class Admin extends Admin_Controller {
 
 		if ($this->validation->run()) {
 			 
-			if ($this->input->post('btnSave')) {
-				$this->permissions_m->newRule($_POST);
+			if ( $this->permissions_m->newRule($_POST) > 0 ) {
 				$this->session->set_flashdata('success', 'The permission rule was added.');
 				 
 			} else {
@@ -92,14 +91,11 @@ class Admin extends Admin_Controller {
 		$fields['permission_role_id'] = 'Role';
 		$this->validation->set_fields($fields);
 
-		if ($this->validation->run()) {
-			 
-			if ($this->input->post('btnSave')) {
-				$this->permissions_m->updateRule($id, $_POST);
-				$this->session->set_flashdata('success', 'The permission rule was saved.');
-			} else {
-				$this->session->set_flashdata('error', 'An error occurred.');
-			}
+		if ($this->validation->run())
+		{
+			$this->permissions_m->updateRule($id, $_POST);
+			$this->session->set_flashdata('success', 'The permission rule was saved.');
+			
 			redirect('admin/permissions/index');
 		}
 

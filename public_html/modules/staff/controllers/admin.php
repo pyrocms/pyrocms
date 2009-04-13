@@ -17,7 +17,6 @@ class Admin extends Admin_Controller {
     	$this->data->staff = $this->staff_m->getStaff(array('limit' => $this->data->pagination['limit']));
 		
 		$this->layout->create('admin/index', $this->data);
-		return;
 	}
 
 	// Admin: Create a new Staff Member
@@ -44,25 +43,46 @@ class Admin extends Admin_Controller {
 		$fields['body'] = 'Bio';
 		$this->validation->set_fields($fields);
 
-		if ($this->validation->run()) {
+		if ($this->validation->run())
+		{
 			$upload_cfg['upload_path'] = './assets/img/staff';
 			$upload_cfg['overwrite'] = TRUE;
+			
 			if($this->input->post('user_id'))
 			{
 				$upload_cfg['new_name'] = $this->input->post('user_id');
-			} else {
+			} 
+			
+			else 
+			{
 				$upload_cfg['new_name'] = url_title($this->input->post('name'));
 			}
+			
 			$upload_cfg['allowed_types'] = 'gif|jpg|png';
 			$this->load->library('upload', $upload_cfg);
-			if (($this->input->post('btnSave')) && ($this->upload->do_upload())) {
+			
+			// Validation passed, attempt uploading the file
+			if ( $this->upload->do_upload() )
+			{
 				$image = $this->upload->data();
 				$this->_create_resize($image['file_name'], $this->config->item('staff_width'), $this->config->item('staff_height'));
+				
 				$staff_id = $this->staff_m->newStaff($_POST, $image);
-				$this->session->set_flashdata('success', 'The staff member has been saved.');
+				
+				// New staff member added to the database ok
+				if($staff_id > 0)
+				{
+					$this->session->set_flashdata('success', 'The staff member has been saved.');
+				}
+				
+				else
+				{
+					$this->session->set_flashdata('error', 'Unknown error.');
+				}
+				
 				redirect('admin/staff/crop/' . $staff_id);
-				return;
 			}
+			
 			show_error($this->upload->display_errors());
 		}
 		
@@ -128,43 +148,41 @@ class Admin extends Admin_Controller {
 		
 		if ($this->validation->run()) 
 		{
-			if ($this->input->post('btnSave')) 
+			$data_array = $_POST;
+			if ($_FILES['userfile']['name']) 
 			{
-				$data_array = $_POST;
-				if ($_FILES['userfile']['name']) 
+				$upload_cfg['upload_path'] = './assets/img/staff';
+				$upload_cfg['overwrite'] = TRUE;
+				
+				if($this->input->post('user_id'))
 				{
-					$upload_cfg['upload_path'] = './assets/img/staff';
-					$upload_cfg['overwrite'] = TRUE;
-					if($this->input->post('user_id'))
-					{
-						$upload_cfg['new_name'] = $this->input->post('user_id');
-					} else {
-						$upload_cfg['new_name'] = url_title($this->input->post('name'));
-					}
-					$upload_cfg['allowed_types'] = 'gif|jpg|png';
-					$this->load->library('upload', $upload_cfg);
-					
-					if ($this->upload->do_upload()) 
-					{
-						$image = $this->upload->data();
-						$this->_create_resize($image['file_name'], $this->settings->item('staff_width'), $this->settings->item('staff_height'));
-						$data_array['filename'] = $image['file_name'];
-					}
+					$upload_cfg['new_name'] = $this->input->post('user_id');
+				} else {
+					$upload_cfg['new_name'] = url_title($this->input->post('name'));
 				}
+				$upload_cfg['allowed_types'] = 'gif|jpg|png';
+				$this->load->library('upload', $upload_cfg);
 				
-				$this->staff_m->updateStaff($slug, $data_array);
-				$this->session->set_flashdata('success', 'The staff member has been saved.');
-				
-				if(isset($data_array['filename']))
-					redirect('admin/staff/crop/' . $slug);
-				else
-					redirect('admin/staff/index');
-
-				return;
+				if ($this->upload->do_upload()) 
+				{
+					$image = $this->upload->data();
+					$this->_create_resize($image['file_name'], $this->settings->item('staff_width'), $this->settings->item('staff_height'));
+					$data_array['filename'] = $image['file_name'];
+				}
 			}
-
-			show_error('An unexpected error occurred.');
 			
+			$this->staff_m->updateStaff($slug, $data_array);
+			$this->session->set_flashdata('success', 'The staff member has been saved.');
+			
+			if(isset($data_array['filename']))
+			{
+				redirect('admin/staff/crop/' . $slug);
+			}
+			
+			else
+			{
+				redirect('admin/staff/index');
+			}
 		}	
 	    
 		$this->_user_select();
@@ -268,7 +286,8 @@ class Admin extends Admin_Controller {
 
 	// Admin: Crop for Home Page
     function crop($id = '') {
-        if (empty($id)) redirect('admin/staff/index');
+        
+    	if (empty($id)) redirect('admin/staff/index');
         
         $this->load->library('validation');
         $rules['x1'] = 'trim|required|numeric';
@@ -278,12 +297,12 @@ class Admin extends Admin_Controller {
         $this->validation->set_rules($rules);
         $this->validation->set_fields();
         
-		if( $this->data->member = $this->staff_m->getStaff(array("slug" => $id)) )
+		if( $this->data->member = $this->staff_m->getStaff(array("id" => $id)) )
 		{
-        	$this->data->image = $this->data->member->filename;
+        	$this->data->image =& $this->data->member->filename;
     	}
 
-        if( empty($this->data->image) ) redirect('admin/staff/index');
+    	if( empty($this->data->image) ) redirect('admin/staff/index');
         
 		$this->load->library('image_lib');
 		$this->load->config('image_settings');

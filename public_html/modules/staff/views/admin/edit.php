@@ -7,7 +7,7 @@
 	
 <? if($member->user_id > 0): ?>
 
-<div class="if-not-user">
+<div class="if-user">
 	<div class="field">
 		<label>Name</label>
 		<p><?= $member->name; ?></p>
@@ -23,31 +23,31 @@
 
 <div class="if-not-user">
 	<div class="field">
-		<label>Name</label>
-		<input type="text" class="text" name="name" id="name" maxlength="40" value="<?= $member->name; ?>" />
+		<label FOR="name">Name</label>
+		<?= form_input('name', $member->name, 'class="text" maxlength="40"'); ?>
 	</div>
 	
 	<div class="field">
-		<label>E-mail</label>
-		<input type="text" class="text" name="email" id="email" maxlength="40" value="<?= $member->email; ?>" />
+		<label for="email">E-mail</label>
+		<?= form_input('email', $member->email, 'class="text" maxlength="40"'); ?>
 	</div>
 </div>
 
 <? endif; ?>
 
 <div class="field">
-	<label>Change Photo</label>
+	<label for="userfile">Change Photo</label>
 	<input type="file" class="text" name="userfile" id="userfile" maxlength="100" value="" />
 </div>
 
 <div class="field">
-	<label>Job title</label>
-	<input type="text" class="text" name="position" id="position" maxlength="40" value="<?= $member->position; ?>" />
+	<label for="position">Job title</label>
+	<?= form_input('position', $member->position, 'class="text" maxlength="40"'); ?>
 </div>
 
 <div class="field">
-	<label>Random Fact</label>
-	<input type="text" class="text" name="fact" id="fact" maxlength="100" value="<?= $member->fact; ?>" />
+	<label for="fact">Random Fact</label>
+	<?= form_input('fact', $member->fact, 'class="text"'); ?>
 </div>
 
 <div class="field">
@@ -55,5 +55,6 @@
 	<?= $this->spaw->show(); ?>
 </div>
 
-<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" /> or <span class="fcc-cancel"><?= anchor('admin/suppliers/index', 'Cancel'); ?></span>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+
 <?= form_close(); ?>

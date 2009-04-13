@@ -14,26 +14,35 @@ class Staff_m extends Model {
     	
     	$this->db->join('users u', 's.user_id = u.id', 'left');
     	
-		if (empty($params['slug'])) {
-			
-			// Limit the results based on 1 number or 2 (2nd is offset)
-			if(isset($params['limit']) && is_int($params['limit'])) $this->db->limit($params['limit']);
-			elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
-        
-			$query = $this->db->get('staff as s');
-
-			if ($query->num_rows() > 0) {
-				return $query->result();
-			} else {
-				return FALSE;
-			}
-		} else {
-			$query = $this->db->getwhere('staff as s', $params);
-			if ($query->num_rows() > 0) {
-				return $query->row();
-			} else {
-				return FALSE;
-			}
+		// Limit the results based on 1 number or 2 (2nd is offset)
+		if(isset($params['limit']) && is_int($params['limit'])) $this->db->limit($params['limit']);
+		elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
+	
+		if( !empty($params['id']) )
+		{
+			$this->db->where('s.id', $params['id']);
+		}
+		
+		if( !empty($params['slug']) )
+		{
+			$this->db->where('slug', $params['slug']);
+		}
+		
+		$query = $this->db->get('staff as s');
+		
+		if ($query->num_rows() == 1)
+		{
+			return $query->row();
+		}
+		
+		elseif ($query->num_rows() > 1)
+		{
+			return $query->result();
+		}
+		
+		else
+		{
+			return FALSE;
 		}
 	}
 

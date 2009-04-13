@@ -6,7 +6,7 @@
 	<tr>
 		<th class="first"><div></div></th>
 		<th><a href="#">Theme</a></th>
-		<th class="last"><span>Actions</span></th>
+		<th class="last width-quater"><span>Actions</span></th>
 	</tr>
   </thead>
   <tfoot>
@@ -22,11 +22,11 @@
 <? if (!empty($themes)) {
 		foreach ($themes as $theme) {
 			echo '<tr>
-					<td align="center"><input type="checkbox" name="action_to[' . $theme->name . ']" /></td>
+					<td align="center"><input type="checkbox" name="delete[]" value="' . $theme->name . '" /></td>
 					<td>' . $theme->name . '</td>
 					<td>';
 			if($this->settings->item('default_theme') != $theme->name) 
-				echo anchor('admin/themes/setdefault/' . $theme->name, 'Make Default') . ' | ' . anchor('admin/themes/delete/' . $theme->name, 'Delete', array('class'=>'confirm'));
+				echo anchor('admin/themes/setdefault/' . $theme->slug, 'Make Default') . ' | ' . anchor('admin/themes/delete/' . $theme->slug, 'Delete', array('class'=>'confirm'));
 			else 
 				echo '<i>Default Theme</i>';
 			echo '	</td>
@@ -39,10 +39,7 @@
 	</tbody>
 </table>
 
-<p>
-    <input type="image" name="btnDelete" value="Delete" src="/assets/img/admin/fcc/btn-delete.jpg" />
-     or 
-	<?= anchor('admin', 'Cancel'); ?>
-</p>
+
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
 
 <?=form_close(); ?>

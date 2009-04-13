@@ -27,7 +27,7 @@ insert into `settings` values('site_name','Site Name','The name of the website f
  ('meta_keywords','Meta Keywords','Descriptive words seperated by comma to be read by search engines.','text','cms, styledna, website management, content management system','','','0','1',''),
  ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
  ('meta_description','Meta Description','A short paragraph describing this website.','textarea','A website made using PyroCMS. Full description goes here.','','','0','1',''),
- ('currency','Currency','The currency symbol for use on products, services, etc.','text','£','','','1','1',''),
+ ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1',''),
  ('captcha_enabled','Use Captcha','Captcha boxes are used to make sure spammers and other unwanted fake guests do not abuse input forms.','radio','1','','1=Enabled|0=Disabled','0','1',''),
  ('captcha_folder','Captcha Folder','Where should captcha image files be stored?','text','temp/captcha/','','','0','1',''),
  ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1',''),

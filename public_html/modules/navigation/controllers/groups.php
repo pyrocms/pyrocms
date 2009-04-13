@@ -21,8 +21,7 @@ class Groups extends Admin_Controller {
         $this->validation->set_fields();
         
         if ($this->validation->run()) {
-            if ($this->input->post('btnSave')) {
-                $this->navigation_m->newGroup($_POST);
+            if ($this->navigation_m->newGroup($_POST) > 0) {
                 $this->session->set_flashdata('success', 'Your navigation group has been saved.');
                 
             } else {

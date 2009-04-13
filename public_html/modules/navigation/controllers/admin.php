@@ -63,8 +63,7 @@ class Admin extends Admin_Controller {
         
         if ($this->validation->run()) {
         	
-            if ($this->input->post('btnSave')) {
-                $this->navigation_m->newLink($_POST);
+            if ($this->navigation_m->newLink($_POST) > 0) {
                 $this->session->set_flashdata('success', 'The navigation link was added.');
                
             } else {
@@ -110,12 +109,8 @@ class Admin extends Admin_Controller {
         }
         
         if ($this->validation->run()) {
-            if ($this->input->post('btnSave')) {
-            	$this->navigation_m->updateLink($id, $_POST);
-                $this->session->set_flashdata('success', 'The navigation link was saved.');
-            } else {
-            	$this->session->set_flashdata('error', 'An error occurred.');
-            }
+            $this->navigation_m->updateLink($id, $_POST);
+            $this->session->set_flashdata('success', 'The navigation link was saved.');
             redirect('admin/navigation/index');
         }
 

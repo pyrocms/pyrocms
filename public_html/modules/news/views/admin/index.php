@@ -49,9 +49,4 @@
 	
 </table>
 
-<div class="fcc-table-buttons">
-	<a href="<?=site_url('admin/news/create');?>"><img src="/assets/img/admin/fcc/btn-new.jpg" /></a>
-	<? if (!empty($news)): ?>
-		<input type="image" name="btnDelete" value="Delete" src="/assets/img/admin/fcc/btn-delete.jpg" />
- 	<? endif; ?>
-</div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>

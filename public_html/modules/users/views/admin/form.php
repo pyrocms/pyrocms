@@ -47,10 +47,6 @@
 	
 </fieldset>
 
-<div class="clear-both">
-	<input type="image" src="/assets/img/admin/fcc/btn-save.jpg" value="Submit" name="btnSubmit" class="fcc-submit-btn" />
-     or 
-    <span class="fcc-cancel"><?= anchor('admin/suppliers/index', 'Cancel'); ?></span>
-</div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?=form_close(); ?>

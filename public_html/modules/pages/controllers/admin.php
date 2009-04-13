@@ -67,9 +67,8 @@ class Admin extends Admin_Controller {
 		// Validate the page
         if ($this->validation->run())
         {
-            if ($this->input->post('btnSave'))
+            if ( $this->pages_m->newPage($_POST) > 0 )
             {
-                $this->pages_m->newPage($_POST);
                 $this->session->set_flashdata('success', 'The page was created.');
             }
             
@@ -82,7 +81,8 @@ class Admin extends Admin_Controller {
         }
 
     	// Get the data back to the form
-        foreach(array_keys($this->rules) as $field) {
+        foreach(array_keys($this->rules) as $field)
+        {
         		$this->data->page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
         }
         
@@ -158,26 +158,12 @@ class Admin extends Admin_Controller {
 			  SPAW_CFG_TRANSFER_SECURE
 		);
         
-        if ($this->input->post('btnSave')) {
-            $this->data->page->body = $this->validation->body;
-        }
-        
         if ($this->validation->run())
         {
-            // Form has been submitted
-        	if ($this->input->post('btnSave'))
-            {
-                $this->pages_m->updatePage($id, $_POST);
-                $this->session->set_flashdata('success', 'The page was saved.');
-            }
-            
-            // An error occured
-            else
-            {
-            	$this->session->set_flashdata('notice', 'The page was not updated.');
-            }
-            redirect('admin/pages/index');
-            
+			$this->pages_m->updatePage($id, $_POST);
+			$this->session->set_flashdata('success', 'The page was saved.');
+
+			redirect('admin/pages/index');
         }
         
         // Send an array of languages to the view

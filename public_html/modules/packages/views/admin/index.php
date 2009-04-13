@@ -24,8 +24,11 @@
 	</tbody>
 </table>
 
-<p>	
-	<input type="submit" name="btnSave" value="Save Featured Packages" />
-</p>
+<button type="submit" name="btnSave" class="button">
+	<strong>
+		Save Featured Packages
+		<img class="icon" alt="" src="<?=image_url('admin/icons/accepted_48.png');?>" />
+	</strong>
+</button>
 
 <?= form_close(); ?>

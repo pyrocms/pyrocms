@@ -27,7 +27,7 @@ class Admin extends Admin_Controller {
 
 	function upload()
 	{	
-		if($this->input->post('btnUpload')) {
+		if($this->input->post('btnAction') == 'upload') {
 		
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'zip';
@@ -63,92 +63,74 @@ class Admin extends Admin_Controller {
 			}
 			
 	        redirect('admin/themes/upload');
-	        
-		} else {
-        	$this->layout->create('admin/upload', $this->data);
 		}
 		
+		$this->layout->create('admin/upload', $this->data);
 	}
 
     function delete($theme_name = "")
 	{
-		$theme_name = $this->uri->segment(4,0);
+		$this->load->helper('file');
 		
-		// Delete one
-		if($theme_name)
-		{
-			if($this->settings->item('default_theme') == $theme_name)
-			{
-				$this->session->set_flashdata('error', 'You cant delete youre default theme '.$theme_name);
-				redirect('admin/themes');
-			}
-
-			if($this->_delete_directory('./assets/themes/'.$theme_name))
-			{
-				$this->session->set_flashdata('success', 'Template Successfully Deleted.');
-			} else {
-				$this->session->set_flashdata('error', 'Unable to delete dir '.$theme_name);
-			}
+		$name_array = $theme_name != "" ? array($theme_name) : $this->input->post('delete');
+		
 		// Delete multiple
-		} else {
-			if(isset($_POST['action_to']))
+		if( !empty($name_array) )
+		{
+			$deleted = 0;
+			$to_delete = 0;
+			foreach ($name_array as $theme_name) 
 			{
-				$deleted = 0;
-				$to_delete = 0;
-				foreach ($this->input->post('action_to') as $theme_name => $value) 
+				$theme_name = urldecode($theme_name);
+				
+				$to_delete++;
+				
+				if($this->settings->item('default_theme') == $theme_name)
 				{
-					$to_delete++;
+					$this->session->set_flashdata('error', 'You cant delete youre default theme "'.$theme_name.'".');
+				}
+				
+				else
+				{
+					$theme_dir = APPPATH.'themes/'.$theme_name;
+					delete_files($theme_dir, TRUE);
 					
-					if($this->settings->item('default_theme') == $theme_name)
+					if( @rmdir($theme_dir) )
 					{
-						$this->session->set_flashdata('error', 'You cant delete youre default theme '.$theme_name);
-					} else {
-						if($this->_delete_directory('./assets/themes/'.$theme_name))
-						{
-							$deleted++;
-						} else {
-							$this->session->set_flashdata('error', 'Unable to delete dir '.$theme_name);
-						}
+						$deleted++;
+					}
+					
+					else
+					{
+						$this->session->set_flashdata('error', 'Unable to delete dir <em>themes/'.$theme_name.'</em>.');
 					}
 				}
-				$this->session->set_flashdata('error', $deleted.' themes out of '.$to_delete.' successfully deleted.');
-			} else {
-				$this->session->set_flashdata('error', 'You need to select themes to delete first.');
 			}
+			
+			if( $deleted == $to_delete)
+			{
+				$this->session->set_flashdata('success', $deleted.' themes out of '.$to_delete.' successfully deleted.');
+			}
+			
+			else
+			{
+				$this->session->set_flashdata('error', $deleted.' themes out of '.$to_delete.' successfully deleted.');
+			}
+			
+		}
+		
+		else
+		{
+			$this->session->set_flashdata('error', 'You need to select themes to delete first.');
 		}
 		
 		redirect('admin/themes');
 	}
 	
-	function _delete_directory($dirname) 
-	{ 
-		if (is_dir($dirname)) 
-			$dir_handle = opendir($dirname); 
-		else
-			return false; 
-		
-		while($file = readdir($dir_handle)) 
-		{ 
-			if ($file != "." && $file != "..") 
-			{ 
-				if (!is_dir($dirname."/".$file)) 
-					if(!@unlink($dirname."/".$file)) return false; 
-				else 
-					$this->_delete_directory($dirname.'/'.$file);	
-			} 
-		} 
-		
-		closedir($dir_handle); 
-		if(!@rmdir($dirname))
-		{
-			return false;
-		}
-		
-		return true; 
-	}
 
 	function _extractZip( $zipDir = '' , $zipFile = '', $extractTo = '', $dirFromZip = '' )
 	{    
+		
 		$zip = zip_open($zipDir.$zipFile);
 		
 		if ($zip)

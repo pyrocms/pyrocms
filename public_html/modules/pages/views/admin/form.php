@@ -10,8 +10,5 @@
 <div class="field">
 	<label for="lang">Language</label>
 	<?=form_dropdown('lang', $languages, $page->lang); ?>
-</div><div class="field width-full">	<label for="body">Content</label>	<?= $this->spaw->show(); ?></div><p>
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/pages/index', 'Cancel'); ?></span>
-</p> <?= form_close(); ?>
+</div><div class="field width-full">	<label for="body">Content</label>	<?= $this->spaw->show(); ?></div>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?> <?= form_close(); ?>

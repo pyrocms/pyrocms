@@ -19,8 +19,5 @@
 	<? endif; ?>
 </div>
 
-<p>
-	<input type="image" name="btnSave" value="Save" src="/assets/img/admin/fcc/btn-save.jpg" />
-	or
-	<span class="fcc-cancel"><?= anchor('admin/permisisons/index', 'Cancel'); ?></span>
-</p><?= form_close(); ?>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+<?= form_close(); ?>
