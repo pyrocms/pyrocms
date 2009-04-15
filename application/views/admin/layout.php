@@ -8,6 +8,10 @@
 		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="Pragma" content="no-cache" />
         
+        <script type="text/javascript">
+        	var APPPATH = "<?=APPPATH_URI;?>";
+        </script>
+        
         <?= js('jquery/jquery.js'); ?>
 		<?= js('jquery/jquery-ui.min.js'); ?>
 		

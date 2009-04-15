@@ -66,5 +66,8 @@ else
   define('ENV', 'live');
 }
 
+// Like APPPATH but used for URI's not full server paths
+define('APPPATH_URI', str_replace("\\", "/", str_replace( $_SERVER['DOCUMENT_ROOT'], '', realpath(APPPATH) ).'/') );
+
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

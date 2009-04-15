@@ -9,6 +9,8 @@
 	  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 	  <?= $this->settings->item('meta_tags'); ?>
 	
+    	<script type="text/javascript">var APPPATH = "<?=APPPATH_URI;?>";</script>
+        
 		<?= css('layout.css', '_theme_');?>
 		
 		<?= js('jquery/jquery.js'); ?>

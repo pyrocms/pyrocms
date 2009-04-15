@@ -39,14 +39,6 @@ $(function() {
 		return false;
 	});
 	
-	// Set all date input boxes as datepickers
-	$('input[type="text"].datepicker, input.date').datepicker({
-		dateFormat: $.datepicker.W3C,
-	    showOn: "both", 
-	    buttonImage: "/assets/img/icons/calendar.gif",
-	    buttonImageOnly: true 
-	});
-	
 	
 	$(".tabs").tabs();
 	
@@ -80,8 +72,8 @@ $(function() {
 	/* Facebox modal window */
    $('a[rel*=modal]').facebox({
 	   opacity : 0.4,
-	   loadingImage : '/assets/img/facebox/loading.gif',
-	   closeImage   : '/assets/img/facebox/closelabel.gif',
+	   loadingImage : APPPATH + "assets/img/facebox/loading.gif",
+	   closeImage   : APPPATH + "assets/img/facebox/closelabel.gif",
    });
 	
 });

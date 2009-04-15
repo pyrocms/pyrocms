@@ -28,7 +28,7 @@
 
 class Asset {
 	
-	private $app_web_path = '/';
+	private $app_web_path;
 	
 	private $CI;
 	
@@ -40,7 +40,7 @@ class Asset {
 		if( isset($_SERVER['DOCUMENT_ROOT']) )
 		{
 			// This show the web root path for loading assets
-			$this->app_web_path = str_replace( str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']), '', str_replace("\\", "/", realpath(APPPATH)) ).'/';
+			$this->app_web_path = defined('APPPATH_URI') ? APPPATH_URI : '/';
 		}
 		
 	}
