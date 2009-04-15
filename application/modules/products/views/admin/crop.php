@@ -1,5 +1,5 @@
-<script type="text/javascript" src="/assets/js/jquery/jquery.imgareaselect.js"></script>
-<script type="text/javascript" src="/modules/products/js/crop.js"></script>
+<?= js('jquery/jquery.imgareaselect.js');?>
+<?= js('crop.js', 'products');?>
 <script type="text/javascript">
 function preview(img, selection) { 
 	var scaleX = <?=$this->config->item('product_width');?> / selection.width; 

@@ -3,6 +3,7 @@
 	<name>Pages</name>
 	<description>Add custom pages to the site with any content you want.</description>
 	<required>1</required>
+	<icon>paper_content_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

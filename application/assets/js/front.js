@@ -2,10 +2,10 @@
 $(function() {
 
 	/* Facebox modal window */
-	$('a[rel*=lightbox]').facebox({
+	$('a[rel*=modal]').facebox({
 	   opacity : 0.4,
-	   loadingImage : '/assets/img/facebox/loading.gif',
-	   closeImage   : '/assets/img/facebox/closelabel.gif',
+	   loadingImage : '/application/assets/img/facebox/loading.gif',
+	   closeImage   : '/application/assets/img/facebox/closelabel.gif',
 	});
    
    	// ---------------------------------------------------------

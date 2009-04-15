@@ -40,7 +40,7 @@ class Admin extends Admin_Controller {
 			// ok, if we want to upload a logo
 			if ($_FILES['userfile']['name'])
 			{
-				$upload_cfg['upload_path'] = './assets/img/suppliers';
+				$upload_cfg['upload_path'] = APPPATH.'assets/img/suppliers';
 	            $upload_cfg['allowed_types'] = 'gif|jpg|png';
 	    		$upload_cfg['encrypt_name'] = true;
 	            $this->load->library('upload', $upload_cfg);
@@ -102,9 +102,9 @@ class Admin extends Admin_Controller {
 			if ($_FILES['userfile']['name']) 
 			{
 				// delete olf file, is needed if new image extension is not the same as old ones
-				$this->_delete_file('./assets/img/suppliers/', $supplier->image);
+				$this->_delete_file(APPPATH.'assets/img/suppliers/', $supplier->image);
 				$new_image_name = explode('.', $supplier->image);
-				$upload_cfg['upload_path'] = './assets/img/suppliers';
+				$upload_cfg['upload_path'] = APPATH.'assets/img/suppliers';
 				$upload_cfg['overwrite'] = TRUE;
 				$upload_cfg['new_name'] = $new_image_name[0];
 				$upload_cfg['allowed_types'] = 'gif|jpg|png';
@@ -139,7 +139,7 @@ class Admin extends Admin_Controller {
     
     // Admin: Delete a Supplier
     function delete($id = 0) {
-		$img_folder = './assets/img/suppliers/';
+		$img_folder = APPPATH.'assets/img/suppliers/';
 		
 		// An ID was passed in the URL, lets delete that
 		$id_array = ($id > 0) ? array($id) : array_keys($this->input->post('delete'));
@@ -199,8 +199,8 @@ class Admin extends Admin_Controller {
     // Private: Create resize of Cropped Image to ensure it's a certain size
     function _create_resize($homeimg = '', $x, $y) {
         unset($img_cfg);
-        $img_cfg['source_image'] = './assets/img/suppliers/' . $homeimg;
-        $img_cfg['new_image'] = './assets/img/suppliers/' . $homeimg;
+        $img_cfg['source_image'] = APPPATH.'assets/img/suppliers/' . $homeimg;
+        $img_cfg['new_image'] = APPPATH.'assets/img/suppliers/' . $homeimg;
         $img_cfg['maintain_ratio'] = true;
         $img_cfg['width'] = $x;
         $img_cfg['height'] = $y;

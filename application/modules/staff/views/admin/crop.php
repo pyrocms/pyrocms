@@ -1,4 +1,4 @@
-<script type="text/javascript" src="/assets/js/jquery/jquery.imgareaselect.js"></script>
+<?= js('jquery/jquery.imgareaselect.js'); ?>
 <script type="text/javascript">
 function preview(img, selection) { 
 	var scaleX = <?=$this->config->item('staff_width');?> / selection.width; 

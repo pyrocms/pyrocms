@@ -3,6 +3,7 @@
 	<name>Settings</name>
 	<description>Allows admins and staff to change website settings such as site name and description.</description>
 	<required>1</required>
+	<icon>spanner_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

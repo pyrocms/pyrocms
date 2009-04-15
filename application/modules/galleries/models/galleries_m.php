@@ -11,7 +11,7 @@ class Galleries_m extends Model {
         $filename = $image['file_name'];
         
         $image_cfg['image_library'] = 'GD2';
-        $image_cfg['source_image'] = './assets/img/galleries/' . $gallery_slug . '/' . $filename;
+        $image_cfg['source_image'] = APPPATH.'assets/img/galleries/' . $gallery_slug . '/' . $filename;
         $image_cfg['create_thumb'] = TRUE;
         $image_cfg['maintain_ratio'] = TRUE;
         $image_cfg['width'] = '150';
@@ -40,7 +40,7 @@ class Galleries_m extends Model {
 		$this->load->helper('date');
         $slug = url_title($input['title']);
 
-		if( !@mkdir('./assets/img/galleries/' . $slug) ) return FALSE;
+		if( !@mkdir(APPPATH.'assets/img/galleries/' . $slug) ) return FALSE;
 
 		$this->db->insert('galleries', array(
 			'title'			=> $input['title'],
@@ -102,7 +102,7 @@ class Galleries_m extends Model {
         // No point trying a rename if it slug is not updated
         if( $oldslug != $slug)
         {
-        	rename('./assets/img/galleries/' . $oldslug, './assets/img/galleries/' . $slug);
+        	rename(APPPATH.'assets/img/galleries/' . $oldslug, APPPATH.'assets/img/galleries/' . $slug);
         }
         
         return TRUE;
@@ -132,7 +132,7 @@ class Galleries_m extends Model {
             $query = $this->db->getwhere('photos', array('gallery_slug'=>$gallery), 5, 0);
         }
         foreach ($query->result() as $photo) {
-            $string .= '<li><a href="/assets/img/galleries/' . $photo->gallery_slug . '/' . $photo->filename . '" rel="lightbox" title="' . $photo->description . '">' . image('galleries/' . $photo->gallery_slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description)) . '</a></li>';
+            $string .= '<li><a href="'. image_path('galleries/' . $photo->gallery_slug . '/' . $photo->filename) . '" rel="modal" title="' . $photo->description . '">' . image('galleries/' . $photo->gallery_slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description)) . '</a></li>';
         }
         $string .= '</ul></div>';
         return $string;
@@ -148,7 +148,7 @@ class Galleries_m extends Model {
             $query = $this->db->getwhere('photos', array('gallery_slug'=>$gallery), $numPhotos, 0);
         }
         foreach ($query->result() as $photo) {
-            $string .= '<li><a href="/assets/img/galleries/' . $photo->gallery_slug . '/' . $photo->filename . '" rel="lightbox" title="' . $photo->description . '">' . image('galleries/' . $photo->gallery_slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description)) . '</a></li>';
+            $string .= '<li><a href="'. image_path('galleries/' . $photo->gallery_slug . '/' . $photo->filename) . '" rel="modal" title="' . $photo->description . '">' . image('galleries/' . $photo->gallery_slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description)) . '</a></li>';
         }
         $string .= '</ul>';
         return $string;

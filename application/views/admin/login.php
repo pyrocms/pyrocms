@@ -6,9 +6,8 @@
 		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="Pragma" content="no-cache" />
 
-		<link rel="stylesheet" type="text/css" href="/assets/css/admin/admin.css" media="screen, projection, print"></link>
 		<?=js('jquery/jquery.js') ?>
-		<?=js('admin.js') ?>
+		<?=css('admin/admin.css').js('admin.js') ?>
 	
 	</head>
 	<body>

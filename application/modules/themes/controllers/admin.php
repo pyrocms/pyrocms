@@ -29,7 +29,7 @@ class Admin extends Admin_Controller {
 	{	
 		if($this->input->post('btnAction') == 'upload') {
 		
-			$config['upload_path'] = './uploads/';
+			$config['upload_path'] = APPPATH.'uploads/';
 			$config['allowed_types'] = 'zip';
 			$config['max_size']	= '2048';
 			$config['overwrite'] = TRUE;
@@ -41,7 +41,7 @@ class Admin extends Admin_Controller {
 				$upload_data = $this->upload->data();
 				
 				// Check if we already have a dir whit same name
-				if(file_exists(APPPATH."assets/themes/".$upload_data['raw_name']))
+				if(file_exists(APPPATH."themes/".$upload_data['raw_name']))
 				{
 					$this->session->set_flashdata('error', 'There is already a theme wiht this name.');
 				} else {
@@ -49,7 +49,7 @@ class Admin extends Admin_Controller {
 					$this->_extractZip($upload_data['file_path'], $upload_data['file_name'], APPPATH."assets/themes/", $upload_data['raw_name'] );
 	
 					// Check if we unziped the file
-					if(!file_exists(APPPATH."assets/themes/".$upload_data['raw_name']))
+					if(!file_exists(APPPATH."themes/".$upload_data['raw_name']))
 					{
 						$this->session->set_flashdata('error', 'Unable to extract theme.');
 					} else {

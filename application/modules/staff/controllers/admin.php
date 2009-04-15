@@ -45,7 +45,7 @@ class Admin extends Admin_Controller {
 
 		if ($this->validation->run())
 		{
-			$upload_cfg['upload_path'] = './assets/img/staff';
+			$upload_cfg['upload_path'] = APPPATH.'assets/img/staff';
 			$upload_cfg['overwrite'] = TRUE;
 			
 			if($this->input->post('user_id'))
@@ -151,7 +151,7 @@ class Admin extends Admin_Controller {
 			$data_array = $_POST;
 			if ($_FILES['userfile']['name']) 
 			{
-				$upload_cfg['upload_path'] = './assets/img/staff';
+				$upload_cfg['upload_path'] = APPPATH.'assets/img/staff';
 				$upload_cfg['overwrite'] = TRUE;
 				
 				if($this->input->post('user_id'))
@@ -218,7 +218,7 @@ class Admin extends Admin_Controller {
 
 	// Admin: Delete a Staff Member
 	function delete($slug = '') {
-    	$img_folder = './assets/img/staff/';
+    	$img_folder = APPPATH.'assets/img/staff/';
     	// Delete one
 		if($slug)
 		{
@@ -306,7 +306,7 @@ class Admin extends Admin_Controller {
         
 		$this->load->library('image_lib');
 		$this->load->config('image_settings');
-		$this->data->image_data = $this->image_lib->get_image_properties('./assets/img/staff/'.$this->data->image, TRUE);
+		$this->data->image_data = $this->image_lib->get_image_properties(APPPATH.'assets/img/staff/'.$this->data->image, TRUE);
 
         if ($this->validation->run()) {
 			// 1. Crope the image
@@ -325,7 +325,7 @@ class Admin extends Admin_Controller {
     function _create_home_crop($image = '', $x = '', $y = '', $x2 = '', $y2 = '') {
         $new_img = substr($image, 0, -4) . '_home' . substr($image, -4);
         unset($img_cfg);
-        $img_cfg['source_image'] = './assets/img/staff/' . $image;
+        $img_cfg['source_image'] = APPPATH.'assets/img/staff/' . $image;
         $img_cfg['maintain_ratio'] = FALSE;
         $img_cfg['x_axis'] = $x;
         $img_cfg['y_axis'] = $y;
@@ -339,8 +339,8 @@ class Admin extends Admin_Controller {
 	// Private: Create resize of Cropped Image to ensure it's a certain size
 	function _create_resize($homeimg = '', $x, $y) {
 		unset($img_cfg);
-		$img_cfg['source_image'] = './assets/img/staff/' . $homeimg;
-		$img_cfg['new_image'] = './assets/img/staff/' . $homeimg;
+		$img_cfg['source_image'] = APPPATH.'assets/img/staff/' . $homeimg;
+		$img_cfg['new_image'] = APPPATH.'assets/img/staff/' . $homeimg;
 		$img_cfg['maintain_ratio'] = true;
 		$img_cfg['width'] = $x;
 		$img_cfg['height'] = $y;

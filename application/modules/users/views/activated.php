@@ -19,6 +19,6 @@
 		<?=form_password('password') ?>
 	</p>
 	
-	<p><input type="image" src="/assets/img/admin/fcc/btn-login.jpg" value="<?=lang('user_login_btn') ?>" name="btnLogin" /></p>
+	<p><input type="image" src="<?=image_path('admin/fcc/btn-login.jpg');?>" value="<?=lang('user_login_btn') ?>" name="btnLogin" /></p>
 	
 <?=form_close(); ?>

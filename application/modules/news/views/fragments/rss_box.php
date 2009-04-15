@@ -1,4 +1,4 @@
-<img src="/assets/img/icons/rss-14x14.png" style="float:left;padding-right:0.5em;" />
+<img src="<?= image_path('icons/rss-14x14.png'); ?>" class="float-left spacer-right" />
 
 <a href="<?=site_url('news/rss'); ?>">
 	<strong>Subscribe to RSS</strong>

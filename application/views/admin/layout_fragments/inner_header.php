@@ -11,7 +11,7 @@
 		<!-- new item -->
 		<div class="newPost actionBlock">
 			<a href="<?= site_url($toolbar['new_item']['link']) ?>" class="button">
-				<strong><?= $toolbar['new_item']['title'] ?><img src="/assets/img/admin/icons/add_48.png" alt="<?= $toolbar['new_item']['title'] ?> icon" class="icon"/></strong>
+				<strong><?= $toolbar['new_item']['title'] ?><?= image('admin/icons/add_48.png', NULL, array('alt' => $toolbar['new_item']['title'] .' icon', 'class' => 'icon') ); ?></strong>
 			</a>
 		</div>
 		<!-- /new item -->

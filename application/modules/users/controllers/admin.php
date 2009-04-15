@@ -262,20 +262,6 @@ class Admin extends Admin_Controller {
 		redirect('admin/users/index');
 	}
 
-
-	// Private: Create resize of Cropped Image to ensure it's a certain size
-	function _create_resize($homeimg = '', $x, $y) {
-		unset($img_cfg);
-		$img_cfg['source_image'] = './assets/img/staff/' . $homeimg;
-		$img_cfg['new_image'] = './assets/img/staff/' . $homeimg;
-		$img_cfg['maintain_ratio'] = true;
-		$img_cfg['width'] = $x;
-		$img_cfg['height'] = $y;
-		$this->load->library('image_lib');
-		$this->image_lib->initialize($img_cfg);
-		$this->image_lib->resize();
-	}
-
 }
 
 ?>

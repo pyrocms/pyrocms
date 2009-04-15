@@ -160,7 +160,7 @@ class Admin extends Admin_Controller {
         // Delete one
 		if($slug)
 		{
-			if($this->_delete_directory('./assets/img/galleries/'.$slug))
+			if($this->_delete_directory(APPPATH.'assets/img/galleries/'.$slug))
 			{
 				if($this->galleries_m->deleteGallery($slug))
 				{
@@ -179,7 +179,7 @@ class Admin extends Admin_Controller {
 				$to_delete = 0;
 				foreach ($this->input->post('delete') as $slug => $value)
 				{
-					if($this->_delete_directory('./assets/img/galleries/'.$slug))
+					if($this->_delete_directory(APPPATH.'assets/img/galleries/'.$slug))
 					{
 						if($this->galleries_m->deleteGallery($slug))
 						{
@@ -249,7 +249,7 @@ class Admin extends Admin_Controller {
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 		
-		$upload_cfg['upload_path'] = './assets/img/galleries/' . $slug;
+		$upload_cfg['upload_path'] = APPPATH.'assets/img/galleries/' . $slug;
 		$upload_cfg['allowed_types'] = 'gif|jpg|png';
 		$upload_cfg['max_size'] = '2048';
     	$upload_cfg['overwrite'] = TRUE;

@@ -11,7 +11,7 @@
 </div>
 
 <div class="float-right align-center spacer-left">
-	<input type="image" src="/assets/img/admin/fcc/btn-login.jpg" value="<?=lang('user_login_btn') ?>" name="btnLogin" /><br />
+	<input type="image" src="<?=image_path('admin/fcc/btn-login.jpg');?>" value="<?=lang('user_login_btn') ?>" name="btnLogin" /><br />
 	or <?=anchor('register', lang('user_register_btn'));?>
 </div>
 

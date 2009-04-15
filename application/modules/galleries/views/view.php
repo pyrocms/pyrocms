@@ -24,7 +24,7 @@
 	<? if(!empty($photos)): ?>
 		<ul id="photos">
 		<? foreach ($photos as $photo):?>
-			<li><a href="/assets/img/galleries/<?=$gallery->slug .'/' . $photo->filename;?>" title="<?=$photo->description;?>" rel="lightbox"><?=image('galleries/' . $gallery->slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description));?></a></li>
+			<li><a href="<?= image_path('galleries/'.$gallery->slug .'/' . $photo->filename); ?>" title="<?=$photo->description;?>" rel="modal"><?=image('galleries/' . $gallery->slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description));?></a></li>
 		<? endforeach; ?>
 		</ul>
 		

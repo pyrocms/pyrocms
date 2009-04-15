@@ -3,6 +3,7 @@
 	<name>Users</name>
 	<description>Let users register and log in to the site, and manage them via the control panel.</description>
 	<required>1</required>
+	<icon>users_two_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

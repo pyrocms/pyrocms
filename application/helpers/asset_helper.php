@@ -27,11 +27,11 @@
 // ------------------------------------------------------------------------
 
 
-function css($asset_name, $module_name = NULL)
+function css($asset_name, $module_name = NULL, $attributes = array())
 {
 	$CI =& get_instance();
 	$CI->load->library('asset');
-	return $CI->asset->css($asset_name, $module_name);
+	return $CI->asset->css($asset_name, $module_name, $attributes);
 }
 
 function css_url($asset_name, $module_name = NULL)
@@ -51,11 +51,11 @@ function css_path($asset_name, $module_name = NULL)
 // ------------------------------------------------------------------------
 
 
-function image($asset_name, $module_name = NULL)
+function image($asset_name, $module_name = NULL, $attributes = array())
 {
 	$CI =& get_instance();
 	$CI->load->library('asset');
-	return $CI->asset->image($asset_name, $module_name);
+	return $CI->asset->image($asset_name, $module_name, $attributes);
 }
 
 function image_url($asset_name, $module_name = NULL)

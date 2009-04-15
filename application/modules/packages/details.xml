@@ -2,6 +2,7 @@
 <module version="0.1" type="content">
 	<name>Packages</name>
 	<description>Combines services and products into package deals.</description>
+	<icon>box_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

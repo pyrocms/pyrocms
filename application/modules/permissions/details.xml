@@ -3,6 +3,7 @@
 	<name>Permissions</name>
 	<description>Control what type of users can see certain sections within the site.</description>
 	<required>1</required>
+	<icon>users_two_warning_48.png</icon>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

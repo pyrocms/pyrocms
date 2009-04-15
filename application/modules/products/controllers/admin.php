@@ -61,7 +61,7 @@ class Admin extends Admin_Controller {
 		);
         
         if ($this->validation->run()) {
-            $upload_cfg['upload_path'] = APPPATH . '/assets/img/products';
+            $upload_cfg['upload_path'] = APPPATH.'assets/img/products';
 			$upload_cfg['overwrite'] = TRUE;
             $upload_cfg['allowed_types'] = 'gif|jpg|png';
             $this->load->library('upload', $upload_cfg);
@@ -93,7 +93,7 @@ class Admin extends Admin_Controller {
     
     // Admin: Upload and add new photos to database
     function addphoto() {
-    	$upload_cfg['upload_path'] = './assets/img/products';
+    	$upload_cfg['upload_path'] = APPPATH.'assets/img/products';
     	$upload_cfg['allowed_types'] = 'gif|jpg|png';
     	$upload_cfg['overwrite'] = TRUE;
     	$this->load->library('upload', $upload_cfg);
@@ -196,7 +196,7 @@ class Admin extends Admin_Controller {
     // Admin: Delete a Product
     function delete() {
 
-		$img_folder = './assets/img/products/';
+		$img_folder = APPPATH.'assets/img/products/';
 		$img_prefixes = array('_home', '_thumb');
 		
         $this->load->library('image_lib');
@@ -272,7 +272,7 @@ class Admin extends Admin_Controller {
         if (!$this->data->image) redirect('admin/products/index');
 		$this->load->library('image_lib');
 		$this->load->config('image_settings');
-		$this->data->image_data = $this->image_lib->get_image_properties('./assets/img/products/'.$this->data->image, TRUE);
+		$this->data->image_data = $this->image_lib->get_image_properties(APPPATH.'assets/img/products/'.$this->data->image, TRUE);
 
         if ($this->validation->run()) {
 			// 1. Crope the image
@@ -318,8 +318,8 @@ class Admin extends Admin_Controller {
     function _create_crop($image = '', $x = '', $y = '', $x2 = '', $y2 = '') {
         $new_img = substr($image, 0, -4) . '_home' . substr($image, -4);
         unset($img_cfg);
-        $img_cfg['source_image'] = './assets/img/products/' . $image;
-        $img_cfg['new_image'] = './assets/img/products/' . $new_img;
+        $img_cfg['source_image'] = APPPATH.'assets/img/products/' . $image;
+        $img_cfg['new_image'] = APPPATH.'assets/img/products/' . $new_img;
         $img_cfg['maintain_ratio'] = FALSE;
         $img_cfg['x_axis'] = $x;
         $img_cfg['y_axis'] = $y;
@@ -335,8 +335,8 @@ class Admin extends Admin_Controller {
     // Private: Create resize of Cropped Image to ensure it's a certain size
     function _create_resize($homeimg = '', $x, $y) {
         unset($img_cfg);
-        $img_cfg['source_image'] = './assets/img/products/' . $homeimg;
-        $img_cfg['new_image'] = './assets/img/products/' . $homeimg;
+        $img_cfg['source_image'] = APPPATH.'assets/img/products/' . $homeimg;
+        $img_cfg['new_image'] = APPPATH.'assets/img/products/' . $homeimg;
         $img_cfg['maintain_ratio'] = true;
         $img_cfg['width'] = $x;
         $img_cfg['height'] = $y;
@@ -348,7 +348,7 @@ class Admin extends Admin_Controller {
     // Private: Create a Thumbnail of Uploaded Image
     function _create_thumbnail($thumbimage = '',$width=350, $height=275) {
     	unset($img_cfg_thumb);
-        $img_cfg_thumb['source_image'] = './assets/img/products/' . $thumbimage;
+        $img_cfg_thumb['source_image'] = APPPATH.'assets/img/products/' . $thumbimage;
         $img_cfg_thumb['create_thumb'] = TRUE;
         $img_cfg_thumb['thumb_marker'] = '_thumb'; 
         $img_cfg_thumb['maintain_ratio'] = TRUE;

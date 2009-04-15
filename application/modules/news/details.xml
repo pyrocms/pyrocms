@@ -2,6 +2,7 @@
 <module version="0.4" type="content">
 	<name>News</name>
 	<description>Post news articles and blogs (web log) entries.</description>
+	<icon>newspaper_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

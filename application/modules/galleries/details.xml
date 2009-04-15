@@ -2,6 +2,7 @@
 <module version="0.4" type="content">
 	<name>Photo Albums</name>
 	<description>Add photo albums and upload photos.</description>
+	<icon>image_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

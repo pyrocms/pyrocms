@@ -10,8 +10,9 @@
 	
 	<?= css('style.css').css('layout.css', '_theme_');?>
 	
-	<?= js('jquery/jquery.js').js('jquery/jquery.lightbox.js'); ?>
-	<?= css('jquery.lightbox.css');?>
+	<?= js('jquery/jquery.js'); ?>
+	<?= js('facebox.js').css('facebox.css');?>
+	
 	<?= js('front.js'); ?>
 	
 	<? if(is_module('news')): ?>

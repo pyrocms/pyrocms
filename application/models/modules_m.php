@@ -119,6 +119,7 @@ class Modules_m extends Model {
     		'version' 		=> 	(float) $xml->attributes()->version,
     		'type' 			=> 	(string) $xml->attributes()->type,
     		'description' 	=> 	(string) $xml->description,
+    		'icon' 			=> 	(string) $xml->icon,
     		'required'		=>	$xml->required == 1,
     		'is_frontend'	=>	$xml->is_frontend == 1,
     		'is_backend'	=>	$xml->is_backend == 1,

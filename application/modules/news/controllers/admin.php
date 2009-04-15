@@ -241,8 +241,8 @@ class Admin extends Admin_Controller {
     // Private: Create resize of Cropped Image to ensure it's a certain size
     function _create_resize($homeimg = '', $x, $y) {
         unset($img_cfg);
-        $img_cfg['source_image'] = './assets/img/suppliers/' . $homeimg;
-        $img_cfg['new_image'] = './assets/img/suppliers/' . $homeimg;
+        $img_cfg['source_image'] = APPPATH.'assets/img/suppliers/' . $homeimg;
+        $img_cfg['new_image'] = APPPATH.'assets/img/suppliers/' . $homeimg;
         $img_cfg['maintain_ratio'] = true;
         $img_cfg['width'] = $x;
         $img_cfg['height'] = $y;
