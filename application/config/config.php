@@ -11,7 +11,7 @@
 |	http://www.your-site.com/
 |
 */
-$config['base_url']	= "http://".$_SERVER['SERVER_NAME']."/";
+$config['base_url']	= "http://".$_SERVER['SERVER_NAME'].str_replace( str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']), '', str_replace("\\", "/", str_replace(SELF, '', FCPATH)) );
 
 /*
 |--------------------------------------------------------------------------
