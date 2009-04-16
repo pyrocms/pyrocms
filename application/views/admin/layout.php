@@ -15,9 +15,9 @@
         <?= js('jquery/jquery.js'); ?>
 		<?= js('jquery/jquery-ui.min.js'); ?>
 		
-		<?= js('jquery/jquery.bgiframe.min.js'); ?>
 		<?= js('jquery/jquery.dimensions.js'); ?>
 		<?= js('jquery/jquery.imgareaselect.js'); ?>
+		<?= js('jquery/jquery.simplemodal.js').css('jquery/confirm.css'); ?>
 		<?= js('jquery/jquery.tooltip.min.js'); ?>
 		<?= js('jquery/jquery.tablesorter.min.js'); ?>
 		
@@ -25,6 +25,7 @@
 		
         <?=$extra_head_content; ?>
         
+        <?= js('functions.js'); ?>
 		<?= js('admin.js').css('admin/admin.css');?>
         
 	</head>
@@ -52,9 +53,14 @@
 					<!-- Inner Content -->
 					<div id="innerContent">
 					
-						<div id="dialog" class="hidden">
-							<div class="content"></div>
-					    </div>
+						<div id='confirm' style='display:none'>
+							<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
+							<div class='header'><span>Confirm</span></div>
+							<p class='message'></p>
+							<div class='buttons'>
+								<div class='no simplemodal-close'>No</div><div class='yes'>Yes</div>
+							</div>
+						</div>
     
 						<?=$this->load->view('admin/result_messages') ?>
 					

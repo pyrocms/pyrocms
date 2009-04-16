@@ -86,23 +86,43 @@ class Admin extends Admin_Controller {
         $this->layout->create('admin/form', $this->data);
     }
     
-    // Admin: Delete categories
-    function delete($slug = '') {
-		
-		// Delete one
-		if($slug):
-			$this->categories_m->deleteCategory($slug);
-		
+    
+	// Admin: Delete a Category
+	function delete($slug = '') {
+
+    	$slug_array = (!empty($slug)) ? array($slug) : $this->input->post('delete');
+
 		// Delete multiple
-		else:
-			foreach ($this->input->post('delete') as $category => $value):
-	            $this->categories_m->deleteCategory($category);
-	        endforeach;
-	    endif;
-	    
-	    $this->session->set_flashdata('success', 'Your category has been deleted.');
-        redirect('admin/categories/index');
-    }
+		if(!empty($slug_array))
+		{
+			$deleted = 0;
+			$to_delete = 0;
+			foreach ($slug_array as $slug) 
+			{
+				if($this->categories_m->deleteCategory($slug))
+				{
+					$deleted++;
+				}
+				else
+				{
+					$this->session->set_flashdata('error', 'Error occurred while trying to delete category "'.$slug.'".');
+				}
+				$to_delete++;
+			}
+			
+			if( $deleted > 0 )
+			{
+				$this->session->set_flashdata('success', $deleted.' categories out of '.$to_delete.' successfully deleted.');
+			}
+		}
+		
+		else
+		{
+			$this->session->set_flashdata('error', 'You need to select categories first.');
+		}
+		
+		redirect('admin/categories/index');
+	}
 
     
     // Callback: from create()

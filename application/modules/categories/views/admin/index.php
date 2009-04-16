@@ -17,7 +17,7 @@
   </tfoot>	<tbody>    <? if ($categories): ?>
         	<? foreach ($categories as $category): ?>
 		<tr>
-			<td><input type="checkbox" name="delete[<?= $category->slug;?>]" /></td>
+			<td><input type="checkbox" name="delete[]" value="<?= $category->slug;?>" /></td>
 			<td><?=$category->title;?></td>
 			<td><?=anchor('admin/categories/edit/' . $category->slug, 'Edit') . ' | ' . 
 			anchor('admin/categories/delete/' . $category->slug, 'Delete', array('class'=>'confirm'));?>

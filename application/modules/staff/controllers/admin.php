@@ -15,8 +15,8 @@ class Admin extends Admin_Controller {
 
     	// Using this data, get the relevant results
     	$this->data->staff = $this->staff_m->getStaff(array('limit' => $this->data->pagination['limit']));
-		
-		$this->layout->create('admin/index', $this->data);
+
+    	$this->layout->create('admin/index', $this->data);
 	}
 
 	// Admin: Create a new Staff Member
@@ -141,7 +141,8 @@ class Admin extends Admin_Controller {
 
 		$this->data->member = $this->staff_m->getStaff( array("slug" => $slug) );
 			
-        foreach(array_keys($rules) as $field) {
+        foreach(array_keys($rules) as $field)
+        {
         	if(isset($_POST[$field]))
         		$this->data->member->$field = $this->validation->$field;
         }
@@ -219,51 +220,48 @@ class Admin extends Admin_Controller {
 	// Admin: Delete a Staff Member
 	function delete($slug = '') {
     	$img_folder = APPPATH.'assets/img/staff/';
-    	// Delete one
-		if($slug)
-		{
-			$member_data = $this->staff_m->getStaff( array("slug" => $slug) );
-			if( !$this->_delete_file( $img_folder , $member_data->filename ) )
-			{
-				// end the delete process, cant delete normally.
-				redirect('admin/staff/index');
-			}
-			if($this->staff_m->deleteStaff($slug))
-			{
-				$this->session->set_flashdata('success', 'Staff member '.$slug.' successfully deleted.');
-			} else {
-				$this->session->set_flashdata('error', 'Error occurred while trying to delete staff member '.$slug);
-			}
-		} else {
+
+    	$slug_array = ($slug) ? array($slug) : array_keys($this->input->post('delete'));
+
 		// Delete multiple
-			if(isset($_POST['delete']))
+		if(!empty($slug_array))
+		{
+			$deleted = 0;
+			$to_delete = 0;
+			foreach ($slug_array as $slug) 
 			{
-				$deleted = 0;
-				$to_delete = 0;
-				foreach ($this->input->post('delete') as $slug => $value) 
+				$member_data = $this->staff_m->getStaff( array("slug" => $slug) );
+				if( !$this->_delete_file( $img_folder , $member_data->filename ) )
 				{
-					$member_data = $this->staff_m->getStaff( array("slug" => $slug) );
-					if( !$this->_delete_file( $img_folder , $member_data->filename ) )
-					{
-						// end the delete process, cant delete normally.
-						redirect('admin/staff/index');
-					}
-					if($this->staff_m->deleteStaff($slug))
-					{
-						$deleted++;
-					} else {
-						$this->session->set_flashdata('error', 'Error occurred while trying to delete staff member '.$slug);
-					}
-					$to_delete++;
+					// end the delete process, cant delete normally.
+					redirect('admin/staff/index');
 				}
-				if( $deleted > 0 ) $this->session->set_flashdata('success', $deleted.' staff members out of '.$to_delete.' successfully deleted.');
-			} else {
-				$this->session->set_flashdata('error', 'You need to select staff members first.');
+				
+				if($this->staff_m->deleteStaff($slug))
+				{
+					$deleted++;
+				}
+				else
+				{
+					$this->session->set_flashdata('error', 'Error occurred while trying to delete staff member '.$slug);
+				}
+				$to_delete++;
 			}
+			
+			if( $deleted > 0 )
+			{
+				$this->session->set_flashdata('success', $deleted.' staff members out of '.$to_delete.' successfully deleted.');
+			}
+		}
+		
+		else
+		{
+			$this->session->set_flashdata('error', 'You need to select staff members first.');
 		}
 		
 		redirect('admin/staff/index');
 	}
+	
 	
 	function _delete_file($folder = FALSE, $file = FALSE)
 	{
@@ -320,7 +318,8 @@ class Admin extends Admin_Controller {
             return;
         }
     }
-
+    
+    
     // Private: Create the Crop for Home Page
     function _create_home_crop($image = '', $x = '', $y = '', $x2 = '', $y2 = '') {
         $new_img = substr($image, 0, -4) . '_home' . substr($image, -4);
@@ -356,7 +355,7 @@ class Admin extends Admin_Controller {
 			$this->data->users[$user->id] = $user->full_name .' - '. $user->role;
 		endforeach;
 		
-		$this->layout->extra_head('<script type="text/javascript" src="' . base_url() . 'modules/staff/js/staff.js"></script>');
+		$this->layout->extra_head( js('staff.js', 'staff') );
 	}
 	
 }

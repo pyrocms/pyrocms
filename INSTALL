@@ -11,15 +11,15 @@ INTALL
 
 5.) Permissions.
 	
-	cd /home/pyrocms/
+	cd /home/pyrocms/public_html/
 	chmod 777 codeigniter/cache
 	chmod 777 codeigniter/logs
-	chmod -R 777 public_html/temp
-	chmod -R 777 public_html/uploads
-	chmod -R 777 public_html/assets/img/galleries
-	chmod -R 777 public_html/assets/img/products
-	chmod -R 777 public_html/assets/img/staff
-	chmod -R 777 public_html/assets/img/suppliers
+	chmod -R 777 application/temp
+	chmod -R 777 application/uploads
+	chmod -R 777 application/assets/img/galleries
+	chmod -R 777 application/assets/img/products
+	chmod -R 777 application/assets/img/staff
+	chmod -R 777 application/assets/img/suppliers
 
 6.) Go to your web root, login as "demo@example.com" with the password "password" and make yourself an admin user account.
 

@@ -21,23 +21,22 @@ class Staff_m extends Model {
 		if( !empty($params['id']) )
 		{
 			$this->db->where('s.id', $params['id']);
+			$result_type = 'row';
 		}
 		
 		if( !empty($params['slug']) )
 		{
 			$this->db->where('slug', $params['slug']);
+			$result_type = 'row';
 		}
+		
+		if(!isset($result_type)) $result_type = 'result';
 		
 		$query = $this->db->get('staff as s');
 		
-		if ($query->num_rows() == 1)
+		if ($query->num_rows() > 0)
 		{
-			return $query->row();
-		}
-		
-		elseif ($query->num_rows() > 1)
-		{
-			return $query->result();
+			return $query->$result_type();
 		}
 		
 		else

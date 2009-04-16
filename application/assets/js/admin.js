@@ -2,43 +2,27 @@ $(function() {
 
 	// Sort any tables with a class of 'sortable'
 	$(".listTable").tablesorter();
-	
-	// Confirmation box
-	$.ui.dialog.defaults.bgiframe = true;
-	var dialogSet;
-	$('a.confirm').click(function() {
-		
-		link = $(this).attr('href');
 
-		// Set the dialog content
-		$("#dialog").attr('title', 'Sure about that?').children('.content').text('Are you sure you would like to delete this? There can be no undoing!');
-		
-		// If not set up, set it
-		if(!dialogSet) {
-			dialogSet = true;
-			$("#dialog").dialog({
-				modal : true,
-				buttons: {
-					'Delete': function() {
-						$(this).dialog('close');
-						window.location.href = link;
-					},
-					Cancel: function() {
-						$(this).dialog('close');
-					}
-				}
+	// Link confirm box
+	$('a.confirm').click(function(e) {
+			e.preventDefault();
+			
+			link = this;
+			confirm("Are you sure you wish to delete this item?", function () {
+				window.location.href = $(link).attr('href');
 			});
-		}
-		
-		// If set up, just load it again
-		else {
-			$("#dialog").dialog('open');
-		}
-
-		// Always block the href, JS will send the user if they click delete
-		return false;
 	});
 	
+	// Form submit confirm box
+	$('button[type="submit"].confirm, input[type="submit"].confirm').click(function(e) {
+			e.preventDefault();
+			
+			button = this;
+			confirm("Are you sure you wish to delete these items?", function () {
+				$(button).parents('form').submit();
+			});
+	});
+
 	
 	$(".tabs").tabs();
 	
