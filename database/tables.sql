@@ -219,7 +219,10 @@ CREATE TABLE `settings` (
   `options` varchar(255) collate utf8_unicode_ci NOT NULL,
   `is_required` tinyint(1) NOT NULL,
   `is_gui` tinyint(1) NOT NULL,
-  `module` varchar(50) collate utf8_unicode_ci NOT NULL
+  `module` varchar(50) collate utf8_unicode_ci NOT NULL,
+PRIMARY KEY  (`slug`),
+UNIQUE KEY `unique - slug` (`slug`),
+KEY `index - slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
 
 

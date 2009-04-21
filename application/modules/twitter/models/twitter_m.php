@@ -16,13 +16,22 @@ class Twitter_m extends Model {
 	    
 		// Authenticate the user once per page load
 		$this->CI->twitter_lib->auth($this->CI->settings->item('twitter_username'), $this->CI->settings->item('twitter_password'));
-		
 	}
 	
 	// Just call whatever was asked for with whatever it was given
 	function __call($method, $arguments)
 	{
-		return call_user_func_array(array($this->CI->twitter_lib, $method), $arguments);
+		// Only apply a cache to these methods
+		if( in_array($method, array('public_timeline', 'friends_timeline', 'user_timeline', 'show', 'replies', 'friends', 'followers')) )
+		{	
+			return $this->cache->call('twitter_lib', $method, $arguments, $this->CI->settings->item('twitter_cache'));
+		}
+		
+		// Run as normal without worrying about a cache
+		else
+		{
+			return call_user_func_array(array($this->CI->twitter_lib, $method), $arguments);
+		}
 	}
 	
 }

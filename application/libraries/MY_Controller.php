@@ -63,55 +63,16 @@ class Public_Controller extends MY_Controller {
         $this->load->module_model('pages', 'pages_m');
         $this->load->module_model('navigation', 'navigation_m');
         
-        // Get Navigation Groups
-		$this->data->groups = $this->navigation_m->getGroups();
-		
-		// Go through all the groups 
-    	foreach($this->data->groups as $group)
-    	{
-	    	$group_links = $this->navigation_m->getLinks(array(
-    			'group'=>$group->id,
-    			'order'=>'position, title'
-    		));
-    		
-    		$has_current_link = false;
-
-    		// Loop through all links and add a "current_link" property to show if it is active
-    		if( !empty($group_links) )
-    		{
-	    		foreach($group_links as &$link)
-	    		{
-	    			$full_match = site_url($this->uri->uri_string()) == $link->url;
-	    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
-	    			
-	    			// Either the whole URI matches, or the first segment matches
-	    			if($link->current_link = $full_match || $segment1_match)
-	    			{
-	    				$has_current_link = true;
-	    			}
-	    		}
-	    		
-	    		// Assign it 
-	    		$this->data->navigation[$group->abbrev] = (array) $group_links;
-    		}
-    		
-    		// No current link, set the first in the group
-    		if(!$has_current_link)
-    		{
-    			$group_links[0]->current_link = TRUE;
-    		}
-    		
-    	}
+        $this->data->navigation = $this->cache->call('navigation_m', 'frontendNavigation');
 
         // Set the theme view folder
         $this->data->theme_view_folder = '../themes/'.$this->settings->item('default_theme').'/views/';
         $this->layout->layout_file = $this->data->theme_view_folder.'layout.php';
         
+    	//$this->output->enable_profiler(TRUE);
     }
 
 }
-
-
 
 
 // Code here is run before admin controllers
@@ -169,7 +130,8 @@ class Admin_Controller extends MY_Controller {
         $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);
         
         $this->layout->layout_file = 'admin/layout.php';
-    	//$this->output->enable_profiler(TRUE);
+    	
+        //$this->output->enable_profiler(TRUE);
     }
     
 }

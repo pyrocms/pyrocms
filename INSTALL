@@ -14,6 +14,7 @@ INTALL
 	cd /home/pyrocms/public_html/
 	chmod 777 codeigniter/cache
 	chmod 777 codeigniter/logs
+	chmod 777 application/cache
 	chmod -R 777 application/temp
 	chmod -R 777 application/uploads
 	chmod -R 777 application/assets/img/galleries

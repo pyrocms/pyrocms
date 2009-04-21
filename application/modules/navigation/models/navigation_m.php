@@ -72,6 +72,54 @@ class Navigation_m extends Model {
 		return FALSE;
 	}
 
+	
+	function frontendNavigation()
+	{
+		// Get Navigation Groups
+		$groups = $this->getGroups();
+		
+		$navigation = array();
+		
+		// Go through all the groups 
+    	foreach($groups as $group)
+    	{
+	    	$group_links = $this->getLinks(array(
+    			'group'=>$group->id,
+    			'order'=>'position, title'
+    		));
+    		
+    		$has_current_link = false;
+			
+    		// Loop through all links and add a "current_link" property to show if it is active
+    		if( !empty($group_links) )
+    		{
+	    		foreach($group_links as &$link)
+	    		{
+	    			$full_match = site_url($this->uri->uri_string()) == $link->url;
+	    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
+	    			
+	    			// Either the whole URI matches, or the first segment matches
+	    			if($link->current_link = $full_match || $segment1_match)
+	    			{
+	    				$has_current_link = true;
+	    			}
+	    		}
+	    		
+    		}
+    		
+    		else
+    		{
+    			$group_links = array();
+    		}
+    		
+    		// Assign it 
+    		$navigation[$group->abbrev] = $group_links;
+    		
+    	}
+    	
+    	return $navigation;
+	}
+	
 	// Create a new Navigation Link
 	function newLink($input = array()) {
 

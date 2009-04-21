@@ -50,16 +50,18 @@
 		
 					<?=$this->load->view('admin/layout_fragments/inner_header') ?>
 					
+					
 					<!-- Inner Content -->
 					<div id="innerContent">
 					
-						<div id='confirm' style='display:none'>
+						<div id="confirm" class="hidden">
 							<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
-							<div class='header'><span>Confirm</span></div>
-							<p class='message'></p>
-							<div class='buttons'>
+							<div class='confirm-header'><span>Confirm</span></div>
+							<div class="confirm-message"></div>
+							<div class='confirm-buttons'>
 								<div class='no simplemodal-close'>No</div><div class='yes'>Yes</div>
 							</div>
+					    	<div class="clear-both bBottom"><div></div></div>
 						</div>
     
 						<?=$this->load->view('admin/result_messages') ?>

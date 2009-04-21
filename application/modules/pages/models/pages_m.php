@@ -6,27 +6,39 @@ class Pages_m extends Model {
         parent::Model();
     }
     
-    // Return an object containing page data
-    function getPage($params = array()) {
+    public function getById($id = 0)
+    {
+    	$this->db->where('id', $id);
+    	return $this->get();
+    }
     
-    	if(!empty($params['id']))
+    public function getBySlug($slug = '', $lang = NULL)
+    {
+    	$this->db->where('slug', $slug);
+    
+    	if($lang == 'all')
+		{
+			exit('where did this code go?!');
+		}  
+		 	
+    	elseif($lang != NULL)
     	{
-    		$this->db->where('id', $params['id']);
-    	}
-    	
-    	// Slug: The slug parameter is set
-    	if(!empty($params['slug']))
-    	{
-    		$this->db->where('slug', $params['slug']);
-	    	
-    		$lang = (!empty($params['lang'])) ? $params['lang'] : DEFAULT_LANGUAGE;
 		    $this->db->where('lang', $lang);
     	}
     	
-        $query = $this->db->getwhere('pages');
-        if ($query->num_rows() > 0) {
-            return $query->row();
-        } else {
+    	return $this->get($lang);
+    }
+    
+    // Return an object containing page data
+    private function get($lang = NULL) {
+    	
+        $query = $this->db->get('pages');
+        if ($query->num_rows() > 0)
+        {
+        	return $query->row();
+        }
+        
+        else {
             return FALSE;
         }
     }
@@ -92,7 +104,6 @@ class Pages_m extends Model {
         	'lang' 			=> $input['lang'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
-        
     }
     
     // Delete a Page
@@ -106,7 +117,7 @@ class Pages_m extends Model {
         
         return $affected;
     }
-
+    
 }
 
 ?>

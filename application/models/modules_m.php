@@ -32,32 +32,39 @@ class Modules_m extends Model {
     // Return an array of objects containing module data
     function getModules($params = array()) {
 		
-    	$modules = array();
+    	$modules = $this->cache->get( 'modules/'.md5(serialize($params)) );
     	
-    	// Loop through directories that hold modules
-    	foreach (module_directories() as $directory)
+    	if($modules === false)
     	{
-    		// Loop through modules
-	        foreach(glob(APPPATH.$directory.'/*', GLOB_ONLYDIR) as $module_name)
-	        {
-	        	if(file_exists($xml_file = $module_name.'/details.xml'))
-	        	{
-	        		$module = $this->_formatXML($xml_file) + array('slug'=>basename($module_name));
-
-	        		// If we only want frontend modules, check its frontend
-		        	if(!empty($params['is_frontend']) && empty($module['is_frontend'])) continue;
-		        	
-		        	// If we only want backend modules, check its backend
-		        	if(!empty($params['is_backend']) && empty($module['is_backend'])) continue;
-		        	
-		        	// Ignore modules of the incorrect type
-		        	if(!empty($params['type']) && $module['type'] != $params['type']) continue;
-	        
-	        		$modules[] = $module;
-	        	}
+	    	$modules = array();
+	    	
+	    	// Loop through directories that hold modules
+	    	foreach (module_directories() as $directory)
+	    	{
+	    		// Loop through modules
+		        foreach(glob(APPPATH.$directory.'/*', GLOB_ONLYDIR) as $module_name)
+		        {
+		        	if(file_exists($xml_file = $module_name.'/details.xml'))
+		        	{
+		        		$module = $this->_formatXML($xml_file) + array('slug'=>basename($module_name));
+	
+		        		// If we only want frontend modules, check its frontend
+			        	if(!empty($params['is_frontend']) && empty($module['is_frontend'])) continue;
+			        	
+			        	// If we only want backend modules, check its backend
+			        	if(!empty($params['is_backend']) && empty($module['is_backend'])) continue;
+			        	
+			        	// Ignore modules of the incorrect type
+			        	if(!empty($params['type']) && $module['type'] != $params['type']) continue;
+		        
+		        		$modules[] = $module;
+		        	}
+		        }
 	        }
-        }
-        
+	    	
+	        $this->cache->write( $modules, 'modules/'.md5(serialize($params)) );
+    	}
+    	
         return $modules;
     }
     

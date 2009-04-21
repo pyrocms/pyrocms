@@ -5,22 +5,29 @@ $(function() {
 
 	// Link confirm box
 	$('a.confirm').click(function(e) {
-			e.preventDefault();
+	
+		/*e.preventDefault();
 			
 			link = this;
-			confirm("Are you sure you wish to delete this item?", function () {
+			modal_confirm("Are you sure you wish to delete this item?", function () {
 				window.location.href = $(link).attr('href');
 			});
+		*/
+		
+		return confirm('Are you sure you wish to delete this item?');
 	});
 	
 	// Form submit confirm box
 	$('button[type="submit"].confirm, input[type="submit"].confirm').click(function(e) {
-			e.preventDefault();
+		/*	e.preventDefault();
 			
 			button = this;
 			confirm("Are you sure you wish to delete these items?", function () {
 				$(button).parents('form').submit();
 			});
+		*/
+
+		return confirm('Are you sure you wish to delete these items?');
 	});
 
 	
@@ -31,11 +38,16 @@ $(function() {
 		$(this).parents(".message").hide("fast");
 		return false;
 	});
-	
+
 	$(".tooltip").tooltip({  
 		showBody:	" - ",
 		showURL:	false
 	});	
+
+	$("#welcome").dialog({ 
+		bgiframe: 	true, 
+		modal:		true
+	});
 	
 	
 	/* Admin left navigation dropdowns */

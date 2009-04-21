@@ -108,7 +108,7 @@ class Admin extends Admin_Controller {
         
     	$this->page_id = $id;
     	
-        $this->data->page = $this->pages_m->getPage( array('id' => $id) );
+        $this->data->page = $this->pages_m->getById($id);
         if (!$this->data->page) 
         {
         	$this->session->set_flashdata('success', 'That page does not exist.');
@@ -183,7 +183,7 @@ class Admin extends Admin_Controller {
 		foreach ($ids as $id):
 			
 			// Get the current page so we can grab the id too
-			if($page = $this->pages_m->getPage( array('id' => $id) ) )
+			if($page = $this->pages_m->getById($id) )
 			{
 				if ($page->slug != 'home')
 				{
@@ -223,9 +223,7 @@ class Admin extends Admin_Controller {
     // Callback: From create()
     function _check_slug($slug) {
         
-    	$criteria = array('slug' => $slug, 'lang' => $this->input->post('lang'));
-    	
-    	$page = $this->pages_m->getPage( $criteria );
+    	$page = $this->pages_m->getBySlug($slug, $this->input->post('lang'));
     	
     	$languages =& $this->config->item('supported_languages');
     	
@@ -243,7 +241,7 @@ class Admin extends Admin_Controller {
     	if(empty($parent_id))
     	{
     		return TRUE;
-    	} elseif (!$this->pages_m->getPage(array('id'=>$parent_id)) ) {
+    	} elseif ( !$this->pages_m->getById($parent_id) ) {
             $this->validation->set_message('_check_parent', 'The parent page you have selected does not exist.');
             return FALSE;
         } else {

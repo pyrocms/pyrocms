@@ -9,5 +9,7 @@ $config['twitter_username']	= 'username';
 $config['twitter_password']	= 'password';
 
 $config['twitter_feed_count'] = 5;
+
+$config['twitter_cache'] = 900; // 15 minutes
 	
 ?>

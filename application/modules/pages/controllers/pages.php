@@ -33,7 +33,7 @@ class Pages extends Public_Controller {
         $this->load->helper('typography');
         
         // No data, and its not the home page
-        if(!$this->data->page = $this->pages_m->getPage(array("slug" => $slug, 'parse'=>true))):
+        if(!$this->data->page = $this->cache->call('pages_m', 'getBySlug', array($slug, DEFAULT_LANGUAGE)) ):
         	show_404();
         endif;
         
