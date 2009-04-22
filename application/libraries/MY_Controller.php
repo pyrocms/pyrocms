@@ -56,6 +56,7 @@ class Public_Controller extends MY_Controller {
         // Check the frontend hasnt been disabled by an admin
         if(!$this->settings->item('frontend_enabled'))
         {
+        	$error = $this->settings->item('unavailable_message') ? $this->settings->item('unavailable_message') : 'Fatal error, is CMS installed?';
         	show_error($this->settings->item('unavailable_message'));
         }
         
@@ -63,7 +64,7 @@ class Public_Controller extends MY_Controller {
         $this->load->module_model('pages', 'pages_m');
         $this->load->module_model('navigation', 'navigation_m');
         
-        $this->data->navigation = $this->cache->call('navigation_m', 'frontendNavigation');
+        $this->data->navigation = $this->cache->call('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
 
         // Set the theme view folder
         $this->data->theme_view_folder = '../themes/'.$this->settings->item('default_theme').'/views/';

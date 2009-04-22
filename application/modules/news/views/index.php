@@ -21,6 +21,8 @@
 			<hr/>
 		<? endforeach; ?>
 		
+		<p><?=$pagination['links']; ?></p>
+		
 	<? else: ?>
 		<p>There are no articles at the moment.</p>
 	<? endif; ?>

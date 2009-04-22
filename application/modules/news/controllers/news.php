@@ -2,6 +2,8 @@
 
 class News extends Public_Controller {
 
+	public $limit = 10; // TODO: PS - Make me a settings option
+	
     function __construct() {
         parent::Public_Controller();
         
@@ -16,8 +18,13 @@ class News extends Public_Controller {
         
     }
 
+    // news/page/x also routes here
     function index() {
-        $this->data->news = $this->news_m->getNews();
+        
+    	$this->data->pagination = create_pagination('news/page', $this->news_m->countArticles(), $this->limit, 3);
+    	
+    	$this->data->news = $this->news_m->getNews(array('limit' => $this->data->pagination['limit']));
+        
         $this->layout->create('index', $this->data);
     }
 
@@ -25,8 +32,16 @@ class News extends Public_Controller {
     	
     	if(!$category) redirect('news');
     	
+    	$this->data->pagination = create_pagination('news/category/'.$category, $this->news_m->countArticles(array(
+    		'category'=>$category
+    	)), $this->limit, 4);
+    	
         $this->data->category = $this->categories_m->getCategory($category);
-        $this->data->news = $this->news_m->getNews(array('category'=>$category));
+        
+        $this->data->news = $this->news_m->getNews(array(
+        	'category'=>$category, 
+        	'limit' => $this->data->pagination['limit']
+        ));
         
         $this->layout->title('News | '.$this->data->category->title);
         $this->layout->add_breadcrumb('News', 'news');
@@ -40,7 +55,16 @@ class News extends Public_Controller {
     	
         $month_date = new DateTime($year.'-'.$month.'-01');
         
-        $this->data->news = $this->news_m->getNews(array('year'=>$year, 'month'=>$month));
+    	$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->countArticles(array(
+    		'year'=>$year,
+    		'month'=>$month)
+    	), $this->limit, 5);
+    	
+        $this->data->news = $this->news_m->getNews(array(
+        	'year'=> $year,
+        	'month'=> $month, 
+        	'limit' => $this->data->pagination['limit']
+        ));
         
         $this->layout->title( $month_date->format("F 'y"), 'Archive', 'News' );
         $this->layout->add_breadcrumb('News', 'news');
