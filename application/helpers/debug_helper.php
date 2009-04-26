@@ -36,9 +36,9 @@
   * @param		mixed    variable to be output
   */
 
-function power_dump($testing)
+function power_dump($testing, $file = '', $line = '')
 {
-	echo "<pre>".__FILE__.' @ line: '.__LINE__ .'<br />Result: ';
+	echo "<pre>".$file.' @ line: '.$line .'<br />Result: ';
 	var_dump($testing);
 	echo "</pre>";
 }

@@ -8,7 +8,7 @@
 		<? foreach ($news as $article): ?>
 			<h3><?=  anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, $article->title); ?></h3>
 			
-			<p><?= nl2br($article->intro) ?> <?= anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, 'Read More &raquo;')?></p>
+			<p><?= nl2br($article->intro) ?> <?= anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, 'Read More&nbsp;&raquo;')?></p>
 			
 			<p>
 				<em>Posted: <?= date('M d, Y', $article->created_on); ?></em>&nbsp;

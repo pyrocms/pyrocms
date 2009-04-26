@@ -12,17 +12,41 @@ class Rss extends Public_Controller {
     
     function index()
     {
-        $posts = $this->news_m->getNews( array('status' => 'live', 'limit' => $this->settings->item('rss_feed_items') ) );
+        $posts = $this->cache->call('news_m', 'getNews', array(
+        	array(
+        		'status' 	=> 'live',
+        		'limit'		=> $this->settings->item('rss_feed_items')
+        	)
+        ), $this->settings->item('rss_cache'));
+        
         $this->_build_feed( $posts );
+        
+        $this->data->rss->feed_name .= ' News';
         
         $this->output->set_header('Content-Type: application/rss+xml');
         $this->load->view('rss', $this->data);
     }
     
-    function category( $category = 0 )
-    {
-        $posts = $this->news_m->getNews( array('status' => 'live', 'category'=>$category, 'limit' => $this->setting->item('rss_feed_items')) );
+    function category( $slug = '')
+    { 
+        $this->load->module_model('categories', 'categories_m');
+        
+        if(!$category = $this->categories_m->getCategory($slug))
+        {
+        	redirect('news/rss/index');
+        }
+        
+        $posts = $this->cache->call('news_m', 'getNews', array(
+        	array(
+        		'status' 	=> 'live',
+        		'category'	=> $slug,
+        		'limit' 	=> $this->settings->item('rss_feed_items') 
+        	)
+        ), $this->settings->item('rss_cache'));
+        
         $this->_build_feed( $posts );
+        
+        $this->data->rss->feed_name .= ' '. $category->title .' News';
         
         $this->output->set_header('Content-Type: application/rss+xml');
         $this->load->view('rss', $this->data);
@@ -33,7 +57,7 @@ class Rss extends Public_Controller {
     	$this->data->rss->encoding = $this->config->item('charset');
         $this->data->rss->feed_name = $this->settings->item('site_name');
         $this->data->rss->feed_url = base_url();
-        $this->data->rss->page_description = 'News';
+        $this->data->rss->page_description = 'News articles for '.$this->settings->item('site_name');
         $this->data->rss->page_language = 'en-gb';
         $this->data->rss->creator_email = $this->settings->item('contact_email');
 

@@ -26,7 +26,9 @@ $route['news/admin'] = "news/admin";
 $route['news/(:num)/(:num)/(:any)'] = "news/view/$3";
 $route['news/page/(:num)'] = "news/index/$1";
 
-$route['news/rss/(:any)'] = "news/rss/category/$1";
+$route['news/rss/index'] = "news/rss";
+$route['news/rss/all.rss'] = "news/rss";
+$route['news/rss/(:any).rss'] = "news/rss/category/$1";
 
 // Category routes
 $route['news/category/(:any)/(:num)'] = "news/category/$1"; // Paginated category routes
