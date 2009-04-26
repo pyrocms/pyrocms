@@ -4,6 +4,8 @@ $comment = $this->session->flashdata('comment');
 
 <?=form_open('comments/create/'.$module.'/'.$id); ?>
 
+<?=form_hidden('redirect_to', $this->uri->uri_string()); ?>
+
 <div id="commentform">
 	<? if(!$this->session->userdata('user_id')): ?>
 	<p>

@@ -60,7 +60,9 @@ class Comments extends Public_Controller {
             $this->session->set_flashdata(array('error'=>$this->validation->error_string));
         }
         
-        redirect(array($module, $id));
+        // If for some reason the post variable doesnt exist, just send to module main page
+        $redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $module;
+        redirect($redirect_to);
     }
     
     // Callback: from create()
