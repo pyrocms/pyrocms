@@ -2,6 +2,9 @@
     Options +FollowSymLinks
     RewriteEngine on
 
+    RewriteRule modules/(.+)/controllers/(.+)\.php$ /index.php/$1/$2 [L,R=301]
+    RewriteRule controllers/(.+)\.php$ /index.php/$1 [L,R=301]
+
     #RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
