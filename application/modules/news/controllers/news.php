@@ -66,7 +66,9 @@ class News extends Public_Controller {
         	'limit' => $this->data->pagination['limit']
         ));
         
-        $this->layout->title( $month_date->format("F 'y"), 'Archive', 'News' );
+        $this->data->month_year = $month_date->format("F 'y");
+        
+        $this->layout->title( $this->data->month_year, 'Archive', 'News' );
         $this->layout->add_breadcrumb('News', 'news');
         $this->layout->add_breadcrumb('Archive: '.$month_date->format("F 'y"));
         $this->layout->create('archive', $this->data);

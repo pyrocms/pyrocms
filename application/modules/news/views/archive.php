@@ -1,5 +1,6 @@
+<h2>Archive</h3>
 
-<h2>Archive</h2>
+<h3><?=$month_year;?></h3>
 
 <div class="float-left width-two-thirds">
 
