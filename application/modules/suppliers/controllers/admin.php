@@ -29,47 +29,48 @@ class Admin extends Admin_Controller {
         $rules['description'] = 'trim|required';
         $rules['url'] = 'trim|required|prep_url|max_length[100]';
         $rules['category'] = 'required|callback__check_category';
+        $rules['userfile'] = 'trim';
         $this->validation->set_rules($rules);
         
         $fields['category'] = 'Category';
+        $fields['userfile'] = 'Logo';
         $this->validation->set_fields($fields);
         
         if ($this->validation->run()) {
+			
+			$upload_cfg['upload_path'] = APPPATH.'assets/img/suppliers';
+            $upload_cfg['allowed_types'] = 'gif|jpg|png';
+    		$upload_cfg['encrypt_name'] = true;
+            $this->load->library('upload', $upload_cfg);
 
-        	$data_array = $_POST;
-			// ok, if we want to upload a logo
-			if ($_FILES['userfile']['name'])
+			if($this->upload->do_upload())
 			{
-				$upload_cfg['upload_path'] = APPPATH.'assets/img/suppliers';
-	            $upload_cfg['allowed_types'] = 'gif|jpg|png';
-	    		$upload_cfg['encrypt_name'] = true;
-	            $this->load->library('upload', $upload_cfg);
-
-				if($this->upload->do_upload())
+				$image = $this->upload->data();
+				
+				$new_supplier = $_POST;
+				$new_supplier['image'] = $image['file_name'];
+						
+                if(!$this->_create_resize($image['file_name'], $this->settings->item('suppliers_width'), $this->settings->item('suppliers_height')))
 				{
-					$image = $this->upload->data();
-	                if(!$this->_create_resize($image['file_name'], $this->settings->item('suppliers_width'), $this->settings->item('suppliers_height')))
-					{
-						$this->session->set_flashdata('error', $this->image_lib->display_errors('',''));
-					}
-					$data_array['image'] = $image['file_name'];
-				} else {
-					show_error($this->upload->display_errors());
+					$this->session->set_flashdata('error', $this->image_lib->display_errors('',''));
 				}
+				
+				if($new_supplier_id = $this->suppliers_m->newSupplier($new_supplier))
+				{
+	                $this->session->set_flashdata('success', 'The suppler "'.$this->input->post('title').'" has been added.');
+				}
+				
+				else
+				{
+					$this->session->set_flashdata('error', 'Error occurred while trying to add new supplier.');
+				}
+				
+				redirect('admin/suppliers/index');
 			}
 			
-			if($new_supplier_id = $this->suppliers_m->newSupplier($data_array))
-			{
-                $this->session->set_flashdata('success', 'The suppler "'.$this->input->post('title').'" has been added.');
-			}
-			
-			else
-			{
-				$this->session->set_flashdata('error', 'Error occurred while trying to add new supplier.');
-			}
-			
-			redirect('admin/suppliers/index');
-        } 
+			show_error($this->upload->display_errors());
+		}
+				
         
 		$this->data->categories = $this->categories_m->getCategories();
 		$this->layout->create('admin/create', $this->data);

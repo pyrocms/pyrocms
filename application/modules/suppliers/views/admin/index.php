@@ -25,9 +25,8 @@
                   <td><input type="checkbox" name="delete[' . $supplier->slug . ']" /></td>
                     <td>' . $supplier->title . '</td>
                     <td>' . date('M d, Y', $supplier->updated_on) . '</td>
-                    <td>' . anchor('suppliers/' . $supplier->slug, 'View', 'target="_blank"') . ' | ' .
-						anchor('admin/suppliers/edit/' . $supplier->slug, 'Edit') . ' | ' .
-						anchor('admin/suppliers/delete/' . $supplier->slug, 'Delete', array('class'=>'confirm')) . '
+                    <td>' . anchor('admin/suppliers/edit/' . $supplier->slug, 'Edit') . ' | ' .
+							anchor('admin/suppliers/delete/' . $supplier->slug, 'Delete', array('class'=>'confirm')) . '
                     </td>
         	</tr>';
 	} ?>
