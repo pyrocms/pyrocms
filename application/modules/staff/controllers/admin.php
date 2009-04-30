@@ -33,7 +33,7 @@ class Admin extends Admin_Controller {
 		
 		// No user id? Force a name & email out of them
 		if(!$this->input->post('user_id')):
-			$rules['name'] .= '|required|max_length[40]|callback__check_title';
+			$rules['name'] .= '|required|max_length[40]|callback__name_check';
 			$rules['email'] .= '|required|valid_email';
 		endif;
 		
@@ -50,7 +50,9 @@ class Admin extends Admin_Controller {
 			
 			if($this->input->post('user_id'))
 			{
-				$upload_cfg['new_name'] = $this->input->post('user_id');
+				$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
+				$_POST['name'] = $staff_user->full_name;
+				$upload_cfg['new_name'] = url_title($staff_user->full_name);
 			} 
 			
 			else 
@@ -72,7 +74,7 @@ class Admin extends Admin_Controller {
 				// New staff member added to the database ok
 				if($staff_id > 0)
 				{
-					$this->session->set_flashdata('success', 'The staff member has been saved.');
+					$this->session->set_flashdata('success', 'The staff member "'.$this->input->post('name').'" has been added.');
 				}
 				
 				else
@@ -130,7 +132,7 @@ class Admin extends Admin_Controller {
 		
 		// No user id? Force a name & email out of them
 		if(!$this->input->post('user_id')):
-			$rules['name'] .= '|required|max_length[40]|callback__check_title';
+			$rules['name'] .= '|required|max_length[40]';
 			$rules['email'] .= '|required|valid_email';
 		endif;
 		
@@ -157,8 +159,13 @@ class Admin extends Admin_Controller {
 				
 				if($this->input->post('user_id'))
 				{
-					$upload_cfg['new_name'] = $this->input->post('user_id');
-				} else {
+					$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
+					$data_array['name'] = $staff_user->full_name;
+					$upload_cfg['new_name'] = url_title($staff_user->full_name);
+				}
+				
+				else
+				{
 					$upload_cfg['new_name'] = url_title($this->input->post('name'));
 				}
 				$upload_cfg['allowed_types'] = 'gif|jpg|png';
@@ -173,7 +180,7 @@ class Admin extends Admin_Controller {
 			}
 			
 			$this->staff_m->updateStaff($slug, $data_array);
-			$this->session->set_flashdata('success', 'The staff member has been saved.');
+			$this->session->set_flashdata('success', 'The staff member "'.$data_array['name'].'" has been updated.');
 			
 			if(isset($data_array['filename']))
 			{
@@ -214,7 +221,6 @@ class Admin extends Admin_Controller {
 		);
 		
 		$this->layout->create('admin/edit', $this->data);
-		return;
 	}
 
 	// Admin: Delete a Staff Member
@@ -307,16 +313,17 @@ class Admin extends Admin_Controller {
 		$this->data->image_data = $this->image_lib->get_image_properties(APPPATH.'assets/img/staff/'.$this->data->image, TRUE);
 
         if ($this->validation->run()) {
-			// 1. Crope the image
+			
+        	// 1. Crope the image
             $this->_create_home_crop($this->data->image, $this->input->post('x1'), $this->input->post('y1'), $this->input->post('x2'), $this->input->post('y2'));
+
             // 2. Resize the image
 			$this->_create_resize($this->data->image, $this->config->item('staff_width'), $this->config->item('staff_height'));
-            redirect('admin/staff/index');
-            return;
-        } else {
-            $this->layout->create('admin/crop', $this->data);
-            return;
+            
+			redirect('admin/staff/index');
         }
+        
+        $this->layout->create('admin/crop', $this->data);
     }
     
     
@@ -357,6 +364,17 @@ class Admin extends Admin_Controller {
 		
 		$this->layout->extra_head( js('staff.js', 'staff') );
 	}
+	
+
+    // Callback: from create()
+    function _name_check($title = '') {
+        if ($this->staff_m->checkName($title)) {
+            $this->validation->set_message('_name_check', 'A staff member with the name "'.$title.'" already exists.');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 	
 }
 
