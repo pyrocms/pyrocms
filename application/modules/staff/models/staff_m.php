@@ -6,6 +6,17 @@ class Staff_m extends Model {
 		parent::Model();
 	}
 
+    function checkName($name = '') {
+        $this->db->select('COUNT(name) AS total');
+        $query = $this->db->getwhere('staff', array('slug'=>url_title($name)));
+        if ($query->row()->total == 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    
+
 	function getStaff( $params = array() ) {
 		
 		$this->db->select('s.slug, s.user_id, s.fact, s.body, s.filename, s.position, s.updated_on, 
@@ -61,7 +72,7 @@ class Staff_m extends Model {
 		else:
 			$name = '';
 			$email = '';
-			$slug = $input['user_id'];
+			$slug = url_title(ucwords(strtolower($input['name'])));
 			$user_id = $input['user_id'];
 		endif;
 		
