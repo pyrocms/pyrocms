@@ -37,7 +37,7 @@ CREATE TABLE `galleries` (
   `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `description` text collate utf8_unicode_ci NOT NULL,
   `parent` int(11) NOT NULL default '0',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
@@ -74,7 +74,7 @@ CREATE TABLE `news` (
   `intro` text collate utf8_unicode_ci NOT NULL,
   `body` text collate utf8_unicode_ci NOT NULL,
   `created_on` int(11) NOT NULL,
-  `updated_on` int(11) NOT NULL,
+  `updated_on` int(11) NOT NULL default 0,
   `status` enum('draft','live') collate utf8_unicode_ci NOT NULL default 'draft',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `title` (`title`),
@@ -97,7 +97,7 @@ CREATE TABLE `packages` (
   `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `description` text collate utf8_unicode_ci NOT NULL,
   `featured` enum('Y','N') collate utf8_unicode_ci NOT NULL default 'N',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
   PRIMARY KEY  (`slug`),
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Packages contain services and products';
@@ -110,7 +110,7 @@ CREATE TABLE `pages` (
   `body` text collate utf8_unicode_ci NOT NULL,
   `parent` int(11) default '0',
   `lang` varchar(2) collate utf8_unicode_ci NOT NULL,
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Language Unique` (`slug`,`lang`),
   KEY `slug` (`slug`),
@@ -143,7 +143,7 @@ CREATE TABLE `photos` (
   `gallery_slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `description` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
 
@@ -156,7 +156,7 @@ CREATE TABLE `products` (
   `category_slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `supplier_slug` varchar(40) collate utf8_unicode_ci NOT NULL default '',
   `frontpage` enum('Y','N') collate utf8_unicode_ci NOT NULL default 'N',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `supplier_slug` (`supplier_slug`),
   KEY `category_slug` (`category_slug`)
@@ -190,7 +190,7 @@ CREATE TABLE `profiles` (
   `yim_handle` varchar(100) collate utf8_unicode_ci NOT NULL,
   `gtalk_handle` varchar(100) collate utf8_unicode_ci NOT NULL,
   `gravatar` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `updated_on` int(11) NOT NULL,
+  `updated_on` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Extra data for users. Not always enabled';
 
@@ -200,7 +200,7 @@ CREATE TABLE `services` (
   `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `description` text collate utf8_unicode_ci NOT NULL,
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
   `price` float(11,2) NOT NULL,
   `pay_per` varchar(20) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`),
@@ -236,7 +236,7 @@ CREATE TABLE `staff` (
   `body` text collate utf8_unicode_ci NOT NULL,
   `fact` text collate utf8_unicode_ci,
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `user_id` (`user_id`)
@@ -250,7 +250,7 @@ CREATE TABLE `suppliers` (
   `description` text collate utf8_unicode_ci NOT NULL,
   `url` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `image` varchar(40) collate utf8_unicode_ci default NULL,
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Supplier Information';
 

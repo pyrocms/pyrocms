@@ -134,10 +134,9 @@ class News_m extends Model {
 
     	$this->load->helper('date');
 
-    	// If day (and therefor month and year) are selected, use that date
-    	if($input['created_on_day'])
+    	if(isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
     	{
-    		$created_on = mktime($input['created_on_hour'], $input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
+    		$created_on = mktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
     	}
     	
     	// Otherwise, use now
@@ -153,7 +152,9 @@ class News_m extends Model {
             'intro'			=> $input['intro'],
             'body'			=> $input['body'],
             'status'		=> $input['status'],
-            'created_on'	=> $created_on));
+            'created_on'	=> $created_on,
+    		'updated_on'	=> 0
+    	));
 
     	return $this->db->insert_id();
     }
@@ -172,7 +173,7 @@ class News_m extends Model {
             'intro'			=> $input['intro'],
             'body'			=> $input['body'],
             'status'		=> $input['status'],
-    		'updated_on'=>now()
+    		'updated_on'	=> now()
     	);
 
     	if($input['created_on_day']){
