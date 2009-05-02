@@ -15,3 +15,8 @@
 			anchor($last_link->url, $last_link->title);
 		endif; ?>
     </div>
+    
+<? // Google Tracker ?>
+<? if($this->settings->item('google_analytic')): ?>
+	<? $this->load->view('fragments/google_analytic'); ?>
+<? endif; ?>
