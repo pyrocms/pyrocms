@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -89,11 +89,11 @@ class CI_URI {
 			}
 
 			// No QUERY_STRING?... Maybe the ORIG_PATH_INFO variable exists?
-			$path = (isset($_SERVER['ORIG_PATH_INFO'])) ? $_SERVER['ORIG_PATH_INFO'] : @getenv('ORIG_PATH_INFO');
+			$path = str_replace($_SERVER['SCRIPT_NAME'], '', (isset($_SERVER['ORIG_PATH_INFO'])) ? $_SERVER['ORIG_PATH_INFO'] : @getenv('ORIG_PATH_INFO'));
 			if (trim($path, '/') != '' && $path != "/".SELF)
 			{
 				// remove path and script information so we have good URI data
-				$this->uri_string = str_replace($_SERVER['SCRIPT_NAME'], '', $path);
+				$this->uri_string = $path;
 				return;
 			}
 
@@ -146,7 +146,7 @@ class CI_URI {
 			return '';
 		}
 
-		$fc_path = FCPATH;
+		$fc_path = FCPATH.SELF;
 		if (strpos($request_uri, '?') !== FALSE)
 		{
 			$fc_path .= '?';
