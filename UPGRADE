@@ -1,0 +1,16 @@
+UPGRADE
+=======
+
+v0.9-beta1 to v0.9-beta2
+---------------------------------------
+
+Run the following MySQL.
+
+	INSERT INTO settings VALUES('google_analytic','Google Analytic',
+	'Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics');
+
+
+v0.9-alpha1 (or earlier) to v0.9-beta1
+---------------------------------------
+
+Wipe the lot and start again.
