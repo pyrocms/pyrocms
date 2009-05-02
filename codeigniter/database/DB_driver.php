@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -670,25 +670,45 @@ class CI_DB_driver {
 	 *
 	 * @access	public
 	 * @param	string
-	 * @return	integer		
+	 * @return	mixed		
 	 */	
 	function escape($str)
-	{	
-		switch (gettype($str))
+	{
+		if (is_string($str))
 		{
-			case 'string'	:	$str = "'".$this->escape_str($str)."'";
-				break;
-			case 'boolean'	:	$str = ($str === FALSE) ? 0 : 1;
-				break;
-			default			:	$str = ($str === NULL) ? 'NULL' : $str;
-				break;
-		}		
+			$str = "'".$this->escape_str($str)."'";
+		}
+		elseif (is_bool($str))
+		{
+			$str = ($str === FALSE) ? 0 : 1;
+		}
+		elseif (is_null($str))
+		{
+			$str = 'NULL';
+		}
 
 		return $str;
 	}
 
 	// --------------------------------------------------------------------
+	
+	/**
+	 * Escape LIKE String
+	 *
+	 * Calls the individual driver for platform
+	 * specific escaping for LIKE conditions
+	 * 
+	 * @access	public
+	 * @param	string
+	 * @return	mixed
+	 */
+    function escape_like_str($str)    
+    {    
+    	return $this->escape_str($str, TRUE);
+	}
 
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Primary
 	 *

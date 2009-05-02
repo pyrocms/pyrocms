@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -103,19 +103,35 @@ if ( ! function_exists('form_open_multipart'))
  */
 if ( ! function_exists('form_hidden'))
 {
-	function form_hidden($name, $value = '')
+	function form_hidden($name, $value = '', $recursing = FALSE)
 	{
-		if ( ! is_array($name))
+		static $form;
+
+		if ($recursing === FALSE)
 		{
-			return '<input type="hidden" name="'.$name.'" value="'.form_prep($value).'" />';
+			$form = "\n";
 		}
 
-		$form = '';
-
-		foreach ($name as $name => $value)
+		if (is_array($name))
 		{
-			$form .= "\n";
-			$form .= '<input type="hidden" name="'.$name.'" value="'.form_prep($value).'" />';
+			foreach ($name as $key => $val)
+			{
+				form_hidden($key, $val, TRUE);
+			}
+			return $form;
+		}
+
+		if ( ! is_array($value))
+		{
+			$form .= '<input type="hidden" name="'.$name.'" value="'.form_prep($value).'" />'."\n";
+		}
+		else
+		{
+			foreach ($value as $k => $v)
+			{
+				$k = (is_int($k)) ? '' : $k; 
+				form_hidden($name.'['.$k.']', $v, TRUE);
+			}
 		}
 
 		return $form;
@@ -231,6 +247,31 @@ if ( ! function_exists('form_textarea'))
 // ------------------------------------------------------------------------
 
 /**
+ * Multi-select menu
+ *
+ * @access	public
+ * @param	string
+ * @param	array
+ * @param	mixed
+ * @param	string
+ * @return	type
+ */
+if (! function_exists('form_multiselect'))
+{
+	function form_multiselect($name = '', $options = array(), $selected = array(), $extra = '')
+	{
+		if ( ! strpos($extra, 'multiple'))
+		{
+			$extra .= ' multiple="multiple"';
+		}
+	
+		return form_dropdown($name, $options, $selected, $extra);
+	}
+}
+
+// --------------------------------------------------------------------
+
+/**
  * Drop-down Menu
  *
  * @access	public
@@ -264,7 +305,7 @@ if ( ! function_exists('form_dropdown'))
 		$multiple = (count($selected) > 1 && strpos($extra, 'multiple') === FALSE) ? ' multiple="multiple"' : '';
 
 		$form = '<select name="'.$name.'"'.$extra.$multiple.">\n";
-	
+
 		foreach ($options as $key => $val)
 		{
 			$key = (string) $key;
@@ -644,7 +685,7 @@ if ( ! function_exists('set_select'))
 		{
 			if ( ! isset($_POST[$field]))
 			{
-				if (count($_POST) === 0)
+				if (count($_POST) === 0 AND $default == TRUE)
 				{
 					return ' selected="selected"';
 				}
@@ -699,7 +740,7 @@ if ( ! function_exists('set_checkbox'))
 		{ 
 			if ( ! isset($_POST[$field]))
 			{
-				if (count($_POST) === 0)
+				if (count($_POST) === 0 AND $default == TRUE)
 				{
 					return ' checked="checked"';
 				}
@@ -754,7 +795,7 @@ if ( ! function_exists('set_radio'))
 		{
 			if ( ! isset($_POST[$field]))
 			{
-				if (count($_POST) === 0)
+				if (count($_POST) === 0 AND $default == TRUE)
 				{
 					return ' checked="checked"';
 				}

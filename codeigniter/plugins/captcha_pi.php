@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2006, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -27,8 +27,8 @@ Once loaded you can generate a captcha like this:
 	$vals = array(
 					'word'		 => 'Random word',
 					'img_path'	 => './captcha/',
-					'img_url'	 => 'http://www.your-site.com/captcha/',
-					'font_path'	 => './system/texb.ttf',
+					'img_url'	 => 'http://example.com/captcha/',
+					'font_path'	 => './system/fonts/texb.ttf',
 					'img_width'	 => '150',
 					'img_height' => 30,
 					'expiration' => 7200
@@ -69,7 +69,7 @@ The create_captcha() function returns an associative array with this data:
   )
 
 The "image" is the actual image tag:
-<img src="http://your-site.com/captcha/12345.jpg" width="140" height="50" />
+<img src="http://example.com/captcha/12345.jpg" width="140" height="50" />
 
 The "time" is the micro timestamp used as the image name without the file
 extension.  It will be a number like this:  1139612155.3422
@@ -92,8 +92,8 @@ Here is a table prototype:
 	 captcha_time int(10) unsigned NOT NULL,
 	 ip_address varchar(16) default '0' NOT NULL,
 	 word varchar(20) NOT NULL,
-	 PRIMARY KEY (captcha_id),
-	 KEY (word)
+	 PRIMARY KEY `captcha_id` (`captcha_id`),
+	 KEY `word` (`word`)
 	)
 
 
@@ -104,7 +104,7 @@ On the page where the captcha will be shown you'll have something like this:
 	$this->load->plugin('captcha');
 	$vals = array(
 					'img_path'	 => './captcha/',
-					'img_url'	 => 'http://www.your-site.com/captcha/'
+					'img_url'	 => 'http://example.com/captcha/'
 				);
 	
 	$cap = create_captcha($vals);
@@ -244,7 +244,15 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 	// Create image
 	// -----------------------------------
 			
-	$im = ImageCreate($img_width, $img_height);
+	// PHP.net recommends imagecreatetruecolor(), but it isn't always available
+	if (function_exists('imagecreatetruecolor'))
+	{
+		$im = imagecreatetruecolor($img_width, $img_height);
+	}
+	else
+	{
+		$im = imagecreate($img_width, $img_height);
+	}
 			
 	// -----------------------------------
 	//  Assign colors
@@ -343,4 +351,6 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 	return array('word' => $word, 'time' => $now, 'image' => $img);
 }
 
-?>
+
+/* End of file captcha_pi.php */
+/* Location: ./system/plugins/captcha_pi.php */
