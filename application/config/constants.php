@@ -66,8 +66,19 @@ else
   define('ENV', 'live');
 }
 
-// Like APPPATH but used for URI's not full server paths
-define('APPPATH_URI', str_replace("\\", "/", str_replace( $_SERVER['DOCUMENT_ROOT'], '', realpath(APPPATH) ).'/') );
+/*
+|--------------------------------------------------------------------------
+| Docment root folders
+|--------------------------------------------------------------------------
+|
+| These constants use existing location information to work out web root, etc.
+|
+*/
+define('APPPATH_URI', str_replace( 
+	str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']), // Use forward slashes
+	'', 											   // Remove the whole document root filepath
+	str_replace("\\", "/", realpath(APPPATH) ) 		   // Forward slash the full path to application
+).'/');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
