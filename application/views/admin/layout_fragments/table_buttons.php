@@ -37,7 +37,7 @@
 		
 		<? if( in_array('cancel', $buttons) ): ?>
 		<div class="float-left">
-			<a href="/admin/<?=$module;?>/index" class="button width-7">
+			<a href="<?=site_url('admin/'.$module.'/index');?>" class="button width-7">
 				<strong>
 					Cancel
 					<img class="icon" alt="Cancel" src="<?=image_url('admin/icons/cancel_48.png');?>"/>
