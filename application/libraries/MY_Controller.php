@@ -127,12 +127,18 @@ class Admin_Controller extends MY_Controller {
 	        show_error('You do not have sufficient permissions to view this page.');
 	        exit;
         }
+
+        // TODO: PJS I do not think this cache is working. Got bored and went to the pub...
+        // Get a list of all modules available to this role
+        $this->data->admin_modules = $this->cache->call('modules_m', 'getModules', array(
+        	array('is_backend'=>true, 'role' => $this->data->user->role) // This function does NOT need role, that is to keep caching seperate
+        ));
         
         $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);
         
         $this->layout->layout_file = 'admin/layout.php';
     	
-        //$this->output->enable_profiler(TRUE);
+        $this->output->enable_profiler(TRUE);
     }
     
 }
