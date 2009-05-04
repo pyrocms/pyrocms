@@ -71,7 +71,13 @@ class Permissions_m extends Model {
 	
 	// --------------------------------------------
 	
-	function checkRuleByRole($role_abbrev, $location) {
+	function checkRuleByRole($role, $location)
+	{
+		// No more checking to do, admins win
+		if($role == 'admin')
+		{
+			return TRUE;
+		}
 		
 		// Check the rule based on whatever parts of the location we have
 		if(isset($location['module'])) 		$this->db->where('(module = "'.$location['module'].'" or module = "*")');
@@ -79,7 +85,7 @@ class Permissions_m extends Model {
 		if(isset($location['method'])) 		$this->db->where('(method = "'.$location['method'].'" or method = "*")');
 		
 		// Check which kind of user?
-		$this->db->where('roles.abbrev', $role_abbrev);
+		$this->db->where('roles.abbrev', $role);
 		
 		$this->db->from('permission_rules rules');
 		$this->db->join('permission_roles as roles', 'roles.id = rules.permission_role_id');
@@ -89,14 +95,24 @@ class Permissions_m extends Model {
 		return $query->num_rows() > 0;
 	}
 	
-	// Check if a user has admin access to any part of the admin panel at all
-	function hasAdminAccess($role_abbrev) {
+	// Check if a user has admin access to any part of the admin panel at all, or a specific module
+	function hasAdminAccess($role, $module = NULL)
+	{
+		// No more checking to do, admins win
+		if($role == 'admin')
+		{
+			return TRUE;
+		}
 		
-		$location = array(
-			'controller' => 'admin'
-		);
+		// Only use a module name if one is provided
+		if($module)
+		{
+			$location['module'] = $module;
+		}
+		
+		$location['controller'] = 'admin';
 
-		return $this->checkRuleByRole($role_abbrev, $location);
+		return $this->checkRuleByRole($role, $location);
 		
 	}
 	
@@ -104,7 +120,8 @@ class Permissions_m extends Model {
 	
 	
 	// Return an object containing rule properties
-	function getRole($id = 0) {
+	function getRole($id = 0)
+	{
 		$query = $this->db->getwhere('permission_roles', array('id'=>$id));
 		if ($query->num_rows() == 0) {
 			return FALSE;
