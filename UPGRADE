@@ -1,6 +1,14 @@
 UPGRADE
 =======
 
+v0.9-beta2 to v0.9
+---------------------------------------
+
+Replace old files with new files.
+
+
+Run the following MySQL.
+
 v0.9-beta1 to v0.9-beta2
 ---------------------------------------
 
