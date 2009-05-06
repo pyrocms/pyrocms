@@ -2,6 +2,8 @@
 
 @import 'layout.css';
 
+@import 'wysiwyg.css';
+
 @import '../boxes.css';
 @import '../common.css';
 @import '../links.css';

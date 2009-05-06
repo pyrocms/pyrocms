@@ -12,7 +12,7 @@
 	<input type="text" id="title" name="title" maxlength="100" value="<?= $gallery->title; ?>" class="text" />
 </div>
 
-<div class="field width-two-thirds">
+<div class="field">
 	<label for="parent">Parent gallery</label>		
 	<select name="parent" size="1">
 		<option value="">-- None --</option>
@@ -20,9 +20,9 @@
 	</select>
 </div>
 
-<div class="field width-full">
-	<label for="body">Content</label>
-	<?= $this->spaw->show(); ?>
+<div class="field">
+	<label for="description">Description</label>
+	<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 </div>
 
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
