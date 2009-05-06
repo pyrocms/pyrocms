@@ -46,12 +46,11 @@
 	
 	<div class="field">
 		<label for="intro">Introduction</label>
-		<?=form_textarea(array('id'=>'intro', 'name'=>'intro', 'value'=>$article->intro, 'rows'=>5)); ?>
+		<?=form_textarea(array('id'=>'intro', 'name'=>'intro', 'value' => $article->intro, 'rows'=>5)); ?>
 	</div>
 	
-	<div class="field">
-		<label for="body">Body</label>
-		<?=$this->spaw->show(); ?>
+	<div class="field spacer-left">
+		<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $article->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 	</div>
 	
 </fieldset>

@@ -21,6 +21,8 @@
 		<?= js('jquery/jquery.tooltip.min.js'); ?>
 		<?= js('jquery/jquery.tablesorter.min.js'); ?>
 		
+		<? $this->load->view('admin/layout_fragments/wysiwyg'); ?>
+		
 		<?= js('facebox.js').css('facebox.css'); ?>
 		
         <?=$extra_head_content; ?>

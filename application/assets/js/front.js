@@ -4,8 +4,8 @@ $(function() {
 	/* Facebox modal window */
 	$('a[rel*=modal]').facebox({
 	   opacity : 0.4,
-	   loadingImage : '/application/assets/img/facebox/loading.gif',
-	   closeImage   : '/application/assets/img/facebox/closelabel.gif',
+	   loadingImage : APPPATH + 'assets/img/facebox/loading.gif',
+	   closeImage   : APPPATH + 'assets/img/facebox/closelabel.gif',
 	});
    
    	// ---------------------------------------------------------

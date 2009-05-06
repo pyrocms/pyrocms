@@ -65,32 +65,6 @@ class Admin extends Admin_Controller {
         $this->validation->set_rules($this->rules);
         $this->validation->set_fields();
         
-        $config = array('name'=>'body', 'content'=>$this->validation->body);
-        $this->load->library('spaw', $config);
-		
-        // setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/news/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/news/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-	
     	// Go through all the known fields and get the post values
     	foreach(array_keys($this->rules) as $field)
     	{
@@ -136,31 +110,6 @@ class Admin extends Admin_Controller {
     	$this->validation->set_fields();
 
     	$article = $this->news_m->getArticle($id, 'all');
-
-    	$spaw_cfg = array('name'=>'body', 'content'=>$article->body);
-    	$this->load->library('spaw', $spaw_cfg);
-    	// setting directories for a SPAW editor instance:
-    	$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-    			array(
-    				array(
-				    	'dir'     => '/uploads/news/flash/',
-				    	'caption' => 'Flash movies', 
-				    	'params'  => array(
-				     	'allowed_filetypes' => array('flash')
-    					)
-			    	),
-			    	array(
-					      'dir'     => '/uploads/news/images/',
-					      'caption' => 'Images',
-					      'params'  => array(
-					        'default_dir' => true, // set directory as default (optional setting)
-					        'allowed_filetypes' => array('images')
-			    	)
-    			),
-    		),
-    		SPAW_CFG_TRANSFER_SECURE
-    	);
 
     	if ($this->validation->run())
     	{

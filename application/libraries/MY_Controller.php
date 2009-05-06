@@ -138,7 +138,7 @@ class Admin_Controller extends MY_Controller {
         
         $this->layout->layout_file = 'admin/layout.php';
     	
-        $this->output->enable_profiler(TRUE);
+        //$this->output->enable_profiler(TRUE);
     }
     
 }

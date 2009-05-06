@@ -45,36 +45,10 @@ class Admin extends Admin_Controller {
         $this->validation->set_rules($rules);
         $this->validation->set_fields();
         
-    
 		foreach(array_keys($rules) as $field) {
 			$this->data->gallery->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
 		}
 		
-        $spaw_cfg = array('name'=>'description', 'content'=>$this->data->gallery->description);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/gallery/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/gallery/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-        
         if ($this->validation->run()) {
             if ($this->galleries_m->newGallery($_POST)) {
                 $this->session->set_flashdata(array('success'=>'Your gallery was saved.'));
@@ -112,35 +86,11 @@ class Admin extends Admin_Controller {
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 
-		foreach(array_keys($rules) as $field) {
+		foreach(array_keys($rules) as $field)
+		{
 			if(isset($_POST[$field]))
 			$this->data->gallery->$field = $this->validation->$field;
 		}
-
-		$spaw_cfg = array('name'=>'description', 'content'=>$this->data->gallery->description);
-		$this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/gallery/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/gallery/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
 
 		if ($this->validation->run()) {
 			if ($this->galleries_m->updateGallery($_POST, $slug)) {
