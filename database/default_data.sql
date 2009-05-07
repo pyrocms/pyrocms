@@ -20,11 +20,13 @@ insert into `permission_roles` values
 
 -- Settings are like db config files. Without these nothing will work
 truncate `settings`;
-insert into `settings` values('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
+insert into `settings` values ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics'),
+
+('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
  ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','Add your slogan here','','','0','1',''),
  ('contact_email','Contact E-mail','All e-mails from users, guests and the site will go to this e-mail address.','text','admin@localhost','','','1','1',''),
  ('server_email','Server E-mail','All e-mails to users will come from this e-mail address.','text','admin@localhost','','','1','1',''),
- ('meta_keywords','Meta Keywords','Descriptive words seperated by comma to be read by search engines.','text','cms, styledna, website management, content management system','','','0','1',''),
+ ('meta_keywords','Meta Keywords','Descriptive words seperated by comma to be read by search engines.','text','cms, pyrocms, website management, content management system','','','0','1',''),
  ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
  ('meta_description','Meta Description','A short paragraph describing this website.','textarea','A website made using PyroCMS. Full description goes here.','','','0','1',''),
  ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics'),
