@@ -24,9 +24,13 @@
 	
 		<? foreach ($products as $product): ?>
 		<tr>
-			<td><input type="checkbox" name="delete[<?= $product->id; ?>]" /></td>
+			<td><input type="checkbox" name="delete" value="<?= $product->id; ?>" /></td>
 			<td><?= anchor('admin/products/edit/' . $product->id, $product->title);?></td>
-			<td><?= anchor('admin/suppliers/edit/' . $product->supplier_slug, $product->supplier_title); ?></td>
+			<td>
+			<? if($product->supplier_title): ?>
+				<?= anchor('admin/suppliers/edit/' . $product->supplier_slug, $product->supplier_title); ?>
+			<? endif; ?>
+			</td>
 			<td><?= $this->settings->item('currency') . number_format($product->price, 2, '.', ','); ?></td>
 			<td><?= date('M d, Y', $product->updated_on); ?></td>
 			<td>

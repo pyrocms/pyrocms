@@ -201,7 +201,8 @@ class Admin extends Admin_Controller {
 		
         $this->load->library('image_lib');
 
-        foreach ($this->input->post('delete') as $product => $value) {
+        foreach ($this->input->post('delete') as $product)
+        {
 			if($product_photos = $this->products_m->getAllImages( $product ))
 			{
 				// We need to delete the image + _home + _thumb images
@@ -232,6 +233,7 @@ class Admin extends Admin_Controller {
 					$this->products_m->deleteProductPhoto( $image_data->image_id );
 				}
 			}
+			
 			// Now delte the products 
 			$this->products_m->deleteProduct($product);
 			
