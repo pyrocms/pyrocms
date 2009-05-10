@@ -8,7 +8,10 @@
 	
 	<?= $this->settings->item('meta_tags'); ?>
 	
-    <script type="text/javascript">var APPPATH = "<?=APPPATH_URI;?>";</script>
+    <script type="text/javascript">
+    var APPPATH_URI = "<?=APPPATH_URI;?>";
+    var BASE_URI = "<?=BASE_URI;?>";
+    </script>
 	
 	<?= css('style.css').css('layout.css', '_theme_');?>
 	

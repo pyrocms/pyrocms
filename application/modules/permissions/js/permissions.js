@@ -39,7 +39,7 @@ function get_controllers(module, selected) {
 	$(controller_select).hide().empty();
 	get_methods();
 	
-	$.getJSON("/index.php/admin/permissions/module_controllers/" + module, function(data){
+	$.getJSON(BASE_URI + "admin/permissions/module_controllers/" + module, function(data){
          
          $("<option/>").attr("value", '*').text('-- All --').appendTo(controller_select);
          
@@ -66,7 +66,7 @@ function get_methods(module, controller, selected) {
 	
     $("<option/>").attr("value", '*').text('-- All --').appendTo(method_select);
          
-	$.getJSON("/index.php/admin/permissions/controller_methods/" + module + "/" + controller, function(data){
+	$.getJSON(BASE_URI + "admin/permissions/controller_methods/" + module + "/" + controller, function(data){
          $.each(data, function(i,method){
            option = $("<option/>").attr("value", method).text(method);
 			
