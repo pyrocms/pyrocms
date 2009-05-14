@@ -239,7 +239,7 @@ class News_m extends Model {
         if ($query->num_rows() > 0) {
         		$this->load->helper('text');
             foreach ($query->result() as $blogs) {
-                $string .= '<p>' . anchor('news/' . $blogs->slug, $blogs->title) . '<br />' . strip_tags(word_limiter($blogs->body, 20)). '</p>';
+                $string .= '<p>' . anchor('news/' . date('Y/m') . '/'. $blogs->slug, $blogs->title) . '<br />' . strip_tags(word_limiter($blogs->body, 20)). '</p>';
             }
         }
         return $string ;
