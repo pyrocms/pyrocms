@@ -4,18 +4,24 @@ class Admin extends Admin_Controller {
 
 	// Validation rules to be used for create and edita
 	private $rules = array(
-        'title' 	=> 'trim|required|max_length[40]',
-        'slug' 		=> 'trim|required|alpha_dash|max_length[20]|callback__check_slug',
+        'title' 	=> 'trim|required|max_length[60]',
+        'slug' 		=> 'trim|required|alpha_dash|max_length[60]|callback__check_slug',
         'body' 		=> 'trim|required',
         'parent' 	=> 'trim|callback__check_parent',
-        'lang' 		=> 'trim|required|min_length[2]|max_length[2]'
+        'lang' 		=> 'trim|required|min_length[2]|max_length[2]',
+	
+        'meta_title' => 'trim|max_length[255]',
+        'meta_keywords' => 'trim|max_length[255]',
+        'meta_description' => 'trim'
 	);
 	
 	// Used to pass page id to edit validation callback
 	private $page_id;
 	
     function __construct() {
+    	
         parent::Admin_Controller();
+        
         $this->load->model('pages_m');
 		$this->load->helper('pages');
 		
@@ -83,7 +89,7 @@ class Admin extends Admin_Controller {
     	// Get the data back to the form
         foreach(array_keys($this->rules) as $field)
         {
-        		$this->data->page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
+        	$this->data->page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
         }
         
         // Send an array of languages to the view

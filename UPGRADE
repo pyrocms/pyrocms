@@ -1,7 +1,29 @@
 UPGRADE
 =======
 
-07/05/09 - v0.9 to v0.9.x
+Remember to always run these steps in order. They are ordered intentionally to either
+minimise or totally remove downtime during upgrade.
+
+14/05/09 - v0.9.2 to edge
+---------------------------
+
+1. Run the following MySQL.
+
+	ALTER TABLE pages
+	
+		MODIFY  `slug` varchar(60) collate utf8_unicode_ci NOT NULL default '',
+		MODIFY  `title` varchar(60) collate utf8_unicode_ci NOT NULL default '',
+		
+		ADD  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
+		ADD  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
+		ADD  `meta_description` text collate utf8_unicode_ci NOT NULL;
+		
+2. Clear the 'application/cache/pages_m' directory.
+
+3. Replace old files with new files.
+
+
+07/05/09 - v0.9 to v0.9.2
 -------------------------
 
 Replace old files with new files.

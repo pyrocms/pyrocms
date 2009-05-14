@@ -181,7 +181,7 @@ class Layout {
 
     public function extra_head($str = '')
     {
-    	$this->_extra_head_content .= $str."\n";
+    	if($str) $this->_extra_head_content .= "\t\t".$str."\n";
         return $this;
     }
     
@@ -197,7 +197,8 @@ class Layout {
         $name = htmlspecialchars(strip_tags($name));
         $content = htmlspecialchars(strip_tags($content));
     	
-        if($name == 'keywords')
+        // Keywords with no comments? ARG! comment them
+        if($name == 'keywords' && !strpos($content, ','))
         {
         	$this->CI->load->helper('inflector');
         	$content = keywords($content);

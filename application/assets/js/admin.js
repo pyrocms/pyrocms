@@ -68,8 +68,8 @@ $(function() {
 	/* Facebox modal window */
    $('a[rel*=modal]').facebox({
 	   opacity : 0.4,
-	   loadingImage : APPPATH + "assets/img/facebox/loading.gif",
-	   closeImage   : APPPATH + "assets/img/facebox/closelabel.gif",
+	   loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",
+	   closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif",
    });
 	
 });

@@ -86,6 +86,11 @@ class Pages_m extends Model {
         	'body' 			=> $input['body'],
         	'parent' 		=> $input['parent'],
         	'lang' 			=> $input['lang'],
+        
+        	'meta_title'	=> $input['meta_title'],
+        	'meta_keywords'	=> $input['meta_keywords'],
+        	'meta_description' => $input['meta_description'],
+        
         	'updated_on'	=> now()
         ));
         
@@ -102,6 +107,11 @@ class Pages_m extends Model {
 	        'body' 			=> $input['body'],
 	        'parent' 		=> $input['parent'],
         	'lang' 			=> $input['lang'],
+        
+        	'meta_title'	=> $input['meta_title'],
+        	'meta_keywords'	=> $input['meta_keywords'],
+        	'meta_description' => $input['meta_description'],
+        
 	        'updated_on' 	=> now()
         ), array('id' => $id));
     }
