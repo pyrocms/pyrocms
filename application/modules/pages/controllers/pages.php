@@ -37,8 +37,8 @@ class Pages extends Public_Controller {
         	show_404();
         endif;
         
-        // // Parse any settings, links r ==or url tags
-        $this->load->library('data_parser');
+        // Parse any settings, links r ==or url tags
+        //$this->load->library('data_parser');
         //$this->data->page->body = $this->data_parser->parse($this->data->page->body);
         
         // This is the homepage, show the site slogan

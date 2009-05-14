@@ -69,6 +69,18 @@ if ( ! function_exists('url_title'))
 
 // ------------------------------------------------------------------------
 
+/**
+ * Shorten URL
+ *
+ * Takes a long url and uses the TinyURL API to
+ * return a shortened version.
+ * 
+ * Added support for Cyrillic characters.
+ *
+ * @access	public
+ * @param	string	long url
+ * @return	string  short url
+ */
 function shorten_url($url = '')
 {
 	$CI =& get_instance();
@@ -86,7 +98,7 @@ function shorten_url($url = '')
 		$url = site_url($url);
 	}
 
-	return $CI->curl->get('http://tinyurl.com/api-create.php?url='.$url);
+	return $CI->curl->simple_get('http://tinyurl.com/api-create.php?url='.$url);
 }
 
 ?>

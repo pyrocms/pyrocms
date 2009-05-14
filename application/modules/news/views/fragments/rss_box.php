@@ -4,7 +4,7 @@
 	
 	<img src="<?= image_path('icons/rss-14x14.png'); ?>" class="float-left spacer-right" />
 	
-	<a href="<?=site_url('news/rss/all.rss'); ?>">
+	<a href="<?=site_url('news/rss/all|rss'); ?>">
 		<strong>All articles</strong><br />
 	</a>
 	
@@ -12,7 +12,7 @@
 	
 	<img src="<?= image_path('icons/rss-14x14.png'); ?>" class="clear-both float-left spacer-right" />
 	
-	<a href="<?=site_url('news/rss/'.$category->slug.'.rss'); ?>">
+	<a href="<?=site_url('news/rss/'.$category->slug.'|rss'); ?>">
 		<strong><?=$category->title;?> articles</strong>
 	</a>
 	<? endif;?>

@@ -16,20 +16,27 @@ class cURL {
     public $error_string;       // Error message returned as a string
     public $info;               // Returned after request (elapsed time, etc)
     
-    function __construct() {
+    function __construct($url = '') {
         $this->CI =& get_instance();
         log_message('debug', 'cURL Class Initialized');
         
         if (!function_exists('curl_init')) {
-            log_message('error', 'cURL Class - PHP was not built with --with-curl, rebuild PHP to use cURL.') ;
+            log_message('error', 'cURL Class - PHP was not built with cURL enabled. Rebuild PHP with --with-curl to use cURL.') ;
         }
+        
+        if($url) $this->create($url);
     }
  
+    /* =================================================================================
+     * SIMPLE METHODS 
+     * Using these methods you can make a quick and easy cURL call with one line.
+     * ================================================================================= */
+ 
     // Return a get request results
-    public function get($url = '', $options = array()) {
+    public function simple_get($url, $options = array()) {
 
         // If a URL is provided, create new session
-        if(!empty($url)) $this->create($url);
+        $this->create($url);
 
         // Add in the specific options provided
         $this->options($options);
@@ -39,37 +46,50 @@ class cURL {
  
     // Send a post request on its way with optional parameters (and get output)
     // $url = '', $params = array(), $options = array()
-    //   or
-    // $parays = array()
-    public function post() { 
-    	
-        // Default values
-        $url = '';
-        $params = array();
-        $options = array();
+    public function simple_post($url, $params = array(), $options = array()) { 
+    	$this->create($url);
         
-        // How many parameters have been passed?
-        switch(count($args = func_get_args())) {
-            
-            // If they have JUST passed post parameters
-            default:
-            case 1:
-                $advance_mode = TRUE;
-                $params = $args[0];
-            break;
-            
-            // They have passed several (up to 3) parameters
-            case 2:
-            case 3:
-                $advance_mode = FALSE;
-                if(isset($args[0])) $url = $args[0];
-                if(isset($args[1])) $params = $args[1];
-                if(isset($args[2])) $options = $args[2];
-            break;
+        $this->post($params, $options);
+        
+        return $this->execute();
+    }
+    
+    public function simple_ftp_get($url, $file_path, $username = '', $password = '') {
+        
+        // If there is no ftp:// or any protocol entered, add ftp://
+        if(!preg_match('!^(ftp|sftp)://! i', $url)) {
+            $url = 'ftp://'.$url;
         }
+        
+        // Use an FTP login
+        if($username != '')
+        {
+            $auth_string = $username;
+            
+            if($password != '')
+            {
+            	$auth_string .= ':'.$password;
+            }
+            
+            // Add the user auth string after the protocol
+            $url = str_replace('://', '://'.$auth_string.'@', $url);
+        }
+        
+        // Add the filepath
+        $url .= $file_path;
 
-        // If a URL is provided, create new session
-        if(!empty($url)) $this->create($url);
+        $this->options(CURLOPT_BINARYTRANSFER, TRUE);
+        $this->options(CURLOPT_VERBOSE, TRUE);
+        
+        return $this->execute();
+    }
+    
+    /* =================================================================================
+     * ADVANCED METHODS 
+     * Use these methods to build up more complex queries
+     * ================================================================================= */
+     
+    public function set_post($params = array(), $options = array()) { 
         
         // If its an array (instead of a query string) then format it correctly
         if(is_array($params)) {
@@ -79,13 +99,8 @@ class cURL {
         // Add in the specific options provided
         $this->options($options);
         
-        $this->options[CURLOPT_POST] = TRUE;
-        $this->options[CURLOPT_POSTFIELDS] = $params;
-        
-        // We are in simple mode, they have only called this method, so return the output
-        if(!$advance_mode) {
-            return $this->execute();
-        }
+        $this->option(CURLOPT_POST, TRUE);
+        $this->option(CURLOPT_POSTFIELDS, $params);
     }
     
     public function set_cookies($params = array()) {
@@ -115,26 +130,8 @@ class cURL {
         return $this;
     }
     
-    // Start a session from a URL
-    public function create($url) {
-        
-        // Reset the class
-        $this->set_defaults();
-
-        // If no a protocol in URL, assume its a CI link
-        if(!preg_match('!^\w+://! i', $url)) {
-        	$this->CI->load->helper('url');
-            $url = site_url($url);
-        }
-        
-        $this->url = $url;
-        $this->session = curl_init($this->url);
-        
-        return $this;
-    }
-    
     public function options($options = array()) {
-    	
+
         // Merge options in with the rest - done as array_merge() does not overwrite numeric keys
         foreach($options as $option_code => $option_value) {
             $this->option($option_code, $option_value);
@@ -149,6 +146,24 @@ class cURL {
     
     public function option($code, $value) {
     	$this->options[$code] = $value;
+        return $this;
+    }
+    
+    // Start a session from a URL
+    public function create($url) {
+        
+        // Reset the class
+        $this->set_defaults();
+
+        // If no a protocol in URL, assume its a CI link
+        if(!preg_match('!^\w+://! i', $url)) {
+            $this->CI->load->helper('url');
+            $url = site_url($url);
+        }
+        
+        $this->url = $url;
+        $this->session = curl_init($this->url);
+        
         return $this;
     }
     
@@ -173,6 +188,7 @@ class cURL {
             $this->error_string = curl_error($this->session);
             
             curl_close($this->session);
+            $this->session = NULL;
             return FALSE;
         
         // Request successful
@@ -181,6 +197,7 @@ class cURL {
             $this->info = curl_getinfo($this->session);
             
             curl_close($this->session);
+            $this->session = NULL;
             return $return;
         }
         
