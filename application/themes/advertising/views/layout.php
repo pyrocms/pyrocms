@@ -6,8 +6,6 @@
 	
 	<!-- Language: <?=DEFAULT_LANGUAGE ?> -->
 	
-	<?= $this->settings->item('meta_tags'); ?>
-	
     <script type="text/javascript">
     var APPPATH_URI = "<?=APPPATH_URI;?>";
     var BASE_URI = "<?=BASE_URI;?>";
@@ -23,6 +21,8 @@
 	<? if(is_module('news')): ?>
 	<link rel="alternate" type="application/rss+xml" title="<?=$this->settings->item('site_name'); ?>" href="<?=site_url('news/rss'); ?>" />
 	<? endif; ?>
+
+    <?=$extra_head_content; ?>
 	
 </head>
 

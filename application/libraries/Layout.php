@@ -93,7 +93,7 @@ class Layout {
 
      * @return    void
      */
-    function create($page_body = '', $data = array(), $return = false, $module = '')
+    public function create($page_body = '', $data = array(), $return = false, $module = '')
     {
         if($page_body != '') $this->page_body = $page_body;
         if($module != '')    $this->_module = $module;
@@ -161,14 +161,14 @@ class Layout {
      * @param    string
      * @return    void
      */
-
-    function title()
+    public function title()
     {
     	// If we have some segments passed
     	if($title_segments =& func_get_args())
     	{
     		$this->_page_title = implode($this->title_separator, $title_segments);
     	}
+        return $this;
     }
 
     /**
@@ -179,15 +179,47 @@ class Layout {
      * @return    void
      */
 
-    function extra_head($str = '')
+    public function extra_head($str = '')
     {
     	$this->_extra_head_content .= $str."\n";
+        return $this;
+    }
+    
+    /**
+     * Set metadata for output later
+     *
+     * @access    public
+     * @param    string
+     * @return    void
+     */
+    public function set_metadata($name, $content)
+    {
+        $name = htmlspecialchars(strip_tags($name));
+        $content = htmlspecialchars(strip_tags($content));
+    	
+        if($name == 'keywords')
+        {
+        	$this->CI->load->helper('inflector');
+        	$content = keywords($content);
+        }
+        
+    	$this->extra_head('<meta name="'.$name.'" content="'.$content.'" />');
+        return $this;
     }
 
-    function module($module = '')
+    /**
+     * Which module are we using here?
+     *
+     * @access    public
+     * @param    string
+     * @return    void
+     */
+    public function module($module = '')
     {
         $this->_module = $module;
+        return $this;
     }
+
 
     /**
      * Should we include headers and footers?
@@ -197,9 +229,10 @@ class Layout {
      * @return    void
      */
 
-    function html_mode($html = true)
+    public function html_mode($html = true)
     {
         $this->html_mode = $html;
+        return $this;
     }
 
     /**
@@ -213,6 +246,7 @@ class Layout {
     function wrap_mode($wrap = true)
     {
         $this->wrap_mode = $wrap;
+        return $this;
     }
 
 
@@ -225,17 +259,18 @@ class Layout {
      * @return    void
      */
 
-    function add_breadcrumb($name, $url_ref = '')
+    public function add_breadcrumb($name, $url_ref = '')
     {
         foreach($this->_breadcrumbs as &$breadcrumb):
         	$breadcrumb['current_page'] = FALSE;
         endforeach;
     	
     	$this->_breadcrumbs[] = array('name'=>$name, 'url_ref'=>$url_ref, 'current_page'=> TRUE );
+        return $this;
     }
 
 
-    function _guess_title()
+    private function _guess_title()
     {
         $this->CI->load->helper('inflector');
 
@@ -268,7 +303,7 @@ class Layout {
 
 
     // Build the array into a string with anchors and ->'s
-    function _create_breadcrumbs()
+    private function _create_breadcrumbs()
     {
         $this->CI->load->helper('inflector');
 
