@@ -105,17 +105,20 @@ CREATE TABLE `packages` (
 
 CREATE TABLE `pages` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `slug` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `title` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `slug` varchar(60) collate utf8_unicode_ci NOT NULL default '',
+  `title` varchar(60) collate utf8_unicode_ci NOT NULL default '',
   `body` text collate utf8_unicode_ci NOT NULL,
   `parent` int(11) default '0',
   `lang` varchar(2) collate utf8_unicode_ci NOT NULL,
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
+  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `meta_description` text collate utf8_unicode_ci NOT NULL,
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Language Unique` (`slug`,`lang`),
   KEY `slug` (`slug`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages'
 
 
 CREATE TABLE `permission_roles` (

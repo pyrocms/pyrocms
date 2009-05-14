@@ -2,12 +2,15 @@
 
 class Pages extends Public_Controller {
 
-    function __construct() {
+    function __construct() 
+    {
         parent::Public_Controller();
+        
         $this->load->model('pages_m');
     }
 
-    function _remap() {
+    function _remap()
+    {
     	// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'/config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
@@ -28,32 +31,34 @@ class Pages extends Public_Controller {
     }
     
     
-    function index($slug = 'home') {
-    	
-        $this->load->helper('typography');
-        
-        // No data, and its not the home page
-        if(!$this->data->page = $this->cache->call('pages_m', 'getBySlug', array($slug, DEFAULT_LANGUAGE)) ):
+    function index($slug = 'home')
+    {
+    	// No data, and its not the home page
+        if(!$page = $this->cache->call('pages_m', 'getBySlug', array($slug, DEFAULT_LANGUAGE)) )
+        {
         	show_404();
-        endif;
+        }
         
         // Parse any settings, links r ==or url tags
         //$this->load->library('data_parser');
         //$this->data->page->body = $this->data_parser->parse($this->data->page->body);
         
-        // This is the homepage, show the site slogan
-        if($slug == 'home')
+        // Not got a meta title? Use slogan for homepage or the normal page title for other pages
+        if($page->meta_title == '')
         {
-	        $this->layout->title( $this->settings->item('site_slogan') );
+        	$page->meta_title = ($slug == 'home') ? $this->settings->item('site_slogan') : $page->title;
         }
         
-        // Use the page title for the title
-        else
-        {
-	        $this->layout->title( $this->data->page->title );
-        }
+        // Define data elements
+        $this->data->page =& $page;
         
-        $this->layout->create('index', $this->data);
+        // Create page output
+	    $this->layout->title( $page->meta_title )
+	    
+        	->set_metadata('keywords', $page->meta_keywords)
+        	->set_metadata('description', $page->meta_description)
+        	
+        	->create('index', $this->data);
     }
     
 }
