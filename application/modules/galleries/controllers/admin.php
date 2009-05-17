@@ -39,7 +39,7 @@ class Admin extends Admin_Controller {
     	$this->data->galleries = $tree;
     	
     	$this->load->library('validation');
-        $rules['title'] = 'trim|required|callback__createCheckTitle';
+        $rules['title'] = 'trim|required|max_length[255]|callback__createCheckTitle';
         $rules['description'] = 'trim|required';
         $rules['parent'] = 'trim|numeric';
         $this->validation->set_rules($rules);
@@ -88,11 +88,11 @@ class Admin extends Admin_Controller {
     }
 
     // Admin: Edit a Gallery
-    function edit($slug = '') {
-
-    	$this->data->gallery = $this->galleries_m->getGallery($slug);
+    function edit($slug = '')
+    {
+       	$gallery = $this->galleries_m->getGallery($slug);
 		
-		if (empty($slug) or !$this->data->gallery)
+		if (empty($slug) or !$gallery)
 		{
 			redirect('admin/galleries/index');
     	}
@@ -106,18 +106,21 @@ class Admin extends Admin_Controller {
 
     	$this->load->library('validation');
 		$rules['id'] = '';
-		$rules['title'] = 'trim|required';
+		$rules['title'] = 'trim|required|max_length[255]';
 		$rules['description'] = 'trim|required';
 		$rules['parent'] = 'trim|numeric';
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 
-		foreach(array_keys($rules) as $field) {
+		foreach(array_keys($rules) as $field)
+		{
 			if(isset($_POST[$field]))
-			$this->data->gallery->$field = $this->validation->$field;
+			{
+				$gallery->$field = $this->validation->$field;
+			}
 		}
 
-		$spaw_cfg = array('name'=>'description', 'content'=>$this->data->gallery->description);
+		$spaw_cfg = array('name'=>'description', 'content' => $gallery->description);
 		$this->load->library('spaw', $spaw_cfg);
 		// setting directories for a SPAW editor instance:
 		$this->spaw->setConfigItem(
@@ -142,62 +145,61 @@ class Admin extends Admin_Controller {
 			  SPAW_CFG_TRANSFER_SECURE
 		);
 
-		if ($this->validation->run()) {
-			if ($this->galleries_m->updateGallery($_POST, $slug)) {
-				$this->session->set_flashdata(array('success'=>'Your gallery was saved.'));
+		if ($this->validation->run())
+		{
+			if ($this->galleries_m->updateGallery($_POST, $slug))
+			{
+				$this->session->set_flashdata('success', 'The gallery "' . $gallery->title . '" was saved.');
 			} else {
-				$this->session->set_flashdata(array('error'=>'An error occurred.'));
+				$this->session->set_flashdata('error', 'An error occurred.');
 			}
 			redirect('admin/galleries');
 		}
 
+		$this->data->gallery =& $gallery;
 		$this->layout->create('admin/form', $this->data);
   
     }
     
     // Admin: Delete a Gallery
-    function delete($slug = '') {
-        // Delete one
-		if($slug)
+    function delete($slug = '')
+    {
+		// An ID was passed in the URL, lets delete that
+		$slugs_array = ($slug > 0) ? array($slug) : $this->input->post('action_to');
+		
+		if(empty($slugs_array))
+    	{
+			$this->session->set_flashdata('error', 'You need to select one or more galleries to delete.');
+			redirect('admin/galleries/index');
+		}
+        
+		$deleted = 0;
+		foreach ($slugs_array as $slug)
 		{
 			if($this->_delete_directory(APPPATH.'assets/img/galleries/'.$slug))
 			{
 				if($this->galleries_m->deleteGallery($slug))
 				{
-					$this->session->set_flashdata('success', 'Gallery '.$slug.' successfully deleted.');
-				} else {
+					$deleted++;
+				}
+				
+				else
+				{
 					$this->session->set_flashdata('error', 'Error occurred while trying to delete gallery '.$slug);
 				}
-			} else {
+			}
+			
+			else
+			{
 				$this->session->set_flashdata('error', 'Unable to delete dir '.$slug);
 			}
-		} else {
-		// Delete multiple
-			if(isset($_POST['delete']))
-			{
-				$deleted = 0;
-				$to_delete = 0;
-				foreach ($this->input->post('delete') as $slug => $value)
-				{
-					if($this->_delete_directory(APPPATH.'assets/img/galleries/'.$slug))
-					{
-						if($this->galleries_m->deleteGallery($slug))
-						{
-							$deleted++;
-						} else {
-							$this->session->set_flashdata('error', 'Error occurred while trying to delete gallery '.$slug);
-						}
-					} else {
-						$this->session->set_flashdata('error', 'Unable to delete dir '.$slug);
-					}
-					$to_delete++;
-				}
-				if( $deleted > 0 ) $this->session->set_flashdata('success', $deleted.' galleries out of '.$to_delete.' successfully deleted.');
-			} else {
-				$this->session->set_flashdata('error', 'You need to select galleries first.');
-			}
 		}
-
+		
+		if( $deleted > 0 )
+		{
+			$this->session->set_flashdata('success', $deleted.' galleries out of '.count($slugs_array).' successfully deleted.');
+		}
+		
 		redirect('admin/galleries/index');
     }
 
@@ -227,23 +229,22 @@ class Admin extends Admin_Controller {
 		
 		return true; 
 	}
-
- 	// Admin: Delete Gallery Photos
-    function deletephoto() {
-    	if (!$this->input->post('btnDelete')) redirect('admin/galleries/index');
-        foreach ($this->input->post('delete') as $photos => $value) {
-            $this->galleries_m->deleteGalleryPhoto($photos);
-        }
-        redirect('admin/galleries/index');
-        return;
-    }
     
     // Admin: Upload a photo
-    function upload($slug = '') {
+    function manage($slug = '') {
 		
-		if (empty($slug)) exit('admin/galleries/index');
+		if (empty($slug)) redirect('admin/galleries/index');
 
-		$this->load->library('validation');
+		$this->data->gallery = $this->galleries_m->getGallery($slug); 
+		$this->data->photos = $this->galleries_m->getPhotos($slug);  
+		
+		$this->layout->create('admin/manage', $this->data);
+    }
+    
+    
+    function upload($slug = '')
+    {
+    	$this->load->library('validation');
 		$rules['userfile'] = 'trim';
 		$rules['description'] = 'trim|required';
 		$this->validation->set_rules($rules);
@@ -255,22 +256,73 @@ class Admin extends Admin_Controller {
     	$upload_cfg['overwrite'] = TRUE;
 		$this->load->library('upload', $upload_cfg);
 		
-		if (($this->validation->run()) && ($this->upload->do_upload())) {
+		if (($this->validation->run()) && ($this->upload->do_upload()))
+		{
 		    $image = $this->upload->data();
-		    $this->galleries_m->addPhoto($image, $slug, $this->input->post('description'));
+		    
+		    if( $this->galleries_m->addPhoto($image, $slug, $this->input->post('description')) )
+		    {
+		    	$this->session->set_flashdata('success', 'Image "'.$image['file_name'].'" uploaded successfully.');
+			}
+			
+			else
+			{
+				$this->session->set_flashdata('error', 'An error occurred uploading the image "'.$image['file_name'].'".');
+		    }
 		}
-            
-		$this->data->photos = $this->galleries_m->getPhotos($slug);
 		
-		$this->layout->create('admin/upload', $this->data);
+		redirect('admin/galleries/manage/'.$slug);
+              	
+    }
+
+ 	// Admin: Delete Gallery Photos
+    function delete_photo($id = 0)
+    {
+        $gallery = $this->input->post('gallery');
+        
+        $ids_array = ( $id > 0 ) ? array($id) : $this->input->post('action_to');
+        
+        if(empty($ids_array))
+    	{
+			$this->session->set_flashdata('error', 'You need to select one or more photos to delete.');
+		}
+		
+		else
+		{
+			$deleted = 0;
+			foreach ($ids_array as $photo_id)
+        	{
+            	if($this->galleries_m->deleteGalleryPhoto($photo_id))
+            	{
+            		$deleted++;
+            	}
+        	}
+        	
+        	if($deleted > 0)
+        	{
+        		$this->session->set_flashdata('success', 'Deleted '.$deleted.' image(s) successfully.');
+        	}
+        	
+        	else
+        	{
+        		$this->session->set_flashdata('notice', 'No images were deleted.');
+        	}
+		}
+		
+        redirect('admin/galleries/manage/'.$gallery);
     }
     
     // Callback: from create()
-    function _createTitleCheck($title = '') {
-        if ($this->galleries_m->checkTitle($title)) {
+    function _createTitleCheck($title = '')
+    {
+        if ($this->galleries_m->checkTitle($title))
+        {
             $this->validation->set_message('_createTitleCheck', 'A gallery with this name already exists.');
             return FALSE;
-        } else {
+        } 
+        
+        else
+        {
             return TRUE;
         }
     }

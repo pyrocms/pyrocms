@@ -6,17 +6,35 @@ class Suppliers_m extends Model {
         parent::Model();
     }
     
-    function getSupplier($slug = '') {
-        $this->db->select('suppliers.*');
-        $query = $this->db->getwhere('suppliers', array('suppliers.slug'=>$slug));
-        if ($query->num_rows() > 0) {
+    public function getById($id = 0)
+    {
+    	$this->db->where('id', $id);
+    	return $this->get();
+    }
+    
+    public function getBySlug($slug = '')
+    {
+    	$this->db->where('slug', $slug);
+    	return $this->get();
+    }
+    
+    
+    private function get($slug = '')
+    {
+        $query = $this->db->get('suppliers');
+        
+        if ($query->num_rows() > 0)
+        {
             return $query->row();
-        } else {
+        }
+        
+        else
+        {
             return FALSE;
         }
     }
 
-    function getSuppliers($params = '') {
+    public function getSuppliers($params = '') {
 
     	$this->db->select('suppliers.*');
     	$this->db->order_by('title', 'asc');
@@ -36,12 +54,12 @@ class Suppliers_m extends Model {
         }
     }
 
-    function countSuppliers($params = array())
+    public function countSuppliers($params = array())
     {
 		return $this->db->count_all_results('suppliers');
     }
     
-    function newSupplier($input = array()) {
+    public function newSupplier($input = array()) {
         $this->load->helper('date');
         
         $slug = url_title($input['title']);
@@ -67,7 +85,7 @@ class Suppliers_m extends Model {
         return $id;
     }
     
-    function updateSupplier($id = '', $input = array()) {
+    public function updateSupplier($id = '', $input = array()) {
         $this->load->helper('date');
 
 		$db_array = array(
@@ -88,14 +106,14 @@ class Suppliers_m extends Model {
         }
     }
     
-    function deleteSupplier($id) {
+    public function deleteSupplier($id) {
         $this->db->delete('suppliers', array('id'=>$id));
         $this->db->delete('suppliers_categories', array('supplier_id'=>$id));
         @unlink($folder.$file);
 		return $this->db->affected_rows();
     }
 
-	function getCategoryies($id) {
+	public function getCategoryies($id) {
 		$this->db->select('category_id');
         $query = $this->db->getwhere('suppliers_categories', array('supplier_id'=> $id));
         if ($query->num_rows() > 0) {

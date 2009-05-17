@@ -24,7 +24,7 @@
 	
 		<? foreach ($products as $product): ?>
 		<tr>
-			<td><input type="checkbox" name="delete" value="<?= $product->id; ?>" /></td>
+			<td><input type="checkbox" name="action_to[]" value="<?= $product->id; ?>" /></td>
 			<td><?= anchor('admin/products/edit/' . $product->id, $product->title);?></td>
 			<td>
 			<? if($product->supplier_title): ?>
@@ -51,4 +51,5 @@
 </table>
 
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
-<?=form_close();?>
+
+<?=form_close();?>

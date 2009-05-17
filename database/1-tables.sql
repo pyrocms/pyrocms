@@ -33,8 +33,8 @@ CREATE TABLE `emails` (
 
 CREATE TABLE `galleries` (
   `id` int(11) NOT NULL auto_increment,
-  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `description` text collate utf8_unicode_ci NOT NULL,
   `parent` int(11) NOT NULL default '0',
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
