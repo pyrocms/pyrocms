@@ -18,6 +18,17 @@ minimise or totally remove downtime during upgrade.
 		ADD  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
 		ADD  `meta_description` text collate utf8_unicode_ci NOT NULL;
 		
+	ALTER TABLE settings
+		MODIFY	`type` set('text','textarea','password','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL;
+	
+	DELETE FROM settings WHERE slug = "meta_description" or slug = "meta_keywords";
+	
+	INSERT INTO settings VALUES ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter');
+	INSERT INTO settings VALUES ('twitter_password','Password','Twitter password.','password','','','','0','1','twitter');
+	INSERT INTO settings VALUES ('twitter_news','Twitter &amp; News integration.','Would you like to post links to new news articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter');
+	INSERT INTO settings VALUES ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter');
+
+
 2. Clear the 'application/cache/pages_m' directory.
 
 3. Replace old files with new files.
