@@ -118,7 +118,7 @@ CREATE TABLE `pages` (
   UNIQUE KEY `Language Unique` (`slug`,`lang`),
   KEY `slug` (`slug`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
 
 CREATE TABLE `permission_roles` (
