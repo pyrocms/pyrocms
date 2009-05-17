@@ -7,6 +7,12 @@
 
 <?= form_open($this->uri->uri_string()); ?>
 
-<div class="field">	<label for="title">Title</label>	<?= form_input('title', $category->title, 'class="text"'); ?></div><? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+<div class="field">
+	<label for="title">Title</label>
+	<?= form_input('title', $category->title, 'class="text"'); ?>
+	<span class="required-icon tooltip">Required</span>
+</div>
+
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

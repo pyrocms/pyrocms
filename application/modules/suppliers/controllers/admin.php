@@ -1,15 +1,18 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
+class Admin extends Admin_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::Admin_Controller();
         $this->load->model('suppliers_m');
         $this->load->module_model('categories', 'categories_m');
     }
 
     // Admin: List Suppliers
-    function index() {
+    function index()
+    {
         // Create pagination links
     	$total_rows = $this->suppliers_m->countSuppliers();
     	$this->data->pagination = create_pagination('admin/suppliers/index', $total_rows);
@@ -22,7 +25,8 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Create new Supplier
-    function create() {
+    function create()
+    {
         $this->load->library('validation');
         
         $rules['title'] = 'trim|required|max_length[40]|callback__check_title';
@@ -36,8 +40,8 @@ class Admin extends Admin_Controller {
         $fields['userfile'] = 'Logo';
         $this->validation->set_fields($fields);
         
-        if ($this->validation->run()) {
-			
+        if ($this->validation->run())
+        {
 			$upload_cfg['upload_path'] = APPPATH.'assets/img/suppliers';
             $upload_cfg['allowed_types'] = 'gif|jpg|png';
     		$upload_cfg['encrypt_name'] = true;
@@ -77,18 +81,20 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Edit a Supplier
-    function edit($slug = '') {  
-		
-		if (empty($slug)) redirect('admin/suppliers/index');
+    function edit($id = 0)
+    {
+		if (empty($id)) redirect('admin/suppliers/index');
         
-        $supplier = $this->suppliers_m->getSupplier($slug);
+        $supplier = $this->suppliers_m->getById($id);
         if (!$supplier) redirect('admin/suppliers/index');
         
         $this->load->library('validation');
+        
         $rules['description'] = 'trim|required';
         $rules['url'] = 'trim|required|prep_url|max_length[100]';
         $rules['category'] = 'required';
         $this->validation->set_rules($rules);
+        
         $fields['category'] = 'Category';
         $this->validation->set_fields($fields);
         	
@@ -139,48 +145,45 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Delete a Supplier
-    function delete($id = 0) {
+    function delete($id = 0)
+    {
 		$img_folder = APPPATH.'assets/img/suppliers/';
 		
 		// An ID was passed in the URL, lets delete that
-		$id_array = ($id > 0) ? array($id) : array_keys($this->input->post('delete'));
+		$ids_array = ($id > 0) ? array($id) : $this->input->post('action_to');
 		
-		if(empty($id_array))
+		if(empty($ids_array))
     	{
-			$this->session->set_flashdata('error', 'You need to select suppliers to delete1.');
-			redirect('admin/supplirs/index');
+			$this->session->set_flashdata('error', 'You need to select one or more suppliers to delete.');
+			redirect('admin/suppliers/index');
 		}
 		
 		// Delete multiple
-		$deleted = 0;
-		$to_delete = 0;
-		foreach ($id_array as $id)
+		$deleted = array();
+		foreach ($ids_array as $id)
 		{
-			if($supplier = $this->suppliers_m->getSupplier($id))
+			if($supplier = $this->suppliers_m->getById($id))
 			{
-				if($this->suppliers_m->deleteSupplier($supplier->id))
+				if($this->suppliers_m->deleteSupplier($id))
 				{
-					$deleted++;
+					$deleted[] = $supplier->title;
 				}
 
 				else
 				{
 					$this->session->set_flashdata('error', 'Error occurred while trying to delete supplier "'.$supplier->title.'".');
-				}
-				
+				}				
 			}
 			
 			else
 			{
-				$this->session->set_flashdata('error', 'Supplier '.$id.' not found.');
+				$this->session->set_flashdata('error', 'Supplier #'.$id.' not found.');
 			}
-			
-			$to_delete++;
 		}
 		
 		if( $deleted > 0 )
 		{
-			$this->session->set_flashdata('success', $deleted.' suppliers out of '.$to_delete.' successfully deleted.');
+			$this->session->set_flashdata('success', 'Suppliers "'.implode('", "', $deleted).'" were successfully deleted.');
 		}
 		
 		redirect('admin/suppliers/index');

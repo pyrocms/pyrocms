@@ -9,7 +9,8 @@
 
 <div class="field">
 	<label for="title">Title</label>
-	<input type="text" id="title" name="title" maxlength="100" value="<?= $gallery->title; ?>" class="text" />
+	<input type="text" id="title" name="title" maxlength="255" value="<?= $gallery->title; ?>" class="text" />
+	<span class="required-icon tooltip">Required</span>
 </div>
 
 <div class="field width-two-thirds">

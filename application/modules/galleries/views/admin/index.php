@@ -30,8 +30,8 @@
                 <td><?=$gallery->num_photos;?></td>
                 <td><?=date('M d, Y', $gallery->updated_on);?></td>
                 <td><?= anchor('galleries/' . $gallery->slug, 'View', 'target="_blank"') . ' | ' .
+						anchor('admin/galleries/manage/' . $gallery->slug, 'Manage') . ' | ' .
 						anchor('admin/galleries/edit/' . $gallery->slug, 'Edit') . ' | ' .
-						anchor('admin/galleries/upload/' . $gallery->slug, 'Upload') . ' | ' .
 						anchor('admin/galleries/delete/' . $gallery->slug, 'Delete', array('class'=>'confirm')); ?>
                     </td>
                  </tr>

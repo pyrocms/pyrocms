@@ -194,14 +194,24 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Delete a Product
-    function delete() {
-
+    function delete($id = 0)
+    {
 		$img_folder = APPPATH.'assets/img/products/';
 		$img_prefixes = array('_home', '_thumb');
 		
         $this->load->library('image_lib');
-
-        foreach ($this->input->post('delete') as $product)
+		
+		// An ID was passed in the URL, lets delete that
+		$id_array = ($id > 0) ? array($id) : $this->input->post('action_to');
+		
+		if(empty($id_array))
+    	{
+			$this->session->set_flashdata('error', 'You need to select one or more products to delete.');
+			redirect('admin/products/index');
+		}
+	
+		$deleted = 0;
+        foreach ($id_array as $product)
         {
 			if($product_photos = $this->products_m->getAllImages( $product ))
 			{
@@ -234,11 +244,16 @@ class Admin extends Admin_Controller {
 				}
 			}
 			
-			// Now delte the products 
+			// Now delete the products 
 			$this->products_m->deleteProduct($product);
-			
-			$this->session->set_flashdata('success', 'This product was removed.');
+			$deleted++;
         }
+        
+		
+		if( $deleted > 0 )
+		{
+			$this->session->set_flashdata('success', $deleted.' products out of '.count($id_array).' successfully deleted.');
+		}
 
         redirect('admin/products/index');
     }

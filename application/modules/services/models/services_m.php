@@ -73,8 +73,8 @@ class Services_m extends Model {
     	), array('slug'		=> $old_slug));
     }
 
-    function deleteService($slug = '') {
-        $this->db->delete('services', array('slug'=>$slug));
+    function deleteService($id = 0) {
+        $this->db->delete('services', array('id'=> $id));
         return $this->db->affected_rows();
     }
 
