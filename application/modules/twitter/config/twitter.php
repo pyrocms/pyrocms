@@ -1,15 +1,6 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/* Note: This will soon be handled via the settings page, until then just set username and password and load view "my_tweets" */
-
-$config['twitter_news']		= FALSE;
-
-$config['twitter_username']	= 'username';
-
-$config['twitter_password']	= 'password';
-
-$config['twitter_feed_count'] = 5;
-
+// Will soon make this option into settings items along with other cache items
 $config['twitter_cache'] = 900; // 15 minutes
 	
 ?>
