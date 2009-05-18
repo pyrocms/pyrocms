@@ -20,14 +20,12 @@ insert into `permission_roles` values
 
 -- Settings are like db config files. Without these nothing will work
 truncate `settings`;
-insert into `settings` values('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
+insert into `settings` values 
+ ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
  ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','Add your slogan here','','','0','1',''),
  ('contact_email','Contact E-mail','All e-mails from users, guests and the site will go to this e-mail address.','text','admin@localhost','','','1','1',''),
  ('server_email','Server E-mail','All e-mails to users will come from this e-mail address.','text','admin@localhost','','','1','1',''),
- ('meta_keywords','Meta Keywords','Descriptive words seperated by comma to be read by search engines.','text','cms, styledna, website management, content management system','','','0','1',''),
  ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
- ('meta_description','Meta Description','A short paragraph describing this website.','textarea','A website made using PyroCMS. Full description goes here.','','','0','1',''),
- ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics'),
  ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1',''),
  ('captcha_enabled','Use Captcha','Captcha boxes are used to make sure spammers and other unwanted fake guests do not abuse input forms.','radio','1','','1=Enabled|0=Disabled','0','1',''),
  ('captcha_folder','Captcha Folder','Where should captcha image files be stored?','text','temp/captcha/','','','0','1',''),
@@ -38,7 +36,11 @@ insert into `settings` values('site_name','Site Name','The name of the website f
  ('records_per_page','Records Per Page','How many records should we show per page in the admin section?','select','25','','10=10|25=25|50=50|100=100','1','1',''),
  ('rss_feed_items','Feed item count','How many items should we show in RSS/news feeds?','select','25','','10=10|25=25|50=50|100=100','1','1',''),
  ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1',''),
- ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users');
+ ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users'),
+ ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics'),INSERT INTO settings VALUES ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter');
+ ('twitter_password','Password','Twitter password.','password','','','','0','1','twitter');
+ ('twitter_news','Twitter &amp; News integration.','Would you like to post links to new news articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter');
+ ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter');
 
 
 -- Default user. Log in as this guy and make an admin account

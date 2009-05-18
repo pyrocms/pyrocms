@@ -29,9 +29,10 @@ $comment = $this->session->flashdata('comment');
 		// add captcha
 		$this->load->plugin('captcha');
 		$vals = array(
-			'img_path'	 => $this->settings->item('captcha_folder'),
-			'img_url'	 => base_url().$this->settings->item('captcha_folder')
+			'img_path'	 => APPPATH.$this->settings->item('captcha_folder'),
+			'img_url'	 => base_url().APPPATH_URI.$this->settings->item('captcha_folder')
 		);
+
 		$cap = create_captcha($vals);
 		$this->session->set_flashdata('captcha_'.$cap['time'], $cap['word']);	
 	?>

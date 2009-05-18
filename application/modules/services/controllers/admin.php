@@ -148,19 +148,21 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Delete a Service
-    function delete($slug = '') {
+    function delete($id = 0)
+    {
+		// An ID was passed in the URL, lets delete that
+		$ids_array = ($id > 0) ? array($id) : $this->input->post('action_to');
 		
-		 // Delete one
-		if($slug):
-			$this->services_m->deleteService($slug);
-		
-		// Delete multiple
-		else:
-			foreach (array_keys($this->input->post('delete')) as $slug)
-			{
-				$this->services_m->deleteService($slug);
-			}
-		endif;
+		if(empty($ids_array))
+    	{
+			$this->session->set_flashdata('error', 'You need to select one or more services to delete.');
+			redirect('admin/services/index');
+		}
+	
+        foreach ($ids_array as $id)
+		{
+			$this->services_m->deleteService($id);
+		}
 
         $this->session->set_flashdata('success', 'The service(s) were deleted.');
 		redirect('admin/services/index');

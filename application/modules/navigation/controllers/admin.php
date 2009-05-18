@@ -19,11 +19,15 @@ class Admin extends Admin_Controller {
 		
 		 // Get Pages and create pages tree
     	$tree = array();
-    	foreach($this->pages_m->getPages() AS $page)
-    	{
-    		$tree[$page->parent][] = $page;
-    	}
-    	$this->data->pages_select = $tree;
+    	if($pages = $this->pages_m->getPages())
+	{
+		foreach($pages AS $page)
+	    	{
+    			$tree[$page->parent][] = $page;
+	    	}
+	}
+	unset($pages);
+	$this->data->pages_select = $tree;
     }
 
     // Admin: List all Pages

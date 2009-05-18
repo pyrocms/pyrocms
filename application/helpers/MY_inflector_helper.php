@@ -46,5 +46,24 @@ if ( ! function_exists('humanize'))
 }
 	
 
+// --------------------------------------------------------------------
+
+/**
+ * Keywords
+ *
+ * Takes multiple words separated by spaces and changes them to keywords
+ *
+ * @access	public
+ * @param	string
+ * @return	str
+ */	
+if ( ! function_exists('keywords'))
+{	
+	function keywords($str)
+	{
+		return preg_replace('/[\s]+/', ', ', trim($str));
+	}
+}
+
 /* End of file inflector_helper.php */
 /* Location: ./system/helpers/inflector_helper.php */

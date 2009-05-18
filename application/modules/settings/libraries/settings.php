@@ -60,6 +60,15 @@ class Settings {
         		));
         	break;
         	
+    		case 'password':
+        		$form_control = form_password(array(
+        			'id'	=>	$setting->slug,
+        			'name'	=>	$setting->slug,
+        			'value'	=>	$setting->value,
+        			'class' => 'text width-20'
+        		));
+        	break;
+        	
         	case 'select':
         		
         		$form_control = form_dropdown(

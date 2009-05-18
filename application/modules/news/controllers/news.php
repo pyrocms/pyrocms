@@ -32,22 +32,35 @@ class News extends Public_Controller {
     	
     	if(!$category) redirect('news');
     	
+    	// Count total news articles and work out how many pages exist
     	$this->data->pagination = create_pagination('news/category/'.$category, $this->news_m->countArticles(array(
     		'category'=>$category
     	)), $this->limit, 4);
     	
+    	// Get category data
         $this->data->category = $this->categories_m->getCategory($category);
         
+        // Get the current page of news articles
         $this->data->news = $this->news_m->getNews(array(
         	'category'=>$category, 
         	'limit' => $this->data->pagination['limit']
         ));
         
-        $this->layout->title('News | '.$this->data->category->title);
-        $this->layout->add_breadcrumb('News', 'news');
-        $this->layout->add_breadcrumb($this->data->category->title);
-        $this->layout->create('category', $this->data);
+        // Set meta description based on article titles
+        $meta_description = $this->_articles_metadata($this->data->news);
+        
+        // Build the page
+        $this->layout->title('News | '.$this->data->category->title)
+			
+        	->set_metadata('description', $this->data->category->title.'. '.$meta_description)
+        	->set_metadata('keywords', $this->data->category->title)
+        	
+        	->add_breadcrumb('News', 'news')
+        	->add_breadcrumb($this->data->category->title)
+        
+        	->create('category', $this->data);
     }
+    
     
     function archive($year = NULL, $month = '01') {
     	
@@ -68,10 +81,18 @@ class News extends Public_Controller {
         
         $this->data->month_year = $month_date->format("F 'y");
         
-        $this->layout->title( $this->data->month_year, 'Archive', 'News' );
-        $this->layout->add_breadcrumb('News', 'news');
-        $this->layout->add_breadcrumb('Archive: '.$month_date->format("F 'y"));
-        $this->layout->create('archive', $this->data);
+        // Set meta description based on article titles
+        $meta_description = $this->_articles_metadata($this->data->news);
+        
+        $this->layout->title( $this->data->month_year, 'Archive', 'News' )
+        	
+        	->set_metadata('description', $this->data->month_year.'. '.$meta_description)
+        	->set_metadata('keywords', $this->data->month_year)
+        
+        	->add_breadcrumb('News', 'news')
+       		->add_breadcrumb('Archive: '.$month_date->format("F 'y"))
+        	
+       		->create('archive', $this->data);
     }
     
     // Public: View an article
@@ -91,8 +112,11 @@ class News extends Public_Controller {
         
         $this->data->article =& $article;
         
-        $this->layout->title($article->title, 'News');
-        $this->layout->add_breadcrumb('News', 'news');
+        $this->layout->title($article->title, 'News')
+       		->set_metadata('description', $this->data->article->intro)
+       		->set_metadata('keywords', $this->data->article->category_title.' '.$this->data->article->title)
+        
+        	->add_breadcrumb('News', 'news');
         
         if($article->category_id > 0)
         {
@@ -101,6 +125,20 @@ class News extends Public_Controller {
         
         $this->layout->add_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
         $this->layout->create('view', $this->data);
+    }
+    
+    
+    // Private methods not used for display
+    private function _articles_metadata(&$articles = array())
+    {
+    	$description = array();
+    	// Loop through articles and use titles for meta description
+        foreach($this->data->news as &$article)
+        {
+        	$description[] = $article->title; 
+        }
+        
+        return implode(', ', $description);
     }
 
 }
