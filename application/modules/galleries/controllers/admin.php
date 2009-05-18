@@ -1,41 +1,49 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
+class Admin extends Admin_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::Admin_Controller();
+        
         $this->load->helper('galleries');
         $this->load->model('galleries_m');
     }
 
 	// Public: List Galleries
-    function index() {
+    function index()
+    {
         $this->load->helper('string');
         
-    	// Get Pages and create pages tree
+    	// Get Galleries and create pages tree
     	$tree = array();
-		if($galleries_data = $this->galleries_m->getGalleries())
-	    	foreach($galleries_data as $gallery)
+		if($galleries = $this->galleries_m->getGalleries())
+		{
+	    	foreach($galleries as $gallery)
 	    	{
 	    		$tree[$gallery->parent][] = $gallery;
 	    	}
+	    }
+	    unset($galleries);
     	$this->data->galleries =& $tree;
 
     	$this->layout->create('admin/index', $this->data);
     }
     
     // Admin: Create a new Gallery
-    function create() {
-        
-    	// Get Pages and create pages tree
+    function create()
+    {
+    	// Get Galleries and create pages tree
     	$tree = array();
-		if($galleries_data = $this->galleries_m->getGalleries())
+		if($galleries = $this->galleries_m->getGalleries())
 		{
-	    	foreach($galleries_data AS $data)
+	    	foreach($galleries as $gallery)
 	    	{
-	    		$tree[$data->parent][] = $data;
+	    		$tree[$gallery->parent][] = $gallery;
 	    	}
-		}
+	    }
+	    unset($galleries);
     	$this->data->galleries = $tree;
     	
     	$this->load->library('validation');
@@ -256,19 +264,32 @@ class Admin extends Admin_Controller {
     	$upload_cfg['overwrite'] = TRUE;
 		$this->load->library('upload', $upload_cfg);
 		
-		if (($this->validation->run()) && ($this->upload->do_upload()))
+		if ($this->validation->run())
 		{
-		    $image = $this->upload->data();
-		    
-		    if( $this->galleries_m->addPhoto($image, $slug, $this->input->post('description')) )
-		    {
-		    	$this->session->set_flashdata('success', 'Image "'.$image['file_name'].'" uploaded successfully.');
+			if($this->upload->do_upload())
+			{
+				$image = $this->upload->data();
+				
+				if( $this->galleries_m->addPhoto($image, $slug, $this->input->post('description')) )
+				{
+					$this->session->set_flashdata('success', 'Image "'.$image['file_name'].'" uploaded successfully.');
+				}
+				
+				else
+				{
+					$this->session->set_flashdata('error', 'An error occurred uploading the image "'.$image['file_name'].'".');
+				}
 			}
 			
 			else
 			{
-				$this->session->set_flashdata('error', 'An error occurred uploading the image "'.$image['file_name'].'".');
-		    }
+				$this->session->set_flashdata('error', $this->upload->display_errors());
+			}
+		}
+		
+		else
+		{
+			$this->session->set_flashdata('error', $this->validation->error_string);
 		}
 		
 		redirect('admin/galleries/manage/'.$slug);
