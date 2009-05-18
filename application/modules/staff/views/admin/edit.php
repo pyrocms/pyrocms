@@ -52,7 +52,7 @@
 
 <div class="field">
 	<label>Biography</label>
-	<?= $this->spaw->show(); ?>
+	<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $member->body, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
 </div>
 
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>

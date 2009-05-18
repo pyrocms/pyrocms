@@ -21,38 +21,14 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Create a New package
-    function create() {
+    function create()
+    {
         $this->load->library('validation');
         $rules['title'] = 'trim|required|callback__createTitleCheck';
         $rules['description'] = 'trim|required';
 
         $this->validation->set_rules($rules);
         $this->validation->set_fields();
-        
-        $config = array('name'=>'description', 'content'=>$this->validation->description);
-        $this->load->library('spaw', $config);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/packages/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/packages/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
         
         if ($this->validation->run())
         {
@@ -74,12 +50,15 @@ class Admin extends Admin_Controller {
     		$this->data->package->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
     	}
     	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
     // Admin: Edit a package
-    function edit($slug = '') {
-
+    function edit($slug = '')
+    {
     	if (!$slug)
     	{
     		redirect('admin/packages/index');
@@ -96,54 +75,49 @@ class Admin extends Admin_Controller {
     	foreach(array_keys($rules) as $field)
     	{
     		if(isset($_POST[$field]))
+    		{
     			$this->data->package->$field = $this->validation->$field;
-    	}
-    	 
-    	$spaw_cfg = array('name'=>'description', 'content'=>$this->data->package->description);
-    	$this->load->library('spaw', $spaw_cfg);
-    	// setting directories for a SPAW editor instance:
-    	$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-	    	array(
-		    	array(
-			    	'dir'     => '/uploads/packages/flash/',
-			    	'caption' => 'Flash movies', 
-			    	'params'  => array('allowed_filetypes' => array('flash'))
-		    	),
-    			array(
-					'dir'     => '/uploads/packages/images/',
-				    'caption' => 'Images',
-				    'params'  => array('default_dir' => true, 'allowed_filetypes' => array('images') )
-    			),
-    		),
-    		SPAW_CFG_TRANSFER_SECURE
-    	);
+    		}
+    	}    	 
 
-    	if ($this->validation->run()) {
-    		if ($this->packages_m->updatePackage($_POST, $slug)) {
-    			$this->session->set_flashdata(array('success'=>'The package was saved.'));
-    		} else {
+    	if ($this->validation->run())
+    	{
+    		if ($this->packages_m->updatePackage($_POST, $slug))
+    		{
+    			$this->session->set_flashdata('success', 'The package "'.$this->input->post('title').'" was saved.');
+    		}
+    		
+    		else
+    		{
     			$this->session->set_flashdata(array('error'=>'An error occurred.'));
     		}
+    		
     		redirect('admin/packages/index', $this->data);
     	}
     	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
     	$this->layout->create('admin/form', $this->data);
     }
     
     // Admin: Delete a package
-    function delete($slug = '') {
-    	
+    function delete($slug = '')
+    {
         // Delete one
-		if($slug):
+		if($slug)
+		{
 			$this->packages_m->deletePackage($slug);
+		}
 		
 		// Delete multiple
-		else:
-			foreach ($this->input->post('delete') as $category => $value):
+		else
+		{
+			foreach ($this->input->post('delete') as $category => $value)
+			{
 	            $this->packages_m->deletePackage($category);
-	        endforeach;
-	    endif;
+			}
+		}
 	    
 	    $this->session->set_flashdata('success', 'The package has been deleted.');
         redirect('admin/packages/index');
@@ -151,9 +125,10 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: List all packages
-    function show() {
-
-        if ($this->input->post('btnSave')) {
+    function show()
+    {
+        if ($this->input->post('btnSave'))
+        {
             $this->packages_m->updateFeatured($this->input->post('featured'));
         }
         

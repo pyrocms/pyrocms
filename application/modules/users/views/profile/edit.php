@@ -33,7 +33,7 @@ fieldset dl dd input, fieldset dl dd textarea {
 			<dt>
 			
 			<dt><label for="bio"><?=lang('profile_bio') ?></label></dt>
-			<dd><?=form_textarea(array('name'=>'bio', 'value'=>$profile->bio, 'cols'=>60, 'rows'=>8)); //= $this->spaw->show(); ?></dd>
+			<dd><?=form_textarea(array('name'=>'bio', 'value'=>$profile->bio, 'cols'=>60, 'rows'=>8)); ?></dd>
 			
 		</dl>
 	</fieldset>

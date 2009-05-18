@@ -50,6 +50,7 @@
 	</div>
 	
 	<div class="field spacer-left">
+		<label for="intro">Introduction</label>
 		<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $article->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 	</div>
 	

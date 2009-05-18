@@ -1,14 +1,17 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
+class Admin extends Admin_Controller
+{
 
-	function __construct() {
+	function __construct()
+	{
 		parent::Admin_Controller();
 		$this->load->model('staff_m');
 	}
 
 	// Admin: List all Staff Members
-	function index() {
+	function index()
+	{
 		// Create pagination links
     	$total_rows = $this->staff_m->countStaff();
     	$this->data->pagination = create_pagination('admin/staff/index', $total_rows);
@@ -20,7 +23,8 @@ class Admin extends Admin_Controller {
 	}
 
 	// Admin: Create a new Staff Member
-	function create() {
+	function create()
+	{
 		$this->load->library('validation');
 		
 		$rules['user_id'] = 'trim|numeric';
@@ -32,10 +36,11 @@ class Admin extends Admin_Controller {
 		$rules['fact'] = 'trim';
 		
 		// No user id? Force a name & email out of them
-		if(!$this->input->post('user_id')):
+		if(!$this->input->post('user_id'))
+		{
 			$rules['name'] .= '|required|max_length[40]|callback__name_check';
 			$rules['email'] .= '|required|valid_email';
-		endif;
+		}
 		
 		$this->validation->set_rules($rules);
 		
@@ -88,32 +93,11 @@ class Admin extends Admin_Controller {
 			show_error($this->upload->display_errors());
 		}
 		
-		$spaw_cfg = array('name'=>'body', 'content'=>$this->validation->body);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/staff/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/staff/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-            
 		$this->_user_select();
+		
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
 		$this->layout->create('admin/create', $this->data);
 	}
 
@@ -131,10 +115,11 @@ class Admin extends Admin_Controller {
 		$rules['userfile'] = 'trim';
 		
 		// No user id? Force a name & email out of them
-		if(!$this->input->post('user_id')):
+		if(!$this->input->post('user_id'))
+		{
 			$rules['name'] .= '|required|max_length[40]';
 			$rules['email'] .= '|required|valid_email';
-		endif;
+		}
 		
 		$this->validation->set_rules($rules);
 		
@@ -146,7 +131,9 @@ class Admin extends Admin_Controller {
         foreach(array_keys($rules) as $field)
         {
         	if(isset($_POST[$field]))
+        	{
         		$this->data->member->$field = $this->validation->$field;
+        	}
         }
 		
 		if ($this->validation->run()) 
@@ -194,37 +181,16 @@ class Admin extends Admin_Controller {
 		}	
 	    
 		$this->_user_select();
-		
-		$spaw_cfg = array('name'=>'body', 'content'=>$this->data->member->body);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/staff/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/staff/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-		
+
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+				
 		$this->layout->create('admin/edit', $this->data);
 	}
 
 	// Admin: Delete a Staff Member
-	function delete($slug = '') {
+	function delete($slug = '')
+	{
     	$img_folder = APPPATH.'assets/img/staff/';
 
     	$slug_array = ($slug) ? array($slug) : array_keys($this->input->post('delete'));
