@@ -77,6 +77,10 @@ class Admin extends Admin_Controller
 				
         
 		$this->data->categories = $this->categories_m->getCategories();
+    	
+		// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
 		$this->layout->create('admin/create', $this->data);
     }
     
@@ -140,6 +144,9 @@ class Admin extends Admin_Controller
 		$this->data->categories = $this->categories_m->getCategories();
 		
 		$this->data->supplier =& $supplier;
+		
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
 		
  		$this->layout->create('admin/edit', $this->data);
     }

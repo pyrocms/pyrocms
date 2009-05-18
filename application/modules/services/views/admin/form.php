@@ -19,7 +19,7 @@
 
 <div class="field">
 	<label for="description">Description</label>
-	<?= $this->spaw->show(); ?>
+	<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $service->description, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
 </div>
 
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>

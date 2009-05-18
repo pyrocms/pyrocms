@@ -3,11 +3,12 @@
 <div class="field">
 	<label for="title">Title</label>
 	<?= form_input('title', $package->title, 'class="text"'); ?>
+	<span class="required-icon tooltip">Required</span>
 </div>
 
 <div class="field">
 	<label for="description">Description</label>
-	<?= $this->spaw->show(); ?>
+	<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $package->description, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
 </div>
 
 <? if( $this->uri->segment(3,'create') == 'create' ): ?>

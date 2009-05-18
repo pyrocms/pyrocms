@@ -12,7 +12,7 @@
 	</div>
 	
 	<div class="field">
-		<label fpr="email">E-mail</label>
+		<label for="email">E-mail</label>
 		<?= form_input('email', $this->validation->email, 'class="text" maxlength="40"'); ?>
 	</div>
 </div>
@@ -28,7 +28,6 @@
 	<label for="fact">Random Fact</label>
 	<?= form_input('fact', $this->validation->fact, 'class="text"'); ?>
 </div>
-<div class="field">	<label>Biography</label>
-	<?= $this->spaw->show(); ?></div>
+<div class="field">	<label for="body">Biography</label>	<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $this->validation->body, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?></div>
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

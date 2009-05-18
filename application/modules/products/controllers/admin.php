@@ -35,31 +35,6 @@ class Admin extends Admin_Controller {
         $fields['userfile'] = 'Item Photo';
         $this->validation->set_fields($fields);
         
-        $spaw_cfg = array('name'=>'description', 'content'=>$this->validation->description);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/products/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/products/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-        
         if ($this->validation->run()) {
             $upload_cfg['upload_path'] = APPPATH.'assets/img/products';
 			$upload_cfg['overwrite'] = TRUE;
@@ -87,7 +62,10 @@ class Admin extends Admin_Controller {
         $this->load->module_model('suppliers', 'suppliers_m');
         $this->data->categories = $this->categories_m->getCategories();
         $this->data->suppliers = $this->suppliers_m->getSuppliers();
-        
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
@@ -132,37 +110,16 @@ class Admin extends Admin_Controller {
         $fields['supplier_slug'] = 'Supplier';
         $this->validation->set_fields($fields);
         
-        foreach(array_keys($rules) as $field) {
+        foreach(array_keys($rules) as $field)
+        {
         	if(isset($_POST[$field]))
+        	{
         		$this->data->product->$field = $this->validation->$field;
+        	}
         }
 	        
-        $spaw_cfg = array('name'=>'description', 'content'=>$this->data->product->description);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-        $this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/products/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/products/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-
-        if ($this->validation->run()) {
+        if ($this->validation->run())
+        {
         	$this->products_m->updateProduct($id, $_POST);
 			$this->session->set_flashdata('success', 'The product "'.$this->input->post('title').'" was saved.');
 			
@@ -172,25 +129,34 @@ class Admin extends Admin_Controller {
         $this->load->module_model('suppliers', 'suppliers_m');
         $this->data->categories = $this->categories_m->getCategories();
         $this->data->suppliers = $this->suppliers_m->getSuppliers();
-        
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
     // Admin: Make Product Photo its default Photo to display.
-    function makedefault() {
+    function makedefault()
+    {
     	$this->products_m->makedefault($this->uri->segment(4));
         redirect('admin/products/index');
-        return;
     }
         
     // Admin: Delete Product Photos
-    function deletephoto() {
-    	if (!$this->input->post('btnDelete')) redirect('admin/products/index');
-        foreach ($this->input->post('delete') as $photos => $value) {
+    function deletephoto()
+    {
+    	if (!$this->input->post('btnDelete')) 
+    	{
+    		redirect('admin/products/index');
+    	}
+    	
+        foreach ($this->input->post('delete') as $photos => $value)
+        {
             $this->products_m->deleteProductPhoto($photos);
         }
+        
         redirect('admin/products/index');
-        return;
     }
     
     // Admin: Delete a Product

@@ -7,6 +7,8 @@
 		
 		<? endforeach; ?>
 	</div>
-</div><div class="field">	<label>Change Logo</label>	<input type="file" class="text" name="userfile" id="userfile" /></div><div class="field">	<label>Description</label>	<textarea name="description" class="text" id="description" rows="10" cols="60"><?= $supplier->description; ?></textarea></div>
+</div><div class="field">	<label>Change Logo</label>	<input type="file" class="text" name="userfile" id="userfile" /></div><div class="field">	<label>Description</label>	<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $supplier->description, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
+</div>
+
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

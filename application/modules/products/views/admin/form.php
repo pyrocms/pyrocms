@@ -25,7 +25,9 @@
 	<input type="file" name="userfile" id="userfile" class="text" />
 </div>
 <? endif; ?>
-<div class="field">	<label for="body">Description</label>	<?= $this->spaw->show(); ?></div>
+<div class="field">	<label for="description">Description</label>	<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $product->description, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
+</div>
+
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 
 <?= form_close(); ?>

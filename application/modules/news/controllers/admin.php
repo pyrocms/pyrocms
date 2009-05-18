@@ -72,8 +72,8 @@ class Admin extends Admin_Controller {
     		$article->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
     	}
         
-        if ($this->validation->run()) {
-
+        if ($this->validation->run())
+        {
         	if ($this->news_m->newArticle($_POST))
         	{
                 $this->session->set_flashdata('success', 'The article "'.$this->input->post('title').'" was added.');
@@ -94,7 +94,6 @@ class Admin extends Admin_Controller {
             }
             
             redirect('admin/news/index');
-            
         }
         
     	$this->data->article =& $article;

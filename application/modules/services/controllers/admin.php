@@ -1,8 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
+class Admin extends Admin_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::Admin_Controller();
         $this->load->module_model('services', 'services_m');
         
@@ -16,7 +18,8 @@ class Admin extends Admin_Controller {
        	);
     }
 
-    function index() {
+    function index()
+    {
         $this->load->helper('text');
 		
         // Create pagination links
@@ -30,7 +33,8 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Create a New Service
-    function create() {
+    function create()
+    {
         $this->load->library('validation');
         $rules['title'] = 'trim|required|callback__createTitleCheck';
         $rules['description'] = 'trim|required';
@@ -39,33 +43,9 @@ class Admin extends Admin_Controller {
         $this->validation->set_rules($rules);
         $this->validation->set_fields();
         
-        $config = array('name'=>'description', 'content'=>$this->validation->description);
-        $this->load->library('spaw', $config);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/services/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/services/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
         
-        if ($this->validation->run()) {
-        	
+        if ($this->validation->run())
+        {
             if ($this->services_m->newService($_POST))
             {
                 $this->session->set_flashdata('success', 'The service "'.$this->input->post('title').'" was added.');
@@ -83,13 +63,16 @@ class Admin extends Admin_Controller {
 		{
         	$this->data->service->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
         }
-        
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
     // Admin: Edit a Service
-    function edit($slug = '') {
-		
+    function edit($slug = '')
+    {
     	// No service to edit
         if (!$slug) redirect('admin/services/index');
             
@@ -109,31 +92,6 @@ class Admin extends Admin_Controller {
         	$this->data->service->$field = $this->validation->$field;
         }
 
-        $spaw_cfg = array('name'=>'description', 'content'=>$this->data->service->description);
-        $this->load->library('spaw', $spaw_cfg);
-        // setting directories for a SPAW editor instance:
-        $this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-	        array(
-		        array(
-			    	'dir'     => '/uploads/services/flash/',
-			    	'caption' => 'Flash movies', 
-			     	'params'  => array(
-			        'allowed_filetypes' => array('flash')
-		        	)
-		        ),
-		        array(
-			    	'dir'     => '/uploads/services/images/',
-			    	'caption' => 'Images',
-			    	'params'  => array(
-			    	'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-		        	)
-		        ),
-	        ),
-	        SPAW_CFG_TRANSFER_SECURE
-        );
-
         if ($this->validation->run()) {
         	if ($this->services_m->updateService($_POST, $slug)) {
         		$this->session->set_flashdata(array('success'=>'The service "'.$this->input->post('title').'" was saved.'));
@@ -143,7 +101,10 @@ class Admin extends Admin_Controller {
         		$this->session->set_flashdata(array('error'=>'An error occurred.'));
         	}
         }
-        
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
