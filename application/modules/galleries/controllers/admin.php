@@ -66,6 +66,9 @@ class Admin extends Admin_Controller
             redirect('admin/galleries');
         }
         
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
 
@@ -114,6 +117,10 @@ class Admin extends Admin_Controller
 		}
 
 		$this->data->gallery =& $gallery;
+		
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
 		$this->layout->create('admin/form', $this->data);
   
     }

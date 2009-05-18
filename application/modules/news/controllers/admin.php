@@ -59,7 +59,8 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Create a new article
-    function create() {
+    function create()
+    {
         $this->load->library('validation');
         $this->rules['title'] .= '|callback__createTitleCheck';
         $this->validation->set_rules($this->rules);
@@ -97,12 +98,16 @@ class Admin extends Admin_Controller {
         }
         
     	$this->data->article =& $article;
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
     // Admin: Edit an article
-    function edit($id = 0){
-
+    function edit($id = 0)
+    {
     	if (!$id) redirect('admin/news/index');
     		
     	$this->load->library('validation');
@@ -146,6 +151,10 @@ class Admin extends Admin_Controller {
     	}
     	
     	$this->data->article =& $article;
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
     	$this->layout->create('admin/form', $this->data);
     }
     

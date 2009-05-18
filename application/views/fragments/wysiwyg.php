@@ -9,7 +9,14 @@
 		mode : "specific_textareas",
 		editor_selector : "wysiwyg-simple",
 		editor_class : "wysiwyg-simple",
-		theme : "basic"
+		theme : "advanced",
+		
+		
+		width : 325,
+		
+		// Theme options
+		theme_advanced_buttons1 : "bold,italic,underline,strikethrough",
+		theme_advanced_buttons2 : '',
 			
     });
 
