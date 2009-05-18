@@ -38,38 +38,15 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Create a new Page
-    function create() {
+    function create()
+    {
 
         $this->load->library('validation');
 
         $this->validation->set_rules($this->rules);
         $this->validation->set_fields();
         
-        $spaw_cfg = array('name'=>'body', 'content'=>$this->validation->body);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/pages/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/pages/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-
+        
 		// Validate the page
         if ($this->validation->run())
         {
@@ -97,12 +74,19 @@ class Admin extends Admin_Controller {
     	
 		// Get Pages and create pages tree
     	$tree = array();
-    	$this->data->pages = $this->pages_m->getPages();
-    	foreach(@$this->data->pages AS $data)
+    	if($pages = $this->pages_m->getPages())
     	{
-    		$tree[$data->parent][] = $data;
-    	}
+			foreach(@$pages AS $data)
+			{
+				$tree[$data->parent][] = $data;
+			}
+		}
+		unset($pages);
     	$this->data->pages = $tree;
+    	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
     	
         $this->layout->create('admin/form', $this->data);
     }
@@ -134,39 +118,19 @@ class Admin extends Admin_Controller {
         $this->validation->set_rules($this->rules);
         $this->validation->set_fields();
 
-        foreach(array_keys($this->rules) as $field) {
+        foreach(array_keys($this->rules) as $field)
+        {
         	if(isset($_POST[$field]))
         		$this->data->page->$field = $this->validation->$field;
         }
         
-        $spaw_cfg = array('name'=>'body', 'content'=>$this->data->page->body);
-        $this->load->library('spaw', $spaw_cfg);
-		// setting directories for a SPAW editor instance:
-		$this->spaw->setConfigItem(
-			'PG_SPAWFM_DIRECTORIES',
-			  array(
-			    array(
-			      'dir'     => '/uploads/pages/flash/',
-			      'caption' => 'Flash movies', 
-			      'params'  => array(
-			        'allowed_filetypes' => array('flash')
-			      )
-			    ),
-			    array(
-			      'dir'     => '/uploads/pages/images/',
-			      'caption' => 'Images',
-			      'params'  => array(
-			        'default_dir' => true, // set directory as default (optional setting)
-			        'allowed_filetypes' => array('images')
-			      )
-			    ),
-			  ),
-			  SPAW_CFG_TRANSFER_SECURE
-		);
-        
         if ($this->validation->run())
         {
 			$this->pages_m->updatePage($id, $_POST);
+			
+			// Wipe cache for this model, the content has changd
+			$this->cache->delete('pages_m');
+			
 			$this->session->set_flashdata('success', 'The page was saved.');
 
 			redirect('admin/pages/index');
@@ -175,6 +139,9 @@ class Admin extends Admin_Controller {
         // Send an array of languages to the view
     	$this->data->languages =& $this->config->item('supported_languages');
     	
+    	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		
         $this->layout->create('admin/form', $this->data);
     }
     
@@ -186,8 +153,8 @@ class Admin extends Admin_Controller {
 			
 		// Go through the array of slugs to delete
 		$page_titles = array();
-		foreach ($ids as $id):
-			
+		foreach ($ids as $id)
+		{
 			// Get the current page so we can grab the id too
 			if($page = $this->pages_m->getById($id) )
 			{
@@ -196,6 +163,10 @@ class Admin extends Admin_Controller {
 					$this->pages_m->deletePage($id);
 					$this->navigation_m->deleteLink(array('page_id' => $id));
 					
+					// Wipe cache for this model, the content has changd
+					$this->cache->delete('pages_m');
+					$this->cache->delete('navigation_m');
+			
 					$page_titles[] = $page->title;
 				}
 				
@@ -204,8 +175,7 @@ class Admin extends Admin_Controller {
 					$this->session->set_flashdata('error', 'You can not delete the home page!');
 				}
 			}
-			
-		endforeach;
+		}
 
 		// Some pages have been deleted
 		if(!empty($page_titles))

@@ -46,7 +46,7 @@
 	
 	<div class="field">
 		<label for="intro">Introduction</label>
-		<?=form_textarea(array('id'=>'intro', 'name'=>'intro', 'value' => $article->intro, 'rows'=>5)); ?>
+		<?=form_textarea(array('id'=>'intro', 'name'=>'intro', 'value' => $article->intro, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
 	</div>
 	
 	<div class="field spacer-left">
