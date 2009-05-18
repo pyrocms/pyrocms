@@ -9,7 +9,8 @@
 		<meta http-equiv="Pragma" content="no-cache" />
         
         <script type="text/javascript">
-        	var APPPATH = "<?=APPPATH_URI;?>";
+    	var APPPATH_URI = "<?=APPPATH_URI;?>";
+    	var BASE_URI = "<?=BASE_URI;?>";
         </script>
         
         <?= js('jquery/jquery.js'); ?>

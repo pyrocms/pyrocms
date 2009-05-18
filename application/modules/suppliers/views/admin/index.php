@@ -6,8 +6,8 @@
 	<tr>
 		<th class="first"><div></div></th>
 		<th><a href="#">Product</a></th>
-		<th><a href="#">Updated</a></th>
-		<th class="last"><span>Actions</span></th>
+		<th class="width-10"><a href="#">Updated</a></th>
+		<th class="last width-15"><span>Actions</span></th>
 	</tr>
   </thead>
   <tfoot>
@@ -19,17 +19,19 @@
   </tfoot>
 	
 	<tbody>
-	<? if ($suppliers):
-	foreach ($suppliers as $supplier) {
-		echo '<tr>
-                  <td><input type="checkbox" name="delete[' . $supplier->slug . ']" /></td>
-                    <td>' . $supplier->title . '</td>
-                    <td>' . date('M d, Y', $supplier->updated_on) . '</td>
-                    <td>' . anchor('admin/suppliers/edit/' . $supplier->slug, 'Edit') . ' | ' .
-							anchor('admin/suppliers/delete/' . $supplier->slug, 'Delete', array('class'=>'confirm')) . '
-                    </td>
-        	</tr>';
-	} ?>
+	<? if ($suppliers): ?>
+		
+		<? foreach ($suppliers as $supplier): ?>
+		<tr>
+              <td><input type="checkbox" name="action_to[]" value="<?= $supplier->id; ?>" /></td>
+                <td><?= $supplier->title;?></td>
+                <td><?= date('M d, Y', $supplier->updated_on);?></td>
+                <td><?= anchor($supplier->url, 'Website', 'target="_blank"') . ' | ' .
+                		anchor('admin/suppliers/edit/' . $supplier->id, 'Edit') . ' | ' .
+						anchor('admin/suppliers/delete/' . $supplier->id, 'Delete', array('class'=>'confirm'));?>
+                </td>
+    	</tr>
+		<? endforeach; ?>
 
 	<? else: ?>
         <tr><td colspan="4">There are no suppliers.</td></tr>

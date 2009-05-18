@@ -23,14 +23,14 @@
 	<? if ($services): ?>
 		<? foreach ($services as $service): ?>
 			<tr>
-				<td><input type="checkbox" name="delete[<?= $service->slug; ?>]" /></td>
+				<td><input type="checkbox" name="action_to[]" value="<?= $service->id; ?>" /></td>
 				<td><?= $service->title; ?></td>
 				<td><?= $this->settings->item('currency').$service->price . ' ' . $pay_per_options[$service->pay_per];?></td>
 				<td><?= date('M d, Y', $service->updated_on); ?></td>
 				<td>
 					<?= anchor('services/' . $service->slug, 'View', 'target="_blank"') . ' | '.
 						anchor('admin/services/edit/' . $service->slug, 'Edit') . ' | '.
-						anchor('admin/services/delete/' . $service->slug, 'Delete', array('class'=>'confirm')); ?>
+						anchor('admin/services/delete/' . $service->id, 'Delete', array('class'=>'confirm')); ?>
 				</td>
 			  </tr>
 		<? endforeach; ?>

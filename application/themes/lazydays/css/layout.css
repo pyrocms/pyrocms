@@ -146,7 +146,8 @@
 #mainMenu li a:hover,
 #mainMenu li a.here {
   color: #65EBFF;
-  border-top: 5px solid #000;
+  padding-bottom: 0;
+  border-bottom: 5px solid #000;
 }
 
 #mainMenu li a.last {

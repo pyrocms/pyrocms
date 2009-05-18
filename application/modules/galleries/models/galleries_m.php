@@ -23,6 +23,7 @@ class Galleries_m extends Model {
                                           'gallery_slug'=>$gallery_slug,
                                           'description'=>$description,
                                           'updated_on'=>now()));
+        return $this->db->insert_id();
     }
     
     function checkTitle($title = '') {

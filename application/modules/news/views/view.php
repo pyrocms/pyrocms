@@ -26,11 +26,11 @@
     
 	<fieldset class="alternative float-left width-half">
 		<legend>They said...</legend>
-		<?= $this->comments_m->getComments($this->matchbox->fetch_module(), $article->id); ?>
+		<?= $this->comments_m->getComments($this->module, $article->id); ?>
 	</fieldset>
                 
 	<fieldset class="float-right width-half">
 		<legend>You say...?</legend>
-		<?= $this->load->module_view('comments', 'form', array('module'=>'news', 'id' => $article->id)); ?> 
+		<?= $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $article->id)); ?> 
 	</fieldset>
 	

@@ -5,7 +5,7 @@ INTALL
 
 2.) Upload.
 
-3.) Run the SQL files "tables.sql" and "default_data.sql" in /database
+3.) Run the SQL files "1-tables.sql" and "2-default_data.sql" in /database
 
 4.) Set /public_html/config/config.php and /public_html/config/database.php
 

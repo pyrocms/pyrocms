@@ -10,7 +10,7 @@
 <?= form_open('admin/settings/edit'.($current_section_slug == '' ? '' : '/section/'.$current_section_slug));?>
 
 <? foreach($settings as $setting): ?>
-<div class="float-left width-half" style="min-height:7em">
+<div class="float-left width-half <?=alternator('clear-both	', '');?>" style="min-height:7em">
 		<label for="<?= $setting->slug; ?>"><?= $setting->title; ?></label>
 		<p class="text-small1"><?= $setting->description; ?></p>
 		<?=$setting->form_control; ?>
