@@ -70,6 +70,15 @@ class Public_Controller extends MY_Controller {
         $this->data->theme_view_folder = '../themes/'.$this->settings->item('default_theme').'/views/';
         $this->layout->layout_file = $this->data->theme_view_folder.'layout.php';
         
+        // Make sure whatever page the user loads it by, its telling Google the correct formatted URL
+        $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
+        
+        // If there is a news module, link to its RSS feed in the head
+        if(is_module('news'))
+        {
+			$this->layout->extra_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
+        }
+		
     	//$this->output->enable_profiler(TRUE);
     }
 
