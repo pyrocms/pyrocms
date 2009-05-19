@@ -42,21 +42,29 @@
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_resizing : true,
 
-		// Example content CSS (should be your site CSS)
-		//content_css : "css/content.css",
+		encoding : "xml",
+		entity_encoding : "raw",
 
-		// Drop lists for link/image/media/template dialogs
-		//template_external_list_url : "lists/template_list.js",
-		//external_link_list_url : "lists/link_list.js",
-		//external_image_list_url : "lists/image_list.js",
-		//media_external_list_url : "lists/media_list.js",
-
-		// Replace values for the template plugin
-		/*template_replace_values : {
-			username : "Some User",
-			staffid : "991234"
-		}*/
+		verify_html : false,
+		cleanup_serializer : 'xml',
+			
+		
     });
+    
+	// Example content CSS (should be your site CSS)
+	//content_css : "css/content.css",
+
+	// Drop lists for link/image/media/template dialogs
+	//template_external_list_url : "lists/template_list.js",
+	//external_link_list_url : "lists/link_list.js",
+	//external_image_list_url : "lists/image_list.js",
+	//media_external_list_url : "lists/media_list.js",
+
+	// Replace values for the template plugin
+	/*template_replace_values : {
+		username : "Some User",
+		staffid : "991234"
+	}*/
 	
 </script>
 <!-- /TinyMCE -->
