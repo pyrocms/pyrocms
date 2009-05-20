@@ -1,10 +1,12 @@
-$(function() {	
+$(document).livequery(function() {	
 
 	// Sort any tables with a class of 'sortable'
-	$(".listTable").tablesorter();
-
+	$(".listTable").livequery(function() {
+		$(this).tablesorter();
+	});
+	
 	// Link confirm box
-	$('a.confirm').click(function(e) {
+	$('a.confirm').live('click', function(e) {
 	
 		/*e.preventDefault();
 			
@@ -39,16 +41,15 @@ $(function() {
 		return false;
 	});
 
-	$(".tooltip").tooltip({  
+	/*$(".tooltip").tooltip({  
 		showBody:	" - ",
 		showURL:	false
-	});	
+	});*/
 
 	$("#welcome").dialog({ 
 		bgiframe: 	true, 
 		modal:		true
 	});
-	
 	
 	/* Admin left navigation dropdowns */
 	$("#side-nav li").not(".active").find("ul").hide();
@@ -63,7 +64,18 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 	});
-	
+
+});
+
+$(document).ready(function() {
+
+	$('a.ajax').ajaxify({
+         target: '#content',
+         tagToload: '#content',
+         loadHash:'attr:href',
+         title: DEFAULT_TITLE
+	});
+
 	
 	/* Facebox modal window */
    $('a[rel*=modal]').facebox({
@@ -71,5 +83,7 @@ $(function() {
 	   loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",
 	   closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif",
    });
+   
+
 	
 });

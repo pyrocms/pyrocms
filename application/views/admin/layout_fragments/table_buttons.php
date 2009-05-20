@@ -16,7 +16,7 @@
 			
 			<? elseif( $button == 'cancel' ): ?>
 			<div class="float-left">
-				<a href="<?=site_url('admin/'.$module.'/index');?>" class="button width-7">
+				<a href="<?=site_url('admin/'.$module.'/index');?>" class="button ajax width-7">
 					<strong>
 						Cancel
 						<img class="icon" alt="Cancel" src="<?=image_url('admin/icons/cancel_48.png');?>"/>
