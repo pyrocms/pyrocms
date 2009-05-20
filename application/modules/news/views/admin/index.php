@@ -1,6 +1,6 @@
 <? $this->load->helper('date');?>
       
-<?= form_open('admin/news/delete');?>
+<?= form_open('admin/news/action');?>
 
 <table border="0" class="listTable">
     
@@ -26,7 +26,7 @@
 	<? if (!empty($news)): ?>
   		<? foreach ($news as $article): ?>
 		<tr>
-			<td><input type="checkbox" name="delete[<?=$article->id;?>]" /></td>
+			<td><input type="checkbox" name="action_to[]" value="<?=$article->id;?>" /></td>
             <td><?=$article->title;?></td>
             <td><?=$article->category_title;?></td>
             <td><?=date('M d, Y', $article->created_on);?></td>
@@ -49,4 +49,4 @@
 	
 </table>
 
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete', 'publish') )); ?>
