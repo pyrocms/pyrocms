@@ -29,8 +29,8 @@ class Admin extends Admin_Controller {
     }
 
     // Admin: List all Pages
-    function index() {
-    	
+    function index()
+    {
     	$this->data->languages =& $this->config->item('supported_languages');
     	
         $this->data->pages = $this->pages_m->getPages(array('lang' => 'all', 'order' => 'title'));
@@ -40,7 +40,6 @@ class Admin extends Admin_Controller {
     // Admin: Create a new Page
     function create()
     {
-
         $this->load->library('validation');
 
         $this->validation->set_rules($this->rules);
@@ -92,9 +91,12 @@ class Admin extends Admin_Controller {
     }
 
     // Admin: Edit a Page
-    function edit($id = 0) {
-    	
-    	if (empty($id)) redirect('admin/pages/index');
+    function edit($id = 0)
+    {
+    	if (empty($id))
+    	{
+    		redirect('admin/pages/index');
+    	}
         
     	$this->page_id = $id;
     	
@@ -146,10 +148,10 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Delete Pages
-    function delete($id = 0) {
-		
+    function delete($id = 0)
+    {
     	// Delete one
-		$ids = ($id) ? array($id) : array_keys($this->input->post('delete'));
+		$ids = ($id) ? array($id) : $this->input->post('action_to');
 			
 		// Go through the array of slugs to delete
 		$page_titles = array();
@@ -191,6 +193,12 @@ class Admin extends Admin_Controller {
 			{
 				$this->session->set_flashdata('success', 'The pages "'. implode('", "', $page_titles) .'" have been deleted.');
 			}
+		}
+		
+		// For some reason, none of them were deleted
+		else
+		{
+			$this->session->set_flashdata('notice', 'No pages were deleted.');
 		}
 		
 		redirect('admin/pages/index');

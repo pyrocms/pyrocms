@@ -22,7 +22,8 @@
 		
 			<div class="field">
 				<label for="title">Title</label>
-				<?=form_input('title', $article->title, 'class="text"'); ?>
+				<?=form_input('title', $article->title, 'class="text" maxlength="100"'); ?>
+				<span class="required-icon tooltip">Required</span>
 			</div>
 			
 			<div class="field">
