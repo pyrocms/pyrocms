@@ -11,7 +11,7 @@
 	</div>
     
     <div class="tabs">
-		<ul class="clear-box">
+		<ul class="clear-both">
 			<li><a href="#fieldset1" title="Write post"><span>Content</span></a></li>
 			<li><a href="#fieldset2" title="Post date"><span>Options</span></a></li>
 		</ul>
