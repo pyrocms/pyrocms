@@ -53,7 +53,7 @@ class Admin extends Admin_Controller {
 		$this->layout->create('admin/inactive', $this->data);
 	}
 		
-	// Admin: Different actions
+	// Admin: Different form actions
 	function action()
 	{
 		switch($this->input->post('btnAction'))

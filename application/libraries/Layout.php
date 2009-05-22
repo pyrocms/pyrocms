@@ -179,9 +179,17 @@ class Layout {
      * @return    void
      */
 
-    public function extra_head($str = '')
+    public function extra_head()
     {
-    	if($str) $this->_extra_head_content .= "\t\t".$str."\n";
+    	$lines =& func_get_args();
+    	
+    	if(count($lines) > 0)
+    	{
+    		foreach($lines as $line)
+    		{
+    			$this->_extra_head_content .= "\t\t".$line."\n";
+    		}
+    	}
         return $this;
     }
     
@@ -192,7 +200,7 @@ class Layout {
      * @param    string
      * @return    void
      */
-    public function set_metadata($name, $content)
+    public function set_metadata($name, $content, $type = 'meta')
     {
         $name = htmlspecialchars(strip_tags($name));
         $content = htmlspecialchars(strip_tags($content));
@@ -204,7 +212,19 @@ class Layout {
         	$content = keywords($content);
         }
         
-    	$this->extra_head('<meta name="'.$name.'" content="'.$content.'" />');
+        switch($type)
+        {
+        	case 'meta':
+        		$meta = '<meta name="'.$name.'" content="'.$content.'" />';
+        	break;
+        	
+        	case 'link':
+        		$meta = '<link rel="'.$name.'" href="'.$content.'" />';
+        	break;
+        }
+        
+    	$this->extra_head($meta);
+    	
         return $this;
     }
 

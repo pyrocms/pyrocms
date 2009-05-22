@@ -1,10 +1,12 @@
 $(function() {	
 
 	// Sort any tables with a class of 'sortable'
-	$(".listTable").tablesorter();
-
+	$(".listTable").livequery(function() {
+		$(this).tablesorter();
+	});
+	
 	// Link confirm box
-	$('a.confirm').click(function(e) {
+	$('a.confirm').live('click', function(e) {
 	
 		/*e.preventDefault();
 			
@@ -18,7 +20,7 @@ $(function() {
 	});
 	
 	// Form submit confirm box
-	$('button[type="submit"].confirm, input[type="submit"].confirm').click(function(e) {
+	$('button[type="submit"].confirm, input[type="submit"].confirm').live('click', function(e) {
 		/*	e.preventDefault();
 			
 			button = this;
@@ -30,26 +32,24 @@ $(function() {
 		return confirm('Are you sure you wish to delete these items?');
 	});
 
-	
-	$(".tabs").tabs();
+
+	$('div.tabs').livequery(function() {
+		$(this).tabs();
+	});
 	
 
-	$(".close").click(function(){
+	$(".close").live('click', function(){
 		$(this).parents(".message").hide("fast");
 		return false;
 	});
 
-	$(".tooltip").tooltip({  
-		showBody:	" - ",
-		showURL:	false
-	});	
+	/*$('.tooltip').livequery(function() {
+		$(this).tooltip({  
+			showBody:	" - ",
+			showURL:	false
+		});
+	});*/
 
-	$("#welcome").dialog({ 
-		bgiframe: 	true, 
-		modal:		true
-	});
-	
-	
 	/* Admin left navigation dropdowns */
 	$("#side-nav li").not(".active").find("ul").hide();
 	$("#side-nav .button").click(function(){
@@ -63,13 +63,33 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 	});
-	
+
+});
+
+$(document).ready(function() {
+
+	$('a.ajax').livequery(function() {
+		$(this).ajaxify({
+	         target: '#content',
+	         tagToload: '#content',
+	         loadHash:'attr:href',
+	         title: DEFAULT_TITLE,
+	         
+	         animateOut:{opacity:'0'},
+             animateOutSpeed:500,
+             animateIn:{opacity:'1'},
+             animateInSpeed:500
+		});
+	});
+
 	
 	/* Facebox modal window */
-   $('a[rel*=modal]').facebox({
-	   opacity : 0.4,
-	   loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",
-	   closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif",
-   });
+	$('a[rel*=modal]').livequery(function() {
+		$(this).facebox({
+			opacity : 0.4,
+			loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",
+			closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif",
+		 });
+	});
 	
 });

@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
@@ -11,6 +12,8 @@
         <script type="text/javascript">
     	var APPPATH_URI = "<?=APPPATH_URI;?>";
     	var BASE_URI = "<?=BASE_URI;?>";
+
+    	var DEFAULT_TITLE = "Admin | <?= $this->settings->item('site_name'); ?>";
         </script>
         
         <?= js('jquery/jquery.js'); ?>
@@ -21,6 +24,12 @@
 		<?= js('jquery/jquery.simplemodal.js').css('jquery/confirm.css'); ?>
 		<?= js('jquery/jquery.tooltip.min.js'); ?>
 		<?= js('jquery/jquery.tablesorter.min.js'); ?>
+		
+		<? /* Added for Ajaxify */ ?>
+		<?= js('jquery/jquery.livequery.pack.js'); ?>
+		<?= js('jquery/jquery.ajaxify.js'); ?>
+		<?= js('jquery/jquery.history.fixed.js'); ?>
+		<?= js('jquery/jquery.metadata.min.js'); ?>
 		
 		<?= js('facebox.js').css('facebox.css'); ?>
 		
@@ -50,7 +59,6 @@
 				<div id="content" class="roundedBorders">
 		
 					<?=$this->load->view('admin/layout_fragments/inner_header') ?>
-					
 					
 					<!-- Inner Content -->
 					<div id="innerContent">
