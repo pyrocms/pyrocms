@@ -22,7 +22,7 @@
 		<?= js('jquery/jquery.dimensions.js'); ?>
 		<?= js('jquery/jquery.imgareaselect.js'); ?>
 		<?= js('jquery/jquery.simplemodal.js').css('jquery/confirm.css'); ?>
-		<? //js('jquery/jquery.tooltip.min.js'); ?>
+		<?= js('jquery/jquery.tooltip.min.js'); ?>
 		<?= js('jquery/jquery.tablesorter.min.js'); ?>
 		
 		<? /* Added for Ajaxify */ ?>

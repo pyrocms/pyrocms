@@ -22,11 +22,12 @@
 <? if (!empty($themes)) {
 		foreach ($themes as $theme) {
 			echo '<tr>
-					<td align="center"><input type="checkbox" name="delete[]" value="' . $theme->name . '" /></td>
+					<td align="center"><input type="checkbox" name="action_to[]" value="' . $theme->name . '" /></td>
 					<td>' . $theme->name . '</td>
 					<td>';
 			if($this->settings->item('default_theme') != $theme->name) 
-				echo anchor('admin/themes/setdefault/' . $theme->slug, 'Make Default') . ' | ' . anchor('admin/themes/delete/' . $theme->slug, 'Delete', array('class'=>'confirm'));
+				echo anchor('admin/themes/set_default/' . $theme->slug, 'Make Default', array('class' => 'ajax')) . ' | '
+				   . anchor('admin/themes/delete/' . $theme->slug, 'Delete', array('class'=>'confirm'));
 			else 
 				echo '<i>Default Theme</i>';
 			echo '	</td>

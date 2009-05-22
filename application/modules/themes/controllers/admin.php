@@ -13,7 +13,7 @@ class Admin extends Admin_Controller {
         $this->layout->create('admin/index', $this->data);
     }
 
-	function setdefault($theme_name = "")
+	function set_default($theme_name = "")
 	{
 		if($this->themes_m->setDefault($theme_name))
 		{
@@ -72,7 +72,7 @@ class Admin extends Admin_Controller {
 	{
 		$this->load->helper('file');
 		
-		$name_array = $theme_name != "" ? array($theme_name) : $this->input->post('delete');
+		$name_array = $theme_name != "" ? array($theme_name) : $this->input->post('action_to');
 		
 		// Delete multiple
 		if( !empty($name_array) )
@@ -87,7 +87,7 @@ class Admin extends Admin_Controller {
 				
 				if($this->settings->item('default_theme') == $theme_name)
 				{
-					$this->session->set_flashdata('error', 'You cant delete youre default theme "'.$theme_name.'".');
+					$this->session->set_flashdata('error', 'You cant delete the default theme "'.$theme_name.'".');
 				}
 				
 				else

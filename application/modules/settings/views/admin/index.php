@@ -18,15 +18,13 @@
 			<legend><?=$section_name;?></legend>
 		
 			<? $section_count = 1; foreach($settings[$section_slug] as $setting): ?>
-			<div class="float-left width-half">
+			<div class="field">
 					<label for="<?= $setting->slug; ?>"><?= $setting->title; ?></label>
-					<p class="text-small1"><?= $setting->description; ?></p>
-					<?=$setting->form_control; ?>
+					<div class="float-right width-40">
+						<?=$setting->form_control; ?><br/>
+						<span class="clear-both text-small1"><?= $setting->description; ?></span>
+					</div>
 			</div>
-
-			<? if($section_count == 2): $section_count = 0; ?>
-			<hr class="clear-both" />
-			<? endif; ?>
 
 			<? $section_count++; endforeach; ?>
 		
