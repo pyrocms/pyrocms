@@ -9,6 +9,7 @@ class Settings_m extends Model {
 	function get($slug = '') {
         $this->db->select('slug, type, IF(`value` = "", `default`, `value`) as `value`', FALSE);
 		$query = $this->db->getwhere('settings', array('slug'=>$slug));
+		
 		if ($query->num_rows() == 0) {
             return FALSE;
         } else {
@@ -17,7 +18,7 @@ class Settings_m extends Model {
     }
     
 	function getSettings($params = array()) {
-        $this->db->select('slug, type, title, description, `default`, `options`, IF(`value` = "", `default`, `value`) as `value`, is_required', FALSE);
+        $this->db->select('slug, type, title, description, `default`, `options`, IF(`value` = "", `default`, `value`) as `value`, is_required, module', FALSE);
 		$query = $this->db->getwhere('settings', $params);
 		
 		if ($query->num_rows() == 0) {

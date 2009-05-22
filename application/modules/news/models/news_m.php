@@ -6,7 +6,8 @@ class News_m extends Model {
         parent::Model();
     }
     
-    function checkTitle($title = '') {
+    function checkTitle($title = '')
+    {
         $this->db->select('COUNT(title) AS total');
         $query = $this->db->getwhere('news', array('slug'=>url_title($title)));
         $row = $query->row();
@@ -17,8 +18,8 @@ class News_m extends Model {
         }
     }
     
-    function getArticle($id = 0, $status = 'live') {
-    	
+    function getArticle($id = 0, $status = 'live')
+    {
     	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
        	$this->db->join('categories', 'news.category_id = categories.id', 'left');
     	
@@ -38,8 +39,8 @@ class News_m extends Model {
         }
     }
     
-    function getNews($params = array()) {
-        
+    function getNews($params = array())
+    {
     	$this->load->helper('date');
         
     	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
@@ -130,8 +131,8 @@ class News_m extends Model {
 		return $this->db->count_all_results('news');
     }
 
-    function newArticle($input = array()) {
-
+    function newArticle($input = array())
+    {
     	$this->load->helper('date');
 
     	if(isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
@@ -159,8 +160,8 @@ class News_m extends Model {
     	return $this->db->insert_id();
     }
     
-    function updateArticle($input, $id = 0) {
-
+    function updateArticle($input, $id = 0)
+    {
     	if(is_numeric($id))  $this->db->where('id', $id);
     	else  				 $this->db->where('slug', $id);
     	
@@ -182,9 +183,15 @@ class News_m extends Model {
 
     	return $this->db->update('news', $set);
     }
+    
+    function publishArticle($id = 0)
+    {
+    	$this->db->where('id', $id);
+    	return $this->db->update('news', array('status' => 'live'));
+    }
 
-	function deleteArticle($id = 0) {
-		
+	function deleteArticle($id = 0)
+	{
     	if(is_numeric($id))  $this->db->where('id', $id);
     	else  				 $this->db->where('slug', $id);
     	
@@ -194,7 +201,8 @@ class News_m extends Model {
 
     // -- Archive ---------------------------------------------
     
-    function getArchiveMonths() {
+    function getArchiveMonths()
+    {
     	$this->load->helper('date');
     	
     	$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', FALSE);
@@ -226,7 +234,8 @@ class News_m extends Model {
 
     // DIRTY frontend functions. Move to views
     
-    function getNewsHome($params = array()) {
+    function getNewsHome($params = array())
+    {
     	$this->load->helper('date');
     	
     	$this->db->where('status', 'live');

@@ -20,10 +20,6 @@
 		
 		<?= js('front.js'); ?>
 		
-		<? if(is_module('news')): ?>
-		<link rel="alternate" type="application/rss+xml" title="<?=$this->settings->item('site_name'); ?>" href="<?=site_url('news/rss'); ?>" />
-		<? endif; ?>
-	
 	  	<? /*<link rel="stylesheet" type="text/css" href="css/print.css" media="print" /> */ ?>
 
     	<?=$extra_head_content; ?>

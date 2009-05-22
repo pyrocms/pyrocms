@@ -1,46 +1,44 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
-
-    function __construct() {
+class Admin extends Admin_Controller
+{
+    function __construct()
+    {
         parent::Admin_Controller();
+        
         $this->load->model('settings_m');
 		$this->load->library('settings');
     }
 
     // Admin: List all general settings
-    function index() {
-        $this->section();
-    }
-    
-    // Admin: List all settings for this section
-    function section($section_slug = '') 
+    function index()
     {
     	$this->data->settings = array();
     	
-    	if($settings = $this->settings_m->getSettings( array('is_gui' => 1, 'module' => $section_slug) )):
-	    	foreach($settings as $setting):
-	        
+    	if($settings = $this->settings_m->getSettings( array('is_gui' => 1 )) )
+    	{
+	    	foreach($settings as $setting)
+	    	{
 				$setting->form_control = $this->settings->formControl($setting);        	
-	        	$this->data->settings[] = $setting;
-	        endforeach;
-	    endif;
-
-	    $this->data->current_section_slug = $section_slug;
-	    $this->data->setting_sections = $this->settings_m->sections();
+	        	
+				if($setting->module == '') $setting->module = 'general';
+				
+				$this->data->settings[$setting->module][] = $setting;
+				
+				$this->data->setting_sections[$setting->module] = ucfirst($setting->module);
+	    	}
+    	}
 
 	    $this->layout->create('admin/index', $this->data);
     }
 
     // Admin: Save the new settings
-    function edit() {
-
-    	$section_slug = $this->uri->segment(5, '');
-    	
+    function edit()
+    {
         $this->load->library('validation');
 
         // Create dynamic validation rules
-        foreach($this->settings_m->getSettings(array('is_gui'=>1, 'module' => $section_slug)) as $setting)
+        foreach($this->settings_m->getSettings(array('is_gui'=>1)) as $setting)
         {
         	$rules[$setting->slug] = 'trim'.($setting->is_required ? '|required' : '');
         	$fields[$setting->slug] = $setting->title;
@@ -73,15 +71,7 @@ class Admin extends Admin_Controller {
         }
         
         // Redirect user back to index page or the module/section settings they are editing
-		if($section_slug == '')
-		{
-        	redirect('admin/settings');
-    	}
-    	
-    	else
-    	{
-    		redirect('admin/settings/section/'.$section_slug);
-    	}
+        redirect('admin/settings');
     }
 }
 

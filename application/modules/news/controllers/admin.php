@@ -4,7 +4,7 @@ class Admin extends Admin_Controller {
 
 	// Validation rules to be used for create and edit
 	private $rules = array(
-		'title' 			=> 'trim|required',
+		'title' 			=> 'trim|required|ma_length[100]',
         'category_id' 		=> 'trim|numeric',
         'intro' 			=> 'trim|required',
         'body' 				=> 'trim|required',
@@ -18,8 +18,10 @@ class Admin extends Admin_Controller {
         'created_on_minute' => 'trim|numeric|required'
     );
 	
-    function __construct() {
+    function __construct()
+    {
         parent::Admin_Controller();
+        
         $this->load->model('news_m');
         $this->load->module_model('categories', 'categories_m');
         $this->load->helper('date');
@@ -33,16 +35,18 @@ class Admin extends Admin_Controller {
         $this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
         
         $this->data->categories = array();
-        if($categories = $this->categories_m->getCategories()):
-	        foreach($categories as $category):
+        if($categories = $this->categories_m->getCategories())
+        {
+	        foreach($categories as $category)
+	        {
 	        	$this->data->categories[$category->id] = $category->title;
-	        endforeach;
-	    endif;
+	        }
+        }
     }
 
-    // Admin: List Blogs
-    function index() {
-    	
+    // Admin: List news articles
+    function index()
+    {
     	// Create pagination links
     	$total_rows = $this->news_m->countArticles(array('show_future'=>TRUE, 'status' => 'all'));
     	$this->data->pagination = create_pagination('admin/news/index', $total_rows);
@@ -166,21 +170,114 @@ class Admin extends Admin_Controller {
     	$this->layout->create('admin/preview', $this->data);
     }
     
+	// Admin: Different actions
+	function action()
+	{
+		switch($this->input->post('btnAction'))
+		{
+			case 'publish':
+				$this->publish();
+			break;
+			case 'delete':
+				$this->delete();
+			break;
+			default:
+				redirect('admin/news/index');
+			break;
+		}
+	}
+    
+    // Admin: Publish an article
+    function publish($id = 0)
+    {
+    	// Delete one
+		$ids = ($id) ? array($id) : $this->input->post('action_to');
+		
+		// Go through the array of slugs to delete
+		$article_titles = array();
+		foreach ($ids as $id)
+		{
+			// Get the current page so we can grab the id too
+			if($article = $this->news_m->getArticle($id, 'all') )
+			{
+				$this->news_m->publishArticle($id);
+
+				// Wipe cache for this model, the content has changed
+				$this->cache->delete('news_m');
+		
+				$article_titles[] = $article->title;
+			}
+		}
+
+		// Some pages have been deleted
+		if(!empty($article_titles))
+		{
+			// Only deleting one page
+			if( count($article_titles) == 1 )
+			{
+				$this->session->set_flashdata('success', 'The article "'. $article_titles[0] .'" has been published.');
+			}
+			
+			// Deleting multiple pages
+			else
+			{
+				$this->session->set_flashdata('success', 'The articles "'. implode('", "', $article_titles) .'" have been published.');
+			}
+		}
+		
+		// For some reason, none of them were deleted
+		else
+		{
+			$this->session->set_flashdata('notice', 'No articles were published.');
+		}
+		
+        redirect('admin/news/index');
+    }
+    
     // Admin: Delete an article
-    function delete($id = 0) {
-		
-        // Delete one
-		if($id):
-			$this->news_m->deleteArticle($id);
-		
-		// Delete multiple
-		else:
-			foreach (array_keys($this->input->post('delete')) as $id):
+    function delete($id = 0)
+    {
+    	// Delete one
+		$ids = ($id) ? array($id) : $this->input->post('action_to');
+			
+		// Go through the array of slugs to delete
+		$article_titles = array();
+		foreach ($ids as $id)
+		{
+			// Get the current page so we can grab the id too
+			if($article = $this->news_m->getArticle($id, 'all') )
+			{
 				$this->news_m->deleteArticle($id);
-			endforeach;
-		endif;
+				
+				// Wipe cache for this model, the content has changed
+				$this->cache->delete('news_m');
 		
-	    $this->session->set_flashdata('success', 'The article was deleted.');
+				$article_titles[] = $article->title;
+			}
+		}
+
+		// Some pages have been deleted
+		if(!empty($article_titles))
+		{
+			// Only deleting one page
+			if( count($article_titles) == 1 )
+			{
+				$this->session->set_flashdata('success', 'The article "'. $article_titles[0] .'" has been deleted.');
+			}
+			
+			// Deleting multiple pages
+			else
+			{
+				$this->session->set_flashdata('success', 'The articles "'. implode('", "', $article_titles) .'" have been deleted.');
+			}
+		}
+		
+		// For some reason, none of them were deleted
+		else
+		{
+			$this->session->set_flashdata('notice', 'No articles were deleted.');
+		}
+		
         redirect('admin/news/index');
     }
 
