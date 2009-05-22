@@ -6,6 +6,6 @@
 	<script type="text/javascript">
 	try{
 	var pageTracker = _gat._getTracker("<?=$this->settings->item('google_analytic');?>");
-	pageTracker._trackPageview("<?=base_url().implode('/', $this->uri->rsegment_array());?>");
+	pageTracker._trackPageview();
 	} catch(err) {}
 </script>

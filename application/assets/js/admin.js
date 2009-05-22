@@ -43,9 +43,11 @@ $(function() {
 		return false;
 	});
 
-	/*$(".tooltip").tooltip({  
-		showBody:	" - ",
-		showURL:	false
+	/*$('.tooltip').livequery(function() {
+		$(this).tooltip({  
+			showBody:	" - ",
+			showURL:	false
+		});
 	});*/
 
 	/* Admin left navigation dropdowns */
@@ -71,7 +73,12 @@ $(document).ready(function() {
 	         target: '#content',
 	         tagToload: '#content',
 	         loadHash:'attr:href',
-	         title: DEFAULT_TITLE
+	         title: DEFAULT_TITLE,
+	         
+	         animateOut:{opacity:'0'},
+             animateOutSpeed:500,
+             animateIn:{opacity:'1'},
+             animateInSpeed:500
 		});
 	});
 
