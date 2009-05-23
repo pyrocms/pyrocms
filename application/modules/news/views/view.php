@@ -19,8 +19,7 @@
 	
 	<p><em><?=$article->intro;?></em></p>
 	
-	<p><?=$article->body;?></p>
-	
+	<?=stripslashes($article->body);?>
     
     <h3>Comments</h3>
     
