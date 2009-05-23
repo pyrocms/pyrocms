@@ -1,3 +1,3 @@
 <h2><?= $page->title; ?></h2>
 
-<?= $page->body; ?>
+<?=stripslashes($page->body);?>

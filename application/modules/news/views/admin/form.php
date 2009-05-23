@@ -32,7 +32,7 @@
 			</div>
 			
 			<div class="field spacer-left">
-				<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $article->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+				<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' =>  htmlentities(stripslashes($article->body)), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 			</div>
 	
 		</fieldset>
