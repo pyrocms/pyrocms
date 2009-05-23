@@ -83,7 +83,6 @@ class Admin extends Admin_Controller {
                 $this->session->set_flashdata('success', 'The article "'.$this->input->post('title').'" was added.');
                 
                 // The twitter module is here, and enabled!
-	    		$this->load->module_config('twitter', 'twitter');
                 if($this->settings->item('twitter_news') == 1 && $this->input->post('status') == 'live')
                 {
                 	$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.$this->input->post('created_on_month').'/'.url_title($this->input->post('title')));
@@ -126,7 +125,6 @@ class Admin extends Admin_Controller {
     			$this->session->set_flashdata(array('success'=>'The article "'.$this->input->post('title').'" was updated.'));
 
     			// The twitter module is here, and enabled!
-    			$this->load->module_config('twitter', 'twitter');
     			if($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
     			{
     				$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.str_pad($this->input->post('created_on_month'), 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
