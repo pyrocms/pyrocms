@@ -8,16 +8,16 @@
 	<tr>
 		<th class="first"><div></div></th>
 		<th><a href="#">Post</a></th>
-		<th><a href="#">Category</a></th>
-		<th><a href="#">Date</a></th>
-		<th><a href="#">Status</a></th>
+		<th class="width-10"><a href="#">Category</a></th>
+		<th class="width-10"><a href="#">Date</a></th>
+		<th class="width-5"><a href="#">Status</a></th>
 		<th class="last"><span>Actions</span></th>
 	</tr>
   </thead>
   <tfoot>
   	<tr>
   		<td colspan="6">
-  			<div class="inner"></div>
+  			<div class="inner"><? $this->load->view('admin/layout_fragments/pagination'); ?></div>
   		</td>
   	</tr>
   </tfoot>

@@ -9,7 +9,7 @@
 		<th><a href="#">Updated</a></th>
 		<th class="last"><span>Actions</span></th>
 	</tr>
-  </thead>  <tfoot>  	<tr>  		<td colspan="6">  			<div class="inner"></div>  		</td>  	</tr>  </tfoot>
+  </thead>  <tfoot>  	<tr>  		<td colspan="6">  			<div class="inner"><? $this->load->view('admin/layout_fragments/pagination'); ?></div>  		</td>  	</tr>  </tfoot>
   <tbody>	<? if ($pages):		
 		foreach ($pages as $page): ?>			<tr>
 				<td><input type="checkbox" name="action_to[]" value="<?=$page->id;?>" <?=($page->slug == 'home') ? 'disabled="disabled"' : '' ?> /></td>                    <td><?=$page->title;?></td>                    <td><?=@$this->pages_m->getById($page->parent, TRUE)->title;?></td>

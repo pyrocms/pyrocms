@@ -12,7 +12,7 @@
   <tfoot>
   	<tr>
   		<td colspan="5">
-  			<div class="inner"></div>
+  			<div class="inner"><? $this->load->view('admin/layout_fragments/pagination'); ?></div>
   		</td>
   	</tr>
   </tfoot>
