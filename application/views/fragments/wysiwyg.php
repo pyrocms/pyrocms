@@ -41,8 +41,8 @@
 
 		// Theme options
 		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,blockquote,|,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,undo,redo,|,search,replace,|,bullist,numlist,|,outdent,indent,|,insertdate,inserttime,|,forecolor,backcolor",
-		theme_advanced_buttons3 : "image,anchor,link,unlink,|,charmap,emotions,media,advhr,|,print,preview,|,ltr,rtl,|,code,|,fullscreen",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,undo,redo,|,search,replace,|,bullist,numlist,|,outdent,indent,|,insertdate,inserttime,|,forecolor,backcolor,|,print,preview,fullscreen,code",
+		theme_advanced_buttons3 : "image,anchor,link,unlink,|,charmap,emotions,media,advhr,",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_resizing : true,
