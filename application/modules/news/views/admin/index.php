@@ -11,7 +11,7 @@
 		<th class="width-10"><a href="#">Category</a></th>
 		<th class="width-10"><a href="#">Date</a></th>
 		<th class="width-5"><a href="#">Status</a></th>
-		<th class="last"><span>Actions</span></th>
+		<th class="last width-10"><span>Actions</span></th>
 	</tr>
   </thead>
   <tfoot>
@@ -32,11 +32,11 @@
             <td><?=date('M d, Y', $article->created_on);?></td>
             <td><?=ucfirst($article->status);?></td>
             <td>
-            	<? if( $article->status == 'draft' ): ?>
-            	<?= anchor('admin/news/preview/'. $article->slug, 'Preview', 'rel="modal" target="_blank"') . ' | '; ?>
-            	<? else: ?>
+            	<? if( $article->status == 'live' ): ?>
             	<?= anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, 'View', 'target="_blank"') . ' | '; ?>
             	<? endif; ?>
+            	<?= anchor('admin/news/preview/'. $article->slug, 'Preview', 'rel="modal" target="_blank"'); ?><br />
+
 			  	<?= anchor('admin/news/edit/' . $article->id, 'Edit') . ' | ' .
 			  		anchor('admin/news/delete/' . $article->id, 'Delete', array('class'=>'confirm')); ?>
             </td>
@@ -49,4 +49,4 @@
 	
 </table>
 
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete', 'publish') )); ?>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
