@@ -60,7 +60,15 @@ if ( ! function_exists('url_title'))
 
         if ($lowercase === TRUE)
         {
-            $str = mb_convert_case($str, MB_CASE_LOWER, "UTF-8");
+        	if( function_exists('mb_convert_case') )
+			{
+				$str = mb_convert_case($str, MB_CASE_LOWER, "UTF-8");
+			}
+			
+			else
+			{
+				$str = strtolower($str);
+			}
         }
         
         return trim(stripslashes($str));
