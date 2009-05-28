@@ -49,4 +49,6 @@
 	
 </table>
 
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete', 'publish') )); ?>
+
+<?=form_close();?>
