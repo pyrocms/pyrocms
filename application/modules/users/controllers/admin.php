@@ -217,7 +217,7 @@ class Admin extends Admin_Controller
 	// Admin: Activate a User
 	function activate($id = 0) {
 
-    	$ids = ($id > 0) ? array($id) : $this->input->post('selected');
+    	$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 		
 		// Activate multiple
 		if( !empty($ids) )
@@ -246,7 +246,7 @@ class Admin extends Admin_Controller
 	// Admin: Delete a User
 	function delete($id = 0) {
 
-		$ids = ($id > 0) ? array($id) : $this->input->post('selected');
+		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		if(!empty($ids))
 		{
