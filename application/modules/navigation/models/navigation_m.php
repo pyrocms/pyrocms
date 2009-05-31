@@ -127,7 +127,7 @@ class Navigation_m extends Model {
 		 
 		$this->db->insert('navigation_links', array(
         	'title' => $input['title'],
-        	'url' => prep_url($input['url']),
+        	'url' => $input['url'],
         	'uri' => $input['uri'],
         	'module_name' => $input['module_name'],
         	'page_id' => (int) $input['page_id'],
@@ -139,57 +139,62 @@ class Navigation_m extends Model {
 	}
 
 	// Update a Navigation Link
-	function updateLink($id = 0, $input = array()) {
-
+	function updateLink($id = 0, $input = array()) 
+	{
 		$input = $this->_formatArray($input);
 		 
 		$this->db->update('navigation_links', array(
         	'title' => $input['title'],
-        	'url' => prep_url($input['url']),
+        	'url' => $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
         	'uri' => $input['uri'],
         	'module_name' => $input['module_name'],
         	'page_id' => (int) $input['page_id'],
         	'position' => (int) $input['position'],
         	'navigation_group_id' => (int) $input['navigation_group_id']
 		), array('id' => $id));
-
+		
+		return TRUE;
 	}
 
-	function _formatArray($input) {
-		
-		// Make sure only one sort of link gets through
-		if(!empty($input['url'])) {
+	function _formatArray($input)
+	{
+		// If the url is not empty and not just the default http://
+		if(!empty($input['url']) && $input['url'] != 'http://')
+		{
 			$input['uri'] = '';
 			$input['module_name'] = '';
 			$input['page_id'] = 0;
 		}
 		
-		// Make sure only one sort of link gets through
-		if(!empty($input['uri'])) {
+		// If the uri is empty reset the others
+		if(!empty($input['uri']))
+		{
 			$input['url'] = '';
 			$input['module_name'] = '';
 			$input['page_id'] = 0;
 		}
 		 
-		if(!empty($input['module_name'])) {
+		// You get the idea...
+		if(!empty($input['module_name']))
+		{
 			$input['url'] = '';
 			$input['uri'] = '';
 			$input['page_id'] = 0;
 		}
 		 
-		if(!empty($input['page_id'])) {
+		if(!empty($input['page_id']))
+		{
 			$input['url'] = '';
 			$input['uri'] = '';
 			$input['module_name'] = '';
 		}
-		//
 		
 		return $input;
 	}
 	
 	// Delete a Navigation Link
-	function deleteLink($id = 0) {
-		 
+	function deleteLink($id = 0)
+	{
 		if(is_array($id))  	$params = $id;
 		else   				$params = array('id'=>$id);
 		 
@@ -201,25 +206,25 @@ class Navigation_m extends Model {
 	// --------------------------------------------
 
 	// Return an array of Navigation Groups
-	function getGroups() {
+	function getGroups() 
+	{
 		return $this->db->get('navigation_groups')->result();
 	}
 	
 	// Create a new Navigation Group
-	function newGroup($input = array()) {
-
+	function newGroup($input = array())
+	{
 		$this->db->insert('navigation_groups', array(
         	'title' => $input['title'],
         	'abbrev' => $input['abbrev']
 		));
         
         return $this->db->insert_id();
-		
 	}
 	
 	// Delete a Navigation Group
-	function deleteGroup($id = 0) {
-		 
+	function deleteGroup($id = 0)
+	{
 		if(is_array($id))  	$params = $id;
 		else   				$params = array('id'=>$id);
 		 

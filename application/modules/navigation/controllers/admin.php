@@ -20,19 +20,19 @@ class Admin extends Admin_Controller {
 		 // Get Pages and create pages tree
     	$tree = array();
     	if($pages = $this->pages_m->getPages())
-	{
-		foreach($pages AS $page)
-	    	{
-    			$tree[$page->parent][] = $page;
-	    	}
-	}
-	unset($pages);
-	$this->data->pages_select = $tree;
+		{
+			foreach($pages AS $page)
+		    	{
+	    			$tree[$page->parent][] = $page;
+		    	}
+		}
+		unset($pages);
+		$this->data->pages_select = $tree;
     }
 
     // Admin: List all Pages
-    function index() {
-        
+    function index()
+    {
     	// Go through all the groups 
     	foreach($this->data->groups as $group):
 	    	//... and get navigation links for each one
@@ -43,8 +43,8 @@ class Admin extends Admin_Controller {
     }
     
     // Admin: Create a new Page
-    function create() {
-	
+    function create()
+    {
         $this->load->library('validation');
         $rules['title'] = 'trim|required|max_length[40]';
         $rules['url'] = 'trim';
@@ -60,13 +60,9 @@ class Admin extends Admin_Controller {
         $fields['page_id'] = 'Page';
         $fields['navigation_group_id'] = 'Group';
         $this->validation->set_fields($fields);
-    
-        foreach(array_keys($rules) as $field) {
-        	$this->data->navigation_link->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-        }
         
-        if ($this->validation->run()) {
-        	
+        if ($this->validation->run())
+        {
             if ($this->navigation_m->newLink($_POST) > 0) {
                 $this->session->set_flashdata('success', 'The navigation link was added.');
                
@@ -75,13 +71,18 @@ class Admin extends Admin_Controller {
             }
             redirect('admin/navigation/index');
         }
+    
+        foreach(array_keys($rules) as $field)
+        {
+        	$this->data->navigation_link->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
+        }
         
         $this->layout->create('admin/links/form', $this->data);
     }
 
     // Admin: Edit a Page
-    function edit($id = 0) {
-    	
+    function edit($id = 0)
+    {
     	if (empty($id)) redirect('admin/navigation/index');
         
         $this->data->navigation_link = $this->navigation_m->getLink( $id );
@@ -92,6 +93,7 @@ class Admin extends Admin_Controller {
         }
 
         $this->load->library('validation');
+        
         $rules['title'] = 'trim|required|max_length[40]';
         $rules['url'] = 'trim';
         $rules['uri'] = 'trim';
@@ -99,31 +101,34 @@ class Admin extends Admin_Controller {
         $rules['page_id'] = 'trim|numeric';
         $rules['navigation_group_id'] = 'trim|numeric|required';
         $rules['position'] = 'trim|numeric|required';
-        
         $this->validation->set_rules($rules);
         
         $fields['module_name'] = 'Module';
         $fields['page_id'] = 'Page';
         $fields['navigation_group_id'] = 'Group';
         $this->validation->set_fields($fields);
-
-        foreach(array_keys($rules) as $field) {
-        	if(isset($_POST[$field]))
-        		$this->data->navigation_link->$field = $this->validation->$field;
-        }
         
-        if ($this->validation->run()) {
+        if ($this->validation->run())
+        {
             $this->navigation_m->updateLink($id, $_POST);
             $this->session->set_flashdata('success', 'The navigation link was saved.');
             redirect('admin/navigation/index');
+        }
+
+        foreach(array_keys($rules) as $field)
+        {
+        	if(isset($_POST[$field]))
+        	{
+        		$this->data->navigation_link->$field = $this->validation->$field;
+        	}
         }
 
         $this->layout->create('admin/links/form', $this->data);
     }
     
     // Admin: Delete Pages
-    function delete($id = 0) {
-		
+    function delete($id = 0)
+    {
 		// Delete one
 		if($id):
 			$this->navigation_m->deleteLink($id);
