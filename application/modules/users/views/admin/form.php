@@ -26,6 +26,11 @@
 	</div>
 	
 	<div class="field">
+		<label for="active">Role</label>
+		<?= form_dropdown('role', $roles, $member->role); ?>
+	</div>
+	
+	<div class="field">
 		<label for="active">Activate</label>
 		<?= form_checkbox('is_active', 1, $member->is_active == 1); ?>
 	</div>

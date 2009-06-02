@@ -8,7 +8,7 @@ insert into `navigation_groups` values
 
 -- Add a default home page
 truncate `pages`;
-insert into `pages` values('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','1219336535');
+insert into `pages` values('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','','','','1219336535');
 
 
 -- Admin and user are the only default required user roles 
@@ -37,9 +37,10 @@ insert into `settings` values
  ('rss_feed_items','Feed item count','How many items should we show in RSS/news feeds?','select','25','','10=10|25=25|50=50|100=100','1','1',''),
  ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1',''),
  ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users'),
- ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics'),INSERT INTO settings VALUES ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter');
- ('twitter_password','Password','Twitter password.','password','','','','0','1','twitter');
- ('twitter_news','Twitter &amp; News integration.','Would you like to post links to new news articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter');
+ ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','statistics'),
+ ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter'),
+ ('twitter_password','Password','Twitter password.','password','','','','0','1','twitter'),
+ ('twitter_news','Twitter &amp; News integration.','Would you like to post links to new news articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter'),
  ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter');
 
 

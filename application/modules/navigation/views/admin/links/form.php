@@ -34,7 +34,7 @@
 	
 	<div class="field float-left">
 		<label for="url">URL</label>
-		<input type="text" id="url" name="url" value="<?= $navigation_link->url; ?>" />
+		<input type="text" id="url" name="url" value="<?= empty($navigation_link->url) ? 'http://' : $navigation_link->url; ?>" />
 	</div>
 	
 	<div class="field float-left">

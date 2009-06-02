@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
+class Admin extends Admin_Controller
+{
 
 	private $rules = array(
 		'first_name'		=>	"required|alpha_dash",
@@ -8,10 +9,12 @@ class Admin extends Admin_Controller {
 		'password'			=>	"min_length[6]|max_length[20]", // will be required when adding1
 		'confirm_password'	=>	"matches[password]",
 		'email'				=>	"required|valid_email",
+		'role'				=>	"required",
 		'is_active'			=>	""
 	);
 	
-	function __construct() {
+	function __construct()
+	{
 		parent::Admin_Controller();
 		
 		$this->load->library('session');
@@ -26,8 +29,8 @@ class Admin extends Admin_Controller {
 	}
 
 	// Admin: List all User
-	function index() {
-		
+	function index()
+	{
 		// Create pagination links
 		$total_rows = $this->users_m->countUsers(array('active' => 1));
 		$this->data->pagination = create_pagination('admin/users/index', $total_rows);
@@ -42,8 +45,8 @@ class Admin extends Admin_Controller {
 		$this->layout->create('admin/index', $this->data);
 	}
 	
-	function inactive() {
-		
+	function inactive()
+	{
 		$total_rows = $this->users_m->countUsers(array('active' => 1));
 		$this->data->pagination = create_pagination('admin/users/inactive', $total_rows);
 
@@ -71,7 +74,8 @@ class Admin extends Admin_Controller {
 	}
 
 	// Admin: Add a new User
-	function add() {
+	function add()
+	{
 		$this->load->library('validation');
 		
 		// Adding a user, we must have a password
@@ -95,34 +99,48 @@ class Admin extends Admin_Controller {
 					{
 						$this->session->set_flashdata('success', 'New user has been created and activated.');
 						redirect('admin/users/index');
-					} else {
+					} 
+					
+					else
+					{
 						$this->data->error_string = $this->lang->line('user_activation_failed');
 					}
 					
-				} else {
+				}
+				
+				else
+				{
 					
 					// No Activation, send mail
 					if($this->user_lib->registered_email($this->user_lib->user_data))
 					{
 						$this->session->set_flashdata('success', 'New user has been created, the account needs to be activated.');
 						redirect('admin/users/index');
-					} else {
-						$this->data->error_string = $this->lang->line($this->user_lib->error_code);
 					}
 					
+					else
+					{
+						$this->data->error_string = $this->lang->line($this->user_lib->error_code);
+					}
 				}
 				
-			} else {
+			} 
+			
+			else
+			{
 				$this->data->error_string = $this->lang->line($this->user_lib->error_code);
 			}
-			
-		} else {
+		}
+		
+		else
+		{
 			// Return the validation error message or user_lib error
 			$this->data->error_string = $this->validation->error_string;
 		}
 	
 		// Set defult field values
-		foreach(array_keys($this->rules) as $field) {
+		foreach(array_keys($this->rules) as $field)
+		{
         	$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
         }
         
@@ -130,7 +148,8 @@ class Admin extends Admin_Controller {
 	}
 
 	// Admin: Edit a User
-	function edit($id = 0) {
+	function edit($id = 0)
+	{
 		$this->load->library('validation');
 		
 		// Shouldnt need to have done this, but if password exists make confirm_password required
@@ -198,7 +217,7 @@ class Admin extends Admin_Controller {
 	// Admin: Activate a User
 	function activate($id = 0) {
 
-    	$ids = ($id > 0) ? array($id) : $this->input->post('selected');
+    	$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 		
 		// Activate multiple
 		if( !empty($ids) )
@@ -227,7 +246,7 @@ class Admin extends Admin_Controller {
 	// Admin: Delete a User
 	function delete($id = 0) {
 
-		$ids = ($id > 0) ? array($id) : $this->input->post('selected');
+		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		if(!empty($ids))
 		{
