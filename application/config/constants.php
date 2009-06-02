@@ -87,5 +87,18 @@ define('BASE_URI', str_replace(
 	str_replace("\\", "/", realpath(APPPATH . '../') ) // Forward slash the full path to application
 ).'/');
 
+
+/*
+|--------------------------------------------------------------------------
+| PyroCMS Version
+|--------------------------------------------------------------------------
+|
+| Which version of PyroCMS is currently running?
+|
+*/
+
+define('CMS_VERSION', '0.9.5.2');
+
+
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
