@@ -67,6 +67,8 @@ a:hover {
 /* Global */
 #page-content {
 	overflow: hidden;
+	position:relative;
+	top:10em;
 }
 
 a {
@@ -931,6 +933,9 @@ ul.ui-tabs-nav {
 	background: url(../../img/admin/header.png) repeat-x top;
 	margin-bottom: 10px;
 	padding-bottom: 10px;
+	position:fixed;
+	width:100%;
+	z-index:1;
 }
 
 #header .container {
