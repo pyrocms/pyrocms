@@ -41,7 +41,17 @@ if ( ! function_exists('humanize'))
 {	
 	function humanize($str)
 	{
-		return mb_convert_case(preg_replace('/[_]+/', ' ', trim($str)), MB_CASE_TITLE, "UTF-8");
+		$str = preg_replace('/[_]+/', ' ', trim($str));
+		
+		if( function_exists('mb_convert_case') )
+		{
+			return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
+		}
+		
+		else
+		{
+			return ucwords(strtolower($str));
+		}
 	}
 }
 	
