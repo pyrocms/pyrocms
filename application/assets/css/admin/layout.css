@@ -1059,9 +1059,13 @@ ul.ui-tabs-nav {
 	clear:both;
 	color:#fff;
 	background: url(../../img/admin/header.png) repeat-x top;
+	bottom:0;
+	left:0;
 	margin-top:1em;
 	padding:0.2em;
+	position:fixed;
 	text-align:center;
+	width:100%;
 }
 
 /**************************************/
