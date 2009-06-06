@@ -21,7 +21,7 @@ class Twitter_m extends Model {
 		// Only apply a cache to these methods
 		if( in_array($method, array('public_timeline', 'friends_timeline', 'user_timeline', 'show', 'replies', 'friends', 'followers')) )
 		{	
-			return $this->cache->call('twitter_lib', $method, $arguments, $this->CI->settings->item('twitter_cache'));
+			return $this->cache->model('twitter_lib', $method, $arguments, $this->CI->settings->item('twitter_cache'));
 		}
 		
 		// Run as normal without worrying about a cache

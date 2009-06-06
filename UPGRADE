@@ -4,7 +4,22 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-02/06/09 - v0.9.5 to v0.9.5.x
+
+06/06/09 - v0.9.5.2 to v0.9.5.3
+-------------------------------
+
+Move temp folder from application/temp/captcha to application/cache/captcha.
+Make sure it keeps 777 permissions.
+
+	mv application/temp/captcha/ application/cache
+	rm -rf application/temp
+	
+Run the following query.
+
+	UPDATE settings SET default='cache/captcha/' WHERE slug='captcha_folder' 
+
+
+02/06/09 - v0.9.5 to v0.9.5.2
 -----------------------------
 
 Replace old files with new files.

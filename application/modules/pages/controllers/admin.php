@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
-
+class Admin extends Admin_Controller
+{
 	// Validation rules to be used for create and edita
 	private $rules = array(
         'title' 	=> 'trim|required|max_length[60]',
@@ -18,8 +18,8 @@ class Admin extends Admin_Controller {
 	// Used to pass page id to edit validation callback
 	private $page_id;
 	
-    function __construct() {
-    	
+    function __construct()
+    {
         parent::Admin_Controller();
         
         $this->load->model('pages_m');
@@ -44,7 +44,6 @@ class Admin extends Admin_Controller {
 
         $this->validation->set_rules($this->rules);
         $this->validation->set_fields();
-        
         
 		// Validate the page
         if ($this->validation->run())
@@ -131,7 +130,7 @@ class Admin extends Admin_Controller {
 			$this->pages_m->updatePage($id, $_POST);
 			
 			// Wipe cache for this model, the content has changd
-			$this->cache->delete('pages_m');
+			$this->cache->delete_all('pages_m');
 			
 			$this->session->set_flashdata('success', 'The page was saved.');
 
@@ -166,8 +165,8 @@ class Admin extends Admin_Controller {
 					$this->navigation_m->deleteLink(array('page_id' => $id));
 					
 					// Wipe cache for this model, the content has changd
-					$this->cache->delete('pages_m');
-					$this->cache->delete('navigation_m');
+					$this->cache->delete_all('pages_m');
+					$this->cache->delete_all('navigation_m');
 			
 					$page_titles[] = $page->title;
 				}

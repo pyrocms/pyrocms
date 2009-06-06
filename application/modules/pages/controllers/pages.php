@@ -26,15 +26,15 @@ class Pages extends Public_Controller {
 		else
 		{
 			// Show the requested page with all segments available
-			call_user_func_array(array($this, 'index'), $this->uri->segment_array());
+			call_user_func_array(array($this, 'page'), $this->uri->segment_array());
 		}
     }
     
     
-    function index($slug = 'home')
+    function page($slug = 'home')
     {
     	// No data, and its not the home page
-        if(!$page = $this->cache->call('pages_m', 'getBySlug', array($slug, DEFAULT_LANGUAGE)) )
+        if(!$page = $this->cache->model('pages_m', 'getBySlug', array($slug, DEFAULT_LANGUAGE)) )
         {
         	show_404();
         }
@@ -46,7 +46,7 @@ class Pages extends Public_Controller {
         // Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if($page->meta_title == '')
         {
-        	$page->meta_title = ($slug == 'home') ? $this->settings->item('site_slogan') : $page->title;
+        	$page->meta_title = $slug == 'home' ? $this->settings->item('site_slogan') : $page->title;
         }
         
         // Define data elements
