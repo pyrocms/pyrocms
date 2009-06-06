@@ -12,7 +12,7 @@ class Rss extends Public_Controller {
     
     function index()
     {
-        $posts = $this->cache->call('news_m', 'getNews', array(
+        $posts = $this->cache->model('news_m', 'getNews', array(
         	array(
         		'status' 	=> 'live',
         		'limit'		=> $this->settings->item('rss_feed_items')
@@ -36,7 +36,7 @@ class Rss extends Public_Controller {
         	redirect('news/rss/index');
         }
         
-        $posts = $this->cache->call('news_m', 'getNews', array(
+        $posts = $this->cache->model('news_m', 'getNews', array(
         	array(
         		'status' 	=> 'live',
         		'category'	=> $slug,
@@ -74,7 +74,7 @@ class Rss extends Public_Controller {
 				   'title' => xml_convert($row->title),
 				   'link' => $row->link,
 				   'guid' => $row->link,
-				   'description'  => str_replace('/img/post_resources/', base_url() . 'img/post_resources/', $row->body),
+				   'description'  => $row->intro,
 				   'date' => $row->created_on
 				 );
 	
