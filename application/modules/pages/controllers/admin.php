@@ -132,7 +132,7 @@ class Admin extends Admin_Controller
 			// Wipe cache for this model, the content has changd
 			$this->cache->delete_all('pages_m');
 			
-			$this->session->set_flashdata('success', 'The page was saved.');
+			$this->session->set_flashdata('success', 'The page "'.$this->input->post('title').'" was saved.');
 
 			redirect('admin/pages/index');
         }
