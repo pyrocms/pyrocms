@@ -64,7 +64,7 @@ class Public_Controller extends MY_Controller {
         $this->load->module_model('pages', 'pages_m');
         $this->load->module_model('navigation', 'navigation_m');
         
-        $this->data->navigation = $this->cache->call('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
+        $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
 
         // Set the theme view folder
         $this->data->theme_view_folder = '../themes/'.$this->settings->item('default_theme').'/views/';
@@ -141,7 +141,7 @@ class Admin_Controller extends MY_Controller {
         // Get a list of all modules available to this role
         if($current_page != 'admin/login')
         {
-	        $this->data->admin_modules = $this->cache->call('modules_m', 'getModules', array(
+	        $this->data->admin_modules = $this->cache->model('modules_m', 'getModules', array(
 	        	array('is_backend'=>true, 'role' => @$this->data->user->role) // This function does NOT need role, that is to keep caching seperate
 	        ));
 		}

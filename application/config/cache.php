@@ -1,8 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['mp_cache_dir'] = APPPATH.'cache/';
+$config['cache_dir'] = APPPATH.'cache/';
 
-$config['mp_cache_default_expiry'] = 0;
+$config['cache_default_expires'] = 0;
 
 // Will soon make these options into settings items
 $config['navigation_cache'] = 21600; // 6 hours

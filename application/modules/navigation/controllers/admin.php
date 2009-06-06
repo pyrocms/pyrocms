@@ -63,10 +63,14 @@ class Admin extends Admin_Controller {
         
         if ($this->validation->run())
         {
-            if ($this->navigation_m->newLink($_POST) > 0) {
-                $this->session->set_flashdata('success', 'The navigation link was added.');
-               
-            } else {
+            if ($this->navigation_m->newLink($_POST) > 0)
+            {
+                $this->cache->delete_all('navigation_m');
+				$this->session->set_flashdata('success', 'The navigation link was added.');
+            }
+            
+            else 
+            {
             	$this->session->set_flashdata('error', 'An unexpected error occurred.');
             }
             redirect('admin/navigation/index');
@@ -111,6 +115,8 @@ class Admin extends Admin_Controller {
         if ($this->validation->run())
         {
             $this->navigation_m->updateLink($id, $_POST);
+			$this->cache->delete_all('navigation_m');
+			
             $this->session->set_flashdata('success', 'The navigation link was saved.');
             redirect('admin/navigation/index');
         }
@@ -141,6 +147,8 @@ class Admin extends Admin_Controller {
 			endforeach;
 			
 		endif;
+        
+		$this->cache->delete_all('navigation_m');
 
 		$this->session->set_flashdata('success', 'The navigation link has been deleted.');
 		redirect('admin/navigation/index');
