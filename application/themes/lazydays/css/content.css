@@ -21,7 +21,6 @@
 	background-image: url(../img/icons/go.gif);
 }
 
-
 code {
 	background-color:#444444;
 	font-size:11px;
@@ -30,3 +29,20 @@ code {
 	padding:8px;
 	font-family:courier new, sans-serif;
 }
+
+/* -- Social Bookmarking -- */
+.social-bookmarks img { 
+	border:0 !important;
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+ }
+.social-bookmarks a:hover img { 
+	border:0 !important; 
+	filter:alpha(opacity=1);
+	-moz-opacity:1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}
+.social-bookmarks li { margin:0 0.6em;}

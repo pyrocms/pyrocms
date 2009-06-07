@@ -1,14 +1,14 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // Code here is run before ALL controllers
-class MY_Controller extends Controller {
-	
+class MY_Controller extends Controller
+{
 	var $module;
 	var $controller;
 	var $method;
 	
-	function MY_Controller() {
-		
+	function MY_Controller()
+	{
 		parent::Controller();
 		
         // Make sure we have the user module
@@ -25,7 +25,6 @@ class MY_Controller extends Controller {
 	        
 	        $this->data->user =& $this->user_lib->user_data;
         }
-        
         
         // Work out module, controller and method and make them accessable throught the CI instance
         $this->module 				= str_replace(array('modules/', '/'), '', $this->matchbox->fetch_module());
@@ -46,113 +45,5 @@ class MY_Controller extends Controller {
 	}
 }
 
-// Code here is run before frontend controllers
-class Public_Controller extends MY_Controller {
-    
-	function Public_Controller() {
-        
-		parent::MY_Controller();
-        
-        // Check the frontend hasnt been disabled by an admin
-        if(!$this->settings->item('frontend_enabled'))
-        {
-        	$error = $this->settings->item('unavailable_message') ? $this->settings->item('unavailable_message') : 'Fatal error, is CMS installed?';
-        	show_error($this->settings->item('unavailable_message'));
-        }
-        
-        // -- Navigation menu -----------------------------------
-        $this->load->module_model('pages', 'pages_m');
-        $this->load->module_model('navigation', 'navigation_m');
-        
-        $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
-
-        // Set the theme view folder
-        $this->data->theme_view_folder = '../themes/'.$this->settings->item('default_theme').'/views/';
-        $this->layout->layout_file = $this->data->theme_view_folder.'layout.php';
-        
-        // Make sure whatever page the user loads it by, its telling Google the correct formatted URL
-        $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
-        
-        // If there is a news module, link to its RSS feed in the head
-        if(is_module('news'))
-        {
-			$this->layout->extra_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
-        }
-		
-    	//$this->output->enable_profiler(TRUE);
-    }
-
-}
-
-
-// Code here is run before admin controllers
-class Admin_Controller extends MY_Controller {
-    
-	function Admin_Controller() {
-        
-		parent::MY_Controller();
-        
-        $allow_access = FALSE;
-        	
-        // These pages get past permission checks
-        $ignored_pages = array('admin/login', 'admin/logout');
-
-        // Check if the current page is to be ignored
-        $current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, '');
-        $is_ignored_page = in_array($current_page, $ignored_pages);
-        
-        // Check the user is an admin
-        $is_admin = $this->user_lib->check_role('admin');
-        
-        // Login: If not logged in and its not an ignored page, force login
-        if( ! $this->data->user && ! $is_ignored_page)
-        {
-        	redirect('admin/login');
-        }
-        
-        // Logged in or ignored page
-        else
-        {
-        	$allow_access = TRUE;
-        }
-        
-        // We are looking at the index page. Show it if they have ANY admin access at all
-        if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->hasAdminAccess($this->data->user->role) )
-        {
-        	$allow_access = TRUE;
-        }
-        
-        // Check Perms: Not an admin and this is not a page to ignore
-        elseif( ! $is_admin && ! $is_ignored_page )
-        {
-	        // Check if the current user can view that page
-	        $location = array( 'module'=>$this->module, 'controller'=>$this->controller, 'method'=>$this->method );
-	        $allow_access = $this->permissions_m->checkRuleByRole( $this->data->user->role, $location );
-        }
-        
-        // Show error and exit if the user does not have sufficient permissions
-        if( ! $allow_access )
-        {
-	        show_error('You do not have sufficient permissions to view this page.');
-	        exit;
-        }
-
-        // TODO: PJS I do not think this cache is working. Got bored and went to the pub...
-        // Get a list of all modules available to this role
-        if($current_page != 'admin/login')
-        {
-	        $this->data->admin_modules = $this->cache->model('modules_m', 'getModules', array(
-	        	array('is_backend'=>true, 'role' => @$this->data->user->role) // This function does NOT need role, that is to keep caching seperate
-	        ));
-		}
-        
-        $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);
-        
-        $this->layout->layout_file = 'admin/layout.php';
-    	
-        //$this->output->enable_profiler(TRUE);
-    }
-    
-}
-
-?>
+include(APPPATH . 'libraries/Public_Controller'.EXT);
+include(APPPATH . 'libraries/Admin_Controller'.EXT);

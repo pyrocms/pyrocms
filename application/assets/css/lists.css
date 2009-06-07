@@ -1,7 +1,7 @@
 /* LIST STYLES
 ------------------------------------------------------------------------ */
 
-.list-unstyled {
+.list-unstyled, .list-inline {
 	list-style-image:none;
 	list-style-position:outside;
 	list-style-type:none;

@@ -97,7 +97,7 @@ define('BASE_URI', str_replace(
 |
 */
 
-define('CMS_VERSION', '0.9.5.2');
+define('CMS_VERSION', '0.9.5.3');
 
 
 /* End of file constants.php */

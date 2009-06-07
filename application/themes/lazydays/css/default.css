@@ -217,3 +217,13 @@ a:hover img {
   border: 2px solid #FFF !important;
   border: 2px solid #8BE6FA;
 }
+
+
+/**************************************************************
+   Browser
+ **************************************************************/
+ 
+*::-moz-selection {
+background:#F8D766 none repeat scroll 0 0;
+color:black;
+}

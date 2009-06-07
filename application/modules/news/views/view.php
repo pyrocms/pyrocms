@@ -13,7 +13,13 @@
 <hr/>
 
 <?=stripslashes($article->body);?>
-    
+ 
+<hr/>
+
+<?= $this->load->view('fragments/social_bookmarking/toolbar', array('bookmark' => array('title' => $article->title))); ?>
+
+<hr/>
+
 <h3>Comments</h3>
     
 <fieldset class="alternative float-left width-half">
