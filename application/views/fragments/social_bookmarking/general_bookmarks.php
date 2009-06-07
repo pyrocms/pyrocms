@@ -41,9 +41,9 @@
 			</a> 
 		</li>
 		
-		<li class="furl"> 
-			<a title="Post this story to Furl" href="http://www.furl.net/storeIt.jsp?t=<?=urlencode($bookmark['title']);?>&amp;u=<?=$bookmark['url'];?>">
-				<?=image('icons/social_media/shiny_square/64x64/Furl.png'); ?>
+		<li class="twitter"> 
+			<a title="Post this story to Twitter" href="http://twitter.com/home/?source=<?=$this->input->server('SERVER_NAME');?>&amp;status=<?=urlencode($bookmark['title']);?> <?=$bookmark['url'];?>">
+				<?=image('icons/social_media/shiny_square/64x64/Twitter.png'); ?>
 			</a> 
 		</li>
 		
