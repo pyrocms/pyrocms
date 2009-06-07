@@ -43,7 +43,7 @@
 		
 		<li class="furl"> 
 			<a title="Post this story to Furl" href="http://www.furl.net/storeIt.jsp?t=<?=urlencode($bookmark['title']);?>&amp;u=<?=$bookmark['url'];?>">
-				<?=image('icons/social_media/shiny_square/64x64/Furl'); ?>
+				<?=image('icons/social_media/shiny_square/64x64/Furl.png'); ?>
 			</a> 
 		</li>
 		
