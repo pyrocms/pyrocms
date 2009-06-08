@@ -79,7 +79,7 @@ class User_lib
 		$this->user_data->first_name = $this->CI->input->post('first_name', TRUE);
 		$this->user_data->last_name = $this->CI->input->post('last_name', TRUE);
 		$this->user_data->full_name = $this->user_data->first_name . ( $this->user_data->last_name != '' ? ' '. $this->user_data->last_name : '' );
-		$this->user_data->role = 'user'; // Done just to stop users javascripting in their own role
+		$this->user_data->role = $this->CI->input->post('role', TRUE);
 		$this->user_data->activation_code = $activation_code;
 
         //Check against user table
