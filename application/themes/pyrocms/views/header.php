@@ -13,7 +13,12 @@
 				<div class="clear"></div>
 				<!-- Banner -->
 				<div id="banner">
+					<!-- Site slogan -->
 					<div id="slogan">
 						<h2><?php echo $this->settings->item('site_slogan'); ?></h2>
+					</div>
+					<!-- Mini downloads, a la CodeIgniter -->
+					<div id="mini_downloads">
+						
 					</div>
 				</div>
