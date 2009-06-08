@@ -11,6 +11,28 @@
 .clear {
 	clear:both;
 }
+/* Notifications */
+.notification_box {
+	height:auto;
+	margin:10px 0px 10px 0px;
+	padding:10px 10px 1px 10px;
+	text-align:center;
+	width:938px;
+}
+.notification_box p {
+	color:#000;
+}
+.notice {
+	background:#FCE373;
+	border:1px solid #FFD100;
+}
+.error {
+	background:#EC542F;
+	border:1px solid #FF3100;
+}
+.success {
+	background:#91E974;
+}
 /* Typography */
 p {
 	color:#fff;

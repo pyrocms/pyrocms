@@ -19,6 +19,18 @@
 			<div id="header">
 				<?php echo "\n"; $this->load->view($theme_view_folder.'header'); echo "\n"; ?>
 			</div>
+			<!-- Flash data messages will appear below -->
+			<?php if ($this->session->flashdata('notice')) {
+		                  echo '<div class="notice notification_box"><p>' . strip_tags($this->session->flashdata('notice')) . '</p></div>';
+			}
+			if ($this->session->flashdata('success')) {
+		                  echo '<div class="success notification_box"><p>' . strip_tags($this->session->flashdata('success')) . '</p></div>';
+			}
+			if ($this->session->flashdata('error')) {
+		                  echo '<div class="error notification_box"><p>' . strip_tags($this->session->flashdata('error')) . '</p></div>';
+			}
+			?>
+
 			<!-- Content -->
 			<div id="content">
 				<?php echo $page_output; ?>
