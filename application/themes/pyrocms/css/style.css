@@ -1,0 +1,159 @@
+@charset "utf-8";
+/**
+ * @name 	PyroCMS
+ * @version 	1.0
+ * @description Default template for the PyroCMS website, this template should not be used for any downloadable version of PyroCMS
+ * @link	http://www.pyrocms.com
+ * @author	Yorick Peterse
+ * @link	http://www.yorickpeterse.com
+ */
+/* General */
+.clear {
+	clear:both;
+}
+/* Typography */
+p {
+	color:#fff;
+	font-size:14px;
+	margin-bottom:10px;
+}
+h2,h3,h4,h5 {
+	color:#eeb355;
+	font-weight:bold;
+	margin:10px 0px 10px 0px;
+}
+h2 {font-size:24px;}
+h3 {font-size:18px;}
+h4 {font-size:14px;}
+/* The body */
+body {
+	background:#221D1A url(../img/background.jpg) repeat top left;
+	font-family:"Lucida Grande","Lucida Sans Unicode",Arial,sans-serif;
+}
+/* The main wrapper */
+#wrapper {
+	min-height:800px;
+	margin:0 auto;
+	margin-bottom:50px;
+	width:960px;
+}
+/* TOP */
+/* The header */
+#header {
+	margin-top:10px;
+}
+/* Site title */
+#site_title {
+	float:left;
+	margin-top:10px;
+}
+#site_title h1 {
+	color:#fff;
+	font-size:36px;
+	font-weight:bold;
+	height:80px;
+	width:170px;
+}
+/* Navigation menu */
+#navigation {
+	float:right;
+	font-size:16px;
+	width:600px;
+}
+#navigation ul {
+	float:right;
+}
+#navigation ul li {
+	float:left;
+}
+#navigation ul li a {
+	color:#fff;
+	display:block;
+	height:30px;
+	padding-top:40px;
+	text-decoration:none;
+	text-align:center;
+	width:95px;
+}
+#navigation ul li a:hover {
+	background:#eeb355;
+}
+/* The banner */
+#banner {
+	background: url(../img/banner.png) no-repeat top left;
+	height:195px;
+	margin-top:20px;
+	width:960px;
+}
+#banner h2 {
+	color:#fff;
+	font-weight:bold;
+	font-size:30px;
+	line-height:1.5;
+	padding:45px 0px 0px 40px;
+}
+/* MIDDLE */
+/* The content */
+#content {
+	margin:20px 0px 20px 0px;
+	width:100%;
+}
+#content a {
+	color:#3ABACA;
+	text-decoration:none;
+}
+#content a:hover {
+	text-decoration:underline;
+}
+#content ul,#content ol {
+	color:#fff;
+	font-size:14px;
+}
+/* Feature lists */
+.feature_list {
+	width:960px;
+}
+.feature_list li{ 
+	float:left;
+	width:400px;
+	padding:10px 40px 10px 40px;
+}
+.feature_list li h3 {
+	height:40px;
+	margin:0px;
+	padding:3px 0px 0px 45px;
+}
+/* Individual blocks */
+.feature_cog h3 	{background: url(../img/icons/cog.png) no-repeat top left;}
+.feature_download h3 	{background: url(../img/icons/download.png) no-repeat top left;}
+.feature_mail h3 	{background: url(../img/icons/mail.png) no-repeat top left;}
+.feature_news h3 	{background: url(../img/icons/news.png) no-repeat top left;}
+.feature_package h3 	{background: url(../img/icons/package.png) no-repeat top left;}
+.feature_security h3 	{background: url(../img/icons/lock.png) no-repeat top left;}
+.feature_users h3 	{background: url(../img/icons/users.png) no-repeat top left;}
+
+/* BOTTOM */
+/* The footer */
+#footer {
+	border-top:2px solid #3c3835;
+	clear:both;
+	padding-top:20px;
+	text-align:center;
+	width:100%;
+}
+#footer a {
+	color:#3ABACA;
+	text-decoration:none;
+}
+#footer a:hover {
+	text-decoration:underline;
+}
+#footer p {
+	font-size:12px;	
+}
+#footer #copyrights {
+	float:left;
+}
+#footer #site_notice {
+	float:right;
+}
