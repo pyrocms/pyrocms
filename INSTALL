@@ -5,11 +5,13 @@ INTALL
 
 2.) Upload.
 
-3.) Run the SQL files "1-tables.sql" and "2-default_data.sql" in /database
+3.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer/index.ph
 
-4.) Set /public_html/config/config.php and /public_html/config/database.php
+4.) Remove the installer directory
 
-5.) Permissions.
+5.) Set /public_html/config/config.php and /public_html/config/database.php
+
+6.) Permissions.
 	
 	cd /home/pyrocms/public_html/
 	chmod 777 codeigniter/cache
@@ -21,6 +23,6 @@ INTALL
 	chmod -R 777 application/assets/img/staff
 	chmod -R 777 application/assets/img/suppliers
 
-6.) Go to your web root, login as "demo@example.com" with the password "password" and make yourself an admin user account.
+7.) Go to your web root, login as "demo@example.com" with the password "password" and make yourself an admin user account.
 
-7.) Log into your new account and delete demo@example.com.
+8.) Log into your new account and delete demo@example.com.
