@@ -1,5 +1,5 @@
 <p>
-	<?=anchor('admin', 'Admin') ?>
+	<?=anchor('admin', $breadcrumbHomeTitle) ?>
 	
 	<? foreach($breadcrumbs as $breadcrumb): ?>
 		<? if(!$breadcrumb['current_page']): ?>

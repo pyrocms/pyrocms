@@ -8,7 +8,7 @@
 			<div class="float-left">
 				<button type="submit" name="btnAction" value="save" class="button">
 					<strong>
-						Save
+						<?=$saveLabel;?>
 						<img class="icon" alt="" src="<?=image_url('admin/icons/accepted_48.png');?>" />
 					</strong>
 				</button>
@@ -18,7 +18,7 @@
 			<div class="float-left">
 				<a href="<?=site_url('admin/'.$module.'/index');?>" class="button ajax width-7">
 					<strong>
-						Cancel
+						<?=$cancelLabel;?>
 						<img class="icon" alt="Cancel" src="<?=image_url('admin/icons/cancel_48.png');?>"/>
 					</strong>
 				</a>
@@ -28,7 +28,7 @@
 			<div class="float-left">
 				<button type="submit" name="btnAction" value="delete" class="button confirm">
 					<strong>
-						Delete
+						<?=$deleteLabel;?>
 						<img class="icon" alt="Delete selected" src="<?=image_url('admin/icons/cross_48.png');?>" />
 					</strong>
 				</button>
@@ -38,7 +38,7 @@
 			<div class="float-left">
 				<button type="submit" name="btnAction" value="activate" class="button">
 					<strong>
-						Activate
+						<?=$activateLabel;?>
 						<img class="icon" alt="" src="<?=image_url('admin/icons/accepted_48.png');?>" />
 					</strong>
 				</button>
@@ -48,7 +48,7 @@
 			<div class="float-left">
 				<button type="submit" name="btnAction" value="publish" class="button">
 					<strong>
-						Publish
+						<?=$publishLabel;?>
 						<img class="icon" alt="" src="<?=image_url('admin/icons/accepted_48.png');?>" />
 					</strong>
 				</button>
@@ -58,7 +58,7 @@
 			<div class="float-left">
 				<button type="submit" name="btnAction" value="upload" class="button">
 					<strong>
-						Upload
+						<?=$uploadLabel;?>
 						<img class="icon" alt="" src="<?=image_url('admin/icons/box_upload_48.png');?>" />
 					</strong>
 				</button>

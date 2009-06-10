@@ -1,6 +1,5 @@
 <p class="align-center">
-	<strong>Welcome to the <?=$this->settings->item('site_name'); ?> Control Panel. Using the links above and to the left you can 
-	control almost every aspect of your website. For a full list of modules, please <a href="#modules">see below</a>.</strong>
+	<strong><?=$cpWelcome;?></strong>
 </p>
 
 <? /*foreach($this->modules_m->getModules(array('is_backend'=>true, 'type'=>'admin')) as $module): ?>
@@ -9,15 +8,15 @@
 	</div>
 <? endforeach;*/ ?>
 
-<h3 class="spacer-top"><a name="modules">Modules</a></h3>
+<h3 class="spacer-top"><a name="modules"><?=$modulesTitle;?></a></h3>
 
 <table class="listTable">
 	<thead>
 		<tr>
 			<th class="first"><div></div></th>
-			<th><a href="#">Name</a></th>
-			<th>Description</th>
-			<th class="last"><a href="#">Version</a></th>
+			<th><a href="#"><?=$nameLabel;?></a></th>
+			<th><?=$descLabel;?></th>
+			<th class="last"><a href="#"><?=$versionLabel;?></a></th>
 		</tr>
 	</thead>
 	

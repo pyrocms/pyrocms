@@ -65,10 +65,10 @@
 					
 						<div id="confirm" class="hidden">
 							<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
-							<div class='confirm-header'><span>Confirm</span></div>
+							<div class='confirm-header'><span><?=$confirmLabel;?></span></div>
 							<div class="confirm-message"></div>
 							<div class='confirm-buttons'>
-								<div class='no simplemodal-close'>No</div><div class='yes'>Yes</div>
+								<div class='no simplemodal-close'><?=$noLabel;?></div><div class='yes'><?=$yesLabel;?></div>
 							</div>
 					    	<div class="clear-both bBottom"><div></div></div>
 						</div>

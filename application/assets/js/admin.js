@@ -63,7 +63,7 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 	});
-
+	
 });
 
 $(document).ready(function() {
