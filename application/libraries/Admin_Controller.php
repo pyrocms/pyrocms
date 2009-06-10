@@ -60,6 +60,47 @@ class Admin_Controller extends MY_Controller
 	        	array('is_backend'=>true, 'role' => @$this->data->user->role) // This function does NOT need role, that is to keep caching seperate
 	        ));
 		}
+		
+			// start adding the language handling
+			$this->lang->load('admin');
+			
+				
+				// layout
+				$this->data->confirmLabel = $this->lang->line('confirm');
+				$this->data->noLabel = $this->lang->line('yes');
+				$this->data->yesLabel = $this->lang->line('no');
+				
+				
+				// result messages
+				$this->data->closeMessage = $this->lang->line('close_message');
+				$this->data->generalErrorLabel = $this->lang->line('general_error_label');
+				$this->data->requiredErrorLabel = $this->lang->line('required_error_label');
+				$this->data->noteLabel = $this->lang->line('note_label');
+				$this->data->successLabel = $this->lang->line('success_label');
+				
+				// breadcrumbs
+				$this->data->breadcrumbHomeTitle = $this->lang->line('breadcrumb_home_title');
+								
+				// header
+				$this->data->cpToHome = $this->lang->line('cp_to_home');
+				$this->data->cpViewFrontend = $this->lang->line('cp_view_frontend');
+				$this->data->cpLoggedInAs = sprintf($this->lang->line('cp_logged_in_as'), $this->data->user->first_name.' '.$this->data->user->last_name);
+				$this->data->cpLogout = sprintf($this->lang->line('cp_logout'), anchor('edit-profile', $this->lang->line('cp_edit_profile_label')), anchor('admin/logout', $this->lang->line('cp_logout_label')));
+				
+				// inner_header
+					// seems not required yet
+				
+				// table_buttons
+				$this->data->saveLabel = $this->lang->line('save_label');
+				$this->data->cancelLabel = $this->lang->line('cancel_label');
+				$this->data->deleteLabel = $this->lang->line('delete_label');
+				$this->data->activateLabel = $this->lang->line('activate_label');
+				$this->data->publishLabel = $this->lang->line('publish_label');
+				$this->data->uploadLabel = $this->lang->line('upload_label');
+
+				//$this->data-> = $this->lang->line('');
+				
+			// end adding the language handling
         
         $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);
         
