@@ -5,10 +5,8 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="Pragma" content="no-cache" />
-
 		<?=js('jquery/jquery.js') ?>
-		<?=css('admin/admin.css').js('admin.js') ?>
-	
+		<?=css('admin/admin.css').js('admin.js') ?>	
 	</head>
 	<body>
 		<!-- Content -->
@@ -65,8 +63,6 @@
 				<!-- /Inner Content -->
 				<div class="bBottom"><div></div></div>
 			</div>
-		</div>
-	
-	</body>
-	
+		</div>	
+	</body>	
 </html>

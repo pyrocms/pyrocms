@@ -4,4 +4,3 @@
 	
 	<div class="loginInfos"><?=$cpLoggedInAs;?> <?=$cpLogout;?></div>
 </div>
-

@@ -1,9 +1,6 @@
-<? if(isset($buttons) && is_array($buttons)): ?>
-	
-	<div class="buttons spacer-top">
-		
-		<? foreach($buttons as $button ): ?>
-		
+<? if(isset($buttons) && is_array($buttons)): ?>	
+	<div class="buttons spacer-top">		
+		<? foreach($buttons as $button ): ?>		
 			<? if( $button == 'save' ): ?>
 			<div class="float-left">
 				<button type="submit" name="btnAction" value="save" class="button">
@@ -63,10 +60,8 @@
 					</strong>
 				</button>
 			</div>
-			<? endif; ?>
-			
+			<? endif; ?>			
 		<? endforeach; ?>
-		<br class="clear-both" />
-		
+		<br class="clear-both" />		
 	</div>
 <? endif; ?>

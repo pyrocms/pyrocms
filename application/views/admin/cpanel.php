@@ -1,12 +1,13 @@
-<p class="align-center">
-	<strong><?=$cpWelcome;?></strong>
-</p>
-
-<? /*foreach($this->modules_m->getModules(array('is_backend'=>true, 'type'=>'admin')) as $module): ?>
+<?
+/*foreach($this->modules_m->getModules(array('is_backend'=>true, 'type'=>'admin')) as $module): ?>
 	<div class="width-quater float-left align-center" style="height:8em">
 		<?= anchor('admin/'.$module['slug'], $module['name']); ?>
 	</div>
-<? endforeach;*/ ?>
+<? endforeach;*/
+?>
+<p class="align-center">
+	<strong><?=$cpWelcome;?></strong>
+</p>
 
 <h3 class="spacer-top"><a name="modules"><?=$modulesTitle;?></a></h3>
 

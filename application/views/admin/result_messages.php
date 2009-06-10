@@ -1,5 +1,4 @@
-	
-	<? if ($this->session->flashdata('error')): ?>
+		<? if ($this->session->flashdata('error')): ?>
 		<div class="message message-error">
 			<h6><?=$generalErrorLabel;?></h6>
 			<p><?= $this->session->flashdata('error'); ?></p>
@@ -30,5 +29,3 @@
 			<a class="close icon icon_close" title="<?=$closeMessage;?>" href="#"></a>
 		</div>
     <? endif; ?>
-    
-    
