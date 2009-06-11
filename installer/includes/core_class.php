@@ -63,14 +63,16 @@ class Core {
 		chmod($output_path,0777);
 		
 		// Verify file permissions
-		if(substr(sprintf('%o', fileperms($output_path)), -3) != '777') {
-			return false;
-		}
-		else {
+		if(is_writable($output_path))
+		{
 			// Write the file
 			fwrite($handle,$new);
 			return true;
-		}		
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 ?>
