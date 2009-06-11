@@ -5,16 +5,16 @@
 
 <div class="float-right" style="padding:1em;text-align:right">
 	<? if($this->session->userdata('user_id')): ?>
-		Welcome <?=$user->first_name;?>, you are logged in. <a href="<?=site_url('users/logout');?>">Log out</a><br/>
+		<?=$loggedInWelcome;?> <a href="<?=site_url('users/logout');?>"><?=$logoutLabel;?></a><br/>
 	
 		<? if($this->settings->item('enable_profiles')): ?>
-			<?=anchor('edit-profile', 'Edit Profile'); ?> | 
+			<?=anchor('edit-profile', $editProfileLabel); ?> | 
 		<? endif; ?>
 		
-		<?=anchor('edit-settings', 'Settings'); ?>
+		<?=anchor('edit-settings', $settingsLabel); ?>
 		
 		<? if( $this->user_lib->check_role('admin') ): ?>
-			 | <?=anchor('admin', 'Admin Panel', 'target="_blank"'); ?>
+			 | <?=anchor('admin', $cpTitle, 'target="_blank"'); ?>
 		<? endif; ?>
 		
 	<? else: ?>

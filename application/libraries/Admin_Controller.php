@@ -63,6 +63,7 @@ class Admin_Controller extends MY_Controller
 		
 			// start adding the language handling
 			$this->lang->load('admin');
+			$this->lang->load('main');
 			
 				
 				// layout

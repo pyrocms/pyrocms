@@ -17,6 +17,7 @@ class Admin extends Admin_Controller
       $this->data->modules = $this->modules_m->getModules();
 			
 			// start adding the language handling
+			$this->lang->load('main');
 			$this->lang->load('admin');
 			$this->lang->load('modules');
 				
@@ -48,6 +49,7 @@ class Admin extends Admin_Controller
         endif;
 				
 				// start adding the language handling
+				$this->lang->load('main');
 				$this->lang->load('admin');
 				$this->data->loginTitle = $this->lang->line('login_title');
 				$this->data->loginError = $this->lang->line('login_error');

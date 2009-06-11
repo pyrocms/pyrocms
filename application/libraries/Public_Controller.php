@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // Code here is run before frontend controllers
+
 class Public_Controller extends MY_Controller
 {
 	function Public_Controller()
@@ -13,6 +14,19 @@ class Public_Controller extends MY_Controller
         	$error = $this->settings->item('unavailable_message') ? $this->settings->item('unavailable_message') : 'Fatal error, is CMS installed?';
         	show_error($error);
         }
+				
+				// start language string handling
+					$this->lang->load('main');
+					$this->data->naviHead = $this->lang->line('navigation_headline');
+					$this->data->loggedInWelcome = sprintf($this->lang->line('logged_in_welcome'), $this->data->user->first_name.' '.$this->data->user->last_name );
+					$this->data->logoutLabel = $this->lang->line('logout_label');
+					$this->data->editProfileLabel = $this->lang->line('edit_profile_label');
+					$this->data->settingsLabel = $this->lang->line('settings_label');
+					$this->data->cpTitle = $this->lang->line('cp_title');
+					$this->data->breadcrumbBaseLabel = $this->lang->line('breadcrumb_base_label');
+					
+					//$this->data-> = $this->lang->line('');
+				// stop language string handling
         
         // -- Navigation menu -----------------------------------
         $this->load->module_model('pages', 'pages_m');
