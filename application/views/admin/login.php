@@ -5,10 +5,8 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="Pragma" content="no-cache" />
-
 		<?=js('jquery/jquery.js') ?>
-		<?=css('admin/admin.css').js('admin.js') ?>
-	
+		<?=css('admin/admin.css').js('admin.js') ?>	
 	</head>
 	<body>
 		<!-- Content -->
@@ -16,20 +14,20 @@
 		
 			<? if (!empty($this->validation->error_string)): ?>
 				<div class="message message-error">
-					<h6>Login error</h6>
+					<h6><?=$loginError;?></h6>
 					<p><?=$this->validation->error_string;?></p>
-					<a class="close icon icon_close" title="Close this message" href="#"/>
+					<a class="close icon icon_close" title="<?=$closeMessage;?>" href="#"/>
 				</div>
 			<? endif; ?>
 			
 			<div class="roundedBorders login-box">
 				<!-- Title -->
 				<div id="page-title" class="b2">
-					<h2>Log In</h2>
+					<h2><?=$loginTitle;?></h2>
 					<!-- TitleActions -->
 					<div id="titleActions">
 						<div class="actionBlock">
-						<a href="<?=site_url('users/reset_pass'); ?>">Forgot your password ?</a>
+						<a href="<?=site_url('users/reset_pass'); ?>"><?=$forgetPasswordLabel;?></a>
 						</div>
 					</div>
 					<!-- /TitleActions -->
@@ -42,11 +40,11 @@
 					<?=form_open('admin/login'); ?>	
 	
 						<div class="field">
-							<label for="username">E-mail</label>
+							<label for="username"><?=$emailLabel;?></label>
 							<input type="text" class="text" id="email" name="email" value="<?= $this->validation->email; ?>" />
 						</div>
 						<div class="field">
-							<label for="password">Password</label>
+							<label for="password"><?=$passwordLabel;?></label>
 							<input type="password" class="text" id="password" name="password" />
 						</div>
 						<div class="clearfix login-submit">
@@ -55,7 +53,7 @@
 								<label for="remember-me">Remember me</label>
 							</span> */?>
 							<span class="fright">
-								<button class="button" type="submit"><strong>Log In</strong></button>
+								<button class="button" type="submit"><strong><?=$loginLabel;?></strong></button>
 							</span>
 						</div>
 					
@@ -65,8 +63,6 @@
 				<!-- /Inner Content -->
 				<div class="bBottom"><div></div></div>
 			</div>
-		</div>
-	
-	</body>
-	
+		</div>	
+	</body>	
 </html>

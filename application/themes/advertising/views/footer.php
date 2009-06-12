@@ -11,7 +11,7 @@
 	
 <br />
 
-&copy;2008 <?=$this->settings->item('site_name'); ?>. All Rights Reserved. &nbsp;&bull;&nbsp; Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+&copy;2008 - <?=date('Y');?> by <?=$this->settings->item('site_name'); ?>. All Rights Reserved. &nbsp;&bull;&nbsp; Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
 
 <? // Google Tracker ?>
 <? if($this->settings->item('google_analytic')): ?>

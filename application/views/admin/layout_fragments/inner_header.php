@@ -1,9 +1,8 @@
 <!-- Title -->
 <div id="page-title" class="b2">
-	<h2><?=$module_data['name'] ? $module_data['name'] : 'Control panel'; ?></h2>
+	<h2><?=$module_data['name'] ? $module_data['name'] : $cpTitle; ?></h2>
 	
-	<? if( !empty($toolbar) ): ?>
-	
+	<? if( !empty($toolbar) ): ?>	
 	<!-- TitleActions -->
 	<div id="titleActions">
 		
@@ -30,15 +29,12 @@
 			</div>
 		</div>
 		<!-- /ListSearch -->
-		<? endif; ?>
-		
+		<? endif; ?>		
 	</div>
 	<!-- /TitleActions -->
-	<? endif; ?>
-	
+	<? endif; ?>	
 </div>
 <!-- Title -->
-
 <? if( !empty($toolbar['links']) ): ?>
 <div id="toolbarActions">
 	<p>Links:</p>

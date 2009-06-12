@@ -33,9 +33,15 @@
 
 // Local
 $db['local']['hostname'] = "localhost";
+<<<<<<< HEAD:application/config/database.php
 $db['local']['username'] = "root";
 $db['local']['password'] = "root";
 $db['local']['database'] = "pyrocms";
+=======
+$db['local']['username'] = "xcms";
+$db['local']['password'] = "xxxcmsxxx";
+$db['local']['database'] = "xcms";
+>>>>>>> 828d23c125f0bb709bd5e909dc607cfd0836ffcf:application/config/database.php
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
