@@ -1,4 +1,4 @@
-		
+	
 		<li class="delicious"> 
 			<a title="Post this story to Delicious" href="http://del.icio.us/post?url=<?=$bookmark['url'];?>&amp;title=<?=urlencode($bookmark['title']);?>">
 				<?=image('icons/social_media/shiny_square/64x64/Delicious.png'); ?>

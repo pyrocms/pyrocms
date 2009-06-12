@@ -63,10 +63,11 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 	});
-
+	
 });
 
 $(document).ready(function() {
+
 
 	$('a.ajax').livequery(function() {
 		$(this).ajaxify({
@@ -81,7 +82,6 @@ $(document).ready(function() {
              animateInSpeed:500
 		});
 	});
-
 	
 	/* Facebox modal window */
 	$('a[rel*=modal]').livequery(function() {

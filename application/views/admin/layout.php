@@ -1,22 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
-
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		
 		<title><?=$page_title;?> | <?=$this->settings->item('site_name'); ?> Control Panel</title>
-
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-		<meta http-equiv="Pragma" content="no-cache" />
-        
-        <script type="text/javascript">
+		<meta http-equiv="Pragma" content="no-cache" />        
+    <script type="text/javascript">
     	var APPPATH_URI = "<?=APPPATH_URI;?>";
     	var BASE_URI = "<?=BASE_URI;?>";
-
     	var DEFAULT_TITLE = "Admin | <?= $this->settings->item('site_name'); ?>";
-        </script>
+    </script>
         
-        <?= js('jquery/jquery.js'); ?>
+    <?= js('jquery/jquery.js'); ?>
 		<?= js('jquery/jquery-ui.min.js'); ?>
 		
 		<?= js('jquery/jquery.dimensions.js'); ?>
@@ -33,11 +28,9 @@
 		
 		<?= js('facebox.js').css('facebox.css'); ?>
 		
-        <?=$extra_head_content; ?>
-        
-        <?= js('functions.js'); ?>
-		<?= js('admin.js').css('admin/admin.css');?>
-        
+    <?=$extra_head_content; ?>        
+    <?= js('functions.js'); ?>
+		<?= js('admin.js').css('admin/admin.css');?>        
 	</head>
 	<body>
 	
@@ -65,10 +58,10 @@
 					
 						<div id="confirm" class="hidden">
 							<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
-							<div class='confirm-header'><span>Confirm</span></div>
+							<div class='confirm-header'><span><?=$confirmLabel;?></span></div>
 							<div class="confirm-message"></div>
 							<div class='confirm-buttons'>
-								<div class='no simplemodal-close'>No</div><div class='yes'>Yes</div>
+								<div class='no simplemodal-close'><?=$noLabel;?></div><div class='yes'><?=$yesLabel;?></div>
 							</div>
 					    	<div class="clear-both bBottom"><div></div></div>
 						</div>
