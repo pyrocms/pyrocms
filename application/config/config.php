@@ -11,7 +11,14 @@
 |	http://www.your-site.com/
 |
 */
-$config['base_url']	= "http://".$_SERVER['SERVER_NAME'].str_replace(str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']), '', str_replace("\\", "/", str_replace(SELF, '', FCPATH)));
+
+$base_uri = str_replace(str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']), '', str_replace("\\", "/", realpath(APPPATH . '../') ));
+if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
+if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
+
+$config['base_url']	= "http://".$_SERVER['SERVER_NAME'].$base_uri;
+
+unset($base_uri);
 
 /*
 |--------------------------------------------------------------------------
