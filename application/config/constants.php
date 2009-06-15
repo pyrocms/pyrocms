@@ -86,7 +86,7 @@ $base_uri = str_replace($doc_root, '', str_replace("\\", "/", realpath(APPPATH .
 if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
 if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
 
-define('BASE_URI', $appath_uri);
+define('BASE_URI', $base_uri);
 
 unset($doc_root, $appath_uri, $base_uri);
 
