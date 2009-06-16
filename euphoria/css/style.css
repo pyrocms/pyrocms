@@ -9,6 +9,10 @@
 .clear {
 	clear:both;
 }
+#loader {
+	margin-left:20px;
+}
+/* Messages */
 .message {
 	font-size:14px;
 	height:auto;
@@ -22,6 +26,19 @@
 }
 #success {
 	background:#9CE25B;
+}
+/* Passed / failed */
+.passed {
+	background: url(../img/passed.png) no-repeat center left;
+	padding-left:23px;
+}
+.failed {
+	background: url(../img/failed.png) no-repeat center left;
+	padding-left:23px;
+}
+/* Typography */
+strong {
+	font-weight:bold;
 }
 /* The body */
 body {
@@ -54,6 +71,47 @@ body {
 	font-size:14px;
 	margin-bottom:10px;
 }
+#content #go_back {
+	border-top:1px solid #ccc;
+	margin-top:15px;
+	padding:10px 0px 10px 0px;
+}
+#content #go_back a {
+	background: url(../img/back.png) no-repeat center left;
+	color:#08729E;
+	height:20px;
+	padding-left:20px;
+	text-decoration:none;
+}
+#content #go_back a:hover {
+	text-decoration:underline;
+}
+/* Dashboard */
+#dashboard li {
+	height:30px;
+	margin-bottom:20px;
+	padding:18px 0px 0px 60px;
+}
+#dashboard li a {
+	color:#474646;
+	font-weight:bold;
+	font-size:24px;
+	text-decoration:none;
+}
+#dashboard li a:hover {
+	color:#000000;
+	text-decoration:underline;
+}
+#dashboard #server {
+	background: url(../img/actions/server.png) no-repeat center left;
+}
+#dashboard #install {
+	background: url(../img/actions/install.png) no-repeat center left;
+}
+#dashboard #cache {
+	background: url(../img/actions/cache.png) no-repeat center left;
+}
+/* Installation form */
 #content form label{
 	float:left;
 	padding-top:7px;
@@ -68,14 +126,12 @@ body {
 #content form #dummy_label {
 	padding-top:2px;
 }
-#content form #button_box {
-	border-top:1px solid #ccc;
-	margin-top:20px;
-	padding-top:5px;
-	width:100%;
-}
-#content form #button_box #button_align {
+#content form #button_align {
 	float:right;
+}
+#content form #link_align {
+	float:left;
+	margin-top:13px;
 }
 #content form #submit,#content form #reset {
 	background:#A6D7EB;
