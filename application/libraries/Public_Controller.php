@@ -15,18 +15,16 @@ class Public_Controller extends MY_Controller
         	show_error($error);
         }
 				
-				// start language string handling
-					$this->lang->load('main');
-					$this->data->naviHead = $this->lang->line('navigation_headline');
-					$this->data->loggedInWelcome = sprintf($this->lang->line('logged_in_welcome'), $this->data->user->first_name.' '.$this->data->user->last_name );
-					$this->data->logoutLabel = $this->lang->line('logout_label');
-					$this->data->editProfileLabel = $this->lang->line('edit_profile_label');
-					$this->data->settingsLabel = $this->lang->line('settings_label');
-					$this->data->cpTitle = $this->lang->line('cp_title');
-					$this->data->breadcrumbBaseLabel = $this->lang->line('breadcrumb_base_label');
-					
-					//$this->data-> = $this->lang->line('');
-				// stop language string handling
+		// start language string handling
+		$this->lang->load('main');
+		$this->data->naviHead = $this->lang->line('navigation_headline');
+		$this->data->loggedInWelcome = sprintf($this->lang->line('logged_in_welcome'), @$this->data->user->first_name.' '.@$this->data->user->last_name );
+		$this->data->logoutLabel = $this->lang->line('logout_label');
+		$this->data->editProfileLabel = $this->lang->line('edit_profile_label');
+		$this->data->settingsLabel = $this->lang->line('settings_label');
+		$this->data->cpTitle = $this->lang->line('cp_title');
+		$this->data->breadcrumbBaseLabel = $this->lang->line('breadcrumb_base_label');
+		// stop language string handling
         
         // -- Navigation menu -----------------------------------
         $this->load->module_model('pages', 'pages_m');
