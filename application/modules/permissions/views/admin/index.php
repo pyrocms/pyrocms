@@ -1,38 +1,27 @@
-<script type="text/javascript">
-	jQuery(document).ready(function(){ 
-		jQuery('a.delete_role').click(function(){
-			return confirm('Are you sure you would like to delete this permission role? This will delete ALL navigation links within the role, and the layout files will need to be edited to remove refference to it.');
-		});
-	});
+<script>
+	var roleDeleteConfirm = '<?= lang('perm_role_delete_confirm');?>';
+	var permControllerSelectDefault = '<?= lang('perm_controller_select_default');?>';
+	var permMethodSelectDefault = '<?= lang('perm_method_select_default');?>';
 </script>
-
 <?= form_open('admin/permissions/delete');?>
-
-<p class="float-right">[ <?=anchor('admin/permissions/roles/create', 'Add a role') ?> ]</p>
-
+<p class="float-right">[ <?=anchor('admin/permissions/roles/create', lang('perm_role_add')) ?> ]</p>
 <br class="clear-both" />
-
-<? if (!empty($roles)):
-	
-	foreach ($roles as $role): ?>
-	
-		<h3 class="float-left"><?=$role->title; ?></h3>
-	
+<? if (!empty($roles)): ?>	
+	<? foreach ($roles as $role): ?>
+		<h3 class="float-left"><?=$role->title; ?></h3>	
 		<p class="float-right">
-			[ <?=anchor('admin/permissions/roles/edit/'.$role->id, 'Edit') ?> | 
-			  <?=anchor('admin/permissions/roles/delete/'.$role->id, 'Delete', 'class="delete_role"') ?> ]
-		</p>
-		
-		<table border="0" class="listTable spacer-bottom">
-		  
+			[ <?=anchor('admin/permissions/roles/edit/'.$role->id, lang('perm_role_edit')); ?> | 
+			  <?=anchor('admin/permissions/roles/delete/'.$role->id, lang('perm_role_delete'), 'class="delete_role"'); ?> ]
+		</p>		
+		<table border="0" class="listTable spacer-bottom">		  
 		  <thead>
-			<tr>
-				<th class="first"><div></div></th>
-				<th><a href="#">Module</a></th>
-				<th><a href="#">Controller</a></th>
-				<th><a href="#">Method</a></th>
-				<th class="last width-10"><span>Actions</span></th>
-			</tr>
+				<tr>
+					<th class="first"><div></div></th>
+					<th><a href="#"><?= lang('perm_module_label');?></a></th>
+					<th><a href="#"><?= lang('perm_controller_label');?></a></th>
+					<th><a href="#"><?= lang('perm_method_label');?></a></th>
+					<th class="last width-10"><span><?= lang('perm_action_label');?></span></th>
+				</tr>
 		  </thead>
 		  <tfoot>
 		  	<tr>
@@ -41,37 +30,31 @@
 		  		</td>
 		  	</tr>
 		  </tfoot>
-
-		<tbody>
-		<? if (!empty($rules[$role->abbrev])):
-		
-			foreach ($rules[$role->abbrev] as $navigation_link): ?>
+			<tbody>
+			<? if (!empty($rules[$role->abbrev])): ?>			
+				<? foreach ($rules[$role->abbrev] as $navigation_link): ?>
+					<tr>
+						<td><input type="checkbox" name="delete[<?=$navigation_link->id;?>]" /></td>
+						<td><?=$navigation_link->module;?></td>
+						<td><?=$navigation_link->controller; ?></td>
+						<td><?=$navigation_link->method;?></td>
+						<td>
+							<?= anchor('admin/permissions/edit/' . $navigation_link->id, lang('perm_rule_edit')) . ' | '; ?>
+							<?= anchor('admin/permissions/delete/' . $navigation_link->id, lang('perm_rule_delete'), array('class'=>'confirm'));?>
+						</td>
+					</tr>
+				<? endforeach; ?>			
+			<? else:?>
 				<tr>
-					<td><input type="checkbox" name="delete[<?=$navigation_link->id;?>]" /></td>
-                    <td><?=$navigation_link->module;?></td>
-                    <td><?=$navigation_link->controller; ?></td>
-                    <td><?=$navigation_link->method;?></td>
-                    <td><?= anchor('admin/permissions/edit/' . $navigation_link->id, 'Edit') . ' | '
-                          . anchor('admin/permissions/delete/' . $navigation_link->id, 'Delete', array('class'=>'confirm'));?></td>
+					<td colspan="5"><?= lang('perm_role_no_rules');?></td>
 				</tr>
-			<? endforeach; ?>
-		
-		<? else:?>
-			<tr><td colspan="5">There are no rules for this role.</td></tr>
-		<? endif; ?>
-		
-		</tbody>
-	</table>
-	
-	<br/>
-	
-	<? endforeach; ?>
-	
+			<? endif; ?>			
+			</tbody>
+	</table>	
+	<br/>	
+	<? endforeach; ?>	
 <? else: ?>
-	<p>There are no roles. Add a type called Administrator with the abbreviation of admin ASAP.</p>
-	
+	<p><?= lang('perm_no_roles');?></p>	
 <? endif; ?>
-
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
-
 <?=form_close(); ?>

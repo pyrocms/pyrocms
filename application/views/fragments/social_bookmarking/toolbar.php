@@ -7,7 +7,7 @@ if(empty($type)) $type = 'general';
 
 <div class="social-bookmarks">
 	
-	<h3><?=$tbTitle;?></h3>
+	<h3><?=lang('tb_title');?></h3>
 	
 	<ul class="list-inline">
 		<?= $this->load->view('fragments/social_bookmarking/'.$type.'_bookmarks', array('type' => $type, 'bookmark' => $bookmark)); ?>

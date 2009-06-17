@@ -1,48 +1,35 @@
 <?= form_open($this->uri->uri_string()); ?>
-
 <fieldset>
-	<legend>Who</legend>
-
-	<p>Rules can be set for <strong>users <small>(almost finished)</small></strong> or for <strong>roles</strong>. Select the "Type" of rule and then select the user or user role it applies to.</p>
-
+	<legend><?= lang('perm_who_label');?></legend>
+	<p><?= lang('perm_rule_desc');?></p>	
 	<div class="field">
-		<label for="module">Type</label>
-		<span class="spacer-right"><?=form_radio('role_type', 'role', $permission_rule->permission_role_id > 0) ?> Role</span> 
-		<?=form_radio('role_type', 'user', $permission_rule->user_id > 0) ?> User
-	</div>
-	
+		<label for="module"><?= lang('perm_type_label');?></label>
+		<span class="spacer-right"><?=form_radio('role_type', 'role', $permission_rule->permission_role_id > 0) ?> <?= lang('perm_role_label');?></span> 
+		<?=form_radio('role_type', 'user', $permission_rule->user_id > 0) ?> <?= lang('perm_user_label');?>
+	</div>	
 	<div class="field <?=$permission_rule->user_id == 0 ? 'hidden' : ''; ?>">
-		<label for="user_id">User</label>
-		<?=form_dropdown('user_id', array(''=>'-- Coming soon --'), NULL, 'disabled="disabled"') ?>
-	</div>
-	
+		<label for="user_id"><?= lang('perm_user_label');?></label>
+		<?=form_dropdown('user_id', array(''=> lang('perm_user_select_default')), NULL, 'disabled="disabled"') ?>
+	</div>	
 	<div class="field <?=$permission_rule->permission_role_id == 0 ? 'hidden' : ''; ?>">
-		<label for="permission_role_id">Role</label>
-		<?=form_dropdown('permission_role_id', array(''=>'-- Select --')+$roles_select, $permission_rule->permission_role_id) ?>
-	</div>
-	
+		<label for="permission_role_id"><?= lang('perm_role_label');?></label>
+		<?=form_dropdown('permission_role_id', array(''=> lang('perm_rule_select_default'))+$roles_select, $permission_rule->permission_role_id) ?>
+	</div>	
 </fieldset>
-
 <fieldset>
-	<legend>What</legend>
-
+	<legend><?= lang('perm_what_label');?></legend>
 	<div class="field">
-		<label for="module">Module</label>
+		<label for="module"><?= lang('perm_module_label');?></label>
 		<?=form_dropdown('module', $modules_select, $permission_rule->module) ?>
-	</div>
-	
+	</div>	
 	<div class="field">
-		<label for="controller">Controller</label>
+		<label for="controller"><?= lang('perm_controller_label');?></label>
 		<?=form_dropdown('controller', $controllers_select, $permission_rule->controller) ?>
-	</div>
-	
+	</div>	
 	<div class="field">
-		<label for="method">Method</label>
+		<label for="method"><?= lang('perm_method_label');?></label>
 		<?=form_dropdown('method', $methods_select, $permission_rule->method) ?>
 	</div>
-
 </fieldset>
-
 <? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
-	
- <?= form_close(); ?>
+<?= form_close(); ?>

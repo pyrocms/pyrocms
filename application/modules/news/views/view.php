@@ -1,33 +1,25 @@
 <? $this->load->helper('typography'); ?>
-
 <h2><?= $article->title; ?></h2>
-
 <p>
-	<strong>Posted:</strong> <?= date('M d, Y', $article->created_on); ?><br/>
-		
+	<strong><?=lang('news_posted_label');?>:</strong> <?= date('M d, Y', $article->created_on); ?><br/>		
 	<? if($article->category_slug): ?>
-	<strong>Category:</strong> <?=anchor('news/category/'.$article->category_slug, $article->category_title);?>
+		<strong><?=lang('news_category_label');?>:</strong> <?=anchor('news/category/'.$article->category_slug, $article->category_title);?>
 	<? endif; ?>
 </p>
-
 <hr/>
-
-<?=stripslashes($article->body);?>
- 
+<?=stripslashes($article->body);?> 
 <hr/>
-
 <?= $this->load->view('fragments/social_bookmarking/toolbar', array('bookmark' => array('title' => $article->title))); ?>
-
 <hr/>
 
-<h3>Comments</h3>
+<h3><?=lang('news_comments_title');?></h3>
     
 <fieldset class="alternative float-left width-half">
-	<legend>They said...</legend>
+	<legend><?=lang('news_other_comments_label');?></legend>
 	<?= $this->comments_m->getComments($this->module, $article->id); ?>
 </fieldset>
                 
 <fieldset class="float-right width-half">
-	<legend>You say...?</legend>
+	<legend><?=lang('news_your_comments_label');?></legend>
 	<?= $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $article->id)); ?> 
 </fieldset>

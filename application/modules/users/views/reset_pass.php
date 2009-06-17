@@ -1,4 +1,4 @@
-<h2>Reset Password</h2>
+<h2><?= lang('user_reset_password_title');?></h2>
 
 <? if(!empty($error_string)):?>
 <div class="error-box"><?=$error_string;?></div>

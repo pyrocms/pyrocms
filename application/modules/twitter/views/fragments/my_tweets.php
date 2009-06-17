@@ -7,18 +7,14 @@ $twitter_timeline = $CI->twitter_m->user_timeline(NULL, $this->settings->item('t
 ?>
 
 <? if($twitter_timeline): ?>
-
 	<? foreach($twitter_timeline as $tweet): ?>
-	<p class="dark-grey-bg spacer-bottom padding-left">
-		<strong><?=date('d/m/Y h:m', strtotime($tweet->created_at)) ?></strong> - <em><?=$tweet->text ?></em>
-	</p>
-	
-	<? endforeach; ?>
-	
+		<p class="dark-grey-bg spacer-bottom padding-left">
+			<strong><?=date('d/m/Y h:m', strtotime($tweet->created_at));?></strong> - <em><?= $tweet->text;?></em>
+		</p>	
+	<? endforeach; ?>		
 	<p class="align-center">
-		<a href="http://twitter.com/<?=$this->settings->item('twitter_username') ?>" target="_blank">More &raquo;</a>
+		<a href="http://twitter.com/<?=$this->settings->item('twitter_username') ?>" target="_blank"><?= lang('twitter_more');?></a>
 	</p>
-
 <? else: ?>
-	<p>None posted just yet.</p>
+	<p><?= lang('twitter_no_tweets');?></p>
 <? endif; ?>

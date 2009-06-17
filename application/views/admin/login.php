@@ -14,20 +14,20 @@
 		
 			<? if (!empty($this->validation->error_string)): ?>
 				<div class="message message-error">
-					<h6><?=$loginError;?></h6>
+					<h6><?=lang('login_error');?></h6>
 					<p><?=$this->validation->error_string;?></p>
-					<a class="close icon icon_close" title="<?=$closeMessage;?>" href="#"/>
+					<a class="close icon icon_close" title="<?= lang('close_message');?>" href="#"/>
 				</div>
 			<? endif; ?>
 			
 			<div class="roundedBorders login-box">
 				<!-- Title -->
 				<div id="page-title" class="b2">
-					<h2><?=$loginTitle;?></h2>
+					<h2><?= lang('login_title');?></h2>
 					<!-- TitleActions -->
 					<div id="titleActions">
 						<div class="actionBlock">
-						<a href="<?=site_url('users/reset_pass'); ?>"><?=$forgetPasswordLabel;?></a>
+						<a href="<?=site_url('users/reset_pass'); ?>"><?= lang('forget_password_label');?></a>
 						</div>
 					</div>
 					<!-- /TitleActions -->
@@ -40,11 +40,11 @@
 					<?=form_open('admin/login'); ?>	
 	
 						<div class="field">
-							<label for="username"><?=$emailLabel;?></label>
+							<label for="username"><?= lang('email_label');?></label>
 							<input type="text" class="text" id="email" name="email" value="<?= $this->validation->email; ?>" />
 						</div>
 						<div class="field">
-							<label for="password"><?=$passwordLabel;?></label>
+							<label for="password"><?= lang('password_label');?></label>
 							<input type="password" class="text" id="password" name="password" />
 						</div>
 						<div class="clearfix login-submit">
@@ -53,7 +53,7 @@
 								<label for="remember-me">Remember me</label>
 							</span> */?>
 							<span class="fright">
-								<button class="button" type="submit"><strong><?=$loginLabel;?></strong></button>
+								<button class="button" type="submit"><strong><?= lang('login_label');?></strong></button>
 							</span>
 						</div>
 					

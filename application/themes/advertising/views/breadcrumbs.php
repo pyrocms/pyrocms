@@ -1,5 +1,5 @@
 <p>
-	<small><?=anchor('', $breadcrumbBaseLabel) ?>
+	<small><?=anchor('', lang('breadcrumb_base_label')) ?>
 	
 	<? foreach($breadcrumbs as $breadcrumb): ?>
 		<? if(!$breadcrumb['current_page']): ?>

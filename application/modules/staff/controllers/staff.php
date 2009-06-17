@@ -6,13 +6,13 @@ class Staff extends Public_Controller
 	{
 		parent::Public_Controller();
 		$this->load->model('staff_m');
+		$this->lang->load('staff');
 	}
 	
 	function index()
 	{
 		$this->load->helper('string'); 
-		$this->load->helper('text');
-	
+		$this->load->helper('text');	
 	 	$this->data->staffs = $this->staff_m->getStaff();
 	 	$this->layout->create('index', $this->data);
 	}
@@ -27,8 +27,8 @@ class Staff extends Public_Controller
 			redirect('staff');
 		}
 		
-	 	$this->layout->title( $this->data->staff->name, 'Staff' );
-        $this->layout->create('view', $this->data);
+	 	$this->layout->title( $this->data->staff->name, $this->lang->line('staff_title'));
+    $this->layout->create('view', $this->data);
 	}
 }
 

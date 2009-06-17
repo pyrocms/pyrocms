@@ -97,41 +97,33 @@ class Admin extends Admin_Controller
 					// Activate the user
 					if($this->users_m->activateUser($user_id))
 					{
-						$this->session->set_flashdata('success', 'New user has been created and activated.');
+						$this->session->set_flashdata('success', $this->lang->line('user_added_and_activated_success'));
 						redirect('admin/users/index');
-					} 
-					
+					}					
 					else
 					{
 						$this->data->error_string = $this->lang->line('user_activation_failed');
-					}
-					
-				}
-				
+					}					
+				}				
 				else
-				{
-					
+				{					
 					// No Activation, send mail
 					if($this->user_lib->registered_email($this->user_lib->user_data))
 					{
-						$this->session->set_flashdata('success', 'New user has been created, the account needs to be activated.');
+						$this->session->set_flashdata('success', $this->lang->line('user_added_not_activated_success'));
 						redirect('admin/users/index');
-					}
-					
+					}					
 					else
 					{
 						$this->data->error_string = $this->lang->line($this->user_lib->error_code);
 					}
-				}
-				
-			} 
-			
+				}				
+			}			
 			else
 			{
 				$this->data->error_string = $this->lang->line($this->user_lib->error_code);
 			}
-		}
-		
+		}		
 		else
 		{
 			// Return the validation error message or user_lib error
@@ -141,9 +133,8 @@ class Admin extends Admin_Controller
 		// Set defult field values
 		foreach(array_keys($this->rules) as $field)
 		{
-        	$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-        }
-        
+    	$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
+    }        
 		$this->layout->create('admin/form', $this->data);
 	}
 
@@ -165,7 +156,7 @@ class Admin extends Admin_Controller
 		
 		if(!$this->data->member)
 		{
-			$this->session->set_flashdata('error', 'User not found.');
+			$this->session->set_flashdata('error', $this->lang->line('user_edit_user_not_found_error'));
 			redirect('admin/users');
 		}
 		
@@ -188,36 +179,31 @@ class Admin extends Admin_Controller
 			
 			if($this->users_m->updateUser($id, $update_data))
 			{
-				$this->session->set_flashdata('success', 'User successfully updated.');
-			}
-			
+				$this->session->set_flashdata('success', $this->lang->line('user_edit_success'));
+			}			
 			else
 			{
-				$this->session->set_flashdata('error', 'Error occurred when trying to update user.');
-			}
-			
+				$this->session->set_flashdata('error', $this->lang->line('user_edit_error'));
+			}			
 			redirect('admin/users');
-		}
-		
+		}		
 		else
 		{
 			$this->data->error_string = $this->validation->error_string;
 		}			
 
 		// Override fields with provided values
-		foreach(array_keys($this->rules) as $field) {
-        	
-        	if(isset($_POST[$field]))
-        		$this->data->member->$field = $this->validation->$field;
-        }
-
-        $this->layout->create('admin/form', $this->data);
+		foreach(array_keys($this->rules) as $field)
+		{
+    	if(isset($_POST[$field])) $this->data->member->$field = $this->validation->$field;
+    }
+		$this->layout->create('admin/form', $this->data);
 	}
 
 	// Admin: Activate a User
-	function activate($id = 0) {
-
-    	$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
+	function activate($id = 0)
+	{
+		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 		
 		// Activate multiple
 		if( !empty($ids) )
@@ -232,20 +218,18 @@ class Admin extends Admin_Controller
 				}
 				$to_activate++;
 			}
-			$this->session->set_flashdata('success', $activated.' users out of '.$to_activate.' successfully activated.');
-		}
-		
+			$this->session->set_flashdata('success', sprintf($this->lang->line('user_activate_success'), $activated, $to_activate));
+		}		
 		else
 		{
-			$this->session->set_flashdata('error', 'You need to select users first.');
-		}
-		
+			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
+		}		
 		redirect('admin/users/index');
 	}
 
 	// Admin: Delete a User
-	function delete($id = 0) {
-
+	function delete($id = 0)
+	{
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		if(!empty($ids))
@@ -257,7 +241,7 @@ class Admin extends Admin_Controller
 				// Make sure the admin is not trying to delete themself
 				if($this->user_lib->user_data->id == $id)
 				{
-					$this->session->set_flashdata('notice', 'You cannot delete yourself!');
+					$this->session->set_flashdata('notice', $this->lang->line('user_delete_self_error'));
 					continue;
 				}
 				
@@ -270,17 +254,13 @@ class Admin extends Admin_Controller
 			
 			if($to_delete > 0)
 			{
-				$this->session->set_flashdata('success', $deleted.' users out of '.$to_delete.' successfully deleted.');
-			}
-			
-		}
-		
+				$this->session->set_flashdata('success', sprintf($this->lang->line('user_mass_delete_success'), $deleted, $to_delete));
+			}			
+		}		
 		// The array of id's to delete is empty
-		else $this->session->set_flashdata('error', 'You need to select users first.');
+		else $this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
 			
 		redirect('admin/users/index');
 	}
-
 }
-
 ?>

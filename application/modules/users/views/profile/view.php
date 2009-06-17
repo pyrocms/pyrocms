@@ -1,31 +1,29 @@
-<h2><?=$user->full_name ?>'s Profile</h2>
+<h2><?=sprintf(lang('profile_of_title'), $user->full_name);?></h2>
 
 <fieldset>
-	<legend>User Details</legend>
-	<strong>Role:</strong> <?=$user->role; ?><br/>
-	<strong>Registered on:</strong> <?=date('M d, Y', $user->created_on); ?><br/>
+	<legend><?=lang('profile_user_details_label');?></legend>
+	<strong><?=lang('profile_role_label');?>:</strong> <?=$user->role; ?><br/>
+	<strong><?=lang('profile_registred_on_label');?>:</strong> <?=date('M d, Y', $user->created_on); ?><br/>
 	<? if($user->last_login > 0): ?>
-	<strong>Last login:</strong> <?=date('M d, Y', $user->last_login); ?>
+		<strong><?=lang('profile_last_login_label');?>:</strong> <?=date('M d, Y', $user->last_login); ?>
 	<? endif; ?>
 </fieldset>
 
 <? if($profile): ?>
-
 	<? if($profile->bio): ?>
-	<fieldset class="width-22 float-left">
-		<legend><?=lang('profile_bio'); ?></legend>
-	
-		<?=$profile->bio ?>
-	</fieldset>
+		<fieldset class="width-22 float-left">
+			<legend><?=lang('profile_bio'); ?></legend>
+		
+			<?=$profile->bio ?>
+		</fieldset>
 	<? endif; ?>
 	
 	<fieldset class="width-22 float-right">
-		<legend><?=lang('profile_personal_section') ?></legend>
-		
+		<legend><?=lang('profile_personal_section') ?></legend>		
 		<dl>
 			<? if($profile->gender): ?>
 				<dt><?=lang('profile_gender'); ?></dt>
-				<dd><?=$profile->gender == 'm' ? 'Male' : 'Female' ?></dd>
+				<dd><?=$profile->gender == 'm' ? lang('profile_male_label') : lang('profile_female_label') ?></dd>
 			<? endif; ?>
 			
 			<? if($profile->dob): ?>
@@ -36,8 +34,7 @@
 	</fieldset>
 	
 	<fieldset class="width-22 float-left">
-		<legend><?=lang('profile_messenger_section') ?></legend>
-	
+		<legend><?=lang('profile_messenger_section') ?></legend>	
 		<dl>
 			<? if($profile->msn_handle): ?>
 				<dt><?=lang('profile_msn_handle') ?></dt>
@@ -58,10 +55,8 @@
 				<dt><?=lang('profile_gtalk_handle') ?></dt>
 				<dd><?=$profile->gtalk_handle ?></dd>
 			<? endif; ?>
-		</dl>
-		
+		</dl>		
 	</fieldset>
-
 <? else: ?>
-	<p>This user does not have a profile set up.</p>
+	<p><?=lang('profile_not_set_up');?></p>
 <? endif; ?>

@@ -1,5 +1,5 @@
-$(function() {
-	
+$(function()
+{
 	// Pick a rule type, show the correct field
 	$("input[name='role_type']").change(function() {
 		
@@ -30,6 +30,11 @@ $(function() {
 		if(this.value != '') get_methods($("select[name='module']").val(), $(this).val());
 	});
 	
+	$('a.delete_role').click(function()
+	{
+		return confirm(roleDeleteConfirm);
+	});
+	
 });
 
 function get_controllers(module, selected) {
@@ -41,7 +46,7 @@ function get_controllers(module, selected) {
 	
 	$.getJSON(BASE_URI + "admin/permissions/module_controllers/" + module, function(data){
          
-         $("<option/>").attr("value", '*').text('-- All --').appendTo(controller_select);
+         $("<option/>").attr("value", '*').text(permControllerSelectDefault).appendTo(controller_select);
          
          $.each(data, function(i,controller){
            if(controller == module) label = controller + ' (default)';
@@ -64,7 +69,7 @@ function get_methods(module, controller, selected) {
 	
 	$(method_select).hide().empty();
 	
-    $("<option/>").attr("value", '*').text('-- All --').appendTo(method_select);
+    $("<option/>").attr("value", '*').text(permMethodSelectDefault).appendTo(method_select);
          
 	$.getJSON(BASE_URI + "admin/permissions/controller_methods/" + module + "/" + controller, function(data){
          $.each(data, function(i,method){

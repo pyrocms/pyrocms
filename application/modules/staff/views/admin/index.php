@@ -1,13 +1,11 @@
 <?=form_open('admin/staff/delete'); ?>
-
-<table border="0" class="listTable">
-    
+<table border="0" class="listTable">    
   <thead>
 	<tr>
 		<th class="first"><div></div></th>
-		<th><a href="#">Staff Member</a></th>
-		<th><a href="#">Updated</a></th>
-		<th class="last"><span>Actions</span></th>
+		<th><a href="#"><?= lang('staff_member_label');?></a></th>
+		<th><a href="#"><?= lang('staff_updated_label');?></a></th>
+		<th class="last"><span><?= lang('staff_actions_label');?></span></th>
 	</tr>
   </thead>
   <tfoot>
@@ -16,18 +14,27 @@
   			<div class="inner"><? $this->load->view('admin/layout_fragments/pagination'); ?></div>
   		</td>
   	</tr>
-  </tfoot>
-		<tbody>
-    <? if ($staff):?>    	<? foreach ($staff as $member): ?>        	<tr>				<td><input type="checkbox" name="delete[<?=$member->slug;?>]" /></td>				<td><?=anchor('admin/staff/edit/' . $member->slug, $member->name);?></td>				<td><?=date('M d, Y', $member->updated_on);?></td>
+  </tfoot>	
+	<tbody>
+  <? if ($staff):?>
+    <? foreach ($staff as $member): ?>
+    	<tr>
+				<td><input type="checkbox" name="delete[<?=$member->slug;?>]" /></td>
+				<td><?=anchor('admin/staff/edit/' . $member->slug, $member->name);?></td>
+				<td><?=date('M d, Y', $member->updated_on);?></td>
 				<td>
-					<?=anchor('staff/' . $member->slug, 'View', 'target="_blank"');?> | 
-					<?=anchor('admin/staff/edit/' . $member->slug, 'Edit');?> | 
-					<?=anchor('admin/staff/delete/' . $member->slug, 'Delete', array('class'=>'confirm'));?>
-                </td>			</tr>		<? endforeach; ?>
-			<? else: ?>		<tr><td colspan="4">There are no staff.</td></tr>    <? endif; ?>
+					<?=anchor('staff/' . $member->slug, lang('staff_view_label'), 'target="_blank"');?> | 
+					<?=anchor('admin/staff/edit/' . $member->slug, lang('staff_edit_label'));?> | 
+					<?=anchor('admin/staff/delete/' . $member->slug, lang('staff_delete_label'), array('class'=>'confirm'));?>
+        </td>
+			</tr>
+		<? endforeach; ?>		
+	<? else: ?>
+		<tr>
+			<td colspan="4"><?= lang('staff_no_staff');?></td>
+		</tr>
+  <? endif; ?>
  	</tbody>
 </table>
-
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
- 
+<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?> 
 <?=form_close(); ?>
