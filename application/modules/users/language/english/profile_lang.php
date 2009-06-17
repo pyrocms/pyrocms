@@ -1,5 +1,16 @@
 <?php
 
+$lang['profile_of_title'] = '%s\'s Profile';
+
+$lang['profile_user_details_label'] = 'User Details';
+$lang['profile_role_label'] = 'Role';
+$lang['profile_registred_on_label'] = 'Registered on';
+$lang['profile_last_login_label'] = 'Last login';
+$lang['profile_male_label'] = 'Male';
+$lang['profile_female_label'] = 'Female';
+
+$lang['profile_not_set_up'] = 'This user does not have a profile set up.';
+
 $lang['profile_edit'] = 'Edit your profile';
 
 $lang['profile_personal_section'] = 'Personal';
@@ -31,6 +42,9 @@ $lang['profile_gtalk_handle'] = 'GTalk';
 $lang['profile_avatar_section'] = 'Avatar';
 
 $lang['profile_gravatar'] = 'Gravatar';
+
+$lang['profile_edit_success'] = 'Your date was saved successfully.';
+$lang['profile_edit_error'] = 'An error occurred.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 

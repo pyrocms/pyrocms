@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Themes_m extends Model {
-
+class Themes_m extends Model
+{
 	function getThemes()
 	{
 		$themes = array();
@@ -9,28 +9,25 @@ class Themes_m extends Model {
 		{
 			$theme = new stdClass;
 			$theme->name = basename($name);
-			$theme->slug = urlencode($theme->name);
-			
+			$theme->slug = urlencode($theme->name);			
 			$themes[] = $theme;
-		}
-		
+		}	
 		return $themes;
 	}
-
-    function countThemes()
-    {
+	
+	function countThemes()
+	{
 		return count($this->getThemes());
-    }
-    
-	function getDefault() {
-        $this->settings->item('default_theme');
-    }
-
+	}
+	
+	function getDefault()
+	{
+		$this->settings->item('default_theme');
+	}
+	
 	function setDefault($theme)
 	{
 		return $this->settings->set_item('default_theme', $theme);
 	}
-	
 }
-
 ?>

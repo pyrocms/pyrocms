@@ -1,22 +1,22 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users extends Public_Controller {
-
-    function __construct() {
-        parent::Public_Controller();
-        
-        $this->load->library('session');
+class Users extends Public_Controller
+{
+	function __construct()
+	{
+		parent::Public_Controller();
+    $this->load->library('session');
 		$this->load->library('user_lib');
 		
 		$this->load->model('users_m');
 		$this->load->helper('user');
 		
 		$this->lang->load('user');
-    }
-
-    // AUTHORISATION SECTION -------------------------------------------------------------------------------------
-
-    function login()
+  }
+	
+  // AUTHORISATION SECTION -------------------------------------------------------------------------------------
+	
+  function login()
 	{
 		// Set the redirect page as soon as they get to login
 		if(!$this->session->userdata('redirect_to')):
@@ -25,23 +25,21 @@ class Users extends Public_Controller {
 		
 		// Call validation and set rules
 		$this->load->library('validation');
-        $rules['email'] = 'callback__check_login';
-        $rules['password'] = '';
-        $this->validation->set_rules($rules);
-        $this->validation->set_fields();
+    $rules['email'] = 'callback__check_login';
+    $rules['password'] = '';
+    $this->validation->set_rules($rules);
+    $this->validation->set_fields();
         
-        // If the validation worked, or the user is already logged in
-        if ($this->validation->run() or $this->user_lib->logged_in()):
-            
-			//$redirect_to = (($this->session->userdata('redirect_to')) ? $this->session->userdata('redirect_to') : '');
+    // If the validation worked, or the user is already logged in
+    if ($this->validation->run() or $this->user_lib->logged_in()):
+    	//$redirect_to = (($this->session->userdata('redirect_to')) ? $this->session->userdata('redirect_to') : '');
 			//redirect($redirect_to, 'refresh');
 			
-        	// TODO PJS Add login redirect - sends back to whatever page they were trying to get on
-        	redirect('');
-        endif;
+			// TODO PJS Add login redirect - sends back to whatever page they were trying to get on
+      redirect('');
+    endif;
         
-        $this->layout->create('login', $this->data);
-		
+    $this->layout->create('login', $this->data);
 	}
 	
 	function logout()
@@ -52,8 +50,7 @@ class Users extends Public_Controller {
 	}
 	
 	function register()	
-	{
-		
+	{		
 		$this->load->library('validation');
 		
 		$rules = array(
@@ -82,13 +79,13 @@ class Users extends Public_Controller {
 					
 					// They do? Ok, send out an email to the user
 					if($this->user_lib->registered_email($this->user_lib->user_data)):			
-						$this->session->set_flashdata(array('notice'=>'An email has been sent to you with your activation code.'));	
+						$this->session->set_flashdata(array('notice'=> $this->lang->line('user_activation_code_sent_notice')));	
 						redirect('users/activate/'.$id);
 					endif;
 				
 				// or should we let the admin manually activate them?
 				else:
-					$this->session->set_flashdata(array('notice'=>'Your registration is awaiting approval by an administrator.'));	
+					$this->session->set_flashdata(array('notice'=> $this->lang-line('user_activation_by_admin_notice')));	
 					redirect('');
 				endif;
 			
@@ -102,9 +99,8 @@ class Users extends Public_Controller {
 			$this->data->error_string = $this->validation->error_string;
 		endif;
 		
-		$this->layout->title('Register');
-		$this->layout->create('register', $this->data);
-		
+		$this->layout->title($this->lang->line('user_register_title'));
+		$this->layout->create('register', $this->data);		
 	}
 
 	function activate($id = 0, $code = NULL)
@@ -138,23 +134,22 @@ class Users extends Public_Controller {
 			
 		endif;
 		
-		$this->layout->title('Activate Account');
-		$this->layout->add_breadcrumb('Activate', 'users/activate');
-		$this->layout->create('activate', $this->data);
-		
+		$this->layout->title($this->lang->line('user_activate_account_title'));
+		$this->layout->add_breadcrumb($this->lang->line('user_activate_label'), 'users/activate');
+		$this->layout->create('activate', $this->data);		
 	}
 	
-	function activated() {
-		
+	function activated()
+	{		
 		$this->data->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 		
-		$this->layout->title('Activated Account');
+		$this->layout->title($this->lang->line('user_activated_account_title'));
 		$this->layout->create('activated', $this->data);
 	}
 	
 	function reset_pass()
 	{
-		if($this->input->post('btnSubmit')):	
+		if($this->input->post('btnSubmit')):			
 			
 			$new_password = $this->user_lib->reset_password($this->input->post('first_name'), $this->input->post('last_name'), $this->input->post('email'));
 			
@@ -176,29 +171,29 @@ class Users extends Public_Controller {
 			
 		endif;
 		
-		$this->layout->title('Reset Password');
+		$this->layout->title($this->lang->line('user_reset_password_title'));
 		$this->layout->create('reset_pass', $this->data);
 	}
 
-	function reset_complete() {
-		$this->layout->title('Password Reset');
+	function reset_complete()
+	{
+		$this->layout->title($this->lang->line('user_password_reset_title'));
 		$this->layout->create('reset_pass_complete', $this->data);
 	}
 
 	// Callback From: login()
-    function _check_login($email) {
-		
-    	if ($this->user_lib->login($email, $this->input->post('password')))
-    	{
-            return TRUE;
-        }
-        
-        else
-        {
-            $this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
-            return FALSE;
-        }
+  function _check_login($email)
+	{		
+    if ($this->user_lib->login($email, $this->input->post('password')))
+    {
+    	return TRUE;
     }
+    else
+    {
+    	$this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
+      return FALSE;
+    }
+  }
 	
 	// Testing function only, comment out when not using
 	/*function temp_create($email = 'demo@example.com', $password = 'password', $first_name = 'Demo', $last_name = 'User') {
@@ -213,8 +208,5 @@ class Users extends Public_Controller {
                                          'is_active'=>1,
                                          'created_on'=>now()));
     }*/
-    
-
 }
-
 ?>

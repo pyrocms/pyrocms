@@ -1,57 +1,24 @@
-<?= js('jquery/jquery.imgareaselect.js'); ?>
 <script type="text/javascript">
-function preview(img, selection) { 
-	var scaleX = <?=$this->config->item('staff_width');?> / selection.width; 
-	var scaleY = <?=$this->config->item('staff_height');?> / selection.height; 
-	
-	$('#thumbnail_preview').css({ 
-		width: Math.round(scaleX * <?php echo $image_data['width'];?>) + 'px', 
-		height: Math.round(scaleY * <?php echo $image_data['height'];?>) + 'px',
-		marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
-		marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
-	});
-	$('#x1').val(selection.x1);
-	$('#y1').val(selection.y1);
-	$('#x2').val(selection.x2);
-	$('#y2').val(selection.y2);
-	$('#w').val(selection.width);
-	$('#h').val(selection.height);
-} 
-
-$(document).ready(function () { 
-	$('#save_thumb').click(function() {
-		var x1 = $('#x1').val();
-		var y1 = $('#y1').val();
-		var x2 = $('#x2').val();
-		var y2 = $('#y2').val();
-		var w = $('#w').val();
-		var h = $('#h').val();
-		if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
-			alert("You must make a selection on the original image first.");
-			return false;
-		}else{
-			return true;
-		}
-	});
-}); 
-
-$(window).load(function () { 
-	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
-});
-
+	var staffNoImgSelectedError = '<?= lang('staff_no_img_selected_error');?>';
+	var staffWidth = '<?=$this->config->item('staff_width');?>';
+	var staffHeight = '<?=$this->config->item('staff_height');?>';
+	var imageDataWidth = '<?=$image_data['width'];?>';
+	var imageDataHeight = '<?=$image_data['height'];?>';
 </script>
+<?= js('jquery/jquery.imgareaselect.js'); ?>
+<?= js('staff.js', 'staff'); ?>
 
-
-	<h3>Crop Image</h3>
+	<h3><?= lang('staff_crop_image_title');?></h3>
 	
 	<div style="float:left;">
-		<h3>Original Image</h3>
-			<?= image('staff/' . $image, '', array('id'=>'thumbnail', 'title'=>'Drag the box to crop this image')); ?>
+		<h3><?= lang('staff_original_image_label');?></h3>
+			<?= image('staff/' . $image, '', array('id'=>'thumbnail', 'title'=> lang('staff_original_image_desc'))); ?>
 	</div>
+	
 	<div style="float:left; padding-left:20px;">
-		<h3>Croped Image</h3>
+		<h3><?= lang('staff_cropped_image_label');?></h3>
 			<div style="position:relative; overflow:hidden; width:<?=$this->config->item('staff_width');?>px; height:<?=$this->config->item('staff_height');?>px;">
-				<?= image('staff/' . $image, '', array('style'=>'position: relative;', 'alt' => 'Thumbnail Preview', 'title'=>'Drag the box to crop this image', 'id' => 'thumbnail_preview')); ?>
+				<?= image('staff/' . $image, '', array('style'=>'position: relative;', 'alt' => lang('staff_thumb_preview_label'), 'title'=> lang(''), 'id' => 'thumbnail_preview')); ?>
 			</div>
 	</div>
 	<br style="clear:both;"/>
@@ -62,4 +29,3 @@ $(window).load(function () {
 		<input type="hidden" name="y2" id="y2" value="" />
 		<p><input type="submit" id="save_thumb" name="btnCrop" value="Crop Image" /></p>
 	<?= form_close(); ?>
-

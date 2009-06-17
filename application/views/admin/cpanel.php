@@ -6,21 +6,18 @@
 <? endforeach;*/
 ?>
 <p class="align-center">
-	<strong><?=$cpWelcome;?></strong>
+	<strong><?= sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?></strong>
 </p>
-
-<h3 class="spacer-top"><a name="modules"><?=$modulesTitle;?></a></h3>
-
+<h3 class="spacer-top"><a name="modules"><?= lang('mod_title');?></a></h3>
 <table class="listTable">
 	<thead>
 		<tr>
 			<th class="first"><div></div></th>
-			<th><a href="#"><?=$nameLabel;?></a></th>
-			<th><?=$descLabel;?></th>
-			<th class="last"><a href="#"><?=$versionLabel;?></a></th>
+			<th><a href="#"><?= lang('name_label');?></a></th>
+			<th><?= lang('desc_label');?></th>
+			<th class="last"><a href="#"><?= lang('version_label');?></a></th>
 		</tr>
-	</thead>
-	
+	</thead>	
 	<tbody>
 	<? foreach($modules as $module): ?>
 		<tr>
@@ -30,6 +27,5 @@
 			<td class="align-center"><?=$module['version'] ?></td>
 		</tr>
 	<? endforeach; ?>
-	</tbody>
-	
+	</tbody>	
 </table>
