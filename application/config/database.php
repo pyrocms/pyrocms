@@ -33,9 +33,9 @@
 
 // Local
 $db['local']['hostname'] = "localhost";
-$db['local']['username'] = "xcms";
-$db['local']['password'] = "xxxcmsxxx";
-$db['local']['database'] = "xcms";
+$db['local']['username'] = "root";
+$db['local']['password'] = "root";
+$db['local']['database'] = "pyrocms";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
@@ -57,8 +57,8 @@ $db['local']['dbcollat'] = "utf8_unicode_ci";
 // Live
 $db['live']['hostname'] = "localhost";
 $db['live']['username'] = "root";
-$db['live']['password'] = "";
-$db['live']['database'] = "pyrocms";
+$db['live']['password'] = "root";
+$db['live']['database'] = "testfoo";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['active_r'] = TRUE;
