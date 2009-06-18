@@ -2,7 +2,7 @@ PyroCMS
 =======
 
 VERSION: 0.9.5.3
-AUTHOR: Philip Sturgeon < email@philsturgeon.co.uk >
+AUTHOR: Philip Sturgeon < email[at]philsturgeon[dot]co[dot]uk >
 
 DESCRIPTION
 -----------
@@ -22,13 +22,11 @@ BUGS / FEATURE REQUESTS
 This project has a ticket/milestone planning page located at the URL below.
 Before reporting bugs or requesting any features, please check there is not already a ticket.
 
-    http://www.assembla.com/spaces/pyrocms/tickets
-
-If there is no ticket, please send an e-mail to < email@philsturgeon.co.uk >.
+http://github.com/philsturgeon/pyrocms/issues
 
 
 THANKS
 ------
 
 That Lee Guy 	lee@thatleeguy.com
-MrEnirO  		mreniro@gmail.com
+MrEnirO  	mreniro@gmail.com
