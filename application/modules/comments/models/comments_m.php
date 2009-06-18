@@ -2,13 +2,8 @@
 
 class Comments_m extends Model {
 
-    function __construct() {
-        parent::Model();
-    }
-
-    
-    function getComments($module, $id) {
-        
+    function getComments($module, $id)
+    {
     	// Creatve selecting to return user details if they are a user, or just name and email if guest
     	$this->db->select('c.id, c.body, c.created_on, 
     						IF(user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name, 
@@ -28,7 +23,7 @@ class Comments_m extends Model {
         } else {
             $string = '';
             foreach ($query->result() as $comment) {
-                $string .= '<p><strong>' . $comment->name .' says:</strong> "' . $comment->body . '"<br />'
+                $string .= '<p><strong>' . $comment->name .' says:</strong> "' . nl2br($comment->body) . '"<br />'
                 		.  '&nbsp;&nbsp;left at ' . date('h:i:s \o\n M d, Y', $comment->created_on) .'.</p>';
             }
             return $string;
@@ -36,7 +31,8 @@ class Comments_m extends Model {
     }
     
     
-	function newComment($input = array()) {
+	function newComment($input = array())
+	{
 		$this->load->helper('date');
 		
         $this->db->insert('comments', array(
