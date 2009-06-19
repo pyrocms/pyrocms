@@ -1,6 +1,7 @@
 <?= form_open('admin/permissions/delete');?>
 <p class="float-right">[ <?=anchor('admin/permissions/roles/create', lang('perm_role_add')) ?> ]</p>
 <br class="clear-both" />
+
 <? if (!empty($roles)): ?>	
 	<? foreach ($roles as $role): ?>
 		<h3 class="float-left"><?=$role->title; ?></h3>	
