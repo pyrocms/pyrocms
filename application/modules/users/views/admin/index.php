@@ -39,14 +39,13 @@
 				<td><?=date('M d, Y', $member->created_on); ?></td>
 				<td><?=($member->last_login > 0 ? date('M d, Y', $member->last_login) : 'Never'); ?></td>
 				<td>
-					<?= anchor('users/' . $member->id, 'View', 'target="_blank"') . ' | ' .
-						anchor('admin/users/edit/' . $member->id, 'Edit') . ' | ' . 
+					<?= anchor('admin/users/edit/' . $member->id, 'Edit') . ' | ' . 
 						anchor('admin/users/delete/' . $member->id, 'Delete', array('class'=>'confirm')); ?>
 				</td>
 			  </tr>
 		<? endforeach; ?>
 	<? else: ?>
-		<tr><td colspan="7">There are no registered users.</td></tr>
+		<tr><td colspan="6">There are no registered users.</td></tr>
 	<? endif; ?>
 	</tbody>
 	
