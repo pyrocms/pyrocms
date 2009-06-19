@@ -1,8 +1,3 @@
-<script>
-	var roleDeleteConfirm = '<?= lang('perm_role_delete_confirm');?>';
-	var permControllerSelectDefault = '<?= lang('perm_controller_select_default');?>';
-	var permMethodSelectDefault = '<?= lang('perm_method_select_default');?>';
-</script>
 <?= form_open('admin/permissions/delete');?>
 <p class="float-right">[ <?=anchor('admin/permissions/roles/create', lang('perm_role_add')) ?> ]</p>
 <br class="clear-both" />
