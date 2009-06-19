@@ -14,7 +14,6 @@
 		<th><a href="#">E-mail</a></th>
 		<th><a href="#">Role</a></th>
 		<th><a href="#">Joined</a></th>
-		<th><a href="#">Last visit</a></th>
 		<th class="last"><span>Actions</span></th>
 	</tr>
   </thead>
@@ -35,15 +34,15 @@
 				<td><?=anchor('admin/users/edit/' . $member->id, $member->email); ?></td>
 				<td><?=$member->role; ?></td>
 				<td><?=date('M d, Y', $member->created_on); ?></td>
-				<td><?=($member->last_login > 0 ? date('M d, Y', $member->last_login) : 'Never'); ?></td>
 				<td>
 					<?= anchor('admin/users/activate/' . $member->id, 'Activate') . ' | ' .
+						anchor('admin/users/edit/' . $member->id, 'Edit') . ' | ' .
 						anchor('admin/users/delete/' . $member->id, 'Delete', array('class'=>'confirm')); ?>
 				</td>
 			  </tr>
 		<? endforeach; ?>
 	<? else: ?>
-		<tr><td colspan="7">There are no inactive users.</td></tr>
+		<tr><td colspan="6">There are no inactive users.</td></tr>
 	<? endif; ?>
 	</tbody>
 
