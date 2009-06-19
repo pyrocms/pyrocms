@@ -21,7 +21,8 @@ class Admin extends Admin_Controller
 				var permControllerSelectDefault = "'.$this->lang->line('perm_controller_select_default').'";
 				var permMethodSelectDefault = "'.$this->lang->line('perm_method_select_default').'";
 			</script>
-		');		
+		');	
+			
 		$this->layout->extra_head( js('permissions.js', 'permissions') );	
 	}
 	
