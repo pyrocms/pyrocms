@@ -199,7 +199,7 @@ class Admin extends Admin_Controller
     
     // Callback: From create
     function _check_title($title) {
-        if ($this->suppliers_m->getSupplier(url_title($title))) {
+        if ($this->suppliers_m->getBySlug(url_title($title))) {
             $this->validation->set_message('_check_title', 'A supplier with that title already exists.');
             return FALSE;
         } else {
