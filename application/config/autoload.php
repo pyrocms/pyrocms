@@ -79,7 +79,7 @@ $autoload['plugin'] = array();
 |
 */
 
-$autoload['config'] = array('cache', 'language');
+$autoload['config'] = array('asset', 'cache', 'language');
 
 
 /*

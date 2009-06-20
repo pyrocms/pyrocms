@@ -7,8 +7,8 @@
 	<!-- Language: <?=DEFAULT_LANGUAGE ?> -->
 	
     <script type="text/javascript">
-    var APPPATH_URI = "<?=APPPATH_URI;?>";
-    var BASE_URI = "<?=BASE_URI;?>";
+	    var APPPATH_URI = "<?=$this->config->item('asset_dir');?>";
+	    var BASE_URI = "<?=BASE_URI;?>";
     </script>
 	
 	<?= css('style.css').css('layout.css', '_theme_');?>

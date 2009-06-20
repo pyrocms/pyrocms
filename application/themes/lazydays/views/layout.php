@@ -9,7 +9,7 @@
 	  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 	
     	<script type="text/javascript">
-    	var APPPATH_URI = "<?=APPPATH_URI;?>";
+    	var APPPATH_URI = "<?=$this->config->item('asset_dir');?>";
     	var BASE_URI = "<?=BASE_URI;?>";
     	</script>
         
