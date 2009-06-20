@@ -12,9 +12,7 @@
 |
 */
 
-// This crazy line means it will use the app path whether its in the web root or not
-// Feel free to change this to something more normal lookin!
-$config['asset_dir'] = parse_url(config_item('base_url'), PHP_URL_PATH).APPPATH;
+$config['asset_dir'] = APPPATH_URI;
 
 /*
 |--------------------------------------------------------------------------

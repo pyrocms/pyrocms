@@ -74,21 +74,15 @@ else
 | These constants use existing location information to work out web root, etc.
 |
 */
-$doc_root = str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']);
 
-$appath_uri = str_replace($doc_root, '', str_replace("\\", "/", realpath(APPPATH) ));
-if(substr($appath_uri, 0, 1) != '/') $appath_uri = '/'.$appath_uri;
-if(substr($appath_uri, -1, 1) != '/') $appath_uri .= '/';
-
-define('APPPATH_URI', $appath_uri);
-
-$base_uri = str_replace($doc_root, '', str_replace("\\", "/", realpath(APPPATH . '../') ));
+$base_uri = parse_url(config_item('base_url'), PHP_URL_PATH);
 if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
 if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
 
 define('BASE_URI', $base_uri);
+define('APPPATH_URI',  BASE_URI.APPPATH);
 
-unset($doc_root, $appath_uri, $base_uri);
+unset($base_uri);
 
 /*
 |--------------------------------------------------------------------------
