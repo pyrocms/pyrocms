@@ -9,7 +9,6 @@ class Newsletters_m extends Model
 	{
 		parent::Model();
 		$this->emailFrom = 'admin@madebyfresh.com';
-		$this->lang->load('newsletter');
 	}
 	
 	function getNewsletters($params = array())

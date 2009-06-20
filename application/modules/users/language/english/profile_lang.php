@@ -43,7 +43,7 @@ $lang['profile_avatar_section'] = 'Avatar';
 
 $lang['profile_gravatar'] = 'Gravatar';
 
-$lang['profile_edit_success'] = 'Your date was saved successfully.';
+$lang['profile_edit_success'] = 'Your profile has been saved.';
 $lang['profile_edit_error'] = 'An error occurred.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------

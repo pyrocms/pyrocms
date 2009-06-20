@@ -12,7 +12,6 @@ class News extends Public_Controller
 		$this->load->module_model('comments', 'comments_m');        
 		$this->load->helper('text');
 		$this->lang->load('news');
-		$this->lang->load('fragments');
 		
 		// All pages within news will display an archive list
 		$this->data->archive_months = $this->news_m->getArchiveMonths();        

@@ -33,7 +33,7 @@ class Comments_m extends Model
 			$string = '';
 			foreach ($query->result() as $comment)
 			{
-				$string .= sprintf($this->lang->line('comment_format'), $comment->name, $comment->body, date('h:i:s \o\n M d, Y', $comment->created_on));
+				$string .= sprintf($this->lang->line('comment_format'), $comment->name, nl2br($comment->body), date('h:i:s \o\n M d, Y', $comment->created_on));
 			}
 			return $string;
 		}

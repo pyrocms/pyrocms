@@ -60,7 +60,7 @@ class Admin extends Admin_Controller
 		{
 			if ($this->galleries_m->newGallery($_POST))
 			{
-				$this->session->set_flashdata(array('success'=> $this->lang->line('gal_add_success')));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('gal_add_success'), $this->input->post('title')) );
 			}
 			else
 			{
@@ -99,6 +99,7 @@ class Admin extends Admin_Controller
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 		
+		// Run through all fields and auto-set data fields
 		foreach(array_keys($rules) as $field)
 		{
 			if(isset($_POST[$field]))
@@ -107,6 +108,7 @@ class Admin extends Admin_Controller
 			}
 		}
 		
+		// Run validation
 		if ($this->validation->run())
 		{
 			if ($this->galleries_m->updateGallery($_POST, $slug))
@@ -130,7 +132,7 @@ class Admin extends Admin_Controller
 	function delete($slug = '')
 	{
 		// An ID was passed in the URL, lets delete that
-		$slugs_array = ($slug > 0) ? array($slug) : $this->input->post('action_to');
+		$slugs_array = ($slug != '') ? array($slug) : $this->input->post('action_to');
 		
 		if(empty($slugs_array))
 		{

@@ -52,7 +52,7 @@ class Comments extends Public_Controller
 				'module_id' => $id
 			));
 			
-			$this->session->set_flashdata(array('success'=> $this->lang->load('comment_add_success')));			
+			$this->session->set_flashdata(array('success'=> $this->lang->line('comment_add_success')));			
 		// Validation Failed ------------------------------------
 		}
 		else
@@ -81,7 +81,7 @@ class Comments extends Public_Controller
 		
 		if ($captcha_word != $this->input->post('captcha'))
 		{
-			$this->validation->set_message('_CheckCaptcha', $this->lang->load('comment_capchar_error'));
+			$this->validation->set_message('_CheckCaptcha', $this->lang->line('comment_capchar_error'));
 			return FALSE;
 		}
 		else

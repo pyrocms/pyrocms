@@ -38,7 +38,6 @@
 					<td><?=date('M d, Y', $member->created_on); ?></td>
 					<td><?=($member->last_login > 0 ? date('M d, Y', $member->last_login) : lang('user_never_label')); ?></td>
 					<td>
-						<?= anchor('users/' . $member->id, lang('user_view_label'), 'target="_blank"');?> | 
 						<?= anchor('admin/users/edit/' . $member->id, lang('user_edit_label')); ?> | 
 						<?= anchor('admin/users/delete/' . $member->id, lang('user_delete_label'), array('class'=>'confirm')); ?>
 					</td>
