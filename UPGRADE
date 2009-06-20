@@ -4,6 +4,10 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
+20/06/09 - v0.9.5.3 to v0.9.5.4
+-------------------------------
+
+Replace old files with new files.
 
 06/06/09 - v0.9.5.2 to v0.9.5.3
 -------------------------------

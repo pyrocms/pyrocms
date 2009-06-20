@@ -26,8 +26,6 @@ $config['asset_dir'] = APPPATH_URI;
 |
 */
 
-// Right now its pointing to the same place as the base_url.
-// You can move this to anywhere if you like
 $config['asset_url'] = config_item('base_url').APPPATH;
 
 /*
