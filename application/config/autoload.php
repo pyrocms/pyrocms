@@ -95,7 +95,7 @@ $autoload['config'] = array('cache', 'language');
 |
 */
 
-$autoload['language'] = array('errors', 'users' => 'user');
+$autoload['language'] = array('errors', 'fragments', 'users' => 'user');
 
 
 /*

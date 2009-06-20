@@ -15,7 +15,7 @@ class Public_Controller extends MY_Controller
     }				
 		
 		$this->lang->load('main');
-        
+       
     // -- Navigation menu -----------------------------------
     $this->load->module_model('pages', 'pages_m');
     $this->load->module_model('navigation', 'navigation_m');

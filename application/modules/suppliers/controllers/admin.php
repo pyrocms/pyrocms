@@ -182,7 +182,7 @@ class Admin extends Admin_Controller
 	// Callback: From create
 	function _check_title($title)
 	{
-		if ($this->suppliers_m->getSupplier(url_title($title)))
+		if ($this->suppliers_m->getBySlug(url_title($title)))
 		{
 			$this->validation->set_message('_check_title', $this->lang->line('supp_already_exist_error'));
 			return FALSE;
@@ -205,14 +205,8 @@ class Admin extends Admin_Controller
 		$this->load->library('image_lib');
 		$this->image_lib->initialize($img_cfg);
 		
-		if($this->image_lib->resize())
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
+		return $this->image_lib->resize() !== FALSE;
 	}
 }
+
 ?>
