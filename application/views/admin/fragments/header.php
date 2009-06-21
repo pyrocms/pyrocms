@@ -4,5 +4,6 @@
 	
 	<div class="loginInfos">
 		<?= sprintf(lang('cp_logged_in_as'), $user->first_name.' '.$user->last_name);?> 
-		<?= sprintf(lang('cp_logout'), anchor('edit-profile', lang('cp_edit_profile_label')), anchor('admin/logout', lang('cp_logout_label')));?></div>
+		<?= sprintf(lang('cp_logout'), anchor('edit-profile', lang('cp_edit_profile_label')), anchor('admin/logout', lang('cp_logout_label')));?>
+	</div>
 </div>

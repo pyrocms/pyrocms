@@ -54,7 +54,7 @@
 	<? else: ?>
 		<p><?=lang('nav_no_groups');?></p>
 	<? endif; ?>
-	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 <?=form_close(); ?>
 
 <script type="text/javascript">
