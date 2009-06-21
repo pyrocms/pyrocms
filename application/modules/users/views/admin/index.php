@@ -23,7 +23,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="7">
-					<div class="inner"><? $this->load->view('admin/layout_fragments/pagination'); ?></div>
+					<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
 				</td>
 			</tr>
 		</tfoot>  
@@ -50,5 +50,5 @@
 		<? endif; ?>
 		</tbody>	
 	</table>
-	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 <?=form_close(); ?>

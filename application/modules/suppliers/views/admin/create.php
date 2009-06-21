@@ -25,5 +25,5 @@
 	<label><?= lang('supp_desc_label');?></label>
 	<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $this->validation->description, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
 </div>
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

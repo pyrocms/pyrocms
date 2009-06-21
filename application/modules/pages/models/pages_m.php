@@ -2,10 +2,6 @@
 
 class Pages_m extends Model {
 
-    function __construct() {
-        parent::Model();
-    }
-    
     public function getById($id = 0)
     {
     	$this->db->where('id', $id);
@@ -18,7 +14,7 @@ class Pages_m extends Model {
     
     	if($lang == 'all')
 		{
-			exit('where did this code go?!');
+			exit('where did this code go?! tell me if you see this message email@philsturgeon.co.uk!');
 		}  
 		 	
     	elseif($lang != NULL)
@@ -30,8 +26,8 @@ class Pages_m extends Model {
     }
     
     // Return an object containing page data
-    private function get($lang = NULL) {
-    	
+    private function get($lang = NULL)
+    {
         $query = $this->db->get('pages');
         if ($query->num_rows() > 0)
         {
@@ -44,8 +40,8 @@ class Pages_m extends Model {
     }
     
     // Return an object of objects containing page data
-    function getPages($params = array()) {
-    	
+    function getPages($params = array())
+    {
     	// Dont return body
         $this->db->select('id, slug, title, parent, lang, updated_on');
         
@@ -77,7 +73,8 @@ class Pages_m extends Model {
     }
     
     // Create a new page
-    function newPage($input = array()) {
+    function newPage($input = array())
+    {
         $this->load->helper('date');
         
         $this->db->insert('pages', array(
@@ -98,7 +95,8 @@ class Pages_m extends Model {
     }
     
     // Update a Page
-    function updatePage($id = 0, $input = array()) {
+    function updatePage($id = 0, $input = array())
+    {
         $this->load->helper('date');
         
         $this->db->update('pages', array(
@@ -117,7 +115,8 @@ class Pages_m extends Model {
     }
     
     // Delete a Page
-    function deletePage($id = 0) {
+    function deletePage($id = 0)
+    {
         $this->db->delete('pages', array('id' => $id));
         
         $affected = $this->db->affected_rows();

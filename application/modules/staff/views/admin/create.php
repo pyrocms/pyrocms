@@ -39,5 +39,5 @@
 	<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $this->validation->body, 'rows' => 10, 'class'=>'wysiwyg-simple')); ?>
 </div>
 
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

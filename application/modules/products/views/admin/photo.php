@@ -9,7 +9,7 @@
 			</div>
 		<? endforeach; ?>		
 	</div>	
-	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 <?= form_close(); ?>
 
 <?= form_open_multipart('admin/products/addphoto/' . $this->uri->segment(4)); ?>
@@ -18,5 +18,5 @@
 		<input type="file" name="userfile" id="userfile" />
 	</p>
 	<input type="hidden" name="product_id" value="<?= $product->id; ?>" />
-	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

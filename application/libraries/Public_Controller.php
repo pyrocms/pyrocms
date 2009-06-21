@@ -7,33 +7,34 @@ class Public_Controller extends MY_Controller
 	{
 		parent::MY_Controller();
         
-    // Check the frontend hasnt been disabled by an admin
-    if(!$this->settings->item('frontend_enabled'))
-    {
-    	$error = $this->settings->item('unavailable_message') ? $this->settings->item('unavailable_message') : lang('cms_fatal_error');
-    	show_error($error);
-    }				
+	    // Check the frontend hasnt been disabled by an admin
+	    if(!$this->settings->item('frontend_enabled'))
+	    {
+	    	$error = $this->settings->item('unavailable_message') ? $this->settings->item('unavailable_message') : lang('cms_fatal_error');
+	    	show_error($error);
+	    }
 		
 		$this->lang->load('main');
-       
-    // -- Navigation menu -----------------------------------
-    $this->load->module_model('pages', 'pages_m');
-    $this->load->module_model('navigation', 'navigation_m');
-        
-    $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
+	    
+	    // -- Navigation menu -----------------------------------
+	    $this->load->module_model('pages', 'pages_m');
+	    $this->load->module_model('navigation', 'navigation_m');
+	        
+	    $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
 		
-    // Set the theme view folder
-    $this->data->theme_view_folder = '../themes/'.$this->settings->item('default_theme').'/views/';
-    $this->layout->layout_file = $this->data->theme_view_folder.'layout.php';
-        
-    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
-    $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
-        
-    // If there is a news module, link to its RSS feed in the head
-    if(is_module('news'))
-    {
+	    // Set the theme view folder
+	    $this->layout->theme($this->settings->item('default_theme'));
+	    $this->layout->wrapper('layouts/default');
+	    
+	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
+	    $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
+	    
+	    // If there is a news module, link to its RSS feed in the head
+	    if(is_module('news'))
+	    {
 			$this->layout->extra_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
-    }
-		//$this->output->enable_profiler(TRUE);
-  }
+	    }
+		
+	    //$this->output->enable_profiler(TRUE);
+	}
 }
