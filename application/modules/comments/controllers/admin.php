@@ -2,7 +2,7 @@
 
 class Admin extends Admin_Controller
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::Admin_Controller();
 		$this->load->library('validation');
@@ -82,17 +82,13 @@ class Admin extends Admin_Controller
 				$commenter['email'] = $this->input->post('email');
 			}
 			
+			$comment = array_merge($commenter, array(
+				'body'    => $this->input->post('body'),
+				'module'   => $this->input->post('module'),
+				'module_id' => $this->input->post('module_id')
+			));
 			
-			$data = array(
-				'data' => $commenter + array(
-					'body'				=> $this->input->post('body'),	
-					'module' 			=> $this->input->post('module'),
-					'module_id' 	=> $this->input->post('module_id')
-				), 
-				'id' => $id
-			);
-			
-			if($this->comments_m->updateComment($data))
+			if($this->comments_m->updateComment( $comment, $id ))
 			{
 				$this->session->set_flashdata( array('success'=> $this->lang->line('comments_edit_success')) );
 			}

@@ -1,6 +1,7 @@
 <? $this->lang->module_load('comments', 'comments'); ?>
-<? foreach($comments as $comment): ?>
-	<? if(!empty($comments)): ?>
+<? if(!empty($comments)): ?>
+	<? foreach($comments as $comment): ?>
+	
 		<div>
 			<p>
 				<strong><?=lang('comments_posted_label');?>:</strong> <?= date('M d, Y', $comment->created_on); ?><br/>		
@@ -9,7 +10,7 @@
 			<p><?=stripslashes($comment->body);?></p>
 			<hr/>
 		</div>
-	<? else: ?>
-		<p><?=lang('comments_no_comments');?></p>
-	<? endif; ?>
-<? endforeach; ?>
+	<? endforeach; ?>
+<? else: ?>
+	<p><?=lang('comments_no_comments');?></p>
+<? endif; ?>

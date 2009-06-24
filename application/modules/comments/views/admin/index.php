@@ -24,7 +24,7 @@
 					<tr>
 						<td><input type="checkbox" name="action_to[]" value="<?=$comment->id;?>" /></td>
 						<td>
-							<? if($comment->active == 0): ?>
+							<? if($comment->is_active == 0): ?>
 								<?=anchor('admin/comments/activate/' . $comment->id, lang('comments_activate_label'));?>
 							<? else: ?>
 								<?=anchor('admin/comments/deactivate/' . $comment->id, lang('comments_deactivate_label'));?>
