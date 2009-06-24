@@ -40,6 +40,7 @@
 |
 */
 $route['admin/([a-zA-Z_-]+)/(:any)'] = "$1/admin/$2";
+$route['admin/([a-zA-Z_-]+)/(:any)/(:any)'] = "$1/admin/$2/$3";
 $route['admin/login'] = "admin/login";
 $route['admin/logout'] = "admin/logout";
 $route['admin/([a-zA-Z_-]+)'] = "$1/admin/index";

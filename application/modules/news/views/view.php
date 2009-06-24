@@ -16,7 +16,7 @@
     
 <fieldset class="alternative float-left width-half">
 	<legend><?=lang('news_other_comments_label');?></legend>
-	<?= $this->comments_m->getComments($this->module, $article->id); ?>
+	<?= $this->load->module_view('comments', 'comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $article->id)))); ?>
 </fieldset>
                 
 <fieldset class="float-right width-half">
