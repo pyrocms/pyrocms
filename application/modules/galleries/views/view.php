@@ -26,13 +26,13 @@
 		
 		<fieldset class="alternative float-left width-half">
 			<legend><?=lang('gal_other_comments_label');?></legend>
-			<?= $this->comments_m->getComments($this->module, $gallery->id); ?>
+			<?= $this->load->module_view('comments', 'comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $article->id)))); ?>
 		</fieldset>
-					
+										
 		<fieldset class="float-right width-half">
 			<legend><?=lang('gal_your_comments_label');?></legend>
-			<?= $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $gallery->id)); ?> 
-		</fieldset>	
+			<?= $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $article->id)); ?> 
+		</fieldset>
 		
 <? else: ?>
 	<p><?=lang('gal_no_photos_in_gallery_error');?></p>
