@@ -45,15 +45,13 @@ class Comments extends Public_Controller
 				$commenter['email'] = $this->input->post('email');
 			}
 			
-			$data = array(
-				'data' => $commenter + array(
-					'body'		=> $this->input->post('body'),	
-					'module' 	=> $module,
-					'module_id' => $id
-				)
-			);
+			$comment = array_merge($commenter, array(
+				'body'    => $this->input->post('body'),
+				'module'   => $module,
+				'module_id' => $id
+			));
 			
-			if($this->comments_m->createComment($data))
+			if($this->comments_m->newComment( $comment ))
 			{
 				$this->session->set_flashdata( array('success'=> $this->lang->line('comments_add_success')) );
 			}

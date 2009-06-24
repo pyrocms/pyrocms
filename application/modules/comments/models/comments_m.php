@@ -2,22 +2,22 @@
 
 class Comments_m extends Model
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::Model();
 	}	
 	
 	public function countComments($params = array())
 	{  	
-		if(!empty($param['active']))
+		if(!empty($param['is_active']))
 		{
-			if($param['active'] === true)
+			if($param['is_active'] == 1)
 			{
-				$this->db->where('active', 1);
+				$this->db->where('is_active', 1);
 			}
 			else
 			{
-				$this->db->where('active', 0);
+				$this->db->where('is_active', 0);
 			}			
 		}
 		
@@ -60,7 +60,7 @@ class Comments_m extends Model
   {
     $sql = '
 			SELECT
-				c.id, c.active, c.body, c.created_on, c.module, c.module_id, c.user_id,
+				c.id, c.is_active, c.body, c.created_on, c.module, c.module_id, c.user_id,
 				IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name, 
 				IF(c.user_id > 0, u.email, c.email) as email
 			FROM
@@ -74,15 +74,15 @@ class Comments_m extends Model
 			$sql .= ' AND c.id = "'. $params['id'] .'"';
 		}
 		
-		if(!empty($param['active']))
+		if(!empty($params['is_active']))
 		{
-			if($param['active'] === 1)
+			if($params['is_active'] == 1)
 			{
-				$sql .= ' AND c.active = 1';
+				$sql .= ' AND c.is_active = 1';
 			}
 			else
 			{
-				$sql .= ' AND c.active = 0';
+				$sql .= ' AND c.is_active = 0';
 			}			
 		}
 		
@@ -204,47 +204,47 @@ class Comments_m extends Model
 		return $comment;
 	}
 	
-	public function createComment($params = array('data' => array()))
+	public function newComment($input)
 	{
 		$this->load->helper('date');
 		
 		$this->db->insert('comments', array(
-			'user_id'			=> isset($params['data']['user_id']) 	? 	$params['data']['user_id'] 											:  0,
-			'active'			=> isset($params['data']['active']) 	? 	$params['data']['active'] 											:  0,
-			'name'				=> isset($params['data']['name']) 		? 	ucwords(strtolower($params['data']['name'])) 		: '',
-			'email'				=> isset($params['data']['email']) 		? 	strtolower($params['data']['email']) 						: '',
-			'body'				=> strip_tags($params['data']['body']),
-			'module'			=> $params['data']['module'],
-			'module_id'		=> $params['data']['module_id'],
+			'user_id'			=> isset($input['user_id']) 	? 	$input['user_id'] 											:  0,
+			'is_active'		=> isset($input['is_active']) ? 	$input['is_active'] 										:  0,
+			'name'				=> isset($input['name']) 			? 	ucwords(strtolower($input['name'])) 		: '',
+			'email'				=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
+			'body'				=> strip_tags($input['body']),
+			'module'			=> $input['module'],
+			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now()
 		));
 		
 		return $this->db->insert_id();
 	}
 	
-	public function updateComment($params = array('data' => array(), 'id' => 0))
+	public function updateComment($input, $id = 0)
   {
   	$this->load->helper('date');
 		
 		$this->db->where('id', $params['id']);		
 		$set = array(
-			'user_id'			=> isset($params['data']['user_id']) 	? 	$params['data']['user_id'] 											:  0,
-			'active'			=> isset($params['data']['active']) 	? 	$params['data']['active'] 											:  0,
-			'name'				=> isset($params['data']['name']) 		? 	ucwords(strtolower($params['data']['name'])) 		: '',
-			'email'				=> isset($params['data']['email']) 		? 	strtolower($params['data']['email']) 						: '',
-			'body'				=> strip_tags($params['data']['body']),
-			'module'			=> $params['data']['module'],
-			'module_id'		=> $params['data']['module_id'],
+			'user_id'			=> isset($input['user_id']) 	? 	$input['user_id'] 											:  0,
+			'is_active'		=> isset($input['is_active']) ? 	$input['is_active'] 										:  0,
+			'name'				=> isset($input['name']) 			? 	ucwords(strtolower($input['name'])) 		: '',
+			'email'				=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
+			'body'				=> strip_tags($input['body']),
+			'module'			=> $input['module'],
+			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now()
 		);	
 		
 		return $this->db->update('comments', $set);
 	}
 	
-	public function aktivateComment($id, $action = 1)
+	public function aktivateComment($id, $is_active = 0)
   {
   	$this->db->where('id', $id);
-		return $this->db->update('comments', array('active' => $action));
+		return $this->db->update('comments', array('is_active' => $is_active));
 	}
 
 	public function deleteComment($id = 0)
