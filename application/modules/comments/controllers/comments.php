@@ -5,15 +5,14 @@ class Comments extends Public_Controller
 	function __construct()
 	{
 		parent::Public_Controller();
-		$this->lang->load('comments');
-	}
-	
-	function create($module = 'home', $id = 0)
-	{
 		$this->load->plugin('captcha');
 		$this->load->library('validation');
 		$this->load->model('comments_m');
-		
+		$this->lang->load('comments');		
+	}
+	
+	function create($module = 'home', $id = 0)
+	{		
 		$rules['name'] = 'trim';
 		$rules['email'] = 'trim|valid_email';
 		$rules['body'] = 'trim|required';
@@ -46,15 +45,24 @@ class Comments extends Public_Controller
 				$commenter['email'] = $this->input->post('email');
 			}
 			
-			$this->comments_m->newComment($commenter + array(
-				'body'		=> $this->input->post('body'),	
-				'module' 	=> $module,
-				'module_id' => $id
-			));
+			$data = array(
+				'data' => $commenter + array(
+					'body'		=> $this->input->post('body'),	
+					'module' 	=> $module,
+					'module_id' => $id
+				)
+			);
 			
-			$this->session->set_flashdata(array('success'=> $this->lang->line('comment_add_success')));			
-		// Validation Failed ------------------------------------
+			if($this->comments_m->createComment($data))
+			{
+				$this->session->set_flashdata( array('success'=> $this->lang->line('comments_add_success')) );
+			}
+			else
+			{
+				$this->session->set_flashdata( array('error'=> $this->lang->line('comments_add_error')) );
+			}			
 		}
+		// Validation Failed ------------------------------
 		else
 		{		
 			if(!$this->user_lib->logged_in())
@@ -64,8 +72,8 @@ class Comments extends Public_Controller
 			}
 			
 			$comment['body'] = $this->input->post('body');
-			$this->session->set_flashdata(array('comment'=>$comment));			
-			$this->session->set_flashdata(array('error'=>$this->validation->error_string));
+			$this->session->set_flashdata( array('comment' => $comment) );			
+			$this->session->set_flashdata( array('error' => $this->validation->error_string) );
 		}
 		
 		// If for some reason the post variable doesnt exist, just send to module main page
