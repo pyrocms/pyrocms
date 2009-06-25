@@ -31,5 +31,5 @@
 		<?=form_dropdown('method', $methods_select, $permission_rule->method) ?>
 	</div>
 </fieldset>
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

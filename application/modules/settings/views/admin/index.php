@@ -25,5 +25,5 @@
 		<? endforeach; ?>		
 	</div>	
 </div>			
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save') )); ?>
+<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save') )); ?>
 <?=form_close(); ?>

@@ -4,56 +4,59 @@ class Admin extends Admin_Controller
 {
 	// Validation rules to be used for create and edita
 	private $rules = array(
-  	'title' 	=> 'trim|required|max_length[60]',
-    'slug' 		=> 'trim|required|alpha_dash|max_length[60]|callback__check_slug',
-    'body' 		=> 'trim|required',
-    'parent' 	=> 'trim|callback__check_parent',
-    'lang' 		=> 'trim|required|min_length[2]|max_length[2]',
-	  'meta_title' => 'trim|max_length[255]',
-    'meta_keywords' => 'trim|max_length[255]',
-    'meta_description' => 'trim'
+	  	'title' 			=> 'trim|required|max_length[60]',
+	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]|callback__check_slug',
+	    'body' 				=> 'trim|required',
+	    'parent' 			=> 'trim|callback__check_parent',
+	    'lang' 				=> 'trim|required|min_length[2]|max_length[2]',
+	    'layout_file' 		=> 'trim|alphadash|required',
+		'meta_title' 		=> 'trim|max_length[255]',
+	    'meta_keywords' 	=> 'trim|max_length[255]',
+	    'meta_description' 	=> 'trim'
 	);
 	
 	// Used to pass page id to edit validation callback
 	private $page_id;
 	
-  function __construct()
-  {
-  	parent::Admin_Controller();
-    $this->load->model('pages_m');
+	function __construct()
+	{
+  		parent::Admin_Controller();
+    	$this->load->model('pages_m');
 		$this->load->helper('pages');
 		$this->load->module_model('navigation', 'navigation_m');
 		$this->lang->load('pages');	
-  }
+	}
 
-  // Admin: List all Pages
-  function index()
-  {
-  	$this->data->languages =& $this->config->item('supported_languages');
+	// Admin: List all Pages
+	function index()
+	{
+  		$this->data->languages =& $this->config->item('supported_languages');
 		$this->data->pages = $this->pages_m->getPages(array('lang' => 'all', 'order' => 'title'));
-    $this->layout->create('admin/index', $this->data);
-  }
+    	$this->layout->create('admin/index', $this->data);
+ 	}
     
-  // Admin: Create a new Page
-  function create()
-  {
-  	$this->load->library('validation');
+	// Admin: Create a new Page
+	function create()
+	{
+  		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
-    $this->validation->set_fields();
+    	$this->validation->set_fields();
         
 		// Validate the page
-    if ($this->validation->run())
-    {
-    	if ( $this->pages_m->newPage($_POST) > 0 )
-      {
-      	$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
-      }
-      else
-      {
-      	$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
-      }
-      redirect('admin/pages/index');
-    }
+    	if ($this->validation->run())
+	    {
+	    	if ( $this->pages_m->newPage($_POST) > 0 )
+	    	{
+	      		$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+	    	}
+	      
+	    	else
+	    	{
+	     		$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
+	    	}
+	    	
+	    	redirect('admin/pages/index');
+	    }
 		
 		// Get the data back to the form
     foreach(array_keys($this->rules) as $field)

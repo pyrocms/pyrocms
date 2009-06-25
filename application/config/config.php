@@ -12,13 +12,17 @@
 |
 */
 
-$base_uri = str_replace(str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']), '', str_replace("\\", "/", realpath(APPPATH . '../') ));
-if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
-if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
+if(isset($_SERVER['HTTP_HOST']))
+{
+	$config['base_url'] = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
+	$config['base_url'] .= '://'. $_SERVER['HTTP_HOST'];
+	$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+}
 
-$config['base_url']	= "http://".$_SERVER['SERVER_NAME'].$base_uri;
-
-unset($base_uri);
+else
+{
+	$config['base_url'] = 'http://localhost/';
+}
 
 /*
 |--------------------------------------------------------------------------

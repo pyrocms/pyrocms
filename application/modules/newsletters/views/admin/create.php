@@ -10,5 +10,5 @@
 		<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => htmlentities(stripslashes($this->validation->body)), 'rows' => 40, 'class'=>'wysiwyg-advanced')); ?>
 	</div>
 	
-	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>

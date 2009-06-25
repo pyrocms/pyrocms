@@ -36,7 +36,7 @@
 	
 		<!-- Header -->
 		<div id="header">
-			<? $this->load->view('admin/layout_fragments/header'); ?>
+			<? $this->load->view('admin/fragments/header'); ?>
 		</div>
 		<!-- /Header -->
 		
@@ -46,12 +46,12 @@
 			
 				<!-- Sidebar -->
 				<div id="sidebar" class="bImg">
-					<? $this->load->view('admin/layout_fragments/sidebar'); ?>
+					<? $this->load->view('admin/fragments/sidebar'); ?>
 				</div>
 		
 				<div id="content" class="roundedBorders">
 		
-					<?=$this->load->view('admin/layout_fragments/inner_header') ?>
+					<?=$this->load->view('admin/fragments/inner_header') ?>
 					
 					<!-- Inner Content -->
 					<div id="innerContent">
@@ -83,7 +83,7 @@
 		
 		<!-- Footer -->
 		<div id="footer">
-			<? $this->load->view('admin/layout_fragments/footer'); ?>
+			<? $this->load->view('admin/fragments/footer'); ?>
 		</div>
 		<!-- /Footer -->
 		

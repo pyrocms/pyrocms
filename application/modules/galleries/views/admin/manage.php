@@ -10,7 +10,7 @@
 					</div>
 				<? endforeach; ?>			
 			<br class="clear-both" />
-			<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+			<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 		<?= form_close(); ?>	
 	</div>
 	<hr class="clear-both" />
@@ -43,7 +43,7 @@
 				</div>
 				
 				<div class="spacer-left">
-					<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+					<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 				</div>
 				
 			</fieldset>	
