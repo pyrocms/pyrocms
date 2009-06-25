@@ -9,7 +9,9 @@ minimise or totally remove downtime during upgrade.
 
 1. Run the following MySQL.
 
-ALTER TABLE ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER id
+ALTER TABLE comments ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER id;
+ALTER TABLE pages ADD layout_file varchar(255) NOT NULL default 'default';
+UPDATE comments SET is_active = 1;
 
 
 2. Replace old files with new files.
