@@ -1,6 +1,6 @@
 <?= form_open($this->uri->uri_string()); ?>
 	<?=form_hidden('user_id', $comment->user_id); ?>
-	<?=form_hidden('active', $comment->active); ?>
+	<?=form_hidden('active', $comment->is_active); ?>
 	<div class="fieldset fieldsetBlock active tabs">	
 		<div class="header">
 			<h3><?=lang('comments_edit_title');?></h3>
@@ -11,13 +11,13 @@
 			
 			<? if(!$comment->user_id > 0): ?>
 				<div class="field">
-					<label for="name"><?=lang('comments_name_label');?>:</label><br />
+					<label for="name"><?=lang('comments_name_label');?>:</label>
 					<?=form_input('name', $comment->name, 'class="text" maxlength="100"'); ?>
 					<span class="required-icon tooltip"><?=lang('comments_required_label');?></span>
 				</div>
 		
 				<div class="field">
-					<label for="email"><?=lang('comments_email_label');?>:</label><br />
+					<label for="email"><?=lang('comments_email_label');?>:</label>
 					<?=form_input('email', $comment->email, 'class="text" maxlength="100"'); ?>
 					<span class="required-icon tooltip"><?=lang('comments_required_label');?></span>
 				</div>
@@ -27,7 +27,7 @@
 			<? endif; ?>
 			
 			<div class="field spacer-left">
-				<label for="body"><?=lang('comments_message_label');?>:</label><br />
+				<label for="body"><?=lang('comments_message_label');?>:</label>
 				<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $comment->body, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
 				<span class="required-icon tooltip"><?=lang('comments_required_label');?></span>
 			</div>
@@ -36,5 +36,5 @@
 				
 		</div>	
 	</div>
-	<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?= form_close(); ?>
