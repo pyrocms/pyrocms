@@ -17,15 +17,23 @@ $lang['comments_posted_label'] 				= 'Posted';
 $lang['comments_from_label'] 					= 'From';
 $lang['comments_preview_label'] 			= 'Preview';
 $lang['comments_send_label'] 					= 'Comment';
+$lang['comments_inactives_label'] 		= 'Inactive comments';
+$lang['comments_actives_label'] 			= 'Active comments';
+//$lang[''] = '';
+//$lang[''] = '';
+//$lang[''] = '';
+//$lang[''] = '';
+//$lang[''] = '';
+
+
 
 // capchar
 $lang['comment_capchar_desc'] 	= 'Submit the word you see below:';
 $lang['comment_capchar_error'] 	= 'You filled in the Captcha phrase wrong.';
 
 // messages
-$lang['comment_add_success'] 		= 'Your comment has been saved.';
+$lang['comments_add_success'] 		= 'Your comment has been saved.';
 
 $lang['comments_no_comments'] 	= 'There are no comments';
-$lang['comment_format'] 				= '<p><strong>%s says:</strong><br />%s<br />left at %s.</p>';
 
 ?>
