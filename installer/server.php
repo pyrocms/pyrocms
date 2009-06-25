@@ -12,14 +12,14 @@ $gd_ver		= ereg_replace('[[:alpha:][:space:]()]+', '', $GDArray['GD Version']);
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<!-- Extinguisher 1.0, by Yorick Peterse : http://www.yorickpeterse.com -->
+		<!-- PyroCMS Installer 1.0, by Yorick Peterse : http://www.yorickpeterse.com -->
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="css/reset.css" type="text/css" />
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
 		
-		<title>Extinguisher 1.0 | Server info</title>
+		<title>PyroCMS Installer 1.0 | Server info</title>
 	</head>
 	<body>
 		<!-- Main wrapper -->
