@@ -156,12 +156,12 @@ class Admin extends Admin_Controller
 		redirect('admin/comments/index');
 	}
 	
-	// Admin: aktivate a comment
+	// Admin: activate a comment
 	public function activate($id = 0)
 	{
 		if (!$id) redirect('admin/comments/index');
 					
-		if($this->comments_m->aktivateComment($id, 1))
+		if($this->comments_m->activateComment($id, 1))
 		{
 			$this->session->set_flashdata( array('success'=> $this->lang->line('comments_activate_success')) );
 		}
@@ -172,12 +172,12 @@ class Admin extends Admin_Controller
 		redirect('admin/comments/index');	
 	}
 	
-	// Admin: deaktivate a comment
+	// Admin: deativate a comment
 	public function deactivate($id = 0)
 	{
 		if (!$id) redirect('admin/comments/index');
 					
-		if($this->comments_m->aktivateComment($id, 0))
+		if($this->comments_m->activateComment($id, 0))
 		{
 			$this->session->set_flashdata( array('success'=> $this->lang->line('comments_activate_success')) );
 		}
@@ -191,7 +191,7 @@ class Admin extends Admin_Controller
 	public function preview($id = 0)
 	{		
 		$this->data->comment = $this->comments_m->getComment($id);
-		$this->layout->wrap_mode(FALSE);
+		$this->layout->wrapper(FALSE);
 		$this->layout->create('admin/preview', $this->data);
 	}
 }
