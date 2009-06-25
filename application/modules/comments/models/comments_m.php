@@ -226,7 +226,7 @@ class Comments_m extends Model
   {
   	$this->load->helper('date');
 		
-		$this->db->where('id', $params['id']);		
+		$this->db->where('id', $id);		
 		$set = array(
 			'user_id'			=> isset($input['user_id']) 	? 	$input['user_id'] 											:  0,
 			'is_active'		=> isset($input['is_active']) ? 	$input['is_active'] 										:  0,
@@ -241,7 +241,7 @@ class Comments_m extends Model
 		return $this->db->update('comments', $set);
 	}
 	
-	public function aktivateComment($id, $is_active = 0)
+	public function activateComment($id, $is_active = 0)
   {
   	$this->db->where('id', $id);
 		return $this->db->update('comments', array('is_active' => $is_active));
