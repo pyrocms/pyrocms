@@ -4,12 +4,13 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-25/06/09 - issue_13 Release
--------------------------------
+25/06/09 - v0.9.5.4 to current
+------------------------------
 
 1. Run the following MySQL.
 
-ALTER TABLE ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER id
+	ALTER TABLE comments
+		ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER module_id
 
 
 2. Replace old files with new files.
