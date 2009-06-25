@@ -13,6 +13,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `comments` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
+	`is_active` tinyint(1) NOT NULL default '0',
   `user_id` int(11) NOT NULL,
   `name` varchar(40) collate utf8_unicode_ci NOT NULL,
   `email` varchar(40) collate utf8_unicode_ci NOT NULL,

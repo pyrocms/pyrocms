@@ -4,6 +4,16 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
+25/06/09 - issue_13 Release
+-------------------------------
+
+1. Run the following MySQL.
+
+ALTER TABLE ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER id
+
+
+2. Replace old files with new files.
+
 20/06/09 - v0.9.5.3 to v0.9.5.4
 -------------------------------
 
