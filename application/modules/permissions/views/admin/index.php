@@ -52,5 +52,5 @@
 <? else: ?>
 	<p><?= lang('perm_no_roles');?></p>	
 <? endif; ?>
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 <?=form_close(); ?>

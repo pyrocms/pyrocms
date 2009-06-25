@@ -13,7 +13,7 @@
   <tfoot>
   	<tr>
   		<td colspan="6">
-  			<div class="inner"><? $this->load->view('admin/layout_fragments/pagination'); ?></div>
+  			<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
   		</td>
   	</tr>
   </tfoot>
@@ -22,15 +22,15 @@
 		<? foreach ($pages as $page): ?>
 		<tr>
 			<td><input type="checkbox" name="action_to[]" value="<?=$page->id;?>" <?=($page->slug == 'home') ? 'disabled="disabled"' : '' ?> /></td>
-      <td><?=$page->title;?></td>
-      <td><?=@$this->pages_m->getById($page->parent, TRUE)->title;?></td>
-      <td><?=isset($languages[$page->lang]) ? $languages[$page->lang] : lang('page_unknown_label');?></td>
-      <td><?= date('M d, Y', $page->updated_on); ?></td>
-      <td>
+	        <td><?=$page->title;?></td>
+	        <td><?=@$this->pages_m->getById($page->parent, TRUE)->title;?></td>
+	        <td><?=isset($languages[$page->lang]) ? $languages[$page->lang] : lang('page_unknown_label');?></td>
+	        <td><?= date('M d, Y', $page->updated_on); ?></td>
+	        <td>
 				<?= anchor('/' . $page->slug, lang('page_view_label'), 'target="_blank"') . ' | '; ?>
 				<?= anchor('admin/pages/edit/' . $page->id, lang('page_edit_label')) . ' | '; ?>
 				<?= anchor('admin/pages/delete/' . $page->id, lang('page_delete_label'), array('class'=>'confirm')); ?>
-      </td>
+	        </td>
 		</tr>
 		<? endforeach; ?>		
 	<? else: ?>
@@ -40,5 +40,5 @@
 	<? endif; ?>
 	</tbody>
 </table>
-<? $this->load->view('admin/layout_fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 <?=form_close(); ?>

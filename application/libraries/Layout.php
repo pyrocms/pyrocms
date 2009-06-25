@@ -33,18 +33,17 @@ class Layout {
     var $_module = '';
     var $_controller = '';
     var $_method = '';
+    
+    var $_theme = '';
+    var $_layout = FALSE; // By default, dont wrap the view with anything
 
     var $_page_title = '';
     var $_extra_head_content = '';
     var $_breadcrumbs = array();
 
-    // Default wrapper files
-    var $layout_file = 'layout.php';
-
     var $title_separator = ' | ';
     
     var $folder_mode = 'matchbox'; // 'subdir', 'matchbox'
-    var $wrap_mode = true;
     var $html_mode = false;
 
     // Seconds that cache will be alive for
@@ -61,21 +60,23 @@ class Layout {
     function __construct()
     {
         $this->CI =& get_instance();
-        log_message('debug', "Template Class Initialized");
+        log_message('debug', 'Template Class Initialized');
 
-        if($this->folder_mode == 'subdir'):
-
-            if($this->_module == '' && $this->CI->uri->router->fetch_directory() != '/'):
+        if($this->folder_mode == 'subdir')
+        {
+            if($this->_module == '' && $this->CI->uri->router->fetch_directory() != '/')
+            {
                 $this->_module = str_replace('/', '', $this->CI->uri->router->fetch_directory());
-            endif;
-
-        elseif($this->folder_mode == 'matchbox'):
-
-            if($this->_module == '' && $this->CI->matchbox->fetch_module() != ''):
+    		}
+    	}
+    
+        elseif($this->folder_mode == 'matchbox')
+        {
+            if($this->_module == '' && $this->CI->matchbox->fetch_module() != '')
+            {
                 $this->_module = str_replace(array('modules/', '/'), '', $this->CI->matchbox->fetch_module());
-            endif;
-            
-        endif;
+    		}
+    	}
         
         $this->_controller	= strtolower(get_class($this->CI));
         $s 					= $this->CI->uri->rsegment_array();
@@ -119,38 +120,56 @@ class Layout {
         $this->CI->output->set_header("Pragma: no-cache");
 
         // Let CI do the caching instead of bloody IE7
-        $this->CI->output->cache($this->cache_lifetime);
+        $this->CI->output->cache( $this->cache_lifetime );
 
         // Time to make the body, load view or parse HTML?
-        if($this->html_mode):
+        if($this->html_mode)
+        {
         	$output = $this->page_body;
-
-        else:
+        }
+        
+        else
+        {
             // If directory or module is set, use it
             $view_file = (!empty($this->_directory)) ? $this->_directory.'/'.$this->page_body : $this->page_body;
             $output = $this->CI->load->view($view_file, $this->data, true, $this->_module);
-        endif;
+        }
         
         // Want this file wrapped with the layout file?
-        if($this->wrap_mode):
+        if( $this->_layout !== FALSE )
+        {
 			// Send what we have so far to the layout view
 			$this->data->page_output = $output;
 			
-            // If directory is set, use it
-            $layout_file = (!empty($this->_directory)) ? $this->_directory.'/'.$this->layout_file : $this->layout_file;
-            $output = $this->CI->load->view($layout_file, $this->data, true);
+			// Which layout/wrapper file to use?
+			$layout_file = $this->_layout;
+			
+			// If directory is set, use it
+            if( $this->_theme )
+            {
+				$this->data->theme_view_folder = '../themes/'.$this->_theme.'/views/';
+            	$layout_file = $this->data->theme_view_folder.$layout_file;
+            }
+            
+            $output = $this->CI->load->view( $layout_file, $this->data, TRUE );
+        }
         
-        else:
+        else
+        {
         	 $this->data->page_output = $output;
-        endif;
+        }
 
         // Want it returned or output to browser?
-        if($return):
+        if($return)
+        {
             return $output;
-        else:
+        }
+        
+        else
+        {
             // Send it to output
             $this->CI->output->set_output($output);
-        endif;
+        }
 
     }
 
@@ -241,18 +260,29 @@ class Layout {
         return $this;
     }
 
-
     /**
-     * Should we include headers and footers?
+     * Which theme are we using here?
      *
      * @access    public
      * @param    string
      * @return    void
      */
-
-    public function html_mode($html = true)
+    public function theme($theme = '')
     {
-        $this->html_mode = $html;
+        $this->_theme = $theme;
+        return $this;
+    }
+
+    /**
+     * Which layout file are we using here?
+     *
+     * @access    public
+     * @param    string
+     * @return    void
+     */
+    public function wrapper($layout = '')
+    {
+        $this->_layout = $layout;
         return $this;
     }
 
@@ -263,10 +293,9 @@ class Layout {
      * @param    string
      * @return    void
      */
-
-    function wrap_mode($wrap = true)
+    public function html_mode($html = true)
     {
-        $this->wrap_mode = $wrap;
+        $this->html_mode = $html;
         return $this;
     }
 
@@ -279,7 +308,6 @@ class Layout {
      * @param    string
      * @return    void
      */
-
     public function add_breadcrumb($name, $url_ref = '')
     {
         foreach($this->_breadcrumbs as &$breadcrumb):

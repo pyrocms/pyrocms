@@ -39,7 +39,7 @@ class Pages extends Public_Controller {
         	show_404();
         }
         
-        // Parse any settings, links r ==or url tags
+        // Parse any settings, links or url tags
         //$this->load->library('data_parser');
         //$this->data->page->body = $this->data_parser->parse($this->data->page->body);
         
@@ -54,6 +54,8 @@ class Pages extends Public_Controller {
         
         // Create page output
 	    $this->layout->title( $page->meta_title )
+	    
+	    	->wrapper( 'layouts/'.$page->layout_file )
 	    
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
