@@ -1,9 +1,9 @@
-<h3><?= lang('theme_upload_title');?></h3>
-<p class="align-right">[ <?=anchor('admin/themes/index', lang('theme_list_label')) ?> ]</p>
-<?= form_open_multipart('admin/themes/upload');?>
+<h3><?php echo lang('theme_upload_title');?></h3>
+<p class="align-right">[ <?php echo anchor('admin/themr/index', lang('theme_list_label')) ?> ]</p>
+<?php echo form_open_multipart('admin/themr/upload');?>
 <p>
-	<?= lang('theme_upload_desc');?><br />
+	<?php echo lang('theme_upload_desc');?><br />
 	<input id="fileToUpload" type="file" name="userfile" class="input">
 </p>
-<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('upload') )); ?>
-<?=form_close(); ?>
+<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('upload') )); ?>
+<?php echo form_close(); ?>
