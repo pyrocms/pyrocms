@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class MY_Upload extends CI_Upload {
-	
+class MY_Upload extends CI_Upload
+{	
 	var $max_size		= 0;
 	var $max_width		= 0;
 	var $max_height		= 0;
@@ -117,7 +117,7 @@ class MY_Upload extends CI_Upload {
 			// errors will already be set by validate_upload_path() so just return FALSE
 			return FALSE;
 		}
-						
+								
 		// Was the file able to be uploaded? If not, determine the reason why.
 		if ( ! is_uploaded_file($_FILES[$field]['tmp_name']))
 		{
@@ -204,35 +204,42 @@ class MY_Upload extends CI_Upload {
 		 * the file if one with the same name already exists.
 		 * If it returns false there was a problem.
 		 */
-		$this->orig_name = $this->file_name;
-
-		if ($this->overwrite == FALSE)
-		{
-			$this->file_name = $this->set_filename($this->upload_path, $this->file_name);
-			
-			if ($this->file_name === FALSE)
-			{
-				return FALSE;
-			}
-		}
+		$this->orig_name = $this->file_name;		
+		$this->file_name = $this->set_filename($this->upload_path, $this->file_name);
+		
 		/*
 		 * Check if we need to replace the uploaded file name
 		 * Added by MrEnirO for StyleCMS
 		 */
 		if ($this->new_name != FALSE)
 		{
-			$this->file_name = $this->new_name.$this->file_ext;
+			$this->file_name = $this->set_filename($this->upload_path, $this->new_name.$this->file_ext);
+		}		
+			
+		if ($this->file_name === FALSE)
+		{
+			return FALSE;
 		}
+		
+		
+		if ($this->overwrite == TRUE)
+		{
+			if(file_exists($this->upload_path.$this->file_name))
+			{
+				@unlink($this->upload_path.$this->file_name);
+			}
+		}
+		
 		/*
 		 * Move the file to the final destination
 		 * To deal with different server configurations
 		 * we'll attempt to use copy() first.  If that fails
 		 * we'll use move_uploaded_file().  One of the two should
 		 * reliably work in most environments
-		 */
-		if ( ! @copy($this->file_temp, $this->upload_path.$this->file_name))
+		 */		
+		if (!@copy($this->file_temp, $this->upload_path.$this->file_name))
 		{
-			if ( ! @move_uploaded_file($this->file_temp, $this->upload_path.$this->file_name))
+			if (!@move_uploaded_file($this->file_temp, $this->upload_path.$this->file_name))
 			{
 				 $this->set_error('upload_destination_error');
 				 return FALSE;
@@ -260,5 +267,58 @@ class MY_Upload extends CI_Upload {
 
 		return TRUE;
 	}
+	
+	/**
+	 * Set the file name
+	 *
+	 * This function takes a filename/path as input and looks for the
+	 * existence of a file with the same name. If found, it will append a
+	 * number to the end of the filename to avoid overwriting a pre-existing file.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */	
+	function set_filename($path, $filename)
+	{
+		if ($this->encrypt_name == TRUE)
+		{		
+			$filename_hash = md5($filename).$this->file_ext;	
+		}
+					
+		if ($this->overwrite == FALSE)
+		{		
+			if(!file_exists($path.$filename_hash))
+			{
+				return $filename_hash;
+			}
+			
+			$filename_hash = str_replace($this->file_ext, '', $filename_hash);
+		
+			$new_filename = '';
+			for ($i = 1; $i < 100; $i++)
+			{			
+				if (!file_exists($path.$filename_hash.'_'.$i.$this->file_ext))
+				{
+					$new_filename = $filename_hash.'_'.$i.$this->file_ext;
+					break;
+				}
+			}
+	
+			if ($new_filename == '')
+			{
+				$this->set_error('upload_bad_filename');
+				return FALSE;
+			}
+			else
+			{
+				return $new_filename;
+			}
+		}
+		return $filename_hash;
+	}
+	
+	// --------------------------------------------------------------------
 	
 }
