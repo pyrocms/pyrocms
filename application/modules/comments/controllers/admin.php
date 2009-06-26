@@ -23,7 +23,7 @@ class Admin extends Admin_Controller
 			'is_active' => 0,
 			'limit' => $this->data->pagination['limit']			
 		));
-		
+				
 		$this->data->active_comments = FALSE;
 		$this->layout->create('admin/index', $this->data);			
 	}
