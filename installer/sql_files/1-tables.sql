@@ -13,7 +13,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `comments` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
-	`is_active` tinyint(1) NOT NULL default '0',
+  `is_active` tinyint(1) NOT NULL default '0',
   `user_id` int(11) NOT NULL,
   `name` varchar(40) collate utf8_unicode_ci NOT NULL,
   `email` varchar(40) collate utf8_unicode_ci NOT NULL,
@@ -111,6 +111,7 @@ CREATE TABLE `pages` (
   `body` text collate utf8_unicode_ci NOT NULL,
   `parent` int(11) default '0',
   `lang` varchar(2) collate utf8_unicode_ci NOT NULL,
+  `layout_file` varchar(255) collate utf8_unicode_ci NOT NULL default 'default';
   `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
   `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
   `meta_description` text collate utf8_unicode_ci NOT NULL,
