@@ -78,11 +78,11 @@ class Comments_m extends Model
 		{
 			if($params['is_active'] == 1)
 			{
-				$sql .= ' AND c.is_active = 1';
+				$sql .= ' AND c.is_active = '. $params['is_active'];
 			}
 			else
 			{
-				$sql .= ' AND c.is_active = 0';
+				$sql .= ' AND c.is_active = '. $params['is_active'];
 			}			
 		}
 		
