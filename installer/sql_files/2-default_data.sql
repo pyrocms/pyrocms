@@ -8,7 +8,7 @@ insert into `navigation_groups` values
 
 -- Add a default home page
 truncate `pages`;
-insert into `pages` values('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','','','','1219336535');
+insert into `pages` values('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','default','','','','1219336535');
 
 
 -- Admin and user are the only default required user roles 
