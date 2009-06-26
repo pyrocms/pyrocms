@@ -12,7 +12,7 @@ minimise or totally remove downtime during upgrade.
 	ALTER TABLE comments
 		ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER module_id;
 
-	INSERT INTO settings ('enable_social_bookmarks','Enable Social Bookmarking',
+	INSERT INTO settings VALUES('enable_social_bookmarks','Enable Social Bookmarking',
 		'Show links below news, photos, etc with links to social bookmarking and media sites where the content can be shared.',
 		'radio','0','','1=Enabled|0=Disabled','0','1','');
 
