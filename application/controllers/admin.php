@@ -42,7 +42,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('main');
 		$this->lang->load('admin');
         
-	    $this->layout->wrap_mode(FALSE);
+	    $this->layout->wrapper(FALSE);
 	    $this->layout->create('admin/login', $this->data);		
 	}
 	
