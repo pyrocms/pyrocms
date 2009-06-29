@@ -8,6 +8,9 @@ html{
 #innerContent{
 	background:url(../../img/admin/grey/content_bg.png) repeat-y right;
 }
+a {
+	color:#3D3333;	
+}
 .button {
 	background:url("../../img/admin/grey/sprite.png") no-repeat 0 -180px;
 }
@@ -105,10 +108,10 @@ background: url(../../img/admin/grey/sprite.png) repeat scroll 100% -2880px;
 #sidebar, #sidebar .bInner, #sidebar .bTR, #sidebar .bBL {
 	background-image:url(../../img/admin/grey/sidebar.png)
 }
-#title {
+#page-title {
 	background:url(../../img/admin/grey/sprite.png) no-repeat 100% -810px;
 }
-#title h2 {
+#page-title h2 {
 	background:url(../../img/admin/grey/sprite.png) no-repeat 0px -990px;
 }
 #titleActions .listSearch .search {
@@ -131,9 +134,6 @@ background: url(../../img/admin/grey/sprite.png) repeat scroll 100% -2880px;
 }
 .button .expanded {
 	background-position:100% -2280px;
-}
-a,#header .viewWebsite:hover {
-	color:#16aec5;
 }
 #sidebar li ul li {
 	color:#eeeeee;
