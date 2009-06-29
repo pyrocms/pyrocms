@@ -35,11 +35,10 @@
 					| version <?php echo $theme['version']; ?>
 				</h4>
 				
-				<!--	
 				<div class="screenshot float-left spacer-right">
 				  	<img src="<?php $screenshot = $theme['path'] . '/screenshot.png'; if(file_exists($screenshot)){ echo APPPATH_URI . 'themes/' . $theme['id'] . '/screenshot.png'; } else { echo base_url() . 'application/modules/themes/views/screenshot.png'; } ?>" alt="<?php echo $theme['name'] ?>" width="180" height="140" />
 			  	</div>
-				 -->
+				 
 				<p><?php echo $theme['description']; ?></p>
 			<td>
 				<?php if($this->settings->item('default_theme') != $theme['id']): ?>
