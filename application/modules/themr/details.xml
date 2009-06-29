@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.2" type="admin">
-	<name>Themes</name>
-	<description>Allows admins and staff to change website theme, upload new themes and manage them.</description>
+<module version="0.1" type="admin">
+	<name>Themr</name>
+	<description>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</description>
 	<required>1</required>
 	<icon>tabs_48.png</icon>
 	<is_frontend>0</is_frontend>
