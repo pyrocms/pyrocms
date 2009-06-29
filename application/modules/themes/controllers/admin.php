@@ -5,21 +5,21 @@ class Admin extends Admin_Controller
 	function __construct()
 	{
 		parent::Admin_Controller();
-		$this->load->model('themr_m');
+		$this->load->model('themes_m');
 		$this->lang->load('themes');
 	}
 	
 	// Admin: List all Themes
 	function index()
 	{
-		$this->layout->extra_head(css('themr.css', 'themr'));
-		$this->data->themes = $this->themr_m->getThemes();		
+		$this->layout->extra_head(css('themes.css', 'themes'));
+		$this->data->themes = $this->themes_m->getThemes();		
 		$this->layout->create('admin/index', $this->data);
 	}
 	
 	function set_default($theme_name = "")
 	{	
-		if($this->themr_m->setDefault($theme_name))
+		if($this->themes_m->setDefault($theme_name))
 		{
 			$this->session->set_flashdata('success', sprintf($this->lang->line('theme_set_default_success'), $theme_name));
 		} 
@@ -27,7 +27,7 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', sprintf($this->lang->line('theme_set_default_error'), $theme_name));
 		}		
-		redirect('admin/themr');
+		redirect('admin/themes');
 	}
 	
 	function upload()
@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}	
-			redirect('admin/themr/upload');
+			redirect('admin/themes/upload');
 		}
 		
 		$this->layout->create('admin/upload', $this->data);
@@ -126,7 +126,7 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', $this->lang->line('theme_delete_select_error'));
 		}	
-		redirect('admin/themr');
+		redirect('admin/themes');
 	}
 	
 	
