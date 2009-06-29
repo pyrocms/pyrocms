@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.1" type="admin">
+<module version="0.3" type="admin">
 	<name>Themes</name>
 	<description>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</description>
 	<required>1</required>
