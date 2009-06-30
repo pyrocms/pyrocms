@@ -80,7 +80,7 @@ if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
 if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
 
 define('BASE_URI', $base_uri);
-define('APPPATH_URI',  BASE_URI.APPPATH);
+define('APPPATH_URI', BASE_URI.APPPATH);
 
 unset($base_uri);
 
@@ -93,7 +93,7 @@ unset($base_uri);
 |
 */
 
-define('CMS_VERSION', '0.9.5.3');
+define('CMS_VERSION', '0.9.6');
 
 
 /* End of file constants.php */

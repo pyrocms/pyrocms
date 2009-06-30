@@ -10,7 +10,7 @@
 		editor_selector : "wysiwyg-simple",
 		editor_class : "wysiwyg-simple",
 		theme : "advanced",
-		
+
 		width : 325,
 
 		force_p_newlines : false,
@@ -34,6 +34,7 @@
 		editor_class : "wysiwyg-advanced",
 
 		width : 650,
+		height : 600,
 		constrain_menus : true,
 		
 		theme : "advanced",
