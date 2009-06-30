@@ -13,42 +13,42 @@ class Admin extends Admin_Controller
 	// Admin: List all comments
 	public function index()
 	{
-		$this->listing('all');				
+		$this->load->helper('text');
+		// Create pagination links
+		$total_rows = $this->comments_m->countComments(array('is_active' => 0));
+		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
+		
+		// get all comments
+		$this->data->comments = $this->comments_m->getComments(array(
+			'is_active' => 0,
+			'limit' => $this->data->pagination['limit']			
+		));
+				
+		$this->data->active_comments = FALSE;
+		$this->layout->create('admin/index', $this->data);			
 	}
 	
-	public function listing($module = 'all')
+	public function active_comments()
 	{
+		$this->load->helper('text');
 		// Create pagination links
-		$total_rows = $this->comments_m->countComments();
-		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
+		$total_rows = $this->comments_m->countComments(array('is_active' => 1));
+		$this->data->pagination = create_pagination('admin/comments/active_comments', $total_rows);
 		
 		// Get a list of all modules
 		$modules = $this->comments_m->getUsedModules();
 		
-		// Get the required comments
-		if($module != 'all')
-		{
-			if(in_array($module, $modules))
-			{
-				// Get comments of module
-				$this->data->comments = $this->comments_m->getModuleComments($module, $this->data->pagination['limit']);
-			}
-			else
-			{
-				$this->session->set_flashdata( array('error'=> $this->lang->line('comments_module_not_found_error')) );
-			}	
-		}
-		else
-		{
-			// get all comments
-			$this->data->comments = $this->comments_m->getComments(array(
-				'limit' => $this->data->pagination['limit']
-			));
-		}
+		// get all comments
+		$this->data->comments = $this->comments_m->getComments(array(
+			'is_active' => 1,
+			'limit' => $this->data->pagination['limit']				
+		));
+
 		$this->data->modules = $modules + array('module' => 'all');
-		$this->layout->create('admin/index', $this->data);
+		$this->data->active_comments = TRUE;
+		$this->layout->create('admin/index', $this->data);		
 	}
-	
+		
 	// Admin: Edit a comment
 	public function edit($id = 0)
 	{

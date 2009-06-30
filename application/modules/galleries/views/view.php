@@ -26,12 +26,12 @@
 		
 		<fieldset class="alternative float-left width-half">
 			<legend><?=lang('gal_other_comments_label');?></legend>
-			<?= $this->load->module_view('comments', 'comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $article->id, 'is_active' => 1)))); ?>
+			<?= $this->load->module_view('comments', 'comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $gallery->id, 'is_active' => 1)))); ?>
 		</fieldset>
 										
 		<fieldset class="float-right width-half">
 			<legend><?=lang('gal_your_comments_label');?></legend>
-			<?= $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $article->id)); ?> 
+			<?= $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $gallery->id)); ?> 
 		</fieldset>
 		
 <? else: ?>
