@@ -65,7 +65,7 @@ $config['uri_protocol']	= "PATH_INFO";
 | http://www.codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = ".html";
+$config['url_suffix'] = '';
 
 /*
 |--------------------------------------------------------------------------

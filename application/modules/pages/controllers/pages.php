@@ -14,7 +14,7 @@ class Pages extends Public_Controller {
     	// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'/config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
-		$slug = $this->uri->segment(1, NULL);
+		$slug = implode('--', $this->uri->segment_array());
 
 		// The default route is set to a different module than pages. Send them to there if they come looking for the homepage
 		if(!empty($route) && $slug == 'home' && $route['default_controller'] != 'pages')
@@ -26,7 +26,7 @@ class Pages extends Public_Controller {
 		else
 		{
 			// Show the requested page with all segments available
-			call_user_func_array(array($this, 'page'), $this->uri->segment_array());
+			call_user_func(array($this, 'page'), $slug);
 		}
     }
     
@@ -40,8 +40,8 @@ class Pages extends Public_Controller {
         }
         
         // Parse any settings, links or url tags
-        //$this->load->library('data_parser');
-        //$this->data->page->body = $this->data_parser->parse($this->data->page->body);
+        $this->load->library('parser');
+        $page->body = $this->parser->string_parse($page->body);
         
         // Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if($page->meta_title == '')
