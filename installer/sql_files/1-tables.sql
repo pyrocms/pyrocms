@@ -116,6 +116,7 @@ CREATE TABLE `pages` (
   `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
   `meta_description` text collate utf8_unicode_ci NOT NULL,
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+	`layout_file` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Language Unique` (`slug`,`lang`),
   KEY `slug` (`slug`),

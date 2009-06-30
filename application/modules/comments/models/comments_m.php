@@ -9,7 +9,7 @@ class Comments_m extends Model
 	
 	public function countComments($params = array())
 	{  	
-		if(!empty($param['is_active']))
+		if(isset($param['is_active']))
 		{
 			if($param['is_active'] == 1)
 			{
@@ -17,14 +17,14 @@ class Comments_m extends Model
 			}
 			else
 			{
-				$this->db->where('is_active', 0);
+				$this->db->where('is_active = 0');
 			}			
 		}
 		
 		if(!empty($params['module']))
 		{
 			$this->db->where('module', $params['module']);
-    }
+    	}
 		
 		if(!empty($params['module_id']))
 		{
@@ -54,10 +54,10 @@ class Comments_m extends Model
 		}
 		       	
 		return $this->db->count_all_results('comments');
-  }
+	}
 		
 	public function getComments($params = array())
-  {
+	{
     $sql = '
 			SELECT
 				c.id, c.is_active, c.body, c.created_on, c.module, c.module_id, c.user_id,
@@ -69,27 +69,27 @@ class Comments_m extends Model
 				IF(c.user_id > 0, c.user_id = u.id, true = true)
 		';
 		
-		if(!empty($params['id']))
+		if(isset($params['id']))
 		{
 			$sql .= ' AND c.id = "'. $params['id'] .'"';
 		}
 		
-		if(!empty($params['is_active']))
+		if(isset($params['is_active']))
 		{
 			if($params['is_active'] == 1)
 			{
-				$sql .= ' AND c.is_active = 1';
+				$sql .= ' AND c.is_active = '. $params['is_active'];
 			}
 			else
 			{
-				$sql .= ' AND c.is_active = 0';
+				$sql .= ' AND c.is_active = '. $params['is_active'];
 			}			
 		}
 		
 		if(!empty($params['module']))
 		{			
 			$sql .= ' AND c.module = "'. $params['module'] .'"';
-    }
+    	}
 		
 		if(!empty($params['module_id']))
 		{
