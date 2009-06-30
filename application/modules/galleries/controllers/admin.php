@@ -215,7 +215,6 @@ class Admin extends Admin_Controller
 		$upload_cfg['upload_path'] = APPPATH.'assets/img/galleries/' . $slug;
 		$upload_cfg['allowed_types'] = 'gif|jpg|png';
 		$upload_cfg['max_size'] = '2048';
-		$upload_cfg['overwrite'] = TRUE;
 		$upload_cfg['encrypt_name'] = TRUE;
 		$this->load->library('upload', $upload_cfg);
 		
