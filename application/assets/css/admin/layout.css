@@ -939,7 +939,6 @@ ul.ui-tabs-nav {
 }
 
 #header .container {
-	line-height: 77px;
 	overflow: hidden;
 }
 
@@ -998,8 +997,16 @@ ul.ui-tabs-nav {
 }
 
 #header .loginInfos {
-	float: right;
 	color: #FFFFFF;
+	float: right;
+	padding-top: 15px;
+}
+
+#header .languageSelector {
+	clear:right;
+	color: #FFFFFF;
+	float: right;
+	padding-top: 10px;
 }
 
 /**************************************/
