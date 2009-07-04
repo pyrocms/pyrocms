@@ -4,13 +4,15 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-25/06/09 - v0.9.5.4 to current
-------------------------------
+25/06/09 - v0.9.5.4 to v0.9.6
+-----------------------------
 
 1. Run the following MySQL.
 
 	ALTER TABLE comments
 		ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER module_id;
+	
+	UPDATE comments SET is_active = 1;
 
 	INSERT INTO settings VALUES('enable_social_bookmarks','Enable Social Bookmarking',
 		'Show links below news, photos, etc with links to social bookmarking and media sites where the content can be shared.',
