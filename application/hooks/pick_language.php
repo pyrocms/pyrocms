@@ -3,7 +3,9 @@
 function PickLanguage() {
     
 	require_once(APPPATH.'/config/language.php');
-       
+      
+    session_start();
+    
     // Lang set in URL via ?lang=something
     if(!empty($_GET['lang']))
     {
@@ -52,7 +54,7 @@ function PickLanguage() {
     {
         $lang = $config['default_language'];
     }
-
+    
     // Whatever we decided the lang was, save it for next time to avoid working it out again
     $_SESSION['lang_code'] = $lang;
         
