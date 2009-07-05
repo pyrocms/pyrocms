@@ -21,6 +21,8 @@ minimise or totally remove downtime during upgrade.
 	ALTER TABLE pages
 	  ADD `layout_file` varchar(255) collate utf8_unicode_ci NOT NULL default 'default';
 
+	ALTER TABLE
+		MODIFY `gallery_slug` varchar(255) collate utf8_unicode_ci NOT NULL default '';
 
 2. Replace old files with new files.
 

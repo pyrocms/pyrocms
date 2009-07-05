@@ -116,7 +116,6 @@ CREATE TABLE `pages` (
   `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
   `meta_description` text collate utf8_unicode_ci NOT NULL,
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
-	`layout_file` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Language Unique` (`slug`,`lang`),
   KEY `slug` (`slug`),
@@ -146,7 +145,7 @@ CREATE TABLE `permission_rules` (
 
 CREATE TABLE `photos` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
-  `gallery_slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  `gallery_slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `description` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
