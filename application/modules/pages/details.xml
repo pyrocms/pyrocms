@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.5" type="content">
-	<name>Pages</name>
-	<description>Add custom pages to the site with any content you want.</description>
+	<name>
+		<EN>Pages</EN>
+		<ES>Páginas</ES>
+	</name>
+	<description>
+		<EN>Add custom pages to the site with any content you want.</EN>
+		<ES>Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.</ES>
+	</description>
 	<required>1</required>
 	<icon>paper_content_48.png</icon>
 	<is_frontend>1</is_frontend>

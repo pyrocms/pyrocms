@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.1" type="content">
-	<name>Packages</name>
-	<description>Combines services and products into package deals.</description>
+	<name>
+		<EN>Packages</EN>
+		<ES>Paquetes</ES>
+	</name>
+	<description>
+		<EN>Combines services and products into package deals.</EN>
+		<ES>Combina servicios y productos dentro de paquetes promocionales.</ES>
+	</description>
+	<name></name>
 	<icon>box_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>

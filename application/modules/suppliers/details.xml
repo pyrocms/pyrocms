@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="content">
-	<name>Suppliers</name>
-	<description>List the suppliers of your products.</description>
+	<name>
+		<EN>Suppliers</EN>
+		<ES>Suplidores</ES>
+	</name>
+	<description>
+		<EN>List the suppliers of your products.</EN>
+		<ES>Lista los suplidores de tus productos.</ES>
+	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

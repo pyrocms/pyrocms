@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.4" type="content">
-	<name>Photo Albums</name>
-	<description>Add photo albums and upload photos.</description>
+	<name>
+		<EN>Photos</EN>
+		<ES>Fotográficas</ES>
+	</name>
+	<description>
+		<EN>Add photo albums and upload photos.</EN>
+		<ES>Agrega una galería fotográfica y sube fotos.</ES>
+	</description>
 	<icon>image_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>

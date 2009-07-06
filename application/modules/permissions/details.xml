@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="admin">
-	<name>Permissions</name>
-	<description>Control what type of users can see certain sections within the site.</description>
+	<name>
+		<EN>Permissions</EN>
+		<ES>Permisos</ES>
+	</name>
+	<description>
+		<EN>Control what type of users can see certain sections within the site.</EN>
+		<ES>Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.</ES>
+	</description>
 	<required>1</required>
 	<icon>users_two_warning_48.png</icon>
 	<is_frontend>0</is_frontend>

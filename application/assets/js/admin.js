@@ -62,6 +62,7 @@ $(function() {
 			$(this).parent().removeClass("inactive").addClass("active");
 			$(this).find(".expand").addClass("expanded");
 		}
+		
 	});
 	
 });

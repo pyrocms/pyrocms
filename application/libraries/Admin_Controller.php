@@ -57,9 +57,10 @@ class Admin_Controller extends MY_Controller
 	  		$this->data->admin_modules = $this->cache->model('modules_m', 'getModules', array(
 	    		array(
 					'is_backend'=>true, 
-					'role' => @$this->data->user->role
-				) // This function does NOT need role, that is to keep caching seperate
-	    	));
+					'role' => @$this->data->user->role,
+	    			'lang' => DEFAULT_LANGUAGE
+				) // This function does NOT need role OR language, that is to give it a unique md5 hash
+	    	), $this->config->item('navigation_cache'));
 		}
 		
 		// start adding the language handling

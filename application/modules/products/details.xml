@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.3" type="content">
-	<name>Products</name>
-	<description>Show visitors what products you sell and allows images and price information to be added.</description>
+	<name>
+		<EN>Products</EN>
+		<ES>Productos</ES>
+	</name>
+	<description>
+		<EN>Show visitors what products you sell and allows images and price information to be added.</EN>
+		<ES>Enséñale a tus visitantes que productos tu vendes y permíte agregarle información gráfica y de precios.</ES>
+	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

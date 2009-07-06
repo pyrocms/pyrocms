@@ -122,10 +122,10 @@ class Modules_m extends Model {
     	endforeach;
 
     	return array(
-    		'name'			=>	(string) $xml->name,
+    		'name'			=>	(string) $xml->name->{constant('DEFAULT_LANGUAGE')},
     		'version' 		=> 	(float) $xml->attributes()->version,
     		'type' 			=> 	(string) $xml->attributes()->type,
-    		'description' 	=> 	(string) $xml->description,
+    		'description' 	=> 	(string) $xml->description->{constant('DEFAULT_LANGUAGE')},
     		'icon' 			=> 	(string) $xml->icon,
     		'required'		=>	$xml->required == 1,
     		'is_frontend'	=>	$xml->is_frontend == 1,

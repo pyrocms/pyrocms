@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="content">
-	<name>Services</name>
-	<description>Show visitors what services are on offer and allows images to be uploaded.</description>
+	<name>
+		<EN>Services</EN>
+		<ES>Servicios</ES>
+	</name>
+	<description>
+		<EN>Show visitors what services are on offer and allows images to be uploaded.</EN>
+		<ES>Muestra a tus visitantes que servicios ofreces, permitiéndote mostrar información sobre el precio e imagenes.</ES>
+	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

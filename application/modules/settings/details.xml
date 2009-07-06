@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="admin">
-	<name>Settings</name>
-	<description>Allows admins and staff to change website settings such as site name and description.</description>
+	<name>
+		<EN>Settings</EN>
+		<ES>Configuraciones</ES>
+	</name>
+	<description>
+		<EN>Allows admins and staff to change website settings such as site name and description.</EN>
+		<ES>Permite a los administradores y staff configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.</ES>
+	</description>
 	<required>1</required>
 	<icon>spanner_48.png</icon>
 	<is_frontend>1</is_frontend>

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.3" type="admin">
 	<name>
-		<EN>Themes</EN>
-		<ES>Temas</ES>
+		<EN>Twitter</EN>
+		<ES>Twitter</ES>
 	</name>
 	<description>
-		<EN>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</EN>
-		<ES>Permite a los administradores y miembros del staff cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.</ES>
+		<EN>Show twitter posts and support general Twitter integration.</EN>
+		<ES>Mostrar puestos twitter Twitter y el apoyo general de la integración.</ES>
 	</description>
 	<required>1</required>
-	<icon>tabs_48.png</icon>
 	<is_frontend>0</is_frontend>
-	<is_backend>1</is_backend>
+	<is_backend>0</is_backend>
 	<controllers>
 		<controller name="admin">
 			<method>index</method>
