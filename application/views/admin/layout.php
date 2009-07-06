@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?=$page_title;?> | <?=$this->settings->item('site_name'); ?> Control Panel</title>
+		<title><?=$page_title;?> | <?=$this->settings->item('site_name'); ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="Pragma" content="no-cache" />        
 	    <script type="text/javascript">
 	    	var APPPATH_URI = "<?=$this->config->item('asset_dir');?>";
 	    	var BASE_URI = "<?=BASE_URI;?>";
-	    	var DEFAULT_TITLE = "Admin | <?= $this->settings->item('site_name'); ?>";
+	    	var DEFAULT_TITLE = "<?=$this->settings->item('site_name'); ?>";
 	    </script>
 	        
 	    <?= js('jquery/jquery.js'); ?>

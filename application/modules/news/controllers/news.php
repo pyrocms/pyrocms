@@ -22,6 +22,12 @@ class News extends Public_Controller
 	{	
 		$this->data->pagination = create_pagination('news/page', $this->news_m->countArticles(), $this->limit, 3);	
 		$this->data->news = $this->news_m->getNews(array('limit' => $this->data->pagination['limit']));	
+		
+		// Set meta description based on article titles
+		$meta = $this->_articles_metadata($this->data->news);
+		
+		$this->layout->set_metadata('description', $meta['description']);
+		$this->layout->set_metadata('keywords', $meta['keywords']);
 		$this->layout->create('index', $this->data);
 	}
 	
@@ -39,15 +45,15 @@ class News extends Public_Controller
 		$this->data->news = $this->news_m->getNews(array('category'=>$category, 'limit' => $this->data->pagination['limit']));
 		
 		// Set meta description based on article titles
-		$meta_description = $this->_articles_metadata($this->data->news);
+		$meta = $this->_articles_metadata($this->data->news);
 		
 		// Build the page
 		$this->layout->title($this->lang->line('news_news_title').' | '.$this->data->category->title)		
-		->set_metadata('description', $this->data->category->title.'. '.$meta_description)
-		->set_metadata('keywords', $this->data->category->title)		
-		->add_breadcrumb($this->lang->line('news_news_title'), 'news')
-		->add_breadcrumb($this->data->category->title)		
-		->create('category', $this->data);
+			->set_metadata('description', $this->data->category->title.'. '.$meta['description'])
+			->set_metadata('keywords', $this->data->category->title)
+			->add_breadcrumb($this->lang->line('news_news_title'), 'news')
+			->add_breadcrumb($this->data->category->title)		
+			->create('category', $this->data);
 	}	
 	
 	function archive($year = NULL, $month = '01')
@@ -59,13 +65,14 @@ class News extends Public_Controller
 		$this->data->month_year = $month_date->format("F 'y");
 		
 		// Set meta description based on article titles
-		$meta_description = $this->_articles_metadata($this->data->news);
+		$meta = $this->_articles_metadata($this->data->news);
+		
 		$this->layout->title( $this->data->month_year, $this->lang->line('news_archive_title'), $this->lang->line('news_news_title'))		
-		->set_metadata('description', $this->data->month_year.'. '.$meta_description)
-		->set_metadata('keywords', $this->data->month_year)		
-		->add_breadcrumb($this->lang->line('news_news_title'), 'news')
-		->add_breadcrumb($this->lang->line('news_archive_title').': '.$month_date->format("F 'y"))		
-		->create('archive', $this->data);
+			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
+			->set_metadata('keywords', $this->data->month_year.', '.$meta['keywords'])
+			->add_breadcrumb($this->lang->line('news_news_title'), 'news')
+			->add_breadcrumb($this->lang->line('news_archive_title').': '.$month_date->format("F 'y"))
+			->create('archive', $this->data);
 	}
 	
 	// Public: View an article
@@ -82,11 +89,13 @@ class News extends Public_Controller
 		}*/
 		
 		$this->session->set_flashdata(array('referrer'=>$this->uri->uri_string));	
-		$this->data->article =& $article;	
+		
+		$this->data->article =& $article;
+		
 		$this->layout->title($article->title, $this->lang->line('news_news_title'))
-		->set_metadata('description', $this->data->article->intro)
-		->set_metadata('keywords', $this->data->article->category_title.' '.$this->data->article->title)	
-		->add_breadcrumb($this->lang->line('news_news_title'), 'news');
+			->set_metadata('description', $this->data->article->intro)
+			->set_metadata('keywords', $this->data->article->category_title.' '.$this->data->article->title)	
+			->add_breadcrumb($this->lang->line('news_news_title'), 'news');
 		
 		if($article->category_id > 0)
 		{
@@ -100,13 +109,23 @@ class News extends Public_Controller
 	// Private methods not used for display
 	private function _articles_metadata(&$articles = array())
 	{
+		$keywords = array();
 		$description = array();
+		
 		// Loop through articles and use titles for meta description
 		foreach($this->data->news as &$article)
 		{
+			if($article->category_title)
+			{
+				$keywords[$article->category_id] = $article->category_title .', '. $article->category_slug;
+			}
 			$description[] = $article->title; 
-		}		
-		return implode(', ', $description);
+		}
+		
+		return array(
+			'keywords' => implode(', ', $keywords),
+			'description' => implode(', ', $description)
+		);
 	}
 }
 ?>
