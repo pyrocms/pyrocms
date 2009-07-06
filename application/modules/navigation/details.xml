@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.5" type="admin">
-	<name>Navigation</name>
-	<description>Manage links on navigation menu's and all the navigation groups they belong to.</description>
+	<name>
+		<EN>Navigation</EN>
+		<ES>Navegación</ES>
+	</name>
+	<description>
+		<EN>Manage links on navigation menu's and all the navigation groups they belong to.</EN>
+		<ES>Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.</ES>
+	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

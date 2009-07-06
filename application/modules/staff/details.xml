@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.5" type="content">
-	<name>Staff</name>
-	<description>Add staff to the system and show visitors their basic details and photograph.</description>
+	<name>
+		<EN>Staff</EN>
+		<ES>Staff</ES>
+	</name>
+	<description>
+		<EN>Add staff to the system and show visitors their basic details and photograph.</EN>
+		<ES>Agrega staff al sistema y muéstrale a tus visitantes una informacion básica y su fotografía.</ES>
+	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>

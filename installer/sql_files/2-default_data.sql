@@ -41,8 +41,8 @@ insert into `settings` values
  ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter'),
  ('twitter_password','Password','Twitter password.','password','','','','0','1','twitter'),
  ('twitter_news','Twitter &amp; News integration.','Would you like to post links to new news articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter'),
- ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter');
-
+ ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter'),
+ ('twitter_cache', 'Cache time', 'How many minutes should your Tweets be temporairily stored for?','text','300','','','0','1','twitter');
 
 -- Default user. Log in as this guy and make an admin account
 truncate `users`;

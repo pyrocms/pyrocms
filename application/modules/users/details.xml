@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.6" type="content">
-	<name>Users</name>
-	<description>Let users register and log in to the site, and manage them via the control panel.</description>
+	<name>
+		<EN>Users</EN>
+		<ES>Usuarios</ES>
+	</name>
+	<description>
+		<EN>Let users register and log in to the site, and manage them via the control panel.</EN>
+		<ES>Permite el registro de usuario y loguearse en el sitio, manéjalos con el panel de control.</ES>
+	</description>
 	<required>1</required>
 	<icon>users_two_48.png</icon>
 	<is_frontend>1</is_frontend>
