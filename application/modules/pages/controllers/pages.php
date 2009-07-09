@@ -11,11 +11,12 @@ class Pages extends Public_Controller {
 
     function _remap()
     {
+
+	$slug = $this->uri->segment(1, 'home');
+
     	// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'/config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
-		$slug = implode('--', $this->uri->segment_array());
-
 		// The default route is set to a different module than pages. Send them to there if they come looking for the homepage
 		if(!empty($route) && $slug == 'home' && $route['default_controller'] != 'pages')
 		{
