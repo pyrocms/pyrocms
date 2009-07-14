@@ -9,44 +9,7 @@ class Comments_m extends Model
 	
 	public function countComments($params = array())
 	{  	
-		if(isset($param['is_active']))
-		{
-			$this->db->where('is_active', $param['is_active']);
-		}
-		
-		if(!empty($params['module']))
-		{
-			$this->db->where('module', $params['module']);
-    	}
-		
-		if(!empty($params['module_id']))
-		{
-			$this->db->where('module_id', $params['module_id']);
-		}
-		
-		if(!empty($params['month']))
-		{
-			$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
-		}
-		
-		if(!empty($params['year']))
-		{
-			$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
-		}
-		
-		if(!empty($params['user']))
-		{
-			if(is_numeric($params['user']))
-			{
-				$this->db->where('user_id', $params['user']);
-			}
-			else
-			{
-				$this->db->where('name', $params['user']);
-			}
-		}
-		       	
-		return $this->db->count_all_results('comments');
+		return count($this->getComments($params));
 	}
 		
 	public function getComments($params = array())
@@ -221,7 +184,7 @@ class Comments_m extends Model
 		return $this->db->update('comments', $set);
 	}
 	
-	public function activateComment($id, $is_active = 0)
+	public function approveComment($id, $is_active = 0)
 	{
   		$this->db->where('id', $id);
 		return $this->db->update('comments', array('is_active' => $is_active));

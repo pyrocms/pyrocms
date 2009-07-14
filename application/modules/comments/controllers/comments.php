@@ -53,13 +53,14 @@ class Comments extends Public_Controller
 			
 			if($this->comments_m->newComment( $comment ))
 			{
-				$this->session->set_flashdata( array('success'=> $this->lang->line('comments_add_success')) );
+				$this->session->set_flashdata('success', $this->lang->line('comment_add_success'));
 			}
 			else
 			{
-				$this->session->set_flashdata( array('error'=> $this->lang->line('comments_add_error')) );
+				$this->session->set_flashdata('error', $this->lang->line('comment_add_error'));
 			}			
 		}
+		
 		// Validation Failed ------------------------------
 		else
 		{		
@@ -70,8 +71,8 @@ class Comments extends Public_Controller
 			}
 			
 			$comment['body'] = $this->input->post('body');
-			$this->session->set_flashdata( array('comment' => $comment) );			
-			$this->session->set_flashdata( array('error' => $this->validation->error_string) );
+			$this->session->set_flashdata('comment', $comment );			
+			$this->session->set_flashdata('error', $this->validation->error_string );
 		}
 		
 		// If for some reason the post variable doesnt exist, just send to module main page
@@ -87,7 +88,7 @@ class Comments extends Public_Controller
 		
 		if ($captcha_word != $this->input->post('captcha'))
 		{
-			$this->validation->set_message('_CheckCaptcha', $this->lang->line('comment_capchar_error'));
+			$this->validation->set_message('_CheckCaptcha', $this->lang->line('comment_capcha_error'));
 			return FALSE;
 		}
 		else

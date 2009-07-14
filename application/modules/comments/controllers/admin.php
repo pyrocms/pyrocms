@@ -28,12 +28,12 @@ class Admin extends Admin_Controller
 		$this->layout->create('admin/index', $this->data);			
 	}
 	
-	public function active_comments()
+	public function active()
 	{
 		$this->load->helper('text');
 		// Create pagination links
 		$total_rows = $this->comments_m->countComments(array('is_active' => 1));
-		$this->data->pagination = create_pagination('admin/comments/active_comments', $total_rows);
+		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
 		// Get a list of all modules
 		$modules = $this->comments_m->getUsedModules();
@@ -90,11 +90,11 @@ class Admin extends Admin_Controller
 			
 			if($this->comments_m->updateComment( $comment, $id ))
 			{
-				$this->session->set_flashdata( array('success'=> $this->lang->line('comments_edit_success')) );
+				$this->session->set_flashdata( 'success', $this->lang->line('comments_edit_success') );
 			}
 			else
 			{
-				$this->session->set_flashdata( array('error'=> $this->lang->line('comments_edit_error')) );
+				$this->session->set_flashdata( 'error', $this->lang->line('comments_edit_error') );
 			}
 			
 			redirect('admin/comments/index');
@@ -144,9 +144,10 @@ class Admin extends Admin_Controller
 			// Deleting multiple comments
 			else
 			{
-				$this->session->set_flashdata( 'success', sprintf( $this->lang->line('comments_delete_multi_success'), implode( '", "', $comments ) ) );
+				$this->session->set_flashdata( 'success', sprintf( $this->lang->line('comments_delete_multi_success'), implode( ', #', $comments ) ) );
 			}
-		}		
+		}
+		
 		// For some reason, none of them were deleted
 		else
 		{
@@ -157,33 +158,33 @@ class Admin extends Admin_Controller
 	}
 	
 	// Admin: activate a comment
-	public function activate($id = 0)
+	public function approve($id = 0)
 	{
 		if (!$id) redirect('admin/comments/index');
 					
-		if($this->comments_m->activateComment($id, 1))
+		if($this->comments_m->approveComment($id, 1))
 		{
-			$this->session->set_flashdata( array('success'=> $this->lang->line('comments_activate_success')) );
+			$this->session->set_flashdata( array('success'=> $this->lang->line('comment_approve_success')) );
 		}
 		else
 		{
-			$this->session->set_flashdata( array('error'=> $this->lang->line('comments_activate_error')) );
+			$this->session->set_flashdata( array('error'=> $this->lang->line('comment_approve_error')) );
 		}
 		redirect('admin/comments/index');	
 	}
 	
 	// Admin: deativate a comment
-	public function deactivate($id = 0)
+	public function unapprove($id = 0)
 	{
 		if (!$id) redirect('admin/comments/index');
 					
-		if($this->comments_m->activateComment($id, 0))
+		if($this->comments_m->approveComment($id, 0))
 		{
-			$this->session->set_flashdata( array('success'=> $this->lang->line('comments_activate_success')) );
+			$this->session->set_flashdata( array('success'=> $this->lang->line('comment_unapprove_success')) );
 		}
 		else
 		{
-			$this->session->set_flashdata( array('error'=> $this->lang->line('comments_activate_error')) );
+			$this->session->set_flashdata( array('error'=> $this->lang->line('comment_unapprove_error')) );
 		}
 		redirect('admin/comments/index');	
 	}
