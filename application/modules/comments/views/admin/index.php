@@ -1,25 +1,27 @@
 <? $this->load->helper('date');?>  
 
 <? if($active_comments): ?>
+	<h3 class="float-left"><?= lang('comments_active_label');?></h3>
 	<p class="float-right">
-		[ <a href="<?=site_url('admin/comments/index');?>"><?= lang('comments_inactives_label');?></a> ]
+		[ <a href="<?=site_url('admin/comments/index');?>"><?= lang('comments_inactive_label');?></a> ]
 	</p>
 <? else: ?>
+	<h3 class="float-left"><?= lang('comments_inactive_label');?></h3>
 	<p class="float-right">
-		[ <a href="<?=site_url('admin/comments/active_comments');?>"><?= lang('comments_actives_label');?></a> ]
+		[ <a href="<?=site_url('admin/comments/active');?>"><?= lang('comments_active_label');?></a> ]
 	</p>
 <? endif; ?>
     
-<?= form_open($this->uri->uri_string());?>
+<?= form_open('admin/comments/delete');?>
 	<?=form_hidden('redirect', $this->uri->uri_string()); ?> 
 	<table border="0" class="listTable clear-both">    
 		<thead>
 			<tr>
 				<th class="first"><div></div></th>
-				<th class="width-20"><a href="#"><?=lang('comments_teaser_label');?></a></th>
-				<th class="width-10"><a href="#"><?=lang('comments_author_label');?></a></th>
-				<th class="width-10"><a href="#"><?=lang('comments_date_label');?></a></th>
-				<th class="last width-15"><span><?=lang('comments_actions_label');?></span></th>
+				<th class="width-20"><a href="#"><?=lang('comment_teaser_label');?></a></th>
+				<th class="width-10"><a href="#"><?=lang('comment_author_label');?></a></th>
+				<th class="width-10"><a href="#"><?=lang('comment_date_label');?></a></th>
+				<th class="last width-15"><span><?=lang('comment_actions_label');?></span></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -44,15 +46,15 @@
 						</td>
 						<td><?=date('M d, Y', $comment->created_on);?></td>						
 						<td>
-							<?= anchor('admin/comments/preview/'. $comment->id, lang('comments_preview_label'), 'rel="modal" target="_blank"'); ?> | 
+							<?= anchor('admin/comments/preview/'. $comment->id, lang('comment_preview_label'), 'rel="modal" target="_blank"'); ?> | 
 							<? if($comment->is_active == 0): ?>
-								<?=anchor('admin/comments/activate/' . $comment->id, lang('comments_activate_label'));?>
+								<?=anchor('admin/comments/approve/' . $comment->id, lang('comment_activate_label'));?>
 							<? else: ?>
-								<?=anchor('admin/comments/deactivate/' . $comment->id, lang('comments_deactivate_label'));?>
+								<?=anchor('admin/comments/unapprove/' . $comment->id, lang('comment_deactivate_label'));?>
 							<? endif; ?>
 							<br />
-							<?= anchor('admin/comments/edit/' . $comment->id, lang('comments_edit_label'));?> | 
-							<?= anchor('admin/comments/delete/' . $comment->id, lang('comments_delete_label'), array('class'=>'confirm')); ?>
+							<?= anchor('admin/comments/edit/' . $comment->id, lang('comment_edit_label'));?> | 
+							<?= anchor('admin/comments/delete/' . $comment->id, lang('comment_delete_label'), array('class'=>'confirm')); ?>
 						</td>
 					</tr>
 			<? endforeach; ?>
