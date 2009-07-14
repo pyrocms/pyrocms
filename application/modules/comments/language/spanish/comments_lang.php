@@ -35,7 +35,8 @@ $lang['comment_approve_error'] 			= 'There was a problem approving this comment.
 $lang['comment_unapprove_success'] 		= 'The comment has been unapproved and will no longer show on the live site.'; #translate
 $lang['comment_unapprove_error'] 		= 'There was a problem unapproving this comment. Perhaps deleting would work?'; #translate
 
-$lang['comment_delete_success'] 		= 'This comment has been deleted and will no longer show on the live site.'; #translate
+$lang['comments_delete_single_success'] = 'This comment #%s has been deleted and will no longer show on the live site.'; #translate
+$lang['comments_delete_multi_success'] 	= 'The comments #%s have been deleted and will no longer show on the live site.'; #translate
 
 $lang['comments_no_comments'] 			= 'Sin comentarios';
 
