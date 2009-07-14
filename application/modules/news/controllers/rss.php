@@ -8,7 +8,7 @@ class Rss extends Public_Controller
 		$this->load->model('news_m');
 		$this->load->helper('xml');
 		$this->load->helper('date');
-		$this->load->lang('news');
+		$this->lang->load('news');
 	}
 	
 	function index()
