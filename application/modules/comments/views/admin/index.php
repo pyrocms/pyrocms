@@ -36,7 +36,7 @@
 						<td><input type="checkbox" name="action_to[]" value="<?=$comment->id;?>" /></td>
 						<td><?=character_limiter($comment->body, 30);?></td>
 						<td>
-							<? if(isset($comment->user_id)): ?>
+							<? if($comment->user_id > 0): ?>
 								<?=anchor('admin/users/edit/' . $comment->user_id, $comment->name); ?>
 							<? else: ?>
 								<?=$comment->name;?>
