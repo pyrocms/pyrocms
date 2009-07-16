@@ -10,21 +10,32 @@ if($_POST) {
 	
 	
 	// Validate the post data
-	if($core->validate_post($_POST) == true) {		
+	if($core->validate_post($_POST) == true)
+	{		
 		// First create the database
-		$database->create_database($_POST);
+		if($database->create_database($_POST) == false)
+		{
+			$message = $core->show_message('error',"The database could not be created, please verify your settings.");
+		}
 		
 		// Fill the database with the default data
-		$database->create_tables($_POST);
+		if($database->create_tables($_POST) == false)
+		{
+			$message = $core->show_message('error',"The database tables could not be created, please verify your settings.");
+		}
 		
 		// Check to see if the user wants to insert dummy data
-		if(isset($_POST['dummy_data'])) {
-			$database->dummy_data($_POST);
+		if(isset($_POST['dummy_data']))
+		{
+			if($database->dummy_data($_POST) == false)
+			{
+				$message = $core->show_message('error',"The dummy data could not be inserted, please verify your settings.");
+			}
 		}
 		
 		// Write the config file
 		if($core->write_config($_POST) == false) {
-			$message = $core->show_message('error',"The config file could not be written, please chmod PyroCMS's database.php file to 777");
+			$message = $core->show_message('error',"The database configuration file could not be written, please chmod PyroCMS's database.php file to 777");
 		}
 		
 		// Check to see if any errors popped up

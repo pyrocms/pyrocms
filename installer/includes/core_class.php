@@ -70,14 +70,20 @@ class Core {
 		$handle = fopen($output_path,'w+');
 		
 		// Chmod the file, in case the user forgot
-		chmod($output_path,0777);
+		@chmod($output_path,0777);
 		
 		// Verify file permissions
 		if(is_writable($output_path))
 		{
 			// Write the file
-			fwrite($handle,$new);
-			return true;
+			if(fwrite($handle,$new))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
