@@ -67,7 +67,10 @@ class Core {
 		$new  = str_replace("%DATABASE%",$data['database'],$new);
 		
 		// Write the new database.php file
-		$handle = fopen($output_path,'w+');
+		if(!$handle = @fopen($output_path,'w+'))
+		{
+			return false;
+		}
 		
 		// Chmod the file, in case the user forgot
 		@chmod($output_path,0777);

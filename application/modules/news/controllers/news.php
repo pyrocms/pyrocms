@@ -113,13 +113,16 @@ class News extends Public_Controller
 		$description = array();
 		
 		// Loop through articles and use titles for meta description
-		foreach($this->data->news as &$article)
+		if(!empty($articles))
 		{
-			if($article->category_title)
+			foreach($articles as &$article)
 			{
-				$keywords[$article->category_id] = $article->category_title .', '. $article->category_slug;
+				if($article->category_title)
+				{
+					$keywords[$article->category_id] = $article->category_title .', '. $article->category_slug;
+				}
+				$description[] = $article->title; 
 			}
-			$description[] = $article->title; 
 		}
 		
 		return array(
