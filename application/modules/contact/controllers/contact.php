@@ -82,7 +82,7 @@ class Contact extends Public_Controller
 		// Get the language keys for the field
 		foreach(array_keys($this->rules) as $field_name)
 		{
-			$fields[$field_name] = $this->lang->line($field_name);
+			$fields[$field_name] = $this->lang->line('contact_'.$field_name.'_label');
 		}		
 		$this->validation->set_fields($fields);
 		$this->validation->set_rules($this->rules);		

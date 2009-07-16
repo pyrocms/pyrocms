@@ -21,7 +21,7 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/news/create">New artcile</new_item>
+			<new_item href="admin/news/create">New article</new_item>
 		</admin>
 	</navigation>
 </module>

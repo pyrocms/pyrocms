@@ -24,7 +24,17 @@ class Public_Controller extends MY_Controller
 		
 	    // Set the theme view folder
 	    $this->layout->theme($this->settings->item('default_theme'));
-	    $this->layout->wrapper('layouts/default');
+	    
+	    // If the GET variable isbasic exists, do not use a wrapper
+	    if($this->input->get('_is_basic'))
+	    {
+	    	$this->layout->wrapper(FALSE);
+	    }
+
+	    else
+	    {
+	    	$this->layout->wrapper('layouts/default');
+	    }
 	    
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');

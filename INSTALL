@@ -17,8 +17,8 @@ INTALL
 	chmod 777 codeigniter/cache
 	chmod 777 codeigniter/logs
 	chmod -R 777 application/cache
-	chmod 644 application/config/config.php
-	chmod 644 application/config/database.php
+	chmod 777 application/config/config.php
+	chmod 777 application/config/database.php
 	chmod -R 777 application/uploads
 	chmod -R 777 application/assets/img/galleries
 	chmod -R 777 application/assets/img/products

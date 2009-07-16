@@ -53,10 +53,19 @@ class Pages extends Public_Controller {
         // Define data elements
         $this->data->page =& $page;
         
+    	    // If the GET variable isbasic exists, do not use a wrapper
+	    if($this->input->get('_is_basic'))
+	    {
+	    	$this->layout->wrapper(FALSE);
+	    }
+
+	    else
+	    {
+	    	$this->layout->wrapper('layouts/'.$page->layout_file);
+	    }
+        
         // Create page output
 	    $this->layout->title( $page->meta_title )
-	    
-	    	->wrapper( 'layouts/'.$page->layout_file )
 	    
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
