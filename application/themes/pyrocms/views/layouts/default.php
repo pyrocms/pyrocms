@@ -31,7 +31,7 @@
 			<div id="header">						
 				<!-- Site title -->
 				<div id="site_title">
-					<h1><img src="<?php echo image_path('logo.png', '_theme_'); ?>" alt="PyroCMS" width="170" height="80" /></h1>
+					<h1><img src="<?php echo image_path('logo.png', '_theme_'); ?>" alt="PyroCMS" width="200" height="76" /></h1>
 				</div>								
 				<!-- Navigation -->
 				<div id="navigation">

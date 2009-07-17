@@ -1,181 +1,115 @@
 @charset "utf-8";
 /**
- * @name 	PyroCMS
+ * @name 		PyroCMS default
  * @version 	1.0
- * @description Default template for the PyroCMS website, this template should not be used for any downloadable version of PyroCMS
- * @link	http://www.pyrocms.com
- * @author	Yorick Peterse
- * @link	http://www.yorickpeterse.com
+ * @description Default template for every PyroCMS installation.
+ * @link		http://www.pyrocms.com
+ * @author		Yorick Peterse
+ * @link		http://www.yorickpeterse.com
  */
-/* General */
+/* Helpers */
 .clear {
 	clear:both;
 }
-/* Notifications */
-.notification_box {
-	height:auto;
-	margin:10px 0px 10px 0px;
-	padding:10px 10px 1px 10px;
-	text-align:center;
-	width:938px;
-}
-.notification_box p {
-	color:#000;
-}
-.notice {
-	background:#FCE373;
-	border:1px solid #FFD100;
-}
-.error {
-	background:#EC542F;
-	border:1px solid #FF3100;
-}
-.success {
-	background:#91E974;
+/* General */
+body {
+	background:#fff;
+	font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Verdana,Arial,sans-serif;
 }
 /* Typography */
-p {
-	color:#fff;
-	font-size:14px;
+h1 {
+	font-size:32px;
 	margin-bottom:10px;
 }
-h2,h3,h4,h5 {
-	color:#eeb355;
-	font-weight:bold;
-	margin:10px 0px 10px 0px;
+h2 {
+	color:#ACACAC;
+	font-size:24px;
+	margin-bottom:10px;
 }
-h2 {font-size:24px;}
-h3 {font-size:18px;}
-h4 {font-size:14px;}
-/* The body */
-body {
-	background:#221D1A url(../img/background.jpg) repeat top left;
-	font-family:"Lucida Grande","Lucida Sans Unicode",Arial,sans-serif;
+h3 {
+	color:#ACACAC;
+	font-size:20px;
+	margin-bottom:10px;
 }
-/* The main wrapper */
-#wrapper {
-	min-height:800px;
-	margin:0 auto;
-	margin-bottom:50px;
-	width:960px;
+h4 {
+	color:#ACACAC;
+	font-size:16px;
+	margin-bottom:10px;
+}
+p {
+	
+	font-size:12px;
+	margin-bottom:10px;
 }
 /* TOP */
-/* The header */
 #header {
+	border-bottom:1px solid #cccccc;
+	height:80px;
+	margin-bottom:20px;
 	margin-top:10px;
+	padding-bottom:20px;
+	width:100%;
 }
-/* Site title */
 #site_title {
 	float:left;
-	margin-top:10px;
 }
-#site_title h1 {
-	color:#fff;
-	font-size:36px;
-	font-weight:bold;
-	height:80px;
-	width:170px;
-}
-/* Navigation menu */
+/* Navigation */
 #navigation {
 	float:right;
-	font-size:16px;
-	width:600px;
 }
 #navigation ul {
-	float:right;
+	margin-top:30px;
 }
 #navigation ul li {
 	float:left;
 }
 #navigation ul li a {
-	color:#fff;
-	display:block;
-	height:30px;
-	padding-top:40px;
+	color:#404040;
+	font-size:18px;
+	margin-left:10px;
+	padding:5px;
 	text-decoration:none;
-	text-align:center;
-	width:95px;
 }
 #navigation ul li a:hover {
-	background:#eeb355;
+	color:#96CD23;
 }
-/* The banner */
-#banner {
-	background: url(../img/banner.png) no-repeat top left;
-	height:195px;
-	margin-top:20px;
+/* CENTER */
+#wrapper {
+	height:auto;
+	margin:0 auto;
 	width:960px;
 }
-#banner h2 {
-	color:#fff;
-	font-weight:bold;
-	font-size:30px;
-	line-height:1.5;
-	padding:45px 0px 0px 40px;
-}
-/* MIDDLE */
 /* The content */
 #content {
-	margin:20px 0px 20px 0px;
-	width:100%;
+	float:left;
+	margin-right:40px;
+	width:680px;	
 }
 #content a {
-	color:#3ABACA;
+	color:#96CD23;
 	text-decoration:none;
 }
 #content a:hover {
 	text-decoration:underline;
 }
-#content ul,#content ol {
-	color:#fff;
-	font-size:14px;
+/* The sidebar */
+#sidebar {
+	float:right;
+	width:240px;
 }
-/* Feature lists */
-.feature_list {
-	width:960px;
-}
-.feature_list li{ 
-	float:left;
-	width:400px;
-	padding:10px 40px 10px 40px;
-}
-.feature_list li h3 {
-	height:40px;
-	margin:0px;
-	padding:3px 0px 0px 45px;
-}
-/* Individual blocks */
-.feature_cog h3 	{background: url(../img/icons/cog.png) no-repeat top left;}
-.feature_download h3 	{background: url(../img/icons/download.png) no-repeat top left;}
-.feature_mail h3 	{background: url(../img/icons/mail.png) no-repeat top left;}
-.feature_news h3 	{background: url(../img/icons/news.png) no-repeat top left;}
-.feature_package h3 	{background: url(../img/icons/package.png) no-repeat top left;}
-.feature_security h3 	{background: url(../img/icons/lock.png) no-repeat top left;}
-.feature_users h3 	{background: url(../img/icons/users.png) no-repeat top left;}
-
-/* BOTTOM */
-/* The footer */
-#footer {
-	border-top:2px solid #3c3835;
-	clear:both;
-	padding-top:20px;
-	text-align:center;
-	width:100%;
-}
-#footer a {
-	color:#3ABACA;
+#sidebar a {
+	color:#96CD23;
 	text-decoration:none;
 }
-#footer a:hover {
+#sidebar a:hover {
 	text-decoration:underline;
 }
-#footer p {
-	font-size:12px;	
-}
-#footer #copyrights {
-	float:left;
-}
-#footer #site_notice {
-	float:right;
+/* BOTTOM */
+#footer {
+	border-top:1px solid #CCCCCC;
+	clear:both;
+	height:80px;
+	margin-top:20px;
+	padding-top:20px;
+	width:100%;
 }
