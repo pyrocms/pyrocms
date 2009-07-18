@@ -41,7 +41,7 @@
 				<div class="header_align">
 					<!-- Div that will contain the newest article -->
 					<div id="latest_article">
-						<? if(is_module('news')): ?>
+						<?php if(is_module('news')): ?>
 					  	
 							<?php foreach($this->news_m->getNews(array('limit' => 1)) as $news): ?>
 							<div id="latest_article_top">						
@@ -51,7 +51,7 @@
 							<p id="post_intro"><?php echo substr(strip_tags($news->intro),0,300)."..."; ?></p>
 							<?php endforeach; ?>				
 						
-						<? endif; ?>
+						<?php endif; ?>
 					</div>
 					<!-- Div with the image that belongs to the latest article -->
 					<div id="latest_article_image">
@@ -83,7 +83,8 @@
 			
 			<!-- Sidebar -->
 			<div id="sidebar">
-				<? if(is_module('news')): ?>
+				<!-- Latest news -->
+				<?php if(is_module('news')): ?>
 			  	<h2>Latest News</h2>
 				<ul>
 					<?php foreach ($this->news_m->getNews(array('limit' => 4)) as $news): ?>
@@ -93,12 +94,23 @@
 					</li>
 					<?php endforeach ?>
 				</ul>
-				<? endif; ?>
+				<?php endif; ?>
+				<!-- Navigation menu -->
+				<h2>Navigation</h2>
+				<ul>
+					<?php if(!empty($navigation['sidebar'])) foreach($navigation['sidebar'] as $nav_link): ?>
+					<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
+					<?php endforeach; ?>
+				</ul>
 			</div>
 			
 			<!-- Footer -->
-			<div id="footer">
-				<?php $this->load->view($theme_view_folder.'footer'); ?>
+			<div id="footer">				
+				<p id="copyrights">Copyright 2009<?php if(date('Y') != '2009') {echo ' - '.date('Y');} ?> <?php echo $this->settings->item('site_name'); ?>, all rights reserved.</p><p id="site_notice">Site powered by <a href="http://www.pyrocms.com/" title="PyroCMS">PyroCMS</a></p>    
+				<div class="clear"></div>
+				<?php if($this->settings->item('google_analytic')): ?>
+					<?php $this->load->view('fragments/google_analytic'); ?>
+				<?php endif; ?>
 			</div>
 		</div>
 		<!-- End of wrapper -->
