@@ -11,7 +11,7 @@
 |	array('EN'=> 'English', 'FR'=> 'French', 'DE'=> 'German')
 |
 */
-$config['supported_languages'] = array('EN'=> 'English', 'ES' => 'Spanish');
+$config['supported_languages'] = array('EN'=> 'English', 'ES' => 'Spanish', 'NL' => 'Dutch');
 
 /*
 |--------------------------------------------------------------------------
