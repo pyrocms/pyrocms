@@ -106,7 +106,7 @@
 			
 			<!-- Footer -->
 			<div id="footer">				
-				<p id="copyrights">Copyright 2009<?php if(date('Y') != '2009') {echo ' - '.date('Y');} ?> <?php echo $this->settings->item('site_name'); ?>, all rights reserved.</p><p id="site_notice">Site powered by <a href="http://www.pyrocms.com/" title="PyroCMS">PyroCMS</a></p>    
+				<p id="copyrights">Copyright 2009<?php if(date('Y') != '2009') {echo ' - '.date('Y');} ?> <?php echo $this->settings->item('site_name'); ?>, all rights reserved.</p><p id="site_notice">Site powered by <a href="http://www.pyrocms.com/" title="PyroCMS">PyroCMS</a>§</p>    
 				<div class="clear"></div>
 				<?php if($this->settings->item('google_analytic')): ?>
 					<?php $this->load->view('fragments/google_analytic'); ?>
