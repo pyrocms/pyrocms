@@ -153,7 +153,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->cache->delete_all('navigation_m');		
-		$this->session->set_flashdata('success', $this->lang-line('nav_link_delete_success'));
+		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation/index');
 	}
 }
