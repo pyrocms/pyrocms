@@ -7,7 +7,7 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->library('validation');
 		$this->load->model('comments_m');
-		$this->lang->load('comments');		
+		$this->lang->load('comments');	
 	}
 	
 	// Admin: List all comments
@@ -195,4 +195,5 @@ class Admin extends Admin_Controller
 		$this->layout->create('admin/preview', $this->data);
 	}
 }
+
 ?>
