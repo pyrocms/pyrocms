@@ -179,11 +179,11 @@ class Admin extends Admin_Controller
 					
 		if($this->comments_m->activateComment($id, 0))
 		{
-			$this->session->set_flashdata( array('success'=> $this->lang->line('comments_activate_success')) );
+			$this->session->set_flashdata( array('success'=> $this->lang->line('comments_deactivate_success')) );
 		}
 		else
 		{
-			$this->session->set_flashdata( array('error'=> $this->lang->line('comments_activate_error')) );
+			$this->session->set_flashdata( array('error'=> $this->lang->line('comments_deactivate_error')) );
 		}
 		redirect('admin/comments/index');	
 	}
