@@ -37,4 +37,5 @@ $lang['comments_activate_error'] 						= 'The comment wasn\'t activated successf
 $lang['comments_deactivate_success'] 				= 'The comment was deactivated successfully.';
 $lang['comments_deactivate_error'] 					= 'The comment wasn\'t deactivated successfully.';
 $lang['comments_no_comments'] 							= 'There are no comments';
+
 ?>
