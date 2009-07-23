@@ -32,7 +32,7 @@
 				<td><?= date('M d, Y', $product->updated_on); ?></td>
 				<td>
 					<?= anchor('products/' . $product->id, lang('products_view_label'), 'target="_blank"'); ?> | 
-					<?= anchor('admin/products/photo/' . $product->id, lang('products_add_photo_label')); ?> | 
+					<?= anchor('admin/products/photo/' . $product->id, lang('products_add_photo_label')); ?><br />
 					<?= anchor('admin/products/edit/' . $product->id, lang('products_edit_label')); ?> | 
 					<?= anchor('admin/products/delete/' . $product->id, lang('products_delete_label')); ?>
 				</td>

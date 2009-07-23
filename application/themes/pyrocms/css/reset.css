@@ -24,7 +24,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	outline: 0;
 }
 body {
-	line-height: 1.3;
+	line-height: 22px;
 	color: black;
 	background: white;
 }
