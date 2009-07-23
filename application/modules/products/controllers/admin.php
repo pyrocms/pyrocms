@@ -40,7 +40,7 @@ class Admin extends Admin_Controller
 		if ($this->validation->run())
 		{
 			$upload_cfg['upload_path'] = APPPATH.'assets/img/products';
-			$upload_cfg['overwrite'] = TRUE;
+			$upload_cfg['encrypt_name'] = TRUE;
 			$upload_cfg['allowed_types'] = 'gif|jpg|png';
 			$this->load->library('upload', $upload_cfg);
 			
@@ -77,7 +77,7 @@ class Admin extends Admin_Controller
 	{
 		$upload_cfg['upload_path'] = APPPATH.'assets/img/products';
 		$upload_cfg['allowed_types'] = 'gif|jpg|png';
-		$upload_cfg['overwrite'] = TRUE;
+		$upload_cfg['encrypt_name'] = TRUE;
 		$this->load->library('upload', $upload_cfg);
 		
 		if (($this->input->post('btnSave')) && ($this->upload->do_upload()))
@@ -192,7 +192,7 @@ class Admin extends Admin_Controller
 					redirect('admin/products/index');
 					}*/
 					
-					// Now delte images whit prefixes
+					// Now delete images whit prefixes
 					foreach($img_prefixes as $prefix) 
 					{
 						$this->_delete_file( $img_folder , $img_info['name'].$prefix.$img_info['ext'] );

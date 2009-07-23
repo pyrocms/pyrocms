@@ -12,6 +12,7 @@ $lang['products_actions_label'] 						= 'Acciones';
 $lang['products_view_label'] 							= 'Ver';
 $lang['products_add_photo_label'] 					= 'Agregar foto';
 $lang['products_edit_label'] 							= 'Editar';
+$lang['products_delete_label'] 											= 'Borrar';
 $lang['products_title_label'] 						= 'T&iacute;tulo';
 $lang['products_suppliers_label'] 					= 'Suplidores';
 $lang['products_category_label'] 					= 'Categor&iacute;a';
