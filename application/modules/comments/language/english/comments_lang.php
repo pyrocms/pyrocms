@@ -29,6 +29,9 @@ $lang['comment_capcha_error'] 			= 'You filled in the Captcha phrase badly. Plea
 $lang['comment_add_success'] 			= 'The comment has been saved and is awaiting approval.';
 $lang['comment_add_error']				= 'There was a problem adding your comment. Please try again later.';
 
+$lang['comments_edit_success'] 			= 'The comment was edited successfully.';
+$lang['comments_edit_error'] 			= 'The comment could not be edited.';
+
 $lang['comment_approve_success'] 		= 'This comment has been approved.';
 $lang['comment_approve_error'] 			= 'There was a problem approving this comment.';
 

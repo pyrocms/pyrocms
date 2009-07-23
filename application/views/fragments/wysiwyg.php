@@ -18,7 +18,7 @@
 		forced_root_block : '',
 		
 		// Theme options
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,code",
+		theme_advanced_buttons1 : "bold,italic,underline,strikethrough",
 		theme_advanced_buttons2 : '',
 
 		valid_elements : 'b/strong,i/em,u,strike,br',

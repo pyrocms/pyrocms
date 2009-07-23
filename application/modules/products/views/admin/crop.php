@@ -10,14 +10,14 @@
 
 <div class="float-left">
 	<h3><?=lang('products_image_original_label');?></h3>
-	<?= image('products/' . $image, '', array('id'=>'thumbnail', 'title'=> lang('products_image_crop_desc'))); ?>
+	<?=image('products/' . $image, '', array('id' => 'thumbnail', 'title' => lang('products_image_crop_desc')));?>
 </div>
 
 <div class="float-left spacer-left">
 	<h3><?=lang('products_image_cropped_label');?></h3>
 	
 	<div style="position:relative; overflow:hidden; width:<?=$this->settings->item('product_width');?>px; height:<?=$this->settings->item('product_height');?>px;">
-		<?= image('products/' . $image, '', array('style'=>'position: relative;', 'alt' => lang('products_thumb_preview_label'), 'title'=> lang('products_image_crop_desc', 'id' => 'thumbnail_preview')); ?>
+		<?=image('products/' . $image, '', array('style' => 'position: relative;', 'alt' => lang('products_thumb_preview_label'), 'title' => lang('products_image_crop_desc'), 'id' => 'thumbnail_preview'));?>
 	</div>
 </div>
 
