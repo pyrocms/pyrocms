@@ -43,16 +43,16 @@
 		<fieldset>
 			<legend><?=lang('contact_message_label');?></legend>
 			
-			<?=form_textarea(array('id'=>'message', 'name'=>'message', 'value'=>$form_values->message, 'rows'=>8, 'style'=>'width:100%'));?>
+			<?php echo form_textarea(array('id'=>'message', 'name'=>'message', 'value'=>$form_values->message, 'rows'=>8, 'style'=>'width:100%'));?>
 			
-			<? if($this->settings->item('captcha_enabled') and !$this->user_lib->logged_in()): ?>
+			<?php if($this->settings->item('captcha_enabled') AND $this->user_lib->logged_in() == false): ?>
 			<p>
-				<?=lang('contact_capchar_text');?>
-				<?=$captcha['image'];?><br />
+				<?php echo lang('contact_capchar_text');?>
+				<?php echo $captcha['image'];?><br />
 				<input type="text" name="captcha" id="captcha" maxlength="40" />
-				<input type="hidden" name="captcha_id" id="captcha_id" value="<?=$captcha['time'];?>" />
+				<input type="hidden" name="captcha_id" id="captcha_id" value="<?php echo $captcha['time']; ?>" />
 			</p>
-			<?endif;?>
+			<?php endif; ?>
 			
 		</fieldset>
 			
