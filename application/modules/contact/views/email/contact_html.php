@@ -15,7 +15,7 @@
 			<p><hr /></p>    
 			
 			<?=sprintf('<strong>'.lang('contact_mail_name_label').'</strong>', $contact_name);?><br/>
-			<?=sprintf('<strong>'.lang('contact_mail_company_label').'</strong>', $company_name));?>
+			<?=sprintf('<strong>'.lang('contact_mail_company_label').'</strong>', $company_name);?>
 		</td>
   </tr>
 </table>
