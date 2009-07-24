@@ -92,25 +92,6 @@ class Core {
 	}
 	
 	
-	// Function to fetch the MySQL version
-	function mysql_version()
-	{
-		// Get the URL to the phpinfo.php file
-		$page = "http://" . $_SERVER['HTTP_HOST'].str_replace("server.php","",$_SERVER['PHP_SELF']) . "includes/phpinfo.php";
-		
-		// Open the phpinfo page
-		$phpinfo = file_get_contents($page);
-				
-		// Start at the MySQL block
-		$start 		= explode("<h2><a name=\"module_mysql\">mysql</a></h2>",$phpinfo,1000);
-		$again 		= explode("<tr><td class=\"e\">Client API version </td><td class=\"v\">",$start[1],1000); 
-		$last_time 	= explode("</td></tr>",$again[1],1000);
-		
-		// Return the results
-		return $last_time[0];		
-	}
-	
-	
 	// Function to clean Pyro's cache
 	function clean_cache($cache_dir)
 	{		
