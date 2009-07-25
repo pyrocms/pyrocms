@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.3" type="admin">
 	<name>
-		<EN>Twitter</EN>
-		<ES>Twitter</ES>
+		<en>Twitter</en>
+		<es>Twitter</es>
 	</name>
 	<description>
-		<EN>Show twitter posts and support general Twitter integration.</EN>
-		<ES>Mostrar puestos twitter Twitter y el apoyo general de la integración.</ES>
+		<en>Show twitter posts and support general Twitter integration.</en>
+		<es>Mostrar puestos twitter Twitter y el apoyo general de la integración.</es>
 	</description>
 	<required>1</required>
 	<is_frontend>0</is_frontend>

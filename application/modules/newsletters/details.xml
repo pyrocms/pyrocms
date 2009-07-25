@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="content">
 	<name>
-		<EN>Newsletters</EN>
-		<ES>Boletines</ES>
+		<en>Newsletters</en>
+		<es>Boletines</es>
 	</name>
 	<description>
-		<EN>Let visitors subscribe via their email address.</EN>
-		<ES>Deja que tus visitores puedan suscribirse a por medio de su correo electrónico.</ES>
+		<en>Let visitors subscribe via their email address.</en>
+		<es>Deja que tus visitores puedan suscribirse a por medio de su correo electrónico.</es>
 	</description>
 	<icon>newspaper_48.png</icon>
 	<is_frontend>0</is_frontend>

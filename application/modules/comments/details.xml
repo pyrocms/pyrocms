@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.6" type="content">
 	<name>
-		<EN>Comments</EN>
-		<ES>Comentarios</ES>
+		<en>Comments</en>
+		<es>Comentarios</es>
 	</name>
 	<description>
-		<EN>Users and guests can write comments for almost anything with built-in cpatcha support.</EN>
-		<ES>Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.</ES>
+		<en>Users and guests can write comments for almost anything with built-in cpatcha support.</en>
+		<es>Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.</es>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>

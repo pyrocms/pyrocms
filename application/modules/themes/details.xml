@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.3" type="admin">
 	<name>
-		<EN>Themes</EN>
-		<ES>Temas</ES>
+		<en>Themes</en>
+		<es>Temas</es>
 	</name>
 	<description>
-		<EN>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</EN>
-		<ES>Permite a los administradores y miembros del staff cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.</ES>
+		<en>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</en>
+		<es>Permite a los administradores y miembros del staff cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.</es>
 	</description>
 	<required>1</required>
 	<icon>tabs_48.png</icon>

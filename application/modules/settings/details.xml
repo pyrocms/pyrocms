@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="admin">
 	<name>
-		<EN>Settings</EN>
-		<ES>Configuraciones</ES>
+		<en>Settings</en>
+		<es>Configuraciones</es>
 	</name>
 	<description>
-		<EN>Allows admins and staff to change website settings such as site name and description.</EN>
-		<ES>Permite a los administradores y staff configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.</ES>
+		<en>Allows admins and staff to change website settings such as site name and description.</en>
+		<es>Permite a los administradores y staff configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.</es>
 	</description>
 	<required>1</required>
 	<icon>spanner_48.png</icon>

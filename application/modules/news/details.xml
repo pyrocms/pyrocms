@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.6" type="content">
 	<name>
-		<EN>News</EN>
-		<ES>Noticias</ES>
+		<en>News</en>
+		<es>Noticias</es>
 	</name>
 	<description>
-		<EN>Post news articles and blog entries.</EN>
-		<ES>Escribe entradas para los artículos y blogs (web log).</ES>
+		<en>Post news articles and blog entries.</en>
+		<es>Escribe entradas para los artículos y blogs (web log).</es>
 	</description>
 	<icon>newspaper_48.png</icon>
 	<is_frontend>1</is_frontend>

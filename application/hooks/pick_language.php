@@ -9,8 +9,8 @@ function PickLanguage() {
     // Lang set in URL via ?lang=something
     if(!empty($_GET['lang']))
     {
-        // Turn en-gb into EN
-        $lang = strtoupper(substr($_GET['lang'], 0, 2));
+        // Turn en-gb into en
+        $lang = substr($_GET['lang'], 0, 2);
         $_SESSION['lang_code'] = $lang;
     }
     
@@ -38,8 +38,8 @@ function PickLanguage() {
     	// Check them all, until we find a match
     	foreach ($accept_langs as $lang)
     	{
-    		// Turn en-gb into EN
-    		$lang = strtoupper(substr($lang, 0, 2));
+    		// Turn en-gb into en
+    		$lang = substr($lang, 0, 2);
 
     		// Check its in the array. If so, break the loop, we have one!
     		if(in_array($lang, array_keys($config['supported_languages'])))
@@ -61,8 +61,8 @@ function PickLanguage() {
     // Load CI config class
     $CI_config =& load_class('Config');
 
-    // Set the language config. Getting 'English' from the array by calling it from its key of 'EN', and make it lowercase so CI looks for 'english'
-    $CI_config->set_item('language', strtolower($config['supported_languages'][$lang]));
+    // Set the language config. Selects the folder name from its key of 'en'
+    $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
     // Sets a constant to use throughout ALL of CI.
     define('DEFAULT_LANGUAGE', $lang);
