@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.5" type="content">
 	<name>
-		<EN>Contact</EN>
-		<ES>Comentarios</ES>
+		<en>Contact</en>
+		<es>Comentarios</es>
 	</name>
 	<description>
-		<EN>Adds a form to your site that allows visitors to send email's to you without discolosing an email address to them.</EN>
-		<ES>Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.</ES>
+		<en>Adds a form to your site that allows visitors to send email's to you without discolosing an email address to them.</en>
+		<es>Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.</es>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>0</is_backend>

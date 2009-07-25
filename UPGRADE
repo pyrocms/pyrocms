@@ -4,10 +4,19 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
+25/07/09 - v0.9.6-beta to v0.9.6-beta2
+--------------------------------------
+
+	UPDATE pages SET lang = LOWER(lang);
+	UPDATE users SET lang = LOWER(lang);
+
 06/07/09 - v0.9.5.4 to v0.9.6-beta
 ----------------------------------
 
 1. Run the following MySQL.
+	
+	UPDATE pages SET lang = LOWER(lang);
+	UPDATE users SET lang = LOWER(lang);
 
 	ALTER TABLE comments
 		ADD is_active TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER module_id;

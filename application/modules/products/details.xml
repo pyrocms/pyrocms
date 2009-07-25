@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.3" type="content">
 	<name>
-		<EN>Products</EN>
-		<ES>Productos</ES>
+		<en>Products</en>
+		<es>Productos</es>
 	</name>
 	<description>
-		<EN>Show visitors what products you sell and allows images and price information to be added.</EN>
-		<ES>Enséñale a tus visitantes que productos tu vendes y permíte agregarle información gráfica y de precios.</ES>
+		<en>Show visitors what products you sell and allows images and price information to be added.</en>
+		<es>Enséñale a tus visitantes que productos tu vendes y permíte agregarle información gráfica y de precios.</es>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>

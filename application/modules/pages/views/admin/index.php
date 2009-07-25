@@ -18,13 +18,13 @@
   	</tr>
   </tfoot>
   <tbody>
-	<? if ($pages): ?>
+	<? if (!empty($pages)): ?>
 		<? foreach ($pages as $page): ?>
 		<tr>
 			<td><input type="checkbox" name="action_to[]" value="<?=$page->id;?>" <?=($page->slug == 'home') ? 'disabled="disabled"' : '' ?> /></td>
 	        <td><?=$page->title;?></td>
 	        <td><?=@$this->pages_m->getById($page->parent, TRUE)->title;?></td>
-	        <td><?=isset($languages[$page->lang]) ? $languages[$page->lang] : lang('page_unknown_label');?></td>
+	        <td><?=isset($languages[$page->lang]['name']) ? $languages[$page->lang]['name'] : lang('page_unknown_label');?></td>
 	        <td><?= date('M d, Y', $page->updated_on); ?></td>
 	        <td>
 				<?= anchor('/' . $page->slug, lang('page_view_label'), 'target="_blank"') . ' | '; ?>

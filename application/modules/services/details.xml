@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2" type="content">
 	<name>
-		<EN>Services</EN>
-		<ES>Servicios</ES>
+		<en>Services</en>
+		<es>Servicios</es>
 	</name>
 	<description>
-		<EN>Show visitors what services are on offer and allows images to be uploaded.</EN>
-		<ES>Muestra a tus visitantes que servicios ofreces, permitiéndote mostrar información sobre el precio e imagenes.</ES>
+		<en>Show visitors what services are on offer and allows images to be uploaded.</en>
+		<es>Muestra a tus visitantes que servicios ofreces, permitiéndote mostrar información sobre el precio e imagenes.</es>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
