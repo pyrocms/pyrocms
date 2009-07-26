@@ -85,7 +85,7 @@ class Users extends Public_Controller
 				
 				// or should we let the admin manually activate them?
 				else:
-					$this->session->set_flashdata(array('notice'=> $this->lang-line('user_activation_by_admin_notice')));	
+					$this->session->set_flashdata(array('notice'=> $this->lang->line('user_activation_by_admin_notice')));	
 					redirect('');
 				endif;
 			
