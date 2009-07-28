@@ -8,7 +8,7 @@
 | Contains all languages your site will store data in. Other languages can
 | still be displayed via language files, thats totally different.
 | 
-| Check for HTML equivilents for characters such as – with the URL below:
+| Check for HTML equivilents for characters such as ï¿½ with the URL below:
 |    http://htmlhelp.com/reference/html40/entities/latin1.html
 |
 |
@@ -17,7 +17,7 @@
 */
 $config['supported_languages'] = array(
 	'en'=> array('name' => 'English', 'folder' => 'english'),
-	'nl'=> array('name' => 'Dutch', 'folder' => 'dutch'),
+	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
 	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish')
 );
 
