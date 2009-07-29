@@ -7,6 +7,7 @@ class Pages extends Public_Controller {
         parent::Public_Controller();
         
         $this->load->model('pages_m');
+		
     }
 
     function _remap()
