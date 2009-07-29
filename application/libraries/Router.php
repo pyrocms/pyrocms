@@ -323,22 +323,26 @@ class CI_Router
                 return $segments;
             }
             
-            // If the pages module is there, lets give that a try for this URL
-            elseif (file_exists(APPPATH . $directory . '/pages/controllers/pages' . EXT)) {
-            	$this->_matchbox->set_directory($directory);
-                $this->_matchbox->set_module('pages');
-
-                return array('pages', 'index', $segments[0]);
-            }
-            
         }
 
         if ($this->_fail_gracefully) {
             return array();
         }
-
+        
         // }}}
 
+        // PyroCMS
+        
+    	// If the pages module is there, lets give that a try for this URL
+        if (file_exists(APPPATH . '/modules/pages/controllers/pages' . EXT))
+        {
+            $this->_matchbox->set_directory('modules');
+			$this->_matchbox->set_module('pages');
+			return array('pages', 'index', $segments[0]);
+		}
+        
+        // /PyroCMS
+        
         // Can't find the requested controller...
         show_404();
     }

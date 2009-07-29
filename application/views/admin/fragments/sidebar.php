@@ -11,6 +11,21 @@
 			</a>
 		</li>
 		<? endforeach; ?>
+		
+		<li class="inactive">
+			<a href="#" class="button">
+				<strong>
+					<?= image('admin/icons/folder_48.png', NULL, array('alt' => 'TING' .' icon', 'class' => 'icon') ); ?>
+					TING<span class="expand expanded"></span>
+				</strong>
+			</a>
+			
+			<ul>
+				<li>Settings</li>
+				<li>Themes</li>
+				<li>Permissions</li>
+			</ul>
+		</li>
 			
 	</ul>
 </div>
