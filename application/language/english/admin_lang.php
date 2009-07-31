@@ -11,6 +11,11 @@ $lang['cp_logout'] 						= '%s, or %s';
 $lang['cp_logout_label'] 				= 'logout';
 $lang['cp_edit_profile_label'] 			= 'Edit profile';
 
+$lang['cp_nav_settings']				= 'Settings';
+$lang['cp_nav_edit_settings']			= 'Edit settings';
+$lang['cp_nav_themes']					= 'Themes';
+$lang['cp_nav_permissions']				= 'Permissions';
+
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.'
 
 ?>

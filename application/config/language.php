@@ -17,7 +17,7 @@
 */
 $config['supported_languages'] = array(
 	'en'=> array('name' => 'English', 'folder' => 'english'),
-	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
+	//'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
 	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish')
 );
 

@@ -83,24 +83,18 @@
 			
 			<!-- Sidebar -->
 			<div id="sidebar">
-				<!-- Latest news -->
-				<?php if(is_module('news')): ?>
-			  	<h2>Latest News</h2>
 				<ul>
-					<?php foreach ($this->news_m->getNews(array('limit' => 4)) as $news): ?>
+					<!-- Navigation menu -->
 					<li>
-						<h3><?php echo anchor('news/' . date('Y/m') . '/'. strtolower($news->slug), $news->title); ?></h3>
-						<p class="post-info">Posted in category : <?php echo anchor('news/category/'.$news->category_slug, $news->category_title);?></p>
+						<h2>Navigation</h2>
+						<ul>
+							<?php if(!empty($navigation['sidebar'])) foreach($navigation['sidebar'] as $nav_link): ?>
+							<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
+							<?php endforeach; ?>
+						</ul>
 					</li>
-					<?php endforeach ?>
-				</ul>
-				<?php endif; ?>
-				<!-- Navigation menu -->
-				<h2>Navigation</h2>
-				<ul>
-					<?php if(!empty($navigation['sidebar'])) foreach($navigation['sidebar'] as $nav_link): ?>
-					<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
-					<?php endforeach; ?>
+					<!-- Widgets -->
+					<?php $this->widgets->area('sidebar'); ?>					
 				</ul>
 			</div>
 			
