@@ -66,9 +66,8 @@ a:hover {
 
 /* Global */
 #page-content {
-	overflow: hidden;
-	position:relative;
-	top:10em;
+	position:static;
+	padding-top:10em;
 }
 
 a {
