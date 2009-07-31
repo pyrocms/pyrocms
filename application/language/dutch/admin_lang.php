@@ -11,6 +11,11 @@ $lang['cp_logout'] 						= '%s, of %s';
 $lang['cp_logout_label'] 				= 'uitloggen';
 $lang['cp_edit_profile_label'] 			= 'Profiel aanpassen';
 
+$lang['cp_nav_settings']				= 'Settings'; #translate
+$lang['cp_nav_edit_settings']			= 'Edit settings'; #translate
+$lang['cp_nav_themes']					= 'Themes'; #translate
+$lang['cp_nav_permissions']				= 'Permissions'; #translate
+
 $lang['cp_access_denied'] 				= 'U heeft onvoldoende rechten om deze pagina te bekijken.'
 
 ?>

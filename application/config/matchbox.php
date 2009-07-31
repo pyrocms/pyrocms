@@ -65,6 +65,6 @@ $config['callers'] = array();
  * Prototype:
  * $config['direcotires'] = array('modules');
  */
-$config['directories'] = array('modules');
+$config['directories'] = array('modules', 'core_modules');
 
 ?>

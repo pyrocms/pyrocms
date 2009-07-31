@@ -63,6 +63,7 @@ $(function() {
 			$(this).find(".expand").addClass("expanded");
 		}
 		
+		return false;
 	});
 	
 });
