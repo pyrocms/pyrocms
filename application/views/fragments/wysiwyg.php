@@ -53,7 +53,7 @@
 		media_strict: false,
 
 		// Default ruleset
-		valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
+		valid_elements : "@[id|class|style|title|dir|lang|xml::lang|onclick|ondblclick|"
 			+ "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
 			+ "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
 			+ "name|href|target|title|class|onfocus|onblur],strong/b,em/i,strike,u,"
