@@ -12,17 +12,7 @@
 |
 */
 
-if(isset($_SERVER['HTTP_HOST']))
-{
-	$config['base_url'] = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
-	$config['base_url'] .= '://'. $_SERVER['HTTP_HOST'];
-	$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-}
-
-else
-{
-	$config['base_url'] = 'http://localhost/';
-}
+$config['base_url'] = BASE_URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -263,7 +253,7 @@ $config['sess_time_to_update'] 		= 300;
 */
 $config['cookie_prefix']	= "";
 $config['cookie_domain']	= "";
-$config['cookie_path']		= "/";
+$config['cookie_path']		= BASE_URI;
 
 /*
 |--------------------------------------------------------------------------
