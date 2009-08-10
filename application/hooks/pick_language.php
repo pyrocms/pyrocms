@@ -65,7 +65,7 @@ function PickLanguage() {
     $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
     // Sets a constant to use throughout ALL of CI.
-    define('DEFAULT_LANGUAGE', $lang);
+    define('CURRENT_LANGUAGE', $lang);
 }
 
 ?>

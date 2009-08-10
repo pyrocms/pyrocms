@@ -15,10 +15,6 @@ class Admin extends Admin_Controller
 	{
 		$this->load->model('modules_m');
  		$this->data->modules = $this->modules_m->getModules();
-		
-		$this->lang->load('main');
-		$this->lang->load('admin');
-		$this->lang->load('modules');
 			  
 		$this->layout->create('admin/cpanel', $this->data);
 	}
@@ -28,8 +24,8 @@ class Admin extends Admin_Controller
 	{
 		// Call validation and set rules
 		$this->load->library('validation');
-	    $rules['email'] = 'callback__check_login';
-	    $rules['password'] = '';
+	    $rules['email'] = 'required|callback__check_login';
+	    $rules['password'] = 'required';
 	    $this->validation->set_rules($rules);
 	    $this->validation->set_fields();
 	        
@@ -39,9 +35,6 @@ class Admin extends Admin_Controller
 	    	redirect('admin');
 		}
 				
-		$this->lang->load('main');
-		$this->lang->load('admin');
-        
 	    $this->layout->wrapper(FALSE);
 	    $this->layout->create('admin/login', $this->data);		
 	}
@@ -64,6 +57,6 @@ class Admin extends Admin_Controller
 	   		$this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
 	    	return FALSE;
 	    }
-  }    
+	}    
 }
 ?>

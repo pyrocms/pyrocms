@@ -122,10 +122,10 @@ class Modules_m extends Model {
     	endforeach;
 
     	return array(
-    		'name'			=>	(string) $xml->name->{constant('DEFAULT_LANGUAGE')},
+    		'name'			=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
     		'version' 		=> 	(float) $xml->attributes()->version,
     		'type' 			=> 	(string) $xml->attributes()->type,
-    		'description' 	=> 	(string) $xml->description->{constant('DEFAULT_LANGUAGE')},
+    		'description' 	=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
     		'icon' 			=> 	(string) $xml->icon,
     		'required'		=>	$xml->required == 1,
     		'is_frontend'	=>	$xml->is_frontend == 1,
@@ -148,7 +148,7 @@ class Modules_m extends Model {
     	// New item
     	if( !empty($xml->navigation->admin->new_item) )
     	{
-    		$new_item =& $xml->navigation->admin->new_item;
+    		$new_item =& $xml->navigation->admin->new_item->{CURRENT_LANGUAGE};
     		
     		$uri = (string) $new_item->attributes()->href;
     		

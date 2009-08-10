@@ -36,7 +36,7 @@ class Pages extends Public_Controller {
     function page($slug = 'home')
     {
     	// No data, and its not the home page
-        if(!$page = $this->cache->model('pages_m', 'getBySlug', array($slug, DEFAULT_LANGUAGE)) )
+        if(!$page = $this->cache->model('pages_m', 'getBySlug', array($slug, CURRENT_LANGUAGE)) )
         {
         	show_404();
         }

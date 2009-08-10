@@ -1,6 +1,6 @@
 	  <title><?=$page_title;?> | <?=$this->settings->item('site_name'); ?></title>
 	
-	  <!-- Language: <?=DEFAULT_LANGUAGE ?> -->
+	  <!-- Language: <?=CURRENT_LANGUAGE ?> -->
 		
 	  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 	

@@ -20,7 +20,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/suppliers/create">New supplier</new_item>
+			<new_item href="admin/suppliers/create">
+				<en>New supplier</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

@@ -21,7 +21,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/themes/upload">Upload theme</new_item>
+			<new_item href="admin/themes/upload">
+				<en>Upload theme</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

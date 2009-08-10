@@ -22,7 +22,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/packages/create">New package</new_item>
+			<new_item href="admin/packages/create">
+				<en>New package</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

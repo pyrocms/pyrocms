@@ -61,7 +61,7 @@ class Pages_m extends Model {
     	// Pick from default language
     	else
     	{
-    		$this->db->where('lang', DEFAULT_LANGUAGE);
+    		$this->db->where('lang', CURRENT_LANGUAGE);
     	}
     	
         $query = $this->db->get('pages');

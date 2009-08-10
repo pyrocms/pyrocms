@@ -22,7 +22,9 @@
 	</controllers>
 	<navigation>
 		<admin>
-			<new_item href="admin/pages/create">New page</new_item>
+			<new_item href="admin/pages/create">
+				<en>New page</en>
+			</new_item>
 		</admin>
 	</navigation>
 </module>

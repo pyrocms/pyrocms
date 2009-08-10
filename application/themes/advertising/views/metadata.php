@@ -1,7 +1,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?=$page_title;?> | <?=$this->settings->item('site_name'); ?></title>
 	
-	<!-- Language: <?=DEFAULT_LANGUAGE ?> -->
+	<!-- Language: <?=CURRENT_LANGUAGE ?> -->
 	
     <script type="text/javascript">
 	    var APPPATH_URI = "<?=$this->config->item('asset_dir');?>";
