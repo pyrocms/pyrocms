@@ -8,8 +8,8 @@ class Admin_Controller extends MY_Controller
 		parent::MY_Controller();
 		
 		// Load the Language files ready for output
-	        $this->lang->load('admin');
-	        $this->lang->load('main');
+	    $this->lang->load('admin');
+	    $this->lang->load('main');
  
 	    $allow_access = FALSE;
 	        	
@@ -62,7 +62,7 @@ class Admin_Controller extends MY_Controller
 	    		array(
 					'is_backend'=>true, 
 					'role' => @$this->data->user->role,
-	    			'lang' => DEFAULT_LANGUAGE
+	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
 	}

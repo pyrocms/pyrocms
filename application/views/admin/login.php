@@ -16,7 +16,7 @@
 				<div class="message message-error">
 					<h6><?=lang('login_error');?></h6>
 					<p><?=$this->validation->error_string;?></p>
-					<a class="close icon icon_close" title="<?= lang('close_message');?>" href="#"/>
+					<a class="close icon icon_close" title="<?= lang('close_message');?>" href="#"></a>
 				</div>
 			<? endif; ?>
 			

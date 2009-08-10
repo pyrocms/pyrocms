@@ -12,4 +12,5 @@
 <? endif; ?>
 
 <p><em><?=$article->intro;?></em></p>
-<?=stripslashes($article->body);?>
+
+<?=htmlentities(stripslashes($article->body), ENT_COMPAT,'UTF-8');?> 

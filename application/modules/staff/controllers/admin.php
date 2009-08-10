@@ -177,7 +177,7 @@ class Admin extends Admin_Controller
 	// Admin: Delete a Staff Member
 	function delete($slug = '')
 	{
-  	$img_folder = APPPATH.'assets/img/staff/';
+  		$img_folder = APPPATH.'assets/img/staff/';
 		$slug_array = ($slug) ? array($slug) : array_keys($this->input->post('delete'));
 		
 		// Delete multiple
@@ -215,7 +215,7 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', $this->lang->line('staff_member_mass_delete_error'));
 		}		
 		redirect('admin/staff/index');
-	}	
+	}
 	
 	function _delete_file($folder = FALSE, $file = FALSE)
 	{

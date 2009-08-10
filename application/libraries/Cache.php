@@ -83,7 +83,7 @@ class Cache
     	// Clean given arguments to a 0-index array
 		$arguments = array_values($arguments);
 		
-    	$cache_file = $property.'/'.dohash($method.serialize($arguments), 'sha1');
+    	$cache_file = $property.DIRECTORY_SEPARATOR.dohash($method.serialize($arguments), 'sha1');
 		
 		// See if we have this cached
 		$cached_responce = $this->get($cache_file);
@@ -263,7 +263,7 @@ class Cache
         if (count($subdirs) > 1)
         {
             array_pop($subdirs);
-            $test_path = $this->path.implode('/', $subdirs);
+            $test_path = $this->path.implode(DIRECTORY_SEPARATOR, $subdirs);
             
             // check if specified subdir exists
             if ( ! @file_exists($test_path))

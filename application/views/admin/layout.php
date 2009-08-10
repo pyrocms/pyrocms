@@ -3,7 +3,6 @@
 	<head>
 		<title><?=$page_title;?> | <?=$this->settings->item('site_name'); ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="Pragma" content="no-cache" />        
 	    <script type="text/javascript">
 	    	var APPPATH_URI = "<?=$this->config->item('asset_dir');?>";
@@ -28,7 +27,7 @@
 		
 		<?= js('facebox.js').css('facebox.css'); ?>
 			
-	    <?=$extra_head_content; ?>        
+	    <?= $extra_head_content; ?>        
 	    <?= js('functions.js'); ?>
 		<?= js('admin.js').css('admin/admin.css');?>
 		
