@@ -5,10 +5,10 @@ INTALL
 
 2.) Upload.
 
-3.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer/. This will set up the database
+3.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer. This will set up the database
 	and create your config files. If this fails, run the SQL manually from installer/sql_files/.
 
-4.) Remove the installer directory
+4.) Remove the installer directory.
 
 5.) Apply the following permissions.
 	
