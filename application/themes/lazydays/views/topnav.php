@@ -1,6 +1,6 @@
 	<div id="mainMenu">
 		  <div class="float-right" style="padding:0.5em;text-align:right">
-			<? if($this->session->userdata('user_id')): ?>
+			<? if($this->user_lib->logged_in()): ?>
 				<?= sprintf(lang('logged_in_welcome'), $user->first_name.' '.$user->last_name );?> <a href="<?=site_url('users/logout');?>"><?= lang('logout_label');?></a>
 			
 				<? if($this->settings->item('enable_profiles')): ?>
