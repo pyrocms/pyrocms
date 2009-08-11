@@ -111,7 +111,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '0.9.6');
+define('CMS_VERSION', '0.9.6.1');
 
 
 /* End of file constants.php */
