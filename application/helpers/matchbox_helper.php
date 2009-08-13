@@ -12,20 +12,7 @@
 	function module_directories() {
 		$CI =& get_instance();
 		
-		//return $CI->matchbox->directory_array();
-		
-		/* What the shit is going on here? Well, i'll explain!
-		 * The commented out line above will return all module directories.
-		 * That doesnt mean a list of modules, it means a list of places modules can be.
-		 * The line above allows users to add more module locations, but I dont want em doing that.
-		 * The only place these functions should be looking is the main module folder
-		 * This basically stops it checking if core modules are there and whatnot,
-		 * cause they always should be, and I dont want core modules in lists of content modules.
-		 * Ok?
-		 * Good.
-		 */
-		
-		return array('modules');
+		return $CI->matchbox->directory_array();
 	}
 
 	/***
