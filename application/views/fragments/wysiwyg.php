@@ -18,7 +18,9 @@
 		force_p_newlines : false,
 		force_br_newlines : true,
 		forced_root_block : '',
-		
+	
+		button_tile_map : true,
+	
 		// Theme options
 		theme_advanced_buttons1 : "bold,italic,underline,strikethrough",
 		theme_advanced_buttons2 : '',
@@ -51,9 +53,13 @@
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_resizing : true,
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resize_horizontal : false,
 
 		document_base_url: "<?php echo BASE_URI ;?>",
-		
+		content_css : "<?php echo css_path('style.css'); ?>",
+
+		button_tile_map : true,		
 		media_strict: false,
 
 		// Default ruleset
