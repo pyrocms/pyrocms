@@ -10,6 +10,8 @@
 		editor_selector : "wysiwyg-simple",
 		editor_class : "wysiwyg-simple",
 		theme : "advanced",
+		
+		language : "<?php echo CURRENT_LANGUAGE;?>",
 
 		width : 325,
 
@@ -32,6 +34,8 @@
     	mode : "specific_textareas",
 		editor_selector : "wysiwyg-advanced",
 		editor_class : "wysiwyg-advanced",
+		
+		language : "<?php echo CURRENT_LANGUAGE;?>",
 
 		width : 650,
 		height : 600,
@@ -48,7 +52,7 @@
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_resizing : true,
 
-		document_base_url: "<?= BASE_URI ;?>",
+		document_base_url: "<?php echo BASE_URI ;?>",
 		
 		media_strict: false,
 
