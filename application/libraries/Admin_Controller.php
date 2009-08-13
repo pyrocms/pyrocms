@@ -60,13 +60,13 @@ class Admin_Controller extends MY_Controller
 	    {
 	  		$this->data->admin_modules = $this->cache->model('modules_m', 'getModules', array(
 	    		array(
-					'is_backend'=>true, 
+					'is_backend_sidebar'=>true, 
 					'role' => @$this->data->user->role,
 	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
 	}
-		
+
 	    $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);        
 	    
 	    $this->layout->wrapper('admin/layout');
