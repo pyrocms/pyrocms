@@ -11,6 +11,7 @@
 	<icon>image_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
+	<is_backend_sidebar>1</is_backend_sidebar>
 	<controllers>
 		<controller name="admin">
 			<method>index</method>

@@ -59,7 +59,11 @@ class Modules_m extends Model {
 		        		// This user has no permissions for this module
 		        		if(!$this->permissions_m->hasAdminAccess( $this->user_lib->user_data->role, $module['slug']) ) continue;
 		        	}
-	        
+	       			
+				
+			 	// Check a module is intended for the sidebar
+				if(isset($params['is_backend_sidebar']) && $module['is_backend_sidebar'] != $params['is_backend_sidebar']) continue;
+ 
 	        		$modules[] = $module;
 	        	}
 	        }
@@ -130,7 +134,7 @@ class Modules_m extends Model {
     		'required'		=>	$xml->required == 1,
     		'is_frontend'	=>	$xml->is_frontend == 1,
     		'is_backend'	=>	$xml->is_backend == 1,
-    	
+    		'is_backend_sidebar'	 =>	$xml->is_backend_sidebar == 1,
     		'controllers'	=>	$controllers
     	);
     }
@@ -148,13 +152,13 @@ class Modules_m extends Model {
     	// New item
     	if( !empty($xml->navigation->admin->new_item) )
     	{
-    		$new_item =& $xml->navigation->admin->new_item->{CURRENT_LANGUAGE};
+    		$new_item =& $xml->navigation->admin->new_item;
     		
     		$uri = (string) $new_item->attributes()->href;
     		
     		$toolbar['new_item'] = array(
     			'link' => $uri,
-    			'title' => $new_item
+    			'title' => $new_item->{CURRENT_LANGUAGE}
     		);
     		
     	}
