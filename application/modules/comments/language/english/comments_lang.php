@@ -26,7 +26,8 @@ $lang['comment_capcha_desc'] 			= 'Submit the word you see below:';
 $lang['comment_capcha_error'] 			= 'You filled in the Captcha phrase badly. Please try again.';
 
 // messages
-$lang['comment_add_success'] 			= 'The comment has been saved and is awaiting approval.';
+$lang['comment_add_success'] 			= 'The comment has been saved.';
+$lang['comment_add_approve'] 			= 'The comment has been saved and is awaiting approval.';
 $lang['comment_add_error']				= 'There was a problem adding your comment. Please try again later.';
 
 $lang['comments_edit_success'] 			= 'The comment was edited successfully.';

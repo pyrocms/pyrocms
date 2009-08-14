@@ -48,12 +48,23 @@ class Comments extends Public_Controller
 			$comment = array_merge($commenter, array(
 				'body'    => $this->input->post('body'),
 				'module'   => $module,
-				'module_id' => $id
+				'module_id' => $id,
+			
+				// If they are an admin, comments go straight through
+				'is_active' => $this->user_lib->check_role('admin')
 			));
 			
 			if($this->comments_m->newComment( $comment ))
 			{
-				$this->session->set_flashdata('success', $this->lang->line('comment_add_success'));
+				if($this->user_lib->check_role('admin'))
+				{
+					$this->session->set_flashdata('success', $this->lang->line('comment_add_success'));
+				}
+				
+				else
+				{
+					$this->session->set_flashdata('success', $this->lang->line('comment_add_approve'));
+				}
 			}
 			else
 			{
