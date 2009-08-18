@@ -4,13 +4,13 @@
 		<!-- And no, we do not support Microsoft Internet Explorer 6 :] -->
 		<!-- Meta information -->
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<?php echo "\n"; echo $extra_head_content; ?>
+		<title><?php echo $this->settings->item('site_name'); ?></title>
 		
 		<!-- Stylesheets -->
-		<link href="<?php echo base_url(); ?>application/themes/pyrocms/css/reset.css" rel="stylesheet" media="screen" type="text/css" />
-		<link href="<?php echo base_url(); ?>application/themes/pyrocms/css/style.css" rel="stylesheet" media="screen" type="text/css" />
-		
-		<title><?php echo $this->settings->item('site_name'); ?></title>		
+		<?php echo css('reset.css', '_theme_'); ?>
+		<?php echo css('style.css', '_theme_'); ?>
+			
+		<?php echo "\n"; echo $extra_head_content; ?>	
 	</head>
 	<body>
 		<!-- Header -->
