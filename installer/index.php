@@ -16,7 +16,6 @@
 			<div id="header">
 				<h1><img src="img/logo.png" alt="PyroCMS Installer 1.0" width="170" height="80" /></h1>	
 			</div>
-			
 			<!-- The content -->
 			<div id="content">
 				<ul id="dashboard">
