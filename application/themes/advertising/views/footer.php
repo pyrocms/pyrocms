@@ -6,7 +6,7 @@
 			<?=anchor($nav_link->url, $nav_link->title); ?> | 
 		<? endforeach;
 		
-		anchor($last_link->url, $last_link->title);
+		echo anchor($last_link->url, $last_link->title);
 	endif; ?>
 	
 <br />
