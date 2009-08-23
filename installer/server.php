@@ -4,6 +4,7 @@ $core 		= new Core();
 
 // Get the versions
 $php_ver 	= phpversion();
+
 // Get the MySQL server version. If it fails to do so retrieve the client version instead.
 if(mysql_get_server_info() != false) {
 	$mysql_ver 	= mysql_get_server_info();
@@ -12,9 +13,13 @@ else
 {
 	$mysql_ver 	= mysql_get_client_info();
 }
+
 // Get the version of the GD library
-$GDArray 	= gd_info();
-$gd_ver		= ereg_replace('[[:alpha:][:space:]()]+', '', $GDArray['GD Version']);
+if( function_exists('gd_info') )
+{
+	$GDArray 	= gd_info();
+	$gd_ver		= ereg_replace('[[:alpha:][:space:]()]+', '', $GDArray['GD Version']);
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -41,7 +46,11 @@ $gd_ver		= ereg_replace('[[:alpha:][:space:]()]+', '', $GDArray['GD Version']);
 				<ul id="server_info">
 					<li id="php_ver" class="<?php 	if($php_ver 	> '5')	{echo 'passed';}	else{echo 'failed';} ?>"><p><strong>PHP version</strong> : <?php echo $php_ver ?></p></li>	
 					<li id="mysql_ver" class="<?php if($mysql_ver 	> '5')	{echo 'passed';}	else{echo 'failed';} ?>"><p><strong>MySQL version</strong> : <?php echo $mysql_ver; ?></p></li>
-					<li id="gd_ver" class="<?php 	if($gd_ver 	> '1.5')		{echo 'passed';}	else{echo 'failed';} ?>"><p><strong>GD version</strong> : <?php echo $gd_ver; ?></p></li>
+					<?php if($gd_ver 	> '1.5'): ?>
+					<li id="gd_ver" class="passed"><p><strong>GD version</strong> : <?php echo $gd_ver; ?></p></li>
+					<?php else: ?>
+					<li id="gd_ver" class="failed"><p><strong>GD version</strong> : Not installed</p></li>
+					<?php endif; ?>
 				</ul>
 				<p id="go_back"><a href="index.php" title="Back to the dashboard">Dashboard</a></p>
 			</div>
