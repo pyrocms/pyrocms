@@ -29,7 +29,6 @@
 class Layout {
 
     var $page_body = '';
-    var $_directory = '';
     var $_module = '';
     var $_controller = '';
     var $_method = '';
@@ -60,24 +59,15 @@ class Layout {
     function __construct()
     {
         $this->CI =& get_instance();
-        log_message('debug', 'Template Class Initialized');
+        log_message('debug', 'Layout class Initialized');
 
-        if($this->folder_mode == 'subdir')
+        // If no module is set yet, use the current module
+        if($this->_module == '' && $this->CI->matchbox->fetch_module() != '')
         {
-            if($this->_module == '' && $this->CI->uri->router->fetch_directory() != '/')
-            {
-                $this->_module = str_replace('/', '', $this->CI->uri->router->fetch_directory());
-    		}
-    	}
-    
-        elseif($this->folder_mode == 'matchbox')
-        {
-            if($this->_module == '' && $this->CI->matchbox->fetch_module() != '')
-            {
-                $this->_module = str_replace(array('modules/', '/'), '', $this->CI->matchbox->fetch_module());
-    		}
+        	$this->_module = str_replace(array('modules/', '/'), '', $this->CI->matchbox->fetch_module());
     	}
         
+    	// Work out the controller and method
         $this->_controller	= strtolower(get_class($this->CI));
         $s 					= $this->CI->uri->rsegment_array();
         $n 					= array_search($this->_controller, $s);
@@ -111,15 +101,15 @@ class Layout {
         $this->data->extra_head_content		= $this->_extra_head_content;
 
         // Disable sodding IE7's constant cacheing!!
-        $this->CI->output->set_header("HTTP/1.0 200 OK");
-        $this->CI->output->set_header("HTTP/1.1 200 OK");
+        $this->CI->output->set_header('HTTP/1.0 200 OK');
+        $this->CI->output->set_header('HTTP/1.1 200 OK');
         $this->CI->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
-        $this->CI->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
-        $this->CI->output->set_header("Cache-Control: post-check=0, pre-check=0, max-age=0");
+        $this->CI->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+        $this->CI->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
         $this->CI->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-        $this->CI->output->set_header("Pragma: no-cache");
+        $this->CI->output->set_header('Pragma: no-cache');
 
-        // Let CI do the caching instead of bloody IE7
+        // Let CI do the caching instead of the browser
         $this->CI->output->cache( $this->cache_lifetime );
 
         // Time to make the body, load view or parse HTML?
@@ -130,9 +120,18 @@ class Layout {
         
         else
         {
-            // If directory or module is set, use it
-            $view_file = (!empty($this->_directory)) ? $this->_directory.'/'.$this->page_body : $this->page_body;
-            $output = $this->CI->load->view($view_file, $this->data, true, $this->_module);
+	    	$theme_view = 'themes/' . $this->_theme . '/views/modules/' . $this->_module . '/' . $this->page_body;
+	    	
+        	// Check to see if the file exists in the theme folder
+	    	if($this->_theme and file_exists( APPPATH . $theme_view . EXT ))
+	    	{
+	    		$output = $this->CI->load->view('../'.$theme_view, $this->data, TRUE);
+	    	}
+            
+	    	else
+	    	{
+	    		$output = $this->CI->load->module_view($this->_module, $this->page_body, $this->data, TRUE);
+	    	}
         }
         
         // Want this file wrapped with the layout file?
@@ -378,6 +377,16 @@ class Layout {
 
         return $this->_breadcrumbs;
     }
+    
+    // A module view file can be overriden in a theme
+    private function _find_view($view = '')
+    {
+
+    	
+    	// Nothing exciting going on, go with what we have
+    	return $view;
+    }
+    
 
 }
 // END Layout class
