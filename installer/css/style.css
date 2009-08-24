@@ -40,6 +40,9 @@
 strong {
 	font-weight:bold;
 }
+em {
+	font-style:italic;
+}
 /* The body */
 body {
 	background:#221D1A url(../img/background.jpg) repeat top left;
@@ -108,8 +111,27 @@ body {
 #dashboard #install {
 	background: url(../img/actions/install.png) no-repeat center left;
 }
+#dashboard #permissions {
+	background: url(../img/actions/permissions.png) no-repeat center left;
+}
 #dashboard #cache {
 	background: url(../img/actions/cache.png) no-repeat center left;
+}
+/* Permissions page */
+.perm_list {
+	margin-top:20px;
+}
+.perm_list li {
+	font-size:14px;
+	height:20px;
+	margin-bottom:5px;
+	padding-left:25px;
+}
+#perm_folders li {
+	background: url(../img/folder.png) no-repeat top left;
+}
+#perm_files li {
+	background: url(../img/file.png) no-repeat top left;
 }
 /* Installation form */
 #content form label{
