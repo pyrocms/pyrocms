@@ -33,7 +33,7 @@
 	        <!-- <td><?//=isset($languages[$page->lang]['name']) ? $languages[$page->lang]['name'] : lang('page_unknown_label');?></td> -->
 	        <td><?php echo date('M d, Y', $page->updated_on); ?></td>
 	        <td>
-				<?php echo anchor('/' . $page->slug, lang('page_view_label'), 'target="_blank"') . ' | '; ?>
+				<?php //echo anchor('/' . $page->slug, lang('page_view_label'), 'target="_blank"') . ' | '; ?>
 				<?php echo anchor('admin/pages/edit/' . $page->id, lang('page_edit_label')) . ' | '; ?>
 				<?php echo anchor('admin/pages/delete/' . $page->id, lang('page_delete_label'), array('class'=>'confirm')); ?>
 	        </td>
