@@ -5,10 +5,10 @@ class Admin extends Admin_Controller
 	// Validation rules to be used for create and edita
 	private $rules = array(
 	  	'title' 			=> 'trim|required|max_length[60]',
-	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]|callback__check_slug',
+	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body' 				=> 'trim|required',
-	    'parent' 			=> 'trim|callback__check_parent',
-	    'lang' 				=> 'trim|required|min_length[2]|max_length[2]',
+	    'parent_id'			=> 'trim|callback__check_parent',
+	    //'lang' 				=> 'trim|required|min_length[2]|max_length[2]',
 	    'layout_file' 		=> 'trim|alphadash|required',
 		'meta_title' 		=> 'trim|max_length[255]',
 	    'meta_keywords' 	=> 'trim|max_length[255]',
@@ -30,8 +30,8 @@ class Admin extends Admin_Controller
 	// Admin: List all Pages
 	function index()
 	{
-  		$this->data->languages =& $this->config->item('supported_languages');
-		$this->data->pages = $this->pages_m->getPages(array('lang' => 'all', 'order' => 'title'));
+  		//$this->data->languages =& $this->config->item('supported_languages');
+		$this->data->pages = $this->pages_m->get(array('order' => 'parent_id, title'));
     	$this->layout->create('admin/index', $this->data);
  	}
     
@@ -45,7 +45,7 @@ class Admin extends Admin_Controller
 		// Validate the page
     	if ($this->validation->run())
 	    {
-	    	if ( $this->pages_m->newPage($_POST) > 0 )
+	    	if ( $this->pages_m->create($_POST) > 0 )
 	    	{
 	      		$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
 	    	}
@@ -73,11 +73,11 @@ class Admin extends Admin_Controller
 	    	
 		// Get Pages and create pages tree
 	    $tree = array();
-	    if($pages = $this->pages_m->getPages())
+	    if($pages = $this->pages_m->get())
 	    {
 			foreach(@$pages AS $data)
 			{
-				$tree[$data->parent][] = $data;
+				$tree[$data->parent_id][] = $data;
 			}
 		}
 		unset($pages);
@@ -108,12 +108,12 @@ class Admin extends Admin_Controller
 			
 	    // Get Pages and create pages tree
 	    $tree = array();
-	    $this->data->pages = $this->pages_m->getPages();
+	    $this->data->pages = $this->pages_m->get();
 	    if(!empty($this->data->pages))
 	    {
 		    foreach($this->data->pages as $data)
 		    {
-		    	$tree[$data->parent][] = $data;
+		    	$tree[$data->parent_id][] = $data;
 		    }
 		    $this->data->pages = $tree;
 	    }
@@ -132,7 +132,7 @@ class Admin extends Admin_Controller
 		if ($this->validation->run())
 	    {
 			// Run the update code with the POST data	
-	    	$this->pages_m->updatePage($id, $_POST);			
+	    	$this->pages_m->update($id, $_POST);			
 				
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('pages_m');			
@@ -205,7 +205,7 @@ class Admin extends Admin_Controller
 	}
     
 	// Callback: From create()
-	function _check_slug($slug)
+	/*function _check_slug($slug)
 	{
 	  	$page = $this->pages_m->getBySlug($slug, $this->input->post('lang'));
 	    $languages =& $this->config->item('supported_languages');
@@ -219,26 +219,18 @@ class Admin extends Admin_Controller
 			{
 	     	return TRUE;
 	    }
-	}
+	}*/
 
 	// Callback: From create() && edit()
 	function _check_parent($parent_id)
 	{
-	  	if(empty($parent_id))
-	    {
-	    	return TRUE;
-	    }
-		
-	    elseif(!$this->pages_m->getById($parent_id))
+	    if(!$this->pages_m->getById($parent_id))
 		{
 	    	$this->validation->set_message('_check_parent', $this->lang->line('pages_parent_not_exist_error'));
 	    	return FALSE;
 	    }
 		
-	    else
-		{
-	    	return TRUE;
-	    }
+	    return TRUE;
 	}
 }
 ?>

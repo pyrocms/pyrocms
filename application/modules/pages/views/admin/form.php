@@ -30,16 +30,19 @@
 				<?=$this->config->item('url_suffix'); ?>
 			</div>
 			<div class="field">
-				<label for="parent"><?=lang('page_parent_page_label');?></label>
-				<select name="parent" id="parent" size="1">
+				<label for="parent_id"><?=lang('page_parent_page_label');?></label>
+				<select name="parent_id" id="parent_id" size="1">
 					<option value=""><?=lang('page_no_selection_label');?></option>
-					<? create_tree_select($this->data->pages, 0, 0, $page->parent, $page->id); ?>
+					<? create_tree_select($this->data->pages, 0, 0, $page->parent_id, $page->id); ?>
 				</select>
 			</div>
+			<?php /* Removed the language option for now, we need to plan this better
 			<div class="field">
 				<label for="lang"><?=lang('page_language_label');?></label>
 				<?=form_dropdown('lang', $languages, $page->lang); ?>
-			</div>			
+			</div>	
+			*/ ?>
+					
 			<div class="field spacer-left">
 				<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' => htmlentities(stripslashes($page->body)), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 			</div>
