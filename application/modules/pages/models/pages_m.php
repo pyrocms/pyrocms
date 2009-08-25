@@ -5,75 +5,71 @@ class Pages_m extends Model {
     public function getById($id = 0)
     {
     	$this->db->where('id', $id);
-    	return $this->get();
+    	return $this->db->get('pages')->row();
     }
     
-    public function getBySlug($slug = '', $lang = NULL)
+    public function getByURL($segments = array())
     {
-    	$this->db->where('slug', $slug);
-    
-    	if($lang == 'all')
-		{
-			exit('where did this code go?! tell me if you see this message email@philsturgeon.co.uk!');
-		}  
-		 	
-    	elseif($lang != NULL)
-    	{
-		    $this->db->where('lang', $lang);
-    	}
-    	
-    	return $this->get($lang);
-    }
-    
-    // Return an object containing page data
-    private function get($lang = NULL)
-    {
-        $query = $this->db->get('pages');
-        if ($query->num_rows() > 0)
+		// If the URI has been passed as a string, explode to create an array of segments
+    	if(is_string($segments))
         {
-        	return $query->row();
+        	$segments = explode('/', $segments);
+        }
+    	
+    	// Work out how many segments there are
+        $total_segments = count($segments);
+        
+		// Which is the target alias (the final page in the tree)
+        $target_alias = 'p'.$total_segments;
+
+        // Start Query, Select (*) from Target Alias, from Pages
+        $this->db->select($target_alias.'.*');
+        $this->db->from('pages p1');
+        
+        // Loop thorugh each Slug
+        $level = 1;
+        foreach( $segments as $segment )
+        {
+            // Current is the current page, child is the next page to join on.
+            $current_alias = 'p'.$level;
+            $child_alias = 'p'.($level - 1);
+    
+            // We dont want to join the first page again
+            if($level != 1)
+            {
+                $this->db->join('pages '.$current_alias, $current_alias.'.parent_id = '.$child_alias.'.id');
+            }
+            
+            // Add slug to where clause to keep us on the right tree
+            $this->db->where($current_alias . '.slug', $segment);
+    
+            // Increment
+            $level++;
         }
         
-        else {
-            return FALSE;
-        }
+        // Can only be one result
+        $this->db->limit(1);
+        
+        return $this->db->get()->row();
     }
+    
     
     // Return an object of objects containing page data
-    function getPages($params = array())
+    function get($params = array())
     {
     	// Dont return body
-        $this->db->select('id, slug, title, parent, lang, updated_on');
+        $this->db->select('id, slug, title, parent_id, lang, updated_on');
         
-        if(!empty($params['order'])) {
+        if(!empty($params['order']))
+        {
         	$this->db->order_by($params['order']);
         }
     
-    	// Whick language should we use?
-    	if(!empty($params['lang']))
-    	{
-    		if($params['lang'] != 'all')
-    		{
-    			$this->db->where('lang', $params['lang']);
-    		}
-    	}
-    	
-    	// Pick from default language
-    	else
-    	{
-    		$this->db->where('lang', CURRENT_LANGUAGE);
-    	}
-    	
-        $query = $this->db->get('pages');
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return FALSE;
-        }
+        return $this->db->get('pages')->result();
     }
     
     // Create a new page
-    function newPage($input = array())
+    function create($input = array())
     {
         $this->load->helper('date');
         
@@ -81,9 +77,10 @@ class Pages_m extends Model {
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
         	'body' 			=> $input['body'],
-        	'parent' 		=> $input['parent'],
-        	'lang' 			=> $input['lang'],
-            	'layout_file'    => $input['layout_file'],
+        	'parent_id'		=> $input['parent_id'],
+        	//'lang' 			=> $input['lang'],
+        	'lang' 			=> $this->config->item('default_language'),
+            'layout_file'	=> $input['layout_file'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
@@ -95,7 +92,7 @@ class Pages_m extends Model {
     }
     
     // Update a Page
-    function updatePage($id = 0, $input = array())
+    function update($id = 0, $input = array())
     {
         $this->load->helper('date');
         
@@ -103,9 +100,10 @@ class Pages_m extends Model {
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
 	        'body' 			=> $input['body'],
-	        'parent' 		=> $input['parent'],
-        	'lang' 			=> $input['lang'],
-        
+	        'parent_id'		=> $input['parent_id'],
+        	//'lang' 			=> $input['lang'],
+        	'lang' 			=> $this->config->item('default_language'),
+            'layout_file'	=> $input['layout_file'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
@@ -115,16 +113,12 @@ class Pages_m extends Model {
     }
     
     // Delete a Page
-    function deletePage($id = 0)
+    function delete($id = 0)
     {
-        $this->db->delete('pages', array('id' => $id));
+        $thia->db->where('id', $id)->or_where('parent_id', $id);
+    	$this->db->delete('pages');
         
-        $affected = $this->db->affected_rows();
-        
-		// Update parent page records whit empty slug???
-        $this->db->update('pages', array('parent '=> 0), array('parent' => $id));
-        
-        return $affected;
+        return $this->db->affected_rows();
     }
     
 }
