@@ -32,7 +32,7 @@ class Contact extends Public_Controller
 		
 		$this->load->helper('form');
 		
-		if($this->settings->item('captcha_enabled'))
+		if($this->settings->item('captcha_enabled') && !$this->user_lib->logged_in())
 		{
 			$this->rules["captcha"] = "trim|required|callback__CheckCaptcha";
 			

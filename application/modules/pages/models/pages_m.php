@@ -83,7 +83,7 @@ class Pages_m extends Model {
         	'body' 			=> $input['body'],
         	'parent' 		=> $input['parent'],
         	'lang' 			=> $input['lang'],
-        
+            	'layout_file'    => $input['layout_file'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
