@@ -20,8 +20,6 @@
 				<ul>
 					<li><a href="<?php echo base_url(); ?>" title="Dashboard" <?php if(isset($nav_dashboard)){echo "id='$nav_dashboard'";} ?>>Dashboard</a></li>
 					<li><a href="<?php echo base_url(); ?>index.php/installer/step_1" title="Install PyroCMS" <?php if(isset($nav_install)){echo "id='$nav_install'";} ?>>Install</a></li>
-					<li><a href="<?php echo base_url(); ?>index.php/installer/upgrade" title="Upgrade PyroCMS" <?php if(isset($nav_upgrade)){echo "id='$nav_upgrade'";} ?>>Upgrade</a></li>
-					<li><a href="<?php echo base_url(); ?>index.php/installer/maintenance" title="Maintenance" <?php if(isset($nav_maintenance)){echo "id='$nav_maintenance'";} ?>>Maintenance</a></li>
 				</ul>
 			</div>
 			<!-- The content -->
