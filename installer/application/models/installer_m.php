@@ -179,22 +179,22 @@ class installer_m extends Model
 	function install($data)
 	{		
 		// First we need to create a database connection
-		if(!@mysql_connect($data['server'],$data['username'],$data['password'],'',65536))
+		if(!@mysql_connect($data['server'],$data['username'],$data['password'],'',65536)) // 65536 is a crazy flag that allows multiple queries in one
 		{
-			return array('status' => false,'message' => 'The installer could not connect to the MySQL server, be sure to enter the correct information.');
+			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server, be sure to enter the correct information.');
 		}
 		
 		// Do we want to create the database using the installer ? 
-		if(isset($data['create_db']) AND $data['create_db'] == 'true')
+		if(!empty($data['create_db']))
 		{
 			// Run the query
 			$db_result = mysql_query('CREATE DATABASE IF NOT EXISTS '.$data['database'].';');
 			
 			// Validate the results
-			if($db_result == false)
+			if($db_result == FALSE)
 			{
 				// Set the array and return it
-				$array = array('status' => false,'message' => 'The database could not be created.');
+				$array = array('status' => FALSE,'message' => 'The database could not be created.');
 				return $array;
 			}
 		}
@@ -202,7 +202,7 @@ class installer_m extends Model
 		// Select the database for all the other queries
 		if(!@mysql_select_db($data['database']))
 		{
-			return array('status' => false,'message' => 'The installer could not connect to the database. Does the database exist ?');
+			return array('status' => FALSE,'message' => 'The installer could not connect to the database. Does the database exist?');
 		}
 		
 		// Select the charset (if available)
@@ -221,9 +221,9 @@ class installer_m extends Model
 		}
 				
 		// Validate the results
-		if($table_results == false)
+		if(!isset($table_results) | $table_results == FALSE)
 		{
-			return array('status' => false,'message' => 'The database tables could not be inserted into the database. Does the database exist ?');
+			return array('status' => FALSE,'message' => 'The database tables could not be inserted into the database. Does the database exist?');
 		}
 		
 		// Insert the default data
@@ -239,16 +239,17 @@ class installer_m extends Model
 		}
 	
 		// Validate the results
-		if($def_data_res == false)
+		if(!isset($def_data_res) | $def_data_res == FALSE)
 		{
-			return array('status' => false,'message' => 'The default data could not be inserted into the database tables. Do the tables exist ?');
+			return array('status' => FALSE,'message' => 'The default data could not be inserted into the database tables. Do the tables exist?');
 		}
 		
 		// Do we want to insert the dummy data ? 
-		if(isset($data['dummy_data']) AND $data['dummy_data'] == 'true')
+		if(!empty($data['dummy_data']))
 		{
 			$dummy_data 	= file_get_contents('application/assets/sql/3-dummy_data-optional.sql');		
 			$queries 		= preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",$dummy_data);
+			
 			// Loop through each query
 			foreach ($queries as $query)
 			{
@@ -259,19 +260,16 @@ class installer_m extends Model
 			}
 			
 			// Validate the results
-			if($dummy_data_res == false)
+			if(!isset($dummy_data_res) | $dummy_data_res == FALSE)
 			{
-				return array('status' => false,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist ?');
+				return array('status' => false,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
 			}
 		}
 
-		// The final check
-		if($db_result != false AND $table_results != false AND $def_data_res != false AND $dummy_data_res != false)
-		{
-			mysql_close();
-			return array('status' => true,'message' => 'PyroCMS has been installed successfully.');
-		}
-		 	
+		// If we got this far there can't have been any errors. close and bail!
+		mysql_close();
+
+		return array('status' => true,'message' => 'PyroCMS has been installed successfully.');
 	}
 }
 ?>

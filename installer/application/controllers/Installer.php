@@ -113,7 +113,7 @@ class Installer extends Controller
 						$this->session->set_flashdata('message_type','success');
 
 						// Redirect
-						redirect('installer/step_3');
+						redirect('installer/complete');
 					}
 					else
 					{
@@ -147,6 +147,14 @@ class Installer extends Controller
 			// Redirect the user back to step 1
 			redirect('installer/step_1');
 		}
+	}
+	
+	// All done
+	function complete()
+	{
+		// Load the view files
+		$data['page_output'] = $this->load->view('complete','', TRUE);
+		$this->load->view('global',$data); 
 	}
 }
 ?>
