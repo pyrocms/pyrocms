@@ -4,8 +4,8 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-25/09/09 - v0.9.x to v0.9.7
----------------------------
+25/09/09 - v0.9.x to v0.9.7-pre
+-------------------------------
 
 1. Run the following MySQL.
 
