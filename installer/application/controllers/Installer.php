@@ -46,7 +46,7 @@ class Installer extends Controller
 		$view_data['server_supported'] = $this->session->userdata('server_supported');
 		
 		// Load the view files
-		$final_data['page_output'] = $this->load->view('install_1',$view_data,true);
+		$final_data['page_output'] = $this->load->view('install_1',$view_data, TRUE);
 		$final_data['nav_install'] = 'current';
 		$this->load->view('global',$final_data);
 	}
@@ -54,10 +54,9 @@ class Installer extends Controller
 	// The second step 
 	function step_2()
 	{
-		if($this->session->userdata('server_supported') == true)
+		if($this->session->userdata('server_supported') == TRUE)
 		{
-			// Load the file helper and the installer model
-			$this->load->model('installer_m');
+			// Load the file helper
 			$this->load->helper('file');
 			
 			// Get the write permissions for the folders
@@ -79,7 +78,7 @@ class Installer extends Controller
 			
 			// Load the view files
 			$final_data['nav_install'] 	= 'current';
-			$final_data['page_output']	= $this->load->view('install_2',$view_data,true);
+			$final_data['page_output']	= $this->load->view('install_2',$view_data, TRUE);
 			$this->load->view('global',$final_data); 
 		}
 		else
@@ -92,25 +91,22 @@ class Installer extends Controller
 	// The third step
 	function step_3()
 	{
-		if($this->session->userdata('server_supported') == true)
+		if($this->session->userdata('server_supported') == TRUE)
 		{			
 			// Check to see if the user submitted the installation form
 			if($_POST)
 			{
-				// Load the model
-				$this->load->model('installer_m');
-				
 				// Validate the results
 				$db_results = $this->installer_m->validate($_POST);
 				
 				// Only install PyroCMS if the provided data is correct
-				if($db_results == true)
+				if($db_results == TRUE)
 				{
 					// Install the system and display the results
 					$install_results = $this->installer_m->install($_POST);
 					
 					// Validate the results and create a flashdata message
-					if($install_results['status'] == true)
+					if($install_results['status'] == TRUE)
 					{
 						// Show an error message
 						$this->session->set_flashdata('message',$install_results['message']);
@@ -143,7 +139,7 @@ class Installer extends Controller
 			
 			// Load the view files
 			$final_data['nav_install'] = 'current';
-			$final_data['page_output'] = $this->load->view('install_3','',true);
+			$final_data['page_output'] = $this->load->view('install_3','', TRUE);
 			$this->load->view('global',$final_data); 
 		}
 		else

@@ -16,10 +16,17 @@
 
 <!-- Summary -->
 <h3>Summary</h3>
-<?php if($server_supported == true): ?>
-<p>Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.</p>
-<p id="next_step"><a href="<?php echo base_url(); ?>index.php/installer/step_2" title="Proceed to the next step">Step 2</a></p>
-<div class="clear" />
+
+<?php if($server_supported === TRUE): ?>
+<p class="green"><strong>Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.</strong></p>
+<p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>" title="Proceed to the next step">Step 2</a></p>
+
+<?php elseif($server_supported == 'partial'): ?>
+<p class="yellow"><strong>Your server meets most of the requirements for PyroCMS to run properly. You should expect strange results until you fix these requirements.</strong></p>
+<p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>" title="Proceed to the next step">Step 2</a></p>
+
 <?php else: ?>
-<p>It seems that your server failed to meet all the requirements for PyroCMS to run properly, please validate the results.</p>	
+<p class="red"><strong>It seems that your server failed to meet all the requirements for PyroCMS to run properly, please validate the results or carry on at your own peril.</strong></p>
 <?php endif; ?>
+
+<br class="clear" />

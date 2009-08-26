@@ -87,12 +87,12 @@ class installer_m extends Model
 		// Get if the gd_info() function exists
 		if(function_exists('gd_info'))
 		{
-			$GDArray 					= gd_info();
+			$GDArray = gd_info();
 			return ereg_replace('[[:alpha:][:space:]()]+', '', $GDArray['GD Version']);
 		}
 		else
 		{
-			return false;
+			return FALSE;
 		}
 	}
 	
@@ -104,11 +104,23 @@ class installer_m extends Model
 	 */
 	function check_final_results($data)
 	{		
-		if($data['php_results'] == 'supported' AND $data['mysql_server'] != false AND $data['mysql_client'] != false AND $data['gd_version'] != false)
+		$pass = FALSE;
+		
+		// These are the core requirements
+		if($data['php_results'] == 'supported' AND $data['mysql_server'] != FALSE AND $data['mysql_client'] != FALSE )
 		{			
-			// Add the results to the session
-			$this->session->set_userdata('server_supported',true);
+			$pass = 'partial';
+			
 		}
+		
+		// Optional extra
+		if($pass == 'partial' && $data['gd_version'] != false)
+		{
+			$pass = TRUE;
+		}
+		
+		// Add the results to the session
+		$this->session->set_userdata('server_supported', $pass);
 	}
 	
 	// Functions used in the second step

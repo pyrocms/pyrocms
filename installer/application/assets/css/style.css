@@ -23,6 +23,7 @@ body {
 /* Helpers */
 .red 	{color:red;}
 .green	{color:#3FB53F;}
+.yellow	{color:yellow;}
 .clear 	{clear:both;}
 /* Notifications */
 #notification
@@ -61,7 +62,7 @@ small 	{font-size:12px;}
 {
 	float:left;
 }
-#header ul li a 
+#header ul li a, #header ul li span
 {
 	color:#fff;
 	display:block;
