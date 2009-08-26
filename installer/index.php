@@ -23,7 +23,7 @@
 | NO TRAILING SLASH!
 |
 */
-	$system_folder = "codeigniter";
+	$system_folder = "../codeigniter";
 
 /*
 |---------------------------------------------------------------
