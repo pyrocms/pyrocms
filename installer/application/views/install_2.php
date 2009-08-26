@@ -1,4 +1,4 @@
-<h2>Install PyroCMS - Step 2</h2>
+<h2>Step 2: Set permissions</h2>
 <p>Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below.</p>
 <h3>Folder Permissions</h3>
 <p>The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).</p>
@@ -18,5 +18,5 @@
 	<li>application/config/config.php <?php echo $perm_status['application/config/config.php']; ?></li>
 	<li>application/config/database.php <?php echo $perm_status['application/config/database.php']; ?></li>
 </ul>
-<p id="next_step"><a href="<?php echo base_url(); ?>index.php/installer/step_3" title="Proceed to the next step">Step 3</a></p>
-<div class="clear" />
+<p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
+<br class="clear" />
