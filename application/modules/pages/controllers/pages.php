@@ -2,6 +2,8 @@
 
 class Pages extends Public_Controller
 {
+	private $default_segment = 'home';
+	
     function __construct() 
     {
         parent::Public_Controller();
@@ -12,11 +14,11 @@ class Pages extends Public_Controller
 		@include(APPPATH.'/config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
 		// This will be interesting later
-		$this->viewing_homepage = $this->uri->segment(1, 'home') == 'home';
+		$this->viewing_homepage = $this->uri->segment(1, $this->default_segment) == $this->default_segment;
 		
 		$different_default = $route['default_controller'] != 'pages';
 		
-		if(!empty($route) && $this->viewing_homepage && $different_default)
+		if($this->viewing_homepage && $different_default)
 		{
 			redirect('');
 		}
@@ -26,7 +28,8 @@ class Pages extends Public_Controller
     // Catch all requests to this page in one mega-function
     function _remap()
     {
-    	$url_segments = $this->uri->segment_array();
+    	// If no segments have been given, use the default route
+    	$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
 
     	// Try and load the page from cache or directly, if not, 404
         if(!$page = $this->cache->model('pages_m', 'getByURL', array($url_segments)) )
