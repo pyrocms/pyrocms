@@ -1,5 +1,5 @@
 <!-- Install PyroCMS - Step one -->
-<h2>Install PyroCMS - Step 1</h2>
+<h2>Step 1: Check requirements</h2>
 <p>The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.</p>
 
 <!-- PHP Settings -->
