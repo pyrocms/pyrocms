@@ -10,3 +10,6 @@
 <p>As soon as you log in, create yourself a new user, log out and back in with your new account. Then delete this default account.</p>
 
 <p>Finally, <strong>delete the installer from your server</strong> as if you leave it here it can be used to hack your website.</p>
+
+<pre>
+<?php echo anchor($admin_url) ?>

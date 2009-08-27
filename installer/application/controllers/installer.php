@@ -13,6 +13,16 @@ class Installer extends Controller
 	// Index function
 	function index()
 	{
+		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
+		$data['page_output'] = $this->load->view('main','',TRUE);
+		
+		// Load the view file
+		$this->load->view('global',$data);
+	}
+	
+	// Index function
+	function step_1()
+	{
 		// $_POST ? 
 		if($_POST)
 		{
@@ -32,7 +42,7 @@ class Installer extends Controller
 				$this->session->set_flashdata('message_type','success');
 
 				// Redirect to the first step
-				redirect('installer/step_1');
+				redirect('installer/step_2');
 			}
 			else
 			{
@@ -41,22 +51,19 @@ class Installer extends Controller
 				$this->session->set_flashdata('message_type','error');
 
 				// Redirect to the first step
-				redirect('installer/index');
+				redirect('installer/step_1');
 			}
 		}
 		
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
-		$data['page_output'] = $this->load->view('main','',TRUE);
-		
-		// Variables for the navigation menu
-		$data['nav_dashboard'] = 'current';
+		$data['page_output'] = $this->load->view('install_1','',TRUE);
 		
 		// Load the view file
 		$this->load->view('global',$data);
 	}
 	
 	// Install function - First step
-	function step_1()
+	function step_2()
 	{
 		// Did the user enter the DB settings ?
 		if($this->session->userdata('db_stored') == TRUE)
@@ -81,8 +88,7 @@ class Installer extends Controller
 			$view_data['server_supported'] = $this->session->userdata('server_supported');
 		
 			// Load the view files
-			$final_data['page_output'] = $this->load->view('install_1',$view_data, TRUE);
-			$final_data['nav_install'] = 'current';
+			$final_data['page_output'] = $this->load->view('install_2',$view_data, TRUE);
 			$this->load->view('global',$final_data);
 		}
 		else
@@ -92,12 +98,12 @@ class Installer extends Controller
 			$this->session->set_flashdata('message_type','error');
 			
 			// Redirect
-			redirect('installer/index');
+			redirect('');
 		}
 	}
 	
 	// The second step 
-	function step_2()
+	function step_3()
 	{
 		if($this->session->userdata('server_supported') == TRUE AND $this->session->userdata('db_stored') == TRUE)
 		{
@@ -122,19 +128,18 @@ class Installer extends Controller
 			$view_data['perm_status'] 	= $array;
 			
 			// Load the view files
-			$final_data['nav_install'] 	= 'current';
-			$final_data['page_output']	= $this->load->view('install_2',$view_data, TRUE);
+			$final_data['page_output']	= $this->load->view('install_3',$view_data, TRUE);
 			$this->load->view('global',$final_data); 
 		}
 		else
 		{
 			// Redirect the user back to step 1
-			redirect('installer/step_1');
+			redirect('installer/step_2');
 		}
 	}
 	
 	// The third step
-	function step_3()
+	function step_4()
 	{
 		if($this->session->userdata('server_supported') == TRUE AND $this->session->userdata('db_stored') == TRUE)
 		{			
@@ -167,7 +172,7 @@ class Installer extends Controller
 						$this->session->set_flashdata('message_type','error');
 
 						// Redirect
-						redirect('installer/step_3');
+						redirect('installer/step_4');
 					}					
 				}
 				else
@@ -177,27 +182,28 @@ class Installer extends Controller
 					$this->session->set_flashdata('message_type','error');
 					
 					// Redirect
-					redirect('installer/step_3');
+					redirect('installer/step_4');
 				}
 			}
 			
 			// Load the view files
-			$final_data['nav_install'] = 'current';
-			$final_data['page_output'] = $this->load->view('install_3','', TRUE);
+			$final_data['page_output'] = $this->load->view('install_4','', TRUE);
 			$this->load->view('global',$final_data); 
 		}
 		else
 		{
 			// Redirect the user back to step 1
-			redirect('installer/step_1');
+			redirect('installer/step_2');
 		}
 	}
 	
 	// All done
 	function complete()
 	{
+		$data['admin_url'] = 'http://'.$this->input->server('SERVER_NAME').preg_replace('/installer\/index.php$/', 'index.php/admin', $this->input->server('SCRIPT_NAME'));
+
 		// Load the view files
-		$data['page_output'] = $this->load->view('complete','', TRUE);
+		$data['page_output'] = $this->load->view('complete',$data, TRUE);
 		$this->load->view('global',$data); 
 	}
 }

@@ -22,6 +22,7 @@
 					<li><?php echo anchor('installer/step_1', 'Step #1', $this->uri->segment(2, '') == 'step_1' ? 'id="current"' : ''); ?></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : ''?>">Step #2</span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : ''?>">Step #3</span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : ''?>">Step #4</span></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : ''?>">Complete</span></li>
 				</ul>
 			</div>
