@@ -13,6 +13,38 @@ class Installer extends Controller
 	// Index function
 	function index()
 	{
+		// $_POST ? 
+		if($_POST)
+		{
+			// Load the model
+			$this->load->model('installer_m');
+			
+			// First we validate the data
+			$results = $this->installer_m->validate($_POST);
+			
+			if($results == true)
+			{
+				// Store the database settings
+				$this->installer_m->store_db_settings('set',$_POST);
+				
+				// Set the flashdata message
+				$this->session->set_flashdata('message','The database settings have been stored succesfully.');
+				$this->session->set_flashdata('message_type','success');
+
+				// Redirect to the first step
+				redirect('installer/step_1');
+			}
+			else
+			{
+				// Set the flashdata message
+				$this->session->set_flashdata('message','The provided database settings were incorrect or could not be stored.');
+				$this->session->set_flashdata('message_type','error');
+
+				// Redirect to the first step
+				redirect('installer/index');
+			}
+		}
+		
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
 		$data['page_output'] = $this->load->view('main','',true);
 		
@@ -26,35 +58,48 @@ class Installer extends Controller
 	// Install function - First step
 	function step_1()
 	{
-		// Load the installer model
-		$this->load->model('installer_m');
+		// Did the user enter the DB settings ?
+		if($this->session->userdata('db_stored') == true)
+		{	
+			// Load the installer model
+			$this->load->model('installer_m');
 		
-		// Check the PHP version
-		$php_data = $this->installer_m->get_php_version();
-		$view_data['php_version'] 	= $php_data['php_version'];
-		$view_data['php_results'] 	= $php_data['php_results'];
+			// Check the PHP version
+			$php_data = $this->installer_m->get_php_version();
+			$view_data['php_version'] 	= $php_data['php_version'];
+			$view_data['php_results'] 	= $php_data['php_results'];
 		
-		// Check the MySQL data
-		$view_data['mysql_server'] 	= $this->installer_m->get_mysql_version('server');
-		$view_data['mysql_client'] 	= $this->installer_m->get_mysql_version('client');
+			// Check the MySQL data
+			$view_data['mysql_server'] 	= $this->installer_m->get_mysql_version('server');
+			$view_data['mysql_client'] 	= $this->installer_m->get_mysql_version('client');
 		
-		// Check the GD data
-		$view_data['gd_version'] 	= $this->installer_m->get_gd_version();
+			// Check the GD data
+			$view_data['gd_version'] 	= $this->installer_m->get_gd_version();
 		
-		// Check the final results
-		$this->installer_m->check_final_results($view_data);
-		$view_data['server_supported'] = $this->session->userdata('server_supported');
+			// Check the final results
+			$this->installer_m->check_final_results($view_data);
+			$view_data['server_supported'] = $this->session->userdata('server_supported');
 		
-		// Load the view files
-		$final_data['page_output'] = $this->load->view('install_1',$view_data, TRUE);
-		$final_data['nav_install'] = 'current';
-		$this->load->view('global',$final_data);
+			// Load the view files
+			$final_data['page_output'] = $this->load->view('install_1',$view_data, TRUE);
+			$final_data['nav_install'] = 'current';
+			$this->load->view('global',$final_data);
+		}
+		else
+		{
+			// Set the flashdata message
+			$this->session->set_flashdata('message','Please fill in the required database settings in the form below.');
+			$this->session->set_flashdata('message_type','error');
+			
+			// Redirect
+			redirect('installer/index');
+		}
 	}
 	
 	// The second step 
 	function step_2()
 	{
-		if($this->session->userdata('server_supported') == TRUE)
+		if($this->session->userdata('server_supported') == TRUE AND $this->session->userdata('db_stored') == TRUE)
 		{
 			// Load the file helper
 			$this->load->helper('file');
@@ -91,13 +136,13 @@ class Installer extends Controller
 	// The third step
 	function step_3()
 	{
-		if($this->session->userdata('server_supported') == TRUE)
+		if($this->session->userdata('server_supported') == TRUE AND $this->session->userdata('db_stored') == TRUE)
 		{			
 			// Check to see if the user submitted the installation form
 			if($_POST)
 			{
 				// Validate the results
-				$db_results = $this->installer_m->validate($_POST);
+				$db_results = $this->installer_m->validate();
 				
 				// Only install PyroCMS if the provided data is correct
 				if($db_results == TRUE)
@@ -123,8 +168,7 @@ class Installer extends Controller
 
 						// Redirect
 						redirect('installer/step_3');
-					}
-					
+					}					
 				}
 				else
 				{

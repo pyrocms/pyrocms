@@ -11,6 +11,32 @@
  */
 class installer_m extends Model
 {
+	// Global functions
+	
+	/**
+	 * @name 	store_db_settings
+	 * @param	$type - Set or remove the cookie
+	 * @param 	$data - The $_POST data
+	 *
+	 * Store database settings so that they can be used later on.
+	 */
+	function store_db_settings($type = 'set',$data)
+	{
+		// Set the cookie
+		if($type == 'set')
+		{
+			// Store the POST data in a session
+			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'db_stored' => true);
+			$this->session->set_userdata($array);
+		}
+		// Remove the cookie
+		else
+		{
+			$array = array('server' => '','username' => '','password' => '','db_stored' => '');
+			$this->session->unset_userdata($array);
+		}
+	}
+	
 	// Functions used in Step 1 
 	
 	/**
@@ -39,8 +65,8 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name get_mysql_version()
-	 * @param $type - The MySQL type, client or server
+	 * @name 	get_mysql_version()
+	 * @param 	$type - The MySQL type, client or server
 	 * 
 	 * Function to retrieve the MySQL version (client/server)
 	 */
@@ -49,15 +75,27 @@ class installer_m extends Model
 		// What do we want to return, the client or the server ? 
 		if($type == 'server')
 		{
+			// Retrieve the database settings from the session
+			$server 	= $this->session->userdata('server');
+			$username 	= $this->session->userdata('username');
+			$password 	= $this->session->userdata('password');
+			
+			// Connect to MySQL
+			@mysql_connect($server,$username,$password);
+			
 			// Get the version
 			$mysql = mysql_get_server_info();
+			
 			// Compare it
 			if($mysql != false)
 			{
+				// Close the connection
+				@mysql_close();
 				return $mysql;
 			}
 			else
 			{
+				@mysql_close();
 				return "<span class='red'>a version which could not be retrieved</span>";
 			}
 		}
@@ -97,8 +135,8 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name check_final_results()
-	 * @param $data - The data retrieved from other functions (above).
+	 * @name 	check_final_results()
+	 * @param 	$data - The data retrieved from other functions (above).
 	 *
 	 * Function to validate all the versions and create the session (if the server can run PyroCMS)
 	 */
@@ -110,7 +148,6 @@ class installer_m extends Model
 		if($data['php_results'] == 'supported' AND $data['mysql_server'] != FALSE AND $data['mysql_client'] != FALSE )
 		{			
 			$pass = 'partial';
-			
 		}
 		
 		// Optional extra
@@ -146,18 +183,27 @@ class installer_m extends Model
 	// Functions used in the third step
 	
 	/**
-	 * @name validate()
-	 * @param $data - The post data
+	 * @name 	validate()
+	 * @param 	$data - The post data
 	 * 
 	 * Function to validate the $_POST results from step 3
 	 */
-	function validate($data)
+	function validate($data = '')
 	{
 		// Get the database settings from the form
-		$hostname = $data['server'];
-		$username = $data['username'];
-		$password = $data['password'];
-		$database = $data['database'];
+		if($data != '')
+		{
+			$hostname = $data['server'];
+			$username = $data['username'];
+			$password = $data['password'];
+		}
+		// Get the database settings from the session
+		else
+		{
+			$hostname = $this->session->userdata('server');
+			$username = $this->session->userdata('username');
+			$password = $this->session->userdata('password');
+		}
 		
 		// Test the connection	
 		if(@mysql_connect($hostname,$username,$password))
@@ -171,15 +217,20 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name install()
-	 * @param $data - The data from the form
+	 * @name 	install()
+	 * @param 	$data - The data from the form
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
 	function install($data)
 	{		
+		// Retrieve the database server, username and password from the session
+		$server 	= $this->session->userdata('server');
+		$username 	= $this->session->userdata('username');
+		$password 	= $this->session->userdata('password');
+		
 		// First we need to create a database connection
-		if(!@mysql_connect($data['server'],$data['username'],$data['password'],'',65536)) // 65536 is a crazy flag that allows multiple queries in one
+		if(!@mysql_connect($server,$username,$password,'',65536)) // 65536 is a crazy flag that allows multiple queries in one --> And it still doesn't work as it's supposed to be, hence the preg_slit part below.
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server, be sure to enter the correct information.');
 		}
@@ -221,7 +272,7 @@ class installer_m extends Model
 		}
 				
 		// Validate the results
-		if(!isset($table_results) | $table_results == FALSE)
+		if(!isset($table_results) OR $table_results == false)
 		{
 			return array('status' => FALSE,'message' => 'The database tables could not be inserted into the database. Does the database exist?');
 		}
@@ -239,7 +290,7 @@ class installer_m extends Model
 		}
 	
 		// Validate the results
-		if(!isset($def_data_res) | $def_data_res == FALSE)
+		if(!isset($def_data_res) OR $def_data_res == false)
 		{
 			return array('status' => FALSE,'message' => 'The default data could not be inserted into the database tables. Do the tables exist?');
 		}
@@ -260,7 +311,7 @@ class installer_m extends Model
 			}
 			
 			// Validate the results
-			if(!isset($dummy_data_res) | $dummy_data_res == FALSE)
+			if(!isset($dummy_data_res) OR $dummy_data_res == false)
 			{
 				return array('status' => false,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
 			}
