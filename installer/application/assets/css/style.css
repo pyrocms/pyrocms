@@ -76,6 +76,7 @@ small 	{font-size:12px;}
 #header ul li #current
 {
 	background:#7BBFD6;
+	font-weight:bold;
 }
 #header ul li a:hover
 {
