@@ -319,8 +319,67 @@ class installer_m extends Model
 
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close();
-
-		return array('status' => true,'message' => 'PyroCMS has been installed successfully.');
+		
+		// Write the database file
+		$db_file_res = $this->write_db_file($data['database']);
+		
+		if($db_file_res == false)
+		{
+			return array('status' => false,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 2 ?');
+		}
+		else
+		{
+			return array('status' => true,'message' => 'PyroCMS has been installed successfully.');
+		}
+	}
+	
+	/**
+	 * @name 	write_db_file();
+	 * @param 	$database - The name of the database
+	 *
+	 * Writes the database file based on the provided database settings
+	 */
+	function write_db_file($database)
+	{
+		// First retrieve all the required data from the session and the $database variable
+		$server 	= $this->session->userdata('server');
+		$username 	= $this->session->userdata('username');
+		$password 	= $this->session->userdata('password');
+		
+		// Open the template file
+		$template 	= file_get_contents('application/assets/config/database.php');
+		
+		// Replace the %% variables with the data specified by the user
+		$new_file  	= str_replace('%HOSTNAME%'	,$server,	$template);
+		$new_file   = str_replace('%USERNAME%'	,$username,	$new_file);
+		$new_file   = str_replace('%PASSWORD%'	,$password,	$new_file);
+		$new_file   = str_replace('%DATABASE%'	,$database,	$new_file);
+		
+		// Open the database.php file, show an error message in case this returns false
+		$handle 	= @fopen('../application/config/database.php','w+');
+		
+		// Validate the handle results
+		if($handle == false)
+		{
+			return false;
+		}
+		// Continue the process
+		else
+		{
+			// Write the file
+			$write = @fwrite($handle,$new_file);
+			
+			// Return the results
+			if($write == false)
+			{
+				return false;
+			}
+			else
+			{
+				// The database.php file has been written succesfully (I hope)
+				return true;
+			}	
+		}
 	}
 }
 ?>
