@@ -26,7 +26,7 @@ class installer_m extends Model
 		if($type == 'set')
 		{
 			// Store the POST data in a session
-			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'db_stored' => true);
+			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'db_stored' => TRUE);
 			$this->session->set_userdata($array);
 		}
 		// Remove the cookie
@@ -87,7 +87,7 @@ class installer_m extends Model
 			$mysql = mysql_get_server_info();
 			
 			// Compare it
-			if($mysql != false)
+			if($mysql != FALSE)
 			{
 				// Close the connection
 				@mysql_close();
@@ -104,7 +104,7 @@ class installer_m extends Model
 			// Get the version
 			$mysql = mysql_get_client_info();
 			// Compare it
-			if($mysql != false)
+			if($mysql != FALSE)
 			{
 				return $mysql;
 			}
@@ -145,13 +145,13 @@ class installer_m extends Model
 		$pass = FALSE;
 		
 		// These are the core requirements
-		if($data['php_results'] == 'supported' AND $data['mysql_server'] != FALSE AND $data['mysql_client'] != FALSE )
+		if($data['php_results'] == 'supported' && $data['mysql_server'] != FALSE && $data['mysql_client'] != FALSE )
 		{			
 			$pass = 'partial';
 		}
 		
 		// Optional extra
-		if($pass == 'partial' && $data['gd_version'] != false)
+		if($pass == 'partial' && $data['gd_version'] != FALSE)
 		{
 			$pass = TRUE;
 		}
@@ -208,11 +208,11 @@ class installer_m extends Model
 		// Test the connection	
 		if(@mysql_connect($hostname,$username,$password))
 		{
-			return true;
+			return TRUE;
 		}
 		else
 		{
-			return false;
+			return FALSE;
 		}	
 	}
 	
@@ -272,7 +272,7 @@ class installer_m extends Model
 		}
 				
 		// Validate the results
-		if(!isset($table_results) OR $table_results == false)
+		if(!isset($table_results) || $table_results == FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The database tables could not be inserted into the database. Does the database exist?');
 		}
@@ -290,7 +290,7 @@ class installer_m extends Model
 		}
 	
 		// Validate the results
-		if(!isset($def_data_res) OR $def_data_res == false)
+		if(!isset($def_data_res) || $def_data_res == FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The default data could not be inserted into the database tables. Do the tables exist?');
 		}
@@ -311,9 +311,9 @@ class installer_m extends Model
 			}
 			
 			// Validate the results
-			if(!isset($dummy_data_res) OR $dummy_data_res == false)
+			if(!isset($dummy_data_res) || $dummy_data_res == FALSE)
 			{
-				return array('status' => false,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
+				return array('status' => FALSE,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
 			}
 		}
 
@@ -323,13 +323,13 @@ class installer_m extends Model
 		// Write the database file
 		$db_file_res = $this->write_db_file($data['database']);
 		
-		if($db_file_res == false)
+		if($db_file_res == FALSE)
 		{
-			return array('status' => false,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 2 ?');
+			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 2 ?');
 		}
 		else
 		{
-			return array('status' => true,'message' => 'PyroCMS has been installed successfully.');
+			return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
 		}
 	}
 	
@@ -359,9 +359,9 @@ class installer_m extends Model
 		$handle 	= @fopen('../application/config/database.php','w+');
 		
 		// Validate the handle results
-		if($handle == false)
+		if($handle == FALSE)
 		{
-			return false;
+			return FALSE;
 		}
 		// Continue the process
 		else
@@ -370,14 +370,14 @@ class installer_m extends Model
 			$write = @fwrite($handle,$new_file);
 			
 			// Return the results
-			if($write == false)
+			if($write == FALSE)
 			{
-				return false;
+				return FALSE;
 			}
 			else
 			{
 				// The database.php file has been written succesfully (I hope)
-				return true;
+				return TRUE;
 			}	
 		}
 	}
