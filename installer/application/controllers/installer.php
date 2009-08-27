@@ -22,7 +22,7 @@ class Installer extends Controller
 			// First we validate the data
 			$results = $this->installer_m->validate($_POST);
 			
-			if($results == true)
+			if($results == TRUE)
 			{
 				// Store the database settings
 				$this->installer_m->store_db_settings('set',$_POST);
@@ -46,7 +46,7 @@ class Installer extends Controller
 		}
 		
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
-		$data['page_output'] = $this->load->view('main','',true);
+		$data['page_output'] = $this->load->view('main','',TRUE);
 		
 		// Variables for the navigation menu
 		$data['nav_dashboard'] = 'current';
@@ -59,7 +59,7 @@ class Installer extends Controller
 	function step_1()
 	{
 		// Did the user enter the DB settings ?
-		if($this->session->userdata('db_stored') == true)
+		if($this->session->userdata('db_stored') == TRUE)
 		{	
 			// Load the installer model
 			$this->load->model('installer_m');
