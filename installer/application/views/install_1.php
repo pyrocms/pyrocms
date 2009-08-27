@@ -22,7 +22,7 @@
 <p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>" title="Proceed to the next step">Step 2</a></p>
 
 <?php elseif($server_supported == 'partial'): ?>
-<p class="orange"><strong>Your server meets most of the requirements for PyroCMS to run properly. This means that PyroCMS should be able to run properly but there is a change that you will experience problems. In most cases this this is being caused by not having the GD library installed.</strong></p>
+<p class="orange"><strong>Your server meets most of the requirements for PyroCMS to run properly. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems. In most cases this this is being caused by not having the GD library installed.</strong></p>
 <p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>" title="Proceed to the next step">Step 2</a></p>
 
 <?php else: ?>
