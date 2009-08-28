@@ -23,7 +23,7 @@ body {
 /* Helpers */
 .red 	{color:red;}
 .green	{color:#3FB53F;}
-.yellow	{color:yellow;}
+.orange	{color:#F18431;}
 .clear 	{clear:both;}
 /* Notifications */
 #notification
@@ -76,6 +76,7 @@ small 	{font-size:12px;}
 #header ul li #current
 {
 	background:#7BBFD6;
+	font-weight:bold;
 }
 #header ul li a:hover
 {
@@ -149,9 +150,10 @@ small 	{font-size:12px;}
 	color:#fff;
 	float:right;
 	font-size:14px;
-	height:40px;
+	height:30px;
 	margin-top:15px;
-	padding:5px;
+	padding:5px 5px 10px 5px;
+	text-decoration:none;
 	text-align:center;
-	width:120px;
+	width:80px;
 }

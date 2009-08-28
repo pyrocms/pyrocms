@@ -11,6 +11,32 @@
  */
 class installer_m extends Model
 {
+	// Global functions
+	
+	/**
+	 * @name 	store_db_settings
+	 * @param	$type - Set or remove the cookie
+	 * @param 	$data - The $_POST data
+	 *
+	 * Store database settings so that they can be used later on.
+	 */
+	function store_db_settings($type = 'set',$data)
+	{
+		// Set the cookie
+		if($type == 'set')
+		{
+			// Store the POST data in a session
+			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'db_stored' => TRUE);
+			$this->session->set_userdata($array);
+		}
+		// Remove the cookie
+		else
+		{
+			$array = array('server' => '','username' => '','password' => '','db_stored' => '');
+			$this->session->unset_userdata($array);
+		}
+	}
+	
 	// Functions used in Step 1 
 	
 	/**
@@ -39,8 +65,8 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name get_mysql_version()
-	 * @param $type - The MySQL type, client or server
+	 * @name 	get_mysql_version()
+	 * @param 	$type - The MySQL type, client or server
 	 * 
 	 * Function to retrieve the MySQL version (client/server)
 	 */
@@ -49,15 +75,27 @@ class installer_m extends Model
 		// What do we want to return, the client or the server ? 
 		if($type == 'server')
 		{
+			// Retrieve the database settings from the session
+			$server 	= $this->session->userdata('server');
+			$username 	= $this->session->userdata('username');
+			$password 	= $this->session->userdata('password');
+			
+			// Connect to MySQL
+			@mysql_connect($server,$username,$password);
+			
 			// Get the version
 			$mysql = mysql_get_server_info();
+			
 			// Compare it
-			if($mysql != false)
+			if($mysql != FALSE)
 			{
+				// Close the connection
+				@mysql_close();
 				return $mysql;
 			}
 			else
 			{
+				@mysql_close();
 				return "<span class='red'>a version which could not be retrieved</span>";
 			}
 		}
@@ -66,7 +104,7 @@ class installer_m extends Model
 			// Get the version
 			$mysql = mysql_get_client_info();
 			// Compare it
-			if($mysql != false)
+			if($mysql != FALSE)
 			{
 				return $mysql;
 			}
@@ -97,8 +135,8 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name check_final_results()
-	 * @param $data - The data retrieved from other functions (above).
+	 * @name 	check_final_results()
+	 * @param 	$data - The data retrieved from other functions (above).
 	 *
 	 * Function to validate all the versions and create the session (if the server can run PyroCMS)
 	 */
@@ -107,14 +145,13 @@ class installer_m extends Model
 		$pass = FALSE;
 		
 		// These are the core requirements
-		if($data['php_results'] == 'supported' AND $data['mysql_server'] != FALSE AND $data['mysql_client'] != FALSE )
+		if($data['php_results'] == 'supported' && $data['mysql_server'] != FALSE && $data['mysql_client'] != FALSE )
 		{			
 			$pass = 'partial';
-			
 		}
 		
 		// Optional extra
-		if($pass == 'partial' && $data['gd_version'] != false)
+		if($pass == 'partial' && $data['gd_version'] != FALSE)
 		{
 			$pass = TRUE;
 		}
@@ -146,40 +183,54 @@ class installer_m extends Model
 	// Functions used in the third step
 	
 	/**
-	 * @name validate()
-	 * @param $data - The post data
+	 * @name 	validate()
+	 * @param 	$data - The post data
 	 * 
 	 * Function to validate the $_POST results from step 3
 	 */
-	function validate($data)
+	function validate($data = '')
 	{
 		// Get the database settings from the form
-		$hostname = $data['server'];
-		$username = $data['username'];
-		$password = $data['password'];
-		$database = $data['database'];
+		if($data != '')
+		{
+			$hostname = $data['server'];
+			$username = $data['username'];
+			$password = $data['password'];
+		}
+		// Get the database settings from the session
+		else
+		{
+			$hostname = $this->session->userdata('server');
+			$username = $this->session->userdata('username');
+			$password = $this->session->userdata('password');
+		}
 		
 		// Test the connection	
 		if(@mysql_connect($hostname,$username,$password))
 		{
-			return true;
+			return TRUE;
 		}
 		else
 		{
-			return false;
+			return FALSE;
 		}	
 	}
 	
 	/**
-	 * @name install()
-	 * @param $data - The data from the form
+	 * @name 	install()
+	 * @param 	$data - The data from the form
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
 	function install($data)
 	{		
+		// Retrieve the database server, username and password from the session
+		$server 	= $this->session->userdata('server');
+		$username 	= $this->session->userdata('username');
+		$password 	= $this->session->userdata('password');
+		
 		// First we need to create a database connection
-		if(!@mysql_connect($data['server'],$data['username'],$data['password'],'',65536)) // 65536 is a crazy flag that allows multiple queries in one
+		if(!@mysql_connect($server,$username,$password,'',65536)) // 65536 is a crazy flag that allows multiple queries in one --> And it still doesn't work as it's supposed to be, hence the preg_slit part below.
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server, be sure to enter the correct information.');
 		}
@@ -221,7 +272,7 @@ class installer_m extends Model
 		}
 				
 		// Validate the results
-		if(!isset($table_results) | $table_results == FALSE)
+		if(!isset($table_results) || $table_results == FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The database tables could not be inserted into the database. Does the database exist?');
 		}
@@ -239,7 +290,7 @@ class installer_m extends Model
 		}
 	
 		// Validate the results
-		if(!isset($def_data_res) | $def_data_res == FALSE)
+		if(!isset($def_data_res) || $def_data_res == FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The default data could not be inserted into the database tables. Do the tables exist?');
 		}
@@ -260,16 +311,75 @@ class installer_m extends Model
 			}
 			
 			// Validate the results
-			if(!isset($dummy_data_res) | $dummy_data_res == FALSE)
+			if(!isset($dummy_data_res) || $dummy_data_res == FALSE)
 			{
-				return array('status' => false,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
+				return array('status' => FALSE,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
 			}
 		}
 
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close();
-
-		return array('status' => true,'message' => 'PyroCMS has been installed successfully.');
+		
+		// Write the database file
+		$db_file_res = $this->write_db_file($data['database']);
+		
+		if($db_file_res == FALSE)
+		{
+			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 2 ?');
+		}
+		else
+		{
+			return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
+		}
+	}
+	
+	/**
+	 * @name 	write_db_file();
+	 * @param 	$database - The name of the database
+	 *
+	 * Writes the database file based on the provided database settings
+	 */
+	function write_db_file($database)
+	{
+		// First retrieve all the required data from the session and the $database variable
+		$server 	= $this->session->userdata('server');
+		$username 	= $this->session->userdata('username');
+		$password 	= $this->session->userdata('password');
+		
+		// Open the template file
+		$template 	= file_get_contents('application/assets/config/database.php');
+		
+		// Replace the %% variables with the data specified by the user
+		$new_file  	= str_replace('%HOSTNAME%'	,$server,	$template);
+		$new_file   = str_replace('%USERNAME%'	,$username,	$new_file);
+		$new_file   = str_replace('%PASSWORD%'	,$password,	$new_file);
+		$new_file   = str_replace('%DATABASE%'	,$database,	$new_file);
+		
+		// Open the database.php file, show an error message in case this returns false
+		$handle 	= @fopen('../application/config/database.php','w+');
+		
+		// Validate the handle results
+		if($handle == FALSE)
+		{
+			return FALSE;
+		}
+		// Continue the process
+		else
+		{
+			// Write the file
+			$write = @fwrite($handle,$new_file);
+			
+			// Return the results
+			if($write == FALSE)
+			{
+				return FALSE;
+			}
+			else
+			{
+				// The database.php file has been written succesfully (I hope)
+				return TRUE;
+			}	
+		}
 	}
 }
 ?>
