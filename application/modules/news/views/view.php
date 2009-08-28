@@ -9,8 +9,10 @@
 <hr/>
 <?=stripslashes($article->body);?> 
 <hr/>
+<?php if( $this->settings->item('enable_social_bookmarks')): ?>
 <?= $this->load->view('fragments/social_bookmarking/toolbar', array('bookmark' => array('title' => $article->title))); ?>
 <hr/>
+<?php endif; ?>
 
 <h3><?=lang('news_comments_title');?></h3>
     
