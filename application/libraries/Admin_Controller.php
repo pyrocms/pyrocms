@@ -9,7 +9,6 @@ class Admin_Controller extends MY_Controller
 		
 		// Load the Language files ready for output
 	    $this->lang->load('admin');
-	    $this->lang->load('main');
  
 	    $allow_access = FALSE;
 	        	
