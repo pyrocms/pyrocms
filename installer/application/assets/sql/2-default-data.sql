@@ -21,7 +21,7 @@ insert into `settings` values
  ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
  ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1',''),
  ('captcha_enabled','Use Captcha','Captcha boxes are used to make sure spammers and other unwanted fake guests do not abuse input forms.','radio','1','','1=Enabled|0=Disabled','0','1',''),
- ('captcha_folder','Captcha Folder','Where should captcha image files be stored?','text','temp/captcha/','','','0','1',''),
+ ('captcha_folder','Captcha Folder','Where should captcha image files be stored?','text','application/cach/captcha/','','','0','1',''),
  ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1',''),
  ('unavailable_message','Unavailable Message','When the site is turned off or there is a major problem, this message will show to users.','textarea','Sorry, this website is currently unavailable.','','','0','1',''),
  ('default_theme','Default Theme','Select the theme you want users to see by default.','','advertising','','get_themes','1','0',''),
