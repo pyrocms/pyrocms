@@ -32,7 +32,7 @@ class Contact extends Public_Controller
 		
 		$this->load->helper('form');
 		
-		if($this->settings->item('captcha_enabled') && !$this->user_lib->logged_in())
+		if($this->settings->item('captcha_enabled'))
 		{
 			$this->rules["captcha"] = "trim|required|callback__CheckCaptcha";
 			
@@ -45,7 +45,7 @@ class Contact extends Public_Controller
 			$this->data->captcha = create_captcha($vals);
 			$this->session->set_flashdata('captcha_'.$this->data->captcha['time'], $this->data->captcha['word']);
 		}
-		
+	
 		// If the user has provided valid information and isnt a robot
 		if(!empty($_POST) && $this->_validate())
 		{		
@@ -58,7 +58,8 @@ class Contact extends Public_Controller
 				// Now redirec
 				redirect('contact/sent');	
 			}	
-		}	
+		}
+		
 		$this->data->subjects =& $this->subjects;
 		
 		// Set the values for the form inputs

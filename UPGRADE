@@ -4,19 +4,16 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-25/09/09 - v0.9.x to v0.9.7-pre
--------------------------------
+30/08/09 - v0.9.6.2 to v0.9.7
+-----------------------------
 
-1. Run the following MySQL.
+1.) Run the following MySQL.
 
-ALTER TABLE `pages`
-	CHANGE `parent` `parent_id` INT( 11 ) NULL DEFAULT '0',
-	DROP INDEX `Language Unique`,
-	ADD INDEX `Unique` ( `slug` , `parent_id` , `lang` );
-	
-UPGRADE `pages` SET `lang` = "en";
-	
-2. Replace old files with new files.
+	UPDATE settings
+		SET `default` = "application/cache/captcha/"
+		WHERE `slug` = "captcha_folder";
+
+2.) Replace old files with new files.
 
 
 13/08/09 - v0.9.6 to v0.9.6.2
