@@ -45,7 +45,7 @@
 			
 			<?php echo form_textarea(array('id'=>'message', 'name'=>'message', 'value'=>$form_values->message, 'rows'=>8, 'style'=>'width:100%'));?>
 			
-			<?php if($this->settings->item('captcha_enabled') AND $this->user_lib->logged_in() == false): ?>
+			<?php if($this->settings->item('captcha_enabled') && !$this->user_lib->logged_in()): ?>
 			<p>
 				<?php echo lang('contact_capchar_text');?>
 				<?php echo $captcha['image'];?><br />
