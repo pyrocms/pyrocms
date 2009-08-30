@@ -8,7 +8,7 @@
 
 <!-- MySQL settings -->
 <h3>MySQL Settings</h3>
-<p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running <?php echo $mysql_server; ?> and the client library version is <?php echo $mysql_client; ?>.</p>
+<p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running <?php echo $mysql_server; ?> and the client library version is <?php echo $mysql_client; ?>. Please also note that the MySQLi extension <strong>must</strong> be installed.</p>
 
 <!-- GD Settings -->
 <h3>GD Settings</h3>

@@ -99,6 +99,15 @@ small 	{font-size:12px;}
 	font-size:14px;
 	margin:0px 0px 10px 10px;
 }
+#content a 
+{
+	color:#1E95BD;
+	text-decoration:none;
+}
+#content a:hover
+{
+	text-decoration:underline;
+}
 /* Permission lists */
 #content .perm_list li
 {

@@ -228,18 +228,22 @@ class installer_m extends Model
 		$server 	= $this->session->userdata('server');
 		$username 	= $this->session->userdata('username');
 		$password 	= $this->session->userdata('password');
+		$database 	= $data['database'];
 		
-		// First we need to create a database connection
-		if(!@mysql_connect($server,$username,$password,'',65536)) // 65536 is a crazy flag that allows multiple queries in one --> And it still doesn't work as it's supposed to be, hence the preg_slit part below.
+		// Create a connection using MySQLi
+		$mysqli = new mysqli($server,$username,$password);
+		
+		// Check connection
+		if($mysqli->connect_errno)
 		{
-			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server, be sure to enter the correct information.');
+			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 		
 		// Do we want to create the database using the installer ? 
 		if(!empty($data['create_db']))
 		{
 			// Run the query
-			$db_result = mysql_query('CREATE DATABASE IF NOT EXISTS '.$data['database'].';');
+			$db_result = $mysqli->query('CREATE DATABASE IF NOT EXISTS '.$database.';');
 			
 			// Validate the results
 			if($db_result == FALSE)
@@ -250,78 +254,36 @@ class installer_m extends Model
 			}
 		}
 		
-		// Select the database for all the other queries
-		if(!@mysql_select_db($data['database']))
-		{
-			return array('status' => FALSE,'message' => 'The installer could not connect to the database. Does the database exist?');
-		}
-		
-		// Select the charset (if available)
-		@mysql_set_charset('utf8');
+		// Select the database we created before
+		$mysqli->select_db($database);
 		
 		// Now we can create the tables
 		$tables 		= file_get_contents('application/assets/sql/1-tables.sql');
-		$queries 		= preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/", $tables);
-		// Loop through each query
-		foreach ($queries as $query)
-		{
-			if (strlen(trim($query)) > 0)
-			{
-				$table_results =  mysql_query($query);
-			}
-		}
-				
-		// Validate the results
-		if(!isset($table_results) || $table_results == FALSE)
-		{
-			return array('status' => FALSE,'message' => 'The database tables could not be inserted into the database. Does the database exist?');
-		}
-		
-		// Insert the default data
-		$default_data = file_get_contents('application/assets/sql/2-default-data.sql');		
-		$queries 		= preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",$default_data);
-		// Loop through each query
-		foreach ($queries as $query)
-		{
-			if (strlen(trim($query)) > 0)
-			{
-				$def_data_res =  mysql_query($query);
-			}
-		}
-	
-		// Validate the results
-		if(!isset($def_data_res) || $def_data_res == FALSE)
-		{
-			return array('status' => FALSE,'message' => 'The default data could not be inserted into the database tables. Do the tables exist?');
-		}
-		
+		$default_data 	= file_get_contents('application/assets/sql/2-default-data.sql');	
 		// Do we want to insert the dummy data ? 
 		if(!empty($data['dummy_data']))
 		{
-			$dummy_data 	= file_get_contents('application/assets/sql/3-dummy_data-optional.sql');		
-			$queries 		= preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",$dummy_data);
-			
-			// Loop through each query
-			foreach ($queries as $query)
-			{
-				if (strlen(trim($query)) > 0)
-				{
-					$dummy_data_res = mysql_query($query);
-				}
-			}
-			
-			// Validate the results
-			if(!isset($dummy_data_res) || $dummy_data_res == FALSE)
-			{
-				return array('status' => FALSE,'message' => 'The dummy data could not be inserted into the database tables. Do the tables exist?');
-			}
+			$dummy_data = file_get_contents('application/assets/sql/3-dummy_data-optional.sql');		
 		}
+		else
+		{
+			$dummy_data = '';
+		}
+		
+		// HALT ! Query time !
+		$query_res	= $mysqli->multi_query($tables.$default_data.$dummy_data);
+				
+		// Validate the results
+		if(!isset($query_res) || $query_res == FALSE)
+		{
+			return array('status' => FALSE,'message' => 'The installer could not create the tables or insert the data into the database. Please verify your settings.');
+		}	
 
 		// If we got this far there can't have been any errors. close and bail!
-		mysql_close();
+		$mysqli->close();
 		
 		// Write the database file
-		$db_file_res = $this->write_db_file($data['database']);
+		$db_file_res = $this->write_db_file($database);
 		
 		if($db_file_res == FALSE)
 		{
