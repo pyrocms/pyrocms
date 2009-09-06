@@ -9,7 +9,7 @@
 <strong><?= sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?> <span style="color:red;">(!)</span></strong>
 <!-- Fancy site stats -->
 <div class='dashboard_box' id='stats_box'>
-	<h3>Site Stats</h3>
+	<h3>Site Info</h3>
 	<ul class='dashboard_list' id='stats_list'>
 		<li>
 			<?php if($this->data->total_pages == 1)
@@ -57,6 +57,15 @@
 		</li>
 	</ul>
 </div>
+<!-- Geeky details about the current release -->
+<div class='dashboard_box' id='release_box'>
+	<h3>PyroCMS Info</h3>
+	<ul class='dashboard_list' id='release_list'>
+		<li>Version: <?php echo CMS_VERSION; ?></li>
+		<li>Release Date: <?php echo CMS_DATE; ?></li>
+	</ul>
+</div>
+<div class='clear'></div>
 <!-- Delicious, home baked RSS feeds. -->
 <div class='dashboard_box' id='feeds_box'>
 	<h3>RSS Feeds</h3>
@@ -70,4 +79,3 @@
 		<?php endforeach; ?>
 	</ul>
 </div>
-<div class='clear'></div>
