@@ -43,13 +43,14 @@ class Admin extends Admin_Controller
 		
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('Simplepie');
-		$rss_settings 						= $this->settings_m->get('dashboard_rss');
+		$rss_feed 							= $this->settings_m->getSettings(array('slug' => 'dashboard_rss'));	
+		$feed_count							= $this->settings_m->get('dashboard_rss_count');	
 		$this->simplepie->set_cache_location(APPPATH . 'cache/simplepie/');
-		$this->simplepie->set_feed_url($rss_settings->value);
+		$this->simplepie->set_feed_url($rss_feed[0]->value);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
 		// Store the feed items
-		$this->data->rss_items     			= $this->simplepie->get_items(0,10);
+		$this->data->rss_items     			= $this->simplepie->get_items(0,$feed_count->value);
 
 		// Load the layout/view/whatever
 		$this->layout->create('admin/cpanel', $this->data);
