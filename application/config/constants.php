@@ -112,7 +112,7 @@ unset($base_uri, $base_url);
 */
 
 define('CMS_VERSION', '0.9.7-pre');
-
+define('CMS_DATE','SOME DATE');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

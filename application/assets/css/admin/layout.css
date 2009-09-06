@@ -113,8 +113,7 @@ thead.b3 td:hover {
 	clear:both;
 }
 .dashboard_box {
-	float:left;
-	margin-top:10px;
+	margin:10px 0px 10px;
 }
 .dashboard_box ul {
 	list-style-type:none;
@@ -124,9 +123,11 @@ thead.b3 td:hover {
 #stats_box {
 	width:200px;
 }
+#stats_box,#release_box {
+	float:left;
+}
 #feeds_box {
-	margin-left:30px;
-	width:420px;
+	width:100%;
 }
 /**************************************/
 /*             HEADINGS               */
