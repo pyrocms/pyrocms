@@ -7,37 +7,60 @@
 ?>
 <!-- To do: Replace the shitty inline styles and update the message -->
 <strong><?= sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?> <span style="color:red;">(!)</span></strong>
-<ul id='stats_list'>
-	<!-- Global stats -->
-	<li id='stats_global'>
-		<h3>General</h3>
-		<?php if($this->data->total_pages == 1): ?>
-		<p>1 Page</p>
-		<?php else: ?>
-		<p><?php echo $this->data->total_pages; ?> Pages</p>
-		<?php endif; ?>
-		
-		<?php if($this->data->live_articles == 1): ?>
-		<p>1 Article</p>	
-		<?php else: ?>
-		<p><?php echo $this->data->live_articles; ?> Articles</p>
-		<?php endif; ?>
-		
-		<?php if($this->data->total_users == 1): ?>
-		<p>1 User</p>	
-		<?php else: ?>
-		<p><?php echo $this->data->total_users; ?> Users</p>
-		<?php endif; ?>
+<!-- Fancy site stats -->
+<h3>Site Stats</h3>
+<ul class='stats_list'>
+	<li>
+		<?php if($this->data->total_pages == 1)
+		{
+			echo '1 Page';
+		}
+		else
+		{
+			echo $this->data->total_pages . ' Pages';
+		}
+		?>
 	</li>
-	<!-- Comment stats -->
-	<li id='stats_comments'>
-		<h3>Comments</h3>
-		<?php if($this->data->total_comments == 1): ?>
-		<p>1 Comment</p>
-		<?php else: ?>
-		<p><?php echo $this->data->total_comments; ?> Comments</p>
-		<?php endif; ?>
-		<p><?php echo $this->data->approved_comments; ?> Approved</p>
-		<p><?php echo $this->data->pending_comments; ?> Pending</p>
+	<li>
+		<?php if($this->data->live_articles == 1)
+		{
+			echo '1 Article';
+		}			
+		else
+		{
+			echo $this->data->live_articles . ' Articles';
+		}
+		?>
+	</li>
+	<li>
+		<?php if($this->data->approved_comments == 1)
+		{
+			echo '1 Comment';
+		}			
+		else
+		{
+			echo $this->data->approved_comments . ' Comments';
+		}
+		?>
+	</li>
+	<li>		
+		<?php if($this->data->total_users == 1)
+		{
+			echo '1 User';
+		}
+		else
+		{
+			echo $this->data->total_users . ' Users';
+		}
+		?>
+	</li>
+</ul>
+<!-- Delicious, home baked RSS feeds. -->
+<h3>RSS Feeds</h3>
+<ul id='feed_list'>
+	<li class='rss_item'>
+		<strong class='item_name'>Item Name</strong>
+		<p class='item_date'>Item date</p>
+		<p class='item_body'>Item body</p>
 	</li>
 </ul>
