@@ -5,27 +5,39 @@
 	</div>
 <? endforeach;*/
 ?>
-<p class="align-center">
-	<strong><?= sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?></strong>
-</p>
-<h3 class="spacer-top"><a name="modules"><?= lang('mod_title');?></a></h3>
-<table class="listTable">
-	<thead>
-		<tr>
-			<th class="first"><div></div></th>
-			<th><a href="#"><?= lang('name_label');?></a></th>
-			<th><?= lang('desc_label');?></th>
-			<th class="last"><a href="#"><?= lang('version_label');?></a></th>
-		</tr>
-	</thead>	
-	<tbody>
-	<? foreach($modules as $module): ?>
-		<tr>
-			<td></td>
-			<td><?=$module['name'] ?></td>
-			<td><?=$module['description'] ?></td>
-			<td class="align-center"><?=$module['version'] ?></td>
-		</tr>
-	<? endforeach; ?>
-	</tbody>	
-</table>
+<!-- To do: Replace the shitty inline styles and update the message -->
+<strong><?= sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?> <span style="color:red;">(!)</span></strong>
+<ul id='stats_list'>
+	<!-- Global stats -->
+	<li id='stats_global'>
+		<h3>General</h3>
+		<?php if($this->data->total_pages == 1): ?>
+		<p>1 Page</p>
+		<?php else: ?>
+		<p><?php echo $this->data->total_pages; ?> Pages</p>
+		<?php endif; ?>
+		
+		<?php if($this->data->live_articles == 1): ?>
+		<p>1 Article</p>	
+		<?php else: ?>
+		<p><?php echo $this->data->live_articles; ?> Articles</p>
+		<?php endif; ?>
+		
+		<?php if($this->data->total_users == 1): ?>
+		<p>1 User</p>	
+		<?php else: ?>
+		<p><?php echo $this->data->total_users; ?> Users</p>
+		<?php endif; ?>
+	</li>
+	<!-- Comment stats -->
+	<li id='stats_comments'>
+		<h3>Comments</h3>
+		<?php if($this->data->total_comments == 1): ?>
+		<p>1 Comment</p>
+		<?php else: ?>
+		<p><?php echo $this->data->total_comments; ?> Comments</p>
+		<?php endif; ?>
+		<p><?php echo $this->data->approved_comments; ?> Approved</p>
+		<p><?php echo $this->data->pending_comments; ?> Pending</p>
+	</li>
+</ul>

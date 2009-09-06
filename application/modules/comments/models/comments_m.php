@@ -9,7 +9,16 @@ class Comments_m extends Model
 	
 	public function countComments($params = array())
 	{  	
-		return count($this->getComments($params));
+		$results = $this->getComments($params);
+		// Silly Phil forgot that using count() without some decent if statements will always return 1
+		if($results == FALSE)
+		{
+			return 0; // Return 0 instead of false since no rows were found.
+		}
+		else
+		{
+			return count($results);
+		}
 	}
 		
 	public function getComments($params = array())

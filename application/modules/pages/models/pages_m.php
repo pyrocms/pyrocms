@@ -53,6 +53,20 @@ class Pages_m extends Model {
         return $this->db->get()->row();
     }
     
+	// Count the amount of pages with param X
+	function countPages($params = array())
+	{
+		$results = $this->get($params);
+		
+		if($results == FALSE)
+		{
+			return 0; 
+		}
+		else
+		{
+			return count($results);
+		}
+	}
     
     // Return an object of objects containing page data
     function get($params = array())
