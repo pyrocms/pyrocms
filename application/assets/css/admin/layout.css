@@ -108,7 +108,26 @@ a {
 thead.b3 td:hover {
 	background-color: #775f51;
 }
-
+/* Dashboard --> Might need to go somewhere else, not sure. - Yorick */
+.clear {
+	clear:both;
+}
+.dashboard_box {
+	float:left;
+	margin-top:10px;
+}
+.dashboard_box ul {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+#stats_box {
+	width:200px;
+}
+#feeds_box {
+	margin-left:30px;
+	width:420px;
+}
 /**************************************/
 /*             HEADINGS               */
 /**************************************/
@@ -1084,6 +1103,7 @@ ul.ui-tabs-nav {
 /**************************************/
 #content {
 	float: left;
+	margin-bottom:50px;
 	width: 695px;
 }
 
