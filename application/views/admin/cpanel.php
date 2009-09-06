@@ -58,9 +58,11 @@
 <!-- Delicious, home baked RSS feeds. -->
 <h3>RSS Feeds</h3>
 <ul id='feed_list'>
+	<?php foreach($this->data->rss_items as $rss_item): ?>
 	<li class='rss_item'>
-		<strong class='item_name'>Item Name</strong>
-		<p class='item_date'>Item date</p>
-		<p class='item_body'>Item body</p>
+		<strong class='item_name'><a href="<?php echo $rss_item->get_permalink(); ?>"><?php echo $rss_item->get_title(); ?></a></strong>
+		<p class='item_date'><?php echo $rss_item->get_date(); ?></p>
+		<p class='item_body'><?php echo $rss_item->get_description(); ?></p>
 	</li>
+	<?php endforeach; ?>
 </ul>
