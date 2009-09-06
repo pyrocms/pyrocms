@@ -17,17 +17,18 @@ class Admin extends Admin_Controller
 		$this->load->model('modules_m');
  		$this->data->modules = $this->modules_m->getModules();
 
-		// Don't you love the smell of burning CPUs in the morning ?
-		$this->load->module_model('comments','comments_m');
-		$this->load->module_model('pages','pages_m');
-		$this->load->module_model('news','news_m');
-		$this->load->module_model('users','users_m');
-
 		/**
 		 * @author Yorick Peterse
 		 * 
 		 * Count certain things and display the results at the dashboar (might need some tweaking) 
 		 */
+		
+		// Don't you love the smell of burning CPUs in the morning ?
+		$this->load->module_model('comments','comments_m');
+		$this->load->module_model('pages','pages_m');
+		$this->load->module_model('news','news_m');
+		$this->load->module_model('users','users_m');
+		$this->load->module_model('settings','settings_m');
 		
 		// Count comment related stuff
 		$this->data->total_comments			= $this->comments_m->countComments();
@@ -39,6 +40,16 @@ class Admin extends Admin_Controller
 		$this->data->live_articles			= $this->news_m->countArticles(array('status' => 'live'));
 		// Count users
 		$this->data->total_users			= $this->users_m->countUsers(array('is_active' => 1));
+		
+		// Dashboard RSS feed (using SimplePie)
+		$this->load->library('Simplepie');
+		$rss_settings 						= $this->settings_m->get('dashboard_rss');
+		$this->simplepie->set_cache_location(APPPATH . 'cache/simplepie/');
+		$this->simplepie->set_feed_url($rss_settings->value);
+		$this->simplepie->init();
+		$this->simplepie->handle_content_type();
+		// Store the feed items
+		$this->data->rss_items     			= $this->simplepie->get_items(0,10);
 
 		// Load the layout/view/whatever
 		$this->layout->create('admin/cpanel', $this->data);
