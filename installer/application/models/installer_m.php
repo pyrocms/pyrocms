@@ -243,10 +243,10 @@ class installer_m extends Model
 		if(!empty($data['create_db']))
 		{
 			// Run the query
-			$db_result = $mysqli->query('CREATE DATABASE IF NOT EXISTS '.$database.';');
+			$db_result = $mysqli->query('CREATE DATABASE IF NOT EXISTS '.$database);
 			
 			// Validate the results
-			if($db_result == FALSE)
+			if($db_result === FALSE)
 			{
 				// Set the array and return it
 				$array = array('status' => FALSE,'message' => 'The database could not be created.');
@@ -274,7 +274,7 @@ class installer_m extends Model
 		$query_res	= $mysqli->multi_query($tables.$default_data.$dummy_data);
 				
 		// Validate the results
-		if(!isset($query_res) || $query_res == FALSE)
+		if(!isset($query_res) || $query_res === FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The installer could not create the tables or insert the data into the database. Please verify your settings.');
 		}	
@@ -285,7 +285,7 @@ class installer_m extends Model
 		// Write the database file
 		$db_file_res = $this->write_db_file($database);
 		
-		if($db_file_res == FALSE)
+		if($db_file_res === FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 2 ?');
 		}
@@ -321,7 +321,7 @@ class installer_m extends Model
 		$handle 	= @fopen('../application/config/database.php','w+');
 		
 		// Validate the handle results
-		if($handle == FALSE)
+		if($handle === FALSE)
 		{
 			return FALSE;
 		}
@@ -332,7 +332,7 @@ class installer_m extends Model
 			$write = @fwrite($handle,$new_file);
 			
 			// Return the results
-			if($write == FALSE)
+			if($write === FALSE)
 			{
 				return FALSE;
 			}
