@@ -123,7 +123,7 @@ if ( ! function_exists('form_hidden'))
 
 		if ( ! is_array($value))
 		{
-			$form .= '<input type="hidden" name="'.$name.'" value="'.form_prep($value).'" />'."\n";
+			$form .= '<input type="hidden" name="'.$name.'" value="'.form_prep($value, $name).'" />'."\n";
 		}
 		else
 		{
@@ -239,8 +239,9 @@ if ( ! function_exists('form_textarea'))
 			$val = $data['value']; 
 			unset($data['value']); // textareas don't use the value attribute
 		}
-
-		return "<textarea "._parse_form_attributes($data, $defaults).$extra.">".$val."</textarea>";
+		
+		$name = (is_array($data)) ? $data['name'] : $data;
+		return "<textarea "._parse_form_attributes($data, $defaults).$extra.">".form_prep($val, $name)."</textarea>";
 	}
 }
 
@@ -264,7 +265,7 @@ if (! function_exists('form_multiselect'))
 		{
 			$extra .= ' multiple="multiple"';
 		}
-	
+		
 		return form_dropdown($name, $options, $selected, $extra);
 	}
 }
@@ -592,8 +593,10 @@ if ( ! function_exists('form_close'))
  */
 if ( ! function_exists('form_prep'))
 {
-	function form_prep($str = '')
+	function form_prep($str = '', $field_name = '')
 	{
+		static $prepped_fields = array();
+		
 		// if the field name is an array we do this recursively
 		if (is_array($str))
 		{
@@ -610,22 +613,25 @@ if ( ! function_exists('form_prep'))
 			return '';
 		}
 
-		$temp = '__TEMP_AMPERSANDS__';
-
-		// Replace entities to temporary markers so that 
-		// htmlspecialchars won't mess them up
-		$str = preg_replace("/&#(\d+);/", "$temp\\1;", $str);
-		$str = preg_replace("/&(\w+);/",  "$temp\\1;", $str);
-
+		// we've already prepped a field with this name
+		// @todo need to figure out a way to namespace this so
+		// that we know the *exact* field and not just one with
+		// the same name
+		if (isset($prepped_fields[$field_name]))
+		{
+			return $str;
+		}
+		
 		$str = htmlspecialchars($str);
 
 		// In case htmlspecialchars misses these.
 		$str = str_replace(array("'", '"'), array("&#39;", "&quot;"), $str);
 
-		// Decode the temp markers back to entities
-		$str = preg_replace("/$temp(\d+);/","&#\\1;",$str);
-		$str = preg_replace("/$temp(\w+);/","&\\1;",$str);
-
+		if ($field_name != '')
+		{
+			$prepped_fields[$field_name] = $str;
+		}
+		
 		return $str;
 	}
 }
@@ -654,10 +660,10 @@ if ( ! function_exists('set_value'))
 				return $default;
 			}
 
-			return form_prep($_POST[$field]);
+			return form_prep($_POST[$field], $field);
 		}
 
-		return form_prep($OBJ->set_value($field, $default));
+		return form_prep($OBJ->set_value($field, $default), $field);
 	}
 }
 
@@ -913,12 +919,12 @@ if ( ! function_exists('_parse_form_attributes'))
 		}
 
 		$att = '';
-
+		
 		foreach ($default as $key => $val)
 		{
 			if ($key == 'value')
 			{
-				$val = form_prep($val);
+				$val = form_prep($val, $default['name']);
 			}
 
 			$att .= $key . '="' . $val . '" ';
