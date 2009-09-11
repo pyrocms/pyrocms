@@ -12,6 +12,10 @@ minimise or totally remove downtime during upgrade.
 	UPDATE settings
 		SET `default` = "application/cache/captcha/"
 		WHERE `slug` = "captcha_folder";
+	
+	INSERT INTO `settings` VALUES 
+		('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://pyrocms.com/news/rss/all.rss', '', '', 0, 0, ''),
+		('dashboard_rss_count', 'Dashboard RSS Items', 'How many RSS items would you like to display on the dashboard ? ', 'text', '5', '5', '', 1, 1, '');
 
 2.) Replace old files with new files.
 
