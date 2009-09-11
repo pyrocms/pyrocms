@@ -252,7 +252,7 @@ class CI_Loader {
 		require_once(BASEPATH.'database/drivers/'.$CI->db->dbdriver.'/'.$CI->db->dbdriver.'_utility'.EXT);
 		$class = 'CI_DB_'.$CI->db->dbdriver.'_utility';
 
-		$CI->dbutil =& new $class();
+		$CI->dbutil =& instantiate_class(new $class());
 
 		$CI->load->_ci_assign_to_models();
 	}
@@ -868,12 +868,9 @@ class CI_Loader {
 			{
 				include_once(APPPATH.'config/'.strtolower($class).EXT);
 			}			
-			else
+			elseif (file_exists(APPPATH.'config/'.ucfirst(strtolower($class)).EXT))
 			{
-				if (file_exists(APPPATH.'config/'.ucfirst(strtolower($class)).EXT))
-				{
-					include_once(APPPATH.'config/'.ucfirst(strtolower($class)).EXT);
-				}			
+				include_once(APPPATH.'config/'.ucfirst(strtolower($class)).EXT);
 			}
 		}
 		

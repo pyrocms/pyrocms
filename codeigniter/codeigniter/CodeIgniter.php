@@ -28,7 +28,7 @@
  */
 
 // CI Version
-define('CI_VERSION',	'1.7.1');
+define('CI_VERSION',	'1.7.2');
 
 /*
  * ------------------------------------------------------
@@ -57,7 +57,11 @@ require(APPPATH.'config/constants'.EXT);
  * ------------------------------------------------------
  */
 set_error_handler('_exception_handler');
-set_magic_quotes_runtime(0); // Kill magic quotes
+
+if ( ! is_php('5.3'))
+{
+	@set_magic_quotes_runtime(0); // Kill magic quotes
+}
 
 /*
  * ------------------------------------------------------
@@ -130,7 +134,7 @@ $LANG	=& load_class('Language');
  *  Note: The Loader class needs to be included first
  *
  */
-if (floor(phpversion()) < 5)
+if ( ! is_php('5.0.0'))
 {
 	load_class('Loader', FALSE);
 	require(BASEPATH.'codeigniter/Base4'.EXT);
