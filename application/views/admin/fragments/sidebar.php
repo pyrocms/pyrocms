@@ -2,7 +2,9 @@
 	<ul id="side-nav">
 	
 		<? foreach($admin_modules as $admin_module): ?>
-		<li class="inactive <?= $admin_module['slug']; ?>">
+		
+		<?php /* TODO: PS - This wont work until JS active buttons can be bound to click */ //echo $admin_module['slug'] == $this->module ? 'active' : 'inactive'; ?>
+		<li class="inactive <?php echo $admin_module['slug']; ?>">
 			<a href="<?= site_url('admin/'.$admin_module['slug']); ?>" class="button ajax {title:'<?php echo lang('cp_breadcrumb_home_title');?> | <?php echo $admin_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
 				<strong>
 					<?= image('admin/icons/'.(!empty($admin_module['icon']) ? $admin_module['icon'] : 'folder_48.png'), NULL, array('alt' => $admin_module['name'] .' icon', 'class' => 'icon') ); ?>

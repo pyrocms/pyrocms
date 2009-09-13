@@ -1,5 +1,5 @@
 // Set up all linkbox links
-$(function() {
+(function($) {
 
 	/* Facebox modal window */
 	$('a[rel*=modal]').facebox({
@@ -43,4 +43,4 @@ $(function() {
 	// --- End of "Search Terms" -------------------------------
 	
    
-});
+})(jQuery);

@@ -6,6 +6,7 @@
 		<meta http-equiv="Pragma" content="no-cache" />        
 	    <script type="text/javascript">
 	    	var APPPATH_URI = "<?=$this->config->item('asset_dir');?>";
+	    	var BASE_URL = "<?=base_url();?>";
 	    	var BASE_URI = "<?=BASE_URI;?>";
 	    	var DEFAULT_TITLE = "<?=$this->settings->item('site_name'); ?>";
 	    </script>

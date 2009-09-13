@@ -1,7 +1,7 @@
-$(function() {	
+(function($) {
 
 	// Sort any tables with a class of 'sortable'
-	$(".listTable").livequery(function() {
+	$('table.listTable').livequery(function() {
 		$(this).tablesorter();
 	});
 	
@@ -38,26 +38,35 @@ $(function() {
 	});
 	
 
-	$(".close").live('click', function(){
+	$('a.close').live('click', function(){
 		$(this).parents(".message").hide("fast");
 		return false;
 	});
 
-	/*$('.tooltip').livequery(function() {
+	/* This was part of the design but is not used
+	 * $('.tooltip').livequery(function() {
 		$(this).tooltip({  
 			showBody:	" - ",
 			showURL:	false
 		});
 	});*/
 
+	
 	/* Admin left navigation dropdowns */
-	$("#side-nav li").not(".active").find("ul").hide();
-	$("#side-nav .button").click(function(){
+	/* TODO: PS - This functioanlity is being overritten when AJAXify is bound to the click event. */
+	$("#side-nav li:not(.active)").find("ul").hide();
+	$("#side-nav .button").mouseover(function(){
 		$("#side-nav ul").hide();
-		if($(this).parent("li").hasClass("active")){
-			$("#side-nav>li").removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
-		}else{
-			$("#side-nav>li").removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
+		
+		if(li.hasClass("active"))
+		{
+			$(this).parent('li').siblings().removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
+		}
+		
+		else
+		{
+			$(this).parent('li').removeClass("inactive").addClass("active").find(".expand").addClass("expanded");
+			$(this).parent('li').siblings().removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
 			$(this).next("ul").show();
 			$(this).parent().removeClass("inactive").addClass("active");
 			$(this).find(".expand").addClass("expanded");
@@ -66,11 +75,13 @@ $(function() {
 		return false;
 	});
 	
-});
-
-$(document).ready(function() {
-
+	// AJAX Links ----
 	$('a.ajax').livequery(function() {
+		$(this).each(function() {
+			// Takes the BASE URL out of the URL
+			$(this).attr('href', $(this).attr('href').replace(BASE_URL, BASE_URI));
+		});
+		
 		$(this).ajaxify({
 	         target: '#content',
 	         tagToload: '#content',
@@ -80,9 +91,15 @@ $(document).ready(function() {
 	         animateOut:{opacity:'0'},
              animateOutSpeed:500,
              animateIn:{opacity:'1'},
-             animateInSpeed:500
+             animateInSpeed:500,
+             
+             onError:function(options,data)
+             {
+            	 console.debug(options);
+             }
 		});
 	});
+	// End AJAX links ----
 
 	$('.languageSelector a').click(function()
 	{
@@ -94,7 +111,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	/* Facebox modal window */
+	// Facebox modal window
 	$('a[rel*=modal]').livequery(function() {
 		$(this).facebox({
 			opacity : 0.4,
@@ -102,5 +119,6 @@ $(document).ready(function() {
 			closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif",
 		 });
 	});
+	// End Facebox modal window
 	
-});
+})(jQuery);
