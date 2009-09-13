@@ -1,41 +1,44 @@
-$(function()
+(function($)
 {
-	// Pick a rule type, show the correct field
-	$("input[name='role_type']").change(function() {
-		
-		if($(this).val() == 'user') {
-			$("[name='permission_role_id']").parent().hide();
-			$("[name='user_id']").parent().show();
-		}
-		
-		else if($(this).val() == 'role') {
-			$("[name='user_id']").parent().hide();
-			$("[name='permission_role_id']").parent().show();
-		}
-		
-		else {
-			$("[name='user_id']").parent().hide();
-			$("[name='permission_role_id']").parent().hide();
-		}
-		
-	});
-
-	// When module changes grab a list of controllers
-	$("select[name='module']").change(function() {
-		if(this.value != '') get_controllers($(this).val());
-	});
+	$(function() {
+			
+		// Pick a rule type, show the correct field
+		$("input[name='role_type']").change(function() {
+			
+			if($(this).val() == 'user') {
+				$("[name='permission_role_id']").parent().hide();
+				$("[name='user_id']").parent().show();
+			}
+			
+			else if($(this).val() == 'role') {
+				$("[name='user_id']").parent().hide();
+				$("[name='permission_role_id']").parent().show();
+			}
+			
+			else {
+				$("[name='user_id']").parent().hide();
+				$("[name='permission_role_id']").parent().hide();
+			}
+			
+		});
 	
-	// When controller changes get a list of methods
-	$("select[name='controller']").change(function() {
-		if(this.value != '') get_methods($("select[name='module']").val(), $(this).val());
+		// When module changes grab a list of controllers
+		$("select[name='module']").change(function() {
+			if(this.value != '') get_controllers($(this).val());
+		});
+		
+		// When controller changes get a list of methods
+		$("select[name='controller']").change(function() {
+			if(this.value != '') get_methods($("select[name='module']").val(), $(this).val());
+		});
+		
+		$('a.delete_role').click(function()
+		{
+			return confirm(roleDeleteConfirm);
+		});
+		
 	});
-	
-	$('a.delete_role').click(function()
-	{
-		return confirm(roleDeleteConfirm);
-	});
-	
-});
+})(jQuery);
 
 function get_controllers(module, selected) {
 

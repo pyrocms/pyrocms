@@ -16,33 +16,38 @@ function preview(img, selection) {
 	$('#h').val(selection.height);
 } 
 
-(function () {
+(function ($) { 
 	
-	// Changed user dropdown list on add/edit pages
-	$('select[name="user_id"]').change(function(){
-		if($(this).val() > 0) {
-			$('div.if-not-user').slideUp();
-		} else {
-			$('div.if-not-user').slideDown();
-		}
+	$(function() {
+	
+		// Changed user dropdown list on add/edit pages
+		$('select[name="user_id"]').change(function(){
+			if($(this).val() > 0) {
+				$('div.if-not-user').slideUp();
+			} else {
+				$('div.if-not-user').slideDown();
+			}
+		});
+										
+		$('#save_thumb').click(function() {
+			var x1 = $('#x1').val();
+			var y1 = $('#y1').val();
+			var x2 = $('#x2').val();
+			var y2 = $('#y2').val();
+			var w = $('#w').val();
+			var h = $('#h').val();
+			if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
+				alert(productImageNoSelection);
+				return false;
+			}else{
+				return true;
+			}
+		});
+	
 	});
-														
-	$('#save_thumb').click(function() {
-		var x1 = $('#x1').val();
-		var y1 = $('#y1').val();
-		var x2 = $('#x2').val();
-		var y2 = $('#y2').val();
-		var w = $('#w').val();
-		var h = $('#h').val();
-		if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
-			alert(staffNoImgSelectedError);
-			return false;
-		}else{
-			return true;
-		}
-	});
-})(jQuery); 
 
-(window).load(function () { 
-	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
-})(jQuery);
+	$(window).load(function () { 
+		$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
+	});
+
+})(jQuery); 
