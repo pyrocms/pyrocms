@@ -16,7 +16,7 @@ function preview(img, selection) {
 	$('#h').val(selection.height);
 } 
 
-$(document).ready(function () {
+(function () {
 	
 	// Changed user dropdown list on add/edit pages
 	$('select[name="user_id"]').change(function(){
@@ -41,8 +41,8 @@ $(document).ready(function () {
 			return true;
 		}
 	});
-}); 
+})(jQuery); 
 
-$(window).load(function () { 
+(window).load(function () { 
 	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
-});
+})(jQuery);

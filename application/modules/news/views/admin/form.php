@@ -8,7 +8,7 @@
 			<? endif; ?>
 		</div>
     
-    <div class="tabs">
+		<div class="tabs">
 			
 			<ul class="clear-both">
 				<li><a href="#fieldset1" title="Write post"><span><?=lang('news_content_label');?></span></a></li>
@@ -31,7 +31,7 @@
 				</div>
 				
 				<div class="field spacer-left">
-					<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' =>  htmlentities(stripslashes($article->body)), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+					<?=form_textarea(array('id'=>'body', 'name'=>'body', 'value' =>  stripslashes($article->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 				</div>
 		
 			</fieldset>

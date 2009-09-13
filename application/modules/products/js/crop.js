@@ -16,7 +16,7 @@ function preview(img, selection) {
 	$('#h').val(selection.height);
 } 
 
-$(document).ready(function () { 
+(function () { 
 	$('#save_thumb').click(function() {
 		var x1 = $('#x1').val();
 		var y1 = $('#y1').val();
@@ -31,8 +31,8 @@ $(document).ready(function () {
 			return true;
 		}
 	});
-}); 
+})(jQuery); 
 
-$(window).load(function () { 
+(window).load(function () { 
 	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
-});
+})(jQuery);
