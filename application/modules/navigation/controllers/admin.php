@@ -19,11 +19,11 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$tree = array();
 		
-		if($pages = $this->pages_m->getPages())
+		if($pages = $this->pages_m->get())
 		{
 			foreach($pages AS $page)
 			{
-				$tree[$page->parent][] = $page;
+				$tree[$page->parent_id][] = $page;
 			}
 		}
 	
