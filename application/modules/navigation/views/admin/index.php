@@ -60,9 +60,13 @@
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
-	(function($){ 
+(function($) {
+	$(function() {
+		
 		$('a.delete_group').click(function(){
 			return confirm('<?php echo lang('nav_group_delete_confirm');?>');
-		})(jQuery);
+		});
+		
 	});
+})(jQuery);
 </script>

@@ -1,17 +1,20 @@
 <script type="text/javascript">
-	(function($)
-	{
-		$('input#other_subject').hide();
-		$('select#subject').change(function()
-		{
-			if(this.value == 'other')
+	(function($) {
+		$(function() {
+			
+			$('input#other_subject').hide();
+			$('select#subject').change(function()
 			{
-				$('#other_subject').slideDown().val('');
-			}
-			else
-			{
-				$('#other_subject').slideUp();
-			}
+				if(this.value == 'other')
+				{
+					$('#other_subject').slideDown().val('');
+				}
+				else
+				{
+					$('#other_subject').slideUp();
+				}
+			});
+			
 		});
 	})(jQuery);
 </script>

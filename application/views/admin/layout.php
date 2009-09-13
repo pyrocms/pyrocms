@@ -14,6 +14,10 @@
 	    <?= js('jquery/jquery.js'); ?>
 		<?= js('jquery/jquery-ui.min.js'); ?>
 		
+		<script type="text/javascript">
+	    	jQuery.noConflict();
+	    </script>
+		
 		<?= js('jquery/jquery.dimensions.js'); ?>
 		<?= js('jquery/jquery.imgareaselect.js'); ?>
 		<?= js('jquery/jquery.simplemodal.js').css('jquery/confirm.css'); ?>

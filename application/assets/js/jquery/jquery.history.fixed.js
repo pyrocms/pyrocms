@@ -29,15 +29,15 @@ jQuery.extend({
 		}
 		
 			// add hidden iframe for IE
-			if(!$("#jQuery_history").size()) // to fix IE multi iframes (MaX)
-			$("body").prepend('<iframe id="jQuery_history" style="display:none"></iframe>');
-			var ihistory = $("#jQuery_history")[0];
+			if(!jQuery("#jQuery_history").size()) // to fix IE multi iframes (MaX)
+			jQuery("body").prepend('<iframe id="jQuery_history" style="display:none"></iframe>');
+			var ihistory = jQuery("#jQuery_history")[0];
 			var iframe = ihistory.contentWindow.document;
 			iframe.open();
 			iframe.close();
 			iframe.location.hash = current_hash;
 		}
-		else if ($.browser.safari) {
+		else if (jQuery.browser.safari) {
 			// etablish back/forward stacks
 			jQuery.historyBackStack = [];
 			jQuery.historyBackStack.length = history.length;
@@ -60,7 +60,7 @@ jQuery.extend({
 	historyCheck: function(){
 		if(jQuery.browser.msie) {
 			// On IE, check for location.hash of iframe
-			var ihistory = $("#jQuery_history")[0];
+			var ihistory = jQuery("#jQuery_history")[0];
 			var iframe = ihistory.contentDocument || ihistory.contentWindow.document;
 			var current_hash = iframe.location.hash;
 			if(current_hash != jQuery.historyCurrentHash) {
@@ -70,7 +70,7 @@ jQuery.extend({
 				jQuery.historyCallback(current_hash.replace(/^#/, ''));
 				
 			}
-		} else if ($.browser.safari) {
+		} else if (jQuery.browser.safari) {
 			if (!jQuery.dontCheck) {
 				var historyDelta = history.length - jQuery.historyBackStack.length;
 				
@@ -122,7 +122,7 @@ jQuery.extend({
 		jQuery.historyCurrentHash = newhash;
 		
 		if(jQuery.browser.msie) {
-			var ihistory = $("#jQuery_history")[0];
+			var ihistory = jQuery("#jQuery_history")[0];
 			var iframe = ihistory.contentWindow.document;
 			iframe.open();
 			iframe.close();
