@@ -26,13 +26,13 @@ class installer_m extends Model
 		if($type == 'set')
 		{
 			// Store the POST data in a session
-			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'db_stored' => TRUE);
+			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'step_1_passed' => TRUE);
 			$this->session->set_userdata($array);
 		}
 		// Remove the cookie
 		else
 		{
-			$array = array('server' => '','username' => '','password' => '','db_stored' => '');
+			$array = array('server','username','password', 'step_1_passed');
 			$this->session->unset_userdata($array);
 		}
 	}
@@ -135,12 +135,12 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name 	check_final_results()
+	 * @name 	check_server()
 	 * @param 	$data - The data retrieved from other functions (above).
 	 *
 	 * Function to validate all the versions and create the session (if the server can run PyroCMS)
 	 */
-	function check_final_results($data)
+	function check_server($data)
 	{		
 		$pass = FALSE;
 		
@@ -157,27 +157,20 @@ class installer_m extends Model
 		}
 		
 		// Add the results to the session
-		$this->session->set_userdata('server_supported', $pass);
+		return $pass;
 	}
 	
 	// Functions used in the second step
 	
 	/**
-	 * @name 	get_write_permissions() 
+	 * @name 	is_writeable() 
 	 * @param 	$path - The full path to the file or folder of which the permissions should be retrieved
 	 *
 	 * Get the permissions of a file or folder. Return a message if it isn't writable.
 	 */
-	function get_write_permissions($path)
+	function is_writeable($path)
 	{
-		if(is_writable($path))
-		{
-			return "- <span class='green'>Writable</span>";
-		}
-		else
-		{
-			return "- <span class='red'>Not writable</span>";
-		}
+		return is_really_writable($path);
 	}
 	
 	// Functions used in the third step
@@ -206,14 +199,7 @@ class installer_m extends Model
 		}
 		
 		// Test the connection	
-		if(@mysql_connect($hostname,$username,$password))
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}	
+		return @mysql_connect($hostname,$username,$password);
 	}
 	
 	/**
@@ -258,12 +244,12 @@ class installer_m extends Model
 		$mysqli->select_db($database);
 		
 		// Now we can create the tables
-		$tables 		= file_get_contents('application/assets/sql/1-tables.sql');
-		$default_data 	= file_get_contents('application/assets/sql/2-default-data.sql');	
+		$tables 		= file_get_contents('./sql/1-tables.sql');
+		$default_data 	= file_get_contents('./sql/2-default-data.sql');	
 		// Do we want to insert the dummy data ? 
 		if(!empty($data['dummy_data']))
 		{
-			$dummy_data = file_get_contents('application/assets/sql/3-dummy_data-optional.sql');		
+			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');		
 		}
 		else
 		{
@@ -287,7 +273,7 @@ class installer_m extends Model
 		
 		if($db_file_res === FALSE)
 		{
-			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 2 ?');
+			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 3?');
 		}
 		else
 		{
@@ -321,27 +307,12 @@ class installer_m extends Model
 		$handle 	= @fopen('../application/config/database.php','w+');
 		
 		// Validate the handle results
-		if($handle === FALSE)
+		if($handle !== FALSE)
 		{
-			return FALSE;
+			return @fwrite($handle, $new_file);
 		}
-		// Continue the process
-		else
-		{
-			// Write the file
-			$write = @fwrite($handle,$new_file);
-			
-			// Return the results
-			if($write === FALSE)
-			{
-				return FALSE;
-			}
-			else
-			{
-				// The database.php file has been written succesfully (I hope)
-				return TRUE;
-			}	
-		}
+		
+		return FALSE;
 	}
 }
 ?>
