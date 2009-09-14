@@ -6,7 +6,7 @@ INTALL
 2.) Upload.
 
 3.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer. This will set up the database
-	and create your config files. If this fails, run the SQL manually from installer/assets/sql/.
+	and create your config files. If this fails, run the SQL manually from installer/sql/.
 
 4.) Remove the installer directory.
 

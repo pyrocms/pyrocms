@@ -17,16 +17,17 @@
 <!-- Summary -->
 <h3>Summary</h3>
 
-<?php if($server_supported === TRUE): ?>
+<?php if($step_passed === TRUE): ?>
 <p class="green"><strong>Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.</strong></p>
 <p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
 
-<?php elseif($server_supported == 'partial'): ?>
+<?php elseif($step_passed == 'partial'): ?>
 <p class="orange"><strong>Your server meets most of the requirements for PyroCMS to run properly. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems. In most cases this this is being caused by not having the GD library installed.</strong></p>
 <p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
 
 <?php else: ?>
 <p class="red"><strong>It seems that your server failed to meet all the requirements for PyroCMS to run properly, please validate the results or carry on at your own peril.</strong></p>
+<p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>">Try again</a></p>
 <?php endif; ?>
 
 <br class="clear" />
