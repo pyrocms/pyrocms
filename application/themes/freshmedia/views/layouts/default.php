@@ -13,11 +13,11 @@
 	  			<p id="intro"><?php echo $this->settings->item('site_slogan'); ?></p>
 	
 	  			<div id="nav">
-		    		<ul>
-					<?php if(!empty($navigation['header'])) foreach($navigation['header'] as $nav_link): ?>
-				      <li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
-					<?php endforeach; ?>
-				    </ul>
+		    		
+					<?php if(!empty($navigation['header'])): ?>					<ul>					<?php foreach($navigation['header'] as $nav_link): ?>
+				    	<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
+					<?php endforeach; ?>					</ul>					<?php endif; ?>
+				    
 	 		 	</div> <!-- end #navigation -->
 			</div> <!-- end #header -->
 	
