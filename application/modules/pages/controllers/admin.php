@@ -4,13 +4,13 @@ class Admin extends Admin_Controller
 {
 	// Validation rules to be used for create and edita
 	private $rules = array(
-	  	'title' 			=> 'trim|required|max_length[60]',
+	    'title' 			=> 'trim|required|max_length[60]',
 	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body' 				=> 'trim|required',
 	    'parent_id'			=> 'trim|callback__check_parent',
 	    //'lang' 				=> 'trim|required|min_length[2]|max_length[2]',
 	    'layout_file' 		=> 'trim|alphadash|required',
-		'meta_title' 		=> 'trim|max_length[255]',
+	    'meta_title' 		=> 'trim|max_length[255]',
 	    'meta_keywords' 	=> 'trim|max_length[255]',
 	    'meta_description' 	=> 'trim'
 	);
@@ -147,8 +147,8 @@ class Admin extends Admin_Controller
 	    	$this->data->languages[$lang_code] = $lang['name'];
 	    }
 	    	
-		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+	    // Load WYSIWYG editor
+	    $this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
 	    $this->layout->create('admin/form', $this->data);
 	}
     
@@ -169,7 +169,7 @@ class Admin extends Admin_Controller
 				{
 					if ($page->slug != 'home')
 					{
-						$this->pages_m->deletePage($id);
+						$this->pages_m->delete($id);
 						$this->navigation_m->deleteLink(array('page_id' => $id));					
 						// Wipe cache for this model, the content has changd
 						$this->cache->delete_all('pages_m');
