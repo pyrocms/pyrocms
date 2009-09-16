@@ -38,6 +38,7 @@
 		editor_class : "wysiwyg-advanced",
 		
 		language : "<?php echo CURRENT_LANGUAGE;?>",
+		convert_urls : false,
 
 		width : 650,
 		height : 600,
