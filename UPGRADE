@@ -19,6 +19,9 @@ minimise or totally remove downtime during upgrade.
 
 2.) Replace old files with new files.
 
+3.) Permission the following folder:
+
+	chmod 777 application/cache/simplepie/
 
 13/08/09 - v0.9.6 to v0.9.6.2
 -----------------------------
