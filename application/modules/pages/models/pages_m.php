@@ -129,7 +129,7 @@ class Pages_m extends Model {
     // Delete a Page
     function delete($id = 0)
     {
-        $thia->db->where('id', $id)->or_where('parent_id', $id);
+        $this->db->where('id', $id)->or_where('parent_id', $id);
     	$this->db->delete('pages');
         
         return $this->db->affected_rows();
