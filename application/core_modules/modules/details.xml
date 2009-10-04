@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="1.0" type="admin">
+	<name>
+		<en>Modules</en>
+	</name>
+	<description>
+		<en>Allows admins to manage existing modules or install new ones.</en>
+	</description>
+	<required>1</required>
+	<icon>spanner_48.png</icon>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+		</controller>
+	</controllers>
+</module>

@@ -1,6 +1,6 @@
 <?php
-
-$lang['cp_welcome'] 					= 'Welcome to the %s Control Panel. Using the links above and to the left you can control almost every aspect of your website. For a full list of modules, please <a href="#modules">see below</a>.';
+// TODO: Translate this motherfucker below
+$lang['cp_welcome'] 					= 'Welcome to the %s Control Panel. Using the links above and to the left you can control almost every aspect of your website. If you happen to have any problems with the system, please submit your issue to our bugtracker.'; #translate
 // breadcrumbs
 $lang['cp_breadcrumb_home_title'] 		= 'Admin';
 // header
@@ -12,6 +12,8 @@ $lang['cp_logout_label'] 				= 'logout';
 $lang['cp_edit_profile_label'] 			= 'Edit profile';
 
 $lang['cp_nav_settings']				= 'Settings';
+// TODO: Translate this motherfucker below.
+$lang['cp_nav_modules']					= 'Modules'; #translate
 $lang['cp_nav_edit_settings']			= 'Edit settings';
 $lang['cp_nav_themes']					= 'Themes';
 $lang['cp_nav_permissions']				= 'Permissions';

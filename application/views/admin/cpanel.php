@@ -1,12 +1,6 @@
-<?
-/*foreach($this->modules_m->getModules(array('is_backend'=>true, 'type'=>'admin')) as $module): ?>
-	<div class="width-quater float-left align-center" style="height:8em">
-		<?= anchor('admin/'.$module['slug'], $module['name']); ?>
-	</div>
-<? endforeach;*/
-?>
 <!-- To do: Replace the shitty inline styles and update the message -->
-<strong><?= sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?> <span style="color:red;">(!)</span></strong>
+<strong><?php echo sprintf(lang('cp_welcome'), $this->settings->item('site_name'));?></strong>
+<div class='clear'></div>
 <!-- Fancy site stats -->
 <div class='dashboard_box' id='stats_box'>
 	<h3>Site Info</h3>
@@ -65,6 +59,14 @@
 		<li>Release Date: <?php echo CMS_DATE; ?></li>
 	</ul>
 </div>
+<div class='dashboard_box' id='contact_box'>
+	<h3>Contact Information</h3>
+	<ul class='dashboard_list' id='contact_list'>
+		<li><a href="http://www.pyrocms.com/" title="PyroCMS website">Main website</a></li>
+		<li><a href="http://github.com/philsturgeon/pyrocms/issues" title="PyroCMS Bugtracker">Public Bugtracker</a></li>
+		<li></li>
+	</ul>
+</div>
 <div class='clear'></div>
 <!-- Delicious, home baked RSS feeds. -->
 <div class='dashboard_box' id='feeds_box'>
@@ -79,3 +81,4 @@
 		<?php endforeach; ?>
 	</ul>
 </div>
+<div class='clear'></div>
