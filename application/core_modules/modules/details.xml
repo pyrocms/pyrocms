@@ -4,7 +4,7 @@
 		<en>Modules</en>
 	</name>
 	<description>
-		<en>Allows admins to manage existing modules or install new ones.</en>
+		<en>ALlows admins to see a list of currently installed modules.</en>
 	</description>
 	<required>1</required>
 	<icon>spanner_48.png</icon>
