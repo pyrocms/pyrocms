@@ -1,5 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * @name 		Main admin controller
+ * @author 		Phil Sturgeon and Yorick Peterse - PyroCMS Development Team
+ * @package 	PyroCMS
+ * @subpackage 	Controllers
+ */
 class Admin extends Admin_Controller
 {
 	function __construct()
@@ -16,12 +21,6 @@ class Admin extends Admin_Controller
 		// Load stuff
 		$this->load->model('modules_m');
  		$this->data->modules = $this->modules_m->getModules();
-
-		/**
-		 * @author Yorick Peterse
-		 * 
-		 * Count certain things and display the results at the dashboar (might need some tweaking) 
-		 */
 		
 		// Don't you love the smell of burning CPUs in the morning ?
 		$this->load->module_model('comments','comments_m');

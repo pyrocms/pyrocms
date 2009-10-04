@@ -22,9 +22,10 @@
 			</a>
 			
 			<ul>
-				<li><?php echo anchor('admin/settings', lang('cp_nav_edit_settings')) ?></li>
-				<li><?php echo anchor('admin/themes', lang('cp_nav_themes')) ?></li>
-				<li><?php echo anchor('admin/permissions', lang('cp_nav_permissions')) ?></li>
+				<li><?php echo anchor('admin/settings', lang('cp_nav_edit_settings')); ?></li>
+				<li><?php echo anchor('admin/modules', lang('cp_nav_modules')); ?></li>
+				<li><?php echo anchor('admin/themes', lang('cp_nav_themes')); ?></li>
+				<li><?php echo anchor('admin/permissions', lang('cp_nav_permissions')); ?></li>
 			</ul>
 		</li>
 			
