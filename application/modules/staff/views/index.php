@@ -3,7 +3,7 @@
 	<? foreach ($staffs as $staff): ?>
 		<div class="staffHolder">
 			<h3><?= anchor('staff/' . $staff->slug, $staff->name); ?></h3>
-			<?= anchor('staff/' . $staff->slug, image('staff/' . $staff->filename, $staff->name, array('style'=>'width:15em')), array('title'=>$staff->name)); ?>
+			<?= anchor('staff/' . $staff->slug, image('staff/' . $staff->filename, NULL, array('style'=>'width:15em')), array('title'=>$staff->name)); ?>
 			<p>
 				<strong><?= $staff->position; ?></strong><br/>
 				<?= word_limiter($staff->body, 50); ?>
