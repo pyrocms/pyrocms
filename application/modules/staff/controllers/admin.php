@@ -48,20 +48,18 @@ class Admin extends Admin_Controller
 
 		if ($this->validation->run())
 		{
-			$upload_cfg['upload_path'] = APPPATH.'assets/img/staff';
-			$upload_cfg['overwrite'] = TRUE;
+			$new_staff = $_POST;
 			
-			if($this->input->post('user_id'))
+			// If a user_id is set then fetch their name
+			if($this->input->post('user_id') > 0)
 			{
 				$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
-				$_POST['name'] = $staff_user->full_name;
-				$upload_cfg['new_name'] = url_title($staff_user->full_name);
-			}			
-			else 
-			{
-				$upload_cfg['new_name'] = url_title($this->input->post('name'));
+				$new_staff['name'] = $staff_user->full_name;
 			}
 			
+			$upload_cfg['upload_path'] = APPPATH.'assets/img/staff';
+			$upload_cfg['overwrite'] = TRUE;
+			$upload_cfg['new_name'] = url_title( $new_staff['name'] );
 			$upload_cfg['allowed_types'] = 'gif|jpg|png';
 			$this->load->library('upload', $upload_cfg);
 			
@@ -71,7 +69,7 @@ class Admin extends Admin_Controller
 				$image = $this->upload->data();
 				$this->_create_resize($image['file_name'], $this->config->item('staff_width'), $this->config->item('staff_height'));
 				
-				$staff_id = $this->staff_m->newStaff($_POST, $image);
+				$staff_id = $this->staff_m->newStaff($new_staff, $image);
 				
 				// New staff member added to the database ok
 				if($staff_id > 0)
@@ -85,12 +83,17 @@ class Admin extends Admin_Controller
 				redirect('admin/staff/crop/' . $staff_id);
 			}			
 			show_error($this->upload->display_errors());
-		}		
+		}
+		
+		// Create a select box of users and send to the view
 		$this->_user_select();
 		
-  	// Load WYSIWYG editor
+  		// Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );	
-		$this->layout->extra_head( js('staff.js', 'staff') );		
+		
+		// Load module specific JavaScript
+		$this->layout->extra_head( js('staff.js', 'staff') );
+		
 		$this->layout->create('admin/create', $this->data);
 	}
 
@@ -130,22 +133,21 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run()) 
 		{
-			$data_array = $_POST;
-			if ($_FILES['userfile']['name']) 
+			$updated_staff = $_POST;
+			
+			// If a user_id is set then fetch their name
+			if($this->input->post('user_id') > 0)
+			{
+				$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
+				$updated_staff['name'] = $staff_user->full_name;
+			}
+			
+			// If a file was uploaded, do things with it
+			if (!empty($_FILES['userfile']['name'])) 
 			{
 				$upload_cfg['upload_path'] = APPPATH.'assets/img/staff';
 				$upload_cfg['overwrite'] = TRUE;
-				
-				if($this->input->post('user_id'))
-				{
-					$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
-					$data_array['name'] = $staff_user->full_name;
-					$upload_cfg['new_name'] = url_title($staff_user->full_name);
-				}				
-				else
-				{
-					$upload_cfg['new_name'] = url_title($this->input->post('name'));
-				}
+				$upload_cfg['new_name'] = url_title($updated_staff['name']);
 				$upload_cfg['allowed_types'] = 'gif|jpg|png';
 				$this->load->library('upload', $upload_cfg);
 				
@@ -153,13 +155,18 @@ class Admin extends Admin_Controller
 				{
 					$image = $this->upload->data();
 					$this->_create_resize($image['file_name'], $this->settings->item('staff_width'), $this->settings->item('staff_height'));
-					$data_array['filename'] = $image['file_name'];
+					$updated_staff['filename'] = $image['file_name'];
 				}
-			}			
-			$this->staff_m->updateStaff($slug, $data_array);
-			$this->session->set_flashdata('success', sprintf($this->lang->line('staff_member_edit_success'), $data_array['name']));
+			}
+
+			// Update the staff data
+			$this->staff_m->updateStaff($slug, $updated_staff);
 			
-			if(isset($data_array['filename']))
+			// Use the staff members name in the success message
+			$this->session->set_flashdata('success', sprintf($this->lang->line('staff_member_edit_success'), $updated_staff['name']));
+			
+			// They have uploaded a file, redirect to crop it
+			if(isset($updated_staff['filename']))
 			{
 				redirect('admin/staff/crop/' . $slug);
 			}			
@@ -167,10 +174,12 @@ class Admin extends Admin_Controller
 			{
 				redirect('admin/staff/index');
 			}
-		}	    
+		}
+		
+		// Create a select box of users and send to the view
 		$this->_user_select();
 
-  	// Load WYSIWYG editor
+  		// Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );				
 		$this->layout->create('admin/edit', $this->data);
 	}
