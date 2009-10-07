@@ -1,4 +1,5 @@
 <h3><?= sprintf(lang('staff_edit_title'), $member->name);?></h3>
+
 <?= form_open_multipart('admin/staff/edit/' . $member->slug); ?>
 	<?= form_hidden('user_id', $member->user_id); ?>
 	<?= image('staff/' . $member->filename, '', array('title'=>$member->name));?>	
