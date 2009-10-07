@@ -1,7 +1,7 @@
 <h2><?=$staff->name ?></h2>
 <h3><?= $staff->position; ?></h3>
 
-<a href="<?= image_path('staff/'. $staff->filename); ?>" rel="modal"><?= image('staff/' . $staff->filename, '', array('title'=>$staff->name, 'style'=>'width:15em')) ?></a>
+<a href="<?= image_path('staff/'. $staff->filename); ?>" rel="modal"><?= image('staff/' . $staff->filename, NULL, array('title'=>$staff->name, 'style'=>'width:15em')) ?></a>
 
 <p><?= auto_typography($staff->body); ?></p>
 	
