@@ -1,23 +1,29 @@
-function preview(img, selection) { 
-	var scaleX = staffWidth / selection.width; 
-	var scaleY = staffHeight / selection.height; 
-	
-	$('#thumbnail_preview').css({ 
-		width: Math.round(scaleX * imageDataWidth) + 'px', 
-		height: Math.round(scaleY * imageDataHeight) + 'px',
-		marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
-		marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
-	});
-	$('#x1').val(selection.x1);
-	$('#y1').val(selection.y1);
-	$('#x2').val(selection.x2);
-	$('#y2').val(selection.y2);
-	$('#w').val(selection.width);
-	$('#h').val(selection.height);
-} 
-
 (function ($) { 
 	
+	function preview(img, selection) { 
+		var scaleX = staffWidth / selection.width; 
+		var scaleY = staffHeight / selection.height; 
+		
+		$('#thumbnail_preview').css({ 
+			width: Math.round(scaleX * imageDataWidth) + 'px', 
+			height: Math.round(scaleY * imageDataHeight) + 'px',
+			marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
+			marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
+		});
+		$('#x1').val(selection.x1);
+		$('#y1').val(selection.y1);
+		$('#x2').val(selection.x2);
+		$('#y2').val(selection.y2);
+		$('#w').val(selection.width);
+		$('#h').val(selection.height);
+	} 
+
+	// As soon as the window is ready (before document ready
+	$(window).load(function () { 
+		$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
+	});	
+	
+	// When the document is fully ready
 	$(function() {
 	
 		// Changed user dropdown list on add/edit pages
@@ -43,11 +49,6 @@ function preview(img, selection) {
 				return true;
 			}
 		});
-	
-	});
-
-	$(window).load(function () { 
-		$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
 	});
 
 })(jQuery); 

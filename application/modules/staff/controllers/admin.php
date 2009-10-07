@@ -13,12 +13,12 @@ class Admin extends Admin_Controller
 	function index()
 	{
 		// Create pagination links
-    $total_rows = $this->staff_m->countStaff();
-    $this->data->pagination = create_pagination('admin/staff/index', $total_rows);
-		
-    // Using this data, get the relevant results
-    $this->data->staff = $this->staff_m->getStaff(array('limit' => $this->data->pagination['limit']));
-    $this->layout->create('admin/index', $this->data);
+	    $total_rows = $this->staff_m->countStaff();
+	    $this->data->pagination = create_pagination('admin/staff/index', $total_rows);
+			
+	    // Using this data, get the relevant results
+	    $this->data->staff = $this->staff_m->getStaff(array('limit' => $this->data->pagination['limit']));
+	    $this->layout->create('admin/index', $this->data);
 	}
 
 	// Admin: Create a new Staff Member
@@ -88,8 +88,9 @@ class Admin extends Admin_Controller
 		}		
 		$this->_user_select();
 		
-    	// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+  	// Load WYSIWYG editor
+		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );	
+		$this->layout->extra_head( js('staff.js', 'staff') );		
 		$this->layout->create('admin/create', $this->data);
 	}
 
@@ -119,13 +120,13 @@ class Admin extends Admin_Controller
 		$this->validation->set_fields($fields);
 		$this->data->member = $this->staff_m->getStaff( array("slug" => $slug) );
 			
-    foreach(array_keys($rules) as $field)
-    {
-    	if(isset($_POST[$field]))
-      {
-      	$this->data->member->$field = $this->validation->$field;
-      }
-    }
+		foreach(array_keys($rules) as $field)
+		{
+			if(isset($_POST[$field]))
+			{
+	    		$this->data->member->$field = $this->validation->$field;
+			}
+		}
 		
 		if ($this->validation->run()) 
 		{
@@ -169,7 +170,7 @@ class Admin extends Admin_Controller
 		}	    
 		$this->_user_select();
 
-    	// Load WYSIWYG editor
+  	// Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );				
 		$this->layout->create('admin/edit', $this->data);
 	}
@@ -177,7 +178,7 @@ class Admin extends Admin_Controller
 	// Admin: Delete a Staff Member
 	function delete($slug = '')
 	{
-  		$img_folder = APPPATH.'assets/img/staff/';
+		$img_folder = APPPATH.'assets/img/staff/';
 		$slug_array = ($slug) ? array($slug) : array_keys($this->input->post('delete'));
 		
 		// Delete multiple
@@ -245,56 +246,58 @@ class Admin extends Admin_Controller
 	}
 
 	// Admin: Crop for Home Page
-  function crop($id = '')
+	function crop($id = '')
 	{
 		if (empty($id)) redirect('admin/staff/index');
         
-    $this->load->library('validation');
-    $rules['x1'] = 'trim|required|numeric';
-    $rules['y1'] = 'trim|required|numeric';
-    $rules['x2'] = 'trim|required|numeric';
-    $rules['y2'] = 'trim|required|numeric';
-    $this->validation->set_rules($rules);
-    $this->validation->set_fields();
+		$this->load->library('validation');
+		$rules['x1'] = 'trim|required|numeric';
+		$rules['y1'] = 'trim|required|numeric';
+		$rules['x2'] = 'trim|required|numeric';
+		$rules['y2'] = 'trim|required|numeric';
+		
+		$this->validation->set_rules($rules);
+		$this->validation->set_fields();
         
 		if( $this->data->member = $this->staff_m->getStaff(array("id" => $id)) )
 		{
-    	$this->data->image =& $this->data->member->filename;
-    }
-
-    if( empty($this->data->image) ) redirect('admin/staff/index');
-        
+	  		$this->data->image =& $this->data->member->filename;
+	    }
+	
+	    if( empty($this->data->image) ) redirect('admin/staff/index');
+	        
 		$this->load->library('image_lib');
 		$this->load->config('image_settings');
 		$this->data->image_data = $this->image_lib->get_image_properties(APPPATH.'assets/img/staff/'.$this->data->image, TRUE);
 
-    if ($this->validation->run())
+	    if ($this->validation->run())
 		{
 			// 1. Crope the image
-      $this->_create_home_crop($this->data->image, $this->input->post('x1'), $this->input->post('y1'), $this->input->post('x2'), $this->input->post('y2'));
-			
-      // 2. Resize the image
+	      	$this->_create_home_crop($this->data->image, $this->input->post('x1'), $this->input->post('y1'), $this->input->post('x2'), $this->input->post('y2'));
+				
+	      	// 2. Resize the image
 			$this->_create_resize($this->data->image, $this->config->item('staff_width'), $this->config->item('staff_height'));            
 			redirect('admin/staff/index');
-    }
-    $this->layout->create('admin/crop', $this->data);
+	    }
+	    
+	    $this->layout->create('admin/crop', $this->data);
 	}    
     
-  // Private: Create the Crop for Home Page
-  function _create_home_crop($image = '', $x = '', $y = '', $x2 = '', $y2 = '')
+	// Private: Create the Crop for Home Page
+	function _create_home_crop($image = '', $x = '', $y = '', $x2 = '', $y2 = '')
 	{
-  	$new_img = substr($image, 0, -4) . '_home' . substr($image, -4);
-    unset($img_cfg);
-    $img_cfg['source_image'] = APPPATH.'assets/img/staff/' . $image;
-    $img_cfg['maintain_ratio'] = FALSE;
-    $img_cfg['x_axis'] = $x;
-    $img_cfg['y_axis'] = $y;
-    $img_cfg['width'] = $x2 - $x;
-    $img_cfg['height'] = $y2 - $y;
-    $this->load->library('image_lib');
-    $this->image_lib->initialize($img_cfg);
-    $this->image_lib->crop();
-  }
+		$new_img = substr($image, 0, -4) . '_home' . substr($image, -4);
+	    unset($img_cfg);
+	    $img_cfg['source_image'] = APPPATH.'assets/img/staff/' . $image;
+	    $img_cfg['maintain_ratio'] = FALSE;
+	    $img_cfg['x_axis'] = $x;
+	    $img_cfg['y_axis'] = $y;
+	    $img_cfg['width'] = $x2 - $x;
+	    $img_cfg['height'] = $y2 - $y;
+	    $this->load->library('image_lib');
+	    $this->image_lib->initialize($img_cfg);
+	    $this->image_lib->crop();
+	}
 
 	// Private: Create resize of Cropped Image to ensure it's a certain size
 	function _create_resize($homeimg = '', $x, $y)
@@ -320,18 +323,18 @@ class Admin extends Admin_Controller
 		}
 	}	
 
-  // Callback: from create()
-  function _name_check($title = '')
+	// Callback: from create()
+	function _name_check($title = '')
 	{
-  	if ($this->staff_m->checkName($title))
+		if ($this->staff_m->checkName($title))
 		{
-    	$this->validation->set_message('_name_check', sprintf($this->lang->line('staff_member_already_exist'), $title));
-      return FALSE;
-    }
+		$this->validation->set_message('_name_check', sprintf($this->lang->line('staff_member_already_exist'), $title));
+			return FALSE;
+		}
 		else
 		{
-    	return TRUE;
-    }
-  }	
+			return TRUE;
+		}
+	}	
 }
 ?>
