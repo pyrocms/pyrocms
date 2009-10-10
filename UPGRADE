@@ -10,13 +10,16 @@ minimise or totally remove downtime during upgrade.
 1.) Run the following MySQL.
 
 	UPDATE settings
-		SET `default` = "application/cache/captcha/"
+		SET `default` = "cache/captcha/"
 		WHERE `slug` = "captcha_folder";
 	
 	INSERT INTO `settings` VALUES 
 		('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://pyrocms.com/news/rss/all.rss', '', '', 0, 0, ''),
 		('dashboard_rss_count', 'Dashboard RSS Items', 'How many RSS items would you like to display on the dashboard ? ', 'text', '5', '5', '', 1, 1, '');
 
+	ALTER TABLE pages
+	  MODIFY `parent_id` int(11) default '0';
+	  
 2.) Replace old files with new files.
 
 3.) Permission the following folder:
