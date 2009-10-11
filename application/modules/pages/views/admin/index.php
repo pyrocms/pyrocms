@@ -1,50 +1,24 @@
-<?php echo form_open('admin/pages/delete'); ?>
-<table border="0" class="listTable">    
-  <thead>
-	<tr>
-		<th class="first"><div></div></th>
-		<th><a href="#"><?php echo lang('page_page_label');?></a></th>
-		<th><a href="#"><?=lang('page_parent_label');?></a></th>
-		<!-- <th><a href="#"><?//=lang('page_language_label');?></a></th> -->
-		<th class="width-10"><a href="#"><?php echo lang('page_updated_label');?></a></th>
-		<th class="last width-15"><span><?php echo lang('page_actions_label');?></span></th>
-	</tr>
-  </thead>
-  <tfoot>
-  	<tr>
-  		<td colspan="6">
-  			<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
-  		</td>
-  	</tr>
-  </tfoot>
-  <tbody>
-	<? if (!empty($pages)): ?>
-		<? foreach ($pages as $page): ?>
-		<tr>
-			<td><input type="checkbox" name="action_to[]" value="<?php echo $page->id;?>" <?php echo ($page->slug == 'home' && $page->parent_id == 0 ) ? 'disabled="disabled"' : '' ?> /></td>
-	        <td><?php echo $page->title;?></td>
-	        
-			<?php if($page->parent_id > 0): ?>
-	        <td><?php echo @$this->pages_m->getById($page->parent_id)->title;?></td>
-	        <?php else: ?>
-	        <td><?php echo lang('page_no_selection_label'); ?></td>
-	        <?php endif; ?>
-	        
-	        <!-- <td><?//=isset($languages[$page->lang]['name']) ? $languages[$page->lang]['name'] : lang('page_unknown_label');?></td> -->
-	        <td><?php echo date('M d, Y', $page->updated_on); ?></td>
-	        <td>
-				<?php //echo anchor('/' . $page->slug, lang('page_view_label'), 'target="_blank"') . ' | '; ?>
-				<?php echo anchor('admin/pages/edit/' . $page->id, lang('page_edit_label')) . ' | '; ?>
-				<?php echo anchor('admin/pages/delete/' . $page->id, lang('page_delete_label'), array('class'=>'confirm')); ?>
-	        </td>
-		</tr>
-		<? endforeach; ?>		
-	<? else: ?>
-		<tr>
-			<td colspan="5"><?php echo lang('page_no_pages');?></td>
-		</tr>
-	<? endif; ?>
-	</tbody>
-</table>
-<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
-<?php echo form_close(); ?>
+<div id="page-tree" class="float-left" style="border:1px black solid; overflow:auto; width:49%; height:35em;">
+  
+<? if (!empty($pages)): ?>
+
+	<ul class="filetree">
+ 		<?php $this->load->view('admin/ajax/child_list'); ?>	
+	</ul>
+	
+<? else: ?>
+	<p><?php echo lang('page_no_pages');?></p>
+<? endif; ?>
+
+</div>
+
+<div id="page-details" class="float-right" style="border:1px black solid; width:45%; padding:1em">
+
+	<p>
+		The list on the left represents pages on your website. Click the "+" icon next to the page to show pages within it.
+		When you click a page you will see all sorts of handy information in this box.
+	</p>
+
+</div>
+
+<br class="clear-both" />

@@ -30,9 +30,40 @@ class Admin extends Admin_Controller
 	// Admin: List all Pages
 	function index()
 	{
-  		//$this->data->languages =& $this->config->item('supported_languages');
-		$this->data->pages = $this->pages_m->get(array('order' => 'parent_id, title'));
+		$pages = $this->pages_m->getByParentId(0);
+		
+		foreach($pages as &$page)
+		{
+			$page->has_children = $this->pages_m->hasChildren($page->id);
+		}
+		
+		// Load extra JavaScript and CSS for Treeview plugin
+    	$this->layout->extra_head( css('jquery/jquery.treeview.css') );
+    	$this->layout->extra_head( js('jquery/jquery.treeview.min.js') );
+    	$this->layout->extra_head( js('index.js', 'pages') );
+    	$this->layout->extra_head( css('index.css', 'pages') );
+    	
+    	$this->data->pages =& $pages;
     	$this->layout->create('admin/index', $this->data);
+ 	}
+ 	
+ 	function ajax_fetch_children($parent_id)
+ 	{
+		$pages = $this->pages_m->getByParentId($parent_id);
+		
+		foreach($pages as &$page)
+		{
+			$page->has_children = $this->pages_m->hasChildren($page->id);
+		}
+		
+    	$this->load->view('admin/ajax/child_list', array('pages' => $pages));
+ 	}
+ 	
+ 	function ajax_page_details($page_id)
+ 	{
+		$page = $this->pages_m->getById($page_id);
+		
+    	$this->load->view('admin/ajax/page_details', array('page' => $page));
  	}
     
 	// Admin: Create a new Page
