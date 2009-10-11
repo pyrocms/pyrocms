@@ -111,7 +111,7 @@
 		});
 		
 		// Facebox modal window
-		$('a[rel*=modal]').livequery(function() {
+		$('a[rel*=modal], a.modal').livequery(function() {
 			$(this).facebox({
 				opacity : 0.4,
 				loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",

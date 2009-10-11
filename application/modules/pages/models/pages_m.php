@@ -53,19 +53,10 @@ class Pages_m extends Model {
         return $this->db->get()->row();
     }
     
-	// Count the amount of pages with param X
-	function countPages($params = array())
+	// Get children from a Parent ID
+	function getByParentId($parent_id = 0)
 	{
-		$results = $this->get($params);
-		
-		if($results == FALSE)
-		{
-			return 0; 
-		}
-		else
-		{
-			return count($results);
-		}
+		return $this->get( array('parent_id' => $parent_id) );
 	}
     
     // Return an object of objects containing page data
@@ -77,11 +68,28 @@ class Pages_m extends Model {
         if(!empty($params['order']))
         {
         	$this->db->order_by($params['order']);
+        	unset($params['order']);
         }
     
-        return $this->db->get('pages')->result();
+        return $this->db->get_where('pages', $params)->result();
     }
     
+	// Count the amount of pages with param X
+	function countPages($params = array())
+	{
+		$results = $this->get($params);
+		
+		return count($results);
+	}
+    
+	function hasChildren($parent_id)
+	{
+		$this->db->where('parent_id', $parent_id);
+		return $this->db->count_all_results('pages') > 0;
+	}
+	
+	// ----- CRUD --------------------
+	
     // Create a new page
     function create($input = array())
     {
