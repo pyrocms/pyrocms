@@ -8,7 +8,7 @@ class Pages_m extends Model {
     	return $this->db->get('pages')->row();
     }
     
-    public function getByURL($segments = array())
+    public function getByPath($segments = array())
     {
 		// If the URI has been passed as a string, explode to create an array of segments
     	if(is_string($segments))
@@ -86,6 +86,17 @@ class Pages_m extends Model {
 	{
 		$this->db->where('parent_id', $parent_id);
 		return $this->db->count_all_results('pages') > 0;
+	}
+	
+	// ----- PAGE INDEX --------------
+	
+	function getPathFromId($id)
+	{
+		return @$this->db->select('path')
+					->where('id', $id)
+					->get('pages_lookup')
+					->row()
+					->path;
 	}
 	
 	// ----- CRUD --------------------

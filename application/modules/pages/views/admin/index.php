@@ -1,3 +1,8 @@
+<?php echo css('jquery/jquery.treeview.css'); ?>
+<?php echo js('jquery/jquery.treeview.min.js'); ?>
+<?php echo js('index.js', 'pages'); ?>
+<?php echo css('index.css', 'pages'); ?>
+
 <div id="page-tree" class="float-left" style="border:1px black solid; overflow:auto; width:49%; height:35em;">
   
 <? if (!empty($pages)): ?>
