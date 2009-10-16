@@ -120,8 +120,14 @@ CREATE TABLE `pages` (
  KEY `slug` (`slug`),
  KEY `parent` (`parent_id`),
  KEY `Unique` (`slug`,`parent_id`,`lang`)
-) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
+
+CREATE TABLE `pages_lookup` (
+  `id` int(11) NOT NULL,
+  `path` text character set utf8 collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lookup table for page IDs and page paths.';
 
 
 CREATE TABLE `permission_roles` (

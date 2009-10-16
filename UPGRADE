@@ -4,8 +4,8 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-30/08/09 - v0.9.6.2 to v0.9.7
------------------------------
+16/10/09 - v0.9.6.2 to v0.9.7-unstable
+--------------------------------------
 
 1.) Run the following MySQL.
 
@@ -19,6 +19,13 @@ minimise or totally remove downtime during upgrade.
 
 	ALTER TABLE pages
 	  MODIFY `parent_id` int(11) default '0';
+	 
+	CREATE TABLE `pages_lookup` (
+	  `id` int(11) NOT NULL,
+	  `path` text character set utf8 collate utf8_unicode_ci NOT NULL,
+	  PRIMARY KEY  (`id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lookup table for page IDs and page paths.';
+
 	  
 2.) Replace old files with new files.
 
