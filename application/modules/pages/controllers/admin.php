@@ -38,10 +38,10 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load extra JavaScript and CSS for Treeview plugin
-    	$this->layout->extra_head( css('jquery/jquery.treeview.css') );
+    	/*$this->layout->extra_head( css('jquery/jquery.treeview.css') );
     	$this->layout->extra_head( js('jquery/jquery.treeview.min.js') );
     	$this->layout->extra_head( js('index.js', 'pages') );
-    	$this->layout->extra_head( css('index.css', 'pages') );
+    	$this->layout->extra_head( css('index.css', 'pages') );*/
     	
     	$this->data->pages =& $pages;
     	$this->layout->create('admin/index', $this->data);
@@ -62,6 +62,7 @@ class Admin extends Admin_Controller
  	function ajax_page_details($page_id)
  	{
 		$page = $this->pages_m->getById($page_id);
+		$page->path = $this->pages_m->getPathFromId($page_id);
 		
     	$this->load->view('admin/ajax/page_details', array('page' => $page));
  	}

@@ -6,7 +6,7 @@
 		ID: #<?=$page->id; ?>
 	</p>
 	<p>
-		<?=lang('page_url_label');?>: <?=anchor($page->slug); ?>
+		<?=lang('page_url_label');?>: <?=anchor(!empty($page->path) ? $page->path : $page->slug); ?>
 	</p>
 </fieldset>
 
