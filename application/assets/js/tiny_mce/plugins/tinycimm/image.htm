@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Image Manager</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script type="text/javascript" src="../../utils/validate.js"></script>
+	<script type="text/javascript" src="js/scrollslider.js"></script>
+	<script type="text/javascript" src="js/tinycimm.js"></script>
+	<script type="text/javascript" src="js/tinycimm_image.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/tinycimmimage.css" />
+	<base target="_self" />
+</head>
+<body id="advimage" style="display: none">
+	<div class="tabs">
+		<ul>
+			<li id="browser_tab" class="current">
+				<span>
+					<a href="javascript:TinyCIMMImage.showBrowser();" onmousedown="return false;">
+						Browse
+					</a>
+				</span>
+			</li>
+			<li id="upload_tab">
+				<span>
+					<a href="javascript:TinyCIMMImage.showUploader();" onmousedown="return false;">
+						Upload
+					</a>
+				</span>
+			</li>
+			<li id="resize_tab" style="display:none">
+				<span>
+					<a href="javascript:TinyCIMMImage.loadresizer();" onmousedown="return false;">
+						Resize
+					</a>
+				</span>
+			</li>
+			<li id="manager_tab" style="display:none">
+				<span>
+					<a href="javascript:TinyCIMMImage.showManager();" onmousedown="return false;">
+						Manage
+					</a>
+				</span>
+			</li>
+			<li id="info_tab" style="float:right;margin:0px">
+				<span>
+					<a id="info_tab_link" href="javascript:;" onmousedown="return false;" title="reload dialog">
+						<img alt="reload" border="0" style="display:block;margin-top:1px" src="img/loader_st.gif" onclick="this.src='img/loader.gif';TinyCIMMImage.reload()" />
+					</a>
+				</span>
+			</li>
+		</ul>
+	</div>
+
+	<div id="image_wrapper_panel" class="panel_wrapper">
+
+		<!-- BROWSER PANEL -->
+		<div id="browser_panel" class="panel">
+			<fieldset>
+				<legend>File Browser</legend>
+				<div id="filebrowser">
+					<span id="loading">loading</span>
+				</div>
+			</fieldset>
+		</div>
+		
+		<!-- IMAGE RESIZER PANEL -->
+		<div id="resize_panel" class="panel">
+			<fieldset>
+				<legend>Image Resizer</legend>
+				<div id="save_size">
+					<input type="submit" class="button" value="Insert" onclick="TinyCIMMImage.insertResizeImage();this.value='Please wait..';" />
+				</div>
+				<div class="clear" style="height:3px">&nbsp;</div>
+				<div id="resizer">
+					<div id="image-slider"></div>
+					<div id="image-info">
+						<div id="image-info-dimensions">
+							<span id="slider_width_val">139</span> x 
+							<span id="slider_height_val">92px</span>
+						</div>
+						<img width="0" height="0" id="slider_img" src="" alt="slider" />
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<!-- IMAGE UPLOAD PANEL -->
+		<div id="upload_panel" class="panel" style="background:#FFF">
+			<fieldset>
+				<legend>Quick Image Upload</legend>
+				<div id="fileuploader">
+					<iframe frameborder="0" id="upload_target_ajax" width="100%" name="upload_target_ajax" scrolling="no"></iframe>
+				</div>
+			</fieldset>
+			<br/>
+		</div>
+ 
+		<!-- MANAGE IMAGE PANEL -->
+		<div id="manager_panel" class="panel" style="background:#FFF">
+			<fieldset>
+				<legend>Manage Image</legend>
+				<input id="image_id" type="hidden" value="" />
+				<div style="width:218px;float:right;margin:6px 6px 0 0">
+					<table border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="mng_img">
+								<a href="javascript:;">
+									<img src="img/image_save.png" alt="update" />[Update]
+								</a>
+							</td>
+							<td>&nbsp;</td>
+							<td class="mng_img">
+								<a href="javascript:;">
+									<img src="img/image_restore.png" alt="restore" />[Restore]
+								</a>
+							</td>
+							<td>&nbsp;</td>
+							<td class="mng_img">
+								<a id="del_image" href="javascript:;" onclick="TinyCIMMImage.deleteImage(this.rel)">
+									<img id="img_delete" src="img/image_delete.png" alt="delete" />[Delete]
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="manage_thumb_img"></div>
+				<div style="display:none">
+					<b>Image Name:</b>
+					<br/><input id="image_caption" type="text" style="width:160px" value="" disabled="disabled" />
+					<br/>
+				</div>
+				<strong>Image Description:</strong>
+				<div id="alttext_container">
+					<textarea id="image_alttext" style="color:#aaa;width: 160px; height: 36px;" rows="4" cols="20">loading..</textarea>
+				</div>
+				<strong>Image Folder:</strong><br/>
+				<div id="folder_select_list">
+					<img src="img/ajax-loader.gif" alt="loading" /> loading..
+				</div>
+				<!--
+				<strong>Image Info:</strong>
+				<br/> 640 x 480px - 23KB
+				-->
+			</fieldset>
+		</div>
+
+	<!-- END PANELS -->
+	</div>
+
+</body> 
+</html> 
