@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Media Manager</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script type="text/javascript" src="js/tinycimm.js"></script>
+	<script type="text/javascript" src="js/tinycimm_media.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/tinycimmimage.css" />
+	<base target="_self" />
+</head>
+<body id="advimage" style="display: none">
+	<div class="tabs">
+		<ul>
+			<li id="browser_tab" class="current">
+				<span>
+					<a href="javascript:TinyCIMMMedia.showBrowser();" onmousedown="return false;">
+						Browse
+					</a>
+				</span>
+			</li>
+			<li id="upload_tab">
+				<span>
+					<a href="javascript:TinyCIMMMedia.showUploader();" onmousedown="return false;">
+						Upload
+					</a>
+				</span>
+			</li>
+			<li id="info_tab" style="float:right;margin:0px">
+				<span>
+					<a id="info_tab_link" href="javascript:;" onmousedown="return false;" title="reload dialog">
+						<img alt="reload" border="0" style="display:block;margin-top:1px" src="img/loader_st.gif" onclick="this.src='img/loader.gif';TinyCIMMMedia.reload()" />
+					</a>
+				</span>
+			</li>
+		</ul>
+	</div>
+
+	<div id="image_wrapper_panel" class="panel_wrapper">
+
+		<!-- BROWSER PANEL -->
+		<div id="browser_panel" class="panel">
+			<fieldset>
+				<legend>File Browser</legend>
+				<div id="filebrowser">
+					<span id="loading">loading</span>
+				</div>
+			</fieldset>
+		</div>
+
+		<!-- UPLOAD PANEL -->
+		<div id="upload_panel" class="panel" style="background:#FFF">
+			<fieldset>
+				<legend>Quick File Upload</legend>
+				<div id="fileuploader">
+					<iframe frameborder="0" id="upload_target_ajax" width="100%" name="upload_target_ajax" scrolling="no"></iframe>
+				</div>
+			</fieldset>
+			<br/>
+		</div>
+	
+	</div>
+
+</body> 
+</html> 

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Manager</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script type="text/javascript" src="js/tinycimm.js"></script>
+	<script type="text/javascript" src="js/tinycimm_file.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/tinycimmimage.css" />
+	<base target="_self" />
+</head>
+<body id="advimage" style="display: none">
+	<div class="tabs">
+		<ul>
+			<li id="browser_tab" class="current">
+				<span>
+					<a href="javascript:TinyCIMMImage.showBrowser();" onmousedown="return false;">
+						Browse
+					</a>
+				</span>
+			</li>
+		</ul>
+	</div>
+
+	<div id="image_wrapper_panel" class="panel_wrapper">
+
+		<!-- BROWSER PANEL -->
+		<div id="browser_panel" class="panel">
+			<fieldset>
+				<legend>File Browser</legend>
+				<div id="filebrowser">
+					<span id="loading">loading</span>
+				</div>
+			</fieldset>
+		</div>
+	
+	</div>
+
+</body> 
+</html> 
