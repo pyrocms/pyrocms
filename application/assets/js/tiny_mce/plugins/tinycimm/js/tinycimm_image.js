@@ -78,8 +78,9 @@ ImageDialog.prototype.insertAndClose = function(image, width, height) {
 	
 // either inserts the image into the image dialog, or into the editor	
 ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
-	var win = tinyMCEPopup.getWindowArg("window"), url = this.settings.tinycimm_assets_path+image.filename;
+	var win = tinyMCEPopup.getWindowArg("window"), url = image.filename;
 	if (win != undefined) {
+		alert(url);
 		// insert into image dialog
 		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
 		if (typeof(win.ImageDialog) != "undefined") {
@@ -100,11 +101,11 @@ ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
 }
 
 ImageDialog.prototype.insertResizeImage = function(){
-	var _this = this, image_id = tinyMCEPopup.dom.get('slider_img').src.toId(), 
+	var self = this, image_id = tinyMCEPopup.dom.get('slider_img').src.toId(), 
 	width = tinyMCEPopup.dom.get('slider_width_val').innerHTML, height = tinyMCEPopup.dom.get('slider_height_val').innerHTML.replace(/px$/, '');
 	
 	this.resizeImage(image_id, width, height, function(image){
-		_this.insertImage(null, image, width, height);
+		self.insertImage(null, image, width, height);
 	});
 }
 
@@ -127,7 +128,7 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 }
 
 ImageDialog.prototype.insertThumbnail = function(anchor, imgsrc){
-	var _this = this, ed = tinyMCEPopup.editor, args = {}, el, 
+	var self = this, ed = tinyMCEPopup.editor, args = {}, el, 
 	width = this.settings.tinycimm_thumb_width, height = this.settings.tinycimm_thumb_height,
 	url = this.baseURL(this.settings.tinycimm_controller+'image/save_image_size/'+imgsrc.toId()+'/'+width+'/'+height+'/90/0');
 
@@ -149,7 +150,7 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imgsrc){
 		(tinymce.isWebKit) && ed.getWin().focus();
 
 		args = {
-			src : _this.baseURL(_this.settings.tinycimm_assets_path+image.filename),
+			src : self.baseURL(self.settings.tinycimm_assets_path+image.filename),
 			alt : image.description,
 			width : image.width,
 			height : image.height,
@@ -165,9 +166,9 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imgsrc){
 		}
 		// replace/insert the image thumbnail with anchor
 		ed.execCommand('mceInsertContent', false, 
-		'<a class="'+_this.settings.tinycimm_thumb_lightbox_class+'" '
-		+'rel="'+_this.settings.tinycimm_thumb_lightbox_gallery+'" '
-		+'href="'+_this.baseURL(_this.settings.tinycimm_assets_path+image.filename)+'">'
+		'<a class="'+self.settings.tinycimm_thumb_lightbox_class+'" '
+		+'rel="'+self.settings.tinycimm_thumb_lightbox_gallery+'" '
+		+'href="'+self.baseURL(self.settings.tinycimm_assets_path+image.filename)+'">'
 		+'<img id="__mce_tmp" /></a>', {skip_undo : 1});
 		ed.dom.setAttribs('__mce_tmp', args);
 		ed.dom.setAttrib('__mce_tmp', 'id', '');
@@ -197,7 +198,6 @@ ImageDialog.prototype.loadResizer = function(filename, event, sliderWidth) {
 	if (event && event.originalTarget && (event.originalTarget.className == 'delete' || event.originalTarget.className == 'thumbnail')) {
 		return;
 	}
-	var _this = this;
 	// completely remove the resizer image from the dom : issue 12 http://code.google.com/p/tinycimm/issues/detail?id=12
 	tinyMCEPopup.dom.remove('slider_img');
 	this.loadImage(filename, sliderWidth);
@@ -205,10 +205,10 @@ ImageDialog.prototype.loadResizer = function(filename, event, sliderWidth) {
 
 // pre-cache an image
 ImageDialog.prototype.loadImage = function(filename, sliderWidth) { 
-	var preImage = new Image(), _this = this;
+	var preImage = new Image(), self = this;
 	preImage.src = this.settings.tinycimm_assets_path+filename;
 	setTimeout(function(){
-		_this.checkImgLoad(preImage, sliderWidth);
+		self.checkImgLoad(preImage, sliderWidth);
 	},10);	// ie
 }
 
@@ -222,13 +222,13 @@ ImageDialog.prototype.checkImgLoad = function(preImage, sliderWidth) {
 }	
 
 ImageDialog.prototype.checkLoad = function(preImage, sliderWidth) {
-	var _this = this;
+	var self = this;
 	if (preImage.complete) { 
 		this.showResizeImage(preImage, sliderWidth);
 		return;
 	}
  	setTimeout(function(){
-		_this.checkLoad(preImage, sliderWidth)
+		self.checkLoad(preImage, sliderWidth)
 	}, 10);
 }
 	
