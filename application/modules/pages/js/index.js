@@ -7,10 +7,6 @@
 			toggle: function() {
 				expandTree(this);
 				return false;
-			},
-			treeController: function()
-			{
-				alert('yo');
 			}
 		});
 
@@ -44,6 +40,8 @@
 								add: branches
 							});
 						});
+						
+						$('li span', page_tree).unbind('click');
 					}
 		
 				}
@@ -52,6 +50,7 @@
 			
 		}
 	
+		$('li span', page_tree).unbind('click');
 		$('li a', page_tree).live('click', function()
 		{
 			a = $(this);
@@ -63,7 +62,14 @@
 			
 			page_id = $(this).attr('rel').replace('page-', '');
 			
-			$('div#page-details').load(BASE_URI + 'admin/pages/ajax_page_details/' + page_id);
+			// Update the "Details" panel
+			$('div#page-details').load(BASE_URI + 'admin/pages/ajax_page_details/' + page_id, function(){
+				
+				// Set new URL
+				$('div#content-head a#new-item').attr('href',  BASE_URL + 'admin/pages/create/' + $('input#page-id').attr('value') );
+				
+			});
+			
 			
 			return false;
 		});

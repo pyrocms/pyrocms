@@ -8,6 +8,12 @@ class Pages_m extends Model {
     	return $this->db->get('pages')->row();
     }
     
+    public function getByParentId($parent_id = 0)
+    {
+    	$this->db->where('parent_id', $parent_id);
+    	return $this->db->get('pages')->row();
+    }
+    
     public function getByPath($segments = array())
     {
 		// If the URI has been passed as a string, explode to create an array of segments
@@ -54,7 +60,7 @@ class Pages_m extends Model {
     }
     
 	// Get children from a Parent ID
-	function getByParentId($parent_id = 0)
+	function getChildrenByParentId($parent_id = 0)
 	{
 		return $this->get( array('parent_id' => $parent_id) );
 	}
@@ -90,7 +96,7 @@ class Pages_m extends Model {
 	
 	// ----- PAGE INDEX --------------
 	
-	function getPathFromId($id)
+	function getPathById($id)
 	{
 		return @$this->db->select('path')
 					->where('id', $id)

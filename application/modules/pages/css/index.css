@@ -3,8 +3,8 @@
 #page-tree, #page-tree ul { background-color:#eee; }
 
 #page-tree a { text-decoration: none; color:black; padding:0 0.3em }
-#page-tree a:hover { background-color: black; border:1px dotted white; color: white; }
 #page-tree a.selected { border:1px dotted black; }
+#page-tree a:hover { background-color: black; border:1px dotted white; color: white; }
 
 #page-details { background-color:lightyellow; }
 
