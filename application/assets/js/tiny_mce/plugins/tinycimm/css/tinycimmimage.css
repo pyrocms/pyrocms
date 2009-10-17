@@ -123,47 +123,52 @@ select#folderselect {}
 	border:1px solid #000;
 	border-width:0 1px 1px 0;
 	filter:alpha(opacity=75);
-	-moz-opacity:0.75;
 	opacity:0.75;
 	font-weight:bold;
 	z-index:9999;
 }
 
 #slider_img {
-	display:none;
+	display: none;
 }
 
 .heading {
-	margin-bottom:6px;
-	border:1px solid #AAA;
-	padding-left:3px;
-	border-right:1px solid #AAA;
-	background:url(../img/heading.gif) repeat-x;
-	margin-top:4px;
-	font-weight:bold;
-	height:18px;
-	line-height:18px;
+	margin-bottom: 6px;
+	border: 1px solid #AAA;
+	padding-left: 3px;
+	border-right: 1px solid #AAA;
+	background: url(../img/heading.gif) repeat-x;
+	margin-top: 4px;
+	font-weight: bold;
+	height: 18px;
+	line-height: 18px;
+}
+
+.heading .add-folder-link {
+	float: right;
+	padding-right: 2px;
+	font-weight: normal
 }
 
 .heading-info {
-	float:right;
-	display:block;
-	text-align:left;
-	width:170px;
-	font-weight:normal;
+	float: right;
+	display: block;
+	text-align: left;
+	width: 170px;
+	font-weight: normal;
 }
 
 span#loading {
-	background:url(../img/ajax-loader.gif) no-repeat;
-	padding-left:20px;
-	color:#000;
-	height:16px;
-	line-height:16px;
-	display:block;
+	background: url(../img/ajax-loader.gif) no-repeat;
+	padding-left: 20px;
+	color: #000;
+	height: 16px;
+	line-height: 16px;
+	display: block;
 }
 
 #folderlist {
-	padding-left:3px;
+	padding-left: 3px;
 }
 
 .folderlist {
@@ -199,7 +204,6 @@ span#loading {
 	border:0;
 	margin:1px;
 	filter:alpha(opacity=55);
-	-moz-opacity:0.55;
 	opacity:0.55;
 }
 
@@ -207,7 +211,6 @@ span#loading {
 	border:1px solid #AAA;
 	margin:0;
 	filter:alpha(opacity=100);
-	-moz-opacity:1;
 	opacity:1;
 }
 
@@ -286,7 +289,6 @@ span#loading {
 	z-index:99;
 	text-align:right;
 	filter:alpha(opacity=80);
-	-moz-opacity:0.8;
 	opacity:0.8;
 }
 .thumb_wrapper .controls, .thumb_wrapper_over .controls {
@@ -306,7 +308,6 @@ span#loading {
 	z-index:99;
 	background:#FFF url(../img/progress.gif) no-repeat center center;
 	filter:alpha(opacity=40);
-	-moz-opacity:0.4;
 	opacity:0.4;
 }
 
@@ -336,7 +337,6 @@ span#loading {
 	float:right;
 	background:url(../img/arrow_in.png) no-repeat center center;
 	filter:alpha(opacity=60);
-	-moz-opacity:0.6;
 	opacity:0.6;
 	margin-left:5px;
 }
@@ -351,7 +351,6 @@ span#loading {
 	background:url(../img/delete.gif) no-repeat center center;
 	margin-right:2px;
 	filter:alpha(opacity=60);
-	-moz-opacity:0.6;
 	opacity:0.6;
 }
 .thumb_wrapper .controls .thumbnail, .thumb_wrapper_over .controls .thumbnail, .list-controls .thumbnail {
@@ -363,23 +362,20 @@ span#loading {
 	float:right;
 	background:url(../img/insertthumb.gif) no-repeat center center;
 	filter:alpha(opacity=70);
-	-moz-opacity:0.7;
 	opacity:0.7;
 }
 
 .thumb_wrapper_over .controls .delete:hover {
 	filter:alpha(opacity=100);
-	-moz-opacity:1;
 	opacity:1;
 }
 .thumb_wrapper_over .controls .resize:hover {
 	filter:alpha(opacity=100);
-	-moz-opacity:1;
 	opacity:1;
 }
+
 .thumb_wrapper_over .controls .thumbnail:hover {
 	filter:alpha(opacity=100);
-	-moz-opacity:1;
 	opacity:1;
 }
 
@@ -401,7 +397,6 @@ select#view-type, select#sort-type {
 	z-index:1000;
 	background:#FFF;
 	filter:alpha(opacity=50);
-	-moz-opacity:0.5;
 	opacity:0.5;
 }
 
@@ -416,37 +411,66 @@ select#view-type, select#sort-type {
 }
 
 #dimwindowimg div {
-	text-align:center;
+	text-align: center;
+}
+
+#add-folder {
+	display: none;
+}
+
+#add-folder-caption {
+	width: 136px;
+	float: left;
+	margin-right: 2px;
+}
+
+#add-folder-image {
+	cursor: pointer;
+	float: left;
+}
+
+#add-folder-cancel-image {
+	cursor: pointer;
+}
+
+#add-folder .state-over {
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+#add-folder .state-out {
+	opacity: 0.65;
+	filter: alpha(opacity=65);
 }
 
 
 /* pagination */
 .pagination a, .pagination a:visited, .pagination b {
-	border:1px solid #F4F4F0;
-	padding:0px 2px;
-	text-decoration:none;
+	border: 1px solid #F4F4F0;
+	padding: 0px 2px;
+	text-decoration: none;
 }
 
 .pagination b {
-	color:#2B6FB6;
+	color: #2B6FB6;
 }
 
 .pagination a:hover {
-	border:1px solid #aaa;
-	padding:0px 2px;
+	border: 1px solid #aaa;
+	padding: 0px 2px;
 }
 
 /* common */
 .clear {
-	clear:left;
+	clear: left;
 }
 
 .hidden {
-	display:none;
+	display: none;
 }
 
 .right {
-	float:right;
+	float: right;
 }
 
 .clearfix:after {
@@ -460,7 +484,7 @@ select#view-type, select#sort-type {
 .clearfix { 
 	display: inline-block; 
 }
-/* requred comment for clearfix to work in Opera \*/
+
 * html .clearfix {
 	height:1%;
 }

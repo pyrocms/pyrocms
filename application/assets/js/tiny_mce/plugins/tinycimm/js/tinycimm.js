@@ -157,9 +157,9 @@ TinyCIMM.prototype.assetUploaded = function(folder) {
 	
 TinyCIMM.prototype.addFolder = function(type) {
 	type = type || 'image';
-	var foldername = encodeURIComponent(tinyMCEPopup.dom.get('add_folder_caption').value.replace(/^\s+|\s+$/g, ''));
+	var foldername = encodeURIComponent(tinyMCEPopup.dom.get('add-folder-caption').value.replace(/^\s+|\s+$/g, ''));
 	var requesturl = this.baseURL(this.settings.tinycimm_controller+this.type+'/add_folder/'+foldername+'/'+type);
-	tinymce.util.XHR.send({
+	(foldername.length) && tinymce.util.XHR.send({
 		url : requesturl,
 		error : function(response) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
@@ -170,8 +170,8 @@ TinyCIMM.prototype.addFolder = function(type) {
 					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
 			} else {
 				tinyMCEPopup.dom.setHTML('folderlist', response)
-				tinyMCEPopup.dom.get('addfolder').style.display = 'none';
-				tinyMCEPopup.dom.get('add_folder_caption').value = '';
+				tinyMCEPopup.dom.get('add-folder').style.display = 'none';
+				tinyMCEPopup.dom.get('add-folder-caption').value = '';
 			}
 		}
 	});

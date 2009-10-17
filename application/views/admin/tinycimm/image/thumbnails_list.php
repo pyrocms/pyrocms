@@ -1,12 +1,12 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
 	<td width="178" valign="top">
-		<?= $this->load->view($this->view_path.'subtpl/leftpane');?>
+		<?= $this->load->view($this->view_path.'fragments/leftpane');?>
 	</td>
 	<td width="5">&nbsp;</td>
 	<td valign="top">
 		<div class="heading">
-			<?= $this->load->view($this->view_path.'subtpl/search');?>
+			<?= $this->load->view($this->view_path.'fragments/search');?>
 		</div>
 		<div id="filelist">
 			<?if (sizeof($images) == 0) {?>
