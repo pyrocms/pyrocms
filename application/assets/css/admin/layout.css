@@ -1121,13 +1121,13 @@ ul.ui-tabs-nav {
 /**************************************/
 /*            TITLE BAR               */
 /**************************************/
-#page-title {
+#content-head {
 	height: 50px;
 	background: url(../../img/admin/sprite.png) no-repeat 100% -810px;
 	margin-left: 10px;
 }
 
-#page-title h2 {
+#content-head h2 {
 	margin: 0px 0px 0px -10px;
 	padding-left: 10px;
 	background: url(../../img/admin/sprite.png) no-repeat 0px -990px;
@@ -1137,7 +1137,7 @@ ul.ui-tabs-nav {
 	float: left;
 }
 
-#titleActions {
+#page-actions {
 	float: right;
 	overflow: hidden;
 	height: 50px;
@@ -1147,11 +1147,11 @@ ul.ui-tabs-nav {
 	margin-right: -10px;
 }
 
-#titleActions a {
+#page-actions a {
 	color: #fff;
 }
 
-#titleActions .actionBlock {
+#page-actions .actionBlock {
 	float: left;
 	height: 30px;
 	padding: 10px;
@@ -1162,22 +1162,22 @@ ul.ui-tabs-nav {
 }
 
 /* Title actions : Add post & Search */
-#titleActions .listAdd .button span.icon {
+#page-actions .listAdd .button span.icon {
 	margin-left: 10px;
 	margin-top: -4px;
 }
 
-#titleActions .listSearch .search {
+#page-actions .listSearch .search {
 	background: url("../../img/admin/sprite.png") no-repeat 0 -420px;
 	float: left;
 	padding-left: 10px;
 }
 
-#titleActions .listSearch .search label {
+#page-actions .listSearch .search label {
 	display: none;
 }
 
-#titleActions .listSearch .search input {
+#page-actions .listSearch .search input {
 	background: url("../../img/admin/sprite.png") no-repeat 100% -390px;
 	border: 0;
 	height: 18px;
@@ -1188,16 +1188,16 @@ ul.ui-tabs-nav {
 	width: 120px;
 }
 
-#titleActions .listSearch .submit {
+#page-actions .listSearch .submit {
 	float: left;
 	margin-left: 10px;
 }
 
-#titleActions .listSearch .submit button {
+#page-actions .listSearch .submit button {
 	width: 33px;
 }
 
-#titleActions .listSearch .submit button .icon {
+#page-actions .listSearch .submit button .icon {
 	margin: 1px 0 5px -6px;
 }
 
