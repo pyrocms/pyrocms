@@ -11,8 +11,8 @@
 String.prototype.toId = function(){
         var id = 
 	/get/.test(this) ? this.replace(/.*get\/([0-9]+)\/?([0-9]+)?\/?([0-9]+)?\/?/, '$1') : 
-		(/\//.test(this) ? this.replace(/.*\/([0-9]+).*$/, '$1') : 
-			this.replace(/([0-9]+).*$/, '$1'));
+	(/\//.test(this) ? this.replace(/.*\/([0-9]+).*$/, '$1') : 
+	this.replace(/([0-9]+).*$/, '$1'));
 	return isNaN(id) ? 0 : id;
 }
 String.prototype.extension = function(){
@@ -89,7 +89,7 @@ TinyCIMM.prototype.showUploader = function() {
 
 // load list of folders and files via json request
 TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback) {
-	var _this = this;
+	var self = this;
 	folder = folder || 0;
 	offset = offset || 0;
 	search_query = search_query || '';
@@ -109,7 +109,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 			for(var anchor in pagination_anchors) {
 				pagination_anchors[anchor].onclick = function(e){
 					e.preventDefault();
-					_this.fileBrowser(folder, this.href.toId().toString(), true, false);
+					self.fileBrowser(folder, this.href.toId().toString(), true, false);
 				};
 			}
 			(callback) && callback();
@@ -118,9 +118,9 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 }
 
 TinyCIMM.prototype.insert = function(asset_id) {
-	var _this = this;
+	var self = this;
 	this.get(asset_id, function(asset){
-		_this.insertAndClose(asset);
+		self.insertAndClose(asset);
 	});
 }
 	
@@ -180,10 +180,10 @@ TinyCIMM.prototype.addFolder = function(type) {
 }
 
 TinyCIMM.prototype.deleteFolder = function(folder_id) {
-	var _this = this;
+	var self = this;
 	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this folder?', function(s){
 		if (!s) { return false; }
-		var requesturl = _this.baseURL(_this.settings.tinycimm_controller+_this.type+'/delete_folder/'+folder_id);
+		var requesturl = self.baseURL(self.settings.tinycimm_controller+self.type+'/delete_folder/'+folder_id);
 		tinymce.util.XHR.send({
 			url : requesturl,
 			error : function(response) {
@@ -194,12 +194,12 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 				if (!obj.outcome) {
 					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
 	 			} else {
-					_this.getFoldersHTML(function(folderHTML){
+					self.getFoldersHTML(function(folderHTML){
 						tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
 					});
 					if (obj.images_affected > 0) {
 						tinyMCEPopup.editor.windowManager.alert(obj.images_affected+" images were moved to the root directory.");
-						_this.showBrowser(0, 0, true);
+						self.showBrowser(0, 0, true);
 					}
 	 			}
 			}
@@ -222,11 +222,11 @@ TinyCIMM.prototype.getFoldersHTML = function(callback) {
 }
 	
 TinyCIMM.prototype.deleteAsset = function(asset_id) {
-	var _this = this;
+	var self = this;
 	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this '+this.type+'?', function(s) {
 		if (!s) {return false;}
 		tinymce.util.XHR.send({
-			url : _this.baseURL(_this.settings.tinycimm_controller+_this.type+'/delete_'+_this.type+'/'+asset_id),
+			url : self.baseURL(self.settings.tinycimm_controller+self.type+'/delete_'+self.type+'/'+asset_id),
 			error : function(response) {
 				tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
 			},
@@ -235,8 +235,8 @@ TinyCIMM.prototype.deleteAsset = function(asset_id) {
 				if (!obj.outcome) {
 					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
 				} else {
-			 		_this.showBrowser(obj.folder, 0, true);
-					// _this.showFlashMsg(obj.message);
+			 		self.showBrowser(obj.folder, 0, true);
+					// self.showFlashMsg(obj.message);
 				}
 			}
 		});
@@ -244,7 +244,7 @@ TinyCIMM.prototype.deleteAsset = function(asset_id) {
 }
 	
 TinyCIMM.prototype.changeView = function(view) {
-	var _this = this;
+	var self = this;
 	// show loading image
 	tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
 	tinymce.util.XHR.send({
@@ -253,7 +253,7 @@ TinyCIMM.prototype.changeView = function(view) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
 		},
 		success : function() {
-			_this.showBrowser(0, 0, true);	
+			self.showBrowser(0, 0, true);	
 		}
 	});
 }
