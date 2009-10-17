@@ -150,7 +150,7 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imgsrc){
 		(tinymce.isWebKit) && ed.getWin().focus();
 
 		args = {
-			src : self.baseURL(self.settings.tinycimm_assets_path+image.filename),
+			src : self.baseURL(image.filename),
 			alt : image.description,
 			width : image.width,
 			height : image.height,
@@ -164,11 +164,12 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imgsrc){
 			// remove the thumb anchor
 			tinyMCEPopup.dom.remove(anchor_parent);
 		}
+
 		// replace/insert the image thumbnail with anchor
 		ed.execCommand('mceInsertContent', false, 
 		'<a class="'+self.settings.tinycimm_thumb_lightbox_class+'" '
 		+'rel="'+self.settings.tinycimm_thumb_lightbox_gallery+'" '
-		+'href="'+self.baseURL(self.settings.tinycimm_assets_path+image.filename)+'">'
+		+'href="'+self.baseURL(image.filename_orig)+'">'
 		+'<img id="__mce_tmp" /></a>', {skip_undo : 1});
 		ed.dom.setAttribs('__mce_tmp', args);
 		ed.dom.setAttrib('__mce_tmp', 'id', '');

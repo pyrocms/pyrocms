@@ -54,6 +54,7 @@ class TinyCIMM {
 		$ci = &get_instance();
 
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset->id.$asset->extension;
+		$asset->filename_orig = $this->config->item('tinycimm_asset_path').$asset->id.$asset->extension;
 		$asset->filename = $this->config->item('tinycimm_asset_cache_path').$asset->id.'_'.$width.'_'.$height.'_'.$quality.$asset->extension;
 		$asset->resize_filepath = $update ? $asset->filepath : $_SERVER['DOCUMENT_ROOT'].$asset->filename;
 
@@ -80,6 +81,7 @@ class TinyCIMM {
 		$resized_image_size = @getimagesize($asset->resize_filepath);
 		$asset->width = $resized_image_size[0];
 		$asset->height = $resized_image_size[1];
+		
 
 
 		return $asset;

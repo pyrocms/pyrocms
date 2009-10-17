@@ -7,7 +7,7 @@ class Pages extends Public_Controller
     function __construct() 
     {
         parent::Public_Controller();
-        
+
         $this->load->model('pages_m');
         
         // This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed

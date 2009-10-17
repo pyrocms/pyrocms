@@ -104,13 +104,9 @@ class Tinycimm_model extends Model {
 	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
 	function insert_folder($folder_name='', $type_name=''){
-		$result = $this->db->where('name', $type_name)->get('type')->row();
-		if ($result->id) {
-			$fields = array('type_id' => $result->id, 'name' => $folder_name);
-			$this->db->set($fields)->insert('asset_folder');
-			return $this->db->insert_id();
-		}
-		return 0;
+		$fields = array('name' => $folder_name);
+		$this->db->set($fields)->insert('asset_folder');
+		return $this->db->insert_id();
 	}
 	
 	/**
