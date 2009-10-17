@@ -25,8 +25,8 @@
 	<tr><td>View:</td><td>
 	<select style="border:1px solid #AAA" onchange="TinyCIMMImage.changeView(this.options[this.selectedIndex].value)">
 		<optgroup label="Views">
-			<option value="listing">File Listing</option>
-			<option selected>Thumbnails</option>
+			<option value="listing"<?=$this->session->userdata('cimm_view')=='listing'?' selected':'';?>>File Listing</option>
+			<option value="thumbnails"<?=$this->session->userdata('cimm_view')=='thumbnails'?' selected':'';?>>Thumbnails</option>
 		</optgroup>
 	</select></td></tr>
 </table>

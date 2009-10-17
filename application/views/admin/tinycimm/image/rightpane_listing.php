@@ -1,23 +1,34 @@
-<ul class="folderlist">
-	<?foreach($folders as $folder):?>
-	<li>
-		<span class="folder-row" id="folder-<?=$folder['id'];?>" onMouseOver="this.style.color='#000066';this.style.background='#EEEEEE';" onMouseOut="this.style.color='#000000';this.style.background='#FFFFFF';">
-			<span class="editimg">
-				<!--
-				<a href="javascript:;">
-					<img height="13" onclick="editFolder('53');" title="edit" src="img/pencil_sm.png"/>
-				</a>
-				-->
-				<a href="javascript:;">
-					<img onclick="TinyCIMMImage.deleteFolder('<?=$folder['id'];?>');" title="remove" src="img/delete.gif"/>
-				</a>
-			</span>
-			<span class="foldername" onClick="TinyCIMMImage.fileBrowser('<?=$folder['id'];?>', 0, true, this);">
-				<img class="folderimg" id="img-<?=$folder['id'];?>" src="img/folder.gif" />
-				<?=$folder['name'];?>/
-			</span>
-		</span>
-		<br class="clear" />
-	</li>
-	<?endforeach;?>
-</ul>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td width="178" valign="top">
+			<?= $this->load->view($this->view_path.'fragments/leftpane');?>
+		</td>
+		<td width="5">&nbsp;</td>
+		<td valign="top">
+			<div class="heading">
+				<?= $this->load->view($this->view_path.'fragments/search');?>
+			</div>
+			<div id="filelist">
+				<ul class="folderlist clearfix">
+				<?if (sizeof($images) == 0) {?>
+					<li>(folder is empty)</li>
+				<?} else {?>
+					<?foreach($images as $image):?>
+					<li>
+						<span class="clearfix list-item" id="image-<?=$image['id'];?>" onclick="TinyCIMMImage.loadResizer('<?=$image['id'].$image['extension'];?>', event)" title="insert image" onMouseOver="this.style.color='#000066';this.style.background='#EEEEEE';" onMouseOut="this.style.color='#000000';this.style.background='#FFFFFF';">
+							<span class="list-controls">
+								<a href="#" title="delete image" class="delete" onclick="TinyCIMMImage.deleteImage(<?=$image['id'];?>);return false">&nbsp;</a>
+								<a href="#" title="insert thumbnail" class="thumbnail" onclick="TinyCIMMImage.insertThumbnail(this, '<?=$image['filename'];?>');return false">&nbsp;</a>
+</span>
+							<img id="img-<?=$image['id'];?>" class="image_preview" src="img/icons/<?=str_replace('.', '', $image['extension']);?>.gif" />
+							<?=$image['name'];?>
+						</span>
+					</li>
+					<?endforeach;?>
+				<?}?>
+				</ul>
+			</div>
+			<?=$this->pagination->create_links();?>
+		</td>
+	</tr>
+</table>
