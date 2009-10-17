@@ -1,9 +1,8 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['tinycimm_controller'] = '/assetmanager/'; // as a uri segment
-$config['tinycimm_views_root'] = '/tinycimm/';
+$config['tinycimm_views_root'] = '/admin/tinycimm/';
 $config['tinycimm_views_root_image'] = 'image/';
-$config['tinycimm_views_root_media'] = 'media/';
 
 // document root directory (ie root of your application)
 // these two directories need to have write permissions
