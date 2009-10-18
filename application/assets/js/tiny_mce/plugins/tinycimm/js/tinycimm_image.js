@@ -31,16 +31,16 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 	}
 	this.getBrowser(folder, offset, search_query, function(){
 		// bind hover event to thumbnail
-		var thumb_images = tinyMCEPopup.dom.select('.thumb_wrapper');
+		var thumb_images = tinyMCEPopup.dom.select('.thumb-wrapper');
 		for(var image in thumb_images) {
 			thumb_images[image].onmouseover = function(e){
 				tinyMCE.activeEditor.dom.addClass(this, 'show');
-				tinyMCE.activeEditor.dom.addClass(this, 'thumb_wrapper_over');
+				tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper-over');
 			}
 			thumb_images[image].onmouseout = function(e){
 				tinyMCE.activeEditor.dom.removeClass(this, 'show');
-				tinyMCE.activeEditor.dom.removeClass(this, 'thumb_wrapper_over');
-				tinyMCE.activeEditor.dom.addClass(this, 'thumb_wrapper');
+				tinyMCE.activeEditor.dom.removeClass(this, 'thumb-wrapper-over');
+				tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper');
 			};
 		}
 	});
@@ -127,17 +127,17 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 	});
 }
 
-ImageDialog.prototype.insertThumbnail = function(anchor, imgsrc){
+ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 	var self = this, ed = tinyMCEPopup.editor, args = {}, el, 
 	width = this.settings.tinycimm_thumb_width, height = this.settings.tinycimm_thumb_height,
-	url = this.baseURL(this.settings.tinycimm_controller+'image/save_image_size/'+imgsrc.toId()+'/'+width+'/'+height+'/90/0');
+	url = this.baseURL(this.settings.tinycimm_controller+'image/save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
 
 	// show spinner image
 	if (typeof anchor == 'object' && anchor.nodeName == 'A') {
 		anchor.style.background = 'url(img/ajax-loader-sm.gif) no-repeat center center';
 	}
 
-	this.resizeImage(imgsrc.toId(), width, height, function(image){
+	this.resizeImage(imageId.toId(), width, height, function(image){
 		// if an advimage dialog window is already open
 		var origWin = tinyMCEPopup.getWindowArg("tinyMCEPopup");
 		if (origWin != undefined) {
@@ -231,7 +231,7 @@ ImageDialog.prototype.checkLoad = function(preImage, sliderWidth) {
  	setTimeout(function(){
 		self.checkLoad(preImage, sliderWidth)
 	}, 10);
-}
+};
 	
 // show resizer image
 ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
@@ -264,11 +264,37 @@ ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
 			}
 		}
 	});
+};
+
+ImageDialog.prototype.showManager = function(anchor, imageId) {
+	var self = this;
+	// display panel
+	mcTabs.displayTab('manager_tab','manager_panel');
+	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
+	tinyMCEPopup.dom.get('manager_tab').style.display = 'block';
+	// show spinner image
+	if (typeof anchor == 'object' && anchor.nodeName == 'A') {
+		anchor.style.background = 'url(img/ajax-loader-sm.gif) no-repeat center center';
+	}
+
+	this.get(imageId, function(image){
+		anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
+		tinyMCEPopup.dom.get('image-preview').src = image.controller+'image/get/'+image.id+'/300/200';
+		tinyMCEPopup.dom.get('image-alttext').innerHTML = image.description;
+		tinyMCEPopup.dom.get('update-image').onclick = function(e){
+			alert('update image');
+		};
+		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
+			self.deleteImage(image.id);
+		};
+		self.loadSelect(image.folderid);
+		console.debug(image);
+	});
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {
 	this.deleteAsset(imageid);
-}	
+};	
 
 var TinyCIMMImage = new ImageDialog();
 TinyCIMMImage.preInit();

@@ -5,69 +5,78 @@
  *
  */
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
-	overflow:hidden;
+	overflow: hidden;
 }
 
 input#search-input {
-	float:right;
-	background:transparent;
-	padding:1px 0px 1px 2px;
-	border:1px solid #ccc;
-	border-width:0px 0px 0px 1px;
-	width:110px;
-	font-size:11px;
+	float: right;
+	background: transparent;
+	padding: 1px 0px 1px 2px;
+	border: 1px solid #ccc;
+	border-width: 0px 0px 0px 1px;
+	width: 110px;
+	font-size: 11px;
 }
 
 a img {
-	border:0;
+	border: 0;
 }
 
 img {
-	border:0;
+	border: 0;
+}
+
+p {
+	margin-bottom: 1em;
 }
 
 #prev {
-	margin:0;
-	border:1px solid #000;
-	height:235px;
-	overflow:auto;
-	padding:0;
-	width:508px;
+	margin: 0;
+	border: 1px solid #000;
+	height: 235px;
+	overflow: auto;
+	padding: 0;
+	width: 508px;
 }
 
 .alignPreview {
-	border:1px solid #000;
-	width:500px;
-	height:160px;
-	overflow:hidden;
-	padding:5px;
+	border: 1px solid #000;
+	width: 500px;
+	height: 160px;
+	overflow: hidden;
+	padding: 5px;
 }
 
 #browser_panel {
-	height:auto;
+	height: auto;
 }
 
 #filelist {
-	height:334px;
-	margin:0;
-	width:100%;
-	padding-left:3px;
-	overflow:hidden;
-	z-index:999;
-	position:relative;
+	height: 334px;
+	margin: 0;
+	width: 100%;
+	padding-left: 3px;
+	overflow: hidden;
+	z-index: 999;
+	position: relative;
 }
 
 #fileuploader {
-	height:300px;
-	width:100%;
-	overflow:hidden;
+	height: 300px;
+	width: 100%;
+	overflow: hidden;
 }
 
 #upload_target_ajax {
-	height:240px;
-	width:100%;
-	border:0;
+	height: 240px;
+	width: 100%;
+	border: 0;
 }
 
 select#folderselect {}
@@ -78,10 +87,10 @@ select#folderselect {}
 }
 
 #contextmenu .menuTitle {
-	background:#EEE url(../img/heading.gif) repeat-x;
-	height:20px;
-	font-weight:bold;
-	padding:3px 0 0 3px;
+	background: #EEE url(../img/heading.gif) repeat-x;
+	height: 20px;
+	font-weight: bold;
+	padding: 3px 0 0 3px;
 }
 
 #image_wrapper_panel, #resize_panel {
@@ -262,8 +271,8 @@ span#loading {
 	white-space:nowrap;
 }
 
-.thumb_wrapper, .thumb_wrapper .thumb, 
-.thumb_wrapper_over .thumb_wrapper_over .thumb {
+.thumb-wrapper, .thumb-wrapper .thumb, 
+.thumb-wrapper-over .thumb-wrapper-over .thumb {
 	cursor:pointer;
 	display:block;
 	width:99px;
@@ -273,13 +282,13 @@ span#loading {
 	margin:0px 12px 12px 0px;
 	position:relative;
 }
-.thumb_wrapper {
+.thumb-wrapper {
 	border:1px solid #DDD;
 }
-.thumb_wrapper_over {
+.thumb-wrapper-over {
 	border:1px solid #8094A4;
 }
-.thumb_wrapper .controls-bg, .thumb_wrapper_over .controls-bg {
+.thumb-wrapper .controls-bg, .thumb-wrapper-over .controls-bg {
 	background:#FFF;
 	position:absolute;
 	bottom:0;
@@ -291,7 +300,7 @@ span#loading {
 	filter:alpha(opacity=80);
 	opacity:0.8;
 }
-.thumb_wrapper .controls, .thumb_wrapper_over .controls {
+.thumb-wrapper .controls, .thumb-wrapper-over .controls {
 	position:absolute;
 	bottom:0;
 	left:0;
@@ -301,7 +310,7 @@ span#loading {
 	text-align:right;
 }
 
-.thumb_wrapper .loader, .thumb_wrapper_over .loader {
+.thumb-wrapper .loader, .thumb-wrapper-over .loader {
 	position:absolute;
 	height:100%;
 	width:100%;
@@ -311,7 +320,7 @@ span#loading {
 	opacity:0.4;
 }
 
-.thumb_wrapper span.loader, .thumb_wrapper_over span.loader {
+.thumb-wrapper span.loader, .thumb-wrapper-over span.loader {
 	display:none;
 }
 
@@ -320,63 +329,78 @@ span#loading {
 }
 
 .list-controls {
-	float:right;
+	float: right;
 }
 
 .list-item {
-	cursor:pointer;
-	display:block;
+	cursor: pointer;
+	display: block;
 }
 
-.thumb_wrapper .controls .resize, .thumb_wrapper_over .controls .resize, .list-controls .resize {
-	text-decoration:none;
-	cursor:pointer;
-	display:block;
-	width:13px;
-	height:13px;
-	float:right;
-	background:url(../img/arrow_in.png) no-repeat center center;
-	filter:alpha(opacity=60);
-	opacity:0.6;
-	margin-left:5px;
+.thumb-wrapper .controls .resize, .thumb-wrapper-over .controls .resize, .list-controls .resize {
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/arrow_in.png) no-repeat center center;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	margin-left: 5px;
 }
-.thumb_wrapper .controls .delete, .thumb_wrapper_over .controls .delete, .list-controls .delete {
-	margin-left:0.4em;
-	text-decoration:none;
-	cursor:pointer;
-	display:block;
-	width:13px;
-	height:13px;
-	float:right;
-	background:url(../img/delete.gif) no-repeat center center;
-	margin-right:2px;
-	filter:alpha(opacity=60);
-	opacity:0.6;
+.thumb-wrapper .controls .delete, .thumb-wrapper-over .controls .delete, .list-controls .delete {
+	margin-left: 0.4em;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/delete.gif) no-repeat center center;
+	margin-right: 2px;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	display: none;
 }
-.thumb_wrapper .controls .thumbnail, .thumb_wrapper_over .controls .thumbnail, .list-controls .thumbnail {
-	text-decoration:none;
-	cursor:pointer;
-	display:block;
-	width:13px;
-	height:13px;
-	float:right;
-	background:url(../img/insertthumb.gif) no-repeat center center;
-	filter:alpha(opacity=70);
-	opacity:0.7;
-}
-
-.thumb_wrapper_over .controls .delete:hover {
-	filter:alpha(opacity=100);
-	opacity:1;
-}
-.thumb_wrapper_over .controls .resize:hover {
-	filter:alpha(opacity=100);
-	opacity:1;
+.thumb-wrapper .controls .thumbnail, .thumb-wrapper-over .controls .thumbnail, .list-controls .thumbnail {
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/insertthumb.gif) no-repeat center center;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
 }
 
-.thumb_wrapper_over .controls .thumbnail:hover {
-	filter:alpha(opacity=100);
-	opacity:1;
+.thumb-wrapper .controls .edit, .thumb-wrapper-over .controls .edit {
+	margin-left: 0.4em;
+	margin-right: 0.2em;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/pencil_sm.png) no-repeat center center;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+
+.thumb-wrapper-over .controls .delete:hover {
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+.thumb-wrapper-over .controls .resize:hover {
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+.thumb-wrapper-over .controls .thumbnail:hover {
+	filter: alpha(opacity=100);
+	opacity: 1;
 }
 
 select#view-type, select#sort-type {
@@ -441,6 +465,20 @@ select#view-type, select#sort-type {
 #add-folder .state-out {
 	opacity: 0.65;
 	filter: alpha(opacity=65);
+}
+
+/* Manager */
+#alttext-container textarea {
+	width: 240px;
+	height: 36px;
+}
+
+#manager-actions .update {
+	background-position: 0 -52px;
+}
+
+#manager-actions .delete {
+	background-position: 0 0;
 }
 
 

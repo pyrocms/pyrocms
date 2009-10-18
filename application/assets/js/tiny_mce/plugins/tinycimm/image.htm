@@ -38,7 +38,7 @@
 			</li>
 			<li id="manager_tab" style="display:none">
 				<span>
-					<a href="javascript:TinyCIMMImage.showManager();" onmousedown="return false;">
+					<a href="#" onmousedown="return false;">
 						Manage
 					</a>
 				</span>
@@ -101,44 +101,27 @@
 		<div id="manager_panel" class="panel" style="background:#FFF">
 			<fieldset>
 				<legend>Manage Image</legend>
-				<input id="image_id" type="hidden" value="" />
-				<div style="width:218px;float:right;margin:6px 6px 0 0">
-					<table border="0" cellpadding="0" cellspacing="0" width="100%">
-						<tr>
-							<td class="mng_img">
-								<a href="javascript:;">
-									<img src="img/image_save.png" alt="update" />[Update]
-								</a>
-							</td>
-							<td>&nbsp;</td>
-							<td class="mng_img">
-								<a href="javascript:;">
-									<img src="img/image_restore.png" alt="restore" />[Restore]
-								</a>
-							</td>
-							<td>&nbsp;</td>
-							<td class="mng_img">
-								<a id="del_image" href="javascript:;" onclick="TinyCIMMImage.deleteImage(this.rel)">
-									<img id="img_delete" src="img/image_delete.png" alt="delete" />[Delete]
-								</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div id="manage_thumb_img"></div>
 				<div style="display:none">
 					<b>Image Name:</b>
 					<br/><input id="image_caption" type="text" style="width:160px" value="" disabled="disabled" />
 					<br/>
 				</div>
+				<strong>Preview</strong>
+				<p>
+					<img id="image-preview" />
+				</p>
 				<strong>Image Description:</strong>
-				<div id="alttext_container">
-					<textarea id="image_alttext" style="color:#aaa;width: 160px; height: 36px;" rows="4" cols="20">loading..</textarea>
-				</div>
+				<p id="alttext-container">
+					<textarea id="image-alttext" rows="4" cols="20">loading..</textarea>
+				</p>
 				<strong>Image Folder:</strong><br/>
-				<div id="folder_select_list">
+				<p id="folder_select_list">
 					<img src="img/ajax-loader.gif" alt="loading" /> loading..
-				</div>
+				</p>
+				<p id="manager-actions"±>
+					<input id="update-image" type="button" value="Update" class="button update" />
+					<input id="delete-image" type="button" value="Delete" class="button delete" />
+				</p>
 				<!--
 				<strong>Image Info:</strong>
 				<br/> 640 x 480px - 23KB
