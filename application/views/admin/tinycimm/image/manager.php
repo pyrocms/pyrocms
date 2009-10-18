@@ -8,7 +8,9 @@
 	</div>
 	<strong>Preview</strong>
 	<p>
-		<img id="image-preview" src="<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image->id;?>/300/200" />
+		<a id="image-preview-popup" href="#" title="view larger version">
+			<img id="image-preview" src="<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image->id;?>/300/200" />
+		</a>
 	</p>
 	<strong>Image Description:</strong>
 	<p id="alttext-container">
