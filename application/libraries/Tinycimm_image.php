@@ -64,6 +64,12 @@ class TinyCIMM_image extends TinyCIMM {
 		exit;
 	}
 
+	public function get_manager($image_id=0){
+		$ci = &get_instance();
+		$data['image'] = $ci->tinycimm_model->get_asset($image_id);
+		$ci->load->view($this->view_path.'manager', $data);
+	}
+
 	/**
 	* get browser 
 	**/

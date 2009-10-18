@@ -19,7 +19,7 @@
 						</span>
 						<span class="controls-bg"></span>
 						<span class="controls">
-							<a href="#" class="edit" onclick="TinyCIMMImage.showManager(this, <?=$image['id'];?>);return false;">&nbsp;</a>
+							<a href="#" title="edit image" class="edit" onclick="TinyCIMMImage.showManager(this, <?=$image['id'];?>);return false;">&nbsp;</a>
 							<a href="#" title="delete image" class="delete" onclick="TinyCIMMImage.deleteImage(<?=$image['id'];?>);return false;">&nbsp;</a>
 							<a href="#" title="insert thumbnail" class="thumbnail" onclick="TinyCIMMImage.insertThumbnail(this, '<?=$image['id'];?>');return false;">&nbsp;</a>
 
