@@ -131,14 +131,14 @@ class TinyCIMM_image extends TinyCIMM {
 			exit;
 		}
 		$ci = &get_instance();
-		if (!$ci->tinycimm_model->update_asset((int) $image_id, $_POST['folder_id'], $_POST['name'], $_POST['description'])) {
+		if (!$ci->tinycimm_model->update_asset($image_id, $_POST['folder_id'], $_POST['name'], $_POST['description'])) {
 			$response['outcome'] = false;
 			$response['message'] = 'Image not found.';
 			$this->response_encode($response);
 			exit;
 		}
 		$response['outcome'] = true;
-		$response['message'] = 'Image successfully deleted.';
+		$response['message'] = 'Image successfully updated.';
 		$this->response_encode($response);
 		exit;
 	}

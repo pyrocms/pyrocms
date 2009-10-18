@@ -281,14 +281,14 @@ ImageDialog.prototype.showManager = function(anchor, imageId) {
 		anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
 		tinyMCEPopup.dom.get('image-preview').src = image.controller+'image/get/'+image.id+'/300/200';
 		tinyMCEPopup.dom.get('image-alttext').innerHTML = image.description;
+		tinyMCEPopup.dom.get('image-name').value = image.name;
 		tinyMCEPopup.dom.get('update-image').onclick = function(e){
-			alert('update image');
+			self.updateAsset(image.id);
 		};
 		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
 			self.deleteImage(image.id);
 		};
-		self.loadSelect(image.folderid);
-		console.debug(image);
+		self.loadSelect(image.folder_id);
 	});
 }
 	
