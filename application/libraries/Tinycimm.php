@@ -90,53 +90,65 @@ class TinyCIMM {
 	/**
 	* upload asset to directory and insert info into DB
 	**/
-	public function upload_asset($upload_config) {
+	public function upload_assets($upload_config) {
 		$ci = &get_instance();
-		// if file has been uploaded
-		if (isset($_FILES[$upload_config['field_name']]['name']) and $_FILES[$upload_config['field_name']]['name'] != '') {
+
+		if (isset($_FILES) and count($_FILES)) {
 
 			// load upload library
 			$ci->load->library('upload', $upload_config);
 
-			// move file into specified upload directory	
-			if (!$ci->upload->do_upload($upload_config['field_name']))  {
-			 	/* upload failed */  
-				$this->tinymce_alert(preg_replace('/<[^>]+>/', '', $ci->upload->display_errors()));
-				exit;
-	  		}
+			foreach($_FILES as $input_name => $file) {
+			
+				if ($file['name'] != "") {	
 
-			$asset_data = $ci->upload->data();
-			$description = trim($ci->input->post('description'));
-			$folder = (int) $ci->input->post('uploadfolder');
+					// move file into specified upload directory	
+					if (!$ci->upload->do_upload($input_name))  {
+						/* upload failed */  
+						$this->tinymce_alert(preg_replace('/<[^>]+>/', '', $ci->upload->display_errors()));
+						exit;
+					}
 
-			if (empty($description)) {
-				$this->tinymce_alert('Please supply a brief description for the file.');
-				exit;
+					$asset_data = $ci->upload->data();
+
+					$description = preg_replace("/\\\/", '/', $file['name']);
+					$description = preg_replace("/.*\/|\.\w*$/", "", $description);
+					$description = preg_replace("/[_-]/", " ", $description);
+					$description = preg_replace("/\s{2,}/", " ", $description);
+
+					$folder = (int) $ci->input->post('uploadfolder');
+
+					// insert the asset info into the db
+					$last_insert_id = 
+					$ci->tinycimm_model->insert_asset(
+						$folder, 
+						strtolower(basename($asset_data['orig_name'])), 
+						'', 
+						$description, 
+						strtolower($asset_data['file_ext']), 
+						$file['type'],
+						$file['size']
+					);
+
+					$ci->tinycimm_model->update_asset('id', $last_insert_id, 0, '', '', $last_insert_id.strtolower($asset_data['file_ext']));
+					$asset = $ci->tinycimm_model->get_asset($last_insert_id);
+					$asset->width = isset($asset_data['image_width']) ? $asset_data['image_width'] : '';
+					$asset->height = isset($asset_data['image_height']) ? $asset_data['image_height'] : '';
+
+					// resize image
+					$max_x = (int) $ci->input->post('max_x');
+					$max_y = (int) $ci->input->post('max_y');
+					$adjust_size = (int) $ci->input->post('adjust_size') === 1 and ($asset->width > $max_x or $asset->height > $max_y);
+					if ($adjust_size and ($asset->width > $max_x or $asset->height > $max_y)) {
+						$this->resize_asset($asset, $max_x, $max_y, 90, true, true);
+					}
+
+					// rename the uploaded file, CI's Upload library does not handle custom file naming 	
+					rename($asset_data['full_path'], $asset_data['file_path'].$asset->id.strtolower($asset->extension));
+				}
 			}
 
-			// insert the asset info into the db
-			$last_insert_id = 
-			$ci->tinycimm_model->insert_asset(
-				$folder, 
-				strtolower(basename($asset_data['orig_name'])), 
-				'', 
-				$description, 
-				strtolower($asset_data['file_ext']), 
-				$_FILES[$upload_config['field_name']]['type'],
-				$_FILES[$upload_config['field_name']]['size']
-			);
-
-			$ci->tinycimm_model->update_asset('id', $last_insert_id, 0, '', '', $last_insert_id.strtolower($asset_data['file_ext']));
-			$asset = $ci->tinycimm_model->get_asset($last_insert_id);
-			$asset->width = isset($asset_data['image_width']) ? $asset_data['image_width'] : '';
-			$asset->height = isset($asset_data['image_height']) ? $asset_data['image_height'] : '';
-			$asset->folder = $folder;
-			$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset->id.strtolower($asset->extension);
-
-			// rename the uploaded file, CI's Upload library does not handle custom file naming 	
-			rename($asset_data['full_path'], $asset_data['file_path'].$asset->id.strtolower($asset->extension));
-
-			return $asset;
+			return $folder;
 			  
 		} else {
 			$this->tinymce_alert('Please select a file to upload.');

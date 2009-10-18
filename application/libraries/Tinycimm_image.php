@@ -44,22 +44,12 @@ class TinyCIMM_image extends TinyCIMM {
 	* uploads an asset and insert info into db
 	**/
 	public function upload(){
-		$ci = &get_instance();
-
-		$asset = $this->upload_asset($this->config->item('tinycimm_image_upload_config'));
+		$folder_id = $this->upload_assets($this->config->item('tinycimm_image_upload_config'));
 		
-		// resize image
-		$max_x = (int) $ci->input->post('max_x');
-		$max_y = (int) $ci->input->post('max_y');
-		$adjust_size = (int) $ci->input->post('adjust_size') === 1 and ($asset->width > $max_x or $asset->height > $max_y);
-		if ($adjust_size and ($asset->width > $max_x or $asset->height > $max_y)) {
-			$this->resize_asset($asset, $max_x, $max_y, 90, true, true);
-		}
-
 		echo
 		"<script type=\"text/javascript\">
 		parent.removedim();
-		parent.parent.TinyCIMMImage.assetUploaded(".$asset->id.");
+		parent.parent.TinyCIMMImage.assetUploaded(".$folder_id.");
 		</script>";
 		exit;
 	}

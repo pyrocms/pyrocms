@@ -3,8 +3,10 @@
 <head>
 	<title>Upload Image Form</title>
 	<style type="text/css" media="screen">
-		html, body {background:#FFF;}
+		html, body {background:#FFF;height:500px;}
 		body {margin:0;}
+		.fileuploadinput {font-weight:bold;}
+		.fileuploadinput a {font-weight:normal;}
 	</style>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -40,18 +42,34 @@
 
 		window.onload = function() {
 			document.forms[0].action = parent.tinyMCEPopup.editor.documentBaseURI.toAbsolute(parent.tinyMCE.settings.tinycimm_controller+'image/upload');
-			// create description based on filename
-			document.getElementById('fileupload').onchange = function(e) {
-				if (this.value) {
-					document.getElementById('description').value = 
-					this.value
-					.replace(/\\/g, '/')
-					.replace(/.*\/|\.\w*$/g, '')
-					.replace(/[_-]/g, ' ')
-					.replace(/\s{2,}/g, ' ');
-				}
-			}
+			document.getElementById('fileupload').multiFileUpload();
 		}
+
+		Object.prototype.multiFileUpload = function(){
+			var i=1;
+			this.onchange = function(){
+				var 
+				container = document.createElement('div'),
+				removeanchor = document.createElement('a'),
+				newinput = this.cloneNode(true);
+				container.className = 'fileuploadinput';
+				newinput.setAttribute('name', newinput.name+i);
+				newinput.style.display = 'none';
+				removeanchor.href = '#';
+				removeanchor.onclick = function(e){
+					e.preventDefault();
+					container.parentNode.removeChild(container);
+				};
+				removeanchor.innerHTML = '[remove]';
+				container.innerHTML = this.value+" ";
+				container.appendChild(removeanchor);
+				container.appendChild(newinput);
+				this.parentNode.appendChild(container);
+				this.value = '';
+				i++;
+			};
+			return this;
+		};
 	//]]>
 	</script>
 	<base target="_self" />
@@ -66,15 +84,9 @@
 				<td colspan="3"><?=str_replace('|', ', ', $upload_config['allowed_types']);?></td>
 			</tr>
 			<tr>
-				<td>Select File</td>
+				<td valign="top">Select File/s</td>
 				<td colspan="3">
 					<input type="file" id="fileupload" name="fileupload" size="25" style="display:inline;width:220px;" />
-				</td>
-			</tr>
-			<tr>
-				<td valign="top">Description</td>
-				<td colspan="3">
-					<textarea name="description" id="description" cols="26" rows="3"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -115,6 +127,5 @@
 		</tbody>
 		</table>
 	</form>
-	<br /><br />
 </body>
 </html>

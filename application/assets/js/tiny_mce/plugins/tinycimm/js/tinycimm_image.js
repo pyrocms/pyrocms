@@ -190,6 +190,7 @@ ImageDialog.prototype.loadUploader = function() {
 		tinyMCEPopup.dom.get('upload_target_ajax').src = this.baseURL(this.settings.tinycimm_controller+'image/get_uploader_form');
 	} else {
 		window.frames['upload_target_ajax'].document.forms.uploadform.reset();
+		
 	}
 	// refresh the select drop down 
 	this.loadSelect();
@@ -323,9 +324,19 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 }
 
 // file successfully uploaded callback function
-ImageDialog.prototype.assetUploaded = function(asset_id) {
+ImageDialog.prototype.assetUploaded = function(folder_id) {
 	this.recache = true;
-	this.showManager(false, asset_id);
+	var remove = [];
+	var uploadform = window.frames['upload_target_ajax'].document.forms.uploadform;
+	// remove multiple file upload junk
+	var divs = uploadform.getElementsByTagName('div');
+	for(var i=0;i<divs.length;i++) {
+		(divs[i].className == 'fileuploadinput') && remove.push(divs[i]);
+	}
+	for(var el in remove) {
+		remove[el].parentNode.removeChild(remove[el]);
+	}
+	this.showBrowser(folder_id);
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {
