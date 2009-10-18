@@ -7,6 +7,8 @@
 	<li>codeigniter/logs <?php echo $perm_status['codeigniter/logs'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
 	<li>application/cache <?php echo $perm_status['application/cache'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
 	<li>application/uploads <?php echo $perm_status['application/uploads'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+	<li>application/uploads/assets <?php echo $perm_status['application/uploads/assets'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+	<li>application/uploads/assets/cache <?php echo $perm_status['application/uploads/assets/cache'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
 	<li>application/assets/img/galleries <?php echo $perm_status['application/assets/img/galleries'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
 	<li>application/assets/img/products <?php echo $perm_status['application/assets/img/products'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
 	<li>application/assets/img/staff <?php echo $perm_status['application/assets/img/staff'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
