@@ -110,7 +110,7 @@ class TinyCIMM_image extends TinyCIMM {
 		}
 
 		$totimagesize = (int) $ci->tinycimm_model->get_filesize_assets($folder) / 1024;
-		$data['selected_folder_info']['total_file_size'] = ($totimagesize > 1024) ? round($totimagesize/1024, 2).'mb' : $totimagesize.'kb';
+		$data['selected_folder_info']['total_file_size'] = ($totimagesize > 1024) ? round($totimagesize/1024, 2).'mb' : round($totimagesize).'kb';
 
 		$data['images'] = array();
 		foreach($assets = $ci->tinycimm_model->get_assets((int) $folder, $offset, $per_page, $search) as $image) {

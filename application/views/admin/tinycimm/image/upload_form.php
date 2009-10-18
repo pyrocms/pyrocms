@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Upload Image Form</title>
@@ -7,6 +7,7 @@
 		body {margin:0;}
 	</style>
 	<script type="text/javascript">
+	//<![CDATA[
 		var tinymce = parent.tinymce;
 		// load popup css
 		tinymce.EditorManager.activeEditor.windowManager.createInstance('tinymce.dom.DOMUtils', document).loadCSS(tinymce.EditorManager.activeEditor.settings.popup_css);
@@ -39,6 +40,7 @@
 
 		window.onload = function() {
 			document.forms[0].action = parent.tinyMCEPopup.editor.documentBaseURI.toAbsolute(parent.tinyMCE.settings.tinycimm_controller+'image/upload');
+			// create description based on filename
 			document.getElementById('fileupload').onchange = function(e) {
 				if (this.value) {
 					document.getElementById('description').value = 
@@ -50,6 +52,7 @@
 				}
 			}
 		}
+	//]]>
 	</script>
 	<base target="_self" />
 </head>
@@ -57,9 +60,11 @@
 	<iframe id="hidden_iframe" name="hidden_iframe" src="javascript:false" style="display:none"></iframe>
 	<form method="post" target="hidden_iframe" enctype="multipart/form-data" action="#" id="uploadform" name="uploadform">
 		<table border="0" cellpadding="4" cellspacing="2">
+		<tbody>
 			<tr>
 				<td>Allowed Types</td>
 				<td colspan="3"><?=str_replace('|', ', ', $upload_config['allowed_types']);?></td>
+			</tr>
 			<tr>
 				<td>Select File</td>
 				<td colspan="3">
@@ -69,7 +74,7 @@
 			<tr>
 				<td valign="top">Description</td>
 				<td colspan="3">
-					<textarea name="description" id="description"></textarea>
+					<textarea name="description" id="description" cols="26" rows="3"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -104,9 +109,10 @@
 			</tr>
 			<tr>
 				<td colspan="4">
-					<input type="submit" class="button" name="submit_upload" value="Upload" onclick="dimimage();document.forms['uploadform'].submit();">
+					<input type="submit" class="button" name="submit_upload" value="Upload" onclick="dimimage();document.forms['uploadform'].submit();" />
 				</td>
 			</tr>
+		</tbody>
 		</table>
 	</form>
 	<br /><br />
