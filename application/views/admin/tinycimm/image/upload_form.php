@@ -45,16 +45,16 @@
 			document.getElementById('fileupload').multiFileUpload();
 		}
 
+		var i=1;
 		Object.prototype.multiFileUpload = function(){
-			var i=1;
 			this.onchange = function(){
-				var 
-				container = document.createElement('div'),
-				removeanchor = document.createElement('a'),
-				newinput = this.cloneNode(true);
-				container.className = 'fileuploadinput';
+				var container = document.createElement('div'), removeanchor = document.createElement('a'), newinput = this.cloneNode(true);
+				newinput.value = '';
 				newinput.setAttribute('name', newinput.name+i);
-				newinput.style.display = 'none';
+				newinput.multiFileUpload();
+				this.parentNode.insertBefore(newinput, this);
+				
+				container.className = 'fileuploadinput';
 				removeanchor.href = '#';
 				removeanchor.onclick = function(e){
 					e.preventDefault();
@@ -63,9 +63,10 @@
 				removeanchor.innerHTML = '[remove]';
 				container.innerHTML = this.value+" ";
 				container.appendChild(removeanchor);
-				container.appendChild(newinput);
 				this.parentNode.appendChild(container);
-				this.value = '';
+
+				this.style.position = 'absolute';
+				this.style.left = '-1000px';
 				i++;
 			};
 			return this;
