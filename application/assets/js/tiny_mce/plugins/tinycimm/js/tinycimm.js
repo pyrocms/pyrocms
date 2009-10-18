@@ -30,6 +30,7 @@ String.prototype.safeEscape = function(){
 
 function TinyCIMM(type){
 	this.type = type || null;
+	this.recache = false;
 	this.settings = tinyMCEPopup.editor.settings;
 }
 
@@ -72,7 +73,12 @@ TinyCIMM.prototype.get = function(asset_id, callback){
 }
 
 TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
-	load = tinyMCEPopup.dom.get('filelist') ? (load || false) : true;
+	if (TinyCIMMImage.recache) {
+		load = true;
+		TinyCIMMImage.recache = false;
+	} else {
+		load = tinyMCEPopup.dom.get('filelist') ? (load || false) : true;
+	}
 	folder = folder || 0;
 	offset = offset || 0;
 	el = el || false;
@@ -84,6 +90,7 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 
 TinyCIMM.prototype.showUploader = function() {
 	mcTabs.displayTab('upload_tab','upload_panel');
+	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
 	(this.loadUploader) && this.loadUploader();
 }
 
@@ -152,13 +159,6 @@ TinyCIMM.prototype.loadSelect = function(folder, type) {
 	});
 }
 
-// file successfully uploaded callback function
-TinyCIMM.prototype.assetUploaded = function(folder) {
-	//tinyMCEPopup.editor.windowManager.alert(this.type.ucfirst()+' successfully uploaded!');
-	//this.showFlashMsg(this.type.ucfirst()+' successfully uploaded!');
-	this.showBrowser(folder, 0, true);
-}
-	
 TinyCIMM.prototype.addFolder = function(type) {
 	type = type || 'image';
 	var foldername = encodeURIComponent(tinyMCEPopup.dom.get('add-folder-caption').value.replace(/^\s+|\s+$/g, ''));
