@@ -26,13 +26,14 @@ class TinyCIMM_image extends TinyCIMM {
 	// returns an asset database object
 	public function get_image($image_id=0){
 		$ci = &get_instance();
-		if ($image = $ci->tinycimm_model->get_asset($image_id)) {
+		if ($image = $ci->tinycimm_model->get_asset($image_id) and file_exists($ci->config->item('tinycimm_asset_path_full').$image->id.$image->extension)) {
 			// get image dimenions
-			$dimensions = getimagesize($ci->config->item('tinycimm_asset_path').$image->filename);
+			$dimensions = getimagesize($ci->config->item('tinycimm_asset_path_full').$image->id.$image->extension);
 			$image->width = $dimensions[0];
 			$image->height = $dimensions[1];
 			$image->src = $ci->config->item('tinycimm_controller')."image/get/{$image->id}/{$image->width}/{$image->height}";
 			$image->outcome = true;
+			$image->controller = $this->config->item('tinycimm_controller');
 			$this->response_encode($image);
 		} else {
 			$this->response_encode(array('outcome' => false, 'message' => 'Image not found.'));
@@ -119,7 +120,7 @@ class TinyCIMM_image extends TinyCIMM {
 			}
 			$data['images'][] = $image;	 
 		}
-		$ci->load->view($this->view_path.$ci->session->userdata('cimm_view').'_list', $data);
+		$ci->load->view($this->view_path.'rightpane_'.$ci->session->userdata('cimm_view'), $data);
 	}
   
 	/**
