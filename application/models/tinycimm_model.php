@@ -80,21 +80,21 @@ class Tinycimm_model extends Model {
 	*
 	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
-	function update_asset($column='', $id=0, $folder_id=0, $name='', $description='', $filename=''){
+	function update_asset($id=0, $folder_id=0, $name='', $description='', $filename=''){
 		$fields = array();
-		if ($folder_id !== 0) {
+		if ($folder_id) {
 			$fields['folder_id'] = $folder_id;
 		}
-		if ($name !== '') {
+		if ($name) {
 			$fields['name'] = $name;
 		}
-		if ($description !== '') {
+		if ($description) {
 			$fields['description'] = $description;
 		}
-		if ($filename !== '') {
+		if ($filename) {
 			$fields['filename'] = $filename;
 		}
-		return $this->db->where($column, $id)->update('asset', $fields); 
+		return $this->db->where('id', $id)->update('asset', $fields); 
 	}
 
 
