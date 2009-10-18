@@ -123,14 +123,29 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 			(callback) && callback();
 		}
 	});
-}
+};
+
+TinyCIMM.prototype.getManager = function(asset_id, callback) {
+	asset_id = asset_id || 0;
+	tinymce.util.XHR.send({
+		url : this.baseURL(this.settings.tinycimm_controller+this.type+'/get_manager/'+asset_id),
+		type : "GET",
+		error : function(reponse) {
+			tinyMCEPopup.editor.windowManager.alert('Sorry, there was an error retrieving the assets.');
+		},
+		success : function(data) {
+			(callback) && callback(data);
+		}
+	});
+
+};
 
 TinyCIMM.prototype.insert = function(asset_id) {
 	var self = this;
 	this.get(asset_id, function(asset){
 		self.insertAndClose(asset);
 	});
-}
+};
 	
 TinyCIMM.prototype.loadSelect = function(folder, type) {
 	folder = folder || 0;
@@ -142,19 +157,14 @@ TinyCIMM.prototype.loadSelect = function(folder, type) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
 		},
 		success : function(data) {
-			try {
-				if (typeof window.upload_target_ajax == 'object') {
-					// this ensures iframe src file has loaded correctly
-					setTimeout(function(){
-						var d = window.upload_target_ajax.document.getElementById('folder_select_list');
-						if (d) {
-							d.innerHTML = data;
-						} else {
-							tinyMCEPopup.dom.setHTML('folder_select_list', data);
-						}
-					}, 500);
+			setTimeout(function(){
+				var d = window.upload_target_ajax.document.getElementById('folder_select_list');
+				if (d) {
+					d.innerHTML = data;
+				} else {
+					tinyMCEPopup.dom.get('folder_select_list').innerHTML = data;
 				}
-			} catch(e) {}
+			}, 500);
 		}
 	});
 }
@@ -268,7 +278,7 @@ TinyCIMM.prototype.updateAsset = function(asset_id) {
 			}
 		}
 	});
-}
+};
 	
 TinyCIMM.prototype.changeView = function(view) {
 	var self = this;
