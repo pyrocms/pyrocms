@@ -15,7 +15,7 @@ ImageDialog.prototype.constructor = ImageDialog;
 ImageDialog.prototype.preInit = function() {
 	var images = ['../img/ajax-loader.gif', '../img/ajax-loader-sm.gif', '../img/progress.gif'];
 	this.cacheImages(images);
-}
+};
 
 ImageDialog.prototype.getImage = function(imageid, callback) {
 	this.get(imageid, callback);
@@ -44,7 +44,7 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 			};
 		}
 	});
-}
+};
 
 // inserts an image into the editor
 ImageDialog.prototype.insertAndClose = function(image, width, height) {
@@ -74,7 +74,7 @@ ImageDialog.prototype.insertAndClose = function(image, width, height) {
 	}
 
 	tinyMCEPopup.close();
-}
+};
 	
 // either inserts the image into the image dialog, or into the editor	
 ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
@@ -97,7 +97,7 @@ ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
 		this.insertAndClose(image, width, height);
 	}
 	return;
-}
+};
 
 ImageDialog.prototype.insertResizeImage = function(){
 	var self = this, image_id = tinyMCEPopup.dom.get('slider_img').src.toId(), 
@@ -106,7 +106,7 @@ ImageDialog.prototype.insertResizeImage = function(){
 	this.resizeImage(image_id, width, height, function(image){
 		self.insertImage(null, image, width, height);
 	});
-}
+};
 
 ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 	var url = this.baseURL(this.settings.tinycimm_controller+'image/save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
@@ -124,7 +124,7 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 			}
 		}
 	});
-}
+};
 
 ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 	var self = this, ed = tinyMCEPopup.editor, args = {}, el, 
@@ -175,14 +175,14 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 		ed.undoManager.add();
 		tinyMCEPopup.close();
 	});
-}
+};
 
 ImageDialog.prototype.showUploader = function(){
 	mcTabs.displayTab('upload_tab','upload_panel');
 	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
 	this.loadUploader();
-}
+};
 
 ImageDialog.prototype.loadUploader = function() {
 	// load the uploader form
@@ -204,7 +204,7 @@ ImageDialog.prototype.loadResizer = function(filename, event, sliderWidth) {
 	// completely remove the resizer image from the dom : issue 12 http://code.google.com/p/tinycimm/issues/detail?id=12
 	tinyMCEPopup.dom.remove('slider_img');
 	this.loadImage(filename, sliderWidth);
-}
+};
 
 // pre-cache an image
 ImageDialog.prototype.loadImage = function(filename, sliderWidth) { 
@@ -213,7 +213,7 @@ ImageDialog.prototype.loadImage = function(filename, sliderWidth) {
 	setTimeout(function(){
 		self.checkImgLoad(preImage, sliderWidth);
 	},10);	// ie
-}
+};
 
 // show loading text if image not already cached
 ImageDialog.prototype.checkImgLoad = function(preImage, sliderWidth) {
@@ -222,7 +222,7 @@ ImageDialog.prototype.checkImgLoad = function(preImage, sliderWidth) {
 		tinyMCEPopup.dom.setHTML('image-info-dimensions', '<img style="float:left;margin-right:4px" src="img/ajax-loader.gif"/> caching image..');
 	}
 	this.checkLoad(preImage, sliderWidth);
-}	
+};
 
 ImageDialog.prototype.checkLoad = function(preImage, sliderWidth) {
 	var self = this;
@@ -249,6 +249,7 @@ ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
 	// display panel
 	mcTabs.displayTab('resize_tab','resize_panel');
 	tinyMCEPopup.dom.get('resize_tab').style.display = 'block';
+	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
 
 	// image dimensions overlay layer
 	tinyMCEPopup.dom.setHTML('image-info-dimensions', '<span id="slider_width_val"></span> x <span id="slider_height_val"></span>');
@@ -270,10 +271,6 @@ ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
 
 ImageDialog.prototype.showManager = function(anchor, image_id) {
 	var self = this;
-	// display panel
-	mcTabs.displayTab('manager_tab','manager_panel');
-	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
-	tinyMCEPopup.dom.get('manager_tab').style.display = 'block';
 	// show spinner image
 	if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
 		anchor.style.background = 'url(img/ajax-loader-sm.gif) no-repeat center center';
@@ -281,16 +278,32 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 
 	tinyMCEPopup.dom.setHTML('manager_panel', '');
 	this.getManager(image_id, function(html){
+		// display panel
+		mcTabs.displayTab('manager_tab','manager_panel');
+		tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
+		tinyMCEPopup.dom.get('manager_tab').style.display = 'block';
+		// hide spinner image
 		if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
 			anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
 		}
 		tinyMCEPopup.dom.setHTML('manager_panel', html);
+		//  bind action events
 		tinyMCEPopup.dom.get('update-image').onclick = function(e){
 			self.updateAsset(image_id);
+			return false;
 		};
 		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
 			self.deleteImage(image_id);
+			return false;
 		};
+		tinyMCEPopup.dom.get('insert-image').onclick = function(e){
+			self.getImage(image_id, function(image){
+				self.loadResizer(image.id+image.extension, e);
+			});
+			return false;
+		};
+		// the image is cached before binding click event so that we can get
+		// desired width and height of popup window base on image dimensions
 		var previewImg = new Image();
 		previewImg.onload = function(){
 			var img = this;

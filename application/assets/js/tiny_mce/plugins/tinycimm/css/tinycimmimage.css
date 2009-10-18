@@ -507,6 +507,10 @@ select#view-type, select#sort-type {
 	float: right;
 }
 
+.left {
+	float: left;
+}
+
 .clearfix:after {
 	content: "."; 
 	display: block; 

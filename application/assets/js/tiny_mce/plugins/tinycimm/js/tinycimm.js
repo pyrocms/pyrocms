@@ -14,19 +14,19 @@ String.prototype.toId = function(){
 	(/\//.test(this) ? this.replace(/.*\/([0-9]+).*$/, '$1') : 
 	this.replace(/([0-9]+).*$/, '$1'));
 	return isNaN(id) ? 0 : id;
-}
+};
 String.prototype.extension = function(){
 	return this.replace(/.*\.([a-z]+)$/, '$1');
-}
+};
 String.prototype.ucfirst = function(){
 	return this.substr(0, 1).toUpperCase()+this.substr(1, this.length-1).toLowerCase();
-}
+};
 String.prototype.trim = function(){
 	return this.replace(/^\s*|\s*$/g, '');
-}
+};
 String.prototype.safeEscape = function(){
 	return encodeURIComponent(this.trim().replace(/[\/\\]/g, '')).replace(/%20/g, '+').toString();
-}
+};
 
 function TinyCIMM(type){
 	this.type = type || null;
@@ -41,17 +41,17 @@ TinyCIMM.prototype.init = function(ed){
 	} else {
 		this.showBrowser(0, 0, true);
 	}
-}
+};
 
 TinyCIMM.prototype.baseURL = function(url) {
 	return tinyMCEPopup.editor.documentBaseURI.toAbsolute(url);
-}
+};
 
 TinyCIMM.prototype.cacheImages = function(images){
 	for(var img in images){
 		new Image().src = images[img];
 	}
-}
+};
 
 TinyCIMM.prototype.get = function(asset_id, callback){
 	tinymce.util.XHR.send({
@@ -70,7 +70,7 @@ TinyCIMM.prototype.get = function(asset_id, callback){
 			}
 		}
 	});
-}
+};
 
 TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 	if (TinyCIMMImage.recache) {
@@ -86,13 +86,13 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
 	(load) && (this.fileBrowser) && this.fileBrowser(folder, offset, load, el);
-}
+};
 
 TinyCIMM.prototype.showUploader = function() {
 	mcTabs.displayTab('upload_tab','upload_panel');
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
 	(this.loadUploader) && this.loadUploader();
-}
+};
 
 // load list of folders and files via json request
 TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback) {
@@ -167,7 +167,7 @@ TinyCIMM.prototype.loadSelect = function(folder, type) {
 			}, 500);
 		}
 	});
-}
+};
 
 TinyCIMM.prototype.addFolder = function(type) {
 	type = type || 'image';
@@ -190,7 +190,7 @@ TinyCIMM.prototype.addFolder = function(type) {
 			}
 		}
 	});
-}
+};
 
 TinyCIMM.prototype.deleteFolder = function(folder_id) {
 	var self = this;
@@ -219,7 +219,7 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 			}
 		});
 	});
-}			
+};			
 	
 // get folders as html string
 TinyCIMM.prototype.getFoldersHTML = function(callback) {

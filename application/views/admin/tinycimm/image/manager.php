@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset style="padding:0em 1em">
 	<legend>Manage Image</legend>
 	<input type="hidden" id="image-name" value="<?=$image->name;?>" />
 	<div style="display:none">
@@ -6,12 +6,18 @@
 		<br/><input id="image_caption" type="text" style="width:160px" value="" disabled="disabled" />
 		<br/>
 	</div>
-	<strong>Preview</strong>
-	<p>
-		<a id="image-preview-popup" href="#" title="view larger version">
-			<img id="image-preview" src="<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image->id;?>/300/200" />
-		</a>
-	</p>
+	<div style="margin-top:4px;">
+		<p>
+			<a id="image-preview-popup" href="#" title="view larger version">
+				<img id="image-preview" src="<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image->id;?>/280/200" />
+			</a>
+		</p>
+	</div>
+	<?php
+		$dimensions = getimagesize($this->config->item('tinycimm_asset_path_full').$image->id.$image->extension);
+		$image->filesize = $image->filesize/1024;
+	?>
+	<p> <?=$dimensions[0].' x '.$dimensions[1];?>px - <?=($image->filesize > 1024 ? round($image->filesize/1024, 2).'mb' : round($image->filesize).'kb');?></p>
 	<strong>Image Description:</strong>
 	<p id="alttext-container">
 		<textarea id="image-alttext" rows="4" cols="20"><?=$image->description;?></textarea>
@@ -21,11 +27,18 @@
 		<?=TinyCIMM_image::get_folders_select($image->folder_id);?>
 	</p>
 	<p id="manager-actions">
-		<input id="update-image" type="button" value="Update" class="button update" />
-		<input id="delete-image" type="button" value="Delete" class="button delete" />
+		<a href="javascript:;" id="update-image">
+			<img src="img/image_save.png" alt="update" />[Update]
+		</a>&nbsp;
+		<a href="javascript:;" id="download-image" class="hidden">
+			<img src="img/image_restore.png" alt="download" />[Download]
+		</a>
+		<a href="javascript:;" id="delete-image">
+			<img src="img/image_delete.png" alt="delete" />[Delete]
+		</a>&nbsp;
+		<a href="javascript:;" id="insert-image">
+			<img src="img/insertthumb.gif" alt="insert" />[Insert]
+		</a>
+
 	</p>
-	<!--
-	<strong>Image Info:</strong>
-	<br/> 640 x 480px - 23KB
-	-->
 </fieldset>
