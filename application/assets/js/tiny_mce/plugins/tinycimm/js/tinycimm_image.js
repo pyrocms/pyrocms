@@ -188,6 +188,8 @@ ImageDialog.prototype.loadUploader = function() {
 	// load the uploader form
 	if (!tinyMCEPopup.dom.get('upload_target_ajax').src) {
 		tinyMCEPopup.dom.get('upload_target_ajax').src = this.baseURL(this.settings.tinycimm_controller+'image/get_uploader_form');
+	} else {
+		window.frames['upload_target_ajax'].document.forms.uploadform.reset();
 	}
 	// refresh the select drop down 
 	this.loadSelect();
@@ -273,12 +275,14 @@ ImageDialog.prototype.showManager = function(anchor, imageId) {
 	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'block';
 	// show spinner image
-	if (typeof anchor == 'object' && anchor.nodeName == 'A') {
+	if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
 		anchor.style.background = 'url(img/ajax-loader-sm.gif) no-repeat center center';
 	}
 
 	this.get(imageId, function(image){
-		anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
+		if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
+			anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
+		}
 		tinyMCEPopup.dom.get('image-preview').src = image.controller+'image/get/'+image.id+'/300/200';
 		tinyMCEPopup.dom.get('image-alttext').innerHTML = image.description;
 		tinyMCEPopup.dom.get('image-name').value = image.name;
@@ -290,6 +294,12 @@ ImageDialog.prototype.showManager = function(anchor, imageId) {
 		};
 		self.loadSelect(image.folder_id);
 	});
+}
+
+// file successfully uploaded callback function
+ImageDialog.prototype.assetUploaded = function(asset_id) {
+	this.recache = true;
+	this.showManager(false, asset_id);
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {

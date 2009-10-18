@@ -59,7 +59,7 @@ class TinyCIMM_image extends TinyCIMM {
 		echo
 		"<script type=\"text/javascript\">
 		parent.removedim();
-		parent.updateimg('".$asset->folder."');
+		parent.parent.TinyCIMMImage.assetUploaded(".$asset->id.");
 		</script>";
 		exit;
 	}
