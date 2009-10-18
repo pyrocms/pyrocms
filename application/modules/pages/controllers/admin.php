@@ -30,7 +30,7 @@ class Admin extends Admin_Controller
 	// Admin: List all Pages
 	function index()
 	{
-		$pages = $this->pages_m->getByParentId(0);
+		$pages = $this->pages_m->getChildrenByParentId(0);
 		
 		foreach($pages as &$page)
 		{
@@ -49,7 +49,7 @@ class Admin extends Admin_Controller
  	
  	function ajax_fetch_children($parent_id)
  	{
-		$pages = $this->pages_m->getByParentId($parent_id);
+		$pages = $this->pages_m->getChildrenByParentId($parent_id);
 		
 		foreach($pages as &$page)
 		{
@@ -62,13 +62,13 @@ class Admin extends Admin_Controller
  	function ajax_page_details($page_id)
  	{
 		$page = $this->pages_m->getById($page_id);
-		$page->path = $this->pages_m->getPathFromId($page_id);
+		$page->path = $this->pages_m->getPathById($page_id);
 		
     	$this->load->view('admin/ajax/page_details', array('page' => $page));
  	}
     
 	// Admin: Create a new Page
-	function create()
+	function create($parent_id = 0)
 	{
   		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
@@ -93,28 +93,29 @@ class Admin extends Admin_Controller
 		// Get the data back to the form
 	    foreach(array_keys($this->rules) as $field)
 	    {
-	    	$this->data->page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
+	    	$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
 	    }
-	        
+
+	    if($parent_id > 0)
+	    {
+	    	$page->parent_id = $parent_id;
+	    	
+			$parent_page = $this->pages_m->getByParentId($parent_id);
+			$parent_page->path = $this->pages_m->getPathById($parent_id);
+	    }
+	    
 	    // Send an array of languages to the view
-	    $this->data->languages = array();
+	    /*$languages = array();
 	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
-	    	$this->data->languages[$lang_code] = $lang['name'];
-	    }
-	    	
-		// Get Pages and create pages tree
-	    $tree = array();
-	    if($pages = $this->pages_m->get())
-	    {
-			foreach(@$pages AS $data)
-			{
-				$tree[$data->parent_id][] = $data;
-			}
-		}
-		unset($pages);
-	    $this->data->pages = $tree;
-			    	
+	    	$languages[$lang_code] = $lang['name'];
+	    }*/
+	    
+	    // Assign data for display
+	    $this->data->page =& $page;
+	    $this->data->parent_page =& $parent_page;
+	    //$this->data->languages =& $languages;
+	    
 	    // Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
 	    $this->layout->create('admin/form', $this->data);
