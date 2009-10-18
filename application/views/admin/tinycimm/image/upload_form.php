@@ -7,6 +7,7 @@
 		body {margin:0;}
 		.fileuploadinput {font-weight:bold;}
 		.fileuploadinput a {font-weight:normal;}
+		.fileupload {display:inline;width:220px;}
 	</style>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -48,9 +49,10 @@
 		var i=1;
 		Object.prototype.multiFileUpload = function(){
 			this.onchange = function(){
-				var container = document.createElement('div'), removeanchor = document.createElement('a'), newinput = this.cloneNode(true);
-				newinput.value = '';
+				var container = document.createElement('div'), removeanchor = document.createElement('a'), newinput = document.createElement('input');
+				newinput.type = 'file';
 				newinput.setAttribute('name', newinput.name+i);
+				newinput.className = 'fileupload';
 				newinput.multiFileUpload();
 				this.parentNode.insertBefore(newinput, this);
 				
@@ -61,7 +63,7 @@
 					container.parentNode.removeChild(container);
 				};
 				removeanchor.innerHTML = '[remove]';
-				container.innerHTML = this.value+" ";
+				container.innerHTML = this.value.replace(/\\/g, "/").replace(/.*\//, "")+" ";
 				container.appendChild(removeanchor);
 				this.parentNode.appendChild(container);
 
@@ -87,7 +89,7 @@
 			<tr>
 				<td valign="top">Select File/s</td>
 				<td colspan="3">
-					<input type="file" id="fileupload" name="fileupload" size="25" style="display:inline;width:220px;" />
+					<input type="file" id="fileupload" name="fileupload" class="fileupload" />
 				</td>
 			</tr>
 			<tr>
