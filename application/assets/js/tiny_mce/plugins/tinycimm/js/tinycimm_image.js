@@ -80,7 +80,6 @@ ImageDialog.prototype.insertAndClose = function(image, width, height) {
 ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
 	var win = tinyMCEPopup.getWindowArg("window"), url = image.filename;
 	if (win != undefined) {
-		alert(url);
 		// insert into image dialog
 		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
 		if (typeof(win.ImageDialog) != "undefined") {
@@ -292,6 +291,21 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
 			self.deleteImage(image_id);
 		};
+		var previewImg = new Image();
+		previewImg.onload = function(){
+			var img = this;
+			tinyMCEPopup.dom.get('image-preview-popup').onclick = function(){
+				tinyMCE.activeEditor.windowManager.open({
+					url: self.settings.tinycimm_controller+'image/get/'+image_id+'/600/600',
+					inline: true,
+					width: img.width+18,
+					height: img.height+18
+				});
+				return false;
+			};	
+		};
+		previewImg.onerror = function(){};
+		previewImg.src = self.settings.tinycimm_controller+'image/get/'+image_id+'/600/600';
 	});
 }
 
