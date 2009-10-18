@@ -130,11 +130,15 @@ class TinyCIMM {
 						$file['size']
 					);
 
+		
 					$ci->tinycimm_model->update_asset('id', $last_insert_id, 0, '', '', $last_insert_id.strtolower($asset_data['file_ext']));
 					$asset = $ci->tinycimm_model->get_asset($last_insert_id);
 					$asset->width = isset($asset_data['image_width']) ? $asset_data['image_width'] : '';
 					$asset->height = isset($asset_data['image_height']) ? $asset_data['image_height'] : '';
 
+					// rename the uploaded file, CI's Upload library does not handle custom file naming 	
+					rename($asset_data['full_path'], $asset_data['file_path'].$asset->id.strtolower($asset->extension));
+					
 					// resize image
 					$max_x = (int) $ci->input->post('max_x');
 					$max_y = (int) $ci->input->post('max_y');
@@ -143,8 +147,6 @@ class TinyCIMM {
 						$this->resize_asset($asset, $max_x, $max_y, 90, true, true);
 					}
 
-					// rename the uploaded file, CI's Upload library does not handle custom file naming 	
-					rename($asset_data['full_path'], $asset_data['file_path'].$asset->id.strtolower($asset->extension));
 				}
 			}
 
