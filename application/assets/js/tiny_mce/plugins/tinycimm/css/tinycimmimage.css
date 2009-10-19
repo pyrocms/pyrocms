@@ -70,7 +70,7 @@ p {
 }
 
 #fileuploader td {
-	padding: 6px;
+	padding: 5px;
 }
 
 .fileuploadinput {
@@ -82,6 +82,34 @@ p {
 .fileupload {
 	display: inline;
 	width: 220px;
+}
+
+#folder-select-list {
+	display: inline;
+}
+
+form#uploadform .constrain-dimensions label {
+	float: left;
+	line-height: 18px
+}
+
+form#uploadform .constrain-dimensions input {
+	width: 14px;
+	float: left;
+	border: 0;
+}
+
+form#uploadform .constrain-demensions-values input {
+	text-align: center;
+	width:38px;
+}
+
+form#uploadform input.image-quality {
+	text-align: center;
+	width: 24px;
+}
+
+#upload-adjust-size-n {
 }
 
 select#folderselect {}

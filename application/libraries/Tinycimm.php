@@ -98,6 +98,8 @@ class TinyCIMM {
 			// load upload library
 			$ci->load->library('upload', $upload_config);
 
+			$files_uploaded = 0;
+
 			foreach($_FILES as $input_name => $file) {
 			
 				if ($file['name'] != "") {	
@@ -147,7 +149,13 @@ class TinyCIMM {
 						$this->resize_asset($asset, $max_x, $max_y, 90, true, true);
 					}
 
+					$files_uploaded++;
 				}
+			}
+
+			if (!$files_uploaded) {
+				$this->tinymce_alert('Please select a file to upload.');
+				exit;
 			}
 
 			return $folder;
@@ -281,8 +289,8 @@ class TinyCIMM {
 	**/
 	public static function tinymce_alert($message){
 		echo "<script type=\"text/javascript\">
-		parent.removedim();
-		parent.parent.tinyMCEPopup.editor.windowManager.alert('".$message."');
+		parent.TinyCIMMImage.removeOverlay();
+		parent.tinyMCEPopup.editor.windowManager.alert('".$message."');
 		</script>";
 	}
 	
