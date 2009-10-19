@@ -98,6 +98,12 @@ class Tinycimm_model extends Model {
 	}
 
 
+	function update_folder($folder_id=0, $folder_name) {
+		$fields['name'] = $folder_name;
+		return $this->db->where('id', $folder_id)->update('asset_folder', $fields);
+	}
+
+
 	/** 
 	* Inserts a folder into the database
 	*

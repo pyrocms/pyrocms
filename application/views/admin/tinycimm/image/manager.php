@@ -8,7 +8,7 @@
 	</div>
 	<div style="margin-top:4px;">
 		<p>
-			<a id="image-preview-popup" href="#" title="view larger version">
+			<a id="image-preview-popup" href="<?=$this->config->item('tinycimm_asset_path').$image->id.$image->extension;?>" title="view larger version">
 				<img id="image-preview" src="<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image->id;?>/280/200" />
 			</a>
 		</p>
@@ -17,13 +17,16 @@
 		$dimensions = getimagesize($this->config->item('tinycimm_asset_path_full').$image->id.$image->extension);
 		$image->filesize = $image->filesize/1024;
 	?>
-	<p> <?=$dimensions[0].' x '.$dimensions[1];?>px - <?=($image->filesize > 1024 ? round($image->filesize/1024, 2).'mb' : round($image->filesize).'kb');?></p>
+	<p>
+		<strong><?=$image->name;?></strong><br/>
+		<?=$dimensions[0].' x '.$dimensions[1];?>px - <?=($image->filesize > 1024 ? round($image->filesize/1024, 2).'mb' : round($image->filesize).'kb');?>
+	</p>
 	<strong>Image Description:</strong>
 	<p id="alttext-container">
 		<textarea id="image-alttext" rows="4" cols="20"><?=$image->description;?></textarea>
 	</p>
-	<strong>Image Folder:</strong><br/>
 	<p id="folder-select-list">
+		<strong>Image Folder:</strong><br/>
 		<?=TinyCIMM_image::get_folders_select($image->folder_id);?>
 	</p>
 	<p id="manager-actions">
