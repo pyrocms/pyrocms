@@ -15,18 +15,79 @@ String.prototype.toId = function(){
 	this.replace(/([0-9]+).*$/, '$1'));
 	return isNaN(id) ? 0 : id;
 };
+
 String.prototype.extension = function(){
 	return this.replace(/.*\.([a-z]+)$/, '$1');
 };
+
 String.prototype.ucfirst = function(){
 	return this.substr(0, 1).toUpperCase()+this.substr(1, this.length-1).toLowerCase();
 };
+
 String.prototype.trim = function(){
 	return this.replace(/^\s*|\s*$/g, '');
 };
+
 String.prototype.safeEscape = function(){
 	return encodeURIComponent(this.trim().replace(/[\/\\]/g, '')).replace(/%20/g, '+').toString();
 };
+
+Array.prototype.inArray = function(val) {
+	for(var i=0;i<this.length;i++) if (this[i] === val) return true; return false;
+};
+
+Object.prototype.multiFileUpload = function(config){
+	config = config || {
+		allowedTypes: document.getElementById('allowedtypes').innerHTML.trim().split(', ')
+	};
+	this.onchange = function(){
+		var self = this, 
+		container = document.createElement('div'), 
+		removeanchor = document.createElement('a'), 
+		newinput = document.createElement('input');
+
+		// check extension against allowed types
+		if (!config.allowedTypes.inArray(this.value.replace(/^.*\.([a-zA-Z]+)$/, '$1'))) {
+			alert('Allowed types: '+config.allowedTypes.join(', '));
+			this.value = '';
+			this.focus();
+			return false;
+		}
+
+		// define new file input
+		newinput.setAttribute('type', 'file');
+		newinput.setAttribute('name', this.name+Math.floor(Math.random()*2));
+		newinput.setAttribute('class', 'fileupload');
+		// bind multi-file-uplood change event to new file input element
+		newinput.multiFileUpload();
+
+		// insert new file input element
+		this.parentNode.insertBefore(newinput, this);
+				
+		// strip path segments from file name
+		container.innerHTML = this.value.replace(/\\/g, "/").replace(/.*\//, "")+" ";
+		container.className = 'fileuploadinput';
+
+		// create and insert the 'remove' anchor
+		removeanchor.href = '#';
+		removeanchor.onclick = function(e){
+			e.preventDefault();
+			container.parentNode.removeChild(container);
+			self.parentNode.removeChild(self);
+		};
+		removeanchor.innerHTML = '[remove]';
+
+		container.appendChild(removeanchor);
+		this.parentNode.appendChild(container);
+
+		// 'hide' the current file input (safari doesn't like display:none)
+		this.style.position = 'absolute';
+		this.style.left = '-1000px';
+	};
+	return this;
+};
+
+
 
 function TinyCIMM(type){
 	this.type = type || null;
@@ -140,6 +201,20 @@ TinyCIMM.prototype.getManager = function(asset_id, callback) {
 
 };
 
+TinyCIMM.prototype.getUploader = function(callback) {
+	tinymce.util.XHR.send({
+		url : this.baseURL(this.settings.tinycimm_controller+this.type+'/get_uploader_form'),
+		type : "GET",
+		error : function(reponse) {
+			tinyMCEPopup.editor.windowManager.alert('Sorry, there was an error retrieving the assets.');
+		},
+		success : function(data) {
+			(callback) && callback(data);
+		}
+	});
+
+};
+
 TinyCIMM.prototype.insert = function(asset_id) {
 	var self = this;
 	this.get(asset_id, function(asset){
@@ -157,14 +232,7 @@ TinyCIMM.prototype.loadSelect = function(folder, type) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
 		},
 		success : function(data) {
-			setTimeout(function(){
-				var d = window.upload_target_ajax.document.getElementById('folder_select_list');
-				if (d) {
-					d.innerHTML = data;
-				} else {
-					tinyMCEPopup.dom.get('folder_select_list').innerHTML = data;
-				}
-			}, 500);
+			tinyMCEPopup.dom.get('folder_select_list').innerHTML = data;
 		}
 	});
 };
@@ -259,15 +327,13 @@ TinyCIMM.prototype.deleteAsset = function(asset_id) {
 	});
 };
 
-TinyCIMM.prototype.updateAsset = function(asset_id) {
+TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, name) {
 	var self = this;
 	tinymce.util.XHR.send({
 		url : self.baseURL(self.settings.tinycimm_controller+self.type+'/update_asset/'+asset_id),
  		content_type : 'application/x-www-form-urlencoded',
 		type : "POST",
-		data : 	'folder_id='+tinyMCEPopup.dom.get('folderselect').value+
-			'&description='+tinyMCEPopup.dom.get('image-alttext').innerHTML+
-			'&name='+tinyMCEPopup.dom.get('image-name').value,
+		data : 	'folder_id='+folder_id+'&description='+description+'&name='+name,
 		error : function(response) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
 		},
@@ -327,4 +393,24 @@ TinyCIMM.prototype.reload = function() {
 		window.location.reload();
 		tinyMCEPopup.resizeToInnerSize();
 	}, 300);
+};
+
+TinyCIMM.prototype.removeOverlay = function(){
+	var 
+	dim = document.getElementById("dimwindow"), 
+	img = document.getElementById("dimwindowimg");
+	(dim) && dim.parentNode.removeChild(dim);
+	(img) && img.parentNode.removeChild(img);
+};
+
+TinyCIMM.prototype.showOverlay = function() {
+	var 
+	dim = document.createElement("div"),
+	img = document.createElement("div"),
+	bodyRef = document.getElementById("upload_panel");
+	dim.setAttribute("id", "dimwindow");
+	img.setAttribute("id", "dimwindowimg");
+	img.innerHTML = '<div><img src="img/progress.gif" /></div>';
+	bodyRef.appendChild(dim);
+	bodyRef.appendChild(img);
 };

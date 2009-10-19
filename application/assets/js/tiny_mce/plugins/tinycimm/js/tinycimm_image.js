@@ -185,15 +185,23 @@ ImageDialog.prototype.showUploader = function(){
 };
 
 ImageDialog.prototype.loadUploader = function() {
+	var self = this;
 	// load the uploader form
-	if (!tinyMCEPopup.dom.get('upload_target_ajax').src) {
-		tinyMCEPopup.dom.get('upload_target_ajax').src = this.baseURL(this.settings.tinycimm_controller+'image/get_uploader_form');
+	if (!tinyMCEPopup.dom.get('uploadform')) {
+		this.getUploader(function(html){
+			tinyMCEPopup.dom.get('upload_panel').innerHTML = html;
+			document.getElementById('fileupload').multiFileUpload();
+			document.getElementById('uploadform').onsubmit = function(e){
+				self.showOverlay();
+			};
+			// refresh the select drop down 
+			self.loadSelect();
+		});
 	} else {
-		window.frames['upload_target_ajax'].document.forms.uploadform.reset();
-		
+		document.forms.uploadform.reset();
+		// refresh the select drop down 
+		self.loadSelect();
 	}
-	// refresh the select drop down 
-	this.loadSelect();
 	tinyMCEPopup.resizeToInnerSize();
 };
 	
@@ -290,7 +298,11 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		tinyMCEPopup.dom.setHTML('manager_panel', html);
 		//  bind action events
 		tinyMCEPopup.dom.get('update-image').onclick = function(e){
-			self.updateAsset(image_id);
+			self.updateAsset(
+			image_id, 
+			tinyMCEPopup.dom.get('folderselect').value,
+			tinyMCEPopup.dom.get('image-alttext').innerHTML.trim(),
+			tinyMCEPopup.dom.get('image-name').value.trim());
 			return false;
 		};
 		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
@@ -327,14 +339,13 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 ImageDialog.prototype.assetUploaded = function(folder_id) {
 	this.recache = true;
 	var remove = [];
-	var uploadform = window.frames['upload_target_ajax'].document.forms.uploadform;
 	// remove multiple file upload junk
-	var divs = uploadform.getElementsByTagName('div');
+	var divs = document.forms.uploadform.getElementsByTagName('div');
 	for(var i=0;i<divs.length;i++) {
 		(divs[i].className == 'fileuploadinput') && remove.push(divs[i]);
 	}
-	for(var el in remove) {
-		remove[el].parentNode.removeChild(remove[el]);
+	for(var i=0;i<remove.length;i++) {
+		remove[i].parentNode.removeChild(remove[i]);
 	}
 	this.showBrowser(folder_id);
 }
