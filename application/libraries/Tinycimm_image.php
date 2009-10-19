@@ -48,8 +48,8 @@ class TinyCIMM_image extends TinyCIMM {
 		
 		echo
 		"<script type=\"text/javascript\">
-		parent.removedim();
-		parent.parent.TinyCIMMImage.assetUploaded(".$folder_id.");
+		parent.TinyCIMMImage.removeOverlay();
+		parent.TinyCIMMImage.assetUploaded(".$folder_id.");
 		</script>";
 		exit;
 	}

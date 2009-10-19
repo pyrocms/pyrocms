@@ -69,10 +69,19 @@ p {
 	overflow: hidden;
 }
 
-#upload_target_ajax {
-	height: 340px;
-	width: 100%;
-	border: 0;
+#fileuploader td {
+	padding: 6px;
+}
+
+.fileuploadinput {
+	font-weight: bold;
+}
+.fileuploadinput a {
+	font-weight: normal;
+}
+.fileupload {
+	display: inline;
+	width: 220px;
 }
 
 select#folderselect {}

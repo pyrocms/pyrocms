@@ -215,9 +215,6 @@ class TinyCIMM {
 		$ci->tinycimm_model->insert_folder($name, $type);
 	}
 
-	/**
-	* @TODO would become obsolete if we switched away from a multi folder system and went with categories @Liam
-	**/
         public function get_folders_select($folder_id=0){
                 $ci = &get_instance();
                 $data['folder_id'] = $folder_id;
@@ -280,7 +277,7 @@ class TinyCIMM {
 	}
 	
 	/**
-	* Throw up an alert message using TinyMCE's alert method (only used in upload function at this time)
+	* Throw up an alert message using TinyMCE's alert method (only used in upload function)
 	**/
 	public static function tinymce_alert($message){
 		echo "<script type=\"text/javascript\">
