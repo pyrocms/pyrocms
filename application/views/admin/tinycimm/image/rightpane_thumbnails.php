@@ -14,7 +14,7 @@
 			<?} else {?>
 				<?foreach($images as $image):?>
 					<span class="thumb-wrapper" title="insert '<?=htmlspecialchars($image['description']);?>'">
-						<span class="thumb" onclick="TinyCIMMImage.loadResizer('<?=$image['id'].$image['extension'];?>', event);" style="background:url(<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image['id'];?>/92/92) no-repeat center center;">
+						<span class="thumb" onclick="TinyCIMMImage.loadResizer('<?=$image['id'].$image['extension'];?>', event);" style="background:url(<?=$this->config->item('tinycimm_image_controller');?>get/<?=$image['id'];?>/92/92) no-repeat center center;">
 							<span class="loader"></span>
 						</span>
 						<span class="controls-bg"></span>

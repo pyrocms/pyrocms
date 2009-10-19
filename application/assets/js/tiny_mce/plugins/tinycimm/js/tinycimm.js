@@ -122,7 +122,7 @@ TinyCIMM.prototype.cacheImages = function(images){
 
 TinyCIMM.prototype.get = function(asset_id, callback){
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+this.type+'/get_'+this.type+'/'+asset_id),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_'+this.type+'/'+asset_id),
 		type : "GET",
 		error : function(response) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the asset info.');
@@ -171,7 +171,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 		tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
 	}
 	(this.type) && tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+this.type+'/get_browser/'+folder+'/'+offset+'/'+search_query),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_browser/'+folder+'/'+offset+'/'+search_query),
 		type : "GET",
 		error : function(reponse) {
 			tinyMCEPopup.editor.windowManager.alert('Sorry, there was an error retrieving the assets.');
@@ -195,7 +195,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 TinyCIMM.prototype.getManager = function(asset_id, callback) {
 	asset_id = asset_id || 0;
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+this.type+'/get_manager/'+asset_id),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_manager/'+asset_id),
 		type : "GET",
 		error : function(reponse) {
 			tinyMCEPopup.editor.windowManager.alert('Sorry, there was an error retrieving the assets.');
@@ -209,7 +209,7 @@ TinyCIMM.prototype.getManager = function(asset_id, callback) {
 
 TinyCIMM.prototype.getUploader = function(callback) {
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+this.type+'/get_uploader_form'),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_uploader_form'),
 		type : "GET",
 		error : function(reponse) {
 			tinyMCEPopup.editor.windowManager.alert('Sorry, there was an error retrieving the assets.');
@@ -232,7 +232,7 @@ TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 	folder = folder || 0;
 	type = type || 'image';
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+type+'/get_folders_select/'+folder),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders_select/'+folder),
 		type : "GET",
 		error : function(text) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
@@ -246,7 +246,7 @@ TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 TinyCIMM.prototype.getFoldersHTML = function(callback) {
 	var self = this;
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+self.type+'/get_folders_html'),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders_html'),
 		type : "GET",
 		error : function(response) {
 	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
@@ -260,7 +260,7 @@ TinyCIMM.prototype.getFoldersHTML = function(callback) {
 TinyCIMM.prototype.addFolder = function(type) {
 	type = type || 'image';
 	var foldername = encodeURIComponent(tinyMCEPopup.dom.get('add-folder-caption').value.replace(/^\s+|\s+$/g, ''));
-	var requesturl = this.baseURL(this.settings.tinycimm_controller+this.type+'/add_folder/'+foldername+'/'+type);
+	var requesturl = this.baseURL(this.settings.tinycimm_controller+'add_folder/'+foldername+'/'+type);
 	(foldername.length) && tinymce.util.XHR.send({
 		url : requesturl,
 		type : "GET",
@@ -284,7 +284,7 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 	var self = this;
 	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this folder?', function(s){
 		if (!s) { return false; }
-		var requesturl = self.baseURL(self.settings.tinycimm_controller+self.type+'/delete_folder/'+folder_id);
+		var requesturl = self.baseURL(self.settings.tinycimm_controller+'delete_folder/'+folder_id);
 		tinymce.util.XHR.send({
 			url : requesturl,
 			type : "GET",
@@ -315,7 +315,7 @@ TinyCIMM.prototype.deleteAsset = function(asset_id) {
 	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this '+this.type+'?', function(s) {
 		if (!s) {return false;}
 		tinymce.util.XHR.send({
-			url : self.baseURL(self.settings.tinycimm_controller+self.type+'/delete_'+self.type+'/'+asset_id),
+			url : self.baseURL(self.settings.tinycimm_controller+'delete_'+self.type+'/'+asset_id),
 			type : "GET",
 			error : function(response) {
 				tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
@@ -336,7 +336,7 @@ TinyCIMM.prototype.deleteAsset = function(asset_id) {
 TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, name) {
 	var self = this;
 	tinymce.util.XHR.send({
-		url : self.baseURL(self.settings.tinycimm_controller+self.type+'/update_asset/'+asset_id),
+		url : self.baseURL(self.settings.tinycimm_controller+'update_asset/'+asset_id),
  		content_type : 'application/x-www-form-urlencoded',
 		type : "POST",
 		data : 	'folder_id='+folder_id+'&description='+description+'&name='+name,
@@ -355,7 +355,7 @@ TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, name
 TinyCIMM.prototype.updateFolder = function(folder_id, folder_name, callback) {
 	var self = this;
 	tinymce.util.XHR.send({
-		url : self.baseURL(self.settings.tinycimm_controller+self.type+'/update_folder/'+folder_id),
+		url : self.baseURL(self.settings.tinycimm_controller+'update_folder/'+folder_id),
  		content_type : 'application/x-www-form-urlencoded',
 		type : "POST",
 		data : 	'folder_name='+folder_name,
@@ -378,7 +378,7 @@ TinyCIMM.prototype.changeView = function(view) {
 	// show loading image
 	tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'image/change_view/'+view),
+		url : this.baseURL(this.settings.tinycimm_controller+'change_view/'+view),
 		type : "GET",
 		error : function(text) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
@@ -395,7 +395,7 @@ TinyCIMM.prototype.changeView = function(view) {
 	// show loading image
 	tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'image/change_view/'+view),
+		url : this.baseURL(this.settings.tinycimm_controller+'change_view/'+view),
 		type : "GET",
 		error : function(text) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');

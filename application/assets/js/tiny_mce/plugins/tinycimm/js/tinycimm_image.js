@@ -15,6 +15,7 @@ ImageDialog.prototype.constructor = ImageDialog;
 ImageDialog.prototype.preInit = function() {
 	var images = ['../img/ajax-loader.gif', '../img/ajax-loader-sm.gif', '../img/progress.gif'];
 	this.cacheImages(images);
+	this.settings.tinycimm_controller = this.settings.tinycimm_image_controller;
 };
 
 ImageDialog.prototype.getImage = function(imageid, callback) {
@@ -109,7 +110,7 @@ ImageDialog.prototype.insertResizeImage = function(){
 };
 
 ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
-	var url = this.baseURL(this.settings.tinycimm_controller+'image/save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
+	var url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
 	tinymce.util.XHR.send({
 		url : url,
 		error : function(response) {
@@ -129,7 +130,7 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 	var self = this, ed = tinyMCEPopup.editor, args = {}, el, 
 	width = this.settings.tinycimm_thumb_width, height = this.settings.tinycimm_thumb_height,
-	url = this.baseURL(this.settings.tinycimm_controller+'image/save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
+	url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
 
 	// show spinner image
 	if (typeof anchor == 'object' && anchor.nodeName == 'A') {
@@ -322,7 +323,7 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 			var img = this;
 			tinyMCEPopup.dom.get('image-preview-popup').onclick = function(){
 				tinyMCE.activeEditor.windowManager.open({
-					url: self.settings.tinycimm_controller+'image/get/'+image_id+'/600/600',
+					url: self.settings.tinycimm_controller+'get/'+image_id+'/600/600',
 					inline: true,
 					width: img.width+18,
 					height: img.height+18
@@ -331,7 +332,7 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 			};	
 		};
 		previewImg.onerror = function(){};
-		previewImg.src = self.settings.tinycimm_controller+'image/get/'+image_id+'/600/600';
+		previewImg.src = self.settings.tinycimm_controller+'get/'+image_id+'/600/600';
 	});
 }
 

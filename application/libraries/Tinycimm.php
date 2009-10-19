@@ -230,7 +230,7 @@ class TinyCIMM {
                 foreach($folders = $ci->tinycimm_model->get_folders('name') as $folderinfo) {
                         $data['folders'][] = $folderinfo;
                 }
-                $ci->load->view($this->view_path.'folder_select', $data);
+                $ci->load->view($ci->view_path.'folder_select', $data);
         }
 
 
@@ -263,7 +263,6 @@ class TinyCIMM {
 			die($response_txt);
 		}
 	}
-
 	
 	/** 
 	* check if image directories exist, if not then try to create them with 0777/0755 permissions
@@ -276,12 +275,12 @@ class TinyCIMM {
 		// upload dir
 		file_exists($this->config->item('tinycimm_asset_path_full'))
 		or @mkdir($this->config->item('tinycimm_asset_path_full'), $chmod) 
-		or die('Error: Unable to create asset folder '.$this->config->item('tinycimm_asset_path_full').'<br/><strong>Please adjust permissions</strong>');
+		or die('Error: '.$this->config->item('tinycimm_asset_path_full').'<br/><strong>Please adjust permissions</strong>');
 
 		// cache dir
 		file_exists($this->config->item('tinycimm_asset_cache_path_full'))
 		or @mkdir($this->config->item('tinycimm_asset_cache_path_full'), $chmod) 
-		or die('Error: Unable to create asset cache folder '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions</strong>');
+		or die('Error: '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions</strong>');
 	}
 	
 	/**
