@@ -104,8 +104,8 @@ class TinyCIMM_image extends TinyCIMM {
 
 		$data['images'] = array();
 		foreach($assets = $ci->tinycimm_model->get_assets((int) $folder, $offset, $per_page, $search) as $image) {
-			$image_path = $this->config->item('tinycimm_asset_path').$image['id'].$image['extension'];
-			$image_size = ($imgsize = @getimagesize($image_path)) ? $imgsize : array(0,0);
+			$image_path = $_SERVER['DOCUMENT_ROOT'].$this->config->item('tinycimm_asset_path').$image['id'].$image['extension'];
+			$image_size = ($imgsize = getimagesize($image_path)) ? $imgsize : array(0,0);
 			$image['width'] = $image_size[0];
 			$image['height'] = $image_size[1];
 			$image['dimensions'] = $image_size[0].'x'.$image_size[1];

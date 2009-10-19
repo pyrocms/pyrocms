@@ -48,9 +48,8 @@ Object.prototype.multiFileUpload = function(config){
 
 		// check extension against allowed types
 		if (!config.allowedTypes.inArray(this.value.replace(/^.*\.([a-zA-Z]+)$/, '$1'))) {
-			alert('Allowed types: '+config.allowedTypes.join(', '));
+			tinyMCEPopup.editor.windowManager.alert('Allowed types: '+config.allowedTypes.join(', '));
 			this.value = '';
-			this.focus();
 			return false;
 		}
 
@@ -232,7 +231,7 @@ TinyCIMM.prototype.loadSelect = function(folder, type) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
 		},
 		success : function(data) {
-			tinyMCEPopup.dom.get('folder_select_list').innerHTML = data;
+			tinyMCEPopup.dom.get('folder-select-list').innerHTML = data;
 		}
 	});
 };

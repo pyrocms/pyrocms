@@ -19,31 +19,31 @@
 				<tr>
 					<td>Remote Folder</td>
 					<td colspan="3">
-						<div id="folder_select_list" style="display: inline;">
+						<div id="folder-select-list">
 							<?=TinyCIMM_image::get_folders_select();?>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>Constrain Dimensions</td>
-					<td>
-						<input style="width:14px;float:left;border:0" type="radio" name="adjust_size" id="adjust_size_1" value="1" checked="checked" onclick="document.getElementById('con_dimensions').style.display='block';" /> 
-						<label style="float:left;line-height:18px" for="adjust_size_1">Yes</label> 
-						<input style="width:14px;float:left;border:0" type="radio" name="adjust_size" id="adjust_size_0" value="0" onclick="document.getElementById('con_dimensions').style.display='none';" /> 
-						<label style="float:left;line-height:18px" for="adjust_size_0">No</label>
+					<td class="constrain-dimensions">
+						<input type="radio" name="adjust_size" id="upload-adjust-size-y" value="1" checked="checked" onclick="document.getElementById('con_dimensions').style.display='block';" /> 
+						<label for="upload-adjust-size-y">Yes</label> 
+						<input type="radio" name="adjust_size" id="upload-adjust-size-n" value="0" onclick="document.getElementById('con_dimensions').style.display='none';" /> 
+						<label for="upload-adjust-size-n">No</label>
 					</td>
 					<td>&nbsp;</td>
-					<td>
+					<td class="constrain-demensions-values">
 						<div id="con_dimensions">
-							<input style="text-align:center;width:38px" type="text" name="max_x" value="640" /> x
-							<input style="text-align:center;width:38px" type="text" name="max_y" value="480" /> px
+							<input type="text" name="max_x" value="640" /> x
+							<input type="text" name="max_y" value="480" /> px
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>Quality</td>
 					<td colspan="3">
-						<input type="text" size="3" style="text-align:center;width:24px" id="image-quality" value="90" />%
+						<input type="text" name="image_quality" class="image-quality" value="90" />%
 					</td>
 				</tr>
 				<tr>

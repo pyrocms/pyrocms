@@ -23,7 +23,7 @@
 		<textarea id="image-alttext" rows="4" cols="20"><?=$image->description;?></textarea>
 	</p>
 	<strong>Image Folder:</strong><br/>
-	<p id="folder_select_list">
+	<p id="folder-select-list">
 		<?=TinyCIMM_image::get_folders_select($image->folder_id);?>
 	</p>
 	<p id="manager-actions">
