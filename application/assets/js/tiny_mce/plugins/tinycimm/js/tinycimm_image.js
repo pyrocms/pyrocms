@@ -300,10 +300,11 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		//  bind action events
 		tinyMCEPopup.dom.get('update-image').onclick = function(e){
 			self.updateAsset(
-			image_id, 
-			tinyMCEPopup.dom.get('folderselect').options[tinyMCEPopup.dom.get('folderselect').selectedIndex].value.toString(),
-			tinyMCEPopup.dom.get('image-alttext').innerHTML.trim(),
-			tinyMCEPopup.dom.get('image-name').value.trim());
+				image_id, 
+				tinyMCEPopup.dom.get('folderselect').options[tinyMCEPopup.dom.get('folderselect').selectedIndex].value.toString(),
+				tinyMCEPopup.dom.get('image-alttext').value.trim(),
+				tinyMCEPopup.dom.get('image-name').value.trim()
+			);
 			return false;
 		};
 		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
