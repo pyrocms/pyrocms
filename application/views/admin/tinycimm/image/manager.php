@@ -9,7 +9,7 @@
 	<div style="margin-top:4px;">
 		<p>
 			<a id="image-preview-popup" href="<?=$this->config->item('tinycimm_asset_path').$image->id.$image->extension;?>" title="view larger version">
-				<img id="image-preview" src="<?=$this->config->item('tinycimm_controller');?>image/get/<?=$image->id;?>/280/200" />
+				<img id="image-preview" src="<?=$this->config->item('tinycimm_image_controller');?>get/<?=$image->id;?>/280/200" />
 			</a>
 		</p>
 	</div>
@@ -27,7 +27,7 @@
 	</p>
 	<p id="folder-select-list">
 		<strong>Image Folder:</strong><br/>
-		<?=TinyCIMM_image::get_folders_select($image->folder_id);?>
+		<?=$this->tinycimm->get_folders_select($image->folder_id);?>
 	</p>
 	<p id="manager-actions">
 		<a href="javascript:;" id="update-image">

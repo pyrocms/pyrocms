@@ -1,6 +1,6 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['tinycimm_controller'] = '/assetmanager/'; // as a uri segment
+$config['tinycimm_image_controller'] = '/image_manager/'; // as a uri segment
 $config['tinycimm_views_root'] = '/admin/tinycimm/';
 $config['tinycimm_views_root_image'] = 'image/';
 

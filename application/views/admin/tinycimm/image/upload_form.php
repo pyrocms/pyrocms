@@ -3,7 +3,7 @@
 	<legend>Quick Image Upload</legend>
 	<div id="fileuploader">
 
-		<form method="post" target="hidden_iframe" enctype="multipart/form-data" action="<?=$this->config->item('tinycimm_controller');?>image/upload" id="uploadform" name="uploadform">
+		<form method="post" target="hidden_iframe" enctype="multipart/form-data" action="<?=$this->config->item('tinycimm_image_controller');?>upload" id="uploadform" name="uploadform">
 			<table border="0" cellpadding="4" cellspacing="2">
 			<tbody>
 				<tr>
@@ -20,7 +20,7 @@
 					<td>Remote Folder</td>
 					<td colspan="3">
 						<div id="folder-select-list">
-							<?=TinyCIMM_image::get_folders_select();?>
+							<?=$this->tinycimm->get_folders_select();?>
 						</div>
 					</td>
 				</tr>

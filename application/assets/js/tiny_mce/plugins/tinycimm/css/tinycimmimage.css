@@ -483,13 +483,10 @@ select#view-type, select#sort-type {
 	margin-right: 3px;
 }
 
-#add-folder-image {
+#add-folder-image, #add-folder-cancel-image {
 	cursor: pointer;
 	float: left;
-}
-
-#add-folder-cancel-image {
-	cursor: pointer;
+	margin-right: 1px;
 }
 
 .state-over {

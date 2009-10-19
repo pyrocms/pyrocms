@@ -63,7 +63,7 @@
 		media_strict: false,
 		
 		file_browser_callback : 'tinycimm',
-		tinycimm_controller : '<?=$this->config->item('tinycimm_controller');?>',
+		tinycimm_image_controller : '<?=$this->config->item('tinycimm_image_controller');?>',
 		tinycimm_assets_path : '<?=$this->config->item('tinycimm_asset_path');?>',
 		tinycimm_resize_default_intial_width : '<?=$this->config->item('default_initial_width', 'tinycimm_image_resize_config');?>',
 		tinycimm_thumb_width : '<?=$this->config->item('tinycimm_image_thumbnail_default_width');?>',
