@@ -195,12 +195,12 @@ ImageDialog.prototype.loadUploader = function() {
 				self.showOverlay();
 			};
 			// refresh the select drop down 
-			self.loadSelect();
+			self.getFoldersSelect();
 		});
 	} else {
 		document.forms.uploadform.reset();
 		// refresh the select drop down 
-		self.loadSelect();
+		self.getFoldersSelect();
 	}
 	tinyMCEPopup.resizeToInnerSize();
 };
@@ -300,7 +300,7 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		tinyMCEPopup.dom.get('update-image').onclick = function(e){
 			self.updateAsset(
 			image_id, 
-			tinyMCEPopup.dom.get('folderselect').value,
+			tinyMCEPopup.dom.get('folderselect').options[tinyMCEPopup.dom.get('folderselect').selectedIndex].value.toString(),
 			tinyMCEPopup.dom.get('image-alttext').innerHTML.trim(),
 			tinyMCEPopup.dom.get('image-name').value.trim());
 			return false;

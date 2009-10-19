@@ -28,6 +28,13 @@ String.prototype.trim = function(){
 	return this.replace(/^\s*|\s*$/g, '');
 };
 
+String.prototype.text = function(){
+	var str = this;
+	try { str = decodeURIComponent(str); } catch(e) {}
+	str = (str && str.length) ? str.replace(/<\S[^><]*>/g, '').trim() : '';
+	return str;
+};
+
 String.prototype.safeEscape = function(){
 	return encodeURIComponent(this.trim().replace(/[\/\\]/g, '')).replace(/%20/g, '+').toString();
 };
@@ -221,7 +228,7 @@ TinyCIMM.prototype.insert = function(asset_id) {
 	});
 };
 	
-TinyCIMM.prototype.loadSelect = function(folder, type) {
+TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 	folder = folder || 0;
 	type = type || 'image';
 	tinymce.util.XHR.send({
@@ -232,6 +239,20 @@ TinyCIMM.prototype.loadSelect = function(folder, type) {
 		},
 		success : function(data) {
 			tinyMCEPopup.dom.get('folder-select-list').innerHTML = data;
+		}
+	});
+};
+
+TinyCIMM.prototype.getFoldersHTML = function(callback) {
+	var self = this;
+	tinymce.util.XHR.send({
+		url : this.baseURL(this.settings.tinycimm_controller+self.type+'/get_folders_html'),
+		type : "GET",
+		error : function(response) {
+	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
+		},
+		success : function(response) {
+			(callback) && callback(response.toString());	
 		}
 	});
 };
@@ -288,20 +309,6 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 	});
 };			
 	
-// get folders as html string
-TinyCIMM.prototype.getFoldersHTML = function(callback) {
-	var self = this;
-	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+self.type+'/get_folders_html'),
-		type : "GET",
-		error : function(response) {
-	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
-		},
-		success : function(response) {
-			(callback) && callback(response.toString());	
-		}
-	});
-};
 	
 TinyCIMM.prototype.deleteAsset = function(asset_id) {
 	var self = this;
@@ -340,6 +347,27 @@ TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, name
 			if (response) {	
 				var obj = tinymce.util.JSON.parse(response);
 				tinyMCEPopup.editor.windowManager.alert(obj.message);
+			}
+		}
+	});
+};
+
+TinyCIMM.prototype.updateFolder = function(folder_id, folder_name, callback) {
+	var self = this;
+	tinymce.util.XHR.send({
+		url : self.baseURL(self.settings.tinycimm_controller+self.type+'/update_folder/'+folder_id),
+ 		content_type : 'application/x-www-form-urlencoded',
+		type : "POST",
+		data : 	'folder_name='+folder_name,
+		error : function(response) {
+			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
+		},
+		success : function(response) {
+			var obj = tinymce.util.JSON.parse(response);
+			if (!obj.outcome) {
+				tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
+			} else {
+				(callback) && (callback());
 			}
 		}
 	});
@@ -392,6 +420,63 @@ TinyCIMM.prototype.reload = function() {
 		window.location.reload();
 		tinyMCEPopup.resizeToInnerSize();
 	}, 300);
+};
+
+TinyCIMM.prototype.editFolder = function(folder_id){
+	var self = this, 
+	editFolder = document.getElementById('edit-folder-'+folder_id),
+	folder = document.getElementById('folder-'+folder_id),
+	input = document.createElement('input'),
+	saveImg = new Image(), cancelImg = new Image(),
+	editContainer = document.createElement('div');
+
+	if (editFolder) {
+		editFolder.style.display = 'block';
+		folder.style.display = 'none';
+	} else {
+		input.value = folder.innerHTML.text().replace(/\/$/, '');
+		input.className = 'edit-folder-caption';
+
+		saveImg.className = 'edit-folder state-out';
+		saveImg.src = 'img/save.gif';
+		saveImg.onmouseover = function(){
+			this.className = this.className.replace(/state-out/, "state-over");
+		};
+		saveImg.onmouseout = function(){
+			this.className = this.className.replace(/state-over/, "state-out");
+		};
+		saveImg.onclick = function(){
+			self.updateFolder(folder_id, input.value.safeEscape(), function(){
+				self.getFoldersHTML(function(folderHTML){
+					tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
+				});
+				folder.style.display = 'block';
+				editContainer.style.display = 'none';
+			});
+		};
+
+		cancelImg.className = 'edit-folder state-out';
+		cancelImg.src = 'img/cancel.png';
+		cancelImg.onmouseover = function(){
+			this.className = this.className.replace(/state-out/, "state-over");
+		};
+		cancelImg.onmouseout = function(){
+			this.className = this.className.replace(/state-over/, "state-out");
+		};
+		cancelImg.onclick = function(){
+			folder.style.display = 'block';
+			editContainer.style.display = 'none';
+		};
+
+		editContainer.appendChild(input);
+		editContainer.appendChild(saveImg);
+		editContainer.appendChild(cancelImg);
+
+		folder.parentNode.insertBefore(editContainer, folder);
+		input.focus();
+		folder.style.display = 'none';
+	}
+	
 };
 
 TinyCIMM.prototype.removeOverlay = function(){

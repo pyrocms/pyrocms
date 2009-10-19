@@ -105,7 +105,11 @@ class TinyCIMM_image extends TinyCIMM {
 		$data['images'] = array();
 		foreach($assets = $ci->tinycimm_model->get_assets((int) $folder, $offset, $per_page, $search) as $image) {
 			$image_path = $_SERVER['DOCUMENT_ROOT'].$this->config->item('tinycimm_asset_path').$image['id'].$image['extension'];
-			$image_size = ($imgsize = getimagesize($image_path)) ? $imgsize : array(0,0);
+			if (file_exists($image_path)) {
+				$image_size = getimagesize($image_path);
+			} else {
+				$image_size = array(0,0);
+			}
 			$image['width'] = $image_size[0];
 			$image['height'] = $image_size[1];
 			$image['dimensions'] = $image_size[0].'x'.$image_size[1];
@@ -137,6 +141,23 @@ class TinyCIMM_image extends TinyCIMM {
 		$response['message'] = 'Image successfully updated.';
 		$this->response_encode($response);
 		exit;
+	}
+
+	public function update_folder($folder_id=0){
+		if (!count($_POST)) {
+			exit;
+		}
+		$ci = &get_instance();
+		if (!$ci->tinycimm_model->update_folder($folder_id, $_POST['folder_name'])) {
+			$response['outcome'] = false;
+			$response['message'] = 'Folder not saved.';
+			$this->response_encode($response);
+			exit;
+		}
+		$response['outcome'] = true;
+		$this->response_encode($response);
+		exit;
+		
 	}
 
   	/**

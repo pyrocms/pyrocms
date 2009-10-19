@@ -236,7 +236,7 @@ class TinyCIMM {
 
 	public function get_folders_html($type=''){
 		$ci = &get_instance();
-		$data['folders'][0] = array('id'=>0,'name'=>'All files');
+		$data['folders'][0] = array('id'=>0,'name'=>'All images');
 		foreach($folders = $ci->tinycimm_model->get_folders($type, 'name') as $folderinfo) {
 			$data['folders'][] = $folderinfo;
 		}
