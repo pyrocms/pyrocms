@@ -12,7 +12,7 @@
 	<script type="text/javascript">
 	//<![CDATA[
 		var tinymce = parent.tinymce;
-		// load popup css
+		// load theme popup css
 		tinymce.EditorManager.activeEditor.windowManager.createInstance('tinymce.dom.DOMUtils', document).loadCSS(tinymce.EditorManager.activeEditor.settings.popup_css);
 
 		/**
@@ -20,9 +20,10 @@
 		**/
 		function removedim() {
 			try {
-				var dim = parent.document.getElementById("dimwindow");
+				var 
+				dim = parent.document.getElementById("dimwindow"), 
+				img = parent.document.getElementById("dimwindowimg");
 				dim.parentNode.removeChild(dim);
-				var img = parent.document.getElementById("dimwindowimg");
 				img.parentNode.removeChild(img);
 			} catch(e) {}
 		}
@@ -31,48 +32,59 @@
 		* create overlay layer and spinner image and add to the dom
 		**/
 		function dimimage() {
-			var dim = parent.document.createElement("div");
+			var 
+			dim = parent.document.createElement("div"),
+			img = parent.document.createElement("div"),
+			bodyRef = parent.document.getElementById("upload_panel");
 			dim.setAttribute("id", "dimwindow");
-			var img = parent.document.createElement("div");
 			img.setAttribute("id", "dimwindowimg");
 			img.innerHTML = '<div><img src="img/progress.gif" /></div>';
-			var bodyRef = parent.document.getElementById("upload_panel");
 			bodyRef.appendChild(dim);
 			bodyRef.appendChild(img);
 		}
 
-		window.onload = function() {
-			document.forms[0].action = parent.tinyMCEPopup.editor.documentBaseURI.toAbsolute(parent.tinyMCE.settings.tinycimm_controller+'image/upload');
-			document.getElementById('fileupload').multiFileUpload();
-		}
 
-		var i=1;
+		/**
+		* - bind change event to file input, append new file input to parent form
+		* - will create unqiue names for inputs and will not group them - this is to 
+		* support how multi files are managed by CI (ideally i'd like to group the inputs)
+		**/
 		Object.prototype.multiFileUpload = function(){
 			this.onchange = function(){
-				var container = document.createElement('div'), removeanchor = document.createElement('a'), newinput = document.createElement('input');
-				newinput.type = 'file';
-				newinput.setAttribute('name', newinput.name+i);
-				newinput.className = 'fileupload';
+				var self = this, container = document.createElement('div'), removeanchor = document.createElement('a'), newinput = document.createElement('input');
+				// define new file input
+				newinput.setAttribute('type', 'file');
+				newinput.setAttribute('name', this.name+Math.floor(Math.random()*2));
+				newinput.setAttribute('class', 'fileupload');
+				// bind multi-file-uplood change event to new file input element
 				newinput.multiFileUpload();
+				// insert new file input element
 				this.parentNode.insertBefore(newinput, this);
-				
+				// create and insert the 'remove' anchor and container	
 				container.className = 'fileuploadinput';
 				removeanchor.href = '#';
 				removeanchor.onclick = function(e){
 					e.preventDefault();
 					container.parentNode.removeChild(container);
+					self.parentNode.removeChild(self);
 				};
 				removeanchor.innerHTML = '[remove]';
+				// strip path segments if any
 				container.innerHTML = this.value.replace(/\\/g, "/").replace(/.*\//, "")+" ";
 				container.appendChild(removeanchor);
 				this.parentNode.appendChild(container);
-
+				// 'hide' the current file input (safari doesn't like display:none)
 				this.style.position = 'absolute';
 				this.style.left = '-1000px';
-				i++;
 			};
 			return this;
 		};
+		
+		// prepare the upload form
+		window.onload = function() {
+			document.forms[0].action = parent.tinyMCEPopup.editor.documentBaseURI.toAbsolute(parent.tinyMCE.settings.tinycimm_controller+'image/upload');
+			document.getElementById('fileupload').multiFileUpload();
+		}
 	//]]>
 	</script>
 	<base target="_self" />
