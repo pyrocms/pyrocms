@@ -129,7 +129,7 @@ class Image_Manager extends Controller {
 			}
 			$data['images'][] = $image;	 
 		}
-		$this->load->view($this->view_path.'rightpane_'.$this->session->userdata('cimm_view'), $data);
+		$this->load->view($this->view_path.'browser', array('data'=>$data));
 	}
   
 	/**
