@@ -84,6 +84,10 @@ p {
 	width: 220px;
 }
 
+table#folderinfo td {
+	padding: 2px 4px 2px 0px;
+}
+
 form#uploadform .constrain-dimensions label {
 	float: left;
 	line-height: 18px
@@ -517,6 +521,11 @@ img.edit-folder {
 
 #manager-actions .delete {
 	background-position: 0 0;
+}
+
+a#image-preview-popup img {
+	border: 1px solid #AAA;
+	display: block;
 }
 
 

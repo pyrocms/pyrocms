@@ -19,7 +19,7 @@
 </div>
 <br/>
 <div class="heading">&raquo; Folder Info</div>
-<table border="0" cellpadding="2" cellspacing="1">
+<table border="0" cellpadding="2" cellspacing="1" id="folderinfo">
 	<tr><td>Images:</td><td><?=$selected_folder_info['total_assets'];?></td></tr>
 	<tr><td>Size:</td><td><?=$selected_folder_info['total_file_size'];?></td></tr>
 	<tr><td>View:</td><td>

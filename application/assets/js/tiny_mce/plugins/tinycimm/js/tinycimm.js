@@ -93,6 +93,67 @@ Object.prototype.multiFileUpload = function(config){
 	return this;
 };
 
+Object.prototype.editInPlace = function(saveFunctionCallback){
+	var self = this, editItem = document.getElementById('edit-item-'+this.id);
+	// if the editing container exists, then just show it
+	if (editItem) {
+		editItem.style.display = 'block';
+		this.style.display = 'none';
+		return;
+	}
+	var 
+	input = document.createElement('input'),
+	saveImg = new Image(), cancelImg = new Image(),
+	editContainer = document.createElement('div');
+	editContainer.setAttribute('id', 'edit-item-'+this.id);
+	
+	// prepare the input element
+	input.value = this.innerHTML.text().replace(/\/$/, '');
+	input.className = 'edit-folder-caption';
+
+	// prepare the save image
+	saveImg.className = 'edit-folder state-out';
+	saveImg.src = 'img/save.gif';
+	saveImg.title = 'save';
+	saveImg.onmouseover = function(){
+		this.className = this.className.replace(/state-out/, "state-over");
+	};
+	saveImg.onmouseout = function(){
+		this.className = this.className.replace(/state-over/, "state-out");
+	};
+	saveImg.onclick = function(){
+		saveFunctionCallbacCallbackk(input.value.safeEscape());
+		self.style.display = 'block';
+		editContainer.style.display = 'none';
+	};
+
+	// prepare the cancel image
+	cancelImg.className = 'edit-folder state-out';
+	cancelImg.src = 'img/cancel.png';
+	cancelImg.title= 'cancel';
+	cancelImg.onmouseover = function(){
+		this.className = this.className.replace(/state-out/, "state-over");
+	};
+	cancelImg.onmouseout = function(){
+		this.className = this.className.replace(/state-over/, "state-out");
+	};
+	cancelImg.onclick = function(){
+		self.style.display = 'block';
+		editContainer.style.display = 'none';
+	};
+
+	// append elements to container
+	editContainer.appendChild(input);
+	editContainer.appendChild(saveImg);
+	editContainer.appendChild(cancelImg);
+
+	// insert container into the dom
+	this.parentNode.insertBefore(editContainer, this);
+	this.style.display = 'none';
+	input.focus();
+	return this;
+};
+
 
 
 function TinyCIMM(type){
@@ -423,74 +484,25 @@ TinyCIMM.prototype.reload = function() {
 };
 
 TinyCIMM.prototype.editFolder = function(folder_id){
-	var self = this, 
-	editFolder = document.getElementById('edit-folder-'+folder_id),
-	folder = document.getElementById('folder-'+folder_id),
-	input = document.createElement('input'),
-	saveImg = new Image(), cancelImg = new Image(),
-	editContainer = document.createElement('div');
+	var self = this, folder = document.getElementById('folder-'+folder_id);
 
-	if (editFolder) {
-		editFolder.style.display = 'block';
-		folder.style.display = 'none';
-	} else {
-		input.value = folder.innerHTML.text().replace(/\/$/, '');
-		input.className = 'edit-folder-caption';
-
-		saveImg.className = 'edit-folder state-out';
-		saveImg.src = 'img/save.gif';
-		saveImg.onmouseover = function(){
-			this.className = this.className.replace(/state-out/, "state-over");
-		};
-		saveImg.onmouseout = function(){
-			this.className = this.className.replace(/state-over/, "state-out");
-		};
-		saveImg.onclick = function(){
-			self.updateFolder(folder_id, input.value.safeEscape(), function(){
-				self.getFoldersHTML(function(folderHTML){
-					tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
-				});
-				folder.style.display = 'block';
-				editContainer.style.display = 'none';
+	folder.editInPlace(function(input_value){
+		self.updateFolder(folder_id, input_value, function(){
+			self.getFoldersHTML(function(folderHTML){
+				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
 			});
-		};
-
-		cancelImg.className = 'edit-folder state-out';
-		cancelImg.src = 'img/cancel.png';
-		cancelImg.onmouseover = function(){
-			this.className = this.className.replace(/state-out/, "state-over");
-		};
-		cancelImg.onmouseout = function(){
-			this.className = this.className.replace(/state-over/, "state-out");
-		};
-		cancelImg.onclick = function(){
-			folder.style.display = 'block';
-			editContainer.style.display = 'none';
-		};
-
-		editContainer.appendChild(input);
-		editContainer.appendChild(saveImg);
-		editContainer.appendChild(cancelImg);
-
-		folder.parentNode.insertBefore(editContainer, folder);
-		input.focus();
-		folder.style.display = 'none';
-	}
-	
+		});
+	});
 };
 
 TinyCIMM.prototype.removeOverlay = function(){
-	var 
-	dim = document.getElementById("dimwindow"), 
-	img = document.getElementById("dimwindowimg");
+	var dim = document.getElementById("dimwindow"), img = document.getElementById("dimwindowimg");
 	(dim) && dim.parentNode.removeChild(dim);
 	(img) && img.parentNode.removeChild(img);
 };
 
 TinyCIMM.prototype.showOverlay = function() {
-	var 
-	dim = document.createElement("div"),
-	img = document.createElement("div"),
+	var dim = document.createElement("div"), img = document.createElement("div"),
 	bodyRef = document.getElementById("upload_panel");
 	dim.setAttribute("id", "dimwindow");
 	img.setAttribute("id", "dimwindowimg");
