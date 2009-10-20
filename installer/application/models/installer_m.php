@@ -118,14 +118,7 @@ class installer_m extends Model
 	function mysqli_is_installed()
 	{
 		// Check whether the mysqli_connect() function exists. If it doesn't it's most likely that MySQLi is not installed.
-		if(function_exists('mysqli_connect'))
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
+		return function_exists('mysqli_connect');
 	}
 	
 	/**
