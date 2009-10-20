@@ -97,23 +97,16 @@ class Tinycimm_model extends Model {
 	*
 	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
-	function update_asset($id=0, $folder_id=0, $name='', $description='', $filename=''){
-		$fields = array();
-		if ($folder_id) {
-			$fields['folder_id'] = $folder_id;
-		}
-		if ($name) {
-			$fields['name'] = $name;
-		}
-		if ($description) {
-			$fields['description'] = $description;
-		}
-		if ($filename) {
-			$fields['filename'] = $filename;
-		}
+	function update_asset($id=0, $fields=array()){
 		return $this->db->where('id', $id)->update('asset', $fields); 
 	}
 
+	function update_assets($where=array(),$fields=array()){
+		foreach($where as $fieldname=>$fieldvalue) {
+			$this->db->where($fieldname, $fieldvalue);
+		}
+		return $this->db->update('asset', $fields);
+	}
 
 	function update_folder($folder_id=0, $folder_name) {
 		$fields['name'] = $folder_name;
@@ -140,7 +133,7 @@ class Tinycimm_model extends Model {
 	* @return Object| a result object of the list of folder from the database
 	**/
 	function get_folders($type='image', $order_by='name', $user_id=FALSE){
-		return $this->db->orderby($order_by)->get('asset_folder')->result_array();
+		return $this->db->orderby('smart','desc')->orderby($order_by)->get('asset_folder')->result_array();
 	}
 
 	/**

@@ -307,7 +307,7 @@ TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 TinyCIMM.prototype.getFoldersHTML = function(callback) {
 	var self = this;
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/html'),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/list'),
 		type : "GET",
 		error : function(response) {
 	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
@@ -357,13 +357,7 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 				if (!obj.outcome) {
 					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
 	 			} else {
-					self.getFoldersHTML(function(folderHTML){
-						tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
-					});
-					if (obj.images_affected > 0) {
-						tinyMCEPopup.editor.windowManager.alert(obj.images_affected+" images were moved to the root directory.");
-						self.showBrowser(0, 0, true);
-					}
+					self.showBrowser(0, 0, true);
 	 			}
 			}
 		});
