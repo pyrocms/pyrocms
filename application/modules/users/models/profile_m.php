@@ -1,11 +1,19 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * @author 		Phil Sturgeon - PyroCMS Development Team
+ * @package 	PyroCMS
+ * @subpackage 	Users Module
+ * @since		v0.1
+ *
+ */
 class Profile_m extends Model {
 	
+	// Constructor function
 	function __construct() {
         parent::Model();
 	}
 	
+	// Get a user profile
 	function getProfile($params = array()) {
 		
 		$query = $this->db->getwhere('profiles', $params);
@@ -13,6 +21,7 @@ class Profile_m extends Model {
 		return $query->row();
 	}
 	
+	// Update a user's profile
 	function updateProfile($input, $id) {
 		
 		$this->load->helper('date');
@@ -49,8 +58,6 @@ class Profile_m extends Model {
 		endif;
 		
 		return TRUE;
-		
 	}
-
 }
 ?>
