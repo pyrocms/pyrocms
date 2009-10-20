@@ -20,7 +20,7 @@
 					<td>Remote Folder</td>
 					<td colspan="3">
 						<div id="folder-select-list">
-							<?=$this->tinycimm->get_folders_select();?>
+							<?=$this->tinycimm->get_folders('select');?>
 						</div>
 					</td>
 				</tr>

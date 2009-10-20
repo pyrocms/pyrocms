@@ -53,6 +53,9 @@ class TinyCIMM {
 	public function resize_asset($asset, $width=200, $height=200, $quality=90, $cache=true, $update=false){
 		$ci = &get_instance();
 
+		$asset = is_object($asset) ? $asset : $ci->tinycimm_model->get_asset($asset);
+		!$asset && die();
+
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset->id.$asset->extension;
 		$asset->filename_orig = $this->config->item('tinycimm_asset_path').$asset->id.$asset->extension;
 		$asset->filename = $this->config->item('tinycimm_asset_cache_path').$asset->id.'_'.$width.'_'.$height.'_'.$quality.$asset->extension;
@@ -82,8 +85,6 @@ class TinyCIMM {
 		$asset->width = $resized_image_size[0];
 		$asset->height = $resized_image_size[1];
 		
-
-
 		return $asset;
 	}
 
@@ -110,43 +111,44 @@ class TinyCIMM {
 						$this->tinymce_alert(preg_replace('/<[^>]+>/', '', $ci->upload->display_errors()));
 						exit;
 					}
-
 					$asset_data = $ci->upload->data();
-
+					$asset_folder = (int) $ci->input->post('uploadfolder');
+					
+					// format the description from the file name
 					$description = preg_replace("/\\\/", '/', $file['name']);
 					$description = preg_replace("/.*\/|\.\w*$/", "", $description);
 					$description = preg_replace("/[_-]/", " ", $description);
 					$description = preg_replace("/\s{2,}/", " ", $description);
 
-					$folder = (int) $ci->input->post('uploadfolder');
-
-					// insert the asset info into the db
-					$last_insert_id = 
-					$ci->tinycimm_model->insert_asset(
-						$folder, 
+					// get the image dimensions if file is type image
+					$asset_width = $asset_height = NULL;
+					if ('image' == current(explode('/', $file['type']))) {
+						$dimensions = @getimagesize($file['tmp_name']);
+						$asset_width = $dimensions[0];
+						$asset_height = $dimensions[1];
+					}
+					
+					// insert the asset info into the database
+					$last_insert_id = $ci->tinycimm_model->insert_asset(
+						$asset_folder,
 						strtolower(basename($asset_data['orig_name'])), 
-						'', 
+						strtolower(basename($asset_data['orig_name'])), 
 						$description, 
 						strtolower($asset_data['file_ext']), 
 						$file['type'],
-						$file['size']
+						$file['size'],
+						$asset_width,
+						$asset_height
 					);
 
-		
-					$ci->tinycimm_model->update_asset('id', $last_insert_id, 0, '', '', $last_insert_id.strtolower($asset_data['file_ext']));
-					$asset = $ci->tinycimm_model->get_asset($last_insert_id);
-					$asset->width = isset($asset_data['image_width']) ? $asset_data['image_width'] : '';
-					$asset->height = isset($asset_data['image_height']) ? $asset_data['image_height'] : '';
-
 					// rename the uploaded file, CI's Upload library does not handle custom file naming 	
-					rename($asset_data['full_path'], $asset_data['file_path'].$asset->id.strtolower($asset->extension));
-					
-					// resize image
+					rename($asset_data['full_path'], $asset_data['file_path'].$last_insert_id.strtolower($asset_data['file_ext']));
+
+					// resize uploaded image
 					$max_x = (int) $ci->input->post('max_x');
 					$max_y = (int) $ci->input->post('max_y');
-					$adjust_size = (int) $ci->input->post('adjust_size') === 1 and ($asset->width > $max_x or $asset->height > $max_y);
-					if ($adjust_size and ($asset->width > $max_x or $asset->height > $max_y)) {
-						$this->resize_asset($asset, $max_x, $max_y, 90, true, true);
+					if ((int) $ci->input->post('adjust_size') === 1 and ($asset_width > $max_x or $asset_height > $max_y)) {
+						$this->resize_asset($last_insert_id, $max_x, $max_y, 90, true, true);
 					}
 
 					$files_uploaded++;
@@ -158,7 +160,7 @@ class TinyCIMM {
 				exit;
 			}
 
-			return $folder;
+			return $asset_folder;
 			  
 		} else {
 			$this->tinymce_alert('Please select a file to upload.');
@@ -223,25 +225,16 @@ class TinyCIMM {
 		$ci->tinycimm_model->insert_folder($name, $type);
 	}
 
-        public function get_folders_select($folder_id=0){
+        public function get_folders($type='select', $folder_id=0){
                 $ci = &get_instance();
                 $data['folder_id'] = $folder_id;
                 $data['folders'] = array();
                 foreach($folders = $ci->tinycimm_model->get_folders('name') as $folderinfo) {
                         $data['folders'][] = $folderinfo;
                 }
-                $ci->load->view($ci->view_path.'fragments/folder_select', $data);
+                $ci->load->view($ci->view_path.'fragments/folder_'.$type, $data);
         }
 
-
-	public function get_folders_html($type=''){
-		$ci = &get_instance();
-		$data['folders'][0] = array('id'=>0,'name'=>'All images');
-		foreach($folders = $ci->tinycimm_model->get_folders($type, 'name') as $folderinfo) {
-			$data['folders'][] = $folderinfo;
-		}
-		$ci->load->view($this->view_path.'fragments/folder_list', $data);
-	}
 
 	/**
 	* Takes a PHP array and outputs it as a JSON array to screen using PHP's die function
