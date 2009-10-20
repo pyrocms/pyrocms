@@ -162,7 +162,7 @@ function TinyCIMM(type){
 	this.settings = tinyMCEPopup.editor.settings;
 }
 
-TinyCIMM.prototype.init = function(ed, test){
+TinyCIMM.prototype.init = function(ed){
 	var node = ed.selection.getNode();
 	if (tinyMCEPopup.params.resize) {
 		this.loadResizer(node.src.toId()+'.'+node.src.extension(), false, node.width);

@@ -10,7 +10,7 @@
 		 * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
 		 * @param {string} url Absolute URL to where the plugin is located.
 		 */
-		init : function(ed, url, type, win) {
+		init : function(ed, url) {
 
 			ed.addCommand('mceTinyCIMM-Image', function(resize) {
 				ed.windowManager.open({
