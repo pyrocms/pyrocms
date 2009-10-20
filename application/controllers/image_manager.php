@@ -112,7 +112,12 @@ class Image_Manager extends Controller {
 		if (!count($_POST)) {
 			exit;
 		}
-		if (!$this->tinycimm_model->update_asset($image_id, $_POST['folder_id'], $_POST['name'], $_POST['description'])) {
+		if (!$this->tinycimm_model->update_asset($image_id, 
+		array(
+			'folder_id' => $_POST['folder_id'], 
+			'name' => $_POST['name'], 
+			'description' => $_POST['description']
+		))) {
 			$response['outcome'] = false;
 			$response['message'] = 'Image not found.';
 			$this->tinycimm->response_encode($response);
@@ -166,29 +171,28 @@ class Image_Manager extends Controller {
 	public function delete_folder($folder_id=0) {
 		if (!$this->tinycimm->delete_folder((int) $folder_id)) {
 			$response['outcome'] = false;
-			$response['message'] = 'Image not found.';
+			$response['message'] = 'Folder not found.';
 			$this->tinycimm->response_encode($response);
 			exit;
 		}
 		$response['outcome'] = true;
-		$response['images_affected'] = $this->images_affected;
+		$response['images_affected'] = $this->tinycimm->images_affected;
 		$this->tinycimm->response_encode($response);
 		exit;
  	}
   	
 	public function add_folder($name='', $type=''){ 
-		if (is_array($response = parent::add_folder($name, $type))) {
+		if (is_array($response = $this->tinycimm->add_folder($name, $type))) {
                         $this->tinycimm->response_encode($response);
                         exit;
                 }
-		$this->get_folders('html');
+		$this->get_folders('list');
   	}
   
 	// return folder list HTML	
-        public function get_folders($type='select', $folder_id){
+        public function get_folders($type='select', $folder_id=0){
                 $this->tinycimm->get_folders($type, (int) $folder_id);
         }
-
 	
 	/**
 	* resizes an image

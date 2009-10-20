@@ -169,7 +169,7 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 		ed.execCommand('mceInsertContent', false, 
 		'<a class="'+self.settings.tinycimm_thumb_lightbox_class+'" '
 		+'rel="'+self.settings.tinycimm_thumb_lightbox_gallery+'" '
-		+'href="'+self.baseURL(image.filename_orig)+'">'
+		+'href="'+self.baseURL(self.settings.tinycimm_assets_path+image.id+image.extension)+'">'
 		+'<img id="__mce_tmp" /></a>', {skip_undo : 1});
 		ed.dom.setAttribs('__mce_tmp', args);
 		ed.dom.setAttrib('__mce_tmp', 'id', '');

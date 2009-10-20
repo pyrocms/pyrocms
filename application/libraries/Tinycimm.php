@@ -20,32 +20,34 @@ class TinyCIMM {
 		$this->input = &$ci->input;
 	}
 
+	// writes asset data to output buffer 
 	public function get_asset($asset_id, $width=200, $height=200, $quality=85, $send_nocache=false){
 		$ci = &get_instance();
+
 		$asset = $ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
 		if (!@file_exists($asset->filepath)) {
 			die('asset not found');
 		}
-		$asset = $this->resize_asset($asset, $width, $height, $quality);
 
+		$asset = $this->resize_asset($asset, $width, $height, $quality);
 		$headers = apache_request_headers();
 
 		// checking if the client is validating his cache and if it is current.
-		if (isset($headers['If-Modified-Since']) && (strtotime($headers['If-Modified-Since']) == filemtime($asset->resize_filepath))) {
+		if (isset($headers['If-Modified-Since']) && (strtotime($headers['If-Modified-Since']) == filemtime($asset->cache_filepath))) {
 			// client's cache is current, so we just respond '304 Not Modified'.
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->resize_filepath)).' GMT', true, 304);
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->cache_filepath)).' GMT', true, 304);
 		} else {
 			// image not cached or cache outdated, we respond '200 OK' and output the image.
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->resize_filepath)).' GMT', true, 200);
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->cache_filepath)).' GMT', true, 200);
 			if ($send_nocache) {
 				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 				header('Pragma: public');
 			}
 			header('Content-type: '.$asset->mimetype);
-			header("Content-Length: ".@filesize($asset->resize_filepath));
+			header("Content-Length: ".@filesize($asset->cache_filepath));
 			flush();
-			readfile($asset->resize_filepath);
+			readfile($asset->cache_filepath);
 		}
 		exit;
 	}
@@ -54,34 +56,37 @@ class TinyCIMM {
 		$ci = &get_instance();
 
 		$asset = is_object($asset) ? $asset : $ci->tinycimm_model->get_asset($asset);
-		!$asset && die();
-
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset->id.$asset->extension;
-		$asset->filename_orig = $this->config->item('tinycimm_asset_path').$asset->id.$asset->extension;
 		$asset->filename = $this->config->item('tinycimm_asset_cache_path').$asset->id.'_'.$width.'_'.$height.'_'.$quality.$asset->extension;
-		$asset->resize_filepath = $update ? $asset->filepath : $_SERVER['DOCUMENT_ROOT'].$asset->filename;
+		$asset->cache_filepath = $update ? $asset->filepath : $_SERVER['DOCUMENT_ROOT'].$asset->filename;
 
-		if (($cache and !file_exists($asset->resize_filepath) or $update) or !$cache) {
+		// if cache file doesn't already exist 
+		if (($cache and !file_exists($asset->cache_filepath) or $update) or !$cache) {
+
+			// prepare the resize config
 			$resize_config = $this->config->item('tinycimm_image_resize_config');		
-			$imagesize = @getimagesize($asset->filepath) or die('asset not found');
-			if ($imagesize[0] > $width or $imagesize[1] > $height) {
+			if ($asset->width > $width or $asset->height > $height) {
 				$resize_config['width'] = $width;
 				$resize_config['height'] = $height;
 			} else {
-				$resize_config['width'] = $imagesize[0];
-				$resize_config['height'] = $imagesize[1];
+				$resize_config['width'] = $asset->width;
+				$resize_config['height'] = $asset->height;
 			}
 			$resize_config['source_image'] = $asset->filepath;
-			$resize_config['new_image'] = $asset->resize_filepath;
+			$resize_config['new_image'] = $asset->cache_filepath;
+
+			// load image lib and resize image
 			$ci->load->library('image_lib');
 			$ci->image_lib->initialize($resize_config);
 			if (!$ci->image_lib->resize()) {
 				$this->tinymce_alert($ci->image_lib->display_errors());
 				exit;
 			}
-			$update and $ci->tinycimm_model->update_asset('id', $asset->id, 0, '', '', $asset->filename);
+
 		}
-		$resized_image_size = @getimagesize($asset->resize_filepath);
+
+		// get cache file dimensions
+		$resized_image_size = @getimagesize($asset->cache_filepath);
 		$asset->width = $resized_image_size[0];
 		$asset->height = $resized_image_size[1];
 		
@@ -148,7 +153,8 @@ class TinyCIMM {
 					$max_x = (int) $ci->input->post('max_x');
 					$max_y = (int) $ci->input->post('max_y');
 					if ((int) $ci->input->post('adjust_size') === 1 and ($asset_width > $max_x or $asset_height > $max_y)) {
-						$this->resize_asset($last_insert_id, $max_x, $max_y, 90, true, true);
+						$asset = $this->resize_asset($last_insert_id, $max_x, $max_y, 90, true, true);
+						$ci->tinycimm_model->update_asset($asset->id, array('width'=>$asset->width,'height'=>$asset->height));
 					}
 
 					$files_uploaded++;
@@ -202,7 +208,8 @@ class TinyCIMM {
 		$ci = &get_instance();
 		
 		// move images from folder to root folder
-		$ci->tinycimm_model->update_asset('folder_id', (int) $folder_id, '');	
+		$ci->tinycimm_model->update_assets(array('folder_id'=>(int) $folder_id), array("folder_id"=>0));	
+	
 		// store affected images
 		$this->images_affected = $ci->tinycimm_model->affected_rows();
 
@@ -280,10 +287,7 @@ class TinyCIMM {
 	* Throw up an alert message using TinyMCE's alert method (only used in upload function)
 	**/
 	public static function tinymce_alert($message){
-		echo "<script type=\"text/javascript\">
-		parent.TinyCIMMImage.removeOverlay();
-		parent.tinyMCEPopup.editor.windowManager.alert('".$message."');
-		</script>";
+		$this->load->view($this->view_path.'fragments/tinymce_alert', array('message'=>$message));
 	}
 	
 } // class TinyCIMM
