@@ -122,7 +122,7 @@ Object.prototype.editInPlace = function(saveFunctionCallback){
 		this.className = this.className.replace(/state-over/, "state-out");
 	};
 	saveImg.onclick = function(){
-		saveFunctionCallbacCallbackk(input.value.safeEscape());
+		saveFunctionCallback(input.value.safeEscape());
 		self.style.display = 'block';
 		editContainer.style.display = 'none';
 	};
@@ -502,8 +502,7 @@ TinyCIMM.prototype.removeOverlay = function(){
 };
 
 TinyCIMM.prototype.showOverlay = function() {
-	var dim = document.createElement("div"), img = document.createElement("div"),
-	bodyRef = document.getElementById("upload_panel");
+	var dim = document.createElement("div"), img = document.createElement("div"), bodyRef = document.getElementById("upload_panel");
 	dim.setAttribute("id", "dimwindow");
 	img.setAttribute("id", "dimwindowimg");
 	img.innerHTML = '<div><img src="img/progress.gif" /></div>';
