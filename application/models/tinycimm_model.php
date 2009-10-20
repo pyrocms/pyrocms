@@ -9,6 +9,8 @@ class Tinycimm_model extends Model {
 	
 	function Tinycimm_model(){
 		parent::Model();
+		$upload_config = $this->config->item('tinycimm_image_upload_config');
+		$this->allowed_types = explode('|', $upload_config['allowed_types']);
 	}
 	
 	/**
@@ -56,7 +58,7 @@ class Tinycimm_model extends Model {
 	*
 	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
-	function insert_asset($folder_id=0, $name='', $filename='', $description='', $extension='', $mimetype='', $filesize=0){
+	function insert_asset($folder_id=0, $name='', $filename='', $description='', $extension='', $mimetype='', $filesize=0, $width=NULL, $height=NULL){
 		$fields = array(
 			'folder_id' => $folder_id, 
 			'name' => $name, 
@@ -64,15 +66,30 @@ class Tinycimm_model extends Model {
 			'description' => $description, 
 			'extension' => $extension, 
 			'mimetype' => $mimetype,
-			'filesize' => $filesize
-			);
+			'filesize' => $filesize,
+			'width' => $width,
+			'height' => $height
+		);
 		$this->db->set($fields)->insert('asset');
 		return $this->db->insert_id();
 	}
 
 	function get_filesize_assets($folder_id=0){
-		$result = $this->db->query('SELECT SUM(filesize) AS filesize FROM asset WHERE folder_id = '.((int) $folder_id).' LIMIT 1')->row();
+		$this->db->select('SUM(filesize) AS filesize');
+		if ((int) $folder_id) {
+			$this->db->where('folder_id', $folder_id);
+		}
+		$result = $this->db->get('asset')->row();
 		return $result->filesize;
+	}
+	
+	function get_total_assets($folder_id=0){
+		$this->db->select('COUNT(id) AS assets');
+		if ((int) $folder_id) {
+			$this->db->where('folder_id', $folder_id);
+		}
+		$result = $this->db->get('asset')->row();
+		return $result->assets;
 	}
 	
 	/** 
@@ -123,11 +140,7 @@ class Tinycimm_model extends Model {
 	* @return Object| a result object of the list of folder from the database
 	**/
 	function get_folders($type='image', $order_by='name', $user_id=FALSE){
-		if ($user_id === FALSE) {
-			return $this->db->order_by("asset_folder.{$order_by}", 'asc')->get('asset_folder')->result_array();
-		} else {
-			return $this->db->where('user_id', (int) $user_id)->order_by($order_by, 'asc')->get('asset_folder')->result_array();
-		}
+		return $this->db->orderby($order_by)->get('asset_folder')->result_array();
 	}
 
 	/**

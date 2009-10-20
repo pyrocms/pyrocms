@@ -14,7 +14,7 @@
 					<a href="#" title="insert thumbnail" class="thumbnail" onclick="TinyCIMMImage.insertThumbnail(this, '<?=$image['filename'];?>');return false">&nbsp;</a>
 </span>
 				<img id="img-<?=$image['id'];?>" class="image_preview" src="img/icons/<?=str_replace('.', '', $image['extension']);?>.gif" />
-				<?=$image['name'];?>
+				<?=substr($image['name'], 0, 34);?>
 			</span>
 		</li>
 		<?endforeach;?>

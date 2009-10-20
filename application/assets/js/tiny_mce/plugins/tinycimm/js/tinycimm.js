@@ -293,7 +293,7 @@ TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 	folder = folder || 0;
 	type = type || 'image';
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'get_folders_select/'+folder),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/select/'+folder),
 		type : "GET",
 		error : function(text) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
@@ -307,7 +307,7 @@ TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 TinyCIMM.prototype.getFoldersHTML = function(callback) {
 	var self = this;
 	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'get_folders_html'),
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/html'),
 		type : "GET",
 		error : function(response) {
 	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');

@@ -14,12 +14,11 @@
 		</p>
 	</div>
 	<?php
-		$dimensions = getimagesize($this->config->item('tinycimm_asset_path_full').$image->id.$image->extension);
 		$image->filesize = $image->filesize/1024;
 	?>
 	<p>
 		<strong><?=$image->name;?></strong><br/>
-		<?=$dimensions[0].' x '.$dimensions[1];?>px - <?=($image->filesize > 1024 ? round($image->filesize/1024, 2).'mb' : round($image->filesize).'kb');?>
+		<?=$image->width.' x '.$image->height;?>px - <?=($image->filesize > 1024 ? round($image->filesize/1024, 2).'mb' : round($image->filesize).'kb');?>
 	</p>
 	<strong>Image Description:</strong>
 	<p id="alttext-container">
@@ -27,7 +26,7 @@
 	</p>
 	<p id="folder-select-list">
 		<strong>Image Folder:</strong><br/>
-		<?=$this->tinycimm->get_folders_select($image->folder_id);?>
+		<?=$this->tinycimm->get_folders('select', $image->folder_id);?>
 	</p>
 	<p id="manager-actions">
 		<a href="javascript:;" id="update-image">
