@@ -21,6 +21,7 @@ body {
 	width:600px;
 }
 /* Helpers */
+.white 	{color:#fff!important;text-decoration:underline!important;} /* Should only be used for links inside error messages (since blue text on a red background is ugly as fuck) */
 .red 	{color:red;}
 .green	{color:#3FB53F;}
 .orange	{color:#F18431;}
