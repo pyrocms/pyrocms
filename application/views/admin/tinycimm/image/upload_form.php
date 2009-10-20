@@ -1,6 +1,6 @@
 <iframe id="hidden_iframe" name="hidden_iframe" src="javascript:false" style="display:none"></iframe>
 <fieldset>
-	<legend>Quick Image Upload</legend>
+	<legend>Image Upload</legend>
 	<div id="fileuploader">
 
 		<form method="post" target="hidden_iframe" enctype="multipart/form-data" action="<?=$this->config->item('tinycimm_image_controller');?>upload" id="uploadform" name="uploadform">
