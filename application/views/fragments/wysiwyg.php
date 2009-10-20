@@ -102,6 +102,8 @@
 
 	function tinycimm(field_name, url, type, win) {
 
+		if (type != 'image') return;
+
 		var url = win.tinyMCE.baseURI.relative+'/plugins/tinycimm/'+type+'.htm';
 
 		tinyMCE.activeEditor.windowManager.open({

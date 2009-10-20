@@ -10,23 +10,11 @@
 		 * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
 		 * @param {string} url Absolute URL to where the plugin is located.
 		 */
-		init : function(ed, url) {
+		init : function(ed, url, type, win) {
 
 			ed.addCommand('mceTinyCIMM-Image', function(resize) {
 				ed.windowManager.open({
 					file : url + '/image.htm',
-					width : 574,
-					height : 462,
-					inline : 1
-				}, {
-					plugin_url : url,
-					resize : resize
-				});
-			});
-
-			ed.addCommand('mceTinyCIMM-Media', function(resize){
-				ed.windowManager.open({
-					file : url + '/media.htm',
 					width : 574,
 					height : 462,
 					inline : 1
@@ -41,13 +29,6 @@
 				title : 'Image Manager',
 				cmd : 'mceTinyCIMM-Image',
 				image : url + '/img/insertimage.gif'
-			});
-
-			// register media manager button
-			ed.addButton('tinycimm-media', {
-				title : 'Media Manager',
-				cmd : 'mceTinyCIMM-Media',
-				image : url + '/img/insertmedia.gif'
 			});
 
 			// Add a node change handler, selects the button in the UI when a image is selected

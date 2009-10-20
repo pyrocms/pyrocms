@@ -230,7 +230,7 @@ class TinyCIMM {
                 foreach($folders = $ci->tinycimm_model->get_folders('name') as $folderinfo) {
                         $data['folders'][] = $folderinfo;
                 }
-                $ci->load->view($ci->view_path.'folder_select', $data);
+                $ci->load->view($ci->view_path.'fragments/folder_select', $data);
         }
 
 
@@ -240,7 +240,7 @@ class TinyCIMM {
 		foreach($folders = $ci->tinycimm_model->get_folders($type, 'name') as $folderinfo) {
 			$data['folders'][] = $folderinfo;
 		}
-		$ci->load->view($this->view_path.'folder_list', $data);
+		$ci->load->view($this->view_path.'fragments/folder_list', $data);
 	}
 
 	/**
