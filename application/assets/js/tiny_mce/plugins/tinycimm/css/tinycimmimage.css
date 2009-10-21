@@ -32,6 +32,19 @@ p {
 	margin-bottom: 1em;
 }
 
+/* tabs */
+#resize_tab, #manager_tab {
+	display: none;
+}
+#info_tab {
+	float: right;
+	margin: 0px;
+}
+#info_tab_link img {
+	display: block;
+	margin-top: 1px;
+}
+
 #prev {
 	margin: 0;
 	border: 1px solid #000;

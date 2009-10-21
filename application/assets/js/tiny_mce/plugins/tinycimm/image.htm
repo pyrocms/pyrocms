@@ -2,13 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Image Manager</title>
-	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
-	<script type="text/javascript" src="../../utils/mctabs.js"></script>
-	<script type="text/javascript" src="js/scrollslider.js"></script>
-	<script type="text/javascript" src="js/tinycimm.js"></script>
-	<script type="text/javascript" src="js/tinycimm_image.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/tinycimmimage.css" />
-	<base target="_self" />
 </head>
 <body id="advimage" style="display: none">
 	<div class="tabs">
@@ -27,27 +21,28 @@
 					</a>
 				</span>
 			</li>
-			<li id="resize_tab" style="display:none">
+			<li id="resize_tab">
 				<span>
 					<a href="javascript:TinyCIMMImage.loadresizer();" onmousedown="return false;">
 						Resize
 					</a>
 				</span>
 			</li>
-			<li id="manager_tab" style="display:none">
+			<li id="manager_tab">
 				<span>
 					<a href="#" onmousedown="return false;">
 						Manage
 					</a>
 				</span>
 			</li>
-			<li id="info_tab" style="float:right;margin:0px">
+			<li id="info_tab">
 				<span>
 					<a id="info_tab_link" href="javascript:;" onmousedown="return false;" title="reload dialog">
-						<img alt="reload" border="0" style="display:block;margin-top:1px" src="img/loader_st.gif" onclick="this.src='img/loader.gif';TinyCIMMImage.reload()" />
+						<img alt="reload" border="0" src="img/loader_st.gif" onclick="this.src='img/loader.gif';TinyCIMMImage.reload()" />
 					</a>
 				</span>
 			</li>
+
 		</ul>
 	</div>
 
@@ -75,8 +70,8 @@
 					<div id="image-slider"></div>
 					<div id="image-info">
 						<div id="image-info-dimensions">
-							<span id="slider_width_val">139</span> x 
-							<span id="slider_height_val">92px</span>
+							<span id="slider_width_val"></span> x 
+							<span id="slider_height_val"></span>
 						</div>
 						<img width="0" height="0" id="slider_img" src="" alt="slider" />
 					</div>
@@ -85,17 +80,21 @@
 		</div>
 
 		<!-- IMAGE UPLOAD PANEL -->
-		<div id="upload_panel" class="panel" style="background:#FFF">
+		<div id="upload_panel" class="panel">
 			&nbsp;
 		</div>
  
 		<!-- MANAGE IMAGE PANEL -->
-		<div id="manager_panel" class="panel" style="background:#FFF">
+		<div id="manager_panel" class="panel">
 			&nbsp;
 		</div>
 
 	<!-- END PANELS -->
 	</div>
-
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script type="text/javascript" src="js/scrollslider.js"></script>
+	<script type="text/javascript" src="js/tinycimm.js"></script>
+	<script type="text/javascript" src="js/tinycimm_image.js"></script>
 </body> 
 </html> 
