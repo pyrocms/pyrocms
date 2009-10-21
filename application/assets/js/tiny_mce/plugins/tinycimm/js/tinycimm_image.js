@@ -30,19 +30,46 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 	if (typeof el == 'object') {
 		tinyMCE.activeEditor.dom.select('img', el)[0].src = 'img/ajax-loader.gif';
 	}
+
 	this.getBrowser(folder, offset, search_query, function(){
+			
+		function mouseover(){
+			var self = this;
+
+			tinyMCE.activeEditor.dom.addClass(this, 'show');
+			tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper-over');
+
+			this.over = true;
+			this.timer = setTimeout(function(){
+				tinyMCE.activeEditor.dom.select('.controls', self)[0].style.display = 'block';
+				tinyMCE.activeEditor.dom.select('.controls-bg', self)[0].style.display = 'block';
+			}, 600);
+		}
+
+		function mouseout(){
+			var self = this;
+
+			tinyMCE.activeEditor.dom.removeClass(this, 'show');
+			tinyMCE.activeEditor.dom.removeClass(this, 'thumb-wrapper-over');
+			tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper');
+
+			// hovering over the controls causes mouseout
+			// so the following takes cares of that
+			this.over = false;
+			(self.timer) && clearTimeout(self.timer);
+			setTimeout(function(){
+				if (!self.over) {
+					tinyMCE.activeEditor.dom.select('.controls', self)[0].style.display = 'none';
+					tinyMCE.activeEditor.dom.select('.controls-bg', self)[0].style.display = 'none';
+				}
+			});
+		}
+
 		// bind hover event to thumbnail
-		var thumb_images = tinyMCEPopup.dom.select('.thumb-wrapper');
-		for(var image in thumb_images) {
-			thumb_images[image].onmouseover = function(e){
-				tinyMCE.activeEditor.dom.addClass(this, 'show');
-				tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper-over');
-			}
-			thumb_images[image].onmouseout = function(e){
-				tinyMCE.activeEditor.dom.removeClass(this, 'show');
-				tinyMCE.activeEditor.dom.removeClass(this, 'thumb-wrapper-over');
-				tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper');
-			};
+		var thumbs = tinyMCEPopup.dom.select('.thumb-wrapper');
+		for(var image in thumbs) {
+			thumbs[image].onmouseover = mouseover;
+			thumbs[image].onmouseout = mouseout;
 		}
 	});
 };
@@ -247,7 +274,7 @@ ImageDialog.prototype.checkLoad = function(preImage, sliderWidth) {
 	
 // show resizer image
 ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
-	var img = window.document.createElement("img"), 
+	var img = document.createElement("img"), 
 	sliderVal = sliderWidth ? sliderWidth : (image.width < this.settings.tinycimm_resize_default_intial_width ? image.width : this.settings.tinycimm_resize_default_intial_width);
 	img.setAttribute('id', 'slider_img');
 	img.setAttribute('src', image.src);

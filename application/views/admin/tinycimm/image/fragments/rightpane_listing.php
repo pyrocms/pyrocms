@@ -1,6 +1,3 @@
-<div class="heading">
-	<?= $this->load->view($this->view_path.'fragments/search');?>
-</div>
 <div id="filelist">
 	<ul class="folderlist clearfix">
 	<?if (sizeof($images) == 0) {?>
@@ -12,7 +9,7 @@
 				<span class="list-controls">
 					<a href="#" title="delete image" class="delete" onclick="TinyCIMMImage.deleteImage(<?=$image['id'];?>);return false">&nbsp;</a>
 					<a href="#" title="insert thumbnail" class="thumbnail" onclick="TinyCIMMImage.insertThumbnail(this, '<?=$image['filename'];?>');return false">&nbsp;</a>
-</span>
+	</span>
 				<img id="img-<?=$image['id'];?>" class="image_preview" src="img/icons/<?=str_replace('.', '', $image['extension']);?>.gif" />
 				<?=substr($image['name'], 0, 34);?>
 			</span>
