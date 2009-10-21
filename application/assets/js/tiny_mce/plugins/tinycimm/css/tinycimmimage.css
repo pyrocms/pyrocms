@@ -196,7 +196,7 @@ span#loading {
 	z-index: 9999;
 }
 #slider_img {
-	display: none;
+	/*display: none;*/
 }
 
 /**
