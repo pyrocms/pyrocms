@@ -18,6 +18,7 @@ class TinyCIMM {
 		$this->db = &$ci->db;
 		$this->config = &$ci->config;
 		$this->input = &$ci->input;
+		$this->check_paths();
 	}
 
 	// writes asset data to output buffer 
@@ -265,29 +266,29 @@ class TinyCIMM {
 	}
 	
 	/** 
-	* check if image directories exist, if not then try to create them with 0777/0755 permissions
-	* Added config variable to allow user to choose between 0777 and 0755, as different server setups require different settings
+	* check if image directories exist and have the correct permissions, if not then try to create them with specified permissions
 	**/
 	public function check_paths() {
 		// what CHMOD permissions should we use for the upload folders?
-		$chmod = $this->config->item('tinycimm_asset_upload_chmod');
+		$chmod = $this->config->item('tinycimm_asset_path_chmod');
 		
 		// upload dir
-		file_exists($this->config->item('tinycimm_asset_path_full'))
+		(file_exists($this->config->item('tinycimm_asset_path_full')) and (substr(sprintf('%o', fileperms($this->config->item('tinycimm_asset_path_full'))), -4) == $chmod))
 		or @mkdir($this->config->item('tinycimm_asset_path_full'), $chmod) 
-		or die('Error: '.$this->config->item('tinycimm_asset_path_full').'<br/><strong>Please adjust permissions</strong>');
+		or die('Error: '.$this->config->item('tinycimm_asset_path_full').'<br/><strong>Please adjust permissions to '.$chmod.'</strong>');
 
 		// cache dir
-		file_exists($this->config->item('tinycimm_asset_cache_path_full'))
+		(file_exists($this->config->item('tinycimm_asset_cache_path_full')) and (substr(sprintf('%o', fileperms($this->config->item('tinycimm_asset_cache_path_full'))), -4) == $chmod))
 		or @mkdir($this->config->item('tinycimm_asset_cache_path_full'), $chmod) 
-		or die('Error: '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions</strong>');
+		or die('Error: '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions to'.$chmod.'</strong>');
 	}
 	
 	/**
 	* Throw up an alert message using TinyMCE's alert method (only used in upload function)
 	**/
-	public static function tinymce_alert($message){
-		$this->load->view($this->view_path.'fragments/tinymce_alert', array('message'=>$message));
+	public function tinymce_alert($message){
+                $ci = &get_instance();
+		echo $ci->load->view($this->view_path.'fragments/tinymce_alert', array('message'=>$message), true);
 	}
 	
 } // class TinyCIMM

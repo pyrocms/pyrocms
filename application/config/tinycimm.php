@@ -13,7 +13,7 @@ $config['tinycimm_asset_path_full'] = $_SERVER['DOCUMENT_ROOT'].$config['tinycim
 $config['tinycimm_asset_cache_path_full'] = $_SERVER['DOCUMENT_ROOT'].$config['tinycimm_asset_cache_path'];
 
 // set to either 0777 or 0755 depending on your server setup
-$config['tinycimm_asset_path_chmod'] = 0777;
+$config['tinycimm_asset_path_chmod'] = '0777';
 
 // image upload config
 $config['tinycimm_image_upload_config']['field_name'] = 'fileupload';
