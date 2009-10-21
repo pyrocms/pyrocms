@@ -32,7 +32,7 @@ p {
 	margin-bottom: 1em;
 }
 
-/* tabs */
+/* Tabs */
 #resize_tab, #manager_tab {
 	display: none;
 }
@@ -64,16 +64,6 @@ p {
 
 #browser_panel {
 	height: auto;
-}
-
-#filelist {
-	height: 334px;
-	margin: 0;
-	width: 100%;
-	padding-left: 3px;
-	overflow: hidden;
-	z-index: 999;
-	position: relative;
 }
 
 #fileuploader {
@@ -147,46 +137,6 @@ select#folderselect {}
 	height: 404px;
 }
 
-#resizer {
-	height: 368px;
-	overflow:none;
-}
-
-#save_size {
-	width: 96px;
-	padding: 6px 5px 0px 0px;
-	float: right;
-}
-
-#image-slider {
-	margin-bottom: 20px;
-	padding-top: 6px;
-}
-
-#image-info {
-	height: 342px;
-	width: 522px;
-	display: block;
-	overflow: auto;
-	border: 1px solid #000000;
-}
-
-#image-info-dimensions {
-	padding: 1px 4px;
-	position: absolute;
-	background: #FFFFFF;
-	border: 1px solid #000;
-	border-width: 0 1px 1px 0;
-	filter: alpha(opacity=75);
-	opacity: 0.75;
-	font-weight: bold;
-	z-index: 9999;
-}
-
-#slider_img {
-	display: none;
-}
-
 .heading {
 	margin-bottom: 6px;
 	border: 1px solid #AAA;
@@ -222,6 +172,47 @@ span#loading {
 	display: block;
 }
 
+/* Image resizer */
+#resizer {
+	height: 368px;
+	overflow:none;
+}
+#save_size {
+	width: 96px;
+	padding: 6px 5px 0px 0px;
+	float: right;
+}
+#image-slider {
+	margin-bottom: 20px;
+	padding-top: 6px;
+}
+#image-info {
+	height: 342px;
+	width: 522px;
+	display: block;
+	overflow: auto;
+	border: 1px solid #000000;
+}
+#image-info-dimensions {
+	padding: 1px 4px;
+	position: absolute;
+	background: #FFFFFF;
+	border: 1px solid #000;
+	border-width: 0 1px 1px 0;
+	filter: alpha(opacity=75);
+	opacity: 0.75;
+	font-weight: bold;
+	z-index: 9999;
+}
+#slider_img {
+	display: none;
+}
+
+/**
+ * File browser style
+ **/ 
+
+/* Folder list */
 #folderlist {
 	padding-left: 3px;
 }
@@ -231,19 +222,16 @@ span#loading {
 	margin: 0;
 	padding: 0;
 }
-
 .folderlist li {
 	display: block;
 	height: 18px;
 	line-height: 15px;
 }
-
 .folderlist li .folder-controls img {
 	float: left;
 	margin-left: 2px;
 	cursor: pointer
 }
-
 .folderlist li .folder-controls {
 	float: right;
 	display: block;
@@ -254,21 +242,18 @@ span#loading {
 	top: 0;
 	z-index: 2;
 }
-
 .folderlist li .folder-controls a img {
 	border: 0;
 	margin: 1px;
 	filter: alpha(opacity=55);
 	opacity: 0.55;
 }
-
 .folderlist li .folder-controls a:hover img {
 	border: 1px solid #AAA;
 	margin: 0;
 	filter: alpha(opacity=100);
 	opacity: 1;
 }
-
 .folderlist li .foldername {
 	cursor: pointer;
 	position: absolute;
@@ -279,23 +264,19 @@ span#loading {
 	z-index: 1;
 	line-height: 13px;
 }
-
 .folderlist li .foldername img {
 	float: left;
 	margin-right: 3px;
 }
-
 .folderlist li .folder-row {
 	display: block;
 	width: 100%;
 	position: relative;
 	height: 13px;
 }
-
 .folderlist li .num_images {
 	float: right;
 }
-
 .folderlist li .image_size {
 	float: right;
 	color: #777;
@@ -303,7 +284,6 @@ span#loading {
 	display: block;
 	text-align: left;
 }
-
 .folderlist li .image_dimensions {
 	float: right;
 	color: #777;
@@ -313,18 +293,42 @@ span#loading {
 	padding-right: 4px;
 }
 
-.filelist li {
-	overflow: hidden;
+/* Folder list controls */
+#add-folder {
+	display: none;
+}
+#add-folder-caption, .edit-folder-caption {
+	width: 136px;
+	float: left;
+	margin-right: 3px;
 }
 
-.filelist li span {
+#add-folder-image, #add-folder-cancel-image {
 	cursor: pointer;
-	display: block;
-	white-space: nowrap;
+	float: left;
+	margin-right: 1px;
+}
+img.edit-folder {
+	cursor: pointer;
+	float: left;
+	margin-right: 2px;	
 }
 
-.thumb-wrapper, .thumb-wrapper .thumb, 
-.thumb-wrapper-over .thumb-wrapper-over .thumb {
+/* File list */
+
+#filelist {
+	height: 334px;
+	margin: 0;
+	width: 100%;
+	padding-left: 3px;
+	overflow: hidden;
+	z-index: 999;
+	position: relative;
+}
+#filelist .thumb-wrapper, 
+#filelist .thumb-wrapper .thumb, 
+#filelist .thumb-wrapper-over, 
+#filelist .thumb-wrapper-over .thumb {
 	cursor: pointer;
 	display: block;
 	width: 99px;
@@ -334,13 +338,13 @@ span#loading {
 	margin: 0px 12px 12px 0px;
 	position: relative;
 }
-.thumb-wrapper {
+#filelist .thumb-wrapper {
 	border: 1px solid #DDD;
 }
-.thumb-wrapper-over {
+#filelist .thumb-wrapper-over {
 	border: 1px solid #8094A4;
 }
-.thumb-wrapper .controls-bg, .thumb-wrapper-over .controls-bg {
+#filelist .controls-bg {
 	background: #FFF;
 	position: absolute;
 	bottom: 0;
@@ -351,8 +355,9 @@ span#loading {
 	text-align: right;
 	filter: alpha(opacity=80);
 	opacity: 0.8;
+	display: none;
 }
-.thumb-wrapper .controls, .thumb-wrapper-over .controls {
+#filelist .controls {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -360,9 +365,9 @@ span#loading {
 	width: 100%;
 	z-index: 100;
 	text-align: right;
+	display: none;
 }
-
-.thumb-wrapper .loader, .thumb-wrapper-over .loader {
+#filelist .loader {
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -371,9 +376,65 @@ span#loading {
 	filter: alpha(opacity=40);
 	opacity: 0.4;
 }
-
-.thumb-wrapper span.loader, .thumb-wrapper-over span.loader {
+#filelist span.loader {
 	display: none;
+}
+#filelist .controls .resize {
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/arrow_in.png) no-repeat center center;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	margin-left: 5px;
+}
+#filelist .controls .delete {
+	margin-left: 0.4em;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/delete.gif) no-repeat center center;
+	margin-right: 2px;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	display: none;
+}
+#filelist .controls .thumbnail {
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/insertthumb.gif) no-repeat center center;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+#filelist .controls .edit {
+	margin-left: 0.4em;
+	margin-right: 0.2em;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/pencil_sm.png) no-repeat center center;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+#filelist .thumb-wrapper-over .controls .thumbnail:hover, 
+#filelist .thumb-wrapper-over .controls .resize:hover, 
+#filelist .thumb-wrapper-over .controls .delete:hover, 
+#filelist .thumb-wrapper-over .controls .edit:hover { 
+	filter: alpha(opacity=100);
+	opacity: 1;
 }
 
 .showloader span.loader {
@@ -389,72 +450,6 @@ span#loading {
 	display: block;
 }
 
-.thumb-wrapper .controls .resize, .thumb-wrapper-over .controls .resize, .list-controls .resize {
-	text-decoration: none;
-	cursor: pointer;
-	display: block;
-	width: 13px;
-	height: 13px;
-	float: right;
-	background: url(../img/arrow_in.png) no-repeat center center;
-	filter: alpha(opacity=60);
-	opacity: 0.6;
-	margin-left: 5px;
-}
-.thumb-wrapper .controls .delete, .thumb-wrapper-over .controls .delete, .list-controls .delete {
-	margin-left: 0.4em;
-	text-decoration: none;
-	cursor: pointer;
-	display: block;
-	width: 13px;
-	height: 13px;
-	float: right;
-	background: url(../img/delete.gif) no-repeat center center;
-	margin-right: 2px;
-	filter: alpha(opacity=60);
-	opacity: 0.6;
-	display: none;
-}
-.thumb-wrapper .controls .thumbnail, .thumb-wrapper-over .controls .thumbnail, .list-controls .thumbnail {
-	text-decoration: none;
-	cursor: pointer;
-	display: block;
-	width: 13px;
-	height: 13px;
-	float: right;
-	background: url(../img/insertthumb.gif) no-repeat center center;
-	filter: alpha(opacity=70);
-	opacity: 0.7;
-}
-
-.thumb-wrapper .controls .edit, .thumb-wrapper-over .controls .edit {
-	margin-left: 0.4em;
-	margin-right: 0.2em;
-	text-decoration: none;
-	cursor: pointer;
-	display: block;
-	width: 13px;
-	height: 13px;
-	float: right;
-	background: url(../img/pencil_sm.png) no-repeat center center;
-	filter: alpha(opacity=70);
-	opacity: 0.7;
-}
-
-.thumb-wrapper-over .controls .delete:hover {
-	filter: alpha(opacity=100);
-	opacity: 1;
-}
-.thumb-wrapper-over .controls .resize:hover {
-	filter: alpha(opacity=100);
-	opacity: 1;
-}
-
-.thumb-wrapper-over .controls .thumbnail:hover, .thumb-wrapper-over .controls .edit:hover { 
-	filter: alpha(opacity=100);
-	opacity: 1;
-}
-
 select#view-type, select#sort-type {
 	font-weight:normal;
 	border-left:1px solid #AAA;
@@ -464,6 +459,7 @@ select#view-type, select#sort-type {
 	width:120px;
 }
 
+/* Overlay */
 #dimwindow {
 	top:0;
 	left:0;
@@ -475,7 +471,6 @@ select#view-type, select#sort-type {
 	filter:alpha(opacity=50);
 	opacity:0.5;
 }
-
 #dimwindowimg {
 	width:50px;
 	height:50px;
@@ -485,41 +480,8 @@ select#view-type, select#sort-type {
 	margin:-55px 0 0 -45px;
 	z-index:1001;
 }
-
 #dimwindowimg div {
 	text-align: center;
-}
-
-#add-folder {
-	display: none;
-}
-
-#add-folder-caption, .edit-folder-caption {
-	width: 136px;
-	float: left;
-	margin-right: 3px;
-}
-
-#add-folder-image, #add-folder-cancel-image {
-	cursor: pointer;
-	float: left;
-	margin-right: 1px;
-}
-
-.state-over {
-	opacity: 1;
-	filter: alpha(opacity=100);
-}
-
-.state-out {
-	opacity: 0.65;
-	filter: alpha(opacity=65);
-}
-
-img.edit-folder {
-	cursor: pointer;
-	float: left;
-	margin-right: 2px;	
 }
 
 /* Manager */
@@ -527,20 +489,16 @@ img.edit-folder {
 	width: 240px;
 	height: 36px;
 }
-
 #manager-actions .update {
 	background-position: 0 -52px;
 }
-
 #manager-actions .delete {
 	background-position: 0 0;
 }
-
 a#image-preview-popup img {
 	border: 1px solid #AAA;
 	display: block;
 }
-
 
 /* pagination */
 .pagination a, .pagination a:visited, .pagination b {
@@ -548,33 +506,35 @@ a#image-preview-popup img {
 	padding: 0px 2px;
 	text-decoration: none;
 }
-
 .pagination b {
 	color: #2B6FB6;
 }
-
 .pagination a:hover {
 	border: 1px solid #aaa;
 	padding: 0px 2px;
 }
 
 /* common */
+.state-over {
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+.state-out {
+	opacity: 0.65;
+	filter: alpha(opacity=65);
+}
 .clear {
 	clear: left;
 }
-
 .hidden {
 	display: none;
 }
-
 .right {
 	float: right;
 }
-
 .left {
 	float: left;
 }
-
 .clearfix:after {
 	content: "."; 
 	display: block; 
@@ -582,15 +542,12 @@ a#image-preview-popup img {
 	clear: both; 
 	visibility: hidden; 
 }
-
 .clearfix { 
 	display: inline-block; 
 }
-
 * html .clearfix {
 	height:1%;
 }
-
 * .clearfix {
 	display:block; 
 }
