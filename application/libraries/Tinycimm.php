@@ -13,19 +13,21 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  
 class TinyCIMM {
 
+	// CodeIgniter instance
+	private $ci;
+
 	public function __construct(){
-		$ci = &get_instance();
-		$this->db = &$ci->db;
-		$this->config = &$ci->config;
-		$this->input = &$ci->input;
+		$this->ci = &get_instance();
+		$this->db = &$this->ci->db;
+		$this->config = &$this->ci->config;
+		$this->input = &$this->ci->input;
 		$this->check_paths();
 	}
 
 	// writes asset data to output buffer 
 	public function get_asset($asset_id, $width=200, $height=200, $quality=85, $send_nocache=false){
-		$ci = &get_instance();
 
-		$asset = $ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
+		$asset = $this->ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
 		if (!@file_exists($asset->filepath)) {
 			die('asset not found');
@@ -54,9 +56,8 @@ class TinyCIMM {
 	}
 
 	public function resize_asset($asset, $width=200, $height=200, $quality=90, $cache=true, $update=false){
-		$ci = &get_instance();
 
-		$asset = is_object($asset) ? $asset : $ci->tinycimm_model->get_asset($asset);
+		$asset = is_object($asset) ? $asset : $this->ci->tinycimm_model->get_asset($asset);
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset->id.$asset->extension;
 		$asset->filename = $this->config->item('tinycimm_asset_cache_path').$asset->id.'_'.$width.'_'.$height.'_'.$quality.$asset->extension;
 		$asset->cache_filepath = $update ? $asset->filepath : $_SERVER['DOCUMENT_ROOT'].$asset->filename;
@@ -77,10 +78,10 @@ class TinyCIMM {
 			$resize_config['new_image'] = $asset->cache_filepath;
 
 			// load image lib and resize image
-			$ci->load->library('image_lib');
-			$ci->image_lib->initialize($resize_config);
-			if (!$ci->image_lib->resize()) {
-				$this->tinymce_alert($ci->image_lib->display_errors());
+			$this->ci->load->library('image_lib');
+			$this->ci->image_lib->initialize($resize_config);
+			if (!$this->ci->image_lib->resize()) {
+				$this->tinymce_alert($this->ci->image_lib->display_errors());
 				exit;
 			}
 
@@ -98,12 +99,11 @@ class TinyCIMM {
 	* upload asset to directory and insert info into DB
 	**/
 	public function upload_assets($upload_config) {
-		$ci = &get_instance();
 
 		if (isset($_FILES) and count($_FILES)) {
 
 			// load upload library
-			$ci->load->library('upload', $upload_config);
+			$this->ci->load->library('upload', $upload_config);
 
 			$files_uploaded = 0;
 
@@ -112,13 +112,13 @@ class TinyCIMM {
 				if ($file['name'] != "") {	
 
 					// move file into specified upload directory	
-					if (!$ci->upload->do_upload($input_name))  {
+					if (!$this->ci->upload->do_upload($input_name))  {
 						/* upload failed */  
-						$this->tinymce_alert(preg_replace('/<[^>]+>/', '', $ci->upload->display_errors()));
+						$this->tinymce_alert(preg_replace('/<[^>]+>/', '', $this->ci->upload->display_errors()));
 						exit;
 					}
-					$asset_data = $ci->upload->data();
-					$asset_folder = (int) $ci->input->post('uploadfolder');
+					$asset_data = $this->ci->upload->data();
+					$asset_folder = (int) $this->ci->input->post('uploadfolder');
 					
 					// format the description from the file name
 					$description = preg_replace("/\\\/", '/', $file['name']);
@@ -135,7 +135,7 @@ class TinyCIMM {
 					}
 					
 					// insert the asset info into the database
-					$last_insert_id = $ci->tinycimm_model->insert_asset(
+					$last_insert_id = $this->ci->tinycimm_model->insert_asset(
 						$asset_folder,
 						strtolower(basename($asset_data['orig_name'])), 
 						strtolower(basename($asset_data['orig_name'])), 
@@ -151,11 +151,11 @@ class TinyCIMM {
 					rename($asset_data['full_path'], $asset_data['file_path'].$last_insert_id.strtolower($asset_data['file_ext']));
 
 					// resize uploaded image
-					$max_x = (int) $ci->input->post('max_x');
-					$max_y = (int) $ci->input->post('max_y');
-					if ((int) $ci->input->post('adjust_size') === 1 and ($asset_width > $max_x or $asset_height > $max_y)) {
+					$max_x = (int) $this->ci->input->post('max_x');
+					$max_y = (int) $this->ci->input->post('max_y');
+					if ((int) $this->ci->input->post('adjust_size') === 1 and ($asset_width > $max_x or $asset_height > $max_y)) {
 						$asset = $this->resize_asset($last_insert_id, $max_x, $max_y, 90, true, true);
-						$ci->tinycimm_model->update_asset($asset->id, array('width'=>$asset->width,'height'=>$asset->height));
+						$this->ci->tinycimm_model->update_asset($asset->id, array('width'=>$asset->width,'height'=>$asset->height));
 					}
 
 					$files_uploaded++;
@@ -180,9 +180,8 @@ class TinyCIMM {
 	* Goes on to also delete any new files that were created as a result of resizing the image
 	**/
 	public function delete_asset($asset_id=0){
-		$ci = &get_instance();
 
-		$asset = $ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
+		$asset = $this->ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
 
 		// delete images from filesystem, including original and thumbnails
@@ -201,25 +200,24 @@ class TinyCIMM {
 		}
 
 		// delete from database
-		return $ci->tinycimm_model->delete_asset($asset_id);
+		return $this->ci->tinycimm_model->delete_asset($asset_id);
 	}
 
 	
 	public function delete_folder($folder_id=0){
-		$ci = &get_instance();
 		
 		// move images from folder to root folder
-		$ci->tinycimm_model->update_assets(array('folder_id'=>(int) $folder_id), array("folder_id"=>0));	
+		$this->ci->tinycimm_model->update_assets(array('folder_id'=>(int) $folder_id), array("folder_id"=>0));	
 	
 		// store affected images
-		$this->images_affected = $ci->tinycimm_model->affected_rows();
+		$this->images_affected = $this->ci->tinycimm_model->affected_rows();
 
 		// remove folder from database
-		return $ci->tinycimm_model->delete_folder((int) $folder_id);
+		return $this->ci->tinycimm_model->delete_folder((int) $folder_id);
 	}
 
 	public function add_folder($name='', $type='image'){
-		$ci = &get_instance();
+		
 		$name = urldecode(trim($name));
 
 		if ($name == '') {
@@ -230,19 +228,18 @@ class TinyCIMM {
 			return array('outcome' => false, 'message' => 'The folder name must be less than 24 characters.\n(The supplied folder name is "+captionID.length+" characters).');
 		}
 
-		$ci->tinycimm_model->insert_folder($name, $type);
+		$this->ci->tinycimm_model->insert_folder($name, $type);
 	}
 
+	// return list of folders in HTML
         public function get_folders($type='select', $folder_id=0){
-                $ci = &get_instance();
                 $data['folder_id'] = $folder_id;
                 $data['folders'] = array();
-                foreach($folders = $ci->tinycimm_model->get_folders('name') as $folderinfo) {
+                foreach($folders = $this->ci->tinycimm_model->get_folders('name') as $folderinfo) {
                         $data['folders'][] = $folderinfo;
                 }
-                $ci->load->view($ci->view_path.'fragments/folder_'.$type, $data);
+                $this->ci->load->view($this->ci->view_path.'fragments/folder_'.$type, $data);
         }
-
 
 	/**
 	* Takes a PHP array and outputs it as a JSON array to screen using PHP's die function
@@ -268,7 +265,7 @@ class TinyCIMM {
 	/** 
 	* check if image directories exist and have the correct permissions, if not then try to create them with specified permissions
 	**/
-	public function check_paths() {
+	private function check_paths() {
 		// what CHMOD permissions should we use for the upload folders?
 		$chmod = $this->config->item('tinycimm_asset_path_chmod');
 		
@@ -286,9 +283,8 @@ class TinyCIMM {
 	/**
 	* Throw up an alert message using TinyMCE's alert method (only used in upload function)
 	**/
-	public function tinymce_alert($message){
-                $ci = &get_instance();
-		echo $ci->load->view($this->view_path.'fragments/tinymce_alert', array('message'=>$message), true);
+	private function tinymce_alert($message){
+		echo $this->ci->load->view($this->view_path.'fragments/tinymce_alert', array('message'=>$message), true);
 	}
 	
 } // class TinyCIMM
