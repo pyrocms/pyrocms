@@ -74,27 +74,25 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 	});
 };
 
-// inserts an image into the editor
+// inserts an image into the editor iframe
 ImageDialog.prototype.insertAndClose = function(image, width, height) {
-	var ed = tinyMCEPopup.editor, args = {}, el;
-
-	tinyMCEPopup.restoreSelection();
-
-	// Fixes crash in Safari
-	(tinymce.isWebKit) && ed.getWin().focus();
-
+	var ed = tinyMCEPopup.editor, el = ed.selection.getNode(),
 	args = {
 		src : image.filename,
 		alt : image.description,
 		width : width,
 		height : height
 	};
+	tinyMCEPopup.restoreSelection();
 
-	el = ed.selection.getNode();
+	// Fixes crash in Safari
+	(tinymce.isWebKit) && ed.getWin().focus();
 
 	if (el && el.nodeName == 'IMG') {
+		// update the selected image
 		ed.dom.setAttribs(el, args);
 	} else {
+		// insert a new image
 		ed.execCommand('mceInsertContent', false, '<img id="__mce_tmp" />', {skip_undo : 1});
 		ed.dom.setAttribs('__mce_tmp', args);
 		ed.dom.setAttrib('__mce_tmp', 'id', '');
@@ -104,32 +102,34 @@ ImageDialog.prototype.insertAndClose = function(image, width, height) {
 	tinyMCEPopup.close();
 };
 	
-// either inserts the image into the image dialog, or into the editor	
 ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
 	var win = tinyMCEPopup.getWindowArg("window"), url = image.filename;
-	if (win != undefined) {
-		// insert into image dialog
+
+	// insert the image into the image dialog window
+	if (win) {
+		// set the image URL and description fields
 		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
-		if (typeof(win.ImageDialog) != "undefined") {
-			if (win.ImageDialog.getImageData) {
-				win.ImageDialog.getImageData();
-			}
-			if (win.ImageDialog.showPreviewImage) {
-				win.ImageDialog.showPreviewImage(url);
-			}
-			win.document.getElementById('alt').value = image.description;
+		win.document.getElementById('alt').value = image.description;
+
+		// update the image dialog window
+		if (win.ImageDialog) {
+			(win.ImageDialog.getImageData) && (win.ImageDialog.getImageData());
+			(win.ImageDialog.showPreviewImage) && (win.ImageDialog.showPreviewImage(url));
+
 		}
  		tinyMCEPopup.close();
 	} else {
-		// insert into editor
+		// insert the image into the editor iframe
 		this.insertAndClose(image, width, height);
 	}
 	return;
 };
 
 ImageDialog.prototype.insertResizeImage = function(){
-	var self = this, image_id = tinyMCEPopup.dom.get('slider_img').src.toId(), 
-	width = tinyMCEPopup.dom.get('slider_width_val').innerHTML, height = tinyMCEPopup.dom.get('slider_height_val').innerHTML.replace(/px$/, '');
+	var self = this, 
+	image_id = tinyMCEPopup.dom.get('slider_img').src.toId(), 
+	width = tinyMCEPopup.dom.get('slider_width_val').innerHTML, 
+	height = tinyMCEPopup.dom.get('slider_height_val').innerHTML.replace(/px$/, '');
 	
 	this.resizeImage(image_id, width, height, function(image){
 		self.insertImage(null, image, width, height);
@@ -155,8 +155,10 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 };
 
 ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
-	var self = this, ed = tinyMCEPopup.editor, args = {}, el, 
-	width = this.settings.tinycimm_thumb_width, height = this.settings.tinycimm_thumb_height,
+	var self = this, ed = tinyMCEPopup.editor, 
+	el = ed.selection.getNode(),
+	width = this.settings.tinycimm_thumb_width, 
+	height = this.settings.tinycimm_thumb_height,
 	url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
 
 	// show spinner image
@@ -167,16 +169,19 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 	this.resizeImage(imageId.toId(), width, height, function(image){
 		// if an advimage dialog window is already open
 		var origWin = tinyMCEPopup.getWindowArg("tinyMCEPopup");
-		if (origWin != undefined) {
-			origWin.close();
-		}
+		(origWin) && origWin.close();
 
 		tinyMCEPopup.restoreSelection();
 
-		// Fixes crash in Safari
+		// fixes crash in Safari
 		(tinymce.isWebKit) && ed.getWin().focus();
 
-		args = {
+		// if a thumbnail is selected then remove the thumb anchor
+		var anchor_parent = ed.dom.getParent(ed.selection.getNode(), 'A');
+		(anchor_parent) && tinyMCEPopup.dom.remove(anchor_parent);
+
+		// image attributes
+		var args = {
 			src : self.baseURL(image.filename),
 			alt : image.description,
 			width : image.width,
@@ -184,20 +189,13 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 			title : image.description
 		};
 
-		el = ed.selection.getNode();
-		// if a thumbnail is selected
-		var anchor_parent = ed.dom.getParent(ed.selection.getNode(), 'A');
-		if (anchor_parent) {
-			// remove the thumb anchor
-			tinyMCEPopup.dom.remove(anchor_parent);
-		}
-
 		// replace/insert the image thumbnail with anchor
 		ed.execCommand('mceInsertContent', false, 
-		'<a class="'+self.settings.tinycimm_thumb_lightbox_class+'" '
-		+'rel="'+self.settings.tinycimm_thumb_lightbox_gallery+'" '
-		+'href="'+self.baseURL(self.settings.tinycimm_assets_path+image.id+image.extension)+'">'
-		+'<img id="__mce_tmp" /></a>', {skip_undo : 1});
+			'<a class="'+self.settings.tinycimm_thumb_lightbox_class+'" '
+			+'rel="'+self.settings.tinycimm_thumb_lightbox_gallery+'" '
+			+'href="'+self.baseURL(self.settings.tinycimm_assets_path+image.id+image.extension)+'">'
+			+'<img id="__mce_tmp" /></a>', {skip_undo : 1}
+		);
 		ed.dom.setAttribs('__mce_tmp', args);
 		ed.dom.setAttrib('__mce_tmp', 'id', '');
 		ed.undoManager.add();
@@ -234,54 +232,31 @@ ImageDialog.prototype.loadUploader = function() {
 };
 	
 // prepare the resizer panel
-ImageDialog.prototype.loadResizer = function(filename, event, sliderWidth) {
-	if (event && event.originalTarget && (event.originalTarget.className == 'delete' || event.originalTarget.className == 'thumbnail')) {
-		return;
-	}
-	// completely remove the resizer image from the dom : issue 12 http://code.google.com/p/tinycimm/issues/detail?id=12
+ImageDialog.prototype.loadResizer = function(filename, event) {
+	// remove the resizer image from the dom : issue 12 http://code.google.com/p/tinycimm/issues/detail?id=12
 	tinyMCEPopup.dom.remove('slider_img');
-	this.loadImage(filename, sliderWidth);
-};
 
-// pre-cache an image
-ImageDialog.prototype.loadImage = function(filename, sliderWidth) { 
-	var preImage = new Image(), self = this;
-	preImage.src = this.settings.tinycimm_assets_path+filename;
-	setTimeout(function(){
-		self.checkImgLoad(preImage, sliderWidth);
-	},10);	// ie
-};
-
-// show loading text if image not already cached
-ImageDialog.prototype.checkImgLoad = function(preImage, sliderWidth) {
-	if (!preImage.complete) {
+	var img = new Image(), self = this;
+	img.onload = function(){
+		self.showResizeImage(this);
+	};
+	img.src = this.settings.tinycimm_assets_path+filename;
+	if (!img.complete) {
+		// show loading text if image not already cached
 		mcTabs.displayTab('resize_tab','resize_panel');
 		tinyMCEPopup.dom.setHTML('image-info-dimensions', '<img style="float:left;margin-right:4px" src="img/ajax-loader.gif"/> caching image..');
 	}
-	this.checkLoad(preImage, sliderWidth);
-};
-
-ImageDialog.prototype.checkLoad = function(preImage, sliderWidth) {
-	var self = this;
-	if (preImage.complete) { 
-		this.showResizeImage(preImage, sliderWidth);
-		return;
-	}
- 	setTimeout(function(){
-		self.checkLoad(preImage, sliderWidth)
-	}, 10);
 };
 	
 // show resizer image
-ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
-	var img = document.createElement("img"), 
-	sliderVal = sliderWidth ? sliderWidth : (image.width < this.settings.tinycimm_resize_default_intial_width ? image.width : this.settings.tinycimm_resize_default_intial_width);
-	img.setAttribute('id', 'slider_img');
-	img.setAttribute('src', image.src);
-	tinyMCEPopup.dom.get('image-info').appendChild(img);
-	setTimeout(function(){
-		img.style.display="block";
-	}, 200);
+ImageDialog.prototype.showResizeImage = function(image) {
+	var
+	image_width = image.width,
+	image_height = image.height, 
+	sliderVal = image_width < this.settings.tinycimm_resize_default_intial_width ? image_width : this.settings.tinycimm_resize_default_intial_width;
+
+	image.setAttribute('id', 'slider_img');
+	tinyMCEPopup.dom.get('image-info').appendChild(image);
 		
 	// display panel
 	mcTabs.displayTab('resize_tab','resize_panel');
@@ -293,14 +268,17 @@ ImageDialog.prototype.showResizeImage = function(image, sliderWidth) {
 			
 	new ScrollSlider(tinyMCEPopup.dom.get('image-slider'), {
 		min : 0,
-		max : image.width,
+		max : image_width,
 		value : sliderVal,
 		size : 400,
 		scroll : function(new_w) {
-			var slider_width = tinyMCEPopup.dom.get('slider_width_val'), slider_height = tinyMCEPopup.dom.get('slider_height_val');
+			var 
+			slider_width = tinyMCEPopup.dom.get('slider_width_val'), 
+			slider_height = tinyMCEPopup.dom.get('slider_height_val');
+
 			if (slider_width && slider_height) {
-				slider_width.innerHTML = (tinyMCEPopup.dom.get('slider_img').width=new_w);
-				slider_height.innerHTML = (tinyMCEPopup.dom.get('slider_img').height=Math.round((parseInt(new_w)/parseInt(image.width))*image.height))+'px';
+				slider_width.innerHTML = (image.width = new_w);
+				slider_height.innerHTML = (image.height = Math.round((parseInt(new_w)/parseInt(image_width))*image_height))+'px';
 			}
 		}
 	});
@@ -340,7 +318,7 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		};
 		tinyMCEPopup.dom.get('insert-image').onclick = function(e){
 			self.getImage(image_id, function(image){
-				self.loadResizer(image.id+image.extension, e);
+				self.loadResizer(image.id+image.extension);
 			});
 			return false;
 		};
