@@ -14,15 +14,6 @@ body {
 	overflow: hidden;
 }
 
-input#search-input {
-	float: right;
-	background: transparent;
-	padding: 1px 0px 1px 2px;
-	border: 1px solid #ccc;
-	border-width: 0px 0px 0px 1px;
-	width: 110px;
-	font-size: 11px;
-}
 
 img {
 	border: 0;
@@ -349,7 +340,7 @@ img.edit-folder {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	height: 14px;
+	height: 15px;
 	width: 100%;
 	z-index: 99;
 	text-align: right;
@@ -413,8 +404,10 @@ img.edit-folder {
 	height: 13px;
 	float: right;
 	background: url(../img/insertthumb.gif) no-repeat center center;
+	/*
 	filter: alpha(opacity=70);
 	opacity: 0.7;
+	*/
 }
 #filelist .controls .edit {
 	margin-left: 0.4em;
@@ -426,8 +419,10 @@ img.edit-folder {
 	height: 13px;
 	float: right;
 	background: url(../img/pencil_sm.png) no-repeat center center;
+	/*
 	filter: alpha(opacity=70);
 	opacity: 0.7;
+	*/
 }
 #filelist .thumb-wrapper-over .controls .thumbnail:hover, 
 #filelist .thumb-wrapper-over .controls .resize:hover, 
@@ -435,6 +430,20 @@ img.edit-folder {
 #filelist .thumb-wrapper-over .controls .edit:hover { 
 	filter: alpha(opacity=100);
 	opacity: 1;
+}
+
+/* Search form */
+input#search-input {
+	float: right;
+	background: transparent;
+	padding: 1px 0px 1px 2px;
+	border: 1px solid #ccc;
+	border-width: 0px 0px 0px 1px;
+	width: 110px;
+	font-size: 11px;
+}
+#search-loading {
+	margin: 2px 2px 0px 0px;
 }
 
 .showloader span.loader {
@@ -497,7 +506,7 @@ select#view-type, select#sort-type {
 }
 a#image-preview-popup img {
 	border: 1px solid #AAA;
-	display: block;
+	/*display: block;*/
 }
 
 /* pagination */
