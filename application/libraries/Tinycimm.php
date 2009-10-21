@@ -84,7 +84,6 @@ class TinyCIMM {
 				$this->tinymce_alert($this->ci->image_lib->display_errors());
 				exit;
 			}
-
 		}
 
 		// get cache file dimensions
@@ -182,14 +181,12 @@ class TinyCIMM {
 	public function delete_asset($asset_id=0){
 
 		$asset = $this->ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
-		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
+		$filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
 
-		// delete images from filesystem, including original and thumbnails
-		if (file_exists($asset->filepath)) {
-			@unlink($asset->filepath);
-		}
+		// delete original image from filesystem
+		file_exists($filepath) && @unlink($filepath);
 
-		// delete the new size specific files				
+		// delete the cached size specific files				
 		if ($handle = @opendir($this->config->item('tinycimm_asset_cache_path_full'))) {
 			while (FALSE !== ($file = readdir($handle))) {
 				if (preg_match("/{$asset->id}\_[0-9]+\_[0-9]+\_[0-9]+.*/", $file)) {
