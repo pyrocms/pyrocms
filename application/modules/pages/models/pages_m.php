@@ -16,7 +16,7 @@ class Pages_m extends Model {
     
     public function getByPath($segments = array())
     {
-		// If the URI has been passed as a string, explode to create an array of segments
+    	// If the URI has been passed as a string, explode to create an array of segments
     	if(is_string($segments))
         {
         	$segments = explode('/', $segments);
@@ -50,7 +50,7 @@ class Pages_m extends Model {
             $this->db->where($current_alias . '.slug', $segment);
     
             // Increment
-            $level++;
+            ++$level;
         }
         
         // Can only be one result
@@ -95,7 +95,7 @@ class Pages_m extends Model {
 	}
 	
 	// ----- PAGE INDEX --------------
-	
+
 	function getPathById($id)
 	{
 		return @$this->db->select('path')
@@ -105,6 +105,50 @@ class Pages_m extends Model {
 					->path;
 	}
 	
+	function getIdByPath($path)
+	{
+		// If the URI has been passed as a string, explode to create an array of segments
+    	if(is_array($path))
+        {
+        	$path = implode('/', $path);
+        }
+        
+		return @$this->db->select('id')
+					->where('path', $path)
+					->get('pages_lookup')
+					->row()
+					->id;
+	}
+	
+	function generateLookup($id)
+	{
+		$current_id = $id;
+		
+		$segments = array();
+		do
+		{
+			$this->db->select('slug, parent_id');
+			$this->db->where('id', $current_id);
+			$page = $this->db->get('pages')->row();
+			
+			$current_id = $page->parent_id;
+			array_unshift($segments, $page->slug);
+		}
+		while( $page->parent_id > 0 );
+		
+		// If the URI has been passed as a string, explode to create an array of segments
+    	$this->db->set('id', $id);
+    	$this->db->set('path', implode('/', $segments));
+    	
+		return $this->db->insert('pages_lookup');
+	}
+	
+	function deleteLookup($id)
+	{
+    	$this->db->where('id', $id);
+		return $this->db->delete('pages_lookup');
+	}
+	
 	// ----- CRUD --------------------
 	
     // Create a new page
@@ -112,12 +156,13 @@ class Pages_m extends Model {
     {
         $this->load->helper('date');
         
+        $this->db->trans_start();
+        
         $this->db->insert('pages', array(
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
         	'body' 			=> $input['body'],
         	'parent_id'		=> $input['parent_id'],
-        	//'lang' 			=> $input['lang'],
         	'lang' 			=> $this->config->item('default_language'),
             'layout_file'	=> $input['layout_file'],
         	'meta_title'	=> $input['meta_title'],
@@ -127,7 +172,13 @@ class Pages_m extends Model {
         	'updated_on'	=> now()
         ));
         
-        return $this->db->insert_id();
+        $id = $this->db->insert_id();
+        
+        $this->generateLookup($id);
+        
+        $this->db->trans_complete();
+        
+        return ($this->db->trans_status() !== FALSE) ? $id : FALSE;
     }
     
     // Update a Page
@@ -140,7 +191,6 @@ class Pages_m extends Model {
 	        'slug' 			=> $input['slug'],
 	        'body' 			=> $input['body'],
 	        'parent_id'		=> $input['parent_id'],
-        	//'lang' 			=> $input['lang'],
         	'lang' 			=> $this->config->item('default_language'),
             'layout_file'	=> $input['layout_file'],
         	'meta_title'	=> $input['meta_title'],
@@ -154,10 +204,14 @@ class Pages_m extends Model {
     // Delete a Page
     function delete($id = 0)
     {
+        $this->db->trans_start();
+        
         $this->db->where('id', $id)->or_where('parent_id', $id);
     	$this->db->delete('pages');
         
-        return $this->db->affected_rows();
+        $this->db->trans_complete();
+        
+        return ($this->db->trans_status() !== FALSE) ? $this->db->affected_rows() : FALSE;
     }
     
 }

@@ -100,21 +100,13 @@ class Admin extends Admin_Controller
 	    {
 	    	$page->parent_id = $parent_id;
 	    	
-			$parent_page = $this->pages_m->getByParentId($parent_id);
+			$parent_page = $this->pages_m->getById($parent_id);
 			$parent_page->path = $this->pages_m->getPathById($parent_id);
 	    }
-	    
-	    // Send an array of languages to the view
-	    /*$languages = array();
-	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
-	    {
-	    	$languages[$lang_code] = $lang['name'];
-	    }*/
 	    
 	    // Assign data for display
 	    $this->data->page =& $page;
 	    $this->data->parent_page =& $parent_page;
-	    //$this->data->languages =& $languages;
 	    
 	    // Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
@@ -237,6 +229,11 @@ class Admin extends Admin_Controller
 		redirect('admin/pages/index');
 	}
     
+	function test()
+	{
+		$this->pages_m->generateLookup(9);
+	}
+	
 	// Callback: From create()
 	/*function _check_slug($slug)
 	{
