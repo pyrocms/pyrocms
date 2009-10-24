@@ -42,8 +42,7 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 			// expandos are fine ;)
 			this.over = true;
 			this.timer = setTimeout(function(){
-				tinyMCE.activeEditor.dom.select('.controls', self)[0].style.display = 'block';
-				tinyMCE.activeEditor.dom.select('.controls-bg', self)[0].style.display = 'block';
+				tinyMCE.activeEditor.dom.addClass(self, 'show-controls');
 			}, 600);
 		}
 
@@ -57,11 +56,10 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 			// hovering over the controls causes mouseout
 			// so the following takes cares of that
 			this.over = false;
-			(self.timer) && clearTimeout(self.timer);
+			(this.timer) && clearTimeout(this.timer);
 			setTimeout(function(){
 				if (!self.over) {
-					tinyMCE.activeEditor.dom.select('.controls', self)[0].style.display = 'none';
-					tinyMCE.activeEditor.dom.select('.controls-bg', self)[0].style.display = 'none';
+					tinyMCE.activeEditor.dom.removeClass(self, 'show-controls');
 				}
 			});
 		}
