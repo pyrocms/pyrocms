@@ -289,82 +289,6 @@ TinyCIMM.prototype.insert = function(asset_id) {
 	});
 };
 	
-TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
-	folder = folder || 0;
-	type = type || 'image';
-	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/select/'+folder),
-		type : "GET",
-		error : function(text) {
-			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
-		},
-		success : function(data) {
-			tinyMCEPopup.dom.get('folder-select-list').innerHTML = data;
-		}
-	});
-};
-
-TinyCIMM.prototype.getFoldersHTML = function(callback) {
-	var self = this;
-	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/list'),
-		type : "GET",
-		error : function(response) {
-	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
-		},
-		success : function(response) {
-			(callback) && callback(response.toString());	
-		}
-	});
-};
-
-TinyCIMM.prototype.addFolder = function(type) {
-	type = type || 'image';
-	var foldername = encodeURIComponent(tinyMCEPopup.dom.get('add-folder-caption').value.replace(/^\s+|\s+$/g, ''));
-	var requesturl = this.baseURL(this.settings.tinycimm_controller+'add_folder/'+foldername+'/'+type);
-	(foldername.length) && tinymce.util.XHR.send({
-		url : requesturl,
-		type : "GET",
-		error : function(response) {
-			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
-		},
-		success : function(response) {
-			var obj = tinymce.util.JSON.parse(response);
-			if (!obj.outcome) {
-					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
-			} else {
-				tinyMCEPopup.dom.setHTML('folderlist', response)
-				tinyMCEPopup.dom.get('add-folder').style.display = 'none';
-				tinyMCEPopup.dom.get('add-folder-caption').value = '';
-			}
-		}
-	});
-};
-
-TinyCIMM.prototype.deleteFolder = function(folder_id) {
-	var self = this;
-	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this folder?', function(s){
-		if (!s) { return false; }
-		var requesturl = self.baseURL(self.settings.tinycimm_controller+'delete_folder/'+folder_id);
-		tinymce.util.XHR.send({
-			url : requesturl,
-			type : "GET",
-			error : function(response) {
-	 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
-			},
-			success : function(response) {
-	 			var obj = tinymce.util.JSON.parse(response);
-				if (!obj.outcome) {
-					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
-	 			} else {
-					self.showBrowser(0, 0, true);
-	 			}
-			}
-		});
-	});
-};			
-	
-	
 TinyCIMM.prototype.deleteAsset = function(asset_id) {
 	var self = this;
 	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this '+this.type+'?', function(s) {
@@ -407,10 +331,10 @@ TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, name
 	});
 };
 
-TinyCIMM.prototype.updateFolder = function(folder_id, folder_name, callback) {
+TinyCIMM.prototype.saveFolder = function(folder_id, folder_name, callback) {
 	var self = this;
 	tinymce.util.XHR.send({
-		url : self.baseURL(self.settings.tinycimm_controller+'update_folder/'+folder_id),
+		url : self.baseURL(self.settings.tinycimm_controller+'save_folder/'+folder_id),
  		content_type : 'application/x-www-form-urlencoded',
 		type : "POST",
 		data : 	'folder_name='+folder_name,
@@ -422,27 +346,91 @@ TinyCIMM.prototype.updateFolder = function(folder_id, folder_name, callback) {
 			if (!obj.outcome) {
 				tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
 			} else {
-				(callback) && (callback());
+				(callback) && (callback(obj));
 			}
 		}
 	});
 };
-	
-TinyCIMM.prototype.changeView = function(view) {
-	var self = this;
-	// show loading image
-	tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
-	tinymce.util.XHR.send({
-		url : this.baseURL(this.settings.tinycimm_controller+'change_view/'+view),
-		type : "GET",
-		error : function(text) {
-			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
-		},
-		success : function() {
-			self.showBrowser(0, 0, true);	
+
+TinyCIMM.prototype.addFolder = function(type) {
+	type = type || 'image';
+	var self = this, 
+	foldername = encodeURIComponent(tinyMCEPopup.dom.get('add-folder-caption').value.replace(/^\s+|\s+$/g, '')),
+	requesturl = this.baseURL(this.settings.tinycimm_controller+'save_folder/'+foldername+'/'+type);
+
+	this.saveFolder(0, foldername, function(response){
+		if (response.outcome) {
+			tinyMCEPopup.dom.get('add-folder').style.display = 'none';
+			tinyMCEPopup.dom.get('add-folder-caption').value = '';
+			self.getFoldersHTML(function(folderHTML){
+				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
+			});
 		}
 	});
+};
 
+TinyCIMM.prototype.editFolder = function(folder_id){
+	var self = this, folder = document.getElementById('folder-'+folder_id);
+
+	folder.editInPlace(function(input_value){
+		self.saveFolder(folder_id, input_value, function(){
+			self.getFoldersHTML(function(folderHTML){
+				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
+			});
+		});
+	});
+};
+
+TinyCIMM.prototype.deleteFolder = function(folder_id) {
+	var self = this;
+	tinyMCEPopup.editor.windowManager.confirm('Are you sure you want to delete this folder?', function(s){
+		if (!s) { return false; }
+		var requesturl = self.baseURL(self.settings.tinycimm_controller+'delete_folder/'+folder_id);
+		tinymce.util.XHR.send({
+			url : requesturl,
+			type : "GET",
+			error : function(response) {
+	 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
+			},
+			success : function(response) {
+	 			var obj = tinymce.util.JSON.parse(response);
+				if (!obj.outcome) {
+					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
+	 			} else {
+					self.showBrowser(0, 0, true);
+	 			}
+			}
+		});
+	});
+};			
+
+TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
+	folder = folder || 0;
+	type = type || 'image';
+	tinymce.util.XHR.send({
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/select/'+folder),
+		type : "GET",
+		error : function(text) {
+			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the select list.');
+		},
+		success : function(data) {
+			tinyMCEPopup.dom.get('folder-select-list').innerHTML = data;
+		}
+	});
+};
+
+TinyCIMM.prototype.getFoldersHTML = function(callback) {
+	var self = this;
+	tinymce.util.XHR.send({
+		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/list'),
+		type : "GET",
+		error : function(response) {
+	 		tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
+		},
+		success : function(response) {
+			(callback) && callback(response.toString());	
+		}
+	});
 };
 	
 TinyCIMM.prototype.changeView = function(view) {
@@ -477,28 +465,16 @@ TinyCIMM.prototype.reload = function() {
 	}, 300);
 };
 
-TinyCIMM.prototype.editFolder = function(folder_id){
-	var self = this, folder = document.getElementById('folder-'+folder_id);
-
-	folder.editInPlace(function(input_value){
-		self.updateFolder(folder_id, input_value, function(){
-			self.getFoldersHTML(function(folderHTML){
-				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
-			});
-		});
-	});
-};
-
 TinyCIMM.prototype.removeOverlay = function(){
-	var dim = document.getElementById("dimwindow"), img = document.getElementById("dimwindowimg");
+	var dim = document.getElementById("overlay"), img = document.getElementById("overlayimg");
 	(dim) && dim.parentNode.removeChild(dim);
 	(img) && img.parentNode.removeChild(img);
 };
 
 TinyCIMM.prototype.showOverlay = function() {
 	var dim = document.createElement("div"), img = document.createElement("div"), bodyRef = document.getElementById("upload_panel");
-	dim.setAttribute("id", "dimwindow");
-	img.setAttribute("id", "dimwindowimg");
+	dim.setAttribute("id", "overlay");
+	img.setAttribute("id", "overlayimg");
 	img.innerHTML = '<div><img src="img/progress.gif" /></div>';
 	bodyRef.appendChild(dim);
 	bodyRef.appendChild(img);

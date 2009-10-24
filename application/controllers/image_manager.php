@@ -12,7 +12,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  
 class Image_Manager extends Controller {
 
-	var $view_path = '';
+	public $view_path;
 
 	public function __construct(){
 		parent::Controller();
@@ -38,9 +38,7 @@ class Image_Manager extends Controller {
 		}
 	}
 	
-	/**
-	* handles asset uploads and inserts info into database
-	**/
+	// handles asset uploads and inserts info into database
 	public function upload(){
 		$folder_id = $this->tinycimm->upload_assets($this->config->item('tinycimm_image_upload_config'));
 		$this->load->view($this->view_path.'fragments/upload_finished', array('folder_id' => $folder_id));
@@ -52,9 +50,7 @@ class Image_Manager extends Controller {
 		$this->load->view($this->view_path.'manager', $data);
 	}
 
-	/**
-	* returns the image browser panel HTML
-	**/
+	// returns the image browser panel HTML
 	public function get_browser($folder=0, $offset=0, $search='') {
 		$this->load->library('pagination');
 		$this->load->helper('url');
@@ -105,19 +101,17 @@ class Image_Manager extends Controller {
 		$this->load->view($this->view_path.'browser', array('data'=>$data));
 	}
   
-	/**
-	* update asset row
-	**/
+	// update asset row
 	public function update_asset($image_id=0) {
-		if (!count($_POST)) {
-			exit;
-		}
-		if (!$this->tinycimm_model->update_asset($image_id, 
-		array(
+		
+		!count($_POST) and die();
+
+		$asset_info = array(
 			'folder_id' => $_POST['folder_id'], 
 			'name' => $_POST['name'], 
 			'description' => $_POST['description']
-		))) {
+		);
+		if (!$this->tinycimm_model->update_asset($image_id, $asset_info)) {
 			$response['outcome'] = false;
 			$response['message'] = 'Image not found.';
 			$this->tinycimm->response_encode($response);
@@ -129,31 +123,22 @@ class Image_Manager extends Controller {
 		exit;
 	}
 
-	public function update_folder($folder_id=0){
-		if (!count($_POST)) {
-			exit;
-		}
-		if (strlen($_POST['folder_name']) < 3) {
-			$response['outcome'] = false;
-			$response['message'] = 'Folder name must be at least 3 characters.';
-			$this->tinycimm->response_encode($response);
-			exit;
-		}
-		if (!$this->tinycimm_model->update_folder($folder_id, $_POST['folder_name'])) {
-			$response['outcome'] = false;
-			$response['message'] = 'Folder not saved.';
-			$this->tinycimm->response_encode($response);
-			exit;
-		}
-		$response['outcome'] = true;
+	// update a folder 
+	public function save_folder($folder_id=0){
+		
+		!count($_POST) and die();
+
+		$response = $this->tinycimm->save_folder($folder_id, $_POST['folder_name']);
+		
 		$this->tinycimm->response_encode($response);
 		exit;
-		
 	}
 
-  	/**
-  	* delete an image from database and file system
-  	**/
+	public function get_folders($type='list'){
+		$this->tinycimm->get_folders($type);
+	}
+
+  	// delete an image from database and file system
 	public function delete_image($image_id=0) {
 		$image = $this->tinycimm_model->get_asset($image_id);
 		$this->tinycimm->delete_asset((int) $image_id);
@@ -164,10 +149,8 @@ class Image_Manager extends Controller {
 		$this->tinycimm->response_encode($response);
 		exit;
 	}
-	
-  	/**
-  	* @TODO would become obsolete if we switched away from a multi folder system and went with categories @Liam
-  	**/
+
+	// delete a folder from the database
 	public function delete_folder($folder_id=0) {
 		if (!$this->tinycimm->delete_folder((int) $folder_id)) {
 			$response['outcome'] = false;
@@ -181,22 +164,7 @@ class Image_Manager extends Controller {
 		exit;
  	}
   	
-	public function add_folder($name='', $type=''){ 
-		if (is_array($response = $this->tinycimm->add_folder($name, $type))) {
-                        $this->tinycimm->response_encode($response);
-                        exit;
-                }
-		$this->get_folders('list');
-  	}
-  
-	// return folder list HTML	
-        public function get_folders($type='select', $folder_id=0){
-                $this->tinycimm->get_folders($type, (int) $folder_id);
-        }
-	
-	/**
-	* resizes an image
-	**/
+	// resizes an image
 	public function save_image_size($image_id, $width, $height, $quality=90, $update=true){
 		if (!(int) $width or !(int) $height) {
 			$this->tinycimm->response_encode(array('outcome'=>false,'message'=>'Incorrect dimensions supplied. (Cant have value of 0)'));
@@ -208,26 +176,19 @@ class Image_Manager extends Controller {
 		$this->tinycimm->response_encode($response);
 	}
   
-	/**
-	* change browser template in user session
-	**/
+	// change browser template in user session
 	public function change_view($view='thumbnails'){
 		$this->session->set_userdata('cimm_view', $view);
 		exit;
 	}
 
-
-	/**
-	* displays the image upload form
-	*/
+	// displays the image upload form
 	public function get_uploader_form(){
 		$data['upload_config'] = $this->config->item('tinycimm_image_upload_config');
 		$this->load->view($this->view_path.'upload_form', $data);
 	}
 	
-	/**
-	* get extension of filename
-	**/
+	// get extension of filename
 	public static function get_extension($filename) {
 		return end(explode('.', $filename));
 	}

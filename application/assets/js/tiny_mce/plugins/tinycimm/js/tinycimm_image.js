@@ -39,6 +39,7 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 			tinyMCE.activeEditor.dom.addClass(this, 'show');
 			tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper-over');
 
+			// expandos are fine ;)
 			this.over = true;
 			this.timer = setTimeout(function(){
 				tinyMCE.activeEditor.dom.select('.controls', self)[0].style.display = 'block';
@@ -231,7 +232,7 @@ ImageDialog.prototype.loadUploader = function() {
 	tinyMCEPopup.resizeToInnerSize();
 };
 	
-// prepare the resizer panel
+// pre-cache resizer image before initiating the resizer
 ImageDialog.prototype.loadResizer = function(filename, event) {
 	// remove the resizer image from the dom : issue 12 http://code.google.com/p/tinycimm/issues/detail?id=12
 	tinyMCEPopup.dom.remove('slider_img');
@@ -240,11 +241,14 @@ ImageDialog.prototype.loadResizer = function(filename, event) {
 	img.onload = function(){
 		self.showResizeImage(this);
 	};
+	img.onerror = function(){
+		tinyMCEPopup.editor.windowManager.alert('There was an error loading the image.');
+	};
 	img.src = this.settings.tinycimm_assets_path+filename;
 	if (!img.complete) {
 		// show loading text if image not already cached
 		mcTabs.displayTab('resize_tab','resize_panel');
-		tinyMCEPopup.dom.setHTML('image-info-dimensions', '<img style="float:left;margin-right:4px" src="img/ajax-loader.gif"/> caching image..');
+		tinyMCEPopup.dom.setHTML('image-info-dimensions', '<span id="loading"> caching image..</span>');
 	}
 };
 	
@@ -263,7 +267,7 @@ ImageDialog.prototype.showResizeImage = function(image) {
 	tinyMCEPopup.dom.get('resize_tab').style.display = 'block';
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
 
-	// image dimensions overlay layer
+	// add image dimensions overlay
 	tinyMCEPopup.dom.setHTML('image-info-dimensions', '<span id="slider_width_val"></span> x <span id="slider_height_val"></span>');
 			
 	new ScrollSlider(tinyMCEPopup.dom.get('image-slider'), {
@@ -323,7 +327,7 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 			return false;
 		};
 		// the image is cached before binding click event so that we can get
-		// desired width and height of popup window base on image dimensions
+		// desired width and height of popup window based on image dimensions
 		var previewImg = new Image();
 		previewImg.onload = function(){
 			var img = this;

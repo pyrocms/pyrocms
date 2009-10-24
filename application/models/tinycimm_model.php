@@ -108,21 +108,18 @@ class Tinycimm_model extends Model {
 		return $this->db->update('asset', $fields);
 	}
 
-	function update_folder($folder_id=0, $folder_name) {
-		$fields['name'] = $folder_name;
-		return $this->db->where('id', $folder_id)->update('asset_folder', $fields);
-	}
-
-
 	/** 
 	* Inserts a folder into the database
-	*
-	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
-	function insert_folder($folder_name='', $type_name=''){
-		$fields = array('name' => $folder_name);
-		$this->db->set($fields)->insert('asset_folder');
-		return $this->db->insert_id();
+	function save_folder($folder_id=0, $folder_name='', $type_name=''){
+		if ($folder_id) {
+			$fields['name'] = $folder_name;
+			return $this->db->where('id', $folder_id)->update('asset_folder', $fields);
+		} else {
+			$fields = array('name' => $folder_name);
+			$this->db->set($fields)->insert('asset_folder');
+			return $this->db->insert_id();
+		}
 	}
 	
 	/**

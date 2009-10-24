@@ -16,12 +16,22 @@ class TinyCIMM {
 	// CodeIgniter instance
 	private $ci;
 
+	private $user;
+
+	private $db;
+
+	private $config;
+	
+	private $input;
+
+
 	public function __construct(){
 		$this->ci = &get_instance();
 		$this->db = &$this->ci->db;
 		$this->config = &$this->ci->config;
 		$this->input = &$this->ci->input;
 		$this->check_paths();
+		$this->check_permissions();
 	}
 
 	// writes asset data to output buffer 
@@ -213,7 +223,7 @@ class TinyCIMM {
 		return $this->ci->tinycimm_model->delete_folder((int) $folder_id);
 	}
 
-	public function add_folder($name='', $type='image'){
+	public function save_folder($folder_id=0, $name='', $type='image'){
 		
 		$name = urldecode(trim($name));
 
@@ -225,17 +235,18 @@ class TinyCIMM {
 			return array('outcome' => false, 'message' => 'The folder name must be less than 24 characters.\n(The supplied folder name is "+captionID.length+" characters).');
 		}
 
-		$this->ci->tinycimm_model->insert_folder($name, $type);
+		$this->ci->tinycimm_model->save_folder($folder_id, $name, $type);
+		return array('outcome' => true);
 	}
 
 	// return list of folders in HTML
-        public function get_folders($type='select', $folder_id=0){
+        public function get_folders($type='select', $folder_id=0, $return=false){
                 $data['folder_id'] = $folder_id;
                 $data['folders'] = array();
                 foreach($folders = $this->ci->tinycimm_model->get_folders('name') as $folderinfo) {
                         $data['folders'][] = $folderinfo;
                 }
-                $this->ci->load->view($this->ci->view_path.'fragments/folder_'.$type, $data);
+                return $this->ci->load->view($this->ci->view_path.'fragments/folder_'.$type, $data, $return);
         }
 
 	/**
@@ -276,6 +287,22 @@ class TinyCIMM {
 		or @mkdir($this->config->item('tinycimm_asset_cache_path_full'), $chmod) 
 		or die('Error: '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions to'.$chmod.'</strong>');
 	}
+	
+	private function check_permissions(){
+		// Make sure we have the user module
+		if( ! is_module('users') ) {
+			show_error('The user module is missing.');
+		} else {
+			// Load the user model and get user data
+			$this->ci->load->module_model('users', 'users_m');
+			$this->ci->load->module_library('users', 'user_lib');
+			$this->user =& $this->user_lib->user_data;
+		}
+
+		// Login: If not logged in and its not an ignored page, force login
+		!$this->ci->user_lib->check_role('admin') and die('You dont have permission to access this feature.');
+	}
+
 	
 	/**
 	* Throw up an alert message using TinyMCE's alert method (only used in upload function)
