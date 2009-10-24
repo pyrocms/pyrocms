@@ -23,20 +23,21 @@ class Tinycimm_model extends Model {
 		return $this->db->where('id', (int) $asset_id)->get('asset', 1)->row();
 	}
 
-	
 	/**
 	* Get a list of assets by folder from the database
 	*
 	* @param integer|$folder_id The id of the folder the assets are related to
 	* @return Object| a result object containing rows for the assets
 	**/
-	function get_assets($folder_id=0, $offset=NULL, $limit=NULL, $search_query=''){
+	function get_assets($folder_id=0, $user_id=1, $offset=NULL, $limit=NULL, $search_query=''){
 		if (trim($search_query) != '') {
 			$this->db->where('name', $search_query);
 			$this->db->or_like('filename', $search_query);
 			$this->db->or_like('description', $search_query);
 		}
 		(int) $folder_id and $this->db->where('folder_id', (int) $folder_id);
+		// return assets belonging to user
+		// (int) $user_id and $this->db->where('user_id', (int) $user_id);
 		if (count($this->allowed_types)){
 			$this->db->where("(extension = '.".implode("' or extension = '.", (array) $this->allowed_types)."')");
 		}
@@ -58,18 +59,7 @@ class Tinycimm_model extends Model {
 	*
 	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
-	function insert_asset($folder_id=0, $name='', $filename='', $description='', $extension='', $mimetype='', $filesize=0, $width=NULL, $height=NULL){
-		$fields = array(
-			'folder_id' => $folder_id, 
-			'name' => $name, 
-			'filename' => $filename, 
-			'description' => $description, 
-			'extension' => $extension, 
-			'mimetype' => $mimetype,
-			'filesize' => $filesize,
-			'width' => $width,
-			'height' => $height
-		);
+	function insert_asset($fields = array()){
 		$this->db->set($fields)->insert('asset');
 		return $this->db->insert_id();
 	}

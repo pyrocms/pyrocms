@@ -291,9 +291,11 @@ CREATE TABLE `users` (
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
 
+
 CREATE TABLE `asset` (
   `id` int(5) NOT NULL auto_increment,
-  `folder_id` int(5) NOT NULL,
+  `folder_id` int(5) NOT NULL default '0',
+  `user_id` int(5) NOT NULL default '1',
   `name` varchar(255) collate utf8_unicode_ci NOT NULL,
   `filename` varchar(255) collate utf8_unicode_ci NOT NULL,
   `description` varchar(255) collate utf8_unicode_ci NOT NULL,
@@ -303,6 +305,7 @@ CREATE TABLE `asset` (
   `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Assets used in the wysiwyg image manager';
+
 
 CREATE TABLE `asset_folder` (
   `id` int(5) NOT NULL auto_increment,
