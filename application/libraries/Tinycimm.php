@@ -16,13 +16,13 @@ class TinyCIMM {
 	// CodeIgniter instance
 	private $ci;
 
-	private $user;
-
 	private $db;
 
 	private $config;
 	
 	private $input;
+	
+	public $user;
 
 
 	public function __construct(){
@@ -142,19 +142,22 @@ class TinyCIMM {
 						$asset_width = $dimensions[0];
 						$asset_height = $dimensions[1];
 					}
+
+					$asset_info = array(
+						'folder_id' => $asset_folder,
+						'user_id' => $this->user->id,
+						'name' => strtolower(basename($asset_data['orig_name'])), 
+						'filename' => strtolower(basename($asset_data['orig_name'])), 
+						'description' => $description, 
+						'extension' =>strtolower($asset_data['file_ext']), 
+						'mimetype' => $file['type'],
+						'filesize' => $file['size'],
+						'width' => $asset_width,
+						'height' => $asset_height
+					);
 					
 					// insert the asset info into the database
-					$last_insert_id = $this->ci->tinycimm_model->insert_asset(
-						$asset_folder,
-						strtolower(basename($asset_data['orig_name'])), 
-						strtolower(basename($asset_data['orig_name'])), 
-						$description, 
-						strtolower($asset_data['file_ext']), 
-						$file['type'],
-						$file['size'],
-						$asset_width,
-						$asset_height
-					);
+					$last_insert_id = $this->ci->tinycimm_model->insert_asset($asset_info);
 
 					// rename the uploaded file, CI's Upload library does not handle custom file naming 	
 					rename($asset_data['full_path'], $asset_data['file_path'].$last_insert_id.strtolower($asset_data['file_ext']));
@@ -291,15 +294,15 @@ class TinyCIMM {
 	private function check_permissions(){
 		// Make sure we have the user module
 		if( ! is_module('users') ) {
-			show_error('The user module is missing.');
+			die('The user module is missing.');
 		} else {
 			// Load the user model and get user data
 			$this->ci->load->module_model('users', 'users_m');
 			$this->ci->load->module_library('users', 'user_lib');
-			$this->user =& $this->user_lib->user_data;
+			$this->user =& $this->ci->user_lib->user_data;
 		}
 
-		// Login: If not logged in and its not an ignored page, force login
+		// check that an admin user is logged in
 		!$this->ci->user_lib->check_role('admin') and die('You dont have permission to access this feature.');
 	}
 

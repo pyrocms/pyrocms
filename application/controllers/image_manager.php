@@ -95,7 +95,7 @@ class Image_Manager extends Controller {
 
 		// get a list of images for this folder
 		$data['images'] = array();
-		foreach($assets = $this->tinycimm_model->get_assets((int) $folder, $offset, $per_page, $search) as $image) {
+		foreach($assets = $this->tinycimm_model->get_assets((int) $folder, $this->tinycimm->user->id, $offset, $per_page, $search) as $image) {
 			$data['images'][] = $image;	 
 		}
 		$this->load->view($this->view_path.'browser', array('data'=>$data));
