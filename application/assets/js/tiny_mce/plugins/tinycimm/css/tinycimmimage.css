@@ -469,7 +469,7 @@ select#view-type, select#sort-type {
 }
 
 /* Overlay */
-#dimwindow {
+#overlay {
 	top:0;
 	left:0;
 	width:100%;
@@ -480,7 +480,7 @@ select#view-type, select#sort-type {
 	filter:alpha(opacity=50);
 	opacity:0.5;
 }
-#dimwindowimg {
+#overlayimg {
 	width:50px;
 	height:50px;
 	position:absolute;
@@ -489,7 +489,7 @@ select#view-type, select#sort-type {
 	margin:-55px 0 0 -45px;
 	z-index:1001;
 }
-#dimwindowimg div {
+#overlayimg div {
 	text-align: center;
 }
 
