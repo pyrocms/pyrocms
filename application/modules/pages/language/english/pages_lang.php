@@ -22,6 +22,7 @@ $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_layout_file_label'] 				= 'Layout file';
+$lang['page_access_label'] 						= 'Access';
 
 $lang['page_view_label'] 						= 'View';
 $lang['page_edit_label'] 						= 'Edit';
@@ -39,7 +40,7 @@ $lang['pages_page_not_found_error'] 			= 'That page does not exist.';
 $lang['pages_edit_success'] 					= 'The page "%s" was saved.';
 $lang['pages_delete_home_error'] 				= 'You can not delete the home page!';
 $lang['pages_delete_success'] 					= 'The page "%s" has been deleted.';
-$lang['pages_mass_delete_success'] 				= 'The pages "%s" have been deleted.';
+$lang['pages_mass_delete_success'] 				= '%s pages have been deleted.';
 $lang['pages_delete_none_notice'] 				= 'No pages were deleted.';
 $lang['pages_page_already_exist_error'] 		= 'A page with the URL "%s" already exists in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'The parent page you have selected does not exist.';

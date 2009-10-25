@@ -21,7 +21,7 @@
 			<legend><?=lang('page_content_label');?></legend>
 			<div class="field">
 				<label for="title"><?=lang('page_title_label');?></label>
-				<input type="text" id="title" name="title" maxlength="60" value="<?= $page->title; ?>" class="text" />
+				<input type="text" id="title" name="title" maxlength="60" value="<?= $page->title; ?>" />
 				<span class="required-icon tooltip"><?=lang('page_required_label');?></span>
 			</div>
 			<div class="field">
@@ -48,11 +48,11 @@
 			<legend><?php echo lang('page_meta_label');?></legend>
 			<div class="field">
 				<label for="meta_title"><?php echo lang('page_meta_title_label');?></label>
-				<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" class="text" />
+				<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" />
 			</div>
 			<div class="field">
 				<label for="meta_keywords"><?php echo lang('page_meta_keywords_label');?></label>
-				<input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" class="text" />
+				<input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
 			</div>
 			<div class="field">
 				<label for="meta_description"><?php echo lang('page_meta_desc_label');?></label>
@@ -63,12 +63,18 @@
 		<!-- Advanced tab -->
 		<fieldset id="fieldset3">
 			<legend><?php echo lang('page_advanced_label');?></legend>
+			<!-- <div class="field">
+				<label for="layout_file"><?php //echo lang('page_access_level_label');?></label>
+				<?php //echo form_dropdown('access_level', $roles_select, $page->access_level); ?>
+			</div> -->
 			<div class="field">
 				<label for="layout_file"><?php echo lang('page_layout_file_label');?></label>
-				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" class="text" />
+				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" />
 			</div>
-		</fieldset>	
-	</div>	
+		</fieldset>
+		
+	</div>
 </div>
+
 <?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>
