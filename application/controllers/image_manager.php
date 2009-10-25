@@ -24,8 +24,8 @@ class Image_Manager extends Controller {
 	}
 
 	// writes asset data to output buffer
-	public function get($asset_id, $width=200, $height=200){
-		$this->tinycimm->get_asset((int) $asset_id, $width, $height);
+	public function get($asset_id, $width=200, $height=200, $quality=85, $cache_headers=1, $download=0){
+		$this->tinycimm->get_asset((int) $asset_id, $width, $height, $quality, $cache_headers, $download);
 	}
 
 	// returns a json model object
