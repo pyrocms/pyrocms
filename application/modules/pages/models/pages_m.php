@@ -94,6 +94,28 @@ class Pages_m extends Model {
 		return $this->db->count_all_results('pages') > 0;
 	}
 	
+	function getDescendantIds($id, $id_array = array())
+	{
+		$id_array[] = $id;
+	
+		$children = $this->db->select('id, title')
+			->where('parent_id', $id)
+			->get('pages')->result();
+		
+		$has_children = !empty($children);
+		
+		if($has_children)
+		{
+			// Loop through all of the children and run this function again
+			foreach($children as $child)
+			{
+				$id_array = $this->getDescendantIds($child->id, $id_array);
+			}
+		}
+		
+		return $id_array;
+	}
+	
 	// ----- PAGE INDEX --------------
 
 	function getPathById($id)
@@ -206,12 +228,20 @@ class Pages_m extends Model {
     {
         $this->db->trans_start();
         
-        $this->db->where('id', $id)->or_where('parent_id', $id);
+        $ids = $this->getDescendantIds($id);
+        
+        $this->db->where_in('id', $ids);
     	$this->db->delete('pages');
+    	
+        $this->db->where_in('id', $ids);
+    	$this->db->delete('pages_lookup');
+    	
+        $this->db->where_in('page_id', $ids);
+    	$this->db->delete('navigation_links');
         
         $this->db->trans_complete();
         
-        return ($this->db->trans_status() !== FALSE) ? $this->db->affected_rows() : FALSE;
+        return ($this->db->trans_status() !== FALSE) ? $ids : FALSE;
     }
     
 }

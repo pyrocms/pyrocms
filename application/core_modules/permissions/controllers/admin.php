@@ -9,9 +9,10 @@ class Admin extends Admin_Controller
 		$this->load->helper('array');
 		$this->lang->load('permissions');
 		
-		// Get Navigation Groups
+		// Get "roles" (like access levels)
 		$this->data->roles = $this->permissions_m->getRoles(array('except'=>array('admin')));
-		$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');		
+		$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
+			
 		$modules = $this->modules_m->getModules(array('is_backend'=>true));
 		$this->data->modules_select = array('*'=> lang('perm_module_select_default'))+array_for_select($modules, 'slug', 'name');
 		

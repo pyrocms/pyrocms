@@ -55,7 +55,7 @@
 		{
 			a = $(this);
 			other_a = page_tree.find('span > a');
-		
+		console.debug(other_a);
 			// Change which link is selected
 			other_a.removeClass('selected');
 			a.addClass('selected');
