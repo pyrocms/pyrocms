@@ -190,23 +190,18 @@ class Admin extends Admin_Controller
 		// Go through the array of slugs to delete
 		foreach ($ids as $id)
 		{
-			// Get the current page so we can grab the id too
-			$page = $this->pages_m->getById($id);
-
-			if( $page )
+			if ($id === 1)
 			{
-				if ($page->slug != 'home')
-				{
-					$deleted_ids = $this->pages_m->delete($id);
-					
-					// Wipe cache for this model, the content has changd
-					$this->cache->delete_all('pages_m');
-					$this->cache->delete_all('navigation_m');			
-				}				
-				else
-				{
-					$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
-				}
+				$deleted_ids = $this->pages_m->delete($id);
+				
+				// Wipe cache for this model, the content has changd
+				$this->cache->delete_all('pages_m');
+				$this->cache->delete_all('navigation_m');			
+			}
+				
+			else
+			{
+				$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
 			}
 		}
 		
