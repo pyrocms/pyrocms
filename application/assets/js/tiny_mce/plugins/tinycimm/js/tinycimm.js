@@ -43,6 +43,63 @@ Array.prototype.inArray = function(val) {
 	for(var i=0;i<this.length;i++) if (this[i] === val) return true; return false;
 };
 
+Object.prototype.fadeIn = function(speed, callback){
+	speed = speed || 500;
+	var self = this, timer = 0, step = 0, interval = 5;
+	if (1 == this.opacity()) { return; }
+
+	var timer = setInterval(function(){
+		if (step == (speed/interval)) { 
+			self.opacity(100);
+			clearInterval(timer);
+			(callback) && callback(self);
+		} else {
+			self.opacity((((step*interval)/speed))*100);
+			step++;
+		}
+	}, interval);
+	return this;
+};
+
+Object.prototype.fadeOut = function(speed, callback){
+	speed = speed || 500;
+	var self = this, timer = 0, step = 0, interval = 5;
+	if (0 == this.opacity()) { return; }
+
+	var timer = setInterval(function(){
+		if (step == (speed/interval)) { 
+			self.opacity(0);
+			clearInterval(timer);
+			(callback) && callback(self);
+		} else {
+			self.opacity(((speed-(step*interval))/speed)*100);
+			step++;
+		}
+	}, interval);
+	return this;
+};
+
+Object.prototype.opacity = function(val){
+	if (val != undefined) {
+		this.style.opacity = (val/100);
+		this.style.MozOpacity = (val/100);
+		this.style.KhtmlOpacity = (val/100);
+		this.style.filter = "alpha(opacity=" + opacity + ")"; 
+	} else {
+		return this.style.opacity;
+	}
+};
+
+Object.prototype.hide = function(){
+	this.style.opacity = 0;
+	return this;
+};
+
+Object.prototype.html = function(html){
+	this.innerHTML = html;
+	return this;
+}
+
 Object.prototype.multiFileUpload = function(config){
 	config = config || {
 		allowedTypes: document.getElementById('allowedtypes').innerHTML.trim().split(', ')
@@ -54,7 +111,7 @@ Object.prototype.multiFileUpload = function(config){
 		newinput = document.createElement('input');
 
 		// check extension against allowed types
-		if (!config.allowedTypes.inArray(this.value.replace(/^.*\.([a-zA-Z]+)$/, '$1'))) {
+		if (!config.allowedTypes.inArray(this.value.replace(/^.*\.([a-zA-Z]+)$/, '$1').toLowerCase())) {
 			tinyMCEPopup.editor.windowManager.alert('Allowed types: '+config.allowedTypes.join(', '));
 			this.value = '';
 			return false;
@@ -153,7 +210,6 @@ Object.prototype.editInPlace = function(saveFunctionCallback){
 	input.focus();
 	return this;
 };
-
 
 
 function TinyCIMM(type){
@@ -325,7 +381,7 @@ TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, file
 		success : function(response) {
 			if (response) {	
 				var obj = tinymce.util.JSON.parse(response);
-				tinyMCEPopup.editor.windowManager.alert(obj.message);
+				self.showFlashMsg(obj.message);
 			}
 		}
 	});
@@ -362,6 +418,7 @@ TinyCIMM.prototype.addFolder = function(type) {
 		if (response.outcome) {
 			tinyMCEPopup.dom.get('add-folder').style.display = 'none';
 			tinyMCEPopup.dom.get('add-folder-caption').value = '';
+			self.showFlashMsg('Folder successfully saved!');
 			self.getFoldersHTML(function(folderHTML){
 				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
 			});
@@ -374,6 +431,7 @@ TinyCIMM.prototype.editFolder = function(folder_id){
 
 	folder.editInPlace(function(input_value){
 		self.saveFolder(folder_id, input_value, function(){
+			self.showFlashMsg('Folder successfully saved!');
 			self.getFoldersHTML(function(folderHTML){
 				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
 			});
@@ -398,6 +456,7 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 					tinyMCEPopup.editor.windowManager.alert('Error: '+obj.message);
 	 			} else {
 					self.showBrowser(0, 0, true);
+					self.showFlashMsg('Folder successfully deleted!');
 	 			}
 			}
 		});
@@ -478,4 +537,12 @@ TinyCIMM.prototype.showOverlay = function() {
 	img.innerHTML = '<div><img src="img/progress.gif" /></div>';
 	bodyRef.appendChild(dim);
 	bodyRef.appendChild(img);
+};
+
+TinyCIMM.prototype.showFlashMsg = function(message){
+	document.getElementById('flash-msg').hide().html(message).fadeIn(100, function(self){
+		setTimeout(function(){
+			self.fadeOut(100);
+		}, 2000);
+	});
 };
