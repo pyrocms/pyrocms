@@ -35,32 +35,42 @@ class TinyCIMM {
 	}
 
 	// writes asset data to output buffer 
-	public function get_asset($asset_id, $width=200, $height=200, $quality=85, $send_nocache=false){
+	public function get_asset($asset_id, $width=200, $height=200, $quality=85, $cache_headers=1, $download=0){
 
 		$asset = $this->ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
-		if (!@file_exists($asset->filepath)) {
-			die('asset not found');
-		}
-
 		$asset = $this->resize_asset($asset, $width, $height, $quality);
-		$headers = apache_request_headers();
 
-		// checking if the client is validating his cache and if it is current.
-		if (isset($headers['If-Modified-Since']) && (strtotime($headers['If-Modified-Since']) == filemtime($asset->cache_filepath))) {
-			// client's cache is current, so we just respond '304 Not Modified'.
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->cache_filepath)).' GMT', true, 304);
-		} else {
-			// image not cached or cache outdated, we respond '200 OK' and output the image.
-			header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->cache_filepath)).' GMT', true, 200);
-			if ($send_nocache) {
-				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-				header('Pragma: public');
+		if (!$download) {
+			$headers = apache_request_headers();
+
+			// checking if the client is validating his cache and if it is current.
+			if (isset($headers['If-Modified-Since']) && (strtotime($headers['If-Modified-Since']) == filemtime($asset->cache_filepath))) {
+				// client's cache is current, so we just respond '304 Not Modified'.
+				header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->cache_filepath)).' GMT', true, 304);
+				flush();
+			} else {
+				// image not cached or cache outdated, we respond '200 OK' and output the image.
+				header('Last-Modified: '.gmdate('D, d M Y H:i:s', @filemtime($asset->cache_filepath)).' GMT', true, 200);
+				if (!$cache_headers) {
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Pragma: public');
+				}
+				header('Content-type: '.$asset->mimetype);
+				header("Content-Length: ".@filesize($asset->cache_filepath));
+				flush();
+				readfile($asset->cache_filepath);
 			}
-			header('Content-type: '.$asset->mimetype);
-			header("Content-Length: ".@filesize($asset->cache_filepath));
+		} else {
+			// force the browser to download the file
+			header('Content-Description: File Transfer');
+			header('Content-Type: '.$asset->mimetype);
+			header('Content-Disposition: attachment; filename="'.basename($asset->name).'"');
+			header('Content-Transfer-Encoding: binary');
+			header('Pragma: public');
+			header('Content-Length: '.@filesize($asset->filepath));
 			flush();
-			readfile($asset->cache_filepath);
+                	readfile($asset->filepath);
 		}
 		exit;
 	}
@@ -86,6 +96,7 @@ class TinyCIMM {
 			}
 			$resize_config['source_image'] = $asset->filepath;
 			$resize_config['new_image'] = $asset->cache_filepath;
+			$resize_config['quality'] = $quality;
 
 			// load image lib and resize image
 			$this->ci->load->library('image_lib');
