@@ -69,7 +69,7 @@ class TinyCIMM {
 			// force the browser to download the file
 			header('Content-Description: File Transfer');
 			header('Content-Type: '.$asset->mimetype);
-			header('Content-Disposition: attachment; filename="'.basename($asset->name).'"');
+			header('Content-Disposition: attachment; filename="'.basename($asset->filename).'"');
 			header('Content-Transfer-Encoding: binary');
 			header('Pragma: public');
 			header('Content-Length: '.@filesize($asset->filepath));

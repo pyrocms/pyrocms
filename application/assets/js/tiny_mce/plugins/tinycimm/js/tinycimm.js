@@ -312,13 +312,13 @@ TinyCIMM.prototype.deleteAsset = function(asset_id) {
 	});
 };
 
-TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, name) {
+TinyCIMM.prototype.updateAsset = function(asset_id, folder_id, description, filename) {
 	var self = this;
 	tinymce.util.XHR.send({
 		url : self.baseURL(self.settings.tinycimm_controller+'update_asset/'+asset_id),
  		content_type : 'application/x-www-form-urlencoded',
 		type : "POST",
-		data : 	'folder_id='+folder_id+'&description='+description+'&name='+name,
+		data : 	'folder_id='+folder_id+'&description='+description+'&filename='+filename,
 		error : function(response) {
 			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request.');
 		},
