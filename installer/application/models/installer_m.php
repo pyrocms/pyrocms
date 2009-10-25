@@ -1,8 +1,6 @@
 <?php
 /**
- * @name 		Installer Model
  * @author 		Yorick Peterse - PyroCMS development team
- * @copyright 	Yorick Peterse - PyroCMS development team
  * @package 	PyroCMS
  * @subpackage 	Installer
  *
@@ -11,12 +9,9 @@
  */
 class installer_m extends Model
 {
-	// Global functions
-	
 	/**
-	 * @name 	store_db_settings
-	 * @param	$type - Set or remove the cookie
-	 * @param 	$data - The $_POST data
+	 * @param	string $type Set or remove the cookie
+	 * @param 	string $data The $_POST data
 	 *
 	 * Store database settings so that they can be used later on.
 	 */
@@ -40,8 +35,8 @@ class installer_m extends Model
 	// Functions used in Step 1 
 	
 	/**
-	 * @name get_php_version()
-	 * 
+	 * @return string The PHP version
+	 *
 	 * Function to retrieve the PHP version
 	 */
 	function get_php_version()
@@ -65,8 +60,8 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name 	get_mysql_version()
-	 * @param 	$type - The MySQL type, client or server
+	 * @param 	string $type The MySQL type, client or server
+	 * @return 	string The MySQL version of either the server or the client
 	 * 
 	 * Function to retrieve the MySQL version (client/server)
 	 */
@@ -116,7 +111,18 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name get_gd_version()
+	 * @return bool Returns TRUE when MySQLi is installed or FALSE when it isn't.
+	 *
+	 * Check whether MySQLi is installed or not. Returns TRUE if it's installed or FALSE when it isn't
+	 */
+	function mysqli_is_installed()
+	{
+		// Check whether the mysqli_connect() function exists. If it doesn't it's most likely that MySQLi is not installed.
+		return function_exists('mysqli_connect');
+	}
+	
+	/**
+	 * @return string The GD library version. 
 	 *
 	 * Function to retrieve the GD library version
 	 */
@@ -135,8 +141,8 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name 	check_server()
-	 * @param 	$data - The data retrieved from other functions (above).
+	 * @param 	string $data The data retrieved from other functions (above).
+	 * @return 	bool
 	 *
 	 * Function to validate all the versions and create the session (if the server can run PyroCMS)
 	 */
@@ -160,11 +166,8 @@ class installer_m extends Model
 		return $pass;
 	}
 	
-	// Functions used in the second step
-	
 	/**
-	 * @name 	is_writeable() 
-	 * @param 	$path - The full path to the file or folder of which the permissions should be retrieved
+	 * @param 	string $path The full path to the file or folder of which the permissions should be retrieved
 	 *
 	 * Get the permissions of a file or folder. Return a message if it isn't writable.
 	 */
@@ -173,38 +176,50 @@ class installer_m extends Model
 		return is_really_writable($path);
 	}
 	
-	// Functions used in the third step
-	
 	/**
-	 * @name 	validate()
-	 * @param 	$data - The post data
+	 * @param 	string $data The post data
 	 * 
 	 * Function to validate the $_POST results from step 3
 	 */
-	function validate($data = '')
+	function validate($data)
 	{
 		// Get the database settings from the form
-		if($data != '')
+		if(isset($data))
 		{
-			$hostname = $data['server'];
-			$username = $data['username'];
-			$password = $data['password'];
+			// Get the data from the form
+			if($data['installation_step'] == 'step_1')
+			{				
+				// Check whether the user has filled in all the required fields
+				if(!empty($data['server']) AND !empty($data['username']) AND !empty($data['password']))
+				{
+					$hostname = $data['server'];
+					$username = $data['username'];
+					$password = $data['password'];
+				}
+				else
+				{
+					return FALSE;
+				}				
+			}
+			// Get the database settings from the session
+			else
+			{
+				$hostname = $this->session->userdata('server');
+				$username = $this->session->userdata('username');
+				$password = $this->session->userdata('password');
+			}
+			
+			// Test the connection	
+			return @mysql_connect($hostname,$username,$password);
 		}
-		// Get the database settings from the session
 		else
 		{
-			$hostname = $this->session->userdata('server');
-			$username = $this->session->userdata('username');
-			$password = $this->session->userdata('password');
+			return FALSE;
 		}
-		
-		// Test the connection	
-		return @mysql_connect($hostname,$username,$password);
 	}
 	
 	/**
-	 * @name 	install()
-	 * @param 	$data - The data from the form
+	 * @param 	string $data The data from the form
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
@@ -282,8 +297,7 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @name 	write_db_file();
-	 * @param 	$database - The name of the database
+	 * @param 	string $database The name of the database
 	 *
 	 * Writes the database file based on the provided database settings
 	 */
