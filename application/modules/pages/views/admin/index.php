@@ -3,7 +3,7 @@
 <?php echo js('index.js', 'pages'); ?>
 <?php echo css('index.css', 'pages'); ?>
 
-<div id="page-tree" class="float-left" style="border:1px black solid; overflow:auto; width:49%; height:35em;">
+<div id="page-tree" class="float-left" style=" width:49%;">
   
 <? if (!empty($pages)): ?>
 
@@ -17,7 +17,7 @@
 
 </div>
 
-<div id="page-details" class="float-right" style="border:1px black solid; width:45%; padding:1em">
+<div id="page-details" class="float-right" style="width:45%;">
 
 	<p>
 		The list on the left represents pages on your website. Click the "+" icon next to the page to show pages within it.
