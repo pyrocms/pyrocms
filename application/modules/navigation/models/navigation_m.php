@@ -2,11 +2,8 @@
 
 class Navigation_m extends Model {
 
-	function __construct() {
-		parent::Model();
-	}
-
-	function getLink($id = 0) {
+	function getLink($id = 0)
+	{
 		$query = $this->db->getwhere('navigation_links', array('id'=>$id));
 		if ($query->num_rows() == 0) {
 			return FALSE;
@@ -16,35 +13,40 @@ class Navigation_m extends Model {
 	}
 
 	// Return an object of objects containing NavigationLink data
-	function getLinks($params = array()) {
-
+	function getLinks($params = array())
+	{
 		$this->db->select('*, IF(page_id > 0, "page", IF(module_name != "", "module", IF(url != "", "url", IF(uri != "", "uri", NULL)))) as link_type', FALSE);
 
-		if(!empty($params['group'])) {
+		if(!empty($params['group']))
+		{
 			$this->db->where('navigation_group_id', $params['group']);
 		}
 
-		if(!empty($params['order'])) {
+		if(!empty($params['order']))
+		{
 			$this->db->order_by($params['order']);
-		} else {
+		}
+		
+		else
+		{
 			$this->db->order_by('title');
 		}
 
 		$query = $this->db->get('navigation_links');
 
-		if ($query->num_rows() > 0) {
-
+		if ($query->num_rows() > 0)
+		{
 			// If we should build the urls
-			if(!isset($params['make_urls']) or $params['make_urls']) {
-				 
+			if(!isset($params['make_urls']) or $params['make_urls'])
+			{
 				$this->load->helper('url');
 
 				$result = $query->result();
-				foreach($result as &$row) {
-					
+				foreach($result as &$row)
+				{
 					// If its any other type than a URL, it needs some help becoming one
-					switch($row->link_type) {
-						
+					switch($row->link_type)
+					{
 						case 'uri':
 							$row->url = site_url($row->uri);
 						break;
@@ -54,7 +56,7 @@ class Navigation_m extends Model {
 						break;
 
 						case 'page':
-							$page_slug = $this->db->getwhere('pages', array('id'=>$row->page_id))->row()->slug;
+							$page_slug = @$this->db->getwhere('pages', array('id'=>$row->page_id))->row()->slug;
 							$row->url = site_url($page_slug);
 						break;
 					}
@@ -63,7 +65,10 @@ class Navigation_m extends Model {
 				return $result;
 					
 				// Just return the result, dont do anything fancy
-			} else {
+			}
+			
+			else
+			{
 				return $query->result();
 			}
 
@@ -121,18 +126,18 @@ class Navigation_m extends Model {
 	}
 	
 	// Create a new Navigation Link
-	function newLink($input = array()) {
-
+	function newLink($input = array())
+	{
 		$input = $this->_formatArray($input);
 		 
 		$this->db->insert('navigation_links', array(
-        	'title' => $input['title'],
-        	'url' => $input['url'],
-        	'uri' => $input['uri'],
-        	'module_name' => $input['module_name'],
-        	'page_id' => (int) $input['page_id'],
-        	'position' => (int) $input['position'],
-        	'navigation_group_id' => (int) $input['navigation_group_id']
+        	'title' 				=> $input['title'],
+        	'url' 					=> $input['url'],
+        	'uri' 					=> $input['uri'],
+        	'module_name' 			=> $input['module_name'],
+        	'page_id' 				=> (int) $input['page_id'],
+        	'position'				=> (int) $input['position'],
+        	'navigation_group_id'	=> (int) $input['navigation_group_id']
 		));
         
         return $this->db->insert_id();
@@ -144,13 +149,13 @@ class Navigation_m extends Model {
 		$input = $this->_formatArray($input);
 		 
 		$this->db->update('navigation_links', array(
-        	'title' => $input['title'],
-        	'url' => $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
-        	'uri' => $input['uri'],
-        	'module_name' => $input['module_name'],
-        	'page_id' => (int) $input['page_id'],
-        	'position' => (int) $input['position'],
-        	'navigation_group_id' => (int) $input['navigation_group_id']
+        	'title' 				=> $input['title'],
+        	'url' 					=> $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
+        	'uri' 					=> $input['uri'],
+        	'module_name'			=> $input['module_name'],
+        	'page_id' 				=> (int) $input['page_id'],
+        	'position' 				=> (int) $input['position'],
+        	'navigation_group_id' 	=> (int) $input['navigation_group_id']
 		), array('id' => $id));
 		
 		return TRUE;

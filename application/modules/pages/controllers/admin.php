@@ -8,11 +8,11 @@ class Admin extends Admin_Controller
 	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body' 				=> 'trim|required',
 	    'parent_id'			=> 'trim|callback__check_parent',
-	    //'lang' 				=> 'trim|required|min_length[2]|max_length[2]',
-	    'layout_file' 		=> 'trim|alphadash|required',
 	    'meta_title' 		=> 'trim|max_length[255]',
 	    'meta_keywords' 	=> 'trim|max_length[255]',
-	    'meta_description' 	=> 'trim'
+	    'meta_description' 	=> 'trim',
+	    'layout_file' 		=> 'trim|alphadash|required',
+	   // 'access_level' 		=> 'trim|alphadash|required'
 	);
 	
 	// Used to pass page id to edit validation callback
@@ -22,9 +22,10 @@ class Admin extends Admin_Controller
 	{
   		parent::Admin_Controller();
     	$this->load->model('pages_m');
-		$this->load->helper('pages');
 		$this->load->module_model('navigation', 'navigation_m');
 		$this->lang->load('pages');	
+		
+		$this->load->helper('array');
 	}
 
 	// Admin: List all Pages
@@ -96,25 +97,22 @@ class Admin extends Admin_Controller
 	    	$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
 	    }
 
+	    // If a parent id was passed, fetch the parent details
 	    if($parent_id > 0)
 	    {
 	    	$page->parent_id = $parent_id;
 	    	
-			$parent_page = $this->pages_m->getByParentId($parent_id);
+			$parent_page = $this->pages_m->getById($parent_id);
 			$parent_page->path = $this->pages_m->getPathById($parent_id);
 	    }
-	    
-	    // Send an array of languages to the view
-	    /*$languages = array();
-	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
-	    {
-	    	$languages[$lang_code] = $lang['name'];
-	    }*/
 	    
 	    // Assign data for display
 	    $this->data->page =& $page;
 	    $this->data->parent_page =& $parent_page;
-	    //$this->data->languages =& $languages;
+	    
+		// Get "roles" (like access levels)
+		//$this->data->roles = $this->permissions_m->getRoles(array('order' => 'lowest_first'));
+		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
@@ -133,24 +131,12 @@ class Admin extends Admin_Controller
 	    $this->page_id = $id;
 	    
 	    // Set data, if it exists
-	    if (!$this->data->page = $this->pages_m->getById($id)) 
+	    if (!$page = $this->pages_m->getById($id)) 
 	    {
 			$this->session->set_flashdata('error', $this->lang->line('pages_page_not_found_error'));
 			redirect('admin/pages/create');
 	    }
 			
-	    // Get Pages and create pages tree
-	    $tree = array();
-	    $this->data->pages = $this->pages_m->get();
-	    if(!empty($this->data->pages))
-	    {
-		    foreach($this->data->pages as $data)
-		    {
-		    	$tree[$data->parent_id][] = $data;
-		    }
-		    $this->data->pages = $tree;
-	    }
-	    	
 	    $this->load->library('validation');
 	    $this->validation->set_rules($this->rules);
 	    $this->validation->set_fields();
@@ -158,7 +144,7 @@ class Admin extends Admin_Controller
 	    // Auto-set data for the page if a post variable overrides it
 	    foreach(array_keys($this->rules) as $field)
 	    {
-	    	if(isset($_POST[$field])) $this->data->page->$field = $this->validation->$field;
+	    	if($this->input->post($field)) $page->$field = $this->validation->$field;
 	    }
 	    
 	    // Give validation a try, who knows, it just might work!
@@ -172,13 +158,23 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('success', sprintf($this->lang->line('pages_edit_success'), $this->input->post('title')));
 			redirect('admin/pages/index');
 	    }
-	    
-		// Send an array of languages to the view
-	    $this->data->languages = array();
-	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
+	
+
+	    // If a parent id was passed, fetch the parent details
+	    if($page->parent_id > 0)
 	    {
-	    	$this->data->languages[$lang_code] = $lang['name'];
+			$parent_page = $this->pages_m->getById($page->parent_id);
+			$parent_page->path = $this->pages_m->getPathById($page->parent_id);
 	    }
+	    
+	    // Assign data for display
+	    $this->data->page =& $page;
+	    $this->data->parent_page =& $parent_page;
+	    
+		// Get "roles" (like access levels)
+		//$this->data->roles = $this->permissions_m->getRoles();
+		//ksort($this->data->roles);
+		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
 	    	
 	    // Load WYSIWYG editor
 	    $this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
@@ -191,43 +187,40 @@ class Admin extends Admin_Controller
 		// Attention! Error of no selection not handeled yet.
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 		
-		if(!empty($ids))
+		// Go through the array of slugs to delete
+		foreach ($ids as $id)
 		{
-			// Go through the array of slugs to delete
-			$page_titles = array();
-			foreach ($ids as $id)
+			// Get the current page so we can grab the id too
+			$page = $this->pages_m->getById($id);
+
+			if( $page )
 			{
-				// Get the current page so we can grab the id too
-				if($page = $this->pages_m->getById($id) )
+				if ($page->slug != 'home')
 				{
-					if ($page->slug != 'home')
-					{
-						$this->pages_m->delete($id);
-						$this->navigation_m->deleteLink(array('page_id' => $id));					
-						// Wipe cache for this model, the content has changd
-						$this->cache->delete_all('pages_m');
-						$this->cache->delete_all('navigation_m');			
-						$page_titles[] = $page->title;
-					}				
-					else
-					{
-						$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
-					}
+					$deleted_ids = $this->pages_m->delete($id);
+					
+					// Wipe cache for this model, the content has changd
+					$this->cache->delete_all('pages_m');
+					$this->cache->delete_all('navigation_m');			
+				}				
+				else
+				{
+					$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
 				}
 			}
 		}
-			
+		
 		// Some pages have been deleted
-		if(!empty($page_titles))
+		if(!empty($deleted_ids))
 		{
 			// Only deleting one page
-			if( count($page_titles) == 1 )
+			if( count($deleted_ids) == 1 )
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $page_titles[0]));
 			}			
 			else // Deleting multiple pages
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_mass_delete_success'), implode('", "', $page_titles)));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_mass_delete_success'), count($deleted_ids)));
 			}
 		}		
 		else // For some reason, none of them were deleted
@@ -237,6 +230,11 @@ class Admin extends Admin_Controller
 		redirect('admin/pages/index');
 	}
     
+	
+	function test($parent_id)
+	{
+	}
+	
 	// Callback: From create()
 	/*function _check_slug($slug)
 	{

@@ -1,12 +1,12 @@
 <?php
 /**
- * @name 		Install controller
  * @author 		Yorick Peterse - PyroCMS development team
- * @copyright	Yorick Peterse - PyroCMS development team
  * @package		PyroCMS
  * @subpackage	Installer
  *
  * @since 		v0.9.6.2
+ *
+ * Installer controller.
  */
 class Installer extends Controller 
 {
@@ -23,13 +23,24 @@ class Installer extends Controller
 	// Index function
 	function step_1()
 	{
+		// Load the model
+		$this->load->model('installer_m');
+		
 		// $_POST ? 
 		if($_POST)
-		{
-			// Load the model
-			$this->load->model('installer_m');
+		{									
+			// Check whether MySQLi is installed. Show an error message if it isn't
+			if($this->installer_m->mysqli_is_installed() == FALSE)
+			{
+				// Set the flashdata message
+				$this->session->set_flashdata('message','MySQLi isn\'t installed. You can find the manual installation instructions <a href="../../../INSTALL" title="Manual Installation Instructions" class="white">here</a>.');
+				$this->session->set_flashdata('message_type','error');
+
+				// Redirect
+				redirect('installer/step_1');
+			}
 			
-			// First we validate the data
+			// Data validation
 			$results = $this->installer_m->validate($_POST);
 			
 			if($results == TRUE)
