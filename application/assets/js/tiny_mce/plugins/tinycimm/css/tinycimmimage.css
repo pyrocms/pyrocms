@@ -531,6 +531,23 @@ a#image-preview-popup img {
 	width: 180px;
 }
 
+/* Flash message */
+#flash-msg-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	text-align: center;
+}
+#flash-msg {
+	width: auto;
+	padding: 1px 5px 2px 20px;
+	border: 1px solid #DDD;
+	opacity: 0;
+	background: white url(../img/information.png) no-repeat 2px center;
+}
+
 /* pagination */
 .pagination a, .pagination a:visited, .pagination b {
 	border: 1px solid #F4F4F0;

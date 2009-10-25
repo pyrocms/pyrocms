@@ -47,7 +47,7 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 			this.over = true;
 			this.timer = setTimeout(function(){
 				tinyMCE.activeEditor.dom.addClass(self, 'show-controls');
-			}, 600);
+			}, 100);
 		}
 
 		function mouseout(){
@@ -374,6 +374,7 @@ ImageDialog.prototype.assetUploaded = function(folder_id) {
 		remove[i].parentNode.removeChild(remove[i]);
 	}
 	this.showBrowser(folder_id);
+	this.showFlashMsg('Images successfully uploaded!');
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {
