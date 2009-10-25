@@ -1,11 +1,22 @@
-#page-tree ul { margin-left:1em !important; }
+#page-tree { 
+	background-color:#eee;
+	border:1px grey solid;
+	height: 35em;
+	overflow:auto;
+}
 
 #page-tree, #page-tree ul { background-color:#eee; }
+#page-tree ul { margin-left:0.7em !important; }
 
 #page-tree a { text-decoration: none; color:black; padding:0 0.3em }
 #page-tree a.selected { border:1px dotted black; }
 #page-tree a:hover { background-color: black; border:1px dotted white; color: white; }
 
-#page-details { background-color:lightyellow; }
+#page-details {
+	background-color:lightyellow;
+	border:1px grey solid;
+	min-height: 33em;
+	padding:1em;
+}
 
 #page-details h3 { margin:0.5em 0; }
