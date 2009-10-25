@@ -23,7 +23,7 @@ ImageDialog.prototype.getImage = function(imageid, callback) {
 };
 
 ImageDialog.prototype.downloadImage = function(imageid) {
-	window.parent.location = self.settings.tinycimm_controller+'get/'+imageid+'/0/0/0/0/1';
+	window.parent.location = this.settings.tinycimm_controller+'get/'+imageid+'/0/0/0/0/1';
 };
 
 ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_query){
@@ -313,21 +313,38 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 				image_id, 
 				tinyMCEPopup.dom.get('folderselect').options[tinyMCEPopup.dom.get('folderselect').selectedIndex].value.toString(),
 				tinyMCEPopup.dom.get('image-alttext').value.trim(),
-				tinyMCEPopup.dom.get('image-name').value.trim()
+				tinyMCEPopup.dom.get('image-filename').value.trim()
 			);
 			return false;
 		};
 		tinyMCEPopup.dom.get('manager-actions').onchange = function(e){
 			switch(this.value) {
-				case 'delete' : self.deleteImage(image_id); return false; break;
-				case 'insert' :  self.getImage(image_id, function(image){ self.loadResizer(image.id+image.extension); }); return false; break;
-				case 'download' : self.downloadImage(image_id); return false; break;
+				case 'delete' : self.deleteImage(image_id); this.value=''; break;
+				case 'insert' :  self.getImage(image_id, function(image){ self.loadResizer(image.id+image.extension); }); this.value=''; break;
+				case 'download' : self.downloadImage(image_id); this.value=''; break;
 			} 
 		};
-		// the image is cached before binding click event so that we can get
-		// desired width and height of popup window based on image dimensions
+		tinyMCEPopup.dom.get('image-filename').onfocus = function(e){
+			this.extension = this.value.extension();
+			this.value = this.value.replace(new RegExp('\.'+this.extension+'$'), '');
+		};
+		tinyMCEPopup.dom.get('image-filename').onblur = function(e){
+			this.value += '.'+this.extension;
+		};
+
+		// ensure the peview image is cached before showing the details
 		var previewImg = new Image();
 		previewImg.onload = function(){
+			tinyMCEPopup.dom.get('loading').style.display = 'none';
+			tinyMCEPopup.dom.get('image-manager-details').style.display = 'block';
+		};
+		previewImg.onerror = function(){};
+		previewImg.src = tinyMCEPopup.dom.get('image-preview').src;
+
+		// the image is cached before binding click event so that we can get
+		// desired width and height of popup window based on image dimensions
+		var previewImgLarge = new Image();
+		previewImgLarge.onload = function(){
 			var img = this;
 			tinyMCEPopup.dom.get('image-preview-popup').onclick = function(){
 				tinyMCE.activeEditor.windowManager.open({
@@ -339,8 +356,8 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 				return false;
 			};	
 		};
-		previewImg.onerror = function(){};
-		previewImg.src = self.settings.tinycimm_controller+'get/'+image_id+'/600/600';
+		previewImgLarge.onerror = function(){};
+		previewImgLarge.src = self.settings.tinycimm_controller+'get/'+image_id+'/600/600';
 	});
 }
 

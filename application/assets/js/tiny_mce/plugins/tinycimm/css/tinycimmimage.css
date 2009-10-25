@@ -517,13 +517,18 @@ select#view-type, select#sort-type {
 
 /* Manager */
 #alttext-container textarea {
-	width: 160px;
+	width: 180px;
 	height: 36px;
 }
-select#manager-actions {}
 a#image-preview-popup img {
 	border: 1px solid #AAA;
 	/*display: block;*/
+}
+#image-manager-details {
+	display: none;
+}
+#image-filename {
+	width: 180px;
 }
 
 /* pagination */

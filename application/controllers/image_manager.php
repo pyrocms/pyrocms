@@ -106,12 +106,12 @@ class Image_Manager extends Controller {
 		
 		!count($_POST) and die();
 
-		$asset_info = array(
+		$fields = array(
 			'folder_id' => $_POST['folder_id'], 
-			'name' => $_POST['name'], 
+			'filename' => $_POST['filename'], 
 			'description' => $_POST['description']
 		);
-		if (!$this->tinycimm_model->update_asset($image_id, $asset_info)) {
+		if (!$this->tinycimm_model->update_asset($image_id, $fields)) {
 			$response['outcome'] = false;
 			$response['message'] = 'Image not found.';
 			$this->tinycimm->response_encode($response);
