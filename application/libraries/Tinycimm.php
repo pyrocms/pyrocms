@@ -39,10 +39,14 @@ class TinyCIMM {
 
 		$asset = $this->ci->tinycimm_model->get_asset($asset_id) or die('asset not found');
 		$asset->filepath = $this->config->item('tinycimm_asset_path_full').$asset_id.$asset->extension;
-		$asset = $this->resize_asset($asset, $width, $height, $quality);
 
 		if (!$download) {
 			$headers = apache_request_headers();
+
+			// if its an image and width and height dimenions are supplied, then resize it
+			if ($width and $height and 'image' == current(explode('/', $asset->mimetype))) {
+				$asset = $this->resize_asset($asset, $width, $height, $quality);
+			}
 
 			// checking if the client is validating his cache and if it is current.
 			if (isset($headers['If-Modified-Since']) && (strtotime($headers['If-Modified-Since']) == filemtime($asset->cache_filepath))) {

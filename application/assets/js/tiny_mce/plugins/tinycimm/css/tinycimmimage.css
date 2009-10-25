@@ -517,15 +517,10 @@ select#view-type, select#sort-type {
 
 /* Manager */
 #alttext-container textarea {
-	width: 240px;
+	width: 160px;
 	height: 36px;
 }
-#manager-actions .update {
-	background-position: 0 -52px;
-}
-#manager-actions .delete {
-	background-position: 0 0;
-}
+select#manager-actions {}
 a#image-preview-popup img {
 	border: 1px solid #AAA;
 	/*display: block;*/

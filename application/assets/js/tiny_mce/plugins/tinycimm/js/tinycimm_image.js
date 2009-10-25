@@ -22,6 +22,10 @@ ImageDialog.prototype.getImage = function(imageid, callback) {
 	this.get(imageid, callback);
 };
 
+ImageDialog.prototype.downloadImage = function(imageid) {
+	window.parent.location = self.settings.tinycimm_controller+'get/'+imageid+'/0/0/0/0/1';
+};
+
 ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_query){
 	search_query = search_query || '';
 	if (!load) {
@@ -53,14 +57,13 @@ ImageDialog.prototype.fileBrowser = function(folder, offset, load, el, search_qu
 			tinyMCE.activeEditor.dom.removeClass(this, 'thumb-wrapper-over');
 			tinyMCE.activeEditor.dom.addClass(this, 'thumb-wrapper');
 
-			// hovering over the controls causes mouseout
-			// so the following takes cares of that
 			this.over = false;
 			(this.timer) && clearTimeout(this.timer);
+			
+			// hovering over the controls causes mouseout
+			// so the following takes cares of that
 			setTimeout(function(){
-				if (!self.over) {
-					tinyMCE.activeEditor.dom.removeClass(self, 'show-controls');
-				}
+				(!self.over) && tinyMCE.activeEditor.dom.removeClass(self, 'show-controls');
 			});
 		}
 
@@ -145,7 +148,7 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 		success : function(response) {
 			var image = tinymce.util.JSON.parse(response);
 			if (!image.outcome) {
-				tinyMCEPopup.editor.windowManager.alert(obj.message); 
+				tinyMCEPopup.editor.windowManager.alert(image.message); 
 			} else { 
 				(callback) && callback(image);
 			}
@@ -314,15 +317,12 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 			);
 			return false;
 		};
-		tinyMCEPopup.dom.get('delete-image').onclick = function(e){
-			self.deleteImage(image_id);
-			return false;
-		};
-		tinyMCEPopup.dom.get('insert-image').onclick = function(e){
-			self.getImage(image_id, function(image){
-				self.loadResizer(image.id+image.extension);
-			});
-			return false;
+		tinyMCEPopup.dom.get('manager-actions').onchange = function(e){
+			switch(this.value) {
+				case 'delete' : self.deleteImage(image_id); return false; break;
+				case 'insert' :  self.getImage(image_id, function(image){ self.loadResizer(image.id+image.extension); }); return false; break;
+				case 'download' : self.downloadImage(image_id); return false; break;
+			} 
 		};
 		// the image is cached before binding click event so that we can get
 		// desired width and height of popup window based on image dimensions
