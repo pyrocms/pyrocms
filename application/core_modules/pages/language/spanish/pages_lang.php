@@ -25,6 +25,7 @@ $lang['page_layout_file_label'] 				= 'Archivo de dise&ntilde;o';
 $lang['page_access_label'] 						= 'Access'; #translate
 
 $lang['page_view_label'] 						= 'Ver';
+$lang['page_create_label'] 						= 'Add child'; #translate
 $lang['page_edit_label'] 						= 'Editar';
 $lang['page_delete_label'] 						= 'Borrar';
 
@@ -44,5 +45,8 @@ $lang['pages_mass_delete_success'] 				= '%s pages have been deleted.'; #transla
 $lang['pages_delete_none_notice'] 				= 'No se ha borado ninguna p&aacute;gina.';
 $lang['pages_page_already_exist_error'] 		= 'Una p&aacute;gina con el URL "%s" ya existe en %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La p&aacute;gina padre que has seleccionado no existe.';
+
+$lang['pages_tree_explanation'] 				= 'The list on the left represents pages on your website. 
+Click the "+" icon next to the page to show pages within it. When you click a page you will see all sorts of handy information in this box.'; #translate
 
 ?>

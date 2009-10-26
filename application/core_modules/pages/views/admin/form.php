@@ -33,7 +33,7 @@
 					<?php echo site_url(); ?>
 				<?php endif; ?>
 				
-				<input type="text" id="slug" name="slug" maxlength="60" size="20" value="<?php echo $page->slug; ?>" class="text width-10" />
+				<input type="text" id="slug" name="slug" maxlength="60" size="20" value="<?php echo $page->slug; ?>" class="width-10" <?php if($this->uri->segment(3,'') == 'edit'): ?>disabled="disabled"<?php endif; ?> />
 				<span class="required-icon tooltip"><?php echo lang('page_required_label');?></span>
 				<?php echo $this->config->item('url_suffix'); ?>
 			</div>
