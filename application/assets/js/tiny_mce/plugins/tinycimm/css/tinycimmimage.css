@@ -69,6 +69,7 @@ p {
 
 .fileuploadinput {
 	font-weight: bold;
+	opacity: 0;
 }
 .fileuploadinput a {
 	font-weight: normal;
