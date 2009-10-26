@@ -5,12 +5,7 @@ INTALL
 
 2.) Upload.
 
-3.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer. This will set up the database
-	and create your config files. If this fails, run the SQL manually from installer/sql/.
-
-4.) Remove the installer directory.
-
-5.) Apply the following permissions.
+3.) Apply the following permissions.
 	
 	cd /home/pyrocms/public_html/
 	
@@ -24,6 +19,11 @@ INTALL
 	chmod -R 777 application/assets/img/products
 	chmod -R 777 application/assets/img/staff
 	chmod -R 777 application/assets/img/suppliers
+
+4.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer. This will set up the database
+	and create your config files. If this fails, run the SQL manually from installer/sql/.
+
+5.) Remove the installer directory.
 
 6.) Go to your web root, login as "demo@example.com" with the password "password" and make yourself an admin user account.
 
