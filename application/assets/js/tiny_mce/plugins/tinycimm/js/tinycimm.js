@@ -53,24 +53,28 @@ TinyCIMM.prototype.get = function(asset_id, callback){
 };
 
 TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
+	folder = folder || 0;
+	offset = offset || 0;
+	el = el || false;
+
 	if (TinyCIMMImage.recache) {
 		load = true;
 		TinyCIMMImage.recache = false;
 	} else {
 		load = tinyMCEPopup.dom.get('filelist') ? (load || false) : true;
 	}
-	folder = folder || 0;
-	offset = offset || 0;
-	el = el || false;
+
 	mcTabs.displayTab('browser_tab','browser_panel');
 	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+
 	(load) && (this.fileBrowser) && this.fileBrowser(folder, offset, load, el);
 };
 
 TinyCIMM.prototype.showUploader = function() {
 	mcTabs.displayTab('upload_tab','upload_panel');
 	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+
 	(this.loadUploader) && this.loadUploader();
 };
 
@@ -80,6 +84,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 	folder = folder || 0;
 	offset = offset || 0;
 	search_query = search_query || '';
+
 	if (tinyMCEPopup.dom.get('img-'+folder) == null) {
 		tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
 	}
@@ -336,9 +341,11 @@ TinyCIMM.prototype.showOverlay = function() {
 };
 
 TinyCIMM.prototype.showFlashMsg = function(message){
-	document.getElementById('flash-msg').hide().html(message).fadeIn(450, function(self){
-		setTimeout(function(){
-			self.fadeOut(400);
-		}, 3000);
-	});
+	setTimeout(function(){
+		document.getElementById('flash-msg').hide().html(message).fadeIn(450, function(self){
+			setTimeout(function(){
+				self.fadeOut(400);
+			}, 3000);
+		});
+	}, 200);
 };

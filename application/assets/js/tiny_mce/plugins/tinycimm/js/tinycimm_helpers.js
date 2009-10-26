@@ -110,13 +110,8 @@ Object.prototype.multiFileUpload = function(config){
 		newinput.setAttribute('type', 'file');
 		newinput.setAttribute('name', this.name+Math.floor(Math.random()*2));
 		newinput.setAttribute('class', 'fileupload');
-		// bind multi-file-uplood change event to new file input element
-		newinput.multiFileUpload();
-
-		// insert new file input element
-		this.parentNode.insertBefore(newinput, this);
 				
-		// strip path segments from file name
+		// strip path segments from file name and add to container
 		container.innerHTML = this.value.replace(/\\/g, "/").replace(/.*\//, "")+" ";
 		container.className = 'fileuploadinput';
 
@@ -124,17 +119,29 @@ Object.prototype.multiFileUpload = function(config){
 		removeanchor.href = '#';
 		removeanchor.onclick = function(e){
 			e.preventDefault();
-			container.parentNode.removeChild(container);
-			self.parentNode.removeChild(self);
+			container.fadeOut(500, function(){
+				container.parentNode.removeChild(container);
+				self.parentNode.removeChild(self);
+			});
 		};
 		removeanchor.innerHTML = '[remove]';
 
+		// add anchor elemnt to container
 		container.appendChild(removeanchor);
-		this.parentNode.appendChild(container);
+	
+		// insert new file input element and file name container
+		this.parentNode.insertBefore(newinput, this);
+		this.parentNode.insertBefore(container, this);	
+
+		// show the file name
+		container.fadeIn();
 
 		// 'hide' the current file input (safari doesn't like display:none)
 		this.style.position = 'absolute';
 		this.style.left = '-1000px';
+		
+		// bind multi-file-uplood change event to new file input element
+		newinput.multiFileUpload();
 	};
 	return this;
 };
