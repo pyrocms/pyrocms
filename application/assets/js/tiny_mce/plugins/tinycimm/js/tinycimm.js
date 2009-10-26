@@ -43,40 +43,29 @@ Array.prototype.inArray = function(val) {
 	for(var i=0;i<this.length;i++) if (this[i] === val) return true; return false;
 };
 
-Object.prototype.fadeIn = function(speed, callback){
+Object.prototype.fade = function(dir, speed, callback){
+	dir = dir || 'in';
 	speed = speed || 500;
-	var self = this, timer = 0, step = 0, interval = 5;
-	if (1 == this.opacity()) { return; }
 
-	var timer = setInterval(function(){
-		if (step == (speed/interval)) { 
-			self.opacity(100);
-			clearInterval(timer);
-			(callback) && callback(self);
-		} else {
-			self.opacity((((step*interval)/speed))*100);
+	var self = this, step = 0, interval = 10;
+	
+	for(var i=interval; i<=speed; i+=interval) {
+		setTimeout(function(){
+			'out' == dir
+			? self.opacity(((speed-((step*interval)+interval))/speed)*100)
+			: self.opacity(((((step*interval)/speed))*100)+interval/2);
 			step++;
-		}
-	}, interval);
-	return this;
+		}, i);
+	}
+	setTimeout(function(){(callback) && callback(self);}, i+interval);
+};
+
+Object.prototype.fadeIn = function(speed, callback){
+	this.fade('in', speed, callback);
 };
 
 Object.prototype.fadeOut = function(speed, callback){
-	speed = speed || 500;
-	var self = this, timer = 0, step = 0, interval = 5;
-	if (0 == this.opacity()) { return; }
-
-	var timer = setInterval(function(){
-		if (step == (speed/interval)) { 
-			self.opacity(0);
-			clearInterval(timer);
-			(callback) && callback(self);
-		} else {
-			self.opacity(((speed-(step*interval))/speed)*100);
-			step++;
-		}
-	}, interval);
-	return this;
+	this.fade('out', speed, callback);
 };
 
 Object.prototype.opacity = function(val){
@@ -540,9 +529,9 @@ TinyCIMM.prototype.showOverlay = function() {
 };
 
 TinyCIMM.prototype.showFlashMsg = function(message){
-	document.getElementById('flash-msg').hide().html(message).fadeIn(100, function(self){
+	document.getElementById('flash-msg').hide().html(message).fadeIn(450, function(self){
 		setTimeout(function(){
-			self.fadeOut(100);
-		}, 2000);
+			self.fadeOut(400);
+		}, 3000);
 	});
 };
