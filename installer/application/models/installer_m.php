@@ -181,41 +181,30 @@ class installer_m extends Model
 	 * 
 	 * Function to validate the $_POST results from step 3
 	 */
-	function validate($data)
+	function validate($data = array())
 	{
 		// Get the database settings from the form
-		if(isset($data))
+		if(isset($data['installation_step']) && $data['installation_step'] == 'step_1')
 		{
-			// Get the data from the form
-			if($data['installation_step'] == 'step_1')
-			{				
-				// Check whether the user has filled in all the required fields
-				if(!empty($data['server']) AND !empty($data['username']) AND !empty($data['password']))
-				{
-					$hostname = $data['server'];
-					$username = $data['username'];
-					$password = $data['password'];
-				}
-				else
-				{
-					return FALSE;
-				}				
-			}
-			// Get the database settings from the session
-			else
+			// Check whether the user has filled in all the required fields
+			if(empty($data['server']) || empty($data['username']))
 			{
-				$hostname = $this->session->userdata('server');
-				$username = $this->session->userdata('username');
-				$password = $this->session->userdata('password');
+				return FALSE;
 			}
 			
-			// Test the connection	
-			return @mysql_connect($hostname,$username,$password);
+			$hostname = $data['server'];
+			$username = $data['username'];
+			$password = @$data['password'];
 		}
+		
 		else
 		{
-			return FALSE;
+			$hostname = $this->session->userdata('server');
+			$username = $this->session->userdata('username');
+			$password = $this->session->userdata('password');
 		}
+		
+		return @mysql_connect($hostname,$username,$password);
 	}
 	
 	/**
