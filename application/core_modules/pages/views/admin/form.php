@@ -1,19 +1,19 @@
 <?php echo form_open($this->uri->uri_string()); ?>
-<?php echo form_hidden('parent_id', $page->parent_id); ?>
+<?php echo form_hidden('parent_id', @$page->parent_id); ?>
 
 <div class="fieldset fieldsetBlock active tabs">	
 	<div class="header">		
 		<?php if($this->uri->segment(3,'create') == 'create'): ?>
-			<h3><?=lang('page_create_title');?></h3>
+			<h3><?php echo lang('page_create_title');?></h3>
 		<?php else: ?>
-			<h3><?=sprintf(lang('page_edit_title'), $page->title);?></h3>
+			<h3><?php echo sprintf(lang('page_edit_title'), $page->title);?></h3>
 		<?php endif; ?>
 	</div>    
   	<div class="tabs">
 		<ul class="clear-box">
-			<li><a href="#fieldset1"><span><?=lang('page_content_label');?></span></a></li>
-			<li><a href="#fieldset2"><span><?=lang('page_meta_label');?></span></a></li>
-			<li><a href="#fieldset3"><span><?=lang('page_advanced_label');?></span></a></li>
+			<li><a href="#fieldset1"><span><?php echo lang('page_content_label');?></span></a></li>
+			<li><a href="#fieldset2"><span><?php echo lang('page_meta_label');?></span></a></li>
+			<li><a href="#fieldset3"><span><?php echo lang('page_advanced_label');?></span></a></li>
 		</ul>
 		
 		<!-- Page content tab -->
@@ -21,19 +21,25 @@
 			<legend><?=lang('page_content_label');?></legend>
 			<div class="field">
 				<label for="title"><?=lang('page_title_label');?></label>
-				<input type="text" id="title" name="title" maxlength="60" value="<?= $page->title; ?>" />
-				<span class="required-icon tooltip"><?=lang('page_required_label');?></span>
+				<input type="text" id="title" name="title" maxlength="60" value="<?php echo $page->title; ?>" />
+				<span class="required-icon tooltip"><?php echo lang('page_required_label');?></span>
 			</div>
 			<div class="field">
 				<label for="slug"><?=lang('page_url_label');?></label>
 				
-				<?php if($page->parent_id > 0): ?>
+				<?php if(!empty($page->parent_id)): ?>
 					<?php echo site_url().$parent_page->path; ?>/
 				<?php else: ?>
 					<?php echo site_url(); ?>
 				<?php endif; ?>
 				
-				<input type="text" id="slug" name="slug" maxlength="60" size="20" value="<?php echo $page->slug; ?>" class="width-10" <?php if($this->uri->segment(3,'') == 'edit'): ?>disabled="disabled"<?php endif; ?> />
+				<?php if($this->uri->segment(3,'') == 'edit'): ?>
+					<?php echo form_hidden('slug', $page->slug); ?>
+					<?php echo form_input('', $page->slug, 'maxlength="60" size="20" class="width-10" disabled="disabled"'); ?>
+				<?php else: ?>
+					<?php echo form_input('slug', $page->slug, 'maxlength="60" size="20" class="width-10"'); ?>
+				<?php endif; ?>
+				
 				<span class="required-icon tooltip"><?php echo lang('page_required_label');?></span>
 				<?php echo $this->config->item('url_suffix'); ?>
 			</div>
