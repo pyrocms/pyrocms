@@ -116,6 +116,9 @@ class MY_Parser extends CI_Parser {
 
 		$matches_count = count($matches[0]);
 		
+		$from = array();
+		$to = array();
+		
 		for($i = 0; $i < $matches_count; $i++)
 		{
 			// If a value is returned for this tag, use it. If not, perhaps it is text?
