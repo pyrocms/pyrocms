@@ -8,8 +8,8 @@ class Error_404 extends Public_Controller {
     	
     	header("HTTP/1.1 404 Not Found");
     	
-    	$this->layout->title(lang('error_404_title'));
-    	$this->layout->add_breadcrumb(lang('error_404_title'));
+    	$this->layout->title( $this->lang->line('error_404_title') );
+    	$this->layout->add_breadcrumb( $this->lang->line('error_404_title'));
     	$this->layout->create('../errors/error_404', $this->data);
 	}
 }
