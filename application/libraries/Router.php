@@ -334,9 +334,9 @@ class CI_Router
         // PyroCMS
         
     	// If the pages module is there, lets give that a try for this URL
-        if (file_exists(APPPATH . '/modules/pages/controllers/pages' . EXT))
+        if (file_exists(APPPATH . '/core_modules/pages/controllers/pages' . EXT))
         {
-            $this->_matchbox->set_directory('modules');
+        	$this->_matchbox->set_directory('core_modules');
 			$this->_matchbox->set_module('pages');
 			return array('pages', 'index', $segments[0]);
 		}
