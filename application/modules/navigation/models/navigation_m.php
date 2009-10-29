@@ -56,8 +56,9 @@ class Navigation_m extends Model {
 						break;
 
 						case 'page':
-							$page_slug = @$this->db->getwhere('pages', array('id'=>$row->page_id))->row()->slug;
-							$row->url = site_url($page_slug);
+							$CI =& get_instance();
+							$page_uri = $CI->pages_m->getPathById($row->page_id);
+							$row->url = site_url($page_uri);
 						break;
 					}
 				}

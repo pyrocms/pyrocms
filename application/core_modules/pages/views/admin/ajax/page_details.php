@@ -29,11 +29,22 @@
 
 <div id="page-buttons">
 	<div class="float-left">
+		<a href="<?php echo site_url('admin/pages/create/' . $page->id); ?>">
+			<button class="button">
+				<strong>
+					<?php echo lang('page_create_label');?>
+					<img class="icon" alt="<?php echo lang('page_create_label'); ?>" src="<?=image_url('admin/icons/add_48.png');?>" />
+				</strong>
+			</button>
+		</a>
+	</div>
+	
+	<div class="float-left">
 		<a href="<?php echo site_url('admin/pages/edit/' . $page->id); ?>">
 			<button class="button">
 				<strong>
 					<?php echo lang('page_edit_label');?>
-					<img class="icon" alt="Edit selected" src="<?=image_url('admin/icons/paper_content_pencil_48.png');?>" />
+					<img class="icon" alt="<?php echo lang('page_edit_label'); ?>" src="<?=image_url('admin/icons/paper_content_pencil_48.png');?>" />
 				</strong>
 			</button>
 		</a>
@@ -44,7 +55,7 @@
 			<button class="button confirm">
 				<strong>
 					<?php echo lang('page_delete_label');?>
-					<img class="icon" alt="Delete selected" src="<?php echo image_url('admin/icons/cross_48.png');?>" />
+					<img class="icon" alt="<?php echo lang('page_delete_label'); ?>" src="<?php echo image_url('admin/icons/cross_48.png');?>" />
 				</strong>
 			</button>
 		</a>

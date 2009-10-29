@@ -7,7 +7,6 @@ class Admin extends Admin_Controller
 	    'title' 			=> 'trim|required|max_length[60]',
 	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body' 				=> 'trim|required',
-	    'parent_id'			=> 'trim|callback__check_parent',
 	    'meta_title' 		=> 'trim|max_length[255]',
 	    'meta_keywords' 	=> 'trim|max_length[255]',
 	    'meta_description' 	=> 'trim',
@@ -25,7 +24,7 @@ class Admin extends Admin_Controller
 		$this->load->module_model('navigation', 'navigation_m');
 		$this->lang->load('pages');	
 		
-		$this->load->helper('array');
+		$this->load->helper(array('array', 'pages'));
 	}
 
 	// Admin: List all Pages
@@ -190,23 +189,18 @@ class Admin extends Admin_Controller
 		// Go through the array of slugs to delete
 		foreach ($ids as $id)
 		{
-			// Get the current page so we can grab the id too
-			$page = $this->pages_m->getById($id);
-
-			if( $page )
+			if ($id !== 1)
 			{
-				if ($page->slug != 'home')
-				{
-					$deleted_ids = $this->pages_m->delete($id);
-					
-					// Wipe cache for this model, the content has changd
-					$this->cache->delete_all('pages_m');
-					$this->cache->delete_all('navigation_m');			
-				}				
-				else
-				{
-					$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
-				}
+				$deleted_ids = $this->pages_m->delete($id);
+				
+				// Wipe cache for this model, the content has changd
+				$this->cache->delete_all('pages_m');
+				$this->cache->delete_all('navigation_m');			
+			}
+				
+			else
+			{
+				$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
 			}
 		}
 		
@@ -216,13 +210,14 @@ class Admin extends Admin_Controller
 			// Only deleting one page
 			if( count($deleted_ids) == 1 )
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $page_titles[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $deleted_ids[0]));
 			}			
 			else // Deleting multiple pages
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_mass_delete_success'), count($deleted_ids)));
 			}
-		}		
+		}
+			
 		else // For some reason, none of them were deleted
 		{
 			$this->session->set_flashdata('notice', $this->lang->line('pages_delete_none_notice'));
@@ -230,10 +225,6 @@ class Admin extends Admin_Controller
 		redirect('admin/pages/index');
 	}
     
-	
-	function test($parent_id)
-	{
-	}
 	
 	// Callback: From create()
 	/*function _check_slug($slug)
@@ -252,16 +243,5 @@ class Admin extends Admin_Controller
 	    }
 	}*/
 
-	// Callback: From create() && edit()
-	function _check_parent($parent_id)
-	{
-	    if(!$this->pages_m->getById($parent_id))
-		{
-	    	$this->validation->set_message('_check_parent', $this->lang->line('pages_parent_not_exist_error'));
-	    	return FALSE;
-	    }
-		
-	    return TRUE;
-	}
 }
 ?>

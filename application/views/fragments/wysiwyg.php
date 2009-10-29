@@ -40,7 +40,7 @@
 		convert_urls : false,
 
 		width : 650,
-		height : 600,
+		height : 400,
 		constrain_menus : true,
 		
 		theme : "advanced",

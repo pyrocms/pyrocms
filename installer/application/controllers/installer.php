@@ -46,7 +46,7 @@ class Installer extends Controller
 			if($results == TRUE)
 			{
 				// Store the database settings
-				$this->installer_m->store_db_settings('set',$_POST);
+				$this->installer_m->store_db_settings('set', $_POST);
 				
 				// Set the flashdata message
 				$this->session->set_flashdata('message','The database settings have been stored succesfully.');
@@ -154,7 +154,7 @@ class Installer extends Controller
 	// The third step
 	function step_4()
 	{
-		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed'))
+		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed') OR !$this->session->userdata('step_3_passed'))
 		{
 			// Redirect the user back to step 1
 			redirect('installer/step_2');
@@ -176,7 +176,7 @@ class Installer extends Controller
 				if($install_results['status'] == TRUE)
 				{
 					// Show an error message
-					$this->session->set_flashdata('message',$install_results['message']);
+					$this->session->set_flashdata('message', $install_results['message']);
 					$this->session->set_flashdata('message_type','success');
 
 					// Redirect
@@ -185,7 +185,7 @@ class Installer extends Controller
 				else
 				{
 					// Show an error message
-					$this->session->set_flashdata('message',$install_results['message']);
+					$this->session->set_flashdata('message', $install_results['message']);
 					$this->session->set_flashdata('message_type','error');
 
 					// Redirect

@@ -4,8 +4,13 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-16/10/09 - v0.9.6.2 to v0.9.7-unstable
---------------------------------------
+26/10/09 - v0.9.7-beta1 to v0.9.7-beta2
+---------------------------------------
+
+Replace old files with new files.
+
+26/10/09 - v0.9.6.2 to v0.9.7-beta1
+-----------------------------------
 
 1.) Run the following MySQL.
 
@@ -32,6 +37,8 @@ minimise or totally remove downtime during upgrade.
 3.) Permission the following folder:
 
 	chmod 777 application/cache/simplepie/
+	
+4.) Unfortunately, you need to delete pages and re-add them again. OR manually create the contents of the pages_lookup table... sorry.
 
 13/08/09 - v0.9.6 to v0.9.6.2
 -----------------------------

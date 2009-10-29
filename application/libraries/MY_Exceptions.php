@@ -35,8 +35,14 @@ class MY_Exceptions extends CI_Exceptions {
 	function show_404($page = '')
 	{	
 		log_message('error', '404 Page Not Found --> '.$page);
-		redirect('error_404');
-		exit;
+		
+		if(function_exists('redirect'))
+		{
+			redirect('error_404');
+			exit;
+		}
+		
+		parent::show_404();
 	}
 
 }

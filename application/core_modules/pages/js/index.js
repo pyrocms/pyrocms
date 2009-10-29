@@ -55,7 +55,7 @@
 		{
 			a = $(this);
 			other_a = page_tree.find('span > a');
-		console.debug(other_a);
+
 			// Change which link is selected
 			other_a.removeClass('selected');
 			a.addClass('selected');
@@ -63,12 +63,7 @@
 			page_id = $(this).attr('rel').replace('page-', '');
 			
 			// Update the "Details" panel
-			$('div#page-details').load(BASE_URI + 'admin/pages/ajax_page_details/' + page_id, function(){
-				
-				// Set new URL
-				$('div#content-head a#new-item').attr('href',  BASE_URL + 'admin/pages/create/' + $('input#page-id').attr('value') );
-				
-			});
+			$('div#page-details').load(BASE_URI + 'admin/pages/ajax_page_details/' + page_id);
 			
 			
 			return false;
