@@ -48,6 +48,9 @@ background: url(../../img/admin/orange/sprite.png) repeat scroll 100% -2880px;
 .listTable thead th, .listTable thead div {
 	background:url(../../img/admin/orange/sprite.png) no-repeat -10px -1170px;
 }
+.listTable thead th span {
+	color: #FFF;
+}
 .listTable thead th.first {
 	background:url(../../img/admin/orange/sprite.png) no-repeat 10px -1170px;
 }
@@ -105,10 +108,10 @@ background: url(../../img/admin/orange/sprite.png) repeat scroll 100% -2880px;
 #sidebar, #sidebar .bInner, #sidebar .bTR, #sidebar .bBL {
 	background-image:url(../../img/admin/orange/sidebar.png)
 }
-#page-title {
+#content-head {
 	background:url(../../img/admin/orange/sprite.png) no-repeat 100% -810px;
 }
-#page-title h2 {
+#content-head h2 {
 	background:url(../../img/admin/orange/sprite.png) no-repeat 0px -990px;
 }
 #titleActions .listSearch .search {
@@ -122,9 +125,6 @@ background: url(../../img/admin/orange/sprite.png) repeat scroll 100% -2880px;
 }
 #header h1 {
 	background:url(../../img/admin/orange/header_glow.png) top center no-repeat;
-}
-#header h1 a {
-	background:url(../../img/admin/orange/logo.png) center left no-repeat;
 }
 #header {
 	background:url(../../img/admin/orange/header.png) repeat-x top;

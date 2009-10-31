@@ -36,7 +36,7 @@
 	    <?= js('functions.js'); ?>
 		<?= js('admin.js').css('admin/admin.css');?>
 		
-		<?//= css('admin/orange.css'); ?>      
+		<?= css('admin/orange.css'); ?>      
 	</head>
 	<body>
 	
