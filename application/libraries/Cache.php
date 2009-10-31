@@ -28,13 +28,19 @@ class Cache
 	 */
     function __construct()
     {
+		log_message('debug', "Cache Class Initialized.");
+
         $this->ci =& get_instance();
-        
         $this->reset();
-        
-        $this->path = $this->ci->config->item('cache_dir');
-        $this->default_expires = $this->ci->config->item('cache_default_expires'); 
-        if ($this->path == '') return FALSE;
+
+		$this->ci->load->config('cache');
+		
+		$this->path = $this->ci->config->item('cache_dir');
+		$this->default_expires = $this->ci->config->item('cache_default_expires');
+		if ( ! is_dir($this->path))
+		{
+			show_error("Cache Path not found: $this->path");
+		}
     }
     
 	/**
@@ -86,21 +92,21 @@ class Cache
     	$cache_file = $property.DIRECTORY_SEPARATOR.dohash($method.serialize($arguments), 'sha1');
 		
 		// See if we have this cached
-		$cached_responce = $this->get($cache_file);
+		$cached_response = $this->get($cache_file);
 
 		// Not FALSE? Return it
-		if($cached_responce)
+		if($cached_response)
         {
-        	return $cached_responce;
+        	return $cached_response;
         }
         
         else
         {
         	// Call the model or library with the method provided and the same arguments
-        	$new_responce = call_user_func_array(array($this->ci->$property, $method), $arguments);
-        	$this->write($new_responce, $cache_file, $expires);
+        	$new_response = call_user_func_array(array($this->ci->$property, $method), $arguments);
+        	$this->write($new_response, $cache_file, $expires);
         	
-        	return $new_responce;
+        	return $new_response;
         }
     }
 	

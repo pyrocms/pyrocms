@@ -4,6 +4,11 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
+30/10/09 - v0.9.7-beta2 to v0.9.7-beta3
+---------------------------------------
+
+Replace old files with new files.
+
 26/10/09 - v0.9.7-beta1 to v0.9.7-beta2
 ---------------------------------------
 
