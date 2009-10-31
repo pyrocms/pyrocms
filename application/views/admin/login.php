@@ -20,38 +20,38 @@
 			<? endif; ?>
 			
 			<div class="login-box">
-				<!-- Title -->
+
 				<div id="content-head" class="b2">
 					<h2><?php echo lang('login_title');?></h2>
-					<!-- TitleActions -->
+
 					<div id="titleActions">
 						<div class="actionBlock">
-						<a href="<?php echo site_url('users/reset_pass'); ?>"><?php echo lang('forget_password_label');?></a>
+						<?php echo anchor('users/reset_pass', lang('forget_password_label')); ?>
 						</div>
 					</div>
-					<!-- /TitleActions -->
+					
 				</div>
-				<!-- Title -->
-		
-				<!-- Inner Content -->
+
 				<div id="innerContent">
 
 					<?php echo form_open('admin/login'); ?>	
 	
 						<div class="field">
-							<label for="username"><?php echo lang('email_label');?></label>
-							<input type="text" class="text" id="email" name="email" value="<?php echo $this->validation->email; ?>" />
+							<?php echo lang('email_label', 'email');?>
+							<?php echo form_input('email', $this->validation->email); ?>
 						</div>
+						
 						<div class="field">
-							<label for="password"><?php echo lang('password_label');?></label>
-							<input type="password" class="text" id="password" name="password" />
+							<?php echo lang('password_label', 'password');?>
+							<?php echo form_password('password', $this->validation->email); ?>
 						</div>
-						<div class="clearfix login-submit">
+						
+						<div class="clear-both login-submit">
 							<? /* ?><span class="fleft">
 								<input type="checkbox" name="remember-me" id="remember-me" />
 								<label for="remember-me">Remember me</label>
 							</span> */?>
-							<span class="fright">
+							<span class="float-right">
 								<button class="button" type="submit"><strong><?php echo lang('login_label');?></strong></button>
 							</span>
 						</div>
