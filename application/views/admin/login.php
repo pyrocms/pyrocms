@@ -1,12 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?=$this->settings->item('site_name'); ?> :: Login</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+		<title><?php echo $this->settings->item('site_name'); ?> :: Login</title>
 		<meta http-equiv="Pragma" content="no-cache" />
-		<?=js('jquery/jquery.js') ?>
-		<?=css('admin/admin.css').js('admin.js') ?>	
+		
+		<?php $this->load->view('admin/fragments/metadata'); ?>
 	</head>
 	<body>
 		<!-- Content -->
@@ -14,20 +13,20 @@
 		
 			<? if (!empty($this->validation->error_string)): ?>
 				<div class="message message-error">
-					<h6><?=lang('login_error');?></h6>
-					<p><?=$this->validation->error_string;?></p>
-					<a class="close icon icon_close" title="<?= lang('close_message');?>" href="#"></a>
+					<h6><?php echo lang('login_error');?></h6>
+					<p><?php echo $this->validation->error_string;?></p>
+					<a class="close icon icon_close" title="<?php echo lang('close_message');?>" href="#"></a>
 				</div>
 			<? endif; ?>
 			
-			<div class="roundedBorders login-box">
+			<div class="login-box">
 				<!-- Title -->
-				<div id="page-title" class="b2">
-					<h2><?= lang('login_title');?></h2>
+				<div id="content-head" class="b2">
+					<h2><?php echo lang('login_title');?></h2>
 					<!-- TitleActions -->
 					<div id="titleActions">
 						<div class="actionBlock">
-						<a href="<?=site_url('users/reset_pass'); ?>"><?= lang('forget_password_label');?></a>
+						<a href="<?php echo site_url('users/reset_pass'); ?>"><?php echo lang('forget_password_label');?></a>
 						</div>
 					</div>
 					<!-- /TitleActions -->
@@ -37,14 +36,14 @@
 				<!-- Inner Content -->
 				<div id="innerContent">
 
-					<?=form_open('admin/login'); ?>	
+					<?php echo form_open('admin/login'); ?>	
 	
 						<div class="field">
-							<label for="username"><?= lang('email_label');?></label>
-							<input type="text" class="text" id="email" name="email" value="<?= $this->validation->email; ?>" />
+							<label for="username"><?php echo lang('email_label');?></label>
+							<input type="text" class="text" id="email" name="email" value="<?php echo $this->validation->email; ?>" />
 						</div>
 						<div class="field">
-							<label for="password"><?= lang('password_label');?></label>
+							<label for="password"><?php echo lang('password_label');?></label>
 							<input type="password" class="text" id="password" name="password" />
 						</div>
 						<div class="clearfix login-submit">
@@ -53,11 +52,11 @@
 								<label for="remember-me">Remember me</label>
 							</span> */?>
 							<span class="fright">
-								<button class="button" type="submit"><strong><?= lang('login_label');?></strong></button>
+								<button class="button" type="submit"><strong><?php echo lang('login_label');?></strong></button>
 							</span>
 						</div>
 					
-					<?=form_close(); ?>
+					<?php echo form_close(); ?>
 
 				</div>
 				<!-- /Inner Content -->
