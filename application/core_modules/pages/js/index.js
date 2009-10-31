@@ -2,7 +2,8 @@
 
 	var PyroTreeCookie = {
 		config : {
-			name : 'page_parent_ids'
+			name : 'page_parent_ids',
+			delimiter : ','
 		},
 		_set : function(name, val, expiredays){
 			expiredays = expiredays || 1;
@@ -11,7 +12,7 @@
 			document.cookie = name+"="+escape(val)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
 		},
 		_get : function(name){
-			if (document.cookie.length>0){
+			if (document.cookie.length > 0){
 				var start = document.cookie.indexOf(name+"=");
 				if (start != -1){
 					start = start+name.length+1;
@@ -25,24 +26,23 @@
 			return '';
 		},
 		addPage : function(page_id){
-			var ids = this._get(this.config.name);
-			ids = (ids != '' ? (ids.indexOf(",") != -1 ? ids.split(",") : [ids]) : []);
+			var ids = this._get(this.config.name).split(this.config.delimiter);
 			// check id doesn't already exist
 			for(var i=0; i<ids.length; i++) if (ids[i] == page_id) return; 
 			// add parent id to array
 			ids.push(page_id);
 			// save csv string to cookie
-			this._set(this.config.name, ids.join(","));
+			this._set(this.config.name, ids.join(this.config.delimiter));
+			console.debug(ids);
 		},
 		removePage : function(page_id){
-			var self = this, newids = [], ids = this._get(this.config.name);
-			ids = (ids != '' ? (ids.indexOf(",") != -1 ? ids.split(",") : [ids]) : []);
+			var self = this, newids = [], ids = this._get(this.config.name).split(this.config.delimiter);
 			// remove id from array 
 			for(var i=0; i<ids.length; i++) {
 				(ids[i] != page_id) && newids.push(ids[i]);
 			}
 			// save csv string to cookie
-			this._set(this.config.name, newids.join(","));
+			this._set(this.config.name, newids.join(this.config.delimiter));
 		}
 	};
 	

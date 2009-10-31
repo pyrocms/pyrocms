@@ -20,44 +20,40 @@ class Admin extends Admin_Controller
 	function __construct()
 	{
 		parent::Admin_Controller();
-	$this->load->model('pages_m');
+		$this->load->model('pages_m');
 		$this->load->module_model('navigation', 'navigation_m');
 		$this->lang->load('pages');	
 		
 		$this->load->helper(array('array', 'pages'));
 	}
 
-	public function recurse_page_tree($parent_id) {
-		if (!in_array($parent_id, $this->open_parent_pages)) 
+	public function recurse_page_tree($parent_id, $open_parent_pages=array()) {
+		if (!in_array($parent_id, $open_parent_pages))
 		{
 			return $this->pages_m->hasChildren($parent_id) ? '<ul></ul>' : '';
 		}
 		$pages = $this->pages_m->getChildrenByParentId($parent_id);
-		$html = '';
 		if (count($pages))
 		{
-			$html .= '<ul class="filetree">';
-			foreach($pages as $page)
-			{
-				$html .= '<li>';
+			foreach($pages as $page) {
 				$page->has_children = $this->pages_m->hasChildren($page->id);
-				$this->data->page =& $page;
-				$html .= $this->load->view('admin/ajax/child_list', $this->data, true);
-				$html .= $this->recurse_page_tree($page->id);
-				$html .= '</li>';
 			}
-			$html .= '</ul>';
+			$this->data->pages =& $pages;
+			$this->data->controller =& $this;
+			$this->data->open_parent_pages = $open_parent_pages;
+			return $this->load->view('admin/child_list', $this->data, true);
 		}
-		return $html;
+		return "";
 	}
+
 
 	// Admin: List all Pages
 	function index()
 	{
 		// get list of open parent pages from cookie
-		$this->open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
+		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
 		// get the page tree
-		$this->data->page_tree_html = $this->recurse_page_tree(0);
+		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
 		$this->layout->create('admin/index', $this->data);
 	}
 	
@@ -68,13 +64,10 @@ class Admin extends Admin_Controller
 		foreach($pages as &$page)
 		{
 			$page->has_children = $this->pages_m->hasChildren($page->id);
-			echo '<li>'.$this->load->view('admin/ajax/child_list', array('page' => $page), true);
-			if ($page->has_children) {
-				echo '<ul></ul>';
-			}
-			echo '</ul>';
 		}
-		exit;
+		$this->data->pages =& $pages;
+		$this->data->open_parent_pages = array($parent_id);
+		$this->load->view('admin/ajax/child_list', $this->data);
 		
 	}
 	
