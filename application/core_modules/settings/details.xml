@@ -3,10 +3,12 @@
 	<name>
 		<en>Settings</en>
 		<es>Configuraciones</es>
+		<fr>Paramètres</fr>
 	</name>
 	<description>
 		<en>Allows admins and staff to change website settings such as site name and description.</en>
 		<es>Permite a los administradores y staff configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.</es>
+		<fr>Pertmet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description</fr>
 	</description>
 	<required>1</required>
 	<icon>spanner_48.png</icon>

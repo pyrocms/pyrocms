@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
 		$this->load->module_model('navigation', 'navigation_m');
 		$this->lang->load('pages');	
 		
-		$this->load->helper(array('array', 'pages'));
+		$this->load->helper('array');
 	}
 
 	// Admin: List all Pages
@@ -189,7 +189,7 @@ class Admin extends Admin_Controller
 		// Go through the array of slugs to delete
 		foreach ($ids as $id)
 		{
-			if ($id !== 1)
+			if ($id === 1)
 			{
 				$deleted_ids = $this->pages_m->delete($id);
 				
@@ -210,7 +210,7 @@ class Admin extends Admin_Controller
 			// Only deleting one page
 			if( count($deleted_ids) == 1 )
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $deleted_ids[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $page_titles[0]));
 			}			
 			else // Deleting multiple pages
 			{

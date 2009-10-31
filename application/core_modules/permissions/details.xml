@@ -3,10 +3,12 @@
 	<name>
 		<en>Permissions</en>
 		<es>Permisos</es>
+		<fr>Permissions</fr>
 	</name>
 	<description>
 		<en>Control what type of users can see certain sections within the site.</en>
 		<es>Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.</es>
+		<fr>Permet de contrôler quel rôle utilisateur peut visualiser certaines parties du site.</fr>
 	</description>
 	<required>1</required>
 	<icon>users_two_warning_48.png</icon>
@@ -29,6 +31,7 @@
 		<admin>
 			<new_item href="admin/permissions/create">
 				<en>New rule</en>
+				<fr>Nouvelle Règle</fr>
 			</new_item>
 		</admin>
 	</navigation>
