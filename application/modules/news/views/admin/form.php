@@ -21,7 +21,7 @@
 			
 				<div class="field">
 					<label for="title"><?=lang('news_title_label');?></label>
-					<?=form_input('title', $article->title, 'maxlength="100"'); ?>
+					<?=form_input('title', $article->title, 'class="text" maxlength="100"'); ?>
 					<span class="required-icon tooltip"><?=lang('news_required_label');?></span>
 				</div>
 				
@@ -43,8 +43,8 @@
 				
 				<div class="field">
 					<label for="category_id"><?=lang('news_category_label');?></label>
-					<?=form_dropdown('category_id', array(lang('news_no_category_select_label'))+$categories, @$article->category_id) ?> 	
-					[ <?= anchor('admin/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
+					<?=form_dropdown('category_id', array(lang('news_no_category_select_label'))+$categories, @$article->category_id) ?>	
+							[ <?= anchor('admin/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
 				</div>
 				
 				<div class="field">
