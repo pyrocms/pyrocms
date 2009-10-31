@@ -7,7 +7,7 @@
 		<tr>
 			<th class="first"><div></div></th>
 			<th><a href="#"><?php echo lang('name_label');?></a></th>
-			<th><?php echo lang('desc_label');?></th>
+			<th><span><?php echo lang('desc_label');?></span></th>
 			<th class="last"><a href="#"><?php echo lang('version_label');?></a></th>
 		</tr>
 	</thead>	
