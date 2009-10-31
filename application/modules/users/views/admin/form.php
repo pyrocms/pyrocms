@@ -1,3 +1,14 @@
+<script type="text/javascript">
+(function ($) { 
+	$(function(){
+
+		// Stops Firefox from being an ass and remembering YOUR password in this box
+		$('input[name="password"], input[name="confirm_password"]').val('');
+		
+	});
+})(jQuery);
+</script>
+
 <? if($this->uri->segment(3,'add') == 'add'): ?>
 	<h2><?= lang('user_add_title');?></h2>
 	
@@ -11,17 +22,17 @@
 		
 		<div class="field">
 			<label for="first_name"><?= lang('user_first_name_label');?></label>
-			<?= form_input('first_name', $member->first_name, 'class="text"'); ?>
+			<?= form_input('first_name', $member->first_name); ?>
 		</div>
 		
 		<div class="field">
 			<label for="first_name"><?= lang('user_last_name_label');?></label>
-			<?= form_input('last_name', $member->last_name, 'class="text"'); ?>
+			<?= form_input('last_name', $member->last_name); ?>
 		</div>
 		
 		<div class="field">
 			<label for="email"><?= lang('user_email_label');?></label>
-			<?= form_input('email', $member->email, 'class="text"'); ?>
+			<?= form_input('email', $member->email); ?>
 		</div>
 		
 		<div class="field">
@@ -41,12 +52,12 @@
 	
 		<div class="field">
 			<label for="password"><?= lang('user_password_label');?></label>
-			<?= form_password('password', '', 'class="text"'); ?>
+			<?= form_password('password'); ?>
 		</div>
 		
 		<div class="field">
 			<label for="confirm_password"><?= lang('user_password_confirm_label');?></label>
-			<?= form_password('confirm_password', '', 'class="text"'); ?>
+			<?= form_password('confirm_password'); ?>
 		</div>
 		
 	</fieldset>
