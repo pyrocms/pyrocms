@@ -16,7 +16,8 @@
 		<!-- /new item -->
 		<? endif; ?>
 		
-		<? if( !empty($toolbar['search']) ): ?>
+		<? // Never finished
+		if( !empty($toolbar['search']) ): ?>
 		<!-- ListSearch -->
 		<div class="listSearch actionBlock">
 			<div class="search">
@@ -34,8 +35,10 @@
 	<!-- /TitleActions -->
 	<? endif; ?>	
 </div>
+
 <!-- Title -->
-<? if( !empty($toolbar['links']) ): ?>
+<?php // Also never finished!
+if( !empty($toolbar['links']) ): ?>
 <div id="toolbarActions">
 	<p>Links:</p>
 	<ul>
