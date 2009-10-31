@@ -4,14 +4,14 @@ class Admin extends Admin_Controller
 {
 	// Validation rules to be used for create and edita
 	private $rules = array(
-	    'title' 			=> 'trim|required|max_length[60]',
-	    'slug' 				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
-	    'body' 				=> 'trim|required',
-	    'meta_title' 		=> 'trim|max_length[255]',
-	    'meta_keywords' 	=> 'trim|max_length[255]',
-	    'meta_description' 	=> 'trim',
-	    'layout_file' 		=> 'trim|alphadash|required',
-	   // 'access_level' 		=> 'trim|alphadash|required'
+	    'title'			=> 'trim|required|max_length[60]',
+	    'slug'				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
+	    'body'				=> 'trim|required',
+	    'meta_title'		=> 'trim|max_length[255]',
+	    'meta_keywords'	=> 'trim|max_length[255]',
+	    'meta_description'	=> 'trim',
+	    'layout_file'		=> 'trim|alphadash|required',
+	   // 'access_level'		=> 'trim|alphadash|required'
 	);
 	
 	// Used to pass page id to edit validation callback
@@ -19,88 +19,107 @@ class Admin extends Admin_Controller
 	
 	function __construct()
 	{
-  		parent::Admin_Controller();
-    	$this->load->model('pages_m');
+		parent::Admin_Controller();
+	$this->load->model('pages_m');
 		$this->load->module_model('navigation', 'navigation_m');
 		$this->lang->load('pages');	
 		
 		$this->load->helper(array('array', 'pages'));
 	}
 
+	public function recurse_page_tree($parent_id) {
+		if (!in_array($parent_id, $this->open_parent_pages)) 
+		{
+			return $this->pages_m->hasChildren($parent_id) ? '<ul></ul>' : '';
+		}
+		$pages = $this->pages_m->getChildrenByParentId($parent_id);
+		$html = '';
+		if (count($pages))
+		{
+			$html .= '<ul class="filetree">';
+			foreach($pages as $page)
+			{
+				$html .= '<li>';
+				$page->has_children = $this->pages_m->hasChildren($page->id);
+				$this->data->page =& $page;
+				$html .= $this->load->view('admin/ajax/child_list', $this->data, true);
+				$html .= $this->recurse_page_tree($page->id);
+				$html .= '</li>';
+			}
+			$html .= '</ul>';
+		}
+		return $html;
+	}
+
 	// Admin: List all Pages
 	function index()
 	{
-		$pages = $this->pages_m->getChildrenByParentId(0);
-		
-		foreach($pages as &$page)
-		{
-			$page->has_children = $this->pages_m->hasChildren($page->id);
-		}
-		
-		// Load extra JavaScript and CSS for Treeview plugin
-    	/*$this->layout->extra_head( css('jquery/jquery.treeview.css') );
-    	$this->layout->extra_head( js('jquery/jquery.treeview.min.js') );
-    	$this->layout->extra_head( js('index.js', 'pages') );
-    	$this->layout->extra_head( css('index.css', 'pages') );*/
-    	
-    	$this->data->pages =& $pages;
-    	$this->layout->create('admin/index', $this->data);
- 	}
- 	
- 	function ajax_fetch_children($parent_id)
- 	{
+		// get list of open parent pages from cookie
+		$this->open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
+		// get the page tree
+		$this->data->page_tree_html = $this->recurse_page_tree(0);
+		$this->layout->create('admin/index', $this->data);
+	}
+	
+	function ajax_fetch_children($parent_id)
+	{
 		$pages = $this->pages_m->getChildrenByParentId($parent_id);
-		
+	
 		foreach($pages as &$page)
 		{
 			$page->has_children = $this->pages_m->hasChildren($page->id);
+			echo '<li>'.$this->load->view('admin/ajax/child_list', array('page' => $page), true);
+			if ($page->has_children) {
+				echo '<ul></ul>';
+			}
+			echo '</ul>';
 		}
+		exit;
 		
-    	$this->load->view('admin/ajax/child_list', array('pages' => $pages));
- 	}
- 	
- 	function ajax_page_details($page_id)
- 	{
+	}
+	
+	function ajax_page_details($page_id)
+	{
 		$page = $this->pages_m->getById($page_id);
 		$page->path = $this->pages_m->getPathById($page_id);
 		
-    	$this->load->view('admin/ajax/page_details', array('page' => $page));
- 	}
+	$this->load->view('admin/ajax/page_details', array('page' => $page));
+	}
     
 	// Admin: Create a new Page
 	function create($parent_id = 0)
 	{
-  		$this->load->library('validation');
+		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
-    	$this->validation->set_fields();
-        
+	$this->validation->set_fields();
+	
 		// Validate the page
-    	if ($this->validation->run())
+	if ($this->validation->run())
 	    {
-	    	if ( $this->pages_m->create($_POST) > 0 )
-	    	{
-	      		$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
-	    	}
+		if ( $this->pages_m->create($_POST) > 0 )
+		{
+			$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+		}
 	      
-	    	else
-	    	{
-	     		$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
-	    	}
-	    	
-	    	redirect('admin/pages/index');
+		else
+		{
+			$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
+		}
+		
+		redirect('admin/pages/index');
 	    }
 		
 		// Get the data back to the form
 	    foreach(array_keys($this->rules) as $field)
 	    {
-	    	$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
+		$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
 	    }
 
 	    // If a parent id was passed, fetch the parent details
 	    if($parent_id > 0)
 	    {
-	    	$page->parent_id = $parent_id;
-	    	
+		$page->parent_id = $parent_id;
+		
 			$parent_page = $this->pages_m->getById($parent_id);
 			$parent_page->path = $this->pages_m->getPathById($parent_id);
 	    }
@@ -123,9 +142,9 @@ class Admin extends Admin_Controller
 	{
 		if (empty($id))
 	    {
-	    	redirect('admin/pages/index');
+		redirect('admin/pages/index');
 	    }
-	        
+		
 	    // We use this controller property for a validation callback later on
 	    $this->page_id = $id;
 	    
@@ -143,14 +162,14 @@ class Admin extends Admin_Controller
 	    // Auto-set data for the page if a post variable overrides it
 	    foreach(array_keys($this->rules) as $field)
 	    {
-	    	if($this->input->post($field)) $page->$field = $this->validation->$field;
+		if($this->input->post($field)) $page->$field = $this->validation->$field;
 	    }
 	    
 	    // Give validation a try, who knows, it just might work!
 		if ($this->validation->run())
 	    {
 			// Run the update code with the POST data	
-	    	$this->pages_m->update($id, $_POST);			
+		$this->pages_m->update($id, $_POST);			
 				
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('pages_m');			
@@ -174,7 +193,7 @@ class Admin extends Admin_Controller
 		//$this->data->roles = $this->permissions_m->getRoles();
 		//ksort($this->data->roles);
 		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
-	    	
+		
 	    // Load WYSIWYG editor
 	    $this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
 	    $this->layout->create('admin/form', $this->data);
@@ -229,17 +248,17 @@ class Admin extends Admin_Controller
 	// Callback: From create()
 	/*function _check_slug($slug)
 	{
-	  	$page = $this->pages_m->getBySlug($slug, $this->input->post('lang'));
+		$page = $this->pages_m->getBySlug($slug, $this->input->post('lang'));
 	    $languages =& $this->config->item('supported_languages');
-	    	
+		
 	    if($page && $page->id != $this->page_id )
 			{
-	    	$this->validation->set_message('_check_slug', sprintf($this->lang->line('pages_page_already_exist_error'), $slug, $languages[$this->input->post('lang')]['name']));
+		$this->validation->set_message('_check_slug', sprintf($this->lang->line('pages_page_already_exist_error'), $slug, $languages[$this->input->post('lang')]['name']));
 	      return FALSE;
 	    }
 			else
 			{
-	     	return TRUE;
+		return TRUE;
 	    }
 	}*/
 
