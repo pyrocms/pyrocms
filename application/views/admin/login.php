@@ -23,13 +23,6 @@
 
 				<div id="content-head" class="b2">
 					<h2><?php echo lang('login_title');?></h2>
-
-					<div id="titleActions">
-						<div class="actionBlock">
-						<?php echo anchor('users/reset_pass', lang('forget_password_label')); ?>
-						</div>
-					</div>
-					
 				</div>
 
 				<div id="innerContent">
