@@ -50,8 +50,8 @@
 			
 		}
 	
-		$('li span', page_tree).unbind('click');
-		$('li a', page_tree).live('click', function()
+		$('.filetree li span', page_tree).unbind('click');
+		$('.filetree li a', page_tree).live('click', function()
 		{
 			a = $(this);
 			other_a = page_tree.find('span > a');
