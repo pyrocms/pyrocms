@@ -92,8 +92,10 @@ class Users_m extends Model {
         	'last_name' 		=> ucwords(strtolower($input->last_name)),
         	'role' 				=> empty($input->role) ? 'user' : $input->role,
         	'is_active' 		=> 0,
+        	'lang'				=> $this->config->item('default_language'),
         	'activation_code' 	=> $input->activation_code,
         	'created_on' 		=> now(),
+			'last_login'		=> '',
         	'ip' 				=> $this->input->ip_address()
         ));
 
