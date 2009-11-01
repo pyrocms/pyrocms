@@ -79,7 +79,7 @@ $autoload['plugin'] = array();
 |
 */
 
-$autoload['config'] = array('asset', 'language');
+$autoload['config'] = array('asset', 'language', 'tinycimm');
 
 
 /*
