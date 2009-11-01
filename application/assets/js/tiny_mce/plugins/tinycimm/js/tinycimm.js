@@ -99,6 +99,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 			tinyMCEPopup.editor.windowManager.alert('Sorry, there was an error retrieving the assets.');
 		},
 		success : function(response) {
+			if (!document) return;
 			// insert the html
 			tinyMCEPopup.dom.setHTML('filebrowser', response);
 			// bind click event to pagination links
