@@ -3,10 +3,12 @@
 	<name>
 		<en>Newsletters</en>
 		<es>Boletines</es>
+		<fr>Bulletins</fr>
 	</name>
 	<description>
 		<en>Let visitors subscribe via their email address.</en>
 		<es>Deja que tus visitores puedan suscribirse a por medio de su correo electrónico.</es>
+		<fr>Permet aux visiteurs de s'abonner avec leur adresse e-mail.'</fr>
 	</description>
 	<icon>newspaper_48.png</icon>
 	<is_frontend>0</is_frontend>
@@ -25,6 +27,7 @@
 		<admin>
 			<new_item href="admin/newsletters/create">
 				<en>New newsletter</en>
+				<fr>Nouveau bulletin</fr>
 			</new_item>
 		</admin>
 	</navigation>

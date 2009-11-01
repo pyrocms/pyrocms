@@ -221,7 +221,7 @@ class Admin extends Admin_Controller
 			// Only deleting one page
 			if( count($deleted_ids) == 1 )
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $deleted_ids[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $page_titles[0]));
 			}			
 			else // Deleting multiple pages
 			{

@@ -116,7 +116,7 @@
 			}
 			
 		}
-		
+	
 		$('.filetree li span', page_tree).unbind('click');
 		$('.filetree li a', page_tree).live('click', function()
 		{
