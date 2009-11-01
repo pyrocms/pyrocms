@@ -3,10 +3,12 @@
 	<name>
 		<en>News</en>
 		<es>Noticias</es>
+		<fr>Actualités</fr>
 	</name>
 	<description>
 		<en>Post news articles and blog entries.</en>
 		<es>Escribe entradas para los artículos y blogs (web log).</es>
+		<fr>Envoyez de nouveaux articles et messages de blog.</fr>
 	</description>
 	<icon>newspaper_48.png</icon>
 	<is_frontend>1</is_frontend>
@@ -24,6 +26,7 @@
 		<admin>
 			<new_item href="admin/news/create">
 				<en>New article</en>
+				<fr>Nouvel article</fr>
 			</new_item>
 		</admin>
 	</navigation>

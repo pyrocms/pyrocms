@@ -9,7 +9,7 @@
 			[ <?=anchor('admin/permissions/roles/edit/'.$role->id, lang('perm_role_edit')); ?> | 
 			  <?=anchor('admin/permissions/roles/delete/'.$role->id, lang('perm_role_delete'), 'class="delete_role"'); ?> ]
 		</p>		
-		<table border="0" class="listTable spacer-bottom">		  
+		<table border="0" class="listTable clear-both spacer-bottom">		  
 		  <thead>
 				<tr>
 					<th class="first"><div></div></th>

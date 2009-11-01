@@ -3,10 +3,12 @@
 	<name>
 		<en>Themes</en>
 		<es>Temas</es>
+		<fr>Thèmes</fr>
 	</name>
 	<description>
 		<en>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</en>
 		<es>Permite a los administradores y miembros del staff cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.</es>
+		<fr>Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle</fr>
 	</description>
 	<required>1</required>
 	<icon>tabs_48.png</icon>
@@ -24,6 +26,7 @@
 		<admin>
 			<new_item href="admin/themes/upload">
 				<en>Upload theme</en>
+				<fr>Charger un thème</fr>
 			</new_item>
 		</admin>
 	</navigation>
