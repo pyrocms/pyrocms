@@ -57,7 +57,7 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 	offset = offset || 0;
 	el = el || false;
 
-	if (TinyCIMMImage.recache) {
+	if (window.TinyCIMMImage && TinyCIMMImage.recache) {
 		load = true;
 		TinyCIMMImage.recache = false;
 	} else {
@@ -65,8 +65,12 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 	}
 
 	mcTabs.displayTab('browser_tab','browser_panel');
-	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
-	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+
+	// fix me
+	if (window.TinyCIMMImage) {
+		tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
+		tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+	}
 
 	(load) && (this.fileBrowser) && this.fileBrowser(folder, offset, load, el);
 };

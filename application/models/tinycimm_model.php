@@ -136,5 +136,16 @@ class Tinycimm_model extends Model {
 	function affected_rows(){
 		return $this->db->affected_rows();
 	}
+
+	// for use in the pyrocms link manager
+	function get_pages_by_parent_id($parent_id=0) {
+		$this->load->model('pages_m');
+		return $this->pages_m->getChildrenByParentId($parent_id);
+	}
+
+	function hasChildren($parent_id=0){
+		$this->load->model('pages_m');
+		return $this->pages_m->hasChildren($parent_id);
+	}
 }
 ?>
