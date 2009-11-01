@@ -11,11 +11,11 @@ $config['tinycimm_views_root_link'] = 'link/';
 
 // document root directory (ie root of your application)
 // these two directories need to have write permissions
-$config['tinycimm_asset_path'] = '/application/uploads/assets/'; 
-$config['tinycimm_asset_cache_path'] = '/application/uploads/assets/cache/'; 
+$config['tinycimm_asset_path'] = APPATH_URI.'uploads/assets/'; 
+$config['tinycimm_asset_cache_path'] = APPATH_URI.'uploads/assets/cache/'; 
 
-$config['tinycimm_asset_path_full'] = $_SERVER['DOCUMENT_ROOT'].$config['tinycimm_asset_path'];
-$config['tinycimm_asset_cache_path_full'] = $_SERVER['DOCUMENT_ROOT'].$config['tinycimm_asset_cache_path'];
+$config['tinycimm_asset_path_full'] = APPATH.$config['tinycimm_asset_path'];
+$config['tinycimm_asset_cache_path_full'] = APPATH.$config['tinycimm_asset_cache_path'];
 
 // set to either 0777 or 0755 depending on your server setup
 $config['tinycimm_asset_path_chmod'] = '0777';
@@ -46,8 +46,8 @@ $config['tinycimm_image_resize_config']['default_initial_width'] = 300;
 // thumbnails
 $config['tinycimm_image_thumbnail_default_width'] = 200;
 $config['tinycimm_image_thumbnail_default_height'] = 200;
-$config['tinycimm_image_thumbnail_default_lightbox_class'] = 'lightbox';
-$config['tinycimm_image_thumbnail_default_lightbox_gallery'] = 'lightbox';
+$config['tinycimm_image_thumbnail_default_lightbox_class'] = 'modal';
+$config['tinycimm_image_thumbnail_default_lightbox_gallery'] = 'modal';
 
 // list view pagination
 $config['tinycimm_pagination_per_page_thumbnails'] = 9;
