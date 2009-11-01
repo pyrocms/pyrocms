@@ -43,6 +43,7 @@ ul {
 
 #browser_panel li {
 	margin-bottom: 0.5em;
+	list-style: none;
 }
 
 span#loading {
@@ -52,6 +53,24 @@ span#loading {
 	height: 16px;
 	line-height: 16px;
 	display: block;
+}
+
+.hitarea {
+	float: left;
+	width: 9px;
+	height: 9px;
+	background: url(../img/hitarea_sprite.gif) no-repeat;
+	margin: 2px 4px 0px 0px;
+	cursor: pointer;
+}
+
+.hitarea-disabled {
+	background: transparent;
+	cursor: default;
+}
+
+.hitarea-open {
+	background-position: 0 -9px;
 }
 
 /* common */
