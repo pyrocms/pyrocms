@@ -36,7 +36,7 @@ $lang['email_label'] 								= 'E-mail';
 $lang['password_label'] 						= 'Mot de passe';
 $lang['login_label'] 								= 'Connectez-vous';
 
-$lang['save_label'] 								= 'Evregistrer';
+$lang['save_label'] 								= 'Enregistrer';
 $lang['cancel_label'] 							= 'Annuler';
 $lang['delete_label'] 							= 'Supprimer';
 $lang['activate_label'] 						= 'Activer';
