@@ -28,8 +28,8 @@
 				<? foreach ($users as $member): ?>
 				<tr>
 					<td align="center"><input type="checkbox" name="action_to[]" value="<?= $member->id; ?>" /></td>
-					<td><?=$member->full_name; ?></td>
-					<td><?=anchor('admin/users/edit/' . $member->id, $member->email); ?></td>
+					<td><?=anchor('admin/users/edit/' . $member->id, $member->full_name); ?></td>
+					<td><?=mailto($member->email); ?></td>
 					<td><?=$member->role; ?></td>
 					<td><?=date('M d, Y', $member->created_on); ?></td>
 					<td>
