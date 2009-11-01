@@ -1,4 +1,13 @@
 (function($) {
+	
+	Array.prototype.inArray = function(val) {
+		for(var i=0;i<this.length;i++) if (this[i] === val) return true; return false;
+	};
+	Array.prototype.trim = function(){
+		var trimmed = [];
+		for(var i=0;i<this.length;i++) { ($.trim(this[i]) != "") && trimmed.push(this[i]); }
+		return trimmed;
+	}
 
 	var PyroTreeCookie = {
 		config : {
@@ -25,23 +34,32 @@
 			}
 			return '';
 		},
-		addPage : function(page_id){
-			var ids = this._get(this.config.name).split(this.config.delimiter);
-			// check id doesn't already exist
+		addPage : function(list_item){
+			var page_id = $("a[rel^='page']:first", list_item).attr("rel").replace(/^page-/, ''),
+			ids = this._get(this.config.name).split(this.config.delimiter);
+
+			// check id doesn't already exist in cookie list
 			for(var i=0; i<ids.length; i++) if (ids[i] == page_id) return; 
-			// add parent id to array
+			// add parent id list
 			ids.push(page_id);
 			// save csv string to cookie
 			this._set(this.config.name, ids.join(this.config.delimiter));
 		},
-		removePage : function(page_id){
-			var self = this, newids = [], ids = this._get(this.config.name).split(this.config.delimiter);
-			// remove id from array 
+		removePage : function(list_item){
+			var self = this, pageids = [], newids = [], 
+			ids = this._get(this.config.name).split(this.config.delimiter);
+
+			// get list of pages to hide
+			$("li", $(list_item).parent()).each(function(){
+				($("ul", this).length) && 
+				pageids.push($("a[rel^='page']:first", this).attr("rel").replace(/^page-/, ''));
+			});
+			// remove pages from cookie list 
 			for(var i=0; i<ids.length; i++) {
-				(ids[i] != page_id) && newids.push(ids[i]);
+				(!pageids.inArray(ids[i])) && newids.push(ids[i]);
 			}
 			// save csv string to cookie
-			this._set(this.config.name, newids.join(this.config.delimiter));
+			this._set(this.config.name, newids.trim().join(this.config.delimiter));
 		}
 	};
 	
@@ -70,7 +88,7 @@
 			// Change which link is selected
 			other_a.removeClass('selected');
 			a.addClass('selected');
-		
+
 			// Folder eh? Let's do cool stuff
 			if(span.hasClass('folder'))
 			{
@@ -91,9 +109,9 @@
 						
 						$('li span', page_tree).unbind('click');
 					}
-					PyroTreeCookie.addPage(page_id);
+					PyroTreeCookie.addPage(item);
 				} else {
-					PyroTreeCookie.removePage(page_id);
+					PyroTreeCookie.removePage(item);
 				}
 			}
 			
