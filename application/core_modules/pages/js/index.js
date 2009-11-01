@@ -33,7 +33,6 @@
 			ids.push(page_id);
 			// save csv string to cookie
 			this._set(this.config.name, ids.join(this.config.delimiter));
-			console.debug(ids);
 		},
 		removePage : function(page_id){
 			var self = this, newids = [], ids = this._get(this.config.name).split(this.config.delimiter);

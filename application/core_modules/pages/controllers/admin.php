@@ -66,7 +66,6 @@ class Admin extends Admin_Controller
 			$page->has_children = $this->pages_m->hasChildren($page->id);
 		}
 		$this->data->pages =& $pages;
-		$this->data->open_parent_pages = array($parent_id);
 		$this->load->view('admin/ajax/child_list', $this->data);
 		
 	}
