@@ -292,6 +292,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
 
 
+DROP TABLE IF EXISTS `asset`
 CREATE TABLE `asset` (
   `id` int(5) NOT NULL auto_increment,
   `folder_id` int(5) NOT NULL default '0',
@@ -301,6 +302,8 @@ CREATE TABLE `asset` (
   `description` varchar(255) collate utf8_unicode_ci NOT NULL,
   `extension` varchar(5) collate utf8_unicode_ci NOT NULL,
   `mimetype` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `width` int(5) default NULL COMMENT 'Width of type image in pixels',
+  `height` int(5) default NULL COMMENT 'Height of type image in pixels',
   `filesize` int(11) NOT NULL default '0',
   `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
