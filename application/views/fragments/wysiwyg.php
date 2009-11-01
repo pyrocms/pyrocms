@@ -64,6 +64,7 @@
 		
 		file_browser_callback : 'tinycimm',
 		tinycimm_image_controller : '<?=$this->config->item('tinycimm_image_controller');?>',
+		tinycimm_link_controller : '<?=$this->config->item('tinycimm_link_controller');?>',
 		tinycimm_assets_path : '<?=$this->config->item('tinycimm_asset_path');?>',
 		tinycimm_resize_default_intial_width : '<?=$this->config->item('default_initial_width', 'tinycimm_image_resize_config');?>',
 		tinycimm_thumb_width : '<?=$this->config->item('tinycimm_image_thumbnail_default_width');?>',
@@ -102,23 +103,42 @@
 
 	function tinycimm(field_name, url, type, win) {
 
-		if (type != 'image') return;
+		if ((type != 'image') && (field_name != 'href')) return;
 
-		var url = win.tinyMCE.baseURI.relative+'/plugins/tinycimm/'+type+'.htm';
-
-		tinyMCE.activeEditor.windowManager.open({
-			file : url,
-			width : 574,
-			height : 462,
-			resizable : "yes",
-			inline : "yes",  
-			close_previous : "no"
-		}, {
-			window : win,
-			tinyMCEPopup : win.tinyMCEPopup,
-			input : field_name
-		});
-		return false;
+		if (type == 'image') {
+			// image manager
+			var url = win.tinyMCE.baseURI.relative+'/plugins/tinycimm/'+type+'.htm';
+	
+			tinyMCE.activeEditor.windowManager.open({
+				file : url,
+				width : 574,
+				height : 462,
+				resizable : "yes",
+				inline : "yes",  
+				close_previous : "no"
+			}, {
+				window : win,
+				tinyMCEPopup : win.tinyMCEPopup,
+				input : field_name
+			});
+			return false;
+		} else {
+			// link manager
+			var url = win.tinyMCE.baseURI.relative+'/plugins/tinycimm/link.htm';
+	
+			tinyMCE.activeEditor.windowManager.open({
+				file : url,
+				width : 340,
+				height : 362,
+				resizable : "yes",
+				inline : "yes",  
+				close_previous : "no"
+			}, {
+				window : win,
+				tinyMCEPopup : win.tinyMCEPopup,
+				input : field_name
+			});
+		}
 	}
 
     
