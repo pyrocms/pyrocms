@@ -30,6 +30,9 @@ class TinyCIMM {
 		$this->db = &$this->ci->db;
 		$this->config = &$this->ci->config;
 		$this->input = &$this->ci->input;
+		
+		$this->config->load('tinycimm');
+		
 		$this->check_paths();
 		$this->check_permissions();
 	}
