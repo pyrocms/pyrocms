@@ -4,7 +4,7 @@
 	
 		// Sort any tables with a class of 'sortable'
 		$('table.listTable').livequery(function() {
-			$(this).tablesorter();
+			($("thead th", this).length === $("tbody td", this).length) && $(this).tablesorter();
 		});
 		
 		// Link confirm box
