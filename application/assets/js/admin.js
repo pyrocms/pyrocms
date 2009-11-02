@@ -64,7 +64,8 @@
 			
 			if(li.hasClass("active"))
 			{
-				$(this).parent('li').siblings().removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
+				 li.removeClass("active").addClass("inactive").find(".expand").addClass("expanded");
+		         li.siblings().removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
 			}
 			
 			else
