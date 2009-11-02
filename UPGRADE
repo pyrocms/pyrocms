@@ -58,22 +58,29 @@ minimise or totally remove downtime during upgrade.
 
 3.) Permission the following folder:
 
-	chmod 777 application/cache/simplepie/
+	chmod 777 application/cache/simplepie
+	chmod 777 application/uploads/assets
+	chmod 777 application/uploads/assets/cache
 	
 4.) Unfortunately, you need to delete pages and re-add them again. OR manually create the contents of the pages_lookup table... sorry.
+
 
 13/08/09 - v0.9.6 to v0.9.6.2
 -----------------------------
 
 Replace old files with new files.
 
+
 11/08/09 - v0.9.6 to v0.9.6.1
 -----------------------------
 
 Replace old files with new files.
 
+
 29/07/09 - v0.9.6-beta to v0.9.6
 --------------------------------
+
+Run the following MySQL.
 
 	UPDATE pages SET lang = LOWER(lang);
 	UPDATE users SET lang = LOWER(lang);
