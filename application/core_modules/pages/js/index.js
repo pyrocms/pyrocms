@@ -18,7 +18,7 @@
 			expiredays = expiredays || 1;
 			var exdate=new Date();
 			exdate.setDate(exdate.getDate()+expiredays);
-			document.cookie = name+"="+escape(val)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+			document.cookie = name+"="+escape(val)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())+";path=/";
 		},
 		_get : function(name){
 			if (document.cookie.length > 0){
@@ -29,7 +29,7 @@
 					if (end == -1){
 						end = document.cookie.length;
 					}
-					return $.trim(unescape(document.cookie.substring(start, end)));
+					return unescape(document.cookie.substring(start, end));
 				}
 			}
 			return '';
@@ -42,8 +42,9 @@
 			for(var i=0; i<ids.length; i++) if (ids[i] == page_id) return; 
 			// add parent id list
 			ids.push(page_id);
+			console.debug(ids.trim().join(this.config.delimiter));
 			// save csv string to cookie
-			this._set(this.config.name, ids.join(this.config.delimiter));
+			this._set(this.config.name, ids.trim().join(this.config.delimiter));
 		},
 		removePage : function(list_item){
 			var self = this, pageids = [], newids = [], 
