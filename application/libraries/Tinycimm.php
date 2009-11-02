@@ -27,11 +27,10 @@ class TinyCIMM {
 
 	public function __construct(){
 		$this->ci = &get_instance();
+		$this->ci->config->load('tinycimm');
 		$this->db = &$this->ci->db;
 		$this->config = &$this->ci->config;
 		$this->input = &$this->ci->input;
-		
-		$this->config->load('tinycimm');
 		
 		$this->check_paths();
 		$this->check_permissions();
