@@ -5,10 +5,10 @@
 <!-- HTTP Settings -->
 <h3>HTTP Server Settings</h3>
 <p>PyroCMS runs best on an Apache server. 
-<?php if(strtolower($this->session->userdata('http_server')) != 'apache'): ?>	
+<?php if($http_server['is_apache'] != TRUE): ?>	
 Even though you specified a different server (<?php echo ucfirst($this->session->userdata('http_server')); ?>) PyroCMS should be able to run on it however, the URLs will be less clean.
 <?php else: ?>
-Your server (Apache) is supported.
+Your server (Apache) is fully supported.
 <?php endif; ?>
 </p>
 
