@@ -131,8 +131,8 @@ class installer_m extends Model
 		// Get if the gd_info() function exists
 		if(function_exists('gd_info'))
 		{
-			$GDArray = gd_info();
-			return ereg_replace('[[:alpha:][:space:]()]+', '', $GDArray['GD Version']);
+			$gd_info = gd_info();			
+			return preg_replace("/[a-z()]/",'',$gd_info['GD Version']);
 		}
 		else
 		{
