@@ -21,13 +21,13 @@ class installer_m extends Model
 		if($type == 'set')
 		{
 			// Store the POST data in a session
-			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'step_1_passed' => TRUE);
+			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'http_server' => $data['http_server'],'step_1_passed' => TRUE);
 			$this->session->set_userdata($array);
 		}
 		// Remove the cookie
 		else
 		{
-			$array = array('server','username','password', 'step_1_passed');
+			$array = array('server','username','password','http_server','step_1_passed');
 			$this->session->unset_userdata($array);
 		}
 	}
@@ -132,7 +132,7 @@ class installer_m extends Model
 		if(function_exists('gd_info'))
 		{
 			$gd_info = gd_info();			
-			return preg_replace("/[a-z()]/",'',$gd_info['GD Version']);
+			return preg_replace("/[a-z\(\)\s]/",'',$gd_info['GD Version']);
 		}
 		else
 		{
