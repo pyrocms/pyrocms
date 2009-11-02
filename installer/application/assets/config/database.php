@@ -32,10 +32,10 @@
 */
 
 // Local
-$db['local']['hostname'] = "%HOSTNAME%";
-$db['local']['username'] = "%USERNAME%";
-$db['local']['password'] = "%PASSWORD%";
-$db['local']['database'] = "%DATABASE%";
+$db['local']['hostname'] = "__HOSTNAME__";
+$db['local']['username'] = "__USERNAME__";
+$db['local']['password'] = "__PASSWORD__";
+$db['local']['database'] = "__DATABASE__";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
@@ -55,10 +55,10 @@ $db['local']['dbcollat'] = "utf8_unicode_ci";
 // ...etc
 
 // Live
-$db['live']['hostname'] = "%HOSTNAME%";
-$db['live']['username'] = "%USERNAME%";
-$db['live']['password'] = "%PASSWORD%";
-$db['live']['database'] = "%DATABASE%";
+$db['live']['hostname'] = "__HOSTNAME__";
+$db['live']['username'] = "__USERNAME__";
+$db['live']['password'] = "__PASSWORD__";
+$db['live']['database'] = "__DATABASE__";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['active_r'] = TRUE;

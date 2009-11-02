@@ -2,6 +2,16 @@
 <h2>Step 2: Check requirements</h2>
 <p>The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.</p>
 
+<!-- HTTP Settings -->
+<h3>HTTP Server Settings</h3>
+<p>PyroCMS runs best on an Apache server. 
+<?php if(strtolower($this->session->userdata('http_server')) != 'apache'): ?>	
+Even though you specified a different server (<?php echo ucfirst($this->session->userdata('http_server')); ?>) PyroCMS should be able to run on it however, the URLs will be less clean.
+<?php else: ?>
+Your server (Apache) is supported.
+<?php endif; ?>
+</p>
+
 <!-- PHP Settings -->
 <h3>PHP Settings</h3>
 <p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <?php echo $php_version; ?>, which is <?php echo $php_results; ?> by PyroCMS.</p>
@@ -22,7 +32,7 @@
 <p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
 
 <?php elseif($step_passed == 'partial'): ?>
-<p class="orange"><strong>Your server meets most of the requirements for PyroCMS to run properly. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems. In most cases this this is being caused by not having the GD library installed.</strong></p>
+<p class="orange"><strong>Your server meets most of the requirements for PyroCMS to run properly. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems. In most cases this this is being caused by not having the GD library installed or by running PyroCMS on a server other than Apache.</strong></p>
 <p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
 
 <?php else: ?>
