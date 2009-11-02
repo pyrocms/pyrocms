@@ -3,10 +3,12 @@
 	<name>
 		<en>Suppliers</en>
 		<es>Suplidores</es>
+		<fr>Fournisseurs</fr>
 	</name>
 	<description>
 		<en>List the suppliers of your products.</en>
 		<es>Lista los suplidores de tus productos.</es>
+		<fr>Liste des fournisseurs de vos produits</fr>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
@@ -23,6 +25,7 @@
 		<admin>
 			<new_item href="admin/suppliers/create">
 				<en>New supplier</en>
+				<fr>Nouveau fournisseur</fr>
 			</new_item>
 		</admin>
 	</navigation>

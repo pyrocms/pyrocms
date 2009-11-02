@@ -13,7 +13,7 @@
 		</li>
 		<? endforeach; ?>
 		
-		<li class="<?php echo in_array($this->module, array('themes', 'settings', 'permissions')) ? 'active' : 'inactive'; ?>">
+		<li class="<?php echo in_array($this->module, array('themes', 'modules', 'settings', 'permissions')) ? 'active' : 'inactive'; ?>">
 			<a href="#" class="button">
 				<strong>
 					<?= image('admin/icons/spanner_48.png', NULL, array('alt' => lang('settings_label'), 'class' => 'icon') ); ?>

@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'session', 'cache', 'layout', 'settings'=>'settings','widgets');
+$autoload['libraries'] = array('database', 'session', 'cache', 'layout', 'settings'=>'settings', 'widgets');
 
 
 /*
@@ -79,7 +79,7 @@ $autoload['plugin'] = array();
 |
 */
 
-$autoload['config'] = array('asset', 'cache', 'language');
+$autoload['config'] = array('asset', 'language');
 
 
 /*

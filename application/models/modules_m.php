@@ -60,13 +60,15 @@ class Modules_m extends Model {
 		        		if(!$this->permissions_m->hasAdminAccess( $this->user_lib->user_data->role, $module['slug']) ) continue;
 		        	}
 	       			
-			 	// Check a module is intended for the sidebar
-				if(isset($params['is_backend_sidebar']) && $module['is_backend_sidebar'] != $params['is_backend_sidebar']) continue;
+				 	// Check a module is intended for the sidebar
+					if(isset($params['is_backend_sidebar']) && $module['is_backend_sidebar'] != $params['is_backend_sidebar']) continue;
  
-	        		$modules[] = $module;
+	        		$modules[$module['name']] = $module;
 	        	}
 	        }
         }
+        
+        ksort($modules);
     	
         return $modules;
     }

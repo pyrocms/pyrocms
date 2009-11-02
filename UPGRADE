@@ -4,13 +4,8 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-26/10/09 - v0.9.7-beta1 to v0.9.7-beta2
----------------------------------------
-
-Replace old files with new files.
-
-26/10/09 - v0.9.6.2 to v0.9.7-beta1
------------------------------------
+01/11/09 - v0.9.6.2 to v0.9.7
+-----------------------------
 
 1.) Run the following MySQL.
 
@@ -24,14 +19,41 @@ Replace old files with new files.
 
 	ALTER TABLE pages
 	  MODIFY `parent_id` int(11) default '0';
+
+	CREATE TABLE `asset` (
+	  `id` int(5) NOT NULL auto_increment,
+	  `folder_id` int(5) NOT NULL default '0',
+	  `user_id` int(5) NOT NULL default '1',
+	  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
+	  `filename` varchar(255) collate utf8_unicode_ci NOT NULL,
+	  `description` varchar(255) collate utf8_unicode_ci NOT NULL,
+	  `extension` varchar(5) collate utf8_unicode_ci NOT NULL,
+	  `mimetype` varchar(255) collate utf8_unicode_ci NOT NULL,
+	  `width` int(5) default NULL COMMENT 'Width of type image in pixels',
+	  `height` int(5) default NULL COMMENT 'Height of type image in pixels',
+	  `filesize` int(11) NOT NULL default '0',
+	  `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
+	  PRIMARY KEY  (`id`)
+	) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Assets used in the WYSIWYG image manager';
+	
+	CREATE TABLE `asset_folder` (
+	  `id` int(5) NOT NULL auto_increment,
+	  `user_id` int(5) NOT NULL default '1',
+	  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
+	  `smart` int(1) NOT NULL default '0',
+	  `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
+	  PRIMARY KEY  (`id`)
+	) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Asset folder categories';
 	 
 	CREATE TABLE `pages_lookup` (
 	  `id` int(11) NOT NULL,
 	  `path` text character set utf8 collate utf8_unicode_ci NOT NULL,
 	  PRIMARY KEY  (`id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lookup table for page IDs and page paths.';
-
-	  
+	
+	INSERT INTO `asset_folder` values(0, 0, 'All images', 1, NOW());
+	
+	
 2.) Replace old files with new files.
 
 3.) Permission the following folder:
