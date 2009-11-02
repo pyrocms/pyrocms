@@ -157,7 +157,7 @@ class installer_m extends Model
 		}
 		
 		// Optional extra
-		if($pass == 'partial' AND $data['gd_version'] != FALSE AND $data['http_server']['non_apache'] != TRUE)
+		if($pass == 'partial' AND $data['gd_version'] != FALSE AND $data['http_server']['is_apache'] == TRUE)
 		{
 			$pass = TRUE;
 		}
@@ -176,14 +176,18 @@ class installer_m extends Model
 	 */
 	function verify_http_server($server_name)
 	{
-		$array 					= array('supported' => NULL,'non_apache' => FALSE);
+		// First load the config file for the supported servers
+		$this->config->load('servers');
+		
+		// Set all the required variables
+		$array 					= array('supported' => NULL,'is_apache' => TRUE);
 		$servers 				= $this->config->item('supported_servers');
-		$array['supported']  	= in_array($server_name,$servers);
+		$array['supported']  	= in_array(strtolower($server_name),$servers);
 		
 		// Server other than Apache ? 
 		if(strtolower($server_name) != 'apache')
 		{
-			$array['non_apache'] = TRUE;
+			$array['is_apache'] = FALSE;
 		}
 		
 		// Return the results
@@ -192,6 +196,7 @@ class installer_m extends Model
 	
 	/**
 	 * @param 	string $path The full path to the file or folder of which the permissions should be retrieved
+	 * @return 	bool
 	 *
 	 * Get the permissions of a file or folder. Return a message if it isn't writable.
 	 */
@@ -202,6 +207,7 @@ class installer_m extends Model
 	
 	/**
 	 * @param 	string $data The post data
+	 * @return 	bool
 	 * 
 	 * Function to validate the $_POST results from step 3
 	 */
@@ -273,7 +279,8 @@ class installer_m extends Model
 		
 		// Now we can create the tables
 		$tables 		= file_get_contents('./sql/1-tables.sql');
-		$default_data 	= file_get_contents('./sql/2-default-data.sql');	
+		$default_data 	= file_get_contents('./sql/2-default-data.sql');
+			
 		// Do we want to insert the dummy data ? 
 		if(!empty($data['dummy_data']))
 		{
@@ -305,7 +312,7 @@ class installer_m extends Model
 		}
 		
 		// Write the config file.
-		if(strtolower($this->session->userdata('http_server')) != 'apache')
+		if(strtolower($this->session->userdata('http_server')) != 'apache') // TODO: Is it really required to add the index.php to the config file for non-apache servers ?
 		{
 			$config_res = $this->write_config_file();
 			
