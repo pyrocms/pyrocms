@@ -63,14 +63,17 @@
 		media_strict: false,
 		
 		file_browser_callback : 'tinycimm',
-		tinycimm_image_controller : '<?=$this->config->item('tinycimm_image_controller');?>',
-		tinycimm_link_controller : '<?=$this->config->item('tinycimm_link_controller');?>',
-		tinycimm_assets_path : '<?=$this->config->item('tinycimm_asset_path');?>',
-		tinycimm_resize_default_intial_width : '<?=$this->config->item('default_initial_width', 'tinycimm_image_resize_config');?>',
-		tinycimm_thumb_width : '<?=$this->config->item('tinycimm_image_thumbnail_default_width');?>',
-		tinycimm_thumb_height : '<?=$this->config->item('tinycimm_image_thumbnail_default_height');?>',
-		tinycimm_thumb_lightbox_class : '<?=$this->config->item('tinycimm_image_thumbnail_default_lightbox_class');?>',
-		tinycimm_thumb_lightbox_gallery : '<?=$this->config->item('tinycimm_image_thumbnail_default_lightbox_gallery');?>',
+		<?php
+			$this->config->load('tinycimm');
+		?>
+		tinycimm_image_controller : '<?php echo $this->config->item('tinycimm_image_controller');?>',
+		tinycimm_link_controller : '<?php echo $this->config->item('tinycimm_link_controller');?>',
+		tinycimm_assets_path : '<?php echo $this->config->item('tinycimm_asset_path');?>',
+		tinycimm_resize_default_intial_width : '<?php echo $this->config->item('default_initial_width', 'tinycimm_image_resize_config');?>',
+		tinycimm_thumb_width : '<?php echo $this->config->item('tinycimm_image_thumbnail_default_width');?>',
+		tinycimm_thumb_height : '<?php echo $this->config->item('tinycimm_image_thumbnail_default_height');?>',
+		tinycimm_thumb_lightbox_class : '<?php echo $this->config->item('tinycimm_image_thumbnail_default_lightbox_class');?>',
+		tinycimm_thumb_lightbox_gallery : '<?php echo $this->config->item('tinycimm_image_thumbnail_default_lightbox_gallery');?>',
 
 		// Default ruleset
 		valid_elements : "@[id|class|style|title|dir|lang|xml::lang|onclick|ondblclick|"
