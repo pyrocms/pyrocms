@@ -1,5 +1,5 @@
 <h2>Step 3: Set permissions</h2>
-<p>Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below.</p>
+<p>Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below. Make sure any subfolders have the correct permissions too !</p>
 <h3>Folder Permissions</h3>
 <p>The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).</p>
 <ul class="perm_list" id="perm_folders">

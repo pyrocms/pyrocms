@@ -149,6 +149,9 @@ small 	{font-size:12px;}
 	padding:7px 5px 3px 5px;
 	width:200px;
 }
+#install_frm p select {
+	margin:7px 5px 3px 5px;
+}
 #install_frm p #dummy_data,#install_frm p #create_db
 {
 	margin:8px 20px 0px 10px;

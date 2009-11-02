@@ -101,6 +101,9 @@ class Installer extends Controller
 	
 		// Check the GD data
 		$view_data['gd_version'] 	= $this->installer_m->get_gd_version();
+		
+		// Get the server
+		$view_data['http_server']	= $this->installer_m->verify_http_server($this->session->userdata('http_server'));
 	
 		// Check the final results
 		$view_data['step_passed'] = $this->installer_m->check_server($view_data);
@@ -132,7 +135,7 @@ class Installer extends Controller
 		$array['application/assets/img/products'] 	= $this->installer_m->is_writeable('../application/assets/img/products');
 		$array['application/assets/img/staff'] 		= $this->installer_m->is_writeable('../application/assets/img/staff');
 		$array['application/assets/img/suppliers'] 	= $this->installer_m->is_writeable('../application/assets/img/suppliers'); 
-		$array['application/uploads/assets'] 	= $this->installer_m->is_writeable('../application/uploads/assets'); 
+		$array['application/uploads/assets'] 		= $this->installer_m->is_writeable('../application/uploads/assets'); 
 		$array['application/uploads/assets/cache'] 	= $this->installer_m->is_writeable('../application/uploads/assets/cache'); 
 		
 		// Get the write permissions for the files
@@ -156,7 +159,7 @@ class Installer extends Controller
 	{
 		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed') OR !$this->session->userdata('step_3_passed'))
 		{
-			// Redirect the user back to step 1
+			// Redirect the user back to step 2
 			redirect('installer/step_2');
 		}
 		
