@@ -66,8 +66,20 @@ class Installer extends Controller
 			}
 		}
 		
-		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
-		$data['page_output'] = $this->load->view('step_1','',TRUE);
+		// Load the config file that contains a list of supported servers
+		$this->load->config('servers');
+		
+		// Load the views and data required for the first step
+		$server_list = $this->config->item('supported_servers');
+		$servers	 = array();
+	
+		foreach($server_list as $key => $value)
+		{
+			$servers[$value] = ucfirst($value);
+		}
+		
+		$view_data['server_options'] 	= $servers;
+		$data['page_output'] 			= $this->load->view('step_1',$view_data,TRUE);
 		
 		// Load the view file
 		$this->load->view('global',$data);
