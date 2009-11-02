@@ -333,18 +333,17 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		};
 
 		// ensure the peview image is cached before showing the details
-		var previewImg = new Image();
-		previewImg.onload = function(){
+		var previewImg = new Image(), onload = function(){
 			tinyMCEPopup.dom.get('loading').style.display = 'none';
 			tinyMCEPopup.dom.get('image-manager-details').style.display = 'block';
 		};
-		previewImg.onerror = function(){};
+		previewImg.onload = onload;
+		previewImg.onerror = onload;
 		previewImg.src = tinyMCEPopup.dom.get('image-preview').src;
 
 		// the image is cached before binding click event so that we can get
 		// desired width and height of popup window based on image dimensions
-		var previewImgLarge = new Image();
-		previewImgLarge.onload = function(){
+		var previewImgLarge = new Image(), onload = function(){
 			var img = this;
 			tinyMCEPopup.dom.get('image-preview-popup').onclick = function(){
 				tinyMCE.activeEditor.windowManager.open({
@@ -356,7 +355,8 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 				return false;
 			};	
 		};
-		previewImgLarge.onerror = function(){};
+		previewImgLarge.onload = onload;
+		previewImgLarge.onerror = onload;
 		previewImgLarge.src = self.settings.tinycimm_controller+'get/'+image_id+'/600/600';
 	});
 }

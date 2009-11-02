@@ -15,11 +15,14 @@ function TinyCIMM(type){
 }
 
 TinyCIMM.prototype.init = function(ed){
-	var node = ed.selection.getNode();
+	var self = this, node = ed.selection.getNode();
 	if (tinyMCEPopup.params.resize) {
 		this.loadResizer(node.src.toId()+'.'+node.src.extension(), false, node.width);
 	} else {
-		this.showBrowser(0, 0, true);
+		this.loadDialogBody(function(response){
+			document.getElementsByTagName('body')[0].innerHTML = response;
+			self.showBrowser(0, 0, true);
+		});
 	}
 };
 
@@ -48,6 +51,20 @@ TinyCIMM.prototype.get = function(asset_id, callback){
 			} else {
 				(callback) && callback(obj);
 			}
+		}
+	});
+};
+
+TinyCIMM.prototype.loadDialogBody = function(callback){
+	tinymce.util.XHR.send({
+		url : this.baseURL(this.settings.tinycimm_controller+'get_dialog_body'),
+		type : "GET",
+		error : function(response){ 
+			tinyMCEPopup.editor.windowManager.alert('There was an error retrieving the dialog body html.');
+			return false;
+		},
+		success : function(response){
+			(callback) && callback(response);
 		}
 	});
 };
