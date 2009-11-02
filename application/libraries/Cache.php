@@ -67,6 +67,7 @@ class Cache
 	 */
     public function library($library, $method, $arguments = array(), $expires = null)
     {
+    	$this->ci->load->library($library);
     	return $this->call($library, $method, $arguments, $expires);
     }
     
@@ -78,6 +79,7 @@ class Cache
 	 */
     public function model($model, $method, $arguments = array(), $expires = null)
     {
+    	$this->ci->load->model($model);
     	return $this->call($model, $method, $arguments, $expires);
     }
     
