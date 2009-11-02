@@ -19,6 +19,7 @@ class Image_Manager extends Controller {
 		$this->load->library('tinycimm');
 		$this->load->model('tinycimm_model');
 		$this->load->config('tinycimm');
+		$this->lang->load('tinycimm');
 		!$this->session->userdata('cimm_view') and $this->session->set_userdata('cimm_view', 'thumbnails');
 		$this->tinycimm->view_path = $this->view_path = $this->config->item('tinycimm_views_root').$this->config->item('tinycimm_views_root_image');
 	}
@@ -42,6 +43,11 @@ class Image_Manager extends Controller {
 	public function upload(){
 		$folder_id = $this->tinycimm->upload_assets($this->config->item('tinycimm_image_upload_config'));
 		$this->load->view($this->view_path.'fragments/upload_finished', array('folder_id' => $folder_id));
+	}
+
+	// returns the image dialog body HTML
+	public function get_dialog_body(){
+		$this->load->view($this->view_path.'dialog');
 	}
 
 	// return the image manager panel HTML
