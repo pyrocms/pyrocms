@@ -132,6 +132,8 @@ class Installer extends Controller
 		$array['application/assets/img/products'] 	= $this->installer_m->is_writeable('../application/assets/img/products');
 		$array['application/assets/img/staff'] 		= $this->installer_m->is_writeable('../application/assets/img/staff');
 		$array['application/assets/img/suppliers'] 	= $this->installer_m->is_writeable('../application/assets/img/suppliers'); 
+		$array['application/uploads/assets'] 	= $this->installer_m->is_writeable('../application/uploads/assets'); 
+		$array['application/uploads/assets/cache'] 	= $this->installer_m->is_writeable('../application/uploads/assets/cache'); 
 		
 		// Get the write permissions for the files
 		$array['application/config/config.php'] 	= $this->installer_m->is_writeable('../application/config/config.php'); 

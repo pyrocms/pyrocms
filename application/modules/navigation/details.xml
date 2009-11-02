@@ -3,10 +3,12 @@
 	<name>
 		<en>Navigation</en>
 		<es>Navegación</es>
+		<fr>Navigation</fr>
 	</name>
 	<description>
 		<en>Manage links on navigation menu's and all the navigation groups they belong to.</en>
 		<es>Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.</es>
+		<fr>Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.</fr>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
@@ -29,6 +31,7 @@
 		<admin>
 			<new_item href="admin/navigation/create">
 				<en>New link</en>
+				<fr>Nouveau Lien</fr>
 			</new_item>
 		</admin>
 	</navigation>

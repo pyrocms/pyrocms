@@ -3,10 +3,12 @@
 	<name>
 		<en>Categories</en>
 		<es>Categorías</es>
+		<fr>Catégories</fr>
 	</name>
 	<description>
 		<en>Manage categories for articles, products, services, etc.</en>
 		<es>Administra categorías para artículos, productos, servicios, etc.</es>
+		<fr>Administre les catégories des articles, produits, services, etc.</fr>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
@@ -23,6 +25,7 @@
 		<admin>
 			<new_item href="admin/categories/create">
 				<en>New category</en>
+				<fr>Nouvelle catégorie</fr>
 			</new_item>
 		</admin>
 	</navigation>

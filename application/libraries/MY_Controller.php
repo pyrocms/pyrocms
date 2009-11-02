@@ -27,7 +27,7 @@ class MY_Controller extends Controller
         }
         
         // Work out module, controller and method and make them accessable throught the CI instance
-        $this->module 				= str_replace(array('modules/', '/'), '', $this->matchbox->fetch_module());
+        $this->module 				= trim($this->matchbox->fetch_module(), '/');
         $this->controller			= strtolower(get_class($this));
         $s 							= $this->uri->rsegment_array();
         $n 							= array_search($this->controller, $s);

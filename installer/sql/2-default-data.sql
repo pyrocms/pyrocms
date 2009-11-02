@@ -41,3 +41,6 @@ insert into `settings` values
 
 truncate `users`;
 insert into `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270fa605bde14e8','vQwbJ','Demo','User','admin','EN','','1','','1220982658','1238925784');
+
+truncate `asset_folder`;
+insert into `asset_folder` values(0, 0, 'All images', 1, NOW());

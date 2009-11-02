@@ -21,7 +21,7 @@ $lang['supp_suppliers_title'] 			= 'Suppliers';
 
 // messages (errors, successes)
 $lang['supp_no_suppliers'] 					= 'There are no suppliers.';
-$lang['supp_add_success'] 					= 'The suppler "%s" has been added.';
+$lang['supp_add_success'] 					= 'The supplier "%s" has been added.';
 $lang['supp_add_error'] 						= 'Error occurred while trying to add new supplier.';
 $lang['supp_edit_success'] 					= 'The suppler "%s" has been saved.';
 $lang['supp_delete_error'] 					= 'You need to select one or more suppliers to delete.';

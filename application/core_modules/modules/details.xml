@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="1.0" type="admin">
+<module version="0.5" type="admin">
 	<name>
 		<en>Modules</en>
+		<fr>Modules</fr>
 	</name>
 	<description>
 		<en>ALlows admins to see a list of currently installed modules.</en>
+		<es>ALlows admins to see a list of currently installed modules.</es>
+		<fr>Permet aux administrateurs de voir la liste des modules installés</fr>
 	</description>
 	<required>1</required>
 	<icon>spanner_48.png</icon>

@@ -3,10 +3,12 @@
 	<name>
 		<en>Twitter</en>
 		<es>Twitter</es>
+		<fr>Twitter</fr>
 	</name>
 	<description>
 		<en>Show twitter posts and support general Twitter integration.</en>
 		<es>Mostrar puestos twitter Twitter y el apoyo general de la integración.</es>
+		<fr>Affiche les messages Twitter et permet l'intégration globale de Twitter</fr>
 	</description>
 	<required>1</required>
 	<is_frontend>0</is_frontend>
@@ -24,6 +26,7 @@
 		<admin>
 			<new_item href="admin/themes/upload">
 				<en>Upload theme</en>
+				<fr>Twitter ???</fr>
 			</new_item>
 		</admin>
 	</navigation>

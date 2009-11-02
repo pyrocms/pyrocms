@@ -3,10 +3,12 @@
 	<name>
 		<en>Packages</en>
 		<es>Paquetes</es>
+		<fr>Packages</fr>
 	</name>
 	<description>
 		<en>Combines services and products into package deals.</en>
 		<es>Combina servicios y productos dentro de paquetes promocionales.</es>
+		<fr>Combine les services et les produits dans des offres packagées.</fr>
 	</description>
 	<name></name>
 	<icon>box_48.png</icon>
@@ -24,6 +26,7 @@
 		<admin>
 			<new_item href="admin/packages/create">
 				<en>New package</en>
+				<en>Nouveau package</en>
 			</new_item>
 		</admin>
 	</navigation>
