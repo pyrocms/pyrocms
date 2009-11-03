@@ -143,7 +143,7 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 	tinymce.util.XHR.send({
 		url : url,
 		error : function(response) {
-			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request: '+response+"\nPlease try again.");
+			tinyMCEPopup.editor.windowManager.alert(self.lang.msg_xhr_error_general+".");
 		},
 		success : function(response) {
 			var image = tinymce.util.JSON.parse(response);
@@ -243,7 +243,7 @@ ImageDialog.prototype.loadResizer = function(filename, event) {
 		self.showResizeImage(this);
 	};
 	img.onerror = function(){
-		tinyMCEPopup.editor.windowManager.alert('There was an error loading the image.');
+		tinyMCEPopup.editor.windowManager.alert(self.lang.msg_error_imageload+".");
 	};
 	img.src = this.settings.tinycimm_assets_path+filename;
 	if (!img.complete) {
@@ -374,7 +374,7 @@ ImageDialog.prototype.assetUploaded = function(folder_id) {
 		remove[i].parentNode.removeChild(remove[i]);
 	}
 	this.showBrowser(folder_id);
-	this.showFlashMsg('Images successfully uploaded!');
+	this.showFlashMsg(self.lang.msg_uploaded_images+".");
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {

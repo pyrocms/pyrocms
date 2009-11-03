@@ -25,11 +25,11 @@ $lang['tinycimm_image_remote_folder'] = 'Remote Folder';
 $lang['tinycimm_image_folders'] = 'Folders';
 $lang['tinycimm_image_constrain_dimensions'] = 'Constrain Dimensions';
 $lang['tinycimm_image_quality'] = 'Quality';
-$land['tinycimm_image_upload_image'] = 'Image Upload';
-$land['tinycimm_image_upload'] = 'Upload';
-$land['tinycimm_image_folder_none'] = 'None';
-$land['tinycimm_image_yes'] = 'Yes';
-$land['tinycimm_image_no'] = 'No';
+$lang['tinycimm_image_upload_image'] = 'Image Upload';
+$lang['tinycimm_image_upload'] = 'Upload';
+$lang['tinycimm_image_folder_none'] = 'None';
+$lang['tinycimm_image_yes'] = 'Yes';
+$lang['tinycimm_image_no'] = 'No';
 
 // image manager resizer panel
 $lang['tinycimm_image_resizer'] = 'Image Resizer';
@@ -56,5 +56,20 @@ $lang['tinycimm_image_msg_folder_confirm_delete'] = 'Are you sure you want to de
 $lang['tinycimm_image_msg_image_confirm_delete'] = 'Are you sure you want to delete this image';
 $lang['tinycimm_image_msg_upload_success_image'] = 'Image successfully uploaded';
 $lang['tinycimm_image_msg_upload_success_images'] = 'Images successfully uploaded';
+
+// dialog messages
+$lang['tinycimm_dialog_msg_xhr_error_general'] = 'There was an error processing the request';
+$lang['tinycimm_dialog_msg_xhr_error_assets'] = 'There was an error retrieving the assets';
+$lang['tinycimm_dialog_msg_xhr_error_asset'] = 'There was an error retrieving the asset info';
+$lang['tinycimm_dialog_msg_xhr_error_dialog'] = 'There was an error retrieving the dialog body html';
+$lang['tinycimm_dialog_msg_xhr_error_assets'] = 'There was an error retrieving the assets';
+$lang['tinycimm_dialog_msg_xhr_error_selectlist'] = 'There was an error retrieving the select list';
+$lang['tinycimm_dialog_msg_error_imageload'] = 'There was an error loading the image';
+$lang['tinycimm_dialog_msg_uploaded_images'] = 'Images successfully uploaded';
+$lang['tinycimm_dialog_msg_uploaded_image'] = 'Image successfully uploaded';
+$lang['tinycimm_dialog_msg_question_delete'] = 'Are you sure you want to delete this';
+$lang['tinycimm_dialog_msg_question_delete_folder'] = 'Are you sure you want to delete this folder';
+$lang['tinycimm_dialog_msg_folder_saved'] = 'Folder successfully saved';
+$lang['tinycimm_dialog_msg_folder_deleted'] = 'Folder successfully deleted';
 
 ?>

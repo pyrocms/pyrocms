@@ -38,6 +38,19 @@ class Image_Manager extends Controller {
 			$this->tincimm->response_encode(array('outcome' => false, 'message' => 'Image not found.'));
 		}
 	}
+
+	// returns the language config for use in the tinymce dialog
+	public function get_javascript_lang(){
+		header('Content-Type: text/javascript');
+		$this->data->dialog_lang = array();
+		foreach($this->lang->language as $key => $item) {
+			if (preg_match('/^tinycimm_dialog/', $key)) {
+				$this->data->dialog_lang[$key] = $item;
+			}
+		}
+		echo $this->load->view($this->view_path.'tinymce_lang', $this->data, true);
+		exit;
+	}
 	
 	// handles asset uploads and inserts info into database
 	public function upload(){
