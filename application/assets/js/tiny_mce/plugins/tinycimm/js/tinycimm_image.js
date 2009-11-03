@@ -129,9 +129,9 @@ ImageDialog.prototype.insertImage = function(thumbspan, image, width, height) {
 
 ImageDialog.prototype.insertResizeImage = function(){
 	var self = this, 
-	image_id = tinyMCEPopup.dom.get('slider_img').src.toId(), 
-	width = tinyMCEPopup.dom.get('slider_width_val').innerHTML, 
-	height = tinyMCEPopup.dom.get('slider_height_val').innerHTML.replace(/px$/, '');
+	image_id = select('#slider_img').src.toId(), 
+	width = select('#slider_width_val').innerHTML, 
+	height = select('#slider_height_val').innerHTML.replace(/px$/, '');
 	
 	this.resizeImage(image_id, width, height, function(image){
 		self.insertImage(null, image, width, height);
@@ -207,19 +207,19 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 
 ImageDialog.prototype.showUploader = function(){
 	mcTabs.displayTab('upload_tab','upload_panel');
-	tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
-	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+	select('#resize_tab').hide();
+	select('#manager_tab').hide();
 	this.loadUploader();
 };
 
 ImageDialog.prototype.loadUploader = function() {
 	var self = this;
 	// load the uploader form
-	if (!tinyMCEPopup.dom.get('uploadform')) {
+	if (!select('#uploadform').length) {
 		this.getUploader(function(html){
-			tinyMCEPopup.dom.get('upload_panel').innerHTML = html;
-			select('fileupload').multiFileUpload();
-			document.getElementById('uploadform').onsubmit = function(e){
+			select('#upload_panel').innerHTML = html;
+			select('#fileupload').multiFileUpload();
+			select('#uploadform').onsubmit = function(e){
 				self.showOverlay();
 			};
 			// refresh the select drop down 
@@ -261,25 +261,25 @@ ImageDialog.prototype.showResizeImage = function(image) {
 	sliderVal = image_width < this.settings.tinycimm_resize_default_intial_width ? image_width : this.settings.tinycimm_resize_default_intial_width;
 
 	image.setAttribute('id', 'slider_img');
-	tinyMCEPopup.dom.get('image-info').appendChild(image);
+	select('#image-info').appendChild(image);
 		
 	// display panel
 	mcTabs.displayTab('resize_tab','resize_panel');
-	tinyMCEPopup.dom.get('resize_tab').style.display = 'block';
-	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+	select('#resize_tab').show();
+	select('#manager_tab').hide();
 
 	// add image dimensions overlay
 	tinyMCEPopup.dom.setHTML('image-info-dimensions', '<span id="slider_width_val"></span> x <span id="slider_height_val"></span>');
 			
-	new ScrollSlider(tinyMCEPopup.dom.get('image-slider'), {
+	new ScrollSlider(select('#image-slider'), {
 		min : 0,
 		max : image_width,
 		value : sliderVal,
 		size : 400,
 		scroll : function(new_w) {
 			var 
-			slider_width = tinyMCEPopup.dom.get('slider_width_val'), 
-			slider_height = tinyMCEPopup.dom.get('slider_height_val');
+			slider_width = select('#slider_width_val'), 
+			slider_height = select('#slider_height_val');
 
 			if (slider_width && slider_height) {
 				slider_width.innerHTML = (image.width = new_w);
@@ -300,52 +300,52 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 	this.getManager(image_id, function(html){
 		// display panel
 		mcTabs.displayTab('manager_tab','manager_panel');
-		tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
-		tinyMCEPopup.dom.get('manager_tab').style.display = 'block';
+		select('#resize_tab').hide();
+		select('#manager_tab').show();
 		// hide spinner image
 		if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
 			anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
 		}
 		tinyMCEPopup.dom.setHTML('manager_panel', html);
 		//  bind action events
-		tinyMCEPopup.dom.get('update-image').onclick = function(e){
+		select('#update-image').onclick = function(e){
 			self.updateAsset(
 				image_id, 
-				tinyMCEPopup.dom.get('folderselect').options[tinyMCEPopup.dom.get('folderselect').selectedIndex].value.toString(),
-				tinyMCEPopup.dom.get('image-alttext').value.trim(),
-				tinyMCEPopup.dom.get('image-filename').value.trim()
+				select('#folderselect').options[select('#folderselect').selectedIndex].value.toString(),
+				select('#image-alttext').value.trim(),
+				select('#image-filename').value.trim()
 			);
 			return false;
 		};
-		tinyMCEPopup.dom.get('manager-actions').onchange = function(e){
+		select('#manager-actions').onchange = function(e){
 			switch(this.value) {
 				case 'delete' : self.deleteImage(image_id); this.value=''; break;
 				case 'insert' :  self.getImage(image_id, function(image){ self.loadResizer(image.id+image.extension); }); this.value=''; break;
 				case 'download' : self.downloadImage(image_id); this.value=''; break;
 			} 
 		};
-		tinyMCEPopup.dom.get('image-filename').onfocus = function(e){
+		select('#image-filename').onfocus = function(e){
 			this.extension = this.value.extension();
 			this.value = this.value.replace(new RegExp('\.'+this.extension+'$'), '');
 		};
-		tinyMCEPopup.dom.get('image-filename').onblur = function(e){
+		select('#image-filename').onblur = function(e){
 			this.value += '.'+this.extension;
 		};
 
 		// ensure the peview image is cached before showing the details
 		var previewImg = new Image(), onload = function(){
-			tinyMCEPopup.dom.get('loading').style.display = 'none';
-			tinyMCEPopup.dom.get('image-manager-details').style.display = 'block';
+			select('#loading').hide();
+			select('#image-manager-details').show();
 		};
 		previewImg.onload = onload;
 		previewImg.onerror = onload;
-		previewImg.src = tinyMCEPopup.dom.get('image-preview').src;
+		previewImg.src = select('#image-preview').src;
 
 		// the image is cached before binding click event so that we can get
 		// desired width and height of popup window based on image dimensions
 		var previewImgLarge = new Image(), onload = function(){
 			var img = this;
-			tinyMCEPopup.dom.get('image-preview-popup').onclick = function(){
+			select('#image-preview-popup').onclick = function(){
 				tinyMCE.activeEditor.windowManager.open({
 					url: self.settings.tinycimm_controller+'get/'+image_id+'/600/600',
 					inline: true,
