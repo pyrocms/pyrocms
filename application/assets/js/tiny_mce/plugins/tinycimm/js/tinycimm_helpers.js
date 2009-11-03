@@ -52,9 +52,8 @@ function extend(object, methods) {
 }
 
 function select(selector){
-	// can use sizzle selector engine through tinymce
-	var object = (typeof selector == "object") ? selector : document.getElementById(selector);
-	return extend(object);
+	var object = (typeof selector == "object") ? selector : tinyMCEPopup.dom.select(selector);
+	return (object.length != undefined && object.length) ? extend(object[0]) : extend(object);
 }
 
 var objMethods = {
@@ -64,6 +63,8 @@ var objMethods = {
 		speed = speed || 500;
 
 		var self = this, step = 0, interval = 10;
+
+		this.show();
 		
 		for(var timer=interval; timer<=speed; timer+=interval) {
 			setTimeout(function(){
@@ -96,7 +97,14 @@ var objMethods = {
 	},
 
 	hide : function(){
-		this.style.opacity = 0;
+		this.opacity(0);
+		this.style.display = 'none';
+		return this;
+	},
+
+	show : function(){
+		this.opacity(100);
+		this.style.display = 'inline-block';
 		return this;
 	},
 

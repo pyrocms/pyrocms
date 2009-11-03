@@ -22,6 +22,11 @@ class Link_Manager extends Controller {
 		$this->tinycimm->view_path = $this->view_path = $this->config->item('tinycimm_views_root').$this->config->item('tinycimm_views_root_link');
 	}
 
+	// returns the link dialog body HTML
+	public function get_dialog_body(){
+		$this->load->view($this->view_path.'dialog');
+	}
+
 	// returns the page tree html
 	public function get_browser($folder=0, $offset=0, $search='') {
 

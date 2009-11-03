@@ -29,7 +29,7 @@ TinyCIMM.prototype.getLang = function(){
 TinyCIMM.prototype.init = function(ed){
 	var self = this, node = ed.selection.getNode();
 	this.getDialogBody(function(response){
-		document.getElementById('body').innerHTML = response;
+		select('#body').html(response);
 		if (tinyMCEPopup.params.resize) {
 			self.loadResizer(node.src.toId()+'.'+node.src.extension(), false, node.width);
 		} else {
@@ -90,15 +90,15 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 		load = true;
 		TinyCIMMImage.recache = false;
 	} else {
-		load = tinyMCEPopup.dom.get('filelist') ? (load || false) : true;
+		load = select('#filelist') ? (load || false) : true;
 	}
 
 	mcTabs.displayTab('browser_tab','browser_panel');
 
 	// fix me
 	if (window.TinyCIMMImage) {
-		tinyMCEPopup.dom.get('resize_tab').style.display = 'none';
-		tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+		select('#resize_tab').style.display = 'none';
+		select('#manager_tab').style.display = 'none';
 	}
 
 	(load) && (this.fileBrowser) && this.fileBrowser(folder, offset, load, el);
@@ -106,7 +106,7 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 
 TinyCIMM.prototype.showUploader = function() {
 	mcTabs.displayTab('upload_tab','upload_panel');
-	tinyMCEPopup.dom.get('manager_tab').style.display = 'none';
+	select('#manager_tab').style.display = 'none';
 
 	(this.loadUploader) && this.loadUploader();
 };
@@ -118,7 +118,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 	offset = offset || 0;
 	search_query = search_query || '';
 
-	if (tinyMCEPopup.dom.get('img-'+folder) == null) {
+	if (!select('#img-'+folder)) {
 		tinyMCEPopup.dom.setHTML('filebrowser', '<span id="loading">loading</span>');
 	}
 	(this.type) && tinymce.util.XHR.send({
@@ -132,7 +132,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 			// insert the html
 			tinyMCEPopup.dom.setHTML('filebrowser', response);
 			// bind click event to pagination links
-			var pagination_anchors = tinyMCEPopup.dom.select('div.pagination a');
+			var pagination_anchors = select('div.pagination a');
 			for(var anchor in pagination_anchors) {
 				pagination_anchors[anchor].onclick = function(e){
 					e.preventDefault();
@@ -246,13 +246,13 @@ TinyCIMM.prototype.saveFolder = function(folder_id, folder_name, callback) {
 TinyCIMM.prototype.addFolder = function(type) {
 	type = type || 'image';
 	var self = this, 
-	foldername = encodeURIComponent(tinyMCEPopup.dom.get('add-folder-caption').value.replace(/^\s+|\s+$/g, '')),
+	foldername = encodeURIComponent(select('#add-folder-caption').value.replace(/^\s+|\s+$/g, '')),
 	requesturl = this.baseURL(this.settings.tinycimm_controller+'save_folder/'+foldername+'/'+type);
 
 	this.saveFolder(0, foldername, function(response){
 		if (response.outcome) {
-			tinyMCEPopup.dom.get('add-folder').style.display = 'none';
-			tinyMCEPopup.dom.get('add-folder-caption').value = '';
+			select('#add-folder').style.display = 'none';
+			select('#add-folder-caption').value = '';
 			self.showFlashMsg(self.lang.msg_folder_saved+"!");
 			self.getFoldersHTML(function(folderHTML){
 				tinyMCEPopup.dom.setHTML('folderlist', folderHTML)
@@ -262,9 +262,8 @@ TinyCIMM.prototype.addFolder = function(type) {
 };
 
 TinyCIMM.prototype.editFolder = function(folder_id){
-	var self = this, folder = document.getElementById('folder-'+folder_id);
-
-	select(folder).editInPlace(function(input_value){
+	var self = this;
+	select('#folder-'+folder_id).editInPlace(function(input_value){
 		self.saveFolder(folder_id, input_value, function(){
 			self.showFlashMsg(self.lang.msg_folder_saved+"!");
 			self.getFoldersHTML(function(folderHTML){
@@ -308,7 +307,7 @@ TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 			tinyMCEPopup.editor.windowManager.alert(self.lang.msg_xhr_error_selectlist+'.');
 		},
 		success : function(data) {
-			tinyMCEPopup.dom.get('folder-select-list').innerHTML = data;
+			select('folder-select-list').innerHTML = data;
 		}
 	});
 };
@@ -345,14 +344,14 @@ TinyCIMM.prototype.changeView = function(view) {
 
 TinyCIMM.prototype.doSearch = function(e, el){
 	if (e.keyCode == 13) {
-		tinyMCEPopup.dom.get('search-loading').style.display = 'inline-block';
+		select('search-loading').style.display = 'inline-block';
 		this.fileBrowser(0, 0, true, false, el.value.safeEscape());
 	}
 };
 	
 // reload dialog window to initial state
 TinyCIMM.prototype.reload = function() {
-	tinyMCEPopup.dom.get('info_tab_link').className = 'rightclick';
+	select('info_tab_link').className = 'rightclick';
 	setTimeout(function() {
 		window.location.reload();
 		tinyMCEPopup.resizeToInnerSize();
@@ -376,7 +375,7 @@ TinyCIMM.prototype.showOverlay = function() {
 
 TinyCIMM.prototype.showFlashMsg = function(message){
 	setTimeout(function(){
-		select('flash-msg').hide().html(message).fadeIn(450, function(self){
+		select('#flash-msg').hide().html(message).fadeIn(450, function(self){
 			setTimeout(function(){
 				self.fadeOut(400);
 			}, 3000);
