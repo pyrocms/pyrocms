@@ -5,9 +5,13 @@
 	<link type="text/css" rel="stylesheet" href="css/tinycimmimage.css" />
 </head>
 <body id="advimage" style="display: none">
-	<div id="test"></div>	
+	<div id="body"></div>
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script type="text/javascript">
+		var settings = tinyMCEPopup.editor.settings;
+		document.write('<script type="text/javascript" src="'+tinyMCEPopup.editor.documentBaseURI.toAbsolute(settings.tinycimm_image_controller+'get_javascript_lang')+'"><\/script>');
+	</script>
 	<script type="text/javascript" src="js/scrollslider.js"></script>
 	<script type="text/javascript" src="js/tinycimm_helpers.js"></script>
 	<script type="text/javascript" src="js/tinycimm.js"></script>
