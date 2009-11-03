@@ -218,7 +218,7 @@ ImageDialog.prototype.loadUploader = function() {
 	if (!tinyMCEPopup.dom.get('uploadform')) {
 		this.getUploader(function(html){
 			tinyMCEPopup.dom.get('upload_panel').innerHTML = html;
-			document.getElementById('fileupload').multiFileUpload();
+			select('fileupload').multiFileUpload();
 			document.getElementById('uploadform').onsubmit = function(e){
 				self.showOverlay();
 			};

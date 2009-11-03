@@ -16,14 +16,14 @@ function TinyCIMM(type){
 
 TinyCIMM.prototype.init = function(ed){
 	var self = this, node = ed.selection.getNode();
-	if (tinyMCEPopup.params.resize) {
-		this.loadResizer(node.src.toId()+'.'+node.src.extension(), false, node.width);
-	} else {
-		this.loadDialogBody(function(response){
-			document.getElementsByTagName('body')[0].innerHTML = response;
+	this.getDialogBody(function(response){
+		document.getElementsByTagName('body')[0].innerHTML = response;
+		if (tinyMCEPopup.params.resize) {
+			self.loadResizer(node.src.toId()+'.'+node.src.extension(), false, node.width);
+		} else {
 			self.showBrowser(0, 0, true);
-		});
-	}
+		}
+	});
 };
 
 TinyCIMM.prototype.baseURL = function(url) {
@@ -55,7 +55,7 @@ TinyCIMM.prototype.get = function(asset_id, callback){
 	});
 };
 
-TinyCIMM.prototype.loadDialogBody = function(callback){
+TinyCIMM.prototype.getDialogBody = function(callback){
 	tinymce.util.XHR.send({
 		url : this.baseURL(this.settings.tinycimm_controller+'get_dialog_body'),
 		type : "GET",
@@ -252,7 +252,7 @@ TinyCIMM.prototype.addFolder = function(type) {
 TinyCIMM.prototype.editFolder = function(folder_id){
 	var self = this, folder = document.getElementById('folder-'+folder_id);
 
-	folder.editInPlace(function(input_value){
+	select(folder).editInPlace(function(input_value){
 		self.saveFolder(folder_id, input_value, function(){
 			self.showFlashMsg('Folder successfully saved!');
 			self.getFoldersHTML(function(folderHTML){
@@ -364,7 +364,7 @@ TinyCIMM.prototype.showOverlay = function() {
 
 TinyCIMM.prototype.showFlashMsg = function(message){
 	setTimeout(function(){
-		document.getElementById('flash-msg').hide().html(message).fadeIn(450, function(self){
+		select('flash-msg').hide().html(message).fadeIn(450, function(self){
 			setTimeout(function(){
 				self.fadeOut(400);
 			}, 3000);
