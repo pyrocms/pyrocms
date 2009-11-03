@@ -295,7 +295,7 @@ class installer_m extends Model
 		$query_res	= $mysqli->multi_query($tables.$default_data.$dummy_data);
 				
 		// Validate the results
-		if(!isset($query_res) || $query_res === FALSE)
+		if(!isset($query_res) OR $query_res === FALSE)
 		{
 			return array('status' => FALSE,'message' => 'The installer could not create the tables or insert the data into the database. Please verify your settings.');
 		}	
@@ -324,6 +324,10 @@ class installer_m extends Model
 			{
 				return array('status' => FALSE,'message' => 'The config file could not be written, are you sure the file has the correct permissions ?');
 			}
+		}
+		else
+		{
+		    return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
 		}
 	}
 	
