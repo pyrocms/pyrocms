@@ -116,7 +116,7 @@
 			$(this).facebox({
 				opacity : 0.4,
 				loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",
-				closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif",
+				closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif"
 			 });
 		});
 		// End Facebox modal window
