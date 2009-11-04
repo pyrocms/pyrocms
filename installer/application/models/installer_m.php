@@ -21,7 +21,7 @@ class installer_m extends Model
 		if($type == 'set')
 		{
 			// Store the POST data in a session
-			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'http_server' => $data['http_server'],'step_1_passed' => TRUE);
+			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'port' => $data['port'],'http_server' => $data['http_server'],'step_1_passed' => TRUE);
 			$this->session->set_userdata($array);
 		}
 		// Remove the cookie
@@ -221,19 +221,29 @@ class installer_m extends Model
 			{
 				return FALSE;
 			}
-			
+			// Get the data from the $_POST array
 			$hostname = $data['server'];
 			$username = $data['username'];
 			$password = @$data['password'];
+			
+			if(!preg_match('/[a-zA-Z]/',$data['port']))
+			{
+				$port = $data['port'];
+			}
+			else
+			{
+				return FALSE;
+			}			
 		}
 		else
 		{
 			$hostname = $this->session->userdata('server');
 			$username = $this->session->userdata('username');
 			$password = $this->session->userdata('password');
+			$port	  = $this->session->userdata('port');
 		}
 		
-		return @mysql_connect($hostname,$username,$password);
+		return @mysql_connect("$hostname:$port",$username,$password);
 	}
 	
 	/**
@@ -248,10 +258,11 @@ class installer_m extends Model
 		$server 	= $this->session->userdata('server');
 		$username 	= $this->session->userdata('username');
 		$password 	= $this->session->userdata('password');
+		$port		= $this->session->userdata('port');
 		$database 	= $data['database'];
 		
 		// Create a connection using MySQLi
-		$mysqli = new mysqli($server,$username,$password);
+		$mysqli = new mysqli($server,$username,$password,'',$port);
 		
 		// Check connection
 		if($mysqli->connect_errno)
@@ -342,6 +353,7 @@ class installer_m extends Model
 		$server 	= $this->session->userdata('server');
 		$username 	= $this->session->userdata('username');
 		$password 	= $this->session->userdata('password');
+		$port		= $this->session->userdata('port');
 		
 		// Open the template file
 		$template 	= file_get_contents('application/assets/config/database.php');
@@ -351,6 +363,7 @@ class installer_m extends Model
 		$new_file   = str_replace('__USERNAME__',$username,	$new_file);
 		$new_file   = str_replace('__PASSWORD__',$password,	$new_file);
 		$new_file   = str_replace('__DATABASE__',$database,	$new_file);
+		$new_file	= str_replace('__PORT__',	 $port, 	$new_file);
 		
 		// Open the database.php file, show an error message in case this returns false
 		$handle 	= @fopen('../application/config/database.php','w+');

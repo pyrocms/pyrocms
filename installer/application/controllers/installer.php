@@ -79,7 +79,18 @@ class Installer extends Controller
 		}
 		
 		$view_data['server_options'] 	= $servers;
-		$data['page_output'] 			= $this->load->view('step_1',$view_data,TRUE);
+		
+		// Get the port from the session or set it to the default value when it isn't specified
+		if($this->session->userdata('port'))
+		{
+			$view_data['port'] = $this->session->userdata('port');
+		}
+		else
+		{
+			$view_data['port'] = 3306;
+		}
+		
+		$data['page_output']   = $this->load->view('step_1',$view_data,TRUE);
 		
 		// Load the view file
 		$this->load->view('global',$data);
