@@ -143,7 +143,7 @@ ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
 	tinymce.util.XHR.send({
 		url : url,
 		error : function(response) {
-			tinyMCEPopup.editor.windowManager.alert('There was an error processing the request: '+response+"\nPlease try again.");
+			tinyMCEPopup.editor.windowManager.alert(self.lang.msg_xhr_error_general+".");
 		},
 		success : function(response) {
 			var image = tinymce.util.JSON.parse(response);
@@ -218,7 +218,7 @@ ImageDialog.prototype.loadUploader = function() {
 	if (!tinyMCEPopup.dom.get('uploadform')) {
 		this.getUploader(function(html){
 			tinyMCEPopup.dom.get('upload_panel').innerHTML = html;
-			document.getElementById('fileupload').multiFileUpload();
+			select('fileupload').multiFileUpload();
 			document.getElementById('uploadform').onsubmit = function(e){
 				self.showOverlay();
 			};
@@ -243,7 +243,7 @@ ImageDialog.prototype.loadResizer = function(filename, event) {
 		self.showResizeImage(this);
 	};
 	img.onerror = function(){
-		tinyMCEPopup.editor.windowManager.alert('There was an error loading the image.');
+		tinyMCEPopup.editor.windowManager.alert(self.lang.msg_error_imageload+".");
 	};
 	img.src = this.settings.tinycimm_assets_path+filename;
 	if (!img.complete) {
@@ -333,18 +333,17 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 		};
 
 		// ensure the peview image is cached before showing the details
-		var previewImg = new Image();
-		previewImg.onload = function(){
+		var previewImg = new Image(), onload = function(){
 			tinyMCEPopup.dom.get('loading').style.display = 'none';
 			tinyMCEPopup.dom.get('image-manager-details').style.display = 'block';
 		};
-		previewImg.onerror = function(){};
+		previewImg.onload = onload;
+		previewImg.onerror = onload;
 		previewImg.src = tinyMCEPopup.dom.get('image-preview').src;
 
 		// the image is cached before binding click event so that we can get
 		// desired width and height of popup window based on image dimensions
-		var previewImgLarge = new Image();
-		previewImgLarge.onload = function(){
+		var previewImgLarge = new Image(), onload = function(){
 			var img = this;
 			tinyMCEPopup.dom.get('image-preview-popup').onclick = function(){
 				tinyMCE.activeEditor.windowManager.open({
@@ -356,7 +355,8 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 				return false;
 			};	
 		};
-		previewImgLarge.onerror = function(){};
+		previewImgLarge.onload = onload;
+		previewImgLarge.onerror = onload;
 		previewImgLarge.src = self.settings.tinycimm_controller+'get/'+image_id+'/600/600';
 	});
 }
@@ -374,7 +374,7 @@ ImageDialog.prototype.assetUploaded = function(folder_id) {
 		remove[i].parentNode.removeChild(remove[i]);
 	}
 	this.showBrowser(folder_id);
-	this.showFlashMsg('Images successfully uploaded!');
+	this.showFlashMsg(self.lang.msg_uploaded_images+".");
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {

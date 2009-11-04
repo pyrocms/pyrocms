@@ -58,7 +58,7 @@ p {
 	width: 9px;
 	height: 9px;
 	background: url(../img/hitarea_sprite.gif) no-repeat;
-	margin: 2px 4px 0px 0px;
+	margin: 3px 4px 0px 0px;
 	cursor: pointer;
 }
 

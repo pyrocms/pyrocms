@@ -19,6 +19,7 @@ class Image_Manager extends Controller {
 		$this->load->library('tinycimm');
 		$this->load->model('tinycimm_model');
 		$this->load->config('tinycimm');
+		$this->lang->load('tinycimm');
 		!$this->session->userdata('cimm_view') and $this->session->set_userdata('cimm_view', 'thumbnails');
 		$this->tinycimm->view_path = $this->view_path = $this->config->item('tinycimm_views_root').$this->config->item('tinycimm_views_root_image');
 	}
@@ -37,11 +38,29 @@ class Image_Manager extends Controller {
 			$this->tincimm->response_encode(array('outcome' => false, 'message' => 'Image not found.'));
 		}
 	}
+
+	// returns the language config for use in the tinymce dialog
+	public function get_javascript_lang(){
+		header('Content-Type: text/javascript');
+		$this->data->dialog_lang = array();
+		foreach($this->lang->language as $key => $item) {
+			if (preg_match('/^tinycimm_dialog/', $key)) {
+				$this->data->dialog_lang[$key] = $item;
+			}
+		}
+		echo $this->load->view($this->view_path.'tinymce_lang', $this->data, true);
+		exit;
+	}
 	
 	// handles asset uploads and inserts info into database
 	public function upload(){
 		$folder_id = $this->tinycimm->upload_assets($this->config->item('tinycimm_image_upload_config'));
 		$this->load->view($this->view_path.'fragments/upload_finished', array('folder_id' => $folder_id));
+	}
+
+	// returns the image dialog body HTML
+	public function get_dialog_body(){
+		$this->load->view($this->view_path.'dialog');
 	}
 
 	// return the image manager panel HTML
