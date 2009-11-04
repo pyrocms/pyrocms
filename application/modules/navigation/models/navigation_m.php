@@ -1,5 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * @package 		PyroCMS
+ * @subpackage 		Navigation Module
+ * @author			Phil Sturgeon - PyroCMS Development Team
+ * 
+ * Navigation model for the navigation module.
+ */
 class Navigation_m extends Model {
 
 	function getLink($id = 0)
@@ -101,7 +107,7 @@ class Navigation_m extends Model {
     		{
 	    		foreach($group_links as &$link)
 	    		{
-	    			$full_match = site_url($this->uri->uri_string()) == $link->url;
+	    			$full_match 	= site_url($this->uri->uri_string()) == $link->url;
 	    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
 	    			
 	    			// Either the whole URI matches, or the first segment matches
@@ -138,6 +144,7 @@ class Navigation_m extends Model {
         	'module_name' 			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
         	'position'				=> (int) $input['position'],
+			'target'				=> $input['target'],
         	'navigation_group_id'	=> (int) $input['navigation_group_id']
 		));
         
@@ -156,6 +163,7 @@ class Navigation_m extends Model {
         	'module_name'			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
         	'position' 				=> (int) $input['position'],
+			'target'				=> $input['target'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id']
 		), array('id' => $id));
 		

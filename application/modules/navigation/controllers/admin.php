@@ -1,5 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * @package 		PyroCMS
+ * @subpackage 		Navigation Module
+ * @author			Phil Sturgeon - PyroCMS Development Team
+ * 
+ * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
+ */
 class Admin extends Admin_Controller
 {
 	function __construct()
@@ -40,6 +46,8 @@ class Admin extends Admin_Controller
 			//... and get navigation links for each one
 			$this->data->navigation[$group->abbrev] = $this->navigation_m->getLinks(array('group'=>$group->id, 'order'=>'position, title'));
 		}
+		
+		// Create the layout
 		$this->layout->create('admin/index', $this->data);
 	}
 	
@@ -47,19 +55,20 @@ class Admin extends Admin_Controller
 	function create()
 	{
 		$this->load->library('validation');
-		$rules['title'] = 'trim|required|max_length[40]';
-		$rules['url'] = 'trim';
-		$rules['uri'] = 'trim';
-		$rules['module_name'] = 'trim|alpha_dash';
-		$rules['page_id'] = 'trim|numeric';
-		$rules['navigation_group_id'] = 'trim|numeric|required';
-		$rules['position'] = 'trim|numeric|required';
+		$rules['title'] 				= 'trim|required|max_length[40]';
+		$rules['url'] 					= 'trim';
+		$rules['uri'] 					= 'trim';
+		$rules['module_name'] 			= 'trim|alpha_dash';
+		$rules['page_id'] 				= 'trim|numeric';
+		$rules['navigation_group_id'] 	= 'trim|numeric|required';
+		$rules['position'] 				= 'trim|numeric|required';
+		$rules['target']				= 'trim|max_length[10]';
 		
 		$this->validation->set_rules($rules);
 		
-		$fields['module_name'] = 'Module';
-		$fields['page_id'] = 'Page';
-		$fields['navigation_group_id'] = 'Group';
+		$fields['module_name'] 			= 'Module';
+		$fields['page_id'] 				= 'Page';
+		$fields['navigation_group_id'] 	= 'Group';
 		
 		$this->validation->set_fields($fields);
 		
@@ -99,19 +108,20 @@ class Admin extends Admin_Controller
 		
 		$this->load->library('validation');
 		
-		$rules['title'] = 'trim|required|max_length[40]';
-		$rules['url'] = 'trim';
-		$rules['uri'] = 'trim';
-		$rules['module_name'] = 'trim|alpha_dash';
-		$rules['page_id'] = 'trim|numeric';
-		$rules['navigation_group_id'] = 'trim|numeric|required';
-		$rules['position'] = 'trim|numeric|required';
+		$rules['title'] 				= 'trim|required|max_length[40]';
+		$rules['url'] 					= 'trim';
+		$rules['uri'] 					= 'trim';
+		$rules['module_name'] 			= 'trim|alpha_dash';
+		$rules['page_id'] 				= 'trim|numeric';
+		$rules['navigation_group_id'] 	= 'trim|numeric|required';
+		$rules['position'] 				= 'trim|numeric|required';
+		$rules['target']				= 'trim|max_length[10]';
 		
 		$this->validation->set_rules($rules);
 		
-		$fields['module_name'] = 'Module';
-		$fields['page_id'] = 'Page';
-		$fields['navigation_group_id'] = 'Group';
+		$fields['module_name'] 			= 'Module';
+		$fields['page_id'] 				= 'Page';
+		$fields['navigation_group_id'] 	= 'Group';
 		
 		$this->validation->set_fields($fields);
 		
