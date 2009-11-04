@@ -63,7 +63,7 @@ $autoload['helper'] = array('url', 'form', 'language', 'pages' => 'pages', 'matc
 |	$autoload['plugin'] = array('captcha', 'js_calendar');
 */
 
-$autoload['plugin'] = array();
+$autoload['plugin'] = array('gravatars');
 
 
 /*
