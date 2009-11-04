@@ -7,6 +7,7 @@
 	<p><label for="server">Server</label><?php echo form_input('server', $this->session->userdata('server'), 'class="input-text"'); ?></p>
 	<p><label for="username">Username</label><?php echo form_input('username', $this->session->userdata('username'), 'class="input-text"'); ?></p>
 	<p><label for="password">Password</label><?php echo form_password('password', $this->session->userdata('password'), 'class="input-text"'); ?></p>
+	<p><label for="port">Port</label><?php echo form_input('port', $port, 'class="input-text"'); ?></p>
 	<h3>Server Settings</h3>
 	<p><label for="http_server">HTTP Server</label><?php echo form_dropdown('http_server', $server_options, 'apache','id=http_server'); ?></p>
 	<input type="hidden" name="installation_step" value="step_1" />
