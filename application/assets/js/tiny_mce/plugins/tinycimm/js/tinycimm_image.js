@@ -374,7 +374,7 @@ ImageDialog.prototype.assetUploaded = function(folder_id) {
 		remove[i].parentNode.removeChild(remove[i]);
 	}
 	this.showBrowser(folder_id);
-	this.showFlashMsg(self.lang.msg_uploaded_images+".");
+	this.showFlashMsg(this.lang.msg_uploaded_images+".");
 }
 	
 ImageDialog.prototype.deleteImage = function(imageid) {

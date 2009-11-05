@@ -132,7 +132,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 			// insert the html
 			tinyMCEPopup.dom.setHTML('filebrowser', response);
 			// bind click event to pagination links
-			var pagination_anchors = select('div.pagination a');
+			var pagination_anchors = tinyMCEPopup.dom.select('div.pagination a');
 			for(var anchor in pagination_anchors) {
 				pagination_anchors[anchor].onclick = function(e){
 					e.preventDefault();
