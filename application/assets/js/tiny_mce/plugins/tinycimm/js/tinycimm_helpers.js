@@ -52,10 +52,19 @@ function extend(object, methods) {
 }
 
 function select(selector){
-	var object = (typeof selector == "object") ? selector : tinyMCEPopup.dom.select(selector);
-	return (object.length != undefined && object.length) ? extend(object[0]) : extend(object);
+	// is the selector a DOM object?
+	if (typeof selector == "object" && typeof selector.nodeName == "string") {
+		return extend(selector);
+	} 
+	// use sizzle to find our DOM object and extend it
+	else {
+		var object = tinyMCEPopup.dom.select(selector);
+		return (object.length) ? extend(object[0]) : extend(object);
+	}
 }
 
+// custom object methods that are used in extending DOM objects
+// 'this' scope refers to the actual DOM object
 var objMethods = {
 
 	fade : function(dir, speed, callback){
@@ -64,8 +73,6 @@ var objMethods = {
 
 		var self = this, step = 0, interval = 10;
 
-		this.show();
-		
 		for(var timer=interval; timer<=speed; timer+=interval) {
 			setTimeout(function(){
 				('out' == dir)
@@ -98,13 +105,14 @@ var objMethods = {
 
 	hide : function(){
 		this.opacity(0);
-		this.style.display = 'none';
 		return this;
 	},
 
-	show : function(){
+	show : function(inline){
 		this.opacity(100);
-		this.style.display = 'inline-block';
+		if (this.style.display == 'none') {
+			this.style.display = 'block';
+		}
 		return this;
 	},
 
