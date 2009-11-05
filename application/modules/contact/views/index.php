@@ -49,6 +49,17 @@
 			<?php echo form_textarea(array('id'=>'message', 'name'=>'message', 'value'=>$form_values->message, 'rows'=>8, 'style'=>'width:100%'));?>
 			
 			<?php if($this->settings->item('captcha_enabled') && !$this->user_lib->logged_in()): ?>
+				<?
+					// add captcha
+					$this->load->plugin('captcha');
+					$vals = array(
+						'img_path'	 => APPPATH.$this->settings->item('captcha_folder'),
+						'img_url'	 => base_url().APPPATH_URI.$this->settings->item('captcha_folder')
+					);
+
+					$captcha = create_captcha($vals);
+					$this->session->set_flashdata('captcha_'.$captcha['time'], $captcha['word']);	
+				?>
 			<p>
 				<?php echo lang('contact_capchar_text');?>
 				<?php echo $captcha['image'];?><br />

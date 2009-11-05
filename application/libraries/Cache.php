@@ -67,7 +67,11 @@ class Cache
 	 */
     public function library($library, $method, $arguments = array(), $expires = null)
     {
-    	$this->ci->load->library($library);
+    	if(!in_array(ucfirst($library), $this->ci->load->_ci_classes))
+    	{
+    		$this->ci->load->library($library);
+    	}
+
     	return $this->call($library, $method, $arguments, $expires);
     }
     
@@ -79,7 +83,11 @@ class Cache
 	 */
     public function model($model, $method, $arguments = array(), $expires = null)
     {
-    	$this->ci->load->model($model);
+    	if(!in_array(ucfirst($model), $this->ci->load->_ci_classes))
+    	{
+    		$this->ci->load->model($model);
+    	}
+
     	return $this->call($model, $method, $arguments, $expires);
     }
     
