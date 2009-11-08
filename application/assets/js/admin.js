@@ -4,7 +4,42 @@
 	
 		// Sort any tables with a class of 'sortable'
 		$('table.listTable').livequery(function() {
-			($("thead th", this).length === $("tbody td", this).length) && $(this).tablesorter();
+			($("thead th", this).length === $('tbody td', this).length) && $(this).tablesorter();
+			
+			// A row can be selected via check or CTRL + click
+			toggleRowChecked = function(row, checkbox)
+			{
+				if(row.hasClass('selected'))
+				{
+					row.removeClass('selected');
+					checkbox.attr('checked', false);
+					console.log('remove');
+				}
+			
+				else
+				{
+					row.addClass('selected');
+					checkbox.attr('checked', 'checked');
+					console.log('give');
+				}
+			}
+			
+			$('tbody td', this).click(function(e) {
+				if(e.ctrlKey || e.metaKey)
+				{
+					row = $(this).parent('tr');
+					checkbox = row.find('input[type="checkbox"]');
+					
+					toggleRowChecked(row, checkbox);
+				}
+			});
+			
+			$('tbody td input[type="checkbox"]', this).change(function() {
+				row = $(this).parent('td').parent('tr');
+				checkbox = $(this);
+
+				toggleRowChecked(row, checkbox);
+			});
 		});
 		
 		// Link confirm box
@@ -18,7 +53,7 @@
 				});
 			*/
 			
-			return confirm('Are you sure you wish to delete this item?');
+			//return confirm('Are you sure you wish to delete this item?');
 		});
 		
 		// Form submit confirm box
