@@ -381,12 +381,18 @@ button.small-button:hover strong {
 	border: none;
 }
 
-.listTable {
+.content .listTable {
 	width: 100%;
 }
 
-.listTable td,.listTable th {
+.listTable tbody tr:nth-child(even) { background: #ddd; }
+.listTable tbody tr:nth-child(odd)	{ background: white; /*lightyellow;*/ }
+.listTable tbody tr.selected 		{ background: lightyellow; }
+
+.listTable td, .listTable th {
 	padding: 0em;
+	border-collapse: collapse;
+	border-spacing:0px; 
 }
 
 .listTable thead th,.listTable thead div {
@@ -456,39 +462,9 @@ button.small-button:hover strong {
 .content .listTable tbody td {
 	padding: 5px;
 	vertical-align: top;
-	background: url(../../img/admin/table-border.gif) no-repeat bottom left;
 /* Align it with tfoot and thead */
 }
 
-.listTable tbody td a {
-/*background:url(../../img/admin/sprite.png) no-repeat 0px -2310px; /* border bottom and left */
-	
-}
-
-.listTable tbody tr:hover td { /*background-position:1px -2340px;*/
-	
-}
-
-.listTable tbody tr:hover td a {
-	
-}
-
-.listTable tbody td.last {
-/*background:url(../../img/admin/sprite.png) no-repeat 100% -2700px; /* Shadow */
-	
-}
-
-.listTable tbody td.last a {
-/*	background:url(../../img/admin/sprite.png) no-repeat 0px -2310px;
-
-	margin-right:2px; /* Do not overlap shadow */
-	
-}
-
-.listTable tbody tr:hover td.last {
-/*background-position:100% -2700px;*/
-	
-}
 
 .listTable tbody td input.checkbox {
 	margin: 0px 10px;

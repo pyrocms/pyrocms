@@ -36,11 +36,11 @@
 						
 						<div class="field">
 							<?php echo lang('password_label', 'password');?>
-							<?php echo form_password('password', $this->validation->email); ?>
+							<?php echo form_password('password', $this->validation->password); ?>
 						</div>
 						
 						<div class="clear-both login-submit">
-							<? /* ?><span class="fleft">
+							<?php /* <span class="fleft">
 								<input type="checkbox" name="remember-me" id="remember-me" />
 								<label for="remember-me">Remember me</label>
 							</span> */?>
