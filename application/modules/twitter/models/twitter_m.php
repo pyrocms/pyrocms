@@ -9,7 +9,7 @@ class Twitter_m extends Model {
 		parent::Model();
 		
 		$this->CI =& get_instance();
-		$this->CI->load->library('twitter_lib');
+		$this->CI->load->library('twitter/twitter_lib');
 		
 		// Authenticate the user once per page load
 		$this->CI->twitter_lib->auth($this->CI->settings->item('twitter_username'), $this->CI->settings->item('twitter_password'));

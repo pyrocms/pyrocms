@@ -8,8 +8,8 @@ class News extends Public_Controller
 	{
 		parent::Public_Controller();		
 		$this->load->model('news_m');
-		$this->load->module_model('categories', 'categories_m');
-		$this->load->module_model('comments', 'comments_m');        
+		$this->load->model('categories/categories_m');
+		$this->load->model('comments/comments_m');        
 		$this->load->helper('text');
 		$this->lang->load('news');
 		

@@ -41,8 +41,18 @@ class MY_Exceptions extends CI_Exceptions {
 			redirect('error_404');
 			exit;
 		}
+	
+		elseif(function_exists('lang'))
+		{
+			parent::show_404();
+		}
 		
-		parent::show_404();
+		else
+		{
+			echo "<pre>";
+			print_r(debug_backtrace());
+			show_error('Something very f**ked up has happened. Perhaps page manager?');
+		}
 	}
 
 }

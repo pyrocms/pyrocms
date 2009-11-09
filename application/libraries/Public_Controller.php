@@ -15,8 +15,8 @@ class Public_Controller extends MY_Controller
 	    }
 		
 	    // -- Navigation menu -----------------------------------
-	    $this->load->module_model('pages', 'pages_m');
-	    $this->load->module_model('navigation', 'navigation_m');
+	    $this->load->model('pages/pages_m');
+	    $this->load->model('navigation/navigation_m');
 	        
 	    $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
 		
@@ -38,7 +38,7 @@ class Public_Controller extends MY_Controller
 	    $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 	    
 	    // If there is a news module, link to its RSS feed in the head
-	    if(is_module('news'))
+	    if(module_exists('news'))
 	    {
 			$this->layout->extra_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
 	    }

@@ -32,11 +32,11 @@
 	</div>
 	<!-- Module body -->
 	<div class="module_body">
-		<?php echo $this->load->module_view('comments', 'comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $article->id, 'is_active' => 1)))); ?>
+		<?php echo $this->load->view('comments/comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $article->id, 'is_active' => 1)))); ?>
 	</div>
 	<!-- Module bottom -->
 	<div class="module_bottom">
 		<h3><?php echo lang('news_your_comments_label');?></h3>
-		<?php echo $this->load->module_view('comments', 'form', array('module'=>$this->module, 'id' => $article->id)); ?> 
+		<?php echo $this->load->view('comments/form', array('module'=>$this->module, 'id' => $article->id)); ?> 
 	</div>
 </div>

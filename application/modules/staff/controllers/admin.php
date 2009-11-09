@@ -324,7 +324,7 @@ class Admin extends Admin_Controller
 
 	function _user_select()
 	{
-		$this->load->module_model('users', 'users_m');
+		$this->load->model('users/users_m');
 		$this->data->users = array(0=> $this->lang->line('staff_user_select_default'));
 		foreach($this->users_m->getUsers(array('order'=>'full_name')) as $user)
 		{

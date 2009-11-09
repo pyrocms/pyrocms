@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'session', 'cache', 'layout', 'settings'=>'settings', 'widgets');
+$autoload['libraries'] = array('database', 'session', 'cache', 'layout', 'settings/settings', 'widgets');
 
 
 /*
@@ -51,7 +51,7 @@ $autoload['libraries'] = array('database', 'session', 'cache', 'layout', 'settin
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'language', 'pages' => 'pages', 'matchbox', 'xhtml', 'asset', 'pagination', 'debug');
+$autoload['helper'] = array('url', 'form', 'language', 'pages/pages', 'modules/module', 'xhtml', 'asset', 'pagination', 'debug');
 
 
 /*
@@ -95,7 +95,7 @@ $autoload['config'] = array('asset', 'language');
 |
 */
 
-$autoload['language'] = array('main', 'errors', 'fragments', 'users' => 'user');
+$autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
 
 
 /*
@@ -108,7 +108,7 @@ $autoload['language'] = array('main', 'errors', 'fragments', 'users' => 'user');
 |
 */
 
-$autoload['model'] = array('permissions' => 'permissions_m', 'news'=>'news_m', 'modules_m', 'pages'=>'pages_m');
+$autoload['model'] = array('permissions/permissions_m', 'news/news_m', 'modules_m', 'pages/pages_m');
 
 
 /*

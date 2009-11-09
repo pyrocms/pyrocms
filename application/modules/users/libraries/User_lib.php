@@ -41,7 +41,7 @@ class User_lib
         log_message('debug', "User_lib Class Initialized");
         
 		$this->CI->load->library('session');
-        $this->CI->load->module_model('users', 'users_m');
+        $this->CI->load->model('users/users_m');
         
         $this->CI->lang->load('email');
         
