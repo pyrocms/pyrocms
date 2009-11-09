@@ -310,12 +310,12 @@ class TinyCIMM {
 	
 	private function check_permissions(){
 		// Make sure we have the user module
-		if( ! is_module('users') ) {
+		if( ! module_exists('users') ) {
 			die('The user module is missing.');
 		} else {
 			// Load the user model and get user data
-			$this->ci->load->module_model('users', 'users_m');
-			$this->ci->load->module_library('users', 'user_lib');
+			$this->ci->load->model('users/users_m');
+			$this->ci->load->library('users/user_lib');
 			$this->user =& $this->ci->user_lib->user_data;
 		}
 

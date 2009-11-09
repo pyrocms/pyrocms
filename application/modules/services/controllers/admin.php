@@ -5,13 +5,13 @@ class Admin extends Admin_Controller
 	function __construct()
 	{
 		parent::Admin_Controller();
-		$this->load->module_model('services', 'services_m');
+		$this->load->model('services/services_m');
 		$this->lang->load('services');
 		
 		$this->data->pay_per_options = array(
-			'' 			=>	lang('service_one_off_label'), 
+			'' 		=>	lang('service_one_off_label'), 
 			'hour'	=>	lang('service_per_hour_label'),
-			'day'		=>	lang('service_per_day_label'),
+			'day'	=>	lang('service_per_day_label'),
 			'week'	=>	lang('service_per_week_label'),
 			'month'	=>	lang('service_per_month_label'),
 			'year'	=>	lang('service_per_year_label')

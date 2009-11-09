@@ -1,12 +1,14 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Sneak extends Controller {
+// This does sod all right now, will finish it one day (perhaps)
 
+class Sneak extends Controller
+{
 	function __construct() {
     	parent::Controller();
     	
         $this->load->library('session');
-		$this->load->module_library('users', 'user_lib');
+		$this->load->library('users/user_lib');
 		
 		$this->load->library('proxy', 'utilities/sneak/fetch');
 		

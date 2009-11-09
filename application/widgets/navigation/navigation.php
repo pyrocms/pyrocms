@@ -6,15 +6,14 @@
  * @package PyroCMS
  * @license MIT License
  * 
- * This widget displays a list of recent articles
+ * This widget displays a list of links
  */
-class Navigation extends Widgets {
-	
-	
+class Navigation extends Widgets
+{
 	// Run function
 	function run()
 	{
-		$this->CI->load->module_model('navigation','navigation_m');
+		$this->CI->load->model('navigation/navigation_m');
 		print_r($this->CI->navigation_m->getLinks(array('group' => 2)));
 	}
 	

@@ -42,7 +42,6 @@ class Layout {
 
     var $title_separator = ' | ';
     
-    var $folder_mode = 'matchbox'; // 'subdir', 'matchbox'
     var $html_mode = false;
 
     // Seconds that cache will be alive for
@@ -62,9 +61,9 @@ class Layout {
         log_message('debug', 'Layout class Initialized');
 
         // If no module is set yet, use the current module
-        if($this->_module == '' && $this->CI->matchbox->fetch_module() != '')
+        if($this->_module == '' && $this->CI->router->fetch_module() != '')
         {
-        	$this->_module = str_replace(array('modules/', '/'), '', $this->CI->matchbox->fetch_module());
+        	$this->_module = str_replace(array('modules/', '/'), '', $this->CI->router->fetch_module());
     	}
         
     	// Work out the controller and method
@@ -130,7 +129,7 @@ class Layout {
             
 	    	else
 	    	{
-	    		$output = $this->CI->load->module_view($this->_module, $this->page_body, $this->data, TRUE);
+	    		$output = $this->CI->load->view($this->_module.'/'.$this->page_body, $this->data, TRUE);
 	    	}
         }
         

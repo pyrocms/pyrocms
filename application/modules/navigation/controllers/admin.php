@@ -12,8 +12,7 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('navigation_m');
-		$this->load->module_model('pages', 'pages_m');
-		$this->load->module_helper('pages', 'pages');        
+		$this->load->model('pages/pages_m');
 		$this->load->helper('array');		
 		$this->lang->load('navigation');
 		
@@ -22,6 +21,7 @@ class Admin extends Admin_Controller
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'title');				
 		$modules = $this->modules_m->getModules(array('is_frontend'=>true));
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');				
+		
 		// Get Pages and create pages tree
 		$tree = array();
 		

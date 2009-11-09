@@ -13,14 +13,12 @@
 				{
 					row.removeClass('selected');
 					checkbox.attr('checked', false);
-					console.log('remove');
 				}
 			
 				else
 				{
 					row.addClass('selected');
 					checkbox.attr('checked', 'checked');
-					console.log('give');
 				}
 			}
 			
@@ -53,7 +51,7 @@
 				});
 			*/
 			
-			//return confirm('Are you sure you wish to delete this item?');
+			return confirm('Are you sure you wish to delete this item?');
 		});
 		
 		// Form submit confirm box

@@ -8,7 +8,7 @@ class Settings {
 	
 	function __construct() {
 		$this->CI =& get_instance();
-		$this->CI->load->module_model('settings', 'settings_m');
+		$this->CI->load->model('settings/settings_m');
 	}
 	
 	function item($slug = '') {

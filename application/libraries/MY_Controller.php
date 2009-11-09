@@ -12,7 +12,7 @@ class MY_Controller extends Controller
 		parent::Controller();
 		
         // Make sure we have the user module
-        if( ! is_module('users') )
+        if( ! module_exists('users') )
         {
         	show_error('The user module is missing.');
         }
@@ -20,18 +20,16 @@ class MY_Controller extends Controller
         else
         {
 	        // Load the user model and get user data
-	        $this->load->module_model('users', 'users_m');
-	        $this->load->module_library('users', 'user_lib');
+	        $this->load->model('users/users_m');
+	        $this->load->library('users/user_lib');
 	        
 	        $this->data->user =& $this->user_lib->user_data;
         }
         
         // Work out module, controller and method and make them accessable throught the CI instance
-        $this->module 				= trim($this->matchbox->fetch_module(), '/');
-        $this->controller			= strtolower(get_class($this));
-        $s 							= $this->uri->rsegment_array();
-        $n 							= array_search($this->controller, $s);
-        $this->method 				= $this->uri->rsegment($n+1);
+        $this->module 				= $this->router->fetch_module();
+        $this->controller			= $this->router->fetch_class();
+        $this->method 				= $this->router->fetch_method();
 		
 		// Get meta data for the module
         $this->module_data 			= $this->modules_m->getModule($this->module);

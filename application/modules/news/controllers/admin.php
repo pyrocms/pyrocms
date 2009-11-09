@@ -23,7 +23,7 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		
 		$this->load->model('news_m');
-		$this->load->module_model('categories', 'categories_m');
+		$this->load->model('categories/categories_m');
 		$this->load->helper('date');
 		$this->lang->load('news');
 		
@@ -124,7 +124,7 @@ class Admin extends Admin_Controller
 				if($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
 					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.str_pad($this->input->post('created_on_month'), 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
-					$this->load->module_model('twitter', 'twitter_m');
+					$this->load->model('twitter/twitter_m');
 					$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url));
 				}
 				// End twitter code

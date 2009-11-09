@@ -6,7 +6,7 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('products_m');
-		$this->load->module_model('categories', 'categories_m');
+		$this->load->model('categories/categories_m');
 		$this->lang->load('products');
 	}
 	
@@ -63,7 +63,7 @@ class Admin extends Admin_Controller
 			$this->data->product->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
 		}
 		
-		$this->load->module_model('suppliers', 'suppliers_m');
+		$this->load->model('suppliers/suppliers_m');
 		$this->data->categories = $this->categories_m->getCategories();
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
 		
@@ -130,7 +130,7 @@ class Admin extends Admin_Controller
 			redirect('admin/products/index');
 		}
 		
-		$this->load->module_model('suppliers', 'suppliers_m');
+		$this->load->model('suppliers/suppliers_m');
 		$this->data->categories = $this->categories_m->getCategories();
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
 		

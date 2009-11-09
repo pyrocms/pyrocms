@@ -6,7 +6,7 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('suppliers_m');
-		$this->load->module_model('categories', 'categories_m');
+		$this->load->model('categories/categories_m');
 		$this->lang->load('suppliers');
 	}
 	

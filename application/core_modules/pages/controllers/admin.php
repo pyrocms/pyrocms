@@ -21,7 +21,7 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('pages_m');
-		$this->load->module_model('navigation', 'navigation_m');
+		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');	
 		
 		$this->load->helper(array('array', 'pages'));

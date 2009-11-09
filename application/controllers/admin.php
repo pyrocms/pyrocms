@@ -10,9 +10,8 @@ class Admin extends Admin_Controller
 	function __construct()
 	{
   		parent::Admin_Controller();
-		$this->load->module_library('users', 'user_lib');
-		$this->load->module_language('users', 'user');
-		$this->load->module_helper('users', 'user');
+		$this->load->library('users/user_lib');
+		$this->load->helper('users/user');
  	}
 
  	// Admin: Control Panel
@@ -23,10 +22,10 @@ class Admin extends Admin_Controller
  		$this->data->modules = $this->modules_m->getModules();
 		
 		// Don't you love the smell of burning CPUs in the morning ?
-		$this->load->module_model('comments','comments_m');
-		$this->load->module_model('pages','pages_m');
-		$this->load->module_model('news','news_m');
-		$this->load->module_model('users','users_m');
+		$this->load->model('comments/comments_m');
+		$this->load->model('pages/pages_m');
+		$this->load->model('news/news_m');
+		$this->load->model('users/users_m');
 		
 		// Count comment related stuff
 		$this->data->total_comments			= $this->comments_m->countComments();

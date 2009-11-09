@@ -22,7 +22,7 @@ class Rss extends Public_Controller
 	
 	function category( $slug = '')
 	{ 
-		$this->load->module_model('categories', 'categories_m');
+		$this->load->model('categories/categories_m');
 		
 		if(!$category = $this->categories_m->getCategory($slug))
 		{
