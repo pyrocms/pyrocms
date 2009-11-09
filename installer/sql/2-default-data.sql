@@ -3,6 +3,9 @@ insert into `navigation_groups` values
  ('1','Header','header'),
  ('2','Sidebar','sidebar'),
  ('3','Footer','footer');
+ 
+truncate navigation_links;
+insert into navigation_links values('1', 'Home', 1, '', '', '', 1, 1, '');
 
 truncate `pages`;
 insert into `pages` values('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','default','','','','1219336535');

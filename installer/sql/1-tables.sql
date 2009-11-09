@@ -78,6 +78,7 @@ CREATE TABLE `navigation_links` (
   `uri` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `navigation_group_id` int(5) NOT NULL default '0',
   `position` int(5) NOT NULL default '0',
+  `target` varchar(10) NULL default NULL,
   PRIMARY KEY  (`id`),
   KEY `navigation_group_id - normal` (`navigation_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
