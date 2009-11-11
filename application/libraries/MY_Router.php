@@ -47,6 +47,8 @@ class MY_Router extends CI_Router
 {
 	private $module;
 	
+	private $catch_all; // Phil magic
+	
 	public function fetch_module() {
 		return $this->module;
 	}
@@ -104,10 +106,29 @@ class MY_Router extends CI_Router
 				}
 			}
 		}
-	
+		
 		/* not a module controller */
 		return parent::_validate_request($segments);
 	}
+	/*
+	// Phil magic
+	function _parse_routes()
+	{
+		if(array_key_exists('catch_all', $this->routes))
+		{
+			$this->catch_all = strtolower($this->routes['catch_all']);
+			unset($this->routes['catch_all']);
+		}
+		
+		parent::_parse_routes();
+	}
+	
+	function _set_routing()
+	{
+		parent::_set_routing();
+		
+		exit($this->catch_all);
+	}*/
 }
 
 class Modules 

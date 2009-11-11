@@ -230,12 +230,12 @@ class Cache
         }
         
         // Instantiate the object variables
-    	$this->expires      = @$this->contents['__cache_expires'];
-    	$this->dependencies = @$this->contents['__cache_dependencies'];
-    	$this->created      = @$this->contents['__cache_created'];
+    	$this->expires      = array_key_exists('__cache_expires', $this->contents) ? $this->contents['__cache_expires'] : NULL;
+    	$this->created      = array_key_exists('__cache_created', $this->contents) ? $this->contents['__cache_created'] : NULL;
+    	$this->dependencies = array_key_exists('__cache_dependencies', $this->contents) ? $this->contents['__cache_dependencies'] : NULL;
         
         // Cleanup the meta variables from the contents
-        $this->contents = @$this->contents['__cache_contents'];
+    	$this->contents = array_key_exists('__cache_contents', $this->contents) ? $this->contents['__cache_contents'] : NULL;
         
         // Return the cache
         log_message('debug', "Cache retrieved: ".$filename);

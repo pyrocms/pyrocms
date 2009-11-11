@@ -11,8 +11,11 @@ class MY_Controller extends Controller
 	{
 		parent::Controller();
 		
+		// Hook point
+		$GLOBALS['EXT']->_call_hook('post_core_controller_constructor');
+		
         // Make sure we have the user module
-        if( ! module_exists('users') )
+        if( !module_exists('users') )
         {
         	show_error('The user module is missing.');
         }
