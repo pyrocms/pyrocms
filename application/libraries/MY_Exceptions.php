@@ -36,23 +36,12 @@ class MY_Exceptions extends CI_Exceptions {
 	{	
 		log_message('error', '404 Page Not Found --> '.$page);
 		
-		if(function_exists('redirect'))
-		{
-			redirect('error_404');
-			exit;
-		}
-	
-		elseif(function_exists('lang'))
-		{
-			parent::show_404();
-		}
+		header('HTTP/1.0 404 Not Found');
+		header('HTTP/1.1 404 Not Found');
 		
-		else
-		{
-			echo "<pre>";
-			print_r(debug_backtrace());
-			show_error('Something very f**ked up has happened. Perhaps page manager?');
-		}
+		header('Location: '.BASE_URI.'error_404');
+		
+		//parent::show_404();
 	}
 
 }
