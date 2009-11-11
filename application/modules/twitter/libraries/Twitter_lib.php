@@ -393,7 +393,7 @@ class Twitter_lib {
 			
 			// Server not found fix #1
 			if($error_data) {
-				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
+				$this->last_error = array('status' => $status, 'request' => @$error_data->request, 'error' => @$error_data->error);
 			}
 			
 			return false;
