@@ -243,7 +243,7 @@ CREATE TABLE `settings` (
   `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
   `title` varchar(100) collate utf8_unicode_ci NOT NULL,
   `description` text collate utf8_unicode_ci NOT NULL,
-  `type` set('text','textarea','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL,
+  `type` set('text','textarea','password','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL,
   `default` varchar(255) collate utf8_unicode_ci NOT NULL,
   `value` varchar(255) collate utf8_unicode_ci NOT NULL,
   `options` varchar(255) collate utf8_unicode_ci NOT NULL,
