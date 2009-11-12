@@ -334,8 +334,8 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 
 		// ensure the peview image is cached before showing the details
 		var previewImg = new Image(), onload = function(){
-			select('#loading').hide();
-			select('#image-manager-details').show();
+			select('#loading').style.display = "none";
+			select('#image-manager-details').style.display = "block";
 		};
 		previewImg.onload = onload;
 		previewImg.onerror = onload;
