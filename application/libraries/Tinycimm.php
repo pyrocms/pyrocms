@@ -300,12 +300,14 @@ class TinyCIMM {
 		// upload dir
 		(file_exists($this->config->item('tinycimm_asset_path_full')) and (substr(sprintf('%o', fileperms($this->config->item('tinycimm_asset_path_full'))), -4) == $chmod))
 		or @mkdir($this->config->item('tinycimm_asset_path_full'), $chmod) 
-		or die('Error: '.$this->config->item('tinycimm_asset_path_full').'<br/><strong>Please adjust permissions to '.$chmod.'</strong>');
+		or $this->ci->uri->segment(2) != 'get_javascript_lang'
+		and die('Error: '.$this->config->item('tinycimm_asset_path_full').'<br/><strong>Please adjust permissions to '.$chmod.'</strong>');
 
 		// cache dir
 		(file_exists($this->config->item('tinycimm_asset_cache_path_full')) and (substr(sprintf('%o', fileperms($this->config->item('tinycimm_asset_cache_path_full'))), -4) == $chmod))
 		or @mkdir($this->config->item('tinycimm_asset_cache_path_full'), $chmod) 
-		or die('Error: '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions to'.$chmod.'</strong>');
+		or $this->ci->uri->segment(2) != 'get_javascript_lang'
+		and die('Error: '.$this->config->item('tinycimm_asset_cache_path_full').'<br/><strong>Please adjust permissions to'.$chmod.'</strong>');
 	}
 	
 	private function check_permissions(){
