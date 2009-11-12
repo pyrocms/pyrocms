@@ -98,7 +98,7 @@ TinyCIMM.prototype.showBrowser = function(folder, offset, load, el) {
 	mcTabs.displayTab('browser_tab','browser_panel');
 
 	// fix me
-	if (window.TinyCIMMImage) {
+	if (window.TinyCIMMImage && select('#resize_tab').length) {
 		select('#resize_tab').style.display = 'none';
 		select('#manager_tab').style.display = 'none';
 	}
