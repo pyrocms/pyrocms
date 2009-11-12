@@ -49,6 +49,7 @@ TinyCIMM.prototype.cacheImages = function(images){
 };
 
 TinyCIMM.prototype.get = function(asset_id, callback){
+	var self = this;
 	tinymce.util.XHR.send({
 		url : this.baseURL(this.settings.tinycimm_controller+'get_'+this.type+'/'+asset_id),
 		type : "GET",
@@ -68,6 +69,7 @@ TinyCIMM.prototype.get = function(asset_id, callback){
 };
 
 TinyCIMM.prototype.getDialogBody = function(callback){
+	var self = this;
 	tinymce.util.XHR.send({
 		url : this.baseURL(this.settings.tinycimm_controller+'get_dialog_body'),
 		type : "GET",
@@ -146,6 +148,7 @@ TinyCIMM.prototype.getBrowser = function(folder, offset, search_query, callback)
 
 TinyCIMM.prototype.getManager = function(asset_id, callback) {
 	asset_id = asset_id || 0;
+	var self = this;
 	tinymce.util.XHR.send({
 		url : this.baseURL(this.settings.tinycimm_controller+'get_manager/'+asset_id),
 		type : "GET",
@@ -160,6 +163,7 @@ TinyCIMM.prototype.getManager = function(asset_id, callback) {
 };
 
 TinyCIMM.prototype.getUploader = function(callback) {
+	var self = this;
 	tinymce.util.XHR.send({
 		url : this.baseURL(this.settings.tinycimm_controller+'get_uploader_form'),
 		type : "GET",
@@ -300,6 +304,7 @@ TinyCIMM.prototype.deleteFolder = function(folder_id) {
 TinyCIMM.prototype.getFoldersSelect = function(folder, type) {
 	folder = folder || 0;
 	type = type || 'image';
+	var self = this;
 	tinymce.util.XHR.send({
 		url : this.baseURL(this.settings.tinycimm_controller+'get_folders/select/'+folder),
 		type : "GET",
@@ -374,6 +379,7 @@ TinyCIMM.prototype.showOverlay = function() {
 };
 
 TinyCIMM.prototype.showFlashMsg = function(message){
+	var self = this;
 	setTimeout(function(){
 		select('#flash-msg').hide().html(message).fadeIn(450, function(self){
 			setTimeout(function(){
