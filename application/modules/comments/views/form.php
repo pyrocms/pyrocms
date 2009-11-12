@@ -1,5 +1,5 @@
 <?php
-	$this->lang->module_load('comments', 'comments');
+	$this->lang->load('comments/comments');
 	// Brings back unvalidated input
 	$comment = $this->session->flashdata('comment');
 ?>
