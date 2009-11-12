@@ -139,7 +139,7 @@ ImageDialog.prototype.insertResizeImage = function(){
 };
 
 ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
-	var url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
+	var self, url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
 	tinymce.util.XHR.send({
 		url : url,
 		error : function(response) {
