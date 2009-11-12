@@ -40,11 +40,8 @@
 |
 */
 $route['admin/([a-zA-Z_-]+)/(:any)'] = "$1/admin/$2";
-$route['admin/([a-zA-Z_-]+)/(:any)/(:any)'] = "$1/admin/$2/$3";
-$route['admin/login'] = "admin/login";
-$route['admin/logout'] = "admin/logout";
+$route['admin/(login|logout)'] = "admin/$1";
 $route['admin/([a-zA-Z_-]+)'] = "$1/admin/index";
-$route['admin'] = "admin";
 
 // Pages routing now handled with router extension
 // $route['([a-zA-Z0-9_-]+)'] = "pages/index/$1";
