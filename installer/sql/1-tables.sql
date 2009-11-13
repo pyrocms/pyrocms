@@ -17,6 +17,16 @@ CREATE TABLE `asset` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Assets used in the wysiwyg image manager';
 
 
+CREATE TABLE `asset_folder` (
+  `id` int(5) NOT NULL auto_increment,
+  `user_id` int(5) NOT NULL default '1',
+  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `smart` int(1) NOT NULL default '0',
+  `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Asset folder categories';
+
+
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL auto_increment,
   `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
@@ -78,6 +88,7 @@ CREATE TABLE `navigation_links` (
   `uri` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `navigation_group_id` int(5) NOT NULL default '0',
   `position` int(5) NOT NULL default '0',
+  `target` varchar(10) NULL default NULL,
   PRIMARY KEY  (`id`),
   KEY `navigation_group_id - normal` (`navigation_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
@@ -242,7 +253,7 @@ CREATE TABLE `settings` (
   `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
   `title` varchar(100) collate utf8_unicode_ci NOT NULL,
   `description` text collate utf8_unicode_ci NOT NULL,
-  `type` set('text','textarea','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL,
+  `type` set('text','textarea','password','select','select-multiple','radio','checkbox') collate utf8_unicode_ci NOT NULL,
   `default` varchar(255) collate utf8_unicode_ci NOT NULL,
   `value` varchar(255) collate utf8_unicode_ci NOT NULL,
   `options` varchar(255) collate utf8_unicode_ci NOT NULL,
@@ -307,12 +318,3 @@ CREATE TABLE `users` (
   PRIMARY KEY  (`id`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
-
-CREATE TABLE `asset_folder` (
-  `id` int(5) NOT NULL auto_increment,
-  `user_id` int(5) NOT NULL default '1',
-  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `smart` int(1) NOT NULL default '0',
-  `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Asset folder categories';

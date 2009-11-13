@@ -31,9 +31,9 @@
 				<h2>Thoughts</h2>
 				<?= $this->load->module_view('twitter', 'fragments/my_tweets'); ?>
 			</div>
-			
 			<? endif; ?>
-			<? if(is_module('news')): ?>
+			
+			<?php if(module_exists('news')): ?>
 			<div id="recent-posts">
 				<h2>Recent Posts</h2>
 				<?= $this->news_m->getNewsHome(); ?>

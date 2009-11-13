@@ -4,13 +4,21 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-03/11/09
------------------------------
+11/11/09 - v0.9.7.1 to v0.9.7.2
+-------------------------------
+
+Replace old files with new files.
+
+
+03/11/09 - v0.9.6.2 to v0.9.7.1
+-------------------------------
 
 1.) Run the following SQL command : 
 
 	ALTER TABLE 
 		`navigation_links` ADD `target` varchar(10) NULL DEFAULT NULL AFTER `position`;
+		
+2.) Replace old files with new files.
 
 
 01/11/09 - v0.9.6.2 to v0.9.7
