@@ -17,11 +17,11 @@
 	<table border="0" class="listTable clear-both">    
 		<thead>
 			<tr>
-				<th class="first"><div></div></th>
+				<th><?php echo form_checkbox('action_to_all');?></th>
 				<th class="width-20"><a href="#"><?=lang('comment_teaser_label');?></a></th>
 				<th class="width-10"><a href="#"><?=lang('comment_author_label');?></a></th>
 				<th class="width-10"><a href="#"><?=lang('comment_date_label');?></a></th>
-				<th class="last width-15"><span><?=lang('comment_actions_label');?></span></th>
+				<th class="width-15"><span><?=lang('comment_actions_label');?></span></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -35,7 +35,7 @@
 		<? if (!empty($comments)): ?>
 				<? foreach ($comments as $comment): ?>
 					<tr>
-						<td><input type="checkbox" name="action_to[]" value="<?=$comment->id;?>" /></td>
+						<td><?php echo form_checkbox('action_to[]', $comment->id);?></td>
 						<td><?=character_limiter($comment->body, 30);?></td>
 						<td>
 							<? if($comment->user_id > 0): ?>

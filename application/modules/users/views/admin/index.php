@@ -11,13 +11,13 @@
 	<table border="0" class="listTable clear-both">
 		<thead>
 		<tr>
-			<th class="first"><div></div></th>
+			<th><?php echo form_checkbox('action_to_all');?></th>
 			<th><a href="#"><?=lang('user_name_label');?></a></th>
 			<th><a href="#"><?=lang('user_email_label');?></a></th>
 			<th><a href="#"><?=lang('user_role_label');?></a></th>
 			<th><a href="#"><?=lang('user_joined_label');?></a></th>
 			<th><a href="#"><?=lang('user_last_visit_label');?></a></th>
-			<th class="last"><span><?=lang('user_actions_label');?></span></th>
+			<th><span><?=lang('user_actions_label');?></span></th>
 		</tr>
 		</thead>
 		<tfoot>

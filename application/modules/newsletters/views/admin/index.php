@@ -1,11 +1,11 @@
 <table border="0" class="listTable">    
   <thead>
 		<tr>
-			<th class="first"><div></div></th>
+			<th></th>
 			<th><a href="#"><?=lang('letter_subject_label');?></a></th>
 			<th><a href="#"><?=lang('letter_created_label');?></a></th>
 			<th><a href="#"><?=lang('letter_date_label');?></a></th>
-			<th class="last"><span><?=lang('letter_actions_label');?></span></th>
+			<th><span><?=lang('letter_actions_label');?></span></th>
 		</tr>
   </thead>
   <tfoot>
