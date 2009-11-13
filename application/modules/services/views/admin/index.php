@@ -1,12 +1,12 @@
-<?=form_open('admin/services/delete');?>
+<?php echo form_open('admin/services/delete');?>
 <table border="0" class="listTable">    
   <thead>
 	<tr>
-		<th class="first"><div></div></th>
-		<th><a href="#"><?=lang('service_label');?></a></th>
-		<th><a href="#"><?=lang('service_price_label');?></a></th>
-		<th><a href="#"><?=lang('service_updated_label');?></a></th>
-		<th class="last"><span><?=lang('service_actions_label');?></span></th>
+		<th><?php echo form_checkbox('action_to_all');?></th>
+		<th><a href="#"><?php echo lang('service_label');?></a></th>
+		<th><a href="#"><?php echo lang('service_price_label');?></a></th>
+		<th><a href="#"><?php echo lang('service_updated_label');?></a></th>
+		<th><span><?php echo lang('service_actions_label');?></span></th>
 	</tr>
   </thead>
   <tfoot>
@@ -20,23 +20,23 @@
 	<? if ($services): ?>
 		<? foreach ($services as $service): ?>
 		<tr>
-			<td><input type="checkbox" name="action_to[]" value="<?= $service->id; ?>" /></td>
-			<td><?= $service->title; ?></td>
-			<td><?=sprintf(lang('service_price_format'), $this->settings->item('currency'), $service->price, $pay_per_options[$service->pay_per]);?></td>
-			<td><?= date('M d, Y', $service->updated_on); ?></td>
+			<td><input type="checkbox" name="action_to[]" value="<?php echo $service->id; ?>" /></td>
+			<td><?php echo $service->title; ?></td>
+			<td><?php echo sprintf(lang('service_price_format'), $this->settings->item('currency'), $service->price, $pay_per_options[$service->pay_per]);?></td>
+			<td><?php echo date('M d, Y', $service->updated_on); ?></td>
 			<td>
-				<?= anchor('services/' . $service->slug, lang('service_view_label'), 'target="_blank"');?> | 
-				<?= anchor('admin/services/edit/' . $service->slug, lang('service_edit_label'));?> | 
-				<?= anchor('admin/services/delete/' . $service->id, lang('service_delete_label'), array('class'=>'confirm')); ?>
+				<?php echo anchor('services/' . $service->slug, lang('service_view_label'), 'target="_blank"');?> | 
+				<?php echo anchor('admin/services/edit/' . $service->slug, lang('service_edit_label'));?> | 
+				<?php echo anchor('admin/services/delete/' . $service->id, lang('service_delete_label'), array('class'=>'confirm')); ?>
 			</td>
 		</tr>
 		<? endforeach; ?>
 	<? else: ?>
 		<tr>
-			<td colspan="5"><?=lang('service_no_services');?></td>
+			<td colspan="5"><?php echo lang('service_no_services');?></td>
 		</tr>
 	<? endif; ?>
 	</tbody>
 </table>
 <? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
-<?=form_close();?>
+<?php echo form_close();?>

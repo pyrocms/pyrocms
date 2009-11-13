@@ -2,12 +2,12 @@
 	<table border="0" class="listTable">
 		<thead>
 		<tr>
-			<th class="first"><div></div></th>
+			<th><?php echo form_checkbox('action_to_all');?></th>
 			<th><a href="#"><?=lang('products_product_label');?></a></th>
 			<th><a href="#"><?=lang('products_supplier_label');?></a></th>
 			<th><a href="#"><?=lang('products_price_label');?></a></th>
 			<th><a href="#"><?=lang('products_updated_label');?></a></th>
-			<th class="last"><span><?=lang('products_actions_label');?></span></th>
+			<th><span><?=lang('products_actions_label');?></span></th>
 		</tr>
 		</thead>
 		<tfoot>

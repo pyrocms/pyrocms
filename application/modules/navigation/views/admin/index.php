@@ -15,11 +15,11 @@
 			<table border="0" class="listTable clear-both">		    
 				<thead>
 					<tr>
-						<th class="first"><div></div></th>
+						<th><?php echo form_checkbox('action_to_all');?></th>
 						<th class="width-10"><a href="#"><?php echo lang('nav_title_label');?></a></th>
 						<th class="width-5"><a href="#"><?php echo lang('nav_position_label');?></a></th>
 						<th class="width-20"><a href="#"><?php echo lang('nav_url_label');?></a></th>
-						<th class="last width-10"><span><?php echo lang('nav_actions_label');?></span></th>
+						<th class="width-10"><span><?php echo lang('nav_actions_label');?></span></th>
 					</tr>
 				</thead>
 				<tfoot>

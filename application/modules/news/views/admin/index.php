@@ -3,12 +3,12 @@
 	<table border="0" class="listTable">    
 		<thead>
 			<tr>
-				<th class="first"><div></div></th>
+				<th><?php echo form_checkbox('action_to_all');?></th>
 				<th><a href="#"><?=lang('news_post_label');?></a></th>
 				<th class="width-10"><a href="#"><?=lang('news_category_label');?></a></th>
 				<th class="width-10"><a href="#"><?=lang('news_date_label');?></a></th>
 				<th class="width-5"><a href="#"><?=lang('news_status_label');?></a></th>
-				<th class="last width-10"><span><?=lang('news_actions_label');?></span></th>
+				<th class="width-10"><span><?=lang('news_actions_label');?></span></th>
 			</tr>
 		</thead>
 		<tfoot>

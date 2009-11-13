@@ -4,7 +4,10 @@
 	
 		// Sort any tables with a class of 'sortable'
 		$('table.listTable').livequery(function() {
-			($("thead th", this).length === $('tbody td', this).length) && $(this).tablesorter();
+			
+			var table = this;
+			
+			($("thead th", table).length === $('tbody td', table).length) && $(table).tablesorter();
 			
 			// A row can be selected via check or CTRL + click
 			toggleRowChecked = function(row, checkbox)
@@ -22,7 +25,7 @@
 				}
 			}
 			
-			$('tbody td', this).click(function(e) {
+			$('tbody td', table).click(function(e) {
 				if(e.ctrlKey || e.metaKey)
 				{
 					row = $(this).parent('tr');
@@ -32,12 +35,29 @@
 				}
 			});
 			
-			$('tbody td input[type="checkbox"]', this).change(function() {
+			$('tbody td input[type="checkbox"]', table).change(function() {
 				row = $(this).parent('td').parent('tr');
 				checkbox = $(this);
 
 				toggleRowChecked(row, checkbox);
 			});
+			
+			// Select All checkboxes
+			$('input[type="checkbox"][name="action_to_all"]', table).change(function() {
+				
+				
+				
+				if( $(this).attr('checked') == true )
+				{
+					$('tbody td input[type="checkbox"]:not(:checked)', table).change();
+				}
+				
+				else
+				{
+					$('tbody td input[type="checkbox"]:checked', table).change();
+				}
+			});
+			
 		});
 		
 		// Link confirm box

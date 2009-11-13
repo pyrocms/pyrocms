@@ -395,40 +395,15 @@ button.small-button:hover strong {
 	border-spacing:0px; 
 }
 
-.listTable thead th,.listTable thead div {
-	background: url(../../img/admin/sprite.png) no-repeat -10px -1170px;
+
+.listTable thead th:first-child {
+	padding-left:5px;
+	-moz-border-radius-topleft:11px;
 }
 
-.listTable thead th:hover,.listTable thead th:hover div {
-	background-position: -10px -1530px;
-}
-
-.listTable thead th.first {
-	width: 20px;
-	background: url(../../img/admin/sprite.png) no-repeat 10px -1170px;
-}
-
-.listTable thead th.first:hover {
-	background-position: 10px -1530px;
-}
-
-.listTable thead th.first div {
-	width: 10px;
-	height: 25px;
-	background: url(../../img/admin/sprite.png) no-repeat 0px -1350px;
-}
-
-.listTable thead th.first:hover div {
-	background-position: 0px -1710px;
-}
-
-.listTable thead th.last {
-	background: url(../../img/admin/sprite.png) no-repeat 100% -1170px;
+.listTable thead th:last-child {
 	border-right: none;
-}
-
-.listTable thead th.last:hover {
-	background-position: 100% -1530px;
+	-moz-border-radius-topright:11px;
 }
 
 .listTable thead th a, .listTable thead th span {
@@ -441,24 +416,6 @@ button.small-button:hover strong {
 	padding-right: 15px;
 }
 
-.listTable thead th a:hover { /*
-
-	background-image:url(../../img/admin/sprite.png);
-
-	background-position:100% -2370px;
-
-	background-repeat:no-repeat;
-
-	text-decoration:none;
-
-	*/
-	
-}
-
-.listTable tbody {
-	background: url(../../img/admin/content_bg.png) repeat-y top right;
-}
-
 .content .listTable tbody td {
 	padding: 5px;
 	vertical-align: top;
@@ -466,12 +423,8 @@ button.small-button:hover strong {
 }
 
 
-.listTable tbody td input.checkbox {
+.listTable input.checkbox {
 	margin: 0px 10px;
-}
-
-.listTable tbody a {
-	
 }
 
 /* Hover over a single cell */
@@ -489,10 +442,6 @@ table.hoverCell tbody tr:hover td:hover {
 
 table.hoverCell tbody tr:hover td:hover a {
 	background-position: 0px -2340px; /* Hover cell */
-}
-
-table.hoverCell tbody tr:hover td.last {
-	background-position: 100% -2700px; /* Last cell */
 }
 
 /* Tfoot */

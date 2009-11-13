@@ -2,9 +2,9 @@
 <table border="0" class="listTable">
   <thead>
 	<tr>
-		<th class="first"><div></div></th>
+		<th><?php echo form_checkbox('action_to_all');?></th>
 		<th><a href="#"><?php echo lang('theme_theme_label');?></a></th>
-		<th class="last width-quater"><span><?php echo lang('theme_actions_label');?></span></th>
+		<th class="width-quater"><span><?php echo lang('theme_actions_label');?></span></th>
 	</tr>
   </thead>
   <tfoot>
