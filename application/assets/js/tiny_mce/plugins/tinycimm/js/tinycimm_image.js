@@ -139,7 +139,7 @@ ImageDialog.prototype.insertResizeImage = function(){
 };
 
 ImageDialog.prototype.resizeImage = function(imageId, width, height, callback){
-	var url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
+	var self, url = this.baseURL(this.settings.tinycimm_controller+'save_image_size/'+imageId+'/'+width+'/'+height+'/90/0');
 	tinymce.util.XHR.send({
 		url : url,
 		error : function(response) {
@@ -334,8 +334,8 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 
 		// ensure the peview image is cached before showing the details
 		var previewImg = new Image(), onload = function(){
-			select('#loading').hide();
-			select('#image-manager-details').show();
+			select('#loading').style.display = "none";
+			select('#image-manager-details').style.display = "block";
 		};
 		previewImg.onload = onload;
 		previewImg.onerror = onload;
