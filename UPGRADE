@@ -4,6 +4,12 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
+11/11/09 - v0.9.7.x to v0.9.8
+-----------------------------
+
+chmod -R 777 application/cache/dwoo/
+
+
 11/11/09 - v0.9.7.1 to v0.9.7.2
 -------------------------------
 

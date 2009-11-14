@@ -24,13 +24,20 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/parser.html
  */
-class MY_Parser extends CI_Parser {
+include(APPPATH.'libraries/dwoo/dwooAutoload.php');
 
-	var $helper_delim = ':';
-	var $param_delim = '|';
-	var $func_l_delim = '[';
-	var $func_r_delim = ']';
-		
+class MY_Parser extends CI_Parser {
+    
+	private $CI;
+	
+	function __construct()
+	{
+	 	$this->CI =& get_instance();
+	 	
+		$this->CI->config->load('parser', TRUE);
+        $this->config = $this->CI->config->item('parser');
+	}
+	
 	/**
 	 *  Parse a view file
 	 *
@@ -45,10 +52,9 @@ class MY_Parser extends CI_Parser {
 	 */
 	function parse($template, $data, $return = FALSE)
 	{
-		$CI =& get_instance();
-		$template = $CI->load->view($template, $data, TRUE);
+		$string = $this->CI->load->view($template, $data, TRUE);
 		
-		return $this->_parse($template, $data, $return);	
+		return $this->_parse($string, $data, $return);	
 	}
 	
 	/**
@@ -63,10 +69,10 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function string_parse($template, $data = NULL, $return = FALSE)
+	function string_parse($string, $data = NULL, $return = FALSE)
 	{
-		return $this->_parse($template, $data, $return);	
-	}
+		return $this->_parse($string, $data, $return);
+    }
 	
 	/**
 	 *  Parse
@@ -80,188 +86,58 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function _parse($template, $data, $return = FALSE)
+	function _parse($string, $data, $return = FALSE)
 	{
-		$CI =& get_instance();
-		
-		$this->_data =& $data;
-		
-		if ($template == '')
-		{
-			return FALSE;
-		}
-		
-		if(is_array($this->_data))
-		{
-			foreach ($this->_data as $key => $val)
-			{
-				if (is_array($val))
-				{
-					$template = $this->_parse_pair($key, $val, $template);		
-				}
-				else
-				{
-					$template = $this->_parse_single($key, (string)$val, $template);
-				}
-			}
-		}
-		
-		// -- Helper stuff
-		
-		// Now lets find our functions
-		$pattern = '/%1$s(([a-z0-9_]+)%2$s)?([a-z0-9_]+)(\%3$s([^%4$s]+)\])?%5$s/';
-		$pattern = sprintf($pattern, $this->l_delim, $this->helper_delim, $this->func_l_delim, $this->func_r_delim, $this->r_delim);
-		
-		preg_match_all($pattern, $template, $matches);
+        // Start benchmark
+        $this->CI->benchmark->mark('dwoo_parse_start');
 
-		$matches_count = count($matches[0]);
-		
-		$from = array();
-		$to = array();
-		
-		for($i = 0; $i < $matches_count; $i++)
-		{
-			// If a value is returned for this tag, use it. If not, perhaps it is text?
-			if($val = $this->_parse_function($matches[2][$i], $matches[3][$i], $matches[5][$i]))
-			{
-				$from[] = $matches[0][$i];
-				$to[] = $val;
-				
-				$template = str_replace($from, $to, $template);
-			}
-		}
-		
-		if($matches_count > 0)
-		{
-			$template = str_replace($from, $to, $template);
-		}
-		
-		// -- End helper stuff
-		
+        // Main Dwoo object
+        $dwoo = new Dwoo();
+
+         // The directory where compiled templates are located
+		$dwoo->setCompileDir($this->config['parser_compile_dir']);
+		$dwoo->setCacheDir($this->config['parser_cache_dir']);
+		$dwoo->setCacheTime($this->config['parser_cache_time']);
+        
+        // Object containing data
+        $dwoo_data = new Dwoo_Data();
+        
+        // Convert from object to array
+        if(is_object($data))
+        {
+        	$data = (array) $data;
+        }
+        
+        // If not an empty array, set data
+        if(is_array($data) && $data !== array())
+        {
+	        $dwoo_data->setData($data);
+        }
+        
+        try
+        {
+	        // Object of the template
+	        $tpl = new Dwoo_Template_String($string);
+	        
+	        // render the template
+	        $parsed_string = $dwoo->get($tpl, $dwoo_data);
+        }
+        
+        catch(Dwoo_Compilation_Exception $e)
+        {
+        	show_error($e);
+        }
+        
+        // Finish benchmark
+        $this->CI->benchmark->mark('dwoo_parse_end');
+
+        // Return results or not ?
 		if ($return == FALSE)
 		{
-			$CI->output->append_output($template);
+			$this->CI->output->append_output($parsed_string);
 		}
 		
-		return $template;
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 *  Parse function
-	 * 
-	 * Parses a function or helper found in tbe template.
-	 *
-	 * @access	private
-	 * @param	string
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	function _parse_function($helper, $function, $parameters)
-	{
-		$CI =& get_instance();
-		
-		// If there is a helper file (not a native PHP function) and it has not yet been loaded
-		if(!empty($helper) && !array_key_exists($helper, $CI->load->_ci_helpers))
-		{
-			// This includes the helper, but will only include it once
-			$CI->load->helper($helper);
-		}
-		
-		if(function_exists($function))
-		{
-			if($parameters !== '')
-			{
-				return call_user_func_array( $function, $this->_parse_parameters($parameters) );
-			}
-			
-			else
-			{
-				return $function();
-			}
-		}
-		
-		return FALSE;
-	}
-	
-	// --------------------------------------------------------------------
-	
-
-	/**
-	 * Parse Parameters
-	 *  
-	 * Parse a parameter string into an array of parameters
-	 *
-	 * @access	private
-	 * @param	string
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	function _parse_parameters($parameter_string = '')
-	{
-		$double_string = '"[^(\\'.$this->func_r_delim .'|\\'. $this->param_delim.')]*"';
-		$single_string = '\'[^(\\'.$this->func_r_delim .'|\\'. $this->param_delim.')]*\'';
-		$bool = '(true|false|null)';
-		$int = '[0-9., ]+';
-		$variable = '\$[a-z_]+';
-		
-		$pattern = sprintf('/(\%s|\%s)?(%s|%s|%s|%s|%s)+/i', $this->func_l_delim, $this->param_delim, $double_string, $single_string, $bool, $int, $variable);
-		
-		preg_match_all($pattern, $parameter_string, $matches);
-
-		$matches_count = count($matches[0]);
-		$dirty_parameters =& $matches[2];
-
-		$parameters = array();
-		foreach($dirty_parameters as $param)
-		{
-			$first_char = substr($param, 0, 1);
-			switch( $first_char )
-			{
-				// Parameter is a string, remove first and last "" or ''
-				case "'":
-				case '"':
-					$param = substr($param, 1, -1);
-				break;
-				
-				// Parameter is a CI view variable
-				case '$':
-					$param = substr($param, 1);
-					$param = array_key_exists($param, $this->_data) ? $this->_data[$param] : NULL;
-				break;
-				
-				// What else could it be?
-				default:
-
-					// Param is true/TRUE
-					if(strtoupper($param) === 'TRUE')
-					{
-						$param = TRUE;
-					}
-					
-					// Param is false/FALSE
-					elseif(strtoupper($param) === 'FALSE')
-					{
-						$param = FALSE;
-					}
-					
-					// Param is null/NULL
-					elseif(strtoupper($param) === 'NULL')
-					{
-						$param = NULL;
-					}
-				
-				break;
-				
-			}
-
-			$parameters[] = $param;
-		}
-
-		return $parameters;
+		return $parsed_string;
 	}
 	
 	// --------------------------------------------------------------------

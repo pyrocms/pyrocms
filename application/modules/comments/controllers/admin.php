@@ -35,16 +35,12 @@ class Admin extends Admin_Controller
 		$total_rows = $this->comments_m->countComments(array('is_active' => 1));
 		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
-		// Get a list of all modules
-		$modules = $this->comments_m->getUsedModules();
-		
 		// get all comments
 		$this->data->comments = $this->comments_m->getComments(array(
 			'is_active' => 1,
 			'limit' => $this->data->pagination['limit']				
 		));
 
-		$this->data->modules = $modules + array('module' => 'all');
 		$this->data->active_comments = TRUE;
 		$this->layout->create('admin/index', $this->data);		
 	}
