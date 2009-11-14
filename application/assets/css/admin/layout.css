@@ -387,14 +387,14 @@ button.small-button:hover strong {
 
 .listTable tbody tr:nth-child(even) { background: #ddd; }
 .listTable tbody tr:nth-child(odd)	{ background: white; /*lightyellow;*/ }
-.listTable tbody tr.selected 		{ background: lightyellow; }
+.listTable tbody tr:nth-child(even).selected { background: lightyellow; }
+.listTable tbody tr:nth-child(odd).selected	{ background: lightyellow; }
 
 .listTable td, .listTable th {
 	padding: 0em;
 	border-collapse: collapse;
 	border-spacing:0px; 
 }
-
 
 .listTable thead th:first-child {
 	padding-left:5px;
