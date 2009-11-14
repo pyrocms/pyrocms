@@ -20,7 +20,7 @@ $lang['perm_method_select_default'] 				= '-- All Methods--';
 
 $lang['perm_rule_edit'] 										= 'Edit';
 $lang['perm_rule_delete'] 									= 'Delete';
-$lang['perm_rule_desc'] 										= 'Rules can be set for <strong>users <small>(almost finished)</small></strong> or for <strong>roles</strong>. Select the "Type" of rule and then select the user or user role it applies to.';
+$lang['perm_rule_desc'] 										= 'Rules can be set for <strong>users</strong> or for <strong>roles</strong>. Select the "Type" of rule and then select the user or user role it applies to.';
 $lang['perm_rule_add_success'] 							= 'The permission rule was added.';
 $lang['perm_rule_add_error'] 								= 'An unexpected error occurred.';
 $lang['perm_rule_not_exist_error'] 					= 'This permission rule does not exist.';
@@ -40,5 +40,7 @@ $lang['perm_role_save_success'] 						= 'The permission role was saved.';
 $lang['perm_role_delete_success'] 					= 'The permission role has been deleted.';
 $lang['perm_role_create_title'] 						= 'Create role';
 $lang['perm_role_edit_title'] 							= 'Edit role "%s"';
+# TODO: Please update this string into other languages;
+$lang['user_perm_table'] = "User Specific Permissions";
 
 ?>
