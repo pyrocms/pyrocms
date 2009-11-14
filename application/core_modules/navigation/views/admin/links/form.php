@@ -1,8 +1,11 @@
 <?php if($this->uri->segment(3,'create') == 'create'): ?>
-	<h3><?=lang('nav_link_create_title');?></h3>	
+	<h3><?php echo lang('nav_link_create_title');?></h3>
+		
 <?php else: ?>
-	<h3><?=sprintf(lang('nav_link_edit_title'), $this->data->navigation_link->title);?></h3>
+	<h3><?php echo sprintf(lang('nav_link_edit_title'), $this->data->navigation_link->title);?></h3>
+	
 <?php endif; ?>
+
 <?php echo form_open($this->uri->uri_string()); ?>
 
 	<fieldset>
@@ -10,7 +13,8 @@
 			
 		<div class="field">
 			<label for="title"><?php echo lang('nav_text_label');?></label>
-			<input type="text" id="title" name="title" maxlength="50" value="<?= $navigation_link->title; ?>" />
+			<?php echo form_input('title', $navigation_link->title, 'maxlength="50"'); ?>
+			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</div>
 			
 		<div class="field">
@@ -18,14 +22,15 @@
 			<?php echo form_dropdown('navigation_group_id', $groups_select, $navigation_link->navigation_group_id, 'size="'.count($groups_select).'"') ?>
 		</div>
 			
-		<div class="field">
+		<div class="field float-left width-half">
 			<label for="position"><?php echo lang('nav_position_label');?></label>
-			<input type="text" id="position" name="position" value="<?php echo $navigation_link->position; ?>" />
+			<?php echo form_input('position', $navigation_link->position, 'class="width-5"'); ?>
+			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</div>
 		
-		<div class="field">
+		<div class="field float-left width-half">
 			<label for="target"><?php echo lang('nav_target_label'); ?></label>
-			<input type="text" id="target" name="target" value="<?php echo $navigation_link->target; ?>" />
+			<?php echo form_input('target', $navigation_link->target, 'class="width-5"'); ?>
 		</div>
 			
 	</fieldset>
@@ -46,7 +51,7 @@
 		
 		<div class="field float-left">
 			<label for="uri"><?php echo lang('nav_uri_label');?></label>
-			<input type="text" id="uri" name="uri" value="<?= $navigation_link->uri; ?>" />
+			<input type="text" id="uri" name="uri" value="<?php echo $navigation_link->uri; ?>" />
 		</div>
 		
 		<div class="field float-left">
