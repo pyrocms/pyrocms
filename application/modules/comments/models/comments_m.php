@@ -119,24 +119,6 @@ class Comments_m extends Model
 		return $comment->module;
 	}
 		
-	public function getUsedModules()
-	{
-		$sql = "
-			SELECT DISTINCT c.module
-			FROM comments c
-		";
-		$query = $this->db->query($sql);
-		
-		if ($query->num_rows() == 0)
-		{
-    	return FALSE;
-    	}
-		else
-		{
-    		return $query->result();
-    	}
-	}
-	
 	public function getModuleComments($module, $limit)
 	{
 		$comments = $this->getComments( array('module' => $module, 'limit' => $limit) );
