@@ -16,6 +16,8 @@ $lang['cp_nav_edit_settings']			= 'Mise à jour des paramètres';
 $lang['cp_nav_themes']					= 'Thèmes';
 $lang['cp_nav_permissions']				= 'Autorisations';
 
-$lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.'
+$lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
+
+$lang['required_label'] 				= 'Requis';
 
 ?>

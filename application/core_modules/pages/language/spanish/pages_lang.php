@@ -13,7 +13,6 @@ $lang['page_updated_label'] 					= 'Actualizado';
 $lang['page_actions_label'] 					= 'Acciones';
 $lang['page_unknown_label'] 					= 'Desconocido';
 $lang['page_title_label'] 						= 'T&iacute;tulo';
-$lang['page_required_label'] 					= 'Requerido';
 $lang['page_url_label'] 						= 'URL';
 $lang['page_parent_page_label'] 				= 'P&aacute;gina padre';
 $lang['page_no_selection_label'] 				= '-- Ninguno --';

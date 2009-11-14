@@ -5,7 +5,6 @@ $lang['gal_upload_label'] 									= 'Envoyer';
 $lang['gal_page_content_label'] 						= 'Contenu';
 $lang['gal_photo_label'] 										= 'Photo';
 $lang['gal_desc_label'] 										= 'Description';
-$lang['gal_required_label'] 								= 'Requis';
 $lang['gal_album_label'] 										= 'Album';
 $lang['gal_number_of_photo_label'] 					= 'Nombre de photos';
 $lang['gal_updated_label'] 									= 'Mis à jour';

@@ -3,7 +3,7 @@
 	<div class="field">
 		<label for="title"><?=lang('letter_title_label');?></label>
 		<input type="text" id="title" name="title" maxlength="100" value="<?= $this->validation->title; ?>" class="text" />
-		<span class="required-icon tooltip"><?=lang('letter_required_label');?></span>
+		<span class="required-icon tooltip"><?=lang('required_label');?></span>
 	</div>
 	
 	<div class="field">

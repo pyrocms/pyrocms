@@ -22,7 +22,7 @@
 			<div class="field">
 				<label for="title"><?=lang('page_title_label');?></label>
 				<input type="text" id="title" name="title" maxlength="60" value="<?php echo $page->title; ?>" />
-				<span class="required-icon tooltip"><?php echo lang('page_required_label');?></span>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</div>
 			<div class="field">
 				<label for="slug"><?=lang('page_url_label');?></label>
@@ -40,7 +40,7 @@
 					<?php echo form_input('slug', $page->slug, 'maxlength="60" size="20" class="width-10"'); ?>
 				<?php endif; ?>
 				
-				<span class="required-icon tooltip"><?php echo lang('page_required_label');?></span>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				<?php echo $this->config->item('url_suffix'); ?>
 			</div>
 					
