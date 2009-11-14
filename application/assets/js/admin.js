@@ -12,16 +12,34 @@
 			// A row can be selected via check or CTRL + click
 			toggleRowChecked = function(row, checkbox)
 			{
+				total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
+				total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
+				
 				if(row.hasClass('selected'))
 				{
+					// Remove selected class and uncheck the box
 					row.removeClass('selected');
-					checkbox.attr('checked', false);
+					checkbox.removeAttr('checked');
+
+					// If all boxes are checked
+					if(total_checked === 0)
+					{
+						$('input[type="checkbox"][name="action_to_all"]', table).removeAttr('checked');
+					}
 				}
 			
 				else
 				{
+					// Add seelected and check the box
 					row.addClass('selected');
-					checkbox.attr('checked', 'checked');
+					checkbox.attr('checked', true);
+					
+					// If all boxes are checked, check the "Check All" box
+					if(total_checked == total_checkboxes)
+					{
+						$('thead input[type="checkbox"][name="action_to_all"]', table).attr('checked', true);
+					}
+					
 				}
 			}
 			
@@ -43,9 +61,7 @@
 			});
 			
 			// Select All checkboxes
-			$('input[type="checkbox"][name="action_to_all"]', table).change(function() {
-				
-				
+			$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
 				
 				if( $(this).attr('checked') == true )
 				{
