@@ -9,7 +9,7 @@
 	</div>	
 	<div class="field <?=$permission_rule->user_id == 0 ? 'hidden' : ''; ?>">
 		<label for="user_id"><?= lang('perm_user_label');?></label>
-		<?=form_dropdown('user_id', array(''=> lang('perm_user_select_default')), NULL, 'disabled="disabled"') ?>
+		<?=form_dropdown('user_id', array(''=> lang('perm_user_select_default'))+$users_select, $permission_rule->user_id) ?>
 	</div>	
 	<div class="field <?=$permission_rule->permission_role_id == 0 ? 'hidden' : ''; ?>">
 		<label for="permission_role_id"><?= lang('perm_role_label');?></label>

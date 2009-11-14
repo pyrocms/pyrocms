@@ -21,6 +21,10 @@ class Permissions_m extends Model {
 		if(!empty($params['role'])) {
 			$this->db->where('permission_role_id', $params['role']);
 		}
+		
+		if(!empty($params['user_id'])) {
+			$this->db->where('user_id', $params['user_id']);
+		}
 
 		if(!empty($params['order'])) {
 			$this->db->order_by($params['order']);
@@ -38,24 +42,26 @@ class Permissions_m extends Model {
 
 	// Create a new permission rule
 	function newRule($input = array()) {
-		 
-		return $this->db->insert('permission_rules', array(
-        	'module' => $input['module'],
-        	'controller' => $input['controller'],
-        	'method' => $input['method'],
-        	'permission_role_id' => (int) $input['permission_role_id']
-		));
+		$data = array(
+				        	'module' => $input['module'],
+				        	'controller' => $input['controller'],
+				        	'method' => $input['method']
+				        );
+	   if ($input['role_type'] == 'user') $data['user_id'] = (int) $input['user_id'];
+	   	else $data['permission_role_id'] = (int) $input['permission_role_id']; 
+		return $this->db->insert('permission_rules', $data);
 	}
 
 	// Update a permission rule
 	function updateRule($id = 0, $input = array()) {
-
-		$this->db->update('permission_rules', array(
-        	'module' => $input['module'],
-        	'controller' => $input['controller'],
-        	'method' => $input['method'],
-        	'permission_role_id' => (int) $input['permission_role_id']
-		), array('id' => $id));
+		$data = array(
+				        	'module' => $input['module'],
+				        	'controller' => $input['controller'],
+				        	'method' => $input['method'],
+				        	);
+		if ($input['role_type'] == 'user') $data['user_id'] = (int) $input['user_id'];
+	   	else $data['permission_role_id'] = (int) $input['permission_role_id']; 
+		$this->db->update('permission_rules', $data, array('id' => $id));
 
 	}
 
@@ -90,6 +96,27 @@ class Permissions_m extends Model {
 		$this->db->from('permission_rules rules');
 		$this->db->join('permission_roles as roles', 'roles.id = rules.permission_role_id');
 		
+		$query = $this->db->get();
+
+		return $query->num_rows() > 0;
+	}
+	
+	function checkRuleByUser($user_id, $location)
+	{
+		// Reserved id 1
+		if($user_id == 1)
+		{
+			return TRUE;
+		}
+		
+		// Check the rule based on whatever parts of the location we have
+		if(isset($location['module'])) 		$this->db->where('(module = "'.$location['module'].'" or module = "*")');
+		if(isset($location['controller'])) 	$this->db->where('(controller = "'.$location['controller'].'" or controller = "*")');
+		if(isset($location['method'])) 		$this->db->where('(method = "'.$location['method'].'" or method = "*")');
+		
+		// Check which kind of user?
+		$this->db->where('user_id', $user_id);
+		$this->db->from('permission_rules rules');
 		$query = $this->db->get();
 
 		return $query->num_rows() > 0;
