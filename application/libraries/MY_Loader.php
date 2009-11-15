@@ -1,5 +1,5 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');	
-
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+	
 /**
  * Modular Separation - PHP5
  *
@@ -13,8 +13,8 @@
  *
  * Install this file as application/libraries/MY_Loader.php
  *
- * @copyright 	Copyright (c) Wiredesignz 2009-10-29
- * @version		1.8
+ * @copyright 	Copyright (c) Wiredesignz 2009-11-14
+ * @version		1.9
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,11 +41,10 @@ class MY_Loader extends CI_Loader
 	
 	public function __construct() {
 		parent::__construct();
-		self::$APP = get_instance();
-		$this->_module = self::$APP->router->fetch_module();
-		
+		self::$APP = get_instance();		
 		self::$APP->config = new MX_Config();
 		self::$APP->lang = new MX_Language();
+		$this->_module = self::$APP->router->fetch_module();
 	}
 	
 	/** Load a module config file **/
@@ -295,29 +294,30 @@ class MX_Config extends CI_Config
 
 class MX_Language extends CI_Language
 {
-	public function load($langfile, $lang = '')	{
+	public function load($langfile, $lang = '', $return = FALSE)	{
 		if (is_array($langfile)) 
 			return $this->load_multi($langfile);
-		
+			
 		$deft_lang = MY_Loader::$APP->config->item('language');
 		$idiom = ($lang == '') ? $deft_lang : $lang;
 	
 		if (in_array($langfile.'_lang'.EXT, $this->is_loaded, TRUE))
-			return $this;
+			return $this->language;
 		
 		$_module = MY_Loader::$APP->router->fetch_module();
 		list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', $idiom);
 
 		if ($path === FALSE) {
-			parent::load($langfile, $lang);
+			if ($lang = parent::load($langfile, $lang, $return)) return $lang;
 		} else {
 			if($lang = Modules::load_file($_langfile, $path, 'lang')) {
+				if ($return) return $lang;
 				$this->language = array_merge($this->language, $lang);
 				$this->is_loaded[] = $langfile.'_lang'.EXT;
 				unset($lang);
 			}
 		}
-		return $this;
+		return $this->language;
 	}
 	
 	/** Load an array of language files **/

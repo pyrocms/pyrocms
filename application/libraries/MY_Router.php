@@ -5,9 +5,9 @@ spl_autoload_register('Modules::autoload');
 
 /* define the module locations and offset */
 Modules::$locations = array(
-	APPPATH.'core_modules/' => '../core_modules/',
-	APPPATH.'modules/'	=> '../modules/'
-	);
+	APPPATH.'core_modules/'	=> '../core_modules/',
+	APPPATH.'modules/'		=> '../modules/',
+);
 
 /**
  * Modular Separation - PHP5
@@ -21,8 +21,8 @@ Modules::$locations = array(
  *
  * Install this file as application/libraries/MY_Router.php
  *
- * @copyright 	Copyright (c) Wiredesignz 2009-10-29
- * @version 	1.8
+ * @copyright 	Copyright (c) Wiredesignz 2009-11-14
+ * @version 	1.9
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -51,8 +51,39 @@ class MY_Router extends CI_Router
 		return $this->module;
 	}
 	
-	public function _validate_request($segments) {
-		return $this->locate($segments);
+	public function _validate_request($segments) {		
+		
+		/* locate module controller */
+		if ($located = $this->locate($segments)) return $located;
+		
+		/* application controller exists? */			
+		if(is_file(APPPATH.'controllers/'.$segments[0].EXT)) {
+			return $segments;
+		}		
+	
+		list($directory, $controller) = array_pad($segments, 2, NULL);
+		
+		/* application sub-directory controller exists? */
+		if(is_file(APPPATH.'controllers/'.$directory.'/'.$controller.EXT)) {
+			$this->directory = array_shift($segments).'/';
+			return $segments;
+		}		
+		
+		/* use a default 404 controller */
+		if (isset($this->routes['404']) AND $segments = explode('/', $this->routes['404'])) {
+			
+			/* locate controller in a module? */
+			if ($located = $this->locate($segments)) return $located;
+
+			/* is controller in application? */
+			if (is_file(APPPATH.'controllers/'.$this->routes['404'].EXT)) {
+				if (count($segments) > 1) $this->directory = array_shift($segments).'/';
+				return $segments;
+			}
+		}
+		
+		/* no controller found */
+		show_404();
 	}
 	
 	/** Locate the controller **/
@@ -86,15 +117,15 @@ class MY_Router extends CI_Router
 				if($directory AND is_dir($module_subdir = $source.$directory.'/')) {
 							
 					$this->directory .= $directory.'/';
+
+					/* module sub-directory controller exists? */
+					if(is_file($module_subdir.$directory.EXT)) {
+						return array_slice($segments, 1);
+					}
 				
 					/* module sub-directory sub-controller exists? */
 					if($controller AND is_file($module_subdir.$controller.EXT))	{
 						return array_slice($segments, 2);
-					}
-	
-					/* module sub-directory controller exists? */
-					if(is_file($module_subdir.$directory.EXT)) {
-						return array_slice($segments, 1);
 					}
 				}
 			
@@ -104,51 +135,6 @@ class MY_Router extends CI_Router
 				}
 			}
 		}
-		
-		/* not a module controller */
-			// Does the requested controller exist in the root folder?
-		if (file_exists(APPPATH.'controllers/'.$segments[0].EXT))
-		{
-			return $segments;
-		}
-
-		// Is the controller in a sub-folder?
-		if (is_dir(APPPATH.'controllers/'.$segments[0]))
-		{		
-			// Set the directory and remove it from the segment array
-			$this->set_directory($segments[0]);
-			$segments = array_slice($segments, 1);
-			
-			if (count($segments) > 0)
-			{
-				// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT))
-				{
-					show_404($this->fetch_directory().$segments[0]);
-				}
-			}
-			else
-			{
-				$this->set_class($this->default_controller);
-				$this->set_method('index');
-			
-				// Does the default controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.EXT))
-				{
-					$this->directory = '';
-					return array();
-				}
-			
-			}
-
-			return $segments;
-		}
-		
-		// Not a module or a controller? Must be a page!
-		$this->module = 'pages';
-		$this->directory = '../core_modules/pages/controllers/';
-		
-		return array('pages', 'index', $segments[0]);
 	}
 }
 
