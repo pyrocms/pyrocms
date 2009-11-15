@@ -399,11 +399,13 @@ button.small-button:hover strong {
 .listTable thead th:first-child {
 	padding-left:5px;
 	-moz-border-radius-topleft:11px;
+	-webkit-border-top-left-radius:11px;
 }
 
 .listTable thead th:last-child {
 	border-right: none;
 	-moz-border-radius-topright:11px;
+	-webkit-border-top-right-radius:11px;
 }
 
 .listTable thead th a, .listTable thead th span {
