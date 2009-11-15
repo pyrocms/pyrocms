@@ -16,6 +16,8 @@ $lang['cp_nav_edit_settings']			= 'Edit settings'; #translate
 $lang['cp_nav_themes']					= 'Themes'; #translate
 $lang['cp_nav_permissions']				= 'Permissions'; #translate
 
-$lang['cp_access_denied'] 				= 'No tienes el permiso suficiente como para ver esta p&aacute;gina.'
+$lang['cp_access_denied'] 				= 'No tienes el permiso suficiente como para ver esta p&aacute;gina.';
+
+$lang['required_label'] 				= 'Requerido';
 
 ?>
