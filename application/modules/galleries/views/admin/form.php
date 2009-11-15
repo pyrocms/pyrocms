@@ -8,7 +8,7 @@
 	<div class="field">
 		<label for="title"><?=lang('gal_title_label');?></label>
 		<input type="text" id="title" name="title" maxlength="255" value="<?= $gallery->title; ?>" class="text" />
-		<span class="required-icon tooltip"><?=lang('gal_required_label');?></span>
+		<span class="required-icon tooltip"><?=lang('required_label');?></span>
 	</div>
 	
 	<div class="field">

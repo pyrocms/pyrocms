@@ -22,7 +22,7 @@
 				<div class="field">
 					<label for="title"><?=lang('news_title_label');?></label>
 					<?=form_input('title', $article->title, 'maxlength="100"'); ?>
-					<span class="required-icon tooltip"><?=lang('news_required_label');?></span>
+					<span class="required-icon tooltip"><?=lang('required_label');?></span>
 				</div>
 				
 				<div class="field">
