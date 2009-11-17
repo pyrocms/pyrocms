@@ -1,4 +1,4 @@
-<h3>?php echo lang('user_inactive_title');?></h3>
+<h3><?php echo lang('user_inactive_title');?></h3>
 
 <p class="float-right">
 	[ <a href="<?php echo site_url('admin/users/index');?>"><?php echo lang('user_active_title');?></a> ]
