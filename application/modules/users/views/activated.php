@@ -1,24 +1,24 @@
-<h2><?=lang('user_register_header') ?></h2>
+<h2><?php echo lang('user_register_header') ?></h2>
 
 <p>
-	<?=lang('user_register_step1') ?> -&gt; 
-	<span class="spacer-right" style="background:#FFFF99;"><?=lang('user_register_step2') ?></span>
+	<?php echo lang('user_register_step1') ?> -&gt; 
+	<span class="spacer-right" style="background:#FFFF99;"><?php echo lang('user_register_step2') ?></span>
 </p>
 
-<p><?=$this->lang->line('user_activated_message'); ?></p>
+<p><?php echo $this->lang->line('user_activated_message'); ?></p>
 
-<?=form_open('users/login', array('id'=>'login')); ?>
+<?php echo form_open('users/login', array('id'=>'login')); ?>
 
 	<p>
-		<label for="email"><?=lang('user_email'); ?></label>
-		<?=form_input('email', $activated_email) ?>
+		<label for="email"><?php echo lang('user_email'); ?></label>
+		<?php echo form_input('email', $activated_email) ?>
 	</p>
 	
 	<p>	
-		<label for="password"><?=lang('user_password'); ?></label>
-		<?=form_password('password') ?>
+		<label for="password"><?php echo lang('user_password'); ?></label>
+		<?php echo form_password('password') ?>
 	</p>
 	
-	<p><input type="image" src="<?=image_path('admin/fcc/btn-login.jpg');?>" value="<?=lang('user_login_btn') ?>" name="btnLogin" /></p>
+	<p><input type="image" src="<?php echo image_path('admin/fcc/btn-login.jpg');?>" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /></p>
 	
-<?=form_close(); ?>
+<?php echo form_close(); ?>
