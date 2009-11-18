@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-GB">
 	<head>
-		<?php $this->load->view($theme_view_folder.'metadata'); ?>
+		<?php theme_view('metadata'); ?>
 	</head>
 	<body>
 	
@@ -10,11 +10,11 @@
 	
 	  <!-- HEADER: Holds title, subtitle and header images -->
 	  <div id="header">
-		<?php $this->load->view($theme_view_folder.'header'); ?>	
+		<?php theme_view('header'); ?>	
 	  </div>
 	
 	  <!-- MAIN MENU: Top horizontal menu of the site. -->
-	  <?php $this->load->view($theme_view_folder.'topnav'); ?>	
+	  <?php theme_view('topnav'); ?>	
 	
 	  <!-- PAGE CONTENT BEGINS: This is where you would define the columns (number, width and alignment) -->
 	  <div id="page">
@@ -23,7 +23,7 @@
 	    <div class="width-quater float-left leftColumn">
 	
 	        <div id="sideMenu">
-				<?php echo $this->load->view($theme_view_folder.'leftnav'); ?>
+				<?php echo theme_view('leftnav'); ?>
 			</div>
 			
 			<?php if(module_exists('twitter')): ?>
@@ -66,7 +66,7 @@
 	</div>
 	
 	<div id="footer">
-		<?php $this->load->view($theme_view_folder.'footer'); ?>
+		<?php theme_view('footer'); ?>
 	</div>
 	
 	</body>

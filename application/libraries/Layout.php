@@ -145,7 +145,6 @@ class Layout {
 			// If directory is set, use it
             if( $this->_theme )
             {
-				$this->data->theme_view_folder = '../themes/'.$this->_theme.'/views/';
             	$layout_file = $this->data->theme_view_folder.$layout_file;
             }
             
