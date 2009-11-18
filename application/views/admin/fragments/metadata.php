@@ -15,8 +15,6 @@
 <?php echo js('jquery/jquery.dimensions.js'); ?>
 <?php echo js('jquery/jquery.imgareaselect.js'); ?>
 <?php echo js('jquery/jquery.simplemodal.js').css('jquery/confirm.css'); ?>
-<?php echo js('jquery/jquery.tooltip.min.js'); ?>
-<?php echo js('jquery/jquery.tablesorter.min.js'); ?>
 
 <? /* Added for Ajaxify */ ?>
 <?php echo js('jquery/jquery.livequery.pack.js'); ?>
