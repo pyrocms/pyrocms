@@ -31,29 +31,33 @@ class News extends Public_Controller
 		$this->layout->create('index', $this->data);
 	}
 	
-	function category($category = 0)
+	function category($slug = '')
 	{	
-		if(!$category) redirect('news');
-		
-		// Count total news articles and work out how many pages exist
-		$this->data->pagination = create_pagination('news/category/'.$category, $this->news_m->countArticles(array('category'=>$category)), $this->limit, 4);
+		if(!$slug) redirect('news');
 		
 		// Get category data
-		$this->data->category = $this->categories_m->getCategory($category);
+		$category = $this->categories_m->getCategory($slug);
+		
+		if(!$category) show_404();
+		
+		$this->data->category =& $category;
+		
+		// Count total news articles and work out how many pages exist
+		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->countArticles(array('category'=>$slug)), $this->limit, 4);
 		
 		// Get the current page of news articles
-		$this->data->news = $this->news_m->getNews(array('category'=>$category, 'limit' => $this->data->pagination['limit']));
+		$this->data->news = $this->news_m->getNews(array('category'=>$slug, 'limit' => $this->data->pagination['limit']));
 		
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 		
 		// Build the page
-		$this->layout->title($this->lang->line('news_news_title').' | '.$this->data->category->title)		
-			->set_metadata('description', $this->data->category->title.'. '.$meta['description'])
-			->set_metadata('keywords', $this->data->category->title)
-			->add_breadcrumb($this->lang->line('news_news_title'), 'news')
-			->add_breadcrumb($this->data->category->title)		
-			->create('category', $this->data);
+		$this->layout->title( lang('news_news_title').' | '.$category->title )		
+			->set_metadata('description', $category->title.'. '.$meta['description'] )
+			->set_metadata('keywords', $category->title )
+			->add_breadcrumb( lang('news_news_title'), 'news')
+			->add_breadcrumb( $category->title )		
+			->create( 'category', $this->data );
 	}	
 	
 	function archive($year = NULL, $month = '01')
