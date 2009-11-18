@@ -5,7 +5,7 @@ class Admin_Controller extends MY_Controller
 {
 	function Admin_Controller()
 	{
-		parent::MY_Controller();
+		parent::__construct();
 		
 		// Load the Language files ready for output
 	    $this->lang->load('admin');
@@ -21,7 +21,7 @@ class Admin_Controller extends MY_Controller
 	        
 	    // Check the user is an admin
 	    $is_admin = $this->user_lib->check_role('admin');
-	        
+	    
 	    // Login: If not logged in and its not an ignored page, force login
 	    if( ! $this->data->user && ! $is_ignored_page)
 	    {
@@ -37,7 +37,8 @@ class Admin_Controller extends MY_Controller
 	    if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->hasAdminAccess($this->data->user->role) )
 	    {
 	    	$allow_access = TRUE;
-	    }        
+	    }
+	    
 	    // Check Perms: Not an admin and this is not a page to ignore
 	    elseif( ! $is_admin && ! $is_ignored_page )
 	    {
@@ -64,7 +65,7 @@ class Admin_Controller extends MY_Controller
 	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
-	}
+		}
 
 	    $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);        
 	    
