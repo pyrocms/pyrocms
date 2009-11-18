@@ -30,12 +30,22 @@ class MY_Parser extends CI_Parser {
     
 	private $CI;
 	
+	private $dwoo;
+	
 	function __construct()
 	{
 	 	$this->CI =& get_instance();
 	 	
 		$this->CI->config->load('parser', TRUE);
-        $this->config = $this->CI->config->item('parser');
+        $config = $this->CI->config->item('parser');
+        
+        // Main Dwoo object
+        $this->dwoo = new Dwoo();
+
+         // The directory where compiled templates are located
+		$this->dwoo->setCompileDir( $config['parser_compile_dir'] );
+		$this->dwoo->setCacheDir( $config['parser_cache_dir'] );
+		$this->dwoo->setCacheTime( $config['parser_cache_time'] );
 	}
 	
 	/**
@@ -90,14 +100,6 @@ class MY_Parser extends CI_Parser {
 	{
         // Start benchmark
         $this->CI->benchmark->mark('dwoo_parse_start');
-
-        // Main Dwoo object
-        $dwoo = new Dwoo();
-
-         // The directory where compiled templates are located
-		$dwoo->setCompileDir($this->config['parser_compile_dir']);
-		$dwoo->setCacheDir($this->config['parser_cache_dir']);
-		$dwoo->setCacheTime($this->config['parser_cache_time']);
         
         // Object containing data
         $dwoo_data = new Dwoo_Data();
@@ -120,7 +122,7 @@ class MY_Parser extends CI_Parser {
 	        $tpl = new Dwoo_Template_String($string);
 	        
 	        // render the template
-	        $parsed_string = $dwoo->get($tpl, $dwoo_data);
+	        $parsed_string = $this->dwoo->get($tpl, $dwoo_data);
         }
         
         catch(Dwoo_Compilation_Exception $e)
@@ -132,7 +134,7 @@ class MY_Parser extends CI_Parser {
         $this->CI->benchmark->mark('dwoo_parse_end');
 
         // Return results or not ?
-		if ($return == FALSE)
+		if ( !$return )
 		{
 			$this->CI->output->append_output($parsed_string);
 		}
