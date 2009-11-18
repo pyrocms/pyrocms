@@ -20,6 +20,6 @@
 |	http://www.codeigniter.com/user_guide/general/routing.html
 */
 
-$route['admin/navigation/groups(:any)'] = "navigation/groups$1";
+$route['navigation/admin/groups/(:any)'] = 'groups/$1';
 
 ?>
