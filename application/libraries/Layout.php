@@ -149,7 +149,7 @@ class Layout {
             	$layout_file = $this->data->theme_view_folder.$layout_file;
             }
             
-            $output = $this->CI->load->view( $layout_file, $this->data, TRUE );
+            $output = $this->CI->parser->parse( $layout_file, $this->data, TRUE );
         }
         
         else
