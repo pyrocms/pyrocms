@@ -18,7 +18,7 @@ class Admin extends Admin_Controller
 		{
 			foreach($settings as $setting)
 			{
-				$setting->form_control = $this->settings->formControl($setting);				
+				$setting->form_control = $this->settings->form_control($setting);				
 				if($setting->module == '') $setting->module = 'general';				
 				$this->data->settings[$setting->module][] = $setting;				
 				$this->data->setting_sections[$setting->module] = ucfirst($setting->module);

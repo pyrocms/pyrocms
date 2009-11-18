@@ -20,8 +20,8 @@ class Settings {
 		unset($_items);
 	}
 	
-	function item($slug = '') {
-		
+	function item($slug = '')
+	{
 		// Check for previously called settings and return it if found
 		if(in_array($slug, array_keys($this->items)))
         {
@@ -44,12 +44,15 @@ class Settings {
         return $this->items[$slug] = $value;
     }
     
-    function set_item($slug, $value) {
+    function set_item($slug, $value)
+    {
     	return $this->CI->settings_m->update($slug, array('value'=>$value));
     }
     
-    function formControl(&$setting) {
-    	switch($setting->type) {
+    function form_control(&$setting)
+    {
+    	switch($setting->type)
+    	{
     		default:
     		case 'text':
         		$form_control = form_input(array(
@@ -79,10 +82,9 @@ class Settings {
         	break;
         	
         	case 'select':
-        		
         		$form_control = form_dropdown(
         			$setting->slug,
-        			$this->_formatOptions($setting->options),
+        			$this->_format_options($setting->options),
         			$setting->value,
         			'class="width-20"'
         		);
@@ -95,29 +97,30 @@ class Settings {
         		
         		$form_control = '';
         		
-        		foreach($this->_formatOptions($setting->options) as $value => $label):
-
+        		foreach($this->_format_options($setting->options) as $value => $label)
+        		{
         			$form_control .= ' '.form_radio(array(
 	        			'id'		=>	$setting->slug,
 	        			'name'		=>	$setting->slug,
 	        			'checked'	=>	$setting->value == $value,
 	        			'value'		=>	$value
         			)) . ' '.$label;
-        					  
-        		endforeach;
+        		}
         	break;
         }
         
         return $form_control;
     }
     
-    function _formatOptions($options = array()) {
+    private function _format_options($options = array())
+    {
     	$select_array = array();
     	
-    	foreach(explode('|', $options) as $option):
+    	foreach(explode('|', $options) as $option)
+    	{
         	list($value, $name)=explode('=', $option);
         	$select_array[$value] = $name;
-        endforeach;
+    	}
         
         return $select_array;
     }
