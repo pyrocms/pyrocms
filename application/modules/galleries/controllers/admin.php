@@ -279,7 +279,7 @@ class Admin extends Admin_Controller
 	// Callback: from create()
 	function _createTitleCheck($title = '')
 	{
-		if ($this->galleries_m->checkTitle($title))
+		if ($this->galleries_m->check_title($title))
 		{
 			$this->validation->set_message('_createTitleCheck', $this->lang->line('gal_name_already_exist_error'));
 			return FALSE;

@@ -7,7 +7,7 @@ class Permissions_m extends Model {
 	}
 
 	function getRule($id = 0) {
-		$query = $this->db->getwhere('permission_rules', array('id'=>$id));
+		$query = $this->db->get_where('permission_rules', array('id'=>$id));
 		if ($query->num_rows() == 0) {
 			return FALSE;
 		} else {
@@ -149,7 +149,7 @@ class Permissions_m extends Model {
 	// Return an object containing rule properties
 	function getRole($id = 0)
 	{
-		$query = $this->db->getwhere('permission_roles', array('id'=>$id));
+		$query = $this->db->get_where('permission_roles', array('id'=>$id));
 		if ($query->num_rows() == 0) {
 			return FALSE;
 		} else {

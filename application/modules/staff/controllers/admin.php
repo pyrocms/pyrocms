@@ -53,7 +53,7 @@ class Admin extends Admin_Controller
 			// If a user_id is set then fetch their name
 			if($this->input->post('user_id') > 0)
 			{
-				$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
+				$staff_user = $this->users_m->get( array('id' => $this->input->post('user_id')) );
 				$new_staff['name'] = $staff_user->full_name;
 			}
 			
@@ -138,7 +138,7 @@ class Admin extends Admin_Controller
 			// If a user_id is set then fetch their name
 			if($this->input->post('user_id') > 0)
 			{
-				$staff_user = $this->users_m->getUser( array('id' => $this->input->post('user_id')) );
+				$staff_user = $this->users_m->get( array('id' => $this->input->post('user_id')) );
 				$updated_staff['name'] = $staff_user->full_name;
 			}
 			
@@ -326,7 +326,7 @@ class Admin extends Admin_Controller
 	{
 		$this->load->model('users/users_m');
 		$this->data->users = array(0=> $this->lang->line('staff_user_select_default'));
-		foreach($this->users_m->getUsers(array('order'=>'full_name')) as $user)
+		foreach($this->users_m->get_many(array('order'=>'full_name')) as $user)
 		{
 			$this->data->users[$user->id] = $user->full_name .' - '. $user->role;
 		}

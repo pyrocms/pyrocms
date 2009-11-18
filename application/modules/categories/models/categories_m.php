@@ -1,46 +1,34 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Categories_m extends Model {
-
-    function __construct() {
-        parent::Model();
-    }
-
-	function getCategories($params = array()) {
-		
+class Categories_m extends Model
+{
+	function get_many($params = array())
+	{
 		// Limit the results based on 1 number or 2 (2nd is offset)
        	if(isset($params['limit']) && is_int($params['limit'])) $this->db->limit($params['limit']);
     	elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
     	
         $this->db->order_by('title', 'asc');
         $query = $this->db->get('categories');
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return FALSE;
-        }
+        
+        return $query->result();
     }
     
-	function getCategory($id = 0) {
+	function get($id = 0) {
         
     	if(is_numeric($id))  $this->db->where('id', $id);
     	else  				 $this->db->where('slug', $id);
 		
-		$query = $this->db->getwhere('categories');
-        if ($query->num_rows() == 0) {
-            return FALSE;
-        } else {
-            return $query->row();
-        }
+		return $this->db->get_where('categories')->row();
     }
     
-    function countCategories($params = array())
+    function count($params = array())
     {
 		return $this->db->count_all_results('categories');
     }
     
-    function newCategory($input = array()) {
-
+    function add($input = array())
+    {
     	$this->db->insert('categories', array(
         	'slug'=>url_title(strtolower($input['title'])),
         	'title'=>$input['title']
@@ -49,24 +37,26 @@ class Categories_m extends Model {
         return $input['title'];
     }
     
-    function updateCategory($input, $old_slug) {
+    function update($id, $input) {
             
 		$this->db->update('categories', array(
             'title'	=> $input['title'],
             'slug'	=> url_title(strtolower($input['title']))
-		), array('slug'=>$old_slug));
+		), array('id' => $id));
             
 		return TRUE;
     }
     
-    function deleteCategory($slug = '') {
-        $this->db->delete('categories', array('slug'=>$slug));
+    function remove($id)
+    {
+        $this->db->delete('categories', array('id'=>$id));
         return $this->db->affected_rows();
     }
     
-    function checkTitle($title = '') {
+    function check_title($title = '')
+    {
         $this->db->select('COUNT(title) AS total');
-        $query = $this->db->getwhere('categories', array('slug'=>url_title($title)));
+        $query = $this->db->get_where('categories', array('slug'=>url_title($title)));
         $row = $query->row();
         if ($row->total == 0) {
             return FALSE;

@@ -13,10 +13,10 @@ class Admin extends Admin_Controller
 	function index()
 	{
 		// Create pagination links
-		$total_rows = $this->categories_m->countCategories();
+		$total_rows = $this->categories_m->count();
 		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);		
 		// Using this data, get the relevant results
-		$this->data->categories = $this->categories_m->getCategories(array('limit' => $this->data->pagination['limit']));		
+		$this->data->categories = $this->categories_m->get_many(array('limit' => $this->data->pagination['limit']));		
 		$this->layout->create('admin/index', $this->data);
 		return;
 	}
@@ -31,7 +31,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if (  $this->categories_m->newCategory($_POST) )
+			if (  $this->categories_m->add($_POST) )
 			{
 				$this->session->set_flashdata('success', $this->lang->line('cat_add_success'));
 			}			
@@ -51,12 +51,13 @@ class Admin extends Admin_Controller
 	}
 	
 	// Admin: Edit a Category
-	function edit($slug = '')
+	function edit($id = 0)
 	{	
-		if (!$slug)
+		if (!$id)
 		{
 			redirect('admin/categories/index');
 		}
+		
 		$this->load->library('validation');
 		$rules['title'] = 'trim|required';
 		$this->validation->set_rules($rules);
@@ -64,7 +65,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{		
-			if ($this->categories_m->updateCategory($_POST, $slug))
+			if ($this->categories_m->update($id, $_POST))
 			{
 				$this->session->set_flashdata('success', $this->lang->line('cat_edit_success'));
 			}		
@@ -72,36 +73,40 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', $this->lang->line('cat_edit_error'));
 			}
+			
 			redirect('admin/categories/index');
 		}		
-		$this->data->category = $this->categories_m->getCategory($slug);		
+		
+		$category = $this->categories_m->get($id);
+			
 		foreach(array_keys($rules) as $field)
 		{
-			if(isset($_POST[$field])) $this->data->category->$field = $this->validation->$field;
+			if($this->input->post($field)) $category->$field = $this->validation->$field;
 		}
 	
+		$this->data->category =& $category;
 		$this->layout->create('admin/form', $this->data);
 	}	
 	
 	// Admin: Delete a Category
-	function delete($slug = '')
+	function delete($id = 0)
 	{	
-		$slug_array = (!empty($slug)) ? array($slug) : $this->input->post('delete');
+		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 		
 		// Delete multiple
-		if(!empty($slug_array))
+		if(!empty($id_array))
 		{
 			$deleted = 0;
 			$to_delete = 0;
-			foreach ($slug_array as $slug) 
+			foreach ($id_array as $id) 
 			{
-				if($this->categories_m->deleteCategory($slug))
+				if($this->categories_m->remove($id))
 				{
 					$deleted++;
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf($this->lang->line('cat_mass_delete_error'), $slug));
+					$this->session->set_flashdata('error', sprintf($this->lang->line('cat_mass_delete_error'), $id));
 				}
 				$to_delete++;
 			}
@@ -121,7 +126,7 @@ class Admin extends Admin_Controller
 	// Callback: from create()
 	function _check_title($title = '')
 	{
-		if ($this->categories_m->checkTitle($title))
+		if ($this->categories_m->check_title($title))
 		{
 			$this->validation->set_message('_check_title', sprintf($this->lang->line('cat_already_exist_error'), $title));
 			return FALSE;

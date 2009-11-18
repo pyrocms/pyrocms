@@ -6,38 +6,42 @@
  * @since		v0.1
  *
  */
-class Users_m extends Model {
-
-	// Constructor function
-    function __construct() {
-        parent::Model();
-    }
+class Users_m extends Model
+{
 
     // Get a user's salt
-    function getSalt($email = '') {
-        if (!empty($email)) {
+    function getSalt($email = '')
+    {
+        if (!empty($email))
+        {
             $this->db->select('salt');
-            $query = $this->db->getwhere('users', array('email'=>$email));
-            if ($query->num_rows() > 0) {
+            $query = $this->db->get_where('users', array('email'=>$email));
+            
+            if ($query->num_rows() > 0)
+            {
                 $row = $query->row();
                 return $row->salt;
             }
         }
+        
         return FALSE;
     }
     
 	// Get a specified (single) user
-    function getUser($params) {
-    	
-    	if(isset($params['id'])) {
+    function get($params)
+    {
+    	if(isset($params['id']))
+    	{
     		$this->db->where('id', $params['id']);
     	}
     	
-    	if(isset($params['email'])) {
+    	if(isset($params['email']))
+    	{
     		$this->db->where('LOWER(email)', strtolower($params['email']));
     	}
     	
-    	if(isset($params['role'])) {
+    	if(isset($params['role']))
+    	{
     		$this->db->where('role', $params['role']);
     	}
     	
@@ -49,7 +53,7 @@ class Users_m extends Model {
     }
     
 	// Get multiple users based on the $params array
-	function getUsers($params = array())
+	function get_many($params = array())
     {
     	if(isset($params['active'])) $this->db->where('is_active', $params['active']);
     	if(isset($params['role'])) $this->db->where('role', $params['role']);	
@@ -64,7 +68,7 @@ class Users_m extends Model {
     }    
 
     // Count the amount of users based on the parameters.
-    function countUsers($params = array())
+    function count($params = array())
     {
     	if(isset($params['active'])) $this->db->where('is_active', $params['active']);
     	if(isset($params['role'])) $this->db->where('role', $params['role']);	
@@ -72,15 +76,8 @@ class Users_m extends Model {
 		return $this->db->count_all_results('users');
     }
     
-	// Get a list of available (default) roles.
-    function getRoles() {
-    	return array('user'=>'User',
-    				 'staff'=>'Staff',
-    				 'admin'=>'Admin');
-    }
-    
 	// Create a new user
-	function newUser($input = array())
+	function add($input = array())
     {
 		$this->load->helper('date');
 
@@ -104,24 +101,27 @@ class Users_m extends Model {
 	}
 	
 	// Update an existing user
-	function updateUser($id, $data) {
+	function update($id, $data)
+	{
 		return $this->db->update('users', $data, array('id' => $id));
 	}
 
 	// Update the last login time
-	function updateLastLogin($id) {
+	function update_last_login($id) {
 		$this->load->helper('date');
 		$this->db->update('users', array('last_login' => now()), array('id' => $id));
 	}
 	
 	// Activate a newly created user
-	function activateUser($id) {
+	function activate($id)
+	{
 		$this->db->update('users', array('is_active' => 1, 'activation_code' => ''), array('id' => $id));
 		return ($this->db->affected_rows() > 0);
 	}
 
 	// Delete an existing user
-	function deleteUser($id) {
+	function remove($id)
+	{
 		$this->db->delete('users', array('id'=>$id));
 		return $this->db->affected_rows();
 	}

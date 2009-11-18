@@ -58,7 +58,7 @@ class Products_m extends Model {
         $this->db->join('products_images', 'products.id = products_images.product_id', 'left');
         $this->db->join('suppliers', 'products.supplier_slug = suppliers.slug', 'left');
         $this->db->join('categories', 'products.category_slug = categories.slug', 'left');
-        $query = $this->db->getwhere('products', array('products.id'=>$id));
+        $query = $this->db->get_where('products', array('products.id'=>$id));
         
         if ($query->num_rows() > 0) {
             return $query->row();
@@ -94,7 +94,7 @@ class Products_m extends Model {
     
     function makedefault($id){
     	$this->db->select('product_id');
-    	$query = $this->db->getwhere('products_images', array('image_id'=>$id));
+    	$query = $this->db->get_where('products_images', array('image_id'=>$id));
      	$product_id = $query->row();
      	$this->db->update('products_images', array('for_display'=>'0'), array('product_id'=>$product_id->product_id));
     	$this->db->update('products_images', array('for_display'=>'1'), array('image_id'=>$id));
@@ -110,7 +110,7 @@ class Products_m extends Model {
     
     function getImage($id) {
         $this->db->select('filename');
-        $query = $this->db->getwhere('products_images', array('image_id'=>$id));
+        $query = $this->db->get_where('products_images', array('image_id'=>$id));
         if ($query->num_rows() > 0) {
             $row = $query->row();
             return $row->filename;
@@ -121,7 +121,7 @@ class Products_m extends Model {
     
     function getAllImages($id) {
         $this->db->select('filename,image_id,product_id,for_display');
-        $query = $this->db->getwhere('products_images', array('product_id'=>$id));
+        $query = $this->db->get_where('products_images', array('product_id'=>$id));
         if ($query->num_rows() > 0) {
             $row = $query->result();
             return $row;

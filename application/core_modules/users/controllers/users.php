@@ -107,10 +107,10 @@ class Users extends Public_Controller
 	{
 		// Get info from email
 		if($this->input->post('email')):
-			$this->data->activate_user = $this->users_m->getUser(array('email'=>$this->input->post('email')));
+			$this->data->activate_user = $this->users_m->get(array('email'=>$this->input->post('email')));
 			$id = $this->data->activate_user->id;
 		else:
-			$this->data->activate_user = $this->users_m->getUser(array('id'=>$id));
+			$this->data->activate_user = $this->users_m->get(array('id'=>$id));
 		endif;
 		
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;

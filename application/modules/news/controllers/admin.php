@@ -36,7 +36,7 @@ class Admin extends Admin_Controller
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
 		$this->data->categories = array();
-		if($categories = $this->categories_m->getCategories())
+		if($categories = $this->categories_m->get_many())
 		{
 			foreach($categories as $category)
 			{
@@ -262,7 +262,7 @@ class Admin extends Admin_Controller
 	// Callback: from create()
 	function _createTitleCheck($title = '')
 	{
-		if ($this->news_m->checkTitle($title))
+		if ($this->news_m->check_title($title))
 		{
 			$this->validation->set_message('_createTitleCheck', $this->lang->line('news_already_exist_error'));
 			return FALSE;

@@ -45,7 +45,7 @@ class Profile extends Public_Controller
 	function view($id = 0)
 	{
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
-		if(!$this->data->user = $this->users_m->getUser(array('id'=>$id)) ):
+		if(!$this->data->user = $this->users_m->get(array('id'=>$id)) ):
 			show_404();
 		endif;
 		

@@ -9,69 +9,69 @@
 })(jQuery);
 </script>
 
-<?=form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string()); ?>
 
 	<div class="fieldset fieldsetBlock active tabs">
 		<div class="header">
 			
-		<? if($this->uri->segment(3,'add') == 'add'): ?>
-			<h3><?= lang('user_add_title');?></h3>
+		<?php if($this->uri->segment(3,'add') == 'add'): ?>
+			<h3><?php echo lang('user_add_title');?></h3>
 			
-		<? else: ?>
-			<h3><?= sprintf(lang('user_edit_title'), $member->full_name);?></h3>
-		<? endif; ?>
+		<?php else: ?>
+			<h3><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h3>
+		<?php endif; ?>
 		
 		</div>
 		
 		<div class="tabs">
 			
 			<ul class="clear-both">
-				<li><a href="#fieldset1"><span><?=lang('user_details_label');?></span></a></li>
-				<li><a href="#fieldset2"><span><?=lang('user_password_label');?></span></a></li>
+				<li><a href="#fieldset1"><span><?php echo lang('user_details_label');?></span></a></li>
+				<li><a href="#fieldset2"><span><?php echo lang('user_password_label');?></span></a></li>
 			</ul>
 			
 			<!-- Content tab -->
 			<fieldset id="fieldset1">
-				<legend><?= lang('user_details_label');?></legend>
+				<legend><?php echo lang('user_details_label');?></legend>
 				
 				<div class="field">
-					<label for="first_name"><?= lang('user_first_name_label');?></label>
-					<?= form_input('first_name', $member->first_name); ?>
+					<label for="first_name"><?php echo lang('user_first_name_label');?></label>
+					<?php echo form_input('first_name', $member->first_name); ?>
 				</div>
 				
 				<div class="field">
-					<label for="first_name"><?= lang('user_last_name_label');?></label>
-					<?= form_input('last_name', $member->last_name); ?>
+					<label for="first_name"><?php echo lang('user_last_name_label');?></label>
+					<?php echo form_input('last_name', $member->last_name); ?>
 				</div>
 				
 				<div class="field">
-					<label for="email"><?= lang('user_email_label');?></label>
-					<?= form_input('email', $member->email); ?>
+					<label for="email"><?php echo lang('user_email_label');?></label>
+					<?php echo form_input('email', $member->email); ?>
 				</div>
 				
 				<div class="field">
-					<label for="active"><?= lang('user_role_label');?></label>
-					<?= form_dropdown('role', $roles, $member->role); ?>
+					<label for="active"><?php echo lang('user_role_label');?></label>
+					<?php echo form_dropdown('role', $roles_select, $member->role); ?>
 				</div>
 				
 				<div class="field">
-					<label for="active"><?= lang('user_activate_label');?></label>
-					<?= form_checkbox('is_active', 1, $member->is_active == 1); ?>
+					<label for="active"><?php echo lang('user_activate_label');?></label>
+					<?php echo form_checkbox('is_active', 1, $member->is_active == 1); ?>
 				</div>
 		
 			</fieldset>
 	
 			<fieldset id="fieldset2">
-				<legend><?= lang('user_password_label');?></legend>
+				<legend><?php echo lang('user_password_label');?></legend>
 			
 				<div class="field">
-					<label for="password"><?= lang('user_password_label');?></label>
-					<?= form_password('password'); ?>
+					<label for="password"><?php echo lang('user_password_label');?></label>
+					<?php echo form_password('password'); ?>
 				</div>
 				
 				<div class="field">
-					<label for="confirm_password"><?= lang('user_password_confirm_label');?></label>
-					<?= form_password('confirm_password'); ?>
+					<label for="confirm_password"><?php echo lang('user_password_confirm_label');?></label>
+					<?php echo form_password('confirm_password'); ?>
 				</div>
 				
 			</fieldset>
@@ -79,6 +79,6 @@
 		</div>
 	</div>
 			
-	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 	
-<?=form_close(); ?>
+<?php echo form_close(); ?>

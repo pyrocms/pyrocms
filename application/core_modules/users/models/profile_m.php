@@ -8,15 +8,10 @@
  */
 class Profile_m extends Model {
 	
-	// Constructor function
-	function __construct() {
-        parent::Model();
-	}
-	
 	// Get a user profile
-	function getProfile($params = array()) {
-		
-		$query = $this->db->getwhere('profiles', $params);
+	function getProfile($params = array())
+	{
+		$query = $this->db->get_where('profiles', $params);
 
 		return $query->row();
 	}
@@ -49,7 +44,7 @@ class Profile_m extends Model {
 		}
 
 		// Does this user have a profile already?
-		if($this->db->getwhere('profiles', array('user_id' => $id))->row()):
+		if($this->db->get_where('profiles', array('user_id' => $id))->row()):
 			$this->db->update('profiles', $set, array('user_id'=>$id));
 			
 		else:

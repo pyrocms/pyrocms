@@ -64,7 +64,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->load->model('suppliers/suppliers_m');
-		$this->data->categories = $this->categories_m->getCategories();
+		$this->data->categories = $this->categories_m->get_many();
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
 		
 		// Load WYSIWYG editor
@@ -131,7 +131,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->load->model('suppliers/suppliers_m');
-		$this->data->categories = $this->categories_m->getCategories();
+		$this->data->categories = $this->categories_m->get_many();
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
 		
 		// Load WYSIWYG editor
@@ -287,7 +287,7 @@ class Admin extends Admin_Controller
 		if (empty($id)) redirect('admin/products/index');
 		
 		$this->db->select('frontpage');
-		$query = $this->db->getwhere('products', array('id'=>$id));
+		$query = $this->db->get_where('products', array('id'=>$id));
 		if ($query->num_rows() > 0)
 		{
 			$row = $query->row();

@@ -25,33 +25,34 @@ class Admin extends Admin_Controller
 		
 		$this->lang->load('user');
 		
-		$this->data->roles = $this->users_m->getRoles();
+        $this->data->roles = $this->permissions_m->getRoles();
+        $this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');
 	}
 
 	// Admin: List all User
 	function index()
 	{
 		// Create pagination links
-		$total_rows = $this->users_m->countUsers(array('active' => 1));
+		$total_rows = $this->users_m->count(array('active' => 1));
 		$this->data->pagination = create_pagination('admin/users/index', $total_rows);
 
 		// Using this data, get the relevant results
 		$active_criteria = array( 'active' => 1, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
-		$this->data->users = $this->users_m->getUsers($active_criteria);
+		$this->data->users = $this->users_m->get_many($active_criteria);
 		
 		// How many inactive users are on the site?
-		$this->data->inactive_user_count = $this->users_m->countUsers(array('active' => 0));
+		$this->data->inactive_user_count = $this->users_m->count(array('active' => 0));
 		
 		$this->layout->create('admin/index', $this->data);
 	}
 	
 	function inactive()
 	{
-		$total_rows = $this->users_m->countUsers(array('active' => 1));
+		$total_rows = $this->users_m->count(array('active' => 1));
 		$this->data->pagination = create_pagination('admin/users/inactive', $total_rows);
 
 		$inactive_criteria = array( 'active' => 0, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
-		$this->data->users = $this->users_m->getUsers($inactive_criteria);
+		$this->data->users = $this->users_m->get_many($inactive_criteria);
 		
 		$this->layout->create('admin/inactive', $this->data);
 	}
@@ -95,7 +96,7 @@ class Admin extends Admin_Controller
 				if($this->input->post('is_active'))
 				{
 					// Activate the user
-					if($this->users_m->activateUser($user_id))
+					if($this->users_m->activate($user_id))
 					{
 						$this->session->set_flashdata('success', $this->lang->line('user_added_and_activated_success'));
 						redirect('admin/users/index');
@@ -152,7 +153,7 @@ class Admin extends Admin_Controller
 		$this->validation->set_rules($this->rules);
 		$this->validation->set_fields();
 		
-		$this->data->member = $this->users_m->getUser(array('id' => $id));
+		$this->data->member = $this->users_m->get(array('id' => $id));
 		
 		if(!$this->data->member)
 		{
@@ -177,7 +178,7 @@ class Admin extends Admin_Controller
 				$update_data['password'] = dohash($this->input->post('password') . $this->data->member->salt);
 			}
 			
-			if($this->users_m->updateUser($id, $update_data))
+			if($this->users_m->update($id, $update_data))
 			{
 				$this->session->set_flashdata('success', $this->lang->line('user_edit_success'));
 			}			
@@ -212,7 +213,7 @@ class Admin extends Admin_Controller
 			$to_activate = 0;
 			foreach ($ids as $id)
 			{
-				if($this->users_m->activateUser($id))
+				if($this->users_m->activate($id))
 				{
 					$activated++;
 				}
@@ -245,7 +246,7 @@ class Admin extends Admin_Controller
 					continue;
 				}
 				
-				if($this->users_m->deleteUser($id))
+				if($this->users_m->remove($id))
 				{
 					$deleted++;
 				}
