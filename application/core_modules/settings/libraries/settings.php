@@ -4,11 +4,20 @@ class Settings {
 
 	private $CI;
 	
-	private $items = array();
+	private $_items = array();
 	
 	function __construct() {
 		$this->CI =& get_instance();
 		$this->CI->load->model('settings/settings_m');
+		
+		$_items = $this->CI->settings_m->get_all();
+		
+		foreach($_items as &$item)
+		{
+			$this->items[ $item->slug ] = $item->value;
+		}
+		
+		unset($_items);
 	}
 	
 	function item($slug = '') {
