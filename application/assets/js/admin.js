@@ -7,7 +7,8 @@
 			
 			var table = this;
 			
-			($("thead th", table).length === $('tbody td', table).length) && $(table).tablesorter();
+			// TODO PJS Removed as it only sorted the current page, and was breaking some inputs
+			//($("thead th", table).length === $('tbody td', table).length) && $(table).tablesorter();
 			
 			// A row can be selected via check or CTRL + click
 			toggleRowChecked = function(row, checkbox)
