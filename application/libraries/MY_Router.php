@@ -5,8 +5,8 @@ spl_autoload_register('Modules::autoload');
 
 /* define the module locations and offset */
 Modules::$locations = array(
-	APPPATH.'core_modules/'	=> '../core_modules/',
-	APPPATH.'modules/'		=> '../modules/',
+	APPPATH.'modules/' => '../modules/',
+	APPPATH.'core_modules/' => '../core_modules/'
 );
 
 /**
@@ -21,7 +21,7 @@ Modules::$locations = array(
  *
  * Install this file as application/libraries/MY_Router.php
  *
- * @copyright 	Copyright (c) Wiredesignz 2009-11-14
+ * @copyright 	Copyright (c) Wiredesignz 2009-11-16
  * @version 	1.9
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -56,30 +56,9 @@ class MY_Router extends CI_Router
 		/* locate module controller */
 		if ($located = $this->locate($segments)) return $located;
 		
-		/* application controller exists? */			
-		if(is_file(APPPATH.'controllers/'.$segments[0].EXT)) {
-			return $segments;
-		}		
-	
-		list($directory, $controller) = array_pad($segments, 2, NULL);
-		
-		/* application sub-directory controller exists? */
-		if(is_file(APPPATH.'controllers/'.$directory.'/'.$controller.EXT)) {
-			$this->directory = array_shift($segments).'/';
-			return $segments;
-		}		
-		
 		/* use a default 404 controller */
 		if (isset($this->routes['404']) AND $segments = explode('/', $this->routes['404'])) {
-			
-			/* locate controller in a module? */
 			if ($located = $this->locate($segments)) return $located;
-
-			/* is controller in application? */
-			if (is_file(APPPATH.'controllers/'.$this->routes['404'].EXT)) {
-				if (count($segments) > 1) $this->directory = array_shift($segments).'/';
-				return $segments;
-			}
 		}
 		
 		/* no controller found */
@@ -91,12 +70,12 @@ class MY_Router extends CI_Router
 		
 		$this->module = '';
 		$this->directory = '';
-
+		
 		/* use module route if available */
 		if (isset($segments[0]) AND $routes = Modules::parse_routes($segments[0], implode('/', $segments))) {
 			$segments = $routes;
 		}
-		
+	
 		/* get the segments array elements */
 		list($module, $directory, $controller) = array_pad($segments, 3, NULL);
 
@@ -117,12 +96,12 @@ class MY_Router extends CI_Router
 				if($directory AND is_dir($module_subdir = $source.$directory.'/')) {
 							
 					$this->directory .= $directory.'/';
-
+				
 					/* module sub-directory controller exists? */
 					if(is_file($module_subdir.$directory.EXT)) {
 						return array_slice($segments, 1);
 					}
-				
+					
 					/* module sub-directory sub-controller exists? */
 					if($controller AND is_file($module_subdir.$controller.EXT))	{
 						return array_slice($segments, 2);
@@ -134,6 +113,17 @@ class MY_Router extends CI_Router
 					return $segments;
 				}
 			}
+		}
+		
+		/* application controller exists? */			
+		if(is_file(APPPATH.'controllers/'.$module.EXT)) {
+			return $segments;
+		}
+		
+		/* application sub-directory controller exists? */
+		if(is_file(APPPATH.'controllers/'.$module.'/'.$directory.EXT)) {
+			$this->directory = $module.'/';
+			return array_slice($segments, 1);
 		}
 	}
 }
