@@ -38,7 +38,6 @@ class Pages extends Public_Controller
         }
         
         // Parse any settings, links or url tags
-        $this->load->library('parser');
         $page->body = $this->parser->string_parse($page->body, $this->data);
         
         // Not got a meta title? Use slogan for homepage or the normal page title for other pages
