@@ -1,4 +1,5 @@
 <?php
+
 /*
 |---------------------------------------------------------------
 | PHP ERROR REPORTING LEVEL
@@ -10,6 +11,18 @@
 |
 */
 	error_reporting(E_ALL);
+	
+/*
+|---------------------------------------------------------------
+| DEFAULT INI SETTINGS
+|---------------------------------------------------------------
+|
+| Hosts have a habbit of setting stupid settings for various
+| things. These settings should help provide maximum compatibility
+| for PyroCMS
+|
+*/
+	@ini_set('cgi.fix_pathinfo', 0);
 
 /*
 |---------------------------------------------------------------
