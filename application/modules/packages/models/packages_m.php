@@ -6,9 +6,9 @@ class Packages_m extends Model {
         parent::Model();
     }
     
-    function checkTitle($title = '') {
+    function check_title($title = '') {
         $this->db->select('COUNT(title) AS total');
-        $query = $this->db->getwhere('packages', array('slug'=>url_title($title)));
+        $query = $this->db->get_where('packages', array('slug'=>url_title($title)));
         $row = $query->row();
         if ($row->total == 0) {
             return FALSE;
@@ -18,7 +18,7 @@ class Packages_m extends Model {
     }
     
     function getPackage($slug = '') {
-        $query = $this->db->getwhere('packages', array('slug'=>$slug));
+        $query = $this->db->get_where('packages', array('slug'=>$slug));
         if ($query->num_rows() == 0) {
             return FALSE;
         } else {

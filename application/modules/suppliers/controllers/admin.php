@@ -67,7 +67,7 @@ class Admin extends Admin_Controller
 			}
 			show_error($this->upload->display_errors());
 		}	
-		$this->data->categories = $this->categories_m->getCategories();
+		$this->data->categories = $this->categories_m->get_many();
 		
 		// Load WYSIWYG editor
 		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
@@ -128,8 +128,8 @@ class Admin extends Admin_Controller
 			redirect('admin/suppliers/index');
 		}
 	
-		$this->data->cur_categories = $this->suppliers_m->getCategoryies($supplier->id);
-		$this->data->categories = $this->categories_m->getCategories();		
+		$this->data->cur_categories = $this->suppliers_m->geties($supplier->id);
+		$this->data->categories = $this->categories_m->get_many();		
 		$this->data->supplier =& $supplier;
 		
 		// Load WYSIWYG editor

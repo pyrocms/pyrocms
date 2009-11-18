@@ -129,7 +129,7 @@ class Admin extends Admin_Controller
 	// Callback: from create()
 	function _createTitleCheck($title = '')
 	{
-		if ($this->services_m->checkTitle($title))
+		if ($this->services_m->check_title($title))
 		{
 			$this->validation->set_message('_createTitleCheck', sprintf($this->lang->line('service_already_exist_notice'), $title));
 			return FALSE;

@@ -32,7 +32,7 @@ class Newsletters_m extends Model
 	
 	function getNewsletter($id = '')
 	{
-		$query = $this->db->getwhere('newsletters', array('id'=>$id));
+		$query = $this->db->get_where('newsletters', array('id'=>$id));
 		if ($query->num_rows() == 0)
 		{
 			return FALSE;
@@ -116,7 +116,7 @@ class Newsletters_m extends Model
 	
 	function checkEmail($email)
 	{
-		$query = $this->db->getwhere('emails', array('email'=>$email));
+		$query = $this->db->get_where('emails', array('email'=>$email));
 		if ($query->num_rows() == 0)
 		{
 			return FALSE;

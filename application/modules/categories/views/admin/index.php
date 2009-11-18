@@ -18,11 +18,11 @@
 		<?php if ($categories): ?>    
 			<?php foreach ($categories as $category): ?>
 			<tr>
-				<td><input type="checkbox" name="delete[]" value="<?php echo $category->slug;?>" /></td>
+				<td><?php echo form_checkbox('action_to[]', $category->id); ?></td>
 				<td><?php echo $category->title;?></td>
 				<td>
-					<?php echo anchor('admin/categories/edit/' . $category->slug, lang('cat_edit_label')) . ' | '; ?>
-					<?php echo anchor('admin/categories/delete/' . $category->slug, lang('cat_delete_label'), array('class'=>'confirm'));?>
+					<?php echo anchor('admin/categories/edit/' . $category->id, lang('cat_edit_label')) . ' | '; ?>
+					<?php echo anchor('admin/categories/delete/' . $category->id, lang('cat_delete_label'), array('class'=>'confirm'));?>
 				</td>
 			</tr>
 			<?php endforeach; ?>                      

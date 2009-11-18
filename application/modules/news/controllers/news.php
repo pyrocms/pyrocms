@@ -36,7 +36,7 @@ class News extends Public_Controller
 		if(!$slug) redirect('news');
 		
 		// Get category data
-		$category = $this->categories_m->getCategory($slug);
+		$category = $this->categories_m->get($slug);
 		
 		if(!$category) show_404();
 		

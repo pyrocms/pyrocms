@@ -133,7 +133,7 @@ class Admin extends Admin_Controller
 	// Callback: from create()
 	function _createTitleCheck($title = '')
 	{
-		if ($this->packages_m->checkTitle($title))
+		if ($this->packages_m->check_title($title))
 		{
 			$this->validation->set_message('_createTitleCheck', $this->lang->line('pack_already_exist_error'));
 			return FALSE;

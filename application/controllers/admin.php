@@ -39,7 +39,7 @@ class Admin extends Admin_Controller
 		$this->data->live_articles			= $this->news_m->countArticles(array('status' => 'live'));
 		
 		// Count users
-		$this->data->total_users			= $this->users_m->countUsers(array('is_active' => 1));
+		$this->data->total_users			= $this->users_m->count(array('is_active' => 1));
 		
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');

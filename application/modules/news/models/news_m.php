@@ -6,10 +6,10 @@ class News_m extends Model {
         parent::Model();
     }
     
-    function checkTitle($title = '')
+    function check_title($title = '')
     {
         $this->db->select('COUNT(title) AS total');
-        $query = $this->db->getwhere('news', array('slug'=>url_title($title)));
+        $query = $this->db->get_where('news', array('slug'=>url_title($title)));
         $row = $query->row();
         if ($row->total == 0) {
             return FALSE;

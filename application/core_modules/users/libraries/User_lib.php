@@ -47,7 +47,7 @@ class User_lib
         
         if( $this->logged_in() )
         {
-        	$this->user_data = $this->CI->users_m->getUser( array( 'id' => $this->CI->session->userdata('user_id') ) );
+        	$this->user_data = $this->CI->users_m->get( array( 'id' => $this->CI->session->userdata('user_id') ) );
         }
     }
 
@@ -83,14 +83,14 @@ class User_lib
 		$this->user_data->activation_code = $activation_code;
 
         //Check against user table
-        if ($this->CI->users_m->getUser(array('email'=>$email))):
+        if ($this->CI->users_m->get(array('email'=>$email))):
             // email already exists
 			$this->error_code = 'user_email_exists';
             return false;
         endif;
 		
         // return true/false
-        $this->user_data->id = $this->CI->users_m->newUser($this->user_data);
+        $this->user_data->id = $this->CI->users_m->add($this->user_data);
 		return $this->user_data->id;
 
     }
@@ -112,7 +112,7 @@ class User_lib
 
         //Check against user table
         $this->CI->db->where('user_name', $username);
-        $query = $this->CI->db->getwhere($this->user_table);
+        $query = $this->CI->db->get_where($this->user_table);
         
         if ($query->num_rows() > 0):
             //username already exists
@@ -120,7 +120,7 @@ class User_lib
         endif;
 		
 		$this->CI->db->where('email', $entry['email']);
-        $query = $this->CI->db->getwhere($this->user_table);
+        $query = $this->CI->db->get_where($this->user_table);
         
         if ($query->num_rows() > 0):
             //email already exists
@@ -152,7 +152,7 @@ class User_lib
         endif;
         
         // Get the user with these details
-        $this->user_data = $this->CI->users_m->getUser(array('email'=>$email));
+        $this->user_data = $this->CI->users_m->get(array('email'=>$email));
         
         // No user, or passwords do not match
         if( !$this->user_data or $this->user_data->password != dohash($password . $this->user_data->salt)):
@@ -169,7 +169,7 @@ class User_lib
 		// They are in -------------------------------------------------------------------------------------------------------------
 				
 		// Update last login
-		$this->CI->users_m->updateLastLogin($this->user_data->id);
+		$this->CI->users_m->update_last_login($this->user_data->id);
 
 		// Destroy old session
 		$this->CI->session->sess_destroy();
@@ -203,7 +203,7 @@ class User_lib
 	function activate($id, $code = '')
 	{
 		// Check against user table
-        if(!$this->user_data = $this->CI->users_m->getUser(array('id'=>$id, 'activation_code'=>$code))):
+        if(!$this->user_data = $this->CI->users_m->get(array('id'=>$id, 'activation_code'=>$code))):
             // email already exists
 			$this->error_code = 'user_activation_wrong';
             return false; 
@@ -212,7 +212,7 @@ class User_lib
 		if ($this->user_data->is_active == 0):
 			
 			// Activate the user in the database
-			return $this->CI->users_m->activateUser($this->user_data->id);
+			return $this->CI->users_m->activate($this->user_data->id);
 			
 		endif;
 		return false;
@@ -224,7 +224,7 @@ class User_lib
 		$this->CI->load->helper(array('string', 'security'));
         
 		// Find a user with the supplied details
-		$this->user_data = $this->CI->users_m->getUser(array(
+		$this->user_data = $this->CI->users_m->get(array(
 			'first_name'=> $first_name,
 			'last_name'	=> $last_name,
 			'email'		=> $email
@@ -243,7 +243,7 @@ class User_lib
 		$this->user_data->password = dohash($password . $this->user_data->salt);
 		
 		// Store the new encrypted password in the database
-		$result = $this->CI->users_m->updateUser($this->user_data->id, array('password' => $this->user_data->password));
+		$result = $this->CI->users_m->update($this->user_data->id, array('password' => $this->user_data->password));
 		
 		return $result ? $password : FALSE;
 	}

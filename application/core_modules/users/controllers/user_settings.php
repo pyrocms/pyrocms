@@ -54,7 +54,7 @@ class User_settings extends Public_Controller
 	    $this->validation->set_fields($fields);
 			
 	    // Get settings for this user
-	    $this->data->user_settings = $this->users_m->getUser(array('id' => $this->user_id));
+	    $this->data->user_settings = $this->users_m->get(array('id' => $this->user_id));
 			
 	    foreach(array_keys($rules) as $field)
 		{
@@ -88,7 +88,7 @@ class User_settings extends Public_Controller
 				$set['email'] = $this->input->post('settings_email');
 	    	}
 	    		
-			if ($this->users_m->updateUser($this->user_id, $set))
+			if ($this->users_m->update($this->user_id, $set))
 			{
 	    		$this->session->set_flashdata(array('success'=> $this->lang->line('user_settings_saved_success')));
 	    	}    		

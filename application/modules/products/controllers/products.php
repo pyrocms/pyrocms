@@ -16,10 +16,10 @@ class Products extends Public_Controller
 		{
 			foreach ($this->data->products as $product)
 			{
-				$query = $this->db->getwhere('products_images', array('product_id'=>$product->id, 'for_display'=>'1'));
+				$query = $this->db->get_where('products_images', array('product_id'=>$product->id, 'for_display'=>'1'));
 				if ($query->num_rows() == 0)
 				{
-					$query = $this->db->getwhere('products_images', array('product_id'=>$product->id));
+					$query = $this->db->get_where('products_images', array('product_id'=>$product->id));
 				}
 				$this->data->images[$product->id] = $query->row();
 			}
@@ -34,10 +34,10 @@ class Products extends Public_Controller
 		
 		foreach ($this->data->products as $product)
 		{
-			$query = $this->db->getwhere('products_images', array('product_id'=>$product->id, 'for_display'=>'1'));
+			$query = $this->db->get_where('products_images', array('product_id'=>$product->id, 'for_display'=>'1'));
 			if ($query->num_rows() == 0)
 			{
-				$query = $this->db->getwhere('products_images', array('product_id'=>$product->id));
+				$query = $this->db->get_where('products_images', array('product_id'=>$product->id));
 			}
 			$this->data->images[$product->id] = $query->row();
 		}		
@@ -50,7 +50,7 @@ class Products extends Public_Controller
 		
 		$this->data->product = $this->products_m->getProduct($id);
 		$this->data->images = FALSE;
-		$query = $this->db->getwhere('products_images', array('product_id'=>$id));
+		$query = $this->db->get_where('products_images', array('product_id'=>$id));
 		
 		if ($query->num_rows() > 0)
 		{

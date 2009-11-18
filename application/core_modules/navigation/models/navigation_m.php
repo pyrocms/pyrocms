@@ -10,7 +10,7 @@ class Navigation_m extends Model {
 
 	function getLink($id = 0)
 	{
-		$query = $this->db->getwhere('navigation_links', array('id'=>$id));
+		$query = $this->db->get_where('navigation_links', array('id'=>$id));
 		if ($query->num_rows() == 0) {
 			return FALSE;
 		} else {

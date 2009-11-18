@@ -24,7 +24,7 @@ class Rss extends Public_Controller
 	{ 
 		$this->load->model('categories/categories_m');
 		
-		if(!$category = $this->categories_m->getCategory($slug))
+		if(!$category = $this->categories_m->get($slug))
 		{
 			redirect('news/rss/index');
 		}

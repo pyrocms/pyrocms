@@ -26,9 +26,9 @@ class Galleries_m extends Model {
         return $this->db->insert_id();
     }
     
-    function checkTitle($title = '') {
+    function check_title($title = '') {
         $this->db->select('COUNT(title) AS total');
-        $query = $this->db->getwhere('galleries', array('slug'=>url_title($title)));
+        $query = $this->db->get_where('galleries', array('slug'=>url_title($title)));
         $row = $query->row();
         if ($row->total == 0) {
             return FALSE;
@@ -58,7 +58,7 @@ class Galleries_m extends Model {
         $this->db->select('galleries.*, COUNT(photos.id) AS num_photos');
         $this->db->join('photos', 'galleries.slug = photos.gallery_slug', 'LEFT');
         $this->db->groupby('galleries.slug', 'ASC');
-        $query = $this->db->getwhere('galleries', $params);
+        $query = $this->db->get_where('galleries', $params);
         if ($query->num_rows() == 0) {
             return FALSE;
         } else {
@@ -67,7 +67,7 @@ class Galleries_m extends Model {
     }
     
     function getGallery($slug = '') {
-        $query = $this->db->getwhere('galleries', array('slug'=>$slug));
+        $query = $this->db->get_where('galleries', array('slug'=>$slug));
         if ($query->num_rows() == 0) {
             return FALSE;
         } else {
@@ -76,7 +76,7 @@ class Galleries_m extends Model {
     }
     
     function getPhotos($slug = '') {     
-        $query = $this->db->getwhere('photos', array('gallery_slug'=>$slug));
+        $query = $this->db->get_where('photos', array('gallery_slug'=>$slug));
         if ($query->num_rows() == 0) {
             return FALSE;
         } else {
@@ -130,7 +130,7 @@ class Galleries_m extends Model {
             $query = $this->db->get('photos', 5, 0);
 
         } else {
-            $query = $this->db->getwhere('photos', array('gallery_slug'=>$gallery), 5, 0);
+            $query = $this->db->get_where('photos', array('gallery_slug'=>$gallery), 5, 0);
         }
         foreach ($query->result() as $photo) {
             $string .= '<li><a href="'. image_path('galleries/' . $photo->gallery_slug . '/' . $photo->filename) . '" rel="modal" title="' . $photo->description . '">' . image('galleries/' . $photo->gallery_slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description)) . '</a></li>';
@@ -146,7 +146,7 @@ class Galleries_m extends Model {
             $query = $this->db->get('photos', 5, 0);
 
         } else {
-            $query = $this->db->getwhere('photos', array('gallery_slug'=>$gallery), $numPhotos, 0);
+            $query = $this->db->get_where('photos', array('gallery_slug'=>$gallery), $numPhotos, 0);
         }
         foreach ($query->result() as $photo) {
             $string .= '<li><a href="'. image_path('galleries/' . $photo->gallery_slug . '/' . $photo->filename) . '" rel="modal" title="' . $photo->description . '">' . image('galleries/' . $photo->gallery_slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description)) . '</a></li>';

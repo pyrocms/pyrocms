@@ -113,9 +113,9 @@ class Suppliers_m extends Model {
 		return $this->db->affected_rows();
     }
 
-	public function getCategoryies($id) {
+	public function geties($id) {
 		$this->db->select('category_id');
-        $query = $this->db->getwhere('suppliers_categories', array('supplier_id'=> $id));
+        $query = $this->db->get_where('suppliers_categories', array('supplier_id'=> $id));
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } else {
