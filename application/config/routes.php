@@ -43,6 +43,11 @@ $route['admin/([a-zA-Z_-]+)/(:any)'] = "$1/admin/$2";
 $route['admin/(login|logout)'] = "admin/$1";
 $route['admin/([a-zA-Z_-]+)'] = "$1/admin/index";
 
+$route['register'] = "users/register";
+$route['my-profile'] = "users/profile/index";
+$route['edit-profile'] = "users/profile/edit";
+$route['edit-settings'] = "users/user_settings/edit";
+
 // Pages routing now handled with router extension
 // $route['([a-zA-Z0-9_-]+)'] = "pages/index/$1";
 $route['default_controller'] = "pages";
