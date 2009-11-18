@@ -120,11 +120,12 @@ class Pages_m extends Model {
 
 	function getPathById($id)
 	{
-		return @$this->db->select('path')
-					->where('id', $id)
-					->get('pages_lookup')
-					->row()
-					->path;
+		$page = $this->db->select('path')
+			->where('id', $id)
+			->get('pages_lookup')
+			->row();
+					
+		return isset($page->path) ? $page->path : '';
 	}
 	
 	function getIdByPath($path)
