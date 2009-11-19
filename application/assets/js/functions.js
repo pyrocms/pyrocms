@@ -1,1 +1,0 @@
-/* Global functions for use around the place */

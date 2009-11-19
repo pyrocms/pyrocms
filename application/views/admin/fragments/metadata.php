@@ -25,7 +25,6 @@
 <?php echo js('facebox.js').css('facebox.css'); ?>
 	
 <?php echo $extra_head_content; ?>        
-<?php echo js('functions.js'); ?>
 <?php echo js('admin.js').css('admin/admin.css');?>
 
 <?php echo css('admin/orange.css'); ?>    
