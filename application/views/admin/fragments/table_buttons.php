@@ -30,6 +30,26 @@
 					</strong>
 				</button>
 			</div>
+			
+			<? elseif( $button == 'approve' ): ?>
+			<div class="float-left">
+				<button type="submit" name="btnAction" value="approve" class="button">
+					<strong>
+						<?= lang('approve_label');?>
+						<img class="icon" alt="" src="<?=image_url('admin/icons/accepted_48.png');?>" />
+					</strong>
+				</button>
+			</div>
+			
+			<? elseif( $button == 'unapprove' ): ?>
+			<div class="float-left">
+				<button type="submit" name="btnAction" value="unapprove" class="button">
+					<strong>
+						<?= lang('unapprove_label');?>
+						<img class="icon" alt="" src="<?=image_url('admin/icons/cancel_48.png');?>" />
+					</strong>
+				</button>
+			</div>
 		
 			<? elseif( $button == 'activate' ): ?>
 			<div class="float-left">

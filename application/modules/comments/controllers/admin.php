@@ -13,6 +13,58 @@ class Admin extends Admin_Controller
 	// Admin: List all comments
 	public function index()
 	{
+		// I can haz POST ? 
+		if($_POST)
+		{
+			// Get the action
+			$action   = strtolower($_POST['btnAction']);
+			$id_array = $_POST['action_to'];
+			
+			// Switch statement
+			switch($action)
+			{
+				// Approve the comment
+				case 'approve':
+					// Loop through each ID
+					foreach($id_array as $key => $value)
+					{
+						// Multiple ones ? 
+						if(count($id_array) > 1)
+						{
+							$this->approve($value,FALSE,TRUE);
+						}
+						else
+						{
+							$this->approve($value,FALSE);
+						}
+					}
+				break;
+				// Unapprove the comment
+				case 'unapprove':
+					// Loop through each ID
+					foreach($id_array as $key => $value)
+					{
+						// Multiple ones ? 
+						if(count($id_array) > 1)
+						{
+							$this->unapprove($value,FALSE,TRUE);
+						}
+						else
+						{
+							$this->unapprove($value,FALSE);
+						}
+					}
+				break;
+				// Delete the comment
+				case 'delete':
+					$this->delete();
+				break;
+			}
+			
+			// Redirect
+			redirect('admin/comments/index');
+		}
+		
 		$this->load->helper('text');
 		// Create pagination links
 		$total_rows = $this->comments_m->countComments(array('is_active' => 0));
@@ -154,35 +206,74 @@ class Admin extends Admin_Controller
 	}
 	
 	// Admin: activate a comment
-	public function approve($id = 0)
+	public function approve($id = 0,$redirect = TRUE,$multiple = FALSE)
 	{
 		if (!$id) redirect('admin/comments/index');
 					
 		if($this->comments_m->approveComment($id, 1))
 		{
-			$this->session->set_flashdata( array('success'=> $this->lang->line('comment_approve_success')) );
+			// Unapprove multiple comments ? 
+			if($multiple == TRUE)
+			{
+				$this->session->set_flashdata( array('success'=> $this->lang->line('comment_approve_success_multiple')));
+			}
+			else
+			{
+				$this->session->set_flashdata( array('success'=> $this->lang->line('comment_approve_success')));
+			}
 		}
 		else
 		{
-			$this->session->set_flashdata( array('error'=> $this->lang->line('comment_approve_error')) );
+			// Error for multiple comments ? 
+			if($multiple == TRUE)
+			{
+				$this->session->set_flashdata( array('error'=> $this->lang->line('comment_approve_error_multiple')) );
+			}
+			else
+			{
+				$this->session->set_flashdata( array('error'=> $this->lang->line('comment_approve_error')) );
+			}
 		}
-		redirect('admin/comments/index');	
+		
+		if($redirect == TRUE)
+		{
+			redirect('admin/comments/index');	
+		}		
 	}
 	
 	// Admin: deativate a comment
-	public function unapprove($id = 0)
+	public function unapprove($id = 0,$redirect = TRUE,$multiple = FALSE)
 	{
 		if (!$id) redirect('admin/comments/index');
 					
 		if($this->comments_m->approveComment($id, 0))
 		{
-			$this->session->set_flashdata( array('success'=> $this->lang->line('comment_unapprove_success')) );
+			// Unapprove multiple comments ? 
+			if($multiple == TRUE)
+			{
+				$this->session->set_flashdata( array('success'=> $this->lang->line('comment_unapprove_success_multiple')) );
+			}
+			else
+			{
+				$this->session->set_flashdata( array('success'=> $this->lang->line('comment_unapprove_success')) );	
+			}			
 		}
 		else
 		{
-			$this->session->set_flashdata( array('error'=> $this->lang->line('comment_unapprove_error')) );
+			// Error for multiple comments ? 
+			if($multiple == TRUE)
+			{
+				$this->session->set_flashdata( array('error'=> $this->lang->line('comment_unapprove_error_multiple')) );
+			}
+			else
+			{
+				$this->session->set_flashdata( array('error'=> $this->lang->line('comment_unapprove_error')) );
+			}
 		}
-		redirect('admin/comments/index');	
+		if($redirect == TRUE)
+		{
+			redirect('admin/comments/index');	
+		}
 	}
 	
 	public function preview($id = 0)

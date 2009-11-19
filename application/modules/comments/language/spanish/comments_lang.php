@@ -33,10 +33,14 @@ $lang['comments_edit_success'] 			= 'The comment was edited successfully.'; #tra
 $lang['comments_edit_error'] 			= 'The comment could not be edited.'; #translate
 
 $lang['comment_approve_success'] 		= 'This comment has been approved.'; #translate
+$lang['comment_approve_success_multiple'] 	= 'The selected comments have been approved.'; #translate
 $lang['comment_approve_error'] 			= 'There was a problem approving this comment.'; #translate
+$lang['comment_approve_error_multiple'] 	= 'There was a problem approving the selected comments.'; #translate
 
 $lang['comment_unapprove_success'] 		= 'The comment has been unapproved and will no longer show on the live site.'; #translate
+$lang['comment_unapprove_success_multiple'] = 'The selected comments have been unapproved and will no longer show on the live site.'; #translate
 $lang['comment_unapprove_error'] 		= 'There was a problem unapproving this comment. Perhaps deleting would work?'; #translate
+$lang['comment_unapprove_error_multiple']	= 'There was a problem unapproving the selected comments. Perhaps deleting would work?'; #translate
 
 $lang['comments_delete_single_success'] = 'This comment #%s has been deleted and will no longer show on the live site.'; #translate
 $lang['comments_delete_multi_success'] 	= 'The comments #%s have been deleted and will no longer show on the live site.'; #translate
