@@ -12,7 +12,7 @@
 	</p>
 <? endif; ?>
     
-<?= form_open('admin/comments/delete');?>
+<?= form_open('admin/comments/index');?>
 	<?=form_hidden('redirect', $this->uri->uri_string()); ?> 
 	<table border="0" class="listTable clear-both">    
 		<thead>
@@ -65,5 +65,10 @@
 		<? endif; ?>
 		</tbody>	
 	</table>
-	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
+	
+	<?php if( $method == 'index' ): ?>
+	<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('approve','delete'))); ?>
+	<?php else: ?>
+	<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('unapprove','delete'))); ?>
+	<?php endif; ?>
 <?=form_close();?>

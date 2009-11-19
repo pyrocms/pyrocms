@@ -40,6 +40,8 @@ $lang['save_label'] 								= 'Save';
 $lang['cancel_label'] 							= 'Cancel';
 $lang['delete_label'] 							= 'Delete';
 $lang['activate_label'] 						= 'Activate';
+$lang['approve_label']							= 'Approve'; #translate
+$lang['unapprove_label']						= 'Unapprove'; #translate
 $lang['publish_label'] 							= 'Publish';
 $lang['upload_label'] 							= 'Upload';
 
