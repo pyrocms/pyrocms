@@ -34,10 +34,14 @@ $lang['comments_edit_success'] 			= 'Le commentaire a été modifié avec succè
 $lang['comments_edit_error'] 			= 'Le commentaire n\'a pu être modifié.';
 
 $lang['comment_approve_success'] 		= 'Ce commentaire a été approuvé.';
+$lang['comment_approve_success_multiple'] 	= 'The selected comments have been approved.'; #translate
 $lang['comment_approve_error'] 			= 'Un problème est survenu lors de l\'approbation de ce commentaire.';
+$lang['comment_approve_error_multiple'] 	= 'There was a problem approving the selected comments.'; #translate
 
 $lang['comment_unapprove_success'] 		= 'Le commentaire a été refusé et n\'apparaîtra plus sur le site.';
+$lang['comment_unapprove_success_multiple'] = 'The selected comments have been unapproved and will no longer show on the live site.'; #translate
 $lang['comment_unapprove_error'] 		= 'Un problème est survenu lors du refus de ce commentaire. Essayez alors de le supprimer?';
+$lang['comment_unapprove_error_multiple']	= 'There was a problem unapproving the selected comments. Perhaps deleting would work?'; #translate
 
 $lang['comments_delete_single_success'] = 'Le commentaire #%s a été supprimé et n\'apparaîtra plus sur le site.';
 $lang['comments_delete_multi_success'] 	= 'Les commentaires #%s ont été supprimés et n\'apparaîtront plus sur le site.';
