@@ -48,9 +48,9 @@
 						<td>
 							<?= anchor('admin/comments/preview/'. $comment->id, lang('comment_preview_label'), 'rel="modal" target="_blank"'); ?> | 
 							<? if($comment->is_active == 0): ?>
-								<?=anchor('admin/comments/approve/' . $comment->id, lang('comment_activate_label'));?>
+								<?=anchor('admin/comments/approve/' . $comment->id, lang('comment_activate_label'),array('class' => 'ajax'));?>
 							<? else: ?>
-								<?=anchor('admin/comments/unapprove/' . $comment->id, lang('comment_deactivate_label'));?>
+								<?=anchor('admin/comments/unapprove/' . $comment->id, lang('comment_deactivate_label'),array('class' => 'ajax'));?>
 							<? endif; ?>
 							<br />
 							<?= anchor('admin/comments/edit/' . $comment->id, lang('comment_edit_label'));?> | 
