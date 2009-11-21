@@ -9,7 +9,7 @@
 		ID: #<?php echo $page->id; ?>
 	</p>
 	<p>
-		<?php echo lang('page_url_label');?>: <?php echo anchor(!empty($page->path) ? $page->path : $page->slug); ?>
+		<?php echo lang('page_url_label');?>: <?php echo anchor(!empty($page->path) ? $page->path : $page->slug, 'target="_blank"'); ?>
 	</p>
 </fieldset>
 
@@ -44,7 +44,7 @@
 			<button class="button">
 				<strong>
 					<?php echo lang('page_edit_label');?>
-					<img class="icon" alt="<?php echo lang('page_edit_label'); ?>" src="<?=image_url('admin/icons/paper_content_pencil_48.png');?>" />
+					<img class="icon" alt="<?php echo lang('page_edit_label'); ?>" src="<?php echo image_url('admin/icons/paper_content_pencil_48.png');?>" />
 				</strong>
 			</button>
 		</a>

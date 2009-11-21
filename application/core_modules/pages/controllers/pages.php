@@ -67,7 +67,7 @@ class Pages extends Public_Controller
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
         	
-        	->create('index', $this->data);
+        	->build('index', $this->data);
     }
     
 }
