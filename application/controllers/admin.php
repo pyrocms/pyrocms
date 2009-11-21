@@ -84,15 +84,13 @@ class Admin extends Admin_Controller
 	// Callback From: login()
 	function _check_login($email)
 	{		
-   		if ($this->user_lib->login($email, $this->input->post('password')))
-	   	{
-	     	return TRUE;
-	    }
-	    else
-	    {
+   		if ( ! $this->user_lib->login($email, $this->input->post('password')))
+   		{
 	   		$this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
 	    	return FALSE;
 	    }
+	    
+	    return TRUE;
 	}    
 }
 ?>

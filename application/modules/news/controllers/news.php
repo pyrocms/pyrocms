@@ -57,7 +57,7 @@ class News extends Public_Controller
 			->set_metadata('keywords', $category->title )
 			->add_breadcrumb( lang('news_news_title'), 'news')
 			->add_breadcrumb( $category->title )		
-			->create( 'category', $this->data );
+			->build( 'category', $this->data );
 	}	
 	
 	function archive($year = NULL, $month = '01')
@@ -76,7 +76,7 @@ class News extends Public_Controller
 			->set_metadata('keywords', $this->data->month_year.', '.$meta['keywords'])
 			->add_breadcrumb($this->lang->line('news_news_title'), 'news')
 			->add_breadcrumb($this->lang->line('news_archive_title').': '.$month_date->format("F 'y"))
-			->create('archive', $this->data);
+			->build('archive', $this->data);
 	}
 	
 	// Public: View an article
