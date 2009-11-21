@@ -59,13 +59,8 @@ class Template {
         $this->CI =& get_instance();
         log_message('debug', 'Template class Initialized');
 
-        // If no module is set yet, use the current module
-        if($this->_module == '' && $this->CI->router->fetch_module() != '')
-        {
-        	$this->_module = $this->CI->router->fetch_module();
-    	}
-        
     	// Work out the controller and method
+    	$this->_module 		= $this->CI->router->fetch_module();
         $this->_controller	= $this->CI->router->fetch_class();
         $this->_method 		= $this->CI->router->fetch_method();
     }
@@ -82,10 +77,10 @@ class Template {
      */
     public function build($view = '', $data = array(), $return = false)
     {
-        // Merge all the data together
-        $this->CI->load->helper('array');
-        array_object_merge($this->data, $data);
-
+		// Set whatever values are given. These will be available to all view files
+    	$this->CI->load->vars($data);
+    	unset($data);
+    	
         if(empty($this->_title)) $this->_guess_title();
 
         ##### DEPRECATED!! #################################################
@@ -95,7 +90,7 @@ class Template {
         $this->data->breadcrumbs            = array();
         $this->data->extra_head_content		= implode("\n\t\t", $this->_head);
         ####################################################################
-
+        
         // Disable sodding IE7's constant cacheing!!
         $this->CI->output->set_header('HTTP/1.0 200 OK');
         $this->CI->output->set_header('HTTP/1.1 200 OK');
@@ -110,6 +105,16 @@ class Template {
 
         // Test to see if this file 
     	$this->_body = $this->_find_view( $view );
+    	
+        // Build up the variables for the template
+        /*
+    	$template->title =& $this->_title;
+        $template->head =& implode("\n\t\t", $this->_head);
+        $template->body =& $this->_body;
+        
+        // Assign that to the loader class for later too
+        $this->CI->load->vars('template', $template);
+        */
         
         // Want this file wrapped with a layout file?
         if( $this->_layout )
