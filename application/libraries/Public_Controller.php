@@ -21,26 +21,26 @@ class Public_Controller extends MY_Controller
 	    $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
 		
 	    // Set the theme view folder
-	    $this->layout->theme($this->settings->item('default_theme'));
+	    $this->template->set_theme($this->settings->item('default_theme'));
 	    
 	    // If the GET variable isbasic exists, do not use a wrapper
 	    if($this->input->get('_is_basic'))
 	    {
-	    	$this->layout->wrapper(FALSE);
+	    	$this->template->set_layout(FALSE);
 	    }
 
 	    else
 	    {
-	    	$this->layout->wrapper('layouts/default');
+	    	$this->template->set_layout('layouts/default');
 	    }
 	    
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
-	    $this->layout->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
+	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 	    
 	    // If there is a news module, link to its RSS feed in the head
 	    if(module_exists('news'))
 	    {
-			$this->layout->extra_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
+			$this->template->append_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
 	    }
 		
 	    $this->output->enable_profiler(TRUE);

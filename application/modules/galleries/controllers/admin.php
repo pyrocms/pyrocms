@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 		}
 		unset($galleries);
 		$this->data->galleries =& $tree;		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Create a new Gallery
@@ -69,8 +69,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Edit a Gallery
@@ -123,8 +123,8 @@ class Admin extends Admin_Controller
 		$this->data->gallery =& $gallery;
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);		
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);		
 	}
 	
 	// Admin: Delete a Gallery
@@ -199,7 +199,7 @@ class Admin extends Admin_Controller
 		
 		$this->data->gallery = $this->galleries_m->getGallery($slug); 
 		$this->data->photos = $this->galleries_m->getPhotos($slug);		
-		$this->layout->create('admin/manage', $this->data);
+		$this->template->build('admin/manage', $this->data);
 	}
 	
 	

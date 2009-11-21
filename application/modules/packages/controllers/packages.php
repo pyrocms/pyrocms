@@ -13,7 +13,7 @@ class packages extends Public_Controller
 	{
 		$this->load->helper('text');
 		$this->data->packages = $this->packages_m->getPackages();
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	// Public: View a package
@@ -21,7 +21,7 @@ class packages extends Public_Controller
 	{
 		if (!$slug) redirect('packages/index');
 		$this->data->package = $this->packages_m->getPackage($slug);
-		$this->layout->create('view', $this->data);
+		$this->template->build('view', $this->data);
 	}
 }    
 ?>

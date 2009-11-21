@@ -16,7 +16,7 @@ class Permissions_m extends Model {
 	}
 
 	// Return an object of permisison rules
-	function getRules($params = array()) {
+	function get_rules($params = array()) {
 
 		if(!empty($params['role'])) {
 			$this->db->where('permission_role_id', $params['role']);
@@ -158,7 +158,7 @@ class Permissions_m extends Model {
 	}
 	
 	// Return an array of permission roles
-	function getRoles($params = array()) {
+	function get_roles($params = array()) {
 		
 		if(isset($params['except'])) {
 			$this->db->where_not_in('abbrev', $params['except']);

@@ -77,7 +77,7 @@ class Admin extends Admin_Controller
 		));
 				
 		$this->data->active_comments = FALSE;
-		$this->layout->create('admin/index', $this->data);			
+		$this->template->build('admin/index', $this->data);			
 	}
 	
 	public function active()
@@ -94,7 +94,7 @@ class Admin extends Admin_Controller
 		));
 
 		$this->data->active_comments = TRUE;
-		$this->layout->create('admin/index', $this->data);		
+		$this->template->build('admin/index', $this->data);		
 	}
 		
 	// Admin: Edit a comment
@@ -156,8 +156,8 @@ class Admin extends Admin_Controller
 		$this->data->comment =& $comment;
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}	
 		
 	// Admin: Delete a comment
@@ -279,8 +279,8 @@ class Admin extends Admin_Controller
 	public function preview($id = 0)
 	{		
 		$this->data->comment = $this->comments_m->getComment($id);
-		$this->layout->wrapper(FALSE);
-		$this->layout->create('admin/preview', $this->data);
+		$this->template->set_layout(FALSE);
+		$this->template->build('admin/preview', $this->data);
 	}
 }
 

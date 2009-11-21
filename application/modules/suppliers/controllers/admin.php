@@ -18,7 +18,7 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/suppliers/index', $total_rows);		
 		// Using this data, get the relevant results
 		$this->data->suppliers = $this->suppliers_m->getSuppliers(array('limit' => $this->data->pagination['limit']));		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 		return;
 	}
 	
@@ -70,8 +70,8 @@ class Admin extends Admin_Controller
 		$this->data->categories = $this->categories_m->get_many();
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/create', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/create', $this->data);
 	}
 	
 	// Admin: Edit a Supplier
@@ -133,8 +133,8 @@ class Admin extends Admin_Controller
 		$this->data->supplier =& $supplier;
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/edit', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/edit', $this->data);
 	}
 	
 	// Admin: Delete a Supplier

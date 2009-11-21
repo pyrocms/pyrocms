@@ -14,7 +14,7 @@ class Services extends Public_Controller
 	{
 		$this->load->helper('text');
 		$this->data->services = $this->services_m->getServices();
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	// Public: View a particular service
@@ -23,8 +23,8 @@ class Services extends Public_Controller
 		if (!$slug) redirect('services/index');
 		$this->data->service = $this->services_m->getService($slug);
 		
-		$this->layout->title( $this->data->service->title, $this->lang->line('service_title'));
-		$this->layout->create('view', $this->data);
+		$this->template->title( $this->data->service->title, $this->lang->line('service_title'));
+		$this->template->build('view', $this->data);
 	}
 }
 ?>

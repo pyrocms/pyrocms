@@ -19,7 +19,7 @@ class Admin extends Admin_Controller
 		
 		// Using this data, get the relevant results
 		$this->data->products = $this->products_m->getProducts(array('limit' => $this->data->pagination['limit']));		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Create a new Product
@@ -68,8 +68,8 @@ class Admin extends Admin_Controller
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Upload and add new photos to database
@@ -135,8 +135,8 @@ class Admin extends Admin_Controller
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Make Product Photo its default Photo to display.
@@ -267,7 +267,7 @@ class Admin extends Admin_Controller
 		}
 		else
 		{
-			$this->layout->create('admin/crop', $this->data);
+			$this->template->build('admin/crop', $this->data);
 			return;
 		}
 	}
@@ -278,7 +278,7 @@ class Admin extends Admin_Controller
 		if (empty($id)) redirect('admin/products/index');
 		$this->data->photos = $this->products_m->getAllImages($id);
 		$this->data->product = $this->products_m->getProduct($id);
-		$this->layout->create('admin/photo', $this->data);
+		$this->template->build('admin/photo', $this->data);
 	}
 	
 	// Admin: Toggle Frontpage Setting

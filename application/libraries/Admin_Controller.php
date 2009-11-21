@@ -69,7 +69,7 @@ class Admin_Controller extends MY_Controller
 
 	    $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);        
 	    
-	    $this->layout->wrapper('admin/layout');
+	    $this->template->set_layout('admin/layout');
 	    
 	    //$this->output->enable_profiler(TRUE);
 	}    

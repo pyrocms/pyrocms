@@ -67,13 +67,13 @@ class Contact extends Public_Controller
 		{
 			$this->data->form_values->$field_name = isset($this->validation->$field_name) ? $this->validation->$field_name : '';
 		}		
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	
 	function sent()
 	{
-		$this->layout->create('sent', $this->data);
+		$this->template->build('sent', $this->data);
 	}
 	
 	

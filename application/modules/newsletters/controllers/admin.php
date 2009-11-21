@@ -19,7 +19,7 @@ class Admin extends Admin_Controller
 		
 		// Using this data, get the relevant results
 		$this->data->newsletters = $this->newsletters_m->getNewsletters(array('order'=>'created_on DESC', 'limit' => $this->data->pagination['limit']));		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	function view($id = 0)
@@ -27,7 +27,7 @@ class Admin extends Admin_Controller
 		$this->data->newsletter = $this->newsletters_m->getNewsletter($id);		
 		if ($this->data->newsletter)
 		{
-			$this->layout->create('admin/view', $this->data);
+			$this->template->build('admin/view', $this->data);
 		}        
 		else
 		{
@@ -59,8 +59,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/create', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/create', $this->data);
 	}
 	
 	function send($id = 0)

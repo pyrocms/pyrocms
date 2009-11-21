@@ -13,7 +13,7 @@ class Galleries extends Public_Controller
 	function index()
 	{
 		$this->data->galleries = $this->galleries_m->getGalleries(array('parent'=>0));
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	// Public: View an Gallery
@@ -25,8 +25,8 @@ class Galleries extends Public_Controller
 		{
 			$this->data->photos = $this->galleries_m->getPhotos($slug);		
 			$this->data->children = $this->galleries_m->getGalleries(array('parent'=>$this->data->gallery->id));		
-			$this->layout->title($this->data->gallery->title);
-			$this->layout->create('view', $this->data);
+			$this->template->title($this->data->gallery->title);
+			$this->template->build('view', $this->data);
 		}		
 		else
 		{

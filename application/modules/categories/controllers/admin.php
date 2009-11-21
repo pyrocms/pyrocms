@@ -17,7 +17,7 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);		
 		// Using this data, get the relevant results
 		$this->data->categories = $this->categories_m->get_many(array('limit' => $this->data->pagination['limit']));		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 		return;
 	}
 	
@@ -47,7 +47,7 @@ class Admin extends Admin_Controller
 			$this->data->category->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
 		}
 				
-		$this->layout->create('admin/form', $this->data);
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Edit a Category
@@ -85,7 +85,7 @@ class Admin extends Admin_Controller
 		}
 	
 		$this->data->category =& $category;
-		$this->layout->create('admin/form', $this->data);
+		$this->template->build('admin/form', $this->data);
 	}	
 	
 	// Admin: Delete a Category

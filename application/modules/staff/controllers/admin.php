@@ -18,7 +18,7 @@ class Admin extends Admin_Controller
 			
 	    // Using this data, get the relevant results
 	    $this->data->staff = $this->staff_m->getStaff(array('limit' => $this->data->pagination['limit']));
-	    $this->layout->create('admin/index', $this->data);
+	    $this->template->build('admin/index', $this->data);
 	}
 
 	// Admin: Create a new Staff Member
@@ -89,12 +89,12 @@ class Admin extends Admin_Controller
 		$this->_user_select();
 		
   		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );	
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );	
 		
 		// Load module specific JavaScript
-		$this->layout->extra_head( js('staff.js', 'staff') );
+		$this->template->append_head( js('staff.js', 'staff') );
 		
-		$this->layout->create('admin/create', $this->data);
+		$this->template->build('admin/create', $this->data);
 	}
 
 	// Admin: Edit a Staff Member
@@ -180,8 +180,8 @@ class Admin extends Admin_Controller
 		$this->_user_select();
 
   		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );				
-		$this->layout->create('admin/edit', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );				
+		$this->template->build('admin/edit', $this->data);
 	}
 
 	// Admin: Delete a Staff Member
@@ -289,7 +289,7 @@ class Admin extends Admin_Controller
 			redirect('admin/staff/index');
 	    }
 	    
-	    $this->layout->create('admin/crop', $this->data);
+	    $this->template->build('admin/crop', $this->data);
 	}    
     
 	// Private: Create the Crop for Home Page

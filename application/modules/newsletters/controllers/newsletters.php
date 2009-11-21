@@ -12,7 +12,7 @@ class Newsletters extends Public_Controller
 	function index()
 	{
 		$this->data->newsletters = $this->newsletters_m->getNewsletters(array('order'=>'created_on DESC'));
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	function archive($id = '')
@@ -20,7 +20,7 @@ class Newsletters extends Public_Controller
 		$this->data->newsletter = $this->newsletters_m->getNewsletter($id);
 		if ($this->data->newsletter)
 		{
-			$this->layout->create('view', $this->data);
+			$this->template->build('view', $this->data);
 		}
 		else
 		{
@@ -61,7 +61,7 @@ class Newsletters extends Public_Controller
 	// Public: Register for newsletter
 	function subscribed()
 	{
-		$this->layout->create('subscribed', $this->data);
+		$this->template->build('subscribed', $this->data);
 	}
 	
 	// Public: Unsubscribe from newsletter

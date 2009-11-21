@@ -52,7 +52,7 @@ class Admin extends Admin_Controller
 		$this->data->rss_items     			= $this->simplepie->get_items(0, $this->settings->item('dashboard_rss_count'));
 
 		// Load the layout/view/whatever
-		$this->layout->create('admin/cpanel', $this->data);
+		$this->template->build('admin/cpanel', $this->data);
 	}
      
 	// Admin: Log in
@@ -71,8 +71,8 @@ class Admin extends Admin_Controller
 	    	redirect('admin');
 		}
 				
-	    $this->layout->wrapper(FALSE);
-	    $this->layout->create('admin/login', $this->data);		
+	    $this->template->set_layout(FALSE);
+	    $this->template->build('admin/login', $this->data);		
 	}
 	
 	function logout()

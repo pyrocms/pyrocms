@@ -54,7 +54,7 @@ class Admin extends Admin_Controller
 		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
 		// get the page tree
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	function ajax_fetch_children($parent_id)
@@ -121,12 +121,12 @@ class Admin extends Admin_Controller
 	    $this->data->parent_page =& $parent_page;
 	    
 		// Get "roles" (like access levels)
-		//$this->data->roles = $this->permissions_m->getRoles(array('order' => 'lowest_first'));
+		//$this->data->roles = $this->permissions_m->get_roles(array('order' => 'lowest_first'));
 		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-	    $this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+	    $this->template->build('admin/form', $this->data);
 	}
 
 	// Admin: Edit a Page
@@ -182,13 +182,13 @@ class Admin extends Admin_Controller
 	    $this->data->parent_page =& $parent_page;
 	    
 		// Get "roles" (like access levels)
-		//$this->data->roles = $this->permissions_m->getRoles();
+		//$this->data->roles = $this->permissions_m->get_roles();
 		//ksort($this->data->roles);
 		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
 		
 	    // Load WYSIWYG editor
-	    $this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-	    $this->layout->create('admin/form', $this->data);
+	    $this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+	    $this->template->build('admin/form', $this->data);
 	}
     
 	// Admin: Delete Pages

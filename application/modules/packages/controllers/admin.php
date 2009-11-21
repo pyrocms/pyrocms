@@ -19,7 +19,7 @@ class Admin extends Admin_Controller
 		
 		// Using this data, get the relevant results
 		$this->data->packages = $this->packages_m->getPackages(array('limit' => $this->data->pagination['limit']));		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Create a New package
@@ -52,8 +52,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Edit a package
@@ -93,8 +93,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Delete a package
@@ -127,7 +127,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->data->packages = $this->packages_m->getPackages();
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 		
 	// Callback: from create()

@@ -39,7 +39,7 @@ class Users extends Public_Controller
       redirect('');
     endif;
         
-    $this->layout->create('login', $this->data);
+    $this->template->build('login', $this->data);
 	}
 	
 	function logout()
@@ -99,8 +99,8 @@ class Users extends Public_Controller
 			$this->data->error_string = $this->validation->error_string;
 		endif;
 		
-		$this->layout->title($this->lang->line('user_register_title'));
-		$this->layout->create('register', $this->data);		
+		$this->template->title($this->lang->line('user_register_title'));
+		$this->template->build('register', $this->data);		
 	}
 
 	function activate($id = 0, $code = NULL)
@@ -134,17 +134,17 @@ class Users extends Public_Controller
 			
 		endif;
 		
-		$this->layout->title($this->lang->line('user_activate_account_title'));
-		$this->layout->add_breadcrumb($this->lang->line('user_activate_label'), 'users/activate');
-		$this->layout->create('activate', $this->data);		
+		$this->template->title($this->lang->line('user_activate_account_title'));
+		$this->template->add_breadcrumb($this->lang->line('user_activate_label'), 'users/activate');
+		$this->template->build('activate', $this->data);		
 	}
 	
 	function activated()
 	{		
 		$this->data->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 		
-		$this->layout->title($this->lang->line('user_activated_account_title'));
-		$this->layout->create('activated', $this->data);
+		$this->template->title($this->lang->line('user_activated_account_title'));
+		$this->template->build('activated', $this->data);
 	}
 	
 	function reset_pass()
@@ -171,14 +171,14 @@ class Users extends Public_Controller
 			
 		endif;
 		
-		$this->layout->title($this->lang->line('user_reset_password_title'));
-		$this->layout->create('reset_pass', $this->data);
+		$this->template->title($this->lang->line('user_reset_password_title'));
+		$this->template->build('reset_pass', $this->data);
 	}
 
 	function reset_complete()
 	{
-		$this->layout->title($this->lang->line('user_password_reset_title'));
-		$this->layout->create('reset_pass_complete', $this->data);
+		$this->template->title($this->lang->line('user_password_reset_title'));
+		$this->template->build('reset_pass_complete', $this->data);
 	}
 
 	// Callback From: login()
