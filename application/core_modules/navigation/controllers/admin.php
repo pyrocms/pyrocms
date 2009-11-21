@@ -48,7 +48,7 @@ class Admin extends Admin_Controller
 		}
 		
 		// Create the layout
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Create a new Page
@@ -91,7 +91,7 @@ class Admin extends Admin_Controller
 			$this->data->navigation_link->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
 		}
 		
-		$this->layout->create('admin/links/form', $this->data);
+		$this->template->build('admin/links/form', $this->data);
 	}
 	
 	// Admin: Edit a Page
@@ -142,7 +142,7 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$this->layout->create('admin/links/form', $this->data);
+		$this->template->build('admin/links/form', $this->data);
 	}
 	
 	// Admin: Delete Pages

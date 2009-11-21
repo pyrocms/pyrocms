@@ -14,7 +14,7 @@ class Staff extends Public_Controller
 		$this->load->helper('string'); 
 		$this->load->helper('text');	
 	 	$this->data->staffs = $this->staff_m->getStaff();
-	 	$this->layout->create('index', $this->data);
+	 	$this->template->build('index', $this->data);
 	}
 	
 	function view($slug='')
@@ -27,8 +27,8 @@ class Staff extends Public_Controller
 			redirect('staff');
 		}
 		
-	 	$this->layout->title( $this->data->staff->name, $this->lang->line('staff_title'));
-    $this->layout->create('view', $this->data);
+	 	$this->template->title( $this->data->staff->name, $this->lang->line('staff_title'));
+    $this->template->build('view', $this->data);
 	}
 }
 

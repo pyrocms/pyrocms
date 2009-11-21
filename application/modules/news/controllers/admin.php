@@ -60,7 +60,7 @@ class Admin extends Admin_Controller
 			'limit' => $this->data->pagination['limit']
 		));
 		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Create a new article
@@ -100,8 +100,8 @@ class Admin extends Admin_Controller
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Edit an article
@@ -144,15 +144,15 @@ class Admin extends Admin_Controller
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}	
 	
 	function preview($id = 0)
 	{		
 		$this->data->article = $this->news_m->getArticle($id, 'all');    	
-		$this->layout->wrapper(FALSE);
-		$this->layout->create('admin/preview', $this->data);
+		$this->template->set_layout(FALSE);
+		$this->template->build('admin/preview', $this->data);
 	}
 	
 	// Admin: Different actions

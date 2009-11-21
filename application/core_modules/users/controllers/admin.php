@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 		
 		$this->lang->load('user');
 		
-        $this->data->roles = $this->permissions_m->getRoles();
+        $this->data->roles = $this->permissions_m->get_roles();
         $this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');
 	}
 
@@ -43,7 +43,7 @@ class Admin extends Admin_Controller
 		// How many inactive users are on the site?
 		$this->data->inactive_user_count = $this->users_m->count(array('active' => 0));
 		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	function inactive()
@@ -54,7 +54,7 @@ class Admin extends Admin_Controller
 		$inactive_criteria = array( 'active' => 0, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
 		$this->data->users = $this->users_m->get_many($inactive_criteria);
 		
-		$this->layout->create('admin/inactive', $this->data);
+		$this->template->build('admin/inactive', $this->data);
 	}
 		
 	// Admin: Different form actions
@@ -136,7 +136,7 @@ class Admin extends Admin_Controller
 		{
     	$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
     }        
-		$this->layout->create('admin/form', $this->data);
+		$this->template->build('admin/form', $this->data);
 	}
 
 	// Admin: Edit a User
@@ -198,7 +198,7 @@ class Admin extends Admin_Controller
 		{
     	if(isset($_POST[$field])) $this->data->member->$field = $this->validation->$field;
     }
-		$this->layout->create('admin/form', $this->data);
+		$this->template->build('admin/form', $this->data);
 	}
 
 	// Admin: Activate a User

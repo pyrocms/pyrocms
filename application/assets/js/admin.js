@@ -25,7 +25,7 @@
 					// If all boxes are checked
 					if(total_checked === 0)
 					{
-						$('input[type="checkbox"][name="action_to_all"]', table).removeAttr('checked');
+						$('thead input[type="checkbox"][name="action_to_all"]', table).removeAttr('checked');
 					}
 				}
 			

@@ -21,7 +21,7 @@ class Admin extends Admin_Controller
 		$this->load->model('modules_m');
  		$this->data->modules = $this->modules_m->getModules();
 			  
-		$this->layout->create('admin/index', $this->data,FALSE,'modules');
+		$this->template->build('admin/index', $this->data,FALSE,'modules');
 	}
 }
 ?>

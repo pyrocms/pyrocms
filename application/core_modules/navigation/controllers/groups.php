@@ -39,7 +39,7 @@ class Groups extends Admin_Controller
 		$this->data->titleLabel = $this->lang->line('title_label');
 		$this->data->groupLabel = $this->lang->line('group_label');
 		$this->data->abbrevLabel = $this->lang->line('abbrev_label');	
-		$this->layout->create('admin/groups/create', $this->data);
+		$this->template->build('admin/groups/create', $this->data);
 	}
 	
 	// Admin: Delete navigation group(s)

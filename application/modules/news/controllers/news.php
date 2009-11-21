@@ -26,9 +26,9 @@ class News extends Public_Controller
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 		
-		$this->layout->set_metadata('description', $meta['description']);
-		$this->layout->set_metadata('keywords', $meta['keywords']);
-		$this->layout->create('index', $this->data);
+		$this->template->set_metadata('description', $meta['description']);
+		$this->template->set_metadata('keywords', $meta['keywords']);
+		$this->template->build('index', $this->data);
 	}
 	
 	function category($slug = '')
@@ -52,7 +52,7 @@ class News extends Public_Controller
 		$meta = $this->_articles_metadata($this->data->news);
 		
 		// Build the page
-		$this->layout->title( lang('news_news_title').' | '.$category->title )		
+		$this->template->title( lang('news_news_title').' | '.$category->title )		
 			->set_metadata('description', $category->title.'. '.$meta['description'] )
 			->set_metadata('keywords', $category->title )
 			->add_breadcrumb( lang('news_news_title'), 'news')
@@ -71,7 +71,7 @@ class News extends Public_Controller
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 		
-		$this->layout->title( $this->data->month_year, $this->lang->line('news_archive_title'), $this->lang->line('news_news_title'))		
+		$this->template->title( $this->data->month_year, $this->lang->line('news_archive_title'), $this->lang->line('news_news_title'))		
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
 			->set_metadata('keywords', $this->data->month_year.', '.$meta['keywords'])
 			->add_breadcrumb($this->lang->line('news_news_title'), 'news')
@@ -96,18 +96,18 @@ class News extends Public_Controller
 		
 		$this->data->article =& $article;
 		
-		$this->layout->title($article->title, $this->lang->line('news_news_title'))
+		$this->template->title($article->title, $this->lang->line('news_news_title'))
 			->set_metadata('description', $this->data->article->intro)
 			->set_metadata('keywords', $this->data->article->category_title.' '.$this->data->article->title)	
 			->add_breadcrumb($this->lang->line('news_news_title'), 'news');
 		
 		if($article->category_id > 0)
 		{
-			$this->layout->add_breadcrumb($article->category_title, 'news/category/'.$article->category_slug);
+			$this->template->add_breadcrumb($article->category_title, 'news/category/'.$article->category_slug);
 		}
 		
-		$this->layout->add_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
-		$this->layout->create('view', $this->data);
+		$this->template->add_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
+		$this->template->build('view', $this->data);
 	}	
 	
 	// Private methods not used for display

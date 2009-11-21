@@ -12,9 +12,9 @@ class Admin extends Admin_Controller
 	// Admin: List all Themes
 	function index()
 	{
-		$this->layout->extra_head(css('themes.css', 'themes'));
+		$this->template->append_head(css('themes.css', 'themes'));
 		$this->data->themes = $this->themes_m->getThemes();		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	function set_default($theme_name = "")
@@ -75,7 +75,7 @@ class Admin extends Admin_Controller
 			redirect('admin/themes/upload');
 		}
 		
-		$this->layout->create('admin/upload', $this->data);
+		$this->template->build('admin/upload', $this->data);
 	}
 	
 	function delete($theme_name = "")

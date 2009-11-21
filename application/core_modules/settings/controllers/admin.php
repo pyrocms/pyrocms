@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 			}
 		}	
 	
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Save the new settings

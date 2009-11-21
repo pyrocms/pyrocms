@@ -24,7 +24,7 @@ class Products extends Public_Controller
 				$this->data->images[$product->id] = $query->row();
 			}
 		}		
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	function category($category = '')
@@ -41,7 +41,7 @@ class Products extends Public_Controller
 			}
 			$this->data->images[$product->id] = $query->row();
 		}		
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 		
 	function view($id = '')
@@ -57,10 +57,10 @@ class Products extends Public_Controller
 			$this->data->images = $query->result();
 		}
 		
-		$this->layout->title( $this->data->product->title, lang('products_title'));
-		$this->layout->add_breadcrumb(lang('products_title'), 'products');
-		$this->layout->add_breadcrumb($this->data->product->title, 'products/'.$this->data->product->id);
-		$this->layout->create('view', $this->data);
+		$this->template->title( $this->data->product->title, lang('products_title'));
+		$this->template->add_breadcrumb(lang('products_title'), 'products');
+		$this->template->add_breadcrumb($this->data->product->title, 'products/'.$this->data->product->id);
+		$this->template->build('view', $this->data);
 	}
 }
 ?>

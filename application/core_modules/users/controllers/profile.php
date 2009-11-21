@@ -52,7 +52,7 @@ class Profile extends Public_Controller
 		// Now load thir extra data
 		$this->data->profile = $this->profile_m->getProfile(array('user_id'=>$id));
 
-		$this->layout->create('profile/view', $this->data);
+		$this->template->build('profile/view', $this->data);
 	}
 	
 	// Profile: edit profile
@@ -143,7 +143,7 @@ class Profile extends Public_Controller
 	    $this->data->months = array_combine($months = range(1, 12), $months);
 	    $this->data->years = array_combine($years = range(date('Y'), date('Y')-120), $years);
         
-		$this->layout->create('profile/edit', $this->data);
+		$this->template->build('profile/edit', $this->data);
 	}	
 }
 

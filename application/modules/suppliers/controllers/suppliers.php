@@ -11,7 +11,7 @@ class Suppliers extends Public_Controller
 	function index()
 	{
 		$this->data->suppliers = $this->suppliers_m->getSuppliers();
-		$this->layout->create('index', $this->data);
+		$this->template->build('index', $this->data);
 	}
 	
 	function category($category = '')
@@ -19,7 +19,7 @@ class Suppliers extends Public_Controller
 		if (empty($category)) redirect('suppliers/index');
 				
 		$this->data->suppliers = $this->suppliers_m->getSuppliers($category);
-		$this->layout->create('index', $this->data);	
+		$this->template->build('index', $this->data);	
 	}
 
 }

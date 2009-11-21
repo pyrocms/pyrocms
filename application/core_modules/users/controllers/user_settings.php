@@ -107,7 +107,7 @@ class User_settings extends Public_Controller
 	    	$this->data->languages[$lang_code] = $lang['name'];
 	    }
 	    
-		$this->layout->create('settings/edit', $this->data);
+		$this->template->build('settings/edit', $this->data);
 	}	
 }
 ?>

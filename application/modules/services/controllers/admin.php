@@ -28,7 +28,7 @@ class Admin extends Admin_Controller
 		
 		// Using this data, get the relevant results
 		$this->data->services = $this->services_m->getServices(array('limit' => $this->data->pagination['limit']));		
-		$this->layout->create('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 		
 	// Admin: Create a New Service
@@ -61,8 +61,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Edit a Service
@@ -101,8 +101,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->layout->extra_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
-		$this->layout->create('admin/form', $this->data);
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Delete a Service

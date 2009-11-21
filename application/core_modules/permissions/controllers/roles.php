@@ -42,7 +42,7 @@ class Roles extends Admin_Controller
 			}
 			redirect('admin/permissions/index');
 		}
-		$this->layout->create('admin/roles/form', $this->data);
+		$this->template->build('admin/roles/form', $this->data);
 	}	
 	
 	// Admin: Edit a permission role
@@ -73,7 +73,7 @@ class Roles extends Admin_Controller
 			$this->session->set_flashdata('success', $this->lang->line('perm_role_save_success'));			
 			redirect('admin/permissions/index');
 		}
-		$this->layout->create('admin/roles/form', $this->data);
+		$this->template->build('admin/roles/form', $this->data);
 	}
 	
 	// Admin: Delete permission role(s)
