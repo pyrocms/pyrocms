@@ -47,6 +47,8 @@ class Template {
     private $cache_lifetime = 0;//7200;
 
     private $CI;
+    
+    // DEPRECATED: TODO kill it
     var $data;
 
     /**
@@ -81,7 +83,10 @@ class Template {
     	$this->CI->load->vars($data);
     	unset($data);
     	
-        if(empty($this->_title)) $this->_guess_title();
+        if(empty($this->_title))
+        {
+        	$this->_title = $this->_guess_title();
+        }
 
         ##### DEPRECATED!! #################################################
         ## TODO: Nuke these variables
@@ -120,10 +125,11 @@ class Template {
         if( $this->_layout )
         {
 	        ##### DEPRECATED!! #################################################
-	        ## TODO: Nuke these variables
-			// Send what we have so far to the Template view
+	        ## TODO: Nuke these variables and replace with $template
 			$this->data->page_output = $this->_body;
 			####################################################################
+			
+			print_r($this->data);
 			
 			if( $this->_theme )
 			{
@@ -326,9 +332,9 @@ class Template {
         }
 
         // Glue the title pieces together using the title separator setting
-        $this->_page_title = humanize(implode($this->title_separator, $title_parts));
+        $title = humanize(implode($this->title_separator, $title_parts));
 
-        return $this->_page_title;
+        return $title;
     }
 
 
