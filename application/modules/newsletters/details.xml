@@ -7,7 +7,7 @@
 	</name>
 	<description>
 		<en>Let visitors subscribe via their email address.</en>
-		<es>Deja que tus visitores puedan suscribirse a por medio de su correo electrónico.</es>
+		<es>Permite que tus visitantes puedan suscribirse a las actualizaciones del sitio vía correo electrónico.</es>
 		<fr>Permet aux visiteurs de s'abonner avec leur adresse e-mail.'</fr>
 	</description>
 	<icon>newspaper_48.png</icon>
@@ -27,6 +27,7 @@
 		<admin>
 			<new_item href="admin/newsletters/create">
 				<en>New newsletter</en>
+				<es>Nuevo boletín</es>
 				<fr>Nouveau bulletin</fr>
 			</new_item>
 		</admin>

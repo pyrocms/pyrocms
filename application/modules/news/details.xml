@@ -2,7 +2,7 @@
 <module version="0.6" type="content">
 	<name>
 		<en>News</en>
-		<es>Noticias</es>
+		<es>Artículos</es>
 		<fr>Actualités</fr>
 	</name>
 	<description>
@@ -26,6 +26,7 @@
 		<admin>
 			<new_item href="admin/news/create">
 				<en>New article</en>
+				<es>Nuevo artículo</es>
 				<fr>Nouvel article</fr>
 			</new_item>
 		</admin>

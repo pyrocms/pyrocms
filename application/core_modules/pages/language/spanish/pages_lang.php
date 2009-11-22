@@ -21,10 +21,10 @@ $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_layout_file_label'] 				= 'Archivo de dise&ntilde;o';
-$lang['page_access_label'] 						= 'Access'; #translate
+$lang['page_access_label'] 						= 'Acceder';
 
 $lang['page_view_label'] 						= 'Ver';
-$lang['page_create_label'] 						= 'Add child'; #translate
+$lang['page_create_label'] 						= 'Añadir página hija';
 $lang['page_edit_label'] 						= 'Editar';
 $lang['page_delete_label'] 						= 'Borrar';
 
@@ -40,12 +40,12 @@ $lang['pages_page_not_found_error'] 			= 'La p&aacute;gina no existe.';
 $lang['pages_edit_success'] 					= 'La p&aacute;gina "%s" ha sido guardada.';
 $lang['pages_delete_home_error'] 				= 'No puedes borrar la p&aacute;gina de inicio!!';
 $lang['pages_delete_success']           		= 'P&aacute;gina "%s" ha sido borrada exitosamente.';
-$lang['pages_mass_delete_success'] 				= '%s pages have been deleted.'; #translate
+$lang['pages_mass_delete_success'] 				= '%s páginas han sido eliminadas.';
 $lang['pages_delete_none_notice'] 				= 'No se ha borado ninguna p&aacute;gina.';
 $lang['pages_page_already_exist_error'] 		= 'Una p&aacute;gina con el URL "%s" ya existe en %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La p&aacute;gina padre que has seleccionado no existe.';
 
-$lang['pages_tree_explanation'] 				= 'The list on the left represents pages on your website. 
-Click the "+" icon next to the page to show pages within it. When you click a page you will see all sorts of handy information in this box.'; #translate
+$lang['pages_tree_explanation'] 				= 'La lista a la izquierda representa las páginas en tu sitio. 
+Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';
 
 ?>

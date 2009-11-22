@@ -7,7 +7,7 @@
 	</name>
 	<description>
 		<en>Show visitors what services are on offer and allows images to be uploaded.</en>
-		<es>Muestra a tus visitantes que servicios ofreces, permitiéndote mostrar información sobre el precio e imagenes.</es>
+		<es>Muestra a tus visitantes que servicios ofreces, permitiéndote mostrar información sobre el precio e imágenes.</es>
 		<fr>Décrit aux visiteurs quelles prestations sont offertes et permet de charger des images.</fr>
 	</description>
 	<is_frontend>1</is_frontend>
@@ -25,6 +25,7 @@
 		<admin>
 			<new_item href="admin/services/create">
 				<en>New service</en>
+				<es>Nuevo servicio</es>
 				<fr>Nouvelle prestation</fr>
 			</new_item>
 		</admin>
