@@ -31,6 +31,7 @@
 		<admin>
 			<new_item href="admin/navigation/create">
 				<en>New link</en>
+				<es>Nuevo enlace</es>
 				<fr>Nouveau Lien</fr>
 			</new_item>
 		</admin>

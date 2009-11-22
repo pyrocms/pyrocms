@@ -28,7 +28,7 @@ $lang['gal_comments_title'] 							= 'Comentarios';
 $lang['gal_photo_galleries_title'] 					= 'Galer&iacute;as fotogr&aacute;ficas';
 
 // messages
-$lang['gal_no_galleries_error'] 						= 'No hay galer&iacute;as.';
+$lang['gal_no_galleries_error'] 						= 'No hay galer&iacute;as fotográficas hasta el momento.';
 $lang['gal_no_photos_in_gallery_error'] 			= 'No hay fotos en esta galer&iacute;a.';
 $lang['gal_currently_no_photos_error'] 			= 'No hay fotos por ahora. Por favor, regresa pronto.';
 $lang['gal_already_exist_error'] 					= 'La galer&iacute;a a la que trataste de ingresar no existe.';

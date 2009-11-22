@@ -2,12 +2,12 @@
 <module version="0.2" type="content">
 	<name>
 		<en>Suppliers</en>
-		<es>Suplidores</es>
+		<es>Proveedores</es>
 		<fr>Fournisseurs</fr>
 	</name>
 	<description>
 		<en>List the suppliers of your products.</en>
-		<es>Lista los suplidores de tus productos.</es>
+		<es>Lista los proveedores de tus productos.</es>
 		<fr>Liste des fournisseurs de vos produits</fr>
 	</description>
 	<is_frontend>1</is_frontend>
@@ -25,6 +25,7 @@
 		<admin>
 			<new_item href="admin/suppliers/create">
 				<en>New supplier</en>
+				<es>Nuevo proveedor</es>
 				<fr>Nouveau fournisseur</fr>
 			</new_item>
 		</admin>

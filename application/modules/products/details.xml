@@ -7,7 +7,7 @@
 	</name>
 	<description>
 		<en>Show visitors what products you sell and allows images and price information to be added.</en>
-		<es>Enséñale a tus visitantes que productos tu vendes y permíte agregarle información gráfica y de precios.</es>
+		<es>Enséñale a tus visitantes que productos vendes y permíte agregarle información gráfica y de precios sobre el mismo.</es>
 		<fr>Montre aux visiteurs quels produits vous vendez et permet d'ajouter des images et des prix.</fr>
 	</description>
 	<is_frontend>1</is_frontend>
@@ -25,6 +25,7 @@
 		<admin>
 			<new_item href="admin/products/create">
 				<en>New product</en>
+				<es>Nuevo producto</es>
 				<fr>Nouveau produit</fr>
 			</new_item>
 		</admin>

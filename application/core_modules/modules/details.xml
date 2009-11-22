@@ -2,11 +2,12 @@
 <module version="0.5" type="admin">
 	<name>
 		<en>Modules</en>
+		<es>Módulos</es>
 		<fr>Modules</fr>
 	</name>
 	<description>
 		<en>ALlows admins to see a list of currently installed modules.</en>
-		<es>ALlows admins to see a list of currently installed modules.</es>
+		<es>Permite a los administradores ver una lista de los módulos instalados.</es>
 		<fr>Permet aux administrateurs de voir la liste des modules installés</fr>
 	</description>
 	<required>1</required>

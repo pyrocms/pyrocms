@@ -2,12 +2,12 @@
 <module version="0.5" type="content">
 	<name>
 		<en>Staff</en>
-		<es>Staff</es>
+		<es>Personal</es>
 		<fr>Personnel</fr>
 	</name>
 	<description>
 		<en>Add staff to the system and show visitors their basic details and photograph.</en>
-		<es>Agrega staff al sistema y muéstrale a tus visitantes una informacion básica y su fotografía.</es>
+		<es>Agrega miembros del personal al sistema y muéstrale a tus visitantes una informacion básica de ellos, incluyendo su fotografía.</es>
 		<fr>Ajoute des membres du personnel dans le système et affiche les informations basiques et la photo des visiteurs.</fr>
 	</description>
 	<is_frontend>1</is_frontend>
@@ -25,6 +25,7 @@
 		<admin>
 			<new_item href="admin/staff/create">
 				<en>New staff member</en>
+				<es>Nuevo miembro del personal</es>
 				<fr>Nouveau menbre du personnel</fr>
 			</new_item>
 		</admin>

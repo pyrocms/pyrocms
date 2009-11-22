@@ -25,6 +25,7 @@
 		<admin>
 			<new_item href="admin/categories/create">
 				<en>New category</en>
+				<es>Nueva categoría</es>
 				<fr>Nouvelle catégorie</fr>
 			</new_item>
 		</admin>

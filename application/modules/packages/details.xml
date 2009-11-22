@@ -26,6 +26,7 @@
 		<admin>
 			<new_item href="admin/packages/create">
 				<en>New package</en>
+				<es>Nuevo paquete</es>
 				<en>Nouveau package</en>
 			</new_item>
 		</admin>

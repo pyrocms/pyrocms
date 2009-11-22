@@ -2,7 +2,7 @@
 <module version="0.4" type="content">
 	<name>
 		<en>Photos</en>
-		<es>Fotográficas</es>
+		<es>Fotográfias</es>
 		<fr>Photos</fr>
 	</name>
 	<description>
@@ -26,6 +26,7 @@
 		<admin>
 			<new_item href="admin/galleries/create">
 				<en>New album</en>
+				<es>Nuevo álbum</es>
 				<fr>Nouvel album</fr>
 			</new_item>
 		</admin>
