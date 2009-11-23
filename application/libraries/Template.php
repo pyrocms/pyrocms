@@ -43,6 +43,8 @@ class Template {
 
     private $title_separator = ' | ';
     
+    private $_parser_enabled = TRUE;
+    
     // Seconds that cache will be alive for
     private $cache_lifetime = 0;//7200;
 
@@ -77,7 +79,7 @@ class Template {
 
      * @return    void
      */
-    public function build($view = '', $data = array(), $return = false)
+    public function build($view = '', $data = array(), $return = FALSE)
     {
 		// Set whatever values are given. These will be available to all view files
     	$this->CI->load->vars($data);
@@ -129,20 +131,28 @@ class Template {
 			$this->data->page_output = $this->_body;
 			####################################################################
 			
-			print_r($this->data);
-			
+			// If using a theme, use the layout in the theme
 			if( $this->_theme )
 			{
 				// If directory is set, use it
 				$this->data->theme_view_folder = '../themes/'.$this->_theme.'/views/';
 	            $layout_view = $this->data->theme_view_folder.$this->_layout;
-	            
-	            $this->_body = $this->CI->parser->parse( $layout_view, $this->data, TRUE );
 			}
             
+			// Otherwise use whatever is given
 			else
 			{
-				$this->_body = $this->CI->parser->parse( $this->_layout, $this->data, TRUE );
+				$layout_view = $this->_layout;
+			}
+			
+			if($this->_parser_enabled === TRUE)
+			{
+				$this->_body = $this->CI->parser->parse( $layout_view, $this->data, TRUE );
+			}
+			
+			else
+			{
+				$this->_body = $this->CI->load->view( $layout_view, $this->data, TRUE );
 			}
         }
         
@@ -273,6 +283,21 @@ class Template {
         return $this;
     }
 
+    
+    /**
+     * enable_parser
+     * Should be parser be used or the view files just loaded normally?
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    void
+     */
+    public function enable_parser($bool)
+    {
+        $this->_parser_enabled = $bool;
+        return $this;
+    }
+
 
     /**
      * Helps build custom breadcrumb trails
@@ -295,13 +320,13 @@ class Template {
     	$theme_view = 'themes/' . $this->_theme . '/views/modules/' . $this->_module . '/' . $view;
     	if($this->_theme && file_exists( APPPATH . $theme_view . EXT ))
     	{
-    		return $this->CI->load->view('../'.$theme_view, $this->data, TRUE);
+    		return $this->CI->loa->view('../'.$theme_view, $this->data, TRUE);
     	}
            
     	// Nope, just use whatever's in the module
     	else
     	{
-    		return $this->CI->load->view($this->_module.'/'.$view, $this->data, TRUE);
+    		return $this->CI->parser->parse($this->_module.'/'.$view, $this->data, TRUE);
     	}
     }
 
