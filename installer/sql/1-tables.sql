@@ -121,17 +121,6 @@ CREATE TABLE `newsletters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Newsletter emails stored before being sent then archived her';
 
 
-CREATE TABLE `packages` (
-  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `featured` enum('Y','N') collate utf8_unicode_ci NOT NULL default 'N',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
-  PRIMARY KEY  (`slug`),
-  UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Packages contain services and products';
-
-
 CREATE TABLE `pages` (
  `id` int(11) unsigned NOT NULL auto_increment,
  `slug` varchar(60) collate utf8_unicode_ci NOT NULL default '',
@@ -140,6 +129,7 @@ CREATE TABLE `pages` (
  `parent_id` int(11) default '0',
  `lang` varchar(2) collate utf8_unicode_ci NOT NULL,
  `layout_file` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
+ `css` text collate utf8_unicode_ci,
  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
  `meta_description` text collate utf8_unicode_ci NOT NULL,

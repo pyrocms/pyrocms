@@ -63,7 +63,7 @@ class Navigation_m extends Model {
 
 						case 'page':
 							$CI =& get_instance();
-							$page_uri = $CI->pages_m->getPathById($row->page_id);
+							$page_uri = $CI->pages_m->get_path_by_id($row->page_id);
 							$row->url = site_url($page_uri);
 						break;
 					}

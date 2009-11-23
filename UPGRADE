@@ -7,7 +7,16 @@ minimise or totally remove downtime during upgrade.
 11/11/09 - v0.9.7.x to v0.9.8
 -----------------------------
 
-chmod -R 777 application/cache/dwoo/
+1.) Run the following SQL command: 
+
+	ALTER TABLE 
+		`pages` ADD `css` text collate utf8_unicode_ci AFTER `layout_file`;
+
+2.) Replace old files with new files.
+
+3.) Run the following terminal command:
+
+	chmod -R 777 application/cache/dwoo/
 
 
 11/11/09 - v0.9.7.1 to v0.9.7.2
@@ -19,7 +28,7 @@ Replace old files with new files.
 03/11/09 - v0.9.7 to v0.9.7.1
 -----------------------------
 
-1.) Run the following SQL command : 
+1.) Run the following SQL command: 
 
 	ALTER TABLE 
 		`navigation_links` ADD `target` varchar(10) NULL DEFAULT NULL AFTER `position`;

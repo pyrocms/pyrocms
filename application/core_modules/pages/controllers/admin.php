@@ -4,13 +4,14 @@ class Admin extends Admin_Controller
 {
 	// Validation rules to be used for create and edita
 	private $rules = array(
-	    'title'			=> 'trim|required|max_length[60]',
+	    'title'				=> 'trim|required|max_length[60]',
 	    'slug'				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body'				=> 'trim|required',
-	    'meta_title'		=> 'trim|max_length[255]',
-	    'meta_keywords'	=> 'trim|max_length[255]',
-	    'meta_description'	=> 'trim',
 	    'layout_file'		=> 'trim|alphadash|required',
+	    'css'				=> 'trim|required',
+	    'meta_title'		=> 'trim|max_length[255]',
+	    'meta_keywords'		=> 'trim|max_length[255]',
+	    'meta_description'	=> 'trim',
 	   // 'access_level'		=> 'trim|alphadash|required'
 	);
 	
@@ -20,6 +21,7 @@ class Admin extends Admin_Controller
 	function __construct()
 	{
 		parent::Admin_Controller();
+		
 		$this->load->model('pages_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');	
@@ -27,16 +29,17 @@ class Admin extends Admin_Controller
 		$this->load->helper(array('array', 'pages'));
 	}
 
-	public function recurse_page_tree($parent_id, $open_parent_pages=array()) {
+	public function recurse_page_tree($parent_id, $open_parent_pages=array())
+	{
 		if (!in_array($parent_id, $open_parent_pages))
 		{
-			return $this->pages_m->hasChildren($parent_id) ? '<ul></ul>' : '';
+			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
 		}
-		$pages = $this->pages_m->getChildrenByParentId($parent_id);
+		$pages = $this->pages_m->get_children_by_parent_id($parent_id);
 		if (count($pages))
 		{
 			foreach($pages as $page) {
-				$page->has_children = $this->pages_m->hasChildren($page->id);
+				$page->has_children = $this->pages_m->has_children($page->id);
 			}
 			$this->data->pages =& $pages;
 			$this->data->controller =& $this;
@@ -52,19 +55,22 @@ class Admin extends Admin_Controller
 	{
 		// get list of open parent pages from cookie
 		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
+		
 		// get the page tree
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
+		
 		$this->template->build('admin/index', $this->data);
 	}
 	
 	function ajax_fetch_children($parent_id)
 	{
-		$pages = $this->pages_m->getChildrenByParentId($parent_id);
+		$pages = $this->pages_m->get_children_by_parent_id($parent_id);
 	
 		foreach($pages as &$page)
 		{
-			$page->has_children = $this->pages_m->hasChildren($page->id);
+			$page->has_children = $this->pages_m->has_children($page->id);
 		}
+		
 		$this->data->pages =& $pages;
 		$this->load->view('admin/ajax/child_list', $this->data);
 		
@@ -72,10 +78,10 @@ class Admin extends Admin_Controller
 	
 	function ajax_page_details($page_id)
 	{
-		$page = $this->pages_m->getById($page_id);
-		$page->path = $this->pages_m->getPathById($page_id);
+		$page = $this->pages_m->get_by_id($page_id);
+		$page->path = $this->pages_m->get_path_by_id($page_id);
 		
-	$this->load->view('admin/ajax/page_details', array('page' => $page));
+		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
     
 	// Admin: Create a new Page
@@ -83,10 +89,10 @@ class Admin extends Admin_Controller
 	{
 		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
-	$this->validation->set_fields();
+		$this->validation->set_fields();
 	
 		// Validate the page
-	if ($this->validation->run())
+		if ($this->validation->run())
 	    {
 		if ( $this->pages_m->create($_POST) > 0 )
 		{
@@ -112,8 +118,8 @@ class Admin extends Admin_Controller
 	    {
 		$page->parent_id = $parent_id;
 		
-			$parent_page = $this->pages_m->getById($parent_id);
-			$parent_page->path = $this->pages_m->getPathById($parent_id);
+			$parent_page = $this->pages_m->get_by_id($parent_id);
+			$parent_page->path = $this->pages_m->get_path_by_id($parent_id);
 	    }
 	    
 	    // Assign data for display
@@ -141,7 +147,7 @@ class Admin extends Admin_Controller
 	    $this->page_id = $id;
 	    
 	    // Set data, if it exists
-	    if (!$page = $this->pages_m->getById($id)) 
+	    if (!$page = $this->pages_m->get_by_id($id)) 
 	    {
 			$this->session->set_flashdata('error', $this->lang->line('pages_page_not_found_error'));
 			redirect('admin/pages/create');
@@ -173,8 +179,8 @@ class Admin extends Admin_Controller
 	    // If a parent id was passed, fetch the parent details
 	    if($page->parent_id > 0)
 	    {
-			$parent_page = $this->pages_m->getById($page->parent_id);
-			$parent_page->path = $this->pages_m->getPathById($page->parent_id);
+			$parent_page = $this->pages_m->get_by_id($page->parent_id);
+			$parent_page->path = $this->pages_m->get_path_by_id($page->parent_id);
 	    }
 	    
 	    // Assign data for display

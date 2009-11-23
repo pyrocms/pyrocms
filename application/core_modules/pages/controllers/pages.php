@@ -32,7 +32,7 @@ class Pages extends Public_Controller
     	$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
 
     	// Try and load the page from cache or directly, if not, 404
-        if(!$page = $this->cache->model('pages_m', 'getByPath', array($url_segments)) )
+        if(!$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments)) )
         {
         	show_404();
         }

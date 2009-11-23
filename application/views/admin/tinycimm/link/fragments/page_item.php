@@ -1,7 +1,7 @@
 <li>
 	<?php 
-	$hasChildren = $controller->tinycimm_model->hasChildren($page->id);
-	if ($hasChildren){?>
+	$has_children = $controller->tinycimm_model->has_children($page->id);
+	if ($has_children){?>
 		<span class="hitarea hitarea-closed"></span>
 	<?php } else {?>
 		<span class="hitarea hitarea-disabled"></span>
@@ -9,7 +9,7 @@
 	<a href="#page-<?php echo $page->id;?>" rel="page-<?php echo $page->id;?>" title="<?php echo $page->title;?>">
 		<?php echo $page->title;?>
 	</a>
-	<?php if ($hasChildren) {
+	<?php if ($has_children) {
 		echo $controller->recurse_pages($page->id);
 	}?>
 </li>

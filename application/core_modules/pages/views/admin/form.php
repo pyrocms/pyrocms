@@ -18,14 +18,14 @@
 		
 		<!-- Page content tab -->
 		<fieldset id="fieldset1">
-			<legend><?=lang('page_content_label');?></legend>
+			<legend><?php echo lang('page_content_label');?></legend>
 			<div class="field">
-				<label for="title"><?=lang('page_title_label');?></label>
+				<label for="title"><?php echo lang('page_title_label');?></label>
 				<input type="text" id="title" name="title" maxlength="60" value="<?php echo $page->title; ?>" />
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</div>
 			<div class="field">
-				<label for="slug"><?=lang('page_url_label');?></label>
+				<label for="slug"><?php echo lang('page_url_label');?></label>
 				
 				<?php if(!empty($page->parent_id)): ?>
 					<?php echo site_url().$parent_page->path; ?>/
@@ -55,6 +55,10 @@
 			<div class="field">
 				<label for="layout_file"><?php echo lang('page_layout_file_label');?></label>
 				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" />
+			</div>
+			<div class="field">
+				<label for="css"><?php echo lang('page_css_label');?></label>
+				<?php echo form_textarea('css', $page->css); ?>
 			</div>
 		</fieldset>
 		

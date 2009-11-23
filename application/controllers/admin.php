@@ -33,7 +33,7 @@ class Admin extends Admin_Controller
 		$this->data->pending_comments	 	= $this->comments_m->countComments(array('is_active' => 0));
 		
 		// Count page related stuff
-		$this->data->total_pages			= $this->pages_m->countPages();
+		$this->data->total_pages			= $this->pages_m->count();
 		
 		// Count the news articles
 		$this->data->live_articles			= $this->news_m->countArticles(array('status' => 'live'));
