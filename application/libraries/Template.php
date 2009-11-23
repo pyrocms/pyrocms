@@ -145,7 +145,8 @@ class Template {
 				$layout_view = $this->_layout;
 			}
 			
-			if($this->_parser_enabled === TRUE)
+			// Parse if parser is enabled, or its a theme view
+			if($this->_parser_enabled === TRUE || $this->_theme)
 			{
 				$this->_body = $this->CI->parser->parse( $layout_view, $this->data, TRUE );
 			}
@@ -320,13 +321,21 @@ class Template {
     	$theme_view = 'themes/' . $this->_theme . '/views/modules/' . $this->_module . '/' . $view;
     	if($this->_theme && file_exists( APPPATH . $theme_view . EXT ))
     	{
-    		return $this->CI->loa->view('../'.$theme_view, $this->data, TRUE);
+    		return $this->CI->parser->parse('../'.$theme_view, $this->data, TRUE);
     	}
            
     	// Nope, just use whatever's in the module
     	else
     	{
-    		return $this->CI->parser->parse($this->_module.'/'.$view, $this->data, TRUE);
+    		if($this->_parser_enabled === TRUE)
+			{
+				return $this->CI->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
+			}
+			
+			else
+			{
+				return $this->CI->load->view( $this->_module.'/'.$view, $this->data, TRUE );
+			}
     	}
     }
 
