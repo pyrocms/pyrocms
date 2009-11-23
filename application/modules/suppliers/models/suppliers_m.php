@@ -6,7 +6,7 @@ class Suppliers_m extends Model {
         parent::Model();
     }
     
-    public function getById($id = 0)
+    public function get_by_id($id = 0)
     {
     	$this->db->where('id', $id);
     	return $this->get();

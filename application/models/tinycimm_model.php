@@ -140,12 +140,12 @@ class Tinycimm_model extends Model {
 	// for use in the pyrocms link manager
 	function get_pages_by_parent_id($parent_id=0) {
 		$this->load->model('pages_m');
-		return $this->pages_m->getChildrenByParentId($parent_id);
+		return $this->pages_m->get_children_by_parent_id($parent_id);
 	}
 
-	function hasChildren($parent_id=0){
+	function has_children($parent_id=0){
 		$this->load->model('pages_m');
-		return $this->pages_m->hasChildren($parent_id);
+		return $this->pages_m->has_children($parent_id);
 	}
 }
 ?>

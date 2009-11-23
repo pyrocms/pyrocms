@@ -78,7 +78,7 @@ class Admin extends Admin_Controller
 	function edit($id = 0)
 	{
 		if (empty($id)) redirect('admin/suppliers/index');	
-		$supplier = $this->suppliers_m->getById($id);
+		$supplier = $this->suppliers_m->get_by_id($id);
 		if (!$supplier) redirect('admin/suppliers/index');
 		$this->load->library('validation');
 	
@@ -154,7 +154,7 @@ class Admin extends Admin_Controller
 		$deleted = array();
 		foreach ($ids_array as $id)
 		{
-			if($supplier = $this->suppliers_m->getById($id))
+			if($supplier = $this->suppliers_m->get_by_id($id))
 			{
 				if($this->suppliers_m->deleteSupplier($id))
 				{

@@ -3,7 +3,7 @@
 function page_url($id)
 {
 	$CI =& get_instance();
-	$uri = $CI->pages_m->getPathById($id);
+	$uri = $CI->pages_m->get_path_by_id($id);
   
 	return site_url($uri);
 }
@@ -11,7 +11,7 @@ function page_url($id)
 function page_anchor($id, $text = '', $options = array())
 {
 	$CI =& get_instance();
-	$uri = $CI->pages_m->getPathById($id);
+	$uri = $CI->pages_m->get_path_by_id($id);
   
 	return anchor($uri, $text, $options);
 }

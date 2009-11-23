@@ -1,20 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pages_m extends Model {
-
-    public function getById($id = 0)
+class Pages_m extends Model
+{
+	public function get_by_id($id = 0)
     {
     	$this->db->where('id', $id);
     	return $this->db->get('pages')->row();
     }
     
-    public function getByParentId($parent_id = 0)
+    public function get_by_parent_id($parent_id = 0)
     {
     	$this->db->where('parent_id', $parent_id);
     	return $this->db->get('pages')->row();
     }
     
-    public function getByPath($segments = array())
+    public function get_by_path($segments = array())
     {
     	// If the URI has been passed as a string, explode to create an array of segments
     	if(is_string($segments))
@@ -60,7 +60,7 @@ class Pages_m extends Model {
     }
     
 	// Get children from a Parent ID
-	function getChildrenByParentId($parent_id = 0)
+	function get_children_by_parent_id($parent_id = 0)
 	{
 		return $this->get( array('parent_id' => $parent_id) );
 	}
@@ -81,20 +81,20 @@ class Pages_m extends Model {
     }
     
 	// Count the amount of pages with param X
-	function countPages($params = array())
+	function count($params = array())
 	{
 		$results = $this->get($params);
 		
 		return count($results);
 	}
     
-	function hasChildren($parent_id)
+	function has_children($parent_id)
 	{
 		$this->db->where('parent_id', $parent_id);
 		return $this->db->count_all_results('pages') > 0;
 	}
 	
-	function getDescendantIds($id, $id_array = array())
+	function get_descendant_ids($id, $id_array = array())
 	{
 		$id_array[] = $id;
 	
@@ -109,7 +109,7 @@ class Pages_m extends Model {
 			// Loop through all of the children and run this function again
 			foreach($children as $child)
 			{
-				$id_array = $this->getDescendantIds($child->id, $id_array);
+				$id_array = $this->get_descendant_ids($child->id, $id_array);
 			}
 		}
 		
@@ -118,7 +118,7 @@ class Pages_m extends Model {
 	
 	// ----- PAGE INDEX --------------
 
-	function getPathById($id)
+	function get_path_by_id($id)
 	{
 		$page = $this->db->select('path')
 			->where('id', $id)
@@ -128,7 +128,7 @@ class Pages_m extends Model {
 		return isset($page->path) ? $page->path : '';
 	}
 	
-	function getIdByPath($path)
+	function get_id_by_path($path)
 	{
 		// If the URI has been passed as a string, explode to create an array of segments
     	if(is_array($path))
@@ -143,7 +143,7 @@ class Pages_m extends Model {
 					->id;
 	}
 	
-	function generateLookup($id)
+	function build_lookup($id)
 	{
 		$current_id = $id;
 		
@@ -166,7 +166,7 @@ class Pages_m extends Model {
 		return $this->db->insert('pages_lookup');
 	}
 	
-	function deleteLookup($id)
+	function delete_lookup($id)
 	{
     	$this->db->where('id', $id);
 		return $this->db->delete('pages_lookup');
@@ -188,6 +188,7 @@ class Pages_m extends Model {
         	'parent_id'		=> $input['parent_id'],
         	'lang' 			=> $this->config->item('default_language'),
             'layout_file'	=> $input['layout_file'],
+            'css'			=> $input['css'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
@@ -197,7 +198,7 @@ class Pages_m extends Model {
         
         $id = $this->db->insert_id();
         
-        $this->generateLookup($id);
+        $this->build_lookup($id);
         
         $this->db->trans_complete();
         
@@ -216,6 +217,7 @@ class Pages_m extends Model {
 	        'parent_id'		=> $input['parent_id'],
         	'lang' 			=> $this->config->item('default_language'),
             'layout_file'	=> $input['layout_file'],
+            'css'			=> $input['css'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
@@ -229,7 +231,7 @@ class Pages_m extends Model {
     {
         $this->db->trans_start();
         
-        $ids = $this->getDescendantIds($id);
+        $ids = $this->get_descendant_ids($id);
         
         $this->db->where_in('id', $ids);
     	$this->db->delete('pages');

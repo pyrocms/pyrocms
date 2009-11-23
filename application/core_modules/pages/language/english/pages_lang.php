@@ -2,8 +2,8 @@
 
 // tabs
 $lang['page_content_label'] 					= 'Page Content';
+$lang['page_design_label'] 						= 'Design';
 $lang['page_meta_label'] 						= 'Meta data';
-$lang['page_advanced_label'] 					= 'Advanced';
 
 // labels
 $lang['page_page_label'] 						= 'Page';
@@ -21,6 +21,7 @@ $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_layout_file_label'] 				= 'Layout file';
+$lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Access';
 
 $lang['page_view_label'] 						= 'View';
