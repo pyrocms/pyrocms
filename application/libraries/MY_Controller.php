@@ -11,6 +11,8 @@ class MY_Controller extends Controller
 	{
 		parent::Controller();
 		
+		$this->benchmark->mark('my_controller_start');
+		
 		// Hook point
 		$GLOBALS['EXT']->_call_hook('post_core_controller_constructor');
 		
@@ -43,6 +45,8 @@ class MY_Controller extends Controller
         $this->data->module 		=& $this->module;
         $this->data->controller 	=& $this->controller;
         $this->data->method 		=& $this->method;
+        
+        $this->benchmark->mark('my_controller_end');
 	}
 }
 
