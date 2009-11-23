@@ -12,8 +12,8 @@
   	<div class="tabs">
 		<ul class="clear-box">
 			<li><a href="#fieldset1"><span><?php echo lang('page_content_label');?></span></a></li>
-			<li><a href="#fieldset2"><span><?php echo lang('page_meta_label');?></span></a></li>
-			<li><a href="#fieldset3"><span><?php echo lang('page_advanced_label');?></span></a></li>
+			<li><a href="#fieldset2"><span><?php echo lang('page_design_label');?></span></a></li>
+			<li><a href="#fieldset3"><span><?php echo lang('page_meta_label');?></span></a></li>
 		</ul>
 		
 		<!-- Page content tab -->
@@ -49,8 +49,17 @@
 			</div>
 		</fieldset>
 		
-		<!-- Meta data tab -->
+		<!-- Design tab -->
 		<fieldset id="fieldset2">
+			<legend><?php echo lang('page_design_label');?></legend>
+			<div class="field">
+				<label for="layout_file"><?php echo lang('page_layout_file_label');?></label>
+				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" />
+			</div>
+		</fieldset>
+		
+		<!-- Meta data tab -->
+		<fieldset id="fieldset3">
 			<legend><?php echo lang('page_meta_label');?></legend>
 			<div class="field">
 				<label for="meta_title"><?php echo lang('page_meta_title_label');?></label>
@@ -65,19 +74,6 @@
 				<textarea id="meta_description" name="meta_description"><?php echo $page->meta_description; ?></textarea>
 			</div>
 		</fieldset>	
-		
-		<!-- Advanced tab -->
-		<fieldset id="fieldset3">
-			<legend><?php echo lang('page_advanced_label');?></legend>
-			<!-- <div class="field">
-				<label for="layout_file"><?php //echo lang('page_access_level_label');?></label>
-				<?php //echo form_dropdown('access_level', $roles_select, $page->access_level); ?>
-			</div> -->
-			<div class="field">
-				<label for="layout_file"><?php echo lang('page_layout_file_label');?></label>
-				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" />
-			</div>
-		</fieldset>
 		
 	</div>
 </div>

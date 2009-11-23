@@ -55,8 +55,8 @@ class News extends Public_Controller
 		$this->template->title( lang('news_news_title').' | '.$category->title )		
 			->set_metadata('description', $category->title.'. '.$meta['description'] )
 			->set_metadata('keywords', $category->title )
-			->add_breadcrumb( lang('news_news_title'), 'news')
-			->add_breadcrumb( $category->title )		
+			->set_breadcrumb( lang('news_news_title'), 'news')
+			->set_breadcrumb( $category->title )		
 			->build( 'category', $this->data );
 	}	
 	
@@ -74,8 +74,8 @@ class News extends Public_Controller
 		$this->template->title( $this->data->month_year, $this->lang->line('news_archive_title'), $this->lang->line('news_news_title'))		
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
 			->set_metadata('keywords', $this->data->month_year.', '.$meta['keywords'])
-			->add_breadcrumb($this->lang->line('news_news_title'), 'news')
-			->add_breadcrumb($this->lang->line('news_archive_title').': '.$month_date->format("F 'y"))
+			->set_breadcrumb($this->lang->line('news_news_title'), 'news')
+			->set_breadcrumb($this->lang->line('news_archive_title').': '.$month_date->format("F 'y"))
 			->build('archive', $this->data);
 	}
 	
@@ -99,14 +99,14 @@ class News extends Public_Controller
 		$this->template->title($article->title, $this->lang->line('news_news_title'))
 			->set_metadata('description', $this->data->article->intro)
 			->set_metadata('keywords', $this->data->article->category_title.' '.$this->data->article->title)	
-			->add_breadcrumb($this->lang->line('news_news_title'), 'news');
+			->set_breadcrumb($this->lang->line('news_news_title'), 'news');
 		
 		if($article->category_id > 0)
 		{
-			$this->template->add_breadcrumb($article->category_title, 'news/category/'.$article->category_slug);
+			$this->template->set_breadcrumb($article->category_title, 'news/category/'.$article->category_slug);
 		}
 		
-		$this->template->add_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
+		$this->template->set_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
 		$this->template->build('view', $this->data);
 	}	
 	

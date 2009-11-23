@@ -58,8 +58,8 @@ class Products extends Public_Controller
 		}
 		
 		$this->template->title( $this->data->product->title, lang('products_title'));
-		$this->template->add_breadcrumb(lang('products_title'), 'products');
-		$this->template->add_breadcrumb($this->data->product->title, 'products/'.$this->data->product->id);
+		$this->template->set_breadcrumb(lang('products_title'), 'products');
+		$this->template->set_breadcrumb($this->data->product->title, 'products/'.$this->data->product->id);
 		$this->template->build('view', $this->data);
 	}
 }

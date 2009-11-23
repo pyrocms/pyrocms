@@ -135,7 +135,7 @@ class Users extends Public_Controller
 		endif;
 		
 		$this->template->title($this->lang->line('user_activate_account_title'));
-		$this->template->add_breadcrumb($this->lang->line('user_activate_label'), 'users/activate');
+		$this->template->set_breadcrumb($this->lang->line('user_activate_label'), 'users/activate');
 		$this->template->build('activate', $this->data);		
 	}
 	
