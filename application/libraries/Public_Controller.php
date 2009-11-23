@@ -7,6 +7,8 @@ class Public_Controller extends MY_Controller
 	{
 		parent::MY_Controller();
         
+		$this->benchmark->mark('public_controller_start');
+        
 	    // Check the frontend hasnt been disabled by an admin
 	    if(!$this->settings->item('frontend_enabled'))
 	    {
@@ -43,6 +45,13 @@ class Public_Controller extends MY_Controller
 			$this->template->append_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
 	    }
 		
-	    $this->output->enable_profiler(TRUE);
+		// Enable profiler on local box
+	    if( ENV == 'local' )
+	    {
+	    	$this->output->enable_profiler(TRUE);
+	    }
+	    
+	    
+	    $this->benchmark->mark('public_controller_end');
 	}
 }
