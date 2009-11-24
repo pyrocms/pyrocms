@@ -4,11 +4,13 @@
 		<en>Users</en>
 		<es>Usuarios</es>
 		<fr>Utilisateurs</fr>
+		<de>Benutzer</de>
 	</name>
 	<description>
 		<en>Let users register and log in to the site, and manage them via the control panel.</en>
 		<es>Permite el registro de usuario y loguearse en el sitio, manéjalos con el panel de control.</es>
 		<fr>Permet aux utilisateurs de s'enregistrer et de se connecter au site et de les gérer via le panneau de contrôle</fr>
+		<de>Erlaube Benutzern das Registrieren und Einloggen auf deiner Seite und verwalte sie über die Admin-Oberfläche</de>
 	</description>
 	<required>1</required>
 	<icon>users_two_48.png</icon>
@@ -28,6 +30,7 @@
 			<new_item href="admin/users/add">
 				<en>New user</en>
 				<fr>Nouvel utilisateur</fr>
+				<de>Neuer Benutzer</de>
 			</new_item>
 		</admin>
 	</navigation>
