@@ -59,7 +59,7 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
 		$this->template->build('admin/create', $this->data);
 	}
 	

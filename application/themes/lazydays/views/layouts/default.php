@@ -8,7 +8,7 @@
 	<div id="content">
 	
 	  <div id="header">
-		{theme_view('header')}	
+		{theme_view('header')}
 	  </div>
 	
 		{theme_view('topnav')}
@@ -54,7 +54,7 @@
 	        	<div class="error-box"><?php echo $this->session->flashdata('error'); ?></div>
 		    <?php endif; ?>
 
-		    {$page_output}
+		    {$template.body}
 	
 	    </div>
 	

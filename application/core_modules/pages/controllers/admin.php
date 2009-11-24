@@ -131,8 +131,8 @@ class Admin extends Admin_Controller
 		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
-		$this->template->append_head( js('codemirror/codemirror.js') );
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		$this->template->append_metadata( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/form', $this->data);
 	}
 
@@ -193,8 +193,8 @@ class Admin extends Admin_Controller
 		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
 		
 	    // Load WYSIWYG editor
-	    $this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
-		$this->template->append_head( js('codemirror/codemirror.js') );
+	    $this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		$this->template->append_metadata( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/form', $this->data);
 	}
     

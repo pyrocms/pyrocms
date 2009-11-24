@@ -26,8 +26,8 @@
  * @author        	Philip Sturgeon
  * @link
  */
-class Template {
-
+class Template
+{
     private $_module = '';
     private $_controller = '';
     private $_method = '';
@@ -36,7 +36,7 @@ class Template {
     private $_layout = FALSE; // By default, dont wrap the view with anything
 
     private $_title = '';
-    private $_head = array();
+    private $_metadata = array();
     private $_view = '';
     
     private $_breadcrumbs = array();
@@ -90,14 +90,22 @@ class Template {
         	$this->_title = $this->_guess_title();
         }
 
+        // Output template variables to the template
+        $template['title']			= $this->_title;
+        $template['breadcrumbs']	= array();
+        $template['metadata']		= implode("\n\t\t", $this->_metadata);
+        
+        $this->data->template =& $template;
+        
         ##### DEPRECATED!! #################################################
         ## TODO: Nuke these variables
         // Set the basic defaults
-        $this->data->page_title				= $this->_title;
-        $this->data->breadcrumbs            = array();
-        $this->data->extra_head_content		= implode("\n\t\t", $this->_head);
+        $this->data->page_title				= $template['title'];
+        $this->data->breadcrumbs            = $template['breadcrumbs'];
+        $this->data->extra_head_content		= $template['metadata'];
         ####################################################################
         
+
         // Disable sodding IE7's constant cacheing!!
         $this->CI->output->set_header('HTTP/1.0 200 OK');
         $this->CI->output->set_header('HTTP/1.1 200 OK');
@@ -113,16 +121,6 @@ class Template {
         // Test to see if this file 
     	$this->_body = $this->_find_view( $view );
     	
-        // Build up the variables for the template
-        /*
-    	$template->title =& $this->_title;
-        $template->head =& implode("\n\t\t", $this->_head);
-        $template->body =& $this->_body;
-        
-        // Assign that to the loader class for later too
-        $this->CI->load->vars('template', $template);
-        */
-        
         // Want this file wrapped with a layout file?
         if( $this->_layout )
         {
@@ -130,6 +128,8 @@ class Template {
 	        ## TODO: Nuke these variables and replace with $template
 			$this->data->page_output = $this->_body;
 			####################################################################
+			
+			$template['body'] = $this->_body;
 			
 			// If using a theme, use the layout in the theme
 			if( $this->_theme )
@@ -198,9 +198,9 @@ class Template {
      * @param     string	$line	The line being added to head
      * @return    void
      */
-    public function prepend_head($line)
+    public function prepend_metadata($line)
     {
-    	array_unshift($this->_head, $line);
+    	array_unshift($this->_metadata, $line);
         return $this;
     }
     
@@ -212,9 +212,9 @@ class Template {
      * @param     string	$line	The line being added to head
      * @return    void
      */
-    public function append_head($line)
+    public function append_metadata($line)
     {
-    	$this->_head[] = $line;
+    	$this->_metadata[] = $line;
         return $this;
     }
     
@@ -251,7 +251,7 @@ class Template {
         	break;
         }
         
-    	$this->append_head($meta);
+    	$this->append_metadata($meta);
     	
         return $this;
     }

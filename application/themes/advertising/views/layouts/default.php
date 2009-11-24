@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<?php $this->load->view($theme_view_folder.'metadata'); ?>
+	{theme_view('metadata')}
 </head>
 
 <body>
 
 	<div id="header">
-		<?php $this->load->view($theme_view_folder.'header'); ?>
+		{theme_view('header')}
 	</div>
 	
 	<ul id="menu">
@@ -21,7 +21,7 @@
 		<div id="left-column" class="sidebar">
 			
 			<div id="navigation">
-				<?php $this->load->view($theme_view_folder.'menu'); ?>
+				{theme_view('menu')}
 			</div>
 			
 			<?php if(module_exists('newsletters')): ?>
@@ -56,7 +56,7 @@
 		                  echo '<div class="error-box">' . $this->session->flashdata('error') . '</div>';
 		    } ?>
 		
-	    	<?php echo $page_output; ?>
+		    {$template.body}
 	    		
 		</div>
 	
@@ -64,7 +64,7 @@
 
 	<!-- start footer -->
 	<div id="footer">
-		<?php $this->load->view($theme_view_folder.'footer'); ?>
+		{theme_view('footer')}
 	</div>
 	<!-- end footer -->
 

@@ -89,10 +89,10 @@ class Admin extends Admin_Controller
 		$this->_user_select();
 		
   		// Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );	
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );	
 		
 		// Load module specific JavaScript
-		$this->template->append_head( js('staff.js', 'staff') );
+		$this->template->append_metadata( js('staff.js', 'staff') );
 		
 		$this->template->build('admin/create', $this->data);
 	}
@@ -180,7 +180,7 @@ class Admin extends Admin_Controller
 		$this->_user_select();
 
   		// Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );				
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );				
 		$this->template->build('admin/edit', $this->data);
 	}
 
