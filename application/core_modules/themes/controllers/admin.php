@@ -12,7 +12,7 @@ class Admin extends Admin_Controller
 	// Admin: List all Themes
 	function index()
 	{
-		$this->template->append_head(css('themes.css', 'themes'));
+		$this->template->append_metadata(css('themes.css', 'themes'));
 		$this->data->themes = $this->themes_m->getThemes();		
 		$this->template->build('admin/index', $this->data);
 	}

@@ -1,6 +1,6 @@
 <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 	  
-<title>{$page_title} | <?php echo $this->settings->item('site_name'); ?></title>
+<title>{$template.title} | <?php echo $this->settings->item('site_name'); ?></title>
 	
 <!-- Language: <?php echo CURRENT_LANGUAGE ?> -->
 	
@@ -18,4 +18,4 @@
 		
 {js('front.js')}
 		
-{$extra_head_content}
+{$template.metadata}

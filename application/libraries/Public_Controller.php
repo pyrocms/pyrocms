@@ -42,7 +42,7 @@ class Public_Controller extends MY_Controller
 	    // If there is a news module, link to its RSS feed in the head
 	    if(module_exists('news'))
 	    {
-			$this->template->append_head('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all|rss').'" />');
 	    }
 		
 		// Enable profiler on local box

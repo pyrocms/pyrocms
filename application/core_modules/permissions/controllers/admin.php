@@ -19,7 +19,7 @@ class Admin extends Admin_Controller
         $modules = $this->modules_m->getModules(array('is_backend' => true));
         $this->data->modules_select = array('*' => lang('perm_module_select_default')) + array_for_select($modules, 'slug', 'name');
         
-        $this->template->append_head('
+        $this->template->append_metadata('
 			<script type="text/javascript">
 				var roleDeleteConfirm = "' . $this->lang->line('perm_role_delete_confirm') . '";
 				var permControllerSelectDefault = "' . $this->lang->line('perm_controller_select_default') . '";
@@ -27,7 +27,7 @@ class Admin extends Admin_Controller
 			</script>
 		');
         
-        $this->template->append_head( js('permissions.js', 'permissions') );
+        $this->template->append_metadata( js('permissions.js', 'permissions') );
     }
     
     // Admin: List all permission rules

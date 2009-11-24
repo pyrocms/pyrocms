@@ -100,7 +100,7 @@ class Admin extends Admin_Controller
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
 		$this->template->build('admin/form', $this->data);
 	}
 	
@@ -144,7 +144,7 @@ class Admin extends Admin_Controller
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
 		$this->template->build('admin/form', $this->data);
 	}	
 	
