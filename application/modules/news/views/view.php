@@ -17,13 +17,14 @@
 	<!-- Module bottom -->
 	<div class="module_bottom">
 		<?php
-		if( $this->settings->item('enable_social_bookmarks'))
+		if( FALSE ) // TODO Re-enable social bookmarks with the Widget library
 		{
 			echo $this->load->view('fragments/social_bookmarking/toolbar', array('bookmark' => array('title' => $article->title)));
 		}		
 		?>
 	</div>
 </div>
+
 <!-- Comments module -->
 <div class="module comments_module">
 	<!-- Module heading -->

@@ -57,8 +57,8 @@
 				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" />
 			</div>
 			<div class="field">
-				<label for="css"><?php echo lang('page_css_label');?></label>
-				<?php echo form_textarea('css', $page->css); ?>
+				<label for="css" class="clear-left"><?php echo lang('page_css_label');?></label>
+				<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
 			</div>
 		</fieldset>
 		
@@ -84,3 +84,5 @@
 
 <?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>
+
+<?php echo js('form.js', 'pages'); ?>
