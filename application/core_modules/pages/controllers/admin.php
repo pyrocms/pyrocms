@@ -94,29 +94,29 @@ class Admin extends Admin_Controller
 		// Validate the page
 		if ($this->validation->run())
 	    {
-		if ( $this->pages_m->create($_POST) > 0 )
-		{
-			$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
-		}
-	      
-		else
-		{
-			$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
-		}
-		
-		redirect('admin/pages/index');
+			if ( $this->pages_m->create($_POST) > 0 )
+			{
+				$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+			}
+		      
+			else
+			{
+				$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
+			}
+			
+			redirect('admin/pages/index');
 	    }
 		
 		// Get the data back to the form
 	    foreach(array_keys($this->rules) as $field)
 	    {
-		$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
+			$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
 	    }
 
 	    // If a parent id was passed, fetch the parent details
 	    if($parent_id > 0)
 	    {
-		$page->parent_id = $parent_id;
+			$page->parent_id = $parent_id;
 		
 			$parent_page = $this->pages_m->get_by_id($parent_id);
 			$parent_page->path = $this->pages_m->get_path_by_id($parent_id);
@@ -131,7 +131,8 @@ class Admin extends Admin_Controller
 		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
-		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		$this->template->append_head( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/form', $this->data);
 	}
 
@@ -140,7 +141,7 @@ class Admin extends Admin_Controller
 	{
 		if (empty($id))
 	    {
-		redirect('admin/pages/index');
+			redirect('admin/pages/index');
 	    }
 		
 	    // We use this controller property for a validation callback later on
@@ -167,14 +168,13 @@ class Admin extends Admin_Controller
 		if ($this->validation->run())
 	    {
 			// Run the update code with the POST data	
-		$this->pages_m->update($id, $_POST);			
+			$this->pages_m->update($id, $_POST);			
 				
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('pages_m');			
 			$this->session->set_flashdata('success', sprintf($this->lang->line('pages_edit_success'), $this->input->post('title')));
 			redirect('admin/pages/index');
 	    }
-	
 
 	    // If a parent id was passed, fetch the parent details
 	    if($page->parent_id > 0)
@@ -193,7 +193,8 @@ class Admin extends Admin_Controller
 		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
 		
 	    // Load WYSIWYG editor
-	    $this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+	    $this->template->append_head( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
+		$this->template->append_head( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/form', $this->data);
 	}
     
