@@ -4,11 +4,13 @@
 		<en>Services</en>
 		<es>Servicios</es>
 		<fr>Prestations</fr>
+		<de>Dienstleistungen</de>
 	</name>
 	<description>
 		<en>Show visitors what services are on offer and allows images to be uploaded.</en>
 		<es>Muestra a tus visitantes que servicios ofreces, permitiéndote mostrar información sobre el precio e imagenes.</es>
 		<fr>Décrit aux visiteurs quelles prestations sont offertes et permet de charger des images.</fr>
+		<de>Zeigt Besuchern an, welche Dienstleistungen angeboten werden, und erlaubt das Hochladen von Bildern.</de>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
@@ -26,6 +28,7 @@
 			<new_item href="admin/services/create">
 				<en>New service</en>
 				<fr>Nouvelle prestation</fr>
+				<de>Neue Dienstleistung</de>
 			</new_item>
 		</admin>
 	</navigation>

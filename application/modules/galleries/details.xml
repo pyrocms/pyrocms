@@ -4,11 +4,13 @@
 		<en>Photos</en>
 		<es>Fotográficas</es>
 		<fr>Photos</fr>
+		<de>Fotos</de>
 	</name>
 	<description>
 		<en>Add photo albums and upload photos.</en>
 		<es>Agrega una galería fotográfica y sube fotos.</es>
 		<fr>Ajouter des albums photo et envoyer vos photos.</fr>
+		<de>Füge Fotoalben hinzu und lade Fotos hoch.</de>
 	</description>
 	<icon>image_48.png</icon>
 	<is_frontend>1</is_frontend>
