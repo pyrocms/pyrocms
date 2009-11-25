@@ -1,4 +1,4 @@
-<?php if($this->uri->segment(3,'create') == 'create'): ?>
+<?php if($method == 'create'): ?>
 	<h2><?php echo lang('products_create_title');?></h2>	
 <?php else: ?>
 	<h2><?php echo sprintf(lang('products_edit_title'), $product->title);?></h2>
@@ -52,7 +52,7 @@
 		<?php echo anchor('admin/suppliers/create', lang('products_create_new_supplier_label')); ?>
 	</div>
 	
-	<?php if($this->uri->segment(3,'create') == 'create'): ?>
+	<?php if($method == 'create'): ?>
 	<div class="field">
 		<label for="userfile"><?php echo lang('products_photo_label');?></label>
 		<input type="file" name="userfile" id="userfile" class="text" />

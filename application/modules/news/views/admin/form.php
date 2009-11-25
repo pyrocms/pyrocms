@@ -1,7 +1,7 @@
 <?php echo form_open($this->uri->uri_string()); ?>
 	<div class="fieldset fieldsetBlock active tabs">	
 		<div class="header">
-			<?php if($this->uri->segment(3,'create') == 'create'): ?>
+			<?php if($method == 'create'): ?>
 				<h3><?php echo lang('news_create_title');?></h3>				
 			<?php else: ?>
 				<h3><?php echo sprintf(lang('news_edit_title'), $article->title);?></h3>

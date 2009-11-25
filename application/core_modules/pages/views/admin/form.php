@@ -3,7 +3,7 @@
 
 <div class="fieldset fieldsetBlock active tabs">	
 	<div class="header">		
-		<?php if($this->uri->segment(3,'create') == 'create'): ?>
+		<?php if($method == 'create'): ?>
 			<h3><?php echo lang('page_create_title');?></h3>
 		<?php else: ?>
 			<h3><?php echo sprintf(lang('page_edit_title'), $page->title);?></h3>

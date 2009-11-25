@@ -1,4 +1,4 @@
-var css_editor = CodeMirror.fromTextArea('css_editor', {
+CodeMirror.fromTextArea('css_editor', {
     height: "30em",
     width: "41.6em",
     parserfile: "parsecss.js",

@@ -9,6 +9,7 @@ class Pages extends Public_Controller
         parent::Public_Controller();
         
         $this->load->model('pages_m');
+        $this->load->model('page_layouts_m');
         
         // This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'/config/routes.php'); // simple hack to get the default_controller, could find another way.
@@ -43,20 +44,14 @@ class Pages extends Public_Controller
         	$page->meta_title = $this->viewing_homepage ? $this->settings->item('site_slogan') : $page->title;
         }
         
-    	// If the GET variable isbasic exists, do not use a wrapper
-	    if($this->input->get('_is_basic'))
-	    {
-	    	$this->template->set_layout(FALSE);
-	    }
-
-	    // Use whatever wrapper is in the database
-	    else
-	    {
-	    	$this->template->set_layout('layouts/'.$page->layout_file);
-	    }
-        
         // Define data elements
         $this->data->page =& $page;
+        
+    	// If the GET variable isbasic exists, do not use a wrapper
+	    $page->layout = $this->page_layouts_m->get_by_id($page->layout_id);
+        
+	    // Parse the layout string and output
+	    $page->layout->body = $this->parser->string_parse(stripslashes($page->layout->body), $this->data, TRUE);
         
         // Create page output
 	    $this->template->title( $page->meta_title )

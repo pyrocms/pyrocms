@@ -1,4 +1,4 @@
-<?php if($this->uri->segment(3,'create') == 'create'): ?>
+<?php if($method == 'create'): ?>
 	<h2><?php echo lang('cat_create_title');?></h2>
 	
 <?php else: ?>

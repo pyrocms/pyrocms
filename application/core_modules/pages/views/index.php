@@ -4,6 +4,6 @@
 </style>
 <?php endif; ?>
 
-<h2><?php echo $page->title; ?></h2>
+<!-- Page layout: <?php echo $page->layout->title ?> -->
 
-<?php echo stripslashes($page->body);?>
+<?php echo $page->layout->body; ?>

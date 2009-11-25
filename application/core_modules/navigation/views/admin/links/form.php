@@ -1,4 +1,4 @@
-<?php if($this->uri->segment(3,'create') == 'create'): ?>
+<?php if($method == 'create'): ?>
 	<h3><?php echo lang('nav_link_create_title');?></h3>
 		
 <?php else: ?>
