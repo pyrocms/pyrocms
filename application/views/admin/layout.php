@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title><?php echo $page_title;?> | <?php echo $this->settings->item('site_name'); ?></title>
+		<title><?php echo $template['title'];?> | <?php echo $this->settings->item('site_name'); ?></title>
 		<meta http-equiv="Pragma" content="no-cache" />        
 
 	    <?php $this->load->view('admin/fragments/metadata'); ?>
@@ -46,7 +46,7 @@
 
 						<?php $this->load->view('admin/result_messages') ?>
 					
-						<?php echo $page_output; ?>
+						<?php echo $template['body']; ?>
 					</div>
 					
 					<div class="bBottom">
