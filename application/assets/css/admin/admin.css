@@ -6,4 +6,25 @@
 @import '../common.css';
 @import '../links.css';
 @import '../lists.css';
-@import '../text.css';
+
+.default-input-text {
+	color:#AAAAAA;
+}
+
+code {
+	display:block;
+	white-space:pre;
+}
+
+.CodeMirror-line-numbers {
+	width: 2.2em;
+	background-color: #eee;
+	color:#AAAAAA;
+	font-family:monospace;
+	font-size:10pt;
+	text-align:right;
+ }
+ 
+.CodeMirror-line-numbers div {
+	margin:0;
+}

@@ -3,7 +3,7 @@
 <?php echo js('index.js', 'pages'); ?>
 <?php echo css('index.css', 'pages'); ?>
 
-<p class="float-right">[ <?php echo anchor('admin/pages/layouts', lang('nav_group_delete_label')); ?> ]</p>		
+<p class="float-right">[ <?php echo anchor('admin/pages/layouts', lang('page')); ?> ]</p>		
 
 <br class="clear-both" />
 

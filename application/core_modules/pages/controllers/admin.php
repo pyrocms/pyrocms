@@ -7,7 +7,7 @@ class Admin extends Admin_Controller
 	    'title'				=> 'trim|required|max_length[60]',
 	    'slug'				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body'				=> 'trim|required',
-	    'layout_file'		=> 'trim|alphadash|required',
+	    'layout_id'			=> 'trim|numeric|required',
 	    'css'				=> 'trim|required',
 	    'meta_title'		=> 'trim|max_length[255]',
 	    'meta_keywords'		=> 'trim|max_length[255]',
@@ -35,12 +35,15 @@ class Admin extends Admin_Controller
 		{
 			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
 		}
+		
 		$pages = $this->pages_m->get_children_by_parent_id($parent_id);
 		if (count($pages))
 		{
-			foreach($pages as $page) {
+			foreach($pages as $page)
+			{
 				$page->has_children = $this->pages_m->has_children($page->id);
 			}
+			
 			$this->data->pages =& $pages;
 			$this->data->controller =& $this;
 			$this->data->open_parent_pages = $open_parent_pages;
@@ -262,4 +265,5 @@ class Admin extends Admin_Controller
 	}*/
 
 }
+
 ?>
