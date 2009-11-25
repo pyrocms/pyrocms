@@ -31,6 +31,7 @@
 		<admin>
 			<new_item href="admin/permissions/create">
 				<en>New rule</en>
+				<es>Nuevo permiso</es>
 				<fr>Nouvelle Règle</fr>
 			</new_item>
 		</admin>

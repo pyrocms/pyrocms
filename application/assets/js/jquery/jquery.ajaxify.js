@@ -341,7 +341,10 @@ if(typeof current != 'object'){
 	if(!jQuery(current.target).size())
 		jQuery.ajaxifylog('Warning: Target "'+current.target+'" couldn\'t be found.');
 }
-	
+
+	if(typeof data == 'object'){
+	    data = data.html();
+	}
 		
 	if(current.manip == '+')
 		jQuery(current.target).append(data);

@@ -2,13 +2,15 @@
 <module version="0.4" type="content">
 	<name>
 		<en>Photos</en>
-		<es>Fotográficas</es>
+		<es>Fotográfias</es>
 		<fr>Photos</fr>
+		<de>Fotos</de>
 	</name>
 	<description>
 		<en>Add photo albums and upload photos.</en>
 		<es>Agrega una galería fotográfica y sube fotos.</es>
 		<fr>Ajouter des albums photo et envoyer vos photos.</fr>
+		<de>Füge Fotoalben hinzu und lade Fotos hoch.</de>
 	</description>
 	<icon>image_48.png</icon>
 	<is_frontend>1</is_frontend>
@@ -26,6 +28,7 @@
 		<admin>
 			<new_item href="admin/galleries/create">
 				<en>New album</en>
+				<es>Nuevo álbum</es>
 				<fr>Nouvel album</fr>
 			</new_item>
 		</admin>

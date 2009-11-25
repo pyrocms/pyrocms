@@ -4,6 +4,7 @@
 		<en>Pages</en>
 		<es>Páginas</es>
 		<fr>Pages</fr>
+		<de>Pages</de>
 	</name>
 	<description>
 		<en>Add custom pages to the site with any content you want.</en>
@@ -27,6 +28,7 @@
 		<admin>
 			<new_item href="admin/pages/create">
 				<en>New page</en>
+				<es>Nueva página</es>
 				<fr>Nouvelle page</fr>
 			</new_item>
 		</admin>

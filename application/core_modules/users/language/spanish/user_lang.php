@@ -2,7 +2,7 @@
 
 $lang['user_register_header'] 	= 'Registro';
 $lang['user_register_step1'] 		= '<strong>Paso 1:</strong> Registro';
-$lang['user_register_step2'] 		= '<strong>Paso 2:</strong> Activaci&oacute;n';
+$lang['user_register_step2'] 		= '<strong>Paso 2:</strong> Activación';
 
 $lang['user_login_header'] 		= 'Login';
 
@@ -24,7 +24,7 @@ $lang['user_password_label'] 		= 'Contrase&ntilde;a';
 $lang['user_password_confirm_label'] = 'Confirmar contrase&ntilde;a';
 $lang['user_name_label'] 			= 'Nombre';
 $lang['user_joined_label'] 		= 'Joined';
-$lang['user_last_visit_label'] 	= '&Uacute;ltima visita';
+$lang['user_last_visit_label'] 	= 'última visita';
 $lang['user_actions_label']	 	= 'Acciones';
 $lang['user_never_label'] 			= 'Nunca';
 $lang['user_delete_label'] 		= 'Borrar';
@@ -61,8 +61,8 @@ $lang['user_activation_code'] 			= 'Código de activación';
 
 $lang['user_reset_password_link'] 		= 'Olvidaste tu contrase&ntilde;a?';
 
-$lang['user_activation_code_sent_notice'] 	= 'Se te ha enviado un e-mail con tu c&oacute;digo de activaci&oacute;n.';
-$lang['user_activation_by_admin_notice'] 		= 'Tu registro esta esperando la aprobaci&oacute;n de un administrador.';
+$lang['user_activation_code_sent_notice'] 	= 'Se te ha enviado un e-mail con tu código de activación.';
+$lang['user_activation_by_admin_notice'] 		= 'Tu registro esta esperando la aprobación de un administrador.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -70,7 +70,7 @@ $lang['user_details_section'] 			= 'Nombre';
 $lang['user_password_section'] 			= 'Cambiar contrase&ntilde;a';
 $lang['user_other_settings_section'] 	= 'Otras configuraciones';
 
-$lang['user_settings_saved_success'] 	= 'La configuraci&oacute;n para tu cuenta han sido grabadas.';
+$lang['user_settings_saved_success'] 	= 'La configuración para tu cuenta han sido grabadas.';
 $lang['user_settings_saved_error'] 		= 'Ha ocurrido un error.';
 
 // -- Buttons ----------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ $lang['user_register_btn']		= 'Registrar';
 $lang['user_activate_btn']		= 'Activar';
 $lang['user_reset_pass_btn'] 	= 'Reestablecer contrase&ntilde;a';
 $lang['user_login_btn'] 		= 'Login';
-$lang['user_settings_btn'] 	= 'Grabar configuraci&oacute;n';
+$lang['user_settings_btn'] 	= 'Actualizar configuración';
 
 // -- Errors & Messages ------------------------------------------------------------------------------------
 
@@ -103,16 +103,16 @@ $lang['user_mass_delete_error'] 						= 'Necesitas seleccionar algunos usuarios 
 
 // Register
 $lang['user_email_pass_missing'] 					= 'Campos del Email o contrase&ntilde;a no estan completos.';
-$lang['user_email_exists'] 							= 'El correo electr&oacute;nico que has escogido esta siendo utilizado por otro usuario.';
-$lang['user_register_reasons'] 						= 'Registrate para acceder a &aacute;reas especiales que normalmente est&aacute;n restringidas. Esto quiere decir que tu configuraci&oacute;n ser&aacute; recordada, m&aacute;s contenido y menos publicidad.';
+$lang['user_email_exists'] 							= 'El correo electrónico que has escogido esta siendo utilizado por otro usuario.';
+$lang['user_register_reasons'] 						= 'Registrate para acceder a áreas especiales que normalmente están restringidas. Esto quiere decir que tu configuración será recordada, más contenido y menos publicidad.';
 
 // Activation
-$lang['user_activation_incorrect']   				= 'Activaci&oacute;n fallida. Por favor, revisa tus detalles y aseg&uacute;rate que el BLOQ MAYUS no est&aacute; activado.';
+$lang['user_activation_incorrect']   				= 'Activación fallida. Por favor, revisa tus detalles y asegúrate que el BLOQ MAYUS no está activado.';
 $lang['user_activated_message']   					= 'Tu cuenta ha sido activada, ahora puedes ingresar con tu cuenta.';
 
 // Login
 $lang['user_already_logged_in'] 						= 'Ya te encuentras logueado. Por favor, sal de tu cuente antes de tratar nuevamente.';
-$lang['user_login_incorrect'] 						= 'E-mail o contrase&ntilde;a no coinciden. Por favor, revisa tus detalles y aseg&uacute;rate que el BLOQ MAYUS no est&aacute; activado.';
+$lang['user_login_incorrect'] 						= 'E-mail o contrase&ntilde;a no coinciden. Por favor, revisa tus detalles y asegúrate que el BLOQ MAYUS no está activado.';
 $lang['user_inactive']   								= 'La cuenta a la que tratas de acceder se encuentra inactiva.<br />Revisa tu e-mail para instrucciones de como activar tu cuenta - <em>puede estar en tu correo no deseado</em>.';
 
 // Logged Out
@@ -121,21 +121,21 @@ $lang['user_logged_out']   							= 'Has salido de tu cuenta.';
 // Forgot Pass
 $lang['user_forgot_incorrect']   					= "No se han encontrado cuentas con estos detalles.";
 
-$lang['user_password_reset_message']   			= "Tu contrase&ntilde;a ha sido reestablecida. Deber&iacute;as recibir un correo dentro de las pr&oacute;ximas 2 horas. Si no lo recibes, puede que se haya recibido en tu correo no deseado por accidente.";
+$lang['user_password_reset_message']   			= "Tu contrase&ntilde;a ha sido reestablecida. Deberías recibir un correo dentro de las próximas 2 horas. Si no lo recibes, puede que se haya recibido en tu correo no deseado por accidente.";
 
 // Emails ----------------------------------------------------------------------------------------------------
 
 // Activation
-$lang['user_activation_email_subject'] 			= 'Activaci&oacute;n necesaria.';
-$lang['user_activation_email_body'] 				= 'Gracias por activar tu cuenta con %s. Para entrar con tu cuenta en el sitio, por favor sigue el v&iacute;nculo debajo:';
+$lang['user_activation_email_subject'] 			= 'Activación necesaria.';
+$lang['user_activation_email_body'] 				= 'Gracias por activar tu cuenta con %s. Para entrar con tu cuenta en el sitio, por favor sigue el vínculo debajo:';
 
 
-$lang['user_activated_email_subject'] 				= 'Activaci&oacute;n completada';
-$lang['user_activated_email_content_line1'] 		= 'Gracias por registrarte en %s. Antes de que podamos activar tu cuenta, por favor completa el procedimiento de activaci&oacute;n haciendo click en el link siguiente:';
+$lang['user_activated_email_subject'] 				= 'Activación completada';
+$lang['user_activated_email_content_line1'] 		= 'Gracias por registrarte en %s. Antes de que podamos activar tu cuenta, por favor completa el procedimiento de activación haciendo click en el link siguiente:';
 $lang['user_activated_email_content_line2'] 		= 'En caso que no puedas ingresar haciendo click sobre el link, copia la dirección en tu explorador y utiliza el siguiente código de activación:';
 
 // Reset Pass
-$lang['user_reset_pass_email_subject'] 			= 'Password reestablecido';
-$lang['user_reset_pass_email_body'] 				= 'Tu password en %s ha sido reestablecido. Si no pediste este cambio, por favor escribe a %s y resolveremos esta situación por ti.';
+$lang['user_reset_pass_email_subject'] 			= 'Contraseña reestablecida';
+$lang['user_reset_pass_email_body'] 				= 'Tu contraseña en %s ha sido reestablecido. Si no pediste este cambio, por favor escribe a %s y resolveremos esta situación por ti.';
 
 ?>

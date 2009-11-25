@@ -16,7 +16,7 @@ $lang['theme_upload_desc'] 					= 'Por favor, selecciona un archivo y selecciona
 
 $lang['theme_theme_label'] 					= 'Tema';
 $lang['theme_actions_label'] 					= 'Acciones';
-$lang['theme_make_default'] 					= 'Hacer predeterminado';
+$lang['theme_make_default'] 					= 'Hacer tema predeterminado';
 $lang['theme_delete'] 							= 'Borrar';
 $lang['theme_default_theme_label'] 			= 'Tema predeterminado';
 $lang['theme_no_themes_installed'] 			= 'No hay temas instalados.';
