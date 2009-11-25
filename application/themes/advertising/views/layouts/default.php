@@ -28,14 +28,14 @@
 			<div id="subscribe_newsletter">
 				<?php $this->load->view('newsletters/subscribe_form') ?>
 			</div>
-			<? endif; ?>
+			<?php endif; ?>
 	
 			<?php if(module_exists('news')): ?>
 			<div id="recent-posts">
 				<h2>Recent Posts</h2>
 				<?php echo $this->news_m->getNewsHome(); ?>
 			</div>
-			<? endif; ?>
+			<?php endif; ?>
 			
 		</div>
 

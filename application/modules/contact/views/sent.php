@@ -1,2 +1,2 @@
-<h2><?=lang('contact_sent_title');?></h2>
-<p><?=lang('contact_sent_text');?></p>
+<h2><?php echo lang('contact_sent_title');?></h2>
+<p><?php echo lang('contact_sent_text');?></p>

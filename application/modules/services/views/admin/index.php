@@ -12,13 +12,13 @@
   <tfoot>
   	<tr>
   		<td colspan="5">
-  			<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
+  			<div class="inner"><?php $this->load->view('admin/fragments/pagination'); ?></div>
   		</td>
   	</tr>
   </tfoot>
 	<tbody>
-	<? if ($services): ?>
-		<? foreach ($services as $service): ?>
+	<?php if ($services): ?>
+		<?php foreach ($services as $service): ?>
 		<tr>
 			<td><input type="checkbox" name="action_to[]" value="<?php echo $service->id; ?>" /></td>
 			<td><?php echo $service->title; ?></td>
@@ -30,13 +30,13 @@
 				<?php echo anchor('admin/services/delete/' . $service->id, lang('service_delete_label'), array('class'=>'confirm')); ?>
 			</td>
 		</tr>
-		<? endforeach; ?>
-	<? else: ?>
+		<?php endforeach; ?>
+	<?php else: ?>
 		<tr>
 			<td colspan="5"><?php echo lang('service_no_services');?></td>
 		</tr>
-	<? endif; ?>
+	<?php endif; ?>
 	</tbody>
 </table>
-<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
 <?php echo form_close();?>

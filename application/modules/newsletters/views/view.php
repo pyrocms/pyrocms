@@ -1,9 +1,9 @@
-<h2><?= $newsletter->title; ?></h2>
+<h2><?php echo $newsletter->title; ?></h2>
 <p>
-	<em><?=lang('letter_created_on_label');?>: <?= date('M d, Y', $newsletter->created_on); ?></em>
-  <? if($newsletter->sent_on): ?>
+	<em><?php echo lang('letter_created_on_label');?>: <?php echo date('M d, Y', $newsletter->created_on); ?></em>
+  <?php if($newsletter->sent_on): ?>
     <br/>
-    <em><?=lang('letter_sent_on_label');?>: <?= date('M d, Y', $newsletter->sent_on); ?></em>
-  <? endif; ?>
+    <em><?php echo lang('letter_sent_on_label');?>: <?php echo date('M d, Y', $newsletter->sent_on); ?></em>
+  <?php endif; ?>
 </p>    
-<?=stripslashes($newsletter->body);?>
+<?php echo stripslashes($newsletter->body);?>

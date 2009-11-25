@@ -1,12 +1,12 @@
-<? if($archive_months): ?>
-	<p><strong><?=lang('news_archive_title');?></strong></p>	
+<?php if($archive_months): ?>
+	<p><strong><?php echo lang('news_archive_title');?></strong></p>	
 	<ul class="list-unstyled">
-		<? foreach($archive_months as $month): ?>
+		<?php foreach($archive_months as $month): ?>
 			<li>
-				<a href="<?=site_url('news/archive/'.date('Y/m', $month->date));?>">
-					<?=date("F 'y", $month->date) ?> (<?=$month->article_count; ?>)
+				<a href="<?php echo site_url('news/archive/'.date('Y/m', $month->date));?>">
+					<?php echo date("F 'y", $month->date) ?> (<?php echo $month->article_count; ?>)
 				</a>
 			</li>
-		<? endforeach; ?>
+		<?php endforeach; ?>
 	</ul>
-<? endif; ?>
+<?php endif; ?>

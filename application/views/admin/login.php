@@ -11,13 +11,13 @@
 		<!-- Content -->
 		<div id="login" class="content">
 		
-			<? if (!empty($this->validation->error_string)): ?>
+			<?php if (!empty($this->validation->error_string)): ?>
 				<div class="message message-error">
 					<h6><?php echo lang('login_error');?></h6>
 					<p><?php echo $this->validation->error_string;?></p>
 					<a class="close icon icon_close" title="<?php echo lang('close_message');?>" href="#"></a>
 				</div>
-			<? endif; ?>
+			<?php endif; ?>
 			
 			<div class="login-box">
 

@@ -1,9 +1,9 @@
 	
-	<? if(!empty($pagination['links'])): ?>
+	<?php if(!empty($pagination['links'])): ?>
 	
 	<div class="paginate">
-		<?=$pagination['links'];?>
+		<?php echo $pagination['links'];?>
 	</div>
 	
 	<!-- Pages: </p> -->
-	<? endif; ?>
+	<?php endif; ?>

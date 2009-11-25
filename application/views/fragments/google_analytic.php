@@ -5,7 +5,7 @@
 	</script>
 	<script type="text/javascript">
 	try{
-	var pageTracker = _gat._getTracker("<?=$this->settings->item('google_analytic');?>");
+	var pageTracker = _gat._getTracker("<?php echo $this->settings->item('google_analytic');?>");
 	pageTracker._trackPageview();
 	} catch(err) {}
 </script>

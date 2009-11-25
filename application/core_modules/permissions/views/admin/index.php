@@ -48,7 +48,7 @@
 			</tbody>
 	</table>	
 	<br/>	
-	<? endforeach; ?>
+	<?php endforeach; ?>
 	
 <?php else: ?>
 	<p><?php echo lang('perm_no_roles');?></p>	

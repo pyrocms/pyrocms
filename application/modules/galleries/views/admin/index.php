@@ -1,45 +1,45 @@
-<?=form_open('admin/galleries/delete');?>		
+<?php echo form_open('admin/galleries/delete');?>		
 	<table border="0" class="listTable">			
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox('action_to_all');?></th>
-				<th><a href="#"><?=lang('gal_album_label');?></a></th>
-				<th><a href="#"><?=lang('gal_number_of_photo_label');?></a></th>
-				<th><a href="#"><?=lang('gal_updated_label');?></a></th>
-				<th><span><?=lang('gal_actions_label');?></span></th>
+				<th><a href="#"><?php echo lang('gal_album_label');?></a></th>
+				<th><a href="#"><?php echo lang('gal_number_of_photo_label');?></a></th>
+				<th><a href="#"><?php echo lang('gal_updated_label');?></a></th>
+				<th><span><?php echo lang('gal_actions_label');?></span></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
+					<div class="inner"><?php $this->load->view('admin/fragments/pagination'); ?></div>
 				</td>
 			</tr>
 		</tfoot>
 		<tbody>
-<? if (!empty($galleries)): ?>		
-		<? function gallery_row($tree, $parent, $lvl) { ?>
-		<? if(isset($tree[$parent])) foreach ($tree[$parent] as $gallery): ?>
+<?php if (!empty($galleries)): ?>		
+		<?php function gallery_row($tree, $parent, $lvl) { ?>
+		<?php if(isset($tree[$parent])) foreach ($tree[$parent] as $gallery): ?>
 			<tr>
-				<td><input type="checkbox" name="delete[<?= $gallery->slug;?>]" /></td>
-        <td><?=repeater('-- ', $lvl);?> <?=$gallery->title;?></td>
-        <td><?=$gallery->num_photos;?></td>
-        <td><?=date('M d, Y', $gallery->updated_on);?></td>
-        <td><?= anchor('galleries/' . $gallery->slug, lang('gal_view_label'), 'target="_blank"') . ' | ' .
+				<td><input type="checkbox" name="delete[<?php echo $gallery->slug;?>]" /></td>
+        <td><?php echo repeater('-- ', $lvl);?> <?php echo $gallery->title;?></td>
+        <td><?php echo $gallery->num_photos;?></td>
+        <td><?php echo date('M d, Y', $gallery->updated_on);?></td>
+        <td><?php echo anchor('galleries/' . $gallery->slug, lang('gal_view_label'), 'target="_blank"') . ' | ' .
 						anchor('admin/galleries/manage/' . $gallery->slug, lang('gal_manage_label')) . ' | ' .
 						anchor('admin/galleries/edit/' . $gallery->slug, lang('gal_edit_label')) . ' | ' .
 						anchor('admin/galleries/delete/' . $gallery->slug, lang('gal_delete_label'), array('class'=>'confirm')); ?>
         </td>
       </tr>
-      <? gallery_row($tree, $gallery->id, $lvl+1) ?>
-      <? endforeach; }?>            
-			<? gallery_row($galleries, 0, 0); ?>
-<? else: ?>
+      <?php gallery_row($tree, $gallery->id, $lvl+1) ?>
+      <?php endforeach; }?>            
+			<?php gallery_row($galleries, 0, 0); ?>
+<?php else: ?>
 			<tr>
-				<td colspan="5"><?=lang('gal_no_galleries_error');?></td>
+				<td colspan="5"><?php echo lang('gal_no_galleries_error');?></td>
 			</tr>
-<? endif;?>
+<?php endif;?>
 		</tbody>
 	</table>	
-	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
-<?=form_close(); ?>
+	<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<?php echo form_close(); ?>

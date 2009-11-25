@@ -16,7 +16,7 @@
 <?php echo js('jquery/jquery.imgareaselect.js'); ?>
 <?php echo js('jquery/jquery.simplemodal.js').css('jquery/confirm.css'); ?>
 
-<? /* Added for Ajaxify */ ?>
+<?php /* Added for Ajaxify */ ?>
 <?php echo js('jquery/jquery.livequery.pack.js'); ?>
 <?php echo js('jquery/jquery.ajaxify.js'); ?>
 <?php echo js('jquery/jquery.history.fixed.js'); ?>

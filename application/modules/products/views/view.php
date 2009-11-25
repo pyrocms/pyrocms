@@ -1,15 +1,15 @@
-<? $this->load->helper('typography'); ?>
+<?php $this->load->helper('typography'); ?>
 
-<? if ($images): ?>
-	<? foreach ($images as $image): ?>
+<?php if ($images): ?>
+	<?php foreach ($images as $image): ?>
 		<div style="float:left; margin:0 20px 0 0">
-			<a href="products/<?=$image->filename;?>" title="<?=$product->title;?>" rel="modal">
-				<?=image('products/' . substr($image->filename, 0, -4) . '_thumb' . substr($image->filename, -4));?>
+			<a href="products/<?php echo $image->filename;?>" title="<?php echo $product->title;?>" rel="modal">
+				<?php echo image('products/' . substr($image->filename, 0, -4) . '_thumb' . substr($image->filename, -4));?>
 			</a>
 		</div>
-	<? endforeach; ?>
-<? endif; ?>
+	<?php endforeach; ?>
+<?php endif; ?>
 
-<h2><?= $product->title; ?></h2>
-<strong><?=lang('products_price_label');?>: <?= sprintf(lang('products_price_format'), $this->settings->item('currency'), $product->price); ?></strong>
-<p><?= auto_typography($product->description); ?></p>
+<h2><?php echo $product->title; ?></h2>
+<strong><?php echo lang('products_price_label');?>: <?php echo sprintf(lang('products_price_format'), $this->settings->item('currency'), $product->price); ?></strong>
+<p><?php echo auto_typography($product->description); ?></p>

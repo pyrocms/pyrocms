@@ -1,16 +1,16 @@
-<h2 class="spacer-top-none"><?= $article->title; ?></h2>
+<h2 class="spacer-top-none"><?php echo $article->title; ?></h2>
 <p>
-	<strong><?=lang('news_posted_label');?>:</strong> <?= date('M d, Y', $article->created_on); ?><br/>		
-	<? if($article->category_slug): ?>
-		<strong><?=lang('news_category_label');?>:</strong> <?=anchor('news/category/'.$article->category_slug, $article->category_title);?>
-	<? endif; ?>
+	<strong><?php echo lang('news_posted_label');?>:</strong> <?php echo date('M d, Y', $article->created_on); ?><br/>		
+	<?php if($article->category_slug): ?>
+		<strong><?php echo lang('news_category_label');?>:</strong> <?php echo anchor('news/category/'.$article->category_slug, $article->category_title);?>
+	<?php endif; ?>
 </p>
 <hr/>
 
-<? if ($article->attachment): ?>
-	<img src="/uploads/news/<?=$article->slug;?>/<?=$article->attachment;?>" class="left">
-<? endif; ?>
+<?php if ($article->attachment): ?>
+	<img src="/uploads/news/<?php echo $article->slug;?>/<?php echo $article->attachment;?>" class="left">
+<?php endif; ?>
 
-<p><em><?=$article->intro;?></em></p>
+<p><em><?php echo $article->intro;?></em></p>
 
-<?=stripslashes($article->body);?> 
+<?php echo stripslashes($article->body);?> 

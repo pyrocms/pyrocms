@@ -5,9 +5,9 @@
 	<span class="spacer-right" style="background:#FFFF99;"><?php echo lang('user_register_step2') ?></span>
 </p>
 
-<? if(!empty($error_string)):?>
+<?php if(!empty($error_string)):?>
 <div class="error-box"><?php echo $error_string;?></div>
-<? endif;?>
+<?php endif;?>
 
 <?php echo form_open('users/activate'); ?>
 	

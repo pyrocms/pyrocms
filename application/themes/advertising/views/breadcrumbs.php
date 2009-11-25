@@ -1,12 +1,12 @@
 <p>
-	<small><?=anchor('', lang('breadcrumb_base_label')) ?>
+	<small><?php echo anchor('', lang('breadcrumb_base_label')) ?>
 	
-	<? foreach($breadcrumbs as $breadcrumb): ?>
-		<? if(!$breadcrumb['current_page']): ?>
-		:: <?=anchor($breadcrumb['url_ref'], $breadcrumb['name']); ?>
-		<? else: ?>
-		:: <?=$breadcrumb['name']; ?>
-		<? endif; ?>
-	<? endforeach; ?>
+	<?php foreach($breadcrumbs as $breadcrumb): ?>
+		<?php if(!$breadcrumb['current_page']): ?>
+		:: <?php echo anchor($breadcrumb['url_ref'], $breadcrumb['name']); ?>
+		<?php else: ?>
+		:: <?php echo $breadcrumb['name']; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 	</small>
 </p>

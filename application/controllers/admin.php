@@ -18,7 +18,6 @@ class Admin extends Admin_Controller
  	function index()
 	{
 		// Load stuff
-		$this->load->model('modules_m');
  		$this->data->modules = $this->modules_m->getModules();
 		
 		// Don't you love the smell of burning CPUs in the morning ?

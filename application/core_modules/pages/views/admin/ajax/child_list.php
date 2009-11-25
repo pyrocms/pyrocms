@@ -1,4 +1,4 @@
-<? foreach ($pages as $page): ?>
+<?php foreach ($pages as $page): ?>
 <li>
 	<span class="<?php echo $page->has_children ? 'folder' : 'file' ?>">
 		<a href="#" rel="page-<?php echo $page->id; ?>">

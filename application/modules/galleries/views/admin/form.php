@@ -1,28 +1,28 @@
-<? if($this->uri->segment(3,'create') == 'create'): ?>
-	<h3><?=lang('gal_create_title');?></h3>
-<? else: ?>
-	<h3><?=sprintf(lang('gal_edit_title'), $gallery->title);?></h3>
-<? endif; ?>
+<?php if($this->uri->segment(3,'create') == 'create'): ?>
+	<h3><?php echo lang('gal_create_title');?></h3>
+<?php else: ?>
+	<h3><?php echo sprintf(lang('gal_edit_title'), $gallery->title);?></h3>
+<?php endif; ?>
 
-<?= form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string()); ?>
 	<div class="field">
-		<label for="title"><?=lang('gal_title_label');?></label>
-		<input type="text" id="title" name="title" maxlength="255" value="<?= $gallery->title; ?>" class="text" />
-		<span class="required-icon tooltip"><?=lang('required_label');?></span>
+		<label for="title"><?php echo lang('gal_title_label');?></label>
+		<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" class="text" />
+		<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 	</div>
 	
 	<div class="field">
-		<label for="parent"><?=lang('gal_parent_gallery_label');?></label>		
+		<label for="parent"><?php echo lang('gal_parent_gallery_label');?></label>		
 		<select name="parent" size="1">
-			<option value=""><?=lang('gal_no_parent_select_label');?></option>
-			<? create_tree_select($galleries, 0, 0, $gallery->parent, $gallery->id); ?>
+			<option value=""><?php echo lang('gal_no_parent_select_label');?></option>
+			<?php create_tree_select($galleries, 0, 0, $gallery->parent, $gallery->id); ?>
 		</select>
 	</div>
 	
 	<div class="field">
-		<label for="description"><?=lang('gal_desc_label');?></label>
-		<?=form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
+		<label for="description"><?php echo lang('gal_desc_label');?></label>
+		<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 	</div>
 	
-	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
-<?= form_close(); ?>
+	<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+<?php echo form_close(); ?>
