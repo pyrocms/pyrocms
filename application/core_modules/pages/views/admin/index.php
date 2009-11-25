@@ -3,6 +3,10 @@
 <?php echo js('index.js', 'pages'); ?>
 <?php echo css('index.css', 'pages'); ?>
 
+<p class="float-right">[ <?php echo anchor('admin/pages/layouts', lang('nav_group_delete_label')); ?> ]</p>		
+
+<br class="clear-both" />
+
 <div id="page-tree" class="float-left" style=" width:49%;">
 	
 	<?php echo $page_tree_html; ?>  

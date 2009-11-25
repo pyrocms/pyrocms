@@ -20,6 +20,6 @@
 |	http://www.codeigniter.com/user_guide/general/routing.html
 */
 
-$route['permissions/admin/roles/(:any)'] = 'roles/$1';
+$route['permissions/admin/roles(:any)?'] = 'admin_roles$1';
 
 ?>
