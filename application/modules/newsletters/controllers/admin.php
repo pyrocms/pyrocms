@@ -7,7 +7,7 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();        
 		$this->load->model('newsletters_m');
 		$this->lang->load('newsletter');        
-		$this->newsletters_m->emailFrom = $this->settings->item('contact_email');
+		$this->newsletters_m->email_from = $this->settings->item('contact_email');
 	}
 	
 	// Admin: Show Newsletters

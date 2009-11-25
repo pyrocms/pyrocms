@@ -2,13 +2,11 @@
 
 class Newsletters_m extends Model
 {
-	var $emailFrom;
+	var $email_from = 'admin@localhost'; // this is set by controller when used
 	
-	// TODO: PJS Change emails table to newsletter_subscriptions
 	function __construct()
 	{
 		parent::Model();
-		$this->emailFrom = 'admin@madebyfresh.com';
 	}
 	
 	function getNewsletters($params = array())
@@ -20,14 +18,7 @@ class Newsletters_m extends Model
 		elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
 		
 		$query = $this->db->get('newsletters');
-		if ($query->num_rows() == 0)
-		{
-			return FALSE;
-		}
-		else
-		{
-			return $query->result();
-		}
+		$query->result();
 	}
 	
 	function getNewsletter($id = '')
@@ -74,7 +65,7 @@ class Newsletters_m extends Model
 		{
 		$this->email->clear();
 		
-		$this->email->from($this->emailFrom);
+		$this->email->from($this->email_from);
 		$this->email->to($recipient->email);
 		$this->email->subject($newsletter->title .' | '.$this->settings->item('site_name') .' '.$this->lang->line('letter_subject_suffix'));
 		$this->email->message($newsletter->body);
