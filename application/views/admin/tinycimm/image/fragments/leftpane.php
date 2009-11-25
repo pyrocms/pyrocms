@@ -19,7 +19,7 @@
 	<?php echo lang('tinycimm_image_folders'); ?>
 </div>
 <div id="folderlist">
-	<?= $this->load->view($this->view_path.'fragments/folder_list');?>
+	<?php echo $this->load->view($this->view_path.'fragments/folder_list');?>
 </div>
 <br/>
 <div class="heading">&raquo;
@@ -31,7 +31,7 @@
 			<?php echo lang('tinycimm_image_images'); ?>
 		</td>
 		<td>
-			<?=$selected_folder_info['total_assets'];?>
+			<?php echo $selected_folder_info['total_assets'];?>
 		</td>
 	</tr>
 	<tr>
@@ -39,7 +39,7 @@
 			<?php echo lang('tinycimm_image_size'); ?>
 		</td>
 		<td>
-			<?=$selected_folder_info['total_file_size'];?>
+			<?php echo $selected_folder_info['total_file_size'];?>
 		</td>
 	</tr>
 	<tr>
@@ -49,8 +49,8 @@
 		<td>
 			<select style="border:1px solid #AAA" onchange="TinyCIMMImage.changeView(this.options[this.selectedIndex].value)">
 				<optgroup label="Views">
-					<option value="listing"<?=$this->session->userdata('cimm_view')=='listing'?' selected':'';?>>File Listing</option>
-					<option value="thumbnails"<?=$this->session->userdata('cimm_view')=='thumbnails'?' selected':'';?>>Thumbnails</option>
+					<option value="listing"<?php echo $this->session->userdata('cimm_view')=='listing'?' selected':'';?>>File Listing</option>
+					<option value="thumbnails"<?php echo $this->session->userdata('cimm_view')=='thumbnails'?' selected':'';?>>Thumbnails</option>
 				</optgroup>
 			</select>
 		</td>

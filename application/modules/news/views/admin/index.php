@@ -1,48 +1,48 @@
-<? $this->load->helper('date');?>      
-<?= form_open('admin/news/action');?>
+<?php $this->load->helper('date');?>      
+<?php echo form_open('admin/news/action');?>
 	<table border="0" class="listTable">    
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox('action_to_all');?></th>
-				<th><a href="#"><?=lang('news_post_label');?></a></th>
-				<th class="width-10"><a href="#"><?=lang('news_category_label');?></a></th>
-				<th class="width-10"><a href="#"><?=lang('news_date_label');?></a></th>
-				<th class="width-5"><a href="#"><?=lang('news_status_label');?></a></th>
-				<th class="width-10"><span><?=lang('news_actions_label');?></span></th>
+				<th><a href="#"><?php echo lang('news_post_label');?></a></th>
+				<th class="width-10"><a href="#"><?php echo lang('news_category_label');?></a></th>
+				<th class="width-10"><a href="#"><?php echo lang('news_date_label');?></a></th>
+				<th class="width-5"><a href="#"><?php echo lang('news_status_label');?></a></th>
+				<th class="width-10"><span><?php echo lang('news_actions_label');?></span></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
 				<td colspan="6">
-					<div class="inner"><? $this->load->view('admin/fragments/pagination'); ?></div>
+					<div class="inner"><?php $this->load->view('admin/fragments/pagination'); ?></div>
 				</td>
 			</tr>
 		</tfoot>
 		<tbody>
-		<? if (!empty($news)): ?>
-				<? foreach ($news as $article): ?>
+		<?php if (!empty($news)): ?>
+				<?php foreach ($news as $article): ?>
 					<tr>
-						<td><input type="checkbox" name="action_to[]" value="<?=$article->id;?>" /></td>
-						<td><?=$article->title;?></td>
-						<td><?=$article->category_title;?></td>
-						<td><?=date('M d, Y', $article->created_on);?></td>
-						<td><?=ucfirst($article->status);?></td>
+						<td><input type="checkbox" name="action_to[]" value="<?php echo $article->id;?>" /></td>
+						<td><?php echo $article->title;?></td>
+						<td><?php echo $article->category_title;?></td>
+						<td><?php echo date('M d, Y', $article->created_on);?></td>
+						<td><?php echo ucfirst($article->status);?></td>
 						<td>
-							<? if( $article->status == 'live' ): ?>
-								<?= anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, lang('news_view_label'), 'target="_blank"') . ' | '; ?>
-							<? endif; ?>
-							<?= anchor('admin/news/preview/'. $article->slug, lang('news_preview_label'), 'rel="modal" target="_blank"'); ?><br />
-							<?= anchor('admin/news/edit/' . $article->id, lang('news_edit_label'));?> | 
-							<?= anchor('admin/news/delete/' . $article->id, lang('news_delete_label'), array('class'=>'confirm')); ?>
+							<?php if( $article->status == 'live' ): ?>
+								<?php echo anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, lang('news_view_label'), 'target="_blank"') . ' | '; ?>
+							<?php endif; ?>
+							<?php echo anchor('admin/news/preview/'. $article->slug, lang('news_preview_label'), 'rel="modal" target="_blank"'); ?><br />
+							<?php echo anchor('admin/news/edit/' . $article->id, lang('news_edit_label'));?> | 
+							<?php echo anchor('admin/news/delete/' . $article->id, lang('news_delete_label'), array('class'=>'confirm')); ?>
 						</td>
 					</tr>
-			<? endforeach; ?>
-		<? else: ?>
+			<?php endforeach; ?>
+		<?php else: ?>
 				<tr>
-					<td colspan="6"><?=lang('news_no_articles');?></td>
+					<td colspan="6"><?php echo lang('news_no_articles');?></td>
 				</tr>
-		<? endif; ?>
+		<?php endif; ?>
 		</tbody>	
 	</table>
-	<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete', 'publish') )); ?>
-<?=form_close();?>
+	<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete', 'publish') )); ?>
+<?php echo form_close();?>

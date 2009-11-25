@@ -1,5 +1,5 @@
 <!-- TinyMCE -->
-<?= js('tiny_mce/tiny_mce.js'); ?>
+<?php echo js('tiny_mce/tiny_mce.js'); ?>
 
 <script type="text/javascript">
 

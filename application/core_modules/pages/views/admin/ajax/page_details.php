@@ -33,7 +33,7 @@
 			<button class="button">
 				<strong>
 					<?php echo lang('page_create_label');?>
-					<img class="icon" alt="<?php echo lang('page_create_label'); ?>" src="<?=image_url('admin/icons/add_48.png');?>" />
+					<img class="icon" alt="<?php echo lang('page_create_label'); ?>" src="<?php echo image_url('admin/icons/add_48.png');?>" />
 				</strong>
 			</button>
 		</a>

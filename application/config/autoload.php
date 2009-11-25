@@ -108,7 +108,7 @@ $autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
 |
 */
 
-$autoload['model'] = array('permissions/permissions_m', 'news/news_m', 'modules_m', 'pages/pages_m');
+$autoload['model'] = array('permissions/permissions_m', 'news/news_m', 'modules/modules_m', 'pages/pages_m');
 
 
 /*

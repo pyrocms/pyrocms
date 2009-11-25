@@ -1,22 +1,22 @@
 <!-- Title -->
 <div id="content-head" class="b2">
-	<h2><?=$module_data['name'] ? $module_data['name'] : lang('cp_title'); ?></h2>
+	<h2><?php echo $module_data['name'] ? $module_data['name'] : lang('cp_title'); ?></h2>
 	
-	<? if( !empty($toolbar) ): ?>	
+	<?php if( !empty($toolbar) ): ?>	
 	<!-- TitleActions -->
 	<div id="page-actions">
 		
-		<? if( !empty($toolbar['new_item']) ): ?>
+		<?php if( !empty($toolbar['new_item']) ): ?>
 		<!-- new item -->
 		<div class="actionBlock">
-			<a id="new-item" href="<?= site_url($toolbar['new_item']['link']) ?>" class="button">
-				<strong><?= $toolbar['new_item']['title'] ?><?= image('admin/icons/add_48.png', NULL, array('alt' => $toolbar['new_item']['title'] .' icon', 'class' => 'icon') ); ?></strong>
+			<a id="new-item" href="<?php echo site_url($toolbar['new_item']['link']) ?>" class="button">
+				<strong><?php echo $toolbar['new_item']['title'] ?><?php echo image('admin/icons/add_48.png', NULL, array('alt' => $toolbar['new_item']['title'] .' icon', 'class' => 'icon') ); ?></strong>
 			</a>
 		</div>
 		<!-- /new item -->
-		<? endif; ?>
+		<?php endif; ?>
 		
-		<? // Never finished
+		<?php // Never finished
 		if( !empty($toolbar['search']) ): ?>
 		<!-- ListSearch -->
 		<div class="listSearch actionBlock">
@@ -30,10 +30,10 @@
 			</div>
 		</div>
 		<!-- /ListSearch -->
-		<? endif; ?>		
+		<?php endif; ?>		
 	</div>
 	<!-- /TitleActions -->
-	<? endif; ?>	
+	<?php endif; ?>	
 </div>
 
 <!-- Title -->
@@ -49,4 +49,4 @@ if( !empty($toolbar['links']) ): ?>
 		else</a></li>
 	</ul>
 </div>
-<? endif; ?>
+<?php endif; ?>

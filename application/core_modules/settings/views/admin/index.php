@@ -1,29 +1,29 @@
-<?= form_open('admin/settings/edit');?>
+<?php echo form_open('admin/settings/edit');?>
 <div class="fieldset fieldsetBlock active tabs">	
 	<div class="header">
-		<h3><?= lang('settings_edit_title');?></h3>
+		<h3><?php echo lang('settings_edit_title');?></h3>
 	</div>	
 	<div class="tabs">
 		<ul class="clear-both">
-			<? foreach($setting_sections as $section_slug => $section_name): ?>
-			<li><a href="#<?=$section_slug;?>" title="<?=$section_name;?> settings"><span><?=$section_name;?></span></a></li>
-			<? endforeach; ?>
+			<?php foreach($setting_sections as $section_slug => $section_name): ?>
+			<li><a href="#<?php echo $section_slug;?>" title="<?php echo $section_name;?> settings"><span><?php echo $section_name;?></span></a></li>
+			<?php endforeach; ?>
 		</ul>		
-		<? foreach($setting_sections as $section_slug => $section_name): ?>		
-		<fieldset id="<?=$section_slug;?>">
-			<legend><?=$section_name;?></legend>		
-			<? $section_count = 1; foreach($settings[$section_slug] as $setting): ?>
+		<?php foreach($setting_sections as $section_slug => $section_name): ?>		
+		<fieldset id="<?php echo $section_slug;?>">
+			<legend><?php echo $section_name;?></legend>		
+			<?php $section_count = 1; foreach($settings[$section_slug] as $setting): ?>
 			<div class="field">
-					<label for="<?= $setting->slug; ?>"><?= $setting->title; ?></label>
+					<label for="<?php echo $setting->slug; ?>"><?php echo $setting->title; ?></label>
 					<div class="float-right width-40">
-						<?=$setting->form_control; ?><br/>
-						<span class="clear-both text-small1"><?= $setting->description; ?></span>
+						<?php echo $setting->form_control; ?><br/>
+						<span class="clear-both text-small1"><?php echo $setting->description; ?></span>
 					</div>
 			</div>
-			<? $section_count++; endforeach; ?>		
+			<?php $section_count++; endforeach; ?>		
 		</fieldset>
-		<? endforeach; ?>		
+		<?php endforeach; ?>		
 	</div>	
 </div>			
-<? $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save') )); ?>
-<?=form_close(); ?>
+<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save') )); ?>
+<?php echo form_close(); ?>

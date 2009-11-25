@@ -14,7 +14,7 @@
 		<?php echo anchor('edit-settings', lang('settings_label')); ?>
 		
 		<?php if( $this->user_lib->check_role('admin') ): ?>
-			 | <?=anchor('admin', lang('cp_title'), 'target="_blank"'); ?>
+			 | <?php echo anchor('admin', lang('cp_title'), 'target="_blank"'); ?>
 		<?php endif; ?>
 		
 	<?php else: ?>

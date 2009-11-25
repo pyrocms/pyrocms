@@ -5,7 +5,7 @@
 	<?php } else {?>
 		<?php foreach($images as $image):?>
 		<li>
-			<span class="clearfix list-item" id="image-<?=$image['id'];?>" onclick="TinyCIMMImage.loadResizer('<?php echo $image['id'].$image['extension'];?>', event)" title="insert image" onMouseOver="this.style.color='#000066';this.style.background='#EEEEEE';" onMouseOut="this.style.color='#000000';this.style.background='#FFFFFF';">
+			<span class="clearfix list-item" id="image-<?php echo $image['id'];?>" onclick="TinyCIMMImage.loadResizer('<?php echo $image['id'].$image['extension'];?>', event)" title="insert image" onMouseOver="this.style.color='#000066';this.style.background='#EEEEEE';" onMouseOut="this.style.color='#000000';this.style.background='#FFFFFF';">
 				<span class="list-controls">
 					<a href="#" title="delete image" class="delete" onclick="TinyCIMMImage.deleteImage(<?php echo $image['id'];?>);return false">&nbsp;</a>
 					<a href="#" title="insert thumbnail" class="thumbnail" onclick="TinyCIMMImage.insertThumbnail(this, '<?php echo $image['filename'];?>');return false">&nbsp;</a>

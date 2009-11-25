@@ -1,6 +1,6 @@
 <p>
-	<strong><?=lang('comment_posted_label');?>:</strong> <?= date('M d, Y', $comment->created_on); ?><br/>		
-	<strong><?=lang('comment_from_label');?>:</strong> <?=$comment->name;?>
+	<strong><?php echo lang('comment_posted_label');?>:</strong> <?php echo date('M d, Y', $comment->created_on); ?><br/>		
+	<strong><?php echo lang('comment_from_label');?>:</strong> <?php echo $comment->name;?>
 </p>
 <hr/>
-<p><?=stripslashes($comment->body);?></p>
+<p><?php echo stripslashes($comment->body);?></p>

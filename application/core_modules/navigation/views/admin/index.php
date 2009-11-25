@@ -1,16 +1,16 @@
 <?php echo form_open('admin/navigation/delete');?>
-	<p class="float-right">[ <?=anchor('admin/navigation/groups/create', lang('nav_group_add_label')) ?> ]</p>
+	<p class="float-right">[ <?php echo anchor('admin/navigation/groups/create', lang('nav_group_add_label')) ?> ]</p>
 	<br class="clear-both" />
 	<div class="message message-notice">
-		<h6><?=lang('nav_note_label');?></h6>
-		<p><?=lang('nav_group_note');?></p>
+		<h6><?php echo lang('nav_note_label');?></h6>
+		<p><?php echo lang('nav_group_note');?></p>
 		<a class="close icon icon_close tooltip" href="#"></a>
 	</div>
 	<br class="clear-both" />
 	
 	<?php if (!empty($groups)): ?>
 		<?php foreach ($groups as $group): ?>	
-			<h3 class="float-left"><?=$group->title;?></h3>	
+			<h3 class="float-left"><?php echo $group->title;?></h3>	
 			<p class="float-right">[ <?php echo anchor('admin/navigation/groups/delete/'.$group->id, sprintf(lang('nav_group_delete_label'), $group->title), 'class="delete_group"') ?> ]</p>		
 			<table border="0" class="listTable clear-both">		    
 				<thead>
@@ -51,7 +51,7 @@
 			</tbody>
 		</table>	
 		<br/>	
-		<? endforeach; ?>	
+		<?php endforeach; ?>	
 	<?php else: ?>
 		<p><?php echo lang('nav_no_groups');?></p>
 	<?php endif; ?>

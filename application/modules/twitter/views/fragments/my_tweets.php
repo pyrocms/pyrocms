@@ -11,10 +11,10 @@ $twitter_timeline = $CI->twitter_m->user_timeline(NULL, $this->settings->item('t
 		<p class="dark-grey-bg spacer-bottom padding-left">
 			<strong><?php echo date('d/m/Y h:m', strtotime($tweet->created_at));?></strong> - <em><?php echo $tweet->text;?></em>
 		</p>	
-	<? endforeach; ?>		
+	<?php endforeach; ?>		
 	<p class="align-center">
 		<a href="http://twitter.com/<?php echo $this->settings->item('twitter_username') ?>" target="_blank"><?php echo lang('twitter_more');?></a>
 	</p>
-<? else: ?>
+<?php else: ?>
 	<p><?php echo lang('twitter_no_tweets');?></p>
-<? endif; ?>
+<?php endif; ?>

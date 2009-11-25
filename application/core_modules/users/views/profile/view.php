@@ -1,62 +1,62 @@
-<h2><?=sprintf(lang('profile_of_title'), $user->full_name);?></h2>
+<h2><?php echo sprintf(lang('profile_of_title'), $user->full_name);?></h2>
 
 <fieldset>
-	<legend><?=lang('profile_user_details_label');?></legend>
-	<strong><?=lang('profile_role_label');?>:</strong> <?=$user->role; ?><br/>
-	<strong><?=lang('profile_registred_on_label');?>:</strong> <?=date('M d, Y', $user->created_on); ?><br/>
-	<? if($user->last_login > 0): ?>
-		<strong><?=lang('profile_last_login_label');?>:</strong> <?=date('M d, Y', $user->last_login); ?>
-	<? endif; ?>
+	<legend><?php echo lang('profile_user_details_label');?></legend>
+	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->role; ?><br/>
+	<strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo date('M d, Y', $user->created_on); ?><br/>
+	<?php if($user->last_login > 0): ?>
+		<strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y', $user->last_login); ?>
+	<?php endif; ?>
 </fieldset>
 
-<? if($profile): ?>
-	<? if($profile->bio): ?>
+<?php if($profile): ?>
+	<?php if($profile->bio): ?>
 		<fieldset class="width-22 float-left">
-			<legend><?=lang('profile_bio'); ?></legend>
+			<legend><?php echo lang('profile_bio'); ?></legend>
 		
-			<?=$profile->bio ?>
+			<?php echo $profile->bio ?>
 		</fieldset>
-	<? endif; ?>
+	<?php endif; ?>
 	
 	<fieldset class="width-22 float-right">
-		<legend><?=lang('profile_personal_section') ?></legend>		
+		<legend><?php echo lang('profile_personal_section') ?></legend>		
 		<dl>
-			<? if($profile->gender): ?>
-				<dt><?=lang('profile_gender'); ?></dt>
-				<dd><?=$profile->gender == 'm' ? lang('profile_male_label') : lang('profile_female_label') ?></dd>
-			<? endif; ?>
+			<?php if($profile->gender): ?>
+				<dt><?php echo lang('profile_gender'); ?></dt>
+				<dd><?php echo $profile->gender == 'm' ? lang('profile_male_label') : lang('profile_female_label') ?></dd>
+			<?php endif; ?>
 			
-			<? if($profile->dob): ?>
-				<dt><?=lang('profile_dob'); ?></dt>
-				<dd><?=date('M d, Y', $profile->dob) ?></dd>
-			<? endif; ?>
+			<?php if($profile->dob): ?>
+				<dt><?php echo lang('profile_dob'); ?></dt>
+				<dd><?php echo date('M d, Y', $profile->dob) ?></dd>
+			<?php endif; ?>
 		</dl>
 	</fieldset>
 	
 	<fieldset class="width-22 float-left">
-		<legend><?=lang('profile_messenger_section') ?></legend>	
+		<legend><?php echo lang('profile_messenger_section') ?></legend>	
 		<dl>
-			<? if($profile->msn_handle): ?>
-				<dt><?=lang('profile_msn_handle') ?></dt>
-				<dd><?=$profile->msn_handle ?></dd>
-			<? endif; ?>
+			<?php if($profile->msn_handle): ?>
+				<dt><?php echo lang('profile_msn_handle') ?></dt>
+				<dd><?php echo $profile->msn_handle ?></dd>
+			<?php endif; ?>
 			
-			<? if($profile->aim_handle): ?>
-				<dt><?=lang('profile_aim_handle') ?></dt>
-				<dd><?=$profile->aim_handle ?></dd>
-			<? endif; ?>
+			<?php if($profile->aim_handle): ?>
+				<dt><?php echo lang('profile_aim_handle') ?></dt>
+				<dd><?php echo $profile->aim_handle ?></dd>
+			<?php endif; ?>
 			
-			<? if($profile->yim_handle): ?>
-				<dt><?=lang('profile_yim_handle') ?></dt>
-				<dd><?=$profile->yim_handle ?></dd>
-			<? endif; ?>
+			<?php if($profile->yim_handle): ?>
+				<dt><?php echo lang('profile_yim_handle') ?></dt>
+				<dd><?php echo $profile->yim_handle ?></dd>
+			<?php endif; ?>
 			
-			<? if($profile->gtalk_handle): ?>
-				<dt><?=lang('profile_gtalk_handle') ?></dt>
-				<dd><?=$profile->gtalk_handle ?></dd>
-			<? endif; ?>
+			<?php if($profile->gtalk_handle): ?>
+				<dt><?php echo lang('profile_gtalk_handle') ?></dt>
+				<dd><?php echo $profile->gtalk_handle ?></dd>
+			<?php endif; ?>
 		</dl>		
 	</fieldset>
-<? else: ?>
-	<p><?=lang('profile_not_set_up');?></p>
-<? endif; ?>
+<?php else: ?>
+	<p><?php echo lang('profile_not_set_up');?></p>
+<?php endif; ?>

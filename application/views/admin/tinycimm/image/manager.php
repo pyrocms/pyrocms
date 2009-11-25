@@ -6,11 +6,11 @@
 		<?php echo lang('tinycimm_image_caching'); ?>
 	</span>
 	<div id="image-manager-details">
-		<input type="hidden" id="image-name" value="<?=$image->name;?>" />
+		<input type="hidden" id="image-name" value="<?php echo $image->name;?>" />
 		<div class="left" style="margin-right:20px">
 			<div style="margin-top:4px;">
-				<a id="image-preview-popup" href="<?=$this->config->item('tinycimm_asset_path').$image->id.$image->extension;?>" title="view larger version">
-					<img id="image-preview" src="<?=$this->config->item('tinycimm_image_controller');?>get/<?=$image->id;?>/270/320" />
+				<a id="image-preview-popup" href="<?php echo $this->config->item('tinycimm_asset_path').$image->id.$image->extension;?>" title="view larger version">
+					<img id="image-preview" src="<?php echo $this->config->item('tinycimm_image_controller');?>get/<?php echo $image->id;?>/270/320" />
 				</a>
 			</div>
 			<p>
@@ -32,7 +32,7 @@
 				<?php echo lang('tinycimm_image_description'); ?>:
 			</strong>
 			<p id="alttext-container">
-				<textarea id="image-alttext" rows="4" cols="12"><?=$image->description;?></textarea>
+				<textarea id="image-alttext" rows="4" cols="12"><?php echo $image->description;?></textarea>
 			</p>
 			<p id="folder-select-list" style="margin-bottom:20px">
 				<strong>

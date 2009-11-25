@@ -1,9 +1,9 @@
-<h2><?=lang('letter_letters_title');?></h2>
+<h2><?php echo lang('letter_letters_title');?></h2>
 
-<? foreach($newsletters as $newsletter): ?>
+<?php foreach($newsletters as $newsletter): ?>
 <div class="articleHolder">
-	<strong><?=  anchor('newsletters/archive/' . $newsletter->id, $newsletter->title); ?></strong>
-	<em><?= date('d M y', $newsletter->created_on); ?></em>
+	<strong><?php echo  anchor('newsletters/archive/' . $newsletter->id, $newsletter->title); ?></strong>
+	<em><?php echo date('d M y', $newsletter->created_on); ?></em>
 	<div class="clear-both"></div>
 </div>
-<? endforeach; ?>
+<?php endforeach; ?>
