@@ -4,11 +4,13 @@
 		<en>Twitter</en>
 		<es>Twitter</es>
 		<fr>Twitter</fr>
+		<de>Twitter</de>
 	</name>
 	<description>
 		<en>Show twitter posts and support general Twitter integration.</en>
 		<es>Muestra las actualizaciones de Twitter y permite la integración general con Twitter.</es>
 		<fr>Affiche les messages Twitter et permet l'intégration globale de Twitter</fr>
+		<de>Zeige Twitter Beiträge an und unterstütze grundsätzliche Twitter Integration.</de>
 	</description>
 	<required>1</required>
 	<is_frontend>0</is_frontend>

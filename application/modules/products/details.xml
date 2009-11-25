@@ -4,11 +4,13 @@
 		<en>Products</en>
 		<es>Productos</es>
 		<fr>Produits</fr>
+		<de>Produkte</de>
 	</name>
 	<description>
 		<en>Show visitors what products you sell and allows images and price information to be added.</en>
 		<es>Enséñale a tus visitantes que productos vendes y permíte agregarle información gráfica y de precios sobre el mismo.</es>
 		<fr>Montre aux visiteurs quels produits vous vendez et permet d'ajouter des images et des prix.</fr>
+		<de>Zeigt den Besuchern die angebotenen Produkte und erlaubt das hinzufügen von Bildern und Preis-Informationen.</de>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
@@ -27,6 +29,7 @@
 				<en>New product</en>
 				<es>Nuevo producto</es>
 				<fr>Nouveau produit</fr>
+				<de>Neue Produkte</de>
 			</new_item>
 		</admin>
 	</navigation>
