@@ -57,8 +57,8 @@ $db['local']['dbcollat'] = "utf8_unicode_ci";
 // Live
 $db['live']['hostname'] = "localhost";
 $db['live']['username'] = "root";
-$db['live']['password'] = "root";
-$db['live']['database'] = "testfoo";
+$db['live']['password'] = "";
+$db['live']['database'] = "pyrocms";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['active_r'] = TRUE;

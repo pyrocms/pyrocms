@@ -1,3 +1,3 @@
 <?php
-$lang['modules_welcome'] = 'Below is a list of installed modules and their information, such as the description or version.'; #translate
+$lang['modules_welcome'] = 'Debajo hay una lista de los módulos instalados y su informaci&oacute;n, como la descripci&oacute;n y la versión del mismo.';
 ?>

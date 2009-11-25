@@ -4,11 +4,13 @@
 		<en>Newsletters</en>
 		<es>Boletines</es>
 		<fr>Bulletins</fr>
+		<de>Newsletters</de>
 	</name>
 	<description>
 		<en>Let visitors subscribe via their email address.</en>
-		<es>Deja que tus visitores puedan suscribirse a por medio de su correo electrónico.</es>
+		<es>Permite que tus visitantes puedan suscribirse a las actualizaciones del sitio vía correo electrónico.</es>
 		<fr>Permet aux visiteurs de s'abonner avec leur adresse e-mail.'</fr>
+		<de>Erlaube Besuchern Newsletter via Email zu abonnieren.</de>
 	</description>
 	<icon>newspaper_48.png</icon>
 	<is_frontend>0</is_frontend>
@@ -27,7 +29,9 @@
 		<admin>
 			<new_item href="admin/newsletters/create">
 				<en>New newsletter</en>
+				<es>Nuevo boletín</es>
 				<fr>Nouveau bulletin</fr>
+				<de>Neuer Newsletter</de>
 			</new_item>
 		</admin>
 	</navigation>
