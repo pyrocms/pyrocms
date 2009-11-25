@@ -34,7 +34,7 @@
 // Local
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
-$db['local']['password'] = "12345";
+$db['local']['password'] = "";
 $db['local']['database'] = "pyrocms";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
@@ -45,7 +45,6 @@ $db['local']['cache_on'] = FALSE;
 $db['local']['cachedir'] = "";
 $db['local']['char_set'] = "utf8";
 $db['local']['dbcollat'] = "utf8_unicode_ci";
-$db['local']['port'] 	 = 3306;
 
 // Dev
 //$db['dev']['hostname'] = "localhost";
@@ -58,7 +57,7 @@ $db['local']['port'] 	 = 3306;
 // Live
 $db['live']['hostname'] = "localhost";
 $db['live']['username'] = "root";
-$db['live']['password'] = "12345";
+$db['live']['password'] = "";
 $db['live']['database'] = "pyrocms";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
@@ -69,7 +68,6 @@ $db['live']['cache_on'] = FALSE;
 $db['live']['cachedir'] = "";
 $db['live']['char_set'] = "utf8";
 $db['live']['dbcollat'] = "utf8_unicode_ci";
-$db['live']['port'] 	= 3306;
 
 // Check the configuration group in use exists
 if(!array_key_exists(ENV, $db))
