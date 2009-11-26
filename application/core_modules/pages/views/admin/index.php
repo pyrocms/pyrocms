@@ -8,9 +8,9 @@
 <br class="clear-both" />
 
 <div id="page-tree" class="float-left" style=" width:49%;">
-	
-	<?php echo $page_tree_html; ?>  
-
+	<ul class="filetree">
+		<?php echo $page_tree_html; ?>  
+	</ul>
 </div>
 
 <div id="page-details" class="float-right" style="width:45%;">

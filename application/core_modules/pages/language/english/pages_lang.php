@@ -20,7 +20,7 @@ $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
 $lang['page_meta_title_label'] 					= 'Meta title';
-$lang['page_layout_file_label'] 				= 'Layout file';
+$lang['page_layout_id_label'] 					= 'Page Layout';
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Access';
 
@@ -30,8 +30,8 @@ $lang['page_edit_label'] 						= 'Edit';
 $lang['page_delete_label'] 						= 'Delete';
 
 // titles
-$lang['pages_create_title'] 					= 'Create Page';
-$lang['pages_edit_title'] 						= 'Edit Page "%s"';
+$lang['page_create_title'] 						= 'Create Page';
+$lang['page_edit_title'] 						= 'Edit Page "%s"';
 
 // messages
 $lang['page_no_pages'] 							= 'There are no pages.';

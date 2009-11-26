@@ -10,7 +10,7 @@ class Page_layouts_m extends Model
     
     
     // Return an object of objects containing page layout data
-    function get($params = array())
+    function get_many($params = array())
     {
         if(!empty($params['order']))
         {

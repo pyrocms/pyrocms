@@ -20,7 +20,7 @@ class Admin_layouts extends Admin_Controller
 	// Admin: List all Pages
 	function index()
 	{
-		$this->data->page_layouts = $this->page_layouts_m->get();
+		$this->data->page_layouts = $this->page_layouts_m->get_many();
 		
 		$this->template->build('admin/layouts/index', $this->data);
 	}
@@ -35,7 +35,7 @@ class Admin_layouts extends Admin_Controller
 		// Validate the page
 		if ($this->validation->run())
 	    {
-			if ( $this->pages_m->create($_POST) > 0 )
+			if ( $this->page_layouts_m->create($_POST) > 0 )
 			{
 				$this->session->set_flashdata('success', $this->lang->line('page_layout_create_success'));
 			}
