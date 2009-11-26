@@ -21,7 +21,7 @@
 			<legend><?php echo lang('page_content_label');?></legend>
 			<div class="field">
 				<label for="title"><?php echo lang('page_title_label');?></label>
-				<input type="text" id="title" name="title" maxlength="60" value="<?php echo $page->title; ?>" />
+				<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</div>
 			<div class="field">
@@ -53,8 +53,8 @@
 		<fieldset id="fieldset2">
 			<legend><?php echo lang('page_design_label');?></legend>
 			<div class="field">
-				<label for="layout_file"><?php echo lang('page_layout_file_label');?></label>
-				<input type="text" id="layout_file" name="layout_file" maxlength="255" value="<?php echo $page->layout_file ? $page->layout_file : 'default'; ?>" />
+				<label for="layout_id"><?php echo lang('page_layout_id_label');?></label>
+				<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
 			</div>
 			<div class="field">
 				<label for="css" class="clear-left"><?php echo lang('page_css_label');?></label>

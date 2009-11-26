@@ -23,6 +23,7 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		
 		$this->load->model('pages_m');
+		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');	
 		
@@ -47,7 +48,7 @@ class Admin extends Admin_Controller
 			$this->data->pages =& $pages;
 			$this->data->controller =& $this;
 			$this->data->open_parent_pages = $open_parent_pages;
-			return $this->load->view('admin/child_list', $this->data, true);
+			return $this->load->view('admin/ajax/child_list', $this->data, true);
 		}
 		return "";
 	}
@@ -129,6 +130,9 @@ class Admin extends Admin_Controller
 	    $this->data->page =& $page;
 	    $this->data->parent_page =& $parent_page;
 	    
+		$page_layouts = $this->page_layouts_m->get_all();
+		$this->data->page_layouts = array_for_select($page_layouts, 'id', 'title');	
+	    
 		// Get "roles" (like access levels)
 		//$this->data->roles = $this->permissions_m->get_roles(array('order' => 'lowest_first'));
 		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
@@ -164,7 +168,7 @@ class Admin extends Admin_Controller
 	    // Auto-set data for the page if a post variable overrides it
 	    foreach(array_keys($this->rules) as $field)
 	    {
-		if($this->input->post($field)) $page->$field = $this->validation->$field;
+			if($this->input->post($field) !== FALSE) $page->$field = $this->validation->$field;
 	    }
 	    
 	    // Give validation a try, who knows, it just might work!
@@ -189,6 +193,9 @@ class Admin extends Admin_Controller
 	    // Assign data for display
 	    $this->data->page =& $page;
 	    $this->data->parent_page =& $parent_page;
+	    
+		$page_layouts = $this->page_layouts_m->get_many();
+		$this->data->page_layouts = array_for_select($page_layouts, 'id', 'title');	
 	    
 		// Get "roles" (like access levels)
 		//$this->data->roles = $this->permissions_m->get_roles();
