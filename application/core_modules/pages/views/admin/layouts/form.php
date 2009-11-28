@@ -49,6 +49,6 @@
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
-	html_editor('html_editor');
-	css_editor('css_editor');
+	html_editor('html_editor', '100%');
+	css_editor('css_editor', '100%');
 </script>

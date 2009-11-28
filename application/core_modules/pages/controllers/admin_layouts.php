@@ -6,7 +6,7 @@ class Admin_layouts extends Admin_Controller
 	private $rules = array(
 	    'title'	=> 'trim|required|max_length[60]',
 	    'body'	=> 'trim|required',
-	    'css'	=> 'trim|required'
+	    'css'	=> 'trim'
 	);
 	
 	function __construct()
@@ -21,7 +21,7 @@ class Admin_layouts extends Admin_Controller
 	// Admin: List all Pages
 	function index()
 	{
-		$this->data->page_layouts = $this->page_layouts_m->get_many();
+		$this->data->page_layouts = $this->page_layouts_m->get_all();
 		
 		$this->template->build('admin/layouts/index', $this->data);
 	}
@@ -75,7 +75,7 @@ class Admin_layouts extends Admin_Controller
 	    $this->page_layout_id = $id;
 	    
 	    // Set data, if it exists
-	    if (!$page_layout = $this->page_layouts_m->get_by_id($id)) 
+	    if (!$page_layout = $this->page_layouts_m->get($id)) 
 	    {
 			$this->session->set_flashdata('error', $this->lang->line('page_layout_page_not_found_error'));
 			redirect('admin/pages/layouts/create');

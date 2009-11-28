@@ -86,6 +86,5 @@
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
-	html_editor('html_editor');
-	css_editor('css_editor');
+	css_editor('css_editor', "41.6em");
 </script>
