@@ -124,6 +124,12 @@
 			a = $(this);
 			other_a = page_tree.find('span > a');
 
+			// Already selected?
+			if(a.hasClass('selected'))
+			{
+				return false; // BAIL!
+			}
+			
 			// Change which link is selected
 			other_a.removeClass('selected');
 			a.addClass('selected');
