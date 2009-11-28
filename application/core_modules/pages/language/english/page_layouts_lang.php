@@ -9,6 +9,7 @@ $lang['page_layout_updated_label'] 					= 'Updated';
 $lang['page_layout_actions_label'] 					= 'Actions';
 $lang['page_layout_title_label'] 					= 'Title';
 
+$lang['page_layout_create_label'] 					= 'Create page layout';
 $lang['page_layout_edit_label'] 					= 'Edit';
 $lang['page_layout_delete_label'] 					= 'Delete';
 

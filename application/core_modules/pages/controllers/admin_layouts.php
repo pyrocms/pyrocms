@@ -158,4 +158,3 @@ class Admin_layouts extends Admin_Controller
 	}
     
 }
-?>

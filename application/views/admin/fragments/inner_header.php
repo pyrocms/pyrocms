@@ -1,6 +1,6 @@
 <!-- Title -->
 <div id="content-head" class="b2">
-	<h2><?php echo $module_data['name'] ? $module_data['name'] : lang('cp_title'); ?></h2>
+	<h2><?php echo $module_data['name'] ? anchor('admin/'.$this->module, $module_data['name']) : lang('cp_title'); ?></h2>
 	
 	<?php if( !empty($toolbar) ): ?>	
 	<!-- TitleActions -->
@@ -21,7 +21,7 @@
 		<!-- ListSearch -->
 		<div class="listSearch actionBlock">
 			<div class="search">
-				<label for="search">Recherche</label>
+				<label for="search">Search</label>
 				<input type="text" name="search" id="search" class="text" />
 			</div>
 			
