@@ -5,7 +5,8 @@ class Admin_layouts extends Admin_Controller
 	// Validation rules to be used for create and edita
 	private $rules = array(
 	    'title'	=> 'trim|required|max_length[60]',
-	    'body'	=> 'trim|required'
+	    'body'	=> 'trim|required',
+	    'css'	=> 'trim|required'
 	);
 	
 	function __construct()
@@ -79,7 +80,7 @@ class Admin_layouts extends Admin_Controller
 			$this->session->set_flashdata('error', $this->lang->line('page_layout_page_not_found_error'));
 			redirect('admin/pages/layouts/create');
 	    }
-			
+
 	    $this->load->library('validation');
 	    $this->validation->set_rules($this->rules);
 	    $this->validation->set_fields();

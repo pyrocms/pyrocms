@@ -39,6 +39,7 @@ class Page_layouts_m extends Model
         $this->db->insert('page_layouts', array(
         	'title' 		=> $input['title'],
         	'body' 			=> $input['body'],
+        	'css' 			=> $input['css'],
         	'updated_on'	=> now()
         ));
         
@@ -53,6 +54,7 @@ class Page_layouts_m extends Model
         $this->db->update('page_layouts', array(
 	        'title' 		=> $input['title'],
 	        'body' 			=> $input['body'],
+	        'css' 			=> $input['css'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
     }

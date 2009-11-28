@@ -1,5 +1,9 @@
 <?php
 
+// tabs
+$lang['page_layout_html_label'] 					= 'HTML';
+$lang['page_layout_css_label'] 						= 'CSS';
+
 // labels
 $lang['page_layout_updated_label'] 					= 'Updated';
 $lang['page_layout_actions_label'] 					= 'Actions';

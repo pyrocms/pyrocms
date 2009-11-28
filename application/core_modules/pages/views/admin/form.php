@@ -85,4 +85,7 @@
 <?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>
 
-<?php echo js('form.js', 'pages'); ?>
+<script type="text/javascript">
+	html_editor('html_editor');
+	css_editor('css_editor');
+</script>
