@@ -1,8 +1,8 @@
-function html_editor(id)
+function html_editor(id, width)
 {
 	CodeMirror.fromTextArea(id, {
 	    height: "30em",
-	    width: "100%",
+	    width: width,
 	    parserfile: ["parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
 	    stylesheet: [APPPATH_URI + "assets/css/codemirror/xmlcolors.css", APPPATH_URI + "assets/css/codemirror/csscolors.css"],
 	    path: APPPATH_URI + "assets/js/codemirror/",
@@ -10,11 +10,11 @@ function html_editor(id)
 	});
 }
 
-function css_editor(id)
+function css_editor(id, width)
 {
 	CodeMirror.fromTextArea(id, {
 	    height: "30em",
-	    width: "41.6em",
+	    width: width,
 	    parserfile: "parsecss.js",
 	    stylesheet: APPPATH_URI + "assets/css/codemirror/csscolors.css",
 	    path: APPPATH_URI + "assets/js/codemirror/"
