@@ -1064,6 +1064,10 @@ ul.ui-tabs-nav {
 	float: left;
 }
 
+#content-head h2 a {
+	color: #333333;
+}
+
 #page-actions {
 	float: right;
 	overflow: hidden;

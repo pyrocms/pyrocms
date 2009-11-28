@@ -1,6 +1,6 @@
 <?php echo form_open('admin/pages/layouts/delete');?>
 
-<p class="float-right">[ <?php echo anchor('admin/pages/layouts/create', lang('nav_group_add_label')) ?> ]</p>
+<p class="float-right">[ <?php echo anchor('admin/pages/layouts/create', lang('page_layout_create_label')) ?> ]</p>
 
 <table border="0" class="listTable clear-both">		    
 	<thead>
