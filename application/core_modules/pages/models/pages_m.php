@@ -1,19 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pages_m extends Model
+class Pages_m extends MY_Model
 {
-	public function get_by_id($id = 0)
-    {
-    	$this->db->where('id', $id);
-    	return $this->db->get('pages')->row();
-    }
-    
-    public function get_by_parent_id($parent_id = 0)
-    {
-    	$this->db->where('parent_id', $parent_id);
-    	return $this->db->get('pages')->row();
-    }
-    
     public function get_by_path($segments = array())
     {
     	// If the URI has been passed as a string, explode to create an array of segments
@@ -59,31 +47,10 @@ class Pages_m extends Model
         return $this->db->get()->row();
     }
     
-	// Get children from a Parent ID
-	function get_children_by_parent_id($parent_id = 0)
-	{
-		return $this->get( array('parent_id' => $parent_id) );
-	}
-    
-    // Return an object of objects containing page data
-    function get($params = array())
-    {
-    	// Dont return body
-        $this->db->select('id, slug, title, parent_id, lang, updated_on');
-        
-        if(!empty($params['order']))
-        {
-        	$this->db->order_by($params['order']);
-        	unset($params['order']);
-        }
-    
-        return $this->db->get_where('pages', $params)->result();
-    }
-    
 	// Count the amount of pages with param X
 	function count($params = array())
 	{
-		$results = $this->get($params);
+		$results = $this->get_many($params);
 		
 		return count($results);
 	}

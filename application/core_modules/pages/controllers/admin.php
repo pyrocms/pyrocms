@@ -37,7 +37,7 @@ class Admin extends Admin_Controller
 			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
 		}
 		
-		$pages = $this->pages_m->get_children_by_parent_id($parent_id);
+		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
 		if (count($pages))
 		{
 			foreach($pages as $page)
@@ -68,7 +68,7 @@ class Admin extends Admin_Controller
 	
 	function ajax_fetch_children($parent_id)
 	{
-		$pages = $this->pages_m->get_children_by_parent_id($parent_id);
+		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
 	
 		foreach($pages as &$page)
 		{
@@ -82,7 +82,7 @@ class Admin extends Admin_Controller
 	
 	function ajax_page_details($page_id)
 	{
-		$page = $this->pages_m->get_by_id($page_id);
+		$page = $this->pages_m->get($page_id);
 		$page->path = $this->pages_m->get_path_by_id($page_id);
 		
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
@@ -122,7 +122,7 @@ class Admin extends Admin_Controller
 	    {
 			$page->parent_id = $parent_id;
 		
-			$parent_page = $this->pages_m->get_by_id($parent_id);
+			$parent_page = $this->pages_m->get($parent_id);
 			$parent_page->path = $this->pages_m->get_path_by_id($parent_id);
 	    }
 	    
@@ -155,7 +155,7 @@ class Admin extends Admin_Controller
 	    $this->page_id = $id;
 	    
 	    // Set data, if it exists
-	    if (!$page = $this->pages_m->get_by_id($id)) 
+	    if (!$page = $this->pages_m->get($id)) 
 	    {
 			$this->session->set_flashdata('error', $this->lang->line('pages_page_not_found_error'));
 			redirect('admin/pages/create');
@@ -186,7 +186,7 @@ class Admin extends Admin_Controller
 	    // If a parent id was passed, fetch the parent details
 	    if($page->parent_id > 0)
 	    {
-			$parent_page = $this->pages_m->get_by_id($page->parent_id);
+			$parent_page = $this->pages_m->get($page->parent_id);
 			$parent_page->path = $this->pages_m->get_path_by_id($page->parent_id);
 	    }
 	    

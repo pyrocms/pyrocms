@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$tree = array();
 		
-		if($pages = $this->pages_m->get())
+		if($pages = $this->pages_m->get_all())
 		{
 			foreach($pages AS $page)
 			{

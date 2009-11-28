@@ -48,7 +48,7 @@ class Pages extends Public_Controller
         $this->data->page =& $page;
         
     	// If the GET variable isbasic exists, do not use a wrapper
-	    $page->layout = $this->page_layouts_m->get_by_id($page->layout_id);
+	    $page->layout = $this->page_layouts_m->get($page->layout_id);
         
 	    // Parse the layout string and output
 	    $page->layout->body = $this->parser->string_parse(stripslashes($page->layout->body), $this->data, TRUE);
