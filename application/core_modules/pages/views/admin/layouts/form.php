@@ -11,21 +11,44 @@
 	<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
 	<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 </div>
+
+<div class="fieldset fieldsetBlock active tabs">	
+	<div class="header">		
+		<h3>&nbsp;</h3>
+	</div>    
+  	<div class="tabs">
+		<ul class="clear-box">
+			<li><a href="#fieldset1"><span><?php echo lang('page_layout_html_label');?></span></a></li>
+			<li><a href="#fieldset2"><span><?php echo lang('page_layout_css_label');?></span></a></li>
+		</ul>
 		
-<div class="field">
-	<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
+		<!-- Page content tab -->
+		<fieldset id="fieldset1">
+			<legend><?php echo lang('page_content_label');?></legend>
+					
+			<div class="field">
+				<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
+			</div>
+		</fieldset>
+		
+		<!-- Design tab -->
+		<fieldset id="fieldset2">
+			<legend><?php echo lang('page_content_label');?></legend>
+					
+			<div class="field">
+				<?php echo form_textarea(array('id'=>'css_editor', 'name'=>'css', 'value' => $page_layout->css, 'rows' => 50)); ?>
+			</div>
+		</fieldset>
+		
+	</div>
 </div>
+
+	
 
 <?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
-CodeMirror.fromTextArea('html_editor', {
-    height: "30em",
-    width: "100%",
-    parserfile: ["parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
-    stylesheet: [APPPATH_URI + "assets/css/codemirror/xmlcolors.css", APPPATH_URI + "assets/css/codemirror/csscolors.css"],
-    path: APPPATH_URI + "assets/js/codemirror/",
-    tabMode: 'spaces'
-});
+	html_editor('html_editor');
+	css_editor('css_editor');
 </script>
