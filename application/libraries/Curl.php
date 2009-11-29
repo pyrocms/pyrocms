@@ -4,7 +4,7 @@
  * @created 9 Dec 2008
  */
 
-class cURL {
+class Curl {
 	
     private $CI;                // CodeIgniter instance
     
