@@ -28,6 +28,7 @@ $lang['page_view_label'] 						= 'Ver';
 $lang['page_create_label'] 						= 'Añadir página hija';
 $lang['page_edit_label'] 						= 'Editar';
 $lang['page_delete_label'] 						= 'Borrar';
+$lang['page_layouts_label'] 					= 'Page Layouts'; #translate
 
 // titles
 $lang['page_create_title'] 						= 'Crear p&aacute;gina';

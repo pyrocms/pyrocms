@@ -28,6 +28,7 @@ $lang['page_view_label'] 						= 'View';
 $lang['page_create_label'] 						= 'Add child';
 $lang['page_edit_label'] 						= 'Edit';
 $lang['page_delete_label'] 						= 'Delete';
+$lang['page_layouts_label'] 					= 'Page Layouts';
 
 // titles
 $lang['page_create_title'] 						= 'Create Page';
