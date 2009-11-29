@@ -178,18 +178,21 @@ class Admin extends Admin_Controller
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 		
-		// Go through the array of slugs to publish
-		$article_titles = array();
-		foreach ($ids as $id)
+		if(!empty($ids))
 		{
-			// Get the current page so we can grab the id too
-			if($article = $this->news_m->getArticle($id, 'all') )
+			// Go through the array of slugs to publish
+			$article_titles = array();
+			foreach ($ids as $id)
 			{
-				$this->news_m->publishArticle($id);
-				
-				// Wipe cache for this model, the content has changed
-				$this->cache->delete('news_m');				
-				$article_titles[] = $article->title;
+				// Get the current page so we can grab the id too
+				if($article = $this->news_m->getArticle($id, 'all') )
+				{
+					$this->news_m->publishArticle($id);
+					
+					// Wipe cache for this model, the content has changed
+					$this->cache->delete('news_m');				
+					$article_titles[] = $article->title;
+				}
 			}
 		}
 	
@@ -222,17 +225,20 @@ class Admin extends Admin_Controller
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 		
 		// Go through the array of slugs to delete
-		$article_titles = array();
-		foreach ($ids as $id)
+		if(!empty($ids))
 		{
-			// Get the current page so we can grab the id too
-			if($article = $this->news_m->getArticle($id, 'all') )
+			$article_titles = array();
+			foreach ($ids as $id)
 			{
-				$this->news_m->deleteArticle($id);
-				
-				// Wipe cache for this model, the content has changed
-				$this->cache->delete('news_m');				
-				$article_titles[] = $article->title;
+				// Get the current page so we can grab the id too
+				if($article = $this->news_m->getArticle($id, 'all') )
+				{
+					$this->news_m->deleteArticle($id);
+					
+					// Wipe cache for this model, the content has changed
+					$this->cache->delete('news_m');				
+					$article_titles[] = $article->title;
+				}
 			}
 		}
 		
@@ -254,7 +260,8 @@ class Admin extends Admin_Controller
 		else
 		{
 			$this->session->set_flashdata('notice', $this->lang->line('news_delete_error'));
-		}		
+		}
+		
 		redirect('admin/news/index');
 	}
 	
