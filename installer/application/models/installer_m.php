@@ -45,18 +45,7 @@ class installer_m extends Model
 		$php_version = phpversion();
 		
 		// Validate the version
-		if($php_version >= 5)
-		{
-			$php_results = 'supported';
-		}
-		else
-		{
-			$php_results = "<span class='red'>unsupported</span>";
-		}
-		
-		// Return the results
-		$array = array('php_version' => $php_version,'php_results' => $php_results);
-		return $array;
+		return ($php_version >= 5) ? $php_version : FALSE;
 	}
 	
 	/**
@@ -151,13 +140,13 @@ class installer_m extends Model
 		$pass = FALSE;
 
 		// These are the core requirements
-		if($data['php_results'] == 'supported' AND $data['mysql_server'] != FALSE AND $data['mysql_client'] != FALSE AND $data['http_server']['supported'] != FALSE)
+		if($data->php_version !== FALSE AND $data->mysql->server_version !== FALSE AND $data->mysql->client_version !== FALSE AND $data->http_server->supported != FALSE)
 		{			
 			$pass = 'partial';
 		}
 		
 		// Optional extra
-		if($pass == 'partial' AND $data['gd_version'] != FALSE AND $data['http_server']['is_apache'] == TRUE)
+		if($pass == 'partial' AND $data->gd_version != FALSE)
 		{
 			$pass = TRUE;
 		}
@@ -176,22 +165,14 @@ class installer_m extends Model
 	 */
 	function verify_http_server($server_name)
 	{
-		// First load the config file for the supported servers
-		$this->config->load('servers');
-		
 		// Set all the required variables
-		$array 					= array('supported' => NULL,'is_apache' => TRUE);
-		$servers 				= $this->config->item('supported_servers');
-		$array['supported']  	= in_array(strtolower($server_name),$servers);
-		
-		// Server other than Apache ? 
-		if(strtolower($server_name) != 'apache')
+		if($server_name == 'other')
 		{
-			$array['is_apache'] = FALSE;
+			return FALSE;
 		}
 		
-		// Return the results
-		return $array;
+		$supported_servers = $this->config->item('supported_servers');
+		return array_key_exists($server_name, $supported_servers);
 	}
 	
 	/**
@@ -221,20 +202,14 @@ class installer_m extends Model
 			{
 				return FALSE;
 			}
+			
 			// Get the data from the $_POST array
 			$hostname = $data['server'];
 			$username = $data['username'];
 			$password = @$data['password'];
-			
-			if(!preg_match('/[a-zA-Z]/',$data['port']))
-			{
-				$port = $data['port'];
-			}
-			else
-			{
-				return FALSE;
-			}			
+			$port 	  = (int) $data['port'];
 		}
+		
 		else
 		{
 			$hostname = $this->session->userdata('server');
@@ -243,7 +218,7 @@ class installer_m extends Model
 			$port	  = $this->session->userdata('port');
 		}
 		
-		return @mysql_connect("$hostname:$port",$username,$password);
+		return @mysql_connect("$hostname:$port", $username, $password);
 	}
 	
 	/**
@@ -262,7 +237,7 @@ class installer_m extends Model
 		$database 	= $data['database'];
 		
 		// Create a connection using MySQLi
-		$mysqli = new mysqli($server,$username,$password,'',$port);
+		$mysqli = new mysqli($server, $username, $password, '', $port);
 		
 		// Check connection
 		if($mysqli->connect_errno)
@@ -292,24 +267,28 @@ class installer_m extends Model
 		$tables 		= file_get_contents('./sql/1-tables.sql');
 		$default_data 	= file_get_contents('./sql/2-default-data.sql');
 			
-		// Do we want to insert the dummy data ? 
-		if(!empty($data['dummy_data']))
+		// HALT...! Query time!
+		
+		if($mysqli->multi_query($tables) === FALSE)
 		{
-			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');		
-		}
-		else
-		{
-			$dummy_data = '';
+			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.');
 		}
 		
-		// HALT ! Query time !
-		$query_res	= $mysqli->multi_query($tables.$default_data.$dummy_data);
-				
-		// Validate the results
-		if(!isset($query_res) OR $query_res === FALSE)
+		// TODO: Installer line 278 is returning FALSE when it should be TRUE and breaking install
+		if($mysqli->multi_query($default_data) === FALSE)
 		{
-			return array('status' => FALSE,'message' => 'The installer could not create the tables or insert the data into the database. Please verify your settings.');
-		}	
+			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.');
+		}
+			
+		if(!empty($data['dummy_data']))
+		{
+			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');	
+			
+			if($mysqli->multi_query($dummy_data) === FALSE)
+			{
+				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database. Please verify your MySQL user has INSERT privileges.');
+			}
+		}
 
 		// If we got this far there can't have been any errors. close and bail!
 		$mysqli->close();
@@ -323,22 +302,16 @@ class installer_m extends Model
 		}
 		
 		// Write the config file.
-		if(strtolower($this->session->userdata('http_server')) != 'apache') // TODO: Is it really required to add the index.php to the config file for non-apache servers ?
-		{
-			$config_res = $this->write_config_file();
+		$config_res = $this->write_config_file();
 			
-			if($config_res == TRUE)
-			{
-				return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
-			}
-			else
-			{
-				return array('status' => FALSE,'message' => 'The config file could not be written, are you sure the file has the correct permissions ?');
-			}
+		if($config_res == TRUE)
+		{
+			return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
 		}
+		
 		else
 		{
-		    return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
+			return array('status' => FALSE,'message' => 'The config file could not be written, are you sure the file has the correct permissions ?');
 		}
 	}
 	
@@ -380,18 +353,31 @@ class installer_m extends Model
 	/**
 	 * @return bool
 	 *
-	 * Writes the config file. Should only be done whenever the user is using a server other than Apache
+	 * Writes the config file.n
 	 */
 	function write_config_file()
 	{
 		// Open the template
 		$template = file_get_contents('application/assets/config/config.php');
 		
-		// Replace the __INDEX__ with index.php
-		$new_file = str_replace('__INDEX__','index.php',$template);
+		$supported_servers = $this->config->item('supported_servers');
+
+		// Able to use clean URLs?
+		if($supported_servers[$server_name]['rewrite_enabled'] !== FALSE)
+		{
+			$index_page = '';
+		}
+		
+		else
+		{
+			$index_page = 'index.php';
+		}
+		
+		// Replace the __INDEX__ with index.php or an empty string
+		$new_file = str_replace('__INDEX__', $index_page, $template);
 		
 		// Open the database.php file, show an error message in case this returns false
-		$handle 	= @fopen('../application/config/config.php','w+');
+		$handle = @fopen('../application/config/config.php','w+');
 		
 		// Validate the handle results
 		if($handle !== FALSE)
@@ -402,4 +388,3 @@ class installer_m extends Model
 		return FALSE;
 	}
 }
-?>
