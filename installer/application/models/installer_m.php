@@ -274,10 +274,9 @@ class installer_m extends Model
 			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.');
 		}
 		
+		// TODO: Installer line 278 is returning FALSE when it should be TRUE and breaking install
 		if($mysqli->multi_query($default_data) === FALSE)
 		{
-			var_dump($mysqli);
-			exit;
 			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.');
 		}
 			
