@@ -4,8 +4,17 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimise or totally remove downtime during upgrade.
 
-11/11/09 - v0.9.7.x to v0.9.8
+29/11/09 - v0.9.7.x to v0.9.8
 -----------------------------
+
+WARNING
+-------
+
+You will see the following errors when you upgrade the files:
+
+	Undefined property: stdClass::$layout_file
+
+this means you have no run the SQL, or have not cleared the cache so please run all steps.
 
 1.) Run the following SQL command: 
 
@@ -14,9 +23,23 @@ minimise or totally remove downtime during upgrade.
 
 2.) Replace old files with new files.
 
-3.) Run the following terminal command:
+3.) Clear the model cache by running a command similar to:
+
+	sudo rm -rf application/cache/*_m
+
+4.) Run the following terminal command:
 
 	chmod -R 777 application/cache/dwoo/
+	
+SUGGESTED
+---------
+
+The syntax for creating dynamic links to pages - and for dynamic template stuff 
+in general - has been slightly modified. You will need to find all instances of
+{page_url[1]} and change it to {page_url(1)}. 
+
+We have added a replace rule for the page_url() function in v0.9.8.x branch, 
+but that will be removed in v1.0 so you need to modify all occurences before then.
 
 
 11/11/09 - v0.9.7.1 to v0.9.7.2
