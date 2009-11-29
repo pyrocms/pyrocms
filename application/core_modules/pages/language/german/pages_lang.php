@@ -28,6 +28,7 @@ $lang['page_view_label'] 						= 'Ansicht';
 $lang['page_create_label'] 						= 'Unterobjekt hinzufügen';//there is no german word for 'child'
 $lang['page_edit_label'] 						= 'Bearbeiten';
 $lang['page_delete_label'] 						= 'Löschen';
+$lang['page_layouts_label'] 					= 'Page Layouts'; #translate
 
 // titles
 $lang['page_create_title'] 						= 'Seite erstellen';

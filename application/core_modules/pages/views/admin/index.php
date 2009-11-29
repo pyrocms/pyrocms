@@ -3,7 +3,7 @@
 <?php echo js('index.js', 'pages'); ?>
 <?php echo css('index.css', 'pages'); ?>
 
-<p class="float-right">[ <?php echo anchor('admin/pages/layouts', lang('page_layouts_heading')); ?> ]</p>		
+<p class="float-right">[ <?php echo anchor('admin/pages/layouts', lang('page_layouts_label')); ?> ]</p>		
 
 <br class="clear-both" />
 

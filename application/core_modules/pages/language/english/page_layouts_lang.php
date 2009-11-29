@@ -23,9 +23,9 @@ $lang['page_layout_create_success'] 				= 'The page layout was created.';
 $lang['page_layout_create_error'] 					= 'That page layout has not been created.';
 $lang['page_layout_page_layout_not_found_error']	= 'That page layout does not exist.';
 $lang['page_layout_edit_success'] 					= 'The page layout "%s" was saved.';
-$lang['page_layout_delete_home_error'] 				= 'You can not delete the home page!';
-$lang['page_layout_delete_success']					= 'Page #%s has been deleted.';
-$lang['page_layout_mass_delete_success'] 			= '%s pages have been deleted.';
+$lang['page_layout_delete_home_error'] 				= 'You can not delete the default layout.';
+$lang['page_layout_delete_success']					= 'Page layout #%s has been deleted.';
+$lang['page_layout_mass_delete_success'] 			= '%s page layouts have been deleted.';
 $lang['page_layout_delete_none_notice'] 			= 'No page layouts were deleted.';
 $lang['page_layout_already_exist_error'] 			= 'A page layout with the slug "%s" already exists.';
 
