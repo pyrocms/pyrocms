@@ -10,6 +10,14 @@
  */
 class Installer extends Controller 
 {
+	function __construct()
+	{
+		parent::Controller();
+		
+		// Load the config file that contains a list of supported servers
+		$this->load->config('servers');
+	}
+	
 	// Index function
 	function index()
 	{
@@ -66,34 +74,28 @@ class Installer extends Controller
 			}
 		}
 		
-		// Load the config file that contains a list of supported servers
-		$this->load->config('servers');
-		
-		// Load the views and data required for the first step
-		$server_list = $this->config->item('supported_servers');
-		$servers	 = array();
+		$supported_servers = $this->config->item('supported_servers');
+		$data->server_options = array();
 	
-		foreach($server_list as $key => $value)
+		foreach($supported_servers as $key => $server)
 		{
-			$servers[$value] = ucfirst($value);
+			$data->server_options[$key] = $server['name'];
 		}
-		
-		$view_data['server_options'] 	= $servers;
 		
 		// Get the port from the session or set it to the default value when it isn't specified
 		if($this->session->userdata('port'))
 		{
-			$view_data['port'] = $this->session->userdata('port');
+			$data->port = $this->session->userdata('port');
 		}
 		else
 		{
-			$view_data['port'] = 3306;
+			$data->port = 3306;
 		}
 		
-		$data['page_output']   = $this->load->view('step_1',$view_data,TRUE);
-		
 		// Load the view file
-		$this->load->view('global',$data);
+		$this->load->view('global', array(
+			'page_output' => $this->load->view('step_1', $data, TRUE)
+		));
 	}
 	
 	// Install function - First step
@@ -114,26 +116,28 @@ class Installer extends Controller
 		$this->load->model('installer_m');
 	
 		// Check the PHP version
-		$php_data = $this->installer_m->get_php_version();
-		$view_data['php_version'] 	= $php_data['php_version'];
-		$view_data['php_results'] 	= $php_data['php_results'];
+		$data->php_version = $this->installer_m->get_php_version();
 	
 		// Check the MySQL data
-		$view_data['mysql_server'] 	= $this->installer_m->get_mysql_version('server');
-		$view_data['mysql_client'] 	= $this->installer_m->get_mysql_version('client');
+		$data->mysql->server_version = $this->installer_m->get_mysql_version('server');
+		$data->mysql->client_version = $this->installer_m->get_mysql_version('client');
 	
 		// Check the GD data
-		$view_data['gd_version'] 	= $this->installer_m->get_gd_version();
+		$data->gd_version 	= $this->installer_m->get_gd_version();
 		
 		// Get the server
-		$view_data['http_server']	= $this->installer_m->verify_http_server($this->session->userdata('http_server'));
-	
+		$selected_server = $this->session->userdata('http_server');
+		$supported_servers = $this->config->item('supported_servers');
+		
+		$data->http_server->supported = $this->installer_m->verify_http_server($this->session->userdata('http_server'));
+		$data->http_server->name = @$supported_servers[$selected_server]['name'];
+		
 		// Check the final results
-		$view_data['step_passed'] = $this->installer_m->check_server($view_data);
-		$this->session->set_userdata('step_2_passed', $view_data['step_passed']);
+		$data->step_passed = $this->installer_m->check_server($data);
+		$this->session->set_userdata('step_2_passed', $data->step_passed);
 	
 		// Load the view files
-		$final_data['page_output'] = $this->load->view('step_2',$view_data, TRUE);
+		$final_data['page_output'] = $this->load->view('step_2', $data, TRUE);
 		$this->load->view('global',$final_data);
 	}
 	
@@ -166,14 +170,14 @@ class Installer extends Controller
 		$array['application/config/database.php'] 	= $this->installer_m->is_writeable('../application/config/database.php'); 
 		
 		// If all permissions are TRUE, go ahead
-		$view_data['step_passed'] = !in_array(FALSE, $array);
-		$this->session->set_userdata('step_3_passed', $view_data['step_passed']);
+		$data->step_passed = !in_array(FALSE, $array);
+		$this->session->set_userdata('step_3_passed', $data->step_passed);
 		
 		// View variables
-		$view_data['perm_status'] 	= $array;
+		$data->perm_status 	= $array;
 		
 		// Load the view files
-		$final_data['page_output']	= $this->load->view('step_3',$view_data, TRUE);
+		$final_data['page_output']	= $this->load->view('step_3', $data, TRUE);
 		$this->load->view('global', $final_data); 
 	}
 	
@@ -231,7 +235,7 @@ class Installer extends Controller
 		
 		// Load the view files
 		$final_data['page_output'] = $this->load->view('step_4','', TRUE);
-		$this->load->view('global',$final_data); 
+		$this->load->view('global', $final_data); 
 	}
 	
 	// All done

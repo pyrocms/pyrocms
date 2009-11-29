@@ -143,7 +143,7 @@ small 	{font-size:12px;}
 	padding-top:7px;
 	width:120px;
 }
-#install_frm p .input-text {
+#install_frm input[type=text], #install_frm input[type=password] {
 	border:1px solid #ccc;
 	height:18px;
 	padding:7px 5px 3px 5px;

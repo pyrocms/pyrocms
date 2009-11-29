@@ -1,5 +1,3 @@
-SET FOREIGN_KEY_CHECKS = 0;
-
 CREATE TABLE `asset` (
   `id` int(5) NOT NULL auto_increment,
   `folder_id` int(5) NOT NULL default '0',

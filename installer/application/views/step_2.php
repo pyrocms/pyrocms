@@ -2,27 +2,36 @@
 <h2>Step 2: Check requirements</h2>
 <p>The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.</p>
 
-<!-- HTTP Settings -->
 <h3>HTTP Server Settings</h3>
-<p>PyroCMS runs best on an Apache server. 
-<?php if($http_server['is_apache'] != TRUE): ?>	
-Even though you specified a different server (<?php echo ucfirst($this->session->userdata('http_server')); ?>) PyroCMS should be able to run on it however, the URLs will be less clean.
+
+<?php if($http_server->supported === TRUE): ?>
+	<p>Your server software <strong><?php echo $http_server->name;?></strong> is supported.</p>
 <?php else: ?>
-Your server (Apache) is fully supported.
+	<p class="red">Your server software is not supported, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations 
+	are up to date PyroCMS should be able to run properly, just without clean URL's.</p>
 <?php endif; ?>
-</p>
 
-<!-- PHP Settings -->
 <h3>PHP Settings</h3>
-<p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <?php echo $php_version; ?>, which is <?php echo $php_results; ?> by PyroCMS.</p>
+<p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <?php echo $php_version; ?>, 
+which is <?php echo $php_version ? 'supported' : '<span class="red">unsupported</span>'; ?> by PyroCMS.</p>
 
-<!-- MySQL settings -->
 <h3>MySQL Settings</h3>
-<p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running <?php echo $mysql_server; ?> and the client library version is <?php echo $mysql_client; ?>. Please also note that the MySQLi extension <strong>must</strong> be installed.</p>
+<p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running 
+<?php echo $mysql->server_version; ?> and the client library version is <?php echo $mysql->client_version; ?>.</p>
 
-<!-- GD Settings -->
 <h3>GD Settings</h3>
-<p>PyroCMS requires access to the GD image library for several tasks, such as resizing gallery images. Therefore it requires this library to be installed and up to date.</p><p><?php if($gd_version != false): ?>You are currently running version <?php echo $gd_version; ?> of the GD image library.<?php else: ?><span class="red">It seems the GD library isn't installed on your server. Try contacting your host to see if they can install it for you.</span><?php endif; ?></p>
+<p>PyroCMS requires access to the GD image library for several tasks, such as resizing images, but it is not installed.</p>
+
+<p>
+	<?php if($gd_version !== FALSE): ?>
+		You are currently running version <?php echo $gd_version; ?> of the GD image library.
+	<?php else: ?>
+		<span class="red">
+			It seems the GD library isn't installed on your server. Try contacting your host to see if they 
+			can install it for you.
+		</span>
+	<?php endif; ?>
+</p>
 
 <!-- Summary -->
 <h3>Summary</h3>
@@ -32,11 +41,11 @@ Your server (Apache) is fully supported.
 <p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
 
 <?php elseif($step_passed == 'partial'): ?>
-<p class="orange"><strong>Your server meets most of the requirements for PyroCMS to run properly. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems. In most cases this this is being caused by not having the GD library installed or by running PyroCMS on a server other than Apache.</strong></p>
+<p class="orange"><strong>Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.</strong></p>
 <p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
 
 <?php else: ?>
-<p class="red"><strong>It seems that your server failed to meet all the requirements for PyroCMS to run properly, please validate the results or carry on at your own peril.</strong></p>
+<p class="red"><strong>It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.</strong></p>
 <p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>">Try again</a></p>
 <?php endif; ?>
 
