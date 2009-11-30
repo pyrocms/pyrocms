@@ -11,9 +11,9 @@
 */
 
 $hook['pre_controller'] = array(
-	'function' => 'PickLanguage',
+	'function' => 'pick_language',
 	'filename' => 'pick_language.php',
-	'filepath' => 'hooks',
+	'filepath' => 'hooks'
 );
 
 ?>
