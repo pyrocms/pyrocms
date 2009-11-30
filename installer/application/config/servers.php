@@ -10,18 +10,23 @@
 
 $config['supported_servers'] = array(
 	
-	'apache' =>	array(
+	'apache' => array(
 		'name' => 'Apache (/w mod_rewrite)',
 		'rewrite_support' => TRUE
 	),
 	
 	'abyss' => array(
-		'name' => 'Abyss',
+		'name' => 'Abyss Web Server X1/X2',
 		'rewrite_support' => FALSE
 	),
 	
 	'cherokee' => array(
-		'name' => 'Cherokee',
+		'name' => 'Cherokee Web Server 0.99.x',
+		'rewrite_support' => FALSE
+	),
+	
+	'uniform' => array(
+		'name' => 'Uniform Server 4.x/5.x',
 		'rewrite_support' => FALSE
 	),
 	
