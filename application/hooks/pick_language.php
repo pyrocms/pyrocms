@@ -62,7 +62,7 @@ function pick_language() {
     $CI_config =& load_class('Config');
 
     // Set the language config. Selects the folder name from its key of 'en'
-    $CI_config->set_item('language', 'italian');// $config['supported_languages'][$lang]['folder']);
+    $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
     // Sets a constant to use throughout ALL of CI.
     define('CURRENT_LANGUAGE', $lang);
