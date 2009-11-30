@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 truncate `navigation_groups`;
 insert into `navigation_groups` values
  ('1','Header','header'),
