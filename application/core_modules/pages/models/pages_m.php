@@ -50,7 +50,7 @@ class Pages_m extends MY_Model
 	// Count the amount of pages with param X
 	function count($params = array())
 	{
-		$results = $this->get_many($params);
+		$results = $this->get_many_by($params);
 		
 		return count($results);
 	}
