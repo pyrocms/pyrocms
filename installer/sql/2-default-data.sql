@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 truncate `navigation_groups`;
 insert into `navigation_groups` values
  ('1','Header','header'),
@@ -47,3 +49,5 @@ insert into `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270f
 
 truncate `asset_folder`;
 insert into `asset_folder` values(0, 0, 'All images', 1, NOW());
+
+COMMIT;
