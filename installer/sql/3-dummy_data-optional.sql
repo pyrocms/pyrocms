@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 insert into `categories` values('1','category-1','Category 1'),
  ('2','category-2','Category 2'),
  ('3','category-3','Category 3');
@@ -8,3 +10,5 @@ insert into `news` values
 
 insert into `permission_roles` values
  (NULL,'Staff','staff');
+
+COMMIT;
