@@ -34,20 +34,8 @@ class Installer extends Controller
 		// Load the model
 		$this->load->model('installer_m');
 		
-		// $_POST ? 
 		if($_POST)
 		{									
-			// Check whether MySQLi is installed. Show an error message if it isn't
-			if($this->installer_m->mysqli_is_installed() == FALSE)
-			{
-				// Set the flashdata message
-				$this->session->set_flashdata('message','MySQLi isn\'t installed. You can find the manual installation instructions <a href="../../../INSTALL" title="Manual Installation Instructions" class="white">here</a>.');
-				$this->session->set_flashdata('message_type','error');
-
-				// Redirect
-				redirect('installer/step_1');
-			}
-			
 			// Data validation
 			$results = $this->installer_m->validate($_POST);
 			
@@ -193,15 +181,13 @@ class Installer extends Controller
 		// Check to see if the user submitted the installation form
 		if($_POST)
 		{
-			// Validate the results
-			$db_results = $this->installer_m->validate();
-			
 			// Only install PyroCMS if the provided data is correct
-			if($db_results == TRUE)
+			if($this->installer_m->validate() == TRUE)
 			{
 				// Install the system and display the results
 				$install_results = $this->installer_m->install($_POST);
-				
+				var_dump($install_results);
+				exit;
 				// Validate the results and create a flashdata message
 				if($install_results['status'] == TRUE)
 				{

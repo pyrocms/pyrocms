@@ -230,81 +230,64 @@ class installer_m extends Model
 	function install($data)
 	{		
 		// Retrieve the database server, username and password from the session
-		$server 	= $this->session->userdata('server');
+		$server 	= $this->session->userdata('server') . ':' . $this->session->userdata('port');
 		$username 	= $this->session->userdata('username');
 		$password 	= $this->session->userdata('password');
-		$port		= $this->session->userdata('port');
 		$database 	= $data['database'];
 		
-		// Create a connection using MySQLi
-		$mysqli = new mysqli($server, $username, $password, '', $port);
-		
-		// Check connection
-		if($mysqli->connect_errno)
+		// Create a connection
+		if( !$db = mysql_connect($server, $username, $password) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 		
 		// Do we want to create the database using the installer ? 
-		if(!empty($data['create_db']))
+		if( !empty($data['create_db'] ))
 		{
-			// Run the query
-			$db_result = $mysqli->query('CREATE DATABASE IF NOT EXISTS '.$database);
+			mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $db);
 			
-			// Validate the results
-			if($db_result === FALSE)
+			// Select the database we created before
+			if( !mysql_select_db($database, $db) )
 			{
-				// Set the array and return it
-				$array = array('status' => FALSE,'message' => 'The database could not be created.');
-				return $array;
+				return array('status' => FALSE,'message' => 'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.');
 			}
 		}
 		
-		// Select the database we created before
-		$mysqli->select_db($database);
-		
 		// Now we can create the tables
-		$tables 		= file_get_contents('./sql/1-tables.sql');
-		$default_data 	= file_get_contents('./sql/2-default-data.sql');
+		$tables 		= dirname(FCPATH) . '/sql/1-tables.sql';
+		$default_data 	= dirname(FCPATH) . '/sql/2-default-data.sql';
+		$dummy_data 	= dirname(FCPATH) . '/sql/3-dummy_data-optional.sql';	
 			
 		// HALT...! Query time!
-		
-		if($mysqli->multi_query($tables) === FALSE)
+		if( !mysql_query('LOAD DATA INFILE "' . $tables . '"', $db) )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.');
+			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.', 'error' => mysql_error());
 		}
 		
-		// TODO: Installer line 278 is returning FALSE when it should be TRUE and breaking install
-		if($mysqli->multi_query($default_data) === FALSE)
+		if( !mysql_query('LOAD DATA INFILE "' . $default_data . '"' , $db) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.');
 		}
 			
-		if(!empty($data['dummy_data']))
+		if( !empty($data['dummy_data']) )
 		{
-			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');	
-			
-			if($mysqli->multi_query($dummy_data) === FALSE)
+			if( !mysql_query('LOAD DATA INFILE "' . $dummy_data . '"', $db) )
 			{
 				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database. Please verify your MySQL user has INSERT privileges.');
 			}
 		}
 
 		// If we got this far there can't have been any errors. close and bail!
-		$mysqli->close();
+		mysql_close($db);
 		
 		// Write the database file
-		$db_file_res = $this->write_db_file($database);
-		
-		if($db_file_res === FALSE)
+		if( !$this->write_db_file($database) )
 		{
 			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 3?');
 		}
 		
 		// Write the config file.
-		$config_res = $this->write_config_file();
-			
-		if($config_res == TRUE)
+		if( !$this->write_config_file() )
 		{
 			return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
 		}
