@@ -266,28 +266,18 @@ class installer_m extends Model
 		// Now we can create the tables
 		$tables 		= file_get_contents('./sql/1-tables.sql');
 		$default_data 	= file_get_contents('./sql/2-default-data.sql');
-			
-		// HALT...! Query time!
 		
-		if($mysqli->multi_query($tables) === FALSE)
-		{
-			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.');
-		}
-		
-		// TODO: Installer line 278 is returning FALSE when it should be TRUE and breaking install
-		if($mysqli->multi_query($default_data) === FALSE)
-		{
-			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.');
-		}
-			
+		$default_data = '';
 		if(!empty($data['dummy_data']))
 		{
 			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');	
-			
-			if($mysqli->multi_query($dummy_data) === FALSE)
-			{
-				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database. Please verify your MySQL user has INSERT privileges.');
-			}
+		}
+		
+		// HALT...! Query time!
+		
+		if($mysqli->multi_query($tables.$default_data.$default_data) === FALSE)
+		{
+			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges and INSERT / DELETE.');
 		}
 
 		// If we got this far there can't have been any errors. close and bail!
@@ -360,10 +350,11 @@ class installer_m extends Model
 		// Open the template
 		$template = file_get_contents('application/assets/config/config.php');
 		
+		$server_type = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
 		// Able to use clean URLs?
-		if($supported_servers[$server_name]['rewrite_enabled'] !== FALSE)
+		if($supported_servers[$server_type]['rewrite_support'] !== FALSE)
 		{
 			$index_page = '';
 		}
