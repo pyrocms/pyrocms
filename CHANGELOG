@@ -5,7 +5,7 @@ v0.9.7.3
 --------
 
 * Removed MySQLi as a dependency - should fix installer.
-* Fixed AJAXify for FF2 and IE7.
+* Fixed AJAXify for FF2 and IE7. 
 * Fixed loads of TinyCIMM bugs (Image Manager)
 * Added better JS support for IE6 (not going to make a habit of that)
 * Added German language support.
