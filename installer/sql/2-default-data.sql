@@ -1,24 +1,47 @@
-START TRANSACTION;
+TRUNCATE `navigation_groups`;
 
-truncate `navigation_groups`;
-insert into `navigation_groups` values
+-- command split --
+
+INSERT INTO `navigation_groups` VALUES
  ('1','Header','header'),
  ('2','Sidebar','sidebar'),
  ('3','Footer','footer');
  
-truncate navigation_links;
-insert into navigation_links values('1', 'Home', 1, '', '', '', 1, 1, '');
+-- command split --
 
-truncate `pages`;
-insert into `pages` values('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','default','','','','1219336535');
+TRUNCATE navigation_links;
+
+-- command split --
+
+INSERT INTO navigation_links VALUES
+  ('1', 'Home', 1, '', '', '', 1, 1, '');
+
+-- command split --
+
+TRUNCATE `pages`;
+
+-- command split --
+
+INSERT INTO `pages` VALUES
+  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','default','','','','1219336535');
 	
-truncate `permission_roles`;
-insert into `permission_roles` values
+-- command split --
+
+TRUNCATE `permission_roles`;
+
+-- command split --
+
+INSERT INTO `permission_roles` VALUES
  ('1','Administator','admin'),
  ('2','User','user');
 
-truncate `settings`;
-insert into `settings` values 
+-- command split --
+
+TRUNCATE `settings`;
+
+-- command split --
+
+INSERT INTO `settings` VALUES 
  ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
  ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','Add your slogan here','','','0','1',''),
  ('contact_email','Contact E-mail','All e-mails from users, guests and the site will go to this e-mail address.','text','admin@localhost','','','1','1',''),
@@ -44,10 +67,19 @@ insert into `settings` values
  ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter'),
  ('twitter_cache', 'Cache time', 'How many minutes should your Tweets be temporairily stored for?','text','300','','','0','1','twitter');
 
-truncate `users`;
-insert into `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270fa605bde14e8','vQwbJ','Demo','User','admin','EN','','1','','1220982658','1238925784');
+-- command split --
 
-truncate `asset_folder`;
-insert into `asset_folder` values(0, 0, 'All images', 1, NOW());
+TRUNCATE `users`;
 
-COMMIT;
+-- command split --
+
+INSERT INTO `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270fa605bde14e8','vQwbJ','Demo','User','admin','EN','','1','','1220982658','1238925784');
+
+-- command split --
+
+TRUNCATE `asset_folder`;
+
+-- command split --
+
+INSERT INTO `asset_folder` values
+  (0, 0, 'All images', 1, NOW());
