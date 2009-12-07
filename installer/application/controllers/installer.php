@@ -186,8 +186,7 @@ class Installer extends Controller
 			{
 				// Install the system and display the results
 				$install_results = $this->installer_m->install($_POST);
-				var_dump($install_results);
-				exit;
+
 				// Validate the results and create a flashdata message
 				if($install_results['status'] == TRUE)
 				{

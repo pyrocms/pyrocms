@@ -1,4 +1,7 @@
-START TRANSACTION;
+DROP TABLE IF EXISTS `asset`;
+
+-- command split --
+
 
 CREATE TABLE `asset` (
   `id` int(5) NOT NULL auto_increment,
@@ -16,6 +19,11 @@ CREATE TABLE `asset` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Assets used in the wysiwyg image manager';
 
+-- command split --
+
+DROP TABLE IF EXISTS `asset_folder`;
+
+-- command split --
 
 CREATE TABLE `asset_folder` (
   `id` int(5) NOT NULL auto_increment,
@@ -26,6 +34,11 @@ CREATE TABLE `asset_folder` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Asset folder categories';
 
+-- command split --
+
+DROP TABLE IF EXISTS `categories`;
+
+-- command split --
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL auto_increment,
@@ -37,6 +50,11 @@ CREATE TABLE `categories` (
   KEY `slug - normal` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Product and Supplier Categories';
 
+-- command split --
+
+DROP TABLE IF EXISTS `comments`;
+
+-- command split --
 
 CREATE TABLE `comments` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -51,6 +69,11 @@ CREATE TABLE `comments` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Comments by users or guests';
 
+-- command split --
+
+DROP TABLE IF EXISTS `emails`;
+
+-- command split --
 
 CREATE TABLE `emails` (
   `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
@@ -58,6 +81,11 @@ CREATE TABLE `emails` (
   PRIMARY KEY  (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='E-mail addresses for newsletter subscriptions';
 
+-- command split --
+
+DROP TABLE IF EXISTS `galleries`;
+
+-- command split --
 
 CREATE TABLE `galleries` (
   `id` int(11) NOT NULL auto_increment,
@@ -70,6 +98,11 @@ CREATE TABLE `galleries` (
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
 
+-- command split --
+
+DROP TABLE IF EXISTS `navigation_groups`;
+
+-- command split --
 
 CREATE TABLE `navigation_groups` (
   `id` int(11) NOT NULL auto_increment,
@@ -78,6 +111,11 @@ CREATE TABLE `navigation_groups` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Navigation groupings. Eg, header, sidebar, footer, etc';
 
+-- command split --
+
+DROP TABLE IF EXISTS `navigation_links`;
+
+-- command split --
 
 CREATE TABLE `navigation_links` (
   `id` int(11) NOT NULL auto_increment,
@@ -93,6 +131,11 @@ CREATE TABLE `navigation_links` (
   KEY `navigation_group_id - normal` (`navigation_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
 
+-- command split --
+
+DROP TABLE IF EXISTS `news`;
+
+-- command split --
 
 CREATE TABLE `news` (
   `id` int(11) NOT NULL auto_increment,
@@ -110,6 +153,11 @@ CREATE TABLE `news` (
   KEY `category_id - normal` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='News articles or blog posts.';
 
+-- command split --
+
+DROP TABLE IF EXISTS `newsletters`;
+
+-- command split --
 
 CREATE TABLE `newsletters` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -120,17 +168,11 @@ CREATE TABLE `newsletters` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Newsletter emails stored before being sent then archived her';
 
+-- command split --
 
-CREATE TABLE `packages` (
-  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `featured` enum('Y','N') collate utf8_unicode_ci NOT NULL default 'N',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
-  PRIMARY KEY  (`slug`),
-  UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Packages contain services and products';
+DROP TABLE IF EXISTS `pages`;
 
+-- command split --
 
 CREATE TABLE `pages` (
  `id` int(11) unsigned NOT NULL auto_increment,
@@ -150,6 +192,11 @@ CREATE TABLE `pages` (
  KEY `Unique` (`slug`,`parent_id`,`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
+-- command split --
+
+DROP TABLE IF EXISTS `pages_lookup`;
+
+-- command split --
 
 CREATE TABLE `pages_lookup` (
   `id` int(11) NOT NULL,
@@ -157,6 +204,11 @@ CREATE TABLE `pages_lookup` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lookup table for page IDs and page paths.';
 
+-- command split --
+
+DROP TABLE IF EXISTS `permission_roles`;
+
+-- command split --
 
 CREATE TABLE `permission_roles` (
   `id` int(11) NOT NULL auto_increment,
@@ -165,6 +217,11 @@ CREATE TABLE `permission_roles` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc';
 
+-- command split --
+
+DROP TABLE IF EXISTS `permission_rules`;
+
+-- command split --
 
 CREATE TABLE `permission_rules` (
   `id` int(11) NOT NULL auto_increment,
@@ -177,6 +234,11 @@ CREATE TABLE `permission_rules` (
   KEY `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission rules for permission roles';
 
+-- command split --
+
+DROP TABLE IF EXISTS `photos`;
+
+-- command split --
 
 CREATE TABLE `photos` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -187,6 +249,11 @@ CREATE TABLE `photos` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
 
+-- command split --
+
+DROP TABLE IF EXISTS `products`;
+
+-- command split --
 
 CREATE TABLE `products` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -202,6 +269,11 @@ CREATE TABLE `products` (
   KEY `category_slug` (`category_slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Product Information';
 
+-- command split --
+
+DROP TABLE IF EXISTS `products_images`;
+
+-- command split --
 
 CREATE TABLE `products_images` (
   `image_id` int(15) NOT NULL auto_increment,
@@ -212,6 +284,11 @@ CREATE TABLE `products_images` (
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Product Images';
 
+-- command split --
+
+DROP TABLE IF EXISTS `profiles`;
+
+-- command split --
 
 CREATE TABLE `profiles` (
   `id` int(11) NOT NULL auto_increment,
@@ -234,6 +311,11 @@ CREATE TABLE `profiles` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Extra data for users. Not always enabled';
 
+-- command split --
+
+DROP TABLE IF EXISTS `services`;
+
+-- command split --
 
 CREATE TABLE `services` (
   `id` int(11) NOT NULL auto_increment,
@@ -248,6 +330,11 @@ CREATE TABLE `services` (
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Services are just pages with prices involved';
 
+-- command split --
+
+DROP TABLE IF EXISTS `settings`;
+
+-- command split --
 
 CREATE TABLE `settings` (
   `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
@@ -265,6 +352,11 @@ UNIQUE KEY `unique - slug` (`slug`),
 KEY `index - slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
 
+-- command split --
+
+DROP TABLE IF EXISTS `staff`;
+
+-- command split --
 
 CREATE TABLE `staff` (
   `id` int(11) NOT NULL auto_increment,
@@ -282,6 +374,11 @@ CREATE TABLE `staff` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Staff Member information (similar to a profile, but independ';
 
+-- command split --
+
+DROP TABLE IF EXISTS `suppliers`;
+
+-- command split --
 
 CREATE TABLE `suppliers` (
   `id` int(11) NOT NULL auto_increment,
@@ -294,12 +391,22 @@ CREATE TABLE `suppliers` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Supplier Information';
 
+-- command split --
+
+DROP TABLE IF EXISTS `suppliers_categories`;
+
+-- command split --
 
 CREATE TABLE `suppliers_categories` (
   `supplier_id` int(11) NOT NULL default '0',
   `category_id` int(11) NOT NULL default '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- command split --
+
+DROP TABLE IF EXISTS `users`;
+
+-- command split --
 
 CREATE TABLE `users` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -318,5 +425,3 @@ CREATE TABLE `users` (
   PRIMARY KEY  (`id`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
-
-COMMIT;
