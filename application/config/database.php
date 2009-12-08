@@ -35,7 +35,7 @@
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
 $db['local']['password'] = "";
-$db['local']['database'] = "pyrocms";
+$db['local']['database'] = "final0973check";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
@@ -45,6 +45,7 @@ $db['local']['cache_on'] = FALSE;
 $db['local']['cachedir'] = "";
 $db['local']['char_set'] = "utf8";
 $db['local']['dbcollat'] = "utf8_unicode_ci";
+$db['local']['port'] 	 = 3306;
 
 // Dev
 //$db['dev']['hostname'] = "localhost";
@@ -58,7 +59,7 @@ $db['local']['dbcollat'] = "utf8_unicode_ci";
 $db['live']['hostname'] = "localhost";
 $db['live']['username'] = "root";
 $db['live']['password'] = "";
-$db['live']['database'] = "pyrocms";
+$db['live']['database'] = "final0973check";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['active_r'] = TRUE;
@@ -68,6 +69,7 @@ $db['live']['cache_on'] = FALSE;
 $db['live']['cachedir'] = "";
 $db['live']['char_set'] = "utf8";
 $db['live']['dbcollat'] = "utf8_unicode_ci";
+$db['live']['port'] 	= 3306;
 
 // Check the configuration group in use exists
 if(!array_key_exists(ENV, $db))
