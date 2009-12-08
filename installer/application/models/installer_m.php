@@ -242,23 +242,6 @@ class installer_m extends Model
 			return array('status' => FALSE,'message' => 'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.');
 		}
 		
-<<<<<<< HEAD:installer/application/models/installer_m.php
-		// Now we can create the tables
-		$tables 		= file_get_contents('./sql/1-tables.sql');
-		$default_data 	= file_get_contents('./sql/2-default-data.sql');
-		
-		$default_data = '';
-		if(!empty($data['dummy_data']))
-		{
-			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');	
-		}
-		
-		// HALT...! Query time!
-		
-		if($mysqli->multi_query($tables.$default_data.$default_data) === FALSE)
-		{
-			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges and INSERT / DELETE.');
-=======
 		// HALT...! Query time!
 		if( !$this->_process_schema('1-tables') )
 		{
@@ -276,7 +259,6 @@ class installer_m extends Model
 			{
 				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database. Please verify your MySQL user has INSERT privileges.');
 			}
->>>>>>> installer-fix:installer/application/models/installer_m.php
 		}
 
 		// If we got this far there can't have been any errors. close and bail!
@@ -370,19 +352,11 @@ class installer_m extends Model
 		// Open the template
 		$template = file_get_contents('application/assets/config/config.php');
 		
-<<<<<<< HEAD:installer/application/models/installer_m.php
-		$server_type = $this->session->userdata('http_server');
-		$supported_servers = $this->config->item('supported_servers');
-
-		// Able to use clean URLs?
-		if($supported_servers[$server_type]['rewrite_support'] !== FALSE)
-=======
 		$server_name = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
 		// Able to use clean URLs?
 		if($supported_servers[$server_name]['rewrite_support'] !== FALSE)
->>>>>>> installer-fix:installer/application/models/installer_m.php
 		{
 			$index_page = '';
 		}
