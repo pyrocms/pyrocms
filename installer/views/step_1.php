@@ -22,10 +22,6 @@
 		<?php echo form_dropdown('http_server', $server_options); ?>
 	</p>
 	
-	<p>
-		<?php $this->load->helper('date'); echo timezone_menu(); ?>
-	</p>
-	
 	<input type="hidden" name="installation_step" value="step_1" />
 	
 	<p id="next_step"><input type="submit" id="submit" value="Step 2" /></p>
