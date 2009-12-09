@@ -35,7 +35,7 @@
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
 $db['local']['password'] = "";
-$db['local']['database'] = "final0973check";
+$db['local']['database'] = "zendtest";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
