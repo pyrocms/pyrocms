@@ -2,7 +2,7 @@ UPGRADE
 =======
 
 Remember to always run these steps in order. They are ordered intentionally to either
-minimise or totally remove downtime during upgrade.
+minimize or totally remove downtime during upgrade.
 
 09/12/09 - v0.9.7.3 to v0.9.7.4-dev
 -----------------------------------

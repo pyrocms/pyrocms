@@ -4,8 +4,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
 		<!-- Stylesheets -->
-		<link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/reset.css" type="text/css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/style.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/reset.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" />
 		
 		<title>PyroCMS Installer</title>
 	</head>
@@ -13,7 +13,7 @@
 		<!-- Main wrapper -->
 		<div id="wrapper">
 			<div id="logo">
-				<img src="<?php echo base_url(); ?>application/assets/images/logo.png" alt="PyroCMS" width="200" height="76" />
+				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" width="200" height="76" />
 			</div>
 			<!-- The header -->
 			<div id="header">
