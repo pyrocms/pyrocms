@@ -32,7 +32,7 @@ $config['supported_servers'] = array(
 	
 	'zend' => array(
 		'name' => 'Zend Server',
-		'rewrite_support' => FALSE
+		'rewrite_support' => TRUE
 	),
 	
 	'other'	=> array(
