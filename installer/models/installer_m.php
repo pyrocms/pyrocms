@@ -100,17 +100,6 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @return bool Returns TRUE when MySQLi is installed or FALSE when it isn't.
-	 *
-	 * Check whether MySQLi is installed or not. Returns TRUE if it's installed or FALSE when it isn't
-	 */
-	function mysqli_is_installed()
-	{
-		// Check whether the mysqli_connect() function exists. If it doesn't it's most likely that MySQLi is not installed.
-		return function_exists('mysqli_connect');
-	}
-	
-	/**
 	 * @return string The GD library version. 
 	 *
 	 * Function to retrieve the GD library version
@@ -230,81 +219,59 @@ class installer_m extends Model
 	function install($data)
 	{		
 		// Retrieve the database server, username and password from the session
-		$server 	= $this->session->userdata('server');
+		$server 	= $this->session->userdata('server') . ':' . $this->session->userdata('port');
 		$username 	= $this->session->userdata('username');
 		$password 	= $this->session->userdata('password');
-		$port		= $this->session->userdata('port');
 		$database 	= $data['database'];
 		
-		// Create a connection using MySQLi
-		$mysqli = new mysqli($server, $username, $password, '', $port);
-		
-		// Check connection
-		if($mysqli->connect_errno)
+		// Create a connection
+		if( !$this->db = mysql_connect($server, $username, $password) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 		
 		// Do we want to create the database using the installer ? 
-		if(!empty($data['create_db']))
+		if( !empty($data['create_db'] ))
 		{
-			// Run the query
-			$db_result = $mysqli->query('CREATE DATABASE IF NOT EXISTS '.$database);
-			
-			// Validate the results
-			if($db_result === FALSE)
-			{
-				// Set the array and return it
-				$array = array('status' => FALSE,'message' => 'The database could not be created.');
-				return $array;
-			}
+			mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $this->db);
 		}
 		
 		// Select the database we created before
-		$mysqli->select_db($database);
-		
-		// Now we can create the tables
-		$tables 		= file_get_contents('./sql/1-tables.sql');
-		$default_data 	= file_get_contents('./sql/2-default-data.sql');
-			
-		// HALT...! Query time!
-		
-		if($mysqli->multi_query($tables) === FALSE)
+		if( !mysql_select_db($database, $this->db) )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.');
+			return array('status' => FALSE,'message' => 'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.');
 		}
 		
-		// TODO: Installer line 278 is returning FALSE when it should be TRUE and breaking install
-		if($mysqli->multi_query($default_data) === FALSE)
+		// HALT...! Query time!
+		if( !$this->_process_schema('1-tables') )
+		{
+			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.', 'error' => mysql_error());
+		}
+		
+		if( !$this->_process_schema('2-default-data') )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.');
 		}
 			
-		if(!empty($data['dummy_data']))
+		if( !empty($data['dummy_data']) )
 		{
-			$dummy_data = file_get_contents('./sql/3-dummy_data-optional.sql');	
-			
-			if($mysqli->multi_query($dummy_data) === FALSE)
+			if( !$this->_process_schema('3-dummy_data-optional') )
 			{
 				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database. Please verify your MySQL user has INSERT privileges.');
 			}
 		}
 
 		// If we got this far there can't have been any errors. close and bail!
-		$mysqli->close();
+		mysql_close($this->db);
 		
 		// Write the database file
-		$db_file_res = $this->write_db_file($database);
-		
-		if($db_file_res === FALSE)
+		if( !$this->write_db_file($database) )
 		{
 			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 3?');
 		}
 		
 		// Write the config file.
-		$config_res = $this->write_config_file();
-			
-		if($config_res == TRUE)
+		if( $this->write_config_file() )
 		{
 			return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
 		}
@@ -313,6 +280,27 @@ class installer_m extends Model
 		{
 			return array('status' => FALSE,'message' => 'The config file could not be written, are you sure the file has the correct permissions ?');
 		}
+	}
+
+	private function _process_schema($schema_file)
+	{
+		$schema = file_get_contents('./sql/' . $schema_file . '.sql');
+		$queries = explode('-- command split --', $schema);
+		
+		foreach($queries as $query)
+		{
+			$query = rtrim( trim($query), "\n;");
+			
+			@mysql_query($query, $this->db);
+			
+			if(mysql_errno($this->db) > 0)
+			{
+				return FALSE;
+			}
+		}
+		
+		return TRUE;
+		
 	}
 	
 	/**
@@ -331,12 +319,16 @@ class installer_m extends Model
 		// Open the template file
 		$template 	= file_get_contents('application/assets/config/database.php');
 		
+		$replace = array(
+			'__HOSTNAME__' 	=> $server,
+			'__USERNAME__' 	=> $username,
+			'__PASSWORD__' 	=> $password,
+			'__DATABASE__' 	=> $database,
+			'__PORT__' 		=> $port
+		);
+		
 		// Replace the __ variables with the data specified by the user
-		$new_file  	= str_replace('__HOSTNAME__',$server,	$template);
-		$new_file   = str_replace('__USERNAME__',$username,	$new_file);
-		$new_file   = str_replace('__PASSWORD__',$password,	$new_file);
-		$new_file   = str_replace('__DATABASE__',$database,	$new_file);
-		$new_file	= str_replace('__PORT__',	 $port, 	$new_file);
+		$new_file  	= str_replace(array_keys($replace), $replace, $template);
 		
 		// Open the database.php file, show an error message in case this returns false
 		$handle 	= @fopen('../application/config/database.php','w+');
@@ -360,10 +352,11 @@ class installer_m extends Model
 		// Open the template
 		$template = file_get_contents('application/assets/config/config.php');
 		
+		$server_name = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
 		// Able to use clean URLs?
-		if($supported_servers[$server_name]['rewrite_enabled'] !== FALSE)
+		if($supported_servers[$server_name]['rewrite_support'] !== FALSE)
 		{
 			$index_page = '';
 		}
@@ -382,7 +375,7 @@ class installer_m extends Model
 		// Validate the handle results
 		if($handle !== FALSE)
 		{
-			return @fwrite($handle, $new_file);
+			return fwrite($handle, $new_file);
 		}
 		
 		return FALSE;

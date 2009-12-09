@@ -22,7 +22,14 @@
 | for PyroCMS
 |
 */
+	// Some hosts (was it GoDaddy? complained without this
 	@ini_set('cgi.fix_pathinfo', 0);
+	
+	// PHP 5.3 will BITCH without this
+	if(ini_get('date.timezone') == '')
+	{
+		date_default_timezone_set('GMT');
+	}
 
 /*
 |---------------------------------------------------------------

@@ -123,7 +123,7 @@ define('CMS_VERSION', '0.9.8-dev');
 |
 */
 
-define('CMS_DATE','29/11/2009');
+define('CMS_DATE','09/12/2009');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
