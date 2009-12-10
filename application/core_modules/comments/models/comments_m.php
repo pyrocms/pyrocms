@@ -1,27 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Comments_m extends Model
+class Comments_m extends MY_Model
 {
-	function __construct()
-	{
-		parent::Model();
-	}	
-	
-	public function countComments($params = array())
-	{  	
-		$results = $this->getComments($params);
-		// Silly Phil forgot that using count() without some decent if statements will always return 1
-		if($results == FALSE)
-		{
-			return 0; // Return 0 instead of false since no rows were found.
-		}
-		else
-		{
-			return count($results);
-		}
-	}
-		
-	public function getComments($params = array())
+	public function get_comments($params = array())
 	{
     	$this->db->select('c.id, c.is_active, c.body, c.created_on, c.module, c.module_id, c.user_id');
     	$this->db->select('IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name');
@@ -121,19 +102,19 @@ class Comments_m extends Model
 		
 	public function getModuleComments($module, $limit)
 	{
-		$comments = $this->getComments( array('module' => $module, 'limit' => $limit) );
+		$comments = $this->get_comments( array('module' => $module, 'limit' => $limit) );
 		return $comments;
 	}
 	
-	public function getCommentsOfModuleItem($module, $item, $limit)
+	public function get_commentsOfModuleItem($module, $item, $limit)
 	{
-		$comments = $this->getComments( array('module' => $module, 'module_id' => $item, 'limit' => $limit) );
+		$comments = $this->get_comments( array('module' => $module, 'module_id' => $item, 'limit' => $limit) );
 		return $comments;
 	}
 	
 	public function getComment($id = 0)
 	{
-		$comment = $this->getComments( array('id'=>$id) );
+		$comment = $this->get_comments( array('id'=>$id) );
 		$comment =& $comment[0];
 		return $comment;
 	}
