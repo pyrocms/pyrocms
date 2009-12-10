@@ -27,9 +27,9 @@ class Admin extends Admin_Controller
 		$this->load->model('users/users_m');
 		
 		// Count comment related stuff
-		$this->data->total_comments			= $this->comments_m->countComments();
-		$this->data->approved_comments 		= $this->comments_m->countComments(array('is_active' => 1));
-		$this->data->pending_comments	 	= $this->comments_m->countComments(array('is_active' => 0));
+		$this->data->total_comments			= $this->comments_m->count_all();
+		$this->data->approved_comments 		= $this->comments_m->count_by('is_active', 1);
+		$this->data->pending_comments	 	= $this->comments_m->count_by('is_active', 0);
 		
 		// Count page related stuff
 		$this->data->total_pages			= $this->pages_m->count();
