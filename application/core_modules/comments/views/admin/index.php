@@ -12,7 +12,7 @@
 	</p>
 <?php endif; ?>
     
-<?php echo form_open('admin/comments/index');?>
+<?php echo form_open('admin/comments/action');?>
 	<?php echo form_hidden('redirect', $this->uri->uri_string()); ?> 
 	<table border="0" class="listTable clear-both">    
 		<thead>

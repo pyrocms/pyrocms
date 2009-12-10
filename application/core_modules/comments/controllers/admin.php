@@ -11,17 +11,36 @@ class Admin extends Admin_Controller
 	}
 	
 	// Admin: List all comments
-	public function index()
+	public function index($module, $id)
 	{
-		// I can haz POST ? 
-		if($_POST)
+		$this->load->helper('text');
+		
+		// Create pagination links
+		$total_rows = $this->comments_m->count_by(array('is_active' => 0));
+		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
+		
+		// get all comments
+		$this->data->comments = $this->comments_m->get_comments(array(
+			'is_active' => 0,
+			'module' => $module,
+			'module_id' => $id,
+		
+			'limit' => $this->data->pagination['limit']			
+		));
+				
+		$this->data->active_comments = FALSE;
+		$this->template->build('admin/index', $this->data);			
+	}
+	
+	public function action()
+	{
+		if( $this->input->post('btnAction') )
 		{
 			// Get the action
-			$action   = strtolower($_POST['btnAction']);
-			$id_array = $_POST['action_to'];
+			$id_array = $this->input->post('action_to');
 			
 			// Switch statement
-			switch($action)
+			switch( strtolower( $this->input->post('btnAction') ) )
 			{
 				// Approve the comment
 				case 'approve':
@@ -65,30 +84,17 @@ class Admin extends Admin_Controller
 			redirect('admin/comments/index');
 		}
 		
-		$this->load->helper('text');
-		// Create pagination links
-		$total_rows = $this->comments_m->countComments(array('is_active' => 0));
-		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
-		
-		// get all comments
-		$this->data->comments = $this->comments_m->getComments(array(
-			'is_active' => 0,
-			'limit' => $this->data->pagination['limit']			
-		));
-				
-		$this->data->active_comments = FALSE;
-		$this->template->build('admin/index', $this->data);			
 	}
 	
 	public function active()
 	{
 		$this->load->helper('text');
 		// Create pagination links
-		$total_rows = $this->comments_m->countComments(array('is_active' => 1));
+		$total_rows = $this->comments_m->count_by(array('is_active' => 1));
 		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
 		// get all comments
-		$this->data->comments = $this->comments_m->getComments(array(
+		$this->data->comments = $this->comments_m->get_comments(array(
 			'is_active' => 1,
 			'limit' => $this->data->pagination['limit']				
 		));
