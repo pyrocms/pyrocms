@@ -23,7 +23,7 @@ TRUNCATE `pages`;
 -- command split --
 
 INSERT INTO `pages` VALUES
-  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN','default','','','','1219336535');
+  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN',1,'','','','','1219336535');
 	
 -- command split --
 

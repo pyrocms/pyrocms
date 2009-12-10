@@ -37,9 +37,7 @@ class Installer extends Controller
 		if($_POST)
 		{									
 			// Data validation
-			$results = $this->installer_m->validate($_POST);
-			
-			if($results == TRUE)
+			if( $this->installer_m->validate($_POST) )
 			{
 				// Store the database settings
 				$this->installer_m->store_db_settings('set', $_POST);
@@ -226,7 +224,13 @@ class Installer extends Controller
 	// All done
 	function complete()
 	{
-		$data['admin_url'] = 'http://'.$this->input->server('SERVER_NAME').preg_replace('/installer\/index.php$/', 'index.php/admin', $this->input->server('SCRIPT_NAME'));
+		$server_name = $this->session->userdata('http_server');
+		$supported_servers = $this->config->item('supported_servers');
+
+		// Able to use clean URLs?
+		$admin_uri = $supported_servers[$server_name]['rewrite_support'] !== FALSE ? 'admin' : 'index.php/admin';
+		
+		$data['admin_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', $admin_uri, $this->input->server('SCRIPT_NAME'));
 
 		// Load the view files
 		$data['page_output'] = $this->load->view('complete',$data, TRUE);

@@ -181,7 +181,7 @@ CREATE TABLE `pages` (
  `body` text collate utf8_unicode_ci NOT NULL,
  `parent_id` int(11) default '0',
  `lang` varchar(2) collate utf8_unicode_ci NOT NULL,
- `layout_file` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
+ `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
  `css` text collate utf8_unicode_ci,
  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
