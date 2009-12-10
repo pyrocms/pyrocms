@@ -250,7 +250,7 @@ class installer_m extends Model
 		
 		if( !$this->_process_schema('2-default-data') )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.');
+			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.' . mysql_error($this->db));
 		}
 			
 		if( !empty($data['dummy_data']) )
@@ -317,7 +317,7 @@ class installer_m extends Model
 		$port		= $this->session->userdata('port');
 		
 		// Open the template file
-		$template 	= file_get_contents('application/assets/config/database.php');
+		$template 	= file_get_contents('assets/config/database.php');
 		
 		$replace = array(
 			'__HOSTNAME__' 	=> $server,
@@ -350,7 +350,7 @@ class installer_m extends Model
 	function write_config_file()
 	{
 		// Open the template
-		$template = file_get_contents('application/assets/config/config.php');
+		$template = file_get_contents('assets/config/config.php');
 		
 		$server_name = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
