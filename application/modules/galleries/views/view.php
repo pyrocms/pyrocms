@@ -26,7 +26,7 @@
 		
 		<fieldset class="alternative float-left width-half">
 			<legend><?php echo lang('gal_other_comments_label');?></legend>
-			<?php echo $this->load->view('comments/comments', array('comments' => $this->comments_m->getComments(array('module' => $this->module, 'module_id' => $gallery->id, 'is_active' => 1)))); ?>
+			<?php echo $this->load->view('comments/comments', array('comments' => $this->comments_m->get_comments(array('module' => $this->module, 'module_id' => $gallery->id, 'is_active' => 1)))); ?>
 		</fieldset>
 										
 		<fieldset class="float-right width-half">
