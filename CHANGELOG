@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+v0.9.8
+------
+
+* Added custom CSS area for pages.
+* Added GUI editable "Page layouts" to control shared layouts for grouped pages.
+* "Check all" boxes and CTRL + Click selecting added to all listing pages.
+* Switched module system from Matchbox to Modular Separation (minor performance boost).
+* Switched template system from HelpfulParser to Dwoo (dramaticallty improved syntax support, if/else, loops, etc).
+* Removed Layout library and replaced with the much cleaner Template library.
+* Removed all PHP short-tags.
+* Full support for PHP 5.3
+* Standardized much of the model code, and removed deprecated CodeIgniter ActiveRecord methods like getwhere().
+* Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.
+
 v0.9.7.3
 --------
 
