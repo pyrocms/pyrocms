@@ -18,10 +18,7 @@ class Public_Controller extends MY_Controller
 		
 	    // -- Navigation menu -----------------------------------
 	    $this->load->model('pages/pages_m');
-	    $this->load->model('navigation/navigation_m');
-	        
-	    $this->data->navigation = $this->cache->model('navigation_m', 'frontendNavigation', array(), $this->settings->item('navigation_cache'));
-		
+	    
 	    // Set the theme view folder
 	    $this->template->set_theme($this->settings->item('default_theme'));
 	    

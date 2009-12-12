@@ -11,7 +11,7 @@
 	</div>
 	
 	<ul id="menu">
-		<?php if(!empty($navigation['header'])) foreach($navigation['header'] as $nav_link): ?>
+		<?php foreach(navigation('header') as $nav_link): ?>
 		<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
 		<?php endforeach; ?>
 	</ul>
