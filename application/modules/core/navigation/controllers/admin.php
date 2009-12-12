@@ -17,7 +17,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('navigation');
 		
 		// Get Navigation Groups
-		$this->data->groups = $this->navigation_m->getGroups();
+		$this->data->groups = $this->navigation_m->get_groups();
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'title');				
 		$modules = $this->modules_m->getModules(array('is_frontend'=>true));
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');				
@@ -44,7 +44,7 @@ class Admin extends Admin_Controller
 		foreach($this->data->groups as $group)
 		{
 			//... and get navigation links for each one
-			$this->data->navigation[$group->abbrev] = $this->navigation_m->getLinks(array('group'=>$group->id, 'order'=>'position, title'));
+			$this->data->navigation[$group->abbrev] = $this->navigation_m->get_links(array('group'=>$group->id, 'order'=>'position, title'));
 		}
 		
 		// Create the layout
@@ -74,7 +74,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if ($this->navigation_m->newLink($_POST) > 0)
+			if ($this->navigation_m->insert_link($_POST) > 0)
 			{
 				$this->cache->delete_all('navigation_m');
 				$this->session->set_flashdata('success', $this->lang->line('nav_link_add_success'));
@@ -99,7 +99,7 @@ class Admin extends Admin_Controller
 	{
 		if (empty($id)) redirect('admin/navigation/index');
 		
-		$this->data->navigation_link = $this->navigation_m->getLink( $id );
+		$this->data->navigation_link = $this->navigation_m->get_link( $id );
 		if (!$this->data->navigation_link) 
 		{
 			$this->session->set_flashdata('error', $this->lang->line('nav_link_not_exist_error'));
@@ -127,7 +127,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			$this->navigation_m->updateLink($id, $_POST);
+			$this->navigation_m->update_link($id, $_POST);
 			$this->cache->delete_all('navigation_m');
 					
 			$this->session->set_flashdata('success', $this->lang->line('nav_link_edit_success'));
@@ -151,14 +151,14 @@ class Admin extends Admin_Controller
 		// Delete one
 		if($id)
 		{
-			$this->navigation_m->deleteLink($id);
+			$this->navigation_m->delete_link($id);
 		}
 		// Delete multiple
 		else
 		{		
 			foreach (array_keys($this->input->post('delete')) as $id)
 			{
-				$this->navigation_m->deleteLink($id);
+				$this->navigation_m->delete_link($id);
 			}
 		}
 		

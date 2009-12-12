@@ -6,9 +6,9 @@
  * 
  * Navigation model for the navigation module.
  */
-class Navigation_m extends Model {
-
-	function getLink($id = 0)
+class Navigation_m extends Model
+{
+	function get_link($id = 0)
 	{
 		$query = $this->db->get_where('navigation_links', array('id'=>$id));
 		if ($query->num_rows() == 0) {
@@ -19,7 +19,7 @@ class Navigation_m extends Model {
 	}
 
 	// Return an object of objects containing NavigationLink data
-	function getLinks($params = array())
+	function get_links($params = array())
 	{
 		$this->db->select('*, IF(page_id > 0, "page", IF(module_name != "", "module", IF(url != "", "url", IF(uri != "", "uri", NULL)))) as link_type', FALSE);
 
@@ -74,68 +74,17 @@ class Navigation_m extends Model {
 				// Just return the result, dont do anything fancy
 			}
 			
-			else
-			{
-				return $query->result();
-			}
+			return $query->result();
 
 		}
 		
-		return FALSE;
-	}
-
-	
-	function frontendNavigation()
-	{
-		// Get Navigation Groups
-		$groups = $this->getGroups();
-		
-		$navigation = array();
-		
-		// Go through all the groups 
-    	foreach($groups as $group)
-    	{
-	    	$group_links = $this->getLinks(array(
-    			'group'=>$group->id,
-    			'order'=>'position, title'
-    		));
-    		
-    		$has_current_link = false;
-			
-    		// Loop through all links and add a "current_link" property to show if it is active
-    		if( !empty($group_links) )
-    		{
-	    		foreach($group_links as &$link)
-	    		{
-	    			$full_match 	= site_url($this->uri->uri_string()) == $link->url;
-	    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
-	    			
-	    			// Either the whole URI matches, or the first segment matches
-	    			if($link->current_link = $full_match || $segment1_match)
-	    			{
-	    				$has_current_link = true;
-	    			}
-	    		}
-	    		
-    		}
-    		
-    		else
-    		{
-    			$group_links = array();
-    		}
-    		
-    		// Assign it 
-    		$navigation[$group->abbrev] = $group_links;
-    		
-    	}
-    	
-    	return $navigation;
+		return array();
 	}
 	
 	// Create a new Navigation Link
-	function newLink($input = array())
+	function insert_link($input = array())
 	{
-		$input = $this->_formatArray($input);
+		$input = $this->_format_array($input);
 		 
 		$this->db->insert('navigation_links', array(
         	'title' 				=> $input['title'],
@@ -152,9 +101,9 @@ class Navigation_m extends Model {
 	}
 
 	// Update a Navigation Link
-	function updateLink($id = 0, $input = array()) 
+	function update_link($id = 0, $input = array()) 
 	{
-		$input = $this->_formatArray($input);
+		$input = $this->_format_array($input);
 		 
 		$this->db->update('navigation_links', array(
         	'title' 				=> $input['title'],
@@ -170,7 +119,7 @@ class Navigation_m extends Model {
 		return TRUE;
 	}
 
-	function _formatArray($input)
+	function _format_array($input)
 	{
 		// If the url is not empty and not just the default http://
 		if(!empty($input['url']) && $input['url'] != 'http://')
@@ -207,7 +156,7 @@ class Navigation_m extends Model {
 	}
 	
 	// Delete a Navigation Link
-	function deleteLink($id = 0)
+	function delete_link($id = 0)
 	{
 		if(is_array($id))  	$params = $id;
 		else   				$params = array('id'=>$id);
@@ -219,14 +168,51 @@ class Navigation_m extends Model {
 
 	// --------------------------------------------
 
+	function load_group($abbrev)
+	{
+		$group = $this->get_group_by('abbrev', $abbrev);
+		
+		$group_links = $this->get_links(array(
+    		'group'=>$group->id,
+    		'order'=>'position, title'
+    	));
+    		
+    	$has_current_link = false;
+		
+    	// Loop through all links and add a "current_link" property to show if it is active
+    	if( !empty($group_links) )
+    	{
+    		foreach($group_links as &$link)
+    		{
+    			$full_match 	= site_url($this->uri->uri_string()) == $link->url;
+    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
+    			
+    			// Either the whole URI matches, or the first segment matches
+    			if($link->current_link = $full_match || $segment1_match)
+    			{
+    				$has_current_link = true;
+    			}
+    		}
+    		
+    	}
+    		
+    	// Assign it 
+    	return $group_links;
+	}
+	
+	function get_group_by($what, $value) 
+	{
+		return $this->db->where($what, $value)->get('navigation_groups')->row();
+	}
+	
 	// Return an array of Navigation Groups
-	function getGroups() 
+	function get_groups() 
 	{
 		return $this->db->get('navigation_groups')->result();
 	}
 	
 	// Create a new Navigation Group
-	function newGroup($input = array())
+	function insert_group($input = array())
 	{
 		$this->db->insert('navigation_groups', array(
         	'title' => $input['title'],
@@ -237,7 +223,7 @@ class Navigation_m extends Model {
 	}
 	
 	// Delete a Navigation Group
-	function deleteGroup($id = 0)
+	function delete_group($id = 0)
 	{
 		if(is_array($id))  	$params = $id;
 		else   				$params = array('id'=>$id);

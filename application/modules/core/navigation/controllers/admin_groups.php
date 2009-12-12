@@ -25,7 +25,7 @@ class Admin_groups extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if ($this->navigation_m->newGroup($_POST) > 0)
+			if ($this->navigation_m->insert_group($_POST) > 0)
 			{
 				$this->session->set_flashdata('success', $this->lang->line('nav_group_add_success'));			
 			}
@@ -48,16 +48,16 @@ class Admin_groups extends Admin_Controller
 		// Delete one
 		if($id)
 		{
-			$this->navigation_m->deleteGroup($id);
-			$this->navigation_m->deleteLink(array('navigation_group_id'=>$id));
+			$this->navigation_m->delete_group($id);
+			$this->navigation_m->delete_link(array('navigation_group_id'=>$id));
 		}	
 		// Delete multiple
 		else
 		{
 			foreach (array_keys($this->input->post('delete')) as $id)
 			{
-				$this->navigation_m->deleteGroup($id);
-				$this->navigation_m->deleteLink(array('navigation_group_id'=>$id));
+				$this->navigation_m->delete_group($id);
+				$this->navigation_m->delete_link(array('navigation_group_id'=>$id));
 			}
 		}		
 		$this->session->set_flashdata('success', $this->lang->line('nav_group_mass_delete_success'));
