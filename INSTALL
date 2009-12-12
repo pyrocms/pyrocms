@@ -16,9 +16,6 @@ INTALL
 	chmod 777 application/config/database.php
 	chmod -R 777 application/uploads
 	chmod -R 777 application/assets/img/galleries
-	chmod -R 777 application/assets/img/products
-	chmod -R 777 application/assets/img/staff
-	chmod -R 777 application/assets/img/suppliers
 
 4.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer. This will set up the database
 	and create your config files. If this fails, run the SQL manually from installer/sql/.
