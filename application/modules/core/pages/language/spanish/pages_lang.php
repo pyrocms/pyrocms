@@ -2,19 +2,18 @@
 
 // tabs
 $lang['page_content_label'] 					= 'Contenido de la p&aacute;gina';
+$lang['page_design_label'] 						= 'Design'; #translate
 $lang['page_meta_label'] 						= 'Meta data';
-$lang['page_advanced_label'] 					= 'Avanzado';
 
 // labels
 $lang['page_page_label'] 						= 'P&aacute;gina';
-$lang['page_parent_label'] 						= 'Padre';
 $lang['page_language_label'] 					= 'Lenguaje';
 $lang['page_updated_label'] 					= 'Actualizado';
 $lang['page_actions_label'] 					= 'Acciones';
 $lang['page_unknown_label'] 					= 'Desconocido';
 $lang['page_title_label'] 						= 'T&iacute;tulo';
-$lang['page_url_label'] 						= 'URL';
-$lang['page_parent_page_label'] 				= 'P&aacute;gina padre';
+$lang['page_slug_label'] 						= 'URL';
+$lang['page_body_label'] 						= 'Page body'; #translate
 $lang['page_no_selection_label'] 				= '-- Ninguno --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';

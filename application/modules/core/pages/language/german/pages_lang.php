@@ -2,26 +2,25 @@
 
 // tabs
 $lang['page_content_label'] 					= 'Seiteninhalt';
+$lang['page_design_label'] 						= 'Design'; #translate
 $lang['page_meta_label'] 						= 'Meta-Daten';
-$lang['page_advanced_label'] 					= 'Erweitert';
 
 // labels
 $lang['page_page_label'] 						= 'Seite';
-$lang['page_parent_label'] 						= 'Übergeordnet';//there is no german word for 'parent'
 $lang['page_language_label'] 					= 'Sprache';
 $lang['page_updated_label'] 					= 'Aktualisiert';
 $lang['page_actions_label'] 					= 'Aktionen';
 $lang['page_unknown_label'] 					= 'Unbekannt';
 $lang['page_title_label'] 						= 'Titel';
-$lang['page_required_label'] 					= 'Benötigt';
-$lang['page_url_label'] 						= 'URL';
-$lang['page_parent_page_label'] 				= 'Übergeordnete Seite';//there is no german word for 'parent'
+$lang['page_slug_label'] 						= 'URL';
+$lang['page_body_label'] 						= 'Page body'; #translate
 $lang['page_no_selection_label'] 				= '-- Keine --';
 $lang['page_meta_title_label'] 					= 'Meta-Titel';
 $lang['page_meta_keywords_label'] 				= 'Meta-Schlagwörter';
 $lang['page_meta_desc_label'] 					= 'Meta-Beschreibung';
 $lang['page_meta_title_label'] 					= 'Meta-Titel';
 $lang['page_layout_id_label'] 					= 'Page Layout'; #translate
+$lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Zugang';
 
 $lang['page_view_label'] 						= 'Ansicht';

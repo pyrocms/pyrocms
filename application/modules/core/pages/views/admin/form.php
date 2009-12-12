@@ -25,7 +25,7 @@
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</div>
 			<div class="field">
-				<label for="slug"><?php echo lang('page_url_label');?></label>
+				<label for="slug"><?php echo lang('page_slug_label');?></label>
 				
 				<?php if(!empty($page->parent_id)): ?>
 					<?php echo site_url().$parent_page->path; ?>/
