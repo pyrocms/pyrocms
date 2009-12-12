@@ -13,10 +13,10 @@ class Admin extends Admin_Controller
 	function index()
 	{
 		// Create pagination links
-		$total_rows = $this->categories_m->count();
+		$total_rows = $this->categories_m->count_all();
 		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);		
 		// Using this data, get the relevant results
-		$this->data->categories = $this->categories_m->get_many(array('limit' => $this->data->pagination['limit']));		
+		$this->data->categories = $this->categories_m->get_limited( $this->data->pagination['limit'] );		
 		$this->template->build('admin/index', $this->data);
 		return;
 	}
@@ -31,7 +31,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if (  $this->categories_m->add($_POST) )
+			if (  $this->categories_m->insert($_POST) )
 			{
 				$this->session->set_flashdata('success', $this->lang->line('cat_add_success'));
 			}			
@@ -100,7 +100,7 @@ class Admin extends Admin_Controller
 			$to_delete = 0;
 			foreach ($id_array as $id) 
 			{
-				if($this->categories_m->remove($id))
+				if($this->categories_m->delete($id))
 				{
 					$deleted++;
 				}
