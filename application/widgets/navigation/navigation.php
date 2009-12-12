@@ -14,7 +14,7 @@ class Navigation extends Widgets
 	function run()
 	{
 		$this->CI->load->model('navigation/navigation_m');
-		print_r($this->CI->navigation_m->getLinks(array('group' => 2)));
+		print_r($this->CI->navigation_m->get_links(array('group' => 2)));
 	}
 	
 	

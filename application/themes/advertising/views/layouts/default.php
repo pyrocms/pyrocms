@@ -11,7 +11,7 @@
 	</div>
 	
 	<ul id="menu">
-		<?php if(!empty($navigation['header'])) foreach($navigation['header'] as $nav_link): ?>
+		<?php foreach(navigation('header') as $nav_link): ?>
 		<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
 		<?php endforeach; ?>
 	</ul>
@@ -47,13 +47,13 @@
 			</div>
 		
 			<?php if ($this->session->flashdata('notice')) {
-		                  echo '<div class="notice-box">' . $this->session->flashdata('notice') . '</div>';
+		    	echo '<div class="notice-box">' . $this->session->flashdata('notice') . '</div>';
 		    } ?>
 		    <?php if ($this->session->flashdata('success')) {
-		                  echo '<div class="success-box">' . $this->session->flashdata('success') . '</div>';
+		    	echo '<div class="success-box">' . $this->session->flashdata('success') . '</div>';
 		    } ?>
 		    <?php if ($this->session->flashdata('error')) {
-		                  echo '<div class="error-box">' . $this->session->flashdata('error') . '</div>';
+		    	echo '<div class="error-box">' . $this->session->flashdata('error') . '</div>';
 		    } ?>
 		
 		    {$template.body}

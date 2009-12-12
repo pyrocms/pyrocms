@@ -5,15 +5,9 @@
     </div>
 
     <div class="width-half float-right">
-		<?php if(!empty($navigation['footer'])): 
-			$last_link = array_pop($navigation['footer']);
-			
-			foreach($navigation['footer'] as $nav_link): ?>
-				<?php echo anchor($nav_link->url, $nav_link->title); ?> | 
-			<?php endforeach;
-			
-			echo anchor($last_link->url, $last_link->title);
-		endif; ?>
+		<?php foreach(navigation('footer') as $nav_link): ?>
+			<?php echo anchor($nav_link->url, $nav_link->title); ?>&nbsp;
+		<?php endforeach; ?>
     </div>
     
 <?php // Google Tracker ?>

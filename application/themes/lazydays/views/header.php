@@ -1,6 +1,6 @@
 <div id="title">
 	<h1><?php echo $this->settings->item('site_name'); ?></h1>
-  <h2><?php echo $this->settings->item('site_slogan'); ?></h2>
+	<h2><?php echo $this->settings->item('site_slogan'); ?></h2>
 </div>
 
 <img src="<?php echo image_path('bg/balloons.gif', '_theme_') ?>" alt="balloons" class="balloons" />
