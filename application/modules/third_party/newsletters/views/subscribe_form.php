@@ -1,4 +1,4 @@
-<?php $this->lang->load('newsletter'); ?>
+<?php $this->lang->load('newsletters/newsletter'); ?>
 
 <h2><?php echo lang('letter_letter_title');?></h2>
 <p><?php echo lang('letter_subscripe_desc');?></p>
