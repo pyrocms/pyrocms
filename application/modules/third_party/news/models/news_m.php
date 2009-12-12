@@ -1,23 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class News_m extends Model {
-
-    function __construct() {
-        parent::Model();
-    }
-    
-    function check_title($title = '')
-    {
-        $this->db->select('COUNT(title) AS total');
-        $query = $this->db->get_where('news', array('slug'=>url_title($title)));
-        $row = $query->row();
-        if ($row->total == 0) {
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    }
-    
+class News_m extends MY_Model
+{
     function getArticle($id = 0, $status = 'live')
     {
     	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
@@ -94,7 +78,7 @@ class News_m extends Model {
         }
     }
 
-	function countArticles($params = array())
+	function count($params = array())
     {
     	$this->db->join('categories', 'news.category_id = categories.id', 'left');
     	
@@ -131,7 +115,7 @@ class News_m extends Model {
 		return $this->db->count_all_results('news');
     }
 
-    function newArticle($input = array())
+    function insert($input = array())
     {
     	$this->load->helper('date');
 
@@ -160,7 +144,7 @@ class News_m extends Model {
     	return $this->db->insert_id();
     }
     
-    function updateArticle($input, $id = 0)
+    function update($input, $id = 0)
     {
     	if(is_numeric($id))  $this->db->where('id', $id);
     	else  				 $this->db->where('slug', $id);
@@ -184,24 +168,16 @@ class News_m extends Model {
     	return $this->db->update('news', $set);
     }
     
-    function publishArticle($id = 0)
+    function publish($id = 0)
     {
     	$this->db->where('id', $id);
     	return $this->db->update('news', array('status' => 'live'));
     }
 
-	function deleteArticle($id = 0)
-	{
-    	if(is_numeric($id))  $this->db->where('id', $id);
-    	else  				 $this->db->where('slug', $id);
-    	
-        $this->db->delete('news');
-		return $this->db->affected_rows();
-    }
 
     // -- Archive ---------------------------------------------
     
-    function getArchiveMonths()
+    function get_archive_months()
     {
     	$this->load->helper('date');
     	
@@ -220,21 +196,11 @@ class News_m extends Model {
 		$this->db->order_by('t1.created_on DESC');
 		$query = $this->db->get('news t1');
 
-		if ($query->num_rows() == 0)
-    	{
-            return FALSE;
-        }
-        
-        else
-        {
-            return $query->result();
-        }
-    	
+		return $query->result();
     }
 
     // DIRTY frontend functions. Move to views
-    
-    function getNewsHome($params = array())
+    function get_news_fragment($params = array())
     {
     	$this->load->helper('date');
     	
@@ -252,6 +218,19 @@ class News_m extends Model {
             }
         }
         return $string ;
+    }
+
+
+    function check_title($title = '')
+    {
+        $this->db->select('COUNT(title) AS total');
+        $query = $this->db->get_where('news', array('slug'=>url_title($title)));
+        $row = $query->row();
+        if ($row->total == 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 }
 

@@ -22,7 +22,7 @@ class Categories_m extends MY_Model
 		return TRUE;
     }
     
-    
+    // Callbacks
     function check_title($title = '')
     {
 		return parent::count_by('slug', url_title($title)) === 0;
