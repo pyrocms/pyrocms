@@ -123,6 +123,34 @@ class MY_Model extends Model
 	}
 	
 	/**
+	 * Get limited records in the database
+	 *
+	 * @return array
+	 * @author Phil Sturgeon
+	 */
+	public function get_limited($limit, $offset = NULL)
+	{
+		if( is_numeric($offset) )
+    	{
+    		$this->db->limit($limit, $offset);
+    	}
+    	
+		if( is_array($limit) )
+    	{
+    		$this->db->limit( @$limit[0], @$limit[1] );
+    	}
+    	
+    	else
+    	{
+    		$this->db->limit($limit);
+    	}
+    	
+		return $this->db->get($this->table_name)
+			->result();
+	}
+	
+	
+	/**
 	 * Similar to get_by(), but returns a result array of
 	 * many result objects.
 	 *
@@ -200,10 +228,15 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Jamie Rumbelow
 	 */
-	public function update($primary_value, $array)
+	public function update($primary_value, $data, $modifiers = NULL)
 	{
+		if( $modifiers !== NULL)
+		{
+			$this->_run_modifiers($data, $modifiers);
+		}
+		
 		return $this->db->where($this->primary_key, $primary_value)
-			->set($array)
+			->set($data)
 			->update($this->table_name);
 	}
 	
@@ -216,10 +249,15 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Jamie Rumbelow
 	 */
-	public function update_by($key, $val, $array)
+	public function update_by($key, $val, $data, $modifiers = NULL)
 	{
+		if( $modifiers !== NULL)
+		{
+			$this->_run_modifiers($data, $modifiers);
+		}
+		
 		return $this->db->where($key, $val)
-			->set($array)
+			->set($data)
 			->update($this->table_name);
 	}
 	
@@ -232,10 +270,15 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Phil Sturgeon
 	 */
-	public function update_many($primary_values, $array)
+	public function update_many($primary_values, $data, $modifiers = NULL)
 	{
+		if( $modifiers !== NULL)
+		{
+			$this->_run_modifiers($data, $modifiers);
+		}
+		
 		return $this->db->where_in($this->primary_key, $primary_values)
-			->set($array)
+			->set($data)
 			->update($this->table_name);
 	}
 	
@@ -248,8 +291,13 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Jamie Rumbelow
 	 */
-	public function update_many_by($where, $data)
+	public function update_many_by($where, $data, $modifiers = NULL)
 	{
+		if( $modifiers !== NULL)
+		{
+			$this->_run_modifiers($data, $modifiers);
+		}
+		
 		return $this->db->where($where)
 			->set($data)
 			->update($this->table_name);
@@ -359,13 +407,13 @@ class MY_Model extends Model
 			$this->table_name = plural(strtolower($class));
 		}
 	}
-	
+
 	
 	/**
 	 * Sets where depending on the number of parameters
 	 *
 	 * @return void
-	 * @author Jamie Rumbelow
+	 * @author Phil Sturgeon
 	 */
 	private function _set_where($params)
 	{
@@ -379,4 +427,68 @@ class MY_Model extends Model
 			$this->db->where($params[0], $params[1]);
 		}
 	}
+	
+	
+	/**
+	 * Run modifiers
+	 * Process a bunch of rules similar to validation, to control what fields should be used
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 */
+	private function _run_modifiers(&$array, $modifiers)
+	{
+		$fields = array();
+		$rules = array();
+		
+		foreach( $modifiers as $key => $val )
+		{
+			// There is only a value (ie fieldname) meaning this field is allowed but nothing else is to be done
+			if(is_int($key))
+			{
+				$fields[] = $val;
+			}
+			
+			// Rules are set, but they are a string
+			elseif( is_string($key) && is_string($val))
+			{
+				$fields[] = $key;
+				$rules[$key] = explode('|', $val);
+			}
+			
+			// Rules are set, but they are a string
+			elseif( is_string($key) && is_array($val))
+			{
+				$fields[] = $key;
+				$rules[$key] = $val;
+			}
+		}
+		
+		foreach( $array as $field => &$value )
+		{
+			// Not meant to be in here
+			if( !in_array($field, $fields) )
+			{
+				unset($array[$field]);
+				continue;
+			}
+			
+			// Meant to be in here, but needs rules running
+			if( isset($rules[$field]) )
+			{
+				foreach($rules[$field] as $rule)
+				{
+					// function doesnt exist, do nothing
+					if( !function_exists($rule) )
+					{
+						continue;
+					}
+					
+					$value = call_user_func($rule, $value);
+				}
+			}
+		}
+		
+	}
+	
 }

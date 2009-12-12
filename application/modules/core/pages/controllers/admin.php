@@ -38,9 +38,9 @@ class Admin extends Admin_Controller
 		}
 		
 		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
-		if (count($pages))
+		if (!empty($pages))
 		{
-			foreach($pages as $page)
+			foreach($pages as &$page)
 			{
 				$page->has_children = $this->pages_m->has_children($page->id);
 			}

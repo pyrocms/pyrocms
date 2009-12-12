@@ -36,7 +36,7 @@ class Admin extends Admin_Controller
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
 		$this->data->categories = array();
-		if($categories = $this->categories_m->get_many())
+		if($categories = $this->categories_m->get_all())
 		{
 			foreach($categories as $category)
 			{

@@ -36,7 +36,7 @@ class News extends Public_Controller
 		if(!$slug) redirect('news');
 		
 		// Get category data
-		$category = $this->categories_m->get($slug);
+		$category = $this->categories_m->get_by('slug', $slug);
 		
 		if(!$category) show_404();
 		
@@ -52,7 +52,7 @@ class News extends Public_Controller
 		$meta = $this->_articles_metadata($this->data->news);
 		
 		// Build the page
-		$this->template->title( lang('news_news_title').' | '.$category->title )		
+		$this->template->title( lang('news_news_title'), $category->title )		
 			->set_metadata('description', $category->title.'. '.$meta['description'] )
 			->set_metadata('keywords', $category->title )
 			->set_breadcrumb( lang('news_news_title'), 'news')
