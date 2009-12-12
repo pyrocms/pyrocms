@@ -22,7 +22,7 @@ class Public_Controller extends MY_Controller
 	    // Set the theme view folder
 	    $this->template->set_theme($this->settings->item('default_theme'));
 	    
-	    $this->template->set_layout('layouts/default');
+	    $this->template->set_layout('layout');
 	    
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
@@ -38,7 +38,6 @@ class Public_Controller extends MY_Controller
 	    {
 	    	$this->output->enable_profiler(TRUE);
 	    }
-	    
 	    
 	    $this->benchmark->mark('public_controller_end');
 	}
