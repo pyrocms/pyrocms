@@ -14,13 +14,13 @@ class News extends Public_Controller
 		$this->lang->load('news');
 		
 		// All pages within news will display an archive list
-		$this->data->archive_months = $this->news_m->getArchiveMonths();        
+		$this->data->archive_months = $this->news_m->get_archive_months();        
 	}
 	
 	// news/page/x also routes here
 	function index()
 	{	
-		$this->data->pagination = create_pagination('news/page', $this->news_m->countArticles(), $this->limit, 3);	
+		$this->data->pagination = create_pagination('news/page', $this->news_m->count(), $this->limit, 3);	
 		$this->data->news = $this->news_m->getNews(array('limit' => $this->data->pagination['limit']));	
 		
 		// Set meta description based on article titles
@@ -43,7 +43,7 @@ class News extends Public_Controller
 		$this->data->category =& $category;
 		
 		// Count total news articles and work out how many pages exist
-		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->countArticles(array('category'=>$slug)), $this->limit, 4);
+		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count(array('category'=>$slug)), $this->limit, 4);
 		
 		// Get the current page of news articles
 		$this->data->news = $this->news_m->getNews(array('category'=>$slug, 'limit' => $this->data->pagination['limit']));
@@ -64,7 +64,7 @@ class News extends Public_Controller
 	{	
 		if(!$year) $year = date('Y');		
 		$month_date = new DateTime($year.'-'.$month.'-01');
-		$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->countArticles(array('year'=>$year,'month'=>$month)), $this->limit, 5);
+		$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->count(array('year'=>$year,'month'=>$month)), $this->limit, 5);
 		$this->data->news = $this->news_m->getNews(array('year'=> $year,'month'=> $month, 'limit' => $this->data->pagination['limit']));
 		$this->data->month_year = $month_date->format("F 'y");
 		

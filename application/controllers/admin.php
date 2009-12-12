@@ -35,7 +35,7 @@ class Admin extends Admin_Controller
 		$this->data->total_pages			= $this->pages_m->count();
 		
 		// Count the news articles
-		$this->data->live_articles			= $this->news_m->countArticles(array('status' => 'live'));
+		$this->data->live_articles			= $this->news_m->count_by('status', 'live');
 		
 		// Count users
 		$this->data->total_users			= $this->users_m->count(array('is_active' => 1));

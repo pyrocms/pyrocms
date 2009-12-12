@@ -49,7 +49,7 @@ class Admin extends Admin_Controller
 	function index()
 	{
 		// Create pagination links
-		$total_rows = $this->news_m->countArticles(array('show_future'=>TRUE, 'status' => 'all'));
+		$total_rows = $this->news_m->count(array('show_future'=>TRUE, 'status' => 'all'));
 		$this->data->pagination = create_pagination('admin/news/index', $total_rows);
 		
 		// Using this data, get the relevant results
@@ -79,7 +79,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if ($this->news_m->newArticle($_POST))
+			if ($this->news_m->insert($_POST))
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
 			
@@ -116,7 +116,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if ($this->news_m->updateArticle($_POST, $id))
+			if ($this->news_m->update($_POST, $id))
 			{
 				$this->session->set_flashdata(array('success'=> sprintf($this->lang->line('news_edit_success'), $this->input->post('title'))));
 				
@@ -187,7 +187,7 @@ class Admin extends Admin_Controller
 				// Get the current page so we can grab the id too
 				if($article = $this->news_m->getArticle($id, 'all') )
 				{
-					$this->news_m->publishArticle($id);
+					$this->news_m->publish($id);
 					
 					// Wipe cache for this model, the content has changed
 					$this->cache->delete('news_m');				
@@ -233,7 +233,7 @@ class Admin extends Admin_Controller
 				// Get the current page so we can grab the id too
 				if($article = $this->news_m->getArticle($id, 'all') )
 				{
-					$this->news_m->deleteArticle($id);
+					$this->news_m->delete($id);
 					
 					// Wipe cache for this model, the content has changed
 					$this->cache->delete('news_m');				

@@ -31,7 +31,7 @@
 			{if module_exists('news')}
 			<div id="recent-posts">
 				<h2>Recent Posts</h2>
-				<?php echo $this->news_m->getNewsHome(); ?>
+				<?php echo $this->news_m->get_news_fragment(); ?>
 			</div>
 			{/if}
 	
