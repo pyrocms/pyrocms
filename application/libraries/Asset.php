@@ -261,17 +261,21 @@ class Asset
 			$asset_location = $base_location;
 		
 			// Its in a module, ignore the current 
-			if($module_name) {
-				
-				if(is_dir(APPPATH.'modules/core/'.$module_name))
-				{	
-					$asset_location .= 'modules/core/'.$module_name.'/';
-				}
-				else
+			if($module_name)
+			{
+				foreach( array_keys(Modules::$locations) as $path)
 				{
-					$asset_location .= 'modules/third_party/'.$module_name.'/';
+					if(is_dir($path . $module_name))
+					{	
+						$asset_location .= str_replace(APPPATH, '', $path).$module_name.'/';
+						break;
+					}
 				}
-			} else {
+				
+			}
+			
+			else
+			{
 				$asset_location .= 'assets/';
 			}
 			
