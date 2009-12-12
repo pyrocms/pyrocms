@@ -22,9 +22,18 @@ TRUNCATE `pages`;
 
 -- command split --
 
+INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
+(1, 'Default', '<h2>{$page.title}</h2>\n\n\n{$page.body}', '', 1260615149);
+
+-- command split --
+
+TRUNCATE `pages`;
+
+-- command split --
+
 INSERT INTO `pages` VALUES
   ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN',1,'','','','','1219336535');
-	
+
 -- command split --
 
 TRUNCATE `permission_roles`;
