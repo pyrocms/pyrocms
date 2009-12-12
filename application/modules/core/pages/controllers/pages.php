@@ -44,15 +44,19 @@ class Pages extends Public_Controller
         	$page->meta_title = $this->viewing_homepage ? $this->settings->item('site_slogan') : $page->title;
         }
         
-        // Define data elements
-        $this->data->page =& $page;
-        
     	// If the GET variable isbasic exists, do not use a wrapper
 	    $page->layout = $this->page_layouts_m->get($page->layout_id);
+	    
+        // Parser does not need ALL information for this bit, and I hate the Dwoo object syntax
+        $page_array = array('page' => (array) $page);
         
 	    // Parse the layout string and output
-	    $page->layout->body = $this->parser->string_parse(stripslashes($page->layout->body), $this->data, TRUE);
-        
+	    $page->layout->body = $this->parser->string_parse(stripslashes($page->layout->body), $page_array, TRUE);
+	    
+	    // Define data elements
+        $this->data->page =& $page;
+        $this->data->page->layout = $page->layout;
+	    
         // Create page output
 	    $this->template->title( $page->meta_title )
 	    
