@@ -14,6 +14,8 @@ v0.9.8
 * Full support for PHP 5.3
 * Standardized much of the model code, and removed deprecated CodeIgniter ActiveRecord methods like getwhere().
 * Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.
+* Enabled profile on local installaitons, but wont exist on Dev, QA or live.
+* Settings library now loads all settings on instantiation, instead of one query-per-setting.
 
 v0.9.7.3
 --------
