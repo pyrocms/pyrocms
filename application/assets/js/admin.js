@@ -67,6 +67,7 @@ function css_editor(id, width)
 				}
 			}
 			
+			// CTRL + Click table select
 			$('tbody td', table).click(function(e) {
 				if(e.ctrlKey || e.metaKey)
 				{
@@ -77,6 +78,7 @@ function css_editor(id, width)
 				}
 			});
 			
+			// Checkbox ticking
 			$('tbody td input[type="checkbox"]', table).change(function() {
 				row = $(this).parent('td').parent('tr');
 				checkbox = $(this);
@@ -84,7 +86,7 @@ function css_editor(id, width)
 				toggleRowChecked(row, checkbox);
 			});
 			
-			// Select All checkboxes
+			// "Check All" checkboxes
 			$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
 				
 				if( $(this).attr('checked') == true )

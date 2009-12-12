@@ -7,14 +7,13 @@ $lang['page_meta_label'] 						= 'Meta data';
 
 // labels
 $lang['page_page_label'] 						= 'Page';
-$lang['page_parent_label'] 						= 'Parent';
 $lang['page_language_label'] 					= 'Language';
 $lang['page_updated_label'] 					= 'Updated';
 $lang['page_actions_label'] 					= 'Actions';
 $lang['page_unknown_label'] 					= 'Unknown';
 $lang['page_title_label'] 						= 'Title';
-$lang['page_url_label'] 						= 'URL';
-$lang['page_parent_page_label'] 				= 'Parent page';
+$lang['page_slug_label'] 						= 'URL';
+$lang['page_body_label'] 						= 'Page body';
 $lang['page_no_selection_label'] 				= '-- None --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';

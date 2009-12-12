@@ -8,7 +8,7 @@ class Admin extends Admin_Controller
 	    'slug'				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body'				=> 'trim|required',
 	    'layout_id'			=> 'trim|numeric|required',
-	    'css'				=> 'trim|required',
+	    'css'				=> 'trim',
 	    'meta_title'		=> 'trim|max_length[255]',
 	    'meta_keywords'		=> 'trim|max_length[255]',
 	    'meta_description'	=> 'trim',
@@ -93,7 +93,16 @@ class Admin extends Admin_Controller
 	{
 		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
-		$this->validation->set_fields();
+		
+		// Get the data back to the form
+	    foreach(array_keys($this->rules) as $field)
+	    {
+			$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
+			
+			$fields[$field] = lang('page_' . $field . '_label');
+	    }
+	    
+		$this->validation->set_fields($fields);
 	
 		// Validate the page
 		if ($this->validation->run())
@@ -111,11 +120,6 @@ class Admin extends Admin_Controller
 			redirect('admin/pages/index');
 	    }
 		
-		// Get the data back to the form
-	    foreach(array_keys($this->rules) as $field)
-	    {
-			$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
-	    }
 
 	    // If a parent id was passed, fetch the parent details
 	    if($parent_id > 0)
@@ -194,7 +198,7 @@ class Admin extends Admin_Controller
 	    $this->data->page =& $page;
 	    $this->data->parent_page =& $parent_page;
 	    
-		$page_layouts = $this->page_layouts_m->get_many();
+		$page_layouts = $this->page_layouts_m->get_all();
 		$this->data->page_layouts = array_for_select($page_layouts, 'id', 'title');	
 	    
 		// Get "roles" (like access levels)

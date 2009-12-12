@@ -1,6 +1,6 @@
 <?php echo form_open('admin/pages/layouts/delete');?>
 
-<p class="float-right">[ <?php echo anchor('admin/pages/layouts/create', lang('page_layout_create_label')) ?> ]</p>
+<p class="float-right">[ <?php echo anchor('admin/pages/layouts/create', lang('page_layouts.create_label')) ?> ]</p>
 
 <table border="0" class="listTable clear-both">		    
 	<thead>
@@ -25,15 +25,15 @@
 					<td><input type="checkbox" name="action_to[]" value="<?php echo $page_layout->id;?>" /></td>
 					<td><?php echo $page_layout->title;?></td>
 					<td>
-						<?php echo anchor('admin/pages/layouts/edit/' . $page_layout->id, lang('page_layout_edit_label'));?> | 
-						<?php echo anchor('admin/pages/layouts/delete/' . $page_layout->id, lang('page_layout_delete_label'), array('class'=>'confirm'));?>
+						<?php echo anchor('admin/pages/layouts/edit/' . $page_layout->id, lang('page_layouts.edit_label'));?> | 
+						<?php echo anchor('admin/pages/layouts/delete/' . $page_layout->id, lang('page_layouts.delete_label'), array('class'=>'confirm'));?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
 					
 			<?php else:?>
 				<tr>
-					<td colspan="3"><?php echo lang('page_layout_no_pages');?></td>
+					<td colspan="3"><?php echo lang('page_layouts.no_pages');?></td>
 				</tr>
 			<?php endif; ?>		
 		</tbody>

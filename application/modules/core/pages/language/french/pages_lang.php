@@ -7,14 +7,13 @@ $lang['page_meta_label'] 						= 'Méta données';
 
 // labels
 $lang['page_page_label'] 						= 'Page';
-$lang['page_parent_label'] 						= 'Parent';
 $lang['page_language_label'] 					= 'Langue';
 $lang['page_updated_label'] 					= 'Mis à jour';
 $lang['page_actions_label'] 					= 'Actions';
 $lang['page_unknown_label'] 					= 'Inconnu';
 $lang['page_title_label'] 						= 'Titre';
-$lang['page_url_label'] 						= 'URL';
-$lang['page_parent_page_label'] 				= 'Page Parente';
+$lang['page_slug_label'] 						= 'URL';
+$lang['page_body_label'] 						= 'Page body'; #translate
 $lang['page_no_selection_label'] 				= '-- Aucune --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
@@ -28,6 +27,7 @@ $lang['page_view_label'] 						= 'Visualiser';
 $lang['page_create_label'] 						= 'Ajouter enfant';
 $lang['page_edit_label'] 						= 'Modifier';
 $lang['page_delete_label'] 						= 'Supprimer';
+$lang['page_layouts_label'] 					= 'Page Layouts'; #translate
 
 // titles
 $lang['page_create_title'] 						= 'Créer un page';
