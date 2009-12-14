@@ -11,15 +11,9 @@
 	</div>
 	
 	<ul id="menu">
-<<<<<<< Updated upstream:application/themes/advertising/views/layout.php
-		<?php foreach(navigation('header') as $nav_link): ?>
-		<li><?php echo anchor($nav_link->url, $nav_link->title); ?></li>
-		<?php endforeach; ?>
-=======
 		{foreach navigation('header') link}
 		<li>{anchor( $link->url, $link->title, array('target' => $link->target))}</li>
 		{/foreach}
->>>>>>> Stashed changes:application/themes/advertising/views/layout.php
 	</ul>
 	
 	<div id="content">
@@ -27,10 +21,6 @@
 		<div id="left-column" class="sidebar">
 			
 			<div id="navigation">
-<<<<<<< Updated upstream:application/themes/advertising/views/layout.php
-				{theme_view('menu')}
-=======
-			
 				<h2>{lang('navigation_headline')}</h2>
 				
 				<ul class="spacer-left-dbl">
@@ -39,7 +29,6 @@
 					{/foreach}
 				</ul>
 				
->>>>>>> Stashed changes:application/themes/advertising/views/layout.php
 			</div>
 			
 			<?php if(module_exists('newsletters')): ?>
@@ -61,11 +50,7 @@
 		<div id="right-column">
 		
 			<div class="breadcrumbs">
-<<<<<<< Updated upstream:application/themes/advertising/views/layout.php
-				<?php $this->load->view($theme_view_folder.'breadcrumbs'); ?>
-=======
 				{theme_view('breadcrumbs')}
->>>>>>> Stashed changes:application/themes/advertising/views/layout.php
 			</div>
 		
 			<?php if ($this->session->flashdata('notice')) {
