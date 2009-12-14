@@ -139,8 +139,13 @@
 			// Update the "Details" panel
 			$('div#page-details').load(BASE_URI + 'admin/pages/ajax_page_details/' + page_id);
 			
-			
 			return false;
+		});
+		
+		
+		$(".filetree").sortable({
+			connectWith: 'ul',
+			handle: 'span'
 		});
 
 	});

@@ -60,6 +60,11 @@ class Admin extends Admin_Controller
 			'limit' => $this->data->pagination['limit']
 		));
 		
+		foreach( $this->data->news as &$article )
+		{
+			$article->comment_count = 1;
+		}
+		
 		$this->template->build('admin/index', $this->data);
 	}
 	

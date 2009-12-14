@@ -1,7 +1,7 @@
 <p>
-	<?php foreach(navigation('footer') as $nav_link): ?>
-		<span class="link"><?php echo anchor($nav_link->url, $nav_link->title); ?></span>
-	<?php endforeach; ?>
+	{foreach navigation('footer') link}
+		<span class="link">{anchor( $link->url, $link->title, array('target' => $link->target))}</span>
+	{/foreach}
 
 	<br />
 	

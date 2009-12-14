@@ -8,12 +8,20 @@
 				<th class="width-10"><a href="#"><?php echo lang('news_category_label');?></a></th>
 				<th class="width-10"><a href="#"><?php echo lang('news_date_label');?></a></th>
 				<th class="width-5"><a href="#"><?php echo lang('news_status_label');?></a></th>
+<<<<<<< Updated upstream:application/modules/third_party/news/views/admin/index.php
+=======
+				<th class="width-5"><a href="#"><?php echo lang('news_comment_label');?></a></th>
+>>>>>>> Stashed changes:application/modules/third_party/news/views/admin/index.php
 				<th class="width-10"><span><?php echo lang('news_actions_label');?></span></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
+<<<<<<< Updated upstream:application/modules/third_party/news/views/admin/index.php
 				<td colspan="6">
+=======
+				<td colspan="7">
+>>>>>>> Stashed changes:application/modules/third_party/news/views/admin/index.php
 					<div class="inner"><?php $this->load->view('admin/fragments/pagination'); ?></div>
 				</td>
 			</tr>
@@ -27,6 +35,10 @@
 						<td><?php echo $article->category_title;?></td>
 						<td><?php echo date('M d, Y', $article->created_on);?></td>
 						<td><?php echo ucfirst($article->status);?></td>
+<<<<<<< Updated upstream:application/modules/third_party/news/views/admin/index.php
+=======
+						<td><?php echo anchor('admin/comments/index/news/' . $article->id, $article->comment_count, 'rel="modal"' );?></td>
+>>>>>>> Stashed changes:application/modules/third_party/news/views/admin/index.php
 						<td>
 							<?php if( $article->status == 'live' ): ?>
 								<?php echo anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, lang('news_view_label'), 'target="_blank"') . ' | '; ?>
