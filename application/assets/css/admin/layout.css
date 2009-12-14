@@ -1274,3 +1274,13 @@ div.border,div.colborder {
 .content caption,.content form div {
 	padding-bottom: 10px;
 }
+
+
+/**************************************/
+/*            BASIC LAYOUT            */
+/**************************************/
+
+body.basic {
+	background-color: #fff;
+	color: #000;
+}
