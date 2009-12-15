@@ -57,7 +57,6 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'mpga'	=>	'audio/mpeg',
 				'mp2'	=>	'audio/mpeg',
 				'mp3'	=>	array('audio/mpeg', 'audio/mpg'),
-				'flv'   =>	array('video/flv', 'video/x-flv', 'flv-application/octet-stream', 'application/octet-stream'),
 				'aif'	=>	'audio/x-aiff',
 				'aiff'	=>	'audio/x-aiff',
 				'aifc'	=>	'audio/x-aiff',
@@ -97,7 +96,7 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'word'	=>	array('application/msword', 'application/octet-stream'),
 				'xl'	=>	'application/excel',
 				'eml'	=>	'message/rfc822',
-				'flv' => 'application/octet-stream'
+				'flv'   =>	array('video/flv', 'video/x-flv', 'flv-application/octet-stream', 'application/octet-stream')
 			);
 
 
