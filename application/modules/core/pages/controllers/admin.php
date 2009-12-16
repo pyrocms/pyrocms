@@ -11,7 +11,7 @@ class Admin extends Admin_Controller
 	    'css'				=> 'trim',
 	    'meta_title'		=> 'trim|max_length[255]',
 	    'meta_keywords'		=> 'trim|max_length[255]',
-	    'meta_description'	=> 'trim',
+	    'meta_description'	=> 'trim'
 	   // 'access_level'		=> 'trim|alphadash|required'
 	);
 	
@@ -180,7 +180,13 @@ class Admin extends Admin_Controller
 	    {
 			// Run the update code with the POST data	
 			$this->pages_m->update($id, $_POST);			
-				
+			
+			// The slug has changed
+			if($this->input->post('slug') != $this->input->post('old_slug'))
+			{
+				$this->pages_m->reindex_descendants($id);
+			}
+			
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('pages_m');			
 			$this->session->set_flashdata('success', sprintf($this->lang->line('pages_edit_success'), $this->input->post('title')));
