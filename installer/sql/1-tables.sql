@@ -202,9 +202,9 @@ CREATE TABLE `pages` (
  `meta_description` text collate utf8_unicode_ci NOT NULL,
  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
  PRIMARY KEY  (`id`),
+ UNIQUE KEY `Unique` (`slug`,`parent_id`),
  KEY `slug` (`slug`),
  KEY `parent` (`parent_id`),
- KEY `Unique` (`slug`,`parent_id`,`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
 -- command split --

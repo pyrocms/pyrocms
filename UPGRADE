@@ -4,11 +4,16 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimize or totally remove downtime during upgrade.
 
-09/12/09 - v0.9.7.3 to v0.9.7.4-dev
------------------------------------
+09/12/09 - v0.9.7.3 to v0.9.8
+-----------------------------
 
-Replace old files with new files.
+1. Replace old files with new files.
 
+2. Run the following SQL commands: 
+	
+	ALTER TABLE pages DROP INDEX `Unique`; 
+	ALTER TABLE pages DROP INDEX `Language Unique`; 
+	ALTER TABLE pages ADD UNIQUE `Unique` ( `slug` , `parent_id` );
 
 09/12/09 - v0.9.7.2 to v0.9.7.3
 -------------------------------
