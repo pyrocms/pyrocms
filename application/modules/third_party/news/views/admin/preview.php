@@ -1,16 +1,5 @@
-<h2 class="spacer-top-none"><?php echo $article->title; ?></h2>
-<p>
-	<strong><?php echo lang('news_posted_label');?>:</strong> <?php echo date('M d, Y', $article->created_on); ?><br/>		
-	<?php if($article->category_slug): ?>
-		<strong><?php echo lang('news_category_label');?>:</strong> <?php echo anchor('news/category/'.$article->category_slug, $article->category_title);?>
-	<?php endif; ?>
-</p>
-<hr/>
+<h1><?php echo $article->title; ?></h1>
 
-<?php if ($article->attachment): ?>
-	<img src="/uploads/news/<?php echo $article->slug;?>/<?php echo $article->attachment;?>" class="left">
-<?php endif; ?>
+<p><?php echo anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, NULL, 'target="_blank"'); ?></p>
 
-<p><em><?php echo $article->intro;?></em></p>
-
-<?php echo stripslashes($article->body);?> 
+<iframe src="<?php echo site_url('news/' .date('Y/m', $article->created_on) .'/'. $article->slug); ?>" width="100%" height="515"></iframe>

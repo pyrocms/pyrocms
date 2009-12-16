@@ -5,7 +5,7 @@
 body {
 	color: #333;
 	font-family: Verdana, Arial, Geneva, sans-serif;
-	font-size:50%;
+	font-size:70%;
 }
 
 a {
@@ -21,10 +21,10 @@ a:hover {
 /*             HEADINGS               */
 /**************************************/
 h1 {
-	font-size: 2em;
+	font-size: 1.7em;
 	margin: 0.2em 0;
 }
 
 h2 {
-	font-size: 1.7em;
+	font-size: 1.5em;
 }

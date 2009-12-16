@@ -155,8 +155,9 @@ class Admin extends Admin_Controller
 	
 	function preview($id = 0)
 	{		
-		$this->data->article = $this->news_m->getArticle($id, 'all');    	
-		$this->template->set_layout(FALSE);
+		$this->data->article = $this->news_m->getArticle($id, 'all');
+		
+		$this->template->set_layout('admin/basic_layout');
 		$this->template->build('admin/preview', $this->data);
 	}
 	
