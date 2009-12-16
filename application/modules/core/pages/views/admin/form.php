@@ -34,11 +34,10 @@
 				<?php endif; ?>
 				
 				<?php if($this->uri->segment(3,'') == 'edit'): ?>
-					<?php echo form_hidden('slug', $page->slug); ?>
-					<?php echo form_input('', $page->slug, 'maxlength="60" size="20" class="width-10" disabled="disabled"'); ?>
-				<?php else: ?>
-					<?php echo form_input('slug', $page->slug, 'maxlength="60" size="20" class="width-10"'); ?>
+					<?php echo form_hidden('old_slug', $page->slug); ?>
 				<?php endif; ?>
+				
+				<?php echo form_input('slug', $page->slug, 'maxlength="60" size="20" class="width-10"'); ?>
 				
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				<?php echo $this->config->item('url_suffix'); ?>

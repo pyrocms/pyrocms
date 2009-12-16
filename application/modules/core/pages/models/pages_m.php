@@ -135,8 +135,27 @@ class Pages_m extends MY_Model
 	
 	function delete_lookup($id)
 	{
-    	$this->db->where('id', $id);
+    	if( is_array($id) )
+    	{
+    		$this->db->where_in('id', $id);
+    	}
+		
+    	else
+    	{
+    		$this->db->where('id', $id);
+    	}
+    	
 		return $this->db->delete('pages_lookup');
+	}
+	
+	function reindex_descendants($id)
+	{
+		$descendants = $this->get_descendant_ids($id);
+		$this->delete_lookup($descendants);
+		foreach($descendants as $descendant)
+		{
+			$this->build_lookup($descendant);
+		}
 	}
 	
 	// ----- CRUD --------------------
