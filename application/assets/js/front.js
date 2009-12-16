@@ -2,11 +2,11 @@
 {
 	$(function() {
 
-		/* Facebox modal window */
-		$('a[rel*=modal]').facebox({
-		   opacity : 0.4,
-		   loadingImage : APPPATH_URI + 'assets/img/facebox/loading.gif',
-		   closeImage   : APPPATH_URI + 'assets/img/facebox/closelabel.gif'
+		/* Fancybox modal window */
+		$('a[rel*=modal]').fancybox({
+			overlayOpacity: 0.8,
+			overlayColor: '#000',
+			hideOnContentClick: false
 		});
 	   
 	   	// ---------------------------------------------------------

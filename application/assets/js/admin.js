@@ -206,15 +206,17 @@ function css_editor(id, width)
 			}
 		});
 		
-		// Facebox modal window
-		$('a[rel*=modal], a.modal').livequery(function() {
-			$(this).facebox({
-				opacity : 0.4,
-				loadingImage : APPPATH_URI + "assets/img/facebox/loading.gif",
-				closeImage   : APPPATH_URI + "assets/img/facebox/closelabel.gif"
-			 });
+		// Fancybox modal window
+		$('a[rel=modal], a.modal').livequery(function() {
+			$(this).fancybox({
+				overlayOpacity: 0.8,
+				overlayColor: '#000',
+				hideOnContentClick: false
+			});
 		});
-		// End Facebox modal window
+		
+		// End Fancybox modal window
 
 	});
+	
 })(jQuery);

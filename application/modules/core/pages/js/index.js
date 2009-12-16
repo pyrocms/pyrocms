@@ -147,7 +147,17 @@
 			connectWith: 'ul',
 			handle: 'span'
 		});*/
-
+		
+		// Preview window
+		$('a[rel="preview-modal"]').livequery(function() {
+			$(this).fancybox({
+				overlayOpacity: 0.8,
+				overlayColor: '#000',
+				hideOnContentClick: false,
+				frameWidth: 900,
+				frameHeight: 600
+			});
+		});
 	});
   
 })(jQuery);

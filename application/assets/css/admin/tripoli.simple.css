@@ -9,7 +9,7 @@
 **
 _______________________________
 RESET */
-*{text-decoration:none;font-size:1em;outline:none;margin:0;padding:0}code,kbd,samp,pre,tt,var,textarea,input,select,isindex,listing,xmp,plaintext{font:inherit;white-space:normal}a,img,a img,iframe,form,abbr,acronym,object,applet,table,a abbr,a acronym{border-width:0}dfn,i,cite,var,address,em{font-style:normal}th,b,strong,h1,h2,h3,h4,h5,h6,dt{font-weight:400}caption,th,td{text-align:left}html{background:#FFF;color:#000;line-height:1;font-family:arial, sans-serif}ul,ol,dir,menu{list-style:none}sub,sup{vertical-align:baseline}a{color:inherit}/*
+*{text-decoration:none;outline:none;margin:0;padding:0}code,kbd,samp,pre,tt,var,textarea,input,select,isindex,listing,xmp,plaintext{font:inherit;white-space:normal}a,img,a img,iframe,form,abbr,acronym,object,applet,table,a abbr,a acronym{border-width:0}dfn,i,cite,var,address,em{font-style:normal}th,b,strong,h1,h2,h3,h4,h5,h6,dt{font-weight:400}caption,th,td{text-align:left}html{background:#FFF;color:#000;line-height:1;font-family:arial, sans-serif}ul,ol,dir,menu{list-style:none}sub,sup{vertical-align:baseline}a{color:inherit}/*
 _______________________________
 DISABLE DEPRECATED HTML */
 font,basefont{color:inherit;font:inherit;font-size:100%}center,*[align]{text-align:inherit}s,strike,u{text-decoration:inherit}img{border:none;margin:0}ol{list-style-type:decimal}body{background-color:transparent}tr,th,td{width:auto;height:auto;background-color:transparent;vertical-align:inherit;border:none}table[border]{border-collapse:separate;border-spacing:0}nobr{white-space:normal}marquee{overflow:visible;}blink{text-decoration:none}/*

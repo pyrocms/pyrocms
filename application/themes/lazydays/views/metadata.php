@@ -13,9 +13,9 @@
 {css('layout.css', '_theme_')}
 	
 {js('jquery/jquery.js')}
-{js('facebox.js')}
-{css('facebox.css')}
-		
+{js('jquery/jquery.fancybox.js')}
+{css('jquery/jquery.fancybox.css')}
+
 {js('front.js')}
 		
 {$template.metadata}

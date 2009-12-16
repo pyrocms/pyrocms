@@ -89,6 +89,15 @@ class Admin extends Admin_Controller
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
     
+	function preview($id = 0)
+	{		
+		$data->page = $this->pages_m->get($id);
+		$data->page->path = $this->pages_m->get_path_by_id($id);
+		
+		$this->template->set_layout('admin/basic_layout');
+		$this->template->build('admin/preview', $data);
+	}
+	
 	// Admin: Create a new Page
 	function create($parent_id = 0)
 	{
