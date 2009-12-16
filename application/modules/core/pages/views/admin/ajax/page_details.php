@@ -9,7 +9,7 @@
 		ID: #<?php echo $page->id; ?>
 	</p>
 	<p>
-		<?php echo lang('page_url_label');?>: <?php echo anchor(!empty($page->path) ? $page->path : $page->slug, NULL, 'target="_blank"'); ?>
+		<?php echo lang('page_slug_label');?>: <?php echo anchor(!empty($page->path) ? $page->path : $page->slug, NULL, 'target="_blank"'); ?>
 	</p>
 </fieldset>
 
