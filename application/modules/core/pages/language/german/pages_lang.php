@@ -23,6 +23,10 @@ $lang['page_layout_id_label'] 					= 'Page Layout'; #translate
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Zugang';
 
+$lang['page_status_label'] 						= 'Status';
+$lang['page_draft_label'] 						= 'Entwurf';
+$lang['page_live_label'] 						= 'Live';
+
 $lang['page_view_label'] 						= 'Ansicht';
 $lang['page_create_label'] 						= 'Unterobjekt hinzufügen';//there is no german word for 'child'
 $lang['page_edit_label'] 						= 'Bearbeiten';

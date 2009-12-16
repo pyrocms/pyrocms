@@ -23,6 +23,10 @@ $lang['page_layout_id_label'] 					= 'Page Layout'; #translate
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Acceder';
 
+$lang['page_status_label'] 						= 'Estado';
+$lang['page_draft_label'] 						= 'Borrador';
+$lang['page_live_label'] 						= 'En vivo';
+
 $lang['page_view_label'] 						= 'Ver';
 $lang['page_create_label'] 						= 'Añadir página hija';
 $lang['page_edit_label'] 						= 'Editar';

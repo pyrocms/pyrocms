@@ -172,13 +172,12 @@ class Pages_m extends MY_Model
         	'title' 		=> $input['title'],
         	'body' 			=> $input['body'],
         	'parent_id'		=> $input['parent_id'],
-        	'lang' 			=> $this->config->item('default_language'),
             'layout_id'		=> $input['layout_id'],
             'css'			=> $input['css'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
+        	'status' 		=> $input['status'],
         	'meta_description' => $input['meta_description'],
-        
         	'updated_on'	=> now()
         ));
         
@@ -201,13 +200,12 @@ class Pages_m extends MY_Model
 	        'slug' 			=> $input['slug'],
 	        'body' 			=> $input['body'],
 	        'parent_id'		=> $input['parent_id'],
-        	'lang' 			=> $this->config->item('default_language'),
             'layout_id'		=> $input['layout_id'],
             'css'			=> $input['css'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
-        
+        	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
     }

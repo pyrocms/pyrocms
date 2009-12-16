@@ -12,8 +12,14 @@ minimize or totally remove downtime during upgrade.
 2. Run the following SQL commands: 
 	
 	ALTER TABLE pages DROP INDEX `Unique`; 
-	ALTER TABLE pages DROP INDEX `Language Unique`; 
-	ALTER TABLE pages ADD UNIQUE `Unique` ( `slug` , `parent_id` );
+	ALTER TABLE pages DROP INDEX `Language Unique`;
+	
+	ALTER TABLE pages
+		ADD UNIQUE `Unique` ( `slug` , `parent_id` ),
+		ADD `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft' AFTER `meta_description`,
+		DROP `lang`;
+	
+	UPDATE pages SET status = 'live';
 
 09/12/09 - v0.9.7.2 to v0.9.7.3
 -------------------------------

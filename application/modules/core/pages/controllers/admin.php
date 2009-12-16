@@ -11,7 +11,8 @@ class Admin extends Admin_Controller
 	    'css'				=> 'trim',
 	    'meta_title'		=> 'trim|max_length[255]',
 	    'meta_keywords'		=> 'trim|max_length[255]',
-	    'meta_description'	=> 'trim'
+	    'meta_description'	=> 'trim',
+		'status'			=> 'trim|alpha|required'
 	   // 'access_level'		=> 'trim|alphadash|required'
 	);
 	

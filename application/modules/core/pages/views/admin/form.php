@@ -42,7 +42,12 @@
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				<?php echo $this->config->item('url_suffix'); ?>
 			</div>
-					
+			
+			<div class="field">
+				<label for="category_id"><?php echo lang('page_status_label');?></label>
+				<?php echo form_dropdown('status', array('draft'=>lang('page_draft_label'), 'live'=>lang('page_live_label')), $page->status) ?>	
+			</div>
+			
 			<div class="field spacer-left">
 				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 			</div>

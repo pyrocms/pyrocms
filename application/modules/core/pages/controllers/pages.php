@@ -38,6 +38,15 @@ class Pages extends Public_Controller
         	show_404();
         }
         
+        if($page->status == 'draft')
+        {
+        	// Admins should be able to see previews
+        	if( !$this->user_lib->check_role('admin') )
+        	{
+        		show_404();
+        	}
+        }
+        
         // Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if($page->meta_title == '')
         {

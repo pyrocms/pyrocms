@@ -23,6 +23,10 @@ $lang['page_layout_id_label'] 					= 'Page Layout'; #translate
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Accèss';
 
+$lang['page_status_label'] 						= 'Statut';
+$lang['page_draft_label'] 						= 'Brouillon';
+$lang['page_live_label'] 						= 'Live';
+
 $lang['page_view_label'] 						= 'Visualiser';
 $lang['page_create_label'] 						= 'Ajouter enfant';
 $lang['page_edit_label'] 						= 'Modifier';
