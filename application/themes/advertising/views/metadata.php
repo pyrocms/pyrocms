@@ -1,5 +1,5 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title><?php echo $page_title;?> | <?php echo $this->settings->item('site_name'); ?></title>
+<title>{$template.title} | <?php echo $this->settings->item('site_name'); ?></title>
 
 <!-- Language: <?php echo CURRENT_LANGUAGE ?> -->
 
@@ -8,11 +8,14 @@
     var BASE_URI = "<?php echo BASE_URI;?>";
 </script>
 
-<?php echo css('style.css').css('layout.css', '_theme_');?>
+{css('style.css')}
+{css('layout.css', '_theme_')}
 
-<?php echo js('jquery/jquery.js'); ?>
-<?php echo js('facebox.js').css('facebox.css');?>
+{js('jquery/jquery.js')}
 
-<?php echo js('front.js'); ?>
+{js('jquery/jquery.fancybox.js')}
+{css('jquery/jquery.fancybox.css')}
 
-<?php echo $extra_head_content; ?>
+{js('front.js')}
+
+{$template.metadata}

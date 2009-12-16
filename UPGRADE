@@ -20,6 +20,10 @@ minimize or totally remove downtime during upgrade.
 		DROP `lang`;
 	
 	UPDATE pages SET status = 'live';
+	
+3. Run the following terminal command:
+
+	sudo rm -rf application/cache/pages_m/
 
 09/12/09 - v0.9.7.2 to v0.9.7.3
 -------------------------------

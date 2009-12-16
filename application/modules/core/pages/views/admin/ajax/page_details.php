@@ -9,7 +9,10 @@
 		ID: #<?php echo $page->id; ?>
 	</p>
 	<p>
-		<?php echo lang('page_slug_label');?>: <?php echo anchor(!empty($page->path) ? $page->path : $page->slug, NULL, 'target="_blank"'); ?>
+		<?php echo lang('page_slug_label');?>: 
+		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="preview-modal" target="_blank">
+			/<?php echo !empty($page->path) ? $page->path : $page->slug; ?>
+		</a>
 	</p>
 </fieldset>
 

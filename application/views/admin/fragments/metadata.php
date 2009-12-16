@@ -22,9 +22,9 @@
 <?php echo js('jquery/jquery.history.fixed.js'); ?>
 <?php echo js('jquery/jquery.metadata.min.js'); ?>
 
-<?php echo js('facebox.js').css('facebox.css'); ?>
+<?php echo js('jquery/jquery.fancybox.js').css('jquery/jquery.fancybox.css'); ?>
 	
-<?php echo $extra_head_content; ?>        
+<?php echo $template['metadata']; ?>        
 <?php echo js('admin.js').css('admin/admin.css');?>
 
 <?php echo css('admin/orange.css'); ?>    
