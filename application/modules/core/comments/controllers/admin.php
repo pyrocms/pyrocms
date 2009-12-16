@@ -11,7 +11,7 @@ class Admin extends Admin_Controller
 	}
 	
 	// Admin: List all comments
-	public function index($module, $id)
+	public function index()
 	{
 		$this->load->helper('text');
 		
@@ -22,8 +22,6 @@ class Admin extends Admin_Controller
 		// get all comments
 		$this->data->comments = $this->comments_m->get_comments(array(
 			'is_active' => 0,
-			'module' => $module,
-			'module_id' => $id,
 		
 			'limit' => $this->data->pagination['limit']			
 		));
