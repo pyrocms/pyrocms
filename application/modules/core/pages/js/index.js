@@ -143,10 +143,10 @@
 		});
 		
 		
-		$(".filetree").sortable({
+		/*$(".filetree").sortable({
 			connectWith: 'ul',
 			handle: 'span'
-		});
+		});*/
 
 	});
   
