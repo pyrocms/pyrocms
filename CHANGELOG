@@ -16,6 +16,10 @@ v0.9.8
 * Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.
 * Enabled profile on local installaitons, but wont exist on Dev, QA or live.
 * Settings library now loads all settings on instantiation, instead of one query-per-setting.
+* Added "Preview" windows for pages and news, much more accurate than before.
+* Draft/Live status added for pages, admins can see pages anyway.
+* Swapped Facebox for Fancybox. Mainly iframe support, but it seems generally better.
+* Re-enabled page slug editing
 
 v0.9.7.3
 --------
