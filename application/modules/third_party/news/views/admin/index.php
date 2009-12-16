@@ -22,13 +22,13 @@
 		<?php if (!empty($news)): ?>
 				<?php foreach ($news as $article): ?>
 					<tr>
-						<td><?php form_checkbox('action_to[]', $article->id);?></td>
+						<td><?php echo form_checkbox('action_to[]', $article->id);?></td>
 						<td><?php echo $article->title;?></td>
 						<td><?php echo $article->category_title;?></td>
 						<td><?php echo date('M d, Y', $article->created_on);?></td>
 						<td><?php echo ucfirst($article->status);?></td>
 						<td>
-							<?php echo anchor('admin/news/preview/' . $article->id, lang($article->status == 'live' ? 'news_view_label' : 'news_preview_label'), 'rel="modal" target="_blank"') . ' | '; ?>
+							<?php echo anchor('admin/news/preview/' . $article->id, lang($article->status == 'live' ? 'news_view_label' : 'news_preview_label'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
 							<?php echo anchor('admin/news/edit/' . $article->id, lang('news_edit_label'));?> | 
 							<?php echo anchor('admin/news/delete/' . $article->id, lang('news_delete_label'), array('class'=>'confirm')); ?>
 						</td>

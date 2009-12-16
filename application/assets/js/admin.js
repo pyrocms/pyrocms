@@ -215,6 +215,15 @@ function css_editor(id, width)
 			});
 		});
 		
+		$('a[rel="modal-large"], a.modal-large').livequery(function() {
+			$(this).fancybox({
+				overlayOpacity: 0.8,
+				overlayColor: '#000',
+				hideOnContentClick: false,
+				frameWidth: 900,
+				frameHeight: 600
+			});
+		});
 		// End Fancybox modal window
 
 	});
