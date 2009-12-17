@@ -92,8 +92,8 @@ class Admin extends Admin_Controller
         }
         
         // Get controllers and methods arrays for selected values to populate ajax boxes
-        $this->data->controllers_select = array('*' => $this->lang->line('perm_controller_select_default')) + array_for_select($this->modules_m->getControllers($this->validation->module));
-        $this->data->methods_select = array('*' => $this->lang->line('perm_method_select_default')) + array_for_select($this->modules_m->getMethods($this->validation->module, $this->validation->controller));
+        $this->data->controllers_select = array('*' => $this->lang->line('perm_controller_select_default')) + array_for_select($this->modules_m->get_module_controllers($this->validation->module));
+        $this->data->methods_select = array('*' => $this->lang->line('perm_method_select_default')) + array_for_select($this->modules_m->get_module_controller_methods($this->validation->module, $this->validation->controller));
         $this->template->build('admin/rules/form', $this->data);
     }
     
@@ -143,8 +143,8 @@ class Admin extends Admin_Controller
         }
         
         // Get controllers and methods arrays for selected values to populate ajax boxes
-        $this->data->controllers_select = array('*' => $this->lang->line('perm_controller_select_default')) + array_for_select($this->modules_m->getControllers($this->data->permission_rule->module));
-        $this->data->methods_select = array('*' => $this->lang->line('perm_method_select_default')) + array_for_select($this->modules_m->getMethods($this->data->permission_rule->module, $this->data->permission_rule->controller));
+        $this->data->controllers_select = array('*' => $this->lang->line('perm_controller_select_default')) + array_for_select($this->modules_m->get_module_controllers($this->data->permission_rule->module));
+        $this->data->methods_select = array('*' => $this->lang->line('perm_method_select_default')) + array_for_select($this->modules_m->get_module_controller_methods($this->data->permission_rule->module, $this->data->permission_rule->controller));
         
         $this->template->build('admin/rules/form', $this->data);
     }
@@ -177,13 +177,13 @@ class Admin extends Admin_Controller
     // AJAX Callbacks
     function module_controllers($module = '')
     {
-        $controllers = $this->modules_m->getControllers($module);
+        $controllers = $this->modules_m->get_module_controllers($module);
         exit(json_encode($controllers));
     }
     
     function controller_methods($module = '', $controller = 'admin')
     {
-        $methods = $this->modules_m->getMethods($module, $controller);
+        $methods = $this->modules_m->get_module_controller_methods($module, $controller);
         exit(json_encode($methods));
     }
 }

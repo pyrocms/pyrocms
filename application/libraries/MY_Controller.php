@@ -37,7 +37,7 @@ class MY_Controller extends Controller
         $this->method 				= $this->router->fetch_method();
 		
 		// Get meta data for the module
-        $this->module_data 			= $this->modules_m->getModule($this->module);
+        $this->module_data 			= $this->modules_m->get($this->module);
         
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;

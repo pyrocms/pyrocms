@@ -8,13 +8,13 @@ class Modules_m extends Model {
     }
     
     // Return an object containing module data
-    function getModule($module = '')
+    function get($module = '')
     {
     	foreach (module_directories() as $directory)
     	{
 			if(file_exists($xml_file = $directory.$module.'/details.xml'))
 			{
-				return $this->_formatXML($xml_file);
+				return $this->_format_xml($xml_file);
 			}
 		}
     }
@@ -26,7 +26,7 @@ class Modules_m extends Model {
     	{
 			if(file_exists($xml_file = $directory.$module.'/details.xml'))
 			{
-				return $this->_formatToolbarXML($xml_file);
+				return $this->_format_toolbar_xml($xml_file);
 			}
 		}
     }
@@ -44,7 +44,7 @@ class Modules_m extends Model {
 	        {
 	        	if(file_exists($xml_file = $module_name.'/details.xml'))
 	        	{
-	        		$module = $this->_formatXML($xml_file) + array('slug'=>basename($module_name));
+	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
 		        	// Ignore modules of the incorrect type
 		        	if(!empty($params['type']) && $module['type'] != $params['type']) continue;
@@ -74,7 +74,7 @@ class Modules_m extends Model {
     }
     
     
-    function getControllers($module = '')
+    function get_module_controllers($module = '')
     {
     	$controllers = array();
     	
@@ -89,23 +89,18 @@ class Modules_m extends Model {
     	}
 
         return $controllers;
-        /*
-    	$module = $this->getModule($module);
-    	
-		return !empty($module['controllers']) ? $module['controllers'] : array();    	
-    	*/
     }
     
     
-    function getMethods($module, $controller)
+    function get_module_controller_methods($module, $controller)
     {
-    	$module = $this->getModule($module);
+    	$module = $this->get($module);
     	
 		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();    	
     }
     
     
-    function _formatXML($xml_file)
+    private function _format_xml($xml_file)
     {
     	$xml = simplexml_load_file($xml_file);
     	
@@ -147,7 +142,7 @@ class Modules_m extends Model {
     	);
     }
     
-    function _formatToolbarXML($xml_file)
+    private function _format_toolbar_xml($xml_file)
     {
     	$toolbar = array(
     		'new_item' => array(),
