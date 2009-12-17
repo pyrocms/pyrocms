@@ -43,7 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 
 // Local: localhost or local.example.com
-if(strpos($_SERVER['SERVER_NAME'], 'local') !== FALSE)
+if(strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE || $_SERVER['SERVER_NAME'] == 'localhost')
 {
   define('ENV', 'local');
 }
@@ -123,7 +123,7 @@ define('CMS_VERSION', '0.9.8-dev');
 |
 */
 
-define('CMS_DATE','09/12/2009');
+define('CMS_DATE','17/12/2009');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

@@ -49,21 +49,16 @@ class Admin extends Admin_Controller
 	function index()
 	{
 		// Create pagination links
-		$total_rows = $this->news_m->count(array('show_future'=>TRUE, 'status' => 'all'));
+		$total_rows = $this->news_m->count_by(array('show_future'=>TRUE, 'status' => 'all'));
 		$this->data->pagination = create_pagination('admin/news/index', $total_rows);
 		
 		// Using this data, get the relevant results
-		$this->data->news = $this->news_m->getNews(array(
+		$this->data->news = $this->news_m->get_many_by(array(
 			'show_future'=>TRUE,
 			'status' => 'all',
 			'order'	=> 'created_on DESC, status',
 			'limit' => $this->data->pagination['limit']
 		));
-		
-		foreach( $this->data->news as &$article )
-		{
-			$article->comment_count = 1;
-		}
 		
 		$this->template->build('admin/index', $this->data);
 	}
@@ -117,7 +112,7 @@ class Admin extends Admin_Controller
 		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
 		$this->validation->set_fields();		
-		$article = $this->news_m->getArticle($id, 'all');
+		$article = $this->news_m->get($id);
 		
 		if ($this->validation->run())
 		{
@@ -155,7 +150,7 @@ class Admin extends Admin_Controller
 	
 	function preview($id = 0)
 	{		
-		$this->data->article = $this->news_m->getArticle($id, 'all');
+		$this->data->article = $this->news_m->get($id);
 		
 		$this->template->set_layout('admin/basic_layout');
 		$this->template->build('admin/preview', $this->data);
@@ -191,7 +186,7 @@ class Admin extends Admin_Controller
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if($article = $this->news_m->getArticle($id, 'all') )
+				if($article = $this->news_m->get($id) )
 				{
 					$this->news_m->publish($id);
 					
@@ -237,7 +232,7 @@ class Admin extends Admin_Controller
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if($article = $this->news_m->getArticle($id, 'all') )
+				if($article = $this->news_m->get($id) )
 				{
 					$this->news_m->delete($id);
 					

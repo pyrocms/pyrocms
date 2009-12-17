@@ -2,28 +2,7 @@
 
 class News_m extends MY_Model
 {
-    function getArticle($id = 0, $status = 'live')
-    {
-    	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
-       	$this->db->join('categories', 'news.category_id = categories.id', 'left');
-    	
-    	if(is_numeric($id))  $this->db->where('news.id', $id);
-    	else  				 $this->db->where('news.slug', $id);
-    	
-    	if($status != 'all')
-    	{
-    		$this->db->where('status', $status);
-    	}
-    	
-    	$query = $this->db->get('news');
-        if ($query->num_rows() == 0) {
-            return FALSE;
-        } else {
-            return $query->row();
-        }
-    }
-    
-    function getNews($params = array())
+    function get_many_by($params = array())
     {
     	$this->load->helper('date');
         
@@ -78,7 +57,7 @@ class News_m extends MY_Model
         }
     }
 
-	function count($params = array())
+	function count_by($params = array())
     {
     	$this->db->join('categories', 'news.category_id = categories.id', 'left');
     	

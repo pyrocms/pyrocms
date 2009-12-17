@@ -1,7 +1,7 @@
 <h2><?php echo $title; ?></h2>
 <ul>
-	<?php if($this->news_m->getNews(array('limit' => $limit,'year' => $year))): ?>
-	<?php foreach ($this->news_m->getNews(array('limit' => $limit,'year' => $archive)) as $news): ?>
+	<?php if($this->news_m->get_many_by(array('limit' => $limit,'year' => $year))): ?>
+	<?php foreach ($this->news_m->get_many_by(array('limit' => $limit,'year' => $archive)) as $news): ?>
 	<li>
 		<h3><?php echo anchor('news/' . date('Y/m') . '/'. strtolower($news->slug), $news->title); ?></h3>
 		<p class="article_info">Posted in category : <?php echo anchor('news/category/'.$news->category_slug, $news->category_title);?></p>
