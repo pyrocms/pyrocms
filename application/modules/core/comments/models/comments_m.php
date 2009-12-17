@@ -94,7 +94,7 @@ class Comments_m extends MY_Model
    		}
   	}
 	
-	public function getModule($id)
+	public function get($id)
 	{
 		$comment = $this->getComment($id);
 		return $comment->module;
