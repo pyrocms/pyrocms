@@ -5,8 +5,7 @@ $lang['cp_breadcrumb_home_title']		= 'Admin';
 // header
 $lang['cp_to_home'] 					= 'Ir al inicio del Panel de Control';
 $lang['cp_view_frontend'] 				= 'Ver sitio web';
-$lang['cp_logged_in_as'] 				= 'Estás logueado como %s.';
-$lang['cp_logout'] 						= '%s, o %s';
+$lang['cp_logged_in_welcome'] 			= 'Hello %s';
 $lang['cp_logout_label'] 				= 'logout';
 $lang['cp_edit_profile_label'] 			= 'Editar perfil';
 

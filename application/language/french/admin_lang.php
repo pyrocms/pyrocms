@@ -5,8 +5,7 @@ $lang['cp_breadcrumb_home_title'] 		= 'Administration';
 // header
 $lang['cp_to_home'] 					= 'Retour à l\'index de l\'Ecran de Contrôle';
 $lang['cp_view_frontend'] 				= 'Visualiser le Site';
-$lang['cp_logged_in_as'] 				= 'Vous êtes connecté en tant que %s.';
-$lang['cp_logout'] 						= '%s, ou %s';
+$lang['cp_logged_in_welcome'] 			= 'Hello %s'; #translate
 $lang['cp_logout_label'] 				= 'déconnexion';
 $lang['cp_edit_profile_label'] 			= 'Mise à jour du Profil';
 

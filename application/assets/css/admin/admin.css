@@ -1,5 +1,4 @@
-@import 'tripoli.simple.css';
-
+@import 'reset.css';
 @import 'layout.css';
 
 @import '../boxes.css';
@@ -9,11 +8,6 @@
 
 .default-input-text {
 	color:#AAAAAA;
-}
-
-code {
-	display:block;
-	white-space:pre;
 }
 
 .CodeMirror-line-numbers {

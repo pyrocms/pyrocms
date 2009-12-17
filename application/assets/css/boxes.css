@@ -11,7 +11,10 @@
 	margin: 0 0 0.79em 0;
 	text-align:left;
 }
-.box h3, .box h4, .box h5, .box h6 {
+.box h3 {
+	font-size: 1.5em;
+}
+.box h4 {
 	font-size: 1.3em;
 }
 
