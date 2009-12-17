@@ -3,67 +3,61 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title><?php echo $template['title'];?> | <?php echo $this->settings->item('site_name'); ?></title>
-		<meta http-equiv="Pragma" content="no-cache" />        
-
-	    <?php $this->load->view('admin/fragments/metadata'); ?>
+		<?php $this->load->view('admin/fragments/metadata'); ?>
 	</head>
+
 	<body>
 	
-		<!-- Header -->
-		<div id="header">
-			<?php $this->load->view('admin/fragments/header'); ?>
-		</div>
-		<!-- /Header -->
+		<div id="container">
+
+			<div id="header">
+				<?php $this->load->view('admin/fragments/header'); ?>
+			</div>
 		
-		<!-- Content -->
-		<div id="page-content">
-			<div class="container content">
+			<div id="content">
+				<!-- div id="content-top">
+					<h2>Dashboard</h2>
+					<span class="clearFix">&nbsp;</span>
+				</div-->
 			
-				<!-- Sidebar -->
-				<div id="sidebar" class="bImg">
-					<?php $this->load->view('admin/fragments/sidebar'); ?>
-				</div>
-		
-				<div id="content">
-		
-					<?php $this->load->view('admin/fragments/inner_header') ?>
-					
-					<!-- Inner Content -->
-					<div id="innerContent">
-					
-						<!-- <div id="confirm" class="hidden">
-							<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
-							<div class='confirm-header'><span><?php echo lang('dialog_confirm');?></span></div>
-							<div class="confirm-message"></div>
-							<div class='confirm-buttons'>
-								<div class='no simplemodal-close'><?php echo lang('dialog_no');?></div><div class='yes'><?php echo lang('dialog_yes');?></div>
-							</div>
-					    	<div class="clear-both bBottom"><div></div></div>
-						</div> -->
-    
-						<?php // Breadcrumbs disabled as the URL based logic is fundamentally flawed, especially for multi-lingual
-						//=$this->load->view('admin/fragments/breadcrumbs') ?>
-
-						<?php $this->load->view('admin/result_messages') ?>
-					
-						<?php echo $template['body']; ?>
-					</div>
-					
-					<div class="bBottom">
-						<div></div>
-					</div>
-
-				</div>
+				<div id="mid-col" class="full-col"><!-- end of div.box -->
 				
+					<?php $this->load->view('admin/result_messages') ?>
+				
+					<?php echo $template['body']; ?>
+				
+				</div><!-- end of div#mid-col -->
+				
+				<div id="right-col">
+					<div class="box">
+						<h3 class="yellow">Side Menu</h3>
+					
+						<div class="box-container"><!-- use no-padding wherever you need element padding gone -->
+							<ul class="list-links">
+								<li><a href="#">Manage Filters</a></li>
+								<li><a href="#">Setup a New Site</a>
+										<ul>
+									<li><a href="#">Configure Paths</a></li>
+									<li><a href="#">Define Database Name</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Manage Site Accounts</a></li>
+							</ul>
+						</div><!--end of div.box-container -->
+					</div><!-- end of div.box -->
+				</div> <!-- end of div#left-col -->
+				
+				<span class="clearFix">&nbsp;</span>
+					 
+			</div><!-- end of div#content -->
+			<div class="push"></div>
+			</div><!-- end of #container -->
+		
+		<div id="footer-wrap">
+			<div id="footer">
+			 	<?php echo $this->load->view('admin/fragments/footer'); ?>
 			</div>
 		</div>
-		<!-- /Content -->
-		
-		<!-- Footer -->
-		<div id="footer">
-			<?php $this->load->view('admin/fragments/footer'); ?>
-		</div>
-		<!-- /Footer -->
-		
+	
 	</body>
 </html>

@@ -26,5 +26,3 @@
 	
 <?php echo $template['metadata']; ?>        
 <?php echo js('admin.js').css('admin/admin.css');?>
-
-<?php echo css('admin/orange.css'); ?>    
