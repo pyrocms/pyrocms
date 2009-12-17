@@ -1,7 +1,7 @@
 <h2><?php echo $article->title; ?></h2>
 
-<?php if($article->category_slug): ?>
-	<p><?php echo lang('news_posted_label'); ?> <?php echo anchor('news/category/'.$article->category_slug, $article->category_title); ?> <?php echo lang('news_date_at'); ?> <?php echo date('M d, Y', $article->created_on); ?></p>
+<?php if($article->category->slug): ?>
+	<p><?php echo lang('news_posted_label'); ?> <?php echo anchor('news/category/'.$article->category->slug, $article->category->title); ?> <?php echo lang('news_date_at'); ?> <?php echo date('M d, Y', $article->created_on); ?></p>
 <?php else: ?>
 	<p><?php echo lang('news_posted_label_alt'); ?> <?php echo date('M d, Y', $article->created_on); ?></p>
 <?php endif; ?>

@@ -20,8 +20,8 @@ class News extends Public_Controller
 	// news/page/x also routes here
 	function index()
 	{	
-		$this->data->pagination = create_pagination('news/page', $this->news_m->count(), $this->limit, 3);	
-		$this->data->news = $this->news_m->getNews(array('limit' => $this->data->pagination['limit']));	
+		$this->data->pagination = create_pagination('news/page', $this->news_m->count_all(), $this->limit, 3);	
+		$this->data->news = $this->news_m->get_many_by(array('limit' => $this->data->pagination['limit']));	
 		
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
@@ -43,10 +43,10 @@ class News extends Public_Controller
 		$this->data->category =& $category;
 		
 		// Count total news articles and work out how many pages exist
-		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count(array('category'=>$slug)), $this->limit, 4);
+		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count_by(array('category'=>$slug)), $this->limit, 4);
 		
 		// Get the current page of news articles
-		$this->data->news = $this->news_m->getNews(array('category'=>$slug, 'limit' => $this->data->pagination['limit']));
+		$this->data->news = $this->news_m->get_many_by(array('category'=>$slug, 'limit' => $this->data->pagination['limit']));
 		
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
@@ -64,8 +64,8 @@ class News extends Public_Controller
 	{	
 		if(!$year) $year = date('Y');		
 		$month_date = new DateTime($year.'-'.$month.'-01');
-		$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->count(array('year'=>$year,'month'=>$month)), $this->limit, 5);
-		$this->data->news = $this->news_m->getNews(array('year'=> $year,'month'=> $month, 'limit' => $this->data->pagination['limit']));
+		$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->count_by(array('year'=>$year,'month'=>$month)), $this->limit, 5);
+		$this->data->news = $this->news_m->get_many_by(array('year'=> $year,'month'=> $month, 'limit' => $this->data->pagination['limit']));
 		$this->data->month_year = $month_date->format("F 'y");
 		
 		// Set meta description based on article titles
@@ -82,15 +82,29 @@ class News extends Public_Controller
 	// Public: View an article
 	function view($slug = '')
 	{	
-		if (!$slug or !$article = $this->news_m->getArticle($slug, 'live'))
+		if (!$slug or !$article = $this->news_m->get_by('slug', $slug))
 		{
-			redirect('news/index');
+			redirect('news');
 		}
 		
-		/*if($article->status != 'live' && !$this->user_lib->check_role('admin'))
+		if($article->status != 'live' && !$this->user_lib->check_role('admin'))
 		{
-		exit('hidden, HA!!');
-		}*/
+			redirect('news');
+		}
+		
+		// IF this article uses a category, grab it
+		if($article->category_id > 0)
+		{
+			$article->category = $this->categories_m->get( $article->category_id );
+		}
+		
+		// Set some defaults
+		else
+		{
+			$article->category->id = 0;
+			$article->category->slug = '';
+			$article->category->title = '';
+		}
 		
 		$this->session->set_flashdata(array('referrer'=>$this->uri->uri_string));	
 		
@@ -98,12 +112,12 @@ class News extends Public_Controller
 		
 		$this->template->title($article->title, $this->lang->line('news_news_title'))
 			->set_metadata('description', $this->data->article->intro)
-			->set_metadata('keywords', $this->data->article->category_title.' '.$this->data->article->title)	
+			->set_metadata('keywords', $this->data->article->category->title.' '.$this->data->article->title)	
 			->set_breadcrumb($this->lang->line('news_news_title'), 'news');
 		
 		if($article->category_id > 0)
 		{
-			$this->template->set_breadcrumb($article->category_title, 'news/category/'.$article->category_slug);
+			$this->template->set_breadcrumb($article->category->title, 'news/category/'.$article->category->slug);
 		}
 		
 		$this->template->set_breadcrumb($article->title, 'news/'.date('Y/m', $article->created_on).'/'.$article->slug);
