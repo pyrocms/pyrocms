@@ -13,9 +13,6 @@ div.inner-nav a:hover, a.button:hover {color:#333;}
 div.inner-nav a span, a.button span {display:block; background:url(../../img/admin/bg-buttons-right.gif) no-repeat right; padding:0 15px 0 0; line-height:21px;}
 a.button {margin:0 10px;}
 
-.align-left {float:left;}
-.align-right {float:right;}
-
 /** text colors assigned to elements in various areas **/
 .yellow {color:#e8e4a2;}
 .light-blue {color:#a6b7c0;}
@@ -44,15 +41,15 @@ div#header {padding-top:20px;}
 	div#top {margin-bottom:18px;}
 	
 	/** menu **/
-	ul#menu {width:600px; float:left;}
+	ul#menu {float:left;}
 	ul#menu li {float:left; height:40px; position:relative}
 	ul#menu li a {color:#e0e0e0; text-decoration:none; padding:13px 15px 7px 15px; height:20px; display:inline-block; text-align:center; text-transform:uppercase; font-weight:bold;
 	background:url(../../img/admin/bg-topnav-mask.gif) no-repeat 0 0; position:relative;}
 	ul#menu li a:hover {color:#508db8; background:#fff; background:url(../../img/admin/bg-topnav-mask.gif) no-repeat top right;}
 	
-	ul#menu li a.top-level {position:relative; padding-right:25px;}
-	ul#menu li a.top-level span {background:url(../../img/admin/bg-toplevel.gif) no-repeat 0px 2px; width:11px; height:8px; display:block; position:absolute; right:10px; top:13px;}
-	ul#menu li a.top-level:hover span, .blue span {background-image:url(../../img/admin/bg-toplevel-hover.png) !important;}
+	ul#menu > li a {position:relative; padding-right:20px;}
+	ul#menu > li a span {background:url(../../img/admin/bg-toplevel.gif) no-repeat 0px 2px; width:11px; height:8px; display:block; position:absolute; right:5px; top:13px;}
+	ul#menu > li a:hover span, .blue span {background-image:url(../../img/admin/bg-toplevel-hover.png) !important;}
 	
 		ul#menu li ul {position:absolute; top:40px; min-width:200px !important; left:0px; z-index:999; background:#fff; visibility:hidden; display:none;
 		padding-bottom:10px; border:2px solid #ccc; border-left:none; border-top:none; border-right-width:1px; padding-top:5px; -moz-border-radius-bottomleft:5px;
@@ -176,15 +173,15 @@ div#content {padding-top:25px;}
 	a.heading-link:hover {color:#fff;}
 
 	/* tables */
-	table.table-short {width:500px; 	margin:-5px 0 0 -5px; border-collapse:collapse;	}
-	table.table-long {width:740px; margin-left:-10px}
-	table.table-short td, table.table-long td {border-top:1px solid #dfdfdf; font-size:0.9em; 	padding:10px 0; margin:0; color:#666;}
-	table.table-short thead td, table.table-long thead td {font-weight:bold;}
-	table.table-short thead td, table.table-short tfoot td, table.table-long thead td, table.table-long tfoot td {border:none;}
-	table.table-short td:first-child, table.table-long td:first-child {text-align:left; padding:0 0 0 10px;}
-	table.table-short tfoot, table.table-long tfoot {border-top:1px solid #ccc;}
+	table.table-list.short {width:500px; 	margin:-5px 0 0 -5px; border-collapse:collapse;	}
+	table.table-list.long {width:740px; margin-left:-10px}
+	table.table-list.short td, table.table-list.long td {border-top:1px solid #dfdfdf; font-size:0.9em; 	padding:10px 0; margin:0; color:#666;}
+	table.table-list.short thead th, table.table-list.long thead th {font-weight:bold;}
+	table.table-list.short thead th, table.table-list.short tfoot td, table.table-list.long thead th, table.table-list.long tfoot td {border:none;}
+	table.table-list.short td:first-child, table.table-list.long td:first-child, table.table-list.short th:first-child, table.table-list.long th:first-child {text-align:left; padding:0 0 0 10px;}
+	table.table-list.short tfoot, table.table-list.long tfoot {border-top:1px solid #ccc;}
 	
-	table.table-short tr.odd, table.table-long tr.odd {	background:url(../../img/admin/bg_tableRow.gif) repeat-x 0px 1px;	}
+	table.table-list.short tr:odd, table.table-list.long tr:odd {	background:url(../../img/admin/bg_tableRow.gif) repeat-x 0px 1px;	}
 	
 	td.col-chk {width:40px;}
 	td.col-first {font-weight:bold; width:200px;}
@@ -240,11 +237,10 @@ div#content {padding-top:25px;}
 	div#footer-top a {color:#adc3d3; font-weight:bold; font-size:0.9em; text-decoration:none;}
 	div#footer-top a:hover {color:#fff;}
 	
-	div#footer-top h2 {font-size:160%; text-transform:uppercase; padding-top:10px; padding-right:10px; font-weight:bold;}
-	div#footer-top h2 a {color:#a1a5a6;}
+	div#footer-top h2 {font-size:160%; font-weight:bold;}
+	div#footer-top h2 a {color:#a1a5a6; text-transform:uppercase;}
 	div#footer-top h2 a:hover {color:#c7cdcf;}
 	
-	div#footer-bottom {margin-top:25px;}
 	div#footer-bottom p {color:#717272; font-size:0.9em;}
 	div#footer-bottom p a {color:#ccc; text-decoration:none;}
 	

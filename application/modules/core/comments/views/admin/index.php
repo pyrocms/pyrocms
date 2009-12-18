@@ -14,7 +14,7 @@
     
 <?php echo form_open('admin/comments/action');?>
 	<?php echo form_hidden('redirect', $this->uri->uri_string()); ?> 
-	<table border="0" class="listTable clear-both">    
+	<table border="0" class="table-list clear-both">    
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox('action_to_all');?></th>

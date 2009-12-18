@@ -2,7 +2,7 @@
 	<strong>Below is a list of installed modules and their information, such as the description or version.</strong>
 </p>
 <h3 class="spacer-top"><a name="modules"><?php echo lang('mod_title');?></a></h3>
-<table class="listTable">
+<table class="table-list">
 	<thead>
 		<tr>
 			<th></th>

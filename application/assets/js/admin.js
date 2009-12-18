@@ -26,7 +26,7 @@ function css_editor(id, width)
 	$(function() {
 	
 		// Sort any tables with a class of 'sortable'
-		$('table.listTable').livequery(function() {
+		$('table.table-list').livequery(function() {
 			
 			var table = this;
 			
@@ -150,27 +150,10 @@ function css_editor(id, width)
 	
 		
 		/* Admin left navigation dropdowns */
-		/* TODO: PS - This functioanlity is being overritten when AJAXify is bound to the click event. */
-		$("#side-nav li:not(.active)").find("ul").hide();
-		$("#side-nav .button").click(function(){
-			$("#side-nav ul").hide();
-			
-			li = $(this).parent('li');
-			
-			if(li.hasClass("active"))
-			{
-				 li.removeClass("active").addClass("inactive").find(".expand").addClass("expanded");
-		         li.siblings().removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
-			}
-			
-			else
-			{
-				li.removeClass("inactive").addClass("active").find(".expand").addClass("expanded");
-				$(this).parent('li').siblings().removeClass("active").addClass("inactive").find(".expand").removeClass("expanded");
-				$(this).next("ul").show();
-				$(this).parent().removeClass("inactive").addClass("active");
-				$(this).find(".expand").addClass("expanded");
-			}
+		$("#menu > li:not(.settings) a").click(function(){
+			$(this).parent('li')
+				.addClass("selected")
+				.siblings().removeClass("selected")
 			
 			return false;
 		});

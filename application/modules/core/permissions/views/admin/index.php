@@ -9,7 +9,7 @@
 			[ <?php echo anchor('admin/permissions/roles/edit/'.$role->id, lang('perm_role_edit')); ?> | 
 			  <?php echo anchor('admin/permissions/roles/delete/'.$role->id, lang('perm_role_delete'), 'class="delete_role"'); ?> ]
 		</p>		
-		<table border="0" class="listTable clear-both spacer-bottom">		  
+		<table border="0" class="table-list clear-both spacer-bottom">		  
 		  <thead>
 				<tr>
 					<th><?php echo form_checkbox('action_to_all');?></th>

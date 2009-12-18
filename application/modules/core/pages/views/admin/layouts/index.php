@@ -2,7 +2,7 @@
 
 <p class="float-right">[ <?php echo anchor('admin/pages/layouts/create', lang('page_layouts.create_label')) ?> ]</p>
 
-<table border="0" class="listTable clear-both">		    
+<table border="0" class="table-list clear-both">		    
 	<thead>
 		<tr>
 			<th><?php echo form_checkbox('action_to_all');?></th>
