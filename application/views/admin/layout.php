@@ -30,6 +30,7 @@
 						<h3><?php echo $module_data['name']; ?></h3>
 						<div class="box-container">
 						<?php echo $template['body']; ?>
+						<br class="box-enclose" />
 						</div>
 					</div>
 					

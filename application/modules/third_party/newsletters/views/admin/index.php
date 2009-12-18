@@ -1,10 +1,10 @@
-<table border="0" class="table-list long">    
+<table border="0" class="table-list">    
   <thead>
 		<tr>
 			<th></th>
-			<th><a href="#"><?php echo lang('letter_subject_label');?></a></th>
-			<th><a href="#"><?php echo lang('letter_created_label');?></a></th>
-			<th><a href="#"><?php echo lang('letter_date_label');?></a></th>
+			<th><?php echo lang('letter_subject_label');?></th>
+			<th><?php echo lang('letter_created_label');?></th>
+			<th><?php echo lang('letter_date_label');?></th>
 			<th><span><?php echo lang('letter_actions_label');?></span></th>
 		</tr>
   </thead>

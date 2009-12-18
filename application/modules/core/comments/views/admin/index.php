@@ -26,10 +26,10 @@
 			<thead>
 				<tr>
 					<th><?php echo form_checkbox('action_to_all');?></th>
-					<th class="width-20"><a href="#"><?php echo lang('comment_teaser_label');?></a></th>
-					<th class="width-10"><a href="#"><?php echo lang('comment_author_label');?></a></th>
-					<th class="width-10"><a href="#"><?php echo lang('comment_date_label');?></a></th>
-					<th class="width-15"><span><?php echo lang('comment_actions_label');?></span></th>
+					<th class="width-20"><?php echo lang('comment_teaser_label');?></th>
+					<th class="width-10"><?php echo lang('comment_author_label');?></th>
+					<th class="width-10"><?php echo lang('comment_date_label');?></th>
+					<th class="width-15"><?php echo lang('comment_actions_label');?></th>
 				</tr>
 			</thead>
 			<tfoot>

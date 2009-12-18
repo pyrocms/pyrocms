@@ -2,13 +2,13 @@
 	<strong>Below is a list of installed modules and their information, such as the description or version.</strong>
 </p>
 <h3 class="spacer-top"><a name="modules"><?php echo lang('mod_title');?></a></h3>
-<table class="table-list long">
+<table class="table-list">
 	<thead>
 		<tr>
 			<th></th>
-			<th><a href="#"><?php echo lang('name_label');?></a></th>
+			<th><?php echo lang('name_label');?></th>
 			<th><span><?php echo lang('desc_label');?></span></th>
-			<th><a href="#"><?php echo lang('version_label');?></a></th>
+			<th><?php echo lang('version_label');?></th>
 		</tr>
 	</thead>	
 	<tbody>

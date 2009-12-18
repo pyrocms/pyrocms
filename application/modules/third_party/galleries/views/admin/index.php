@@ -1,11 +1,11 @@
 <?php echo form_open('admin/galleries/delete');?>		
-	<table border="0" class="table-list long">			
+	<table border="0" class="table-list">			
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox('action_to_all');?></th>
-				<th><a href="#"><?php echo lang('gal_album_label');?></a></th>
-				<th><a href="#"><?php echo lang('gal_number_of_photo_label');?></a></th>
-				<th><a href="#"><?php echo lang('gal_updated_label');?></a></th>
+				<th><?php echo lang('gal_album_label');?></th>
+				<th><?php echo lang('gal_number_of_photo_label');?></th>
+				<th><?php echo lang('gal_updated_label');?></th>
 				<th><span><?php echo lang('gal_actions_label');?></span></th>
 			</tr>
 		</thead>

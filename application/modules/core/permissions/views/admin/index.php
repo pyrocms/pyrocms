@@ -13,9 +13,9 @@
 		  <thead>
 				<tr>
 					<th><?php echo form_checkbox('action_to_all');?></th>
-					<th><a href="#"><?php echo lang('perm_module_label');?></a></th>
-					<th><a href="#"><?php echo lang('perm_controller_label');?></a></th>
-					<th><a href="#"><?php echo lang('perm_method_label');?></a></th>
+					<th><?php echo lang('perm_module_label');?></th>
+					<th><?php echo lang('perm_controller_label');?></th>
+					<th><?php echo lang('perm_method_label');?></th>
 					<th class="width-10"><span><?php echo lang('perm_action_label');?></span></th>
 				</tr>
 		  </thead>

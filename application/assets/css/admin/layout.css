@@ -172,15 +172,15 @@ div#content {padding-top:25px;}
 	a.heading-link:hover {color:#fff;}
 
 	/* tables */
-	table.table-list.short {width:500px; 	margin:-5px 0 0 -5px; border-collapse:collapse;	}
-	table.table-list.long {width:740px; margin-left:-10px}
-	table.table-list.short td, table.table-list.long td {border-top:1px solid #dfdfdf; font-size:0.9em; 	padding:10px 0; margin:0; color:#666;}
-	table.table-list.short thead th, table.table-list.long thead th {font-weight:bold;}
-	table.table-list.short thead th, table.table-list.short tfoot td, table.table-list.long thead th, table.table-list.long tfoot td {border:none;}
-	table.table-list.short td:first-child, table.table-list.long td:first-child, table.table-list.short th:first-child, table.table-list.long th:first-child {text-align:left; padding:0 0 0 10px;}
-	table.table-list.short tfoot, table.table-list.long tfoot {border-top:1px solid #ccc;}
+	table.table-list {width:740px; margin-left:-10px}
+	table.table-list.short {width:500px; margin:-5px 0 0 -5px; border-collapse:collapse; }
 	
-	table.table-list.short tr:odd, table.table-list.long tr:odd {	background:url(../../img/admin/bg_tableRow.gif) repeat-x 0px 1px;	}
+	table.table-list td {border-top:1px solid #dfdfdf; font-size:0.9em; 	padding:10px 0; margin:0; color:#666;}
+	table.table-list thead th {font-weight:bold;}
+	table.table-list thead th, table.table-list tfoot td {border:none;}
+	table.table-list td:first-child, table.table-list th:first-child {text-align:left; padding:0 0 0 10px;}
+	table.table-list tfoot {border-top:1px solid #ccc;}
+	table.table-list tr:odd { background:url(../../img/admin/bg_tableRow.gif) repeat-x 0px 1px; }
 	
 	td.col-chk {width:40px;}
 	td.col-first {font-weight:bold; width:200px;}
