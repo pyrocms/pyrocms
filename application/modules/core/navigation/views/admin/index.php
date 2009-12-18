@@ -10,7 +10,7 @@
 				<div class="box-container">
 					<p class="float-right">[ <?php echo anchor('admin/navigation/groups/delete/'.$group->id, sprintf(lang('nav_group_delete_label'), $group->title), 'class="delete_group"') ?> ]</p>		
 			
-					<table border="0" class="table-list long">		    
+					<table border="0" class="table-list">		    
 						<thead>
 							<tr>
 								<th><?php echo form_checkbox('action_to_all');?></th>

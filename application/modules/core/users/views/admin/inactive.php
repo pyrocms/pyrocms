@@ -9,10 +9,10 @@
 		<thead>
 			<tr>
 				<th><?php echo form_checkbox('action_to_all');?></th>
-				<th><a href="#"><?php echo lang('user_name_label');?></a></th>
-				<th><a href="#"><?php echo lang('user_email_label');?></a></th>
-				<th><a href="#"><?php echo lang('user_role_label');?></a></th>
-				<th><a href="#"><?php echo lang('user_joined_label');?></a></th>
+				<th><?php echo lang('user_name_label');?></th>
+				<th><?php echo lang('user_email_label');?></th>
+				<th><?php echo lang('user_role_label');?></th>
+				<th><?php echo lang('user_joined_label');?></th>
 				<th><span><?php echo lang('user_actions_label');?></span></th>
 			</tr>
 			</thead>

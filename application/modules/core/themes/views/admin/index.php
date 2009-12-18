@@ -1,9 +1,9 @@
 <?php echo form_open('admin/themes/delete');?>
-<table border="0" class="table-list long">
+<table border="0" class="table-list">
   <thead>
 	<tr>
 		<th><?php echo form_checkbox('action_to_all');?></th>
-		<th><a href="#"><?php echo lang('theme_theme_label');?></a></th>
+		<th><?php echo lang('theme_theme_label');?></th>
 		<th class="width-quater"><span><?php echo lang('theme_actions_label');?></span></th>
 	</tr>
   </thead>
