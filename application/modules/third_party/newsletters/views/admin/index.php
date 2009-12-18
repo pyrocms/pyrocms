@@ -1,4 +1,4 @@
-<table border="0" class="listTable">    
+<table border="0" class="table-list">    
   <thead>
 		<tr>
 			<th></th>

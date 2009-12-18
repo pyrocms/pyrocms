@@ -10,24 +10,32 @@
 </div>
 
 <ul id="menu">
-	<li class="selected"><a href="#">Dashboard</a></li>
-	<li>
-		<a class="top-level" href="#">Users <span>&nbsp;</span></a>
+
+	<li class="<?php echo empty($module) ? 'selected' : ''; ?> dashboard">
+		<?php echo anchor('admin', 'Dashboard');?>
+	</li>
+	
+	<?php foreach($admin_modules as $admin_module): ?>
+	<li class="<?php echo $admin_module['slug'] == $module ? 'selected' : ''; ?> <?php echo $admin_module['slug']; ?>">
+		<a href="<?php echo site_url('admin/'.$admin_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_breadcrumb_home_title');?> | <?php echo $admin_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
+			<?php echo $admin_module['name'];?> 
+		</a>
+	</li>
+	<?php endforeach; ?>
+	
+	<li class="<?php echo in_array($this->module, array('themes', 'modules', 'settings', 'permissions')) ? 'selected' : ''; ?> settings">
+		<a href="#">
+			<?php echo lang('cp_nav_settings') ?> <span>&nbsp;</span>
+		</a>
+		
 		<ul>
-			<li><a href="#">Add User</a></li>
-			<li><a href="#">Edit Users</a></li>
+			<li><?php echo anchor('admin/settings', lang('cp_nav_edit_settings')); ?></li>
+			<li><?php echo anchor('admin/modules', lang('cp_nav_modules')); ?></li>
+			<li><?php echo anchor('admin/themes', lang('cp_nav_themes')); ?></li>
+			<li><?php echo anchor('admin/permissions', lang('cp_nav_permissions')); ?></li>
 		</ul>
 	</li>
-	<li><a href="#">Pages</a></li>
-	<li><a href="#">Modules</a></li>
-	<li>
-		<a class="top-level" href="#">Settings <span>&nbsp;</span></a>
-		<ul>
-			<li><a href="#">Site Settings</a></li>
-			<li><a href="#">File Paths</a></li>
-			<li><a href="#">User Profiles</a></li>
-	    </ul>
-    </li>
+	
 </ul>
 
-<span class="clearFix">&nbsp;</span>
+<br class="clear-both" />
