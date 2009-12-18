@@ -9,7 +9,7 @@
 })(jQuery);
 </script>
 
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
 	<div class="fieldset fieldsetBlock active tabs">
 		<div class="header">

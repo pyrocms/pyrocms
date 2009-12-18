@@ -6,7 +6,7 @@
 	
 <?php endif; ?>
 
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
 	<div class="field">
 		<label for="title"><?php echo lang('cat_title_label');?></label>

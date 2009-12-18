@@ -161,8 +161,7 @@ div#content {padding-top:25px;}
 	input.txtbox-middle {width:190px;}
 	input.txtbox-long, form.middle-forms fieldset ol li textarea {width:305px;}
 	
-	form.middle-forms fieldset ol li label {float:left; margin-right:15px; display:block;}
-	form.middle-forms fieldset ol li label.field-title {font-weight:bold; width:100px; padding-top:3px;}
+	form.crud fieldset label {float:left; margin-right:15px; display:block; font-weight:bold; width:100px; padding-top:3px;}
 	
 	
 	span.form-confirm-inline, span.form-error-inline {display:inline-block; padding-left:20px;  margin-left:10px; height:16px;}

@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['nav_note_label'] 						= 'Notiz';
 $lang['nav_title_label'] 						= 'Titel';
 $lang['nav_position_label'] 					= 'Position';
 $lang['nav_target_label']						= 'Ziel'; #translate
@@ -27,7 +26,6 @@ $lang['nav_link_create_title'] 					= 'Navigations-Link hinzufügen';
 $lang['nav_link_edit_title'] 					= 'Navigations-Link "%s" bearbeiten';
 
 // messages
-$lang['nav_group_note'] 						= 'Navigations-Gruppen werden z.Z. in den Layout-Dateien eingetragen und können nicht dynamisch geändert werden. Du kannst sie hinzufügen oder löschen, musst jedoch den Quellcode von Hand anpassen um die neue Gruppe auch auf deiner Seite anzeigen zu lassen.';
 $lang['nav_group_no_links'] 					= 'Es existieren keine Links in dieser Gruppe.';
 $lang['nav_no_groups'] 							= 'Es existieren keine Navigations-Gruppen.';
 $lang['nav_group_delete_confirm'] 				= 'Diese Gruppe wirklich löschen? Dies wird alle Navigation-Links innerhalb der Gruppe löschen und die Layout-Dateien werden entsprechend angepasst werden müssen.';

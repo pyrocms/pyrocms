@@ -1,4 +1,4 @@
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 <fieldset>
 	<legend><?php echo lang('perm_who_label');?></legend>
 	<p><?php echo lang('perm_rule_desc');?></p>	

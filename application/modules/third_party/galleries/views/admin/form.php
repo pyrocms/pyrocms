@@ -4,7 +4,7 @@
 	<h3><?php echo sprintf(lang('gal_edit_title'), $gallery->title);?></h3>
 <?php endif; ?>
 
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 	<div class="field">
 		<label for="title"><?php echo lang('gal_title_label');?></label>
 		<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" class="text" />

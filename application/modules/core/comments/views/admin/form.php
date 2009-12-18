@@ -1,4 +1,4 @@
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
 	<?php echo form_hidden('user_id', $comment->user_id); ?>
 	<?php echo form_hidden('active', $comment->is_active); ?>
