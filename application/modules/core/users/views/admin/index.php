@@ -2,7 +2,7 @@
 	
 	<h3><?php echo lang('user_registred_title');?></h3>
 
-	<div class="box-enclose" />
+	<div class="box-container">
 	
 		<p class="float-right">
 			[
@@ -14,15 +14,15 @@
 		<?php echo form_open('admin/users/action'); ?>
 			<table border="0" class="table-list clear-both">
 				<thead>
-				<tr>
-					<th><?php echo form_checkbox('action_to_all');?></th>
-					<th><?php echo lang('user_name_label');?></th>
-					<th><?php echo lang('user_email_label');?></th>
-					<th><?php echo lang('user_role_label');?></th>
-					<th><?php echo lang('user_joined_label');?></th>
-					<th><?php echo lang('user_last_visit_label');?></th>
-					<th><?php echo lang('user_actions_label');?></th>
-				</tr>
+					<tr>
+						<th><?php echo form_checkbox('action_to_all');?></th>
+						<th><?php echo lang('user_name_label');?></th>
+						<th><?php echo lang('user_email_label');?></th>
+						<th><?php echo lang('user_role_label');?></th>
+						<th><?php echo lang('user_joined_label');?></th>
+						<th><?php echo lang('user_last_visit_label');?></th>
+						<th><span><?php echo lang('user_actions_label');?></span></th>
+					</tr>
 				</thead>
 				<tfoot>
 					<tr>
