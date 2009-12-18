@@ -24,7 +24,18 @@
 				
 					<?php $this->load->view('admin/result_messages') ?>
 				
-					<?php echo $template['body']; ?>
+					<?php // a cheeky hack to speed up integration ?>
+					<?php if(!strpos($template['body'], 'box-container')): ?>
+					<div class="box">
+						<h3><?php echo $module_data['name']; ?></h3>
+						<div class="box-container">
+						<?php echo $template['body']; ?>
+						</div>
+					</div>
+					
+					<?php else: ?>
+						<?php echo $template['body']; ?>
+					<?php endif;?>
 				
 				</div><!-- end of div#mid-col -->
 				

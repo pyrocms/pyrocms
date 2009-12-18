@@ -6,7 +6,7 @@
 	
 <?php endif; ?>
 
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
 	<fieldset>
 		<legend><?php echo lang('nav_details_label');?></legend>

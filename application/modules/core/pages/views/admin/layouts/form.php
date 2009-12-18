@@ -1,4 +1,4 @@
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
 <?php if($method == 'create'): ?>
 	<h3><?php echo lang('page_layouts.create_title');?></h3>

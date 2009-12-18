@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['nav_note_label'] 							= 'Nota';
 $lang['nav_title_label'] 							= 'Título';
 $lang['nav_position_label'] 						= 'Posición';
 $lang['nav_url_label'] 								= 'URL';
@@ -26,7 +25,6 @@ $lang['nav_link_create_title'] 					= 'Crear un link de navegación';
 $lang['nav_link_edit_title'] 						= 'Editar link de navegación "%s"';
 
 // messages
-$lang['nav_group_note'] 							= 'Actualmente los grupos de navegación estan referenciados en los archivos de dise&ntilde;o y no pueden ser cambiados dinámicamente. Puedes agregarlos o borrarlos, pero necesitarás bucear dentro del código fuente para agregar un grupo nuevo en tu sitio.';
 $lang['nav_group_no_links'] 						= 'No hay links en este grupo.';
 $lang['nav_no_groups'] 								= 'No hay grupos de navegación.';
 $lang['nav_group_delete_confirm'] 				= 'Estás seguro que quieres borrar este grupo de navegación? Esto borrará TODOS los links de navegación dentro del grupo, y los archivos de dise&ntilde;o necesitarán ser editados para remover la referencia a ellos.';

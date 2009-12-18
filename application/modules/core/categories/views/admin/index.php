@@ -1,5 +1,5 @@
 <?php echo form_open('admin/categories/delete'); ?>
-	<table border="0" class="table-list">
+	<table border="0" class="table-list long">
 		<thead>
 		<tr>
 			<th class="width-5"><?php echo form_checkbox('action_to_all');?></th>

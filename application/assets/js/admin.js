@@ -150,10 +150,10 @@ function css_editor(id, width)
 	
 		
 		/* Admin left navigation dropdowns */
-		$("#menu > li:not(.settings) a").click(function(){
+		$("#menu li a").click(function(){
 			$(this).parent('li')
 				.addClass("selected")
-				.siblings().removeClass("selected")
+				.siblings().removeClass("selected");
 			
 			return false;
 		});

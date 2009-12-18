@@ -4,7 +4,7 @@
 	<h3><?php echo sprintf(lang('perm_role_edit_title'), $permission_role->title);?></h3>
 <?php endif; ?>
       
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 <div class="field">
 	<label for="title"><?php echo lang('perm_title_label');?></label>
 	<?php echo form_input('title', $permission_role->title, 'class="text"'); ?>

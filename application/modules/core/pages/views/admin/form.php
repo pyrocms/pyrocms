@@ -1,4 +1,4 @@
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 <?php echo form_hidden('parent_id', @$page->parent_id); ?>
 
 <div class="fieldset fieldsetBlock active tabs">	
