@@ -15,7 +15,7 @@
 	<required>1</required>
 	<is_frontend>0</is_frontend>
 	<is_backend>0</is_backend>
-	<is_backend_sidebar>0</is_backend_sidebar>
+	<is_backend_menu>0</is_backend_menu>
 	<controllers>
 		<controller name="admin">
 			<method>index</method>

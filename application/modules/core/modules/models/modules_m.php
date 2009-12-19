@@ -46,6 +46,8 @@ class Modules_m extends Model {
 	        	{
 	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
+	        		$module['is_core'] = basename($directory) == 'core';
+	        		
 		        	// Ignore modules of the incorrect type
 		        	if(!empty($params['type']) && $module['type'] != $params['type']) continue;
 		        	
@@ -62,9 +64,12 @@ class Modules_m extends Model {
 		        		if(!$this->permissions_m->hasAdminAccess( $this->user_lib->user_data->role, $module['slug']) ) continue;
 		        	}
 	       			
-			 	// Check a module is intended for the sidebar
-				if(isset($params['is_backend_sidebar']) && $module['is_backend_sidebar'] != $params['is_backend_sidebar']) continue;
- 
+	        		// If we only want frontend modules, check its frontend
+		        	if(isset($params['is_core']) && $module['is_core'] != $params['is_core']) continue;
+		        	
+		        	// Check a module is intended for the sidebar
+					if(isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu']) continue;
+					
 	        		$modules[] = $module;
 	        	}
 	        }
@@ -137,7 +142,7 @@ class Modules_m extends Model {
     		'required'			=>	$xml->required == 1,
     		'is_frontend'		=>	$xml->is_frontend == 1,
     		'is_backend'		=>	$xml->is_backend == 1,
-    		'is_backend_sidebar' =>	$xml->is_backend_sidebar == 1,
+    		'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
     		'controllers'		=>	$controllers
     	);
     }

@@ -46,7 +46,7 @@ class Admin_Controller extends MY_Controller
 		    $location = array( 'module'=>$this->module, 'controller'=>$this->controller, 'method'=>$this->method );
 		    $allow_access = $this->permissions_m->checkRuleByRole( $this->data->user->role, $location );
 	    }
-	        
+	    
 	    // Show error and exit if the user does not have sufficient permissions
 	    if( ! $allow_access )
 	    {
@@ -58,10 +58,19 @@ class Admin_Controller extends MY_Controller
 	    // Get a list of all modules available to this role
 	    if($current_page != 'admin/login')
 	    {
-	  		$this->data->admin_modules = $this->cache->model('modules_m', 'getModules', array(
+	  		$this->data->core_modules = $this->cache->model('modules_m', 'getModules', array(
 	    		array(
-				'is_backend_sidebar'=>true,
-				'role' => @$this->data->user->role,
+					'is_backend_menu' => TRUE,
+					'role' => @$this->data->user->role,
+	    			'lang' => CURRENT_LANGUAGE
+				) // This function does NOT need role OR language, that is to give it a unique md5 hash
+	    	), $this->config->item('navigation_cache'));
+
+	    	$this->data->third_party_modules = $this->cache->model('modules_m', 'getModules', array(
+	    		array(
+					'is_core' => FALSE,
+					'is_backend' => TRUE,
+					'role' => @$this->data->user->role,
 	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));

@@ -42,10 +42,10 @@ div#header {padding-top:20px;}
 	
 	/** menu **/
 	ul#menu {float:left;}
-	ul#menu li {float:left; height:40px; position:relative}
-	ul#menu li a {color:#e0e0e0; text-decoration:none; padding:13px 15px 7px 15px; height:20px; display:inline-block; text-align:center; text-transform:uppercase; font-weight:bold;
+	ul#menu > li {float:left; height:40px; position:relative}
+	ul#menu > li a {color:#e0e0e0; text-decoration:none; padding:13px 15px 7px 15px; height:20px; display:inline-block; text-align:center; text-transform:uppercase; font-weight:bold;
 	background:url(../../img/admin/bg-topnav-mask.gif) no-repeat 0 0; position:relative;}
-	ul#menu li a:hover {color:#508db8; background:#fff; background:url(../../img/admin/bg-topnav-mask.gif) no-repeat top right;}
+	ul#menu > li a:hover {color:#508db8; background:#fff; background:url(../../img/admin/bg-topnav-mask.gif) no-repeat top right;}
 	
 	ul#menu > li a {position:relative; padding-right:20px;}
 	ul#menu > li a span {background:url(../../img/admin/bg-toplevel.gif) no-repeat 0px 2px; width:11px; height:8px; display:block; position:absolute; right:5px; top:13px;}
@@ -59,7 +59,7 @@ div#header {padding-top:20px;}
 		ul#menu li ul li a {padding:6px 3px 6px 20px; display:block !important; background:url(../../img/admin/link-arrow-regular.gif) no-repeat 10px 10px !important; color:#5c6467; 
 		text-decoration:none; text-align:left; text-transform:capitalize; height:auto; background-color:none !important; font-weight:normal;}
 		ul#menu li ul li a:hover {color:#fff; background-image:url(../../img/admin/submenuhover.gif) !important;}
-		ul#menu li.selected a {background:#6c7275; color:#fff;}
+		ul#menu > li.selected > a {background:#6c7275; color:#fff;}
 	
 	/** search form **/
 	div#header form {float:right; width:246px; margin-top:9px;}
@@ -81,11 +81,24 @@ div#content {padding-top:25px;}
 		
 	/** box general settings **/
 	div.box {margin-bottom:15px; width:100%;}
-	div.box-container {background-color:#fff; padding:10px;}
+	div.box-container {
+		background-color:#fff; padding:10px;
+		-moz-border-radius-bottomleft:5px;
+		-moz-border-radius-bottomright:5px;
+	}
 	div.box-container h5 {color:#333; padding-left:20px; border-bottom:1px solid #d7d9d9; font-weight:bold; padding-bottom:7px; margin-bottom:1px; padding-top: 1px;}
 	div.box-container h5 span {font-weight:normal; font-size:0.9em;}
 	
-	div.box h3 {background:#3a4043; color:#fff; text-transform:uppercase; font-weight:bold; padding:10px; margin:0;}
+	div.box h3 {
+		background:#3a4043;
+		color:#fff;
+		text-transform:uppercase;
+		font-weight:bold;
+		padding:10px;
+		margin:0;
+		-moz-border-radius-topleft:5px;
+		-moz-border-radius-topright:5px;
+	}
 	
 	/** columns **/
 	div#left-col, div#mid-col {float:left; margin-right:12px;}
