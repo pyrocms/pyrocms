@@ -35,7 +35,7 @@
 				<?php if (!empty($users)): ?>
 					<?php foreach ($users as $member): ?>
 						<tr>
-							<td align="center"><input type="checkbox" name="action_to[]" value="<?php echo $member->id; ?>" /></td>
+							<td align="center"><?php echo form_checkbox('action_to[]', $member->id); ?></td>
 							<td><?php echo anchor('admin/users/edit/' . $member->id, $member->full_name); ?></td>
 							<td><?php echo mailto($member->email); ?></td>
 							<td><?php echo $member->role; ?></td>

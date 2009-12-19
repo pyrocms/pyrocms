@@ -149,13 +149,26 @@ function css_editor(id, width)
 		});*/
 	
 		
-		/* Admin left navigation dropdowns */
-		$("#menu li a").click(function(){
+		/* Control panel menu dropdowns */
+		var menu = $("ul#menu li");/** define the main navigation selector **/
+
+		$('a', menu).click(function(){
 			$(this).parent('li')
 				.addClass("selected")
 				.siblings().removeClass("selected");
-			
+				
 			return false;
+		});
+		
+		menu.hover(function() {/** build animated dropdown navigation **/
+			$(this).find('ul:first:hidden').css({visibility: "visible",display: "none"}).show("fast");
+			$(this).find('a').stop().animate({backgroundPosition:"(0 -40px)"},{duration:150});
+			$(this).find('a.top-level').addClass("blue");
+		
+		},function(){
+			$(this).find('ul:first').css({visibility: "hidden", display:"none"});
+			$(this).find('a').stop().animate({backgroundPosition:"(0 0)"}, {duration:75});
+			$(this).find('a.top-level').removeClass("blue");
 		});
 		
 		// AJAX Links ----
