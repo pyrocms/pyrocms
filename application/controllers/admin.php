@@ -50,8 +50,7 @@ class Admin extends Admin_Controller
 		// Store the feed items
 		$this->data->rss_items     			= $this->simplepie->get_items(0, $this->settings->item('dashboard_rss_count'));
 
-		// Load the layout/view/whatever
-		$this->template->build('admin/cpanel', $this->data);
+		$this->template->build('admin/dashboard', $this->data);
 	}
      
 	// Admin: Log in
