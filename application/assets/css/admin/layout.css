@@ -78,6 +78,9 @@ div#content {padding-top:25px;}
 		padding-left:23px; text-decoration:none; font-weight:bold; color:#508db8; height:16px; margin-top:10px; margin-right:12px;}
 		div#content-top a#topLink:hover {color:#333;}
 		
+	div.box-container a {
+		color: #3A4043;
+	}
 		
 	/** box general settings **/
 	div.box {margin-bottom:15px; width:100%;}
