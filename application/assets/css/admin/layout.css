@@ -6,12 +6,6 @@ span.clearFix {width:100%; height:0px; visibility:hidden; clear:both; display:bl
 .hidden {display:none;}
 
 /** button stylings **/
-div.inner-nav {clear:both; margin:10px 0;}
-div.inner-nav a, a.button {display:inline-block; background:url(../../img/admin/bg-buttons-left.gif) no-repeat; text-decoration:none; height:21px; padding:0 0 0 15px; color:#fff; font-weight:bold;
-font-size:9pt;}
-div.inner-nav a:hover, a.button:hover {color:#333;}
-div.inner-nav a span, a.button span {display:block; background:url(../../img/admin/bg-buttons-right.gif) no-repeat right; padding:0 15px 0 0; line-height:21px;}
-a.button {margin:0 10px;}
 
 /** text colors assigned to elements in various areas **/
 .yellow {color:#e8e4a2;}
@@ -73,14 +67,12 @@ div#content {padding-top:25px;}
 
 	/** main heading of the page **/
 	div#content-top {border-bottom:1px solid #bcbcb7; padding-bottom:8px; margin-bottom:15px;}
-		div#content-top h2 {font-size:200%; font-weight:bold; color:#373d40; margin-left:12px; float:left;}
+		div#content-top h2 {font-size:200%; font-weight:bold; color:#373d40; margin:0 0 0 12px; float:left;}
 		div#content-top a#topLink {float:right; background:url(../../img/admin/icon-blue-arrow.gif) no-repeat; display:inline-block; 
 		padding-left:23px; text-decoration:none; font-weight:bold; color:#508db8; height:16px; margin-top:10px; margin-right:12px;}
 		div#content-top a#topLink:hover {color:#333;}
 		
-	div.box-container a {
-		color: #3A4043;
-	}
+	div.box-container a { color: #3A4043; }
 		
 	/** box general settings **/
 	div.box {margin-bottom:15px; width:100%;}
@@ -147,37 +139,29 @@ div#content {padding-top:25px;}
 	font-family:Helvetica, Arial, sans-serif}
 	
 	/** to-dos **/
-	ul.tab-menu {border-bottom:2px solid #3a4043; height:27px;}
+	ul.tab-menu {border-bottom:2px solid #3a4043; height:27px; }
 	ul.tab-menu li {float:left; margin-right:5px;}
-	ul.tab-menu li.tabs-selected a {background:#3a4043; color:#c4a93d; font-weight:bold;}
-	ul.tab-menu li a {display:inline-block; background:#737d81; color:#ccc; font-weight:normal; padding:6px 10px; text-transform:uppercase; text-decoration:none;}
+	ul.tab-menu li.tabs-selected a {background:#3a4043; color:#c4a93d; font-weight:bold;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;}
+	ul.tab-menu li a {display:inline-block; background:#737d81; color:#ccc; font-weight:normal; padding:6px 10px; text-transform:uppercase; text-decoration:none;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;}
 	.tabs-hide {display:none;}
 	
-	div#to-do-list ul {margin-top:-10px;}
-	div#to-do-list ul li {border-bottom:1px solid #eeeddb; padding:8px 10px;}
-	div#to-do-list ul li.even {background:#f5f4eb;}
-	div#to-do-list ul li.odd {background:#fbfbf7;}
-	div#to-do-list ul li a {font-weight:bold; color:#ae9a62;}
-	div#to-do-list ul li a:hover {color:#666; text-decoration:none;}
-	div#to-do-list ul li small {display:block; padding:5px 0 0 24px; font-size:0.9em; color:#999;}
-	
 	/** forms **/
-	form.middle-forms {padding:5px; color:#3a4043}
-	form.middle-forms p {margin:10px 0;}
-	form.middle-forms h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
+	form.crud {padding:5px; color:#3a4043}
+	form.crud p {margin:10px 0;}
+	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
 	
-	form.middle-forms fieldset {padding-top:10px;}
-	form.middle-forms fieldset ol li {padding:15px;}
-	form.middle-forms fieldset ol li.even {background:#f3f3f3;}
+	form.crud fieldset {padding-top:10px;}
+	form.crud fieldset ol li {padding:15px;}
+	form.crud fieldset ol li.even {background:#f3f3f3;}
 	
-	form.middle-forms fieldset ol li input/*,form.middle-forms fieldset ol li textarea*/ {
+	form.crud fieldset ol li input,form.crud fieldset ol li textarea {
 	padding:5px; border:1px solid #dedede; background:url(../../img/admin/bg-textbox.gif) repeat-x #fff;}
-	form.middle-forms fieldset ol li input[type="radio"], form.middle-forms fieldset ol li input[type="checkbox"] {border:none; background:none;}
-	input.txtbox-short {width:122px;}
-	input.txtbox-middle {width:190px;}
-	input.txtbox-long, form.middle-forms fieldset ol li textarea {width:305px;}
+	form.crud fieldset ol li input[type="radio"], form.crud fieldset ol li input[type="checkbox"] {border:none; background:none;}
+	input[type="text"].short {width:122px;}
+	input[type="text"].middle {width:190px;}
+	input[type="text"].long, form.crud fieldset ol li textarea {width:305px;}
 	
-	form.crud fieldset label {float:left; margin-right:15px; display:block; font-weight:bold; width:100px; padding-top:3px;}
+	form.crud fieldset label {float:left; margin-right:15px; display:block; font-weight:bold; width:180px; padding-top:3px;}
 	
 	
 	span.form-confirm-inline, span.form-error-inline {display:inline-block; padding-left:20px;  margin-left:10px; height:16px;}

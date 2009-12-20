@@ -130,7 +130,7 @@ function css_editor(id, width)
 		});
 	
 	
-		$('div.tabs').livequery(function() {
+		$('.tabs').livequery(function() {
 			$(this).tabs();
 		});
 		

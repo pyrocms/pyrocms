@@ -15,19 +15,20 @@
 			</div>
 		
 			<div id="content">
-				<!-- div id="content-top">
-					<h2>Dashboard</h2>
-					<span class="clearFix">&nbsp;</span>
-				</div-->
 			
-				<div id="mid-col" class="full-col"><!-- end of div.box -->
+				<div id="content-top">
+					<h2><?php echo $module_data['name'] ? $module_data['name'] : lang('cp_admin_home_title'); ?></h2>
+					<br class="clear-both"/>
+				</div>
+			
+				<div id="mid-col" class="full-col">
 				
 					<?php $this->load->view('admin/result_messages') ?>
 				
 					<?php // a cheeky hack to speed up integration ?>
 					<?php if(!strpos($template['body'], 'box-container')): ?>
 					<div class="box">
-						<h3><?php echo $module_data['name']; ?></h3>
+						<h3>&nbsp;</h3>
 						<div class="box-container">
 						<?php echo $template['body']; ?>
 						<br class="box-enclose" />
