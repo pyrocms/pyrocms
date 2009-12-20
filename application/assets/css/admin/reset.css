@@ -16,7 +16,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-family: inherit;
 	vertical-align: baseline;
 }
-fieldset legend {display:none;}
 /* remember to define focus styles! */
 :focus {
 	outline: 0;

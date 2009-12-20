@@ -5,8 +5,8 @@ spl_autoload_register('Modules::autoload');
 
 /* define the module locations and offset */
 Modules::$locations = array(
-	APPPATH.'modules/third_party/' => '../modules/third_party/',
-	APPPATH.'modules/core/' => '../modules/core/'
+	APPPATH.'modules/core/' => '../modules/core/',
+	APPPATH.'modules/third_party/' => '../modules/third_party/'
 );
 
 /**
