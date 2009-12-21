@@ -78,7 +78,13 @@ class Admin_Controller extends MY_Controller
 
 	    $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);        
 	    
+	    // Template configuration
 	    $this->template->set_layout('admin/layout');
+	    
+	    $this->template->set_partial('header', 'admin/partials/header', FALSE);
+	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
+	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);
+	    
 	    $this->template->enable_parser(false);
 	    
 	    //$this->output->enable_profiler(TRUE);

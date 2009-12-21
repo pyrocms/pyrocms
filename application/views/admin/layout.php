@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title><?php echo $template['title'];?> | <?php echo $this->settings->item('site_name'); ?></title>
-		<?php $this->load->view('admin/fragments/metadata'); ?>
+		<?php echo $template['partials']['metadata']; ?>
 	</head>
 
 	<body>
@@ -11,16 +11,22 @@
 		<div id="container">
 
 			<div id="header">
-				<?php $this->load->view('admin/fragments/header'); ?>
+				<?php echo $template['partials']['header']; ?>
 			</div>
 		
 			<div id="content">
 			
 				<div id="content-top">
-					<h2><?php echo $module_data['name'] ? $module_data['name'] : lang('cp_admin_home_title'); ?></h2>
+					<h2><?php echo $module_data['name'] ? anchor('admin/', $module_data['name'], $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
 					<br class="clear-both"/>
 				</div>
 			
+				<?php if(!empty($template['partials']['sidebar'])): ?>
+				<div id="left-col">
+					<?php echo $template['partials']['sidebar']; ?>
+				</div> <!-- end of div#left-col -->
+				<?php endif; ?>
+				
 				<div id="mid-col" class="full-col">
 				
 					<?php $this->load->view('admin/result_messages') ?>
@@ -41,25 +47,6 @@
 				
 				</div><!-- end of div#mid-col -->
 				
-				<div id="right-col">
-					<div class="box">
-						<h3 class="yellow">Side Menu</h3>
-					
-						<div class="box-container"><!-- use no-padding wherever you need element padding gone -->
-							<ul class="list-links">
-								<li><a href="#">Manage Filters</a></li>
-								<li><a href="#">Setup a New Site</a>
-										<ul>
-									<li><a href="#">Configure Paths</a></li>
-									<li><a href="#">Define Database Name</a></li>
-									</ul>
-								</li>
-								<li><a href="#">Manage Site Accounts</a></li>
-							</ul>
-						</div><!--end of div.box-container -->
-					</div><!-- end of div.box -->
-				</div> <!-- end of div#left-col -->
-				
 				<span class="clearFix">&nbsp;</span>
 					 
 			</div><!-- end of div#content -->
@@ -68,7 +55,7 @@
 		
 		<div id="footer-wrap">
 			<div id="footer">
-			 	<?php echo $this->load->view('admin/fragments/footer'); ?>
+			 	<?php echo $template['partials']['footer']; ?>
 			</div>
 		</div>
 	

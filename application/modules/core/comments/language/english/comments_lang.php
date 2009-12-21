@@ -18,8 +18,9 @@ $lang['comment_from_label'] 			= 'From';
 $lang['comment_preview_label'] 			= 'Preview';
 $lang['comment_send_label'] 			= 'Comment';
 
-$lang['comments_inactive_label'] 		= 'Non-approved comments';
-$lang['comments_active_label'] 			= 'Approved comments';
+$lang['comments_inactive_title'] 		= 'Comments awaiting approval';
+$lang['comments_active_title'] 			= 'Approved comments';
+$lang['comments_edit_title'] 			= 'Edit comment';
 
 // capcha
 $lang['comment_capcha_desc'] 			= 'Submit the word you see below:';

@@ -1,16 +1,18 @@
+<?php echo form_open('admin/settings/edit', 'class="crud"');?>
+
 <div class="box">
 	<h3><?php echo lang('settings_edit_title');?></h3>
 	
 	<div class="box-container">	
 	
-		<?php echo form_open('admin/settings/edit', 'class="crud tabs"');?>
-
+		<div class="tabs">
+		
 			<ul class="tab-menu">
 				<?php foreach($setting_sections as $section_slug => $section_name): ?>
 				<li><a href="#<?php echo $section_slug;?>" title="<?php echo $section_name;?> settings"><span><?php echo $section_name;?></span></a></li>
 				<?php endforeach; ?>
 			</ul>
-				
+			
 			<?php foreach($setting_sections as $section_slug => $section_name): ?>		
 			<div id="<?php echo $section_slug;?>">
 			
@@ -30,13 +32,16 @@
 					<?php ++$section_count; endforeach; ?>	
 				
 					</ol>
+					
 				</fieldset>	
 			</div>
 			<?php endforeach; ?>		
+			
+		</div>
 		
-		<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('save') )); ?>
-		<?php echo form_close(); ?>
-	
-			<br class="clear-both" />
+		<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('save') )); ?>
+		
 	</div>
 </div>
+
+<?php echo form_close(); ?>

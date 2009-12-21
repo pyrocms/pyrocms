@@ -39,6 +39,8 @@ class Template
     private $_metadata = array();
     private $_view = '';
     
+    private $_partials = array();
+    
     private $_breadcrumbs = array();
 
     private $title_separator = ' | ';
@@ -119,7 +121,13 @@ class Template
         $this->CI->output->cache( $this->cache_lifetime );
 
         // Test to see if this file 
-    	$this->_body = $this->_find_view( $view );
+    	$this->_body = $this->_load_view( $view );
+    	
+    	$template['partials'] = array();
+    	foreach( $this->_partials as $name => $partial )
+    	{
+    		$template['partials'][$name] = $this->_load_view( $partial['view'] , $partial['search']);
+    	}
     	
         // Want this file wrapped with a layout file?
         if( $this->_layout )
@@ -283,20 +291,12 @@ class Template
         $this->_layout = $view;
         return $this;
     }
-
     
-    /**
-     * enable_parser
-     * Should be parser be used or the view files just loaded normally?
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    void
-     */
-    public function enable_parser($bool)
+    
+    public function set_partial( $name, $view, $search = TRUE )
     {
-        $this->_parser_enabled = $bool;
-        return $this;
+    	$this->_partials[$name] = array('view' => $view, 'search' => $search);
+    	return $this;
     }
 
 
@@ -313,28 +313,61 @@ class Template
     	$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
         return $this;
     }
+
+    
+    /**
+     * enable_parser
+     * Should be parser be used or the view files just loaded normally?
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    void
+     */
+    public function enable_parser($bool)
+    {
+        $this->_parser_enabled = $bool;
+        return $this;
+    }
     
     // A module view file can be overriden in a theme
-    private function _find_view($view = '')
+    private function _load_view($view = '', $search = TRUE)
     {
-    	// Test to see if this file has been overridden in the theme
-    	$theme_view = 'themes/' . $this->_theme . '/views/modules/' . $this->_module . '/' . $view;
-    	if($this->_theme && file_exists( APPPATH . $theme_view . EXT ))
+    	// Hunt it down like a dog, through themes and modules
+    	if($search == TRUE)
     	{
-    		return $this->CI->parser->parse('../'.$theme_view, $this->data, TRUE);
+    		$theme_view = 'themes/' . $this->_theme . '/views/modules/' . $this->_module . '/' . $view;
+    		
+    		if( $this->_theme && file_exists( APPPATH . $theme_view . EXT ))
+	    	{
+	    		return $this->CI->parser->parse('../'.$theme_view, $this->data, TRUE);
+	    	}
+
+		    // Nope, just use whatever's in the module
+	    	else
+	    	{
+	    		if($this->_parser_enabled === TRUE)
+				{
+					return $this->CI->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
+				}
+				
+				else
+				{
+					return $this->CI->load->view( $this->_module.'/'.$view, $this->data, TRUE );
+				}
+	    	}
     	}
-           
-    	// Nope, just use whatever's in the module
+    	
+    	// Load exactly what we asked for, no f**king around!
     	else
     	{
     		if($this->_parser_enabled === TRUE)
 			{
-				return $this->CI->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
+				return $this->CI->parser->parse( $view, $this->data, TRUE );
 			}
 			
 			else
 			{
-				return $this->CI->load->view( $this->_module.'/'.$view, $this->data, TRUE );
+				return $this->CI->load->view( $view, $this->data, TRUE );
 			}
     	}
     }

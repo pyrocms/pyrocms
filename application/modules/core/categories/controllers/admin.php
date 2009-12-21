@@ -6,7 +6,9 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('categories_m');
-		$this->lang->load('categories');	
+		$this->lang->load('categories');
+		
+	    $this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	// Admin: List all Categories
@@ -18,7 +20,6 @@ class Admin extends Admin_Controller
 		// Using this data, get the relevant results
 		$this->data->categories = $this->categories_m->get_limited( $this->data->pagination['limit'] );		
 		$this->template->build('admin/index', $this->data);
-		return;
 	}
 	
 	// Admin: Create a new Category

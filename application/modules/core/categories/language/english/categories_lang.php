@@ -8,8 +8,9 @@ $lang['cat_edit_label'] 				= 'Edit';
 $lang['cat_delete_label'] 				= 'Delete';
 
 // titles
-$lang['cat_create_title'] 				= 'Create category';
+$lang['cat_create_title'] 				= 'Add category';
 $lang['cat_edit_title'] 				= 'Edit category "%s"';
+$lang['cat_list_title'] 				= 'List categories';
 
 // messages
 $lang['cat_no_categories'] 				= 'There are no categories.';
