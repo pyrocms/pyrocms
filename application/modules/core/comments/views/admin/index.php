@@ -3,23 +3,13 @@
 <div class="box">
 
 	<?php if($active_comments): ?>
-		<h3><?php echo lang('comments_active_label');?></h3>
+		<h3><?php echo lang('comments_active_title');?></h3>
 	<?php else: ?>
-		<h3><?php echo lang('comments_inactive_label');?></h3>
+		<h3><?php echo lang('comments_inactive_title');?></h3>
 	<?php endif; ?>
 	
 	<div class="box-container">
 	
-	<?php if($active_comments): ?>
-		<p class="float-right">
-			[ <a href="<?php echo site_url('admin/comments/index');?>"><?php echo lang('comments_inactive_label');?></a> ]
-		</p>
-	<?php else: ?>
-		<p class="float-right">
-			[ <a href="<?php echo site_url('admin/comments/active');?>"><?php echo lang('comments_active_label');?></a> ]
-		</p>
-	<?php endif; ?>
-	    
 	<?php echo form_open('admin/comments/action');?>
 		<?php echo form_hidden('redirect', $this->uri->uri_string()); ?> 
 		<table border="0" class="table-list clear-both">    
@@ -35,7 +25,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="6">
-						<div class="inner"><?php $this->load->view('admin/fragments/pagination'); ?></div>
+						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 					</td>
 				</tr>
 			</tfoot>
@@ -59,8 +49,7 @@
 									<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comment_activate_label'),array('class' => 'ajax'));?>
 								<?php else: ?>
 									<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comment_deactivate_label'),array('class' => 'ajax'));?>
-								<?php endif; ?>
-								<br />
+								<?php endif; ?> | 
 								<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comment_edit_label'));?> | 
 								<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comment_delete_label'), array('class'=>'confirm')); ?>
 							</td>
@@ -75,9 +64,9 @@
 		</table>
 		
 		<?php if( $method == 'index' ): ?>
-		<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('approve','delete'))); ?>
+		<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('approve','delete'))); ?>
 		<?php else: ?>
-		<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('unapprove','delete'))); ?>
+		<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('unapprove','delete'))); ?>
 		<?php endif; ?>
 	<?php echo form_close();?>
 	</div>

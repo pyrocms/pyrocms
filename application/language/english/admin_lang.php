@@ -19,6 +19,8 @@ $lang['cp_nav_permissions']				= 'Permissions';
 
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
 
+$lang['cp_sidebar_title'] 				= 'Side menu';
+
 $lang['required_label'] 				= 'Required';
 
 ?>

@@ -3,4 +3,4 @@
 	<strong><?php echo lang('comment_from_label');?>:</strong> <?php echo $comment->name;?>
 </p>
 <hr/>
-<p><?php echo stripslashes($comment->body);?></p>
+<p><?php echo nl2br($comment->body);?></p>

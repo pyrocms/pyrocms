@@ -1,60 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title><?php echo $this->settings->item('site_name'); ?> :: Login</title>
-		<meta http-equiv="Pragma" content="no-cache" />
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><?php echo $this->settings->item('site_name'); ?> | <?php echo lang('login_title');?></title>
+	<?php echo css('admin/login.css'); ?>
+
+</head>
+
+<body>
+	<div id="distance"></div>
+	<div id="container">
+		<div id="top">
+			<h1><?php echo anchor('', $this->settings->item('site_name')); ?></h1>
+		</div>
 		
-		<?php $this->load->view('admin/fragments/metadata'); ?>
-	</head>
-	<body>
-		<!-- Content -->
-		<div id="login" class="content">
+		<?php echo form_open('admin/login'); ?>
+		<fieldset>
+			<legend><?php echo lang('login_title');?></legend>
+			<ol>
+				<li>
+					<label for="email"><?php echo lang('email_label');?>:</label>
+					<span><?php echo form_input('email', $this->validation->email); ?></span>
+				</li>
+				<li>
+					<label for="password"><?php echo lang('password_label');?>:</label>
+					<span><?php echo form_password('password', $this->validation->password); ?></span>
+				</li>
+				<li>
+					<div class="float-right">
+						<input type="image" name="submit" src="<?php echo image_path('admin/bt-login.gif');?>" />
+					</div>
+				</li>
+			</ol>
+		</fieldset>
 		
-			<?php if (!empty($this->validation->error_string)): ?>
-				<div class="message message-error">
-					<h6><?php echo lang('login_error');?></h6>
-					<p><?php echo $this->validation->error_string;?></p>
-					<a class="close icon icon_close" title="<?php echo lang('close_message');?>" href="#"></a>
-				</div>
-			<?php endif; ?>
-			
-			<div class="login-box">
-
-				<div id="content-head" class="b2">
-					<h2><?php echo lang('login_title');?></h2>
-				</div>
-
-				<div id="innerContent">
-
-					<?php echo form_open('admin/login'); ?>	
-	
-						<div class="field">
-							<?php echo lang('email_label', 'email');?>
-							<?php echo form_input('email', $this->validation->email); ?>
-						</div>
-						
-						<div class="field">
-							<?php echo lang('password_label', 'password');?>
-							<?php echo form_password('password', $this->validation->password); ?>
-						</div>
-						
-						<div class="clear-both login-submit">
-							<?php /* <span class="fleft">
-								<input type="checkbox" name="remember-me" id="remember-me" />
-								<label for="remember-me">Remember me</label>
-							</span> */?>
-							<span class="float-right">
-								<button class="button" type="submit"><strong><?php echo lang('login_label');?></strong></button>
-							</span>
-						</div>
-					
-					<?php echo form_close(); ?>
-
-				</div>
-				<!-- /Inner Content -->
-				<div class="bBottom"><div></div></div>
-			</div>
-		</div>	
-	</body>	
+		<?php echo form_close(); ?>
+	</div>
+</body>
 </html>

@@ -55,5 +55,5 @@
 	<?php endif; ?>
 	</tbody>
 </table>
-<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('delete') )); ?>
+<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('delete') )); ?>
 <?php echo form_close(); ?>

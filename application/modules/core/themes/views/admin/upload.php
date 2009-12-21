@@ -5,5 +5,5 @@
 	<?php echo lang('theme_upload_desc');?><br />
 	<input id="fileToUpload" type="file" name="userfile" class="input">
 </p>
-<?php $this->load->view('admin/fragments/table_buttons', array('buttons' => array('upload') )); ?>
+<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('upload') )); ?>
 <?php echo form_close(); ?>

@@ -10,7 +10,7 @@
   </thead>
   <tfoot>
   	<tr>
-  		<td colspan="5"><div class="inner"><?php $this->load->view('admin/fragments/pagination'); ?></div></td>
+  		<td colspan="5"><div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div></td>
   	</tr>
   </tfoot>	
 	<tbody>
