@@ -1,6 +1,4 @@
 <?php echo form_open('admin/navigation/delete');?>
-	<p class="float-right">[ <?php echo anchor('admin/navigation/groups/create', lang('nav_group_add_label')) ?> ]</p>
-	<br class="clear-both" />
 	
 	<?php if (!empty($groups)): ?>
 		<?php foreach ($groups as $group): ?>	
@@ -10,6 +8,7 @@
 				<div class="box-container">
 					<p class="float-right">[ <?php echo anchor('admin/navigation/groups/delete/'.$group->id, sprintf(lang('nav_group_delete_label'), $group->title), 'class="delete_group"') ?> ]</p>		
 			
+				<?php if (!empty($navigation[$group->abbrev])): ?>
 					<table border="0" class="table-list">		    
 						<thead>
 							<tr>
@@ -20,15 +19,7 @@
 								<th class="width-10"><?php echo lang('nav_actions_label');?></th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<td colspan="5">
-									<div class="inner"></div>
-								</td>
-							</tr>
-						</tfoot>
 						<tbody>
-						<?php if (!empty($navigation[$group->abbrev])): ?>
 							<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
 							<tr>
 								<td><input type="checkbox" name="delete[<?php echo $navigation_link->id;?>]" /></td>
@@ -40,14 +31,13 @@
 									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm'));?>
 								</td>
 							</tr>
-							<?php endforeach; ?>		
-						<?php else:?>
-							<tr>
-								<td colspan="5"><?php echo lang('nav_group_no_links');?></td>
-							</tr>
-						<?php endif; ?>		
+							<?php endforeach; ?>	
 					</tbody>
 				</table>
+				
+				<?php else:?>
+					<p><?php echo lang('nav_group_no_links');?></p>
+				<?php endif; ?>	
 				
 			</div>
 		</div>

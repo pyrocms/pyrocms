@@ -1,7 +1,7 @@
 <div class="box">
 	<h3 class="yellow"><?php echo lang('cp_sidebar_title')?></h3>
 	
-	<div class="box-container"><!-- use no-padding wherever you need element padding gone -->
+	<div class="box-container">
 		<ul class="list-links">
 			<li><a href="#">ZOMG!</a></li>
 			<li><a href="#">Setup a New Site</a>
