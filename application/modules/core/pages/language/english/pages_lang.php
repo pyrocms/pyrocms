@@ -31,11 +31,13 @@ $lang['page_view_label'] 						= 'View';
 $lang['page_create_label'] 						= 'Add child';
 $lang['page_edit_label'] 						= 'Edit';
 $lang['page_delete_label'] 						= 'Delete';
-$lang['page_layouts_label'] 					= 'Page Layouts';
 
 // titles
-$lang['page_create_title'] 						= 'Create Page';
+$lang['page_create_title'] 						= 'Add Page';
 $lang['page_edit_title'] 						= 'Edit Page "%s"';
+$lang['page_list_title'] 						= 'List pages';
+$lang['page_layouts_create_title'] 				= 'Add page layout';
+$lang['page_layouts_list_title'] 				= 'List page layouts';
 
 // messages
 $lang['page_no_pages'] 							= 'There are no pages.';

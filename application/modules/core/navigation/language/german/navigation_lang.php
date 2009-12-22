@@ -22,14 +22,15 @@ $lang['nav_link_module_select_default'] 		= '-- Auswählen --';
 $lang['nav_link_page_select_default'] 			= '-- Auswählen --';
 
 // titles
-$lang['nav_link_create_title'] 					= 'Navigations-Link hinzufügen';
-$lang['nav_link_edit_title'] 					= 'Navigations-Link "%s" bearbeiten';
+$lang['nav_link_create_title'] 					= 'Add navigation link'; #translate
+$lang['nav_group_create_title']					= 'Add a group'; #translate
+$lang['nav_link_edit_title'] 					= 'Edit navigation link "%s"'; #translate
+$lang['nav_link_list_title'] 					= 'List links'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Es existieren keine Links in dieser Gruppe.';
 $lang['nav_no_groups'] 							= 'Es existieren keine Navigations-Gruppen.';
 $lang['nav_group_delete_confirm'] 				= 'Diese Gruppe wirklich löschen? Dies wird alle Navigation-Links innerhalb der Gruppe löschen und die Layout-Dateien werden entsprechend angepasst werden müssen.';
-$lang['nav_group_create_title'] 				= 'Neue Navigation-Gruppe';
 $lang['nav_group_add_success'] 					= 'Navigation-Gruppe wurde gesichert.';
 $lang['nav_group_add_error'] 					= 'Ein Fehler ist aufgetreten.';
 $lang['nav_group_mass_delete_success'] 			= 'Navigation-Gruppe wurde gelöscht.';

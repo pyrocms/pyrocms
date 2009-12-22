@@ -16,6 +16,8 @@ class Admin extends Admin_Controller
 		$this->load->helper('array');		
 		$this->lang->load('navigation');
 		
+	    $this->template->set_partial('sidebar', 'admin/sidebar');
+		
 		// Get Navigation Groups
 		$this->data->groups = $this->navigation_m->get_groups();
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'title');				

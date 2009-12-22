@@ -14,7 +14,10 @@ class Admin_layouts extends Admin_Controller
 		parent::Admin_Controller();
 		
 		$this->load->model('page_layouts_m');
+		$this->lang->load('pages');
 		$this->lang->load('page_layouts');
+		
+	    $this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 
 

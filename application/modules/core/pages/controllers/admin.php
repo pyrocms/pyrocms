@@ -26,7 +26,9 @@ class Admin extends Admin_Controller
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
-		$this->lang->load('pages');	
+		$this->lang->load('pages');
+		
+	    $this->template->set_partial('sidebar', 'admin/sidebar');
 		
 		$this->load->helper(array('array', 'pages'));
 	}

@@ -17,19 +17,19 @@ $lang['nav_abbrev_label'] 						= 'Abbreviation';
 $lang['nav_edit_label'] 						= 'Edit';
 $lang['nav_delete_label'] 						= 'Delete';
 $lang['nav_group_delete_label']					= 'Delete group "%s"';
-$lang['nav_group_add_label']					= 'Add a group';
 $lang['nav_link_module_select_default'] 		= '-- Select --';
 $lang['nav_link_page_select_default'] 			= '-- Select --';
 
 // titles
-$lang['nav_link_create_title'] 					= 'Create navigation link';
+$lang['nav_link_create_title'] 					= 'Add navigation link';
+$lang['nav_group_create_title']					= 'Add a group';
 $lang['nav_link_edit_title'] 					= 'Edit navigation link "%s"';
+$lang['nav_link_list_title'] 					= 'List links';
 
 // messages
 $lang['nav_group_no_links'] 					= 'There are no links in this group.';
 $lang['nav_no_groups'] 							= 'There are no navigation groups.';
 $lang['nav_group_delete_confirm'] 				= 'Are you sure you would like to delete this navigation group? This will delete ALL navigation links within the group, and the layout files will need to be edited to remove refference to it.';
-$lang['nav_group_create_title'] 				= 'New navigation group';
 $lang['nav_group_add_success'] 					= 'Your navigation group has been saved.';
 $lang['nav_group_add_error'] 					= 'An error occurred.';
 $lang['nav_group_mass_delete_success'] 			= 'The navigation group has been deleted.';

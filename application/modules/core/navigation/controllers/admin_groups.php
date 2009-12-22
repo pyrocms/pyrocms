@@ -7,6 +7,8 @@ class Admin_groups extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->model('navigation_m');
 		$this->lang->load('navigation');
+		
+	    $this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	function index()
