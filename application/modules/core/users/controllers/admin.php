@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('user');
 		
         $this->data->roles = $this->permissions_m->get_roles();
-        $this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');
+        $this->data->roles_select = array_for_select($this->data->roles, 'abbrev', 'title');
         
 		// Sidebar data
 		$this->data->inactive_user_count = $this->users_m->count(array('active' => 0));
@@ -133,8 +133,8 @@ class Admin extends Admin_Controller
 		// Set defult field values
 		foreach(array_keys($this->rules) as $field)
 		{
-    	$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-    }        
+			$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
+		}        
 		$this->template->build('admin/form', $this->data);
 	}
 
@@ -195,8 +195,8 @@ class Admin extends Admin_Controller
 		// Override fields with provided values
 		foreach(array_keys($this->rules) as $field)
 		{
-    	if(isset($_POST[$field])) $this->data->member->$field = $this->validation->$field;
-    }
+			if(isset($_POST[$field])) $this->data->member->$field = $this->validation->$field;
+		}
 		$this->template->build('admin/form', $this->data);
 	}
 

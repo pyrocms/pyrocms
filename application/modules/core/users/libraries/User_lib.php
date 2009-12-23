@@ -146,25 +146,28 @@ class User_lib
     {
         $this->CI->load->helper('security');
 		
-        if($this->CI->session->userdata('user_id')):
+        if($this->CI->session->userdata('user_id'))
+        {
         	$this->error_code = 'user_already_logged_in';
             return FALSE;
-        endif;
+        }
         
         // Get the user with these details
         $this->user_data = $this->CI->users_m->get(array('email'=>$email));
         
         // No user, or passwords do not match
-        if( !$this->user_data or $this->user_data->password != dohash($password . $this->user_data->salt)):
+        if( !$this->user_data or $this->user_data->password != dohash($password . $this->user_data->salt))
+        {
         	$this->error_code = 'user_login_incorrect';
             return FALSE;
-        endif;
+		}
         
         // Check user is active
-        if ($this->user_data->is_active == 0):
+        if ($this->user_data->is_active == 0)
+        {
             $this->error_code = 'user_inactive';
             return FALSE;
-        endif;
+		}
 	
 		// They are in -------------------------------------------------------------------------------------------------------------
 				
@@ -249,12 +252,14 @@ class User_lib
 	}
 	
 	
-	function logged_in() {
+	function logged_in()
+	{
 		return $this->CI->session->userdata('user_id') > 0;
 	}
     
 	
-	function check_role($role = NULL) {
+	function check_role($role = NULL)
+	{
 		return isset($this->user_data->role) && $this->user_data->role == $role;
 	}
 	
