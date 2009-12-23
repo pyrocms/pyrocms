@@ -123,7 +123,7 @@ class Permissions_m extends Model {
 	}
 	
 	// Check if a user has admin access to any part of the admin panel at all, or a specific module
-	function hasAdminAccess($role, $module = NULL)
+	function has_admin_access($role, $module = NULL)
 	{
 		// No more checking to do, admins win
 		if($role == 'admin')

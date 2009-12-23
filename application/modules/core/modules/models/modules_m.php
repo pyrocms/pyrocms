@@ -61,7 +61,7 @@ class Modules_m extends Model {
 		        		if(empty($module['is_backend'])) continue;
 		        		
 		        		// This user has no permissions for this module
-		        		if(!$this->permissions_m->hasAdminAccess( $this->user_lib->user_data->role, $module['slug']) ) continue;
+		        		if(!$this->permissions_m->has_admin_access( $this->user_lib->user_data->role, $module['slug']) ) continue;
 		        	}
 	       			
 	        		// If we only want frontend modules, check its frontend

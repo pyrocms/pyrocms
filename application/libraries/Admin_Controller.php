@@ -34,7 +34,7 @@ class Admin_Controller extends MY_Controller
 	    }
 	        
 	    // We are looking at the index page. Show it if they have ANY admin access at all
-	    if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->hasAdminAccess($this->data->user->role) )
+	    if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->has_admin_access($this->data->user->role) )
 	    {
 	    	$allow_access = TRUE;
 	    }

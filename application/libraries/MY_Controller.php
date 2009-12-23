@@ -16,20 +16,11 @@ class MY_Controller extends Controller
 		// Hook point
 		$GLOBALS['EXT']->_call_hook('post_core_controller_constructor');
 		
-        // Make sure we have the user module
-        if( !module_exists('users') )
-        {
-        	show_error('The user module is missing.');
-        }
+        // Load the user model and get user data
+        $this->load->model('users/users_m');
+        $this->load->library('users/user_lib');
         
-        else
-        {
-	        // Load the user model and get user data
-	        $this->load->model('users/users_m');
-	        $this->load->library('users/user_lib');
-	        
-	        $this->data->user =& $this->user_lib->user_data;
-        }
+        $this->data->user =& $this->user_lib->user_data;
         
         // Work out module, controller and method and make them accessable throught the CI instance
         $this->module 				= $this->router->fetch_module();

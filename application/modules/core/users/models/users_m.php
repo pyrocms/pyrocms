@@ -61,10 +61,10 @@ class Users_m extends Model
     	elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
     	if(isset($params['order'])) $this->db->order_by($params['order']);
     	
-    	$this->db->select('*, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name');
-    	$query = $this->db->get('users');
-
-    	return $query->result();
+    	return $this->db->select('u.*, pr.title as role_title, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name')
+    		->join('permission_roles pr', 'pr.abbrev = u.role')
+    		->get('users u')
+    		->result();
     }    
 
     // Count the amount of users based on the parameters.

@@ -32,7 +32,7 @@ TRUNCATE `pages`;
 -- command split --
 
 INSERT INTO `pages` VALUES
-  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','EN',1,'','','','','1219336535');
+  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0','en',1,'','','','','1219336535');
 
 -- command split --
 
@@ -82,7 +82,7 @@ TRUNCATE `users`;
 
 -- command split --
 
-INSERT INTO `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270fa605bde14e8','vQwbJ','Demo','User','admin','EN','','1','','1220982658','1238925784');
+INSERT INTO `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270fa605bde14e8','vQwbJ','Demo','User','admin','en','','1','','1220982658','1238925784');
 
 -- command split --
 
