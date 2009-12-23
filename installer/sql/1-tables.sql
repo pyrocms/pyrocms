@@ -204,7 +204,7 @@ CREATE TABLE `pages` (
  PRIMARY KEY  (`id`),
  UNIQUE KEY `Unique` (`slug`,`parent_id`),
  KEY `slug` (`slug`),
- KEY `parent` (`parent_id`),
+ KEY `parent` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
 -- command split --
