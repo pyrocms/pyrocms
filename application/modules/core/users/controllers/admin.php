@@ -2,7 +2,6 @@
 
 class Admin extends Admin_Controller
 {
-
 	private $rules = array(
 		'first_name'		=>	"required|alpha_dash",
 		'last_name'			=>	"required|alpha_dash",
@@ -17,7 +16,6 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		
-		$this->load->library('session');
 		$this->load->library('user_lib');
 		
 		$this->load->model('users_m');
@@ -27,34 +25,35 @@ class Admin extends Admin_Controller
 		
         $this->data->roles = $this->permissions_m->get_roles();
         $this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');
+        
+		// Sidebar data
+		$this->data->inactive_user_count = $this->users_m->count(array('active' => 0));
+		$this->data->active_user_count = $this->users_m->count(array('active' => 1));
+		
+		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 
 	// Admin: List all User
 	function index()
 	{
 		// Create pagination links
-		$total_rows = $this->users_m->count(array('active' => 1));
-		$this->data->pagination = create_pagination('admin/users/index', $total_rows);
+		$this->data->pagination = create_pagination('admin/users', $this->data->active_user_count);
 
 		// Using this data, get the relevant results
 		$active_criteria = array( 'active' => 1, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
 		$this->data->users = $this->users_m->get_many($active_criteria);
-		
-		// How many inactive users are on the site?
-		$this->data->inactive_user_count = $this->users_m->count(array('active' => 0));
 		
 		$this->template->build('admin/index', $this->data);
 	}
 	
 	function inactive()
 	{
-		$total_rows = $this->users_m->count(array('active' => 1));
-		$this->data->pagination = create_pagination('admin/users/inactive', $total_rows);
+		$this->data->pagination = create_pagination('admin/users/inactive', $this->data->inactive_user_count);
 
 		$inactive_criteria = array( 'active' => 0, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
 		$this->data->users = $this->users_m->get_many($inactive_criteria);
 		
-		$this->template->build('admin/inactive', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 		
 	// Admin: Different form actions
@@ -69,13 +68,13 @@ class Admin extends Admin_Controller
 				$this->delete();
 			break;
 			default:
-				redirect('admin/users/index');
+				redirect('admin/users');
 			break;
 		}
 	}
 
 	// Admin: Add a new User
-	function add()
+	function create()
 	{
 		$this->load->library('validation');
 		
@@ -99,7 +98,7 @@ class Admin extends Admin_Controller
 					if($this->users_m->activate($user_id))
 					{
 						$this->session->set_flashdata('success', $this->lang->line('user_added_and_activated_success'));
-						redirect('admin/users/index');
+						redirect('admin/users');
 					}					
 					else
 					{
@@ -112,7 +111,7 @@ class Admin extends Admin_Controller
 					if($this->user_lib->registered_email($this->user_lib->user_data))
 					{
 						$this->session->set_flashdata('success', $this->lang->line('user_added_not_activated_success'));
-						redirect('admin/users/index');
+						redirect('admin/users');
 					}					
 					else
 					{
@@ -225,7 +224,7 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
 		}		
-		redirect('admin/users/index');
+		redirect('admin/users');
 	}
 
 	// Admin: Delete a User
@@ -261,7 +260,7 @@ class Admin extends Admin_Controller
 		// The array of id's to delete is empty
 		else $this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
 			
-		redirect('admin/users/index');
+		redirect('admin/users');
 	}
 }
 ?>

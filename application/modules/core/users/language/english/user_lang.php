@@ -7,7 +7,7 @@ $lang['user_register_step2'] 	= '<strong>Step 2:</strong> Activate';
 $lang['user_login_header'] 		= 'Login';
 
 // titles
-$lang['user_add_title'] = 'Create user';
+$lang['user_add_title'] = 'Add user';
 $lang['user_inactive_title'] = 'Inactive users';
 $lang['user_active_title'] = 'Active users';
 $lang['user_registred_title'] = 'Registered Users';
