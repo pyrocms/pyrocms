@@ -5,41 +5,42 @@ class Users extends Public_Controller
 	function __construct()
 	{
 		parent::Public_Controller();
-    $this->load->library('session');
+
 		$this->load->library('user_lib');
 		
 		$this->load->model('users_m');
 		$this->load->helper('user');
 		
 		$this->lang->load('user');
-  }
+	}
 	
-  // AUTHORISATION SECTION -------------------------------------------------------------------------------------
+	// AUTHORISATION SECTION -------------------------------------------------------------------------------------
 	
-  function login()
+	function login()
 	{
 		// Set the redirect page as soon as they get to login
 		if(!$this->session->userdata('redirect_to')):
-			$this->session->set_userdata('redirect_to', !empty($_SERVER['HTTP_REFFERER']) ? $_SERVER['HTTP_REFFERER'] : '');
+			$this->session->set_userdata('redirect_to', $this->input->server('HTTP_REFFERER'));
 		endif;
 		
 		// Call validation and set rules
 		$this->load->library('validation');
-    $rules['email'] = 'callback__check_login';
-    $rules['password'] = '';
-    $this->validation->set_rules($rules);
-    $this->validation->set_fields();
-        
-    // If the validation worked, or the user is already logged in
-    if ($this->validation->run() or $this->user_lib->logged_in()):
-    	//$redirect_to = (($this->session->userdata('redirect_to')) ? $this->session->userdata('redirect_to') : '');
-			//redirect($redirect_to, 'refresh');
-			
-			// TODO PJS Add login redirect - sends back to whatever page they were trying to get on
-      redirect('');
-    endif;
-        
-    $this->template->build('login', $this->data);
+	    $rules['email'] = 'callback__check_login';
+	    $rules['password'] = '';
+	    $this->validation->set_rules($rules);
+	    $this->validation->set_fields();
+	        
+	    // If the validation worked, or the user is already logged in
+	    if ($this->validation->run() or $this->user_lib->logged_in())
+	    {
+	    	//$redirect_to = (($this->session->userdata('redirect_to')) ? $this->session->userdata('redirect_to') : '');
+				//redirect($redirect_to, 'refresh');
+				
+				// TODO PJS Add login redirect - sends back to whatever page they were trying to get on
+	      redirect('');
+	    }
+	        
+	    $this->template->build('login', $this->data);
 	}
 	
 	function logout()
