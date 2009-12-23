@@ -4,11 +4,10 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, sub, sup, tt, var,
 dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
+form, label,
 table, caption, tbody, tfoot, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
-	border: 0;
 	outline: 0;
 	font-weight: inherit;
 	font-style: inherit;
@@ -16,6 +15,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-family: inherit;
 	vertical-align: baseline;
 }
+
+img, input {
+	border:0;
+}
+
 /* remember to define focus styles! */
 :focus {
 	outline: 0;
@@ -43,4 +47,9 @@ q:before, q:after {
 }
 blockquote, q {
 	quotes: "" "";
+}
+
+fieldset {
+	padding: 0 0.5em 0.2em;
+	margin: 0 0 1em;	
 }

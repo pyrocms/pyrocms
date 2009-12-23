@@ -91,7 +91,7 @@ div#content {padding-top:25px;}
 		text-transform:uppercase;
 		font-weight:bold;
 		padding:10px;
-		margin:0;
+		margin:0 !important;
 		-moz-border-radius-topleft:5px;
 		-moz-border-radius-topright:5px;
 	}
@@ -151,7 +151,7 @@ div#content {padding-top:25px;}
 	form.crud p {margin:10px 0;}
 	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
 	
-	form.crud fieldset {padding-top:10px;}
+	form.crud fieldset {padding-top:10px; border:0;}
 	form.crud fieldset ol li {padding:15px;}
 	form.crud fieldset ol li.even {background:#f3f3f3;}
 	
