@@ -5,8 +5,8 @@
 		&nbsp;| &nbsp;<?php echo anchor('edit-profile', lang('cp_edit_profile_label')); ?>
 		&nbsp;| &nbsp;<?php echo anchor('admin/logout', lang('cp_logout_label')); ?>
 		<br />
-	<small>Last Login: 12 May 2009</small></p>
-	<span class="clearFix">&nbsp;</span>
+	<small><?php echo anchor('', lang('cp_view_frontend')); ?></small></p>
+	<br class="clear-both" />
 </div>
 
 <ul id="menu">

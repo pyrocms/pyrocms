@@ -9,9 +9,12 @@
 		ID: #<?php echo $page->id; ?>
 	</p>
 	<p>
+		<?php echo lang('page_status_label'); ?>: <?php echo lang('page_' . $page->status . '_label'); ?>
+	</p>
+	<p>
 		<?php echo lang('page_slug_label');?>: 
-		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="preview-modal" target="_blank">
-			/<?php echo !empty($page->path) ? $page->path : $page->slug; ?>
+		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="modal-large" target="_blank">
+			<?php echo site_url(!empty($page->path) ? $page->path : $page->slug); ?>
 		</a>
 	</p>
 </fieldset>

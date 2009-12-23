@@ -233,9 +233,10 @@ div#content {padding-top:25px;}
 	div#footer {width:960px; margin:0 auto; padding:10px;}
 	
 	div#footer-top {color:#f2f2f2;}
-	div#footer-top h4 {color:#fff; text-transform:uppercase; margin:5px 0; font-size:120%; font-weight:bold;}
 	div#footer-top a {color:#adc3d3; font-weight:bold; font-size:0.9em; text-decoration:none;}
 	div#footer-top a:hover {color:#fff;}
+	div#footer-top h4 {color:#fff; text-transform:uppercase; margin:5px 0; font-size:120%; font-weight:bold;}
+	div#footer-top h4 a {color:#fff;}
 	
 	div#footer-top h2 {font-size:160%; font-weight:bold;}
 	div#footer-top h2 a {color:#a1a5a6; text-transform:uppercase;}
