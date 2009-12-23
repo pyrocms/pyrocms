@@ -1,8 +1,11 @@
 <div id="footer-top">
 
 	<div class="float-left">
-		<h4>Dashboard</h4>
-		<p><a href="#">Dasboard Sub 1</a> | <a href="#">Dasboard Sub 2</a> | <a href="#">Dasboard Sub 3</a></p>
+		<h4><?php echo anchor('admin', lang('cp_admin_home_title')); ?></h4>
+		<p>
+			<?php echo anchor('http://pyrocms.com/documentation', lang('cp_documentation')); ?> | 
+			<?php echo anchor('http://github.com/philsturgeon/pyrocms/issues', lang('cp_report_bug')); ?> | 
+			<?php echo anchor('http://pyrocms.com/contact', lang('cp_contact_support')); ?>
 	</div>
 	
 	<div class="float-right">
