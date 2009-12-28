@@ -39,6 +39,7 @@ $lang['news_comments_title'] 						= 'Comentarios';
 $lang['news_articles_title'] 						= 'Artículos';
 $lang['news_rss_articles_title'] 				= 'ArtículoNews de %s';
 $lang['news_news_title'] 							= 'Noticias';
+$lang['news_list_title'] 							= 'List articles'; #translate
 
 // messages
 $lang['news_no_articles'] 							= 'No hay artículos.';
