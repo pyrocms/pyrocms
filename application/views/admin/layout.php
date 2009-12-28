@@ -19,35 +19,28 @@
 				<div id="content-top">
 					<h2><?php echo $module_data['name'] ? anchor('admin/', $module_data['name'], $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
 					<br class="clear-both"/>
+					
+					<?php $this->load->view('admin/result_messages') ?>
+					
 				</div>
 			
 				<?php if(!empty($template['partials']['sidebar'])): ?>
-				<div id="left-col">
-					<?php echo $template['partials']['sidebar']; ?>
-				</div> <!-- end of div#left-col -->
-				<?php endif; ?>
 				
-				<div id="mid-col" class="full-col">
-				
-					<?php $this->load->view('admin/result_messages') ?>
-				
-					<?php // a cheeky hack to speed up integration ?>
-					<?php if(!strpos($template['body'], 'box-container')): ?>
-					<div class="box">
-						<h3>&nbsp;</h3>
-						<div class="box-container">
+					<div id="left-col">
+						<?php echo $template['partials']['sidebar']; ?>
+					</div> <!-- end of div#left-col -->
+					
+					<div id="mid-col" class="large-col">
 						<?php echo $template['body']; ?>
-						<br class="box-enclose" />
-						</div>
 					</div>
 					
-					<?php else: ?>
+				<?php else: ?>
+					<div id="mid-col" class="full-col">
 						<?php echo $template['body']; ?>
-					<?php endif;?>
+					</div>
+				<?php endif; ?>
 				
-				</div><!-- end of div#mid-col -->
-				
-				<span class="clearFix">&nbsp;</span>
+				<br class="clear-both" />
 					 
 			</div><!-- end of div#content -->
 			<div class="push"></div>

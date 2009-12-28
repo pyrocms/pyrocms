@@ -4,6 +4,7 @@
 $lang['page_content_label'] 					= 'Seiteninhalt';
 $lang['page_design_label'] 						= 'Design'; #translate
 $lang['page_meta_label'] 						= 'Meta-Daten';
+$lang['page_detail_label'] 						= 'Details'; #translate
 
 // labels
 $lang['page_page_label'] 						= 'Seite';

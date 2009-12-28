@@ -4,7 +4,7 @@
 <input id="page-path" type="hidden" value="<?php echo !empty($page->path) ? $page->path : $page->slug; ?>" />
 
 <fieldset>
-	<legend>Details</legend>
+	<legend><?php echo lang('page_detail_label'); ?></legend>
 	<p>
 		ID: #<?php echo $page->id; ?>
 	</p>

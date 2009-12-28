@@ -70,7 +70,6 @@ div#content {padding-top:25px;}
 	div#content-top {border-bottom:1px solid #bcbcb7; padding-bottom:8px; margin-bottom:15px;}
 		div#content-top h2 {font-size:200%; font-weight:bold; margin:0 0 0 12px; float:left;}
 		div#content-top h2 a { text-decoration:none;color:#373d40; }
-		padding-left:23px; text-decoration:none; font-weight:bold; color:#508db8; height:16px; margin-top:10px; margin-right:12px;}
 		div#content-top a#topLink:hover {color:#333;}
 		
 	div.box-container a { color: #3A4043; }
@@ -101,7 +100,8 @@ div#content {padding-top:25px;}
 	div#mid-col {width:510px;}
 	div#right-col {margin-right:0px; float:right;}
 	div#left-col, div#right-col {width:223px;}
-	div.full-col {width:740px !important; margin-right:0px !important;}
+	div.large-col {width:710px !important; margin-right:0px !important;}
+	div.full-col {width:963px !important; margin-right:0px !important;}
 	
 	/** list links **/
 	ul.list-links, div#to-do-list ul {width:223px; margin-left:-10px; margin-top:-5px;}
