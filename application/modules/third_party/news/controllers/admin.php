@@ -43,6 +43,8 @@ class Admin extends Admin_Controller
 				$this->data->categories[$category->id] = $category->title;
 			}
 		}
+		
+		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	// Admin: List news articles
@@ -90,13 +92,15 @@ class Admin extends Admin_Controller
 					$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url));
 				}
 				// End twitter code
-			}            
+			}
+			
 			else
 			{
 				$this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
 			}			
 			redirect('admin/news/index');
-		}		
+		}
+		
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor

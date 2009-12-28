@@ -32,13 +32,14 @@ $lang['news_author_name_label'] 					= 'Author name';
 $lang['news_read_more_label'] 						= 'Read More&nbsp;&raquo;';
 
 // titles
-$lang['news_create_title'] 							= 'Create article';
+$lang['news_create_title'] 							= 'Add article';
 $lang['news_edit_title'] 							= 'Edit article "%s"';
 $lang['news_archive_title'] 						= 'Archive';
 $lang['news_comments_title'] 						= 'Comments';
 $lang['news_articles_title'] 						= 'Articles';
 $lang['news_rss_articles_title'] 					= 'News articles for %s';
 $lang['news_news_title'] 							= 'News';
+$lang['news_list_title'] 							= 'List articles';
 
 // messages
 $lang['news_no_articles'] 							= 'There are no articles.';

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.6" type="content">
+<module version="0.7">
 	<name>
 		<en>News</en>
 		<es>Artículos</es>
@@ -12,7 +12,6 @@
 		<fr>Envoyez de nouveaux articles et messages de blog.</fr>
 		<de>Veröffentliche neue Artikel und Blog-Einträge</de>
 	</description>
-	<icon>newspaper_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<is_backend_menu>1</is_backend_menu>
@@ -24,14 +23,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/news/create">
-				<en>New article</en>
-				<es>Nuevo artículo</es>
-				<fr>Nouvel article</fr>
-				<de>Neuer Artikel</de>
-			</new_item>
-		</admin>
-	</navigation>
 </module>
