@@ -29,14 +29,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/navigation/create">
-				<en>New link</en>
-				<es>Nuevo enlace</es>
-				<fr>Nouveau Lien</fr>
-				<de>Neuer Link</de>
-			</new_item>
-		</admin>
-	</navigation>
 </module>

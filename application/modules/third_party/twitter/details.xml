@@ -12,7 +12,6 @@
 		<fr>Affiche les messages Twitter et permet l'intégration globale de Twitter</fr>
 		<de>Zeige Twitter Beiträge an und unterstütze grundsätzliche Twitter Integration.</de>
 	</description>
-	<required>1</required>
 	<is_frontend>0</is_frontend>
 	<is_backend>0</is_backend>
 	<is_backend_menu>0</is_backend_menu>
@@ -24,13 +23,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/themes/upload">
-				<en>Upload theme</en>
-				<es>Twitter</es>
-				<fr>Twitter ???</fr>
-			</new_item>
-		</admin>
-	</navigation>
 </module>
