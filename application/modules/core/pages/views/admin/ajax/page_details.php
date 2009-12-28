@@ -34,33 +34,15 @@
 </fieldset>	
 
 <div id="page-buttons">
-	<div class="float-left">
-		<a href="<?php echo site_url('admin/pages/create/' . $page->id); ?>">
-			<button class="button">
-				<strong>
-					<?php echo lang('page_create_label');?>
-				</strong>
-			</button>
-		</a>
+	<div class="button">
+		<?php echo anchor('admin/pages/create/' . $page->id, lang('page_create_label')); ?>
 	</div>
 	
-	<div class="float-left">
-		<a href="<?php echo site_url('admin/pages/edit/' . $page->id); ?>">
-			<button class="button">
-				<strong>
-					<?php echo lang('page_edit_label');?>
-				</strong>
-			</button>
-		</a>
+	<div class="button">
+		<?php echo anchor('admin/pages/edit/' . $page->id, lang('page_edit_label')); ?>
 	</div>
 	
-	<div class="float-left">
-		<a href="<?php echo site_url('admin/pages/delete/' . $page->id); ?>">
-			<button class="button confirm">
-				<strong>
-					<?php echo lang('page_delete_label');?>
-				</strong>
-			</button>
-		</a>
+	<div class="button">
+		<?php echo anchor('admin/pages/delete/' . $page->id, lang('page_delete_label'), 'class="confirm"'); ?>
 	</div>
 </div>
