@@ -10,8 +10,6 @@
 		<es>Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.</es>
 		<fr>Permet de contrôler quel rôle utilisateur peut visualiser certaines parties du site.</fr>
 	</description>
-	<required>1</required>
-	<icon>users_two_warning_48.png</icon>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>
@@ -27,13 +25,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/permissions/create">
-				<en>New rule</en>
-				<es>Nuevo permiso</es>
-				<fr>Nouvelle Règle</fr>
-			</new_item>
-		</admin>
-	</navigation>
 </module>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.6" type="content">
+<module version="0.6">
 	<name>
 		<en>Users</en>
 		<es>Usuarios</es>
@@ -12,8 +12,6 @@
 		<fr>Permet aux utilisateurs de s'enregistrer et de se connecter au site et de les gérer via le panneau de contrôle</fr>
 		<de>Erlaube Benutzern das Registrieren und Einloggen auf deiner Seite und verwalte sie über die Admin-Oberfläche</de>
 	</description>
-	<required>1</required>
-	<icon>users_two_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<is_backend_menu>1</is_backend_menu>
@@ -25,14 +23,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/users/add">
-				<en>New user</en>
-				<es>Nuevo usuario</es>
-				<fr>Nouvel utilisateur</fr>
-				<de>Neuer Benutzer</de>
-			</new_item>
-		</admin>
-	</navigation>
 </module>

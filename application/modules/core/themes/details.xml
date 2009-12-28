@@ -10,8 +10,6 @@
 		<es>Permite a los administradores y miembros del personal cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.</es>
 		<fr>Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle</fr>
 	</description>
-	<required>1</required>
-	<icon>tabs_48.png</icon>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<controllers>
@@ -22,13 +20,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/themes/upload">
-				<en>Upload theme</en>
-				<es>Subir tema</es>
-				<fr>Charger un thème</fr>
-			</new_item>
-		</admin>
-	</navigation>
 </module>

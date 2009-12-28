@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.7" type="content">
+<module version="0.8">
 	<name>
 		<en>Pages</en>
 		<es>Páginas</es>
@@ -10,9 +10,8 @@
 		<en>Add custom pages to the site with any content you want.</en>
 		<es>Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.</es>
 		<fr>Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.</fr>
+		<de>Add custom pages to the site with any content you want.</de>
 	</description>
-	<required>1</required>
-	<icon>paper_content_48.png</icon>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>
 	<is_backend_menu>1</is_backend_menu>
@@ -24,13 +23,4 @@
 			<method>delete</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/pages/create">
-				<en>New page</en>
-				<es>Nueva página</es>
-				<fr>Nouvelle page</fr>
-			</new_item>
-		</admin>
-	</navigation>
 </module>

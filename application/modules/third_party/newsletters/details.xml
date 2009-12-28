@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.2" type="content">
+<module version="0.2">
 	<name>
 		<en>Newsletters</en>
 		<es>Boletines</es>
@@ -12,7 +12,6 @@
 		<fr>Permet aux visiteurs de s'abonner avec leur adresse e-mail.'</fr>
 		<de>Erlaube Besuchern Newsletter via Email zu abonnieren.</de>
 	</description>
-	<icon>newspaper_48.png</icon>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<is_backend_menu>0</is_backend_menu>
@@ -25,14 +24,4 @@
 			<method>export</method>
 		</controller>
 	</controllers>
-	<navigation>
-		<admin>
-			<new_item href="admin/newsletters/create">
-				<en>New newsletter</en>
-				<es>Nuevo boletín</es>
-				<fr>Nouveau bulletin</fr>
-				<de>Neuer Newsletter</de>
-			</new_item>
-		</admin>
-	</navigation>
 </module>
