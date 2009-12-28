@@ -54,7 +54,7 @@ INSERT INTO `settings` VALUES
  ('captcha_folder','Captcha Folder','Where should captcha image files be stored?','text','cache/captcha/','','','0','1',''),
  ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1',''),
  ('unavailable_message','Unavailable Message','When the site is turned off or there is a major problem, this message will show to users.','textarea','Sorry, this website is currently unavailable.','','','0','1',''),
- ('default_theme','Default Theme','Select the theme you want users to see by default.','','advertising','','get_themes','1','0',''),
+ ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','','get_themes','1','0',''),
  ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1',''),
  ('records_per_page','Records Per Page','How many records should we show per page in the admin section?','select','25','','10=10|25=25|50=50|100=100','1','1',''),
  ('rss_feed_items','Feed item count','How many items should we show in RSS/news feeds?','select','25','','10=10|25=25|50=50|100=100','1','1',''),
