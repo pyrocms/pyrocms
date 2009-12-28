@@ -19,17 +19,6 @@ class Modules_m extends Model {
 		}
     }
     
-	// Return an object containing module data
-    function getModuleToolbar($module = '')
-    {
-    	foreach (module_directories() as $directory)
-    	{
-			if(file_exists($xml_file = $directory.$module.'/details.xml'))
-			{
-				return $this->_format_toolbar_xml($xml_file);
-			}
-		}
-    }
     
     // Return an array of objects containing module data
     function getModules($params = array())
@@ -48,9 +37,6 @@ class Modules_m extends Model {
 
 	        		$module['is_core'] = basename($directory) == 'core';
 	        		
-		        	// Ignore modules of the incorrect type
-		        	if(!empty($params['type']) && $module['type'] != $params['type']) continue;
-		        	
 	        		// If we only want frontend modules, check its frontend
 		        	if(!empty($params['is_frontend']) && empty($module['is_frontend'])) continue;
 		        	
@@ -138,8 +124,6 @@ class Modules_m extends Model {
     		'version' 			=> 	(float) $xml->attributes()->version,
     		'type' 				=> 	(string) $xml->attributes()->type,
     		'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
-    		'icon' 				=> 	(string) $xml->icon,
-    		'required'			=>	$xml->required == 1,
     		'is_frontend'		=>	$xml->is_frontend == 1,
     		'is_backend'		=>	$xml->is_backend == 1,
     		'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
@@ -147,44 +131,4 @@ class Modules_m extends Model {
     	);
     }
     
-    private function _format_toolbar_xml($xml_file)
-    {
-    	$toolbar = array(
-    		'new_item' => array(),
-    		'links' => array(),
-    		'search' => array()
-    	);
-    	
-    	$xml = simplexml_load_file($xml_file);
-    	
-    	// New item
-    	if( !empty($xml->navigation->admin->new_item) )
-    	{
-    		$new_item =& $xml->navigation->admin->new_item;
-    		
-    		$uri = (string) $new_item->attributes()->href;
-    		
-    		$toolbar['new_item'] = array(
-    			'link' => $uri,
-    			'title' => $new_item->{CURRENT_LANGUAGE}
-    		);
-    		
-    	}
-
-    	// Toolbar links
-    	if( !empty($xml->navigation->admin->toolbar) )
-    	{
-	    	foreach($xml->navigation->admin->toolbar as $link)
-	    	{
-	    		$controller = $controller->controller;
-	    		$navigation = (string) $controller->attributes()->name;	
-	    		
-				// Save it all to one variable
-	    		$controllers[$controller_array['name']] = $controller_array;
-    		}
-    	}
-    	
-    	return $toolbar;
-    	
-    }
 }

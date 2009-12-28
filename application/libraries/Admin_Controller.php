@@ -76,8 +76,6 @@ class Admin_Controller extends MY_Controller
 	    	), $this->config->item('navigation_cache'));
 		}
 
-	    $this->data->toolbar = $this->modules_m->getModuleToolbar($this->module);        
-	    
 	    // Template configuration
 	    $this->template->set_layout('admin/layout');
 	    

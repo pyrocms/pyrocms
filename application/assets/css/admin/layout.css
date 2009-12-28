@@ -100,7 +100,7 @@ div#content {padding-top:25px;}
 	div#mid-col {width:510px;}
 	div#right-col {margin-right:0px; float:right;}
 	div#left-col, div#right-col {width:223px;}
-	div.large-col {width:710px !important; margin-right:0px !important;}
+	div.large-col {width:720px !important; margin-right:0px !important;}
 	div.full-col {width:963px !important; margin-right:0px !important;}
 	
 	/** list links **/
@@ -314,4 +314,31 @@ div#content {padding-top:25px;}
 .message .close:hover {
 	background: url(../../img/admin/sprite.png) repeat scroll 100% -2910px;
 }
-	
+
+
+/**************************************/
+/*              BUTTONS               */
+/**************************************/
+
+div.button, button {
+	background:none;
+	border:none;
+	display:inline-block;
+}
+
+div.button a, button span {
+	background:grey;
+	color:#FFFFFF;
+	display:block;
+	font-size:9pt;
+	font-weight: bold;
+	line-height:21px;
+	padding:0 0.6em;
+	text-decoration:none;
+	-moz-border-radius:5px; 
+	-webkit-border-radius:5px;
+}
+
+div.button a:hover, button span:hover {
+	background:lightgrey;
+}
