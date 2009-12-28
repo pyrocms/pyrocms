@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `page_layouts`;
 
 -- command split --
 
-CREATE TABLE `pyrocms`.`page_layouts` (
+CREATE TABLE `page_layouts` (
 `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
