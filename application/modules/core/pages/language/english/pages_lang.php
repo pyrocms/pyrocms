@@ -4,6 +4,7 @@
 $lang['page_content_label'] 					= 'Page Content';
 $lang['page_design_label'] 						= 'Design';
 $lang['page_meta_label'] 						= 'Meta data';
+$lang['page_detail_label'] 						= 'Details';
 
 // labels
 $lang['page_page_label'] 						= 'Page';
@@ -18,7 +19,6 @@ $lang['page_no_selection_label'] 				= '-- None --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_layout_id_label'] 					= 'Page Layout';
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Access';
@@ -33,8 +33,8 @@ $lang['page_edit_label'] 						= 'Edit';
 $lang['page_delete_label'] 						= 'Delete';
 
 // titles
-$lang['page_create_title'] 						= 'Add Page';
-$lang['page_edit_title'] 						= 'Edit Page "%s"';
+$lang['page_create_title'] 						= 'Add page';
+$lang['page_edit_title'] 						= 'Edit page "%s"';
 $lang['page_list_title'] 						= 'List pages';
 $lang['page_layouts_create_title'] 				= 'Add page layout';
 $lang['page_layouts_list_title'] 				= 'List page layouts';

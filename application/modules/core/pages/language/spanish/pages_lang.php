@@ -4,6 +4,7 @@
 $lang['page_content_label'] 					= 'Contenido de la p&aacute;gina';
 $lang['page_design_label'] 						= 'Design'; #translate
 $lang['page_meta_label'] 						= 'Meta data';
+$lang['page_detail_label'] 						= 'Details'; #translate
 
 // labels
 $lang['page_page_label'] 						= 'P&aacute;gina';
