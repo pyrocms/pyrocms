@@ -11,7 +11,7 @@ minimize or totally remove downtime during upgrade.
 
 2.) Run the following SQL commands:
 
-	UPDATE `settings` SET `value` = '' WHERE `slug` = 'default_theme' AND value = 'advertising';
+	UPDATE `settings` SET `value` = '' WHERE `slug` = 'default_theme' AND `value` = 'advertising';
 	UPDATE `settings` SET `default` = 'default' WHERE `slug` = 'default_theme';
 
 09/12/09 - v0.9.7.2 to v0.9.7.3
