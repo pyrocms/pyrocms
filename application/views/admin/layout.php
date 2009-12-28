@@ -19,10 +19,9 @@
 				<div id="content-top">
 					<h2><?php echo $module_data['name'] ? anchor('admin/', $module_data['name'], $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
 					<br class="clear-both"/>
-					
-					<?php $this->load->view('admin/result_messages') ?>
-					
 				</div>
+			
+				<?php $this->load->view('admin/result_messages') ?>
 			
 				<?php if(!empty($template['partials']['sidebar'])): ?>
 				
