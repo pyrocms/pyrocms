@@ -4,7 +4,7 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimize or totally remove downtime during upgrade.
 
-09/12/09 - v0.9.7.3 to v0.9.8
+09/12/09 - v0.9.7.4 to v0.9.8
 -----------------------------
 
 1. Replace old files with new files.
@@ -24,6 +24,17 @@ minimize or totally remove downtime during upgrade.
 3. Run the following terminal command:
 
 	sudo rm -rf application/cache/pages_m/
+
+
+09/12/09 - v0.9.7.3 to v0.9.4
+-----------------------------
+
+1.) Replace old files with new files.
+
+2.) Run the following SQL commands:
+
+	UPDATE `settings` SET `value` = '' WHERE `slug` = 'default_theme' AND `value` = 'advertising';
+	UPDATE `settings` SET `default` = 'default' WHERE `slug` = 'default_theme';
 
 09/12/09 - v0.9.7.2 to v0.9.7.3
 -------------------------------
