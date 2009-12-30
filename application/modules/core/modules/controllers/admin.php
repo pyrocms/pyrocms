@@ -8,14 +8,12 @@
  */
 class Admin extends Admin_Controller
 {
-	// Constructor function
 	function __construct()
 	{
 		parent::Admin_Controller();
-		// $this->load->lang('modules'); TODO: Fix this fucker, no idea why it refuses to load.
+		$this->lang->load('modules');
 	}
 	
-	// Index function
 	function index()
 	{
  		$this->data->modules = $this->modules_m->getModules();
