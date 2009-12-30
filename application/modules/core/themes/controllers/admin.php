@@ -7,13 +7,15 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->model('themes_m');
 		$this->lang->load('themes');
+		
+		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	// Admin: List all Themes
 	function index()
 	{
-		$this->template->append_metadata(css('themes.css', 'themes'));
-		$this->data->themes = $this->themes_m->getThemes();		
+		$this->template->append_metadata( css('themes.css', 'themes') );
+		$this->data->themes = $this->themes_m->get_all();		
 		$this->template->build('admin/index', $this->data);
 	}
 	
@@ -21,12 +23,14 @@ class Admin extends Admin_Controller
 	{	
 		if($this->themes_m->setDefault($theme_name))
 		{
-			$this->session->set_flashdata('success', sprintf($this->lang->line('theme_set_default_success'), $theme_name));
+			$this->session->set_flashdata('success', sprintf( lang('themes.set_default_success'), $theme_name));
 		} 
+		
 		else
 		{
-			$this->session->set_flashdata('error', sprintf($this->lang->line('theme_set_default_error'), $theme_name));
-		}		
+			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme_name));
+		}
+			
 		redirect('admin/themes');
 	}
 	
@@ -48,8 +52,9 @@ class Admin extends Admin_Controller
 				// Check if we already have a dir with same name
 				if(file_exists(APPPATH."themes/".$upload_data['raw_name']))
 				{
-					$this->session->set_flashdata('error', $this->lang->line('theme_already_exists_error'));
+					$this->session->set_flashdata('error', lang('themes.already_exists_error'));
 				}
+				
 				else
 				{
 					// Now try to unzip
@@ -58,20 +63,23 @@ class Admin extends Admin_Controller
 					// Check if we unziped the file
 					if(!file_exists(APPPATH."themes/".$upload_data['raw_name']))
 					{
-						$this->session->set_flashdata('error', $this->lang->line('theme_extract_error'));
+						$this->session->set_flashdata('error', lang('themes.extract_error'));
 					}
+					
 					else
 					{
-						$this->session->set_flashdata('success', $this->lang->line('theme_upload_success'));
+						$this->session->set_flashdata('success', lang('themes.upload_success'));
 					}
 				}
 				// Delete uploaded file
 				@unlink($upload_data['full_path']);
 			}
+			
 			else
 			{
 				$this->session->set_flashdata('error', $this->upload->display_errors());
-			}	
+			}
+			
 			redirect('admin/themes/upload');
 		}
 		
@@ -95,37 +103,41 @@ class Admin extends Admin_Controller
 			
 				if($this->settings->item('default_theme') == $theme_name)
 				{
-					$this->session->set_flashdata('error', sprintf($this->lang->line('theme_default_delete_error'), $theme_name));
+					$this->session->set_flashdata('error', lang('themes.default_delete_error'));
 				}		
+
 				else
 				{
 					$theme_dir = APPPATH.'themes/'.$theme_name;
-					delete_files($theme_dir, TRUE);
 					
-					if(@rmdir($theme_dir))
+					if( is_really_writable($theme_dir) )
 					{
-						$deleted++;
+						delete_files($theme_dir, TRUE);
+						
+						if(@rmdir($theme_dir))
+						{
+							$deleted++;
+						}
 					}
+					
 					else
 					{
-						$this->session->set_flashdata('error', sprintf($this->lang->line('theme_delete_error')), $theme_name);
+						$this->session->set_flashdata('error', sprintf(lang('themes.delete_error'), APPPATH.'themes/'.$theme_name) );
 					}
 				}
 			}
 		
 			if( $deleted == $to_delete)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('theme_mass_delete_success'), $delete, $to_delete));
-			}	
-			else
-			{
-				$this->session->set_flashdata('error', sprintf($this->lang->line('theme_mass_delete_error')), $delete, $to_delete);
+				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $delete, $to_delete) );
 			}	
 		}	
+
 		else
 		{
-			$this->session->set_flashdata('error', $this->lang->line('theme_delete_select_error'));
-		}	
+			$this->session->set_flashdata('error', lang('themes.delete_select_error'));
+		}
+		
 		redirect('admin/themes');
 	}
 	
