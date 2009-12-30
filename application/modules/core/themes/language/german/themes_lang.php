@@ -1,24 +1,24 @@
 <?php
 
-$lang['theme_set_default_success'] 		= 'Das Thema "%s" ist nun dein Standard-Thema.';
-$lang['theme_set_default_error'] 			= '"%s" konnte nicht als Standard-Thema gesetzt werden.';
-$lang['theme_already_exists_error'] 	= 'Es existiert bereits ein Thema mit diesem Namen.';
-$lang['theme_extract_error'] 					= 'Thema konnte nicht extrahiert werden.';
-$lang['theme_upload_success'] 				= 'Vorlage erfolgreich hochgeladen.';
-$lang['theme_default_delete_error'] 	= 'Standard-Thema "%s" konnte nicht gelöscht werden.';
-$lang['theme_delete_error'] 					= 'Verzeichnis "themes/%s" konnte nicht gelöscht werden.';
-$lang['theme_mass_delete_success'] 		= '%s von %s Themen wurden erfolgreich gelöscht.';
-$lang['theme_mass_delete_error'] 			= '%s von %s Themen wurden erfolgreich gelöscht.';
-$lang['theme_delete_select_error'] 		= 'Du musst zuerst Themen auswählen, um sie zu löschen.';
-$lang['theme_upload_title'] 					= 'Thema hochladen';
-$lang['theme_list_label'] 						= 'Themen-Liste';
-$lang['theme_upload_desc'] 						= 'Bitte wähle eine Datei aus und klicke auf Upload';
+$lang['themes.set_default_success'] 	= 'Das Thema "%s" ist nun dein Standard-Thema.';
+$lang['themes.set_default_error'] 		= '"%s" konnte nicht als Standard-Thema gesetzt werden.';
+$lang['themes.already_exists_error'] 	= 'Es existiert bereits ein Thema mit diesem Namen.';
+$lang['themes.extract_error'] 			= 'Thema konnte nicht extrahiert werden.';
+$lang['themes.upload_success'] 			= 'Vorlage erfolgreich hochgeladen.';
+$lang['themes.default_delete_error'] 	= 'Standard-Thema konnte nicht gelöscht werden.';
+$lang['themes.delete_error'] 			= 'Verzeichnis "%s" konnte nicht gelöscht werden.';
+$lang['themes.mass_delete_success'] 	= '%s von %s Themen wurden erfolgreich gelöscht.';
+$lang['themes.mass_delete_error'] 		= '%s von %s Themen wurden erfolgreich gelöscht.';
+$lang['themes.delete_select_error'] 	= 'Du musst zuerst Themen auswählen, um sie zu löschen.';
+$lang['themes.upload_title'] 			= 'Thema hochladen';
+$lang['themes.list_label'] 				= 'Themen-Liste';
+$lang['themes.upload_desc'] 			= 'Bitte wähle eine Datei aus und klicke auf Upload';
 
-$lang['theme_theme_label'] 						= 'Thema';
-$lang['theme_actions_label'] 					= 'Aktionen';
-$lang['theme_make_default'] 					= 'Als Standard festlegen';
-$lang['theme_delete'] 								= 'Löschen';
-$lang['theme_default_theme_label'] 		= 'Standard-Thema';
-$lang['theme_no_themes_installed'] 		= 'Es sind keine Themen installiert.';
+$lang['themes.theme_label'] 			= 'Thema';
+$lang['themes.actions_label'] 			= 'Aktionen';
+$lang['themes.make_default'] 			= 'Als Standard festlegen';
+$lang['themes.delete'] 					= 'Löschen';
+$lang['themes.default_theme_label'] 	= 'Standard-Thema';
+$lang['themes.no_themes_installed'] 	= 'Es sind keine Themen installiert.';
 
 ?>

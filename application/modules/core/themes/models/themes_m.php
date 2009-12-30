@@ -4,7 +4,7 @@ class Themes_m extends Model
 {
 	public $themes_infos = NULL;
 	
-	public function getThemes()
+	public function get_all()
 	{
 		$dir = APPPATH.'themes/';
 
@@ -32,7 +32,7 @@ class Themes_m extends Model
 	
 	function countThemes()
 	{
-		return $this->theme_infos == NULL ? count($this->getThemes()) : count($this->themes_infos);
+		return $this->theme_infos == NULL ? count($this->get_all()) : count($this->themes_infos);
 	}
 	
 	function getDefault()

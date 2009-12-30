@@ -2,7 +2,7 @@
 <div class="message error">
 	<h6><?php echo lang('general_error_label');?></h6>
 	<p><?php echo $this->session->flashdata('error'); ?></p>
-	<a class="close icon icon_close" title="<?php echo lang('close_message');?>" href="#"></a>
+	<a class="close" title="<?php echo lang('close_message');?>" href="#"></a>
 </div>
 <?php endif; ?>
 
