@@ -6,13 +6,13 @@
 <fieldset>
 	<legend><?php echo lang('page_detail_label'); ?></legend>
 	<p>
-		ID: #<?php echo $page->id; ?>
+		<strong>ID:</strong> #<?php echo $page->id; ?>
 	</p>
 	<p>
-		<?php echo lang('page_status_label'); ?>: <?php echo lang('page_' . $page->status . '_label'); ?>
+		<strong><?php echo lang('page_status_label'); ?>:</strong> <?php echo lang('page_' . $page->status . '_label'); ?>
 	</p>
 	<p>
-		<?php echo lang('page_slug_label');?>: 
+		<strong><?php echo lang('page_slug_label');?>:</strong> 
 		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="modal-large" target="_blank">
 			<?php echo site_url(!empty($page->path) ? $page->path : $page->slug); ?>
 		</a>
@@ -23,13 +23,13 @@
 <fieldset>
 	<legend><?php echo lang('page_meta_label');?></legend>
 	<p>
-		<?php echo lang('page_meta_title_label');?>: <?php echo $page->meta_title; ?>
+		<strong><?php echo lang('page_meta_title_label');?>:</strong> <?php echo $page->meta_title; ?>
 	</p>
 	<p>
-		<?php echo lang('page_meta_keywords_label');?>: <?php echo $page->meta_keywords; ?>
+		<strong><?php echo lang('page_meta_keywords_label');?>:</strong> <?php echo $page->meta_keywords; ?>
 	</p>
 	<p>
-		<?php echo lang('page_meta_desc_label');?>: <?php echo $page->meta_description; ?>
+		<strong><?php echo lang('page_meta_desc_label');?>:</strong> <?php echo $page->meta_description; ?>
 	</p>
 </fieldset>	
 
