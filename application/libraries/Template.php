@@ -18,7 +18,7 @@
 /**
  * CodeIgniter Template Class
  *
- * Permits admin pages to be constructed easier.
+ * Build your CodeIgniter pages much easier with partials, breadcrumbs, layouts and themes
  *
  * @package        	CodeIgniter
  * @subpackage    	Libraries
@@ -66,7 +66,11 @@ class Template
         log_message('debug', 'Template class Initialized');
 
     	// Work out the controller and method
-    	$this->_module 		= $this->CI->router->fetch_module();
+    	if( method_exists( $this->CI->router, 'fetch_module' ) )
+    	{
+    		$this->_module 	= $this->CI->router->fetch_module();
+    	}
+    	
         $this->_controller	= $this->CI->router->fetch_class();
         $this->_method 		= $this->CI->router->fetch_method();
     }
@@ -339,6 +343,7 @@ class Template
     		
     		if( $this->_theme && file_exists( APPPATH . $theme_view . EXT ))
 	    	{
+	    		$this->CI->load->library('parser');
 	    		return $this->CI->parser->parse('../'.$theme_view, $this->data, TRUE);
 	    	}
 
@@ -347,6 +352,7 @@ class Template
 	    	{
 	    		if($this->_parser_enabled === TRUE)
 				{
+					$this->CI->load->library('parser');
 					return $this->CI->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
 				}
 				
@@ -362,6 +368,7 @@ class Template
     	{
     		if($this->_parser_enabled === TRUE)
 			{
+				$this->CI->load->library('parser');
 				return $this->CI->parser->parse( $view, $this->data, TRUE );
 			}
 			
@@ -403,7 +410,6 @@ class Template
 
         return $title;
     }
-
 
 }
 
