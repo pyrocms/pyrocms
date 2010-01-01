@@ -28,6 +28,8 @@ class Admin extends Admin_Controller
 		');
         
         $this->template->append_metadata( js('permissions.js', 'permissions') );
+        
+        $this->template->set_partial('sidebar', 'admin/sidebar');
     }
     
     // Admin: List all permission rules

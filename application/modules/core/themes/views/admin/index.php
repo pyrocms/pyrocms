@@ -46,6 +46,7 @@
 						  	</div>
 							 
 							<p><?php echo $theme['description']; ?></p>
+						</td>
 						<td>
 							<?php if($this->settings->item('default_theme') != $theme['id']): ?>
 								<?php echo anchor('admin/themes/set_default/' . $theme['id'], lang('themes.make_default'), array('class' => 'ajax')).' | '; ?>
@@ -62,7 +63,7 @@
 				</tbody>
 			</table>
 			
-			<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('delete') )); ?>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		
 		<?php echo form_close(); ?>
 		

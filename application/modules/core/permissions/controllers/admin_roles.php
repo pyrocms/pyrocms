@@ -7,6 +7,8 @@ class Admin_roles extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->model('permissions_m');
 		$this->lang->load('permissions');
+        
+        $this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	function index()

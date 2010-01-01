@@ -48,9 +48,9 @@
 				</table>
 			
 			<?php if($method == 'index'): ?>
-				<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('delete') )); ?>
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			<?php else: ?>
-				<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('activate', 'delete') )); ?>
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('activate', 'delete') )); ?>
 			<?php endif; ?>
 			
 		<?php echo form_close(); ?>
