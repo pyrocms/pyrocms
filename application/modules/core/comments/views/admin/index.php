@@ -64,9 +64,9 @@
 		</table>
 		
 		<?php if( $method == 'index' ): ?>
-		<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('approve','delete'))); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))); ?>
 		<?php else: ?>
-		<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('unapprove','delete'))); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
 		<?php endif; ?>
 	<?php echo form_close();?>
 	</div>

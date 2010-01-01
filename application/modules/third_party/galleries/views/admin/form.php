@@ -24,5 +24,5 @@
 		<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 	</div>
 	
-	<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>

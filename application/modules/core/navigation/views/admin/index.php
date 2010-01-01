@@ -51,7 +51,7 @@
 		<p><?php echo lang('nav_no_groups');?></p>
 	<?php endif; ?>
 	
-	<?php $this->load->view('admin/partials/table_buttons', array('buttons' => array('delete') )); ?>
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 
 <?php echo form_close(); ?>
 
