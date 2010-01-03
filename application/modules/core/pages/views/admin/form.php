@@ -104,10 +104,12 @@
 			</div>
 			
 		</div>
+
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+
 	</div>
 </div>
 
-<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>
 
 <script type="text/javascript">

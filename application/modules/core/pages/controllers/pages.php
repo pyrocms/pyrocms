@@ -27,11 +27,21 @@ class Pages extends Public_Controller
     
 
     // Catch all requests to this page in one mega-function
-    function _remap()
+    function _remap($method)
     {
-    	// If no segments have been given, use the default route
-    	$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
-
+    	// This page has been routed to with pages/view/whatever
+    	if($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
+    	{
+    		$url_segments = $this->uri->total_rsegments() > 0 ? $this->uri->rsegment_array() : array($this->default_segment);
+    		$url_segments = array_slice($url_segments, 2);
+    	}
+    	
+    	// not routed, so use the actual URI segments
+    	else
+    	{
+    		$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
+    	}
+    	
     	// Try and load the page from cache or directly, if not, 404
         if(!$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments)) )
         {
