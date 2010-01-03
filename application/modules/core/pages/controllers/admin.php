@@ -13,7 +13,6 @@ class Admin extends Admin_Controller
 	    'meta_keywords'		=> 'trim|max_length[255]',
 	    'meta_description'	=> 'trim',
 		'status'			=> 'trim|alpha|required'
-	   // 'access_level'		=> 'trim|alphadash|required'
 	);
 	
 	// Used to pass page id to edit validation callback
@@ -109,8 +108,7 @@ class Admin extends Admin_Controller
 		// Get the data back to the form
 	    foreach(array_keys($this->rules) as $field)
 	    {
-			$page->$field = isset($this->validation->$field) ? $this->validation->$field : '';
-			
+			$page->{$field} = $this->input->post($field);
 			$fields[$field] = lang('page_' . $field . '_label');
 	    }
 	    
