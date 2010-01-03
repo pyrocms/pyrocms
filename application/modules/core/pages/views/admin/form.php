@@ -1,6 +1,6 @@
 <?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 <?php echo form_hidden('parent_id', @$page->parent_id); ?>
-
+<?php var_dump($page); ?>
 <div class="box">
 
 	<?php if($method == 'create'): ?>
