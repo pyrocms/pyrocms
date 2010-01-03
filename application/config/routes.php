@@ -48,10 +48,11 @@ $route['my-profile'] = "users/profile/index";
 $route['edit-profile'] = "users/profile/edit";
 $route['edit-settings'] = "users/user_settings/edit";
 
-// Pages routing now handled with router extension
-// $route['([a-zA-Z0-9_-]+)'] = "pages/index/$1";
 $route['default_controller'] = "pages";
+
+// This is a feature of Modular Separation that sends all 404 to pages module to be handled
 $route['404'] = 'pages';
+
 $route['scaffolding_trigger'] = "";
 
 ?>
