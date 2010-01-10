@@ -24,11 +24,11 @@ $lang['photo_albums.list_title'] 				= 'List albums';
 
 // messages
 $lang['photo_albums.no_albums_error'] 			= 'There are no photo albums.';
-$lang['photo_albums.no_photos.in_album_error'] 	= 'There are no photos in this album.';
+$lang['photo_albums.no_photos_in_album_error'] 	= 'There are no photos in this album.';
 
 $lang['photo_albums.add_success'] 				= 'The photo album "%s" was saved.';
 $lang['photo_albums.add_error'] 				= 'There was a problem adding this photo album.';
-$lang['photo_albums.edit_success'] 				= 'The gallery "%s" was saved.';
+$lang['photo_albums.edit_success'] 				= 'The album "%s" was saved.';
 $lang['photo_albums.edit_error'] 				= 'There was a problem updating this photo album.';
 $lang['photo_albums.delete_no_select_error'] 	= 'You need to select one or more photo albums to delete.';
 $lang['photo_albums.delete_error'] 				= 'Error occurred while trying to delete photo album "%s"';

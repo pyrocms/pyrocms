@@ -2,13 +2,18 @@
 
 class Photos_m extends MY_Model
 {
-    function insert($image = array(), $album_slug = '', $description)
+    function get_by_album($album_id)
+    {
+    	return parent::get_many_by('album_id', $album_id);
+    }
+    
+	function insert($image = array(), $album_id = '', $description)
     {
         $this->load->helper('date');
         $filename = $image['file_name'];
         
         $image_cfg['image_library'] = 'GD2';
-        $image_cfg['source_image'] = APPPATH.'assets/img/photo_albums/' . $album_slug . '/' . $filename;
+        $image_cfg['source_image'] = APPPATH.'assets/img/photos/' . $album_id . '/' . $filename;
         $image_cfg['create_thumb'] = TRUE;
         $image_cfg['maintain_ratio'] = TRUE;
         $image_cfg['width'] = '150';
@@ -17,10 +22,10 @@ class Photos_m extends MY_Model
         $this->image_lib->resize();
         
         return parent::insert(array(
-        	'filename'=>$filename,
-        	'album_slug'=>$album_slug,
-        	'description'=>$description,
-        	'updated_on'=>now()
+        	'filename'		=> $filename,
+        	'album_id'		=> $album_id,
+        	'description'	=> $description,
+        	'updated_on'	=> now()
         ));
     }
     

@@ -100,9 +100,16 @@ class Template
         $template['title']			= $this->_title;
         $template['breadcrumbs']	= array();
         $template['metadata']		= implode("\n\t\t", $this->_metadata);
-        
+    	$template['partials'] 		= array();
+    	
+    	// Assign by reference, as all loaded views will need access to partials
         $this->data->template =& $template;
-        
+    	
+    	foreach( $this->_partials as $name => $partial )
+    	{
+    		$template['partials'][$name] = $this->_load_view( $partial['view'] , $partial['search']);
+    	}
+    	
         ##### DEPRECATED!! #################################################
         ## TODO: Nuke these variables
         // Set the basic defaults
@@ -110,7 +117,6 @@ class Template
         $this->data->breadcrumbs            = $template['breadcrumbs'];
         $this->data->extra_head_content		= $template['metadata'];
         ####################################################################
-        
 
         // Disable sodding IE7's constant cacheing!!
         $this->CI->output->set_header('HTTP/1.0 200 OK');
@@ -123,15 +129,9 @@ class Template
 
         // Let CI do the caching instead of the browser
         $this->CI->output->cache( $this->cache_lifetime );
-
-        // Test to see if this file 
-    	$this->_body = $this->_load_view( $view );
     	
-    	$template['partials'] = array();
-    	foreach( $this->_partials as $name => $partial )
-    	{
-    		$template['partials'][$name] = $this->_load_view( $partial['view'] , $partial['search']);
-    	}
+        // Test to see if this file
+    	$this->_body = $this->_load_view( $view );
     	
         // Want this file wrapped with a layout file?
         if( $this->_layout )

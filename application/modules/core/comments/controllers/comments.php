@@ -23,11 +23,6 @@ class Comments extends Public_Controller
 			$rules['email'] .= '|required';
 		}
 		
-		if($this->settings->item('captcha_enabled') && !$this->user_lib->logged_in())
-		{
-			$rules['captcha'] = 'trim|required|callback__CheckCaptcha';
-		}
-		
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 		
@@ -54,21 +49,22 @@ class Comments extends Public_Controller
 				'is_active' => $this->user_lib->check_role('admin')
 			));
 			
-			if($this->comments_m->newComment( $comment ))
+			if($this->comments_m->insert( $comment ))
 			{
 				if($this->user_lib->check_role('admin'))
 				{
-					$this->session->set_flashdata('success', $this->lang->line('comment_add_success'));
+					$this->session->set_flashdata('success', lang('comments.add_success'));
 				}
 				
 				else
 				{
-					$this->session->set_flashdata('success', $this->lang->line('comment_add_approve'));
+					$this->session->set_flashdata('success', lang('comments.add_approve'));
 				}
 			}
+			
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('comment_add_error'));
+				$this->session->set_flashdata('error', lang('comments.add_error'));
 			}			
 		}
 		
@@ -91,21 +87,5 @@ class Comments extends Public_Controller
 		redirect($redirect_to);
 	}
 	
-	// Callback: from create()
-	function _CheckCaptcha($title = '')
-	{
-		$captcha_id = $this->input->post('captcha_id');
-		$captcha_word = $this->session->flashdata('captcha_'.$captcha_id);
-		
-		if ($captcha_word != $this->input->post('captcha'))
-		{
-			$this->validation->set_message('_CheckCaptcha', $this->lang->line('comment_capcha_error'));
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
-	}
 }
 ?>

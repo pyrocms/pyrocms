@@ -3,9 +3,9 @@
 <div class="box">
 
 	<?php if($active_comments): ?>
-		<h3><?php echo lang('comments_active_title');?></h3>
+		<h3><?php echo lang('comments.active_title');?></h3>
 	<?php else: ?>
-		<h3><?php echo lang('comments_inactive_title');?></h3>
+		<h3><?php echo lang('comments.inactive_title');?></h3>
 	<?php endif; ?>
 	
 	<div class="box-container">
@@ -16,10 +16,10 @@
 			<thead>
 				<tr>
 					<th><?php echo form_checkbox('action_to_all');?></th>
-					<th class="width-20"><?php echo lang('comment_teaser_label');?></th>
-					<th class="width-10"><?php echo lang('comment_author_label');?></th>
-					<th class="width-10"><?php echo lang('comment_date_label');?></th>
-					<th class="width-15"><?php echo lang('comment_actions_label');?></th>
+					<th class="width-20"><?php echo lang('comments.teaser_label');?></th>
+					<th class="width-10"><?php echo lang('comments.author_label');?></th>
+					<th class="width-10"><?php echo lang('comments.date_label');?></th>
+					<th class="width-15"><?php echo lang('comments.actions_label');?></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -44,20 +44,20 @@
 							</td>
 							<td><?php echo date('M d, Y', $comment->created_on);?></td>						
 							<td>
-								<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comment_preview_label'), 'rel="modal" target="_blank"'); ?> | 
+								<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comments.preview_label'), 'rel="modal" target="_blank"'); ?> | 
 								<?php if($comment->is_active == 0): ?>
-									<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comment_activate_label'),array('class' => 'ajax'));?>
+									<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'),array('class' => 'ajax'));?>
 								<?php else: ?>
-									<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comment_deactivate_label'),array('class' => 'ajax'));?>
+									<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'),array('class' => 'ajax'));?>
 								<?php endif; ?> | 
-								<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comment_edit_label'));?> | 
-								<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comment_delete_label'), array('class'=>'confirm')); ?>
+								<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comments.edit_label'));?> | 
+								<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comments.delete_label'), array('class'=>'confirm')); ?>
 							</td>
 						</tr>
 				<?php endforeach; ?>
 			<?php else: ?>
 					<tr>
-						<td colspan="6"><?php echo lang('comments_no_comments');?></td>
+						<td colspan="6"><?php echo lang('comments.no_comments');?></td>
 					</tr>
 			<?php endif; ?>
 			</tbody>	

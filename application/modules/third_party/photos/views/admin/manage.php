@@ -1,21 +1,3 @@
-<?php if ($photos): ?> 
-	<h3><?php echo lang('photo_albums.manage_title');?></h3>
-	<div id="photos">
-		<?php echo form_open('admin/photos/delete_photo');?>
-			<?php echo form_hidden('album', $album->id);?>
-				<?php foreach($photos as $photo): ?>
-					<div class="float-left align-center spacer-right">
-						<?php echo form_checkbox('action_to[]', $photo->id); ?><br />
-						<?php echo image('photos/' . $album->slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description));?><br />
-					</div>
-				<?php endforeach; ?>			
-			<br class="clear-both" />
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
-		<?php echo form_close(); ?>	
-	</div>
-	<hr class="clear-both" />
-<?php endif; ?>
-
 <div class="box">
 	<h3><?php echo lang('photo_albums.add_photo_title');?></h3>
 	
@@ -40,4 +22,29 @@
 	
 		<?php echo form_close();?>
 	</div>	
+</div>
+
+<div class="box">
+	
+	<h3><?php echo lang('photo_albums.manage_title');?></h3>
+
+	<div class="box-container">
+		<?php if ($photos): ?> 
+			<?php echo form_open('admin/photos/delete_photo');?>
+				<?php echo form_hidden('album', $album->id);?>
+				
+					<?php foreach($photos as $photo): ?>
+						<div class="float-left align-center spacer-right" style="height:150px">
+							<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" title="<?php echo $photo->description;?>" rel="modal">
+								<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->description));?>
+							</a><br />
+							<?php echo form_checkbox('action_to[]', $photo->id); ?>
+						</div>
+					<?php endforeach; ?>
+						
+				<br class="clear-both" />
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			<?php echo form_close(); ?>
+		<?php endif; ?>
+	</div>
 </div>

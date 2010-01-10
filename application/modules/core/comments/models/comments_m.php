@@ -94,78 +94,51 @@ class Comments_m extends MY_Model
    		}
   	}
 	
-	public function get($id)
-	{
-		$comment = $this->getComment($id);
-		return $comment->module;
-	}
-		
-	public function getModuleComments($module, $limit)
-	{
-		$comments = $this->get_comments( array('module' => $module, 'limit' => $limit) );
-		return $comments;
-	}
-	
-	public function get_commentsOfModuleItem($module, $item, $limit)
-	{
-		$comments = $this->get_comments( array('module' => $module, 'module_id' => $item, 'limit' => $limit) );
-		return $comments;
-	}
-	
-	public function getComment($id = 0)
-	{
-		$comment = $this->get_comments( array('id'=>$id) );
-		$comment =& $comment[0];
-		return $comment;
-	}
-	
-	public function newComment($input)
+	public function insert($input)
 	{
 		$this->load->helper('date');
 		
-		$this->db->insert('comments', array(
-			'user_id'		=> isset($input['user_id']) 		? 	$input['user_id'] 							:  0,
-			'is_active'		=> isset($input['is_active']) 		? 	$input['is_active'] 						:  0,
-			'name'			=> isset($input['name']) 			? 	ucwords(strtolower($input['name'])) 		: '',
-			'email'			=> isset($input['email']) 			? 	strtolower($input['email']) 				: '',
+		$comment = array(
+			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 						:  0,
+			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
+			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
+			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
 			'body'			=> strip_tags($input['body']),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now()
-		));
+		);
 		
-		return $this->db->insert_id();
+		return parent::insert($comment);
 	}
 	
-	public function updateComment($input, $id = 0)
+	public function update($id, $input)
 	{
   		$this->load->helper('date');
 		
-		$this->db->where('id', $id);		
-		$set = array(
-			'user_id'		=> isset($input['user_id']) 		? 	$input['user_id'] 							:  0,
-			'is_active'		=> isset($input['is_active']) 		? 	$input['is_active'] 						:  0,
-			'name'			=> isset($input['name']) 			? 	ucwords(strtolower($input['name'])) 		: '',
-			'email'			=> isset($input['email']) 			? 	strtolower($input['email']) 				: '',
+		$comment = array(
+			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 						:  0,
+			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
+			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
+			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
 			'body'			=> strip_tags($input['body']),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now()
 		);	
 		
-		return $this->db->update('comments', $set);
+		return parent::update($id, $comment);
 	}
 	
-	public function approveComment($id, $is_active = 0)
+	public function approve($id)
 	{
-  		$this->db->where('id', $id);
-		return $this->db->update('comments', array('is_active' => $is_active));
+		return parent::update($id, array('is_active' => 1));
+	}
+	
+	public function unapprove($id)
+	{
+		return parent::update($id, array('is_active' => 0));
 	}
 
-	public function deleteComment($id = 0)
-	{
-		$this->db->delete('comments', array('id'=>$id));
-		return $this->db->affected_rows();
-	}		
 }
 ?>

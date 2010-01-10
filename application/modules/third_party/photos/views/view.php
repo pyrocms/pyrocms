@@ -1,39 +1,36 @@
-<h2><?php echo $gallery->title; ?></h2>
-<p><?php echo $gallery->description; ?></p>
+<h2><?php echo $album->title; ?></h2>
+<p><?php echo $album->description; ?></p>
+
 <hr />
 	
-<?php if(!empty($children)): ?>
-	<?php foreach ($children as $child): ?>				
-		<li<?php echo $child->slug == 'home' ? 'class="box-hidden"' : '' ?>>
-			<?php echo anchor('galleries/' . $child->slug, $child->title);?><br />
-			<?php echo $child->description; ?><br />
-			<?php echo $this->galleries_m->galleryPhotosList($child->slug);?>
+<?php if(!empty($album->children)): ?>
+
+	<ul>
+	<?php foreach ($album->children as $child): ?>				
+		<li>
+			<?php echo anchor('photos/' . $child->slug, $child->title);?><br />
+			<?php echo $child->description; ?>
 		</li>			
 	<?php endforeach; ?>
+	</ul>
+	
 	<hr />
 <?php endif; ?>
 
-<?php // Show photos in this gallery ?>
 <?php if(!empty($photos)): ?>
 
-		<ul id="photos">
+		<ul id="photos" class="list-unstyled">
 			<?php foreach ($photos as $photo):?>
-				<li><a href="<?php echo image_path('galleries/'.$gallery->slug .'/' . $photo->filename); ?>" title="<?php echo $photo->description;?>" rel="modal"><?php echo image('galleries/' . $gallery->slug . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('title'=>$photo->description));?></a></li>
+				<li>
+					<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" title="<?php echo $photo->description;?>" rel="modal">
+						<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->description));?>
+					</a>
+				</li>
 			<?php endforeach; ?>
 		</ul>
 					
-		<h3><?php echo lang('gal_comments_title');?></h3>
-		
-		<fieldset class="alternative float-left width-half">
-			<legend><?php echo lang('gal_other_comments_label');?></legend>
-			<?php echo $this->load->view('comments/comments', array('comments' => $this->comments_m->get_comments(array('module' => $this->module, 'module_id' => $gallery->id, 'is_active' => 1)))); ?>
-		</fieldset>
-										
-		<fieldset class="float-right width-half">
-			<legend><?php echo lang('gal_your_comments_label');?></legend>
-			<?php echo $this->load->view('comments/form', array('module'=>$this->module, 'id' => $gallery->id)); ?> 
-		</fieldset>
+		<?php echo $this->load->view('comments/comments', array('module' => $this->module, 'module_id' => $photo->id)); ?>
 		
 <?php else: ?>
-	<p><?php echo lang('gal_no_photos_in_gallery_error');?></p>
+	<p><?php echo lang('photo_albums.no_photos_in_album_error');?></p>
 <?php endif; ?>

@@ -5,34 +5,38 @@ class Photos extends Public_Controller
 	function __construct()
 	{
 		parent::Public_Controller();
+		
 		$this->load->model('photos_m');
+		$this->load->model('photo_albums_m');
+		
 		$this->lang->load('photos');
+		$this->lang->load('photo_albums');
 	}
 	
-	// Public: List Galleries
+	// Public: List albums
 	function index()
 	{
-		$this->data->photos = $this->photos_m->getGalleries(array('parent'=>0));
+		$this->data->photos = $this->photo_albums_m->get_many_by('parent', 0);
 		$this->template->build('index', $this->data);
 	}
 	
-	// Public: View an Gallery
+	// Public: View an album
 	function view($slug = '')
 	{
 		$this->load->model('comments/comments_m');
 		
-		if($this->data->gallery = $this->photos_m->getGallery($slug))
+		if( !$album = $this->photo_albums_m->get_by('slug', $slug))
 		{
-			$this->data->photos = $this->photos_m->getPhotos($slug);		
-			$this->data->children = $this->photos_m->getGalleries(array('parent'=>$this->data->gallery->id));		
-			$this->template->title($this->data->gallery->title);
-			$this->template->build('view', $this->data);
-		}		
-		else
-		{
-			$this->session->set_flashdata('notice', $this->lang->line('gal_already_exist_error'));
-			redirect('photos');
+			show_404();
 		}
+
+		$album->children = $this->photo_albums_m->get_many_by('parent', $album->id);
+		
+		$this->data->photos = $this->photos_m->get_many_by('album_id', $album->id);		
+		$this->data->album =& $album;
+		
+		$this->template->title($album->title)
+			->build('view', $this->data);
 	}    
 }
 ?>

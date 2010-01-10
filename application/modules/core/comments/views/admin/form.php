@@ -1,6 +1,6 @@
 <div class="box">
 
-	<h3><?php echo lang('comments_edit_title');?></h3>
+	<h3><?php echo lang('comments.edit_title');?></h3>
 	
 	<div class="box-container">
 	
@@ -14,27 +14,27 @@
 				<ol>
 					<?php if(!$comment->user_id > 0): ?>
 					<li>
-						<label for="name"><?php echo lang('comment_name_label');?>:</label>
+						<label for="name"><?php echo lang('comments.name_label');?>:</label>
 						<?php echo form_input('name', $comment->name, 'class="text" maxlength="100"'); ?>
 					</li>
 			
 					<li class="even">
-						<label for="email"><?php echo lang('comment_email_label');?>:</label>
+						<label for="email"><?php echo lang('comments.email_label');?>:</label>
 						<?php echo form_input('email', $comment->email, 'class="text" maxlength="100"'); ?>
 					</li>
 					<?php else: ?>
 					<li>
-						<label><?php echo lang('comment_name_label');?>:</label>
+						<label><?php echo lang('comments.name_label');?>:</label>
 						<?php echo $comment->name;?>
 					</li>
 					<li class="even">
-						<label><?php echo lang('comment_email_label');?>:</label>
+						<label><?php echo lang('comments.email_label');?>:</label>
 						<?php echo $comment->email;?>
 					</li>
 					<?php endif; ?>
 				
 					<li>
-						<label for="body"><?php echo lang('comment_message_label');?>:</label>
+						<label for="body"><?php echo lang('comments.message_label');?>:</label>
 						<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $comment->body, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
 					</li>
 				</ol>

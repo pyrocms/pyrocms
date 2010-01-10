@@ -16,10 +16,5 @@ if( $this->settings->item('enable_social_bookmarks'))
 ?>
 
 <div class="comments">
-	<!-- Module heading -->
-	<h3><?php echo lang('news_comments_title');?></h3>
-	<?php echo $this->load->view('comments/comments', array('comments' => $this->comments_m->get_comments(array('module' => $this->module, 'module_id' => $article->id, 'is_active' => 1)))); ?>
-	
-	<h3><?php echo lang('news_your_comments_label');?></h3>
-	<?php echo $this->load->view('comments/form', array('module'=>$this->module, 'id' => $article->id)); ?> 
+	<?php echo $this->load->view('comments/comments', array('module' => $this->module, 'module_id' => $article->id)); ?>	
 </div>

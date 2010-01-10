@@ -2,8 +2,8 @@
 {
 	$(function() {
 
-		/* Fancybox modal window */
-		$('a[rel*=modal]').fancybox({
+		// Fancybox modal window
+		$('a[rel=modal], a.modal').fancybox({
 			overlayOpacity: 0.8,
 			overlayColor: '#000',
 			hideOnContentClick: false
