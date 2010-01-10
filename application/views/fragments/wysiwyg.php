@@ -13,7 +13,7 @@
 		
 		language : "<?php echo CURRENT_LANGUAGE;?>",
 
-		width : 325,
+		width : 400,
 
 		force_p_newlines : false,
 		force_br_newlines : true,

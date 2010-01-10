@@ -1,4 +1,4 @@
-<h2><?php echo lang('gal_photo_galleries_title');?></h2>
+<h2><?php echo lang('photo_albums.list_title');?></h2>
 <?php if ($galleries): ?>	
 	<ul class="galleryHolder">
 		<?php foreach ($galleries as $gallery): ?>
