@@ -114,22 +114,6 @@ div#content {padding-top:25px;}
 		ul.list-links li ul li a:hover {background-color:#fcfbf2; background-position:8px 10px}
 		ul.list-links li a.ui-state-active {font-weight:bold;}
 	
-	
-	/** system messages **/
-	div#sys-messages-container h5 {background:url(../../img/admin/icon-messages.gif) no-repeat;}
-	div#quick-send-message-container h5 {background:url(../../img/admin/icon-quick-send-message.gif) no-repeat;}
-	
-	div#sys-messages-container ul {margin-bottom:20px;}
-	div#sys-messages-container ul li {font-size:0.8em; padding:8px; position:relative;}
-	div#sys-messages-container ul li a.sysmessage-delete {position:absolute; right:8px; top:7px;}
-	div#sys-messages-container ul li a:hover {text-decoration:none;}
-	
-	div#sys-messages-container ul li.even-messages {background:#f3f6f7;}
-	div#sys-messages-container ul li.even-messages a {color:#314d5b;}
-	
-	div#sys-messages-container ul li.odd-messages {background:#ebf0f3;}
-	div#sys-messages-container ul li.odd-messages a {color:#1f2f35;}
-	
 	/** quick send message **/
 	div#quick-send-message-container form {background:#f2f2f2; padding:8px; font-size:0.9em; color:#333; margin-bottom:5px;}
 	div#quick-send-message-container form fieldset p {margin-bottom:6px !important;}
@@ -152,18 +136,32 @@ div#content {padding-top:25px;}
 	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
 	
 	form.crud fieldset {padding-top:10px; border:0;}
-	form.crud fieldset ol li {padding:15px;}
-	form.crud fieldset ol li.even {background:#f3f3f3;}
+	form.crud ol li {padding:15px;}
+	form.crud ol li.even {background:#f3f3f3;}
 	
-	form.crud fieldset ol li input,form.crud fieldset ol li textarea {
+	form.crud ol li input,form.crud ol li textarea {
 	padding:5px; border:1px solid #dedede; background:url(../../img/admin/bg-textbox.gif) repeat-x #fff;}
-	form.crud fieldset ol li input[type="radio"], form.crud fieldset ol li input[type="checkbox"] {border:none; background:none;}
-	input[type="text"].short {width:122px;}
-	input[type="text"].middle {width:190px;}
-	input[type="text"].long, form.crud fieldset ol li textarea {width:305px;}
+	form.crud ol li input[type="radio"], form.crud ol li input[type="checkbox"] {border:none; background:none;}
 	
-	form.crud fieldset label {float:left; margin-right:15px; display:block; font-weight:bold; width:180px; padding-top:3px;}
+	form.crud ol li input[type="text"], form.crud ol li textarea {width:400px;}
 	
+	form.crud input[type="text"].short {width:122px;}
+	form.crud input[type="text"].long, form.crud ol li textarea {width:305px;}
+	
+	form.crud label {float:left; margin-right:15px; display:block; font-weight:bold; width:180px; padding-top:3px;}
+	
+	.required-icon {
+		background: url(../../img/admin/input-required.png) no-repeat;
+		text-indent: -9000px;
+		display: inline-block;
+		overflow: hidden;
+		height: 20px;
+		width: 15px;
+		position: relative;
+		margin-left: -20px;
+		top: -4px;
+		vertical-align: top;
+	}
 	
 	span.form-confirm-inline, span.form-error-inline {display:inline-block; padding-left:20px;  margin-left:10px; height:16px;}
 	span.form-confirm-inline {color:#72a101; background:url(../../img/admin/icon-confirm.gif) no-repeat;}
@@ -339,6 +337,7 @@ div.button a, button span {
 	-webkit-border-radius:5px;
 }
 
-div.button a:hover, button span:hover {
+div.button a:hover, button:hover span {
 	background:lightgrey;
+	cursor: pointer;
 }

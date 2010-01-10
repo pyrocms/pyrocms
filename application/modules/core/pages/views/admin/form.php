@@ -1,6 +1,3 @@
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
-<?php echo form_hidden('parent_id', @$page->parent_id); ?>
-<?php var_dump($page); ?>
 <div class="box">
 
 	<?php if($method == 'create'): ?>
@@ -11,6 +8,9 @@
 	
 	<div class="box-container">	
 	
+		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+		<?php echo form_hidden('parent_id', @$page->parent_id); ?>
+
 		<div class="tabs">
 		
 			<ul class="tab-menu">
@@ -27,6 +27,7 @@
 						<li class="even">
 							<label for="title"><?php echo lang('page_title_label');?></label>
 							<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
+							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						</li>
 						
 						<li>
@@ -107,10 +108,9 @@
 
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 
+		<?php echo form_close(); ?>
 	</div>
 </div>
-
-<?php echo form_close(); ?>
 
 <script type="text/javascript">
 	css_editor('css_editor', "41.6em");

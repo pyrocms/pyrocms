@@ -199,17 +199,9 @@ class News_m extends MY_Model
         return $string ;
     }
 
-
-    function check_title($title = '')
+	function check_title($title = '')
     {
-        $this->db->select('COUNT(title) AS total');
-        $query = $this->db->get_where('news', array('slug'=>url_title($title)));
-        $row = $query->row();
-        if ($row->total == 0) {
-            return FALSE;
-        } else {
-            return TRUE;
-        }
+		return parent::count_by('slug', url_title($title)) === 0;
     }
 }
 

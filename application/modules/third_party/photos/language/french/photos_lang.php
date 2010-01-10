@@ -22,10 +22,10 @@ $lang['gal_your_comments_label'] 						= 'Vous dîtes...?';
 // titles
 $lang['gal_manage_title'] 									= 'Photos dans la Galerie';
 $lang['gal_add_photo_title'] 								= 'Ajouter une Photo';
-$lang['gal_create_title'] 									= 'Créer une galerie';
+$lang['photo_albums.add_title'] 									= 'Créer une galerie';
 $lang['gal_edit_title'] 										= 'Modifier la galerie "%s"';
 $lang['gal_comments_title'] 								= 'Commentaires';
-$lang['gal_photo_galleries_title'] 					= 'Galeries de Photos';
+$lang['photo_albums.list_title'] 					= 'Galeries de Photos';
 
 // messages
 $lang['gal_no_galleries_error'] 						= 'Aucune galeries.';
