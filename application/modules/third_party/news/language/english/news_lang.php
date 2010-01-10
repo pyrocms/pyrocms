@@ -27,7 +27,6 @@ $lang['news_all_articles_label'] 					= 'All articles';
 $lang['news_articles_of_category_suffix'] 			= ' articles';
 $lang['news_rss_name_suffix'] 						= ' News';
 $lang['news_rss_category_suffix'] 					= ' News';
-$lang['news_your_comments_label'] 					= 'Post a comment'; // #translate
 $lang['news_author_name_label'] 					= 'Author name';
 $lang['news_read_more_label'] 						= 'Read More&nbsp;&raquo;';
 
@@ -35,7 +34,6 @@ $lang['news_read_more_label'] 						= 'Read More&nbsp;&raquo;';
 $lang['news_create_title'] 							= 'Add article';
 $lang['news_edit_title'] 							= 'Edit article "%s"';
 $lang['news_archive_title'] 						= 'Archive';
-$lang['news_comments_title'] 						= 'Comments';
 $lang['news_articles_title'] 						= 'Articles';
 $lang['news_rss_articles_title'] 					= 'News articles for %s';
 $lang['news_news_title'] 							= 'News';

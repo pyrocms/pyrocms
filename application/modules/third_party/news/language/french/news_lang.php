@@ -27,7 +27,6 @@ $lang['news_all_articles_label'] 					= 'Tous les articles';
 $lang['news_articles_of_category_suffix'] 			= ' articles';
 $lang['news_rss_name_suffix'] 						= ' Actualités';
 $lang['news_rss_category_suffix'] 					= ' Actualités';
-$lang['news_your_comments_label'] 					= 'Envoyez un commentaire'; // #translate
 $lang['news_author_name_label'] 					= 'Auteur';
 $lang['news_read_more_label'] 						= 'Suite&nbsp;&raquo;';
 
@@ -35,7 +34,6 @@ $lang['news_read_more_label'] 						= 'Suite&nbsp;&raquo;';
 $lang['news_create_title'] 							= 'Créer un article';
 $lang['news_edit_title'] 							= 'Modifier l\'article "%s"';
 $lang['news_archive_title'] 						= 'Archiver';
-$lang['news_comments_title'] 						= 'Commentaires';
 $lang['news_articles_title'] 						= 'Articles';
 $lang['news_rss_articles_title'] 					= 'Article d\'actualité pour %s';
 $lang['news_news_title'] 							= 'Actualités';

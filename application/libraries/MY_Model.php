@@ -102,6 +102,21 @@ class MY_Model extends Model
 	 * @return array
 	 * @author Phil Sturgeon
 	 */
+	public function get_many($primary_value)
+	{
+		$this->db->where($this->primary_key, $primary_value);
+		return $this->get_all();
+	}
+	
+	/**
+	 * Similar to get_by(), but returns a result array of
+	 * many result objects.
+	 *
+	 * @param string $key The key to search by
+	 * @param string $val The value of that key
+	 * @return array
+	 * @author Phil Sturgeon
+	 */
 	public function get_many_by()
 	{
 		$where =& func_get_args();

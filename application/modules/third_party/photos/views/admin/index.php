@@ -28,11 +28,11 @@
 					<?php function album_row($tree, $parent, $lvl) { ?>
 					<?php if(isset($tree[$parent])) foreach ($tree[$parent] as $album): ?>
 						<tr>
-							<td><input type="checkbox" name="delete[<?php echo $album->slug;?>]" /></td>
+							<td><?php echo form_checkbox('action_to[]', $album->id); ?></td>
 			        <td><?php echo repeater('-- ', $lvl);?> <?php echo $album->title;?></td>
 			        <td><?php echo $album->num_photos;?></td>
 			        <td><?php echo date('M d, Y', $album->updated_on);?></td>
-			        <td><?php echo anchor('photos/' . $album->id, lang('photo_albums.view_label'), 'target="_blank"') . ' | ' .
+			        <td><?php echo anchor('photos/' . $album->slug, lang('photo_albums.view_label'), 'target="_blank"') . ' | ' .
 									anchor('admin/photos/manage/' . $album->id, lang('photo_albums.manage_label')) . ' | ' .
 									anchor('admin/photos/edit/' . $album->id, lang('photo_albums.edit_label')) . ' | ' .
 									anchor('admin/photos/delete/' . $album->id, lang('photo_albums.delete_label'), array('class'=>'confirm')); ?>

@@ -61,11 +61,11 @@ class Admin extends Admin_Controller
 		{
 			if ($this->photo_albums_m->insert($_POST))
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('photo_albums.add_success'), $this->input->post('title')) );
+				$this->session->set_flashdata('success', sprintf( lang('photo_albums.add_success'), $this->input->post('title')) );
 			}
 			else
 			{
-				$this->session->set_flashdata(array('error'=>$this->lang->line('photo_albums.add_error')));
+				$this->session->set_flashdata(array('error'=> lang('photo_albums.add_error')));
 			}
 			redirect('admin/photos');
 		}
@@ -111,7 +111,6 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		
 		// Run validation
 		if ($this->validation->run())
 		{
@@ -143,7 +142,7 @@ class Admin extends Admin_Controller
 		
 		if(empty($ids_array))
 		{
-			$this->session->set_flashdata('error', $this->lang->line('photo_albums.delete_no_select_error'));
+			$this->session->set_flashdata('error',  lang('photo_albums.delete_no_select_error'));
 			redirect('admin/photos');
 		}
 		
@@ -156,16 +155,16 @@ class Admin extends Admin_Controller
 			}				
 			else
 			{
-				$this->session->set_flashdata('error', sprintf($this->lang->line('photo_albums.delete_error'), $id));
+				$this->session->set_flashdata('error', sprintf( lang('photo_albums.delete_error'), $id));
 			}
 		}
 		
 		if( $deleted > 0 )
 		{
-			$this->session->set_flashdata('success', sprintf($this->lang->line('photo_albums.mass_delete_success'), $deleted, count($ids_array)));
+			$this->session->set_flashdata('success', sprintf( lang('photo_albums.mass_delete_success'), $deleted, count($ids_array)));
 		}
 		
-		redirect('admin/photos/index');
+		redirect('admin/photos');
 	}
 	
 	// Admin: Upload a photo
@@ -173,8 +172,9 @@ class Admin extends Admin_Controller
 	{	
 		if (empty($id)) redirect('admin/photos');
 		
-		$this->data->gallery = $this->photo_albums_m->get($id); 
-		$this->data->photos = $this->photos_m->get($id);		
+		$this->data->album = $this->photo_albums_m->get($id);
+		$this->data->photos = $this->photos_m->get_by_album($id);
+		
 		$this->template->build('admin/manage', $this->data);
 	}
 	
@@ -197,16 +197,19 @@ class Admin extends Admin_Controller
 		{
 			if($this->upload->do_upload())
 			{
-				$image = $this->upload->data();			
-				if( $this->photos_m->addPhoto($image, $id, $this->input->post('description')) )
+				$image = $this->upload->data();
+					
+				if( $this->photos_m->insert($image, $id, $this->input->post('description')) )
 				{
-					$this->session->set_flashdata('success', sprintf($this->lang->line('photos.upload_success'), $image['file_name']));
-				}				
+					$this->session->set_flashdata('success', lang('photos.upload_success'));
+				}
+						
 				else
 				{
-					$this->session->set_flashdata('error', sprintf($this->lang->line('photos.upload_error'), $image['file_name']));
+					$this->session->set_flashdata('error', sprintf( lang('photos.upload_error'), $image['file_name']));
 				}
-			}			
+			}
+			
 			else
 			{
 				$this->session->set_flashdata('error', $this->upload->display_errors());
@@ -224,13 +227,13 @@ class Admin extends Admin_Controller
 	// Admin: Delete Gallery Photos
 	function delete_photo($id = 0)
 	{
-		$album_id = $this->input->post('album_id');
+		$album_id = $this->input->post('album');
 				
 		$ids_array = ( $id > 0 ) ? array($id) : $this->input->post('action_to');
 		
 		if(empty($ids_array))
 		{
-			$this->session->set_flashdata('error', $this->lang->line('photos.delete_no_select_error'));
+			$this->session->set_flashdata('error', lang('photos.delete_no_select_error'));
 		}
 		
 		else
@@ -246,14 +249,15 @@ class Admin extends Admin_Controller
 		
 			if($deleted > 0)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('photos.delete_success'), $deleted));
+				$this->session->set_flashdata('success', sprintf( lang('photos.delete_success'), $deleted));
 			}
 			
 			else
 			{
-				$this->session->set_flashdata('notice', $this->lang->line('photos.delete_error'));
+				$this->session->set_flashdata('notice', lang('photos.delete_error'));
 			}
-		}		
+		}
+		
 		redirect('admin/photos/manage/'.$album_id);
 	}
 	
@@ -262,7 +266,7 @@ class Admin extends Admin_Controller
 	{
 		if ($this->photos_m->check_title($title))
 		{
-			$this->validation->set_message('_createTitleCheck', $this->lang->line('photo_albums.name_already_exist_error'));
+			$this->validation->set_message('_createTitleCheck', lang('photo_albums.name_already_exist_error'));
 			return FALSE;
 		}		
 		

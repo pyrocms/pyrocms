@@ -2,7 +2,6 @@
 
 // labels
 $lang['news_posted_label'] 							= 'Veröffentlicht in'; // #translate
-$lang['news_posted_label_alt']						= 'Veröffentlicht in'; // #translate
 $lang['news_category_label'] 						= 'Kategorie';
 $lang['news_post_label'] 							= 'Artikel';
 $lang['news_date_label'] 							= 'Datum';
@@ -28,7 +27,6 @@ $lang['news_all_articles_label'] 					= 'Alle Artikel';
 $lang['news_articles_of_category_suffix'] 			= ' Artikel';
 $lang['news_rss_name_suffix'] 						= ' News';
 $lang['news_rss_category_suffix'] 					= ' News';
-$lang['news_your_comments_label'] 					= 'Kommentar schreiben'; // #translate
 $lang['news_author_name_label'] 					= 'Autor';
 $lang['news_read_more_label'] 						= 'Mehr lesen&nbsp;&raquo;';
 
@@ -36,7 +34,6 @@ $lang['news_read_more_label'] 						= 'Mehr lesen&nbsp;&raquo;';
 $lang['news_create_title'] 							= 'Artikel erstellen';
 $lang['news_edit_title'] 							= 'Artikel "%s" bearbeiten';
 $lang['news_archive_title'] 						= 'Archiv';
-$lang['news_comments_title'] 						= 'Kommentare';
 $lang['news_articles_title'] 						= 'Artikel';
 $lang['news_rss_articles_title'] 					= 'News Artikel für %s';
 $lang['news_news_title'] 							= 'News';
