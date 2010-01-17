@@ -23,7 +23,14 @@ minimize or totally remove downtime during upgrade.
 	
 3. Run the following terminal command:
 
-	sudo rm -rf application/cache/pages_m/
+	sudo rm -rf application/cache/*_m/
+
+Note #1: Galleries, products, services, staff and suppliers modules have all been removed from the core of PyroCMS.
+Galleries module has been improved and renamed to photos, the others are available from 
+http://github.com/philsturgeon/pyrocms-extras but will not be upgraded for v0.9.8. Feel free to ask for access to 
+this repository if you wish to work on any of these modules (or any custom modules you wish to share).
+
+Note #2: Many of you installing v0.9.8 will be upgrading from v0.9.7.3, please run the v0.9.7.4 upgrades too.
 
 
 09/12/09 - v0.9.7.3 to v0.9.4
