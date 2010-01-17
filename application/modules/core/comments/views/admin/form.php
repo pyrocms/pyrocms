@@ -25,11 +25,11 @@
 					<?php else: ?>
 					<li>
 						<label><?php echo lang('comments.name_label');?>:</label>
-						<?php echo $comment->name;?>
+						<p><?php echo $comment->name;?></p>
 					</li>
 					<li class="even">
 						<label><?php echo lang('comments.email_label');?>:</label>
-						<?php echo $comment->email;?>
+						<p><?php echo $comment->email;?></p>
 					</li>
 					<?php endif; ?>
 				
