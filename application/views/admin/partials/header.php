@@ -19,7 +19,7 @@
 	
 	<?php foreach($core_modules as $core_module): ?>
 	<li class="<?php echo $core_module['slug'] == $module ? 'selected' : ''; ?> <?php echo $core_module['slug']; ?>">
-		<a href="<?php echo site_url('admin/'.$core_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_breadcrumb_home_title');?> | <?php echo $core_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
+		<a href="<?php echo site_url('admin/'.$core_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_admin_title');?> | <?php echo $core_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
 			<?php echo $core_module['name'];?> 
 		</a>
 	</li>
@@ -33,7 +33,7 @@
 		<ul>
 			<?php foreach($third_party_modules as $tp_module): ?>
 			<li class="<?php echo $tp_module['slug']; ?>">
-				<a href="<?php echo site_url('admin/'.$tp_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_breadcrumb_home_title');?> | <?php echo $tp_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
+				<a href="<?php echo site_url('admin/'.$tp_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_admin_title');?> | <?php echo $tp_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
 					<?php echo $tp_module['name'];?>
 				</a>
 			</li>
