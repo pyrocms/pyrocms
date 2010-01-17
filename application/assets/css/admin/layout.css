@@ -247,7 +247,7 @@ div#content {padding-top:25px;}
 /*              MESSAGES              */
 /**************************************/
 .message {
-	margin-bottom:20px;
+	margin: 0 2em 1em;
 	position:relative;
 	color:#3d3333;
 	font-size:1.2em;
@@ -265,19 +265,19 @@ div#content {padding-top:25px;}
 	margin-bottom:-9px;
 	padding-bottom:10px;
 }
-.message.error{
+.message.error {
 	border:#d99d9d 1px solid;
-	background:url(../../img/admin/error.png) no-repeat left center;
+	background: #FFe5e5 url(../../img/admin/error.png) no-repeat left center;
 }
-.message.success{
+.message.success {
 	border:#9bdea8 1px solid;
-	background:url(../../img/admin/success.png) no-repeat left center;
+	background: #e9ffe5 url(../../img/admin/success.png) no-repeat left center;
 }
-.message.notice{
+.message.notice {
 	border:#e8e657 1px solid;
-	background:url(../../img/admin/notice.png) no-repeat left center;
+	background: #FFFee5 url(../../img/admin/notice.png) no-repeat left center;
 }
-.message .close{
+.message .close {
 	position:absolute;
 	top:5px;
 	right:5px;
