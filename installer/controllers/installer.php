@@ -10,6 +10,25 @@
  */
 class Installer extends Controller 
 {
+	private $writeable_directories = array(
+		'codeigniter/cache',
+		'codeigniter/logs',
+		'application/cache',
+		'application/cache/captcha',
+		'application/cache/dwoo',
+		'application/cache/dwoo/compiled',
+		'application/cache/simplepie',
+		'application/uploads',
+		'application/assets/img/photos',
+		'application/uploads/assets',
+		'application/uploads/assets/cache'
+	);
+	
+	private $writeable_files = array(
+		'application/config/config.php',
+		'application/config/database.php' 
+	);
+	
 	function __construct()
 	{
 		parent::Controller();
@@ -140,30 +159,25 @@ class Installer extends Controller
 		$this->load->helper('file');
 		
 		// Get the write permissions for the folders
-		$array['codeigniter/cache'] 				= $this->installer_m->is_writeable('../codeigniter/cache');
-		$array['codeigniter/logs'] 					= $this->installer_m->is_writeable('../codeigniter/logs');
-		$array['application/cache'] 				= $this->installer_m->is_writeable('../application/cache');
-		$array['application/uploads'] 				= $this->installer_m->is_writeable('../application/uploads');
-		$array['application/assets/img/galleries'] 	= $this->installer_m->is_writeable('../application/assets/img/galleries');
-		$array['application/assets/img/products'] 	= $this->installer_m->is_writeable('../application/assets/img/products');
-		$array['application/assets/img/staff'] 		= $this->installer_m->is_writeable('../application/assets/img/staff');
-		$array['application/assets/img/suppliers'] 	= $this->installer_m->is_writeable('../application/assets/img/suppliers'); 
-		$array['application/uploads/assets'] 		= $this->installer_m->is_writeable('../application/uploads/assets'); 
-		$array['application/uploads/assets/cache'] 	= $this->installer_m->is_writeable('../application/uploads/assets/cache'); 
+		foreach($this->writeable_directories as $dir)
+		{
+			$permissions['directories'][$dir] = is_really_writable('../' . $dir);
+		}
 		
-		// Get the write permissions for the files
-		$array['application/config/config.php'] 	= $this->installer_m->is_writeable('../application/config/config.php'); 
-		$array['application/config/database.php'] 	= $this->installer_m->is_writeable('../application/config/database.php'); 
+		foreach($this->writeable_files as $file)
+		{
+			$permissions['files'][$file] = is_really_writable('../' . $file);
+		}
 		
 		// If all permissions are TRUE, go ahead
-		$data->step_passed = !in_array(FALSE, $array);
+		$data->step_passed = !in_array(FALSE, $permissions['directories']) && !in_array(FALSE, $permissions['files']);
 		$this->session->set_userdata('step_3_passed', $data->step_passed);
 		
 		// View variables
-		$data->perm_status 	= $array;
+		$data->permissions = $permissions;
 		
 		// Load the view files
-		$final_data['page_output']	= $this->load->view('step_3', $data, TRUE);
+		$final_data['page_output'] = $this->load->view('step_3', $data, TRUE);
 		$this->load->view('global', $final_data); 
 	}
 	

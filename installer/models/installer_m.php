@@ -165,17 +165,6 @@ class installer_m extends Model
 	}
 	
 	/**
-	 * @param 	string $path The full path to the file or folder of which the permissions should be retrieved
-	 * @return 	bool
-	 *
-	 * Get the permissions of a file or folder. Return a message if it isn't writable.
-	 */
-	function is_writeable($path)
-	{
-		return is_really_writable($path);
-	}
-	
-	/**
 	 * @param 	string $data The post data
 	 * @return 	bool
 	 * 

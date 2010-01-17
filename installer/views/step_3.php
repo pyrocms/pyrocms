@@ -3,22 +3,16 @@
 <h3>Folder Permissions</h3>
 <p>The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).</p>
 <ul class="perm_list" id="perm_folders">
-	<li>codeigniter/cache <?php echo $perm_status['codeigniter/cache'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>codeigniter/logs <?php echo $perm_status['codeigniter/logs'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/cache <?php echo $perm_status['application/cache'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/uploads <?php echo $perm_status['application/uploads'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/uploads/assets <?php echo $perm_status['application/uploads/assets'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/uploads/assets/cache <?php echo $perm_status['application/uploads/assets/cache'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/assets/img/galleries <?php echo $perm_status['application/assets/img/galleries'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/assets/img/products <?php echo $perm_status['application/assets/img/products'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/assets/img/staff <?php echo $perm_status['application/assets/img/staff'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/assets/img/suppliers <?php echo $perm_status['application/assets/img/suppliers'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+<?php foreach($permissions['directories'] as $directory => $status): ?>
+	<li><?php echo $directory; ?> <?php echo $status ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+<?php endforeach; ?>
 </ul>
 <h3>File Permissions</h3>
 <p>The CHMOD values of the following files must be changed to 777 (in some cases 775 works too). It's very important to change the file permissions of the database file <em>before</em> installing PyroCMS.</p>
 <ul class="perm_list" id="perm_files">
-	<li>application/config/config.php <?php echo $perm_status['application/config/config.php'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
-	<li>application/config/database.php <?php echo $perm_status['application/config/database.php'] ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+<?php foreach($permissions['files'] as $directory => $status): ?>
+	<li><?php echo $directory; ?> <?php echo $status ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+<?php endforeach; ?>
 </ul>
 
 <?php if($step_passed): ?>
