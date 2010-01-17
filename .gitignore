@@ -1,0 +1,11 @@
+.project
+application/cache/*
+application/assets/img/photos/*/*.jpg
+application/assets/img/photos/*/*.gif
+application/assets/img/suppliers/*.gif
+application/assets/img/suppliers/*.jpg
+application/assets/img/products/*.gif
+application/assets/img/products/*.jpg
+application/assets/img/staff/*.gif
+application/assets/img/staff/*.jpg
+codeigniter/logs/log-*.php
