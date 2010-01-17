@@ -9,5 +9,5 @@
 		<?php echo form_input(array('name'=>'email', 'value'=>'user@example.com', 'size'=>20, 'onfocus'=>"this.value=''")); ?>
 	</p>
 		
-	<p><?php echo form_submit('btnSignup', lang('letter_subscripe_label')) ?></p>
+	<p><?php echo form_submit('btnSignup', lang('newsletters.subscribe')) ?></p>
 <?php echo form_close(); ?>

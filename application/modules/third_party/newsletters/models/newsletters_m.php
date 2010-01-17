@@ -17,8 +17,7 @@ class Newsletters_m extends Model
 		if(isset($params['limit']) && is_int($params['limit'])) $this->db->limit($params['limit']);
 		elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
 		
-		$query = $this->db->get('newsletters');
-		$query->result();
+		return $this->db->get('newsletters')->result();
 	}
 	
 	function getNewsletter($id = '')

@@ -1,4 +1,4 @@
-<h2><?php echo lang('letter_letters_title');?></h2>
+<h2><?php echo lang('newsletters.list_title');?></h2>
 
 <?php foreach($newsletters as $newsletter): ?>
 <div class="articleHolder">

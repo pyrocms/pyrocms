@@ -8,6 +8,8 @@ class Admin extends Admin_Controller
 		$this->load->model('newsletters_m');
 		$this->lang->load('newsletter');        
 		$this->newsletters_m->email_from = $this->settings->item('contact_email');
+		
+		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	// Admin: Show Newsletters
@@ -31,7 +33,7 @@ class Admin extends Admin_Controller
 		}        
 		else
 		{
-			redirect('admin/newsletters/index');
+			redirect('admin/newsletters');
 		}
 	}
 	
@@ -50,7 +52,7 @@ class Admin extends Admin_Controller
 			if ($this->newsletters_m->newNewsletter($_POST))
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('letter_add_success'), $this->input->post('title'))); 
-				redirect('admin/newsletters/index');
+				redirect('admin/newsletters');
 			}            
 			else
 			{
@@ -74,7 +76,7 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', $this->lang->line('letter_sent_error'));
 		}		
-		redirect('admin/newsletters/index');
+		redirect('admin/newsletters');
 	}
 	
 	// Admin: Export
