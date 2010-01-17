@@ -83,23 +83,6 @@ CREATE TABLE `emails` (
 
 -- command split --
 
-DROP TABLE IF EXISTS `galleries`;
-
--- command split --
-
-CREATE TABLE `galleries` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `parent` int(11) NOT NULL default '0',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
-
--- command split --
-
 DROP TABLE IF EXISTS `navigation_groups`;
 
 -- command split --
@@ -251,6 +234,23 @@ CREATE TABLE `permission_rules` (
 
 -- command split --
 
+DROP TABLE IF EXISTS `photo_albums`;
+
+-- command split --
+
+CREATE TABLE `photo_albums` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `description` text collate utf8_unicode_ci NOT NULL,
+  `parent` int(11) NOT NULL default '0',
+  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `title` (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
+
+-- command split --
+
 DROP TABLE IF EXISTS `photos`;
 
 -- command split --
@@ -263,41 +263,6 @@ CREATE TABLE `photos` (
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
-
--- command split --
-
-DROP TABLE IF EXISTS `products`;
-
--- command split --
-
-CREATE TABLE `products` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `title` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `price` float NOT NULL default '0',
-  `category_slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `supplier_slug` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `frontpage` enum('Y','N') collate utf8_unicode_ci NOT NULL default 'N',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `supplier_slug` (`supplier_slug`),
-  KEY `category_slug` (`category_slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Product Information';
-
--- command split --
-
-DROP TABLE IF EXISTS `products_images`;
-
--- command split --
-
-CREATE TABLE `products_images` (
-  `image_id` int(15) NOT NULL auto_increment,
-  `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `product_id` smallint(5) unsigned NOT NULL default '0',
-  `for_display` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`image_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Product Images';
 
 -- command split --
 
@@ -328,25 +293,6 @@ CREATE TABLE `profiles` (
 
 -- command split --
 
-DROP TABLE IF EXISTS `services`;
-
--- command split --
-
-CREATE TABLE `services` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL  default '0',
-  `price` float(11,2) NOT NULL,
-  `pay_per` varchar(20) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `title` (`title`),
-  UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Services are just pages with prices involved';
-
--- command split --
-
 DROP TABLE IF EXISTS `settings`;
 
 -- command split --
@@ -366,56 +312,6 @@ PRIMARY KEY  (`slug`),
 UNIQUE KEY `unique - slug` (`slug`),
 KEY `index - slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
-
--- command split --
-
-DROP TABLE IF EXISTS `staff`;
-
--- command split --
-
-CREATE TABLE `staff` (
-  `id` int(11) NOT NULL auto_increment,
-  `slug` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `user_id` int(11) NOT NULL,
-  `name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `email` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `position` varchar(40) collate utf8_unicode_ci default NULL,
-  `body` text collate utf8_unicode_ci NOT NULL,
-  `fact` text collate utf8_unicode_ci,
-  `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Staff Member information (similar to a profile, but independ';
-
--- command split --
-
-DROP TABLE IF EXISTS `suppliers`;
-
--- command split --
-
-CREATE TABLE `suppliers` (
-  `id` int(11) NOT NULL auto_increment,
-  `slug` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `title` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `url` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `image` varchar(40) collate utf8_unicode_ci default NULL,
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Supplier Information';
-
--- command split --
-
-DROP TABLE IF EXISTS `suppliers_categories`;
-
--- command split --
-
-CREATE TABLE `suppliers_categories` (
-  `supplier_id` int(11) NOT NULL default '0',
-  `category_id` int(11) NOT NULL default '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
