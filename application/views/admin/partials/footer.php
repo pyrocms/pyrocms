@@ -6,6 +6,7 @@
 			<?php echo anchor('http://pyrocms.com/documentation', lang('cp_documentation')); ?> | 
 			<?php echo anchor('http://github.com/philsturgeon/pyrocms/issues', lang('cp_report_bug')); ?> | 
 			<?php echo anchor('http://pyrocms.com/contact', lang('cp_contact_support')); ?>
+		</p>
 	</div>
 	
 	<div class="float-right">

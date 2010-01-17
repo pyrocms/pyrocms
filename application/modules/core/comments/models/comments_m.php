@@ -93,12 +93,27 @@ class Comments_m extends MY_Model
     		return $query->result();
    		}
   	}
+  	
+  	public function get($id)
+  	{
+    	$this->db->select('c.id, c.is_active, c.body, c.created_on, c.module, c.module_id, c.user_id')
+    		->select('IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name')
+    		->select('IF(c.user_id > 0, u.email, c.email) as email')
+    		->from('comments c')
+    		->join('users u', 'c.user_id = u.id', 'left');
+    	
+    	// If there is a comment user id, make sure the user still exists
+    	$this->db->where('IF(c.user_id > 0, c.user_id = u.id, TRUE)')
+    		->where('c.id', $id);
+    	
+    	return $this->db->get()->row();
+  	}
 	
 	public function insert($input)
 	{
 		$this->load->helper('date');
 		
-		$comment = array(
+		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 						:  0,
 			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
@@ -107,27 +122,22 @@ class Comments_m extends MY_Model
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now()
-		);
-		
-		return parent::insert($comment);
+		));
 	}
 	
 	public function update($id, $input)
 	{
   		$this->load->helper('date');
 		
-		$comment = array(
+		return parent::update($id, array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 						:  0,
 			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
 			'body'			=> strip_tags($input['body']),
 			'module'		=> $input['module'],
-			'module_id'		=> $input['module_id'],
-			'created_on' 	=> now()
-		);	
-		
-		return parent::update($id, $comment);
+			'module_id'		=> $input['module_id']
+		));
 	}
 	
 	public function approve($id)

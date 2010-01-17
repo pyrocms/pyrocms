@@ -2,7 +2,7 @@
 
 class Categories_m extends MY_Model
 {
-    function insert($input = array())
+	function insert($input = array())
     {
     	$this->db->insert('categories', array(
         	'title'=>$input['title'],

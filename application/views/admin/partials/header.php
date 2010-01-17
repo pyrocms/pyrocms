@@ -5,7 +5,9 @@
 		&nbsp;| &nbsp;<?php echo anchor('edit-profile', lang('cp_edit_profile_label')); ?>
 		&nbsp;| &nbsp;<?php echo anchor('admin/logout', lang('cp_logout_label')); ?>
 		<br />
-	<small><?php echo anchor('', lang('cp_view_frontend')); ?></small></p>
+		<small><?php echo anchor('', lang('cp_view_frontend')); ?></small>
+	</p>
+	
 	<br class="clear-both" />
 </div>
 

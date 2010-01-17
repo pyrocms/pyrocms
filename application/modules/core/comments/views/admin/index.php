@@ -2,10 +2,10 @@
 
 <div class="box">
 
-	<?php if($active_comments): ?>
-		<h3><?php echo lang('comments.active_title');?></h3>
-	<?php else: ?>
+	<?php if($method == 'index'): ?>
 		<h3><?php echo lang('comments.inactive_title');?></h3>
+	<?php else: ?>
+		<h3><?php echo lang('comments.active_title');?></h3>
 	<?php endif; ?>
 	
 	<div class="box-container">
@@ -18,8 +18,8 @@
 					<th><?php echo form_checkbox('action_to_all');?></th>
 					<th class="width-20"><?php echo lang('comments.teaser_label');?></th>
 					<th class="width-10"><?php echo lang('comments.author_label');?></th>
-					<th class="width-10"><?php echo lang('comments.date_label');?></th>
-					<th class="width-15"><?php echo lang('comments.actions_label');?></th>
+					<th><?php echo lang('comments.date_label');?></th>
+					<th><?php echo lang('comments.actions_label');?></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -34,7 +34,13 @@
 					<?php foreach ($comments as $comment): ?>
 						<tr>
 							<td><?php echo form_checkbox('action_to[]', $comment->id);?></td>
-							<td><?php echo character_limiter($comment->body, 30);?></td>
+							<td>
+								<?php if( strlen($comment->body) > 30 ): ?>
+									<?php echo character_limiter($comment->body, 30); ?>...
+								<?php else: ?>
+									<?php echo $comment->body; ?>
+								<?php endif; ?>
+							</td>
 							<td>
 								<?php if($comment->user_id > 0): ?>
 									<?php echo anchor('admin/users/edit/' . $comment->user_id, $comment->name); ?>

@@ -145,7 +145,7 @@ class Admin extends Admin_Controller
 				'module_id' => $this->input->post('module_id')
 			));
 			
-			if($this->comments_m->updateComment( $comment, $id ))
+			if($this->comments_m->update( $id, $comment ))
 			{
 				$this->session->set_flashdata( 'success', lang('comments.edit_success') );
 			}
@@ -160,7 +160,10 @@ class Admin extends Admin_Controller
 		// Go through all the known fields and get the post values
 		foreach(array_keys($rules) as $field)
 		{
-			if(isset($_POST[$field])) $comment->$field = $this->validation->$field;
+			if($this->input->post($field))
+			{
+				$comment->{$field} = $this->validation->$field;
+			}
 		}    	
 		$this->data->comment =& $comment;
 		
@@ -182,7 +185,7 @@ class Admin extends Admin_Controller
 			// Get the current comment so we can grab the id too
 			if($comment = $this->comments_m->get($id))
 			{
-				$this->comments_m->deleteComment($id);
+				$this->comments_m->delete($id);
 				
 				// Wipe cache for this model, the content has changed
 				$this->cache->delete('comment_m');				

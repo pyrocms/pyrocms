@@ -40,7 +40,7 @@
 				<?php endif; ?>
 				
 				<br class="clear-both" />
-					 
+			
 			</div><!-- end of div#content -->
 			<div class="push"></div>
 			</div><!-- end of #container -->
