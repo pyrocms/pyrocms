@@ -10,8 +10,8 @@
 <h3>File Permissions</h3>
 <p>The CHMOD values of the following files must be changed to 777 (in some cases 775 works too). It's very important to change the file permissions of the database file <em>before</em> installing PyroCMS.</p>
 <ul class="perm_list" id="perm_files">
-<?php foreach($permissions['files'] as $directory => $status): ?>
-	<li><?php echo $directory; ?> <?php echo $status ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
+<?php foreach($permissions['files'] as $file => $status): ?>
+	<li><?php echo $file; ?> <?php echo $status ? '- <span class="green">Writable</span>' : '- <span class="red">Not writable</span>'; ?></li>
 <?php endforeach; ?>
 </ul>
 
