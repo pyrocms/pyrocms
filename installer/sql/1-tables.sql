@@ -257,7 +257,7 @@ DROP TABLE IF EXISTS `photos`;
 
 CREATE TABLE `photos` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
-  `gallery_slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `album_id` int(11) NOT NULL,
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `description` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
