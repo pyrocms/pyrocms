@@ -39,6 +39,10 @@
 | routes must come before any wildcard or regular expression routes.
 |
 */
+
+$route['default_controller'] = 'pages';
+$route['scaffolding_trigger'] = '';
+
 $route['admin/([a-zA-Z_-]+)/(:any)'] = "$1/admin/$2";
 $route['admin/(login|logout)'] = "admin/$1";
 $route['admin/([a-zA-Z_-]+)'] = "$1/admin/index";
@@ -48,11 +52,7 @@ $route['my-profile'] = "users/profile/index";
 $route['edit-profile'] = "users/profile/edit";
 $route['edit-settings'] = "users/user_settings/edit";
 
-$route['default_controller'] = "pages";
-
 // This is a feature of Modular Separation that sends all 404 to pages module to be handled
 $route['404'] = 'pages';
-
-$route['scaffolding_trigger'] = "";
 
 ?>
