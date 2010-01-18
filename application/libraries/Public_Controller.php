@@ -21,6 +21,7 @@ class Public_Controller extends MY_Controller
 	    
 	    // Set the theme view folder
 	    $this->template->set_theme($this->settings->item('default_theme'));
+	    $this->asset->set_theme($this->settings->item('default_theme'));
 	    
 	    $this->template->set_layout('layout');
 	    
