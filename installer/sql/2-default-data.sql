@@ -31,8 +31,8 @@ TRUNCATE `pages`;
 
 -- command split --
 
-INSERT INTO `pages` VALUES
-  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0',1,'','','','','1219336535');
+INSERT INTO `pages` (`id`, `slug`, `title`, `body`, `parent_id`, `layout_id`, `css`, `meta_title`, `meta_keywords`, `meta_description`, `status`, `updated_on`) VALUES
+  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0',1,'','','','','live','1219336535');
 
 -- command split --
 
