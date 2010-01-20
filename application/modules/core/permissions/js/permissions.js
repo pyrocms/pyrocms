@@ -24,12 +24,14 @@
 	
 		// When module changes grab a list of controllers
 		$("select[name='module']").change(function() {
-			if(this.value != '') get_controllers($(this).val());
+			module = $(this).val();
+			if(module != '') get_controllers(module);
 		});
 		
 		// When controller changes get a list of methods
 		$("select[name='controller']").change(function() {
-			if(this.value != '') get_methods($("select[name='module']").val(), $(this).val());
+			controller = $(this).val();
+			if(controller != '') get_methods($("select[name='module']").val(), controller);
 		});
 		
 		$('a.delete_role').click(function()
@@ -39,16 +41,14 @@
 		
 	});
 
-	function get_controllers(module, selected) {
-	
-		controller_select = "select[name='controller']";
-		
-		$(controller_select).hide().empty();
-		get_methods();
-		
+	function get_controllers(module, selected)
+	{
+		controller_select = $('select[name="controller"]');
+
+		controller_select.hide().empty();
 		$.getJSON(BASE_URI + "admin/permissions/module_controllers/" + module, function(data){
 	         
-	         $("<option/>").attr("value", '*').text(permControllerSelectDefault).appendTo(controller_select);
+	        $("<option/>").attr("value", '*').text(permControllerSelectDefault).appendTo(controller_select);
 	         
 	         $.each(data, function(i,controller){
 	           if(controller == module) label = controller + ' (default)';
@@ -61,7 +61,7 @@
 	           option.appendTo(controller_select);
 	         });
 	         
-	         $(controller_select).fadeIn('slow');
+	         controller_select.fadeIn('slow');
 	    });
 	}
 	
