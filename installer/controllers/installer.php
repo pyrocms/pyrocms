@@ -14,7 +14,6 @@ class Installer extends Controller
 		'codeigniter/cache',
 		'codeigniter/logs',
 		'application/cache',
-		'application/cache/captcha',
 		'application/cache/dwoo',
 		'application/cache/dwoo/compiled',
 		'application/cache/simplepie',

@@ -32,20 +32,6 @@ class Contact extends Public_Controller
 		
 		$this->load->helper('form');
 		
-		if($this->settings->item('captcha_enabled'))
-		{
-			$this->rules["captcha"] = "trim|required|callback__CheckCaptcha";
-			
-			// load captcha
-			$this->load->plugin('captcha');
-			$vals = array(
-				'img_path'	 => $this->settings->item('captcha_folder'),
-				'img_url'	 => base_url().$this->settings->item('captcha_folder')
-			);			
-			$this->data->captcha = create_captcha($vals);
-			$this->session->set_flashdata('captcha_'.$this->data->captcha['time'], $this->data->captcha['word']);
-		}
-	
 		// If the user has provided valid information and isnt a robot
 		if(!empty($_POST) && $this->_validate())
 		{		
@@ -120,20 +106,5 @@ class Contact extends Public_Controller
 		return ( $this->email->send() );
 	}
 	
-	function _CheckCaptcha($title = '')
-	{
-		$captcha_id = $this->input->post('captcha_id');
-		$captcha_word = $this->session->flashdata('captcha_'.$captcha_id);
-		
-		if ($captcha_word != $this->input->post('captcha'))
-		{
-			$this->validation->set_message('_CheckCaptcha', $this->lang->line('contact_capchar_error'));
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
-	}	
 }	
 ?>
