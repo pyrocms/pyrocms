@@ -21,8 +21,6 @@ class Navigation_m extends Model
 	// Return an object of objects containing NavigationLink data
 	function get_links($params = array())
 	{
-		$this->db->select('*, IF(page_id > 0, "page", IF(module_name != "", "module", IF(url != "", "url", IF(uri != "", "uri", NULL)))) as link_type', FALSE);
-
 		if(!empty($params['group']))
 		{
 			$this->db->where('navigation_group_id', $params['group']);

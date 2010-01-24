@@ -4,7 +4,7 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimize or totally remove downtime during upgrade.
 
-09/12/09 - v0.9.7.4 to v0.9.8
+24/01/2010 - v0.9.7.4 to v0.9.8
 -----------------------------
 
 1. Replace old files with new files.
@@ -17,13 +17,24 @@ minimize or totally remove downtime during upgrade.
 	ALTER TABLE pages
 		ADD UNIQUE `Unique` ( `slug` , `parent_id` ),
 		ADD `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft' AFTER `meta_description`,
-		DROP `lang`;
+		ADD `layout_id` INT(11) NOT NULL DEFAULT '1' AFTER `parent_id`,
+		ADD `css` text collate utf8_unicode_ci AFTER `layout_id`,
+		DROP `lang`,
+		DROP `layout_file`;
 	
 	UPDATE pages SET status = 'live';
 	
-3. Run the following terminal command:
+	-- Adds link_type field
+	ALTER TABLE `navigation_links` ADD `link_type` VARCHAR( 20 ) NOT NULL AFTER `title` ;
+	
+	-- Populates new link_type field
+	UPDATE navigation_links SET link_type = (SELECT IF(page_id > 0, "page", IF(module_name != "", "module", IF(url != "", "url", IF(uri != "", "uri", NULL)))));
+	
+3. Run the following terminal commands:
 
 	sudo rm -rf application/cache/*_m/
+	
+	chmod -R 777 application/cache/dwoo/
 
 Note #1: Galleries, products, services, staff and suppliers modules have all been removed from the core of PyroCMS.
 Galleries module has been improved and renamed to photos, the others are available from 
@@ -31,6 +42,17 @@ http://github.com/philsturgeon/pyrocms-extras but will not be upgraded for v0.9.
 this repository if you wish to work on any of these modules (or any custom modules you wish to share).
 
 Note #2: Many of you installing v0.9.8 will be upgrading from v0.9.7.3, please run the v0.9.7.4 upgrades too.
+
+	
+SUGGESTED
+---------
+
+The syntax for creating dynamic links to pages - and for dynamic template stuff 
+in general - has been slightly modified. You will need to find all instances of
+{page_url[1]} and change it to {page_url(1)}. 
+
+We have added a replace rule for the page_url() function in v0.9.8.x branch, 
+but that will be removed in v1.0 so you need to modify all occurences before then.
 
 
 09/12/09 - v0.9.7.3 to v0.9.4
@@ -47,45 +69,6 @@ Note #2: Many of you installing v0.9.8 will be upgrading from v0.9.7.3, please r
 -------------------------------
 
 Replace old files with new files.
-
-
-29/11/09 - v0.9.7.x to v0.9.8
------------------------------
-
-WARNING
--------
-
-You will see the following errors when you upgrade the files:
-
-	Undefined property: stdClass::$layout_file
-
-this means you have no run the SQL, or have not cleared the cache so please run all steps.
-
-1.) Run the following SQL command: 
-
-	ALTER TABLE 
-		`pages` ADD `css` text collate utf8_unicode_ci AFTER `layout_file`;
-
-2.) Replace old files with new files.
-
-3.) Clear the model cache by running a command similar to:
-
-	sudo rm -rf application/cache/*_m
-
-4.) Run the following terminal command:
-
-	chmod -R 777 application/cache/dwoo/
-	
-SUGGESTED
----------
-
-The syntax for creating dynamic links to pages - and for dynamic template stuff 
-in general - has been slightly modified. You will need to find all instances of
-{page_url[1]} and change it to {page_url(1)}. 
-
-We have added a replace rule for the page_url() function in v0.9.8.x branch, 
-but that will be removed in v1.0 so you need to modify all occurences before then.
-
 
 11/11/09 - v0.9.7.1 to v0.9.7.2
 -------------------------------

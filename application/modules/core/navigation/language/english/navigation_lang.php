@@ -3,13 +3,14 @@
 // labels
 $lang['nav_title_label'] 						= 'Title';
 $lang['nav_position_label'] 					= 'Position';
-$lang['nav_target_label']						= 'Target'; #translate
+$lang['nav_target_label']						= 'Target';
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Actions';
 $lang['nav_details_label'] 						= 'Details';
 $lang['nav_text_label'] 						= 'Text';
 $lang['nav_group_label'] 						= 'Group';
 $lang['nav_location_label'] 					= 'Location';
+$lang['nav_type_label'] 						= 'Link type';
 $lang['nav_uri_label'] 							= 'Site Link (URI)';
 $lang['nav_page_label'] 						= 'Page';
 $lang['nav_module_label'] 						= 'Module';
@@ -19,6 +20,9 @@ $lang['nav_delete_label'] 						= 'Delete';
 $lang['nav_group_delete_label']					= 'Delete group "%s"';
 $lang['nav_link_module_select_default'] 		= '-- Select --';
 $lang['nav_link_page_select_default'] 			= '-- Select --';
+
+$lang['nav_link_target_self'] 					= 'Current window (default)';
+$lang['nav_link_target_blank'] 					= 'New window (_blank)';
 
 // titles
 $lang['nav_link_create_title'] 					= 'Add navigation link';
@@ -39,6 +43,6 @@ $lang['nav_link_not_exist_error'] 				= 'This navigation link does not exist.';
 $lang['nav_link_edit_success'] 					= 'The navigation link was saved.';
 $lang['nav_link_delete_success'] 				= 'The navigation link has been deleted.';
 
-$lang['nav_link_type_desc'] 					= 'Please pick <strong>one</strong> of the types of link from below.';
+$lang['nav_link_type_desc'] 					= 'Please select a link type to be given more options to create your link.';
 
 ?>
