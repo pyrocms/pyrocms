@@ -17,6 +17,8 @@ class Admin extends Admin_Controller
 		$this->lang->load('navigation');
 		
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
+
+	    $this->template->append_metadata( js('navigation.js', 'navigation') );
 		
 		// Get Navigation Groups
 		$this->data->groups = $this->navigation_m->get_groups();
@@ -57,7 +59,9 @@ class Admin extends Admin_Controller
 	function create()
 	{
 		$this->load->library('validation');
+		
 		$rules['title'] 				= 'trim|required|max_length[40]';
+		$rules['link_type']				= 'trim|alpha';
 		$rules['url'] 					= 'trim';
 		$rules['uri'] 					= 'trim';
 		$rules['module_name'] 			= 'trim|alpha_dash';

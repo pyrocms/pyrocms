@@ -10,6 +10,7 @@ $lang['nav_details_label'] 						= 'Détails';
 $lang['nav_text_label'] 						= 'Texte';
 $lang['nav_group_label'] 						= 'Groupe';
 $lang['nav_location_label'] 					= 'Ou';
+$lang['nav_type_label'] 						= 'Link type'; #translate
 $lang['nav_uri_label'] 							= 'Lien interne (URI)';
 $lang['nav_page_label'] 						= 'Page';
 $lang['nav_module_label'] 						= 'Module';
@@ -20,6 +21,9 @@ $lang['nav_group_delete_label']					= 'Supprimer le groupe "%s"';
 $lang['nav_group_add_label']					= 'Ajouter un groupe';
 $lang['nav_link_module_select_default'] 		= '-- Selectionner --';
 $lang['nav_link_page_select_default'] 			= '-- Selectionner --';
+
+$lang['nav_link_target_self'] 					= 'Current window (default)'; #translate
+$lang['nav_link_target_blank'] 					= 'New window (_blank)'; #translate
 
 // titles
 $lang['nav_link_create_title'] 					= 'Add navigation link'; #translate
@@ -40,6 +44,6 @@ $lang['nav_link_not_exist_error'] 				= 'Ce lien de navigation n\'existe pas.';
 $lang['nav_link_edit_success'] 					= 'Le lien de navigation a été enregistré.';
 $lang['nav_link_delete_success'] 				= 'Le lien de navigation a été supprimé.';
 
-$lang['nav_link_type_desc'] 					= 'S\'il vous plaît choisissez <strong>un</strong> des types de lien ci-dessous.';
+$lang['nav_link_type_desc'] 					= 'Please select a link type to be given more options to create your link.'; #translate
 
 ?>

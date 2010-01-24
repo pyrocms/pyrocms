@@ -16,8 +16,8 @@
 					<table border="0" class="table-list">		    
 						<thead>
 							<tr>
-								<th><?php echo form_checkbox('action_to_all');?></th>
-								<th class="width-10"><?php echo lang('nav_title_label');?></th>
+								<th class="width-5"><?php echo form_checkbox('action_to_all');?></th>
+								<th><?php echo lang('nav_title_label');?></th>
 								<th class="width-5"><?php echo lang('nav_position_label');?></th>
 								<th class="width-20"><?php echo lang('nav_url_label');?></th>
 								<th class="width-10"><?php echo lang('nav_actions_label');?></th>
