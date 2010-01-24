@@ -1,34 +1,42 @@
 <?php
 /**
- * @author 		Yorick Peterse - PyroCMS development team
+ * @author 		Phil Sturgeon - PyroCMS development team
  * @package 	PyroCMS
  * @subpackage 	Installer
  *
- * @since 		v0.9.6.2
+ * @since 		v0.9.8
  *
  */
-class installer_m extends Model
+class Installer_lib
 {
+	private $ci;
+	
+	function __construct()
+	{
+		$this->ci =& get_instance();
+	}
+	
 	/**
 	 * @param	string $type Set or remove the cookie
 	 * @param 	string $data The $_POST data
 	 *
 	 * Store database settings so that they can be used later on.
 	 */
-	function store_db_settings($type = 'set',$data)
+	function store_db_settings($type, $data = array())
 	{
 		// Set the cookie
 		if($type == 'set')
 		{
 			// Store the POST data in a session
 			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'port' => $data['port'],'http_server' => $data['http_server'],'step_1_passed' => TRUE);
-			$this->session->set_userdata($array);
+			$this->ci->session->set_userdata($array);
 		}
+		
 		// Remove the cookie
 		else
 		{
 			$array = array('server','username','password','http_server','step_1_passed');
-			$this->session->unset_userdata($array);
+			$this->ci->session->unset_userdata($array);
 		}
 	}
 	
@@ -60,9 +68,9 @@ class installer_m extends Model
 		if($type == 'server')
 		{
 			// Retrieve the database settings from the session
-			$server 	= $this->session->userdata('server');
-			$username 	= $this->session->userdata('username');
-			$password 	= $this->session->userdata('password');
+			$server 	= $this->ci->session->userdata('server');
+			$username 	= $this->ci->session->userdata('username');
+			$password 	= $this->ci->session->userdata('password');
 			
 			// Connect to MySQL
 			@mysql_connect($server,$username,$password);
@@ -160,7 +168,7 @@ class installer_m extends Model
 			return FALSE;
 		}
 		
-		$supported_servers = $this->config->item('supported_servers');
+		$supported_servers = $this->ci->config->item('supported_servers');
 		return array_key_exists($server_name, $supported_servers);
 	}
 	
@@ -190,10 +198,10 @@ class installer_m extends Model
 		
 		else
 		{
-			$hostname = $this->session->userdata('server');
-			$username = $this->session->userdata('username');
-			$password = $this->session->userdata('password');
-			$port	  = $this->session->userdata('port');
+			$hostname = $this->ci->session->userdata('server');
+			$username = $this->ci->session->userdata('username');
+			$password = $this->ci->session->userdata('password');
+			$port	  = $this->ci->session->userdata('port');
 		}
 		
 		return @mysql_connect("$hostname:$port", $username, $password);
@@ -208,9 +216,9 @@ class installer_m extends Model
 	function install($data)
 	{		
 		// Retrieve the database server, username and password from the session
-		$server 	= $this->session->userdata('server') . ':' . $this->session->userdata('port');
-		$username 	= $this->session->userdata('username');
-		$password 	= $this->session->userdata('password');
+		$server 	= $this->ci->session->userdata('server') . ':' . $this->ci->session->userdata('port');
+		$username 	= $this->ci->session->userdata('username');
+		$password 	= $this->ci->session->userdata('password');
 		$database 	= $data['database'];
 		
 		// Create a connection
@@ -300,13 +308,13 @@ class installer_m extends Model
 	function write_db_file($database)
 	{
 		// First retrieve all the required data from the session and the $database variable
-		$server 	= $this->session->userdata('server');
-		$username 	= $this->session->userdata('username');
-		$password 	= $this->session->userdata('password');
-		$port		= $this->session->userdata('port');
+		$server 	= $this->ci->session->userdata('server');
+		$username 	= $this->ci->session->userdata('username');
+		$password 	= $this->ci->session->userdata('password');
+		$port		= $this->ci->session->userdata('port');
 		
 		// Open the template file
-		$template 	= file_get_contents('assets/config/database.php');
+		$template 	= file_get_contents('./assets/config/database.php');
 		
 		$replace = array(
 			'__HOSTNAME__' 	=> $server,
@@ -339,10 +347,10 @@ class installer_m extends Model
 	function write_config_file()
 	{
 		// Open the template
-		$template = file_get_contents('assets/config/config.php');
+		$template = file_get_contents('./assets/config/config.php');
 		
-		$server_name = $this->session->userdata('http_server');
-		$supported_servers = $this->config->item('supported_servers');
+		$server_name = $this->ci->session->userdata('http_server');
+		$supported_servers = $this->ci->config->item('supported_servers');
 
 		// Able to use clean URLs?
 		if($supported_servers[$server_name]['rewrite_support'] !== FALSE)

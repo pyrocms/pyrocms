@@ -49,16 +49,13 @@ class Installer extends Controller
 	// Index function
 	function step_1()
 	{
-		// Load the model
-		$this->load->model('installer_m');
-		
 		if($_POST)
 		{									
 			// Data validation
-			if( $this->installer_m->validate($_POST) )
+			if( $this->installer_lib->validate($_POST) )
 			{
 				// Store the database settings
-				$this->installer_m->store_db_settings('set', $_POST);
+				$this->installer_lib->store_db_settings('set', $_POST);
 				
 				// Set the flashdata message
 				$this->session->set_flashdata('message','The database settings have been stored succesfully.');
@@ -116,28 +113,25 @@ class Installer extends Controller
 			redirect('');
 		}
 			
-		// Load the installer model
-		$this->load->model('installer_m');
-	
 		// Check the PHP version
-		$data->php_version = $this->installer_m->get_php_version();
+		$data->php_version = $this->installer_lib->get_php_version();
 	
 		// Check the MySQL data
-		$data->mysql->server_version = $this->installer_m->get_mysql_version('server');
-		$data->mysql->client_version = $this->installer_m->get_mysql_version('client');
+		$data->mysql->server_version = $this->installer_lib->get_mysql_version('server');
+		$data->mysql->client_version = $this->installer_lib->get_mysql_version('client');
 	
 		// Check the GD data
-		$data->gd_version 	= $this->installer_m->get_gd_version();
+		$data->gd_version 	= $this->installer_lib->get_gd_version();
 		
 		// Get the server
 		$selected_server = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 		
-		$data->http_server->supported = $this->installer_m->verify_http_server($this->session->userdata('http_server'));
+		$data->http_server->supported = $this->installer_lib->verify_http_server($this->session->userdata('http_server'));
 		$data->http_server->name = @$supported_servers[$selected_server]['name'];
 		
 		// Check the final results
-		$data->step_passed = $this->installer_m->check_server($data);
+		$data->step_passed = $this->installer_lib->check_server($data);
 		$this->session->set_userdata('step_2_passed', $data->step_passed);
 	
 		// Load the view files
@@ -193,10 +187,10 @@ class Installer extends Controller
 		if($_POST)
 		{
 			// Only install PyroCMS if the provided data is correct
-			if($this->installer_m->validate() == TRUE)
+			if($this->installer_lib->validate() == TRUE)
 			{
 				// Install the system and display the results
-				$install_results = $this->installer_m->install($_POST);
+				$install_results = $this->installer_lib->install($_POST);
 
 				// Validate the results and create a flashdata message
 				if($install_results['status'] == TRUE)
