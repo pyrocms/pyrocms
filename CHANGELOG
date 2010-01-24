@@ -11,7 +11,6 @@ v0.9.8
 * Switched template system from HelpfulParser to Dwoo (dramaticallty improved syntax support, if/else, loops, etc).
 * Removed Layout library and replaced with the much cleaner Template library.
 * Removed all PHP short-tags.
-* Full support for PHP 5.3
 * Standardized much of the model code, and removed deprecated CodeIgniter ActiveRecord methods like getwhere().
 * Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.
 * Enabled profile on local installaitons, but wont exist on Dev, QA or live.
@@ -19,7 +18,16 @@ v0.9.8
 * Added "Preview" windows for pages and news, much more accurate than before.
 * Draft/Live status added for pages, admins can see pages anyway.
 * Swapped Facebox for Fancybox. Mainly iframe support, but it seems generally better.
-* Re-enabled page slug editing
+* Re-enabled page slug editing.
+* Navigation add/edit form is now much more user-friendly.
+
+v0.9.7.4
+--------
+ 
+* Full support for PHP 5.3.
+* Fixed "could not open application/assets/config/config.php" error on Install Step 4.
+* Extra support for different server types.
+* index.php is no longer removed by default, unless a supported server is picked.
 
 v0.9.7.3
 --------
