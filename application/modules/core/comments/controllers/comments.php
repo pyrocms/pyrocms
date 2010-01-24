@@ -5,7 +5,6 @@ class Comments extends Public_Controller
 	function __construct()
 	{
 		parent::Public_Controller();
-		$this->load->plugin('captcha');
 		$this->load->library('validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');		

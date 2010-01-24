@@ -8,7 +8,6 @@ $lang['contact_company_name_label']					= 'Compa&ntilde; u organizaci&oacute;n';
 $lang['contact_subject_label']						= 'Tema';
 $lang['contact_other_label']							= 'Otro';
 $lang['contact_message_label']						= 'Mensaje';
-$lang['contact_captcha_label'] 						= 'Captcha';
 $lang['contact_send_label'] 							= 'Enviar';
 $lang['contact_mail_ip_label'] 						= 'IP: ';
 $lang['contact_mail_os_label'] 						= 'OS: ';
@@ -26,8 +25,5 @@ $lang['contact_title'] 									= 'Contacto';
 $lang['contact_mail_text'] 							= 'Este mensaje fue enviado por el formulario de contacto en %s con los siguientes detalles:';
 $lang['contact_sent_text'] 							= 'Tu mensaje ha sido enviado. Te responderemos tan pronto podamos.';
 $lang['contact_capchar_text'] 						= 'Escribe la palabra que lees debajo:';
-
-// messages
-$lang['contact_capchar_error'] 						= 'La frase que has escrito en el Captcha esta errada.';
 
 ?>
