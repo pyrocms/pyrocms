@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.9.7.4
+--------
+
+* Full PHP 5.3 support
+* Fixed installer "could not open application/assets/config/config.php" error
+* Extra support for different server types
+* index.php is no longer removed by default, unless a supported server is picked
+
 v0.9.7.3
 --------
 
