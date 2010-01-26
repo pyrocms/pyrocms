@@ -24,6 +24,19 @@ minimize or totally remove downtime during upgrade.
 	
 	UPDATE pages SET status = 'live';
 	
+	-- Create page layouts table
+	CREATE TABLE `page_layouts` (
+	`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+	`title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+	`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+	`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+	`updated_on` INT( 11 ) NOT NULL
+	) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
+
+	-- Add default page layout
+	INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
+	(1, 'Default', '<h2>{$page.title}</h2>\n\n\n{$page.body}', '', 1260615149);
+
 	-- Adds link_type field
 	ALTER TABLE `navigation_links` ADD `link_type` VARCHAR( 20 ) NOT NULL AFTER `title` ;
 	
