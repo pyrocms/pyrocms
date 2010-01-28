@@ -7,6 +7,7 @@ $lang['comments.user_comments'] 			= 'User comments'; #translate
 // labels
 $lang['comments.name_label'] 				= 'Votre Nom';
 $lang['comments.email_label'] 				= 'Adresse e-Mail';
+$lang['comments.website_label'] 			= 'Website'; #translate
 $lang['comments.message_label'] 			= 'Message';
 $lang['comments.status_label'] 				= 'Statut';
 $lang['comments.activate_label'] 			= 'Approuver';

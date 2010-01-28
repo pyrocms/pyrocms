@@ -14,7 +14,8 @@ class Comments extends Public_Controller
 	{		
 		$rules['name'] = 'trim';
 		$rules['email'] = 'trim|valid_email';
-		$rules['body'] = 'trim|required';
+		$rules['website'] = 'trim';
+		$rules['comment'] = 'trim|required';
 		
 		if(!$this->user_lib->logged_in())
 		{
@@ -25,32 +26,43 @@ class Comments extends Public_Controller
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 		
+		
+		$comment = array(
+			'comment' => $this->input->post('comment'),
+			'website' => $this->input->post('website'),
+			'module' => $module,
+			'module_id' => $id,
+		
+			// If they are an admin, comments go straight through
+			'is_active' => $this->user_lib->check_role('admin')
+		);
+		
+		// Logged in? in which case, we already know their name and email
+		if($this->user_lib->logged_in())
+		{
+			$comment['user_id'] = $this->data->user->id;
+		}
+		else
+		{
+			$comment['name'] = $this->input->post('name');
+			$comment['email'] = $this->input->post('email');
+		}
+		
 		// Validation Successful ------------------------------
 		if ($this->validation->run())
-		{		
-			// Logged in? in which case, we already know their name and email
-			if($this->user_lib->logged_in())
+		{
+			$result = $this->_allow_comment($comment);
+			
+			// Run Akismet or the crazy CSS bot checker
+			if(array_key_exists('error', $result))
 			{
-				$commenter['user_id'] = $this->data->user->id;
-			}
-			else
-			{
-				$commenter['name'] = $this->input->post('name');
-				$commenter['email'] = $this->input->post('email');
+				$this->session->set_flashdata('error', $result['error']);
 			}
 			
-			$comment = array_merge($commenter, array(
-				'body'    => $this->input->post('body'),
-				'module'   => $module,
-				'module_id' => $id,
-			
-				// If they are an admin, comments go straight through
-				'is_active' => $this->user_lib->check_role('admin')
-			));
-			
+			// Save the comment
 			if($this->comments_m->insert( $comment ))
 			{
-				if($this->user_lib->check_role('admin'))
+				if($this->settings->item('moderate_comments') || $this->user_lib->check_role('admin'))
 				{
 					$this->session->set_flashdata('success', lang('comments.add_success'));
 				}
@@ -70,13 +82,6 @@ class Comments extends Public_Controller
 		// Validation Failed ------------------------------
 		else
 		{		
-			if(!$this->user_lib->logged_in())
-			{
-				$comment['name'] = $this->input->post('name');
-				$comment['email'] = $this->input->post('email');
-			}
-			
-			$comment['body'] = $this->input->post('body');
 			$this->session->set_flashdata('comment', $comment );			
 			$this->session->set_flashdata('error', $this->validation->error_string );
 		}
@@ -86,5 +91,51 @@ class Comments extends Public_Controller
 		redirect($redirect_to);
 	}
 	
+	
+	function _allow_comment($comment)
+	{
+		// Dumb-check
+		$this->load->library('user_agent');
+		
+		if($this->agent->is_robot())
+		{
+			return array('status' => FALSE, 'mesage' => "You are clearly a robot.");
+		}
+		
+		// Sneaky bot-check
+		if( $this->input->post('d0ntf1llth1s1n') )
+		{
+			return array('status' => FALSE, 'mesage' => "You are probably a robot.");
+		}
+		
+		// Check Akismet if an API key exists
+		if($this->settings->item('akismet_api_key'))
+		{
+			$this->load->library('akismet');
+	 
+			$comment = array(
+				'author'	=> $this->input->post('name'),
+				'email'		=> $this->input->post('email'),
+				'website'	=> $this->input->post('website'),
+				'body'		=> $this->input->post('body')
+			);
+			 
+			$config = array(
+				'blog_url' => 'http://www.yoursite.com/',
+				'api_key' => 'yourapikeyhere',
+				'comment' => $comment
+			);
+			
+			$this->akismet->init($config);
+			
+			if(!$this->akismet->is_spam())
+			{
+				return array('status' => FALSE, 'mesage' => $this->akismet->get_errors());
+			}
+		}
+
+		// F**k knows, its probably fine...
+		return array('status' => TRUE);
+	}
 }
 ?>

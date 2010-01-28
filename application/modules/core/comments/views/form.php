@@ -15,13 +15,18 @@
 		
 		<p>
 			<label for="email"><?php echo lang('comments.email_label');?>:</label><br />
-			<input type="text" name="email" id="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
+			<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
 		</p>
 		<?php endif; ?>
 		
 		<p>
 			<label for="message"><?php echo lang('comments.message_label');?>:</label><br />
-			<textarea name="body" id="body" rows="5" cols="30" class="width-full"><?php echo $comment['body'] ?></textarea>
+			<textarea name="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
+		</p>
+		
+		<p>
+			<label for="website"><?php echo lang('comments.website_label');?>:</label><br />
+			<input type="text" name="website" maxlength="40" value="<?php echo $comment['website'] ?>" />
 		</p>
 		
 		<p><?php echo form_submit('btnSend', lang('comments.send_label'));?></p>

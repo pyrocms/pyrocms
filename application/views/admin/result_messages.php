@@ -14,12 +14,28 @@
 </div>
 <?php endif; ?>
 
+<?php if (!empty($messages['error'])): ?>
+<div class="message error">
+	<h6><?php echo lang('required_error_label');?></h6>
+	<p><?php echo $messages['error']; ?></p>
+	<a class="close" title="<?php echo lang('close_message');?>" href="#"></a>
+</div>
+<?php endif; ?>
+
 <?php if ($this->session->flashdata('notice')): ?>
     <div class="message notice">
 		<h6><?php echo lang('note_label');?></h6>
 		<p><?php echo $this->session->flashdata('notice');?></p>
 		<a class="close" title="<?php echo lang('close_message');?>" href="#"></a>
 	</div>
+<?php endif; ?>
+
+<?php if (!empty($messages['notice'])): ?>
+<div class="message notice">
+	<h6><?php echo lang('note_label');?></h6>
+	<p><?php echo $messages['notice']; ?></p>
+	<a class="close" title="<?php echo lang('close_message');?>" href="#"></a>
+</div>
 <?php endif; ?>
 
 <?php if ($this->session->flashdata('success')): ?>

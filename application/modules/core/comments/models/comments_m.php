@@ -4,7 +4,7 @@ class Comments_m extends MY_Model
 {
 	public function get_comments($params = array())
 	{
-    	$this->db->select('c.id, c.is_active, c.body, c.created_on, c.module, c.module_id, c.user_id');
+    	$this->db->select('c.*');
     	$this->db->select('IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name');
     	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email');
 
@@ -96,7 +96,7 @@ class Comments_m extends MY_Model
   	
   	public function get($id)
   	{
-    	$this->db->select('c.id, c.is_active, c.body, c.created_on, c.module, c.module_id, c.user_id')
+    	$this->db->select('c.id, c.is_active, c.comment, c.created_on, c.module, c.module_id, c.user_id')
     		->select('IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name')
     		->select('IF(c.user_id > 0, u.email, c.email) as email')
     		->from('comments c')
@@ -118,7 +118,8 @@ class Comments_m extends MY_Model
 			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
-			'body'			=> strip_tags($input['body']),
+			'website'		=> isset($input['website']) 	? 	prep_url($input['website']) 			: '',
+			'comment'		=> strip_tags($input['comment']),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now()
@@ -134,7 +135,8 @@ class Comments_m extends MY_Model
 			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
-			'body'			=> strip_tags($input['body']),
+			'website'		=> isset($input['website']) 	? 	prep_url($input['website']) 			: '',
+			'comment'		=> strip_tags($input['comment']),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id']
 		));

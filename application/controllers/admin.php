@@ -17,6 +17,11 @@ class Admin extends Admin_Controller
  	// Admin: Control Panel
  	function index()
 	{
+		if(is_dir('./installer'))
+		{
+			$this->data->messages['notice'] = 'Please delete the installer.';
+		}
+		
 		// Load stuff
  		$this->data->modules = $this->modules_m->getModules();
 		

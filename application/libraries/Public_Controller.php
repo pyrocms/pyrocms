@@ -35,7 +35,7 @@ class Public_Controller extends MY_Controller
 	    }
 		
 		// Enable profiler on local box
-	    if( ENV == 'local' )
+	    if( ENV == 'local' && $this->input->get('_debug') )
 	    {
 	    	$this->output->enable_profiler(TRUE);
 	    }
