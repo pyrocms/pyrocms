@@ -341,10 +341,12 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Jamie Rumbelow
 	 */
-	public function delete_by($key, $val)
+	public function delete_by()
 	{
-		return $this->db->where($key, $val)
-			->delete($this->table_name);
+		$where =& func_get_args();
+		$this->_set_where($where);
+		
+		return $this->db->delete($this->table_name);
 	}
 	
 	/**
@@ -358,20 +360,6 @@ class MY_Model extends Model
 	public function delete_many($primary_values)
 	{
 		return $this->db->where_in($this->primary_key, $primary_values)
-			->delete($this->table_name);
-	}
-	
-	/**
-	 * Delete many rows from the database table by 
-	 * an array of keys and values.
-	 *
-	 * @param array $array
-	 * @return bool
-	 * @author Jamie Rumbelow
-	 */
-	public function delete_many_by($where)
-	{
-		return $this->db->where($where)
 			->delete($this->table_name);
 	}
 	
@@ -441,69 +429,6 @@ class MY_Model extends Model
 		{
 			$this->db->where($params[0], $params[1]);
 		}
-	}
-	
-	
-	/**
-	 * Run modifiers
-	 * Process a bunch of rules similar to validation, to control what fields should be used
-	 *
-	 * @return void
-	 * @author Phil Sturgeon
-	 */
-	private function _run_modifiers(&$array, $modifiers)
-	{
-		$fields = array();
-		$rules = array();
-		
-		foreach( $modifiers as $key => $val )
-		{
-			// There is only a value (ie fieldname) meaning this field is allowed but nothing else is to be done
-			if(is_int($key))
-			{
-				$fields[] = $val;
-			}
-			
-			// Rules are set, but they are a string
-			elseif( is_string($key) && is_string($val))
-			{
-				$fields[] = $key;
-				$rules[$key] = explode('|', $val);
-			}
-			
-			// Rules are set, but they are a string
-			elseif( is_string($key) && is_array($val))
-			{
-				$fields[] = $key;
-				$rules[$key] = $val;
-			}
-		}
-		
-		foreach( $array as $field => &$value )
-		{
-			// Not meant to be in here
-			if( !in_array($field, $fields) )
-			{
-				unset($array[$field]);
-				continue;
-			}
-			
-			// Meant to be in here, but needs rules running
-			if( isset($rules[$field]) )
-			{
-				foreach($rules[$field] as $rule)
-				{
-					// function doesnt exist, do nothing
-					if( !function_exists($rule) )
-					{
-						continue;
-					}
-					
-					$value = call_user_func($rule, $value);
-				}
-			}
-		}
-		
 	}
 	
 }
