@@ -5,6 +5,10 @@
 	</head>
 	<body>
 	
+	<?php if($this->settings->item('google_analytic')): ?>
+		<?php $this->load->view('fragments/google_analytic'); ?>
+	<?php endif; ?>
+	
 	<div id="content">
 	
 	  <div id="header">

@@ -9,8 +9,3 @@
 			<?php echo anchor($nav_link->url, $nav_link->title); ?>&nbsp;
 		<?php endforeach; ?>
     </div>
-    
-<?php // Google Tracker ?>
-<?php if($this->settings->item('google_analytic')): ?>
-	<?php $this->load->view('fragments/google_analytic'); ?>
-<?php endif; ?>

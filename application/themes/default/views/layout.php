@@ -6,6 +6,10 @@
 
 <body>
 
+	<?php if($this->settings->item('google_analytic')): ?>
+		<?php $this->load->view('fragments/google_analytic'); ?>
+	<?php endif; ?>
+	
 	<div id="header">
 		{theme_view('header')}
 	</div>
