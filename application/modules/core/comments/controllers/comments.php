@@ -54,29 +54,32 @@ class Comments extends Public_Controller
 			$result = $this->_allow_comment($comment);
 			
 			// Run Akismet or the crazy CSS bot checker
-			if(array_key_exists('error', $result))
+			if($result['status'] == FALSE)
 			{
-				$this->session->set_flashdata('error', $result['error']);
-			}
-			
-			// Save the comment
-			if($this->comments_m->insert( $comment ))
-			{
-				if($this->settings->item('moderate_comments') || $this->user_lib->check_role('admin'))
-				{
-					$this->session->set_flashdata('success', lang('comments.add_success'));
-				}
-				
-				else
-				{
-					$this->session->set_flashdata('success', lang('comments.add_approve'));
-				}
+				$this->session->set_flashdata('error', $result['message']);
 			}
 			
 			else
 			{
-				$this->session->set_flashdata('error', lang('comments.add_error'));
-			}			
+				// Save the comment
+				if($this->comments_m->insert( $comment ))
+				{
+					if($this->settings->item('moderate_comments') || $this->user_lib->check_role('admin'))
+					{
+						$this->session->set_flashdata('success', lang('comments.add_success'));
+					}
+					
+					else
+					{
+						$this->session->set_flashdata('success', lang('comments.add_approve'));
+					}
+				}
+				
+				else
+				{
+					$this->session->set_flashdata('error', lang('comments.add_error'));
+				}
+			}
 		}
 		
 		// Validation Failed ------------------------------
@@ -99,38 +102,43 @@ class Comments extends Public_Controller
 		
 		if($this->agent->is_robot())
 		{
-			return array('status' => FALSE, 'mesage' => "You are clearly a robot.");
+			return array('status' => FALSE, 'message' => "You are clearly a robot.");
 		}
 		
 		// Sneaky bot-check
 		if( $this->input->post('d0ntf1llth1s1n') )
 		{
-			return array('status' => FALSE, 'mesage' => "You are probably a robot.");
+			return array('status' => FALSE, 'message' => "You are probably a robot.");
 		}
 		
 		// Check Akismet if an API key exists
 		if($this->settings->item('akismet_api_key'))
 		{
 			$this->load->library('akismet');
-	 
+			
 			$comment = array(
 				'author'	=> $this->input->post('name'),
 				'email'		=> $this->input->post('email'),
 				'website'	=> $this->input->post('website'),
 				'body'		=> $this->input->post('body')
 			);
-			 
+			
 			$config = array(
-				'blog_url' => 'http://www.yoursite.com/',
-				'api_key' => 'yourapikeyhere',
+				'blog_url' => BASE_URL,
+				'api_key' => $this->settings->item('akismet_api_key'),
 				'comment' => $comment
 			);
 			
 			$this->akismet->init($config);
-			
-			if(!$this->akismet->is_spam())
+		
+			if($this->akismet->is_spam())
 			{
-				return array('status' => FALSE, 'mesage' => $this->akismet->get_errors());
+				return array('status' => FALSE, 'message' => 'Looks like this is spam, sorry dude.');
+			}
+			
+			if($this->akismet->errors_exist())
+			{
+				return array('status' => FALSE, 'message' => implode('<br />', $this->akismet->get_errors()));
 			}
 		}
 
