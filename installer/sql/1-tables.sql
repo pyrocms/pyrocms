@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS `navigation_links`;
 CREATE TABLE `navigation_links` (
   `id` int(11) NOT NULL auto_increment,
   `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL AFTER `title`,
+  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
   `page_id` int(11) NOT NULL default '0',
   `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
   `url` varchar(255) collate utf8_unicode_ci NOT NULL default '',

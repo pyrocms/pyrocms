@@ -43,6 +43,16 @@ minimize or totally remove downtime during upgrade.
 	-- Populates new link_type field
 	UPDATE navigation_links SET link_type = (SELECT IF(page_id > 0, "page", IF(module_name != "", "module", IF(url != "", "url", IF(uri != "", "uri", NULL)))));
 	
+	DELETE FROM settings WHERE slug = 'captcha_enabled' OR slug = 'captcha_folder';
+	
+	INSERT INTO settings (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES 
+	 ('akismet_api_key', 'Akismet API Key', 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.', 'text', '', '', '', 0, '1', 'integration'),
+	 ('moderate_comments', 'Moderate Comments', 'Force comments to be approved before they appear on the site.', 'select', '0', '', '1=Enabled|0=Disabled', '0', '1', '');
+	
+	ALTER TABLE `comments` 
+		CHANGE `body` `comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		ADD `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `email`;
+	
 3. Run the following terminal commands:
 
 	sudo rm -rf application/cache/*_m/
