@@ -8,7 +8,7 @@
  * @subpackage MY_Model
  * @license GPLv3 <http://www.gnu.org/licenses/gpl-3.0.txt>
  * @link http://github.com/philsturgeon/codeigniter-base-model
- * @version 1.1
+ * @version 1.3
  * @author Jamie Rumbelow <http://jamierumbelow.net>
  * @modified Phil Sturgeon <http://philsturgeon.co.uk>
  * @copyright Copyright (c) 2009, Jamie Rumbelow <http://jamierumbelow.net>
@@ -21,7 +21,7 @@ class MY_Model extends Model
 	 *
 	 * @var string
 	 */
-	protected $table_name;
+	protected $table;
 		
 	/**
 	 * The primary key, by default set to
@@ -47,6 +47,17 @@ class MY_Model extends Model
 	 */
 	protected $after_create = array();
 
+	
+	/**
+	* Wrapper to __construct for when loading
+	* class is a superclass to a regular controller,
+	* i.e. - extends Base not extends Controller.
+	* 
+	* @return void
+	* @author Jamie Rumbelow
+	*/
+	public function MY_Model() { $this->__construct(); }
+
 	/**
 	 * The class constructer, tries to guess
 	 * the table name.
@@ -71,7 +82,7 @@ class MY_Model extends Model
 	public function get($primary_value) 
 	{
 		return $this->db->where($this->primary_key, $primary_value)
-			->get($this->table_name)
+			->get($this->table)
 			->row();
 	}
 	
@@ -89,7 +100,7 @@ class MY_Model extends Model
 		$where =& func_get_args();
 		$this->_set_where($where);
 		
-		return $this->db->get($this->table_name)
+		return $this->db->get($this->table)
 			->row();
 	}
 	
@@ -133,37 +144,9 @@ class MY_Model extends Model
 	 */
 	public function get_all()
 	{
-		return $this->db->get($this->table_name)
+		return $this->db->get($this->table)
 			->result();
 	}
-	
-	/**
-	 * Get limited records in the database
-	 *
-	 * @return array
-	 * @author Phil Sturgeon
-	 */
-	public function get_limited($limit, $offset = NULL)
-	{
-		if( is_numeric($offset) )
-    	{
-    		$this->db->limit($limit, $offset);
-    	}
-    	
-		if( is_array($limit) )
-    	{
-    		$this->db->limit( @$limit[0], @$limit[1] );
-    	}
-    	
-    	else
-    	{
-    		$this->db->limit($limit);
-    	}
-    	
-		return $this->db->get($this->table_name)
-			->result();
-	}
-	
 	
 	/**
 	 * Similar to get_by(), but returns a result array of
@@ -179,7 +162,7 @@ class MY_Model extends Model
 		$where =& func_get_args();
 		$this->_set_where($where);
 		
-		return $this->db->count_all_results($this->table_name);
+		return $this->db->count_all_results($this->table);
 	}
 	
 	/**
@@ -190,7 +173,7 @@ class MY_Model extends Model
 	 */
 	public function count_all()
 	{
-		return $this->db->count_all($this->table_name);
+		return $this->db->count_all($this->table);
 	}
 	
 	/**
@@ -205,7 +188,7 @@ class MY_Model extends Model
 	public function insert($data)
 	{
 		$data = $this->_run_before_create($data);
-			$this->db->insert($this->table_name, $data);
+			$this->db->insert($this->table, $data);
 		$this->_run_after_create($data, $this->db->insert_id());
 		
 		return $this->db->insert_id();
@@ -226,7 +209,7 @@ class MY_Model extends Model
 		foreach ($data as $row)
 		{
 			$data = $this->_run_before_create($row);
-				$this->db->insert($this->table_name, $row);
+				$this->db->insert($this->table, $row);
 			$this->_run_after_create($row, $this->db->insert_id());
 	
 			$ids[] = $this->db->insert_id();
@@ -243,16 +226,11 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Jamie Rumbelow
 	 */
-	public function update($primary_value, $data, $modifiers = NULL)
+	public function update($primary_value, $data)
 	{
-		if( $modifiers !== NULL)
-		{
-			$this->_run_modifiers($data, $modifiers);
-		}
-		
 		return $this->db->where($this->primary_key, $primary_value)
 			->set($data)
-			->update($this->table_name);
+			->update($this->table);
 	}
 	
 	/**
@@ -264,58 +242,44 @@ class MY_Model extends Model
 	 * @return bool
 	 * @author Jamie Rumbelow
 	 */
-	public function update_by($key, $val, $data, $modifiers = NULL)
+	public function update_by()
 	{
-		if( $modifiers !== NULL)
-		{
-			$this->_run_modifiers($data, $modifiers);
-		}
+		$args =& func_get_args();
+		$data = array_pop($args);
+		$this->_set_where($args);
 		
-		return $this->db->where($key, $val)
-			->set($data)
-			->update($this->table_name);
+		return $this->db->set($data)
+			->update($this->table);
 	}
 	
 	/**
 	 * Updates many records, specified by an array
 	 * of IDs.
 	 *
-	 * @param array $ids The array of IDs
-	 * @param array $array The data to update
+	 * @param array $primary_values The array of IDs
+	 * @param array $data The data to update
 	 * @return bool
 	 * @author Phil Sturgeon
 	 */
-	public function update_many($primary_values, $data, $modifiers = NULL)
+	public function update_many($primary_values, $data)
 	{
-		if( $modifiers !== NULL)
-		{
-			$this->_run_modifiers($data, $modifiers);
-		}
-		
 		return $this->db->where_in($this->primary_key, $primary_values)
 			->set($data)
-			->update($this->table_name);
+			->update($this->table);
 	}
 	
 	/**
-	 * Updates many records, specified by an array
-	 * of keys and values.
+	 * Updates all records
 	 *
-	 * @param array $array The array of key values
 	 * @param array $data The data to update
 	 * @return bool
-	 * @author Jamie Rumbelow
+	 * @since 1.1.3
+	 * @author Phil Sturgeon
 	 */
-	public function update_many_by($where, $data, $modifiers = NULL)
+	public function update_all($data)
 	{
-		if( $modifiers !== NULL)
-		{
-			$this->_run_modifiers($data, $modifiers);
-		}
-		
-		return $this->db->where($where)
-			->set($data)
-			->update($this->table_name);
+		return $this->db->set($data)
+			->update($this->table);
 	}
 	
 	/**
@@ -329,7 +293,7 @@ class MY_Model extends Model
 	public function delete($id)
 	{
 		return $this->db->where($this->primary_key, $id)
-			->delete($this->table_name);
+			->delete($this->table);
 	}
 	
 	/**
@@ -339,14 +303,14 @@ class MY_Model extends Model
 	 * @param string $key
 	 * @param string $value 
 	 * @return bool
-	 * @author Jamie Rumbelow
+	 * @author Phil Sturgeon
 	 */
 	public function delete_by()
 	{
 		$where =& func_get_args();
 		$this->_set_where($where);
 		
-		return $this->db->delete($this->table_name);
+		return $this->db->delete($this->table);
 	}
 	
 	/**
@@ -360,9 +324,37 @@ class MY_Model extends Model
 	public function delete_many($primary_values)
 	{
 		return $this->db->where_in($this->primary_key, $primary_values)
-			->delete($this->table_name);
+			->delete($this->table);
 	}
 	
+	/**
+	* Orders the result set by the criteria,
+	* using the same format as CI's AR library.
+	*
+	* @param string $criteria The criteria to order by
+	* @return void
+	* @since 1.1.2
+	* @author Jamie Rumbelow
+	*/
+	public function order_by($criteria, $order = 'ASC') 
+	{
+		$this->db->order_by($criteria, $order);
+	}
+	
+	/**
+	* Limits the result set by the integer passed.
+	* Pass a second parameter to offset.
+	*
+	* @param integer $limit The number of rows
+	* @param integer $offset The offset
+	* @return void
+	* @since 1.1.1
+	* @author Jamie Rumbelow
+	*/
+	public function limit($limit, $offset = 0) {
+		$this->db->limit($limit, $offset);
+	}
+
 	/**
 	 * Runs the before create actions.
 	 *
@@ -403,11 +395,11 @@ class MY_Model extends Model
 	 */
 	private function _fetch_table()
 	{
-		if ($this->table_name == NULL)
+		if ($this->table == NULL)
 		{
 			$class = preg_replace('/(_m|_model)?$/', '', get_class($this));
 			
-			$this->table_name = plural(strtolower($class));
+			$this->table = plural(strtolower($class));
 		}
 	}
 
