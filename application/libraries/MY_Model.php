@@ -339,6 +339,7 @@ class MY_Model extends Model
 	public function order_by($criteria, $order = 'ASC') 
 	{
 		$this->db->order_by($criteria, $order);
+		return $this;
 	}
 	
 	/**
@@ -351,8 +352,10 @@ class MY_Model extends Model
 	* @since 1.1.1
 	* @author Jamie Rumbelow
 	*/
-	public function limit($limit, $offset = 0) {
+	public function limit($limit, $offset = 0)
+	{
 		$this->db->limit($limit, $offset);
+		return $this;
 	}
 
 	/**
