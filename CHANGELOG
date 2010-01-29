@@ -20,6 +20,8 @@ v0.9.8
 * Swapped Facebox for Fancybox. Mainly iframe support, but it seems generally better.
 * Re-enabled page slug editing.
 * Navigation add/edit form is now much more user-friendly.
+* Removed all CAPTCHAs and use Akismet and some clever trickery to check for spam.
+* Upgraded to Google Async Analytics.
 
 v0.9.7.4
 --------
