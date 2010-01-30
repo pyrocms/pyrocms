@@ -1,4 +1,4 @@
-lROP TABLE IF EXISTS `asset`;
+DROP TABLE IF EXISTS `asset`;
 
 -- command split --
 
