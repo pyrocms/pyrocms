@@ -1,6 +1,6 @@
 <?php
-/*
-copywrite to go here
+/**
+* @author badsyntax.co.uk & pyrocms
 */
 
 class Tinycimm_model extends Model {
@@ -15,9 +15,6 @@ class Tinycimm_model extends Model {
 	
 	/**
 	* Get an asset from the database
-	*
-	* @param integer|$asset_id The id of the image to retrieve
-	* @return Object| an object containing full database row for the image
 	**/
 	function get_asset($asset_id=0){
 		return $this->db->where('id', (int) $asset_id)->get('asset', 1)->row();
@@ -25,9 +22,6 @@ class Tinycimm_model extends Model {
 
 	/**
 	* Get a list of assets by folder from the database
-	*
-	* @param integer|$folder_id The id of the folder the assets are related to
-	* @return Object| a result object containing rows for the assets
 	**/
 	function get_assets($folder_id=0, $user_id=1, $offset=NULL, $limit=NULL, $search_query=''){
 		if (trim($search_query) != '') {
@@ -47,8 +41,6 @@ class Tinycimm_model extends Model {
 	
 	/**
 	* Deletes an asset's data from the database
-	*
-	* @param integer|$asset_id The id of the image to delete
 	**/
 	function delete_asset($asset_id=0){
 		return $this->db->where('id', (int) $asset_id)->delete('asset');	
@@ -56,8 +48,6 @@ class Tinycimm_model extends Model {
 
 	/** 
 	* Inserts an asset into the database
-	*
-	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
 	function insert_asset($fields = array()){
 		$this->db->set($fields)->insert('asset');
@@ -84,8 +74,6 @@ class Tinycimm_model extends Model {
 	
 	/** 
 	* Updates an asset details in the database
-	*
-	* @returns integer|insert_id the last insert id from the id sequence colmn
 	**/
 	function update_asset($id=0, $fields=array()){
 		return $this->db->where('id', $id)->update('asset', $fields); 
@@ -114,10 +102,6 @@ class Tinycimm_model extends Model {
 	
 	/**
 	* Get all image folders, or folders owned by $user_id
-	*
-	* @param String|$orderby the method to sort the results by
-	* @param Integer|$user_id 
-	* @return Object| a result object of the list of folder from the database
 	**/
 	function get_folders($type='image', $order_by='name', $user_id=FALSE){
 		return $this->db->orderby('smart','desc')->orderby($order_by)->get('asset_folder')->result_array();

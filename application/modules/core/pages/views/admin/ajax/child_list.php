@@ -5,8 +5,14 @@
 			<?php echo $page->title; ?> <small>(#<?php echo $page->id; ?>)</small>
 		</a>
 	</span>
-	<?php if ($page->has_children) :?>
-		<ul></ul>
-	<?php endif;?>
+	<?php if ($page->has_children) {?>
+		<?if (in_array($page->id, $open_parent_pages)){?>
+			<ul>
+				<?php echo $controller->recurse_page_tree($page->id, $open_parent_pages); ?>
+			</ul>
+		<?} else {?>
+			<ul style="display:none"></ul>
+		<?}?>
+	<?php }?>
 </li>
 <?php endforeach;?>

@@ -1,14 +1,7 @@
-<?php  
-/*
- *
- * tinycimm_image.php
- * Copyright (c) 2009 Richard Willis
- * MIT license  : http://www.opensource.org/licenses/mit-license.php
- * Project      : http://tinycimm.googlecode.com/
- * Contact      : willis.rh@gmail.com : http://badsyntax.co.uk
- *
- */
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* @author badsyntax.co.uk & pyrocms
+*/
  
 class Image_Manager extends Controller {
 

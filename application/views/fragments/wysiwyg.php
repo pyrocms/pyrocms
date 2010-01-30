@@ -1,3 +1,8 @@
+<?php
+	// Load TinyCIMM config
+	$this->config->load('tinycimm');
+?>
+
 <!-- TinyMCE -->
 <?php echo js('tiny_mce/tiny_mce.js'); ?>
 
@@ -10,15 +15,11 @@
 		editor_selector : "wysiwyg-simple",
 		editor_class : "wysiwyg-simple",
 		theme : "advanced",
-		
 		language : "<?php echo CURRENT_LANGUAGE;?>",
-
 		width : 400,
-
 		force_p_newlines : false,
 		force_br_newlines : true,
 		forced_root_block : '',
-	
 		button_tile_map : true,
 	
 		// Theme options
@@ -39,17 +40,19 @@
 		language : "<?php echo CURRENT_LANGUAGE;?>",
 		convert_urls : false,
 
-		width : 650,
-		height : 400,
+		width : 670,
+		height : 340,
 		constrain_menus : true,
 		
-		theme : "advanced",
-		plugins : "safari,pagebreak,style,layer,advhr,advimage,advlink,emotions,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,fullscreen,noneditable,visualchars,xhtmlxtras,template,tinycimm",
+		plugins : "safari,pagebreak,style,advhr,advimage,advlink,emotions,inlinepopups,preview,media,contextmenu,paste,fullscreen,noneditable,visualchars,xhtmlxtras,template,tinycimm,pdw",
 
 		// Theme options
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,blockquote,|,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,undo,redo,|,search,replace,|,bullist,numlist,|,outdent,indent,|,insertdate,inserttime,|,forecolor,backcolor,|,print,preview,fullscreen,code",
-		theme_advanced_buttons3 : "image,tinycimm-image,|,anchor,link,unlink,|,charmap,emotions,media,advhr,",
+		theme : "advanced",
+		skin : "o2k7",
+		skin_variant : "silver",
+		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,blockquote,|,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect,pdw_toggle",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,undo,redo,|,bullist,numlist,|,outdent,indent,|,forecolor,backcolor,|,image,tinycimm-image,media,|,link,unlink,|,preview,fullscreen,code,|,charmap,emotions,advhr,help",
+		theme_advanced_buttons3 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_resizing : true,
@@ -59,13 +62,13 @@
 		document_base_url: "<?php echo BASE_URI ;?>",
 		content_css : "<?php echo css_path('style.css'); ?>",
 
+		pdw_toggle_on : 1,
+		pdw_toggle_toolbars : "2,3",
+
 		button_tile_map : true,		
 		media_strict: false,
 		
 		file_browser_callback : 'tinycimm',
-		<?php
-			$this->config->load('tinycimm');
-		?>
 		tinycimm_image_controller : '<?php echo $this->config->item('tinycimm_image_controller');?>',
 		tinycimm_link_controller : '<?php echo $this->config->item('tinycimm_link_controller');?>',
 		tinycimm_assets_path : '<?php echo $this->config->item('tinycimm_asset_path');?>',
