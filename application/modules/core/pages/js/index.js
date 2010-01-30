@@ -1,16 +1,16 @@
 (function($) {
 	
-	function TreeCookie(node_id){
+	function TreeCookie(node_id, opt){
 		this.node_id = node_id || false;
+		this.config = $.extend({
+			name : 'page_parent_ids',	// cookie name
+			delimiter : ',',		// its a csv string
+			expiredays : 1			// life of cookie in days
+		}, opt || {});
 		return this.prototype;
 	}
 
 	TreeCookie.prototype = {
-		config : {
-			name : 'page_parent_ids',	// cookie name
-			delimiter : ',',		// its a csv string
-			expiredays : 1			// life of cookie in days
-		},
 		_set : function(name, val, expiredays){
 			expiredays = expiredays || this.config.expiredays;
 			var exdate = new Date();
@@ -23,8 +23,7 @@
 				if (start != -1){
 					start = start+name.length+1;
 					var end = document.cookie.indexOf(";", start);
-					if (end == -1)
-						end = document.cookie.length;
+					if (end == -1) end = document.cookie.length;
 					return unescape(document.cookie.substring(start, end));
 				}
 			}
@@ -42,20 +41,12 @@
 		remove : function(){
 			var self = this, pageids = [], newids = [], 
 			ids = this._get(this.config.name).split(this.config.delimiter);
-
-			for(var id in ids) {
-				if (ids[id] == this.node_id) {
-					ids.splice(id,1);
-				}
-			}
-			console.debug(ids);
-			// remove pages from cookie list 
-			//for(var i=0; i<ids.length; i++) (!ids[1] in pageids) && newids.push(ids[i]);
+			// remove id from cookie list 
+			for(var id in ids) (ids[id] == this.node_id) && ids.splice(id,1);
 			// save csv string to cookie
 			this._set(this.config.name, ids.join(this.config.delimiter));
 		}
 	};
-	
 	
 	$(function(){
 
