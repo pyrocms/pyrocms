@@ -1,4 +1,5 @@
 (function() {
+	
 	//tinymce.PluginManager.requireLangPack('tinycimmimage');
 
 	tinymce.create('tinymce.plugins.TinyCIMM', {
