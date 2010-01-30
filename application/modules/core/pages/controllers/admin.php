@@ -61,7 +61,7 @@ class Admin extends Admin_Controller
 	{
 		// get list of open parent pages from cookie
 		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
-		
+
 		// get the page tree
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
 		
@@ -70,6 +70,9 @@ class Admin extends Admin_Controller
 	
 	function ajax_fetch_children($parent_id)
 	{
+		// get list of open parent pages from cookie
+		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
+
 		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
 	
 		foreach($pages as &$page)
@@ -77,9 +80,10 @@ class Admin extends Admin_Controller
 			$page->has_children = $this->pages_m->has_children($page->id);
 		}
 		
+		$this->data->open_parent_pages = $open_parent_pages;
+		$this->data->controller =& $this;
 		$this->data->pages =& $pages;
 		$this->load->view('admin/ajax/child_list', $this->data);
-		
 	}
 	
 	function ajax_page_details($page_id)
