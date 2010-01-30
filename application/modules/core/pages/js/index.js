@@ -1,15 +1,11 @@
 (function($) {
 	
-	Array.prototype.inArray = function(val) {
-		for(var i=0;i<this.length;i++) if (this[i] === val) return true; return false;
-	};
-	Array.prototype.trim = function(){
-		var trimmed = [];
-		for(var i=0;i<this.length;i++) { ($.trim(this[i]) != "") && trimmed.push(this[i]); }
-		return trimmed;
+	function TreeCookie(node_id){
+		this.node_id = node_id || false;
+		return this.prototype;
 	}
 
-	var PyroTreeCookie = {
+	TreeCookie.prototype = {
 		config : {
 			name : 'page_parent_ids',	// cookie name
 			delimiter : ',',		// its a csv string
@@ -17,7 +13,7 @@
 		},
 		_set : function(name, val, expiredays){
 			expiredays = expiredays || this.config.expiredays;
-			var exdate=new Date();
+			var exdate = new Date();
 			exdate.setDate(exdate.getDate()+expiredays);
 			document.cookie = name+"="+escape(val)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())+";path=/";
 		},
@@ -27,40 +23,36 @@
 				if (start != -1){
 					start = start+name.length+1;
 					var end = document.cookie.indexOf(";", start);
-					if (end == -1){
+					if (end == -1)
 						end = document.cookie.length;
-					}
 					return unescape(document.cookie.substring(start, end));
 				}
 			}
 			return '';
 		},
-		addPage : function(list_item){
-			var page_id = $("a[rel^='page']:first", list_item).attr("rel").replace(/^page-/, ''),
-			ids = this._get(this.config.name).split(this.config.delimiter);
-
+		add : function(){
+			var ids = this._get(this.config.name).split(this.config.delimiter);
 			// check id doesn't already exist in cookie list
-			for(var i=0; i<ids.length; i++) if (ids[i] == page_id) return; 
+			for(var i=0; i<ids.length; i++) if (ids[i] == this.node_id) return; 
 			// add parent id list
-			ids.push(page_id);
+			ids.push(this.node_id);
 			// save csv string to cookie
-			this._set(this.config.name, ids.trim().join(this.config.delimiter));
+			this._set(this.config.name, ids.join(this.config.delimiter));
 		},
-		removePage : function(list_item){
+		remove : function(){
 			var self = this, pageids = [], newids = [], 
 			ids = this._get(this.config.name).split(this.config.delimiter);
 
-			// get list of pages to hide
-			$("li", $(list_item).parent()).each(function(){
-				($("ul", this).length) && 
-				pageids.push($("a[rel^='page']:first", this).attr("rel").replace(/^page-/, ''));
-			});
-			// remove pages from cookie list 
-			for(var i=0; i<ids.length; i++) {
-				(!pageids.inArray(ids[i])) && newids.push(ids[i]);
+			for(var id in ids) {
+				if (ids[id] == this.node_id) {
+					ids.splice(id,1);
+				}
 			}
+			console.debug(ids);
+			// remove pages from cookie list 
+			//for(var i=0; i<ids.length; i++) (!ids[1] in pageids) && newids.push(ids[i]);
 			// save csv string to cookie
-			this._set(this.config.name, newids.trim().join(this.config.delimiter));
+			this._set(this.config.name, ids.join(this.config.delimiter));
 		}
 	};
 	
@@ -68,6 +60,7 @@
 	$(function(){
 
 		var page_tree = $("div#page-tree > ul");
+
 		page_tree.treeview({
 			toggle: function() {
 				expandTree(this);
@@ -75,7 +68,6 @@
 			}
 		});
 
-	
 		function expandTree(item)
 		{
 			// Define elements
@@ -110,9 +102,9 @@
 						
 						$('li span', page_tree).unbind('click');
 					}
-					PyroTreeCookie.addPage(item);
+					(new TreeCookie(page_id)).add();
 				} else {
-					PyroTreeCookie.removePage(item);
+					(new TreeCookie(page_id)).remove();
 				}
 			}
 			
