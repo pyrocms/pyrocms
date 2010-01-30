@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `asset`;
+lROP TABLE IF EXISTS `asset`;
 
 -- command split --
 
@@ -107,7 +107,6 @@ CREATE TABLE `navigation_links` (
   `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
   `page_id` int(11) NOT NULL default '0',
   `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
-  `url` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `uri` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `navigation_group_id` int(5) NOT NULL default '0',
   `position` int(5) NOT NULL default '0',
