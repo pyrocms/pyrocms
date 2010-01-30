@@ -179,15 +179,15 @@ function css_editor(id, width)
 			});
 			
 			$(this).ajaxify({
-		         target: '#content',
-		         tagToload: '#content',
-		         loadHash:'attr:href',
-		         title: DEFAULT_TITLE,
-		         
-		         animateOut:{opacity:'0'},
-	             animateOutSpeed:500,
-	             animateIn:{opacity:'1'},
-	             animateInSpeed:500
+				target: '#content',
+				tagToload: '#content',
+				loadHash: 'attr:href',
+				title: DEFAULT_TITLE,
+				cache: false,
+				animateOut: {opacity: '0'},
+				animateOutSpeed: 500,
+				animateIn: {opacity: '1'},
+				animateInSpeed:500
 			});
 		});
 		// End AJAX links ----
