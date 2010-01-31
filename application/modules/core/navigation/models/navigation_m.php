@@ -171,31 +171,31 @@ class Navigation_m extends Model
 		$group = $this->get_group_by('abbrev', $abbrev);
 		
 		$group_links = $this->get_links(array(
-    		'group'=>$group->id,
-    		'order'=>'position, title'
-    	));
+    			'group'=>$group->id,
+    			'order'=>'position, title'
+    		));
     		
-    	$has_current_link = false;
-		
-    	// Loop through all links and add a "current_link" property to show if it is active
-    	if( !empty($group_links) )
-    	{
-    		foreach($group_links as &$link)
-    		{
-    			$full_match 	= site_url($this->uri->uri_string()) == $link->url;
-    			$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->url;
-    			
-    			// Either the whole URI matches, or the first segment matches
-    			if($link->current_link = $full_match || $segment1_match)
-    			{
-    				$has_current_link = true;
-    			}
-    		}
-    		
-    	}
-    		
-    	// Assign it 
-    	return $group_links;
+		$has_current_link = false;
+			
+		// Loop through all links and add a "current_link" property to show if it is active
+		if( !empty($group_links) )
+		{
+			foreach($group_links as &$link)
+			{
+				$full_match 	= site_url($this->uri->uri_string()) == $link->uri;
+				$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->uri;
+				
+				// Either the whole URI matches, or the first segment matches
+				if($link->current_link = $full_match || $segment1_match)
+				{
+					$has_current_link = true;
+				}
+			}
+			
+		}
+			
+		// Assign it 
+	    	return $group_links;
 	}
 	
 	function get_group_by($what, $value) 
