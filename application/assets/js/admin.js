@@ -152,6 +152,7 @@ function css_editor(id, width)
 		/* Control panel menu dropdowns */
 		var menu = $("ul#menu li");/** define the main navigation selector **/
 
+		/*
 		$('a', menu).click(function(){
 			$(this).parent('li')
 				.addClass("selected")
@@ -159,6 +160,7 @@ function css_editor(id, width)
 				
 			return false;
 		});
+		*/
 		
 		menu.hover(function() {/** build animated dropdown navigation **/
 			$(this).find('ul:first:hidden').css({visibility: "visible",display: "none"}).show("fast");
@@ -172,6 +174,7 @@ function css_editor(id, width)
 		});
 		
 		// AJAX Links ----
+		/*
 		$('a.ajax').livequery(function() {
 			$(this).each(function() {
 				// Takes the BASE URL out of the URL
@@ -190,6 +193,7 @@ function css_editor(id, width)
 				animateInSpeed:500
 			});
 		});
+		*/
 		// End AJAX links ----
 	
 		$('.languageSelector a').click(function()
