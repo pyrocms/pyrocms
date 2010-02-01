@@ -7,7 +7,6 @@
 			delimiter: ',',		// its a csv string
 			expiredays: 1		// life of cookie in days
 		}, opt || {});
-		return this.prototype;
 	}
 
 	TreeCookie.prototype = {
@@ -31,7 +30,7 @@
 		add : function(){
 			var ids = this._get(this.config.name).split(this.config.delimiter);
 			// check id doesn't already exist in cookie list
-			if (this.node_id in ids) return;
+			if ($.inArray(this.node_id, ids) !== -1) return;
 			// add parent id list
 			ids.push(this.node_id);
 			// save csv string to cookie
