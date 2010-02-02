@@ -57,19 +57,7 @@ class Comments_m extends MY_Model
 			}
 		}
     		
-		// Sorting the results based on a param
-		switch(@$params['order'])
-		{
-			// Specific sorting options goes here
-			case 'byNameDESC':
-				$this->db->orderby('c.name DESC');
-			break;
-			
-			// Default sorting of comments by wrong param
-			default:
-				$this->db->orderby('c.created_on DESC');
-			break;
-		}
+		$this->db->orderby('c.created_on DESC');
 		
 		// Limit the results based on 1 number or 2 (2nd is offset)
     	if(isset($params['limit']) && is_array($params['limit']))
