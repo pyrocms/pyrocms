@@ -1,4 +1,3 @@
-<?php $this->load->helper('date');?>      
 <?php echo form_open('admin/news/action');?>
 
 <div class="box">
@@ -7,26 +6,27 @@
 	
 	<div class="box-container">	
 	
-		<table border="0" class="table-list">    
-			<thead>
-				<tr>
-					<th><?php echo form_checkbox('action_to_all');?></th>
-					<th><?php echo lang('news_post_label');?></th>
-					<th class="width-10"><?php echo lang('news_category_label');?></th>
-					<th class="width-10"><?php echo lang('news_date_label');?></th>
-					<th class="width-5"><?php echo lang('news_status_label');?></th>
-					<th class="width-15"><span><?php echo lang('news_actions_label');?></span></th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="6">
-						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-					</td>
-				</tr>
-			</tfoot>
-			<tbody>
-			<?php if (!empty($news)): ?>
+		<?php if (!empty($news)): ?>
+				
+			<table border="0" class="table-list">    
+				<thead>
+					<tr>
+						<th><?php echo form_checkbox('action_to_all');?></th>
+						<th><?php echo lang('news_post_label');?></th>
+						<th class="width-10"><?php echo lang('news_category_label');?></th>
+						<th class="width-10"><?php echo lang('news_date_label');?></th>
+						<th class="width-5"><?php echo lang('news_status_label');?></th>
+						<th class="width-15"><span><?php echo lang('news_actions_label');?></span></th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+						</td>
+					</tr>
+				</tfoot>
+				<tbody>
 					<?php foreach ($news as $article): ?>
 						<tr>
 							<td><?php echo form_checkbox('action_to[]', $article->id);?></td>
@@ -40,17 +40,15 @@
 								<?php echo anchor('admin/news/delete/' . $article->id, lang('news_delete_label'), array('class'=>'confirm')); ?>
 							</td>
 						</tr>
-				<?php endforeach; ?>
-			<?php else: ?>
-					<tr>
-						<td colspan="6"><?php echo lang('news_no_articles');?></td>
-					</tr>
-			<?php endif; ?>
-			</tbody>	
-		</table>
-		
+					<?php endforeach; ?>
+				</tbody>	
+			</table>
+			
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish') )); ?>
 
+		<?php else: ?>
+			<p><?php echo lang('news_no_articles');?></p>
+		<?php endif; ?>
 	</div>
 </div>
 
