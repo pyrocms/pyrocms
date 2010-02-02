@@ -16,9 +16,10 @@ class Admin extends Admin_Controller
 	{
 		// Create pagination links
 		$total_rows = $this->categories_m->count_all();
-		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);		
+		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);
+			
 		// Using this data, get the relevant results
-		$this->data->categories = $this->categories_m->get_limited( $this->data->pagination['limit'] );		
+		$this->data->categories = $this->categories_m->limit( $this->data->pagination['limit'] )->get_all();		
 		$this->template->build('admin/index', $this->data);
 	}
 	
