@@ -23,6 +23,7 @@ $lang['cp_nav_themes']					= 'Themes';
 $lang['cp_nav_permissions']				= 'Permissions';
 
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
+$lang['delete_installer_message']		= 'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
 
 // Admin-wide text
 $lang['cp_sidebar_title'] 				= 'Side menu';
