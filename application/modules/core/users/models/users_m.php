@@ -6,7 +6,7 @@
  * @since		v0.1
  *
  */
-class Users_m extends Model
+class Users_m extends MY_Model
 {
 
     // Get a user's salt
@@ -52,36 +52,21 @@ class Users_m extends Model
     	return $query->row();
     }
     
-	// Get multiple users based on the $params array
-	function get_many($params = array())
+    
+	function get_all()
     {
-    	if(isset($params['active'])) $this->db->where('is_active', $params['active']);
-    	if(isset($params['role'])) $this->db->where('role', $params['role']);	
-    	if(isset($params['limit']) && is_int($params['limit'])) $this->db->limit($params['limit']);
-    	elseif(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
-    	if(isset($params['order'])) $this->db->order_by($params['order']);
-    	
-    	return $this->db->select('u.*, pr.title as role_title, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name')
-    		->join('permission_roles pr', 'pr.abbrev = u.role')
-    		->get('users u')
-    		->result();
+    	$this->db->select('users.*, pr.title as role_title, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name')
+    		->join('permission_roles pr', 'pr.abbrev = users.role');
+    		
+    	return parent::get_all();
     }    
 
-    // Count the amount of users based on the parameters.
-    function count($params = array())
-    {
-    	if(isset($params['active'])) $this->db->where('is_active', $params['active']);
-    	if(isset($params['role'])) $this->db->where('role', $params['role']);	
-
-		return $this->db->count_all_results('users');
-    }
-    
 	// Create a new user
 	function add($input = array())
     {
 		$this->load->helper('date');
 
-        $this->db->insert('users', array(
+        return parent::insert(array(
         	'email'				=> $input->email,
         	'password'			=> $input->password,
         	'salt'				=> $input->salt,
@@ -95,17 +80,8 @@ class Users_m extends Model
 			'last_login'		=> '',
         	'ip' 				=> $this->input->ip_address()
         ));
-
-		return $this->db->insert_id();		
-		
 	}
 	
-	// Update an existing user
-	function update($id, $data)
-	{
-		return $this->db->update('users', $data, array('id' => $id));
-	}
-
 	// Update the last login time
 	function update_last_login($id) {
 		$this->load->helper('date');
@@ -115,15 +91,7 @@ class Users_m extends Model
 	// Activate a newly created user
 	function activate($id)
 	{
-		$this->db->update('users', array('is_active' => 1, 'activation_code' => ''), array('id' => $id));
-		return ($this->db->affected_rows() > 0);
-	}
-
-	// Delete an existing user
-	function remove($id)
-	{
-		$this->db->delete('users', array('id'=>$id));
-		return $this->db->affected_rows();
+		return parent::update($id, array('is_active' => 1, 'activation_code' => ''));
 	}
 
 }

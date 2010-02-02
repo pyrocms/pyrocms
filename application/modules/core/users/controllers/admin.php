@@ -27,8 +27,8 @@ class Admin extends Admin_Controller
         $this->data->roles_select = array_for_select($this->data->roles, 'abbrev', 'title');
         
 		// Sidebar data
-		$this->data->inactive_user_count = $this->users_m->count(array('active' => 0));
-		$this->data->active_user_count = $this->users_m->count(array('active' => 1));
+		$this->data->inactive_user_count = $this->users_m->count_by('is_active', 0);
+		$this->data->active_user_count = $this->users_m->count_by('is_active', 1);
 		
 		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
@@ -40,9 +40,10 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/users', $this->data->active_user_count);
 
 		// Using this data, get the relevant results
-		$active_criteria = array( 'active' => 1, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
-		$this->data->users = $this->users_m->get_many($active_criteria);
-		
+		$this->data->users = $this->users_m->limit($this->data->pagination['limit'])
+			->order_by('id', 'desc')
+			->get_many_by( 'is_active', 1 );
+			
 		$this->template->build('admin/index', $this->data);
 	}
 	
@@ -50,8 +51,9 @@ class Admin extends Admin_Controller
 	{
 		$this->data->pagination = create_pagination('admin/users/inactive', $this->data->inactive_user_count);
 
-		$inactive_criteria = array( 'active' => 0, 'limit' => $this->data->pagination['limit'], 'order' => 'id desc' );
-		$this->data->users = $this->users_m->get_many($inactive_criteria);
+		$this->data->users = $this->users_m->limit($this->data->pagination['limit'])
+			->order_by('id', 'desc')
+			->get_many_by('is_active', 0);
 		
 		$this->template->build('admin/index', $this->data);
 	}
@@ -245,7 +247,7 @@ class Admin extends Admin_Controller
 					continue;
 				}
 				
-				if($this->users_m->remove($id))
+				if($this->users_m->delete($id))
 				{
 					$deleted++;
 				}

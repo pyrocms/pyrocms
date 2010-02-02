@@ -9,18 +9,18 @@
 })(jQuery);
 </script>
 
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
-
-	<div class="box">
-			
-		<?php if($method == 'create'): ?>
-			<h3><?php echo lang('user_add_title');?></h3>
-			
-		<?php else: ?>
-			<h3><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h3>
-		<?php endif; ?>
+<div class="box">
 		
-		<div class="box-container">
+	<?php if($method == 'create'): ?>
+		<h3><?php echo lang('user_add_title');?></h3>
+		
+	<?php else: ?>
+		<h3><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h3>
+	<?php endif; ?>
+	
+	<div class="box-container">
+	
+		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 		
 			<div class="tabs">
 				
@@ -80,7 +80,7 @@
 			
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		
-		</div>
+		<?php echo form_close(); ?>
+		
 	</div>
-
-<?php echo form_close(); ?>
+</div>
