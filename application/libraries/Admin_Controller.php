@@ -53,7 +53,7 @@ class Admin_Controller extends MY_Controller
 		  	show_error($this->lang->line('cp_access_denied'));
 		    exit;
 	    }
-			
+		
 	    // TODO: PJS I do not think this cache is working. Got bored and went to the pub...
 	    // Get a list of all modules available to this role
 	    if($current_page != 'admin/login')
