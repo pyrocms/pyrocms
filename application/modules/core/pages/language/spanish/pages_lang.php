@@ -19,7 +19,6 @@ $lang['page_no_selection_label'] 				= '-- Ninguno --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_layout_id_label'] 					= 'Page Layout'; #translate
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Acceder';
@@ -32,11 +31,13 @@ $lang['page_view_label'] 						= 'Ver';
 $lang['page_create_label'] 						= 'Añadir página hija';
 $lang['page_edit_label'] 						= 'Editar';
 $lang['page_delete_label'] 						= 'Borrar';
-$lang['page_layouts_label'] 					= 'Page Layouts'; #translate
 
 // titles
 $lang['page_create_title'] 						= 'Crear p&aacute;gina';
 $lang['page_edit_title'] 						= 'Editar p&aacute;gina "%s"';
+$lang['page_list_title'] 						= 'List pages'; #translate
+$lang['page_layouts_create_title'] 				= 'Add page layout'; #translate
+$lang['page_layouts_list_title'] 				= 'List page layouts'; #translate
 
 // messages
 $lang['page_no_pages'] 							= 'No hay p&aacute;ginas creadas.';

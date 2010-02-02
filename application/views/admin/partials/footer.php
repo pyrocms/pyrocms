@@ -1,7 +1,20 @@
 <div id="footer-top">
 
 	<div class="float-left">
-		<h4><?php echo anchor('admin', lang('cp_admin_home_title')); ?></h4>
+		<?php echo form_open($this->uri->uri_string(), 'id="change_language" method="get"'); ?>
+			<label for="lang"><?php echo lang('cp_change_language'); ?></label>
+			<?php //echo form_dropdown('lang', $language_options, CURRENT_LANGUAGE); ?>
+			
+			<select name="lang">
+			<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>
+        		<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? 'selected="selected"' : ''; ?>>
+        			<?php echo $lang['name']; ?>
+        		</option>
+        	<?php endforeach; ?>
+        	</select>
+        
+		<?php echo form_close(); ?>
+		
 		<p>
 			<?php echo anchor('http://pyrocms.com/documentation', lang('cp_documentation')); ?> | 
 			<?php echo anchor('http://github.com/philsturgeon/pyrocms/issues', lang('cp_report_bug')); ?> | 
