@@ -14,7 +14,7 @@ TRUNCATE navigation_links;
 -- command split --
 
 INSERT INTO navigation_links VALUES
-  ('1', 'Home', 1, '', '', '', 1, 1, '');
+  ('1', 'Home', 1, 'page', '', '', '', 1, 1, '');
 
 -- command split --
 
