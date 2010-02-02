@@ -73,8 +73,10 @@
 						</li>
 						
 						<li>
-							<label for="css" class="clear-left"><?php echo lang('page_css_label');?></label>
-							<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
+							<label for="css"><?php echo lang('page_css_label');?></label>
+							<div style="border:1px solid; float:right;">
+								<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
+							</div>
 						</li>
 					</ol>
 					
@@ -113,5 +115,5 @@
 </div>
 
 <script type="text/javascript">
-	css_editor('css_editor', "41.6em");
+	css_editor('css_editor', "37em");
 </script>
