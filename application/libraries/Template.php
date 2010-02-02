@@ -119,8 +119,6 @@ class Template
         ####################################################################
 
         // Disable sodding IE7's constant cacheing!!
-        $this->CI->output->set_header('HTTP/1.0 200 OK');
-        $this->CI->output->set_header('HTTP/1.1 200 OK');
         $this->CI->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
         $this->CI->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
         $this->CI->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
