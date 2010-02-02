@@ -34,14 +34,10 @@ class MY_Exceptions extends CI_Exceptions {
 	 */
 	function show_404($page = '')
 	{	
-		log_message('error', '404 Page Not Found --> '.$page);
-		
 		header('HTTP/1.0 404 Not Found');
 		header('HTTP/1.1 404 Not Found');
 		
-		header('Location: '.BASE_URI.'error_404');
-		
-		//parent::show_404();
+		parent::show_404();
 	}
 
 }

@@ -36,6 +36,11 @@ minimize or totally remove downtime during upgrade.
 	-- Add default page layout
 	INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
 	(1, 'Default', '<h2>{$page.title}</h2>\n\n\n{$page.body}', '', 1260615149);
+	
+	-- Add 404 page
+	
+	INSERT INTO `pages` (`id`, `slug`, `title`, `body`, `parent_id`, `layout_id`, `status`, `updated_on`) VALUES
+	  (NULL, '404', 'Page missing', '<p>We cannot find the page you are looking for, please click <a href=\"{page_url[1]}\">here</a> to go to the homepage.</p>', '0', '1', 'live', '1265139154');
 
 	-- Adds link_type field
 	ALTER TABLE `navigation_links` ADD `link_type` VARCHAR( 20 ) NOT NULL AFTER `title` ;
@@ -52,6 +57,27 @@ minimize or totally remove downtime during upgrade.
 	ALTER TABLE `comments` 
 		CHANGE `body` `comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		ADD `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `email`;
+		
+	CREATE TABLE `photo_albums` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `description` text COLLATE utf8_unicode_ci NOT NULL,
+	  `parent` int(11) NOT NULL DEFAULT '0',
+	  `updated_on` varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+	  PRIMARY KEY (`id`),
+	  UNIQUE KEY `title` (`title`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
+		
+	CREATE TABLE `photos` (
+	  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+	  `album_id` int(11) NOT NULL,
+	  `filename` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `description` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `updated_on` varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+	  PRIMARY KEY (`id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
+	
 	
 3. Run the following terminal commands:
 

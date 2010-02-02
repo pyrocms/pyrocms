@@ -42,19 +42,22 @@ class Pages extends Public_Controller
     		$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
     	}
     	
-    	// Try and load the page from cache or directly, if not, 404
-        if(!$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments)) )
+    	// Fetch this page from the database via cache
+    	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
+    	
+    	// If page is missing or not live (and not an admin) show 404
+		if( !$page || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) )
         {
-        	show_404();
-        }
-        
-        if($page->status == 'draft')
-        {
-        	// Admins should be able to see previews
-        	if( !$this->user_lib->check_role('admin') )
-        	{
-        		show_404();
-        	}
+        	// Try and get an error page. If its been deleted, show nasty 404
+        	if(!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
+	        {
+	        	show_404();
+	        }
+	        
+	        else
+	        {
+				$this->output->set_status_header(404);
+	        }
         }
         
         // Not got a meta title? Use slogan for homepage or the normal page title for other pages
