@@ -429,7 +429,7 @@ class MY_Model extends Model
 
 	
 	/**
-	 * Sets where depending on the number of parameters
+	 * Sets limit depending on the number of parameters
 	 *
 	 * @return void
 	 * @author Phil Sturgeon
@@ -438,12 +438,20 @@ class MY_Model extends Model
 	{
 		if(count($params) == 1)
 		{
-			$this->db->limit($params[0]);
+			if(is_array($params[0]))
+			{
+				$this->db->limit($params[0][0], $params[0][1]);
+			}
+			
+			else
+			{
+				$this->db->limit($params[0]);
+			}
 		}
 		
 		else
 		{
-			$this->db->limit($params[0], $params[1]);
+			$this->db->limit( (int) $params[0], (int) $params[1]);
 		}
 	}
 	
