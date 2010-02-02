@@ -22,6 +22,7 @@ v0.9.8
 * Navigation add/edit form is now much more user-friendly.
 * Removed all CAPTCHAs and use Akismet and some clever trickery to check for spam.
 * Upgraded to Google Async Analytics.
+* Added editable 404 page which actually sends 404 header
 
 v0.9.7.4
 --------
