@@ -207,7 +207,7 @@ function css_editor(id, width)
 		});
 		
 		// Fancybox modal window
-		$('a[rel=modal], a.modal').livequery(function() {
+		$('a[rel=modal], a.modal').live('click', function() {
 			$(this).fancybox({
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
@@ -215,7 +215,7 @@ function css_editor(id, width)
 			});
 		});
 		
-		$('a[rel="modal-large"], a.modal-large').livequery(function() {
+		$('a[rel="modal-large"], a.modal-large').live('click', function() {
 			$(this).fancybox({
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
