@@ -74,7 +74,7 @@
 						
 						<li>
 							<label for="css"><?php echo lang('page_css_label');?></label>
-							<div style="border:1px solid; float:right;">
+							<div class="float-right">
 								<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
 							</div>
 						</li>

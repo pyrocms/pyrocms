@@ -10,6 +10,10 @@
 	color:#AAAAAA;
 }
 
+.CodeMirror-wrapping {
+	border: 1px solid #bbb;
+}
+
 .CodeMirror-line-numbers {
 	width: 2.2em;
 	background-color: #eee;
