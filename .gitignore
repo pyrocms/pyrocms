@@ -1,11 +1,7 @@
+.buildpath
 .project
+.settings
 application/cache/*
-application/assets/img/photos/*/*.jpg
-application/assets/img/photos/*/*.gif
-application/assets/img/suppliers/*.gif
-application/assets/img/suppliers/*.jpg
-application/assets/img/products/*.gif
-application/assets/img/products/*.jpg
-application/assets/img/staff/*.gif
-application/assets/img/staff/*.jpg
+application/assets/img/photos/*/*
+application/uploads/assets/*
 codeigniter/logs/log-*.php
