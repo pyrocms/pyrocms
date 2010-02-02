@@ -34,7 +34,9 @@
 						</li>
 				
 						<li>
-							<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
+							<div style="border:1px solid;">
+								<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
+							</div>
 						</li>
 					</ol>
 				</fieldset>
@@ -42,13 +44,13 @@
 			
 			<!-- Design tab -->
 			<div id="page-layout-css">
-				<fieldset>
-					<ol>	
-						<li>
-							<?php echo form_textarea(array('id'=>'css_editor', 'name'=>'css', 'value' => $page_layout->css, 'rows' => 50)); ?>
-						</li>
-					</ol>
-				</fieldset>
+				<ol>	
+					<li>
+						<div style="border:1px solid;">
+							<?php echo form_textarea('css', $page_layout->css, 'id="css_editor"'); ?>
+						</div>
+					</li>
+				</ol>
 			</div>
 			
 		</div>
