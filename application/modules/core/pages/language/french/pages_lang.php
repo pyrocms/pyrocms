@@ -19,7 +19,6 @@ $lang['page_no_selection_label'] 				= '-- Aucune --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_layout_id_label'] 					= 'Page Layout'; #translate
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Accèss';
@@ -32,11 +31,13 @@ $lang['page_view_label'] 						= 'Visualiser';
 $lang['page_create_label'] 						= 'Ajouter enfant';
 $lang['page_edit_label'] 						= 'Modifier';
 $lang['page_delete_label'] 						= 'Supprimer';
-$lang['page_layouts_label'] 					= 'Page Layouts'; #translate
 
 // titles
 $lang['page_create_title'] 						= 'Créer un page';
 $lang['page_edit_title'] 						= 'Modifier la page "%s"';
+$lang['page_list_title'] 						= 'List pages'; #translate
+$lang['page_layouts_create_title'] 				= 'Add page layout'; #translate
+$lang['page_layouts_list_title'] 				= 'List page layouts'; #translate
 
 // messages
 $lang['page_no_pages'] 							= 'Il n\'y a aucune page.';

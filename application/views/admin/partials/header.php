@@ -19,21 +19,21 @@
 	
 	<?php foreach($core_modules as $core_module): ?>
 	<li class="<?php echo $core_module['slug'] == $module ? 'selected' : ''; ?> <?php echo $core_module['slug']; ?>">
-		<a href="<?php echo site_url('admin/'.$core_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_admin_title');?> | <?php echo $core_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
+		<a href="<?php echo site_url('admin/'.$core_module['slug']); ?>">
 			<?php echo $core_module['name'];?> 
 		</a>
 	</li>
 	<?php endforeach; ?>
 	
 	<li class="<?php echo $module == 'modules' ? 'selected' : ''; ?> modules">
-		<a href="<?php echo site_url('admin/modules'); ?>" class="ajax">
+		<a href="<?php echo site_url('admin/modules'); ?>" class="dropdown">
 			<?php echo lang('cp_nav_modules') ?> <span>&nbsp;</span>
 		</a>
 		
 		<ul>
 			<?php foreach($third_party_modules as $tp_module): ?>
 			<li class="<?php echo $tp_module['slug']; ?>">
-				<a href="<?php echo site_url('admin/'.$tp_module['slug']); ?>" class="ajax {title:'<?php echo lang('cp_admin_title');?> | <?php echo $tp_module['name'];?> | <?php echo $this->settings->item('site_name');?>'}">
+				<a href="<?php echo site_url('admin/'.$tp_module['slug']); ?>">
 					<?php echo $tp_module['name'];?>
 				</a>
 			</li>
@@ -41,8 +41,8 @@
 		</ul>
 	</li>
 	
-	<li class="<?php echo in_array($this->module, array('themes', 'modules', 'settings', 'permissions')) ? 'selected' : ''; ?> settings">
-		<a href="<?php echo site_url('admin/settings'); ?>" class="ajax">
+	<li class="<?php echo in_array($this->module, array('themes', 'modules', 'settings', 'permissions')) ? 'selected' : ''; ?> settings" style="float: right;">
+		<a href="<?php echo site_url('admin/settings'); ?>" class="dropdown">
 			<?php echo lang('cp_nav_settings') ?> <span>&nbsp;</span>
 		</a>
 		

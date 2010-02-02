@@ -12,6 +12,7 @@ $lang['cp_logout_label'] 				= 'logout';
 $lang['cp_edit_profile_label'] 			= 'Editar perfil';
 
 // Footer
+$lang['cp_change_language'] 			= 'Change language'; #translate
 $lang['cp_documentation'] 				= 'Documentation'; #translate
 $lang['cp_report_bug'] 					= 'Report a bug'; #translate
 $lang['cp_contact_support'] 			= 'Support'; #translate
