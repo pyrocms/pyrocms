@@ -352,9 +352,10 @@ class MY_Model extends Model
 	* @since 1.1.1
 	* @author Jamie Rumbelow
 	*/
-	public function limit($limit, $offset = 0)
+	public function limit()
 	{
-		$this->db->limit($limit, $offset);
+		$limit =& func_get_args();
+		$this->_set_limit($limit);
 		return $this;
 	}
 
@@ -423,6 +424,26 @@ class MY_Model extends Model
 		else
 		{
 			$this->db->where($params[0], $params[1]);
+		}
+	}
+
+	
+	/**
+	 * Sets where depending on the number of parameters
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 */
+	private function _set_limit($params)
+	{
+		if(count($params) == 1)
+		{
+			$this->db->limit($params[0]);
+		}
+		
+		else
+		{
+			$this->db->limit($params[0], $params[1]);
 		}
 	}
 	
