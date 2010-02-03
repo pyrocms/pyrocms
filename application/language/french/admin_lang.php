@@ -22,6 +22,7 @@ $lang['cp_nav_modules']					= 'Modules'; #translate
 $lang['cp_nav_edit_settings']			= 'Mise à jour des paramètres';
 $lang['cp_nav_themes']					= 'Thèmes';
 $lang['cp_nav_permissions']				= 'Autorisations';
+$lang['cp_nav_variables']				= 'Variables'; #translate
 
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
 $lang['delete_installer_message']		= 'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.'; #translate
