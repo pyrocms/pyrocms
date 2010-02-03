@@ -51,15 +51,20 @@ class Pages extends Public_Controller
         	// Try and get an error page. If its been deleted, show nasty 404
         	if(!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
 	        {
-	        	show_404();
-	        }
-	        
-	        else
-	        {
-				$this->output->set_status_header(404);
+				log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
+				
+				$EXP = new CI_Exceptions;
+				echo $EXP->show_error('', '', 'error_404', 404);
+				exit;
 	        }
         }
         
+        // 404 page? Set the right status
+        if($page->slug == '404')
+        {
+			$this->output->set_status_header(404);
+        }
+	        
         // Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if($page->meta_title == '')
         {

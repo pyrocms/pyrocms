@@ -37,7 +37,9 @@ class MY_Exceptions extends CI_Exceptions {
 		header('HTTP/1.0 404 Not Found');
 		header('HTTP/1.1 404 Not Found');
 		
-		parent::show_404();
+		header('Location: '.BASE_URI.'404');
+		
+		//parent::show_404();
 	}
 
 }
