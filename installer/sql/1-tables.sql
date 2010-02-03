@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS `asset`;
 
 -- command split --
 
-
 CREATE TABLE `asset` (
   `id` int(5) NOT NULL auto_increment,
   `folder_id` int(5) NOT NULL default '0',
@@ -338,3 +337,16 @@ CREATE TABLE `users` (
   PRIMARY KEY  (`id`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
+
+-- command split --
+
+DROP TABLE IF EXISTS `variables`;
+
+-- command split --
+
+CREATE TABLE `variables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
