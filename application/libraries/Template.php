@@ -46,14 +46,14 @@ class Template
     private $title_separator = ' | ';
     
     private $_parser_enabled = TRUE;
+    private $_parser_body_enabled = TRUE;
     
     // Seconds that cache will be alive for
     private $cache_lifetime = 0;//7200;
 
     private $CI;
     
-    // DEPRECATED: TODO kill it
-    var $data;
+    private $data;
 
     /**
      * Constructor - Calls the CI instance and sets a debug message
@@ -88,8 +88,7 @@ class Template
     public function build($view = '', $data = array(), $return = FALSE)
     {
 		// Set whatever values are given. These will be available to all view files
-    	$this->CI->load->vars($data);
-    	unset($data);
+    	$this->data = is_object($data) ? (array) $data : $data;
     	
         if(empty($this->_title))
         {
@@ -103,21 +102,13 @@ class Template
     	$template['partials'] 		= array();
     	
     	// Assign by reference, as all loaded views will need access to partials
-        $this->data->template =& $template;
+        $this->data['template'] =& $template;
     	
     	foreach( $this->_partials as $name => $partial )
     	{
     		$template['partials'][$name] = $this->_load_view( $partial['view'] , $partial['search']);
     	}
     	
-        ##### DEPRECATED!! #################################################
-        ## TODO: Nuke these variables
-        // Set the basic defaults
-        $this->data->page_title				= $template['title'];
-        $this->data->breadcrumbs            = $template['breadcrumbs'];
-        $this->data->extra_head_content		= $template['metadata'];
-        ####################################################################
-
         // Disable sodding IE7's constant cacheing!!
         $this->CI->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
         $this->CI->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
@@ -129,24 +120,19 @@ class Template
         $this->CI->output->cache( $this->cache_lifetime );
     	
         // Test to see if this file
-    	$this->_body = $this->_load_view( $view );
+    	$this->_body = $this->_load_view( $view, TRUE, $this->_parser_body_enabled );
     	
         // Want this file wrapped with a layout file?
         if( $this->_layout )
         {
-	        ##### DEPRECATED!! #################################################
-	        ## TODO: Nuke these variables and replace with $template
-			$this->data->page_output = $this->_body;
-			####################################################################
-			
 			$template['body'] = $this->_body;
 			
 			// If using a theme, use the layout in the theme
 			if( $this->_theme )
 			{
 				// If directory is set, use it
-				$this->data->theme_view_folder = '../themes/'.$this->_theme.'/views/';
-	            $layout_view = $this->data->theme_view_folder.$this->_layout;
+				$this->data['theme_view_folder'] = '../themes/'.$this->_theme.'/views/';
+	            $layout_view = $this->data['theme_view_folder'].$this->_layout;
 			}
             
 			// Otherwise use whatever is given
@@ -158,6 +144,7 @@ class Template
 			// Parse if parser is enabled, or its a theme view
 			if($this->_parser_enabled === TRUE || $this->_theme)
 			{
+	    		$this->CI->load->library('parser');
 				$this->_body = $this->CI->parser->parse( $layout_view, $this->data, TRUE );
 			}
 			
@@ -178,7 +165,6 @@ class Template
             // Send it to output
             $this->CI->output->set_output($this->_body);
         }
-
     }
 
     
@@ -331,8 +317,22 @@ class Template
         return $this;
     }
     
+    /**
+     * parse_body
+     * Should be parser be used or the view files just loaded normally?
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    void
+     */
+    public function enable_parser_body($bool)
+    {
+        $this->_parser_body_enabled = $bool;
+        return $this;
+    }
+    
     // A module view file can be overriden in a theme
-    private function _load_view($view = '', $search = TRUE)
+    private function _load_view($view = '', $search = TRUE, $parse_view = TRUE)
     {
     	// Hunt it down like a dog, through themes and modules
     	if($search == TRUE)
@@ -348,7 +348,7 @@ class Template
 		    // Nope, just use whatever's in the module
 	    	else
 	    	{
-	    		if($this->_parser_enabled === TRUE)
+	    		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 				{
 					$this->CI->load->library('parser');
 					return $this->CI->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
@@ -364,7 +364,7 @@ class Template
     	// Load exactly what we asked for, no f**king around!
     	else
     	{
-    		if($this->_parser_enabled === TRUE)
+    		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 			{
 				$this->CI->load->library('parser');
 				return $this->CI->parser->parse( $view, $this->data, TRUE );
