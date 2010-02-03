@@ -40,6 +40,10 @@ class Public_Controller extends MY_Controller
 	    	$this->output->enable_profiler(TRUE);
 	    }
 	    
+	    // Frontend data
+	    $this->load->library('variables/variables');
+	    $this->data->global = $this->variables->get();
+	    
 	    $this->benchmark->mark('public_controller_end');
 	}
 }
