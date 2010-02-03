@@ -49,7 +49,8 @@
 		<ul>
 			<li><?php echo anchor('admin/settings', lang('cp_nav_edit_settings'), 'class="ajax"'); ?></li>
 			<li><?php echo anchor('admin/themes', lang('cp_nav_themes'), 'class="ajax"'); ?></li>
-			<li><?php echo anchor('admin/permissions', lang('cp_nav_permissions'), 'class="ajax"'); ?></li>
+			<li><?php echo anchor('admin/permissions', lang('cp_nav_permissions')); ?></li>
+			<li><?php echo anchor('admin/variables', lang('cp_nav_variables')); ?></li>
 		</ul>
 	</li>
 	

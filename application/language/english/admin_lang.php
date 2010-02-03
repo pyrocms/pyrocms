@@ -18,10 +18,11 @@ $lang['cp_report_bug'] 					= 'Report a bug';
 $lang['cp_contact_support'] 			= 'Support';
 
 $lang['cp_nav_settings']				= 'Settings';
-$lang['cp_nav_modules']					= 'Modules'; #translate
+$lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_edit_settings']			= 'Edit settings';
 $lang['cp_nav_themes']					= 'Themes';
 $lang['cp_nav_permissions']				= 'Permissions';
+$lang['cp_nav_variables']				= 'Variables';
 
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
 $lang['delete_installer_message']		= 'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
