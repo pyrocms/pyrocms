@@ -242,19 +242,19 @@ class Installer_lib
 		// HALT...! Query time!
 		if( !$this->_process_schema('1-tables') )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database. Please verify your MySQL user has CREATE TABLE privileges.', 'error' => mysql_error());
+			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database.<br/><br/>' . mysql_error($this->db));
 		}
 		
 		if( !$this->_process_schema('2-default-data') )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database. Please verify your MySQL user has DELETE and INSERT privileges.' . mysql_error($this->db));
+			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database.<br/><br/>' . mysql_error($this->db));
 		}
 			
 		if( !empty($data['dummy_data']) )
 		{
 			if( !$this->_process_schema('3-dummy_data-optional') )
 			{
-				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database. Please verify your MySQL user has INSERT privileges.');
+				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database.<br/><br/>' . mysql_error($this->db));
 			}
 		}
 
