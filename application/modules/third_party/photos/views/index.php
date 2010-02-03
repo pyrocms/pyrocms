@@ -1,7 +1,8 @@
-<h2><?php echo lang('photo_albums.list_title');?></h2>
-<?php if ($galleries): ?>	
-	<ul class="galleryHolder">
-		<?php foreach ($galleries as $gallery): ?>
+<h2><?php echo lang('photos.title');?></h2>
+
+<?php if (!empty($photo_albums)): ?>	
+	<ul class="photos">
+		<?php foreach ($photos as $gallery): ?>
 			<li<?php echo $gallery->slug == 'home' ? 'class="box-hidden"' : '' ?>>
 				<?php echo anchor('galleries/' . $gallery->slug, $gallery->title);?><br />
 				<?php echo $gallery->description; ?><br />

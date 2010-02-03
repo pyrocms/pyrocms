@@ -16,7 +16,7 @@ class Photos extends Public_Controller
 	// Public: List albums
 	function index()
 	{
-		$this->data->photos = $this->photo_albums_m->get_many_by('parent', 0);
+		$this->data->photo_albums = $this->photo_albums_m->get_many_by('parent', 0);
 		$this->template->build('index', $this->data);
 	}
 	

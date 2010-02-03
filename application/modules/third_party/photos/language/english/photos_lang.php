@@ -1,5 +1,7 @@
 <?php
 
+$lang['photos.title'] 							= 'Photos';
+
 // labels
 $lang['photos.upload_label'] 					= 'Upload';
 $lang['photos.photo_label'] 					= 'Photo';
