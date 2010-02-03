@@ -35,7 +35,7 @@ class Photos extends Public_Controller
 		$this->data->photos = $this->photos_m->get_many_by('album_id', $album->id);		
 		$this->data->album =& $album;
 		
-		$this->template->title($album->title)
+		$this->template->title(lang('photos.title'), $album->title)
 			->build('view', $this->data);
 	}    
 }
