@@ -16,13 +16,8 @@
 <?php echo js('jquery/jquery.imgareaselect.js'); ?>
 <?php echo js('jquery/tabs.pack.js'); ?>
 
-<?php /* Added for Ajaxify */ ?>
-<?php echo js('jquery/jquery.livequery.pack.js'); ?>
-<?php echo js('jquery/jquery.ajaxify.js'); ?>
-<?php echo js('jquery/jquery.history.fixed.js'); ?>
-<?php echo js('jquery/jquery.metadata.min.js'); ?>
-
 <?php echo js('jquery/jquery.fancybox.js').css('jquery/jquery.fancybox.css'); ?>
 	
-<?php echo $template['metadata']; ?>        
+<?php echo $template['metadata']; ?>
+
 <?php echo js('admin.js').css('admin/admin.css');?>

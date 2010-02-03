@@ -26,80 +26,84 @@ function css_editor(id, width)
 	$(function() {
 	
 		// Sort any tables with a class of 'sortable'
-		$('table.table-list').livequery(function() {
+		var table = 'table.table-list';
+		
+		// A row can be selected via check or CTRL + click
+		toggleRowChecked = function(row, checkbox)
+		{
+			total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
+			total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
 			
-			var table = this;
-			
-			// TODO PJS Removed as it only sorted the current page, and was breaking some inputs
-			//($("thead th", table).length === $('tbody td', table).length) && $(table).tablesorter();
-			
-			// A row can be selected via check or CTRL + click
-			toggleRowChecked = function(row, checkbox)
+			if(row.hasClass('selected'))
 			{
-				total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
-				total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
-				
-				if(row.hasClass('selected'))
-				{
-					// Remove selected class and uncheck the box
-					row.removeClass('selected');
-					checkbox.removeAttr('checked');
+				// Remove selected class and uncheck the box
+				row.removeClass('selected');
+				checkbox.removeAttr('checked');
 
-					// If all boxes are checked
-					if(total_checked === 0)
-					{
-						$('thead input[type="checkbox"][name="action_to_all"]', table).removeAttr('checked');
-					}
-				}
-			
-				else
+				// If all boxes are checked
+				if(total_checked === 0)
 				{
-					// Add seelected and check the box
-					row.addClass('selected');
-					checkbox.attr('checked', true);
-					
-					// If all boxes are checked, check the "Check All" box
-					if(total_checked == total_checkboxes)
-					{
-						$('thead input[type="checkbox"][name="action_to_all"]', table).attr('checked', true);
-					}
-					
+					$('thead input[type="checkbox"][name="action_to_all"]', table).removeAttr('checked');
 				}
 			}
-			
-			// CTRL + Click table select
-			$('tbody td', table).click(function(e) {
-				if(e.ctrlKey || e.metaKey)
+		
+			else
+			{
+				// Add seelected and check the box
+				row.addClass('selected');
+				checkbox.attr('checked', true);
+				
+				// If all boxes are checked, check the "Check All" box
+				if(total_checked == total_checkboxes)
 				{
-					row = $(this).parent('tr');
-					checkbox = row.find('input[type="checkbox"]');
-					
-					toggleRowChecked(row, checkbox);
+					$('thead input[type="checkbox"][name="action_to_all"]', table).attr('checked', true);
 				}
-			});
-			
-			// Checkbox ticking
-			$('tbody td input[type="checkbox"]', table).change(function() {
-				row = $(this).parent('td').parent('tr');
-				checkbox = $(this);
+				
+			}
+		}
 
+		// CTRL + Click table select
+		$('tbody td', table).click(function(e) {
+			if(e.ctrlKey || e.metaKey)
+			{
+				row = $(this).parent('tr');
+				checkbox = row.find('input[type="checkbox"]');
+				
 				toggleRowChecked(row, checkbox);
-			});
+			}
+		});
+		
+		// CTRL + Hover should show a pointer hand
+		$('tbody td', table).hover(function(e) {
+			if(e.ctrlKey || e.metaKey)
+			{
+				$(this).parent('tr').css('cursor', 'pointer');
+			}
+		}, function() {
+			$(this).parent('tr').css('cursor', '');
+		});
+		
+		
+		// Checkbox ticking
+		$('tbody td input[type="checkbox"]', table).change(function() {
+			row = $(this).parent('td').parent('tr');
+			checkbox = $(this);
+
+			toggleRowChecked(row, checkbox);
+		});
+		
+		// "Check All" checkboxes
+		$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
 			
-			// "Check All" checkboxes
-			$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
-				
-				if( $(this).attr('checked') == true )
-				{
-					$('tbody td input[type="checkbox"]:not(:checked)', table).change();
-				}
-				
-				else
-				{
-					$('tbody td input[type="checkbox"]:checked', table).change();
-				}
-			});
+			if( $(this).attr('checked') == true )
+			{
+				$('tbody td input[type="checkbox"]:not(:checked)', table).change();
+			}
 			
+			else
+			{
+				$('tbody td input[type="checkbox"]:checked', table).change();
+			}
 		});
 		
 		// Link confirm box
@@ -130,9 +134,7 @@ function css_editor(id, width)
 		});
 	
 	
-		$('.tabs').livequery(function() {
-			$(this).tabs();
-		});
+		$('.tabs').tabs()
 		
 	
 		$('a.close').live('click', function(){
@@ -140,28 +142,10 @@ function css_editor(id, width)
 			return false;
 		});
 	
-		/* This was part of the design but is not used
-		 * $('.tooltip').livequery(function() {
-			$(this).tooltip({  
-				showBody:	" - ",
-				showURL:	false
-			});
-		});*/
-	
 		
 		/* Control panel menu dropdowns */
 		var menu = $("ul#menu li");/** define the main navigation selector **/
 
-		/*
-		$('a', menu).click(function(){
-			$(this).parent('li')
-				.addClass("selected")
-				.siblings().removeClass("selected");
-				
-			return false;
-		});
-		*/
-		
 		menu.hover(function() {/** build animated dropdown navigation **/
 			$(this).find('ul:first:hidden').css({visibility: "visible",display: "none"}).show("fast");
 			$(this).find('a').stop().animate({backgroundPosition:"(0 -40px)"},{duration:150});
@@ -173,29 +157,7 @@ function css_editor(id, width)
 			$(this).find('a.top-level').removeClass("blue");
 		});
 		
-		// AJAX Links ----
-		/*
-		$('a.ajax').livequery(function() {
-			$(this).each(function() {
-				// Takes the BASE URL out of the URL
-				$(this).attr('href', $(this).attr('href').replace(BASE_URL, BASE_URI));
-			});
-			
-			$(this).ajaxify({
-				target: '#content',
-				tagToload: '#content',
-				loadHash: 'attr:href',
-				title: DEFAULT_TITLE,
-				cache: false,
-				animateOut: {opacity: '0'},
-				animateOutSpeed: 500,
-				animateIn: {opacity: '1'},
-				animateInSpeed:500
-			});
-		});
-		*/
-		// End AJAX links ----
-	
+
 		$('form#change_language select').change(function(){
 			$(this).parent('form').submit();
 		});
