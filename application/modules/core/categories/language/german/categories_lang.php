@@ -11,7 +11,7 @@ $lang['cat_delete_label'] 				= 'Löschen';
 // titles
 $lang['cat_create_title'] 				= 'Kategorie erstellen';
 $lang['cat_edit_title'] 				= 'Kategorie "%s" bearbeiten';
-$lang['cat_list_title'] 				= 'List categories'; #translate
+$lang['cat_list_title'] 				= 'Kategorien auflisten'; #translate
 
 // messages
 $lang['cat_no_categories'] 				= 'Es gibt keine Kategorien.';

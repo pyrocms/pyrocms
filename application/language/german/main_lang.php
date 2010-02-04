@@ -40,8 +40,8 @@ $lang['save_label'] 								= 'Sichern';
 $lang['cancel_label'] 							= 'Abbrechen';
 $lang['delete_label'] 							= 'Löschen';
 $lang['activate_label'] 						= 'Aktivieren';
-$lang['approve_label']                            = 'Bestätigen'; #translate
-$lang['unapprove_label']                        = 'Bestätigung aufheben'; #translate
+$lang['approve_label']                            = 'Bestätigen';
+$lang['unapprove_label']                        = 'Bestätigung aufheben';
 $lang['publish_label'] 							= 'Veröffentlichen';
 $lang['upload_label'] 							= 'Hochladen';
 

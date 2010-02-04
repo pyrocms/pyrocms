@@ -1,13 +1,13 @@
 <?php
 
-$lang['comments.title'] 					= 'Comments';
-$lang['comments.your_comment'] 				= 'Post a comment';
-$lang['comments.user_comments'] 			= 'User comments'; #translate
+$lang['comments.title'] 					= 'Kommentare';
+$lang['comments.your_comment'] 				= 'Kommentar schreiben';
+$lang['comments.user_comments'] 			= 'Benutzerkommentare';
 
 // labels
 $lang['comments.name_label'] 				= 'Dein Name';
 $lang['comments.email_label'] 				= 'Email Addresse';
-$lang['comments.website_label'] 			= 'Website'; #translate
+$lang['comments.website_label'] 			= 'Webseite';
 $lang['comments.message_label'] 			= 'Mitteilung';
 $lang['comments.status_label'] 				= 'Status';
 $lang['comments.activate_label'] 			= 'Bestätigen';
@@ -23,9 +23,9 @@ $lang['comments.from_label'] 				= 'Von';
 $lang['comments.preview_label'] 			= 'Vorschau';
 $lang['comments.send_label'] 				= 'Kommentar';
 
-$lang['comments.inactive_title'] 			= 'Comments awaiting approval'; #translate
-$lang['comments.active_title'] 				= 'Approved comments'; #translate
-$lang['comments.edit_title'] 				= 'Edit comment'; #translate
+$lang['comments.inactive_title'] 			= 'Noch unbestätigte Kommentare';
+$lang['comments.active_title'] 				= 'Bestätigte Kommentare';
+$lang['comments.edit_title'] 				= 'Kommentar bearbeiten';
 
 // messages
 $lang['comments.add_success'] 				= 'Der Kommentar wurde gesichert.';
