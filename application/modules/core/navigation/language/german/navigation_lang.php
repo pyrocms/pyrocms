@@ -3,14 +3,14 @@
 // labels
 $lang['nav_title_label'] 						= 'Titel';
 $lang['nav_position_label'] 					= 'Position';
-$lang['nav_target_label']						= 'Ziel'; #translate
+$lang['nav_target_label']						= 'Ziel';
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Aktionen';
 $lang['nav_details_label'] 						= 'Details';
 $lang['nav_text_label'] 						= 'Text';
 $lang['nav_group_label'] 						= 'Gruppe';
 $lang['nav_location_label'] 					= 'Ort';
-$lang['nav_type_label'] 						= 'Link type'; #translate
+$lang['nav_type_label'] 						= 'Link-Typ';
 $lang['nav_uri_label'] 							= 'Seiten-Link (URI)';
 $lang['nav_page_label'] 						= 'Seite';
 $lang['nav_module_label'] 						= 'Modul';
@@ -22,28 +22,28 @@ $lang['nav_group_add_label']					= 'Gruppe hinzufügen';
 $lang['nav_link_module_select_default'] 		= '-- Auswählen --';
 $lang['nav_link_page_select_default'] 			= '-- Auswählen --';
 
-$lang['nav_link_target_self'] 					= 'Current window (default)'; #translate
-$lang['nav_link_target_blank'] 					= 'New window (_blank)'; #translate
+$lang['nav_link_target_self'] 					= 'Aktuelles Fenster (Standard)';
+$lang['nav_link_target_blank'] 					= 'Neues Fenster (_blank)';
 
 // titles
-$lang['nav_link_create_title'] 					= 'Add navigation link'; #translate
-$lang['nav_group_create_title']					= 'Add a group'; #translate
-$lang['nav_link_edit_title'] 					= 'Edit navigation link "%s"'; #translate
-$lang['nav_link_list_title'] 					= 'List links'; #translate
+$lang['nav_link_create_title'] 					= 'Navigations-link hinzufügen';
+$lang['nav_group_create_title']					= 'Gruppe hinzufügen';
+$lang['nav_link_edit_title'] 					= 'Navigations-link "%s" bearbeiten';
+$lang['nav_link_list_title'] 					= 'Links auflisten';
 
 // messages
 $lang['nav_group_no_links'] 					= 'Es existieren keine Links in dieser Gruppe.';
 $lang['nav_no_groups'] 							= 'Es existieren keine Navigations-Gruppen.';
 $lang['nav_group_delete_confirm'] 				= 'Diese Gruppe wirklich löschen? Dies wird alle Navigation-Links innerhalb der Gruppe löschen und die Layout-Dateien werden entsprechend angepasst werden müssen.';
-$lang['nav_group_add_success'] 					= 'Navigation-Gruppe wurde gesichert.';
+$lang['nav_group_add_success'] 					= 'Navigations-Gruppe wurde gesichert.';
 $lang['nav_group_add_error'] 					= 'Ein Fehler ist aufgetreten.';
-$lang['nav_group_mass_delete_success'] 			= 'Navigation-Gruppe wurde gelöscht.';
-$lang['nav_link_add_success'] 					= 'Navigation-Link wurde hinzugefügt.';
+$lang['nav_group_mass_delete_success'] 			= 'Navigations-Gruppe wurde gelöscht.';
+$lang['nav_link_add_success'] 					= 'Navigations-link wurde hinzugefügt.';
 $lang['nav_link_add_error'] 					= 'Ein Fehler ist aufgetreten.';
-$lang['nav_link_not_exist_error'] 				= 'Navigation-Link existiert nicht.';
-$lang['nav_link_edit_success'] 					= 'Navigation-Link wurde gesichert.';
-$lang['nav_link_delete_success'] 				= 'Navigation-Link wurde gelöscht.';
+$lang['nav_link_not_exist_error'] 				= 'Navigations-link existiert nicht.';
+$lang['nav_link_edit_success'] 					= 'Navigations-link wurde gesichert.';
+$lang['nav_link_delete_success'] 				= 'Navigations-link wurde gelöscht.';
 
-$lang['nav_link_type_desc'] 					= 'Please select a link type to be given more options to create your link.'; #translate
+$lang['nav_link_type_desc'] 					= 'Bitte wähle einen Link-Typ aus, um weitere Optionen angezeigt zu bekommen.';
 
 ?>

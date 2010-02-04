@@ -1,11 +1,11 @@
 <?php
 
 // labels
-$lang['news_posted_label'] 							= 'Veröffentlicht in'; // #translate
+$lang['news_posted_label'] 							= 'Veröffentlicht in';
 $lang['news_category_label'] 						= 'Kategorie';
 $lang['news_post_label'] 							= 'Artikel';
 $lang['news_date_label'] 							= 'Datum';
-$lang['news_date_at']								= 'um'; // #translate
+$lang['news_date_at']								= 'um';
 $lang['news_time_label'] 							= 'Uhrzeit';
 $lang['news_status_label'] 							= 'Status';
 $lang['news_actions_label'] 						= 'Aktionen';
@@ -37,7 +37,7 @@ $lang['news_archive_title'] 						= 'Archiv';
 $lang['news_articles_title'] 						= 'Artikel';
 $lang['news_rss_articles_title'] 					= 'News Artikel für %s';
 $lang['news_news_title'] 							= 'News';
-$lang['news_list_title'] 							= 'List articles'; #translate
+$lang['news_list_title'] 							= 'Artikel auflisten';
 
 // messages
 $lang['news_no_articles'] 							= 'Es existieren keine Artikel.';
