@@ -113,7 +113,8 @@ class Admin extends Admin_Controller
 				
 		$rules['name'] = 'trim';
 		$rules['email'] = 'trim|valid_email';
-		$rules['body'] = 'trim|required';
+		$rules['website'] = 'trim';
+		$rules['comment'] = 'trim|required';
 		
 		if(!$this->user_lib->logged_in())
 		{
@@ -140,7 +141,8 @@ class Admin extends Admin_Controller
 			}
 			
 			$comment = array_merge($commenter, array(
-				'body'    => $this->input->post('body'),
+				'comment'    => $this->input->post('comment'),
+				'website'    => $this->input->post('website'),
 				'module'   => $this->input->post('module'),
 				'module_id' => $this->input->post('module_id')
 			));

@@ -84,7 +84,7 @@ class Comments_m extends MY_Model
   	
   	public function get($id)
   	{
-    	$this->db->select('c.id, c.is_active, c.comment, c.created_on, c.module, c.module_id, c.user_id')
+    	$this->db->select('c.*')
     		->select('IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name')
     		->select('IF(c.user_id > 0, u.email, c.email) as email')
     		->from('comments c')

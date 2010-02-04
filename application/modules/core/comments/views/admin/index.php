@@ -36,10 +36,10 @@
 								<tr>
 									<td><?php echo form_checkbox('action_to[]', $comment->id);?></td>
 									<td>
-										<?php if( strlen($comment->body) > 30 ): ?>
-											<?php echo character_limiter($comment->body, 30); ?>...
+										<?php if( strlen($comment->comment) > 30 ): ?>
+											<?php echo character_limiter($comment->comment, 30); ?>...
 										<?php else: ?>
-											<?php echo $comment->body; ?>
+											<?php echo $comment->comment; ?>
 										<?php endif; ?>
 									</td>
 									<td>

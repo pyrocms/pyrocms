@@ -15,12 +15,12 @@
 					<?php if(!$comment->user_id > 0): ?>
 					<li>
 						<label for="name"><?php echo lang('comments.name_label');?>:</label>
-						<?php echo form_input('name', $comment->name, 'class="text" maxlength="100"'); ?>
+						<?php echo form_input('name', $comment->name, 'maxlength="100"'); ?>
 					</li>
 			
 					<li class="even">
 						<label for="email"><?php echo lang('comments.email_label');?>:</label>
-						<?php echo form_input('email', $comment->email, 'class="text" maxlength="100"'); ?>
+						<?php echo form_input('email', $comment->email, 'maxlength="100"'); ?>
 					</li>
 					<?php else: ?>
 					<li>
@@ -35,7 +35,12 @@
 				
 					<li>
 						<label for="body"><?php echo lang('comments.message_label');?>:</label>
-						<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $comment->body, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
+						<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
+					</li>
+			
+					<li class="even">
+						<label for="website"><?php echo lang('comments.website_label');?>:</label>
+						<?php echo form_input('website', $comment->website); ?>
 					</li>
 				</ol>
 						
