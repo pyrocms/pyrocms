@@ -86,6 +86,7 @@ class Navigation_m extends Model
 		 
 		$this->db->insert('navigation_links', array(
         	'title' 				=> $input['title'],
+        	'link_type' 			=> $input['link_type'],
         	'url' 					=> $input['url'],
         	'uri' 					=> $input['uri'],
         	'module_name' 			=> $input['module_name'],
@@ -105,6 +106,7 @@ class Navigation_m extends Model
 		 
 		$this->db->update('navigation_links', array(
         	'title' 				=> $input['title'],
+        	'link_type' 			=> $input['link_type'],
         	'url' 					=> $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
         	'uri' 					=> $input['uri'],
         	'module_name'			=> $input['module_name'],
