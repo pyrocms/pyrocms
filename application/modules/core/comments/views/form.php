@@ -6,6 +6,10 @@
 <?php echo form_open('comments/create/'.$module.'/'.$id); ?>
 	<?php echo form_hidden('redirect_to', $this->uri->uri_string()); ?>
 	
+	<noscript>
+		<?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?>
+	</noscript>
+		
 	<div id="commentform">
 		<?php if(!$this->session->userdata('user_id')): ?>
 		<p>
