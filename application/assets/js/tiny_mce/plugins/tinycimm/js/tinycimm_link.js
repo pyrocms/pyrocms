@@ -31,7 +31,7 @@ LinkDialog.prototype.fileBrowser = function(folder, offset, load, el, search_que
 		for(var page in pages) {
 			pages[page].onclick = function(e){
 				e.preventDefault();
-				var url = "{page_url["+this.rel.replace(/^page-/, '')+"]}";
+				var url = "{page_url("+this.rel.replace(/^page-/, '')+")}";
 				self.insertLink(url, this.title);
 			};
 		}
