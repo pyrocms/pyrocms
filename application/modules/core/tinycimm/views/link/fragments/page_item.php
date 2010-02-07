@@ -10,6 +10,6 @@
 		<?php echo $page->title;?>
 	</a>
 	<?php if ($has_children) {
-		echo $controller->recurse_pages($page->id);
+		echo $controller->link_manager_recurse_pages($page->id);
 	}?>
 </li>

@@ -79,7 +79,7 @@ $autoload['plugin'] = array('gravatars');
 |
 */
 
-$autoload['config'] = array('asset', 'language');
+$autoload['config'] = array('asset', 'language', 'tinycimm/tinycimm');
 
 
 /*

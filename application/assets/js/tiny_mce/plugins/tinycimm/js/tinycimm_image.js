@@ -201,8 +201,8 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 
 ImageDialog.prototype.showUploader = function(){
 	mcTabs.displayTab('upload_tab','upload_panel');
-	select('#resize_tab').hide();
-	select('#manager_tab').hide();
+	select('#resize_tab').style.display = 'none';
+	select('#manager_tab').style.display = 'none';
 	this.loadUploader();
 };
 
@@ -260,7 +260,7 @@ ImageDialog.prototype.showResizeImage = function(image) {
 	// display panel
 	mcTabs.displayTab('resize_tab','resize_panel');
 	select('#resize_tab').style.display = "block";
-	select('#manager_tab').hide();
+	select('#manager_tab').style.display = "none";
 
 	// add image dimensions overlay
 	tinyMCEPopup.dom.setHTML('image-info-dimensions', '<span id="slider_width_val"></span> x <span id="slider_height_val"></span>');
@@ -294,7 +294,7 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 	this.getManager(image_id, function(html){
 		// display panel
 		mcTabs.displayTab('manager_tab','manager_panel');
-		select('#resize_tab').hide();
+		select('#resize_tab').style.display = "none";
 		select('#manager_tab').style.display = "block";
 		// hide spinner image
 		if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
