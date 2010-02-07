@@ -1,12 +1,7 @@
-/*
- *
- * tinycimm_helpers.js
- * Copyright (c) 2009 Richard Willis
- * MIT license  : http://www.opensource.org/licenses/mit-license.php
- * Project      : http://tinycimm.googlecode.com/
- * Contact      : willis.rh@gmail.com
- *
- */
+/**
+* tinycimm_image.js
+* @author badsyntax.co.uk & pyrocms
+*/
 
 String.prototype.toId = function(){
         var id = 
@@ -64,7 +59,6 @@ function select(selector){
 }
 
 // custom object methods that are used in extending DOM objects
-// 'this' scope refers to the actual DOM object
 var objMethods = {
 
 	fade : function(dir, speed, callback){
