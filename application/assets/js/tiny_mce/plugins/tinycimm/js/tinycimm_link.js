@@ -1,12 +1,7 @@
-/*
- *
- * tinycimm_link.js
- * Copyright (c) 2009 Richard Willis
- * MIT license  : http://www.opensource.org/licenses/mit-license.php
- * Project      : http://tinycimm.googlecode.com/
- * Contact      : willis.rh@gmail.com : http://badsyntax.co.uk
- *
- */
+/**
+* tinycimm_image.js
+* @author badsyntax.co.uk & pyrocms
+*/
 
 function LinkDialog(){}
 LinkDialog.prototype = new TinyCIMM('link');
