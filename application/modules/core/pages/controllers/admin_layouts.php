@@ -39,7 +39,13 @@ class Admin_layouts extends Admin_Controller
 		// Validate the page
 		if ($this->validation->run())
 	    {
-			if ( $this->page_layouts_m->create($_POST) > 0 )
+	    	$id = $this->page_layouts_m->insert(array(
+				'title' => $this->input->post('title'),
+				'body' => $this->input->post('body', FALSE),
+				'css' => $this->input->post('css')
+			));
+			
+			if ( $id > 0 )
 			{
 				$this->session->set_flashdata('success', $this->lang->line('page_layout_create_success'));
 			}
@@ -98,7 +104,11 @@ class Admin_layouts extends Admin_Controller
 		if ($this->validation->run())
 	    {
 			// Run the update code with the POST data	
-			$this->page_layouts_m->update($id, $_POST);			
+			$this->page_layouts_m->update($id, array(
+				'title' => $this->input->post('title'),
+				'body' => $this->input->post('body', FALSE),
+				'css' => $this->input->post('css')
+			));			
 				
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('page_layouts_m');	
