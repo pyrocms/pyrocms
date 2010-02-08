@@ -5,21 +5,14 @@ class Page_layouts_m extends MY_Model
 
 	// Get stuff is handled by MY_Model magic fun.
 	
-	// ----- CRUD --------------------
-	
     // Create a new page layout
-    function create($input = array())
+    function insert($input = array())
     {
         $this->load->helper('date');
         
-        $this->db->insert('page_layouts', array(
-        	'title' 		=> $input['title'],
-        	'body' 			=> $input['body'],
-        	'css' 			=> $input['css'],
-        	'updated_on'	=> now()
-        ));
+        $input['updated_on'] = now();
         
-        return $this->db->insert_id();
+        return parent::insert($input);
     }
     
     // Update a page layout
@@ -27,12 +20,9 @@ class Page_layouts_m extends MY_Model
     {
         $this->load->helper('date');
         
-        $this->db->update('page_layouts', array(
-	        'title' 		=> $input['title'],
-	        'body' 			=> $input['body'],
-	        'css' 			=> $input['css'],
-	        'updated_on' 	=> now()
-        ), array('id' => $id));
+        $input['updated_on'] = now();
+        
+        return parent::update($id, $input);
     }
     
 }
