@@ -47,7 +47,7 @@
 	
 	$(function(){
 
-		var page_tree = $("div#page-tree > ul");
+		var page_tree = $("div#page-tree");
 
 		page_tree.treeview({
 			toggle: function() {

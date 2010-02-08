@@ -1,20 +1,14 @@
-/*
- *
- * tinycimm_image.js
- * Copyright (c) 2009 Richard Willis
- * MIT license  : http://www.opensource.org/licenses/mit-license.php
- * Project      : http://tinycimm.googlecode.com/
- * Contact      : willis.rh@gmail.com : http://badsyntax.co.uk
- *
- */
+/**
+* tinycimm_image.js
+* @author badsyntax.co.uk & pyrocms
+*/
 
 function ImageDialog(){}
 ImageDialog.prototype = new TinyCIMM('image');
 ImageDialog.prototype.constructor = ImageDialog;
 
 ImageDialog.prototype.preInit = function() {
-	var images = ['../img/ajax-loader.gif', '../img/ajax-loader-sm.gif', '../img/progress.gif'];
-	this.cacheImages(images);
+	this.cacheImages(['../img/ajax-loader.gif', '../img/ajax-loader-sm.gif', '../img/progress.gif']);
 	this.settings.tinycimm_controller = this.settings.tinycimm_image_controller;
 };
 
@@ -207,8 +201,8 @@ ImageDialog.prototype.insertThumbnail = function(anchor, imageId){
 
 ImageDialog.prototype.showUploader = function(){
 	mcTabs.displayTab('upload_tab','upload_panel');
-	select('#resize_tab').hide();
-	select('#manager_tab').hide();
+	select('#resize_tab').style.display = 'none';
+	select('#manager_tab').style.display = 'none';
 	this.loadUploader();
 };
 
@@ -265,8 +259,8 @@ ImageDialog.prototype.showResizeImage = function(image) {
 		
 	// display panel
 	mcTabs.displayTab('resize_tab','resize_panel');
-	select('#resize_tab').show();
-	select('#manager_tab').hide();
+	select('#resize_tab').style.display = "block";
+	select('#manager_tab').style.display = "none";
 
 	// add image dimensions overlay
 	tinyMCEPopup.dom.setHTML('image-info-dimensions', '<span id="slider_width_val"></span> x <span id="slider_height_val"></span>');
@@ -300,8 +294,8 @@ ImageDialog.prototype.showManager = function(anchor, image_id) {
 	this.getManager(image_id, function(html){
 		// display panel
 		mcTabs.displayTab('manager_tab','manager_panel');
-		select('#resize_tab').hide();
-		select('#manager_tab').show();
+		select('#resize_tab').style.display = "none";
+		select('#manager_tab').style.display = "block";
 		// hide spinner image
 		if (anchor && typeof anchor == 'object' && anchor.nodeName == 'A') {
 			anchor.style.background = 'url(img/pencil_sm.png) no-repeat center center';
