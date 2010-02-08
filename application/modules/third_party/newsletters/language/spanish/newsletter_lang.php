@@ -19,8 +19,8 @@ $lang['letter_subject_suffix'] 					= 'Bolet&iacute;n';
 // titles
 $lang['letter_subscriped_title'] 				= 'Suscrito';
 $lang['letter_letter_title']					= 'Bolet&iacute;n';
-$lang['newsletters.add_title']					= 'Create newsletter'; #translate
-$lang['newsletters.list_title'] 				= 'List newsletters'; #translate
+$lang['newsletters.add_title']					= 'Crear boletín';
+$lang['newsletters.list_title'] 				= 'Listar boletines';
 
 // messages
 $lang['newsletter.no_newsletters_error'] 				= 'No hay boletines.';

@@ -36,7 +36,7 @@ $lang['news_archive_title'] 				= 'Archivo';
 $lang['news_articles_title'] 				= 'Artículos';
 $lang['news_rss_articles_title'] 			= 'ArtículoNews de %s';
 $lang['news_news_title'] 					= 'Noticias';
-$lang['news_list_title'] 					= 'List articles'; #translate
+$lang['news_list_title'] 					= 'Listar artículos';
 
 // messages
 $lang['news_no_articles'] 					= 'No hay artículos.';
