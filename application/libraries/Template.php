@@ -128,9 +128,9 @@ class Template
 			$template['body'] = $this->_body;
 			
 			// If using a theme, use the layout in the theme
-			if( $this->_theme )
+			if( $this->_theme && file_exists(APPPATH . 'themes/'.$this->_theme.'/views/' . $this->_layout.'.php'))
 			{
-				// If directory is set, use it
+            	// If directory is set, use it
 				$this->data['theme_view_folder'] = '../themes/'.$this->_theme.'/views/';
 	            $layout_view = $this->data['theme_view_folder'].$this->_layout;
 			}
@@ -140,13 +140,13 @@ class Template
 			{
 				$layout_view = $this->_layout;
 			}
-			
+
 			// Parse if parser is enabled, or its a theme view
 			if($this->_parser_enabled === TRUE || $this->_theme)
 			{
 	    		$this->CI->load->library('parser');
 				$this->_body = $this->CI->parser->parse( $layout_view, $this->data, TRUE );
-			}
+			} 
 			
 			else
 			{
@@ -155,16 +155,13 @@ class Template
         }
         
         // Want it returned or output to browser?
-        if($return)
-        {
-            return $this->_body;
-        }
-        
-        else
+        if(!$return)
         {
             // Send it to output
             $this->CI->output->set_output($this->_body);
         }
+        
+        return $this->_body;
     }
 
     
