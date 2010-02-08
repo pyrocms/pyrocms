@@ -18,8 +18,8 @@ $lang['perm_module_select_default'] 		= '-- Todos los m&oacute;dulos --';
 $lang['perm_controller_select_default'] 	= '-- Todos los controladores --';
 $lang['perm_method_select_default'] 		= '-- Todos los m&eacute;todos--';
 
-$lang['perm_rule_add'] 						= 'Add a rule'; #translate
-$lang['perm_rule_list'] 					= 'List rules'; #translate
+$lang['perm_rule_add'] 						= 'Agregar una regla';
+$lang['perm_rule_list'] 					= 'Listar reglas';
 $lang['perm_rule_edit'] 					= 'Editar';
 $lang['perm_rule_delete'] 					= 'Eliminar';
 $lang['perm_rule_desc'] 					= 'Las reglas pueden ser establecidas para <strong>usuarios <small>(casi terminado)</small></strong> o para <strong>roles</strong>. Seleccionar el "Tipo" de regla y entonces seleccione el usuario o el rol de usuario al que se aplicar&aacute;.';

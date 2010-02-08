@@ -1,13 +1,13 @@
 <?php
 
-$lang['comments.title'] 					= 'Comments'; #translate
-$lang['comments.your_comment'] 				= 'Post a comment'; #translate
-$lang['comments.user_comments'] 			= 'User comments'; #translate
+$lang['comments.title'] 					= 'Comentarios';
+$lang['comments.your_comment'] 				= 'Escribir un comentario';
+$lang['comments.user_comments'] 			= 'Comentarios de usuarios';
 
 // labels
 $lang['comments.name_label'] 				= 'Tu nombre';
 $lang['comments.email_label'] 				= 'Correo electr&oacute;nico';
-$lang['comments.website_label'] 			= 'Website'; #translate
+$lang['comments.website_label'] 			= 'Sitio web';
 $lang['comments.message_label'] 			= 'Mensaje';
 $lang['comments.status_label'] 				= 'Estado';
 $lang['comments.activate_label'] 			= 'Activar';
@@ -23,9 +23,9 @@ $lang['comments.from_label'] 				= 'Desde';
 $lang['comments.preview_label'] 			= 'Vista previa';
 $lang['comments.send_label'] 				= 'Comentar';
 
-$lang['comments.inactive_title'] 			= 'Comments awaiting approval'; #translate
-$lang['comments.active_title'] 				= 'Approved comments'; #translate
-$lang['comments.edit_title'] 				= 'Edit comment'; #translate
+$lang['comments.inactive_title'] 			= 'Comentarios esperando por aprobación';
+$lang['comments.active_title'] 				= 'Comentarios aprobados';
+$lang['comments.edit_title'] 				= 'Editar comentario';
 
 // messages
 $lang['comments.add_success'] 				= 'El comentario ha sido guardado.';

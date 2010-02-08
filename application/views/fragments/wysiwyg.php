@@ -1,8 +1,3 @@
-<?php
-	// Load TinyCIMM config
-	$this->config->load('tinycimm');
-?>
-
 <!-- TinyMCE -->
 <?php echo js('tiny_mce/tiny_mce.js'); ?>
 
