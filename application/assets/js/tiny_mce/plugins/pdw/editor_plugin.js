@@ -19,8 +19,8 @@
 		 * @param {string} url Absolute URL to where the plugin is located.
 		 */
 		init : function(ed, url) {
-			var t = this, tbIds = new Array(), toolbars = new Array(), i;
-			
+			var t = this, tbIds = new Array(), toolbars = new Array(), i, cookie_expiration = new Date(new Date().setDate(new Date().getDate()+1));
+
 			// Split toolbars
 			toolbars = (ed.settings.pdw_toggle_toolbars).split(',');
 			
@@ -42,13 +42,13 @@
 							DOM.show(id);
 							t._resizeIframe(ed, tbIds[j], -26);
 							ed.settings.pdw_toggle_on = 0;
-							tinymce.util.Cookie.set('pdw_toggle', 'open');
+							tinymce.util.Cookie.set('pdw_toggle', 'open', cookie_expiration, '/');
 						} else {
 							cm.setActive('pdw_toggle', 0);
 							DOM.hide(id);
 							t._resizeIframe(ed, tbIds[j], 26);
 							ed.settings.pdw_toggle_on = 1;
-							tinymce.util.Cookie.set('pdw_toggle', 'closed');
+							tinymce.util.Cookie.set('pdw_toggle', 'closed', cookie_expiration, '/');
 						}
 					}
 				}
