@@ -2,9 +2,9 @@
 
 // tabs
 $lang['page_content_label'] 					= 'Contenido de la p&aacute;gina';
-$lang['page_design_label'] 						= 'Design'; #translate
+$lang['page_design_label'] 						= 'Diseño';
 $lang['page_meta_label'] 						= 'Meta data';
-$lang['page_detail_label'] 						= 'Details'; #translate
+$lang['page_detail_label'] 						= 'Detalles';
 
 // labels
 $lang['page_page_label'] 						= 'P&aacute;gina';
@@ -14,12 +14,12 @@ $lang['page_actions_label'] 					= 'Acciones';
 $lang['page_unknown_label'] 					= 'Desconocido';
 $lang['page_title_label'] 						= 'T&iacute;tulo';
 $lang['page_slug_label'] 						= 'URL';
-$lang['page_body_label'] 						= 'Page body'; #translate
+$lang['page_body_label'] 						= 'Cuerpo de la página';
 $lang['page_no_selection_label'] 				= '-- Ninguno --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_layout_id_label'] 					= 'Page Layout'; #translate
+$lang['page_layout_id_label'] 					= 'Diseño de la página (Layout)';
 $lang['page_css_label'] 						= 'CSS';
 $lang['page_access_label'] 						= 'Acceder';
 
@@ -35,9 +35,9 @@ $lang['page_delete_label'] 						= 'Borrar';
 // titles
 $lang['page_create_title'] 						= 'Crear p&aacute;gina';
 $lang['page_edit_title'] 						= 'Editar p&aacute;gina "%s"';
-$lang['page_list_title'] 						= 'List pages'; #translate
-$lang['page_layouts_create_title'] 				= 'Add page layout'; #translate
-$lang['page_layouts_list_title'] 				= 'List page layouts'; #translate
+$lang['page_list_title'] 						= 'Listar páginas';
+$lang['page_layouts_create_title'] 				= 'Agregar un diseño de página';
+$lang['page_layouts_list_title'] 				= 'Lista de diseños de páginas';
 
 // messages
 $lang['page_no_pages'] 							= 'No hay p&aacute;ginas creadas.';
