@@ -80,6 +80,8 @@
 						}
 						t._resizeIframe(ed, tbId, 26);
 					}
+				} else {
+					ed.controlManager.setActive('pdw_toggle', 1);
 				}
 			});
 		},
