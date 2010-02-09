@@ -2,6 +2,7 @@
  * Based on TinyMCE Wordpress plugin (Kitchen Sink)
  * 
  * @author Guido Neele
+ * @mods by Richard Willis for PyroCMS
  */
 
 (function() {
@@ -18,15 +19,15 @@
 		 * @param {string} url Absolute URL to where the plugin is located.
 		 */
 		init : function(ed, url) {
-			var t = this, tbIds = new Array(), toolbars = new Array(), i;
-			
+			var t = this, tbIds = new Array(), toolbars = new Array(), i, cookie_expiration = new Date(new Date().setDate(new Date().getDate()+1));
+
 			// Split toolbars
 			toolbars = (ed.settings.pdw_toggle_toolbars).split(',');
 			
 			for(i = 0; i < toolbars.length; i++){
 				tbIds[i] = ed.getParam('', 'toolbar' + (toolbars[i]).replace(' ',''));
 			}
-			
+
 			// Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
 			ed.addCommand('mcePDWToggleToolbars', function() {
 			
@@ -41,11 +42,13 @@
 							DOM.show(id);
 							t._resizeIframe(ed, tbIds[j], -26);
 							ed.settings.pdw_toggle_on = 0;
+							tinymce.util.Cookie.set('pdw_toggle', 'open', cookie_expiration, '/');
 						} else {
 							cm.setActive('pdw_toggle', 0);
 							DOM.hide(id);
 							t._resizeIframe(ed, tbIds[j], 26);
 							ed.settings.pdw_toggle_on = 1;
+							tinymce.util.Cookie.set('pdw_toggle', 'closed', cookie_expiration, '/');
 						}
 					}
 				}
@@ -59,9 +62,12 @@
 				image : url + '/img/toolbars.gif'
 			});
 			
+			// Check toggle state from cookie
+			var cookie_toggle_state = tinymce.util.Cookie.get('pdw_toggle') || 'closed';
+
 			ed.onPostRender.add(function(){
 				// If the setting pdw_toggle_on is set to 1 then hide toolbars and set button active
-				if (ed.settings.pdw_toggle_on == 1) {
+				if (ed.settings.pdw_toggle_on == 1 && cookie_toggle_state == 'closed') {
 
 					var cm = ed.controlManager, tdId, id;
 					
@@ -74,6 +80,8 @@
 						}
 						t._resizeIframe(ed, tbId, 26);
 					}
+				} else {
+					ed.controlManager.setActive('pdw_toggle', 1);
 				}
 			});
 		},
