@@ -4,15 +4,33 @@
 		<en>TinyCIMM</en>
 	</name>
 	<description>
-		<en>Let visitors subscribe via their email address.</en>
+		<en>TinyMCE Image Manager</en>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<is_backend_menu>0</is_backend_menu>
 	<controllers>
 		<controller name="admin">
-			<method>index</method>
+			<method>get</method>
+			<method>get_image</method>
+			<method>get_javascript_lang</method>
+			<method>upload</method>
 			<method>get_dialog_body</method>
+			<method>get_manager</method>
+			<method>get_browser</method>
+			<method>update_asset</method>
+			<method>save_folder</method>
+			<method>get_folders</method>
+			<method>delete_image</method>
+			<method>delete_folder</method>
+			<method>save_image_size</method>
+			<method>change_view</method>
+			<method>get_uploader_form</method>
+			<method>get_extension$filename</method>
+			<method>link_manager</method>
+			<method>link_manager_get_dialog_body</method>
+			<method>link_manager_get_browser<method>
+			<method>link_manager_recurse_pages<method>
 		</controller>
 	</controllers>
 </module>
