@@ -29,8 +29,8 @@
 			<method>get_extension$filename</method>
 			<method>link_manager</method>
 			<method>link_manager_get_dialog_body</method>
-			<method>link_manager_get_browser<method>
-			<method>link_manager_recurse_pages<method>
+			<method>link_manager_get_browser</method>
+			<method>link_manager_recurse_pages</method>
 		</controller>
 	</controllers>
 </module>
