@@ -118,6 +118,13 @@ class Navigation_m extends Model
 		
 		return TRUE;
 	}
+	
+	function update_link_position($id = 0, $position) 
+	{
+		return $this->db->update('navigation_links', array(
+        	'position' => (int) $position
+		), array('id' => $id));
+	}
 
 	function _format_array($input)
 	{

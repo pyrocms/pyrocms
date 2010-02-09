@@ -17,20 +17,18 @@
 						<thead>
 							<tr>
 								<th class="width-5"><?php echo form_checkbox('action_to_all');?></th>
-								<th><?php echo lang('nav_title_label');?></th>
-								<th class="width-5"><?php echo lang('nav_position_label');?></th>
-								<th class="width-20"><?php echo lang('nav_url_label');?></th>
+								<th class="width-30"><?php echo lang('nav_title_label');?></th>
+								<th class="width-25"><?php echo lang('nav_url_label');?></th>
 								<th class="width-10"><?php echo lang('nav_actions_label');?></th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
 							<tr>
-								<td><?php echo form_checkbox('delete[]', $navigation_link->id); ?></td>
-								<td><?php echo $navigation_link->title;?></td>
-								<td><?php echo $navigation_link->position; ?></td>
-								<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-								<td>
+								<td class="width-5"><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
+								<td class="width-30"><?php echo $navigation_link->title;?></td>
+								<td class="width-25"><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
+								<td class="width-15">
 									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'));?> | 
 									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm'));?>
 								</td>
@@ -62,7 +60,19 @@
 		$('a.delete_group').click(function(){
 			return confirm('<?php echo lang('nav_group_delete_confirm');?>');
 		});
-		
+
+		$('table tbody').sortable({
+			handle: 'td',
+			update: function() {
+				order = new Array();
+				$('tr', this).each(function(){
+					order.push( $(this).find('input[name="action_to[]"]').val() );
+				});
+				order = order.join(',');
+				
+				$.post(BASE_URI + 'admin/navigation/ajax_update_positions', { order: order });
+			}
+		});
 	});
 })(jQuery);
 </script>

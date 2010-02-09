@@ -89,7 +89,8 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', $this->lang->line('nav_link_add_error'));
 			}
-			redirect('admin/navigation/index');
+			
+			redirect('admin/navigation');
 		}
 		
 		foreach(array_keys($rules) as $field)
@@ -103,7 +104,10 @@ class Admin extends Admin_Controller
 	// Admin: Edit a Page
 	function edit($id = 0)
 	{
-		if (empty($id)) redirect('admin/navigation/index');
+		if (empty($id))
+		{
+			redirect('admin/navigation');
+		}
 		
 		$this->data->navigation_link = $this->navigation_m->get_link( $id );
 		if (!$this->data->navigation_link) 
@@ -137,7 +141,7 @@ class Admin extends Admin_Controller
 			$this->cache->delete_all('navigation_m');
 					
 			$this->session->set_flashdata('success', $this->lang->line('nav_link_edit_success'));
-			redirect('admin/navigation/index');
+			redirect('admin/navigation');
 		}
 		
 		foreach(array_keys($rules) as $field)
@@ -154,15 +158,11 @@ class Admin extends Admin_Controller
 	// Admin: Delete Pages
 	function delete($id = 0)
 	{
-		// Delete one
-		if($id)
+		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
+		
+		if(!empty($id_array))
 		{
-			$this->navigation_m->delete_link($id);
-		}
-		// Delete multiple
-		else
-		{		
-			foreach (array_keys($this->input->post('delete')) as $id)
+			foreach ($id_array as $id)
 			{
 				$this->navigation_m->delete_link($id);
 			}
@@ -170,7 +170,21 @@ class Admin extends Admin_Controller
 		
 		$this->cache->delete_all('navigation_m');		
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
-		redirect('admin/navigation/index');
+		redirect('admin/navigation');
+	}
+	
+	function ajax_update_positions()
+	{
+		$ids = explode(',', $this->input->post('order'));
+		
+		$i = 1;
+		
+		foreach($ids as $id)
+		{
+			$this->navigation_m->update_link_position($id, $i);
+			
+			++$i;
+		}
 	}
 }
 ?>

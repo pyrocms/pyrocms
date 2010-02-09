@@ -18,7 +18,6 @@ $lang['nav_abbrev_label'] 						= 'Abbréviation';
 $lang['nav_edit_label'] 						= 'Modifier';
 $lang['nav_delete_label'] 						= 'Supprimer';
 $lang['nav_group_delete_label']					= 'Supprimer le groupe "%s"';
-$lang['nav_group_add_label']					= 'Ajouter un groupe';
 $lang['nav_link_module_select_default'] 		= '-- Selectionner --';
 $lang['nav_link_page_select_default'] 			= '-- Selectionner --';
 
@@ -27,7 +26,7 @@ $lang['nav_link_target_blank'] 					= 'New window (_blank)'; #translate
 
 // titles
 $lang['nav_link_create_title'] 					= 'Add navigation link'; #translate
-$lang['nav_group_create_title']					= 'Add a group'; #translate
+$lang['nav_group_create_title']					= 'Ajouter un groupe';
 $lang['nav_link_edit_title'] 					= 'Edit navigation link "%s"'; #translate
 $lang['nav_link_list_title'] 					= 'List links'; #translate
 

@@ -69,14 +69,9 @@ minimize or totally remove downtime during upgrade.
 	  UNIQUE KEY `title` (`title`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
 		
-	CREATE TABLE `photos` (
-	  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-	  `album_id` int(11) NOT NULL,
-	  `filename` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-	  `description` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-	  `updated_on` varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
+	ALTER TABLE `photos`
+	  ADD `album_id` int(11) NOT NULL AFTER `id`,
+	  DROP `gallery_slug`;
 	
 	CREATE TABLE `variables` (
 	  `id` int(11) NOT NULL AUTO_INCREMENT,

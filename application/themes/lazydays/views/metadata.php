@@ -12,10 +12,4 @@
 {css('style.css')}
 {css('layout.css', '_theme_')}
 	
-{js('jquery/jquery.js')}
-{js('jquery/jquery.fancybox.js')}
-{css('jquery/jquery.fancybox.css')}
-
-{js('front.js')}
-		
 {$template.metadata}
