@@ -25,10 +25,10 @@
 						<tbody>
 							<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
 							<tr>
-								<td class="width-5"><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
-								<td class="width-30"><?php echo $navigation_link->title;?></td>
-								<td class="width-25"><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-								<td class="width-15">
+								<td><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
+								<td><?php echo $navigation_link->title;?></td>
+								<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
+								<td>
 									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'));?> | 
 									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm'));?>
 								</td>
@@ -61,8 +61,18 @@
 			return confirm('<?php echo lang('nav_group_delete_confirm');?>');
 		});
 
+
+		// Return a helper with preserved width of cells
+		var fixHelper = function(e, ui) {
+			ui.children().each(function() {
+				$(this).width($(this).width());
+			});
+			return ui;
+		};
+		
 		$('table tbody').sortable({
 			handle: 'td',
+			helper: fixHelper,
 			update: function() {
 				order = new Array();
 				$('tr', this).each(function(){
@@ -72,7 +82,9 @@
 				
 				$.post(BASE_URI + 'admin/navigation/ajax_update_positions', { order: order });
 			}
-		});
+			
+		}).disableSelection();
+				
 	});
 })(jQuery);
 </script>
