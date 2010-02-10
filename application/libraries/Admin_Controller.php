@@ -82,6 +82,7 @@ class Admin_Controller extends MY_Controller
 	    $this->template->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( js('jquery/jquery-ui.min.js') )
 	    	->append_metadata( '<script type="text/javascript">jQuery.noConflict();</script>' )
+	    	->append_metadata( js('jquery/jquery.livequery.js') )
 	    	->append_metadata( js('jquery/jquery.fancybox.js') )
 	    	->append_metadata( css('jquery/jquery.fancybox.css') )
 	    	->append_metadata( js('jquery/jquery.dimensions.js') )
