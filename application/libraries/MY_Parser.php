@@ -21,31 +21,40 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Parser
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/libraries/parser.html
+ * @author		Phil Sturgeon
+ * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
  */
 include(APPPATH.'libraries/dwoo/dwooAutoload.php');
 
 class MY_Parser extends CI_Parser {
     
-	private $CI;
+	private $ci;
 	
 	private $dwoo;
 	
 	function __construct()
 	{
-	 	$this->CI =& get_instance();
+	 	$this->ci =& get_instance();
 	 	
-		$this->CI->config->load('parser', TRUE);
-        $config = $this->CI->config->item('parser');
+		$this->ci->config->load('parser', TRUE);
+        $config = $this->ci->config->item('parser');
         
         // Main Dwoo object
-        $this->dwoo = new Dwoo();
+        $this->dwoo = new Dwoo;
 
          // The directory where compiled templates are located
 		$this->dwoo->setCompileDir( $config['parser_compile_dir'] );
 		$this->dwoo->setCacheDir( $config['parser_cache_dir'] );
 		$this->dwoo->setCacheTime( $config['parser_cache_time'] );
+		
+		// Security
+		$security = new Dwoo_Security_Policy;
+		
+		$security->setPhpHandling($config['parser_allow_php_tags']);
+		$security->allowPhpFunction($config['parser_allowed_php_functions']);
+		
+		$this->dwoo->setSecurityPolicy( $security );
+		
 	}
 	
 	/**
@@ -60,9 +69,9 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function parse($template, $data, $return = FALSE)
+	function parse($template, $data = array(), $return = FALSE)
 	{
-		$string = $this->CI->load->view($template, $data, TRUE);
+		$string = $this->ci->load->view($template, $data, TRUE);
 		
 		return $this->_parse($string, $data, $return);	
 	}
@@ -79,7 +88,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function string_parse($string, $data = NULL, $return = FALSE)
+	function string_parse($string, $data = array(), $return = FALSE)
 	{
 		return $this->_parse($string, $data, $return);
     }
@@ -99,7 +108,7 @@ class MY_Parser extends CI_Parser {
 	function _parse($string, $data, $return = FALSE)
 	{
         // Start benchmark
-        $this->CI->benchmark->mark('dwoo_parse_start');
+        $this->ci->benchmark->mark('dwoo_parse_start');
         
 		// Compatibility with PyroCMS v0.9.7 style links
 		// TODO: Remove this for v1.0
@@ -135,12 +144,13 @@ class MY_Parser extends CI_Parser {
         }
         
         // Finish benchmark
-        $this->CI->benchmark->mark('dwoo_parse_end');
+        $this->ci->benchmark->mark('dwoo_parse_end');
 
         // Return results or not ?
 		if ( !$return )
 		{
-			$this->CI->output->append_output($parsed_string);
+			$this->ci->output->append_output($parsed_string);
+			return;
 		}
 		
 		return $parsed_string;
