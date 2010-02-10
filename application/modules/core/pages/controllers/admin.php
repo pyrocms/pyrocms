@@ -65,6 +65,11 @@ class Admin extends Admin_Controller
 		// get the page tree
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
 		
+		$this->template->append_metadata( css('jquery/jquery.treeview.css') )
+			->append_metadata( js('jquery/jquery.treeview.min.js') )
+			->append_metadata( js('index.js', 'pages') )
+			->append_metadata( css('index.css', 'pages') );
+
 		$this->template->build('admin/index', $this->data);
 	}
 	
@@ -131,7 +136,7 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
 			}
 			
-			redirect('admin/pages/index');
+			redirect('admin/pages');
 	    }
 		
 
@@ -156,9 +161,13 @@ class Admin extends Admin_Controller
 		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
-		$this->template->append_metadata( js('codemirror/codemirror.js') );
-	    $this->template->build('admin/form', $this->data);
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+
+			// Load form specific JavaScript
+			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('form.js', 'pages') )
+	    
+			->build('admin/form', $this->data);
 	}
 
 	// Admin: Edit a Page
@@ -166,7 +175,7 @@ class Admin extends Admin_Controller
 	{
 		if (empty($id))
 	    {
-			redirect('admin/pages/index');
+			redirect('admin/pages');
 	    }
 		
 	    // We use this controller property for a validation callback later on
@@ -203,8 +212,10 @@ class Admin extends Admin_Controller
 			
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('pages_m');			
+			
 			$this->session->set_flashdata('success', sprintf($this->lang->line('pages_edit_success'), $this->input->post('title')));
-			redirect('admin/pages/index');
+			
+			redirect('admin/pages');
 	    }
 
 	    // If a parent id was passed, fetch the parent details
@@ -227,9 +238,13 @@ class Admin extends Admin_Controller
 		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
 		
 	    // Load WYSIWYG editor
-	    $this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
-		$this->template->append_metadata( js('codemirror/codemirror.js') );
-	    $this->template->build('admin/form', $this->data);
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+
+			// Load form specific JavaScript
+			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('form.js', 'pages') )
+	    
+			->build('admin/form', $this->data);
 	}
     
 	// Admin: Delete Pages

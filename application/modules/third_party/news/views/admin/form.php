@@ -29,7 +29,7 @@
 						
 						<li class="even">
 							<label for="slug"><?php echo lang('news_slug_label');?></label>
-							<?php echo form_input('slug', $article->slug, 'maxlength="100" class="width-10"'); ?>
+							<?php echo form_input('slug', $article->slug, 'maxlength="100" class="width-20"'); ?>
 							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						</li>
 						

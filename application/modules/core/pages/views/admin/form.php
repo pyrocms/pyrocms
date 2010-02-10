@@ -21,88 +21,85 @@
 			
 			<div id="page-content">
 			
-				<fieldset>
-					<ol>
+				<ol>
 
-						<li class="even">
-							<label for="title"><?php echo lang('page_title_label');?></label>
-							<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
-							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-						</li>
+					<li class="even">
+						<label for="title"><?php echo lang('page_title_label');?></label>
+						<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+					</li>
+					
+					<li>
+						<label for="slug"><?php echo lang('page_slug_label');?></label>
 						
-						<li>
-							<label for="slug"><?php echo lang('page_slug_label');?></label>
-							
-							<?php if(!empty($page->parent_id)): ?>
-								<?php echo site_url().$parent_page->path; ?>/
-							<?php else: ?>
-								<?php echo site_url(); ?>
-							<?php endif; ?>
-							
-							<?php if($this->uri->segment(3,'') == 'edit'): ?>
-								<?php echo form_hidden('old_slug', $page->slug); ?>
-							<?php endif; ?>
-							
-							<?php echo form_input('slug', $page->slug, 'maxlength="60" size="20" class="width-10"'); ?>
-							
-							<?php echo $this->config->item('url_suffix'); ?>
-						</li>
+						<?php if(!empty($page->parent_id)): ?>
+							<?php echo site_url().$parent_page->path; ?>/
+						<?php else: ?>
+							<?php echo site_url(); ?>
+						<?php endif; ?>
 						
-						<li class="even">
-							<label for="category_id"><?php echo lang('page_status_label');?></label>
-							<?php echo form_dropdown('status', array('draft'=>lang('page_draft_label'), 'live'=>lang('page_live_label')), $page->status) ?>	
-						</li>
+						<?php if($this->uri->segment(3,'') == 'edit'): ?>
+							<?php echo form_hidden('old_slug', $page->slug); ?>
+						<?php endif; ?>
 						
-						<li>
-							<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
-						</li>
-					</ol>
-				</fieldset>
+						<?php if($page->slug == 'home' || $page->slug == '404'): ?>
+							<?php echo form_hidden('slug', $page->slug); ?>
+							<?php echo form_input('', $page->slug, 'size="20" class="width-10" disabled="disabled"'); ?>
+						<?php else: ?>
+							<?php echo form_input('slug', $page->slug, 'size="20" class="width-10"'); ?>
+						<?php endif;?>
+						
+						<?php echo $this->config->item('url_suffix'); ?>
+					</li>
+					
+					<li class="even">
+						<label for="category_id"><?php echo lang('page_status_label');?></label>
+						<?php echo form_dropdown('status', array('draft'=>lang('page_draft_label'), 'live'=>lang('page_live_label')), $page->status) ?>	
+					</li>
+					
+					<li>
+						<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+					</li>
+				</ol>
 
 			</div>
 		
 			<!-- Design tab -->
 			<div id="page-design">
 			
-				<fieldset>
+				<ol>
+					<li class="even">
+						<label for="layout_id"><?php echo lang('page_layout_id_label');?></label>
+						<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
+					</li>
 					
-					<ol>
-						<li class="even">
-							<label for="layout_id"><?php echo lang('page_layout_id_label');?></label>
-							<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
-						</li>
-						
-						<li>
-							<label for="css"><?php echo lang('page_css_label');?></label>
-							<div class="float-right">
-								<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
-							</div>
-						</li>
-					</ol>
-					
-				</fieldset>
+					<li>
+						<label for="css"><?php echo lang('page_css_label');?></label>
+						<div class="float-right">
+							<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
+						</div>
+					</li>
+				</ol>
 				
 			</div>
 			
 			<!-- Meta data tab -->
 			<div id="page-meta">
 			
-				<fieldset>
-					<ol>
-						<li class="even">
-							<label for="meta_title"><?php echo lang('page_meta_title_label');?></label>
-							<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" />
-						</li>
-						<li>
-							<label for="meta_keywords"><?php echo lang('page_meta_keywords_label');?></label>
-							<input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
-						</li>
-						<li class="even">
-							<label for="meta_description"><?php echo lang('page_meta_desc_label');?></label>
-							<textarea id="meta_description" name="meta_description"><?php echo $page->meta_description; ?></textarea>
-						</li>
-					</ol>
-				</fieldset>
+				<ol>
+					<li class="even">
+						<label for="meta_title"><?php echo lang('page_meta_title_label');?></label>
+						<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" />
+					</li>
+					<li>
+						<label for="meta_keywords"><?php echo lang('page_meta_keywords_label');?></label>
+						<input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
+					</li>
+					<li class="even">
+						<label for="meta_description"><?php echo lang('page_meta_desc_label');?></label>
+						<textarea id="meta_description" name="meta_description"><?php echo $page->meta_description; ?></textarea>
+					</li>
+				</ol>
 				
 			</div>
 			

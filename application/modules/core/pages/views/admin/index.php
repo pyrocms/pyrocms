@@ -1,8 +1,3 @@
-<?php echo css('jquery/jquery.treeview.css'); ?>
-<?php echo js('jquery/jquery.treeview.min.js'); ?>
-<?php echo js('index.js', 'pages'); ?>
-<?php echo css('index.css', 'pages'); ?>
-
 <div class="box">
 
 	<h3><?php echo lang('page_list_title'); ?></h3>
