@@ -40,6 +40,3 @@ class MY_Controller extends Controller
         $this->benchmark->mark('my_controller_end');
 	}
 }
-
-include(APPPATH . 'libraries/Public_Controller'.EXT);
-include(APPPATH . 'libraries/Admin_Controller'.EXT);
