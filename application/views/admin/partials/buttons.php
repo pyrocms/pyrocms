@@ -1,4 +1,4 @@
-<?php if(isset($buttons) && is_array($buttons)): ?>	
+<?php if(isset($buttons) && is_array($buttons)): ?>
 
 	<?php foreach($buttons as $button ): ?>		
 		<?php if( $button == 'save' ): ?>
@@ -9,11 +9,11 @@
 			</button>
 		
 		<?php elseif( $button == 'cancel' ): ?>
-		<div class="button">
-			<a href="<?php echo site_url('admin/'.$module);?>" class="ajax">
-				<?php echo lang('cancel_label');?>
-			</a>
-		</div>
+			<div class="button">
+				<a href="<?php echo site_url('admin/'.$module);?>" class="ajax">
+					<?php echo lang('cancel_label');?>
+				</a>
+			</div>
 		
 		<?php elseif( $button == 'delete' ): ?>
 			<button type="submit" name="btnAction" value="delete" class="confirm">

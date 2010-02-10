@@ -23,13 +23,13 @@
 			
 				<ol>
 
-					<li class="even">
+					<li>
 						<label for="title"><?php echo lang('page_title_label');?></label>
 						<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 					
-					<li>
+					<li class="even">
 						<label for="slug"><?php echo lang('page_slug_label');?></label>
 						
 						<?php if(!empty($page->parent_id)): ?>
@@ -47,17 +47,18 @@
 							<?php echo form_input('', $page->slug, 'size="20" class="width-10" disabled="disabled"'); ?>
 						<?php else: ?>
 							<?php echo form_input('slug', $page->slug, 'size="20" class="width-10"'); ?>
+							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						<?php endif;?>
 						
 						<?php echo $this->config->item('url_suffix'); ?>
 					</li>
 					
-					<li class="even">
+					<li>
 						<label for="category_id"><?php echo lang('page_status_label');?></label>
 						<?php echo form_dropdown('status', array('draft'=>lang('page_draft_label'), 'live'=>lang('page_live_label')), $page->status) ?>	
 					</li>
 					
-					<li>
+					<li class="even">
 						<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 					</li>
 				</ol>
@@ -80,6 +81,8 @@
 						</div>
 					</li>
 				</ol>
+	
+				<br class="clear-both" />
 				
 			</div>
 			
@@ -109,6 +112,7 @@
 
 		<?php echo form_close(); ?>
 	</div>
+	
 </div>
 
 <script type="text/javascript">
