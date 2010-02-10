@@ -54,7 +54,7 @@ $lang['news_publish_error'] 						= 'No articles were published.';
 $lang['news_delete_success'] 						= 'The article "%s" has been deleted.';
 $lang['news_mass_delete_success'] 					= 'The articles "%s" have been deleted.';
 $lang['news_delete_error'] 							= 'No articles were deleted.';
-$lang['news_already_exist_error'] 					= 'A blog with this name already exists.';
+$lang['news_already_exist_error'] 					= 'An article with this URL already exists.';
 
 $lang['news_twitter_posted'] 						= 'Posted "%s" %s';
 

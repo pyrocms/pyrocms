@@ -39,7 +39,7 @@
 		language : "<?php echo CURRENT_LANGUAGE;?>",
 		convert_urls : false,
 
-		width : 650,
+		width : 660,
 		height : 360,
 		constrain_menus : true,
 		

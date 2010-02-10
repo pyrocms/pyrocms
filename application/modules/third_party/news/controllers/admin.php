@@ -5,7 +5,7 @@ class Admin extends Admin_Controller
 	// Validation rules to be used for create and edit
 	private $rules = array(
 		'title' 			=> 'trim|required|max_length[100]',
-		'slug' 				=> 'trim|required|max_length[100]',
+		'slug' 				=> 'trim|required|alpha_dash|max_length[100]',
 		'category_id' 		=> 'trim|numeric',
 		'intro' 			=> 'trim|required',
 		'body' 				=> 'trim|required',
@@ -68,7 +68,7 @@ class Admin extends Admin_Controller
 	function create()
 	{
 		$this->load->library('validation');
-		$this->rules['title'] .= '|callback__createTitleCheck';
+		$this->rules['slug'] .= '|callback__check_slug';
 		$this->validation->set_rules($this->rules);
 		$this->validation->set_fields();
 		
@@ -106,7 +106,7 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
 			}			
-			redirect('admin/news/index');
+			redirect('admin/news');
 		}
 		
 		$this->data->article =& $article;
@@ -133,7 +133,17 @@ class Admin extends Admin_Controller
 		
 		if ($this->validation->run())
 		{
-			if ($this->news_m->update($_POST, $id))
+			
+			$result = $this->news_m->update($id, array(
+	            'title'			=> $this->input->post('title'),
+	            'slug'			=> $this->input->post('slug'),
+	            'category_id'	=> $this->input->post('category_id'),
+	            'intro'			=> $this->input->post('intro'),
+	            'body'			=> $this->input->post('body'),
+	            'status'		=> $this->input->post('status')
+	    	));
+			
+			if ($result)
 			{
 				$this->session->set_flashdata(array('success'=> sprintf($this->lang->line('news_edit_success'), $this->input->post('title'))));
 				
@@ -187,7 +197,7 @@ class Admin extends Admin_Controller
 				$this->delete();
 			break;
 			default:
-				redirect('admin/news/index');
+				redirect('admin/news');
 			break;
 		}
 	}
@@ -234,8 +244,9 @@ class Admin extends Admin_Controller
 		else
 		{
 			$this->session->set_flashdata('notice', $this->lang->line('news_publish_error'));
-		}		
-		redirect('admin/news/index');
+		}
+		
+		redirect('admin/news');
 	}
 	
 	// Admin: Delete an article
@@ -279,39 +290,24 @@ class Admin extends Admin_Controller
 		// For some reason, none of them were deleted
 		else
 		{
-			$this->session->set_flashdata('notice', $this->lang->line('news_delete_error'));
+			$this->session->set_flashdata('notice', lang('news_delete_error'));
 		}
 		
-		redirect('admin/news/index');
+		redirect('admin/news');
 	}
 	
 	
 	// Callback: from create()
-	function _createTitleCheck($title = '')
+	function _check_slug($slug = '')
 	{
-		if ($this->news_m->check_title($title))
+		if(!$this->news_m->check_slug($slug))
 		{
-			$this->validation->set_message('_createTitleCheck', $this->lang->line('news_already_exist_error'));
+			$this->validation->set_message('_check_slug', lang('news_already_exist_error'));
 			return FALSE;
 		}
-		else
-		{
-			return TRUE;
-		}
+		
+		return TRUE;
 	}
 	
-	// Private: Create resize of Cropped Image to ensure it's a certain size
-	function _create_resize($homeimg = '', $x, $y)
-	{
-		unset($img_cfg);
-		$img_cfg['source_image'] = APPPATH.'assets/img/suppliers/' . $homeimg;
-		$img_cfg['new_image'] = APPPATH.'assets/img/suppliers/' . $homeimg;
-		$img_cfg['maintain_ratio'] = true;
-		$img_cfg['width'] = $x;
-		$img_cfg['height'] = $y;
-		$this->load->library('image_lib');
-		$this->image_lib->initialize($img_cfg);
-		$this->image_lib->resize();
-	}
 }
 ?>

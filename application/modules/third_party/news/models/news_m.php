@@ -17,18 +17,21 @@ class News_m extends MY_Model
     	$this->load->helper('date');
         
     	
-    	if(!empty($params['category'])):
+    	if(!empty($params['category']))
+    	{
 	    	if(is_numeric($params['category']))  $this->db->where('categories.id', $params['category']);
 	    	else  				 				 $this->db->where('categories.slug', $params['category']);
-    	endif;
+    	}
     	
-    	if(!empty($params['month'])):
+    	if(!empty($params['month']))
+    	{
     		$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
-    	endif;
+    	}
     	
-    	if(!empty($params['year'])):
+    	if(!empty($params['year']))
+    	{
     		$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
-    	endif;
+    	}
     	
     	// Is a status set?
     	if( !empty($params['status']) )
@@ -48,9 +51,10 @@ class News_m extends MY_Model
     	}
     	
     	// By default, dont show future articles
-    	if(!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE)):
+    	if(!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
+    	{
        		$this->db->where('created_on <=', now());
-       	endif;
+    	}
        	
        	// Limit the results based on 1 number or 2 (2nd is offset)
        	if(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
@@ -63,18 +67,21 @@ class News_m extends MY_Model
     {
     	$this->db->join('categories', 'news.category_id = categories.id', 'left');
     	
-    	if(!empty($params['category'])):
+    	if(!empty($params['category']))
+    	{
 	    	if(is_numeric($params['category']))  $this->db->where('categories.id', $params['category']);
 	    	else  				 				 $this->db->where('categories.slug', $params['category']);
-    	endif;
+    	}
     	
-    	if(!empty($params['month'])):
+    	if(!empty($params['month']))
+    	{
     		$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
-    	endif;
+    	}
     	
-    	if(!empty($params['year'])):
+    	if(!empty($params['year']))
+    	{
     		$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
-    	endif;
+    	}
     	
     	// Is a status set?
     	if( !empty($params['status']) )
@@ -113,34 +120,25 @@ class News_m extends MY_Model
     	return parent::insert($input);
     }
     
-    function update($input, $id = 0)
+    function update($id, $input)
     {
-    	if(is_numeric($id))  $this->db->where('id', $id);
-    	else  				 $this->db->where('slug', $id);
-    	
     	$this->load->helper('date');
             
-    	$set = array(
-            'title'			=> $input['title'],
-            'slug'			=> $input['slug'],
-            'category_id'	=> $input['category_id'],
-            'intro'			=> $input['intro'],
-            'body'			=> $input['body'],
-            'status'		=> $input['status'],
-    		'updated_on'	=> now()
-    	);
+    	$input['updated_on'] = now();
 
-    	if($input['created_on_day']){
-    		$set['created_on'] = mktime($input['created_on_hour'], $input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
+    	if(isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
+    	{
+    		$input['created_on'] = mktime($input['created_on_hour'], $input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
+    		
+    		unset($input['created_on_hour'], $input['created_on_minute'], $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
     	}
 
-    	return $this->db->update('news', $set);
+    	return parent::update($id, $input);
     }
     
     function publish($id = 0)
     {
-    	$this->db->where('id', $id);
-    	return $this->db->update('news', array('status' => 'live'));
+    	return parent::update($id, array('status' => 'live'));
     }
 
 
@@ -189,9 +187,9 @@ class News_m extends MY_Model
         return $string ;
     }
 
-	function check_title($title = '')
+	function check_slug($slug = '')
     {
-		return parent::count_by('slug', url_title($title)) === 0;
+		return parent::count_by('slug', $slug) === 0;
     }
 }
 
