@@ -180,8 +180,8 @@ class Curl {
     
     public function proxy($url = '', $port = 80)
     {
-        $this->option(CURLOPT_HTTPPROXYTUNNEL. TRUE);
-        $this->option(CURLOPT_PROXY, $url.':'. 80);
+        $this->option(CURLOPT_HTTPPROXYTUNNEL, TRUE);
+        $this->option(CURLOPT_PROXY, $url.':'. $port);
         return $this;
     }
     
@@ -284,9 +284,9 @@ class Curl {
     public function debug()
     {
         echo "=============================================<br/>\n";
-        echo "<h2>CURL Test</h2>\n";
+        echo "<h2>cURL Test</h2>\n";
         echo "=============================================<br/>\n";
-        echo "<h3>response</h3>\n";
+        echo "<h3>Response</h3>\n";
         echo "<code>".nl2br(htmlentities($this->response))."</code><br/>\n\n";
     
         if($this->error_string)
