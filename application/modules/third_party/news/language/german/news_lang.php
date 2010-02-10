@@ -16,6 +16,7 @@ $lang['news_delete_label'] 							= 'Löschen';
 $lang['news_content_label'] 						= 'Inhalt';
 $lang['news_options_label'] 						= 'Optionen';
 $lang['news_title_label'] 							= 'Titel';
+$lang['news_slug_label'] 							= 'URL';
 $lang['news_required_label'] 						= 'Benötigt';
 $lang['news_intro_label'] 							= 'Einführung';
 $lang['news_draft_label'] 							= 'Entwurf';

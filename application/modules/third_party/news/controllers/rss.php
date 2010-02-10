@@ -13,7 +13,11 @@ class Rss extends Public_Controller
 	
 	function index()
 	{
-		$posts = $this->cache->model('news_m', 'getNews', array(array('status' 	=> 'live', 'limit'		=> $this->settings->item('rss_feed_items'))), $this->settings->item('rss_cache'));
+		$posts = $this->cache->model('news_m', 'get_many_by', array(array(
+			'status' => 'live',
+			'limit' => $this->settings->item('rss_feed_items'))
+		), $this->settings->item('rss_cache'));
+		
 		$this->_build_feed( $posts );		
 		$this->data->rss->feed_name .= $this->lang->line('news_rss_name_suffix');		
 		$this->output->set_header('Content-Type: application/rss+xml');
@@ -24,12 +28,17 @@ class Rss extends Public_Controller
 	{ 
 		$this->load->model('categories/categories_m');
 		
-		if(!$category = $this->categories_m->get($slug))
+		if(!$category = $this->categories_m->get_by('slug', $slug))
 		{
 			redirect('news/rss/index');
 		}
 		
-		$posts = $this->cache->model('news_m', 'getNews', array(array('status' 	=> 'live','category'	=> $slug,'limit' 	=> $this->settings->item('rss_feed_items') )), $this->settings->item('rss_cache'));
+		$posts = $this->cache->model('news_m', 'get_many_by', array(array(
+			'status' => 'live',
+			'category' => $slug,
+			'limit' => $this->settings->item('rss_feed_items') )
+		), $this->settings->item('rss_cache'));
+		
 		$this->_build_feed( $posts );		
 		$this->data->rss->feed_name .= ' '. $category->title . $this->lang->line('news_rss_category_suffix');		
 		$this->output->set_header('Content-Type: application/rss+xml');

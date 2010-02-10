@@ -15,7 +15,7 @@
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		language : "<?php echo CURRENT_LANGUAGE;?>",
-		width : 400,
+		width : 410,
 		force_p_newlines : false,
 		force_br_newlines : true,
 		forced_root_block : '',
@@ -39,8 +39,8 @@
 		language : "<?php echo CURRENT_LANGUAGE;?>",
 		convert_urls : false,
 
-		width : 670,
-		height : 340,
+		width : 650,
+		height : 360,
 		constrain_menus : true,
 		
 		plugins : "safari,pagebreak,style,advhr,advimage,advlink,emotions,inlinepopups,preview,media,contextmenu,paste,fullscreen,noneditable,visualchars,xhtmlxtras,template,tinycimm,pdw",

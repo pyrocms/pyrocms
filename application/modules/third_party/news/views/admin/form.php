@@ -19,58 +19,59 @@
 				
 				<div id="news-content-tab">
 				
-					<fieldset>
-						<ol>
-				
-							<li>
-								<label for="title"><?php echo lang('news_title_label');?></label>
-								<?php echo form_input('title', $article->title, 'maxlength="100"'); ?>
-								<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-							</li>
-							
-							<li class="even">
-								<label for="intro"><?php echo lang('news_intro_label');?></label>
-								<?php echo form_textarea(array('id'=>'intro', 'name'=>'intro', 'value' => $article->intro, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
-							</li>
-							
-							<li>
-								<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' =>  stripslashes($article->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
-							</li>
-							
-						</ol>
-					</fieldset>
+					<ol>
+			
+						<li>
+							<label for="title"><?php echo lang('news_title_label');?></label>
+							<?php echo form_input('title', $article->title, 'maxlength="100"'); ?>
+							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+						</li>
+						
+						<li class="even">
+							<label for="slug"><?php echo lang('news_slug_label');?></label>
+							<?php echo form_input('slug', $article->slug, 'maxlength="100" class="width-10"'); ?>
+							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+						</li>
+						
+						<li>
+							<label for="intro"><?php echo lang('news_intro_label');?></label>
+							<?php echo form_textarea(array('id'=>'intro', 'name'=>'intro', 'value' => $article->intro, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
+						</li>
+						
+						<li class="even">
+							<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' =>  stripslashes($article->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+						</li>
+						
+					</ol>
 				</div>
 			
 				<!-- Options tab -->
 				<div id="news-options-tab">
 				
-					<fieldset>
-					
-						<ol>
-							<li>
-								<label for="category_id"><?php echo lang('news_category_label');?></label>
-								<?php echo form_dropdown('category_id', array(lang('news_no_category_select_label'))+$categories, @$article->category_id) ?> 	
-								[ <?php echo anchor('admin/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
-							</li>
+					<ol>
+						<li>
+							<label for="category_id"><?php echo lang('news_category_label');?></label>
+							<?php echo form_dropdown('category_id', array(lang('news_no_category_select_label'))+$categories, @$article->category_id) ?> 	
+							[ <?php echo anchor('admin/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
+						</li>
+						
+						<li class="even">
+							<label for="category_id"><?php echo lang('news_status_label');?></label>
+							<?php echo form_dropdown('status', array('draft'=>lang('news_draft_label'), 'live'=>lang('news_live_label')), $article->status) ?>	
+						</li>
+						
+						<li>
+							<label><?php echo lang('news_date_label');?></label>
+							<?php echo form_dropdown('created_on_day', $days, !empty($article->created_on_day) ? $article->created_on_day : date('j', isset($article->created_on) ? $article->created_on : now())) ?>
+							<?php echo form_dropdown('created_on_month', $months, !empty($article->created_on_month) ? $article->created_on_month : date('n', isset($article->created_on) ? $article->created_on : now())) ?>
+							<?php echo form_dropdown('created_on_year', $years, !empty($article->created_on_year) ? $article->created_on_year : date('Y', isset($article->created_on) ? $article->created_on : now())) ?>
 							
-							<li class="even">
-								<label for="category_id"><?php echo lang('news_status_label');?></label>
-								<?php echo form_dropdown('status', array('draft'=>lang('news_draft_label'), 'live'=>lang('news_live_label')), $article->status) ?>	
-							</li>
-							
-							<li>
-								<label><?php echo lang('news_date_label');?></label>
-								<?php echo form_dropdown('created_on_day', $days, !empty($article->created_on_day) ? $article->created_on_day : date('j', isset($article->created_on) ? $article->created_on : now())) ?>
-								<?php echo form_dropdown('created_on_month', $months, !empty($article->created_on_month) ? $article->created_on_month : date('n', isset($article->created_on) ? $article->created_on : now())) ?>
-								<?php echo form_dropdown('created_on_year', $years, !empty($article->created_on_year) ? $article->created_on_year : date('Y', isset($article->created_on) ? $article->created_on : now())) ?>
-								
-								<?php echo lang('news_time_label');?>
-								<?php echo form_dropdown('created_on_hour', $hours, !empty($article->created_on_hour) ? $article->created_on_hour : date('G', isset($article->created_on) ? $article->created_on : now())) ?>
-								<?php echo form_dropdown('created_on_minute', $minutes, !empty($article->created_on_minute) ? $article->created_on_minute : date('i', isset($article->created_on) ? $article->created_on : now())) ?>
-							</li>
-						</ol>
-					
-					</fieldset>	
+							<?php echo lang('news_time_label');?>
+							<?php echo form_dropdown('created_on_hour', $hours, !empty($article->created_on_hour) ? $article->created_on_hour : date('G', isset($article->created_on) ? $article->created_on : now())) ?>
+							<?php echo form_dropdown('created_on_minute', $minutes, !empty($article->created_on_minute) ? $article->created_on_minute : date('i', isset($article->created_on) ? $article->created_on : now())) ?>
+						</li>
+					</ol>
+				
 				</div>
 				
 			</div>	

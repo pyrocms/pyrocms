@@ -16,7 +16,7 @@
 						<th class="width-10"><?php echo lang('news_category_label');?></th>
 						<th class="width-10"><?php echo lang('news_date_label');?></th>
 						<th class="width-5"><?php echo lang('news_status_label');?></th>
-						<th class="width-15"><span><?php echo lang('news_actions_label');?></span></th>
+						<th class="width-10"><span><?php echo lang('news_actions_label');?></span></th>
 					</tr>
 				</thead>
 				<tfoot>

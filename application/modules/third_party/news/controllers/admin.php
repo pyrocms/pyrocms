@@ -5,6 +5,7 @@ class Admin extends Admin_Controller
 	// Validation rules to be used for create and edit
 	private $rules = array(
 		'title' 			=> 'trim|required|max_length[100]',
+		'slug' 				=> 'trim|required|max_length[100]',
 		'category_id' 		=> 'trim|numeric',
 		'intro' 			=> 'trim|required',
 		'body' 				=> 'trim|required',
@@ -55,11 +56,9 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/news/index', $total_rows);
 		
 		// Using this data, get the relevant results
-		$this->data->news = $this->news_m->get_many_by(array(
+		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array(
 			'show_future'=>TRUE,
-			'status' => 'all',
-			'order'	=> 'created_on DESC, status',
-			'limit' => $this->data->pagination['limit']
+			'status' => 'all'
 		));
 		
 		$this->template->build('admin/index', $this->data);
@@ -76,12 +75,21 @@ class Admin extends Admin_Controller
 		// Go through all the known fields and get the post values
 		foreach(array_keys($this->rules) as $field)
 		{
-			$article->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
+			$article->$field = set_value($field);
 		}
 		
 		if ($this->validation->run())
 		{
-			if ($this->news_m->insert($_POST))
+			$id = $this->news_m->insert(array(
+	            'title'			=> $this->input->post('title'),
+	            'slug'			=> $this->input->post('slug'),
+	            'category_id'	=> $this->input->post('category_id'),
+	            'intro'			=> $this->input->post('intro'),
+	            'body'			=> $this->input->post('body'),
+	            'status'		=> $this->input->post('status'),
+	    	));
+    	
+			if (!empty($id))
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
 			
@@ -104,14 +112,19 @@ class Admin extends Admin_Controller
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('news_form.js', 'news') );
+			
 		$this->template->build('admin/form', $this->data);
 	}
 	
 	// Admin: Edit an article
 	function edit($id = 0)
 	{
-		if (!$id) redirect('admin/news/index');
+		if (!$id)
+		{
+			redirect('admin/news');
+		}
 		
 		$this->load->library('validation');
 		$this->validation->set_rules($this->rules);
@@ -133,11 +146,13 @@ class Admin extends Admin_Controller
 				}
 				// End twitter code
 			}
+			
 			else
 			{
 				$this->session->set_flashdata(array('error'=> $this->lang->line('news_edit_error')));
 			}
-			redirect('admin/news/index');
+			
+			redirect('admin/news');
 		}
 		
 		// Go through all the known fields and get the post values

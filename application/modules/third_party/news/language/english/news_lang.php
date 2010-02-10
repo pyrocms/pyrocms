@@ -19,6 +19,7 @@ $lang['news_delete_label'] 							= 'Delete';
 $lang['news_content_label'] 						= 'Content';
 $lang['news_options_label'] 						= 'Options';
 $lang['news_title_label'] 							= 'Title';
+$lang['news_slug_label'] 							= 'URL';
 $lang['news_intro_label'] 							= 'Introduction';
 $lang['news_no_category_select_label'] 				= '-- None --';
 $lang['news_new_category_label'] 					= 'Add a category';

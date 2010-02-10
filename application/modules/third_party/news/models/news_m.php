@@ -2,12 +2,20 @@
 
 class News_m extends MY_Model
 {
-    function get_many_by($params = array())
+    function get_all()
+    {
+    	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
+       	$this->db->join('categories', 'news.category_id = categories.id', 'left');
+    	
+    	$this->db->order_by('created_on', 'DESC');
+           
+        return $this->db->get('news')->result();
+    }
+	
+	function get_many_by($params = array())
     {
     	$this->load->helper('date');
         
-    	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
-       	$this->db->join('categories', 'news.category_id = categories.id', 'left');
     	
     	if(!empty($params['category'])):
 	    	if(is_numeric($params['category']))  $this->db->where('categories.id', $params['category']);
@@ -48,13 +56,7 @@ class News_m extends MY_Model
        	if(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
        	elseif(isset($params['limit'])) $this->db->limit($params['limit']);
     	
-    	$this->db->order_by('created_on', 'DESC');
-        $query = $this->db->get('news');
-        if ($query->num_rows() == 0) {
-            return FALSE;
-        } else {
-            return $query->result();
-        }
+    	return $this->get_all();
     }
 
 	function count_by($params = array())
@@ -96,31 +98,19 @@ class News_m extends MY_Model
 
     function insert($input = array())
     {
-    	$this->load->helper('date');
-
     	if(isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
     	{
-    		$created_on = mktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
+    		$input['created_on'] = mktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
     	}
     	
     	// Otherwise, use now
     	else
     	{
-    		$created_on = now();
+    		$this->load->helper('date');
+    		$input['created_on'] = now();
     	}
 
-    	$this->db->insert('news', array(
-            'title'			=> $input['title'],
-            'slug'			=> url_title($input['title']),
-            'category_id'	=> $input['category_id'],
-            'intro'			=> $input['intro'],
-            'body'			=> $input['body'],
-            'status'		=> $input['status'],
-            'created_on'	=> $created_on,
-    		'updated_on'	=> 0
-    	));
-
-    	return $this->db->insert_id();
+    	return parent::insert($input);
     }
     
     function update($input, $id = 0)
@@ -132,7 +122,7 @@ class News_m extends MY_Model
             
     	$set = array(
             'title'			=> $input['title'],
-            'slug'			=> url_title($input['title']),
+            'slug'			=> $input['slug'],
             'category_id'	=> $input['category_id'],
             'intro'			=> $input['intro'],
             'body'			=> $input['body'],
