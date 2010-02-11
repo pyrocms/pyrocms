@@ -78,6 +78,7 @@ class Admin_Controller extends MY_Controller
 
 	    // Template configuration
 	    $this->template->set_layout('admin/layout');
+	    $this->template->enable_parser(FALSE);
 	    
 	    $this->template->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( js('jquery/jquery-ui.min.js') )
