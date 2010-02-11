@@ -137,6 +137,7 @@ div#content {padding-top:25px;}
 	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
 	
 	form.crud fieldset {padding-top:10px; border:0;}
+	form.crud ol li {margin-bottom:1em;}
 	form.crud ol li {padding:15px;}
 	form.crud ol li.even {background:#f3f3f3;}
 	
@@ -146,8 +147,7 @@ div#content {padding-top:25px;}
 	
 	form.crud ol li input[type="text"], form.crud ol li textarea {width:400px;}
 	
-	form.crud input[type="text"].short {width:122px;}
-	form.crud input[type="text"].long, form.crud ol li textarea {width:305px;}
+	form.crud input[type="text"].short, form.crud ol li textarea.short {width:305px;}
 	
 	form.crud label {float:left; margin-right:15px; display:block; font-weight:bold; width:180px; padding-top:3px;}
 	
