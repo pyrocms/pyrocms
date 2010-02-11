@@ -100,7 +100,7 @@
 					</li>
 					<li class="even">
 						<label for="meta_description"><?php echo lang('page_meta_desc_label');?></label>
-						<textarea id="meta_description" name="meta_description"><?php echo $page->meta_description; ?></textarea>
+						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
 					</li>
 				</ol>
 				
@@ -116,5 +116,5 @@
 </div>
 
 <script type="text/javascript">
-	css_editor('css_editor', "37em");
+	css_editor('css_editor', "39em");
 </script>

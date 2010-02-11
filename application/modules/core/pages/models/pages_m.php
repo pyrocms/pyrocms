@@ -104,10 +104,10 @@ class Pages_m extends MY_Model
         }
         
 		return @$this->db->select('id')
-					->where('path', $path)
-					->get('pages_lookup')
-					->row()
-					->id;
+			->where('path', $path)
+			->get('pages_lookup')
+			->row()
+			->id;
 	}
 	
 	function build_lookup($id)

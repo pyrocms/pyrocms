@@ -189,7 +189,7 @@ class News_m extends MY_Model
 
 	function check_slug($slug = '')
     {
-		return parent::count_by('slug', $slug) === 0;
+		return parent::count_by('slug', $slug) == 0;
     }
 }
 
