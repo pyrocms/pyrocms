@@ -114,20 +114,17 @@ class MY_Parser extends CI_Parser {
 		// TODO: Remove this for v1.0
 		$string = preg_replace('/\{page_url\[([0-9]+)\]\}/', '{page_url($1)}', $string);
 		
-        // Object containing data
-        $dwoo_data = new Dwoo_Data();
-        
         // Convert from object to array
-        if(is_object($data))
+        if(!is_array($data))
         {
         	$data = (array) $data;
         }
         
-        // If not an empty array, set data
-        if(is_array($data) && $data !== array())
-        {
-	        $dwoo_data->setData($data);
-        }
+        $data['ci'] =& $this->ci;
+
+        // Object containing data
+        $dwoo_data = new Dwoo_Data;
+        $dwoo_data->setData($data);
         
         try
         {

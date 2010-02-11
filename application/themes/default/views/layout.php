@@ -6,9 +6,9 @@
 
 <body>
 
-	<?php if($this->settings->item('google_analytic')): ?>
-		<?php $this->load->view('fragments/google_analytic'); ?>
-	<?php endif; ?>
+	{if($this->settings->item('google_analytic')}
+		{$ci->load->view('fragments/google_analytic')}
+	{/if}
 	
 	<div id="header">
 		{theme_view('header')}
@@ -35,37 +35,33 @@
 				
 			</div>
 			
-			<?php if(module_exists('newsletters')): ?>
+			{if(module_exists('newsletters')}
 			<div id="subscribe_newsletter">
-				<?php $this->load->view('newsletters/subscribe_form') ?>
+				{$ci->load->view('newsletters/subscribe_form')}
 			</div>
-			<?php endif; ?>
+			{/if}
 	
-			<?php if(module_exists('news')): ?>
+			{if(module_exists('news')}
 			<div id="recent-posts">
 				<h2>Recent Posts</h2>
-				<?php echo $this->news_m->get_news_fragment(); ?>
+				{$ci->news_m->get_news_fragment()}
 			</div>
-			<?php endif; ?>
+			{/if}
 			
 		</div>
 
 
 		<div id="right-column">
-		
-			<div class="breadcrumbs">
-				{theme_view('breadcrumbs')}
-			</div>
-		
-			<?php if ($this->session->flashdata('notice')) {
-		    	echo '<div class="notice-box">' . $this->session->flashdata('notice') . '</div>';
-		    } ?>
-		    <?php if ($this->session->flashdata('success')) {
-		    	echo '<div class="success-box">' . $this->session->flashdata('success') . '</div>';
-		    } ?>
-		    <?php if ($this->session->flashdata('error')) {
-		    	echo '<div class="error-box">' . $this->session->flashdata('error') . '</div>';
-		    } ?>
+			
+			{if $ci->session->flashdata('notice')}
+		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
+		    {/if}
+		    {if $ci->session->flashdata('success')}
+		    	<div class="success-box">{$ci->session->flashdata('success')}</div>
+		    {/if}
+		    {if $ci->session->flashdata('error')}
+		    	<div class="error-box">{$ci->session->flashdata('error')}</div>
+		    {/if}
 		
 		    {$template.body}
 	    		

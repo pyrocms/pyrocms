@@ -5,5 +5,5 @@
 
 	<br />
 	
-	&copy;2008 - <?php echo date('Y');?> by <?php echo $this->settings->item('site_name'); ?>. All Rights Reserved. &nbsp;&bull;&nbsp; Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
+	&copy;2008 - {date('Y')} by {$ci->settings->item('site_name')}. All Rights Reserved. &nbsp;&bull;&nbsp; Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
 </p>

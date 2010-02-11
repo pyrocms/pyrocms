@@ -1,11 +1,11 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>{$template.title} | <?php echo $this->settings->item('site_name'); ?></title>
+<title>{$template.title} | {$ci->settings->item('site_name')}</title>
 
-<!-- Language: <?php echo CURRENT_LANGUAGE ?> -->
+<!-- Language: {$global.current_language} -->
 
 <script type="text/javascript">
-    var APPPATH_URI = "<?php echo $this->config->item('asset_dir');?>";
-    var BASE_URI = "<?php echo BASE_URI;?>";
+    var APPPATH_URI = "{$global.application_uri}";
+    var BASE_URI = "{$global.base_uri}";
 </script>
 
 {css('style.css')}

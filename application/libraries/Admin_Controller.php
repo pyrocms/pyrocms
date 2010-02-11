@@ -96,8 +96,6 @@ class Admin_Controller extends MY_Controller
 	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
 	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);
 	    
-	    $this->template->enable_parser(false);
-	    
 	    //$this->output->enable_profiler(TRUE);
 	}    
 }
