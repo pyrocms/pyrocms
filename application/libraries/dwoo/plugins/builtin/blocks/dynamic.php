@@ -27,9 +27,9 @@ class Dwoo_Plugin_dynamic extends Dwoo_Block_Plugin implements Dwoo_ICompilable_
 
 	public static function postProcessing(Dwoo_Compiler $compiler, array $params, $prepend, $append, $content)
 	{
-		$output = Dwoo_Compiler::PHP_OPEN . 
+		$output = Dwoo_Compiler::PHP_OPEN .
 			'if($doCache) {'."\n\t".
-				'echo \'<dwoo:dynamic_\'.$dynamicId.\'>'. 
+				'echo \'<dwoo:dynamic_\'.$dynamicId.\'>'.
 				str_replace('\'', '\\\'', $content) .
 				'</dwoo:dynamic_\'.$dynamicId.\'>\';'.
 			"\n} else {\n\t";
@@ -42,19 +42,24 @@ class Dwoo_Plugin_dynamic extends Dwoo_Block_Plugin implements Dwoo_ICompilable_
 					$output = substr($output, 0, -strlen(Dwoo_Compiler::PHP_CLOSE));
 				} else {
 					$output .= Dwoo_Compiler::PHP_OPEN;
-				}				
+				}
 			$output .= "\n}". Dwoo_Compiler::PHP_CLOSE;
 
 		return $output;
 	}
-	
-	public static function unescape($output, $dynamicId)
+
+	public static function unescape($output, $dynamicId, $compiledFile)
 	{
-		return preg_replace_callback('/<dwoo:dynamic_('.$dynamicId.')>(.+?)<\/dwoo:dynamic_'.$dynamicId.'>/', array('self', 'unescapePhp'), $output);
+		$output = preg_replace_callback('/<dwoo:dynamic_('.$dynamicId.')>(.+?)<\/dwoo:dynamic_'.$dynamicId.'>/s', array('self', 'unescapePhp'), $output, -1, $count);
+		// re-add the includes on top of the file
+		if ($count && preg_match('#/\* template head \*/(.+?)/\* end template head \*/#s', file_get_contents($compiledFile), $m)) {
+			$output = '<?php '.$m[1].' ?>'.$output;
+		}
+		return $output;
 	}
-	
+
 	public static function unescapePhp($match)
 	{
-		return preg_replace('{<\?php /\*'.$match[1].'\*/ echo \'(.+?)\'; \?>}', '$1', $match[2]);
+		return preg_replace('{<\?php /\*'.$match[1].'\*/ echo \'(.+?)\'; \?>}s', '$1', $match[2]);
 	}
 }

@@ -263,7 +263,7 @@ class Dwoo_Template_String implements Dwoo_ITemplate
 		if (isset(self::$cache['cached'][$this->cacheId]) === true && file_exists($cachedFile)) {
 			// already checked, return cache file
 			return $cachedFile;
-		} elseif ($this->compilationEnforced !== true && file_exists($cachedFile) && ($cacheLength === -1 || filemtime($cachedFile) > ($_SERVER['REQUEST_TIME'] - $cacheLength))) {
+		} elseif ($this->compilationEnforced !== true && file_exists($cachedFile) && ($cacheLength === -1 || filemtime($cachedFile) > ($_SERVER['REQUEST_TIME'] - $cacheLength)) && $this->isValidCompiledFile($this->getCompiledFilename($dwoo))) {
 			// cache is still valid and can be loaded
 			self::$cache['cached'][$this->cacheId] = true;
 			return $cachedFile;

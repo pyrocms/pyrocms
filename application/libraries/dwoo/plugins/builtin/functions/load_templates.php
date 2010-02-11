@@ -47,6 +47,9 @@ function Dwoo_Plugin_load_templates_compile(Dwoo_Compiler $compiler, $file)
 	foreach ($cmp->getTemplatePlugins() as $template=>$args) {
 		$compiler->addTemplatePlugin($template, $args['params'], $args['uuid'], $args['body']);
 	}
+	foreach ($cmp->getUsedPlugins() as $plugin=>$type) {
+		$compiler->addUsedPlugin($plugin, $type);
+	}
 
 	$out = '\'\';// checking for modification in '.$resource.':'.$identifier."\r\n";
 	

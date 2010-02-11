@@ -68,8 +68,20 @@ class Dwoo_Plugin_template extends Dwoo_Block_Plugin implements Dwoo_ICompilable
 
 		$funcName = 'Dwoo_Plugin_'.$params['name'].'_'.$params['uuid'];
 
+		$search = array(
+			'$this->charset',
+			'$this->',
+			'$this,',
+		);
+		$replacement = array(
+			'$dwoo->getCharset()',
+			'$dwoo->',
+			'$dwoo,',
+		);
+		$content = str_replace($search, $replacement, $content);
+
 		$body = 'if (!function_exists(\''.$funcName."')) {\nfunction ".$funcName.'('.$paramstr.') {'."\n$init".Dwoo_Compiler::PHP_CLOSE.
-			$prepend.str_replace(array('$this->','$this,'), array('$dwoo->', '$dwoo,'), $content).$append.
+			$prepend.$content.$append.
 			Dwoo_Compiler::PHP_OPEN.$cleanup."\n}\n}";
 		$compiler->addTemplatePlugin($params['name'], $params['*'], $params['uuid'], $body);
 	}

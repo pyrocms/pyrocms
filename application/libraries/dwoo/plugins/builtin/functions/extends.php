@@ -74,9 +74,15 @@ class Dwoo_Plugin_extends extends Dwoo_Plugin implements Dwoo_ICompilable
 			}
 			$inheritanceTree[] = $newParent;
 
-			if (preg_match('/^'.self::$l.'extends\s+(?:file=)?\s*(\S+?|(["\']).+?\2)'.self::$r.'/i', $parent->getSource(), $match)) {
+			if (preg_match('/^'.self::$l.'extends\s+(?:file=)?\s*((["\']).+?\2|\S+?)'.self::$r.'/i', $parent->getSource(), $match)) {
 				$curPath = dirname($identifier) . DIRECTORY_SEPARATOR;
-				$file = (substr($match[1], 0, 1) !== '"' && substr($match[1], 0, 1) !== '"') ? '"'.str_replace('"', '\\"', $match[1]).'"' : $match[1];
+				if (isset($match[2]) && $match[2] == '"') {
+					$file = '"'.str_replace('"', '\\"', substr($match[1], 1, -1)).'"';
+				} elseif (isset($match[2]) && $match[2] == "'") {
+					$file = '"'.substr($match[1], 1, -1).'"';
+				} else {
+					$file = '"'.$match[1].'"';
+				}
 			} else {
 				$file = false;
 			}

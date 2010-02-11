@@ -146,6 +146,8 @@ class Dwoo_Data implements Dwoo_IDataProvider
    		} elseif ($val !== null) {
 			if (isset($this->data[$name]) && !is_array($this->data[$name])) {
 				settype($this->data[$name], 'array');
+			} elseif (!isset($this->data[$name])) {
+				$this->data[$name] = array();
 			}
 
 			if ($merge === true && is_array($val)) {
