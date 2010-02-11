@@ -13,7 +13,7 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->model('navigation_m');
 		$this->load->model('pages/pages_m');
-		$this->load->helper('array');		
+		$this->load->helper('array');
 		$this->lang->load('navigation');
 		
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
@@ -119,6 +119,7 @@ class Admin extends Admin_Controller
 		$this->load->library('validation');
 		
 		$rules['title'] 				= 'trim|required|max_length[40]';
+		$rules['link_type']				= 'trim|alpha';
 		$rules['url'] 					= 'trim';
 		$rules['uri'] 					= 'trim';
 		$rules['module_name'] 			= 'trim|alpha_dash';
