@@ -120,6 +120,8 @@ class MY_Parser extends CI_Parser {
         	$data = (array) $data;
         }
         
+        $data = array_merge($data, $this->ci->load->_ci_cached_vars);
+        
         $data['ci'] =& $this->ci;
 
         // Object containing data

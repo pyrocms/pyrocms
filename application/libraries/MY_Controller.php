@@ -37,10 +37,12 @@ class MY_Controller extends Controller
         $this->data->controller 	=& $this->controller;
         $this->data->method 		=& $this->method;
         
-        $this->data->global['base_url']			= BASE_URL;
-        $this->data->global['base_uri'] 		= BASE_URI;
-        $this->data->global['application_uri'] 	= APPPATH_URI;
-        $this->data->global['current_language'] = CURRENT_LANGUAGE;
+        $global['base_url']			= BASE_URL;
+        $global['base_uri'] 		= BASE_URI;
+        $global['application_uri'] 	= APPPATH_URI;
+        $global['current_language'] = CURRENT_LANGUAGE;
+        
+        $this->load->vars('global', $global);
         
         $this->benchmark->mark('my_controller_end');
 	}
