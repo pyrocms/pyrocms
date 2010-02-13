@@ -23,11 +23,6 @@
 					<?php echo form_dropdown('navigation_group_id', $groups_select, $navigation_link->navigation_group_id, 'size="'.count($groups_select).'"') ?>
 				</li>
 				
-				<li>
-					<label for="position"><?php echo lang('nav_position_label');?></label>
-					<?php echo form_input('position', $navigation_link->position, 'class="width-5"'); ?>
-				</li>
-				
 				<li class="even">
 					<label for="target"><?php echo lang('nav_target_label'); ?></label>
 					<?php echo form_dropdown('target', array(''=> lang('nav_link_target_self'), '_blank' => lang('nav_link_target_blank')), $navigation_link->target); ?>

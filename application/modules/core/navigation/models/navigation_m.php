@@ -83,7 +83,15 @@ class Navigation_m extends Model
 	function insert_link($input = array())
 	{
 		$input = $this->_format_array($input);
-		 
+		
+		$position = $this->db->order_by('position', 'desc')
+			->limit(1)
+			->get_where('navigation_links', array('navigation_group_id' => (int) $input['navigation_group_id']))
+			->row()
+			->position;
+		
+		$position++;
+		
 		$this->db->insert('navigation_links', array(
         	'title' 				=> $input['title'],
         	'link_type' 			=> $input['link_type'],
@@ -91,7 +99,7 @@ class Navigation_m extends Model
         	'uri' 					=> $input['uri'],
         	'module_name' 			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
-        	'position'				=> (int) $input['position'],
+        	'position' 				=> $position,
 			'target'				=> $input['target'],
         	'navigation_group_id'	=> (int) $input['navigation_group_id']
 		));
@@ -111,7 +119,6 @@ class Navigation_m extends Model
         	'uri' 					=> $input['uri'],
         	'module_name'			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
-        	'position' 				=> (int) $input['position'],
 			'target'				=> $input['target'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id']
 		), array('id' => $id));

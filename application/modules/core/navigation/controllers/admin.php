@@ -67,7 +67,6 @@ class Admin extends Admin_Controller
 		$rules['module_name'] 			= 'trim|alpha_dash';
 		$rules['page_id'] 				= 'trim|numeric';
 		$rules['navigation_group_id'] 	= 'trim|numeric|required';
-		$rules['position'] 				= 'trim|numeric|required';
 		$rules['target']				= 'trim|max_length[10]';
 		
 		$this->validation->set_rules($rules);
@@ -125,7 +124,6 @@ class Admin extends Admin_Controller
 		$rules['module_name'] 			= 'trim|alpha_dash';
 		$rules['page_id'] 				= 'trim|numeric';
 		$rules['navigation_group_id'] 	= 'trim|numeric|required';
-		$rules['position'] 				= 'trim|numeric|required';
 		$rules['target']				= 'trim|max_length[10]';
 		
 		$this->validation->set_rules($rules);
