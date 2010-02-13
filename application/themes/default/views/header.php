@@ -1,13 +1,13 @@
 <div class="float-left">
-	<h1>{$ci->settings->item('site_name'); ?></h1>
-	<h2>{$ci->settings->item('site_slogan'); ?></h2>
+	<h1>{$ci->settings->item('site_name')}</h1>
+	<h2>{$ci->settings->item('site_slogan')}</h2>
 </div>
 
 <div class="float-right" style="padding:1em;text-align:right">
 	{if $ci->session->userdata('user_id')}
-		{sprintf(lang('logged_in_welcome'), $user->first_name.' '.$user->last_name );?> <a href="{site_url('users/logout')}">{lang('logout_label')}</a><br/>
+		{sprintf(lang('logged_in_welcome'), $user->first_name.' '.$user->last_name )} <a href="{site_url('users/logout')}">{lang('logout_label')}</a><br/>
 	
-		{if $this->settings->item('enable_profiles')}
+		{if $ci->settings->item('enable_profiles')}
 			{anchor('edit-profile', lang('edit_profile_label'))}| 
 		{/if}
 		
@@ -18,6 +18,6 @@
 		{/if}
 		
 	{else}
-		{$ci->load->view('users/login_small'); ?>
+		{$ci->load->view('users/login_small')}
 	{/if}
 </div>
