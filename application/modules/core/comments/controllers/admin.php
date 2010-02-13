@@ -21,7 +21,7 @@ class Admin extends Admin_Controller
 		
 		// Create pagination links
 		$total_rows = $this->comments_m->count_by('is_active', 0);
-		$this->data->pagination = create_pagination('admin/comments', $total_rows);
+		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
 		
 		// get all comments
 		$this->data->comments = $this->comments_m->get_comments(array(

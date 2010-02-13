@@ -4,13 +4,15 @@
 
 	<div class="box-container">
 	
-		<?php echo form_open_multipart('admin/themes/upload', 'class="crud"');?>
+		<?php echo form_open_multipart('admin/themes/upload', 'enctype="multipart/form-data" class="crud"');?>
 	
-			<p>
-				<?php echo lang('themes.upload_desc');?><br />
-				<input id="fileToUpload" type="file" name="userfile" class="input">
-			</p>
-		
+			<ol>
+				<li>
+					<label for="userfile"><?php echo lang('themes.upload_desc');?></label><br/>
+					<input type="file" name="userfile" class="input" />
+				</li>
+			</ol>
+			
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?>
 		<?php echo form_close(); ?>
 	
