@@ -13,12 +13,12 @@
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 	
 			<ol>
-				<li>
+				<li class="even">
 					<label for="title"><?php echo lang('nav_text_label');?></label>
 					<?php echo form_input('title', $navigation_link->title, 'maxlength="50"'); ?>
 				</li>
 					
-				<li class="even">
+				<li>
 					<label for="navigation_group_id"><?php echo lang('nav_group_label');?></label>
 					<?php echo form_dropdown('navigation_group_id', $groups_select, $navigation_link->navigation_group_id, 'size="'.count($groups_select).'"') ?>
 				</li>
