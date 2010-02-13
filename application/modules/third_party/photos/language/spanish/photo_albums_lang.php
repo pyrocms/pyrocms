@@ -1,40 +1,40 @@
 <?php
 
 // labels
-$lang['photo_albums.album_label'] 				= 'Album';
-$lang['photo_albums.number_of_photo_label'] 	= 'Number of photos';
-$lang['photo_albums.updated_label'] 			= 'Updated';
-$lang['photo_albums.actions_label'] 			= 'Actions';
-$lang['photo_albums.upload_label'] 				= 'Upload';
-$lang['photo_albums.view_label'] 				= 'View';
-$lang['photo_albums.edit_label'] 				= 'Edit';
-$lang['photo_albums.manage_label'] 				= 'Manage';
-$lang['photo_albums.delete_label'] 				= 'Delete';
-$lang['photo_albums.title_label'] 				= 'Title';
-$lang['photo_albums.desc_label'] 				= 'Description';
-$lang['photo_albums.parent_album_label'] 		= 'Parent album';
-$lang['photo_albums.no_parent_select_label'] 	= '-- None --';
+$lang['photo_albums.album_label'] 				= 'Álbum';
+$lang['photo_albums.number_of_photo_label'] 	= 'Número de fotos';
+$lang['photo_albums.updated_label'] 			= 'Actualizado';
+$lang['photo_albums.actions_label'] 			= 'Acciones';
+$lang['photo_albums.upload_label'] 				= 'Subir';
+$lang['photo_albums.view_label'] 				= 'Ver';
+$lang['photo_albums.edit_label'] 				= 'Editar';
+$lang['photo_albums.manage_label'] 				= 'Administrar';
+$lang['photo_albums.delete_label'] 				= 'Eliminar';
+$lang['photo_albums.title_label'] 				= 'Título';
+$lang['photo_albums.desc_label'] 				= 'Descripción';
+$lang['photo_albums.parent_album_label'] 		= 'Álbum padre';
+$lang['photo_albums.no_parent_select_label'] 	= '-- Ninguno --';
 
 // titles
-$lang['photo_albums.manage_title'] 				= 'Photos in this album';
-$lang['photo_albums.add_photo_title'] 			= 'Add a photo';
-$lang['photo_albums.add_title'] 				= 'Add an album';
-$lang['photo_albums.edit_title'] 				= 'Edit album "%s"';
-$lang['photo_albums.list_title'] 				= 'List albums';
+$lang['photo_albums.manage_title'] 				= 'Fotografías en este álbum';
+$lang['photo_albums.add_photo_title'] 			= 'Agregar fotografía';
+$lang['photo_albums.add_title'] 				= 'Agregar álbum';
+$lang['photo_albums.edit_title'] 				= 'Editar álbum "%s"';
+$lang['photo_albums.list_title'] 				= 'Listar álbumes';
 
 // messages
-$lang['photo_albums.no_albums_error'] 			= 'There are no photo albums.';
-$lang['photo_albums.no_photos_in_album_error'] 	= 'There are no photos in this album.';
+$lang['photo_albums.no_albums_error'] 			= 'No hay álbumes fotográficos.';
+$lang['photo_albums.no_photos_in_album_error'] 	= 'No hay fotografías en este álbum.';
 
-$lang['photo_albums.add_success'] 				= 'The photo album "%s" was saved.';
-$lang['photo_albums.add_error'] 				= 'There was a problem adding this photo album.';
-$lang['photo_albums.edit_success'] 				= 'The album "%s" was saved.';
-$lang['photo_albums.edit_error'] 				= 'There was a problem updating this photo album.';
-$lang['photo_albums.delete_no_select_error'] 	= 'You need to select one or more photo albums to delete.';
-$lang['photo_albums.delete_error'] 				= 'Error occurred while trying to delete photo album "%s"';
-$lang['photo_albums.delete_dir_error'] 			= 'Unable to delete directory "%s"';
-$lang['photo_albums.mass_delete_success'] 		= '%s photo albums out of %s successfully deleted.';
+$lang['photo_albums.add_success'] 				= 'El álbum fotográfico "%s" ha sido grabado.';
+$lang['photo_albums.add_error'] 				= 'Ha ocurrido un problema al tratar de agregar este álbum fotográfico.';
+$lang['photo_albums.edit_success'] 				= 'El álbum "%s" ha sido grabado correctamente.';
+$lang['photo_albums.edit_error'] 				= 'Ha ocurrido un problema al tratar de actualizar este álbum.';
+$lang['photo_albums.delete_no_select_error'] 	= 'Necesitas seleccionar al menos un álbum fotográfico para eliminar.';
+$lang['photo_albums.delete_error'] 				= 'Ha ocurrido un error al tratar de eliminar el álbum fotográfico "%s"';
+$lang['photo_albums.delete_dir_error'] 			= 'No se ha podido eliminar el directorio "%s"';
+$lang['photo_albums.mass_delete_success'] 		= '%s de %s álbumes fotográficos han sido eliminados.';
 
-$lang['photo_albums.name_already_exist_error'] 	= 'A photo album with this name already exists.';
+$lang['photo_albums.name_already_exist_error'] 	= 'Ya existe un álbum fotográfico con este nombre.';
 
 ?>
