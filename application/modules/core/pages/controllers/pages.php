@@ -72,7 +72,11 @@ class Pages extends Public_Controller
         }
         
     	// If the GET variable isbasic exists, do not use a wrapper
-	    $page->layout = $this->page_layouts_m->get($page->layout_id);
+	    if(!$page->layout = $this->page_layouts_m->get($page->layout_id))
+	    {
+	    	// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
+	    	$page->layout = $this->page_layouts_m->get(1);
+	    }
 	    
         // Parser does not need ALL information for this bit, and I hate the Dwoo object syntax
         $page_array = array('page' => (array) $page);
