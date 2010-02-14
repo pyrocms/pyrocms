@@ -2,7 +2,6 @@
 
 // labels
 $lang['nav_title_label'] 						= 'Título';
-$lang['nav_position_label'] 					= 'Posición';
 $lang['nav_target_label']						= 'Target (Donde abrirá el link)';
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Actciones';

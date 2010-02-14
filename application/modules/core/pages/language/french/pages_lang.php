@@ -2,9 +2,9 @@
 
 // tabs
 $lang['page_content_label'] 					= 'Contenu de la page';
-$lang['page_design_label'] 						= 'Design'; #translate
+$lang['page_design_label'] 						= 'Design';
 $lang['page_meta_label'] 						= 'Méta données';
-$lang['page_detail_label'] 						= 'Details'; #translate
+$lang['page_detail_label'] 						= 'Détails';
 
 // labels
 $lang['page_page_label'] 						= 'Page';
@@ -14,18 +14,18 @@ $lang['page_actions_label'] 					= 'Actions';
 $lang['page_unknown_label'] 					= 'Inconnu';
 $lang['page_title_label'] 						= 'Titre';
 $lang['page_slug_label'] 						= 'URL';
-$lang['page_body_label'] 						= 'Page body'; #translate
+$lang['page_body_label'] 						= 'Corps de la page'; 
 $lang['page_no_selection_label'] 				= '-- Aucune --';
 $lang['page_meta_title_label'] 					= 'Meta title';
 $lang['page_meta_keywords_label'] 				= 'Meta keywords';
 $lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_layout_id_label'] 					= 'Page Layout'; #translate
+$lang['page_layout_id_label'] 					= 'Modèle'; 
 $lang['page_css_label'] 						= 'CSS';
-$lang['page_access_label'] 						= 'Accèss';
+$lang['page_access_label'] 						= 'Accès';
 
 $lang['page_status_label'] 						= 'Statut';
 $lang['page_draft_label'] 						= 'Brouillon';
-$lang['page_live_label'] 						= 'Live';
+$lang['page_live_label'] 						= 'Publié';
 
 $lang['page_view_label'] 						= 'Visualiser';
 $lang['page_create_label'] 						= 'Ajouter enfant';
@@ -33,11 +33,11 @@ $lang['page_edit_label'] 						= 'Modifier';
 $lang['page_delete_label'] 						= 'Supprimer';
 
 // titles
-$lang['page_create_title'] 						= 'Créer un page';
+$lang['page_create_title'] 						= 'Créer une page';
 $lang['page_edit_title'] 						= 'Modifier la page "%s"';
-$lang['page_list_title'] 						= 'List pages'; #translate
-$lang['page_layouts_create_title'] 				= 'Add page layout'; #translate
-$lang['page_layouts_list_title'] 				= 'List page layouts'; #translate
+$lang['page_list_title'] 						= 'Lister les pages'; 
+$lang['page_layouts_create_title'] 				= 'Ajouter un modèle';
+$lang['page_layouts_list_title'] 				= 'Lister les modèles';
 
 // messages
 $lang['page_no_pages'] 							= 'Il n\'y a aucune page.';

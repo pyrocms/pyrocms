@@ -2,15 +2,14 @@
 
 // labels
 $lang['nav_title_label'] 						= 'Titre';
-$lang['nav_position_label'] 					= 'Position';
-$lang['nav_target_label']						= 'Target'; #translate
+$lang['nav_target_label']						= 'Cible';
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Actions';
 $lang['nav_details_label'] 						= 'Détails';
 $lang['nav_text_label'] 						= 'Texte';
 $lang['nav_group_label'] 						= 'Groupe';
 $lang['nav_location_label'] 					= 'Ou';
-$lang['nav_type_label'] 						= 'Link type'; #translate
+$lang['nav_type_label'] 						= 'Type de lien';
 $lang['nav_uri_label'] 							= 'Lien interne (URI)';
 $lang['nav_page_label'] 						= 'Page';
 $lang['nav_module_label'] 						= 'Module';
@@ -21,14 +20,14 @@ $lang['nav_group_delete_label']					= 'Supprimer le groupe "%s"';
 $lang['nav_link_module_select_default'] 		= '-- Selectionner --';
 $lang['nav_link_page_select_default'] 			= '-- Selectionner --';
 
-$lang['nav_link_target_self'] 					= 'Current window (default)'; #translate
-$lang['nav_link_target_blank'] 					= 'New window (_blank)'; #translate
+$lang['nav_link_target_self'] 					= 'Fenêtre actuelle (default)'; 
+$lang['nav_link_target_blank'] 					= 'Nouvelle fenêtre (_blank)'; 
 
 // titles
-$lang['nav_link_create_title'] 					= 'Add navigation link'; #translate
+$lang['nav_link_create_title'] 					= 'Ajouter un lien de navigation'; 
 $lang['nav_group_create_title']					= 'Ajouter un groupe';
-$lang['nav_link_edit_title'] 					= 'Edit navigation link "%s"'; #translate
-$lang['nav_link_list_title'] 					= 'List links'; #translate
+$lang['nav_link_edit_title'] 					= 'Editer le lien "%s"'; 
+$lang['nav_link_list_title'] 					= 'Lister les liens';
 
 // messages
 $lang['nav_group_no_links'] 					= 'Il n\'a pas de lien dans ce groupe.';
@@ -43,6 +42,6 @@ $lang['nav_link_not_exist_error'] 				= 'Ce lien de navigation n\'existe pas.';
 $lang['nav_link_edit_success'] 					= 'Le lien de navigation a été enregistré.';
 $lang['nav_link_delete_success'] 				= 'Le lien de navigation a été supprimé.';
 
-$lang['nav_link_type_desc'] 					= 'Please select a link type to be given more options to create your link.'; #translate
+$lang['nav_link_type_desc'] 					= 'Veuillez sélectionnez un type de liens pour afficher les options de création possible pour le lien';
 
 ?>

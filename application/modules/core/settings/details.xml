@@ -8,7 +8,7 @@
 	<description>
 		<en>Allows admins and staff to change website settings such as site name and description.</en>
 		<es>Permite a los administradores y al personal configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.</es>
-		<fr>Pertmet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description</fr>
+		<fr>Permet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description</fr>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>

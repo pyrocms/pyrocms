@@ -1,12 +1,12 @@
 <?php
 
 // labels
-$lang['news_posted_label'] 							= 'Envoyé vers'; // #translate
-$lang['news_posted_label_alt']						= 'Envoyé à'; // #translate
+$lang['news_posted_label'] 							= 'Envoyé vers';
+$lang['news_posted_label_alt']						= 'Envoyé à';
 $lang['news_category_label'] 						= 'Catégorie';
 $lang['news_post_label'] 							= 'Envoi';
 $lang['news_date_label'] 							= 'Date';
-$lang['news_date_at']								= 'le'; // #translate
+$lang['news_date_at']								= 'le';
 $lang['news_time_label'] 							= 'Heure';
 $lang['news_status_label'] 							= 'Statut';
 $lang['news_actions_label'] 						= 'Actions';
@@ -38,7 +38,7 @@ $lang['news_archive_title'] 						= 'Archiver';
 $lang['news_articles_title'] 						= 'Articles';
 $lang['news_rss_articles_title'] 					= 'Article d\'actualité pour %s';
 $lang['news_news_title'] 							= 'Actualités';
-$lang['news_list_title'] 							= 'List articles'; #translate
+$lang['news_list_title'] 							= 'Lister les articles'; 
 
 // messages
 $lang['news_no_articles'] 							= 'Il n\'y a pas d\'articles.';
@@ -54,7 +54,7 @@ $lang['news_publish_error'] 						= 'Aucun article n\'a été publié.';
 $lang['news_delete_success'] 						= 'Les articles "%s" ont été supprimés.';
 $lang['news_mass_delete_success'] 					= 'Les articles "%s" ont été supprimés.';
 $lang['news_delete_error'] 							= 'Aucun article n\'a été supprimé.';
-$lang['news_already_exist_error'] 					= 'An article with this URL already exists.'; #translate
+$lang['news_already_exist_error'] 					= 'Un article avec cet URL existe déjà.';
 
 $lang['news_twitter_posted'] 						= 'Envoyé "%s" %s';
 

@@ -18,8 +18,8 @@ $lang['perm_module_select_default'] 		= '-- Tous les Modules --';
 $lang['perm_controller_select_default'] 	= '-- Tous les Controllers--';
 $lang['perm_method_select_default'] 		= '-- Toutes les Méthodes--';
 
-$lang['perm_rule_add'] 						= 'Add a rule'; #translate
-$lang['perm_rule_list'] 					= 'List rules'; #translate
+$lang['perm_rule_add'] 						= 'Ajouter une règle';
+$lang['perm_rule_list'] 					= 'Lister les rules';
 $lang['perm_rule_edit'] 					= 'Modifier';
 $lang['perm_rule_delete'] 					= 'Supprimer';
 $lang['perm_rule_desc'] 					= 'Le Règles peuvent être associées aux <strong>utilisateurs <small>(bientôt prêt)</small></strong> ou pour chaque <strong>rôles</strong>. Sélectionnez le "Type" de règles puis sélectionnez l\'utilisateur ou le rôle utilisateur auquel elle(s) s\'appliquent.';
@@ -30,8 +30,8 @@ $lang['perm_rule_save_success'] 			= 'La rêgle de permission a été enregistr�
 $lang['perm_rule_delete_success'] 			= 'La rêgle de permission a été supprimée.';
 
 $lang['perm_role_add'] 						= 'Ajouter un rôle';
-$lang['perm_role_edit'] 					= 'Edit role'; #translate
-$lang['perm_role_delete'] 					= 'Delete role'; #translate
+$lang['perm_role_edit'] 					= 'Editer un rôle'; 
+$lang['perm_role_delete'] 					= 'Delete unrôle';
 $lang['perm_role_edit'] 					= 'Modifier';
 $lang['perm_role_delete'] 					= 'Supprimer';
 $lang['perm_role_delete_confirm'] 			= 'Etes-vous sûr de vouloir supprimer ctte permission pour ce rôle? Cela supprimera tous les liens de navigation liés à ce rôle, le fichier de  devra être édité pour enlever les références à ce rôle.';
