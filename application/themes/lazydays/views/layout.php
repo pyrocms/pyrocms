@@ -5,9 +5,9 @@
 	</head>
 	<body>
 	
-	<?php if($this->settings->item('google_analytic')): ?>
-		<?php $this->load->view('fragments/google_analytic'); ?>
-	<?php endif; ?>
+	{if $ci->settings->item('google_analytic')}
+		{$ci->load->view('fragments/google_analytic')}
+	{/if}
 	
 	<div id="content">
 	

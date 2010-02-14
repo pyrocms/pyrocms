@@ -6,7 +6,7 @@
 
 <body>
 
-	{if($this->settings->item('google_analytic')}
+	{if $ci->settings->item('google_analytic')}
 		{$ci->load->view('fragments/google_analytic')}
 	{/if}
 	
