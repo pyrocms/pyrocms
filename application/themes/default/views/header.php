@@ -5,7 +5,7 @@
 
 <div class="float-right" style="padding:1em;text-align:right">
 	{if $ci->session->userdata('user_id')}
-		{sprintf(lang('logged_in_welcome'), $user->first_name.' '.$user->last_name )} <a href="{site_url('users/logout')}">{lang('logout_label')}</a><br/>
+		{sprintf lang('logged_in_welcome') cat($user->first_name ' ' $user->last_name)} <a href="{site_url('users/logout')}">{lang('logout_label')}</a><br/>
 	
 		{if $ci->settings->item('enable_profiles')}
 			{anchor('edit-profile', lang('edit_profile_label'))}| 
