@@ -50,7 +50,7 @@
 		skin : "o2k7",
 		skin_variant : "silver",
 		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,blockquote,|,bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect,pdw_toggle",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,outdent,indent,|,bullist,numlist,|,sub,sup,|,link,unlink,|,image,tinycimm-image,media,|,forecolor,backcolor,|,charmap,emotions,advhr,|,preview,fullscreen,code,|,undo,redo",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,outdent,indent,|,bullist,numlist,|,sub,sup,|,link,unlink,anchor,|,image,tinycimm-image,media,|,forecolor,backcolor,|,charmap,emotions,advhr,|,preview,fullscreen,code,|,undo,redo",
 		theme_advanced_buttons3 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
