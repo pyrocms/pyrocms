@@ -1,7 +1,7 @@
 PyroCMS
 =======
 
-VERSION: 0.9.8-beta2
+VERSION: 0.9.8-beta3
 AUTHOR: Philip Sturgeon < email[at]philsturgeon[dot]co[dot]uk >
 
 DESCRIPTION
@@ -35,7 +35,7 @@ http://github.com/philsturgeon/pyrocms/issues
 THANKS
 ------
 
-Features
+Contributors
 
 That Lee Guy 		lee[at]thatleeguy[dot]com
 MrEnirO  			mreniro[at]gmail[dot]com
