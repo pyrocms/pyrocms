@@ -8,12 +8,12 @@
 		{sprintf lang('logged_in_welcome') cat($user->first_name ' ' $user->last_name)} <a href="{site_url('users/logout')}">{lang('logout_label')}</a><br/>
 	
 		{if $ci->settings->item('enable_profiles')}
-			{anchor('edit-profile', lang('edit_profile_label'))}| 
+			{anchor('edit-profile', lang('edit_profile_label'))} | 
 		{/if}
 		
 		{anchor('edit-settings', lang('settings_label'))}
 		
-		{if $this->user_lib->check_role('admin')}
+		{if $ci->user_lib->check_role('admin')}
 			 | {anchor('admin', lang('cp_title'), 'target="_blank"')}
 		{/if}
 		
