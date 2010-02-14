@@ -4,7 +4,7 @@
 
 	<div class="box-container">
 	
-		<?php echo form_open_multipart('admin/themes/upload', 'enctype="multipart/form-data" class="crud"');?>
+		<?php echo form_open_multipart('admin/themes/upload', array('class' => 'crud'));?>
 	
 			<ol>
 				<li>

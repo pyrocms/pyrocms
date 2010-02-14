@@ -4,7 +4,6 @@
  * Extends the CodeIgniter Config class
  *
  * @package   PyroCMS
- * @license   http://www.gnu.org/licenses/gpl.html
  */
 class MY_Config extends CI_Config
 {

@@ -13,7 +13,7 @@
 				
 				<li class="even">
 					<label><?php echo lang('photos.desc_label');?></label>
-					<?php echo form_input('description', $this->input->post('description'), 'maxlength="100"'); ?>
+					<?php echo form_input('description', set_value('description'), 'maxlength="100"'); ?>
 					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				</li>
 			</ol>
