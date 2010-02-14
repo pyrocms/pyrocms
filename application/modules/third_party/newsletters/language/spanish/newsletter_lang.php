@@ -1,7 +1,7 @@
 <?php
 
 // labels
-$lang['newsletter.sent'] 						= 'Escrito el';
+$lang['newsletter.sent'] 						= 'Enviado el';
 $lang['newsletter.subject'] 					= 'Tema';
 $lang['newsletter.created'] 					= 'Creado';
 $lang['newsletter.date'] 						= 'Fecha';

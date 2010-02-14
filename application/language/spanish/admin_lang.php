@@ -2,7 +2,7 @@
 
 $lang['cp_admin_title'] 				= 'Panel de Control';
 $lang['cp_admin_home_title'] 			= 'Tablero';
-$lang['cp_welcome'] 					= 'Bienvenido al Panel de Control de %s. Al usar el menú encima podrás controlar casi todos los aspectos de tu sitio web. Si encuentras algún problema con el sistema, por favor envía tu problema utilizando el "bugtracker" o seguidor de problemas.';
+$lang['cp_welcome'] 					= 'Bienvenido al Panel de Control de %s. Al usar el menú superior podrás controlar casi todos los aspectos de tu sitio web. Si encuentras algún problema con el sistema, por favor envía tu problema utilizando el "bugtracker" o seguidor de problemas.';
 
 // header
 $lang['cp_to_home'] 					= 'Ir al inicio del Panel de Control';
