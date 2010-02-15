@@ -34,7 +34,7 @@ function css_editor(id, width)
 			total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
 			total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
 			
-			if(row.hasClass('selected'))
+			if(checkbox.attr('checked'))
 			{
 				// Remove selected class and uncheck the box
 				row.removeClass('selected');

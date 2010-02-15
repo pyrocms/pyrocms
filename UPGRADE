@@ -2,10 +2,23 @@ UPGRADE
 =======
 
 Remember to always run these steps in order. They are ordered intentionally to either
-minimize or totally remove downtime during upgrade.
+minimize or totally remove downtime during an upgrade.
 
-24/01/2010 - v0.9.7.4 to v0.9.8
--------------------------------
+
+15/02/2010 - v0.9.8-beta3 to v0.9.8
+-----------------------------------
+
+1. Replace old files with new files.
+
+2. Run the following SQL commands: 
+
+	ALTER TABLE `photo_albums` 
+	  DROP INDEX `title`,
+	  ADD UNIQUE `Unique` ( `slug` , `parent` );
+
+
+15/02/2010 - v0.9.7.4 to v0.9.8-beta3
+-------------------------------------
 
 1. Replace old files with new files.
 
