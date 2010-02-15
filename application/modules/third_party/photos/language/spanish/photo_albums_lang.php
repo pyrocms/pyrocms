@@ -11,6 +11,7 @@ $lang['photo_albums.edit_label'] 				= 'Editar';
 $lang['photo_albums.manage_label'] 				= 'Administrar';
 $lang['photo_albums.delete_label'] 				= 'Eliminar';
 $lang['photo_albums.title_label'] 				= 'Título';
+$lang['photo_albums.slug_label'] 				= 'URL';
 $lang['photo_albums.desc_label'] 				= 'Descripción';
 $lang['photo_albums.parent_album_label'] 		= 'Álbum padre';
 $lang['photo_albums.no_parent_select_label'] 	= '-- Ninguno --';
@@ -35,6 +36,6 @@ $lang['photo_albums.delete_error'] 				= 'Ha ocurrido un error al tratar de elim
 $lang['photo_albums.delete_dir_error'] 			= 'No se ha podido eliminar el directorio "%s"';
 $lang['photo_albums.mass_delete_success'] 		= '%s de %s álbumes fotográficos han sido eliminados.';
 
-$lang['photo_albums.name_already_exist_error'] 	= 'Ya existe un álbum fotográfico con este nombre.';
+$lang['photo_albums.slug_already_exist_error'] 	= 'Ya existe un álbum fotográfico con este URL.';
 
 ?>
