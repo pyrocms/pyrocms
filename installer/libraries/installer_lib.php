@@ -250,14 +250,6 @@ class Installer_lib
 			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database.<br/><br/>' . mysql_error($this->db));
 		}
 			
-		if( !empty($data['dummy_data']) )
-		{
-			if( !$this->_process_schema('3-dummy_data-optional') )
-			{
-				return array('status' => FALSE,'message' => 'The installer could not insert the dummy (testing) data into the database.<br/><br/>' . mysql_error($this->db));
-			}
-		}
-
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close($this->db);
 		
