@@ -10,6 +10,6 @@
 </script>
         
 {css('style.css')}
-{css('layout.css', '_theme_')}
+{theme_css('layout.css')}
 	
 {$template.metadata}
