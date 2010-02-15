@@ -90,7 +90,6 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( js('jquery/jquery.imgareaselect.js') )
 	    	->append_metadata( js('jquery/tabs.pack.js') )
 	    	->append_metadata( js('admin.js') )
-	    	->append_metadata( js('admin.js') )
 	    	->append_metadata( css('admin/admin.css') );
 	    
 	    $this->template->set_partial('header', 'admin/partials/header', FALSE);

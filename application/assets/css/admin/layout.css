@@ -141,8 +141,13 @@ div#content {padding-top:25px;}
 	form.crud ol li {padding:15px;}
 	form.crud ol li.even {background:#f3f3f3;}
 	
-	form.crud ol li input,form.crud ol li textarea {
-	padding:5px; border:1px solid #dedede; background:url(../../img/admin/bg-textbox.gif) repeat-x #fff;}
+	form.crud ol li input, form.crud ol li textarea {
+		background:url(../../img/admin/bg-textbox.gif) repeat-x #fff;
+		border:1px solid #dedede;
+		-moz-border-radius:4px;
+		color:#565;
+		padding:4px;
+	}
 	form.crud ol li input[type="radio"], form.crud ol li input[type="checkbox"] {border:none; background:none;}
 	
 	form.crud ol li input[type="text"], form.crud ol li textarea {width:400px;}

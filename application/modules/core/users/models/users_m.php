@@ -77,7 +77,7 @@ class Users_m extends MY_Model
         	'lang'				=> $this->config->item('default_language'),
         	'activation_code' 	=> $input->activation_code,
         	'created_on' 		=> now(),
-			'last_login'		=> '',
+			'last_login'		=> now(),
         	'ip' 				=> $this->input->ip_address()
         ));
 	}
