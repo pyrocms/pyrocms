@@ -33,7 +33,7 @@ div#header {padding-top:20px;}
 	p#userbox a:hover {color:#fff;}
 	p#userbox small {display:block; margin-top:5px; color:#8d9599; font-size:0.9em;}
 	
-	div#top {margin-bottom:18px;}
+	div#top {margin-bottom:1.3em;}
 	
 	/** menu **/
 	ul#menu {float:left; width:100%; }
