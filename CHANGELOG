@@ -22,8 +22,14 @@ v0.9.8
 * Navigation add/edit form is now much more user-friendly.
 * Removed all CAPTCHAs and use Akismet and some clever trickery to check for spam.
 * Upgraded to Google Async Analytics.
-* Added editable 404 page which actually sends 404 header
-* Navigation links are drag/drop sortable in admin
+* Added editable 404 page which actually sends 404 header.
+* Navigation links are drag/drop sortable in admin.
+* URI slugs in News and Pages are now editable.
+* Upgraded Dwoo to v1.1.1.
+* Upgraded jQuery to v1.4.2.
+* URI slugs in News and Pages are now editable
+* Updated default theme to use entirely Dwoo syntax as an example.
+* Required metadata such as jQuery / front.js loading is now handled internally so theme designers dont need to remember it.
 
 v0.9.7.4
 --------
