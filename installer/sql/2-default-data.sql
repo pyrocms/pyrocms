@@ -13,8 +13,8 @@ TRUNCATE navigation_links;
 
 -- command split --
 
-INSERT INTO navigation_links VALUES
-  ('1', 'Home', 1, 'page', '', '', '', 1, 1, '');
+INSERT INTO navigation_links (title, link_type, page_id, navigation_group_id, position) VALUES
+  ('Home', 'page', 1, 1, 1);
 
 -- command split --
 
