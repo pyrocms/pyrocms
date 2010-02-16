@@ -10,6 +10,7 @@
 				<tr>
 					<th class="width-5"><?php echo form_checkbox('action_to_all');?></th>
 					<th><?php echo lang('var_name_label');?></th>
+					<th><?php echo lang('var_syntax_label');?></th>
 					<th><?php echo lang('var_data_label');?></th>
 					<th class="width-10"><span><?php echo lang('var_actions_label');?></span></th>
 				</tr>
@@ -27,6 +28,7 @@
 					<tr>
 						<td><?php echo form_checkbox('action_to[]', $variable->id); ?></td>
 						<td><?php echo $variable->name;?></td>
+						<td>{$variable.<?php echo $variable->name;?>}</td>
 						<td><?php echo $variable->data;?></td>
 						<td>
 							<?php echo anchor('admin/variables/edit/' . $variable->id, lang('var_edit_label')) . ' | '; ?>
