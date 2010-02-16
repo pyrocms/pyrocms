@@ -7,9 +7,11 @@ class Admin extends Admin_Controller
 	
 	function __construct()
 	{
-		parent::Admin_Controller();  
+		parent::Admin_Controller();
+		
 		$this->load->model('photos_m');   
 		$this->load->model('photo_albums_m');
+		
 		$this->lang->load('photos');
 		$this->lang->load('photo_albums');
 		
@@ -274,6 +276,22 @@ class Admin extends Admin_Controller
 		}
 		
 		redirect('admin/photos/manage/'.$album_id);
+	}
+	
+	function ajax_update_order()
+	{
+		$ids = explode(',', $this->input->post('order'));
+		
+		$i = 1;
+		
+		foreach($ids as $id)
+		{
+			$this->photos_m->update($id, array(
+				'`order`' => $i
+			));
+			
+			++$i;
+		}
 	}
 	
 	// Callback: from create()

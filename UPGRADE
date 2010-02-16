@@ -15,6 +15,9 @@ minimize or totally remove downtime during an upgrade.
 	ALTER TABLE `photo_albums` 
 	  DROP INDEX `title`,
 	  ADD UNIQUE `Unique` ( `slug` , `parent` );
+	
+	ALTER TABLE `photos`
+		ADD `order` INT(11)  NOT NULL default '0' AFTER `description`
 
 
 15/02/2010 - v0.9.7.4 to v0.9.8-beta3

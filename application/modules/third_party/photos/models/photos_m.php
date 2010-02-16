@@ -4,7 +4,7 @@ class Photos_m extends MY_Model
 {
     function get_by_album($album_id)
     {
-    	return parent::get_many_by('album_id', $album_id);
+    	return parent::order_by('`order`')->get_many_by('album_id', $album_id);
     }
     
 	function insert($image = array(), $album_id = '', $description)

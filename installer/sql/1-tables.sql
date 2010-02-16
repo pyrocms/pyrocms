@@ -261,7 +261,8 @@ CREATE TABLE `photos` (
   `album_id` int(11) NOT NULL,
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `description` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
+  `order` INT(11)  NOT NULL default '0',
+  `updated_on` INT(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
 
