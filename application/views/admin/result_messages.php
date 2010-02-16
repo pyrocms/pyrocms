@@ -14,6 +14,14 @@
 </div>
 <?php endif; ?>
 
+<?php if (validation_errors()): ?>
+<div class="message error">
+	<h6><?php echo lang('required_error_label');?></h6>
+	<p><?php echo validation_errors(); ?></p>
+	<a class="close" title="<?php echo lang('close_message');?>" href="#"></a>
+</div>
+<?php endif; ?>
+
 <?php if (!empty($messages['error'])): ?>
 <div class="message error">
 	<h6><?php echo lang('required_error_label');?></h6>

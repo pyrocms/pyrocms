@@ -247,8 +247,8 @@ CREATE TABLE `photo_albums` (
   `parent` int(11) NOT NULL default '0',
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Galleries (like categories) for photos';
+  UNIQUE KEY `Unique` ( `slug` , `parent` )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Photo albums contain photos';
 
 -- command split --
 

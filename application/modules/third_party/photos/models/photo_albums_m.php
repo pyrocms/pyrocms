@@ -10,22 +10,13 @@ class Photo_albums_m extends MY_Model
 		$this->albums_dir = APPPATH .'assets/img/photos/';
 	}
 	
-    function get($id = 0)
+    function get_all()
     {
         $this->db->select('pa.*, COUNT(p.id) AS num_photos')
-        	->join('photos p', 'pa.id = p.album_id', 'LEFT')
+        	->join('photos p', 'pa.id = p.album_id', 'left')
         	->group_by('pa.slug');
     
-        if( $id > 0 )
-        {
-        	$this->db->where('pa.id', $id);
-        	return $this->db->get('photo_albums pa')->row();
-        }
-        
-        else
-        {
-        	return $this->db->get('photo_albums pa')->result();
-        }
+        return $this->db->get('photo_albums pa')->result();
     }
     
     function insert($input = array())
@@ -36,7 +27,7 @@ class Photo_albums_m extends MY_Model
 
 		$this->db->insert('photo_albums', array(
 			'title'			=> $input['title'],
-			'slug'			=> url_title($input['title']),
+			'slug'			=> $input['slug'],
 			'description' 	=> $input['description'],
             'parent' 		=> $input['parent'],
             'updated_on'	=> now())
@@ -47,7 +38,6 @@ class Photo_albums_m extends MY_Model
 		if ($this->db->trans_status() === FALSE || !mkdir( $this->albums_dir . $id))
 		{
 		    $this->db->trans_rollback();
-		    exit;
 		    return FALSE;
 		}
 		else
@@ -61,15 +51,13 @@ class Photo_albums_m extends MY_Model
     {
         $this->load->helper('date');
         
-        $this->db->update('photo_albums', array(
+        return parent::update($id, array(
         	'title'			=> $input['title'],
-        	'slug'			=> url_title($input['title']),
+        	'slug'			=> $input['slug'],
         	'description' 	=> $input['description'],
         	'parent' 		=> $input['parent'],
         	'updated_on'	=> now()
-        ), array('id'=> $id));
-        
-        return TRUE;
+        ));
     }
 
     function delete($id = 0)
@@ -86,9 +74,14 @@ class Photo_albums_m extends MY_Model
         return parent::delete($id);
     }
 
-    function check_title($title = '')
+    function check_slug($slug, $id = NULL)
     {
-		return parent::count_by('slug', url_title($title)) === 0;
+    	if($id)
+    	{
+    		$this->db->where('id !=', $id);
+    	}
+    	
+		return parent::count_by('slug', $slug) == 0;
     }
     
 }

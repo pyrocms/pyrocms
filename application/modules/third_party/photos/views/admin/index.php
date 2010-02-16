@@ -25,8 +25,8 @@
 					</tr>
 				</tfoot>
 				<tbody>	
-					<?php function album_row($tree, $parent, $lvl) { ?>
-					<?php if(isset($tree[$parent])) foreach ($tree[$parent] as $album): ?>
+					<?php function album_row($albums, $parent, $lvl) { ?>
+					<?php if(isset($albums[$parent])) foreach ($albums[$parent] as $album): ?>
 						<tr>
 							<td><?php echo form_checkbox('action_to[]', $album->id); ?></td>
 			        <td><?php echo repeater('-- ', $lvl);?> <?php echo $album->title;?></td>
@@ -38,9 +38,9 @@
 									anchor('admin/photos/delete/' . $album->id, lang('photo_albums.delete_label'), array('class'=>'confirm')); ?>
 			        </td>
 			      </tr>
-			      <?php album_row($tree, $album->id, $lvl+1) ?>
+			      <?php album_row($albums, $album->id, $lvl+1) ?>
 			      <?php endforeach; }?>            
-					<?php album_row($albums, 0, 0); ?>
+				  <?php album_row($albums, 0, 0); ?>
 				</tbody>
 			</table>	
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>

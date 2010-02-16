@@ -11,6 +11,7 @@ $lang['photo_albums.edit_label'] 				= 'Edit';
 $lang['photo_albums.manage_label'] 				= 'Manage';
 $lang['photo_albums.delete_label'] 				= 'Delete';
 $lang['photo_albums.title_label'] 				= 'Title';
+$lang['photo_albums.slug_label'] 				= 'URL';
 $lang['photo_albums.desc_label'] 				= 'Description';
 $lang['photo_albums.parent_album_label'] 		= 'Parent album';
 $lang['photo_albums.no_parent_select_label'] 	= '-- None --';
@@ -35,6 +36,6 @@ $lang['photo_albums.delete_error'] 				= 'Error occurred while trying to delete 
 $lang['photo_albums.delete_dir_error'] 			= 'Unable to delete directory "%s"';
 $lang['photo_albums.mass_delete_success'] 		= '%s photo albums out of %s successfully deleted.';
 
-$lang['photo_albums.name_already_exist_error'] 	= 'A photo album with this name already exists.';
+$lang['photo_albums.slug_already_exist_error'] 	= 'A photo album with this URL already exists.';
 
 ?>

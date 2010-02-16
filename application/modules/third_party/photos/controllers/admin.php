@@ -2,6 +2,9 @@
 
 class Admin extends Admin_Controller
 {
+	// Set in constructor
+	protected $validation_rules;
+	
 	function __construct()
 	{
 		parent::Admin_Controller();  
@@ -11,6 +14,29 @@ class Admin extends Admin_Controller
 		$this->lang->load('photo_albums');
 		
 		$this->template->set_partial('sidebar', 'admin/sidebar');
+		
+		$this->validation_rules = array(
+			array(
+				'field'   => 'title',
+				'label'   => lang('photo_albums.title_label'),
+				'rules'   => 'trim|required|max_length[255]|callback__check_slug'
+			),
+			array(
+				'field'   => 'slug',
+				'label'   => lang('photo_albums.slug_label'),
+				'rules'   => 'trim|required|max_length[255]|alpha_dash'
+			),
+			array(
+				'field'   => 'description',
+				'label'   => lang('photo_albums.desc_label'),
+				'rules'   => 'trim|required'
+			),
+			array(
+				'field'   => 'parent',
+				'label'   => lang('photo_albums.parent_album_label'),
+				'rules'   => 'trim|numeric'
+			)
+		);
 	}
 	
 	// Public: List Galleries
@@ -20,44 +46,35 @@ class Admin extends Admin_Controller
 		
 		// Get Galleries and create pages tree
 		$tree = array();
-		$albums = $this->photo_albums_m->get();
+		$albums = $this->photo_albums_m->get_all();
 
 		foreach($albums as $album)
 		{
-			$tree[$album->parent][] = $album;
+			$this->data->albums[$album->parent][] = $album;
 		}
-		unset($albums);
-		$this->data->albums =& $tree;		
+		
 		$this->template->build('admin/index', $this->data);
 	}
 	
 	// Admin: Create a new Album
 	function create()
 	{
-		// Get Galleries and create pages tree
-		$tree = array();
+		$albums = $this->photo_albums_m->get_all();
+		$this->data->albums = array();
 		
-		$albums = $this->photo_albums_m->get();
 		foreach($albums as $album)
 		{
-			$tree[$album->parent][] = $album;
+			$this->data->albums[$album->parent][] = $album;
 		}
-		unset($albums);
-		$this->data->albums = $tree;
 			
-		$this->load->library('validation');
-		$rules['title'] = 'trim|required|max_length[255]|callback__createCheckTitle';
-		$rules['description'] = 'trim|required';
-		$rules['parent'] = 'trim|numeric';
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
+		$this->load->library('form_validation', $this->validation_rules);
 		
-		foreach(array_keys($rules) as $field)
+		foreach($this->validation_rules as $rule)
 		{
-			$album->{$field} = (string) $this->input->post($field);
+			$album->{$rule['field']} = set_value($rule['field']);
 		}
 		
-		if ($this->validation->run())
+		if ($this->form_validation->run())
 		{
 			if ($this->photo_albums_m->insert($_POST))
 			{
@@ -73,7 +90,9 @@ class Admin extends Admin_Controller
 		$this->data->album =& $album;
 		
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('form.js', 'photos') );
+					
 		$this->template->build('admin/form', $this->data);
 	}
 	
@@ -87,32 +106,28 @@ class Admin extends Admin_Controller
 			redirect('admin/photos/index');
 		}
 		
-		$tree = array();
-		foreach(@$this->photo_albums_m->get() as $album)
+		$this->data->albums = array();
+		foreach(@$this->photo_albums_m->get_all() as $this_album)
 		{
-			$tree[$album->parent][] = $album;
+			$this->data->albums[$album->parent][] = $this_album;
 		}
-		$this->data->albums = $tree;
 		
-		$this->load->library('validation');
-		$rules['id'] = '';
-		$rules['title'] = 'trim|required|max_length[255]';
-		$rules['description'] = 'trim|required';
-		$rules['parent'] = 'trim|numeric';
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
+		// Set validation
+		$this->load->library('form_validation', $this->validation_rules);
 		
-		// Run through all fields and auto-set data fields
-		foreach(array_keys($rules) as $field)
+		foreach($this->validation_rules as $rule)
 		{
-			if( $this->input->post($field) )
+			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$album->$field = $this->validation->$field;
+				$album->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
 		
+		// This will stop validation callback self-checking
+		$this->id = $id; 
+		
 		// Run validation
-		if ($this->validation->run())
+		if ($this->form_validation->run())
 		{
 			if ($this->photo_albums_m->update($id, $_POST))
 			{
@@ -125,12 +140,12 @@ class Admin extends Admin_Controller
 			
 			redirect('admin/photos');
 		}
-
 	
 		$this->data->album =& $album;
 		
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('form.js', 'photos') );		
 		$this->template->build('admin/form', $this->data);		
 	}
 	
@@ -262,11 +277,13 @@ class Admin extends Admin_Controller
 	}
 	
 	// Callback: from create()
-	function _createTitleCheck($title = '')
+	function _check_slug($slug = '')
 	{
-		if ($this->photos_m->check_title($title))
+		$id = isset($this->id) ? $this->id : NULL;
+		
+		if (!$this->photo_albums_m->check_slug($slug, $id))
 		{
-			$this->validation->set_message('_createTitleCheck', lang('photo_albums.name_already_exist_error'));
+			$this->form_validation->set_message('_check_slug', lang('photo_albums.slug_already_exist_error'));
 			return FALSE;
 		}		
 		
