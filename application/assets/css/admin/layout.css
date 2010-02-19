@@ -33,7 +33,7 @@ div#header {padding-top:20px;}
 	p#userbox a:hover {color:#fff;}
 	p#userbox small {display:block; margin-top:5px; color:#8d9599; font-size:0.9em;}
 	
-	div#top {margin-bottom:18px;}
+	div#top {margin-bottom:1.3em;}
 	
 	/** menu **/
 	ul#menu {float:left; width:100%; }
@@ -47,15 +47,15 @@ div#header {padding-top:20px;}
 	ul#menu > li a span {background:url(../../img/admin/bg-toplevel.gif) no-repeat 0px 2px; width:11px; height:8px; display:block; position:absolute; right:5px; top:13px;}
 	ul#menu > li a:hover span, .blue span {background-image:url(../../img/admin/bg-toplevel-hover.png) !important;}
 	
-		ul#menu li ul {position:absolute; top:40px; min-width:200px !important; left:0px; z-index:999; background:#fff; visibility:hidden; display:none;
+	ul#menu li ul {position:absolute; top:40px; min-width:200px !important; left:0px; z-index:999; background:#fff; visibility:hidden; display:none;
 		padding-bottom:10px; border:2px solid #ccc; border-left:none; border-top:none; border-right-width:1px; padding-top:5px; -moz-border-radius-bottomleft:5px;
 		-moz-border-radius-bottomright:5px; -webkit-border-bottom-right-radius:5px; -webkit-border-bottom-left-radius:5px;}
-		ul#menu li ul li {float:none; height:auto; border-bottom:1px dotted #d6d8d9;}
-		ul#menu li ul li:hover {background:url(../../img/admin/bg-submenu-hover.gif) no-repeat;}
-		ul#menu li ul li a {padding:6px 3px 6px 20px; display:block !important; background:url(../../img/admin/link-arrow-regular.gif) no-repeat 10px 10px !important; color:#5c6467; 
+	ul#menu li ul li {float:none; height:auto; border-bottom:1px dotted #d6d8d9;}
+	ul#menu li ul li:hover {background:url(../../img/admin/bg-submenu-hover.gif) no-repeat;}
+	ul#menu li ul li a {padding:6px 3px 6px 20px; display:block !important; background:url(../../img/admin/link-arrow-regular.gif) no-repeat 10px 10px !important; color:#5c6467; 
 		text-decoration:none; text-align:left; text-transform:capitalize; height:auto; background-color:none !important; font-weight:normal;}
-		ul#menu li ul li a:hover {color:#fff; background-image:url(../../img/admin/submenuhover.gif) !important;}
-		ul#menu > li.selected > a {background:#6c7275; color:#fff;}
+	ul#menu li ul li a:hover {color:#fff; background-image:url(../../img/admin/submenuhover.gif) !important;}
+	ul#menu > li.selected > a {background:#6c7275; color:#fff;}
 	
 	/** search form **/
 	div#header form {float:right; width:246px; margin-top:9px;}
