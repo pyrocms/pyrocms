@@ -73,21 +73,20 @@ class Installer_lib
 			$password 	= $this->ci->session->userdata('password');
 			
 			// Connect to MySQL
-			@mysql_connect($server,$username,$password);
-			
-			// Get the version
-			$mysql = mysql_get_server_info();
+			$db = @mysql_connect($server,$username,$password);
 			
 			// Compare it
-			if($mysql != FALSE)
+			if(is_resource($db))
 			{
+				$mysql = @mysql_get_server_info($db);
+				
 				// Close the connection
-				@mysql_close();
+				@mysql_close($db);
 				return $mysql;
 			}
 			else
 			{
-				@mysql_close();
+				@mysql_close($db);
 				return "<span class='red'>a version which could not be retrieved</span>";
 			}
 		}

@@ -5,32 +5,26 @@
 <h3>HTTP Server Settings</h3>
 
 <?php if($http_server->supported === TRUE): ?>
-	<p>Your server software <strong><?php echo $http_server->name;?></strong> is supported.</p>
+	<p>Your server software <strong><?php echo $http_server->name;?></strong> is <span class="green">supported</span>.</p>
 <?php else: ?>
-	<p class="red">Your server software is not supported, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations 
+	<p class="red">Your server software is <span class="red">not support</span>, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations 
 	are up to date PyroCMS should be able to run properly, just without clean URL's.</p>
 <?php endif; ?>
 
 <h3>PHP Settings</h3>
-<p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <?php echo $php_version; ?>, 
-which is <?php echo $php_version ? 'supported' : '<span class="red">unsupported</span>'; ?> by PyroCMS.</p>
+<p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <strong><?php echo $php_version; ?></strong>, 
+which is <?php echo $php_version ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.</p>
 
 <h3>MySQL Settings</h3>
 <p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running 
-<?php echo $mysql->server_version; ?> and the client library version is <?php echo $mysql->client_version; ?>.</p>
+<strong><?php echo $mysql->server_version; ?></strong> and the client library version is <strong><?php echo $mysql->client_version; ?></strong>
+which is <?php echo $mysql->server_version && $mysql->client_version ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.</p>
 
 <h3>GD Settings</h3>
-<p>PyroCMS requires access to the GD image library for several tasks, such as resizing images, but it is not installed.</p>
 
 <p>
-	<?php if($gd_version !== FALSE): ?>
-		You are currently running version <?php echo $gd_version; ?> of the GD image library.
-	<?php else: ?>
-		<span class="red">
-			It seems the GD library isn't installed on your server. Try contacting your host to see if they 
-			can install it for you.
-		</span>
-	<?php endif; ?>
+	PyroCMS requires GD library 1.0 or higher. Your server is currently running version <strong><?php echo $gd_version; ?></strong>, 
+	which is <?php echo $gd_version !== FALSE ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.
 </p>
 
 <!-- Summary -->
