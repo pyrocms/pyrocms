@@ -34,7 +34,7 @@ function css_editor(id, width)
 			total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
 			total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
 			
-			if(checkbox.attr('checked'))
+			if(!checkbox.attr('checked'))
 			{
 				// Remove selected class and uncheck the box
 				row.removeClass('selected');
@@ -95,7 +95,9 @@ function css_editor(id, width)
 		// "Check All" checkboxes
 		$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
 			
-			if( $(this).attr('checked') == true )
+			console.debug($(this).attr('checked'));
+			
+			if( !$(this).attr('checked') )
 			{
 				$('tbody td input[type="checkbox"]:not(:checked)', table).change();
 			}
@@ -134,7 +136,7 @@ function css_editor(id, width)
 		});
 	
 	
-		$('.tabs').tabs()
+		$('.tabs').tabs();
 		
 	
 		$('a.close').live('click', function(){
