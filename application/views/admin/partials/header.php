@@ -5,7 +5,7 @@
 		&nbsp;| &nbsp;<?php echo anchor('edit-profile', lang('cp_edit_profile_label')); ?>
 		&nbsp;| &nbsp;<?php echo anchor('admin/logout', lang('cp_logout_label')); ?>
 		<br />
-		<small><?php echo anchor('', lang('cp_view_frontend')); ?></small>
+		<small><?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?></small>
 	</p>
 	
 	<br class="clear-both" />
@@ -14,7 +14,7 @@
 <ul id="menu">
 
 	<li class="<?php echo empty($module) ? 'selected' : ''; ?> dashboard">
-		<?php echo anchor('admin', 'Dashboard', 'class="ajax"');?>
+		<?php echo anchor('admin', 'Dashboard');?>
 	</li>
 	
 	<?php foreach($core_modules as $core_module): ?>
@@ -33,9 +33,7 @@
 		<ul>
 			<?php foreach($third_party_modules as $tp_module): ?>
 			<li class="<?php echo $tp_module['slug']; ?>">
-				<a href="<?php echo site_url('admin/'.$tp_module['slug']); ?>">
-					<?php echo $tp_module['name'];?>
-				</a>
+				<?php echo anchor('admin/'.$tp_module['slug'], $tp_module['name']);?>
 			</li>
 			<?php endforeach; ?>
 		</ul>
@@ -47,8 +45,8 @@
 		</a>
 		
 		<ul>
-			<li><?php echo anchor('admin/settings', lang('cp_nav_edit_settings'), 'class="ajax"'); ?></li>
-			<li><?php echo anchor('admin/themes', lang('cp_nav_themes'), 'class="ajax"'); ?></li>
+			<li><?php echo anchor('admin/settings', lang('cp_nav_edit_settings')); ?></li>
+			<li><?php echo anchor('admin/themes', lang('cp_nav_themes')); ?></li>
 			<li><?php echo anchor('admin/permissions', lang('cp_nav_permissions')); ?></li>
 			<li><?php echo anchor('admin/variables', lang('cp_nav_variables')); ?></li>
 		</ul>
