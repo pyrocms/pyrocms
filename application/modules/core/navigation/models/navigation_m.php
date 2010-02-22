@@ -84,13 +84,12 @@ class Navigation_m extends Model
 	{
 		$input = $this->_format_array($input);
 		
-		$position = $this->db->order_by('position', 'desc')
+		$row = $this->db->order_by('position', 'desc')
 			->limit(1)
 			->get_where('navigation_links', array('navigation_group_id' => (int) $input['navigation_group_id']))
-			->row()
-			->position;
-		
-		$position++;
+			->row();
+			
+		$position = isset($row->position) ? $row->position + 1 : 1;
 		
 		$this->db->insert('navigation_links', array(
         	'title' 				=> $input['title'],
