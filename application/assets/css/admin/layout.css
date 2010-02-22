@@ -177,7 +177,7 @@ div#content {padding-top:25px;}
 	a.heading-link:hover {color:#fff;}
 
 	/* tables */
-	table.table-list { width:100%; margin-bottom:10px; }
+	table.table-list { width:100%; margin-bottom:10px; clear:both; }
 	table.table-list.short {width:500px; margin:-5px 0 0 -5px; border-collapse:collapse; }
 	
 	table.table-list td {border-top:1px solid #dfdfdf; font-size:0.9em; padding:10px 0; margin:0; color:#666;}
