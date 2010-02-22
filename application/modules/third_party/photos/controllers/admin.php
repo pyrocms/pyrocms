@@ -108,10 +108,12 @@ class Admin extends Admin_Controller
 			redirect('admin/photos/index');
 		}
 		
+		$albums = $this->photo_albums_m->get_all();
 		$this->data->albums = array();
-		foreach(@$this->photo_albums_m->get_all() as $this_album)
+		
+		foreach($albums as $this_album)
 		{
-			$this->data->albums[$album->parent][] = $this_album;
+			$this->data->albums[$this_album->parent][] = $this_album;
 		}
 		
 		// Set validation
@@ -147,7 +149,8 @@ class Admin extends Admin_Controller
 		
 		// Load WYSIWYG editor
 		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('form.js', 'photos') );		
+			->append_metadata( js('form.js', 'photos') );
+			
 		$this->template->build('admin/form', $this->data);		
 	}
 	
