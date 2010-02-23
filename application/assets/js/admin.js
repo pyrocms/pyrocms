@@ -94,18 +94,19 @@ function css_editor(id, width)
 		
 		// "Check All" checkboxes
 		$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
+		
+			$('tbody td input[type="checkbox"]', table).attr('checked', this.checked);
 			
-			console.debug($(this).attr('checked'));
-			
-			if( !$(this).attr('checked') )
+			if(this.checked)
 			{
-				$('tbody td input[type="checkbox"]:not(:checked)', table).change();
+				$('tbody tr', table).addClass('selected');
 			}
 			
 			else
 			{
-				$('tbody td input[type="checkbox"]:checked', table).change();
+				$('tbody tr', table).removeClass('selected');
 			}
+
 		});
 		
 		// Link confirm box
