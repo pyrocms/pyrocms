@@ -23,7 +23,7 @@
 $route['news/(:num)/(:num)/(:any)'] = "news/view/$3";
 $route['news/page/(:num)'] = "news/index/$1";
 
-$route['news/rss/all.rss'] = "news/rss";
-$route['news/rss/(:any).rss'] = "news/rss/category/$1";
+$route['news/rss/all.rss'] = "rss/index";
+$route['news/rss/(:any).rss'] = "rss/category/$1";
 
 ?>
