@@ -186,8 +186,8 @@ div#content {padding-top:25px;}
 	table.table-list td:first-child, table.table-list th:first-child {text-align:left; padding:0 0 0 10px;}
 	table.table-list tfoot {border-top:1px solid #ccc;}
 	
-	table.table-list tr:odd { background:url(../../img/admin/bg_tableRow.gif) repeat-x 0px 1px; }
-	table.table-list tr.selected { background-color: lightyellow; }
+	table.table-list tbody tr:hover { background-color:#efefef; }
+	table.table-list tbody tr.selected { background-color: lightyellow; }
 	
 	td.col-chk {width:40px;}
 	td.col-first {font-weight:bold; width:200px;}
