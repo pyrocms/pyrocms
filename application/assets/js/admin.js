@@ -26,24 +26,35 @@ function css_editor(id, width)
 	$(function() {
 	
 		// Sort any tables with a class of 'sortable'
-		var table = 'table.table-list';
+		var table = $('table.table-list');
 		
 		// A row can be selected via check or CTRL + click
-		toggleRowChecked = function(row, checkbox)
+		toggleRowChecked = function(row, checkbox, mode)
 		{
 			total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
 			total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
+			check_all = $('thead input[type="checkbox"][name="action_to_all"]', table);
+			
+			if(mode == 'change')
+			{
+				checkbox.attr('checked', checkbox.attr('checked'));
+			}
+			
+			else
+			{
+				checkbox.attr('checked', !checkbox.attr('checked'));
+			}
 			
 			if(!checkbox.attr('checked'))
 			{
 				// Remove selected class and uncheck the box
 				row.removeClass('selected');
-				checkbox.removeAttr('checked');
 
 				// If all boxes are checked
-				if(total_checked === 0)
+				if(total_checked == 0)
 				{
-					$('thead input[type="checkbox"][name="action_to_all"]', table).removeAttr('checked');
+					console.log('remove ' + !check_all.attr('checked'));
+					check_all.attr('checked', false);
 				}
 			}
 		
@@ -51,12 +62,11 @@ function css_editor(id, width)
 			{
 				// Add seelected and check the box
 				row.addClass('selected');
-				checkbox.attr('checked', true);
 				
 				// If all boxes are checked, check the "Check All" box
 				if(total_checked == total_checkboxes)
 				{
-					$('thead input[type="checkbox"][name="action_to_all"]', table).attr('checked', true);
+					check_all.attr('checked', true);
 				}
 				
 			}
@@ -89,7 +99,7 @@ function css_editor(id, width)
 			row = $(this).parent('td').parent('tr');
 			checkbox = $(this);
 
-			toggleRowChecked(row, checkbox);
+			toggleRowChecked(row, checkbox, 'change');
 		});
 		
 		// "Check All" checkboxes
