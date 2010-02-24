@@ -43,10 +43,16 @@ class News extends Public_Controller
 		$this->data->category =& $category;
 		
 		// Count total news articles and work out how many pages exist
-		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count_by(array('category'=>$slug)), $this->limit, 4);
+		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count_by(array(
+			'category'=>$slug,
+			'status' => 'live'
+		)), $this->limit, 4);
 		
 		// Get the current page of news articles
-		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array('category'=>$slug));
+		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array(
+			'category'=>$slug,
+			'status' => 'live'
+		));
 		
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
