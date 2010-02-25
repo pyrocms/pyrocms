@@ -20,12 +20,13 @@ class News extends Public_Controller
 	// news/page/x also routes here
 	function index()
 	{	
-		$this->data->pagination = create_pagination('news/page', $this->news_m->count_by('status', 'live'), $this->limit, 3);	
-		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by('status', 'live');	
+		$this->data->pagination = create_pagination('news/page', $this->news_m->count_by(array('status' => 'live')), $this->limit, 3);	
+		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array('status' => 'live'));	
 
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 		
+		echo $this->db->last_query();
 		$this->template->set_metadata('description', $meta['description']);
 		$this->template->set_metadata('keywords', $meta['keywords']);
 		$this->template->build('index', $this->data);
