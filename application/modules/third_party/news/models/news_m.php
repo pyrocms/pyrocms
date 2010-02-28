@@ -16,7 +16,6 @@ class News_m extends MY_Model
     {
     	$this->load->helper('date');
         
-    	
     	if(!empty($params['category']))
     	{
 	    	if(is_numeric($params['category']))  $this->db->where('categories.id', $params['category']);

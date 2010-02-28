@@ -4,6 +4,10 @@ $lang['comments.title'] 					= 'Comentarios';
 $lang['comments.your_comment'] 				= 'Escribir un comentario';
 $lang['comments.user_comments'] 			= 'Comentarios de usuarios';
 
+$lang['comments.list_comment'] 				= '%s commented on %s saying:'; #translate
+$lang['comments.recent_comments'] 			= 'Recent comments'; #translate
+$lang['comments.view_more'] 				= 'View more...'; #translate
+
 // labels
 $lang['comments.name_label'] 				= 'Tu nombre';
 $lang['comments.email_label'] 				= 'Correo electr&oacute;nico';

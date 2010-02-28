@@ -25,25 +25,49 @@ class Admin extends Admin_Controller
 		// Load stuff
  		$this->data->modules = $this->modules_m->getModules();
 		
-		// Don't you love the smell of burning CPUs in the morning ?
 		$this->load->model('comments/comments_m');
 		$this->load->model('pages/pages_m');
-		$this->load->model('news/news_m');
 		$this->load->model('users/users_m');
 		
-		// Count comment related stuff
-		$this->data->total_comments			= $this->comments_m->count_all();
-		$this->data->approved_comments 		= $this->comments_m->count_by('is_active', 1);
-		$this->data->pending_comments	 	= $this->comments_m->count_by('is_active', 0);
+		$this->lang->load('comments/comments');
 		
-		// Count page related stuff
-		$this->data->total_pages			= $this->pages_m->count();
+		$this->data->recent_users		= $this->users_m->order_by('created_on')->limit(10)->get_all();
+		$this->data->recent_comments	= $this->comments_m->get_recent();
 		
-		// Count the news articles
-		$this->data->live_articles			= $this->news_m->count_by('status', 'live');
-		
-		// Count users
-		$this->data->total_users			= $this->users_m->count_by('is_active', 1);
+		foreach($this->data->recent_comments as &$comment)
+		{
+			// work out who did the commenting
+			if($comment->user_id > 0)
+			{
+				$comment->name = anchor('admin/users/edit/' . $comment->user_id, $comment->name);
+			}
+			
+			// What did they comment on
+			switch($comment->module)
+			{
+				case 'news':
+					$this->load->model('news/news_m');
+					$article = $this->news_m->get($comment->module_id);
+					$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');
+				break;
+				
+				case 'photos':
+					$this->load->model('photos/photo_albums_m');
+					$album = $this->photo_albums_m->get($comment->module_id);
+					$comment->item = anchor('photos/' . $album->slug, $album->title, 'class="modal-large iframe"');
+				break;
+			
+				default:
+					$comment->item = $comment->module .' #'. $comment->module_id;
+				break;
+			}
+			
+			// Link to the comment
+			if( strlen($comment->comment) > 30 )
+			{
+				$comment->comment = character_limiter($comment->comment, 30);
+			}
+		}
 		
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');
@@ -53,8 +77,10 @@ class Admin extends Admin_Controller
 		$this->simplepie->handle_content_type();
 		
 		// Store the feed items
-		$this->data->rss_items     			= $this->simplepie->get_items(0, $this->settings->item('dashboard_rss_count'));
+		$this->data->rss_items = $this->simplepie->get_items(0, $this->settings->item('dashboard_rss_count'));
 
+		$this->template->set_partial('sidebar', 'admin/partials/sidebar', FALSE);
+		
 		$this->template->build('admin/dashboard', $this->data);
 	}
      

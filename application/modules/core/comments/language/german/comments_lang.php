@@ -4,6 +4,10 @@ $lang['comments.title'] 					= 'Kommentare';
 $lang['comments.your_comment'] 				= 'Kommentar schreiben';
 $lang['comments.user_comments'] 			= 'Benutzerkommentare';
 
+$lang['comments.list_comment'] 				= '%s commented on %s saying:'; #translate
+$lang['comments.recent_comments'] 			= 'Recent comments'; #translate
+$lang['comments.view_more'] 				= 'View more...'; #translate
+
 // labels
 $lang['comments.name_label'] 				= 'Dein Name';
 $lang['comments.email_label'] 				= 'Email Addresse';
@@ -49,5 +53,3 @@ $lang['comments.delete_single_success'] 	= 'Dieser Kommentar #%s wurde gelöscht
 $lang['comments.delete_multi_success'] 		= 'Diese Kommentare #%s wurden gelöscht und werden nicht länger auf der Live-Seite angezeigt.';
 
 $lang['comments.no_comments'] 				= 'Es gibt keine Kommentare';
-
-?>

@@ -28,7 +28,7 @@
 	
 	<br class="clear-both" />
 
-	<?php echo $this->load->view('comments/comments', array('module' => $this->module, 'module_id' => $photo->id)); ?>
+	<?php echo $this->load->view('comments/comments', array('module' => $this->module, 'module_id' => $album->id)); ?>
 		
 <?php else: ?>
 	<p><?php echo lang('photo_albums.no_photos_in_album_error');?></p>

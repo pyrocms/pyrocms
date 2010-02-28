@@ -27,7 +27,7 @@
 				
 					<div id="left-col">
 						<?php echo $template['partials']['sidebar']; ?>
-					</div> <!-- end of div#left-col -->
+					</div>
 					
 					<div id="mid-col" class="large-col">
 						<?php echo $template['body']; ?>

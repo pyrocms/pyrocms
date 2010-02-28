@@ -4,6 +4,10 @@ $lang['comments.title'] 					= 'Comments';
 $lang['comments.your_comment'] 				= 'Post a comment';
 $lang['comments.user_comments'] 			= 'User comments';
 
+$lang['comments.list_comment'] 				= '%s commented on %s saying:';
+$lang['comments.recent_comments'] 			= 'Recent comments';
+$lang['comments.view_more'] 				= 'View more...';
+
 // labels
 $lang['comments.name_label'] 				= 'Your Name';
 $lang['comments.email_label'] 				= 'Email Address';
@@ -49,5 +53,3 @@ $lang['comments.delete_single_success'] 	= 'This comment #%s has been deleted an
 $lang['comments.delete_multi_success'] 		= 'The comments #%s have been deleted and will no longer show on the live site.';
 
 $lang['comments.no_comments'] 				= 'There are no comments';
-
-?>

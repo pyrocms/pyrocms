@@ -2,7 +2,11 @@
 
 $lang['cp_admin_title'] 				= 'Control Panel';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
-$lang['cp_welcome'] 					= 'Welcome to the %s Control Panel. Using the links above and to the left you can control almost every aspect of your website. If you happen to have any problems with the system, please submit your issue to our bugtracker.';
+
+$lang['cp_welcome_title'] 				= 'Welcome';
+$lang['cp_welcome_message'] 			= 'Welcome to the %s Control Panel. Using the links above and to the left you can control almost every aspect of your website. If you happen to have any problems with the system, please submit your issue to our bugtracker.';
+
+$lang['cp_news_feed_title'] 			= 'News feed';
 
 // Header
 $lang['cp_to_home'] 					= 'Back to the Dashboard';
