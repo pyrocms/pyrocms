@@ -20,10 +20,10 @@ div#container {width:980px; position:relative; min-height: 100%; height: auto !i
 .push {height:133px;}
 
 /** HEADER AND NAVIGATION **/
-div#header {padding-top:20px;}
+div#header {padding-top:1.9em;}
 	/** logo, which is a typographical h1 element (you can edit this part if you want to replace with your logo graphic) **/
 	div#header h1 {font-size:250%; text-transform:uppercase; letter-spacing:-1px; font-weight:bold; float:left; width:450px; 
-	/** mac safari & firefox hack */height:39px;/**/}
+	/** mac safari & firefox hack */height:1.3em;/**/}
 	div#header h1 a {color:#fff; text-decoration:none;}
 	div#header h1 a:hover {color:#ccc;}
 	
@@ -137,7 +137,7 @@ div#content {padding-top:25px;}
 	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
 	
 	form.crud fieldset {padding-top:10px; border:0;}
-	form.crud ol li {margin-bottom:1em;}
+	form.crud ol li {margin-bottom:1em; -moz-border-radius:5px; -webkit-border-radius:5px; }
 	form.crud ol li {padding:15px;}
 	form.crud ol li.even {background:#f3f3f3;}
 	
