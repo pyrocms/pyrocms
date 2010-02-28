@@ -21,7 +21,7 @@
 				
 				<?php if (!empty($rules[$role->abbrev])): ?>
 					<table border="0" class="table-list clear-both spacer-bottom">		  
-					  <thead>
+						<thead>
 							<tr>
 								<th><?php echo form_checkbox('action_to_all');?></th>
 								<th><?php echo lang('perm_module_label');?></th>
@@ -29,14 +29,7 @@
 								<th><?php echo lang('perm_method_label');?></th>
 								<th class="width-10"><span><?php echo lang('perm_action_label');?></span></th>
 							</tr>
-					  </thead>
-					  <tfoot>
-					  	<tr>
-					  		<td colspan="5">
-					  			<div class="inner"></div>
-					  		</td>
-					  	</tr>
-					  </tfoot>
+						</thead>
 						<tbody>			
 							<?php foreach ($rules[$role->abbrev] as $navigation_link): ?>
 								<tr>
@@ -53,9 +46,11 @@
 						</tbody>
 				</table>
 				
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			
 			<?php else:?>
 				<p><?php echo lang('perm_role_no_rules');?></p>
-			<?php endif; ?>	
+			<?php endif; ?>
 			
 		</div>
 	</div>
@@ -65,5 +60,4 @@
 	<p><?php echo lang('perm_no_roles');?></p>	
 <?php endif; ?>
 
-<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 <?php echo form_close(); ?>
