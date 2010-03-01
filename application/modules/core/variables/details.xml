@@ -2,12 +2,14 @@
 <module version="0.2">
 	<name>
 		<en>Variables</en>
+                <pl>Zmienne</pl>
 		<es>Variables</es>
 		<fr>Variables</fr>
 		<de>Variables</de>
 	</name>
 	<description>
 		<en>Manage global variables to access from everywhere.</en>
+                <pl>Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.</pl>
 		<es>Manage global variables to access from everywhere.</es>
 		<fr>Manage global variables to access from everywhere.</fr>
 		<de>Manage global variables to access from everywhere.</de>

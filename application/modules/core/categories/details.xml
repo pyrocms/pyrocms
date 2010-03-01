@@ -5,12 +5,14 @@
 		<es>Categorías</es>
 		<fr>Catégories</fr>
 		<de>Kategorien</de>
+		<pl>Kategorie</pl>
 	</name>
 	<description>
 		<en>Manage categories for articles, products, services, etc.</en>
 		<es>Administra categorías para artículos, productos, servicios, etc.</es>
 		<fr>Administre les catégories des articles, produits, services, etc.</fr>
 		<de>Kategorien für Artikel, Produkte, Dienstleistungen, etc. verwalten.</de>
+		<pl>Zarządzaj kategoriami artykułów, produktów, usług, itp.</pl>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>

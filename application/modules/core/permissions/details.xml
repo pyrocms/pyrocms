@@ -4,9 +4,11 @@
 		<en>Permissions</en>
 		<es>Permisos</es>
 		<fr>Permissions</fr>
+                <pl>Uprawnienia</pl>
 	</name>
 	<description>
 		<en>Control what type of users can see certain sections within the site.</en>
+                <pl>Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.</pl>
 		<es>Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.</es>
 		<fr>Permet de contrôler quel rôle utilisateur peut visualiser certaines parties du site.</fr>
 	</description>

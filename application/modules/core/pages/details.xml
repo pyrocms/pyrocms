@@ -5,9 +5,11 @@
 		<es>Páginas</es>
 		<fr>Pages</fr>
 		<de>Pages</de>
+                <pl>Strony</pl>
 	</name>
 	<description>
 		<en>Add custom pages to the site with any content you want.</en>
+                <pl>Dodaj własne strony z dowolną treścią do witryny.</pl>
 		<es>Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.</es>
 		<fr>Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.</fr>
 		<de>Add custom pages to the site with any content you want.</de>

@@ -4,11 +4,13 @@
 		<en>Modules</en>
 		<es>Módulos</es>
 		<fr>Modules</fr>
+                <pl>Moduły</pl>
 	</name>
 	<description>
 		<en>ALlows admins to see a list of currently installed modules.</en>
 		<es>Permite a los administradores ver una lista de los módulos instalados.</es>
 		<fr>Permet aux administrateurs de voir la liste des modules installés</fr>
+                <pl>Umożliwiają administratorowi wgląd do listy obecnie zainstalowanych modułów.</pl>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>

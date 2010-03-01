@@ -2,12 +2,14 @@
 <module version="0.8">
 	<name>
 		<en>Photos</en>
+                <pl>Zdjęcia</pl>
 		<es>Fotografías</es>
 		<fr>Photos</fr>
 		<de>Fotos</de>
 	</name>
 	<description>
 		<en>Add photo albums and upload photos.</en>
+                <pl>Dodawaj albumy i wgrywaj zdjęcia.</pl>
 		<es>Agrega una galería fotográfica y sube fotos.</es>
 		<fr>Ajouter des albums photo et envoyer vos photos.</fr>
 		<de>Füge Fotoalben hinzu und lade Fotos hoch.</de>

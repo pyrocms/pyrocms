@@ -3,10 +3,13 @@
 	<name>
 		<en>TinyCIMM</en>
 		<en>TinyCIMM</en>
+		<fr>TinyCIMM</fr>
+                <pl>TinyCIMM</pl>
 	</name>
 	<description>
 		<en>TinyMCE Image Manager</en>
 		<fr>Gestionnaire d'image TinyMCE</fr>
+                <pl>TinyCIMM Manager Zdjęć</pl>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>

@@ -2,12 +2,14 @@
 <module version="0.2">
 	<name>
 		<en>Newsletters</en>
+                <pl>Newslettery</pl>
 		<es>Boletines</es>
 		<fr>Newsletters</fr>
 		<de>Newsletters</de>
 	</name>
 	<description>
 		<en>Let visitors subscribe via their email address.</en>
+                <pl>Umożliwia użytkownikom zapisanie się za pomocą adresu e-mail do newsleterrów.</pl>
 		<es>Permite que tus visitantes puedan suscribirse a las actualizaciones del sitio vía correo electrónico.</es>
 		<fr>Permet aux visiteurs de s'abonner avec leur adresse e-mail.</fr>
 		<de>Erlaube Besuchern Newsletter via Email zu abonnieren.</de>

@@ -5,9 +5,11 @@
 		<es>Comentarios</es>
 		<fr>Commentaires</fr>
 		<de>Kommentare</de>
+                <pl>Komentarze</pl>
 	</name>
 	<description>
 		<en>Users and guests can write comments for almost anything with built-in captcha support.</en>
+                <pl>Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.</pl>
 		<es>Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.</es>
 		<fr>Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.</fr>
 		<de>Benutzer und Gäste können für fast alles Kommentare mit eingebauter Captcha-Unterstützung schreiben</de>
