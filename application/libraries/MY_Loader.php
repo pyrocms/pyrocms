@@ -13,8 +13,8 @@
  *
  * Install this file as application/libraries/MY_Loader.php
  *
- * @copyright 	Copyright (c) Wiredesignz 2009-11-16
- * @version		1.9
+ * @copyright 	Copyright (c) Wiredesignz 2010-03-01
+ * @version 	1.11
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@ class MY_Loader extends CI_Loader
 	
 	public function __construct() {
 		parent::__construct();
-		self::$APP = get_instance();		
+		self::$APP = CI_Base::get_instance();		
 		self::$APP->config = new MX_Config();
 		self::$APP->lang = new MX_Language();
 		$this->_module = self::$APP->router->fetch_module();
@@ -49,12 +49,12 @@ class MY_Loader extends CI_Loader
 	
 	/** Load a module config file **/
 	public function config($file = '', $use_sections = FALSE, $fail_gracefully = FALSE) {
-		return self::$APP->config->load($file, $use_sections, $fail_gracefully);
+		return self::$APP->config->load($file, $use_sections, $fail_gracefully, $this->_module);
 	}
 
 	/** Load the database drivers **/
-	public function database($params = '', $return = FALSE, $active_record = FALSE) {
-		if (class_exists('CI_DB', FALSE) AND $return == FALSE AND $active_record == FALSE) 
+	public function database($params = '', $return = FALSE, $active_record = NULL) {
+		if (class_exists('CI_DB', FALSE) AND $return == FALSE AND $active_record == NULL) 
 			return;
 
 		require_once BASEPATH.'database/DB'.EXT;
@@ -90,10 +90,10 @@ class MY_Loader extends CI_Loader
 	}
 	
 	/** Load a module language file **/
-	public function language($langfile, $lang = '')	{
-		return self::$APP->lang->load($langfile, $lang);
+	public function language($langfile, $lang = '', $return = FALSE)	{
+		return self::$APP->lang->load($langfile, $lang, $return, $this->_module);
 	}
-
+	
 	/** Load a module library **/
 	public function library($library, $params = NULL, $object_name = NULL) {
 		$class = strtolower(end(explode('/', $library)));
@@ -129,7 +129,7 @@ class MY_Loader extends CI_Loader
 		if (is_array($model)) 
 			return $this->models($model);
 
-		($_alias = $object_name) OR $_alias = strtolower(end(explode('/', $model)));
+		($_alias = $object_name) OR $_alias = end(explode('/', $model));
 
 		if (in_array($_alias, $this->_ci_models, TRUE)) 
 			return self::$APP->$_alias;
@@ -257,13 +257,13 @@ class MY_Loader extends CI_Loader
 
 class MX_Config extends CI_Config 
 {	
-	public function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE) {
+	public function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE, $_module = NULL) {
 		($file == '') AND $file = 'config';
 
 		if (in_array($file, $this->is_loaded, TRUE))
 			return $this->item($file);
 
-		$_module = MY_Loader::$APP->router->fetch_module();
+		$_module || $_module = MY_Loader::$APP->router->fetch_module();
 		list($path, $file) = Modules::find($file, $_module, 'config/');
 		
 		if ($path === FALSE) {
@@ -294,7 +294,7 @@ class MX_Config extends CI_Config
 
 class MX_Language extends CI_Language
 {
-	public function load($langfile, $lang = '', $return = FALSE)	{
+	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)	{
 		if (is_array($langfile)) 
 			return $this->load_multi($langfile);
 			
@@ -304,7 +304,7 @@ class MX_Language extends CI_Language
 		if (in_array($langfile.'_lang'.EXT, $this->is_loaded, TRUE))
 			return $this->language;
 		
-		$_module = MY_Loader::$APP->router->fetch_module();
+		$_module || $_module = MY_Loader::$APP->router->fetch_module();
 		list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', $idiom);
 
 		if ($path === FALSE) {

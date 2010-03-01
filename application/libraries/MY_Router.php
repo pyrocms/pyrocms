@@ -21,8 +21,8 @@ Modules::$locations = array(
  *
  * Install this file as application/libraries/MY_Router.php
  *
- * @copyright 	Copyright (c) Wiredesignz 2009-11-16
- * @version 	1.9
+ * @copyright 	Copyright (c) Wiredesignz 2010-03-01
+ * @version 	1.11
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -70,6 +70,7 @@ class MY_Router extends CI_Router
 		
 		$this->module = '';
 		$this->directory = '';
+		$ext = $this->config->item('controller_suffix').EXT;
 		
 		/* use module route if available */
 		if (isset($segments[0]) AND $routes = Modules::parse_routes($segments[0], implode('/', $segments))) {
@@ -88,7 +89,7 @@ class MY_Router extends CI_Router
 				$this->directory = $offset.$module.'/controllers/';
 				
 				/* module sub-controller exists? */
-				if($directory AND is_file($source.$directory.EXT)) {
+				if($directory AND is_file($source.$directory.$ext)) {
 					return array_slice($segments, 1);
 				}
 					
@@ -96,35 +97,39 @@ class MY_Router extends CI_Router
 				if($directory AND is_dir($module_subdir = $source.$directory.'/')) {
 							
 					$this->directory .= $directory.'/';
-				
+
 					/* module sub-directory controller exists? */
-					if(is_file($module_subdir.$directory.EXT)) {
+					if(is_file($module_subdir.$directory.$ext)) {
 						return array_slice($segments, 1);
 					}
-					
+				
 					/* module sub-directory sub-controller exists? */
-					if($controller AND is_file($module_subdir.$controller.EXT))	{
+					if($controller AND is_file($module_subdir.$controller.$ext))	{
 						return array_slice($segments, 2);
 					}
 				}
 			
 				/* module controller exists? */			
-				if(is_file($source.$module.EXT)) {
+				if(is_file($source.$module.$ext)) {
 					return $segments;
 				}
 			}
 		}
 		
 		/* application controller exists? */			
-		if(is_file(APPPATH.'controllers/'.$module.EXT)) {
+		if(is_file(APPPATH.'controllers/'.$module.$ext)) {
 			return $segments;
 		}
 		
 		/* application sub-directory controller exists? */
-		if(is_file(APPPATH.'controllers/'.$module.'/'.$directory.EXT)) {
+		if(is_file(APPPATH.'controllers/'.$module.'/'.$directory.$ext)) {
 			$this->directory = $module.'/';
 			return array_slice($segments, 1);
 		}
+	}
+	
+	public function set_class($class) {
+		$this->class = $class.$this->config->item('controller_suffix');
 	}
 }
 
@@ -182,14 +187,15 @@ class Modules
 
 		$file = array_pop($segments);
 		if ($base == 'libraries/') $file = ucfirst($file);
-		$file_ext = strpos($file, '.') ? $file : $file.EXT; 
+		$file_ext = strpos($file, '.') ? $file : $file.EXT;
 		
 		$lang && $lang .= '/';
 		$path = ltrim(implode('/', $segments).'/', '/');
 		$module ? $modules[$module] = $path : $modules = array();
 
-		if ( ! empty($segments)) 
-			$modules[array_shift($segments)] = ltrim(implode('/', $segments).'/','/');		
+		if ( ! empty($segments)) {
+			$modules[array_shift($segments)] = ltrim(implode('/', $segments).'/','/');
+		}	
 	
 		foreach (Modules::$locations as $location => $offset) {
 					
