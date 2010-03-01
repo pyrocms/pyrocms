@@ -12,13 +12,15 @@
 * Methods return a mixture of boolean and stdObjects
 *
 * @author Simon Maddox <simon@simonmaddox.com>
+* @modified Phil Sturgeon <email@philsturgeon.co.uk>
 * @license Creative Commons Attribution-Share Alike 3.0 Unported
 * http://creativecommons.org/licenses/by-sa/3.0/
 **/
 
-class Twitter_lib {
+class Twitter {
 	var $type = 'xml';
 	var $user_agent = 'CodeIgniter-Twitter Library by Simon Maddox (http://simonmaddox.com)';
+	var $api_locaton = 'api.twitter.com/1';
 	
 	var $username;
 	var $password;
@@ -39,7 +41,7 @@ class Twitter_lib {
 		$this->username = $username;
 		$this->password = $password;
 		
-		$user = $this->_fetch('http://twitter.com/account/verify_credentials.' . $this->type);
+		$user = $this->_fetch('account/verify_credentials.' . $this->type);
 		
 		if ($user == false){
 			$this->auth = false;
@@ -61,7 +63,7 @@ class Twitter_lib {
 	*/
 	
 	function public_timeline(){
-		return $this->_fetch('http://twitter.com/statuses/public_timeline.' . $this->type);
+		return $this->_fetch('statuses/public_timeline.' . $this->type);
 	}
 	
 	function friends_timeline($count = '', $since = '', $since_id = '', $page = ''){
@@ -70,7 +72,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('count' => $count, 'since' => $since, 'since_id' => $since_id, 'page' => $page));
 		
 		if (empty($this->friends_timeline)){
-			$this->friends_timeline = $this->_fetch('http://twitter.com/statuses/friends_timeline.' . $this->type . $params);
+			$this->friends_timeline = $this->_fetch('statuses/friends_timeline.' . $this->type . $params);
 		}
 		
 		return $this->friends_timeline;
@@ -82,7 +84,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('id' => $id, 'count' => $count, 'since' => $since, 'since_id' => $since_id, 'page' => $page));
 		
 		if (empty($this->user_timeline)){
-			$this->user_timeline = $this->_fetch('http://twitter.com/statuses/user_timeline.' . $this->type . $params);
+			$this->user_timeline = $this->_fetch('statuses/user_timeline.' . $this->type . $params);
 		}
 		
 		foreach($this->user_timeline as &$message) {
@@ -94,7 +96,7 @@ class Twitter_lib {
 	
 	function show($id = 55){
 		if (!$this->auth){ return false; }
-		$message =& $this->_fetch('http://twitter.com/statuses/show/'.$id.'.xml');
+		$message =& $this->_fetch('statuses/show/'.$id.'.xml');
 	}
 	
 	function replies($since = '', $since_id = '', $page = ''){
@@ -103,7 +105,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('since' => $since, 'since_id' => $since_id, 'page' => $page));
 		
 		if (empty($this->replies)){
-			$this->replies = $this->_fetch('http://twitter.com/statuses/replies.' . $this->type . $params);
+			$this->replies = $this->_fetch('statuses/replies.' . $this->type . $params);
 		}
 		
 		return $this->replies;
@@ -115,7 +117,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('id' => $id, 'page' => $page));
 		
 		if (empty($this->friends)){
-			$this->friends = $this->_fetch('http://twitter.com/statuses/friends.' . $this->type . $params);
+			$this->friends = $this->_fetch('statuses/friends.' . $this->type . $params);
 		}
 		
 		return $this->friends;
@@ -127,7 +129,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('id' => $id, 'page' => $page));
 		
 		if (empty($this->followers)){
-			$this->followers = $this->_fetch('http://twitter.com/statuses/friends.' . $this->type . $params);
+			$this->followers = $this->_fetch('statuses/friends.' . $this->type . $params);
 		}	
 			
 		return $this->followers;
@@ -135,7 +137,7 @@ class Twitter_lib {
 	
 	function user_show($id = ''){
 		if (!$this->auth){ return false; }
-		return $this->_fetch('http://twitter.com/users/show/id.'.$this->type.'?id=' . $id);
+		return $this->_fetch('users/show/id.'.$this->type.'?id=' . $id);
 	}
 	
 	function direct_messages($since = '', $since_id = '', $page = ''){
@@ -144,7 +146,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('since' => $since, 'since_id' => $since_id, 'page' => $page));
 		
 		if (empty($this->direct_messages)){
-			$this->direct_messages = $this->_fetch('http://twitter.com/direct_messages.' . $this->type . $params);
+			$this->direct_messages = $this->_fetch('direct_messages.' . $this->type . $params);
 		}
 		
 		return $this->direct_messages;
@@ -156,7 +158,7 @@ class Twitter_lib {
 		$params = $this->_build_params(array('since' => $since, 'since_id' => $since_id, 'page' => $page));
 		
 		if (empty($this->sent_direct_messages)){
-			$this->sent_direct_messages = $this->_fetch('http://twitter.com/direct_messages/sent.' . $this->type . $params);
+			$this->sent_direct_messages = $this->_fetch('direct_messages/sent.' . $this->type . $params);
 		}
 		
 		return $this->sent_direct_messages;
@@ -164,13 +166,13 @@ class Twitter_lib {
 	
 	function friendship_exists($user_a = '', $user_b = ''){
 		if (!$this->auth){ return false; }
-		$friends = (string) $this->_fetch('http://twitter.com/friendships/exists.'.$this->type.'?user_a='.$user_a.'&user_b=' . $user_b);
+		$friends = (string) $this->_fetch('friendships/exists.'.$this->type.'?user_a='.$user_a.'&user_b=' . $user_b);
 		return ($friends == 'true') ? true : false;
 	}
 	
 	function rate_limit_status(){
 		if (!$this->auth){ return false; }
-		return $this->_fetch('http://twitter.com/account/rate_limit_status.' . $this->type);
+		return $this->_fetch('account/rate_limit_status.' . $this->type);
 	}
 	
 	function favorites($id = '', $page = ''){
@@ -179,14 +181,14 @@ class Twitter_lib {
 		$params = $this->_build_params(array('id' => $id, 'page' => $page));
 		
 		if (empty($this->favorites)){
-			$this->favorites = $this->_fetch('http://twitter.com/favorites.' . $this->type);
+			$this->favorites = $this->_fetch('favorites.' . $this->type);
 		}
 		
 		return $this->favorites;
 	}
 	
 	function downtime_schedule(){
-		return $this->_fetch('http://twitter.com/help/downtime_schedule.' . $this->type);
+		return $this->_fetch('help/downtime_schedule.' . $this->type);
 	}
 	
 	/*
@@ -201,7 +203,7 @@ class Twitter_lib {
 			$params['in_reply_to_status_id'] = $in_reply_to_status_id;
 		}
 		
-		return $this->_post('http://twitter.com/statuses/update.' . $this->type, $params);
+		return $this->_post('statuses/update.' . $this->type, $params);
 	}
 	
 	function destroy($id = ''){
@@ -211,7 +213,7 @@ class Twitter_lib {
 			$params['id'] = $id;
 		}
 		
-		return $this->_post('http://twitter.com/statuses/destroy/id.' . $this->type, $params);
+		return $this->_post('statuses/destroy/id.' . $this->type, $params);
 	}
 	
 	function new_direct_message($user = '', $text = ''){
@@ -225,7 +227,7 @@ class Twitter_lib {
 			$params['text'] = $text;
 		}
 		
-		return $this->_post('http://twitter.com/direct_messages/new.' . $this->type, $params);
+		return $this->_post('direct_messages/new.' . $this->type, $params);
 	}
 	
 	function destroy_direct_message($id = ''){
@@ -235,7 +237,7 @@ class Twitter_lib {
 			$params['id'] = $id;
 		}
 		
-		return $this->_post('http://twitter.com/direct_messages/destroy/id.' . $this->type, $params);
+		return $this->_post('direct_messages/destroy/id.' . $this->type, $params);
 	}
 	
 	function create_friendship($id = '', $follow = ''){
@@ -251,7 +253,7 @@ class Twitter_lib {
 			$params['follow'] = $follow;
 		}
 				
-		return $this->_post('http://twitter.com/friendships/create/id.' . $this->type, $params);
+		return $this->_post('friendships/create/id.' . $this->type, $params);
 	}
 	
 	function destroy_friendship($id = ''){
@@ -261,7 +263,7 @@ class Twitter_lib {
 			$params['id'] = $id;
 		}
 		
-		return $this->_post('http://twitter.com/friendships/destroy/id.' . $this->type, $params);
+		return $this->_post('friendships/destroy/id.' . $this->type, $params);
 	}
 	
 	function update_profile($name = '', $email = '', $url = '', $location = '', $description = ''){
@@ -287,13 +289,13 @@ class Twitter_lib {
 			$params['description'] = (strlen($description) > 160) ? substr($description,0,160) : $description;
 		}
 		
-		return $this->_post('http://twitter.com/account/update_profile.' . $this->type, $params);
+		return $this->_post('account/update_profile.' . $this->type, $params);
 	}
 	
 	function update_delivery_device($device = 'none'){
 		$params = array('device' => $device);
 		
-		return $this->_post('http://twitter.com/account/update_delivery_device.' . $this->type, $params);
+		return $this->_post('account/update_delivery_device.' . $this->type, $params);
 	}
 	
 	function update_profile_colors($profile_background_color = '', $profile_text_color = '', $profile_link_color = '', $profile_sidebar_fill_color = '', $profile_sidebar_border_color = ''){
@@ -317,7 +319,7 @@ class Twitter_lib {
 			$params['profile_sidebar_border_color'] = $profile_sidebar_border_color;
 		}
 		
-		return $this->_post('http://twitter.com/account/update_profile_colors.' . $this->type, $params);
+		return $this->_post('account/update_profile_colors.' . $this->type, $params);
 	}
 	
 	function update_profile_image($image = ''){ // this should be raw multipart data, not a url
@@ -325,7 +327,7 @@ class Twitter_lib {
 			$params['image'] = $image;
 		}
 		
-		return $this->_post('http://twitter.com/account/update_profile_image.' . $this->type, $params);
+		return $this->_post('account/update_profile_image.' . $this->type, $params);
 	}
 	
 	/*function update_profile_image_url($url){
@@ -338,7 +340,7 @@ class Twitter_lib {
 			$params['image'] = $image;
 		}
 		
-		return $this->_post('http://twitter.com/account/update_profile_background_image.' . $this->type, $params);
+		return $this->_post('account/update_profile_background_image.' . $this->type, $params);
 	}
 	
 	/*function update_profile_background_image_url($url){
@@ -361,7 +363,7 @@ class Twitter_lib {
 				'show_user' => $show_user
 			));
 			
-		return $this->_fetch('http://search.twitter.com/search.atom' . $params);
+		return $this->_fetch('search.json' . $params);
 	}
 	
 	function trends(){
@@ -369,7 +371,7 @@ class Twitter_lib {
 			return false;
 		}
 
-		return $this->_fetch('http://search.twitter.com/trends.json');
+		return $this->_fetch('trends.json');
 	}
 	
 	/*
@@ -377,6 +379,18 @@ class Twitter_lib {
 	*/
 	
 	function _fetch($url){
+		
+		if (!function_exists('curl_init')) {
+            
+			if(function_exists('log_message')) {
+				log_message('error', 'Twitter - PHP was not built with cURL enabled. Rebuild PHP with --with-curl to use cURL.') ;
+			}
+			
+			return false;
+		}
+		
+		$url = 'http://' . $this->api_location . '/' . $url;
+		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -393,7 +407,7 @@ class Twitter_lib {
 			
 			// Server not found fix #1
 			if($error_data) {
-				$this->last_error = array('status' => $status, 'request' => @$error_data->request, 'error' => @$error_data->error);
+				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
 			}
 			
 			return false;
@@ -402,6 +416,8 @@ class Twitter_lib {
 	
 	function _post($url,$array){
 		$params = $this->_build_params($array,FALSE);
+		
+		$url = 'http://' . $this->api_location . '/' . $url;
 		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -504,7 +520,7 @@ class Twitter_lib {
 		
 		foreach ($array as $key => $value){
 			if (!empty($value)){
-				$params .= $key . '=' . $value . '&';
+				$params .= urlencode($key) . '=' . urlencode($value) . '&';
 			}
 		}
 		
