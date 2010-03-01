@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+	Options +FollowSymLinks
+	RewriteEngine on
+	
+	# Redirects direct controller views to the right URL
+	# Not so much for security, done for Coda previews
+	RewriteRule modules/(.+)/controllers/(.+)\.php$ /index.php/$1/$2 [L,R=301]
+	RewriteRule controllers/(.+)\.php$ /index.php/$1 [L,R=301]
+	
+	# Remove the .html extention if present (and not an existing file)
+	RewriteCond %{REQUEST_URI} ^(.*)\.html$
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.*)\.html$ index.php/$1 [L]
+
+	# Send request via index.php (again, not if its a real file or folder)
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>

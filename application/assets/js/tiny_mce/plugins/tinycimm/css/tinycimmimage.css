@@ -1,0 +1,604 @@
+/* 
+ * TinyCIMM Media Manager
+ * http://tinycimm.googlecode.com
+ * Developer: Richard Willis 
+ *
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	overflow: hidden;
+}
+
+
+img {
+	border: 0;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+/* Tabs */
+#resize_tab, #manager_tab {
+	display: none;
+}
+#info_tab {
+	float: right;
+	margin: 0px;
+}
+#info_tab_link img {
+	display: block;
+	margin-top: 1px;
+}
+
+#prev {
+	margin: 0;
+	border: 1px solid #000;
+	height: 235px;
+	overflow: auto;
+	padding: 0;
+	width: 508px;
+}
+
+.alignPreview {
+	border: 1px solid #000;
+	width: 500px;
+	height: 160px;
+	overflow: hidden;
+	padding: 5px;
+}
+
+#browser_panel {
+	height: auto;
+}
+
+#fileuploader {
+	height: 300px;
+	width: 100%;
+	overflow: hidden;
+}
+
+#fileuploader td {
+	padding: 5px;
+}
+
+.fileuploadinput {
+	font-weight: bold;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.fileuploadinput a {
+	font-weight: normal;
+}
+.fileupload {
+	display: inline;
+	width: 220px;
+}
+
+table#folderinfo td {
+	padding: 2px 4px 2px 0px;
+}
+
+form#uploadform .constrain-dimensions label {
+	float: left;
+	line-height: 18px
+}
+
+form#uploadform .constrain-dimensions input {
+	width: 14px;
+	float: left;
+	border: 0;
+}
+
+form#uploadform .constrain-demensions-values input {
+	text-align: center;
+	width:38px;
+}
+
+form#uploadform input.image-quality {
+	text-align: center;
+	width: 24px;
+}
+
+#upload-adjust-size-n {
+}
+
+select#folderselect {}
+
+#contextmenu {
+	border: 1px solid #91A7B4;
+	background-color: #FFFFFF;
+}
+
+#contextmenu .menuTitle {
+	background: #EEE url(../img/heading.gif) repeat-x;
+	height: 20px;
+	font-weight: bold;
+	padding: 3px 0 0 3px;
+}
+
+#image_wrapper_panel, #resize_panel {
+	height: 412px;
+}
+
+#image_wrapper_panel fieldset {
+	height: 404px;
+}
+
+.heading {
+	margin-bottom: 6px;
+	border: 1px solid #AAA;
+	padding-left: 3px;
+	border-right: 1px solid #AAA;
+	background: url(../img/heading.gif) repeat-x;
+	margin-top: 4px;
+	font-weight: bold;
+	height: 18px;
+	line-height: 18px;
+}
+
+.heading .add-folder-link {
+	float: right;
+	padding-right: 2px;
+	font-weight: normal
+}
+
+.heading-info {
+	float: right;
+	display: block;
+	text-align: left;
+	width: 170px;
+	font-weight: normal;
+}
+
+span#loading {
+	background: url(../img/ajax-loader.gif) no-repeat;
+	padding-left: 20px;
+	color: #000;
+	height: 16px;
+	line-height: 16px;
+	display: block;
+}
+
+/* Image resizer */
+#resizer {
+	height: 368px;
+	overflow:none;
+}
+#save_size {
+	width: 96px;
+	padding: 6px 5px 0px 0px;
+	float: right;
+}
+#image-slider {
+	margin-bottom: 20px;
+	padding-top: 6px;
+}
+#image-info {
+	height: 342px;
+	width: 522px;
+	display: block;
+	overflow: auto;
+	border: 1px solid #000000;
+}
+#image-info-dimensions {
+	padding: 1px 4px;
+	position: absolute;
+	background: #FFFFFF;
+	border: 1px solid #000;
+	border-width: 0 1px 1px 0;
+	filter: alpha(opacity=75);
+	opacity: 0.75;
+	font-weight: bold;
+	z-index: 9999;
+}
+#slider_img {
+	/*display: none;*/
+}
+
+/**
+ * File browser style
+ **/ 
+
+/* Folder list */
+#folderlist {
+	padding-left: 3px;
+}
+
+.folderlist {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.folderlist li {
+	display: block;
+	height: 18px;
+	line-height: 15px;
+}
+.folderlist li .folder-controls img {
+	float: left;
+	margin-left: 2px;
+	cursor: pointer
+}
+.folderlist li .folder-controls {
+	float: right;
+	display: block;
+	width: 30px;
+	height: 13px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+.folderlist li .folder-controls a img {
+	border: 0;
+	margin: 1px;
+	filter: alpha(opacity=55);
+	opacity: 0.55;
+}
+.folderlist li .folder-controls a:hover img {
+	border: 1px solid #AAA;
+	margin: 0;
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+.folderlist li .foldername {
+	cursor: pointer;
+	position: absolute;
+	height: 13px;
+	width: 100%;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	line-height: 13px;
+}
+.folderlist li .foldername img {
+	float: left;
+	margin-right: 3px;
+}
+.folderlist li .folder-row {
+	display: block;
+	width: 100%;
+	position: relative;
+	height: 13px;
+}
+.folderlist li .num_images {
+	float: right;
+}
+.folderlist li .image_size {
+	float: right;
+	color: #777;
+	width: 50px;
+	display: block;
+	text-align: left;
+}
+.folderlist li .image_dimensions {
+	float: right;
+	color: #777;
+	width: 76px;
+	display: block;
+	text-align: right;
+	padding-right: 4px;
+}
+
+/* Folder list controls */
+#add-folder {
+	display: none;
+}
+#add-folder-caption, .edit-folder-caption {
+	width: 136px;
+	float: left;
+	margin-right: 3px;
+}
+
+#add-folder-image, #add-folder-cancel-image {
+	cursor: pointer;
+	float: left;
+	margin-right: 1px;
+}
+img.edit-folder {
+	cursor: pointer;
+	float: left;
+	margin-right: 2px;	
+}
+
+/* File list */
+
+#filelist {
+	height: 334px;
+	margin: 0;
+	width: 100%;
+	padding-left: 3px;
+	overflow: hidden;
+	z-index: 999;
+	position: relative;
+}
+#filelist .thumb-wrapper, 
+#filelist .thumb-wrapper .thumb, 
+#filelist .thumb-wrapper-over, 
+#filelist .thumb-wrapper-over .thumb {
+	cursor: pointer;
+	display: block;
+	width: 99px;
+	height: 99px;
+	float: left;
+	z-index: 1;
+	margin: 0px 12px 12px 0px;
+	position: relative;
+}
+#filelist .thumb-wrapper {
+	border: 1px solid #DDD;
+}
+#filelist .thumb-wrapper-over {
+	border: 1px solid #8094A4;
+}
+#filelist .controls-bg {
+	background: #FFF;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 15px;
+	width: 100%;
+	z-index: 99;
+	text-align: right;
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+	display: none;
+}
+#filelist .controls {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 14px;
+	width: 100%;
+	z-index: 100;
+	text-align: right;
+	display: none;
+}
+#filelist .controls .resize {
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/arrow_in.png) no-repeat center center;
+	margin-left: 5px;
+}
+#filelist .controls .delete {
+	margin-left: 0.4em;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/delete.gif) no-repeat center center;
+	margin-right: 2px;
+	display: none;
+}
+#filelist .controls .thumbnail {
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/insertthumb.gif) no-repeat center center;
+}
+#filelist .controls .edit {
+	margin-left: 0.4em;
+	margin-right: 0.2em;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	float: right;
+	background: url(../img/pencil_sm.png) no-repeat center center;
+}
+#filelist .thumb-wrapper-over .controls .thumbnail:hover, 
+#filelist .thumb-wrapper-over .controls .resize:hover, 
+#filelist .thumb-wrapper-over .controls .delete:hover, 
+#filelist .thumb-wrapper-over .controls .edit:hover { 
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+#filelist .name-bg {
+	background: #FFF;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 15px;
+	width: 100%;
+	z-index: 99;
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+	display: none;
+}
+#filelist .name {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 15px;
+	width: 100%;
+	z-index: 100;
+	text-align: center;
+	overflow: hidden;
+	display: none;
+}
+#filelist .name span {
+}
+
+#filelist .show-controls .controls,
+#filelist .show-controls .controls-bg,
+#filelist .show-controls .name,
+#filelist .show-controls .name-bg {
+	display: block;
+}
+
+#filelist .loader {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 99;
+	background: #FFF url(../img/progress.gif) no-repeat center center;
+	filter: alpha(opacity=40);
+	opacity: 0.4;
+}
+#filelist span.loader {
+	display: none;
+}
+
+/* Search form */
+input#search-input {
+	float: right;
+	background: transparent;
+	padding: 1px 0px 1px 2px;
+	border: 1px solid #ccc;
+	border-width: 0px 0px 0px 1px;
+	width: 110px;
+	font-size: 11px;
+}
+#search-loading {
+	margin: 2px 2px 0px 0px;
+}
+
+.showloader span.loader {
+	display: block;
+}
+
+.list-controls {
+	float: right;
+}
+
+.list-item {
+	cursor: pointer;
+	display: block;
+}
+
+select#view-type, select#sort-type {
+	font-weight:normal;
+	border-left:1px solid #AAA;
+	border-width:0 0 0 1px;
+	background:#FFF;
+	background-color:transparent;
+	width:120px;
+}
+
+/* Overlay */
+#overlay {
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:1000;
+	background:#FFF;
+	filter:alpha(opacity=50);
+	opacity:0.5;
+}
+#overlayimg {
+	width:50px;
+	height:50px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-55px 0 0 -45px;
+	z-index:1001;
+}
+#overlayimg div {
+	text-align: center;
+}
+
+/* Manager */
+#alttext-container textarea {
+	width: 180px;
+	height: 36px;
+}
+a#image-preview-popup img {
+	border: 1px solid #AAA;
+	/*display: block;*/
+}
+#image-manager-details {
+	display: none;
+}
+#image-filename {
+	width: 180px;
+}
+
+/* Flash message */
+#flash-msg-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	text-align: center;
+}
+#flash-msg {
+	width: auto;
+	padding: 1px 5px 2px 20px;
+	border: 1px solid #DDD;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	background: white url(../img/information.png) no-repeat 2px center;
+}
+
+/* pagination */
+.pagination a, .pagination a:visited, .pagination b {
+	border: 1px solid #F4F4F0;
+	padding: 0px 2px;
+	text-decoration: none;
+}
+.pagination b {
+	color: #2B6FB6;
+}
+.pagination a:hover {
+	border: 1px solid #aaa;
+	padding: 0px 2px;
+}
+
+/* common */
+.state-over {
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+.state-out {
+	opacity: 0.65;
+	filter: alpha(opacity=65);
+}
+.clear {
+	clear: left;
+}
+.hidden {
+	display: none;
+}
+.right {
+	float: right;
+}
+.left {
+	float: left;
+}
+.clearfix:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden; 
+}
+.clearfix { 
+	display: inline-block; 
+}
+* html .clearfix {
+	height:1%;
+}
+* .clearfix {
+	display:block; 
+}

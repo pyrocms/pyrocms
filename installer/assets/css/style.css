@@ -1,0 +1,172 @@
+@charset "utf-8";
+/**
+ * @name 		PyroCMS Installer Stylesheet
+ * @author 		Yorick Peterse - PyroCMS development team
+ * @copyright 	Yorick Peterse - PyroCMS development team
+ * @package 	PyroCMS
+ * @subpackage 	Installer
+ *
+ * @since 		v0.9.6.2
+ */
+/* General */
+body {
+	background:#D9D9D9;
+	font-family:Helvetica,Verdana,Arial,sans-serif;
+}
+#wrapper
+{
+	height:auto;
+	margin:0 auto;
+	margin-top:30px;
+	width:600px;
+}
+/* Helpers */
+.white 	{color:#fff!important;text-decoration:underline!important;} /* Should only be used for links inside error messages (since blue text on a red background is ugly as fuck) */
+.red 	{color:red;}
+.green	{color:#3FB53F;}
+.orange	{color:#F18431;}
+.clear 	{clear:both;}
+/* Notifications */
+#notification
+{
+	color:#fff;
+	text-align:center;
+}
+#notification p {padding:10px;}
+.error 			{background:#E53939;}
+.success 		{background:#67BA2E;}
+/* Typography */
+h1 		{font-size:36px;}
+h2 		{font-size:24px;margin-bottom:15px;}
+h3 		{font-size:18px;margin-bottom:15px;}
+p  		{font-size:14px;margin-bottom:15px;line-height:18px;}
+em 		{font-style:italic;}
+strong 	{font-weight:bold;}
+small 	{font-size:12px;}
+/* Top */
+#logo
+{
+	margin-bottom:20px;
+}
+#header 
+{
+	background:#35AED7;
+	height:40px;
+	-moz-border-radius: 10px 10px 0px 0px;
+	-webkit-border-radius:10px 10px 0px 0px;
+}
+#header ul
+{
+	margin-left:10px;
+}
+#header ul li
+{
+	float:left;
+}
+#header ul li a, #header ul li span
+{
+	color:#fff;
+	display:block;
+	font-size:14px;
+	height:27px;
+	padding-top:13px;
+	text-decoration:none;
+	text-align:center;
+	width:90px;
+}
+#header ul li #current
+{
+	background:#7BBFD6;
+	font-weight:bold;
+}
+#header ul li a:hover
+{
+	background:#3492B2;
+}
+/* Center */
+#content
+{
+	background:#fff;
+	padding:20px 15px 15px 15px;
+	-moz-border-radius: 0px 0px 10px 10px;
+	-webkit-border-radius:0px 0px 10px 10px;
+}
+#content ul
+{
+	margin-bottom:15px;
+}
+#content ul li
+{
+	font-size:14px;
+	margin:0px 0px 10px 10px;
+}
+#content a 
+{
+	color:#1E95BD;
+	text-decoration:none;
+}
+#content a:hover
+{
+	text-decoration:underline;
+}
+/* Permission lists */
+#content .perm_list li
+{
+	height:20px;
+	margin-bottom:5px;
+	padding-left:25px;
+}
+#content #perm_folders li 	{background: url(../images/icons/folder.png) no-repeat top left;}
+#content #perm_files li 	{background: url(../images/icons/file.png) no-repeat top left;}
+/* Next step button */
+#next_step
+{
+	border-top:1px solid #ccc;
+}
+#next_step a
+{
+	background:#35AED7;
+	color:#fff;
+	display:block;
+	float:right;
+	height:20px;
+	margin-top:15px;
+	padding:7px 5px 5px 5px;
+	text-decoration:none;
+	text-align:center;
+	width:80px;
+}
+/* Form stuff */
+#install_frm p label
+{
+	float:left;
+	padding-top:7px;
+	width:120px;
+}
+#install_frm input[type=text], #install_frm input[type=password] {
+	border:1px solid #ccc;
+	height:18px;
+	padding:7px 5px 3px 5px;
+	width:200px;
+}
+#install_frm p select {
+	margin:7px 5px 3px 5px;
+}
+#install_frm p #dummy_data,#install_frm p #create_db
+{
+	margin:8px 20px 0px 10px;
+}
+#submit
+{
+	background:#35AED7;
+	border:none;
+	color:#fff;
+	float:right;
+	font-size:14px;
+	height:30px;
+	margin-top:15px;
+	padding:5px 5px 10px 5px;
+	text-decoration:none;
+	text-align:center;
+	width:80px;
+}

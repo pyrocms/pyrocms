@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.6">
+	<name>
+		<en>Users</en>
+                <pl>Użytkownicy</pl>
+		<es>Usuarios</es>
+		<fr>Utilisateurs</fr>
+		<de>Benutzer</de>
+	</name>
+	<description>
+		<en>Let users register and log in to the site, and manage them via the control panel.</en>
+                <pl>Pozwól użytkownikom na logowanie się na stronie i zarządzaj nimi za pomocą panelu.</pl>
+		<es>Permite el registro de nuevos usuarios quienes podrán loguearse en el sitio. Estos podrán controlarse desde el panel de administración.</es>
+		<fr>Permet aux utilisateurs de s'enregistrer et de se connecter au site et de les gérer via le panneau de contrôle</fr>
+		<de>Erlaube Benutzern das Registrieren und Einloggen auf deiner Seite und verwalte sie über die Admin-Oberfläche</de>
+	</description>
+	<is_frontend>1</is_frontend>
+	<is_backend>1</is_backend>
+	<is_backend_menu>1</is_backend_menu>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+</module>

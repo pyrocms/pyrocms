@@ -1,0 +1,7 @@
+.buildpath
+.project
+.settings
+application/cache/*
+application/assets/img/photos/*/*
+application/uploads/assets/*
+codeigniter/logs/log-*.php

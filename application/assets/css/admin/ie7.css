@@ -1,0 +1,36 @@
+div#top {
+margin-bottom:33px;
+}
+ul#menu {
+float:left;
+width:100%;
+z-index: 10;
+}
+div#header {
+padding-top:20px;
+z-index: 9999;
+}
+div.box-container {
+background-color:#FFFFFF;
+padding:10px;
+height: 170px;
+}
+div#content-top {
+border-bottom:1px solid #BCBCB7;
+margin-bottom:25px;
+padding-bottom:25px;
+}
+div#mid-col {
+width:510px;
+margin-top: 20px;
+}
+div#left-col, div#right-col {
+margin-top: 20px;
+width:223px;
+}
+.message.notice {
+background:url("../../img/admin/notice.png") no-repeat scroll left center #FFFEE5;
+border:1px solid #E8E657;
+top: 15px;
+position: relative;
+}

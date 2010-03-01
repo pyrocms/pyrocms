@@ -1,0 +1,30 @@
+/**************************************/
+/*               BASIC                */
+/**************************************/
+
+body {
+	color: #333;
+	font-family: Verdana, Arial, Geneva, sans-serif;
+	font-size:70%;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/**************************************/
+/*             HEADINGS               */
+/**************************************/
+h1 {
+	font-size: 1.7em;
+	margin: 0.2em 0;
+}
+
+h2 {
+	font-size: 1.5em;
+}

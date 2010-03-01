@@ -1,0 +1,21 @@
+#page-tree { 
+	background-color:#eee;
+	border:1px #BBB solid;
+	height: 35em;
+	overflow:auto;
+}
+
+#page-tree ul { background:none; margin-left:0.7em !important; }
+#page-tree a { text-decoration: none; color:black; padding:0.2em }
+#page-tree a.selected { border:1px dotted black; }
+#page-tree a:hover { background-color: black; border:1px dotted white; color: #FFF; }
+
+#page-details {
+	background-color:lightyellow;
+	border:1px #BBB solid;
+	min-height: 33em;
+	padding:1em;
+}
+
+#page-details h4 { margin:0.5em 0; }
+#page-details fieldset { border: 1px solid #BBB; }

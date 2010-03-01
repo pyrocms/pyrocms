@@ -1,0 +1,28 @@
+@import 'reset.css';
+@import 'layout.css';
+
+@import '../boxes.css';
+@import '../common.css';
+@import '../links.css';
+@import '../lists.css';
+
+.default-input-text {
+	color:#AAAAAA;
+}
+
+.CodeMirror-wrapping {
+	border: 1px solid #bbb;
+}
+
+.CodeMirror-line-numbers {
+	width: 2.2em;
+	background-color: #eee;
+	color:#AAAAAA;
+	font-family:monospace;
+	font-size:10pt;
+	text-align:right;
+ }
+ 
+.CodeMirror-line-numbers div {
+	margin:0;
+}

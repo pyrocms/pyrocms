@@ -1,0 +1,75 @@
+CHANGELOG
+=========
+
+v0.9.8
+------
+
+* Added custom CSS area for pages.
+* Added GUI editable "Page layouts" to control shared layouts for grouped pages.
+* "Check all" boxes and CTRL + Click selecting added to all listing pages.
+* Switched module system from Matchbox to Modular Separation (minor performance boost).
+* Switched template system from HelpfulParser to Dwoo (dramaticallty improved syntax support, if/else, loops, etc).
+* Removed Layout library and replaced with the much cleaner Template library.
+* Removed all PHP short-tags.
+* Standardized much of the model code, and removed deprecated CodeIgniter ActiveRecord methods like getwhere().
+* Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.
+* Enabled profile on local installaitons, but wont exist on Dev, QA or live.
+* Settings library now loads all settings on instantiation, instead of one query-per-setting.
+* Added "Preview" windows for pages and news, much more accurate than before.
+* Draft/Live status added for pages, admins can see pages anyway.
+* Swapped Facebox for Fancybox. Mainly iframe support, but it seems generally better.
+* Re-enabled page slug editing.
+* Navigation add/edit form is now much more user-friendly.
+* Removed all CAPTCHAs and use Akismet and some clever trickery to check for spam.
+* Upgraded to Google Async Analytics.
+* Added editable 404 page which actually sends 404 header.
+* Navigation links are drag/drop sortable in admin.
+* URI slugs in News and Pages are now editable.
+* Upgraded Dwoo to v1.1.1.
+* Upgraded jQuery to v1.4.2.
+* URI slugs in News and Pages are now editable
+* Updated default theme to use entirely Dwoo syntax as an example.
+* Required metadata such as jQuery / front.js loading is now handled internally so theme designers dont need to remember it.
+
+v0.9.7.4
+--------
+ 
+* Full support for PHP 5.3.
+* Fixed "could not open application/assets/config/config.php" error on Install Step 4.
+* Extra support for different server types.
+* index.php is no longer removed by default, unless a supported server is picked.
+
+v0.9.7.3
+--------
+
+* Removed MySQLi as a dependency - should fix installer.
+* Fixed AJAXify for FF2 and IE7. 
+* Fixed loads of TinyCIMM bugs (Image Manager)
+* Added better JS support for IE6 (not going to make a habit of that)
+* Added German language support.
+* Stopped PHP errors showing if you clicked Publish/Delete with no news articles selected.
+
+v0.9.7.2
+--------
+
+* Contact captcha fixed
+* More installer bugs fixed
+* Added "target" to navigation links
+* Fixed an issue with Cache library lazy-loading that was breaking lazydays theme
+
+v0.9.7.1
+--------
+
+* Improved PHP 5.3 support
+* Several installer bugs fixed
+* Added Gravatar support to comment
+* Enabled short-tag rewriting by default.
+
+v0.9.7
+------
+
+* New Page manager - Use a tree navigation view to manage and link your unlimited levels of pages.
+* Image uploading via TinyMCE - Not just any plugin, Richard Wills (@badsyntax) has been going nuts on the development here and made an amazing plugin which strongly integrated with PyroCMS.
+* Improved interface - Now using a slightly darker theme. Less brown, more black and orange.
+* Added French language pack
+* Cross-browser improvements - much better support for Safari, Opera and Chrome.

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<name>
+		<en>Categories</en>
+		<es>Categorías</es>
+		<fr>Catégories</fr>
+		<de>Kategorien</de>
+		<pl>Kategorie</pl>
+	</name>
+	<description>
+		<en>Manage categories for articles, products, services, etc.</en>
+		<es>Administra categorías para artículos, productos, servicios, etc.</es>
+		<fr>Administre les catégories des articles, produits, services, etc.</fr>
+		<de>Kategorien für Artikel, Produkte, Dienstleistungen, etc. verwalten.</de>
+		<pl>Zarządzaj kategoriami artykułów, produktów, usług, itp.</pl>
+	</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<is_backend_menu>1</is_backend_menu>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+</module>

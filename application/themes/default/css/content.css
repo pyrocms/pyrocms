@@ -1,0 +1,52 @@
+/* GENERAL */
+.error-box {
+	background:#FFEBE8 none repeat scroll 0 0;
+	border:1px solid #DD3C10;
+	margin:5px 5px 10px 5px;
+	padding:5px;
+}
+.notice-box {
+	background:#FFFBE2 none repeat scroll 0 0;
+	border:1px solid #FFE222;
+	margin:5px 5px 10px 5px;
+	padding:5px;
+}
+.success-box {
+	background:#EEFFEE none repeat scroll 0 0;
+	border:1px solid #99CC99;
+	margin:5px 5px 10px 5px;
+	padding:5px;
+}
+
+
+code {
+	display:block;
+	white-space:pre;
+	background-color:#FBFBFD;
+	border:1px solid #DAE0E4;
+	font-size:11px;
+	margin:10px 4px;
+	overflow:auto;
+	padding:8px;
+	font-family:courier new, sans-serif;
+}
+
+
+/* Module content */
+ul#photos li {
+	float:left;
+	height:150px;
+	width:200px;
+}
+
+fieldset#comments {
+	float:left;
+	padding: 1em;
+	width:44%;
+}
+
+fieldset#write-comment {
+	float:right;
+	padding: 1em;
+	width:44%;
+}
