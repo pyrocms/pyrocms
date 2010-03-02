@@ -20,7 +20,7 @@
 class Twitter {
 	var $type = 'xml';
 	var $user_agent = 'CodeIgniter-Twitter Library by Simon Maddox (http://simonmaddox.com)';
-	var $api_locaton = 'api.twitter.com/1';
+	var $api_location = 'api.twitter.com/1';
 	
 	var $username;
 	var $password;
