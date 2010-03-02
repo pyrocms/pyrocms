@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.1">
+	<name>
+		<en>Widgets</en>
+		<es>Widgets</es>
+		<fr>Widgets</fr>
+		<de>Widgets</de>
+                <pl>Widgets</pl>
+	</name>
+	<description>
+		<en>Manage small sections of self-contained logic in blocks or "Widgets".</en>
+		<es>Manage small sections of self-contained logic in blocks or "Widgets".</es>
+		<fr>Manage small sections of self-contained logic in blocks or "Widgets".</fr>
+		<de>Manage small sections of self-contained logic in blocks or "Widgets".</de>
+                <pl>Manage small sections of self-contained logic in blocks or "Widgets".</pl>
+	</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<is_backend_menu>1</is_backend_menu>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>create</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+</module>

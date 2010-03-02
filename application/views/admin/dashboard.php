@@ -12,7 +12,7 @@
 	<div class="box-container">
 	
 		<ul>
-			<?php foreach($this->data->rss_items as $rss_item): ?>
+			<?php foreach($rss_items as $rss_item): ?>
 			<li class='rss_item'>
 				<strong class='item_name'><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></strong>
 				<p class='item_date'><em><?php echo $rss_item->get_date(); ?></em></p>

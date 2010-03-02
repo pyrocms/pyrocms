@@ -245,5 +245,3 @@ class Navigation_m extends Model
         return $this->db->affected_rows();
 	}
 }
-
-?>
