@@ -1,12 +1,43 @@
-<?php if (!empty($widget_areas)): ?>
-	<?php foreach ($widget_areas as $group): ?>
+<div id="add-area-box" class="box hidden">
+
+	<h3><?php echo lang('widgets.add_area'); ?></h3>
+
+	<form class="box-container crud">
 	
-		<div class="box">
-			<h3><?php echo $group->title;?></h3>	
+		<ol>
+			<li>
+				<label for="title">Area name</label>
+				<?php echo form_input('title'); ?>
+			</li>
 			
-			<div class="box-container widget-area">
+			<li class="even">
+				<label for="slug">Area short name</label>
+				<?php echo form_input('slug'); ?>
+			</li>
 			
-					
+		</ol>
+	
+		<?php echo form_submit('', 'Add'); ?>
+	
+	</form>
+</div>
+
+<?php if (!empty($widget_areas)): ?>
+	<?php foreach ($widget_areas as $widget_area): ?>
+	
+		<div id="area-<?php echo $widget_area->slug; ?>" class="box widget-area">
+			<h3><?php echo $widget_area->title; ?></h3>	
+			
+			<div class="box-container">
+				
+				<div class="button float-right">
+					<a id="delete-area-<?php echo $widget_area->slug; ?>" class="delete-area" href="#">
+						<?php echo lang('widgets.delete_area'); ?>
+					</a>
+				</div>
+				
+				
+				
 			</div>
 		</div>
 		
@@ -15,30 +46,3 @@
 <?php else: ?>
 	<p><?php echo lang('nav_no_groups');?></p>
 <?php endif; ?>
-
-<script type="text/javascript">
-(function($) {
-	$(function() {
-		
-		$('a.delete_group').click(function(){
-			return confirm('<?php echo lang('nav_group_delete_confirm');?>');
-		});
-
-
-		$('table tbody').sortable({
-			handle: 'td',
-			update: function() {
-				order = new Array();
-				$('tr', this).each(function(){
-					order.push( $(this).find('input[name="action_to[]"]').val() );
-				});
-				order = order.join(',');
-				
-				$.post(BASE_URI + 'widgets/ajax/update_positions', { order: order });
-			}
-			
-		}).disableSelection();
-				
-	});
-})(jQuery);
-</script>

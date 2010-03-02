@@ -25,19 +25,7 @@
 				{theme_view('leftnav')}
 			</div>
 			
-			{if module_exists('twitter') }
-			<div id="recent-posts">
-				<h2>Thoughts</h2>
-				<?php echo $this->load->view('twitter/fragments/my_tweets'); ?>
-			</div>
-			{/if}
-			
-			{if module_exists('news')}
-			<div id="recent-posts">
-				<h2>Recent Posts</h2>
-				<?php echo $this->news_m->get_news_fragment(); ?>
-			</div>
-			{/if}
+			{widget_area('sidebar')}
 	
 	    </div>
 	

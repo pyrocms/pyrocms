@@ -18,13 +18,15 @@ class Admin extends Admin_Controller
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
 	    $this->template->append_metadata( js('widgets.js', 'widgets') );
 	    $this->template->append_metadata( css('widgets.css', 'widgets') );
-		
-		$this->data->widgets = $this->widgets->list_widgets();
-		$this->data->widget_areas = $this->widgets->list_areas();
 	}
 	
 	function index()
 	{
+		$this->data->available_widgets = $this->widgets->list_available_widgets();
+		$this->data->uninstalled_widgets = $this->widgets->list_uninstalled_widgets();
+		
+		$this->data->widget_areas = $this->widgets->list_areas();
+		
 		// Go through all widget areas
 		foreach($this->data->widget_areas as $area)
 		{

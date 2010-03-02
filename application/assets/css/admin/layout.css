@@ -74,17 +74,18 @@ div#content {padding-top:25px;}
 		div#content-top h2 a { text-decoration:none;color:#373d40; }
 		div#content-top a#topLink:hover {color:#333;}
 		
-	div.box-container a { color: #3A4043; }
+	.box-container a { color: #3A4043; }
 		
 	/** box general settings **/
 	div.box {margin-bottom:15px; width:100%;}
-	div.box-container {
+	.box-container {
 		background-color:#fff; padding:10px;
 		-moz-border-radius-bottomleft:5px;
 		-moz-border-radius-bottomright:5px;
+		display:block;
 	}
-	div.box-container h5 {color:#333; padding-left:20px; border-bottom:1px solid #d7d9d9; font-weight:bold; padding-bottom:7px; margin-bottom:1px; padding-top: 1px;}
-	div.box-container h5 span {font-weight:normal; font-size:0.9em;}
+	.box-container h5 {color:#333; padding-left:20px; border-bottom:1px solid #d7d9d9; font-weight:bold; padding-bottom:7px; margin-bottom:1px; padding-top: 1px;}
+	.box-container h5 span {font-weight:normal; font-size:0.9em;}
 	
 	div.box h3 {
 		background:#3a4043;

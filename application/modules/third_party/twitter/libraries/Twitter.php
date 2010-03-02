@@ -79,12 +79,11 @@ class Twitter {
 	}
 	
 	function user_timeline($id = '', $count = '', $since = '', $since_id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('id' => $id, 'count' => $count, 'since' => $since, 'since_id' => $since_id, 'page' => $page));
-		
+
+		$params = $this->_build_params(array('count' => $count, 'since' => $since, 'since_id' => $since_id, 'page' => $page));
+
 		if (empty($this->user_timeline)){
-			$this->user_timeline = $this->_fetch('statuses/user_timeline.' . $this->type . $params);
+			$this->user_timeline = $this->_fetch('statuses/user_timeline/' . $id . '.' . $this->type . $params);
 		}
 		
 		foreach($this->user_timeline as &$message) {
@@ -390,7 +389,7 @@ class Twitter {
 		}
 		
 		$url = 'http://' . $this->api_location . '/' . $url;
-		
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

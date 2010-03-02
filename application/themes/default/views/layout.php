@@ -35,18 +35,7 @@
 				
 			</div>
 			
-			{if(module_exists('newsletters')}
-			<div id="subscribe_newsletter">
-				{$ci->load->view('newsletters/subscribe_form')}
-			</div>
-			{/if}
-	
-			{if(module_exists('news')}
-			<div id="recent-posts">
-				<h2>Recent Posts</h2>
-				{$ci->news_m->get_news_fragment()}
-			</div>
-			{/if}
+			{widget_area('sidebar')}
 			
 		</div>
 
