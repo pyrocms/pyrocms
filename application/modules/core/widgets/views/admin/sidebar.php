@@ -14,7 +14,7 @@
 	<div class="box-container">
 		<ul id="available-widgets" class="list-links">
 			<?php foreach($available_widgets as $widget): ?>
-			<li class="available-<?php $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<li class="available-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
@@ -25,7 +25,7 @@
 	<div class="box-container">
 		<ul id="uninstalled-widgets" class="list-links">
 			<?php foreach($uninstalled_widgets as $widget): ?>
-			<li class="uninstalled-<?php $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="modal"') ?></li>
+			<li class="uninstalled-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="modal"') ?></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>

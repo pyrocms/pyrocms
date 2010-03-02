@@ -98,11 +98,16 @@ class Widgets
 		
 		return $output;
 	}
-	
+
 	
 	function add_area($input)
 	{
 		return $this->widgets_m->insert_area((array)$input);
+	}
+	
+	function delete_area($slug)
+	{
+		return $this->widgets_m->delete_area($slug);
 	}
 	
 	

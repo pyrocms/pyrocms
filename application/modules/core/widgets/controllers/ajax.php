@@ -6,6 +6,7 @@ class Ajax extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->library('widgets');
+		$this->lang->load('widgets');
 	}
 	
 	function add_widget_area()
@@ -16,6 +17,12 @@ class Ajax extends Admin_Controller
 		$this->widgets->add_area($data->widget_area);
 		
 		echo $this->load->view('admin/ajax/new_area', $data, TRUE);
+	}
+	
+	function delete_widget_area()
+	{
+		$slug = $this->input->post('area_slug');
+		$this->widgets->delete_area($slug);
 	}
 	
 	function ajax_update_positions()

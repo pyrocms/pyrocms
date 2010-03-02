@@ -1,11 +1,13 @@
+#available-widgets li { z-index:1; }
+
+#available-widgets li.ui-draggable-dragging a { display:block; }
+
 .widget-area .box-container {
-	background-color: lightyellow;
+	background-color: #ffffe0;
 	min-height: 10em;
 	z-index:0;
 }
 
-.widget-area .box-container .button {
-	margin-top:-3.4em;
-}
-
-#available-widgets li { z-index:1; }
+	.widget-area .box-container .button {
+		margin-top:-3.4em;
+	}
