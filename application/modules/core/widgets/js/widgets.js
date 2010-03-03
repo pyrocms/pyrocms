@@ -19,8 +19,7 @@
 	
 	function hide_add_instance()
 	{
-		$('input[name="title"]', add_instance).attr('value', '');
-		$('input[name="slug"]', add_instance).attr('value', '');
+		$('input, select, textarea', add_instance).attr('value', '');
 		
 		// Hide the form
 		add_instance.slideUp();
@@ -123,6 +122,8 @@
 
 			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(html) {
 				console.debug(html);
+				
+				hide_add_instance();
 			});
 			
 			return false;
