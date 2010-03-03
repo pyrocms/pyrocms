@@ -351,3 +351,49 @@ CREATE TABLE `variables` (
   `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- command split --
+
+DROP TABLE IF EXISTS `widget_areas`;
+
+-- command split --
+
+CREATE TABLE `widget_areas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `slug` varchar(100) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_slug` (`slug`)
+) ENGINE=InnoDB;
+
+-- command split --
+
+DROP TABLE IF EXISTS `widget_instances`;
+
+-- command split --
+
+CREATE TABLE `widget_instances` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `widget_id` int(11) DEFAULT NULL,
+  `widget_area_id` int(11) DEFAULT NULL,
+  `options` text NOT NULL,
+  `order` int(10) NOT NULL DEFAULT '0',
+  `created_on` int(11) NOT NULL DEFAULT '0',
+  `updated_on` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+-- command split --
+
+DROP TABLE IF EXISTS `widgets`;
+
+-- command split --
+
+CREATE TABLE `widgets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `slug` varchar(100) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL COMMENT '	',
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
