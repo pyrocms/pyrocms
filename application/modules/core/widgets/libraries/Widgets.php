@@ -10,7 +10,7 @@ class Widgets
 {
 	function __construct()
 	{
-		$this->load->model('widgets_m');
+		$this->load->model('widgets/widgets_m');
 	}
 	
 	function list_areas()

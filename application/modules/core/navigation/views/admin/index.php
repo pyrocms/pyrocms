@@ -63,15 +63,6 @@
 			return confirm('<?php echo lang('nav_group_delete_confirm');?>');
 		});
 
-
-		// Return a helper with preserved width of cells
-		var fixHelper = function(e, ui) {
-			ui.children().each(function() {
-				$(this).width($(this).width());
-			});
-			return ui;
-		};
-		
 		$('table tbody').sortable({
 			handle: 'td',
 			helper: fixHelper,

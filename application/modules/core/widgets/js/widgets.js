@@ -131,19 +131,7 @@
 			return false;
 		});
 		
-		
-		
-		// Return a helper with preserved width of cells
-		var fixHelper = function(e, ui) {
-			ui.children().each(function() {
-				$(this).width($(this).width());
-			});
-			return ui;
-		};
-		
-		
-		console.debug($('.widget-area table tbody'));
-		
+
 		$('.widget-area table tbody').sortable({
 			handle: 'td',
 			helper: fixHelper,
