@@ -28,10 +28,9 @@ class Admin extends Admin_Controller
 		$this->data->widget_areas = $this->widgets->list_areas();
 		
 		// Go through all widget areas
-		foreach($this->data->widget_areas as $area)
+		foreach($this->data->widget_areas as &$area)
 		{
-			//... and get widgets links for each one
-			//$this->data->widgets[$area->slug] = $this->widgets->list_widgets($area->slug);
+			$area->widgets = $this->widgets->list_area_instances($area->slug);
 		}
 		
 		// Create the layout

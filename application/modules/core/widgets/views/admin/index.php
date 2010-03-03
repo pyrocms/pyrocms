@@ -47,6 +47,9 @@
 					</a>
 				</div>
 				
+				<div id="widget-list">
+					<?php $this->load->view('admin/ajax/updated_instance_list', array('widgets' => $widget_area->widgets)); ?>
+				</div>
 			</div>
 		</div>
 		

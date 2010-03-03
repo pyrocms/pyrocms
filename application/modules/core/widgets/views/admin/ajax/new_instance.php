@@ -2,6 +2,7 @@
 
 <?php echo form_hidden('widget_id', $widget->id); ?>
 <?php echo form_hidden('widget_area_id', $widget_area->id); ?>
+<?php echo form_hidden('widget_area_slug', $widget_area->slug); ?>
 
 <ol>
 	<li>

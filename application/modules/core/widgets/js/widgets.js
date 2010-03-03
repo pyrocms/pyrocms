@@ -116,14 +116,15 @@
 		{
 			widget_id = $('input[name="widget_id"]', this).val();
 			widget_area_id = $('input[name="widget_area_id"]', this).val();
+			widget_area_slug = $('input[name="widget_area_slug"]', this).val();
 			title = $('input[name="widget_area_id"]', this).val();
 			
 			if(!title || !widget_id || !widget_area_id) return false;
 
-			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(html) {
-				console.debug(html);
-				
+			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function() {
 				hide_add_instance();
+				
+				$('#area-' + widget_area_slug + ' #widget-list').load(BASE_URI + 'widgets/ajax/list_widgets/' + widget_area_slug);
 			});
 			
 			return false;

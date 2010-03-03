@@ -20,10 +20,15 @@ class Widgets_m extends MY_Model
 	
 	private function _select_instances()
 	{
-		$this->db->select('wi.id, w.slug, wi.title, wi.title as instance_title, wi.widget_area_id, wi.options')
+		$this->db->select('wi.id, w.slug, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id');
+	}
+	
+	public function get_areas()
+	{
+		return $this->db->get('widget_areas')->result();
 	}
 	
 	public function get_area($slug)

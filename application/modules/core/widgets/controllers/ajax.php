@@ -53,6 +53,12 @@ class Ajax extends Admin_Controller
 		$this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
 	}
 	
+	function list_widgets($slug)
+	{
+		$widgets = $this->widgets->list_area_instances($slug);
+		$this->load->view('admin/ajax/updated_instance_list', array('widgets' => $widgets));
+	}
+	
 	function ajax_update_positions()
 	{
 		$ids = explode(',', $this->input->post('order'));

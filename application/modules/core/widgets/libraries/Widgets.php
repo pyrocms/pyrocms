@@ -10,15 +10,18 @@ class Widgets
 {
 	function __construct()
 	{
-		$this->load->model('widgets/widgets_m');
-		$this->load->model('widgets/widget_areas_m');
+		$this->load->model('widgets_m');
 	}
 	
 	function list_areas()
 	{
-		return $this->widget_areas_m->get_all();
+		return $this->widgets_m->get_areas();
 	}
 
+	function list_area_instances($slug)
+	{
+		return $this->widgets_m->get_by_area($slug);
+	}
 	
 	function list_available_widgets()
 	{
