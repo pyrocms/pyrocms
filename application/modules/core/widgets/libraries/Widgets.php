@@ -145,6 +145,11 @@ class Widgets
 		));
 	}
 	
+	function update_instance_order($id, $position) 
+	{
+		return $this->widgets_m->update_instance_order($id, $position);
+	}
+	
     function prep_options($name, $options)
     {
     	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;

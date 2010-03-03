@@ -59,7 +59,7 @@ class Ajax extends Admin_Controller
 		$this->load->view('admin/ajax/updated_instance_list', array('widgets' => $widgets));
 	}
 	
-	function ajax_update_positions()
+	function update_order()
 	{
 		$ids = explode(',', $this->input->post('order'));
 		
@@ -67,8 +67,8 @@ class Ajax extends Admin_Controller
 		
 		foreach($ids as $id)
 		{
-			$this->widgets_m->update_link_position($id, $i);
-			
+			$this->widgets->update_instance_order($id, $i);
+			echo $this->db->last_query();
 			++$i;
 		}
 		

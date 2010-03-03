@@ -44,6 +44,7 @@
 	function set_droppable()
 	{
 		$(".widget-area").droppable({
+			accept: '#available-widgets li',
 			drop: function(event, ui) {
 				area_slug = this.id.replace(/^area-/, '');
 				widget_slug = $(event.originalEvent.originalTarget).parent('li').attr('id').replace(/^widget-/, '');
@@ -129,7 +130,36 @@
 			
 			return false;
 		});
+		
+		
+		
+		// Return a helper with preserved width of cells
+		var fixHelper = function(e, ui) {
+			ui.children().each(function() {
+				$(this).width($(this).width());
+			});
+			return ui;
+		};
+		
+		
+		console.debug($('.widget-area table tbody'));
+		
+		$('.widget-area table tbody').sortable({
+			handle: 'td',
+			helper: fixHelper,
+			update: function() {
+				order = new Array();
+				$('tr', this).each(function(){
+					order.push( $(this).find('input[name="action_to[]"]').val() );
+				});
+				order = order.join(',');
+				
+				$.post(BASE_URI + 'widgets/ajax/update_order', { order: order });
+			}
+			
+		}).disableSelection();
+				
+		
 	});
-
 
 })(jQuery);
