@@ -27,6 +27,21 @@ class Rss_feed extends Widgets
 		return array(
 			'rss_items' => $this->simplepie->get_items(0, $options['number'])
 		);
+	}
+	
+	/*
+	public function prep_form()
+	{
+		return array('test' => 'thing'); // $test = thing in form.php
+	}
+	*/
+	
+	public function prep_options($options)
+	{
+		$this->load->helper('url');
 		
+		$options['feed_url'] = prep_url($options['feed_url']);
+		
+		return $options;
 	}
 }

@@ -1,5 +1,38 @@
 (function($)
 {
+	var add_area;
+	var add_instance;
+	
+	function hide_add_area()
+	{
+		$('input[name="title"]', add_area).attr('value', '');
+		$('input[name="slug"]', add_area).attr('value', '');
+		
+		// Hide the form
+		add_area.slideUp();
+	}
+	
+	function show_add_area()
+	{
+		add_area.slideDown();
+	}
+	
+	function hide_add_instance()
+	{
+		$('input[name="title"]', add_instance).attr('value', '');
+		$('input[name="slug"]', add_instance).attr('value', '');
+		
+		// Hide the form
+		add_instance.slideUp();
+	}
+	
+	function show_add_instance()
+	{
+		add_instance.slideDown();
+	}
+	
+	// Drag/drop stuff
+	
 	function set_draggable()
 	{
 		$("#available-widgets li").draggable({
@@ -13,12 +46,21 @@
 	{
 		$(".widget-area").droppable({
 			drop: function(event, ui) {
-				alert('dropped!');
+				area_slug = this.id.replace(/^area-/, '');
+				widget_slug = $(event.originalEvent.originalTarget).parent('li').attr('id').replace(/^widget-/, '');
+				
+				$.post(BASE_URI + 'widgets/ajax/show_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
+					$('form', add_instance).html(html);
+					show_add_instance();
+				});
 			}
 		});
 	}
 	
 	$(function() {
+		
+		add_area = $('div#add-area-box');
+		add_instance = $('div#add-instance-box');
 		
 		// Widget Area add / remove --------------
 		
@@ -30,21 +72,16 @@
 		
 		$('div#add-area-box form').submit(function()
 		{
-			title = $('input[name="title"]', this);
-			slug = $('input[name="slug"]', this);
+			title = $('input[name="title"]', this).val();
+			slug = $('input[name="slug"]', this).val();
 			
-			if(!title.val() || !slug.val()) return false;
+			if(!title || !slug) return false;
 			
-			$.post(BASE_URI + 'widgets/ajax/add_widget_area', {
-				area_title: title.val(), area_slug: slug.val()
-			}, function(data) {
-				$('div#mid-col').append(data).children('div.box:hidden').slideDown();
+			$.post(BASE_URI + 'widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
+				$('div#mid-col').append(data).children('div.widget-area:hidden').slideDown();
 				
-				title.val('');
-				slug.val('');
-				
-				// Hide the form
-				$('div#add-area-box').slideUp();
+				// Done, hide this form
+				hide_add_area();
 				
 				// Re-bind the droppable areas
 				set_droppable();
@@ -74,6 +111,22 @@
 		
 		set_draggable();
 		set_droppable();
+		
+		// Add new widget instance
+		$('div#add-instance-box form').submit(function()
+		{
+			widget_id = $('input[name="widget_id"]', this).val();
+			widget_area_id = $('input[name="widget_area_id"]', this).val();
+			title = $('input[name="widget_area_id"]', this).val();
+			
+			if(!title || !widget_id || !widget_area_id) return false;
+
+			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(html) {
+				console.debug(html);
+			});
+			
+			return false;
+		});
 	});
 
 

@@ -48,7 +48,12 @@ class Widgets
 
 		return $uninstalled;
 	}
+
 	
+	function get_area($slug)
+	{
+		return $this->widgets_m->get_area($slug);
+	}
 	
 	function get_widget($slug)
 	{
@@ -70,11 +75,11 @@ class Widgets
 
     	return $widget;
 	}
-	
+
 	
     function render($name, $args)
     {
-    	require APPPATH . 'widgets/' . $name . '/' . $name . EXT;
+    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
     	$class_name = ucfirst($name);
     	$widget = new $class_name;
         $data = call_user_func(array(&$widget, 'run'), $args);
@@ -82,7 +87,19 @@ class Widgets
         return $this->load->view('../widgets/' . $name . '/views/display' . EXT, $data, TRUE);
     }
 	
-	function render_area($area, $return = FALSE)
+    function render_backend($name)
+    {
+    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
+    	$class_name = ucfirst($name);
+    	$widget = new $class_name;
+    	
+    	// Check for default data if there is any
+    	$data = method_exists($widget, 'prep_form') ? call_user_func(array(&$widget, 'prep_form')) : array();
+	    
+		return $this->load->view('../widgets/' . $name . '/views/form' . EXT, $data, TRUE);
+    }
+	
+	function render_area($area)
 	{
 		$widgets = $this->widgets_m->get_by_area($area);
 		
@@ -90,8 +107,8 @@ class Widgets
 		
 		foreach($widgets as $widget)
 		{
-			$widget->data = $this->_unserialize_data($widget->data);
-			$widget->body = $this->render($widget->slug, $widget->data);
+			$widget->options = $this->_unserialize_options($widget->options);
+			$widget->body = $this->render($widget->slug, $widget->options);
 
 			$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
 		}
@@ -110,6 +127,34 @@ class Widgets
 		return $this->widgets_m->delete_area($slug);
 	}
 	
+	function add_instance($title, $widget_id, $widget_area_id, $options = array())
+	{
+		$slug = $this->widgets_m->get($widget_id)->slug;
+		
+		// The widget has to do some stuff before it saves
+		$options = $this->widgets->prep_options($slug, $options);
+		
+		$this->widgets_m->insert_instance(array(
+			'title' => $title,
+			'widget_id' => $widget_id,
+			'widget_area_id' => $widget_area_id,
+			'options' => $this->_serialize_options($options)
+		));
+	}
+	
+    function prep_options($name, $options)
+    {
+    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
+    	$class_name = ucfirst($name);
+    	$widget = new $class_name;
+    	
+    	if(method_exists($widget, 'prep_options'))
+	    {
+			return (array) call_user_func(array(&$widget, 'prep_options'), $options);
+	    }
+	    
+	    return array();
+    }
 	
 	// wirdesignz you genius
     function __get($var)
@@ -119,14 +164,14 @@ class Widgets
         return $ci->$var;
     }
 	
-	private function _serialize_data($data)
+	private function _serialize_options($options)
 	{
-		return serialize((array) $data);
+		return serialize((array) $options);
 	}
 	
-	private function _unserialize_data($data)
+	private function _unserialize_options($options)
 	{
-		return (array) unserialize($data);
+		return (array) unserialize($options);
 	}
 
 }

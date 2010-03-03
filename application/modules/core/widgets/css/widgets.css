@@ -1,6 +1,13 @@
 #available-widgets li { z-index:1; }
 
-#available-widgets li.ui-draggable-dragging a { display:block; }
+#available-widgets li a { 
+	background-color: #ffffe0;
+}
+
+#available-widgets li.ui-draggable-dragging a { 
+	background-color: #fff;
+	width:16.7em;
+}
 
 .widget-area .box-container {
 	background-color: #ffffe0;

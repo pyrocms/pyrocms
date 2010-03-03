@@ -22,6 +22,17 @@
 	</form>
 </div>
 
+<div id="add-instance-box" class="box hidden">
+
+	<h3><?php echo lang('widgets.add_instance'); ?></h3>
+
+	<form class="box-container crud">
+	
+		<?php echo form_submit('', 'Add'); ?>
+	
+	</form>
+</div>
+
 <?php if (!empty($widget_areas)): ?>
 	<?php foreach ($widget_areas as $widget_area): ?>
 	
@@ -35,8 +46,6 @@
 						<?php echo lang('widgets.delete_area'); ?>
 					</a>
 				</div>
-				
-				
 				
 			</div>
 		</div>

@@ -20,10 +20,15 @@ class Widgets_m extends MY_Model
 	
 	private function _select_instances()
 	{
-		$this->db->select('wi.id, w.slug, w.title, wi.title as instance_title, wi.widget_area_id, wi.data')
+		$this->db->select('wi.id, w.slug, wi.title, wi.title as instance_title, wi.widget_area_id, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id');
+	}
+	
+	public function get_area($slug)
+	{
+		return $this->db->get_where('widget_areas', array('slug' => $slug))->row();
 	}
 	
 	public function insert_area($input)
@@ -31,6 +36,29 @@ class Widgets_m extends MY_Model
 		return $this->db->insert('widget_areas', array(
 			'title' => $input['title'],
 			'slug' => $input['slug']
+		));
+	}
+	
+	public function insert_instance($input)
+	{
+		$this->load->helper('date');
+		
+		$last_widget = $this->db->select('`order`')
+			->order_by('`order`', 'desc')
+			->limit(1)
+			->get_where('widget_instances', array('widget_area_id' => $input['widget_area_id']))
+			->row();
+			
+		$order = isset($last_widget->order) ? $last_widget->order + 1 : 1;
+		
+		return $this->db->insert('widget_instances', array(
+			'title' => $input['title'],
+			'widget_id' => $input['widget_id'],
+			'widget_area_id' => $input['widget_area_id'],
+			'options' => $input['options'],
+			'`order`' => $order,
+			'created_on' => now(),
+			'updated_on' => now()
 		));
 	}
 	

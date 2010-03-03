@@ -136,7 +136,8 @@ div#content {padding-top:25px;}
 	/** forms **/
 	form.crud {padding:5px; color:#3a4043}
 	form.crud p {margin:10px 0;}
-	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin-bottom:10px;}
+	form.crud h3 {color:#1d8895; font-weight:bold; font-size:150%; margin:10px 0;}
+	form.crud h4 {font-weight:bold; font-size:125%; margin:10px 0;}
 	
 	form.crud fieldset {padding-top:10px; border:0;}
 	form.crud ol li {margin-bottom:1em; -moz-border-radius:5px; -webkit-border-radius:5px; }
