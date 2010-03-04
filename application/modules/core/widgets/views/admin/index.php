@@ -6,18 +6,24 @@
 	
 		<ol>
 			<li>
-				<label for="title">Area name</label>
+				<label for="title"><?php echo lang('widgets.widget_area_title'); ?></label>
 				<?php echo form_input('title'); ?>
 			</li>
 			
 			<li class="even">
-				<label for="slug">Area short name</label>
+				<label for="slug"><?php echo lang('widgets.widget_area_slug'); ?></label>
 				<?php echo form_input('slug'); ?>
 			</li>
 			
 		</ol>
 	
-		<?php echo form_submit('', 'Add'); ?>
+		<button type="submit">
+			<span><?php echo lang('save_label'); ?></span>
+		</button>
+		
+		<button id="widget-area-cancel">
+			<span><?php echo lang('cancel_label'); ?></span>
+		</button>
 	
 	</form>
 </div>
@@ -27,8 +33,6 @@
 	<h3><?php echo lang('widgets.add_instance'); ?></h3>
 
 	<form class="box-container crud">
-	
-		<?php echo form_submit('', 'Add'); ?>
 	
 	</form>
 </div>

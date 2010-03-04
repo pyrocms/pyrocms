@@ -16,5 +16,9 @@
 </fieldset>
 
 <button type="submit">
-	<span><?php echo lang('widgets.save_button'); ?></span>
+	<span><?php echo lang('save_label'); ?></span>
+</button>
+
+<button id="widget-instance-cancel">
+	<span><?php echo lang('cancel_label'); ?></span>
 </button>

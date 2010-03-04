@@ -25,8 +25,14 @@
 		add_instance.slideUp();
 	}
 	
-	function show_add_instance()
+	function show_add_instance(area_slug)
 	{
+		instance_html = add_instance.detach();
+		
+		$('div#area-' + area_slug).before(instance_html);
+		
+		console.debug(instance_html);
+		
 		add_instance.slideDown();
 	}
 	
@@ -51,7 +57,7 @@
 				
 				$.post(BASE_URI + 'widgets/ajax/show_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
 					$('form', add_instance).html(html);
-					show_add_instance();
+					show_add_instance(area_slug);
 				});
 			}
 		});
@@ -66,7 +72,7 @@
 		
 		$('a#add-area').click(function()
 		{
-			$('div#add-area-box').slideDown('slow');
+			show_add_area();
 			return false;
 		});
 		
@@ -90,6 +96,8 @@
 			return false;
 		});
 
+		$('button#widget-area-cancel').live('click', hide_add_area);
+		
 		$('a.delete-area').live('click', function()
 		{
 			// all div.box have an id="area-slug"
@@ -131,6 +139,7 @@
 			return false;
 		});
 		
+		$('button#widget-instance-cancel').live('click', hide_add_instance);
 
 		$('.widget-area table tbody').sortable({
 			handle: 'td',

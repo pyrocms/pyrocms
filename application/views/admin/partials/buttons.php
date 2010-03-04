@@ -10,7 +10,7 @@
 		
 		<?php elseif( $button == 'cancel' ): ?>
 			<div class="button">
-				<a href="<?php echo site_url('admin/'.$module);?>" class="ajax">
+				<a href="<?php echo site_url('admin/'.$module);?>">
 					<?php echo lang('cancel_label');?>
 				</a>
 			</div>

@@ -21,16 +21,18 @@ function css_editor(id, width)
 	});
 }
 
-// Return a helper with preserved width of cells
-var fixHelper = function(e, ui) {
-	ui.children().each(function() {
-		$(this).width($(this).width());
-	});
-	return ui;
-};
+var fixHelper;
 
 (function($)
 {
+	// Return a helper with preserved width of cells
+	fixHelper = function(e, ui) {
+		ui.children().each(function() {
+			$(this).width($(this).width());
+		});
+		return ui;
+	};
+	
 	$(function() {
 	
 		// Sort any tables with a class of 'sortable'
