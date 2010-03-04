@@ -203,6 +203,12 @@ class Widgets
 		return $this->widgets_m->update_instance_order($id, $position);
 	}
 	
+	function delete_instance($id) 
+	{
+		return $this->widgets_m->delete_instance($id);
+	}
+	
+	
 	function validation_errors($name, $options)
 	{
 		$this->_widget || $this->_spawn_widget($name);

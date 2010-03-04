@@ -117,6 +117,12 @@ class Ajax extends Admin_Controller
 		}
 	}
 	
+	function delete_widget_instance()
+	{
+		$instance_id = $this->input->post('instance_id');
+		$this->widgets->delete_instance($instance_id);
+	}
+	
 	function list_widgets($slug)
 	{
 		$widgets = $this->widgets->list_area_instances($slug);

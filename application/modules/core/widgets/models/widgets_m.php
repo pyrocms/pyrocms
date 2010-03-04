@@ -98,6 +98,11 @@ class Widgets_m extends MY_Model
 		));
 	}
 	
+	function delete_instance($id) 
+	{
+		return $this->db->delete('widget_instances', array('id' => $id));
+	}
+	
 	public function delete_area($slug)
 	{
 		// Get the id for this area

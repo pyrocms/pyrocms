@@ -15,7 +15,7 @@
 <ol>
 	<li>
 		<label>Title:</label>
-		<?php echo form_input('title'); ?>
+		<?php echo form_input('title', set_value('title', isset($widget->instance_title) ? $widget->instance_title : '')); ?>
 	</li>
 </ol>
 

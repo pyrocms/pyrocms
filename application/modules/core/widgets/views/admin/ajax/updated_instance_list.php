@@ -17,7 +17,7 @@
 			<td><?php echo $widget->title;?></td>
 			<td>
 				<a href="#" class="edit-instance">Edit</a> | 
-				<a href="#" class="edit-instance">Delete</a>
+				<a href="#" class="delete-instance">Delete</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

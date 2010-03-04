@@ -226,7 +226,7 @@
 			}
 			
 		}).disableSelection();
-		
+
 		
 		$('.widget-area table a.edit-instance').live('click', function(){
 			
@@ -236,6 +236,18 @@
 			$.post(BASE_URI + 'widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
 				$('form', edit_instance).html(html);
 				show_edit_instance(area_slug);
+			});
+			
+			return false;
+		});
+		
+		$('.widget-area table a.delete-instance').live('click', function(){
+			
+			tr = $(this).closest('tr');
+			id = tr.attr('id').replace('instance-', '');
+
+			$.post(BASE_URI + 'widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
+				tr.slideUp(function() { $(this).remove(); });
 			});
 			
 			return false;
