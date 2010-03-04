@@ -99,11 +99,11 @@ div#content {padding-top:25px;}
 	}
 	
 	/** columns **/
-	div#left-col, div#mid-col {float:left; margin-right:12px;}
-	div#mid-col {width:510px;}
+	div#left-col {margin-right:12px; float:left;}
+	div#mid-col {margin-right:12px;width:510px;}
 	div#right-col {margin-right:0px; float:right;}
 	div#left-col, div#right-col {width:223px;}
-	div.large-col {width:720px !important; margin-right:0px !important;}
+	div.large-col {width:720px !important; float:right; margin-right:0px !important;}
 	div.full-col {width:963px !important; margin-right:0px !important;}
 	
 	/** list links **/

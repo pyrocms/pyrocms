@@ -3,6 +3,22 @@
 	var add_area;
 	var add_instance;
 	
+	window.onscroll = function()
+	{
+		// Thanks to Johan Sundström (http://ecmanaut.blogspot.com/) and David Lantner (http://lantner.net/david) 
+		// for their help getting Safari working as documented at http://www.derekallard.com/blog/post/conditionally-sticky-sidebar
+		if( window.XMLHttpRequest ) { // IE 6 doesn't implement position fixed nicely...
+			if (document.documentElement.scrollTop > 190 || self.pageYOffset > 190) {
+				$('#left-col').css('position', 'fixed');
+				$('#left-col').css('top', '0');
+			} else if (document.documentElement.scrollTop < 190 || self.pageYOffset < 190) {
+				$('#left-col').css('position', 'absolute');
+				$('#left-col').css('top', '200px');
+			}
+		}
+	}
+
+	
 	function hide_add_area()
 	{
 		$('input[name="title"]', add_area).attr('value', '');
