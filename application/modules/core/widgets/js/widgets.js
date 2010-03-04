@@ -10,10 +10,10 @@
 		if( window.XMLHttpRequest ) { // IE 6 doesn't implement position fixed nicely...
 			if (document.documentElement.scrollTop > 190 || self.pageYOffset > 190) {
 				$('#left-col').css('position', 'fixed');
-				$('#left-col').css('top', '0');
-			} else if (document.documentElement.scrollTop < 190 || self.pageYOffset < 190) {
+				$('#left-col').css('top', '10px');
+			} else if (document.documentElement.scrollTop < 200 || self.pageYOffset < 200) {
 				$('#left-col').css('position', 'absolute');
-				$('#left-col').css('top', '200px');
+				$('#left-col').css('top', '190px');
 			}
 		}
 	}

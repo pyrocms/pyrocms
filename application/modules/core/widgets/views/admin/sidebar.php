@@ -16,6 +16,42 @@
 			<?php foreach($available_widgets as $widget): ?>
 			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
 			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
+			<?php foreach($available_widgets as $widget): ?>
+			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<?php endforeach; ?>
 		</ul>
 	</div>
 </div>
