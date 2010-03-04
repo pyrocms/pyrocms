@@ -14,7 +14,7 @@ $lang['widgets.widget_area_slug'] 			= 'Area short name';
 
 // Widget instance titles
 $lang['widgets.add_instance'] 				= 'Add widget instance';
+$lang['widgets.edit_instance'] 				= 'Edit widget instance';
 $lang['widgets.delete_instance'] 			= 'Delete widget instance';
-
 
 ?>

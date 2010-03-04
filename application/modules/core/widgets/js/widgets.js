@@ -2,13 +2,16 @@
 {
 	var add_area;
 	var add_instance;
+	var edit_instance;
 	
+	/*
 	window.onscroll = function()
 	{
 		// Thanks to Johan Sundström (http://ecmanaut.blogspot.com/) and David Lantner (http://lantner.net/david) 
 		// for their help getting Safari working as documented at http://www.derekallard.com/blog/post/conditionally-sticky-sidebar
 		if( window.XMLHttpRequest ) { // IE 6 doesn't implement position fixed nicely...
 			if (document.documentElement.scrollTop > 190 || self.pageYOffset > 190) {
+				
 				$('#left-col').css('position', 'fixed');
 				$('#left-col').css('top', '10px');
 			} else if (document.documentElement.scrollTop < 200 || self.pageYOffset < 200) {
@@ -17,7 +20,7 @@
 			}
 		}
 	}
-
+	*/
 	
 	function hide_add_area()
 	{
@@ -31,6 +34,7 @@
 	function show_add_area()
 	{
 		add_area.slideDown();
+		return false;
 	}
 	
 	function hide_add_instance()
@@ -43,13 +47,24 @@
 	
 	function show_add_instance(area_slug)
 	{
-		instance_html = add_instance.detach();
-		
-		$('div#area-' + area_slug).before(instance_html);
-		
-		console.debug(instance_html);
+		$('div#area-' + area_slug).before(add_instance.detach());
 		
 		add_instance.slideDown();
+	}
+	
+	function hide_edit_instance()
+	{
+		$('input, select, textarea', add_instance).attr('value', '');
+		
+		// Hide the form
+		edit_instance.slideUp();
+	}
+	
+	function show_edit_instance(area_slug)
+	{
+		$('div#area-' + area_slug).before(edit_instance.detach());
+		
+		edit_instance.slideDown();
 	}
 	
 	// Drag/drop stuff
@@ -71,7 +86,7 @@
 				area_slug = this.id.replace(/^area-/, '');
 				widget_slug = $(event.originalEvent.originalTarget).parent('li').attr('id').replace(/^widget-/, '');
 				
-				$.post(BASE_URI + 'widgets/ajax/show_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
+				$.post(BASE_URI + 'widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
 					$('form', add_instance).html(html);
 					show_add_instance(area_slug);
 				});
@@ -83,14 +98,11 @@
 		
 		add_area = $('div#add-area-box');
 		add_instance = $('div#add-instance-box');
+		edit_instance = $('div#edit-instance-box');
 		
 		// Widget Area add / remove --------------
 		
-		$('a#add-area').click(function()
-		{
-			show_add_area();
-			return false;
-		});
+		$('a#add-area').click(show_add_area);
 		
 		$('div#add-area-box form').submit(function()
 		{
@@ -144,13 +156,54 @@
 			widget_area_slug = $('input[name="widget_area_slug"]', this).val();
 			title = $('input[name="widget_area_id"]', this).val();
 			
+			form = $(this);
+			
 			if(!title || !widget_id || !widget_area_id) return false;
 
-			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function() {
-				hide_add_instance();
+			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(data) {
 				
-				$('#area-' + widget_area_slug + ' #widget-list').load(BASE_URI + 'widgets/ajax/list_widgets/' + widget_area_slug);
-			});
+				if(data.status == 'success')
+				{
+					hide_add_instance();
+					
+					$('#area-' + widget_area_slug + ' #widget-list').load(BASE_URI + 'widgets/ajax/list_widgets/' + widget_area_slug);
+				}
+				
+				else
+				{
+					form.html(data.form);
+				}
+				
+			}, 'json');
+			
+			return false;
+		});
+		
+		// Edit widget instance
+		$('div#edit-instance-box form').submit(function()
+		{
+			widget_id = $('input[name="widget_id"]', this).val();
+			widget_area_id = $('input[name="widget_area_id"]', this).val();
+			widget_area_slug = $('input[name="widget_area_slug"]', this).val();
+			title = $('input[name="widget_area_id"]', this).val();
+			
+			if(!title || !widget_id || !widget_area_id) return false;
+
+			$.post(BASE_URI + 'widgets/ajax/edit_widget_instance', $(this).serialize(), function(data) {
+				
+				if(data.status == 'success')
+				{
+					hide_add_instance();
+					
+					$('#area-' + widget_area_slug + ' #widget-list').load(BASE_URI + 'widgets/ajax/list_widgets/' + widget_area_slug);
+				}
+				
+				else
+				{
+					alert('fail');
+				}
+				
+			}, 'json');
 			
 			return false;
 		});
@@ -171,7 +224,20 @@
 			}
 			
 		}).disableSelection();
-				
+		
+		
+		$('.widget-area table a.edit-instance').live('click', function(){
+			
+			id = $(this).closest('tr').attr('id').replace('instance-', '');
+			area_slug = $(this).closest('div.widget-area').attr('id').replace('area-', '');
+
+			$.post(BASE_URI + 'widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
+				$('form', edit_instance).html(html);
+				show_edit_instance(area_slug);
+			});
+			
+			return false;
+		});
 		
 	});
 

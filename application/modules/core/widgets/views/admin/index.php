@@ -37,6 +37,15 @@
 	</form>
 </div>
 
+<div id="edit-instance-box" class="box hidden">
+
+	<h3><?php echo lang('widgets.edit_instance'); ?></h3>
+
+	<form class="box-container crud">
+	
+	</form>
+</div>
+
 <?php if (!empty($widget_areas)): ?>
 	<?php foreach ($widget_areas as $widget_area): ?>
 	

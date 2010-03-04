@@ -14,6 +14,19 @@ class Rss_feed extends Widgets
 	public $author = 'Phil Sturgeon';
 	public $version = '1.0';
 	
+	public $fields = array(
+		array(
+			'field'   => 'feed_url',
+			'label'   => 'Feed URL',
+			'rules'   => 'required'
+		),
+		array(
+			'field'   => 'number',
+			'label'   => 'Number of items',
+			'rules'   => 'numeric'
+		)
+	);
+
 	public function run($options)
 	{
 		$this->load->library('simplepie');

@@ -16,7 +16,7 @@ class Ajax extends Admin_Controller
 		
 		$this->widgets->add_area($data->widget_area);
 		
-		$this->load->view('admin/ajax/new_area', $data);
+		$this->load->view('admin/ajax/add_area', $data);
 	}
 	
 	function delete_widget_area()
@@ -25,7 +25,7 @@ class Ajax extends Admin_Controller
 		$this->widgets->delete_area($slug);
 	}
 	
-	function show_widget_instance_form()
+	function add_widget_instance_form()
 	{
 		if(!$this->input->post('widget_slug') || !$this->input->post('area_slug'))
 		{
@@ -35,9 +35,9 @@ class Ajax extends Admin_Controller
 		$widget = $this->widgets->get_widget($this->input->post('widget_slug'));
 		$widget_area = $this->widgets->get_area($this->input->post('area_slug'));
 		
-		$this->load->view('admin/ajax/new_instance', array(
+		$this->load->view('admin/ajax/instance_form', array(
 			'widget' => $widget,
-			'widget_area' => $widget_area,
+			'widget_area' => $widget_area
 		));
 	}
 	
@@ -50,7 +50,40 @@ class Ajax extends Admin_Controller
 		$options = $_POST;
 		unset($options['title'], $options['widget_id'], $options['widget_area_id']);
 		
-		$this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
+		$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
+		
+		if($result['status'] == 'success')
+		{
+			echo json_encode($result);
+		}
+		
+		else
+		{
+			$data = array(
+				'widget' 		=> $this->widgets->get_widget($widget_id),
+				'widget_area' 	=> $this->widgets->get_area($widget_area_id),
+				'error'			=> $result['error']
+			);
+
+			echo json_encode(array('status' => 'error', 'form' => $this->load->view('admin/ajax/instance_form', $data, TRUE)));
+		}
+	}
+	
+	function edit_widget_instance_form()
+	{
+		$instance_id = $this->input->post('instance_id');
+		if(!$instance_id)
+		{
+			exit();
+		}
+		
+		$widget = $this->widgets->get_instance($instance_id);
+		$widget_area = $this->widgets->get_area($widget->widget_area_slug);
+		
+		$this->load->view('admin/ajax/instance_form', array(
+			'widget' => $widget,
+			'widget_area' => $widget_area,
+		));
 	}
 	
 	function list_widgets($slug)

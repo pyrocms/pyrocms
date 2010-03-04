@@ -2,7 +2,9 @@
 .project
 .settings
 application/cache/*_m/*
-application/cache/*_lib/*§
+application/cache/*_lib/*
+application/cache/dwoo/compiled/*.php
+application/cache/simplepie/*.spc
 application/assets/img/photos/*/*
 application/uploads/assets/*
 codeigniter/logs/log-*.php

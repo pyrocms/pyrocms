@@ -9,9 +9,20 @@
 class Widgets_m extends MY_Model
 {
 
+	function get_instance($id)
+	{
+		$this->db->select('wi.id, w.slug, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+			->from('widget_areas wa')
+			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id = w.id')
+			->where('wi.id', $id);
+
+		return $this->db->get()->row();
+	}
+	
 	function get_by_area($slug)
 	{
-		$this->db->select('wi.id, w.slug, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wi.options')
+		$this->db->select('wi.id, w.slug, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
@@ -26,9 +37,14 @@ class Widgets_m extends MY_Model
 		return $this->db->get('widget_areas')->result();
 	}
 	
-	public function get_area($slug)
+	public function get_area_by($field, $id)
 	{
-		return $this->db->get_where('widget_areas', array('slug' => $slug))->row();
+		return $this->db->get_where('widget_areas', array($field => $id))->row();
+	}
+	
+	public function get_widget_by($field, $id)
+	{
+		return $this->db->get_where('widgets', array($field => $id))->row();
 	}
 	
 	public function insert_area($input)

@@ -11,13 +11,13 @@
 
 	<?php foreach($widgets as $widget): ?>
 	
-		<tr>
+		<tr id="instance-<?php echo $widget->id; ?>">
 			<td><?php echo form_checkbox('action_to[]', $widget->id); ?></td>
 			<td><?php echo $widget->instance_title;?></td>
 			<td><?php echo $widget->title;?></td>
 			<td>
-				<?php echo anchor('admin/navigation/edit/' . $widget->id, 'Edit');?> | 
-				<?php echo anchor('admin/navigation/delete/' . $widget->id, 'Delete', array('class'=>'confirm'));?>
+				<a href="#" class="edit-instance">Edit</a> | 
+				<a href="#" class="edit-instance">Delete</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

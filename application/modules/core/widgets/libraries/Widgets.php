@@ -8,6 +8,8 @@
  */
 class Widgets
 {
+	private $_widget = NULL;
+	
 	function __construct()
 	{
 		$this->load->model('widgets/widgets_m');
@@ -52,28 +54,43 @@ class Widgets
 		return $uninstalled;
 	}
 
-	
-	function get_area($slug)
+	function get_instance($instance_id)
 	{
-		return $this->widgets_m->get_area($slug);
+		return $this->widgets_m->get_instance($instance_id);
 	}
 	
-	function get_widget($slug)
+	function get_area($id)
 	{
-		return $this->widgets_m->get_by('slug', $slug);
+		if(is_numeric($id))
+		{
+			return $this->widgets_m->get_area_by('id', $id);
+		}
+		
+		else
+		{
+			return $this->widgets_m->get_area_by('slug', $id);
+		}
+	}
+	
+	function get_widget($id)
+	{
+		if(is_numeric($id))
+		{
+			return $this->widgets_m->get_widget_by('id', $id);
+		}
+		
+		else
+		{
+			return $this->widgets_m->get_widget_by('slug', $id);
+		}
 	}
 
 	
 	function read_widget($slug)
 	{
-		if( ! require(APPPATH . 'widgets/' . $slug . '/' . $slug . EXT))
-		{
-			return FALSE;
-		}
+    	$this->_widget || $this->_spawn_widget($slug);
 		
-    	$class_name = ucfirst($slug);
-    	
-    	$widget = (object) get_object_vars(new $class_name);
+    	$widget = (object) get_object_vars($this->_widget);
     	$widget->slug = $slug;
 
     	return $widget;
@@ -82,22 +99,19 @@ class Widgets
 	
     function render($name, $args)
     {
-    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
-    	$class_name = ucfirst($name);
-    	$widget = new $class_name;
-        $data = call_user_func(array(&$widget, 'run'), $args);
+    	$this->_widget || $this->_spawn_widget($name);
+    	
+        $data = call_user_func(array(&$this->_widget, 'run'), $args);
         
         return $this->load->view('../widgets/' . $name . '/views/display' . EXT, $data, TRUE);
     }
 	
     function render_backend($name)
     {
-    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
-    	$class_name = ucfirst($name);
-    	$widget = new $class_name;
+    	$this->_widget || $this->_spawn_widget($name);
     	
     	// Check for default data if there is any
-    	$data = method_exists($widget, 'prep_form') ? call_user_func(array(&$widget, 'prep_form')) : array();
+    	$data = method_exists($this->_widget, 'prep_form') ? call_user_func(array(&$this->_widget, 'prep_form')) : array();
 	    
 		return $this->load->view('../widgets/' . $name . '/views/form' . EXT, $data, TRUE);
     }
@@ -134,6 +148,11 @@ class Widgets
 	{
 		$slug = $this->widgets_m->get($widget_id)->slug;
 		
+		if( $error = $this->validation_errors($slug, $options) )
+		{
+			return array('status' => 'error', 'error' => $error);
+		}
+		
 		// The widget has to do some stuff before it saves
 		$options = $this->widgets->prep_options($slug, $options);
 		
@@ -143,6 +162,8 @@ class Widgets
 			'widget_area_id' => $widget_area_id,
 			'options' => $this->_serialize_options($options)
 		));
+		
+		return array('status' => 'success');
 	}
 	
 	function update_instance_order($id, $position) 
@@ -150,20 +171,43 @@ class Widgets
 		return $this->widgets_m->update_instance_order($id, $position);
 	}
 	
+	function validation_errors($name, $options)
+	{
+		$this->_widget || $this->_spawn_widget($name);
+		
+	    if(property_exists($this->_widget, 'fields'))
+    	{
+    		$_POST = $options;
+    		
+    		$this->load->library('form_validation');
+    		$this->form_validation->set_rules($this->_widget->fields);
+    		
+    		if(!$this->form_validation->run())
+    		{
+    			return validation_errors();
+    		}
+    	}
+	}
+	
     function prep_options($name, $options)
+    {
+		$this->_widget || $this->_spawn_widget($name);
+    	
+    	if(method_exists($this->_widget, 'prep_options'))
+	    {
+			return (array) call_user_func(array(&$this->_widget, 'prep_options'), $options);
+	    }
+	    
+	    return array('');
+    }
+	
+    private function _spawn_widget($name)
     {
     	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
     	$class_name = ucfirst($name);
-    	$widget = new $class_name;
-    	
-    	if(method_exists($widget, 'prep_options'))
-	    {
-			return (array) call_user_func(array(&$widget, 'prep_options'), $options);
-	    }
-	    
-	    return array();
+    	$this->_widget = new $class_name;
     }
-	
+    
 	// wirdesignz you genius
     function __get($var)
     {
