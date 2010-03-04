@@ -14,13 +14,26 @@ class Twitter_feed extends Widgets
 	public $author = 'Phil Sturgeon';
 	public $version = '1.0';
 	
+	public $fields = array(
+		array(
+			'field'   => 'username',
+			'label'   => 'Twitter Username',
+			'rules'   => 'required'
+		),
+		array(
+			'field'   => 'number',
+			'label'   => 'Number of tweets',
+			'rules'   => 'numeric'
+		)
+	);
+	
 	public function run($options)
 	{
 		$this->load->library('twitter/twitter');
 		$this->lang->load('twitter/twitter');
-		
-		!empty($options['number']) || $options['number'] = 5;
+		exit('OI!');
 		!empty($options['username']) || $options['username'] = $this->settings->item('twitter_username');
+		!empty($options['number']) || $options['number'] = 5;
 		
 		$tweets = !empty($options['username']) ? $this->twitter->user_timeline($options['username'], $options['number']) : array();
 		

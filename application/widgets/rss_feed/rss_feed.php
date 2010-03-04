@@ -34,7 +34,7 @@ class Rss_feed extends Widgets
 		$this->simplepie->set_feed_url( $options['feed_url'] );
 		$this->simplepie->init();
 		
-		isset($options['number']) || $options['number'] = 5;
+		!empty($options['number']) || $options['number'] = 5;
 		
 		// Store the feed items
 		return array(

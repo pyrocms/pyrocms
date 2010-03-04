@@ -136,6 +136,7 @@ class Widgets
 		foreach($widgets as $widget)
 		{
 			$widget->options = $this->_unserialize_options($widget->options);
+			var_dump($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
 			$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
@@ -158,14 +159,14 @@ class Widgets
 	function add_instance($title, $widget_id, $widget_area_id, $options = array())
 	{
 		$slug = $this->get_widget($widget_id)->slug;
-		
+
 		if( $error = $this->validation_errors($slug, $options) )
 		{
 			return array('status' => 'error', 'error' => $error);
 		}
 		
 		// The widget has to do some stuff before it saves
-		$options = $this->widgets->prep_options($slug, $options);
+		$options = $this->widgets->prepare_options($slug, $options);
 		
 		$this->widgets_m->insert_instance(array(
 			'title' => $title,
@@ -187,7 +188,7 @@ class Widgets
 		}
 		
 		// The widget has to do some stuff before it saves
-		$options = $this->widgets->prep_options($slug, $options);
+		$options = $this->widgets->prepare_options($slug, $options);
 		
 		$this->widgets_m->update_instance($instance_id, array(
 			'title' => $title,
@@ -227,21 +228,21 @@ class Widgets
     	}
 	}
 	
-    function prep_options($name, $options)
+    function prepare_options($name, $options = array())
     {
-		$this->_widget || $this->_spawn_widget($name);
-    	
+    	$this->_widget || $this->_spawn_widget($name);
+
     	if(method_exists($this->_widget, 'prep_options'))
 	    {
 			return (array) call_user_func(array(&$this->_widget, 'prep_options'), $options);
 	    }
-	    
-	    return array('');
+
+	    return $options;
     }
 	
     private function _spawn_widget($name)
     {
-    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
+    	require APPPATH . 'widgets/' . $name . '/' . $name . EXT;
     	$class_name = ucfirst($name);
     	$this->_widget = new $class_name;
     }

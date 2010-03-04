@@ -195,7 +195,7 @@
 				
 				if(data.status == 'success')
 				{
-					hide_add_instance();
+					hide_edit_instance();
 					
 					$('#area-' + widget_area_slug + ' #widget-list').load(BASE_URI + 'widgets/ajax/list_widgets/' + widget_area_slug);
 				}

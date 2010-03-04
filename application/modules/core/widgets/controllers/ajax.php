@@ -48,7 +48,7 @@ class Ajax extends Admin_Controller
 		$widget_area_id = $this->input->post('widget_area_id');
 		
 		$options = $_POST;
-		unset($options['title'], $options['widget_id'], $options['widget_area_id']);
+		unset($options['title'], $options['widget_id'], $options['widget_area_id'], $options['widget_area_slug']);
 		
 		$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
 		
@@ -94,7 +94,7 @@ class Ajax extends Admin_Controller
 		$widget_area_id = $this->input->post('widget_area_id');
 		
 		$options = $_POST;
-		unset($options['title'], $options['widget_id'], $options['widget_area_id']);
+		unset($options['title'], $options['widget_id'], $options['widget_area_id'], $options['widget_area_slug'], $options['widget_instance_id']);
 		
 		$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $options);
 		
