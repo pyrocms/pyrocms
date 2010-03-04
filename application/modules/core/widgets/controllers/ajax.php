@@ -86,6 +86,37 @@ class Ajax extends Admin_Controller
 		));
 	}
 	
+	function edit_widget_instance()
+	{
+		$instance_id = $this->input->post('widget_instance_id');
+		$title = $this->input->post('title');
+		$widget_id = $this->input->post('widget_id');
+		$widget_area_id = $this->input->post('widget_area_id');
+		
+		$options = $_POST;
+		unset($options['title'], $options['widget_id'], $options['widget_area_id']);
+		
+		$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $options);
+		
+		if($result['status'] == 'success')
+		{
+			echo json_encode($result);
+		}
+		
+		else
+		{
+			$widget = 
+			
+			$data = array(
+				'widget' 		=> $this->widgets->get_widget($widget_id),
+				'widget_area' 	=> $this->widgets->get_area($widget_area_id),
+				'error'			=> $result['error']
+			);
+
+			echo json_encode(array('status' => 'error', 'form' => $this->load->view('admin/ajax/instance_form', $data, TRUE)));
+		}
+	}
+	
 	function list_widgets($slug)
 	{
 		$widgets = $this->widgets->list_area_instances($slug);

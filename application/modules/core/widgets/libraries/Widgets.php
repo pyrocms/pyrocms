@@ -56,7 +56,9 @@ class Widgets
 
 	function get_instance($instance_id)
 	{
-		return $this->widgets_m->get_instance($instance_id);
+		$widget = $this->widgets_m->get_instance($instance_id);
+		$widget->options = $this->_unserialize_options($widget->options);
+		return $widget;
 	}
 	
 	function get_area($id)
@@ -106,13 +108,22 @@ class Widgets
         return $this->load->view('../widgets/' . $name . '/views/display' . EXT, $data, TRUE);
     }
 	
-    function render_backend($name)
+    function render_backend($name, $default_options = array())
     {
     	$this->_widget || $this->_spawn_widget($name);
     	
     	// Check for default data if there is any
     	$data = method_exists($this->_widget, 'prep_form') ? call_user_func(array(&$this->_widget, 'prep_form')) : array();
 	    
+    	$data['options'] = array();
+    	
+    	foreach($this->_widget->fields as $field)
+    	{
+    		$field_name =& $field['field'];
+    		
+    		$data['options'][$field_name] = set_value($field_name, @$default_options[$field_name]);
+    	}
+    	
 		return $this->load->view('../widgets/' . $name . '/views/form' . EXT, $data, TRUE);
     }
 	
@@ -146,7 +157,7 @@ class Widgets
 	
 	function add_instance($title, $widget_id, $widget_area_id, $options = array())
 	{
-		$slug = $this->widgets_m->get($widget_id)->slug;
+		$slug = $this->get_widget($widget_id)->slug;
 		
 		if( $error = $this->validation_errors($slug, $options) )
 		{
@@ -159,6 +170,27 @@ class Widgets
 		$this->widgets_m->insert_instance(array(
 			'title' => $title,
 			'widget_id' => $widget_id,
+			'widget_area_id' => $widget_area_id,
+			'options' => $this->_serialize_options($options)
+		));
+		
+		return array('status' => 'success');
+	}
+	
+	function edit_instance($instance_id, $title, $widget_area_id, $options = array())
+	{
+		$slug = $this->widgets_m->get_instance($instance_id)->slug;
+		
+		if( $error = $this->validation_errors($slug, $options) )
+		{
+			return array('status' => 'error', 'error' => $error);
+		}
+		
+		// The widget has to do some stuff before it saves
+		$options = $this->widgets->prep_options($slug, $options);
+		
+		$this->widgets_m->update_instance($instance_id, array(
+			'title' => $title,
 			'widget_area_id' => $widget_area_id,
 			'options' => $this->_serialize_options($options)
 		));

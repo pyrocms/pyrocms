@@ -11,7 +11,7 @@ class Widgets_m extends MY_Model
 
 	function get_instance($id)
 	{
-		$this->db->select('wi.id, w.slug, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+		$this->db->select('w.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
@@ -22,7 +22,7 @@ class Widgets_m extends MY_Model
 	
 	function get_by_area($slug)
 	{
-		$this->db->select('wi.id, w.slug, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+		$this->db->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.title as instance_title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
 			->from('widget_areas wa')
 			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
 			->join('widgets w', 'wi.widget_id = w.id')
@@ -75,6 +75,17 @@ class Widgets_m extends MY_Model
 			'`order`' => $order,
 			'created_on' => now(),
 			'updated_on' => now()
+		));
+	}
+	
+	public function update_instance($instance_id, $input)
+	{
+		$this->db->where('id', $instance_id);
+		
+		return $this->db->update('widget_instances', array(
+        	'title' => $input['title'],
+			'widget_area_id' => $input['widget_area_id'],
+			'options' => $input['options']
 		));
 	}
 	

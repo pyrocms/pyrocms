@@ -189,6 +189,8 @@
 			
 			if(!title || !widget_id || !widget_area_id) return false;
 
+			form = $(this);
+			
 			$.post(BASE_URI + 'widgets/ajax/edit_widget_instance', $(this).serialize(), function(data) {
 				
 				if(data.status == 'success')
@@ -200,7 +202,7 @@
 				
 				else
 				{
-					alert('fail');
+					form.html(data.form);
 				}
 				
 			}, 'json');
