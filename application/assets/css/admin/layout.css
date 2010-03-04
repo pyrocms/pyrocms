@@ -39,7 +39,7 @@ div#header {padding-top:1.9em;}
 	/** menu **/
 	ul#menu {float:left; width:100%; }
 	ul#menu > li {float:left; height:40px; position:relative}
-	ul#menu > li a {color:#e0e0e0; text-decoration:none; padding:13px 15px 7px 15px; height:20px; display:inline-block; text-align:center; text-transform:uppercase; font-weight:bold;
+	ul#menu > li a {color:#e0e0e0; text-decoration:none; padding:13px 15px 7px 15px; display:inline-block; text-align:center; text-transform:uppercase; font-weight:bold;
 	background:url(../../img/admin/bg-topnav-mask.gif) no-repeat 0 0; position:relative;}
 	ul#menu > li a:hover {color:#508db8; background:#fff; background:url(../../img/admin/bg-topnav-mask.gif) no-repeat top right;}
 	
