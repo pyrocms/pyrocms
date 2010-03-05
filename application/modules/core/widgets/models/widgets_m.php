@@ -47,11 +47,23 @@ class Widgets_m extends MY_Model
 		return $this->db->get_where('widgets', array($field => $id))->row();
 	}
 	
+	public function insert_widget($input)
+	{
+		return $this->db->insert('widgets', array(
+			'title' 		=> $input['title'],
+			'slug' 			=> $input['slug'],
+			'description' 	=> $input['description'],
+			'author' 		=> $input['author'],
+			'website' 		=> $input['website'],
+			'version' 		=> $input['version']
+		));
+	}
+	
 	public function insert_area($input)
 	{
 		return $this->db->insert('widget_areas', array(
 			'title' => $input['title'],
-			'slug' => $input['slug']
+			'slug' 	=> $input['slug']
 		));
 	}
 	
@@ -98,9 +110,16 @@ class Widgets_m extends MY_Model
 		));
 	}
 	
-	function delete_instance($id) 
+	function delete_widget($slug) 
 	{
-		return $this->db->delete('widget_instances', array('id' => $id));
+		$widget = $this->db->select('id')->get_where('widgets', array('slug' => $slug))->row();
+		
+		if(isset($widget->id))
+		{
+			$this->db->delete('widget_instances', array('widget_id' => $widget->id));
+		}
+		
+		return $this->db->delete('widgets', array('slug' => $slug));
 	}
 	
 	public function delete_area($slug)
@@ -118,5 +137,10 @@ class Widgets_m extends MY_Model
 		}
 		
 		return TRUE;
+	}
+	
+	function delete_instance($id) 
+	{
+		return $this->db->delete('widget_instances', array('id' => $id));
 	}
 }

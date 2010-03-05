@@ -37,14 +37,49 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	function about($slug)
+	function about_available($slug)
 	{
 		$widget = $this->widgets->get_widget($slug);
 		
 		$this->load->view('admin/about_widget', array(
-			'widget' => $widget
+			'widget' => $widget,
+			'available' => TRUE,
+			'form_action' => 'admin/widgets/uninstall'
 		));
+	}
+	
+	function about_uninstalled($slug)
+	{
+		$widget = $this->widgets->read_widget($slug);
+		
+		$this->load->view('admin/about_widget', array(
+			'widget' => $widget,
+			'available' => FALSE,
+			'form_action' => 'admin/widgets/install'
+		));
+	}
+	
+	function install()
+	{
+		$widget = $this->widgets->read_widget( $this->input->post('slug') );
+		
+		$this->widgets->add_widget(array(
+			'title' 		=> $widget->title,
+			'slug' 			=> $widget->slug,
+			'description' 	=> $widget->description,
+			'author' 		=> $widget->author,
+			'website' 		=> $widget->website,
+			'version' 		=> $widget->version
+		));
+		
+		redirect('admin/widgets');
+	}
+	
+	function uninstall()
+	{
+		$widget = $this->widgets->delete_widget( $this->input->post('slug') );
+		
+		redirect('admin/widgets');
 	}
 
 }
-?>

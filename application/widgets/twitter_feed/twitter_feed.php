@@ -12,6 +12,7 @@ class Twitter_feed extends Widgets
 	public $title = 'Twitter Feed';
 	public $description = 'Display tweets from a user on Twitter.';
 	public $author = 'Phil Sturgeon';
+	public $website = 'http://philsturgeon.co.uk/';
 	public $version = '1.0';
 	
 	public $fields = array(

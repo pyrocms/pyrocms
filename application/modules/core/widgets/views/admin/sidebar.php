@@ -14,19 +14,25 @@
 	<div class="box-container">
 		<ul id="available-widgets" class="list-links">
 			<?php foreach($available_widgets as $widget): ?>
-			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="mod2al"') ?></li>
+			<li id="widget-<?php echo $widget->slug; ?>">
+				<?php echo anchor('admin/widgets/about_available/' . $widget->slug, $widget->title, 'rel="modal"') ?>
+			</li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
 </div>
 
-<div class="box" id="droppable">
+<div class="box">
 	<h3 class="yellow"><?php echo lang('widgets.uninstalled_title')?></h3>
 	<div class="box-container">
+	
 		<ul id="uninstalled-widgets" class="list-links">
 			<?php foreach($uninstalled_widgets as $widget): ?>
-			<li id="widget-<?php echo $widget->slug; ?>"><?php echo anchor('admin/widgets/about/' . $widget->slug, $widget->title, 'rel="modal"') ?></li>
+			<li id="widget-<?php echo $widget->slug; ?>">
+				<?php echo anchor('admin/widgets/about_uninstalled/' . $widget->slug, $widget->title, 'rel="modal"') ?>
+			</li>
 			<?php endforeach; ?>
 		</ul>
+		
 	</div>
 </div>

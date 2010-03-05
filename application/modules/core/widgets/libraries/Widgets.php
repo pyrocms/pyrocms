@@ -150,6 +150,16 @@ class Widgets
 	}
 
 	
+	function add_widget($input)
+	{
+		return $this->widgets_m->insert_widget($input);
+	}
+	
+	function delete_widget($slug)
+	{
+		return $this->widgets_m->delete_widget($slug);
+	}
+	
 	function add_area($input)
 	{
 		return $this->widgets_m->insert_area((array)$input);

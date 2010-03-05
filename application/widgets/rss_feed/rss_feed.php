@@ -12,6 +12,7 @@ class Rss_feed extends Widgets
 	public $title = 'RSS Feed';
 	public $description = 'Display parsed RSS feeds on your websites.';
 	public $author = 'Phil Sturgeon';
+	public $website = 'http://philsturgeon.co.uk/';
 	public $version = '1.0';
 	
 	public $fields = array(
