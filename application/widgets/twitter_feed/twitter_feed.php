@@ -31,7 +31,7 @@ class Twitter_feed extends Widgets
 	{
 		$this->load->library('twitter/twitter');
 		$this->lang->load('twitter/twitter');
-		exit('OI!');
+
 		!empty($options['username']) || $options['username'] = $this->settings->item('twitter_username');
 		!empty($options['number']) || $options['number'] = 5;
 		

@@ -99,18 +99,23 @@ class Widgets
 	}
 
 	
-    function render($name, $args)
+    function render($name, $options = array())
     {
-    	$this->_widget || $this->_spawn_widget($name);
+    	$this->_spawn_widget($name);
     	
-        $data = call_user_func(array(&$this->_widget, 'run'), $args);
+        $data = call_user_func(array(&$this->_widget, 'run'), $options);
         
-        return $this->load->view('../widgets/' . $name . '/views/display' . EXT, $data, TRUE);
+		if(is_array($data))
+		{
+			$data['options'] = $options;
+		}
+        
+        return $this->load->view('../widgets/' . $name . '/views/display', $data, TRUE);
     }
 	
     function render_backend($name, $default_options = array())
     {
-    	$this->_widget || $this->_spawn_widget($name);
+    	$this->_spawn_widget($name);
     	
     	// Check for default data if there is any
     	$data = method_exists($this->_widget, 'prep_form') ? call_user_func(array(&$this->_widget, 'prep_form')) : array();
@@ -124,7 +129,7 @@ class Widgets
     		$data['options'][$field_name] = set_value($field_name, @$default_options[$field_name]);
     	}
     	
-		return $this->load->view('../widgets/' . $name . '/views/form' . EXT, $data, TRUE);
+		return $this->load->view('../widgets/' . $name . '/views/form', $data, TRUE);
     }
 	
 	function render_area($area)
@@ -136,7 +141,6 @@ class Widgets
 		foreach($widgets as $widget)
 		{
 			$widget->options = $this->_unserialize_options($widget->options);
-			var_dump($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
 			$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
@@ -242,7 +246,7 @@ class Widgets
 	
     private function _spawn_widget($name)
     {
-    	require APPPATH . 'widgets/' . $name . '/' . $name . EXT;
+    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
     	$class_name = ucfirst($name);
     	$this->_widget = new $class_name;
     }
