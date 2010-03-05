@@ -1,6 +1,6 @@
 tinyMCE.addI18n('fr.emotions_dlg',{
-title:"Ins\u00E9rer \u00E9motion",
-desc:"\u00C9motions",
+title:"Ins\u00E9rer une \u00E9motic\u00F4ne",
+desc:"\u00C9motic\u00F4nes",
 cool:"Cool",
 cry:"En pleurs",
 embarassed:"Embarrass\u00E9",
@@ -14,7 +14,7 @@ sealed:"Bouche cousue",
 smile:"Sourire",
 surprised:"Surpris",
 tongue_out:"Langue tir\u00E9e",
-undecided:"Non d\u00E9cid\u00E9",
+undecided:"Incertain",
 wink:"Clin d'\u0153il",
 yell:"Criant"
 });
