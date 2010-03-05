@@ -392,8 +392,11 @@ DROP TABLE IF EXISTS `widgets`;
 
 CREATE TABLE `widgets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `slug` varchar(100) DEFAULT NULL,
-  `title` varchar(100) DEFAULT NULL COMMENT '	',
-  `description` text,
+  `slug` varchar(100) NOT NULL DEFAULT '',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '	',
+  `description` text NOT NULL,
+  `author` varchar(100) NOT NULL DEFAULT '',
+  `website` varchar(255) NOT NULL DEFAULT '',
+  `version` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
