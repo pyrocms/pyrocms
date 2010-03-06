@@ -52,7 +52,7 @@ class Admin extends Admin_Controller
 			$this->data->open_parent_pages = $open_parent_pages;
 			return $this->load->view('admin/ajax/child_list', $this->data, true);
 		}
-		return "";
+		return '';
 	}
 
 

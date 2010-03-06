@@ -14,7 +14,7 @@
 	
 	<dl>
 		<?php if(!empty($widget->author)): ?>
-		<dt>Author</dt>
+		<dt><?php echo lang('widgets.widget_author'); ?></dt>
 		<dd>
 			<?php if(!empty($widget->website)): ?>
 				<?php echo anchor($widget->website, $widget->author); ?>
@@ -24,15 +24,11 @@
 		</dd>
 		<?php endif; ?>
 		
-		<dt>Short name</dt>
-		<dd>
-			<?php echo $widget->slug; ?>
-		</dd>
+		<dt><?php echo lang('widgets.widget_short_name'); ?></dt>
+		<dd><?php echo $widget->slug; ?></dd>
 		
-		<dt>Version</dt>
-		<dd>
-			<?php echo $widget->version; ?>
-		</dd>
+		<dt><?php echo lang('widgets.widget_version'); ?></dt>
+		<dd><?php echo $widget->version; ?></dd>
 	</dl>
 	
 <?php echo form_close(); ?>

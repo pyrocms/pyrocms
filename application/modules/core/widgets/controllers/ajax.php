@@ -48,7 +48,7 @@ class Ajax extends Admin_Controller
 		$widget_area_id = $this->input->post('widget_area_id');
 		
 		$options = $_POST;
-		unset($options['title'], $options['widget_id'], $options['widget_area_id'], $options['widget_area_slug']);
+		unset($options['title'], $options['widget_id'], $options['widget_area_id']);
 		
 		$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
 		
@@ -72,6 +72,7 @@ class Ajax extends Admin_Controller
 	function edit_widget_instance_form()
 	{
 		$instance_id = $this->input->post('instance_id');
+		
 		if(!$instance_id)
 		{
 			exit();
@@ -80,9 +81,13 @@ class Ajax extends Admin_Controller
 		$widget = $this->widgets->get_instance($instance_id);
 		$widget_area = $this->widgets->get_area($widget->widget_area_slug);
 		
+		$widget_areas = $this->widgets->list_areas();
+		$widget_areas = array_for_select($widget_areas, 'id', 'title');
+		
 		$this->load->view('admin/ajax/instance_form', array(
 			'widget' => $widget,
 			'widget_area' => $widget_area,
+			'widget_areas' => $widget_areas
 		));
 	}
 	
@@ -94,7 +99,7 @@ class Ajax extends Admin_Controller
 		$widget_area_id = $this->input->post('widget_area_id');
 		
 		$options = $_POST;
-		unset($options['title'], $options['widget_id'], $options['widget_area_id'], $options['widget_area_slug'], $options['widget_instance_id']);
+		unset($options['title'], $options['widget_id'], $options['widget_area_id'], $options['widget_instance_id']);
 		
 		$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $options);
 		
@@ -105,8 +110,6 @@ class Ajax extends Admin_Controller
 		
 		else
 		{
-			$widget = 
-			
 			$data = array(
 				'widget' 		=> $this->widgets->get_widget($widget_id),
 				'widget_area' 	=> $this->widgets->get_area($widget_area_id),
@@ -126,7 +129,7 @@ class Ajax extends Admin_Controller
 	function list_widgets($slug)
 	{
 		$widgets = $this->widgets->list_area_instances($slug);
-		$this->load->view('admin/ajax/updated_instance_list', array('widgets' => $widgets));
+		$this->load->view('admin/ajax/instance_list', array('widgets' => $widgets));
 	}
 	
 	function update_order()
@@ -138,7 +141,6 @@ class Ajax extends Admin_Controller
 		foreach($ids as $id)
 		{
 			$this->widgets->update_instance_order($id, $i);
-			echo $this->db->last_query();
 			++$i;
 		}
 		

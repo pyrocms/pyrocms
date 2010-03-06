@@ -8,11 +8,13 @@
 			<li>
 				<label for="title"><?php echo lang('widgets.widget_area_title'); ?></label>
 				<?php echo form_input('title'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
 			<li class="even">
 				<label for="slug"><?php echo lang('widgets.widget_area_slug'); ?></label>
 				<?php echo form_input('slug'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
 		</ol>
@@ -60,8 +62,8 @@
 					</a>
 				</div>
 				
-				<div id="widget-list">
-					<?php $this->load->view('admin/ajax/updated_instance_list', array('widgets' => $widget_area->widgets)); ?>
+				<div class="widget-list">
+					<?php $this->load->view('admin/ajax/instance_list', array('widgets' => $widget_area->widgets)); ?>
 				</div>
 			</div>
 		</div>

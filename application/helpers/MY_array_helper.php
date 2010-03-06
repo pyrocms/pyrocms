@@ -22,14 +22,14 @@ function array_object_merge(&$object, $array) {
     endforeach;
 }
 
-function array_for_select() {
-	
-	$args = func_get_args();
+function array_for_select()
+{
+	$args =& func_get_args();
 
 	$return = array();
 	
-	switch(count($args)):
-		
+	switch(count($args))
+	{
 		case 3:
 			foreach ($args[0] as $itteration):
 				if(is_object($itteration)) $itteration = (array) $itteration;
@@ -52,9 +52,7 @@ function array_for_select() {
 		
 		default:
 			return FALSE;
-		break;
-	
-	endswitch;
+	}
     
     return $return;
 }

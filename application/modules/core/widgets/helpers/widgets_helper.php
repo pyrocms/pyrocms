@@ -1,12 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-function widget($id)
+function widget($id, $options = array())
 {
 	$ci =& get_instance();
 	
 	$ci->load->library('widgets/widgets');
 
-	return $ci->widgets->render($id);
+	return $ci->widgets->render($id, $options);
 }
 
 function widget_area($slug)
