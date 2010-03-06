@@ -6,8 +6,7 @@
 
 <?php echo form_hidden('widget_id', $widget->id); ?>
 
-
-<?php if(isset($widget_areas)): ?>
+<?php if(!isset($widget_areas)): ?>
 		<?php echo form_hidden('widget_area_id', $widget_area->id); ?>
 <?php endif; ?>
 

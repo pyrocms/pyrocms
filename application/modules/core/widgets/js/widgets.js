@@ -112,6 +112,8 @@
 		
 		$('a#add-area').click(show_add_area);
 		
+		console.debug($('div#add-area-box form'));
+		
 		$('div#add-area-box form').submit(function()
 		{
 			title = $('input[name="title"]', this).val();
@@ -169,6 +171,8 @@
 
 			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(data) {
 				
+				console.debug(data);
+				
 				if(data.status == 'success')
 				{
 					hide_add_instance();
@@ -189,9 +193,13 @@
 		// Edit widget instance
 		$('div#edit-instance-box form').submit(function()
 		{
+			title = $('input[name="title"]', this).val();
 			widget_id = $('input[name="widget_id"]', this).val();
-			widget_area_id = $('input[name="widget_area_id"]', this).val();
-			title = $('input[name="widget_area_id"]', this).val();
+			widget_area_id = $('[name="widget_area_id"]', this).val();
+
+			console.log(title);
+			console.log(widget_id);
+			console.log(widget_area_id);
 			
 			if(!title || !widget_id || !widget_area_id) return false;
 
