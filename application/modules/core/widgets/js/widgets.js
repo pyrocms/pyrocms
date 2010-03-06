@@ -112,8 +112,6 @@
 		
 		$('a#add-area').click(show_add_area);
 		
-		console.debug($('div#add-area-box form'));
-		
 		$('div#add-area-box form').submit(function()
 		{
 			title = $('input[name="title"]', this).val();

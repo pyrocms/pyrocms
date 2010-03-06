@@ -90,7 +90,7 @@ class Widgets
 	
 	function read_widget($slug)
 	{
-    	$this->_widget || $this->_spawn_widget($slug);
+    	$this->_spawn_widget($slug);
 		
     	$widget = (object) get_object_vars($this->_widget);
     	$widget->slug = $slug;
