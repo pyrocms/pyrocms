@@ -2,6 +2,7 @@
 
 #available-widgets li a { 
 	background-color: #ffffe0;
+	cursor:move;
 }
 
 #available-widgets li.ui-draggable-dragging a { 
