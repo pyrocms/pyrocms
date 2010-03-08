@@ -26,3 +26,7 @@
 .CodeMirror-line-numbers div {
 	margin:0;
 }
+
+.ui-draggable, .ui-sortable {
+	cursor:move;
+}
