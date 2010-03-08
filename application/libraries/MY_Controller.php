@@ -26,16 +26,16 @@ class MY_Controller extends Controller
         $this->module 				= $this->router->fetch_module();
         $this->controller			= $this->router->fetch_class();
         $this->method 				= $this->router->fetch_method();
+        
+        $this->data->module 		=& $this->module;
+        $this->data->controller 	=& $this->controller;
+        $this->data->method 		=& $this->method;
 		
 		// Get meta data for the module
         $this->module_data 			= $this->modules_m->get($this->module);
         
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;
-        
-        $this->data->module 		=& $this->module;
-        $this->data->controller 	=& $this->controller;
-        $this->data->method 		=& $this->method;
         
         $global['base_url']			= BASE_URL;
         $global['base_uri'] 		= BASE_URI;
