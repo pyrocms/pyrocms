@@ -1,8 +1,9 @@
 PyroCMS
 =======
 
-VERSION: 0.9.8-beta3
-AUTHOR: Philip Sturgeon < email[at]philsturgeon[dot]co[dot]uk >
+Author: Philip Sturgeon < email[at]philsturgeon[dot]co[dot]uk >
+Website: http://pyrocms.com/
+Version: 0.9.8-rc1
 
 DESCRIPTION
 -----------
@@ -49,3 +50,4 @@ Translators
 Demostenes Garcia	http://www.demogar.com/						(Spanish)
 Frederic Quie 		http://www.bleekom.org/						(French)
 TheLoops			http://codeigniter.com/forums/member/62232/ (German)
+Bartosz Majewski	http://404design.pl/						(Polish)

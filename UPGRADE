@@ -5,8 +5,8 @@ Remember to always run these steps in order. They are ordered intentionally to e
 minimize or totally remove downtime during an upgrade.
 
 
-15/02/2010 - v0.9.8-beta3 to v0.9.8
------------------------------------
+10/03/2010 - v0.9.8-beta3 to v0.9.8-rc1
+---------------------------------------
 
 1. Replace old files with new files.
 
@@ -55,6 +55,10 @@ minimize or totally remove downtime during an upgrade.
 	  `version` int(3) NOT NULL DEFAULT '0',
 	  PRIMARY KEY (`id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+	
+3. Run the following terminal command:
+
+	sudo rm -rf application/cache/*_m/
 
 
 15/02/2010 - v0.9.7.4 to v0.9.8-beta3
