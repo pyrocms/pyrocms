@@ -169,8 +169,6 @@
 
 			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(data) {
 				
-				console.debug(data);
-				
 				if(data.status == 'success')
 				{
 					hide_add_instance();
@@ -195,10 +193,6 @@
 			widget_id = $('input[name="widget_id"]', this).val();
 			widget_area_id = $('[name="widget_area_id"]', this).val();
 
-			console.log(title);
-			console.log(widget_id);
-			console.log(widget_area_id);
-			
 			if(!title || !widget_id || !widget_area_id) return false;
 
 			form = $(this);
