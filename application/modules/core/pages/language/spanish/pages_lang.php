@@ -1,46 +1,49 @@
 <?php
 
 // tabs
-$lang['page_content_label'] 					= 'Contenido de la p&aacute;gina';
-$lang['page_design_label'] 						= 'Diseño';
-$lang['page_meta_label'] 						= 'Meta data';
-$lang['page_detail_label'] 						= 'Detalles';
+$lang['pages.content_label'] 					= 'Contenido de la p&aacute;gina';
+$lang['pages.design_label'] 					= 'Diseño';
+$lang['pages.meta_label'] 						= 'Meta data';
+$lang['pages.options_label'] 					= 'Options'; #translate
+
+$lang['pages.detail_label'] 					= 'Detalles';
 
 // labels
-$lang['page_page_label'] 						= 'P&aacute;gina';
-$lang['page_language_label'] 					= 'Lenguaje';
-$lang['page_updated_label'] 					= 'Actualizado';
-$lang['page_actions_label'] 					= 'Acciones';
-$lang['page_unknown_label'] 					= 'Desconocido';
-$lang['page_title_label'] 						= 'T&iacute;tulo';
-$lang['page_slug_label'] 						= 'URL';
-$lang['page_body_label'] 						= 'Cuerpo de la página';
-$lang['page_no_selection_label'] 				= '-- Ninguno --';
-$lang['page_meta_title_label'] 					= 'Meta title';
-$lang['page_meta_keywords_label'] 				= 'Meta keywords';
-$lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_layout_id_label'] 					= 'Diseño de la página (Layout)';
-$lang['page_css_label'] 						= 'CSS';
-$lang['page_access_label'] 						= 'Acceder';
+$lang['pages.page_label'] 						= 'P&aacute;gina';
+$lang['pages.language_label'] 					= 'Lenguaje';
+$lang['pages.updated_label'] 					= 'Actualizado';
+$lang['pages.actions_label'] 					= 'Acciones';
+$lang['pages.unknown_label'] 					= 'Desconocido';
+$lang['pages.title_label'] 						= 'T&iacute;tulo';
+$lang['pages.slug_label'] 						= 'URL';
+$lang['pages.body_label'] 						= 'Cuerpo de la página';
+$lang['pages.no_selection_label'] 				= '-- Ninguno --';
+$lang['pages.meta_title_label'] 				= 'Meta title';
+$lang['pages.meta_keywords_label'] 				= 'Meta keywords';
+$lang['pages.meta_desc_label'] 					= 'Meta description';
+$lang['pages.layout_id_label'] 					= 'Diseño de la página (Layout)';
+$lang['pages.css_label'] 						= 'CSS';
+$lang['pages.access_label'] 					= 'Acceder';
+$lang['pages.rss_enabled_label'] 				= 'RSS enabled'; #translate
 
-$lang['page_status_label'] 						= 'Estado';
-$lang['page_draft_label'] 						= 'Borrador';
-$lang['page_live_label'] 						= 'En vivo';
+$lang['pages.status_label'] 					= 'Estado';
+$lang['pages.draft_label'] 						= 'Borrador';
+$lang['pages.live_label'] 						= 'En vivo';
 
-$lang['page_view_label'] 						= 'Ver';
-$lang['page_create_label'] 						= 'Añadir página hija';
-$lang['page_edit_label'] 						= 'Editar';
-$lang['page_delete_label'] 						= 'Borrar';
+$lang['pages.view_label'] 						= 'Ver';
+$lang['pages.create_label'] 					= 'Añadir página hija';
+$lang['pages.edit_label'] 						= 'Editar';
+$lang['pages.delete_label'] 					= 'Borrar';
 
 // titles
-$lang['page_create_title'] 						= 'Crear p&aacute;gina';
-$lang['page_edit_title'] 						= 'Editar p&aacute;gina "%s"';
-$lang['page_list_title'] 						= 'Listar páginas';
-$lang['page_layouts_create_title'] 				= 'Agregar un diseño de página';
-$lang['page_layouts_list_title'] 				= 'Lista de diseños de páginas';
+$lang['pages.create_title'] 					= 'Crear p&aacute;gina';
+$lang['pages.edit_title'] 						= 'Editar p&aacute;gina "%s"';
+$lang['pages.list_title'] 						= 'Listar páginas';
+$lang['pages.layouts_create_title'] 			= 'Agregar un diseño de página';
+$lang['pages.layouts_list_title'] 				= 'Lista de diseños de páginas';
 
 // messages
-$lang['page_no_pages'] 							= 'No hay p&aacute;ginas creadas.';
+$lang['pages.no_pages'] 						= 'No hay p&aacute;ginas creadas.';
 $lang['pages_create_success'] 					= 'La p&aacute;gina fue creada.';
 $lang['pages_create_error'] 					= 'La p&aacute;gina no pudo ser creada.';
 $lang['pages_page_not_found_error'] 			= 'La p&aacute;gina no existe.';
@@ -52,7 +55,9 @@ $lang['pages_delete_none_notice'] 				= 'No se ha borado ninguna p&aacute;gina.'
 $lang['pages_page_already_exist_error'] 		= 'Una p&aacute;gina con el URL "%s" ya existe en %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La p&aacute;gina padre que has seleccionado no existe.';
 
-$lang['pages_tree_explanation'] 				= 'La lista a la izquierda representa las páginas en tu sitio. 
+$lang['pages.tree_explanation'] 				= 'La lista a la izquierda representa las páginas en tu sitio. 
 Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';
+
+$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.'; #translate
 
 ?>

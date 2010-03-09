@@ -62,6 +62,11 @@ class Pages extends Public_Controller
         {
         	$page = $this->_404($url_segments);
         }
+		
+        if( $page->slug == '404')
+        {
+        	$this->output->set_status_header(404);
+        }
         
     	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if($page->meta_title == '')
@@ -104,10 +109,10 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if( !$page || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) )
+		if( empty($page) || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) || !$page->rss_enabled)
         {
         	// Will try the page then try 404 eventually
-        	$this->_page($url_segments);
+        	$this->_page('404');
         	return;
         }
     	
@@ -157,8 +162,6 @@ class Pages extends Public_Controller
 			echo $EXP->show_error('', '', 'error_404', 404);
 			exit;
         }
-        
-        $this->output->set_status_header(404);
         
         return $page;
     }

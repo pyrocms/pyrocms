@@ -176,8 +176,9 @@ class Pages_m extends MY_Model
             'css'			=> $input['css'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
-        	'status' 		=> $input['status'],
         	'meta_description' => $input['meta_description'],
+        	'rss_enabled' 	=> $input['rss_enabled'],
+        	'status' 		=> $input['status'],
         	'updated_on'	=> now()
         ));
         
@@ -205,6 +206,7 @@ class Pages_m extends MY_Model
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
+        	'rss_enabled' 	=> $input['rss_enabled'],
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
@@ -228,7 +230,7 @@ class Pages_m extends MY_Model
         
         $this->db->trans_complete();
         
-        return ($this->db->trans_status() !== FALSE) ? $ids : FALSE;
+        return $this->db->trans_status() !== FALSE ? $ids : FALSE;
     }
     
 }

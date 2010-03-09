@@ -332,6 +332,7 @@ div#content {padding-top:25px;}
 div.button, button {
 	background:none;
 	border:none;
+	cursor:pointer;
 	display:inline-block;
 }
 

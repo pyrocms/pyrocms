@@ -1,46 +1,49 @@
 <?php
 
 // tabs
-$lang['page_content_label'] 					= 'Page Content';
-$lang['page_design_label'] 						= 'Design';
-$lang['page_meta_label'] 						= 'Meta data';
-$lang['page_detail_label'] 						= 'Details';
+$lang['pages.content_label'] 					= 'Page Content';
+$lang['pages.design_label'] 					= 'Design';
+$lang['pages.meta_label'] 						= 'Meta data';
+$lang['pages.options_label'] 					= 'Options';
+
+$lang['pages.detail_label'] 					= 'Details';
 
 // labels
-$lang['page_page_label'] 						= 'Page';
-$lang['page_language_label'] 					= 'Language';
-$lang['page_updated_label'] 					= 'Updated';
-$lang['page_actions_label'] 					= 'Actions';
-$lang['page_unknown_label'] 					= 'Unknown';
-$lang['page_title_label'] 						= 'Title';
-$lang['page_slug_label'] 						= 'URL';
-$lang['page_body_label'] 						= 'Page body';
-$lang['page_no_selection_label'] 				= '-- None --';
-$lang['page_meta_title_label'] 					= 'Meta title';
-$lang['page_meta_keywords_label'] 				= 'Meta keywords';
-$lang['page_meta_desc_label'] 					= 'Meta description';
-$lang['page_layout_id_label'] 					= 'Page Layout';
-$lang['page_css_label'] 						= 'CSS';
-$lang['page_access_label'] 						= 'Access';
+$lang['pages.page_label'] 						= 'Page';
+$lang['pages.language_label'] 					= 'Language';
+$lang['pages.updated_label'] 					= 'Updated';
+$lang['pages.actions_label'] 					= 'Actions';
+$lang['pages.unknown_label'] 					= 'Unknown';
+$lang['pages.title_label'] 						= 'Title';
+$lang['pages.slug_label'] 						= 'URL';
+$lang['pages.body_label'] 						= 'Page body';
+$lang['pages.no_selection_label'] 				= '-- None --';
+$lang['pages.meta_title_label'] 				= 'Meta title';
+$lang['pages.meta_keywords_label'] 				= 'Meta keywords';
+$lang['pages.meta_desc_label'] 					= 'Meta description';
+$lang['pages.layout_id_label'] 					= 'Page Layout';
+$lang['pages.css_label'] 						= 'CSS';
+$lang['pages.access_label'] 					= 'Access';
+$lang['pages.rss_enabled_label'] 				= 'RSS enabled';
 
-$lang['page_status_label'] 						= 'Status';
-$lang['page_draft_label'] 						= 'Draft';
-$lang['page_live_label'] 						= 'Live';
+$lang['pages.status_label'] 					= 'Status';
+$lang['pages.draft_label'] 						= 'Draft';
+$lang['pages.live_label'] 						= 'Live';
 
-$lang['page_view_label'] 						= 'View';
-$lang['page_create_label'] 						= 'Add child';
-$lang['page_edit_label'] 						= 'Edit';
-$lang['page_delete_label'] 						= 'Delete';
+$lang['pages.view_label'] 						= 'View';
+$lang['pages.create_label'] 					= 'Add child';
+$lang['pages.edit_label'] 						= 'Edit';
+$lang['pages.delete_label'] 					= 'Delete';
 
 // titles
-$lang['page_create_title'] 						= 'Add page';
-$lang['page_edit_title'] 						= 'Edit page "%s"';
-$lang['page_list_title'] 						= 'List pages';
-$lang['page_layouts_create_title'] 				= 'Add page layout';
-$lang['page_layouts_list_title'] 				= 'List page layouts';
+$lang['pages.create_title'] 					= 'Add page';
+$lang['pages.edit_title'] 						= 'Edit page "%s"';
+$lang['pages.list_title'] 						= 'List pages';
+$lang['pages.layouts_create_title'] 			= 'Add page layout';
+$lang['pages.layouts_list_title'] 				= 'List page layouts';
 
 // messages
-$lang['page_no_pages'] 							= 'There are no pages.';
+$lang['pages.no_pages'] 						= 'There are no pages.';
 $lang['pages_create_success'] 					= 'The page was created.';
 $lang['pages_create_error'] 					= 'That page has not been created.';
 $lang['pages_page_not_found_error'] 			= 'That page does not exist.';
@@ -52,7 +55,9 @@ $lang['pages_delete_none_notice'] 				= 'No pages were deleted.';
 $lang['pages_page_already_exist_error'] 		= 'A page with the URL "%s" already exists in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'The parent page you have selected does not exist.';
 
-$lang['pages_tree_explanation'] 				= 'The list on the left represents pages on your website. 
+$lang['pages.tree_explanation'] 				= 'The list on the left represents pages on your website. 
 Click the "+" icon next to the page to show pages within it. When you click a page you will see all sorts of handy information in this box.';
+
+$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';
 
 ?>

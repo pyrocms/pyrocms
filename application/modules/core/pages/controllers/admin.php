@@ -12,6 +12,7 @@ class Admin extends Admin_Controller
 	    'meta_title'		=> 'trim|max_length[255]',
 	    'meta_keywords'		=> 'trim|max_length[255]',
 	    'meta_description'	=> 'trim',
+	    'rss_enabled'		=> 'trim|numeric',
 		'status'			=> 'trim|alpha|required'
 	);
 	
@@ -30,29 +31,6 @@ class Admin extends Admin_Controller
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
 		
 		$this->load->helper(array('array', 'pages'));
-	}
-
-	public function recurse_page_tree($parent_id, $open_parent_pages=array())
-	{
-		if (!in_array($parent_id, $open_parent_pages))
-		{
-			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
-		}
-		
-		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
-		if (!empty($pages))
-		{
-			foreach($pages as &$page)
-			{
-				$page->has_children = $this->pages_m->has_children($page->id);
-			}
-			
-			$this->data->pages =& $pages;
-			$this->data->controller =& $this;
-			$this->data->open_parent_pages = $open_parent_pages;
-			return $this->load->view('admin/ajax/child_list', $this->data, true);
-		}
-		return '';
 	}
 
 
@@ -98,6 +76,29 @@ class Admin extends Admin_Controller
 		
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
+
+	public function recurse_page_tree($parent_id, $open_parent_pages=array())
+	{
+		if (!in_array($parent_id, $open_parent_pages))
+		{
+			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
+		}
+		
+		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
+		if (!empty($pages))
+		{
+			foreach($pages as &$page)
+			{
+				$page->has_children = $this->pages_m->has_children($page->id);
+			}
+			
+			$this->data->pages =& $pages;
+			$this->data->controller =& $this;
+			$this->data->open_parent_pages = $open_parent_pages;
+			return $this->load->view('admin/ajax/child_list', $this->data, true);
+		}
+		return '';
+	}
     
 	function preview($id = 0)
 	{		
@@ -118,7 +119,7 @@ class Admin extends Admin_Controller
 	    foreach(array_keys($this->rules) as $field)
 	    {
 			$page->{$field} = $this->input->post($field);
-			$fields[$field] = lang('page_' . $field . '_label');
+			$fields[$field] = lang('pages.' . $field . '_label');
 	    }
 	    
 		$this->validation->set_fields($fields);
@@ -189,14 +190,20 @@ class Admin extends Admin_Controller
 	    }
 			
 	    $this->load->library('validation');
-	    $this->validation->set_rules($this->rules);
-	    $this->validation->set_fields();
 		
 	    // Auto-set data for the page if a post variable overrides it
 	    foreach(array_keys($this->rules) as $field)
 	    {
-			if($this->input->post($field) !== FALSE) $page->$field = $this->validation->$field;
+			if($this->input->post($field) !== FALSE)
+			{
+				$page->{$field} = $this->input->post($field);
+			}
+			
+			$fields[$field] = lang('pages.' . $field . '_label');
 	    }
+	    
+	    $this->validation->set_rules($this->rules);
+	    $this->validation->set_fields($fields);
 	    
 	    // Give validation a try, who knows, it just might work!
 		if ($this->validation->run())

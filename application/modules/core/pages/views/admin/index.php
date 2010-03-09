@@ -1,6 +1,6 @@
 <div class="box">
 
-	<h3><?php echo lang('page_list_title'); ?></h3>
+	<h3><?php echo lang('pages.list_title'); ?></h3>
 
 	<div class="box-container">
 	
@@ -13,7 +13,7 @@
 		<div id="page-details" class="float-right" style="width:45%;">
 		
 			<p>
-				<?php echo lang('pages_tree_explanation'); ?>
+				<?php echo lang('pages.tree_explanation'); ?>
 			</p>
 		
 		</div>
