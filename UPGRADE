@@ -13,7 +13,8 @@ minimize or totally remove downtime during an upgrade.
 2. Run the following SQL commands: 
 
 	ALTER TABLE `pages`
-		ADD `created_on` INT(11)  NOT NULL default '0' AFTER `status`;
+		ADD `created_on` INT(11)  NOT NULL default '0' AFTER `status`,
+		ADD `rss_enabled` INT(1)  NOT NULL default '0' AFTER `meta_description`;
 		
 	UPDATE pages SET created_on = updated_on;
 		
