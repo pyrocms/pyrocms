@@ -43,7 +43,7 @@ div#header {padding-top:1.9em;}
 	background:url(../../img/admin/bg-topnav-mask.gif) no-repeat 0 0; position:relative;}
 	ul#menu > li a:hover {color:#508db8; background:#fff; background:url(../../img/admin/bg-topnav-mask.gif) no-repeat top right;}
 	
-	ul#menu > li a {position:relative; padding-right:15px;}
+	ul#menu > li a {position:relative; padding-right:15px; height: 1.65em; }
 	ul#menu > li a.dropdown {position:relative; padding-right:20px;}
 	ul#menu > li a span {background:url(../../img/admin/bg-toplevel.gif) no-repeat 0px 2px; width:11px; height:8px; display:block; position:absolute; right:5px; top:13px;}
 	ul#menu > li a:hover span, .blue span {background-image:url(../../img/admin/bg-toplevel-hover.png) !important;}
