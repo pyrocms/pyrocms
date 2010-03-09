@@ -74,7 +74,13 @@ class Pages extends Public_Controller
         	$page->meta_title = $this->viewing_homepage ? $this->settings->item('site_slogan') : $page->title;
         }
         
-    	// If the GET variable isbasic exists, do not use a wrapper
+        // If this page has an RSS feed, show it
+    	if( $page->rss_enabled )
+	    {
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url($this->uri->uri_string(). '.rss').'" />');
+	    }
+        
+    	// Wrap the page with a pay layout, otherwise use the default 'Home' layout
 	    if(!$page->layout = $this->page_layouts_m->get($page->layout_id))
 	    {
 	    	// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
@@ -121,8 +127,10 @@ class Pages extends Public_Controller
     		'status' => 'live'
     	)));
     	
-		$this->data->rss->feed_name = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->item('site_name');
-		$this->data->rss->creator_email = $this->settings->item('contact_email');
+		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->item('site_name');
+		$data->rss->description = $page->meta_description;
+		$data->rss->link = site_url($url_segments);
+		$data->rss->creator_email = $this->settings->item('contact_email');
 		
 		if(!empty($children))
 		{
@@ -143,11 +151,11 @@ class Pages extends Public_Controller
 					'date' => $row->created_on
 				);
 						
-				$this->data->rss->items[] = (object) $item;
+				$data->rss->items[] = (object) $item;
 			} 
 		}
 		
-		$this->load->view('rss', $this->data);
+		$this->load->view('rss', $data);
 		
     }
     
