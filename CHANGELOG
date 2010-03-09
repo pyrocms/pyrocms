@@ -32,7 +32,7 @@ v0.9.8
 * Required metadata such as jQuery / front.js loading is now handled internally so theme designers dont need to remember it.
 * Optional RSS feeds of a pages children, available for any page.
 * Tidied up the dashboard, added recent users & comments and made it multi-lang.
-* Added German, Dutch and Polish languages to the core.
+* Added Polish language support.
 * Added "Variables" module which allows user-defined variables accross the site.
 
 v0.9.7.4
