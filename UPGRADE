@@ -12,6 +12,11 @@ minimize or totally remove downtime during an upgrade.
 
 2. Run the following SQL commands: 
 
+	ALTER TABLE `pages`
+		ADD `created_on` INT(11)  NOT NULL default '0' AFTER `status`;
+		
+	UPDATE pages SET created_on = updated_on;
+		
 	ALTER TABLE `photo_albums` 
 	  DROP INDEX `title`,
 	  ADD UNIQUE `Unique` ( `slug` , `parent` );

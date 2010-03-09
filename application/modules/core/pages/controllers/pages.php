@@ -40,30 +40,30 @@ class Pages extends Public_Controller
     		$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
     	}
     	
+    	// If it has .rss on the end then parse the RSS feed
+        if(preg_match('/.rss$/', end($url_segments)))
+        {
+        	$this->_rss($url_segments);
+        }
+        
+        else
+        {
+        	$this->_page($url_segments);
+        }
+    }
+    
+    function _page($url_segments)
+    {
     	// Fetch this page from the database via cache
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
 		if( !$page || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) )
         {
-        	// Try and get an error page. If its been deleted, show nasty 404
-        	if(!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
-	        {
-				log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
-				
-				$EXP = new CI_Exceptions;
-				echo $EXP->show_error('', '', 'error_404', 404);
-				exit;
-	        }
+        	$page = $this->_404($url_segments);
         }
         
-        // 404 page? Set the right status
-        if($page->slug == '404')
-        {
-			$this->output->set_status_header(404);
-        }
-	        
-        // Not got a meta title? Use slogan for homepage or the normal page title for other pages
+    	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if($page->meta_title == '')
         {
         	$page->meta_title = $this->viewing_homepage ? $this->settings->item('site_slogan') : $page->title;
@@ -92,9 +92,76 @@ class Pages extends Public_Controller
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
         	
-        	->build('index', $this->data);
+        	->build('page', $this->data);
     }
     
+    function _rss($url_segments)
+    {
+        // Remove the .rss suffix
+    	$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
+    	
+    	// Fetch this page from the database via cache
+    	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
+    	
+    	// If page is missing or not live (and not an admin) show 404
+		if( !$page || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) )
+        {
+        	// Will try the page then try 404 eventually
+        	$this->_page($url_segments);
+        	return;
+        }
+    	
+    	$children = $this->cache->model('pages_m', 'get_many_by', array(array(
+    		'parent_id' => $page->id,
+    		'status' => 'live'
+    	)));
+    	
+		$this->data->rss->feed_name = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->item('site_name');
+		$this->data->rss->creator_email = $this->settings->item('contact_email');
+		
+		if(!empty($children))
+		{
+			$this->load->helper(array('date', 'xml'));
+			
+			foreach($children as &$row)
+			{
+				$path = $this->pages_m->get_path_by_id($row->id);
+				$row->link = site_url($path);
+				$row->created_on = standard_date('DATE_RSS', $row->created_on);
+				
+				$item = array(
+					//'author' => $row->author,
+					'title' => xml_convert($row->title),
+					'link' => $row->link,
+					'guid' => $row->link,
+					'description'  => $row->meta_description,
+					'date' => $row->created_on
+				);
+						
+				$this->data->rss->items[] = (object) $item;
+			} 
+		}
+		
+		$this->load->view('rss', $this->data);
+		
+    }
+    
+    function _404($url_segments)
+    {
+    	// Try and get an error page. If its been deleted, show nasty 404
+        if(!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
+        {
+			log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
+			
+			$EXP = new CI_Exceptions;
+			echo $EXP->show_error('', '', 'error_404', 404);
+			exit;
+        }
+        
+        $this->output->set_status_header(404);
+        
+        return $page;
+    }
 }
 
 ?>
