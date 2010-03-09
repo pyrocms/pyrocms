@@ -4,6 +4,7 @@ CHANGELOG
 v0.9.8
 ------
 
+* Added "Widgets" which allow very flexible chunks of code to be placed almost anywhere.
 * Added custom CSS area for pages.
 * Added GUI editable "Page layouts" to control shared layouts for grouped pages.
 * "Check all" boxes and CTRL + Click selecting added to all listing pages.
@@ -13,7 +14,6 @@ v0.9.8
 * Removed all PHP short-tags.
 * Standardized much of the model code, and removed deprecated CodeIgniter ActiveRecord methods like getwhere().
 * Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.
-* Enabled profile on local installaitons, but wont exist on Dev, QA or live.
 * Settings library now loads all settings on instantiation, instead of one query-per-setting.
 * Added "Preview" windows for pages and news, much more accurate than before.
 * Draft/Live status added for pages, admins can see pages anyway.
@@ -21,15 +21,19 @@ v0.9.8
 * Re-enabled page slug editing.
 * Navigation add/edit form is now much more user-friendly.
 * Removed all CAPTCHAs and use Akismet and some clever trickery to check for spam.
-* Upgraded to Google Async Analytics.
+* Upgraded to Google Async Analytics (much quicker).
 * Added editable 404 page which actually sends 404 header.
 * Navigation links are drag/drop sortable in admin.
 * URI slugs in News and Pages are now editable.
 * Upgraded Dwoo to v1.1.1.
 * Upgraded jQuery to v1.4.2.
-* URI slugs in News and Pages are now editable
+* Upgraded jQuery UI to v1.7.2.
 * Updated default theme to use entirely Dwoo syntax as an example.
 * Required metadata such as jQuery / front.js loading is now handled internally so theme designers dont need to remember it.
+* Optional RSS feeds of a pages children, available for any page.
+* Tidied up the dashboard, added recent users & comments and made it multi-lang.
+* Added German, Dutch and Polish languages to the core.
+* Added "Variables" module which allows user-defined variables accross the site.
 
 v0.9.7.4
 --------
