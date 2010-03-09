@@ -43,7 +43,7 @@
 		height : 360,
 		constrain_menus : true,
 		
-		plugins : "safari,pagebreak,style,advhr,advimage,advlink,emotions,inlinepopups,preview,media,contextmenu,paste,fullscreen,noneditable,visualchars,xhtmlxtras,template,tinycimm",
+		plugins : "pagebreak,style,advhr,advimage,advlink,inlinepopups,preview,media,contextmenu,paste,fullscreen,noneditable,visualchars,xhtmlxtras,template,tinycimm",
 
 		// Theme options
 		theme : "advanced",
