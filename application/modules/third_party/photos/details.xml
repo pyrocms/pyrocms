@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.8">
+<module version="0.9">
 	<name>
 		<en>Photos</en>
-                <pl>Zdjęcia</pl>
 		<es>Fotografías</es>
 		<fr>Photos</fr>
 		<de>Fotos</de>
+        <pl>Zdjęcia</pl>
 	</name>
 	<description>
 		<en>Add photo albums and upload photos.</en>
