@@ -8,6 +8,7 @@
 	</div>
 </div>
 
+<?php if($available_widgets): ?>
 <div class="box">
 	<h3 class="yellow"><?php echo lang('widgets.available_title')?></h3>
 	
@@ -21,7 +22,9 @@
 		</ul>
 	</div>
 </div>
+<?php endif; ?>
 
+<?php if($uninstalled_widgets): ?>
 <div class="box">
 	<h3 class="yellow"><?php echo lang('widgets.uninstalled_title')?></h3>
 	<div class="box-container">
@@ -36,3 +39,4 @@
 		
 	</div>
 </div>
+<?php endif; ?>
