@@ -31,8 +31,8 @@ class Admin extends Admin_Controller
 		
 		$this->lang->load('comments/comments');
 		
-		$this->data->recent_users		= $this->users_m->order_by('created_on')->limit(10)->get_all();
-		$this->data->recent_comments	= $this->comments_m->get_recent();
+		$this->data->recent_users		= $this->users_m->get_recent(5);
+		$this->data->recent_comments	= $this->comments_m->get_recent(5);
 		
 		foreach($this->data->recent_comments as &$comment)
 		{

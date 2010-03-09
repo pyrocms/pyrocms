@@ -52,6 +52,12 @@ class Users_m extends MY_Model
     	return $query->row();
     }
     
+  	public function get_recent($limit = 10)
+  	{
+    	$this->db->order_by('users.created_on', 'desc');
+    	$this->db->limit($limit);
+    	return $this->get_all();
+  	}
     
 	function get_all()
     {

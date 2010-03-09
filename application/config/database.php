@@ -79,5 +79,3 @@ if(!array_key_exists(ENV, $db))
 
 // Assign the group to be used
 $active_group = ENV;
-
-?>

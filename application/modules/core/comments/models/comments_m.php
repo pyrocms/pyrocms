@@ -18,9 +18,10 @@ class Comments_m extends MY_Model
     	return $this->db->get()->row();
   	}
   	
-  	public function get_recent()
+  	public function get_recent($limit = 10)
   	{
     	$this->db->order_by('comments.created_on DESC');
+    	$this->db->limit($limit);
     	return $this->get_all();
   	}
   	
