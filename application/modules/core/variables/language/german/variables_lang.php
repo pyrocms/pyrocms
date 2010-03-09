@@ -14,7 +14,7 @@ $lang['var_edit_title'] 				= 'Edit variable "%s"';
 $lang['var_list_title'] 				= 'List variables';
 
 // messages
-$lang['var_no_variables'] 				= 'There is no variable';
+$lang['var_no_variables'] 				= 'There are no variables.';
 $lang['var_add_success'] 				= 'Your variable has been saved.';
 $lang['var_add_error'] 					= 'An error occurred.';
 $lang['var_edit_success'] 				= 'The variable was created.';

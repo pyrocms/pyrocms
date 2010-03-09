@@ -1,7 +1,6 @@
 <?php
 
 // labels
-$lang['var_title_label'] 				= 'Título';
 $lang['var_syntax_label'] 			    = 'Syntax'; #translate
 $lang['var_name_label'] 			    = 'Nombre';
 $lang['var_data_label'] 			    = 'Valor';

@@ -1,7 +1,7 @@
 <?php
 
 // labels
-$lang['var_title_label'] 				= 'Tytuł';
+$lang['var_syntax_label'] 			    = 'Syntax'; #translate
 $lang['var_name_label'] 			    = 'Nazwa';
 $lang['var_data_label'] 			    = 'Wartość';
 $lang['var_actions_label'] 				= 'Akcje';
