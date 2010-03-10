@@ -32,7 +32,7 @@ TRUNCATE `pages`;
 -- command split --
 
 INSERT INTO `pages` (`id`, `slug`, `title`, `body`, `parent_id`, `layout_id`, `css`, `meta_title`, `meta_keywords`, `meta_description`, `status`, `created_on`, `updated_on`) VALUES
-  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0',1,'','','','','live','1219336535'),
+  ('1','home','Home','Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.','0',1,'','','','','live','1265139154', '1219336535'),
   ('2', '404', 'Page missing', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{page_url[1]}\">here</a> to go to the homepage.</p>', '0', '1', '', '', '', '', 'live', '1265139154', '1265139154');
   
 -- command split --
