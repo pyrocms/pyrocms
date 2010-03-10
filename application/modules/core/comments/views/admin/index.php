@@ -52,10 +52,10 @@
 									<td><?php echo date('M d, Y', $comment->created_on);?></td>						
 									<td>
 										<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comments.preview_label'), 'rel="modal" target="_blank"'); ?> | 
-										<?php if($comment->is_active == 0): ?>
-											<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'),array('class' => 'ajax'));?>
+										<?php if($comment->is_active): ?>
+											<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'));?>
 										<?php else: ?>
-											<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'),array('class' => 'ajax'));?>
+											<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'));?>
 										<?php endif; ?> | 
 										<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comments.edit_label'));?> | 
 										<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comments.delete_label'), array('class'=>'confirm')); ?>

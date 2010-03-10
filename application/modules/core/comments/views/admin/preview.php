@@ -4,12 +4,17 @@
 </p>
 
 <div class="float-right spacer-right">
+
 	<div class="button">
-		<?php echo anchor('admin/comments/approve/' . $comment->id, 'Approve'); ?>
+		<?php if($comment->is_active): ?>
+			<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'));?>
+		<?php else: ?>
+			<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'));?>
+		<?php endif; ?>
 	</div>
 	
 	<div class="button">
-		<?php echo anchor('admin/comments/approve/' . $comment->id, 'Delete'); ?>
+		<?php echo anchor('admin/comments/delete/' . $comment->id, 'Delete'); ?>
 	</div>
 </div>
 
