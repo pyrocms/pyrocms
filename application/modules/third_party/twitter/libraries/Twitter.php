@@ -84,17 +84,20 @@ class Twitter {
 
 		$this->user_timeline = $this->_fetch('statuses/user_timeline/' . $id . '.' . $this->type . $params);
 		
-		if($count > 1)
+		if(!empty($this->user_timeline))
 		{
-			foreach($this->user_timeline as &$message)
+			if($count > 1)
 			{
-				$message->text = $this->_parse_message($message->text);
+				foreach($this->user_timeline as &$message)
+				{
+					$message->text = $this->_parse_message($message->text);
+				}
 			}
-		}
-		
-		else
-		{
-			$this->user_timeline->text = $this->_parse_message($this->user_timeline->text);
+			
+			else
+			{
+				$this->user_timeline->text = $this->_parse_message($this->user_timeline->text);
+			}
 		}
 		
 		return $this->user_timeline;
