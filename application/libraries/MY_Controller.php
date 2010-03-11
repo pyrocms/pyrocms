@@ -12,6 +12,9 @@ class MY_Controller extends Controller
 		parent::Controller();
 		$this->benchmark->mark('my_controller_start');
 		
+		// Re-populate $_GET
+		parse_str($_SERVER['QUERY_STRING'], $_GET);
+		
 		// Hook point
 		$GLOBALS['EXT']->_call_hook('post_core_controller_constructor');
 		
