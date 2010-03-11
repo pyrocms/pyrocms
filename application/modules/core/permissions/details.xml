@@ -4,12 +4,14 @@
 		<en>Permissions</en>
 		<es>Permisos</es>
 		<fr>Permissions</fr>
+                <de>Zugriffsrechte</de>
                 <pl>Uprawnienia</pl>
 	</name>
 	<description>
 		<en>Control what type of users can see certain sections within the site.</en>
                 <pl>Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.</pl>
 		<es>Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.</es>
+                <de>Steuert welche Art von Benutzer welche Sektion in der Seite sehen kann.</de>
 		<fr>Permet de contrôler quel rôle utilisateur peut visualiser certaines parties du site.</fr>
 	</description>
 	<is_frontend>0</is_frontend>
