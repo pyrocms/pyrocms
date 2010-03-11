@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -39,7 +39,7 @@ class CI_DB_sqlite_utility extends CI_DB_utility {
 	{
 		if ($this->db_debug)
 		{
-			return $this->display_error('db_unsuported_feature');
+			return $this->db->display_error('db_unsuported_feature');
 		}
 		return array();
 	}

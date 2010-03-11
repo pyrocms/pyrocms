@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Themes_m extends Model
+class Themes_m extends CI_Model
 {
 	public $themes_infos = NULL;
 	

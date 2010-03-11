@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -146,7 +146,7 @@ class CI_DB_Cache {
 			return FALSE;
 		}
 		
-		@chmod($dir_path.$filename, DIR_WRITE_MODE);
+		@chmod($dir_path.$filename, FILE_WRITE_MODE);
 		return TRUE;
 	}
 

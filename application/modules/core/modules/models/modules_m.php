@@ -1,18 +1,23 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Modules_m extends Model {
+class Modules_m extends CI_Model {
 
     function __construct() {
-        parent::Model();
+        parent::CI_Model();
         $this->load->helper('modules/module');
     }
     
     // Return an object containing module data
     function get($module = '')
     {
+    	if(!$module)
+    	{
+    		return NULL;
+    	}
+    	
     	foreach (module_directories() as $directory)
     	{
-			if(file_exists($xml_file = $directory.$module.'/details.xml'))
+    		if(file_exists($xml_file = $directory.$module.'/details.xml'))
 			{
 				return $this->_format_xml($xml_file);
 			}

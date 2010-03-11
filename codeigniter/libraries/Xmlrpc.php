@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -229,7 +229,7 @@ class CI_Xmlrpc {
 
 	function values_parsing($value, $return = FALSE)
 	{
-		if (is_array($value) && isset($value['0']))
+		if (is_array($value) && array_key_exists(0, $value))
 		{
 			if ( ! isset($value['1']) OR (! isset($this->xmlrpcTypes[$value['1']])))
 			{
@@ -513,7 +513,7 @@ class XML_RPC_Response
 				}
 				else
 				{
-					$array[$key] = $CI->input->xss_clean($array[$key]);
+					$array[$key] = $CI->security->xss_clean($array[$key]);
 				}
 			}
 			
@@ -529,7 +529,7 @@ class XML_RPC_Response
 			}
 			else
 			{
-				$result = $CI->input->xss_clean($result);
+				$result = $CI->security->xss_clean($result);
 			}
 		}
 		
@@ -1127,7 +1127,9 @@ class XML_RPC_Message extends CI_Xmlrpc
 				}
 				else
 				{
-					$array[$key] = $CI->input->xss_clean($array[$key]);
+					// 'bits' is for the MetaWeblog API image bits
+					// @todo - this needs to be made more general purpose
+					$array[$key] = ($key == 'bits') ? $array[$key] : $CI->security->xss_clean($array[$key]);
 				}
 			}
 			
@@ -1147,7 +1149,7 @@ class XML_RPC_Message extends CI_Xmlrpc
 				}
 				else
 				{
-					$parameters[] = $CI->input->xss_clean($a_param);
+					$parameters[] = $CI->security->xss_clean($a_param);
 				}
 			}	
 		}
@@ -1322,7 +1324,7 @@ class XML_RPC_Values extends CI_Xmlrpc
 	function serializedata($typ, $val)
 	{
 		$rs = '';
-		
+
 		switch($this->xmlrpcTypes[$typ])
 		{
 			case 3:

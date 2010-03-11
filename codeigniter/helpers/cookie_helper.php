@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -46,50 +46,9 @@ if ( ! function_exists('set_cookie'))
 {
 	function set_cookie($name = '', $value = '', $expire = '', $domain = '', $path = '/', $prefix = '')
 	{
-		if (is_array($name))
-		{		
-			foreach (array('value', 'expire', 'domain', 'path', 'prefix', 'name') as $item)
-			{
-				if (isset($name[$item]))
-				{
-					$$item = $name[$item];
-				}
-			}
-		}
-	
 		// Set the config file options
 		$CI =& get_instance();
-	
-		if ($prefix == '' AND $CI->config->item('cookie_prefix') != '')
-		{
-			$prefix = $CI->config->item('cookie_prefix');
-		}
-		if ($domain == '' AND $CI->config->item('cookie_domain') != '')
-		{
-			$domain = $CI->config->item('cookie_domain');
-		}
-		if ($path == '/' AND $CI->config->item('cookie_path') != '/')
-		{
-			$path = $CI->config->item('cookie_path');
-		}
-		
-		if ( ! is_numeric($expire))
-		{
-			$expire = time() - 86500;
-		}
-		else
-		{
-			if ($expire > 0)
-			{
-				$expire = time() + $expire;
-			}
-			else
-			{
-				$expire = 0;
-			}
-		}
-	
-		setcookie($prefix.$name, $value, $expire, $path, $domain, 0);
+		$CI->input->set_cookie($name, $value, $expire, $domain, $path, $prefix);
 	}
 }
 	

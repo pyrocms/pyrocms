@@ -1,12 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Twitter_m extends Model {
+class Twitter_m extends CI_Model {
 
 	private $CI;
 	
 	function __construct()
 	{
-		parent::Model();
+		parent::CI_Model();
 		
 		$this->CI =& get_instance();
 		$this->CI->load->library('twitter/twitter');

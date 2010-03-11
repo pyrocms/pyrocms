@@ -1,5 +1,5 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
-	
+
 /**
  * Modular Separation - PHP5
  *
@@ -135,7 +135,8 @@ class MY_Loader extends CI_Loader
 			return self::$APP->$_alias;
 		
 		list($path, $model) = Modules::find($model, $this->_module, 'models/');
-		(class_exists('Model', FALSE)) OR load_class('Model', FALSE);
+		
+		(class_exists('Model', FALSE)) OR load_class('Model', 'core');
 
 		if ($connect !== FALSE) {
 			if ($connect === TRUE) $connect = '';
@@ -292,7 +293,7 @@ class MX_Config extends CI_Config
 	}
 }
 
-class MX_Language extends CI_Language
+class MX_Language extends CI_Lang
 {
 	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)	{
 		if (is_array($langfile)) 

@@ -6,8 +6,7 @@ class Pages extends Public_Controller
 	
     function __construct() 
     {
-        parent::Public_Controller();
-        
+    	parent::Public_Controller();
         $this->load->model('pages_m');
         $this->load->model('page_layouts_m');
         

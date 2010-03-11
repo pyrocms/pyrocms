@@ -17,7 +17,7 @@
 			<div id="content">
 			
 				<div id="content-top">
-					<h2><?php echo $module_data['name'] ? anchor('admin/', $module_data['name'], $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
+					<h2><?php echo isset($module_data['name']) ? anchor('admin/', $module_data['name'], $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
 					<br class="clear-both"/>
 				</div>
 			

@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -454,6 +454,11 @@ class CI_Upload {
 	 */	
 	function set_allowed_types($types)
 	{
+		if ( ! is_array($types) && $types == '*')
+		{
+			$this->allowed_types = '*';
+			return;
+		}
 		$this->allowed_types = explode('|', $types);
 	}
 	
@@ -551,6 +556,11 @@ class CI_Upload {
 	 */	
 	function is_allowed_filetype()
 	{
+		if ($this->allowed_types == '*')
+		{
+			return TRUE;
+		}
+		
 		if (count($this->allowed_types) == 0 OR ! is_array($this->allowed_types))
 		{
 			$this->set_error('upload_no_file_types');
@@ -805,7 +815,7 @@ class CI_Upload {
 		}
 
 		$CI =& get_instance();	
-		$data = $CI->input->xss_clean($data);
+		$data = $CI->security->xss_clean($data);
 		
 		flock($fp, LOCK_EX);
 		fwrite($fp, $data);

@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -325,10 +325,12 @@ class CI_Zip  {
 			$filename .= '.zip';
 		}
 
-		$zip_content =& $this->get_zip();
-
 		$CI =& get_instance();
 		$CI->load->helper('download');
+
+		$get_zip = $this->get_zip();
+
+		$zip_content =& $get_zip;
 
 		force_download($filename, $zip_content);
 	}

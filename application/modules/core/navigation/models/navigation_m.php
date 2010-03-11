@@ -6,7 +6,7 @@
  * 
  * Navigation model for the navigation module.
  */
-class Navigation_m extends Model
+class Navigation_m extends CI_Model
 {
 	function get_link($id = 0)
 	{

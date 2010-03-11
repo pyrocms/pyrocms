@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -658,7 +658,7 @@ class CI_Form_validation {
 				// of another field?  If so we need to grab its "field label"
 				if (isset($this->_field_data[$param]) AND isset($this->_field_data[$param]['label']))
 				{
-					$param = $this->_field_data[$param]['label'];
+					$param = $this->_translate_fieldname($this->_field_data[$param]['label']);
 				}
 				
 				// Build the error message

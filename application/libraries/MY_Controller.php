@@ -10,7 +10,6 @@ class MY_Controller extends Controller
 	function MY_Controller()
 	{
 		parent::Controller();
-		
 		$this->benchmark->mark('my_controller_start');
 		
 		// Hook point
@@ -30,10 +29,10 @@ class MY_Controller extends Controller
         $this->data->module 		=& $this->module;
         $this->data->controller 	=& $this->controller;
         $this->data->method 		=& $this->method;
-		
-		// Get meta data for the module
+
+        // Get meta data for the module
         $this->module_data 			= $this->modules_m->get($this->module);
-        
+
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;
         

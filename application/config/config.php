@@ -42,7 +42,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= "PATH_INFO";
+$config['uri_protocol']	= "REQUEST_URI";
 
 /*
 |--------------------------------------------------------------------------
@@ -149,7 +149,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_-';
 | use segment based URLs.
 |
 */
-$config['enable_query_strings'] = TRUE;
+$config['enable_query_strings'] = FALSE;
 $config['directory_trigger'] = 'd';
 $config['controller_trigger'] = 'c';
 $config['function_trigger'] = 'm';
@@ -325,7 +325,18 @@ function __autoload($class)
 {
 	if(strpos($class, 'CI_') !== 0)
 	{
-		@include_once( APPPATH . 'libraries/'. $class . EXT );
+		$core = APPPATH . 'core/'. $class . EXT;
+		$libraries = APPPATH . 'libraries/'. $class . EXT;
+		
+		if(file_exists($core))
+		{
+			include_once( $core );
+		}
+		
+		elseif(file_exists($libraries))
+		{
+			include_once( $libraries );
+		}
 	}
 }
 

@@ -1,10 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Permissions_m extends Model {
-
-	function __construct() {
-		parent::Model();
-	}
+class Permissions_m extends CI_Model {
 
 	function getRule($id = 0) {
 		$query = $this->db->get_where('permission_rules', array('id'=>$id));

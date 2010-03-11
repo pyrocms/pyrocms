@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -124,7 +124,9 @@ if ( ! function_exists('delete_files'))
 		$path = rtrim($path, DIRECTORY_SEPARATOR);
 			
 		if ( ! $current_dir = @opendir($path))
-			return;
+		{
+			return FALSE;			
+		}
 	
 		while(FALSE !== ($filename = @readdir($current_dir)))
 		{
@@ -148,8 +150,10 @@ if ( ! function_exists('delete_files'))
 	
 		if ($del_dir == TRUE AND $level > 0)
 		{
-			@rmdir($path);
+			return @rmdir($path);
 		}
+		
+		return TRUE;
 	}
 }
 
@@ -214,13 +218,13 @@ if ( ! function_exists('get_filenames'))
  *
  * @access	public
  * @param	string	path to source
- * @param	bool	whether to include the path as part of the filename
+ * @param	bool	Look only at the top level directory specified?
  * @param	bool	internal variable to determine recursion status - do not use in calls
  * @return	array
  */	
 if ( ! function_exists('get_dir_file_info'))
 {
-	function get_dir_file_info($source_dir, $include_path = FALSE, $_recursion = FALSE)
+	function get_dir_file_info($source_dir, $top_level_only = TRUE, $_recursion = FALSE)
 	{
 		static $_filedata = array();
 		$relative_path = $source_dir;
@@ -234,18 +238,20 @@ if ( ! function_exists('get_dir_file_info'))
 				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 			}
 
+			// foreach (scandir($source_dir, 1) as $file) // In addition to being PHP5+, scandir() is simply not as fast
 			while (FALSE !== ($file = readdir($fp)))
 			{
-				if (@is_dir($source_dir.$file) && strncmp($file, '.', 1) !== 0)
+				if (@is_dir($source_dir.$file) AND strncmp($file, '.', 1) !== 0 AND $top_level_only === FALSE)
 				{
-					 get_dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, TRUE);
-				}
-				elseif (strncmp($file, '.', 1) !== 0)
-				{
+ 					 get_dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
+ 				}
+ 				elseif (strncmp($file, '.', 1) !== 0)
+ 				{
 					$_filedata[$file] = get_file_info($source_dir.$file);
 					$_filedata[$file]['relative_path'] = $relative_path;
 				}
 			}
+
 			return $_filedata;
 		}
 		else
@@ -340,7 +346,7 @@ if ( ! function_exists('get_mime_by_extension'))
 {
 	function get_mime_by_extension($file)
 	{
-		$extension = substr(strrchr($file, '.'), 1);
+		$extension = strtolower(substr(strrchr($file, '.'), 1));
 
 		global $mimes;
 

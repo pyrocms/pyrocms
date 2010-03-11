@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -83,7 +83,15 @@ if ( ! function_exists('form_open_multipart'))
 {
 	function form_open_multipart($action, $attributes = array(), $hidden = array())
 	{
-		$attributes['enctype'] = 'multipart/form-data';
+		if (is_string($attributes))
+		{
+			$attributes .= ' enctype="multipart/form-data"';
+		}
+		else
+		{
+			$attributes['enctype'] = 'multipart/form-data';
+		}
+
 		return form_open($action, $attributes, $hidden);
 	}
 }
@@ -257,7 +265,7 @@ if ( ! function_exists('form_textarea'))
  * @param	string
  * @return	type
  */
-if (! function_exists('form_multiselect'))
+if ( ! function_exists('form_multiselect'))
 {
 	function form_multiselect($name = '', $options = array(), $selected = array(), $extra = '')
 	{
@@ -311,7 +319,7 @@ if ( ! function_exists('form_dropdown'))
 		{
 			$key = (string) $key;
 
-			if (is_array($val))
+			if (is_array($val) && ! empty($val))
 			{
 				$form .= '<optgroup label="'.$key.'">'."\n";
 
@@ -629,7 +637,7 @@ if ( ! function_exists('form_prep'))
 
 		if ($field_name != '')
 		{
-			$prepped_fields[$field_name] = $str;
+			$prepped_fields[$field_name] = $field_name;
 		}
 		
 		return $str;
@@ -957,6 +965,11 @@ if ( ! function_exists('_attributes_to_string'))
 				$attributes .= ' method="post"';
 			}
 
+			if ($formtag == TRUE AND strpos($attributes, 'accept-charset=') === FALSE)
+			{
+				$attributes .= ' accept-charset="'.strtolower(config_item('charset')).'"';
+			}
+
 		return ' '.$attributes;
 		}
 	
@@ -967,19 +980,24 @@ if ( ! function_exists('_attributes_to_string'))
 
 		if (is_array($attributes) AND count($attributes) > 0)
 		{
-		$atts = '';
+			$atts = '';
 
-		if ( ! isset($attributes['method']) AND $formtag === TRUE)
-		{
-			$atts .= ' method="post"';
-		}
+			if ( ! isset($attributes['method']) AND $formtag === TRUE)
+			{
+				$atts .= ' method="post"';
+			}
 
-		foreach ($attributes as $key => $val)
-		{
-			$atts .= ' '.$key.'="'.$val.'"';
-		}
+			if ( ! isset($attributes['accept-charset']) AND $formtag === TRUE)
+			{
+				$atts .= ' accept-charset="'.strtolower(config_item('charset')).'"';
+			}
 
-		return $atts;
+			foreach ($attributes as $key => $val)
+			{
+				$atts .= ' '.$key.'="'.$val.'"';
+			}
+
+			return $atts;
 		}
 	}
 }
