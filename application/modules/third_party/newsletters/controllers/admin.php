@@ -82,7 +82,7 @@ class Admin extends Admin_Controller
 	// Admin: Export
 	function export()
 	{
-		$this->load->plugin('to_xml');
+		$this->load->helper('xml');
 		to_xml($this->db->get('emails'), 'recipients');
 	}
 }
