@@ -1,12 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-function widget($id, $options = array())
+function widget($slug, $options = array())
 {
 	$ci =& get_instance();
 	
 	$ci->load->library('widgets/widgets');
 
-	return $ci->widgets->render($id, $options);
+	return $ci->widgets->render($slug, $options);
 }
 
 function widget_area($slug)
@@ -16,6 +16,17 @@ function widget_area($slug)
 	$ci->load->library('widgets/widgets');
 
 	return $ci->widgets->render_area($slug);
+}
+
+function widget_instance($id)
+{
+	$ci =& get_instance();
+	
+	$ci->load->library('widgets/widgets');
+	
+	$widget = $ci->widgets->get_instance($id);
+
+	return $ci->widgets->render($widget->slug, $widget->options);
 }
 
 ?>
