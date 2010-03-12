@@ -1,0 +1,29 @@
+/*
+    Project: CrystalX
+    URL: http://www.nuvio.cz
+
+    Output device: print
+
+    Author: Vit Dlouhy (vit.dlouhy@nuvio.cz); Nuvio (www.nuvio.cz)
+    Last revision: 2006-12-05, 12:00 GMT+1
+
+    Structure:
+        display | position | float | overflow | width | height | border | margin | padding | background | align | font
+*/
+
+body {border:0; margin:0; padding:0; font-size:12pt}
+
+a {color:#000; text-decoration:none;}
+
+h1, h2, h3 {page-break-after:avoid; page-break-inside:avoid;}
+
+table {border-collapse: collapse; border-width:1px; border-style:solid;}
+th, td {display:table-cell; border-width:1px; border-style:solid;}
+
+
+hr {display:block; height:2px; margin:0; padding:0; background:#000; border:0 solid #000; color:#000;}
+
+blockquote {page-break-inside:avoid}
+ul, ol, dl {page-break-before:avoid}
+
+.noprint {display:none;}
