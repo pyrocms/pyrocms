@@ -1,32 +1,32 @@
 <?php
 
 // sidebar
-$lang['widgets.available_title'] 			= 'Available widgets';
-$lang['widgets.uninstalled_title'] 			= 'Un-installed';
+$lang['widgets.available_title'] 			= 'Verfügbare widgets';
+$lang['widgets.uninstalled_title'] 			= 'Deinstallierte widgets';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';
-$lang['widgets.widget_author'] 				= 'Author';
-$lang['widgets.widget_short_name'] 			= 'Short name';
+$lang['widgets.widget_author'] 				= 'Autor';
+$lang['widgets.widget_short_name'] 			= 'Kurzname';
 $lang['widgets.widget_version'] 			= 'Version';
 
 // Widget area titles
-$lang['widgets.add_area'] 					= 'Add widget area';
-$lang['widgets.delete_area'] 				= 'Delete area';
+$lang['widgets.add_area'] 					= 'Widget Bereich hinzufügen';
+$lang['widgets.delete_area'] 				= 'Widget Bereich löschen';
 
 // Widget area field names
-$lang['widgets.widget_area'] 				= 'Area';
-$lang['widgets.widget_area_title'] 			= 'Area name';
-$lang['widgets.widget_area_slug'] 			= 'Area short name';
+$lang['widgets.widget_area'] 				= 'Bereich';
+$lang['widgets.widget_area_title'] 			= 'Bereichsname';
+$lang['widgets.widget_area_slug'] 			= 'Bereichs-Kurzname';
 
 // Widget instance titles
-$lang['widgets.add_instance'] 				= 'Add widget instance';
-$lang['widgets.edit_instance'] 				= 'Edit widget instance';
-$lang['widgets.delete_instance'] 			= 'Delete widget instance';
+$lang['widgets.add_instance'] 				= 'Widget hinzufügen';
+$lang['widgets.edit_instance'] 				= 'Widget bearbeiten';
+$lang['widgets.delete_instance'] 			= 'Widget löschen';
 
-$lang['widgets.instance_title'] 			= 'Title';
+$lang['widgets.instance_title'] 			= 'Titel';
 
-$lang['widgets.instance_edit'] 				= 'Edit';
-$lang['widgets.instance_delete'] 			= 'Delete';
+$lang['widgets.instance_edit'] 				= 'Editieren';
+$lang['widgets.instance_delete'] 			= 'Löschen';
 
 ?>

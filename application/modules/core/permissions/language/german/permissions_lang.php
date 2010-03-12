@@ -29,17 +29,17 @@ $lang['perm_rule_not_exist_error'] 			= 'Die Zugangs-Regel existiert nicht.';
 $lang['perm_rule_save_success'] 			= 'Die Zugangs-Regel wurde gesichert.';
 $lang['perm_rule_delete_success'] 			= 'Die Zugangs-Regel wurde gelöscht.';
 
-$lang['perm_role_add'] 						= 'Regel hinzufügen';
-$lang['perm_role_edit'] 					= 'Regel bearbeiten';
-$lang['perm_role_delete'] 					= 'Regel löschen';
-$lang['perm_role_delete_confirm'] 			= 'Diese Zugangs-Regel wirklich löschen? Alle der Regel zugehörigen Navigations-Links werden ebenfalls gelöscht und die Layout-Dateien müssen im Anschluss angepasst werden um alle existierenden Verweise auf sie zu entfernen.';
-$lang['perm_role_no_rules'] 				= 'Es gibt noch keine Regeln zu dieser Funktion.';
-$lang['perm_no_roles'] 						= 'Es gibt noch keine Regeln. Füge einen Typ Administrator mit der Abkürzung admin so schnell wie möglich hinzu.';
-$lang['perm_role_add_success'] 				= 'Die Zugangs-Regel wurde gesichert.';
+$lang['perm_role_add'] 						= 'Rolle hinzufügen';
+$lang['perm_role_edit'] 					= 'Rolle bearbeiten';
+$lang['perm_role_delete'] 					= 'Rolle löschen';
+$lang['perm_role_delete_confirm'] 			= 'Diese Zugangs-Rolle wirklich löschen? Alle der Rolle zugehörigen Navigations-Links werden ebenfalls gelöscht und die Layout-Dateien müssen im Anschluss angepasst werden um alle existierenden Verweise auf sie zu entfernen.';
+$lang['perm_role_no_rules'] 				= 'Es gibt noch keine Rolle zu dieser Funktion.';
+$lang['perm_no_roles'] 						= 'Es gibt noch keine Rolle. Füge einen Typ Administrator mit der Abkürzung admin so schnell wie möglich hinzu.';
+$lang['perm_role_add_success'] 				= 'Die Rolle wurde gesichert.';
 $lang['perm_role_add_error'] 				= 'Ein Fehler ist aufgetreten.';
-$lang['perm_role_not_exist_error'] 			= 'Diese Zugangs-Regel existiert nicht.';
-$lang['perm_role_save_success'] 			= 'Die Zugangs-Regel wurde gesichert.';
-$lang['perm_role_delete_success'] 			= 'Die Zugangs-Regel wurde gelöscht.';
+$lang['perm_role_not_exist_error'] 			= 'Diese Rolle existiert nicht.';
+$lang['perm_role_save_success'] 			= 'Die Rolle wurde gesichert.';
+$lang['perm_role_delete_success'] 			= 'Die Rolle wurde gelöscht.';
 $lang['perm_role_edit_title'] 				= 'Funktion "%s" bearbeiten';
 
 ?>

@@ -32,7 +32,7 @@ $lang['profile_address_line2'] = 'Zeile #2';
 $lang['profile_address_line3'] = 'Zeile #3';
 $lang['profile_address_postcode'] = 'Postleitzahl';
 
-$lang['profile_messenger_section'] = 'Instant Messengers';
+$lang['profile_messenger_section'] = 'Instant Messenger';
 
 $lang['profile_msn_handle'] = 'MSN';
 $lang['profile_aim_handle'] = 'AIM';
