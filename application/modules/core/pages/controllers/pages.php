@@ -75,7 +75,7 @@ class Pages extends Public_Controller
         }
         
         // If this page has an RSS feed, show it
-    	if( isset($page->rss_enabled) && $page->rss_enabled )
+    	if( $page->rss_enabled )
 	    {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url($this->uri->uri_string(). '.rss').'" />');
 	    }
