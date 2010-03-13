@@ -10,6 +10,8 @@ class Widgets
 {
 	private $_widget = NULL;
 	
+	private $_rendered_areas = array();
+	
 	function __construct()
 	{
 		$this->load->model('widgets/widgets_m');
@@ -134,6 +136,11 @@ class Widgets
 	
 	function render_area($area)
 	{
+		if(isset($this->_rendered_areas[$area]))
+		{
+			return $this->_rendered_areas[$area];
+		}
+		
 		$widgets = $this->widgets_m->get_by_area($area);
 		
 		$output = '';
@@ -145,6 +152,8 @@ class Widgets
 
 			$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
 		}
+		
+		$this->_rendered_areas[$area] = $output;
 		
 		return $output;
 	}

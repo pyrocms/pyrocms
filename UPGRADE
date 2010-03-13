@@ -4,8 +4,8 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimize or totally remove downtime during an upgrade.
 
-10/03/2010 - v0.9.8-beta3 to v0.9.8-rc1
----------------------------------------
+10/03/2010 - v0.9.8-rc1 to v0.9.8-prefinal
+------------------------------------------
 
 1. Replace old files with new files.
 

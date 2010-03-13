@@ -103,12 +103,7 @@
 					</ul>
 				{/if}
 				
-				{if widget_area('sidebar')}
-                <!-- Widgets -->
-				<h3><span>Widgets</span></h3>		
 				{widget_area('sidebar')}
-                <!-- /Widgets -->
-				{/if}
 				
                 <hr class="noscreen" />
           
