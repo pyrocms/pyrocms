@@ -19,7 +19,7 @@ $lang['page_layouts.edit_title'] 					= 'Seitenlayout "%s" bearbeiten';
 // messages
 $lang['page_layouts.no_pages'] 						= 'Es existieren noch keine Seitenlayouts.';
 $lang['page_layouts.create_success'] 				= 'Seitenlayout wurde erstellt.';
-$lang['page_layouts.create_error'] 					= 'Seitenlayout konnte nicht erstellt werden.';
+$lang['page_layouts.create_error'] 					= 'Ein Fehler ist aufgetreten. Seitenlayout konnte nicht erstellt werden.';
 $lang['page_layouts.page_layout.not_found_error']	= 'Seitenlayout existiert nicht.';
 $lang['page_layouts.edit_success'] 					= 'Seitenlayout "%s" wurde gesichert.';
 $lang['page_layouts.delete_home_error'] 			= 'Das Standard Seitenlayout kann nicht gelöscht werden.';

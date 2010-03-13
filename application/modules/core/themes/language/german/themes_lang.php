@@ -12,7 +12,7 @@ $lang['themes.mass_delete_error'] 		= '%s von %s Themen wurden erfolgreich gelö
 $lang['themes.delete_select_error'] 	= 'Du musst zuerst Themen auswählen, um sie zu löschen.';
 $lang['themes.upload_title'] 			= 'Thema hochladen';
 $lang['themes.list_label'] 				= 'Themen-Liste';
-$lang['themes.upload_desc'] 			= 'Bitte wähle eine Datei aus und klicke auf Upload';
+$lang['themes.upload_desc'] 			= 'Bitte wähle eine Datei aus und klicke auf Hochladen';
 
 $lang['themes.theme_label'] 			= 'Thema';
 $lang['themes.actions_label'] 			= 'Aktionen';

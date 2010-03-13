@@ -2,26 +2,26 @@
 
 // labels
 $lang['var_name_label'] 			    = 'Name';
-$lang['var_syntax_label'] 			    = 'Syntax'; #translate
-$lang['var_data_label'] 			    = 'Value';
-$lang['var_actions_label'] 				= 'Actions';
-$lang['var_edit_label'] 				= 'Edit';
-$lang['var_delete_label'] 				= 'Delete';
+$lang['var_syntax_label'] 			    = 'Variable';
+$lang['var_data_label'] 			    = 'Inhalt';
+$lang['var_actions_label'] 				= 'Aktionen';
+$lang['var_edit_label'] 				= 'Bearbeiten';
+$lang['var_delete_label'] 				= 'Löschen';
 
 // titles
-$lang['var_create_title'] 				= 'Add Variable';
-$lang['var_edit_title'] 				= 'Edit variable "%s"';
-$lang['var_list_title'] 				= 'List variables';
+$lang['var_create_title'] 				= 'Variable hinzufügen';
+$lang['var_edit_title'] 				= 'Bearbeite Variable "%s"';
+$lang['var_list_title'] 				= 'Variablen auflisten';
 
 // messages
-$lang['var_no_variables'] 				= 'There are no variables.';
-$lang['var_add_success'] 				= 'Your variable has been saved.';
-$lang['var_add_error'] 					= 'An error occurred.';
-$lang['var_edit_success'] 				= 'The variable was created.';
-$lang['var_edit_error'] 				= 'An error occurred.';
-$lang['var_mass_delete_error'] 			= 'Error occurred while trying to delete variable "%s".';
-$lang['var_mass_delete_success']		= '%s variables out of %s successfully deleted.';
-$lang['var_no_select_error'] 			= 'You need to select variables first.';
-$lang['var_already_exist_error']		= 'A variable with the name "%s" already exists.';
+$lang['var_no_variables'] 				= 'Es gibt keine Variablen.';
+$lang['var_add_success'] 				= 'Die Variable wurde erfolgreich gesichert.';
+$lang['var_add_error'] 					= 'Ein Fehler ist aufgetreten.';
+$lang['var_edit_success'] 				= 'Die Variable wurde erfolgreich gesichert.';
+$lang['var_edit_error'] 				= 'Ein Fehler ist aufgetreten.';
+$lang['var_mass_delete_error'] 			= 'Ein Fehler ist aufgetreten. Variable "%s" konnte nicht gelöscht werden.';
+$lang['var_mass_delete_success']		= '%s von %s erfolgreich gelöscht.';
+$lang['var_no_select_error'] 			= 'Du musst zuerst eine Variable auswählen.';
+$lang['var_already_exist_error']		= 'Es existiert bereits eine Variable mit dem Namen "%s" .';
 
 ?>

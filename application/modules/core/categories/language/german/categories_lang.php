@@ -15,9 +15,9 @@ $lang['cat_list_title'] 				= 'Kategorien auflisten'; #translate
 
 // messages
 $lang['cat_no_categories'] 				= 'Es gibt keine Kategorien.';
-$lang['cat_add_success'] 				= 'Deine Kategorie wurde gesichert.';
+$lang['cat_add_success'] 				= 'Die Kategorie wurde erfolgreich gesichert.';
 $lang['cat_add_error'] 					= 'Ein Fehler ist aufgetreten.';
-$lang['cat_edit_success'] 				= 'Die Kategorie wurde gesichert.';
+$lang['cat_edit_success'] 				= 'Die Kategorie wurde erfolgreich gesichert.';
 $lang['cat_edit_error'] 				= 'Ein Fehler ist aufgetreten.';
 $lang['cat_mass_delete_error'] 			= 'Beim Versuch Kategorie "%s" zu löschen ist ein Fehler aufgetreten.';
 $lang['cat_mass_delete_success'] 		= '%s von %s Kategorien erfolgreich gelöscht.';

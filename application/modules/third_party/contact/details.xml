@@ -12,7 +12,7 @@
 		 <pl>Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.</pl>
                 <es>Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.</es>
 		<fr>Ajoute un formulaire à votre site qui permet aux visiteurs de vous envoyer un e-mail sans révéler votre adresse e-mail'</fr>
-		<de>Fügt ein Formular hinzu, welches Besuchern erlaubt dir Emails zu schreiben, ohne deine Email-Adresse ihnen offen zu legen.</de>
+		<de>Fügt ein Formular hinzu, welches Besuchern erlaubt Emails zu schreiben, ohne die Kontakt Email-Adresse offen zu legen.</de>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>0</is_backend>

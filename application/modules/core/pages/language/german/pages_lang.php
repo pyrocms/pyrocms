@@ -1,10 +1,10 @@
 <?php
 
 // tabs
-$lang['pages.content_label'] 					= 'Seiteninhalt';
+$lang['pages.content_label'] 					= 'Inhalt'; //'Inhalt' commonly used term, not 'Seiteninhalt'
 $lang['pages.design_label'] 					= 'Design';
-$lang['pages.meta_label'] 						= 'Meta-Daten';
-$lang['pages.options_label'] 					= 'Options'; #translate
+$lang['pages.meta_label'] 					= 'Meta-Daten';
+$lang['pages.options_label'] 					= 'Optionen';
 
 $lang['pages.detail_label'] 					= 'Details';
 
@@ -16,7 +16,7 @@ $lang['pages.actions_label'] 					= 'Aktionen';
 $lang['pages.unknown_label'] 					= 'Unbekannt';
 $lang['pages.title_label'] 						= 'Titel';
 $lang['pages.slug_label'] 						= 'URL';
-$lang['pages.body_label'] 						= 'Seitenhinhalt';
+$lang['pages.body_label'] 						= 'Inhalt';
 $lang['pages.no_selection_label'] 				= '-- Keine --';
 $lang['pages.meta_title_label'] 				= 'Meta-Titel';
 $lang['pages.meta_keywords_label'] 				= 'Meta-Schlagwörter';
@@ -24,7 +24,7 @@ $lang['pages.meta_desc_label'] 					= 'Meta-Beschreibung';
 $lang['pages.layout_id_label'] 					= 'Seitenlayout';
 $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.access_label'] 					= 'Zugang';
-$lang['pages.rss_enabled_label'] 				= 'RSS enabled'; #translate
+$lang['pages.rss_enabled_label'] 				= 'RSS aktiviert';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Entwurf';
@@ -45,7 +45,7 @@ $lang['pages.layouts_list_title'] 				= 'Seitenlayouts auflisten';
 // messages
 $lang['pages.no_pages'] 						= 'Es existieren keine Seiten.';
 $lang['pages_create_success'] 					= 'Seite wurde erstellt.';
-$lang['pages_create_error'] 					= 'Diese Seite wurde nicht erstellt.';
+$lang['pages_create_error'] 					= 'Ein Fehler ist aufgetreten. Diese Seite wurde nicht erstellt.';
 $lang['pages_page_not_found_error'] 			= 'Diese Seite existiert nicht.';
 $lang['pages_edit_success'] 					= 'Seite "%s" wurde gesichert.';
 $lang['pages_delete_home_error'] 				= 'Hauptseite kann nicht gelöscht werden!';
@@ -56,8 +56,8 @@ $lang['pages_page_already_exist_error'] 		= 'Es existiert bereits eine Seite mit
 $lang['pages_parent_not_exist_error'] 			= 'Die ausgewählte übergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
 
 $lang['pages.tree_explanation'] 				= 'Die Liste zur Linken repräsentiert Seiten auf deiner Webseite.
-Klicke das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch einen Klick auf eine Seite siehst du allerlei hilfreiche Seiten-Informationen in dieser Box.';
+Wähle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch auswählen einer Seite erhältst du Informationen über die ausgewählte Seite.';
 
-$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.'; #translate
+$lang['pages.rss_explanation']					= 'Die Aktivierung von RSS auf dieser Seite ermöglicht es, einen RSS-Feed zu abonnieren, in dem sämtliche Unterobjekte enthalten sind. Diese scheinen dabei als eigener Eintrag auf.';
 
 ?>

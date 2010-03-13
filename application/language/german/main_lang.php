@@ -24,11 +24,11 @@ $lang['settings_label'] 						= 'Einstellungen';
 $lang['close_message'] 							= 'Nachricht schließen';
 $lang['general_error_label'] 				= 'Fehler';
 $lang['required_error_label'] 			= 'Benötigtes Feld fehlt';
-$lang['note_label'] 								= 'Notiz';
+$lang['note_label'] 								= 'Hinweis';
 $lang['success_label'] 							= 'Erfolgreich';
 
 $lang['login_title'] 								= 'Anmelden';
-$lang['cms_fatal_error'] 						= 'Fataler Fehler, ist CMS installiert?';
+$lang['cms_fatal_error'] 						= 'Schwerwiegender Fehler, ist CMS installiert?';
 
 $lang['login_error_label'] 					= 'Anmelde-Fehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';

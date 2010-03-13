@@ -1,4 +1,4 @@
 <?php
-$lang['modules.installed_list'] = 'Installed modules'; #translate
-$lang['modules.introduction'] = 'Unten findest du eine Liste aller installierten Module und ihrer Informationen wie z.B. ihre Beschreibung oder Version.';
+$lang['modules.installed_list'] = 'Installierte Module';
+$lang['modules.introduction'] = 'Eine Liste aller installierten Module und deren Beschreibung und Version.';
 ?>

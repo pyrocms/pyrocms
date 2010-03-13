@@ -12,7 +12,7 @@
                 <pl>Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.</pl>
 		<es>Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.</es>
 		<fr>Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.</fr>
-		<de>Benutzer und Gäste können für fast alles Kommentare mit eingebauter Captcha-Unterstützung schreiben</de>
+		<de>Benutzer und Gäste können für fast alles Kommentare schreiben. Ein Captcha System ist integriert.</de>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>

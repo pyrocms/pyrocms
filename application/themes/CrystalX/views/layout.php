@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	{theme_view('metadata')}
+</head>
+
+<body id="www-url-cz">
+
+	{if $ci->settings->item('google_analytic')}
+		{$ci->load->view('fragments/google_analytic')}
+	{/if}
+
+<!-- Main -->
+<div id="main" class="boxc">
+
+    <!-- Header -->
+    <div id="header">
+	{theme_view('header')}
+     
+    </div> <!-- /header -->
+
+	    <!-- Main menu (tabs) -->
+     <div id="tabs" class="noprint">
+
+            <ul class="boxc">
+			{foreach navigation('header') link}
+                <li{if $link->url == current_url()} id='active'{/if}><a href="{$link->url}" target="{$link->target}">{$link->title}<span class="tab-l"></span><span class="tab-r"></span></a></li>
+			{/foreach}
+			</ul>
+		<hr class="noscreen" />
+     </div> <!-- /tabs -->
+
+   <div id="page" class="boxc">
+    <div id="page-in" class="boxc">
+
+        <div id="strip" class="boxc noprint">
+
+			{if module_exists('news')}
+            <!-- RSS feeds -->
+            <p id="rss">
+				<?php echo anchor('news/rss/all.rss', 'RSS feed'); ?>
+			</p>
+            <hr class="noscreen" />
+			{/if}
+			
+            <!-- Breadcrumbs -->
+            <p id="breadcrumbs">You are here: {foreach $template.breadcrumbs crumb}
+					{$crumb} ->
+				{/foreach}
+				<strong>{$template.title}</strong>
+			</p>
+            <hr class="noscreen" />
+            
+        </div> <!-- /strip -->
+	
+		<!-- Content -->
+		<div id="content">
+			{if $ci->session->flashdata('notice')}
+		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
+		    {/if}
+		    {if $ci->session->flashdata('success')}
+		    	<div class="success-box">{$ci->session->flashdata('success')}</div>
+		    {/if}
+		    {if $ci->session->flashdata('error')}
+		    	<div class="error-box">{$ci->session->flashdata('error')}</div>
+		    {/if}
+		    {$template.body}
+			
+			
+        <hr class="noscreen" />
+            
+        </div> <!-- /content -->
+
+        <!-- Right column -->
+        <div id="col" class="noprint">
+            <div id="col-in">
+
+			{if $ci->session->userdata('user_id')}
+				{sprintf lang('logged_in_welcome') cat($user->first_name ' ' $user->last_name)} <a href="{site_url('users/logout')}">{lang('logout_label')}</a><br/>
+			
+				<ul id="links">
+				{if $ci->settings->item('enable_profiles')}
+					<li>{anchor('edit-profile', lang('edit_profile_label'))}</li>
+				{/if}
+				
+				<li>{anchor('edit-settings', lang('settings_label'))}</li>
+				
+				{if $ci->user_lib->check_role('admin')}
+					 <li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
+				{/if}
+				</ul>
+				
+			{else}
+				{theme_view('login_xsmall')}
+			{/if}
+			
+				{if navigation('sidebar')}
+					<h3><span>{lang('navigation_headline')}</span></h3>
+					<ul id="links">
+					{foreach navigation('sidebar') link}
+						<li>{anchor( $link->url, $link->title, array('target' => $link->target))}</li>
+					{/foreach}
+					</ul>
+				{/if}
+				
+				{widget_area('sidebar')}
+				
+                <hr class="noscreen" />
+          
+            </div> <!-- /col-in -->
+        </div> <!-- /col -->
+
+    </div> <!-- /page-in -->
+    </div> <!-- /page -->
+
+	<!-- start footer -->
+	<div id="footer">
+		{theme_view('footer')}
+	</div>
+	<!-- end footer -->
+
+</body>
+</html>	

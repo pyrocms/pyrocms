@@ -2,6 +2,7 @@
 	<thead>
 		<tr>
 			<th class="width-5"><?php echo form_checkbox('action_to_all'); ?></th>
+			<th class="width-5">#</th>
 			<th class="width-30"><?php echo lang('widgets.instance_title'); ?></th>
 			<th class="width-25"><?php echo lang('widgets.widget'); ?></th>
 			<th class="width-10">&nbsp;</th>
@@ -13,6 +14,7 @@
 	
 		<tr id="instance-<?php echo $widget->id; ?>">
 			<td><?php echo form_checkbox('action_to[]', $widget->id); ?></td>
+			<td><?php echo $widget->instance_id;?></td>
 			<td><?php echo $widget->instance_title;?></td>
 			<td><?php echo $widget->title;?></td>
 			<td>
