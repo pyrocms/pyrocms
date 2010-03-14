@@ -4,9 +4,6 @@
 <meta name="copyright" content="Design/Code: Vit Dlouhy [Nuvio - www.nuvio.cz]; e-mail: vit.dlouhy@nuvio.cz" />
 
 <link rel="index" href="./" title="Home" />
-<link rel="stylesheet" media="screen,projection" type="text/css" href="./css/main.css" />
-<link rel="stylesheet" media="print" type="text/css" href="./css/print.css" />
-<link rel="stylesheet" media="aural" type="text/css" href="./css/aural.css" />
 	
 <title>{$template.title} | {$ci->settings->item('site_name')}</title>
 
@@ -18,6 +15,8 @@
 </script>
 
 {css('style.css')}
-{theme_css('main.css')}
+{theme_css('main.css', 'media="screen,projection"')}
+{theme_css('print.css', 'media="print"')}
+{theme_css('aural.css', 'media="aural"')}
 
 {$template.metadata}
