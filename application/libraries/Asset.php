@@ -28,15 +28,14 @@
 
 class Asset
 {
-	var $CI;
+	private $_theme;
+	private $_ci;
 	
-	var $theme = NULL;
-	
-	function Asset()
+	function __construct()
 	{
-		$this->CI =& get_instance();
+		$this->_ci =& get_instance();
 
-		$this->CI->load->config('asset');
+		$this->_ci->load->config('asset');
 	}
 	
 	// ------------------------------------------------------------------------
@@ -241,7 +240,7 @@ class Asset
 	
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
-		$base_location = $this->CI->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
+		$base_location = $this->_ci->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
 		
 		// If they are using a direct path, take them to it
 		if(strpos($asset_name, 'assets/') !== FALSE)
@@ -250,10 +249,10 @@ class Asset
 		}
 		
 		// If they have just given a filename, not an asset path, and its in a theme
-		elseif($module_name == '_theme_' && $this->theme != NULL)
+		elseif($module_name == '_theme_' && $this->_theme)
 		{
 			$asset_location = $base_location.'themes/'
-							. $this->theme.'/'
+							. $this->_theme.'/'
 							. $asset_type.'/'.$asset_name;
 		}
 		
@@ -310,9 +309,11 @@ class Asset
 			{
 				$attribute_str .= ' '.$key.'="'.$value.'"';
 			}
+			
+			return $attribute_str;
 		}
 	
-		return $attribute_str;
+		return $attributes;
 	}
 
 	// ------------------------------------------------------------------------
@@ -328,7 +329,7 @@ class Asset
 		
 	function set_theme($theme)
 	{
-		$this->theme = $theme;
+		$this->_theme = $theme;
 	}
 	
 }
