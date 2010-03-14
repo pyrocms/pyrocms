@@ -6,6 +6,9 @@ function pick_language() {
     
     session_start();
     
+    // Re-populate $_GET
+	parse_str($_SERVER['QUERY_STRING'], $_GET);
+		
     // Lang set in URL via ?lang=something
     if(!empty($_GET['lang']))
     {
@@ -50,7 +53,7 @@ function pick_language() {
     }
     
     // If no language has been worked out - or it is not supported - use the default
-    if(empty($lang) or !in_array($lang, array_keys($config['supported_languages'])))
+    if(empty($lang) or !array_key_exists($lang, $config['supported_languages']))
     {
         $lang = $config['default_language'];
     }
