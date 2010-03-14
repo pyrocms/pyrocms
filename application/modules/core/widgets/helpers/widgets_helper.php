@@ -26,7 +26,7 @@ function widget_instance($id)
 	
 	$widget = $ci->widgets->get_instance($id);
 
-	return $ci->widgets->render($widget->slug, $widget->options);
+	return $widget ? $ci->widgets->render($widget->slug, $widget->options) : '';
 }
 
 ?>
