@@ -1,0 +1,25 @@
+
+code {
+	background-color:		#fbfbfd;
+	border:					1px solid #dae0e4;
+	font-size:				11px;
+	margin:					10px 4px;
+	padding:				8px;
+	width:					740px;
+	overflow:				auto;
+}
+
+blockquote {
+	border:					1px solid #dae0e4;
+	border-left:			3px solid #dae0e4;
+	background-color:		#fbfbfd;
+	padding:				5px 8px;
+}
+
+.quote_author {
+	font-size:				10px;
+	font-weight:			bold;
+	font-style:				italic;
+}
+
+.authorinfo {font-size: small}
