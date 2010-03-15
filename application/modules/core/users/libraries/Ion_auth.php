@@ -680,9 +680,9 @@ class Ion_auth
 	}
 	
 	/**
-	 * set_message_delimitors
+	 * set_message_delimiters
 	 *
-	 * Set the message delimitors
+	 * Set the message delimiters
 	 *
 	 * @return void
 	 * @author Ben Edmunds
@@ -696,9 +696,9 @@ class Ion_auth
 	}
 	
 	/**
-	 * set_error_delimitors
+	 * set_error_delimiters
 	 *
-	 * Set the error delimitors
+	 * Set the error delimiters
 	 *
 	 * @return void
 	 * @author Ben Edmunds
@@ -721,14 +721,7 @@ class Ion_auth
 	 **/
 	public function set_message($message)
 	{
-		if (!empty($this->messages)) 
-		{
-			$this->messages .= ','.$message;
-		}
-		else
-		{
-			$this->messages = $message;
-		}
+		$this->messages[] = $message;
 		
 		return $message;
 	}
@@ -744,10 +737,9 @@ class Ion_auth
 	public function messages()
 	{
 		$_output = '';
-		$messages = explode($this->messages);
-		foreach ($messages as $message) 
+		foreach ($this->messages as $message) 
 		{
-			$_output .= $this->message_start_delimiter . $this->ci->lang($message) . $this->message_end_delimiter;
+			$_output .= $this->message_start_delimiter . $this->ci->lang->item($message) . $this->message_end_delimiter;
 		}
 		
 		return $_output;
@@ -763,14 +755,7 @@ class Ion_auth
 	 **/
 	public function set_error($error)
 	{
-		if (!empty($this->errors)) 
-		{
-			$this->errors .= ','.$error;
-		}
-		else
-		{
-			$this->errors = $error;
-		}
+		$this->errors[] = $error;
 		
 		return $error;
 	}
@@ -786,10 +771,9 @@ class Ion_auth
 	public function errors()
 	{
 		$_output = '';
-		$errors = explode($this->errors);
-		foreach ($errors as $error) 
+		foreach ($this->errors as $error) 
 		{
-			$_output .= $this->error_start_delimiter . $this->ci->lang($error) . $this->error_end_delimiter;
+			$_output .= $this->error_start_delimiter . $this->ci->lang->item($error) . $this->error_end_delimiter;
 		}
 		
 		return $_output;
