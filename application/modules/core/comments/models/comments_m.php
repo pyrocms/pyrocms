@@ -20,9 +20,25 @@ class Comments_m extends MY_Model
   	
   	public function get_recent($limit = 10)
   	{
-    	$this->db->order_by('comments.created_on DESC');
-    	$this->db->limit($limit);
+    	$this->db->order_by('comments.created_on', 'desc');
+    	
+    	if($limit > 0)
+    	{
+	    	$this->db->limit($limit);
+    	}
+    	
     	return $this->get_all();
+  	}
+  	
+  	public function get_by_module_item($module, $module_id, $is_active = 1)
+  	{
+    	$this->db
+    		->where('module', $module)
+    		->where('module_id', $module_id)
+    		->where('comments.is_active', $is_active)
+    		->order_by('comments.created_on', 'desc');
+    	
+	    return $this->get_all();
   	}
   	
   	public function get_all()
