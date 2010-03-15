@@ -16,7 +16,7 @@ class Admin_Controller extends MY_Controller
 	    $ignored_pages = array('admin/login', 'admin/logout');
 			
 	    // Check if the current page is to be ignored
-	    $current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, '');
+	    $current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, 'index');
 	    $is_ignored_page = in_array($current_page, $ignored_pages);
 	        
 	    // Check the user is an admin
@@ -34,7 +34,7 @@ class Admin_Controller extends MY_Controller
 	    }
 	        
 	    // We are looking at the index page. Show it if they have ANY admin access at all
-	    if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->has_admin_access($this->data->user->role) )
+	    if( $current_page == 'admin/index' && $this->permissions_m->has_admin_access($this->data->user->role) )
 	    {
 	    	$allow_access = TRUE;
 	    }

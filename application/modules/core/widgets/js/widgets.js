@@ -92,7 +92,7 @@
 			accept: '#available-widgets li',
 			drop: function(event, ui) {
 				area_slug = this.id.replace(/^area-/, '');
-				widget_slug = $(event.originalEvent.originalTarget).parent('li').attr('id').replace(/^widget-/, '');
+				widget_slug = ui.draggable.attr('id').replace(/^widget-/, '');
 				
 				$.post(BASE_URI + 'widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
 					$('form', add_instance).html(html);
