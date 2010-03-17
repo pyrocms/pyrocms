@@ -37,12 +37,12 @@ class MY_Controller extends Controller
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;
         
-        $global['base_url']			= BASE_URL;
-        $global['base_uri'] 		= BASE_URI;
-        $global['application_uri'] 	= APPPATH_URI;
-        $global['current_language'] = CURRENT_LANGUAGE;
+        $pyro['base_url']			= BASE_URL;
+        $pyro['base_uri'] 			= BASE_URI;
+        $pyro['application_uri'] 	= APPPATH_URI;
+        $pyro['current_language'] 	= CURRENT_LANGUAGE;
         
-        $this->load->vars('global', $global);
+        $this->load->vars('pyro', &$pyro); 
         
         $this->benchmark->mark('my_controller_end');
 	}

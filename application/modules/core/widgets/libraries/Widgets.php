@@ -59,8 +59,14 @@ class Widgets
 	function get_instance($instance_id)
 	{
 		$widget = $this->widgets_m->get_instance($instance_id);
-		$widget->options = $this->_unserialize_options($widget->options);
-		return $widget;
+		
+		if($widget)
+		{
+			$widget->options = $this->_unserialize_options($widget->options);
+			return $widget;
+		}
+		
+		return FALSE;
 	}
 	
 	function get_area($id)

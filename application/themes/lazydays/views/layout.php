@@ -34,17 +34,17 @@
 	
 	        <a name="fluidity"></a>
 	
-	        <?php if ($this->session->flashdata('notice')): ?>
-	        	<div class="notice-box"><?php echo $this->session->flashdata('notice'); ?></div>
-		    <?php endif; ?>
+			{if $ci->session->flashdata('notice')}
+	        	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
+			{/if}
 	
-	        <?php if ($this->session->flashdata('success')): ?>
-	        	<div class="success-box"><?php echo $this->session->flashdata('success'); ?></div>
-		    <?php endif; ?>
+			{if $ci->session->flashdata('success')}
+	        	<div class="success-box">{$ci->session->flashdata('success')}</div>
+			{/if}
 	
-	        <?php if ($this->session->flashdata('error')): ?>
-	        	<div class="error-box"><?php echo $this->session->flashdata('error'); ?></div>
-		    <?php endif; ?>
+			{if $ci->session->flashdata('error')}
+	        	<div class="error-box">{$ci->session->flashdata('error')}</div>
+			{/if}
 
 		    {$template.body}
 	

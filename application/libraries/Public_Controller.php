@@ -28,6 +28,10 @@ class Public_Controller extends MY_Controller
 	    $this->template->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( js('jquery/jquery.fancybox.js') )
 	    	->append_metadata( css('jquery/jquery.fancybox.css') )
+	    	->append_metadata( '<script type="text/javascript">
+								    var APPPATH_URI = "'.APPPATH_URI.'";
+								    var BASE_URI = "'.BASE_URI.'";
+								</script>' )
 	    	->append_metadata( js('front.js') );
 	    
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
