@@ -762,11 +762,8 @@ class Ion_auth
 		$_output = '';
 		foreach ($this->errors as $error) 
 		{
-<<<<<<< HEAD:application/modules/core/users/libraries/Ion_auth.php
-			$_output .= $this->error_start_delimiter . $this->ci->lang->line($error) . $this->error_end_delimiter;
-=======
+			
 			$_output .= $this->error_start_delimiter . $this->ci->lang->item($error) . $this->error_end_delimiter;
->>>>>>> fd1f537eab6f72d7cb8b36d0fe26ed9504c211dd:application/modules/core/users/libraries/Ion_auth.php
 		}
 		
 		return $_output;
