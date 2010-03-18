@@ -24,8 +24,10 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
 		
 		// get all comments
-		$this->data->comments = $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 0);			
-				
+		$comments = $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 0);			
+		
+		$this->data->comments = process_comment_items($comments);
+		
 		$this->template->build('admin/index', $this->data);			
 	}
 	
@@ -92,8 +94,9 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
 		// get all comments
-		$this->data->comments = $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 1);
-
+		$comments = $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 1);
+		$this->data->comments = process_comment_items($comments);
+		
 		$this->template->build('admin/index', $this->data);		
 	}
 		

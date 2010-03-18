@@ -31,43 +31,10 @@ class Admin extends Admin_Controller
 		
 		$this->lang->load('comments/comments');
 		
-		$this->data->recent_users		= $this->users_m->get_recent(5);
-		$this->data->recent_comments	= $this->comments_m->get_recent(5);
+		$this->data->recent_users = $this->users_m->get_recent(5);
 		
-		foreach($this->data->recent_comments as &$comment)
-		{
-			// work out who did the commenting
-			if($comment->user_id > 0)
-			{
-				$comment->name = anchor('admin/users/edit/' . $comment->user_id, $comment->name);
-			}
-			
-			// What did they comment on
-			switch($comment->module)
-			{
-				case 'news':
-					$this->load->model('news/news_m');
-					$article = $this->news_m->get($comment->module_id);
-					$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');
-				break;
-				
-				case 'photos':
-					$this->load->model('photos/photo_albums_m');
-					$album = $this->photo_albums_m->get($comment->module_id);
-					$comment->item = anchor('photos/' . $album->slug, $album->title, 'class="modal-large iframe"');
-				break;
-			
-				default:
-					$comment->item = $comment->module .' #'. $comment->module_id;
-				break;
-			}
-			
-			// Link to the comment
-			if( strlen($comment->comment) > 30 )
-			{
-				$comment->comment = character_limiter($comment->comment, 30);
-			}
-		}
+		$recent_comments = $this->comments_m->get_recent(5);
+		$this->data->recent_comments = process_comment_items($recent_comments);
 		
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');

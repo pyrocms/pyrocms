@@ -51,8 +51,10 @@ $autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'templat
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'text', 'language', 'pages/pages', 'modules/module', 
-							'navigation/navigation', 'widgets/widgets', 'themes/theme', 'asset', 'pagination', 'array');
+$autoload['helper'] = array(
+	'url', 'form', 'text', 'language', 'asset', 'pagination', 'array',
+	'comments/comments', 'pages/pages', 'modules/module', 'navigation/navigation', 'widgets/widgets', 'themes/theme'
+);
 
 
 /*

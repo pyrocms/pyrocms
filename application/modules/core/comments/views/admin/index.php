@@ -18,9 +18,10 @@
 					<thead>
 						<tr>
 							<th><?php echo form_checkbox('action_to_all');?></th>
-							<th class="width-20"><?php echo lang('comments.teaser_label');?></th>
-							<th class="width-10"><?php echo lang('comments.author_label');?></th>
-							<th><?php echo lang('comments.date_label');?></th>
+							<th class="width-15"><?php echo lang('comments.teaser_label');?></th>
+							<th><?php echo lang('comments.item_label');?></th>
+							<th><?php echo lang('comments.author_label');?></th>
+							<th class="width-7"><?php echo lang('comments.date_label');?></th>
 							<th><?php echo lang('comments.actions_label');?></th>
 						</tr>
 					</thead>
@@ -32,35 +33,36 @@
 						</tr>
 					</tfoot>
 					<tbody>
-							<?php foreach ($comments as $comment): ?>
-								<tr>
-									<td><?php echo form_checkbox('action_to[]', $comment->id);?></td>
-									<td>
-										<?php if( strlen($comment->comment) > 30 ): ?>
-											<?php echo character_limiter($comment->comment, 30); ?>...
-										<?php else: ?>
-											<?php echo $comment->comment; ?>
-										<?php endif; ?>
-									</td>
-									<td>
-										<?php if($comment->user_id > 0): ?>
-											<?php echo anchor('admin/users/edit/' . $comment->user_id, $comment->name); ?>
-										<?php else: ?>
-											<?php echo $comment->name;?>
-										<?php endif; ?>
-									</td>
-									<td><?php echo date('M d, Y', $comment->created_on);?></td>						
-									<td>
-										<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comments.preview_label'), 'rel="modal" target="_blank"'); ?> | 
-										<?php if($comment->is_active): ?>
-											<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'));?>
-										<?php else: ?>
-											<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'));?>
-										<?php endif; ?> | 
-										<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comments.edit_label'));?> | 
-										<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comments.delete_label'), array('class'=>'confirm')); ?>
-									</td>
-								</tr>
+						<?php foreach ($comments as $comment): ?>
+							<tr>
+								<td><?php echo form_checkbox('action_to[]', $comment->id);?></td>
+								<td>
+									<?php if( strlen($comment->comment) > 30 ): ?>
+										<?php echo character_limiter($comment->comment, 30); ?>...
+									<?php else: ?>
+										<?php echo $comment->comment; ?>
+									<?php endif; ?>
+								</td>
+								<td><?php echo $comment->item;?></td>
+								<td>
+									<?php if($comment->user_id > 0): ?>
+										<?php echo anchor('admin/users/edit/' . $comment->user_id, $comment->name); ?>
+									<?php else: ?>
+										<?php echo $comment->name;?>
+									<?php endif; ?>
+								</td>
+								<td><?php echo date('M d, Y', $comment->created_on);?></td>						
+								<td>
+									<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comments.preview_label'), 'rel="modal" target="_blank"'); ?> | 
+									<?php if($comment->is_active): ?>
+										<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'));?>
+									<?php else: ?>
+										<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'));?>
+									<?php endif; ?> | 
+									<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comments.edit_label'));?> | 
+									<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comments.delete_label'), array('class'=>'confirm')); ?>
+								</td>
+							</tr>
 						<?php endforeach; ?>
 					</tbody>	
 				</table>

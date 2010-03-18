@@ -18,6 +18,7 @@ $lang['comments.activate_label'] 			= 'Bestätigen';
 $lang['comments.deactivate_label'] 			= 'Nicht bestätigen';
 $lang['comments.author_label'] 				= 'Autor';
 $lang['comments.module_label'] 				= 'Modul';
+$lang['comments.item_label'] 				= 'Item'; #translate
 $lang['comments.date_label'] 				= 'Datum';
 $lang['comments.actions_label'] 			= 'Aktionen';
 $lang['comments.edit_label'] 				= 'Bearbeiten';

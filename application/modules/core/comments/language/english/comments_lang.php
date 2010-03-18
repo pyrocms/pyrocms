@@ -18,6 +18,7 @@ $lang['comments.activate_label'] 			= 'Approve';
 $lang['comments.deactivate_label'] 			= 'Unapprove';
 $lang['comments.author_label'] 				= 'Author';
 $lang['comments.module_label'] 				= 'Module';
+$lang['comments.item_label'] 				= 'Item';
 $lang['comments.date_label'] 				= 'Date';
 $lang['comments.actions_label'] 			= 'Actions';
 $lang['comments.edit_label'] 				= 'Edit';
