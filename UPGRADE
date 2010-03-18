@@ -12,6 +12,9 @@ minimize or totally remove downtime during an upgrade.
 2. Run the following SQL commands: 
 
 	INSERT INTO `widget_areas` VALUES ('1', 'Unsorted', 'unsorted');
+
+	ALTER TABLE comments
+		ADD ip_address varchar(15) NOT NULL default '';
 	
 3. Remove anything similar to the following code from your theme files:
 

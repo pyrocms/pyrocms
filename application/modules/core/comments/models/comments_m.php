@@ -65,7 +65,8 @@ class Comments_m extends MY_Model
 			'comment'		=> strip_tags($input['comment']),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
-			'created_on' 	=> now()
+			'created_on' 	=> now(),
+			'ip_address'	=> $this->input->ip_address()
 		));
 	}
 	

@@ -65,7 +65,8 @@ CREATE TABLE `comments` (
   `comment` text collate utf8_unicode_ci NOT NULL,
   `module` varchar(40) collate utf8_unicode_ci NOT NULL,
   `module_id` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL,
+  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
+  `ip_address` varchar(15) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Comments by users or guests';
 
