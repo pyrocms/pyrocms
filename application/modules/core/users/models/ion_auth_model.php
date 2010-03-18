@@ -17,11 +17,13 @@
 * 
 * Requirements: PHP5 or above
 * 
-* Modification:  For CI 2.0 compatibility change to extend CI_Model
-* 
 */ 
 
-class Ion_auth_model extends Model
+//  CI 2.0 Compatibility
+if(!class_exists('CI_Model')) { class CI_Model extends Model {} }
+
+
+class Ion_auth_model extends CI_Model
 {
 	/**
 	 * Holds an array of tables used
@@ -64,6 +66,7 @@ class Ion_auth_model extends Model
 		$this->load->database();
 		$this->load->config('ion_auth');
 		$this->load->helper('cookie');
+		$this->load->helper('date');
         $this->load->library('session');
 		$this->tables  = $this->config->item('tables');
 		$this->columns = $this->config->item('columns');
@@ -559,9 +562,10 @@ class Ion_auth_model extends Model
 	        return FALSE;
 	    }
 	    
-	    $query = $this->db->select($this->identity_column.', id, password, activation_code, group_id')
+	    $query = $this->db->select($this->identity_column.', id, password, group_id')
 						  ->where($this->identity_column, $identity)
 						  ->where($this->ion_auth->_extra_where)
+						  ->where('active', 1)
 						  ->limit(1)
 						  ->get($this->tables['users']);
 	    
@@ -570,11 +574,6 @@ class Ion_auth_model extends Model
         if ($query->num_rows() == 1)
         {
             $password = $this->hash_password_db($identity, $password);
-            
-            if (!empty($result->activation_code)) 
-            {
-            	return FALSE;
-            }
             
     		if ($result->password === $password)
     		{
@@ -585,8 +584,8 @@ class Ion_auth_model extends Model
     		    $this->session->set_userdata('user_id',  $result->id); //everyone likes to overwrite id so we'll use user_id
     		    $this->session->set_userdata('group_id',  $result->group_id);
     		    
-    		    $group_row   = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
-	    
+    		    $group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
+
     		    $this->session->set_userdata('group',  $group_row->name);
     		    
     		    if ($remember && $this->config->item('remember_users'))
@@ -829,9 +828,11 @@ class Ion_auth_model extends Model
 	 **/
 	public function update_last_login($id)
 	{
-		$this->db->where($this->ion_auth->_extra_where);
-	
-		$this->db->update($this->tables['users'], array('last_login', now()), array('id' => $id));
+		$this->load->helper('date');
+		
+		$this->db
+			->where($this->ion_auth->_extra_where)
+			->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
 		
 		return $this->db->affected_rows() == 1;
 	}
@@ -845,11 +846,11 @@ class Ion_auth_model extends Model
 	 **/
 	public function set_lang($lang = 'en')
 	{
-		$lang_cookie = array('name'   => 'lang_code',
-	                   		 'value'  => $lang,
-	                   		 'expire' => ($this->config->item('user_expire') +  time()),
-	               			);
-		set_cookie($lang_cookie);
+		set_cookie(array(
+			'name'   => 'lang_code',
+			'value'  => $lang,
+			'expire' => $this->config->item('user_expire') + time()
+		));
 		
 		return TRUE;
 	}

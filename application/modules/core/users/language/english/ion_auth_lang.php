@@ -26,23 +26,23 @@ $lang['forgot_password_successful'] 	= 'Password Reset Email Sent';
 $lang['forgot_password_unsuccessful'] 	= 'Unable to Reset Password';
 
 // Activation
-$lang['activate_successful'] 			= 'Account Activated';
-$lang['activate_unsuccessful'] 			= 'Unable to Activate Account';
-$lang['deactivate_successful'] 			= 'Account De-Activated';
-$lang['deactivate_unsuccessful'] 		= 'Unable to De-Activate Account';
+$lang['activate_successful'] 		= 'Account Activated';
+$lang['activate_unsuccessful'] 		= 'Unable to Activate Account';
+$lang['deactivate_successful'] 		= 'Account De-Activated';
+$lang['deactivate_unsuccessful'] 	= 'Unable to De-Activate Account';
 $lang['activation_email_successful'] 	= 'Activation Email Sent';
 $lang['activation_email_unsuccessful'] 	= 'Unable to Send Activation Email';
 
 // Login / Logout
-$lang['login_successful'] 				= 'Logged In Successfully';
-$lang['login_unsuccessful'] 			= 'In-Correct Login';
-$lang['logout_successful'] 				= 'Logged Out Successfully';
+$lang['login_successful'] 		= 'Logged In Successfully';
+$lang['login_unsuccessful'] 		= 'In-Correct Login';
+$lang['logout_successful'] 		= 'Logged Out Successfully';
 
 // Account Changes
-$lang['update_successful'] 				= 'Account Information Successfully Updated';
-$lang['update_unsuccessful'] 			= 'Unable to Update Account Information';
-$lang['delete_successful'] 				= 'User Deleted';
-$lang['delete_unsuccessful'] 			= 'Unable to Delete User';
+$lang['update_successful'] 		= 'Account Information Successfully Updated';
+$lang['update_unsuccessful'] 		= 'Unable to Update Account Information';
+$lang['delete_successful'] 		= 'User Deleted';
+$lang['delete_unsuccessful'] 		= 'Unable to Delete User';
 
 
 ?>

@@ -47,7 +47,7 @@ class Ion_auth
 	 *
 	 * @var string
 	 **/
-	protected $errors;
+	protected $errors = array();
 
 	/**
 	 * error start delimiter
@@ -86,13 +86,13 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->ci->load->config('users/ion_auth');
+		$this->ci->load->config('ion_auth');
 		$this->ci->load->library('email');
-        $this->ci->load->library('session');
-		$this->ci->load->model('users/ion_auth_model');
-		$this->ci->load->helper('cookie');
+        	$this->ci->load->library('session');
 		$this->ci->load->library('language');
-		$this->ci->lang->load('users/ion_auth');
+		$this->ci->lang->load('ion_auth');
+		$this->ci->load->model('ion_auth_model');
+		$this->ci->load->helper('cookie');
 		
 		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter');
 		$this->message_end_delimiter   = $this->ci->config->item('message_end_delimiter');
@@ -100,7 +100,7 @@ class Ion_auth
 		$this->error_end_delimiter     = $this->ci->config->item('error_end_delimiter');
 		
 		//auto-login the user if they are remembered
-		if (get_cookie('identity') && get_cookie('remember_code'))
+		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
@@ -225,9 +225,10 @@ class Ion_auth
 
 		if ($new_password) 
 		{
-			$data = array('identity'     => $profile->{$identity},
-						  'new_password' => $new_password
-						 );
+			$data = array(
+				'identity'     => $profile->{$identity},
+				'new_password' => $new_password
+			);
             
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
 				
@@ -645,15 +646,7 @@ class Ion_auth
 	{
 		$where =& func_get_args();
 		
-		if(count($where) == 1)
-		{
-			$this->_extra_where = $where[0];
-		}
-		
-		else
-		{
-			$this->_extra_where = array($where[0] => $where[1]);
-		}
+		$this->_extra_where = count($where) == 1 ? $where[0] : array($where[0] => $where[1]);
 	}
 	
 	/**
@@ -668,21 +661,13 @@ class Ion_auth
 	{
 		$set =& func_get_args();
 		
-		if(count($set) == 1)
-		{
-			$this->_extra_set = $set[0];
-		}
-		
-		else
-		{
-			$this->_extra_set = array($set[0] => $set[1]);
-		}
+		$this->_extra_set = count($set) == 1 ? $set[0] : array($set[0] => $set[1]);
 	}
 	
 	/**
-	 * set_message_delimitors
+	 * set_message_delimiters
 	 *
-	 * Set the message delimitors
+	 * Set the message delimiters
 	 *
 	 * @return void
 	 * @author Ben Edmunds
@@ -696,9 +681,9 @@ class Ion_auth
 	}
 	
 	/**
-	 * set_error_delimitors
+	 * set_error_delimiters
 	 *
-	 * Set the error delimitors
+	 * Set the error delimiters
 	 *
 	 * @return void
 	 * @author Ben Edmunds
@@ -721,14 +706,7 @@ class Ion_auth
 	 **/
 	public function set_message($message)
 	{
-		if (!empty($this->messages)) 
-		{
-			$this->messages .= ','.$message;
-		}
-		else
-		{
-			$this->messages = $message;
-		}
+		$this->messages[] = $message;
 		
 		return $message;
 	}
@@ -744,10 +722,9 @@ class Ion_auth
 	public function messages()
 	{
 		$_output = '';
-		$messages = explode($this->messages);
-		foreach ($messages as $message) 
+		foreach ($this->messages as $message) 
 		{
-			$_output .= $this->message_start_delimiter . $this->ci->lang($message) . $this->message_end_delimiter;
+			$_output .= $this->message_start_delimiter . $this->ci->lang->line($message) . $this->message_end_delimiter;
 		}
 		
 		return $_output;
@@ -763,14 +740,7 @@ class Ion_auth
 	 **/
 	public function set_error($error)
 	{
-		if (!empty($this->errors)) 
-		{
-			$this->errors .= ','.$error;
-		}
-		else
-		{
-			$this->errors = $error;
-		}
+		$this->errors[] = $error;
 		
 		return $error;
 	}
@@ -786,10 +756,9 @@ class Ion_auth
 	public function errors()
 	{
 		$_output = '';
-		$errors = explode($this->errors);
-		foreach ($errors as $error) 
+		foreach ($this->errors as $error) 
 		{
-			$_output .= $this->error_start_delimiter . $this->ci->lang($error) . $this->error_end_delimiter;
+			$_output .= $this->error_start_delimiter . $this->ci->lang->line($error) . $this->error_end_delimiter;
 		}
 		
 		return $_output;

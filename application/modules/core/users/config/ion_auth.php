@@ -99,7 +99,7 @@
 	$config['email_templates']     = 'auth/email/';
 	
 	/**
-	 * Activate Account Email Template
+	 * activate Account Email Template
      * Default : activate.tpl.php
 	 **/
 	$config['email_activate']   = 'activate.tpl.php';
@@ -120,9 +120,12 @@
 	 * Salt Length
 	 **/
 	$config['salt_length'] = 10;
-	
+
 	/**
-	 * Should the salt be stored in the database
+	 * Should the salt be stored in the database?
+	 * This will change your password encryption algorithm, 
+	 * default password, 'password', changes to 
+	 * fbaa5e216d163a02ae630ab1a43372635dd374c0 with default salt.
 	 **/
 	$config['store_salt'] = true;
 	
