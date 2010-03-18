@@ -1,32 +1,32 @@
 <?php
 
 // sidebar
-$lang['widgets.available_title'] 			= 'Available widgets';
-$lang['widgets.uninstalled_title'] 			= 'Un-installed';
+$lang['widgets.available_title'] 			= 'Dostępne widgety';
+$lang['widgets.uninstalled_title'] 			= 'Odinstalowane';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';
-$lang['widgets.widget_author'] 				= 'Author';
-$lang['widgets.widget_short_name'] 			= 'Short name';
-$lang['widgets.widget_version'] 			= 'Version';
+$lang['widgets.widget_author'] 				= 'Autor';
+$lang['widgets.widget_short_name'] 			= 'Nazwa skrócona';
+$lang['widgets.widget_version'] 			= 'Wersja';
 
 // Widget area titles
-$lang['widgets.add_area'] 					= 'Add widget area';
-$lang['widgets.delete_area'] 				= 'Delete area';
+$lang['widgets.add_area'] 					= 'Dodaj obszar widgetów';
+$lang['widgets.delete_area'] 				= 'Usuń obszar';
 
 // Widget area field names
-$lang['widgets.widget_area'] 				= 'Area';
-$lang['widgets.widget_area_title'] 			= 'Area name';
-$lang['widgets.widget_area_slug'] 			= 'Area short name';
+$lang['widgets.widget_area'] 				= 'Obszar';
+$lang['widgets.widget_area_title'] 			= 'Nazwa obszaru';
+$lang['widgets.widget_area_slug'] 			= 'Skrócona nazwa obszaru';
 
 // Widget instance titles
-$lang['widgets.add_instance'] 				= 'Add widget instance';
-$lang['widgets.edit_instance'] 				= 'Edit widget instance';
-$lang['widgets.delete_instance'] 			= 'Delete widget instance';
+$lang['widgets.add_instance'] 				= 'Dodaj instancję widgeta';
+$lang['widgets.edit_instance'] 				= 'Edytuj instancję widgeta';
+$lang['widgets.delete_instance'] 			= 'Usuń instancję widgeta';
 
-$lang['widgets.instance_title'] 			= 'Title';
+$lang['widgets.instance_title'] 			= 'Tytuł';
 
-$lang['widgets.instance_edit'] 				= 'Edit';
-$lang['widgets.instance_delete'] 			= 'Delete';
+$lang['widgets.instance_edit'] 				= 'Edytuj';
+$lang['widgets.instance_delete'] 			= 'Usuń';
 
 ?>
