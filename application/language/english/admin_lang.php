@@ -35,5 +35,6 @@ $lang['delete_installer_message']		= 'Please delete the installer directory from
 $lang['cp_sidebar_title'] 				= 'Side menu';
 
 $lang['required_label'] 				= 'Required';
+$lang['sb_recent_users'] 				= 'Recent users';
 
 ?>

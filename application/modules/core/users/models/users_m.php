@@ -64,6 +64,7 @@ class Users_m extends MY_Model
     	$this->db->select('users.*, pr.title as role_title, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name')
     		->join('permission_roles pr', 'pr.abbrev = users.role');
     		
+        $this->db->group_by('users.id');
     	return parent::get_all();
     }    
 

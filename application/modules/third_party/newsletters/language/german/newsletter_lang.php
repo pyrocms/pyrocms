@@ -1,37 +1,37 @@
 <?php
 
 // labels
-$lang['newsletter.sent'] 							= 'Sent On';
-$lang['newsletter.subject'] 						= 'Subject';
-$lang['newsletter.created'] 						= 'Created';
-$lang['newsletter.date'] 							= 'Date';
-$lang['newsletter.actions'] 						= 'Actions';
-$lang['newsletter.not_sent_label'] 					= 'Not sent';
-$lang['newsletter.view'] 							= 'View';
-$lang['newsletters.send'] 							= 'Send';
-$lang['newsletters.export_title'] 					= 'Export Subscribers';
-$lang['letter_title_label'] 						= 'Title';
+$lang['newsletter.sent'] 							= 'Gesendet am';
+$lang['newsletter.subject'] 						= 'Betreff';
+$lang['newsletter.created'] 						= 'Erstellt';
+$lang['newsletter.date'] 							= 'Datum';
+$lang['newsletter.actions'] 						= 'Aktion';
+$lang['newsletter.not_sent_label'] 					= 'Nicht gesendet';
+$lang['newsletter.view'] 							= 'Anzeigen';
+$lang['newsletters.send'] 							= 'Senden';
+$lang['newsletters.export_title'] 					= 'Empfänger exportieren';
+$lang['letter_title_label'] 						= 'Titel';
 $lang['letter_email_label'] 						= 'Email';
-$lang['newsletters.subscribe'] 						= 'Subscribe';
-$lang['letter_back_label'] 							= 'Back';
+$lang['newsletters.subscribe'] 						= 'Abonnieren';
+$lang['letter_back_label'] 							= 'Zurück';
 $lang['letter_subject_suffix'] 						= 'Newsletter';
 
 // titles
-$lang['letter_subscriped_title'] 					= 'Subscribed';
+$lang['letter_subscriped_title'] 					= 'Abonnieren';
 $lang['letter_letter_title']						= 'Newsletter';
-$lang['newsletters.add_title']						= 'Create newsletter'; #translate
-$lang['newsletters.list_title'] 					= 'List newsletters'; #translate
+$lang['newsletters.add_title']						= 'Newsletter erstellen';
+$lang['newsletters.list_title'] 					= 'Newsletter auflisten';
 
 // messages
-$lang['newsletter.no_newsletters_error'] 			= 'There are no newsletters.';
-$lang['letter_subscribed_success'] 					= 'Your have now subscribed. You should hear from us fairly soon when we send our the next newsletter.';
-$lang['letter_subscripe_desc'] 						= 'Subscribe to our newsletter to recieve emails and useful news articles.';
-$lang['letter_add_mail_success'] 					= 'This address has already been registered.';
-$lang['letter_delete_mail_success'] 				= 'You have been removed from the newsletter mailing list.';
-$lang['letter_delete_mail_error'] 					= 'An error occurred.';
-$lang['letter_add_success'] 						= 'The newsletter "%s" was saved.';
-$lang['letter_add_error'] 							= 'An error occured.';
-$lang['letter_sent_success'] 						= 'The newsletter was sent.';
-$lang['letter_sent_error'] 							= 'An error occured.';
+$lang['newsletter.no_newsletters_error'] 			= 'Keine Newsletter.';
+$lang['letter_subscribed_success'] 					= 'Sie haben den Newsletter aboniert und werden den nächsten Newsletter in Kürze erhalten.';
+$lang['letter_subscripe_desc'] 						= 'Aboniere den Newsletter um Emails und nützliche News zu erhalten.';
+$lang['letter_add_mail_success'] 					= 'Die Adresse erhält bereits den Newsletter.';
+$lang['letter_delete_mail_success'] 				= 'Sie wurden vom Newsletter abgemeldet und werden ab sofort keine Newsletter erhalten.';
+$lang['letter_delete_mail_error'] 					= 'Ein Fehler ist aufgetreten.';
+$lang['letter_add_success'] 						= 'Der Newsletter "%s" wurde erfolgreich gesichert.';
+$lang['letter_add_error'] 							= 'Ein Fehler ist aufgetreten.';
+$lang['letter_sent_success'] 						= 'Der Newsletter wurde versandt.';
+$lang['letter_sent_error'] 							= 'Ein Fehler ist aufgetreten.';
 
 ?>

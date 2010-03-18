@@ -50,11 +50,11 @@ $lang['news_edit_success'] 							= 'Der Artikel "%s" wurde aktualisiert.';
 $lang['news_edit_error'] 							= 'Ein Fehler ist aufgetreten.';
 $lang['news_publish_success'] 						= 'Der Artikel "%s" wurde veröffentlicht.';
 $lang['news_mass_publish_success'] 					= 'Die Artikel "%s" wurden veröffentlicht.';
-$lang['news_publish_error'] 						= 'Es wurden keine Artikel veröffentlicht.';
+$lang['news_publish_error'] 						= 'Ein Fehler ist aufgetreten. Es wurden keine Artikel veröffentlicht.';
 $lang['news_delete_success'] 						= 'Der Artikel "%s" wurde gelöscht.';
 $lang['news_mass_delete_success'] 					= 'Die Artikel "%s" wurden gelöscht.';
-$lang['news_delete_error'] 							= 'Keine Artikel wurden gelöscht.';
-$lang['news_already_exist_error'] 					= 'An article with this URL already exists.'; #translate
+$lang['news_delete_error'] 							= 'Ein Fehler ist aufgetreten. Keine Artikel wurden gelöscht.';
+$lang['news_already_exist_error'] 					= 'Ein Artikel mit dieser URL existiert bereits.';
 
 $lang['news_twitter_posted'] 						= 'Posted "%s" %s';
 

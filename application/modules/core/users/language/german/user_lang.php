@@ -100,7 +100,7 @@ $lang['user_activate_error'] 									= 'Du musst zuerst einen Benutzer auswähl
 
 // Delete
 $lang['user_delete_self_error'] 							= 'Man kann sich nicht selber löschen!';
-$lang['user_mass_delete_success'] 						= '%s von %s wurden erfolgreich gelöscht.';
+$lang['user_mass_delete_success'] 						= '%s von %s wurde(n) erfolgreich gelöscht.';
 $lang['user_mass_delete_error'] 							= 'Du musst zuerst einen Benutzer auswählen.';
 
 // Register

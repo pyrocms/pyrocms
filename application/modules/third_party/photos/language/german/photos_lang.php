@@ -1,6 +1,6 @@
 <?php
 
-$lang['photos.title'] 							= 'Photos'; #translate
+$lang['photos.title'] 							= 'Fotos';
 
 // labels
 $lang['photos.upload_label'] 					= 'Hochladen';
