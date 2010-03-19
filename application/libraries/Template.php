@@ -97,7 +97,7 @@ class Template
 
         // Output template variables to the template
         $template['title']			= $this->_title;
-        $template['breadcrumbs']	= array();
+        $template['breadcrumbs']	= $this->_breadcrumbs;
         $template['metadata']		= implode("\n\t\t", $this->_metadata);
     	$template['partials'] 		= array();
     	
