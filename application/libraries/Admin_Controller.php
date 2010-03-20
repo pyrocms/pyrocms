@@ -34,7 +34,7 @@ class Admin_Controller extends MY_Controller
 	    }
 	        
 	    // We are looking at the index page. Show it if they have ANY admin access at all
-	    if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->has_admin_access($this->data->user->role) )
+	    if( in_array($current_page, array('admin/', 'admin/index')) && $this->permissions_m->has_admin_access($this->data->user->group_id) )
 	    {
 	    	$allow_access = TRUE;
 	    }
@@ -44,7 +44,7 @@ class Admin_Controller extends MY_Controller
 	    {
 		  	// Check if the current user can view that page
 		    $location = array( 'module'=>$this->module, 'controller'=>$this->controller, 'method'=>$this->method );
-		    $allow_access = $this->permissions_m->checkRuleByRole( $this->data->user->role, $location );
+		    $allow_access = $this->permissions_m->checkRuleByRole( $this->data->user->group_id, $location );
 	    }
 	    
 	    // Show error and exit if the user does not have sufficient permissions

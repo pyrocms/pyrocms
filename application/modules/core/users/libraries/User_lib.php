@@ -163,7 +163,7 @@ class User_lib
 		}
         
         // Check user is active
-        if ($this->user_data->is_active == 0)
+        if ($this->user_data->active == 0)
         {
             $this->error_code = 'user_inactive';
             return FALSE;
@@ -212,7 +212,7 @@ class User_lib
             return false; 
         endif;
 		
-		if ($this->user_data->is_active == 0):
+		if ($this->user_data->active == 0):
 			
 			// Activate the user in the database
 			return $this->CI->users_m->activate($this->user_data->id);

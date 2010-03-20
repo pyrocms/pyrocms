@@ -32,21 +32,22 @@ class Users_m extends MY_Model
     {
     	if(isset($params['id']))
     	{
-    		$this->db->where('id', $params['id']);
+    		$this->db->where('users.id', $params['id']);
     	}
     	
     	if(isset($params['email']))
     	{
-    		$this->db->where('LOWER(email)', strtolower($params['email']));
+    		$this->db->where('LOWER(users.email)', strtolower($params['email']));
     	}
     	
     	if(isset($params['role']))
     	{
-    		$this->db->where('role', $params['role']);
+    		$this->db->where('users.group_id', $params['role']);
     	}
     	
-    	$this->db->select('*, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name', FALSE);
+    	$this->db->select('meta.*, users.*, IF(meta.last_name = "", meta.first_name, CONCAT(meta.first_name, " ", meta.last_name)) as full_name', FALSE);
     	$this->db->limit(1);
+    	$this->db->join('meta', 'meta.user_id = users.id', 'left');
     	$query = $this->db->get('users');
 
     	return $query->row();
@@ -61,8 +62,9 @@ class Users_m extends MY_Model
     
 	function get_all()
     {
-    	$this->db->select('users.*, pr.title as role_title, IF(last_name = "", first_name, CONCAT(first_name, " ", last_name)) as full_name')
-    		->join('permission_roles pr', 'pr.abbrev = users.role');
+    	$this->db->select('users.*, meta.*, pr.title as role_title, IF(meta.last_name = "", meta.first_name, CONCAT(meta.first_name, " ", meta.last_name)) as full_name')
+    			 ->join('groups pr', 'pr.id = users.group_id')
+    			 ->join('meta', 'meta.user_id = users.id', 'left');
     		
     	return parent::get_all();
     }    

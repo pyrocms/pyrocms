@@ -80,7 +80,7 @@ class Permissions_m extends Model {
 	function checkRuleByRole($role, $location)
 	{
 		// No more checking to do, admins win
-		if($role == 'admin')
+		if($role == 1)
 		{
 			return TRUE;
 		}
@@ -91,7 +91,7 @@ class Permissions_m extends Model {
 		if(isset($location['method'])) 		$this->db->where('(method = "'.$location['method'].'" or method = "*")');
 		
 		// Check which kind of user?
-		$this->db->where('roles.name', $role);
+		$this->db->where('roles.id', $role);
 		
 		$this->db->from('permission_rules rules');
 		$this->db->join('groups as roles', 'roles.id = rules.permission_role_id');
@@ -126,7 +126,7 @@ class Permissions_m extends Model {
 	function has_admin_access($role, $module = NULL)
 	{
 		// No more checking to do, admins win
-		if($role == 'admin')
+		if($role == 1)
 		{
 			return TRUE;
 		}

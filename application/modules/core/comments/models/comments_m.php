@@ -6,10 +6,11 @@ class Comments_m extends MY_Model
   	public function get($id)
   	{
     	$this->db->select('c.*')
-    		->select('IF(c.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), c.name) as name')
+    		->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name')
     		->select('IF(c.user_id > 0, u.email, c.email) as email')
     		->from('comments c')
-    		->join('users u', 'c.user_id = u.id', 'left');
+    		->join('users u', 'c.user_id = u.id', 'left')
+    		->join('meta m', 'm.user_id = u.id', 'left');
     	
     	// If there is a comment user id, make sure the user still exists
     	$this->db->where('IF(c.user_id > 0, c.user_id = u.id, TRUE)')
@@ -28,10 +29,11 @@ class Comments_m extends MY_Model
   	public function get_all()
   	{
     	$this->db->select('comments.*');
-    	$this->db->select('IF(comments.user_id > 0, IF(u.last_name = "", u.first_name, CONCAT(u.first_name, " ", u.last_name)), comments.name) as name');
+    	$this->db->select('IF(comments.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), comments.name) as name');
     	$this->db->select('IF(comments.user_id > 0, u.email, comments.email) as email');
 
     	$this->db->join('users u', 'comments.user_id = u.id', 'left');
+    	$this->db->join('meta m', 'm.user_id = u.id', 'left');
     	
     	return parent::get_all();
   	}
