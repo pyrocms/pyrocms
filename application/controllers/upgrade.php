@@ -140,13 +140,10 @@ class Upgrade extends Controller
 			//insert the meta data
 			foreach ($profile_result as $profile_data) {
 				echo 'inserting user ' . $profile_data['user_id'] . ' into meta table...<br>';
-				
-				echo '<pre>';
-				print_r($profile_data);
-				echo '</pre>';
 			
 				$this->db->insert('meta', $profile_data);
 			}
+			echo '<br><br>';
 			
 			$this->db->select(array('id, role'));
 			$role_user_query = $this->db->get('users');
