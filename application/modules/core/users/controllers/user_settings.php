@@ -8,7 +8,8 @@ class User_settings extends Public_Controller
 	{
 		parent::Public_Controller();
 		$this->load->library('session');
-		$this->user_id = $this->session->userdata('user_id');
+		$this->load->library('ion_auth');
+		$this->user_id = $this->ion_auth->get_user()->id;
         
 		$this->load->model('users_m');
 		$this->load->helper('user');
@@ -23,7 +24,7 @@ class User_settings extends Public_Controller
 	// Edit a users settings such as name, email, password and language
 	function edit()
 	{
-		if(!$this->user_lib->logged_in()):
+		if(!$this->ion_auth->logged_in()):
 			redirect('users/login');
 		endif;
 	
@@ -34,7 +35,7 @@ class User_settings extends Public_Controller
 			'settings_last_name'		=>	($this->settings->item('require_lastname') ? 'required|' : '').'alpha_dash',
 			'settings_password'			=>	'min_length[6]|max_length[20]',
 			'settings_confirm_password'	=>	($this->input->post('settings_password') ? 'required|' : '').'matches[settings_password]',
-			'settings_email'			=>	'required|valid_email',
+			'settings_email'			=>	'valid_email',
 			'settings_confirm_email'	=>	'valid_email|matches[settings_email]',
 			'settings_lang'				=>	'alpha|max_length[2]'
 		);
@@ -54,7 +55,7 @@ class User_settings extends Public_Controller
 	    $this->validation->set_fields($fields);
 			
 	    // Get settings for this user
-	    $this->data->user_settings = $this->users_m->get(array('id' => $this->user_id));
+	    $this->data->user_settings = $this->ion_auth->get_user();
 			
 	    foreach(array_keys($rules) as $field)
 		{
@@ -67,34 +68,33 @@ class User_settings extends Public_Controller
 	    	$set['first_name'] = $this->input->post('settings_first_name', TRUE);
 	    	$set['last_name'] = $this->input->post('settings_last_name', TRUE);
 	    		
-	    	// The cookie has been changed, lets set a new one and update their record
-	    	if($this->input->cookie('lang_code') != $this->input->post('settings_lang', TRUE))
-	    	{
-				// Set the language for this user
-				$this->user_lib->set_lang_cookie( $this->input->post('settings_lang', TRUE) );
-			    $set['lang'] = $this->input->post('settings_lang', TRUE);
-	    	}
+	    	// Set the language for this user
+			$this->ion_auth->set_lang( $this->input->post('settings_lang', TRUE) );
+			$set['lang'] = $this->input->post('settings_lang', TRUE);
 	    		
 	    	// If password is being changed (and matches)
 	    	if($this->input->post('settings_password'))
-	    	{
-				$this->load->helper('security');				
-				$set['password'] = dohash($this->input->post('settings_password') . $this->user_lib->user_data->salt);
+	    	{				
+				$set['password'] = $this->input->post('settings_password');
 	    	}
 	    		
+	    	/*
+	    	 * Deactivated since email is the identity - Ben
+	    	 *  
 	    	// If email is being changed (and matches)
 	    	if($this->input->post('settings_email'))
 	    	{
 				$set['email'] = $this->input->post('settings_email');
 	    	}
-	    		
-			if ($this->users_m->update($this->user_id, $set))
+	    	*/
+	    	
+			if ($this->ion_auth->update_user($this->user_id, $set))
 			{
-	    		$this->session->set_flashdata(array('success'=> $this->lang->line('user_settings_saved_success')));
+	    		$this->session->set_flashdata(array('success'=> $this->ion_auth->messages()));
 	    	}    		
 	    	else
 	    	{
-	    		$this->session->set_flashdata(array('error'=> $this->lang->line('user_settings_saved_error')));
+	    		$this->session->set_flashdata(array('error'=> $this->ion_auth->errors()));
 	    	}
 			
 	    	redirect('edit-settings');

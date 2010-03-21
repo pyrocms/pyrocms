@@ -37,16 +37,6 @@ INSERT INTO `pages` (`id`, `slug`, `title`, `body`, `parent_id`, `layout_id`, `c
   
 -- command split --
 
-TRUNCATE `permission_roles`;
-
--- command split --
-
-INSERT INTO `permission_roles` VALUES
- ('1','Administator','admin'),
- ('2','User','user');
-
--- command split --
-
 TRUNCATE `settings`;
 
 -- command split --
@@ -79,17 +69,38 @@ INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `valu
 	
 -- command split --
 
-TRUNCATE `users`;
-
--- command split --
-
-INSERT INTO `users` values('1','demo@example.com','8cd2e9971eeea0b7a5afcd810270fa605bde14e8','vQwbJ','Demo','User','admin','en','','1','','1220982658','1238925784');
-
--- command split --
-
 TRUNCATE `asset_folder`;
 
 -- command split --
 
 INSERT INTO `asset_folder` values
   (0, 0, 'All images', 1, NOW());
+
+-- command split --
+
+TRUNCATE `groups`;
+
+-- command split --
+
+INSERT INTO `groups` (`id`, `title`, `name`, `description`) VALUES
+(1, 'Administator', 'admin', NULL),
+(2, 'User', 'user', NULL);
+
+-- command split --
+
+TRUNCATE `profiles`;
+
+-- command split --
+
+INSERT INTO `profiles` (`id`, `user_id`, `first_name`, `last_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
+(1, 1, 'Demo', 'User', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- command split --
+
+TRUNCATE `users`;
+
+-- command split --
+
+INSERT INTO `users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
+(1, 'demo@example.com', '8cd2e9971eeea0b7a5afcd810270fa605bde14e8', 'vQwbJ', 1, '', 1, '', 1220982658, 1269201129, NULL, NULL, NULL);
+

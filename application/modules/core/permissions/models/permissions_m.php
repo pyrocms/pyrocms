@@ -80,7 +80,7 @@ class Permissions_m extends Model {
 	function checkRuleByRole($role, $location)
 	{
 		// No more checking to do, admins win
-		if($role == 'admin')
+		if($role == 1)
 		{
 			return TRUE;
 		}
@@ -91,10 +91,10 @@ class Permissions_m extends Model {
 		if(isset($location['method'])) 		$this->db->where('(method = "'.$location['method'].'" or method = "*")');
 		
 		// Check which kind of user?
-		$this->db->where('roles.abbrev', $role);
+		$this->db->where('roles.id', $role);
 		
 		$this->db->from('permission_rules rules');
-		$this->db->join('permission_roles as roles', 'roles.id = rules.permission_role_id');
+		$this->db->join('groups as roles', 'roles.id = rules.permission_role_id');
 		
 		$query = $this->db->get();
 
@@ -126,7 +126,7 @@ class Permissions_m extends Model {
 	function has_admin_access($role, $module = NULL)
 	{
 		// No more checking to do, admins win
-		if($role == 'admin')
+		if($role == 1)
 		{
 			return TRUE;
 		}
@@ -149,7 +149,7 @@ class Permissions_m extends Model {
 	// Return an object containing rule properties
 	function getRole($id = 0)
 	{
-		$query = $this->db->get_where('permission_roles', array('id'=>$id));
+		$query = $this->db->get_where('groups', array('id'=>$id));
 		if ($query->num_rows() == 0) {
 			return FALSE;
 		} else {
@@ -161,18 +161,18 @@ class Permissions_m extends Model {
 	function get_roles($params = array()) {
 		
 		if(isset($params['except'])) {
-			$this->db->where_not_in('abbrev', $params['except']);
+			$this->db->where_not_in('name', $params['except']);
 		}
 		
-		return $this->db->get('permission_roles')->result();
+		return $this->db->get('groups')->result();
 	}
 	
 	// Create a new permission rule
 	function newRole($input = array()) {
 
-		return $this->db->insert('permission_roles', array(
+		return $this->db->insert('groups', array(
         	'title' => $input['title'],
-        	'abbrev' => $input['abbrev']
+        	'name' => $input['abbrev']
 		));
 		
 	}
@@ -180,7 +180,7 @@ class Permissions_m extends Model {
 	// Update a permission rule
 	function updateRole($id = 0, $input = array()) {
 
-		$this->db->update('permission_roles', array(
+		$this->db->update('groups', array(
         	'title' => $input['title']
 		), array('id' => $id));
 
@@ -192,9 +192,9 @@ class Permissions_m extends Model {
 		if(!is_array($id))  $id = array('id'=>$id);
 
 		// Dont let them delete these. The controller should handle the error message, this is just insurance
-		$this->db->where_not_in('abbrev', array('user', 'admin'));
+		$this->db->where_not_in('name', array('user', 'admin'));
 		
-		$this->db->delete('permission_roles', $id);
+		$this->db->delete('groups', $id);
         return $this->db->affected_rows();
 	}
 

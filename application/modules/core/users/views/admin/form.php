@@ -50,12 +50,12 @@
 							
 							<li>
 								<label for="active"><?php echo lang('user_role_label');?></label>
-								<?php echo form_dropdown('role', $roles_select, $member->role); ?>
+								<?php echo form_dropdown('group', $roles_select, $member->group); ?>
 							</li>
 							
 							<li class="even">
 								<label for="active"><?php echo lang('user_activate_label');?></label>
-								<?php echo form_checkbox('is_active', 1, $member->is_active == 1); ?>
+								<?php echo form_checkbox('active', 1, $member->active == 1); ?>
 							</li>
 						</ol>
 					</fieldset>

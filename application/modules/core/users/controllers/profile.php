@@ -8,21 +8,21 @@ class Profile extends Public_Controller
 	{
 		parent::Public_Controller();
         
-    // If profiles are not enabled, pretend they don't exist
-    if(!$this->settings->item('enable_profiles'))
-    {
-    	show_404();
-    }
-        
-    $this->load->library('session');
-		$this->user_id = $this->session->userdata('user_id');		
-		$this->load->library('user_lib');
-		
-    // The user is not logged in, send them to login page
-   	if(!$this->user_lib->logged_in())
-    {
-			redirect('users/login');
-    }
+	    // If profiles are not enabled, pretend they don't exist
+	    if(!$this->settings->item('enable_profiles'))
+	    {
+	    	show_404();
+	    }
+	        
+	    $this->load->library('session');	
+		$this->load->library('ion_auth');
+		$this->user_id = $this->ion_auth->get_user()->id;	
+			
+	    // The user is not logged in, send them to login page
+	   	if(!$this->ion_auth->logged_in())
+	    {
+				redirect('users/login');
+	    }
 		
 		$this->load->model('users_m');
 		$this->load->model('profile_m');
@@ -45,12 +45,12 @@ class Profile extends Public_Controller
 	function view($id = 0)
 	{
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
-		if(!$this->data->user = $this->users_m->get(array('id'=>$id)) ):
+		if(!$this->data->user = $this->ion_auth->get_user($id) ):
 			show_404();
 		endif;
 		
 		// Now load thir extra data
-		$this->data->profile = $this->profile_m->getProfile(array('user_id'=>$id));
+		$this->data->profile = $this->ion_auth->get_user($id);
 
 		$this->template->build('profile/view', $this->data);
 	}
@@ -90,18 +90,19 @@ class Profile extends Public_Controller
 	  	$this->validation->set_fields($fields);
 
 		// If this user already has a profile, use their data if nothing in post array
-    	if($this->data->profile = $this->profile_m->getProfile(array('user_id' => $this->user_id)))
+    	if($this->data->profile = $this->ion_auth->get_user())
     	{
 			foreach(array_keys($rules) as $field)
 	    	{
 	    		if(isset($_POST[$field])) $this->data->profile->$field = $this->validation->$field;
 	    	}
-
+			
 		    $this->data->profile->dob_day = date('j', $this->data->profile->dob);
 		    $this->data->profile->dob_month = date('n', $this->data->profile->dob);
 		    $this->data->profile->dob_year = date('Y', $this->data->profile->dob);
+			
 		}
-		
+	
 		// If no profile, use post or empty string
 		else
 		{
@@ -115,14 +116,19 @@ class Profile extends Public_Controller
 	  	// Profile valid?
     	if ($this->validation->run())
     	{
-			if ($this->profile_m->updateProfile($_POST, $this->user_id))
+    		$this->load->helper('date');
+    		$_POST['dob'] = mktime(0, 0, 0, $this->input->post('dob_month'), $this->input->post('dob_day'), $this->input->post('dob_year'));
+    		unset($_POST['dob_day']);
+    		unset($_POST['dob_month']);
+    		unset($_POST['dob_year']);
+			if ($this->ion_auth->update_user($this->user_id, $_POST)) //this seems really insecure but maybe I'm missing something since it's late... -ben
 			{
-    			$this->session->set_flashdata(array('success'=> $this->lang->line('profile_edit_success')));
+    			$this->session->set_flashdata(array('success'=> $this->ion_auth->messages()));
 	    	}  
 	    	  		
 	    	else
 	    	{
-	    		$this->session->set_flashdata(array('error'=> $this->lang->line('profile_edit_error')));
+	    		$this->session->set_flashdata(array('error'=> $this->ion_auth->errors()));
 	    	}	
 	    			
 	    	redirect('edit-profile');    	

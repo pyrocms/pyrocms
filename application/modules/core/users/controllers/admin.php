@@ -8,8 +8,8 @@ class Admin extends Admin_Controller
 		'password'			=>	"min_length[6]|max_length[20]", // will be required when adding1
 		'confirm_password'	=>	"matches[password]",
 		'email'				=>	"required|valid_email",
-		'role'				=>	"required",
-		'is_active'			=>	""
+		'group'			=>	"required",
+		'active'			=>	"",
 	);
 	
 	function __construct()
@@ -17,6 +17,7 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		
 		$this->load->library('user_lib');
+		$this->load->library('ion_auth');
 		
 		$this->load->model('users_m');
 		$this->load->helper('user');
@@ -24,11 +25,11 @@ class Admin extends Admin_Controller
 		$this->lang->load('user');
 		
         $this->data->roles = $this->permissions_m->get_roles();
-        $this->data->roles_select = array_for_select($this->data->roles, 'abbrev', 'title');
+        $this->data->roles_select = array_for_select($this->data->roles, 'name', 'title');
         
 		// Sidebar data
-		$this->data->inactive_user_count = $this->users_m->count_by('is_active', 0);
-		$this->data->active_user_count = $this->users_m->count_by('is_active', 1);
+		$this->data->inactive_user_count = $this->users_m->count_by('active', 0);
+		$this->data->active_user_count = $this->users_m->count_by('active', 1);
 		
 		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
@@ -40,9 +41,9 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/users', $this->data->active_user_count);
 
 		// Using this data, get the relevant results
-		$this->data->users = $this->users_m->limit($this->data->pagination['limit'])
-			->order_by('id', 'desc')
-			->get_many_by( 'is_active', 1 );
+		$this->data->users = $this->users_m
+			 ->order_by('users.id', 'desc')
+			 ->get_many_by('active', 1 );
 			
 		$this->template->build('admin/index', $this->data);
 	}
@@ -52,8 +53,8 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/users/inactive', $this->data->inactive_user_count);
 
 		$this->data->users = $this->users_m->limit($this->data->pagination['limit'])
-			->order_by('id', 'desc')
-			->get_many_by('is_active', 0);
+			->order_by('users.id', 'desc')
+			->get_many_by('active', 0);
 		
 		$this->template->build('admin/index', $this->data);
 	}
@@ -89,41 +90,21 @@ class Admin extends Admin_Controller
 		
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
+		$user_data = array('first_name' => $this->input->post('first_name'),
+						   'last_name'  => $this->input->post('last_name'),
+						  );
+		$group = $this->input->post('group');
 				
 		if ($this->validation->run() !== FALSE)
 		{
-			if($user_id = $this->user_lib->create($email, $password))
+			if($user_id = $this->ion_auth->register($email, $password, $email, $user_data, $group))
 			{
-				if($this->input->post('is_active'))
-				{
-					// Activate the user
-					if($this->users_m->activate($user_id))
-					{
-						$this->session->set_flashdata('success', $this->lang->line('user_added_and_activated_success'));
-						redirect('admin/users');
-					}					
-					else
-					{
-						$this->data->error_string = $this->lang->line('user_activation_failed');
-					}					
-				}				
-				else
-				{					
-					// No Activation, send mail
-					if($this->user_lib->registered_email($this->user_lib->user_data))
-					{
-						$this->session->set_flashdata('success', $this->lang->line('user_added_not_activated_success'));
-						redirect('admin/users');
-					}					
-					else
-					{
-						$this->data->error_string = $this->lang->line($this->user_lib->error_code);
-					}
-				}				
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
+				redirect('admin/users');				
 			}			
 			else
 			{
-				$this->data->error_string = $this->lang->line($this->user_lib->error_code);
+				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}		
 		else
@@ -154,7 +135,8 @@ class Admin extends Admin_Controller
 		$this->validation->set_rules($this->rules);
 		$this->validation->set_fields();
 		
-		$this->data->member = $this->users_m->get(array('id' => $id));
+		$this->data->member = $this->ion_auth->get_user($id);
+		$this->data->member->full_name = $this->data->member->first_name .' '. $this->data->member->last_name;
 		
 		if(!$this->data->member)
 		{
@@ -167,25 +149,24 @@ class Admin extends Admin_Controller
 			$update_data['first_name'] = $this->input->post('first_name');
 			$update_data['last_name'] = $this->input->post('last_name');
 			$update_data['email'] = $this->input->post('email');
-			$update_data['is_active'] = $this->input->post('is_active');
+			$update_data['active'] = $this->input->post('active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('role')) $update_data['role'] = $this->input->post('role');
+			if($this->input->post('group')) $update_data['group'] = $this->input->post('group');
 			
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )
 			{
-				$this->load->helper('security');
-				$update_data['password'] = dohash($this->input->post('password') . $this->data->member->salt);
+				$update_data['password'] = $this->input->post('password');
 			}
 			
-			if($this->users_m->update($id, $update_data))
+			if($this->ion_auth->update_user($id, $update_data))
 			{
-				$this->session->set_flashdata('success', $this->lang->line('user_edit_success'));
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}			
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('user_edit_error'));
+				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}			
 			redirect('admin/users');
 		}		
@@ -214,7 +195,7 @@ class Admin extends Admin_Controller
 			$to_activate = 0;
 			foreach ($ids as $id)
 			{
-				if($this->users_m->activate($id))
+				if($this->ion_auth->activate($id))
 				{
 					$activated++;
 				}
@@ -241,13 +222,13 @@ class Admin extends Admin_Controller
 			foreach ($ids as $id)
 			{
 				// Make sure the admin is not trying to delete themself
-				if($this->user_lib->user_data->id == $id)
+				if($this->ion_auth->get_user()->id == $id)
 				{
 					$this->session->set_flashdata('notice', $this->lang->line('user_delete_self_error'));
 					continue;
 				}
 				
-				if($this->users_m->delete($id))
+				if($this->ion_auth->delete_user($id))
 				{
 					$deleted++;
 				}

@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				
-				<?php if (!empty($rules[$role->abbrev])): ?>
+				<?php if (!empty($rules[$role->name])): ?>
 					<table border="0" class="table-list clear-both spacer-bottom">		  
 						<thead>
 							<tr>
@@ -31,7 +31,7 @@
 							</tr>
 						</thead>
 						<tbody>			
-							<?php foreach ($rules[$role->abbrev] as $navigation_link): ?>
+							<?php foreach ($rules[$role->name] as $navigation_link): ?>
 								<tr>
 									<td><input type="checkbox" name="delete[<?php echo $navigation_link->id;?>]" /></td>
 									<td><?php echo $navigation_link->module;?></td>

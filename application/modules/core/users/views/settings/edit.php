@@ -27,6 +27,7 @@ fieldset dl dd input, fieldset dl dd textarea {
 			<?php echo form_input('settings_last_name', $user_settings->last_name); ?>
 		</p>
 		
+		<!-- Removed since email is the identity
 		<p class="float-left spacer-right">
 			<label for="email"><?php echo lang('user_email') ?></label><br/>
 			<?php echo form_input('settings_email', $user_settings->email); ?>
@@ -36,6 +37,7 @@ fieldset dl dd input, fieldset dl dd textarea {
 			<label for="confirm_email"><?php echo lang('user_confirm_email') ?></label><br/>
 			<?php echo form_input('settings_confirm_email', ''); ?>
 		</p>
+		-->
 		
 	</fieldset>
 	

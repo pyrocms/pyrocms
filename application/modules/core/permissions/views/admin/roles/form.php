@@ -20,9 +20,9 @@
 				<li class="even">
 					<label for="abbrev"><?php echo lang('perm_abbrev_label');?></label>	
 					<?php if($this->uri->segment(4,'create') == 'create'): ?>
-						<?php echo form_input('abbrev', $permission_role->abbrev, 'class="text width-10"'); ?>	
+						<?php echo form_input('abbrev', $permission_role->name, 'class="text width-10"'); ?>	
 					<?php else: ?>
-						<?php echo $permission_role->abbrev; ?>
+						<?php echo $permission_role->name; ?>
 					<?php endif; ?>
 				</li>
 			</ol>
