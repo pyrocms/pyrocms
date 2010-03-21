@@ -301,11 +301,11 @@ CREATE TABLE IF NOT EXISTS `groups` (
 
 -- command split --
 
-DROP TABLE IF EXISTS `meta`;
+DROP TABLE IF EXISTS `profiles`;
 
 -- command split --
 
-CREATE TABLE IF NOT EXISTS `meta` (
+CREATE TABLE IF NOT EXISTS `profiles` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
   `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,

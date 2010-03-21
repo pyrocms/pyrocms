@@ -45,9 +45,9 @@ class Users_m extends MY_Model
     		$this->db->where('users.group_id', $params['role']);
     	}
     	
-    	$this->db->select('meta.*, users.*, IF(meta.last_name = "", meta.first_name, CONCAT(meta.first_name, " ", meta.last_name)) as full_name', FALSE);
+    	$this->db->select('profiles.*, users.*, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name', FALSE);
     	$this->db->limit(1);
-    	$this->db->join('meta', 'meta.user_id = users.id', 'left');
+    	$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
     	$query = $this->db->get('users');
 
     	return $query->row();
@@ -62,9 +62,9 @@ class Users_m extends MY_Model
     
 	function get_all()
     {
-    	$this->db->select('users.*, meta.*, pr.title as role_title, IF(meta.last_name = "", meta.first_name, CONCAT(meta.first_name, " ", meta.last_name)) as full_name')
+    	$this->db->select('users.*, profiles.*, pr.title as role_title, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name')
     			 ->join('groups pr', 'pr.id = users.group_id')
-    			 ->join('meta', 'meta.user_id = users.id', 'left');
+    			 ->join('profiles', 'profiles.user_id = users.id', 'left');
     		
     	return parent::get_all();
     }    

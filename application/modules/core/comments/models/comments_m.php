@@ -10,7 +10,7 @@ class Comments_m extends MY_Model
     		->select('IF(c.user_id > 0, u.email, c.email) as email')
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
-    		->join('meta m', 'm.user_id = u.id', 'left');
+    		->join('profiles m', 'm.user_id = u.id', 'left');
     	
     	// If there is a comment user id, make sure the user still exists
     	$this->db->where('IF(c.user_id > 0, c.user_id = u.id, TRUE)')
@@ -33,7 +33,7 @@ class Comments_m extends MY_Model
     	$this->db->select('IF(comments.user_id > 0, u.email, comments.email) as email');
 
     	$this->db->join('users u', 'comments.user_id = u.id', 'left');
-    	$this->db->join('meta m', 'm.user_id = u.id', 'left');
+    	$this->db->join('profiles m', 'm.user_id = u.id', 'left');
     	
     	return parent::get_all();
   	}

@@ -22,7 +22,7 @@
 	 **/
 	$config['tables']['groups']  = 'groups';
 	$config['tables']['users']   = 'users';
-	$config['tables']['meta']    = 'meta';
+	$config['tables']['meta']    = 'profiles';
 	
 	/**
 	 * Site Title, example.com

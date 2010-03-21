@@ -17,12 +17,22 @@ class Upgrade extends Controller
  	// Upgrade
  	function index()
 	{
-		//if the meta tables doesnt exist lets do some magic
-		if (!$this->db->table_exists('meta')) {
+		//if the groups tables doesnt exist lets do some magic
+		if (!$this->db->table_exists('groups')) {			
+			
+			$this->db->select(array('users.id as user_id, users.first_name, users.last_name, users.lang, profiles.bio, profiles.dob, profiles.gender, profiles.phone, profiles.mobile, profiles.address_line1, profiles.address_line2, profiles.address_line3, profiles.postcode, profiles.msn_handle, profiles.aim_handle, profiles.yim_handle, profiles.gtalk_handle, profiles.gravatar, profiles.updated_on'));
+			$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
+			$query = $this->db->get('users');
+			
+			$profile_result = $query->result_array();
+						
+			//drop the profiles table
+			echo 'dropping the profiles table';
+			$this->dbforge->drop_table('profiles');
 			
 			//create the meta table
 			$this->dbforge->add_field('id');
-			$meta_fields = array(
+			$profiles_fields = array(
 	                        'user_id' => array(
 	                                                 'type' 	  	  => 'INT',
 	                                                 'constraint' 	  => 11,
@@ -127,22 +137,15 @@ class Upgrade extends Controller
 	                                          ),
 	                );
 	
-			$this->dbforge->add_field($meta_fields);
-			echo 'creating meta table...<br><br>';
-			$this->dbforge->create_table('meta');
+			$this->dbforge->add_field($profiles_fields);
+			echo 'creating profiles table...<br><br>';
+			$this->dbforge->create_table('profiles');
 			
-			
-			$this->db->select(array('users.id as user_id, users.first_name, users.last_name, users.lang, profiles.bio, profiles.dob, profiles.gender, profiles.phone, profiles.mobile, profiles.address_line1, profiles.address_line2, profiles.address_line3, profiles.postcode, profiles.msn_handle, profiles.aim_handle, profiles.yim_handle, profiles.gtalk_handle, profiles.gravatar, profiles.updated_on'));
-			$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
-			$query = $this->db->get('users');
-			
-			$profile_result = $query->result_array();
-						
-			//insert the meta data
+			//insert the profile data
 			foreach ($profile_result as $profile_data) {
-				echo 'inserting user ' . $profile_data['user_id'] . ' into meta table...<br>';
+				echo 'inserting user ' . $profile_data['user_id'] . ' into profiles table...<br>';
 			
-				$this->db->insert('meta', $profile_data);
+				$this->db->insert('profiles', $profile_data);
 			}
 			echo '<br><br>';
 			
@@ -228,12 +231,7 @@ class Upgrade extends Controller
 			echo 'removing columns from users table <br>';
 			$this->dbforge->drop_column('users', 'first_name');
 			$this->dbforge->drop_column('users', 'last_name');
-			$this->dbforge->drop_column('users', 'lang');
-			
-			//drop the profiles table
-			echo 'dropping the profiles table';
-			$this->dbforge->drop_table('profiles');
-			
+			$this->dbforge->drop_column('users', 'lang');		
 			
 		}
 	}

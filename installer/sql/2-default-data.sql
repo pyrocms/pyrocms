@@ -88,11 +88,11 @@ INSERT INTO `groups` (`id`, `title`, `name`, `description`) VALUES
 
 -- command split --
 
-TRUNCATE `meta`;
+TRUNCATE `profiles`;
 
 -- command split --
 
-INSERT INTO `meta` (`id`, `user_id`, `first_name`, `last_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
+INSERT INTO `profiles` (`id`, `user_id`, `first_name`, `last_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
 (1, 1, 'Demo', 'User', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- command split --
