@@ -11,6 +11,7 @@ class Admin extends Admin_Controller
 	{
   		parent::Admin_Controller();
 		$this->load->library('users/user_lib');
+		$this->load->library('users/ion_auth');
 		$this->load->helper('users/user');
  	}
 
@@ -95,7 +96,7 @@ class Admin extends Admin_Controller
 	    $this->validation->set_fields();
 	        
 	    // If the validation worked, or the user is already logged in
-	    if ($this->validation->run() or $this->user_lib->logged_in())
+	    if ($this->validation->run() or $this->ion_auth->logged_in())
 	    {
 	    	redirect('admin');
 		}
@@ -106,14 +107,14 @@ class Admin extends Admin_Controller
 	
 	function logout()
 	{
-		$this->user_lib->logout();
+		$this->ion_auth->logout();
 		redirect('admin/login');
 	}	
 	
 	// Callback From: login()
 	function _check_login($email)
 	{		
-   		if ( ! $this->user_lib->login($email, $this->input->post('password')))
+   		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
    		{
 	   		$this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
 	    	return FALSE;

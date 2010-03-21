@@ -8,8 +8,8 @@ class Admin extends Admin_Controller
 		'password'			=>	"min_length[6]|max_length[20]", // will be required when adding1
 		'confirm_password'	=>	"matches[password]",
 		'email'				=>	"required|valid_email",
-		'role'				=>	"required",
-		'is_active'			=>	""
+		'group'			=>	"required",
+		'active'			=>	"",
 	);
 	
 	function __construct()
@@ -41,9 +41,9 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/users', $this->data->active_user_count);
 
 		// Using this data, get the relevant results
-		$this->data->users = $this->users_m->limit($this->data->pagination['limit'])
-			->order_by('users.id', 'desc')
-			->get_many_by( 'active', 1 );
+		$this->data->users = $this->users_m
+			 ->order_by('users.id', 'desc')
+			 ->get_many_by('active', 1 );
 			
 		$this->template->build('admin/index', $this->data);
 	}
@@ -90,10 +90,14 @@ class Admin extends Admin_Controller
 		
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
+		$user_data = array('first_name' => $this->input->post('first_name'),
+						   'last_name'  => $this->input->post('last_name'),
+						  );
+		$group = $this->input->post('group');
 				
 		if ($this->validation->run() !== FALSE)
 		{
-			if($user_id = $this->ion_auth->register($email, $password, $email))
+			if($user_id = $this->ion_auth->register($email, $password, $email, $user_data, $group))
 			{
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');				
@@ -145,10 +149,10 @@ class Admin extends Admin_Controller
 			$update_data['first_name'] = $this->input->post('first_name');
 			$update_data['last_name'] = $this->input->post('last_name');
 			$update_data['email'] = $this->input->post('email');
-			$update_data['active'] = $this->input->post('is_active');
+			$update_data['active'] = $this->input->post('active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('role')) $update_data['group_id'] = $this->input->post('role');
+			if($this->input->post('group')) $update_data['group'] = $this->input->post('group');
 			
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )

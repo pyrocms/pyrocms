@@ -86,12 +86,12 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->ci->load->config('ion_auth');
+		$this->ci->load->config('users/ion_auth');
 		$this->ci->load->library('email');
-        	$this->ci->load->library('session');
+        $this->ci->load->library('session');
 		$this->ci->load->library('language');
-		$this->ci->lang->load('ion_auth');
-		$this->ci->load->model('ion_auth_model');
+		$this->ci->lang->load('users/ion_auth');
+		$this->ci->load->model('users/ion_auth_model');
 		$this->ci->load->helper('cookie');
 		
 		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter');
@@ -724,7 +724,7 @@ class Ion_auth
 		$_output = '';
 		foreach ($this->messages as $message) 
 		{
-			$_output .= $this->message_start_delimiter . $this->ci->lang->item($message) . $this->message_end_delimiter;
+			$_output .= $this->message_start_delimiter . $this->ci->lang->line($message) . $this->message_end_delimiter;
 		}
 		
 		return $_output;
@@ -759,7 +759,7 @@ class Ion_auth
 		foreach ($this->errors as $error) 
 		{
 			
-			$_output .= $this->error_start_delimiter . $this->ci->lang->item($error) . $this->error_end_delimiter;
+			$_output .= $this->error_start_delimiter . $this->ci->lang->line($error) . $this->error_end_delimiter;
 		}
 		
 		return $_output;

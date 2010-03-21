@@ -513,7 +513,7 @@ class Ion_auth_model extends CI_Model
 			'group_id'   => $group_id,
 			'ip_address' => $ip_address,
         	'created_on' => now(),
-			'last_login' => now(),
+			'last_login' => NULL,
 			'active'     => 1
 		);
 		
@@ -774,6 +774,15 @@ class Ion_auth_model extends CI_Model
 	        if (array_key_exists('password', $data))
 			{
 			    $data['password'] = $this->hash_password($data['password']);
+			}
+			
+			if (isset($data['group']))
+			{
+				$data['group_id'] = $this->db->select('id')
+				    	 					 ->where('name', $data['group'])
+				    	 			 		 ->get($this->tables['groups'])
+				    						 ->row()->id;
+				unset($data['group']);
 			}
 	
 			$this->db->where($this->ion_auth->_extra_where);
