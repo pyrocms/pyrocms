@@ -37,7 +37,7 @@
 	/**
 	 * Default group, use name
 	 */
-	$config['default_group']       = 'members';
+	$config['default_group']       = 'user';
 	
 	/**
 	 * Default administrators group, use name
@@ -75,7 +75,7 @@
 	/**
 	 * Email Activation for registration
 	 **/
-	$config['email_activation']    = false;
+	$config['email_activation']    = true;
 	
 	/**
 	 * Allow users to be remembered and enable auto-login
@@ -96,13 +96,13 @@
 	 * Folder where email templates are stored.
      * Default : auth/
 	 **/
-	$config['email_templates']     = 'auth/email/';
+	$config['email_templates']     = 'emails/';
 	
 	/**
 	 * activate Account Email Template
      * Default : activate.tpl.php
 	 **/
-	$config['email_activate']   = 'activate.tpl.php';
+	$config['email_activate']   = 'activation_required.php';
 	
 	/**
 	 * Forgot Password Email Template

@@ -6,7 +6,7 @@ class Users extends Public_Controller
 	{
 		parent::Public_Controller();
 
-		$this->load->library('user_lib');
+		$this->load->library('ion_auth');
 		
 		$this->load->model('users_m');
 		$this->load->helper('user');
@@ -79,7 +79,7 @@ class Users extends Public_Controller
 				redirect('users/activate/'.$id);			
 			}
 			else { // Can't create the user, show why
-				$this->data->error_string = $this->lang->line($this->ion_auth->errors());
+				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}
 		else {

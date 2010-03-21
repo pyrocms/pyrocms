@@ -49,6 +49,7 @@ class Upgrade extends Controller
 	                                                 'type' 	  => 'VARCHAR',
 	                                                 'constraint' => '2',
                                                  	 'null' => FALSE,
+                                                 	 'default' => 'en',
 	                                          ),
 	                        'bio' => array(
 	                                                 'type' 	  => 'text',
