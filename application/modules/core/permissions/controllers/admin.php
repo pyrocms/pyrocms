@@ -39,12 +39,12 @@ class Admin extends Admin_Controller
         foreach($this->data->roles as $role)
         {
             //... and get rules for each one
-            $this->data->rules[$role->abbrev] = $this->permissions_m->get_rules(array('role' => $role->id));
+            $this->data->rules[$role->name] = $this->permissions_m->get_rules(array('role' => $role->id));
         }
         
         foreach($this->data->users as $user)
         {
-            $this->data->userrules[$user->id] = $this->permissions_m->get_rules(array('user_id' => $user->id));
+            $this->data->rules[$user->id] = $this->permissions_m->get_rules(array('user_id' => $user->id));
         }
         
         $this->template->build('admin/index', $this->data);
