@@ -15,8 +15,10 @@ minimize or totally remove downtime during an upgrade.
 
 	ALTER TABLE comments
 		ADD ip_address varchar(15) NOT NULL default '';
+		
+3. Browse to http://example.com/index.php/upgrade.
 	
-3. Remove anything similar to the following code from your theme files:
+4. Remove anything similar to the following code from your theme files:
 
 	<script type="text/javascript">
 	    var APPPATH_URI = "{$global.application_uri}";
@@ -25,7 +27,7 @@ minimize or totally remove downtime during an upgrade.
 	
 	Delete the whole thing, those variables are now created internally in {$template.metadata}.
 	
-4. Replace any remaining references to {$global.whatever} to {$pyro.whatever} in your theme views.
+5. Replace any remaining references to {$global.whatever} with {$pyro.whatever} in your theme views.
 
 
 10/03/2010 - v0.9.8-beta3 to v0.9.8-rc1

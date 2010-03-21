@@ -33,121 +33,122 @@ class Upgrade extends Controller
 			//create the meta table
 			$this->dbforge->add_field('id');
 			$profiles_fields = array(
-	                        'user_id' => array(
-	                                                 'type' 	  	  => 'INT',
-	                                                 'constraint' 	  => 11,
-	                                                 'unsigned' 	  => TRUE,
-	                                                 'auto_increment' => FALSE,
-                                                 	 'null' => FALSE,
-	                                          ),
-	                        'first_name' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '50',
-                                                 	 'null' => FALSE,
-	                                          ),
-	                        'last_name' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '50',
-                                                 	 'null' => FALSE,
-	                                          ),
-	                        'company' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '100',
-                                                 	 'null' => FALSE,
-	                                          ),
-	                        'lang' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '2',
-                                                 	 'null' => FALSE,
-                                                 	 'default' => 'en',
-	                                          ),
-	                        'bio' => array(
-	                                                 'type' 	  => 'text',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'dob' => array(
-	                                                 'type' 	  => 'INT',
-	                                                 'constraint' => '11',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'gender' => array(
-	                                                 'type' 	  => "set('m','f','')",
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'phone' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '20',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'mobile' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '20',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'address_line1' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '255',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'address_line2' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '255',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'address_line3' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '255',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'postcode' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '20',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'msn_handle' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '100',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'yim_handle' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '100',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'aim_handle' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '100',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'gtalk_handle' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '100',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'gravatar' => array(
-	                                                 'type' 	  => 'VARCHAR',
-	                                                 'constraint' => '100',
-                                                 	 'null' => TRUE,
-	                                          ),
-	                        'updated_on' => array(
-	                                                 'type' 	  => 'INT',
-	                                                 'constraint' => '11',
-	                                                 'unsigned' 	  => TRUE,
-	                                                 'auto_increment' => FALSE,
-	                                          ),
-	                );
+				'user_id' => array(
+					'type' 	  	  => 'INT',
+					'constraint' 	  => 11,
+					'unsigned' 	  => TRUE,
+					'auto_increment' => FALSE,
+					'null' => FALSE,
+				),
+					'first_name' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '50',
+					'null' => FALSE,
+				),
+					'last_name' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '50',
+					'null' => FALSE,
+				),
+					'company' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '100',
+					'null' => FALSE,
+				),
+		                        'lang' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '2',
+					'null' => FALSE,
+					'default' => 'en',
+				),
+				'bio' => array(
+					'type' 	  => 'text',
+					'null' => TRUE,
+				),
+				'dob' => array(
+					'type' 	  => 'INT',
+					'constraint' => '11',
+					'null' => TRUE,
+				),
+	
+				'gender' => array(
+					'type' 	  => "set('m','f','')",
+					'null' => TRUE,
+				),
+				'phone' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '20',
+					'null' => TRUE,
+				),
+				'mobile' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '20',
+					'null' => TRUE,
+				),
+				'address_line1' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '255',
+					'null' => TRUE,
+				),
+				'address_line2' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '255',
+					'null' => TRUE,
+				),
+				'address_line3' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '255',
+					'null' => TRUE,
+				),
+				'postcode' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '20',
+					'null' => TRUE,
+				),
+				'msn_handle' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '100',
+					'null' => TRUE,
+				),
+				'yim_handle' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '100',
+					'null' => TRUE,
+				),
+				'aim_handle' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '100',
+					'null' => TRUE,
+				),
+				'gtalk_handle' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '100',
+					'null' => TRUE,
+				),
+				'gravatar' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => '100',
+					'null' => TRUE,
+				),
+				'updated_on' => array(
+					'type' 	  => 'INT',
+					'constraint' => '11',
+					'unsigned' 	  => TRUE,
+					'auto_increment' => FALSE,
+				),
+			);
 	
 			$this->dbforge->add_field($profiles_fields);
-			echo 'creating profiles table...<br><br>';
+			echo 'creating profiles table...<br/><br/>';
 			$this->dbforge->create_table('profiles');
 			
 			//insert the profile data
 			foreach ($profile_result as $profile_data) {
-				echo 'inserting user ' . $profile_data['user_id'] . ' into profiles table...<br>';
+				echo 'inserting user ' . $profile_data['user_id'] . ' into profiles table...<br/>';
 			
 				$this->db->insert('profiles', $profile_data);
 			}
-			echo '<br><br>';
+			echo '<br/>';
 			
 			$this->db->select(array('id, role'));
 			$role_user_query = $this->db->get('users');
@@ -199,7 +200,7 @@ class Upgrade extends Controller
                             'activation_code' => array('name' 	    => 'activation_code',
                                           			   'type' 	    => 'VARCHAR',
 	                                      			   'constraint' => '40',
-                                                 	   'null' 	    => TRUE,
+				  'null' 	    => TRUE,
                                          			  ),
                             'role' => array('name' 	     => 'group_id',
                                             'type' 	     => 'INT',
@@ -209,22 +210,27 @@ class Upgrade extends Controller
 					 	   );
 			$this->dbforge->modify_column('users', $modify_user_fields);
 			
-			//add new users fields
-			echo 'adding columns to users table <br>';
+			// add new users fields
+			echo 'adding columns to users table <br/>';
+			
 			$new_users_fields = array(
-	                        'username' => array('type' 	  	=> 'VARCHAR',
-	                                            'constraint' => 20,
-                                                'null' 		=> TRUE,
-	                                           ),
-	                        'forgotten_password_code' => array('type' 	  	=> 'VARCHAR',
-	                                                 		   'constraint' => 40,
-                                                 	 		   'null' 		=> TRUE,
-	                                          				  ),
-	                        'remember_code' => array('type' 	  => 'VARCHAR',
-	                                                 'constraint' => 40,
-                                                 	 'null' 	  => TRUE,
-	                                          		),
-	                );
+				'username' => array(
+					'type' 	  	=> 'VARCHAR',
+					'constraint' => 20,
+					'null' 		=> TRUE,
+				),
+				'forgotten_password_code' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 40,
+					'null' 		=> TRUE
+				),
+				'remember_code' => array(
+					'type' 	  => 'VARCHAR',
+					'constraint' => 40,
+					'null' 	  => TRUE
+				)
+	        );
+	        
 			$this->dbforge->add_column('users', $new_users_fields);
 			
 			//removing columns from users table
