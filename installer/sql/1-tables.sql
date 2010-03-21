@@ -211,15 +211,6 @@ DROP TABLE IF EXISTS `permission_roles`;
 
 -- command split --
 
-CREATE TABLE `permission_roles` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `abbrev` varchar(50) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc';
-
--- command split --
-
 DROP TABLE IF EXISTS `permission_rules`;
 
 -- command split --
@@ -274,29 +265,6 @@ DROP TABLE IF EXISTS `profiles`;
 
 -- command split --
 
-CREATE TABLE `profiles` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL,
-  `bio` text collate utf8_unicode_ci NOT NULL default '',
-  `dob` int(11) NOT NULL default '0',
-  `gender` set('m','f','') collate utf8_unicode_ci NOT NULL default '',
-  `phone` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `mobile` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `address_line1` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `address_line2` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `address_line3` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `postcode` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `msn_handle` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `aim_handle` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `yim_handle` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `gtalk_handle` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `gravatar` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `updated_on` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Extra data for users. Not always enabled';
-
--- command split --
-
 DROP TABLE IF EXISTS `settings`;
 
 -- command split --
@@ -319,27 +287,74 @@ KEY `index - slug` (`slug`)
 
 -- command split --
 
+DROP TABLE IF EXISTS `groups`;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
+
+-- command split --
+
+DROP TABLE IF EXISTS `meta`;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `meta` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `company` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
+  `bio` text COLLATE utf8_unicode_ci,
+  `dob` int(11) DEFAULT NULL,
+  `gender` set('m','f','') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address_line1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address_line2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address_line3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `postcode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msn_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `yim_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `aim_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gtalk_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gravatar` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_on` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+
+-- command split --
+
 DROP TABLE IF EXISTS `users`;
 
 -- command split --
 
-CREATE TABLE `users` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `password` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `salt` varchar(5) collate utf8_unicode_ci NOT NULL default '',
-  `first_name` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `last_name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `role` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `lang` varchar(2) collate utf8_unicode_ci NOT NULL,
-  `ip` varchar(11) collate utf8_unicode_ci NOT NULL,
-  `is_active` int(1) NOT NULL,
-  `activation_code` varchar(8) collate utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `salt` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `group_id` int(11) DEFAULT NULL,
+  `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `active` int(1) DEFAULT NULL,
+  `activation_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_on` int(11) NOT NULL,
   `last_login` int(11) NOT NULL,
-  PRIMARY KEY  (`id`),
+  `username` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `forgotten_password_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remember_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information' AUTO_INCREMENT=2 ;
+
 
 -- command split --
 
