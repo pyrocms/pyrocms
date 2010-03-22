@@ -37,7 +37,6 @@ class Template
 
     private $_title = '';
     private $_metadata = array();
-    private $_view = '';
     
     private $_partials = array();
     
@@ -51,7 +50,7 @@ class Template
     // Seconds that cache will be alive for
     private $cache_lifetime = 0;//7200;
 
-    private $CI;
+    private $_ci;
     
     private $data;
 
@@ -62,17 +61,17 @@ class Template
      */
     function __construct()
     {
-        $this->CI =& get_instance();
+        $this->_ci =& get_instance();
         log_message('debug', 'Template class Initialized');
 
     	// Work out the controller and method
-    	if( method_exists( $this->CI->router, 'fetch_module' ) )
+    	if( method_exists( $this->_ci->router, 'fetch_module' ) )
     	{
-    		$this->_module 	= $this->CI->router->fetch_module();
+    		$this->_module 	= $this->_ci->router->fetch_module();
     	}
     	
-        $this->_controller	= $this->CI->router->fetch_class();
-        $this->_method 		= $this->CI->router->fetch_method();
+        $this->_controller	= $this->_ci->router->fetch_class();
+        $this->_method 		= $this->_ci->router->fetch_method();
     }
 
     // --------------------------------------------------------------------
@@ -110,14 +109,14 @@ class Template
     	}
     	
         // Disable sodding IE7's constant cacheing!!
-        $this->CI->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
-        $this->CI->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
-        $this->CI->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
-        $this->CI->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-        $this->CI->output->set_header('Pragma: no-cache');
+        $this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
+        $this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+        $this->_ci->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
+        $this->_ci->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+        $this->_ci->output->set_header('Pragma: no-cache');
 
         // Let CI do the caching instead of the browser
-        $this->CI->output->cache( $this->cache_lifetime );
+        $this->_ci->output->cache( $this->cache_lifetime );
     	
         // Test to see if this file
     	$this->_body = $this->_load_view( $view, TRUE, $this->_parser_body_enabled );
@@ -144,13 +143,13 @@ class Template
 			// Parse if parser is enabled, or its a theme view
 			if($this->_parser_enabled === TRUE || $this->_theme)
 			{
-	    		$this->CI->load->library('parser');
-				$this->_body = $this->CI->parser->parse( $layout_view, $this->data, TRUE );
+	    		$this->_ci->load->library('parser');
+				$this->_body = $this->_ci->parser->parse( $layout_view, $this->data, TRUE );
 			} 
 			
 			else
 			{
-				$this->_body = $this->CI->load->view( $layout_view, $this->data, TRUE );
+				$this->_body = $this->_ci->load->view( $layout_view, $this->data, TRUE );
 			}
         }
         
@@ -158,7 +157,7 @@ class Template
         if(!$return)
         {
             // Send it to output
-            $this->CI->output->set_output($this->_body);
+            $this->_ci->output->set_output($this->_body);
         }
         
         return $this->_body;
@@ -226,11 +225,10 @@ class Template
         $name = htmlspecialchars(strip_tags($name));
         $content = htmlspecialchars(strip_tags($content));
     	
-        // Keywords with no comments? ARG! comment them
+        // Keywords with no commas? ARG! Commatify them
         if($name == 'keywords' && !strpos($content, ','))
         {
-        	$this->CI->load->helper('inflector');
-        	$content = keywords($content);
+        	$content = preg_replace('/[\s]+/', ', ', trim($content));
         }
         
         switch($type)
@@ -338,8 +336,8 @@ class Template
     		
     		if( $this->_theme && file_exists( APPPATH . $theme_view . EXT ))
 	    	{
-	    		$this->CI->load->library('parser');
-	    		return $this->CI->parser->parse('../'.$theme_view, $this->data, TRUE);
+	    		$this->_ci->load->library('parser');
+	    		return $this->_ci->parser->parse('../'.$theme_view, $this->data, TRUE);
 	    	}
 
 		    // Nope, just use whatever's in the module
@@ -347,13 +345,13 @@ class Template
 	    	{
 	    		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 				{
-					$this->CI->load->library('parser');
-					return $this->CI->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
+					$this->_ci->load->library('parser');
+					return $this->_ci->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
 				}
 				
 				else
 				{
-					return $this->CI->load->view( $this->_module.'/'.$view, $this->data, TRUE );
+					return $this->_ci->load->view( $this->_module.'/'.$view, $this->data, TRUE );
 				}
 	    	}
     	}
@@ -363,13 +361,13 @@ class Template
     	{
     		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 			{
-				$this->CI->load->library('parser');
-				return $this->CI->parser->parse( $view, $this->data, TRUE );
+				$this->_ci->load->library('parser');
+				return $this->_ci->parser->parse( $view, $this->data, TRUE );
 			}
 			
 			else
 			{
-				return $this->CI->load->view( $view, $this->data, TRUE );
+				return $this->_ci->load->view( $view, $this->data, TRUE );
 			}
     	}
     }
@@ -377,7 +375,7 @@ class Template
 
     private function _guess_title()
     {
-        $this->CI->load->helper('inflector');
+        $this->_ci->load->helper('inflector');
 
         // Obviously no title, lets get making one
         $title_parts = array();
