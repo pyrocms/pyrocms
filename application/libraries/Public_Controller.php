@@ -25,14 +25,11 @@ class Public_Controller extends MY_Controller
 	    
 	    $this->template->set_layout('layout');
 	    
-	    $this->template->append_metadata( js('jquery/jquery.js') )
-	    	->append_metadata( js('jquery/jquery.fancybox.js') )
-	    	->append_metadata( css('jquery/jquery.fancybox.css') )
-	    	->append_metadata( '<script type="text/javascript">
-								    var APPPATH_URI = "'.APPPATH_URI.'";
-								    var BASE_URI = "'.BASE_URI.'";
-								</script>' )
-	    	->append_metadata( js('front.js') );
+	    $this->template	->append_metadata( '
+			<script type="text/javascript">
+				var APPPATH_URI = "'.APPPATH_URI.'";
+				var BASE_URI = "'.BASE_URI.'";
+			</script>' );
 	    
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
