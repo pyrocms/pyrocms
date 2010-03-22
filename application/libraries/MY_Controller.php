@@ -42,7 +42,7 @@ class MY_Controller extends Controller
         $pyro['application_uri'] 	= APPPATH_URI;
         $pyro['current_language'] 	= CURRENT_LANGUAGE;
         
-        $this->load->vars('pyro', &$pyro); 
+        $this->load->vars('pyro', $pyro); 
         
         $this->benchmark->mark('my_controller_end');
 	}
