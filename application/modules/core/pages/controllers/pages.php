@@ -58,7 +58,7 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if( !$page || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) )
+		if( !$page || ($page->status == 'draft' && !$this->ion_auth->is_admin()) )
         {
         	$page = $this->_404($url_segments);
         }
@@ -121,7 +121,7 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if( empty($page) || ($page->status == 'draft' && !$this->user_lib->check_role('admin')) || !$page->rss_enabled)
+		if( empty($page) || ($page->status == 'draft' && !$this->ion_auth->is_admin()) || !$page->rss_enabled)
         {
         	// Will try the page then try 404 eventually
         	$this->_page('404');
