@@ -1,0 +1,1 @@
+&copy; {date('Y')} {$ci->settings->item('site_name')}
