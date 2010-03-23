@@ -34,7 +34,7 @@ class Comments extends Public_Controller
 			'module_id' => $id,
 		
 			// If they are an admin, comments go straight through
-			'is_active' => $this->user_lib->check_role('admin')
+			'is_active' => $this->ion_auth->is_admin()
 		);
 		
 		// Logged in? in which case, we already know their name and email
@@ -64,7 +64,7 @@ class Comments extends Public_Controller
 				// Save the comment
 				if($this->comments_m->insert( $comment ))
 				{
-					if($this->settings->item('moderate_comments') || $this->user_lib->check_role('admin'))
+					if($this->settings->item('moderate_comments') || $this->ion_auth->is_admin())
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
 					}

@@ -20,7 +20,7 @@ class Admin_Controller extends MY_Controller
 	    $is_ignored_page = in_array($current_page, $ignored_pages);
 	        
 	    // Check the user is an admin
-	    $is_admin = $this->user_lib->check_role('admin');
+	    $is_admin = $this->ion_auth->is_admin();
 	    
 	    // Login: If not logged in and its not an ignored page, force login
 	    if( ! $this->data->user && ! $is_ignored_page)
@@ -34,7 +34,7 @@ class Admin_Controller extends MY_Controller
 	    }
 	        
 	    // We are looking at the index page. Show it if they have ANY admin access at all
-	    if( $current_page == 'admin/index' && $this->permissions_m->has_admin_access($this->data->user->group_id) )
+	    if( $current_page == 'admin/index' && $this->permissions_m->has_admin_access($this->data->user->group) )
 	    {
 	    	$allow_access = TRUE;
 	    }

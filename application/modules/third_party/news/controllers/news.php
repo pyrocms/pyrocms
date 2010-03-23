@@ -93,7 +93,7 @@ class News extends Public_Controller
 			redirect('news');
 		}
 		
-		if($article->status != 'live' && !$this->user_lib->check_role('admin'))
+		if($article->status != 'live' && !$this->ion_auth->is_admin())
 		{
 			redirect('news');
 		}

@@ -172,7 +172,7 @@ class Permissions_m extends Model {
 
 		return $this->db->insert('groups', array(
         	'title' => $input['title'],
-        	'name' => $input['abbrev']
+        	'name' => $input['name']
 		));
 		
 	}

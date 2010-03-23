@@ -85,7 +85,7 @@
 				
 				<li>{anchor('edit-settings', lang('settings_label'))}</li>
 				
-				{if $ci->user_lib->check_role('admin')}
+				{if $ci->ion_auth->is_admin()}
 					 <li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
 				{/if}
 				</ul>

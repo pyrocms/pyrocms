@@ -9,7 +9,7 @@
 			
 			| <?php echo anchor('edit-settings', lang('settings_label')); ?>
 			
-			<?php if( $this->user_lib->check_role('admin') ): ?>
+			<?php if( $this->ion_auth->is_admin() ): ?>
 				 | <?php echo anchor('admin', lang('cp_title'), 'target="_blank"'); ?>
 			<?php endif; ?>
 			

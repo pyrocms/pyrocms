@@ -21,10 +21,10 @@ class Admin_roles extends Admin_Controller
 	{	
 		$this->load->library('validation');
 		$rules['title'] = 'trim|required|max_length[100]';
-		$rules['abbrev'] = 'trim|required|max_length[50]';
+		$rules['name'] = 'trim|required|max_length[50]';
 		$this->validation->set_rules($rules);
 		
-		$fields['abbrev'] = 'abbreviaion';
+		$fields['name'] = 'name';
 		$this->validation->set_fields($fields);
 		
 		foreach(array_keys($rules) as $field)

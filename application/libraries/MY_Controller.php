@@ -19,8 +19,9 @@ class MY_Controller extends Controller
         // Load the user model and get user data
         $this->load->model('users/users_m');
         $this->load->library('users/user_lib');
+        $this->load->library('users/ion_auth');
         
-        $this->data->user =& $this->user_lib->user_data;
+        $this->data->user = $this->ion_auth->get_user();
         
         // Work out module, controller and method and make them accessable throught the CI instance
         $this->module 				= $this->router->fetch_module();

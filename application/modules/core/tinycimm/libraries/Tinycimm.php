@@ -314,7 +314,7 @@ class TinyCIMM {
 		}
 
 		// check that an admin user is logged in
-		!$this->ci->user_lib->check_role('admin') and die('You dont have permission to access this feature.');
+		!$this->ci->ion_auth->is_admin() and die('You dont have permission to access this feature.');
 	}
 
 	
