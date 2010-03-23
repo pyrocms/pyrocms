@@ -241,7 +241,7 @@ class Asset
 	
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
-		$base_location = $this->CI->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
+		$base_location = config_item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
 		
 		// If they are using a direct path, take them to it
 		if(strpos($asset_name, 'assets/') !== FALSE)
@@ -252,9 +252,9 @@ class Asset
 		// If they have just given a filename, not an asset path, and its in a theme
 		elseif($module_name == '_theme_' && $this->theme != NULL)
 		{
-			$asset_location = $base_location.'themes/'
-							. $this->theme.'/'
-							. $asset_type.'/'.$asset_name;
+			$asset_location = config_item('theme_asset_dir')
+				. $this->theme . '/'
+				. $asset_type.'/'.$asset_name;
 		}
 		
 		// Normal file (that might be in a module)

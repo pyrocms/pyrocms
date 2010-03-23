@@ -24,33 +24,33 @@
 				<?php if (!empty($themes)): ?>
 					<?php foreach ($themes as $theme): ?>
 					<tr>
-						<td align="center"><?php echo form_checkbox('action_to[]', $theme['id']); ?></td>
+						<td align="center"><?php echo form_checkbox('action_to[]', $theme->slug); ?></td>
 						<td>
 							<h4 class="header">
-								<?php if (!empty($theme['website'])): ?>
-									<?php echo anchor($theme['website'], $theme['name'], array('target'=>'_blank')); ?>
+								<?php if (!empty($theme->website)): ?>
+									<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
 								<?php else: ?>
-									<?php echo $theme['name']; ?>
+									<?php echo $theme->name; ?>
 								<?php endif; ?>
 								 by 
-								<?php if ($theme['author_website']): ?>
-									<?php echo anchor($theme['author_website'], $theme['author'], array('target'=>'_blank')); ?>
+								<?php if ($theme->author_website): ?>
+									<?php echo anchor($theme->author_website, $theme->author, array('target'=>'_blank')); ?>
 								<?php else: ?>
-									<?php echo $theme['author']; ?>
+									<?php echo $theme->author; ?>
 								<?php endif; ?>
-								| version <?php echo $theme['version']; ?>
+								| version <?php echo $theme->version; ?>
 							</h4>
 							
 							<div class="screenshot float-left spacer-right">
-							  	<img src="<?php $screenshot = $theme['path'] . '/screenshot.png'; if(file_exists($screenshot)){ echo APPPATH_URI . 'themes/' . $theme['id'] . '/screenshot.png'; } else { echo base_url() . 'application/modules/themes/views/screenshot.png'; } ?>" alt="<?php echo $theme['name'] ?>" width="180" height="140" />
+							  	<img src="<?php echo $theme->screenshot; ?>" alt="<?php echo $theme->name; ?>" width="180" height="140" />
 						  	</div>
 							 
-							<p><?php echo $theme['description']; ?></p>
+							<p><?php echo $theme->description; ?></p>
 						</td>
 						<td>
-							<?php if($this->settings->item('default_theme') != $theme['id']): ?>
-								<?php echo anchor('admin/themes/set_default/' . $theme['id'], lang('themes.make_default'), array('class' => 'ajax')).' | '; ?>
-								<?php echo anchor('admin/themes/delete/' . $theme['id'], lang('themes.delete'), array('class'=>'confirm')); ?>
+							<?php if($this->settings->item('default_theme') != $theme->slug): ?>
+								<?php echo anchor('admin/themes/set_default/' . $theme->slug, lang('themes.make_default')).' | '; ?>
+								<?php echo anchor('admin/themes/delete/' . $theme->slug, lang('themes.delete'), array('class'=>'confirm')); ?>
 							<?php else: ?>
 								<em><?php echo lang('themes.default_theme_label');?></em>
 							<?php endif; ?>
