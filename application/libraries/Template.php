@@ -37,9 +37,10 @@ class Template
 
     private $_title = '';
     private $_metadata = array();
-    
-    private $_partials = array();
-    
+
+	private $_partials = array();
+	private $_injected = array();
+	
     private $_breadcrumbs = array();
 
     private $title_separator = ' | ';
@@ -52,7 +53,7 @@ class Template
 
     private $_ci;
     
-    private $data;
+    private $data = array();
 
     /**
      * Constructor - Calls the CI instance and sets a debug message
@@ -95,10 +96,10 @@ class Template
         }
 
         // Output template variables to the template
-        $template['title']			= $this->_title;
-        $template['breadcrumbs']	= $this->_breadcrumbs;
-        $template['metadata']		= implode("\n\t\t", $this->_metadata);
-    	$template['partials'] 		= array();
+        $template['title']	= $this->_title;
+        $template['breadcrumbs'] = $this->_breadcrumbs;
+        $template['metadata']	= implode("\n\t\t", $this->_metadata);
+    	$template['partials']	= array();
     	
     	// Assign by reference, as all loaded views will need access to partials
         $this->data['template'] =& $template;
@@ -127,7 +128,7 @@ class Template
 			$template['body'] = $this->_body;
 			
 			// If using a theme, use the layout in the theme
-			if( $this->_theme && file_exists(APPPATH . 'themes/'.$this->_theme.'/views/' . $this->_layout.'.php'))
+			if( $this->_theme && file_exists(APPPATH . 'themes/'.$this->_theme.'/views/' . $this->_layout.EXT))
 			{
             	// If directory is set, use it
 				$this->data['theme_view_folder'] = '../themes/'.$this->_theme.'/views/';
@@ -225,7 +226,7 @@ class Template
         $name = htmlspecialchars(strip_tags($name));
         $content = htmlspecialchars(strip_tags($content));
     	
-        // Keywords with no commas? ARG! Commatify them
+        // Keywords with no comments? ARG! comment them
         if($name == 'keywords' && !strpos($content, ','))
         {
         	$content = preg_replace('/[\s]+/', ', ', trim($content));
@@ -248,49 +249,109 @@ class Template
     }
 
 
-    /**
-     * Which theme are we using here?
-     *
-     * @access    public
-     * @param     string	$theme	Set a theme for the template library to use	
-     * @return    void
-     */
-    public function set_theme($theme = '')
-    {
-        $this->_theme = $theme;
-        return $this;
-    }
-
-    
-    /**
-     * Which Template file are we using here?
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    void
-     */
-    public function set_layout($view = '')
-    {
-        $this->_layout = $view;
-        return $this;
-    }
-    
-    
-    public function set_partial( $name, $view, $search = TRUE )
-    {
-    	$this->_partials[$name] = array('view' => $view, 'search' => $search);
-    	return $this;
-    }
+	/**
+	 * Which theme are we using here?
+	 *
+	 * @access	public
+	 * @param	string	$theme	Set a theme for the template library to use
+	 * @return	void
+	 */
+	public function set_theme($theme = '')
+	{
+		$this->_theme = $theme;
+		return $this;
+	}
 
 
-    /**
-     * Helps build custom breadcrumb trails
-     *
-     * @access    public
-     * @param     string	$name		What will appear as the link text
-     * @param     string	$url_ref	The URL segment
-     * @return    void
-     */
+	/**
+	 * Which Template file are we using here?
+	 *
+	 * @access	public
+	 * @param	string	$view
+	 * @return	void
+	 */
+	public function set_layout($view = '')
+	{
+		$this->_layout = $view;
+		return $this;
+	}
+
+	/**
+	 * Set a view partial
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @param	boolean
+	 * @return	void
+	 */
+	public function set_partial( $name, $view, $search = TRUE )
+	{
+		$this->_partials[$name] = array('view' => $view, 'search' => $search);
+		return $this;
+	}
+
+
+	/**
+	 * Returns a partial
+	 *
+	 * Instead of evaluating the partial internally
+	 * this method returns the value of the partial
+	 * in order for you to perform your own logic
+	 * on it, caching for instance.
+	 *
+	 * WARNING: Any variables pushed to the template
+	 * library after this point will NOT be available
+	 * in the specified partial, as it is parsed
+	 * immediately!
+	 *
+	 * @author	Per Sikker Hansen <lord@heavenquake.net>
+	 * @access	public
+	 * @param	string
+	 * @param	boolean
+	 * @return	string
+	 */
+	public function return_partial( $view, $data = array(), $search = TRUE )
+	{
+		$this->data = array_merge($this->data, $data);
+		return $this->_load_view( $view, $search );
+	}
+
+
+	/**
+	 * Inject output data directly
+	 *
+	 * Intended for use with data prepped after
+	 * return_partial(), but possible to use for
+	 * other purposes. Injects the data directly
+	 * into the partial tree.
+	 *
+	 * WARNING: Any variables pushed to the template
+	 * library after the injection will NOT be
+	 * available in the data you have injected as
+	 * the data is already parsed!
+	 *
+	 * @author	Per Sikker Hansen <lord@heavenquake.net>
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	void
+	 */
+	public function inject_partial( $name, $data )
+	{
+		$this->_injected[$name] = $data;
+		return $this;
+	}
+
+
+	/**
+	 * Helps build custom breadcrumb trails
+	 *
+	 * @access	public
+	 * @param	string	$name		What will appear as the link text
+	 * @param	string	$url_ref	The URL segment
+	 * @return	void
+	 */
     public function set_breadcrumb($name, $uri = '')
     {
     	$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
@@ -336,8 +397,16 @@ class Template
     		
     		if( $this->_theme && file_exists( APPPATH . $theme_view . EXT ))
 	    	{
-	    		$this->_ci->load->library('parser');
-	    		return $this->_ci->parser->parse('../'.$theme_view, $this->data, TRUE);
+				if($this->_parser_enabled === TRUE && $parse_view === TRUE)
+				{
+					$this->_ci->load->library('parser');
+					return $this->_ci->parser->parse( '../'.$theme_view, $this->data, TRUE );
+				}
+
+				else
+				{
+					return $this->_ci->load->view( '../'.$theme_view, $this->data, TRUE );
+				}
 	    	}
 
 		    // Nope, just use whatever's in the module
