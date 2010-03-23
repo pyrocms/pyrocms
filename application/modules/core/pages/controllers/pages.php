@@ -102,7 +102,13 @@ class Pages extends Public_Controller
 	    
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
-        	
+
+			->append_metadata('
+				<style type="text/css">
+					' . $page->layout->css . '
+					' . $page->css . '
+				</style>')
+
         	->build('page', $this->data);
     }
     
