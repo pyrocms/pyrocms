@@ -20,10 +20,10 @@ class Settings {
 		unset($_items);
 	}
 	
-	function item($slug = '')
+	function item($slug = '', $use_cache = TRUE)
 	{
 		// Check for previously called settings and return it if found
-		if(in_array($slug, array_keys($this->items)))
+		if($use_cache == TRUE && in_array($slug, array_keys($this->items)))
         {
         	return $this->items[$slug];
         }
