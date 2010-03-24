@@ -23,6 +23,11 @@ class Public_Controller extends MY_Controller
 		// Load the current theme
 		$this->theme = $this->themes_m->get();
 
+		if(!$this->theme)
+		{
+			show_error('This site has been set to use a theme that does not exist. If you are an administrator please ' . anchor('admin/themes', 'change the theme') . '.');
+		}
+
 		// Prepare Asset library
 	    $this->asset->set_theme($this->theme->slug);
 

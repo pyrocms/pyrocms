@@ -24,16 +24,16 @@ class Themes_m extends Model
 		return $this->_themes;
 	}
 	
-	public function get($name = '')
+	public function get($slug = '')
 	{
-		if(!$name)
+		if(!$slug)
 		{
-			$name = $this->_theme;
+			$slug = $this->_theme;
 		}
 
 		foreach($this->template->theme_locations() as $location => $offset)
 		{
-			$theme = $this->_get_details($location.$name);
+			$theme = $this->_get_details($location.$slug);
 
 			if($theme !== FALSE)
 			{
@@ -47,13 +47,13 @@ class Themes_m extends Model
 
 	private function _get_details($theme_path)
 	{
-		$theme_name = basename($theme_path);
+		$slug = basename($theme_path);
 		$location = dirname($theme_path);
 
 		// If it exists already, use it
-		if(!empty($this->_themes[$theme_name]))
+		if(!empty($this->_themes[$slug]))
 		{
-			return $this->_themes[$theme_name];
+			return $this->_themes[$slug];
 		}
 		
 		$xml_file = $theme_path . '/theme.xml';
@@ -64,18 +64,18 @@ class Themes_m extends Model
 			$web_path = $is_core ? APPPATH_URI : BASE_URL.'third_party';
 
 			$xml = simplexml_load_file($xml_file);
-			$this->_themes[$theme_name]->slug				= $theme_name;
-			$this->_themes[$theme_name]->name 			= (string) $xml->name;
-			$this->_themes[$theme_name]->author 			= (string) $xml->author;
-			$this->_themes[$theme_name]->author_website 	= (string) $xml->author_website;
-			$this->_themes[$theme_name]->website 		= (string) $xml->website;
-			$this->_themes[$theme_name]->description 	= (string) $xml->description;
-			$this->_themes[$theme_name]->version 		= (string) $xml->version;
-			$this->_themes[$theme_name]->path 			= $theme_path;
-			$this->_themes[$theme_name]->web_path 			= $web_path;
-			$this->_themes[$theme_name]->screenshot 	=  $web_path . '/themes/' . $theme_name . '/screenshot.png';
+			$this->_themes[$slug]->slug				= $slug;
+			$this->_themes[$slug]->name 			= (string) $xml->name;
+			$this->_themes[$slug]->author 			= (string) $xml->author;
+			$this->_themes[$slug]->author_website 	= (string) $xml->author_website;
+			$this->_themes[$slug]->website 		= (string) $xml->website;
+			$this->_themes[$slug]->description 	= (string) $xml->description;
+			$this->_themes[$slug]->version 		= (string) $xml->version;
+			$this->_themes[$slug]->path 			= $theme_path;
+			$this->_themes[$slug]->web_path 			= $web_path;
+			$this->_themes[$slug]->screenshot 	=  $web_path . '/themes/' . $slug . '/screenshot.png';
 
-			return $this->_themes[$theme_name];
+			return $this->_themes[$slug];
 		}
 
 		return FALSE;
