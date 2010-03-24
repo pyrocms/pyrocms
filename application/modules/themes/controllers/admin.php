@@ -21,7 +21,7 @@ class Admin extends Admin_Controller
 	
 	function set_default($theme_name = "")
 	{	
-		if($this->themes_m->setDefault($theme_name))
+		if($this->themes_m->set_default($theme_name))
 		{
 			$this->session->set_flashdata('success', sprintf( lang('themes.set_default_success'), $theme_name));
 		} 
@@ -50,7 +50,7 @@ class Admin extends Admin_Controller
 				$upload_data = $this->upload->data();
 				
 				// Check if we already have a dir with same name
-				if(file_exists(APPPATH."themes/".$upload_data['raw_name']))
+				if($this->template->theme_exists($upload_data['raw_name']))
 				{
 					$this->session->set_flashdata('error', lang('themes.already_exists_error'));
 				}
@@ -58,10 +58,10 @@ class Admin extends Admin_Controller
 				else
 				{
 					// Now try to unzip
-					$this->_extractZip($upload_data['file_path'], $upload_data['file_name'], APPPATH."assets/themes/", $upload_data['raw_name'] );
+					$this->_extractZip($upload_data['file_path'], $upload_data['file_name'], "third_party/themes/", $upload_data['raw_name'] );
 					
 					// Check if we unziped the file
-					if(!file_exists(APPPATH."themes/".$upload_data['raw_name']))
+					if(! $this->template->theme_exists($upload_data['raw_name']))
 					{
 						$this->session->set_flashdata('error', lang('themes.extract_error'));
 					}
