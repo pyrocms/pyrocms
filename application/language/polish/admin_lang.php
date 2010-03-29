@@ -35,5 +35,6 @@ $lang['delete_installer_message']       = 'Proszę usunąć katalog o nazwie "in
 $lang['cp_sidebar_title'] 				= 'Menu';
 
 $lang['required_label'] 				= 'Wymagane';
+$lang['sb_recent_users'] 				= 'Recent users'; #translate
 
 ?>

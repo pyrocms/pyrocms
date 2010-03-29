@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'template', 'parser', 'settings/settings');
+$autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'template', 'parser', 'settings/settings', 'users/ion_auth');
 
 
 /*
@@ -51,8 +51,11 @@ $autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'templat
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'text', 'language', 'gravatar', 'pages/pages', 'modules/module',
-							'navigation/navigation', 'widgets/widgets', 'themes/theme', 'asset', 'pagination', 'array');
+$autoload['helper'] = array(
+	'url', 'form', 'text', 'language', 'asset', 'pagination', 'array', 'gravatar',
+	'comments/comments', 'pages/pages', 'modules/module', 'navigation/navigation', 'widgets/widgets', 'themes/theme'
+);
+
 
 /*
 | -------------------------------------------------------------------

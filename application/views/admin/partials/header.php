@@ -39,7 +39,7 @@
 		</ul>
 	</li>
 	
-	<li class="<?php echo in_array($this->module, array('themes', 'modules', 'settings', 'permissions')) ? 'selected' : ''; ?> settings" style="float: right;">
+	<li class="<?php echo in_array($this->module, array('themes', 'settings', 'permissions')) ? 'selected' : ''; ?> settings" style="float: right;">
 		<a href="<?php echo site_url('admin/settings'); ?>" class="dropdown">
 			<?php echo lang('cp_nav_settings') ?> <span>&nbsp;</span>
 		</a>

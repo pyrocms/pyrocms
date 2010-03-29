@@ -11,6 +11,7 @@ class Admin extends Admin_Controller
 	{
   		parent::Admin_Controller();
 		$this->load->library('users/user_lib');
+		$this->load->library('users/ion_auth');
 		$this->load->helper('users/user');
  	}
 
@@ -31,43 +32,10 @@ class Admin extends Admin_Controller
 		
 		$this->lang->load('comments/comments');
 		
-		$this->data->recent_users		= $this->users_m->get_recent(5);
-		$this->data->recent_comments	= $this->comments_m->get_recent(5);
+		$this->data->recent_users = $this->users_m->get_recent(5);
 		
-		foreach($this->data->recent_comments as &$comment)
-		{
-			// work out who did the commenting
-			if($comment->user_id > 0)
-			{
-				$comment->name = anchor('admin/users/edit/' . $comment->user_id, $comment->name);
-			}
-			
-			// What did they comment on
-			switch($comment->module)
-			{
-				case 'news':
-					$this->load->model('news/news_m');
-					$article = $this->news_m->get($comment->module_id);
-					$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');
-				break;
-				
-				case 'photos':
-					$this->load->model('photos/photo_albums_m');
-					$album = $this->photo_albums_m->get($comment->module_id);
-					$comment->item = anchor('photos/' . $album->slug, $album->title, 'class="modal-large iframe"');
-				break;
-			
-				default:
-					$comment->item = $comment->module .' #'. $comment->module_id;
-				break;
-			}
-			
-			// Link to the comment
-			if( strlen($comment->comment) > 30 )
-			{
-				$comment->comment = character_limiter($comment->comment, 30);
-			}
-		}
+		$recent_comments = $this->comments_m->get_recent(5);
+		$this->data->recent_comments = process_comment_items($recent_comments);
 		
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');
@@ -95,7 +63,7 @@ class Admin extends Admin_Controller
 	    $this->validation->set_fields();
 	        
 	    // If the validation worked, or the user is already logged in
-	    if ($this->validation->run() or $this->user_lib->logged_in())
+	    if ($this->validation->run() or $this->ion_auth->logged_in())
 	    {
 	    	redirect('admin');
 		}
@@ -106,14 +74,14 @@ class Admin extends Admin_Controller
 	
 	function logout()
 	{
-		$this->user_lib->logout();
+		$this->ion_auth->logout();
 		redirect('admin/login');
 	}	
 	
 	// Callback From: login()
 	function _check_login($email)
 	{		
-   		if ( ! $this->user_lib->login($email, $this->input->post('password')))
+   		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
    		{
 	   		$this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
 	    	return FALSE;

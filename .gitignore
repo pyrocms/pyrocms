@@ -9,3 +9,4 @@ application/cache/twitter/*
 application/assets/img/photos/*/*
 application/uploads/assets/*
 codeigniter/logs/log-*.php
+nbproject/

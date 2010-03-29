@@ -11,5 +11,5 @@ INSERT INTO `news` VALUES
 
 -- command split --
 
-INSERT INTO `permission_roles` VALUES
- (NULL,'Staff','staff');
+INSERT INTO `groups` VALUES
+ (NULL,'Staff','staff',NULL);
