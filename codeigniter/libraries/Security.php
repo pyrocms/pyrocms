@@ -648,11 +648,8 @@ class CI_Security {
 	 */
 	function _decode_entity($match)
 	{
-		// TODO: Security helper get_instance() bug - http://codeigniter.com/bug_tracker/bug/11796/
-		return $match[0];
-		$CI =& get_instance();
-		$CI->load->helper('typography');
-		return entity_decode($match[0], strtoupper($CI->config->item('charset')));
+		require_once(BASEPATH . 'helpers/typography_helper' . EXT);
+		return entity_decode($match[0], strtoupper(config_item('charset')));
 	}
 
 	// --------------------------------------------------------------------
