@@ -3,67 +3,76 @@
 	
 	<div class="box-container">
 	
-		<?php echo form_open('admin/themes/delete');?>
-	
-			<table border="0" class="table-list">
-			  <thead>
-				<tr>
-					<th><?php echo form_checkbox('action_to_all');?></th>
-					<th><?php echo lang('themes.theme_label');?></th>
-					<th class="width-quater"><span><?php echo lang('themes.actions_label');?></span></th>
-				</tr>
-			  </thead>
-			  <tfoot>
-			  	<tr>
-			  		<td colspan="3">
-			  			<div class="inner"></div>
-			  		</td>
-			  	</tr>
-			  </tfoot>  
-				<tbody>	
-				<?php if (!empty($themes)): ?>
-					<?php foreach ($themes as $theme): ?>
-					<tr>
-						<td align="center"><?php echo form_checkbox('action_to[]', $theme->slug); ?></td>
-						<td>
-							<h4 class="header">
-								<?php if (!empty($theme->website)): ?>
-									<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
-								<?php else: ?>
-									<?php echo $theme->name; ?>
-								<?php endif; ?>
-								 by 
-								<?php if ($theme->author_website): ?>
-									<?php echo anchor($theme->author_website, $theme->author, array('target'=>'_blank')); ?>
-								<?php else: ?>
-									<?php echo $theme->author; ?>
-								<?php endif; ?>
-								| version <?php echo $theme->version; ?>
-							</h4>
-							
-							<div class="screenshot float-left spacer-right">
-							  	<img src="<?php echo $theme->screenshot; ?>" alt="<?php echo $theme->name; ?>" width="180" height="140" />
-						  	</div>
-							 
-							<p><?php echo $theme->description; ?></p>
-						</td>
-						<td>
-							<?php if($this->settings->item('default_theme') != $theme->slug): ?>
-								<?php echo anchor('admin/themes/set_default/' . $theme->slug, lang('themes.make_default')).' | '; ?>
-								<?php echo anchor('admin/themes/delete/' . $theme->slug, lang('themes.delete'), array('class'=>'confirm')); ?>
+		<?php echo form_open('admin/themes/set_default');?>
+
+			<style type="text/css">
+				.theme { 
+					background-color:#efefef;
+					-moz-border-radius: 5px;
+					-webkit-border-radius: 5px;
+					cursor: pointer;
+					display:block;
+					float:left;
+					margin:0.5em;
+					padding:0 1em;
+					text-align:center;
+					width:23.1em;
+				}
+				.theme:hover { background-color: lightyellow; }
+				.theme.selected { background-color: #3A4043; color: #fff; }
+				.theme a {color: inherit;}
+			</style>
+
+			<script type="text/javascript">
+				(function($)
+				{
+					$(function() {
+						$('div.theme').click(function(){
+							$('.theme').removeClass('selected');
+							$(this).addClass('selected');
+							$('input[name="theme"]').val( this.id.replace(/^theme-/, '') );
+						});
+					});
+				})(jQuery);
+			</script>
+
+			<?php echo form_hidden('theme', $this->settings->item('default_theme')); ?>
+
+			<?php if(!empty($themes)): ?>
+
+				<?php foreach($themes as $theme): ?>
+
+					<div id="theme-<?php echo $theme->slug; ?>" class="theme <?php echo $this->settings->item('default_theme') == $theme->slug ? 'selected' : ''; ?>">
+						<h4 class="header">
+							<?php if (!empty($theme->website)): ?>
+								<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
 							<?php else: ?>
-								<em><?php echo lang('themes.default_theme_label');?></em>
+								<?php echo $theme->name; ?>
 							<?php endif; ?>
-						</td>
-					</tr>
-					<?php endforeach; ?>
-				<?php else: ?>
-					<tr><td colspan="3"><?php echo lang('themes.no_themes_installed');?></td></tr>
-				<?php endif; ?>
-				</tbody>
-			</table>
+							 by
+							<?php if ($theme->author_website): ?>
+								<?php echo anchor($theme->author_website, $theme->author, array('target'=>'_blank')); ?>
+							<?php else: ?>
+								<?php echo $theme->author; ?>
+							<?php endif; ?>
+						</h4>
+
+						<img src="<?php echo $theme->screenshot; ?>" alt="<?php echo $theme->name; ?>" width="180" height="140" />
+						<p><em>version <?php echo $theme->version; ?></em></p>
+						<p><?php echo $theme->description; ?></p>
+
+					</div>
+
+						<?php echo alternator('', '', '<br class="clear-both" />'); ?>
+				<?php endforeach; ?>
+
+				<br class="clear-both" />
+				
+			<?php else: ?>
+				<p><?php echo lang('themes.no_themes_installed');?></p>
+			<?php endif; ?>
 			
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
 		
 		<?php echo form_close(); ?>
 		

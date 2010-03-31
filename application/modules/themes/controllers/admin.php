@@ -7,8 +7,6 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->model('themes_m');
 		$this->lang->load('themes');
-		
-		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
 	// Admin: List all Themes
@@ -19,16 +17,18 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	function set_default($theme_name = "")
-	{	
-		if($this->themes_m->set_default($theme_name))
+	function set_default()
+	{
+		$theme = $this->input->post('theme');
+		
+		if($this->themes_m->set_default($theme) )
 		{
-			$this->session->set_flashdata('success', sprintf( lang('themes.set_default_success'), $theme_name));
+			$this->session->set_flashdata('success', sprintf( lang('themes.set_default_success'), $theme));
 		} 
 		
 		else
 		{
-			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme_name));
+			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme));
 		}
 			
 		redirect('admin/themes');
