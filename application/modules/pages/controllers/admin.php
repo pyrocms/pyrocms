@@ -5,7 +5,7 @@ class Admin extends Admin_Controller
 	// Validation rules to be used for create and edita
 	private $rules = array(
 	    'title'				=> 'trim|required|max_length[60]',
-	    'slug'				=> 'trim|required|alpha_dash|max_length[60]', // TODO Create new |callback__check_slug',
+	    'slug'				=> 'trim|required|alpha_dot_dash|max_length[60]', // TODO Create new |callback__check_slug',
 	    'body'				=> 'trim|required',
 	    'layout_id'			=> 'trim|numeric|required',
 	    'css'				=> 'trim',
