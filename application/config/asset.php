@@ -12,7 +12,7 @@
 |
 */
 
-$config['asset_dir'] = APPPATH_URI;
+$config['asset_dir'] = APPPATH_URI . 'assets/';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['asset_dir'] = APPPATH_URI;
 |
 */
 
-$config['asset_url'] = config_item('base_url').APPPATH;
+$config['asset_url'] = config_item('base_url').APPPATH . 'assets/';
 
 /*
 |--------------------------------------------------------------------------
