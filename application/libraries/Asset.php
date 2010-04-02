@@ -266,7 +266,7 @@ class Asset
 					if(is_dir($path . $module_name))
 					{
 						// TODO: Fix this fucking mess
-						$asset_location = base_url().str_replace(APPPATH, '', $path).$module_name.'/';
+						$asset_location = base_url() . $path . $module_name.'/';
 						break;
 					}
 				}
