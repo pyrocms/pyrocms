@@ -7,9 +7,9 @@
  */
 class Upgrade extends Controller
 {
-	
+
 	private $versions = array('0.9.8-rc1', '0.9.8-rc2');
-	
+
 	function _remap()
 	{
   		$this->load->database();
@@ -20,7 +20,7 @@ class Upgrade extends Controller
 
 		// What version is the file system running (this is the target version to upgrade to)
   		$file_version = CMS_VERSION;
-		
+
 		// What is the base version of the db, no rc/beta tags.
 		list($base_db_version) = explode('-', $db_version);
 
@@ -53,7 +53,7 @@ class Upgrade extends Controller
 	  		// Find the next version
 	  		$pos = array_search($db_version, $this->versions) + 1;
 	  		$next_version = $this->versions[$pos];
-	  		
+
   			// Run the method to upgrade that specific version
 	  		$function = 'upgrade_' . preg_replace('/[^0-9a-z]/i', '', $next_version);
 
@@ -61,7 +61,7 @@ class Upgrade extends Controller
 	  		{
 	  			show_error('There was an error upgrading to "'.$next_version.'"');
 	  		}
-	  		
+
 	  		$this->settings->set_item('version', $next_version);
 
 			echo "<br/><strong>-- Upgraded to " . $next_version . '--</strong><br/><br/>';
@@ -86,19 +86,19 @@ class Upgrade extends Controller
 		));
 
 		//if the groups tables doesnt exist lets do some magic
-		if ( ! $this->db->table_exists('groups'))
-		{			
+		if ( $this->db->table_exists('groups'))
+		{
 			show_error('The table "groups" already exists.');
 		}
-		
+
 		$this->db->select(array('users.id as user_id, users.first_name, users.last_name, users.lang, profiles.bio, profiles.dob, profiles.gender, profiles.phone, profiles.mobile, profiles.address_line1, profiles.address_line2, profiles.address_line3, profiles.postcode, profiles.msn_handle, profiles.aim_handle, profiles.yim_handle, profiles.gtalk_handle, profiles.gravatar, profiles.updated_on'));
 		$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
 		$profile_result = $this->db->get('users')->result_array();
-			
+
 		//drop the profiles table
 		echo 'Dropping the profiles table.<br/>';
 		$this->dbforge->drop_table('profiles');
-		
+
 		//create the meta table
 		$this->dbforge->add_field('id');
 		$profiles_fields = array(
@@ -210,33 +210,33 @@ class Upgrade extends Controller
 		$this->dbforge->add_field($profiles_fields);
 		echo 'Creating profiles table...<br/>';
 		$this->dbforge->create_table('profiles');
-		
+
 		//insert the profile data
 		foreach ($profile_result as $profile_data) {
 			echo 'Inserting user ' . $profile_data['user_id'] . ' into profiles table...<br/>';
-		
+
 			$this->db->insert('profiles', $profile_data);
 		}
 		echo '<br/>';
-			
+
 			$this->db->select(array('id, role'));
 			$role_user_query = $this->db->get('users');
-			
+
 			$role_user_result = $role_user_query->result_array();
-			
+
 			//update roles to group_id
 			echo 'Converting roles to group_ids<br/>';
 			foreach ($role_user_result as $role) {
 				$role_query = $this->db->select(array('id'))->where('abbrev', $role['role'])->get('permission_roles');
 				$current_role = $role_query->row_array();
-				
+
 				$this->db->where('id', $role['id'])->update('users', array('role' => $current_role['id']));
 			}
-			
+
 			//rename permission_roles table
 			echo 'Renaming permission_roles to groups <br/>';
 			$this->dbforge->rename_table('permission_roles', 'groups');
-			
+
 			//add new groups field
 			echo 'Adding columns to groups table <br />';
 			$this->dbforge->add_column('groups', array(
@@ -246,7 +246,7 @@ class Upgrade extends Controller
 					'null' 		=> TRUE,
 				  ),
 			));
-			
+
 			//rename the groups columns
 			echo 'Renaming the groups columns <br/>';
 			$this->dbforge->modify_column('groups', array(
@@ -256,7 +256,7 @@ class Upgrade extends Controller
 					'constraint' => '100',
 				)
 			));
-			
+
 			//rename the users columns
 			echo 'Renaming the users columns <br/>';
 			$this->dbforge->modify_column('users', array(
@@ -283,10 +283,10 @@ class Upgrade extends Controller
 					'null' 	     => TRUE,
 				)
 			));
-			
+
 			// add new users fields
 			echo 'Adding columns to users table <br/>';
-			
+
 		$this->dbforge->add_column('users', array(
 			'username' => array(
 				'type' 	  	=> 'VARCHAR',
@@ -304,13 +304,16 @@ class Upgrade extends Controller
 				'null' 	  => TRUE
 			)
         ));
-		
+
 		//removing columns from users table
 		echo 'Removing columns from users table <br/>';
 		$this->dbforge->drop_column('users', 'first_name');
 		$this->dbforge->drop_column('users', 'last_name');
-		$this->dbforge->drop_column('users', 'lang');		
+		$this->dbforge->drop_column('users', 'lang');
+
+		$this->ion_auth->logout();
+
+		return TRUE;
 	}
-     
 }
 ?>
