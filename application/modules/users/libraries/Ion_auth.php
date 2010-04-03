@@ -86,18 +86,27 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->ci->load->config('users/ion_auth');
+		$this->ci->load->config('users/ion_auth', TRUE);
 		$this->ci->load->library('email');
-        $this->ci->load->library('session');
-		$this->ci->load->library('language');
+        	$this->ci->load->library('session');
 		$this->ci->lang->load('users/ion_auth');
 		$this->ci->load->model('users/ion_auth_model');
 		$this->ci->load->helper('cookie');
+
+                //CI 2.0 Compatibility
+                if(class_exists('CI_Lang')) 
+                {
+		    $this->ci->load->library('lang');
+                }
+                else
+                {
+                    $this->ci->load->library('language');
+                }
 		
-		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter');
-		$this->message_end_delimiter   = $this->ci->config->item('message_end_delimiter');
-		$this->error_start_delimiter   = $this->ci->config->item('error_start_delimiter');
-		$this->error_end_delimiter     = $this->ci->config->item('error_end_delimiter');
+		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter', 'ion_auth');
+		$this->message_end_delimiter   = $this->ci->config->item('message_end_delimiter', 'ion_auth');
+		$this->error_start_delimiter   = $this->ci->config->item('error_start_delimiter', 'ion_auth');
+		$this->error_end_delimiter     = $this->ci->config->item('error_end_delimiter', 'ion_auth');
 		
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
@@ -179,18 +188,18 @@ class Ion_auth
 			// Get user information
 			$profile = $this->ci->ion_auth_model->profile($email);
 
-			$data = array('identity'                => $profile->{$this->ci->config->item('identity')},
+			$data = array('identity'                => $profile->{$this->ci->config->item('identity', 'ion_auth')},
 						  'forgotten_password_code' => $profile->forgotten_password_code
 						 );
 
-			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password'), $data, true);
+			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
 			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' - Forgotten Password Verification');
+			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
 			
 			if ($this->ci->email->send())
@@ -219,8 +228,8 @@ class Ion_auth
 	 **/
 	public function forgotten_password_complete($code)
 	{
-	    $identity     = $this->ci->config->item('identity');
-	    $profile      = $this->ci->ion_auth_model->profile($code, TRUE);
+	    $identity     = $this->ci->config->item('identity', 'ion_auth');
+	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code);
 
 		if ($new_password) 
@@ -230,15 +239,15 @@ class Ion_auth
 				'new_password' => $new_password
 			);
             
-			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
+			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
 				
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
 			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' - New Password');
+			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - New Password');
 			$this->ci->email->message($message);
 
 			if ($this->ci->email->send())
@@ -267,7 +276,7 @@ class Ion_auth
 	 **/
 	public function register($username, $password, $email, $additional_data, $group_name = false) //need to test email activation
 	{
-	    $email_activation = $this->ci->config->item('email_activation');
+	    $email_activation = $this->ci->config->item('email_activation', 'ion_auth');
 
 		if (!$email_activation)
 		{
@@ -301,7 +310,7 @@ class Ion_auth
 			}
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
-			$identity        = $this->ci->config->item('identity');
+			$identity        = $this->ci->config->item('identity', 'ion_auth');
 	    	$user            = $this->ci->ion_auth_model->get_user($id)->row();
 
 			$data = array('identity'   => $user->{$identity},
@@ -310,15 +319,15 @@ class Ion_auth
         				  'activation' => $activation_code,
 						 );
             
-			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_activate'), $data, true);
+			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
             
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
 			$this->ci->email->to($email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' - Account Activation');
+			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Account Activation');
 			$this->ci->email->message($message);
 			
 			if ($this->ci->email->send() == TRUE) 
@@ -362,7 +371,7 @@ class Ion_auth
 	 **/
 	public function logout()
 	{
-	    $identity = $this->ci->config->item('identity');
+	    $identity = $this->ci->config->item('identity', 'ion_auth');
 	    $this->ci->session->unset_userdata($identity);
 	    $this->ci->session->unset_userdata('group');
 	    $this->ci->session->unset_userdata('id');
@@ -392,7 +401,7 @@ class Ion_auth
 	 **/
 	public function logged_in()
 	{
-	    $identity = $this->ci->config->item('identity');
+	    $identity = $this->ci->config->item('identity', 'ion_auth');
 	    
 		return (bool) $this->ci->session->userdata($identity);
 	}
@@ -405,7 +414,7 @@ class Ion_auth
 	 **/
 	public function is_admin()
 	{
-	    $admin_group = $this->ci->config->item('admin_group');
+	    $admin_group = $this->ci->config->item('admin_group', 'ion_auth');
 	    $user_group  = $this->ci->session->userdata('group');
 	    
 	    return $user_group == $admin_group;
@@ -438,10 +447,10 @@ class Ion_auth
 	 **/
 	public function profile()
 	{
-	    $session  = $this->ci->config->item('identity');
+	    $session  = $this->ci->config->item('identity', 'ion_auth');
 	    $identity = $this->ci->session->userdata($session);
 	    
-	    return $this->ci->ion_auth_model->profile($identity);
+	    return $this->ci->ion_auth_model->profile($identity);strlen
 	}
 	
 	/**
@@ -600,7 +609,7 @@ class Ion_auth
 
 	
 	/**
-	 * update_user
+	 * delete_user
 	 *
 	 * @return void
 	 * @author Phil Sturgeon
@@ -758,7 +767,6 @@ class Ion_auth
 		$_output = '';
 		foreach ($this->errors as $error) 
 		{
-			
 			$_output .= $this->error_start_delimiter . $this->ci->lang->line($error) . $this->error_end_delimiter;
 		}
 		
