@@ -259,7 +259,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-	    $query = $this->db->select('password')
+	    $query = $this->db->select('password, salt')
 						  ->where($this->identity_column, $identity)
 						  ->where($this->ion_auth->_extra_where)
 						  ->limit(1)
@@ -269,7 +269,7 @@ class Ion_auth_model extends CI_Model
 
 	    $db_password = $result->password; 
 	    $old         = $this->hash_password_db($identity, $old);
-	    $new         = $this->hash_password($new);
+	    $new         = $this->hash_password($new, $result->salt);
 
 	    if ($db_password === $old)
 	    {
@@ -625,6 +625,7 @@ class Ion_auth_model extends CI_Model
 	    	$this->tables['users'].'.activation_code',
 	    	$this->tables['users'].'.forgotten_password_code',
 	    	$this->tables['users'].'.ip_address',
+	    	$this->tables['users'].'.salt',
 	    	$this->tables['users'].'.active',
 	    	$this->tables['users'].'.group_id',
 	    	$this->tables['groups'].'.name AS `group`',
@@ -760,6 +761,8 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function update_user($id, $data)
 	{
+		$user = $this->get_user($id)->row();
+			
 	    $this->db->trans_begin();
 		
 	    if (!empty($this->columns))
@@ -783,7 +786,7 @@ class Ion_auth_model extends CI_Model
         {
 	        if (array_key_exists('password', $data))
 			{
-			    $data['password'] = $this->hash_password($data['password']);
+			    $data['password'] = $this->hash_password($data['password'], $user->salt);
 			}
 	
 			$this->db->where($this->ion_auth->_extra_where);
