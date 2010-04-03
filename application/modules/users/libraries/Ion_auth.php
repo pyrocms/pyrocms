@@ -450,7 +450,7 @@ class Ion_auth
 	    $session  = $this->ci->config->item('identity', 'ion_auth');
 	    $identity = $this->ci->session->userdata($session);
 	    
-	    return $this->ci->ion_auth_model->profile($identity);strlen
+	    return $this->ci->ion_auth_model->profile($identity);
 	}
 	
 	/**
