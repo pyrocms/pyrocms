@@ -626,6 +626,7 @@ class Ion_auth_model extends CI_Model
 	    	$this->tables['users'].'.forgotten_password_code',
 	    	$this->tables['users'].'.ip_address',
 	    	$this->tables['users'].'.active',
+	    	$this->tables['users'].'.group_id',
 	    	$this->tables['groups'].'.name AS `group`',
 	    	$this->tables['groups'].'.description AS group_description'
 	    ));

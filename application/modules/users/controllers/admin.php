@@ -8,7 +8,7 @@ class Admin extends Admin_Controller
 		'password'			=>	"min_length[6]|max_length[20]", // will be required when adding1
 		'confirm_password'	=>	"matches[password]",
 		'email'				=>	"required|valid_email",
-		'group'			=>	"required",
+		'group_id'			=>	"required",
 		'active'			=>	"",
 	);
 	
@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('user');
 		
         $this->data->roles = $this->permissions_m->get_roles();
-        $this->data->roles_select = array_for_select($this->data->roles, 'name', 'title');
+        $this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');
         
 		// Sidebar data
 		$this->data->inactive_user_count = $this->users_m->count_by('active', 0);
@@ -152,7 +152,7 @@ class Admin extends Admin_Controller
 			$update_data['active'] = $this->input->post('active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('group')) $update_data['group'] = $this->input->post('group');
+			if($this->input->post('group_id')) $update_data['group_id'] = $this->input->post('group_id');
 			
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )
