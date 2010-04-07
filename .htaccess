@@ -3,6 +3,9 @@
 	#AllowOverride All
 	Options +FollowSymLinks
 	RewriteEngine on
+
+	# Keep people out of codeigniter directory and Git data
+	RedirectMatch 403 /(codeigniter|\.git).*$
 	
 	# Redirects direct controller views to the right URL
 	# Not so much for security, done for Coda previews
@@ -16,9 +19,6 @@
 </IfModule>
 
 <IfModule !mod_rewrite.c>
-    # If we don't have mod_rewrite installed, all 404's
-    # can be sent to index.php, and everything works as normal.
-    # Submitted by: ElliotHaughin
-
+    # If we don't have mod_rewrite installed, all 404's can be sent to index.php.
     ErrorDocument 404 /index.php
 </IfModule>
