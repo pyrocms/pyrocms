@@ -45,7 +45,7 @@ class Users extends Public_Controller
 	
 	function logout()
 	{
-		$this->user_lib->logout();
+		$this->ion_auth->logout();
 		$this->session->set_flashdata('success', $this->lang->line('user_logged_out'));
 		redirect('');
 	}
