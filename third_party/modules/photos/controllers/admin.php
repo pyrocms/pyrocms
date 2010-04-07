@@ -68,8 +68,9 @@ class Admin extends Admin_Controller
 		{
 			$this->data->albums[$album->parent][] = $album;
 		}
-			
-		$this->load->library('form_validation', $this->validation_rules);
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->validation_rules);
 		
 		foreach($this->validation_rules as $rule)
 		{
@@ -117,7 +118,8 @@ class Admin extends Admin_Controller
 		}
 		
 		// Set validation
-		$this->load->library('form_validation', $this->validation_rules);
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->validation_rules);
 		
 		foreach($this->validation_rules as $rule)
 		{
