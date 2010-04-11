@@ -1,6 +1,6 @@
 <p>
 	{foreach navigation('footer') link}
-		<span class="link">{anchor( $link->url, $link->title, array('target' => $link->target))}</span>
+		<span class="link">{anchor( $link->url, $link->title, cat('target="', $link->target, '"'))}</span>
 	{/foreach}
 
 	<br />

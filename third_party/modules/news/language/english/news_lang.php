@@ -1,12 +1,12 @@
 <?php
 
 // labels
-$lang['news_posted_label'] 							= 'Posted in'; // #translate
-$lang['news_posted_label_alt']						= 'Posted at'; // #translate
+$lang['news_posted_label'] 							= 'Posted'; 
+$lang['news_posted_label_alt']						= 'Posted at'; 
 $lang['news_category_label'] 						= 'Category';
 $lang['news_post_label'] 							= 'Post';
 $lang['news_date_label'] 							= 'Date';
-$lang['news_date_at']								= 'at'; // #translate
+$lang['news_date_at']								= 'at'; 
 $lang['news_time_label'] 							= 'Time';
 $lang['news_status_label'] 							= 'Status';
 $lang['news_draft_label'] 							= 'Draft';
