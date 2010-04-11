@@ -73,6 +73,10 @@ class Upgrade extends Controller
  	// Upgrade
  	function upgrade_098rc2()
 	{
+		echo 'Moving existing "photo" comments to photo-album comments.<br/>';
+		$this->db->where('module', 'photos');
+		$this->db->update('comments', array('module' => 'photos-album'));
+
 		// Create a "unsorted" widget area
 		echo 'Adding unsorted widget area.<br/>';
 		$this->db->insert('widget_areas', array('slug' => 'unsorted', 'title' => 'Unsorted'));
