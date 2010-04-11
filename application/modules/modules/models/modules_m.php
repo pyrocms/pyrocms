@@ -1,14 +1,33 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modules model
+ * 
+ * @author 		Phil Sturgeon and Yorick Peterse - PyroCMS Development Team
+ * @package 	PyroCMS
+ * @subpackage 	Modules
+ * @category	Modules
+ * @since 		v0.9.7
+ */
 class Modules_m extends Model {
 
-    function __construct() {
-        parent::Model();
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+    public function __construct() {
+        parent::__construct();
         $this->load->helper('modules/module');
     }
-    
-    // Return an object containing module data
-    function get($module = '')
+
+	/**
+	 * Return an object containing module data
+	 * 
+	 * @access public
+	 * @param string module The name of the module to load
+	 * @return object
+	 */
+    public function get($module = '')
     {
     	foreach (module_directories() as $directory)
     	{
@@ -18,10 +37,26 @@ class Modules_m extends Model {
 			}
 		}
     }
-    
-    
-    // Return an array of objects containing module data
-    function getModules($params = array())
+
+	/**
+	 * Mirror of get_modules() in order to preserve compatibility for old code
+	 * @access public
+	 * @param array params The array containing the modules to load
+	 * @return array
+	 * @deprecated v0.9.8
+	 */
+	public function getModules($params = array())
+	{
+		return $this->get_modules($params);
+	}
+
+	/**
+	 * Return an array of objects containing module related data
+	 * @access public
+	 * @param array params The array containing the modules to load
+	 * @return array
+	 */
+    public function get_modules($params = array())
     {
     	$modules = array();
     	
@@ -64,7 +99,12 @@ class Modules_m extends Model {
         return $modules;
     }
     
-    
+    /**
+     * Gets the controller of the specified module
+	 * @access public
+	 * @param string module The name of the module
+	 * @return array
+     */
     function get_module_controllers($module = '')
     {
     	$controllers = array();
@@ -82,15 +122,25 @@ class Modules_m extends Model {
         return $controllers;
     }
     
-    
-    function get_module_controller_methods($module, $controller)
+    /**
+     * Get the methods of the specified module/controller combination
+	 * @access public
+	 * @return mixed
+	 * 
+     */
+    public function get_module_controller_methods($module, $controller)
     {
     	$module = $this->get($module);
     	
 		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();    	
     }
     
-    
+    /**
+     * Format the XML 
+	 * @access private
+	 * @param string $xml_file The XML file to load
+	 * @return array
+     */
     private function _format_xml($xml_file)
     {
     	$xml = simplexml_load_file($xml_file);

@@ -14,7 +14,7 @@
 	
 			<ol>
 				<li class="even">
-					<label for="title"><?php echo lang('nav_text_label');?></label>
+					<label for="title"><?php echo lang('nav_title_label');?></label>
 					<?php echo form_input('title', $navigation_link->title, 'maxlength="50"'); ?>
 				</li>
 					

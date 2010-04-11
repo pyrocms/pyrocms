@@ -2,6 +2,8 @@
 
 class Categories_m extends MY_Model
 {
+	
+	// Insert a new category
 	function insert($input = array())
     {
     	$this->db->insert('categories', array(
@@ -12,6 +14,7 @@ class Categories_m extends MY_Model
         return $input['title'];
     }
     
+	// Update an existing category
     function update($id, $input) {
             
 		$this->db->update('categories', array(
@@ -21,7 +24,7 @@ class Categories_m extends MY_Model
             
 		return TRUE;
     }
-    
+
     // Callbacks
     function check_title($title = '')
     {

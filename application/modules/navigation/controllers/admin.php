@@ -1,29 +1,45 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @package 		PyroCMS
- * @subpackage 		Navigation Module
- * @author			Phil Sturgeon - PyroCMS Development Team
- * 
  * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
+ *
+ * @package 		PyroCMS
+ * @subpackage 		Navigation module
+ * @category		Modules
+ * @author			Phil Sturgeon - PyroCMS Development Team
+ *
  */
 class Admin extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * The array containing the rules for the navigation items
+	 * @var array
+	 * @access private
+	 */
+	private $validation_rules 	= array();
+	
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
-		parent::Admin_Controller();
+		// Call the parent's contstructor
+		parent::__construct();
+		
+		// Load the required classes
+		$this->load->library('form_validation');
 		$this->load->model('navigation_m');
 		$this->load->model('pages/pages_m');
-		$this->load->helper('array');
 		$this->lang->load('navigation');
 		
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
-
 	    $this->template->append_metadata( js('navigation.js', 'navigation') );
 		
 		// Get Navigation Groups
-		$this->data->groups = $this->navigation_m->get_groups();
-		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'title');				
-		$modules = $this->modules_m->getModules(array('is_frontend'=>true));
+		$this->data->groups 		= $this->navigation_m->get_groups();
+		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');				
+		$modules 					= $this->modules_m->getModules(array('is_frontend'=>true));
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');				
 		
 		// Get Pages and create pages tree
@@ -39,10 +55,60 @@ class Admin extends Admin_Controller
 	
 		unset($pages);
 		$this->data->pages_select = $tree;
+		
+		// Set the validation rules for the navigation items
+		$this->validation_rules = array(
+			array(
+				'field' => 'title',
+				'label'	=> lang('nav_title_label'),
+				'rules'	=> 'trim|required|max_length[40]'
+			),
+			array(
+				'field' => 'link_type',
+				'label'	=> lang('nav_type_label'),
+				'rules'	=> 'trim|alpha'
+			),
+			array(
+				'field' => 'url',
+				'label'	=> lang('nav_url_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'uri',
+				'label'	=> lang('nav_uri_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'module_name',
+				'label'	=> lang('nav_module_label'),
+				'rules'	=> 'trim|alpha_dash'
+			),
+			array(
+				'field' => 'page_id',
+				'label'	=> lang('nav_page_label'),
+				'rules'	=> 'trim|numeric'
+			),
+			array(
+				'field' => 'navigation_group_id',
+				'label'	=> lang('nav_group_label'),
+				'rules'	=> 'trim|numeric|required'
+			),
+			array(
+				'field' => 'target',
+				'label'	=> lang('nav_target_label'),
+				'rules'	=> 'trim|max_length[10]'
+			),
+		);
+		
+		$this->form_validation->set_rules($this->validation_rules);
 	}
 	
-	// Admin: List all Pages
-	function index()
+	/**
+	 * List all navigation elements
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		// Go through all the groups 
 		foreach($this->data->groups as $group)
@@ -55,110 +121,102 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	// Admin: Create a new Page
-	function create()
-	{
-		$this->load->library('validation');
-		
-		$rules['title'] 				= 'trim|required|max_length[40]';
-		$rules['link_type']				= 'trim|alpha';
-		$rules['url'] 					= 'trim';
-		$rules['uri'] 					= 'trim';
-		$rules['module_name'] 			= 'trim|alpha_dash';
-		$rules['page_id'] 				= 'trim|numeric';
-		$rules['navigation_group_id'] 	= 'trim|numeric|required';
-		$rules['target']				= 'trim|max_length[10]';
-		
-		$this->validation->set_rules($rules);
-		
-		$fields['module_name'] 			= 'Module';
-		$fields['page_id'] 				= 'Page';
-		$fields['navigation_group_id'] 	= 'Group';
-		
-		$this->validation->set_fields($fields);
-		
-		if ($this->validation->run())
+	/**
+	 * Create a new navigation item
+	 * @access public
+	 * @return void
+	 */
+	public function create()
+	{				
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
 		{
+			$navigation_link->{$rule['field']} = set_value($rule['field']);
+		}		
+		
+		// Run if valid
+		if ($this->form_validation->run())
+		{
+			// Got post?
 			if ($this->navigation_m->insert_link($_POST) > 0)
 			{
 				$this->cache->delete_all('navigation_m');
-				$this->session->set_flashdata('success', $this->lang->line('nav_link_add_success'));
+				$this->session->set_flashdata('success', lang('nav_link_add_success'));
 			}            
 			else 
 			{
-				$this->session->set_flashdata('error', $this->lang->line('nav_link_add_error'));
+				$this->session->set_flashdata('error', lang('nav_link_add_error'));
 			}
 			
+			// Redirect
 			redirect('admin/navigation');
 		}
 		
-		foreach(array_keys($rules) as $field)
-		{
-			$this->data->navigation_link->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-		}
-		
+		// Render the view
+		$this->data->navigation_link =& $navigation_link;		
 		$this->template->build('admin/links/form', $this->data);
 	}
 	
-	// Admin: Edit a Page
-	function edit($id = 0)
+	/**
+	 * Edit a navigation item
+	 * @access public
+	 * @param int $id The ID of the navigation item
+	 * @return void
+	 */
+	public function edit($id = 0)
 	{
+		// Got ID?
 		if (empty($id))
 		{
 			redirect('admin/navigation');
 		}
 		
-		$this->data->navigation_link = $this->navigation_m->get_link( $id );
-		if (!$this->data->navigation_link) 
+		// Get the navigation item based on the ID
+		$navigation_link = $this->navigation_m->get_link($id);
+		
+		if (!$navigation_link) 
 		{
 			$this->session->set_flashdata('error', $this->lang->line('nav_link_not_exist_error'));
 			redirect('admin/navigation/create');
 		}
 		
-		$this->load->library('validation');
-		
-		$rules['title'] 				= 'trim|required|max_length[40]';
-		$rules['link_type']				= 'trim|alpha';
-		$rules['url'] 					= 'trim';
-		$rules['uri'] 					= 'trim';
-		$rules['module_name'] 			= 'trim|alpha_dash';
-		$rules['page_id'] 				= 'trim|numeric';
-		$rules['navigation_group_id'] 	= 'trim|numeric|required';
-		$rules['target']				= 'trim|max_length[10]';
-		
-		$this->validation->set_rules($rules);
-		
-		$fields['module_name'] 			= 'Module';
-		$fields['page_id'] 				= 'Page';
-		$fields['navigation_group_id'] 	= 'Group';
-		
-		$this->validation->set_fields($fields);
-		
-		if ($this->validation->run())
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
 		{
-			$this->navigation_m->update_link($id, $_POST);
-			$this->cache->delete_all('navigation_m');
-					
-			$this->session->set_flashdata('success', $this->lang->line('nav_link_edit_success'));
-			redirect('admin/navigation');
-		}
-		
-		foreach(array_keys($rules) as $field)
-		{
-			if(isset($_POST[$field]))
+			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$this->data->navigation_link->$field = $this->validation->$field;
+				$navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
 		
+		// Valid data?
+		if ($this->form_validation->run())
+		{
+			// Update the link and flush the cache
+			$this->navigation_m->update_link($id, $_POST);
+			$this->cache->delete_all('navigation_m');
+					
+			// Notify and redirect
+			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
+			redirect('admin/navigation');
+		}
+		
+		// Render the view
+		$this->data->navigation_link =& $navigation_link;		
 		$this->template->build('admin/links/form', $this->data);
 	}
 	
-	// Admin: Delete Pages
-	function delete($id = 0)
+	/**
+	 * Delete an existing navigation link
+	 * @access public
+	 * @param int $id The ID of the navigation link
+	 * @return void
+	 */
+	public function delete($id = 0)
 	{
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 		
+		// Loop through each item to delete
 		if(!empty($id_array))
 		{
 			foreach ($id_array as $id)
@@ -166,25 +224,33 @@ class Admin extends Admin_Controller
 				$this->navigation_m->delete_link($id);
 			}
 		}
-		
+		// Flush the cache and redirect
 		$this->cache->delete_all('navigation_m');
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation');
 	}
 	
+	/**
+	 * Update the position of the navigation link
+	 * @access public
+	 * @return void
+	 */
 	function ajax_update_positions()
 	{
+		// Create an array containing the IDs
 		$ids = explode(',', $this->input->post('order'));
 		
+		// Counter variable
 		$i = 1;
 		
 		foreach($ids as $id)
 		{
+			// Update the position
 			$this->navigation_m->update_link_position($id, $i);
-			
 			++$i;
 		}
 		
+		// Flush the cache
 		$this->cache->delete_all('navigation_m');
 	}
 }

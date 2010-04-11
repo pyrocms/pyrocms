@@ -10,12 +10,12 @@
 				<ol>
 					<li class="even">
 						<label for="title"><?php echo lang('nav_title_label');?></label>
-						<?php echo form_input('title', $this->validation->title, 'class="text"'); ?>
+						<?php echo form_input('title', $navigation_group->title, 'class="text"'); ?>
 					</li>
 				
 					<li>
 						<label for="url"><?php echo lang('nav_abbrev_label');?></label>
-						<?php echo form_input('abbrev', $this->validation->abbrev, 'class="text"'); ?>
+						<?php echo form_input('abbrev', $navigation_group->abbrev, 'class="text"'); ?>
 					</li>
 				</ol>
 			</fieldset>
