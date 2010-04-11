@@ -15,6 +15,4 @@ if( $this->settings->item('enable_social_bookmarks'))
 }		
 ?>
 
-<div class="comments">
-	<?php echo $this->load->view('comments/comments', array('module' => $this->module, 'module_id' => $article->id)); ?>	
-</div>
+<?php echo display_comments($article->id); ?>
