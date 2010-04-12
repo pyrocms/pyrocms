@@ -56,7 +56,12 @@ class Asset
 	{
 		$attribute_str = $this->_parse_asset_html($attributes);
 
-		return '<link href="'.$this->css_path($asset_name, $module_name).'" rel="stylesheet" type="text/css"'.$attribute_str.' />'."\n";
+		if(!preg_match('/rel="([^\"]+)"/', $attribute_str))
+		{
+			$attribute_str .= ' rel="stylesheet"';
+		}
+
+		return '<link href="'.$this->css_path($asset_name, $module_name).'" type="text/css"'.$attribute_str.' />'."\n";
 	}
 	
 	// ------------------------------------------------------------------------
@@ -248,7 +253,7 @@ class Asset
 		// If they have just given a filename, not an asset path, and its in a theme
 		elseif($module_name == '_theme_' && $this->theme != NULL)
 		{
-			$asset_location = config_item('theme_asset_dir')
+			$asset_location = base_url() . config_item('theme_asset_dir')
 				. $this->theme . '/'
 				. $asset_type.'/'.$asset_name;
 		}
@@ -292,8 +297,13 @@ class Asset
 	private function _parse_asset_html($attributes = NULL)
 	{
 		$attribute_str = '';
-			
-		if(is_array($attributes))
+
+		if(is_string($attributes))
+		{
+			$attribute_str = $attributes;
+		}
+		
+		else if(is_array($attributes) || is_object($attributes))
 		{
 			foreach($attributes as $key => $value)
 			{
