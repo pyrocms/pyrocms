@@ -12,7 +12,9 @@
 			</p>			
 			<hr/>
 		<?php endforeach; ?>		
-		<p><?php echo $pagination['links']; ?></p>		
+		
+		<?php echo $pagination['links']; ?>
+		
 	<?php else: ?>
 		<p><?php echo lang('news_currently_no_articles');?></p>
 	<?php endif; ?>

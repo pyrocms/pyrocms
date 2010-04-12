@@ -34,6 +34,8 @@
 	
 	<br class="clear-both" />
 
+	<?php echo $pagination['links']; ?>
+
 	<?php echo display_comments($photo->id, 'photos-album'); ?>
 		
 <?php else: ?>
