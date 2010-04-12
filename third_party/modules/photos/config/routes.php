@@ -20,6 +20,9 @@
 |	http://www.codeigniter.com/user_guide/general/routing.html
 */
 
-$route['photos/([a-zA-Z0-9._-]+)'] = "photos/album/$1";
+$route['photos/view/:any/(:num)'] = 'photos/view/$1';
+
+$route['photos/(:any)'] = 'photos/album/$1';
+$route['photos/(:any)/(:num)'] = 'photos/album/$1/$2';
 
 ?>

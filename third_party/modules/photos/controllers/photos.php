@@ -30,7 +30,14 @@ class Photos extends Public_Controller
 
 		$album->children = $this->photo_albums_m->get_many_by('parent', $album->id);
 
-		$this->data->photos = $this->photos_m->get_many_by('album_id', $album->id);
+		$this->data->pagination = create_pagination(
+			'photos/' . $slug,
+			$this->photos_m->count_by('album_id', $album->id),
+			$this->settings->item('records_per_page'),
+			3
+		);
+		
+		$this->data->photos = $this->photos_m->limit($this->data->pagination['limit'])->get_many_by('album_id', $album->id);
 		$this->data->album =& $album;
 
 		$this->template
@@ -39,14 +46,14 @@ class Photos extends Public_Controller
 	}
 
 	// Public: View a photo
-	function view($album_slug = '', $photo_id = 0)
+	function view($photo_id = 0)
 	{
-		if( !$album = $this->photo_albums_m->get_by('slug', $album_slug))
-		{
-			show_404();
-		}
+		$photo = $this->photos_m->get($photo_id);
+		$album = $this->photo_albums_m->get($photo->album_id);
 
-		$this->data->photo = $this->photos_m->get($photo_id);
+		($album && $photo) || show_404();
+
+		$this->data->photo =& $photo;
 		$this->data->album =& $album;
 
 		$this->template
