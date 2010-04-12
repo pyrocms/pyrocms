@@ -8,17 +8,17 @@
   * @version	1.0
   *****/
 
-function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4) {
+function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
+{
+	$ci =& get_instance();
+	$ci->load->library('pagination');
 
-	$CI =& get_instance();
-	$CI->load->library('pagination');
-
-	$current_page = $CI->uri->segment($uri_segment, 0);
+	$current_page = $ci->uri->segment($uri_segment, 0);
 
 	// Initialize pagination
-    $config['base_url'] = site_url().$uri.'/';
+    $config['base_url'] = base_url().$uri.'/';
 	$config['total_rows'] = $total_rows; // count all records
-	$config['per_page'] = $limit === NULL ? $CI->settings->item('records_per_page') : $limit;
+	$config['per_page'] = $limit === NULL ? $ci->settings->item('records_per_page') : $limit;
 	$config['uri_segment'] = $uri_segment;
 	$config['page_query_string'] = FALSE;
 
@@ -49,13 +49,13 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4) {
 	$config['last_tag_open'] = '<span class="next">';
 	$config['last_tag_close'] = '</span>';
 
-	$CI->pagination->initialize($config); // initialize pagination
+	$ci->pagination->initialize($config); // initialize pagination
 
 	return array(
 		'current_page' 	=> $current_page,
 		'per_page' 		=> $config['per_page'],
 		'limit'			=> array($config['per_page'], $current_page),
-		'links' 		=> $CI->pagination->create_links()
+		'links' 		=> $ci->pagination->create_links()
 	);
 }
 
