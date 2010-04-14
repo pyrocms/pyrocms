@@ -1,46 +1,118 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Pages controller
+ * 
+ * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Pages module
+ * @category	Modules
+ */
 class Admin extends Admin_Controller
 {
-	// Validation rules to be used for create and edita
-	private $rules = array(
-	    'title'				=> 'trim|required|max_length[60]',
-	    'slug'				=> 'trim|required|alpha_dot_dash|max_length[60]', // TODO Create new |callback__check_slug',
-	    'body'				=> 'trim|required',
-	    'layout_id'			=> 'trim|numeric|required',
-	    'css'				=> 'trim',
-	    'meta_title'		=> 'trim|max_length[255]',
-	    'meta_keywords'		=> 'trim|max_length[255]',
-	    'meta_description'	=> 'trim',
-	    'rss_enabled'		=> 'trim|numeric',
-		'status'			=> 'trim|alpha|required'
-	);
+	/**
+	 * Array containing the validation rules
+	 * @access private
+	 * @var array
+	 */
+	private $validation_rules = array();
 	
-	// Used to pass page id to edit validation callback
+	/**
+	 * The ID of the page, used for the validation callback
+	 * @access private
+	 * @var int
+	 */
 	private $page_id;
 	
-	function __construct()
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent's constructor
 		parent::Admin_Controller();
 		
+		// Load the required classes
+		$this->load->library('form_validation');
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
+		$this->load->helper(array('array', 'pages'));
 		
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
+	
+		// Large array is large
+		$this->validation_rules = array(
+			array(
+				'field' => 'title',
+				'label'	=> lang('pages.title_label'),
+				'rules'	=> 'trim|required|max_length[60]'
+			),
+			array(
+				'field' => 'slug',
+				'label'	=> lang('pages.slug_label'),
+				'rules'	=> 'trim|required|alpha_dot_dash|max_length[60]'
+			),
+			array(
+				'field' => 'body',
+				'label'	=> lang('pages.body_label'),
+				'rules' => 'trim|required'
+			),
+			array(
+				'field' => 'layout_id',
+				'label'	=> lang('pages.layout_id_label'),
+				'rules'	=> 'trim|numeric|required'
+			),
+			array(
+				'field'	=> 'css',
+				'label'	=> lang('pages.css_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'meta_title',
+				'label' => lang('pages.meta_title_label'),
+				'rules' => 'trim|max_length[255]'
+			),
+			array(
+				'field'	=> 'meta_keywords',
+				'label' => lang('pages.meta_keywords_label'),
+				'rules' => 'trim|max_length[255]'
+			),
+			array(
+				'field'	=> 'meta_description',
+				'label'	=> lang('pages.meta_description_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'rss_enabled',
+				'label'	=> lang('pages.rss_enabled_label'),
+				'rules'	=> 'trim|numeric'
+			),
+			array(
+				'field'	=> 'status',
+				'label'	=> lang('pages.status_label'),
+				'rules'	=> 'trim|alpha|required'
+			),
+		);
 		
-		$this->load->helper(array('array', 'pages'));
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
 	}
 
 
-	// Admin: List all Pages
-	function index()
+	/**
+	 * Index methods, lists all pages
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
-		// get list of open parent pages from cookie
+		// Get list of open parent pages from cookie
 		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
 
-		// get the page tree
+		// Get the page tree
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
 		
 		$this->template->append_metadata( css('jquery/jquery.treeview.css') )
@@ -48,35 +120,54 @@ class Admin extends Admin_Controller
 			->append_metadata( js('index.js', 'pages') )
 			->append_metadata( css('index.css', 'pages') );
 
+		// Render the view
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	function ajax_fetch_children($parent_id)
+	/**
+	 * Fetch the children using Ajax
+	 * @access public
+	 * @param int $parent_id The ID of the parent page
+	 * @return void 
+	 */
+	public function ajax_fetch_children($parent_id)
 	{
 		// get list of open parent pages from cookie
-		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
-
-		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
+		$open_parent_pages 	= isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
+		$pages 				= $this->pages_m->get_many_by('parent_id', $parent_id);
 	
 		foreach($pages as &$page)
 		{
 			$page->has_children = $this->pages_m->has_children($page->id);
 		}
 		
-		$this->data->open_parent_pages = $open_parent_pages;
-		$this->data->controller =& $this;
-		$this->data->pages =& $pages;
+		$this->data->open_parent_pages 	= $open_parent_pages;
+		$this->data->controller 		=& $this;
+		$this->data->pages 				=& $pages;
 		$this->load->view('admin/ajax/child_list', $this->data);
 	}
 	
-	function ajax_page_details($page_id)
+	/**
+	 * Get the details of a page using Ajax
+	 * @access public
+	 * @param int $page_id The ID of the page
+	 * @return void
+	 */
+	public function ajax_page_details($page_id)
 	{
-		$page = $this->pages_m->get($page_id);
-		$page->path = $this->pages_m->get_path_by_id($page_id);
+		$page 			= $this->pages_m->get($page_id);
+		$page->path 	= $this->pages_m->get_path_by_id($page_id);
 		
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
 
+	/**
+	 * Show the page tree
+	 * @access public
+	 * @param int $parent_id The ID of the parent
+	 * @param array $open_parent_pages An array containing the parent pages
+	 * @return mixed 
+	 */
 	public function recurse_page_tree($parent_id, $open_parent_pages=array())
 	{
 		if (!in_array($parent_id, $open_parent_pages))
@@ -92,74 +183,76 @@ class Admin extends Admin_Controller
 				$page->has_children = $this->pages_m->has_children($page->id);
 			}
 			
-			$this->data->pages =& $pages;
-			$this->data->controller =& $this;
-			$this->data->open_parent_pages = $open_parent_pages;
+			$this->data->pages 				=& $pages;
+			$this->data->controller 		=& $this;
+			$this->data->open_parent_pages 	= $open_parent_pages;
 			return $this->load->view('admin/ajax/child_list', $this->data, true);
 		}
 		return '';
 	}
     
-	function preview($id = 0)
+	/**
+	 * Show a page preview
+	 * @access public
+	 * @param int $id The ID of the page
+	 * @return void
+	 */
+	public function preview($id = 0)
 	{		
-		$data->page = $this->pages_m->get($id);
-		$data->page->path = $this->pages_m->get_path_by_id($id);
+		$data->page 		= $this->pages_m->get($id);
+		$data->page->path 	= $this->pages_m->get_path_by_id($id);
 		
 		$this->template->set_layout('admin/basic_layout');
 		$this->template->build('admin/preview', $data);
 	}
 	
-	// Admin: Create a new Page
-	function create($parent_id = 0)
-	{
-		$this->load->library('validation');
-		$this->validation->set_rules($this->rules);
-		
-		// Get the data back to the form
-	    foreach(array_keys($this->rules) as $field)
-	    {
-			$page->{$field} = $this->input->post($field);
-			$fields[$field] = lang('pages.' . $field . '_label');
-	    }
-	    
-		$this->validation->set_fields($fields);
+	/**
+	 * Create a new page
+	 * @access public
+	 * @param int $parent_id The ID of the parent page
+	 * @return void
+	 */
+	public function create($parent_id = 0)
+	{			
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			$page->{$rule['field']} = $this->input->post($rule['field']);
+		}
 	
 		// Validate the page
-		if ($this->validation->run())
+		if ($this->form_validation->run())
 	    {
-			if ( $this->pages_m->create($_POST) > 0 )
+			// Success
+			if ($this->pages_m->create($_POST) > 0)
 			{
 				$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
 			}
 		      
+			// Fail
 			else
 			{
 				$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
 			}
 			
+			// Redirect
 			redirect('admin/pages');
 	    }
 		
-
 	    // If a parent id was passed, fetch the parent details
 	    if($parent_id > 0)
 	    {
-			$page->parent_id = $parent_id;
-		
-			$parent_page = $this->pages_m->get($parent_id);
-			$parent_page->path = $this->pages_m->get_path_by_id($parent_id);
+			$page->parent_id 	= $parent_id;
+			$parent_page 		= $this->pages_m->get($parent_id);
+			$parent_page->path 	= $this->pages_m->get_path_by_id($parent_id);
 	    }
 	    
 	    // Assign data for display
-	    $this->data->page =& $page;
-	    $this->data->parent_page =& $parent_page;
+	    $this->data->page 			=& $page;
+	    $this->data->parent_page 	=& $parent_page;
 	    
-		$page_layouts = $this->page_layouts_m->get_all();
-		$this->data->page_layouts = array_for_select($page_layouts, 'id', 'title');	
-	    
-		// Get "roles" (like access levels)
-		//$this->data->roles = $this->permissions_m->get_roles(array('order' => 'lowest_first'));
-		//$this->data->roles_select = array_for_select(arsort($this->data->roles), 'id', 'title');	
+		$page_layouts 				= $this->page_layouts_m->get_all();
+		$this->data->page_layouts 	= array_for_select($page_layouts, 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
 		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
@@ -171,42 +264,42 @@ class Admin extends Admin_Controller
 			->build('admin/form', $this->data);
 	}
 
-	// Admin: Edit a Page
-	function edit($id = 0)
+	/**
+	 * Edit an existing page
+	 * @access public
+	 * @param int $id The ID of the page to edit
+	 * @return void
+	 */
+	public function edit($id = 0)
 	{
+		// Redirect if no ID has been specified
 		if (empty($id))
 	    {
 			redirect('admin/pages');
 	    }
 		
-	    // We use this controller property for a validation callback later on
-	    $this->page_id = $id;
-	    
-	    // Set data, if it exists
-	    if (!$page = $this->pages_m->get($id)) 
+	    // Set the page ID and get the current page
+	    $this->page_id 	= $id;
+	    $page 			= $this->pages_m->get($id);
+	
+	    // Got page?
+	    if (!$page) 
 	    {
-			$this->session->set_flashdata('error', $this->lang->line('pages_page_not_found_error'));
+			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
 	    }
-			
-	    $this->load->library('validation');
-		
-	    // Auto-set data for the page if a post variable overrides it
-	    foreach(array_keys($this->rules) as $field)
-	    {
-			if($this->input->post($field) !== FALSE)
+	
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$page->{$field} = $this->input->post($field);
+				$page->{$rule['field']} = set_value($rule['field']);
 			}
-			
-			$fields[$field] = lang('pages.' . $field . '_label');
-	    }
+		}
 	    
-	    $this->validation->set_rules($this->rules);
-	    $this->validation->set_fields($fields);
-	    
-	    // Give validation a try, who knows, it just might work!
-		if ($this->validation->run())
+	    // Validate it
+		if ($this->form_validation->run())
 	    {
 			// Run the update code with the POST data	
 			$this->pages_m->update($id, $_POST);			
@@ -220,29 +313,24 @@ class Admin extends Admin_Controller
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('pages_m');			
 			
-			$this->session->set_flashdata('success', sprintf($this->lang->line('pages_edit_success'), $this->input->post('title')));
-			
+			// Set the flashdata message and redirect the user
+			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $this->input->post('title')));
 			redirect('admin/pages');
 	    }
 
 	    // If a parent id was passed, fetch the parent details
 	    if($page->parent_id > 0)
 	    {
-			$parent_page = $this->pages_m->get($page->parent_id);
-			$parent_page->path = $this->pages_m->get_path_by_id($page->parent_id);
+			$parent_page 		= $this->pages_m->get($page->parent_id);
+			$parent_page->path 	= $this->pages_m->get_path_by_id($page->parent_id);
 	    }
 	    
 	    // Assign data for display
-	    $this->data->page =& $page;
-	    $this->data->parent_page =& $parent_page;
+	    $this->data->page 			=& $page;
+	    $this->data->parent_page 	=& $parent_page;
 	    
-		$page_layouts = $this->page_layouts_m->get_all();
-		$this->data->page_layouts = array_for_select($page_layouts, 'id', 'title');	
-	    
-		// Get "roles" (like access levels)
-		//$this->data->roles = $this->permissions_m->get_roles();
-		//ksort($this->data->roles);
-		//$this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');	
+		$page_layouts 				= $this->page_layouts_m->get_all();
+		$this->data->page_layouts 	= array_for_select($page_layouts, 'id', 'title');	
 		
 	    // Load WYSIWYG editor
 		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
@@ -254,8 +342,13 @@ class Admin extends Admin_Controller
 			->build('admin/form', $this->data);
 	}
     
-	// Admin: Delete Pages
-	function delete($id = 0)
+	/**
+	 * Delete an existing page
+	 * @access public
+	 * @param int $id The ID of the page to delete
+	 * @return void
+	 */
+	public function delete($id = 0)
 	{
 		// Attention! Error of no selection not handeled yet.
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
@@ -274,7 +367,7 @@ class Admin extends Admin_Controller
 				
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('pages_delete_home_error'));
+				$this->session->set_flashdata('error', lang('pages_delete_home_error'));
 			}
 		}
 		
@@ -284,19 +377,21 @@ class Admin extends Admin_Controller
 			// Only deleting one page
 			if( count($deleted_ids) == 1 )
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_delete_success'), $deleted_ids[0]));
+				$this->session->set_flashdata('success', sprintf(lang('pages_delete_success'), $deleted_ids[0]));
 			}			
 			else // Deleting multiple pages
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('pages_mass_delete_success'), count($deleted_ids)));
+				$this->session->set_flashdata('success', sprintf(lang('pages_mass_delete_success'), count($deleted_ids)));
 			}
 		}
 			
 		else // For some reason, none of them were deleted
 		{
-			$this->session->set_flashdata('notice', $this->lang->line('pages_delete_none_notice'));
-		}		
-		redirect('admin/pages/index');
+			$this->session->set_flashdata('notice', lang('pages_delete_none_notice'));
+		}
+		
+		// Redirect
+		redirect('admin/pages');
 	}
     
 	
@@ -316,7 +411,5 @@ class Admin extends Admin_Controller
 		return TRUE;
 	    }
 	}*/
-
 }
-
 ?>

@@ -5,7 +5,7 @@
  * @subpackage  Categories
  * @category  	Module
  * @author  	Phil Sturgeon - PyroCMS Dev Team
- **/
+ */
 class Admin extends Admin_Controller
 {
 	/**
@@ -50,7 +50,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// Create pagination links
-		$total_rows = $this->categories_m->count_all();
+		$total_rows 			= $this->categories_m->count_all();
 		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);
 			
 		// Using this data, get the relevant results

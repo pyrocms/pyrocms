@@ -176,14 +176,6 @@ class Admin extends Admin_Controller
 
 		// Get the comment based on the ID
 		$comment = $this->comments_m->get($id);
-				
-		// Users that aren't logged in require a username and email.
-		#OPTIMIZE: Is this required? This is the backend so the user is always logged in...
-		if(!$this->user_lib->logged_in())
-		{
-			$this->validation_rules[0]['rules'] .= '|required';
-			$this->validation_rules[1]['rules'] .= '|required';
-		}	
 			
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)

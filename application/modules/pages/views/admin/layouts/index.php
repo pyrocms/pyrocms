@@ -11,8 +11,8 @@
 					<thead>
 						<tr>
 							<th><?php echo form_checkbox('action_to_all');?></th>
-							<th><?php echo lang('nav_title_label');?></th>
-							<th class="width-10"><span><?php echo lang('nav_actions_label');?></span></th>
+							<th><?php echo lang('page_layouts.title_label');?></th>
+							<th class="width-10"><span><?php echo lang('page_layouts.actions_label');?></span></th>
 						</tr>
 					</thead>
 					<tbody>
