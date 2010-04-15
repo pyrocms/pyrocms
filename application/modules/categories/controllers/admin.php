@@ -1,21 +1,56 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ *
+ * @package  	PyroCMS
+ * @subpackage  Categories
+ * @category  	Module
+ * @author  	Phil Sturgeon - PyroCMS Dev Team
+ */
 class Admin extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Array that contains the validation rules
+	 * @access protected
+	 * @var array
+	 */
+	protected $validation_rules;
+	
+	/** 
+	 * The constructor
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
 		parent::Admin_Controller();
 		$this->load->model('categories_m');
 		$this->lang->load('categories');
 		
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
+	
+		// Set the validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'title',
+				'label' => lang('categories.title_label'),
+				'rules' => 'trim|required|max_length[20]|callback__check_title'
+			),
+		);
+		
+		// Load the validation library along with the rules
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->validation_rules);
 	}
 	
-	// Admin: List all Categories
-	function index()
+	/**
+	 * Index method, lists all categories
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		// Create pagination links
-		$total_rows = $this->categories_m->count_all();
+		$total_rows 			= $this->categories_m->count_all();
 		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);
 			
 		// Using this data, get the relevant results
@@ -23,75 +58,91 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	// Admin: Create a new Category
-	function create()
+	/**
+	 * Create method, creates a new category
+	 * @access public
+	 * @return void
+	 */
+	public function create()
 	{
-		$this->load->library('validation');
-		$rules['title'] = 'trim|required|max_length[20]|callback__check_title';
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
-		
-		if ($this->validation->run())
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
 		{
-			if (  $this->categories_m->insert($_POST) )
+			$category->{$rule['field']} = set_value($rule['field']);
+		}
+
+		// Validate the data
+		if ($this->form_validation->run())
+		{
+			if ($this->categories_m->insert($_POST))
 			{
-				$this->session->set_flashdata('success', $this->lang->line('cat_add_success'));
-			}			
+				$this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) );
+			}
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('cat_add_error'));
+				$this->session->set_flashdata(array('error'=> lang('cat_add_error')));
 			}
-			redirect('admin/categories/index');		
+			redirect('admin/categories');
 		}
-		
-		foreach(array_keys($rules) as $field)
-		{
-			$this->data->category->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-		}
-				
+
+		// Render the view
+		$this->data->category =& $category;		
 		$this->template->build('admin/form', $this->data);
 	}
 	
-	// Admin: Edit a Category
-	function edit($id = 0)
+	/**
+	 * Edit method, edits an existing category
+	 * @access public
+	 * @param int id The ID of the category to edit 
+	 * @return void
+	 */
+	public function edit($id = 0)
 	{	
-		if (!$id)
+		// Get the category
+		$category = $this->categories_m->get($id);
+		
+		// ID specified?
+		if (empty($id) or !$category)
 		{
 			redirect('admin/categories/index');
 		}
 		
-		$this->load->library('validation');
-		$rules['title'] = 'trim|required';
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$category->{$rule['field']} = $this->input->post($rule['field']);
+			}
+		}
 		
-		if ($this->validation->run())
+		// Validate the results
+		if ($this->form_validation->run())
 		{		
 			if ($this->categories_m->update($id, $_POST))
 			{
-				$this->session->set_flashdata('success', $this->lang->line('cat_edit_success'));
+				$this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) );
 			}		
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('cat_edit_error'));
+				$this->session->set_flashdata(array('error'=> lang('cat_edit_error')));
 			}
 			
 			redirect('admin/categories/index');
 		}		
-		
-		$category = $this->categories_m->get($id);
-			
-		foreach(array_keys($rules) as $field)
-		{
-			if($this->input->post($field)) $category->$field = $this->validation->$field;
-		}
-	
+
+		// Render the view
 		$this->data->category =& $category;
 		$this->template->build('admin/form', $this->data);
 	}	
-	
-	// Admin: Delete a Category
-	function delete($id = 0)
+
+	/**
+	 * Delete method, deletes an existing category (obvious isn't it?)
+	 * @access public
+	 * @param int id The ID of the category to edit 
+	 * @return void
+	 */
+	public function delete($id = 0)
 	{	
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 		
@@ -125,12 +176,17 @@ class Admin extends Admin_Controller
 		redirect('admin/categories/index');
 	}	
 	
-	// Callback: from create()
-	function _check_title($title = '')
+	/**
+	 * Callback method that checks the title of the category
+	 * @access public
+	 * @param string title The title to check
+	 * @return bool
+	 */
+	public function _check_title($title = '')
 	{
 		if ($this->categories_m->check_title($title))
 		{
-			$this->validation->set_message('_check_title', sprintf($this->lang->line('cat_already_exist_error'), $title));
+			$this->form_validation->set_message('_check_title', sprintf($this->lang->line('cat_already_exist_error'), $title));
 			return FALSE;
 		}
 		else

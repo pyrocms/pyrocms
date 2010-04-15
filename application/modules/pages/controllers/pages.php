@@ -1,12 +1,28 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Pages Module
+ * @category 	Modules
+ */
 class Pages extends Public_Controller
 {
+	/**
+	 * The default segment
+	 * @access private
+	 * @var string
+	 */
 	private $default_segment = 'home';
 	
-    function __construct() 
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+    public function __construct() 
     {
-        parent::Public_Controller();
+		// Call the parent's constructor method
+        parent::__construct();
         
         $this->load->model('pages_m');
         $this->load->model('page_layouts_m');
@@ -24,8 +40,13 @@ class Pages extends Public_Controller
     }
     
 
-    // Catch all requests to this page in one mega-function
-    function _remap($method)
+	/**
+	 * Catch all requests to this page in one mega-function
+	 * @access public
+	 * @param string $method The method to call
+	 * @return void
+	 */
+    public function _remap($method)
     {
     	// This page has been routed to with pages/view/whatever
     	if($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
@@ -52,7 +73,13 @@ class Pages extends Public_Controller
         }
     }
     
-    function _page($url_segments)
+	/**
+	 * Page method
+	 * @access public
+	 * @param array $url_segments The URL segments
+	 * @return void
+	 */
+    public function _page($url_segments)
     {
     	// Fetch this page from the database via cache
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
@@ -112,7 +139,13 @@ class Pages extends Public_Controller
         	->build('page', $this->data);
     }
     
-    function _rss($url_segments)
+	/**
+	 * RSS method
+	 * @access public
+	 * @param array $url_segments The URL segments
+	 * @return void
+	 */
+    public function _rss($url_segments)
     {
         // Remove the .rss suffix
     	$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
@@ -165,7 +198,13 @@ class Pages extends Public_Controller
 		
     }
     
-    function _404($url_segments)
+	/**
+	 * 404 method
+	 * @access public
+	 * @param array $url_segments The URL segments
+	 * @return void
+	 */
+    public function _404($url_segments)
     {
     	// Try and get an error page. If its been deleted, show nasty 404
         if(!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )

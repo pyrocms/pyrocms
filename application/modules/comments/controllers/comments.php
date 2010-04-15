@@ -1,57 +1,103 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Comments controller (frontend)
+ * 
+ * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Comments module
+ * @category 	Modules
+ */
 class Comments extends Public_Controller
 {	
-	function __construct()
+	/**
+	 * An array containing the validation rules
+	 * @access private
+	 * @var array
+	 */
+	private $validation_rules = array();
+	
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent's constructor
 		parent::Public_Controller();
-		$this->load->library('validation');
+		
+		// Load the required classes
+		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');		
-	}
-	
-	function create($module = 'home', $id = 0)
-	{		
-		$rules['name'] = 'trim';
-		$rules['email'] = 'trim|valid_email';
-		$rules['website'] = 'trim';
-		$rules['comment'] = 'trim|required';
 		
-		if(!$this->user_lib->logged_in())
-		{
-			$rules['name'] .= '|required';
-			$rules['email'] .= '|required';
-		}
-		
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
-		
-		
-		$comment = array(
-			'comment' => $this->input->post('comment'),
-			'website' => $this->input->post('website'),
-			'module' => $module,
-			'module_id' => $id,
-		
-			// If they are an admin, comments go straight through
-			'is_active' => $this->ion_auth->is_admin()
+		// Create the array containing the validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'name',
+				'label' => lang('comments.name_label'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'email',
+				'label' => lang('comments.email_label'),
+				'rules' => 'trim|valid_email'
+			),
+			array(
+				'field' => 'website',
+				'label' => lang('comments.website_label'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'comment',
+				'label' => lang('comments.comment_label'),
+				'rules' => 'trim|required'
+			),
 		);
 		
-		// Logged in? in which case, we already know their name and email
-		if($this->user_lib->logged_in())
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
+	}
+	
+	/**
+	 * Create a new comment
+	 * @access public
+	 * @param string $module The module (what module?)
+	 * @param int $id The ID (what ID?)
+	 * @return void
+	 */
+	public function create($module = 'home', $id = 0)
+	{						
+		// Set some extra values required by the comment
+		if($_POST)
 		{
-			$comment['user_id'] = $this->data->user->id;
+			$_POST['module'] 	= $module;
+			$_POST['module_id'] = $id;
+			
+			// If they are an admin, comments go straight through
+			$_POST['is_active'] = $this->ion_auth->is_admin();
+			
+			// Logged in? in which case, we already know their name and email
+			if($this->ion_auth->logged_in())
+			{
+				$_POST['user_id'] = $this->data->user->id;
+			}
 		}
-		else
+
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
 		{
-			$comment['name'] = $this->input->post('name');
-			$comment['email'] = $this->input->post('email');
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$comment->{$rule['field']} = $this->input->post($rule['field']);
+			}
 		}
 		
-		// Validation Successful ------------------------------
-		if ($this->validation->run())
+		// Validate the results
+		if ($this->form_validation->run())
 		{
-			$result = $this->_allow_comment($comment);
+			// ALLOW ZEH COMMENTS!? >:D
+			$result = $this->_allow_comment();
 			
 			// Run Akismet or the crazy CSS bot checker
 			if($result['status'] == FALSE)
@@ -62,19 +108,22 @@ class Comments extends Public_Controller
 			else
 			{
 				// Save the comment
-				if($this->comments_m->insert( $comment ))
+				if($this->comments_m->insert($_POST))
 				{
+					// Approve the comment straight away
 					if($this->settings->item('moderate_comments') || $this->ion_auth->is_admin())
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
 					}
 					
+					// Do we need to approve the comment?
 					else
 					{
 						$this->session->set_flashdata('success', lang('comments.add_approve'));
 					}
 				}
 				
+				// Failed to add the comment
 				else
 				{
 					$this->session->set_flashdata('error', lang('comments.add_error'));
@@ -82,11 +131,10 @@ class Comments extends Public_Controller
 			}
 		}
 		
-		// Validation Failed ------------------------------
+		// MEINE FREUHER, ZEH VALIDATION HAZ FAILED. BACK TO ZEH BUNKERZ!!!
 		else
 		{		
-			$this->session->set_flashdata('comment', $comment );			
-			$this->session->set_flashdata('error', $this->validation->error_string );
+			$this->session->set_flashdata('error', lang('comments.add_error'));
 		}
 		
 		// If for some reason the post variable doesnt exist, just send to module main page
@@ -94,8 +142,13 @@ class Comments extends Public_Controller
 		redirect($redirect_to);
 	}
 	
-	
-	function _allow_comment($comment)
+	/**
+	 * Method to check whether we want to allow the comment or not
+	 * 
+	 * @access private
+	 * @return array
+	 */
+	private function _allow_comment()
 	{
 		// Dumb-check
 		$this->load->library('user_agent');

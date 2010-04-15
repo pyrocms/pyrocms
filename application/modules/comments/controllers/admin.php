@@ -1,22 +1,73 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ *
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Comments
+ * @category 	Module
+ **/
 class Admin extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Array that contains the validation rules
+	 * @access protected
+	 * @var array
+	 */
+	protected $validation_rules;
+	
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent constructor
 		parent::Admin_Controller();
 		
-		$this->load->library('validation');
-		
+		// Load the required libraries, models, etc
+		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');
 		
+		// Set the validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'name',
+				'label'	=> lang('comments.name_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'email',
+				'label' => lang('comments.email_label'),
+				'rules'	=> 'trim|valid_email'
+			),
+			array(
+				'field'	=> 'website',
+				'label' => lang('comments.website_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'comment',
+				'label' => lang('comments.send_label'),
+				'rules'	=> 'trim|required'
+			),
+		);
+		
 	    $this->template->set_partial('sidebar', 'admin/sidebar');
+	
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
 	}
 	
-	// Admin: List all comments
+	/**
+	 * Index method, lists all comments
+	 * @access public
+	 * @return void
+	 */
 	public function index()
 	{
+		// Load the text helper
 		$this->load->helper('text');
 		
 		// Create pagination links
@@ -31,6 +82,11 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);			
 	}
 	
+	/**
+	 * Action method, called whenever the user submits the form
+	 * @access public
+	 * @return void
+	 */
 	public function action()
 	{
 		if( $this->input->post('btnAction') )
@@ -85,85 +141,85 @@ class Admin extends Admin_Controller
 		
 	}
 	
+	/**
+	 * Activates an unapproved comment
+	 * @access public
+	 * @return void
+	 */
 	public function active()
 	{
 		$this->load->helper('text');
 		
 		// Create pagination links
-		$total_rows = $this->comments_m->count_by('is_active', 1);
+		$total_rows 			= $this->comments_m->count_by('is_active', 1);
 		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
 		// get all comments
-		$comments = $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 1);
-		$this->data->comments = process_comment_items($comments);
+		$comments 				= $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 1);
+		$this->data->comments 	= process_comment_items($comments);
 		
 		$this->template->build('admin/index', $this->data);		
 	}
 		
-	// Admin: Edit a comment
+	/**
+	 * Edit an existing comment
+	 * @access public
+	 * @return void
+	 */
 	public function edit($id = 0)
 	{
+		// Redirect if no ID has been specified
 		if (!$id)
 		{
 			redirect('admin/comments');
 		}
-				
-		$rules['name'] = 'trim';
-		$rules['email'] = 'trim|valid_email';
-		$rules['website'] = 'trim';
-		$rules['comment'] = 'trim|required';
-		
-		if(!$this->user_lib->logged_in())
+
+		// Get the comment based on the ID
+		$comment = $this->comments_m->get($id);
+			
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
 		{
-			$rules['name'] .= '|required';
-			$rules['email'] .= '|required';
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$comment->{$rule['field']} = $this->input->post($rule['field']);
+			}
 		}
 		
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();		
-		
-		$comment = $this->comments_m->get($id);
-		
-		// Validation Successful ------------------------------
-		if ($this->validation->run())
+		// Validate the results
+		if ($this->form_validation->run())
 		{		
 			if($comment->user_id > 0)
 			{
-				$commenter['user_id'] = $this->input->post('user_id');
+				$commenter['user_id'] 	= $this->input->post('user_id');
 			}
 			else
 			{
-				$commenter['name'] = $this->input->post('name');
-				$commenter['email'] = $this->input->post('email');
+				$commenter['name'] 		= $this->input->post('name');
+				$commenter['email'] 	= $this->input->post('email');
 			}
 			
 			$comment = array_merge($commenter, array(
-				'comment'    => $this->input->post('comment'),
-				'website'    => $this->input->post('website'),
-				'module'   => $this->input->post('module'),
-				'module_id' => $this->input->post('module_id')
+				'comment'    	=> $this->input->post('comment'),
+				'website'    	=> $this->input->post('website'),
+				'module'   		=> $this->input->post('module'),
+				'module_id' 	=> $this->input->post('module_id')
 			));
 			
-			if($this->comments_m->update( $id, $comment ))
+			// Update the comment
+			if($this->comments_m->update($id, $comment))
 			{
-				$this->session->set_flashdata( 'success', lang('comments.edit_success') );
+				$this->session->set_flashdata('success', lang('comments.edit_success'));
 			}
 			else
 			{
-				$this->session->set_flashdata( 'error', lang('comments.edit_error') );
+				$this->session->set_flashdata('error', lang('comments.edit_error'));
 			}
 			
+			// Redirect the user
 			redirect('admin/comments');
-		}		
-		
-		// Go through all the known fields and get the post values
-		foreach(array_keys($rules) as $field)
-		{
-			if($this->input->post($field))
-			{
-				$comment->{$field} = $this->validation->$field;
-			}
-		}    	
+		}
+
 		$this->data->comment =& $comment;
 		
 		// Load WYSIWYG editor
