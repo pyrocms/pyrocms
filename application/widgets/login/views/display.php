@@ -16,7 +16,7 @@
 			Login
 		</button>
 
-		<a href="<?php echo site_url('users/forgot_password'); ?>" class="forgot_password">
+		<a href="<?php echo site_url('users/reset_pass'); ?>" class="reset_pass">
 			Forgot password?
 		</a>
 	</div>
