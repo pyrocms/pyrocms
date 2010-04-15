@@ -228,7 +228,32 @@ div#content {padding-top:25px;}
 	table.ui-datepicker-calendar a:hover {border:1px solid #ccc;}
 	table.ui-datepicker-calendar a.ui-state-active {color:#ac0000 !important; border:1px solid #ccc; background:#fff;}
 	td.ui-datepicker-week-end a {color:#999;}
-	
+
+	/* PAGINATION */
+	.pagination a, .pagination span.current {
+		-moz-border-radius:5px;
+		-webkit-border-radius:5px;
+		background-color: #eee;
+		border:1px solid #666;
+		display:inline-block;
+		font-weight: bold;
+		margin-right:0.5em;
+		padding:0.1em 0.6em;
+	}
+	.pagination a {
+		-moz-border-radius:5px;
+		-webkit-border-radius:5px;
+		background-color: grey;
+		color: #fff;
+		text-decoration:none;
+	}
+
+	.pagination a:hover {
+		background-color:#eee;
+		color: #222;
+		text-decoration:none !important;
+	}
+
 	/** QUICK VISUAL LINKS **/
 	ul#quick-visual-links {width:100%;}
 	ul#quick-visual-links li {float:left;}
