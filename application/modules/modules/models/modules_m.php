@@ -39,18 +39,6 @@ class Modules_m extends Model {
     }
 
 	/**
-	 * Mirror of get_modules() in order to preserve compatibility for old code
-	 * @access public
-	 * @param array params The array containing the modules to load
-	 * @return array
-	 * @deprecated v0.9.8
-	 */
-	public function getModules($params = array())
-	{
-		return $this->get_modules($params);
-	}
-
-	/**
 	 * Return an array of objects containing module related data
 	 * @access public
 	 * @param array params The array containing the modules to load
@@ -70,7 +58,7 @@ class Modules_m extends Model {
 	        	{
 	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
-	        		$module['is_core'] = basename($directory) == 'core';
+	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
 	        		
 	        		// If we only want frontend modules, check its frontend
 		        	if(!empty($params['is_frontend']) && empty($module['is_frontend'])) continue;
