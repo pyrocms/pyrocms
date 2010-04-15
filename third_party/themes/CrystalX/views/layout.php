@@ -90,8 +90,6 @@
 				{/if}
 				</ul>
 				
-			{else}
-				{theme_view('login_xsmall')}
 			{/if}
 			
 				{if navigation('sidebar')}

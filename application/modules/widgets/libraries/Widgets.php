@@ -115,6 +115,15 @@ class Widgets
 			? call_user_func(array($this->_widget, 'run'), $options)
 			: array();
 
+		// Don't run this widget
+		if($data === FALSE)
+		{
+			return FALSE;
+		}
+
+		// If we have TRUE, just make an empty array
+		$data !== TRUE || $data = array();
+
 		// convert to array
 		is_array($data) || $data = (array) $data;
 
@@ -164,7 +173,10 @@ class Widgets
 			$widget->options = $this->_unserialize_options($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
-			$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
+			if($widget->body !== FALSE)
+			{
+				$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
+			}
 		}
 
 		$this->_rendered_areas[$area] = $output;
