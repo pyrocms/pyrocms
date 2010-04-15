@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
 		}
 		
 		// Load stuff
- 		$this->data->modules = $this->modules_m->getModules();
+ 		$this->data->modules = $this->modules_m->get_modules();
 		
 		$this->load->model('comments/comments_m');
 		$this->load->model('pages/pages_m');

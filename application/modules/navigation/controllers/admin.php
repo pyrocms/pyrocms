@@ -39,7 +39,7 @@ class Admin extends Admin_Controller
 		// Get Navigation Groups
 		$this->data->groups 		= $this->navigation_m->get_groups();
 		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');				
-		$modules 					= $this->modules_m->getModules(array('is_frontend'=>true));
+		$modules 					= $this->modules_m->get_modules(array('is_frontend'=>true));
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');				
 		
 		// Get Pages and create pages tree

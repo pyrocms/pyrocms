@@ -16,7 +16,7 @@ class Admin extends Admin_Controller
         $this->data->users = $this->users_m->get_all();
         $this->data->users_select = array_for_select($this->data->users, 'id', 'full_name');
         
-        $modules = $this->modules_m->getModules(array('is_backend' => true));
+        $modules = $this->modules_m->get_modules(array('is_backend' => true));
         $this->data->modules_select = array('*' => lang('perm_module_select_default')) + array_for_select($modules, 'slug', 'name');
         
         $this->template->append_metadata('
