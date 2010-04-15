@@ -231,7 +231,7 @@
 				$.post(BASE_URI + 'widgets/ajax/update_order', { order: order });
 			}
 			
-		}).disableSelection();
+		});
 
 		
 		$('.widget-area table a.edit-instance').live('click', function(){
