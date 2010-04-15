@@ -98,7 +98,7 @@
 					<h3><span>{lang('navigation_headline')}</span></h3>
 					<ul id="links">
 					{foreach navigation('sidebar') link}
-						<li>{anchor( $link->url, $link->title, array('target' => $link->target))}</li>
+						<li>{anchor($link->url, $link->title, array(target=$link->target))}</li>
 					{/foreach}
 					</ul>
 				{/if}

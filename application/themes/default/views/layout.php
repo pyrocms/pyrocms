@@ -16,7 +16,7 @@
 	
 	<ul id="menu">
 		{foreach navigation('header') link}
-		<li>{anchor( $link->url, $link->title, cat('target="', $link->target, '"'))}</li>
+			<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
 		{/foreach}
 	</ul>
 	
@@ -29,7 +29,7 @@
 				
 				<ul class="spacer-left-dbl">
 					{foreach navigation('sidebar') link}
-					<li>{anchor( $link->url, $link->title, cat('target="', $link->target, '"'))}</li>
+					<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
 					{/foreach}
 				</ul>
 				
