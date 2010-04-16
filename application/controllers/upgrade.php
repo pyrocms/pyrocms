@@ -12,6 +12,9 @@ class Upgrade extends Controller
 
 	function _remap()
 	{
+		// Always log out first, stops any weirdness with the user system
+		$this->ion_auth->logout();
+
   		$this->load->database();
   		$this->load->dbforge();
 
@@ -314,8 +317,6 @@ class Upgrade extends Controller
 		$this->dbforge->drop_column('users', 'first_name');
 		$this->dbforge->drop_column('users', 'last_name');
 		$this->dbforge->drop_column('users', 'lang');
-
-		$this->ion_auth->logout();
 
 		return TRUE;
 	}
