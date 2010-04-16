@@ -73,13 +73,10 @@ class Installer_lib
 			$password 	= $this->ci->session->userdata('password');
 			
 			// Connect to MySQL
-			$db = @mysql_connect($server,$username,$password);
-			
-			// Compare it
-			if(is_resource($db))
+			if( $db = @mysql_connect($server,$username,$password) )
 			{
 				$mysql = @mysql_get_server_info($db);
-				
+
 				// Close the connection
 				@mysql_close($db);
 				return $mysql;
@@ -87,22 +84,17 @@ class Installer_lib
 			else
 			{
 				@mysql_close($db);
-				return "<span class='red'>a version which could not be retrieved</span>";
+				return FALSE;
 			}
 		}
+
 		else
 		{
 			// Get the version
 			$mysql = mysql_get_client_info();
+
 			// Compare it
-			if($mysql != FALSE)
-			{
-				return $mysql;
-			}
-			else
-			{
-				return "<span class='red'>a version which could not be retrieved</span>";
-			}
+			return $mysql ? $mysql : FALSE;
 		}	
 	}
 	
@@ -132,23 +124,38 @@ class Installer_lib
 	 * Function to validate the server settings.
 	 */
 	function check_server($data)
-	{		
-		$pass = FALSE;
-
-		// These are the core requirements
-		if($data->php_version !== FALSE AND $data->mysql->server_version !== FALSE AND $data->mysql->client_version !== FALSE AND $data->http_server->supported != FALSE)
-		{			
-			$pass = 'partial';
-		}
-		
-		// Optional extra
-		if($pass == 'partial' AND $data->gd_version != FALSE)
+	{
+		// Check PHP is ok
+		if( version_compare(PHP_VERSION, '5.0', '<') )
 		{
-			$pass = TRUE;
+			return FALSE;
+		}
+
+		// Check MySQL server is ok
+		if( version_compare($data->mysql->server_version, '5.0.0', '<') )
+		{
+			return FALSE;
+		}
+
+		// Check MySQL client is ok
+		if( version_compare($data->mysql->client_version, '5.0.0', '<') )
+		{
+			return FALSE;
 		}
 		
-		// Return the results
-		return $pass;
+		if($data->http_server->supported === FALSE)
+		{
+			return FALSE;
+		}
+
+		// If PHP, MySQL, etc is good but server is unknown, say partial
+		if( $data->http_server->supported === 'partial' || $data->gd_version === FALSE )
+		{
+			return 'partial';
+		}
+
+		// Must be fine
+		return TRUE;
 	}
 	
 	/**
@@ -164,7 +171,7 @@ class Installer_lib
 		// Set all the required variables
 		if($server_name == 'other')
 		{
-			return FALSE;
+			return 'partial';
 		}
 		
 		$supported_servers = $this->ci->config->item('supported_servers');

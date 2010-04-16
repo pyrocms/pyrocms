@@ -121,15 +121,15 @@ class Installer extends Controller
 		$data->mysql->client_version = $this->installer_lib->get_mysql_version('client');
 	
 		// Check the GD data
-		$data->gd_version 	= $this->installer_lib->get_gd_version();
+		$data->gd_version = $this->installer_lib->get_gd_version();
 		
 		// Get the server
 		$selected_server = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
-		
+
 		$data->http_server->supported = $this->installer_lib->verify_http_server($this->session->userdata('http_server'));
 		$data->http_server->name = @$supported_servers[$selected_server]['name'];
-		
+
 		// Check the final results
 		$data->step_passed = $this->installer_lib->check_server($data);
 		$this->session->set_userdata('step_2_passed', $data->step_passed);
