@@ -1,24 +1,21 @@
 <IfModule mod_rewrite.c>
-	# Un comment the line below if you are getting 404
+	# NOTICE: Un comment the line below if you are getting 404
 	#AllowOverride All
 	Options +FollowSymLinks
 	RewriteEngine on
 
-	# Keep people out of codeigniter directory and Git data
-	RedirectMatch 403 /(codeigniter|\.git).*$
-	
-	# Redirects direct controller views to the right URL
-	# Not so much for security, done for Coda previews
-	RewriteRule modules/(.+)/controllers/(.+)\.php$ /index.php/$1/$2 [L,R=301]
-	RewriteRule controllers/(.+)\.php$ /index.php/$1 [L,R=301]
+	# Keep people out of codeigniter directory and Git/Mercurial data
+	RedirectMatch 403 /(codeigniter|\.git|\.hg).*$
 	
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
+
+	# NOTICE: If running within a userdir (e.g. localhost/~user) add your the full path below. Eg: /~user/pyrocms/index.php/$1
 	RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
-    # If we don't have mod_rewrite installed, all 404's can be sent to index.php.
+    # If no mod_rewrite all 404's can be sent to index.php.
     ErrorDocument 404 /index.php
 </IfModule>
