@@ -104,3 +104,10 @@ TRUNCATE `users`;
 INSERT INTO `users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
 (1, 'demo@example.com', '8cd2e9971eeea0b7a5afcd810270fa605bde14e8', 'vQwbJ', 1, '', 1, '', 1220982658, 1269201129, NULL, NULL, NULL);
 
+-- command split --
+
+TRUNCATE `widget_areas`;
+
+-- command split --
+
+INSERT INTO widget_areas (slug, title) VALUES ('unsorted', 'Unsorted');
