@@ -75,7 +75,10 @@ class Admin extends Admin_Controller
 		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
 		
 		// get all comments
-		$comments = $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 0);			
+		$comments = $this->comments_m
+			->limit($this->data->pagination['limit'])
+			->order_by('comments.created_on', 'desc')
+			->get_many_by('comments.is_active', 0);
 		
 		$this->data->comments = process_comment_items($comments);
 		
@@ -151,11 +154,15 @@ class Admin extends Admin_Controller
 		$this->load->helper('text');
 		
 		// Create pagination links
-		$total_rows 			= $this->comments_m->count_by('is_active', 1);
+		$total_rows = $this->comments_m->count_by('is_active', 1);
 		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
 		// get all comments
-		$comments 				= $this->comments_m->limit($this->data->pagination['limit'])->get_many_by('comments.is_active', 1);
+		$comments = $this->comments_m
+			->limit($this->data->pagination['limit'])
+			->order_by('comments.created_on', 'desc')
+			->get_many_by('comments.is_active', 1);
+		
 		$this->data->comments 	= process_comment_items($comments);
 		
 		$this->template->build('admin/index', $this->data);		
