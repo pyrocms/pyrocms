@@ -167,6 +167,16 @@ class Template
 
 					break;
 				}
+
+				// TODO: Remove deprecated support for layouts directly in the view folder
+				if( $this->_theme && file_exists($location.$this->_theme.'/views/' . $this->_layout.EXT))
+				{
+					// If directory is set, use it
+					$this->data['theme_view_folder'] = $offset.$this->_theme.'/views/';
+					$layout_view = $this->data['theme_view_folder'] . $this->_layout;
+
+					break;
+				}
 			}
 
 			// No theme layout file was found, lets use whatever they gave us
