@@ -5,8 +5,8 @@
 	RewriteEngine on
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
-	RedirectMatch 403 /(codeigniter|\.git|\.hg).*$
-	
+	RedirectMatch 403 /^(codeigniter|\.git|\.hg).*$
+
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
