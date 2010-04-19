@@ -75,7 +75,7 @@ class Comments extends Public_Controller
 			$comment['user_id'] = $this->data->user->id;
 		}
 		
-		if(!$this->ion_auth->logged_in())
+		else
 		{
 			$this->validation_rules[0]['rules'] .= '|required';
 			$this->validation_rules[1]['rules'] .= '|required';
@@ -83,17 +83,14 @@ class Comments extends Public_Controller
 		
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
-		$comment['is_active']	= $this->ion_auth->is_admin();
-		$comment['name'] 		= $this->input->post('name');
-   		$comment['email'] 		= $this->input->post('email');
-		$comment['comment']		= $this->input->post('comment');
+		$comment['is_active']	= (bool) $this->ion_auth->is_admin();
 		
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)
 		{
 			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$comment->{$rule['field']} = $this->input->post($rule['field']);
+				$comment[$rule['field']] = $this->input->post($rule['field']);
 			}
 		}
 		
