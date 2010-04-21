@@ -35,7 +35,7 @@ v0.9.8
 * Added Polish language support.
 * Added "Variables" module which allows user-defined variables accross the site.
 * Merged Ion Auth project into the core to replace legacy user system
-* Added /third_party folder to store downloadable modules, themes and widgets.
+* Added /third_party folder to store downloadable modules and themes.
 * Error message added in case active theme is deleted.
 * Added IP tracking to comments.
 
