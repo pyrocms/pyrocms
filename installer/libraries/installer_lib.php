@@ -91,10 +91,10 @@ class Installer_lib
 		else
 		{
 			// Get the version
-			$mysql = mysql_get_client_info();
+			$mysql = preg_replace('/[^0-9\.]/','', mysql_get_client_info());
 
 			// Compare it
-			return $mysql ? $mysql : FALSE;
+			return $mysql ? preg_replace('/[^0-9\.]/','', $mysql) : FALSE;
 		}	
 	}
 	
@@ -109,7 +109,7 @@ class Installer_lib
 		if(function_exists('gd_info'))
 		{
 			$gd_info = gd_info();			
-			return preg_replace("/[a-z\(\)\s]/",'',$gd_info['GD Version']);
+			return preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
 		}
 		else
 		{
