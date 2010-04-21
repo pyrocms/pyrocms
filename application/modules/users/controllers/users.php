@@ -68,22 +68,30 @@ class Users extends Public_Controller
 		
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
-		$user_data = array('first_name' => $this->input->post('first_name'),
-						   'last_name'  => $this->input->post('last_name'),
-						  );
+		$user_data = array(
+			'first_name' => $this->input->post('first_name'),
+			'last_name'  => $this->input->post('last_name'),
+		);
 		
-		if ($this->validation->run()) {
+		if ($this->validation->run())
+		{
 			// Try to create the user
-			if($id = $this->ion_auth->register($email, $password, $email, $user_data)) {
+			if($id = $this->ion_auth->register($email, $password, $email, $user_data))
+			{
 				$this->session->set_flashdata(array('notice'=> $this->ion_auth->messages()));	
 				redirect('users/activate/'.$id);			
 			}
-			else { // Can't create the user, show why
+
+			// Can't create the user, show why
+			else
+			{
 				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}
-		else {
-			// Return the validation error message or user_lib error
+
+		else
+		{
+			// Return the validation error
 			$this->data->error_string = $this->validation->error_string;
 		}
 		
@@ -94,12 +102,16 @@ class Users extends Public_Controller
 	function activate($id = 0, $code = NULL)
 	{
 		// Get info from email
-		if($this->input->post('email')):
+		if($this->input->post('email'))
+		{
 			$this->data->activate_user = $this->ion_auth->get_user_by_email($this->input->post('email'));
 			$id = $this->data->activate_user->id;
-		else:
+		}
+
+		else
+		{
 			$this->data->activate_user = $this->ion_auth->get_user($id);
-		endif;
+		}
 		
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 		

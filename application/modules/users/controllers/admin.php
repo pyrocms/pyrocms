@@ -16,7 +16,6 @@ class Admin extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		
-		$this->load->library('user_lib');
 		$this->load->library('ion_auth');
 		
 		$this->load->model('users_m');
@@ -109,7 +108,7 @@ class Admin extends Admin_Controller
 		}		
 		else
 		{
-			// Return the validation error message or user_lib error
+			// Return the validation error message
 			$this->data->error_string = $this->validation->error_string;
 		}
 	
