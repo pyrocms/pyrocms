@@ -319,7 +319,7 @@ class Installer_lib
 			'__USERNAME__' 	=> $username,
 			'__PASSWORD__' 	=> $password,
 			'__DATABASE__' 	=> $database,
-			'__PORT__' 		=> $port
+			'__PORT__' 		=> $port ? $port : 3306
 		);
 		
 		// Replace the __ variables with the data specified by the user
