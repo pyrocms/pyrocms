@@ -17,7 +17,10 @@ class Forums extends Public_Controller {
 		// TODO: Review the use of enable_parse_body(FALSE) in forums
 		$this->template->enable_parser_body(FALSE);
 		
-		$this->userID = $this->user_lib->user_data->id;
+		if($profile = $this->ion_auth->profile())
+		{
+			$this->userID = $profile->id;
+		}
 	}
 	
 	

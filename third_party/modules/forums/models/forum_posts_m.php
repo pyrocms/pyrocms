@@ -159,7 +159,7 @@ class Forum_posts_m extends MY_Model
 	
 
 	
-	function newTopic($user_id, $topic, $forum)
+	function new_topic($user_id, $topic, $forum)
 	{
 		$this->load->helper('date');
 
@@ -168,7 +168,7 @@ class Forum_posts_m extends MY_Model
 			'author_id' 	=> $user_id,
 			'parent_id' 	=> 0,
 			'title' 		=> $this->input->xss_clean($topic->title),
-			'text' 			=> $this->input->xss_clean($topic->text),
+			'content' 			=> $this->input->xss_clean($topic->text),
 			'created_on' 	=> now(),
 			'view_count' 	=> 0,
         );
@@ -178,7 +178,7 @@ class Forum_posts_m extends MY_Model
         return $this->db->insert_id();
 	}
 	
-	function newReply($user_id, $reply, $topic)
+	function new_reply($user_id, $reply, $topic)
 	{
 		$this->load->helper('date');
 
@@ -187,7 +187,7 @@ class Forum_posts_m extends MY_Model
 			'author_id' 	=> $user_id,
 			'parent_id' 	=> $topic->id,
 			'title' 		=> '',
-			'text' 			=> $this->input->xss_clean($reply->text),
+			'content'		=> $this->input->xss_clean($reply->text),
 			'created_on' 	=> now(),
 			'view_count' 	=> 0,
         );

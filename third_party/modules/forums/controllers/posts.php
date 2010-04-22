@@ -10,7 +10,7 @@ class Posts extends Public_Controller {
 
 		$this->lang->load('forum');
 		
-		$this->load->helper('bbcode');
+		//$this->load->helper('bbcode');
 		
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata( css('forum.css', 'forum') );
@@ -52,7 +52,7 @@ class Posts extends Public_Controller {
 	
 	function new_reply($topic_id = 0)
 	{
-		if(!$this->user_lib->logged_in())
+		if(!$this->ion_auth->logged_in())
 		{
 			redirect('users/login');
 		}
@@ -90,7 +90,7 @@ class Posts extends Public_Controller {
 					$reply->title = set_value('title');
 					$reply->text = set_value('text');
 					
-					if($reply->id = $this->forum_posts_m->newReply($this->user_lib->user_data->id, $reply, $topic))
+					if($reply->id = $this->forum_posts_m->new_reply($this->ion_auth->profile()->id, $reply, $topic))
 					{
 						// Add user to notify
 						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user_lib->user_data->id );
@@ -125,7 +125,7 @@ class Posts extends Public_Controller {
 		
 		// Set this for later
 		$this->template->set_breadcrumb($forum->title, 'forums/view_forum/'.$topic->forum_id); 
-		$this->template->build('new_reply', $this->data);
+		$this->template->build('posts/new_reply', $this->data);
 	}
 
 }

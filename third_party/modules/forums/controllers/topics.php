@@ -49,9 +49,9 @@ class Topics extends Public_Controller {
 		$topic->posts = $this->forum_posts_m->get_posts_by_topic($topic_id, $offset, $per_page);
 		foreach($topic->posts as &$post)
 		{
-			$post->author = $this->users_m->get(array('id' => $post->author_id));
+			$post->author = $this->ion_auth_model->get_user($post->author_id)->row();
+			$post->author->full_name = $post->author->first_name . ' ' . $post->author->last_name;
 		}
-
 		$this->data->topic =& $topic;
 		$this->data->forum =& $forum;
 		
@@ -68,7 +68,7 @@ class Topics extends Public_Controller {
 
 	function new_topic($forum_id = 0)
 	{
-		if(!$this->user_lib->logged_in())
+		if(!$this->ion_auth->logged_in())
 		{
 			redirect('users/login');
 		}
@@ -101,7 +101,7 @@ class Topics extends Public_Controller {
 					$topic->title = set_value('title');
 					$topic->text = set_value('text');
 					
-					if($topic->id = $this->forum_posts_m->newTopic($this->user_lib->user_data->id, $topic, $forum))
+					if($topic->id = $this->forum_posts_m->new_topic($this->ion_auth->profile()->id, $topic, $forum))
 					{
 						// Add user to notify
 						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user_lib->user_data->id );
@@ -136,7 +136,7 @@ class Topics extends Public_Controller {
 		
 		// Set this for later
 		$this->template->set_breadcrumb($forum->title, 'forums/view_forum/'.$forum_id); 
-		$this->template->build('new_topic', $this->data);
+		$this->template->build('posts/new_topic', $this->data);
 	}
 
 
