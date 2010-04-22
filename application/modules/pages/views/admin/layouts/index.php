@@ -1,6 +1,6 @@
 <div class="box">
 	
-	<h3><?php echo lang('page_layouts.create_title'); ?></h3>
+	<h3><?php echo lang('page_layouts.list_title'); ?></h3>
 	
 	<div class="box-container">
 	
