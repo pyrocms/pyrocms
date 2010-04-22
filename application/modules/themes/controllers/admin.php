@@ -1,26 +1,56 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Admin controller for the themes module
+ * 
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Themes module
+ * @category	Modules
+ */
 class Admin extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Constructor method
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent's constructor
 		parent::Admin_Controller();
 		$this->load->model('themes_m');
 		$this->lang->load('themes');
 	}
 	
-	// Admin: List all Themes
-	function index()
+	/**
+	 * List all themes
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
+		// Get the required data
 		$this->template->append_metadata( css('themes.css', 'themes') );
-		$this->data->themes = $this->themes_m->get_all();		
+		$this->data->themes = $this->themes_m->get_all();	
+		
+		// Render the view	
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	function set_default()
+	/**
+	 * Set the default theme to theme X
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function set_default()
 	{
+		// Store the theme name
 		$theme = $this->input->post('theme');
 		
+		// Set the theme
 		if($this->themes_m->set_default($theme) )
 		{
 			$this->session->set_flashdata('success', sprintf( lang('themes.set_default_success'), $theme));
@@ -30,18 +60,26 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme));
 		}
-			
+		
+		// Redirect the user
 		redirect('admin/themes');
 	}
 	
-	function upload()
+	/**
+	 * Upload a theme to the server
+	 *
+	 * @access public
+	 * @return void
+	 */
+	// #FIXME: Is this method still being used? - Yorick
+	public function upload()
 	{	
 		if($this->input->post('btnAction') == 'upload')
 		{	
-			$config['upload_path'] = APPPATH.'uploads/';
-			$config['allowed_types'] = 'zip';
-			$config['max_size']	= '2048';
-			$config['overwrite'] = TRUE;	
+			$config['upload_path'] 		= APPPATH.'uploads/';
+			$config['allowed_types'] 	= 'zip';
+			$config['max_size']			= '2048';
+			$config['overwrite'] 		= TRUE;	
 			
 			$this->load->library('upload', $config);
 			
@@ -86,7 +124,15 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/upload', $this->data);
 	}
 	
-	function delete($theme_name = "")
+	/**
+	 * Delete an existing theme
+	 * 
+	 * @access public
+	 * @param string $theme_name The name of the theme to delete
+	 * @return void
+	 */
+	// #FIXME: Is this method still being used? - Yorick
+	public function delete($theme_name = "")
 	{
 		$this->load->helper('file');	
 		$name_array = $theme_name != "" ? array($theme_name) : $this->input->post('action_to');
@@ -141,8 +187,18 @@ class Admin extends Admin_Controller
 		redirect('admin/themes');
 	}
 	
-	
-	function _extractZip( $zipDir = '' , $zipFile = '', $extractTo = '', $dirFromZip = '' )
+	/**
+	 * Extract an uploaded zipfile
+	 * 
+	 * @access private
+	 * @param string $zipDir The directory of the zip file
+	 * @param string $zipFile The zip file
+	 * @param string $extractTo The directory used to store the extracted files
+	 * @param string $dirFromZip No idea...
+	 * @return bool
+	 */
+	// #FIXME: Is this method still being used? - Yorick
+	private function _extractZip( $zipDir = '' , $zipFile = '', $extractTo = '', $dirFromZip = '' )
 	{	
 		$zip = zip_open($zipDir.$zipFile);
 		
