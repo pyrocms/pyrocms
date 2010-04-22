@@ -1,13 +1,19 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed.');
 
-class MY_Validation extends CI_Validation {
+class MY_Validation extends CI_Validation
+{
 
+	function MY_Validation()
+	{
+		parent::CI_Validation();
 
-    function MY_Validation() {
-        parent::CI_Validation();
-    }
+		$this->CI->load->language('extra_validation');
+	}
 
-    function set_fields($data = '', $field = '', $separator = '_') {    
+	// Overcomplicated old function that makes fields slightly more readbale if no "label" is set
+	// TODO: Get rid of this crap
+    function set_fields($data = '', $field = '', $separator = '_')
+	{
         if ($data == '') {
             if (count($this->_fields) == 0 && count($this->_rules) == 0) {
                 return FALSE;
@@ -39,4 +45,19 @@ class MY_Validation extends CI_Validation {
             }
         }        
     }
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Alpha-numeric with underscores dots and dashes
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function alpha_dot_dash($str)
+	{
+		return ( ! preg_match("/^([-a-z0-9_\-\.])+$/i", $str)) ? FALSE : TRUE;
+	}
+	
 } 

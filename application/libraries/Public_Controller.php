@@ -18,17 +18,32 @@ class Public_Controller extends MY_Controller
 		
 	    // -- Navigation menu -----------------------------------
 	    $this->load->model('pages/pages_m');
-	    
+	    $this->load->model('themes/themes_m');
+
+		// Load the current theme
+		$this->theme = $this->themes_m->get();
+
+		if(!$this->theme)
+		{
+			show_error('This site has been set to use a theme that does not exist. If you are an administrator please ' . anchor('admin/themes', 'change the theme') . '.');
+		}
+
+		// Prepare Asset library
+	    $this->asset->set_theme($this->theme->slug);
+
+		// Asset library needs to know where the theme directory is
+		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
+		$this->config->set_item('theme_asset_url', dirname($this->theme->web_path).'/');
+
 	    // Set the theme view folder
-	    $this->template->set_theme($this->settings->item('default_theme'));
-	    $this->asset->set_theme($this->settings->item('default_theme'));
-	    
-	    $this->template->set_layout('layout');
-	    
-	    $this->template->append_metadata( js('jquery/jquery.js') )
-	    	->append_metadata( js('jquery/jquery.fancybox.js') )
-	    	->append_metadata( css('jquery/jquery.fancybox.css') )
-	    	->append_metadata( js('front.js') );
+	    $this->template
+					->set_theme($this->theme->slug)
+					->set_layout('default')
+					->append_metadata( '
+						<script type="text/javascript">
+							var APPPATH_URI = "'.APPPATH_URI.'";
+							var BASE_URI = "'.BASE_URI.'";
+						</script>' );
 	    
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');

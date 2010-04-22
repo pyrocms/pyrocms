@@ -35,5 +35,6 @@ $lang['delete_installer_message']		= 'Por favor eliminar el directorio "instaler
 $lang['cp_sidebar_title'] 				= 'Menu lateral';
 
 $lang['required_label'] 				= 'Obligatorio';
+$lang['sb_recent_users'] 				= 'Recent users'; #translate
 
 ?>

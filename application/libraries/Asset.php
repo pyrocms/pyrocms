@@ -28,19 +28,18 @@
 
 class Asset
 {
-	var $CI;
+	private $theme = NULL;
+	private $_ci;
 	
-	var $theme = NULL;
-	
-	function Asset()
+	function __construct()
 	{
-		$this->CI =& get_instance();
+		$this->_ci =& get_instance();
 
-		$this->CI->load->config('asset');
+		$this->_ci->load->config('asset');
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * CSS
 	  *
@@ -52,15 +51,19 @@ class Asset
 	  * @param		string    optional, extra attributes
 	  * @return		string    HTML code for JavaScript asset
 	  */
-	
+
 	function css($asset_name, $module_name = NULL, $attributes = array())
 	{
 		$attribute_str = $this->_parse_asset_html($attributes);
-	
-		return '<link href="'.$this->css_path($asset_name, $module_name).'" rel="stylesheet" type="text/css"'.$attribute_str.' />'."\n";
+
+		if(!preg_match('/rel="([^\"]+)"/', $attribute_str))
+		{
+			$attribute_str .= ' rel="stylesheet"';
+		}
+
+		return '<link href="'.$this->css_path($asset_name, $module_name).'" type="text/css"'.$attribute_str.' />'."\n";
 	}
 	
-
 	// ------------------------------------------------------------------------
 	
 	/**
@@ -76,10 +79,9 @@ class Asset
 	
 	function css_path($asset_name, $module_name = NULL)
 	{
-		return $this->other_asset_path($asset_name, $module_name, config_item('asset_css_dir'));
+		return $this->_asset_path($asset_name, $module_name, config_item('asset_css_dir'));
 	}
 	
-
 	// ------------------------------------------------------------------------
 	
 	/**
@@ -95,10 +97,9 @@ class Asset
 	
 	function css_url($asset_name, $module_name = NULL)
 	{
-		return $this->other_asset_url($asset_name, $module_name, config_item('asset_css_dir'));
+		return $this->_asset_url($asset_name, $module_name, config_item('asset_css_dir'));
 	}
 
-	
 	// ------------------------------------------------------------------------
 	
 	/**
@@ -138,7 +139,7 @@ class Asset
 	
 	function image_path($asset_name, $module_name = NULL)
 	{
-		return $this->other_asset_path($asset_name, $module_name, config_item('asset_img_dir'), 'path');
+		return $this->_asset_path($asset_name, $module_name, config_item('asset_img_dir'), 'path');
 	}
 	
 	// ------------------------------------------------------------------------
@@ -156,7 +157,7 @@ class Asset
 	
 	function image_url($asset_name, $module_name = NULL)
 	{
-		return $this->other_asset_url($asset_name, $module_name, config_item('asset_img_dir'));
+		return $this->_asset_url($asset_name, $module_name, config_item('asset_img_dir'));
 	}
 
 	
@@ -193,7 +194,7 @@ class Asset
 	
 	function js_path($asset_name, $module_name = NULL)
 	{
-		return $this->other_asset_path($asset_name, $module_name, config_item('asset_js_dir'));
+		return $this->_asset_path($asset_name, $module_name, config_item('asset_js_dir'));
 	}
 	
 	// ------------------------------------------------------------------------
@@ -211,7 +212,7 @@ class Asset
 	
 	function js_url($asset_name, $module_name = NULL)
 	{
-		return $this->other_asset_url($asset_name, $module_name, config_item('asset_js_dir'));
+		return $this->_asset_url($asset_name, $module_name, config_item('asset_js_dir'));
 	}
 	
 	
@@ -222,26 +223,26 @@ class Asset
 	  *
 	  * The main asset location generator
 	  *
-	  * @access		public
+	  * @access		private
 	  * @param		string    the name of the file or asset
 	  * @param		string    optional, module name
 	  * @return		string    HTML code for JavaScript asset
 	  */
 
-	function other_asset_path($asset_name, $module_name = NULL, $asset_type = NULL)
+	private function _asset_path($asset_name, $module_name = NULL, $asset_type = NULL)
 	{
 		return $this->_other_asset_location($asset_name, $module_name, $asset_type, 'path');
 	}
 	
 	
-	function other_asset_url($asset_name, $module_name = NULL, $asset_type = NULL)
+	function _asset_url($asset_name, $module_name = NULL, $asset_type = NULL)
 	{
 		return $this->_other_asset_location($asset_name, $module_name, $asset_type, 'url');
 	}
 	
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
-		$base_location = $this->CI->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
+		$base_location = config_item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
 		
 		// If they are using a direct path, take them to it
 		if(strpos($asset_name, 'assets/') !== FALSE)
@@ -252,9 +253,9 @@ class Asset
 		// If they have just given a filename, not an asset path, and its in a theme
 		elseif($module_name == '_theme_' && $this->theme != NULL)
 		{
-			$asset_location = $base_location.'themes/'
-							. $this->theme.'/'
-							. $asset_type.'/'.$asset_name;
+			$asset_location = base_url() . config_item('theme_asset_dir')
+				. $this->theme . '/'
+				. $asset_type.'/'.$asset_name;
 		}
 		
 		// Normal file (that might be in a module)
@@ -265,27 +266,21 @@ class Asset
 			// Its in a module, ignore the current 
 			if($module_name)
 			{
-				foreach( array_keys(Modules::$locations) as $path)
+				foreach( (Modules::$locations) as $path => $offset)
 				{
 					if(is_dir($path . $module_name))
-					{	
-						$asset_location .= str_replace(APPPATH, '', $path).$module_name.'/';
+					{
+						// TODO: Fix this fucking mess
+						$asset_location = base_url() . $path . $module_name.'/';
 						break;
 					}
 				}
-				
-			}
-			
-			else
-			{
-				$asset_location .= 'assets/';
 			}
 			
 			$asset_location .= $asset_type.'/'.$asset_name;
 		}
 		
 		return $asset_location;
-	
 	}
 
 	// ------------------------------------------------------------------------
@@ -295,16 +290,20 @@ class Asset
 	  *
 	  * Turns an array of attributes into a string
 	  *
-	  * @access		public
+	  * @access		private
 	  * @param		array		attributes to be parsed
 	  * @return		string 		string of html attributes
 	  */
-	
-	function _parse_asset_html($attributes = NULL)
+	private function _parse_asset_html($attributes = NULL)
 	{
 		$attribute_str = '';
-			
-		if(is_array($attributes))
+
+		if(is_string($attributes))
+		{
+			$attribute_str = $attributes;
+		}
+		
+		else if(is_array($attributes) || is_object($attributes))
 		{
 			foreach($attributes as $key => $value)
 			{
@@ -325,7 +324,6 @@ class Asset
 	  * @access		public
 	  * @param		string		theme name
 	  */
-		
 	function set_theme($theme)
 	{
 		$this->theme = $theme;

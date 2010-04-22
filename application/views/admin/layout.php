@@ -21,7 +21,7 @@
 					<br class="clear-both"/>
 				</div>
 			
-				<?php $this->load->view('admin/result_messages') ?>
+				<?php $this->load->view('admin/partials/notices') ?>
 			
 				<?php if(!empty($template['partials']['sidebar'])): ?>
 				

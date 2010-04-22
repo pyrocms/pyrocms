@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'template', 'parser', 'settings/settings');
+$autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'template', 'parser', 'settings/settings', 'users/ion_auth');
 
 
 /*
@@ -51,8 +51,10 @@ $autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'templat
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'text', 'language', 'pages/pages', 'modules/module', 
-							'navigation/navigation', 'widgets/widgets', 'themes/theme', 'asset', 'pagination', 'array');
+$autoload['helper'] = array(
+	'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array',
+	'comments/comments', 'pages/pages', 'modules/module', 'navigation/navigation', 'widgets/widgets', 'themes/theme'
+);
 
 
 /*
@@ -109,7 +111,9 @@ $autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
 |
 */
 
-$autoload['model'] = array('permissions/permissions_m', 'news/news_m', 'modules/modules_m', 'pages/pages_m');
+// Autoloaded in MY_Controller
+//		permissions/permissions_m', modules/modules_m', 'pages/pages_m
+$autoload['model'] = array('news/news_m'); // TODO DEPRECATED: news model is left in for hardcoded themes, use the news widget
 
 
 /*

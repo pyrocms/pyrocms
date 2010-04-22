@@ -1,5 +1,5 @@
 <div class="box">
-	<h3 class="yellow">Recent users</h3>
+	<h3 class="yellow"><?php echo lang('sb_recent_users'); ?></h3>
 	
 	<div class="box-container">
 		<ul class="list-links">

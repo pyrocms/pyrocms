@@ -35,5 +35,6 @@ $lang['delete_installer_message']		= 'Supprimez le répertoire "installer" de vo
 $lang['cp_sidebar_title'] 				= 'Menu';
 
 $lang['required_label'] 				= 'Requis';
+$lang['sb_recent_users'] 				= 'Recent users'; #translate
 
 ?>
