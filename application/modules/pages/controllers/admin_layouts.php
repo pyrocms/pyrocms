@@ -142,7 +142,7 @@ class Admin_layouts extends Admin_Controller
 		// Loop through each validation rule
 		foreach($this->validation_rules as $rule)
 		{
-			$page_layout->{$rule['field']} = set_value($rule['field']);
+			$page_layout->{$rule['field']} = set_value($rule['field'], $page_layout->{$rule['field']});
 		}
 	    
 	    // Give validation a try, who knows, it just might work!
