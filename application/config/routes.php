@@ -48,6 +48,8 @@ $route['admin/(login|logout)'] = "admin/$1";
 $route['admin/([a-zA-Z_-]+)'] = "$1/admin/index";
 
 $route['register'] = "users/register";
+
+$route['user/(:any)'] = "users/profile/view/$1";
 $route['my-profile'] = "users/profile/index";
 $route['edit-profile'] = "users/profile/edit";
 $route['edit-settings'] = "users/user_settings/edit";

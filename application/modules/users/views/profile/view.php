@@ -1,8 +1,8 @@
-<h2><?php echo sprintf(lang('profile_of_title'), $user->full_name);?></h2>
-
+<h2><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
+<?php print_r($user); ?>
 <fieldset>
 	<legend><?php echo lang('profile_user_details_label');?></legend>
-	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->role; ?><br/>
+	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?><br/>
 	<strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo date('M d, Y', $user->created_on); ?><br/>
 	<?php if($user->last_login > 0): ?>
 		<strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y', $user->last_login); ?>

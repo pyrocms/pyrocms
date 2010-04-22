@@ -27,7 +27,7 @@
   </tr>
   
   <tr>
-    <td>[ <?php echo anchor('profiles/user/'.$post->author->id, 'Profile')?> ] [ <?php echo anchor('messages/write/'. $post->author->id, 'Message');?> ]</td>
+    <td>[ <?php echo anchor('user/'.$post->author->id, 'Profile')?> ] [ <?php echo anchor('messages/write/'. $post->author->id, 'Message');?> ]</td>
 	
 	<td colspan="2" align="right">[ <?php echo anchor('forums/posts/quote_reply/'.$post->id, ' Quote ');?> ]
 <?php if($post->author->id == $user->id && $post->parent_id == 0): ?>
