@@ -35,5 +35,6 @@ $lang['delete_installer_message']		= 'Bitte lösche das Installationsverzeichnis
 $lang['cp_sidebar_title'] 				= 'Seitenleistenmenu';
 
 $lang['required_label'] 				= 'Benötigt';
+$lang['sb_recent_users'] 				= 'Neue Benutzer';
 
 ?>

@@ -20,11 +20,11 @@
 			<ol>
 				<li>
 					<label for="email"><?php echo lang('email_label');?>:</label>
-					<span><?php echo form_input('email', $this->validation->email); ?></span>
+					<span><?php echo form_input('email', set_value('email')); ?></span>
 				</li>
 				<li>
 					<label for="password"><?php echo lang('password_label');?>:</label>
-					<span><?php echo form_password('password', $this->validation->password); ?></span>
+					<span><?php echo form_password('password'); ?></span>
 				</li>
 				<li>
 					<div class="float-right">

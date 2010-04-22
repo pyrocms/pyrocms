@@ -170,7 +170,7 @@ var fixHelper;
 		var menu = $("ul#menu li");/** define the main navigation selector **/
 
 		menu.hover(function() {/** build animated dropdown navigation **/
-			$(this).find('ul:first:hidden').css({visibility: "visible",display: "none"}).show("fast");
+			$(this).find('ul:first').show("fast").css({visibility: "visible", display: "block"});
 			$(this).find('a').stop().animate({backgroundPosition:"(0 -40px)"},{duration:150});
 			$(this).find('a.top-level').addClass("blue");
 		

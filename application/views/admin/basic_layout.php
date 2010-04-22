@@ -4,7 +4,7 @@
 		<?php echo css('admin/basic_layout.css'); ?>
 	</head>
 	<body>
-		<?php $this->load->view('admin/result_messages') ?>
+		<?php $this->load->view('admin/partials/notices') ?>
 		<?php echo $template['body']; ?>
 	</body>
 </html>

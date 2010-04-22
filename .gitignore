@@ -8,3 +8,4 @@ application/cache/simplepie/*.spc
 application/assets/img/photos/*/*
 application/uploads/assets/*
 codeigniter/logs/log-*.php
+nbproject/
