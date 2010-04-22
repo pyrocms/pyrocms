@@ -38,7 +38,7 @@ class Public_Controller extends MY_Controller
 	    // Set the theme view folder
 	    $this->template
 					->set_theme($this->theme->slug)
-					->set_layout('layout')
+					->set_layout('default')
 					->append_metadata( '
 						<script type="text/javascript">
 							var APPPATH_URI = "'.APPPATH_URI.'";
