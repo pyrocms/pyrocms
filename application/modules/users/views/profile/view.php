@@ -1,5 +1,5 @@
 <h2><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
-<?php print_r($user); ?>
+
 <fieldset>
 	<legend><?php echo lang('profile_user_details_label');?></legend>
 	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?><br/>
