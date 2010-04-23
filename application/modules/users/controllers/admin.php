@@ -247,7 +247,7 @@ class Admin extends Admin_Controller
 			$update_data['active'] 		= $this->input->post('active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('group_id')) $update_data['group_id'] = $this->input->post('group_id');
+			if($this->input->post('group')) $update_data['group_id'] = $this->ion_auth->get_group_by_name($this->input->post('group'))->id;
 			
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )

@@ -767,6 +767,36 @@ class Ion_auth_model extends CI_Model
   	}
 
 	/**
+	 * get_group
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_group($id)
+  	{
+    	$this->db->where('id', $id);
+    	
+  		return $this->db
+					->get($this->tables['groups'])
+					->row();
+  	}
+
+	/**
+	 * get_group_by_name
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_group_by_name($name)
+  	{
+    	$this->db->where('name', $name);
+    	
+  		return $this->db
+					->get($this->tables['groups'])
+					->row();
+  	}
+
+	/**
 	 * update_user
 	 *
 	 * @return bool
