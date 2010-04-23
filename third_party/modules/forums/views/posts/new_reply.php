@@ -36,7 +36,7 @@
     <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Message:</b></td>
     <td width="85%" bgcolor="#CCCCCC">
     	<?php if(!empty($quote)): ?>
-    		<?php echo form_textarea('text', sprintf('[quote date=%s author=%s]%s[/quote]', $quote->created_on, $quote->author_id, $quote->text));?>
+    		<?php echo form_textarea('text', sprintf('[quote date=%s author=%s]%s[/quote]', $quote->created_on, $quote->author_id, $quote->content));?>
     	<?php else: ?>
     		<?php echo form_textarea('text', set_value('text'));?>
     	<?php endif; ?>

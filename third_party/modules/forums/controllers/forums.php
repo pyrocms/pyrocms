@@ -38,7 +38,11 @@ class Forums extends Public_Controller {
 				{
 					$forum->topic_count = $this->forum_posts_m->count_topics_in_forum( $forum->id );
 					$forum->reply_count = $this->forum_posts_m->count_replies_in_forum( $forum->id );
-					$forum->last_post = $this->forum_posts_m->getLastPostInForum($forum->id);
+					$forum->last_post = $this->forum_posts_m->last_forum_post($forum->id);
+					if(!empty($forum->last_post))
+					{
+						$forum->last_post->author = $this->forum_posts_m->author_info($forum->last_post->author_id);
+					}
 				}
 			}
 		}
@@ -62,6 +66,11 @@ class Forums extends Public_Controller {
 		{
 			$topic->post_count = $this->forum_posts_m->count_posts_in_topic($topic->id);
 			$topic->last_post = $this->forum_posts_m->getLastPostInTopic($topic->id);
+
+			if(!empty($topic->last_post))
+			{
+				$topic->last_post->author = $this->forum_posts_m->author_info($topic->last_post->author_id);
+			}
 		}
 		
 		$this->data->forum =& $forum;

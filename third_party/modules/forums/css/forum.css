@@ -1,3 +1,44 @@
+table.forum_table {
+	width: 100%;
+	border: 0px;
+	font-size: 12px;
+}
+table.forum_table * td, table.forum_table * th {
+	padding: 4px;
+}
+
+table.forum_table thead th {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #EEEEEE;
+	color: #333333;
+}
+
+table.forum_table thead th.header {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #DDDDDD;
+	color: #333333;
+}
+
+table.forum_table tbody td {
+	color: #333333;
+	border-bottom: 1px solid #DDDDDD;
+	vertical-align: middle;
+}
+
+table.forum_table tbody td span.description {
+	font-size: 10px;
+}
+
+table.forum_table tbody td.lastpost_info {
+	font-size: 10px;
+	line-height: 1.5em;
+}
+
+td.center_col, th.center_col {
+	text-align: center;
+}
 
 code {
 	background-color:		#fbfbfd;

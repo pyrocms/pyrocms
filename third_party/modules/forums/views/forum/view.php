@@ -33,8 +33,8 @@
 				<td align="center" valign="middle"><?php echo $topic->view_count?></td>
 				<td>
 			<?php if(!empty($topic->last_post)):?>
-			Posted: <?php echo anchor('forums/posts/view_reply/'.$topic->last_post->id, date('d M y', $topic->last_post->created_on)); ?><br/>
-			Author: <?php echo $this->users_m->get(array('id' => $forum->last_post->author_id))->full_name; ?>
+			Posted: <?php echo anchor('forums/posts/view_reply/'.$topic->last_post->id, date('m.d.y g:i a', $topic->last_post->created_on)); ?><br/>
+			Author: <?php echo $topic->last_post->author->full_name; ?>
 			<?php endif;?>
 			</td>
 		  </tr>

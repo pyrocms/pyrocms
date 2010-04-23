@@ -19,7 +19,7 @@ class Posts extends Public_Controller {
 
 	function view_reply($reply_id = 0)
 	{
-		($reply = $this->forum_posts_m->getReply($reply_id)) || show_404();
+		($reply = $this->forum_posts_m->get_reply($reply_id)) || show_404();
 		
 		// This is a reply
 		if($reply->parent_id > 0)

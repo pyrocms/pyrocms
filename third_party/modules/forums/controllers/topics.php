@@ -49,8 +49,7 @@ class Topics extends Public_Controller {
 		$topic->posts = $this->forum_posts_m->get_posts_by_topic($topic_id, $offset, $per_page);
 		foreach($topic->posts as &$post)
 		{
-			$post->author = $this->ion_auth_model->get_user($post->author_id)->row();
-			$post->author->full_name = $post->author->first_name . ' ' . $post->author->last_name;
+			$post->author = $this->forum_posts_m->author_info($post->author_id);
 		}
 		$this->data->topic =& $topic;
 		$this->data->forum =& $forum;
