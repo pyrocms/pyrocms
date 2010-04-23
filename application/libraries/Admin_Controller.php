@@ -23,7 +23,7 @@ class Admin_Controller extends MY_Controller
 	    $is_admin = $this->ion_auth->is_admin();
 	    
 	    // Login: If not logged in and its not an ignored page, force login
-	    if( ! $this->data->user && ! $is_ignored_page)
+	    if( ! $this->user && ! $is_ignored_page)
 	    {
 	    	redirect('admin/login');
 	    }        
@@ -32,9 +32,9 @@ class Admin_Controller extends MY_Controller
 	    {
 	    	$allow_access = TRUE;
 	    }
-	        
+		
 	    // We are looking at the index page. Show it if they have ANY admin access at all
-	    if( $current_page == 'admin/index' && $this->permissions_m->has_admin_access($this->data->user->group) )
+	    if( $current_page == 'admin/index' && $this->permissions_m->has_admin_access($this->user->group_id) )
 	    {
 	    	$allow_access = TRUE;
 	    }
@@ -44,7 +44,7 @@ class Admin_Controller extends MY_Controller
 	    {
 		  	// Check if the current user can view that page
 		    $location = array( 'module'=>$this->module, 'controller'=>$this->controller, 'method'=>$this->method );
-		    $allow_access = $this->permissions_m->checkRuleByRole( $this->data->user->group_id, $location );
+		    $allow_access = $this->permissions_m->checkRuleByRole( $this->user->group_id, $location );
 	    }
 	    
 	    // Show error and exit if the user does not have sufficient permissions
@@ -54,14 +54,14 @@ class Admin_Controller extends MY_Controller
 		    exit;
 	    }
 		
-	    // TODO: PJS I do not think this cache is working. Got bored and went to the pub...
 	    // Get a list of all modules available to this role
 	    if($current_page != 'admin/login')
 	    {
 	  		$this->data->core_modules = $this->cache->model('modules_m', 'get_modules', array(
 	    		array(
 					'is_backend_menu' => TRUE,
-					'role' => @$this->data->user->role,
+					'is_backend' => TRUE,
+					'group' => $this->user->group,
 	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
@@ -70,7 +70,7 @@ class Admin_Controller extends MY_Controller
 	    		array(
 					'is_core' => FALSE,
 					'is_backend' => TRUE,
-					'role' => @$this->data->user->role,
+					'group' => $this->user->group,
 	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
