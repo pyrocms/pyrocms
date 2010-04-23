@@ -1,3 +1,4 @@
+{$template.partials.breadcrumbs}
 <?=form_open('forums/posts/new_reply/'.$topic->id);?>
 
 <? if( !empty($validation_errors) ): ?>

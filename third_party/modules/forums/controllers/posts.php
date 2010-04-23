@@ -14,6 +14,9 @@ class Posts extends Public_Controller {
 		
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata( css('forum.css', 'forums') );
+		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
+		$this->template->set_breadcrumb('Home', '/');
+		$this->template->set_breadcrumb('Forum Home', 'forums');
 	}
 	
 
@@ -124,7 +127,9 @@ class Posts extends Public_Controller {
 		$this->data->topic =& $topic;
 		
 		// Set this for later
-		$this->template->set_breadcrumb($forum->title, 'forums/view_forum/'.$topic->forum_id); 
+		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$topic->forum_id); 
+		$this->template->set_breadcrumb($topic->title, 'forums/topics/view/'.$topic->id);
+		$this->template->set_breadcrumb('New Reply');
 		$this->template->build('posts/new_reply', $this->data);
 	}
 

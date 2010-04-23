@@ -1,3 +1,4 @@
+{$template.partials.breadcrumbs}
 <?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?> | <?php echo anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
 
 <table class="topic_table" border="0" cellspacing="0">

@@ -1,13 +1,40 @@
+p#breadcrumbs {
+	font-size: 11px;
+	color: #333333;
+}
+p#breadcrumbs a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #333333;
+}
+
+p#breadcrumbs a:hover {
+	text-decoration: underline;
+}
+
+p#breadcrumbs span.current {
+	font-weight: normal;
+}
+
 table.forum_table, table.topic_table {
 	width: 100%;
 	border: 0px;
 	font-size: 12px;
 }
+
 table.forum_table * td,
 table.forum_table * th,
 table.topic_table * td,
 table.topic_table * th {
 	padding: 10px;
+}
+
+table.forum_table thead tr td,
+table.forum_table thead tr th,
+table.topic_table thead tr td,
+table.topic_table thead tr th {
+	padding: 5px;
+	line-height: 1.5em;
 }
 
 table.forum_table thead th {
@@ -22,9 +49,7 @@ table.forum_table thead th.header {
 	font-weight: bold;
 	background-color: #DDDDDD;
 	color: #333333;
-	padding: 5px;
 	padding-left: 10px;
-	line-height: 1em;
 }
 
 table.forum_table tbody td {
@@ -57,17 +82,16 @@ table.topic_table tbody td.postreport {
 	line-height: 1em;
 }
 table.topic_table tbody tr.postlinks td {
-		padding: 5px;
+	padding: 5px;
 	line-height: 1em;
 }
+
 table.topic_table thead th.header {
 	font-size: 14px;
 	font-weight: bold;
 	background-color: #BBBBBB;
 	color: #333333;
-	padding: 5px;
 	padding-left: 10px;
-	line-height: 1em;
 }
 table.topic_table tbody tr.postinfo td {
 	font-size: 11px;
