@@ -1,8 +1,11 @@
 <IfModule mod_rewrite.c>
-	# NOTICE: Un comment the line below if you are getting 404
-	#AllowOverride All
+
 	Options +FollowSymLinks
 	RewriteEngine on
+
+	# NOTICE: If you get a 404 play with combinations of the following commented out lines
+	#AllowOverride All
+	#RewriteBase /wherever/pyro/is
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
 	RedirectMatch 403 /^(codeigniter|\.git|\.hg).*$
@@ -13,9 +16,4 @@
 
 	# NOTICE: If running within a userdir (e.g. localhost/~user) add your the full path below. Eg: /~user/pyrocms/index.php/$1
 	RewriteRule ^(.*)$ index.php/$1 [L]
-</IfModule>
-
-<IfModule !mod_rewrite.c>
-    # If no mod_rewrite all 404's can be sent to index.php.
-    ErrorDocument 404 /index.php
 </IfModule>

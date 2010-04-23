@@ -68,7 +68,7 @@ class Modules_m extends Model {
 		        	{
 		        		// This module is not a backend module
 		        		if(empty($module['is_backend'])) continue;
-		        		
+
 		        		// This user has no permissions for this module
 		        		if(!$this->permissions_m->has_admin_access( $this->user->group_id, $module['slug']) ) continue;
 		        	}
