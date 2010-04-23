@@ -13,6 +13,7 @@ $lang['page_layouts.edit_label'] 					= 'Bearbeiten';
 $lang['page_layouts.delete_label'] 					= 'Löschen';
 
 // titles
+$lang['page_layouts.list_title'] 					= 'List page layouts'; //Needs to be translated
 $lang['page_layouts.create_title'] 					= 'Seitenlayout hinzufügen';
 $lang['page_layouts.edit_title'] 					= 'Seitenlayout "%s" bearbeiten';
 
