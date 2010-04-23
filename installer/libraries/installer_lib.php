@@ -44,7 +44,7 @@ class Installer_lib
 		if($type == 'server')
 		{
 			// Retrieve the database settings from the session
-			$server 	= $this->ci->session->userdata('server');
+			$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
 			$username 	= $this->ci->session->userdata('username');
 			$password 	= $this->ci->session->userdata('password');
 			
