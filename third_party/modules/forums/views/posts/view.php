@@ -1,19 +1,23 @@
 <?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?> | <?php echo anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
 
-<h2><?php echo $topic->title;?></h2>
-
-<table width="100%" border="0" cellpadding="4" cellspacing="0">
+<table class="topic_table" border="0" cellspacing="0">
+	<thead>
+	<tr>
+		<th colspan="4" class="header"><?php echo $topic->title;?></th>
+	</tr>
+	</thead>
+	<tbody>
   <?php 
 	$i=$pagination->offset;
 	foreach($topic->posts as $post):
   ?>
-	<tr>
+	<tr class="postinfo">
     <td width="20%"><?php echo $post->author->full_name;?></td>
     <td width="50%">Posted: <?php echo date("m.d.y \a\\t g.i a", $post->created_on);?></td>
 <?php if($post->parent_id == 0): ?>
-	<td width="30%">[<?php echo anchor('forums/posts/report/'.$post->id, ' Report ');?>]</td>
+	<td width="30%" class="postreport">[<?php echo anchor('forums/posts/report/'.$post->id, ' Report ');?>]</td>
 <?php else: ?>
-	<td width="35%">[<?php echo anchor('forums/posts/report/'.$post->id, ' Report ');?>] [<?php echo anchor('forums/posts/view_reply/'.$post->id, ' # '.$i.' ' , array('title' => 'Permalink to this post', 'name' => $post->id));?>]</td>
+	<td width="35%" class="postreport">[<?php echo anchor('forums/posts/report/'.$post->id, ' Report ');?>] [<?php echo anchor('forums/posts/view_reply/'.$post->id, ' # '.$i.' ' , array('title' => 'Permalink to this post', 'name' => $post->id));?>]</td>
 <?php endif; ?>
   </tr>
  
@@ -26,7 +30,7 @@
     <td colspan="2" valign="top"><?php echo $post->content; //parse_bbcode($post->text);?></td>
   </tr>
   
-  <tr>
+  <tr class="postlinks">
     <td>[ <?php echo anchor('user/'.$post->author->id, 'Profile')?> ] [ <?php echo anchor('messages/write/'. $post->author->id, 'Message');?> ]</td>
 	
 	<td colspan="2" align="right">[ <?php echo anchor('forums/posts/quote_reply/'.$post->id, ' Quote ');?> ]
@@ -41,6 +45,7 @@
   <?php
 	$i++;
 	endforeach; ?>
+	</tbody>
 </table>
 
 <?php echo $pagination->links; ?>

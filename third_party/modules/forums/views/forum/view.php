@@ -1,15 +1,15 @@
 <?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
-<table width="100%" border="0" cellpadding="4" cellspacing="0">
+<table class="forum_table" border="0" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="5" scope="col"><?php echo $forum->title;?></th>
+			<th colspan="5" class="header"><?php echo $forum->title;?></th>
 		</tr>
 		<tr>
-			<td width="5%">&nbsp;</td>
-			<td width="45%">Topic Name</td>
-			<td width="10%">Posts</td>
-			<td width="10%">Views</td>
-			<td width="30%">Last Post Info</td>
+			<th width="2%">&nbsp;</th>
+			<th width="53%">Topic Name</th>
+			<th width="10%" class="center_col">Posts</th>
+			<th width="10%" class="center_col">Views</th>
+			<th width="25%">Last Post Info</th>
 		</tr>
 	</thead>
 	
@@ -27,11 +27,11 @@
 			<td></td>
 			<td valign="top">
 				<strong><?php echo anchor('forums/topics/view/'.$topic->id, $topic->title);?></strong><br/>
-				Author: <?php echo $this->users_m->get(array('id' => $topic->author_id))->full_name; ?>
+				<span class="description">Author: <?php echo $this->users_m->get(array('id' => $topic->author_id))->full_name; ?></span>
 			</td>
-				<td align="center" valign="middle"><?php echo $topic->post_count;?></td>
-				<td align="center" valign="middle"><?php echo $topic->view_count?></td>
-				<td>
+				<td class="center_col"><?php echo $topic->post_count;?></td>
+				<td class="center_col"><?php echo $topic->view_count?></td>
+				<td class="lastpost_info">
 			<?php if(!empty($topic->last_post)):?>
 			Posted: <?php echo anchor('forums/posts/view_reply/'.$topic->last_post->id, date('m.d.y g:i a', $topic->last_post->created_on)); ?><br/>
 			Author: <?php echo $topic->last_post->author->full_name; ?>

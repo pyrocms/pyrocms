@@ -8,11 +8,11 @@
 	    <th colspan="5" class="header"><?php echo $category->title;?></th>
 	  </tr>
 	  <tr>
-	    <th>&nbsp;</th>
-	    <th>Forum Name</th>
-	    <th class="center_col">Topics</th>
-	    <th class="center_col">Replies</th>
-	    <th>Last Post Info </th>
+	    <th width="2%">&nbsp;</th>
+	    <th width="53%">Forum Name</th>
+	    <th width="10%" class="center_col">Topics</th>
+	    <th width="10%" class="center_col">Replies</th>
+	    <th width="25%">Last Post Info </th>
 	  </tr>
 	</thead>
 	

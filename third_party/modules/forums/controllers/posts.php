@@ -13,7 +13,7 @@ class Posts extends Public_Controller {
 		//$this->load->helper('bbcode');
 		
 		// Add a link to the forum CSS into the head
-		$this->template->append_metadata( css('forum.css', 'forum') );
+		$this->template->append_metadata( css('forum.css', 'forums') );
 	}
 	
 
