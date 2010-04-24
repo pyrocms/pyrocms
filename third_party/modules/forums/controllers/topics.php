@@ -7,7 +7,7 @@ class Topics extends Public_Controller {
 		
 		$this->load->model('forums_m');
 		$this->load->model('forum_posts_m');
-
+		$this->load->helper('bbcode');
 		$this->lang->load('forum');
 		
 		//$this->load->helper('bbcode');
@@ -24,7 +24,7 @@ class Topics extends Public_Controller {
 		// Load all needed files
 		//$this->load->helpers(array('smiley', 'bbcode', 'date'));
 		$this->load->library('pagination');
-		
+
 		// Update view counter
 		$this->forum_posts_m->increaseViewcount($topic_id);
 		
