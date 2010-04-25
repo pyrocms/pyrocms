@@ -1,7 +1,6 @@
-<?php echo $template['partials']['breadcrumbs']; ?>
-<?=form_open('forums/topics/new_topic/'.$forum->id);?>
+<?php echo form_open('forums/topics/new_topic/'.$forum->id); ?>
 
-<? if( !empty($validation_errors) ): ?>
+<? if( !empty($messages['error']) ): ?>
 <div class="errors">
 	Please correct the errors in the form.
 </div>
@@ -13,9 +12,7 @@
 	<h2><? echo set_value('title');?></h2>
 	<p><?php echo parse_bbcode(set_value('content'));?></p>
 </div>
-
 <? endif; ?>
-
 
 <table class="form_table" border="0" cellspacing="0">
 	<thead>
@@ -39,7 +36,7 @@
 		<tr>
 			<th>Options:</th>
 			<td class="form_options">
-				<?php echo form_checkbox('notify', 1, set_value('notify') == 1 | empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
+				<?php echo form_checkbox('notify', 1, set_value('notify') == 1 || empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
 			</td>
 		</tr>
 		<tr>

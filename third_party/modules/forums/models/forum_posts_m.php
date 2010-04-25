@@ -1,12 +1,6 @@
 <?php
 class Forum_posts_m extends MY_Model
 {
-	private $fields = array('postID', 'forumID', 'authorID', 'parentID', 'post_title', 'post_text', 'post_type',
-						'post_locked', 'post_hidden', 'post_date', 'post_viewcount', 'smileys');
-	
-	private $post_table = 'forum_posts';
-	
-
 	/**
 	 * Count Topics in Forum
 	 *
@@ -75,7 +69,7 @@ class Forum_posts_m extends MY_Model
 	{
 		$this->db->or_where(array('id' => $topic_id, 'parent_id' => $topic_id));
 		$this->db->order_by('created_on');
-		return $this->db->get($this->post_table)->result();		
+		return $this->db->get('forum_posts')->result();
 	}
 
 	/**
@@ -91,7 +85,7 @@ class Forum_posts_m extends MY_Model
 	public function get_topics_by_forum($forum_id)
 	{
 		$this->db->where(array('forum_id' => $forum_id, 'parent_id' => 0));
-		$query = $this->db->get($this->post_table);
+		$query = $this->db->get('forum_posts');
 		return $query->result();		
 	}
 
@@ -107,12 +101,12 @@ class Forum_posts_m extends MY_Model
 	 */
 	public function last_forum_post($forum_id)
 	{
-		$this->db->where($this->post_table . '.forum_id', $forum_id);
-		$this->db->order_by($this->post_table . '.created_on DESC');
+		$this->db->where('forum_posts' . '.forum_id', $forum_id);
+		$this->db->order_by('forum_posts' . '.created_on DESC');
 		$this->db->limit(1);
-		$this->db->join($this->post_table . ' as `post2`', $this->post_table . '.parent_id = post2.id');
+		$this->db->join('forum_posts' . ' as `post2`', 'forum_posts' . '.parent_id = post2.id');
 
-		return $this->db->get($this->post_table)->row();
+		return $this->db->get('forum_posts')->row();
 	}
 
 	/**
@@ -130,7 +124,7 @@ class Forum_posts_m extends MY_Model
 		$this->db->or_where(array('id' => $topic_id, 'parent_id' => $topic_id));
 		$this->db->order_by('created_on DESC');
 		$this->db->limit(1);
-		return $this->db->get($this->post_table)->row();
+		return $this->db->get('forum_posts')->row();
 	}
 	
 	/**
@@ -170,7 +164,7 @@ class Forum_posts_m extends MY_Model
 	function getTopic($topic_id = 0)
     {
 		$this->db->where(array('id' => $topic_id, 'parent_id' => 0));
-		return $this->db->get($this->post_table)->row();
+		return $this->db->get('forum_posts')->row();
 	}
 	
 
@@ -179,7 +173,7 @@ class Forum_posts_m extends MY_Model
 	{
 		$this->db->set('view_count = view_count + 1');
 		$this->db->where('id', (int) $topic_id);
-		$this->db->update($this->post_table);
+		$this->db->update('forum_posts');
 	}
 	
 
@@ -198,7 +192,7 @@ class Forum_posts_m extends MY_Model
 			'view_count' 	=> 0,
         );
 		
-        $this->db->insert($this->post_table, $insert);
+        $this->db->insert('forum_posts', $insert);
 		
         return $this->db->insert_id();
 	}
@@ -212,26 +206,26 @@ class Forum_posts_m extends MY_Model
 			'author_id' 	=> $user_id,
 			'parent_id' 	=> $topic->id,
 			'title' 		=> '',
-			'content'		=> $this->input->xss_clean($reply->content),
+			'content'		=> $reply->content,
 			'created_on' 	=> now(),
 			'view_count' 	=> 0,
         );
 		
-        $this->db->insert($this->post_table, $insert);
-		
+        $this->db->insert('forum_posts', $insert);
+
         return $this->db->insert_id();
 	}
 	
 	function get_reply($reply_id = 0)
 	{
 		$this->db->where('id', $reply_id);
-		return $this->db->get($this->post_table, 1)->row();
+		return $this->db->get('forum_posts', 1)->row();
 	}
 	
 	function getPost($post_id = 0)
 	{
 		$this->db->where('id', $post_id);
-		return $this->db->get($this->post_table, 1)->row();
+		return $this->db->get('forum_posts', 1)->row();
 	}
 	
 /*
@@ -249,7 +243,7 @@ class Forum_posts_m extends MY_Model
     {
 
 		$this->db->select('postID');
-		$this->db->from($this->post_table);
+		$this->db->from('forum_posts');
 		if($this->where != '') 		$this->db->where($this->where);
 		if($limit > 0)   			$this->db->limit($limit, $offset);
 		if($this->orderby != '') 	$this->db->orderby($this->orderby);
@@ -279,7 +273,7 @@ class Forum_posts_m extends MY_Model
 		$this->db->select($this->fields);
 	
 		$this->db->where('postID', $this->postID);
-		$query = $this->db->get($this->post_table, 1);
+		$query = $this->db->get('forum_posts', 1);
 				
 		$this->where = "";
 		$this->orderBy = "";
@@ -325,7 +319,7 @@ class Forum_posts_m extends MY_Model
 	// Each time a user looks at a topic it will add 1
 	function increaseViewcount($topicID = 0)
 	{
-		$this->db->query('UPDATE '. $this->post_table .' SET post_viewcount = post_viewcount + 1 WHERE postID = '.intval($topicID));
+		$this->db->query('UPDATE '. 'forum_posts' .' SET post_viewcount = post_viewcount + 1 WHERE postID = '.intval($topicID));
 	}
 	
 
@@ -335,14 +329,14 @@ class Forum_posts_m extends MY_Model
               'post_text' => $this->input->xss_clean($text)
         );
 		$this->db->where('postID', $postID);
-		$this->db->update($this->post_table, $update_data);
+		$this->db->update('forum_posts', $update_data);
 		return ($this->db->affected_rows() > 0);
 	}
 
 	function deleteReply($postID)
 	{
        	$this->db->where('postID', $postID);
-		$this->db->delete($this->post_table);
+		$this->db->delete('forum_posts');
 		return ($this->db->affected_rows() > 0);
 	}	
 
@@ -365,7 +359,7 @@ class Forum_posts_m extends MY_Model
                'post_viewcount' =>	0,
 			   'smileys'		=>	$this->input->xss_clean($smileys)
             );
-			$this->db->insert($this->post_table, $insert_data);
+			$this->db->insert('forum_posts', $insert_data);
 			return ($this->db->affected_rows() > 0);
 			
 		} else {

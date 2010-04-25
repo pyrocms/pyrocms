@@ -42,14 +42,8 @@ class Topics extends Public_Controller {
 		// End Pagination
 
 		// Which topic in which forum are we looking at?
-		$topic = $this->forum_posts_m->get($topic_id);
-		$forum = $this->forums_m->get($topic->forum_id);
-		
-		// Check if topic exists, if not show 404
-		if(!$topic or !$forum)
-		{
-			show_404();
-		}
+		($topic = $this->forum_posts_m->get($topic_id)) or show_404();
+		($forum = $this->forums_m->get($topic->forum_id)) or show_404();
 	
 		// Get a list of posts which have no parents (topics) in this forum
 		$topic->posts = $this->forum_posts_m->get_posts_by_topic($topic_id, $offset, $per_page);

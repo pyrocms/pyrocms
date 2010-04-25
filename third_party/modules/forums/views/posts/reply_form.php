@@ -1,0 +1,53 @@
+<?php echo form_open(uri_string()); ?>
+
+	<?php if( !empty($messages['error']) ): ?>
+	<div class="errors">
+		Please correct the errors in the form.
+	</div>
+	<?php endif; ?>
+
+	<?php if(!empty($show_preview)): ?>
+	<div class="preview">
+		<h1>Post Preview</h1>
+		<h2><?php echo $reply->title;?></h2>
+		<p><?php echo parse_bbcode( $reply->content );?></p>
+	</div>
+	<?php endif; ?>
+
+	<table class="form_table" border="0" cellspacing="0">
+		<thead>
+			<tr>
+				<th colspan="2" class="header">
+					<?php if($method == 'new_reply'): ?>
+						Post a new reply to "<?php echo $topic->title;?>" in <?php echo $forum->title;?>
+					<?php elseif($method == 'edit_reply'): ?>
+						Post a new reply to "<?php echo $topic->title;?>" in <?php echo $forum->title;?>
+					<?php endif; ?>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Formatting:</th>
+				<td><?php echo $template['partials']['bbcode']; ?></td>
+			</tr>
+			<tr>
+				<th class ="textarea_label">Message:</th>
+				<td><?php echo form_textarea(array('name' => 'content', 'id' => 'bbcode_input', 'value' => $reply->content)); ?><?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
+			</tr>
+			<?php /*
+			<tr>
+				<th>Options:</th>
+				<td class="form_options">
+					<?php echo form_checkbox('notify', 1, $reply->notify == 1 || empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
+				</td>
+			</tr>
+			 */?>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Submit Reply" /></td>
+			</tr>
+		</tbody>
+	</table>
+
+<?php echo form_close(); ?>
