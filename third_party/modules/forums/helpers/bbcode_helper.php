@@ -37,6 +37,7 @@
 */
 function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
 {
+	$str = htmlentities($str);
     if ( ! is_array($bbcode_to_parse))
     {
 		$bbcode_to_parse = _get_bbcode_to_parse_array();
@@ -46,10 +47,6 @@ function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
         }
     }
 
-	$CI =& get_instance();
-	$CI->load->library('typography');
-	$str = $CI->typography->auto_typography($str, TRUE);
-
 	foreach ($bbcode_to_parse as $key => $val)
     {
         for ($i = 1; $i <= $bbcode_to_parse[$key][2]; $i++) // loop for imbricated tags
@@ -58,12 +55,47 @@ function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
         }
     }
 
-	return $str;
+	$str = break_lines($str);
+    $str = preg_replace ( '/<code>*\s*/s', '<code>', $str);
+    return preg_replace ( '/\s*<\/code>/s', '</code>', $str);
 }
 
 // ------------------------------------------------------------------------
 
+function break_lines($string)
+{
+    if(strpos($string, "<code>") === FALSE)
+    {
+        return nl2br($string);
+    }
 
+    $lines = explode("\n", $string);
+    $output = "";
+    $in_code = FALSE;
+
+    foreach($lines as $line)
+    {
+        if(strpos($line, "<code>") !== FALSE)
+        {
+            $in_code = TRUE;
+        }
+        elseif(strpos($line, "</code>") !== FALSE)
+        {
+            $in_code = FALSE;
+        }
+
+		if($in_code)
+        {
+            $output .= $line . "\n";
+        }
+        else
+        {
+            $output .= $line . "<br />";
+        }
+    }
+
+    return $output;
+}
 /**
 * Clear bbCode
 *
