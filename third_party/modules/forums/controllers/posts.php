@@ -65,11 +65,17 @@ class Posts extends Public_Controller {
 		// Chech if there is a forum with that ID
 		($topic and $forum) or show_404();
 
-		$reply->content = set_value('content');
+		if($this->session->flashdata('forum_quote'))
+		{
+			$quote = unserialize($this->session->flashdata('forum_quote'));
+			$reply->content = '[quote]'.$quote->content.'[/quote]';
+		}
 
-		// If there was a quote, send it to the view
-		$this->data->quote = unserialize($this->session->flashdata('forum_quote'));
-
+		else
+		{
+			$reply->content = set_value('content');
+		}
+		
 		// The form has been submitted one way or another
 		if($this->input->post('submit') or $this->input->post('preview'))
 		{
@@ -114,6 +120,7 @@ class Posts extends Public_Controller {
 			}
 		}
 
+		$this->data->quote =& $quote;
 		$this->data->reply =& $reply;
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
@@ -141,7 +148,6 @@ class Posts extends Public_Controller {
 		($this->user->id && $reply->author_id) or show_404();
 
 		// Override with post data if it exists
-		$this->input->post('title') and $reply->title = set_value('title');
 		$this->input->post('content') and $reply->content = set_value('content');
 		$this->input->post('notify') and $reply->notify = set_value('notify');
 

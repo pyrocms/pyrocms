@@ -21,7 +21,7 @@
 					<?php if($method == 'new_reply'): ?>
 						Post a new reply to "<?php echo $topic->title;?>" in <?php echo $forum->title;?>
 					<?php elseif($method == 'edit_reply'): ?>
-						Post a new reply to "<?php echo $topic->title;?>" in <?php echo $forum->title;?>
+						Edit your reply to "<?php echo $topic->title;?>" in <?php echo $forum->title;?>
 					<?php endif; ?>
 				</th>
 			</tr>
@@ -33,7 +33,10 @@
 			</tr>
 			<tr>
 				<th class ="textarea_label">Message:</th>
-				<td><?php echo form_textarea(array('name' => 'content', 'id' => 'bbcode_input', 'value' => $reply->content)); ?><?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
+				<td>
+					<?php echo form_textarea(array('name' => 'content', 'id' => 'bbcode_input', 'value' => $reply->content)); ?>
+					
+					<?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
 			</tr>
 			<?php /*
 			<tr>
