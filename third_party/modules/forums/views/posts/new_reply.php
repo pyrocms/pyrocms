@@ -16,7 +16,7 @@
     <th align="left" bgcolor="#999999" scope="col"> Preview</th>
   </tr>
   <tr>
-    <td width="85%" bgcolor="#CCCCCC"><?=parse_bbcode(set_value('text'));?></td>
+    <td width="85%" bgcolor="#CCCCCC"><? echo parse_bbcode(set_value('text'));?></td>
   </tr>
 </table>
 <br />
@@ -28,7 +28,7 @@
   </tr>
   <tr>
     <td width="15%" bgcolor="#CCCCCC"><b>Formatting:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><?//=bbcode_menu();?></td>
+    <td width="85%" bgcolor="#CCCCCC">{$template.partials.bbcode}</td>
   </tr>
   <tr>
     <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
@@ -37,9 +37,9 @@
     <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Message:</b></td>
     <td width="85%" bgcolor="#CCCCCC">
     	<?php if(!empty($quote)): ?>
-    		<?php echo form_textarea('text', sprintf('[quote%s]%s[/quote]', $quote->author_id, $quote->content));?>
+    		<?php echo form_textarea(array('name' => 'content', 'id' => 'reply_content', 'rows' => '8', 'value' => sprintf('[quote%s]%s[/quote]', $quote->author_id, $quote->content)));?>
     	<?php else: ?>
-    		<?php echo form_textarea('text', set_value('text'));?>
+    		<?php echo form_textarea(array('name' => 'content', 'id' => 'reply_content', 'rows' => '8', 'value' => set_value('content')));?>
     	<?php endif; ?>
     </td>
   </tr>

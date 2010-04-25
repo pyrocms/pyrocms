@@ -7,13 +7,14 @@ class Posts extends Public_Controller {
 		
 		$this->load->model('forums_m');
 		$this->load->model('forum_posts_m');
-
+		$this->load->helper('bbcode');
 		$this->lang->load('forum');
 		
 		//$this->load->helper('bbcode');
 		
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata( css('forum.css', 'forums') );
+		$this->template->append_metadata(js('bbcode.js', 'forums'));
 		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
 		$this->template->set_breadcrumb('Home', '/');
 		$this->template->set_breadcrumb('Forum Home', 'forums');
@@ -83,7 +84,7 @@ class Posts extends Public_Controller {
 		{
 			$this->load->library('form_validation');
 			
-			$this->form_validation->set_rules('text', 'Message', 'trim|strip_tags|required');
+			$this->form_validation->set_rules('content', 'Message', 'trim|strip_tags|required');
 			$this->form_validation->set_rules('notify', 'Subscription notification', 'trim|strip_tags|max_length[1]');
 
 			if ($this->form_validation->run() === TRUE)
@@ -91,7 +92,7 @@ class Posts extends Public_Controller {
 				if( $this->input->post('submit') )
 				{
 					$reply->title = set_value('title');
-					$reply->text = set_value('text');
+					$reply->content = set_value('content');
 					
 					if($reply->id = $this->forum_posts_m->new_reply($this->ion_auth->profile()->id, $reply, $topic))
 					{
@@ -126,7 +127,9 @@ class Posts extends Public_Controller {
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
 		
-		// Set this for later
+		$this->data->bbcode_buttons = get_bbcode_buttons('content');
+
+		$this->template->set_partial('bbcode', 'partials/bbcode');
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$topic->forum_id); 
 		$this->template->set_breadcrumb($topic->title, 'forums/topics/view/'.$topic->id);
 		$this->template->set_breadcrumb('New Reply');

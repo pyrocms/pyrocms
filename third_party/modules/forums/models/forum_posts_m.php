@@ -212,7 +212,7 @@ class Forum_posts_m extends MY_Model
 			'author_id' 	=> $user_id,
 			'parent_id' 	=> $topic->id,
 			'title' 		=> '',
-			'content'		=> $this->input->xss_clean($reply->text),
+			'content'		=> $this->input->xss_clean($reply->content),
 			'created_on' 	=> now(),
 			'view_count' 	=> 0,
         );

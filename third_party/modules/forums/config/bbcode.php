@@ -12,16 +12,16 @@ $config['bbcodes'] = array(
 
 //    name                onClick
 
-    "b"            =>        "[removed]insert_bbcode('[b]', '[/b]');return(false)",
-    "i"            =>        "[removed]insert_bbcode('[i]', '[/i]');return(false)",
-    "u"            =>        "[removed]insert_bbcode('[u]', '[/u]');return(false)",
-    "center"       =>        "[removed]insert_bbcode('[center]', '[/center]');return(false)",
-    "right"        =>        "[removed]insert_bbcode('[right]', '[/right]');return(false)",
-    "justify"      =>        "[removed]insert_bbcode('[justify]', '[/justify]');return(false)",
-    "quote"        =>        "[removed]insert_bbcode('[q=AUTHOR]', '[/quote]');return(false)",
-    "img"          =>        "[removed]insert_bbcode('[img]', '[/img]');return(false)",
-    "url"          =>        "[removed]insert_bbcode('[url=]', '[/url]');return(false)",
-    "email"        =>        "[removed]insert_bbcode('[email=]', '[/email]');return(false)"
+    "b"            =>        "javascript:insert_bbcode('[b]', '[/b]');return(false)",
+    "i"            =>        "javascript:insert_bbcode('[i]', '[/i]');return(false)",
+    "u"            =>        "javascript:insert_bbcode('[u]', '[/u]');return(false)",
+    "center"       =>        "javascript:insert_bbcode('[center]', '[/center]');return(false)",
+    "right"        =>        "javascript:insert_bbcode('[right]', '[/right]');return(false)",
+    "justify"      =>        "javascript:insert_bbcode('[justify]', '[/justify]');return(false)",
+    "quote"        =>        "javascript:insert_bbcode('[q=AUTHOR]', '[/quote]');return(false)",
+    "img"          =>        "javascript:insert_bbcode('[img]', '[/img]');return(false)",
+    "url"          =>        "javascript:insert_bbcode('[url=]', '[/url]');return(false)",
+    "email"        =>        "javascript:insert_bbcode('[email=]', '[/email]');return(false)"
         );
 
 $config['bbcodes_to_parse'] = array(
