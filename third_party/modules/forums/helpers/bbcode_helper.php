@@ -45,8 +45,12 @@ function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
             return FALSE;
         }
     }
-//	$str = htmlentities($str);
-    foreach ($bbcode_to_parse as $key => $val)
+
+	$CI =& get_instance();
+	$CI->load->library('typography');
+	$str = $CI->typography->auto_typography($str, TRUE);
+
+	foreach ($bbcode_to_parse as $key => $val)
     {
         for ($i = 1; $i <= $bbcode_to_parse[$key][2]; $i++) // loop for imbricated tags
         {
@@ -54,7 +58,7 @@ function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
         }
     }
 
-    return nl2br($str);
+	return $str;
 }
 
 // ------------------------------------------------------------------------

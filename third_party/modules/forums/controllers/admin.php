@@ -1,24 +1,13 @@
 <?php
 
-class Admin extends Controller {
+class Admin extends Admin_Controller {
 	
-	var $user_table = 'fa_user';
-	
-	function Admin()
+	function __construct()
 	{
-		parent::Controller();
-		$this->freakauth_light->check('admin');
-		
-		$this->load->library('rapyd');
-		$this->load->helper('url');
+		parent::Admin_Controller();
 	
 		$this->load->model('forums_m');
 		//$this->load->model('action_model');
-		
-		$this->template->navigation(array(
-			'Manage Categories' => 'forums/admin/categories',
-			'Manage Forums' => 'forums/admin/forums'
-		));
 	}
 	
 	##### index #####
@@ -30,8 +19,6 @@ class Admin extends Controller {
 	##### datagrid #####
 	function categories()
 	{
-		$data['pagetitle'] = 'Category List';
-		
 		//datagrid//
 		$this->rapyd->load('datafilter', 'datagrid');
 
