@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 
-	// Basic options
+	// Simple options - used for small summary, description, etc
 	tinyMCE.init({
 		
 		mode : "specific_textareas",
@@ -29,7 +29,7 @@
 	});
 
 
-	// General options
+	// Advanced options - For big boxes, page content, etc
 	tinyMCE.init({
 
 		mode : "specific_textareas",

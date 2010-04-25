@@ -81,7 +81,7 @@
 					// We have already AJAXed in the contents of this folder
 					if( child_ul.children().length == 0 )
 					{
-						$.get(BASE_URI + 'admin/pages/ajax_fetch_children/' + page_id, function(data){
+						$.get(BASE_URI + 'index.php/admin/pages/ajax_fetch_children/' + page_id, function(data){
 							var branches = $(data).appendTo(child_ul);
 							page_tree.treeview({
 								add: branches
@@ -117,7 +117,7 @@
 			page_id = $(this).attr('rel').replace('page-', '');
 			
 			// Update the "Details" panel
-			$('div#page-details').load(BASE_URI + 'admin/pages/ajax_page_details/' + page_id);
+			$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + page_id);
 			
 			return false;
 		});
