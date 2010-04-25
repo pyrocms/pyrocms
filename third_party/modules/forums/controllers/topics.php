@@ -97,14 +97,14 @@ class Topics extends Public_Controller {
 			$this->load->library('form_validation');
 			
 			$this->form_validation->set_rules('title', 'Title', 'trim|strip_tags|required|max_length[100]');
-			$this->form_validation->set_rules('content', 'Message', 'trim|strip_tags|required');
+			$this->form_validation->set_rules('content', 'Message', 'trim|required');
 
 			if ($this->form_validation->run() === TRUE)
 			{
 				if( $this->input->post('submit') )
 				{
 					$topic->title = set_value('title');
-					$topic->text = set_value('text');
+					$topic->content = set_value('content');
 					
 					if($topic->id = $this->forum_posts_m->new_topic($this->ion_auth->profile()->id, $topic, $forum))
 					{

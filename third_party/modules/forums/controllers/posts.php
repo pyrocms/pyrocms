@@ -85,7 +85,7 @@ class Posts extends Public_Controller {
 		{
 			$this->load->library('form_validation');
 			
-			$this->form_validation->set_rules('content', 'Message', 'trim|strip_tags|required');
+			$this->form_validation->set_rules('content', 'Message', 'trim|required');
 			$this->form_validation->set_rules('notify', 'Subscription notification', 'trim|strip_tags|max_length[1]');
 
 			if ($this->form_validation->run() === TRUE)
