@@ -3,7 +3,7 @@ function html_editor(id, width)
 	CodeMirror.fromTextArea(id, {
 	    height: "30em",
 	    width: width,
-	    parserfile: ["parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
+	    parserfile: ["parsejavascript.js","parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
 	    stylesheet: [APPPATH_URI + "assets/css/codemirror/xmlcolors.css", APPPATH_URI + "assets/css/codemirror/csscolors.css"],
 	    path: APPPATH_URI + "assets/js/codemirror/",
 	    tabMode: 'spaces'

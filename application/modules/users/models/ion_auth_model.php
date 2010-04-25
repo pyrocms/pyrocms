@@ -618,7 +618,6 @@ class Ion_auth_model extends CI_Model
 			$this->tables['groups'].'.name AS `group`',
 			$this->tables['groups'].'.description AS group_description'
 		));
-
 		if (!empty($this->columns))
 		{
 			foreach ($this->columns as $field)
