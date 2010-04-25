@@ -1,4 +1,4 @@
-<p id="breadcrumbs">
+<p id="forum_breadcrumbs">
 <?php
 foreach ($template['breadcrumbs'] as $crumb) {
 	if(!empty($crumb->uri))

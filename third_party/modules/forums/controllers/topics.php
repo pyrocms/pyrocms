@@ -96,7 +96,7 @@ class Topics extends Public_Controller {
 			$this->load->library('form_validation');
 			
 			$this->form_validation->set_rules('title', 'Title', 'trim|strip_tags|required|max_length[100]');
-			$this->form_validation->set_rules('text', 'Message', 'trim|strip_tags|required');
+			$this->form_validation->set_rules('content', 'Message', 'trim|strip_tags|required');
 
 			if ($this->form_validation->run() === TRUE)
 			{

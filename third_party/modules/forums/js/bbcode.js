@@ -1,6 +1,6 @@
     function insert_bbcode(bbopen, bbclose)
     {
-        var input = document.getElementById("reply_content");
+        var input = document.getElementById("bbcode_input");
         input.focus();
 
         /* for Internet Explorer )*/

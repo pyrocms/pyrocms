@@ -1,7 +1,7 @@
-<p id="bbcode_buttons">
+<p class="bbcode_buttons">
 <?php
 foreach ($bbcode_buttons as $button) {
-	echo $button;
+	echo $button . "&nbsp;";
 }
 ?>
 </p>

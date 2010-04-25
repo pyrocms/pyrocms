@@ -98,7 +98,7 @@ function get_bbcode_buttons($bbcode = NULL)
 
     foreach ($bbcode as $key => $val)
     {
-        $button[] = '<input type="button" class="button" id="'.$key.'" name="'.$key.'" value="'.$key.'" onClick="'.$val.'" />';
+        $button[] = '<a href="#" id="'.$key.'" onclick="'.$val.'">' . $key . '</a>';
     }
 
     return $button;

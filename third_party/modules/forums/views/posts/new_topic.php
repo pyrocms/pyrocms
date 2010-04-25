@@ -2,63 +2,51 @@
 <?=form_open('forums/topics/new_topic/'.$forum->id);?>
 
 <? if( !empty($validation_errors) ): ?>
-<table width="100%" border="0" cellpadding="4" cellspacing="0">
-  <tr>
-    <td width="85%" bgcolor="#FF0000"><font color="#FFFFFF"><b><?php echo $validation_errors;?></b></font></td>
-  </tr>
-</table>
-<br />
+<div class="errors">
+	Please correct the errors in the form.
+</div>
 <?php endif; ?>
 
 <? if($show_preview): ?>
-<table width="100%" border="0" cellpadding="4" cellspacing="0">
-  <tr>
-    <th align="left" bgcolor="#999999" scope="col">Preview</th>
-  </tr>
-  <tr>
-    <td width="85%" bgcolor="#CCCCCC"><? echo parse_bbcode(set_value('text'));?></td>
-  </tr>
-</table>
-<br />
+<div class="preview">
+	<h1>Topic Preview</h1>
+	<h2><? echo set_value('title');?></h2>
+	<p><?php echo parse_bbcode(set_value('content'));?></p>
+</div>
+
 <? endif; ?>
 
-<table width="100%" border="0" cellpadding="4" cellspacing="0">
-  <tr>
-    <th colspan="2" align="left" bgcolor="#999999" scope="col"> Post a New Topic to <?php echo $forum->title;?></th>
-  </tr>
-  <tr>
-    <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Title:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><input type="text" class="input" name="title" style='width:100%' size="90" value="<?php echo set_value('title');?>" /></td>
-  </tr>
-  <tr>
-    <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
-  </tr> 
-  <tr>
-    <td width="15%" bgcolor="#CCCCCC"><b>Formatting:</b></td>
-    <td width="85%" bgcolor="#CCCCCC">{$template.partials.bbcode}</td>
-  </tr>
-  <tr>
-    <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
-  </tr>  
-  <tr>
-    <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Message:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><textarea name="text" id="reply_content" rows="15" cols="70"><?php echo set_value('text');?></textarea></td>
-  </tr>
-  <tr>
-    <td colspan="2" bgcolor="#CCCCCC"><hr></td>
-  </tr>  
-  <tr>
-    <td  width="15%" valign="top" bgcolor="#CCCCCC"><b>Options:</b></td>
-    <td width="85%" bgcolor="#CCCCCC">
-		<?php echo form_checkbox('notify', 1, set_value('notify') == 1 | empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
-	</td>
-  </tr>
-  <tr>
-    <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="preview" value="Preview Topic" /> | <input type="submit" name="submit" class="submit" value="Submit Topic" /></td>
-  </tr>  
+
+<table class="form_table" border="0" cellspacing="0">
+	<thead>
+		<tr>
+			<th colspan="2" class="header">Post a New Topic to <strong><?php echo $forum->title;?></strong></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Title:</th>
+			<td><?php echo form_input(array('name' => 'title', 'id' => 'title', 'value' => set_value('title'))); ?><?php echo form_error('title', '<p class="form_error">', '</p>'); ?></td>
+		</tr>
+		<tr>
+			<th>Formatting:</th>
+			<td>{$template.partials.bbcode}</td>
+		</tr>
+		<tr>
+			<th class ="textarea_label">Message:</th>
+			<td><?php echo form_textarea(array('name' => 'content', 'id' => 'bbcode_input', 'value' => set_value('content'))); ?><?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
+		</tr>
+		<tr>
+			<th>Options:</th>
+			<td class="form_options">
+				<?php echo form_checkbox('notify', 1, set_value('notify') == 1 | empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Submit Topic" /></td>
+		</tr>
+	</tbody>
 </table>
 
 <?php echo form_close(); ?>
