@@ -46,15 +46,14 @@ function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
             return FALSE;
         }
     }
-//	$str = htmlentities($str);
-    foreach ($bbcode_to_parse as $key => $val)
+
+	foreach ($bbcode_to_parse as $key => $val)
     {
         for ($i = 1; $i <= $bbcode_to_parse[$key][2]; $i++) // loop for imbricated tags
         {
             $str = preg_replace($key, $bbcode_to_parse[$key][$clear], $str);
         }
-    }
-	
+    }	
 	$str = break_lines($str);
     $str = preg_replace ( '/<code>*\s*/s', '<code>', $str);
     return preg_replace ( '/\s*<\/code>/s', '</code>', $str);

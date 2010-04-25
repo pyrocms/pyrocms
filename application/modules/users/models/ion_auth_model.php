@@ -412,15 +412,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$this->db->select(array(
-			$this->tables['users'].'.id',
-			$this->tables['users'].'.username',
-			$this->tables['users'].'.password',
-			$this->tables['users'].'.email',
-			$this->tables['users'].'.salt',
-			$this->tables['users'].'.activation_code',
-			$this->tables['users'].'.forgotten_password_code',
-			$this->tables['users'].'.ip_address',
-			$this->tables['users'].'.active',
+			$this->tables['users'].'.*',
 			$this->tables['groups'].'.name AS `group`',
 			$this->tables['groups'].'.description AS group_description'
 		));
