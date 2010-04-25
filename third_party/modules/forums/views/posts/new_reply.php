@@ -1,5 +1,5 @@
-{$template.partials.breadcrumbs}
-<?=form_open('forums/posts/new_reply/'.$topic->id);?>
+<?php echo $template['partials']['breadcrumbs']; ?>
+<?php echo form_open('forums/posts/new_reply/'.$topic->id); ?>
 
 <? if( !empty($validation_errors) ): ?>
 <div class="errors">
@@ -26,7 +26,7 @@
 	<tbody>
 		<tr>
 			<th>Formatting:</th>
-			<td>{$template.partials.bbcode}</td>
+			<td><?php echo $template['partials']['bbcode']; ?></td>
 		</tr>
 		<tr>
 			<th class ="textarea_label">Message:</th>

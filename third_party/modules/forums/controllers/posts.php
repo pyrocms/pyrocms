@@ -11,6 +11,7 @@ class Posts extends Public_Controller {
 		$this->lang->load('forum');
 		
 		//$this->load->helper('bbcode');
+		$this->template->enable_parser_body(FALSE);
 		
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata( css('forum.css', 'forums') );
