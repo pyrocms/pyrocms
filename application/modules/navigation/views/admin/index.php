@@ -73,7 +73,7 @@
 				});
 				order = order.join(',');
 				
-				$.post(BASE_URI + 'admin/navigation/ajax_update_positions', { order: order });
+				$.post(BASE_URI + 'index.php/admin/navigation/ajax_update_positions', { order: order });
 			}
 			
 		}).disableSelection();
