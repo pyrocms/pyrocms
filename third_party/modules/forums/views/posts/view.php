@@ -35,10 +35,10 @@
     <td>[ <?php echo anchor('user/'.$post->author->id, 'Profile')?> ] [ <?php echo anchor('messages/write/'. $post->author->id, 'Message');?> ]</td>
 	
 	<td colspan="2" align="right">[ <?php echo anchor('forums/posts/quote_reply/'.$post->id, ' Quote ');?> ]
-<?php if($post->author->id == $user->id && $post->parent_id == 0): ?>
+<?php if(isset($user->id) && $post->author->id == $user->id && $post->parent_id == 0): ?>
 	 [ <?php echo anchor('forums/posts/edit_reply/'.$post->id, ' Edit ');?> ]
 <?	endif; ?>
-<?php if($post->author->id == $user->id && $post->parent_id != 0): ?>
+<?php if(isset($user->id) && $post->author->id == $user->id && $post->parent_id != 0): ?>
 	 [ <?php echo anchor('forums/posts/edit_reply/'.$post->id, ' Edit ');?> ] [ <?php echo anchor('forums/posts/delete_reply/'.$post->id, ' Delete ');?> ]</td>
 <?php endif; ?>
 

@@ -106,7 +106,7 @@ class Topics extends Public_Controller {
 					$topic->title = set_value('title');
 					$topic->content = set_value('content');
 					
-					if($topic->id = $this->forum_posts_m->new_topic($this->ion_auth->profile()->id, $topic, $forum))
+					if($topic->id = $this->forum_posts_m->new_topic($this->user->id, $topic, $forum))
 					{
 						// Add user to notify
 						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user_lib->user_data->id );
@@ -149,20 +149,6 @@ class Topics extends Public_Controller {
 	}
 
 
-	function unsubscribe($topic_id = 0)
-	{
-		$this->freakauth_light->check();
-
-		$topic_id = intval($topic_id);
-		if($this->forum_posts_m->unSubscribe($topic_id, $this->userID))
-		{
-			$this->template->error('You Were Successfully un-subscribed!');
-		} else {
-			$this->template->error('You are not subscribed to this topic.');
-		}
-		
-		if(!empty($this->template->error_string)) $this->template->build('message', $this->data);
-	}
 
 }
 ?>
