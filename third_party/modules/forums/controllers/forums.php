@@ -66,7 +66,7 @@ class Forums extends Public_Controller {
 		foreach($forum->topics as &$topic)
 		{
 			$topic->post_count = $this->forum_posts_m->count_posts_in_topic($topic->id);
-			$topic->last_post = $this->forum_posts_m->getLastPostInTopic($topic->id);
+			$topic->last_post = $this->forum_posts_m->last_topic_post($topic->id);
 
 			if(!empty($topic->last_post))
 			{

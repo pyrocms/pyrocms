@@ -56,11 +56,25 @@ class Forum_posts_m extends MY_Model
 	 */
 	public function count_posts_in_topic($topic_id)
 	{
-		$this->db->or_where(array('id' => $topic_id, 'parent_id' => $topic_id));
-		
-		return parent::count_all();		
+		return parent::count_by("id = $topic_id OR parent_id = $topic_id");
 	}
 
+	/**
+	 * Add a view to a topic
+	 *
+	 *
+	 * @access       public
+	 * @param        int 	[$topic_id]
+	 * @return       NULL
+	 * @package      forums
+	 */
+
+	public function add_topic_view($topic_id)
+	{
+		$this->db->set('view_count', 'view_count + 1', FALSE);
+		$this->db->where('id', (int) $topic_id);
+		$this->db->update($this->post_table);
+	}
 	/**
 	 * Get Posts in Topic
 	 *
@@ -125,7 +139,7 @@ class Forum_posts_m extends MY_Model
 	 * @return       int 	Returns a count of how many replies there are
 	 * @package      forums
 	 */
-	public function getLastPostInTopic($topic_id)
+	public function last_topic_post($topic_id)
 	{
 		$this->db->or_where(array('id' => $topic_id, 'parent_id' => $topic_id));
 		$this->db->order_by('created_on DESC');
@@ -172,16 +186,6 @@ class Forum_posts_m extends MY_Model
 		$this->db->where(array('id' => $topic_id, 'parent_id' => 0));
 		return $this->db->get($this->post_table)->row();
 	}
-	
-
-	// Each time a user looks at a topic it will add 1
-	function increaseViewcount($topic_id = 0)
-	{
-		$this->db->set('view_count = view_count + 1');
-		$this->db->where('id', (int) $topic_id);
-		$this->db->update($this->post_table);
-	}
-	
 
 	
 	function new_topic($user_id, $topic, $forum)

@@ -29,7 +29,7 @@ class Topics extends Public_Controller {
 		$this->load->library('pagination');
 
 		// Update view counter
-		$this->forum_posts_m->increaseViewcount($topic_id);
+		$this->forum_posts_m->add_topic_view($topic_id);
 		
 		// Pagination junk
 		$per_page = '10';
