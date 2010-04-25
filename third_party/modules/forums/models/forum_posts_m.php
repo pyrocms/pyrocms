@@ -105,11 +105,13 @@ class Forum_posts_m extends MY_Model
 	 * @return       int 	Returns a count of how many replies there are
 	 * @package      forums
 	 */
-	public function getLastPostInForum($forum_id)
+	public function last_forum_post($forum_id)
 	{
-		$this->db->where('forum_id', $forum_id);
-		$this->db->order_by('created_on DESC');
+		$this->db->where($this->post_table . '.forum_id', $forum_id);
+		$this->db->order_by($this->post_table . '.created_on DESC');
 		$this->db->limit(1);
+		$this->db->join($this->post_table . ' as `post2`', $this->post_table . '.parent_id = post2.id');
+
 		return $this->db->get($this->post_table)->row();
 	}
 
@@ -131,6 +133,29 @@ class Forum_posts_m extends MY_Model
 		return $this->db->get($this->post_table)->row();
 	}
 	
+	/**
+	 * Get Author Info
+	 *
+	 *
+	 * @access       public
+	 * @param        int 	[$author_id] 	The author ID.
+	 * @return       array
+	 * @package      forums
+	 */
+	public function author_info($author_id)
+	{
+		$CI =& get_instance();
+		$u_table = $CI->ion_auth_model->tables['users'];
+		$m_table = $CI->ion_auth_model->tables['meta'];
+		$m_join = $CI->ion_auth_model->meta_join;
+
+		$this->db->select("$u_table.id, $u_table.email, $u_table.created_on, $u_table.last_login, $m_table.first_name, $m_table.last_name, CONCAT($m_table.first_name, ' ', $m_table.last_name) as full_name");
+		$this->db->where(array("$u_table.id" => $author_id));
+		$this->db->join($m_table, "$u_table.id = $m_table.$m_join", 'left');
+		$this->db->limit(1);
+		return $this->db->get($CI->ion_auth_model->tables['users'])->row();
+	}
+
 
 	/**
 	 * Get topic
@@ -159,7 +184,7 @@ class Forum_posts_m extends MY_Model
 	
 
 	
-	function newTopic($user_id, $topic, $forum)
+	function new_topic($user_id, $topic, $forum)
 	{
 		$this->load->helper('date');
 
@@ -168,7 +193,7 @@ class Forum_posts_m extends MY_Model
 			'author_id' 	=> $user_id,
 			'parent_id' 	=> 0,
 			'title' 		=> $this->input->xss_clean($topic->title),
-			'text' 			=> $this->input->xss_clean($topic->text),
+			'content' 			=> $this->input->xss_clean($topic->text),
 			'created_on' 	=> now(),
 			'view_count' 	=> 0,
         );
@@ -178,16 +203,16 @@ class Forum_posts_m extends MY_Model
         return $this->db->insert_id();
 	}
 	
-	function newReply($user_id, $reply, $topic)
+	function new_reply($user_id, $reply, $topic)
 	{
 		$this->load->helper('date');
 
 		$insert = array(
-			'forum_id' 		=> 0,
+			'forum_id' 		=> $topic->forum_id,
 			'author_id' 	=> $user_id,
 			'parent_id' 	=> $topic->id,
 			'title' 		=> '',
-			'text' 			=> $this->input->xss_clean($reply->text),
+			'content'		=> $this->input->xss_clean($reply->content),
 			'created_on' 	=> now(),
 			'view_count' 	=> 0,
         );
@@ -197,10 +222,9 @@ class Forum_posts_m extends MY_Model
         return $this->db->insert_id();
 	}
 	
-	function getReply($reply_id = 0)
+	function get_reply($reply_id = 0)
 	{
 		$this->db->where('id', $reply_id);
-		$this->db->where('parent_id', 0);
 		return $this->db->get($this->post_table, 1)->row();
 	}
 	

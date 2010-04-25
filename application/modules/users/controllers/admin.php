@@ -60,7 +60,7 @@ class Admin extends Admin_Controller
 				'rules' => 'required|valid_email'
 			),
 			array(
-				'field' => 'group_id',
+				'field' => 'group',
 				'label' => lang('user_group_id_label'),
 				'rules' => 'required'
 			),
@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 		);
 		
         $this->data->roles 			= $this->permissions_m->get_roles();
-        $this->data->roles_select 	= array_for_select($this->data->roles, 'id', 'title');
+        $this->data->roles_select 	= array_for_select($this->data->roles, 'name', 'title');
         
 		// Sidebar data
 		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
@@ -164,19 +164,25 @@ class Admin extends Admin_Controller
 		{
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
-				
+		
 		if ($this->form_validation->run() !== FALSE)
 		{
 			// Try to register the user
 			if($user_id = $this->ion_auth->register($email, $password, $email, $user_data, $group))
 			{
+				//activate the user if option chosen
+				if ($this->input->post('active')) 
+				{
+					$this->ion_auth->activate($user_id);
+				}
+				
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');				
 			}	
 			// Error		
 			else
-			{
+			{				
 				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}		
@@ -212,6 +218,7 @@ class Admin extends Admin_Controller
 		
 		// Get the user's data
 		$member 			= $this->ion_auth->get_user($id);
+		
 		$member->full_name 	= $member->first_name .' '. $member->last_name;
 		
 		// Got user?
@@ -240,7 +247,7 @@ class Admin extends Admin_Controller
 			$update_data['active'] 		= $this->input->post('active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('group_id')) $update_data['group_id'] = $this->input->post('group_id');
+			if($this->input->post('group')) $update_data['group_id'] = $this->ion_auth->get_group_by_name($this->input->post('group'))->id;
 			
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )

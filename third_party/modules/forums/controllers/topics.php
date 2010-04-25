@@ -7,13 +7,18 @@ class Topics extends Public_Controller {
 		
 		$this->load->model('forums_m');
 		$this->load->model('forum_posts_m');
-
+		$this->load->helper('bbcode');
 		$this->lang->load('forum');
 		
 		//$this->load->helper('bbcode');
 		
 		// Add a link to the forum CSS into the head
-		$this->template->append_metadata( css('forum.css', 'forum') );
+		$this->template->append_metadata( css('forum.css', 'forums') );
+		$this->template->append_metadata(js('bbcode.js', 'forums'));
+
+		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
+		$this->template->set_breadcrumb('Home', '/');
+		$this->template->set_breadcrumb('Forum Home', 'forums');
 	}
 	
 	function view($topic_id = 0, $offset = 0)
@@ -21,7 +26,7 @@ class Topics extends Public_Controller {
 		// Load all needed files
 		//$this->load->helpers(array('smiley', 'bbcode', 'date'));
 		$this->load->library('pagination');
-		
+
 		// Update view counter
 		$this->forum_posts_m->increaseViewcount($topic_id);
 		
@@ -49,9 +54,8 @@ class Topics extends Public_Controller {
 		$topic->posts = $this->forum_posts_m->get_posts_by_topic($topic_id, $offset, $per_page);
 		foreach($topic->posts as &$post)
 		{
-			$post->author = $this->users_m->get(array('id' => $post->author_id));
+			$post->author = $this->forum_posts_m->author_info($post->author_id);
 		}
-
 		$this->data->topic =& $topic;
 		$this->data->forum =& $forum;
 		
@@ -60,7 +64,7 @@ class Topics extends Public_Controller {
 		
 		// Create page
 		$this->template->title($topic->title);
-		$this->template->set_breadcrumb($forum->title, 'forums/view_forum/'.$forum->id);
+		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
 		$this->template->set_breadcrumb($topic->title);
 		$this->template->build('posts/view', $this->data);
 	}
@@ -68,7 +72,7 @@ class Topics extends Public_Controller {
 
 	function new_topic($forum_id = 0)
 	{
-		if(!$this->user_lib->logged_in())
+		if(!$this->ion_auth->logged_in())
 		{
 			redirect('users/login');
 		}
@@ -92,7 +96,7 @@ class Topics extends Public_Controller {
 			$this->load->library('form_validation');
 			
 			$this->form_validation->set_rules('title', 'Title', 'trim|strip_tags|required|max_length[100]');
-			$this->form_validation->set_rules('text', 'Message', 'trim|strip_tags|required');
+			$this->form_validation->set_rules('content', 'Message', 'trim|strip_tags|required');
 
 			if ($this->form_validation->run() === TRUE)
 			{
@@ -101,7 +105,7 @@ class Topics extends Public_Controller {
 					$topic->title = set_value('title');
 					$topic->text = set_value('text');
 					
-					if($topic->id = $this->forum_posts_m->newTopic($this->user_lib->user_data->id, $topic, $forum))
+					if($topic->id = $this->forum_posts_m->new_topic($this->ion_auth->profile()->id, $topic, $forum))
 					{
 						// Add user to notify
 						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user_lib->user_data->id );
@@ -133,10 +137,14 @@ class Topics extends Public_Controller {
 		
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
-		
-		// Set this for later
-		$this->template->set_breadcrumb($forum->title, 'forums/view_forum/'.$forum_id); 
-		$this->template->build('new_topic', $this->data);
+
+		$this->data->bbcode_buttons = get_bbcode_buttons('content');
+
+		$this->template->set_partial('bbcode', 'partials/bbcode');
+
+		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
+		$this->template->set_breadcrumb('New Topic');
+		$this->template->build('posts/new_topic', $this->data);
 	}
 
 

@@ -13,11 +13,13 @@ class Forums extends Public_Controller {
 		
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata( css('forum.css', 'forums') );
-		
-		// TODO: Review the use of enable_parse_body(FALSE) in forums
-		$this->template->enable_parser_body(FALSE);
-		
-		$this->userID = $this->user_lib->user_data->id;
+				
+		if($profile = $this->ion_auth->profile())
+		{
+			$this->userID = $profile->id;
+		}
+		$this->template->set_breadcrumb('Home', '/');
+		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
 	}
 	
 	
@@ -35,13 +37,17 @@ class Forums extends Public_Controller {
 				{
 					$forum->topic_count = $this->forum_posts_m->count_topics_in_forum( $forum->id );
 					$forum->reply_count = $this->forum_posts_m->count_replies_in_forum( $forum->id );
-					$forum->last_post = $this->forum_posts_m->getLastPostInForum($forum->id);
+					$forum->last_post = $this->forum_posts_m->last_forum_post($forum->id);
+					if(!empty($forum->last_post))
+					{
+						$forum->last_post->author = $this->forum_posts_m->author_info($forum->last_post->author_id);
+					}
 				}
 			}
 		}
 	
 		$this->data->forum_categories =& $forum_categories;
-
+		$this->template->set_breadcrumb('Forum Home');
 		$this->template->build('forum/index', $this->data);
 	}
 
@@ -59,10 +65,17 @@ class Forums extends Public_Controller {
 		{
 			$topic->post_count = $this->forum_posts_m->count_posts_in_topic($topic->id);
 			$topic->last_post = $this->forum_posts_m->getLastPostInTopic($topic->id);
+
+			if(!empty($topic->last_post))
+			{
+				$topic->last_post->author = $this->forum_posts_m->author_info($topic->last_post->author_id);
+			}
 		}
 		
 		$this->data->forum =& $forum;
-		
+
+		$this->template->set_breadcrumb('Forum Home', 'forums');
+		$this->template->set_breadcrumb($forum->title);
 		$this->template->build('forum/view', $this->data);
 	}
 
