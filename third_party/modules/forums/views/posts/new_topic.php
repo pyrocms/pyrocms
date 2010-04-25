@@ -16,7 +16,7 @@
     <th align="left" bgcolor="#999999" scope="col">Preview</th>
   </tr>
   <tr>
-    <td width="85%" bgcolor="#CCCCCC"><?=parse_bbcode(set_value('text'));?></td>
+    <td width="85%" bgcolor="#CCCCCC"><? echo parse_bbcode(set_value('text'));?></td>
   </tr>
 </table>
 <br />
@@ -35,14 +35,14 @@
   </tr> 
   <tr>
     <td width="15%" bgcolor="#CCCCCC"><b>Formatting:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><?//=bbcode_menu();?></td>
+    <td width="85%" bgcolor="#CCCCCC">{$template.partials.bbcode}</td>
   </tr>
   <tr>
     <td colspan="2" bgcolor="#CCCCCC"><hr /></td>
   </tr>  
   <tr>
     <td width="15%" valign="top" bgcolor="#CCCCCC"><b>Message:</b></td>
-    <td width="85%" bgcolor="#CCCCCC"><textarea name="text" rows="15" cols="70"><?php echo set_value('text');?></textarea></td>
+    <td width="85%" bgcolor="#CCCCCC"><textarea name="text" id="reply_content" rows="15" cols="70"><?php echo set_value('text');?></textarea></td>
   </tr>
   <tr>
     <td colspan="2" bgcolor="#CCCCCC"><hr></td>

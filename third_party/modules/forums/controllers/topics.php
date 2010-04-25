@@ -14,6 +14,8 @@ class Topics extends Public_Controller {
 		
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata( css('forum.css', 'forums') );
+		$this->template->append_metadata(js('bbcode.js', 'forums'));
+
 		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
 		$this->template->set_breadcrumb('Home', '/');
 		$this->template->set_breadcrumb('Forum Home', 'forums');
@@ -135,8 +137,11 @@ class Topics extends Public_Controller {
 		
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
-		
-		// Set this for later
+
+		$this->data->bbcode_buttons = get_bbcode_buttons('content');
+
+		$this->template->set_partial('bbcode', 'partials/bbcode');
+
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
 		$this->template->set_breadcrumb('New Topic');
 		$this->template->build('posts/new_topic', $this->data);
