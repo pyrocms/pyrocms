@@ -42,7 +42,7 @@ class Posts extends Public_Controller {
 
 	function quote_reply($post_id)
 	{
-		($quote = $this->forum_posts_m->getPost($post_id)) || show_404();
+		($quote = $this->forum_posts_m->get_post($post_id)) || show_404();
 
 		// Send the message object through
 		$this->session->set_flashdata('forum_quote', serialize($quote));
@@ -59,7 +59,7 @@ class Posts extends Public_Controller {
 		$this->ion_auth->logged_in() or redirect('users/login');
 
 		// Get the forum name
-		$topic = $this->forum_posts_m->getTopic($topic_id);
+		$topic = $this->forum_posts_m->get_topic($topic_id);
 		$forum = $this->forums_m->get(@$topic->forum_id);
 
 		// Chech if there is a forum with that ID

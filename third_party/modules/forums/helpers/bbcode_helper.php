@@ -37,7 +37,6 @@
 */
 function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
 {
-	$str = htmlentities($str);
     if ( ! is_array($bbcode_to_parse))
     {
 		$bbcode_to_parse = _get_bbcode_to_parse_array();
