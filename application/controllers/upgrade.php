@@ -7,7 +7,6 @@
  */
 class Upgrade extends Controller
 {
-
 	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8');
 
 	function _remap()
@@ -67,7 +66,7 @@ class Upgrade extends Controller
 
 	  		$this->settings->set_item('version', $next_version);
 
-			echo "<br/><strong>-- Upgraded to " . $next_version . '--</strong><br/><br/>';
+			echo "<p><strong>-- Upgraded to " . $next_version . '--</strong></p>';
 
 	  		$db_version = $next_version;
   		}
@@ -75,7 +74,6 @@ class Upgrade extends Controller
 
 	function upgrade_098()
 	{
-
 		//create the meta table
 		$this->dbforge->add_field('id', TRUE);
 
@@ -111,24 +109,25 @@ class Upgrade extends Controller
 		  `view_count` int(11) NOT NULL DEFAULT '0',
 		  `smileys_enabled` tinyint(1) NOT NULL DEFAULT '1',
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
 
-		CREATE TABLE `forum_subscriptions` (
+		$this->db->query("CREATE TABLE `forum_subscriptions` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `topic_id` int(11) NOT NULL DEFAULT '0',
 		  `user_id` int(11) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
 
-		CREATE TABLE `forums` (
+		$this->db->query("CREATE TABLE `forums` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `title` varchar(100) NOT NULL DEFAULT '',
 		  `description` varchar(255) NOT NULL DEFAULT '',
 		  `category_id` int(11) NOT NULL DEFAULT '0',
 		  `permission` int(2) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Forums are the containers for threads and topics.';
-		");
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Forums are the containers for threads and topics.'");
+
+		return TRUE;
 	}
 
  	// Upgrade
