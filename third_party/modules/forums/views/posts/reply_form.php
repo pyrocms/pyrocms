@@ -1,3 +1,4 @@
+<h2><?php echo $this->config->item('forums_title'); ?></h2>
 <?php echo form_open(uri_string()); ?>
 
 	<?php if( !empty($messages['error']) ): ?>
