@@ -7,8 +7,7 @@
  */
 class Upgrade extends Controller
 {
-
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8');
 
 	function _remap()
 	{
@@ -67,11 +66,69 @@ class Upgrade extends Controller
 
 	  		$this->settings->set_item('version', $next_version);
 
-			echo "<br/><strong>-- Upgraded to " . $next_version . '--</strong><br/><br/>';
+			echo "<p><strong>-- Upgraded to " . $next_version . '--</strong></p>';
 
 	  		$db_version = $next_version;
   		}
  	}
+
+	function upgrade_098()
+	{
+		//create the meta table
+		$this->dbforge->add_field('id', TRUE);
+
+		$this->dbforge->add_field(array(
+			'title' => array(
+				'type' 	  	  => 'VARCHAR',
+				'constraint' 	  => 100,
+				'default' => '',
+				'null' => FALSE
+			),
+			'permission' => array(
+				'type' 	  	  => 'INT',
+				'constraint' 	  => 2,
+				'null' => FALSE
+			)
+		));
+		
+		echo 'Creating forum_categories table...<br/>';
+		$this->dbforge->create_table('forum_categories');
+
+		$this->db->query("CREATE TABLE `forum_posts` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `forum_id` int(11) NOT NULL DEFAULT '0',
+		  `author_id` int(11) NOT NULL DEFAULT '0',
+		  `parent_id` int(11) NOT NULL DEFAULT '0',
+		  `title` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
+		  `content` text CHARACTER SET utf8 NOT NULL,
+		  `type` tinyint(1) NOT NULL DEFAULT '0',
+		  `is_locked` tinyint(1) NOT NULL DEFAULT '0',
+		  `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
+		  `created_on` int(11) NOT NULL DEFAULT '0',
+		  `updated_on` int(11) NOT NULL DEFAULT '0',
+		  `view_count` int(11) NOT NULL DEFAULT '0',
+		  `smileys_enabled` tinyint(1) NOT NULL DEFAULT '1',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+
+		$this->db->query("CREATE TABLE `forum_subscriptions` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `topic_id` int(11) NOT NULL DEFAULT '0',
+		  `user_id` int(11) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+
+		$this->db->query("CREATE TABLE `forums` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `title` varchar(100) NOT NULL DEFAULT '',
+		  `description` varchar(255) NOT NULL DEFAULT '',
+		  `category_id` int(11) NOT NULL DEFAULT '0',
+		  `permission` int(2) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Forums are the containers for threads and topics.'");
+
+		return TRUE;
+	}
 
  	// Upgrade
  	function upgrade_098rc2()
@@ -219,7 +276,8 @@ class Upgrade extends Controller
 		$this->dbforge->create_table('profiles');
 
 		//insert the profile data
-		foreach ($profile_result as $profile_data) {
+		foreach ($profile_result as $profile_data)
+		{
 			echo 'Inserting user ' . $profile_data['user_id'] . ' into profiles table...<br/>';
 
 			$this->db->insert('profiles', $profile_data);
@@ -233,7 +291,8 @@ class Upgrade extends Controller
 
 			//update roles to group_id
 			echo 'Converting roles to group_ids<br/>';
-			foreach ($role_user_result as $role) {
+			foreach ($role_user_result as $role)
+			{
 				$role_query = $this->db->select(array('id'))->where('abbrev', $role['role'])->get('permission_roles');
 				$current_role = $role_query->row_array();
 
