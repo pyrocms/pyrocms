@@ -1,5 +1,7 @@
-<?php echo $template['partials']['breadcrumbs']; ?>
-<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
+<div class="forum_buttons">
+	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
+	<br clear="both" />
+</div>
 <table class="forum_table" border="0" cellspacing="0">
 	<thead>
 		<tr>
@@ -44,3 +46,8 @@
   	
   <?php endif;?>
 </table>
+<div class="forum_buttons">
+	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
+	<br clear="both" />
+</div>
+

@@ -1,5 +1,4 @@
-<?php echo $template['partials']['breadcrumbs']; ?>
-<h1>Forums</h1>
+<h1><?php echo $this->config->item('forums_title'); ?></h1>
 <?php foreach($forum_categories as $category): ?>
 <?php if($category->forums): ?>
 

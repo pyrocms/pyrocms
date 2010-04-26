@@ -36,7 +36,7 @@
 		<tr>
 			<th>Options:</th>
 			<td class="form_options">
-				<?php echo form_checkbox('notify', 1, set_value('notify') == 1 || empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
+				<?php echo form_checkbox('notify', 1, 1); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
 			</td>
 		</tr>
 		<tr>

@@ -7,7 +7,9 @@ class Posts extends Public_Controller {
 		
 		$this->load->model('forums_m');
 		$this->load->model('forum_posts_m');
+		$this->load->model('forum_subscriptions_m');
 		$this->load->helper('bbcode');
+		$this->load->library('pyro_forums');
 		$this->lang->load('forum');
 		
 		//$this->load->helper('bbcode');
@@ -75,7 +77,8 @@ class Posts extends Public_Controller {
 		{
 			$reply->content = set_value('content');
 		}
-		
+		$reply->notify = $this->forum_subscriptions_m->is_subscribed($this->user->id, $topic_id);
+
 		// The form has been submitted one way or another
 		if($this->input->post('submit') or $this->input->post('preview'))
 		{
@@ -88,12 +91,26 @@ class Posts extends Public_Controller {
 			{
 				if( $this->input->post('submit') )
 				{
+
 					$reply->id = $this->forum_posts_m->new_reply($this->user->id, $reply, $topic);
+
 
 					if($reply->id)
 					{
+						$reply->title = $topic->title;
+						$recipients = $this->pyro_forums->get_recipients($topic_id);
+
+						$this->pyro_forums->notify_reply($recipients, $reply);
+
 						// Add user to notify
-						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user_lib->user_data->id );
+						if($this->input->post('notify') == 1)
+						{
+							$this->forum_subscriptions_m->add($this->user->id, $topic->id);
+						}
+						else
+						{
+							$this->forum_subscriptions_m->delete_by(array('user_id' => $this->user->id, 'topic_id' => $topic->id));
+						}
 
 						redirect('forums/posts/view_reply/'.$reply->id);
 					}

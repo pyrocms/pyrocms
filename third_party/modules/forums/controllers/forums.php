@@ -10,7 +10,8 @@ class Forums extends Public_Controller {
 		$this->load->model('forum_posts_m');
 
 		$this->lang->load('forum');
-		
+		$this->load->config('forums');
+
 		$this->template->enable_parser_body(FALSE);
 
 		// Add a link to the forum CSS into the head
