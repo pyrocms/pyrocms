@@ -9,7 +9,7 @@ class Topics extends Public_Controller {
 		$this->load->model('forum_posts_m');
 		$this->load->model('forum_subscriptions_m');
 		$this->load->helper('bbcode');
-		$this->lang->load('forum');
+		$this->lang->load('forums');
 		
 		//$this->load->helper('bbcode');
 		$this->template->enable_parser_body(FALSE);
