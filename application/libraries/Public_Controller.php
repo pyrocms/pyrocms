@@ -37,14 +37,25 @@ class Public_Controller extends MY_Controller
 
 	    // Set the theme view folder
 	    $this->template
-					->set_theme($this->theme->slug)
-					->set_layout('default')
-					->append_metadata( '
-						<script type="text/javascript">
-							var APPPATH_URI = "'.APPPATH_URI.'";
-							var BASE_URI = "'.BASE_URI.'";
-						</script>' );
-	    
+			->set_theme($this->theme->slug)
+			->append_metadata( '
+				<script type="text/javascript">
+					var APPPATH_URI = "'.APPPATH_URI.'";
+					var BASE_URI = "'.BASE_URI.'";
+				</script>' );
+
+		// Is there a layout file for this module?
+		if($this->template->theme_layout_exists($this->module))
+		{
+			$this->template->set_layout($this->module);
+		}
+
+		// Nope, just use the default layout
+		else
+		{
+			$this->template->set_layout('default');
+		}
+
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 	    
