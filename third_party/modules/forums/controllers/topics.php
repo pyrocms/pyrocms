@@ -14,8 +14,8 @@ class Topics extends Public_Controller {
 		//$this->load->helper('bbcode');
 		$this->template->enable_parser_body(FALSE);
 		
-		// Add a link to the forum CSS into the head
-		$this->template->append_metadata( css('forum.css', 'forums') );
+		$this->template->append_metadata( theme_css('forum.css') );
+
 		$this->template->append_metadata(js('bbcode.js', 'forums'));
 
 		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
