@@ -200,6 +200,25 @@ p.form_error {
 /*************************************
  * General Forum Styles
  *************************************/
+div.forum_buttons {
+	display: block;
+	margin: 10px 0px;
+}
+div.forum_buttons a {
+	display: block;
+	float: left;
+	padding: 2px 15px;
+	color: #FFFFFF;
+	background-color: #666666;
+	text-decoration: none;
+	margin: 0 5px 0 0;
+}
+
+div.forum_buttons a:hover {
+	color: #333333;
+	background-color: #DDDDDD;
+}
+
 div.preview {
 	border: 1px solid #CCCCCC;
 	background-color: #EEEEEE;

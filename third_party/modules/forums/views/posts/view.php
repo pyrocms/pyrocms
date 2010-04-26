@@ -1,4 +1,12 @@
-<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?> | <?php echo anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
+<div class="forum_buttons">
+	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
+	<?php echo anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
+	<br clear="both" />
+</div>
+<div class="pagination">
+<?php echo $pagination->links; ?>
+</div>
+
 <table class="topic_table" border="0" cellspacing="0">
 	<thead>
 	<tr>
@@ -53,5 +61,12 @@
 	endforeach; ?>
 	</tbody>
 </table>
-
+<div class="pagination">
 <?php echo $pagination->links; ?>
+</div>
+
+<div class="forum_buttons">
+	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
+	<?php echo anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
+	<br clear="both" />
+</div>
