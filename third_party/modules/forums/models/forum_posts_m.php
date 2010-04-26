@@ -120,7 +120,7 @@ class Forum_posts_m extends MY_Model
 		$this->db->limit(1);
 		$return = $this->db->get('forum_posts')->row();
 
-		if(empty($return->title))
+		if(empty($return->title) && !empty($return->parent_id))
 		{
 			$this->db->select('title');
 			$this->db->where('id', $return->parent_id);
