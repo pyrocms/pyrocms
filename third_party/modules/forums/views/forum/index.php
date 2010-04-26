@@ -1,4 +1,3 @@
-<?php echo $template['partials']['breadcrumbs']; ?>
 <h1>Forums</h1>
 <?php foreach($forum_categories as $category): ?>
 <?php if($category->forums): ?>

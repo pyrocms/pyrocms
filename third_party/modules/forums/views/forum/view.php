@@ -1,4 +1,3 @@
-<?php echo $template['partials']['breadcrumbs']; ?>
 <?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
 <table class="forum_table" border="0" cellspacing="0">
 	<thead>
