@@ -91,7 +91,7 @@ class Upgrade extends Controller
 			)
 		));
 		
-		echo 'Creating forum_categories table...<br/>';
+		echo 'Creating forum tables...<br/>';
 		$this->dbforge->create_table('forum_categories');
 
 		$this->db->query("CREATE TABLE `forum_posts` (
