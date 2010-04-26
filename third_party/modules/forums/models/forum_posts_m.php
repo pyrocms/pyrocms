@@ -115,12 +115,20 @@ class Forum_posts_m extends MY_Model
 	 */
 	public function last_forum_post($forum_id)
 	{
-		$this->db->where('forum_posts' . '.forum_id', $forum_id);
-		$this->db->order_by('forum_posts' . '.created_on DESC');
+		$this->db->where('forum_posts.forum_id', $forum_id);
+		$this->db->order_by('forum_posts.created_on DESC');
 		$this->db->limit(1);
-		$this->db->join('forum_posts' . ' as `post2`', 'forum_posts' . '.parent_id = post2.id');
+		$return = $this->db->get('forum_posts')->row();
 
-		return $this->db->get('forum_posts')->row();
+		if(empty($return->title))
+		{
+			$this->db->select('title');
+			$this->db->where('id', $return->parent_id);
+			$this->db->limit(1);
+			$return->title = $this->db->get('forum_posts')->row()->title;
+
+		}
+		return $return;
 	}
 
 	/**
