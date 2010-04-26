@@ -7,6 +7,7 @@ class Topics extends Public_Controller {
 		
 		$this->load->model('forums_m');
 		$this->load->model('forum_posts_m');
+		$this->load->model('forum_subscriptions_m');
 		$this->load->helper('bbcode');
 		$this->lang->load('forum');
 		
@@ -103,8 +104,14 @@ class Topics extends Public_Controller {
 					if($topic->id = $this->forum_posts_m->new_topic($this->user->id, $topic, $forum))
 					{
 						// Add user to notify
-						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user_lib->user_data->id );
-						
+						if($this->input->post('notify') == 1)
+						{
+							$this->forum_subscriptions_m->add($this->user->id, $topic->id);
+						}
+						else
+						{
+							$this->forum_subscriptions_m->delete_by(array('user_id' => $this->user->id, 'topic_id' => $topic->id));
+						}
 						redirect('forums/topics/view/'.$topic->id);
 					}
 					

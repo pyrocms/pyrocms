@@ -38,14 +38,12 @@
 					
 					<?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
 			</tr>
-			<?php /*
 			<tr>
 				<th>Options:</th>
 				<td class="form_options">
 					<?php echo form_checkbox('notify', 1, $reply->notify == 1 || empty($_POST)); ?> <label for="notify">Notify me via email when someone posts in this thread.</label>
 				</td>
 			</tr>
-			 */?>
 			<tr>
 				<td>&nbsp;</td>
 				<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Submit Reply" /></td>
