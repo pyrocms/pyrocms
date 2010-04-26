@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	{theme_view('metadata')}
+
+	{theme_css('forums.css')}
 </head>
 
 <body>
