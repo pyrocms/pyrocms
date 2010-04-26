@@ -180,14 +180,6 @@ class Forum_posts_m extends MY_Model
 		$this->db->where(array('id' => $topic_id, 'parent_id' => 0));
 		return $this->db->get('forum_posts')->row();
 	}
-
-	// Each time a user looks at a topic it will add 1
-	function increaseViewcount($topic_id = 0)
-	{
-		$this->db->set('view_count', 'view_count + 1', FALSE);
-		$this->db->where('id', (int) $topic_id);
-		$this->db->update('forum_posts');
-	}
 	
 
 	function new_topic($user_id, $topic, $forum)

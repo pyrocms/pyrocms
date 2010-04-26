@@ -157,7 +157,7 @@ class Posts extends Public_Controller {
 
 		// Get the forum name
 		$reply = $this->forum_posts_m->get($reply_id);
-		$topic = $this->forum_posts_m->getTopic($reply->parent_id);
+		$topic = $this->forum_posts_m->get_topic($reply->parent_id);
 		$forum = $this->forums_m->get($reply->forum_id);
 
 		// Chech if there is a forum with that ID
@@ -216,7 +216,7 @@ class Posts extends Public_Controller {
 				$this->data->messages['error'] = validation_errors();
 			}
 		}
-
+		$reply->notify = $this->forum_subscriptions_m->is_subscribed($this->user->id, $topic->id);
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
 		$this->data->reply =& $reply;
