@@ -17,7 +17,6 @@ class Posts extends Public_Controller {
 
 		// Add a link to the forum CSS into the head
 		$this->template->append_metadata(js('bbcode.js', 'forums'));
-		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
 		$this->template->set_breadcrumb('Home', '/');
 		$this->template->set_breadcrumb('Forums', 'forums');
 	}

@@ -15,7 +15,6 @@ class Forums extends Public_Controller {
 		$this->template->enable_parser_body(FALSE);
 
 		$this->template->set_breadcrumb('Home', '/');
-		$this->template->set_partial('breadcrumbs', 'partials/breadcrumbs');
 	}
 	
 	
@@ -43,7 +42,7 @@ class Forums extends Public_Controller {
 		}
 	
 		$this->data->forum_categories =& $forum_categories;
-		$this->template->set_breadcrumb('Forum Home');
+		$this->template->set_breadcrumb('Forums');
 		$this->template->build('forum/index', $this->data);
 	}
 
