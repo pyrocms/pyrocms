@@ -2,10 +2,25 @@
 
 class Admin extends Admin_Controller {
 
-	private $rules = array('category' => array (
-							array ('field'   => 'title',
-								   'label'   => 'Title',
-								   'rules'   => 'trim|xss_clean|required|max_length[100]')
+	private $rules = array(
+		'category' => array (
+							array (
+								'field'   => 'title',
+								'label'   => 'Title',
+								'rules'   => 'trim|xss_clean|required|max_length[100]'
+							)
+						),
+		'forum' => array (
+							array (
+								'field'   => 'title',
+								'label'   => 'Title',
+								'rules'   => 'trim|xss_clean|required|max_length[100]'
+							),
+							array (
+								'field'   => 'description',
+								'label'   => 'Description',
+								'rules'   => 'trim|xss_clean|required|max_length[255]'
+							)
 						)
 					);
 
@@ -32,19 +47,18 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/index', $this->data);
 	}
 
-	function edit($type, $id)
+	function list_forums()
 	{
-		switch ($type) {
-			case 'category':
+		$this->db->select('forums.id, forums.title, forum_categories.title as category');
+		$this->db->join('forum_categories', 'forums.category_id = forum_categories.id');
+		$this->db->order_by('category', 'ASC');
+		$forums = $this->forums_m->get_all();
 
-				break;
-			case 'forum':
-				
-				break;
+		$this->load->vars(array(
+			'forums' => &$forums
+		));
 
-			default:
-				break;
-		}
+		$this->template->build('admin/forums', $this->data);
 	}
 
 	function create_category()
@@ -66,7 +80,7 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->data->category =& $category;
-		$this->template->build('admin/form', $this->data);
+		$this->template->build('admin/category_form', $this->data);
 	}
 
 	function edit_category($id)
@@ -88,8 +102,67 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->data->category =& $category;
-		$this->template->build('admin/form', $this->data);
+		$this->template->build('admin/category_form', $this->data);
 	}
+
+	function create_forum()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->rules['forum']);
+
+		$forum->id = 0;
+		$forum->title = set_value('title');
+		$forum->description = set_value('title');
+		$forum->category = set_value('category');
+
+		$cats = $this->forum_categories_m->get_all();
+		foreach($cats as $cat)
+		{
+			$forum->categories[$cat->id] = $cat->title;
+		}
+		if ($this->form_validation->run())
+		{
+			if($this->forums_m->insert(array('title' => $this->input->post('title'), 'description' => $this->input->post('description'), 'category_id' => $this->input->post('category'))))
+			{
+				$this->session->set_flashdata('success', sprintf($this->lang->line('forums_forum_add_success'), $this->input->post('title')));
+				redirect('/admin/forums/list_forums');
+			}
+
+		}
+
+		$this->data->forum =& $forum;
+		$this->template->build('admin/forum_form', $this->data);
+	}
+
+	function edit_forum($id)
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->rules['forum']);
+
+		$forum = $this->forums_m->get($id);
+
+		$cats = $this->forum_categories_m->get_all();
+		foreach($cats as $cat)
+		{
+			$forum->categories[$cat->id] = $cat->title;
+		}
+
+		if ($this->form_validation->run())
+		{
+			if($this->forums_m->update($this->input->post('id'), array('title' => $this->input->post('title'), 'description' => $this->input->post('description'), 'category_id' => $this->input->post('category'))))
+			{
+				$this->session->set_flashdata('success', sprintf($this->lang->line('forums_forum_add_success'), $this->input->post('title')));
+				redirect('/admin/forums/list_forums');
+			}
+			$forum->title = set_value('title');
+			$forum->description = set_value('description');
+			$forum->category = set_value('category');
+		}
+		$forum->category = $forum->category_id;
+		$this->data->forum =& $forum;
+		$this->template->build('admin/forum_form', $this->data);
+	}
+
 
 	function delete($type, $id)
 	{
@@ -111,7 +184,18 @@ class Admin extends Admin_Controller {
 				redirect('/admin/forums');
 				break;
 			case 'forum':
-				
+				$this->load->model('forum_posts_m');
+				$this->load->model('forum_subscriptions_m');
+				$this->forums_m->delete($id);
+
+				foreach($this->forum_posts_m->get_many_by(array('forum_id' => $id, 'parent_id' => '0')) as $topic)
+				{
+					$this->forum_subscriptions_m->delete_by('topic_id', $topic->id);
+				}
+				$this->forum_posts_m->delete_by('forum_id', $id);
+
+				$this->session->set_flashdata('success', $this->lang->line('forums_forum_delete_success'));
+				redirect('/admin/forums/list_forums');
 				break;
 
 			default:
