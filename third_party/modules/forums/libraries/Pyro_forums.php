@@ -25,7 +25,7 @@ class Pyro_forums
 		foreach($recipients as $person)
 		{
 			$this->CI->email->clear();
-			$this->CI->email->from('forums@example.com', 'Forums');
+			$this->CI->email->from($this->CI->settings->item('server_email'), 'Forums');
 			$this->CI->email->to($person->email);
 
 			$this->CI->email->subject('Subscription Notification: ' . $reply->title);
