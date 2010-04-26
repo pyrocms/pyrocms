@@ -77,8 +77,7 @@ class Posts extends Public_Controller {
 		{
 			$reply->content = set_value('content');
 		}
-
-		$reply->notify = $this->forum_subscriptions_m->get_by(array('user_id' => $this->user->id, 'topic_id' => $topic->id)) || 0;
+		$reply->notify = $this->forum_subscriptions_m->is_subscribed($this->user->id, $topic_id);
 
 		// The form has been submitted one way or another
 		if($this->input->post('submit') or $this->input->post('preview'))
