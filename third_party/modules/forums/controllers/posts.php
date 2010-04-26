@@ -10,7 +10,7 @@ class Posts extends Public_Controller {
 		$this->load->model('forum_subscriptions_m');
 		$this->load->helper('bbcode');
 		$this->load->library('pyro_forums');
-		$this->lang->load('forum');
+		$this->lang->load('forums');
 		
 		//$this->load->helper('bbcode');
 		$this->template->enable_parser_body(FALSE);

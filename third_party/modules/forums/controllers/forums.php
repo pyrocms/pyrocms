@@ -9,7 +9,7 @@ class Forums extends Public_Controller {
 		$this->load->model('forum_categories_m');
 		$this->load->model('forum_posts_m');
 
-		$this->lang->load('forum');
+		$this->lang->load('forums');
 		$this->load->config('forums');
 
 		$this->template->enable_parser_body(FALSE);

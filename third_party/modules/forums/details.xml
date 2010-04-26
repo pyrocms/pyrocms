@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.1">
+    <name>
+        <en>Forums</en>
+    </name>
+    <description>
+        <en>Forums for your site</en>
+    </description>
+    <is_frontend>1</is_frontend>
+    <is_backend>1</is_backend>
+    <is_backend_menu>0</is_backend_menu>
+    <controllers>
+        <controller name="admin">
+            <method>index</method>
+        </controller>
+    </controllers>
+</module>
