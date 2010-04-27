@@ -43,7 +43,11 @@
   </tr>
   
   <tr class="postlinks">
-    <td></td>
+    <td>
+		<!--<?php if(isset($user->id)): ?>
+		[ <?php echo anchor('messages/create/'.$post->author->id, 'Message');?> ]
+		<?php endif; ?>-->
+	</td>
 	
 	<td colspan="2" align="right">[ <?php echo anchor('forums/posts/quote_reply/'.$post->id, 'Quote');?> ]
 <?php if(isset($user->id) && $post->author->id == $user->id && $post->parent_id == 0): ?>
