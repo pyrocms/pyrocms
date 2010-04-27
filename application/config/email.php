@@ -2,12 +2,7 @@
 
 $config['mailtype'] = 'html';
 
-/*
-$config['protocol'] = 'smtp';
-$config['smtp_host'] = 'smtp.example.com';
-$config['smtp_user'] = 'username';
-$config['smtp_pass'] = 'password';
-$config['smtp_port'] = '465';
-*/
+$config['protocol'] = 'sendmail';
+$config['mailpath'] = '/usr/sbin/sendmail';
 
 ?>
