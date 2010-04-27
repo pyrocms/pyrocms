@@ -18,9 +18,9 @@ class Pyro_forums
 		$this->CI->load->library('email');
 		$this->CI->load->helper('url');
 		
-		$text_body = 'View the reply here: ' . site_url('forums/posts/view_reply/' . $reply->id) . '\n\n';
-		$text_body .= 'Message:\n';
-		$text_body .= parse_bbcode($reply->content, TRUE);
+		$text_body = 'View the reply here: ' . anchor('forums/posts/view_reply/' . $reply->id) . '<br /><br />';
+		$text_body .= '<strong>Message:</strong><br />';
+		$text_body .= parse_bbcode($reply->content);
 
 		foreach($recipients as $person)
 		{
@@ -29,7 +29,8 @@ class Pyro_forums
 			$this->CI->email->to($person->email);
 
 			$this->CI->email->subject('Subscription Notification: ' . $reply->title);
-			$text_body = 'Reply to "' . $reply->title . '".\n\n' . $text_body;
+			$text_body = 'Reply to <strong>"' . $reply->title . '"</strong>.<br /><br />' . $text_body;
+			$text_body .= "<br /><br />Click here to unsubscribe from this topic: " . anchor('forums/unsubscribe/' . $person->id . '/' . $reply->topic_id);
 
 			$this->CI->email->message($text_body);
 			$this->CI->email->send();
@@ -44,7 +45,7 @@ class Pyro_forums
 		{
 			$this->CI->db->or_where('users.id', $sub->user_id);
 		}
-		$this->CI->db->select('email');
+		$this->CI->db->select('email,id');
 		return $this->CI->db->get($this->CI->ion_auth_model->tables['users'])->result();
 
 	}

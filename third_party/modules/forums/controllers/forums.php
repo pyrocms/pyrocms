@@ -78,5 +78,14 @@ class Forums extends Public_Controller {
 		$this->template->build('forum/view', $this->data);
 	}
 
+	function unsubscribe($user_id, $topic_id)
+	{
+		$this->load->model('forum_subscriptions_m');
+		$topic = $this->forum_posts_m->get($topic_id);
+		$this->forum_subscriptions_m->delete_by(array('user_id' => $user_id, 'topic_id' => $topic_id));
+		$this->data->topic =& $topic;
+		$this->template->build('posts/unsubscribe', $this->data);
+	}
+
 }
 ?>

@@ -100,6 +100,7 @@ class Posts extends Public_Controller {
 					if($reply->id)
 					{
 						$reply->title = $topic->title;
+						$reply->topic_id = $topic->id;
 						$recipients = $this->pyro_forums->get_recipients($topic_id);
 
 						$this->pyro_forums->notify_reply($recipients, $reply);
