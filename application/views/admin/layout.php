@@ -17,8 +17,8 @@
 			<div id="content">
 			
 				<div id="content-top">
-					<h2><?php echo $module_data['name'] ? anchor('admin/', $module_data['name'], $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
-					<br class="clear-both"/>
+					<h2><?php echo $module_data['name'] ? anchor('admin/' . strtolower($module_data['name']), $module_data['name']) : lang('cp_admin_home_title'); ?></h2>
+					<h3><?php echo 'v' . $module_data['version']; ?></h3>
 				</div>
 			
 				<?php $this->load->view('admin/partials/notices') ?>

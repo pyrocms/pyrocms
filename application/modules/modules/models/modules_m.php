@@ -159,7 +159,7 @@ class Modules_m extends Model {
 
     	return array(
     		'name'				=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
-    		'version' 			=> 	(float) $xml->attributes()->version,
+    		'version' 			=> 	(string) $xml->attributes()->version,
     		'type' 				=> 	(string) $xml->attributes()->type,
     		'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
     		'is_frontend'		=>	$xml->is_frontend == 1,
