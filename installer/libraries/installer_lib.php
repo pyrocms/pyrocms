@@ -132,13 +132,13 @@ class Installer_lib
 		}
 
 		// Check MySQL server is ok
-		if( version_compare($data->mysql->server_version, '5.0.0', '<') )
+		if( $data->mysql->server_version < '5.0.0' )
 		{
 			return FALSE;
 		}
 
 		// Check MySQL client is ok
-		if( version_compare($data->mysql->client_version, '5.0.0', '<') )
+		if( $data->mysql->client_version < '5.0.0' )
 		{
 			return FALSE;
 		}
