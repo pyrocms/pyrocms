@@ -21,7 +21,7 @@ class Users extends Public_Controller
 		// Set the redirect page as soon as they get to login
 		if(!$this->session->userdata('redirect_to'))
 		{
-			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
+			$uri = $this->input->server('HTTP_REFERER');
 
 			// If iwe aren't being redirected from the userl ogin page
 			strpos($uri, '/users/login') || $this->session->set_userdata('redirect_to', $uri);
