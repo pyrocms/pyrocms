@@ -415,7 +415,7 @@ class Twitter {
 			$error_data = $this->_parse_returned($returned, $url);
 			
 			// Server not found fix #1
-			if($error_data) {
+			if($error_data && is_object($error_data)) {
 				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
 			}
 			
