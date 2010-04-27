@@ -7,13 +7,13 @@
 </div>
 <?php endif; ?>
 
-<? if($show_preview): ?>
+<?php if($show_preview): ?>
 <div class="preview">
 	<h1>Topic Preview</h1>
-	<h2><? echo set_value('title');?></h2>
+	<h2><?php echo set_value('title');?></h2>
 	<p><?php echo parse_bbcode(set_value('content'));?></p>
 </div>
-<? endif; ?>
+<?php endif; ?>
 
 <table class="form_table" border="0" cellspacing="0">
 	<thead>
