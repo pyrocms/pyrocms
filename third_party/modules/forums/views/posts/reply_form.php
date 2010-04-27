@@ -10,7 +10,7 @@
 	<?php if(!empty($show_preview)): ?>
 	<div class="preview">
 		<h1>Post Preview</h1>
-		<h2><?php echo $reply->title;?></h2>
+		<h2><?php echo $topic->title;?></h2>
 		<p><?php echo parse_bbcode( $reply->content );?></p>
 	</div>
 	<?php endif; ?>
