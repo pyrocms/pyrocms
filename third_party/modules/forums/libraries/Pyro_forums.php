@@ -17,13 +17,13 @@ class Pyro_forums
 	{
 		$this->CI->load->library('email');
 		$this->CI->load->helper('url');
-		
-		$text_body = 'View the reply here: ' . anchor('forums/posts/view_reply/' . $reply->id) . '<br /><br />';
-		$text_body .= '<strong>Message:</strong><br />';
-		$text_body .= parse_bbcode($reply->content);
 
 		foreach($recipients as $person)
 		{
+			$text_body = 'View the reply here: ' . anchor('forums/posts/view_reply/' . $reply->id) . '<br /><br />';
+			$text_body .= '<strong>Message:</strong><br />';
+			$text_body .= parse_bbcode($reply->content);
+
 			$this->CI->email->clear();
 			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->config->item('forums_title'));
 			$this->CI->email->to($person->email);
