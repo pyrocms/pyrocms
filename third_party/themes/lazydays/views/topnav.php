@@ -15,7 +15,7 @@
 			
 		<?php else: ?>
 			<?php echo anchor('users/login', lang('user_login_btn')); ?> | <?php echo anchor('register', lang('user_register_btn')); ?>
-		<?endif; ?>
+		<?php endif; ?>
 	</div>
 
 	  <ul class="float-left">
