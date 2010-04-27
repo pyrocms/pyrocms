@@ -7,6 +7,11 @@
 	<?php endif; ?>
 
 	<div class="box-container">
+		<?php
+		if(empty($forum->categories)):
+			echo lang('forums_no_categories');
+		else:
+		?>
 
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"', array('id' => $forum->id)); ?>
 
@@ -32,7 +37,10 @@
 
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 
-		<?php echo form_close(); ?>
+		<?php
+		echo form_close();
+		endif;
+		?>
 
 	</div>
 </div>
