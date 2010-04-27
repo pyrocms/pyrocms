@@ -9,6 +9,7 @@ class Posts extends Public_Controller {
 		$this->load->model('forum_posts_m');
 		$this->load->model('forum_subscriptions_m');
 		$this->load->helper('bbcode');
+		$this->load->helper('smiley');
 		$this->load->library('pyro_forums');
 		$this->lang->load('forums');
 		
@@ -82,7 +83,7 @@ class Posts extends Public_Controller {
 		{
 			$this->load->library('form_validation');
 
-			$this->form_validation->set_rules('content', 'Message', 'trim|strip_tags|required');
+			//$this->form_validation->set_rules('content', 'Message', 'trim|required');
 			$this->form_validation->set_rules('notify', 'Subscription notification', 'trim|strip_tags|max_length[1]');
 
 			if ($this->form_validation->run() === TRUE)
@@ -156,7 +157,14 @@ class Posts extends Public_Controller {
 
 		// Get the forum name
 		$reply = $this->forum_posts_m->get($reply_id);
-		$topic = $this->forum_posts_m->get_topic($reply->parent_id);
+		if(empty($reply->parent_id))
+		{
+			$topic = $this->forum_posts_m->get_topic($reply_id);
+		}
+		else
+		{
+			$topic = $this->forum_posts_m->get_topic($reply->parent_id);
+		}
 		$forum = $this->forums_m->get($reply->forum_id);
 
 		// Chech if there is a forum with that ID

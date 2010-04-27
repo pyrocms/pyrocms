@@ -20,6 +20,11 @@ class Pyro_forums
 
 		foreach($recipients as $person)
 		{
+			// No need to email the user that entered the reply
+			if($person->email == $this->CI->user->email)
+			{
+				continue;
+			}
 			$text_body = 'View the reply here: ' . anchor('forums/posts/view_reply/' . $reply->id) . '<br /><br />';
 			$text_body .= '<strong>Message:</strong><br />';
 			$text_body .= parse_bbcode($reply->content);

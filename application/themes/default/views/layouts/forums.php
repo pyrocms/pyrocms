@@ -23,6 +23,7 @@
 	</ul>
 	
 	<div id="content">
+		{theme_view('breadcrumbs')}
 	
 			{if $ci->session->flashdata('notice')}
 		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>

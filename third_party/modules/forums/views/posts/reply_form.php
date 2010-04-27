@@ -9,9 +9,9 @@
 
 	<?php if(!empty($show_preview)): ?>
 	<div class="preview">
-		<h1>Post Preview</h1>
-		<h2><?php echo $topic->title;?></h2>
-		<p><?php echo parse_bbcode( $reply->content );?></p>
+		<h4>Post Preview</h4>
+		<h5><?php echo $topic->title;?></h5>
+		<p><?php echo parse_smileys(parse_bbcode( $reply->content ), image_url("smileys/"));?></p>
 	</div>
 	<?php endif; ?>
 

@@ -69,7 +69,7 @@ class Forums extends Public_Controller {
 		
 		$this->data->forum =& $forum;
 
-		$this->template->set_breadcrumb('Forum Home', 'forums');
+		$this->template->set_breadcrumb('Forums', 'forums');
 		$this->template->set_breadcrumb($forum->title);
 		$this->template->build('forum/view', $this->data);
 	}

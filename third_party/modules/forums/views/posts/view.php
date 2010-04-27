@@ -46,8 +46,12 @@
 			Joined Date:
 			<?php echo date("m.d.y", $post->author->created_on);?>
 		</p>
+		<p>
+			Posts:
+			<?php echo $post->author->post_count;?>
+		</p>
 	</td>
-    <td colspan="2" valign="top"><?php echo parse_bbcode($post->content); ?></td>
+    <td colspan="2" valign="top"><?php echo parse_smileys(parse_bbcode($post->content), image_url("smileys/")); ?></td>
   </tr>
   
   <tr class="postlinks">

@@ -51,6 +51,26 @@ class MY_Config extends CI_Config
 			return $this->slash_item('base_url').$this->slash_item('index_page').preg_replace("|^/*(.+?)/*$|", "\\1", $uri).$suffix;
 		}
 	}
+
+	/**
+	 * Set a config file item
+	 *
+	 * @access	public
+	 * @param	string	the config item key
+	 * @param	string	the config item value
+	 * @return	void
+	 */
+	function set_item($item, $value, $index = '')
+	{
+		if ($index == '')
+		{
+			$this->config[$item] = $value;
+		}
+		else
+		{
+			$this->config[$index][$item] = $value;
+		}
+	}
 }
 
 ?>
