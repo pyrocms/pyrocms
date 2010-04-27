@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	{theme_view('metadata')}
+
+	{theme_css('forums.css')}
 </head>
 
 <body>
@@ -21,27 +23,8 @@
 	</ul>
 	
 	<div id="content">
+		{theme_view('breadcrumbs')}
 	
-		<div id="left-column" class="sidebar">
-			
-			<div id="navigation">
-				<h2>{lang('navigation_headline')}</h2>
-				
-				<ul class="spacer-left-dbl">
-					{foreach navigation('sidebar') link}
-					<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
-					{/foreach}
-				</ul>
-				
-			</div>
-			
-			{widget_area('sidebar')}
-			
-		</div>
-
-
-		<div id="right-column">
-			
 			{if $ci->session->flashdata('notice')}
 		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
 		    {/if}
@@ -54,8 +37,6 @@
 		
 		    {$template.body}
 	    		
-		</div>
-	
 	</div>
 
 	<!-- start footer -->

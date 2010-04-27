@@ -10,7 +10,6 @@ class Admin extends Admin_Controller
 	function __construct()
 	{
   		parent::Admin_Controller();
-		$this->load->library('users/user_lib');
 		$this->load->library('users/ion_auth');
 		$this->load->helper('users/user');
  	}
@@ -83,7 +82,7 @@ class Admin extends Admin_Controller
 	{		
    		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
    		{
-	   		$this->validation->set_message('_check_login', $this->lang->line($this->user_lib->error_code));
+	   		$this->validation->set_message('_check_login', $this->ion_auth->errors());
 	    	return FALSE;
 	    }
 	    

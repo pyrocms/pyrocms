@@ -16,7 +16,7 @@
 	<input type="password" name="password" maxlength="20" value="<?php echo $this->validation->password; ?>" />
 </p>
 
-<input type="image" src="<?php echo image_path('admin/fcc/btn-login.jpg');?>" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />
+<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />
 	
 <?php echo form_close(); ?>
 

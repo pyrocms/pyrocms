@@ -1,41 +1,92 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Admin controller for the users module
+ * 
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Users module
+ * @category	Modules
+ */
 class Admin extends Admin_Controller
 {
-	private $rules = array(
-		'first_name'		=>	"required|alpha_dash",
-		'last_name'			=>	"required|alpha_dash",
-		'password'			=>	"min_length[6]|max_length[20]", // will be required when adding1
-		'confirm_password'	=>	"matches[password]",
-		'email'				=>	"required|valid_email",
-		'group_id'			=>	"required",
-		'active'			=>	"",
-	);
+	/**
+	 * Validation array
+	 * @access private
+	 * @var array
+	 */	
+	private $validation_rules = array();
 	
-	function __construct()
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent's constructor method
 		parent::Admin_Controller();
 		
-		$this->load->library('user_lib');
-		$this->load->library('ion_auth');
-		
+		// Load the required classes
 		$this->load->model('users_m');
 		$this->load->helper('user');
-		
+		$this->load->library('form_validation');
 		$this->lang->load('user');
 		
-        $this->data->roles = $this->permissions_m->get_roles();
-        $this->data->roles_select = array_for_select($this->data->roles, 'id', 'title');
+		// Create the validation array
+		$this->validation_rules = array(
+			array(
+				'field' => 'first_name',
+				'label' => lang('user_first_name_label'),
+				'rules' => 'required|alpha_dash'
+			),
+			array(
+				'field' => 'last_name',
+				'label' => lang('user_last_name_label'),
+				'rules' => 'required|alpha_dash'
+			),
+			array(
+				'field' => 'password',
+				'label' => lang('user_password_label'),
+				'rules' => 'min_length[6]|max_length[20]'
+			),
+			array(
+				'field' => 'confirm_password',
+				'label' => lang('user_password_confirm_label'),
+				'rules' => 'matches[password]'
+			),
+			array(
+				'field' => 'email',
+				'label' => lang('user_email_label'),
+				'rules' => 'required|valid_email'
+			),
+			array(
+				'field' => 'group',
+				'label' => lang('user_group_id_label'),
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'active',
+				'label' => lang('user_active_label'),
+				'rules' => ''
+			)
+		);
+		
+        $this->data->roles 			= $this->permissions_m->get_roles();
+        $this->data->roles_select 	= array_for_select($this->data->roles, 'name', 'title');
         
 		// Sidebar data
-		$this->data->inactive_user_count = $this->users_m->count_by('active', 0);
-		$this->data->active_user_count = $this->users_m->count_by('active', 1);
+		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
+		$this->data->active_user_count 		= $this->users_m->count_by('active', 1);
 		
 		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 
-	// Admin: List all User
-	function index()
+	/**
+	 * List all users
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		// Create pagination links
 		$this->data->pagination = create_pagination('admin/users', $this->data->active_user_count);
@@ -45,23 +96,34 @@ class Admin extends Admin_Controller
 			 ->order_by('users.id', 'desc')
 			 ->get_many_by('active', 1 );
 			
+		// Render the view
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	function inactive()
+	/**
+	 * Show all inactive users
+	 * @access public
+	 * @return voud
+	 */
+	public function inactive()
 	{
 		$this->data->pagination = create_pagination('admin/users/inactive', $this->data->inactive_user_count);
-
-		$this->data->users = $this->users_m->limit($this->data->pagination['limit'])
+		$this->data->users		= $this->users_m->limit($this->data->pagination['limit'])
 			->order_by('users.id', 'desc')
 			->get_many_by('active', 0);
 		
+		// Render the view
 		$this->template->build('admin/index', $this->data);
 	}
 		
-	// Admin: Different form actions
-	function action()
+	/**
+	 * Method for handling different form actions
+	 * @access public 
+	 * @return void
+	 */
+	public function action()
 	{
+		// Determine the type of action
 		switch($this->input->post('btnAction'))
 		{
 			case 'activate':
@@ -76,83 +138,116 @@ class Admin extends Admin_Controller
 		}
 	}
 
-	// Admin: Add a new User
-	function create()
+	/**
+	 * Create a new user
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function create()
 	{
-		$this->load->library('validation');
+		// We need a password don't you think?
+		$this->validation_rules[2]['rules'] .= '|required';
+		$this->validation_rules[3]['rules'] .= '|required';
 		
-		// Adding a user, we must have a password
-		$this->rules['password'] .= '|required';
-		$this->rules['confirm_password'] .= '|required';
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
 		
-		$this->validation->set_rules($this->rules);
-		$this->validation->set_fields();
+		$email 		= $this->input->post('email');
+		$password 	= $this->input->post('password');
+		$group		= $this->input->post('group');
 		
-		$email = $this->input->post('email');
-		$password = $this->input->post('password');
-		$user_data = array('first_name' => $this->input->post('first_name'),
-						   'last_name'  => $this->input->post('last_name'),
-						  );
-		$group = $this->input->post('group');
-				
-		if ($this->validation->run() !== FALSE)
+		$user_data 	= array('first_name' => $this->input->post('first_name'), 'last_name'  => $this->input->post('last_name') );
+		
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
 		{
+			$member->{$rule['field']} = set_value($rule['field']);
+		}
+		
+		if ($this->form_validation->run() !== FALSE)
+		{
+			// Try to register the user
 			if($user_id = $this->ion_auth->register($email, $password, $email, $user_data, $group))
 			{
+				//activate the user if option chosen
+				if ($this->input->post('active')) 
+				{
+					$this->ion_auth->activate($user_id);
+				}
+				
+				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');				
-			}			
+			}	
+			// Error		
 			else
-			{
+			{				
 				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}		
 		else
 		{
-			// Return the validation error message or user_lib error
-			$this->data->error_string = $this->validation->error_string;
+			// Dirty hack that fixes the issue of having to re-add all data upon an error
+			if ($_POST)
+			{
+				$member = (object)$_POST;
+			}
 		}
-	
-		// Set defult field values
-		foreach(array_keys($this->rules) as $field)
-		{
-			$this->data->member->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-		}        
+
+    	// Render the view
+		$this->data->member =& $member;
 		$this->template->build('admin/form', $this->data);
 	}
 
-	// Admin: Edit a User
-	function edit($id = 0)
+	/**
+	 * Edit an existing user
+	 * 
+	 * @access public
+	 * @param int $id The ID of the user to edit
+	 * @return void
+	 */
+	public function edit($id = 0)
 	{
-		$this->load->library('validation');
-		
-		// Shouldnt need to have done this, but if password exists make confirm_password required
+		// confirm_password is required in case the user enters a new password
 		if($this->input->post('password'))
 		{
-			$this->rules['confirm_password'] .= '|required';
+			$this->validation_rules[3]['rules'] .= '|required';
 		}
-
-		$this->validation->set_rules($this->rules);
-		$this->validation->set_fields();
+		$this->form_validation->set_rules($this->validation_rules);
 		
-		$this->data->member = $this->ion_auth->get_user($id);
-		$this->data->member->full_name = $this->data->member->first_name .' '. $this->data->member->last_name;
+		// Get the user's data
+		$member 			= $this->ion_auth->get_user($id);
 		
-		if(!$this->data->member)
+		$member->full_name 	= $member->first_name .' '. $member->last_name;
+		
+		// Got user?
+		if(!$member)
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_edit_user_not_found_error'));
 			redirect('admin/users');
 		}
+
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$member->{$rule['field']} = set_value($rule['field']);
+			}
+		}
 		
-		if ($this->validation->run()) 
+		// Run the validation
+		if ($this->form_validation->run()) 
 		{		
-			$update_data['first_name'] = $this->input->post('first_name');
-			$update_data['last_name'] = $this->input->post('last_name');
-			$update_data['email'] = $this->input->post('email');
-			$update_data['active'] = $this->input->post('active');
+			// Get the POST data
+			$update_data['first_name'] 	= $this->input->post('first_name');
+			$update_data['last_name'] 	= $this->input->post('last_name');
+			$update_data['email'] 		= $this->input->post('email');
+			$update_data['active'] 		= $this->input->post('active');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('group_id')) $update_data['group_id'] = $this->input->post('group_id');
+			if($this->input->post('group')) $update_data['group_id'] = $this->ion_auth->get_group_by_name($this->input->post('group'))->id;
 			
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )
@@ -168,23 +263,32 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}			
+			
+			// Redirect the user
 			redirect('admin/users');
 		}		
 		else
 		{
-			$this->data->error_string = $this->validation->error_string;
+			// Dirty hack that fixes the issue of having to re-add all data upon an error
+			if ($_POST)
+			{
+				$member 			= (object)$_POST;
+				$member->full_name 	= $member->first_name .' '. $member->last_name;
+			}
 		}			
 
-		// Override fields with provided values
-		foreach(array_keys($this->rules) as $field)
-		{
-			if(isset($_POST[$field])) $this->data->member->$field = $this->validation->$field;
-		}
+		// Render the view
+		$this->data->member =& $member;
 		$this->template->build('admin/form', $this->data);
 	}
 
-	// Admin: Activate a User
-	function activate($id = 0)
+	/**
+	 * Activate a user
+	 * @access public
+	 * @param int $id The ID of the user to activate
+	 * @return void
+	 */
+	public function activate($id = 0)
 	{
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 		
@@ -206,12 +310,20 @@ class Admin extends Admin_Controller
 		else
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
-		}		
+		}	
+		
+		// Redirect the user	
 		redirect('admin/users');
 	}
 
-	// Admin: Delete a User
-	function delete($id = 0)
+	/**
+	 * Delete an existing user
+	 *
+	 * @access public 
+	 * @param int $id The ID of the user to delete
+	 * @return void
+	 */
+	public function delete($id = 0)
 	{
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
@@ -243,6 +355,7 @@ class Admin extends Admin_Controller
 		// The array of id's to delete is empty
 		else $this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
 			
+		// Redirect
 		redirect('admin/users');
 	}
 }

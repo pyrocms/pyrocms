@@ -68,9 +68,9 @@ class Modules_m extends Model {
 		        	{
 		        		// This module is not a backend module
 		        		if(empty($module['is_backend'])) continue;
-		        		
+
 		        		// This user has no permissions for this module
-		        		if(!$this->permissions_m->has_admin_access( $this->user_lib->user_data->group_id, $module['slug']) ) continue;
+		        		if(!$this->permissions_m->has_admin_access( $this->user->group_id, $module['slug']) ) continue;
 		        	}
 	       			
 	        		// If we only want frontend modules, check its frontend
@@ -159,9 +159,10 @@ class Modules_m extends Model {
 
     	return array(
     		'name'				=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
-    		'version' 			=> 	(float) $xml->attributes()->version,
+    		'version' 			=> 	(string) $xml->attributes()->version,
     		'type' 				=> 	(string) $xml->attributes()->type,
     		'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
+    		'skip_xss'			=>	$xml->skip_xss == 1,
     		'is_frontend'		=>	$xml->is_frontend == 1,
     		'is_backend'		=>	$xml->is_backend == 1,
     		'is_backend_menu' 	=>	$xml->is_backend_menu == 1,

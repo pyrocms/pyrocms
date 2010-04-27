@@ -308,13 +308,11 @@ class TinyCIMM {
 			die('The user module is missing.');
 		} else {
 			// Load the user model and get user data
-			$this->ci->load->model('users/users_m');
-			$this->ci->load->library('users/user_lib');
-			$this->user =& $this->ci->user_lib->user_data;
+			$this->user =& $this->ci->user;
 		}
 
 		// check that an admin user is logged in
-		!$this->ci->ion_auth->is_admin() and die('You dont have permission to access this feature.');
+		$this->ci->ion_auth->is_admin() or die('You dont have permission to access this feature.');
 	}
 
 	

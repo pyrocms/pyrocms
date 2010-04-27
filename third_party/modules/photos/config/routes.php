@@ -22,7 +22,9 @@
 
 $route['photos/view/:any/(:num)'] = 'photos/view/$1';
 
+// Maintain admin routes
+$route['photos/admin(:any)?'] = 'admin$1';
+
 $route['photos/(:any)'] = 'photos/album/$1';
 $route['photos/(:any)/(:num)'] = 'photos/album/$1/$2';
-
 ?>

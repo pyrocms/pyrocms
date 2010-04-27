@@ -124,10 +124,7 @@ class Admin_layouts extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if (empty($id))
-	    {
-			redirect('admin/pages/layouts');
-	    }
+		empty($id) && redirect('admin/pages/layouts');
 		
 	    // We use this controller property for a validation callback later on
 	    $this->page_layout_id = $id;
@@ -142,7 +139,10 @@ class Admin_layouts extends Admin_Controller
 		// Loop through each validation rule
 		foreach($this->validation_rules as $rule)
 		{
-			$page_layout->{$rule['field']} = set_value($rule['field']);
+			if($this->input->post($rule['field']))
+			{
+				$page_layout->{$rule['field']} = set_value($rule['field']);
+			}
 		}
 	    
 	    // Give validation a try, who knows, it just might work!

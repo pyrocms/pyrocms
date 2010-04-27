@@ -11,7 +11,7 @@
 </div>
 
 <div class="float-right align-center spacer-left">
-	<input type="image" src="<?php echo image_path('admin/fcc/btn-login.jpg');?>" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /><br />
+	<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /><br />
 	or <?php echo anchor('register', lang('user_register_btn'));?>
 </div>
 

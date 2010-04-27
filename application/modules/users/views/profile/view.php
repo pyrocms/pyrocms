@@ -1,11 +1,14 @@
-<h2><?php echo sprintf(lang('profile_of_title'), $user->full_name);?></h2>
-
+<div id="gravatar" style="float: left; margin-right: 15px;">
+	<?php echo gravatar($user->email);?>
+</div>
+<h2><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
+<br clear="both" />
 <fieldset>
 	<legend><?php echo lang('profile_user_details_label');?></legend>
-	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->role; ?><br/>
-	<strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo date('M d, Y', $user->created_on); ?><br/>
+	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?><br/>
+	<strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->created_on); ?><br/>
 	<?php if($user->last_login > 0): ?>
-		<strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y', $user->last_login); ?>
+		<strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->last_login); ?>
 	<?php endif; ?>
 </fieldset>
 

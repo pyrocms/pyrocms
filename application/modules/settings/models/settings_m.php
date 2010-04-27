@@ -22,7 +22,15 @@ class Settings_m extends Model {
     	$this->db->select('slug, type, IF(`value` = "", `default`, `value`) as `value`', FALSE);
 		return $this->db->get('settings')->result();
     }
+
+	function get_settings($params = array())
+	{
+		return $this->getSettings($params);
+	}
     
+	/**
+	 * @deprecated v0.9.8-RC2
+	 */
 	function getSettings($params = array()) {
         $this->db->select('slug, type, title, description, `default`, `options`, IF(`value` = "", `default`, `value`) as `value`, is_required, module', FALSE);
 		$query = $this->db->get_where('settings', $params);

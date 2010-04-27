@@ -43,18 +43,32 @@
 	*
 	*/
 	
-	function module_exists($module)
+	function module_exists($module = '')
 	{
-		if(!$module) return FALSE;
-		
+		static $_module_exists = array();
+
+		if(!$module)
+		{
+			return FALSE;
+		}
+
+		// We already know about this module
+		if(isset($_module_exists[$module]))
+		{
+			return $_module_exists[$module];
+		}
+
+		// Start looking
 		foreach (module_directories() as $directory)
 		{
 			if(is_dir($directory.'/'.$module))
 			{
+				$_module_exists[$module] = TRUE;
 				return TRUE;
 			}
 		}
 		
+		$_module_exists[$module] = FALSE;
 		return FALSE;
 	}
 	

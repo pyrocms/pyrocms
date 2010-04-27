@@ -15,6 +15,7 @@ $lang['page_layouts.edit_label'] 					= 'Edit';
 $lang['page_layouts.delete_label'] 					= 'Delete';
 
 // titles
+$lang['page_layouts.list_title'] 					= 'List page layouts'; //Needs to be translated
 $lang['page_layouts.create_title'] 					= 'Add page layout';
 $lang['page_layouts.edit_title'] 					= 'Edit page layout "%s"';
 

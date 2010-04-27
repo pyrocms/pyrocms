@@ -31,7 +31,7 @@ class Template
     private $_module = '';
     private $_controller = '';
     private $_method = '';
-    
+
     private $_theme = '';
     private $_layout = FALSE; // By default, dont wrap the view with anything
 
@@ -40,21 +40,21 @@ class Template
 
 	private $_partials = array();
 	private $_injected = array();
-	
+
     private $_breadcrumbs = array();
 
     private $_title_separator = ' | ';
-    
+
     private $_parser_enabled = TRUE;
     private $_parser_body_enabled = TRUE;
 
 	private $_theme_locations = array();
-    
+
     // Seconds that cache will be alive for
     private $cache_lifetime = 0;//7200;
 
     private $_ci;
-    
+
     private $data = array();
 
 	/**
@@ -118,7 +118,7 @@ class Template
     {
 		// Set whatever values are given. These will be available to all view files
     	$this->data = is_object($data) ? (array) $data : $data;
-    	
+
         if(empty($this->_title))
         {
         	$this->_title = $this->_guess_title();
@@ -129,15 +129,15 @@ class Template
         $template['breadcrumbs'] = $this->_breadcrumbs;
         $template['metadata']	= implode("\n\t\t", $this->_metadata);
     	$template['partials']	= array();
-    	
+
     	// Assign by reference, as all loaded views will need access to partials
         $this->data['template'] =& $template;
-    	
+
     	foreach( $this->_partials as $name => $partial )
     	{
     		$template['partials'][$name] = $this->_load_view( $partial['view'] , $partial['search']);
     	}
-    	
+
         // Disable sodding IE7's constant cacheing!!
         $this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
         $this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
@@ -147,24 +147,34 @@ class Template
 
         // Let CI do the caching instead of the browser
         $this->_ci->output->cache( $this->cache_lifetime );
-    	
+
         // Test to see if this file
     	$this->_body = $this->_load_view( $view, TRUE, $this->_parser_body_enabled );
-    	
+
         // Want this file wrapped with a layout file?
         if( $this->_layout )
         {
 			$template['body'] = $this->_body;
-			
+
 			// If using a theme, use the layout in the theme
 			foreach ($this->_theme_locations as $location => $offset)
 			{
-				if( $this->_theme && file_exists($location.$this->_theme.'/views/' . $this->_layout.EXT))
+				if( $this->_theme && file_exists($location.$this->_theme.'/views/layouts/' . $this->_layout.EXT))
 				{
 					// If directory is set, use it
 					$this->data['theme_view_folder'] = $offset.$this->_theme.'/views/';
-					$layout_view = $this->data['theme_view_folder'].$this->_layout;
-					
+					$layout_view = $this->data['theme_view_folder'] . 'layouts/' . $this->_layout;
+
+					break;
+				}
+
+				// TODO: Remove deprecated support for layouts directly in the view folder
+				if( $this->_theme && file_exists($location.$this->_theme.'/views/layout' . EXT))
+				{
+					// If directory is set, use it
+					$this->data['theme_view_folder'] = $offset.$this->_theme.'/views/';
+					$layout_view = $this->data['theme_view_folder'] . 'layout';
+
 					break;
 				}
 			}
@@ -177,25 +187,25 @@ class Template
 			{
 	    		$this->_ci->load->library('parser');
 				$this->_body = $this->_ci->parser->parse( $layout_view, $this->data, TRUE );
-			} 
-			
+			}
+
 			else
 			{
 				$this->_body = $this->_ci->load->view( $layout_view, $this->data, TRUE );
 			}
         }
-        
+
         // Want it returned or output to browser?
         if(!$return)
         {
             // Send it to output
             $this->_ci->output->set_output($this->_body);
         }
-        
+
         return $this->_body;
     }
 
-    
+
     /**
      * Set the title of the page
      *
@@ -210,11 +220,11 @@ class Template
     	{
     		$this->_title = implode($this->_title_separator, $title_segments);
     	}
-    	
+
         return $this;
     }
 
-    
+
     /**
      * Put extra javascipt, css, meta tags, etc before all other head data
      *
@@ -227,8 +237,8 @@ class Template
     	array_unshift($this->_metadata, $line);
         return $this;
     }
-    
-    
+
+
 	/**
      * Put extra javascipt, css, meta tags, etc after other head data
      *
@@ -241,8 +251,8 @@ class Template
     	$this->_metadata[] = $line;
         return $this;
     }
-    
-    
+
+
     /**
      * Set metadata for output later
      *
@@ -250,32 +260,32 @@ class Template
      * @param	  string	$name		keywords, description, etc
      * @param	  string	$content	The content of meta data
      * @param	  string	$type		Meta-data comes in a few types, links for example
-     * @return    void	
+     * @return    void
      */
     public function set_metadata($name, $content, $type = 'meta')
     {
         $name = htmlspecialchars(strip_tags($name));
         $content = htmlspecialchars(strip_tags($content));
-    	
+
         // Keywords with no comments? ARG! comment them
         if($name == 'keywords' && !strpos($content, ','))
         {
         	$content = preg_replace('/[\s]+/', ', ', trim($content));
         }
-        
+
         switch($type)
         {
         	case 'meta':
         		$meta = '<meta name="'.$name.'" content="'.$content.'" />';
         	break;
-        	
+
         	case 'link':
         		$meta = '<link rel="'.$name.'" href="'.$content.'" />';
         	break;
         }
-        
+
     	$this->append_metadata($meta);
-    	
+
         return $this;
     }
 
@@ -295,7 +305,7 @@ class Template
 
 
 	/**
-	 * Which Template file are we using here?
+	 * Which theme layout should we using here?
 	 *
 	 * @access	public
 	 * @param	string	$view
@@ -389,7 +399,7 @@ class Template
         return $this;
     }
 
-    
+
     /**
      * enable_parser
      * Should be parser be used or the view files just loaded normally?
@@ -451,7 +461,57 @@ class Template
 
 		return FALSE;
 	}
-    
+
+    /**
+     * layout_exists
+     * Check if a theme layout exists
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    array
+     */
+	public function theme_layout_exists($layout, $theme = NULL)
+	{
+		$theme || $theme = $this->_theme;
+
+		foreach ($this->_theme_locations as $location => $offset)
+		{
+			if( is_dir($location.$theme) )
+			{
+				return file_exists($location.$theme . '/views/layouts/' . $layout . EXT);
+			}
+		}
+
+		return FALSE;
+	}
+    /**
+     * layout_exists
+     * Check if a theme layout exists
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    array
+     */
+	public function get_theme_layouts($theme = NULL)
+	{
+		$theme || $theme = $this->_theme;
+
+		$layouts = array();
+
+		foreach ($this->_theme_locations as $location => $offset)
+		{
+			if( is_dir($location.$theme) )
+			{
+				foreach(glob($location.$theme . '/views/layouts/*' . EXT) as $layout)
+				{
+					$layouts[] = basename($layout, EXT);
+				}
+			}
+		}
+
+		return $layouts;
+	}
+
     // A module view file can be overriden in a theme
     private function _load_view($view = '', $search = TRUE, $parse_view = TRUE)
     {
@@ -504,7 +564,7 @@ class Template
 		{
 			return $this->_ci->load->view( $this->_module.'/'.$view, $this->data, TRUE );
 		}
-    	
+
     }
 
     private function _guess_title()
@@ -519,13 +579,13 @@ class Template
         {
         	$title_parts[] = $this->_method;
         }
-    
+
         // Make sure controller name is not the same as the method name
         if(!in_array($this->_controller, $title_parts))
         {
         	$title_parts[] = $this->_controller;
         }
-        
+
         // Is there a module? Make sure it is not named the same as the method or controller
         if(!empty($this->_module) && !in_array($this->_module, $title_parts))
         {

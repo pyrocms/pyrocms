@@ -1,6 +1,6 @@
 <div id="mainMenu">
 	  <div class="float-right" style="padding:0.5em;text-align:right">
-		<?php if($this->user_lib->logged_in()): ?>
+		<?php if($this->ion_auth->logged_in()): ?>
 			<?php echo sprintf(lang('logged_in_welcome'), $user->first_name.' '.$user->last_name );?> <a href="<?php echo site_url('users/logout');?>"><?php echo lang('logout_label');?></a>
 		
 			<?php if($this->settings->item('enable_profiles')): ?>
@@ -15,7 +15,7 @@
 			
 		<?php else: ?>
 			<?php echo anchor('users/login', lang('user_login_btn')); ?> | <?php echo anchor('register', lang('user_register_btn')); ?>
-		<?endif; ?>
+		<?php endif; ?>
 	</div>
 
 	  <ul class="float-left">

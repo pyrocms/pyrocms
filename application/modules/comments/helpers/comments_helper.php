@@ -30,23 +30,32 @@ function process_comment_items($comments)
 		{
 			case 'news':
 				$ci->load->model('news/news_m');
-				$article = $ci->news_m->get($comment->module_id);
-				$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');
-			break;
+				
+				if($article = $ci->news_m->get($comment->module_id))
+				{
+					$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');
+					break;
+				}
 
 			case 'photos':
 				$ci->load->model('photos/photos_m');
 				$ci->load->model('photos/photo_albums_m');
 				$photo = $ci->photos_m->get($comment->module_id);
-				$album = $ci->photo_albums_m->get($photo->album_id);
-				$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->description, 'class="modal"');
-			break;
+				
+				if($photo && $album = $ci->photo_albums_m->get($photo->album_id))
+				{
+					$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->description, 'class="modal"');
+					break;
+				}
 
 			case 'photos-album':
 				$ci->load->model('photos/photo_albums_m');
-				$album = $ci->photo_albums_m->get($comment->module_id);
-				$comment->item = anchor('photos/' . $album->slug, $album->title, 'class="modal-large iframe"');
-			break;
+
+				if($album = $ci->photo_albums_m->get($comment->module_id))
+				{
+					$comment->item = anchor('photos/' . $album->slug, $album->title, 'class="modal-large iframe"');
+					break;
+				}
 		
 			default:
 				$comment->item = $comment->module .' #'. $comment->module_id;

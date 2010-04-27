@@ -1,0 +1,1 @@
+<p class="message">You have been unsubscribed from <span style="font-weight: bold;"><?php echo $topic->title; ?></span></p>

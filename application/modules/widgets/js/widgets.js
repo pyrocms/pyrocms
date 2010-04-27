@@ -71,7 +71,7 @@
 	{
 		$('.widget-list').each(function(){
 			widget_area_slug = $(this).closest('.widget-area').attr('id').replace(/^area-/, '');
-			$(this).load(BASE_URI + 'widgets/ajax/list_widgets/' + widget_area_slug);
+			$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug);
 		});
 	}
 	
@@ -94,7 +94,7 @@
 				area_slug = this.id.replace(/^area-/, '');
 				widget_slug = ui.draggable.attr('id').replace(/^widget-/, '');
 				
-				$.post(BASE_URI + 'widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
+				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
 					$('form', add_instance).html(html);
 					show_add_instance(area_slug);
 				});
@@ -119,7 +119,7 @@
 			
 			if(!title || !slug) return false;
 			
-			$.post(BASE_URI + 'widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
+			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
 				$('div#mid-col').append(data).children('div.widget-area:hidden').slideDown();
 				
 				// Done, hide this form
@@ -142,7 +142,7 @@
 			
 			if(confirm(''))
 			{
-				$.post(BASE_URI + 'widgets/ajax/delete_widget_area', { area_slug: slug }, function()
+				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_area', { area_slug: slug }, function()
 				{
 					box.slideUp(function(){ $(this).remove() });
 				});
@@ -167,7 +167,7 @@
 			
 			if(!title || !widget_id || !widget_area_id) return false;
 
-			$.post(BASE_URI + 'widgets/ajax/add_widget_instance', $(this).serialize(), function(data) {
+			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', $(this).serialize(), function(data) {
 				
 				if(data.status == 'success')
 				{
@@ -197,7 +197,7 @@
 
 			form = $(this);
 			
-			$.post(BASE_URI + 'widgets/ajax/edit_widget_instance', $(this).serialize(), function(data) {
+			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance', $(this).serialize(), function(data) {
 				
 				if(data.status == 'success')
 				{
@@ -228,7 +228,7 @@
 				});
 				order = order.join(',');
 				
-				$.post(BASE_URI + 'widgets/ajax/update_order', { order: order });
+				$.post(BASE_URI + 'index.php/widgets/ajax/update_order', { order: order });
 			}
 			
 		});
@@ -239,7 +239,7 @@
 			id = $(this).closest('tr').attr('id').replace('instance-', '');
 			area_slug = $(this).closest('div.widget-area').attr('id').replace('area-', '');
 
-			$.post(BASE_URI + 'widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
+			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
 				$('form', edit_instance).html(html);
 				show_edit_instance(area_slug);
 			});
@@ -252,7 +252,7 @@
 			tr = $(this).closest('tr');
 			id = tr.attr('id').replace('instance-', '');
 
-			$.post(BASE_URI + 'widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
+			$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
 				tr.slideUp(function() { $(this).remove(); });
 			});
 			

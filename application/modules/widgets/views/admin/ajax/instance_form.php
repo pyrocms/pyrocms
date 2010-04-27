@@ -29,9 +29,14 @@
 	<?php endif; ?>
 </ol>
 
-<fieldset id="widget-options">
-	<?php echo $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array()); ?>
-</fieldset>
+<?php
+$form = $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
+if($form):
+?>
+	<fieldset id="widget-options">
+		<?php echo $form; ?>
+	</fieldset>
+<?php endif; ?>
 
 <button type="submit">
 	<span><?php echo lang('save_label'); ?></span>

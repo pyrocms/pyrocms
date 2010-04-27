@@ -67,29 +67,30 @@ class Comments extends Public_Controller
 	 * @return void
 	 */
 	public function create($module = 'home', $id = 0)
-	{						
-		// Set some extra values required by the comment
-		if($_POST)
+	{			
+		// Set the comment data
+		// Logged in? in which case, we already know their name and email
+		if($this->ion_auth->logged_in())
 		{
-			$_POST['module'] 	= $module;
-			$_POST['module_id'] = $id;
-			
-			// If they are an admin, comments go straight through
-			$_POST['is_active'] = $this->ion_auth->is_admin();
-			
-			// Logged in? in which case, we already know their name and email
-			if($this->ion_auth->logged_in())
-			{
-				$_POST['user_id'] = $this->data->user->id;
-			}
+			$comment['user_id'] = $this->data->user->id;
 		}
-
+		
+		else
+		{
+			$this->validation_rules[0]['rules'] .= '|required';
+			$this->validation_rules[1]['rules'] .= '|required';
+		}
+		
+		$comment['module']		= $module;
+		$comment['module_id'] 	= $id;
+		$comment['is_active']	= (bool) $this->ion_auth->is_admin();
+		
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)
 		{
 			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$comment->{$rule['field']} = $this->input->post($rule['field']);
+				$comment[$rule['field']] = $this->input->post($rule['field']);
 			}
 		}
 		
@@ -102,13 +103,14 @@ class Comments extends Public_Controller
 			// Run Akismet or the crazy CSS bot checker
 			if($result['status'] == FALSE)
 			{
+				$this->session->set_flashdata('comment', $comment);
 				$this->session->set_flashdata('error', $result['message']);
 			}
 			
 			else
 			{
 				// Save the comment
-				if($this->comments_m->insert($_POST))
+				if($this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
 					if($this->settings->item('moderate_comments') || $this->ion_auth->is_admin())
