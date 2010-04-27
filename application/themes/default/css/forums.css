@@ -224,7 +224,7 @@ div.preview {
 	background-color: #EEEEEE;
 	padding: 10px;
 }
-div.preview h1 {
+div.preview h4 {
 	font-size: 14px;
 	margin: 0 0 5px 0;
 	padding: 0px;
@@ -233,7 +233,7 @@ div.preview h1 {
 	border-bottom: 1px solid #CCCCCC;
 }
 
-div.preview h2 {
+div.preview h5 {
 	font-size: 12px;
 	margin: 0 0 5px 0;
 	font-weight: bold;

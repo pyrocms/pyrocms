@@ -9,6 +9,7 @@ class Posts extends Public_Controller {
 		$this->load->model('forum_posts_m');
 		$this->load->model('forum_subscriptions_m');
 		$this->load->helper('bbcode');
+		$this->load->helper('smiley');
 		$this->load->library('pyro_forums');
 		$this->lang->load('forums');
 		
