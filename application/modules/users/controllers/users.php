@@ -21,10 +21,10 @@ class Users extends Public_Controller
 		// Set the redirect page as soon as they get to login
 		if(!$this->session->userdata('redirect_to'))
 		{
-			$uri = $this->input->server('HTTP_REFERER');
+			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
 
 			// If iwe aren't being redirected from the userl ogin page
-			strpos($uri, '/users/login') || $this->session->set_userdata('redirect_to', $uri);
+			strpos($uri, '/users/login') || $this->session->set_userdata('redirect_to', str_replace(BASE_URI, '', $uri));
 		}
 
 		// Call validation and set rules
@@ -43,7 +43,7 @@ class Users extends Public_Controller
 
 			$this->session->unset_userdata('redirect_to');
 
-			redirect($redirect_to, 'refresh');
+			redirect($redirect_to);
 	    }
 
 	    $this->template->build('login', $this->data);
