@@ -21,6 +21,7 @@
 	</ul>
 	
 	<div id="content">
+		{theme_view('breadcrumbs')}
 	
 		<div id="left-column" class="sidebar">
 			
