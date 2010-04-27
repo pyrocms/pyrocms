@@ -49,6 +49,7 @@ class Topics extends Public_Controller {
 		foreach($topic->posts as &$post)
 		{
 			$post->author = $this->forum_posts_m->author_info($post->author_id);
+			$post->author->post_count =  $this->forum_posts_m->count_user_posts($post->author_id);
 		}
 		$this->data->topic =& $topic;
 		$this->data->forum =& $forum;

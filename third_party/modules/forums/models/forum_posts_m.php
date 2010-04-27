@@ -54,6 +54,21 @@ class Forum_posts_m extends MY_Model
 	}
 
 	/**
+	 * Count Posts for user
+	 *
+	 * How many posts have been made by a user
+	 *
+	 * @access       public
+	 * @param        int 	[$forum_id] 	Which forum should be counted
+	 * @return       int 	Returns a count of how many replies there are
+	 * @package      forums
+	 */
+	public function count_user_posts($user_id)
+	{
+		return parent::count_by(array('author_id' => $user_id));
+	}
+
+	/**
 	 * Add a view to a topic
 	 *
 	 *
