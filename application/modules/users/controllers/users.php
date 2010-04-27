@@ -52,7 +52,7 @@ class Users extends Public_Controller
 	function logout()
 	{
 		$this->ion_auth->logout();
-		$this->session->set_flashdata('success', $this->lang->line('user_logged_out'));
+		$this->session->set_flashdata('success', lang('user_logged_out'));
 		redirect('');
 	}
 
@@ -101,7 +101,7 @@ class Users extends Public_Controller
 			$this->data->error_string = $this->validation->error_string;
 		}
 
-		$this->template->title($this->lang->line('user_register_title'));
+		$this->template->title( lang('user_register_title') );
 		$this->template->build('register', $this->data);
 	}
 
@@ -149,13 +149,17 @@ class Users extends Public_Controller
 
 	function reset_pass()
 	{
-		if($this->input->post('btnSubmit')) {
+		if($this->input->post('btnSubmit'))
+		{
 			$new_password = $this->ion_auth->forgotten_password($this->input->post('email'));
 
-			if($new_password) {
+			if($new_password)
+			{
 				redirect('users/reset_complete');
 			}
-			else {
+
+			else
+			{
 				// Set an error message explaining the reset failed
 				$this->data->error_string = $this->ion_auth->errors();
 			}
@@ -172,16 +176,14 @@ class Users extends Public_Controller
 	}
 
 	// Callback From: login()
-  function _check_login($email)
+	function _check_login($email)
 	{
-    if ($this->ion_auth->login($email, $this->input->post('password')))
-    {
-    	return TRUE;
-    }
-    else
-    {
-    	$this->validation->set_message('_check_login', $this->ion_auth->errors());
-        return FALSE;
-    }
-  }
+		if ($this->ion_auth->login($email, $this->input->post('password')))
+		{
+			return TRUE;
+		}
+		
+		$this->validation->set_message('_check_login', $this->ion_auth->errors());
+		return FALSE;
+	}
 }
