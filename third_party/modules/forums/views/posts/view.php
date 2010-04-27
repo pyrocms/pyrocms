@@ -19,7 +19,15 @@
 	foreach($topic->posts as $post):
   ?>
 	<tr class="postinfo">
-    <td width="20%"><?php echo anchor('user/'.$post->author->id, $post->author->full_name); ?></td>
+		<td width="20%">
+		<?php
+		if($this->settings->item('enable_profiles')):
+			echo anchor('user/'.$post->author->id, $post->author->full_name);
+		else:
+			echo $post->author->full_name;
+		endif;
+		?>
+		</td>
     <td width="50%">Posted: <?php echo date("m.d.y \a\\t g.i a", $post->created_on);?></td>
 <?php if($post->parent_id == 0): ?>
 	<td width="30%" class="postreport">[ <?php echo anchor('forums/posts/report/'.$post->id, 'Report');?> ]</td>
