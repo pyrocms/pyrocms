@@ -157,7 +157,14 @@ class Posts extends Public_Controller {
 
 		// Get the forum name
 		$reply = $this->forum_posts_m->get($reply_id);
-		$topic = $this->forum_posts_m->get_topic($reply->parent_id);
+		if(empty($reply->parent_id))
+		{
+			$topic = $this->forum_posts_m->get_topic($reply_id);
+		}
+		else
+		{
+			$topic = $this->forum_posts_m->get_topic($reply->parent_id);
+		}
 		$forum = $this->forums_m->get($reply->forum_id);
 
 		// Chech if there is a forum with that ID
