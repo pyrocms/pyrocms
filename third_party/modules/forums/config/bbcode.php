@@ -14,7 +14,7 @@ $config['bbcodes'] = array(
 	"u"     => "javascript:insert_bbcode('[u]', '[/u]');return(false)",
 	"code"  => "javascript:insert_bbcode('[code]', '[/code]');return(false)",
 	"quote" => "javascript:insert_bbcode('[quote=AUTHOR]', '[/quote]');return(false)",
-	"url"   => "javascript:insert_bbcode('[url=]', '[/url]');return(false)",
+	"url"   => "javascript:insert_bbcode('[url]', '[/url]');return(false)",
 	"email" => "javascript:insert_bbcode('[email=]', '[/email]');return(false)"
 );
 
@@ -36,7 +36,6 @@ $config['bbcodes_to_parse'] = array(
 	"#\[email\](.+)\[/email\]#isU"			=> array("<a href=\"mailto:$1\">$1</a>", "$1", 1),
 	"#\[email=(.+)\](.+)\[/email\]#isU"		=> array("<a href=\"mailto:$1\">$2</a>", "$1 ($2)", 1),
 	"#\[url\](.+)\[/url\]#isU"				=> array("<a href=\"$1\" target=\"_blank\">$1</a>", "$1", 1),
-	"#\[url=(.+)\](.+)\[/url\]#isU"			=> array("<a href=\"$1\" target=\"_blank\">$2</a>", "$1 ($2)", 1),
 	"#\[quote\](.+)\[/quote\]#isU"			=> array("<blockquote>$1</blockquote>", "\"$1\"", 5),
 	"#\[quote=(.+)\](.+)\[/quote\]#isU"		=> array("<blockquote cite=\"$1\">$2</blockquote>", "\"$2\" ($1)", 5),
 	"#\[code\](.+)\[/code\]#isU"			=> array("<code>$1</code>", "", 1),
