@@ -162,6 +162,7 @@ class Modules_m extends Model {
     		'version' 			=> 	(string) $xml->attributes()->version,
     		'type' 				=> 	(string) $xml->attributes()->type,
     		'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
+    		'auto_xss'			=>	isset($xml->auto_xss) ? $xml->auto_xss == 1 : TRUE,
     		'is_frontend'		=>	$xml->is_frontend == 1,
     		'is_backend'		=>	$xml->is_backend == 1,
     		'is_backend_menu' 	=>	$xml->is_backend_menu == 1,

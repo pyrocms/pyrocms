@@ -40,7 +40,12 @@ class MY_Controller extends Controller
 
 		// Get meta data for the module
         $this->module_data 			= $this->modules_m->get($this->module);
-        
+
+		if($this->module_data['auto_xss'])
+		{
+			$_POST = $this->input->xss_clean($_POST);
+		}
+
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;
         
