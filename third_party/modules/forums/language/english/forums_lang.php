@@ -23,7 +23,6 @@ $lang['forums_forum_title'] 						= 'Forums';
 $lang['forums_forum_forum_title'] 					= 'Add Forum';
 $lang['forums_list_forum_title']					= 'List Forums';
 
-
 // messages
 $lang['forums_no_categories'] 						= 'There are no categories.';
 $lang['forums_no_forums']							= 'There are no forums.';
@@ -37,16 +36,5 @@ $lang['forums_forum_delete_success']				= 'The forum was deleted.';
 $lang['forums_forum_add_success']					= 'The forum "%s" was added.';
 $lang['forums_forum_edit_success']					= 'The forum "%s" was updated.';
 $lang['forums_forum_add_error'] 					= 'An error occured.';
-
-$lang['forums_edit_success'] 						= 'The article "%s" was updated.';
-$lang['forums_edit_error'] 							= 'An error occurred.';
-$lang['forums_publish_success'] 					= 'The article "%s" has been published.';
-$lang['forums_mass_publish_success'] 				= 'The articles "%s" have been published.';
-$lang['forums_publish_error'] 						= 'No articles were published.';
-$lang['forums_delete_success'] 						= 'The article "%s" has been deleted.';
-$lang['forums_mass_delete_success'] 				= 'The articles "%s" have been deleted.';
-$lang['forums_delete_error'] 						= 'No articles were deleted.';
-$lang['forums_already_exist_error'] 				= 'An article with this URL already exists.';
-
 
 ?>

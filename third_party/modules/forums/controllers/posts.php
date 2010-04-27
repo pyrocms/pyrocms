@@ -228,5 +228,19 @@ class Posts extends Public_Controller {
 		$this->template->build('posts/reply_form', $this->data);
 	}
 
+	function delete_reply($reply_id)
+	{
+		$this->ion_auth->logged_in() or redirect('users/login');
+		
+		$reply = $this->forum_posts_m->get($reply_id);
+
+		// Chech if there is a forum with that ID
+		($this->user->id && $reply->author_id) or show_404();
+
+		$this->forum_posts_m->delete($reply_id);
+
+		$this->session->set_flashdata('notice', 'Your reply has been deleted.');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
 }
 ?>
