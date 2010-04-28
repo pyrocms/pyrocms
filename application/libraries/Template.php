@@ -219,7 +219,7 @@ class Template
 			// If we found the layout then wrap the body in it.
 			if($module_layout_view)
 			{
-				$this->data['template']['module'] = $this->_body;
+				$this->data['template']['module_body'] = $this->_body;
 				$template['body'] = $this->_load_view($module_layout_view, FALSE, $this->_parser_body_enabled);
 			}
 
