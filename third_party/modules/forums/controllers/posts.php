@@ -228,6 +228,8 @@ class Posts extends Public_Controller {
 		$this->data->topic =& $topic;
 		$this->data->reply =& $reply;
 
+		$reply->content = htmlspecialchars_decode($reply->content, ENT_QUOTES);
+		
 		$this->template->set_partial('bbcode', 'partials/bbcode');
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
 		$this->template->set_breadcrumb($topic->title, 'forums/topics/view/'.$topic->id);
