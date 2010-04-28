@@ -72,8 +72,6 @@ class Topics extends Public_Controller {
 			redirect('users/login');
 		}
 		
-		//$this->load->helpers(array('smiley', 'bbcode'));
-
 		// Get the forum name
 		$forum = $this->forums_m->get($forum_id);
 		
@@ -148,7 +146,41 @@ class Topics extends Public_Controller {
 		$this->template->build('posts/new_topic', $this->data);
 	}
 
+	function stick($topic_id)
+	{
+		$this->ion_auth->logged_in() or redirect('users/login');
 
+		$this->ion_auth->is_admin() or show_404();
+
+		if($this->forum_posts_m->update($topic_id, array('sticky' => 1)))
+		{
+			$this->session->set_flashdata('success', 'Topic has been made sticky.');
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'Topic could not be made sticky.');
+
+		}
+		redirect('forums/topics/view/' . $topic_id);
+	}
+
+	function unstick($topic_id)
+	{
+		$this->ion_auth->logged_in() or redirect('users/login');
+
+		$this->ion_auth->is_admin() or show_404();
+
+		if($this->forum_posts_m->update($topic_id, array('sticky' => 0)))
+		{
+			$this->session->set_flashdata('success', 'Topic has been unstuck.');
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'Topic could not be unstuck.');
+
+		}
+		redirect('forums/topics/view/' . $topic_id);
+	}
 
 }
 ?>

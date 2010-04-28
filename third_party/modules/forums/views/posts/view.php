@@ -30,7 +30,14 @@
 		</td>
     <td width="50%">Posted: <?php echo date("m.d.y \a\\t g.i a", $post->created_on);?></td>
 <?php if($post->parent_id == 0): ?>
-	<td width="30%" class="postreport">[ <?php echo anchor('forums/posts/report/'.$post->id, 'Report');?> ]</td>
+	<td width="30%" class="postreport">
+		[ <?php echo anchor('forums/posts/report/'.$post->id, 'Report');?> ]
+		<?php if($this->ion_auth->is_admin() && !$topic->sticky): ?>
+		[ <?php echo anchor('forums/topics/stick/'.$post->id, 'Make Sticky');?> ]
+		<?php else: ?>
+		[ <?php echo anchor('forums/topics/unstick/'.$post->id, 'Unstick');?> ]
+		<?php endif; ?>
+	</td>
 <?php else: ?>
 	<td width="35%" class="postreport">[ <?php echo anchor('forums/posts/report/'.$post->id, 'Report');?> ] [ <?php echo anchor('forums/posts/view_reply/'.$post->id, '# '.$i , array('title' => 'Permalink to this post', 'name' => $post->id));?> ]</td>
 <?php endif; ?>
