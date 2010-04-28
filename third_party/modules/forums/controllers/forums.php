@@ -14,6 +14,9 @@ class Forums extends Public_Controller {
 
 		$this->template->enable_parser_body(FALSE);
 
+		$this->template->set_module_layout('default');
+		$this->template->append_metadata( theme_css('forums.css') );
+
 		$this->template->set_breadcrumb('Home', '/');
 	}
 	
