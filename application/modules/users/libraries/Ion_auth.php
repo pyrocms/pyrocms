@@ -587,11 +587,11 @@ class Ion_auth
 	 **/
 	public function update_user($id, $data)
 	{
-		 if ($this->ci->ion_auth_model->update_user($id, $data))
-		 {
-		 	$this->set_message('update_successful');
-		 	return TRUE;
-		 }
+		if ($this->ci->ion_auth_model->update_user($id, $data))
+		{
+			$this->set_message('update_successful');
+			return TRUE;
+		}
 
 		$this->set_error('update_unsuccessful');
 		return FALSE;

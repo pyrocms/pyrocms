@@ -7,7 +7,6 @@ fieldset dl dd input, fieldset dl dd textarea {
 	width:95%;
 }
 </style>
-
     <h2><?php echo lang('profile_edit') ?></h2>
     
 	<?php echo form_open('edit-profile', array('id'=>'user_edit_profile'));?>
