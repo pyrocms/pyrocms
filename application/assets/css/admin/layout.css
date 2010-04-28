@@ -73,7 +73,7 @@ div#content {padding-top:25px;}
 		div#content-top h2 {font-size:200%; font-weight:bold; margin:0 0 0 12px; float:left;}
 		div#content-top h2 a { text-decoration:none;color:#373d40; }
 		div#content-top a#topLink:hover {color:#333;}
-		div#content-top h3 {font-size:100%; line-height: 1em; font-weight:normal; margin:5px 0 0 12px; padding: 0px; color: #666666; clear: both; }
+		div#content-top .version {color: #666666; float:right; font-size:100%; font-weight:normal; line-height: 1em; margin:5px 0 0 12px; padding: 0px; }
 		
 	.box-container a { color: #3A4043; }
 		
