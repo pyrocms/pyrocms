@@ -11,6 +11,7 @@ class Topics extends Public_Controller {
 		$this->load->helper('bbcode');
 		$this->load->helper('smiley');
 		$this->lang->load('forums');
+		$this->load->config('forums');
 		
 		//$this->load->helper('bbcode');
 		$this->template->enable_parser_body(FALSE);
