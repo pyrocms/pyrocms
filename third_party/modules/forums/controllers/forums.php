@@ -53,14 +53,13 @@ class Forums extends Public_Controller {
 		($forum = $this->forums_m->get($forum_id)) || show_404();
 
 		// Pagination junk
-		$this->load->library('pagination');
 		$per_page = '25';
-		if($offset < $per_page) $offset = 0;
-		$config['base_url'] = site_url('forums/view/'.$forum_id);
-		$config['total_rows'] = $this->forum_posts_m->count_topics_in_forum($forum_id);
-		$config['per_page'] = $per_page;
-		$config['uri_segment'] = 4;
-		$this->pagination->initialize($config);
+		$pagination = create_pagination('forums/view/'.$forum_id, $this->forum_posts_m->count_topics_in_forum($forum_id), $per_page, 4);
+		if($offset < $per_page)
+		{
+			$offset = 0;
+		}
+		$pagination['offset'] = $offset;
 		// End Pagination
 
 		// Get all topics for this forum
@@ -79,8 +78,7 @@ class Forums extends Public_Controller {
 		}
 		
 		$this->data->forum =& $forum;
-		$this->data->pagination->offset = $offset;
-		$this->data->pagination->links = $this->pagination->create_links();
+		$this->data->pagination = $pagination;
 
 		$this->template->set_breadcrumb('Forums', 'forums');
 		$this->template->set_breadcrumb($forum->title);

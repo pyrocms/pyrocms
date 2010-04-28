@@ -24,7 +24,8 @@ class Users extends Public_Controller
 			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
 
 			// If iwe aren't being redirected from the userl ogin page
-			strpos($uri, '/users/login') || $this->session->set_userdata('redirect_to', str_replace(BASE_URI, '', $uri));
+			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
+			strpos($uri, '/users/login') || $this->session->set_userdata('redirect_to', str_replace($root_uri, '', $uri));
 		}
 
 		// Call validation and set rules

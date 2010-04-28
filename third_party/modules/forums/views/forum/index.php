@@ -1,4 +1,3 @@
-<h2><?php echo $this->config->item('forums_title'); ?></h2>
 <?php foreach($forum_categories as $category): ?>
 <?php if($category->forums): ?>
 

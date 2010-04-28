@@ -3,9 +3,7 @@
 	<?php echo anchor('forums/posts/new_reply/'.$topic->id, ' Reply ');?>
 	<br clear="both" />
 </div>
-<div class="pagination">
-<?php echo $pagination->links; ?>
-</div>
+<?php echo $pagination['links']; ?>
 <h2><?php echo $this->config->item('forums_title'); ?></h2>
 <table class="topic_table" border="0" cellspacing="0">
 	<thead>
@@ -15,7 +13,7 @@
 	</thead>
 	<tbody>
   <?php 
-	$i=$pagination->offset;
+	$i = $pagination['offset'];
 	foreach($topic->posts as $post):
   ?>
 	<tr class="postinfo">
@@ -34,7 +32,7 @@
 		[ <?php echo anchor('forums/posts/report/'.$post->id, 'Report');?> ]
 		<?php if($this->ion_auth->is_admin() && !$topic->sticky): ?>
 		[ <?php echo anchor('forums/topics/stick/'.$post->id, 'Make Sticky');?> ]
-		<?php else: ?>
+		<?php elseif($this->ion_auth->is_admin() && $topic->sticky == 1): ?>
 		[ <?php echo anchor('forums/topics/unstick/'.$post->id, 'Unstick');?> ]
 		<?php endif; ?>
 	</td>
@@ -83,9 +81,7 @@
 	endforeach; ?>
 	</tbody>
 </table>
-<div class="pagination">
-<?php echo $pagination->links; ?>
-</div>
+<?php echo $pagination['links']; ?>
 
 <div class="forum_buttons">
 	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
