@@ -103,6 +103,8 @@ class Posts extends Public_Controller {
 
 					if($reply->id)
 					{
+						// Set Topic Update Time
+						$this->forum_posts_m->set_topic_update($topic->id);
 						$reply->title = $topic->title;
 						$reply->topic_id = $topic->id;
 						$recipients = $this->pyro_forums->get_recipients($topic_id);

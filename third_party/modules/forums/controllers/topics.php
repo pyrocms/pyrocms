@@ -97,6 +97,8 @@ class Topics extends Public_Controller {
 					
 					if($topic->id = $this->forum_posts_m->new_topic($this->user->id, $topic, $forum))
 					{
+						$this->forum_posts_m->set_topic_update($topic->id);
+
 						// Add user to notify
 						if($this->input->post('notify') == 1)
 						{

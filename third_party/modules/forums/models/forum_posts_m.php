@@ -98,6 +98,24 @@ class Forum_posts_m extends MY_Model
 		$this->db->where('id', (int) $topic_id);
 		$this->db->update('forum_posts');
 	}
+
+	/**
+	 * Sets the Topic Updates
+	 *
+	 *
+	 * @access       public
+	 * @param        int 	[$topic_id]
+	 * @return       NULL
+	 * @package      forums
+	 */
+
+	public function set_topic_update($topic_id)
+	{
+		$this->db->set('updated_on', now(), FALSE);
+		$this->db->where('id', (int) $topic_id);
+		$this->db->update('forum_posts');
+	}
+
 	/**
 	 * Get Posts in Topic
 	 *
@@ -129,7 +147,7 @@ class Forum_posts_m extends MY_Model
 	public function get_topics_by_forum($forum_id, $offset, $per_page)
 	{
 		$this->db->where(array('forum_id' => $forum_id, 'parent_id' => 0));
-		$this->db->order_by('sticky DESC, created_on DESC');
+		$this->db->order_by('sticky DESC, updated_on DESC, created_on DESC');
 		$query = $this->db->get('forum_posts', $per_page, $offset);
 		return $query->result();		
 	}
