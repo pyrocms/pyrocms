@@ -96,7 +96,7 @@ class Topics extends Public_Controller {
 				if( $this->input->post('submit') )
 				{
 					$topic->title = set_value('title');
-					$topic->content = set_value('content');
+					$topic->content = htmlspecialchars_decode(set_value('content'), ENT_QUOTES);
 					
 					if($topic->id = $this->forum_posts_m->new_topic($this->user->id, $topic, $forum))
 					{

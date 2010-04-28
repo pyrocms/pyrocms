@@ -58,7 +58,7 @@
 			<?php echo $post->author->post_count;?>
 		</p>
 	</td>
-    <td colspan="2" valign="top"><?php echo parse_bbcode($post->content, 0, TRUE); ?></td>
+    <td colspan="2" valign="top"><?php echo parse_bbcode(htmlentities($post->content), 0, TRUE); ?></td>
   </tr>
   
   <tr class="postlinks">

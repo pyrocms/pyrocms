@@ -11,7 +11,7 @@
 <div class="preview">
 	<h4>Topic Preview</h4>
 	<h5><?php echo set_value('title');?></h5>
-	<p><?php echo parse_bbcode(set_value('content'), 0, TRUE);?></p>
+	<p><?php echo parse_bbcode(htmlentities(set_value('content')), 0, TRUE);?></p>
 </div>
 <?php endif; ?>
 
