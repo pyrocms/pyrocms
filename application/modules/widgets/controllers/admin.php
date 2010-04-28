@@ -1,16 +1,22 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
+ * Admin controller for the widgets module.
+ *
  * @package 		PyroCMS
  * @subpackage 		Widgets
  * @author			Phil Sturgeon - PyroCMS Development Team
  * 
- * Admin controller for the widgets module.
  */
 class Admin extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 		
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
@@ -20,7 +26,12 @@ class Admin extends Admin_Controller
 	    $this->template->append_metadata( css('widgets.css', 'widgets') );
 	}
 	
-	function index()
+	/**
+	 * Index method, lists all active widgets
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		$this->data->available_widgets = $this->widgets->list_available_widgets();
 		$this->data->uninstalled_widgets = $this->widgets->list_uninstalled_widgets();
@@ -37,7 +48,13 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	function about_available($slug)
+	/**
+	 * Show info about available widgets
+	 * @access public
+	 * @param str $slug The slug of the widget
+	 * @return void
+	 */
+	public function about_available($slug)
 	{
 		$widget = $this->widgets->get_widget($slug);
 		
@@ -48,7 +65,13 @@ class Admin extends Admin_Controller
 		));
 	}
 	
-	function about_uninstalled($slug)
+	/**
+	 * Show info about uninstalled widgets
+	 * @access public
+	 * @param str $slug The slug of the widget
+	 * @return void
+	 */
+	public function about_uninstalled($slug)
 	{
 		$widget = $this->widgets->read_widget($slug);
 		
@@ -59,7 +82,12 @@ class Admin extends Admin_Controller
 		));
 	}
 	
-	function install()
+	/**
+	 * Install a new widget
+	 * @access public
+	 * @return void
+	 */
+	public function install()
 	{
 		$widget = $this->widgets->read_widget( $this->input->post('slug') );
 		
@@ -75,7 +103,12 @@ class Admin extends Admin_Controller
 		redirect('admin/widgets');
 	}
 	
-	function uninstall()
+	/**
+	 * Uninstall an existing widget
+	 * @access public 
+	 * @return void
+	 */
+	public function uninstall()
 	{
 		$widget = $this->widgets->delete_widget( $this->input->post('slug') );
 		
