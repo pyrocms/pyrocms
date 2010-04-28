@@ -27,14 +27,13 @@ class Topics extends Public_Controller {
 		$this->forum_posts_m->add_topic_view($topic_id);
 		
 		// Pagination junk
-		$this->load->library('pagination');
 		$per_page = '10';
-		if($offset < $per_page) $offset = 0;
-		$config['base_url'] = site_url('forums/topics/view/'.$topic_id);
-		$config['total_rows'] = $this->forum_posts_m->count_posts_in_topic($topic_id);
-		$config['per_page'] = $per_page;
-		$config['uri_segment'] = 5;
-		$this->pagination->initialize($config); 
+		$pagination = create_pagination('forums/topics/view/'.$topic_id, $this->forum_posts_m->count_posts_in_topic($topic_id), $per_page, 5);
+		if($offset < $per_page)
+		{
+			$offset = 0;
+		}
+		$pagination['offset'] = $offset;
 		// End Pagination
 
 		// Which topic in which forum are we looking at?
@@ -50,9 +49,7 @@ class Topics extends Public_Controller {
 		}
 		$this->data->topic =& $topic;
 		$this->data->forum =& $forum;
-		
-		$this->data->pagination->offset = $offset;
-		$this->data->pagination->links = $this->pagination->create_links();
+		$this->data->pagination = &$pagination;
 		
 		// Create page
 		$this->template->title($topic->title);
