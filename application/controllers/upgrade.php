@@ -107,7 +107,7 @@ class Upgrade extends Controller
 		  `created_on` int(11) NOT NULL DEFAULT '0',
 		  `updated_on` int(11) NOT NULL DEFAULT '0',
 		  `view_count` int(11) NOT NULL DEFAULT '0',
-		  `smileys_enabled` tinyint(1) NOT NULL DEFAULT '1',
+		  `sticky` tinyint(1) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
 
@@ -376,6 +376,21 @@ class Upgrade extends Controller
 		$this->dbforge->drop_column('users', 'first_name');
 		$this->dbforge->drop_column('users', 'last_name');
 		$this->dbforge->drop_column('users', 'lang');
+
+		//add new forums field
+		echo 'Adding columns to forums table <br />';
+		$this->dbforge->add_column('forum_posts', array(
+			'sticky' => array(
+				'type'			=> 'TINYINT',
+				'constraint'	=> 1,
+				'default'		=> 0,
+				'null'			=> TRUE,
+			  ),
+		));
+		// drop old forums columns
+		$this->dbforge->drop_column('forum_posts', 'smileys_enabled');
+		//rename the groups columns
+
 
 		return TRUE;
 	}
