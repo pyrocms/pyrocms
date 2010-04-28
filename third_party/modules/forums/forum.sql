@@ -22,17 +22,17 @@ CREATE TABLE `forum_posts` (
   `forum_id` int(11) NOT NULL DEFAULT '0',
   `author_id` int(11) NOT NULL DEFAULT '0',
   `parent_id` int(11) NOT NULL DEFAULT '0',
-  `title` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `content` text CHARACTER SET utf8 NOT NULL,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
   `type` tinyint(1) NOT NULL DEFAULT '0',
   `is_locked` tinyint(1) NOT NULL DEFAULT '0',
   `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
   `created_on` int(11) NOT NULL DEFAULT '0',
   `updated_on` int(11) NOT NULL DEFAULT '0',
   `view_count` int(11) NOT NULL DEFAULT '0',
-  `smileys_enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `sticky` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `forum_subscriptions`
