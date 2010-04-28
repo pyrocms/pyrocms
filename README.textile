@@ -21,12 +21,12 @@ it was built with modularity in mind. Lightweight, themeable and dynamic.
 
 h2. INSTALLATION
 
-See INSTALL file for step-by-step installation instructions.
+See docs/INSTALL.txt for step-by-step installation instructions.
 
 
 h2. UPGRADING
 
-See UPGRADE file for step-by-step upgrade instructions.
+See docs/UPGRADE.txt for step-by-step upgrade instructions.
 
 
 h2. BUGS / FEATURE REQUESTS
@@ -40,7 +40,7 @@ h2. THANKS
 
 h3. Contributors
 
-* "That Lee Guy ":lee[at]thatleeguy[dot]com
+* "That Lee Guy":lee[at]thatleeguy[dot]com
 * "MrEnirO":mreniro[at]gmail[dot]com
 * "BenneX":http://github.com/BenneX
 
