@@ -47,13 +47,24 @@ class Forums extends Public_Controller {
 	}
 
 
-	function view($forum_id = 0)
+	function view($forum_id = 0, $offset = 0)
 	{
 		// Check if forum exists, if not 404
 		($forum = $this->forums_m->get($forum_id)) || show_404();
-		
+
+		// Pagination junk
+		$this->load->library('pagination');
+		$per_page = '25';
+		if($offset < $per_page) $offset = 0;
+		$config['base_url'] = site_url('forums/view/'.$forum_id);
+		$config['total_rows'] = $this->forum_posts_m->count_topics_in_forum($forum_id);
+		$config['per_page'] = $per_page;
+		$config['uri_segment'] = 4;
+		$this->pagination->initialize($config);
+		// End Pagination
+
 		// Get all topics for this forum
-		$forum->topics = $this->forum_posts_m->get_topics_by_forum($forum_id);
+		$forum->topics = $this->forum_posts_m->get_topics_by_forum($forum_id, $offset, $per_page);
 		
 		// Get a list of posts which have no parents (topics) in this forum
 		foreach($forum->topics as &$topic)
@@ -68,6 +79,8 @@ class Forums extends Public_Controller {
 		}
 		
 		$this->data->forum =& $forum;
+		$this->data->pagination->offset = $offset;
+		$this->data->pagination->links = $this->pagination->create_links();
 
 		$this->template->set_breadcrumb('Forums', 'forums');
 		$this->template->set_breadcrumb($forum->title);

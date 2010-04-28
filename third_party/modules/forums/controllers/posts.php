@@ -26,11 +26,15 @@ class Posts extends Public_Controller {
 	function view_reply($reply_id = 0)
 	{
 		($reply = $this->forum_posts_m->get_reply($reply_id)) || show_404();
-		
+		$per_page = 10;
+
+		$offset = (int) ($this->forum_posts_m->count_prior_posts($reply->parent_id, $reply->created_on) / $per_page);
+		$offset = ($offset == 0) ? '' : '/' . ($offset * $per_page);
+
 		// This is a reply
 		if($reply->parent_id > 0)
 		{
-			redirect('forums/topics/view/'.$reply->parent_id.'#'.$reply_id);
+			redirect('forums/topics/view/'.$reply->parent_id . $offset . '#'.$reply_id);
 		}
 		
 		// This is a new topic

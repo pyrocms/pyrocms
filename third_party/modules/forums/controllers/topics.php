@@ -23,20 +23,17 @@ class Topics extends Public_Controller {
 	
 	function view($topic_id = 0, $offset = 0)
 	{
-		// Load all needed files
-		//$this->load->helpers(array('smiley', 'bbcode', 'date'));
-		$this->load->library('pagination');
-
 		// Update view counter
 		$this->forum_posts_m->add_topic_view($topic_id);
 		
 		// Pagination junk
+		$this->load->library('pagination');
 		$per_page = '10';
 		if($offset < $per_page) $offset = 0;
 		$config['base_url'] = site_url('forums/topics/view/'.$topic_id);
 		$config['total_rows'] = $this->forum_posts_m->count_posts_in_topic($topic_id);
 		$config['per_page'] = $per_page;
-		$config['uri_segment'] = 4;
+		$config['uri_segment'] = 5;
 		$this->pagination->initialize($config); 
 		// End Pagination
 

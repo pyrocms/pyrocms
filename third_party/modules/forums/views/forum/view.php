@@ -3,6 +3,7 @@
 	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
 	<br clear="both" />
 </div>
+<?php echo $pagination->links; ?>
 <table class="forum_table" border="0" cellspacing="0">
 	<thead>
 		<tr>
@@ -48,6 +49,7 @@
   	
   <?php endif;?>
 </table>
+<?php echo $pagination->links; ?>
 <div class="forum_buttons">
 	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
 	<br clear="both" />

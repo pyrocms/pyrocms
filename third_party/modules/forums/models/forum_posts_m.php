@@ -67,7 +67,21 @@ class Forum_posts_m extends MY_Model
 	{
 		return parent::count_by(array('author_id' => $user_id));
 	}
-
+	/**
+	 * Count Prior Posts
+	 *
+	 * How many posts were before this one.  Used for pagination.
+	 *
+	 * @access       public
+	 * @param        int 	[$topic_id] 	Which topic
+	 * @param        int 	[$reply_time] 	Reply time o compair
+	 * @return       int
+	 * @package      forums
+	 */
+	public function count_prior_posts($topic_id, $reply_time)
+	{
+		return parent::count_by(array('parent_id' => $topic_id, 'created_on <' => $reply_time)) + 1;
+	}
 	/**
 	 * Add a view to a topic
 	 *
@@ -94,11 +108,12 @@ class Forum_posts_m extends MY_Model
 	 * @return       int 	Returns a count of how many posts there are
 	 * @package      forums
 	 */
-	public function get_posts_by_topic($topic_id)
+	public function get_posts_by_topic($topic_id, $offset, $per_page)
 	{
 		$this->db->or_where(array('id' => $topic_id, 'parent_id' => $topic_id));
 		$this->db->order_by('created_on');
-		return $this->db->get('forum_posts')->result();
+
+		return $this->db->get('forum_posts', $per_page, $offset)->result();
 	}
 
 	/**
@@ -111,11 +126,11 @@ class Forum_posts_m extends MY_Model
 	 * @return       int 	Returns a count of how many topics there are
 	 * @package      forums
 	 */
-	public function get_topics_by_forum($forum_id)
+	public function get_topics_by_forum($forum_id, $offset, $per_page)
 	{
 		$this->db->where(array('forum_id' => $forum_id, 'parent_id' => 0));
 		$this->db->order_by('sticky DESC, created_on DESC');
-		$query = $this->db->get('forum_posts');
+		$query = $this->db->get('forum_posts', $per_page, $offset);
 		return $query->result();		
 	}
 
