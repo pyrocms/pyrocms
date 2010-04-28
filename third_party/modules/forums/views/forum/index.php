@@ -19,7 +19,7 @@
 
   <?php foreach($category->forums as $forum): ?>
 	<tr>
-    <td></td>
+    <td class="forum_icon"><?php echo image('folder.png', 'forums'); ?></td>
     <td>
 		<b><?php echo anchor('forums/view/'.$forum->id, $forum->title);?></b><br/>
 		<span class="description"><?php echo $forum->description;?></span>

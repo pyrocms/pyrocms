@@ -28,7 +28,9 @@
 		  
 		  <?php foreach($forum->topics as $topic): ?>
 		  <tr>
-			<td></td>
+			<td class="forum_icon">
+				<?php echo $topic->sticky ? image('pin.png', 'forums') : image('folder.png', 'forums'); ?>
+			</td>
 			<td valign="top">
 				<?php echo $topic->sticky ? '<span class="sticky">Sticky: </span>' : ''; ?>
 				<strong><?php echo anchor('forums/topics/view/'.$topic->id, $topic->title);?></strong><br/>
