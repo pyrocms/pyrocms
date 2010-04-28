@@ -38,6 +38,7 @@ $smileys = array(
 	':gulp:'		=>	array('gulp.gif',			'19',	'19',	'gulp'),
 	'8-/'			=>	array('ohoh.gif',			'19',	'19',	'oh oh'),
 	':down:'		=>	array('downer.gif',			'19',	'19',	'downer'),
+	':('			=>	array('downer.gif',			'19',	'19',	'downer'),
 	':red:'			=>	array('embarrassed.gif',	'19',	'19',	'red face'),
 	':sick:'		=>	array('sick.gif',			'19',	'19',	'sick'),
 	':shut:'		=>	array('shuteye.gif',		'19',	'19',	'shut eye'),
