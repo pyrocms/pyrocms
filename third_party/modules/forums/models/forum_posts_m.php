@@ -102,7 +102,7 @@ class Forum_posts_m extends MY_Model
 	}
 
 	/**
-	 * Get Posts in Topics
+	 * Get Topics in Forum
 	 *
 	 * Return an array of all topics in a forum.
 	 * 
@@ -114,6 +114,7 @@ class Forum_posts_m extends MY_Model
 	public function get_topics_by_forum($forum_id)
 	{
 		$this->db->where(array('forum_id' => $forum_id, 'parent_id' => 0));
+		$this->db->order_by('sticky DESC, created_on DESC');
 		$query = $this->db->get('forum_posts');
 		return $query->result();		
 	}
