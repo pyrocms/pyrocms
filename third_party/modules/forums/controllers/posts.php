@@ -46,6 +46,7 @@ class Posts extends Public_Controller {
 		($quote = $this->forum_posts_m->get_post($post_id)) || show_404();
 
 		// Send the message object through
+
 		$this->session->set_flashdata('forum_quote', serialize($quote));
 		
 		$topic->id = $quote->parent_id > 0 ? $quote->parent_id : $quote->id;
@@ -77,6 +78,8 @@ class Posts extends Public_Controller {
 			$reply->content = set_value('content');
 		}
 		$reply->notify = $this->forum_subscriptions_m->is_subscribed($this->user->id, $topic_id);
+
+		$reply->content = htmlspecialchars_decode($reply->content, ENT_QUOTES);
 
 		// The form has been submitted one way or another
 		if($this->input->post('submit') or $this->input->post('preview'))
@@ -175,6 +178,8 @@ class Posts extends Public_Controller {
 		$this->input->post('content') and $reply->content = set_value('content');
 		$this->input->post('notify') and $reply->notify = set_value('notify');
 
+		$reply->content = htmlspecialchars_decode($reply->content, ENT_QUOTES);
+
 		// If there was a quote, send it to the view
 		$this->data->quote = unserialize($this->session->flashdata('forum_quote'));
 
@@ -227,8 +232,6 @@ class Posts extends Public_Controller {
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
 		$this->data->reply =& $reply;
-
-		$reply->content = htmlspecialchars_decode($reply->content, ENT_QUOTES);
 		
 		$this->template->set_partial('bbcode', 'partials/bbcode');
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
