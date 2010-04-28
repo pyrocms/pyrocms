@@ -9,9 +9,9 @@
 
 <?php if($show_preview): ?>
 <div class="preview">
-	<h1>Topic Preview</h1>
-	<h2><?php echo set_value('title');?></h2>
-	<p><?php echo parse_bbcode(set_value('content'));?></p>
+	<h4>Topic Preview</h4>
+	<h5><?php echo set_value('title');?></h5>
+	<p><?php echo parse_bbcode(set_value('content'), 0, TRUE);?></p>
 </div>
 <?php endif; ?>
 

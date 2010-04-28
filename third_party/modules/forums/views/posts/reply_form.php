@@ -11,7 +11,7 @@
 	<div class="preview">
 		<h4>Post Preview</h4>
 		<h5><?php echo $topic->title;?></h5>
-		<p><?php echo parse_smileys(parse_bbcode( $reply->content ), image_url("smileys/"));?></p>
+		<p><?php echo parse_bbcode( $reply->content, 0, TRUE );?></p>
 	</div>
 	<?php endif; ?>
 

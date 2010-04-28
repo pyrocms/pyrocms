@@ -35,17 +35,14 @@
 * @param    string    the text to be parsed
 * @return    string
 */
-function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
+function parse_bbcode($str, $clear = 0, $parse_smileys = FALSE)
 {
-    if ( ! is_array($bbcode_to_parse))
-    {
-		$bbcode_to_parse = _get_bbcode_to_parse_array();
-        if (FALSE === ($bbcode_to_parse))
-        {
-            return FALSE;
-        }
-    }
-
+	$bbcode_to_parse = _get_bbcode_to_parse_array();
+	if (FALSE === ($bbcode_to_parse))
+	{
+		return FALSE;
+	}
+ 
 	foreach ($bbcode_to_parse as $key => $val)
     {
         for ($i = 1; $i <= $bbcode_to_parse[$key][2]; $i++) // loop for imbricated tags
@@ -55,7 +52,26 @@ function parse_bbcode($str, $clear = 0, $bbcode_to_parse = NULL)
     }
 
 	$str = break_lines($str);
-    $str = preg_replace ( '/<code>*\s*/s', '<code>', $str);
+    if($parse_smileys)
+	{
+		// All this funky code applys smileys to anything OUTSIDE code blocks
+		preg_match_all('/<code>.*?<\/code>/s', $str, $code_blocks, PREG_PATTERN_ORDER);
+		$block_num = 0;
+		foreach ($code_blocks[0] as $block)
+		{
+			$str = str_replace($block, "{block_$block_num}", $str);
+			$block_num++;
+		}
+		$str = parse_smileys($str, image_url("smileys/"));
+
+		$block_num = 0;
+		foreach ($code_blocks[0] as $block)
+		{
+			$str = str_replace("{block_$block_num}", $block, $str);
+			$block_num++;
+		}
+	}
+	$str = preg_replace ( '/<code>*\s*/s', '<code>', $str);
     return preg_replace ( '/\s*<\/code>/s', '</code>', $str);
 }
 
