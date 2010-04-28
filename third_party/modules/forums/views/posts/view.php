@@ -32,7 +32,7 @@
 		[ <?php echo anchor('forums/posts/report/'.$post->id, 'Report');?> ]
 		<?php if($this->ion_auth->is_admin() && !$topic->sticky): ?>
 		[ <?php echo anchor('forums/topics/stick/'.$post->id, 'Make Sticky');?> ]
-		<?php elseif($this->ion_auth->is_admin() && $topic->sticky): ?>
+		<?php elseif($this->ion_auth->is_admin() && $topic->sticky == 1): ?>
 		[ <?php echo anchor('forums/topics/unstick/'.$post->id, 'Unstick');?> ]
 		<?php endif; ?>
 	</td>

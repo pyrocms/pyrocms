@@ -1,4 +1,3 @@
-<h2><?php echo $this->config->item('forums_title'); ?></h2>
 <div class="forum_buttons">
 	<?php echo anchor('forums/topics/new_topic/'.$forum->id, ' New Topic ');?>
 	<br clear="both" />

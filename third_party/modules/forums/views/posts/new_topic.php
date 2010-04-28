@@ -1,4 +1,3 @@
-<h2><?php echo $this->config->item('forums_title'); ?></h2>
 <?php echo form_open('forums/topics/new_topic/'.$forum->id); ?>
 
 <? if( !empty($messages['error']) ): ?>

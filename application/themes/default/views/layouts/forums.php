@@ -23,6 +23,7 @@
 	</ul>
 	
 	<div id="content">
+		<h2>Forums</h2>
 		{theme_view('breadcrumbs')}
 	
 			{if $ci->session->flashdata('notice')}
