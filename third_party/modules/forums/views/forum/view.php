@@ -30,6 +30,7 @@
 		  <tr>
 			<td></td>
 			<td valign="top">
+				<?php echo $topic->sticky ? '<span class="sticky">Sticky: </span>' : ''; ?>
 				<strong><?php echo anchor('forums/topics/view/'.$topic->id, $topic->title);?></strong><br/>
 				<span class="description">Author: <?php echo $this->users_m->get(array('id' => $topic->author_id))->full_name; ?></span>
 			</td>
