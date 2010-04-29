@@ -38,7 +38,7 @@ class Posts extends Public_Controller {
 		// Load dependencies
 		$this->load->models(array('forums_m', 'forum_posts_m', 'forum_subscriptions_m'));
 		$this->load->helpers(array('bbcode', 'smiley'));
-		$this->load->library('forums_lib');
+		$this->load->library('Forums_lib');
 		$this->load->config('forums');
 		$this->lang->load('forums');
 		
