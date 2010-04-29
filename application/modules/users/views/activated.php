@@ -19,6 +19,6 @@
 		<?php echo form_password('password') ?>
 	</p>
 	
-	<p><input type="image" src="<?php echo image_path('admin/fcc/btn-login.jpg');?>" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /></p>
+	<p><input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /></p>
 	
 <?php echo form_close(); ?>

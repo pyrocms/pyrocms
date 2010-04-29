@@ -236,6 +236,12 @@ class Users extends Public_Controller
 	 */
 	public function activated()
 	{
+		//if they are logged in redirect them to the home page
+		if ($this->ion_auth->logged_in())
+		{
+			redirect(base_url());
+		}
+		
 		$this->data->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 
 		$this->template->title($this->lang->line('user_activated_account_title'));
