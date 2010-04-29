@@ -3,6 +3,7 @@
 	$(function(){
 
 		// Stops Firefox from being an ass and remembering YOUR password in this box
+		//this doesn't work... I just lost an hour to this firefox you douche!
 		$('input[name="password"], input[name="confirm_password"]').val('');
 		
 	});
@@ -19,7 +20,7 @@
 	<?php endif; ?>
 	
 	<div class="box-container">
-	
+		<?php echo validation_errors();?>
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 		
 			<div class="tabs">
@@ -55,7 +56,7 @@
 							
 							<li class="even">
 								<label for="active"><?php echo lang('user_activate_label');?></label>
-								<?php echo form_checkbox('active', 1, $member->active == 1); ?>
+								<?php echo form_checkbox('active', 1, (isset($member->active) && $member->active == 1)); ?>
 							</li>
 						</ol>
 					</fieldset>
