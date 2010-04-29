@@ -11,7 +11,7 @@
 
 	<p>
 		<label for="email"><?php echo lang('user_email'); ?></label>
-		<?php echo form_input('email', $activated_email) ?>
+		<?php echo form_input('email') ?>
 	</p>
 	
 	<p>	
