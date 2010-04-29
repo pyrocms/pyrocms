@@ -46,7 +46,7 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 	$config['next_tag_close'] = '</span>';
 
 	$config['last_link'] = '&gt;&gt;';
-	$config['last_tag_open'] = '<span class="next">';
+	$config['last_tag_open'] = '<span class="last">';
 	$config['last_tag_close'] = '</span>';
 
 	$ci->pagination->initialize($config); // initialize pagination
