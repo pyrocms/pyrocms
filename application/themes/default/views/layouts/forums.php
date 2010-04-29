@@ -2,8 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	{theme_view('metadata')}
-
-	{theme_css('forums.css')}
 </head>
 
 <body>
@@ -23,9 +21,7 @@
 	</ul>
 	
 	<div id="content">
-		<h2>Forums</h2>
-		{theme_view('breadcrumbs')}
-	
+
 			{if $ci->session->flashdata('notice')}
 		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
 		    {/if}

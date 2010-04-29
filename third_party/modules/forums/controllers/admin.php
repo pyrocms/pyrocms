@@ -1,7 +1,32 @@
-<?php
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * PyroCMS
+ *
+ * An open source CMS based on CodeIgniter
+ *
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team
+ * @license		Apache License v2.0
+ * @link		http://pyrocms.com
+ * @since		Version 0.9.8-rc2
+ * @filesource
+ */
 
+/**
+ * PyroCMS Forums Admin Controller
+ *
+ * Provides an admin for the forums module.
+ *
+ * @author		Dan Horrigan <dan@dhorrigan.com>
+ * @package		PyroCMS
+ * @subpackage	Forums
+ */
 class Admin extends Admin_Controller {
 
+	/**
+	 * @access	private
+	 * @var		array	Contains form validation rules.
+	 */
 	private $rules = array(
 		'category' => array (
 							array (
@@ -24,7 +49,15 @@ class Admin extends Admin_Controller {
 						)
 					);
 
-	function __construct()
+	/**
+	 * Constructor
+	 *
+	 * Loads dependencies.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function __construct()
 	{
 		parent::Admin_Controller();
 
@@ -35,33 +68,54 @@ class Admin extends Admin_Controller {
 		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
-	##### index #####
-	function index()
+	/**
+	 * Index
+	 *
+	 * Lists categories.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function index()
 	{
 		$categories = $this->forum_categories_m->get_all();
 
-		$this->load->vars(array(
-			'categories' => &$categories
-		));
+		$this->data->categories = &$categories;
 
 		$this->template->build('admin/index', $this->data);
 	}
 
-	function list_forums()
+	/**
+	 * List Forums
+	 * 
+	 * Lists all the forums.
+	 * 
+	 * @access	public
+	 * @return	void
+	 */
+	public function list_forums()
 	{
 		$this->db->select('forums.id, forums.title, forum_categories.title as category');
 		$this->db->join('forum_categories', 'forums.category_id = forum_categories.id');
 		$this->db->order_by('category', 'ASC');
 		$forums = $this->forums_m->get_all();
 
-		$this->load->vars(array(
-			'forums' => &$forums
-		));
+		$this->data->forums = &$forums;
 
 		$this->template->build('admin/forums', $this->data);
 	}
 
-	function create_category()
+	/**
+	 * Create Category
+	 *
+	 * Displays a form to create a category.
+	 * Creates the category if it passes form validation.
+	 *
+	 * @todo	Check for duplicate categories.
+	 * @access	public
+	 * @return	void
+	 */
+	public function create_category()
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->rules['category']);
@@ -83,7 +137,16 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/category_form', $this->data);
 	}
 
-	function edit_category($id)
+	/**
+	 * Edit Category
+	 * 
+	 * Allows admins to edit a category
+	 * 
+	 * @param	int	The id of the category to edit.
+	 * @access	public
+	 * @return void
+	 */
+	public function edit_category($id)
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->rules['category']);
@@ -105,7 +168,17 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/category_form', $this->data);
 	}
 
-	function create_forum()
+	/**
+	 * Create Forum
+	 *
+	 * Displays a form to create a forum.
+	 * Creates the forum if it passes form validation.
+	 *
+	 * @todo	Check for duplicate forums.
+	 * @access	public
+	 * @return	void
+	 */
+	public function create_forum()
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->rules['forum']);
@@ -134,7 +207,16 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/forum_form', $this->data);
 	}
 
-	function edit_forum($id)
+	/**
+	 * Edit Forum
+	 *
+	 * Allows admins to edit forums.
+	 *
+	 * @param	int	The id of the forum to edit.
+	 * @access	public
+	 * @return	void
+	 */
+	public function edit_forum($id)
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->rules['forum']);
@@ -163,35 +245,64 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/forum_form', $this->data);
 	}
 
-
-	function delete($type, $id)
+	/**
+	 * Delete
+	 *
+	 * This deletes both categories and forums (based on $type).
+	 * It recursivly deletes all children.
+	 *
+	 * @param	string	The type of item to delete.
+	 * @param	int		The id of the category or forum to delete.
+	 * @access	public
+	 * @return	void
+	 */
+	public function delete($type, $id)
 	{
 		switch ($type) {
+			// Delete the category
 			case 'category':
 				$this->load->model('forum_posts_m');
 				$this->load->model('forum_subscriptions_m');
+
+				// Delete the category
 				$this->forum_categories_m->delete($id);
+
+				// Loop through all the forums in the category
 				foreach($this->forums_m->get_many_by('category_id =', $id) as $forum)
 				{
+					// Loop through all the topics in the forum
 					foreach($this->forum_posts_m->get_many_by(array('forum_id' => $forum->id, 'parent_id' => '0')) as $topic)
 					{
+						// Delete the subscriptions to the topic
 						$this->forum_subscriptions_m->delete_by('topic_id', $topic->id);
 					}
+					// Delete all the topics and replies
 					$this->forum_posts_m->delete_by('forum_id', $forum->id);
 				}
+
+				// Delete all the forums
 				$this->forums_m->delete_by('category_id =', $id);
+
 				$this->session->set_flashdata('success', $this->lang->line('forums_category_delete_success'));
 				redirect('/admin/forums');
 				break;
+
+			// Delete the forum
 			case 'forum':
 				$this->load->model('forum_posts_m');
 				$this->load->model('forum_subscriptions_m');
+
+				// Delete the forum
 				$this->forums_m->delete($id);
 
+				// Loop through all the topics in the forum
 				foreach($this->forum_posts_m->get_many_by(array('forum_id' => $id, 'parent_id' => '0')) as $topic)
 				{
+					// Delete the subscriptions to the topic
 					$this->forum_subscriptions_m->delete_by('topic_id', $topic->id);
 				}
+				
+				// Delete all the topics
 				$this->forum_posts_m->delete_by('forum_id', $id);
 
 				$this->session->set_flashdata('success', $this->lang->line('forums_forum_delete_success'));

@@ -167,15 +167,15 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run() !== FALSE)
 		{
+			//hack to activate immediately
+			if ($this->input->post('active')) 
+			{
+				$this->config->set_item('email_activation', $this->settings->item('email_activation'), 'ion_auth');
+			}
+			
 			// Try to register the user
 			if($user_id = $this->ion_auth->register($email, $password, $email, $user_data, $group))
-			{
-				//activate the user if option chosen
-				if ($this->input->post('active')) 
-				{
-					$this->ion_auth->activate($user_id);
-				}
-				
+			{				
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect('admin/users');				
@@ -210,9 +210,11 @@ class Admin extends Admin_Controller
 	public function edit($id = 0)
 	{
 		// confirm_password is required in case the user enters a new password
-		if($this->input->post('password'))
+		if($this->input->post('password') && $this->input->post('password') != '')
 		{
+			echo $this->input->post('password');
 			$this->validation_rules[3]['rules'] .= '|required';
+			$this->validation_rules[4]['rules'] .= '|matches[password]';
 		}
 		$this->form_validation->set_rules($this->validation_rules);
 		

@@ -255,7 +255,7 @@ class MY_Loader extends CI_Loader
 	}
 }
 
-class MX_Config extends CI_Config 
+class MX_Config extends MY_Config
 {	
 	public function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE, $_module = NULL) {
 		($file == '') AND $file = 'config';

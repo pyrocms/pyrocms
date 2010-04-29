@@ -808,8 +808,8 @@ class Ion_auth_model extends CI_Model
 			{
 				if (is_array($data) && isset($data[$field]))
 				{
-		    			$this->db->set($field, $data[$field]);
-		    			unset($data[$field]);
+		    		$this->db->set($field, $data[$field]);
+		    		unset($data[$field]);
 				}
 			}
 

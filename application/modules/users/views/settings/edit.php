@@ -7,10 +7,6 @@ fieldset dl dd input, fieldset dl dd textarea {
 	width:95%;
 }
 </style>
-
-<?php if($this->validation->error_string): ?>
-<div class="error-box"><?php echo $this->validation->error_string;?></div>
-<?php endif; ?>
     <h2><?php echo lang('profile_settings') ?></h2>
     
 	<?php echo form_open('edit-settings', array('id'=>'user_edit_settings'));?>

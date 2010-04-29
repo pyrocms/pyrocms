@@ -8,6 +8,10 @@
 class MY_Config extends CI_Config
 {
 
+	function MY_Config()
+	{
+		parent::CI_Config();
+	}
 	/**
 	 * Site URL - modified to stop double extensions eg: .rss.html
 	 *

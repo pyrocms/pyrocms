@@ -11,11 +11,16 @@ class Topics extends Public_Controller {
 		$this->load->helper('bbcode');
 		$this->load->helper('smiley');
 		$this->lang->load('forums');
+		$this->load->config('forums');
 		
 		//$this->load->helper('bbcode');
 		$this->template->enable_parser_body(FALSE);
-		
+
+		$this->template->set_module_layout('default');
+		$this->template->append_metadata( theme_css('forums.css') );
+
 		$this->template->append_metadata(js('bbcode.js', 'forums'));
+		$this->template->append_metadata(js('forums.js', 'forums'));
 
 		$this->template->set_breadcrumb('Home', '/');
 		$this->template->set_breadcrumb('Forums', 'forums');

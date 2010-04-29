@@ -1,154 +1,258 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Profile controller for the users module
+ * 
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Users module
+ * @category	Modules
+ */
 class Profile extends Public_Controller
 {
-	var $user_id = 0;
+	/**
+	 * The ID of the user
+	 * @access private
+	 * @var int
+	 */
+	private $user_id 			= 0;
 	
-	function __construct()
+	/**
+	 * Array containing the validation rules
+	 * @access private
+	 * @var array
+	 */
+	private $validation_rules 	= array();
+	
+	/**
+	 * Constructor method
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent's constructor method
 		parent::Public_Controller();
+		
+		// Load the required classes
+		$this->load->model('users_m');
+		$this->load->model('profile_m');
+		
+		$this->load->helper('user');
+		$this->load->helper('date');		
+		
+		$this->lang->load('user');
+		$this->lang->load('profile');
+		
+		$this->load->library('form_validation');
+		
+		// Validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'gender',
+				'label' => lang('profile_gender'),
+				'rules' => 'trim|max_length[1]'
+			),
+			array(
+				'field' => 'dob_day',
+				'label' => lang('profile_dob_day'),
+				'rules' => 'trim|numeric|required'
+			),
+			array(
+				'field' => 'dob_month',
+				'label' => lang('profile_dob_month'),
+				'rules' => 'trim|numeric|required'
+			),
+			array(
+				'field' => 'dob_year',
+				'label' => lang('profile_dob_year'),
+				'rules' => 'trim|numeric|required'
+			),
+			array(
+				'field' => 'bio',
+				'label' => lang('profile_bio'),
+				'rules' => 'required|trim|max_length[1000]'
+			),
+			array(
+				'field' => 'phone',
+				'label' => lang('profile_phone'),
+				'rules' => 'trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'mobile',
+				'label' => lang('profile_mobile'),
+				'rules' => 'trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'address_line1',
+				'label' => lang('profile_address_line1'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'address_line2',
+				'label' => lang('profile_address_line2'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'address_line3',
+				'label' => lang('profile_address_line3'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'postcode',
+				'label' => lang('profile_postcode'),
+				'rules' => 'trim|max_length[20]'
+			),
+			array(
+				'field' => 'msn_handle',
+				'label' => lang('profile_msn_handle'),
+				'rules' => 'trim|valid_email'
+			),
+			array(
+				'field' => 'aim_handle',
+				'label' => lang('profile_aim_handle'),
+				'rules' => 'trim|alpha_numeric'
+			),
+			array(
+				'field' => 'yim_handle',
+				'label' => lang('profile_yim_handle'),
+				'rules' => 'trim|alpha_numeric'
+			),
+			array(
+				'field' => 'gtalk_handle',
+				'label' => lang('profile_gtalk_handle'),
+				'rules' => 'trim|valid_email'
+			),
+			array(
+				'field' => 'gravatar',
+				'label' => lang('profile_gravatar'),
+				'rules' => 'trim|valid_email'
+			)
+		);
+
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
         
 	    // If profiles are not enabled, pretend they don't exist
 	    if(!$this->settings->item('enable_profiles'))
 	    {
 	    	show_404();
 	    }
-	        
-	    $this->load->library('session');	
-		$this->load->library('ion_auth');
-		$this->user_id = $this->ion_auth->get_user()->id;	
+	        	
+		// Get the user ID, if it exists
+		if($user = $this->ion_auth->get_user())
+		{
+			$this->user_id = $user->id;
+		}
 			
 	    // The user is not logged in, send them to login page
 	   	if(!$this->ion_auth->logged_in())
 	    {
-				redirect('users/login');
+			redirect('users/login');
 	    }
-		
-		$this->load->model('users_m');
-		$this->load->model('profile_m');
-		
-		$this->load->helper('user');
-		
-		$this->lang->load('user');
-		$this->lang->load('profile');
     }
 
-    // USER PROFILE SECTION -------------------------------------------------------------------------------------
-
-    // Show the current users profile
-	function index()
+   	/**
+   	 * Show the current user's profile
+	 * 
+	 * @access public
+	 * @return void
+   	 */
+	public function index()
 	{
 		$this->view($this->user_id);
 	}
 	
-	// View users profiles
-	function view($id = 0)
+	/**
+	 * View a user profile based on the ID
+	 * 
+	 * @access public 
+	 * @param int $id The ID of the user
+	 * @return void
+	 */
+	public function view($id = 0)
 	{
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
-		if(!$this->data->user = $this->ion_auth->get_user($id) ):
+		if(!$this->data->user = $this->ion_auth->get_user($id) )
+		{
 			show_404();
-		endif;
+		}
 		
-		// Now load thir extra data
+		// Render view
 		$this->data->profile = $this->ion_auth->get_user($id);
-
 		$this->template->build('profile/view', $this->data);
 	}
 	
-	// Profile: edit profile
-	function edit()
-	{
-		$this->load->library('validation');
-    	$rules['gender'] = 'trim|max_length[1]';
-		$rules['dob_day'] = 'trim|numeric|required';
-    	$rules['dob_month'] = 'trim|numeric|required';
-    	$rules['dob_year'] = 'trim|numeric|required';
-    	$rules['bio'] = 'trim|max_lenght[1000]';
+	/**
+	 * Edit the current user's profile
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function edit()
+	{		
+		// Array that will contain the POST data
+		$secure_post;
+		$profile = $this->ion_auth->get_user();
 		
-		$rules['phone'] = 'trim|alpha_numeric|max_length[20]';
-		$rules['mobile'] = 'trim|alpha_numeric|max_length[20]';
-		
-		$rules['address_line1'] = 'trim';
-		$rules['address_line2'] = 'trim';
-		$rules['address_line3'] = 'trim';
-		$rules['postcode'] = 'trim|max_length[20]';
-		
-		$rules['msn_handle'] = 'trim|valid_email';
-		$rules['aim_handle'] = 'trim|alpha_numeric';
-		$rules['yim_handle'] = 'trim|alpha_numeric';
-		$rules['gtalk_handle'] = 'trim|valid_email';
-		
-		$rules['gravatar'] = 'trim|valid_email';
-		
-    	$this->validation->set_rules($rules);
-    	
-    	foreach(array_keys($rules) as $field)
-    	{
-	   		$fields[$field] = $this->lang->line('profile_'.$field);
-	 	}
-		
-	  	$this->validation->set_fields($fields);
-
 		// If this user already has a profile, use their data if nothing in post array
-    	if($this->data->profile = $this->ion_auth->get_user())
+    	if ($profile)
     	{
-			foreach(array_keys($rules) as $field)
-	    	{
-	    		if(isset($_POST[$field])) $this->data->profile->$field = $this->validation->$field;
-	    	}
-			
-		    $this->data->profile->dob_day = date('j', $this->data->profile->dob);
-		    $this->data->profile->dob_month = date('n', $this->data->profile->dob);
-		    $this->data->profile->dob_year = date('Y', $this->data->profile->dob);
-			
+		    $profile->dob_day 	= date('j', $profile->dob);
+		    $profile->dob_month = date('n', $profile->dob);
+		    $profile->dob_year 	= date('Y', $profile->dob);	
 		}
-	
-		// If no profile, use post or empty string
-		else
-		{
-	  		$this->data->profile = new stdClass();
-	    	foreach(array_keys($rules) as $field)
-   			{
-	    	if(!isset($_POST[$field])) $this->data->profile->$field = '';
-	    	}	
-		}
-    	
+  
 	  	// Profile valid?
-    	if ($this->validation->run())
-    	{
-    		$this->load->helper('date');
-    		$_POST['dob'] = mktime(0, 0, 0, $this->input->post('dob_month'), $this->input->post('dob_day'), $this->input->post('dob_year'));
-    		unset($_POST['dob_day']);
-    		unset($_POST['dob_month']);
-    		unset($_POST['dob_year']);
-			if ($this->ion_auth->update_user($this->user_id, $_POST)) //this seems really insecure but maybe I'm missing something since it's late... -ben
+    	if ($this->form_validation->run())
+    	{			
+			// Loop through each POST item and add it to the secure_post array
+			foreach($_POST as $key => $value)
 			{
-    			$this->session->set_flashdata(array('success'=> $this->ion_auth->messages()));
+				$secure_post[$key] = $this->input->post($key);
+			}
+			
+			// Set the full date of birth
+    		$secure_post['dob'] = mktime(0, 0, 0, $secure_post['dob_month'], $secure_post['dob_day'], $secure_post['dob_year']);
+
+			// Unset the data that's no longer required
+			unset($secure_post['dob_month']);
+			unset($secure_post['dob_day']);
+			unset($secure_post['dob_year']);
+			
+			// Try to update the user's data
+			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
+			{
+    			$this->session->set_flashdata('success', $this->ion_auth->messages());
 	    	}  
-	    	  		
 	    	else
 	    	{
-	    		$this->session->set_flashdata(array('error'=> $this->ion_auth->errors()));
+	    		$this->session->set_flashdata('error', $this->ion_auth->errors());
 	    	}	
-	    			
+
+			// Redirect
 	    	redirect('edit-profile');    	
 		}
-	
-		// Profile invalid (or not been submitted yet)
-	    else
-	    {
-	    	if($this->validation->error_string)
-	    	{
-		   		$this->session->set_flashdata(array('error'=>$this->validation->error_string));
-		   		redirect('edit-profile');
-	    	}
-	    }
+		else
+		{
+			// Loop through each validation rule
+			foreach($this->validation_rules as $rule)
+			{
+				if($this->input->post($rule['field']) !== FALSE)
+				{
+					$profile->{$rule['field']} = set_value($rule['field']);	
+				}
+			}
+		}
     	
 	    // Date ranges for select boxes
-	    $this->data->days = array_combine($days = range(1, 31), $days);
+		$this->data->profile =& $profile;
+		
+	    $this->data->days 	= array_combine($days 	= range(1, 31), $days);
 	    $this->data->months = array_combine($months = range(1, 12), $months);
-	    $this->data->years = array_combine($years = range(date('Y'), date('Y')-120), $years);
-        
+	    $this->data->years 	= array_combine($years 	= range(date('Y'), date('Y')-120), $years);
+       	
+		// Render the view
 		$this->template->build('profile/edit', $this->data);
 	}	
 }

@@ -15,22 +15,22 @@
 
 <p class="float-left spacer-right">
 	<label for="first_name"><?php echo lang('user_first_name') ?></label><br/>
-	<input type="text"name="first_name" maxlength="40" value="<?php echo $this->validation->first_name; ?>" />
+	<input type="text"name="first_name" maxlength="40" value="<?php echo $user_data->first_name; ?>" />
 </p>
 
 <p>
 	<label for="last_name"><?php echo lang('user_last_name') ?></label><br/>
-	<input type="text"name="last_name" maxlength="40" value="<?php echo $this->validation->last_name; ?>" />
+	<input type="text"name="last_name" maxlength="40" value="<?php echo $user_data->last_name; ?>" />
 </p>
 
 <p class="float-left spacer-right">
 	<label for="email"><?php echo lang('user_email') ?> - <em>used to login</em></label><br/>
-	<input type="text"name="email" maxlength="100" value="<?php echo $this->validation->email; ?>" />
+	<input type="text"name="email" maxlength="100" value="<?php echo $user_data->email; ?>" />
 </p>
 
 <p>
 	<label for="confirm_email"><?php echo lang('user_confirm_email') ?></label><br/>
-	<input type="text"name="confirm_email" maxlength="100" value="<?php echo $this->validation->confirm_email; ?>" />
+	<input type="text"name="confirm_email" maxlength="100" value="<?php echo $user_data->confirm_email; ?>" />
 </p>
 
 <p class="float-left spacer-right">

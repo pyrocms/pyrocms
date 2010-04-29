@@ -1,31 +1,61 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Ajax controller for the widgets module
+ *
+ * @package 		PyroCMS
+ * @subpackage 		Widgets
+ * @category 		Modules
+ * @author			Phil Sturgeon - PyroCMS Development Team
+ */
 class Ajax extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
-		parent::Admin_Controller();
+		// Call the parent's constructor method
+		parent::__construct();
+		
+		// Load the required classes
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 	}
 	
-	function add_widget_area()
+	/**
+	 * Add a new widget area
+	 * @access public
+	 * @return void
+	 */
+	public function add_widget_area()
 	{
-		$data->widget_area->title = $this->input->post('area_title');
-		$data->widget_area->slug = $this->input->post('area_slug');
+		$data->widget_area->title 	= $this->input->post('area_title');
+		$data->widget_area->slug 	= $this->input->post('area_slug');
 		
 		$this->widgets->add_area($data->widget_area);
 		
 		$this->load->view('admin/ajax/add_area', $data);
 	}
 	
-	function delete_widget_area()
+	/**
+	 * Delete an existing widget area
+	 * @access public
+	 * @return void
+	 */
+	public function delete_widget_area()
 	{
 		$slug = $this->input->post('area_slug');
 		$this->widgets->delete_area($slug);
 	}
 	
-	function add_widget_instance_form()
+	/**
+	 * Create the form for a new widget instance
+	 * @access public
+	 * @return void
+	 */
+	public function add_widget_instance_form()
 	{
 		if(!$this->input->post('widget_slug') || !$this->input->post('area_slug'))
 		{
@@ -41,16 +71,21 @@ class Ajax extends Admin_Controller
 		));
 	}
 	
-	function add_widget_instance()
+	/**
+	 * Add a new widget instance
+	 * @access public
+	 * @return void
+	 */
+	public function add_widget_instance()
 	{
-		$title = $this->input->post('title');
-		$widget_id = $this->input->post('widget_id');
+		$title 			= $this->input->post('title');
+		$widget_id 		= $this->input->post('widget_id');
 		$widget_area_id = $this->input->post('widget_area_id');
 		
-		$options = $_POST;
+		$options 		= $_POST;
 		unset($options['title'], $options['widget_id'], $options['widget_area_id']);
 		
-		$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
+		$result 		= $this->widgets->add_instance($title, $widget_id, $widget_area_id, $options);
 		
 		if($result['status'] == 'success')
 		{
@@ -69,7 +104,12 @@ class Ajax extends Admin_Controller
 		}
 	}
 	
-	function edit_widget_instance_form()
+	/**
+	 * Create the form for editing a widget instance
+	 * @access public
+	 * @return void
+	 */
+	public function edit_widget_instance_form()
 	{
 		$instance_id = $this->input->post('instance_id');
 		
@@ -91,17 +131,22 @@ class Ajax extends Admin_Controller
 		));
 	}
 	
-	function edit_widget_instance()
+	/**
+	 * Edit a widget instance
+	 * @access public
+	 * @return void
+	 */
+	public function edit_widget_instance()
 	{
-		$instance_id = $this->input->post('widget_instance_id');
-		$title = $this->input->post('title');
-		$widget_id = $this->input->post('widget_id');
-		$widget_area_id = $this->input->post('widget_area_id');
+		$instance_id 		= $this->input->post('widget_instance_id');
+		$title 				= $this->input->post('title');
+		$widget_id 			= $this->input->post('widget_id');
+		$widget_area_id 	= $this->input->post('widget_area_id');
 		
-		$options = $_POST;
+		$options 			= $_POST;
 		unset($options['title'], $options['widget_id'], $options['widget_area_id'], $options['widget_instance_id']);
 		
-		$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $options);
+		$result 			= $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $options);
 		
 		if($result['status'] == 'success')
 		{
@@ -120,19 +165,35 @@ class Ajax extends Admin_Controller
 		}
 	}
 	
-	function delete_widget_instance()
+	/**
+	 * Delete a widget instance
+	 * @access public
+	 * @return void
+	 */
+	public function delete_widget_instance()
 	{
 		$instance_id = $this->input->post('instance_id');
 		$this->widgets->delete_instance($instance_id);
 	}
 	
+	/**
+	 * List all available widgets
+	 * @access public
+	 * @param str $slug The slug of the widget
+	 * @return void
+	 */
 	function list_widgets($slug)
 	{
 		$widgets = $this->widgets->list_area_instances($slug);
 		$this->load->view('admin/ajax/instance_list', array('widgets' => $widgets));
 	}
 	
-	function update_order()
+	/**
+	 * Update the order of the widgets
+	 * @access public
+	 * @return void
+	 */
+	public function update_order()
 	{
 		$ids = explode(',', $this->input->post('order'));
 		
@@ -146,10 +207,5 @@ class Ajax extends Admin_Controller
 		
 		$this->cache->delete_all('widgets_m');
 	}
-	
-	/*private function _status($status, $message)
-	{
-		echo json_encode();
-	}*/
 }
 ?>
