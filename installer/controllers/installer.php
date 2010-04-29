@@ -52,23 +52,36 @@ class Installer extends Controller
 		if($_POST)
 		{									
 			// Data validation
-			if( $this->installer_lib->validate($_POST) )
+			if( $this->installer_lib->validate() )
 			{
-				// Store the database settings
-				$this->installer_lib->store_db_settings('set', $_POST);
-				
-				// Set the flashdata message
-				$this->session->set_flashdata('message','The database settings have been stored succesfully.');
-				$this->session->set_flashdata('message_type','success');
+				// Check the connection works fine
+				if($this->installer_lib->test_db_connection())
+				{
+					// Set the flashdata message
+					$this->session->set_flashdata('message', 'The database settings are tested and working fine.');
+					$this->session->set_flashdata('message_type', 'success');
 
-				// Redirect to the first step
-				redirect('installer/step_2');
+					// Redirect to the first step
+					$this->session->set_userdata('step_1_passed', TRUE);
+					redirect('installer/step_2');
+				}
+
+				else
+				{
+					// Set the flashdata message
+					$this->session->set_flashdata('message', 'Problem connecting to the database: '.mysql_error());
+					$this->session->set_flashdata('message_type', 'error');
+
+					// Redirect to the first step
+					redirect('installer/step_1');
+				}
 			}
+			
 			else
 			{
 				// Set the flashdata message
-				$this->session->set_flashdata('message','The provided database settings were incorrect or could not be stored.');
-				$this->session->set_flashdata('message_type','error');
+				$this->session->set_flashdata('message', validation_errors('<span>', '</span>'));
+				$this->session->set_flashdata('message_type', 'error');
 
 				// Redirect to the first step
 				redirect('installer/step_1');
@@ -84,14 +97,7 @@ class Installer extends Controller
 		}
 		
 		// Get the port from the session or set it to the default value when it isn't specified
-		if($this->session->userdata('port'))
-		{
-			$data->port = $this->session->userdata('port');
-		}
-		else
-		{
-			$data->port = 3306;
-		}
+		$data->port = $this->session->userdata('port') ? $this->session->userdata('port') : 3306;
 		
 		// Load the view file
 		$this->load->view('global', array(
