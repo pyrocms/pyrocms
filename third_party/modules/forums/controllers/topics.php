@@ -1,32 +1,70 @@
-<?php
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * PyroCMS
+ *
+ * An open source CMS based on CodeIgniter
+ *
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team
+ * @license		Apache License v2.0
+ * @link		http://pyrocms.com
+ * @since		Version 0.9.8-rc2
+ * @filesource
+ */
+
+/**
+ * PyroCMS Forums Topic Controller
+ *
+ * Provides viewing and CRUD for topics
+ *
+ * @author		Dan Horrigan <dan@dhorrigan.com>
+ * @package		PyroCMS
+ * @subpackage	Forums
+ */
 class Topics extends Public_Controller {
 
-	function Topics()
+	/**
+	 * Constructor
+	 *
+	 * Loads dependencies and template settings
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function __construct()
 	{
 		parent::Public_Controller();
-		
-		$this->load->model('forums_m');
-		$this->load->model('forum_posts_m');
-		$this->load->model('forum_subscriptions_m');
-		$this->load->helper('bbcode');
-		$this->load->helper('smiley');
+
+		// Load dependencies
+		$this->load->models(array('forums_m', 'forum_posts_m', 'forum_subscriptions_m'));
+		$this->load->helpers(array('bbcode', 'smiley'));
 		$this->lang->load('forums');
 		$this->load->config('forums');
-		
-		//$this->load->helper('bbcode');
+
+		// Set Template Settings
 		$this->template->enable_parser_body(FALSE);
 
 		$this->template->set_module_layout('default');
-		$this->template->append_metadata( theme_css('forums.css') );
 
-		$this->template->append_metadata(js('bbcode.js', 'forums'));
-		$this->template->append_metadata(js('forums.js', 'forums'));
+		$this->template->append_metadata(theme_css('forums.css'))
+					   ->append_metadata(js('bbcode.js', 'forums'))
+					   ->append_metadata(js('forums.js', 'forums'));
 
-		$this->template->set_breadcrumb('Home', '/');
-		$this->template->set_breadcrumb('Forums', 'forums');
+		$this->template->set_breadcrumb('Home', '/')
+					   ->set_breadcrumb('Forums', 'forums');
 	}
-	
-	function view($topic_id = 0, $offset = 0)
+
+	/**
+	 * View
+	 *
+	 * Loads the topic and displays it with all replies.
+	 *
+	 * @param	int	$topic_id	Id of the topic to display
+	 * @param	int	$offset		The offset used for pagination
+	 * @access	public
+	 * @return	void
+	 */
+	public function view($topic_id, $offset = 0)
 	{
 		// Update view counter
 		$this->forum_posts_m->add_topic_view($topic_id);
@@ -41,7 +79,7 @@ class Topics extends Public_Controller {
 		$pagination['offset'] = $offset;
 		// End Pagination
 
-		// Which topic in which forum are we looking at?
+		// If topic or forum do not exist then 404
 		($topic = $this->forum_posts_m->get($topic_id)) or show_404();
 		($forum = $this->forums_m->get($topic->forum_id)) or show_404();
 	
