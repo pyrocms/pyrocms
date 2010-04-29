@@ -430,6 +430,8 @@ CREATE TABLE `forum_categories` (
 
 DROP TABLE IF EXISTS `forum_posts`;
 
+-- command split --
+
 CREATE TABLE `forum_posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `forum_id` int(11) NOT NULL DEFAULT '0',
