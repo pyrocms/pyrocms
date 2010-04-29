@@ -239,8 +239,10 @@ class Posts extends Public_Controller {
 	 * Allows users to edit their replies. Admins can edit all.
 	 *
 	 * @param	int $reply_id	Id of reply to edit
+	 * @access	public
+	 * @return	void
 	 */
-	function edit_reply($reply_id)
+	public function edit_reply($reply_id)
 	{
 		// Can't edit if you aren't logged in
 		$this->ion_auth->logged_in() or redirect('users/login');
