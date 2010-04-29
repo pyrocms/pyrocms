@@ -20,6 +20,7 @@ class Topics extends Public_Controller {
 		$this->template->append_metadata( theme_css('forums.css') );
 
 		$this->template->append_metadata(js('bbcode.js', 'forums'));
+		$this->template->append_metadata(js('forums.js', 'forums'));
 
 		$this->template->set_breadcrumb('Home', '/');
 		$this->template->set_breadcrumb('Forums', 'forums');

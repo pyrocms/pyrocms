@@ -5,7 +5,7 @@
  *
  * @author Dan Horrigan
  */
-class Pyro_forums
+class Forums_lib
 {
 	private $CI;
 
