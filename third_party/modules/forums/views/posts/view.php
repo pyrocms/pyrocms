@@ -4,7 +4,6 @@
 	<br clear="both" />
 </div>
 <?php echo $pagination['links']; ?>
-<h2><?php echo $this->config->item('forums_title'); ?></h2>
 <table class="topic_table" border="0" cellspacing="0">
 	<thead>
 	<tr>

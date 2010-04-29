@@ -39,6 +39,7 @@ class Posts extends Public_Controller {
 		$this->load->models(array('forums_m', 'forum_posts_m', 'forum_subscriptions_m'));
 		$this->load->helpers(array('bbcode', 'smiley'));
 		$this->load->library('forums_lib');
+		$this->load->config('forums');
 		$this->lang->load('forums');
 		
 		// Template settings
@@ -67,6 +68,12 @@ class Posts extends Public_Controller {
 		$per_page = 10;
 		$offset = (int) ($this->forum_posts_m->count_prior_posts($reply->parent_id, $reply->created_on) / $per_page);
 		$offset = ($offset == 0) ? '' : '/' . ($offset * $per_page);
+
+		// Propogate flashdata
+		$this->session->set_flashdata('notice', $this->session->flashdata('notice'));
+		$this->session->set_flashdata('error', $this->session->flashdata('error'));
+		$this->session->set_flashdata('success', $this->session->flashdata('success'));
+
 
 		// This is a reply
 		if($reply->parent_id > 0)
@@ -184,7 +191,7 @@ class Posts extends Public_Controller {
 						{
 							$this->forum_subscriptions_m->delete_by(array('user_id' => $this->user->id, 'topic_id' => $topic->id));
 						}
-
+						$this->session->set_flashdata('success', 'Reply has been added.');
 						redirect('forums/posts/view_reply/'.$reply->id);
 					}
 
@@ -225,35 +232,49 @@ class Posts extends Public_Controller {
 		$this->template->set_breadcrumb('New Reply');
 		$this->template->build('posts/reply_form', $this->data);
 	}
-	
-	function edit_reply($reply_id = 0)
+
+	/**
+	 * Edit Reply
+	 *
+	 * Allows users to edit their replies. Admins can edit all.
+	 *
+	 * @param	int $reply_id	Id of reply to edit
+	 */
+	function edit_reply($reply_id)
 	{
+		// Can't edit if you aren't logged in
 		$this->ion_auth->logged_in() or redirect('users/login');
 
-		// Get the forum name
+		// Get the reply info
 		$reply = $this->forum_posts_m->get($reply_id);
+
+		// This is the main topic so get it's info
 		if(empty($reply->parent_id))
 		{
 			$topic = $this->forum_posts_m->get_topic($reply_id);
 		}
+
+		// This is a reply so get the parent's info
 		else
 		{
 			$topic = $this->forum_posts_m->get_topic($reply->parent_id);
 		}
+
+		// Get forum info
 		$forum = $this->forums_m->get($reply->forum_id);
 
-		// Chech if there is a forum with that ID
+		// Vlaid topic and forum? No? 404.
 		($topic && $forum) or show_404();
-		($this->user->id && $reply->author_id) or show_404();
+
+		// You have to be the author or an admin.  Neither? 404.
+		($this->user->id && $reply->author_id) or $this->ion_auth->is_admin() or show_404();
 
 		// Override with post data if it exists
 		$this->input->post('content') and $reply->content = set_value('content');
 		$this->input->post('notify') and $reply->notify = set_value('notify');
 
+		// Must decode the content.  DB encodes quotes and such.
 		$reply->content = htmlspecialchars_decode($reply->content, ENT_QUOTES);
-
-		// If there was a quote, send it to the view
-		$this->data->quote = unserialize($this->session->flashdata('forum_quote'));
 
 		// The form has been submitted one way or another
 		if($this->input->post('submit') or $this->input->post('preview'))
@@ -263,19 +284,20 @@ class Posts extends Public_Controller {
 			$this->form_validation->set_rules('content', 'Message', 'trim|required');
 			$this->form_validation->set_rules('notify', 'Subscription notification', 'trim|strip_tags|max_length[1]');
 
+			// Did we pass form validation?
 			if ($this->form_validation->run() === TRUE)
 			{
+				// Go ahead and update the reply
 				if( $this->input->post('submit') )
 				{
 					$reply->id = $this->forum_posts_m->update($reply_id, array(
 						'content' => $reply->content
 					));
 
+					// Yay it was added.
 					if($reply->id)
 					{
-						// Add user to notify
-						//if($notify) $this->forum_posts_m->AddNotify($topic->id, $this->user->id );
-
+						$this->session->set_flashdata('notice', 'Reply was edited successfully.');
 						redirect('forums/posts/view_reply/'.$topic->id);
 					}
 
@@ -288,23 +310,26 @@ class Posts extends Public_Controller {
 				// Preview button was hit, just show em what the post will look like
 				elseif( $this->input->post('preview') )
 				{
-					// Define and Parse Preview
-					//$this->data->preview = $this->forum_posts_m->postParse($message, $smileys);
-
 					$this->data->show_preview = TRUE;
 				}
 			}
 
+			// did not pass form validation
 			else
 			{
 				$this->data->messages['error'] = validation_errors();
 			}
 		}
+
+		// Default's notify based on if the user is subscribed already
 		$reply->notify = $this->forum_subscriptions_m->is_subscribed($this->user->id, $topic->id);
+
+		// Infor for the view
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
 		$this->data->reply =& $reply;
-		
+
+		//Template Settings and build
 		$this->template->set_partial('bbcode', 'partials/bbcode');
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
 		$this->template->set_breadcrumb($topic->title, 'forums/topics/view/'.$topic->id);
@@ -351,7 +376,7 @@ class Posts extends Public_Controller {
 		// It's a single reply
 		else
 		{
-			$this->session->set_flashdata('notice', 'The reply has been deleted.');
+			$this->session->set_flashdata('success', 'The reply has been deleted.');
 			redirect('forums/topics/view/' . $reply->parent_id);
 		}
 	}
