@@ -45,7 +45,7 @@ class Posts extends Public_Controller {
 		// Template settings
 		$this->template->enable_parser_body(FALSE);
 
-		$this->template->set_module_layout('default');
+		//$this->template->set_module_layout('default');
 
 		$this->template->append_metadata(theme_css('forums.css'))
 					   ->append_metadata(js('bbcode.js', 'forums'));

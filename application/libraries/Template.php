@@ -34,7 +34,6 @@ class Template
 
     private $_theme = '';
     private $_layout = FALSE; // By default, dont wrap the view with anything
-    private $_module_layout = FALSE; // By default, dont wrap the view with anything
 
     private $_title = '';
     private $_metadata = array();
@@ -50,8 +49,6 @@ class Template
     private $_parser_body_enabled = TRUE;
 
 	private $_theme_locations = array();
-
-	private $_module_locations = array();
 
     // Seconds that cache will be alive for
     private $cache_lifetime = 0;//7200;
@@ -105,11 +102,6 @@ class Template
 		{
 			$this->_theme_locations = array(APPPATH . 'themes/' => '../themes/');
 		}
-
-		if(empty($this->_module_locations))
-		{
-			$this->_module_locations = array(APPPATH . 'modules/' => '../modules/', 'third_party/modules/' => '../../third_party/modules/');
-		}
 	}
 
     // --------------------------------------------------------------------
@@ -162,6 +154,8 @@ class Template
         // Want this file wrapped with a layout file?
         if( $this->_layout )
         {
+			$template['body'] = $this->_body;
+			
 			// If using a theme, use the layout in the theme
 			foreach ($this->_theme_locations as $location => $offset)
 			{
@@ -169,7 +163,6 @@ class Template
 				{
 					// If directory is set, use it
 					$this->data['theme_view_folder'] = $offset.$this->_theme.'/views/';
-					$this->data['theme_view_location'] = $location.$this->_theme.'/views/';
 					$layout_view = $this->data['theme_view_folder'] . 'layouts/' . $this->_layout;
 
 					break;
@@ -180,7 +173,6 @@ class Template
 				{
 					// If directory is set, use it
 					$this->data['theme_view_folder'] = $offset.$this->_theme.'/views/';
-					$this->data['theme_view_location'] = $location.$this->_theme.'/views/';
 					$layout_view = $this->data['theme_view_folder'] . 'layout';
 
 					break;
@@ -189,46 +181,6 @@ class Template
 
 			// No theme layout file was found, lets use whatever they gave us
 			isset($layout_view) || $layout_view = $this->_layout;
-
-
-			$module_layout_view = FALSE;
-
-			// What a module layout?
-			if($this->_module_layout)
-			{
-				// If the module layout exists in theme, use that.
-				if($this->_theme && file_exists($this->data['theme_view_location'] . 'modules/' . $this->_module . '/layouts/' . $this->_module_layout.EXT))
-				{
-					$module_layout_view = $this->data['theme_view_folder'] . '/modules/' . $this->_module . '/layouts/' . $this->_module_layout.EXT;
-				}
-
-				// If not use the one in the module views/lyouts
-				else
-				{
-					foreach ($this->_module_locations as $location => $offset)
-					{
-						if(file_exists($location.$this->_module . '/views/layouts/' . $this->_module_layout . EXT))
-						{
-							$module_layout_view = $offset.$this->_module . '/views/layouts/' . $this->_module_layout . EXT;
-							break;
-						}
-					}
-				}
-			}
-
-			// If we found the layout then wrap the body in it.
-			if($module_layout_view)
-			{
-				$this->data['template']['module_body'] = $this->_body;
-				$template['body'] = $this->_load_view($module_layout_view, FALSE, $this->_parser_body_enabled);
-			}
-
-			// If not then don't use a layout (for a graceful fail).
-			else
-			{
-				$template['body'] = $this->_body;
-			}
-			
 
 			// Parse if parser is enabled, or its a theme view
 			if($this->_parser_enabled === TRUE || $this->_theme)
@@ -362,20 +314,6 @@ class Template
 	public function set_layout($view = '')
 	{
 		$this->_layout = $view;
-		return $this;
-	}
-
-
-	/**
-	 * Which module layout should we using here?
-	 *
-	 * @access	public
-	 * @param	string	$view
-	 * @return	void
-	 */
-	public function set_module_layout($view = '')
-	{
-		$this->_module_layout = $view;
 		return $this;
 	}
 
@@ -541,29 +479,6 @@ class Template
 			if( is_dir($location.$theme) )
 			{
 				return file_exists($location.$theme . '/views/layouts/' . $layout . EXT);
-			}
-		}
-
-		return FALSE;
-	}
-
-    /**
-     * module_layout_exists
-     * Check if a module layout exists
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
-	public function module_layout_exists($module = NULL)
-	{
-		$module || $module = $this->_module;
-
-		foreach ($this->_module_locations as $location => $offset)
-		{
-			if( is_dir($location.$module) )
-			{
-				return file_exists($location.$module . '/views/layouts/' . $this->_module_layout . EXT);
 			}
 		}
 

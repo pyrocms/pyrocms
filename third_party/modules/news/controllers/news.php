@@ -26,9 +26,6 @@ class News extends Public_Controller
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 
-		// Set Module Layout
-		$this->template->set_module_layout('default');
-
 		$this->template->set_metadata('description', $meta['description']);
 		$this->template->set_metadata('keywords', $meta['keywords']);
 		$this->template->build('index', $this->data);
@@ -60,9 +57,6 @@ class News extends Public_Controller
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 		
-		// Set Module Layout
-		$this->template->set_module_layout('category');
-
 		// Build the page
 		$this->template->title( lang('news_news_title'), $category->title )		
 			->set_metadata('description', $category->title.'. '.$meta['description'] )
@@ -82,9 +76,6 @@ class News extends Public_Controller
 		
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
-
-		// Set Module Layout
-		$this->template->set_module_layout('archive');
 
 		$this->template->title( $this->data->month_year, $this->lang->line('news_archive_title'), $this->lang->line('news_news_title'))		
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
@@ -124,9 +115,6 @@ class News extends Public_Controller
 		$this->session->set_flashdata(array('referrer'=>$this->uri->uri_string));	
 		
 		$this->data->article =& $article;
-
-		// Set Module Layout
-		$this->template->set_module_layout('view');
 
 		$this->template->title($article->title, $this->lang->line('news_news_title'))
 			->set_metadata('description', $this->data->article->intro)
