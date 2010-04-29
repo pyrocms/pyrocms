@@ -34,6 +34,43 @@ table.message_table thead th.header {
 	border: 0px;
 }
 
+table.message_list {
+	width: 100%;
+	border: 0px;
+	font-size: 12px;
+}
+
+table.message_list * td,
+table.message_list * th {
+	padding: 5px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.message_list thead th {
+	padding: 5px;
+	line-height: 1.5em;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #EEEEEE;
+	color: #333333;
+	vertical-align: middle;
+	border: 0px;
+}
+
+table.message_list tbody td {
+	color: #333333;
+	vertical-align: middle;
+}
+
+table.message_list thead th.header {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #DDDDDD;
+	color: #333333;
+	padding-left: 10px;
+	border: 0px;
+}
+
 
 /*************************************
  * Error Styles
@@ -58,7 +95,6 @@ p.form_error {
  * General Forum Styles
  *************************************/
 div.message_buttons {
-	display: block;
 	margin: 10px 0px;
 }
 div.message_buttons a {
@@ -74,6 +110,14 @@ div.message_buttons a {
 div.message_buttons a:hover {
 	color: #333333;
 	background-color: #DDDDDD;
+}
+span.button_label {
+	display: block;
+	float: left;
+	padding: 2px 15px;
+	color: #333333;
+	margin: 0 5px 0 0;
+	font-weight: bold;
 }
 
 div.preview {

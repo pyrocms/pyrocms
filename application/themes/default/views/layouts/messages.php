@@ -33,7 +33,13 @@
 		    {if $ci->session->flashdata('error')}
 		    	<div class="error-box">{$ci->session->flashdata('error')}</div>
 		    {/if}
-		
+			<div class="message_buttons">
+				<span class="button_label">Go To:</span>
+				{anchor('messages/inbox', lang('messages_inbox_title'))}
+				{anchor('messages/sent', lang('messages_sent_title'))}
+				{anchor('messages/trash', lang('messages_trash_title'))}
+				<br clear="both" />
+			</div>
 		    {$template.body}
 	    		
 	</div>

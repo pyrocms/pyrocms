@@ -11,7 +11,7 @@
 	<div class="preview">
 		<h1>Message Preview</h1>
 		<h2><?php echo $message->subject;?></h2>
-		<p><?php echo parse_bbcode($message->content);?></p>
+		<p><?php echo parse_bbcode(htmlentities($message->content));?></p>
 	</div>
 	<?php endif; ?>
 
@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Submit Reply" /></td>
+				<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Send Message" /></td>
 			</tr>
 		</tbody>
 	</table>
