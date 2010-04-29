@@ -93,6 +93,11 @@ class MY_Loader extends CI_Loader
 	public function language($langfile, $lang = '', $return = FALSE)	{
 		return self::$APP->lang->load($langfile, $lang, $return, $this->_module);
 	}
+
+        /** Load a module language file **/
+	public function lang($langfile, $lang = '', $return = FALSE)	{
+		return self::$APP->lang->load($langfile, $lang, $return, $this->_module);
+	}
 	
 	/** Load a module library **/
 	public function library($library, $params = NULL, $object_name = NULL) {
