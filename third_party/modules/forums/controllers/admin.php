@@ -100,7 +100,7 @@ class Admin extends Admin_Controller {
 		$this->db->order_by('category', 'ASC');
 		$forums = $this->forums_m->get_all();
 
-		$this->forums = &$forums;
+		$this->data->forums = &$forums;
 
 		$this->template->build('admin/forums', $this->data);
 	}
