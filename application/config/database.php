@@ -34,8 +34,8 @@
 // Local
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
-$db['local']['password'] = "";
-$db['local']['database'] = "pyrocms";
+$db['local']['password'] = "root";
+$db['local']['database'] = "pyro_dev";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;

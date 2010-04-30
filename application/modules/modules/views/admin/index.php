@@ -27,7 +27,8 @@
 					<td class="align-center"><?php echo $module['version']; ?></td>
 					<td class="align-center">
 					<?php if(!$module['is_core']): ?>
-						<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), "");?> |
+						<?php $make_status = ($module['enabled']) ? 'disable' : 'enable'; ?>
+						<?php echo anchor('admin/modules/' . $make_status . '/' . $module['slug'], lang($make_status . '_label'), "");?> |
 						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
 					<?php endif; ?>
 					</td>
