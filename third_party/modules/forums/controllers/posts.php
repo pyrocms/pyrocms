@@ -38,16 +38,20 @@ class Posts extends Public_Controller {
 		// Load dependencies
 		$this->load->models(array('forums_m', 'forum_posts_m', 'forum_subscriptions_m'));
 		$this->load->helpers(array('bbcode', 'smiley'));
-		$this->load->library('forums_lib');
+		$this->load->library('Forums_lib');
 		$this->load->config('forums');
 		$this->lang->load('forums');
 		
 		// Template settings
 		$this->template->enable_parser_body(FALSE);
-		$this->template->set_module_layout('default');
-		$this->template->append_metadata(theme_css('forums.css'));
-		$this->template->append_metadata(js('bbcode.js', 'forums'));
-		$this->template->set_breadcrumb('Home', '/')->set_breadcrumb('Forums', 'forums');
+
+		//$this->template->set_module_layout('default');
+
+		$this->template->append_metadata(theme_css('forums.css'))
+					   ->append_metadata(js('bbcode.js', 'forums'));
+
+		$this->template->set_breadcrumb('Home', '/')
+					   ->set_breadcrumb('Forums', 'forums');
 	}
 	
 	/**

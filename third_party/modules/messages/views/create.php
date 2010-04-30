@@ -1,4 +1,3 @@
-<h2><?php echo lang('messages_title'); ?></h2>
 <?php echo form_open(uri_string(), NULL, array('to_id' => $to->id)); ?>
 
 	<?php if( !empty($messages['error']) ): ?>
@@ -11,7 +10,7 @@
 	<div class="preview">
 		<h1>Message Preview</h1>
 		<h2><?php echo $message->subject;?></h2>
-		<p><?php echo parse_bbcode($message->content);?></p>
+		<p><?php echo parse_bbcode(htmlentities($message->content));?></p>
 	</div>
 	<?php endif; ?>
 
@@ -19,7 +18,7 @@
 		<thead>
 			<tr>
 				<th colspan="2" class="header">
-					New message to "<?php echo $to->first_name . ' ' . $to->last_name; ?>"
+					New Message
 				</th>
 			</tr>
 		</thead>
@@ -44,7 +43,7 @@
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Submit Reply" /></td>
+				<td class="form_buttons"><input type="submit" name="preview" value="Preview" />&nbsp;<input type="submit" name="submit" class="submit" value="Send Message" /></td>
 			</tr>
 		</tbody>
 	</table>
