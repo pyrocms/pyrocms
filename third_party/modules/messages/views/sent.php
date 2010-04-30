@@ -1,9 +1,6 @@
 <table class="message_list" border="0" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="4" class="header"><?php echo lang('messages_sent_title'); ?></th>
-		</tr>
-		<tr>
 			<th width="2%">
 				<?php echo form_checkbox(array('name' => 'check_all_action','id' => 'check_all_action','value' => '0', 'checked' => FALSE)); ?>
 			</th>

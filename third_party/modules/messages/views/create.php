@@ -1,4 +1,3 @@
-<h2><?php echo lang('messages_title'); ?></h2>
 <?php echo form_open(uri_string(), NULL, array('to_id' => $to->id)); ?>
 
 	<?php if( !empty($messages['error']) ): ?>
@@ -19,7 +18,7 @@
 		<thead>
 			<tr>
 				<th colspan="2" class="header">
-					New message to "<?php echo $to->first_name . ' ' . $to->last_name; ?>"
+					New Message
 				</th>
 			</tr>
 		</thead>

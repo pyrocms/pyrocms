@@ -34,6 +34,52 @@ table.message_table thead th.header {
 	border: 0px;
 }
 
+/*************************************
+ * Form Table Styles
+ *************************************/
+
+table.form_table * td,
+table.form_table * th {
+	padding: 8px;
+}
+
+table.form_table tbody td, table.form_table tbody th {
+	color: #333333;
+	vertical-align: middle;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.form_table tbody th.textarea_label,
+table.form_table tbody td.textarea_label {
+	vertical-align: top;
+}
+
+table.form_table tbody th {
+	text-align: right;
+	font-weight: bold;
+}
+
+table.form_table thead th.header {
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.form_table tbody td input,
+table.form_table tbody td textarea {
+	width: 100%;
+}
+
+table.form_table tbody td.form_buttons input,
+table.form_table tbody td.form_options input {
+	width: auto;
+}
+
+/*************************************
+ * Message List Styles
+ *************************************/
+
 table.message_list {
 	width: 100%;
 	border: 0px;
@@ -92,7 +138,7 @@ p.form_error {
 }
 
 /*************************************
- * General Forum Styles
+ * General Message Styles
  *************************************/
 div.message_buttons {
 	margin: 10px 0px;
@@ -159,6 +205,74 @@ blockquote {
 	border-left:			3px solid #dae0e4;
 	background-color:		#fbfbfd;
 	padding:				5px 8px;
+}
+
+
+div.tabs {
+	width: 100%;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+div.tabs ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0 4px 0 4px;
+	background-color: #FFFFFF;
+}
+
+div.tabs ul:after { /* clearing without presentational markup, IE gets extra treatment */
+	display: block;
+	clear: both;
+	content: " ";
+}
+
+div.tabs ul li {
+	float: left;
+	margin: 0 0 0 1px;
+	border: 1px solid #CCCCCC;
+	border-bottom: 0px;
+}
+
+div.tabs ul li a {
+	display: block;
+	padding: 6px 20px;
+/*	background: transparent url(http://media-cdn.bitbucket.org/img/tab_grey.png) no-repeat;*/
+	cursor: pointer !important;
+    margin: 0px;
+    color: #666666 !important;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    outline: 0;
+	background-color: #EFEFEF;
+}
+
+div.tabs ul li a:hover {
+	text-decoration: none !important;
+	background-color: #FFFFFF;
+}
+
+div.tabs ul li.selected-tab a {
+	position: relative;
+	top: 1px;
+	z-index: 2;
+	background-color: #FFFFFF;
+}
+div.tabs ul li.right-tab {
+	float: right;
+	margin-right: 1px;
+}
+
+div.tabs ul li.selected-tab a span {
+	padding-top: 7px;
+}
+
+.tab-container {
+	padding: 10px;
+	border: 1px solid #CCCCCC;
+	border-top: 0px;
 }
 
 p.bbcode_buttons a {

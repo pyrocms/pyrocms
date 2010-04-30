@@ -235,7 +235,8 @@ class Messages extends Public_Controller
 		$this->template->title(lang('messages_inbox_title'));
 		$this->template->set_breadcrumb(lang('messages_title'), 'messages');
 		$this->template->set_breadcrumb(lang('messages_inbox_title'));
-		$this->template->build('messages/inbox', $this->data);
+		$this->data->messages_body = $this->load->view('inbox', $this->data, TRUE);
+		$this->template->build('layouts/default', $this->data);
 	}
 	/**
 	 * View Inbox
@@ -274,7 +275,8 @@ class Messages extends Public_Controller
 		$this->template->set_breadcrumb($message->subject);
 
 		//Show the template
-		$this->template->build('messages/view', $this->data);
+		$this->data->messages_body = $this->load->view('view', $this->data, TRUE);
+		$this->template->build('layouts/default', $this->data);
 	}
 	
 	/**
@@ -357,7 +359,8 @@ class Messages extends Public_Controller
 		$this->template->title(lang('messages_sent_title'));
 		$this->template->set_breadcrumb(lang('messages_title'), 'messages');
 		$this->template->set_breadcrumb(lang('messages_sent_title'));
-		$this->template->build('messages/sent', $this->data);
+		$this->data->messages_body = $this->load->view('sent', $this->data, TRUE);
+		$this->template->build('layouts/default', $this->data);
 	}
 
 	/**
@@ -394,7 +397,8 @@ class Messages extends Public_Controller
 		$this->template->set_breadcrumb($message->subject);
 
 		//Show the template
-		$this->template->build('messages/view', $this->data);
+		$this->data->messages_body = $this->load->view('view', $this->data, TRUE);
+		$this->template->build('layouts/default', $this->data);
 	}
 
 	/**
