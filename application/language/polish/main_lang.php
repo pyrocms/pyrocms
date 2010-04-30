@@ -8,6 +8,7 @@ $lang['name_label']                                                             
 $lang['desc_label']                                                                     = 'Opis';
 $lang['version_label']                                                                  = 'Wersja';
 $lang['author_label']                                                                   = 'Autor';
+$lang['action_label'] 								= 'Action';
 
 $lang['dialog_confirm']                                                                 = 'Potwierdź';
 $lang['dialog_yes'] 								= 'Tk';
@@ -44,6 +45,10 @@ $lang['approve_label']							= 'Zatwierdź'; #translate
 $lang['unapprove_label']						= 'Odmów'; #translate
 $lang['publish_label'] 							= 'Publikuj';
 $lang['upload_label'] 							= 'Upload';
+$lang['uninstall_label'] 						= 'Uninstall';
+$lang['install_label'] 							= 'Install';
+$lang['enable_label']							= 'Enable';
+$lang['disable_label'] 							= 'Disable';
 
 
 // $lang[''] = '';

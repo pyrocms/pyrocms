@@ -33,5 +33,61 @@ class Admin extends Admin_Controller
 			  
 		$this->template->build('admin/index', $this->data);
 	}
+
+	/**
+	 * Install
+	 *
+	 * Installs a third_party module
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function install()
+	{
+
+	}
+
+	/**
+	 * Uninstall
+	 *
+	 * Uninstalls a third_party module
+	 *
+	 * @param	string	$module_slug	The slug of the module to uninstall
+	 * @access	public
+	 * @return	void
+	 */
+	public function uninstall($module_slug)
+	{
+
+	}
+
+	/**
+	 * Enable
+	 *
+	 * Enables a third_party module
+	 *
+	 * @param	string	$module_slug	The slug of the module to enable
+	 * @access	public
+	 * @return	void
+	 */
+	public function enable($module_slug)
+	{
+
+	}
+
+	/**
+	 * Disable
+	 *
+	 * Disables a third_party module
+	 *
+	 * @param	string	$module_slug	The slug of the module to disable
+	 * @access	public
+	 * @return	void
+	 */
+	public function disable($module_slug)
+	{
+
+	}
+
 }
 ?>

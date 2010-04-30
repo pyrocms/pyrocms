@@ -8,6 +8,7 @@ $lang['name_label'] 								= 'Nom';
 $lang['desc_label'] 								= 'Description';
 $lang['version_label'] 							= 'Version';
 $lang['author_label'] 							= 'Auteur';
+$lang['action_label'] 								= 'Action';
 
 $lang['dialog_confirm'] 						= 'Confirmez';
 $lang['dialog_yes'] 								= 'Oui';
@@ -42,6 +43,10 @@ $lang['delete_label'] 							= 'Supprimer';
 $lang['activate_label'] 						= 'Activer';
 $lang['publish_label'] 							= 'Publier';
 $lang['upload_label'] 							= 'Télécharger';
+$lang['uninstall_label'] 						= 'Uninstall';
+$lang['install_label'] 							= 'Install';
+$lang['enable_label']							= 'Enable';
+$lang['disable_label'] 							= 'Disable';
 
 
 // $lang[''] = '';
