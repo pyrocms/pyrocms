@@ -255,6 +255,7 @@ code {
 	padding:				8px;
 	/*width:					95%;*/
 	overflow:				auto;
+	white-space: pre;
 }
 
 blockquote {
