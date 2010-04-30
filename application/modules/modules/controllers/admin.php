@@ -58,7 +58,21 @@ class Admin extends Admin_Controller
 	 */
 	public function uninstall($module_slug)
 	{
+		// Don't allow user to delete the entire module folder
+		if($module_slug == '/' || $module_slug == '*')
+		{
+			show_404();
+		}
 
+		$path = 'third_party/modules/' . $module_slug;
+
+		if($this->_delete_recursive($path))
+		{
+			$this->session->set_flashdata('success', lang('modules.uninstall_success'));
+			redirect('admin/modules');
+		}
+		$this->session->set_flashdata('error', lang('modules.uninstall_error'));
+		redirect('admin/modules');
 	}
 
 	/**
@@ -113,5 +127,31 @@ class Admin extends Admin_Controller
 		redirect('admin/modules');
 	}
 
+	/**
+	 * Delete Recursive
+	 *
+	 * Recursively delete a folder
+	 *
+	 * @param	string	$str	The path to delete
+	 * @return	bool
+	 */
+	private function _delete_recursive($str)
+	{
+        if(is_file($str))
+		{
+            return @unlink($str);
+        }
+		elseif(is_dir($str))
+		{
+            $scan = glob(rtrim($str,'/').'/*');
+
+			foreach($scan as $index => $path)
+			{
+                $this->_delete_recursive($path);
+            }
+
+            return @rmdir($str);
+        }
+    }
 }
 ?>
