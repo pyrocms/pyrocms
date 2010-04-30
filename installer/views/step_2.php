@@ -23,8 +23,13 @@ which is <?php echo $mysql->server_version && $mysql->client_version ? '<span cl
 <h3>GD Settings</h3>
 
 <p>
-	PyroCMS requires GD library 1.0 or higher. Your server is currently running version <strong><?php echo $gd_version; ?></strong>, 
+	PyroCMS requires GD library 1.0 or higher.
+	<?php if(!empty($gd_version)): ?>
+	Your server is currently running version <strong><?php echo $gd_version; ?></strong>,
 	which is <?php echo $gd_version !== FALSE ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.
+	<?php else: ?>
+	<span class="red">We cannot determine the version of the GD library.  This usually means that the GD library is not installed.</span>
+	<?php endif; ?>
 </p>
 
 <!-- Summary -->
