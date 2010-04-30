@@ -10,4 +10,6 @@ $lang['modules.install_error'] = 'Could not install the module.';
 $lang['modules.install_success'] = 'The module has been installed.';
 $lang['modules.uninstall_error'] = 'Could not uninstall the module.';
 $lang['modules.uninstall_success'] = 'The module has been uninstalled.';
+
+$lang['modules.module_not_specified'] = 'You must specifiy a module.';
 ?>

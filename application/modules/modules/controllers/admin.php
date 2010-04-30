@@ -56,12 +56,12 @@ class Admin extends Admin_Controller
 	 * @access	public
 	 * @return	void
 	 */
-	public function uninstall($module_slug)
+	public function uninstall($module_slug = '')
 	{
 		// Don't allow user to delete the entire module folder
-		if($module_slug == '/' || $module_slug == '*')
+		if($module_slug == '/' || $module_slug == '*' || empty($module_slug))
 		{
-			show_404();
+			show_error(lang('modules.module_not_specified'));
 		}
 
 		$path = 'third_party/modules/' . $module_slug;
