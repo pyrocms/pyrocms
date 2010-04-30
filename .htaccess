@@ -8,12 +8,18 @@
 	#RewriteBase /wherever/pyro/is
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
-	RedirectMatch 403 /^(codeigniter|\.git|\.hg).*$
+	RedirectMatch 403 ^/(application\/cache|codeigniter|\.git|\.hg).*$
 
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 
-	# NOTICE: If running within a userdir (e.g. localhost/~user) add your the full path below. Eg: /~user/pyrocms/index.php/$1
-	RewriteRule ^(.*)$ index.php/$1 [L]
+	<IfModule mod_php5.c>
+		RewriteRule ^(.*)$ index.php/$1 [L]
+	</IfModule>
+
+	<IfModule !mod_php5.c>
+		RewriteRule ^(.*)$ index.php?/$1 [L]
+	</IfModule>
+
 </IfModule>
