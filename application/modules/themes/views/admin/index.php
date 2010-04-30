@@ -2,8 +2,12 @@
 	<h3><?php echo lang('themes.list_label');?></h3>
 	
 	<div class="box-container">
-	
-		<?php echo form_open('admin/themes/set_default');?>
+
+		<div class="button float-right" style="margin-top: -3.4em;">
+			<?php echo anchor('admin/themes/upload', lang('themes.upload_title')); ?>
+		</div>
+
+		<?php echo form_open('admin/themes/set_default'); ?>
 
 			<style type="text/css">
 				.theme { 
