@@ -117,9 +117,11 @@ class Pages_m extends MY_Model
 		$segments = array();
 		do
 		{
-			$this->db->select('slug, parent_id');
-			$this->db->where('id', $current_id);
-			$page = $this->db->get('pages')->row();
+			$page = $this->db
+				->select('slug, parent_id')
+				->where('id', $current_id)
+				->get('pages')
+				->row();
 			
 			$current_id = $page->parent_id;
 			array_unshift($segments, $page->slug);
@@ -127,10 +129,10 @@ class Pages_m extends MY_Model
 		while( $page->parent_id > 0 );
 		
 		// If the URI has been passed as a string, explode to create an array of segments
-    	$this->db->set('id', $id);
-    	$this->db->set('path', implode('/', $segments));
-    	
-		return $this->db->insert('pages_lookup');
+    	return $this->db
+			->set('id', $id)
+			->set('path', implode('/', $segments))
+			->insert('pages_lookup');
 	}
 	
 	function delete_lookup($id)
