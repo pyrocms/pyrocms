@@ -33,7 +33,8 @@
 		    {if $ci->session->flashdata('error')}
 		    	<div class="error-box">{$ci->session->flashdata('error')}</div>
 		    {/if}
-		
+
+			<h2>Messages</h2>
 		    {$template.body}
 	    		
 	</div>

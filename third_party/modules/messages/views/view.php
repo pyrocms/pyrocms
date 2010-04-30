@@ -1,5 +1,7 @@
-<h2><?php echo lang('messages_title'); ?></h2>
-
+<div class="message_links">
+	<?php echo anchor('messages/reply/' . $message->id, lang('messages_reply_title')); ?> |
+	<?php echo anchor('messages/delete/' . $message->id, lang('messages_trash_title')); ?>
+</div>
 <table class="message_table" border="0" cellspacing="0">
 	<thead>
 		<tr>
@@ -21,3 +23,7 @@
 		</tr>
 	</tbody>
 </table>
+<div class="message_links">
+	<?php echo anchor('messages/' . $method . '/reply/' . $message->id, lang('messages_reply_title')); ?> |
+	<?php echo anchor('messages/' . $method . '/delete/' . $message->id, lang('messages_trash_title')); ?>
+</div>

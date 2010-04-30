@@ -5,7 +5,7 @@
  *
  * @author Dan Horrigan
  */
-class Pyro_messages
+class Messages_lib
 {
 	private $CI;
 
@@ -13,6 +13,7 @@ class Pyro_messages
 	{
 		$this->CI =& get_instance();
 	}
+
 	public function notify($email, $message)
 	{
 		$this->CI->load->library('email');
