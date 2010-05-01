@@ -1,13 +1,12 @@
 <div class="box">
-	<h3><?php echo lang('modules.third_party_list');?></h3>
+	<h3>
+		<div class="button float-right">
+			<a href="<?php echo site_url('admin/modules/install');?>"><?php echo lang('install_label'); ?></a>
+		</div>
+		<?php echo lang('modules.third_party_list');?>
+	</h3>
 
 	<div class="box-container">
-		<div style="text-align: right;">
-			<div class="button">
-				<a href="<?php echo site_url('admin/modules/install');?>"><?php echo lang('install_label'); ?></a>
-			</div>
-		</div>
-
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">

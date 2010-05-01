@@ -153,5 +153,65 @@ class Admin extends Admin_Controller
             return @rmdir($str);
         }
     }
+
+	/**
+	 * Extract Zip
+	 *
+	 * Extracts a zip file.
+	 *
+	 * @param	string	$zip_dir		The directory of the zip file
+	 * @param	string	$zip_file		The zip file
+	 * @param	string	$extract_to		The directory used to store the extracted files
+	 * @param	string	$dir_from_zip	No idea...
+	 * @return	bool
+	 */
+	private function _extract_zip( $zip_dir = '' , $zip_file = '', $extract_to = '', $dir_from_zip = '' )
+	{
+		$zip = zip_open($zip_dir.$zip_file);
+
+		if ($zip)
+		{
+			while ($zip_entry = zip_read($zip))
+			{
+				$completePath = $extract_to . dirname(zip_entry_name($zip_entry));
+				$completeName = $extract_to . zip_entry_name($zip_entry);
+
+				// Walk through path to create non existing directories
+				// This won't apply to empty directories ! They are created further below
+				if(!file_exists($completePath) && preg_match( '#^' . $dir_from_zip .'.*#', dirname(zip_entry_name($zip_entry)) ) )
+				{
+					$tmp = '';
+					foreach(explode('/',$completePath) AS $k)
+					{
+						$tmp .= $k.'/';
+						if(!file_exists($tmp) )
+						{
+							@mkdir($tmp, 0777);
+						}
+					}
+				}
+
+				if (zip_entry_open($zip, $zip_entry, "r"))
+				{
+					if( preg_match( '#^' . $dir_from_zip .'.*#', dirname(zip_entry_name($zip_entry)) ) )
+					{
+						if ($fd = @fopen($completeName, 'w+'))
+						{
+							@fwrite($fd, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
+							fclose($fd);
+						}
+						else
+						{
+							// We think this was an empty directory
+							@mkdir($completeName, 0777);
+						}
+						zip_entry_close($zip_entry);
+					}
+				}
+			}
+			zip_close($zip);
+		}
+		return true;
+	}
 }
 ?>
