@@ -1,12 +1,4 @@
 <div class="box">
-	<h3><?php echo lang('cp_welcome_title'); ?></h3>
-	
-	<div class="box-container">
-		<p><?php echo sprintf(lang('cp_welcome_message'), $this->settings->item('site_name'));?></p>
-	</div>
-</div>
-
-<div class="box">
 	<h3><?php echo lang('cp_news_feed_title'); ?></h3>
 	
 	<div class="box-container">
