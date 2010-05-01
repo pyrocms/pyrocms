@@ -18,7 +18,7 @@
 				</li>
 				
 				<li class="even">
-					<label for=name><?php echo lang('perm_abbrev_label');?></label>	
+					<label for="name"><?php echo lang('perm_abbrev_label');?></label>	
 					<?php if($this->uri->segment(4,'create') == 'create'): ?>
 						<?php echo form_input('name', $permission_role->name, 'class="text width-10"'); ?>	
 					<?php else: ?>

@@ -140,7 +140,7 @@ class Admin extends Admin_Controller
         if ($this->form_validation->run())
         {
 			// Try to create the new rule
-            if($this->permissions_m->newRule($_POST) > 0)
+            if($this->permissions_m->new_rule($_POST) > 0)
             {
                 $this->session->set_flashdata('success', lang('perm_rule_add_success'));
             }
@@ -170,19 +170,22 @@ class Admin extends Admin_Controller
     public function edit($id = 0)
     {
 		// Got ID?
-        if (empty($id)) redirect('admin/permissions/index');
+        if ( empty($id) )
+		{
+			 redirect('admin/permissions');
+		}
         
 		// Get the permissions
-        $permission_rule = $this->permissions_m->getRule($id);
+        $permission_rule = $this->permissions_m->get_rule($id);
         
-		if (!$permission_rule)
+		if ( !$permission_rule )
         {
             $this->session->set_flashdata('error', $this->lang->line('perm_rule_not_exist_error'));
             redirect('admin/permissions/create');
         }
         
 		// Set some extra rules based on the role type
-        if ($this->input->post('role_type') == 'user')
+        if ( $this->input->post('role_type') == 'user' )
         {
 			$this->validation_rules[4]['rules'] .= '|required';
         }
@@ -202,7 +205,7 @@ class Admin extends Admin_Controller
 
         if ($this->form_validation->run())
         {
-            $this->permissions_m->updateRule($id, $_POST);
+            $this->permissions_m->update_rule($id, $_POST);
             $this->session->set_flashdata('success', $this->lang->line('perm_rule_save_success'));
             redirect('admin/permissions');
         }
@@ -227,7 +230,7 @@ class Admin extends Admin_Controller
         // Delete one
         if ($id)
         {
-            $this->permissions_m->deleteRule($id);
+            $this->permissions_m->delete_rule($id);
         }
         
         // Delete multiple
@@ -237,13 +240,13 @@ class Admin extends Admin_Controller
             {
                 foreach(array_keys($this->input->post('delete')) as $id)
                 {
-                    $this->permissions_m->deleteRule($id);
+                    $this->permissions_m->delete_rule($id);
                 }
             }
         }
         
         $this->session->set_flashdata('success', $this->lang->line('perm_rule_delete_success'));
-        redirect('admin/permissions/index');
+        redirect('admin/permissions');
     }
     
     // AJAX Callbacks
