@@ -1,7 +1,22 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Regular pages model
+ * 
+ * @author Phil Sturgeon - PyroCMS Dev Team
+ * @package PyroCMS
+ * @subpackage Pages Module
+ * @category Modules
+ * 
+ */
 class Pages_m extends MY_Model
 {
+	/**
+	 * Get a page by it's path
+	 * 
+	 * @access public
+	 * @param array $segments The path segments
+	 * @return array
+	 */
     public function get_by_path($segments = array())
     {
     	// If the URI has been passed as a string, explode to create an array of segments
@@ -47,21 +62,41 @@ class Pages_m extends MY_Model
         return $this->db->get()->row();
     }
     
-	// Count the amount of pages with param X
-	function count($params = array())
+	/**
+	 * Count the amount of pages with param X
+	 * 
+	 * @access public
+	 * @param array $params The parameters
+	 * @return int
+	 */
+	public function count($params = array())
 	{
 		$results = $this->get_many_by($params);
 		
 		return count($results);
 	}
     
-	function has_children($parent_id)
+	/**
+	 * Does the page has any children, wait, can pages actually get pregnant and have kids?
+	 * 
+	 * @access public
+	 * @param int $parent_id The ID of the parent page
+	 * @return mixed
+	 */
+	public function has_children($parent_id)
 	{
 		$this->db->where('parent_id', $parent_id);
 		return $this->db->count_all_results('pages') > 0;
 	}
 	
-	function get_descendant_ids($id, $id_array = array())
+	/**
+	 * Get the child IDs
+	 * 
+	 * @param int $id The ID of the page?
+	 * @param array $id_array ?
+	 * @return array
+	 */
+	public function get_descendant_ids($id, $id_array = array())
 	{
 		$id_array[] = $id;
 	
@@ -83,9 +118,14 @@ class Pages_m extends MY_Model
 		return $id_array;
 	}
 	
-	// ----- PAGE INDEX --------------
-
-	function get_path_by_id($id)
+	/**
+	 * Get a path based on ID X
+	 * 
+	 * @access public
+	 * @param int $id The ID to use
+	 * @return string
+	 */
+	public function get_path_by_id($id)
 	{
 		$page = $this->db->select('path')
 			->where('id', $id)
@@ -95,7 +135,14 @@ class Pages_m extends MY_Model
 		return isset($page->path) ? $page->path : '';
 	}
 	
-	function get_id_by_path($path)
+	/**
+	 * Get an ID based on a specified path
+	 * 
+	 * @access public
+	 * @param string $path The path to use
+	 * @return array
+	 */
+	public function get_id_by_path($path)
 	{
 		// If the URI has been passed as a string, explode to create an array of segments
     	if(is_array($path))
@@ -110,7 +157,14 @@ class Pages_m extends MY_Model
 			->id;
 	}
 	
-	function build_lookup($id)
+	/**
+	 * Build a lookup
+	 * 
+	 * @access public
+	 * @param int $id 
+	 * @return array
+	 */
+	public function build_lookup($id)
 	{
 		$current_id = $id;
 		
@@ -135,7 +189,14 @@ class Pages_m extends MY_Model
 			->insert('pages_lookup');
 	}
 	
-	function delete_lookup($id)
+	/**
+	 * Delete a lookup
+	 * 
+	 * @access public
+	 * @param int $id
+	 * @return array
+	 */
+	public function delete_lookup($id)
 	{
     	if( is_array($id) )
     	{
@@ -150,7 +211,14 @@ class Pages_m extends MY_Model
 		return $this->db->delete('pages_lookup');
 	}
 	
-	function reindex_descendants($id)
+	/**
+	 * Reindex child items
+	 * 
+	 * @access public
+	 * @param int $id The ID of the parent item
+	 * @return void
+	 */
+	public function reindex_descendants($id)
 	{
 		$descendants = $this->get_descendant_ids($id);
 		$this->delete_lookup($descendants);
@@ -160,10 +228,14 @@ class Pages_m extends MY_Model
 		}
 	}
 	
-	// ----- CRUD --------------------
-	
-    // Create a new page
-    function create($input = array())
+	/**
+	 * Create a new page
+	 * 
+	 * @access public
+	 * @param array $input The data to insert
+	 * @return bool
+	 */
+    public function create($input = array())
     {
         $this->load->helper('date');
         
@@ -193,8 +265,15 @@ class Pages_m extends MY_Model
         return ($this->db->trans_status() !== FALSE) ? $id : FALSE;
     }
     
-    // Update a Page
-    function update($id = 0, $input = array())
+    /**
+     * Update a Page
+ 	 * 
+ 	 * @access public
+ 	 * @param int $id The ID of the page to update
+ 	 * @param array $input The data to update
+	 * @return void
+     */
+    public function update($id = 0, $input = array())
     {
         $this->load->helper('date');
         
@@ -214,8 +293,14 @@ class Pages_m extends MY_Model
         ), array('id' => $id));
     }
     
-    // Delete a Page
-    function delete($id = 0)
+    /**
+     * Delete a Page
+ 	 * 
+ 	 * @access public
+ 	 * @param int $id The ID of the page to delete
+ 	 * @return bool
+     */
+    public function delete($id = 0)
     {
         $this->db->trans_start();
         
@@ -234,7 +319,5 @@ class Pages_m extends MY_Model
         
         return $this->db->trans_status() !== FALSE ? $ids : FALSE;
     }
-    
 }
-
 ?>

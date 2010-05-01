@@ -1,5 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ *
+ * Navigation helper
+ *
+ * @author Phil Sturgeon - PyroCMS Dev Team
+ * @package PyroCMS
+ * @subpackage Navigation Module
+ * @category Module
+ */
 
+/**
+ * Create a navigation menu (I believe...)
+ * 
+ * @param string $abbrev The link abbreviation
+ * @return mixed
+ */
 function navigation($abbrev)
 {
 	$CI =& get_instance();
