@@ -33,7 +33,6 @@ $lang['forums_list_categories_title'] 		= 'Lijstweergave Categorieen';
 $lang['forums_create_forum_title']		= 'Voeg Forum toe';
 $lang['forums_edit_forum_title']		= 'Bewerk Forum "%s"';
 $lang['forums_forum_title'] 			= 'Forums';
-$lang['forums_forum_forum_title'] 		= 'Voeg Forum toe';
 $lang['forums_list_forum_title']		= 'Lijstweergave Forums';
 
 // messages
