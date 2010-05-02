@@ -269,6 +269,7 @@ DROP TABLE IF EXISTS `profiles`;
 CREATE TABLE IF NOT EXISTS `profiles` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
+  `display_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `company` varchar(100) COLLATE utf8_unicode_ci NOT NULL,

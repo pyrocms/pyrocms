@@ -92,8 +92,8 @@ TRUNCATE `profiles`;
 
 -- command split --
 
-INSERT INTO `profiles` (`id`, `user_id`, `first_name`, `last_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
-(1, 1, 'Demo', 'User', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `profiles` (`id`, `user_id`, `display_name`, `first_name`, `last_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
+(1, 1, 'Demo User', 'Demo', 'User', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- command split --
 
@@ -102,7 +102,7 @@ TRUNCATE `users`;
 -- command split --
 
 INSERT INTO `users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-(1, 'demo@example.com', '8cd2e9971eeea0b7a5afcd810270fa605bde14e8', 'vQwbJ', 1, '', 1, '', 1220982658, 1269201129, NULL, NULL, NULL);
+(1, 'demo@example.com', '8cd2e9971eeea0b7a5afcd810270fa605bde14e8', 'vQwbJ', 1, '', 1, '', 1220982658, 1269201129, 'demo', NULL, NULL);
 
 -- command split --
 
