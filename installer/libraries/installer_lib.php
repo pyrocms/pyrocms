@@ -220,12 +220,24 @@ class Installer_lib
 	 * Install the PyroCMS database and write the database.php file
 	 */
 	function install($data)
-	{		
+	{				
 		// Retrieve the database server, username and password from the session
 		$server 	= $this->ci->session->userdata('server') . ':' . $this->ci->session->userdata('port');
 		$username 	= $this->ci->session->userdata('username');
 		$password 	= $this->ci->session->userdata('password');
 		$database 	= $data['database'];
+		
+		// User settings
+		$user_email 	= $data['user_email'];
+		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
+		$user_password 	= sha1($data['user_password'] . $user_salt);
+		
+		// Get the SQL for the user data and parse it
+		$user_sql		= file_get_contents('./sql/3-default_user.sql');
+		$user_sql		= str_replace('__EMAIL__', 			$user_email, 		$user_sql);
+		$user_sql		= str_replace('__PASSWORD__', 		$user_password, 	$user_sql);
+		$user_sql		= str_replace('__SALT__', 			$user_salt,		 	$user_sql);
+		$user_sql		= str_replace('__NOW__', 			time(), 			$user_sql);
 		
 		// Create a connection
 		if( !$this->db = mysql_connect($server, $username, $password) )
@@ -255,6 +267,11 @@ class Installer_lib
 		{
 			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database.<br/><br/>' . mysql_error($this->db));
 		}
+		
+		if( !$this->_process_schema($user_sql, FALSE) )
+		{
+			return array('status' => FALSE,'message' => 'The installer could not create the default user.<br/><br/>' . mysql_error($this->db));
+		}
 			
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close($this->db);
@@ -277,10 +294,20 @@ class Installer_lib
 		}
 	}
 
-	private function _process_schema($schema_file)
+	private function _process_schema($schema_file, $is_file = TRUE)
 	{
-		$schema = file_get_contents('./sql/' . $schema_file . '.sql');
-		$queries = explode('-- command split --', $schema);
+		// String or file?
+		if ( $is_file == TRUE )
+		{
+			$schema 	= file_get_contents('./sql/' . $schema_file . '.sql');
+		}
+		else
+		{
+			$schema 	= $schema_file;
+		}
+		
+		// Parse the queries
+		$queries 	= explode('-- command split --', $schema);
 		
 		foreach($queries as $query)
 		{
@@ -295,7 +322,6 @@ class Installer_lib
 		}
 		
 		return TRUE;
-		
 	}
 	
 	/**

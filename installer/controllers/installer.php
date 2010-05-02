@@ -229,26 +229,54 @@ class Installer extends Controller
 		// Check to see if the user submitted the installation form
 		if($_POST)
 		{
+			// Do we have all the required data?
+			if ( empty($_POST['user_email']) AND empty($_POST['user_password']) AND empty($_POST['user_confirm_password']) )
+			{
+				// Show an error message
+				$this->session->set_flashdata('message','Please enter the details used for creating the default user');
+				$this->session->set_flashdata('message_type','error');
+
+				// Redirect
+				redirect('installer/step_4');
+			}
+			
 			// Only install PyroCMS if the provided data is correct
 			if($this->installer_lib->validate() == TRUE)
 			{
-				// Install the system and display the results
-				$install_results = $this->installer_lib->install($_POST);
-
-				// Validate the results and create a flashdata message
-				if($install_results['status'] == TRUE)
+				if ($_POST['user_password'] == $_POST['user_confirm_password'] )
 				{
-					// Show an error message
-					$this->session->set_flashdata('message', $install_results['message']);
-					$this->session->set_flashdata('message_type','success');
+					// Install the system and display the results
+					$install_results = $this->installer_lib->install($_POST);
 
-					// Redirect
-					redirect('installer/complete');
+					// Validate the results and create a flashdata message
+					if($install_results['status'] == TRUE)
+					{
+						// Show a message
+						$this->session->set_flashdata('message', $install_results['message']);
+						$this->session->set_flashdata('message_type','success');
+
+						// Store the default username and password in the session data
+						$this->session->set_flashdata('user_email', $_POST['user_email']);
+						$this->session->set_flashdata('user_password', $_POST['user_password']);
+						
+						// Redirect
+						redirect('installer/complete');
+					}
+					else
+					{
+						// Show an error message
+						$this->session->set_flashdata('message', $install_results['message']);
+						$this->session->set_flashdata('message_type','error');
+
+						// Redirect
+						redirect('installer/step_4');
+					}
 				}
+				// User's passwords don't match
 				else
 				{
 					// Show an error message
-					$this->session->set_flashdata('message', $install_results['message']);
+					$this->session->set_flashdata('message','The entered passwords do not match');
 					$this->session->set_flashdata('message_type','error');
 
 					// Redirect
