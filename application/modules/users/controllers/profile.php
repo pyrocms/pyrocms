@@ -46,8 +46,13 @@ class Profile extends Public_Controller
 		
 		$this->load->library('form_validation');
 		
-		// Validation rules
+		// Validation rules - git is really pissing me off right now 
 		$this->validation_rules = array(
+			array(
+				'field' => 'display_name',
+				'label' => lang('profile_display'),
+				'rules' => 'required|trim|alphanumeric'
+			),
 			array(
 				'field' => 'gender',
 				'label' => lang('profile_gender'),
@@ -71,7 +76,7 @@ class Profile extends Public_Controller
 			array(
 				'field' => 'bio',
 				'label' => lang('profile_bio'),
-				'rules' => 'required|trim|max_length[1000]'
+				'rules' => 'trim|max_length[1000]'
 			),
 			array(
 				'field' => 'phone',
@@ -172,7 +177,7 @@ class Profile extends Public_Controller
 	 */
 	public function view($id = 0)
 	{
-		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
+		// No user? Show a 404 error. Easy way for now, instead should show a custom error message 
 		if(!$this->data->user = $this->ion_auth->get_user($id) )
 		{
 			show_404();

@@ -15,6 +15,7 @@ $lang['profile_edit'] 					= 'Edit your profile';
 
 $lang['profile_personal_section'] 		= 'Personal';
 
+$lang['profile_display_name']			= 'Display Name';  
 $lang['profile_dob']					= 'Date of Birth';
 $lang['profile_dob_day']				= 'Day';
 $lang['profile_dob_month']				= 'Month';

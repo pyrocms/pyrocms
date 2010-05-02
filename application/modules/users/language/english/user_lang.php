@@ -45,11 +45,17 @@ $lang['user_activate_account_title'] 	= 'Activate Account';
 $lang['user_activate_label'] 			= 'Activate';
 $lang['user_activated_account_title'] 	= 'Activated Account';
 $lang['user_reset_password_title'] 		= 'Reset Password';
-$lang['user_password_reset_title'] 		= 'Password Reset';
+$lang['user_password_reset_title'] 		= 'Password Reset';  
+
+
+$lang['user_error_username'] 			= 'The username you selected is already in use'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_error_email'] 				= 'The email address you enter is already in use'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 
 $lang['user_full_name'] 				= 'Full Name';
 $lang['user_first_name'] 				= 'First Name';
 $lang['user_last_name'] 				= 'Last Name';
+$lang['user_username'] 					= 'Username'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_display_name']				= 'Display Name'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Confirm E-mail';
 $lang['user_password'] 					= 'Password';

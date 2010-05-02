@@ -8,11 +8,18 @@ fieldset dl dd input, fieldset dl dd textarea {
 }
 </style>
     <h2><?php echo lang('profile_edit') ?></h2>
+
+	<?php if(validation_errors()):?>
+		<div class="error-box"><?php echo validation_errors();?></div>
+	<?php endif;?>
     
 	<?php echo form_open('edit-profile', array('id'=>'user_edit_profile'));?>
 	
 	<fieldset><legend><?php echo lang('profile_personal_section') ?></legend>
-		
+		<dl>
+			<dt><label for="display_name"><?php echo lang('profile_display_name') ?></label></dt>
+			<dd><?php echo form_input('display_name', set_value('display_name', $profile->display_name)); ?></dd>  
+		</dl>
 				
 		<dl class="width-half float-left">
 			<dt><?php echo lang('profile_dob') ?></dt>
