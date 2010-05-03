@@ -5,7 +5,7 @@ $lang['photos.title'] 							= 'Fotos';
 // labels
 $lang['photos.upload_label'] 					= 'Hochladen';
 $lang['photos.photo_label'] 					= 'Foto';
-$lang['photos.desc_label'] 						= 'Beschreibung';
+$lang['photos.caption_label'] 						= 'Beschreibung';
 $lang['photos.view_label'] 						= 'Ansicht';
 $lang['photos.edit_label'] 						= 'Bearbeiten';
 $lang['photos.delete_label'] 					= 'Löschen';

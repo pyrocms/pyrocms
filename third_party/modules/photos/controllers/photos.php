@@ -57,7 +57,7 @@ class Photos extends Public_Controller
 		$this->data->album =& $album;
 
 		$this->template
-			->title(lang('photos.title'), $album->title)
+			->title($photo->caption, $album->title, lang('photos.title'))
 			->build('view', $this->data);
 	}
 }

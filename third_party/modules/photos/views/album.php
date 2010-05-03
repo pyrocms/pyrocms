@@ -20,12 +20,12 @@
 		<?php foreach ($photos as $photo):?>
 			<li>
 				
-				{*<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" title="<?php echo $photo->description;?>" rel="modal">
-					<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->description));?>
+				{*<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" rel="modal">
+					<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->caption));?>
 				</a>*}
 				
-				<a href="<?php echo site_url('photos/view/' . $album->slug . '/' .$photo->id ); ?>" title="<?php echo $photo->description;?>">
-					<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->description));?>
+				<a href="<?php echo site_url('photos/view/' . $album->slug . '/' .$photo->id ); ?>">
+					<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->caption));?>
 				</a>
 
 			</li>

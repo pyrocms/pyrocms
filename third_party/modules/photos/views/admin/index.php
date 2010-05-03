@@ -6,7 +6,7 @@
 			
 		<?php echo form_open('admin/photos/delete');?>		
 		
-		<?php if (!empty($albums)): ?>	
+		<?php if (!empty($albums)): ?>
 			<table border="0" class="table-list">			
 				<thead>
 					<tr>

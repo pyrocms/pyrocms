@@ -34,8 +34,14 @@ class Photo_albums_m extends MY_Model
 		);
 		
 		$id = $this->db->insert_id();
-		
-		if ($this->db->trans_status() === FALSE || !mkdir( $this->albums_dir . $id))
+
+		if(!is_dir( $this->albums_dir . $id) && !@mkdir( $this->albums_dir . $id))
+		{
+		    $this->db->trans_rollback();
+		    return FALSE;
+		}
+
+		if ($this->db->trans_status() === FALSE)
 		{
 		    $this->db->trans_rollback();
 		    return FALSE;
