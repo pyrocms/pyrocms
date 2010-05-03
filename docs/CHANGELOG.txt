@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v0.9.8.1
+-------
+
+* Installer can now get server information from (and install to) remote database servers.
+
+
 v0.9.8
 ------
 
