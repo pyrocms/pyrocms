@@ -230,7 +230,7 @@ class Installer extends Controller
 		if($_POST)
 		{
 			// Do we have all the required data?
-			if ( empty($_POST['user_email']) AND empty($_POST['user_password']) AND empty($_POST['user_confirm_password']) )
+			if ( empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['user_confirm_password']) )
 			{
 				// Show an error message
 				$this->session->set_flashdata('message','Please enter the details used for creating the default user');
@@ -256,9 +256,13 @@ class Installer extends Controller
 						$this->session->set_flashdata('message_type','success');
 
 						// Store the default username and password in the session data
-						$this->session->set_flashdata('user_email', $_POST['user_email']);
-						$this->session->set_flashdata('user_password', $_POST['user_password']);
-						
+						$this->session->set_flashdata('user', array(
+							'email'			=> $this->input->post('user_email'),
+							'password'		=> $this->input->post('user_password'),
+							'firstname'		=> $this->input->post('user_firstname'),
+							'lastname'		=> $this->input->post('user_lastname')
+						));
+
 						// Redirect
 						redirect('installer/complete');
 					}
@@ -312,7 +316,8 @@ class Installer extends Controller
 
 		// Able to use clean URLs?
 		$admin_uri = $supported_servers[$server_name]['rewrite_support'] !== FALSE ? 'admin' : 'index.php/admin';
-		
+
+		$data['admin_user'] = $this->session->flashdata('user');
 		$data['admin_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', $admin_uri, $this->input->server('SCRIPT_NAME'));
 
 		// Load the view files
@@ -320,4 +325,3 @@ class Installer extends Controller
 		$this->load->view('global',$data); 
 	}
 }
-?>

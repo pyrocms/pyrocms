@@ -8,20 +8,29 @@
 	</p>
 	<p>
 		<label for="create_db">Create Database</label>
-		<input type="checkbox" name="create_db" value="true" id="create_db" /><small>(You might need to do this yourself)</small>
+		<input type="checkbox" name="create_db" value="true" id="create_db" />
+		<small>(You might need to do this yourself)</small>
 	</p>
 	<h3>Default User</h3>
 	<p>
-		<label for="user_username">Email</label>
-		<input type="text" id="user_username" class="input_text" name="user_email" />
+		<label for="user_firstname">First name</label>
+		<?php echo form_input('user_firstname', set_value('user_firstname')); ?>
+	</p>
+	<p>
+		<label for="user_lastname">Last name</label>
+		<?php echo form_input('user_lastname', set_value('user_lastname')); ?>
+	</p>
+	<p>
+		<label for="user_email">Email</label>
+		<?php echo form_input('user_email', set_value('user_email')); ?>
 	</p>
 	<p>
 		<label for="user_password">Password</label>
-		<input type="password" id="user_password" class="input_text" name="user_password" />
+		<?php echo form_password('user_password'); ?>
 	</p>
 	<p>
 		<label for="user_confirm_password">Confirm Password</label>
-		<input type="password" id="user_confirm_password" class="input_text" name="user_confirm_password" />
+		<?php echo form_password('user_confirm_password'); ?>
 	</p>
 	<p id="next_step"><input type="submit" id="submit" value="Finish" /></p>
 	<br class="clear" />

@@ -29,6 +29,9 @@ body {
 /* Notifications */
 #notification
 {
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
 	color:#fff;
 	text-align:center;
 }
@@ -51,8 +54,8 @@ small 			{font-size:12px;}
 #header 
 {
 	background: 			url("../images/header/header.jpg") repeat-x 0px 0px;
-	border-top: 			1px solid #35AED7;
-	border-bottom:			1px solid #35AED7;
+	border: 			1px solid #35AED7;
+	border-bottom:			none;
 	height:					40px;
 	text-shadow:			1px 1px #474747;
 	-moz-border-radius: 	10px 10px 0px 0px;
@@ -92,6 +95,7 @@ small 			{font-size:12px;}
 	background:				#fff;
 	border:					1px solid #bbb;
 	border-top: 			none;
+	margin-bottom:15px;
 	padding:				20px 15px 15px 15px;
 	-moz-border-radius: 	0px 0px 10px 10px;
 	-webkit-border-radius:	0px 0px 10px 10px;
