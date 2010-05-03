@@ -4,23 +4,31 @@ UPGRADE
 Remember to always run these steps in order. They are ordered intentionally to either
 minimize or totally remove downtime during an upgrade.
 
-10/03/2010 - v0.9.8-rc1 to v0.9.8-rc2
--------------------------------------
+03/05/2010 - v0.9.8-rc2 to v0.9.8
+----------------------------
 
 1. Replace old files with new files.
 
-2. Run the following SQL commands: 
+2. Run http://example.com/index.php/upgrade in your browser.
 
-	INSERT INTO settings ( `default`, `type`, `value`, `slug`, `title`) 
+
+10/03/2010 - v0.9.8-rc1 to v0.9.8-rc2
+---------------------------------
+
+1. Replace old files with new files.
+
+2. Run the following SQL commands:
+
+	INSERT INTO settings ( `default`, `type`, `value`, `slug`, `title`)
 		VALUES ( 'v0.9.8', 'text', '0.9.8-rc1', 'version', 'Version');
-		
+
 3. Browse to http://example.com/index.php/upgrade.
-	
+
 4. Replace any remaining references to {$global.whatever} with {$pyro.whatever} in your theme views.
 
 
 10/03/2010 - v0.9.8-beta3 to v0.9.8-rc1
----------------------------------------
+----------------------------------
 
 1. Replace old files with new files.
 
