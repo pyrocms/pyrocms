@@ -1,5 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Comments helper
+ *
+ * @package		PyroCMS
+ * @subpackage	Comments Module
+ * @category	Helper
+ * @author		Phil Sturgeon - PyroCMS Dev Team
+ */
 
+/**
+ * Function to display a comment
+ *
+ * @param int $ref_id The ID of the comment (I guess?)
+ * @param bool $reference Whether to use a reference or not (?)
+ * @return void
+ */
 function display_comments($ref_id, $reference = NULL)
 {
 	$ci =& get_instance();
@@ -13,6 +28,12 @@ function display_comments($ref_id, $reference = NULL)
 	$ci->load->view('comments/comments', array('module' => $reference, 'module_id' => $ref_id));
 }
 
+/**
+ * Function to process the items in an X amount of comments
+ * 
+ * @param array $comments The comments to process
+ * @return array
+ */
 function process_comment_items($comments)
 {
 	$ci =& get_instance();

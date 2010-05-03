@@ -12,8 +12,8 @@
 				</li>
 				
 				<li class="even">
-					<label><?php echo lang('photos.desc_label');?></label>
-					<?php echo form_input('description', set_value('description'), 'maxlength="100"'); ?>
+					<label><?php echo lang('photos.caption_label');?></label>
+					<?php echo form_input('caption', set_value('caption'), 'maxlength="100"'); ?>
 					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				</li>
 			</ol>
@@ -38,8 +38,8 @@
 					<ul id="photo-list" class="list-unstyled">
 						<?php foreach($photos as $photo): ?>
 							<li class="float-left align-center spacer-right" style="height:150px">
-								<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" title="<?php echo $photo->description;?>" rel="modal">
-									<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->description));?>
+								<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" title="<?php echo $photo->caption;?>" rel="modal">
+									<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->caption));?>
 								</a><br />
 								<?php echo form_checkbox('action_to[]', $photo->id); ?>
 							</li>

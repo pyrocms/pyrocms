@@ -20,7 +20,6 @@ $lang['forums_list_categories_title'] 				= 'List Categories';
 $lang['forums_create_forum_title']					= 'Add Forum';
 $lang['forums_edit_forum_title']					= 'Edit Forum "%s"';
 $lang['forums_forum_title'] 						= 'Forums';
-$lang['forums_forum_forum_title'] 					= 'Add Forum';
 $lang['forums_list_forum_title']					= 'List Forums';
 
 // messages

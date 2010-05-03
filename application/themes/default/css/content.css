@@ -39,14 +39,11 @@ ul#photos li {
 	width:200px;
 }
 
-fieldset#comments {
-	float:left;
-	padding: 1em;
-	width:44%;
-}
+/* Comments */
+#comment-list-wrapper {	float:left;	width:45%; }
+#comment-list-wrapper ul { list-style-type:none; margin:0; }
+#comment-list-wrapper ul li { margin-bottom:10px; }
+.comments_list li .gravatar { float:left; margin:0px 10px 5px 0px; }
+.comments_list li .comment_date { font-size:10px; padding:0; }
 
-fieldset#write-comment {
-	float:right;
-	padding: 1em;
-	width:44%;
-}
+fieldset#write-comment { float:right; padding: 1em;	width:45%; }

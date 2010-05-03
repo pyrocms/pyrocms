@@ -1,12 +1,25 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Page layout model
+ * 
+ * @author Phil Sturgeon - PyroCMS Dev Team
+ * @package Pyrocms
+ * @subpackage Pages module
+ * @category Module
+ * 
+ */
 class Page_layouts_m extends MY_Model
 {
-
-	// Get stuff is handled by MY_Model magic fun.
 	
-    // Create a new page layout
-    function insert($input = array())
+    /**
+     * Create a new page layout
+	 * 
+	 * @access public
+	 * @param array $input The input to insert into the DB
+	 * @return mixed
+	 * 
+     */
+    public function insert($input = array())
     {
         $this->load->helper('date');
         
@@ -15,8 +28,14 @@ class Page_layouts_m extends MY_Model
         return parent::insert($input);
     }
     
-    // Update a page layout
-    function update($id = 0, $input = array())
+    /**
+     * Update a page layout
+	 * 
+	 * @param int $id The ID of the page layout to update
+	 * @param array $input The data to update
+	 * @return mixed
+     */
+    public function update($id = 0, $input = array())
     {
         $this->load->helper('date');
         
@@ -24,7 +43,5 @@ class Page_layouts_m extends MY_Model
         
         return parent::update($id, $input);
     }
-    
 }
-
 ?>

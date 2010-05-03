@@ -205,7 +205,7 @@ class Admin extends Admin_Controller
 	{
 		$this->load->library('validation');
 		$rules['userfile'] = 'trim';
-		$rules['description'] = 'trim|required';
+		$rules['caption'] = 'trim|required';
 		$this->validation->set_rules($rules);
 		$this->validation->set_fields();
 		
@@ -221,7 +221,7 @@ class Admin extends Admin_Controller
 			{
 				$image = $this->upload->data();
 					
-				if( $this->photos_m->insert($image, $id, $this->input->post('description')) )
+				if( $this->photos_m->insert($image, $id, $this->input->post('caption')) )
 				{
 					$this->session->set_flashdata('success', lang('photos.upload_success'));
 				}
@@ -313,4 +313,3 @@ class Admin extends Admin_Controller
 		return TRUE;
 	}
 }
-?>

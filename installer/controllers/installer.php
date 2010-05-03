@@ -3,13 +3,19 @@
  * @author 		Yorick Peterse - PyroCMS development team
  * @package		PyroCMS
  * @subpackage	Installer
- *
+ * @category	Application
  * @since 		v0.9.6.2
  *
  * Installer controller.
  */
 class Installer extends Controller 
 {
+	/**
+	 * Array containing the directories that need to be writeable
+	 *
+	 * @access private
+	 * @var array
+	 */
 	private $writeable_directories = array(
 		'codeigniter/cache',
 		'codeigniter/logs',
@@ -23,21 +29,38 @@ class Installer extends Controller
 		'application/uploads/assets/cache'
 	);
 	
+	/**
+	 * Array containing the files that need to be writeable
+	 *
+	 * @access private
+	 * @var array
+	 */
 	private $writeable_files = array(
 		'application/config/config.php',
 		'application/config/database.php' 
 	);
 	
-	function __construct()
+	/**
+	 * Constructor method
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		
 		// Load the config file that contains a list of supported servers
 		$this->load->config('servers');
 	}
 	
-	// Index function
-	function index()
+	/**
+	 * Index method
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
 		$data['page_output'] = $this->load->view('main','',TRUE);
@@ -46,8 +69,13 @@ class Installer extends Controller
 		$this->load->view('global',$data);
 	}
 	
-	// Index function
-	function step_1()
+	/**
+	 * Pre installation
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function step_1()
 	{
 		if($_POST)
 		{									
@@ -88,8 +116,8 @@ class Installer extends Controller
 			}
 		}
 		
-		$supported_servers = $this->config->item('supported_servers');
-		$data->server_options = array();
+		$supported_servers 		= $this->config->item('supported_servers');
+		$data->server_options 	= array();
 	
 		foreach($supported_servers as $key => $server)
 		{
@@ -105,8 +133,13 @@ class Installer extends Controller
 		));
 	}
 	
-	// Install function - First step
-	function step_2()
+	/**
+	 * First actual installation step
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function step_2()
 	{
 		// Did the user enter the DB settings ?
 		if(!$this->session->userdata('step_1_passed'))
@@ -145,8 +178,13 @@ class Installer extends Controller
 		$this->load->view('global',$final_data);
 	}
 	
-	// The second step 
-	function step_3()
+	/**
+	 * Another step, yay!
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function step_3()
 	{
 		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed'))
 		{
@@ -180,8 +218,13 @@ class Installer extends Controller
 		$this->load->view('global', $final_data); 
 	}
 	
-	// The third step
-	function step_4()
+	/**
+	 * Another step, damn thee steps, damn thee!
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function step_4()
 	{
 		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed') OR !$this->session->userdata('step_3_passed'))
 		{
@@ -192,26 +235,58 @@ class Installer extends Controller
 		// Check to see if the user submitted the installation form
 		if($_POST)
 		{
+			// Do we have all the required data?
+			if ( empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['user_confirm_password']) )
+			{
+				// Show an error message
+				$this->session->set_flashdata('message','Please enter the details used for creating the default user');
+				$this->session->set_flashdata('message_type','error');
+
+				// Redirect
+				redirect('installer/step_4');
+			}
+			
 			// Only install PyroCMS if the provided data is correct
 			if($this->installer_lib->validate() == TRUE)
 			{
-				// Install the system and display the results
-				$install_results = $this->installer_lib->install($_POST);
-
-				// Validate the results and create a flashdata message
-				if($install_results['status'] == TRUE)
+				if ($_POST['user_password'] == $_POST['user_confirm_password'] )
 				{
-					// Show an error message
-					$this->session->set_flashdata('message', $install_results['message']);
-					$this->session->set_flashdata('message_type','success');
+					// Install the system and display the results
+					$install_results = $this->installer_lib->install($_POST);
 
-					// Redirect
-					redirect('installer/complete');
+					// Validate the results and create a flashdata message
+					if($install_results['status'] == TRUE)
+					{
+						// Show a message
+						$this->session->set_flashdata('message', $install_results['message']);
+						$this->session->set_flashdata('message_type','success');
+
+						// Store the default username and password in the session data
+						$this->session->set_flashdata('user', array(
+							'email'			=> $this->input->post('user_email'),
+							'password'		=> $this->input->post('user_password'),
+							'firstname'		=> $this->input->post('user_firstname'),
+							'lastname'		=> $this->input->post('user_lastname')
+						));
+
+						// Redirect
+						redirect('installer/complete');
+					}
+					else
+					{
+						// Show an error message
+						$this->session->set_flashdata('message', $install_results['message']);
+						$this->session->set_flashdata('message_type','error');
+
+						// Redirect
+						redirect('installer/step_4');
+					}
 				}
+				// User's passwords don't match
 				else
 				{
 					// Show an error message
-					$this->session->set_flashdata('message', $install_results['message']);
+					$this->session->set_flashdata('message','The entered passwords do not match');
 					$this->session->set_flashdata('message_type','error');
 
 					// Redirect
@@ -234,15 +309,21 @@ class Installer extends Controller
 		$this->load->view('global', $final_data); 
 	}
 	
-	// All done
-	function complete()
+	/**
+	 * We're done, thank god for that
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function complete()
 	{
 		$server_name = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
 		// Able to use clean URLs?
 		$admin_uri = $supported_servers[$server_name]['rewrite_support'] !== FALSE ? 'admin' : 'index.php/admin';
-		
+
+		$data['admin_user'] = $this->session->flashdata('user');
 		$data['admin_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', $admin_uri, $this->input->server('SCRIPT_NAME'));
 
 		// Load the view files
@@ -250,4 +331,3 @@ class Installer extends Controller
 		$this->load->view('global',$data); 
 	}
 }
-?>

@@ -7,7 +7,7 @@ class Photos_m extends MY_Model
     	return parent::order_by('`order`')->get_many_by('album_id', $album_id);
     }
     
-	function insert($image = array(), $album_id = '', $description)
+	function insert($image, $album_id, $caption)
     {
         $this->load->helper('date');
         $filename = $image['file_name'];
@@ -24,7 +24,7 @@ class Photos_m extends MY_Model
         return parent::insert(array(
         	'filename'		=> $filename,
         	'album_id'		=> $album_id,
-        	'description'	=> $description,
+        	'caption'	=> $caption,
         	'updated_on'	=> now()
         ));
     }

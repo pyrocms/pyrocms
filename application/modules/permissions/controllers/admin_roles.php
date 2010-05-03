@@ -1,98 +1,174 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Roles controller for the permissions module
+ * 
+ * @author Phil Sturgeon - PyroCMS Dev Team
+ * @package PyroCMS
+ * @subpackage Permissions Module
+ * @category Modules
+ *
+ */
 class Admin_roles extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Validation rules
+	 * @access private
+	 * @var array
+	 */
+	private $validation_rules = array();
+	
+	/**
+	 * Constructor method
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
+		
+		// Load the required classes
 		$this->load->model('permissions_m');
+		$this->load->library('form_validation');
 		$this->lang->load('permissions');
+		
+		// Validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'title',
+				'label' => lang('perm_title_label'),
+				'rules' => 'trim|required|max_length[100]'
+			),
+			array(
+				'field' => 'name',
+				'label' => lang('perm_abbrev_label'),
+				'rules' => 'trim|required|max_length[50]'
+			),
+		);
+
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
         
         $this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	
-	function index()
+	/**
+	 * Index method
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
-		redirect('admin/permissions/index');
+		// Redirect
+		redirect('admin/permissions');
 	}	
 	
-	// Admin: Create a new permission role
-	function create()
-	{	
-		$this->load->library('validation');
-		$rules['title'] = 'trim|required|max_length[100]';
-		$rules['name'] = 'trim|required|max_length[50]';
-		$this->validation->set_rules($rules);
-		
-		$fields['name'] = 'name';
-		$this->validation->set_fields($fields);
-		
-		foreach(array_keys($rules) as $field)
+	/**
+	 * Create a new permission role
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function create()
+	{		
+		// Valid data?
+		if ($this->form_validation->run())
 		{
-			$this->data->permission_role->$field = (isset($_POST[$field])) ? $this->validation->$field : '';
-		}
-		
-		if ($this->validation->run())
-		{
-			if ( $this->permissions_m->newRole($_POST) > 0 )
+			// Got update
+			if ( $this->permissions_m->new_role($_POST) > 0 )
 			{
-				$this->session->set_flashdata('success', $this->lang->line('perm_role_add_success'));			
+				$this->session->set_flashdata('success', lang('perm_role_add_success'));			
 			}
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('perm_role_add_error'));
+				$this->session->set_flashdata('error', lang('perm_role_add_error'));
 			}
-			redirect('admin/permissions/index');
+			
+			// Redirect
+			redirect('admin/permissions');
 		}
+		else
+		{
+			// Loop through each validation rule
+			foreach($this->validation_rules as $rule)
+			{
+				$permission_role->{$rule['field']} = set_value($rule['field']);
+			}
+		}
+		
+		// Render the view
+		$this->data->permission_role =& $permission_role;
 		$this->template->build('admin/roles/form', $this->data);
 	}	
 	
-	// Admin: Edit a permission role
-	function edit($id = 0)
+	
+	/**
+	 * Edit a permission role
+	 * 
+	 * @access public
+	 * @param int $id The ID of the permission to edit
+	 * @return void
+	 */
+	public function edit($id = 0)
 	{	
-		if (empty($id)) redirect('admin/permissions/index');
+		// Got ID?
+		if (empty($id)) redirect('admin/permissions');
 		
-		$this->data->permission_role = $this->permissions_m->getRole( $id );
-		if (!$this->data->permission_role) 
+		if ( !$permission_role = $this->permissions_m->get_role($id) ) 
 		{
 			$this->session->set_flashdata('error', $this->lang->line('perm_role_not_exist_error'));
 			redirect('admin/permissions/roles/create');
 		}
 		
-		$this->load->library('validation');
-		$rules['title'] = 'trim|required|max_length[100]';
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
-		
-		foreach(array_keys($rules) as $field)
+		// Got validation?
+		if ( $this->form_validation->run() )
 		{
-			if(isset($_POST[$field])) $this->data->permission_role->$field = $this->validation->$field;
+			$this->permissions_m->update_role($id, $_POST);
+			$this->session->set_flashdata('success', $this->lang->line('perm_role_save_success'));	
+			
+			// Redirect		
+			redirect('admin/permissions');
+		}
+		else
+		{
+			// Loop through each validation rule
+			foreach( $this->validation_rules as $rule )
+			{
+				// Ignore if there was no POST data specified
+				if ( $this->input->post($rule['field']) !== FALSE )
+				{
+					$permission_role->{$rule['field']} = set_value($rule['field']);
+				}
+			}
 		}
 		
-		if ($this->validation->run())
-		{
-			$this->permissions_m->updateRole($id, $_POST);
-			$this->session->set_flashdata('success', $this->lang->line('perm_role_save_success'));			
-			redirect('admin/permissions/index');
-		}
+		// Render the view
+		$this->data->permission_role =& $permission_role;
 		$this->template->build('admin/roles/form', $this->data);
 	}
 	
-	// Admin: Delete permission role(s)
-	function delete($id = 0)
+	/**
+	 * Delete permission role(s)
+	 * 
+	 * @access public
+	 * @param int $id The ID of the permission to delete
+	 * @return void
+	 */
+	public function delete($id = 0)
 	{	
 		// Delete one
 		if($id)
 		{
-			$this->permissions_m->deleteRole($id);
-			$this->permissions_m->deleteRule(array('permission_role_id'=>$id));		
+			$this->permissions_m->delete_role($id);
+			$this->permissions_m->delete_rule(array('permission_role_id'=>$id));		
 		}
 		else // Delete multiple
 		{
 			foreach (array_keys($this->input->post('delete')) as $id)
 			{
-				$this->permissions_m->deleteRole($id);
-				$this->permissions_m->deleteRule(array('permission_role_id'=>$id));
+				$this->permissions_m->delete_role($id);
+				$this->permissions_m->delete_rule(array('permission_role_id'=>$id));
 			}
 		}
 		$this->session->set_flashdata('success', $this->lang->line('perm_role_delete_success'));

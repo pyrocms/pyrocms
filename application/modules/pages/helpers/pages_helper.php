@@ -1,5 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Pages helper
+ *
+ * @author Phil Sturgeon - PyroCMS Dev Team
+ * @package PyroCMS
+ * @subpackage Pages Module
+ * @category Modules
+ * 
+ */
 
+/**
+ * Get a page's URL
+ * 
+ * @param int $id The ID of the page
+ * @return string
+ */
 function page_url($id)
 {
 	$CI =& get_instance();
@@ -8,6 +23,14 @@ function page_url($id)
 	return site_url($uri);
 }
 
+/**
+ * Create an anchor to the page
+ *
+ * @param int $id The ID of the page
+ * @param string $text The text to display in the anchor
+ * @param array $options Optional options, how awesome sounds that?
+ * @return string
+ */
 function page_anchor($id, $text = '', $options = array())
 {
 	$CI =& get_instance();
@@ -16,7 +39,16 @@ function page_anchor($id, $text = '', $options = array())
 	return anchor($uri, $text, $options);
 }
 
-
+// #TODO: Document the functions below
+/**
+ * Create a navigation tree
+ * 
+ * @param array $tree ?
+ * @param int $ParentID The ID of the parent item
+ * @param int $lvl The amount of items to include in the tree
+ * @param string $c_parent ?
+ * @param string $c_id ?
+ */
 function create_tree_select($tree, $ParentID, $lvl, $c_parent = "", $c_id = "")
 {
     if (!isset($tree[$ParentID])) return;
@@ -41,7 +73,13 @@ function create_tree_select($tree, $ParentID, $lvl, $c_parent = "", $c_id = "")
     }
 }
 
-// Creates an array where sub elements are stored in array[id]->sub
+/**
+ * Creates an array where sub elements are stored in array[id]->sub
+ * 
+ * @param array $tree
+ * @param int $ParentID The ID of the parent
+ * @param int $lvl The amount of items to include in the tree
+ */
 function create_tree_array($tree, $ParentID = 0, $lvl = 0)
 {
 	$return = array();

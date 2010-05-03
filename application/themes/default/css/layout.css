@@ -121,33 +121,6 @@ textarea {
 	list-style: none;
 }
 
-/* Comments */
-.comments_list {
-	list-style-type:none;
-	margin:0;
-}
-.comments_list li {
-	margin-bottom:10px;
-}
-.comments_list li .comment_heading:after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-.comments_list li .gravatar {
-	float:left;
-	margin:0px 10px 5px 0px;
-}
-.comments_list li .comment_author {
-	padding:0;
-}
-.comments_list li .comment_date {
-	font-size:12px;
-	padding:0;
-}
-
 /** FOOTER */
 
 #footer {

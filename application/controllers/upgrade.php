@@ -74,9 +74,18 @@ class Upgrade extends Controller
 
 	function upgrade_098()
 	{
-		//create the meta table
-		$this->dbforge->add_field('id', TRUE);
+		//rename the users columns
+		echo 'Renaming photo description to captions...<br/>';
+		$this->dbforge->modify_column('users', array(
+			'description' => array(
+				'name' 	  => 'caption',
+				'type' 	  => 'VARCHAR',
+				'constraint' => 100,
+			)
+		));
 
+		echo 'Creating forum tables...<br/>';
+		$this->dbforge->add_field('id', TRUE);
 		$this->dbforge->add_field(array(
 			'title' => array(
 				'type' 	  	  => 'VARCHAR',
@@ -91,7 +100,6 @@ class Upgrade extends Controller
 			)
 		));
 		
-		echo 'Creating forum tables...<br/>';
 		$this->dbforge->create_table('forum_categories');
 
 		$this->db->query("CREATE TABLE `forum_posts` (

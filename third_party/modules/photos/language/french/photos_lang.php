@@ -5,7 +5,7 @@ $lang['photos.title'] 							= 'Photos'; #translate
 // labels
 $lang['photos.upload_label'] 					= 'Upload'; #translate
 $lang['photos.photo_label'] 					= 'Photo'; #translate
-$lang['photos.desc_label'] 						= 'Description'; #translate
+$lang['photos.caption_label'] 						= 'Description'; #translate
 $lang['photos.view_label'] 						= 'View'; #translate
 $lang['photos.edit_label'] 						= 'Edit'; #translate
 $lang['photos.delete_label'] 					= 'Delete'; #translate

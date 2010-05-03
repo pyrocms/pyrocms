@@ -1,8 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Comments model
+ *
+ * @package		PyroCMS
+ * @subpackage	Comments Module
+ * @category	Models
+ * @author		Phil Sturgeon - PyroCMS Dev Team
+ */
 class Comments_m extends MY_Model
 {
-    		
+    /**
+     * Get a comment based on the ID
+	 * @access public
+	 * @param int $id The ID of the comment
+	 * @return array
+     */
   	public function get($id)
   	{
     	$this->db->select('c.*')
@@ -19,6 +31,13 @@ class Comments_m extends MY_Model
     	return $this->db->get()->row();
   	}
   	
+	/**
+	 * Get recent comments
+	 * 
+	 * @access public
+	 * @param int $limit The amount of comments to get
+	 * @return array
+	 */
   	public function get_recent($limit = 10)
   	{
     	$this->db->order_by('comments.created_on', 'desc');
@@ -31,6 +50,15 @@ class Comments_m extends MY_Model
     	return $this->get_all();
   	}
   	
+	/**
+	 * Get something based on a module item (..the fuck?)
+	 * 
+	 * @access public
+	 * @param string $module The name of the module
+	 * @param int $module_id The ID of the module
+	 * @param int $is_active Is the module active?
+	 * @return array
+	 */
   	public function get_by_module_item($module, $module_id, $is_active = 1)
   	{
     	$this->db
@@ -42,6 +70,12 @@ class Comments_m extends MY_Model
 	    return $this->get_all();
   	}
   	
+	/**
+	 * Get all comments
+	 * 
+	 * @access public
+	 * @return array
+	 */
   	public function get_all()
   	{
     	$this->db->select('comments.*');
@@ -54,6 +88,13 @@ class Comments_m extends MY_Model
     	return parent::get_all();
   	}
 	
+	/**
+	 * Insert a new comment
+	 * 
+	 * @access public
+	 * @param array $input The data to insert
+	 * @return void
+	 */
 	public function insert($input)
 	{
 		$this->load->helper('date');
@@ -72,6 +113,14 @@ class Comments_m extends MY_Model
 		));
 	}
 	
+	/**
+	 * Update an existing comment
+	 * 
+	 * @access public
+	 * @param int $id The ID of the comment to update
+	 * @param array $input The array containing the data to update
+	 * @return void
+	 */
 	public function update($id, $input)
 	{
   		$this->load->helper('date');
@@ -88,15 +137,28 @@ class Comments_m extends MY_Model
 		));
 	}
 	
+	/**
+	 * Approve a comment
+	 * 
+	 * @access public
+	 * @param int $id The ID of the comment to approve
+	 * @return mixed
+	 */
 	public function approve($id)
 	{
 		return parent::update($id, array('is_active' => 1));
 	}
 	
+	/**
+	 * Unapprove a comment
+	 * 
+	 * @access public
+	 * @param int $id The ID of the comment to unapprove
+	 * @return mixed
+	 */
 	public function unapprove($id)
 	{
 		return parent::update($id, array('is_active' => 0));
 	}
-
 }
 ?>

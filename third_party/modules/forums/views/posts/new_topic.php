@@ -23,7 +23,7 @@
 	<tbody>
 		<tr>
 			<th>Title:</th>
-			<td><?php echo form_input(array('name' => 'title', 'id' => 'title', 'value' => set_value('title'))); ?><?php echo form_error('title', '<p class="form_error">', '</p>'); ?></td>
+			<td><?php echo form_input(array('name' => 'title', 'id' => 'title', 'value' => htmlentities(set_value('title')))); ?><?php echo form_error('title', '<p class="form_error">', '</p>'); ?></td>
 		</tr>
 		<tr>
 			<th>Formatting:</th>

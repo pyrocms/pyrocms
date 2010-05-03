@@ -10,7 +10,7 @@
 |
 */
 
-$hook['pre_controller'] = array(
+$hook['pre_system'] = array(
 	'function' => 'pick_language',
 	'filename' => 'pick_language.php',
 	'filepath' => 'hooks'

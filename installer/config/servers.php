@@ -9,9 +9,14 @@
 */
 
 $config['supported_servers'] = array(
+
+	'apache_wo' => array(
+		'name' => 'Apache (without mod_rewrite)',
+		'rewrite_support' => FALSE
+	),
 	
-	'apache' => array(
-		'name' => 'Apache (/w mod_rewrite)',
+	'apache_w' => array(
+		'name' => 'Apache (with mod_rewrite)',
 		'rewrite_support' => TRUE
 	),
 	

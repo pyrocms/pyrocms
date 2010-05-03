@@ -42,7 +42,7 @@ $config['index_page'] = '__INDEX__';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= "PATH_INFO";
+$config['uri_protocol']	= "AUTO";
 
 /*
 |--------------------------------------------------------------------------
@@ -240,6 +240,8 @@ $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update'] 		= 300;
+$config['cookie_domain']		= preg_replace("/^www\./", "", $_SERVER['HTTP_HOST']);
+$config['cookie_path']			= '/';
 
 /*
 |--------------------------------------------------------------------------
@@ -264,7 +266,7 @@ $config['cookie_path']		= BASE_URI;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -317,7 +319,7 @@ $config['rewrite_short_tags'] = FALSE;
 |  Native Auto-load
 | -------------------------------------------------------------------
 | 
-| Nothing to do with cnfig/autoload.php, this allows PHP autoload to work
+| Nothing to do with config/autoload.php, this allows PHP autoload to work
 | for controller types and some third-party libraries.
 |
 */
