@@ -4,6 +4,7 @@ CHANGELOG
 v0.9.8.1
 -------
 
+* Theme Layouts can now be assigned to Page Layouts
 * Installer can now get server information from (and install to) remote database servers.
 
 

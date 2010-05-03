@@ -44,4 +44,3 @@ class Page_layouts_m extends MY_Model
         return parent::update($id, $input);
     }
 }
-?>

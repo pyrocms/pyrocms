@@ -8,6 +8,7 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 $lang['page_layouts.updated_label'] 				= 'Updated';
 $lang['page_layouts.actions_label'] 				= 'Actions';
 $lang['page_layouts.title_label'] 					= 'Title';
+$lang['page_layouts.theme_layout_label'] 		= 'Theme Layout';
 
 $lang['page_layouts.edit_label'] 					= 'Edit';
 $lang['page_layouts.delete_label'] 					= 'Delete';
@@ -32,5 +33,3 @@ $lang['page_layouts.already_exist_error'] 			= 'A page layout with the slug "%s"
 $lang['page_layouts.variable_introduction']			= 'In this input box there are two variables available';
 $lang['page_layouts.variable_title']				= 'Contains the title of the page.';
 $lang['page_layouts.variable_body']					= 'Contains the HTML body of the page.';
-
-?>

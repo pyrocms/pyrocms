@@ -32,8 +32,13 @@
 								<label for="title"><?php echo lang('page_layouts.title_label');?></label>
 								<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
 							</li>
-					
+
 							<li>
+								<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label>
+								<?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?>
+							</li>
+					
+							<li class="even">
 								<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
 							</li>
 						</ol>

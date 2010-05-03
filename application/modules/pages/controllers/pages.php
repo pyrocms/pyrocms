@@ -62,15 +62,9 @@ class Pages extends Public_Controller
     	}
     	
     	// If it has .rss on the end then parse the RSS feed
-        if(preg_match('/.rss$/', end($url_segments)))
-        {
-        	$this->_rss($url_segments);
-        }
-        
-        else
-        {
-        	$this->_page($url_segments);
-        }
+        preg_match('/.rss$/', end($url_segments))
+			? $this->_rss($url_segments)
+        	: $this->_page($url_segments);
     }
     
 	/**
@@ -89,7 +83,8 @@ class Pages extends Public_Controller
         {
         	$page = $this->_404($url_segments);
         }
-		
+
+		// If the page is missing, set the 404 status header
         if( $page->slug == '404')
         {
         	$this->output->set_status_header(404);
@@ -107,12 +102,18 @@ class Pages extends Public_Controller
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url($this->uri->uri_string(). '.rss').'" />');
 	    }
         
-    	// Wrap the page with a pay layout, otherwise use the default 'Home' layout
+    	// Wrap the page with a page layout, otherwise use the default 'Home' layout
 	    if(!$page->layout = $this->page_layouts_m->get($page->layout_id))
 	    {
 	    	// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
 	    	$page->layout = $this->page_layouts_m->get(1);
 	    }
+
+		// If a Page Layout has a Theme Layout that exists, use it
+		if(!empty($page->layout->theme_layout) && $this->template->theme_layout_exists($page->layout->theme_layout))
+		{
+			$this->template->set_layout($page->layout->theme_layout);
+		}
 	    
         // Parser does not need ALL information for this bit, and I hate the Dwoo object syntax
         $page_array = array('page' => (array) $page);
@@ -219,5 +220,3 @@ class Pages extends Public_Controller
         return $page;
     }
 }
-
-?>

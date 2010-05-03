@@ -8,6 +8,7 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 $lang['page_layouts.updated_label'] 				= 'Aktualisiert';
 $lang['page_layouts.actions_label'] 				= 'Aktionen';
 $lang['page_layouts.title_label'] 					= 'Titel';
+$lang['page_layouts.theme_layout_label'] 		= 'Theme Layout'; #translate
 
 $lang['page_layouts.edit_label'] 					= 'Bearbeiten';
 $lang['page_layouts.delete_label'] 					= 'Löschen';

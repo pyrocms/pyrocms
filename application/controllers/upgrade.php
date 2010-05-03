@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.8.1');
 
 	function _remap()
 	{
@@ -72,11 +72,53 @@ class Upgrade extends Controller
   		}
  	}
 
+ 	// Upgrade
+ 	function upgrade_0981()
+	{
+		echo 'Adding theme_layout field to page_layouts table...<br/>';
+		//add display_name to profiles table
+		$this->dbforge->add_column('page_layouts', array(
+			'theme_layout' => array(
+				'type' 	  	=> 'VARCHAR',
+				'constraint' => '100',
+				'null' 		=> TRUE
+			)
+        ));
+
+		echo 'Adding display_name field to profiles table...<br/>';
+		$this->dbforge->add_column('profiles', array(
+			'display_name' => array(
+				'type' 	  	=> 'VARCHAR',
+				'constraint' => '100',
+				'null' 		=> TRUE
+			)
+        ));
+
+        //get the profiles
+        $this->db->select('profiles.id, users.id as user_id, profiles.first_name, profiles.last_name');
+		$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
+		$profile_result = $this->db->get('users')->result_array();
+
+		//insert the display names into profiles
+		foreach ($profile_result as $profile_data)
+		{
+			echo 'Inserting user ' . $profile_data['user_id'] . ' display_name into profiles table...<br/>';
+
+			$data = array('display_name' => $profile_data['first_name'].' '.$profile_data['last_name']);
+			$this->db->where('id', $profile_data['id']);
+			$this->db->update('profiles', $data);
+			echo '<br/>';
+		}
+
+		return TRUE;
+	}
+
+	
 	function upgrade_098()
 	{
 		//rename the users columns
 		echo 'Renaming photo description to captions...<br/>';
-		$this->dbforge->modify_column('users', array(
+		$this->dbforge->modify_column('photos', array(
 			'description' => array(
 				'name' 	  => 'caption',
 				'type' 	  => 'VARCHAR',
@@ -403,37 +445,5 @@ class Upgrade extends Controller
 		return TRUE;
 	}
 	
-
- 	// Upgrade
- 	function upgrade_0981()
-	{
-		//add display_name to profiles table
-		$this->dbforge->add_column('profiles', array(
-			'display_name' => array(
-				'type' 	  	=> 'VARCHAR',
-				'constraint' => '100',
-				'null' 		=> TRUE,
-			)
-        ));
-        
-        //get the profiles
-        $this->db->select(array('profiles.id, users.id as user_id, profiles.first_name, profiles.last_name'));
-		$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
-		$profile_result = $this->db->get('users')->result_array();
-
-		//insert the display names into profiles
-		foreach ($profile_result as $profile_data)
-		{
-			echo 'Inserting user ' . $profile_data['user_id'] . ' display_name into profiles table...<br/>';
-
-			$data = array('display_name' => $profile_data['first_name'].' '.$profile_data['last_name']);
-			$this->db->where('id', $profile_data['id']);
-			$this->db->update('profiles', $data);
-			echo '<br/>';
-		}
-		
-		
-		return TRUE;
-	}
 }
 ?>

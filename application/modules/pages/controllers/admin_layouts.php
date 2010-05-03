@@ -41,6 +41,11 @@ class Admin_layouts extends Admin_Controller
 				'rules' => 'trim|required|max_length[60]'
 			),
 			array(
+				'field' => 'theme_layout',
+				'label' => lang('page_layouts.theme_layout_label'),
+				'rules' => 'trim'
+			),
+			array(
 				'field' => 'body',
 				'label' => lang('page_layouts.body_label'),
 				'rules' => 'trim|required'
@@ -90,6 +95,7 @@ class Admin_layouts extends Admin_Controller
 			// Insert the page
 	    	$id = $this->page_layouts_m->insert(array(
 				'title' 	=> $this->input->post('title'),
+				'theme_layout' 	=> $this->input->post('theme_layout'),
 				'body' 		=> $this->input->post('body', FALSE),
 				'css' 		=> $this->input->post('css')
 			));
@@ -109,8 +115,13 @@ class Admin_layouts extends Admin_Controller
 			redirect('admin/pages/layouts');
 	    }
 
+		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
+
 	    // Assign data for display
-	    $this->data->page_layout =& $page_layout;
+	    $this->load->vars(array(
+			'page_layout' => &$page_layout,
+			'theme_layouts' => array_combine($theme_layouts, $theme_layouts)
+		));
 	    
 	    // Load WYSIWYG editor
 		$this->template->append_metadata( js('codemirror/codemirror.js') );
@@ -151,6 +162,7 @@ class Admin_layouts extends Admin_Controller
 			// Run the update code with the POST data	
 			$this->page_layouts_m->update($id, array(
 				'title' 	=> $this->input->post('title'),
+				'theme_layout' 	=> $this->input->post('theme_layout'),
 				'body' 		=> $this->input->post('body', FALSE),
 				'css' 		=> $this->input->post('css')
 			));			
@@ -162,9 +174,14 @@ class Admin_layouts extends Admin_Controller
 			redirect('admin/pages/layouts');
 	    }
 
-	    // Assign data for display
-	    $this->data->page_layout =& $page_layout;
+		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
 		
+	    // Assign data for display
+	    $this->load->vars(array(
+			'page_layout' => &$page_layout,
+			'theme_layouts' => array_combine($theme_layouts, $theme_layouts)
+		));
+
 	    // Load WYSIWYG editor
 		$this->template->append_metadata( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/layouts/form', $this->data);
