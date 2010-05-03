@@ -111,7 +111,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '0.9.8.1-dev');
+define('CMS_VERSION', '0.9.8');
 
 
 /*
