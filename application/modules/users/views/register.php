@@ -9,38 +9,48 @@
 
 <?php if(!empty($error_string)):?>
 <div class="error-box"><?php echo $error_string;?></div>
-<?php endif;?>
+<?php endif;?>  
 
 <?php echo form_open('register', array('id'=>'register')); ?>
 
 <p class="float-left spacer-right">
 	<label for="first_name"><?php echo lang('user_first_name') ?></label><br/>
-	<input type="text"name="first_name" maxlength="40" value="<?php echo $user_data->first_name; ?>" />
+	<input type="text" name="first_name" maxlength="40" value="<?php echo $user_data->first_name; ?>" />
 </p>
 
 <p>
 	<label for="last_name"><?php echo lang('user_last_name') ?></label><br/>
-	<input type="text"name="last_name" maxlength="40" value="<?php echo $user_data->last_name; ?>" />
+	<input type="text" name="last_name" maxlength="40" value="<?php echo $user_data->last_name; ?>" />
+</p>
+
+<p class="float-left spacer-right">
+	<label for="username"><?php echo lang('user_username') ?></label><br/>
+	<input type="text" name="username" maxlength="100" value="<?php echo $user_data->username; ?>" />
+</p>
+
+<p>
+	<label for="display_name"><?php echo lang('user_display_name') ?></label><br/>
+	<input type="text"name="display_name" maxlength="100" value="<?php echo $user_data->display_name; ?>" />
 </p>
 
 <p class="float-left spacer-right">
 	<label for="email"><?php echo lang('user_email') ?> - <em>used to login</em></label><br/>
-	<input type="text"name="email" maxlength="100" value="<?php echo $user_data->email; ?>" />
+	<input type="text" name="email" maxlength="100" value="<?php echo $user_data->email; ?>" />
 </p>
 
 <p>
 	<label for="confirm_email"><?php echo lang('user_confirm_email') ?></label><br/>
-	<input type="text"name="confirm_email" maxlength="100" value="<?php echo $user_data->confirm_email; ?>" />
+	<input type="text" name="confirm_email" maxlength="100" value="<?php echo $user_data->confirm_email; ?>" />
 </p>
 
 <p class="float-left spacer-right">
 	<label for="password"><?php echo lang('user_password') ?></label><br/>
-	<input type="password"name="password" maxlength="100" />
+	<input type="password" name="password" maxlength="100" />
 </p>
 
 <p>
 	<label for="confirm_password"><?php echo lang('user_confirm_password') ?></label><br/>
-	<input type="password"name="confirm_password" maxlength="100" />
+	<input type="password" name="confirm_password" maxlength="100" />
 </p>
 
 <?php echo form_submit('btnSubmit', lang('user_register_btn')) ?>

@@ -16,30 +16,6 @@ class Installer_lib
 		$this->ci =& get_instance();
 	}
 	
-	/**
-	 * @param	string $type Set or remove the cookie
-	 * @param 	string $data The $_POST data
-	 *
-	 * Store database settings so that they can be used later on.
-	 */
-	function store_db_settings($type, $data = array())
-	{
-		// Set the cookie
-		if($type == 'set')
-		{
-			// Store the POST data in a session
-			$array = array('server' => $data['server'],'username' => $data['username'],'password' => $data['password'],'port' => $data['port'],'http_server' => $data['http_server'],'step_1_passed' => TRUE);
-			$this->ci->session->set_userdata($array);
-		}
-		
-		// Remove the cookie
-		else
-		{
-			$array = array('server','username','password','http_server','step_1_passed');
-			$this->ci->session->unset_userdata($array);
-		}
-	}
-	
 	// Functions used in Step 1 
 	
 	/**
@@ -175,6 +151,7 @@ class Installer_lib
 		}
 		
 		$supported_servers = $this->ci->config->item('supported_servers');
+
 		return array_key_exists($server_name, $supported_servers);
 	}
 	
@@ -184,32 +161,57 @@ class Installer_lib
 	 * 
 	 * Function to validate the $_POST results from step 3
 	 */
-	function validate($data = array())
+	function validate()
 	{
-		// Get the database settings from the form
-		if(isset($data['installation_step']) AND $data['installation_step'] == 'step_1')
-		{
-			// Check whether the user has filled in all the required fields
-			if(empty($data['server']) OR empty($data['username']))
-			{
-				return FALSE;
-			}
-			
-			// Get the data from the $_POST array
-			$hostname = $data['server'];
-			$username = $data['username'];
-			$password = @$data['password'];
-			$port 	  = (int) $data['port'];
-		}
-		
-		else
-		{
-			$hostname = $this->ci->session->userdata('server');
-			$username = $this->ci->session->userdata('username');
-			$password = $this->ci->session->userdata('password');
-			$port	  = $this->ci->session->userdata('port');
-		}
-		
+		// Save this junk for later
+		$this->ci->session->set_userdata(array(
+			'hostname' => $this->ci->input->post('hostname'),
+			'username' => $this->ci->input->post('username'),
+			'password' => $this->ci->input->post('password'),
+			'port' => $this->ci->input->post('port'),
+			'http_server' => $this->ci->input->post('http_server')
+		));
+
+		$this->ci->load->library('form_validation');
+
+		$this->ci->form_validation->set_rules(array(
+			array(
+				'field' => 'hostname',
+				'label'	=> 'Server',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'username',
+				'label'	=> 'Username',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'password',
+				'label'	=> 'Password',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'port',
+				'label'	=> 'Port',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'http_server',
+				'label'	=> 'Server Software',
+				'rules'	=> 'trim|required'
+			),
+		));
+
+		return $this->ci->form_validation->run();
+	}
+
+	function test_db_connection()
+	{
+		$hostname = $this->ci->session->userdata('hostname');
+		$username = $this->ci->session->userdata('username');
+		$password = $this->ci->session->userdata('password');
+		$port	  = $this->ci->session->userdata('port');
+
 		return @mysql_connect("$hostname:$port", $username, $password);
 	}
 	
@@ -222,7 +224,7 @@ class Installer_lib
 	function install($data)
 	{				
 		// Retrieve the database server, username and password from the session
-		$server 	= $this->ci->session->userdata('server') . ':' . $this->ci->session->userdata('port');
+		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
 		$username 	= $this->ci->session->userdata('username');
 		$password 	= $this->ci->session->userdata('password');
 		$database 	= $data['database'];

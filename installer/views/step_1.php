@@ -9,11 +9,11 @@
 	These settings will also be used when installing the database.
 </p>
 
-<form id="install_frm" method="post" action="">
-	<p><label for="server">Server</label><?php echo form_input('server', $this->session->userdata('server')); ?></p>
+<?php echo form_open(uri_string(), 'id="install_frm"'); ?>
+	<p><label for="hostname">Server</label><?php echo form_input('hostname', $this->session->userdata('hostname')); ?></p>
 	<p><label for="username">Username</label><?php echo form_input('username', $this->session->userdata('username')); ?></p>
 	<p><label for="password">Password</label><?php echo form_password('password', $this->session->userdata('password')); ?></p>
-	<p><label for="port">Port</label><?php echo form_input('port', $port, 'class="input-text"'); ?></p>
+	<p><label for="port">Port</label><?php echo form_input('port', set_value('port', $port)); ?></p>
 	
 	<h3>Server Settings</h3>
 
@@ -26,4 +26,4 @@
 	
 	<p id="next_step"><input type="submit" id="submit" value="Step 2" /></p>
 	<br class="clear" />
-</form>
+<?php echo form_close(); ?>
