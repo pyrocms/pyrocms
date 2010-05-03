@@ -402,5 +402,38 @@ class Upgrade extends Controller
 
 		return TRUE;
 	}
+	
+
+ 	// Upgrade
+ 	function upgrade_0981()
+	{
+		//add display_name to profiles table
+		$this->dbforge->add_column('profiles', array(
+			'display_name' => array(
+				'type' 	  	=> 'VARCHAR',
+				'constraint' => '100',
+				'null' 		=> TRUE,
+			)
+        ));
+        
+        //get the profiles
+        $this->db->select(array('profiles.id, users.id as user_id, profiles.first_name, profiles.last_name'));
+		$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
+		$profile_result = $this->db->get('users')->result_array();
+
+		//insert the display names into profiles
+		foreach ($profile_result as $profile_data)
+		{
+			echo 'Inserting user ' . $profile_data['user_id'] . ' display_name into profiles table...<br/>';
+
+			$data = array('display_name' => $profile_data['first_name'].' '.$profile_data['last_name']);
+			$this->db->where('id', $profile_data['id']);
+			$this->db->update('profiles', $data);
+			echo '<br/>';
+		}
+		
+		
+		return TRUE;
+	}
 }
 ?>
