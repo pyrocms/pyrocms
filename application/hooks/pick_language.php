@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-function pick_language() {
-    
+function pick_language()
+{
 	require_once(APPPATH.'/config/language.php');
     
     session_start();
@@ -70,17 +70,17 @@ function pick_language() {
 	// Destroy $_GET so that everything routes correctly.
 	$_GET = NULL;
 
-	$tests = array('REQUEST_URI', 'PATH_INFO', 'ORIG_PATH_INFO', 'QUERY_STRING');
-
-	foreach($tests as $test)
+	foreach(array('REQUEST_URI', 'PATH_INFO', 'ORIG_PATH_INFO') as $uri_protocol)
 	{
-		if(!isset($_SERVER[$test])) continue;
-		if($qs = strrchr($_SERVER[$test], "?"))
+		if(!isset($_SERVER[$uri_protocol]))
 		{
-			$_SERVER[$test] = substr($_SERVER[$test], 0, strlen($_SERVER[$test]) - strlen($qs)) . "\n";
+			continue;
 		}
-
+		
+		if(strpos($_SERVER[$uri_protocol], '?') !== FALSE)
+		{
+			$_SERVER[$uri_protocol] = str_replace('?'.$_SERVER['QUERY_STRING'], '', $_SERVER[$uri_protocol]);
+		}
 	}
+	
 }
-
-?>
