@@ -32,10 +32,10 @@
 */
 
 // Local
-$db['local']['hostname'] = "10.77.157.41";
-$db['local']['username'] = "root";
-$db['local']['password'] = "jeroen007";
-$db['local']['database'] = "pyrocms";
+$db['local']['hostname'] = "";
+$db['local']['username'] = "";
+$db['local']['password'] = "";
+$db['local']['database'] = "";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
@@ -56,10 +56,10 @@ $db['local']['port'] 	 = 3306;
 // ...etc
 
 // Live
-$db['live']['hostname'] = "10.77.157.41";
-$db['live']['username'] = "root";
-$db['live']['password'] = "jeroen007";
-$db['live']['database'] = "pyrocms";
+$db['live']['hostname'] = "";
+$db['live']['username'] = "";
+$db['live']['password'] = "";
+$db['live']['database'] = "";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['active_r'] = TRUE;
