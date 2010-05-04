@@ -58,6 +58,9 @@ class Modules_m extends Model {
 	        	{
 	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
+					// Checks if the directory name ands in .disabled
+					$module['enabled'] = strstr(basename($module_name),'.disabled') ? FALSE : TRUE;
+
 	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
 	        		
 	        		// If we only want frontend modules, check its frontend
