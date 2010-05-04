@@ -43,8 +43,11 @@ class Admin_Controller extends MY_Controller
 	    elseif( ! $is_admin && ! $is_ignored_page )
 	    {
 		  	// Check if the current user can view that page
-		    $location = array( 'module'=>$this->module, 'controller'=>$this->controller, 'method'=>$this->method );
-		    $allow_access = $this->permissions_m->checkRuleByRole( $this->user->group_id, $location );
+		    $allow_access = $this->permissions_m->check_rule_by_role( $this->user->group_id, array(
+				'module' => $this->module,
+				'controller' =>$this->controller,
+				'method' =>$this->method
+			));
 	    }
 	    
 	    // Show error and exit if the user does not have sufficient permissions
