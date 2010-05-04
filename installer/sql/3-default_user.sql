@@ -3,7 +3,7 @@ TRUNCATE `users`;
 -- command split --
 
 INSERT INTO `users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-(1,'__EMAIL__', '__PASSWORD__', '__SALT__', 1, '', 1, '', __NOW__, __NOW__, '__EMAIL__', NULL, NULL);
+(1,'__EMAIL__', '__PASSWORD__', '__SALT__', 1, '', 1, '', __NOW__, __NOW__, '__USERNAME__', NULL, NULL);
 
 -- command split --
 

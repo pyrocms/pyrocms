@@ -19,7 +19,7 @@
 
 	<p>
 		<label for="http_server">HTTP Server</label>
-		<?php echo form_dropdown('http_server', $server_options); ?>
+		<?php echo form_dropdown('http_server', $server_options, $this->session->userdata('http_server')); ?>
 	</p>
 	
 	<input type="hidden" name="installation_step" value="step_1" />
