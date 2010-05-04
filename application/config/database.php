@@ -32,10 +32,10 @@
 */
 
 // Local
-$db['local']['hostname'] = "";
-$db['local']['username'] = "";
+$db['local']['hostname'] = "localhost";
+$db['local']['username'] = "root";
 $db['local']['password'] = "";
-$db['local']['database'] = "";
+$db['local']['database'] = "pyrocms";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
@@ -56,10 +56,10 @@ $db['local']['port'] 	 = 3306;
 // ...etc
 
 // Live
-$db['live']['hostname'] = "";
-$db['live']['username'] = "";
+$db['live']['hostname'] = "localhost";
+$db['live']['username'] = "root";
 $db['live']['password'] = "";
-$db['live']['database'] = "";
+$db['live']['database'] = "pyrocms";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['active_r'] = TRUE;
@@ -79,5 +79,3 @@ if(!array_key_exists(ENV, $db))
 
 // Assign the group to be used
 $active_group = ENV;
-
-?>
