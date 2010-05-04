@@ -102,3 +102,14 @@ define('APPPATH_URI', BASE_URI.APPPATH);
 
 // We dont need these variables any more
 unset($base_uri, $base_url);
+
+/*
+|--------------------------------------------------------------------------
+| PyroCMS Version
+|--------------------------------------------------------------------------
+|
+| Which version of PyroCMS is currently running?
+|
+*/
+
+define('CMS_VERSION', '0.9.8.1');
