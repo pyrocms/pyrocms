@@ -44,7 +44,7 @@ class Admin_Controller extends MY_Controller
 	    {
 		  	// Check if the current user can view that page
 		    $location = array( 'module'=>$this->module, 'controller'=>$this->controller, 'method'=>$this->method );
-		    $allow_access = $this->permissions_m->checkRuleByRole( $this->user->group_id, $location );
+		    $allow_access = $this->permissions_m->check_rule_by_role( $this->user->group_id, $location );
 	    }
 	    
 	    // Show error and exit if the user does not have sufficient permissions
