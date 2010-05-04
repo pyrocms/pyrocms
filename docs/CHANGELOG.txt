@@ -7,6 +7,9 @@ v0.9.8.1
 * Theme Layouts can now be assigned to Page Layouts
 * Installer can now get server information from (and install to) remote database servers.
 
+Bugs
+
+* Fixed issue #200: Call to undefined method Permissions_m::checkRuleByRole().
 
 v0.9.8
 ------

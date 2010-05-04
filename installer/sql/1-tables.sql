@@ -422,10 +422,10 @@ DROP TABLE IF EXISTS `forum_categories`;
 
 CREATE TABLE `forum_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL DEFAULT '',
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `permission` mediumint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Splits forums into categories';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Splits forums into categories';
 
 -- command split --
 
@@ -438,8 +438,8 @@ CREATE TABLE `forum_posts` (
   `forum_id` int(11) NOT NULL DEFAULT '0',
   `author_id` int(11) NOT NULL DEFAULT '0',
   `parent_id` int(11) NOT NULL DEFAULT '0',
-  `title` varchar(100) NOT NULL DEFAULT '',
-  `content` text NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
   `type` tinyint(1) NOT NULL DEFAULT '0',
   `is_locked` tinyint(1) NOT NULL DEFAULT '0',
   `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
@@ -448,7 +448,7 @@ CREATE TABLE `forum_posts` (
   `view_count` int(11) NOT NULL DEFAULT '0',
   `sticky` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
@@ -461,7 +461,7 @@ CREATE TABLE `forum_subscriptions` (
   `topic_id` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
@@ -471,9 +471,9 @@ DROP TABLE IF EXISTS `forums`;
 
 CREATE TABLE `forums` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL DEFAULT '',
-  `description` varchar(255) NOT NULL DEFAULT '',
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `category_id` int(11) NOT NULL DEFAULT '0',
   `permission` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Forums are the containers for threads and topics.';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Forums are the containers for threads and topics.';
