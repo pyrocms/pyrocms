@@ -254,7 +254,7 @@ CREATE TABLE `photos` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `album_id` int(11) NOT NULL,
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `description` varchar(100) collate utf8_unicode_ci NOT NULL default '',
+  `caption` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `order` INT(11)  NOT NULL default '0',
   `updated_on` INT(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)

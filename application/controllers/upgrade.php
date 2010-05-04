@@ -76,7 +76,7 @@ class Upgrade extends Controller
 	{
 		//rename the users columns
 		echo 'Renaming photo description to captions...<br/>';
-		$this->dbforge->modify_column('users', array(
+		$this->dbforge->modify_column('photos', array(
 			'description' => array(
 				'name' 	  => 'caption',
 				'type' 	  => 'VARCHAR',
