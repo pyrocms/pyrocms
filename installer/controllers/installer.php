@@ -1,4 +1,4 @@
-<?php
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * @author 		Yorick Peterse - PyroCMS development team
  * @package		PyroCMS
@@ -231,82 +231,56 @@ class Installer extends Controller
 			// Redirect the user back to step 2
 			redirect('installer/step_2');
 		}
-		
-		// Check to see if the user submitted the installation form
-		if($_POST)
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('database',		'Database',		'required|trim');
+		$this->form_validation->set_rules('user_name',		'Username',		'required|trim');
+		$this->form_validation->set_rules('user_firstname', 'First name',	'required|trim');
+		$this->form_validation->set_rules('user_lastname',	'Last name',	'required|trim');
+		$this->form_validation->set_rules('user_email',		'Email',		'required|trim|valid_email');
+		$this->form_validation->set_rules('user_password',	'Password',		'required|trim');
+		$this->form_validation->set_rules('user_confirm_password', 'Confirm Password', 'required|trim|matches[user_password]');
+
+		if ($this->form_validation->run() == FALSE)
 		{
-			// Do we have all the required data?
-			if ( empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['user_confirm_password']) )
+			$final_data['page_output'] = $this->load->view('step_4', NULL, TRUE);
+			$this->load->view('global', $final_data);
+		}
+		else
+		{
+			// Let's try to install the system
+			$install_results = $this->installer_lib->install($_POST);
+
+			// Did the install fail?
+			if($install_results['status'] === FALSE)
 			{
-				// Show an error message
-				$this->session->set_flashdata('message','Please enter the details used for creating the default user');
+				// Let's tell them why the install failed
+				$this->session->set_flashdata('message', $install_results['message']);
 				$this->session->set_flashdata('message_type','error');
 
 				// Redirect
 				redirect('installer/step_4');
-			}
-			
-			// Only install PyroCMS if the provided data is correct
-			if($this->installer_lib->validate() == TRUE)
-			{
-				if ($_POST['user_password'] == $_POST['user_confirm_password'] )
-				{
-					// Install the system and display the results
-					$install_results = $this->installer_lib->install($_POST);
-
-					// Validate the results and create a flashdata message
-					if($install_results['status'] == TRUE)
-					{
-						// Show a message
-						$this->session->set_flashdata('message', $install_results['message']);
-						$this->session->set_flashdata('message_type','success');
-
-						// Store the default username and password in the session data
-						$this->session->set_flashdata('user', array(
-							'email'			=> $this->input->post('user_email'),
-							'password'		=> $this->input->post('user_password'),
-							'firstname'		=> $this->input->post('user_firstname'),
-							'lastname'		=> $this->input->post('user_lastname')
-						));
-
-						// Redirect
-						redirect('installer/complete');
-					}
-					else
-					{
-						// Show an error message
-						$this->session->set_flashdata('message', $install_results['message']);
-						$this->session->set_flashdata('message_type','error');
-
-						// Redirect
-						redirect('installer/step_4');
-					}
-				}
-				// User's passwords don't match
-				else
-				{
-					// Show an error message
-					$this->session->set_flashdata('message','The entered passwords do not match');
-					$this->session->set_flashdata('message_type','error');
-
-					// Redirect
-					redirect('installer/step_4');
-				}					
 			}
 			else
 			{
-				// Show an error message
-				$this->session->set_flashdata('message','The installer could not connect to the MySQL server, be sure to enter the correct information.');
-				$this->session->set_flashdata('message_type','error');
-				
+				// Success!
+				$this->session->set_flashdata('message', $install_results['message']);
+				$this->session->set_flashdata('message_type','success');
+
+				// Store the default username and password in the session data
+				$this->session->set_flashdata('user', array(
+								'email'		=> $this->input->post('user_email'),
+								'password'	=> $this->input->post('user_password'),
+								'firstname'	=> $this->input->post('user_firstname'),
+								'lastname'	=> $this->input->post('user_lastname'),
+								'username'	=> $this->input->post('username')
+								));
+
 				// Redirect
-				redirect('installer/step_4');
+				redirect('installer/complete');
 			}
 		}
-		
-		// Load the view files
-		$final_data['page_output'] = $this->load->view('step_4','', TRUE);
-		$this->load->view('global', $final_data); 
 	}
 	
 	/**
@@ -331,3 +305,6 @@ class Installer extends Controller
 		$this->load->view('global',$data); 
 	}
 }
+
+/* End of file installer.php */
+/* Location: ./installer/controllers/installer.php */

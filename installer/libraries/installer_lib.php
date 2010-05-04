@@ -1,4 +1,4 @@
-<?php
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * @author 		Phil Sturgeon - PyroCMS development team
  * @package 	PyroCMS
@@ -235,12 +235,13 @@ class Installer_lib
 		
 		// Get the SQL for the user data and parse it
 		$user_sql		= file_get_contents('./sql/3-default_user.sql');
-		$user_sql		= str_replace('__EMAIL__', 			$data['user_email'], 		$user_sql);
-		$user_sql		= str_replace('__PASSWORD__', 		$data['user_password'], 	$user_sql);
-		$user_sql		= str_replace('__FIRSTNAME__', 		$data['user_firstname'], 	$user_sql);
-		$user_sql		= str_replace('__LASTNAME__', 		$data['user_lastname'], 	$user_sql);
-		$user_sql		= str_replace('__SALT__', 			$user_salt,		 	$user_sql);
-		$user_sql		= str_replace('__NOW__', 			time(), 			$user_sql);
+		$user_sql		= str_replace('__EMAIL__', 		$data['user_email'], 		$user_sql);
+		$user_sql		= str_replace('__USERNAME__', 	$data['user_name'], 		$user_sql);
+		$user_sql		= str_replace('__PASSWORD__', 	$data['user_password'], 	$user_sql);
+		$user_sql		= str_replace('__FIRSTNAME__', 	$data['user_firstname'], 	$user_sql);
+		$user_sql		= str_replace('__LASTNAME__', 	$data['user_lastname'], 	$user_sql);
+		$user_sql		= str_replace('__SALT__', 		$user_salt,					$user_sql);
+		$user_sql		= str_replace('__NOW__', 		time(),						$user_sql);
 		
 		// Create a connection
 		if( !$this->db = mysql_connect($server, $username, $password) )
@@ -335,7 +336,7 @@ class Installer_lib
 	function write_db_file($database)
 	{
 		// First retrieve all the required data from the session and the $database variable
-		$server 	= $this->ci->session->userdata('server');
+		$server 	= $this->ci->session->userdata('hostname');
 		$username 	= $this->ci->session->userdata('username');
 		$password 	= $this->ci->session->userdata('password');
 		$port		= $this->ci->session->userdata('port');
@@ -405,3 +406,6 @@ class Installer_lib
 		return FALSE;
 	}
 }
+
+/* End of file installer_lib.php */
+/* Location: ./installer/libraries/installer_lib.php */
