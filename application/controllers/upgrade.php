@@ -81,9 +81,13 @@ class Upgrade extends Controller
 			'comments_enabled' => array(
 				'type' 	  	=> 'INT',
 				'constraint' => 1,
+				'default' => 0,
 				'null' 		=> FALSE
 			)
         ));
+
+		echo 'Clearing the page cache...<br/>';
+		$this->cache->delete_all('pages_m');
 		
 		echo 'Adding theme_layout field to page_layouts table...<br/>';
 		//add display_name to profiles table
