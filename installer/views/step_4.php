@@ -1,6 +1,7 @@
-<?php if (validation_errors()): ?>
+<?php if (validation_errors() OR isset($message)): ?>
 <div id="notification" class="error">
 	<?php echo validation_errors(); ?>
+	<?php echo (isset($message)) ? "<p>$message</p>" : NULL; ?>
 </div>
 <?php endif; ?>
 

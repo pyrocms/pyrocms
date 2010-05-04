@@ -256,11 +256,8 @@ class Installer extends Controller
 			if($install_results['status'] === FALSE)
 			{
 				// Let's tell them why the install failed
-				$this->session->set_flashdata('message', $install_results['message']);
-				$this->session->set_flashdata('message_type','error');
-
-				// Redirect
-				redirect('installer/step_4');
+				$final_data['page_output'] = $this->load->view('step_4', $install_results, TRUE);
+				$this->load->view('global', $final_data);
 			}
 			else
 			{
