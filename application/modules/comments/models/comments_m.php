@@ -22,10 +22,10 @@ class Comments_m extends MY_Model
     		->select('IF(c.user_id > 0, u.email, c.email) as email')
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
-    		->join('profiles m', 'm.user_id = u.id', 'left');
+    		->join('profiles m', 'm.user_id = u.id', 'left')
     	
-    	// If there is a comment user id, make sure the user still exists
-    	$this->db->where('IF(c.user_id > 0, c.user_id = u.id, TRUE)')
+			// If there is a comment user id, make sure the user still exists
+			->where('IF(c.user_id > 0, c.user_id = u.id, 1)')
     		->where('c.id', $id);
     	
     	return $this->db->get()->row();
@@ -51,7 +51,7 @@ class Comments_m extends MY_Model
   	}
   	
 	/**
-	 * Get something based on a module item (..the fuck?)
+	 * Get something based on a module item
 	 * 
 	 * @access public
 	 * @param string $module The name of the module
