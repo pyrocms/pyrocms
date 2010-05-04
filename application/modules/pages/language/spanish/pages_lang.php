@@ -25,6 +25,7 @@ $lang['pages.layout_id_label'] 					= 'Diseño de la página (Layout)';
 $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.access_label'] 					= 'Acceder';
 $lang['pages.rss_enabled_label'] 				= 'RSS enabled'; #translate
+$lang['pages.comments_enabled_label'] 		= 'Comments enabled'; #translate
 
 $lang['pages.status_label'] 					= 'Estado';
 $lang['pages.draft_label'] 						= 'Borrador';

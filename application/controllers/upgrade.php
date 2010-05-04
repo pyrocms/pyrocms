@@ -75,6 +75,16 @@ class Upgrade extends Controller
  	// Upgrade
  	function upgrade_0981()
 	{
+		echo 'Adding comments_enabled field to pages table...<br/>';
+		//add display_name to profiles table
+		$this->dbforge->add_column('pages', array(
+			'comments_enabled' => array(
+				'type' 	  	=> 'INT',
+				'constraint' => 1,
+				'null' 		=> FALSE
+			)
+        ));
+		
 		echo 'Adding theme_layout field to page_layouts table...<br/>';
 		//add display_name to profiles table
 		$this->dbforge->add_column('page_layouts', array(

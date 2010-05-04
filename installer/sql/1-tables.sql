@@ -185,6 +185,7 @@ CREATE TABLE `pages` (
  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
  `meta_description` text collate utf8_unicode_ci NOT NULL,
  `rss_enabled` INT(1)  NOT NULL default '0',
+ `comments_enabled` INT(1)  NOT NULL default '0',
  `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft', 
  `created_on` INT(11)  NOT NULL default '0',
  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
@@ -254,7 +255,7 @@ CREATE TABLE `photos` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `album_id` int(11) NOT NULL,
   `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `description` varchar(100) collate utf8_unicode_ci NOT NULL default '',
+  `caption` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `order` INT(11)  NOT NULL default '0',
   `updated_on` INT(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
