@@ -8,8 +8,10 @@
  * @category	Modules
  * @since 		v0.9.7
  */
-class Modules_m extends Model {
+class Modules_m extends MY_Model {
 
+	private $_table = 'modules';
+	
 	/**
 	 * Constructor method
 	 * @access public
@@ -29,13 +31,51 @@ class Modules_m extends Model {
 	 */
     public function get($module = '')
     {
-    	foreach (module_directories() as $directory)
-    	{
-			if(file_exists($xml_file = $directory.$module.'/details.xml'))
-			{
-				return $this->_format_xml($xml_file);
-			}
-		}
+		$this->db->where(array('slug' => $module));
+		$result = $this->db->get($this->_table)->result();
+
+		return array(
+    		'name'				=>	$result->name,
+    		'slug'				=>	$result->slug,
+    		'version' 			=> 	$result->version,
+    		'type' 				=> 	$result->type,
+    		'description' 		=> 	$result->descrition,
+    		'skip_xss'			=>	$result->skip_xss,
+    		'is_frontend'		=>	$result->is_frontend,
+    		'is_backend'		=>	$result->is_backend,
+    		'is_backend_menu' 	=>	$result->is_backend_menu,
+    		'controllers'		=>	unserialize($result->controllers),
+			'enabled'			=>  $result->enabled,
+			'is_core'			=>  $result->is_core
+    	);
+    }
+
+	/**
+	 * Return an object containing module data
+	 *
+	 * @access public
+	 * @param string module The name of the module to load
+	 * @return object
+	 */
+    public function add($module_path)
+    {
+		$this->db->where(array('slug' => $module));
+		$result = $this->db->get($this->_table)->result();
+
+		return array(
+    		'name'				=>	$result->name,
+    		'slug'				=>	$result->slug,
+    		'version' 			=> 	$result->version,
+    		'type' 				=> 	$result->type,
+    		'description' 		=> 	$result->descrition,
+    		'skip_xss'			=>	$result->skip_xss,
+    		'is_frontend'		=>	$result->is_frontend,
+    		'is_backend'		=>	$result->is_backend,
+    		'is_backend_menu' 	=>	$result->is_backend_menu,
+    		'controllers'		=>	unserialize($result->controllers),
+			'enabled'			=>  $result->enabled,
+			'is_core'			=>  $result->is_core
+    	);
     }
 
 	/**
@@ -47,45 +87,57 @@ class Modules_m extends Model {
     public function get_modules($params = array())
     {
     	$modules = array();
-    	
-    	// Loop through directories that hold modules
-    	foreach (module_directories() as $directory)
+
+    	foreach ($this->db->get($this->_table)->result() as $result)
     	{
-    		// Loop through modules
-	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
-	        {
-	        	if(file_exists($xml_file = $module_name.'/details.xml'))
-	        	{
-	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
+			$module = array(
+				'name'				=>	$result->name,
+				'slug'				=>	$result->slug,
+				'version' 			=> 	$result->version,
+				'type' 				=> 	$result->type,
+				'description' 		=> 	$result->descrition,
+				'skip_xss'			=>	$result->skip_xss,
+				'is_frontend'		=>	$result->is_frontend,
+				'is_backend'		=>	$result->is_backend,
+				'is_backend_menu' 	=>	$result->is_backend_menu,
+				'controllers'		=>	unserialize($result->controllers),
+				'enabled'			=>  $result->enabled,
+				'is_core'			=>  $result->is_core
+			);
 
-					// Checks if the directory name ands in .disabled
-					$module['enabled'] = strstr(basename($module_name),'.disabled') ? FALSE : TRUE;
+			if(!empty($params['is_frontend']) && empty($module['is_frontend']))
+			{
+				continue;
+			}
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
-	        		
-	        		// If we only want frontend modules, check its frontend
-		        	if(!empty($params['is_frontend']) && empty($module['is_frontend'])) continue;
-		        	
-		        	// Looking for backend modules
-		        	if(!empty($params['is_backend']))
-		        	{
-		        		// This module is not a backend module
-		        		if(empty($module['is_backend'])) continue;
-
-		        		// This user has no permissions for this module
-		        		if(!$this->permissions_m->has_admin_access( $this->user->group_id, $module['slug']) ) continue;
-		        	}
-	       			
-	        		// If we only want frontend modules, check its frontend
-		        	if(isset($params['is_core']) && $module['is_core'] != $params['is_core']) continue;
-		        	
-		        	// Check a module is intended for the sidebar
-					if(isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu']) continue;
-					
-	        		$modules[] = $module;
-	        	}
-	        }
-        }
+			if(!empty($params['is_backend']))
+			{
+				if(empty($module['is_backend']))
+				{
+					continue;
+				}
+			
+				// This user has no permissions for this module
+				if(!$this->permissions_m->has_admin_access( $this->user->group_id, $module['slug']) )
+				{
+					continue;
+				}
+			}
+			
+			// If we only want frontend modules, check its frontend
+			if(isset($params['is_core']) && $module['is_core'] != $params['is_core'])
+			{
+				continue;
+			}
+			
+			// Check a module is intended for the sidebar
+			if(isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu'])
+			{
+				continue;
+			}
+			
+			$modules[] = $module;
+		}
     	
         return $modules;
     }
@@ -98,16 +150,14 @@ class Modules_m extends Model {
      */
     function get_module_controllers($module = '')
     {
-    	$controllers = array();
+		$module = $this->get($module);
+
+		$controllers = array();
     	
     	// Loop through directories that hold modules
-    	foreach (module_directories() as $directory)
+    	foreach ($module['controllers'] as $name => $methods)
     	{
-    		// Loop through modules
-	        foreach(glob($directory.$module.'/controllers/*'.EXT) as $controller)
-	        {
-        		$controllers[] = basename($controller, EXT);
-    		}
+			$controllers[] = $name;
     	}
 
         return $controllers;
