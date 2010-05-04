@@ -110,6 +110,22 @@ class Upgrade extends Controller
 			echo '<br/>';
 		}
 
+		echo "Changing Forum Tables Collation...<br />";
+		$this->db->query("ALTER TABLE  `forums` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE  `forum_posts` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE  `forum_categories` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE  `forum_subscriptions` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+
+		echo "Changing Forum Table Column Collation...<br />";
+		$this->db->query("ALTER TABLE  `forums` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
+		$this->db->query("ALTER TABLE  `forums` CHANGE  `description`  `description` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
+
+		$this->db->query("ALTER TABLE  `forum_categories` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
+
+		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `content`  `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
+		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
+
+
 		return TRUE;
 	}
 
@@ -127,30 +143,21 @@ class Upgrade extends Controller
 		));
 
 		echo 'Creating forum tables...<br/>';
-		$this->dbforge->add_field('id', TRUE);
-		$this->dbforge->add_field(array(
-			'title' => array(
-				'type' 	  	  => 'VARCHAR',
-				'constraint' 	  => 100,
-				'default' => '',
-				'null' => FALSE
-			),
-			'permission' => array(
-				'type' 	  	  => 'INT',
-				'constraint' 	  => 2,
-				'null' => FALSE
-			)
-		));
 		
-		$this->dbforge->create_table('forum_categories');
+		$this->db->query("CREATE TABLE `forum_categories` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `title` varchar(100) COLLATE=utf8_unicode_ci NOT NULL DEFAULT '',
+		  `permission` mediumint(2) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Splits forums into categories'");
 
 		$this->db->query("CREATE TABLE `forum_posts` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `forum_id` int(11) NOT NULL DEFAULT '0',
 		  `author_id` int(11) NOT NULL DEFAULT '0',
 		  `parent_id` int(11) NOT NULL DEFAULT '0',
-		  `title` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
-		  `content` text CHARACTER SET utf8 NOT NULL,
+		  `title` varchar(100) COLLATE=utf8_unicode_ci CHARACTER SET utf8 NOT NULL DEFAULT '',
+		  `content` text COLLATE=utf8_unicode_ci CHARACTER SET utf8 NOT NULL,
 		  `type` tinyint(1) NOT NULL DEFAULT '0',
 		  `is_locked` tinyint(1) NOT NULL DEFAULT '0',
 		  `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
@@ -159,23 +166,23 @@ class Upgrade extends Controller
 		  `view_count` int(11) NOT NULL DEFAULT '0',
 		  `sticky` tinyint(1) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
 		$this->db->query("CREATE TABLE `forum_subscriptions` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `topic_id` int(11) NOT NULL DEFAULT '0',
 		  `user_id` int(11) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
 		$this->db->query("CREATE TABLE `forums` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `title` varchar(100) NOT NULL DEFAULT '',
-		  `description` varchar(255) NOT NULL DEFAULT '',
+		  `title` varchar(100) COLLATE=utf8_unicode_ci NOT NULL DEFAULT '',
+		  `description` varchar(255) COLLATE=utf8_unicode_ci NOT NULL DEFAULT '',
 		  `category_id` int(11) NOT NULL DEFAULT '0',
 		  `permission` int(2) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Forums are the containers for threads and topics.'");
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Forums are the containers for threads and topics.'");
 
 		return TRUE;
 	}
