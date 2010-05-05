@@ -14,6 +14,7 @@ Bugs
 * Fixed table and column collation in the forum tables.
 * Fixed Tiny MCE bug that prevented the image manager from working when PyroCMS was installed in a sub-directory.
 * Fixed enable_query_string setting in the installer config template.
+* Fixed error in users/register that prevented form_validation errors from displaying.
 
 v0.9.8
 ------
