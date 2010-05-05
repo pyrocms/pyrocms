@@ -69,6 +69,8 @@ class Upgrade extends Controller
 			echo "<p><strong>-- Upgraded to " . $next_version . '--</strong></p>';
 
 	  		$db_version = $next_version;
+
+			echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
   		}
  	}
 

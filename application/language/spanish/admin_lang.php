@@ -29,7 +29,8 @@ $lang['cp_nav_permissions']				= 'Permisos';
 $lang['cp_nav_variables']				= 'Variables';
 
 $lang['cp_access_denied'] 				= 'No tienes el permiso suficiente como para ver esta página.';
-$lang['delete_installer_message']		= 'Por favor eliminar el directorio "instaler" del servidor. Al dejarlo en línea podrías darle el acceso completo del sitio a otra persona.';
+$lang['cp_delete_installer_message']		= 'Por favor eliminar el directorio "instaler" del servidor. Al dejarlo en línea podrías darle el acceso completo del sitio a otra persona.';
+$lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s">click here</a> to upgrade the database.'; #translate
 
 // Admin-wide text
 $lang['cp_sidebar_title'] 				= 'Menu lateral';
