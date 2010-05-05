@@ -188,3 +188,14 @@ small 			{font-size:12px;}
 {
 	margin:			8px 10px 0px 0px;
 }
+
+/* Flags */
+#flags {
+	margin-right: 1px;
+	margin-top: -5px;
+	}
+
+	#flags img {
+		margin-left: 5px;
+		float:right;
+	}

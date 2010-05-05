@@ -1,51 +1,62 @@
 <!-- Install PyroCMS - Step two -->
-<h2>Step 2: Check requirements</h2>
-<p>The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.</p>
-
-<h3>HTTP Server Settings</h3>
+<?php echo lang('text'); ?>
 
 <?php if($http_server->supported === TRUE): ?>
-	<p>Your server software <strong><?php echo $http_server->name;?></strong> is <span class="green">supported</span>.</p>
+	<p><?php echo lang('server1'); ?> <strong><?php echo $http_server->name;?></strong> <?php echo lang('server2'); ?></p>
 <?php else: ?>
-	<p class="red">Your server software is <span class="red">not support</span>, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations 
-	are up to date PyroCMS should be able to run properly, just without clean URL's.</p>
+	<p class="red"><?php echo lang('server_fail'); ?></p>
 <?php endif; ?>
 
-<h3>PHP Settings</h3>
-<p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <strong><?php echo $php_version; ?></strong>, 
-which is <?php echo $php_version ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.</p>
+<h3><?php echo lang('phpsettings'); ?></h3>
+<p><?php echo lang('phpversion1'); ?> <strong><?php echo $php_version; ?></strong>, <?php echo lang('phpversion2'); ?> 
+<?php echo $php_version ? lang('supported') : lang('notsupported'); ?>.</p>
 
-<h3>MySQL Settings</h3>
-<p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running 
-<strong><?php echo $mysql->server_version; ?></strong> and the client library version is <strong><?php echo $mysql->client_version; ?></strong>
-which is <?php echo $mysql->server_version && $mysql->client_version ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.</p>
-
-<h3>GD Settings</h3>
-
+<h3><?php echo lang('mysqlsettings'); ?></h3>
 <p>
-	PyroCMS requires GD library 1.0 or higher.
-	<?php if(!empty($gd_version)): ?>
-	Your server is currently running version <strong><?php echo $gd_version; ?></strong>,
-	which is <?php echo $gd_version !== FALSE ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.
-	<?php else: ?>
-	<span class="red">We cannot determine the version of the GD library.  This usually means that the GD library is not installed.</span>
-	<?php endif; ?>
+	<?php echo lang('mysqlversion1'); ?> <strong><?php echo $mysql->server_version; ?></strong> <?php echo lang('mysqlversion2'); ?> <strong><?php echo $mysql->client_version; ?></strong>
+<?php echo lang('mysqlversion3'); ?> <?php echo $mysql->server_version && $mysql->client_version ? lang('supported') : lang('notsupported'); ?>.
+</p>
+
+<h3><?php echo lang('gdsettings'); ?></h3>
+<p>
+	<?php
+	echo lang('gdversion1');
+	if( ! empty($gd_version)):
+		echo lang('gdversion2') . ' <strong>'.$gd_version.'</strong>, '.lang('gdversion3').' '.(($gd_version !== FALSE) ? lang('supported') : lang('notsupported'));'.';
+	else:
+		echo '<span class="red">'.lang('gdversion_fail').'</span>';
+	endif; ?>
 </p>
 
 <!-- Summary -->
 <h3>Summary</h3>
 
 <?php if($step_passed === TRUE): ?>
-<p class="green"><strong>Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.</strong></p>
-<p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
+
+	<p class="green">
+		<strong><?php echo lang('summary_green'); ?></strong>
+	</p>
+	<p id="next_step">
+		<a href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	</p>
 
 <?php elseif($step_passed == 'partial'): ?>
-<p class="orange"><strong>Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.</strong></p>
-<p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
+
+	<p class="orange">
+		<strong><?php echo lang('summary_orange'); ?></strong>
+	</p>
+	<p id="next_step">
+		<a href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	</p>
 
 <?php else: ?>
-<p class="red"><strong>It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.</strong></p>
-<p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>">Try again</a></p>
-<?php endif; ?>
+
+	<p class="red">
+		<strong><?php echo lang('summary_red'); ?></strong>
+	</p>
+	<p id="next_step">
+		<a href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
+	</p>
+	<?php endif; ?>
 
 <br class="clear" />

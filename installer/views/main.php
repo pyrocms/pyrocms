@@ -1,8 +1,19 @@
 <!-- Welcome -->
-<h2>Welcome</h2>
-<p>Thank you for choosing PyroCMS!</p>
+<ul id="flags">
+	<li>
+		<a href="<?php echo site_url('installer/change/dutch'); ?>" title="dutch">
+			<img src="<?php echo base_url(); ?>assets/images/flags/nl.gif" alt="dutch" />
+		</a>
+	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/english'); ?>" title="english">
+			<img src="<?php echo base_url(); ?>assets/images/flags/gb.gif" alt="english" />
+		</a>
+	</li>
 
-<p>Installing PyroCMS is very easy, just follow the steps and messages on the screen. In case you have any problems installing the system don't worry, the installer will explain what you need to do.</p>
+</ul>
+
+<?php echo lang('text'); ?>
 
 <p id="next_step"><a href="<?php echo site_url('installer/step_1'); ?>" title="Proceed to the first step">Step 1</a></p>
 

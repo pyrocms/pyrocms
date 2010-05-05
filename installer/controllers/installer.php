@@ -11,6 +11,11 @@
 class Installer extends Controller 
 {
 	/**
+	 * Array of languages supported by the installer
+	 */
+	private $languages	= array ('english','dutch');
+
+	/**
 	 * Array containing the directories that need to be writeable
 	 *
 	 * @access private
@@ -52,6 +57,10 @@ class Installer extends Controller
 		
 		// Load the config file that contains a list of supported servers
 		$this->load->config('servers');
+
+		// Sets the language
+		$this->_set_language();
+		$this->load->helper('language');
 	}
 	
 	/**
@@ -86,7 +95,7 @@ class Installer extends Controller
 				if($this->installer_lib->test_db_connection())
 				{
 					// Set the flashdata message
-					$this->session->set_flashdata('message', 'The database settings are tested and working fine.');
+					$this->session->set_flashdata('message', lang('db_success'));
 					$this->session->set_flashdata('message_type', 'success');
 
 					// Redirect to the first step
@@ -97,7 +106,7 @@ class Installer extends Controller
 				else
 				{
 					// Set the flashdata message
-					$this->session->set_flashdata('message', 'Problem connecting to the database: '.mysql_error());
+					$this->session->set_flashdata('message', lang('db_failure').mysql_error());
 					$this->session->set_flashdata('message_type', 'error');
 
 					// Redirect to the first step
@@ -145,7 +154,7 @@ class Installer extends Controller
 		if(!$this->session->userdata('step_1_passed'))
 		{	
 			// Set the flashdata message
-			$this->session->set_flashdata('message','Please fill in the required database settings in the form below.');
+			$this->session->set_flashdata('message', lang('step1_failure'));
 			$this->session->set_flashdata('message_type','error');
 			
 			// Redirect
@@ -236,7 +245,7 @@ class Installer extends Controller
 
 		$this->form_validation->set_rules('database',		'Database',		'required|trim');
 		$this->form_validation->set_rules('user_name',		'Username',		'required|trim');
-		$this->form_validation->set_rules('user_firstname', 'First name',	'required|trim');
+		$this->form_validation->set_rules('user_firstname',	'First name',	'required|trim');
 		$this->form_validation->set_rules('user_lastname',	'Last name',	'required|trim');
 		$this->form_validation->set_rules('user_email',		'Email',		'required|trim|valid_email');
 		$this->form_validation->set_rules('user_password',	'Password',		'required|trim');
@@ -300,6 +309,36 @@ class Installer extends Controller
 		// Load the view files
 		$data['page_output'] = $this->load->view('complete',$data, TRUE);
 		$this->load->view('global',$data); 
+	}
+
+	public function change($language)
+	{
+		if (in_array($language, $this->languages))
+		{
+			$this->session->set_userdata('language', $language);
+		}
+
+		redirect(site_url('installer'));
+	}
+
+	private function _set_language()
+	{
+		// let's check if the language is supported
+		if (in_array($this->session->userdata('language'), $this->languages))
+		{
+			// if so we set it
+			$this->config->set_item('language', $this->session->userdata('language'));
+		}
+
+		// let's load the language file belonging to the page i.e. method
+		$lang_file = $this->config->item('language') . '/' . $this->router->method . '_lang';
+		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
+		{
+			$this->lang->load($this->router->method);
+		}
+
+		// also we load some generic language labels
+		$this->lang->load('global');
 	}
 }
 
