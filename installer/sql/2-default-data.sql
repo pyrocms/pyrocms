@@ -65,7 +65,8 @@ INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `valu
  ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter'),
  ('twitter_cache', 'Cache time', 'How many minutes should your Tweets be temporairily stored for?','text','300','','','0','1','twitter'),
  ('akismet_api_key', 'Akismet API Key', 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.', 'text', '', '', '', 0, '1', 'integration'),
- ('moderate_comments', 'Moderate Comments', 'Force comments to be approved before they appear on the site.', 'select', '0', '', '1=Enabled|0=Disabled', '0', '1', '');
+ ('moderate_comments', 'Moderate Comments', 'Force comments to be approved before they appear on the site.', 'select', '0', '', '1=Enabled|0=Disabled', '0', '1', ''),
+ ('version', 'Version', '', 'text', 'v0.9.8', '__VERSION__', '', '0', '0', '');
 	
 -- command split --
 

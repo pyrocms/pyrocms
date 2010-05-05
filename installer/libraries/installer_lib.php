@@ -233,6 +233,10 @@ class Installer_lib
 		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 		
+		// Get the SQL for the default data and parse it
+		$data_sql    = file_get_contents('./sql/2-default-data.sql');
+		$data_sql    = str_replace('__VERSION__',   CMS_VERSION,        $data_sql);
+
 		// Get the SQL for the user data and parse it
 		$user_sql		= file_get_contents('./sql/3-default_user.sql');
 		$user_sql		= str_replace('__EMAIL__', 		$data['user_email'], 		$user_sql);
@@ -267,7 +271,7 @@ class Installer_lib
 			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database.<br/><br/>' . mysql_error($this->db));
 		}
 		
-		if( !$this->_process_schema('2-default-data') )
+		if( !$this->_process_schema($data_sql, FALSE) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database.<br/><br/>' . mysql_error($this->db));
 		}
