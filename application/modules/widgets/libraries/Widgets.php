@@ -9,12 +9,17 @@
 class Widgets
 {
 	private $_widget = NULL;
-
 	private $_rendered_areas = array();
+	private $_widget_locations = array();
 
 	function __construct()
 	{
 		$this->load->model('widgets/widgets_m');
+
+		$this->_widget_locations = array(
+			APPPATH.'widgets/' => '../widgets/',
+			'third_party/widgets/' => '../../third_party/widgets/'
+		);
 	}
 
 	function list_areas()
@@ -43,13 +48,16 @@ class Widgets
 		}
 
 		$uninstalled = array();
-		foreach(glob(APPPATH . 'widgets/*', GLOB_ONLYDIR) as $slug)
+		foreach($this->_widget_locations as $location => $offset)
 		{
-			$slug = basename($slug);
-
-			if(!in_array($slug, $available_slugs))
+			foreach(glob($location . '*', GLOB_ONLYDIR) as $slug)
 			{
-				$uninstalled[] = $this->read_widget($slug);
+				$slug = basename($slug);
+
+				if(!in_array($slug, $available_slugs))
+				{
+					$uninstalled[] = $this->read_widget($slug);
+				}
 			}
 		}
 
@@ -71,28 +79,16 @@ class Widgets
 
 	function get_area($id)
 	{
-		if(is_numeric($id))
-		{
-			return $this->widgets_m->get_area_by('id', $id);
-		}
-
-		else
-		{
-			return $this->widgets_m->get_area_by('slug', $id);
-		}
+		return is_numeric($id)
+			? $this->widgets_m->get_area_by('id', $id)
+			: $this->widgets_m->get_area_by('slug', $id);
 	}
 
 	function get_widget($id)
 	{
-		if(is_numeric($id))
-		{
-			return $this->widgets_m->get_widget_by('id', $id);
-		}
-
-		else
-		{
-			return $this->widgets_m->get_widget_by('slug', $id);
-		}
+		return is_numeric($id)
+			? $this->widgets_m->get_widget_by('id', $id)
+			: $this->widgets_m->get_widget_by('slug', $id);
 	}
 
 
@@ -109,7 +105,7 @@ class Widgets
 
     function render($name, $options = array())
     {
-    	$this->_spawn_widget($name);
+    	$relative_offset = $this->_spawn_widget($name);
 
         $data = method_exists($this->_widget, 'run')
 			? call_user_func(array($this->_widget, 'run'), $options)
@@ -129,12 +125,12 @@ class Widgets
 
 		$data['options'] = $options;
 
-        return $this->load->view('../widgets/' . $name . '/views/display', $data, TRUE);
+        return $this->load->view($relative_offset . $name . '/views/display', $data, TRUE);
     }
 
     function render_backend($name, $default_options = array())
     {
-    	$this->_spawn_widget($name);
+    	$relative_offset = $this->_spawn_widget($name);
 
     	// Check for default data if there is any
     	$data = method_exists($this->_widget, 'prep_form') ? call_user_func(array(&$this->_widget, 'prep_form')) : array();
@@ -151,7 +147,7 @@ class Widgets
 				$data['options'][$field_name] = set_value($field_name, @$default_options[$field_name]);
 			}
 
-			return $this->load->view('../widgets/' . $name . '/views/form', $data, TRUE);
+			return $this->load->view($relative_offset . $name . '/views/form', $data, TRUE);
 		}
 
 		return '';
@@ -291,9 +287,18 @@ class Widgets
 
     private function _spawn_widget($name)
     {
-    	require_once APPPATH . 'widgets/' . $name . '/' . $name . EXT;
-    	$class_name = ucfirst($name);
-    	$this->_widget = new $class_name;
+    	foreach($this->_widget_locations as $location => $offset)
+		{
+			$widget_path = $location . $name . '/' . $name . EXT;
+			if(file_exists($widget_path))
+			{
+				require_once $widget_path;
+				$class_name = ucfirst($name);
+				$this->_widget = new $class_name;
+
+				return $offset;
+			}
+		}
     }
 
 	// wirdesignz you genius
