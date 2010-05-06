@@ -181,7 +181,7 @@ class Users extends Public_Controller
 		else
 		{
 			// Return the validation error
-			$this->data->error_string = $this->form_validation->error_string;
+			$this->data->error_string = $this->form_validation->error_string();
 		}
 
 		$this->data->user_data =& $user_data;

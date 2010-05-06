@@ -29,7 +29,8 @@ $lang['cp_nav_permissions']				= 'Uprawnienia';
 $lang['cp_nav_variables']				= 'Zmienne';
 
 $lang['cp_access_denied'] 				= 'Nie posiadasz wystarczających uprawnień by zobaczyć tą stronę.';
-$lang['delete_installer_message']       = 'Proszę usunąć katalog o nazwie "installer" z serwera. Zostawiając go w głównym katalogu, narażasz się na utratę danych.';
+$lang['cp_delete_installer_message']       = 'Proszę usunąć katalog o nazwie "installer" z serwera. Zostawiając go w głównym katalogu, narażasz się na utratę danych.';
+$lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s">click here</a> to upgrade the database.'; #translate
 
 // Admin-wide text
 $lang['cp_sidebar_title'] 				= 'Menu';

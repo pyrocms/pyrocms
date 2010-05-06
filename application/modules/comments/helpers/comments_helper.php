@@ -15,8 +15,13 @@
  * @param bool $reference Whether to use a reference or not (?)
  * @return void
  */
-function display_comments($ref_id, $reference = NULL)
+function display_comments($ref_id = '', $reference = NULL)
 {
+	if(!$ref_id)
+	{
+		return '';
+	}
+
 	$ci =& get_instance();
 
 	// Set ref to module if none provided

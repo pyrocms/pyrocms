@@ -111,6 +111,10 @@
 			<div id="page-options">
 			
 				<ol>
+					<li>
+						<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
+						<?php echo form_checkbox('comments_enabled', 1, $page->comments_enabled == 1); ?>
+					</li>
 					<li class="even">
 						<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 						<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>

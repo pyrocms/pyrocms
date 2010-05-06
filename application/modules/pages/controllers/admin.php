@@ -91,6 +91,11 @@ class Admin extends Admin_Controller
 				'rules'	=> 'trim|numeric'
 			),
 			array(
+				'field' => 'comments_enabled',
+				'label'	=> lang('pages.comments_enabled_label'),
+				'rules'	=> 'trim|numeric'
+			),
+			array(
 				'field'	=> 'status',
 				'label'	=> lang('pages.status_label'),
 				'rules'	=> 'trim|alpha|required'
@@ -115,13 +120,12 @@ class Admin extends Admin_Controller
 		// Get the page tree
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
 		
-		$this->template->append_metadata( css('jquery/jquery.treeview.css') )
+		$this->template
+			->append_metadata( css('jquery/jquery.treeview.css') )
 			->append_metadata( js('jquery/jquery.treeview.min.js') )
 			->append_metadata( js('index.js', 'pages') )
-			->append_metadata( css('index.css', 'pages') );
-
-		// Render the view
-		$this->template->build('admin/index', $this->data);
+			->append_metadata( css('index.css', 'pages') )
+			->build('admin/index', $this->data);
 	}
 	
 	/**
@@ -255,12 +259,10 @@ class Admin extends Admin_Controller
 		$this->data->page_layouts 	= array_for_select($page_layouts, 'id', 'title');	
 	    
 	    // Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-
-			// Load form specific JavaScript
+		$this->template
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
-	    
 			->build('admin/form', $this->data);
 	}
 

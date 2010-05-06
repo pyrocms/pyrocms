@@ -290,12 +290,9 @@ div#content {padding-top:25px;}
 	font-size:1.2em;
 	padding:10px 10px 0px 50px;
 }
-.message h6{
-	margin:0;
-}
-.message p{
-	margin-bottom:10px;
-}
+.message h6 { margin:0; }
+.message p { margin-bottom:10px; }
+.message a { border-bottom:1px dotted; color:#666666; text-decoration:none; }
 .message .inner {
 	background-position:-10px -10px;
 	background-repeat: no-repeat;
