@@ -12,9 +12,12 @@
 	</li>
 
 </ul>
+<h2>{header}</h2>
 
-<?php echo lang('text'); ?>
+<p>{thankyou}</p>
 
-<p id="next_step"><a href="<?php echo site_url('installer/step_1'); ?>" title="Proceed to the first step">Step 1</a></p>
+<p>{text}</p>
+
+<p id="next_step"><a href="<?php echo site_url('installer/step_1'); ?>" title="{link}">{step1}</a></p>
 
 <br class="clear" />

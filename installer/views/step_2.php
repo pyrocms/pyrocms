@@ -1,32 +1,75 @@
 <!-- Install PyroCMS - Step two -->
-<?php echo lang('text'); ?>
+<h2><?php echo lang('header'); ?></h2>
+<p class="text"><?php echo lang('intro_text'); ?></p>
 
+
+<!-- Server settings -->
+<h3><?php echo lang('server_setting'); ?></h3>
 <?php if($http_server->supported === TRUE): ?>
-	<p><?php echo lang('server1'); ?> <strong><?php echo $http_server->name;?></strong> <?php echo lang('server2'); ?></p>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
 <?php else: ?>
-	<p class="red"><?php echo lang('server_fail'); ?></p>
+	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
+<?php endif; ?>
+<p><?php echo lang('server_version'); ?> <strong><?php echo $http_server->name;?></strong>.</p>
+
+<?php if($http_server->supported === FALSE): ?>
+	<p class="red text"><?php echo lang('server_fail'); ?></p>
 <?php endif; ?>
 
-<h3><?php echo lang('phpsettings'); ?></h3>
-<p><?php echo lang('phpversion1'); ?> <strong><?php echo $php_version; ?></strong>, <?php echo lang('phpversion2'); ?> 
-<?php echo $php_version ? lang('supported') : lang('notsupported'); ?>.</p>
-
-<h3><?php echo lang('mysqlsettings'); ?></h3>
+	
+<!-- PHP settings -->
+<h3><?php echo lang('php_settings'); ?></h3>
+<?php if ($php_version): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/exclamation.png" alt="fail" class="icon"/>
+<?php endif; ?>
 <p>
-	<?php echo lang('mysqlversion1'); ?> <strong><?php echo $mysql->server_version; ?></strong> <?php echo lang('mysqlversion2'); ?> <strong><?php echo $mysql->client_version; ?></strong>
-<?php echo lang('mysqlversion3'); ?> <?php echo $mysql->server_version && $mysql->client_version ? lang('supported') : lang('notsupported'); ?>.
+	<?php echo lang('php_required'); ?><br />
+	<?php echo lang('php_version'); ?> <strong><?php echo $php_version; ?></strong>.
 </p>
 
-<h3><?php echo lang('gdsettings'); ?></h3>
+<?php if ($php_version === FALSE): ?>
+	<p class="red text"><?php echo lang('php_fail'); ?></p>
+<?php endif; ?>
+
+
+<!-- MySQL settings -->
+<h3><?php echo lang('mysql_settings'); ?></h3>
+<?php if ($mysql->server_version && $mysql->client_version): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/exclamation.png" alt="fail" class="icon"/>
+<?php endif; ?>
 <p>
-	<?php
-	echo lang('gdversion1');
-	if( ! empty($gd_version)):
-		echo lang('gdversion2') . ' <strong>'.$gd_version.'</strong>, '.lang('gdversion3').' '.(($gd_version !== FALSE) ? lang('supported') : lang('notsupported'));'.';
-	else:
-		echo '<span class="red">'.lang('gdversion_fail').'</span>';
-	endif; ?>
+	<?php echo lang('mysql_required'); ?> <br />
+	<?php echo lang('mysql_version1'); ?> <strong><?php echo $mysql->server_version; ?></strong> <br />
+	<?php echo lang('mysql_version2'); ?> <strong><?php echo $mysql->client_version; ?></strong>
 </p>
+
+<?php if ($mysql->server_version === FALSE OR $mysql->client_version === FALSE): ?>
+	<p class="red text"><?php echo lang('mysql_fail'); ?></p>
+<?php endif; ?>
+
+
+<!-- GD settiings -->
+<h3><?php echo lang('gd_settings'); ?></h3>
+<?php if ( ! empty($gd_version) && $gd_version !== FALSE): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
+<?php endif; ?>
+<p>
+	<?php echo lang('gd_required'); ?> <br />
+	<?php if( ! empty($gd_version)): ?>
+		<?php echo lang('gd_version'); ?> <strong><?php echo $gd_version; ?></strong>
+	<?php endif; ?>
+</p>
+
+<?php if (empty($gd_version) OR $gd_version === FALSE): ?>
+	<p class="red text"><?php echo lang('gd_fail'); ?>
+<?php endif; ?>
+
 
 <!-- Summary -->
 <h3>Summary</h3>

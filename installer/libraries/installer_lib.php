@@ -258,44 +258,65 @@ class Installer_lib
 		// Select the database we created before
 		if( !mysql_select_db($database, $this->db) )
 		{
-			return array('status' => FALSE,'message' => 'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.');
+			return array(
+						'status'	=> FALSE,
+						'message'	=> '',
+						'code'		=> 101
+					);
 		}
 		
 		// HALT...! Query time!
 		if( !$this->_process_schema('1-tables') )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not add any tables to the Database.<br/><br/>' . mysql_error($this->db));
+			return array(
+						'status'	=> FALSE,
+						'message'	=> mysql_error($this->db),
+						'code'		=> 102
+					);
 		}
 		
 		if( !$this->_process_schema('2-default-data') )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not insert the data into the database.<br/><br/>' . mysql_error($this->db));
+			return array(
+						'status'	=> FALSE,
+						'message'	=> mysql_error($this->db),
+						'code'		=> 103
+					);
 		}
 		
 		if( !$this->_process_schema($user_sql, FALSE) )
 		{
-			return array('status' => FALSE,'message' => 'The installer could not create the default user.<br/><br/>' . mysql_error($this->db));
+			return array(
+						'status'	=> FALSE,
+						'message'	=> mysql_error($this->db),
+						'code'		=> 104
+					);
 		}
 			
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close($this->db);
 		
 		// Write the database file
-		if( !$this->write_db_file($database) )
+		if( ! $this->write_db_file($database) )
 		{
-			return array('status' => FALSE,'message' => 'The database configuration file could not be written, did you cheated on the installer by skipping step 3?');
+			return array(
+						'status'	=> FALSE,
+						'message'	=> '',
+						'code'		=> 105
+					);
 		}
 		
 		// Write the config file.
-		if( $this->write_config_file() )
+		if( ! $this->write_config_file() )
 		{
-			return array('status' => TRUE,'message' => 'PyroCMS has been installed successfully.');
+			return array(
+						'status'	=> FALSE,
+						'message'	=> '',
+						'code'		=> 106
+					);
 		}
-		
-		else
-		{
-			return array('status' => FALSE,'message' => 'The config file could not be written, are you sure the file has the correct permissions ?');
-		}
+
+		return array('status' => TRUE);
 	}
 
 	private function _process_schema($schema_file, $is_file = TRUE)

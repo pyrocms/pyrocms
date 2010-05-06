@@ -60,7 +60,6 @@ class Installer extends Controller
 
 		// Sets the language
 		$this->_set_language();
-		$this->load->helper('language');
 	}
 	
 	/**
@@ -72,7 +71,7 @@ class Installer extends Controller
 	public function index()
 	{
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
-		$data['page_output'] = $this->load->view('main','',TRUE);
+		$data['page_output'] = $this->parser->parse('main', $this->lang->language, TRUE);
 		
 		// Load the view file
 		$this->load->view('global',$data);
@@ -117,7 +116,7 @@ class Installer extends Controller
 			else
 			{
 				// Set the flashdata message
-				$this->session->set_flashdata('message', validation_errors('<span>', '</span>'));
+				$this->session->set_flashdata('message', validation_errors('<span>', '</span><br />'));
 				$this->session->set_flashdata('message_type', 'error');
 
 				// Redirect to the first step
@@ -135,10 +134,13 @@ class Installer extends Controller
 		
 		// Get the port from the session or set it to the default value when it isn't specified
 		$data->port = $this->session->userdata('port') ? $this->session->userdata('port') : 3306;
+
+		// Load language labels
+		$data = array_merge((array) $data,$this->lang->language);
 		
 		// Load the view file
 		$this->load->view('global', array(
-			'page_output' => $this->load->view('step_1', $data, TRUE)
+			'page_output' => $this->parser->parse('step_1', $data, TRUE)
 		));
 	}
 	
@@ -181,7 +183,7 @@ class Installer extends Controller
 		// Check the final results
 		$data->step_passed = $this->installer_lib->check_server($data);
 		$this->session->set_userdata('step_2_passed', $data->step_passed);
-	
+
 		// Load the view files
 		$final_data['page_output'] = $this->load->view('step_2', $data, TRUE);
 		$this->load->view('global',$final_data);
@@ -222,8 +224,11 @@ class Installer extends Controller
 		// View variables
 		$data->permissions = $permissions;
 		
-		// Load the view files
-		$final_data['page_output'] = $this->load->view('step_3', $data, TRUE);
+		// Load the language labels
+		$data = (object) array_merge((array) $data,$this->lang->language);
+
+		// Load the view file
+		$final_data['page_output'] = $this->parser->parse('step_3', $data, TRUE);
 		$this->load->view('global', $final_data); 
 	}
 	
@@ -243,21 +248,25 @@ class Installer extends Controller
 
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('database',		'Database',		'required|trim');
-		$this->form_validation->set_rules('user_name',		'Username',		'required|trim');
-		$this->form_validation->set_rules('user_firstname',	'First name',	'required|trim');
-		$this->form_validation->set_rules('user_lastname',	'Last name',	'required|trim');
-		$this->form_validation->set_rules('user_email',		'Email',		'required|trim|valid_email');
-		$this->form_validation->set_rules('user_password',	'Password',		'required|trim');
-		$this->form_validation->set_rules('user_confirm_password', 'Confirm Password', 'required|trim|matches[user_password]');
+		$this->form_validation->set_rules('database',		lang('database'),	'required|trim');
+		$this->form_validation->set_rules('user_name',		lang('user_name'),	'required|trim');
+		$this->form_validation->set_rules('user_firstname',	lang('first_name'),	'required|trim');
+		$this->form_validation->set_rules('user_lastname',	lang('last_name'),	'required|trim');
+		$this->form_validation->set_rules('user_email',		lang('email'),		'required|trim|valid_email');
+		$this->form_validation->set_rules('user_password',	lang('password'),	'required|trim');
+		$this->form_validation->set_rules('user_confirm_password', lang('conf_password'), 'required|trim|matches[user_password]');
+		$this->form_validation->set_error_delimiters('<span>','</span><br />');
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$final_data['page_output'] = $this->load->view('step_4', NULL, TRUE);
+			$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
 			$this->load->view('global', $final_data);
 		}
 		else
 		{
+			// Let's load the language labels
+			$data =	$this->lang->language;
+
 			// Let's try to install the system
 			$install_results = $this->installer_lib->install($_POST);
 
@@ -265,22 +274,23 @@ class Installer extends Controller
 			if($install_results['status'] === FALSE)
 			{
 				// Let's tell them why the install failed
-				$final_data['page_output'] = $this->load->view('step_4', $install_results, TRUE);
+				$data['message'] = $this->lang->line('error_'.$install_results['code']) . $install_results['message'];
+
+				$final_data['page_output'] = $this->parser->parse('step_4', $data, TRUE);
 				$this->load->view('global', $final_data);
 			}
 			else
 			{
 				// Success!
-				$this->session->set_flashdata('message', $install_results['message']);
+				$this->session->set_flashdata('message', lang('success'));
 				$this->session->set_flashdata('message_type','success');
 
 				// Store the default username and password in the session data
-				$this->session->set_flashdata('user', array(
-								'email'		=> $this->input->post('user_email'),
-								'password'	=> $this->input->post('user_password'),
-								'firstname'	=> $this->input->post('user_firstname'),
-								'lastname'	=> $this->input->post('user_lastname'),
-								'username'	=> $this->input->post('username')
+				$this->session->set_userdata('user', array(
+								'user_email'	=> $this->input->post('user_email'),
+								'user_password'	=> $this->input->post('user_password'),
+								'user_firstname'=> $this->input->post('user_firstname'),
+								'user_lastname'	=> $this->input->post('user_lastname')
 								));
 
 				// Redirect
@@ -297,20 +307,43 @@ class Installer extends Controller
 	 */
 	public function complete()
 	{
+		// check if we came from step4
+		if ( ! $this->session->userdata('user'))
+		{
+			redirect(site_url());
+		}
 		$server_name = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
 
 		// Able to use clean URLs?
 		$admin_uri = $supported_servers[$server_name]['rewrite_support'] !== FALSE ? 'admin' : 'index.php/admin';
 
-		$data['admin_user'] = $this->session->flashdata('user');
+		// Load our user's settings
+		$data = $this->session->userdata('user');
+
+		// Load the language labels
+		$data = array_merge((array) $data, $this->lang->language);
+
+		// Create the admin link
 		$data['admin_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', $admin_uri, $this->input->server('SCRIPT_NAME'));
 
+		//Let's remove our session since it contains data we don't want anyone to see
+		$this->session->sess_destroy();
+		
 		// Load the view files
-		$data['page_output'] = $this->load->view('complete',$data, TRUE);
+		$data['page_output'] = $this->parser->parse('complete',$data, TRUE);
 		$this->load->view('global',$data); 
 	}
 
+	/**
+	 * Changes the active language
+	 *
+	 * @access	public
+	 * @author	jeroenvdgulik
+	 * @since	0.9.8.1
+	 * @param	string $language
+	 * @return	void
+	 */
 	public function change($language)
 	{
 		if (in_array($language, $this->languages))
@@ -321,6 +354,14 @@ class Installer extends Controller
 		redirect(site_url('installer'));
 	}
 
+	/**
+	 * Sets the language and loads the corresponding language files
+	 *
+	 * @access	private
+	 * @author	jeroenvdgulik
+	 * @since	0.9.8.1
+	 * @return	void
+	 */
 	private function _set_language()
 	{
 		// let's check if the language is supported

@@ -118,6 +118,15 @@ small 			{font-size:12px;}
 {
 	text-decoration:	underline;
 }
+#content p.text
+{
+	width: 470px;
+}
+#content img.icon
+{
+	float:			right; 
+	margin-right: 	5px;
+}
 /* Permission lists */
 #content .perm_list li
 {
