@@ -102,6 +102,7 @@ class Admin extends Admin_Controller
 				if($this->settings->item('twitter_news') == 1 && $this->input->post('status') == 'live')
 				{
 					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.$this->input->post('created_on_month').'/'.url_title($this->input->post('title')));
+					$this->load->model('twitter/twitter_m');
 					$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url));
 				}
 				// End twitter code
