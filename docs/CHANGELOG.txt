@@ -16,7 +16,7 @@ Bugs
 * Fixed enable_query_string setting in the installer config template.
 * Fixed error in users/register that prevented form_validation errors from displaying.
 * Fixed issue #205: The news article date cannot be changed on creation or edit.
-
+* Fixed upgrade script issue that caused an error by trying to create a column in a table that didn't exist yet.
 v0.9.8
 ------
 

@@ -158,48 +158,6 @@ class Upgrade extends Controller
 			)
 		));
 
-		echo 'Creating forum tables...<br/>';
-		
-		$this->db->query("CREATE TABLE `forum_categories` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `title` varchar(100) COLLATE=utf8_unicode_ci NOT NULL DEFAULT '',
-		  `permission` mediumint(2) NOT NULL DEFAULT '0',
-		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Splits forums into categories'");
-
-		$this->db->query("CREATE TABLE `forum_posts` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `forum_id` int(11) NOT NULL DEFAULT '0',
-		  `author_id` int(11) NOT NULL DEFAULT '0',
-		  `parent_id` int(11) NOT NULL DEFAULT '0',
-		  `title` varchar(100) COLLATE=utf8_unicode_ci CHARACTER SET utf8 NOT NULL DEFAULT '',
-		  `content` text COLLATE=utf8_unicode_ci CHARACTER SET utf8 NOT NULL,
-		  `type` tinyint(1) NOT NULL DEFAULT '0',
-		  `is_locked` tinyint(1) NOT NULL DEFAULT '0',
-		  `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
-		  `created_on` int(11) NOT NULL DEFAULT '0',
-		  `updated_on` int(11) NOT NULL DEFAULT '0',
-		  `view_count` int(11) NOT NULL DEFAULT '0',
-		  `sticky` tinyint(1) NOT NULL DEFAULT '0',
-		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
-
-		$this->db->query("CREATE TABLE `forum_subscriptions` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `topic_id` int(11) NOT NULL DEFAULT '0',
-		  `user_id` int(11) NOT NULL DEFAULT '0',
-		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
-
-		$this->db->query("CREATE TABLE `forums` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `title` varchar(100) COLLATE=utf8_unicode_ci NOT NULL DEFAULT '',
-		  `description` varchar(255) COLLATE=utf8_unicode_ci NOT NULL DEFAULT '',
-		  `category_id` int(11) NOT NULL DEFAULT '0',
-		  `permission` int(2) NOT NULL DEFAULT '0',
-		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Forums are the containers for threads and topics.'");
-
 		return TRUE;
 	}
 
@@ -450,19 +408,48 @@ class Upgrade extends Controller
 		$this->dbforge->drop_column('users', 'last_name');
 		$this->dbforge->drop_column('users', 'lang');
 
-		//add new forums field
-		echo 'Adding columns to forums table <br />';
-		$this->dbforge->add_column('forum_posts', array(
-			'sticky' => array(
-				'type'			=> 'TINYINT',
-				'constraint'	=> 1,
-				'default'		=> 0,
-				'null'			=> TRUE,
-			  ),
-		));
-		// drop old forums columns
-		$this->dbforge->drop_column('forum_posts', 'smileys_enabled');
-		//rename the groups columns
+		echo 'Creating forum tables...<br/>';
+
+		$this->db->query("CREATE TABLE `forum_categories` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `title` varchar(100) NOT NULL DEFAULT '',
+		  `permission` mediumint(2) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Splits forums into categories'");
+
+		$this->db->query("CREATE TABLE `forum_posts` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `forum_id` int(11) NOT NULL DEFAULT '0',
+		  `author_id` int(11) NOT NULL DEFAULT '0',
+		  `parent_id` int(11) NOT NULL DEFAULT '0',
+		  `title` varchar(100) NOT NULL DEFAULT '',
+		  `content` text NOT NULL,
+		  `type` tinyint(1) NOT NULL DEFAULT '0',
+		  `is_locked` tinyint(1) NOT NULL DEFAULT '0',
+		  `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
+		  `created_on` int(11) NOT NULL DEFAULT '0',
+		  `updated_on` int(11) NOT NULL DEFAULT '0',
+		  `view_count` int(11) NOT NULL DEFAULT '0',
+		  `sticky` tinyint(1) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+
+		$this->db->query("CREATE TABLE `forum_subscriptions` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `topic_id` int(11) NOT NULL DEFAULT '0',
+		  `user_id` int(11) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+
+		$this->db->query("CREATE TABLE `forums` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `title` varchar(100) NOT NULL DEFAULT '',
+		  `description` varchar(255) NOT NULL DEFAULT '',
+		  `category_id` int(11) NOT NULL DEFAULT '0',
+		  `permission` int(2) NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Forums are the containers for threads and topics.'");
+
 
 
 		return TRUE;
