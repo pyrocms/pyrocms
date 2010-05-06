@@ -305,7 +305,7 @@ class Widgets
     function __get($var)
     {
         static $ci;
-    	isset($ci) OR $ci = get_instance();
+    	isset($ci) OR $ci =& get_instance();
         return $ci->$var;
     }
 
