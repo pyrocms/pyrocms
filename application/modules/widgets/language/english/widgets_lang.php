@@ -25,8 +25,7 @@ $lang['widgets.edit_instance'] 				= 'Edit widget instance';
 $lang['widgets.delete_instance'] 			= 'Delete widget instance';
 
 $lang['widgets.instance_title'] 			= 'Title';
+$lang['widgets.tag_title']					= 'Tag';
 
 $lang['widgets.instance_edit'] 				= 'Edit';
 $lang['widgets.instance_delete'] 			= 'Delete';
-
-?>

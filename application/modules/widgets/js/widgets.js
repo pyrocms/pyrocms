@@ -120,7 +120,7 @@
 			if(!title || !slug) return false;
 			
 			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
-				$('div#mid-col').append(data).children('div.widget-area:hidden').slideDown();
+				$('div.widget-wrapper').append(data).children('div.widget-area:hidden').slideDown();
 				
 				// Done, hide this form
 				hide_add_area();
