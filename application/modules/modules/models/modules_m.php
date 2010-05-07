@@ -51,31 +51,28 @@ class Modules_m extends MY_Model {
     }
 
 	/**
-	 * Return an object containing module data
+	 * Adds a module
 	 *
 	 * @access public
-	 * @param string module The name of the module to load
+	 * @param	array	$module	Information about the module
 	 * @return object
 	 */
-    public function add($module_path)
+    public function add($module)
     {
-		$this->db->where(array('slug' => $module));
-		$result = $this->db->get($this->_table)->result();
-
-		return array(
-    		'name'				=>	$result->name,
-    		'slug'				=>	$result->slug,
-    		'version' 			=> 	$result->version,
-    		'type' 				=> 	$result->type,
-    		'description' 		=> 	$result->descrition,
-    		'skip_xss'			=>	$result->skip_xss,
-    		'is_frontend'		=>	$result->is_frontend,
-    		'is_backend'		=>	$result->is_backend,
-    		'is_backend_menu' 	=>	$result->is_backend_menu,
-    		'controllers'		=>	unserialize($result->controllers),
-			'enabled'			=>  $result->enabled,
-			'is_core'			=>  $result->is_core
-    	);
+		return $this->db->insert($this->_table, array(
+    		'name'				=>	$module->name,
+    		'slug'				=>	$module->slug,
+    		'version' 			=> 	$module->version,
+    		'type' 				=> 	$module->type,
+    		'description' 		=> 	$module->descrition,
+    		'skip_xss'			=>	$module->skip_xss,
+    		'is_frontend'		=>	$module->is_frontend,
+    		'is_backend'		=>	$module->is_backend,
+    		'is_backend_menu' 	=>	$module->is_backend_menu,
+    		'controllers'		=>	serialize($module->controllers),
+			'enabled'			=>  $module->enabled,
+			'is_core'			=>  $module->is_core
+    	));
     }
 
 	/**
