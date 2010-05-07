@@ -18,7 +18,7 @@
 
 <p>
 	<label for="remember"><?php echo lang('user_remember')?></label>
-	<?php echo form_checkbox('remember', '1', TRUE); ?>
+	<?php echo form_checkbox('remember', '1', FALSE); ?>
 </p>
 
 <input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />
