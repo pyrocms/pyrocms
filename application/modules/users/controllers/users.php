@@ -301,7 +301,13 @@ class Users extends Public_Controller
 	 */
 	public function _check_login($email)
 	{
-		if ($this->ion_auth->login($email, $this->input->post('password')))
+		$remember = FALSE;
+		if ($this->input->post('remember') == 1) 
+		{
+			$remember = TRUE;	
+		}
+		
+		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
 		{
 			return TRUE;
 		}
