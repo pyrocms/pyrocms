@@ -19,7 +19,8 @@ Bugs
 * Fixed error in users/register that prevented form_validation errors from displaying.
 * Fixed issue #205: The news article date cannot be changed on creation or edit.
 * Fixed upgrade script issue that caused an error by trying to create a column in a table that didn't exist yet.
-* Fixed issue #206: Twitter/News integration issues
+* Fixed issue #206: Twitter/News integration issues.
+* Fixed redirect loop for any users logging in with a direct visit to /users/login that only affected root installs.
 
 v0.9.8
 ------
