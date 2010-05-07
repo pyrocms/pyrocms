@@ -48,28 +48,41 @@
 	</form>
 </div>
 
-<?php if (!empty($widget_areas)): ?>
-	<?php foreach ($widget_areas as $widget_area): ?>
-	
-		<div id="area-<?php echo $widget_area->slug; ?>" class="box widget-area">
-			<h3><?php echo $widget_area->title; ?></h3>	
-			
-			<div class="box-container">
-				
-				<div class="button float-right">
-					<a id="delete-area-<?php echo $widget_area->slug; ?>" class="delete-area" href="#">
-						<?php echo lang('widgets.delete_area'); ?>
-					</a>
-				</div>
-				
-				<div class="widget-list">
-					<?php $this->load->view('admin/ajax/instance_list', array('widgets' => $widget_area->widgets)); ?>
+<div class="widget-wrapper">
+
+	<?php if (!empty($widget_areas)): ?>
+
+		<?php foreach ($widget_areas as $widget_area): ?>
+
+			<div id="area-<?php echo $widget_area->slug; ?>" class="box widget-area">
+				<h3><?php echo $widget_area->title; ?></h3>
+
+				<div class="box-container">
+
+					<div class="header-squish">
+
+						<span class="tag">
+							<?php echo sprintf('{widget_area(%s)}', $widget_area->id);?>
+						</span>
+
+						<div class="button">
+							<a id="delete-area-<?php echo $widget_area->slug; ?>" class="delete-area" href="#">
+								<?php echo lang('widgets.delete_area'); ?>
+							</a>
+						</div>
+
+					</div>
+
+					<div class="widget-list">
+						<?php $this->load->view('admin/ajax/instance_list', array('widgets' => $widget_area->widgets)); ?>
+					</div>
 				</div>
 			</div>
-		</div>
-		
-	<?php endforeach; ?>
-		
-<?php else: ?>
-	<p><?php echo lang('nav_no_groups');?></p>
-<?php endif; ?>
+
+		<?php endforeach; ?>
+
+	<?php else: ?>
+		<p><?php echo lang('nav_no_groups');?></p>
+	<?php endif; ?>
+
+</div>

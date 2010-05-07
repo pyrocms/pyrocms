@@ -16,6 +16,6 @@
 	z-index:0;
 }
 
-	.widget-area .box-container .button {
-		margin-top:-3.4em;
-	}
+.widget-area .header-squish .tag {
+	float: left; color: #fff; margin-right:7em; padding: 0.4em 1em;
+}

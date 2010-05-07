@@ -25,6 +25,7 @@ $lang['widgets.edit_instance'] 				= 'Widget bearbeiten';
 $lang['widgets.delete_instance'] 			= 'Widget löschen';
 
 $lang['widgets.instance_title'] 			= 'Titel';
+$lang['widgets.tag_title']					= 'Tag'; #translate
 
 $lang['widgets.instance_edit'] 				= 'Editieren';
 $lang['widgets.instance_delete'] 			= 'Löschen';

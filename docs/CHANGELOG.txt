@@ -7,6 +7,7 @@ v0.9.8.1
 * Theme Layouts can now be assigned to Page Layouts.
 * Installer can now get server information from (and install to) remote database servers.
 * Comments can be added to a Page with a checkbox on Add/Edit "Options" tab.
+* Added third_party/widgets so you can add your own Widgets out of the way of application folder.
 * Query strings are now fully supported.
 * Added hooks for post_user_activation and post_user_login for custom actions.
 
@@ -19,7 +20,8 @@ Bugs
 * Fixed error in users/register that prevented form_validation errors from displaying.
 * Fixed issue #205: The news article date cannot be changed on creation or edit.
 * Fixed upgrade script issue that caused an error by trying to create a column in a table that didn't exist yet.
-* Fixed issue #206: Twitter/News integration issues
+* Fixed issue #206: Twitter/News integration issues.
+* Fixed redirect loop for any users logging in with a direct visit to /users/login that only affected root installs.
 
 v0.9.8
 ------

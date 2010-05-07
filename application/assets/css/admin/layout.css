@@ -376,3 +376,9 @@ div.button a:hover, button:hover span {
 	background:lightgrey;
 	cursor: pointer;
 }
+
+
+.header-squish {
+	margin-top: -3.4em;
+	float: right;
+}
