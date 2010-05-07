@@ -70,7 +70,7 @@ function process_comment_items($comments)
 				
 				if($photo && $album = $ci->photo_albums_m->get($photo->album_id))
 				{
-					$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->description, 'class="modal"');
+					$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->caption, 'class="modal"');
 					break;
 				}
 
