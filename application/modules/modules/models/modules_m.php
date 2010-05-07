@@ -31,10 +31,7 @@ class Modules_m extends MY_Model {
 	 */
     public function get($module = '')
     {
-		// If no Module then return an array of null values
-		if(empty($module))
-		{
-			return array(
+		$null_array = array(
 				'name'				=>	NULL,
 				'slug'				=>	NULL,
 				'version' 			=> 	NULL,
@@ -48,36 +45,35 @@ class Modules_m extends MY_Model {
 				'enabled'			=>  NULL,
 				'is_core'			=>  NULL
 			);
-		}
 
-		if(is_array($module))
+		if(is_array($module) || empty($module))
 		{
-			$modules = array();
-			foreach($module as $m)
-			{
-				$modules[] = $this->get($m);
-			}
-			return $modules;
+			return $null_array;
 		}
 
 
 		$this->db->where(array('slug' => $module));
 		$result = $this->db->get($this->_table)->row();
-		
-		return array(
-    		'name'				=>	$result->name,
-    		'slug'				=>	$result->slug,
-    		'version' 			=> 	$result->version,
-    		'type' 				=> 	$result->type,
-    		'description' 		=> 	$result->description,
-    		'skip_xss'			=>	$result->skip_xss,
-    		'is_frontend'		=>	$result->is_frontend,
-    		'is_backend'		=>	$result->is_backend,
-    		'is_backend_menu' 	=>	$result->is_backend_menu,
-    		'controllers'		=>	unserialize($result->controllers),
-			'enabled'			=>  $result->enabled,
-			'is_core'			=>  $result->is_core
-    	);
+
+		if(!empty($result))
+		{
+			return array(
+				'name'				=>	$result->name,
+				'slug'				=>	$result->slug,
+				'version' 			=> 	$result->version,
+				'type' 				=> 	$result->type,
+				'description' 		=> 	$result->description,
+				'skip_xss'			=>	$result->skip_xss,
+				'is_frontend'		=>	$result->is_frontend,
+				'is_backend'		=>	$result->is_backend,
+				'is_backend_menu' 	=>	$result->is_backend_menu,
+				'controllers'		=>	unserialize($result->controllers),
+				'enabled'			=>  $result->enabled,
+				'is_core'			=>  $result->is_core
+			);
+		}
+
+		return $null_array;
     }
 
 	/**
@@ -178,14 +174,16 @@ class Modules_m extends MY_Model {
     function get_module_controllers($module = '')
     {
 		$module = $this->get($module);
-
+	
 		$controllers = array();
     	
-    	// Loop through directories that hold modules
-    	foreach ($module['controllers'] as $name => $methods)
-    	{
-			$controllers[] = $name;
-    	}
+    	if(is_array($module['controllers']))
+		{
+			foreach ($module['controllers'] as $name => $methods)
+			{
+				$controllers[] = $name;
+			}
+		}
 
         return $controllers;
     }
