@@ -15,8 +15,13 @@
  * @param bool $reference Whether to use a reference or not (?)
  * @return void
  */
-function display_comments($ref_id, $reference = NULL)
+function display_comments($ref_id = '', $reference = NULL)
 {
+	if(!$ref_id)
+	{
+		return '';
+	}
+
 	$ci =& get_instance();
 
 	// Set ref to module if none provided
@@ -65,7 +70,7 @@ function process_comment_items($comments)
 				
 				if($photo && $album = $ci->photo_albums_m->get($photo->album_id))
 				{
-					$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->description, 'class="modal"');
+					$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->caption, 'class="modal"');
 					break;
 				}
 

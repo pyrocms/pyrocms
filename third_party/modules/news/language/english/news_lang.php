@@ -57,5 +57,6 @@ $lang['news_delete_error'] 							= 'No articles were deleted.';
 $lang['news_already_exist_error'] 					= 'An article with this URL already exists.';
 
 $lang['news_twitter_posted'] 						= 'Posted "%s" %s';
+$lang['news_twitter_error'] 						= 'Twitter Error';
 
 ?>

@@ -70,7 +70,7 @@ class Users extends Public_Controller
 
 			// If iwe aren't being redirected from the userl ogin page
 			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
-			strpos($uri, '/users/login') || $this->session->set_userdata('redirect_to', str_replace($root_uri, '', $uri));
+			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri, '', $uri));
 		}
 		
 	    // If the validation worked, or the user is already logged in
@@ -81,6 +81,9 @@ class Users extends Public_Controller
 				: ''; // Home
 
 			$this->session->unset_userdata('redirect_to');
+
+			// Call post login hook
+			$this->hooks->_call_hook('post_user_login');
 
 			// Redirect the user
 			redirect($redirect_to);
@@ -181,7 +184,7 @@ class Users extends Public_Controller
 		else
 		{
 			// Return the validation error
-			$this->data->error_string = $this->form_validation->error_string;
+			$this->data->error_string = $this->form_validation->error_string();
 		}
 
 		$this->data->user_data =& $user_data;
@@ -217,6 +220,10 @@ class Users extends Public_Controller
 			if($this->ion_auth->activate($id, $code)) {
 
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
+
+				// Call post activation hook
+				$this->hooks->_call_hook('post_user_activation');
+
 				redirect('users/activated');
 			}
 			else {
@@ -294,7 +301,13 @@ class Users extends Public_Controller
 	 */
 	public function _check_login($email)
 	{
-		if ($this->ion_auth->login($email, $this->input->post('password')))
+		$remember = FALSE;
+		if ($this->input->post('remember') == 1) 
+		{
+			$remember = TRUE;	
+		}
+		
+		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
 		{
 			return TRUE;
 		}

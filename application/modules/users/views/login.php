@@ -2,8 +2,8 @@
 
 <?php echo form_open('users/login', array('id'=>'login')); ?>
 	
-<?php if (!empty($this->form_validation->error_string)): ?>
-	<div class="error-box"><?php echo $this->form_validation->error_string;?></div>
+<?php if (validation_errors()): ?>
+	<div class="error-box"><?php echo validation_errors();?></div>
 <?php endif; ?>
 
 <p>
@@ -14,6 +14,11 @@
 <p>
 	<label for="password"><?php echo lang('user_password')?></label>
 	<input type="password" name="password" maxlength="20" value="<?php echo $user_data->password; ?>" />
+</p>
+
+<p>
+	<label for="remember"><?php echo lang('user_remember')?></label>
+	<?php echo form_checkbox('remember', '1', FALSE); ?>
 </p>
 
 <input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />

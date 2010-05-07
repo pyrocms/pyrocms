@@ -29,7 +29,8 @@ $lang['cp_nav_permissions']				= 'Autorisations';
 $lang['cp_nav_variables']				= 'Variables';
 
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
-$lang['delete_installer_message']		= 'Supprimez le répertoire "installer" de votre serveur. Le garder pourrait permettre à un tiers de prendre le contrôle de votre site.';
+$lang['cp_delete_installer_message']		= 'Supprimez le répertoire "installer" de votre serveur. Le garder pourrait permettre à un tiers de prendre le contrôle de votre site.';
+$lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s">click here</a> to upgrade the database.'; #translate
 
 // Admin-wide text
 $lang['cp_sidebar_title'] 				= 'Menu';

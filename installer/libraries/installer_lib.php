@@ -233,7 +233,6 @@ class Installer_lib
 		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
-
 		// Get the SQL for the default data and parse it
 		$data_sql		= file_get_contents('./sql/2-default-data.sql');
 		$data_sql		= str_replace('__VERSION__', 	CMS_VERSION,				$data_sql);
