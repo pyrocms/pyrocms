@@ -7,6 +7,7 @@ v0.9.8.1
 * Theme Layouts can now be assigned to Page Layouts.
 * Installer can now get server information from (and install to) remote database servers.
 * Comments can be added to a Page with a checkbox on Add/Edit "Options" tab.
+* Added third_party/widgets so you can add your own Widgets out of the way of application folder.
 
 Bugs
 
