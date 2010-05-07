@@ -57,5 +57,6 @@ $lang['news_delete_error'] 							= 'Ein Fehler ist aufgetreten. Keine Artikel w
 $lang['news_already_exist_error'] 					= 'Ein Artikel mit dieser URL existiert bereits.';
 
 $lang['news_twitter_posted'] 						= 'Posted "%s" %s';
+$lang['news_twitter_error'] 						= 'Twitter Error'; #translate
 
 ?>

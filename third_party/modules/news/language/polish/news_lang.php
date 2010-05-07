@@ -57,5 +57,6 @@ $lang['news_delete_error'] 							= 'Żadne artykuły nie zostały skasowane.';
 $lang['news_already_exist_error'] 					= 'Artykuł z tym adresem URL już istnieje.';
 
 $lang['news_twitter_posted'] 						= 'Opublikowany "%s" %s';
+$lang['news_twitter_error'] 						= 'Twitter Error'; #translate
 
 ?>

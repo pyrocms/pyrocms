@@ -415,8 +415,13 @@ class Twitter {
 			$error_data = $this->_parse_returned($returned, $url);
 			
 			// Server not found fix #1
-			if($error_data && is_object($error_data)) {
+			if($error_data && is_object($error_data))
+			{
 				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
+			}
+			else
+			{
+				$this->last_error = array('status' => $status, 'request' => $url, 'error' => $error_data);
 			}
 			
 			return false;
@@ -443,7 +448,14 @@ class Twitter {
 			return $this->_parse_returned($returned, $url);
 		} else {
 			$error_data = $this->_parse_returned($returned, $url);
-			$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
+			if($error_data && is_object($error_data))
+			{
+				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
+			}
+			else
+			{
+				$this->last_error = array('status' => $status, 'request' => $url, 'error' => $error_data);
+			}
 			return false;
 		}
 	}
