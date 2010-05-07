@@ -92,6 +92,8 @@ class Admin extends Admin_Controller
 	{
 		if($this->modules_m->enable($module_slug))
 		{
+			// Clear the module cache
+			$this->cache->delete_all('modules_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $module_slug));
 		}
 		else
@@ -115,6 +117,8 @@ class Admin extends Admin_Controller
 	{
 		if($this->modules_m->disable($module_slug))
 		{
+			// Clear the module cache
+			$this->cache->delete_all('modules_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $module_slug));
 		}
 		else
