@@ -57,6 +57,12 @@ class Modules_m extends MY_Model {
 
 		if(!empty($result))
 		{
+			// Return FALSE if the module is disabled
+			if($result->enabled == 0)
+			{
+				return FALSE;
+			}
+
 			return array(
 				'name'				=>	$result->name,
 				'slug'				=>	$result->slug,
@@ -107,12 +113,17 @@ class Modules_m extends MY_Model {
 	 * @param array params The array containing the modules to load
 	 * @return array
 	 */
-    public function get_modules($params = array())
+    public function get_modules($params = array(), $return_disabled = FALSE)
     {
     	$modules = array();
 
     	foreach ($this->db->get($this->_table)->result() as $result)
     	{
+			// Skip the disabled modules
+			if(!$return_disabled && $result->enabled == 0)
+			{
+				continue;
+			}
 			$module = array(
 				'name'				=>	$result->name,
 				'slug'				=>	$result->slug,
@@ -201,7 +212,60 @@ class Modules_m extends MY_Model {
 		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();    	
     }
     
-    /**
+	/**
+	 * Exists
+	 *
+	 * Checks if a module exists
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function exists($module)
+	{
+		if($this->db->get_where($this->_table, array('slug' => $module), 1)->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Enable
+	 *
+	 * Enables a module
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function enable($module)
+	{
+		if($this->exists($module))
+		{
+			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 1));
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Disable
+	 *
+	 * Disables a module
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function disable($module)
+	{
+		if($this->exists($module))
+		{
+			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 0));
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
      * Format the XML 
 	 * @access private
 	 * @param string $xml_file The XML file to load

@@ -20,14 +20,10 @@ function module_directories()
 ***/
 function module_array()
 {
-	foreach (module_directories() as $directory)
-	{
-        foreach(glob($directory.'/*', GLOB_ONLYDIR) as $module)
-        {
-			$modules[] = basename($module);
-        }
-       }
-       asort($modules);
+	$ci =& get_instance();
+
+	$modules = $ci->modules_m->get_modules();
+	asort($modules);
      
 	return $modules;
 }
@@ -58,17 +54,11 @@ function module_exists($module = '')
 	}
 
 	// Start looking
-	foreach (module_directories() as $directory)
-	{
-		if(is_dir($directory.'/'.$module))
-		{
-			$_module_exists[$module] = TRUE;
-			return TRUE;
-		}
-	}
-	
-	$_module_exists[$module] = FALSE;
-	return FALSE;
+	$ci =& get_instance();
+
+	$_module_exists[$module] = $ci->modules_m->exists($module);
+
+	return $_module_exists[$module];
 }
 
 

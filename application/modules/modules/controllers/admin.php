@@ -29,7 +29,7 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
- 		$this->data->modules = $this->modules_m->get_modules();
+ 		$this->data->modules = $this->modules_m->get_modules(NULL, TRUE);
 			  
 		$this->template->build('admin/index', $this->data);
 	}
@@ -44,7 +44,8 @@ class Admin extends Admin_Controller
 	 */
 	public function install()
 	{
-
+		// TODO: Write the install
+		return;
 	}
 
 	/**
@@ -58,6 +59,9 @@ class Admin extends Admin_Controller
 	 */
 	public function uninstall($module_slug = '')
 	{
+		// TODO: Figure out how to uninstall
+		return;
+
 		// Don't allow user to delete the entire module folder
 		if($module_slug == '/' || $module_slug == '*' || empty($module_slug))
 		{
@@ -86,18 +90,15 @@ class Admin extends Admin_Controller
 	 */
 	public function enable($module_slug)
 	{
-		$old_path = 'third_party/modules/' . $module_slug;
-		$new_path = 'third_party/modules/' . substr($module_slug, 0, strlen($module_slug) - 9);
-
-		if(is_dir($old_path))
+		if($this->modules_m->enable($module_slug))
 		{
-			if(rename($old_path, $new_path))
-			{
-				$this->session->set_flashdata('success', lang('modules.enable_success'));
-				redirect('admin/modules');
-			}
+			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $module_slug));
 		}
-		$this->session->set_flashdata('error', lang('modules.enable_error'));
+		else
+		{
+			$this->session->set_flashdata('success', sprintf(lang('modules.enable_error'), $module_slug));
+		}
+
 		redirect('admin/modules');
 	}
 
@@ -112,18 +113,15 @@ class Admin extends Admin_Controller
 	 */
 	public function disable($module_slug)
 	{
-		$old_path = 'third_party/modules/' . $module_slug;
-		$new_path = 'third_party/modules/' . $module_slug . '.disabled';
-
-		if(is_dir($old_path))
+		if($this->modules_m->disable($module_slug))
 		{
-			if(rename($old_path, $new_path))
-			{
-				$this->session->set_flashdata('success', lang('modules.disable_success'));
-				redirect('admin/modules');
-			}
+			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $module_slug));
 		}
-		$this->session->set_flashdata('error', lang('modules.disable_error'));
+		else
+		{
+			$this->session->set_flashdata('success', sprintf(lang('modules.disable_error'), $module_slug));
+		}
+
 		redirect('admin/modules');
 	}
 
