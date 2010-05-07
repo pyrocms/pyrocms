@@ -82,6 +82,9 @@ class Users extends Public_Controller
 
 			$this->session->unset_userdata('redirect_to');
 
+			// Call post login hook
+			$this->hooks->_call_hook('post_user_login');
+
 			// Redirect the user
 			redirect($redirect_to);
 	    }
@@ -217,6 +220,10 @@ class Users extends Public_Controller
 			if($this->ion_auth->activate($id, $code)) {
 
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
+
+				// Call post activation hook
+				$this->hooks->_call_hook('post_user_activation');
+
 				redirect('users/activated');
 			}
 			else {

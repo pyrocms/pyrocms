@@ -8,6 +8,7 @@ v0.9.8.1
 * Installer can now get server information from (and install to) remote database servers.
 * Comments can be added to a Page with a checkbox on Add/Edit "Options" tab.
 * Query strings are now fully supported.
+* Added hooks for post_user_activation and post_user_login for custom actions.
 
 Bugs
 
