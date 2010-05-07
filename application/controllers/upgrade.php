@@ -141,7 +141,33 @@ class Upgrade extends Controller
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `content`  `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
 
+		echo "Creating modules table...<br />";
+		$this->db->query('DROP TABLE IF EXISTS `modules`');
+		$this->db->query('CREATE TABLE `modules` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `name` varchar(100) NOT NULL,
+		  `slug` varchar(50) NOT NULL,
+		  `version` varchar(20) NOT NULL,
+		  `type` varchar(20) DEFAULT NULL,
+		  `description` varchar(255)DEFAULT NULL,
+		  `skip_xss` tinyint(1) NOT NULL,
+		  `is_frontend` tinyint(1) NOT NULL,
+		  `is_backend` tinyint(1) NOT NULL,
+		  `is_backend_menu` tinyint(1) NOT NULL,
+		  `enabled` tinyint(1) NOT NULL,
+		  `is_core` tinyint(1) NOT NULL,
+		  `controllers` text NOT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `slug` (`slug`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;');
 
+		echo "Importing current modules into database...<br />";
+
+		// Load the module import class
+		require APPPATH . 'libraries/Module_import.php';
+		$mod_import = new Module_import();
+		$mod_import->_import();
+		
 		return TRUE;
 	}
 

@@ -31,15 +31,45 @@ class Modules_m extends MY_Model {
 	 */
     public function get($module = '')
     {
-		$this->db->where(array('slug' => $module));
-		$result = $this->db->get($this->_table)->result();
+		// If no Module then return an array of null values
+		if(empty($module))
+		{
+			return array(
+				'name'				=>	NULL,
+				'slug'				=>	NULL,
+				'version' 			=> 	NULL,
+				'type' 				=> 	NULL,
+				'description' 		=> 	NULL,
+				'skip_xss'			=>	NULL,
+				'is_frontend'		=>	NULL,
+				'is_backend'		=>	NULL,
+				'is_backend_menu' 	=>	NULL,
+				'controllers'		=>	NULL,
+				'enabled'			=>  NULL,
+				'is_core'			=>  NULL
+			);
+		}
 
+		if(is_array($module))
+		{
+			$modules = array();
+			foreach($module as $m)
+			{
+				$modules[] = $this->get($m);
+			}
+			return $modules;
+		}
+
+
+		$this->db->where(array('slug' => $module));
+		$result = $this->db->get($this->_table)->row();
+		
 		return array(
     		'name'				=>	$result->name,
     		'slug'				=>	$result->slug,
     		'version' 			=> 	$result->version,
     		'type' 				=> 	$result->type,
-    		'description' 		=> 	$result->descrition,
+    		'description' 		=> 	$result->description,
     		'skip_xss'			=>	$result->skip_xss,
     		'is_frontend'		=>	$result->is_frontend,
     		'is_backend'		=>	$result->is_backend,
@@ -59,19 +89,19 @@ class Modules_m extends MY_Model {
 	 */
     public function add($module)
     {
-		return $this->db->insert($this->_table, array(
-    		'name'				=>	$module->name,
-    		'slug'				=>	$module->slug,
-    		'version' 			=> 	$module->version,
-    		'type' 				=> 	$module->type,
-    		'description' 		=> 	$module->descrition,
-    		'skip_xss'			=>	$module->skip_xss,
-    		'is_frontend'		=>	$module->is_frontend,
-    		'is_backend'		=>	$module->is_backend,
-    		'is_backend_menu' 	=>	$module->is_backend_menu,
-    		'controllers'		=>	serialize($module->controllers),
-			'enabled'			=>  $module->enabled,
-			'is_core'			=>  $module->is_core
+		return $this->db->insert('modules', array(
+    		'name'				=>	$module['name'],
+    		'slug'				=>	$module['slug'],
+    		'version' 			=> 	$module['version'],
+    		'type' 				=> 	$module['type'],
+    		'description' 		=> 	$module['description'],
+    		'skip_xss'			=>	$module['skip_xss'],
+    		'is_frontend'		=>	$module['is_frontend'],
+    		'is_backend'		=>	$module['is_backend'],
+    		'is_backend_menu' 	=>	$module['is_backend_menu'],
+    		'controllers'		=>	serialize($module['controllers']),
+			'enabled'			=>  $module['enabled'],
+			'is_core'			=>  $module['is_core']
     	));
     }
 
@@ -92,7 +122,7 @@ class Modules_m extends MY_Model {
 				'slug'				=>	$result->slug,
 				'version' 			=> 	$result->version,
 				'type' 				=> 	$result->type,
-				'description' 		=> 	$result->descrition,
+				'description' 		=> 	$result->description,
 				'skip_xss'			=>	$result->skip_xss,
 				'is_frontend'		=>	$result->is_frontend,
 				'is_backend'		=>	$result->is_backend,
