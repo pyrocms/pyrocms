@@ -96,7 +96,7 @@ class Admin extends Admin_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('success', sprintf(lang('modules.enable_error'), $module_slug));
+			$this->session->set_flashdata('error', sprintf(lang('modules.enable_error'), $module_slug));
 		}
 
 		redirect('admin/modules');
@@ -119,7 +119,7 @@ class Admin extends Admin_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('success', sprintf(lang('modules.disable_error'), $module_slug));
+			$this->session->set_flashdata('error', sprintf(lang('modules.disable_error'), $module_slug));
 		}
 
 		redirect('admin/modules');
