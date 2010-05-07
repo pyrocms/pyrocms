@@ -81,12 +81,17 @@ class Admin extends Admin_Controller
 		if ($this->validation->run())
 		{
 			$id = $this->news_m->insert(array(
-	            'title'			=> $this->input->post('title'),
-	            'slug'			=> $this->input->post('slug'),
-	            'category_id'	=> $this->input->post('category_id'),
-	            'intro'			=> $this->input->post('intro'),
-	            'body'			=> $this->input->post('body'),
-	            'status'		=> $this->input->post('status'),
+	            'title'				=> $this->input->post('title'),
+	            'slug'				=> $this->input->post('slug'),
+	            'category_id'		=> $this->input->post('category_id'),
+	            'intro'				=> $this->input->post('intro'),
+	            'body'				=> $this->input->post('body'),
+	            'status'			=> $this->input->post('status'),
+				'created_on_hour'	=> $this->input->post('created_on_hour'),
+				'created_on_minute'	=> $this->input->post('created_on_minute'),
+				'created_on_day'	=> $this->input->post('created_on_day'),
+				'created_on_month'	=> $this->input->post('created_on_month'),
+				'created_on_year'	=> $this->input->post('created_on_year'),
 	    	));
     	
 			if (!empty($id))
@@ -97,6 +102,7 @@ class Admin extends Admin_Controller
 				if($this->settings->item('twitter_news') == 1 && $this->input->post('status') == 'live')
 				{
 					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.$this->input->post('created_on_month').'/'.url_title($this->input->post('title')));
+					$this->load->model('twitter/twitter_m');
 					$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url));
 				}
 				// End twitter code
@@ -135,12 +141,17 @@ class Admin extends Admin_Controller
 		{
 			
 			$result = $this->news_m->update($id, array(
-	            'title'			=> $this->input->post('title'),
-	            'slug'			=> $this->input->post('slug'),
-	            'category_id'	=> $this->input->post('category_id'),
-	            'intro'			=> $this->input->post('intro'),
-	            'body'			=> $this->input->post('body'),
-	            'status'		=> $this->input->post('status')
+	            'title'				=> $this->input->post('title'),
+	            'slug'				=> $this->input->post('slug'),
+	            'category_id'		=> $this->input->post('category_id'),
+	            'intro'				=> $this->input->post('intro'),
+	            'body'				=> $this->input->post('body'),
+	            'status'			=> $this->input->post('status'),
+				'created_on_hour'	=> $this->input->post('created_on_hour'),
+				'created_on_minute'	=> $this->input->post('created_on_minute'),
+				'created_on_day'	=> $this->input->post('created_on_day'),
+				'created_on_month'	=> $this->input->post('created_on_month'),
+				'created_on_year'	=> $this->input->post('created_on_year'),
 	    	));
 			
 			if ($result)

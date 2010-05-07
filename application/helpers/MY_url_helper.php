@@ -93,7 +93,7 @@ function shorten_url($url = '')
 {
 	$CI =& get_instance();
 	
-	$CI->load->library('cURL');
+	$CI->load->library('curl');
 
 	if(!$url)
 	{

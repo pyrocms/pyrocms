@@ -8,6 +8,7 @@ v0.9.8.1
 * Installer can now get server information from (and install to) remote database servers.
 * Comments can be added to a Page with a checkbox on Add/Edit "Options" tab.
 * Added third_party/widgets so you can add your own Widgets out of the way of application folder.
+* Query strings are now fully supported.
 
 Bugs
 
@@ -16,6 +17,9 @@ Bugs
 * Fixed Tiny MCE bug that prevented the image manager from working when PyroCMS was installed in a sub-directory.
 * Fixed enable_query_string setting in the installer config template.
 * Fixed error in users/register that prevented form_validation errors from displaying.
+* Fixed issue #205: The news article date cannot be changed on creation or edit.
+* Fixed upgrade script issue that caused an error by trying to create a column in a table that didn't exist yet.
+* Fixed issue #206: Twitter/News integration issues
 
 v0.9.8
 ------

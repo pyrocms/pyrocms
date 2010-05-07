@@ -12,9 +12,11 @@ class MY_Controller extends Controller
 		parent::Controller();
 		
 		$this->benchmark->mark('my_controller_start');
-		
+
+		$this->hooks =& $GLOBALS['EXT'];
+
 		// Hook point
-		$GLOBALS['EXT']->_call_hook('post_core_controller_constructor');
+		$this->hooks->_call_hook('post_core_controller_constructor');
 		
         // Load the user model and get user data
         $this->load->model('users/users_m');

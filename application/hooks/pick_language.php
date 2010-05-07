@@ -66,21 +66,5 @@ function pick_language()
 
     // Sets a constant to use throughout ALL of CI.
     define('CURRENT_LANGUAGE', $lang);
-
-	// Destroy $_GET so that everything routes correctly.
-	$_GET = NULL;
-
-	foreach(array('REQUEST_URI', 'PATH_INFO', 'ORIG_PATH_INFO') as $uri_protocol)
-	{
-		if(!isset($_SERVER[$uri_protocol]))
-		{
-			continue;
-		}
-		
-		if(strpos($_SERVER[$uri_protocol], '?') !== FALSE)
-		{
-			$_SERVER[$uri_protocol] = str_replace('?'.$_SERVER['QUERY_STRING'], '', $_SERVER[$uri_protocol]);
-		}
-	}
 	
 }

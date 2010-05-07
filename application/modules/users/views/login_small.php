@@ -8,6 +8,9 @@
 	
 	<label for="password"><?php echo lang('user_password'); ?></label>
 	<input type="password" id="password" name="password" maxlength="20" />
+	
+	<label for="remember"><?php echo lang('user_remember')?></label>
+	<?php echo form_checkbox('remember', '1', FALSE); ?>
 </div>
 
 <div class="float-right align-center spacer-left">
