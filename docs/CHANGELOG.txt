@@ -16,6 +16,7 @@ v0.9.8.1
 * Themes with no theme.xml will still function fine, they just won't have author name, website, etc.
 * Modules can now be uploaded via the admin panel.
 * A Module's details.xml can now contain SQL data to be run on module upload (see the forums details.xml for example).
+* Modules can now be uninstalled from the admin panel.
 
 Bugs
 
