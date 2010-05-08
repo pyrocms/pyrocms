@@ -121,8 +121,6 @@ class Admin extends Admin_Controller
 	 */
 	public function uninstall($module_slug = '')
 	{
-		// TODO: Figure out how to uninstall
-		return;
 
 		// Don't allow user to delete the entire module folder
 		if($module_slug == '/' || $module_slug == '*' || empty($module_slug))
@@ -130,14 +128,19 @@ class Admin extends Admin_Controller
 			show_error(lang('modules.module_not_specified'));
 		}
 
-		$path = 'third_party/modules/' . $module_slug;
-
-		if($this->_delete_recursive($path))
+		if($this->modules_m->uninstall($module_slug))
 		{
-			$this->session->set_flashdata('success', lang('modules.uninstall_success'));
+			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $module_slug));
+
+			$path = 'third_party/modules/' . $module_slug;
+
+			if(!$this->_delete_recursive($path))
+			{
+				$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
+			}
 			redirect('admin/modules');
 		}
-		$this->session->set_flashdata('error', lang('modules.uninstall_error'));
+		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $module_slug));
 		redirect('admin/modules');
 	}
 

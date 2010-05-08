@@ -385,6 +385,42 @@ class Modules_m extends MY_Model {
 	}
 
 	/**
+	 * Uninstall
+	 *
+	 * Unnstalls a module
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function uninstall($module_slug)
+	{
+
+		if(!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		{
+			return FALSE;
+		}
+
+		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
+
+		// Run the uninstall sql if it is there
+		if(isset($module['install']) && !empty($module['uninstall']))
+		{
+			$uninstall_sql = explode('-- command split --', trim($module['uninstall']));
+
+			foreach($uninstall_sql as $sql)
+			{
+				$sql = trim($sql);
+				if(!empty($sql))
+				{
+					$this->db->query(trim($sql));
+				}
+			}
+		}
+		
+		return $this->delete($module_slug);
+	}
+
+	/**
 	 * Parse XML
 	 *
 	 * Parses the details.xml file

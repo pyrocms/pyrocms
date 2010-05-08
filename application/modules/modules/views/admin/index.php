@@ -28,7 +28,7 @@
 					<td class="align-center">
 					<?php $make_status = ($module['enabled']) ? 'disable' : 'enable'; ?>
 					<?php echo anchor('admin/modules/' . $make_status . '/' . $module['slug'], lang($make_status . '_label'), "");?>
-					<?php //echo ' | ' . anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
+					<?php echo ' | ' . anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
