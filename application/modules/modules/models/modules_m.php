@@ -306,15 +306,15 @@ class Modules_m extends MY_Model {
 	}
 
 	/**
-	 * Format XML
+	 * Parse XML
 	 *
-	 * Format the details.xml file
+	 * Parses the details.xml file
 	 *
 	 * @param	string	$xml_file	The XML file to load
 	 * @access	private
 	 * @return	array
 	 */
-	private function _format_xml($xml_file)
+	private function _parse_xml($xml_file)
 	{
 		$xml = simplexml_load_file($xml_file);
 
@@ -351,7 +351,9 @@ class Modules_m extends MY_Model {
 			'is_frontend'		=>	$xml->is_frontend == 1,
 			'is_backend'		=>	$xml->is_backend == 1,
 			'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
-			'controllers'		=>	$controllers
+			'controllers'		=>	$controllers,
+			'install'			=>	$xml->install,
+			'uninstall'			=>	$xml->uninstall,
 		);
 	}
 
