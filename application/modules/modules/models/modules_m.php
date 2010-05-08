@@ -403,7 +403,7 @@ class Modules_m extends MY_Model {
 		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
 
 		// Run the uninstall sql if it is there
-		if(isset($module['install']) && !empty($module['uninstall']))
+		if(isset($module['uninstall']) && !empty($module['uninstall']))
 		{
 			$uninstall_sql = explode('-- command split --', trim($module['uninstall']));
 
