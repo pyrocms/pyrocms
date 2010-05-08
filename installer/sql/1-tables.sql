@@ -415,6 +415,31 @@ CREATE TABLE `widgets` (
   `version` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- command split --
+
+DROP TABLE IF EXISTS `modules`;
+
+-- command split --
+
+CREATE TABLE `modules` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `name` TEXT NOT NULL,
+		  `slug` varchar(50) NOT NULL,
+		  `version` varchar(20) NOT NULL,
+		  `type` varchar(20) DEFAULT NULL,
+		  `description` TEXT DEFAULT NULL,
+		  `skip_xss` tinyint(1) NOT NULL,
+		  `is_frontend` tinyint(1) NOT NULL,
+		  `is_backend` tinyint(1) NOT NULL,
+		  `is_backend_menu` tinyint(1) NOT NULL,
+		  `enabled` tinyint(1) NOT NULL,
+		  `is_core` tinyint(1) NOT NULL,
+		  `controllers` text NOT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `slug` (`slug`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 -- command split --
 
 DROP TABLE IF EXISTS `forum_categories`;
