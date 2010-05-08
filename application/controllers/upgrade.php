@@ -103,6 +103,9 @@ class Upgrade extends Controller
 		$this->load->library('module_import');
 		$this->module_import->_import();
 
+		echo 'Clearing the module cache...<br/>';
+		$this->cache->delete_all('modules_m');
+
 		echo 'Adding comments_enabled field to pages table...<br/>';
 		//add display_name to profiles table
 		$this->dbforge->add_column('pages', array(

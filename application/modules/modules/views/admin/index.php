@@ -1,8 +1,8 @@
 <div class="box">
-	<h3><!--
+	<h3>
 		<div class="button float-right">
-			<a href="<?php echo site_url('admin/modules/install');?>"><?php echo lang('install_label'); ?></a>
-		</div> -->
+			<a href="<?php echo site_url('admin/modules/upload');?>"><?php echo lang('upload_label'); ?></a>
+		</div>
 		<?php echo lang('modules.third_party_list');?>
 	</h3>
 
