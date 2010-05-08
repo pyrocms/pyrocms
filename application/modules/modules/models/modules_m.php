@@ -21,7 +21,7 @@ class Modules_m extends MY_Model {
 	{
 		parent::__construct();
 		$this->load->helper('modules/module');
-    }
+	}
 
 	/**
 	 * Get
@@ -32,8 +32,8 @@ class Modules_m extends MY_Model {
 	 * @param	string	$module		The name of the module to load
 	 * @return	array
 	 */
-    public function get($module = '')
-    {
+	public function get($module = '')
+	{
 		// Have to return an associative array of NULL values for backwards compatibility.
 		$null_array = array(
 				'name'				=>	NULL,
@@ -84,7 +84,7 @@ class Modules_m extends MY_Model {
 		}
 
 		return $null_array;
-    }
+	}
 
 	/**
 	 * Add
@@ -95,23 +95,23 @@ class Modules_m extends MY_Model {
 	 * @param	array	$module		Information about the module
 	 * @return	object
 	 */
-    public function add($module)
-    {
+	public function add($module)
+	{
 		return $this->db->insert($this->_table, array(
-    		'name'				=>	$module['name'],
-    		'slug'				=>	$module['slug'],
-    		'version' 			=> 	$module['version'],
-    		'type' 				=> 	$module['type'],
-    		'description' 		=> 	$module['description'],
-    		'skip_xss'			=>	$module['skip_xss'],
-    		'is_frontend'		=>	$module['is_frontend'],
-    		'is_backend'		=>	$module['is_backend'],
-    		'is_backend_menu' 	=>	$module['is_backend_menu'],
-    		'controllers'		=>	serialize($module['controllers']),
+			'name'				=>	$module['name'],
+			'slug'				=>	$module['slug'],
+			'version' 			=> 	$module['version'],
+			'type' 				=> 	$module['type'],
+			'description' 		=> 	$module['description'],
+			'skip_xss'			=>	$module['skip_xss'],
+			'is_frontend'		=>	$module['is_frontend'],
+			'is_backend'		=>	$module['is_backend'],
+			'is_backend_menu' 	=>	$module['is_backend_menu'],
+			'controllers'		=>	serialize($module['controllers']),
 			'enabled'			=>  $module['enabled'],
 			'is_core'			=>  $module['is_core']
-    	));
-    }
+		));
+	}
 
 	/**
 	 * Update
@@ -123,10 +123,10 @@ class Modules_m extends MY_Model {
 	 * @param	array	$module		Information about the module
 	 * @return	object
 	 */
-    public function update($slug, $module)
-    {
+	public function update($slug, $module)
+	{
 		return $this->db->where('slug', $slug)->update($this->_table, $module);
-    }
+	}
 
 
 	/**
@@ -138,10 +138,10 @@ class Modules_m extends MY_Model {
 	 * @access	public
 	 * @return	object
 	 */
-    public function delete($module_slug)
-    {
+	public function delete($module_slug)
+	{
 		return $this->db->delete($this->_table, array('slug' => $module_slug));
-    }
+	}
 
 	/**
 	 * Get Modules
@@ -153,12 +153,12 @@ class Modules_m extends MY_Model {
 	 * @access	public
 	 * @return	array
 	 */
-    public function get_modules($params = array(), $return_disabled = FALSE)
-    {
-    	$modules = array();
+	public function get_modules($params = array(), $return_disabled = FALSE)
+	{
+		$modules = array();
 
-    	foreach ($this->db->get($this->_table)->result() as $result)
-    	{
+		foreach ($this->db->get($this->_table)->result() as $result)
+		{
 			// Skip the disabled modules
 			if(!$return_disabled && $result->enabled == 0)
 			{
@@ -213,44 +213,44 @@ class Modules_m extends MY_Model {
 			$modules[] = $module;
 		}
 
-        return $modules;
-    }
+		return $modules;
+	}
 
-    /**
+	/**
 	 * Get Module Controllers
 	 *
-     * Gets the controller of the specified module
+	 * Gets the controller of the specified module
 	 *
 	 * @param	string	$module		The name of the module
 	 * @access	public
 	 * @return	array
-     */
-    function get_module_controllers($module = '')
-    {
+	 */
+	function get_module_controllers($module = '')
+	{
 		$module = $this->get($module);
 
-    	if(is_array($module['controllers']))
+		if(is_array($module['controllers']))
 		{
 			return array_keys($module['controllers']);
 		}
 
-        return array();
-    }
+		return array();
+	}
 
-    /**
+	/**
 	 * Get Module Controller Methods
 	 *
-     * Get the methods of the specified module/controller combination
+	 * Get the methods of the specified module/controller combination
 	 *
 	 * @access public
 	 * @return mixed
-     */
-    public function get_module_controller_methods($module, $controller)
-    {
-    	$module = $this->get($module);
+	 */
+	public function get_module_controller_methods($module, $controller)
+	{
+		$module = $this->get($module);
 
 		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();
-    }
+	}
 
 	/**
 	 * Exists
@@ -308,51 +308,51 @@ class Modules_m extends MY_Model {
 	/**
 	 * Format XML
 	 *
-     * Format the details.xml file
+	 * Format the details.xml file
 	 *
 	 * @param	string	$xml_file	The XML file to load
 	 * @access	private
 	 * @return	array
-     */
-    private function _format_xml($xml_file)
-    {
-    	$xml = simplexml_load_file($xml_file);
+	 */
+	private function _format_xml($xml_file)
+	{
+		$xml = simplexml_load_file($xml_file);
 
-    	// Loop through all controllers in the XML file
-    	$controllers = array();
+		// Loop through all controllers in the XML file
+		$controllers = array();
 
-    	foreach($xml->controllers as $controller)
-    	{
-    		$controller = $controller->controller;
-    		$controller_array['name'] = (string) $controller->attributes()->name;
+		foreach($xml->controllers as $controller)
+		{
+			$controller = $controller->controller;
+			$controller_array['name'] = (string) $controller->attributes()->name;
 
-    		// Store methods from the controller
-    		$controller_array['methods'] = array();
+			// Store methods from the controller
+			$controller_array['methods'] = array();
 
-    		if($controller->method)
-    		{
-    			// Loop through to save methods
-    			foreach($controller->method as $method)
-    			{
-    				$controller_array['methods'][] = (string) $method;
-    			}
-    		}
+			if($controller->method)
+			{
+				// Loop through to save methods
+				foreach($controller->method as $method)
+				{
+					$controller_array['methods'][] = (string) $method;
+				}
+			}
 
 			// Save it all to one variable
-    		$controllers[$controller_array['name']] = $controller_array;
-    	}
+			$controllers[$controller_array['name']] = $controller_array;
+		}
 
-    	return array(
-    		'name'				=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
-    		'version' 			=> 	(string) $xml->attributes()->version,
-    		'type' 				=> 	(string) $xml->attributes()->type,
-    		'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
-    		'skip_xss'			=>	$xml->skip_xss == 1,
-    		'is_frontend'		=>	$xml->is_frontend == 1,
-    		'is_backend'		=>	$xml->is_backend == 1,
-    		'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
-    		'controllers'		=>	$controllers
-    	);
-    }
+		return array(
+			'name'				=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
+			'version' 			=> 	(string) $xml->attributes()->version,
+			'type' 				=> 	(string) $xml->attributes()->type,
+			'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
+			'skip_xss'			=>	$xml->skip_xss == 1,
+			'is_frontend'		=>	$xml->is_frontend == 1,
+			'is_backend'		=>	$xml->is_backend == 1,
+			'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
+			'controllers'		=>	$controllers
+		);
+	}
 
 }
