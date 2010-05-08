@@ -58,10 +58,10 @@ class Module_import {
     	}
 
     	return array(
-    		'name'				=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
+    		'name'				=>	json_encode($xml->name),
     		'version' 			=> 	(string) $xml->attributes()->version,
     		'type' 				=> 	(string) $xml->attributes()->type,
-    		'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
+    		'description' 		=> 	json_encode($xml->description),
     		'skip_xss'			=>	$xml->skip_xss == 1,
     		'is_frontend'		=>	$xml->is_frontend == 1,
     		'is_backend'		=>	$xml->is_backend == 1,
@@ -89,7 +89,7 @@ class Module_import {
 
 					$module['enabled'] = 1;
 
-	        		echo 'Importing ' . $module['name'] . '<br />';
+	        		echo 'Importing ' . json_decode($module['name'])->{constant('CURRENT_LANGUAGE')} . '<br />';
 					
 					$this->add($module);
 	        	}
