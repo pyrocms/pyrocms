@@ -81,11 +81,11 @@ class Upgrade extends Controller
 		$this->db->query('DROP TABLE IF EXISTS `modules`');
 		$this->db->query('CREATE TABLE `modules` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `name` varchar(100) NOT NULL,
+		  `name` TEXT NOT NULL,
 		  `slug` varchar(50) NOT NULL,
 		  `version` varchar(20) NOT NULL,
 		  `type` varchar(20) DEFAULT NULL,
-		  `description` varchar(255)DEFAULT NULL,
+		  `description` TEXT DEFAULT NULL,
 		  `skip_xss` tinyint(1) NOT NULL,
 		  `is_frontend` tinyint(1) NOT NULL,
 		  `is_backend` tinyint(1) NOT NULL,

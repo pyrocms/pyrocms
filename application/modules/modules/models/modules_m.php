@@ -67,12 +67,32 @@ class Modules_m extends MY_Model {
 				return FALSE;
 			}
 
+			$description = json_decode($result->description);
+			if(!isset($description->{constant('CURRENT_LANGUAGE')}))
+			{
+				$description = $description->en;
+			}
+			else
+			{
+				$description = $description->{constant('CURRENT_LANGUAGE')};
+			}
+
+			$name = json_decode($result->name);
+			if(!isset($name->{constant('CURRENT_LANGUAGE')}))
+			{
+				$name = $name->en;
+			}
+			else
+			{
+				$name = $name->{constant('CURRENT_LANGUAGE')};
+			}
+
 			return array(
-				'name'				=>	$result->name,
+				'name'				=>	$name,
 				'slug'				=>	$result->slug,
 				'version' 			=> 	$result->version,
 				'type' 				=> 	$result->type,
-				'description' 		=> 	$result->description,
+				'description' 		=> 	$description,
 				'skip_xss'			=>	$result->skip_xss,
 				'is_frontend'		=>	$result->is_frontend,
 				'is_backend'		=>	$result->is_backend,
@@ -98,11 +118,11 @@ class Modules_m extends MY_Model {
 	public function add($module)
 	{
 		return $this->db->insert($this->_table, array(
-			'name'				=>	$module['name'],
+			'name'				=>	json_encode($module['name']),
 			'slug'				=>	$module['slug'],
 			'version' 			=> 	$module['version'],
 			'type' 				=> 	$module['type'],
-			'description' 		=> 	$module['description'],
+			'description' 		=> 	json_encode($module['description']),
 			'skip_xss'			=>	$module['skip_xss'],
 			'is_frontend'		=>	$module['is_frontend'],
 			'is_backend'		=>	$module['is_backend'],
@@ -164,13 +184,33 @@ class Modules_m extends MY_Model {
 			{
 				continue;
 			}
-			
+
+			$description = json_decode($result->description);
+			if(!isset($description->{constant('CURRENT_LANGUAGE')}))
+			{
+				$description = $description->en;
+			}
+			else
+			{
+				$description = $description->{constant('CURRENT_LANGUAGE')};
+			}
+
+			$name = json_decode($result->name);
+			if(!isset($name->{constant('CURRENT_LANGUAGE')}))
+			{
+				$name = $name->en;
+			}
+			else
+			{
+				$name = $name->{constant('CURRENT_LANGUAGE')};
+			}
+
 			$module = array(
-				'name'				=>	$result->name,
+				'name'				=>	$name,
 				'slug'				=>	$result->slug,
 				'version' 			=> 	$result->version,
 				'type' 				=> 	$result->type,
-				'description' 		=> 	$result->description,
+				'description' 		=> 	$description,
 				'skip_xss'			=>	$result->skip_xss,
 				'is_frontend'		=>	$result->is_frontend,
 				'is_backend'		=>	$result->is_backend,
@@ -180,7 +220,6 @@ class Modules_m extends MY_Model {
 				'is_core'			=>  $result->is_core
 			);
 
-			// If
 			if(!empty($params['is_frontend']) && empty($module['is_frontend']))
 			{
 				continue;
@@ -343,10 +382,10 @@ class Modules_m extends MY_Model {
 		}
 
 		return array(
-			'name'				=>	(string) $xml->name->{constant('CURRENT_LANGUAGE')},
+			'name'				=>	json_encode($xml->name),
 			'version' 			=> 	(string) $xml->attributes()->version,
 			'type' 				=> 	(string) $xml->attributes()->type,
-			'description' 		=> 	(string) $xml->description->{constant('CURRENT_LANGUAGE')},
+			'description' 		=> 	json_encode($xml->description),
 			'skip_xss'			=>	$xml->skip_xss == 1,
 			'is_frontend'		=>	$xml->is_frontend == 1,
 			'is_backend'		=>	$xml->is_backend == 1,
