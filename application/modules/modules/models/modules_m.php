@@ -369,7 +369,7 @@ class Modules_m extends MY_Model {
 		// Run the install sql if it is there
 		if(isset($module['install']) && !empty($module['install']))
 		{
-			$install_sql = explode(';', trim($module['install']));
+			$install_sql = explode('-- command split --', trim($module['install']));
 
 			foreach($install_sql as $sql)
 			{
