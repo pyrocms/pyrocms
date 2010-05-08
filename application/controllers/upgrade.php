@@ -164,9 +164,8 @@ class Upgrade extends Controller
 		echo "Importing current modules into database...<br />";
 
 		// Load the module import class
-		require APPPATH . 'libraries/Module_import.php';
-		$mod_import = new Module_import();
-		$mod_import->_import();
+		$this->load->library('module_import');
+		$this->module_import->_import();
 		
 		return TRUE;
 	}

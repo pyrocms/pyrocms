@@ -87,24 +87,6 @@ class Module_import {
 
 	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
 
-	        		// If we only want frontend modules, check its frontend
-		        	if(!empty($params['is_frontend']) && empty($module['is_frontend'])) continue;
-
-		        	// Looking for backend modules
-		        	if(!empty($params['is_backend']))
-		        	{
-		        		// This module is not a backend module
-		        		if(empty($module['is_backend'])) continue;
-
-		        		// This user has no permissions for this module
-		        		if(!$this->permissions_m->has_admin_access( $this->user->group_id, $module['slug']) ) continue;
-		        	}
-
-	        		// If we only want frontend modules, check its frontend
-		        	if(isset($params['is_core']) && $module['is_core'] != $params['is_core']) continue;
-
-		        	// Check a module is intended for the sidebar
-					if(isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu']) continue;
 					$module['enabled'] = 1;
 
 	        		echo 'Importing ' . $module['name'] . '<br />';
