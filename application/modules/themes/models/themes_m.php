@@ -55,25 +55,43 @@ class Themes_m extends Model
 		{
 			return $this->_themes[$slug];
 		}
-		
-		$xml_file = $path . '/theme.xml';
-		if (file_exists($xml_file))
+
+		if (is_dir($path))
 		{
 			// Core theme or tird party?
 			$is_core = strpos($location, 'third_party') === FALSE;
-			$web_path = $is_core ? APPPATH_URI : BASE_URL.'third_party';
+			$web_path = $is_core ? APPPATH_URI : BASE_URL.'third_party/';
 
-			$xml = simplexml_load_file($xml_file);
 			$theme->slug				= $slug;
-			$theme->name 			= (string) $xml->name;
-			$theme->author 			= (string) $xml->author;
-			$theme->author_website 	= (string) $xml->author_website;
-			$theme->website 		= (string) $xml->website;
-			$theme->description 	= (string) $xml->description;
-			$theme->version 		= (string) $xml->version;
-			$theme->path 			= $path;
+			$theme->is_core				= $is_core;
+			$theme->path				= $path;
 			$theme->web_path 			= $web_path;
-			$theme->screenshot 	=  $web_path . '/themes/' . $slug . '/screenshot.png';
+			$theme->screenshot		=  $web_path . 'themes/' . $slug . '/screenshot.png';
+
+			$xml_file = $path . '/theme.xml';
+			if(file_exists($xml_file))
+			{
+				// Grab details from the theme.xml file
+				$xml = simplexml_load_file($xml_file);
+				
+				$theme->name 			= (string) $xml->name;
+				$theme->author 			= (string) $xml->author;
+				$theme->author_website 	= (string) $xml->author_website;
+				$theme->website 		= (string) $xml->website;
+				$theme->description 	= (string) $xml->description;
+				$theme->version 		= (string) $xml->version;
+			}
+
+			else
+			{
+				// Guess and set defaults
+				$theme->name 			= $slug;
+				$theme->author 			= '????';
+				$theme->author_website 	= NULL;
+				$theme->website 		= NULL;
+				$theme->description 	= '';
+				$theme->version 		= '??';
+			}
 
 			// Save for later
 			$this->_themes[$slug] = $theme;
@@ -99,4 +117,3 @@ class Themes_m extends Model
 		return $this->settings->set_item('default_theme', $theme);
 	}
 }
-?>

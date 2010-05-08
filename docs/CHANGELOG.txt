@@ -13,6 +13,7 @@ v0.9.8.1
 * Twitter/News integration now handles errors gracefully and gives you any error Twitter returns.
 * Modules have been moved to the DB (details.xml still required for import).
 * Modules can now be enabled/disabled in the Module admin.
+* Themes with no theme.xml will still function fine, they just won't have author name, website, etc.
 
 Bugs
 
