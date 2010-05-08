@@ -72,7 +72,7 @@ class Unzip
 		$lista = $this->_list_files();
 		if(!sizeof($lista))
 		{
-			$this->set_debug(1, 'ZIP folder was empty.');
+			$this->set_error('ZIP folder was empty.');
 			return FALSE;
 		}
 
@@ -87,7 +87,6 @@ class Unzip
 			// Skip stuff in stupid folders
 			if(in_array(current($folders), $this->_skip_dirs))
 			{
-
 				continue;
 			}
 
@@ -102,10 +101,15 @@ class Unzip
 				foreach($folders as $folder)
 				{
 					$str = $str ? $str."/".$folder : $folder;
-					if(!is_dir($this->_target_dir."/".$str))
+					if (!is_dir($this->_target_dir."/".$str))
 					{
-						$this->set_debug(1, "Creating folder: ".$this->_target_dir."/".$str);
-						mkdir($this->_target_dir."/".$str);
+						$this->set_debug("Creating folder: ".$this->_target_dir."/".$str);
+						
+						if (!@mkdir($this->_target_dir."/".$str))
+						{
+							$this->set_error('Desitnation path is not writable.');
+							return FALSE;
+						}
 
 						// Apply chmod if configured to do so
 						$this->apply_chmod && chmod($this->_target_dir."/".$str, $this->apply_chmod);
@@ -150,40 +154,53 @@ class Unzip
 	 * @param    string
 	 * @return    string
 	 */
-	public function display_errors($level = 2, $open = '<p>', $close = '</p>')
+	public function error_string($open = '<p>', $close = '</p>')
 	{
-		$str = '';
-		if($level == 1)
-			foreach ($this->info as $val)
-			{
-				$str .= $open.$val.$close;
-			}
-
-		if($level == 2)
-			foreach ($this->error as $val)
-			{
-				$str .= $open.$val.$close;
-			}
-
-		return $str;
+		return $open . implode($close.$open, $this->error) . $close;
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Save messages
+	 * Show debug messages
+	 *
+	 * @access    public
+	 * @param    string
+	 * @return    string
+	 */
+	public function debug_string($open = '<p>', $close = '</p>')
+	{
+		return $open . implode($close.$open, $this->info) . $close;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Save errors
 	 *
 	 * @access    Private
 	 * @param    string
 	 * @return    none
 	 */
 
-	function set_debug($level, $string)
+	function set_error($string)
 	{
-		if($level == 1)
-			$this->error[] = "<b style='color: #777'>dUnzip2:</b> $string<br>";
-		if($level == 2)
-			$this->info[] = "<b style='color: #F00'>dUnzip2:</b> $string<br>";
+			$this->error[] = $string;
+	}
+	
+	// --------------------------------------------------------------------
+
+	/**
+	 * Save debug data
+	 *
+	 * @access    Private
+	 * @param    string
+	 * @return    none
+	 */
+
+	function set_debug($string)
+	{
+			$this->info[] = $string;
 	}
 
 	// --------------------------------------------------------------------
@@ -199,7 +216,7 @@ class Unzip
 	{
 		if(sizeof($this->compressedList))
 		{
-			$this->set_debug(1, "Returning already loaded file list.");
+			$this->set_debug("Returning already loaded file list.");
 			return $this->compressedList;
 		}
 
@@ -208,18 +225,18 @@ class Unzip
 		$this->fh = &$fh;
 		if(!$fh)
 		{
-			$this->set_debug(2, "Failed to load file: ".$this->_zip_file);
+			$this->set_error("Failed to load file: ".$this->_zip_file);
 			return FALSE;
 		}
 
-		$this->set_debug(2, "Loading list from 'End of Central Dir' index list...");
+		$this->set_debug("Loading list from 'End of Central Dir' index list...");
 		if(!$this->_loadFileListByEOF($fh, $stopOnFile))
 		{
-			$this->set_debug(1, "Failed! Trying to load list looking for signatures...");
+			$this->set_debug("Failed! Trying to load list looking for signatures...");
 			if(!$this->_loadFileListBySignatures($fh, $stopOnFile))
 			{
-				$this->set_debug(1, "Failed! Could not find any valid header.");
-				$this->set_debug(2, "ZIP File is corrupted or empty");
+				$this->set_debug("Failed! Could not find any valid header.");
+				$this->set_error("ZIP File is corrupted or empty");
 				return FALSE;
 			}
 		}
@@ -239,7 +256,7 @@ class Unzip
 	{
 		if(!sizeof($this->compressedList))
 		{
-			$this->set_debug(1, "Trying to unzip before loading file list... Loading it!");
+			$this->set_debug("Trying to unzip before loading file list... Loading it!");
 			$this->_list_files(FALSE, $compressedFileName);
 		}
 
@@ -247,19 +264,19 @@ class Unzip
 
 		if(!isset($this->compressedList[$compressedFileName]))
 		{
-			$this->set_debug(2, "File '<b>$compressedFileName</b>' is not compressed in the zip.");
+			$this->set_error("File '<b>$compressedFileName</b>' is not compressed in the zip.");
 			return FALSE;
 		}
 
 		if(substr($compressedFileName, -1) == "/")
 		{
-			$this->set_debug(2, "Trying to unzip a folder name '<b>$compressedFileName</b>'.");
+			$this->set_error("Trying to unzip a folder name '<b>$compressedFileName</b>'.");
 			return FALSE;
 		}
 
 		if(!$fdetails['uncompressed_size'])
 		{
-			$this->set_debug(1, "File '<b>$compressedFileName</b>' is empty.");
+			$this->set_debug("File '<b>$compressedFileName</b>' is empty.");
 			return $targetFileName
 				? file_put_contents($targetFileName, "")
 				: '';
@@ -331,19 +348,19 @@ class Unzip
 			case 0:
 				return $targetFileName?file_put_contents($targetFileName, $content):$content;
 			case 1:
-				$this->set_debug(2, "Shrunk mode is not supported... yet?");
+				$this->set_error("Shrunk mode is not supported... yet?");
 				return FALSE;
 			case 2:
 			case 3:
 			case 4:
 			case 5:
-				$this->set_debug(2, "Compression factor ".($mode-1)." is not supported... yet?");
+				$this->set_error("Compression factor ".($mode-1)." is not supported... yet?");
 				return FALSE;
 			case 6:
-				$this->set_debug(2, "Implode is not supported... yet?");
+				$this->set_error("Implode is not supported... yet?");
 				return FALSE;
 			case 7:
-				$this->set_debug(2, "Tokenizing compression algorithm is not supported... yet?");
+				$this->set_error("Tokenizing compression algorithm is not supported... yet?");
 				return FALSE;
 			case 8:
 			// Deflate
@@ -351,10 +368,10 @@ class Unzip
 						file_put_contents($targetFileName, gzinflate($content, $uncompressedSize)):
 						gzinflate($content, $uncompressedSize);
 			case 9:
-				$this->set_debug(2, "Enhanced Deflating is not supported... yet?");
+				$this->set_error("Enhanced Deflating is not supported... yet?");
 				return FALSE;
 			case 10:
-				$this->set_debug(2, "PKWARE Date Compression Library Impoloding is not supported... yet?");
+				$this->set_error("PKWARE Date Compression Library Impoloding is not supported... yet?");
 				return FALSE;
 			case 12:
 			// Bzip2
@@ -362,10 +379,10 @@ class Unzip
 						file_put_contents($targetFileName, bzdecompress($content)):
 						bzdecompress($content);
 			case 18:
-				$this->set_debug(2, "IBM TERSE is not supported... yet?");
+				$this->set_error("IBM TERSE is not supported... yet?");
 				return FALSE;
 			default:
-				$this->set_debug(2, "Unknown uncompress method: $mode");
+				$this->set_error("Unknown uncompress method: $mode");
 				return FALSE;
 		}
 	}
@@ -498,13 +515,13 @@ class Unzip
 			$details = $this->_getFileHeaderInformation($fh);
 			if(!$details)
 			{
-				$this->set_debug(1, "Invalid signature. Trying to verify if is old style Data Descriptor...");
+				$this->set_debug("Invalid signature. Trying to verify if is old style Data Descriptor...");
 				fseek($fh, 12 - 4, SEEK_CUR); // 12: Data descriptor - 4: Signature (that will be read again)
 				$details = $this->_getFileHeaderInformation($fh);
 			}
 			if(!$details)
 			{
-				$this->set_debug(1, "Still invalid signature. Probably reached the end of the file.");
+				$this->set_debug("Still invalid signature. Probably reached the end of the file.");
 				break;
 			}
 			$filename = $details['file_name'];

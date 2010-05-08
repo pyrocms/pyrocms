@@ -452,11 +452,13 @@ class Template
      * @param     string	$view
      * @return    array
      */
-	public function theme_exists()
+	public function theme_exists($theme = NULL)
 	{
+		$theme || $theme = $this->_theme;
+		
 		foreach ($this->_theme_locations as $location => $offset)
 		{
-			if( is_dir($location.$this->_theme) )
+			if( is_dir($location.$theme) )
 			{
 				return TRUE;
 			}
