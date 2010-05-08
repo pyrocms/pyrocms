@@ -45,15 +45,15 @@ class Public_Controller extends MY_Controller
 				</script>' );
 
 		// Is there a layout file for this module?
-		if($this->template->theme_layout_exists($this->module))
+		if($this->template->theme_layout_exists($this->module . '.html'))
 		{
-			$this->template->set_layout($this->module);
+			$this->template->set_layout($this->module . '.html');
 		}
 
 		// Nope, just use the default layout
 		else
 		{
-			$this->template->set_layout('default');
+			$this->template->set_layout('default.html');
 		}
 
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
