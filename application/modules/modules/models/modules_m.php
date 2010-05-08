@@ -46,7 +46,7 @@ class Modules_m extends MY_Model {
 				'is_backend'		=>	NULL,
 				'is_backend_menu' 	=>	NULL,
 				'controllers'		=>	NULL,
-				'enabled'			=>  NULL,
+				'enabled'			=>  1,
 				'is_core'			=>  NULL
 			);
 
