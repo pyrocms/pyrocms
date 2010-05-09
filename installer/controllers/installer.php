@@ -274,6 +274,10 @@ class Installer extends Controller
 								'username'	=> $this->input->post('username')
 								));
 
+				// Import the modules
+				$this->load->library('module_import');
+				$this->module_import->_import();
+
 				// Redirect
 				redirect('installer/complete');
 			}

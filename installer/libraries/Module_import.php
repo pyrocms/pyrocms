@@ -7,12 +7,28 @@ class Module_import {
 	function Module_import()
 	{
 		$this->ci =& get_instance();
+		$db['hostname'] = $this->ci->session->userdata('hostname');
+		$db['username'] = $this->ci->session->userdata('username');
+		$db['password'] = $this->ci->session->userdata('password');
+		$db['database'] = $this->ci->input->post('database');
+		$db['port'] = $this->ci->input->post('port');
+		$db['dbdriver'] = "mysql";
+		$db['dbprefix'] = "";
+		$db['pconnect'] = TRUE;
+		$db['db_debug'] = TRUE;
+		$db['cache_on'] = FALSE;
+		$db['cachedir'] = "";
+		$db['char_set'] = "utf8";
+		$db['dbcollat'] = "utf8_general_ci";
+
+		$this->ci->load->database($db);
 
 	}
 
 
 	private function add($module)
     {
+
 		return $this->ci->db->insert('modules', array(
     		'name'				=>	$module['name'],
     		'slug'				=>	$module['slug'],
@@ -76,7 +92,7 @@ class Module_import {
     	$modules = array();
 
     	// Loop through directories that hold modules
-    	foreach (array(APPPATH.'modules/', 'third_party/modules/') as $directory)
+    	foreach (array('../application/modules/', '../third_party/modules/') as $directory)
     	{
     		// Loop through modules
 	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
@@ -89,18 +105,6 @@ class Module_import {
 
 					$module['enabled'] = 1;
 
-					$names = unserialize($module['name']);
-					if(!isset($names[CURRENT_LANGUAGE]))
-					{
-						$name = $names['en'];
-					}
-					else
-					{
-						$name = $names[CURRENT_LANGUAGE];
-					}
-
-					echo 'Importing ' . $name . '<br />';
-					
 					$this->add($module);
 	        	}
 	        }

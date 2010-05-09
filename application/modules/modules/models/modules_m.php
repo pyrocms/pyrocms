@@ -67,24 +67,24 @@ class Modules_m extends MY_Model {
 				return FALSE;
 			}
 
-			$description = json_decode($result->description);
-			if(!isset($description->{constant('CURRENT_LANGUAGE')}))
+			$descriptions = unserialize($result->description);
+			if(!isset($descriptions[CURRENT_LANGUAGE]))
 			{
-				$description = $description->en;
+				$description = $descriptions['en'];
 			}
 			else
 			{
-				$description = $description->{constant('CURRENT_LANGUAGE')};
+				$description = $descriptions[CURRENT_LANGUAGE];
 			}
 
-			$name = json_decode($result->name);
-			if(!isset($name->{constant('CURRENT_LANGUAGE')}))
+			$names = unserialize($result->name);
+			if(!isset($names[CURRENT_LANGUAGE]))
 			{
-				$name = $name->en;
+				$name = $names['en'];
 			}
 			else
 			{
-				$name = $name->{constant('CURRENT_LANGUAGE')};
+				$name = $names[CURRENT_LANGUAGE];
 			}
 
 			return array(
@@ -118,11 +118,11 @@ class Modules_m extends MY_Model {
 	public function add($module)
 	{
 		return $this->db->insert($this->_table, array(
-			'name'				=>	json_encode($module['name']),
+			'name'				=>	serialize($module['name']),
 			'slug'				=>	$module['slug'],
 			'version' 			=> 	$module['version'],
 			'type' 				=> 	$module['type'],
-			'description' 		=> 	json_encode($module['description']),
+			'description' 		=> 	serialize($module['description']),
 			'skip_xss'			=>	$module['skip_xss'],
 			'is_frontend'		=>	$module['is_frontend'],
 			'is_backend'		=>	$module['is_backend'],
@@ -185,24 +185,24 @@ class Modules_m extends MY_Model {
 				continue;
 			}
 
-			$description = json_decode($result->description);
-			if(!isset($description->{constant('CURRENT_LANGUAGE')}))
+			$descriptions = unserialize($result->description);
+			if(!isset($descriptions[CURRENT_LANGUAGE]))
 			{
-				$description = $description->en;
+				$description = $descriptions['en'];
 			}
 			else
 			{
-				$description = $description->{constant('CURRENT_LANGUAGE')};
+				$description = $descriptions[CURRENT_LANGUAGE];
 			}
 
-			$name = json_decode($result->name);
-			if(!isset($name->{constant('CURRENT_LANGUAGE')}))
+			$names = unserialize($result->name);
+			if(!isset($names[CURRENT_LANGUAGE]))
 			{
-				$name = $name->en;
+				$name = $names['en'];
 			}
 			else
 			{
-				$name = $name->{constant('CURRENT_LANGUAGE')};
+				$name = $names[CURRENT_LANGUAGE];
 			}
 
 			$module = array(
@@ -345,6 +345,82 @@ class Modules_m extends MY_Model {
 	}
 
 	/**
+	 * Install
+	 *
+	 * Installs a module
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function install($module_slug)
+	{
+
+		if(!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		{
+			return FALSE;
+		}
+
+		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
+
+		$module['is_core'] = 0;
+		$module['enabled'] = 1;
+		$module['slug'] = $module_slug;
+
+		// Run the install sql if it is there
+		if(isset($module['install']) && !empty($module['install']))
+		{
+			$install_sql = explode('-- command split --', trim($module['install']));
+
+			foreach($install_sql as $sql)
+			{
+				$sql = trim($sql);
+				if(!empty($sql))
+				{
+					$this->db->query(trim($sql));
+				}
+			}
+		}
+		
+		return $this->add($module);
+	}
+
+	/**
+	 * Uninstall
+	 *
+	 * Unnstalls a module
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function uninstall($module_slug)
+	{
+
+		if(!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		{
+			return FALSE;
+		}
+
+		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
+
+		// Run the uninstall sql if it is there
+		if(isset($module['uninstall']) && !empty($module['uninstall']))
+		{
+			$uninstall_sql = explode('-- command split --', trim($module['uninstall']));
+
+			foreach($uninstall_sql as $sql)
+			{
+				$sql = trim($sql);
+				if(!empty($sql))
+				{
+					$this->db->query(trim($sql));
+				}
+			}
+		}
+		
+		return $this->delete($module_slug);
+	}
+
+	/**
 	 * Parse XML
 	 *
 	 * Parses the details.xml file
@@ -382,10 +458,10 @@ class Modules_m extends MY_Model {
 		}
 
 		return array(
-			'name'				=>	json_encode($xml->name),
+			'name'				=>	(array) $xml->name,
 			'version' 			=> 	(string) $xml->attributes()->version,
 			'type' 				=> 	(string) $xml->attributes()->type,
-			'description' 		=> 	json_encode($xml->description),
+			'description' 		=> 	(array) $xml->description,
 			'skip_xss'			=>	$xml->skip_xss == 1,
 			'is_frontend'		=>	$xml->is_frontend == 1,
 			'is_backend'		=>	$xml->is_backend == 1,

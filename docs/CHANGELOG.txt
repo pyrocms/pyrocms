@@ -12,10 +12,11 @@ v0.9.8.1
 * Added hooks for post_user_activation and post_user_login for custom actions.
 * Twitter/News integration now handles errors gracefully and gives you any error Twitter returns.
 * Modules have been moved to the DB (details.xml still required for import).
-* Modules can now be enabled/disabled in the Module admin.
 * Themes with no theme.xml will still function fine, they just won't have author name, website, etc.
 * Widget tags added to Control Panel to show how to insert widgets and widget areas.
 * DEPRECATED support for .php in themes, use .html for all theme view files and theme layouts.
+* Modules can now be uploaded, installed, uninstalled, enabled and disabled via the admin panel.
+* A Module's details.xml can now contain SQL data to be run on module upload (see the forums details.xml for example).
 
 Bugs
 

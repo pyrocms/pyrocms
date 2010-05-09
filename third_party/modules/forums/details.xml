@@ -20,6 +20,8 @@
 		<![CDATA[
 		DROP TABLE IF EXISTS `forum_categories`;
 
+		-- command split --
+
 		CREATE TABLE `forum_categories` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `title` varchar(100) NOT NULL DEFAULT '',
@@ -27,7 +29,11 @@
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Splits forums into categories';
 
+		-- command split --
+
 		DROP TABLE IF EXISTS `forum_posts`;
+
+		-- command split --
 
 		CREATE TABLE `forum_posts` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -46,7 +52,11 @@
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+		-- command split --
+
 		DROP TABLE IF EXISTS `forum_subscriptions`;
+
+		-- command split --
 
 		CREATE TABLE `forum_subscriptions` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -55,7 +65,11 @@
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+		-- command split --
+
 		DROP TABLE IF EXISTS `forums`;
+
+		-- command split --
 
 		CREATE TABLE `forums` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -71,8 +85,17 @@
 	<uninstall>
 		<![CDATA[
 		DROP TABLE IF EXISTS `forum_categories`;
+
+		-- command split --
+
 		DROP TABLE IF EXISTS `forum_posts`;
+
+		-- command split --
+
 		DROP TABLE IF EXISTS `forum_subscriptions`;
+
+		-- command split --
+
 		DROP TABLE IF EXISTS `forums`;
 		]]>
 	</uninstall>

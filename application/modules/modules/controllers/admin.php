@@ -39,17 +39,75 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	 * Install
+	 * Upload
 	 *
-	 * Installs a third_party module
+	 * Uploads a third_party module
 	 *
 	 * @access	public
 	 * @return	void
 	 */
-	public function install()
+	public function upload()
 	{
-		// TODO: Write the install
-		return;
+		if($this->input->post('btnAction') == 'upload')
+		{
+			$config['upload_path'] 		= APPPATH.'uploads/';
+			$config['allowed_types'] 	= 'zip';
+			$config['max_size']			= '2048';
+			$config['overwrite'] 		= TRUE;
+
+			$this->load->library('upload', $config);
+
+			if ($this->upload->do_upload())
+			{
+				$upload_data = $this->upload->data();
+
+				// Check if we already have a dir with same name
+				if($this->modules_m->exists($upload_data['raw_name']))
+				{
+					$this->session->set_flashdata('error', sprintf(lang('modules.already_exists_error'), $upload_data['raw_name']));
+				}
+
+				else
+				{
+					// Now try to unzip
+					$this->load->library('unzip');
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
+
+					// Try and extract
+					if($this->unzip->extract($upload_data['full_path'], dirname(APPPATH) . '/third_party/modules/'))
+					{
+						if($this->modules_m->install($upload_data['raw_name']))
+						{
+							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $upload_data['raw_name']));
+						}
+						else
+						{
+
+						}
+					}
+					else
+					{
+						$this->session->set_flashdata('error', $this->unzip->error_string());
+					}
+				}
+
+				// Delete uploaded file
+				@unlink($upload_data['full_path']);
+
+			}
+
+			else
+			{
+				$this->session->set_flashdata('error', $this->upload->display_errors());
+			}
+	
+			// Clear the cache
+			$this->cache->delete_all('modules_m');
+
+			redirect('admin/modules');
+		}
+
+		$this->template->build('admin/upload', $this->data);
 	}
 
 	/**
@@ -63,8 +121,6 @@ class Admin extends Admin_Controller
 	 */
 	public function uninstall($module_slug = '')
 	{
-		// TODO: Figure out how to uninstall
-		return;
 
 		// Don't allow user to delete the entire module folder
 		if($module_slug == '/' || $module_slug == '*' || empty($module_slug))
@@ -72,14 +128,19 @@ class Admin extends Admin_Controller
 			show_error(lang('modules.module_not_specified'));
 		}
 
-		$path = 'third_party/modules/' . $module_slug;
-
-		if($this->_delete_recursive($path))
+		if($this->modules_m->uninstall($module_slug))
 		{
-			$this->session->set_flashdata('success', lang('modules.uninstall_success'));
+			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $module_slug));
+
+			$path = 'third_party/modules/' . $module_slug;
+
+			if(!$this->_delete_recursive($path))
+			{
+				$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
+			}
 			redirect('admin/modules');
 		}
-		$this->session->set_flashdata('error', lang('modules.uninstall_error'));
+		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $module_slug));
 		redirect('admin/modules');
 	}
 
@@ -159,65 +220,4 @@ class Admin extends Admin_Controller
             return @rmdir($str);
         }
     }
-
-	/**
-	 * Extract Zip
-	 *
-	 * Extracts a zip file.
-	 *
-	 * @param	string	$zip_dir		The directory of the zip file
-	 * @param	string	$zip_file		The zip file
-	 * @param	string	$extract_to		The directory used to store the extracted files
-	 * @param	string	$dir_from_zip	No idea...
-	 * @return	bool
-	 */
-	private function _extract_zip( $zip_dir = '' , $zip_file = '', $extract_to = '', $dir_from_zip = '' )
-	{
-		$zip = zip_open($zip_dir.$zip_file);
-
-		if ($zip)
-		{
-			while ($zip_entry = zip_read($zip))
-			{
-				$completePath = $extract_to . dirname(zip_entry_name($zip_entry));
-				$completeName = $extract_to . zip_entry_name($zip_entry);
-
-				// Walk through path to create non existing directories
-				// This won't apply to empty directories ! They are created further below
-				if(!file_exists($completePath) && preg_match( '#^' . $dir_from_zip .'.*#', dirname(zip_entry_name($zip_entry)) ) )
-				{
-					$tmp = '';
-					foreach(explode('/',$completePath) AS $k)
-					{
-						$tmp .= $k.'/';
-						if(!file_exists($tmp) )
-						{
-							@mkdir($tmp, 0777);
-						}
-					}
-				}
-
-				if (zip_entry_open($zip, $zip_entry, "r"))
-				{
-					if( preg_match( '#^' . $dir_from_zip .'.*#', dirname(zip_entry_name($zip_entry)) ) )
-					{
-						if ($fd = @fopen($completeName, 'w+'))
-						{
-							@fwrite($fd, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
-							fclose($fd);
-						}
-						else
-						{
-							// We think this was an empty directory
-							@mkdir($completeName, 0777);
-						}
-						zip_entry_close($zip_entry);
-					}
-				}
-			}
-			zip_close($zip);
-		}
-		return true;
-	}
 }
-?>
