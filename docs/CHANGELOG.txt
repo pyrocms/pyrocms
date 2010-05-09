@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-v0.9.8.1
+v0.9.9
 -------
 
 * Theme Layouts can now be assigned to Page Layouts.

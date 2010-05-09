@@ -2,16 +2,16 @@ h1. PyroCMS
 
 * Website: "http://pyrocms.com/":http://pyrocms.com/
 * Documentation: "http://pyrocms.com/documentation":http://pyrocms.com/documentation
-* Version: 0.9.8.1-dev
+* Version: 0.9.9
 
 h2. The Team
 
 * "Philip Sturgeon":http://philsturgeon.co.uk/
+* "Dan Horrigan":http://dhorrigan.com
 * "Ben Edmunds":http://benedmunds.com/
 * "Colin Williams":williamsconcepts.com
 * "Yorick Peterse":http://www.yorickpeterse.com/
 * "Richard Willis":http://badsyntax.co.uk
-* "Dan Horrigan":http://dhorrigan.com
 
 h2. DESCRIPTION
 

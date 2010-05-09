@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @name 		Upgrade Controller - Ion Auth Integration
- * @author 		Ben Edmunds - PyroCMS Development Team
+ * @name 		Upgrade Controller
+ * @author 		PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Controllers
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.8.1');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9');
 
 	function _remap()
 	{
@@ -75,7 +75,7 @@ class Upgrade extends Controller
  	}
 
  	// Upgrade
- 	function upgrade_0981()
+ 	function upgrade_099()
 	{
 		echo "Creating modules table...<br />";
 		$this->db->query('DROP TABLE IF EXISTS `modules`');
@@ -478,10 +478,6 @@ class Upgrade extends Controller
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Forums are the containers for threads and topics.'");
 
-
-
 		return TRUE;
 	}
-	
 }
-?>
