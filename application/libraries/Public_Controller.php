@@ -50,10 +50,22 @@ class Public_Controller extends MY_Controller
 			$this->template->set_layout($this->module . '.html');
 		}
 
+		// TODO DEPRECATE php
+		elseif($this->template->theme_layout_exists($this->module))
+		{
+			$this->template->set_layout($this->module);
+		}
+
 		// Nope, just use the default layout
-		else
+		elseif($this->template->theme_layout_exists('default.html'))
 		{
 			$this->template->set_layout('default.html');
+		}
+
+		// TODO DEPRECATE php
+		else
+		{
+			$this->template->set_layout('default');
 		}
 
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
