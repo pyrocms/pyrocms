@@ -67,12 +67,6 @@ class Admin_groups extends Admin_Controller
 	 */
 	public function create()
 	{					
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			$navigation_group->{$rule['field']} = $this->input->post($rule['field']);
-		}
-
 		// Validate
 		if ($this->form_validation->run())
 		{
@@ -90,6 +84,12 @@ class Admin_groups extends Admin_Controller
 			redirect('admin/navigation/index');
 		}
 		
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			$navigation_group->{$rule['field']} = $this->input->post($rule['field']);
+		}
+
 		// Render the view
 		$this->data->navigation_group =& $navigation_group;
 		$this->template->build('admin/groups/create', $this->data);

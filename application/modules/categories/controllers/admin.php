@@ -84,6 +84,12 @@ class Admin extends Admin_Controller
 			$category->{$rule['field']} = set_value($rule['field']);
 		}
 
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$category->{$rule['field']} = set_value($rule['field']);
+		}
+
 		// Render the view
 		$this->data->category =& $category;		
 		$this->template->build('admin/form', $this->data);
@@ -106,15 +112,6 @@ class Admin extends Admin_Controller
 			redirect('admin/categories/index');
 		}
 		
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$category->{$rule['field']} = $this->input->post($rule['field']);
-			}
-		}
-		
 		// Validate the results
 		if ($this->form_validation->run())
 		{		
@@ -128,7 +125,17 @@ class Admin extends Admin_Controller
 			}
 			
 			redirect('admin/categories/index');
-		}		
+		}
+		
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$category->{$rule['field']} = $this->input->post($rule['field']);
+			}
+		}
+
 
 		// Render the view
 		$this->data->category =& $category;
