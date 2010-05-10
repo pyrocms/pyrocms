@@ -65,12 +65,6 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$category->{$rule['field']} = set_value($rule['field']);
-		}
-
 		// Validate the data
 		if ($this->form_validation->run())
 		{
@@ -83,6 +77,11 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata(array('error'=> lang('cat_add_error')));
 			}
 			redirect('admin/categories');
+		}
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$category->{$rule['field']} = set_value($rule['field']);
 		}
 
 		// Render the view
