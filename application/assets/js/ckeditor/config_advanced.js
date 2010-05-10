@@ -1,13 +1,9 @@
-﻿/*
-Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
-*/
 
 CKEDITOR.editorConfig = function( config )
 {
-	config.toolbar = 'Pyro';
-
-	config.toolbar_Pyro =
+	config.toolbar = 'PyroAdvanced';
+	
+	config.toolbar_PyroAdvanced =
 			[
 				['Source','-','Preview','-','Undo','Redo','-','Maximize', 'ShowBlocks'],
 				['Cut','Copy','Paste','PasteText','PasteFromWord','-','SpellChecker', 'Scayt'],
@@ -20,5 +16,6 @@ CKEDITOR.editorConfig = function( config )
 				['Styles','Format','Font','FontSize'],
 				['TextColor','BGColor'],
 			];
+
 	config.skin = 'kama';
 };
