@@ -97,6 +97,7 @@ class Versioning
 			 ->where('revisions.owner_id',$owner_id)
 			 ->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
 			 ->join('users', 'revisions.author_id = users.id')
+			 ->order_by('revisions.revision_date', 'desc')
 			 ->get();
 			
 		// Return the results

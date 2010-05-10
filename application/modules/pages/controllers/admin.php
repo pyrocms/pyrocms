@@ -302,7 +302,17 @@ class Admin extends Admin_Controller
 	    {
 			// Set the data for the revision
 			$revision_data 			= array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $_POST['body']);
-			$_POST['revision_id'] 	= $this->versioning->create_revision($revision_data);
+			
+			// Did the user wanted to restore a specific revision?
+			if ( $_POST['use_revision_id'] == $page->revision_id )
+			{
+				$_POST['revision_id'] 	= $this->versioning->create_revision($revision_data);
+			}
+			// Manually restore a revision
+			else
+			{
+				$_POST['revision_id'] = $_POST['use_revision_id'];
+			}
 			
 			// Run the update code with the POST data	
 			$this->pages_m->update($id, $_POST);			
