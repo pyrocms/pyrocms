@@ -1,8 +1,8 @@
 <!-- TinyMCE -->
-<?php echo js('tiny_mce/tiny_mce.js'); ?>
+<?php //echo js('tiny_mce/tiny_mce.js'); ?>
 
 <script type="text/javascript">
-
+/*
 	// Simple options - used for small summary, description, etc
 	tinyMCE.init({
 		
@@ -145,7 +145,7 @@
 			});
 		}
 	}
-
+*/
     
 	// Example content CSS (should be your site CSS)
 	//content_css : "css/content.css",
@@ -164,3 +164,12 @@
 	
 </script>
 <!-- /TinyMCE -->
+
+<!-- CKEditor -->
+<?php echo js('ckeditor/ckeditor.js'); ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		CKEDITOR.replaceAll( 'wysiwyg-advanced' );
+	});
+</script>
+<!-- /CKEditor -->
