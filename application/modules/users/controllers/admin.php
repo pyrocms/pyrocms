@@ -211,9 +211,8 @@ class Admin extends Admin_Controller
 		// confirm_password is required in case the user enters a new password
 		if($this->input->post('password') && $this->input->post('password') != '')
 		{
-			echo $this->input->post('password');
 			$this->validation_rules[3]['rules'] .= '|required';
-			$this->validation_rules[4]['rules'] .= '|matches[password]';
+			$this->validation_rules[3]['rules'] .= '|matches[password]';
 		}
 		$this->form_validation->set_rules($this->validation_rules);
 		
