@@ -45,12 +45,24 @@ class Public_Controller extends MY_Controller
 				</script>' );
 
 		// Is there a layout file for this module?
-		if($this->template->theme_layout_exists($this->module))
+		if($this->template->theme_layout_exists($this->module . '.html'))
+		{
+			$this->template->set_layout($this->module . '.html');
+		}
+
+		// TODO DEPRECATE php
+		elseif($this->template->theme_layout_exists($this->module))
 		{
 			$this->template->set_layout($this->module);
 		}
 
 		// Nope, just use the default layout
+		elseif($this->template->theme_layout_exists('default.html'))
+		{
+			$this->template->set_layout('default.html');
+		}
+
+		// TODO DEPRECATE php
 		else
 		{
 			$this->template->set_layout('default');

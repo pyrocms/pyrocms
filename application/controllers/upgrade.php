@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * @name 		Upgrade Controller - Ion Auth Integration
- * @author 		Ben Edmunds - PyroCMS Development Team
+ * @name 		Upgrade Controller
+ * @author 		PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Controllers
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.8.1');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9');
 
 	function _remap()
 	{
@@ -75,8 +75,37 @@ class Upgrade extends Controller
  	}
 
  	// Upgrade
- 	function upgrade_0981()
+ 	function upgrade_099()
 	{
+		echo "Creating modules table...<br />";
+		$this->db->query('DROP TABLE IF EXISTS `modules`');
+		$this->db->query('CREATE TABLE `modules` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `name` TEXT NOT NULL,
+		  `slug` varchar(50) NOT NULL,
+		  `version` varchar(20) NOT NULL,
+		  `type` varchar(20) DEFAULT NULL,
+		  `description` TEXT DEFAULT NULL,
+		  `skip_xss` tinyint(1) NOT NULL,
+		  `is_frontend` tinyint(1) NOT NULL,
+		  `is_backend` tinyint(1) NOT NULL,
+		  `is_backend_menu` tinyint(1) NOT NULL,
+		  `enabled` tinyint(1) NOT NULL,
+		  `is_core` tinyint(1) NOT NULL,
+		  `controllers` text NOT NULL,
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `slug` (`slug`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;');
+
+		echo "Importing current modules into database...<br />";
+
+		// Load the module import class
+		$this->load->library('module_import');
+		$this->module_import->_import();
+
+		echo 'Clearing the module cache...<br/>';
+		$this->cache->delete_all('modules_m');
+
 		echo 'Adding comments_enabled field to pages table...<br/>';
 		//add display_name to profiles table
 		$this->dbforge->add_column('pages', array(
@@ -140,8 +169,7 @@ class Upgrade extends Controller
 
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `content`  `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
-
-
+		
 		return TRUE;
 	}
 
@@ -450,10 +478,6 @@ class Upgrade extends Controller
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Forums are the containers for threads and topics.'");
 
-
-
 		return TRUE;
 	}
-	
 }
-?>

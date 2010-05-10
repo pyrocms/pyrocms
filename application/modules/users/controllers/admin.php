@@ -158,13 +158,7 @@ class Admin extends Admin_Controller
 		$group		= $this->input->post('group');
 		
 		$user_data 	= array('first_name' => $this->input->post('first_name'), 'last_name'  => $this->input->post('last_name') );
-		
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$member->{$rule['field']} = set_value($rule['field']);
-		}
-		
+				
 		if ($this->form_validation->run() !== FALSE)
 		{
 			//hack to activate immediately
@@ -194,6 +188,11 @@ class Admin extends Admin_Controller
 				$member = (object)$_POST;
 			}
 		}
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$member->{$rule['field']} = set_value($rule['field']);
+		}
 
     	// Render the view
 		$this->data->member =& $member;
@@ -212,9 +211,8 @@ class Admin extends Admin_Controller
 		// confirm_password is required in case the user enters a new password
 		if($this->input->post('password') && $this->input->post('password') != '')
 		{
-			echo $this->input->post('password');
 			$this->validation_rules[3]['rules'] .= '|required';
-			$this->validation_rules[4]['rules'] .= '|matches[password]';
+			$this->validation_rules[3]['rules'] .= '|matches[password]';
 		}
 		$this->form_validation->set_rules($this->validation_rules);
 		
@@ -228,15 +226,6 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_edit_user_not_found_error'));
 			redirect('admin/users');
-		}
-
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$member->{$rule['field']} = set_value($rule['field']);
-			}
 		}
 		
 		// Run the validation
@@ -278,6 +267,14 @@ class Admin extends Admin_Controller
 				$member->full_name 	= $member->first_name .' '. $member->last_name;
 			}
 		}			
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$member->{$rule['field']} = set_value($rule['field']);
+			}
+		}
 
 		// Render the view
 		$this->data->member =& $member;

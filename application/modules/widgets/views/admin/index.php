@@ -62,7 +62,7 @@
 					<div class="header-squish">
 
 						<span class="tag">
-							<?php echo sprintf('{widget_area(%s)}', $widget_area->id);?>
+							<?php echo sprintf('{widget_area(\'%s\')}', $widget_area->slug);?>
 						</span>
 
 						<div class="button">

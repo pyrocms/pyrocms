@@ -86,7 +86,7 @@ class Admin extends Admin_Controller
 			if ($this->upload->do_upload())
 			{
 				$upload_data = $this->upload->data();
-				
+
 				// Check if we already have a dir with same name
 				if($this->template->theme_exists($upload_data['raw_name']))
 				{
@@ -96,19 +96,15 @@ class Admin extends Admin_Controller
 				else
 				{
 					// Now try to unzip
-					$this->_extractZip($upload_data['file_path'], $upload_data['file_name'], "third_party/themes/", $upload_data['raw_name'] );
-					
-					// Check if we unziped the file
-					if(! $this->template->theme_exists($upload_data['raw_name']))
-					{
-						$this->session->set_flashdata('error', lang('themes.extract_error'));
-					}
-					
-					else
-					{
-						$this->session->set_flashdata('success', lang('themes.upload_success'));
-					}
+					$this->load->library('unzip');
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php')); // TODO DEPRECATE php
+
+					// Try and extract
+					$this->unzip->extract($upload_data['full_path'], dirname(APPPATH) . '/third_party/themes/' )
+						? $this->session->set_flashdata('success', lang('themes.upload_success'))
+						: $this->session->set_flashdata('error', $this->unzip->error_string());
 				}
+
 				// Delete uploaded file
 				@unlink($upload_data['full_path']);
 			}
@@ -118,9 +114,9 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}
 			
-			redirect('admin/themes/upload');
+			redirect('admin/themes');
 		}
-		
+
 		$this->template->build('admin/upload', $this->data);
 	}
 	
@@ -187,64 +183,5 @@ class Admin extends Admin_Controller
 		redirect('admin/themes');
 	}
 	
-	/**
-	 * Extract an uploaded zipfile
-	 * 
-	 * @access private
-	 * @param string $zipDir The directory of the zip file
-	 * @param string $zipFile The zip file
-	 * @param string $extractTo The directory used to store the extracted files
-	 * @param string $dirFromZip No idea...
-	 * @return bool
-	 */
-	// #FIXME: Is this method still being used? - Yorick
-	private function _extractZip( $zipDir = '' , $zipFile = '', $extractTo = '', $dirFromZip = '' )
-	{	
-		$zip = zip_open($zipDir.$zipFile);
-		
-		if ($zip)
-		{
-			while ($zip_entry = zip_read($zip))
-			{
-				$completePath = $extractTo . dirname(zip_entry_name($zip_entry));
-				$completeName = $extractTo . zip_entry_name($zip_entry);
-			
-				// Walk through path to create non existing directories
-				// This won't apply to empty directories ! They are created further below
-				if(!file_exists($completePath) && preg_match( '#^' . $dirFromZip .'.*#', dirname(zip_entry_name($zip_entry)) ) )
-				{
-					$tmp = '';
-					foreach(explode('/',$completePath) AS $k)
-					{
-						$tmp .= $k.'/';
-						if(!file_exists($tmp) )
-						{
-							@mkdir($tmp, 0777);
-						}
-					}
-				}
-	
-				if (zip_entry_open($zip, $zip_entry, "r"))
-				{
-					if( preg_match( '#^' . $dirFromZip .'.*#', dirname(zip_entry_name($zip_entry)) ) )
-					{
-						if ($fd = @fopen($completeName, 'w+'))
-						{
-							@fwrite($fd, zip_entry_read($zip_entry, zip_entry_filesize($zip_entry)));
-							fclose($fd);
-						}
-						else
-						{
-							// We think this was an empty directory
-							@mkdir($completeName, 0777);
-						}
-						zip_entry_close($zip_entry);
-					}
-				}
-			}
-			zip_close($zip);
-		}
-		return true;
-	}
 }
 ?>

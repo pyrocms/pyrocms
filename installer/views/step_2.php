@@ -1,51 +1,105 @@
 <!-- Install PyroCMS - Step two -->
-<h2>Step 2: Check requirements</h2>
-<p>The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.</p>
+<h2><?php echo lang('header'); ?></h2>
+<p class="text"><?php echo lang('intro_text'); ?></p>
 
-<h3>HTTP Server Settings</h3>
 
+<!-- Server settings -->
+<h3><?php echo lang('server_setting'); ?></h3>
 <?php if($http_server->supported === TRUE): ?>
-	<p>Your server software <strong><?php echo $http_server->name;?></strong> is <span class="green">supported</span>.</p>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
 <?php else: ?>
-	<p class="red">Your server software is <span class="red">not support</span>, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations 
-	are up to date PyroCMS should be able to run properly, just without clean URL's.</p>
+	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
+<?php endif; ?>
+<p><?php echo lang('server_version'); ?> <strong><?php echo $http_server->name;?></strong>.</p>
+
+<?php if($http_server->supported === FALSE): ?>
+	<p class="red text"><?php echo lang('server_fail'); ?></p>
 <?php endif; ?>
 
-<h3>PHP Settings</h3>
-<p>PyroCMS requires PHP version 5.0 or higher. Your server is currently running version <strong><?php echo $php_version; ?></strong>, 
-which is <?php echo $php_version ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.</p>
-
-<h3>MySQL Settings</h3>
-<p>PyroCMS requires access to a MySQL database running version 5.0 or higher. Your server is currently running 
-<strong><?php echo $mysql->server_version; ?></strong> and the client library version is <strong><?php echo $mysql->client_version; ?></strong>
-which is <?php echo $mysql->server_version && $mysql->client_version ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.</p>
-
-<h3>GD Settings</h3>
-
+	
+<!-- PHP settings -->
+<h3><?php echo lang('php_settings'); ?></h3>
+<?php if ($php_version): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/exclamation.png" alt="fail" class="icon"/>
+<?php endif; ?>
 <p>
-	PyroCMS requires GD library 1.0 or higher.
-	<?php if(!empty($gd_version)): ?>
-	Your server is currently running version <strong><?php echo $gd_version; ?></strong>,
-	which is <?php echo $gd_version !== FALSE ? '<span class="green">supported</span>' : '<span class="red">not support</span>'; ?>.
-	<?php else: ?>
-	<span class="red">We cannot determine the version of the GD library.  This usually means that the GD library is not installed.</span>
+	<?php echo lang('php_required'); ?><br />
+	<?php echo lang('php_version'); ?> <strong><?php echo $php_version; ?></strong>.
+</p>
+
+<?php if ($php_version === FALSE): ?>
+	<p class="red text"><?php echo lang('php_fail'); ?></p>
+<?php endif; ?>
+
+
+<!-- MySQL settings -->
+<h3><?php echo lang('mysql_settings'); ?></h3>
+<?php if ($mysql->server_version && $mysql->client_version): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/exclamation.png" alt="fail" class="icon"/>
+<?php endif; ?>
+<p>
+	<?php echo lang('mysql_required'); ?> <br />
+	<?php echo lang('mysql_version1'); ?> <strong><?php echo $mysql->server_version; ?></strong> <br />
+	<?php echo lang('mysql_version2'); ?> <strong><?php echo $mysql->client_version; ?></strong>
+</p>
+
+<?php if ($mysql->server_version === FALSE OR $mysql->client_version === FALSE): ?>
+	<p class="red text"><?php echo lang('mysql_fail'); ?></p>
+<?php endif; ?>
+
+
+<!-- GD settiings -->
+<h3><?php echo lang('gd_settings'); ?></h3>
+<?php if ( ! empty($gd_version) && $gd_version !== FALSE): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
+<?php endif; ?>
+<p>
+	<?php echo lang('gd_required'); ?> <br />
+	<?php if( ! empty($gd_version)): ?>
+		<?php echo lang('gd_version'); ?> <strong><?php echo $gd_version; ?></strong>
 	<?php endif; ?>
 </p>
+
+<?php if (empty($gd_version) OR $gd_version === FALSE): ?>
+	<p class="red text"><?php echo lang('gd_fail'); ?>
+<?php endif; ?>
+
 
 <!-- Summary -->
 <h3>Summary</h3>
 
 <?php if($step_passed === TRUE): ?>
-<p class="green"><strong>Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.</strong></p>
-<p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
+
+	<p class="green">
+		<strong><?php echo lang('summary_green'); ?></strong>
+	</p>
+	<p id="next_step">
+		<a href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	</p>
 
 <?php elseif($step_passed == 'partial'): ?>
-<p class="orange"><strong>Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.</strong></p>
-<p id="next_step"><a href="<?php echo site_url('installer/step_3'); ?>" title="Proceed to the next step">Step 3</a></p>
+
+	<p class="orange">
+		<strong><?php echo lang('summary_orange'); ?></strong>
+	</p>
+	<p id="next_step">
+		<a href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
+	</p>
 
 <?php else: ?>
-<p class="red"><strong>It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.</strong></p>
-<p id="next_step"><a href="<?php echo site_url('installer/step_2'); ?>">Try again</a></p>
-<?php endif; ?>
+
+	<p class="red">
+		<strong><?php echo lang('summary_red'); ?></strong>
+	</p>
+	<p id="next_step">
+		<a href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
+	</p>
+	<?php endif; ?>
 
 <br class="clear" />

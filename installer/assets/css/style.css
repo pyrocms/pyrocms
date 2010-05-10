@@ -118,6 +118,15 @@ small 			{font-size:12px;}
 {
 	text-decoration:	underline;
 }
+#content p.text
+{
+	width: 470px;
+}
+#content img.icon
+{
+	float:			right; 
+	margin-right: 	5px;
+}
 /* Permission lists */
 #content .perm_list li
 {
@@ -188,3 +197,14 @@ small 			{font-size:12px;}
 {
 	margin:			8px 10px 0px 0px;
 }
+
+/* Flags */
+#flags {
+	margin-right: 1px;
+	margin-top: -5px;
+	}
+
+	#flags img {
+		margin-left: 5px;
+		float:right;
+	}

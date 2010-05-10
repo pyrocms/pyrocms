@@ -85,15 +85,6 @@ class Comments extends Public_Controller
 		$comment['module_id'] 	= $id;
 		$comment['is_active']	= (bool) $this->ion_auth->is_admin();
 		
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$comment[$rule['field']] = $this->input->post($rule['field']);
-			}
-		}
-		
 		// Validate the results
 		if ($this->form_validation->run())
 		{
@@ -137,6 +128,15 @@ class Comments extends Public_Controller
 		else
 		{		
 			$this->session->set_flashdata('error', lang('comments.add_error'));
+		}
+
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$comment[$rule['field']] = $this->input->post($rule['field']);
+			}
 		}
 		
 		// If for some reason the post variable doesnt exist, just send to module main page

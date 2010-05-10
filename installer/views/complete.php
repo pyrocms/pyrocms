@@ -1,12 +1,12 @@
 <!-- Install Complete -->
-<h2>Congratulations, <?php echo $admin_user['firstname'] . ' ' . $admin_user['lastname']; ?>!</h2>
-<p>PyroCMS is now installed and ready to go! Please log into the admin panel with the following details.</p>
+<h2>{congrats}, {user_firstname} {user_lastname} !</h2>
+<p>{intro_text}</p>
 
 <p>
-	<strong>E-mail:</strong> <?php echo $admin_user['email']; ?><br />
-	<strong>Password:</strong> <?php echo $admin_user['password']; ?>
+	<strong>{email}:</strong> {user_email}<br />
+	<strong>{password}:</strong> {user_password}
 </p>
 
-<p>Finally, <strong>delete the installer from your server</strong> as if you leave it here it can be used to hack your website.</p>
+<p>{outro_text}</p>
 
 <?php echo anchor($admin_url) ?>

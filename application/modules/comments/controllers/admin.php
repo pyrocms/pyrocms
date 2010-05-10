@@ -183,15 +183,6 @@ class Admin extends Admin_Controller
 
 		// Get the comment based on the ID
 		$comment = $this->comments_m->get($id);
-			
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$comment->{$rule['field']} = $this->input->post($rule['field']);
-			}
-		}
 		
 		// Validate the results
 		if ($this->form_validation->run())
@@ -225,6 +216,15 @@ class Admin extends Admin_Controller
 			
 			// Redirect the user
 			redirect('admin/comments');
+		}
+
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$comment->{$rule['field']} = $this->input->post($rule['field']);
+			}
 		}
 
 		$this->data->comment =& $comment;
