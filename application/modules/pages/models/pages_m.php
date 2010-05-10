@@ -244,7 +244,7 @@ class Pages_m extends MY_Model
         $this->db->insert('pages', array(
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
-        	'body' 			=> $input['body'],
+			'revision_id'	=> $input['revision_id'],
         	'parent_id'		=> (int) $input['parent_id'],
             'layout_id'		=> (int) $input['layout_id'],
             'css'			=> $input['css'],
@@ -281,7 +281,7 @@ class Pages_m extends MY_Model
         $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
-	        'body' 			=> $input['body'],
+	        'revision_id'	=> $input['revision_id'],
 	        'parent_id'		=> $input['parent_id'],
             'layout_id'		=> $input['layout_id'],
             'css'			=> $input['css'],

@@ -35,6 +35,11 @@ class Admin extends Admin_Controller
 		
 		// Load the required classes
 		$this->load->library('form_validation');
+		
+		// Versioning
+		$this->load->library('versioning');
+		$this->versioning->set_table('pages');
+		
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
@@ -282,7 +287,8 @@ class Admin extends Admin_Controller
 		
 	    // Set the page ID and get the current page
 	    $this->page_id 	= $id;
-	    $page 			= $this->pages_m->get($id);
+	    $page 			= $this->versioning->get($id);
+		$revisions		= $this->versioning->get_revisions($id);
 	
 	    // Got page?
 	    if (!$page) 
@@ -303,6 +309,10 @@ class Admin extends Admin_Controller
 	    // Validate it
 		if ($this->form_validation->run())
 	    {
+			// Set the data for the revision
+			$revision_data 			= array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $_POST['body']);
+			$_POST['revision_id'] 	= $this->versioning->create_revision($revision_data);
+			
 			// Run the update code with the POST data	
 			$this->pages_m->update($id, $_POST);			
 			
@@ -329,6 +339,7 @@ class Admin extends Admin_Controller
 	    
 	    // Assign data for display
 	    $this->data->page 			=& $page;
+		$this->data->revisions		=& $revisions;
 	    $this->data->parent_page 	=& $parent_page;
 	    
 		$page_layouts 				= $this->page_layouts_m->get_all();
@@ -393,6 +404,25 @@ class Admin extends Admin_Controller
 		}
 		
 		// Redirect
+		redirect('admin/pages');
+	}
+	
+	/**
+	 * Change the revision ID of a page
+	 * 
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @param int $id The ID of the row who's revision_id has to be changed
+	 * @param int $revision_id The new ID of the revision
+	 * @return void
+	 */
+	public function set_revision($id, $revision_id)
+	{
+		// Update the revision number
+		$this->versioning->set_revision($id, $revision_id);
+		
+		// Redirect
+		$this->session->set_flashdata('success', lang('pages.revisions_changed'));
 		redirect('admin/pages');
 	}
     
