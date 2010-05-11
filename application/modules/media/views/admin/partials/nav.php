@@ -18,7 +18,8 @@ div#media-nav ul li a.current {
 	<ul>
 		<li><?php echo anchor('admin/media/images', lang('media.images.title'), ($method == 'images' || $method == 'index') ? 'class="current"' : ''); ?></li>
 		<li><?php echo anchor('admin/media/documents', lang('media.documents.title'), ($method == 'documents') ? 'class="current"' : ''); ?></li>
-		<li><?php echo anchor('admin/media/video', lang('media.video.title'), ($method == 'videos') ? 'class="current"' : ''); ?></li>
+		<li><?php echo anchor('admin/media/video', lang('media.video.title'), ($method == 'video') ? 'class="current"' : ''); ?></li>
 		<li><?php echo anchor('admin/media/audio', lang('media.audio.title'), ($method == 'audio') ? 'class="current"' : ''); ?></li>
+		<li><?php echo anchor('admin/media/folders', lang('media.folders.manage_title'), ($method == 'folders') ? 'class="current"' : ''); ?></li>
 	</ul>
 </div>

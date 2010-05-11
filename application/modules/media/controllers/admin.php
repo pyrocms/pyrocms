@@ -44,7 +44,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Index
 	 *
-	 * Lists categories.
+	 * Shows the default
 	 *
 	 * @access	public
 	 * @return	void
@@ -58,8 +58,8 @@ class Admin extends Admin_Controller {
 	public function images()
 	{
 
-		$this->data->selected_folder = NULL;
-		$this->data->folders = $this->media_folders_m->get_children(0, 'i');
+		$this->data->selected_folder = 0;
+		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'i');
 
 		$this->template->build('admin/index', $this->data);
 	}
@@ -67,8 +67,8 @@ class Admin extends Admin_Controller {
 	public function documents()
 	{
 
-		$this->data->selected_folder = NULL;
-		$this->data->folders = $this->media_folders_m->get_children(0, 'd');
+		$this->data->selected_folder = 0;
+		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'd');
 
 		$this->template->build('admin/index', $this->data);
 	}
@@ -76,8 +76,8 @@ class Admin extends Admin_Controller {
 	public function video()
 	{
 
-		$this->data->selected_folder = NULL;
-		$this->data->folders = $this->media_folders_m->get_children(0, 'v');
+		$this->data->selected_folder = 0;
+		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'v');
 
 		$this->template->build('admin/index', $this->data);
 	}
@@ -85,8 +85,8 @@ class Admin extends Admin_Controller {
 	public function audio()
 	{
 
-		$this->data->selected_folder = NULL;
-		$this->data->folders = $this->media_folders_m->get_children(0, 'a');
+		$this->data->selected_folder = 0;
+		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'a');
 
 		$this->template->build('admin/index', $this->data);
 	}
@@ -101,7 +101,9 @@ class Admin extends Admin_Controller {
 			case 'create':
 				$this->_folder_create();
 				break;
-
+			case 'delete':
+				$this->_folder_delete();
+				break;
 			default:
 				$this->_folder_list();
 				break;
@@ -134,6 +136,33 @@ class Admin extends Admin_Controller {
 
 		$this->data->folder =& $folder;
 		$this->template->build('admin/folders/form', $this->data);
+	}
+
+	private function _folder_delete()
+	{
+		$folder_id = $this->uri->segment(5, NULL);
+
+		// If no folder is given, then 404
+		$folder_id == NULL and show_404();
+
+		$folder = $this->media_folders_m->get($folder_id);
+
+		if($this->input->post('button_action') == 'Yes')
+		{
+			$this->media_folders_m->delete($folder_id);
+
+			$this->session->set_flashdata('success', sprintf(lang('media.folders.delete_success'), $folder->name));
+
+			redirect('admin/media/folders');
+		}
+		elseif($this->input->post('button_action') == 'No')
+		{
+			redirect('admin/media/folders');
+		}
+
+		$this->data->folder =& $folder;
+		
+		$this->template->build('admin/folders/confirm', $this->data);
 	}
 
 

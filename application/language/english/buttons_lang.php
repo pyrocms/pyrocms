@@ -18,5 +18,7 @@ $lang['buttons.upload']		= 'Upload';
 $lang['buttons.save']		= 'Save';
 $lang['buttons.delete']		= 'Delete';
 $lang['buttons.install']	= 'Install';
+$lang['buttons.yes']		= 'Yes';
+$lang['buttons.no']			= 'No';
 
 /* End of file buttons_lang.php */

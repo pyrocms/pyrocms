@@ -31,7 +31,7 @@
 							<td><?php echo date("m.d.y \a\\t g.i a", $folder->date_added);?></td>
 							<td>
 								<?php echo anchor('admin/media/folders/edit/' . $folder->id, lang('media.labels.edit'));?> |
-								<?php echo anchor('admin/media/folders/delete/' . $folder->id, lang('media.labels.delete'), array('class'=>'confirm')); ?>
+								<?php echo anchor('admin/media/folders/delete/' . $folder->id, lang('media.labels.delete')); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
