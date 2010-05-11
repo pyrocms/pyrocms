@@ -241,6 +241,7 @@ class Installer_lib
 		$user_sql		= file_get_contents('./sql/3-default_user.sql');
 		$user_sql		= str_replace('__EMAIL__', 		$data['user_email'], 		$user_sql);
 		$user_sql		= str_replace('__USERNAME__', 	$data['user_name'], 		$user_sql);
+		$user_sql		= str_replace('__DISPLAYNAME__', 	$data['user_firstname'] . ' ' . $data['user_firstname'], 		$user_sql);
 		$user_sql		= str_replace('__PASSWORD__', 	$data['user_password'], 	$user_sql);
 		$user_sql		= str_replace('__FIRSTNAME__', 	$data['user_firstname'], 	$user_sql);
 		$user_sql		= str_replace('__LASTNAME__', 	$data['user_lastname'], 	$user_sql);

@@ -287,11 +287,11 @@ class Installer extends Controller
 
 				// Store the default username and password in the session data
 				$this->session->set_userdata('user', array(
-								'user_email'	=> $this->input->post('user_email'),
-								'user_password'	=> $this->input->post('user_password'),
-								'user_firstname'=> $this->input->post('user_firstname'),
-								'user_lastname'	=> $this->input->post('user_lastname')
-								));
+					'user_email'	=> $this->input->post('user_email'),
+					'user_password'	=> $this->input->post('user_password'),
+					'user_firstname'=> $this->input->post('user_firstname'),
+					'user_lastname'	=> $this->input->post('user_lastname')
+				));
 
 				// Import the modules
 				$this->load->library('module_import');
@@ -355,7 +355,7 @@ class Installer extends Controller
 			$this->session->set_userdata('language', $language);
 		}
 
-		redirect(site_url('installer'));
+		redirect('installer');
 	}
 
 	/**
