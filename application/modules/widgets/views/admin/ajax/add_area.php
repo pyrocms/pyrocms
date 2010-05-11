@@ -8,6 +8,8 @@
 				<?php echo lang('widgets.delete_area'); ?>
 			</a>
 		</div>
+
+		<div class="widget-list"></div>
 	
 	</div>
 </div>
