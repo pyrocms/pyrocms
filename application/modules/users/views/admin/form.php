@@ -20,7 +20,6 @@
 	<?php endif; ?>
 	
 	<div class="box-container">
-		<?php echo validation_errors();?>
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 		
 			<div class="tabs">
@@ -33,21 +32,31 @@
 				<!-- Content tab -->
 				<div id="user-details-tab">
 					<fieldset>
-						<ol>					
+						<ol>											
 							<li class="even">
 								<label for="first_name"><?php echo lang('user_first_name_label');?></label>
 								<?php echo form_input('first_name', $member->first_name); ?>
 							</li>
 							
 							<li>
-								<label for="first_name"><?php echo lang('user_last_name_label');?></label>
+								<label for="last_name"><?php echo lang('user_last_name_label');?></label>
 								<?php echo form_input('last_name', $member->last_name); ?>
 							</li>
 							
 							<li class="even">
 								<label for="email"><?php echo lang('user_email_label');?></label>
 								<?php echo form_input('email', $member->email); ?>
-							</li>
+							</li>		
+												
+							<li>
+								<label for="username"><?php echo lang('user_username');?></label>
+								<?php echo form_input('username', $member->username); ?>
+							</li>	
+							
+							<li class="even">
+								<label for="display_name"><?php echo lang('user_display_name');?></label>
+								<?php echo form_input('display_name', $member->display_name); ?>
+							</li>	
 							
 							<li>
 								<label for="active"><?php echo lang('user_role_label');?></label>

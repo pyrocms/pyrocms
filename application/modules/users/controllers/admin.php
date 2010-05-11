@@ -45,6 +45,11 @@ class Admin extends Admin_Controller
 				'rules' => 'required|alpha_dash'
 			),
 			array(
+				'field' => 'display_name',
+				'label' => lang('user_display_name'),
+				'rules' => 'required|alphanumeric|maxlength[50]'
+			),
+			array(
 				'field' => 'password',
 				'label' => lang('user_password_label'),
 				'rules' => 'min_length[6]|max_length[20]'
@@ -58,6 +63,11 @@ class Admin extends Admin_Controller
 				'field' => 'email',
 				'label' => lang('user_email_label'),
 				'rules' => 'required|valid_email'
+			),
+			array(
+				'field' => 'username',
+				'label' => lang('user_username'),
+				'rules' => 'required|alphanumeric|maxlength[20]'
 			),
 			array(
 				'field' => 'group',
@@ -149,15 +159,21 @@ class Admin extends Admin_Controller
 		// We need a password don't you think?
 		$this->validation_rules[2]['rules'] .= '|required';
 		$this->validation_rules[3]['rules'] .= '|required';
+		$this->validation_rules[5]['rules'] .= '|callback__email_check';
+		$this->validation_rules[6]['rules'] .= '|callback__username_check';
 		
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 		
-		$email 		= $this->input->post('email');
-		$password 	= $this->input->post('password');
-		$group		= $this->input->post('group');
+		$email 		  = $this->input->post('email');
+		$password 	  = $this->input->post('password');
+		$group		  = $this->input->post('group');
+		$username	  = $this->input->post('username');
 		
-		$user_data 	= array('first_name' => $this->input->post('first_name'), 'last_name'  => $this->input->post('last_name') );
+		$user_data 	= array('first_name' 	=> $this->input->post('first_name'),
+						    'last_name'  	=> $this->input->post('last_name'),
+						    'display_name'  => $this->input->post('display_name'),
+						   );
 				
 		if ($this->form_validation->run() !== FALSE)
 		{
@@ -168,7 +184,7 @@ class Admin extends Admin_Controller
 			}
 			
 			// Try to register the user
-			if($user_id = $this->ion_auth->register($email, $password, $email, $user_data, $group))
+			if($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $group))
 			{				
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -214,7 +230,6 @@ class Admin extends Admin_Controller
 			$this->validation_rules[3]['rules'] .= '|required';
 			$this->validation_rules[3]['rules'] .= '|matches[password]';
 		}
-		$this->form_validation->set_rules($this->validation_rules);
 		
 		// Get the user's data
 		$member 			= $this->ion_auth->get_user($id);
@@ -228,14 +243,29 @@ class Admin extends Admin_Controller
 			redirect('admin/users');
 		}
 		
+		// Check to see if we are changing usernames
+		if ($member->username != $this->input->post('username')) 
+		{
+			$this->validation_rules[6]['rules'] .= '|callback__username_check';
+		}
+		
+		// Check to see if we are changing emails
+		if ($member->email != $this->input->post('email')) 
+		{
+			$this->validation_rules[5]['rules'] .= '|callback__email_check';
+		}
+		
 		// Run the validation
-		if ($this->form_validation->run()) 
+		$this->form_validation->set_rules($this->validation_rules);
+		if ($this->form_validation->run() === TRUE) 
 		{		
 			// Get the POST data
-			$update_data['first_name'] 	= $this->input->post('first_name');
-			$update_data['last_name'] 	= $this->input->post('last_name');
-			$update_data['email'] 		= $this->input->post('email');
-			$update_data['active'] 		= $this->input->post('active');
+			$update_data['first_name'] 		= $this->input->post('first_name');
+			$update_data['last_name'] 		= $this->input->post('last_name');
+			$update_data['email'] 			= $this->input->post('email');
+			$update_data['active'] 			= $this->input->post('active');
+			$update_data['username'] 		= $this->input->post('username');
+			$update_data['display_name']	= $this->input->post('display_name');
 			
 			// Only worry about role if there is one, it wont show to people who shouldnt see it
 			if($this->input->post('group')) $update_data['group_id'] = $this->ion_auth->get_group_by_name($this->input->post('group'))->id;
@@ -356,6 +386,46 @@ class Admin extends Admin_Controller
 			
 		// Redirect
 		redirect('admin/users');
+	}
+	
+
+	
+	/**
+	 * Username check
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function _username_check($username)
+	{
+	    if ($this->ion_auth->username_check($username))
+	    {
+	        $this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
+	        return FALSE;
+	    }
+	    else
+	    {
+	        return TRUE;
+	    }
+	}
+	
+	/**
+	 * Email check
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function _email_check($email)
+	{
+	    if ($this->ion_auth->email_check($email))
+	    {
+	        $this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
+	        return FALSE;
+	    }
+	    else
+	    {
+	        return TRUE;
+	    }
 	}
 }
 ?>
