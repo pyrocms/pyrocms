@@ -420,6 +420,44 @@ class Modules_m extends MY_Model {
 		return $this->delete($module_slug);
 	}
 
+
+	public function import_all()
+    {
+    	$modules = array();
+		
+		$this->db->empty_table($this->_table);
+
+    	// Loop through directories that hold modules
+    	foreach (array(APPPATH.'modules/', 'third_party/modules/') as $directory)
+    	{
+    		// Loop through modules
+	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
+	        {				
+	        	if(file_exists($xml_file = $module_name.'/details.xml'))
+	        	{
+	        		$module = $this->_parse_xml($xml_file) + array('slug'=>basename($module_name));
+
+	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
+
+					$module['enabled'] = 1;
+
+					$names = $module['name'];
+					if(!isset($names[CURRENT_LANGUAGE]))
+					{
+						$name = $names['en'];
+					}
+					else
+					{
+						$name = $names[CURRENT_LANGUAGE];
+					}
+
+					$this->add($module);
+	        	}
+	        }
+        }
+
+	}
+
 	/**
 	 * Parse XML
 	 *

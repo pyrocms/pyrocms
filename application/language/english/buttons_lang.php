@@ -1,0 +1,22 @@
+<?php
+/**
+ * PyroCMS
+ *
+ * An open source CMS based on CodeIgniter
+ *
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team
+ * @license		Apache License v2.0
+ * @link		http://pyrocms.com
+ * @since		Version 1.0-dev
+ * @filesource
+ */
+
+$lang['buttons.submit']		= 'Save';
+$lang['buttons.cancel']		= 'Cancel';
+$lang['buttons.upload']		= 'Upload';
+$lang['buttons.save']		= 'Save';
+$lang['buttons.delete']		= 'Delete';
+$lang['buttons.install']	= 'Install';
+
+/* End of file buttons_lang.php */
