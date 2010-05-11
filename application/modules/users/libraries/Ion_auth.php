@@ -86,11 +86,11 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->ci->load->config('ion_auth', TRUE);
+		$this->ci->load->config('users/ion_auth', TRUE);
 		$this->ci->load->library('email');
 		$this->ci->load->library('session');
-		$this->ci->lang->load('ion_auth');
-		$this->ci->load->model('ion_auth_model');
+		$this->ci->lang->load('users/ion_auth');
+		$this->ci->load->model('users/ion_auth_model');
 		$this->ci->load->helper('cookie');
 
 		$this->messages = array();

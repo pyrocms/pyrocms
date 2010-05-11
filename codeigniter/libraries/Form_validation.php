@@ -1254,7 +1254,12 @@ class CI_Form_validation {
 	 */	
 	function xss_clean($str)
 	{
-		return $this->CI->input->xss_clean($str);
+		if ( ! isset($this->CI->security))
+		{
+			$this->CI->load->library('security');
+		}
+
+		return $this->CI->security->xss_clean($str);
 	}
 	
 	// --------------------------------------------------------------------

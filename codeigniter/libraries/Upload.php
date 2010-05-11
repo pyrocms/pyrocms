@@ -190,7 +190,7 @@ class CI_Upload {
 		$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
 		$this->file_size = $_FILES[$field]['size'];		
 		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $_FILES[$field]['type']);
-		$this->file_type = strtolower($this->file_type);
+		$this->file_type = strtolower(trim(stripslashes($this->file_type), '"'));
 		$this->file_ext	 = $this->get_extension($_FILES[$field]['name']);
 		
 		// Convert the file size to kilobytes
@@ -276,9 +276,13 @@ class CI_Upload {
 		 * embedded within a file.  Scripts can easily
 		 * be disguised as images or other file types.
 		 */
-		if ($this->xss_clean == TRUE)
+		if ($this->xss_clean)
 		{
-			$this->do_xss_clean();
+			if ($this->do_xss_clean() === FALSE)
+			{
+				$this->set_error('upload_unable_to_write_file');
+				return FALSE;
+			}
 		}
 
 		/*
@@ -574,7 +578,7 @@ class CI_Upload {
 			$mime = $this->mimes_types(strtolower($val));
 
 			// Images get some additional checks
-			if (in_array($val, $image_types))
+			if ($this->file_ext == '.'.$val &&  in_array($val, $image_types))
 			{
 				if (getimagesize($this->file_temp) === FALSE)
 				{
@@ -803,24 +807,60 @@ class CI_Upload {
 		{
 			return FALSE;
 		}
+		
+		if (function_exists('memory_get_usage') && memory_get_usage() && ini_get('memory_limit') != '')
+		{
+			$current = ini_get('memory_limit') * 1024 * 1024;
+			
+				// There was a bug/behavioural change in PHP 5.2, where numbers over one million get output
+				// into scientific notation.  number_format() ensures this number is an integer
+				// http://bugs.php.net/bug.php?id=43053
+				
+				$new_memory = number_format(ceil(filesize($this->new_name) + $current), 0, '.', '');
+				
+				ini_set('memory_limit', $new_memory); // When an integer is used, the value is measured in bytes. - PHP.net
+		}
+
+		// If the file being uploaded is an image, then we should have no problem with XSS attacks (in theory), but
+		// IE can be fooled into mime-type detecting a malformed image as an html file, thus executing an XSS attack on anyone
+		// using IE who looks at the image.  It does this by inspecting the first 255 bytes of an image.  To get around this
+		// CI will itself look at the first 255 bytes of an image to determine its relative safety.  This can save a lot of
+		// processor power and time if it is actually a clean image, as it will be in nearly all instances _except_ an 
+		// attempted XSS attack.
+
+		if (function_exists('getimagesize') && @getimagesize($file) !== FALSE)
+		{
+	        if (($file = @fopen($file, 'rb')) === FALSE) // "b" to force binary
+	        {
+				return FALSE; // Couldn't open the file, return FALSE
+	        }
+
+	        $opening_bytes = fread($file, 256);
+	        fclose($file);
+
+			// These are known to throw IE into mime-type detection chaos
+			// <a, <body, <head, <html, <img, <plaintext, <pre, <script, <table, <title
+			// title is basically just in SVG, but we filter it anyhow
+
+			if ( ! preg_match('/<(a|body|head|html|img|plaintext|pre|script|table|title)[\s>]/i', $opening_bytes))
+			{
+				return TRUE; // its an image, no "triggers" detected in the first 256 bytes, we're good
+			}
+		}
 
 		if (($data = @file_get_contents($file)) === FALSE)
 		{
 			return FALSE;
 		}
-		
-		if ( ! $fp = @fopen($file, FOPEN_READ_WRITE))
-		{
-			return FALSE;
-		}
 
-		$CI =& get_instance();	
-		$data = $CI->security->xss_clean($data);
+		$CI =& get_instance();
 		
-		flock($fp, LOCK_EX);
-		fwrite($fp, $data);
-		flock($fp, LOCK_UN);
-		fclose($fp);
+		if ( ! isset($CI->security))
+		{
+			$CI->load->library('security');
+		}
+		
+		return $CI->security->xss_clean($data, TRUE);
 	}
 	
 	// --------------------------------------------------------------------

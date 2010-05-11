@@ -63,6 +63,7 @@ class CI_Xmlrpc {
 	var $result;
 	var $response			= array();  // Response from remote server
 
+	var $xss_clean			= TRUE;
 
 	//-------------------------------------
 	//  VALUES THAT MULTIPLE CLASSES NEED
@@ -111,7 +112,7 @@ class CI_Xmlrpc {
 		$this->xmlrpcerr['unknown_method'] = '1';
 		$this->xmlrpcstr['unknown_method'] = 'This is not a known method for this XML-RPC Server';
 		$this->xmlrpcerr['invalid_return'] = '2';
-		$this->xmlrpcstr['invalid_return'] = 'The XML data receieved was either invalid or not in the correct form for XML-RPC.  Turn on debugging to examine the XML data further.';
+		$this->xmlrpcstr['invalid_return'] = 'The XML data received was either invalid or not in the correct form for XML-RPC.  Turn on debugging to examine the XML data further.';
 		$this->xmlrpcerr['incorrect_params'] = '3';
 		$this->xmlrpcstr['incorrect_params'] = 'Incorrect parameters were passed to method';
 		$this->xmlrpcerr['introspect_unknown'] = '4';
@@ -433,6 +434,7 @@ class XML_RPC_Response
 	var $errno = 0;
 	var $errstr = '';
 	var $headers = array();
+	var $xss_clean = TRUE;
 
 	function XML_RPC_Response($val, $code = 0, $fstr = '')
 	{	
@@ -503,6 +505,11 @@ class XML_RPC_Response
 	{
 		$CI =& get_instance();
 
+		if ($this->xss_clean && ! isset($CI->security))
+		{
+			$CI->load->library('security');
+		}
+
 		if ($array !== FALSE && is_array($array))
 		{
 			while (list($key) = each($array))
@@ -513,7 +520,7 @@ class XML_RPC_Response
 				}
 				else
 				{
-					$array[$key] = $CI->security->xss_clean($array[$key]);
+					$array[$key] = ($this->xss_clean) ? $CI->security->xss_clean($array[$key]) : $array[$key];
 				}
 			}
 			
@@ -529,7 +536,7 @@ class XML_RPC_Response
 			}
 			else
 			{
-				$result = $CI->security->xss_clean($result);
+				$result = ($this->xss_clean) ? $CI->security->xss_clean($result) : $result;
 			}
 		}
 		
@@ -1117,6 +1124,11 @@ class XML_RPC_Message extends CI_Xmlrpc
 	{
 		$CI =& get_instance();	
 
+		if ($this->xss_clean && ! isset($CI->security))
+		{
+			$CI->load->library('security');
+		}
+		
 		if ($array !== FALSE && is_array($array))
 		{
 			while (list($key) = each($array))
@@ -1129,7 +1141,7 @@ class XML_RPC_Message extends CI_Xmlrpc
 				{
 					// 'bits' is for the MetaWeblog API image bits
 					// @todo - this needs to be made more general purpose
-					$array[$key] = ($key == 'bits') ? $array[$key] : $CI->security->xss_clean($array[$key]);
+					$array[$key] = ($key == 'bits' OR $this->xss_clean == FALSE) ? $array[$key] : $CI->security->xss_clean($array[$key]);
 				}
 			}
 			
@@ -1149,7 +1161,7 @@ class XML_RPC_Message extends CI_Xmlrpc
 				}
 				else
 				{
-					$parameters[] = $CI->security->xss_clean($a_param);
+					$parameters[] = ($this->xss_clean) ? $CI->security->xss_clean($a_param) : $a_param;
 				}
 			}	
 		}

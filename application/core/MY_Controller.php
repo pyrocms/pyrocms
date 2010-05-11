@@ -50,7 +50,8 @@ class MY_Controller extends Controller
 
 		if(!$this->module_data['skip_xss'])
 		{
-			$_POST = $this->input->xss_clean($_POST);
+			// TODO Re-enable this somehows
+			//$_POST = $this->security->xss_clean($_POST);
 		}
 
         // Make them available to all layout files

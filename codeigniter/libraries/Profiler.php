@@ -36,14 +36,14 @@ class CI_Profiler {
  	
 	var $_available_sections	= array(
 										'benchmarks',
-										'config',
-										'controller_info',
 										'get',
-										'http_headers',
 										'memory_usage',
 										'post',
+										'uri_string',
+										'controller_info',
 										'queries',
-										'uri_string'
+										'http_headers',
+										'config'
 										);
 
  	function CI_Profiler($config = array())
@@ -434,8 +434,6 @@ class CI_Profiler {
 		$output .= "</table>\n";
 		$output .= "</fieldset>";
 
-		$output .= "</fieldset>";
-
 		return $output;
 	}
 
@@ -461,12 +459,15 @@ class CI_Profiler {
 
 		foreach($this->CI->config->config as $config=>$val)
 		{
+			if (is_array($val))
+			{
+				$val = print_r($val, TRUE);
+			}
+			
 			$output .= "<tr><td valign='top' style='color:#900;background-color:#ddd;'>".$config."&nbsp;&nbsp;</td><td style='color:#000;background-color:#ddd;'>".$val."</td></tr>\n";
 		}
 
 		$output .= "</table>\n";
-		$output .= "</fieldset>";
-
 		$output .= "</fieldset>";
 
 		return $output;

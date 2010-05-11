@@ -198,7 +198,7 @@ class CI_Security {
 		/*
 		 * Remove Invisible Characters
 		 */
-		$str = $this->_remove_invisible_characters($str);
+		$str = remove_invisible_characters($str);
 
 		/*
 		 * Protect GET variables in URLs
@@ -258,7 +258,7 @@ class CI_Security {
 		/*
 		 * Remove Invisible Characters Again!
 		 */
-		$str = $this->_remove_invisible_characters($str);
+		$str = remove_invisible_characters($str);
 		
 		/*
 		 * Convert all tabs to spaces
@@ -481,44 +481,6 @@ class CI_Security {
 	// --------------------------------------------------------------------
 	
 	/**
-	 * Remove Invisible Characters
-	 *
-	 * This prevents sandwiching null characters
-	 * between ascii characters, like Java\0script.
-	 *
-	 * @access	public
-	 * @param	string
-	 * @return	string
-	 */
-	function _remove_invisible_characters($str)
-	{
-		static $non_displayables;
-		
-		if ( ! isset($non_displayables))
-		{
-			// every control character except newline (dec 10), carriage return (dec 13), and horizontal tab (dec 09),
-			$non_displayables = array(
-										'/%0[0-8bcef]/',			// url encoded 00-08, 11, 12, 14, 15
-										'/%1[0-9a-f]/',				// url encoded 16-31
-										'/[\x00-\x08]/',			// 00-08
-										'/\x0b/', '/\x0c/',			// 11, 12
-										'/[\x0e-\x1f]/'				// 14-31
-									);
-		}
-
-		do
-		{
-			$cleaned = $str;
-			$str = preg_replace($non_displayables, '', $str);
-		}
-		while ($cleaned != $str);
-
-		return $str;
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
 	 * Compact Exploded Words
 	 *
 	 * Callback function for xss_clean() to remove whitespace from
@@ -648,12 +610,62 @@ class CI_Security {
 	 */
 	function _decode_entity($match)
 	{
-		require_once(BASEPATH . 'helpers/typography_helper' . EXT);
-		return entity_decode($match[0], strtoupper(config_item('charset')));
+		return $this->entity_decode($match[0], strtoupper(config_item('charset')));
 	}
 
 	// --------------------------------------------------------------------
 
+	/**
+	 * HTML Entities Decode
+	 *
+	 * This function is a replacement for html_entity_decode()
+	 *
+	 * In some versions of PHP the native function does not work
+	 * when UTF-8 is the specified character set, so this gives us
+	 * a work-around.  More info here:
+	 * http://bugs.php.net/bug.php?id=25670
+	 *
+	 * NOTE: html_entity_decode() has a bug in some PHP versions when UTF-8 is the
+	 * character set, and the PHP developers said they were not back porting the
+	 * fix to versions other than PHP 5.x.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	string
+	 */
+	function entity_decode($str, $charset='UTF-8')
+	{
+		if (stristr($str, '&') === FALSE) return $str;
+	
+		// The reason we are not using html_entity_decode() by itself is because
+		// while it is not technically correct to leave out the semicolon
+		// at the end of an entity most browsers will still interpret the entity
+		// correctly.  html_entity_decode() does not convert entities without
+		// semicolons, so we are left with our own little solution here. Bummer.
+	
+		if (function_exists('html_entity_decode') && (strtolower($charset) != 'utf-8' OR is_php('5.0.0')))
+		{
+			$str = html_entity_decode($str, ENT_COMPAT, $charset);
+			$str = preg_replace('~&#x(0*[0-9a-f]{2,5})~ei', 'chr(hexdec("\\1"))', $str);
+			return preg_replace('~&#([0-9]{2,4})~e', 'chr(\\1)', $str);
+		}
+	
+		// Numeric Entities
+		$str = preg_replace('~&#x(0*[0-9a-f]{2,5});{0,1}~ei', 'chr(hexdec("\\1"))', $str);
+		$str = preg_replace('~&#([0-9]{2,4});{0,1}~e', 'chr(\\1)', $str);
+	
+		// Literal Entities - Slightly slow so we do another check
+		if (stristr($str, '&') === FALSE)
+		{
+			$str = strtr($str, array_flip(get_html_translation_table(HTML_ENTITIES)));
+		}
+	
+		return $str;
+	}
+	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Filename Security
 	 *
