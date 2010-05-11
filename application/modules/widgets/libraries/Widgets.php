@@ -318,5 +318,4 @@ class Widgets
 	{
 		return (array) unserialize($options);
 	}
-
 }

@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -288,7 +288,7 @@ if ( ! function_exists('days_in_month'))
 		return $days_in_month[$month - 1];
 	}
 }
-	
+
 // ------------------------------------------------------------------------
 
 /**
@@ -343,7 +343,7 @@ if ( ! function_exists('gmt_to_local'))
 		return $time;
 	}
 }
-	
+
 // ------------------------------------------------------------------------
 
 /**
@@ -440,14 +440,14 @@ if ( ! function_exists('human_to_unix'))
 		}
 	
 		$datestr = trim($datestr);
-		$datestr = preg_replace("/\040+/", "\040", $datestr);
-
+		$datestr = preg_replace("/\040+/", ' ', $datestr);
+	
 		if ( ! preg_match('/^[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}\s[0-9]{1,2}:[0-9]{1,2}(?::[0-9]{1,2})?(?:\s[AP]M)?$/i', $datestr))
 		{
 			return FALSE;
 		}
-
-		$split = preg_split("/\040/", $datestr);
+	
+		$split = explode(' ', $datestr);
 
 		$ex = explode("-", $split['0']);
 	

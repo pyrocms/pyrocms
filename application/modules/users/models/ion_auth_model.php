@@ -618,6 +618,7 @@ class Ion_auth_model extends CI_Model
 			$this->tables['groups'].'.name AS `group`',
 			$this->tables['groups'].'.description AS group_description'
 		));
+
 		if (!empty($this->columns))
 		{
 			foreach ($this->columns as $field)
@@ -766,7 +767,7 @@ class Ion_auth_model extends CI_Model
 	public function get_group($id)
   	{
     	$this->db->where('id', $id);
-    	
+
   		return $this->db
 					->get($this->tables['groups'])
 					->row();
@@ -781,7 +782,7 @@ class Ion_auth_model extends CI_Model
 	public function get_group_by_name($name)
   	{
     	$this->db->where('name', $name);
-    	
+
   		return $this->db
 					->get($this->tables['groups'])
 					->row();
@@ -808,8 +809,8 @@ class Ion_auth_model extends CI_Model
 			{
 				if (is_array($data) && isset($data[$field]))
 				{
-		    		$this->db->set($field, $data[$field]);
-		    		unset($data[$field]);
+		    			$this->db->set($field, $data[$field]);
+		    			unset($data[$field]);
 				}
 			}
 

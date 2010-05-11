@@ -28,6 +28,6 @@
 				</span>
 			</span>
 		<?php endforeach;?>
-	<?}?>
+	<?php }?>
 </div>
 <?php echo $this->pagination->create_links();?>

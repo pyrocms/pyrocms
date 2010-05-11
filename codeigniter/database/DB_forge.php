@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -259,8 +259,8 @@ class CI_DB_forge {
 		// add field info into field array, but we can only do one at a time
 		// so we cycle through
 
-		foreach ($field as $k => $v)
-		{
+       foreach ($field as $k => $v)
+       {
 			$this->add_field(array($k => $field[$k]));		
 
 			if (count($this->fields) == 0)
@@ -279,6 +279,7 @@ class CI_DB_forge {
 		}
 		
 		return TRUE;
+
 	}
 
 	// --------------------------------------------------------------------

@@ -13,7 +13,7 @@
  * @modified Phil Sturgeon <http://philsturgeon.co.uk>
  * @copyright Copyright (c) 2009, Jamie Rumbelow <http://jamierumbelow.net>
  */
-class MY_Model extends Model
+class MY_Model extends CI_Model
 {
 	/**
 	 * The database table to use, only
@@ -66,7 +66,7 @@ class MY_Model extends Model
 	 */
 	public function __construct()
 	{
-		parent::Model();
+		parent::CI_Model();
 		$this->load->helper('inflector');
 		$this->_fetch_table();
 	}

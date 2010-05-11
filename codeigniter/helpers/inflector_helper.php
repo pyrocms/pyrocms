@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -90,6 +90,17 @@ if ( ! function_exists('plural'))
 			// Y preceded by vowel => regular plural
 			$vowels = array('a', 'e', 'i', 'o', 'u');
 			$str = in_array(substr($str, -2, 1), $vowels) ? $str.'s' : substr($str, 0, -1).'ies';
+		}
+		elseif ($end == 'h')
+		{
+		    if (substr($str, -2) == 'ch' || substr($str, -2) == 'sh')
+		    {
+		        $str .= 'es';
+		    }
+		    else
+		    {
+		        $str .= 's';
+		    }
 		}
 		elseif ($end == 's')
 		{

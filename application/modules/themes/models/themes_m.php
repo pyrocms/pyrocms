@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Themes_m extends Model
+class Themes_m extends CI_Model
 {
 	public $_theme = NULL;
 	public $_themes = NULL;
 
 	public function __construct()
 	{
-		parent::Model();
+		parent::CI_Model();
 		$this->_theme = $this->settings->item('default_theme');
 	}
 

@@ -83,6 +83,8 @@ div#content {padding-top:25px;}
 		background-color:#fff; padding:10px;
 		-moz-border-radius-bottomleft:5px;
 		-moz-border-radius-bottomright:5px;
+		-webkit-border-bottom-left-radius:5px;
+		-webkit-border-bottom-right-radius:5px;
 		display:block;
 	}
 	.box-container h5 {color:#333; padding-left:20px; border-bottom:1px solid #d7d9d9; font-weight:bold; padding-bottom:7px; margin-bottom:1px; padding-top: 1px;}
@@ -97,6 +99,8 @@ div#content {padding-top:25px;}
 		margin:0 !important;
 		-moz-border-radius-topleft:5px;
 		-moz-border-radius-topright:5px;
+		-webkit-border-top-left-radius:5px;
+		-webkit-border-top-right-radius:5px;
 	}
 	
 	/** columns **/
@@ -149,6 +153,7 @@ div#content {padding-top:25px;}
 		background:url(../../img/admin/bg-textbox.gif) repeat-x #fff;
 		border:1px solid #dedede;
 		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
 		color:#565;
 		padding:4px;
 	}

@@ -3,14 +3,13 @@
 // Code here is run before ALL controllers
 class MY_Controller extends Controller
 {
-	var $module;
-	var $controller;
-	var $method;
+	public $module;
+	public $controller;
+	public $method;
 	
 	function MY_Controller()
 	{
 		parent::Controller();
-		
 		$this->benchmark->mark('my_controller_start');
 
 		$this->hooks =& $GLOBALS['EXT'];

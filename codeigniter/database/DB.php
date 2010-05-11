@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -22,7 +22,7 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
-function &DB($params = '', $active_record_override = FALSE)
+function &DB($params = '', $active_record_override = NULL)
 {
 	// Load the DB config file if a DSN string wasn't passed
 	if (is_string($params) AND strpos($params, '://') === FALSE)
@@ -102,9 +102,9 @@ function &DB($params = '', $active_record_override = FALSE)
 	// based on whether we're using the active record class or not.
 	// Kudos to Paul for discovering this clever use of eval()
 	
-	if ($active_record_override == TRUE)
+	if ($active_record_override !== NULL)
 	{
-		$active_record = TRUE;
+		$active_record = $active_record_override;
 	}
 	
 	require_once(BASEPATH.'database/DB_driver'.EXT);
@@ -135,6 +135,11 @@ function &DB($params = '', $active_record_override = FALSE)
 	if ($DB->autoinit == TRUE)
 	{
 		$DB->initialize();
+	}
+	
+	if (isset($params['stricton']) && $params['stricton'] == TRUE)
+	{
+		$DB->query('SET SESSION sql_mode="STRICT_ALL_TABLES"');		
 	}
 	
 	return $DB;

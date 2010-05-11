@@ -32,7 +32,7 @@ class Public_Controller extends MY_Controller
 	    $this->asset->set_theme($this->theme->slug);
 
 		// Asset library needs to know where the theme directory is
-		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
+		$this->config->set_item('theme_asset_dir', '/'.dirname($this->theme->path).'/');
 		$this->config->set_item('theme_asset_url', dirname($this->theme->web_path).'/');
 
 	    // Set the theme view folder

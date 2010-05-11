@@ -30,7 +30,7 @@ class Asset
 {
 	private $theme = NULL;
 	private $_ci;
-	
+
 	function __construct()
 	{
 		$this->_ci =& get_instance();
@@ -63,9 +63,9 @@ class Asset
 
 		return '<link href="'.$this->css_path($asset_name, $module_name).'" type="text/css"'.$attribute_str.' />'."\n";
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * CSS Path
 	  *
@@ -76,14 +76,14 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    full url to css asset
 	  */
-	
+
 	function css_path($asset_name, $module_name = NULL)
 	{
 		return $this->_asset_path($asset_name, $module_name, config_item('asset_css_dir'));
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * CSS URL
 	  *
@@ -94,14 +94,14 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    full url to css asset
 	  */
-	
+
 	function css_url($asset_name, $module_name = NULL)
 	{
 		return $this->_asset_url($asset_name, $module_name, config_item('asset_css_dir'));
 	}
 
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * Image
 	  *
@@ -113,19 +113,19 @@ class Asset
 	  * @param		string    optional, extra attributes
 	  * @return		string    HTML code for image asset
 	  */
-	
+
 	function image($asset_name, $module_name = '', $attributes = array())
 	{
 		// No alternative text given? Use the filename, better than nothing!
 		if(empty($attributes['alt'])) list($attributes['alt']) = explode('.', $asset_name);
-		
+
 		$attribute_str = $this->_parse_asset_html($attributes);
-	
+
 		return '<img src="'.$this->image_path($asset_name, $module_name).'"'.$attribute_str.' />'."\n";
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * Image Path
 	  *
@@ -136,14 +136,14 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    full url to image asset
 	  */
-	
+
 	function image_path($asset_name, $module_name = NULL)
 	{
 		return $this->_asset_path($asset_name, $module_name, config_item('asset_img_dir'), 'path');
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * Image URL
 	  *
@@ -154,15 +154,15 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    full url to image asset
 	  */
-	
+
 	function image_url($asset_name, $module_name = NULL)
 	{
 		return $this->_asset_url($asset_name, $module_name, config_item('asset_img_dir'));
 	}
 
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * JS
 	  *
@@ -173,14 +173,14 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    HTML code for JavaScript asset
 	  */
-	
+
 	function js($asset_name, $module_name = NULL)
 	{
 		return '<script type="text/javascript" src="'.$this->js_path($asset_name, $module_name).'"></script>'."\n";
 	}
 
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * JS Path
 	  *
@@ -191,14 +191,14 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    web root path to JavaScript asset
 	  */
-	
+
 	function js_path($asset_name, $module_name = NULL)
 	{
 		return $this->_asset_path($asset_name, $module_name, config_item('asset_js_dir'));
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * JS URL
 	  *
@@ -209,15 +209,15 @@ class Asset
 	  * @param		string    optional, module name
 	  * @return		string    full url to JavaScript asset
 	  */
-	
+
 	function js_url($asset_name, $module_name = NULL)
 	{
 		return $this->_asset_url($asset_name, $module_name, config_item('asset_js_dir'));
 	}
-	
-	
+
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * General Asset HTML Helper
 	  *
@@ -233,23 +233,23 @@ class Asset
 	{
 		return $this->_other_asset_location($asset_name, $module_name, $asset_type, 'path');
 	}
-	
-	
+
+
 	function _asset_url($asset_name, $module_name = NULL, $asset_type = NULL)
 	{
 		return $this->_other_asset_location($asset_name, $module_name, $asset_type, 'url');
 	}
-	
+
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
 		$base_location = config_item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
-		
+
 		// If they are using a direct path, take them to it
 		if(strpos($asset_name, 'assets/') !== FALSE)
 		{
 			$asset_location = $base_location.$asset_name;
 		}
-		
+
 		// If they have just given a filename, not an asset path, and its in a theme
 		elseif($module_name == '_theme_' && $this->theme != NULL)
 		{
@@ -257,13 +257,13 @@ class Asset
 				. $this->theme . '/'
 				. $asset_type.'/'.$asset_name;
 		}
-		
+
 		// Normal file (that might be in a module)
 		else
 		{
 			$asset_location = $base_location;
-		
-			// Its in a module, ignore the current 
+
+			// Its in a module, ignore the current
 			if($module_name)
 			{
 				foreach( (Modules::$locations) as $path => $offset)
@@ -276,15 +276,15 @@ class Asset
 					}
 				}
 			}
-			
+
 			$asset_location .= $asset_type.'/'.$asset_name;
 		}
-		
+
 		return $asset_location;
 	}
 
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * Parse HTML Attributes
 	  *
@@ -302,7 +302,7 @@ class Asset
 		{
 			$attribute_str = $attributes;
 		}
-		
+
 		else if(is_array($attributes) || is_object($attributes))
 		{
 			foreach($attributes as $key => $value)
@@ -310,12 +310,12 @@ class Asset
 				$attribute_str .= ' '.$key.'="'.$value.'"';
 			}
 		}
-	
+
 		return $attribute_str;
 	}
 
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	  * Set theme
 	  *
@@ -328,7 +328,7 @@ class Asset
 	{
 		$this->theme = $theme;
 	}
-	
+
 }
 // END Asset Class
 

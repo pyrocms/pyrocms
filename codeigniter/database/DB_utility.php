@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -71,6 +71,31 @@ class CI_DB_utility extends CI_DB_forge {
 		$this->data_cache['db_names'] = $dbs;
 		return $this->data_cache['db_names'];
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Determine if a particular database exists
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	boolean
+	 */
+	function database_exists($database_name)
+	{
+		// Some databases won't have access to the list_databases() function, so
+		// this is intended to allow them to override with their own functions as
+		// defined in $driver_utility.php
+		if (method_exists($this, '_database_exists'))
+		{
+			return $this->_database_exists($database_name);
+		}
+		else
+		{
+			return ( ! in_array($database_name, $this->list_databases())) ? FALSE : TRUE;
+		}
+	}
+
 
 	// --------------------------------------------------------------------
 

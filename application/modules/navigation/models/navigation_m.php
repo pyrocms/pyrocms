@@ -8,7 +8,7 @@
  * @author			Phil Sturgeon - PyroCMS Development Team
  * 
  */
-class Navigation_m extends Model
+class Navigation_m extends CI_Model
 {
 	/**
 	 * Get a navigation link

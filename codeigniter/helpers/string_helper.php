@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -30,7 +30,7 @@
 /**
  * Trim Slashes
  *
- * Removes any leading/traling slashes from a string:
+ * Removes any leading/trailing slashes from a string:
  *
  * /this/that/theother/
  *
@@ -46,10 +46,10 @@ if ( ! function_exists('trim_slashes'))
 {
 	function trim_slashes($str)
 	{
-		return trim($str, '/');
-	} 
+	    return trim($str, '/');
+	}
 }
-	
+
 // ------------------------------------------------------------------------
 
 /**
@@ -120,6 +120,7 @@ if ( ! function_exists('quotes_to_entities'))
 }
 
 // ------------------------------------------------------------------------
+
 /**
  * Reduce Double Slashes
  *
@@ -140,10 +141,10 @@ if ( ! function_exists('reduce_double_slashes'))
 {
 	function reduce_double_slashes($str)
 	{
-		return preg_replace("#([^:])//+#", "\\1/", $str);
+		return preg_replace("#(^|[^:])//+#", "\\1/", $str);
 	}
 }
-	
+
 // ------------------------------------------------------------------------
 
 /**
@@ -173,7 +174,7 @@ if ( ! function_exists('reduce_multiples'))
 		{
 			$str = trim($str, $character);
 		}
-
+    
 		return $str;
 	}
 }
@@ -186,22 +187,27 @@ if ( ! function_exists('reduce_multiples'))
  * Useful for generating passwords or hashes.
  *
  * @access	public
- * @param	string 	type of random string.  Options: alunum, numeric, nozero, unique
+ * @param	string 	type of random string.  basic, alpha, alunum, numeric, nozero, unique, md5, encrypt and sha1
  * @param	integer	number of characters
  * @return	string
- */
+ */	
 if ( ! function_exists('random_string'))
-{	
+{
 	function random_string($type = 'alnum', $len = 8)
 	{					
 		switch($type)
 		{
+			case 'basic'	: return mt_rand();
+			  break;
 			case 'alnum'	:
 			case 'numeric'	:
 			case 'nozero'	:
+			case 'alpha'	:
 		
 					switch ($type)
 					{
+						case 'alpha'	:	$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+							break;
 						case 'alnum'	:	$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 							break;
 						case 'numeric'	:	$pool = '0123456789';
@@ -217,7 +223,18 @@ if ( ! function_exists('random_string'))
 					}
 					return $str;
 			  break;
-			case 'unique' : return md5(uniqid(mt_rand()));
+			case 'unique'	: 
+			case 'md5' 		: 
+				
+						return md5(uniqid(mt_rand()));
+			  break;
+			case 'encrypt'	: 
+			case 'sha1'	: 
+		
+						$CI =& get_instance();
+						$CI->load->helper('security');
+		
+						return do_hash(uniqid(mt_rand(), TRUE), 'sha1');
 			  break;
 		}
 	}

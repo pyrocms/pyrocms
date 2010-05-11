@@ -455,7 +455,7 @@ class Template
 	public function theme_exists($theme = NULL)
 	{
 		$theme || $theme = $this->_theme;
-		
+
 		foreach ($this->_theme_locations as $location => $offset)
 		{
 			if( is_dir($location.$theme) )

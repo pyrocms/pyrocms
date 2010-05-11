@@ -8,8 +8,8 @@
  * @category	Modules
  * @since 		v0.9.7
  */
-class Modules_m extends MY_Model {
-
+class Modules_m extends MY_Model
+{
 	private $_table = 'modules';
 
 	/**

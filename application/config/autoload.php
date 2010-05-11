@@ -52,21 +52,9 @@ $autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'templat
 */
 
 $autoload['helper'] = array(
-	'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array',
+	'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array', 'gravatar',
 	'comments/comments', 'pages/pages', 'modules/module', 'navigation/navigation', 'widgets/widgets', 'themes/theme'
 );
-
-
-/*
-| -------------------------------------------------------------------
-|  Auto-load Plugins
-| -------------------------------------------------------------------
-| Prototype:
-|
-|	$autoload['plugin'] = array('captcha', 'js_calendar');
-*/
-
-$autoload['plugin'] = array('gravatars');
 
 
 /*

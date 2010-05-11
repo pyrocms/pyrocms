@@ -124,7 +124,7 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-|';
 
 
 /*
@@ -149,7 +149,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_-';
 | use segment based URLs.
 |
 */
-$config['enable_query_strings'] = TRUE;
+$config['enable_query_strings'] = FALSE;
 $config['directory_trigger'] = 'd';
 $config['controller_trigger'] = 'c';
 $config['function_trigger'] = 'm';

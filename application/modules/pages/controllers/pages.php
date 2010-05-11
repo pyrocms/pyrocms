@@ -21,9 +21,7 @@ class Pages extends Public_Controller
 	 */
     public function __construct() 
     {
-		// Call the parent's constructor method
-        parent::__construct();
-        
+    	parent::Public_Controller();
         $this->load->model('pages_m');
         $this->load->model('page_layouts_m');
         

@@ -1,13 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Newsletters_m extends Model
+class Newsletters_m extends CI_Model
 {
 	var $email_from = 'admin@localhost'; // this is set by controller when used
-	
-	function __construct()
-	{
-		parent::Model();
-	}
 	
 	function getNewsletters($params = array())
 	{	

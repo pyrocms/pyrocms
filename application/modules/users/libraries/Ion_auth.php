@@ -86,11 +86,11 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->ci->load->config('users/ion_auth', TRUE);
+		$this->ci->load->config('ion_auth', TRUE);
 		$this->ci->load->library('email');
 		$this->ci->load->library('session');
-		$this->ci->lang->load('users/ion_auth');
-		$this->ci->load->model('users/ion_auth_model');
+		$this->ci->lang->load('ion_auth');
+		$this->ci->load->model('ion_auth_model');
 		$this->ci->load->helper('cookie');
 
 		$this->messages = array();
@@ -234,7 +234,7 @@ class Ion_auth
 	    $identity     = $this->ci->config->item('identity', 'ion_auth');
 	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 
-            if (!is_object($profile)) 
+            if (!is_object($profile))
             {
                 $this->set_error('password_change_unsuccessful');
                 return FALSE;
@@ -587,11 +587,11 @@ class Ion_auth
 	 **/
 	public function update_user($id, $data)
 	{
-		if ($this->ci->ion_auth_model->update_user($id, $data))
-		{
-			$this->set_message('update_successful');
-			return TRUE;
-		}
+		 if ($this->ci->ion_auth_model->update_user($id, $data))
+		 {
+		 	$this->set_message('update_successful');
+		 	return TRUE;
+		 }
 
 		$this->set_error('update_unsuccessful');
 		return FALSE;

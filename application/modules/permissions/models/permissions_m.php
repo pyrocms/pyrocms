@@ -8,19 +8,8 @@
  * @category Modules
  *
  */
-class Permissions_m extends Model {
-
-	/**
-	 * Constructor method
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct() {
-		// Call the parent's constructor method
-		parent::__construct();
-	}
-
+class Permissions_m extends CI_Model
+{
 	/**
 	 * Get a rule based on the ID
 	 * 
@@ -372,4 +361,3 @@ class Permissions_m extends Model {
         return $this->db->affected_rows();
 	}
 }
-?>

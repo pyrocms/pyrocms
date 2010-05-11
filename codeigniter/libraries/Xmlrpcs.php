@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -40,10 +40,10 @@ class CI_Xmlrpcs extends CI_Xmlrpc
 	var $debug_msg		= '';		// Debug Message
 	var $system_methods = array(); // XML RPC Server methods
 	var $controller_obj;
-
+	
 	var $object			= FALSE;
-	
-	
+
+
 	//-------------------------------------
 	//  Constructor, more or less
 	//-------------------------------------

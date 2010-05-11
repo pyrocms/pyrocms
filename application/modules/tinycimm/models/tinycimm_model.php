@@ -3,12 +3,12 @@
 * @author badsyntax.co.uk & pyrocms
 */
 
-class Tinycimm_model extends Model {
+class Tinycimm_model extends CI_Model {
 
 	public $allowed_types = array();
 	
 	function Tinycimm_model(){
-		parent::Model();
+		parent::CI_Model();
 		$upload_config = $this->config->item('tinycimm_image_upload_config');
 		$this->allowed_types = explode('|', $upload_config['allowed_types']);
 	}
