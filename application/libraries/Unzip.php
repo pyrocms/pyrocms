@@ -2,7 +2,7 @@
 /**
  * UnZip Class
  *
- * This class is based on a library I found at Zend:
+ * This class is based on a library I found at PHPClasses:
  * http://phpclasses.org/package/2495-PHP-Pack-and-unpack-files-packed-in-ZIP-archives.html
  *
  * The original library is a little rough around the edges so I
@@ -104,7 +104,7 @@ class Unzip
 					if (!is_dir($this->_target_dir."/".$str))
 					{
 						$this->set_debug("Creating folder: ".$this->_target_dir."/".$str);
-						
+
 						if (!@mkdir($this->_target_dir."/".$str))
 						{
 							$this->set_error('Desitnation path is not writable.');
@@ -187,7 +187,7 @@ class Unzip
 	{
 			$this->error[] = $string;
 	}
-	
+
 	// --------------------------------------------------------------------
 
 	/**
