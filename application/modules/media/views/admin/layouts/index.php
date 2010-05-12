@@ -1,4 +1,4 @@
-<div class="ajax-tabs">
+<div id="tabs">
 	<?php echo $template['partials']['nav']; ?>
 	<?php
 		if(isset($template['partials']['non-js'])):
@@ -8,7 +8,7 @@
 </div>
 
 <style type="text/css">
-.ajax-tabs ul {
+#tabs ul {
 	margin-bottom: 10px;
 	background-color: none;
 }

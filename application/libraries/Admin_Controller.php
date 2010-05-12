@@ -92,7 +92,6 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( css('jquery/jquery.fancybox.css') )
 	    	->append_metadata( js('jquery/jquery.dimensions.js') )
 	    	->append_metadata( js('jquery/jquery.imgareaselect.js') )
-	    	->append_metadata( js('jquery/tabs.pack.js') )
 	    	->append_metadata( js('admin.js') )
 	    	->append_metadata( css('admin/admin.css') );
 	    
