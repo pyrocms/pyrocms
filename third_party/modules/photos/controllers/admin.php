@@ -72,10 +72,6 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->validation_rules);
 		
-		foreach($this->validation_rules as $rule)
-		{
-			$album->{$rule['field']} = set_value($rule['field']);
-		}
 		
 		if ($this->form_validation->run())
 		{
@@ -88,6 +84,11 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata(array('error'=> lang('photo_albums.add_error')));
 			}
 			redirect('admin/photos');
+		}
+
+		foreach($this->validation_rules as $rule)
+		{
+			$album->{$rule['field']} = set_value($rule['field']);
 		}
 		
 		$this->data->album =& $album;
@@ -121,14 +122,6 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->validation_rules);
 		
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$album->{$rule['field']} = $this->input->post($rule['field']);
-			}
-		}
-		
 		// This will stop validation callback self-checking
 		$this->id = $id; 
 		
@@ -147,6 +140,14 @@ class Admin extends Admin_Controller
 			redirect('admin/photos');
 		}
 	
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$album->{$rule['field']} = $this->input->post($rule['field']);
+			}
+		}
+
 		$this->data->album =& $album;
 		
 		// Load WYSIWYG editor

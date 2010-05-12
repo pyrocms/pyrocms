@@ -138,12 +138,22 @@ class Users extends Public_Controller
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'required|valid_email'
+				'rules' => 'required|valid_email|callback__email_check'
 			),
 			array(
 				'field' => 'confirm_email',
 				'label' => lang('user_confirm_email'),
 				'rules' => 'required|valid_email|matches[email]'
+			),
+			array(
+				'field' => 'username',
+				'label' => lang('user_username'),
+				'rules' => 'required|alphanumeric|maxlength[20]|callback__username_check'
+			),
+			array(
+				'field' => 'display_name',
+				'label' => lang('user_display_name'),
+				'rules' => 'required|alphanumeric|maxlength[50]'
 			),
 		);
 
@@ -152,15 +162,19 @@ class Users extends Public_Controller
 
 		$email 				= $this->input->post('email');
 		$password 			= $this->input->post('password');
+		$username 			= $this->input->post('username');
 		$user_data_array 	= array(
 			'first_name' => $this->input->post('first_name'),
 			'last_name'  => $this->input->post('last_name'),
+			'display_name'  => $this->input->post('display_name'),
 		);
 		
 		// Convert the array to an object
 		$user_data						= new stdClass();
 		$user_data->first_name 			= $user_data_array['first_name'];
 		$user_data->last_name			= $user_data_array['last_name'];
+		$user_data->display_name		= $user_data_array['display_name'];
+		$user_data->username			= $username;
 		$user_data->email				= $email;
 		$user_data->password 			= $password;
 		$user_data->confirm_email 		= $this->input->post('confirm_email');
@@ -168,7 +182,7 @@ class Users extends Public_Controller
 		if ($this->form_validation->run())
 		{
 			// Try to create the user
-			if($id = $this->ion_auth->register($email, $password, $email, $user_data_array))
+			if($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
 				$this->session->set_flashdata(array('notice'=> $this->ion_auth->messages()));
 				redirect('users/activate/'.$id);
@@ -314,5 +328,45 @@ class Users extends Public_Controller
 		
 		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
 		return FALSE;
+	}
+	
+
+	
+	/**
+	 * Username check
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function _username_check($username)
+	{
+	    if ($this->ion_auth->username_check($username))
+	    {
+	        $this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
+	        return FALSE;
+	    }
+	    else
+	    {
+	        return TRUE;
+	    }
+	}
+	
+	/**
+	 * Email check
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function _email_check($email)
+	{
+	    if ($this->ion_auth->email_check($email))
+	    {
+	        $this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
+	        return FALSE;
+	    }
+	    else
+	    {
+	        return TRUE;
+	    }
 	}
 }

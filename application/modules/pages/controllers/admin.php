@@ -218,12 +218,6 @@ class Admin extends Admin_Controller
 	 */
 	public function create($parent_id = 0)
 	{			
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			$page->{$rule['field']} = $this->input->post($rule['field']);
-		}
-	
 		// Validate the page
 		if ($this->form_validation->run())
 	    {
@@ -242,6 +236,12 @@ class Admin extends Admin_Controller
 			// Redirect
 			redirect('admin/pages');
 	    }
+
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			$page->{$rule['field']} = $this->input->post($rule['field']);
+		}
 		
 	    // If a parent id was passed, fetch the parent details
 	    if($parent_id > 0)
@@ -290,15 +290,6 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
 	    }
-	
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$page->{$rule['field']} = set_value($rule['field']);
-			}
-		}
 	    
 	    // Validate it
 		if ($this->form_validation->run())
@@ -319,6 +310,15 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $this->input->post('title')));
 			redirect('admin/pages');
 	    }
+
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$page->{$rule['field']} = set_value($rule['field']);
+			}
+		}
 
 	    // If a parent id was passed, fetch the parent details
 	    if($page->parent_id > 0)

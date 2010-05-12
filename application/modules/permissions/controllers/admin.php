@@ -130,12 +130,6 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$permission_rule->{$rule['field']} = set_value($rule['field']);
-		}
-		
 		// Got validation?
         if ($this->form_validation->run())
         {
@@ -152,7 +146,14 @@ class Admin extends Admin_Controller
 			// Redirect
             redirect('admin/permissions');
         }
-        
+		
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$permission_rule->{$rule['field']} = set_value($rule['field']);
+		}
+
+
         // Get controllers and methods arrays for selected values to populate ajax boxes
 		$this->data->permission_rule 	=& $permission_rule;
         $this->data->controllers_select = array('*' => lang('perm_controller_select_default')) 	+ array_for_select($this->modules_m->get_module_controllers($this->validation_rules[0]));
@@ -193,12 +194,6 @@ class Admin extends Admin_Controller
         {
             $this->validation_rules[5]['rules'] .= '|required';
         }
-
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$permission_rule->{$rule['field']} = set_value($rule['field']);
-		}
 		
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -209,7 +204,13 @@ class Admin extends Admin_Controller
             $this->session->set_flashdata('success', $this->lang->line('perm_rule_save_success'));
             redirect('admin/permissions');
         }
-        
+
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$permission_rule->{$rule['field']} = set_value($rule['field']);
+		}
+
         // Get controllers and methods arrays for selected values to populate ajax boxes
         $this->data->permission_rule 		=& $permission_rule;
  		$this->data->controllers_select 	= array('*' => $this->lang->line('perm_controller_select_default')) + array_for_select($this->modules_m->get_module_controllers($this->data->permission_rule->module));

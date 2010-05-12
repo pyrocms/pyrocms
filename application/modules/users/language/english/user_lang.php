@@ -49,7 +49,7 @@ $lang['user_password_reset_title'] 		= 'Password Reset';
 
 
 $lang['user_error_username'] 			= 'The username you selected is already in use'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_error_email'] 				= 'The email address you enter is already in use'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_error_email'] 				= 'The email address you entered is already in use'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 
 $lang['user_full_name'] 				= 'Full Name';
 $lang['user_first_name'] 				= 'First Name';

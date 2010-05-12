@@ -83,12 +83,6 @@ class Admin_layouts extends Admin_Controller
 	 */
 	public function create()
 	{
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$page_layout->{$rule['field']} = set_value($rule['field']);
-		}
-		
 		// Got validation?
 		if ($this->form_validation->run())
 	    {
@@ -114,6 +108,12 @@ class Admin_layouts extends Admin_Controller
 			// Redirect
 			redirect('admin/pages/layouts');
 	    }
+
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$page_layout->{$rule['field']} = set_value($rule['field']);
+		}
 
 		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
 
@@ -146,15 +146,6 @@ class Admin_layouts extends Admin_Controller
 			$this->session->set_flashdata('error', lang('page_layout_page_not_found_error'));
 			redirect('admin/pages/layouts/create');
 	    }
-	
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']))
-			{
-				$page_layout->{$rule['field']} = set_value($rule['field']);
-			}
-		}
 	    
 	    // Give validation a try, who knows, it just might work!
 		if ($this->form_validation->run())
@@ -173,6 +164,15 @@ class Admin_layouts extends Admin_Controller
 			$this->session->set_flashdata('success', sprintf(lang('page_layout_edit_success'), $this->input->post('title')));
 			redirect('admin/pages/layouts');
 	    }
+
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']))
+			{
+				$page_layout->{$rule['field']} = set_value($rule['field']);
+			}
+		}
 
 		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
 		

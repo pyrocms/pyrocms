@@ -127,13 +127,7 @@ class Admin extends Admin_Controller
 	 * @return void
 	 */
 	public function create()
-	{				
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$navigation_link->{$rule['field']} = set_value($rule['field']);
-		}		
-		
+	{						
 		// Run if valid
 		if ($this->form_validation->run())
 		{
@@ -151,7 +145,13 @@ class Admin extends Admin_Controller
 			// Redirect
 			redirect('admin/navigation');
 		}
-		
+
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$navigation_link->{$rule['field']} = set_value($rule['field']);
+		}
+
 		// Render the view
 		$this->data->navigation_link =& $navigation_link;		
 		$this->template->build('admin/links/form', $this->data);
@@ -180,15 +180,6 @@ class Admin extends Admin_Controller
 			redirect('admin/navigation/create');
 		}
 		
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
-			{
-				$navigation_link->{$rule['field']} = $this->input->post($rule['field']);
-			}
-		}
-		
 		// Valid data?
 		if ($this->form_validation->run())
 		{
@@ -199,6 +190,15 @@ class Admin extends Admin_Controller
 			// Notify and redirect
 			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
 			redirect('admin/navigation');
+		}
+
+		// Loop through each rule
+		foreach($this->validation_rules as $rule)
+		{
+			if($this->input->post($rule['field']) !== FALSE)
+			{
+				$navigation_link->{$rule['field']} = $this->input->post($rule['field']);
+			}
 		}
 		
 		// Render the view
