@@ -137,7 +137,7 @@ div#content {padding-top:25px;}
 	ul.tab-menu li.ui-tabs-selected a {background:#3a4043; color:#c4a93d; font-weight:bold;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;}
 	ul.tab-menu li a {display:inline-block; background:#737d81; color:#ccc; font-weight:normal; padding:6px 10px; text-transform:uppercase; text-decoration:none;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;}
 	.ui-tabs-hide {display:none;}
-
+	#tabs { font-size: 11px; }
 	
 	/** forms **/
 	form.crud {padding:5px; color:#3a4043}

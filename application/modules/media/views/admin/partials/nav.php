@@ -1,4 +1,4 @@
-	<ul class="tab-menu">
+	<ul>
 		<li><a href="<?php echo site_url('admin/media/images'); ?>"><span><?php echo lang('media.images.title'); ?></span></a></li>
 		<li><a href="<?php echo site_url('admin/media/documents'); ?>"><span><?php echo lang('media.documents.title'); ?></span></a></li>
 		<li><a href="<?php echo site_url('admin/media/video'); ?>"><span><?php echo lang('media.video.title'); ?></span></a></li>

@@ -6,10 +6,3 @@
 		endif;
 	?>
 </div>
-
-<style type="text/css">
-#tabs ul {
-	margin-bottom: 10px;
-	background-color: none;
-}
-</style>
