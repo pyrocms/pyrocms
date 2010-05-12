@@ -61,7 +61,7 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'i');
 
-		$this->template->build('admin/index', $this->data);
+		$this->template->build('admin/layouts/index', $this->data);
 	}
 
 	public function documents()
@@ -110,6 +110,11 @@ class Admin extends Admin_Controller {
 		}
 	}
 
+	public function upload()
+	{
+
+		$this->template->build('admin/upload', $this->data);
+	}
 
 	private function _folder_list()
 	{

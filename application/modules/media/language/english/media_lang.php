@@ -13,9 +13,11 @@
  */
 
 $lang['media.title']						= 'Media';
+$lang['media.upload.title']					= 'Upload Media';
 $lang['media.labels.action']				= 'Action';
 $lang['media.labels.edit']					= 'Edit';
 $lang['media.labels.delete']				= 'Delete';
+$lang['media.labels.upload']				= 'Upload';
 $lang['media.no_files']						= 'There are currently no files.';
 
 $lang['media.images.title']					= 'Images';

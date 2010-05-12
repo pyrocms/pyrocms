@@ -1,25 +1,7 @@
-<style type="text/css">
-div#media-nav ul {
-	margin: 0 0 15px 0;
-}
-div#media-nav ul li {
-	display: inline;
-}
-div#media-nav ul li a {
-	padding: 5px 10px;
-}
-div#media-nav ul li a.current {
-	padding: 5px 10px;
-	font-weight: bold;
-}
-</style>
-
-<div id="media-nav">
 	<ul>
-		<li><?php echo anchor('admin/media/images', lang('media.images.title'), ($method == 'images' || $method == 'index') ? 'class="current"' : ''); ?></li>
-		<li><?php echo anchor('admin/media/documents', lang('media.documents.title'), ($method == 'documents') ? 'class="current"' : ''); ?></li>
-		<li><?php echo anchor('admin/media/video', lang('media.video.title'), ($method == 'video') ? 'class="current"' : ''); ?></li>
-		<li><?php echo anchor('admin/media/audio', lang('media.audio.title'), ($method == 'audio') ? 'class="current"' : ''); ?></li>
-		<li><?php echo anchor('admin/media/folders', lang('media.folders.manage_title'), ($method == 'folders') ? 'class="current"' : ''); ?></li>
+		<li><a href="#images"><span><?php echo lang('media.images.title'); ?></span></a></li>
+		<li><a href="#documents"><span><?php echo lang('media.documents.title'); ?></span></a></li>
+		<li><a href="#video"><span><?php echo lang('media.video.title'); ?></span></a></li>
+		<li><a href="#audio"><span><?php echo lang('media.audio.title'); ?></span></a></li>
+		<li><a href="#folders"><span><?php echo lang('media.folders.manage_title'); ?></span></a></li>
 	</ul>
-</div>
