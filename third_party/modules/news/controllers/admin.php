@@ -4,7 +4,7 @@ class Admin extends Admin_Controller
 {
 	// Validation rules to be used for create and edit
 	private $rules = array(
-		'title' 			=> 'trim|required|max_length[100]',
+		'title' 			=> 'trim|htmlspecialchars|required|max_length[100]',
 		'slug' 				=> 'trim|required|alpha_dot_dash|max_length[100]',
 		'category_id' 		=> 'trim|numeric',
 		'intro' 			=> 'trim|required',
