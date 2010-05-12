@@ -1,5 +1,3 @@
-<?php echo $template['partials']['nav']; ?>
-
 <?php echo form_open('admin/index');?>
 <div id="toolbar">
 	<ul>

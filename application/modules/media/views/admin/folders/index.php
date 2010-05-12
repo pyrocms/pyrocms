@@ -1,7 +1,4 @@
 <?php echo form_open('admin/index');?>
-<?php echo $template['partials']['nav']; ?>
-<div class="box">
-
 	<h3>
 		<div class="button float-right">
 			<a href="<?php echo site_url('admin/media/folders/create');?>"><?php echo lang('media.folders.create'); ?></a>
@@ -9,9 +6,6 @@
 
 		<?php echo lang('media.folders.title');?>
 	</h3>
-
-	<div class="box-container">
-
 		<?php if (!empty($media_folders)): ?>
 
 			<table border="0" class="table-list">
@@ -43,7 +37,4 @@
 		<?php else: ?>
 			<p><?php echo lang('media.folders.no_folders');?></p>
 		<?php endif; ?>
-	</div>
-</div>
-
 <?php echo form_close();?>

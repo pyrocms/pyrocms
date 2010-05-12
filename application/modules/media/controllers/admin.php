@@ -39,6 +39,7 @@ class Admin extends Admin_Controller {
 		$this->lang->load('media');
 
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
+
 	}
 
 	/**
@@ -51,8 +52,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
+		$this->template->build('admin/layouts/index', $this->data);
 
-		$this->images();
 	}
 
 	public function images()
@@ -61,7 +62,7 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'i');
 
-		$this->template->build('admin/layouts/index', $this->data);
+		$this->load->view('admin/index', $this->data);
 	}
 
 	public function documents()
@@ -70,7 +71,7 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'd');
 
-		$this->template->build('admin/index', $this->data);
+		$this->load->view('admin/index', $this->data);
 	}
 
 	public function video()
@@ -79,7 +80,7 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'v');
 
-		$this->template->build('admin/index', $this->data);
+		$this->load->view('admin/index', $this->data);
 	}
 
 	public function audio()
@@ -88,7 +89,7 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'a');
 
-		$this->template->build('admin/index', $this->data);
+		$this->load->view('admin/index', $this->data);
 	}
 
 	public function folders($method = '')
@@ -122,7 +123,7 @@ class Admin extends Admin_Controller {
 
 		$this->data->media_folders = &$media_folders;
 
-		$this->template->build('admin/folders/index', $this->data);
+		$this->load->view('admin/folders/index', $this->data);
 	}
 
 	private function _folder_create()
