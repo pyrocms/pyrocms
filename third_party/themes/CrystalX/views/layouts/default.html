@@ -45,9 +45,16 @@
 			
             <!-- Breadcrumbs -->
             <p id="breadcrumbs">You are here: {foreach $template.breadcrumbs crumb}
-					{$crumb} ->
+				{if not empty($crumb.uri)}
+					{anchor($crumb.uri, $crumb.name)}
+					>
+				{else}
+				<strong>{$crumb.name}</strong>
+				{/if}
 				{/foreach}
+				{if empty($template.breadcrumbs)}
 				<strong>{$template.title}</strong>
+				{/if}
 			</p>
             <hr class="noscreen" />
             
