@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', 'v0.9.9.1');
 
 	function _remap()
 	{
@@ -59,7 +59,8 @@ class Upgrade extends Controller
   			// Run the method to upgrade that specific version
 	  		$function = 'upgrade_' . preg_replace('/[^0-9a-z]/i', '', $next_version);
 
-	  		if($this->$function() !== TRUE)
+			// If a method exists and its false fail. no method = no changes
+	  		if(method_exists($this, $function) && $this->$function() !== TRUE)
 	  		{
 	  			show_error('There was an error upgrading to "'.$next_version.'"');
 	  		}
