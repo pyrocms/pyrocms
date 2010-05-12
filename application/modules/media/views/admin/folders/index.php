@@ -1,4 +1,4 @@
-<?php echo form_open('admin/index');?>
+<?php echo form_open('admin/media');?>
 	<h3>
 		<div class="button float-right">
 			<a href="<?php echo site_url('admin/media/folders/create');?>"><?php echo lang('media.folders.create'); ?></a>

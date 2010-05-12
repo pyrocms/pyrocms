@@ -62,7 +62,15 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'i');
 
-		$this->load->view('admin/index', $this->data);
+		if($this->is_ajax())
+		{
+			$this->load->view('admin/partials/images', $this->data);
+		}
+		else
+		{
+			$this->template->set_partial('non-js', 'admin/partials/images', FALSE);
+			$this->template->build('admin/layouts/index', $this->data);
+		}
 	}
 
 	public function documents()
@@ -70,8 +78,15 @@ class Admin extends Admin_Controller {
 
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'd');
-
-		$this->load->view('admin/index', $this->data);
+		if($this->is_ajax())
+		{
+			$this->load->view('admin/partials/documents', $this->data);
+		}
+		else
+		{
+			$this->template->set_partial('non-js', 'admin/partials/documents', FALSE);
+			$this->template->build('admin/layouts/index', $this->data);
+		}
 	}
 
 	public function video()
@@ -80,7 +95,15 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'v');
 
-		$this->load->view('admin/index', $this->data);
+		if($this->is_ajax())
+		{
+			$this->load->view('admin/partials/video', $this->data);
+		}
+		else
+		{
+			$this->template->set_partial('non-js', 'admin/partials/video', FALSE);
+			$this->template->build('admin/layouts/index', $this->data);
+		}
 	}
 
 	public function audio()
@@ -89,7 +112,15 @@ class Admin extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'a');
 
-		$this->load->view('admin/index', $this->data);
+		if($this->is_ajax())
+		{
+			$this->load->view('admin/partials/audio', $this->data);
+		}
+		else
+		{
+			$this->template->set_partial('non-js', 'admin/partials/audio', FALSE);
+			$this->template->build('admin/layouts/index', $this->data);
+		}
 	}
 
 	public function folders($method = '')

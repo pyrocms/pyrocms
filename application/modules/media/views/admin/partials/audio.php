@@ -7,7 +7,7 @@
 			</li>
 		</ul>
 	</div>
-	<?php if (!empty($media_folders)): ?>
+	<?php if (!empty($files)): ?>
 
 		<!-- TODO: Write File list table -->
 
