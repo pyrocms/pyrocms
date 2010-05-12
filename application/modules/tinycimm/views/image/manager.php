@@ -40,7 +40,7 @@
 				</strong><br/>
 				<?php echo $this->tinycimm->get_folders('select', $image->folder_id);?>
 			</p>
-			<input class="button" value="<?php echo lang('tinycimm_image_update');?>" type="button" id="update-image" />
+			<input class="pyro-button" value="<?php echo lang('tinycimm_image_update');?>" type="button" id="update-image" />
 			or
 			<select id="manager-actions">
 				<option value="">

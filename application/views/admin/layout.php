@@ -7,7 +7,6 @@
 	</head>
 
 	<body>
-	
 		<div id="container">
 
 			<div id="header">
@@ -55,6 +54,9 @@
 			 	<?php echo $template['partials']['footer']; ?>
 			</div>
 		</div>
-	
+		<div id="dialog-confirm" title="Are you sure?">
+			<p>Are you sure you want to delete this item?</p>
+		</div>
+
 	</body>
 </html>

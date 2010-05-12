@@ -65,7 +65,7 @@
 							<?php echo sprintf('{widget_area(\'%s\')}', $widget_area->slug);?>
 						</span>
 
-						<div class="button">
+						<div class="pyro-button">
 							<a id="delete-area-<?php echo $widget_area->slug; ?>" class="delete-area" href="#">
 								<?php echo lang('widgets.delete_area'); ?>
 							</a>

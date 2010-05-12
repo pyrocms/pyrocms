@@ -61,7 +61,7 @@
 				<?php echo lang('ttinycimm_image_resizer'); ?>
 			</legend>
 			<div id="save_size">
-				<input type="submit" class="button" value="Insert" onclick="TinyCIMMImage.insertResizeImage();this.value='Please wait..';" />
+				<input type="submit" class="pyro-button" value="Insert" onclick="TinyCIMMImage.insertResizeImage();this.value='Please wait..';" />
 			</div>
 			<div class="clear" style="height:3px">&nbsp;</div>
 			<div id="resizer">

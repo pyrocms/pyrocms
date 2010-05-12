@@ -222,6 +222,7 @@ div#content {padding-top:25px;}
 	div#calendar-container div.ui-datepicker-header {background:#a1b1b3; padding:10px; text-align:center;
 	position:relative; color:#fff; font-weight:bold; margin-bottom:1px;}
 	span.ui-icon {position:absolute; top:10px; cursor:pointer;}
+	.ui-dialog * span.ui-icon {position:absolute; top:0px; cursor:pointer;}
 	.ui-icon-circle-triangle-e {right:10px;}
 	.ui-icon-circle-triangle-w {left:10px;}
 	a.ui-state-highlight {background:#fff;color:#ac0000; font-weight:bold;}
@@ -358,14 +359,14 @@ div#content {padding-top:25px;}
 /*              BUTTONS               */
 /**************************************/
 
-div.button, button {
+div.pyro-button, button.pyro-button {
 	background:none;
 	border:none;
 	cursor:pointer;
 	display:inline-block;
 }
 
-div.button a, button span {
+div.pyro-button a, button.pyro-button span {
 	background:grey;
 	color:#FFFFFF;
 	display:block;
@@ -378,9 +379,13 @@ div.button a, button span {
 	-webkit-border-radius:5px;
 }
 
-div.button a:hover, button:hover span {
+div.pyro-button a:hover, button.pyro-button:hover span {
 	background:lightgrey;
 	cursor: pointer;
+}
+
+.ui-dialog * {
+	font-size: 11px;
 }
 
 

@@ -8,7 +8,7 @@
 			
 				<?php echo form_open('admin/navigation/delete');?>
 				
-					<div class="button small spacer-bottom float-right">
+					<div class="pyro-button small spacer-bottom float-right">
 						<?php echo anchor('admin/navigation/groups/delete/'.$group->id, sprintf(lang('nav_group_delete_label'), $group->title), 'class="delete_group"') ?>
 					</div>
 			

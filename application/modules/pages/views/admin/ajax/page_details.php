@@ -34,15 +34,15 @@
 </fieldset>	
 
 <div id="page-buttons">
-	<div class="button">
+	<div class="pyro-button">
 		<?php echo anchor('admin/pages/create/' . $page->id, lang('pages.create_label')); ?>
 	</div>
 	
-	<div class="button">
+	<div class="pyro-button">
 		<?php echo anchor('admin/pages/edit/' . $page->id, lang('pages.edit_label')); ?>
 	</div>
 	
-	<div class="button">
+	<div class="pyro-button">
 		<?php echo anchor('admin/pages/delete/' . $page->id, lang('pages.delete_label'), 'class="confirm"'); ?>
 	</div>
 </div>

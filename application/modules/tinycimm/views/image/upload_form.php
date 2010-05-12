@@ -64,7 +64,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<input type="submit" class="button" id="submit-upload" name="submit_upload" value="Upload" />
+						<input type="submit" class="pyro-button" id="submit-upload" name="submit_upload" value="Upload" />
 					</td>
 				</tr>
 			</tbody>

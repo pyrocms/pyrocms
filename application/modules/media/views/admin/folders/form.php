@@ -53,8 +53,8 @@ form ul li input.button:hover {
 	</li>
 	<li>
 		<label for="nothing"></label>
-		<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
-		<?php echo form_submit('button_action', lang('buttons.cancel'), 'class="button"'); ?>
+		<?php echo form_submit('button_action', lang('buttons.save'), 'class="pyro-button"'); ?>
+		<?php echo form_submit('button_action', lang('buttons.cancel'), 'class="pyro-button"'); ?>
 	</li>
 </ul>
 

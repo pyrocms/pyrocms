@@ -3,7 +3,7 @@
 	
 	<div class="box-container">
 				
-		<div class="button float-right">
+		<div class="pyro-button float-right">
 			<a id="delete-area-<?php echo $widget_area->slug; ?>" class="delete-area" href="#">
 				<?php echo lang('widgets.delete_area'); ?>
 			</a>

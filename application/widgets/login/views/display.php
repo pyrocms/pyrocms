@@ -11,7 +11,7 @@
 		</li>
 	</ul>
 
-	<div class="buttons">
+	<div class="pyro-buttons">
 		<button type="submit" class="login_submit">
 			Login
 		</button>

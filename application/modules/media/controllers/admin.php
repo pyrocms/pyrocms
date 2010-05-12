@@ -39,7 +39,6 @@ class Admin extends Admin_Controller {
 		$this->lang->load('media');
 
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
-		$this->template->append_metadata( css('jquery/jquery-ui.css') );
 
 	}
 

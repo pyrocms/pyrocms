@@ -10,11 +10,11 @@
 			<div class="box-container">
 				
 				<div class="float-right">
-					<div class="button">
+					<div class="pyro-button">
 						<?php echo anchor('admin/permissions/roles/edit/'.$role->id, lang('perm_role_edit')); ?>
 					</div>
 					
-					<div class="button">
+					<div class="pyro-button">
 						<?php echo anchor('admin/permissions/roles/delete/'.$role->id, lang('perm_role_delete'), 'class="delete_role"'); ?>
 					</div>
 				</div>

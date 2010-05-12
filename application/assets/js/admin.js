@@ -23,27 +23,27 @@ function css_editor(id, width)
 
 var fixHelper;
 
-jQuery(document).ready(function()
+(function($)
 {
 	// Return a helper with preserved width of cells
 	fixHelper = function(e, ui) {
 		ui.children().each(function() {
-			jQuery(this).width(jQuery(this).width());
+			$(this).width($(this).width());
 		});
 		return ui;
 	};
 	
-	jQuery(function() {
+	$(function() {
 	
 		// Sort any tables with a class of 'sortable'
-		var table = jQuery('table.table-list');
+		var table = $('table.table-list');
 		
 		// A row can be selected via check or CTRL + click
 		toggleRowChecked = function(row, checkbox, mode)
 		{
-			total_checked = jQuery('tbody td input[type="checkbox"]:checked', table).length;
-			total_checkboxes = jQuery('tbody td input[type="checkbox"]', table).length;
-			check_all = jQuery('thead input[type="checkbox"][name="action_to_all"]', table);
+			total_checked = $('tbody td input[type="checkbox"]:checked', table).length;
+			total_checkboxes = $('tbody td input[type="checkbox"]', table).length;
+			check_all = $('thead input[type="checkbox"][name="action_to_all"]', table);
 			
 			if(mode == 'change')
 			{
@@ -83,10 +83,10 @@ jQuery(document).ready(function()
 		}
 
 		// CTRL + Click table select
-		jQuery('tbody td', table).click(function(e) {
+		$('tbody td', table).click(function(e) {
 			if(e.ctrlKey || e.metaKey)
 			{
-				row = jQuery(this).parent('tr');
+				row = $(this).parent('tr');
 				checkbox = row.find('input[type="checkbox"]');
 				
 				toggleRowChecked(row, checkbox);
@@ -94,110 +94,124 @@ jQuery(document).ready(function()
 		});
 		
 		// CTRL + Hover should show a pointer hand
-		jQuery('tbody td', table).hover(function(e) {
+		$('tbody td', table).hover(function(e) {
 			if(e.ctrlKey || e.metaKey)
 			{
-				jQuery(this).parent('tr').css('cursor', 'pointer');
+				$(this).parent('tr').css('cursor', 'pointer');
 			}
 		}, function() {
-			jQuery(this).parent('tr').css('cursor', '');
+			$(this).parent('tr').css('cursor', '');
 		});
 		
 		
 		// Checkbox ticking
-		jQuery('tbody td input[type="checkbox"]', table).change(function() {
-			row = jQuery(this).parent('td').parent('tr');
-			checkbox = jQuery(this);
+		$('tbody td input[type="checkbox"]', table).change(function() {
+			row = $(this).parent('td').parent('tr');
+			checkbox = $(this);
 
 			toggleRowChecked(row, checkbox, 'change');
 		});
 		
 		// "Check All" checkboxes
-		jQuery('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
+		$('thead input[type="checkbox"][name="action_to_all"]', table).change(function() {
 		
-			jQuery('tbody td input[type="checkbox"]', table).attr('checked', this.checked);
+			$('tbody td input[type="checkbox"]', table).attr('checked', this.checked);
 			
 			if(this.checked)
 			{
-				jQuery('tbody tr', table).addClass('selected');
+				$('tbody tr', table).addClass('selected');
 			}
 			
 			else
 			{
-				jQuery('tbody tr', table).removeClass('selected');
+				$('tbody tr', table).removeClass('selected');
 			}
 
 		});
-		
+
+		$("#dialog-confirm").dialog({
+			autoOpen: false,
+			modal: true
+		});
+
 		// Link confirm box
-		jQuery('a.confirm').live('click', function(e) {
-		
-			/*e.preventDefault();
-				
-				link = this;
-				modal_confirm("Are you sure you wish to delete this item?", function () {
-					window.location.href = jQuery(link).attr('href');
-				});
-			*/
-			
-			return confirm('Are you sure you wish to delete this item?');
+		$('a.confirm').click(function(e) {
+			e.preventDefault();
+
+			var target_url = $(this).attr("href");
+
+			$("#dialog-confirm").dialog({
+				resizable: false,
+				height:140,
+				modal: true,
+				buttons: {
+					'Yes': function() {
+						$("#dialog-confirm").dialog('close');
+						window.location.href = target_url;
+					},
+					'No': function() {
+						$("#dialog-confirm").dialog('close');
+					}
+				}
+			});
+			$("#dialog-confirm").dialog('open');
 		});
 		
 		// Form submit confirm box
-		jQuery('button[type="submit"].confirm, input[type="submit"].confirm').live('click', function(e) {
+		//$('button[type="submit"].confirm, input[type="submit"].confirm').live('click', function(e) {
 			/*	e.preventDefault();
 				
 				button = this;
 				confirm("Are you sure you wish to delete these items?", function () {
-					jQuery(button).parents('form').submit();
+					$(button).parents('form').submit();
 				});
 			*/
 	
-			return confirm('Are you sure you wish to delete these items?');
-		});
+		//	return confirm('Are you sure you wish to delete these items?');
+		//});
 	
 	
-		jQuery('.tabs').tabs();
-		jQuery('#tabs').tabs();
+		$('.tabs').tabs();
+		$('#tabs').tabs();
 
 		
 	
-		jQuery('a.close').live('click', function(){
-			jQuery(this).parents(".message").hide("fast");
+		$('a.close').live('click', function(){
+			$(this).parents(".message").hide("fast");
 			return false;
 		});
 	
 		
 		/* Control panel menu dropdowns */
-		var menu = jQuery("ul#menu li");/** define the main navigation selector **/
+		var menu = $("ul#menu li");/** define the main navigation selector **/
 
 		menu.hover(function() {/** build animated dropdown navigation **/
-			jQuery(this).find('ul:first').show("fast").css({visibility: "visible", display: "block"});
-			jQuery(this).find('a').stop().animate({backgroundPosition:"(0 -40px)"},{duration:150});
-			jQuery(this).find('a.top-level').addClass("blue");
+			$(this).find('ul:first').show("fast").css({visibility: "visible", display: "block"});
+			$(this).find('a').stop().animate({backgroundPosition:"(0 -40px)"},{duration:150});
+			$(this).find('a.top-level').addClass("blue");
 		
 		},function(){
-			jQuery(this).find('ul:first').css({visibility: "hidden", display:"none"});
-			jQuery(this).find('a').stop().animate({backgroundPosition:"(0 0)"}, {duration:75});
-			jQuery(this).find('a.top-level').removeClass("blue");
+			$(this).find('ul:first').css({visibility: "hidden", display:"none"});
+			$(this).find('a').stop().animate({backgroundPosition:"(0 0)"}, {duration:75});
+			$(this).find('a.top-level').removeClass("blue");
 		});
 		
 
-		jQuery('form#change_language select').change(function(){
-			jQuery(this).parent('form').submit();
+		$('form#change_language select').change(function(){
+			$(this).parent('form').submit();
 		});
 		
 		// Fancybox modal window
-		jQuery('a[rel=modal], a.modal').livequery(function() {
-			jQuery(this).fancybox({
+		$('a[rel=modal], a.modal').livequery(function() {
+			$(this).fancybox({
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
 				hideOnContentClick: false
 			});
 		});
 		
-		jQuery('a[rel="modal-large"], a.modal-large').livequery(function() {
-			jQuery(this).fancybox({
+		$('a[rel="modal-large"], a.modal-large').livequery(function() {
+			$(this).fancybox({
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
 				hideOnContentClick: false,

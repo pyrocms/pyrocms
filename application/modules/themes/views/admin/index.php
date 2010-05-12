@@ -3,7 +3,7 @@
 	
 	<div class="box-container">
 
-		<div class="button float-right" style="margin-top: -3.4em;">
+		<div class="pyro-button float-right" style="margin-top: -3.4em;">
 			<?php echo anchor('admin/themes/upload', lang('themes.upload_title')); ?>
 		</div>
 
