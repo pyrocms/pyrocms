@@ -144,6 +144,15 @@ class Admin extends Admin_Controller
 		redirect('admin/modules');
 	}
 
+	public function reimport()
+	{
+		$this->modules_m->import_all();
+		$this->cache->delete_all('modules_m');
+		$this->session->set_flashdata('success', 'All Modules have ben re-imported.');
+		redirect('admin/modules');
+
+	}
+
 	/**
 	 * Enable
 	 *

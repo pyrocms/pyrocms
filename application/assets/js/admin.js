@@ -158,6 +158,8 @@ var fixHelper;
 	
 	
 		$('.tabs').tabs();
+		$('.ajax-tabs').tabs({ remote: true });
+
 		
 	
 		$('a.close').live('click', function(){

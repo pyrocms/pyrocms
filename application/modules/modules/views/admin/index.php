@@ -3,6 +3,9 @@
 		<div class="button float-right">
 			<a href="<?php echo site_url('admin/modules/upload');?>"><?php echo lang('upload_label'); ?></a>
 		</div>
+		<div class="button float-right spacer-right-half">
+			<a href="<?php echo site_url('admin/modules/reimport');?>">Re-Import All</a>
+		</div>
 		<?php echo lang('modules.third_party_list');?>
 	</h3>
 
