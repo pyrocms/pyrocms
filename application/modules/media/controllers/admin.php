@@ -58,9 +58,9 @@ class Admin extends Admin_Controller {
 
 	public function images()
 	{
-
+		$folders = $this->media_folders_m->get_children(0, 'i');
 		$this->data->selected_folder = 0;
-		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'i');
+		$this->data->folders = array(0 => '-- All --') + $this->_folder_dropdown_array($folders);
 
 		if($this->is_ajax())
 		{
@@ -68,32 +68,32 @@ class Admin extends Admin_Controller {
 		}
 		else
 		{
-			$this->template->set_partial('non-js', 'admin/partials/images', FALSE);
-			$this->template->build('admin/layouts/index', $this->data);
+			redirect('admin/media#images');
 		}
 	}
 
 	public function documents()
 	{
-
+		$folders = $this->media_folders_m->get_children(0, 'd');
 		$this->data->selected_folder = 0;
-		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'd');
+		$this->data->folders = array(0 => '-- All --') + $this->_folder_dropdown_array($folders);
+
 		if($this->is_ajax())
 		{
 			$this->load->view('admin/partials/documents', $this->data);
 		}
 		else
 		{
-			$this->template->set_partial('non-js', 'admin/partials/documents', FALSE);
-			$this->template->build('admin/layouts/index', $this->data);
+			redirect('admin/media#documents');
 		}
 	}
 
 	public function video()
 	{
 
+		$folders = $this->media_folders_m->get_children(0, 'v');
 		$this->data->selected_folder = 0;
-		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'v');
+		$this->data->folders = array(0 => '-- All --') + $this->_folder_dropdown_array($folders);
 
 		if($this->is_ajax())
 		{
@@ -101,16 +101,15 @@ class Admin extends Admin_Controller {
 		}
 		else
 		{
-			$this->template->set_partial('non-js', 'admin/partials/video', FALSE);
-			$this->template->build('admin/layouts/index', $this->data);
+			redirect('admin/media#video');
 		}
 	}
 
 	public function audio()
 	{
-
+		$folders = $this->media_folders_m->get_children(0, 'a');
 		$this->data->selected_folder = 0;
-		$this->data->folders = array(0 => '-- All --') + $this->media_folders_m->get_children(0, 'a');
+		$this->data->folders = array(0 => '-- All --') + $this->_folder_dropdown_array($folders);
 
 		if($this->is_ajax())
 		{
@@ -118,8 +117,7 @@ class Admin extends Admin_Controller {
 		}
 		else
 		{
-			$this->template->set_partial('non-js', 'admin/partials/audio', FALSE);
-			$this->template->build('admin/layouts/index', $this->data);
+			redirect('admin/media#audio');
 		}
 	}
 
@@ -187,7 +185,6 @@ class Admin extends Admin_Controller {
 		if($this->input->post('button_action') == 'Yes')
 		{
 			$this->media_folders_m->delete($folder_id);
-
 			$this->session->set_flashdata('success', sprintf(lang('media.folders.delete_success'), $folder->name));
 
 			redirect('admin/media/folders');
@@ -202,6 +199,33 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/folders/confirm', $this->data);
 	}
 
+	private function _folder_dropdown_array($folders)
+	{
+		static $depth = 0;
+		$return = array();
+
+		foreach($folders as $id => $folder)
+		{
+			// Skip the 'name' of a sub-folder
+			if($id == 'name')
+			{
+				continue;
+			}
+			if(is_array($folder))
+			{
+				$return[$id] = str_repeat('&nbsp;&nbsp;', $depth) . $folder['name'];
+				$depth++;
+				$return = $return + $this->_folder_dropdown_array($folder);
+				$depth--;
+			}
+			else
+			{
+				$return[$id] = str_repeat('&nbsp;&nbsp;', $depth) . $folder;
+			}
+		}
+
+		return $return;
+	}
 
 }
 

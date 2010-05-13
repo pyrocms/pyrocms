@@ -24,6 +24,15 @@
 class Media_folders_m extends MY_Model {
 
 
+	/**
+	 * Has Children
+	 *
+	 * Checks if a given folder has children or not.
+	 *
+	 * @access	public
+	 * @param	int		The folder id
+	 * @return	bool	If the folder has children
+	 */
 	public function has_children($folder_id)
 	{
 		if(parent::count_by(array('parent_id' => $folder_id)) > 0)
@@ -33,22 +42,33 @@ class Media_folders_m extends MY_Model {
 		return FALSE;
 	}
 
+	/**
+	 * Get Children
+	 *
+	 * Gets all the children in a given folder.
+	 *
+	 * @access		public
+	 * @param		int		$parent_id	The folder id
+	 * @param		string	$type		The type of folders to return
+	 * @return		array
+	 */
 	public function get_children($parent_id, $type)
 	{
-		static $depth = 0;
 		$return = array();
 
 		$folders = $this->order_by('name')->get_many_by(array('parent_id' => $parent_id, 'type' => $type));
 
 		foreach($folders as & $folder)
 		{
-			$return[$folder->id] = str_repeat('&nbsp;&nbsp;', $depth) . $folder->name;
 
 			if($this->has_children($folder->id))
 			{
-				$depth++;
-				$return = $return + $this->get_children($folder->id, $type);
-				$depth--;
+				$return[$folder->id]['name'] = $folder->name;
+				$return[$folder->id] = $return[$folder->id] + $this->get_children($folder->id, $type);
+			}
+			else
+			{
+				$return[$folder->id] = $folder->name;
 			}
 		}
 

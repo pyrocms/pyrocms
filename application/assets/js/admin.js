@@ -172,7 +172,12 @@ var fixHelper;
 	
 	
 		$('.tabs').tabs();
-		$('#tabs').tabs();
+		$('#tabs').tabs({
+			// This allows for the Back button to work.
+			select: function(event, ui) {
+				parent.location.hash = ui.tab.hash;
+			}
+		});
 
 		
 	
