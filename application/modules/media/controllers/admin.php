@@ -159,18 +159,24 @@ class Admin extends Admin_Controller {
 	{
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('slug', 'URL Slug', 'required|callback__check_folder_slug');
-		$this->form_validation->set_rules('name', 'Name', 'required|callback__check_folder_name');
+		$this->form_validation->set_rules('name', 'Name', 'required');
 
 		if($this->form_validation->run())
 		{
-			
+			$data = array(
+				'name'			=> $this->input->post('name'),
+				'parent_id'		=> $this->input->post('parent_id'),
+				'type'			=> $this->input->post('type'),
+				'date_added'	=> now()
+			);
+			$this->media_folders_m->insert($data);
+			redirect('admin/media#folders');
 		}
 		$folder->name = set_value('name');
-		$folder->slug = set_value('slug');
-
+		$folder->parent_id = set_value('parent_id');
+		$folder->type = set_value('type');
 		$this->data->folder =& $folder;
-		$this->template->build('admin/folders/form', $this->data);
+		$this->load->view('admin/folders/form', $this->data);
 	}
 
 	private function _folder_delete()

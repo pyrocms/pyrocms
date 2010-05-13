@@ -17,12 +17,6 @@ form ul li input {
 	padding: 5px;
 	font-size: 14px;
 }
-form ul li input.required {
-	background-image: url(<?php echo image_url('required.png', 'media'); ?>);
-	background-position: 98%;
-	background-repeat: no-repeat;
-	background-color: #FFFFFF;
-}
 
 form ul li input.button {
 	background: #666666;
@@ -53,8 +47,8 @@ form ul li input.button:hover {
 	</li>
 	<li>
 		<label for="nothing"></label>
-		<?php echo form_submit('button_action', lang('buttons.save'), 'class="pyro-button"'); ?>
-		<?php echo form_submit('button_action', lang('buttons.cancel'), 'class="pyro-button"'); ?>
+		<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
+		<?php echo form_submit('button_action', lang('buttons.cancel'), 'class="button"'); ?>
 	</li>
 </ul>
 
