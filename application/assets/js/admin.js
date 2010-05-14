@@ -134,11 +134,27 @@ var fixHelper;
 			modal: true
 		});
 
-		// Link confirm box
-		$('a.confirm').click(function(e) {
+		confirm_links();
+		confirm_buttons();
+
+		// Adds the confirm_dialog handler to all confirm links
+		function confirm_links()
+		{
+			$('a.confirm').click(confirm_dialog);
+		}
+
+		// Adds the confirm_dialog handler to all confirm buttons
+		function confirm_buttons()
+		{
+			$('button[type="submit"].confirm, input[type="submit"].confirm').click(confirm_dialog);
+		}
+
+		function confirm_dialog(e)
+		{
 			e.preventDefault();
 
-			var target_url = $(this).attr("href");
+			var starting_object = $(this);
+			var target_url = starting_object.attr("href");
 
 			$("#dialog-confirm").dialog({
 				resizable: false,
@@ -147,7 +163,17 @@ var fixHelper;
 				buttons: {
 					'Yes': function() {
 						$("#dialog-confirm").dialog('close');
-						window.location.href = target_url;
+						// If it's a link then go to the link
+						if(target_url)
+						{
+							window.location.href = target_url;
+						}
+
+						// If its a submit button then submit the form
+						else
+						{
+							starting_object.parents('form').submit();
+						}
 					},
 					'No': function() {
 						$("#dialog-confirm").dialog('close');
@@ -155,27 +181,17 @@ var fixHelper;
 				}
 			});
 			$("#dialog-confirm").dialog('open');
-		});
-		
-		// Form submit confirm box
-		//$('button[type="submit"].confirm, input[type="submit"].confirm').live('click', function(e) {
-			/*	e.preventDefault();
-				
-				button = this;
-				confirm("Are you sure you wish to delete these items?", function () {
-					$(button).parents('form').submit();
-				});
-			*/
-	
-		//	return confirm('Are you sure you wish to delete these items?');
-		//});
-	
+		}
 	
 		$('.tabs').tabs();
 		$('#tabs').tabs({
 			// This allows for the Back button to work.
 			select: function(event, ui) {
 				parent.location.hash = ui.tab.hash;
+			},
+			load: function(event, ui) {
+				confirm_links();
+				confirm_buttons();
 			}
 		});
 
