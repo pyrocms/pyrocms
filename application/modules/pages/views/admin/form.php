@@ -167,9 +167,7 @@
 					<li id="revision_preview" style="display: none;">
 						<h4>Revisions Compared</h4>
 						<p>Below you can see the difference between the old revision and the newer revision.</p>
-						<pre class="revision_pre">
-							
-						</pre>
+						<pre class="revision_pre"></pre>
 					</li>
 				</ol>
 			</div>
