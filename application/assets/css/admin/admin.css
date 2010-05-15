@@ -30,3 +30,31 @@
 .ui-draggable, .ui-sortable {
 	cursor:move;
 }
+
+/* Revisions */
+.revision_pre
+{
+	border:				1px solid #ccc;
+	overflow: 			hidden;
+	padding:			10px;
+	white-space: 		normal;
+}
+.revision_pre del, .revision_pre ins
+{
+	display:			block;
+	min-height:			10px;
+	padding:			5px;
+	text-decoration: 	none;
+}
+.revision_pre ins *, .revision_pre del *
+{
+	display:			inline;
+}
+.revision_pre ins
+{
+	background:			#8EE884;
+}
+.revision_pre del
+{
+	background:			#E88484;
+}

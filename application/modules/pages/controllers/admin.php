@@ -435,23 +435,25 @@ class Admin extends Admin_Controller
 		$this->session->set_flashdata('success', lang('pages.revisions_changed'));
 		redirect('admin/pages');
 	}
-    
 	
-	// Callback: From create()
-	/*function _check_slug($slug)
+	/**
+	 * Show a diff between two revisions
+	 * 
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @param int $id_1 The ID of the first revision to compare
+	 * @param int $id_2 The ID of the second revision to compare
+	 * @return void
+	 */
+	public function compare($id_1, $id_2)
 	{
-		$page = $this->pages_m->getBySlug($slug, $this->input->post('lang'));
-	    $languages =& $this->config->item('supported_languages');
+		// Create the diff using mixed mode
+		$rev_1 = $this->versioning->get_by_revision($id_1);
+		$rev_2 = $this->versioning->get_by_revision($id_2);
+		$diff  = $this->versioning->compare_revisions($rev_1->body, $rev_2->body, 'mixed');
 		
-	    if($page && $page->id != $this->page_id )
-			{
-		$this->validation->set_message('_check_slug', sprintf($this->lang->line('pages_page_already_exist_error'), $slug, $languages[$this->input->post('lang')]['name']));
-	      return FALSE;
-	    }
-			else
-			{
-		return TRUE;
-	    }
-	}*/
+		// Output the results
+		echo $diff;
+	}
 }
 ?>

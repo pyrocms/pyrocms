@@ -1,3 +1,32 @@
+/**
+ * Revisions part
+ *
+ * @author Yorick Peterse 
+ *
+ */
+// Revision button clicked?
+jQuery(document).ready(function($) {
+    // On compare
+    jQuery('#btn_compare_revisions').click(function()
+    {
+		// Remove the existing content
+		jQuery('#revision_preview').fadeOut();
+		
+        // Take the ID from both dropdowns
+        var id_1            = jQuery('#compare_revision_1').val();
+        var id_2            = jQuery('#compare_revision_2').val();
+        var compare_url     = BASE_URL + 'admin/pages/compare/' + id_1 + '/' + id_2;
+        
+        // Compare them using Ajax
+        $.get(compare_url, function(response)
+        {
+            // Add the content to the page		
+			jQuery('.revision_pre').html(response);
+			jQuery('#revision_preview').fadeIn();
+        });       
+    });
+});
+
 function html_editor(id, width)
 {
 	CodeMirror.fromTextArea(id, {
