@@ -1,8 +1,24 @@
 UPGRADE
-=======
+======
 
 Remember to always run these steps in order. They are ordered intentionally to either
 minimize or totally remove downtime during an upgrade.
+
+12/05/2010 - v0.9.9 to v0.9.9.1
+--------------------------
+
+1. Replace old files with new files.
+
+2. Run http://example.com/index.php/upgrade in your browser.
+
+
+09/05/2010 - v0.9.8 to v0.9.9
+-------------------------
+
+1. Replace old files with new files.
+
+2. Run http://example.com/index.php/upgrade in your browser.
+
 
 03/05/2010 - v0.9.8-rc2 to v0.9.8
 ----------------------------

@@ -161,13 +161,13 @@
 		{
 			widget_id = $('input[name="widget_id"]', this).val();
 			widget_area_id = $('input[name="widget_area_id"]', this).val();
-			title = $('input[name="widget_area_id"]', this).val();
+			title = $('input[name="title"]', this).val();
 			
 			form = $(this);
 			
 			if(!title || !widget_id || !widget_area_id) return false;
 
-			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', $(this).serialize(), function(data) {
+			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', form.serialize(), function(data) {
 				
 				if(data.status == 'success')
 				{
