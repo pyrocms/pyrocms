@@ -167,7 +167,7 @@ class Versioning
 	}
 	
 	/**
-	 * Get a single page along with it's latest revision
+	 * Get a single item in a table along with it's latest revision
 	 * 
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
