@@ -74,7 +74,7 @@ class MY_Security extends CI_Security {
 		/*
 		 * Remove Invisible Characters
 		 */
-		$str = $this->_remove_invisible_characters($str);
+		$str = remove_invisible_characters($str);
 
 		/*
 		 * Protect GET variables in URLs
@@ -134,7 +134,7 @@ class MY_Security extends CI_Security {
 		/*
 		 * Remove Invisible Characters Again!
 		 */
-		$str = $this->_remove_invisible_characters($str);
+		$str = remove_invisible_characters($str);
 		
 		/*
 		 * Convert all tabs to spaces
