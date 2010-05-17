@@ -10,7 +10,7 @@
 	<div class="preview">
 		<h4>Post Preview</h4>
 		<h5><?php echo $topic->title;?></h5>
-		<p><?php echo parse_bbcode( htmlentities($reply->content), 0, TRUE );?></p>
+		<p><?php echo parse( htmlentities($reply->content), 0, TRUE );?></p>
 	</div>
 	<?php endif; ?>
 
@@ -29,12 +29,12 @@
 		<tbody>
 			<tr>
 				<th>Formatting:</th>
-				<td><?php echo $template['partials']['bbcode']; ?></td>
+				<td><?php echo $template['partials']['buttons']; ?></td>
 			</tr>
 			<tr>
 				<th class ="textarea_label">Message:</th>
 				<td>
-					<?php echo form_textarea(array('name' => 'content', 'id' => 'bbcode_input', 'value' => $reply->content)); ?>
+					<?php echo form_textarea(array('name' => 'content', 'id' => 'forum_input', 'value' => $reply->content)); ?>
 					
 					<?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
 			</tr>

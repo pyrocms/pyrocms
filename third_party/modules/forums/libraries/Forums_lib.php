@@ -27,7 +27,7 @@ class Forums_lib
 			}
 			$text_body = 'View the reply here: ' . anchor('forums/posts/view_reply/' . $reply->id) . '<br /><br />';
 			$text_body .= '<strong>Message:</strong><br />';
-			$text_body .= parse_bbcode($reply->content);
+			$text_body .= parse($reply->content);
 
 			$this->CI->email->clear();
 			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->config->item('forums_title'));
@@ -44,15 +44,24 @@ class Forums_lib
 
 	public function get_recipients($topic_id)
 	{
+		$recipient_count = 0;
 		$recipients = array();
 		$subscriptions = $this->CI->forum_subscriptions_m->get_many_by(array('topic_id' => $topic_id));
 		foreach($subscriptions as& $sub)
 		{
 			$this->CI->db->or_where('users.id', $sub->user_id);
+			$recipient_count++;
 		}
-		$this->CI->db->select('email,id');
-		return $this->CI->db->get($this->CI->ion_auth_model->tables['users'])->result();
 
+		// If there are recipients
+		if($recipient_count > 0)
+		{
+			$this->CI->db->select('email,id');
+			return $this->CI->db->get($this->CI->ion_auth_model->tables['users'])->result();
+		}
+
+		// If no recipients then return an empty array
+		return array();
 	}
 
 }
