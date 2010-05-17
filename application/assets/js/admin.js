@@ -205,7 +205,31 @@ var fixHelper;
 		});
 		// End Fancybox modal window
 		
-		// REVISIONS
+		/**
+		 * Required event handlers for the versioning system
+		 *
+		 * @author Yorick Peterse - PyroCMS Dev Team
+		 */
+		// Preview
+		$('#btn_preview_revision').click(function()
+		{
+			// Required variables
+			var id 			= $('#use_revision_id').val();
+			var preview_url = BASE_URL + 'admin/pages/preview_revision/' + id;
+			
+			// Ajax time
+			$.get(preview_url, function(response)
+			{
+				// Show the preview using fancybox
+				$('body').fancybox({
+					content: response,
+					overlayOpacity: 0.8,
+					overlayColor: '#000',
+					hideOnContentClick: false
+				});
+			});
+		});
+		
 		// On compare
 	    $('#btn_compare_revisions').click(function()
 	    {

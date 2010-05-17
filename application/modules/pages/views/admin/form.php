@@ -143,7 +143,7 @@
 								<?php endforeach; ?>
 							</optgroup>
 						</select>
-						<input type="button" name="btn_preview" id="btn_preview" value="Preview" />
+						<input type="button" name="btn_preview_revision" id="btn_preview_revision" value="Preview" />
 					</li>
 					<!-- Compare two revisions -->
 					<li class="even">

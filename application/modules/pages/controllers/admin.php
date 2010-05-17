@@ -455,5 +455,20 @@ class Admin extends Admin_Controller
 		// Output the results
 		echo $diff;
 	}
+	
+	/**
+	 * Show a preview of a revision
+	 *
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @param int $id The ID of the revision to preview
+	 * @return void
+	 */
+	public function preview_revision($id)
+	{
+		// Easy isn't it?
+		$revision = $this->versioning->get_by_revision($id);
+		echo $revision->body;
+	}
 }
 ?>
