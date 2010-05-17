@@ -17,13 +17,13 @@
  */
 
 $config['bbcodes'] = array(
-	"b"     => "javascript:insert_bbcode('[b]', '[/b]');return(false)",
-	"i"     => "javascript:insert_bbcode('[i]', '[/i]');return(false)",
-	"u"     => "javascript:insert_bbcode('[u]', '[/u]');return(false)",
-	"code"  => "javascript:insert_bbcode('[code]', '[/code]');return(false)",
-	"quote" => "javascript:insert_bbcode('[quote=AUTHOR]', '[/quote]');return(false)",
-	"url"   => "javascript:insert_bbcode('[url]', '[/url]');return(false)",
-	"email" => "javascript:insert_bbcode('[email=]', '[/email]');return(false)"
+	"b"     => "javascript:insert_code('[b]', '[/b]');return(false)",
+	"i"     => "javascript:insert_code('[i]', '[/i]');return(false)",
+	"u"     => "javascript:insert_code('[u]', '[/u]');return(false)",
+	"code"  => "javascript:insert_code('[code]', '[/code]');return(false)",
+	"quote" => "javascript:insert_code('[quote]', '[/quote]');return(false)",
+	"url"   => "javascript:insert_code('[url]', '[/url]');return(false)",
+	"email" => "javascript:insert_code('[email]', '[/email]');return(false)"
 );
 
 
