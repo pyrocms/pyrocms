@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+{theme_view('partials/metadata')}
+	</head>
+	<body>
+	{if $ci->settings->item('google_analytic')}
+		{$ci->load->view('fragments/google_analytic')}
+	{/if}
+
+{theme_view('partials/header')}
+		<div id="page">
+			{if $ci->session->flashdata('notice')}
+		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
+		    {/if}
+		    {if $ci->session->flashdata('success')}
+		    	<div class="success-box">{$ci->session->flashdata('success')}</div>
+		    {/if}
+		    {if $ci->session->flashdata('error')}
+		    	<div class="error-box">{$ci->session->flashdata('error')}</div>
+		    {/if}
+			<div id="content">
+{$template.body}
+			</div>
+			<div id="sidebar">
+				<ul>
+					<li>
+						<h2>{lang('navigation_headline')}</h2>
+						<ul>
+						{foreach navigation('sidebar') link}
+							<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
+						{/foreach}
+						</ul>
+					</li>
+					<li>
+					{if $ci->session->userdata('user_id')}
+						<h2>{cat($user->first_name ' ' $user->last_name)}</h2>
+						<ul>
+							<li><a href="{site_url('users/logout')}">{lang('logout_label')}</a></li>
+
+						{if $ci->settings->item('enable_profiles')}
+							<li>{anchor('edit-profile', lang('edit_profile_label'))}</li>
+						{/if}
+
+							<li>{anchor('edit-settings', lang('settings_label'))}</li>
+
+						{if $ci->ion_auth->is_admin()}
+							<li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
+						{/if}
+						</ul>
+					{else}
+						{$ci->load->view('users/login_small')}
+					{/if}
+					</li>
+				</ul>
+			</div>
+			<!-- end #sidebar -->
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+		<!-- end #page -->
+		<div id="footer">
+			<p>Copyright (c) 2008 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+		</div>
+		<!-- end #footer -->
+	</body>
+</html>
