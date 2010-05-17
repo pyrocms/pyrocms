@@ -8,6 +8,9 @@ Bugs
 
 * Fixed issue #211: Field 'display_name' doesn't have a default value (MySQL Strict Mode).
 * Fixed User edit in CP.  Can now change password.
+* Fixed issue #210: Breadcrumb "Array" issue in CrystalX theme.
+* Fixed issue #213: Navigation target causing HTML validation failure when set to "Current window"
+* Fixed issue #145: News titles now allow html characters without blowing up everything.
 
 v0.9.9
 -----

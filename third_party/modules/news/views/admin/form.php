@@ -23,7 +23,7 @@
 			
 						<li>
 							<label for="title"><?php echo lang('news_title_label');?></label>
-							<?php echo form_input('title', $article->title, 'maxlength="100"'); ?>
+							<?php echo form_input('title', htmlspecialchars_decode($article->title), 'maxlength="100"'); ?>
 							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						</li>
 						

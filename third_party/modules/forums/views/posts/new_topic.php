@@ -1,6 +1,6 @@
 <?php echo form_open('forums/topics/new_topic/'.$forum->id); ?>
 
-<? if( !empty($messages['error']) ): ?>
+<?php if( !empty($messages['error']) ): ?>
 <div class="errors">
 	Please correct the errors in the form.
 </div>
