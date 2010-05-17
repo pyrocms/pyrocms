@@ -221,7 +221,7 @@ var fixHelper;
 			$.get(preview_url, function(response)
 			{
 				// Show the preview using fancybox
-				$('body').fancybox({
+				$('#btn_preview_revision').fancybox({
 					content: response,
 					overlayOpacity: 0.8,
 					overlayColor: '#000',
