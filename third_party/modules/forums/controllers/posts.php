@@ -148,7 +148,15 @@ class Posts extends Public_Controller {
 		if($this->session->flashdata('forum_quote'))
 		{
 			$quote = unserialize($this->session->flashdata('forum_quote'));
-			$reply->content = '[quote]'.$quote->content.'[/quote]';
+
+			if($this->settings->item('forums_editor') == 'bbcode')
+			{
+				$reply->content = '[quote]'.$quote->content.'[/quote]';
+			}
+			elseif($this->settings->item('forums_editor') == 'textile')
+			{
+				$reply->content = 'bq..  '.$quote->content . "\n\n";
+			}
 		}
 
 		// If not a reply jsut set the content to the form validation value
