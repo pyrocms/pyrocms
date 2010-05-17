@@ -398,7 +398,13 @@ hr { display: none; }
 }
 
 /* Login Box */
+ul#login {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
 
+ul#login li,
 ul#small-login li {
 	margin: 0;
 	padding: 5px 0px 5px 20px;
@@ -406,6 +412,11 @@ ul#small-login li {
 	background-image: none;
 }
 
+ul#login li {
+	padding: 5px 0px;
+}
+
+ul#login li a,
 ul#small-login li a {
 	padding: 0px;
 	font-weight: normal;
@@ -413,24 +424,30 @@ ul#small-login li a {
 	background: none;
 }
 
+ul#login li label,
 ul#small-login li label {
 	display: inline-block;
 	width: 60px;
 }
 
+ul#login li#remember-me label,
 ul#small-login li#remember-me label {
 	width: auto;
 }
 
+ul#login li#remember-me input,
 ul#small-login li#remember-me input {
 	width: auto;
 	margin-left: 60px;
 }
 
+ul#login li input,
 ul#small-login li input {
 	width: 170px;
 }
 
+ul#login li.form-buttons input,
+ul#login li#remember-me input,
 ul#small-login li.form-buttons input,
 ul#small-login li#remember-me input {
 	width: auto;
