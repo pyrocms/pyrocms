@@ -20,7 +20,7 @@
 </script>
 
 <h2><?php echo lang('contact_title');?></h2>
-<?php echo @$this->validation->error_string; ?>
+<?php echo validation_errors(); ?>
 	<?php echo form_open('contact');?>
 			
 		<fieldset>

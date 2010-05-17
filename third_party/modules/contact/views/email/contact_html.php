@@ -11,9 +11,7 @@
 		<td colspan="3">
 			<hr />
 			<?php echo $message;?>
-			
-			<p><hr /></p>    
-			
+			<br />
 			<?php echo sprintf('<strong>'.lang('contact_mail_name_label').'</strong>', $contact_name);?><br/>
 			<?php echo sprintf('<strong>'.lang('contact_mail_company_label').'</strong>', $company_name);?>
 		</td>
