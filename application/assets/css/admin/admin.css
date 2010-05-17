@@ -58,3 +58,9 @@
 {
 	background:			#E88484;
 }
+#revision_preview_heading
+{
+	border-bottom:		1px solid #000;
+	margin-top:			0px;
+	padding-bottom:		5px;
+}

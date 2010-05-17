@@ -481,8 +481,8 @@ class Admin extends Admin_Controller
 	public function preview_revision($id)
 	{
 		// Easy isn't it?
-		$revision = $this->versioning->get_by_revision($id);
-		echo $revision->body;
+		$data['revision'] = $this->versioning->get_by_revision($id);
+		$this->load->view('admin/preview_revision', $data);
 	}
 }
 ?>
