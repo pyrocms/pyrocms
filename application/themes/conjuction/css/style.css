@@ -229,12 +229,16 @@ hr { display: none; }
 
 #content {
 	float: left;
-	width: 620px;
-	background-color: #FFFFFF;
-	padding: 10px;
+	width: 580px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background: #FFFFFF;
 }
 
-
+#content h2 {
+	margin: 0 0 10px 0;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
 
 /* Post */
 
@@ -391,6 +395,45 @@ hr { display: none; }
 	text-decoration: none;
 	font-weight: bold;
 	color: #666666;
+}
+
+/* Login Box */
+
+ul#small-login li {
+	margin: 0;
+	padding: 5px 0px 5px 20px;
+	border: none;
+	background-image: none;
+}
+
+ul#small-login li a {
+	padding: 0px;
+	font-weight: normal;
+	border: none;
+	background: none;
+}
+
+ul#small-login li label {
+	display: inline-block;
+	width: 60px;
+}
+
+ul#small-login li#remember-me label {
+	width: auto;
+}
+
+ul#small-login li#remember-me input {
+	width: auto;
+	margin-left: 60px;
+}
+
+ul#small-login li input {
+	width: 170px;
+}
+
+ul#small-login li.form-buttons input,
+ul#small-login li#remember-me input {
+	width: auto;
 }
 
 /* Calendar */
