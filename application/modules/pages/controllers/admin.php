@@ -226,10 +226,24 @@ class Admin extends Admin_Controller
 		// Validate the page
 		if ($this->form_validation->run())
 	    {
-			// Success
-			if ($this->pages_m->create($_POST) > 0)
+			// First create the page
+			$page_body = $_POST['body'];
+			unset($_POST['body']);
+			$insert_id = $this->pages_m->create($_POST);
+			
+			if ( $insert_id > 0 )
 			{
-				$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+				// Create the revision
+				$revision_id = $this->versioning->create_revision( array('author_id' => $this->user->id, 'owner_id' => $insert_id, 'body' => $page_body) );
+				
+				// Update the page row
+				$to_update 					= $_POST;
+				$to_update['revision_id'] 	= $revision_id; 
+				
+				if ( $this->pages_m->update($insert_id, $to_update ) )
+				{
+					$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+				}
 			}
 		      
 			// Fail

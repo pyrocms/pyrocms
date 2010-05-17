@@ -238,13 +238,11 @@ class Versioning
 	 * 
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
-	 * @param int $owner_id The ID of the page to which the revision belongs
 	 * @param array $input The data used to create the revision
 	 * @return bool
 	 */
 	public function create_revision($input)
 	{
-		// #TODO: Add some extra magic so the $input array becomes more dynamic
 		// Set the revision date and figure out who created it
 		$input['revision_date'] = now();
 		$input['table_name']	= $this->table_name;
