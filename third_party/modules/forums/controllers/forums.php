@@ -12,6 +12,11 @@ class Forums extends Public_Controller {
 		$this->lang->load('forums');
 		$this->load->config('forums');
 
+		if(!$this->settings->item('forums_editor'))
+		{
+			$this->forums_m->add_setting();
+		}
+
 		$this->template->enable_parser_body(FALSE);
 
 		//$this->template->set_module_layout('default');

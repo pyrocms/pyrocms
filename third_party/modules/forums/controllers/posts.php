@@ -37,18 +37,25 @@ class Posts extends Public_Controller {
 
 		// Load dependencies
 		$this->load->models(array('forums_m', 'forum_posts_m', 'forum_subscriptions_m'));
-		$this->load->helpers(array('bbcode', 'smiley'));
+		$this->load->helper('smiley');
 		$this->load->library('Forums_lib');
 		$this->load->config('forums');
 		$this->lang->load('forums');
-		
+
+		if(!$this->settings->item('forums_editor'))
+		{
+			$this->forums_m->add_setting();
+		}
+
+		$this->load->helper($this->settings->item('forums_editor'));
+
 		// Template settings
 		$this->template->enable_parser_body(FALSE);
 
 		//$this->template->set_module_layout('default');
 
 		$this->template->append_metadata(theme_css('forums.css'))
-					   ->append_metadata(js('bbcode.js', 'forums'));
+					   ->append_metadata(js('forums.js', 'forums'));
 
 		$this->template->set_breadcrumb('Home', '/')
 					   ->set_breadcrumb('Forums', 'forums');
@@ -226,11 +233,8 @@ class Posts extends Public_Controller {
 		$this->data->forum =& $forum;
 		$this->data->topic =& $topic;
 
-		// Create BB Code buttons
-		$this->data->bbcode_buttons = get_bbcode_buttons('content');
-
 		// Template settings, then build
-		$this->template->set_partial('bbcode', 'partials/bbcode');
+		$this->template->set_partial('buttons', 'partials/buttons');
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$topic->forum_id);
 		$this->template->set_breadcrumb($topic->title, 'forums/topics/view/'.$topic->id);
 		$this->template->set_breadcrumb('New Reply');
@@ -336,7 +340,7 @@ class Posts extends Public_Controller {
 		$this->data->reply =& $reply;
 
 		//Template Settings and build
-		$this->template->set_partial('bbcode', 'partials/bbcode');
+		$this->template->set_partial('buttons', 'partials/buttons');
 		$this->template->set_breadcrumb($forum->title, 'forums/view/'.$forum->id);
 		$this->template->set_breadcrumb($topic->title, 'forums/topics/view/'.$topic->id);
 		$this->template->set_breadcrumb('New Reply');

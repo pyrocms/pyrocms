@@ -27,7 +27,7 @@ class Forums_lib
 			}
 			$text_body = 'View the reply here: ' . anchor('forums/posts/view_reply/' . $reply->id) . '<br /><br />';
 			$text_body .= '<strong>Message:</strong><br />';
-			$text_body .= parse_bbcode($reply->content);
+			$text_body .= parse($reply->content);
 
 			$this->CI->email->clear();
 			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->config->item('forums_title'));
