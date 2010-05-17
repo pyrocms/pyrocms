@@ -9,7 +9,6 @@ h2. The Team
 * "Philip Sturgeon":http://philsturgeon.co.uk/
 * "Dan Horrigan":http://dhorrigan.com
 * "Ben Edmunds":http://benedmunds.com/
-* "Colin Williams":williamsconcepts.com
 * "Yorick Peterse":http://www.yorickpeterse.com/
 * "Richard Willis":http://badsyntax.co.uk
 
@@ -44,6 +43,7 @@ h3. Contributors
 * "That Lee Guy":lee[at]thatleeguy[dot]com
 * "MrEnirO":mreniro[at]gmail[dot]com
 * "BenneX":http://github.com/BenneX
+* "Colin Williams":williamsconcepts.com
 
 h3. Translators
 
