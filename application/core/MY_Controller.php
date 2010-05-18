@@ -74,3 +74,18 @@ class MY_Controller extends Controller
 	}
 
 }
+
+/**
+ * Returns the CI object.
+ *
+ * Example: ci()->db->get('table');
+ *
+ * @staticvar	object	$ci
+ * @return		object
+ */
+function ci()
+{
+    static $ci;
+    isset($ci) OR $ci =& get_instance();
+    return $ci;
+}
