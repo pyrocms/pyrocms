@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Settings_m extends CI_Model {
+class Settings_m extends MY_Model {
 
 	function get($slug = '') {
         $this->db->select('slug, type, IF(`value` = "", `default`, `value`) as `value`', FALSE);
