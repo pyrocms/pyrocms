@@ -12,14 +12,18 @@ class MY_Controller extends Controller
 		parent::Controller();
 		$this->benchmark->mark('my_controller_start');
 
+		// Use this to define hooks with a nicer syntax
 		$this->hooks =& $GLOBALS['EXT'];
 
-		// Hook point
+		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 		
         // Load the user model and get user data
         $this->load->model('users/users_m');
         $this->load->library('users/ion_auth');
+
+		// Set the third_party folder as a package
+		$this->load->add_package_path('third_party/');
 
         $this->config->set_item('site_title', $this->settings->item('site_name'), 'ion_auth');
         $this->config->set_item('admin_email', $this->settings->item('contact_email'), 'ion_auth');
@@ -56,7 +60,8 @@ class MY_Controller extends Controller
 
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;
-        
+
+		// Populate the {$pyro.whatever} variable
         $pyro['base_url']			= BASE_URL;
         $pyro['base_uri'] 			= BASE_URI;
         $pyro['application_uri'] 	= APPPATH_URI;
