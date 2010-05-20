@@ -86,16 +86,18 @@ class Settings
 	{
 		if(isset(self::$cache[$name]))
 		{
-			return self::$cache[$name]->value;
+			return self::$cache[$name];
 		}
 
 		$setting = ci()->settings_m->get_by(array('slug' => $name));
 
-		empty($setting) and show_error(sprintf('Setting "%s" not in database!', $name));
+		// Setting doesn't exist, maybe it's a config option
+		$value = $setting ? $setting->value : config_item($name);
 
-		self::$cache[$name] = $setting;
+		// Store it for later
+		self::$cache[$name] = $value;
 
-		return $setting->value;
+		return $value;
 	}
 
 	/**
@@ -111,7 +113,7 @@ class Settings
 	{
 		$setting = ci()->settings_m->update($name, array('value' => $value));
 
-		self::$cache[$name]->value = $value;
+		self::$cache[$name] = $value;
 
 		return TRUE;
 	}
@@ -158,7 +160,7 @@ class Settings
 
 		foreach($settings as $setting)
 		{
-			self::$cache[$setting->slug] = $setting;
+			self::$cache[$setting->slug] = $setting->value;
 		}
 
 		return self::$cache;
