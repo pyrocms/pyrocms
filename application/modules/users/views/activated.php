@@ -1,24 +1,28 @@
 <h2><?php echo lang('user_register_header') ?></h2>
 
-<p>
-	<?php echo lang('user_register_step1') ?> -&gt; 
-	<span class="spacer-right" style="background:#FFFF99;"><?php echo lang('user_register_step2') ?></span>
-</p>
+<div class="workflow-steps">
+	<span class="step"><?php echo lang('user_register_step1') ?></span> &gt;
+	<span class="active-step"><?php echo lang('user_register_step2') ?></span>
+</div>
 
-<p><?php echo $this->lang->line('user_activated_message'); ?></p>
+<div class="success-box">
+	<?php echo $this->lang->line('user_activated_message'); ?>
+</div>
 
 <?php echo form_open('users/login', array('id'=>'login')); ?>
-
-	<p>
+<ul id="users-activated">
+	<li>
 		<label for="email"><?php echo lang('user_email'); ?></label>
 		<?php echo form_input('email') ?>
-	</p>
+	</li>
 	
-	<p>	
+	<li>
 		<label for="password"><?php echo lang('user_password'); ?></label>
 		<?php echo form_password('password') ?>
-	</p>
+	</li>
 	
-	<p><input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /></p>
-	
+	<li class="form-buttons">
+		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" />
+	</li>
+</ul>
 <?php echo form_close(); ?>
