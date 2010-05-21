@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2');
 
 	function _remap()
 	{
@@ -74,6 +74,20 @@ class Upgrade extends Controller
 			echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
   		}
  	}
+
+	function upgrade_0992
+	{
+		echo 'Added missing theme_layout field to page_layouts table.<br/>';
+		$this->dbforge->add_column('page_layouts', array(
+			'theme_layout' => array(
+				'type' 	  	=> 'VARCHAR',
+				'constraint' => '100',
+				'null' 		=> FALSE
+			)
+        ));
+
+		return TRUE;
+	}
 
  	// Upgrade
  	function upgrade_099()

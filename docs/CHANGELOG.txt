@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.9.9.2
+-------
+
+Bugs
+
+* Fixed issue #218: theme_layout field was missing from page_layouts table.
+
 v0.9.9.1
 -------
 
