@@ -273,7 +273,7 @@ blockquote {
 
 .authorinfo {font-size: small}
 
-p.bbcode_buttons a {
+p.forum_buttons a {
 	display: block;
 	float: left;
 	padding: 2px 10px;
@@ -283,7 +283,7 @@ p.bbcode_buttons a {
 	margin: 0 5px 0 0;
 }
 
-p.bbcode_buttons a:hover {
+p.forum_buttons a:hover {
 	color: #333333;
 	background-color: #DDDDDD;
 }

@@ -35,7 +35,7 @@
 * @param    string    the text to be parsed
 * @return    string
 */
-function parse_bbcode($str, $clear = 0, $parse_smileys = FALSE)
+function parse($str, $clear = 0, $parse_smileys = FALSE)
 {
 	$bbcode_to_parse = _get_bbcode_to_parse_array();
 	if (FALSE === ($bbcode_to_parse))
@@ -137,7 +137,7 @@ function clear_bbcode($str)
 * @return    array
 */
 
-function get_bbcode_buttons($bbcode = NULL)
+function get_buttons($bbcode = NULL)
 {
     if ( ! is_array($bbcode))
     {

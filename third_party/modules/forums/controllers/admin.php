@@ -65,6 +65,11 @@ class Admin extends Admin_Controller {
 		$this->load->model('forum_categories_m');
 		$this->lang->load('forums');
 
+		if(!$this->settings->item('forums_editor'))
+		{
+			$this->forums_m->add_setting();
+		}
+
 		$this->template->set_partial('sidebar', 'admin/sidebar');
 	}
 	

@@ -1,6 +1,6 @@
 <?php echo form_open('forums/topics/new_topic/'.$forum->id); ?>
 
-<? if( !empty($messages['error']) ): ?>
+<?php if( !empty($messages['error']) ): ?>
 <div class="errors">
 	Please correct the errors in the form.
 </div>
@@ -10,7 +10,7 @@
 <div class="preview">
 	<h4>Topic Preview</h4>
 	<h5><?php echo set_value('title');?></h5>
-	<p><?php echo parse_bbcode(htmlentities(set_value('content')), 0, TRUE);?></p>
+	<p><?php echo parse(htmlentities(set_value('content')), 0, TRUE);?></p>
 </div>
 <?php endif; ?>
 
@@ -27,11 +27,11 @@
 		</tr>
 		<tr>
 			<th>Formatting:</th>
-			<td><?php echo $template['partials']['bbcode']; ?></td>
+			<td><?php echo $template['partials']['buttons']; ?></td>
 		</tr>
 		<tr>
 			<th class ="textarea_label">Message:</th>
-			<td><?php echo form_textarea(array('name' => 'content', 'id' => 'bbcode_input', 'value' => set_value('content'))); ?><?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
+			<td><?php echo form_textarea(array('name' => 'content', 'id' => 'forum_input', 'value' => set_value('content'))); ?><?php echo form_error('content', '<p class="form_error">', '</p>'); ?></td>
 		</tr>
 		<tr>
 			<th>Options:</th>

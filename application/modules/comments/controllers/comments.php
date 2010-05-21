@@ -81,6 +81,7 @@ class Comments extends Public_Controller
 			$this->validation_rules[1]['rules'] .= '|required';
 		}
 		
+		$comment				= $_POST;
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
 		$comment['is_active']	= (bool) $this->ion_auth->is_admin();

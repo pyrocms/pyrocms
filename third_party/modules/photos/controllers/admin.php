@@ -31,7 +31,7 @@ class Admin extends Admin_Controller
 			array(
 				'field'   => 'description',
 				'label'   => lang('photo_albums.desc_label'),
-				'rules'   => 'trim|required'
+				'rules'   => 'trim'
 			),
 			array(
 				'field'   => 'parent',
