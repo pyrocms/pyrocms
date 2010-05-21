@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+v1.0
+----
+
+* Cleaned Users module view files.  They now allow for easier styling without overriding them in the theme.
+* jQuery now on version 1.4.2
+* jQuery UI now on version 1.8.1
+* Removed old jQuery tabs plugin, now using the built-in jQuery UI tabs plugin.
+* (in-progress) Added Media module.  This will replace the photos module and allow for Images, Video, Audio and Documents.
+* Rewrite of Settings module to allow module developers easier access and CRUD of site settings.
+
 v0.9.9.1
 -------
 
@@ -79,46 +89,3 @@ v0.9.8
 * Added /third_party folder to store downloadable modules and themes.
 * Error message added in case active theme is deleted.
 * Added IP tracking to comments.
-
-v0.9.7.4
---------
- 
-* Full support for PHP 5.3.
-* Fixed "could not open application/assets/config/config.php" error on Install Step 4.
-* Extra support for different server types.
-* index.php is no longer removed by default, unless a supported server is picked.
-
-v0.9.7.3
---------
-
-* Removed MySQLi as a dependency - should fix installer.
-* Fixed AJAXify for FF2 and IE7. 
-* Fixed loads of TinyCIMM bugs (Image Manager)
-* Added better JS support for IE6 (not going to make a habit of that)
-* Added German language support.
-* Stopped PHP errors showing if you clicked Publish/Delete with no news articles selected.
-
-v0.9.7.2
---------
-
-* Contact captcha fixed
-* More installer bugs fixed
-* Added "target" to navigation links
-* Fixed an issue with Cache library lazy-loading that was breaking lazydays theme
-
-v0.9.7.1
---------
-
-* Improved PHP 5.3 support
-* Several installer bugs fixed
-* Added Gravatar support to comment
-* Enabled short-tag rewriting by default.
-
-v0.9.7
-------
-
-* New Page manager - Use a tree navigation view to manage and link your unlimited levels of pages.
-* Image uploading via TinyMCE - Not just any plugin, Richard Wills (@badsyntax) has been going nuts on the development here and made an amazing plugin which strongly integrated with PyroCMS.
-* Improved interface - Now using a slightly darker theme. Less brown, more black and orange.
-* Added French language pack
-* Cross-browser improvements - much better support for Safari, Opera and Chrome.
