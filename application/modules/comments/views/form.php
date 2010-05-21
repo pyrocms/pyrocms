@@ -28,10 +28,12 @@
 			<textarea name="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
 		</p>
 		
+		<?php if ( !$this->data->user->website ): ?>
 		<p>
 			<label for="website"><?php echo lang('comments.website_label');?>:</label><br />
 			<input type="text" name="website" maxlength="40" value="<?php echo $comment['website'] ?>" />
 		</p>
+		<?php endif; ?>
 		
 		<p><?php echo form_submit('btnSend', lang('comments.send_label'));?></p>
 	</div>

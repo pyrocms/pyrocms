@@ -46,7 +46,7 @@ class Comments extends Public_Controller
 			array(
 				'field' => 'website',
 				'label' => lang('comments.website_label'),
-				'rules' => 'trim'
+				'rules' => 'trim|max_length[255]'
 			),
 			array(
 				'field' => 'comment',
@@ -69,10 +69,13 @@ class Comments extends Public_Controller
 	public function create($module = 'home', $id = 0)
 	{			
 		// Set the comment data
+		$comment = $_POST;
+				
 		// Logged in? in which case, we already know their name and email
 		if($this->ion_auth->logged_in())
 		{
 			$comment['user_id'] = $this->data->user->id;
+			$comment['website'] = $this->data->user->website;
 		}
 		
 		else
@@ -81,7 +84,6 @@ class Comments extends Public_Controller
 			$this->validation_rules[1]['rules'] .= '|required';
 		}
 		
-		$comment				= $_POST;
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
 		$comment['is_active']	= (bool) $this->ion_auth->is_admin();

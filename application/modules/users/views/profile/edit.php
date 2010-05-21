@@ -59,6 +59,10 @@ fieldset dl dd input, fieldset dl dd textarea {
 				<label for="address_line3"><?php echo lang('profile_address_line3') ?></label> <?php echo form_input('address_line3', $profile->address_line3); ?><br/>
 				<label for="postcode"><?php echo lang('profile_address_postcode') ?></label> <?php echo form_input('postcode', $profile->postcode); ?>
 			</dd>
+			<dt><?php echo lang('profile_website'); ?></dt>
+			<dd>
+				<label for="website"><?php echo lang('profile_website'); ?></label> <?php echo form_input('website', $profile->website); ?>
+			</dd>
 		</dl>
 	</fieldset>
 	
