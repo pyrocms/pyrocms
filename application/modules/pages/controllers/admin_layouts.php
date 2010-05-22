@@ -178,7 +178,7 @@ class Admin_layouts extends Admin_Controller
 		
 	    // Assign data for display
 		$this->data->page_layout 	=& $page_layout;
-		$this->data->theme_layouts 	= array_combine($theme_layouts, $theme_layouts);
+		$this->data->theme_layouts 	=& $theme_layouts;
 
 	    // Load WYSIWYG editor
 		$this->template->append_metadata( js('codemirror/codemirror.js') );
