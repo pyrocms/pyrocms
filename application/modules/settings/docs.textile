@@ -27,16 +27,16 @@ p.  This allows you to add a new setting to the settings table int he database. 
 p.  The function must be passed an associative array containing all values for the columns in the table.  If the format of the array is incorrect then the function will return *FALSE*.  Here is an example array:
 
 bc..  $setting = array(
-	'slug'			=> 'forums_editor',
-	'title'			=> 'Forums Editor',
-	'description'	=> 'Choose the editor to use on the forums.',
-	'type'			=> 'select',
-	'default'		=> 'bbcode',
-	'value'			=> '',
-	'options'		=> 'bbcode=BBCode|textile=Textile',
-	'is_required'	=> '0',
-	'is_gui'		=> '1',
-	'module'		=> 'forums'
+	'slug'         => 'forums_editor',
+	'title'        => 'Forums Editor',
+	'description'  => 'Choose the editor to use on the forums.',
+	'type'         => 'select',
+	'default'      => 'bbcode',
+	'value'        => '',
+	'options'      => 'bbcode=BBCode|textile=Textile',
+	'is_required'  => '0',
+	'is_gui'       => '1',
+	'module'       => 'forums'
 );
 
 h3. Delete a Setting
