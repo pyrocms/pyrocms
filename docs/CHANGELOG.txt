@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+v0.9.9.2
+-------
+
+* If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.
+
+Bugs
+
+* Fixed issue #218: theme_layout field was missing from page_layouts table.
+
 v0.9.9.1
 -------
 

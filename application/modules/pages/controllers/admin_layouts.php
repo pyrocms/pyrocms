@@ -177,10 +177,8 @@ class Admin_layouts extends Admin_Controller
 		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
 		
 	    // Assign data for display
-	    $this->load->vars(array(
-			'page_layout' => &$page_layout,
-			'theme_layouts' => array_combine($theme_layouts, $theme_layouts)
-		));
+		$this->data->page_layout 	=& $page_layout;
+		$this->data->theme_layouts 	= array_combine($theme_layouts, $theme_layouts);
 
 	    // Load WYSIWYG editor
 		$this->template->append_metadata( js('codemirror/codemirror.js') );

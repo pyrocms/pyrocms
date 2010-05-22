@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3');
 
 	function _remap()
 	{
@@ -76,7 +76,7 @@ class Upgrade extends Controller
  	}
 
 	// Another upgrade, this time it enables the versioning system
-	function upgrade_0992()
+	function upgrade_0993()
 	{
 		// Load the versioning library
 		$this->load->library('versioning');
@@ -156,8 +156,20 @@ class Upgrade extends Controller
 			// Now we can modify the pages table so that it uses the correct revision id
 			$this->db->where( 'id', $page_insert_id);
 			$this->db->update( 'pages', array('revision_id' => $revision_id) );
-		}	
+		}
+	}	
 			
+	function upgrade_0992()
+	{
+		echo 'Added missing theme_layout field to page_layouts table.<br/>';
+		$this->dbforge->add_column('page_layouts', array(
+			'theme_layout' => array(
+				'type' 	  	=> 'VARCHAR',
+				'constraint' => '100',
+				'null' 		=> FALSE
+			)
+        ));
+
 		return TRUE;
 	}
 
