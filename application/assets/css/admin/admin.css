@@ -38,6 +38,7 @@
 	overflow: 			hidden;
 	padding:			10px;
 	white-space: 		normal;
+	max-width:			900px;
 }
 .revision_pre del, .revision_pre ins
 {

@@ -432,25 +432,6 @@ class Admin extends Admin_Controller
 	}
 	
 	/**
-	 * Change the revision ID of a page
-	 * 
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id The ID of the row who's revision_id has to be changed
-	 * @param int $revision_id The new ID of the revision
-	 * @return void
-	 */
-	public function set_revision($id, $revision_id)
-	{
-		// Update the revision number
-		$this->versioning->set_revision($id, $revision_id);
-		
-		// Redirect
-		$this->session->set_flashdata('success', lang('pages.revisions_changed'));
-		redirect('admin/pages');
-	}
-	
-	/**
 	 * Show a diff between two revisions
 	 * 
 	 * @author Yorick Peterse - PyroCMS Dev Team
@@ -467,7 +448,8 @@ class Admin extends Admin_Controller
 		$diff  = $this->versioning->compare_revisions($rev_1->body, $rev_2->body, 'mixed');
 		
 		// Output the results
-		echo $diff;
+		$data['difference'] = $diff;
+		$this->load->view('admin/revisions/compare', $data);
 	}
 	
 	/**
@@ -482,7 +464,7 @@ class Admin extends Admin_Controller
 	{
 		// Easy isn't it?
 		$data['revision'] = $this->versioning->get_by_revision($id);
-		$this->load->view('admin/preview_revision', $data);
+		$this->load->view('admin/revisions/preview', $data);
 	}
 }
 ?>

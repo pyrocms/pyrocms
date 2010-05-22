@@ -233,21 +233,22 @@ var fixHelper;
 		// On compare
 	    $('#btn_compare_revisions').click(function()
 	    {
-			// Remove the existing content
-			$('#revision_preview').fadeOut();
-
 	        // Take the ID from both dropdowns
 	        var id_1            = $('#compare_revision_1').val();
 	        var id_2            = $('#compare_revision_2').val();
 	        var compare_url     = BASE_URL + 'admin/pages/compare/' + id_1 + '/' + id_2;
 
-	        // Compare them using Ajax
-	        $.get(compare_url, function(response)
-	        {
-	            // Add the content to the page		
-				$('.revision_pre').html(response);
-				$('#revision_preview').fadeIn();
-	        });     
+	        // Ajax time
+			$.get(compare_url, function(response)
+			{
+				// Show the preview using fancybox
+				$('#btn_compare_revisions').fancybox({
+					content: response,
+					overlayOpacity: 0.8,
+					overlayColor: '#000',
+					hideOnContentClick: false
+				});
+			});    
 	    });
 
 	});
