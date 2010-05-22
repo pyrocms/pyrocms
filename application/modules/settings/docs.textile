@@ -1,32 +1,32 @@
 h1.  Settings
 
-Settings allows modules to access, create, update and delete site settings to the database.
+p.  Settings allows modules to access, create, update and delete site settings to the database.
 
 h2. Usage
 
 h3. Accessing a Setting
 
-There are two different ways you can access a setting:
+p.  There are two different ways you can access a setting:
 
 1.  @$this->settings->setting_name;@
 2.  @Settings::get('setting_name');@
 
 h3. Update a Setting
 
-There are two different ways you can access a setting:
+p.  There are two different ways you can access a setting:
 
 1.  @$this->settings->setting_name = $new_value;@
 2.  @Settings::set('setting_name', 'new_value');@
 
 h3. Add a New Setting
 
-This allows you to add a new setting to the settings table int he database.  It can be done using the following function.
+p.  This allows you to add a new setting to the settings table int he database.  It can be done using the following function.
 
 @$this->settings->add($setting)@
 
-The function must be passed an associative array containing all values for the columns in the table.  If the format of the array is incorrect then the function will return *FALSE*.  Here is an example array:
+p.  The function must be passed an associative array containing all values for the columns in the table.  If the format of the array is incorrect then the function will return *FALSE*.  Here is an example array:
 
-@
+bc..
 $setting = array(
 	'slug'			=> 'forums_editor',
 	'title'			=> 'Forums Editor',
@@ -39,10 +39,9 @@ $setting = array(
 	'is_gui'		=> '1',
 	'module'		=> 'forums'
 );
-@
 
 h3. Delete a Setting
 
-To delete a setting, use the following function:
+p.  To delete a setting, use the following function:
 
 @$this->settings->delete('setting_name');@
