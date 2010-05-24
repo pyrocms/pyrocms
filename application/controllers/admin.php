@@ -7,15 +7,48 @@
  */
 class Admin extends Admin_Controller
 {
-	function __construct()
+	/**
+	 * Validation rules
+	 * 
+	 * @var array
+	 */
+	private $validation_rules = array();
+	
+	/**
+	 * Constructor method
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
+		// Call the parent's controller
   		parent::Admin_Controller();
-		$this->load->library('users/ion_auth');
 		$this->load->helper('users/user');
+		$this->lang->load('main');
+		
+		// Set the validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'email',
+				'label'	=> lang('email_label'),
+				'rules' => 'required|callback__check_login'
+			),
+			array(
+				'field' => 'password',
+				'label'	=> lang('password_label'),
+				'rules' => 'required'
+			)
+		);
  	}
 
- 	// Admin: Control Panel
- 	function index()
+ 	/**
+ 	 * Show the control panel
+	 *
+	 * @access public
+	 * @return void
+ 	 */
+ 	public function index()
 	{
 		if(CMS_VERSION !== $this->settings->item('version'))
 		{
@@ -56,18 +89,20 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/dashboard', $this->data);
 	}
      
-	// Admin: Log in
-	function login()
+	/**
+	 * Log in
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function login()
 	{
 		// Call validation and set rules
-		$this->load->library('validation');
-	    $rules['email'] = 'required|callback__check_login';
-	    $rules['password'] = 'required';
-	    $this->validation->set_rules($rules);
-	    $this->validation->set_fields();
+		$this->load->library('form_validation');
+	    $this->form_validation->set_rules($this->validation_rules);
 	        
 	    // If the validation worked, or the user is already logged in
-	    if ($this->validation->run() or $this->ion_auth->logged_in())
+	    if ($this->form_validation->run() or $this->ion_auth->logged_in())
 	    {
 	    	redirect('admin');
 		}
@@ -76,14 +111,26 @@ class Admin extends Admin_Controller
 	    $this->template->build('admin/login', $this->data);		
 	}
 	
-	function logout()
+	/**
+	 * Logout
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function logout()
 	{
 		$this->ion_auth->logout();
 		redirect('admin/login');
 	}	
 	
-	// Callback From: login()
-	function _check_login($email)
+	/**
+	 * Callback From: login()
+	 *
+	 * @access public
+	 * @param string $email The Email address to validate
+	 * @return bool
+	 */
+	public function _check_login($email)
 	{		
    		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
    		{
