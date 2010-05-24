@@ -78,12 +78,7 @@ class Admin extends Admin_Controller
 			}
 			redirect('admin/categories');
 		}
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$category->{$rule['field']} = set_value($rule['field']);
-		}
-
+		
 		// Loop through each validation rule
 		foreach($this->validation_rules as $rule)
 		{
