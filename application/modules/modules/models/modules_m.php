@@ -438,7 +438,6 @@ class Modules_m extends MY_Model {
 
 		foreach($xml->controllers as $controller)
 		{
-			$controller = $controller->controller;
 			$controller_array['name'] = (string) $controller->attributes()->name;
 
 			// Store methods from the controller
