@@ -18,7 +18,7 @@ ob_start("compress_css");
 function compress_css($buffer)
 {
 	// Remove the comments
-	$buffer = preg_replace('/\*[^*]*\*+([^/][^*]*\*+)*/', '', $buffer);
+	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
 
 	// Remove tabs, spaces, newlines
 	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '	 ', '	 ', '	 '), '', $buffer);
