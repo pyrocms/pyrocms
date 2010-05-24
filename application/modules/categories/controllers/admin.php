@@ -85,12 +85,6 @@ class Admin extends Admin_Controller
 			$category->{$rule['field']} = set_value($rule['field']);
 		}
 
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			$category->{$rule['field']} = set_value($rule['field']);
-		}
-
 		// Render the view
 		$this->data->category =& $category;		
 		$this->template->build('admin/form', $this->data);
