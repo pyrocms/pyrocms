@@ -85,7 +85,7 @@ class Admin_Controller extends MY_Controller
 	    $this->template->enable_parser(FALSE);
 	    
 	    $this->template
-	    	->append_metadata( css('admin/admin.css') )
+	    	->append_metadata( css('admin/admin.css.php') )
 			->append_metadata( css('jquery/jquery-ui.css') )
 	    	->append_metadata( css('jquery/jquery.fancybox.css') )
 			->append_metadata( js('jquery/jquery.js') )

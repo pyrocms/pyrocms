@@ -10,10 +10,10 @@ class Admin extends Admin_Controller
 {
 	/**
 	 * Array that contains the validation rules
-	 * @access protected
+	 * @access private
 	 * @var array
 	 */
-	protected $validation_rules;
+	private $validation_rules = array();
 	
 	/**
 	 * Constructor method
@@ -71,7 +71,7 @@ class Admin extends Admin_Controller
 		$this->load->helper('text');
 		
 		// Create pagination links
-		$total_rows = $this->comments_m->count_by('is_active', 0);
+		$total_rows 			= $this->comments_m->count_by('is_active', 0);
 		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
 		
 		// get all comments
@@ -81,7 +81,6 @@ class Admin extends Admin_Controller
 			->get_many_by('comments.is_active', 0);
 		
 		$this->data->comments = process_comment_items($comments);
-		
 		$this->template->build('admin/index', $this->data);			
 	}
 	
@@ -154,7 +153,7 @@ class Admin extends Admin_Controller
 		$this->load->helper('text');
 		
 		// Create pagination links
-		$total_rows = $this->comments_m->count_by('is_active', 1);
+		$total_rows 			= $this->comments_m->count_by('is_active', 1);
 		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
 		
 		// get all comments
