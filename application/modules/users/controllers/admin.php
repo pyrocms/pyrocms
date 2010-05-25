@@ -42,7 +42,7 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'last_name',
 				'label' => lang('user_last_name_label'),
-				'rules' => 'required|alpha_dash'
+				'rules' => 'required|surname'
 			),
 			array(
 				'field' => 'display_name',
