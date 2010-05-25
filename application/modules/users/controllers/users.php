@@ -123,7 +123,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'last_name',
 				'label' => lang('user_last_name'),
-				'rules' => ($this->settings->item('require_lastname') ? 'required' : '').'alpha_dash'
+				'rules' => ($this->settings->item('require_lastname') ? 'required|' : '').'surname'
 			),
 			array(
 				'field' => 'password',
