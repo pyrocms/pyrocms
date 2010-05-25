@@ -21,5 +21,18 @@ class MY_Form_validation extends CI_Form_validation
 	{
 		return ( ! preg_match("/^([-a-z0-9_\-\.])+$/i", $str)) ? FALSE : TRUE;
 	}
+
+	/**
+	 * Checks that a surname is valid
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function surname($str)
+	{
+		return ( ! preg_match("/^([-a-z\'0-9_-])+$/i", $str)) ? FALSE : TRUE;
+	}
+
 	
 } 
