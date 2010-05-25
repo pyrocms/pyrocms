@@ -75,7 +75,7 @@ class Upgrade extends Controller
   		}
  	}
 
-	function upgrade_0992
+	function upgrade_0992()
 	{
 		echo 'Added missing theme_layout field to page_layouts table.<br/>';
 		$this->dbforge->add_column('page_layouts', array(
