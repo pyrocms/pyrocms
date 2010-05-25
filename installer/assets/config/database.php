@@ -48,6 +48,9 @@ $db['local']['char_set'] = "utf8";
 $db['local']['dbcollat'] = "utf8_unicode_ci";
 $db['local']['port'] 	 = __PORT__;
 
+// "Tough love": Forces strict mode to test your app for best compatibility
+$db['local']['stricton'] = TRUE;
+
 // Dev
 //$db['dev']['hostname'] = "localhost";
 // ...etc

@@ -34,7 +34,7 @@
 // Local
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
-$db['local']['password'] = "password";
+$db['local']['password'] = "";
 $db['local']['database'] = "pyrocms";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
@@ -47,6 +47,9 @@ $db['local']['cachedir'] = "";
 $db['local']['char_set'] = "utf8";
 $db['local']['dbcollat'] = "utf8_unicode_ci";
 $db['local']['port'] 	 = 3306;
+
+// "Tough love": Forces strict mode to test your app for best compatibility
+$db['local']['stricton'] = TRUE;
 
 // Dev
 //$db['dev']['hostname'] = "localhost";
