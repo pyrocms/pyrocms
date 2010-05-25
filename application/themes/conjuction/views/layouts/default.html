@@ -4,20 +4,20 @@
 {theme_view('partials/metadata')}
 	</head>
 	<body>
-	{if $ci->settings->item('google_analytic')}
-		{$ci->load->view('fragments/google_analytic')}
+	{if $settings->item('google_analytic')}
+		{$load->view('fragments/google_analytic')}
 	{/if}
 
 {theme_view('partials/header')}
 		<div id="page">
-			{if $ci->session->flashdata('notice')}
-		    	<div class="notice-box">{$ci->session->flashdata('notice')}</div>
+			{if $session->flashdata('notice')}
+		    	<div class="notice-box">{$session->flashdata('notice')}</div>
 		    {/if}
-		    {if $ci->session->flashdata('success')}
-		    	<div class="success-box">{$ci->session->flashdata('success')}</div>
+		    {if $session->flashdata('success')}
+		    	<div class="success-box">{$session->flashdata('success')}</div>
 		    {/if}
-		    {if $ci->session->flashdata('error')}
-		    	<div class="error-box">{$ci->session->flashdata('error')}</div>
+		    {if $session->flashdata('error')}
+		    	<div class="error-box">{$session->flashdata('error')}</div>
 		    {/if}
 			<div id="content">
 {$template.body}
@@ -33,23 +33,23 @@
 						</ul>
 					</li>
 					<li>
-					{if $ci->session->userdata('user_id')}
+					{if $session->userdata('user_id')}
 						<h2>{cat($user->first_name ' ' $user->last_name)}</h2>
 						<ul>
 							<li><a href="{site_url('users/logout')}">{lang('logout_label')}</a></li>
 
-						{if $ci->settings->item('enable_profiles')}
+						{if $settings->item('enable_profiles')}
 							<li>{anchor('edit-profile', lang('edit_profile_label'))}</li>
 						{/if}
 
 							<li>{anchor('edit-settings', lang('settings_label'))}</li>
 
-						{if $ci->ion_auth->is_admin()}
+						{if $ion_auth->is_admin()}
 							<li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
 						{/if}
 						</ul>
 					{else}
-						{$ci->load->view('users/login_small')}
+						{$load->view('users/login_small')}
 					{/if}
 					</li>
 				</ul>
