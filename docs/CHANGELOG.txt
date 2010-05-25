@@ -11,7 +11,9 @@ v1.0
 * (in-progress) Added Media module.  This will replace the photos module and allow for Images, Video, Audio and Documents.
 * Rewrite of Settings module to allow module developers easier access and CRUD of site settings.
 * Added third_party/helpers/ and third_party/libraries/ folders for custom code.
-* Removed forums from the core. You can get it back from http://pyrocms.com/modules
+* Removed forums module from the core. You can get it back from http://pyrocms.com/modules
+* Removed lazydays theme from the core.
+* Deprecated {$ci->foo->bar()} and now use {$foo->bar()}. Make sure your foo is listed in application/config/parser.php.
 
 v0.9.9.2
 -------

@@ -75,3 +75,17 @@ $config['parser_allow_php_tags'] = 2;
 $config['parser_allowed_php_functions'] = array(
 	'strip_tags'
 );
+
+
+/*
+|--------------------------------------------------------------------------
+| CodeIgniter library/model names
+|--------------------------------------------------------------------------
+|
+| Pick selective parts of the CI super-global to use in Dwoo
+|
+|	array('asset', 'load', 'security', 'session', 'uri', 'input', 'user_agent');
+|
+*/
+
+$config['parser_assign_refs'] = array('asset', 'load', 'security', 'session', 'settings', 'uri', 'input', 'user_agent');

@@ -113,6 +113,3 @@ $autoload['model'] = array('news/news_m'); // TODO DEPRECATED: news model is lef
 |
 */
 // $autoload['core'] = array();
-
-
-?>

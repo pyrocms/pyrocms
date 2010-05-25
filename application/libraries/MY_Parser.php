@@ -26,34 +26,35 @@
  */
 include(APPPATH.'libraries/dwoo/dwooAutoload.php');
 
-class MY_Parser extends CI_Parser {
-    
-	private $ci;
-	
-	private $dwoo;
+class MY_Parser extends CI_Parser
+{
+	private $_ci;
+
+	private $_dwoo;
+	private $_config;
 	
 	function __construct()
 	{
-	 	$this->ci =& get_instance();
+	 	$this->_ci =& get_instance();
 	 	
-		$this->ci->config->load('parser', TRUE);
-        $config = $this->ci->config->item('parser');
+		$this->_ci->config->load('parser', TRUE);
+        $this->_config = $this->_ci->config->item('parser');
         
         // Main Dwoo object
-        $this->dwoo = new Dwoo;
+        $this->_dwoo = new Dwoo;
 
          // The directory where compiled templates are located
-		$this->dwoo->setCompileDir( $config['parser_compile_dir'] );
-		$this->dwoo->setCacheDir( $config['parser_cache_dir'] );
-		$this->dwoo->setCacheTime( $config['parser_cache_time'] );
+		$this->_dwoo->setCompileDir( $this->_config['parser_compile_dir'] );
+		$this->_dwoo->setCacheDir( $this->_config['parser_cache_dir'] );
+		$this->_dwoo->setCacheTime( $this->_config['parser_cache_time'] );
 		
 		// Security
 		$security = new Dwoo_Security_Policy;
 		
-		$security->setPhpHandling($config['parser_allow_php_tags']);
-		$security->allowPhpFunction($config['parser_allowed_php_functions']);
+		$security->setPhpHandling($this->_config['parser_allow_php_tags']);
+		$security->allowPhpFunction($this->_config['parser_allowed_php_functions']);
 		
-		$this->dwoo->setSecurityPolicy( $security );
+		$this->_dwoo->setSecurityPolicy( $security );
 		
 	}
 	
@@ -71,7 +72,7 @@ class MY_Parser extends CI_Parser {
 	 */
 	function parse($template, $data = array(), $return = FALSE)
 	{
-		$string = $this->ci->load->view($template, $data, TRUE);
+		$string = $this->_ci->load->view($template, $data, TRUE);
 		
 		return $this->_parse($string, $data, $return);	
 	}
@@ -108,7 +109,7 @@ class MY_Parser extends CI_Parser {
 	function _parse($string, $data, $return = FALSE)
 	{
         // Start benchmark
-        $this->ci->benchmark->mark('dwoo_parse_start');
+        $this->_ci->benchmark->mark('dwoo_parse_start');
         
 		// Compatibility with PyroCMS v0.9.7 style links
 		// TODO: Remove this for v1.0
@@ -120,10 +121,16 @@ class MY_Parser extends CI_Parser {
         	$data = (array) $data;
         }
         
-        $data = array_merge($data, $this->ci->load->_ci_cached_vars);
-        
-        $data['ci'] =& $this->ci;
+        $data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
+		foreach ($this->_config['parser_assign_refs'] as $ref)
+		{
+	        $data[$ref] =& $this->_ci->{$ref};
+		}
+
+		// TODO: DEPRECATED kill ci value
+		//$data['ci'] =& $this->_ci;
+		
         // Object containing data
         $dwoo_data = new Dwoo_Data;
         $dwoo_data->setData($data);
@@ -134,7 +141,7 @@ class MY_Parser extends CI_Parser {
 	        $tpl = new Dwoo_Template_String($string);
 	        
 	        // render the template
-	        $parsed_string = $this->dwoo->get($tpl, $dwoo_data);
+	        $parsed_string = $this->_dwoo->get($tpl, $dwoo_data);
         }
         
         catch(Dwoo_Compilation_Exception $e)
@@ -143,12 +150,12 @@ class MY_Parser extends CI_Parser {
         }
         
         // Finish benchmark
-        $this->ci->benchmark->mark('dwoo_parse_end');
+        $this->_ci->benchmark->mark('dwoo_parse_end');
 
         // Return results or not ?
 		if ( !$return )
 		{
-			$this->ci->output->append_output($parsed_string);
+			$this->_ci->output->append_output($parsed_string);
 			return;
 		}
 		
