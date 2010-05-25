@@ -57,6 +57,6 @@ $lang['news_delete_error'] 							= 'Aucun article n\'a été supprimé.';
 $lang['news_already_exist_error'] 					= 'Un article avec cet URL existe déjà.';
 
 $lang['news_twitter_posted'] 						= 'Envoyé "%s" %s';
-$lang['news_twitter_error'] 						= 'Twitter Error'; #translate
+$lang['news_twitter_error'] 						= 'Erreur Twitter';
 
 ?>
