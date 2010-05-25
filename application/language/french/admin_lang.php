@@ -6,7 +6,7 @@ $lang['cp_admin_home_title'] 			= 'Dashboard';
 $lang['cp_welcome_title'] 				= 'Bienvenue';
 $lang['cp_welcome_message'] 			= 'Bienvenue dans le panneau de contrôle de %s. Les liens de navigation ci-dessus et sur la gauche vous permettent de configurer la quasi totalité de votre site Internet.<br/> Au cas ou vous rencontrez un bug dans le système, veuillez s\'il vous plait créer un ticket dans notre bugtracker.'; 
 
-$lang['cp_news_feed_title'] 			= 'News feed'; #translate
+$lang['cp_news_feed_title'] 			= 'Flux d'\'actualités'; #translate
 
 // header
 $lang['cp_to_home'] 					= 'Retour au panneau de contrôle';
