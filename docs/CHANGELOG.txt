@@ -10,6 +10,15 @@ v1.0
 * Removed old jQuery tabs plugin, now using the built-in jQuery UI tabs plugin.
 * (in-progress) Added Media module.  This will replace the photos module and allow for Images, Video, Audio and Documents.
 * Rewrite of Settings module to allow module developers easier access and CRUD of site settings.
+* Added third_party/helpers/ and third_party/libraries/ folders for custom code.
+* Removed forums from the core. You can get it back from http://pyrocms.com/modules
+
+v0.9.9.2
+-------
+
+Bugs
+
+* Fixed issue 225: Now allowing apostrophe in Last Name
 
 v0.9.9.1
 -------
