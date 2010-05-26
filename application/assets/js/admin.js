@@ -227,7 +227,8 @@ var fixHelper;
 			$(this).fancybox({
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
-				hideOnContentClick: false
+				hideOnContentClick: false,
+				showNavArrows: false
 			});
 		});
 		
@@ -236,8 +237,9 @@ var fixHelper;
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
 				hideOnContentClick: false,
-				frameWidth: 900,
-				frameHeight: 600
+				width: 900,
+				height: 600,
+				showNavArrows: false
 			});
 		});
 		// End Fancybox modal window

@@ -8,12 +8,12 @@
 			<ol>
 				<li class="even">
 					<label for="title"><?php echo lang('letter_title_label');?></label>
-					<input type="text" id="title" name="title" maxlength="100" value="<?php echo $this->validation->title; ?>" class="text" />
+					<input type="text" id="title" name="title" maxlength="100" value="<?php echo $newsletter->title; ?>" class="text" />
 					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				</li>
 				
 				<li>
-					<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => htmlentities(stripslashes($this->validation->body)), 'rows' => 40, 'class'=>'wysiwyg-advanced')); ?>
+					<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => htmlentities(stripslashes($newsletter->body)), 'rows' => 40, 'class'=>'wysiwyg-advanced')); ?>
 				</li>
 			</ol>
 			

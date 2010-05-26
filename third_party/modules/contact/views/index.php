@@ -44,11 +44,4 @@
 	</li>
 </ul>
 
-<h3><?php echo lang('contact_message_label');?></h3>
-<ul id="contact-message">
-	<li>
-		<?php echo form_textarea(array('id'=>'message', 'name'=>'message', 'value'=>$form_values->message, 'rows'=>8, 'style'=>'width:100%'));?>
-	</li>
-</ul>
-<?php echo form_submit('submit', lang('contact_send_label'), array('class' => 'pyro-button'));?>
 <?php echo form_close(); ?>

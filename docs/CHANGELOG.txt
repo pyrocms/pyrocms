@@ -18,9 +18,11 @@ v1.0
 v0.9.9.2
 -------
 
+* If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.
+
 Bugs
 
-* Fixed issue 225: Now allowing apostrophe in Last Name
+* Fixed issue #225: Now allowing apostrophe in Last Name.
 * Fixed issue #218: theme_layout field was missing from page_layouts table.
 * Fixed issue #223: _parse_xml in modules doesn't parse XML controller for multiple controllers.
 * Fixed cookie settings that were being reset to blank in the config file.

@@ -1,4 +1,4 @@
-\<?php
+<?php
 
 // labels
 $lang['nav_title_label'] 						= 'Título';
