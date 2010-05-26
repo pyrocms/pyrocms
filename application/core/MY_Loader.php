@@ -1,11 +1,8 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-<<<<<<< HEAD:application/core/MY_Loader.php
-=======
 /* define a fall back language in-case the current language file is missing */
 MX_Language::$fall_back = 'english';
 
->>>>>>> master:application/libraries/MY_Loader.php
 /**
  * Modular Separation - PHP5
  *
