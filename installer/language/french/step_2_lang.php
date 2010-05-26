@@ -2,31 +2,31 @@
 
 // labels
 $lang['header']			=	'Étape 2: Check requirements';
-$lang['intro_text']		= 	'The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
+$lang['intro_text']		= 	'La première étape de l\'installation va vérifir si votre serveur supporte PyroCMS. La plupart des serveurs peuvent lancer cette procédure sans aucun problème.';
 
-$lang['server_settings']= 	'HTTP Server Settings';
-$lang['server_version']	=	'Your server software:';
-$lang['server_fail']	=	'Your server software is not supported, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations are up to date PyroCMS should be able to run properly, just without clean URL\'s.';
+$lang['server_settings']= 	'Paramètres serveur HTTP';
+$lang['server_version']	=	'Les logiciels de votre serveur :';
+$lang['server_fail']	=	'Les logiciels de votre serveur ne sont pas supportés, PyroCMS peut ou ne peut pas fonctionner. Tant que votre PHP et votre MySQL n\'est pas mis à jour. PyroCMS devrait être en mesure de fonctionner correctement, il suffit de nettoyer les URL.';
 
-$lang['php_settings']	=	'PHP Settings';
-$lang['php_required']	=	'PyroCMS requires PHP version 5.0 or higher.';
-$lang['php_version']	=	'Your server is currently running version';
-$lang['php_fail']		=	'Your PHP version is not supported. PyroCMS requires PHP version 5.0 or higher to run properly.';
+$lang['php_settings']	=	'Paramètres PHP';
+$lang['php_required']	=	'PyroCMS nécessite la version PHP 5.0 ou supérieure.';
+$lang['php_version']	=	'Votre serveur a la bonne version';
+$lang['php_fail']		=	'Votre version de PHP n\'est pas supportée. PyroCMS nécessite la version PHP 5.0 ou supérieure pour fonctionner correctement.';
 
-$lang['mysql_settings']	=	'MySQL Settings';
-$lang['mysql_required']	=	'PyroCMS requires access to a MySQL database running version 5.0 or higher.';
-$lang['mysql_version1']	=	'Your server is currently running';
-$lang['mysql_version2']	=	'Your client is currently running';
-$lang['mysql_fail']		=	'Your MySQL version is not supported. PyroCMS requires MySQL version 5.0 or higher to run properly.';
+$lang['mysql_settings']	=	'Paramètres MySQL';
+$lang['mysql_required']	=	'PyroCMS nécessite un accès à une base de données MySQL en version 5.0 ou supérieure.';
+$lang['mysql_version1']	=	'Votre serveur a la bonne version';
+$lang['mysql_version2']	=	'Votre client a la bonne version';
+$lang['mysql_fail']		=	'Votre version de MySQL n\'est pas supportée. PyroCMS nécéssite MySQL version 5.0 ou supérieure pour fonctionner correctement.';
 
-$lang['gd_settings']	=	'GD Settings';
-$lang['gd_required']	= 	'PyroCMS requires GD library 1.0 or higher to manipulate images.';
-$lang['gd_version']		= 	'Your server is currently running version';
-$lang['gd_fail']		=	'We cannot determine the version of the GD library. This usually means that the GD library is not installed. PyroCMS will still run properly but some of the image functions might not work. It is highly recommended to enable the GD library.';
+$lang['gd_settings']	=	'Paramètres GD';
+$lang['gd_required']	= 	'PyroCMS nécessite GD library 1.0 ou supérieur pour manipuler les images.';
+$lang['gd_version']		= 	'Votre serveur a la bonne version';
+$lang['gd_fail']		=	'Nous ne pouvons pas déterminer la version de GD library. Cela signifie que GD n\'est pas installé. PyroCMS peut tourner correctement sur votre serveur, mais certaines actions sur les images seront pas possibles. Il est vivement recommandé d\'activer GD library.';
 
-$lang['summary_green']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
-$lang['summary_orange']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
-$lang['summary_red']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';
+$lang['summary_green']	=	'Votre serveur est prêt pour l\'installation de PyroCMS, cliquez sur le bouton ci-dessous pour passer à la prochaine étape.';
+$lang['summary_orange']	=	'Votre serveur contient quasiment tous les logiciels nécessaires à l\'installation de PyroCMS. Cela signifie vous pouvez lancer l\'installation, mais vous pourriez rencontrer des problèmes lors de la redimension d\'image et la création de vignette.';
+$lang['summary_red']	=	'Il semblerait que votre serveur ne puisse pas installé PyroCMS. Merci de contacter votre administrateur serveur ou votre hébergeur pour résoudre ce problème..';
 $lang['next_step']		=	'Passer à la prochaine étape';
 $lang['step3']			=	'Étape 3';
 $lang['retry']			=	'Essayez encore';
