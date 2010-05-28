@@ -5,6 +5,7 @@ v0.9.9.2
 -------
 
 * If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.
+* Updated navigation widget to add class="current" to the current navigation list item.
 
 Bugs
 
