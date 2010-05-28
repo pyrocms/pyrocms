@@ -8,7 +8,7 @@ $lang['newsletter.date'] 							= 'Date';
 $lang['newsletter.actions'] 						= 'Actions';
 $lang['newsletter.not_sent_label'] 					= 'Non envoyé';
 $lang['newsletter.view'] 							= 'Visualiser';
-$lang['newsletters.send'] 							= 'Envouyer';
+$lang['newsletters.send'] 							= 'Envoyer';
 $lang['newsletters.export_title'] 					= 'Exporter les abonnés';
 $lang['letter_title_label'] 						= 'Titre';
 $lang['letter_email_label'] 						= 'Email';
@@ -19,8 +19,8 @@ $lang['letter_subject_suffix'] 						= 'Bulletin';
 // titles
 $lang['letter_subscriped_title'] 					= 'Abonné';
 $lang['letter_letter_title']						= 'Newsletter';
-$lang['newsletters.add_title']						= 'Create newsletter'; #translate
-$lang['newsletters.list_title'] 					= 'List newsletters'; #translate
+$lang['newsletters.add_title']						= 'Créer une newsletter';
+$lang['newsletters.list_title'] 					= 'Lister les newsletters';
 
 // messages
 $lang['newsletter.no_newsletters_error'] 					= 'Il n\'y a pas bulletins.';

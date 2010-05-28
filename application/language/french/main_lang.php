@@ -24,7 +24,7 @@ $lang['settings_label'] 						= 'Paramètres';
 
 $lang['close_message'] 							= 'Fermer ce message';
 $lang['general_error_label'] 				= 'Erreur';
-$lang['required_error_label'] 			= 'Champs requis absent';
+$lang['required_error_label'] 			= 'Champs obligatoire';
 $lang['note_label'] 								= 'Note';
 $lang['success_label'] 							= 'Succès';
 
@@ -43,10 +43,10 @@ $lang['delete_label'] 							= 'Supprimer';
 $lang['activate_label'] 						= 'Activer';
 $lang['publish_label'] 							= 'Publier';
 $lang['upload_label'] 							= 'Télécharger';
-$lang['uninstall_label'] 						= 'Uninstall';
-$lang['install_label'] 							= 'Install';
-$lang['enable_label']							= 'Enable';
-$lang['disable_label'] 							= 'Disable';
+$lang['uninstall_label'] 						= 'Desinstaller';
+$lang['install_label'] 							= 'Installer';
+$lang['enable_label']							= 'Activer';
+$lang['disable_label'] 							= 'Desactiver';
 
 
 // $lang[''] = '';
