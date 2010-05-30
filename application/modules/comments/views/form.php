@@ -17,7 +17,7 @@
 			<input type="text" name="email" maxlength="40" value="<?php echo $comment['email'] ?>" />
 		</p>
 		<?php endif; ?>
-		<?php if ( !$this->data->user->website ): ?>
+		<?php if ( !isset($this->data->user->website) ): ?>
 		<p>
 			<label for="website"><?php echo lang('comments.website_label');?>:</label><br />
 			<input type="text" name="website" maxlength="40" value="<?php echo $comment['website'] ?>" />
@@ -26,7 +26,6 @@
 		<p>
 			<label for="message"><?php echo lang('comments.message_label');?>:</label><br />
 			<textarea name="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
-		</p>		
 		<p>
 			<?php echo form_submit('btnSend', lang('comments.send_label'));?>
 		</p>

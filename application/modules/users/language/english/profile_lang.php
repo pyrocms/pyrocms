@@ -32,7 +32,7 @@ $lang['profile_address_line1'] 			= 'Line #1';
 $lang['profile_address_line2'] 			= 'Line #2';
 $lang['profile_address_line3'] 			= 'Line #3';
 $lang['profile_address_postcode'] 		= 'Post/Zip Code';
-$lang['profile_website']        		= 'Website'; #translate
+$lang['profile_website']				= 'Website'; #translate
 
 $lang['profile_messenger_section'] 		= 'Instant messengers';
 

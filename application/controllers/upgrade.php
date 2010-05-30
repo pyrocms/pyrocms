@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3');
 
 	function _remap()
 	{
@@ -81,7 +81,7 @@ class Upgrade extends Controller
 		// Load the versioning library
 		$this->load->library('versioning');
 		$this->versioning->set_table('pages');
-
+		
 		// First we need to retrieve the current content from the pages table so no data gets lost
 		$pages = $this->db->get('pages');
 
@@ -149,17 +149,17 @@ class Upgrade extends Controller
 			// Inser the page
 			$this->db->insert('pages', $to_insert);
 			$page_insert_id = $this->db->insert_id();
-
+			
 			// Create the revsion, retrieve the ID and modify the page we added earlier
 			$revision_id	= $this->versioning->create_revision( array('author_id' => 1, 'owner_id' => $page_insert_id, 'body' => $page->body) );
-
+			
 			// Now we can modify the pages table so that it uses the correct revision id
 			$this->db->where( 'id', $page_insert_id);
 			$this->db->update( 'pages', array('revision_id' => $revision_id) );
 		}
 		
 		// Add the website column to the profiles table
-		$this->dbforge->add_column(array(
+		$this->dbforge->add_column('profiles', array(
 			'website' => array(
 				'type' 			=> 'varchar',
 				'constraint' 	=> '255',

@@ -9,7 +9,7 @@
  * 
  */
 class Pages_m extends MY_Model
-{
+{	
 	/**
 	 * Get a page by it's path
 	 * 
@@ -32,8 +32,11 @@ class Pages_m extends MY_Model
         $target_alias = 'p'.$total_segments;
 
         // Start Query, Select (*) from Target Alias, from Pages
-        $this->db->select($target_alias.'.*');
+        $this->db->select($target_alias.'.*, revisions.id as revision_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
         $this->db->from('pages p1');
+
+		// Simple join enables revisions - Yorick
+		$this->db->join('revisions', 'p1.revision_id = revisions.id');
         
         // Loop thorugh each Slug
         $level = 1;
@@ -244,7 +247,6 @@ class Pages_m extends MY_Model
         $this->db->insert('pages', array(
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
-        	'body' 			=> $input['body'],
         	'parent_id'		=> (int) $input['parent_id'],
             'layout_id'		=> (int) $input['layout_id'],
             'css'			=> $input['css'],
@@ -281,7 +283,7 @@ class Pages_m extends MY_Model
         $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
-	        'body' 			=> $input['body'],
+	        'revision_id'	=> $input['revision_id'],
 	        'parent_id'		=> $input['parent_id'],
             'layout_id'		=> $input['layout_id'],
             'css'			=> $input['css'],
