@@ -10,7 +10,7 @@
 		<?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?>
 	</noscript>
 		
-	<div id="commentform">
+	<div id="comments_form">
 		<?php if(!$this->session->userdata('user_id')): ?>
 		<p>
 			<label for="name"><?php echo lang('comments.name_label');?>:</label><br />
@@ -36,3 +36,4 @@
 		<p><?php echo form_submit('btnSend', lang('comments.send_label'));?></p>
 	</div>
 <?php echo form_close(); ?>
+

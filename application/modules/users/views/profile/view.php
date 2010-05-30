@@ -1,8 +1,7 @@
-<div id="gravatar" style="float: left; margin-right: 15px;">
+<div id="profile_image">
 	<?php echo gravatar($user->email);?>
 </div>
 <h2><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
-<br clear="both" />
 <fieldset>
 	<legend><?php echo lang('profile_user_details_label');?></legend>
 	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?><br/>
