@@ -1,8 +1,6 @@
-CHANGELOG
-=========
+h1. CHANGELOG
 
-v1.0
-----
+h2. v1.0
 
 * Cleaned Users module view files.  They now allow for easier styling without overriding them in the theme.
 * jQuery now on version 1.4.2
@@ -15,12 +13,11 @@ v1.0
 * Removed lazydays theme from the core.
 * Deprecated {$ci->foo->bar()} and now use {$foo->bar()}. Make sure your foo is listed in application/config/parser.php.
 
-v0.9.9.2
--------
+h2. v0.9.9.2
 
 * If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.
 
-Bugs
+h3. Bugs
 
 * Fixed issue #225: Now allowing apostrophe in Last Name.
 * Fixed issue #218: theme_layout field was missing from page_layouts table.
@@ -28,10 +25,9 @@ Bugs
 * Fixed cookie settings that were being reset to blank in the config file.
 * Fixed issue #228: Removed random / in the Spanish navigation lang.
 
-v0.9.9.1
--------
+h2. v0.9.9.1
 
-Bugs
+h3. Bugs
 
 * Fixed issue #211: Field 'display_name' doesn't have a default value (MySQL Strict Mode).
 * Fixed User edit in CP.  Can now change password.
@@ -39,8 +35,7 @@ Bugs
 * Fixed issue #213: Navigation target causing HTML validation failure when set to "Current window"
 * Fixed issue #145: News titles now allow html characters without blowing up everything.
 
-v0.9.9
------
+h2. v0.9.9
 
 * Theme Layouts can now be assigned to Page Layouts.
 * Installer can now get server information from (and install to) remote database servers.
@@ -56,7 +51,7 @@ v0.9.9
 * Modules can now be uploaded, installed, uninstalled, enabled and disabled via the admin panel.
 * A Module's details.xml can now contain SQL data to be run on module upload (see the forums details.xml for example).
 
-Bugs
+h3. Bugs
 
 * Fixed issue #200: Call to undefined method Permissions_m::checkRuleByRole().
 * Fixed table and column collation in the forum tables.
@@ -69,8 +64,7 @@ Bugs
 * Fixed redirect loop for any users logging in with a direct visit to /users/login that only affected root installs.
 * Fixed CP > Themes > Upload Theme.
 
-v0.9.8
-------
+h2. v0.9.8
 
 * Added "Widgets" which allow very flexible chunks of code to be placed almost anywhere.
 * Added custom CSS area for pages.
