@@ -75,6 +75,101 @@ class Upgrade extends Controller
   		}
  	}
 
+	// Another upgrade, this time it enables the versioning system
+	function upgrade_0993()
+	{
+		// Load the versioning library
+		$this->load->library('versioning');
+		$this->versioning->set_table('pages');
+
+		// First we need to retrieve the current content from the pages table so no data gets lost
+		$pages = $this->db->get('pages');
+
+		// We need to make sure no data gets lost, therefore we're renaming the pages table to pages_old
+		$this->dbforge->rename_table('pages', 'pages_old');
+
+		// We can now recreate the pages table
+		$this->db->query("CREATE TABLE `pages` (
+		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		  `revision_id` int(11) NOT NULL DEFAULT '0',
+		  `slug` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+		  `title` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+		  `parent_id` int(11) DEFAULT '0',
+		  `layout_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
+		  `css` text COLLATE utf8_unicode_ci,
+		  `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		  `meta_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		  `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
+		  `rss_enabled` int(1) NOT NULL DEFAULT '0',
+		  `comments_enabled` int(1) NOT NULL DEFAULT '0',
+		  `status` enum('draft','live') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'draft',
+		  `created_on` int(11) NOT NULL DEFAULT '0',
+		  `updated_on` varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `Unique` (`slug`,`parent_id`),
+		  KEY `slug` (`slug`),
+		  KEY `parent` (`parent_id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages'
+		");
+
+		// Now that the new pages table has been created it's time to create the revisions table
+		$this->db->query("CREATE TABLE `revisions` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `owner_id` int(11) NOT NULL,
+		  `table_name` varchar(100) NOT NULL DEFAULT 'pages',
+		  `body` text,
+		  `revision_date` int(11) NOT NULL,
+		  `author_id` int(11) NOT NULL,
+		  PRIMARY KEY (`id`),
+		  KEY `Owner ID` (`owner_id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8
+		");
+
+		// So far so good, time to migrate the old data back to the new table
+		foreach ($pages->result() as $page)
+		{
+			// First insert the page without the revision ID to use
+			$to_insert = array(
+				'id'				=> $page->id,
+				'slug' 				=> $page->slug,
+				'title'				=> $page->title,
+				'parent_id' 		=> $page->parent_id,
+				'layout_id' 		=> $page->layout_id,
+				'css'				=> $page->css,
+				'meta_title'		=> $page->meta_title,
+				'meta_keywords' 	=> $page->meta_keywords,
+				'meta_description'	=> $page->meta_description,
+				'rss_enabled'		=> $page->rss_enabled,
+				'comments_enabled'	=> $page->comments_enabled,
+				'status'			=> $page->status,
+				'created_on'		=> $page->created_on,
+				'updated_on'		=> $page->updated_on,
+ 			);
+
+			// Inser the page
+			$this->db->insert('pages', $to_insert);
+			$page_insert_id = $this->db->insert_id();
+
+			// Create the revsion, retrieve the ID and modify the page we added earlier
+			$revision_id	= $this->versioning->create_revision( array('author_id' => 1, 'owner_id' => $page_insert_id, 'body' => $page->body) );
+
+			// Now we can modify the pages table so that it uses the correct revision id
+			$this->db->where( 'id', $page_insert_id);
+			$this->db->update( 'pages', array('revision_id' => $revision_id) );
+		}
+		
+		// Add the website column to the profiles table
+		$this->dbforge->add_column(array(
+			'website' => array(
+				'type' 			=> 'varchar',
+				'constraint' 	=> '255',
+				'null'			=> TRUE
+			)
+		));
+		
+		return TRUE;
+	}	
+
 	function upgrade_0992()
 	{
 		echo 'Added missing theme_layout field to page_layouts table.<br/>';

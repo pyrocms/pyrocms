@@ -46,7 +46,7 @@ class Comments extends Public_Controller
 			array(
 				'field' => 'website',
 				'label' => lang('comments.website_label'),
-				'rules' => 'trim'
+				'rules' => 'trim|max_length[255]'
 			),
 			array(
 				'field' => 'comment',

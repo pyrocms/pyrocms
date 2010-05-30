@@ -109,6 +109,11 @@ class Profile extends Public_Controller
 				'rules' => 'trim|max_length[20]'
 			),
 			array(
+				'field' => 'website',
+				'label' => lang('profile_website'),
+				'rules' => 'trim|max_length[255]'
+			 ),
+			array(
 				'field' => 'msn_handle',
 				'label' => lang('profile_msn_handle'),
 				'rules' => 'trim|valid_email'

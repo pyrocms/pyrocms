@@ -61,6 +61,10 @@
 		<label for="postcode"><?php echo lang('profile_address_postcode') ?></label>
 		<?php echo form_input('postcode', $profile->postcode); ?>
 	<p>
+	<p>
+		<label for="website"><?php echo lang('profile_website'); ?></label>
+		<?php echo form_input('website', $profile->website); ?>
+	</p>
 </fieldset>
 
 <fieldset>
