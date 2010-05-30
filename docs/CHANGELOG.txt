@@ -13,6 +13,7 @@ Bugs
 * Fixed issue #223: _parse_xml in modules doesn't parse XML controller for multiple controllers.
 * Fixed cookie settings that were being reset to blank in the config file.
 * Fixed issue #228: Removed random / in the Spanish navigation lang.
+* Fixed an issue that caused cookies not to function correctly when running PyroCMS locally.
 
 v0.9.9.1
 -------
