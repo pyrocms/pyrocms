@@ -195,6 +195,10 @@ blockquote
 {
 	float:			right;
 }
+.news_article .article_body
+{
+	clear:			both;
+}
 /* So do comments */
 #comments_container
 {
