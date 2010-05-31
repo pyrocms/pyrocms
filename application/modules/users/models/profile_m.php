@@ -6,7 +6,7 @@
  * @since		v0.1
  *
  */
-class Profile_m extends Model {
+class Profile_m extends MY_Model {
 	
 	/**
 	 * Get a user profile
