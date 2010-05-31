@@ -6,37 +6,51 @@
  * @since		v0.1
  *
  */
-class Profile_m extends CI_Model {
+class Profile_m extends Model {
 	
-	// Get a user profile
-	function getProfile($params = array())
+	/**
+	 * Get a user profile
+	 *
+	 * @access public
+	 * @param array $params Parameters used to retrieve the profile
+	 * @return object
+	 */
+	function get_profile($params = array())
 	{
 		$query = $this->db->get_where('profiles', $params);
 
 		return $query->row();
 	}
 	
-	// Update a user's profile
-	function updateProfile($input, $id) {
+	/**
+	 * Update a user's profile
+	 *
+	 * @access public
+	 * @param array $input A mirror of $_POST
+	 * @param int $id The ID of the profile to update
+	 * @return bool
+	 */
+	function update_profile($input, $id) {
 		
 		$this->load->helper('date');
             
 		$set = array(
-			'gender'=>$input['gender'],
-			'bio'=> $input['bio'],
+			'gender'		=> 	$input['gender'],
+			'bio'			=> 	$input['bio'],
 
-			'phone'=>$input['phone'],
-			'mobile'=>$input['mobile'],
-			'address_line1'=>$input['address_line1'],
-			'address_line2'=>$input['address_line2'],
-			'address_line3'=>$input['address_line3'],
-			'postcode'=>$input['postcode'],
-	 
-			'msn_handle'=>$input['msn_handle'],
-			'aim_handle'=>$input['aim_handle'],
-			'yim_handle'=>$input['yim_handle'],
-			'gtalk_handle'=>$input['gtalk_handle'],
-			'updated_on'=>now()
+			'phone'			=>	$input['phone'],
+			'mobile'		=>	$input['mobile'],
+			'address_line1'	=>	$input['address_line1'],
+			'address_line2'	=>	$input['address_line2'],
+			'address_line3'	=>	$input['address_line3'],
+			'postcode'		=>	$input['postcode'],
+	 		'website'		=>	$input['website'],
+	
+			'msn_handle'	=>	$input['msn_handle'],
+			'aim_handle'	=>	$input['aim_handle'],
+			'yim_handle'	=>	$input['yim_handle'],
+			'gtalk_handle'	=>	$input['gtalk_handle'],
+			'updated_on'	=>	now()
 		);
 
 		if(isset($input['dob_day'])){
@@ -55,4 +69,3 @@ class Profile_m extends CI_Model {
 		return TRUE;
 	}
 }
-?>

@@ -1,27 +1,25 @@
-<div id="gravatar" style="float: left; margin-right: 15px;">
+<div id="profile_image">
 	<?php echo gravatar($user->email);?>
 </div>
 <h2><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
-<br clear="both" />
 <fieldset>
 	<legend><?php echo lang('profile_user_details_label');?></legend>
 	<strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?><br/>
 	<strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->created_on); ?><br/>
-	<?php if($user->last_login > 0): ?>
-		<strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->last_login); ?>
-	<?php endif; ?>
+<?php if($user->last_login > 0): ?>
+	<strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->last_login); ?>
+<?php endif; ?>
 </fieldset>
 
 <?php if($profile): ?>
 	<?php if($profile->bio): ?>
-		<fieldset class="width-22 float-left">
+		<fieldset>
 			<legend><?php echo lang('profile_bio'); ?></legend>
-		
 			<?php echo $profile->bio ?>
 		</fieldset>
 	<?php endif; ?>
 	
-	<fieldset class="width-22 float-right">
+	<fieldset>
 		<legend><?php echo lang('profile_personal_section') ?></legend>		
 		<dl>
 			<?php if($profile->gender): ?>
@@ -36,7 +34,7 @@
 		</dl>
 	</fieldset>
 	
-	<fieldset class="width-22 float-left">
+	<fieldset>
 		<legend><?php echo lang('profile_messenger_section') ?></legend>	
 		<dl>
 			<?php if($profile->msn_handle): ?>

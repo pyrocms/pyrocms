@@ -1,0 +1,67 @@
+@import 'reset.css';
+@import 'layout.css';
+
+@import '../boxes.css';
+@import '../common.css';
+@import '../links.css';
+@import '../lists.css';
+
+.default-input-text {
+	color:#AAAAAA;
+}
+
+.CodeMirror-wrapping {
+	border: 1px solid #bbb;
+}
+
+.CodeMirror-line-numbers {
+	width: 2.2em;
+	background-color: #eee;
+	color:#AAAAAA;
+	font-family:monospace;
+	font-size:10pt;
+	text-align:right;
+ }
+ 
+.CodeMirror-line-numbers div {
+	margin:0;
+}
+
+.ui-draggable, .ui-sortable {
+	cursor:move;
+}
+
+/* Revisions */
+.revision_pre
+{
+	border:				1px solid #ccc;
+	overflow: 			hidden;
+	padding:			10px;
+	white-space: 		normal;
+	max-width:			900px;
+}
+.revision_pre del, .revision_pre ins
+{
+	display:			block;
+	min-height:			10px;
+	padding:			5px;
+	text-decoration: 	none;
+}
+.revision_pre ins *, .revision_pre del *
+{
+	display:			inline;
+}
+.revision_pre ins
+{
+	background:			#8EE884;
+}
+.revision_pre del
+{
+	background:			#E88484;
+}
+#revision_preview_heading
+{
+	border-bottom:		1px solid #000;
+	margin-top:			0px;
+	padding-bottom:		5px;
+}
