@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.1">
+    <name>
+        <en>Galleries</en>
+    </name>
+    <description>
+        <en>Create galleries, upload files and manage them.</en>
+    </description>
+    <is_frontend>1</is_frontend>
+    <is_backend>1</is_backend>
+    <is_backend_menu>0</is_backend_menu>
+    <controllers>
+        <controller name="admin">
+            <method>index</method>
+			<!-- Gallery methods -->
+            <method>create</method>
+            <method>manage</method>
+            <method>delete_gallery</method>
+			<!-- image methods -->
+			<method>upload</method>
+			<method>edit_image</method>
+            <method>delete_image</method>
+        </controller>
+    </controllers>
+</module>
