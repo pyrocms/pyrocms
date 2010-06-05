@@ -6,7 +6,12 @@
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/reset.css" type="text/css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" />
-		
+		<script type="text/javascript">
+            var base_url = '<?php echo base_url(); ?>';
+		</script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>
+
 		<title>PyroCMS Installer</title>
 	</head>
 	<body>

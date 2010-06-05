@@ -45,6 +45,11 @@
 		<label for="user_confirm_password"><?php echo lang('conf_password'); ?></label>
 		<?php echo form_password('user_confirm_password'); ?>
 	</p>
+
+	<div id="notification">
+	   <p class="text" id="confirm_pass"></p>
+	</div>	
+	
 	<p id="next_step">
 		<input type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 	</p>
