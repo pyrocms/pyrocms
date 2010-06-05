@@ -1,27 +1,26 @@
 <div class="box" id="galleries_form_box">
-
-	<h3>Manage Gallery</h3>
+	<h3><?php echo lang('galleries.manage_gallery_label'); ?></h3>
 	
 	<div class="box-container">
 		<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
 			<ol>
 				<li>
-					<label for="title">Title</label>
+					<label for="title"><?php echo lang('galleries.title_label'); ?></label>
 					<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
 					<span class="required-icon tooltip">Required</span>
 				</li>
 				
 				<li class="even">
-					<label for="slug">Slug</label>
+					<label for="slug"><?php echo lang('galleries.slug_label'); ?></label>
 					<?php echo form_input('slug', $gallery->slug, 'class="width-15"'); ?>
 					<span class="required-icon tooltip">Required</span>
 				</li>
 				
 				<li>
-					<label for="parent">Parent</label>		
+					<label for="parent"><?php echo lang('galleries.parent_label'); ?></label>		
 					<select name="parent" id="parent">
 						<!-- Available galleries -->
-						<option value="NONE">-- NONE --</option>
+						<option value="NONE"><?php echo lang('galleries.none_label'); ?></option>
 						<?php if ( !empty($galleries) ): foreach ( $galleries as $available_gallery ): if ($available_gallery->id != $gallery->id): ?>
 						<option value="<?php echo $available_gallery->id; ?>" <?php if ($available_gallery->id == $gallery->parent) {echo ' selected="selected" ';} ?> >
 							<?php echo $available_gallery->title; ?>
@@ -31,13 +30,13 @@
 				</li>
 				
 				<li class="even">
-					<label for="description">Description</label>
+					<label for="description"><?php echo lang('galleries.description_label'); ?></label>
 					<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 				</li>
 				
 				<?php if ( !empty($gallery_images) ): ?>
 				<li>
-					<label for="gallery_thumbnail">Thumbnail</label>
+					<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
 					<select name="gallery_thumbnail" id="gallery_thumbnail">
 						
 						<?php if ( !empty($gallery->thumbnail_id) ): ?>
@@ -63,7 +62,7 @@
 					</select>
 				</li>
 				<li class="even">
-					<label for="gallery_images">Current Images</label>
+					<label for="gallery_images"><?php echo lang('galleries.current_label'); ?></label>
 					<ul id="gallery_images_list">
 						<?php if ( $gallery_images !== FALSE ): ?>
 						<?php foreach ( $gallery_images as $image ): ?>
@@ -75,7 +74,7 @@
 						<?php endforeach; ?>
 						<?php else: ?>
 						<li>
-							No images have been added yet
+							<?php echo lang('gallery_images.no_images_label'); ?>
 						</li>
 						<?php endif; ?>
 					</ul>

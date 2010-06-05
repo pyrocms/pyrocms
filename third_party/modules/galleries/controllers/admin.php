@@ -43,6 +43,8 @@ class Admin extends Admin_Controller
 		$this->load->model('galleries_m');
 		$this->load->model('gallery_images_m');
 		$this->load->library('form_validation');
+		$this->lang->load('galleries');
+		$this->lang->load('gallery_images');
 		
 		// Set the validation rules
 		$this->gallery_validation_rules = array(
@@ -137,7 +139,7 @@ class Admin extends Admin_Controller
 			if ( $this->galleries_m->insert_gallery($_POST) === TRUE )
 			{
 				// Everything went ok..
-				$this->session->set_flashdata('success', 'The gallery has been created successfully.');
+				$this->session->set_flashdata('success', lang('galleries.create_success'));
 				redirect('admin/galleries');
 			}
 			// Something went wrong..
@@ -146,7 +148,7 @@ class Admin extends Admin_Controller
 				// Remove the directory
 				$this->galleries_m->rm_gallery_dir($_POST['slug']);
 				
-				$this->session->set_flashdata('error', 'The gallery could not be created.');
+				$this->session->set_flashdata('error', lang('galleries.create_error'));
 				redirect('admin/galleries/create');
 			}
 		}
@@ -160,8 +162,8 @@ class Admin extends Admin_Controller
 		// Load the view
 		$this->data->gallery 	=& $gallery;
 		$this->data->galleries 	=& $galleries;
-		// $this->template->append_metadata( js('form.js', 'galleries') );
-		$this->template->build('admin/new_gallery', $this->data);
+		$this->template->append_metadata( js('form.js', 'galleries') )
+						->build('admin/new_gallery', $this->data);
 	}
 	
 	/**
@@ -183,7 +185,7 @@ class Admin extends Admin_Controller
 		
 		if ( empty($gallery) )
 		{
-			$this->session->set_flashdata('error', 'The specified gallery does not exist.');
+			$this->session->set_flashdata('error', lang('galleries.exists_error'));
 			redirect('admin/galleries');
 		}
 		
@@ -193,12 +195,12 @@ class Admin extends Admin_Controller
 			// Try to update the gallery
 			if ( $this->galleries_m->update_gallery($id, $_POST) === TRUE )
 			{
-				$this->session->set_flashdata('success', 'The gallery has been successfully updated.');
-				redirect('admin/galleries');
+				$this->session->set_flashdata('success', lang('galleries.update_success'));
+				redirect('admin/galleries/manage/' . $id);
 			}
 			else
 			{
-				$this->session->set_flashdata('error', 'The gallery could not be updated.');
+				$this->session->set_flashdata('error', lang('galleries.update_error'));
 				redirect('admin/galleries/manage/' . $id);
 			}
 		}
@@ -219,8 +221,9 @@ class Admin extends Admin_Controller
 		
 		// Load the view itself
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
-		   			   ->append_metadata( js('jcrop.js', 'galleries') )
-		   			   ->append_metadata( js('jcrop_init.js', 'galleries') );
+		   				->append_metadata( js('jcrop.js', 'galleries') )
+		   				->append_metadata( js('jcrop_init.js', 'galleries') )
+						->append_metadata( js('form.js', 'galleries') );
 		$this->template->build('admin/manage_gallery', $this->data);
 	}
 	
@@ -232,37 +235,57 @@ class Admin extends Admin_Controller
 	 * @param int $id The ID of the gallery to delete
 	 * @return void
 	 */
-	public function delete($id)
+	public function delete($id = NULL)
 	{
-		// Get the gallery
-		$gallery = $this->galleries_m->get($id);
+		$id_array = array();
 		
-		// Does the gallery exist?
-		if ( !empty($gallery) )
-		{			
-			// Delete the gallery along with all the images from the database
-			if ( $this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
-			{
-				// Delete the directory
-				if ( $this->galleries_m->rm_gallery_dir($gallery->slug) === TRUE )
-				{
-					$this->session->set_flashdata('success', sprintf('The gallery "%s" has been deleted successfully.', $gallery->title));
-				}
-				else
-				{
-					$this->session->set_flashdata('error', 'The gallery\'s directory could not be deleted.');
-				}
-			}
-			else
-			{
-				$this->session->set_flashdata('error', sprintf('The gallery "%s" could not be deleted.', $gallery->title));
-			}			
+		// Multiple IDs or just a single one?
+		if ( $_POST )
+		{
+			$id_array = $_POST['action_to'];
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf('The gallery "%s" does not exist.', $gallery->title));
+			if ( $id !== NULL )
+			{
+				$id_array[0] = $id;
+			}
 		}
 		
+		if ( empty($id_array) )
+		{
+			$this->session->set_flashdata('error', lang('galleries.id_error'));
+			redirect('admin/galleries');
+		}
+		
+		// Loop through each ID
+		foreach ( $id_array as $id)
+		{
+			// Get the gallery
+			$gallery = $this->galleries_m->get($id);
+			
+			// Does the gallery exist?
+			if ( !empty($gallery) )
+			{
+				
+				// Delete the gallery along with all the images from the database
+				if ( $this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
+				{
+					if ( !$this->galleries_m->rm_gallery_dir($gallery->slug) )
+					{
+						$this->session->set_flashdata('error', sprintf( lang('galleries.folder_error'), $gallery->title));
+						redirect('admin/galleries');
+					}
+				}
+				else
+				{
+					$this->session->set_flashdata('error', sprintf( lang('galleries.delete_error'), $gallery->title));
+					redirect('admin/galleries');
+				}
+			}
+		}
+		
+		$this->session->set_flashdata('success', lang('galleries.delete_success'));
 		redirect('admin/galleries');
 	}
 	
@@ -284,7 +307,7 @@ class Admin extends Admin_Controller
 		// Are there any galleries at all?
 		if ( empty($galleries) )
 		{
-			$this->session->set_flashdata('error', 'No galleries have been created yet.');
+			$this->session->set_flashdata('error', lang('galleries.no_galleries_error'));
 			redirect('admin/galleries');
 		}
 		
@@ -292,12 +315,12 @@ class Admin extends Admin_Controller
 		{
 			if ( $this->gallery_images_m->upload_image($_POST) === TRUE )
 			{
-				$this->session->set_flashdata('success', 'The image has been uploaded successfully.');
+				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
 				redirect('admin/galleries');
 			}
 			else
 			{
-				$this->session->set_flashdata('error', 'The image could not be uploaded.  ');
+				$this->session->set_flashdata('error', lang('gallery_images.upload_error'));
 				redirect('admin/galleries/upload');
 			}
 		}
@@ -331,7 +354,7 @@ class Admin extends Admin_Controller
 		
 		if ( empty($gallery_image) )
 		{
-			$this->session->set_flashdata('error', 'The specified image does not exist.');
+			$this->session->set_flashdata('error', lang('gallery_images.exists_error'));
 			redirect('admin/galleries');
 		}
 		
@@ -351,11 +374,11 @@ class Admin extends Admin_Controller
 				// The delete action requires a different message
 				if ( $_POST['thumbnail_actions'] === 'delete' )
 				{
-					$this->session->set_flashdata('success', 'The image has been deleted.');
+					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
 				}
 				else
 				{
-					$this->session->set_flashdata('success', 'The changes have been saved.');
+					$this->session->set_flashdata('success', lang('gallery_images.changes_success'));
 				}
 			}
 			
@@ -365,11 +388,11 @@ class Admin extends Admin_Controller
 				// The delete action requires a different message
 				if ( $_POST['thumbnail_actions'] === 'delete' )
 				{
-					$this->session->set_flashdata('success', 'The image could not be deleted.');
+					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
 				}
 				else
 				{
-					$this->session->set_flashdata('success', 'The changes could not be saved.');
+					$this->session->set_flashdata('success', lang('gallery_images.changes_error'));
 				}
 			}
 			
@@ -398,5 +421,26 @@ class Admin extends Admin_Controller
 		   			   ->append_metadata( js('jcrop.js', 'galleries') )
 		   			   ->append_metadata( js('jcrop_init.js', 'galleries') );
 		$this->template->build('admin/edit', $this->data);
+	}
+	
+	/**
+	 * Method to install the module
+	 * 
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @return void
+	 */
+	public function install()
+	{
+		if ( $this->galleries_m->install_module() === TRUE )
+		{
+			$this->session->set_flashdata('success', lang('galleries.install_success'));
+		}
+		else
+		{
+			$this->session->set_flashdata('error', lang('galleries.install_error'));
+		}
+		
+		redirect('admin/galleries');
 	}
 }

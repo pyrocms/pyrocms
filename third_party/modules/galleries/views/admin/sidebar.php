@@ -3,9 +3,9 @@
 	
 	<div class="box-container">
 		<ul class="list-links">
-			<li><?php echo anchor('admin/galleries', 'List galleries'); ?></li>
-			<li><?php echo anchor('admin/galleries/create', 'Create a new gallery') ?></li>
-			<li><?php echo anchor('admin/galleries/upload', 'Upload Image'); ?></li>
+			<li><?php echo anchor('admin/galleries'			, lang('galleries.list_label')); ?></li>
+			<li><?php echo anchor('admin/galleries/create'	, lang('galleries.new_gallery_label')) ?></li>
+			<li><?php echo anchor('admin/galleries/upload'	, lang('galleries.upload_label')); ?></li>
 		</ul>
 	</div>
 </div>

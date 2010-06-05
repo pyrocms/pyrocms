@@ -11,7 +11,6 @@
  */
 class Galleries_m extends MY_Model
 {
-
 	/**
 	 * Constructor method
 	 * 
@@ -30,7 +29,7 @@ class Galleries_m extends MY_Model
 	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
-	 * @return void
+	 * @return mixed
 	 */
 	public function get_all()
 	{
@@ -51,6 +50,29 @@ class Galleries_m extends MY_Model
 		
 		// Return the results
 		return $results;
+	}
+	
+	/**
+	 * Get all galleries along with the thumbnail's filename and extension
+	 *
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @return mixed
+	 */
+	public function get_all_with_filename($where = NULL, $value = NULL)
+	{
+		$this->db->select('galleries.*, gallery_images.filename, gallery_images.extension')
+				 ->from('galleries')
+				 ->join('gallery_images', 'galleries.thumbnail_id = gallery_images.id', 'left');
+				
+		// Where clause provided?
+		if ( !empty($where) AND !empty($value) )
+		{
+			$this->db->where($where, $value);
+		}
+		
+		return $this->db->get()
+						->result();
 	}
 	
 	/**
@@ -207,5 +229,56 @@ class Galleries_m extends MY_Model
 		$slug = preg_replace('/\s+/', '-', $slug);
 		
 		return $slug;
+	}
+	
+	/**
+	 * Install the module, should only be run once
+	 *
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @return bool
+	 */
+	public function install_module()
+	{
+		$galleries_table = "
+			CREATE TABLE `galleries` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `title` varchar(255) NOT NULL,
+			  `slug` varchar(255) NOT NULL,
+			  `thumbnail_id` int(11) DEFAULT NULL,
+			  `description` text,
+			  `parent` int(11) DEFAULT NULL,
+			  `updated_on` int(15) NOT NULL,
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY `slug` (`slug`),
+			  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		";
+		
+		$gallery_images_table = "
+			CREATE TABLE `gallery_images` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `gallery_id` int(11) NOT NULL,
+			  `filename` varchar(255) NOT NULL,
+			  `extension` varchar(255) NOT NULL,
+			  `title` varchar(255) DEFAULT 'Untitled',
+			  `description` text,
+			  `uploaded_on` int(15) DEFAULT NULL,
+			  `updated_on` int(15) DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `gallery_id` (`gallery_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		";
+		
+		// Create the table
+		if ( $this->db->query($galleries_table) AND $this->db->query($gallery_images_table) )
+		{
+			// Create the galleries folder
+			return mkdir('uploads/galleries');
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }

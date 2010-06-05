@@ -120,8 +120,8 @@ blockquote
 {
 	margin-top:		25px;
 }
-/* Header */
-#header
+/* General margins */
+#header,.news_article, .gallery
 {
 	margin-bottom:	40px;
 }
@@ -195,26 +195,22 @@ blockquote
 		padding:		0px;
 	}
 /* == NEWS == */
-.news_article
+.news_article .article_heading h2
 {
-	margin-bottom:		40px;
+	margin-bottom:	5px;
 }
-	.news_article .article_heading h2
-	{
-		margin-bottom:	5px;
-	}
-	.news_article .article_heading .article_date
-	{
-		float:		left;
-	}
-	.news_article .article_heading .article_category
-	{
-		float:		right;
-	}
-	.news_article .article_body
-	{
-		clear:		both;
-	}
+.news_article .article_heading .article_date
+{
+	float:		left;
+}
+.news_article .article_heading .article_category
+{
+	float:		right;
+}
+.news_article .article_body
+{
+	clear:		both;
+}
 /* == COMMENTS == */
 #comments_container
 {
@@ -251,6 +247,30 @@ blockquote
 {
 	clear:			both;
 }
+/* Galleries */
+#gallery_index .gallery:last-child
+{
+	margin-bottom:		0px;
+}
+	.gallery .gallery_heading img
+	{
+		float:			left;
+		margin-right:	20px;
+	}
+	.gallery .galleries_list li
+	{
+		float:			left;
+		list-style-type:none;
+		margin:			0px 20px 20px 0px;
+	}
+	.gallery .galleries_list li a
+	{
+		border-bottom:	none;
+	}
+	.gallery .gallery_image_full
+	{
+		margin-bottom:	20px;
+	}
 /* Footer */
 #footer
 {

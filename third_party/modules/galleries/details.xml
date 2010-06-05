@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.1">
+<module version="1.0">
     <name>
         <en>Galleries</en>
     </name>
     <description>
-        <en>Create galleries, upload files and manage them.</en>
+        <en>The galleries module is a powerful module that let's users create image galleries.</en>
     </description>
     <is_frontend>1</is_frontend>
     <is_backend>1</is_backend>
@@ -15,11 +15,11 @@
 			<!-- Gallery methods -->
             <method>create</method>
             <method>manage</method>
-            <method>delete_gallery</method>
+            <method>delete</method>
 			<!-- image methods -->
 			<method>upload</method>
 			<method>edit_image</method>
-            <method>delete_image</method>
+			<method>install</method>
         </controller>
     </controllers>
 </module>
