@@ -57,7 +57,7 @@ class Admin extends Admin_Controller
 		
 		else if(is_dir('./installer'))
 		{
-			$this->data->messages['notice'] = lang('delete_installer_message');
+			$this->data->messages['notice'] = lang('cp_delete_installer_message');
 		}
 		
 		// Load stuff
