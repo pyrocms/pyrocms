@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('input[name=password]').blur(function(){
+    $('input[name=password]').keyup(function(){
         
         server   = $('input[name=hostname]').val();
         username = $('input[name=username]').val();
@@ -10,16 +10,17 @@ $(document).ready(function() {
         $.ajax({
             type: 'post',
             url: base_url + 'index.php/ajax/confirm_database',
+            dataType: 'json',
             data: {
                 server: server,
                 username: username,
                 password: password
             },
             success: function(response) {
-                if (response == 'TRUE') {
-                    $('#confirm_db').html('<b>Connected to Database Successfully.</b>').removeClass('error').addClass('success');
+                if (response.success == 'true') {
+                    $('#confirm_db').html(response.message).removeClass('error').addClass('success');
                 } else {
-                    $('#confirm_db').html('<b>Unable to Connect to Database with Specified Settings.</b>').removeClass('success').addClass('error');
+                    $('#confirm_db').html(response.message).removeClass('success').addClass('error');
                 }
             }
         });
@@ -40,3 +41,7 @@ $(document).ready(function() {
     });
 
 });
+
+function confirmPassword() {
+    
+}

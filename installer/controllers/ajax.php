@@ -13,7 +13,11 @@ class Ajax extends Controller
 
     public function __construct()
 	{
+		
 		parent::__construct();
+		$this->lang->load('global');
+        $this->lang->load('step_1');
+        
 	}
 
     public function confirm_database() {
@@ -29,12 +33,16 @@ class Ajax extends Controller
         
         if ( ! $link )
         {
-            echo 'FALSE';
+            $data['success'] = 'false';
+            $data['message'] = lang('db_failure').mysql_error();
         } 
         else
         {
-            echo 'TRUE';
+            $data['success'] = 'true';
+            $data['message'] = lang('db_success');
         }
+        
+        echo json_encode($data);
         
     }
 
