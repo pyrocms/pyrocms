@@ -191,20 +191,23 @@ var fixHelper;
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
 				hideOnContentClick: false,
-				showNavArrows: false
+				showNavArrows: false,
+				autoDimensions: false
 			});
 		});
-		
+
 		$('a[rel="modal-large"], a.modal-large').livequery(function() {
 			$(this).fancybox({
 				overlayOpacity: 0.8,
 				overlayColor: '#000',
-				hideOnContentClick: false,
-				width: 900,
+				width: 950,
 				height: 600,
-				showNavArrows: false
+				hideOnContentClick: false,
+				showNavArrows: false,
+				autoDimensions: false
 			});
 		});
+	   
 		// End Fancybox modal window
 
 	});
