@@ -77,14 +77,33 @@ class Upgrade extends Controller
 
 	function upgrade_0992()
 	{
-		echo 'Added missing theme_layout field to page_layouts table.<br/>';
+		echo 'Added missing theme_layout field to page_layouts table.<br />';
 		$this->dbforge->add_column('page_layouts', array(
-			'theme_layout' => array(
-				'type' 	  	=> 'VARCHAR',
-				'constraint' => '100',
-				'null' 		=> FALSE
-			)
-        ));
+													'theme_layout' => array(
+																		'type' 	  	 => 'VARCHAR',
+																		'constraint' => '100',
+																		'null' 		 => FALSE
+																		   ),
+														));
+
+		echo 'Adding Twitter token fields to user profiles<br />';
+		$this->dbforge->add_column('profiles', array(
+												'twitter_access_token' => array(
+																			'type' 	  	 => 'VARCHAR',
+																			'constraint' => '100',
+																			'null' 		 => TRUE
+																			   ),
+												'twitter_access_token_secret' => array(
+																			'type' 	  	 => 'VARCHAR',
+																			'constraint' => '100',
+																			'null' 		 => TRUE
+																			   ),
+													));
+
+		echo 'Adding twitter consumer key settings<br />';
+		$this->db->insert('settings', array('slug' => 'twitter_consumer_key', 'title' => 'Consumer Key', 'description' => 'Twitter Consumer Key.', 'type' => 'text', 'is_required' => 0, 'is_gui' => 1, 'module' => 'twitter'));
+		$this->db->insert('settings', array('slug' => 'twitter_consumer_key_secret', 'title' => 'Consumer Key Secret', 'description' => 'Twitter Consumer Key Secret.', 'type' => 'text', 'is_required' => 0, 'is_gui' => 1, 'module' => 'twitter'));
+		
 
 		return TRUE;
 	}

@@ -1,4 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Model to handle Twitter interactions
+ *
+ * @author 		Ben Edmunds - PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Twitter Module
+ * @category	Third Party Modules
+ */
 
 class Twitter_m extends Model {
 
@@ -10,24 +18,28 @@ class Twitter_m extends Model {
 		
 		$this->CI =& get_instance();
 		$this->CI->load->library('twitter/twitter');
-		
-		// Authenticate the user once per page load
-		$this->CI->twitter->auth($this->CI->settings->item('twitter_username'), $this->CI->settings->item('twitter_password'));
+
+		// Try to authenticate
+		$auth = $this->CI->twitter->oauth($this->CI->settings->item('twitter_consumer_key'), $this->CI->settings->item('twitter_consumer_key_secret'), $this->CI->settings->item('twitter_access_token'), $this->CI->settings->item('twitter_access_token_secret'));
 	}
 	
-	// Just call whatever was asked for with whatever it was given
 	function __call($method, $arguments)
 	{
 		// Only apply a cache to these methods
-		if( in_array($method, array('public_timeline', 'friends_timeline', 'user_timeline', 'show', 'replies', 'friends', 'followers')) )
+		if( in_array($arguments[0], array('statuses/public_timeline', 'statuses/friends_timeline', 'statuses/user_timeline', 'show', 'replies', 'friends', 'followers')) )
 		{	
-			return $this->cache->library('twitter', $method, $arguments, $this->CI->settings->item('twitter_cache') * 60);
+			return $this->cache->library('twitter', 'call', $arguments, $this->CI->settings->item('twitter_cache') * 60);
 		}
-		
-		// Run as normal without worrying about a cache
-		else
+		else // Run as normal without worrying about a cache
 		{
-			return call_user_func_array(array($this->CI->twitter, $method), $arguments);
+			if (is_object($this->CI->twitter->$method) && method_exists($this->CI->twitter, $method))
+			{
+				return call_user_func_array(array($this->CI->twitter, $method), $arguments);
+			}
+			else // If the method doesn't exist use the call method
+			{
+				return call_user_func_array(array($this->CI->twitter, 'call'), $arguments);
+			}
 		}
 	}
 	

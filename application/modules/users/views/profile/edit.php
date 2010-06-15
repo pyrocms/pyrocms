@@ -77,11 +77,22 @@ fieldset dl dd input, fieldset dl dd textarea {
 			<dd><?php echo form_input('gtalk_handle', $profile->gtalk_handle); ?></dd>
 		</dl>
 	</fieldset>
-	
-	<fieldset><legend><?php echo lang('profile_avatar_section') ?></legend>
+
+	<fieldset><legend><?php echo lang('profile_social_section') ?></legend>
 		<dl>
 			<dt><label for="mobile"><?php echo lang('profile_gravatar') ?></label></dt>
 			<dd><?php echo form_input('gravatar', $profile->gravatar); ?></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="twitter"><?php echo lang('profile_twitter') ?></label></dt>
+			<dd>
+				<?php if (!$this->user->twitter_access_token)
+						echo anchor('users/profile/twitter', 'Connect with Twitter');
+					  else
+						echo 'Twitter Connected';
+				?>
+			</dd>
 		</dl>
 	</fieldset>
 
