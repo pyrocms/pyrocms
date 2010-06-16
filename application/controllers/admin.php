@@ -134,7 +134,7 @@ class Admin extends Admin_Controller
 	{		
    		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
    		{
-	   		$this->validation->set_message('_check_login', $this->ion_auth->errors());
+	   		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
 	    	return FALSE;
 	    }
 	    
