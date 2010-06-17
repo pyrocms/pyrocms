@@ -77,6 +77,8 @@ class Upgrade extends Controller
 
 	function upgrade_0993()
 	{
+		$this->db->where('slug', 'dashboard_rss')->update('settings', array('default', 'http://feeds.feedburner.com/pyrocms-news'));
+
 		echo 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
 		$this->db->query('ALTER TABLE permission_rules CHANGE user_id user_id int(11) NOT NULL DEFAULT 0');
 
