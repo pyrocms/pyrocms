@@ -78,7 +78,7 @@ class Upgrade extends Controller
 	function upgrade_0993()
 	{
 		echo 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
-		$this->db->query('ALTER TABLE permission_rules user_id int(11) NOT NULL DEFAULT 0');
+		$this->db->query('ALTER TABLE permission_rules CHANGE user_id user_id int(11) NOT NULL DEFAULT 0');
 
 		echo 'Adding Twitter token fields to user profiles<br />';
 		$this->dbforge->add_column('profiles', array(
