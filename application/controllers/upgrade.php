@@ -38,12 +38,6 @@ class Upgrade extends Controller
   			show_error('Looks like the upgrade is already complete, you are already running '.$db_version.'.');
   		}
 
-		// File version is not supported
-  		if(!in_array($file_version, $this->versions))
-  		{
-  			show_error('The upgrade script does not support version '.$file_version.'.');
-  		}
-
 		// DB is ahead of files
 		else if( $base_db_version > $file_version )
 		{
@@ -54,7 +48,10 @@ class Upgrade extends Controller
   		{
 	  		// Find the next version
 	  		$pos = array_search($db_version, $this->versions) + 1;
-	  		$next_version = $this->versions[$pos];
+	  		$next_version = isset($this->versions[$pos]) ? $this->versions[$pos] : NULL;
+
+			// next version is not supported
+			$next_version or @show_error('The upgrade script does not support version '.$file_version.'.');
 
   			// Run the method to upgrade that specific version
 	  		$function = 'upgrade_' . preg_replace('/[^0-9a-z]/i', '', $next_version);
@@ -77,6 +74,15 @@ class Upgrade extends Controller
 
 	function upgrade_0993()
 	{
+		echo 'Adding website field to user profiles<br />';
+		$this->dbforge->add_column('profiles', array(
+			'website' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+				'null' => TRUE
+			)
+		));
+
 		echo 'Adding Twitter token fields to user profiles<br />';
 		$this->dbforge->add_column('profiles', array(
 			'twitter_access_token' => array(
