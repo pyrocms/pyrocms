@@ -70,13 +70,16 @@ class Upgrade extends Controller
 			echo "<p><strong>-- Upgraded to " . $next_version . '--</strong></p>';
 
 	  		$db_version = $next_version;
-
-			echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
   		}
+
+		echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
  	}
 
 	function upgrade_0993()
 	{
+		echo 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
+		$this->db->query('ALTER TABLE permission_rules user_id int(11) NOT NULL DEFAULT 0');
+
 		echo 'Adding Twitter token fields to user profiles<br />';
 		$this->dbforge->add_column('profiles', array(
 			'twitter_access_token' => array(
