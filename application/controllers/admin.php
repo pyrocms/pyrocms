@@ -40,6 +40,10 @@ class Admin extends Admin_Controller
 				'rules' => 'required'
 			)
 		);
+		
+		// Call validation and set rules
+		$this->load->library('form_validation');
+	    $this->form_validation->set_rules($this->validation_rules);
  	}
 
  	/**
@@ -85,7 +89,6 @@ class Admin extends Admin_Controller
 		$this->data->rss_items = $this->simplepie->get_items(0, $this->settings->item('dashboard_rss_count'));
 
 		$this->template->set_partial('sidebar', 'admin/partials/sidebar', FALSE);
-		
 		$this->template->build('admin/dashboard', $this->data);
 	}
      
@@ -96,11 +99,7 @@ class Admin extends Admin_Controller
 	 * @return void
 	 */
 	public function login()
-	{
-		// Call validation and set rules
-		$this->load->library('form_validation');
-	    $this->form_validation->set_rules($this->validation_rules);
-	        
+	{	        
 	    // If the validation worked, or the user is already logged in
 	    if ($this->form_validation->run() or $this->ion_auth->logged_in())
 	    {

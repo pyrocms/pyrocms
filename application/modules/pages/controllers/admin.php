@@ -35,6 +35,11 @@ class Admin extends Admin_Controller
 		
 		// Load the required classes
 		$this->load->library('form_validation');
+		
+		// Versioning
+		$this->load->library('versioning');
+		$this->versioning->set_table('pages');
+		
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
@@ -221,10 +226,24 @@ class Admin extends Admin_Controller
 		// Validate the page
 		if ($this->form_validation->run())
 	    {
-			// Success
-			if ($this->pages_m->create($_POST) > 0)
+			// First create the page
+			$page_body = $_POST['body'];
+			unset($_POST['body']);
+			$insert_id = $this->pages_m->create($_POST);
+			
+			if ( $insert_id > 0 )
 			{
-				$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+				// Create the revision
+				$revision_id = $this->versioning->create_revision( array('author_id' => $this->user->id, 'owner_id' => $insert_id, 'body' => $page_body) );
+				
+				// Update the page row
+				$to_update 					= $_POST;
+				$to_update['revision_id'] 	= $revision_id; 
+				
+				if ( $this->pages_m->update($insert_id, $to_update ) )
+				{
+					$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+				}
 			}
 		      
 			// Fail
@@ -282,7 +301,8 @@ class Admin extends Admin_Controller
 		
 	    // Set the page ID and get the current page
 	    $this->page_id 	= $id;
-	    $page 			= $this->pages_m->get($id);
+	    $page 			= $this->versioning->get($id);
+		$revisions		= $this->versioning->get_revisions($id);
 	
 	    // Got page?
 	    if (!$page) 
@@ -294,6 +314,20 @@ class Admin extends Admin_Controller
 	    // Validate it
 		if ($this->form_validation->run())
 	    {
+			// Set the data for the revision
+			$revision_data 			= array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $_POST['body']);
+			
+			// Did the user wanted to restore a specific revision?
+			if ( $_POST['use_revision_id'] == $page->revision_id )
+			{
+				$_POST['revision_id'] 	= $this->versioning->create_revision($revision_data);
+			}
+			// Manually restore a revision
+			else
+			{
+				$_POST['revision_id'] = $_POST['use_revision_id'];
+			}
+			
 			// Run the update code with the POST data	
 			$this->pages_m->update($id, $_POST);			
 			
@@ -329,6 +363,7 @@ class Admin extends Admin_Controller
 	    
 	    // Assign data for display
 	    $this->data->page 			=& $page;
+		$this->data->revisions		=& $revisions;
 	    $this->data->parent_page 	=& $parent_page;
 	    
 		$page_layouts 				= $this->page_layouts_m->get_all();
@@ -395,23 +430,41 @@ class Admin extends Admin_Controller
 		// Redirect
 		redirect('admin/pages');
 	}
-    
 	
-	// Callback: From create()
-	/*function _check_slug($slug)
+	/**
+	 * Show a diff between two revisions
+	 * 
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @param int $id_1 The ID of the first revision to compare
+	 * @param int $id_2 The ID of the second revision to compare
+	 * @return void
+	 */
+	public function compare($id_1, $id_2)
 	{
-		$page = $this->pages_m->getBySlug($slug, $this->input->post('lang'));
-	    $languages =& $this->config->item('supported_languages');
+		// Create the diff using mixed mode
+		$rev_1 = $this->versioning->get_by_revision($id_1);
+		$rev_2 = $this->versioning->get_by_revision($id_2);
+		$diff  = $this->versioning->compare_revisions($rev_1->body, $rev_2->body, 'mixed');
 		
-	    if($page && $page->id != $this->page_id )
-			{
-		$this->validation->set_message('_check_slug', sprintf($this->lang->line('pages_page_already_exist_error'), $slug, $languages[$this->input->post('lang')]['name']));
-	      return FALSE;
-	    }
-			else
-			{
-		return TRUE;
-	    }
-	}*/
+		// Output the results
+		$data['difference'] = $diff;
+		$this->load->view('admin/revisions/compare', $data);
+	}
+	
+	/**
+	 * Show a preview of a revision
+	 *
+	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @access public
+	 * @param int $id The ID of the revision to preview
+	 * @return void
+	 */
+	public function preview_revision($id)
+	{
+		// Easy isn't it?
+		$data['revision'] = $this->versioning->get_by_revision($id);
+		$this->load->view('admin/revisions/preview', $data);
+	}
 }
 ?>

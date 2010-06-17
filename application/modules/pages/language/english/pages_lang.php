@@ -30,6 +30,7 @@ $lang['pages.comments_enabled_label'] 		= 'Comments enabled';
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Draft';
 $lang['pages.live_label'] 						= 'Live';
+$lang['pages.revisions_label']					= 'Revisions'; #translate
 
 $lang['pages.view_label'] 						= 'View';
 $lang['pages.create_label'] 					= 'Add child';

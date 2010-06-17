@@ -246,6 +246,52 @@ var fixHelper;
 		});
 	   
 		// End Fancybox modal window
+		
+		/**
+		 * Required event handlers for the versioning system
+		 *
+		 * @author Yorick Peterse - PyroCMS Dev Team
+		 */
+		// Preview
+		$('#btn_preview_revision').click(function()
+		{
+			// Required variables
+			var id 			= $('#use_revision_id').val();
+			var preview_url = BASE_URL + 'admin/pages/preview_revision/' + id;
+			
+			// Ajax time
+			$.get(preview_url, function(response)
+			{
+				// Show the preview using fancybox
+				$('#btn_preview_revision').fancybox({
+					content: response,
+					overlayOpacity: 0.8,
+					overlayColor: '#000',
+					hideOnContentClick: false
+				});
+			});
+		});
+		
+		// On compare
+	    $('#btn_compare_revisions').click(function()
+	    {
+	        // Take the ID from both dropdowns
+	        var id_1            = $('#compare_revision_1').val();
+	        var id_2            = $('#compare_revision_2').val();
+	        var compare_url     = BASE_URL + 'admin/pages/compare/' + id_1 + '/' + id_2;
+
+	        // Ajax time
+			$.get(compare_url, function(response)
+			{
+				// Show the preview using fancybox
+				$('#btn_compare_revisions').fancybox({
+					content: response,
+					overlayOpacity: 0.8,
+					overlayColor: '#000',
+					hideOnContentClick: false
+				});
+			});    
+	    });
 
 	});
 	

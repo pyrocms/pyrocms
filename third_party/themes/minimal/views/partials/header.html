@@ -1,0 +1,13 @@
+<div id="site_info">
+	<h1 id="site_title">{$settings->item('site_name')}</h1>
+	<p id="site_slogan">{$settings->item('site_slogan')}</p>
+</div>
+<div id="site_navigation" class="clearfix">
+	<ul>
+	{foreach navigation('header') link}
+		<li{if $link->url == current_url()} id="active"{/if}>
+			<a href="{$link->url}">{$link->title}</a>
+		</li>
+	{/foreach}
+	</ul>
+</div>
