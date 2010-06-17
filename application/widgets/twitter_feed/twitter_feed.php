@@ -3,6 +3,7 @@
  * @package 		PyroCMS
  * @subpackage 		Twitter Feed Widget
  * @author			Phil Sturgeon - PyroCMS Development Team
+ * @modified		Ben Edmunds - PyroCMS Development Team
  * 
  * Show Twitter feeds in your site
  */
@@ -13,7 +14,7 @@ class Twitter_feed extends Widgets
 	public $description = 'Display tweets from a user on Twitter.';
 	public $author = 'Phil Sturgeon';
 	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.0';
+	public $version = '2.0';
 	
 	public $fields = array(
 		array(
@@ -36,7 +37,7 @@ class Twitter_feed extends Widgets
 		!empty($options['username']) || $options['username'] = $this->settings->item('twitter_username');
 		!empty($options['number']) || $options['number'] = 5;
 		
-		$tweets = !empty($options['username']) ? $this->twitter->user_timeline($options['username'], $options['number']) : array();
+		$tweets = !empty($options['username']) ? $this->twitter->call('statuses/user_timeline', array('id' => $options['username'], 'count' => $options['number'])) : array();
 		
 		// Store the feed items
 		return array(

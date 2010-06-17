@@ -260,6 +260,49 @@ class Profile extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', $this->data);
 	}	
+	
+	
+	/**
+	 * Authenticate to Twitter with oAuth
+	 *
+	 * @author Ben Edmunds
+	 * @access public
+	 * @return boolean
+	 */
+	public function twitter()
+	{
+		$this->load->library('twitter/twitter');
+
+		// Try to authenticate
+		$auth = $this->twitter->oauth($this->settings->item('twitter_consumer_key'), $this->settings->item('twitter_consumer_key_secret'), $this->user->twitter_access_token, $this->user->twitter_access_token_secret);
+
+		if ($auth!=1 && $this->settings->item('twitter_consumer_key') && $this->settings->item('twitter_consumer_key_secret'))
+		{
+			if (isset($auth['access_token']) && !empty($auth['access_token']) && isset($auth['access_token_secret']) && !empty($auth['access_token_secret']))
+			{
+				// Save the access tokens to the users profile
+				$tokens = array(
+							'twitter_access_token' 		  => $auth['access_token'],
+							'twitter_access_token_secret' => $auth['access_token_secret'],
+							   );
+				$this->ion_auth->update_user($this->user->id, $tokens);
+
+				if ( isset($_GET['oauth_token']) )
+				{
+					$uri = $_SERVER['REQUEST_URI'];
+					$parts = explode('?', $uri);
+
+					// redirect the user since we've saved their info
+					header('Location: '.$parts[0]);
+					return;
+				}
+			}
+		}
+		elseif ($auth == 1) {
+			redirect('users/profile/edit', 'refresh');
+		}
+	}
+
 }
 
 ?>

@@ -99,13 +99,18 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
 			
 				// The twitter module is here, and enabled!
-				if($this->settings->item('twitter_news') == 1 && $this->input->post('status') == 'live')
+				if($this->settings->item('twitter_news') == 1 && $this->user->twitter_access_token != NULL && $this->user->twitter_access_token_secret != NULL && $this->input->post('status') == 'live')
 				{
 					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.$this->input->post('created_on_month').'/'.url_title($this->input->post('title')));
-					$this->load->model('twitter/twitter_m');
-					if(!$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
+					$this->load->library('twitter/twitter');
+
+					// Try to authenticate
+					$auth = $this->twitter->oauth($this->settings->item('twitter_consumer_key'), $this->settings->item('twitter_consumer_key_secret'), $this->user->twitter_access_token, $this->user->twitter_access_token_secret);
+
+					$status_update = $this->twitter->call('statuses/update', array('status' => sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)));
+					if(!is_array($status_update))
 					{
-						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . $this->twitter->last_error['error']);
+						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . 'Unable to update Twitter status');
 					}
 				}
 				// End twitter code

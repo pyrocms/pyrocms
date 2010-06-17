@@ -57,7 +57,7 @@ class Admin extends Admin_Controller
 		
 		else if(is_dir('./installer'))
 		{
-			$this->data->messages['notice'] = lang('delete_installer_message');
+			$this->data->messages['notice'] = lang('cp_delete_installer_message');
 		}
 		
 		// Load stuff
@@ -134,7 +134,7 @@ class Admin extends Admin_Controller
 	{		
    		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
    		{
-	   		$this->validation->set_message('_check_login', $this->ion_auth->errors());
+	   		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
 	    	return FALSE;
 	    }
 	    

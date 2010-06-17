@@ -1,556 +1,777 @@
 <?php
 
 /**
-* A CodeIgniter library to allow use of the Twitter API
-*
-* Example Usage:
-*
-*	$this->load->library('twitter');
-*	$this->twitter->auth('someuser','somepass');
-*	$this->twitter->update('My awesome tweet!');
-*
-* Methods return a mixture of boolean and stdObjects
-*
-* @author Simon Maddox <simon@simonmaddox.com>
-* @modified Phil Sturgeon <email@philsturgeon.co.uk>
-* @license Creative Commons Attribution-Share Alike 3.0 Unported
-* http://creativecommons.org/licenses/by-sa/3.0/
-**/
-
+ * CodeIgniter Twitter API Library (http://www.haughin.com/code/twitter)
+ * 
+ * Author: Elliot Haughin (http://www.haughin.com), elliot@haughin.com
+ *
+ * ========================================================
+ * REQUIRES: php5, curl, json_decode
+ * ========================================================
+ * 
+ * VERSION: 3.1 (2009-05-01)
+ * LICENSE: GNU GENERAL PUBLIC LICENSE - Version 2, June 1991
+ * 
+ **/
+ 
 class Twitter {
-	var $type = 'xml';
-	var $user_agent = 'CodeIgniter-Twitter Library by Simon Maddox (http://simonmaddox.com)';
-	var $api_location = 'api.twitter.com/1';
-	
-	var $username;
-	var $password;
-	var $auth;
-	var $user;
-	
-	var $last_error;
-	
-	var $friends_timeline;
-	var $replies;
-	var $friends;
-	var $followers;
-	var $direct_messages;
-	var $sent_direct_messages;
-	var $favorites;
-	
-	function auth($username,$password){
-		$this->username = $username;
-		$this->password = $password;
-		
-		$user = $this->_fetch('account/verify_credentials.' . $this->type);
-		
-		if ($user == false){
-			$this->auth = false;
-			return false;
-		} else {
-			$this->user = $user;
-			$this->auth = true;
-			return true;
-		}
-	}
-	
-	function get_user(){
-		if (!$this->auth){ return false; }
-		return $this->user;
-	}
-	
-	/*
-		GET Methods
-	*/
-	
-	function public_timeline(){
-		return $this->_fetch('statuses/public_timeline.' . $this->type);
-	}
-	
-	function friends_timeline($count = '', $since = '', $since_id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('count' => $count, 'since' => $since, 'since_id' => $since_id, 'page' => $page));
-		
-		if (empty($this->friends_timeline)){
-			$this->friends_timeline = $this->_fetch('statuses/friends_timeline.' . $this->type . $params);
-		}
-		
-		return $this->friends_timeline;
-	}
-	
-	function user_timeline($id = '', $count = '', $since = '', $since_id = '', $page = ''){
 
-		$params = $this->_build_params(array('count' => $count, 'since' => $since, 'since_id' => $since_id, 'page' => $page));
+	/**
+	 * There are 3 types of requests we can make.
+	 * 1. Non-Authenticated requests - require no form of authentication to use
+	 * 2. Basic-Auth requests - uses a username and password for a user to make the request
+	 * 3. oAuth requests - uses oAuth to make requests
+	 *
+	 **/
 
-		$this->user_timeline = $this->_fetch('statuses/user_timeline/' . $id . '.' . $this->type . $params);
-		
-		if(!empty($this->user_timeline))
+	private $_url_api			= 'http://twitter.com/';
+	private $_url_api_search	= 'http://search.twitter.com/';
+	private $_api_format		= 'json';
+
+	private $_methods = array(
+							'statuses/public_timeline'		=> array('http' => 'get',	'auth' => FALSE),
+							'statuses/friends_timeline'		=> array('http' => 'get',	'auth' => TRUE),
+							'statuses/user_timeline'		=> array('http' => 'get',	'auth' => FALSE),
+							'statuses/mentions'				=> array('http' => 'get',	'auth' => TRUE),
+							'statuses/show'					=> array('http' => 'get',	'auth' => FALSE),
+							'statuses/update'				=> array('http' => 'post',	'auth' => TRUE),
+							'statuses/destroy'				=> array('http' => 'post',	'auth' => TRUE),
+							'users/show'					=> array('http' => 'get',	'auth' => FALSE),
+							'statuses/friends'				=> array('http' => 'get',	'auth' => FALSE),
+							'statuses/followers'			=> array('http' => 'get',	'auth' => TRUE),
+							'direct_messages'				=> array('http' => 'get',	'auth' => TRUE),
+							'direct_messages/sent'			=> array('http' => 'get',	'auth' => TRUE),
+							'direct_messages/new'			=> array('http' => 'post',	'auth' => TRUE),
+							'direct_messages/destroy'		=> array('http' => 'post',	'auth' => TRUE),
+							'friendships/create'			=> array('http' => 'post',	'auth' => TRUE),
+							'friendships/destroy'			=> array('http' => 'post',	'auth' => TRUE),
+							'friendships/exists'			=> array('http' => 'get',	'auth' => TRUE),
+							'account/verify_credentials'	=> array('http' => 'get',	'auth' => TRUE),
+							'account/rate_limit_status'		=> array('http' => 'get',	'auth' => FALSE),
+							'account/end_session'			=> array('http' => 'post',	'auth' => TRUE),
+							'account/update_delivery_device'=> array('http' => 'post',	'auth' => TRUE),
+							'account/update_profile_colors' => array('http' => 'post',	'auth' => TRUE),
+							'account/update_profile'		=> array('http' => 'post',	'auth' => TRUE),
+							'favorites'						=> array('http' => 'get',	'auth' => TRUE),
+							'favorites/create'				=> array('http' => 'post',	'auth' => TRUE),
+							'notifications/follow'			=> array('http' => 'post',	'auth' => TRUE),
+							'notifications/leave'			=> array('http' => 'post',	'auth' => TRUE),
+							'blocks/create'					=> array('http' => 'post',	'auth' => TRUE),
+							'blocks/destroy'				=> array('http' => 'post',	'auth' => TRUE),
+							'help/test'						=> array('http' => 'get',	'auth' => FALSE)
+
+							//'account/update_profile_image'	=> array('http' => 'post',	'auth' => TRUE),
+							//'account/account/update_profile_background_image'	=> array('http' => 'post',	'auth' => TRUE),
+
+						);
+
+	private $_conn;
+	public $oauth;
+
+	function __construct()
+	{
+		$this->_conn = new Twitter_Connection();
+	}
+
+	public function auth($username, $password)
+	{
+		$this->deauth();
+		$this->_conn->auth($username, $password);
+	}
+
+	public function oauth($consumer_key, $consumer_secret, $access_token = NULL, $access_token_secret = NULL)
+	{
+		$this->deauth();
+		$this->oauth = new EpiTwitter($consumer_key, $consumer_secret, $access_token, $access_token_secret);
+		$this->oauth->setToken($access_token, $access_token_secret);
+
+		if ( $access_token === NULL && $access_token_secret === NULL && !isset($_GET['oauth_token']) )
 		{
-			if($count > 1)
-			{
-				foreach($this->user_timeline as &$message)
-				{
-					$message->text = $this->_parse_message($message->text);
-				}
-			}
-			
-			else
-			{
-				$this->user_timeline->text = $this->_parse_message($this->user_timeline->text);
-			}
-		}
-		
-		return $this->user_timeline;
-	}
-	
-	function show($id = 55){
-		if (!$this->auth){ return false; }
-		$message =& $this->_fetch('statuses/show/'.$id.'.xml');
-	}
-	
-	function replies($since = '', $since_id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('since' => $since, 'since_id' => $since_id, 'page' => $page));
-		
-		if (empty($this->replies)){
-			$this->replies = $this->_fetch('statuses/replies.' . $this->type . $params);
-		}
-		
-		return $this->replies;
-	}
-	
-	function friends($id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('id' => $id, 'page' => $page));
-		
-		if (empty($this->friends)){
-			$this->friends = $this->_fetch('statuses/friends.' . $this->type . $params);
-		}
-		
-		return $this->friends;
-	}
-	
-	function followers($id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('id' => $id, 'page' => $page));
-		
-		if (empty($this->followers)){
-			$this->followers = $this->_fetch('statuses/friends.' . $this->type . $params);
-		}	
-			
-		return $this->followers;
-	}
-	
-	function user_show($id = ''){
-		if (!$this->auth){ return false; }
-		return $this->_fetch('users/show/id.'.$this->type.'?id=' . $id);
-	}
-	
-	function direct_messages($since = '', $since_id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('since' => $since, 'since_id' => $since_id, 'page' => $page));
-		
-		if (empty($this->direct_messages)){
-			$this->direct_messages = $this->_fetch('direct_messages.' . $this->type . $params);
-		}
-		
-		return $this->direct_messages;
-	}
-	
-	function sent_direct_messages($since = '', $since_id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('since' => $since, 'since_id' => $since_id, 'page' => $page));
-		
-		if (empty($this->sent_direct_messages)){
-			$this->sent_direct_messages = $this->_fetch('direct_messages/sent.' . $this->type . $params);
-		}
-		
-		return $this->sent_direct_messages;
-	}
-	
-	function friendship_exists($user_a = '', $user_b = ''){
-		if (!$this->auth){ return false; }
-		$friends = (string) $this->_fetch('friendships/exists.'.$this->type.'?user_a='.$user_a.'&user_b=' . $user_b);
-		return ($friends == 'true') ? true : false;
-	}
-	
-	function rate_limit_status(){
-		if (!$this->auth){ return false; }
-		return $this->_fetch('account/rate_limit_status.' . $this->type);
-	}
-	
-	function favorites($id = '', $page = ''){
-		if (!$this->auth){ return false; }
-		
-		$params = $this->_build_params(array('id' => $id, 'page' => $page));
-		
-		if (empty($this->favorites)){
-			$this->favorites = $this->_fetch('favorites.' . $this->type);
-		}
-		
-		return $this->favorites;
-	}
-	
-	function downtime_schedule(){
-		return $this->_fetch('help/downtime_schedule.' . $this->type);
-	}
-	
-	/*
-		POST Methods
-	*/
-	
-	function update($status = '', $in_reply_to_status_id = ''){
-		$params = array();
-		$params['status'] = $status;
-		
-		if (!empty($in_reply_to_status_id)){
-			$params['in_reply_to_status_id'] = $in_reply_to_status_id;
-		}
-		
-		return $this->_post('statuses/update.' . $this->type, $params);
-	}
-	
-	function destroy($id = ''){
-		$params = array();
-		
-		if (!empty($id)){
-			$params['id'] = $id;
-		}
-		
-		return $this->_post('statuses/destroy/id.' . $this->type, $params);
-	}
-	
-	function new_direct_message($user = '', $text = ''){
-		$params = array();
-		
-		if (!empty($user)){
-			$params['user'] = $user;
-		}
-		
-		if (!empty($text)){
-			$params['text'] = $text;
-		}
-		
-		return $this->_post('direct_messages/new.' . $this->type, $params);
-	}
-	
-	function destroy_direct_message($id = ''){
-		$params = array();
-		
-		if (!empty($id)){
-			$params['id'] = $id;
-		}
-		
-		return $this->_post('direct_messages/destroy/id.' . $this->type, $params);
-	}
-	
-	function create_friendship($id = '', $follow = ''){
-		$params = array();
-		
-		if (!empty($id)){
-			$params['id'] = $id;
-		}
-		
-		$params = array();
-		
-		if (!empty($follow)){
-			$params['follow'] = $follow;
-		}
-				
-		return $this->_post('friendships/create/id.' . $this->type, $params);
-	}
-	
-	function destroy_friendship($id = ''){
-		$params = array();
-		
-		if (!empty($id)){
-			$params['id'] = $id;
-		}
-		
-		return $this->_post('friendships/destroy/id.' . $this->type, $params);
-	}
-	
-	function update_profile($name = '', $email = '', $url = '', $location = '', $description = ''){
-		$params = array();
-		
-		if (!empty($name)){
-			$params['name'] = $name;
-		}
-		
-		if (!empty($email)){
-			$params['email'] = $email;
-		}
-		
-		if (!empty($url)){
-			$params['url'] = $url;
-		}
-		
-		if (!empty($location)){
-			$params['location'] = $location;
-		}
-		
-		if (!empty($description)){
-			$params['description'] = (strlen($description) > 160) ? substr($description,0,160) : $description;
-		}
-		
-		return $this->_post('account/update_profile.' . $this->type, $params);
-	}
-	
-	function update_delivery_device($device = 'none'){
-		$params = array('device' => $device);
-		
-		return $this->_post('account/update_delivery_device.' . $this->type, $params);
-	}
-	
-	function update_profile_colors($profile_background_color = '', $profile_text_color = '', $profile_link_color = '', $profile_sidebar_fill_color = '', $profile_sidebar_border_color = ''){
-		if (!empty($profile_background_color)){
-			$params['profile_background_color'] = $profile_background_color;
-		}
-		
-		if (!empty($profile_text_color)){
-			$params['profile_text_color'] = $profile_text_color;
-		}
-		
-		if (!empty($profile_link_color)){
-			$params['profile_link_color'] = $profile_link_color;
-		}
-		
-		if (!empty($profile_sidebar_fill_color)){
-			$params['profile_sidebar_fill_color'] = $profile_sidebar_fill_color;
-		}
-		
-		if (!empty($profile_sidebar_border_color)){
-			$params['profile_sidebar_border_color'] = $profile_sidebar_border_color;
-		}
-		
-		return $this->_post('account/update_profile_colors.' . $this->type, $params);
-	}
-	
-	function update_profile_image($image = ''){ // this should be raw multipart data, not a url
-		if (!empty($image)){
-			$params['image'] = $image;
-		}
-		
-		return $this->_post('account/update_profile_image.' . $this->type, $params);
-	}
-	
-	/*function update_profile_image_url($url){
-		$image = file_get_contents($url);
-		return $this->update_profile_image($image);
-	}*/
-	
-	function update_profile_background_image($image = ''){ // this should be raw multipart data, not a url
-		if (!empty($image)){
-			$params['image'] = $image;
-		}
-		
-		return $this->_post('account/update_profile_background_image.' . $this->type, $params);
-	}
-	
-	/*function update_profile_background_image_url($url){
-		$image = file_get_contents($url);
-		return $this->update_profile_background_image($image);
-	}*/
-	
-	/*
-		Search Methods
-	*/
-	
-	function search($query = 'twitter', $lang = '', $rpp = '', $page = '', $since_id = '', $geocode = '', $show_user = FALSE){
-		$params = $this->_build_params(array(
-				'q' => $query,
-				'lang' => $lang,
-				'rpp' => $rpp,
-				'page' => $page,
-				'since_id' => $since_id,
-				'geocode' => $geocode,
-				'show_user' => $show_user
-			));
-			
-		return $this->_fetch('search.json' . $params);
-	}
-	
-	function trends(){
-		if (!function_exists('json_decode')){
-			return false;
-		}
+			$url = $this->oauth->getAuthorizationUrl();
 
-		return $this->_fetch('trends.json');
-	}
-	
-	/*
-		System Methods
-	*/
-	
-	function _fetch($url){
-		
-		if (!function_exists('curl_init')) {
-            
-			if(function_exists('log_message')) {
-				log_message('error', 'Twitter - PHP was not built with cURL enabled. Rebuild PHP with --with-curl to use cURL.') ;
-			}
-			
-			return false;
+			header('Location: '.$url);
 		}
-		
-		$url = 'http://' . $this->api_location . '/' . $url;
-
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_USERPWD, $this->username . ':' . $this->password);
-		curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent);
-		$returned = curl_exec($ch);
-		$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		curl_close ($ch);
-		
-		if ($status == '200'){
-			return $this->_parse_returned($returned, $url);
-		} else {
-			$error_data = $this->_parse_returned($returned, $url);
-			
-			// Server not found fix #1
-			if($error_data && is_object($error_data))
-			{
-				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
-			}
-			else
-			{
-				$this->last_error = array('status' => $status, 'request' => $url, 'error' => $error_data);
-			}
-			
-			return false;
-		}
-	}
-	
-	function _post($url,$array){
-		$params = $this->_build_params($array,FALSE);
-		
-		$url = 'http://' . $this->api_location . '/' . $url;
-		
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_USERPWD, $this->username . ':' . $this->password);
-		curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-		$returned = curl_exec($ch);
-		$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		curl_close ($ch);
-
-		if ($status == '200'){
-			return $this->_parse_returned($returned, $url);
-		} else {
-			$error_data = $this->_parse_returned($returned, $url);
-			if($error_data && is_object($error_data))
-			{
-				$this->last_error = array('status' => $status, 'request' => $error_data->request, 'error' => $error_data->error);
-			}
-			else
-			{
-				$this->last_error = array('status' => $status, 'request' => $url, 'error' => $error_data);
-			}
-			return false;
-		}
-	}
-	
-	function _parse_returned($xml, $url){		
-		
-		// Server not found fix #2
-		if(empty($xml)) return false;
-		
-		switch ($this->type){
-			case 'xml':
-			case 'atom':
-			case 'rss':
-				return $this->_build_return(new SimpleXMLElement($xml),$this->type);
-				break;
-			case 'json':
-				return $this->_build_return(json_decode($xml),$this->type);
-				break;
-		}
-	}
-	
-	/*
-		Message parsing by Phil Sturgeon - http://philsturgeon.co.uk
-	*/
-	
-	function _parse_message($text){
-		
-		$patterns = array(
-	
-			// Detect URL's
-			'|([a-z]{3,9}://[a-z0-9-_./\\\?&\+]*)|i'
-				=>
-			'<a href="$0" target="_blank">$0</a>',
-			
-			// Detect Email
-			'|[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}|i'
-				=>
-			'<a href="mailto:$0">$0</a>',
-			
-			// Detect Twitter @usernames
-			'|@([a-z0-9-_]+)|i'
-				=>
-			'<a href="http://twitter.com/$1" target="_blank">$0</a>',
-			
-			// Detect Twitter #tags
-			'|#([a-z0-9-_]+)|i'
-				=>
-			'<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
-		);
-		
-		foreach($patterns as $regex => $replace)
+		elseif ( $access_token === NULL && $access_token_secret === NULL && isset($_GET['oauth_token']) )
 		{
-			$text = preg_replace($regex, $replace, $text);
-		}
-		
-		return $text;
-	}
-	
-	
-	function _build_return($data,$type){
-		if ($type == 'xml'){
-			$data = json_decode(json_encode($data)); // convert SimpleXML object to stdObject
-			
-			// We need to figure out if there is only one "real" node (aside from @attributes - if there is, return that as the parent)
-			
-			$keys = array();
+			$access_token = $_GET['oauth_token'];
+			$this->oauth->setToken($access_token);
 
-			foreach($data as $key => $value){
-				if ($key !== '@attributes'){
-					$keys[] = $key;
-				}
-			}
-			if (count($keys) == 1){
-				return $data->$keys[0];
-			}
-		}
-		
-		return $data;
-	}
-	
-	function _build_params($array, $query_string = TRUE){
-		$params = '';
-		
-		foreach ($array as $key => $value){
-			if (!empty($value)){
-				$params .= urlencode($key) . '=' . urlencode($value) . '&';
+			$info = $this->oauth->getAccessToken();
+			$info = $info->_result;
+
+			if ( !empty($info['oauth_token']) && !empty($info['oauth_token_secret']) )
+			{
+				$response = array(
+								'access_token' => $info['oauth_token'],
+								'access_token_secret' => $info['oauth_token_secret']
+							);
+
+				$this->oauth->setToken($response['access_token'], $response['access_token_secret']);
+
+				return $response;
 			}
 		}
-		
-		$character = ($query_string) ? '?' : '';
-		
-		return (!empty($params)) ? $character . $params : '';
+
+		return TRUE;
 	}
-	
-	function get_last_error(){
-		return $this->last_error;
+
+	public function deauth()
+	{
+		$this->oauth = NULL;
+		$this->_conn->deauth();
+	}
+
+	public function search($method, $params = array())
+	{
+		$url = $this->_url_api_search.$method.'.'.$this->_api_format;
+
+		return $this->_conn->get($url, $params);
+	}
+
+	public function call($method, $params = array())
+	{
+		// Firstly, assume we are using a GET non-authenticated call.
+
+		$http = 'get';
+		$auth = FALSE;
+
+		// Now we get our http and auth options from the methods array.
+
+		if ( isset($this->_methods[$method]) )
+		{
+			$http = $this->_methods[$method]['http'];
+			$auth = $this->_methods[$method]['auth'];
+		}
+
+		if ( $auth === TRUE && ( $this->_conn->authed() || $this->oauth === NULL) )
+		{
+			// method requires auth, and we have not authed yet.
+			return NULL;
+		}
+
+		if ( $this->oauth !== NULL )
+		{
+			$parts = explode('/', $method);
+			
+			if ( count($parts) > 1 )
+			{
+				$method_string = $http.'_'.$parts[0].ucfirst($parts[1]);
+			}
+			else
+			{
+				$method_string = $http.'_'.$parts[0];
+			}
+			
+			$data = $this->oauth->$method_string($params);
+			return $data->_result;
+		}
+
+		$url = $this->_url_api . $method . '.' .$this->_api_format;
+
+		return $this->_conn->$http($url, $params);
 	}
 }
+
+class Twitter_Connection {
+
+	private $_curl						= NULL;
+	private $_auth_method				= NULL;
+	private $_auth_user					= NULL;
+	private $_auth_pass					= NULL;
+
+	function __construct()
+	{
+	}
+
+	private function _init()
+	{
+		$this->_curl = curl_init();
+
+		curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, TRUE);
+
+		if ( $this->_auth_method == 'basic' )
+		{
+			curl_setopt($this->_curl, CURLOPT_USERPWD, "$this->_auth_user:$this->_auth_pass");
+		}
+	}
+
+	public function authed()
+	{
+		if ( $this->_auth_method === NULL ) return FALSE;
+
+		return TRUE;
+	}
+
+	public function auth($username, $password)
+	{
+		$this->deauth();
+
+		$this->_auth_method = 'basic';
+		$this->_auth_user	= $username;
+		$this->_auth_pass	= $password;
+	}
+
+	public function deauth($auth_method = NULL)
+	{
+		if ( $auth_method == 'basic' || NULL )
+		{
+			$this->_auth_user			= NULL;
+			$this->_auth_pass			= NULL;
+		}
+
+		$this->_auth_method			= NULL;
+	}
+
+	public function get($url, $params = array())
+	{
+		$this->_init();
+
+		if ( is_array($params) && !empty($params) )
+		{
+			$url = $url . '?' . $this->_params_to_query($params);
+		}
+
+		curl_setopt($this->_curl, CURLOPT_URL, $url);
+
+		return $this->deserialize(curl_exec($this->_curl));
+	}
+
+	public function post($url, $params = array())
+	{
+		$this->_init();
+
+		if ( is_array($params) && !empty($params) )
+		{
+			curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $this->_params_to_query($params));
+		}
+
+		curl_setopt($this->_curl, CURLOPT_POST, TRUE);
+		curl_setopt($this->_curl, CURLOPT_URL, $url);
+
+		return $this->deserialize(curl_exec($this->_curl));
+	}
+
+	private function _params_to_query($params)
+	{
+		if ( !is_array($params) || empty($params) )
+		{
+			return '';
+		}
+
+		$query = '';
+
+		foreach	( $params as $key => $value )
+		{
+			$query .= $key . '=' . $value . '&';
+		}
+
+		return substr($query, 0, strlen($query) - 1);;
+	}
+
+	private function deserialize($result)
+	{
+		return json_decode($result);
+	}
+}
+
+/*
+ * From here on, it's the EpiTwitter class and its dependencies.
+ * It works pretty well, but the goal is to eventually port this all to fresh code, using common connection
+ * and response libraries to the basic auth.
+ */
+
+
+/*
+* Class to integrate with Twitter's API.
+* Authenticated calls are done using OAuth and require access tokens for a user.
+* API calls which do not require authentication do not require tokens (i.e. search/trends)
+*
+* Full documentation available on github
+* http://wiki.github.com/jmathai/epicode/epitwitter
+*
+* @author Jaisen Mathai <jaisen@jmathai.com>
+*/
+class EpiTwitter extends EpiOAuth
+{
+	const EPITWITTER_SIGNATURE_METHOD = 'HMAC-SHA1';
+	protected $requestTokenUrl	= 'http://twitter.com/oauth/request_token';
+	protected $accessTokenUrl = 'http://twitter.com/oauth/access_token';
+	protected $authorizeUrl = 'http://twitter.com/oauth/authorize';
+	protected $apiUrl = 'http://twitter.com';
+	protected $searchUrl = 'http://search.twitter.com';
+
+	public function __call($name, $params = null)
+	{
+    $parts = explode('_', $name);
+    $method = strtoupper(array_shift($parts));
+    $parts = implode('_', $parts);
+    $path = '/' . preg_replace('/[A-Z]|[0-9]+/e', "'/'.strtolower('\\0')", $parts) . '.json';
+	$args = NULL;
+
+    if(!empty($params))
+      $args = array_shift($params);
+
+    // intercept calls to the search api
+    if(preg_match('/^(search|trends)/', $parts))
+    {
+      $query = isset($args) ? http_build_query($args) : '';
+      $url = "{$this->searchUrl}{$path}?{$query}";
+      $ch = curl_init($url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      return new EpiTwitterJson(EpiCurl::getInstance()->addCurl($ch));
+    }
+
+    return new EpiTwitterJson(call_user_func(array($this, 'httpRequest'), $method, "{$this->apiUrl}{$path}", $args));
+  }
+
+  public function __construct($consumer_key, $consumer_secret, $access_token, $access_token_secret)
+  {
+	$consumerKey	= $consumer_key;
+	$consumerSecret = $consumer_secret;
+	$oauthToken		= $access_token;
+	$oauthTokenSecret = $access_token_secret;
+
+    parent::__construct($consumerKey, $consumerSecret, self::EPITWITTER_SIGNATURE_METHOD);
+    $this->setToken($oauthToken, $oauthTokenSecret);
+  }
+}
+
+class EpiTwitterJson implements ArrayAccess, Countable, IteratorAggregate
+{
+  private $__resp;
+  public function __construct($response)
+  {
+    $this->__resp = $response;
+  }
+
+  // Implementation of the IteratorAggregate::getIterator() to support foreach ($this as $...)
+  public function getIterator ()
+  {
+    return new ArrayIterator($this->response);
+  }
+
+  // Implementation of Countable::count() to support count($this)
+  public function count ()
+  {
+    return count($this->response);
+  }
+
+  // Next four functions are to support ArrayAccess interface
+  // 1
+  public function offsetSet($offset, $value)
+  {
+    $this->response[$offset] = $value;
+  }
+
+  // 2
+  public function offsetExists($offset)
+  {
+    return isset($this->response[$offset]);
+  }
+
+  // 3
+  public function offsetUnset($offset)
+  {
+    unset($this->response[$offset]);
+  }
+
+  // 4
+  public function offsetGet($offset)
+  {
+    return isset($this->response[$offset]) ? $this->response[$offset] : null;
+  }
+
+  public function __get($name)
+  {
+    $this->responseText = $this->__resp->data;
+    $this->response = json_decode($this->responseText, 1);
+    $obj = json_decode($this->responseText);
+
+    foreach($obj as $k => $v)
+    {
+      $this->$k = $v;
+    }
+
+	if ( $name == '_result' )
+	{
+		return $obj;
+	}
+
+    return $this->$name;
+  }
+
+  public function __isset($name)
+  {
+    $value = self::__get($name);
+    return empty($name);
+  }
+}
+
+class EpiOAuth
+{
+  public $version = '1.0';
+
+  protected $requestTokenUrl;
+  protected $accessTokenUrl;
+  protected $authorizeUrl;
+  protected $consumerKey;
+  protected $consumerSecret;
+  protected $token;
+  protected $tokenSecret;
+  protected $signatureMethod;
+
+  public function getAccessToken()
+  {
+    $resp = $this->httpRequest('GET', $this->accessTokenUrl);
+    return new EpiOAuthResponse($resp);
+  }
+
+  public function getAuthorizationUrl()
+  {
+    $retval = "{$this->authorizeUrl}?";
+
+    $token = $this->getRequestToken();
+    return $this->authorizeUrl . '?oauth_token=' . $token->oauth_token;
+  }
+
+  public function getRequestToken()
+  {
+    $resp = $this->httpRequest('GET', $this->requestTokenUrl);
+    return new EpiOAuthResponse($resp);
+  }
+
+  public function httpRequest($method = null, $url = null, $params = null)
+  {
+    if(empty($method) || empty($url))
+      return false;
+
+    if(empty($params['oauth_signature']))
+      $params = $this->prepareParameters($method, $url, $params);
+
+    switch($method)
+    {
+      case 'GET':
+        return $this->httpGet($url, $params);
+        break;
+      case 'POST':
+        return $this->httpPost($url, $params);
+        break;
+    }
+  }
+
+  public function setToken($token = null, $secret = null)
+  {
+    $params = func_get_args();
+    $this->token = $token;
+    $this->tokenSecret = $secret;
+  }
+
+  protected function encode_rfc3986($string)
+  {
+    return str_replace('+', ' ', str_replace('%7E', '~', rawurlencode(($string))));
+  }
+
+  protected function addOAuthHeaders(&$ch, $url, $oauthHeaders)
+  {
+    $_h = array('Expect:');
+    $urlParts = parse_url($url);
+    $oauth = 'Authorization: OAuth realm="' . $urlParts['path'] . '",';
+    foreach($oauthHeaders as $name => $value)
+    {
+      $oauth .= "{$name}=\"{$value}\",";
+    }
+    $_h[] = substr($oauth, 0, -1);
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $_h);
+  }
+
+  protected function generateNonce()
+  {
+    if(isset($this->nonce)) // for unit testing
+      return $this->nonce;
+
+    return md5(uniqid(rand(), true));
+  }
+
+  protected function generateSignature($method = null, $url = null, $params = null)
+  {
+    if(empty($method) || empty($url))
+      return false;
+
+
+    // concatenating
+    $concatenatedParams = '';
+    foreach($params as $k => $v)
+    {
+      $v = $this->encode_rfc3986($v);
+      $concatenatedParams .= "{$k}={$v}&";
+    }
+    $concatenatedParams = $this->encode_rfc3986(substr($concatenatedParams, 0, -1));
+
+    // normalize url
+    $normalizedUrl = $this->encode_rfc3986($this->normalizeUrl($url));
+    $method = $this->encode_rfc3986($method); // don't need this but why not?
+
+    $signatureBaseString = "{$method}&{$normalizedUrl}&{$concatenatedParams}";
+    return $this->signString($signatureBaseString);
+  }
+
+  protected function httpGet($url, $params = null)
+  {
+    if(count($params['request']) > 0)
+    {
+      $url .= '?';
+      foreach($params['request'] as $k => $v)
+      {
+        $url .= "{$k}={$v}&";
+      }
+      $url = substr($url, 0, -1);
+    }
+    $ch = curl_init($url);
+    $this->addOAuthHeaders($ch, $url, $params['oauth']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $resp = $this->curl->addCurl($ch);
+
+    return $resp;
+  }
+
+  protected function httpPost($url, $params = null)
+  {
+    $ch = curl_init($url);
+    $this->addOAuthHeaders($ch, $url, $params['oauth']);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params['request']));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $resp = $this->curl->addCurl($ch);
+    return $resp;
+  }
+
+  protected function normalizeUrl($url = null)
+  {
+    $urlParts = parse_url($url);
+
+	if ( !isset($urlParts['port']) ) $urlParts['port'] = 80;
+
+    $scheme = strtolower($urlParts['scheme']);
+    $host = strtolower($urlParts['host']);
+    $port = intval($urlParts['port']);
+
+    $retval = "{$scheme}://{$host}";
+    if($port > 0 && ($scheme === 'http' && $port !== 80) || ($scheme === 'https' && $port !== 443))
+    {
+      $retval .= ":{$port}";
+    }
+    $retval .= $urlParts['path'];
+    if(!empty($urlParts['query']))
+    {
+      $retval .= "?{$urlParts['query']}";
+    }
+
+    return $retval;
+  }
+
+  protected function prepareParameters($method = null, $url = null, $params = null)
+  {
+    if(empty($method) || empty($url))
+      return false;
+
+    $oauth['oauth_consumer_key'] = $this->consumerKey;
+    $oauth['oauth_token'] = $this->token;
+    $oauth['oauth_nonce'] = $this->generateNonce();
+    $oauth['oauth_timestamp'] = !isset($this->timestamp) ? time() : $this->timestamp; // for unit test
+    $oauth['oauth_signature_method'] = $this->signatureMethod;
+    $oauth['oauth_version'] = $this->version;
+
+    // encoding
+    array_walk($oauth, array($this, 'encode_rfc3986'));
+    if(is_array($params))
+      array_walk($params, array($this, 'encode_rfc3986'));
+    $encodedParams = array_merge($oauth, (array)$params);
+
+    // sorting
+    ksort($encodedParams);
+
+    // signing
+    $oauth['oauth_signature'] = $this->encode_rfc3986($this->generateSignature($method, $url, $encodedParams));
+    return array('request' => $params, 'oauth' => $oauth);
+  }
+
+  protected function signString($string = null)
+  {
+    $retval = false;
+    switch($this->signatureMethod)
+    {
+      case 'HMAC-SHA1':
+        $key = $this->encode_rfc3986($this->consumerSecret) . '&' . $this->encode_rfc3986($this->tokenSecret);
+        $retval = base64_encode(hash_hmac('sha1', $string, $key, true));
+        break;
+    }
+
+    return $retval;
+  }
+
+  public function __construct($consumerKey, $consumerSecret, $signatureMethod='HMAC-SHA1')
+  {
+    $this->consumerKey = $consumerKey;
+    $this->consumerSecret = $consumerSecret;
+    $this->signatureMethod = $signatureMethod;
+    $this->curl = EpiCurl::getInstance();
+  }
+}
+
+class EpiOAuthResponse
+{
+  private $__resp;
+
+  public function __construct($resp)
+  {
+    $this->__resp = $resp;
+  }
+
+  public function __get($name)
+  {
+    if($this->__resp->code < 200 || $this->__resp->code > 299)
+      return false;
+
+    parse_str($this->__resp->data, $result);
+    foreach($result as $k => $v)
+    {
+      $this->$k = $v;
+    }
+
+	if ( $name === '_result')
+	{
+		return $result;
+	}
+
+    return $result[$name];
+  }
+}
+
+class EpiCurl
+{
+  const timeout = 3;
+  static $inst = null;
+  static $singleton = 0;
+  private $mc;
+  private $msgs;
+  private $running;
+  private $requests = array();
+  private $responses = array();
+  private $properties = array();
+
+  function __construct()
+  {
+    if(self::$singleton == 0)
+    {
+      throw new Exception('This class cannot be instantiated by the new keyword. You must instantiate it using: $obj = EpiCurl::getInstance();');
+    }
+
+    $this->mc = curl_multi_init();
+    $this->properties = array(
+      'code' => CURLINFO_HTTP_CODE,
+      'time' => CURLINFO_TOTAL_TIME,
+      'length'=> CURLINFO_CONTENT_LENGTH_DOWNLOAD,
+      'type' => CURLINFO_CONTENT_TYPE
+      );
+  }
+
+  public function addCurl($ch)
+  {
+    $key = (string)$ch;
+    $this->requests[$key] = $ch;
+
+    $res = curl_multi_add_handle($this->mc, $ch);
+
+    // (1)
+    if($res === CURLM_OK || $res === CURLM_CALL_MULTI_PERFORM)
+    {
+      do {
+          $mrc = curl_multi_exec($this->mc, $active);
+      } while ($mrc === CURLM_CALL_MULTI_PERFORM);
+
+      return new EpiCurlManager($key);
+    }
+    else
+    {
+      return $res;
+    }
+  }
+
+  public function getResult($key = null)
+  {
+    if($key != null)
+    {
+      if(isset($this->responses[$key]))
+      {
+        return $this->responses[$key];
+      }
+
+      $running = null;
+      do
+      {
+        $resp = curl_multi_exec($this->mc, $runningCurrent);
+        if($running !== null && $runningCurrent != $running)
+        {
+          $this->storeResponses($key);
+          if(isset($this->responses[$key]))
+          {
+            return $this->responses[$key];
+          }
+        }
+        $running = $runningCurrent;
+      }while($runningCurrent > 0);
+    }
+
+    return false;
+  }
+
+  private function storeResponses()
+  {
+    while($done = curl_multi_info_read($this->mc))
+    {
+      $key = (string)$done['handle'];
+      $this->responses[$key]['data'] = curl_multi_getcontent($done['handle']);
+      foreach($this->properties as $name => $const)
+      {
+        $this->responses[$key][$name] = curl_getinfo($done['handle'], $const);
+        curl_multi_remove_handle($this->mc, $done['handle']);
+      }
+    }
+  }
+
+  static function getInstance()
+  {
+    if(self::$inst == null)
+    {
+      self::$singleton = 1;
+      self::$inst = new EpiCurl();
+    }
+
+    return self::$inst;
+  }
+}
+
+class EpiCurlManager
+{
+  private $key;
+  private $epiCurl;
+
+  function __construct($key)
+  {
+    $this->key = $key;
+    $this->epiCurl = EpiCurl::getInstance();
+  }
+
+  function __get($name)
+  {
+    $responses = $this->epiCurl->getResult($this->key);
+    return $responses[$name];
+  }
+}
+
+/*
+* Credits:
+* - (1) Alistair pointed out that curl_multi_add_handle can return CURLM_CALL_MULTI_PERFORM on success.
+*/

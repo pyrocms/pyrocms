@@ -25,6 +25,10 @@
 		<?php echo form_input('port', set_value('port', $port)); ?>
 	</p>
 	
+	<div id="notification">
+	   <p class="text" id="confirm_db"></p>
+	</div>
+	
 	<h3>{server_settings}</h3>
 
 	<p>
