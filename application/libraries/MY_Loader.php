@@ -1,7 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 /* define a fall back language in-case the current language file is missing */
-MX_Language::$fall_back = 'english';
+//MX_Language::$fall_back = 'english';
 
 /**
  * Modular Separation - PHP5
