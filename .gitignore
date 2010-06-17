@@ -10,3 +10,4 @@ application/assets/img/photos/*/*
 application/uploads/assets/*
 codeigniter/logs/log-*.php
 nbproject/
+uploads/galleries/*

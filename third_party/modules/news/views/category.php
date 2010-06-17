@@ -1,23 +1,25 @@
-<h2>"<?php echo $category->title; ?>"<?php echo lang('news_articles_of_category_suffix');?></h2>
-<div class="float-left width-two-thirds">
-	<?php if (!empty($news)): ?>
-		<?php foreach ($news as $article): ?>
-			<h3><?php echo anchor('news/'.date('Y/m', $article->created_on).'/'.$article->slug,$article->title);?></h3>
-			<p><?php echo nl2br($article->intro);?> <?php echo anchor('news/'.date('Y/m',$article->created_on).'/'.$article->slug,lang('news_read_more_label'))?></p>
-			<p><em><?php echo lang('news_posted_label');?>: <?php echo date('M d, Y', $article->created_on);?></em>&nbsp;</p>
-			<hr/>
-		<?php endforeach; ?>
+<h2 id="page_title"><?php echo $category->title; ?></h2>
+<?php if (!empty($news)): ?>
+<?php foreach ($news as $article): ?>
+	<div class="news_article">
+		<!-- Article heading -->
+		<div class="article_heading">
+			<h2><?php echo  anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, $article->title); ?></h2>
+			<p class="article_date"><?php echo lang('news_posted_label');?>: <?php echo date('M d, Y', $article->created_on); ?></p>
+			<?php if($article->category_slug): ?>
+			<p class="article_category">
+				<?php echo lang('news_category_label');?>: <?php echo anchor('news/category/'.$article->category_slug, $article->category_title);?>
+			</p>
+			<?php endif; ?>
+		</div>
+		<div class="article_body">
+			<?php echo stripslashes($article->intro); ?>
+		</div>
+	</div>
+<?php endforeach; ?>
 
-		<?php echo $pagination['links']; ?>
+<?php echo $pagination['links']; ?>
 
-	<?php else: ?>
-		<p><?php echo lang('news_currently_no_articles');?></p>
-	<?php endif; ?>
-
-</div>
-
-<div class="float-right width-quater">
-	<?php $this->load->view('fragments/rss_box');?>	
-	<hr />	
-	<?php $this->load->view('fragments/archive_box');?>	
-</div>
+<?php else: ?>
+	<p><?php echo lang('news_currently_no_articles');?></p>
+<?php endif; ?>

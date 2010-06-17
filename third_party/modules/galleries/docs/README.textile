@@ -1,0 +1,19 @@
+h2. About
+
+The galleries module is a powerful module that let's users create image galleries. 
+
+h2. Usage
+
+# Upload the galleries directory to third_party/modules
+# Go to http://www.yourwebsite.com/admin/galleries/install
+# Once the installation process has been finished (should only take a few seconds) you can create galleries, upload images, etc
+
+If you want to change the allowed filetypes or dimensions of the thumbnails (used by default), go to galleries/config/gallery_config.php and edit the values you wish to change.
+
+h2. Notice
+
+In order to use this module you'll need to have an "uploads" directory in the same directory as in which the "applications" folder is placed. For example, if your installation is saved in /mywebsite.com/pyrocms/ this means that you'll need to create the following directory: /mywebsite.com/pyrocms/uploads. If you're running a version from the repository you'll most likely already have this directory.
+
+h2. License
+
+The galleries module is licensed under the Apache v2.0 license.
