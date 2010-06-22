@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="1.0">
+    <name>
+        <en>Channels</en>
+    </name>
+    <description>
+        <en>Provides channels for pages to go into</en>
+    </description>
+    <is_frontend>0</is_frontend>
+    <is_backend>1</is_backend>
+    <is_backend_menu>1</is_backend_menu>
+    <controllers>
+        <controller name="admin">
+            <method>index</method>
+        </controller>
+    </controllers>
+</module>

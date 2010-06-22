@@ -291,5 +291,5 @@ var fixHelper;
 	    });
 
 	});
-	
+
 })(jQuery);

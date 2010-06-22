@@ -13,23 +13,15 @@
  */
 
 /**
- * PyroCMS Channels Library
- *
- * @author		Dan Horrigan <dan@dhorrigan.com>
- * @package		PyroCMS
- * @subpackage	Channels
+ * Channels Model
+ * 
+ * @author 		Dan Horrigan <dan@dhorrigan.com>
+ * @package 	PyroCMS
+ * @subpackage 	Channels
  */
-class Channels
+class Channels_m extends MY_Model
 {
-
-	/**
-	 * Construct
-	 */
-	public function __construct()
-	{
-		// TODO: Add Constructor Code
-	}
 
 }
 
-/* End of file Channels.php */
+/* End of file channels_m.php */

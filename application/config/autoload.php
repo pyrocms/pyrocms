@@ -101,7 +101,7 @@ $autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
 
 // Autoloaded in MY_Controller
 //		permissions/permissions_m', modules/modules_m', 'pages/pages_m
-$autoload['model'] = array('news/news_m'); // TODO DEPRECATED: news model is left in for hardcoded themes, use the news widget
+$autoload['model'] = array(); // TODO DEPRECATED: news model is left in for hardcoded themes, use the news widget
 
 
 /*

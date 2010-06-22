@@ -88,12 +88,14 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( css('admin/admin.css.php') )
 			->append_metadata( css('jquery/jquery-ui.css') )
 	    	->append_metadata( css('jquery/jquery.fancybox.css') )
+			->append_metadata( css('jquery/colorbox.css') )
 			->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( '<script type="text/javascript">jQuery.noConflict();</script>' )
 	    	->append_metadata( js('jquery/jquery-ui.min.js') )
 	    	->append_metadata( js('jquery/jquery.livequery.js') )
 	    	->append_metadata( js('jquery/jquery.fancybox.js') )
 	    	->append_metadata( js('jquery/jquery.imgareaselect.js') )
+	    	->append_metadata( js('jquery/jquery.colorbox.min.js') )
 	    	->append_metadata( js('admin.js') );
 
 	    
