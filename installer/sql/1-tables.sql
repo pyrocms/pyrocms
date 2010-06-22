@@ -83,6 +83,7 @@ CREATE TABLE `gallery_images` (
   KEY `gallery_id` (`gallery_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- command split --
 
 DROP TABLE IF EXISTS `navigation_groups`;
 
