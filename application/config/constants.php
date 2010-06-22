@@ -111,7 +111,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '0.9.9.3');
+define('CMS_VERSION', '2.0-dev');
 
 
 /*
@@ -123,7 +123,7 @@ define('CMS_VERSION', '0.9.9.3');
 |
 */
 
-define('CMS_DATE', '30/05/2010');
+define('CMS_DATE', '16/06/2010');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

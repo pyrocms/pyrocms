@@ -88,12 +88,22 @@
 		</p>
 	</fieldset>
 
-	<fieldset id="user_avatar">
-		<legend><?php echo lang('profile_avatar_section') ?></legend>
-		<p>
-			<label for="mobile"><?php echo lang('profile_gravatar') ?></label>
-			<?php echo form_input('gravatar', $profile->gravatar); ?>
-		</p>
+	<fieldset><legend><?php echo lang('profile_social_section') ?></legend>
+		<dl>
+			<dt><label for="mobile"><?php echo lang('profile_gravatar') ?></label></dt>
+			<dd><?php echo form_input('gravatar', $profile->gravatar); ?></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="twitter"><?php echo lang('profile_twitter') ?></label></dt>
+			<dd>
+				<?php if (!$this->user->twitter_access_token)
+						echo anchor('users/profile/twitter', 'Connect with Twitter');
+					  else
+						echo 'Twitter Connected';
+				?>
+			</dd>
+		</dl>
 	</fieldset>
 
 	<?php echo form_submit('', lang('profile_save_btn')); ?>
