@@ -21,5 +21,3 @@
 */
 
 $route['pages/admin/layouts(:any)?'] = 'admin_layouts$1';
-
-?>

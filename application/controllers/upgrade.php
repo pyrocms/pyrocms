@@ -168,15 +168,10 @@ class Upgrade extends Controller
 
 	function upgrade_0993()
 	{
-		return TRUE;
-		echo 'Adding website field to user profiles<br />';
-		$this->dbforge->add_column('profiles', array(
-			'website' => array(
-				'type' => 'VARCHAR',
-				'constraint' => '255',
-				'null' => TRUE
-			)
-		));
+		$this->db->where('slug', 'dashboard_rss')->update('settings', array('default', 'http://feeds.feedburner.com/pyrocms-installed'));
+
+		echo 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
+		$this->db->query('ALTER TABLE permission_rules CHANGE user_id user_id int(11) NOT NULL DEFAULT 0');
 
 		echo 'Adding Twitter token fields to user profiles<br />';
 		$this->dbforge->add_column('profiles', array(
