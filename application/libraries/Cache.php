@@ -46,7 +46,7 @@ class Cache
 	/**
 	 * Initialize Cache object to empty
 	 *
-	 * @access	public
+	 * @access	private
 	 * @return	void
 	 */
 	private function _reset()
