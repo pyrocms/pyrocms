@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * @name 		Upgrade Controller
  * @author 		PyroCMS Development Team
@@ -26,26 +26,26 @@ class Upgrade extends Controller
 		// What is the base version of the db, no rc/beta tags.
 		list($base_db_version) = explode('-', $db_version);
 
-		if(!$db_version)
+		if ( ! $db_version)
 		{
 			show_error('We have no idea what version you are using, which means it must be v0.9.8-rc1 or before.
 				Please manually upgrade everything to v0.9.8-rc1 then you can use this upgrade script past that. Look at /docs/UPGRADE to see how.');
 		}
 
 		// Upgrade is already done
-  		if($db_version == $file_version)
+  		if ($db_version == $file_version)
   		{
   			show_error('Looks like the upgrade is already complete, you are already running '.$db_version.'.');
   		}
 
 		// File version is not supported
-  		if(!in_array($file_version, $this->versions))
+  		if ( ! in_array($file_version, $this->versions))
   		{
   			show_error('The upgrade script does not support version '.$file_version.'.');
   		}
 
 		// DB is ahead of files
-		else if( $base_db_version > $file_version )
+		else if ( $base_db_version > $file_version )
 		{
 			show_error('The database is expecting '.$db_version.' but the version of PyroCMS you are using is '.$file_version.'. Try downloading a newer version from ' . anchor('http://pyrocms.com/') . '.');
 		}
@@ -60,7 +60,7 @@ class Upgrade extends Controller
 	  		$function = 'upgrade_' . preg_replace('/[^0-9a-z]/i', '', $next_version);
 
 			// If a method exists and its false fail. no method = no changes
-	  		if(method_exists($this, $function) && $this->$function() !== TRUE)
+	  		if (method_exists($this, $function) && $this->$function() !== TRUE)
 	  		{
 	  			show_error('There was an error upgrading to "'.$next_version.'"');
 	  		}
@@ -100,7 +100,7 @@ class Upgrade extends Controller
 		$this->db->insert('settings', array('slug' => 'twitter_consumer_key', 'title' => 'Consumer Key', 'description' => 'Twitter Consumer Key.', 'type' => 'text', 'is_required' => 0, 'is_gui' => 1, 'module' => 'twitter'));
 		$this->db->insert('settings', array('slug' => 'twitter_consumer_key_secret', 'title' => 'Consumer Key Secret', 'description' => 'Twitter Consumer Key Secret.', 'type' => 'text', 'is_required' => 0, 'is_gui' => 1, 'module' => 'twitter'));
 
-		return FALSE; // Change this before we go live
+		return TRUE;
 	}
 
 	function upgrade_0992()
