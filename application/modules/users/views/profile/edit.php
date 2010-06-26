@@ -94,6 +94,7 @@
 			<dd><?php echo form_input('gravatar', $profile->gravatar); ?></dd>
 		</dl>
 
+		<!--
 		<dl>
 			<dt><label for="twitter"><?php echo lang('profile_twitter') ?></label></dt>
 			<dd>
@@ -104,6 +105,8 @@
 				?>
 			</dd>
 		</dl>
+		-->
+
 	</fieldset>
 
 	<?php echo form_submit('', lang('profile_save_btn')); ?>
