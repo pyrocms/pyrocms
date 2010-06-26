@@ -1,9 +1,7 @@
-<?php
-
-(defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /* define a fall back language in-case the current language file is missing */
-//MX_Language::$fall_back = 'english';
+define('FALLBACK_LANGUAGE', 'english');
 
 /**
  * Modular Separation - PHP5
@@ -124,7 +122,9 @@ class MY_Loader extends CI_Loader {
 		$class = strtolower(end(explode('/', $library)));
 
 		if (isset($this->_ci_classes[$class]) AND $_alias = $this->_ci_classes[$class])
+		{
 			return self::$APP->$_alias;
+		}
 
 		($_alias = $object_name) OR $_alias = $class;
 		list($path, $_library) = Modules::find($library, $this->_module, 'libraries/');
@@ -140,7 +140,9 @@ class MY_Loader extends CI_Loader {
 		{
 			parent::_ci_load_class($library, $params, $object_name);
 			$_alias = $this->_ci_classes[$class];
-		} else
+		}
+
+		else
 		{
 			Modules::load_file($_library, $path);
 			$library = ucfirst($_library);
@@ -156,31 +158,36 @@ class MY_Loader extends CI_Loader {
 	public function model($model, $object_name = NULL, $connect = FALSE)
 	{
 		if (is_array($model))
+		{
 			return $this->models($model);
+		}
 
 		($_alias = $object_name) OR $_alias = end(explode('/', $model));
 
 		if (in_array($_alias, $this->_ci_models, TRUE))
+		{
 			return self::$APP->$_alias;
+		}
 
 		list($path, $model) = Modules::find($model, $this->_module, 'models/');
 
-		// Old version
 		if(CI_VERSION < 2)
 		{
-			(class_exists('Model', FALSE)) OR load_class('Model', FALSE);
+			class_exists('Model', FALSE) OR load_class('Model', FALSE);
 		}
 
-		// New version
 		else
 		{
-			(class_exists('Model', FALSE)) OR load_class('Model', 'core');
+			class_exists('Model', FALSE) OR load_class('Model', 'core');
 		}
 
 		if ($connect !== FALSE)
 		{
 			if ($connect === TRUE)
+			{
 				$connect = '';
+			}
+
 			$this->database($connect, FALSE, TRUE);
 		}
 
@@ -198,22 +205,30 @@ class MY_Loader extends CI_Loader {
 	function models($models)
 	{
 		foreach ($models as $_model)
+		{
 			$this->model($_model);
+		}
 	}
 
 	/** Load a module plugin * */
 	public function plugin($plugin)
 	{
 		if (is_array($plugin))
+		{
 			return $this->plugins($plugin);
+		}
 
 		if (isset($this->_ci_plugins[$plugin]))
+		{
 			return;
+		}
 
 		list($path, $_plugin) = Modules::find($plugin . '_pi', $this->_module, 'plugins/');
 
 		if ($path === FALSE)
+		{
 			return parent::plugin($plugin);
+		}
 
 		Modules::load_file($_plugin, $path);
 		$this->_ci_plugins[$plugin] = TRUE;
@@ -223,7 +238,9 @@ class MY_Loader extends CI_Loader {
 	function plugins($plugins)
 	{
 		foreach ($plugins as $_plugin)
+		{
 			$this->plugin($_plugin);
+		}
 	}
 
 	/** Load a module view * */
@@ -246,23 +263,25 @@ class MY_Loader extends CI_Loader {
 	/** Autload items * */
 	public function _ci_autoloader()
 	{
-
 		parent::_ci_autoloader();
 
 		if ($this->_module)
 		{
-
 			$autoload = array();
 
 			list($path, $file) = Modules::find('autoload', $this->_module, 'config/');
 
 			/* module autoload file */
 			if ($path != FALSE)
+			{
 				$autoload = array_merge(Modules::load_file($file, $path, 'autoload'), $autoload);
+			}
 
 			/* nothing to do */
 			if (count($autoload) == 0)
+			{
 				return;
+			}
 
 			/* autoload config */
 			if (isset($autoload['config']))
@@ -357,10 +376,13 @@ class MX_Config extends MY_Config {
 				{
 					$current_config[$file] = $config;
 				}
-			} else
+			}
+
+			else
 			{
 				$current_config = array_merge($current_config, $config);
 			}
+
 			$this->is_loaded[] = $file;
 			unset($config);
 			return $this->item($file);
@@ -374,10 +396,8 @@ if(CI_VERSION < 2)
 	class CI_Lang extends CI_Language {}
 }
 
-class MX_Language extends CI_Lang {
-
-	public static $fall_back = FALSE;
-
+class MX_Language extends CI_Lang
+{
 	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)
 	{
 		if (is_array($langfile))
@@ -388,32 +408,35 @@ class MX_Language extends CI_Lang {
 		$deft_lang = MY_Loader::$APP->config->item('language');
 		$idiom = ($lang == '') ? $deft_lang : $lang;
 
-		if (in_array($langfile . '_lang' . EXT, $this->is_loaded, TRUE))
+		if (in_array($langfile.'_lang'.EXT, $this->is_loaded, TRUE))
+		{
 			return $this->language;
+		}
 
 		$_module || $_module = MY_Loader::$APP->router->fetch_module();
-		list($path, $_langfile) = Modules::find($langfile . '_lang', $_module, 'language/', $idiom);
+		list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', $idiom);
 
 		// Falls back to a default language if the current language file is missing.
-		if ($path === FALSE && self::$fall_back)
+		if ($path === FALSE && FALLBACK_LANGUAGE)
 		{
-			list($path, $_langfile) = Modules::find($langfile . '_lang', $_module, 'language/', self::$fall_back);
+			list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', FALLBACK_LANGUAGE);
 		}
 
 		if ($path === FALSE)
 		{
 			if ($lang = parent::load($langfile, $lang, $return))
+			{
 				return $lang;
+			}
 		}
 
 		else
 		{
-			if ($lang = Modules::load_file($_langfile, $path, 'lang'))
+			if($lang = Modules::load_file($_langfile, $path, 'lang'))
 			{
-				if ($return)
-					return $lang;
+				if ($return) return $lang;
 				$this->language = array_merge($this->language, $lang);
-				$this->is_loaded[] = $langfile . '_lang' . EXT;
+				$this->is_loaded[] = $langfile.'_lang'.EXT;
 				unset($lang);
 			}
 		}
