@@ -2,7 +2,8 @@
 /**
  * Pages controller
  * 
- * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @modified	Yorick Peterse
  * @package 	PyroCMS
  * @subpackage 	Pages module
  * @category	Modules
@@ -68,6 +69,11 @@ class Admin extends Admin_Controller
 			array(
 				'field'	=> 'css',
 				'label'	=> lang('pages.css_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'js',
+				'label'	=> lang('pages.js_label'),
 				'rules'	=> 'trim'
 			),
 			array(
@@ -414,4 +420,3 @@ class Admin extends Admin_Controller
 	    }
 	}*/
 }
-?>

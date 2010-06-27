@@ -2,8 +2,9 @@
 
 // tabs
 $lang['pages.content_label'] 					= 'Page Content';
-$lang['pages.design_label'] 					= 'Design';
 $lang['pages.meta_label'] 						= 'Meta data';
+$lang['pages.design_label'] 					= 'Design';
+$lang['pages.script_label'] 					= 'Script';
 $lang['pages.options_label'] 					= 'Options';
 
 $lang['pages.detail_label'] 					= 'Details';
@@ -23,9 +24,10 @@ $lang['pages.meta_keywords_label'] 				= 'Meta keywords';
 $lang['pages.meta_desc_label'] 					= 'Meta description';
 $lang['pages.layout_id_label'] 					= 'Page Layout';
 $lang['pages.css_label'] 						= 'CSS';
+$lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Access';
 $lang['pages.rss_enabled_label'] 				= 'RSS enabled';
-$lang['pages.comments_enabled_label'] 		= 'Comments enabled';
+$lang['pages.comments_enabled_label']			= 'Comments enabled';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Draft';

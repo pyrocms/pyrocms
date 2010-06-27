@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4');
 
 	function _remap()
 	{
@@ -74,6 +74,19 @@ class Upgrade extends Controller
 
 		echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
  	}
+
+	function upgrade_0994()
+	{
+		echo 'Added "js" field to pages table.<br/>';
+		$this->dbforge->add_column('pages', array(
+			'js' => array(
+				'type' => 'TEXT',
+				'null' => FALSE
+			),
+		));
+
+		return FALSE; // Change this when we go live
+	}
 
 	function upgrade_0993()
 	{
@@ -199,14 +212,14 @@ class Upgrade extends Controller
 		}
 
 		echo "Changing Forum Tables Collation...<br />";
-		$this->db->query("ALTER TABLE  `forums` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE  `forum_posts` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE  `forum_categories` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE  `forum_subscriptions` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forums` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forum_posts` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forum_categories` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forum_subscriptions` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 
 		echo "Changing Forum Table Column Collation...<br />";
-		$this->db->query("ALTER TABLE  `forums` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
-		$this->db->query("ALTER TABLE  `forums` CHANGE  `description`  `description` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
+		$this->db->query("ALTER TABLE `forums` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
+		$this->db->query("ALTER TABLE `forums` CHANGE  `description`  `description` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
 
 		$this->db->query("ALTER TABLE  `forum_categories` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
 

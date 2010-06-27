@@ -35,7 +35,7 @@
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
 $db['local']['password'] = "password";
-$db['local']['database'] = "pyrocms";
+$db['local']['database'] = "pyrocms_v099";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['active_r'] = TRUE;
