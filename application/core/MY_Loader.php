@@ -1,7 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 /* define a fall back language in-case the current language file is missing */
-//MX_Language::$fall_back = 'english';
+define('FALLBACK_LANGUAGE', 'english');
 
 /**
  * Modular Separation - PHP5
@@ -326,12 +326,19 @@ class MX_Language extends CI_Lang
 		list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', $idiom);
 
 		// Falls back to a default language if the current language file is missing.
-		if ($path === FALSE && self::$fall_back) {
-			list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', self::$fall_back);
+		if ($path === FALSE && FALLBACK_LANGUAGE) {
+			list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/', FALLBACK_LANGUAGE);
 		}
 
 		if ($path === FALSE) {
-			if ($lang = parent::load($langfile, $lang, $return)) return $lang;
+			if (file_exists(APPPATH . 'language/' . $idiom . '/' . $langfile . '_lang.php'))
+			{
+				return parent::load($langfile, $lang, $return);
+			}
+			else
+			{
+				return parent::load($langfile, FALLBACK_LANGUAGE, $return);
+			}
 		} else {
 			if($lang = Modules::load_file($_langfile, $path, 'lang')) {
 				if ($return) return $lang;
