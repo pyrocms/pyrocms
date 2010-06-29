@@ -1,14 +1,13 @@
 h1. CHANGELOG
 
-h2. v0.9.9.3
+h2. v0.9.9.4
+
+* Added a "Script" tab to CP > Pages which contains a JavaScript editor.
 
 h3. Bugs
 
-* Fixed issue #234. Admin's could not log in due to Validation being called instead of Form_validation.
-* Fixed "MX_Language not found" bug.
-* Patched a MySQL Strict Mode error in permission_rules.user_id.
-* Fixed theme layouts attached to page layouts.
-* Improved admin rounded corners for WebKit.
+* Added mime type support for "application/octet-stream" to zip.
+* Use SERVER_NAME for cookie_domain instead of HTTP_HOST which will contain port numbers.
 
 
 h2. v0.9.9.3
