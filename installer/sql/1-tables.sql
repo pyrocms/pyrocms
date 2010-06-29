@@ -164,7 +164,6 @@ CREATE TABLE `page_layouts` (
 `title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `updated_on` INT( 11 ) NOT NULL
 ) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
@@ -183,6 +182,7 @@ CREATE TABLE `pages` (
  `parent_id` int(11) default '0',
  `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
  `css` text collate utf8_unicode_ci,
+ `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
  `meta_description` text collate utf8_unicode_ci NOT NULL,
