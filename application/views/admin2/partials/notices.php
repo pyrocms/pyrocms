@@ -4,15 +4,9 @@
 </div>
 <?php endif; ?>
 
-<?php if (!empty($this->validation->error_string)): ?>
-<div class="closable notification error">
-	<?php echo $this->validation->error_string; ?>
-</div>
-<?php endif; ?>
-
 <?php if (validation_errors()): ?>
 <div class="closable notification error">
-	<p><?php echo validation_errors(); ?></p>
+	<?php echo validation_errors(); ?>
 </div>
 <?php endif; ?>
 

@@ -22,7 +22,7 @@
 					<?php endforeach; ?>
 					</ul>
 				</li>
-				<li><a href="#" class="top-link no-submenu">Users</a></li>
-				<li><a href="#" class="last top-link no-submenu">Settings</a></li>
+				<li><?php echo anchor('admin/users', 'Users', 'class="top-link no-submenu' . (($module == 'users') ? ' current"' : '"'));?></li>
+				<li><?php echo anchor('admin/settings', 'Settings', 'class="last top-link no-submenu' . (($module == 'settings') ? ' current"' : '"'));?></li>
 			</ul>
 		</nav>

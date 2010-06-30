@@ -1,7 +1,7 @@
 jQuery(function($) {
 	$(document).ready(function() {
 		$("#main-nav li ul").hide();
-		$("#main-nav li a.current").parent().find("ul").slideToggle("slow");
+		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
 
 		$("#main-nav li a.top-link").click(function () {

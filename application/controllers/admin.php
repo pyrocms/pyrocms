@@ -107,7 +107,7 @@ class Admin extends Admin_Controller
 		}
 				
 	    $this->template->set_layout(FALSE);
-	    $this->template->build('admin/login', $this->data);		
+	    $this->template->build('admin2/login', $this->data);
 	}
 	
 	/**
@@ -118,7 +118,9 @@ class Admin extends Admin_Controller
 	 */
 	public function logout()
 	{
+		$this->load->language('users/user');
 		$this->ion_auth->logout();
+		$this->session->set_flashdata('success', lang('user_logged_out'));
 		redirect('admin/login');
 	}	
 	
