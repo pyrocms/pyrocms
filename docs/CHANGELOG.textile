@@ -11,6 +11,7 @@ h3. Bugs
 * Running PyroCMS on a port other than 80 will no longer break login.
 * Fixed issue #236: TinyMCE missing images.
 * Fixed link in forgotten password email.
+* Fixed broken TinyCIMM record in Permissions list.
 
 h2. v0.9.9.3
 
