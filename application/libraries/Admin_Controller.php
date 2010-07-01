@@ -78,30 +78,37 @@ class Admin_Controller extends MY_Controller
 	    			'lang' => CURRENT_LANGUAGE
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
+
+			// This takes the modules array and creates a keyed array with the slug as the key.
+			$modules_keyed = array();
+			foreach($this->data->third_party_modules as $mod)
+			{
+				$modules_keyed[$mod['slug']] = $mod;
+			}
+			$this->data->third_party_modules = $modules_keyed;
 		}
 
 	    // Template configuration
-	    $this->template->set_layout('admin/layout');
+	    $this->template->set_layout('admin2/layout');
 	    $this->template->enable_parser(FALSE);
 	    
 	    $this->template
-	    	->append_metadata( css('admin/admin.css.php') )
+	    	->append_metadata( css('admin2/style.css') )
 			->append_metadata( css('jquery/jquery-ui.css') )
-	    	->append_metadata( css('jquery/jquery.fancybox.css') )
 			->append_metadata( css('jquery/colorbox.css') )
 			->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( '<script type="text/javascript">jQuery.noConflict();</script>' )
 	    	->append_metadata( js('jquery/jquery-ui.min.js') )
-	    	->append_metadata( js('jquery/jquery.livequery.js') )
-	    	->append_metadata( js('jquery/jquery.fancybox.js') )
-	    	->append_metadata( js('jquery/jquery.imgareaselect.js') )
 	    	->append_metadata( js('jquery/jquery.colorbox.min.js') )
-	    	->append_metadata( js('admin.js') );
+	    	->append_metadata( js('admin2/jquery.uniform.min.js') )
+	    	->append_metadata( js('admin2/functions.js') )
+			->append_metadata( '<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->' );
 
 	    
-	    $this->template->set_partial('header', 'admin/partials/header', FALSE);
-	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
-	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);
+	    $this->template->set_partial('header', 'admin2/partials/header', FALSE);
+	    $this->template->set_partial('navigation', 'admin2/partials/navigation', FALSE);
+	    $this->template->set_partial('metadata', 'admin2/partials/metadata', FALSE);
+	    $this->template->set_partial('footer', 'admin2/partials/footer', FALSE);
 	    
 	    //$this->output->enable_profiler(TRUE);
 	}    

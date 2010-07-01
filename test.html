@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pyro Nav Test</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#main-nav li ul").hide();
+			$("#main-nav li a.current").parent().find("ul").slideToggle("slow");
+
+			$("#main-nav li a.top-link").click(function () {
+				$(this).parent().siblings().find("ul").slideUp("normal");
+				$(this).next().slideToggle("normal");
+				return false;
+			});
+
+			$("#main-nav li a.no-submenu").click(function () {
+				window.location.href = $(this).attr("href");
+				return false;
+			});
+		});
+	</script>
+</head>
+	
+<body>
+
+<div id="sidebar">
+	<ul id="main-nav">
+		<li><a href="#" class="top-link no-submenu">Dashboard</a></li>
+		<li><a href="#" class="top-link current">Content</a>
+			<ul>
+				<li><a href="#">Channels</a></li>
+				<li><a href="#">Pages</a></li>
+				<li><a href="#">Media</a></li>
+			</ul>
+		</li>
+		<li><a href="#" class="top-link">Design</a>
+			<ul>
+				<li><a href="#">Themes</a></li>
+				<li><a href="#">Layouts</a></li>
+			</ul>
+		</li>
+		<li><a href="#" class="top-link">Modules</a>
+			<ul>
+				<li><a href="#">Galleries</a></li>
+				<li><a href="#">Twitter</a></li>
+				<li><a href="#">Forums</a></li>
+			</ul>
+		</li>
+		<li><a href="#" class="top-link no-submenu">Users</a></li>
+		<li><a href="#" class="top-link no-submenu">Settings</a></li>
+	</ul>
+</div>
+
+</body>
+</html>
