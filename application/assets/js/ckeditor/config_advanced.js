@@ -10,6 +10,7 @@ CKEDITOR.editorConfig = function( config )
 				['Find','Replace','-','SelectAll','RemoveFormat'],
 				['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
 				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+				'/',
 				['Link','Unlink','Anchor'],
 				['Image','Flash','Table','HorizontalRule','SpecialChar'],
 				['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
@@ -18,4 +19,6 @@ CKEDITOR.editorConfig = function( config )
 			];
 
 	config.skin = 'kama';
+	
+	config.width = '99%';
 };
