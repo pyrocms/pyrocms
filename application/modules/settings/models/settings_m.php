@@ -1,46 +1,120 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+/**
+ * PyroCMS
+ *
+ * An open source CMS based on CodeIgniter
+ *
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team
+ * @license		Apache License v2.0
+ * @link		http://pyrocms.com
+ * @since		Version 1.0
+ * @filesource
+ */
 
+/**
+ * PyroCMS Settings Model
+ *
+ * Allows for an easy interface for site settings
+ *
+ * @author		Dan Horrigan <dan@dhorrigan.com>
+ * @package		PyroCMS
+ * @subpackage	Settings
+ */
 class Settings_m extends MY_Model {
 
-	function get($slug = '')
+	/**
+	 * Get
+	 * 
+	 * Gets a setting based on the $where param.  $where can be either a string
+	 * containing a slug name or an array of WHERE options.
+	 *
+	 * @access	public
+	 * @param	mixed	$where
+	 * @return	object
+	 */
+	public function get($where)
 	{
+		if(!is_array($where))
+		{
+			$where = array('slug' => $where);
+		}
+		
 		return $this->db
-			->select('slug, type, IF(`value` = "", `default`, `value`) as `value`', FALSE)
-			->where('slug', $slug)
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->where($where)
 			->get('settings')
 			->row();
 	}
 
-	function get_all()
+	/**
+	 * Get All
+	 * 
+	 * Gets all settings based on the $where param.  $where can be either a string
+	 * containing a module name or an array of WHERE options.
+	 *
+	 * @access	public
+	 * @param	mixed	$where
+	 * @return	object
+	 */
+	public function get_all($where = array())
 	{
+		if(!is_array($where))
+		{
+			$where = array('module' => $where);
+		}
+
 		return $this->db
-			->select('slug, type, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->where($where)
 			->get('settings')
 			->result();
 	}
-
-	function get_settings($params = array())
+	
+	/**
+	 * Get Settings
+	 * 
+	 * This function is depriciated.  You should use get_all() instead.
+	 *
+	 * @deprecated	Since v1.0
+	 * @access		public
+	 * @param		mixed	$where
+	 * @return		object
+	 */
+	public function get_settings($where = NULL)
 	{
-		return $this->db
-			->select('slug, type, title, description, `default`, `options`')
-			->select('IF(`value` = "", `default`, `value`) as `value`, is_required, module', FALSE)
-			->where($params)
-			->get('settings')
-			->result();
+		return $this->get_all($where);
 	}
 
-	function update($slug = '', $params = array())
+	/**
+	 * Update
+	 * 
+	 * Updates a setting for a given $slug.
+	 *
+	 * @access	public
+	 * @param	string	$slug
+	 * @param	array	$params
+	 * @return	bool
+	 */
+	public function update($slug = '', $params = array())
 	{
 		return $this->db->update('settings', $params, array('slug' => $slug));
 	}
 
-	function sections()
+	/**
+	 * Sections
+	 * 
+	 * Gets all the sections (modules) from the settings table.
+	 *
+	 * @access	public
+	 * @return	array
+	 */
+	public function sections()
 	{
-		$this->db->select('module');
-		$this->db->distinct();
-		$this->db->where('module != ""');
-
-		$query = $this->db->get('settings');
+		$query = $this->db->select('module')
+			->distinct()
+			->where('module != ""')
+			->get('settings');
 
 		if ($query->num_rows() == 0)
 		{
@@ -58,3 +132,5 @@ class Settings_m extends MY_Model {
 	}
 
 }
+
+/* End of file settings_m.php */
