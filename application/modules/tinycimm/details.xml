@@ -2,16 +2,15 @@
 <module version="0.2">
 	<name>
 		<en>TinyCIMM</en>
-		<en>TinyCIMM</en>
 		<fr>TinyCIMM</fr>
-                <de>TinyCIMM</de>
-                <pl>TinyCIMM</pl>
+		<de>TinyCIMM</de>
+		<pl>TinyCIMM</pl>
 	</name>
 	<description>
 		<en>TinyMCE Image Manager</en>
 		<fr>Gestionnaire d'image TinyMCE</fr>
-                <pl>TinyCIMM Manager Zdjęć</pl>
-                <de>TinyMCE Bilder Manager</de>
+		<pl>TinyCIMM Manager Zdjęć</pl>
+		<de>TinyMCE Bilder Manager</de>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>

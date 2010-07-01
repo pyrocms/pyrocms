@@ -108,9 +108,9 @@ class Pages extends Public_Controller
 	    }
 
 		// If a Page Layout has a Theme Layout that exists, use it
-		if(!empty($page->layout->theme_layout) && $this->template->theme_layout_exists($page->layout->theme_layout . '.html'))
+		if(!empty($page->layout->theme_layout) && $this->template->theme_layout_exists($page->layout->theme_layout))
 		{
-			$this->template->set_layout($page->layout->theme_layout . '.html');
+			$this->template->set_layout($page->layout->theme_layout);
 		}
 	    
         // Parser does not need ALL information for this bit, and I hate the Dwoo object syntax
@@ -133,7 +133,10 @@ class Pages extends Public_Controller
 				<style type="text/css">
 					' . $page->layout->css . '
 					' . $page->css . '
-				</style>')
+				</style>
+				<script type="text/javascript">
+					' . $page->js . '
+				</script>')
 
         	->build('page', $this->data);
     }

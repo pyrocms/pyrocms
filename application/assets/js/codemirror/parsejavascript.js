@@ -60,7 +60,7 @@ var JSParser = Editor.Parser = (function() {
     // semicolon. Actions at the end of the stack go first. It is
     // initialized with an infinitely looping action that consumes
     // whole statements.
-    var cc = [statements];
+    var cc = [json ? singleExpr : statements];
     // Context contains information about the current local scope, the
     // variables defined in that, and the scopes above it.
     var context = null;
@@ -226,13 +226,15 @@ var JSParser = Editor.Parser = (function() {
     function statements(type){
       return pass(statement, statements);
     }
+    function singleExpr(type){
+      return pass(expression, statements);
+    }
     // Dispatches various types of statements based on the type of the
     // current token.
     function statement(type){
       if (type == "var") cont(pushlex("vardef"), vardef1, expect(";"), poplex);
       else if (type == "keyword a") cont(pushlex("form"), expression, statement, poplex);
       else if (type == "keyword b") cont(pushlex("form"), statement, poplex);
-      else if (type == "{" && json) cont(pushlex("}"), commasep(objprop, "}"), poplex);
       else if (type == "{") cont(pushlex("}"), block, poplex);
       else if (type == "function") cont(functiondef);
       else if (type == "for") cont(pushlex("form"), expect("("), pushlex(")"), forspec1, expect(")"), poplex, statement, poplex);

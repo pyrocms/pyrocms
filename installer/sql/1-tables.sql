@@ -1,40 +1,3 @@
-DROP TABLE IF EXISTS `asset`;
-
--- command split --
-
-CREATE TABLE `asset` (
-  `id` int(5) NOT NULL auto_increment,
-  `folder_id` int(5) NOT NULL default '0',
-  `user_id` int(5) NOT NULL default '1',
-  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `filename` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `description` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `extension` varchar(5) collate utf8_unicode_ci NOT NULL,
-  `mimetype` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `width` int(5) default NULL COMMENT 'Width of type image in pixels',
-  `height` int(5) default NULL COMMENT 'Height of type image in pixels',
-  `filesize` int(11) NOT NULL default '0',
-  `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Assets used in the wysiwyg image manager';
-
--- command split --
-
-DROP TABLE IF EXISTS `asset_folder`;
-
--- command split --
-
-CREATE TABLE `asset_folder` (
-  `id` int(5) NOT NULL auto_increment,
-  `user_id` int(5) NOT NULL default '1',
-  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `smart` int(1) NOT NULL default '0',
-  `dateadded` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Asset folder categories';
-
--- command split --
-
 DROP TABLE IF EXISTS `categories`;
 
 -- command split --
@@ -81,6 +44,44 @@ CREATE TABLE `emails` (
   `registered_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='E-mail addresses for newsletter subscriptions';
+
+-- command split --
+
+DROP TABLE IF EXISTS `galleries`;
+
+-- command split --
+
+CREATE TABLE `galleries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `thumbnail_id` int(11) DEFAULT NULL,
+  `description` text,
+  `parent` int(11) DEFAULT NULL,
+  `updated_on` int(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- command split --
+
+DROP TABLE IF EXISTS `gallery_images`;
+
+-- command split --
+
+CREATE TABLE `gallery_images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gallery_id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `extension` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT 'Untitled',
+  `description` text,
+  `uploaded_on` int(15) DEFAULT NULL,
+  `updated_on` int(15) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gallery_id` (`gallery_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- command split --
 
@@ -175,25 +176,26 @@ DROP TABLE IF EXISTS `pages`;
 -- command split --
 
 CREATE TABLE `pages` (
- `id` int(11) unsigned NOT NULL auto_increment,
- `slug` varchar(60) collate utf8_unicode_ci NOT NULL default '',
- `title` varchar(60) collate utf8_unicode_ci NOT NULL default '',
- `body` text collate utf8_unicode_ci NOT NULL,
- `parent_id` int(11) default '0',
- `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
- `css` text collate utf8_unicode_ci,
- `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
- `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
- `meta_description` text collate utf8_unicode_ci NOT NULL,
- `rss_enabled` INT(1)  NOT NULL default '0',
- `comments_enabled` INT(1)  NOT NULL default '0',
- `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft', 
- `created_on` INT(11)  NOT NULL default '0',
- `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
- PRIMARY KEY  (`id`),
- UNIQUE KEY `Unique` (`slug`,`parent_id`),
- KEY `slug` (`slug`),
- KEY `parent` (`parent_id`)
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `revision_id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `parent_id` int(11) DEFAULT '0',
+  `layout_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
+  `css` text COLLATE utf8_unicode_ci,
+  `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `rss_enabled` int(1) NOT NULL DEFAULT '0',
+  `comments_enabled` int(1) NOT NULL DEFAULT '0',
+  `status` enum('draft','live') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'draft',
+  `created_on` int(11) NOT NULL DEFAULT '0',
+  `updated_on` varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Unique` (`slug`,`parent_id`),
+  KEY `slug` (`slug`),
+  KEY `parent` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
 -- command split --
@@ -231,39 +233,6 @@ CREATE TABLE `permission_rules` (
 
 -- command split --
 
-DROP TABLE IF EXISTS `photo_albums`;
-
--- command split --
-
-CREATE TABLE `photo_albums` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `parent` int(11) NOT NULL default '0',
-  `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `Unique` ( `slug` , `parent` )
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Photo albums contain photos';
-
--- command split --
-
-DROP TABLE IF EXISTS `photos`;
-
--- command split --
-
-CREATE TABLE `photos` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `album_id` int(11) NOT NULL,
-  `filename` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `caption` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `order` INT(11)  NOT NULL default '0',
-  `updated_on` INT(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains photos...';
-
--- command split --
-
 DROP TABLE IF EXISTS `profiles`;
 
 -- command split --
@@ -290,11 +259,29 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `aim_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `gtalk_handle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `gravatar` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `twitter_access_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `twitter_access_token_secret` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `updated_on` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+-- command split --
+
+DROP TABLE IF EXISTS `revisions`;
+
+-- command split --
+
+CREATE TABLE `revisions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner_id` int(11) NOT NULL,
+  `table_name` varchar(100)  COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pages',
+  `body` text COLLATE utf8_unicode_ci,
+  `revision_date` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Owner ID` (`owner_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- command split --
 

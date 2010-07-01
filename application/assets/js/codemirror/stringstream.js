@@ -14,7 +14,7 @@
 // Make a stringstream stream out of an iterator that returns strings.
 // This is applied to the result of traverseDOM (see codemirror.js),
 // and the resulting stream is fed to the parser.
-window.stringStream = function(source){
+var stringStream = function(source){
   // String that's currently being iterated over.
   var current = "";
   // Position in that string.

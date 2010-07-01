@@ -28,10 +28,7 @@ class Installer extends Controller
 		'application/cache/dwoo',
 		'application/cache/dwoo/compiled',
 		'application/cache/simplepie',
-		'application/uploads',
-		'application/assets/img/photos',
-		'application/uploads/assets',
-		'application/uploads/assets/cache'
+		'application/uploads'
 	);
 	
 	/**
