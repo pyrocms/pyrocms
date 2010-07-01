@@ -40,7 +40,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		$this->data->settings 	= array();		
-		if($settings = $this->settings_m->getSettings( array('is_gui' => 1 )) )
+		if($settings = $this->settings_m->get_settings( array('is_gui' => 1 )) )
 		{
 			// Loop through each setting
 			foreach($settings as $setting)

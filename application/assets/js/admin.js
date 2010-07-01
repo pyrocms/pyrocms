@@ -21,6 +21,17 @@ function css_editor(id, width)
 	});
 }
 
+function js_editor(id, width)
+{
+	CodeMirror.fromTextArea(id, {
+	    height: "30em",
+	    width: width,
+	    parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
+	    stylesheet: APPPATH_URI + "assets/css/codemirror/jscolors.css",
+	    path: APPPATH_URI + "assets/js/codemirror/"
+	});
+}
+
 var fixHelper;
 
 (function($)

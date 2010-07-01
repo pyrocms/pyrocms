@@ -183,6 +183,7 @@ CREATE TABLE `pages` (
   `parent_id` int(11) DEFAULT '0',
   `layout_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
   `css` text COLLATE utf8_unicode_ci,
+  `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
   `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `meta_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `meta_description` text COLLATE utf8_unicode_ci NOT NULL,

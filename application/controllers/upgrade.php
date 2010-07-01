@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '1.0.0');
+	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '1.0.0');
 
 	function _remap()
 	{
@@ -35,17 +35,13 @@ class Upgrade extends Controller
 		// Upgrade is already done
   		if ($db_version == $file_version)
   		{
-<<<<<<< HEAD
   			show_error('Looks like the upgrade is already complete, you are already running v'.$db_version.'.');
-=======
-  			show_error('Looks like the upgrade is already complete, you are already running '.$db_version.'.');
   		}
 
 		// File version is not supported
   		if ( ! in_array($file_version, $this->versions))
   		{
   			show_error('The upgrade script does not support version '.$file_version.'.');
->>>>>>> master
   		}
 
 		// DB is ahead of files
@@ -173,7 +169,26 @@ class Upgrade extends Controller
 	        )
 	    ));
 	    
-	    return TRUE;
+	    return FALSE; // Change this when we go live
+	}
+
+	function upgrade_0994()
+	{
+		echo 'Fixing broken TinyCIMM record in Permissions list.<br/>';
+		$this->db
+			->set('name', 'a:4:{s:2:"en";s:8:"TinyCIMM";s:2:"fr";s:8:"TinyCIMM";s:2:"de";s:8:"TinyCIMM";s:2:"pl";s:8:"TinyCIMM";}')
+			->where('slug', 'tinycimm')
+			->update('modules');
+
+		echo 'Added "js" field to pages table.<br/>';
+		$this->dbforge->add_column('pages', array(
+			'js' => array(
+				'type' => 'TEXT',
+				'null' => FALSE
+			),
+		));
+
+		return TRUE;
 	}
 
 	function upgrade_0993()
@@ -300,14 +315,14 @@ class Upgrade extends Controller
 		}
 
 		echo "Changing Forum Tables Collation...<br />";
-		$this->db->query("ALTER TABLE  `forums` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE  `forum_posts` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE  `forum_categories` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE  `forum_subscriptions` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forums` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forum_posts` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forum_categories` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+		$this->db->query("ALTER TABLE `forum_subscriptions` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 
 		echo "Changing Forum Table Column Collation...<br />";
-		$this->db->query("ALTER TABLE  `forums` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
-		$this->db->query("ALTER TABLE  `forums` CHANGE  `description`  `description` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
+		$this->db->query("ALTER TABLE `forums` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
+		$this->db->query("ALTER TABLE `forums` CHANGE  `description`  `description` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
 
 		$this->db->query("ALTER TABLE  `forum_categories` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
 

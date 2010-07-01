@@ -36,21 +36,21 @@ class Modules_m extends MY_Model
 	{
 		// Have to return an associative array of NULL values for backwards compatibility.
 		$null_array = array(
-				'name'				=>	NULL,
-				'slug'				=>	NULL,
-				'version' 			=> 	NULL,
-				'type' 				=> 	NULL,
-				'description' 		=> 	NULL,
-				'skip_xss'			=>	NULL,
-				'is_frontend'		=>	NULL,
-				'is_backend'		=>	NULL,
-				'is_backend_menu' 	=>	NULL,
-				'controllers'		=>	NULL,
-				'enabled'			=>  1,
-				'is_core'			=>  NULL
-			);
+			'name' => NULL,
+			'slug' => NULL,
+			'version' => NULL,
+			'type' => NULL,
+			'description' => NULL,
+			'skip_xss' => NULL,
+			'is_frontend' => NULL,
+			'is_backend' => NULL,
+			'is_backend_menu' => NULL,
+			'controllers' => NULL,
+			'enabled' => 1,
+			'is_core' => NULL
+		);
 
-		if(is_array($module) || empty($module))
+		if (is_array($module) || empty($module))
 		{
 			return $null_array;
 		}
@@ -59,47 +59,45 @@ class Modules_m extends MY_Model
 		$this->db->where(array('slug' => $module));
 		$result = $this->db->get($this->_table)->row();
 
-		if(!empty($result))
+		if (!empty($result))
 		{
 			// Return FALSE if the module is disabled
-			if($result->enabled == 0)
+			if ($result->enabled == 0)
 			{
 				return FALSE;
 			}
 
 			$descriptions = unserialize($result->description);
-			if(!isset($descriptions[CURRENT_LANGUAGE]))
+			if (!isset($descriptions[CURRENT_LANGUAGE]))
 			{
 				$description = $descriptions['en'];
-			}
-			else
+			} else
 			{
 				$description = $descriptions[CURRENT_LANGUAGE];
 			}
 
 			$names = unserialize($result->name);
-			if(!isset($names[CURRENT_LANGUAGE]))
+			if (!isset($names[CURRENT_LANGUAGE]))
 			{
 				$name = $names['en'];
-			}
-			else
+			} else
 			{
 				$name = $names[CURRENT_LANGUAGE];
 			}
 
 			return array(
-				'name'				=>	$name,
-				'slug'				=>	$result->slug,
-				'version' 			=> 	$result->version,
-				'type' 				=> 	$result->type,
-				'description' 		=> 	$description,
-				'skip_xss'			=>	$result->skip_xss,
-				'is_frontend'		=>	$result->is_frontend,
-				'is_backend'		=>	$result->is_backend,
-				'is_backend_menu' 	=>	$result->is_backend_menu,
-				'controllers'		=>	unserialize($result->controllers),
-				'enabled'			=>  $result->enabled,
-				'is_core'			=>  $result->is_core
+				'name' => $name,
+				'slug' => $result->slug,
+				'version' => $result->version,
+				'type' => $result->type,
+				'description' => $description,
+				'skip_xss' => $result->skip_xss,
+				'is_frontend' => $result->is_frontend,
+				'is_backend' => $result->is_backend,
+				'is_backend_menu' => $result->is_backend_menu,
+				'controllers' => unserialize($result->controllers),
+				'enabled' => $result->enabled,
+				'is_core' => $result->is_core
 			);
 		}
 
@@ -118,18 +116,18 @@ class Modules_m extends MY_Model
 	public function add($module)
 	{
 		return $this->db->insert($this->_table, array(
-			'name'				=>	serialize($module['name']),
-			'slug'				=>	$module['slug'],
-			'version' 			=> 	$module['version'],
-			'type' 				=> 	$module['type'],
-			'description' 		=> 	serialize($module['description']),
-			'skip_xss'			=>	$module['skip_xss'],
-			'is_frontend'		=>	$module['is_frontend'],
-			'is_backend'		=>	$module['is_backend'],
-			'is_backend_menu' 	=>	$module['is_backend_menu'],
-			'controllers'		=>	serialize($module['controllers']),
-			'enabled'			=>  $module['enabled'],
-			'is_core'			=>  $module['is_core']
+			'name' => serialize($module['name']),
+			'slug' => $module['slug'],
+			'version' => $module['version'],
+			'type' => $module['type'],
+			'description' => serialize($module['description']),
+			'skip_xss' => $module['skip_xss'],
+			'is_frontend' => $module['is_frontend'],
+			'is_backend' => $module['is_backend'],
+			'is_backend_menu' => $module['is_backend_menu'],
+			'controllers' => serialize($module['controllers']),
+			'enabled' => $module['enabled'],
+			'is_core' => $module['is_core']
 		));
 	}
 
@@ -147,7 +145,6 @@ class Modules_m extends MY_Model
 	{
 		return $this->db->where('slug', $slug)->update($this->_table, $module);
 	}
-
 
 	/**
 	 * Delete
@@ -180,71 +177,71 @@ class Modules_m extends MY_Model
 		foreach ($this->db->get($this->_table)->result() as $result)
 		{
 			// Skip the disabled modules
-			if(!$return_disabled && $result->enabled == 0)
+			if (!$return_disabled && $result->enabled == 0)
 			{
 				continue;
 			}
 
 			$descriptions = unserialize($result->description);
-			if(!isset($descriptions[CURRENT_LANGUAGE]))
+			if (!isset($descriptions[CURRENT_LANGUAGE]))
 			{
 				$description = $descriptions['en'];
-			}
-			else
+			} else
 			{
 				$description = $descriptions[CURRENT_LANGUAGE];
 			}
 
 			$names = unserialize($result->name);
-			if(!isset($names[CURRENT_LANGUAGE]))
+			if (!isset($names[CURRENT_LANGUAGE]))
 			{
 				$name = $names['en'];
 			}
+
 			else
 			{
 				$name = $names[CURRENT_LANGUAGE];
 			}
 
 			$module = array(
-				'name'				=>	$name,
-				'slug'				=>	$result->slug,
-				'version' 			=> 	$result->version,
-				'type' 				=> 	$result->type,
-				'description' 		=> 	$description,
-				'skip_xss'			=>	$result->skip_xss,
-				'is_frontend'		=>	$result->is_frontend,
-				'is_backend'		=>	$result->is_backend,
-				'is_backend_menu' 	=>	$result->is_backend_menu,
-				'controllers'		=>	unserialize($result->controllers),
-				'enabled'			=>  $result->enabled,
-				'is_core'			=>  $result->is_core
+				'name' => $name,
+				'slug' => $result->slug,
+				'version' => $result->version,
+				'type' => $result->type,
+				'description' => $description,
+				'skip_xss' => $result->skip_xss,
+				'is_frontend' => $result->is_frontend,
+				'is_backend' => $result->is_backend,
+				'is_backend_menu' => $result->is_backend_menu,
+				'controllers' => unserialize($result->controllers),
+				'enabled' => $result->enabled,
+				'is_core' => $result->is_core
 			);
 
-			if(!empty($params['is_frontend']) && empty($module['is_frontend']))
+			if (!empty($params['is_frontend']) && empty($module['is_frontend']))
 			{
 				continue;
 			}
 
-			if(!empty($params['is_backend']))
+			if (!empty($params['is_backend']))
 			{
-				if(empty($module['is_backend']))
+				if (empty($module['is_backend']))
 				{
 					continue;
 				}
 
 				// This user has no permissions for this module
-				if(!$this->permissions_m->has_admin_access( $this->user->group_id, $module['slug']) )
+				if (!$this->permissions_m->has_admin_access($this->user->group_id, $module['slug']))
 				{
 					continue;
 				}
 			}
 
-			if(isset($params['is_core']) && $module['is_core'] != $params['is_core'])
+			if (isset($params['is_core']) && $module['is_core'] != $params['is_core'])
 			{
 				continue;
 			}
 
-			if(isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu'])
+			if (isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu'])
 			{
 				continue;
 			}
@@ -268,7 +265,7 @@ class Modules_m extends MY_Model
 	{
 		$module = $this->get($module);
 
-		if(is_array($module['controllers']))
+		if (is_array($module['controllers']))
 		{
 			return array_keys($module['controllers']);
 		}
@@ -288,7 +285,7 @@ class Modules_m extends MY_Model
 	{
 		$module = $this->get($module);
 
-		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();
+		return!empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();
 	}
 
 	/**
@@ -301,7 +298,7 @@ class Modules_m extends MY_Model
 	 */
 	public function exists($module)
 	{
-		if($this->db->get_where($this->_table, array('slug' => $module), 1)->num_rows() > 0)
+		if ($this->db->get_where($this->_table, array('slug' => $module), 1)->num_rows() > 0)
 		{
 			return TRUE;
 		}
@@ -318,7 +315,7 @@ class Modules_m extends MY_Model
 	 */
 	public function enable($module)
 	{
-		if($this->exists($module))
+		if ($this->exists($module))
 		{
 			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 1));
 			return TRUE;
@@ -336,7 +333,7 @@ class Modules_m extends MY_Model
 	 */
 	public function disable($module)
 	{
-		if($this->exists($module))
+		if ($this->exists($module))
 		{
 			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 0));
 			return TRUE;
@@ -355,7 +352,7 @@ class Modules_m extends MY_Model
 	public function install($module_slug)
 	{
 
-		if(!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		if (!is_file('third_party/modules/' . $module_slug . '/details.xml'))
 		{
 			return FALSE;
 		}
@@ -367,20 +364,20 @@ class Modules_m extends MY_Model
 		$module['slug'] = $module_slug;
 
 		// Run the install sql if it is there
-		if(isset($module['install']) && !empty($module['install']))
+		if (isset($module['install']) && !empty($module['install']))
 		{
 			$install_sql = explode('-- command split --', trim($module['install']));
 
-			foreach($install_sql as $sql)
+			foreach ($install_sql as $sql)
 			{
 				$sql = trim($sql);
-				if(!empty($sql))
+				if (!empty($sql))
 				{
 					$this->db->query(trim($sql));
 				}
 			}
 		}
-		
+
 		return $this->add($module);
 	}
 
@@ -395,7 +392,7 @@ class Modules_m extends MY_Model
 	public function uninstall($module_slug)
 	{
 
-		if(!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		if (!is_file('third_party/modules/' . $module_slug . '/details.xml'))
 		{
 			return FALSE;
 		}
@@ -403,20 +400,20 @@ class Modules_m extends MY_Model
 		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
 
 		// Run the uninstall sql if it is there
-		if(isset($module['uninstall']) && !empty($module['uninstall']))
+		if (isset($module['uninstall']) && !empty($module['uninstall']))
 		{
 			$uninstall_sql = explode('-- command split --', trim($module['uninstall']));
 
-			foreach($uninstall_sql as $sql)
+			foreach ($uninstall_sql as $sql)
 			{
 				$sql = trim($sql);
-				if(!empty($sql))
+				if (!empty($sql))
 				{
 					$this->db->query(trim($sql));
 				}
 			}
 		}
-		
+
 		return $this->delete($module_slug);
 	}
 
@@ -474,17 +471,17 @@ class Modules_m extends MY_Model
 		// Loop through all controllers in the XML file
 		$controllers = array();
 
-		foreach($xml->controllers as $controller)
+		foreach ($xml->controllers as $controller)
 		{
 			$controller_array['name'] = (string) $controller->attributes()->name;
 
 			// Store methods from the controller
 			$controller_array['methods'] = array();
 
-			if($controller->method)
+			if ($controller->method)
 			{
 				// Loop through to save methods
-				foreach($controller->method as $method)
+				foreach ($controller->method as $method)
 				{
 					$controller_array['methods'][] = (string) $method;
 				}
@@ -495,17 +492,17 @@ class Modules_m extends MY_Model
 		}
 
 		return array(
-			'name'				=>	(array) $xml->name,
-			'version' 			=> 	(string) $xml->attributes()->version,
-			'type' 				=> 	(string) $xml->attributes()->type,
-			'description' 		=> 	(array) $xml->description,
-			'skip_xss'			=>	$xml->skip_xss == 1,
-			'is_frontend'		=>	$xml->is_frontend == 1,
-			'is_backend'		=>	$xml->is_backend == 1,
-			'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
-			'controllers'		=>	$controllers,
-			'install'			=>	$xml->install,
-			'uninstall'			=>	$xml->uninstall,
+			'name' => (array) $xml->name,
+			'version' => (string) $xml->attributes()->version,
+			'type' => (string) $xml->attributes()->type,
+			'description' => (array) $xml->description,
+			'skip_xss' => $xml->skip_xss == 1,
+			'is_frontend' => $xml->is_frontend == 1,
+			'is_backend' => $xml->is_backend == 1,
+			'is_backend_menu' => $xml->is_backend_menu == 1,
+			'controllers' => $controllers,
+			'install' => $xml->install,
+			'uninstall' => $xml->uninstall,
 		);
 	}
 

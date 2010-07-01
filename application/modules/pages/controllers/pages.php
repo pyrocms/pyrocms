@@ -133,7 +133,10 @@ class Pages extends Public_Controller
 				<style type="text/css">
 					' . $page->layout->css . '
 					' . $page->css . '
-				</style>')
+				</style>
+				<script type="text/javascript">
+					' . $page->js . '
+				</script>')
 
         	->build('page', $this->data);
     }

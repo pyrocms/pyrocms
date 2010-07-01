@@ -2,7 +2,8 @@
 /**
  * Pages controller
  * 
- * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
+ * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @modified	Yorick Peterse
  * @package 	PyroCMS
  * @subpackage 	Pages module
  * @category	Modules
@@ -73,6 +74,11 @@ class Admin extends Admin_Controller
 			array(
 				'field'	=> 'css',
 				'label'	=> lang('pages.css_label'),
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'js',
+				'label'	=> lang('pages.js_label'),
 				'rules'	=> 'trim'
 			),
 			array(
@@ -447,6 +453,7 @@ class Admin extends Admin_Controller
 		$rev_2 = $this->versioning->get_by_revision($id_2);
 		$diff  = $this->versioning->compare_revisions($rev_1->body, $rev_2->body, 'mixed');
 		
+<<<<<<< HEAD
 		// Output the results
 		$data['difference'] = $diff;
 		$this->load->view('admin/revisions/compare', $data);
@@ -468,3 +475,16 @@ class Admin extends Admin_Controller
 	}
 }
 ?>
+=======
+	    if($page && $page->id != $this->page_id )
+			{
+		$this->validation->set_message('_check_slug', sprintf($this->lang->line('pages_page_already_exist_error'), $slug, $languages[$this->input->post('lang')]['name']));
+	      return FALSE;
+	    }
+			else
+			{
+		return TRUE;
+	    }
+	}*/
+}
+>>>>>>> master
