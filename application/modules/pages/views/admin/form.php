@@ -16,8 +16,9 @@
 		
 			<ul class="tab-menu">
 				<li><a href="#page-content"><span><?php echo lang('pages.content_label');?></span></a></li>
-				<li><a href="#page-design"><span><?php echo lang('pages.design_label');?></span></a></li>
 				<li><a href="#page-meta"><span><?php echo lang('pages.meta_label');?></span></a></li>
+				<li><a href="#page-design"><span><?php echo lang('pages.design_label');?></span></a></li>
+				<li><a href="#page-script"><span><?php echo lang('pages.script_label');?></span></a></li>
 				<li><a href="#page-options"><span><?php echo lang('pages.options_label');?></span></a></li>
 				<li><a href="#revision-options"><span><?php echo lang('pages.revisions_label');?></span></a></li>
 			</ul>
@@ -67,31 +68,10 @@
 				</ol>
 
 			</div>
-		
-			<!-- Design tab -->
-			<div id="page-design">
-			
-				<ol>
-					<li class="even">
-						<label for="layout_id"><?php echo lang('pages.layout_id_label');?></label>
-						<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
-					</li>
-					
-					<li>
-						<label for="css"><?php echo lang('pages.css_label');?></label>
-						<div class="float-right">
-							<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
-						</div>
-					</li>
-				</ol>
-	
-				<br class="clear-both" />
-				
-			</div>
-			
+
 			<!-- Meta data tab -->
 			<div id="page-meta">
-			
+
 				<ol>
 					<li class="even">
 						<label for="meta_title"><?php echo lang('pages.meta_title_label');?></label>
@@ -106,7 +86,44 @@
 						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
 					</li>
 				</ol>
-				
+
+			</div>
+
+			<!-- Design tab -->
+			<div id="page-design">
+
+				<ol>
+					<li class="even">
+						<label for="layout_id"><?php echo lang('pages.layout_id_label');?></label>
+						<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
+					</li>
+
+					<li>
+						<label for="css"><?php echo lang('pages.css_label');?></label>
+						<div class="float-right">
+							<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
+						</div>
+					</li>
+				</ol>
+
+				<br class="clear-both" />
+
+			</div>
+
+			<!-- Script tab -->
+			<div id="page-script">
+
+				<ol>
+					<li>
+						<label for="js"><?php echo lang('pages.js_label');?></label>
+						<div class="float-right">
+							<?php echo form_textarea('js', $page->js, 'id="js_editor"'); ?>
+						</div>
+					</li>
+				</ol>
+
+				<br class="clear-both" />
+
 			</div>
 			
 			<!-- Meta data tab -->
@@ -179,4 +196,5 @@
 
 <script type="text/javascript">
 	css_editor('css_editor', "39em");
+	js_editor('js_editor', "39em");
 </script>

@@ -22,7 +22,7 @@
 			<?php foreach($modules as $module): ?>
 			<?php if($module['is_core']) continue; ?>
 				<tr>
-					<td><?php echo $module['name']; ?></td>
+					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
 					<td class="align-center">

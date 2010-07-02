@@ -50,7 +50,16 @@ class Widgets
 		$uninstalled = array();
 		foreach($this->_widget_locations as $location => $offset)
 		{
-			foreach(glob($location . '*', GLOB_ONLYDIR) as $slug)
+			$slugs = (glob($location . '*', GLOB_ONLYDIR));
+
+			// Skip if there are no widgets
+			if(!$slugs)
+			{
+				continue;
+			}
+
+			// Turn slugs into useful data
+			foreach($slugs as $slug)
 			{
 				$slug = basename($slug);
 

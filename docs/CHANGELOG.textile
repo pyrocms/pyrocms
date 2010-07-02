@@ -13,6 +13,29 @@ h2. v1.0
 * Removed lazydays theme from the core.
 * Deprecated {$ci->foo->bar()} and now use {$foo->bar()}. Make sure your foo is listed in application/config/parser.php.
 
+h2. v0.9.9.4
+
+* Added a "Script" tab to CP > Pages which contains a JavaScript editor.
+* Upgraded TinyMCE to 3.3.8.
+
+h3. Bugs
+
+* Added mime type support for "application/octet-stream" to zip.
+* Running PyroCMS on a port other than 80 will no longer break login.
+* Fixed issue #236: TinyMCE missing images.
+* Fixed link in forgotten password email.
+* Fixed broken TinyCIMM record in Permissions list.
+
+h2. v0.9.9.3
+
+h3. Bugs
+
+* Fixed issue #234. Admin's could not log in due to Validation being called instead of Form_validation.
+* Fixed "MX_Language not found" bug.
+* Patched a MySQL Strict Mode error in permission_rules.user_id.
+* Fixed theme layouts attached to page layouts.
+* Improved admin rounded corners for WebKit.
+
 h2. v0.9.9.2
 
 * If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.

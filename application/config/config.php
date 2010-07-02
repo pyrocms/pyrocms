@@ -251,9 +251,8 @@ $config['sess_time_to_update'] 		= 300;
 | 'cookie_path'   =  Typically will be a forward slash
 |
 */
-$config['cookie_domain']		= ($_SERVER['HTTP_HOST'] == 'localhost' ? '' : preg_replace("/^www\./", "", $_SERVER['HTTP_HOST']));
-$config['cookie_path']			= '/';
-$config['cookie_path']		= BASE_URI;
+$config['cookie_domain']		= ($_SERVER['SERVER_NAME'] == 'localhost' ? '' : preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
+$config['cookie_path']			= BASE_URI;
 
 /*
 |--------------------------------------------------------------------------
@@ -328,6 +327,3 @@ function __autoload($class)
 		@include_once( APPPATH . 'libraries/'. $class . EXT );
 	}
 }
-
-
-?>
