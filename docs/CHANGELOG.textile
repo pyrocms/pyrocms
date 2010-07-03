@@ -12,6 +12,8 @@ h3. Bugs
 * Fixed issue #236: TinyMCE missing images.
 * Fixed link in forgotten password email.
 * Fixed broken TinyCIMM record in Permissions list.
+* Fixed syntax error in french admin language file.
+
 
 h2. v0.9.9.3
 
