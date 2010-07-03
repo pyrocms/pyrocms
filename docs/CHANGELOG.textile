@@ -13,7 +13,7 @@ h3. Bugs
 * Fixed link in forgotten password email.
 * Fixed broken TinyCIMM record in Permissions list.
 * Fixed syntax error in french admin language file.
-
+* Fixed "Read more" link in Spanish.
 
 h2. v0.9.9.3
 
