@@ -264,6 +264,7 @@ class Widgets
     		$_POST = $options;
 
     		$this->load->library('form_validation');
+			$this->form_validation->set_rules('title', 'Title', 'required');
     		$this->form_validation->set_rules($this->_widget->fields);
 
     		if(!$this->form_validation->run())
