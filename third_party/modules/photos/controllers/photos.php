@@ -37,7 +37,7 @@ class Photos extends Public_Controller
 			3
 		);
 		
-		$this->data->photos = $this->photos_m->limit($this->data->pagination['limit'])->get_many_by('album_id', $album->id);
+		$this->data->photos = $this->photos_m->limit($this->data->pagination['limit'])->order_by('`order`')->get_many_by('album_id', $album->id);
 		$this->data->album =& $album;
 
 		$this->template
