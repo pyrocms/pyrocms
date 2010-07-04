@@ -18,7 +18,8 @@ class Photos_m extends MY_Model
         $image_cfg['maintain_ratio'] = TRUE;
         $image_cfg['width'] = '150';
         $image_cfg['height'] = '125';
-        $this->load->library('image_lib', $image_cfg);
+        $this->load->library('image_lib');
+        $this->image_lib->initialize($image_cfg);
         $this->image_lib->resize();
         
         return parent::insert(array(
