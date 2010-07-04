@@ -46,11 +46,11 @@ class Categories_m extends MY_Model
 	 * Callback method for validating the title
 	 * @access public
 	 * @param string $title The title to validate
-	 * @return mixed
+	 * @return integer Number of categories already in the database
 	 */
 	public function check_title($title = '')
 	{
-		return parent::count_by('slug', url_title($title)) === 0;
+		return parent::count_by('slug', url_title($title));
 	}
 }
 ?>
