@@ -16,7 +16,12 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 	$current_page = $ci->uri->segment($uri_segment, 0);
 
 	// Initialize pagination
-    $config['base_url'] = base_url().$uri.'/';
+
+        //  Old way: doesn't work without mod_rewrite
+        // $config['base_url'] = base_url().$uri.'/';
+        // New way: 
+        $config['base_url'] = site_url().'/'.$uri.'/';
+
 	$config['total_rows'] = $total_rows; // count all records
 	$config['per_page'] = $limit === NULL ? $ci->settings->item('records_per_page') : $limit;
 	$config['uri_segment'] = $uri_segment;
