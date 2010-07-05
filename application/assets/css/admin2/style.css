@@ -16,6 +16,9 @@ a, a:focus, a:active, a:visited {
 a:hover {
 	color: #666666;
 }
+.clear-both {
+	clear: both;
+}
 #page-wrapper {
 	display: table;
 	width: 100%;
@@ -243,20 +246,6 @@ a.delete {
 /** Shortcut Buttons **/
 #shortcuts {
 	margin-bottom: 10px;
-}
-#shortcuts ul,
-#shortcuts li {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-#shortcuts li {
-	display: inline-block;
-	margin-right: 5px;
-}
-#shortcuts li a {
-	display: block;
-	padding: 10px;
 	border: 1px solid #DDDDDD;
 	background-color: #F2F2F2;
 	text-align: left;
@@ -266,7 +255,40 @@ a.delete {
 	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
 	border-radius: 5px;
+}
+#shortcuts h6 {
+	margin: 0px;
+	padding: 9px 15px 7px 10px;
+	display: inline-block;
+	float: right;
 	vertical-align: center;
+	color: #999999;
+	font-size: 13px;
+}
+#shortcuts ul,
+#shortcuts li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#shortcuts li {
+	display: inline-block;
+	float: left;
+	border-right: 1px solid #CCCCCC;
+}
+#shortcuts li a {
+	display: block;
+	padding: 10px;
+/*	border: 1px solid #DDDDDD;
+	background-color: #F2F2F2;
+*/	text-align: left;
+	text-decoration: none;
+	color: #666666;
+/*	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+*/	vertical-align: center;
 
 }
 #shortcuts li a:hover {
