@@ -294,8 +294,19 @@ class Admin extends Admin_Controller
 		{
 			$this->photos_m->update($id, array(
 				'`order`' => $i
-			));
-			
+			));				
+				if($i == '1'){
+					$query = $this->db->get_where('photos', array('id' => $id));
+					foreach ($query->result() as $row)
+					{
+					$preview_img = $row->filename;
+					$album_id = $row->album_id;
+					}
+				$data = array('preview' => $preview_img);
+				$this->db->where('id', $album_id);
+				$this->db->update('photo_albums', $data);				
+				}
+					
 			++$i;
 		}
 	}

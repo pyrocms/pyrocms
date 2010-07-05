@@ -250,6 +250,43 @@ ul.sideMenu {
   background: #555 url(../img/bg/gradient.jpg) repeat-x bottom left; 
 }
 
+#photos {
+	margin: 0 auto;
+}
+
+.photo {
+	float: left;
+	margin: 12px;
+}
+
+.album_previews {
+	float: left;
+	width: 94%;
+	margin-bottom: 15px;
+	padding: 20px 20px 0px 20px;
+	background-color: #6b6b6b;
+}
+
+.album_previews a {
+	text-decoration: none;
+}
+
+.album_previews img {
+	float: left;
+	margin: 0px 20px 20px 0px;
+}
+
+.album_previews_title {
+	margin: 0px 0px 20px 0px;
+	font-size: 22px;
+	
+}
+
+.album_previews_description {
+	font-size: 110%;
+	margin-bottom: 20px;
+}
+
 
 /**************************************************************
    #footer: The page footer - will stick to the bottom if not
