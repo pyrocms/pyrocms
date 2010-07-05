@@ -4,6 +4,7 @@ h2. v0.9.9.4
 
 * Added a "Script" tab to CP > Pages which contains a JavaScript editor.
 * Upgraded TinyMCE to 3.3.8.
+* The first photo will be displayed beside the description on the frontend.
 
 h3. Bugs
 
@@ -14,6 +15,9 @@ h3. Bugs
 * Fixed broken TinyCIMM record in Permissions list.
 * Fixed syntax error in french admin language file.
 * Fixed "Read more" link in Spanish.
+* Fixed issue of thumbnails not being created on photo upload.
+* Drag and drop sorting that you do in the admin panel is reflected on the front end.
+
 
 h2. v0.9.9.3
 

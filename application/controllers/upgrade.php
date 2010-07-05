@@ -77,6 +77,16 @@ class Upgrade extends Controller
 
 	function upgrade_0994()
 	{
+		echo 'Added "preview" field to photo_albums table.<br/>';
+		$this->dbforge->add_column('photo_albums', array(
+			'preview' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+				'default' => '',
+				'null' => FALSE
+			),
+		));
+
 		echo 'Fixing broken TinyCIMM record in Permissions list.<br/>';
 		$this->db
 			->set('name', 'a:4:{s:2:"en";s:8:"TinyCIMM";s:2:"fr";s:8:"TinyCIMM";s:2:"de";s:8:"TinyCIMM";s:2:"pl";s:8:"TinyCIMM";}')
@@ -87,6 +97,7 @@ class Upgrade extends Controller
 		$this->dbforge->add_column('pages', array(
 			'js' => array(
 				'type' => 'TEXT',
+				'default' => '',
 				'null' => FALSE
 			),
 		));
