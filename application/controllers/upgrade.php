@@ -102,6 +102,12 @@ class Upgrade extends Controller
 			),
 		));
 
+		echo 'Clearing page cache.<br/>';
+		$this->cache->delete_all('pages_m');
+
+		echo 'Clearing module cache.<br/>';
+		$this->cache->delete_all('modules_m');
+
 		return TRUE;
 	}
 
