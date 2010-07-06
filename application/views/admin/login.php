@@ -33,8 +33,16 @@
 				</li>
 			</ol>
 		</fieldset>
-		
 		<?php echo form_close(); ?>
 	</div>
+		<?php if (validation_errors()): ?>
+		<div id="error">
+			<strong><?php echo lang('login_error_label');?>: </strong><?php echo validation_errors(); ?>
+		</li>
+		<?php elseif ($this->session->flashdata('error')): ?>
+		<div id="error">
+			<p><strong><?php echo lang('login_error_label');?>: </strong><?php echo $this->session->flashdata('error'); ?></p>
+		</div>
+		<?php endif; ?>
 </body>
 </html>

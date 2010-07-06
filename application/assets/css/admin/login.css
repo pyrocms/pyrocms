@@ -26,3 +26,6 @@ span input {
 }
 label.remember {color:#ccc; float:left; width: 200px; margin-top: 20px; margin-left:75px; margin-right: 215px;}
 div.float-right {float: left; width: 56px;  margin-top: 20px;}
+
+#error { font-size: 14px; display: block; padding: 15px; position: absolute; top: 0; left: 0; right: 0;background-color: #FF0000; color: #FFFFFF;}
+#error p { margin: 0; padding: 5px 0 0 0;}
