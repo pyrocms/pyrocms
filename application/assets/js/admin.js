@@ -255,7 +255,11 @@ var fixHelper;
 				autoDimensions: false
 			});
 		});
-	   
+		$("#new_folder").livequery(function() {
+			$(this).fancybox({
+				hideOnContentClick: false,
+			});
+		});
 		// End Fancybox modal window
 		
 		/**
