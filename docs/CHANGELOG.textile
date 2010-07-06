@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. v0.9.9.5
+
+* Loading CP > Widgets will now automatically install any new widgets found.
+
 h2. v0.9.9.4
 
 * Added a "Script" tab to CP > Pages which contains a JavaScript editor.
