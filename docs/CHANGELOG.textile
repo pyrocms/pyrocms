@@ -5,6 +5,7 @@ h2. v0.9.9.4
 * Added a "Script" tab to CP > Pages which contains a JavaScript editor.
 * Upgraded TinyMCE to 3.3.8.
 * The first photo will be displayed beside the description on the frontend.
+* Admin login now shows login error messages.
 
 h3. Bugs
 
