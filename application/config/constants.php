@@ -43,7 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 
 // Local: localhost or local.example.com
-if(strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE || $_SERVER['SERVER_NAME'] == 'localhost')
+if(strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE || strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE || $_SERVER['SERVER_NAME'] == 'localhost')
 {
   define('ENV', 'local');
 }
