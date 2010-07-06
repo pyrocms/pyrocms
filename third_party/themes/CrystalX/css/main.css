@@ -38,6 +38,8 @@ ol {list-style-type:decimal;}
 li {display:list-item; border:0; margin:0; padding:0; _height:1px;}
 ul ul, ul ol, ol ol, ol ul {margin: 0 0 0 20px;}
 
+.photo {float: left; margin: 5px; list-style:none;}
+
 dl {border:0; margin:15px 0; padding:0;}
 dt {border:0; margin:0; padding:0; font-weight:bold;}
 dd {border:0; margin:0 0 0 30px; padding:0;}

@@ -222,7 +222,7 @@ class Admin extends Admin_Controller
 			{
 				$image = $this->upload->data();
 					
-				if( $this->photos_m->insert($image, $id, $this->input->post('caption')) )
+				if( $this->photos_m->insert($image, $id, $this->input->post('caption')) && $this->photo_albums_m->assign_preview($id, $image))
 				{
 					$this->session->set_flashdata('success', lang('photos.upload_success'));
 				}

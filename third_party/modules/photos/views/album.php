@@ -16,17 +16,17 @@
 
 <?php if(!empty($photos)): ?>
 
-	<div id="photos">
+	<ul id="photos">
 		<?php foreach ($photos as $photo):?>
-			<div class="photo">
+			<li class="photo">
 				
 				<a href="<?php echo image_path('photos/'.$album->id .'/' . $photo->filename); ?>" rel="modal">
 					<?php echo image('photos/' . $album->id . '/' . substr($photo->filename, 0, -4) . '_thumb' . substr($photo->filename, -4), '', array('alt' => $photo->caption));?>
 				</a>
 
-			</div>
+			</li>
 		<?php endforeach; ?>
-	</div>
+	</ul>
 	
 	<br class="clear-both" />
 

@@ -257,6 +257,7 @@ ul.sideMenu {
 .photo {
 	float: left;
 	margin: 12px;
+	list-style:none;
 }
 
 .album_previews {
