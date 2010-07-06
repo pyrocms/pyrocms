@@ -31,8 +31,8 @@ Run http://example.com/upgrade to run the upgrade script after downloading a new
 
 h2. BUGS / FEATURE REQUESTS
 
-Issue tracker: http://github.com/philsturgeon/pyrocms/issues
-Forum: http://www.pyrocms.com/forums
+Issue tracker: "http://github.com/pyrocms/pyrocms/issues":http://github.com/pyrocms/pyrocms/issues
+Forum: "http://www.pyrocms.com/forums":http://www.pyrocms.com/forums
 
 Before reporting bugs or requesting any features, please check there is not already a ticket.
 
