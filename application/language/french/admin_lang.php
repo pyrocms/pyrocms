@@ -28,6 +28,7 @@ $lang['cp_nav_themes']					= 'Thèmes';
 $lang['cp_nav_permissions']				= 'Autorisations';
 $lang['cp_nav_variables']				= 'Variables';
 
+$lang['cp_must_login']	 				= 'You must be logged in to view this page.'; #translate
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
 $lang['cp_delete_installer_message']	= 'Supprimez le répertoire "installer" de votre serveur. Le garder pourrait permettre à un tiers de prendre le contrôle de votre site.';
 $lang['cp_upgrade_message']				= 'Vous utilisez la version %s, mais votre base de données a pour version %s. Merci de <a href="%s">cliquer ici</a> pour mettre à jour votre base de données.';

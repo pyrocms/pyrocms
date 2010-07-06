@@ -28,6 +28,7 @@ $lang['cp_nav_themes']					= 'Temas';
 $lang['cp_nav_permissions']				= 'Permisos';
 $lang['cp_nav_variables']				= 'Variables';
 
+$lang['cp_must_login']	 				= 'You must be logged in to view this page.'; #translate
 $lang['cp_access_denied'] 				= 'No tienes el permiso suficiente como para ver esta página.';
 $lang['cp_delete_installer_message']		= 'Por favor eliminar el directorio "instaler" del servidor. Al dejarlo en línea podrías darle el acceso completo del sitio a otra persona.';
 $lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s">click here</a> to upgrade the database.'; #translate

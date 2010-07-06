@@ -28,6 +28,7 @@ $lang['cp_nav_themes']					= 'Themen';
 $lang['cp_nav_permissions']				= 'Zugriffsrechte';
 $lang['cp_nav_variables']				= 'Variablen';
 
+$lang['cp_must_login']	 				= 'You must be logged in to view this page.'; #translate
 $lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsrechte um diese Seite anzusehen.';
 $lang['cp_delete_installer_message']		= 'Bitte lösche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen könnten.';
 $lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s">click here</a> to upgrade the database.'; #translate
