@@ -23,6 +23,23 @@
  */
 class Media_folders_m extends MY_Model {
 
+	/**
+	 * Exists
+	 *
+	 * Checks if a given folder exists.
+	 *
+	 * @access	public
+	 * @param	int		The folder id
+	 * @return	bool	If the folder exists
+	 */
+	public function exists($folder_id)
+	{
+		if(parent::count_by(array('id' => $folder_id)) > 0)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
 
 	/**
 	 * Has Children
@@ -52,24 +69,15 @@ class Media_folders_m extends MY_Model {
 	 * @param		string	$type		The type of folders to return
 	 * @return		array
 	 */
-	public function get_children($parent_id, $type)
+	public function get_children($parent_id)
 	{
 		$return = array();
 
-		$folders = $this->order_by('name')->get_many_by(array('parent_id' => $parent_id, 'type' => $type));
+		$folders = $this->order_by('name')->get_many_by(array('parent_id' => $parent_id));
 
 		foreach($folders as & $folder)
 		{
-
-			if($this->has_children($folder->id))
-			{
-				$return[$folder->id]['name'] = $folder->name;
-				$return[$folder->id] = $return[$folder->id] + $this->get_children($folder->id, $type);
-			}
-			else
-			{
-				$return[$folder->id] = $folder->name;
-			}
+			$return[$folder->id] = $folder->name;
 		}
 
 		return $return;

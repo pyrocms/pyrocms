@@ -1,11 +1,12 @@
 <?php echo form_open('admin/media');?>
-	<h3>
-		<div class="pyro-button float-right">
-			<a href="<?php echo site_url('admin/media/folders/create');?>"><?php echo lang('media.folders.create'); ?></a>
-		</div>
-
-		<?php echo lang('media.folders.title');?>
-	</h3>
+	<h3><?php echo lang('media.folders.manage_title'); ?></h3>
+	
+	<div id="media_toolbar">
+		<ul>
+			<li><a href="<?php echo site_url('admin/media/folders/create');?>" id="new_folder"><?php echo lang('media.folders.create'); ?></a></li>
+		</ul>
+	</div>
+	
 		<?php if (!empty($media_folders)): ?>
 
 			<table border="0" class="table-list">
@@ -38,3 +39,11 @@
 			<p><?php echo lang('media.folders.no_folders');?></p>
 		<?php endif; ?>
 <?php echo form_close();?>
+<script type="text/javascript">
+	(function($)
+	{
+		$(function() {
+			$("#new_folder").fancybox();
+		});
+	});
+</script>

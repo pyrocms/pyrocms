@@ -25,7 +25,7 @@ form ul li input.button {
 	font-size: 12px;
 	width: auto;
 	padding: 5px 15px;
-	margi-right: 10px;
+	margin-right: 10px;
 }
 form ul li input.button:hover {
 	background-color: #DDDDDD;

@@ -52,13 +52,17 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
+		$media_folders = $this->media_folders_m->get_all();
+
+		$this->data->media_folders = &$media_folders;
+
 		$this->template->build('admin/layouts/index', $this->data);
 
 	}
 
 	public function images()
 	{
-		$folders = $this->media_folders_m->get_children(0, 'i');
+		$folders = $this->media_folders_m->get_children(0);
 		$this->data->selected_folder = 0;
 		$this->data->folders = array(0 => '-- All --') + $this->_folder_dropdown_array($folders);
 
@@ -121,89 +125,7 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	public function folders($method = '')
-	{
-		switch($method)
-		{
-			case 'list':
-				$this->_folder_list();
-				break;
-			case 'create':
-				$this->_folder_create();
-				break;
-			case 'delete':
-				$this->_folder_delete();
-				break;
-			default:
-				$this->_folder_list();
-				break;
-		}
-	}
 
-	public function upload()
-	{
-
-		$this->template->build('admin/upload', $this->data);
-	}
-
-	private function _folder_list()
-	{
-		$media_folders = $this->media_folders_m->get_all();
-
-		$this->data->media_folders = &$media_folders;
-
-		$this->load->view('admin/folders/index', $this->data);
-	}
-
-	private function _folder_create()
-	{
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('name', 'Name', 'required');
-
-		if($this->form_validation->run())
-		{
-			$data = array(
-				'name'			=> $this->input->post('name'),
-				'parent_id'		=> $this->input->post('parent_id'),
-				'type'			=> $this->input->post('type'),
-				'date_added'	=> now()
-			);
-			$this->media_folders_m->insert($data);
-			redirect('admin/media#folders');
-		}
-		$folder->name = set_value('name');
-		$folder->parent_id = set_value('parent_id');
-		$folder->type = set_value('type');
-		$this->data->folder =& $folder;
-		$this->load->view('admin/folders/form', $this->data);
-	}
-
-	private function _folder_delete()
-	{
-		$folder_id = $this->uri->segment(5, NULL);
-
-		// If no folder is given, then 404
-		$folder_id == NULL and show_404();
-
-		$folder = $this->media_folders_m->get($folder_id);
-
-		if($this->input->post('button_action') == 'Yes')
-		{
-			$this->media_folders_m->delete($folder_id);
-			$this->session->set_flashdata('success', sprintf(lang('media.folders.delete_success'), $folder->name));
-
-			redirect('admin/media/folders');
-		}
-		elseif($this->input->post('button_action') == 'No')
-		{
-			redirect('admin/media/folders');
-		}
-
-		$this->data->folder =& $folder;
-		
-		$this->template->build('admin/folders/confirm', $this->data);
-	}
 
 	private function _folder_dropdown_array($folders)
 	{
