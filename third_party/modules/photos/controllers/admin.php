@@ -222,7 +222,7 @@ class Admin extends Admin_Controller
 			{
 				$image = $this->upload->data();
 					
-				if( $this->photos_m->insert($image, $id, $this->input->post('caption')) )
+				if( $this->photos_m->insert($image, $id, $this->input->post('caption')) && $this->photo_albums_m->assign_preview($id, $image))
 				{
 					$this->session->set_flashdata('success', lang('photos.upload_success'));
 				}
@@ -290,12 +290,24 @@ class Admin extends Admin_Controller
 		
 		$i = 1;
 		
-		foreach($ids as $id)
+		foreach ($ids as $id)
 		{
 			$this->photos_m->update($id, array(
 				'`order`' => $i
 			));
 			
+			if ($i == '1')
+			{
+				$preview = $this->db->get_where('photos', array('id' => $id))->row();
+
+				if ($preview)
+				{
+					$this->db->where('id', $preview->album_id);
+					$this->db->update('photo_albums', array(
+						'preview' => $preview->filename
+					));
+				}
+			}
 			++$i;
 		}
 	}
@@ -305,7 +317,7 @@ class Admin extends Admin_Controller
 	{
 		$id = isset($this->id) ? $this->id : NULL;
 		
-		if (!$this->photo_albums_m->check_slug($slug, $id))
+		if ( ! $this->photo_albums_m->check_slug($slug, $id))
 		{
 			$this->form_validation->set_message('_check_slug', lang('photo_albums.slug_already_exist_error'));
 			return FALSE;

@@ -46,7 +46,6 @@ var fixHelper;
 	
 	$(function() {
 	
-		// Sort any tables with a class of 'sortable'
 		var table = $('table.table-list');
 		
 		// A row can be selected via check or CTRL + click
@@ -117,7 +116,7 @@ var fixHelper;
 		
 		// Checkbox ticking
 		$('tbody td input[type="checkbox"]', table).change(function() {
-			row = $(this).parent('td').parent('tr');
+			row = $(this).closest('tr');
 			checkbox = $(this);
 
 			toggleRowChecked(row, checkbox, 'change');

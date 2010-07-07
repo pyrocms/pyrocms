@@ -52,6 +52,18 @@ class Photo_albums_m extends MY_Model
 		    return $id;
 		}
     }
+
+    function assign_preview($album_id, $filename)
+    {	
+    	$preview_image = $this->db->get_where('photo_albums', array('id' => $album_id))->row();
+
+		if (empty($preview_image->preview))
+		{
+			$this->db->where('id', $album_id);
+			$this->db->update('photo_albums', array('preview' => $filename['file_name']));
+		}
+		return TRUE;
+    }
     
     function update($id, $input)
     {

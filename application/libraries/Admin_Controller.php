@@ -26,6 +26,10 @@ class Admin_Controller extends MY_Controller
 	    // Login: If not logged in and its not an ignored page, force login
 	    if( ! $this->user && ! $is_ignored_page)
 	    {
+			if($current_page != 'admin/index')
+			{
+				$this->session->set_flashdata('error', lang('cp_must_login'));
+			}
 	    	redirect('admin/login');
 	    }        
 	    // Logged in or ignored page
