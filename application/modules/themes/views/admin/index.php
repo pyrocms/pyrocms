@@ -52,8 +52,8 @@
 			<?php else: ?>
 				<p><?php echo lang('themes.no_themes_installed'); ?></p>
 			<?php endif; ?>
-			
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
+		
+		<button type="submit" name="btnAction">Save</button>
 		
 		<?php echo form_close(); ?>
 		

@@ -53,7 +53,7 @@ jQuery(function($) {
 			$.uniform.update();
 		});
 
-		$("select, input:checkbox, input:radio, input:file").uniform();
+		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, button, textarea").uniform();
 
 		$('.tabs').tabs();
 		$('#tabs').tabs({
