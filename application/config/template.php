@@ -70,7 +70,6 @@ $config['theme'] = NULL;
 */
 
 $config['theme_locations'] = array(
-	'public/themes/' => '../../public/themes/'
+	APPPATH.'themes/' => '../themes/',
+	'third_party/themes/' => '../../third_party/themes/'
 );
-
-?>
