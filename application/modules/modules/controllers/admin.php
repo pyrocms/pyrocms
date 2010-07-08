@@ -33,7 +33,10 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
- 		$this->data->modules = $this->modules_m->get_modules(NULL, TRUE);
+		$this->modules_m->import_all();
+		$this->cache->delete_all('modules_m');
+
+		$this->data->modules = $this->modules_m->get_modules(NULL, TRUE);
 			  
 		$this->template->build('admin/index', $this->data);
 	}
