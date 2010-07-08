@@ -2,7 +2,6 @@
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Available widgets';
-$lang['widgets.uninstalled_title'] 			= 'Un-installed';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';
