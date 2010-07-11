@@ -7,6 +7,8 @@ h2. v0.9.9.5
 h3. Bugs
 
 * Fixed issue #251: MySQL Strict mode error for page_layouts.theme_layout.
+* Fixed XSS security issue.
+* Fixed issue where new modules were not automatically imported when viewing the Modules list.
 
 h2. v0.9.9.4
 
