@@ -58,13 +58,13 @@ DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `is_active` tinyint(1) NOT NULL default '0',
-  `user_id` int(11) NOT NULL,
-  `name` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `email` varchar(40) collate utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL default '0',
+  `name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
   `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `comment` text collate utf8_unicode_ci NOT NULL,
   `module` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
   `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   `ip_address` varchar(15) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
@@ -162,9 +162,9 @@ DROP TABLE IF EXISTS `page_layouts`;
 CREATE TABLE `page_layouts` (
 `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
+`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
+`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
 `updated_on` INT( 11 ) NOT NULL
 ) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
 
@@ -181,11 +181,11 @@ CREATE TABLE `pages` (
  `body` text collate utf8_unicode_ci NOT NULL,
  `parent_id` int(11) default '0',
  `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
- `css` text collate utf8_unicode_ci,
- `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
- `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL,
- `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL,
- `meta_description` text collate utf8_unicode_ci NOT NULL,
+ `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default 'default',
+ `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default 'default',
+ `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `meta_description` text collate utf8_unicode_ci NOT NULL default '',
  `rss_enabled` INT(1)  NOT NULL default '0',
  `comments_enabled` INT(1)  NOT NULL default '0',
  `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft', 
