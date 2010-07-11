@@ -87,7 +87,7 @@ class Upgrade extends Controller
 			),
 		));
 
-		return FALSE; // Set to TRUE when this version goes live
+		return TRUE;
 	}
 
 	function upgrade_0994()
