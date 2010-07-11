@@ -6,6 +6,10 @@ h2. v0.9.9.5
 
 h3. Bugs
 
+* Fixed Widget title validation error.
+
+h3. Bugs
+
 * Fixed issue #251: MySQL Strict mode error for page_layouts.theme_layout.
 
 h2. v0.9.9.4
