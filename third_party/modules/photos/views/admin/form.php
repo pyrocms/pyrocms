@@ -26,7 +26,7 @@
 				<li>
 					<label for="parent"><?php echo lang('photo_albums.parent_album_label');?></label>		
 					<select name="parent" size="1">
-						<option value=""><?php echo lang('photo_albums.no_parent_select_label');?></option>
+						<option value="0"><?php echo lang('photo_albums.no_parent_select_label');?></option>
 						<?php create_tree_select($albums, 0, 0, $album->parent, @$album->id); ?>
 					</select>
 				</li>
