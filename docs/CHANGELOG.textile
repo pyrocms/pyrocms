@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. v0.9.9.6
+
+* {js('http://example.com/foo.js')} will now work as <script> are stripped.
+
 h2. v0.9.9.5
 
 * Loading CP > Widgets will now automatically install any new widgets found.
