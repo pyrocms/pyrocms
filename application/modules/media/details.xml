@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.6">
 	<name>
-		<en>Media</en>
+		<en>Files</en>
 	</name>
 	<description>
-		<en>Allows for easy management of site media.</en>
+		<en>Allows for easy management of site files.</en>
 	</description>
 	<is_frontend>1</is_frontend>
 	<is_backend>1</is_backend>

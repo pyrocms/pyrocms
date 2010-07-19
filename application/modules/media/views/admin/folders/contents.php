@@ -6,7 +6,11 @@
 				<label for="folder"><?php echo lang('media.subfolders.label'); ?>:</label>
 				<?php echo form_dropdown('folder', $sub_folders, $selected_folder); ?>
 			</li>
-			<li><a href="#">Upload</a></li>
+				<li>
+					<label for="folder">Filter:</label>
+					<?php echo form_dropdown('filter', array("All", "Audio", "Video", "Images", "Documents", "Other")); ?>
+				</li>
+<!--			<li><a href="#">Upload</a></li> -->
 		</ul>
 	</div>
 	<?php if (!empty($files)): ?>

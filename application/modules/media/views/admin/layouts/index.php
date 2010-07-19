@@ -46,6 +46,13 @@
 	background-color: #3a4043;
 	color: #FFFFFF;
 }
+#toolbar ul li {
+	display: inline-block;
+	padding-left: 5px;
+}
+#toolbar label {
+	font-weight: bold;
+}
 </style>
 <div id="media_browser">
 	<div id="media_left_pane">
