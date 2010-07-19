@@ -84,7 +84,7 @@ class Comments extends Public_Controller
 		$comment				= $_POST;
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
-		$comment['is_active']	= (bool) $this->ion_auth->is_admin();
+		$comment['is_active']	= (bool) ($this->ion_auth->is_admin() OR ! $this->settings->item('moderate_comments'));
 		
 		// Validate the results
 		if ($this->form_validation->run())
