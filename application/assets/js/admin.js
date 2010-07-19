@@ -308,5 +308,5 @@ var fixHelper;
 	    });
 
 	});
-	
+
 })(jQuery);

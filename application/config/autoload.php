@@ -70,7 +70,7 @@ $autoload['helper'] = array(
 |
 */
 
-$autoload['config'] = array('asset', 'language', 'tinycimm/tinycimm');
+$autoload['config'] = array('asset', 'language');
 
 
 /*
@@ -100,16 +100,5 @@ $autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
 */
 
 // Autoloaded in MY_Controller
-//		permissions/permissions_m', modules/modules_m', 'pages/pages_m
-$autoload['model'] = array('news/news_m'); // TODO DEPRECATED: news model is left in for hardcoded themes, use the news widget
-
-
-/*
-| -------------------------------------------------------------------
-|  Auto-load Core Libraries
-| -------------------------------------------------------------------
-|
-| DEPRECATED:  Use $autoload['libraries'] above instead.
-|
-*/
-// $autoload['core'] = array();
+//	permissions/permissions_m', modules/modules_m', 'pages/pages_m
+$autoload['model'] = array();

@@ -185,7 +185,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_title($title = '')
 	{
-		if ($this->categories_m->check_title($title) > 0)
+		if ($this->categories_m->check_title($title))
 		{
 			$this->form_validation->set_message('_check_title', sprintf($this->lang->line('cat_already_exist_error'), $title));
 			return FALSE;

@@ -254,12 +254,12 @@ class Settings
 				$form_control = '';
 
 				foreach($this->_format_options($setting->options) as $value => $label) {
-					$form_control .= ' '.form_radio(array(
+					$form_control .= ''.form_radio(array(
 							'id'		=>	$setting->slug,
 							'name'		=>	$setting->slug,
 							'checked'	=>	$setting->value == $value,
 							'value'		=>	$value
-							)) . ' '.$label;
+							)) . ' ' . $label . '';
 				}
 				break;
 		}
