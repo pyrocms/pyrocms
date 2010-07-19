@@ -35,7 +35,7 @@
 
 		<footer>
 			Copyright &copy; 2010 PyroCMS<br />
-			Version 2.0
+			Version <?php echo CMS_VERSION; ?>
 		</footer>
 	</section>
 </div>
