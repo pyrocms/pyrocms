@@ -21,13 +21,13 @@ DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `is_active` tinyint(1) NOT NULL default '0',
-  `user_id` int(11) NOT NULL,
-  `name` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `email` varchar(40) collate utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL default '0',
+  `name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
   `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `comment` text collate utf8_unicode_ci NOT NULL,
   `module` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
   `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   `ip_address` varchar(15) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
@@ -163,9 +163,9 @@ DROP TABLE IF EXISTS `page_layouts`;
 CREATE TABLE `page_layouts` (
 `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
 `updated_on` INT( 11 ) NOT NULL
 ) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
 

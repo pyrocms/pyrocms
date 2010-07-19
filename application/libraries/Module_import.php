@@ -109,4 +109,3 @@ class Module_import {
 	}
 
 }
-?>

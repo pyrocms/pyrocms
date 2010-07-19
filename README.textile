@@ -10,7 +10,6 @@ h2. The Team
 * "Dan Horrigan":http://dhorrigan.com
 * "Ben Edmunds":http://benedmunds.com/
 * "Yorick Peterse":http://www.yorickpeterse.com/
-* "Richard Willis":http://badsyntax.co.uk
 
 h2. DESCRIPTION
 
