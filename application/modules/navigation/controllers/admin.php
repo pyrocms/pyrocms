@@ -33,7 +33,7 @@ class Admin extends Admin_Controller
 		$this->load->model('pages/pages_m');
 		$this->lang->load('navigation');
 		
-	    $this->template->set_partial('sidebar', 'admin/sidebar');
+	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	    $this->template->append_metadata( js('navigation.js', 'navigation') );
 		
 		// Get Navigation Groups

@@ -26,7 +26,7 @@ class Admin extends Admin_Controller
 		$this->load->model('categories_m');
 		$this->lang->load('categories');
 		
-	    $this->template->set_partial('sidebar', 'admin/sidebar');
+	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	
 		// Set the validation rules
 		$this->validation_rules = array(

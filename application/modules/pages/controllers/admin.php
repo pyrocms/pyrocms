@@ -46,8 +46,8 @@ class Admin extends Admin_Controller
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
 		$this->load->helper(array('array', 'pages'));
-		
-	    $this->template->set_partial('sidebar', 'admin/sidebar');
+
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	
 		// Large array is large
 		$this->validation_rules = array(

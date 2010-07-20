@@ -1,10 +1,4 @@
 <div class="box">
-	<nav id="shortcuts">
-		<ul>
-			<li><a href="<?php echo site_url('admin/modules/upload');?>" class="add"><?php echo lang('upload_label'); ?></a></li>
-			<li><a href="<?php echo site_url('admin/modules/reimport');?>">Re-Import All</a></li>
-		</ul>
-	</nav>
 	<h3><?php echo lang('modules.third_party_list');?></h3>
 	<div class="box-container">
 		<p><?php echo lang('modules.introduction'); ?></p>

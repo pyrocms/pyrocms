@@ -45,7 +45,7 @@ class Admin extends Admin_Controller
 		);
 		$this->form_validation->set_rules($this->validation_rules);
 		
-		$this->template->set_partial('sidebar', 'admin/sidebar');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 	
 	// Admin: Show Newsletters

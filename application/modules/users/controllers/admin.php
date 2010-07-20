@@ -88,7 +88,7 @@ class Admin extends Admin_Controller
 		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
 		$this->data->active_user_count 		= $this->users_m->count_by('active', 1);
 		
-		$this->template->set_partial('sidebar', 'admin/sidebar');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
