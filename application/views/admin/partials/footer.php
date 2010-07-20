@@ -1,7 +1,7 @@
 <div id="footer-top">
 
 	<div class="float-left">
-		<?php echo form_open($this->uri->uri_string(), 'id="change_language" method="get"'); ?>
+		<form action="<?php echo $this->uri->uri_string(); ?>" id="change_language" method="get">
 			<label for="lang"><?php echo lang('cp_change_language'); ?></label>
 			<?php //echo form_dropdown('lang', $language_options, CURRENT_LANGUAGE); ?>
 			
@@ -13,7 +13,7 @@
         	<?php endforeach; ?>
         	</select>
         
-		<?php echo form_close(); ?>
+		</form>
 		
 		<p>
 			<?php echo anchor('http://pyrocms.com/documentation', lang('cp_documentation')); ?> | 
