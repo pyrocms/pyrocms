@@ -1,7 +1,7 @@
 	<table border="0" class="table-list">		    
 	<thead>
 		<tr>
-			<th class="width-5"><?php echo form_checkbox('action_to_all'); ?></th>
+			<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 			<th class="width-5">#</th>
 			<th class="width-30"><?php echo lang('widgets.instance_title'); ?></th>
 			<th class="width-25"><?php echo lang('widgets.widget'); ?></th>

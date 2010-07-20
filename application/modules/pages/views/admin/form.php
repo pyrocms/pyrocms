@@ -1,5 +1,4 @@
 <div class="box">
-	<?php $this->load->view('admin/partials/shortcuts'); ?>
 
 	<?php if($method == 'create'): ?>
 		<h3><?php echo lang('pages.create_title');?></h3>

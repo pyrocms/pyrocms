@@ -17,7 +17,7 @@
 				<table border="0" class="table-list clear-both">    
 					<thead>
 						<tr>
-							<th><?php echo form_checkbox('action_to_all');?></th>
+							<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 							<th class="width-15"><?php echo lang('comments.teaser_label');?></th>
 							<th><?php echo lang('comments.item_label');?></th>
 							<th><?php echo lang('comments.author_label');?></th>

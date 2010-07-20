@@ -1,5 +1,4 @@
 <div class="box">
-	<?php $this->load->view('admin/partials/shortcuts'); ?>
 	
 	<h3><?php echo lang('page_layouts.list_title'); ?></h3>
 	
@@ -11,7 +10,7 @@
 				<table border="0" class="table-list">		    
 					<thead>
 						<tr>
-							<th class="width-5"><?php echo form_checkbox('action_to_all');?></th>
+							<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 							<th><?php echo lang('page_layouts.title_label');?></th>
 							<th class="width-10"><span><?php echo lang('page_layouts.actions_label');?></span></th>
 						</tr>

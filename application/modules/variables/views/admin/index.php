@@ -10,7 +10,7 @@
 				<table border="0" class="table-list">
 					<thead>
 					<tr>
-						<th class="width-5"><?php echo form_checkbox('action_to_all');?></th>
+						<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 						<th><?php echo lang('var_name_label');?></th>
 						<th><?php echo lang('var_syntax_label');?></th>
 						<th><?php echo lang('var_data_label');?></th>
