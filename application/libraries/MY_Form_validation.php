@@ -2,7 +2,7 @@
 
 class MY_Form_validation extends CI_Form_validation
 {
-    private $use_nonce = true;
+    private $use_nonce = FALSE;
 
     /**
      * Create a new unique nonce, save it to the current session and return it.
@@ -18,6 +18,7 @@ class MY_Form_validation extends CI_Form_validation
     }
 
     public function run($group = '') {
+        $this->use_nonce = TRUE;
         $this->set_rules('nonce', 'Nonce', 'required|valid_nonce');
         $result = parent::run($group);
         if($result === true) {
