@@ -27,7 +27,7 @@
 							<li><strong>{$page.body}</strong> - <?php echo lang('page_layouts.variable_body'); ?></li>
 						</ul>
 						
-						<ol>
+						<ul>
 							<li class="even">
 								<label for="title"><?php echo lang('page_layouts.title_label');?></label>
 								<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
@@ -41,17 +41,17 @@
 							<li class="even">
 								<?php echo form_textarea(array('id'=>'html_editor', 'name'=>'body', 'value' => $page_layout->body, 'rows' => 50)); ?>
 							</li>
-						</ol>
+						</ul>
 					</fieldset>
 				</div>
 				
 				<!-- Design tab -->
 				<div id="page-layout-css">
-					<ol>	
+					<ul>
 						<li>
 							<?php echo form_textarea('css', $page_layout->css, 'id="css_editor"'); ?>
 						</li>
-					</ol>
+					</ul>
 				</div>
 				
 			</div>

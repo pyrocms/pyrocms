@@ -45,7 +45,7 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$this->template->set_partial('sidebar', 'admin/sidebar');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 	
 	// Admin: List news articles

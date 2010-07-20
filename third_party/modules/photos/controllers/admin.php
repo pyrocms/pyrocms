@@ -15,7 +15,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('photos');
 		$this->lang->load('photo_albums');
 		
-		$this->template->set_partial('sidebar', 'admin/sidebar');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 		
 		$this->validation_rules = array(
 			array(

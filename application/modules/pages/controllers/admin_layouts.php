@@ -28,7 +28,7 @@ class Admin_layouts extends Admin_Controller
 		$this->lang->load('pages');
 		$this->lang->load('page_layouts');
 		
-	    $this->template->set_partial('sidebar', 'admin/sidebar');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	
 		// Load the validation library
 		$this->load->library('form_validation');

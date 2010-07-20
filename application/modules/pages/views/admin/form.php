@@ -25,7 +25,7 @@
 			
 			<div id="page-content">
 			
-				<ol>
+				<ul>
 
 					<li>
 						<label for="title"><?php echo lang('pages.title_label');?></label>
@@ -65,14 +65,14 @@
 					<li class="even">
 						<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 					</li>
-				</ol>
+				</ul>
 
 			</div>
 
 			<!-- Meta data tab -->
 			<div id="page-meta">
 
-				<ol>
+				<ul>
 					<li class="even">
 						<label for="meta_title"><?php echo lang('pages.meta_title_label');?></label>
 						<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" />
@@ -85,14 +85,14 @@
 						<label for="meta_description"><?php echo lang('pages.meta_desc_label');?></label>
 						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
 					</li>
-				</ol>
+				</ul>
 
 			</div>
 
 			<!-- Design tab -->
 			<div id="page-design">
 
-				<ol>
+				<ul>
 					<li class="even">
 						<label for="layout_id"><?php echo lang('pages.layout_id_label');?></label>
 						<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
@@ -104,7 +104,7 @@
 							<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
 						</div>
 					</li>
-				</ol>
+				</ul>
 
 				<br class="clear-both" />
 
@@ -113,14 +113,14 @@
 			<!-- Script tab -->
 			<div id="page-script">
 
-				<ol>
+				<ul>
 					<li>
 						<label for="js"><?php echo lang('pages.js_label');?></label>
 						<div class="float-right">
 							<?php echo form_textarea('js', $page->js, 'id="js_editor"'); ?>
 						</div>
 					</li>
-				</ol>
+				</ul>
 
 				<br class="clear-both" />
 
@@ -129,7 +129,7 @@
 			<!-- Meta data tab -->
 			<div id="page-options">
 			
-				<ol>
+				<ul>
 					<li>
 						<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
 						<?php echo form_checkbox('comments_enabled', 1, $page->comments_enabled == 1); ?>
@@ -139,13 +139,13 @@
 						<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>
 						<p><?php echo lang('pages.rss_explanation'); ?></p>
 					</li>
-				</ol>
+				</ul>
 				
 			</div>
 			
 			<!-- Revisions -->
 			<div id="revision-options">
-				<ol>
+				<ul>
 					<!-- Select a revision -->
 					<li>
 						<label for="use_revision_id">Use Revision</label>
@@ -182,7 +182,7 @@
 						<?php ++$i; endwhile; ?>
 						<input type="button" name="btn_compare_revisions" id="btn_compare_revisions" value="Compare" />
 					</li>
-				</ol>
+				</ul>
 			</div>
 			
 		</div>

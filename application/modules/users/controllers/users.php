@@ -275,7 +275,7 @@ class Users extends Public_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function reset_pass()
+	public function reset_pass($code = '')
 	{
 		if($this->input->post('btnSubmit'))
 		{

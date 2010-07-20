@@ -34,7 +34,7 @@ $lang['cp_delete_installer_message']		= 'Please delete the installer directory f
 $lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
 
 // Admin-wide text
-$lang['cp_sidebar_title'] 				= 'Side menu';
+$lang['cp_shortcuts_title'] 			= 'Shortcuts';
 
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';

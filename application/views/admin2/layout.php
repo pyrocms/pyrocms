@@ -30,6 +30,10 @@
 			<p><?php echo $module_data['description'] ? $module_data['description'] : ''; ?></p>
 		</header>
 			<?php $this->load->view('admin2/partials/notices') ?>
+
+			<?php if(!empty($template['partials']['shortcuts'])): ?>
+				<?php echo $template['partials']['shortcuts']; ?>
+			<?php endif; ?>
 			
 			<?php echo $template['body']; ?>
 

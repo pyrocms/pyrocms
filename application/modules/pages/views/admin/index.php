@@ -1,5 +1,4 @@
 <div class="box">
-	<?php $this->load->view('admin/partials/shortcuts'); ?>
 
 	<h3><?php echo lang('pages.list_title'); ?></h3>
 

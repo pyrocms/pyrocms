@@ -1,4 +1,5 @@
 <div class="box">
+	<?php $this->load->view('admin/partials/shortcuts'); ?>
 	
 	<h3><?php echo lang('page_layouts.list_title'); ?></h3>
 	
