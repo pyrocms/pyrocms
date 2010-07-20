@@ -162,8 +162,8 @@ DROP TABLE IF EXISTS `page_layouts`;
 CREATE TABLE `page_layouts` (
 `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
-`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
+`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 `theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
 `updated_on` INT( 11 ) NOT NULL
 ) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
@@ -180,9 +180,9 @@ CREATE TABLE `pages` (
  `title` varchar(60) collate utf8_unicode_ci NOT NULL default '',
  `body` text collate utf8_unicode_ci NOT NULL,
  `parent_id` int(11) default '0',
- `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL default 'default',
- `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default 'default',
- `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default 'default',
+ `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
+ `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+ `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '',
  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
  `meta_description` text collate utf8_unicode_ci NOT NULL default '',

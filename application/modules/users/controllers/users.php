@@ -42,9 +42,10 @@ class Users extends Public_Controller
 	public function login()
 	{
 		// Get the user data
-		$user_data 				= new stdClass();
-		$user_data->email 		= $this->input->post('email');
-		$user_data->password 	= $this->input->post('password');
+		$user_data = (object) array(
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password')
+		);
 		
 		// Validation rules
 		$this->validation_rules = array(

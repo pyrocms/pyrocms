@@ -140,7 +140,7 @@ $lang['user_password_reset_message']   			= "Your password has been reset. You s
 
 // Activation
 $lang['user_activation_email_subject'] 			= 'Activation Required';
-$lang['user_activation_email_body'] 			= 'Thank you for activting yout account with %s. To log in to the site, please visit the link below:';
+$lang['user_activation_email_body'] 			= 'Thank you for activting your account with %s. To log in to the site, please visit the link below:';
 
 
 $lang['user_activated_email_subject'] 			= 'Activation Complete';
