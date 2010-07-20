@@ -43,7 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 
 // Local: localhost or local.example.com
-if(strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE || strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE || $_SERVER['SERVER_NAME'] == 'localhost')
+if(strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
 {
   define('ENV', 'local');
 }
@@ -113,7 +113,6 @@ unset($base_uri, $base_url);
 
 define('CMS_VERSION', '1.0.0');
 
-
 /*
 |--------------------------------------------------------------------------
 | PyroCMS Release Date
@@ -123,7 +122,7 @@ define('CMS_VERSION', '1.0.0');
 |
 */
 
-define('CMS_DATE', '07/07/2010');
+define('CMS_DATE', '19/07/2010');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

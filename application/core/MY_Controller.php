@@ -61,12 +61,15 @@ class MY_Controller extends Controller
         // Make them available to all layout files
         $this->data->module_data	=& $this->module_data;
 
-		// Populate the {$pyro.whatever} variable
+		// Simple Pyro variables
         $pyro['base_url']			= BASE_URL;
         $pyro['base_uri'] 			= BASE_URI;
         $pyro['application_uri'] 	= APPPATH_URI;
-        $pyro['current_language'] 	= CURRENT_LANGUAGE; // TODO: Deprecated $pyro.current_language
-        $pyro['lang'] 	= CURRENT_LANGUAGE;
+        $pyro['lang']				= CURRENT_LANGUAGE;
+
+		// Mega Pyro arrays
+        $pyro['user'] 	= (array) $this->user;
+        $pyro['server'] = (array) $_SERVER;
         
         $this->load->vars('pyro', $pyro); 
         

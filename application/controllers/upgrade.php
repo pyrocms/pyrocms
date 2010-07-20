@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8-rc1', '0.9.8-rc2', '0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '1.0.0');
+	private $versions = array('0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '1.0.0');
 
 	function _remap()
 	{
@@ -169,6 +169,15 @@ class Upgrade extends Controller
 	    ));
 	    
 	    return FALSE; // Change this when we go live
+	}
+
+	function upgrade_0996()
+	{
+		echo 'Disabling XSS cleaning for pages.<br />';
+		$this->db->where('slug', 'pages');
+		$this->db->update('modules', array('skip_xss' => 1));
+
+		return TRUE;
 	}
 
 	function upgrade_0995()
@@ -361,22 +370,6 @@ class Upgrade extends Controller
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `content`  `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
 		
-		return TRUE;
-	}
-
-	
-	function upgrade_098()
-	{
-		//rename the users columns
-		echo 'Renaming photo description to captions...<br/>';
-		$this->dbforge->modify_column('photos', array(
-			'description' => array(
-				'name' 	  => 'caption',
-				'type' 	  => 'VARCHAR',
-				'constraint' => 100,
-			)
-		));
-
 		return TRUE;
 	}
 

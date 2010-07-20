@@ -242,7 +242,13 @@ class Asset
 
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
-		$base_location = config_item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
+		// Given a full URL
+		if(strpos($asset_name, '://') !== FALSE)
+		{
+			return $asset_name;
+		}
+
+		$base_location = config_item($location_type == 'url' ? 'asset_url' : 'asset_dir');
 
 		// If they are using a direct path, take them to it
 		if(strpos($asset_name, 'assets/') !== FALSE)
@@ -266,7 +272,7 @@ class Asset
 			// Its in a module, ignore the current
 			if($module_name)
 			{
-				foreach( (Modules::$locations) as $path => $offset)
+				foreach(Modules::$locations as $path => $offset)
 				{
 					if(is_dir($path . $module_name))
 					{

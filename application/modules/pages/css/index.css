@@ -1,8 +1,10 @@
 #page-tree { 
 	background-color:#eee;
 	border:1px #BBB solid;
+	float:left;
 	height: 35em;
 	overflow:auto;
+	width: 48%;
 }
 
 #page-tree ul { background:none; margin-left:0.7em !important; }
@@ -13,8 +15,10 @@
 #page-details {
 	background-color:lightyellow;
 	border:1px #BBB solid;
+	float:right;
 	min-height: 33em;
 	padding:1em;
+	width: 48%;
 }
 
 #page-details h4 { margin:0.5em 0; }

@@ -1,6 +1,8 @@
 @import 'default.css';
 @import 'content.css';
 
+html { overflow: auto; }	/* Fixes IE7 vertical scrollbar always showing bug! */
+
 body {
 	margin: 0;
 	padding: 0;

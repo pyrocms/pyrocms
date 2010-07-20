@@ -424,9 +424,19 @@ class MX_Language extends CI_Lang
 
 		if ($path === FALSE)
 		{
-			if ($lang = parent::load($langfile, $lang, $return))
+			if (file_exists(APPPATH . 'language/' . $idiom . '/' . $langfile . '_lang.php'))
 			{
-				return $lang;
+				if ($lang = parent::load($langfile, $lang, $return))
+				{
+					return $lang;
+				}
+			}
+			else
+			{
+				if ($lang = parent::load($langfile, FALLBACK_LANGUAGE, $return))
+				{
+					return $lang;
+				}
 			}
 		}
 

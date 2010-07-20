@@ -31,7 +31,7 @@ $lang['cp_nav_variables']				= 'Variables';
 $lang['cp_must_login']	 				= 'You must be logged in to view this page.';
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
 $lang['cp_delete_installer_message']		= 'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
-$lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s">click here</a> to upgrade the database.';
+$lang['cp_upgrade_message']		= 'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
 
 // Admin-wide text
 $lang['cp_sidebar_title'] 				= 'Side menu';
