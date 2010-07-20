@@ -235,31 +235,32 @@ class Admin extends Admin_Controller
 			// First create the page
 			$page_body = $_POST['body'];
 			unset($_POST['body']);
-			$insert_id = $this->pages_m->create($_POST);
 			
-			if ( $insert_id > 0 )
+			if ($id = $this->pages_m->create($_POST))
 			{
 				// Create the revision
-				$revision_id = $this->versioning->create_revision( array('author_id' => $this->user->id, 'owner_id' => $insert_id, 'body' => $page_body) );
+				$revision_id = $this->versioning->create_revision( array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $page_body) );
 				
 				// Update the page row
 				$to_update 					= $_POST;
 				$to_update['revision_id'] 	= $revision_id; 
 				
-				if ( $this->pages_m->update($insert_id, $to_update ) )
+				if ( $this->pages_m->update($id, $to_update ) )
 				{
-					$this->session->set_flashdata('success', $this->lang->line('pages_create_success'));
+					$this->session->set_flashdata('success', lang('pages_create_success'));
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/pages')
+					: redirect('admin/pages/edit/'.$id);
 				}
 			}
 		      
 			// Fail
 			else
 			{
-				$this->session->set_flashdata('notice', $this->lang->line('pages_create_error'));
+				$this->session->set_flashdata('notice', lang('pages_create_error'));
 			}
-			
-			// Redirect
-			redirect('admin/pages');
 	    }
 
 		// Loop through each rule
@@ -348,7 +349,11 @@ class Admin extends Admin_Controller
 			
 			// Set the flashdata message and redirect the user
 			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $this->input->post('title')));
-			redirect('admin/pages');
+
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/pages')
+				: redirect('admin/pages/edit/'.$id);
 	    }
 
 		// Loop through each validation rule

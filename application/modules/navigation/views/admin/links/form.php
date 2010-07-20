@@ -40,26 +40,26 @@
 				
 				<li class="even">
 								
-					<p class="<?php echo !empty($navigation_link->link_type) ? 'hidden' : ''; ?>">
+					<p style="<?php echo !empty($navigation_link->link_type) ? 'display:none' : ''; ?>">
 						<?php echo lang('nav_link_type_desc');?>
 					</p>
 					
-					<div id="navigation-url" class="<?php echo @$navigation_link->link_type == 'url' ? '' : 'hidden'; ?>">
+					<div id="navigation-url" style="<?php echo @$navigation_link->link_type == 'url' ? '' : 'display:none'; ?>">
 						<label for="url"><?php echo lang('nav_url_label');?></label>
 						<input type="text" id="url" name="url" value="<?php echo empty($navigation_link->url) ? 'http://' : $navigation_link->url; ?>" />
 					</div>
 						
-					<div id="navigation-module" class="<?php echo @$navigation_link->link_type == 'module' ? '' : 'hidden'; ?>">
+					<div id="navigation-module" style="<?php echo @$navigation_link->link_type == 'module' ? '' : 'display:none'; ?>">
 						<label for="module_name"><?php echo lang('nav_module_label');?></label>
 						<?php echo form_dropdown('module_name', array(lang('nav_link_module_select_default'))+$modules_select, $navigation_link->module_name) ?>
 					</div>
 					
-					<div id="navigation-uri" class="<?php echo @$navigation_link->link_type == 'uri' ? '' : 'hidden'; ?>">
+					<div id="navigation-uri" style="<?php echo @$navigation_link->link_type == 'uri' ? '' : 'display:none'; ?>">
 						<label for="uri"><?php echo lang('nav_uri_label');?></label>
 						<input type="text" id="uri" name="uri" value="<?php echo $navigation_link->uri; ?>" />
 					</div>
 					
-					<div id="navigation-page" class="<?php echo @$navigation_link->link_type == 'page' ? '' : 'hidden'; ?>">
+					<div id="navigation-page" style="<?php echo @$navigation_link->link_type == 'page' ? '' : 'display:none'; ?>">
 						<label for="page_id"><?php echo lang('nav_page_label');?></label>
 						<select name="page_id">
 							<option value=""><?php echo lang('nav_link_page_select_default');?></option>

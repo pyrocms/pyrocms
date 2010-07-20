@@ -8,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
- * @since		Version 1.0-dev
+ * @since		Version 1.0
  * @filesource
  */
 
@@ -16,6 +16,7 @@ $lang['buttons.submit']		= 'Save';
 $lang['buttons.cancel']		= 'Cancel';
 $lang['buttons.upload']		= 'Upload';
 $lang['buttons.save']		= 'Save';
+$lang['buttons.save_exit']	= 'Save &amp; Exit';
 $lang['buttons.delete']		= 'Delete';
 $lang['buttons.install']	= 'Install';
 $lang['buttons.yes']		= 'Yes';
