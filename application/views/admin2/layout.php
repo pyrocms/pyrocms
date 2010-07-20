@@ -11,7 +11,7 @@
 <?php echo $template['partials']['header']; ?>
 <?php echo $template['partials']['navigation']; ?>
 		<div id="lang-select">
-		<?php echo form_open($this->uri->uri_string(), 'id="change_language" method="get"'); ?>
+		<form action="<?php echo $this->uri->uri_string(); ?>" id="change_language" method="get">
 				<select name="lang" onchange="this.form.submit();">
 					<option value="">-- Select Language --</option>
 			<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>
@@ -21,7 +21,7 @@
         	<?php endforeach; ?>
 	        	</select>
 
-		<?php echo form_close(); ?>
+		</form>
 		</div>
 	</section>
 	<section id="content">
