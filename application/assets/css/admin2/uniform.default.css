@@ -420,12 +420,12 @@ div.selector.disabled span {
 
 /* Checker */
 div.checker {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 /* Radio */
 div.radio {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 /* Uploader */
@@ -525,12 +525,13 @@ div.selector select {
 
 div.checker {
   position: relative;
-  float: left;
+  display: -moz-inline-box;
+  display: inline-block;
 }
 
 div.checker span {
-  display: block;
-  float: left;
+  display: -moz-inline-box;
+  display: inline-block;
   text-align: center;
 }
 
@@ -544,12 +545,13 @@ div.checker input {
 
 div.radio {
   position: relative;
-  float: left;
+  display: -moz-inline-box;
+  display: inline-block;
 }
 
 div.radio span {
-  display: block;
-  float: left;
+  display: -moz-inline-box;
+  display: inline-block;
   text-align: center;
 }
 
