@@ -20,8 +20,8 @@ class Admin extends Admin_Controller
 		
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
-		
-	    $this->template->set_partial('sidebar', 'admin/sidebar');
+
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	    $this->template->append_metadata( js('widgets.js', 'widgets') );
 	    $this->template->append_metadata( css('widgets.css', 'widgets') );
 	}

@@ -1,12 +1,10 @@
-<div class="box">
-	<h3 class="yellow"><?php echo lang('cp_sidebar_title')?></h3>
-	
-	<div class="box-container">
-		<ul class="list-links">
-			<li><?php echo anchor('#', lang('widgets.add_area'), 'id="add-area"') ?></li>
-		</ul>
-	</div>
-</div>
+<nav id="shortcuts">
+	<h6><?php echo lang('cp_shortcuts_title'); ?></h6>
+	<ul>
+		<li><?php echo anchor('#', lang('widgets.add_area'), 'id="add-area"') ?></li>
+	</ul>
+	<br class="clear-both" />
+</nav>
 
 <?php if($available_widgets): ?>
 <div class="box">
