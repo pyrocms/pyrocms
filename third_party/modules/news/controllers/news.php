@@ -12,9 +12,6 @@ class News extends Public_Controller
 		$this->load->model('comments/comments_m');        
 		$this->load->helper('text');
 		$this->lang->load('news');
-		
-		// All pages within news will display an archive list
-		$this->data->archive_months = $this->news_m->get_archive_months();        
 	}
 	
 	// news/page/x also routes here
