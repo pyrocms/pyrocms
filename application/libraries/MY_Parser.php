@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -12,7 +12,6 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
 
 /**
@@ -24,40 +23,70 @@
  * @author		Phil Sturgeon
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
  */
-include(APPPATH.'libraries/dwoo/dwooAutoload.php');
+include(APPPATH . 'libraries/dwoo/dwooAutoload.php');
 
-class MY_Parser extends CI_Parser
-{
+class MY_Parser extends CI_Parser {
+
 	private $_ci;
-
 	private $_dwoo;
-	private $_config;
-	
-	function __construct()
-	{
-	 	$this->_ci =& get_instance();
-	 	
-		$this->_ci->config->load('parser', TRUE);
-        $this->_config = $this->_ci->config->item('parser');
-        
-        // Main Dwoo object
-        $this->_dwoo = new Dwoo;
+	private $_parser_compile_dir = '';
+	private $_parser_cache_dir = '';
+	private $_parser_cache_time = 0;
+	private $_parser_allow_php_tags = array();
+	private $_parser_allowed_php_functions = array();
+	private $_parser_assign_refs = array();
 
-         // The directory where compiled templates are located
-		$this->_dwoo->setCompileDir( $this->_config['parser_compile_dir'] );
-		$this->_dwoo->setCacheDir( $this->_config['parser_cache_dir'] );
-		$this->_dwoo->setCacheTime( $this->_config['parser_cache_time'] );
-		
-		// Security
-		$security = new Dwoo_Security_Policy;
-		
-		$security->setPhpHandling($this->_config['parser_allow_php_tags']);
-		$security->allowPhpFunction($this->_config['parser_allowed_php_functions']);
-		
-		$this->_dwoo->setSecurityPolicy( $security );
-		
+	function __construct($config = array())
+	{
+		if (!empty($config))
+		{
+			$this->initialize($config);
+		}
+
+		$this->_ci = & get_instance();
+		$this->_dwoo = self::spawn();
 	}
-	
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Initialize preferences
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return	void
+	 */
+	function initialize($config = array())
+	{
+		foreach ($config as $key => $val)
+		{
+			$this->{'_' . $key} = $val;
+		}
+	}
+
+	function spawn()
+	{
+		// Main Dwoo object
+		$dwoo = new Dwoo;
+
+		// The directory where compiled templates are located
+		$dwoo->setCompileDir($this->_parser_compile_dir);
+		$dwoo->setCacheDir($this->_parser_cache_dir);
+		$dwoo->setCacheTime($this->_parser_cache_time);
+
+		// Security
+		$security = new MY_Security_Policy;
+
+		$security->setPhpHandling($this->_parser_allow_php_tags);
+		$security->allowPhpFunction($this->_parser_allowed_php_functions);
+
+		$dwoo->setSecurityPolicy($security);
+
+		return $dwoo;
+	}
+
+	// --------------------------------------------------------------------
+
 	/**
 	 *  Parse a view file
 	 *
@@ -70,13 +99,15 @@ class MY_Parser extends CI_Parser
 	 * @param	bool
 	 * @return	string
 	 */
-	function parse($template, $data = array(), $return = FALSE)
+	function parse($template, $data = array(), $return = FALSE, $is_include = FALSE)
 	{
 		$string = $this->_ci->load->view($template, $data, TRUE);
-		
-		return $this->_parse($string, $data, $return);	
+
+		return $this->_parse($string, $data, $return, $is_include);
 	}
-	
+
+	// --------------------------------------------------------------------
+
 	/**
 	 *  String parse
 	 *
@@ -89,11 +120,18 @@ class MY_Parser extends CI_Parser
 	 * @param	bool
 	 * @return	string
 	 */
-	function string_parse($string, $data = array(), $return = FALSE)
+	function string_parse($string, $data = array(), $return = FALSE, $is_include = FALSE)
 	{
-		return $this->_parse($string, $data, $return);
-    }
-	
+		return $this->_parse($string, $data, $return, $is_include);
+	}
+
+	function parse_string($string, $data = array(), $return = FALSE, $is_include = FALSE)
+	{
+		return $this->_parse($string, $data, $return, $is_include);
+	}
+
+	// --------------------------------------------------------------------
+
 	/**
 	 *  Parse
 	 *
@@ -106,65 +144,74 @@ class MY_Parser extends CI_Parser
 	 * @param	bool
 	 * @return	string
 	 */
-	function _parse($string, $data, $return = FALSE)
+	function _parse($string, $data, $return = FALSE, $is_include = FALSE)
 	{
-        // Start benchmark
-        $this->_ci->benchmark->mark('dwoo_parse_start');
-        
-		// Compatibility with PyroCMS v0.9.7 style links
-		// TODO: Remove this for v1.0
-		$string = preg_replace('/\{page_url\[([0-9]+)\]\}/', '{page_url($1)}', $string);
-		
-        // Convert from object to array
-        if(!is_array($data))
-        {
-        	$data = (array) $data;
-        }
-        
-        $data = array_merge($data, $this->_ci->load->_ci_cached_vars);
+		// Start benchmark
+		$this->_ci->benchmark->mark('dwoo_parse_start');
 
-		foreach ($this->_config['parser_assign_refs'] as $ref)
+		// Convert from object to array
+		if (!is_array($data))
 		{
-	        $data[$ref] =& $this->_ci->{$ref};
+			$data = (array) $data;
 		}
 
-		// TODO: DEPRECATED kill ci value
-		//$data['ci'] =& $this->_ci;
-		
-        // Object containing data
-        $dwoo_data = new Dwoo_Data;
-        $dwoo_data->setData($data);
-        
-        try
-        {
-	        // Object of the template
-	        $tpl = new Dwoo_Template_String($string);
-	        
-	        // render the template
-	        $parsed_string = $this->_dwoo->get($tpl, $dwoo_data);
-        }
-        
-        catch(Dwoo_Compilation_Exception $e)
-        {
-        	show_error($e);
-        }
-        
-        // Finish benchmark
-        $this->_ci->benchmark->mark('dwoo_parse_end');
+		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
-        // Return results or not ?
-		if ( !$return )
+		foreach ($this->_parser_assign_refs as $ref)
+		{
+			$data[$ref] = & $this->_ci->{$ref};
+		}
+
+		// Object containing data
+		$dwoo_data = new Dwoo_Data;
+		$dwoo_data->setData($data);
+
+		try
+		{
+			// Object of the template
+			$tpl = new Dwoo_Template_String($string);
+
+			$dwoo = $is_include ? self::spawn() : $this->_dwoo;
+
+			// render the template
+			$parsed_string = $dwoo->get($tpl, $dwoo_data);
+		}
+
+		catch (Exception $e)
+		{
+			show_error($e);
+		}
+
+		// Finish benchmark
+		$this->_ci->benchmark->mark('dwoo_parse_end');
+
+		// Return results or not ?
+		if (!$return)
 		{
 			$this->_ci->output->append_output($parsed_string);
 			return;
 		}
-		
+
 		return $parsed_string;
 	}
-	
+
 	// --------------------------------------------------------------------
-	
 }
+
+class MY_Security_Policy extends Dwoo_Security_Policy {
+
+	public function callMethod(Dwoo_Core $dwoo, $obj, $method, $args)
+	{
+		return call_user_func_array(array($obj, $method), $args);
+	}
+
+	public function isMethodAllowed()
+	{
+		return TRUE;
+	}
+
+}
+
 // END MY_Parser Class
 
 /* End of file MY_Parser.php */

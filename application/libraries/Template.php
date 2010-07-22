@@ -39,7 +39,6 @@ class Template
     private $_metadata = array();
 
 	private $_partials = array();
-	private $_injected = array();
 
     private $_breadcrumbs = array();
 
@@ -64,12 +63,13 @@ class Template
 	 */
 	function __construct($config = array())
 	{
+        $this->_ci =& get_instance();
+
 		if (!empty($config))
 		{
 			$this->initialize($config);
 		}
 
-        $this->_ci =& get_instance();
         log_message('debug', 'Template class Initialized');
 
     	// Work out the controller and method
@@ -101,6 +101,11 @@ class Template
 		if(empty($this->_theme_locations))
 		{
 			$this->_theme_locations = array(APPPATH . 'themes/' => '../themes/');
+		}
+
+		if ($this->_parser_enabled === TRUE)
+		{
+			$this->_ci->load->library('parser');
 		}
 	}
 
@@ -135,7 +140,23 @@ class Template
 
     	foreach( $this->_partials as $name => $partial )
     	{
-    		$template['partials'][$name] = $this->_load_view( $partial['view'] , $partial['search']);
+			// If its an array, use details to find it.
+    		if (isset($partial['view']))
+			{
+				$template['partials'][$name] = $this->_load_view($partial['view'], $partial['search']);
+			}
+
+			// Otherwise, jam that bloody string in!
+			else
+			{
+				if($this->_parser_enabled === TRUE)
+				{
+					$partial['string'] = $this->_ci->parser->parse_string($partial['string'], $this->data + $partial['data'], TRUE, TRUE);
+				}
+
+				$template['partials'][$name] = $partial['string'];
+			}
+
     	}
 
         // Disable sodding IE7's constant cacheing!!
@@ -175,13 +196,12 @@ class Template
 			// Parse if parser is enabled, or its a theme view
 			if($this->_parser_enabled === TRUE || $this->_theme)
 			{
-	    		$this->_ci->load->library('parser');
-				$this->_body = $this->_ci->parser->parse( $layout_view, $this->data, TRUE );
+				$this->_body = $this->_ci->parser->parse($layout_view, $this->data, TRUE, TRUE);
 			}
 
 			else
 			{
-				$this->_body = $this->_ci->load->view( $layout_view, $this->data, TRUE );
+				$this->_body = $this->_ci->load->view($layout_view, $this->data, TRUE);
 			}
         }
 
@@ -316,61 +336,24 @@ class Template
 	 * @param	boolean
 	 * @return	void
 	 */
-	public function set_partial( $name, $view, $search = TRUE )
+	public function set_partial($name, $view, $search = TRUE)
 	{
 		$this->_partials[$name] = array('view' => $view, 'search' => $search);
 		return $this;
 	}
 
-
 	/**
-	 * Returns a partial
+	 * Set a view partial
 	 *
-	 * Instead of evaluating the partial internally
-	 * this method returns the value of the partial
-	 * in order for you to perform your own logic
-	 * on it, caching for instance.
-	 *
-	 * WARNING: Any variables pushed to the template
-	 * library after this point will NOT be available
-	 * in the specified partial, as it is parsed
-	 * immediately!
-	 *
-	 * @author	Per Sikker Hansen <lord@heavenquake.net>
 	 * @access	public
+	 * @param	string
 	 * @param	string
 	 * @param	boolean
-	 * @return	string
-	 */
-	public function return_partial( $view, $data = array(), $search = TRUE )
-	{
-		$this->data = array_merge($this->data, $data);
-		return $this->_load_view( $view, $search );
-	}
-
-
-	/**
-	 * Inject output data directly
-	 *
-	 * Intended for use with data prepped after
-	 * return_partial(), but possible to use for
-	 * other purposes. Injects the data directly
-	 * into the partial tree.
-	 *
-	 * WARNING: Any variables pushed to the template
-	 * library after the injection will NOT be
-	 * available in the data you have injected as
-	 * the data is already parsed!
-	 *
-	 * @author	Per Sikker Hansen <lord@heavenquake.net>
-	 * @access	public
-	 * @param	string
-	 * @param	string
 	 * @return	void
 	 */
-	public function inject_partial( $name, $data )
+	public function inject_partial($name, $string, $data = array())
 	{
-		$this->_injected[$name] = $data;
+		$this->_partials[$name] = array('string' => $string, 'data' => $data);
 		return $this;
 	}
 
@@ -525,7 +508,6 @@ class Template
     	{
     		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 			{
-				$this->_ci->load->library('parser');
 				return $this->_ci->parser->parse( $view, $this->data, TRUE );
 			}
 
@@ -546,7 +528,6 @@ class Template
 				{
 					if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 					{
-						$this->_ci->load->library('parser');
 						return $this->_ci->parser->parse( $offset.$theme_view, $this->data, TRUE );
 					}
 
@@ -561,7 +542,6 @@ class Template
 		// Not found it yet? Just load, its either in the module or root view
 		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 		{
-			$this->_ci->load->library('parser');
 			return $this->_ci->parser->parse( $this->_module.'/'.$view, $this->data, TRUE );
 		}
 
