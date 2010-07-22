@@ -80,7 +80,7 @@ class Upgrade extends Controller
 		$this->db->where('slug', 'pages');
 		$this->db->update('modules', array('skip_xss' => 1));
 
-		return FALSE; // Change this when we go live
+		return TRUE;
 	}
 
 	function upgrade_0995()
