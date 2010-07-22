@@ -16,10 +16,19 @@ class Widgets
 	{
 		$this->load->model('widgets/widgets_m');
 
-		$this->_widget_locations = array(
-			APPPATH.'widgets/' => '../widgets/',
-			'third_party/widgets/' => '../../third_party/widgets/'
-		);
+		// Map where all widgets are
+		foreach ($this->load->_ci_library_paths as $path)
+		{
+			$widgets = array_merge(glob($path.'widgets/*', GLOB_ONLYDIR), glob($path.'modules/*/widgets/*', GLOB_ONLYDIR));
+
+			foreach ($widgets as $widget_path)
+			{
+				$slug = basename($widget_path);
+
+				// Set this so we know where it is later
+				$this->_widget_locations[$slug] = $widget_path;
+			}
+		}
 	}
 
 	function list_areas()
@@ -42,31 +51,19 @@ class Widgets
 		$available = $this->list_available_widgets();
 		$available_slugs = array();
 
-		foreach($available as $widget)
+		foreach ($available as $widget)
 		{
 			$available_slugs[] = $widget->slug;
 		}
 
 		$uninstalled = array();
-		foreach($this->_widget_locations as $location => $offset)
+		foreach ($this->_widget_locations as $widget_path)
 		{
-			$slugs = (glob($location . '*', GLOB_ONLYDIR));
+			$slug = basename($widget_path);
 
-			// Skip if there are no widgets
-			if(!$slugs)
+			if ( ! in_array($slug, $available_slugs) && $widget = $this->read_widget($widget_path))
 			{
-				continue;
-			}
-
-			// Turn slugs into useful data
-			foreach($slugs as $slug)
-			{
-				$slug = basename($slug);
-
-				if(!in_array($slug, $available_slugs))
-				{
-					$uninstalled[] = $this->read_widget($slug);
-				}
+				$uninstalled[] = $widget;
 			}
 		}
 
@@ -77,7 +74,7 @@ class Widgets
 	{
 		$widget = $this->widgets_m->get_instance($instance_id);
 
-		if($widget)
+		if ($widget)
 		{
 			$widget->options = $this->_unserialize_options($widget->options);
 			return $widget;
@@ -101,27 +98,37 @@ class Widgets
 	}
 
 
-	function read_widget($slug)
+	function read_widget($path)
 	{
+		$slug = pathinfo($path, PATHINFO_BASENAME);
+		$path = pathinfo($path, PATHINFO_DIRNAME);
+
     	$this->_spawn_widget($slug);
+
+		if ( $this->_widget === FALSE OR ! is_subclass_of($this->_widget, 'Widgets'))
+		{
+			throw new Exception('Stuff');
+			return FALSE;
+		}
 
     	$widget = (object) get_object_vars($this->_widget);
     	$widget->slug = $slug;
+		$widget->module = strpos($slug, 'modules/') ? basename(dirname($path)) : NULL;
+		$widget->is_third_party = strpos($slug, 'third_party/') !== FALSE;
 
-    	return $widget;
+		return $widget;
 	}
-
 
     function render($name, $options = array())
     {
-    	$relative_offset = $this->_spawn_widget($name);
+    	$path = $this->_spawn_widget($name);
 
         $data = method_exists($this->_widget, 'run')
 			? call_user_func(array($this->_widget, 'run'), $options)
 			: array();
 
 		// Don't run this widget
-		if($data === FALSE)
+		if ($data === FALSE)
 		{
 			return FALSE;
 		}
@@ -134,12 +141,12 @@ class Widgets
 
 		$data['options'] = $options;
 
-        return $this->load->view($relative_offset . $name . '/views/display', $data, TRUE);
+        return $this->load->view('../../'.$path.'/views/display', $data, TRUE);
     }
 
     function render_backend($name, $default_options = array())
     {
-    	$relative_offset = $this->_spawn_widget($name);
+    	$path = $this->_spawn_widget($name);
 
     	// Check for default data if there is any
     	$data = method_exists($this->_widget, 'prep_form') ? call_user_func(array(&$this->_widget, 'prep_form')) : array();
@@ -147,16 +154,16 @@ class Widgets
     	$data['options'] = array();
 
 		// If there are fields
-		if(!empty($this->_widget->fields))
+		if (!empty($this->_widget->fields))
 		{
-			foreach($this->_widget->fields as $field)
+			foreach ($this->_widget->fields as $field)
 			{
 				$field_name =& $field['field'];
 
 				$data['options'][$field_name] = set_value($field_name, @$default_options[$field_name]);
 			}
 
-			return $this->load->view($relative_offset . $name . '/views/form', $data, TRUE);
+			return $this->load->view('../..'.$path.'/views/form', $data, TRUE);
 		}
 
 		return '';
@@ -164,7 +171,7 @@ class Widgets
 
 	function render_area($area)
 	{
-		if(isset($this->_rendered_areas[$area]))
+		if (isset($this->_rendered_areas[$area]))
 		{
 			return $this->_rendered_areas[$area];
 		}
@@ -173,12 +180,12 @@ class Widgets
 
 		$output = '';
 
-		foreach($widgets as $widget)
+		foreach ($widgets as $widget)
 		{
 			$widget->options = $this->_unserialize_options($widget->options);
 			$widget->body = $this->render($widget->slug, $widget->options);
 
-			if($widget->body !== FALSE)
+			if ($widget->body !== FALSE)
 			{
 				$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
 			}
@@ -214,7 +221,7 @@ class Widgets
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
-		if( $error = $this->validation_errors($slug, $options) )
+		if ( $error = $this->validation_errors($slug, $options) )
 		{
 			return array('status' => 'error', 'error' => $error);
 		}
@@ -236,7 +243,7 @@ class Widgets
 	{
 		$slug = $this->widgets_m->get_instance($instance_id)->slug;
 
-		if( $error = $this->validation_errors($slug, $options) )
+		if ( $error = $this->validation_errors($slug, $options) )
 		{
 			return array('status' => 'error', 'error' => $error);
 		}
@@ -263,19 +270,18 @@ class Widgets
 		return $this->widgets_m->delete_instance($id);
 	}
 
-
 	function validation_errors($name, $options)
 	{
 		$this->_widget || $this->_spawn_widget($name);
 
-	    if(property_exists($this->_widget, 'fields'))
+	    if (property_exists($this->_widget, 'fields'))
     	{
     		$_POST = $options;
 
     		$this->load->library('form_validation');
     		$this->form_validation->set_rules($this->_widget->fields);
 
-    		if(!$this->form_validation->run())
+    		if (!$this->form_validation->run('', FALSE))
     		{
     			return validation_errors();
     		}
@@ -286,7 +292,7 @@ class Widgets
     {
     	$this->_widget || $this->_spawn_widget($name);
 
-    	if(method_exists($this->_widget, 'prep_options'))
+    	if (method_exists($this->_widget, 'prep_options'))
 	    {
 			return (array) call_user_func(array(&$this->_widget, 'prep_options'), $options);
 	    }
@@ -296,21 +302,20 @@ class Widgets
 
     private function _spawn_widget($name)
     {
-    	foreach($this->_widget_locations as $location => $offset)
-		{
-			$widget_path = $location . $name . '/' . $name . EXT;
-			if(file_exists($widget_path))
-			{
-				require_once $widget_path;
-				$class_name = ucfirst($name);
-				$this->_widget = new $class_name;
+		$widget_path = $this->_widget_locations[$name] . '/' . $name . EXT;
 
-				return $offset;
-			}
+		if (file_exists($widget_path))
+		{
+			require_once $widget_path;
+			$class_name = ucfirst($name);
+			$this->_widget = new $class_name;
+
+			return $this->_widget_locations[$name].'/';
 		}
+
+		return FALSE;
     }
 
-	// wirdesignz you genius
     function __get($var)
     {
         static $ci;
