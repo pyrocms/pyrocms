@@ -130,7 +130,7 @@ class Comments extends Public_Controller
 		// MEINE FREUHER, ZEH VALIDATION HAZ FAILED. BACK TO ZEH BUNKERZ!!!
 		else
 		{		
-			$this->session->set_flashdata('error', lang('comments.add_error'));
+			$this->session->set_flashdata('error', validation_errors());
 		}
 
 		// Loop through each rule

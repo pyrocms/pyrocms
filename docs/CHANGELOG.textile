@@ -13,6 +13,7 @@ h2. v1.0.0
 * Deprecated {$ci->foo->bar()} and now use {$foo->bar()}. Make sure your foo is listed in application/config/parser.php.
 * Added "Save" and "Save & Exit" buttons to Page manager so you can go back to the same page on save.
 * Widgets can now go in modules and any packages, not just third_party.
+* Logged in users will no longer see the stupid website box on comments, it will use their profile value.
 
 h2. v0.9.9.6
 
