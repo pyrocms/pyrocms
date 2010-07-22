@@ -266,7 +266,7 @@ class Widgets
     		$this->load->library('form_validation');
     		$this->form_validation->set_rules($this->_widget->fields);
 
-    		if(!$this->form_validation->run())
+    		if(!$this->form_validation->run('', FALSE))
     		{
     			return validation_errors();
     		}

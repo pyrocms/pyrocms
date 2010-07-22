@@ -17,8 +17,11 @@ class MY_Form_validation extends CI_Form_validation
         return $this->use_nonce;
     }
 
-    public function run($group = '') {
-        $this->set_rules('nonce', 'Nonce', 'required|valid_nonce');
+    public function run($group = '', $nonce = TRUE) {
+        if($nonce)
+		{
+			$this->set_rules('nonce', 'Nonce', 'required|valid_nonce');
+		}
         $result = parent::run($group);
         if($result === true) {
             $this->save_nonce();
