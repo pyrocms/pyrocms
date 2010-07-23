@@ -22,6 +22,7 @@
  * @category	Parser
  * @author		Phil Sturgeon
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
+ * @version		2.0
  */
 include(APPPATH . 'libraries/dwoo/dwooAutoload.php');
 
@@ -64,6 +65,15 @@ class MY_Parser extends CI_Parser {
 		}
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * Spawn Dwoo instance
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return	void
+	 */
 	function spawn()
 	{
 		// Main Dwoo object
@@ -194,8 +204,6 @@ class MY_Parser extends CI_Parser {
 
 		return $parsed_string;
 	}
-
-	// --------------------------------------------------------------------
 }
 
 class MY_Security_Policy extends Dwoo_Security_Policy {

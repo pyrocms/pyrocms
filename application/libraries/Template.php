@@ -286,15 +286,13 @@ class Template
         switch($type)
         {
         	case 'meta':
-        		$meta = '<meta name="'.$name.'" content="'.$content.'" />';
+        		$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
         	break;
 
         	case 'link':
-        		$meta = '<link rel="'.$name.'" href="'.$content.'" />';
+        		$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
         	break;
         }
-
-    	$this->append_metadata($meta);
 
         return $this;
     }

@@ -17,7 +17,7 @@ define('FALLBACK_LANGUAGE', 'english');
  * Install this file as application/libraries/MY_Loader.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.0
+ * @version 	2.2
  * @modified	Phil Sturgeon
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -48,7 +48,7 @@ class MY_Loader extends CI_Loader {
 		parent::__construct();
 		self::$APP = CI_Base::get_instance();
 		self::$APP->config = new MX_Config();
-		self::$APP->lang = new MX_Language();
+		self::$APP->lang = new MX_Lang();
 		$this->_module = self::$APP->router->fetch_module();
 	}
 
@@ -171,7 +171,7 @@ class MY_Loader extends CI_Loader {
 
 		list($path, $model) = Modules::find($model, $this->_module, 'models/');
 
-		if(CI_VERSION < 2)
+		if (CI_VERSION < 2)
 		{
 			class_exists('Model', FALSE) OR load_class('Model', FALSE);
 		}
@@ -339,7 +339,7 @@ class MY_Loader extends CI_Loader {
 
 }
 
-class MX_Config extends MY_Config {
+class MX_Config extends CI_Config {
 
 	public function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE, $_module = NULL)
 	{
@@ -391,12 +391,12 @@ class MX_Config extends MY_Config {
 
 }
 
-if(CI_VERSION < 2)
+if (CI_VERSION < 2)
 {
 	class CI_Lang extends CI_Language {}
 }
 
-class MX_Language extends CI_Lang
+class MX_Lang extends CI_Lang
 {
 	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)
 	{
@@ -424,7 +424,7 @@ class MX_Language extends CI_Lang
 
 		if ($path === FALSE)
 		{
-			if (file_exists(APPPATH . 'language/' . $idiom . '/' . $langfile . '_lang.php'))
+			if (file_exists(APPPATH.'language/'.$idiom.'/'.$langfile.'_lang'.EXT))
 			{
 				if ($lang = parent::load($langfile, $lang, $return))
 				{
@@ -442,7 +442,7 @@ class MX_Language extends CI_Lang
 
 		else
 		{
-			if($lang = Modules::load_file($_langfile, $path, 'lang'))
+			if ($lang = Modules::load_file($_langfile, $path, 'lang'))
 			{
 				if ($return) return $lang;
 				$this->language = array_merge($this->language, $lang);
