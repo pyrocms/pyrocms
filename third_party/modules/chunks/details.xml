@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.1 Beta">
+	<name>
+		<en>Chunks</en>
+	</name>
+	<description>
+		<en>Create and manage small bits of content.</en>
+	</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<is_backend_menu>0</is_backend_menu>
+</module>
