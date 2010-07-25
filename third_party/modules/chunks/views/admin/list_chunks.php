@@ -25,7 +25,7 @@
 					<?php foreach ($chunks as $chunk): ?>
 						<tr>
 							<td><?php echo $chunk->name; ?></td>
-							<td>{$chunk.welcome}</td>
+							<td>{$chunk.<?php echo $chunk->slug; ?>}</td>
 							<td>
 								<?php echo anchor('admin/form/edit_form/' . $chunk->id, 'Edit');?> | 
 								<?php echo anchor('admin/form/delete_form/' . $chunk->id, 'Delete', array('class'=>'confirm')); ?>
