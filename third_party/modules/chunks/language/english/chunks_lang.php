@@ -6,6 +6,7 @@
 
 	$lang['chunks.list_chunks']							= 'List Chunks';
 	$lang['chunks.add_chunk']							= 'Add Chunk';
+	$lang['chunks.edit_chunk']							= 'Edit "%n" Chunk';
 
 	// -------------------------------------
 	// Messages

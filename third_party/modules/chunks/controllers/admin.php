@@ -65,7 +65,7 @@ class Admin extends Admin_Controller {
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Create a new form
+	 * Create a new chunk
 	 */
 	function create_chunk()
 	{		
@@ -93,6 +93,57 @@ class Admin extends Admin_Controller {
 		if ($this->validation->run())
 		{
 			if( ! $this->chunks_m->insert_new_chunk( $this->chunk_rules, $this->data->user->id ) ):
+			{
+				$this->session->set_flashdata('notice', lang('chunks.new_chunk_error'));	
+			}
+			else:
+			{
+				$this->session->set_flashdata('success', lang('chunks.new_chunk_success'));	
+			}
+			endif;
+	
+			redirect('admin/chunks');
+		}
+
+		// -------------------------------------
+		
+		$this->template->build('admin/form', $this->data);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Edit a chunk
+	 */
+	function edit_chunk( $chunk_id = 0 )
+	{		
+		$this->data->chunk_types = $this->chunk_types;
+	
+		// -------------------------------------
+		// Validation & Setup
+		// -------------------------------------
+	
+		$this->load->library('validation');
+
+		$this->validation->set_rules( $this->chunk_rules );
+		
+		$this->validation->set_fields();
+
+		// -------------------------------------
+		// Get chunk data
+		// -------------------------------------
+		
+		$this->data->chunk = $this->chunks_m->get_chunk( $chunk_id );
+		
+		$this->data->chunk->content = $this->chunks_m->process_type( $this->data->chunk->type, $this->data->chunk->content, 'outgoing' );
+		
+		// -------------------------------------
+		// Process Data
+		// -------------------------------------
+		
+		if ($this->validation->run())
+		{
+			if( ! $this->chunks_m->update_chunk( $this->chunk_rules, $chunk_id ) ):
 			{
 				$this->session->set_flashdata('notice', lang('chunks.new_chunk_error'));	
 			}

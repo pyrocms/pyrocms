@@ -1,7 +1,7 @@
 <div class="box">
 	
 	<?php if($method == 'create_chunk'): ?>
-		<h3><?php echo lang('form_new_form');?></h3>
+		<h3><?php echo lang('chunks.add_chunk');?></h3>
 	<?php else: ?>
 		<h3><?php echo sprintf(lang('form.title.edit_form'), $chunk->name);?></h3>
 	<?php endif; ?>

@@ -27,8 +27,8 @@
 							<td><?php echo $chunk->name; ?></td>
 							<td>{$chunk.<?php echo $chunk->slug; ?>}</td>
 							<td>
-								<?php echo anchor('admin/form/edit_form/' . $chunk->id, 'Edit');?> | 
-								<?php echo anchor('admin/form/delete_form/' . $chunk->id, 'Delete', array('class'=>'confirm')); ?>
+								<?php echo anchor('admin/chunks/edit_chunk/' . $chunk->id, 'Edit');?> | 
+								<?php echo anchor('admin/chunks/delete_chunk/' . $chunk->id, 'Delete', array('class'=>'confirm')); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
