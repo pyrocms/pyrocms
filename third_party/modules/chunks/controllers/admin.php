@@ -50,7 +50,7 @@ class Admin extends Admin_Controller {
 	 *
 	 */
 	function list_chunks()
-	{
+	{	
 		// -------------------------------------
 		// Get chunks
 		// -------------------------------------
@@ -92,7 +92,7 @@ class Admin extends Admin_Controller {
 		
 		if ($this->validation->run())
 		{
-			if( ! $this->chunks_m->insert_new_chunk( $this->chunk_rules ) ):
+			if( ! $this->chunks_m->insert_new_chunk( $this->chunk_rules, $this->data->user->id ) ):
 			{
 				$this->session->set_flashdata('notice', lang('chunks.new_chunk_error'));	
 			}

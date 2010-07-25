@@ -31,9 +31,10 @@ class Chunks_m extends MY_Model {
      * Insert a chunk
      *
      * @param	array
+     * @param	int
      * @return bool
      */
-    function insert_new_chunk( $chunk_rules )
+    function insert_new_chunk( $chunk_rules, $user_id )
     {
     	$insert_data = array();
     
@@ -46,6 +47,7 @@ class Chunks_m extends MY_Model {
     	
     	$insert_data['when_added'] 		= $now;
     	$insert_data['last_updated'] 	= $now;
+    	$insert_data['added_by']		= $user_id;
     	
     	return $this->db->insert('chunks', $insert_data);
     }
