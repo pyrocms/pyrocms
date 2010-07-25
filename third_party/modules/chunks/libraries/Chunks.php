@@ -31,16 +31,8 @@ class Chunks
 
 		foreach( $chunks as $chunk ):
 		
-			if( $chunk->type == "html" ):
+				$this->var_chunks[$chunk->slug] = $this->ci->chunks_m->process_type( $chunk->type, $chunk->content, 'outgoing' );
 			
-				$this->var_chunks[$chunk->slug] = htmlspecialchars_decode($chunk->content);
-				
-			else:
-			
-				$this->var_chunks[$chunk->slug] = $chunk->content;
-			
-			endif;			
-		
 		endforeach;
 		
 		// -------------------------------------

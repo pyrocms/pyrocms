@@ -90,7 +90,15 @@ class Chunks_m extends MY_Model {
     
     	foreach( array_keys($this->chunk_rules) as $item )
     	{
-    		$update_data[$item] = $this->input->post($item);
+    		if( $item == 'content' ):
+    		
+       			$update_data[$item] = $this->process_type( $this->input->post('type'), $this->input->post($item) );
+ 		
+			else:
+    		
+    			$update_data[$item] = $this->input->post($item);
+    		
+    		endif;
     	}
     	
     	$update_data['last_updated'] 	= date('Y-m-d H:i:s');
