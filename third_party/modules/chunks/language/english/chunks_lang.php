@@ -15,6 +15,8 @@
 	$lang['chunks.no_chunks']							= 'There are no chunks in the system.';
 	$lang['chunks.new_chunk_success']					= 'Chunk added successfully';
 	$lang['chunks.new_chunk_error']						= 'There was an error in adding your chunk';
+	$lang['chunks.delete_chunk_success']				= 'Chunk deleted successfully';
+	$lang['chunks.delete_chunk_error']					= 'There was an error in deleted this chunk';
 
 	// -------------------------------------
 	// Form Tiles

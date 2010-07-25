@@ -104,7 +104,23 @@ class Chunks_m extends MY_Model {
     	$update_data['last_updated'] 	= date('Y-m-d H:i:s');
     	
     	$this->db->where('id', $chunk_id);
+    	
     	return $this->db->update('chunks', $update_data);
+    }
+
+	// --------------------------------------------------------------------------
+     
+    /**
+     * Delete a chunk
+     *
+     * @param	int
+     * @return 	bool
+     */    
+    function delete_chunk( $chunk_id )
+    {
+    	$this->db->where('id', $chunk_id);
+    	
+    	return $this->db->delete('chunks');
     }
 
 	// --------------------------------------------------------------------------

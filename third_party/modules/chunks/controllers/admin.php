@@ -161,6 +161,25 @@ class Admin extends Admin_Controller {
 		$this->template->build('admin/form', $this->data);
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Delete a chunk
+	 */
+	function delete_chunk( $chunk_id = 0 )
+	{		
+		if( ! $this->chunks_m->delete_chunk( $chunk_id ) ):
+		{
+			$this->session->set_flashdata('notice', lang('chunks.delete_chunk_error'));	
+		}
+		else:
+		{
+			$this->session->set_flashdata('success', lang('chunks.delete_chunk_success'));	
+		}
+		endif;
+
+		redirect('admin/chunks');
+	}
 }
 
 /* End of file admin.php */
