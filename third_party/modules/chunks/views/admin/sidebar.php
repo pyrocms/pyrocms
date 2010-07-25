@@ -3,8 +3,8 @@
 	
 	<div class="box-container">
 		<ul class="list-links">
-			<li><?php echo anchor('admin/form/create_form', lang('chunks.add_chunk')) ?></li>
-			<li><?php echo anchor('admin/form/list_forms', lang('chunks.list_chunks')) ?></li>
+			<li><?php echo anchor('admin/chunks/create_chunk', lang('chunks.add_chunk')) ?></li>
+			<li><?php echo anchor('admin/chunks/list_chunks', lang('chunks.list_chunks')) ?></li>
 		</ul>
 	</div>
 </div>
