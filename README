@@ -1,0 +1,17 @@
+h1. PyroChunks
+
+h2. Description
+
+Module for "PyroCMS":http://pyrocms.com by "Phil Sturgeon":http://philsturgeon.co.uk/. Allows users to create and manage small chunks of reusable HTML or text content for their site. Useful for giving clients access to small chunks of content that are not page content.
+
+h2. Author
+
+* "Adam Fairholm":http://code.adamfairholm.com
+
+h2. Installation
+
+To install, just upload the zip file into PyroCMS. The "chubks" MySQL table will be added.
+
+h2. Translations
+
+This module is currently in English only.
