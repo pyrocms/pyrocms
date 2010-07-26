@@ -4,7 +4,7 @@
 		<en>Chunks</en>
 	</name>
 	<description>
-		<en>Create and manage small bits of content.</en>
+		<en>Create and manage small bits of text or HTML content.</en>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
