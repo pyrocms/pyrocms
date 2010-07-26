@@ -9,4 +9,39 @@
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
 	<is_backend_menu>0</is_backend_menu>
+	
+<install>
+
+<![CDATA[
+
+DROP TABLE IF EXISTS `chunks`;
+
+-- command split --
+
+CREATE TABLE `chunks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `slug` varchar(60) NOT NULL,
+  `type` varchar(40) NOT NULL,
+  `content` text,
+  `when_added` datetime DEFAULT NULL,
+  `last_updated` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]>
+
+</install>	
+
+<uninstall>
+
+<![CDATA[
+
+DROP TABLE IF EXISTS `chunks`;
+
+]]>
+
+</uninstall>
+	
 </module>
