@@ -21,6 +21,12 @@
 	$lang['chunks.update_chunk_error']					= 'There was an error in updating this chunk';
 
 	// -------------------------------------
+	// Validation
+	// -------------------------------------
+
+	$lang['chunks.slug_unique']							= 'The chunk slug must be unique.';
+
+	// -------------------------------------
 	// Form Tiles
 	// -------------------------------------
 

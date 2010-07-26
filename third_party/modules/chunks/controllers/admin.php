@@ -36,6 +36,8 @@ class Admin extends Admin_Controller {
 	}
 
 	// --------------------------------------------------------------------------
+	// CRUD Functions
+	// --------------------------------------------------------------------------
 
 	function index()
 	{
@@ -65,6 +67,7 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * Create a new chunk
+	 *
 	 */
 	function create_chunk()
 	{		
@@ -75,6 +78,8 @@ class Admin extends Admin_Controller {
 		// -------------------------------------
 	
 		$this->load->library('validation');
+
+		$this->chunk_rules['slug'] .= '|callback__check_slug[insert]';
 
 		$this->validation->set_rules( $this->chunk_rules );
 		
@@ -113,6 +118,7 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * Edit a chunk
+	 *
 	 */
 	function edit_chunk( $chunk_id = 0 )
 	{		
@@ -123,6 +129,8 @@ class Admin extends Admin_Controller {
 		// -------------------------------------
 	
 		$this->load->library('validation');
+
+		$this->chunk_rules['slug'] .= '|callback__check_slug[update]';
 
 		$this->validation->set_rules( $this->chunk_rules );
 		
@@ -164,6 +172,7 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * Delete a chunk
+	 *
 	 */
 	function delete_chunk( $chunk_id = 0 )
 	{		
@@ -178,6 +187,44 @@ class Admin extends Admin_Controller {
 		endif;
 
 		redirect('admin/chunks');
+	}
+
+	// --------------------------------------------------------------------------
+	// Validation Callbacks
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Check slug to make sure it is 
+	 *
+	 * @param	string - slug to be tested
+	 * @param	mode - update or insert
+	 * @return	bool
+	 */
+	function _check_slug( $slug, $mode )
+	{
+		$obj = $this->db->query("SELECT slug FROM chunks WHERE slug='$slug'");
+		
+		if( $mode == 'update' ):
+		
+			$threshold = 0;
+		
+		else:
+		
+			$threshold = 1;
+		
+		endif;
+		
+		if( $obj->num_rows > $threshold ):
+
+			$this->validation->set_message('_check_slug', lang('chunks.slug_unique'));
+		
+			return FALSE;
+		
+		else:
+		
+			return TRUE;
+		
+		endif;
 	}
 }
 
