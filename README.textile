@@ -12,6 +12,10 @@ h2. Installation
 
 To install, just upload the zip file using PyroCMS's built in module upload tool. The "chunks" MySQL table will be added.
 
+h2. Usage
+
+After installing, autoload the Chunks library (chunks/Chunks). This will allow access to chunks in your page layouts.
+
 h2. Translations
 
 This module is currently available in English only.
