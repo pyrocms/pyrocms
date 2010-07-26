@@ -18,8 +18,7 @@ class Admin extends Admin_Controller {
 	);
 	
 	var $chunk_types = array(
-		'textfield' 	=> 'Text Field',
-		'textbox'		=> 'Text Box',
+		'text' 			=> 'Text',
 		'html'			=> 'HTML'
 	);
 
@@ -145,11 +144,11 @@ class Admin extends Admin_Controller {
 		{
 			if( ! $this->chunks_m->update_chunk( $this->chunk_rules, $chunk_id ) ):
 			{
-				$this->session->set_flashdata('notice', lang('chunks.new_chunk_error'));	
+				$this->session->set_flashdata('notice', lang('chunks.update_chunk_error'));	
 			}
 			else:
 			{
-				$this->session->set_flashdata('success', lang('chunks.new_chunk_success'));	
+				$this->session->set_flashdata('success', lang('chunks.update_chunk_success'));	
 			}
 			endif;
 	
