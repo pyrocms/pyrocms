@@ -50,16 +50,24 @@ class Admin extends Admin_Controller {
 	 * List chunks
 	 *
 	 */
-	function list_chunks()
+	function list_chunks( $offset = 0 )
 	{	
 		// -------------------------------------
 		// Get chunks
 		// -------------------------------------
 		
-		$this->data->chunks = $this->chunks_m->get_chunks();
+		$this->data->chunks = $this->chunks_m->get_chunks( $this->settings->item('records_per_page'), $offset );
+
+		// -------------------------------------
+		// Pagination
+		// -------------------------------------
+
+		$total_rows = $this->chunks_m->count_all();
+		
+		$this->data->pagination = create_pagination('admin/chunks/list_chunks', $total_rows);
 		
 		// -------------------------------------
-			
+
 		$this->template->build('admin/list_chunks', $this->data);
 	}
 

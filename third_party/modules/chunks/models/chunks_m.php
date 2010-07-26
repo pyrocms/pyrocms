@@ -39,6 +39,20 @@ class Chunks_m extends MY_Model {
     	
     	return $obj->row();
 	}
+
+    // --------------------------------------------------------------------------
+    
+    /**
+     * Count chunks
+     *
+     * @return	int
+     */
+    function count_all()
+	{     
+		$obj = $this->db->query( "SELECT id FROM chunks" );
+    	
+    	return $obj->num_rows();
+	}
      
 	// --------------------------------------------------------------------------
      

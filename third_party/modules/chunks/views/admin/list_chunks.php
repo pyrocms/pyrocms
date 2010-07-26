@@ -17,7 +17,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="6">
-							<div class="inner"></div>
+							<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 						</td>
 					</tr>
 				</tfoot>
