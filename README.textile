@@ -10,8 +10,8 @@ h2. Author
 
 h2. Installation
 
-To install, just upload the zip file into PyroCMS. The "chubks" MySQL table will be added.
+To install, just upload the zip file using PyroCMS's built in module upload tool. The "chunks" MySQL table will be added.
 
 h2. Translations
 
-This module is currently in English only.
+This module is currently available in English only.
