@@ -214,11 +214,11 @@ class Admin extends Admin_Controller {
 		
 		if( $mode == 'update' ):
 		
-			$threshold = 0;
+			$threshold = 1;
 		
 		else:
 		
-			$threshold = 1;
+			$threshold = 0;
 		
 		endif;
 		
