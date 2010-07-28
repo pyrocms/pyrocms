@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6');
+	private $versions = array('0.9.8', '0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7');
 
 	function _remap()
 	{
@@ -73,6 +73,15 @@ class Upgrade extends Controller
 
 		echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
  	}
+
+	function upgrade_0997()
+	{
+		echo 'Page titles can have longer names and slugs.<br />';
+		$this->db->query("ALTER TABLE `pages` CHANGE `slug` `slug` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
+		$this->db->query("ALTER TABLE `pages` CHANGE `title` `title` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
+
+		return FALSE; // set to false on launch
+	}
 
 	function upgrade_0996()
 	{

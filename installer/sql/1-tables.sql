@@ -176,8 +176,8 @@ DROP TABLE IF EXISTS `pages`;
 
 CREATE TABLE `pages` (
  `id` int(11) unsigned NOT NULL auto_increment,
- `slug` varchar(60) collate utf8_unicode_ci NOT NULL default '',
- `title` varchar(60) collate utf8_unicode_ci NOT NULL default '',
+ `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
  `body` text collate utf8_unicode_ci NOT NULL,
  `parent_id` int(11) default '0',
  `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
