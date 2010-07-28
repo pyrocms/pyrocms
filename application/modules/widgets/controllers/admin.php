@@ -87,38 +87,4 @@ class Admin extends Admin_Controller
 			'form_action' => 'admin/widgets/install'
 		));
 	}
-	
-	/**
-	 * Install a new widget
-	 * @access public
-	 * @return void
-	 */
-	public function install()
-	{
-		$widget = $this->widgets->read_widget( $this->input->post('slug') );
-		
-		$this->widgets->add_widget(array(
-			'title' 		=> $widget->title,
-			'slug' 			=> $widget->slug,
-			'description' 	=> $widget->description,
-			'author' 		=> $widget->author,
-			'website' 		=> $widget->website,
-			'version' 		=> $widget->version
-		));
-		
-		redirect('admin/widgets');
-	}
-	
-	/**
-	 * Uninstall an existing widget
-	 * @access public 
-	 * @return void
-	 */
-	public function uninstall()
-	{
-		$widget = $this->widgets->delete_widget( $this->input->post('slug') );
-		
-		redirect('admin/widgets');
-	}
-
 }
