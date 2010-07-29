@@ -3,11 +3,14 @@
  * 
  * The Pyro object is the foundation of all PyroUI enhancements
  */
-var Pyro = {};
+var pyro = {};
 
 jQuery(function($) {
 
-	Pyro.init = function() {
+	/**
+	 * This initializes all JS goodness
+	 */
+	pyro.init = function() {
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
@@ -59,57 +62,32 @@ jQuery(function($) {
 			$.uniform.update();
 		});
 
-		Pyro.update();
-	}
-
-	Pyro.update = function(selector) {
-		if (selector != undefined && jQuery.trim(selector) != '')
-		{
-			selector = selector + ' ';
-		}
-		else
-		{
-			selector = '';
-		}
 		// Table zerbra striping
-		$(selector + "tbody tr:nth-child(even)").addClass("alt");
-
-		$(selector + '.tabs').tabs();
-		$(selector + '#tabs').tabs({
-			// This allows for the Back button to work.
-			select: function(event, ui) {
-				parent.location.hash = ui.tab.hash;
-			},
-			load: function(event, ui) {
-				confirm_links();
-				confirm_buttons();
-			}
+		$("tbody tr:nth-child(even)").livequery(function () {
+			$(this).addClass("alt");
 		});
-		Pyro.uniform(selector);
-	}
 
-	Pyro.uniform = function (selector) {
-		if (selector != undefined && jQuery.trim(selector) != '')
-		{
-			selector = selector + ' ';
-		}
-		else
-		{
-			selector = '';
-		}
-		var uniform_tags = ["select", "input[type=checkbox]", "input[type=radio]",
-							"input[type=file]", "input[type=submit]", "a.button",
-							"button", "textarea"];
-
-		var uniform_selector = '';
-		for (var index in uniform_tags)
-		{
-			uniform_selector = uniform_selector + selector + uniform_tags[index] + ',';
-		}
-		$(uniform_selector).uniform();
+		$('.tabs').livequery(function () {
+			$(this).tabs();
+		});
+		$('#tabs').livequery(function () {
+			$(this).tabs({
+				// This allows for the Back button to work.
+				select: function(event, ui) {
+					parent.location.hash = ui.tab.hash;
+				},
+				load: function(event, ui) {
+					confirm_links();
+					confirm_buttons();
+				}
+			});
+		});
+		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, button, textarea").livequery(function () {
+			$(this).uniform();
+		});
 	}
 
 	$(document).ready(function() {
-		Pyro.init();
+		pyro.init();
 	});
 });

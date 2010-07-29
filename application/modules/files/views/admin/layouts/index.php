@@ -77,9 +77,7 @@
 			curr_url = $(this).attr("href");
 			curr_text = $(this).text();
 			$(this).text("Loading...");
-			$("#files_right_pane").load(curr_url, function () {
-				Pyro.update("#files_right_pane");
-			});
+			$("#files_right_pane").load(curr_url);
 			$(this).parent().parent().find('li').removeClass('current');
 			$(this).parent().addClass('current');
 			$(this).text(curr_text);
