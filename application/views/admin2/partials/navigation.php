@@ -1,13 +1,13 @@
 <nav id="main-nav">
 	<ul>
 		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($module) ? ' current"' : '"'));?></li>
-		<li><a href="#" class="top-link<?php echo in_array($this->module, array('categories', 'comments', 'pages', 'navigation', 'media', 'widgets', 'variables')) ? ' current' : ''; ?>">Content</a>
+		<li><a href="#" class="top-link<?php echo in_array($this->module, array('categories', 'comments', 'pages', 'navigation', 'files', 'widgets', 'variables')) ? ' current' : ''; ?>">Content</a>
 			<ul>
 				<li><?php echo anchor('admin/categories', 'Categories', (($module == 'categories') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/comments', 'Comments', (($module == 'comments') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/pages', 'Pages', (($module == 'pages') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/navigation', 'Navigation', (($module == 'navigation') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/media', 'Media', (($module == 'media') ? 'class="current"' : ''));?></li>
+				<li><?php echo anchor('admin/files', 'Files', (($module == 'files') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/variables', 'Variables', (($module == 'variables') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/widgets', 'Widgets', (($module == 'widgets') ? 'class="current"' : ''));?></li>
 			</ul>
