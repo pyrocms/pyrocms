@@ -1,6 +1,7 @@
 .buildpath
 .project
 .settings
+.DS_Store
 application/cache/*_m/*
 application/cache/*_lib/*
 application/cache/dwoo/compiled/*.php
