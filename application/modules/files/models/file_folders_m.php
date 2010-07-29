@@ -13,15 +13,15 @@
  */
 
 /**
- * PyroCMS Media Folders Model
+ * PyroCMS File Folders Model
  *
- * Interacts with the media_folders table in the database.
+ * Interacts with the file_folders table in the database.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
  * @package		PyroCMS
- * @subpackage	Media
+ * @subpackage	Files
  */
-class Media_folders_m extends MY_Model {
+class File_folders_m extends MY_Model {
 
 	/**
 	 * Exists
@@ -84,4 +84,4 @@ class Media_folders_m extends MY_Model {
 	}
 }
 
-/* End of file media_m.php */
+/* End of file file_folders_m.php */

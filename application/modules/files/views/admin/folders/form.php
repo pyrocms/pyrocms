@@ -34,15 +34,15 @@ form ul li input.button:hover {
 }
 
 </style>
-<?php echo form_open('admin/media/folders/create'); ?>
-<h2><?php echo lang('media.folders.create'); ?></h2>
+<?php echo form_open('admin/files/folders/create'); ?>
+<h2><?php echo lang('files.folders.create'); ?></h2>
 <ul>
 	<li>
-		<label for="name"><?php echo lang('media.folders.name'); ?></label>
+		<label for="name"><?php echo lang('files.folders.name'); ?></label>
 		<?php echo form_input('name', $folder->name, 'class="required"'); ?>
 	</li>
 	<li>
-		<label for="slug"><?php echo lang('media.folders.slug'); ?></label>
+		<label for="slug"><?php echo lang('files.folders.slug'); ?></label>
 		<?php echo form_input('slug', $folder->slug, 'class="required"'); ?>
 	</li>
 	<li>

@@ -1,5 +1,13 @@
+/**
+ * Pyro object
+ * 
+ * The Pyro object is the foundation of all PyroUI enhancements
+ */
+var Pyro = {};
+
 jQuery(function($) {
-	$(document).ready(function() {
+
+	Pyro.init = function() {
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
@@ -25,7 +33,7 @@ jQuery(function($) {
 		$(".closable").append('<a href="#" class="close">close</a>');
 
 		// Close the notifications when the close link is clicked
-		$("a.close").click(function () {
+		$("a.close").live('click', function () {
 			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
 			$(this).parent().fadeTo(200, 0);
 			$(this).parent().slideUp(400);
@@ -35,11 +43,9 @@ jQuery(function($) {
 		// Fade in the notifications
 		$(".notification").fadeIn("slow");
 
-		// Table zerbra striping
-		$("tbody tr:nth-child(even)").addClass("alt");
 
 		// Check all checkboxes in table
-		$(".check-all").click(function () {
+		$(".check-all").live('click', function () {
 			$(this).parents("table").find("tbody input[type='checkbox']").each(function () {
 				if($(".check-all").is(":checked") && !$(this).is(':checked'))
 				{
@@ -52,11 +58,24 @@ jQuery(function($) {
 			});
 			$.uniform.update();
 		});
-
 		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, button, textarea").uniform();
+		Pyro.update();
+	}
 
-		$('.tabs').tabs();
-		$('#tabs').tabs({
+	Pyro.update = function(selector) {
+		if (selector != undefined && jQuery.trim(selector) != '')
+		{
+			selector = selector + ' ';
+		}
+		else
+		{
+			selector = '';
+		}
+		// Table zerbra striping
+		$(selector + "tbody tr:nth-child(even)").addClass("alt");
+
+		$(selector + '.tabs').tabs();
+		$(selector + '#tabs').tabs({
 			// This allows for the Back button to work.
 			select: function(event, ui) {
 				parent.location.hash = ui.tab.hash;
@@ -66,5 +85,31 @@ jQuery(function($) {
 				confirm_buttons();
 			}
 		});
+		Pyro.uniform(selector);
+	}
+
+	Pyro.uniform = function (selector) {
+		if (selector != undefined && jQuery.trim(selector) != '')
+		{
+			selector = selector + ' ';
+		}
+		else
+		{
+			selector = '';
+		}
+		var uniform_tags = ["select", "input[type=checkbox]", "input[type=radio]",
+							"input[type=file]", "input[type=submit]", "a.button",
+							"button", "textarea"];
+
+		var uniform_selector = '';
+		for (var index in uniform_tags)
+		{
+			uniform_selector = uniform_selector + selector + uniform_tags[index] + ',';
+		}
+		$(uniform_selector).uniform();
+	}
+
+	$(document).ready(function() {
+		Pyro.init();
 	});
 });

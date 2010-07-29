@@ -13,21 +13,21 @@
  */
 
 /**
- * PyroCMS Media Admin Controller
+ * PyroCMS Files Admin Controller
  *
- * Provides an admin for the media module.
+ * Provides an admin for the files module.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
  * @package		PyroCMS
- * @subpackage	Media
+ * @subpackage	file
  */
 class Admin_folders extends Admin_Controller {
 
 	public function __construct()
 	{
 		parent::Admin_Controller();
-		$this->load->models(array('media_m', 'media_folders_m'));
-		$this->lang->load('media');
+		$this->load->models(array('file_m', 'file_folders_m'));
+		$this->lang->load('files');
 
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
 	}
@@ -37,24 +37,24 @@ class Admin_folders extends Admin_Controller {
 		$this->_folder_list($id);
 	}
 
-	// /admin/media/folders/contents/23
+	// /admin/file/folders/contents/23
 	public function contents($id)
 	{
-		if(!$this->media_folders_m->exists($id))
+		if(!$this->file_folders_m->exists($id))
 		{
-			show_error(lang('media.folders.not_exists'));
+			show_error(lang('files.folders.not_exists'));
 		}
 		
-		$sub_folders = $this->media_folders_m->get_children($id);	
-		$this->data->folder = $this->media_folders_m->get($id);
+		$sub_folders = $this->file_folders_m->get_children($id);	
+		$this->data->folder = $this->file_folders_m->get($id);
 		$this->data->selected_folder = 0;
 		if(empty($sub_folders))
 		{
-			$sub_folders = array(0 => lang('media.dropdown.no_subfolders'));
+			$sub_folders = array(0 => lang('files.dropdown.no_subfolders'));
 		}
 		else
 		{
-			$sub_folders = array(0 => lang('media.dropdown.root')) + $sub_folders;
+			$sub_folders = array(0 => lang('files.dropdown.root')) + $sub_folders;
 		}
 		$this->data->sub_folders = $sub_folders;
 		
@@ -64,7 +64,7 @@ class Admin_folders extends Admin_Controller {
 /*		}
 		else
 		{
-			redirect('admin/media');
+			redirect('admin/file');
 		}
 */		
 	}
@@ -89,14 +89,14 @@ class Admin_folders extends Admin_Controller {
 	{
 		if($id === NULL)
 		{
-			$media_folders = $this->media_folders_m->get_all();			
+			$file_folders = $this->file_folders_m->get_all();			
 		}
 		else
 		{
-			$media_folders = $this->media_folders_m->get_children($id);			
+			$file_folders = $this->file_folders_m->get_children($id);			
 		}
 
-		$this->data->media_folders = &$media_folders;
+		$this->data->file_folders = &$file_folders;
 
 		$this->load->view('admin/folders/index', $this->data);
 	}
@@ -117,8 +117,8 @@ class Admin_folders extends Admin_Controller {
 				'slug'			=> $this->input->post('slug'),
 				'date_added'	=> now()
 			);
-			$this->media_folders_m->insert($data);
-			redirect('admin/media#folders');
+			$this->file_folders_m->insert($data);
+			redirect('admin/file#folders');
 		}
 		$folder->name = set_value('name');
 		$folder->parent_id = set_value('parent_id');
@@ -135,18 +135,18 @@ class Admin_folders extends Admin_Controller {
 		// If no folder is given, then 404
 		$folder_id == NULL and show_404();
 
-		$folder = $this->media_folders_m->get($folder_id);
+		$folder = $this->file_folders_m->get($folder_id);
 
 		if($this->input->post('button_action') == 'Yes')
 		{
-			$this->media_folders_m->delete($folder_id);
-			$this->session->set_flashdata('success', sprintf(lang('media.folders.delete_success'), $folder->name));
+			$this->file_folders_m->delete($folder_id);
+			$this->session->set_flashdata('success', sprintf(lang('files.folders.delete_success'), $folder->name));
 
-			redirect('admin/media/folders');
+			redirect('admin/file/folders');
 		}
 		elseif($this->input->post('button_action') == 'No')
 		{
-			redirect('admin/media/folders');
+			redirect('admin/file/folders');
 		}
 
 		$this->data->folder =& $folder;

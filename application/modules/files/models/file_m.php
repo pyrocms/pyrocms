@@ -13,17 +13,18 @@
  */
 
 /**
- * PyroCMS Media Model
+ * PyroCMS File Model
  *
- * Interacts with the media table in the database.
+ * Interacts with the files table in the database.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
  * @package		PyroCMS
- * @subpackage	Media
+ * @subpackage	Files
  */
-class Media_m extends MY_Model {
+class File_m extends MY_Model {
 
+	protected $table = 'files';
 
 }
 
-/* End of file media_m.php */
+/* End of file file_m.php */
