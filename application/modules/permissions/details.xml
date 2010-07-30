@@ -2,6 +2,7 @@
 <module version="0.2" type="admin">
 	<name>
 		<en>Permissions</en>
+		<nl>Toegangsrechten</nl>
 		<es>Permisos</es>
 		<fr>Permissions</fr>
                 <de>Zugriffsrechte</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Control what type of users can see certain sections within the site.</en>
+		<nl>Bepaal welke typen gebruikers toegang hebben tot gedeeltes van de site.</nl>
                 <pl>Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.</pl>
 		<es>Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.</es>
                 <de>Steuert welche Art von Benutzer welche Sektion in der Seite sehen kann.</de>

@@ -2,6 +2,7 @@
 <module version="0.3" type="admin">
 	<name>
 		<en>Twitter</en>
+		<nl>Twitter</nl>
                 <pl>Twitter</pl>
 		<es>Twitter</es>
 		<fr>Twitter</fr>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Show twitter posts and support general Twitter integration.</en>
+		<nl>Toon Twitterposts. Ondersteuning voor integratie met Twitter.</nl>
 		<es>Muestra las actualizaciones de Twitter y permite la integración general con Twitter.</es>
 		<fr>Affiche les messages Twitter et permet l'intégration globale de Twitter</fr>
 		<de>Zeige Twitter Beiträge an und unterstütze die grundsätzliche Twitter Integration.</de>

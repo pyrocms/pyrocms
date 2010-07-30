@@ -2,6 +2,7 @@
 <module version="0.2">
 	<name>
 		<en>Categories</en>
+		<nl>Categorieën</nl>
 		<es>Categorías</es>
 		<fr>Catégories</fr>
 		<de>Kategorien</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Manage categories for articles, products, services, etc.</en>
+		<nl>Beheer categorieën voor arikelen, producten, services, etc.</nl>
 		<es>Administra categorías para artículos, productos, servicios, etc.</es>
 		<fr>Administre les catégories des articles, produits, services, etc.</fr>
 		<de>Kategorien für Artikel, Produkte, Dienstleistungen, etc. verwalten.</de>

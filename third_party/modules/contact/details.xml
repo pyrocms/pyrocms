@@ -2,6 +2,7 @@
 <module version="0.5">
 	<name>
 		<en>Contact</en>
+		<nl>Contact</nl>
                 <pl>Kontakt</pl>
 		<es>Contacto</es>
 		<fr>Contact</fr>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Adds a form to your site that allows visitors to send email's to you without discolosing an email address to them.</en>
+		<en>Voegt een formulier aan de site toe waarmee bezoekers een email kunnen sturen, zonder dat u ze een emailadres hoeft te tonen.</nl>
 		 <pl>Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.</pl>
                 <es>Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.</es>
 		<fr>Ajoute un formulaire à votre site qui permet aux visiteurs de vous envoyer un e-mail sans révéler votre adresse e-mail'</fr>
