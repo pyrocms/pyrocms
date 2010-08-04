@@ -22,13 +22,13 @@ class Installer extends Controller
 	 * @var array
 	 */
 	private $writeable_directories = array(
-		'codeigniter/cache',
-		'codeigniter/logs',
-		'application/cache',
-		'application/cache/dwoo',
-		'application/cache/dwoo/compiled',
-		'application/cache/simplepie',
-		'application/uploads'
+		'system/codeigniter/cache',
+		'system/codeigniter/logs',
+		'system/pyrocms/cache',
+		'system/pyrocms/cache/dwoo',
+		'system/pyrocms/cache/dwoo/compiled',
+		'system/pyrocms/cache/simplepie',
+		'system/pyrocms/uploads'
 	);
 	
 	/**
@@ -38,8 +38,8 @@ class Installer extends Controller
 	 * @var array
 	 */
 	private $writeable_files = array(
-		'application/config/config.php',
-		'application/config/database.php' 
+		'system/pyrocms/config/config.php',
+		'system/pyrocms/config/database.php'
 	);
 	
 	/**

@@ -45,4 +45,3 @@ $config['supported_servers'] = array(
 		'rewrite_support' => FALSE
 	)
 );
-?>

@@ -48,7 +48,7 @@
 | NO TRAILING SLASH!
 |
 */
-	$system_path = "./codeigniter";
+	$system_path = "./system/codeigniter";
 
 /*
  *---------------------------------------------------------------
@@ -64,7 +64,7 @@
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = "application";
+	$application_folder = './system/pyrocms';
 
 /*
  * --------------------------------------------------------------------
@@ -139,7 +139,7 @@
 	// Is the sytsem path correct?
 	if ( ! is_dir($system_path))
 	{
-		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);	
+		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));
 	}
 
 /*
