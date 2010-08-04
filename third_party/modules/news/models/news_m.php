@@ -193,5 +193,3 @@ class News_m extends MY_Model
 		return parent::count_by('slug', $slug) == 0;
     }
 }
-
-?>
