@@ -4,6 +4,7 @@
 
 * Increased page title and slug length from 60 to 255.
 * Removed all non-cool characters from Widget short name to stop you having to.
+* Added Dutch language pack.
 
 ### Bugs
 
