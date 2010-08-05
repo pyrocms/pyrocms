@@ -111,7 +111,11 @@
 		// Widget Area add / remove --------------
 		
 		$('a#add-area').click(show_add_area);
-		
+
+		$('div#add-area-box input[name=slug]').live('keyup', function(){
+			$(this).val($(this).val().replace(' ', '-').replace(/[^a-z0-9\-_]/ig, ''));
+		});
+
 		$('div#add-area-box form').submit(function()
 		{
 			title = $('input[name="title"]', this).val();
