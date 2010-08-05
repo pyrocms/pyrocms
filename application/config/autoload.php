@@ -98,7 +98,7 @@ $autoload['config'] = array('asset', 'language', 'tinycimm/tinycimm');
 |
 */
 
-$autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
+$autoload['language'] = array('main', 'errors', 'users/user');
 
 
 /*
@@ -125,6 +125,3 @@ $autoload['model'] = array('news/news_m'); // TODO DEPRECATED: news model is lef
 |
 */
 // $autoload['core'] = array();
-
-
-?>
