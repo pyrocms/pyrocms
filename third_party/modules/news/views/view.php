@@ -6,10 +6,5 @@
 <?php endif; ?>
 
 <?php echo stripslashes($article->body); ?>
-<?php
-if( $this->settings->item('enable_social_bookmarks'))
-{
-	echo $this->load->view('fragments/social_bookmarking/toolbar', array('bookmark' => array('title' => $article->title)));
-}
-?>
+
 <?php echo display_comments($article->id); ?>
