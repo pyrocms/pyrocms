@@ -33,12 +33,12 @@ $lang['forums_list_categories_title'] 		= 'Lijstweergave Categorieen';
 $lang['forums_create_forum_title']		= 'Voeg Forum toe';
 $lang['forums_edit_forum_title']		= 'Bewerk Forum "%s"';
 $lang['forums_forum_title'] 			= 'Forums';
-$lang['forums_list_forum_title']		= 'Lijstweergave Forums';
+$lang['forums_list_forum_title']		= 'Toon alle Forums';
 
 // messages
 $lang['forums_no_categories'] 			= 'Er zijn geen categorieen.';
 $lang['forums_no_forums']			= 'Er zijn geen forums.';
-$lang['forums_currently_no_articles'] 		= 'Er zijn geen artiekelen op dit moment.';
+$lang['forums_currently_no_articles'] 		= 'Er zijn geen artikelen op dit moment.';
 $lang['forums_category_delete_success'] 	= 'De categorie is verwijderd.';
 $lang['forums_category_add_success'] 		= 'De categorie "%s" is toegevoegd.';
 $lang['forums_category_edit_success'] 		= 'De categorie "%s" is bijgewerkt.';

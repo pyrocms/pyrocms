@@ -2,6 +2,7 @@
 <module version="0.6">
 	<name>
 		<en>Comments</en>
+		<nl>Reacties</nl>
 		<es>Comentarios</es>
 		<fr>Commentaires</fr>
 		<de>Kommentare</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Users and guests can write comments for almost anything with built-in captcha support.</en>
+		<nl>Gebruikers en gasten kunnen reageren op bijna alles. Met ingebouwde captcha-ondersteuning.</nl>
                 <pl>Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.</pl>
 		<es>Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.</es>
 		<fr>Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.</fr>

@@ -2,6 +2,7 @@
 <module version="0.7" type="admin">
 	<name>
 		<en>Navigation</en>
+		<nl>Navigatie</nl>
 		<es>Navegación</es>
 		<fr>Navigation</fr>
 		<de>Navigation</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Manage links on navigation menu's and all the navigation groups they belong to.</en>
+		<nl>Beheer links op de navigatiemenu's en alle navigatiegroepen waar ze onder vallen.</nl>
 		<es>Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.</es>
 		<fr>Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.</fr>
 		<de>Verwalte Links in Navigations-Menus und alle zugehörigen Navigations-Gruppen</de>

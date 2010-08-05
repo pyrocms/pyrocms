@@ -2,6 +2,7 @@
 <module version="0.9">
 	<name>
 		<en>Photos</en>
+		<nl>Foto's</nl>
 		<es>Fotografías</es>
 		<fr>Photos</fr>
 		<de>Fotos</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Add photo albums and upload photos.</en>
+		<nl>Voeg fotoalbums toe en upload foto's.</nl>
                 <pl>Dodawaj albumy i wgrywaj zdjęcia.</pl>
 		<es>Agrega una galería fotográfica y sube fotos.</es>
 		<fr>Ajouter des albums photo et envoyer vos photos.</fr>
