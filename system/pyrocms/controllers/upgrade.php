@@ -79,7 +79,13 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
-		 $this->db->query("CREATE TABLE `files` (
+		// Removing photos table
+		$this->db->delete('modules', array('slug' => 'photos'));
+
+		// TODO: Convert them to galleries
+
+		echo "Adding file manager tables.";
+		$this->db->query("CREATE TABLE `files` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `folder_id` int(11) NOT NULL DEFAULT '0',
 		  `user_id` int(11) NOT NULL DEFAULT '1',
@@ -103,17 +109,19 @@ class Upgrade extends Controller
 		  `name` varchar(50) NOT NULL,
 		  `date_added` int(11) NOT NULL,
 		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
-	    // Load the versioning library
-	    $this->load->library('versioning');
-	    $this->versioning->set_table('pages');
+		// CONVERT PAGES ---------------------------------------------
+		echo "Upgrading pages to the new module.<br/>";
 
-	    // First we need to retrieve the current content from the pages table so no data gets lost
-	    $pages = $this->db->get('pages');
+		$this->load->library('versioning');
+		$this->versioning->set_table('pages');
 
-	    // We need to make sure no data gets lost, therefore we're renaming the pages table to pages_old
-	    $this->dbforge->rename_table('pages', 'pages_old');
+		// First we need to retrieve the current content from the pages table so no data gets lost
+		$pages = $this->db->get('pages');
+
+		// We need to make sure no data gets lost, therefore we're renaming the pages table to pages_old
+		$this->dbforge->rename_table('pages', 'pages_old');
 
 	    // We can now recreate the pages table
 	    $this->db->query("CREATE TABLE `pages` (
@@ -193,6 +201,11 @@ class Upgrade extends Controller
 	            'null'            => TRUE
 	        )
 	    ));
+
+
+		// Clear some caches
+		echo "Clearing the module cache.<br/>";
+		$this->cache->delete_all('modules_m');
 	    
 	    return FALSE; // Change this when we go live
 	}
