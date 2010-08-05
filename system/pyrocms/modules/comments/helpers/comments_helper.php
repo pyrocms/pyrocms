@@ -42,7 +42,7 @@ function display_comments($ref_id = '', $reference = NULL)
 function process_comment_items($comments)
 {
 	$ci =& get_instance();
-	
+
 	foreach($comments as &$comment)
 	{
 		// work out who did the commenting
@@ -55,6 +55,9 @@ function process_comment_items($comments)
 		switch($comment->module)
 		{
 			case 'news':
+
+				if(!module_exists('news')) break;
+
 				$ci->load->model('news/news_m');
 				
 				if($article = $ci->news_m->get($comment->module_id))
@@ -64,6 +67,9 @@ function process_comment_items($comments)
 				}
 
 			case 'photos':
+				
+				if(!module_exists('photos')) break;
+
 				$ci->load->model('photos/photos_m');
 				$ci->load->model('photos/photo_albums_m');
 				$photo = $ci->photos_m->get($comment->module_id);
@@ -75,6 +81,9 @@ function process_comment_items($comments)
 				}
 
 			case 'photos-album':
+
+				if(!module_exists('photos')) break;
+				
 				$ci->load->model('photos/photo_albums_m');
 
 				if($album = $ci->photo_albums_m->get($comment->module_id))

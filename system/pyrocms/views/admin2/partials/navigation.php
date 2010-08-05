@@ -6,7 +6,6 @@
 				<li><?php echo anchor('admin/categories', 'Categories', (($module == 'categories') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/comments', 'Comments', (($module == 'comments') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/pages', 'Pages', (($module == 'pages') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/navigation', 'Navigation', (($module == 'navigation') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/media', 'Media', (($module == 'media') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/variables', 'Variables', (($module == 'variables') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/widgets', 'Widgets', (($module == 'widgets') ? 'class="current"' : ''));?></li>
@@ -15,6 +14,7 @@
 		<li><a href="#" class="top-link<?php echo in_array($module, array('themes', 'layouts')) ? ' current' : ''; ?>">Design</a>
 			<ul>
 				<li><?php echo anchor('admin/themes', 'Themes', (($module == 'themes') ? 'class="current"' : ''));?></li>
+				<li><?php echo anchor('admin/navigation', 'Navigation', (($module == 'navigation') ? 'class="current"' : ''));?></li>
 				<!-- <li><?php echo anchor('admin/layouts', 'Layouts', (($module == 'layouts') ? 'class="current"' : ''));?></li> -->
 			</ul>
 		</li>

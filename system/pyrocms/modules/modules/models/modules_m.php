@@ -11,6 +11,7 @@
 class Modules_m extends MY_Model
 {
 	private $_table = 'modules';
+	private $_module_exists = array();
 
 	/**
 	 * Constructor method
@@ -183,24 +184,10 @@ class Modules_m extends MY_Model
 			}
 
 			$descriptions = unserialize($result->description);
-			if (!isset($descriptions[CURRENT_LANGUAGE]))
-			{
-				$description = $descriptions['en'];
-			} else
-			{
-				$description = $descriptions[CURRENT_LANGUAGE];
-			}
+			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
 			$names = unserialize($result->name);
-			if (!isset($names[CURRENT_LANGUAGE]))
-			{
-				$name = $names['en'];
-			}
-
-			else
-			{
-				$name = $names[CURRENT_LANGUAGE];
-			}
+			$name = !isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 
 			$module = array(
 				'name' => $name,
@@ -298,11 +285,22 @@ class Modules_m extends MY_Model
 	 */
 	public function exists($module)
 	{
-		if ($this->db->get_where($this->_table, array('slug' => $module), 1)->num_rows() > 0)
+		$this->_module_exists = array();
+
+		if(!$module)
 		{
-			return TRUE;
+			return FALSE;
 		}
-		return FALSE;
+
+		// We already know about this module
+		if(isset($this->_module_exists[$module]))
+		{
+			return $this->_module_exists[$module];
+		}
+
+		$query = $this->db->get_where($this->_table, array('slug' => $module), 1);
+
+		return $this->_module_exists[$module] = ($query->num_rows() > 0);
 	}
 
 	/**
@@ -351,7 +349,6 @@ class Modules_m extends MY_Model
 	 */
 	public function install($module_slug)
 	{
-
 		if (!is_file('third_party/modules/' . $module_slug . '/details.xml'))
 		{
 			return FALSE;
@@ -391,7 +388,6 @@ class Modules_m extends MY_Model
 	 */
 	public function uninstall($module_slug)
 	{
-
 		if (!is_file('third_party/modules/' . $module_slug . '/details.xml'))
 		{
 			return FALSE;

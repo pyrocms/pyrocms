@@ -25,5 +25,3 @@ $route['news/page/(:num)'] = "news/index/$1";
 
 $route['news/rss/all.rss'] = "rss/index";
 $route['news/rss/(:any).rss'] = "rss/category/$1";
-
-?>

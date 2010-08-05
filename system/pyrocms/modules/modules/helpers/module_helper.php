@@ -49,25 +49,10 @@ function module_array()
 
 function module_exists($module = '')
 {
-	static $_module_exists = array();
-
-	if(!$module)
-	{
-		return FALSE;
-	}
-
-	// We already know about this module
-	if(isset($_module_exists[$module]))
-	{
-		return $_module_exists[$module];
-	}
-
 	// Start looking
 	$ci =& get_instance();
 
-	$_module_exists[$module] = $ci->modules_m->exists($module);
-
-	return $_module_exists[$module];
+	return $ci->modules_m->exists($module);
 }
 
 
