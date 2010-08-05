@@ -1,37 +1,42 @@
-h1. CHANGELOG
+# CHANGELOG
 
-h2. v0.9.9.7
+## v0.9.9.7
 
 * Increased page title and slug length from 60 to 255.
+* Removed all non-cool characters from Widget short name to stop you having to.
 
-h2. v0.9.9.6
+### Bugs
+
+* Language switcher will now work when Pyro is installed out of web root.
+
+## v0.9.9.6
 
 * {js('http://example.com/foo.js')} will now work as <script> are stripped.
 * <script>, <iframe>, etc are no longer removed from pages.
 * Added {$pyro.server.xxxx} for things like {$pyro.server.server_name}.
 
-h2. v0.9.9.5
+## v0.9.9.5
 
 * Loading CP > Widgets will now automatically install any new widgets found.
 
-h3. Bugs
+### Bugs
 
 * Fixed Widget title validation error.
 
-h3. Bugs
+### Bugs
 
 * Fixed issue #251: MySQL Strict mode error for page_layouts.theme_layout.
 * Fixed XSS security issue.
 * Fixed issue where new modules were not automatically imported when viewing the Modules list.
 
-h2. v0.9.9.4
+## v0.9.9.4
 
 * Added a "Script" tab to CP > Pages which contains a JavaScript editor.
 * Upgraded TinyMCE to 3.3.8.
 * The first photo will be displayed beside the description on the frontend.
 * Admin login now shows login error messages.
 
-h3. Bugs
+### Bugs
 
 * Added mime type support for "application/octet-stream" to zip.
 * Running PyroCMS on a port other than 80 will no longer break login.
@@ -44,9 +49,9 @@ h3. Bugs
 * Drag and drop sorting that you do in the admin panel is reflected on the front end.
 
 
-h2. v0.9.9.3
+## v0.9.9.3
 
-h3. Bugs
+### Bugs
 
 * Fixed issue #234. Admin's could not log in due to Validation being called instead of Form_validation.
 * Fixed "MX_Language not found" bug.
@@ -55,12 +60,12 @@ h3. Bugs
 * Improved admin rounded corners for WebKit.
 
 
-h2. v0.9.9.2
+## v0.9.9.2
 
 * If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.
 * Updated navigation widget to add class="current" to the current navigation list item.
 
-h3. Bugs
+### Bugs
 
 * Fixed issue #218: theme_layout field was missing from page_layouts table.
 * Fixed issue #223: _parse_xml in modules doesn't parse XML controller for multiple controllers.
@@ -68,9 +73,9 @@ h3. Bugs
 * Fixed issue #228: Removed random / in the Spanish navigation lang.
 * Fixed an issue that caused cookies not to function correctly when running PyroCMS locally.
 
-h2. v0.9.9.1
+## v0.9.9.1
 
-h3. Bugs
+### Bugs
 
 * Fixed issue #211: Field 'display_name' doesn't have a default value (MySQL Strict Mode).
 * Fixed User edit in CP.  Can now change password.
@@ -78,7 +83,7 @@ h3. Bugs
 * Fixed issue #213: Navigation target causing HTML validation failure when set to "Current window"
 * Fixed issue #145: News titles now allow html characters without blowing up everything.
 
-h2. v0.9.9
+## v0.9.9
 
 * Theme Layouts can now be assigned to Page Layouts.
 * Installer can now get server information from (and install to) remote database servers.
@@ -94,7 +99,7 @@ h2. v0.9.9
 * Modules can now be uploaded, installed, uninstalled, enabled and disabled via the admin panel.
 * A Module's details.xml can now contain SQL data to be run on module upload (see the forums details.xml for example).
 
-h3. Bugs
+### Bugs
 
 * Fixed issue #200: Call to undefined method Permissions_m::checkRuleByRole().
 * Fixed table and column collation in the forum tables.
@@ -107,7 +112,7 @@ h3. Bugs
 * Fixed redirect loop for any users logging in with a direct visit to /users/login that only affected root installs.
 * Fixed CP > Themes > Upload Theme.
 
-h2. v0.9.8
+## v0.9.8
 
 * Added "Widgets" which allow very flexible chunks of code to be placed almost anywhere.
 * Added custom CSS area for pages.
@@ -144,14 +149,14 @@ h2. v0.9.8
 * Error message added in case active theme is deleted.
 * Added IP tracking to comments.
 
-h2. v0.9.7.4
+## v0.9.7.4
  
 * Full support for PHP 5.3.
 * Fixed "could not open application/assets/config/config.php" error on Install Step 4.
 * Extra support for different server types.
 * index.php is no longer removed by default, unless a supported server is picked.
 
-h2. v0.9.7.3
+## v0.9.7.3
 
 * Removed MySQLi as a dependency - should fix installer.
 * Fixed AJAXify for FF2 and IE7. 
@@ -160,21 +165,21 @@ h2. v0.9.7.3
 * Added German language support.
 * Stopped PHP errors showing if you clicked Publish/Delete with no news articles selected.
 
-h2. v0.9.7.2
+## v0.9.7.2
 
 * Contact captcha fixed
 * More installer bugs fixed
 * Added "target" to navigation links
 * Fixed an issue with Cache library lazy-loading that was breaking lazydays theme
 
-h2. v0.9.7.1
+## v0.9.7.1
 
 * Improved PHP 5.3 support
 * Several installer bugs fixed
 * Added Gravatar support to comment
 * Enabled short-tag rewriting by default.
 
-h2. v0.9.7
+## v0.9.7
 
 * New Page manager - Use a tree navigation view to manage and link your unlimited levels of pages.
 * Image uploading via TinyMCE - Not just any plugin, Richard Wills (@badsyntax) has been going nuts on the development here and made an amazing plugin which strongly integrated with PyroCMS.
