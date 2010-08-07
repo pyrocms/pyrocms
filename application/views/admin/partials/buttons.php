@@ -15,6 +15,13 @@
 				</a>
 			</div>
 		
+		<?php elseif( $button == 'update' ): ?>
+			<button type="submit" name="btnAction" value="update">
+				<span>
+					<?php echo lang('update_label');?>
+				</span>
+			</button>
+
 		<?php elseif( $button == 'delete' ): ?>
 			<button type="submit" name="btnAction" value="delete" class="confirm">
 				<span>

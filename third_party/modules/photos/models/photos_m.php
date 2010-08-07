@@ -29,6 +29,13 @@ class Photos_m extends MY_Model
         	'updated_on'	=> now()
         ));
     }
+
+    function update_caption($photo_id)
+    {
+		$this->db->where('album_id', $this->input->post('album'))->where('id', $photo_id);
+		$this->db->update('photos', array('caption' => $this->input->post('caption_update')));
+		return TRUE;
+    }
     
 }
 

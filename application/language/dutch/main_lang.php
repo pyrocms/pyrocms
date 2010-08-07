@@ -39,6 +39,7 @@ $lang['login_label'] 								= 'Log In';
 
 $lang['save_label'] 								= 'Opslaan';
 $lang['cancel_label'] 							= 'Annuleren';
+$lang['update_label'] 							= 'Update Caption'; #translate
 $lang['delete_label'] 							= 'Verwijder';
 $lang['activate_label'] 						= 'Activeer';
 $lang['approve_label']							= 'Goedkeuren'; #translate
