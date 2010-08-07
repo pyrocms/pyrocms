@@ -244,6 +244,7 @@ CREATE TABLE `photo_albums` (
   `parent` int(11) NOT NULL default '0',
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   `preview` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `enable_comments` INT( 1 ) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Unique` ( `slug` , `parent` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Photo albums contain photos';

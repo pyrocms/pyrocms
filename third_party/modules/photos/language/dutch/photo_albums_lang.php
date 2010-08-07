@@ -15,6 +15,7 @@ $lang['photo_albums.slug_label'] 				= 'URL';
 $lang['photo_albums.desc_label'] 				= 'Omschrijving';
 $lang['photo_albums.parent_album_label'] 		= 'Bovenliggend album';
 $lang['photo_albums.no_parent_select_label'] 	= '-- Geen --';
+$lang['photo_albums.comments_label'] 			= 'Enable Comments'; #translate
 
 // titles
 $lang['photo_albums.manage_title'] 				= 'Foto\'s in dit album';

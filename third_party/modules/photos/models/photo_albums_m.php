@@ -26,11 +26,12 @@ class Photo_albums_m extends MY_Model
 		$this->db->trans_begin();
 
 		$this->db->insert('photo_albums', array(
-			'title'			=> $input['title'],
-			'slug'			=> $input['slug'],
-			'description' 	=> $input['description'],
-            'parent' 		=> $input['parent'],
-            'updated_on'	=> now())
+			'title'				=> $input['title'],
+			'slug'				=> $input['slug'],
+			'description' 		=> $input['description'],
+            'parent' 			=> $input['parent'],
+            'enable_comments' 	=> $input['enable_comments'],
+            'updated_on'		=> now())
 		);
 		
 		$id = $this->db->insert_id();
@@ -70,11 +71,12 @@ class Photo_albums_m extends MY_Model
         $this->load->helper('date');
         
         return parent::update($id, array(
-        	'title'			=> $input['title'],
-        	'slug'			=> $input['slug'],
-        	'description' 	=> $input['description'],
-        	'parent' 		=> $input['parent'],
-        	'updated_on'	=> now()
+        	'title'				=> $input['title'],
+        	'slug'				=> $input['slug'],
+        	'description' 		=> $input['description'],
+        	'parent' 			=> $input['parent'],
+        	'enable_comments' 	=> $input['enable_comments'],
+        	'updated_on'		=> now()
         ));
     }
 

@@ -14,6 +14,7 @@ $lang['photo_albums.title_label'] 				= 'Tytuł';
 $lang['photo_albums.desc_label'] 				= 'Opis';
 $lang['photo_albums.parent_album_label'] 		= 'Album nadrzędny';
 $lang['photo_albums.no_parent_select_label'] 	= '-- Brak --';
+$lang['photo_albums.comments_label'] 			= 'Enable Comments'; #translate
 
 // titles
 $lang['photo_albums.manage_title'] 				= 'Zdjęcia w albumie';

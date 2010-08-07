@@ -32,7 +32,11 @@
 
 	<?php echo $pagination['links']; ?>
 
-	<?php echo display_comments($photo->id, 'photos-album'); ?>
+	<?php if($album->enable_comments): ?>
+	
+		<?php echo display_comments($photo->id, 'photos-album'); ?>
+		
+	<?php endif; ?>
 		
 <?php else: ?>
 	<p><?php echo lang('photo_albums.no_photos_in_album_error');?></p>
