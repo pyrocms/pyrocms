@@ -4,7 +4,7 @@ $lang['comments.title'] 					= 'Comentarios';
 $lang['comments.your_comment'] 				= 'Escribir un comentario';
 $lang['comments.user_comments'] 			= 'Comentarios de usuarios';
 
-$lang['comments.list_comment'] 				= '%s commented on %s saying:'; #translate
+$lang['comments.list_comment'] 				= '%s comentó en %s, dijo:';
 $lang['comments.recent_comments'] 			= 'Últimos comentarios';
 $lang['comments.view_more'] 				= 'Leer más';
 
