@@ -5,11 +5,11 @@ $lang['comments.your_comment'] 				= 'Escribir un comentario';
 $lang['comments.user_comments'] 			= 'Comentarios de usuarios';
 
 $lang['comments.list_comment'] 				= '%s commented on %s saying:'; #translate
-$lang['comments.recent_comments'] 			= 'Recent comments'; #translate
-$lang['comments.view_more'] 				= 'View more...'; #translate
+$lang['comments.recent_comments'] 			= 'Últimos comentarios';
+$lang['comments.view_more'] 				= 'Leer más';
 
 // labels
-$lang['comments.name_label'] 				= 'Tu nombre';
+$lang['comments.name_label'] 				= 'Nombre';
 $lang['comments.email_label'] 				= 'Correo electr&oacute;nico';
 $lang['comments.website_label'] 			= 'Sitio web';
 $lang['comments.message_label'] 			= 'Mensaje';
@@ -18,7 +18,7 @@ $lang['comments.activate_label'] 			= 'Activar';
 $lang['comments.deactivate_label'] 			= 'Desactivar';
 $lang['comments.author_label'] 				= 'Autor';
 $lang['comments.module_label'] 				= 'M&oacute;dulo';
-$lang['comments.item_label'] 				= 'Item'; #translate
+$lang['comments.item_label'] 				= 'Ítem';
 $lang['comments.date_label'] 				= 'Fecha';
 $lang['comments.actions_label'] 			= 'Acciones';
 $lang['comments.edit_label'] 				= 'Editar';
@@ -52,6 +52,6 @@ $lang['comments.unapprove_error_multiple']	= 'Ocurrió un error al tratar de des
 $lang['comments.delete_single_success'] 	= 'El comentario #%s fue eliminado y no será mostrado más en el sitio.';
 $lang['comments.delete_multi_success'] 		= 'Los comentarios #%s fueron eliminados y no serán mostrados más en el sitio.';
 
-$lang['comments.no_comments'] 				= 'No hay comentarios hasta el momento';
+$lang['comments.no_comments'] 				= 'No hay comentarios aún';
 
 ?>
