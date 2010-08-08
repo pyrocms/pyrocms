@@ -144,7 +144,7 @@
 			slug = this.id.replace('delete-area-', '')
 			box = $('div#area-' + slug);
 			
-			if(confirm(''))
+			if(confirm('Are you sure you wish to delete this item?'))
 			{
 				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_area', { area_slug: slug }, function()
 				{
@@ -256,9 +256,12 @@
 			tr = $(this).closest('tr');
 			id = tr.attr('id').replace('instance-', '');
 
-			$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
-				tr.slideUp(function() { $(this).remove(); });
-			});
+			if(confirm('Are you sure you wish to delete this item?'))
+			{
+				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
+					tr.slideUp(function() { $(this).remove(); });
+				});
+			}
 			
 			return false;
 		});
