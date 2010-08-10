@@ -33,7 +33,7 @@ TRUNCATE `pages`;
 
 INSERT INTO `pages` (`id`, `slug`, `title`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`) VALUES
   ('1','home', 'Home', 1, 0, 1, 'live', NOW(), NOW()),
-  ('2', '404', 'Page missing', 2, 0, '1', 'live', NOW(), NOW());
+  ('2', '404', 'Page missing', 1, 0, '1', 'live', NOW(), NOW());
 
 -- command split --
 
@@ -42,7 +42,7 @@ TRUNCATE `revisions`;
 -- command split --
 
 INSERT INTO `revisions` (`id`, `owner_id`, `body`, `revision_date`) VALUES
-  ('1', '1', 'Welcome to our homepage. We have not quite finished setting up our website just yet, but please add us to your bookmarks and come back soon.', NOW()),
+  ('1', '1', 'Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.', NOW()),
   ('2', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{page_url(1)}\">here</a> to go to the homepage.</p>', NOW());
 
 -- command split --

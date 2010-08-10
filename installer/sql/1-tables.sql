@@ -219,6 +219,7 @@ CREATE TABLE `pages` (
  `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
  `body` text collate utf8_unicode_ci NOT NULL,
  `parent_id` int(11) default '0',
+ `revision_id` varchar(255) collate utf8_unicode_ci NOT NULL,
  `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
  `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
  `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
