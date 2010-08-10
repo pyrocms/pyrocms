@@ -6,7 +6,7 @@ class MY_Controller extends Controller
 	public $module;
 	public $controller;
 	public $method;
-	
+
 	function MY_Controller()
 	{
 		parent::Controller();
@@ -17,7 +17,7 @@ class MY_Controller extends Controller
 
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
-		
+
         // Load the user model and get user data
         $this->load->model('users/users_m');
         $this->load->library('users/ion_auth');
@@ -29,12 +29,12 @@ class MY_Controller extends Controller
         $this->config->set_item('admin_email', $this->settings->item('contact_email'), 'ion_auth');
 
 		$this->data->user = $this->user = $this->ion_auth->get_user();
-        
+
         // Work out module, controller and method and make them accessable throught the CI instance
         $this->module 				= $this->router->fetch_module();
         $this->controller			= $this->router->fetch_class();
         $this->method 				= $this->router->fetch_method();
-        
+
         $this->data->module 		=& $this->module;
         $this->data->controller 	=& $this->controller;
         $this->data->method 		=& $this->method;
@@ -70,9 +70,10 @@ class MY_Controller extends Controller
 		// Mega Pyro arrays
         $pyro['user'] 	= (array) $this->user;
         $pyro['server'] = (array) $_SERVER;
-        
-        $this->load->vars('pyro', $pyro); 
-        
+
+        $this->load->vars($pyro);
+        $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.
+
         $this->benchmark->mark('my_controller_end');
 	}
 
