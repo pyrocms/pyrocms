@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '1.0.0');
+	private $versions = array('0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0');
 
 	function _remap()
 	{
@@ -208,6 +208,15 @@ class Upgrade extends Controller
 		$this->cache->delete_all('modules_m');
 	    
 	    return FALSE; // Change this when we go live
+	}
+
+	function upgrade_0997()
+	{
+		echo 'Page titles can have longer names and slugs.<br />';
+		$this->db->query("ALTER TABLE `pages` CHANGE `slug` `slug` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
+		$this->db->query("ALTER TABLE `pages` CHANGE `title` `title` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
+
+		return TRUE;
 	}
 
 	function upgrade_0996()

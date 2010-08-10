@@ -214,26 +214,26 @@ DROP TABLE IF EXISTS `pages`;
 -- command split --
 
 CREATE TABLE `pages` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `revision_id` int(11) NOT NULL DEFAULT '0',
-  `slug` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `title` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `parent_id` int(11) DEFAULT '0',
-  `layout_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
-  `css` text COLLATE utf8_unicode_ci,
-  `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
-  `rss_enabled` int(1) NOT NULL DEFAULT '0',
-  `comments_enabled` int(1) NOT NULL DEFAULT '0',
-  `status` enum('draft','live') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'draft',
-  `created_on` int(11) NOT NULL DEFAULT '0',
-  `updated_on` varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `Unique` (`slug`,`parent_id`),
-  KEY `slug` (`slug`),
-  KEY `parent` (`parent_id`)
+ `id` int(11) unsigned NOT NULL auto_increment,
+ `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `body` text collate utf8_unicode_ci NOT NULL,
+ `parent_id` int(11) default '0',
+ `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
+ `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+ `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+ `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+ `meta_description` text collate utf8_unicode_ci NOT NULL default '',
+ `rss_enabled` INT(1)  NOT NULL default '0',
+ `comments_enabled` INT(1)  NOT NULL default '0',
+ `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft', 
+ `created_on` INT(11)  NOT NULL default '0',
+ `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+ PRIMARY KEY  (`id`),
+ UNIQUE KEY `Unique` (`slug`,`parent_id`),
+ KEY `slug` (`slug`),
+ KEY `parent` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 
 -- command split --
@@ -451,22 +451,22 @@ DROP TABLE IF EXISTS `modules`;
 -- command split --
 
 CREATE TABLE `modules` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `name` TEXT NOT NULL,
-		  `slug` varchar(50) NOT NULL,
-		  `version` varchar(20) NOT NULL,
-		  `type` varchar(20) DEFAULT NULL,
-		  `description` TEXT DEFAULT NULL,
-		  `skip_xss` tinyint(1) NOT NULL,
-		  `is_frontend` tinyint(1) NOT NULL,
-		  `is_backend` tinyint(1) NOT NULL,
-		  `is_backend_menu` tinyint(1) NOT NULL,
-		  `enabled` tinyint(1) NOT NULL,
-		  `is_core` tinyint(1) NOT NULL,
-		  `controllers` text NOT NULL,
-		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `slug` (`slug`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` TEXT NOT NULL,
+  `slug` varchar(50) NOT NULL,
+  `version` varchar(20) NOT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `description` TEXT DEFAULT NULL,
+  `skip_xss` tinyint(1) NOT NULL,
+  `is_frontend` tinyint(1) NOT NULL,
+  `is_backend` tinyint(1) NOT NULL,
+  `is_backend_menu` tinyint(1) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `is_core` tinyint(1) NOT NULL,
+  `controllers` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 

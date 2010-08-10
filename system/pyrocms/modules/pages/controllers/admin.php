@@ -54,12 +54,12 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'title',
 				'label'	=> lang('pages.title_label'),
-				'rules'	=> 'trim|required|max_length[60]'
+				'rules'	=> 'trim|required|max_length[250]'
 			),
 			array(
 				'field' => 'slug',
 				'label'	=> lang('pages.slug_label'),
-				'rules'	=> 'trim|required|alpha_dot_dash|max_length[60]'
+				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
 			),
 			array(
 				'field' => 'body',
@@ -84,12 +84,12 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'meta_title',
 				'label' => lang('pages.meta_title_label'),
-				'rules' => 'trim|max_length[255]'
+				'rules' => 'trim|max_length[250]'
 			),
 			array(
 				'field'	=> 'meta_keywords',
 				'label' => lang('pages.meta_keywords_label'),
-				'rules' => 'trim|max_length[255]'
+				'rules' => 'trim|max_length[250]'
 			),
 			array(
 				'field'	=> 'meta_description',

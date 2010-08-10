@@ -15,6 +15,10 @@ h2. v1.0.0
 * Widgets can now go in modules and any packages, not just third_party.
 * Logged in users will no longer see the stupid website box on comments, it will use their profile value.
 
+h2. v0.9.9.7
+
+* Increased page title and slug length from 60 to 255.
+
 h2. v0.9.9.6
 
 * {js('http://example.com/foo.js')} will now work as <script> are stripped.
