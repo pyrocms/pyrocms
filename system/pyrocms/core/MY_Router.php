@@ -22,7 +22,7 @@ Modules::$locations = array(
  * Install this file as application/libraries/MY_Router.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.1
+ * @version 	2.2
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -162,7 +162,12 @@ class Modules {
 			return;
 		}
 
-		if (is_file($location = APPPATH . 'libraries/' . $class . EXT))
+		if (is_file($location = APPPATH . 'core/' . $class . EXT))
+		{
+			include_once $location;
+		}
+
+		else if (is_file($location = APPPATH . 'libraries/' . $class . EXT))
 		{
 			include_once $location;
 		}
@@ -176,7 +181,6 @@ class Modules {
 
 		if ($type === 'other')
 		{
-
 			if (class_exists($file, FALSE))
 			{
 				log_message('debug', "File already loaded: {$location}");
@@ -215,8 +219,14 @@ class Modules {
 		$segments = explode('/', $file);
 
 		$file = array_pop($segments);
-		if ($base == 'libraries/')
+		if ($base == 'core/' OR $base == 'libraries/')
+		{
 			$file = ucfirst($file);
+		}
+		else if ($base == 'models/')
+		{
+			$file = strtolower($file);
+		}
 		$file_ext = strpos($file, '.') ? $file : $file . EXT;
 
 		$lang && $lang .= '/';
@@ -230,12 +240,13 @@ class Modules {
 
 		foreach (Modules::$locations as $location => $offset)
 		{
-
 			foreach ($modules as $module => $subpath)
 			{
 				$fullpath = $location . $module . '/' . $base . $lang . $subpath;
 				if (is_file($fullpath . $file_ext))
+				{
 					return array($fullpath, $file);
+				}
 			}
 		}
 
@@ -269,7 +280,6 @@ class Modules {
 		/* parse module routes */
 		foreach (self::$routes[$module] as $key => $val)
 		{
-
 			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
 
 			if (preg_match('#^' . $key . '$#', $uri))
