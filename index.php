@@ -56,7 +56,7 @@
  *---------------------------------------------------------------
  *
  * If you want this front controller to use a different "application"
- * folder then the default one you can set its name here. The folder 
+ * folder then the default one you can set its name here. The folder
  * can also be renamed or relocated anywhere on your server.  If
  * you do, use a full server path. For more info please see the user guide:
  * http://codeigniter.com/user_guide/general/managing_apps.html
@@ -65,6 +65,22 @@
  *
  */
 	$application_folder = './system/pyrocms';
+
+/*
+ *---------------------------------------------------------------
+ * ADDON FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * folder then the default one you can set its name here. The folder
+ * can also be renamed or relocated anywhere on your server.  If
+ * you do, use a full server path. For more info please see the user guide:
+ * http://codeigniter.com/user_guide/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ *
+ */
+	$addon_folder = './addons';
 
 /*
  * --------------------------------------------------------------------
@@ -155,6 +171,9 @@
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
+
+ 	// Path to the system folder
+	define('ADDONPATH', $addon_folder.'/');
 		
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));
@@ -164,19 +183,19 @@
 
 
 	// The path to the "application" folder
-	if (is_dir($application_folder))
-	{
+//	if (is_dir($application_folder))
+//	{
 		define('APPPATH', $application_folder.'/');
-	}
-	else
-	{		
-		if ( ! is_dir(BASEPATH.$application_folder.'/'))
-		{
-			exit("Your application folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);	
-		}
-	
-		define('APPPATH', BASEPATH.$application_folder.'/');
-	}
+//	}
+//	else
+//	{
+//		if ( ! is_dir(BASEPATH.$application_folder.'/'))
+//		{
+//			exit("Your application folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
+//		}
+//
+//		define('APPPATH', BASEPATH.$application_folder.'/');
+//	}
 
 /*
  * --------------------------------------------------------------------

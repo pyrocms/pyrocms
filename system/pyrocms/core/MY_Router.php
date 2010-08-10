@@ -6,7 +6,7 @@ spl_autoload_register('Modules::autoload');
 /* define the module locations and offset */
 Modules::$locations = array(
 	APPPATH . 'modules/' => '../modules/',
-	'third_party/modules/' => '../../third_party/modules/'
+	ADDONPATH . 'modules/' => '../../addons/modules/'
 );
 
 /**

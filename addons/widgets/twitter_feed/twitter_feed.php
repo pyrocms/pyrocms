@@ -51,7 +51,7 @@ class Twitter_feed extends Widgets
 			'|@([a-z0-9-_]+)|i'     => '<a href="http://twitter.com/$1" target="_blank">$0</a>',
 
 			// Detect Twitter #tags
-			'|#([a-z0-9-_]+)|i'     => '<a href="http://twitter.com/search?q=#$1" target="_blank">$0</a>'
+			'|#([a-z0-9-_]+)|i'     => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
 		foreach($tweets as &$tweet)

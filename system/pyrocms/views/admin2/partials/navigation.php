@@ -18,10 +18,10 @@
 				<!-- <li><?php echo anchor('admin/layouts', 'Layouts', (($module == 'layouts') ? 'class="current"' : ''));?></li> -->
 			</ul>
 		</li>
-		<li><a href="#" class="top-link<?php echo ((isset($third_party_modules[$module]) OR $module == 'modules') ? ' current"' : '"'); ?>"><?php echo lang('cp_nav_modules'); ?></a>
+		<li><a href="#" class="top-link<?php echo ((isset($addon_modules[$module]) OR $module == 'modules') ? ' current"' : '"'); ?>"><?php echo lang('cp_nav_modules'); ?></a>
 			<ul>
 				<li><?php echo anchor('admin/modules', 'Manage Modules', 'style="font-weight: bold;" ' . (($module == 'modules') ? 'class="current"' : ''));?></li>
-			<?php foreach($third_party_modules as $tp_module): ?>
+			<?php foreach($addon_modules as $tp_module): ?>
 				<li><?php echo anchor('admin/' . $tp_module['slug'], $tp_module['name'], (($module == $tp_module['slug']) ? 'class="current"' : '')); ?></li>
 			<?php endforeach; ?>
 			</ul>

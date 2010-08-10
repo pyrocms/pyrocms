@@ -74,7 +74,7 @@ class Admin_Controller extends MY_Controller
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
 
-	    	$this->data->third_party_modules = $this->cache->model('modules_m', 'get_modules', array(
+	    	$this->data->addon_modules = $this->cache->model('modules_m', 'get_modules', array(
 	    		array(
 					'is_core' => FALSE,
 					'is_backend' => TRUE,
@@ -85,11 +85,11 @@ class Admin_Controller extends MY_Controller
 
 			// This takes the modules array and creates a keyed array with the slug as the key.
 			$modules_keyed = array();
-			foreach($this->data->third_party_modules as $mod)
+			foreach($this->data->addon_modules as $mod)
 			{
 				$modules_keyed[$mod['slug']] = $mod;
 			}
-			$this->data->third_party_modules = $modules_keyed;
+			$this->data->addon_modules = $modules_keyed;
 		}
 
 	    // Template configuration

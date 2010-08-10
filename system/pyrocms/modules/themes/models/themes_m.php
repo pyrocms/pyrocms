@@ -59,8 +59,8 @@ class Themes_m extends CI_Model
 		if (is_dir($path))
 		{
 			// Core theme or tird party?
-			$is_core = strpos($location, 'third_party') === FALSE;
-			$web_path = $is_core ? APPPATH_URI : BASE_URL.'third_party/';
+			$is_core = strpos($location, 'addons') === FALSE;
+			$web_path = $is_core ? APPPATH_URI : BASE_URL.'addons/';
 
 			$theme->slug				= $slug;
 			$theme->is_core				= $is_core;

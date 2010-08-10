@@ -1,5 +1,5 @@
 <div class="box">
-	<h3><?php echo lang('modules.third_party_list');?></h3>
+	<h3><?php echo lang('modules.addon_list');?></h3>
 	<div class="box-container">
 		<p><?php echo lang('modules.introduction'); ?></p>
 

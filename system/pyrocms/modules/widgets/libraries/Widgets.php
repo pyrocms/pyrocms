@@ -114,7 +114,7 @@ class Widgets
     	$widget = (object) get_object_vars($this->_widget);
     	$widget->slug = $slug;
 		$widget->module = strpos($slug, 'modules/') ? basename(dirname($path)) : NULL;
-		$widget->is_third_party = strpos($slug, 'third_party/') !== FALSE;
+		$widget->is_addon = strpos($slug, 'addons/') !== FALSE;
 
 		return $widget;
 	}

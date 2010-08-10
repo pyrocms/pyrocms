@@ -76,16 +76,16 @@ class Module_import {
     	$modules = array();
 
     	// Loop through directories that hold modules
-    	foreach (array(APPPATH.'modules/', 'third_party/modules/') as $directory)
+    	foreach (array(APPPATH, ADDONPATH) as $directory)
     	{
     		// Loop through modules
-	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
+	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 	        {
 	        	if(file_exists($xml_file = $module_name.'/details.xml'))
 	        	{
 	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
+	        		$module['is_core'] = basename(dirname($directory)) != 'addons';
 
 					$module['enabled'] = 1;
 

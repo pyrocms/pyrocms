@@ -100,7 +100,7 @@ class Admin extends Admin_Controller
 					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php')); // TODO DEPRECATE php
 
 					// Try and extract
-					$this->unzip->extract($upload_data['full_path'], dirname(APPPATH) . '/third_party/themes/' )
+					$this->unzip->extract($upload_data['full_path'], ADDONPATH . 'themes/' )
 						? $this->session->set_flashdata('success', lang('themes.upload_success'))
 						: $this->session->set_flashdata('error', $this->unzip->error_string());
 				}

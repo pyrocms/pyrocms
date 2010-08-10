@@ -349,12 +349,12 @@ class Modules_m extends MY_Model
 	 */
 	public function install($module_slug)
 	{
-		if (!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		if (!is_file(ADDONPATH . 'modules/' . $module_slug . '/details.xml'))
 		{
 			return FALSE;
 		}
 
-		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
+		$module = $this->_parse_xml(ADDONPATH . 'modules/' . $module_slug . '/details.xml');
 
 		$module['is_core'] = 0;
 		$module['enabled'] = 1;
@@ -388,12 +388,12 @@ class Modules_m extends MY_Model
 	 */
 	public function uninstall($module_slug)
 	{
-		if (!is_file('third_party/modules/' . $module_slug . '/details.xml'))
+		if (!is_file(ADDONPATH . 'modules/' . $module_slug . '/details.xml'))
 		{
 			return FALSE;
 		}
 
-		$module = $this->_parse_xml('third_party/modules/' . $module_slug . '/details.xml');
+		$module = $this->_parse_xml(ADDONPATH . 'modules/' . $module_slug . '/details.xml');
 
 		// Run the uninstall sql if it is there
 		if (isset($module['uninstall']) && !empty($module['uninstall']))
@@ -421,16 +421,16 @@ class Modules_m extends MY_Model
 		$this->db->empty_table($this->_table);
 
     	// Loop through directories that hold modules
-    	foreach (array(APPPATH.'modules/', 'third_party/modules/') as $directory)
+    	foreach (array(APPPATH, ADDONPATH) as $directory)
     	{
     		// Loop through modules
-	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
+	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 	        {				
 	        	if(file_exists($xml_file = $module_name.'/details.xml'))
 	        	{
 	        		$module = $this->_parse_xml($xml_file) + array('slug'=>basename($module_name));
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
+	        		$module['is_core'] = basename(dirname($directory)) != 'addons';
 
 					$module['enabled'] = 1;
 

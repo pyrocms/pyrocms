@@ -1,6 +1,6 @@
 <?php
 $lang['modules.core_list']				= 'Core Modules';
-$lang['modules.third_party_list']		= 'Third-Party Modules';
+$lang['modules.addon_list']				= 'Add-on Modules';
 $lang['modules.introduction']			= 'Below is a list of installed modules and their information, such as the description or version.';
 $lang['modules.disable_error']			= 'Could not disable the module "%s".';
 $lang['modules.disable_success']		= 'The module "%s" has been disabled.';

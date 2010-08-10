@@ -28,7 +28,7 @@ class Installer extends Controller
 		'system/pyrocms/cache/dwoo',
 		'system/pyrocms/cache/dwoo/compiled',
 		'system/pyrocms/cache/simplepie',
-		'system/pyrocms/uploads'
+		'uploads'
 	);
 	
 	/**

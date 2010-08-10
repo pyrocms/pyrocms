@@ -22,8 +22,8 @@ class MY_Controller extends Controller
         $this->load->model('users/users_m');
         $this->load->library('users/ion_auth');
 
-		// Set the third_party folder as a package
-		$this->load->add_package_path('third_party/');
+		// Set the addons folder as a package
+		$this->load->add_package_path(ADDONPATH);
 
         $this->config->set_item('site_title', $this->settings->item('site_name'), 'ion_auth');
         $this->config->set_item('admin_email', $this->settings->item('contact_email'), 'ion_auth');

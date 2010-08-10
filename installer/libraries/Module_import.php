@@ -92,7 +92,7 @@ class Module_import {
     	$modules = array();
 
     	// Loop through directories that hold modules
-    	foreach (array('../application/modules/', '../third_party/modules/') as $directory)
+    	foreach (array('../system/pyrocms/modules/', '../addons/modules/') as $directory)
     	{
     		// Loop through modules
 	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
@@ -101,7 +101,7 @@ class Module_import {
 	        	{
 	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'third_party';
+	        		$module['is_core'] = basename(dirname($directory)) != 'addons';
 
 					$module['enabled'] = 1;
 

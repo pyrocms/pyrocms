@@ -31,7 +31,7 @@
 		</a>
 		
 		<ul>
-			<?php foreach($third_party_modules as $tp_module): ?>
+			<?php foreach($addon_modules as $tp_module): ?>
 			<li class="<?php echo $tp_module['slug']; ?>">
 				<?php echo anchor('admin/'.$tp_module['slug'], $tp_module['name']);?>
 			</li>

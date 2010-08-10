@@ -47,7 +47,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Upload
 	 *
-	 * Uploads a third_party module
+	 * Uploads an addon module
 	 *
 	 * @access	public
 	 * @return	void
@@ -80,7 +80,7 @@ class Admin extends Admin_Controller
 					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
 
 					// Try and extract
-					if($this->unzip->extract($upload_data['full_path'], dirname(APPPATH) . '/third_party/modules/'))
+					if($this->unzip->extract($upload_data['full_path'], ADDONPATH . 'modules/'))
 					{
 						if($this->modules_m->install($upload_data['raw_name']))
 						{
@@ -119,7 +119,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Uninstall
 	 *
-	 * Uninstalls a third_party module
+	 * Uninstalls an addon module
 	 *
 	 * @param	string	$module_slug	The slug of the module to uninstall
 	 * @access	public
@@ -138,12 +138,13 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $module_slug));
 
-			$path = 'third_party/modules/' . $module_slug;
+			$path = ADDONPATH . 'modules/' . $module_slug;
 
 			if(!$this->_delete_recursive($path))
 			{
 				$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
 			}
+			
 			redirect('admin/modules');
 		}
 		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $module_slug));
@@ -162,7 +163,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Enable
 	 *
-	 * Enables a third_party module
+	 * Enables an addon module
 	 *
 	 * @param	string	$module_slug	The slug of the module to enable
 	 * @access	public
@@ -187,7 +188,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Disable
 	 *
-	 * Disables a third_party module
+	 * Disables an addon module
 	 *
 	 * @param	string	$module_slug	The slug of the module to disable
 	 * @access	public
