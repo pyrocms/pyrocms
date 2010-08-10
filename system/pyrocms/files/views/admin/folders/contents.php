@@ -1,9 +1,9 @@
-<?php echo form_open('admin/media');?>
+<?php echo form_open('admin/files');?>
 	<h3><?php echo $folder->name; ?></h3>
-	<div id="toolbar">
+	<div id="files_toolbar">
 		<ul>
 			<li>
-				<label for="folder"><?php echo lang('media.subfolders.label'); ?>:</label>
+				<label for="folder"><?php echo lang('files.subfolders.label'); ?>:</label>
 				<?php echo form_dropdown('folder', $sub_folders, $selected_folder); ?>
 			</li>
 				<li>
@@ -18,7 +18,7 @@
 		<!-- TODO: Write File list table -->
 
 	<?php else: ?>
-		<p><?php echo lang('media.no_files');?></p>
+		<p><?php echo lang('files.no_files');?></p>
 	<?php endif; ?>
 
 <?php echo form_close();?>

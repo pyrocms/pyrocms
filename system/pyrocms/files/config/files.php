@@ -1,8 +1,8 @@
 <?php
 
-$config['media_folder'] = '';
+$config['files_folder'] = '';
 
-$config['allowed_file_ext'] = array(
+$config['files_allowed_file_ext'] = array(
 	'images'	=> 'bmp|gif|jpeg|jpg|jpe|png|tiff|tif',
 	'audio'		=> 'mpga|mp2|mp3|ra|rv|wav',
 	'video'		=> 'mpeg|mpg|mpe|qt|mov|avi|movie',
