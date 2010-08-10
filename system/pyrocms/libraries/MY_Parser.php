@@ -178,8 +178,13 @@ class MY_Parser extends CI_Parser {
 
 		try
 		{
+			// TAG SUPPORT
+			$this->_ci->load->library('tags');
+			$parsed = $this->_ci->tags->parse($string, $data);
+			// END TAG SUPPORT
+
 			// Object of the template
-			$tpl = new Dwoo_Template_String($string);
+			$tpl = new Dwoo_Template_String($parsed['content']);
 
 			$dwoo = $is_include ? self::spawn() : $this->_dwoo;
 

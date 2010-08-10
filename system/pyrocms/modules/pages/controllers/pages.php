@@ -117,14 +117,14 @@ class Pages extends Public_Controller
         $page_array = array('page' => (array) $page);
         
 	    // Parse the layout string and output
-	    $page->layout->body = $this->parser->string_parse(stripslashes($page->layout->body), $page_array, TRUE);
-	    
+		$page->layout->body = $this->parser->parse_string(stripslashes($page->layout->body), $page_array, TRUE);
+
 	    // Define data elements
         $this->data->page =& $page;
         $this->data->page->layout = $page->layout;
 	    
         // Create page output
-	    $this->template->title( $page->meta_title )
+	    $this->template->title($page->meta_title)
 	    
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
