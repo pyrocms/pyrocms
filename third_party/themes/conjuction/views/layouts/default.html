@@ -8,7 +8,8 @@
 		{$load->view('fragments/google_analytic')}
 	{/if}
 
-{theme_view('partials/header')}
+		{theme_view('partials/header')}
+
 		<div id="page">
 			{if $session->flashdata('notice')}
 		    	<div class="notice-box">{$session->flashdata('notice')}</div>
@@ -19,9 +20,11 @@
 		    {if $session->flashdata('error')}
 		    	<div class="error-box">{$session->flashdata('error')}</div>
 		    {/if}
+			
 			<div id="content">
-{$template.body}
+				{pyro:template:body}
 			</div>
+
 			<div id="sidebar">
 				<ul>
 					<li>
@@ -54,13 +57,13 @@
 					</li>
 				</ul>
 			</div>
-			<!-- end #sidebar -->
+
 			<div style="clear: both;">&nbsp;</div>
 		</div>
-		<!-- end #page -->
+
 		<div id="footer">
 			{theme_view('partials/footer')}
 		</div>
-		<!-- end #footer -->
+
 	</body>
 </html>
