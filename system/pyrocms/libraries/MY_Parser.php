@@ -167,21 +167,22 @@ class MY_Parser extends CI_Parser {
 
 		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
-		foreach ($this->_parser_assign_refs as $ref)
-		{
-			$data[$ref] = & $this->_ci->{$ref};
-		}
-
-		// Object containing data
-		$dwoo_data = new Dwoo_Data;
-		$dwoo_data->setData($data);
-
 		try
 		{
 			// TAG SUPPORT
 			$this->_ci->load->library('tags');
+			$this->_ci->tags->set_trigger('pyro:');
 			$parsed = $this->_ci->tags->parse($string, $data);
 			// END TAG SUPPORT
+
+			foreach ($this->_parser_assign_refs as $ref)
+			{
+				$data[$ref] = & $this->_ci->{$ref};
+			}
+
+			// Object containing data
+			$dwoo_data = new Dwoo_Data;
+			$dwoo_data->setData($data);
 
 			// Object of the template
 			$tpl = new Dwoo_Template_String($parsed['content']);
