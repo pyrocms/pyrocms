@@ -21,6 +21,6 @@ $lang['error_101']		=	'The database could not be found. If you asked the install
 $lang['error_102']		=	'The installer could not add any tables to the Database.<br/><br/>';
 $lang['error_103']		=	'The installer could not insert the data into the database.<br/><br/>';
 $lang['error_104']		=	'The installer could not create the default user.<br/><br/>';
-$lang['error_105']		=	'The database configuration file could not be written, did you cheated on the installer by skipping step 3?';
+$lang['error_105']		=	'The database configuration file could not be written, did you cheat on the installer by skipping step 3?';
 $lang['error_106']		=	'The config file could not be written, are you sure the file has the correct permissions ?';
 $lang['success']		=	'PyroCMS has been installed successfully.';

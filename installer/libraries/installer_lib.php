@@ -382,7 +382,7 @@ class Installer_lib
 		$new_file  	= str_replace(array_keys($replace), $replace, $template);
 		
 		// Open the database.php file, show an error message in case this returns false
-		$handle 	= @fopen('../application/config/database.php','w+');
+		$handle 	= @fopen('../system/pyrocms/config/database.php','w+');
 		
 		// Validate the handle results
 		if($handle !== FALSE)
@@ -421,7 +421,7 @@ class Installer_lib
 		$new_file = str_replace('__INDEX__', $index_page, $template);
 		
 		// Open the database.php file, show an error message in case this returns false
-		$handle = @fopen('../application/config/config.php','w+');
+		$handle = @fopen('../system/pyrocms/config/config.php','w+');
 		
 		// Validate the handle results
 		if($handle !== FALSE)
