@@ -18,7 +18,7 @@ class Upgrade extends Controller
   		$this->load->dbforge();
 
 		// The version of the db is defined by a 'version' setting
-		$db_version = $this->settings->item('version');
+		$db_version = $this->settings->version;
 
 		// What version is the file system running (this is the target version to upgrade to)
   		$file_version = CMS_VERSION;

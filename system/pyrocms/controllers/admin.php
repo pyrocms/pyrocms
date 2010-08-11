@@ -54,9 +54,9 @@ class Admin extends Admin_Controller
  	 */
  	public function index()
 	{
-		if(CMS_VERSION !== $this->settings->item('version'))
+		if(CMS_VERSION !== $this->settings->version)
 		{
-			$this->data->messages['notice'] = sprintf(lang('cp_upgrade_message'), CMS_VERSION, $this->settings->item('version'), site_url('upgrade'));
+			$this->data->messages['notice'] = sprintf(lang('cp_upgrade_message'), CMS_VERSION, $this->settings->version, site_url('upgrade'));
 		}
 		
 		else if(is_dir('./installer'))
@@ -81,12 +81,12 @@ class Admin extends Admin_Controller
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');
 		$this->simplepie->set_cache_location(APPPATH . 'cache/simplepie/');
-		$this->simplepie->set_feed_url( $this->settings->item('dashboard_rss') );
+		$this->simplepie->set_feed_url($this->settings->dashboard_rss);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
 		
 		// Store the feed items
-		$this->data->rss_items = $this->simplepie->get_items(0, $this->settings->item('dashboard_rss_count'));
+		$this->data->rss_items = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
 
 		$this->template->set_partial('sidebar', 'admin/partials/sidebar', FALSE);
 		$this->template->build('admin/dashboard', $this->data);

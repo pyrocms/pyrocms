@@ -58,7 +58,7 @@ class User_settings extends Public_Controller
 			array(
 				'field' => 'settings_last_name',
 				'label' => lang('user_last_name'),
-				'rules' => ($this->settings->item('require_lastname') ? 'required|' : '').'surname'
+				'rules' => ($this->settings->require_lastname ? 'required|' : '').'surname'
 			),
 			array(
 				'field' => 'settings_password',

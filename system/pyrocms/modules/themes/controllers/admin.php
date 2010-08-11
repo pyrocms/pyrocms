@@ -143,7 +143,7 @@ class Admin extends Admin_Controller
 				$theme_name = urldecode($theme_name);			
 				$to_delete++;
 			
-				if($this->settings->item('default_theme') == $theme_name)
+				if($this->settings->default_theme == $theme_name)
 				{
 					$this->session->set_flashdata('error', lang('themes.default_delete_error'));
 				}		
@@ -184,4 +184,3 @@ class Admin extends Admin_Controller
 	}
 	
 }
-?>

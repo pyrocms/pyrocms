@@ -180,7 +180,7 @@ class Admin extends Admin_Controller
 			//hack to activate immediately
 			if ($this->input->post('active')) 
 			{
-				$this->config->set_item('email_activation', $this->settings->item('email_activation'), 'ion_auth');
+				$this->config->set_item('email_activation', $this->settings->email_activation, 'ion_auth');
 			}
 			
 			// Try to register the user

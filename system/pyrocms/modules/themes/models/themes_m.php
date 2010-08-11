@@ -8,7 +8,7 @@ class Themes_m extends CI_Model
 	public function __construct()
 	{
 		parent::CI_Model();
-		$this->_theme = $this->settings->item('default_theme');
+		$this->_theme = $this->settings->default_theme;
 	}
 
 	public function get_all()

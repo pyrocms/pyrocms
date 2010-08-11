@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="0.2">
+<module version="0.3">
 	<name>
 		<en>Variables</en>
-                <pl>Zmienne</pl>
+		<pl>Zmienne</pl>
 		<es>Variables</es>
 		<fr>Variables</fr>
 		<de>Variablen</de>
 	</name>
 	<description>
 		<en>Manage global variables to access from everywhere.</en>
-                <pl>Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.</pl>
+		<pl>Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.</pl>
 		<es>Manage global variables to access from everywhere.</es>
 		<fr>Manage global variables to access from everywhere.</fr>
 		<de>Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.</de>

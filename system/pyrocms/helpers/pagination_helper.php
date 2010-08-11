@@ -23,7 +23,7 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
         $config['base_url'] = site_url().'/'.$uri.'/';
 
 	$config['total_rows'] = $total_rows; // count all records
-	$config['per_page'] = $limit === NULL ? $ci->settings->item('records_per_page') : $limit;
+	$config['per_page'] = $limit === NULL ? $ci->settings->records_per_page : $limit;
 	$config['uri_segment'] = $uri_segment;
 	$config['page_query_string'] = FALSE;
 

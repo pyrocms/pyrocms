@@ -115,7 +115,7 @@ class Admin_layouts extends Admin_Controller
 			$page_layout->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
+		$theme_layouts = $this->template->get_theme_layouts( $this->settings->default_theme);
 		foreach($theme_layouts as $theme_layout)
 		{
 			$this->data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
@@ -177,7 +177,7 @@ class Admin_layouts extends Admin_Controller
 			}
 		}
 
-		$theme_layouts = $this->template->get_theme_layouts( $this->settings->item('default_theme'));
+		$theme_layouts = $this->template->get_theme_layouts( $this->settings->default_theme);
 		foreach($theme_layouts as $theme_layout)
 		{
 			$this->data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');

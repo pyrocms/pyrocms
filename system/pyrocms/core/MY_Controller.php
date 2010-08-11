@@ -70,7 +70,6 @@ class MY_Controller extends Controller
 		// Mega Pyro arrays
         $pyro['user'] 	=& $this->user;
         $pyro['server'] =& $_SERVER;
-        $pyro['settings'] =& $this->settings;
 
         $this->load->vars($pyro);
         $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.
