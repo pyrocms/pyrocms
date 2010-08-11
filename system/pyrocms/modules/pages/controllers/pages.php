@@ -168,10 +168,10 @@ class Pages extends Public_Controller
     		'status' => 'live'
     	)));
     	
-		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->item('site_name');
+		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->site_name;
 		$data->rss->description = $page->meta_description;
 		$data->rss->link = site_url($url_segments);
-		$data->rss->creator_email = $this->settings->item('contact_email');
+		$data->rss->creator_email = $this->settings->contact_email;
 		
 		if(!empty($children))
 		{

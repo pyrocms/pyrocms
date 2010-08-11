@@ -25,5 +25,3 @@ function theme_view($view)
 	}
 
 }
-
-?>

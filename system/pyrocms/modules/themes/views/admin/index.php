@@ -24,7 +24,7 @@
 		<tbody>
 				<?php foreach($themes as $theme): ?>
 			<tr>
-				<td><input type="radio" name="theme" value="<?php echo $theme->slug; ?>" <?php echo $this->settings->item('default_theme') == $theme->slug ? 'checked="checked" ' : ''; ?>/></td>
+				<td><input type="radio" name="theme" value="<?php echo $theme->slug; ?>" <?php echo $this->settings->default_theme == $theme->slug ? 'checked="checked" ' : ''; ?>/></td>
 				<td><?php if (!empty($theme->website)): ?>
 								<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
 							<?php else: ?>

@@ -304,7 +304,7 @@ class User_lib
 		$this->CI->load->helper('text');
 
 		// Send it from the server
-		$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+		$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->site_name);
 		$this->CI->email->to($user->email);
 		
 		$this->CI->email->subject($this->CI->lang->line('user_activation_email_subject'));
@@ -322,7 +322,7 @@ class User_lib
 		$this->CI->load->helper('text');
 
 		// Send it from the server
-		$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+		$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->site_name);
 		$this->CI->email->to($user->email);
 		
 		$this->CI->email->subject($this->CI->lang->line('user_activated_email_subject'));
@@ -342,7 +342,7 @@ class User_lib
 		$this->CI->load->helper('text');
 
 		// Send it from the server
-		$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+		$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->site_name);
 		$this->CI->email->to($user->email);
 		
 		$this->CI->email->subject($this->CI->lang->line('user_reset_pass_email_subject'));

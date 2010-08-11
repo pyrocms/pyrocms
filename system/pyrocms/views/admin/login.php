@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><?php echo $this->settings->item('site_name'); ?> - <?php echo lang('login_title');?></title>
+	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	<?php echo css('admin/style.css'); ?>
 	<?php echo js('jquery/jquery.js'); ?>
 	<?php echo js('admin/jquery.uniform.min.js'); ?>
@@ -14,7 +14,7 @@
 <div id="login-box">
 		<header id="main">
 			<div id="logo"></div>
-			<h1><?php echo $this->settings->item('site_name'); ?></h1>
+			<h1><?php echo $this->settings->site_name; ?></h1>
 		</header>
 		<?php $this->load->view('admin/partials/notices') ?>
 		<?php echo form_open('admin/login'); ?>

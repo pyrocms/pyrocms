@@ -1,6 +1,6 @@
 <p><?php echo sprintf(lang('email_greeting'), $identity) ?></p>
 
-<p><?php echo sprintf(lang('user_activated_email_content_line1'), $this->settings->item('site_name'));?></p>
+<p><?php echo sprintf(lang('user_activated_email_content_line1'), $this->settings->site_name);?></p>
 
 <p><?php echo anchor('users/activate/'.$id.'/'.$activation);?></p>
 
@@ -12,5 +12,5 @@
 
 <p>
 	<?php echo lang('email_signature') ?><br />
-	<?php echo $this->settings->item('site_name'); ?>.
+	<?php echo $this->settings->site_name; ?>.
 </p>

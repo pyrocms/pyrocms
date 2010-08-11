@@ -21,7 +21,5 @@ function navigation($abbrev)
 	
 	$CI->load->model('navigation/navigation_m');
 
-	return $CI->cache->model('navigation_m', 'load_group', $abbrev, $CI->settings->item('navigation_cache'));
+	return $CI->cache->model('navigation_m', 'load_group', $abbrev, $CI->settings->navigation_cache);
 }
-
-?>
