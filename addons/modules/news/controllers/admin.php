@@ -24,9 +24,9 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		
 		$this->load->model('news_m');
-		$this->load->model('categories/categories_m');
-		$this->load->helper('date');
+		$this->load->model('news_categories_m');
 		$this->lang->load('news');
+		$this->lang->load('categories');
 		
 		// Date ranges for select boxes
 		$this->data->days = array_combine($days = range(1, 31), $days);
@@ -37,7 +37,7 @@ class Admin extends Admin_Controller
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
 		$this->data->categories = array();
-		if($categories = $this->categories_m->get_all())
+		if($categories = $this->news_categories_m->get_all())
 		{
 			foreach($categories as $category)
 			{

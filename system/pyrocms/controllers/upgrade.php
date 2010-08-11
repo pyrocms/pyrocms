@@ -79,6 +79,10 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		echo "Merging categories module into news module.<br/>";
+		$this->dbforge->rename_table('categories', 'news_categories');
+		$this->db->delete('modules', array('slug' => 'categories'));
+		
 		// Removing photos table
 		$this->db->delete('modules', array('slug' => 'photos'));
 

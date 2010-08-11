@@ -7,7 +7,7 @@
  * @category	Modules
  * @author		Phil Sturgeon - PyroCMS Dev Team
  */
-class Categories_m extends MY_Model
+class News_categories_m extends MY_Model
 {
 	/**
 	 * Insert a new category into the database
@@ -18,7 +18,7 @@ class Categories_m extends MY_Model
 	public function insert($input = array())
     {
     	$this->load->helper('text');
-    	$this->db->insert('categories', array(
+    	parent::insert(array(
         	'title'=>$input['title'],
         	'slug'=>url_title(strtolower(convert_accented_characters($input['title'])))
         ));
@@ -35,12 +35,10 @@ class Categories_m extends MY_Model
 	 */
     public function update($id, $input)
 	{
-		$this->db->update('categories', array(
+		return parent::update($id, array(
             'title'	=> $input['title'],
             'slug'	=> url_title(strtolower(convert_accented_characters($input['title'])))
-		), array('id' => $id));
-            
-		return TRUE;
+		));
     }
 
 	/**

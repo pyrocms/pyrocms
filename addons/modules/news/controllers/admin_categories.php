@@ -6,7 +6,7 @@
  * @category  	Module
  * @author  	Phil Sturgeon - PyroCMS Dev Team
  */
-class Admin extends Admin_Controller
+class Admin_Categories extends Admin_Controller
 {
 	/**
 	 * Array that contains the validation rules
@@ -23,8 +23,9 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::Admin_Controller();
-		$this->load->model('categories_m');
+		$this->load->model('news_categories_m');
 		$this->lang->load('categories');
+		$this->lang->load('news');
 		
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	
@@ -49,13 +50,14 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		$this->cache->delete_all('modules_m');
 		// Create pagination links
-		$total_rows 			= $this->categories_m->count_all();
-		$this->data->pagination = create_pagination('admin/categories/index', $total_rows);
+		$total_rows 			= $this->news_categories_m->count_all();
+		$this->data->pagination = create_pagination('admin/news/categories/index', $total_rows);
 			
 		// Using this data, get the relevant results
-		$this->data->categories = $this->categories_m->limit( $this->data->pagination['limit'] )->get_all();		
-		$this->template->build('admin/index', $this->data);
+		$this->data->categories = $this->news_categories_m->limit( $this->data->pagination['limit'] )->get_all();
+		$this->template->build('admin/categories/index', $this->data);
 	}
 	
 	/**
@@ -68,15 +70,11 @@ class Admin extends Admin_Controller
 		// Validate the data
 		if ($this->form_validation->run())
 		{
-			if ($this->categories_m->insert($_POST))
-			{
-				$this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) );
-			}
-			else
-			{
-				$this->session->set_flashdata(array('error'=> lang('cat_add_error')));
-			}
-			redirect('admin/categories');
+			$this->news_categories_m->insert($_POST)
+				? $this->session->set_flashdata('success', sprintf( lang('cat_add_success'), $this->input->post('title')) )
+				: $this->session->set_flashdata(array('error'=> lang('cat_add_error')));
+
+			redirect('admin/news/categories');
 		}
 		
 		// Loop through each validation rule
@@ -87,7 +85,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->data->category =& $category;		
-		$this->template->build('admin/form', $this->data);
+		$this->template->build('admin/categories/form', $this->data);
 	}
 	
 	/**
@@ -99,27 +97,19 @@ class Admin extends Admin_Controller
 	public function edit($id = 0)
 	{	
 		// Get the category
-		$category = $this->categories_m->get($id);
+		$category = $this->news_categories_m->get($id);
 		
 		// ID specified?
-		if (empty($id) or !$category)
-		{
-			redirect('admin/categories/index');
-		}
+		$category or redirect('admin/news/categories/index');
 		
 		// Validate the results
 		if ($this->form_validation->run())
 		{		
-			if ($this->categories_m->update($id, $_POST))
-			{
-				$this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) );
-			}		
-			else
-			{
-				$this->session->set_flashdata(array('error'=> lang('cat_edit_error')));
-			}
+			$this->news_categories_m->update($id, $_POST)
+				? $this->session->set_flashdata('success', sprintf( lang('cat_edit_success'), $this->input->post('title')) )
+				: $this->session->set_flashdata(array('error'=> lang('cat_edit_error')));
 			
-			redirect('admin/categories/index');
+			redirect('admin/news/categories/index');
 		}
 		
 		// Loop through each rule
@@ -131,10 +121,9 @@ class Admin extends Admin_Controller
 			}
 		}
 
-
 		// Render the view
 		$this->data->category =& $category;
-		$this->template->build('admin/form', $this->data);
+		$this->template->build('admin/categories/form', $this->data);
 	}	
 
 	/**
@@ -154,7 +143,7 @@ class Admin extends Admin_Controller
 			$to_delete = 0;
 			foreach ($id_array as $id) 
 			{
-				if($this->categories_m->delete($id))
+				if($this->news_categories_m->delete($id))
 				{
 					$deleted++;
 				}
@@ -173,8 +162,9 @@ class Admin extends Admin_Controller
 		else
 		{
 			$this->session->set_flashdata('error', $this->lang->line('cat_no_select_error'));
-		}		
-		redirect('admin/categories/index');
+		}
+		
+		redirect('admin/news/categories/index');
 	}	
 	
 	/**
@@ -185,15 +175,12 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_title($title = '')
 	{
-		if ($this->categories_m->check_title($title))
+		if ($this->news_categories_m->check_title($title))
 		{
 			$this->form_validation->set_message('_check_title', sprintf($this->lang->line('cat_already_exist_error'), $title));
 			return FALSE;
 		}
-		else
-		{
-			return TRUE;
-		}
+
+		return TRUE;
 	}
 }
-?>

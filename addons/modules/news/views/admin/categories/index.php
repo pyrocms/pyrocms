@@ -4,7 +4,7 @@
 	
 	<div class="box-container">
 	
-		<?php echo form_open('admin/categories/delete'); ?>
+		<?php echo form_open('admin/news/categories/delete'); ?>
 			<table border="0" class="table-list">
 				<thead>
 				<tr>
@@ -27,8 +27,8 @@
 						<td><?php echo form_checkbox('action_to[]', $category->id); ?></td>
 						<td><?php echo $category->title;?></td>
 						<td>
-							<?php echo anchor('admin/categories/edit/' . $category->id, lang('cat_edit_label')) . ' | '; ?>
-							<?php echo anchor('admin/categories/delete/' . $category->id, lang('cat_delete_label'), array('class'=>'confirm'));?>
+							<?php echo anchor('admin/news/categories/edit/' . $category->id, lang('cat_edit_label')) . ' | '; ?>
+							<?php echo anchor('admin/news/categories/delete/' . $category->id, lang('cat_delete_label'), array('class'=>'confirm'));?>
 						</td>
 					</tr>
 					<?php endforeach; ?>                      

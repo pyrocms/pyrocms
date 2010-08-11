@@ -8,7 +8,7 @@ class News extends Public_Controller
 	{
 		parent::Public_Controller();		
 		$this->load->model('news_m');
-		$this->load->model('categories/categories_m');
+		$this->load->model('news_categories_m');
 		$this->load->model('comments/comments_m');        
 		$this->load->helper('text');
 		$this->lang->load('news');
@@ -33,7 +33,7 @@ class News extends Public_Controller
 		if(!$slug) redirect('news');
 		
 		// Get category data
-		$category = $this->categories_m->get_by('slug', $slug);
+		$category = $this->news_categories_m->get_by('slug', $slug);
 		
 		if(!$category) show_404();
 		
@@ -98,7 +98,7 @@ class News extends Public_Controller
 		// IF this article uses a category, grab it
 		if($article->category_id > 0)
 		{
-			$article->category = $this->categories_m->get( $article->category_id );
+			$article->category = $this->news_categories_m->get( $article->category_id );
 		}
 		
 		// Set some defaults
@@ -152,4 +152,3 @@ class News extends Public_Controller
 		);
 	}
 }
-?>

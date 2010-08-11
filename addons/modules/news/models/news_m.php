@@ -4,8 +4,8 @@ class News_m extends MY_Model
 {
     function get_all()
     {
-    	$this->db->select('news.*, categories.title AS category_title, categories.slug AS category_slug');
-       	$this->db->join('categories', 'news.category_id = categories.id', 'left');
+    	$this->db->select('news.*, c.title AS category_title, c.slug AS category_slug');
+       	$this->db->join('news_categories c', 'news.category_id = c.id', 'left');
     	
     	$this->db->order_by('created_on', 'DESC');
            
@@ -18,8 +18,8 @@ class News_m extends MY_Model
         
     	if(!empty($params['category']))
     	{
-	    	if(is_numeric($params['category']))  $this->db->where('categories.id', $params['category']);
-	    	else  				 				 $this->db->where('categories.slug', $params['category']);
+	    	if(is_numeric($params['category']))  $this->db->where('c.id', $params['category']);
+	    	else  				 				 $this->db->where('c.slug', $params['category']);
     	}
     	
     	if(!empty($params['month']))
@@ -64,12 +64,12 @@ class News_m extends MY_Model
 
 	function count_by($params = array())
     {
-    	$this->db->join('categories', 'news.category_id = categories.id', 'left');
+    	$this->db->join('news_categories c', 'news.category_id = c.id', 'left');
     	
     	if(!empty($params['category']))
     	{
-	    	if(is_numeric($params['category']))  $this->db->where('categories.id', $params['category']);
-	    	else  				 				 $this->db->where('categories.slug', $params['category']);
+	    	if(is_numeric($params['category']))  $this->db->where('c.id', $params['category']);
+	    	else  				 				 $this->db->where('c.slug', $params['category']);
     	}
     	
     	if(!empty($params['month']))
