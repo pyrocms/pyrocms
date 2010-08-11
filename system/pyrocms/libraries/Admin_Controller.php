@@ -93,11 +93,11 @@ class Admin_Controller extends MY_Controller
 		}
 
 	    // Template configuration
-	    $this->template->set_layout('admin2/layout');
+	    $this->template->set_layout('admin/layout');
 	    $this->template->enable_parser(FALSE);
 	    
 	    $this->template
-	    	->append_metadata( css('admin2/style.css') )
+	    	->append_metadata( css('admin/style.css') )
 			->append_metadata( css('jquery/jquery-ui.css') )
 			->append_metadata( css('jquery/colorbox.css') )
 			->append_metadata( js('jquery/jquery.js') )
@@ -105,16 +105,16 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( js('jquery/jquery-ui.min.js') )
 	    	->append_metadata( js('jquery/jquery.colorbox.min.js') )
 	    	->append_metadata( js('jquery/jquery.livequery.js') )
-	    	->append_metadata( js('admin2/jquery.uniform.min.js') )
-	    	->append_metadata( js('admin2/functions.js') )
+	    	->append_metadata( js('admin/jquery.uniform.min.js') )
+	    	->append_metadata( js('admin/functions.js') )
     		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' )
 			->append_metadata( '<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->' );
 
 	    
-	    $this->template->set_partial('header', 'admin2/partials/header', FALSE);
-	    $this->template->set_partial('navigation', 'admin2/partials/navigation', FALSE);
-	    $this->template->set_partial('metadata', 'admin2/partials/metadata', FALSE);
-	    $this->template->set_partial('footer', 'admin2/partials/footer', FALSE);
+	    $this->template->set_partial('header', 'admin/partials/header', FALSE);
+	    $this->template->set_partial('navigation', 'admin/partials/navigation', FALSE);
+	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
+	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);
 	    
 	    //$this->output->enable_profiler(TRUE);
 	}    

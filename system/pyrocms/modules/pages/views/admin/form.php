@@ -186,7 +186,7 @@
 			
 		</div>
 
-		<?php $this->load->view('admin2/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 
 		<?php echo form_close(); ?>
 	</div>
