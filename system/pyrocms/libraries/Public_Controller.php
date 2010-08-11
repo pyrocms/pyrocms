@@ -74,7 +74,7 @@ class Public_Controller extends MY_Controller
 	    // Frontend data
 	    $this->load->library('variables/variables');
 	    
-	    $this->load->vars('variable', $this->variables->get());
+	    $this->load->vars('variables', $this->variables->get());
 	    
 	    $this->benchmark->mark('public_controller_end');
 	}
