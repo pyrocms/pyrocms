@@ -25,8 +25,8 @@ class MY_Controller extends Controller
 		// Set the addons folder as a package
 		$this->load->add_package_path(ADDONPATH);
 
-        $this->config->set_item('site_title', $this->settings->item('site_name'), 'ion_auth');
-        $this->config->set_item('admin_email', $this->settings->item('contact_email'), 'ion_auth');
+        $this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
+        $this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
 
 		$this->data->user = $this->user = $this->ion_auth->get_user();
 
@@ -68,8 +68,9 @@ class MY_Controller extends Controller
         $pyro['lang']				= CURRENT_LANGUAGE;
 
 		// Mega Pyro arrays
-        $pyro['user'] 	= (array) $this->user;
-        $pyro['server'] = (array) $_SERVER;
+        $pyro['user'] 	=& $this->user;
+        $pyro['server'] =& $_SERVER;
+        $pyro['settings'] =& $this->settings;
 
         $this->load->vars($pyro);
         $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.

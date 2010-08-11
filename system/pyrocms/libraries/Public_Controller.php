@@ -10,9 +10,9 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
         
 	    // Check the frontend hasnt been disabled by an admin
-	    if(!$this->settings->item('frontend_enabled'))
+	    if(!$this->settings->frontend_enabled)
 	    {
-	    	$error = $this->settings->item('unavailable_message') ? $this->settings->item('unavailable_message') : lang('cms_fatal_error');
+	    	$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
 	    	show_error($error);
 	    }
 		
@@ -50,22 +50,10 @@ class Public_Controller extends MY_Controller
 			$this->template->set_layout($this->module . '.html');
 		}
 
-		// TODO DEPRECATE php
-		elseif($this->template->theme_layout_exists($this->module))
-		{
-			$this->template->set_layout($this->module);
-		}
-
 		// Nope, just use the default layout
 		elseif($this->template->theme_layout_exists('default.html'))
 		{
 			$this->template->set_layout('default.html');
-		}
-
-		// TODO DEPRECATE php
-		else
-		{
-			$this->template->set_layout('default');
 		}
 
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
@@ -74,7 +62,7 @@ class Public_Controller extends MY_Controller
 	    // If there is a news module, link to its RSS feed in the head
 	    if( module_exists('news') )
 	    {
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->item('site_name').'" href="'.site_url('news/rss/all.rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('news/rss/all.rss').'" />');
 	    }
 		
 		// Enable profiler on local box

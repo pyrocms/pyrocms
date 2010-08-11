@@ -10,10 +10,17 @@ h2. v1.0.0
 * Rewrite of Settings module to allow module developers easier access and CRUD of site settings.
 * Added third_party/helpers/ and third_party/libraries/ folders for custom code.
 * Removed forums module from the core. You can get it back from http://pyrocms.com/modules
-* Deprecated {$ci->foo->bar()} and now use {$foo->bar()}. Make sure your foo is listed in application/config/parser.php.
 * Added "Save" and "Save & Exit" buttons to Page manager so you can go back to the same page on save.
 * Widgets can now go in modules and any packages, not just third_party.
 * Logged in users will no longer see the stupid website box on comments, it will use their profile value.
+* Theme views and layouts must now use .html not .php.
+* If comment moderation is disabled you will only see a list of comments, no "unapproved" stuff.
+
+h3. Deprecated
+
+* Use of Dwoo syntax, i.e {$ci->foo->bar()} and {$template.body}. Use Pyro tags: http://pyrocms.com/documentation/tags
+* Settings methods item() and set(), use $this->settings->foo = 'bar' instead.
+
 
 h2. v0.9.9.7
 
