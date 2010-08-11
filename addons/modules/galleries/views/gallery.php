@@ -39,4 +39,5 @@
 	<?php endforeach; ?>
 </div>
 <?php endif; ?>
+<div class="clear-both"></div>
 <?php echo display_comments($gallery->id); ?>

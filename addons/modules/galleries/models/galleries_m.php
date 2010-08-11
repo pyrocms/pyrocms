@@ -118,6 +118,9 @@ class Galleries_m extends MY_Model {
 	{
 		// Prepare the data
 		unset($input['btnAction']);
+		unset($input['form_id']);
+		unset($input['token']);
+		unset($input['action_to']);
 		$input['slug'] = $this->generate_slug($input['slug']);
 
 		if ($input['parent'] === 'NONE')

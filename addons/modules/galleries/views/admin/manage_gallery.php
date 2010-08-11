@@ -69,6 +69,7 @@
 						<li>
 							<a href="<?php echo site_url('admin/galleries/edit_image/' . $image->id); ?>" title="<?php echo "File: " . $image->filename . '.' . $image->extension . "\nTitle: " . $image->title; ?>">
 								<img src="<?php echo site_url('uploads/galleries/' . $image->slug . '/thumbs/' . $image->filename . '_thumb.' . $image->extension);?>" alt="<?php echo $image->title; ?>" />
+								<?php echo form_hidden('action_to[]', $image->id); ?>
 							</a>
 						</li>
 						<?php endforeach; ?>
@@ -85,5 +86,33 @@
 			
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		<?php echo form_close(); ?>
+					<script type="text/javascript">
+					(function($) {
+						$(function() {
+
+							var store_func = function() {};
+			
+							$('ul#gallery_images_list').sortable({
+								handle: 'img',
+								start: function(event, ui) {
+									ui.helper.find('a').unbind('click').die('click');
+								},
+								update: function() {
+									order = new Array();
+									$('li', this).each(function(){
+										order.push( $(this).find('input[name="action_to[]"]').val() );
+									});
+									order = order.join(',');
+					
+									$.post('http://localhost/pyrocms/admin/galleries/ajax_update_order', { order: order });
+
+								}
+				
+							}).disableSelection();
+					
+						});
+					})(jQuery);
+					</script>
+
 	</div>
 </div>

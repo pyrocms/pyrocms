@@ -97,6 +97,7 @@ CREATE TABLE `galleries` (
   `description` text,
   `parent` int(11) DEFAULT NULL,
   `updated_on` int(15) NOT NULL,
+  `preview` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
@@ -117,6 +118,7 @@ CREATE TABLE `gallery_images` (
   `description` text,
   `uploaded_on` int(15) DEFAULT NULL,
   `updated_on` int(15) DEFAULT NULL,
+  `order` INT(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `gallery_id` (`gallery_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

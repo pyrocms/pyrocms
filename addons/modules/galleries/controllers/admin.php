@@ -443,4 +443,40 @@ class Admin extends Admin_Controller
 		
 		redirect('admin/galleries');
 	}
+
+	/**
+	 * Sort images in an existing gallery
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 */
+
+	public function ajax_update_order()
+	{
+		$ids = explode(',', $this->input->post('order'));
+		
+		$i = 1;
+		
+		foreach ($ids as $id)
+		{
+			$this->gallery_images_m->update($id, array(
+				'`order`' => $i
+			));
+			
+			if ($i == '1')
+			{
+				$preview = $this->db->get_where('galleries', array('id' => $id))->row();
+
+				if ($preview)
+				{
+					$this->db->where('id', $preview->gallery_id);
+					$this->db->update('galleries', array(
+						'preview' => $preview->filename
+					));
+				}
+			}
+			++$i;
+		}
+	}
 }
+
