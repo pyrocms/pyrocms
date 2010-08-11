@@ -61,18 +61,26 @@ class Admin extends Admin_Controller
 	}
 	
 	/**
-	 * Index method, lists all comments
+	 * Index
 	 * @access public
 	 * @return void
 	 */
 	public function index()
+	{
+		// If we are moderating comments, show unmoderated comments
+		$this->settings->moderate_comments
+			? $this->unapproved()
+			: $this->approved();
+	}
+
+	public function unapproved()
 	{
 		// Load the text helper
 		$this->load->helper('text');
 		
 		// Create pagination links
 		$total_rows 			= $this->comments_m->count_by('is_active', 0);
-		$this->data->pagination = create_pagination('admin/comments/index', $total_rows);
+		$this->data->pagination = create_pagination('admin/comments/unapproved', $total_rows);
 		
 		// get all comments
 		$comments = $this->comments_m
@@ -82,6 +90,30 @@ class Admin extends Admin_Controller
 		
 		$this->data->comments = process_comment_items($comments);
 		$this->template->build('admin/index', $this->data);			
+	}
+
+	/**
+	 * Displays active comments
+	 * @access public
+	 * @return void
+	 */
+	public function approved()
+	{
+		$this->load->helper('text');
+
+		// Create pagination links
+		$total_rows 			= $this->comments_m->count_by('is_active', 1);
+		$this->data->pagination = create_pagination('admin/comments/approved', $total_rows);
+
+		// get all comments
+		$comments = $this->comments_m
+			->limit($this->data->pagination['limit'])
+			->order_by('comments.created_on', 'desc')
+			->get_many_by('comments.is_active', 1);
+
+		$this->data->comments 	= process_comment_items($comments);
+
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	/**
@@ -141,30 +173,6 @@ class Admin extends Admin_Controller
 			redirect('admin/comments');
 		}
 		
-	}
-	
-	/**
-	 * Activates an unapproved comment
-	 * @access public
-	 * @return void
-	 */
-	public function active()
-	{
-		$this->load->helper('text');
-		
-		// Create pagination links
-		$total_rows 			= $this->comments_m->count_by('is_active', 1);
-		$this->data->pagination = create_pagination('admin/comments/active', $total_rows);
-		
-		// get all comments
-		$comments = $this->comments_m
-			->limit($this->data->pagination['limit'])
-			->order_by('comments.created_on', 'desc')
-			->get_many_by('comments.is_active', 1);
-		
-		$this->data->comments 	= process_comment_items($comments);
-		
-		$this->template->build('admin/index', $this->data);		
 	}
 		
 	/**

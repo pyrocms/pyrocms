@@ -1,3 +1,4 @@
+<?php if($this->settings->moderate_comments): ?>
 <nav id="shortcuts">
 	<h6><?php echo lang('cp_shortcuts_title'); ?></h6>
 	<ul>
@@ -6,3 +7,4 @@
 	</ul>
 	<br class="clear-both" />
 </nav>
+<?php endif; ?>
