@@ -92,10 +92,10 @@ class Module_import {
     	$modules = array();
 
     	// Loop through directories that hold modules
-    	foreach (array('../system/pyrocms/modules/', '../addons/modules/') as $directory)
+    	foreach (array('../system/pyrocms/', '../addons/') as $directory)
     	{
     		// Loop through modules
-	        foreach(glob($directory.'*', GLOB_ONLYDIR) as $module_name)
+	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 	        {
 	        	if(file_exists($xml_file = $module_name.'/details.xml'))
 	        	{
