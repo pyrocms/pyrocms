@@ -80,7 +80,7 @@ class Upgrade extends Controller
 		$this->db->query("ALTER TABLE `pages` CHANGE `slug` `slug` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 		$this->db->query("ALTER TABLE `pages` CHANGE `title` `title` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 
-		return FALSE; // set to false on launch
+		return TRUE;
 	}
 
 	function upgrade_0996()

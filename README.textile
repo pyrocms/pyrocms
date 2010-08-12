@@ -2,7 +2,7 @@ h1. PyroCMS
 
 * Website: "http://pyrocms.com/":http://pyrocms.com/
 * Documentation: "http://pyrocms.com/documentation":http://pyrocms.com/documentation
-* Version: 0.9.9.6
+* Version: 0.9.9.7
 
 h2. The Team
 
