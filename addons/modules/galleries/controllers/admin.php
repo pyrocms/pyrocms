@@ -13,12 +13,12 @@ class Admin extends Admin_Controller
 {
 	/**
 	 * Validation rules for creating a new gallery
-	 * 
+	 *
 	 * @var array
 	 * @access private
 	 */
 	private $gallery_validation_rules = array();
-	
+
 	/**
 	 * Validation rules for uploading photos
 	 *
@@ -26,10 +26,10 @@ class Admin extends Admin_Controller
 	 * @access private
 	 */
 	private $photo_validation_rules = array();
-	
+
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
@@ -38,14 +38,14 @@ class Admin extends Admin_Controller
 	{
 		// First call the parent's constructor
 		parent::__construct();
-		
+
 		// Load all the required classes
 		$this->load->model('galleries_m');
 		$this->load->model('gallery_images_m');
 		$this->load->library('form_validation');
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
-		
+
 		// Set the validation rules
 		$this->gallery_validation_rules = array(
 			array(
@@ -73,7 +73,7 @@ class Admin extends Admin_Controller
 				'label'	=> 'Thumbnail',
 				'rules'	=> 'trim'
 			)
-			
+
 		);
 		$this->image_validation_rules	= array(
 			array(
@@ -97,7 +97,7 @@ class Admin extends Admin_Controller
 				'rules' => 'trim'
 			)
 		);
-		
+
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
@@ -112,15 +112,15 @@ class Admin extends Admin_Controller
 	{
 		// Get all the galleries
 		$galleries = $this->galleries_m->get_all();
-		
+
 		// Load the view
 		$this->data->galleries =& $galleries;
 		$this->template->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Create a new gallery
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
@@ -129,12 +129,12 @@ class Admin extends Admin_Controller
 	{
 		// Get all the galleries
 		$galleries = $this->galleries_m->get_all();
-		
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->gallery_validation_rules);
-		
+
 		if ( $this->form_validation->run() )
-		{			
+		{
 			// Insert the gallery
 			if ( $this->galleries_m->insert_gallery($_POST) === TRUE )
 			{
@@ -147,25 +147,25 @@ class Admin extends Admin_Controller
 			{
 				// Remove the directory
 				$this->galleries_m->rm_gallery_dir($_POST['slug']);
-				
+
 				$this->session->set_flashdata('error', lang('galleries.create_error'));
 				redirect('admin/galleries/create');
 			}
 		}
-		
+
 		// Required for validation
 		foreach($this->gallery_validation_rules as $rule)
 		{
 			$gallery->{$rule['field']} = $this->input->post($rule['field']);
 		}
-		
+
 		// Load the view
 		$this->data->gallery 	=& $gallery;
 		$this->data->galleries 	=& $galleries;
 		$this->template->append_metadata( js('form.js', 'galleries') )
 						->build('admin/new_gallery', $this->data);
 	}
-	
+
 	/**
 	 * Manage an existing gallery
 	 *
@@ -177,18 +177,18 @@ class Admin extends Admin_Controller
 	public function manage($id)
 	{
 		$this->form_validation->set_rules($this->gallery_validation_rules);
-		
+
 		// Get the gallery and all images
 		$galleries 		= $this->galleries_m->get_all();
 		$gallery 		= $this->galleries_m->get($id);
 		$gallery_images = $this->gallery_images_m->get_images_by_gallery($id);
-		
+
 		if ( empty($gallery) )
 		{
 			$this->session->set_flashdata('error', lang('galleries.exists_error'));
 			redirect('admin/galleries');
 		}
-		
+
 		// Valid form data?
 		if ( $this->form_validation->run() )
 		{
@@ -204,7 +204,7 @@ class Admin extends Admin_Controller
 				redirect('admin/galleries/manage/' . $id);
 			}
 		}
-		
+
 		// Required for validation
 		foreach($this->gallery_validation_rules as $rule)
 		{
@@ -212,21 +212,20 @@ class Admin extends Admin_Controller
 			{
 				$gallery->{$rule['field']} = $this->input->post($rule['field']);
 			}
-		}	
-		
+		}
+
 		// Load the view data
 		$this->data->gallery 		=& $gallery;
 		$this->data->galleries		=& $galleries;
 		$this->data->gallery_images =& $gallery_images;
-		
+
 		// Load the view itself
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
-		   				->append_metadata( js('jcrop.js', 'galleries') )
-		   				->append_metadata( js('jcrop_init.js', 'galleries') )
+		   				->append_metadata( js('drag_drop.js', 'galleries') )
 						->append_metadata( js('form.js', 'galleries') );
 		$this->template->build('admin/manage_gallery', $this->data);
 	}
-	
+
 	/**
 	 * Delete an existing gallery
 	 *
@@ -238,7 +237,7 @@ class Admin extends Admin_Controller
 	public function delete($id = NULL)
 	{
 		$id_array = array();
-		
+
 		// Multiple IDs or just a single one?
 		if ( $_POST )
 		{
@@ -251,23 +250,23 @@ class Admin extends Admin_Controller
 				$id_array[0] = $id;
 			}
 		}
-		
+
 		if ( empty($id_array) )
 		{
 			$this->session->set_flashdata('error', lang('galleries.id_error'));
 			redirect('admin/galleries');
 		}
-		
+
 		// Loop through each ID
 		foreach ( $id_array as $id)
 		{
 			// Get the gallery
 			$gallery = $this->galleries_m->get($id);
-			
+
 			// Does the gallery exist?
 			if ( !empty($gallery) )
 			{
-				
+
 				// Delete the gallery along with all the images from the database
 				if ( $this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
 				{
@@ -284,14 +283,14 @@ class Admin extends Admin_Controller
 				}
 			}
 		}
-		
+
 		$this->session->set_flashdata('success', lang('galleries.delete_success'));
 		redirect('admin/galleries');
 	}
-	
+
 	/**
 	 * Upload a new image
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
@@ -300,23 +299,23 @@ class Admin extends Admin_Controller
 	{
 		// Set the validation rules
 		$this->form_validation->set_rules($this->image_validation_rules);
-		
+
 		// Get all available galleries
 		$galleries = $this->galleries_m->get_all();
-		
+
 		// Are there any galleries at all?
 		if ( empty($galleries) )
 		{
 			$this->session->set_flashdata('error', lang('galleries.no_galleries_error'));
 			redirect('admin/galleries');
 		}
-		
+
 		if ( $this->form_validation->run() )
 		{
 			if ( $this->gallery_images_m->upload_image($_POST) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
-				redirect('admin/galleries');
+				redirect('admin/galleries/upload');
 			}
 			else
 			{
@@ -324,21 +323,21 @@ class Admin extends Admin_Controller
 				redirect('admin/galleries/upload');
 			}
 		}
-		
+
 		foreach($this->image_validation_rules as $rule)
 		{
 			$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
 		}
-		
+
 		// Set the view data
 		$this->data->galleries		=& $galleries;
 		$this->data->gallery_image 	=& $gallery_image;
-		
+
 		// Load the views
 		$this->template->append_metadata( css('galleries.css', 'galleries') );
 		$this->template->build('admin/upload', $this->data);
 	}
-	
+
 	/**
 	 * Edit an existing image
 	 *
@@ -351,20 +350,20 @@ class Admin extends Admin_Controller
 	{
 		// Get the specific image
 		$gallery_image 		= $this->gallery_images_m->get_image($id);
-		
+
 		if ( empty($gallery_image) )
 		{
 			$this->session->set_flashdata('error', lang('gallery_images.exists_error'));
 			redirect('admin/galleries');
 		}
-		
+
 		// Get rid of the validation rules we don't need
 		$validation_rules 	= $this->image_validation_rules;
 		unset($validation_rules[1]);
 		unset($validation_rules[2]);
-		
+
 		$this->form_validation->set_rules($validation_rules);
-		
+
 		// I can haz valid formdata?
 		if ( $this->form_validation->run() )
 		{
@@ -381,7 +380,7 @@ class Admin extends Admin_Controller
 					$this->session->set_flashdata('success', lang('gallery_images.changes_success'));
 				}
 			}
-			
+
 			// Something went wrong...
 			else
 			{
@@ -395,7 +394,7 @@ class Admin extends Admin_Controller
 					$this->session->set_flashdata('success', lang('gallery_images.changes_error'));
 				}
 			}
-			
+
 			if ( $_POST['thumbnail_actions'] === 'delete' )
 			{
 				redirect('admin/galleries');
@@ -405,7 +404,7 @@ class Admin extends Admin_Controller
 				redirect($this->uri->uri_string());
 			}
 		}
-		
+
 		// Required for validation
 		foreach($validation_rules as $rule)
 		{
@@ -414,7 +413,7 @@ class Admin extends Admin_Controller
 				$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
-		
+
 		// Load the views
 		$this->data->gallery_image =& $gallery_image;
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
@@ -422,10 +421,10 @@ class Admin extends Admin_Controller
 		   			   ->append_metadata( js('jcrop_init.js', 'galleries') );
 		$this->template->build('admin/edit', $this->data);
 	}
-	
+
 	/**
 	 * Method to install the module
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
@@ -440,7 +439,7 @@ class Admin extends Admin_Controller
 		{
 			$this->session->set_flashdata('error', lang('galleries.install_error'));
 		}
-		
+
 		redirect('admin/galleries');
 	}
 
@@ -454,15 +453,15 @@ class Admin extends Admin_Controller
 	public function ajax_update_order()
 	{
 		$ids = explode(',', $this->input->post('order'));
-		
+
 		$i = 1;
-		
+
 		foreach ($ids as $id)
 		{
 			$this->gallery_images_m->update($id, array(
 				'`order`' => $i
 			));
-			
+
 			if ($i == '1')
 			{
 				$preview = $this->db->get_where('galleries', array('id' => $id))->row();
@@ -479,4 +478,3 @@ class Admin extends Admin_Controller
 		}
 	}
 }
-

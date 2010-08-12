@@ -35,7 +35,7 @@ $lang['galleries.parent_label']				= 'Parent';
 $lang['galleries.none_label']				= '-- NONE --';
 $lang['galleries.description_label']		= 'Description';
 $lang['galleries.thumbnail_label']			= 'Thumbnail';
-$lang['galleries.current_label']			= 'Current Images';
+$lang['galleries.current_label']			= 'Current Images (drag and drop to sort, click to edit)';
 
 // Sidebar labels
 $lang['galleries.list_label']				= 'List Galleries';
