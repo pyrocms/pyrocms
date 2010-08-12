@@ -1,16 +1,22 @@
 #gallery_images_list
 {
-	margin-left:200px;
+	margin-left:50px;
+	list-style:none;
 }
 #gallery_images_list li
 {
 	float: 		left;
 	margin:		5px;
 	padding: 	5px;
+	height:		200px;
 }
-#gallery_images_list li:hover
+#gallery_images_list img
 {
-	background: #3A4043;
+	border: 	5px solid #9c9fa1;
+}
+#gallery_images_list img:hover
+{
+	border: 	5px solid #3A4043;
 	cursor:		pointer;
 }
 #image_thumbnail

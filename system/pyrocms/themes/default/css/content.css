@@ -33,10 +33,11 @@ code {
 
 
 /* Module content */
-ul#photos li {
-	float:left;
-	height:150px;
-	width:200px;
+ul.galleries_list li {
+	float:		left;
+	padding:	10px;
+	height:		150px;
+	list-style: none;
 }
 
 /* Comments */

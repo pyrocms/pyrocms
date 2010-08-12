@@ -21,7 +21,7 @@ $lang['gallery_images.recreate_label']		= 'Recreate thumbnail';
 $lang['gallery_images.delete_label']		= 'Delete Image';
 $lang['gallery_images.title_label']		 	= 'Title';
 $lang['gallery_images.image_label']			= 'Image';
-$lang['gallery_images.description_label']	= 'Description';
+$lang['gallery_images.description_label']	= 'Caption';
 $lang['gallery_images.gallery_label']		= 'Gallery';
 $lang['gallery_images.no_images_label']		= 'No images have been added yet';
 

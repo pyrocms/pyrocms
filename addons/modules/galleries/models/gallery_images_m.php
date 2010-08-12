@@ -39,9 +39,12 @@ class Gallery_images_m extends MY_Model
 	 */
 	public function get_images_by_gallery($id)
 	{
-		$this->db->select('gallery_images.*, galleries.slug, galleries.id as galleries_table_id');
-		$this->db->join('galleries', 'gallery_images.gallery_id = galleries.id');
-		$query = $this->db->get_where('gallery_images', array('gallery_id' => $id) );
+		$query = $this->db->select('gallery_images.*, galleries.slug, galleries.id as galleries_table_id')
+						->from('gallery_images')
+						->join('galleries', 'gallery_images.gallery_id = galleries.id')
+						->where('gallery_id', $id)
+						->order_by('gallery_images.order', 'asc')
+						->get();
 		
 		if ( $query->num_rows() > 0 )
 		{
