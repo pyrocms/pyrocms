@@ -1,4 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Photos module
+ *
+ * @modified Jerel Unruh - PyroCMS Dev Team
+ * @package PyroCMS
+ * @subpackage Photos module
+ * @category Modules
+ */
 
 class Admin extends Admin_Controller
 {
@@ -246,38 +254,74 @@ class Admin extends Admin_Controller
 		
 		redirect('admin/photos/manage/'.$id);              	
 	}
-	
+
 	// Admin: Delete Gallery Photos
-	function delete_photo($id = 0)
+	function delete_photos($id = 0)
 	{
-		$album_id = $this->input->post('album');
+		if($this->input->post('btnAction') == 'update')
+		{
+			$album_id = $this->input->post('album');
 				
-		$ids_array = ( $id > 0 ) ? array($id) : $this->input->post('action_to');
+			$photo_id = $this->input->post('action_to');
 		
-		if(empty($ids_array))
-		{
-			$this->session->set_flashdata('error', lang('photos.delete_no_select_error'));
-		}
-		
-		else
-		{
-			$deleted = 0;
-			foreach ($ids_array as $photo_id)
+			if($photo_id[0] == FALSE || trim($this->input->post('caption_update')) == '')
 			{
-				if($this->photos_m->delete($photo_id))
-				{
-					$deleted++;
-				}
+				$this->session->set_flashdata('error', lang('photos.caption_no_select_error'));
 			}
 		
-			if($deleted > 0)
-			{
-				$this->session->set_flashdata('success', sprintf( lang('photos.delete_success'), $deleted));
-			}
-			
 			else
 			{
-				$this->session->set_flashdata('notice', lang('photos.delete_error'));
+				if(empty($photo_id[1]))
+				{
+					if($this->photos_m->update_caption($photo_id[0]))
+					{
+						$this->session->set_flashdata('success', sprintf( lang('photos.update_success'), $this->input->post('caption_update')));
+					}
+			
+					else
+					{
+						$this->session->set_flashdata('notice', lang('photos.update_error'));
+					}
+				}
+				else
+				{
+					$this->session->set_flashdata('notice', lang('photos.update_multiple_error'));
+				}
+
+			}
+		
+		}
+		else
+		{
+			$album_id = $this->input->post('album');
+				
+			$ids_array = ( $id > 0 ) ? array($id) : $this->input->post('action_to');
+		
+			if(empty($ids_array))
+			{
+				$this->session->set_flashdata('error', lang('photos.delete_no_select_error'));
+			}
+		
+			else
+			{
+				$deleted = 0;
+				foreach ($ids_array as $photo_id)
+				{
+					if($this->photos_m->delete($photo_id))
+					{
+						$deleted++;
+					}
+				}
+		
+				if($deleted > 0)
+				{
+					$this->session->set_flashdata('success', sprintf( lang('photos.delete_success'), $deleted));
+				}
+			
+				else
+				{
+					$this->session->set_flashdata('notice', lang('photos.delete_error'));
+				}
 			}
 		}
 		

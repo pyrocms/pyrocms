@@ -15,36 +15,36 @@
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	= 'Account Successfully Created';
-$lang['account_creation_unsuccessful'] 	= 'Unable to Create Account';
-$lang['account_creation_duplicate_email'] 	 = 'Email Already Used or Invalid';
-$lang['account_creation_duplicate_username'] = 'Username Already Used or Invalid';
+$lang['account_creation_successful'] 	= 'Cuenta creada de forma satisfactoria';
+$lang['account_creation_unsuccessful'] 	= 'No se ha podido crear la cuenta';
+$lang['account_creation_duplicate_email'] 	 = 'Correo electrónico existente o inválido';
+$lang['account_creation_duplicate_username'] = 'Nombre de usuario existente o inválido';
 
 
 // Password
-$lang['password_change_successful'] 	= 'Password Successfully Changed';
-$lang['password_change_unsuccessful'] 	= 'Unable to Change Password';
-$lang['forgot_password_successful'] 	= 'Password Reset Email Sent';
-$lang['forgot_password_unsuccessful'] 	= 'Unable to Reset Password';
+$lang['password_change_successful'] 	= 'Contraseña cambiada satisfactoriamente';
+$lang['password_change_unsuccessful'] 	= 'No se ha podido cambiar la contraseña';
+$lang['forgot_password_successful'] 	= 'Se ha enviado un correo para reiniciar su contraseña';
+$lang['forgot_password_unsuccessful'] 	= 'No se ha podido reiniciar su contraseña';
 
 // Activation
-$lang['activate_successful'] 		= 'Account Activated';
-$lang['activate_unsuccessful'] 		= 'Unable to Activate Account';
-$lang['deactivate_successful'] 		= 'Account De-Activated';
-$lang['deactivate_unsuccessful'] 	= 'Unable to De-Activate Account';
-$lang['activation_email_successful'] 	= 'Activation Email Sent';
-$lang['activation_email_unsuccessful'] 	= 'Unable to Send Activation Email';
+$lang['activate_successful'] 		= 'Cuenta activada';
+$lang['activate_unsuccessful'] 		= 'No se ha podido activar la cuenta';
+$lang['deactivate_successful'] 		= 'Cuenta desactivada';
+$lang['deactivate_unsuccessful'] 	= 'No se ha podido desactivar la cuenta';
+$lang['activation_email_successful'] 	= 'Correo de activación enviado';
+$lang['activation_email_unsuccessful'] 	= 'No se ha podido enviar el correo de activación';
 
 // Login / Logout
-$lang['login_successful'] 		= 'Logged In Successfully';
-$lang['login_unsuccessful'] 		= 'In-Correct Login';
-$lang['logout_successful'] 		= 'Logged Out Successfully';
+$lang['login_successful'] 		= 'Has ingresado en tu cuenta';
+$lang['login_unsuccessful'] 		= 'No has podido ingresar en tu cuenta';
+$lang['logout_successful'] 		= 'Has salido de tu cuenta';
 
 // Account Changes
-$lang['update_successful'] 		= 'Account Information Successfully Updated';
-$lang['update_unsuccessful'] 		= 'Unable to Update Account Information';
-$lang['delete_successful'] 		= 'User Deleted';
-$lang['delete_unsuccessful'] 		= 'Unable to Delete User';
+$lang['update_successful'] 		= 'La información de la cuenta ha sido actualizada';
+$lang['update_unsuccessful'] 		= 'No se ha podido actualizar la información de la cuenta';
+$lang['delete_successful'] 		= 'Usuario eliminado';
+$lang['delete_unsuccessful'] 		= 'No se ha podido eliminar el usuario';
 
 
 ?>

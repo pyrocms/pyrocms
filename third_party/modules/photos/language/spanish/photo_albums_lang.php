@@ -15,6 +15,7 @@ $lang['photo_albums.slug_label'] 				= 'URL';
 $lang['photo_albums.desc_label'] 				= 'Descripción';
 $lang['photo_albums.parent_album_label'] 		= 'Álbum padre';
 $lang['photo_albums.no_parent_select_label'] 	= '-- Ninguno --';
+$lang['photo_albums.comments_label'] 			= 'Enable Comments'; #translate
 
 // titles
 $lang['photo_albums.manage_title'] 				= 'Fotografías en este álbum';

@@ -182,7 +182,7 @@ CREATE TABLE `pages` (
  `parent_id` int(11) default '0',
  `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
  `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
- `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '',
+ `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
  `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
  `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
  `meta_description` text collate utf8_unicode_ci NOT NULL default '',
@@ -244,6 +244,7 @@ CREATE TABLE `photo_albums` (
   `parent` int(11) NOT NULL default '0',
   `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
   `preview` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `enable_comments` INT( 1 ) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Unique` ( `slug` , `parent` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Photo albums contain photos';

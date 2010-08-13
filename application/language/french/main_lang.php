@@ -39,6 +39,7 @@ $lang['login_label'] 								= 'Connectez-vous';
 
 $lang['save_label'] 								= 'Enregistrer';
 $lang['cancel_label'] 							= 'Annuler';
+$lang['update_label'] 							= 'Update Caption'; #translate
 $lang['delete_label'] 							= 'Supprimer';
 $lang['activate_label'] 						= 'Activer';
 $lang['publish_label'] 							= 'Publier';

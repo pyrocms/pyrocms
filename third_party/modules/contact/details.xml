@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.5">
-	<name>
-		<en>Contact</en>
-		<nl>Contact</nl>
-                <pl>Kontakt</pl>
-		<es>Contacto</es>
-		<fr>Contact</fr>
-		<de>Kontakt</de>
-	</name>
-	<description>
-		<en>Adds a form to your site that allows visitors to send email's to you without discolosing an email address to them.</en>
-		<en>Voegt een formulier aan de site toe waarmee bezoekers een email kunnen sturen, zonder dat u ze een emailadres hoeft te tonen.</nl>
-		 <pl>Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.</pl>
-                <es>Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.</es>
-		<fr>Ajoute un formulaire à votre site qui permet aux visiteurs de vous envoyer un e-mail sans révéler votre adresse e-mail'</fr>
-		<de>Fügt ein Formular hinzu, welches Besuchern erlaubt Emails zu schreiben, ohne die Kontakt Email-Adresse offen zu legen.</de>
-	</description>
-	<is_frontend>1</is_frontend>
-	<is_backend>0</is_backend>
-	<is_backend_menu>0</is_backend_menu>
+  <name>
+    <en>Contact</en>
+    <nl>Contact</nl>
+    <pl>Kontakt</pl>
+    <es>Contacto</es>
+    <fr>Contact</fr>
+    <de>Kontakt</de>
+  </name>
+  <description>
+    <en>Adds a form to your site that allows visitors to send email's to you without discolosing an email address to them.</en>
+    <nl>Voegt een formulier aan de site toe waarmee bezoekers een email kunnen sturen, zonder dat u ze een emailadres hoeft te tonen.</nl>
+    <pl>Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.</pl>
+    <es>Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.</es>
+    <fr>Ajoute un formulaire à votre site qui permet aux visiteurs de vous envoyer un e-mail sans révéler votre adresse e-mail'</fr>
+    <de>Fügt ein Formular hinzu, welches Besuchern erlaubt Emails zu schreiben, ohne die Kontakt Email-Adresse offen zu legen.</de>
+  </description>
+  <is_frontend>1</is_frontend>
+  <is_backend>0</is_backend>
+  <is_backend_menu>0</is_backend_menu>
 </module>

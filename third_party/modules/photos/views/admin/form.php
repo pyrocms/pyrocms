@@ -30,8 +30,13 @@
 						<?php create_tree_select($albums, 0, 0, $album->parent, @$album->id); ?>
 					</select>
 				</li>
-				
+
 				<li class="even">
+					<label for="enable_comments"><?php echo lang('photo_albums.comments_label');?></label>
+					<?php echo form_checkbox('enable_comments', '1', $album->enable_comments); ?>
+				</li>
+				
+				<li>
 					<label for="description"><?php echo lang('photo_albums.desc_label');?></label>
 					<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $album->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 				</li>

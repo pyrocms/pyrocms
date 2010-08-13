@@ -32,7 +32,7 @@
 		<h3><?php echo lang('photo_albums.manage_title');?></h3>
 	
 		<div class="box-container">
-			<?php echo form_open('admin/photos/delete_photo');?>
+			<?php echo form_open('admin/photos/delete_photos',array('class' => "crud"));?>
 				<?php echo form_hidden('album', $album->id);?>
 				
 					<ul id="photo-list" class="list-unstyled">
@@ -47,7 +47,15 @@
 					</ul>
 						
 				<br class="clear-both" />
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+					<ol id="caption" class="list-unstyled">
+						<li class="even">
+							<label><?php echo lang('photos.caption_update_label');?></label>
+							<?php echo form_input('caption_update', set_value('caption_update'), 'maxlength="100"'); ?>
+							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+						</li>
+					</ol>
+				<br class="clear-both" />
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('update','delete') )); ?>
 			<?php echo form_close(); ?>
 		</div>
 	</div>
