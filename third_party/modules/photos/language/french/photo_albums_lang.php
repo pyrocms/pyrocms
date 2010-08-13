@@ -25,8 +25,8 @@ $lang['photo_albums.edit_title'] 				= 'Éditer l\'album "%s"';
 $lang['photo_albums.list_title'] 				= 'Lister les albums';
 
 // messages
-$lang['photo_albums.no_albums_error'] 			= 'Il n\'y a pas d\'albums photos.';
-$lang['photo_albums.no_photos_in_album_error'] 	= 'Il n\'y de photos dans cet album.';
+$lang['photo_albums.no_albums_error'] 			= 'Il n\'y a pas d\'album photo.';
+$lang['photo_albums.no_photos_in_album_error'] 	= 'Il n\'y a pas de photo dans cet album.';
 
 $lang['photo_albums.add_success'] 				= 'L\'album de photo "%s" est enregistré.';
 $lang['photo_albums.add_error'] 				= 'Il y a un problème lors de l\'ajout de cette photo à l\'album.';
