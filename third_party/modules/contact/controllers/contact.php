@@ -14,14 +14,7 @@
 
 class Contact extends Public_Controller
 {
-	var $subjects = array(
-		'support'	=>	'Support',
-		'sales'		=>	'Sales',
-		'payments'	=>	'Payments',
-		'business'	=>	'Business Development',
-		'feedback'	=>	'Feedback/Suggestions',
-		'other'		=>	'Other'
-	);
+	var $subjects = array();
 
 	// Fields must match this certain criteria
 	private $rules = array();
@@ -30,6 +23,15 @@ class Contact extends Public_Controller
 	{
 		parent::Public_Controller();
 		$this->lang->load('contact');
+
+		$this->subjects = array(
+			'support'   => lang('subject_support'),
+			'sales'     => lang('subject_sales'),
+			'payments'  => lang('subject_payments'),
+			'business'  => lang('subject_business'),
+			'feedback'  => lang('subject_feedback'),
+			'other'     => lang('subject_other')
+		);
 
 		$this->rules = array(
 			array(
