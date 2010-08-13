@@ -4,21 +4,20 @@ jQuery(document).ready(function($)
 	var image_url 	= $('#current_thumbnail').attr('src');
 	image_url		= image_url.replace('/thumbs/', '/full/');
 	image_url		= image_url.replace('_thumb','');
-	
+
 	$('#thumbnail_actions').change(function()
-	{		
+	{
 		// Get the specified action
 		var action = $(this).val();
-		
+
 		if (action == 'crop')
-		{			
+		{
 			// Show the preview using fancybox
-			$.fancybox({
-				'content': '<img src="' + image_url + '" id="jcrop_thumbnail" />',
+			$.colorbox({
+				'html': '<div><img src="' + image_url + '" id="jcrop_thumbnail" /></div>',
 				'overlayOpacity': 0.8,
-				'overlayColor': '#000',
 				'hideOnContentClick': false,
-				'onComplete': show_jcrop,
+				'onComplete': show_jcrop
 			});
 		}
 	});
