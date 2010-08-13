@@ -33,7 +33,7 @@ $lang['galleries.title_label']				= 'Title';
 $lang['galleries.slug_label']				= 'Slug';
 $lang['galleries.parent_label']				= 'Parent';
 $lang['galleries.none_label']				= '-- NONE --';
-$lang['galleries.description_label']		= 'Description';
+$lang['galleries.description_label']		= 'Album Description';
 $lang['galleries.thumbnail_label']			= 'Thumbnail';
 $lang['galleries.current_label']			= 'Current Images (drag and drop to sort, click to edit)';
 

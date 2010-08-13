@@ -1,14 +1,14 @@
 <div class="box" id="galleries_upload_box">
 	<h3><?php echo lang('gallery_images.upload_label'); ?></h3>
-	
+
 	<div class="box-container">
 		<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
-			<ol>
+			<ul>
 				<li>
 					<label for="title"><?php echo lang('gallery_images.title_label'); ?></label>
 					<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery_image->title; ?>" />
 				</li>
-				<li class="even">
+				<li class="even uploader_file_input">
 					<label for="userfile"><?php echo lang('gallery_images.image_label'); ?></label>
 					<input type="file" name="userfile" id="userfile" />
 				</li>
@@ -20,12 +20,12 @@
 						<?php endforeach; ?>
 					</select>
 				</li>
-				<li class="even">
+				<li class="even caption">
 					<label for="description"><?php echo lang('gallery_images.description_label'); ?></label>
-					<textarea id="description" name="description" rows="10"><?php echo $gallery_image->description; ?></textarea>
+					<textarea id="description" name="description" rows="3" cols="20"><?php echo $gallery_image->description; ?></textarea>
 				</li>
-			</ol>
-			
+			</ul>
+
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		<?php echo form_close(); ?>
 	</div>

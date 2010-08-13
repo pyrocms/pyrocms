@@ -1,7 +1,7 @@
 <h3><?php echo lang('gallery_images.edit_image_label'); ?></h3>
 
 <?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
-	<ol>
+	<ul>
 		<li class="even">
 			<label for="current_thumbnail"><?php echo lang('gallery_images.thumbnail_label'); ?></label>
 			<img id="current_thumbnail" src="<?php echo site_url('uploads/galleries/' . $gallery_image->slug . '/thumbs/' . $gallery_image->filename . '_thumb.' . $gallery_image->extension); ?>" alt="<?php echo $gallery_image->title; ?>" />
@@ -25,9 +25,9 @@
 		</li>
 		<li>
 			<label for="description"><?php echo lang('gallery_images.description_label'); ?></label>
-			<textarea id="description" name="description" rows="10"><?php echo $gallery_image->description; ?></textarea>
+			<textarea id="description" name="description" rows="3" col="20"><?php echo $gallery_image->description; ?></textarea>
 		</li>
-	</ol>
+	</ul>
 
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 <?php echo form_close(); ?>

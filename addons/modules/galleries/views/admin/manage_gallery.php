@@ -3,7 +3,7 @@
 
 	<div class="box-container">
 		<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
-			<ol>
+			<ul>
 				<li>
 					<label for="title"><?php echo lang('galleries.title_label'); ?></label>
 					<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
@@ -63,6 +63,7 @@
 				</li>
 				<li class="even">
 					<label for="gallery_images"><?php echo lang('galleries.current_label'); ?></label>
+					<div class="clear-both"></div>
 					<ul id="gallery_images_list">
 						<?php if ( $gallery_images !== FALSE ): ?>
 						<?php foreach ( $gallery_images as $image ): ?>
@@ -82,7 +83,7 @@
 					<div class="clear-both"></div>
 				</li>
 				<?php endif; ?>
-			</ol>
+			</ul>
 
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		<?php echo form_close(); ?>
