@@ -80,6 +80,19 @@ class Upgrade extends Controller
 		$this->db->query("ALTER TABLE `pages` CHANGE `slug` `slug` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 		$this->db->query("ALTER TABLE `pages` CHANGE `title` `title` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 
+		echo 'Removed default value from pages js field';
+		$this->db->query("ALTER TABLE `pages` CHANGE `js` `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
+
+		echo 'Added "preview" field to photo_albums table.<br/>';
+		$this->dbforge->add_column('photo_albums', array(
+			'enable_comments' => array(
+				'type' => 'INT',
+				'constraint' => 1,
+				'default' => 0,
+				'null' => FALSE
+			),
+		));
+
 		return TRUE;
 	}
 
