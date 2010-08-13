@@ -1,19 +1,3 @@
-DROP TABLE IF EXISTS `categories`;
-
--- command split --
-
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL auto_increment,
-  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `slug - unique` (`slug`),
-  UNIQUE KEY `title - unique` (`title`),
-  KEY `slug - normal` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Product and Supplier Categories';
-
--- command split --
-
 DROP TABLE IF EXISTS `comments`;
 
 -- command split --
@@ -156,6 +140,22 @@ CREATE TABLE `navigation_links` (
   PRIMARY KEY  (`id`),
   KEY `navigation_group_id - normal` (`navigation_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
+
+-- command split --
+
+DROP TABLE IF EXISTS `news_categories`;
+
+-- command split --
+
+CREATE TABLE `news_categories` (
+  `id` int(11) NOT NULL auto_increment,
+  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `slug - unique` (`slug`),
+  UNIQUE KEY `title - unique` (`title`),
+  KEY `slug - normal` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='News Categories';
 
 -- command split --
 
