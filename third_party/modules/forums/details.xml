@@ -6,7 +6,7 @@
     </name>
     <description>
         <en>Forums for your site</en>
-        <nl>Voegt een forum aan uw site toe waar gebruikers kunnen discussiëren</nl>
+        <nl>Voegt een forum aan uw site toe waar gebruikers kunnen discussieren</nl>
     </description>
     <skip_xss>1</skip_xss>
     <is_frontend>1</is_frontend>
