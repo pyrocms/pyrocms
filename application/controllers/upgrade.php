@@ -195,7 +195,7 @@ class Upgrade extends Controller
 				'null' => FALSE
 			),
 		));
-		
+
 		return TRUE;
 	}
 
@@ -237,14 +237,13 @@ class Upgrade extends Controller
 			'comments_enabled' => array(
 				'type' 	  	=> 'INT',
 				'constraint' => 1,
-				'default' => 0,
-				'null' 		=> FALSE
+				'null' 		=> TRUE
 			)
         ));
 
 		echo 'Clearing the page cache...<br/>';
 		$this->cache->delete_all('pages_m');
-		
+
 		echo 'Adding theme_layout field to page_layouts table...<br/>';
 		//add display_name to profiles table
 		$this->dbforge->add_column('page_layouts', array(
@@ -294,7 +293,7 @@ class Upgrade extends Controller
 
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `content`  `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
 		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
-		
+
 		return TRUE;
 	}
 
