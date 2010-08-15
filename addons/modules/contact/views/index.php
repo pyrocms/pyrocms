@@ -19,7 +19,7 @@
 		<?php echo form_input('company_name', $form_values->company_name);?>
 	</p>
 	<p>
-		<label for="contact_email"><?php echo lang('contact_subject_label');?></label
+		<label for="contact_email"><?php echo lang('contact_subject_label');?></label>
 		<?php echo form_dropdown('subject', $subjects, $form_values->subject, 'id="subject"'); ?>
 		<input id="other_subject" name="other_subject" type="text" />
 	</p>
