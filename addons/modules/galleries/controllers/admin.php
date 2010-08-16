@@ -163,6 +163,7 @@ class Admin extends Admin_Controller
 		$this->data->gallery 	=& $gallery;
 		$this->data->galleries 	=& $galleries;
 		$this->template->append_metadata( js('form.js', 'galleries') )
+						->append_metadata( css('galleries.css', 'galleries') )
 						->build('admin/new_gallery', $this->data);
 	}
 

@@ -40,4 +40,7 @@
 </div>
 <?php endif; ?>
 <div class="clear-both"></div>
-<?php echo display_comments($gallery->id); ?>
+
+<?php if($gallery->enable_comments == 1): ?>
+	<?php echo display_comments($gallery->id, 'gallery'); ?>
+<?php endif; ?>

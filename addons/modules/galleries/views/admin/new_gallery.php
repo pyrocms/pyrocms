@@ -8,15 +8,15 @@
 					<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
 					<span class="required-icon tooltip">Required</span>
 				</li>
-				
+
 				<li class="even">
 					<label for="slug"><?php echo lang('galleries.slug_label'); ?></label>
 					<?php echo form_input('slug', $gallery->slug, 'class="width-15"'); ?>
 					<span class="required-icon tooltip">Required</span>
 				</li>
-				
+
 				<li>
-					<label for="parent"><?php echo lang('galleries.parent_label'); ?></label>		
+					<label for="parent"><?php echo lang('galleries.parent_label'); ?></label>
 					<select name="parent" id="parent" size="1">
 						<option value="NONE"><?php echo lang('galleries.none_label'); ?></option>
 						<?php if ( !empty($galleries) ): foreach ( $galleries as $available_gallery ): ?>
@@ -24,13 +24,18 @@
 						<?php endforeach; endif; ?>
 					</select>
 				</li>
-				
-				<li class="even">
+
+				<li class="even description">
 					<label for="description"><?php echo lang('galleries.description_label'); ?></label>
 					<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 				</li>
+
+				<li>
+					<label for="comments"><?php echo lang('galleries.comments_label'); ?></label>
+					<?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), '0'); ?>
+				</li>
 			</ol>
-			
+
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		<?php echo form_close(); ?>
 	</div>

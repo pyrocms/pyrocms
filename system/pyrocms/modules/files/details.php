@@ -15,7 +15,7 @@ class Files_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE
+			'menu'	  => TRUE,
 			'controllers' => array(
 				'admin' => array('index', 'edit', 'delete')
 			)
