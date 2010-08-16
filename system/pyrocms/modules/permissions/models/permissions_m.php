@@ -19,18 +19,7 @@ class Permissions_m extends CI_Model
 	 */
 	public function get_rule($id = 0)
 	{
-		// Execute the query
-		$query = $this->db->get_where('permission_rules', array('id'=>$id));
-		
-		// Got results?
-		if ($query->num_rows() == 0)
-		{
-			return FALSE;
-		} 
-		else 
-		{
-			return $query->row();
-		}
+		return $this->db->get_where('permission_rules', array('id'=>$id))->row();
 	}
 
 	/**
@@ -62,18 +51,7 @@ class Permissions_m extends CI_Model
 			$this->db->order_by('module, controller, method');
 		}
 
-		// Query time!
-		$query = $this->db->get('permission_rules');
-		
-		// Got results?
-		if ( $query->num_rows() > 0 ) 
-		{
-			return $query->result();
-		}
-		else
-		{
-			return FALSE;
-		}
+		return $this->db->get('permission_rules')->result();
 	}
 
 	/**
@@ -83,7 +61,7 @@ class Permissions_m extends CI_Model
 	 * @param array $input The input to use for creating a new rule
 	 * @return array
 	 */
-	public function new_rule($input = array()) {
+	public function insert($input = array()) {
 		$data = array(
 			'module' 		=> $input['module'],
 			'controller' 	=> $input['controller'],
@@ -112,7 +90,7 @@ class Permissions_m extends CI_Model
 	 * @param array $input The data to update
 	 * @return mixed
 	 */
-	public function update_rule($id = 0, $input = array()) {
+	public function update($id = 0, $input = array()) {
 		
 		$data = array(
 			'module' 		=> $input['module'],
@@ -140,7 +118,7 @@ class Permissions_m extends CI_Model
 	 * @param int $id The ID of the rule to delete
 	 * @return array
 	 */
-	public function delete_rule($id)
+	public function delete($id)
 	{
 		// Is array?
 		if( !is_array($id) )
@@ -264,100 +242,5 @@ class Permissions_m extends CI_Model
 		$location['controller'] = 'admin';
 
 		return $this->check_rule_by_role($role, $location);
-	}
-	
-	/**
-	 * Return an object containing rule properties
-	 * 
-	 * @access public
-	 * @param int $id The ID of the role
-	 * @return mixed
-	 */
-	public function get_role($id = 0)
-	{
-		// Query time
-		$query = $this->db->get_where('groups', array('id'=>$id));
-		
-		if ( $query->num_rows() == 0 )
-		{
-			return FALSE;
-		}
-		else
-		{
-			return $query->row();
-		}
-	}
-	
-	/**
-	 * Return an array of permission roles
-	 * 
-	 * @access public
-	 * @param array $params Optional parameters
-	 * @return array
-	 */
-	public function get_roles($params = array())
-	{	
-		if ( isset($params['except']) )
-		{
-			$this->db->where_not_in('name', $params['except']);
-		}
-		
-		return $this->db->get('groups')->result();
-	}
-	
-	/**
-	 * Create a new permission rule
-	 *
-	 * @access public 
-	 * @param array $input The data to insert
-	 * @return array
-	 */
-	public function new_role($input = array())
-	{
-		$data_array = array(
-        	'title' => $input['title'],
-        	'name' => $input['name']
-		);
-				
-		$result = $this->db->insert('groups', $data_array);
-		
-		return $result;
-	}
-	
-	/**
-	 * Update a permission rule
-	 * 
-	 * @access public 
-	 * @param int $id The ID of the role to update
-	 * @param array $input The data to update
-	 * @return void
-	 */
-	public function update_role($id = 0, $input = array()) {
-
-		$this->db->update('groups', array(
-        	'title' => $input['title']
-		), array('id' => $id));
-
-	}
-	
-	/**
-	 * Delete a permission role
-	 * 
-	 * @access public
-	 * @param int $id The ID of the role to delete
-	 * @return
-	 */
-	public function delete_role($id) {
-		
-		if ( !is_array($id) )
-		{
-			$id = array('id' => $id);
-		}
-
-		// Dont let them delete these. The controller should handle the error message, this is just insurance
-		$this->db->where_not_in('name', array('user', 'admin'));
-		
-		$this->db->delete('groups', $id);
-        return $this->db->affected_rows();
 	}
 }

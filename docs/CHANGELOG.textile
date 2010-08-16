@@ -16,6 +16,7 @@ h2. v1.0.0
 * Theme views and layouts must now use .html not .php.
 * If comment moderation is disabled you will only see a list of comments, no "unapproved" stuff.
 * Merged old categories module into news module.
+* Moved "Permission Roles" to a new Groups module.
 
 h3. Deprecated
 

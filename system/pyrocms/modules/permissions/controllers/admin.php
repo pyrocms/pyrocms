@@ -10,13 +10,6 @@
 class Admin extends Admin_Controller
 {
 	/**
-	 * Validation rules
-	 * @access private
-	 * @var arrray
-	 */
-	private $validation_rules = array();
-	
-	/**
 	 * Constructor method
 	 * @access public
 	 * @return void
@@ -25,10 +18,12 @@ class Admin extends Admin_Controller
     {
 		// Call the parent's constructor
         parent::__construct();
-        
+
         $this->load->model('permissions_m');
+        $this->load->model('groups/group_m');
         $this->load->helper('array');
         $this->lang->load('permissions');
+        $this->lang->load('groups/group');
 		$this->load->library('form_validation');
 		
 		// Validation rules
@@ -59,15 +54,15 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|numeric'
 			),
 			array(
-				'field' => 'permission_role_id',
-				'label' => lang('perm_role_label'),
+				'field' => 'group_id',
+				'label' => lang('perm_group_label'),
 				'rules' => 'trim|numeric'
 			),
 		);
-		
+
         // Get "roles" (like access levels)
-        $this->data->roles 			= $this->permissions_m->get_roles(array('except' => array('admin')));
-        $this->data->roles_select 	= array_for_select($this->data->roles, 'id', 'title');
+        $this->data->groups 			= $this->group_m->get_all(array('except' => array('admin')));
+        $this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'name');
         $this->data->users 			= $this->users_m->get_all();
         $this->data->users_select 	= array_for_select($this->data->users, 'id', 'full_name');
         
@@ -76,14 +71,14 @@ class Admin extends Admin_Controller
         
         $this->template->append_metadata('
 			<script type="text/javascript">
-				var roleDeleteConfirm = "' . 			$this->lang->line('perm_role_delete_confirm') 		. '";
-				var permControllerSelectDefault = "' . 	$this->lang->line('perm_controller_select_default') . '";
-				var permMethodSelectDefault = "' . 		$this->lang->line('perm_method_select_default') 	. '";
+				var roleDeleteConfirm = "' . 			lang('perm_role_delete_confirm') 		. '";
+				var permControllerSelectDefault = "' . 	lang('perm_controller_select_default') . '";
+				var permMethodSelectDefault = "' . 		lang('perm_method_select_default') 	. '";
 			</script>
 		');
         
         $this->template->append_metadata( js('permissions.js', 'permissions') );
-        $this->template->set_partial('sidebar', 'admin/sidebar');
+	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
     }
     
     /**
@@ -94,7 +89,7 @@ class Admin extends Admin_Controller
     public function index()
     {
         // Go through all the permission roles
-        foreach($this->data->roles as $role)
+        foreach($this->data->groups as $role)
         {
             //... and get rules for each one
             $this->data->rules[$role->name] = $this->permissions_m->get_rules(array('role' => $role->id));
@@ -134,7 +129,7 @@ class Admin extends Admin_Controller
         if ($this->form_validation->run())
         {
 			// Try to create the new rule
-            if($this->permissions_m->new_rule($_POST) > 0)
+            if($this->permissions_m->insert($_POST) > 0)
             {
                 $this->session->set_flashdata('success', lang('perm_rule_add_success'));
             }
@@ -158,7 +153,7 @@ class Admin extends Admin_Controller
 		$this->data->permission_rule 	=& $permission_rule;
         $this->data->controllers_select = array('*' => lang('perm_controller_select_default')) 	+ array_for_select($this->modules_m->get_module_controllers($this->validation_rules[0]));
         $this->data->methods_select 	= array('*' => lang('perm_method_select_default')) 		+ array_for_select($this->modules_m->get_module_controller_methods($this->validation_rules[0], $this->validation_rules[1]));
-        $this->template->build('admin/rules/form', $this->data);
+        $this->template->build('admin/form', $this->data);
     }
     
 	/**
@@ -181,7 +176,7 @@ class Admin extends Admin_Controller
         
 		if ( !$permission_rule )
         {
-            $this->session->set_flashdata('error', $this->lang->line('perm_rule_not_exist_error'));
+            $this->session->set_flashdata('error', lang('perm_rule_not_exist_error'));
             redirect('admin/permissions/create');
         }
         
@@ -200,8 +195,8 @@ class Admin extends Admin_Controller
 
         if ($this->form_validation->run())
         {
-            $this->permissions_m->update_rule($id, $_POST);
-            $this->session->set_flashdata('success', $this->lang->line('perm_rule_save_success'));
+            $this->permissions_m->update($id, $_POST);
+            $this->session->set_flashdata('success', lang('perm_rule_save_success'));
             redirect('admin/permissions');
         }
 
@@ -213,10 +208,10 @@ class Admin extends Admin_Controller
 
         // Get controllers and methods arrays for selected values to populate ajax boxes
         $this->data->permission_rule 		=& $permission_rule;
- 		$this->data->controllers_select 	= array('*' => $this->lang->line('perm_controller_select_default')) + array_for_select($this->modules_m->get_module_controllers($this->data->permission_rule->module));
-        $this->data->methods_select 		= array('*' => $this->lang->line('perm_method_select_default')) + array_for_select($this->modules_m->get_module_controller_methods($this->data->permission_rule->module, $this->data->permission_rule->controller));
+ 		$this->data->controllers_select 	= array('*' => lang('perm_controller_select_default')) + array_for_select($this->modules_m->get_module_controllers($this->data->permission_rule->module));
+        $this->data->methods_select 		= array('*' => lang('perm_method_select_default')) + array_for_select($this->modules_m->get_module_controller_methods($this->data->permission_rule->module, $this->data->permission_rule->controller));
         
-        $this->template->build('admin/rules/form', $this->data);
+        $this->template->build('admin/form', $this->data);
     }
 
 	/**
@@ -231,7 +226,7 @@ class Admin extends Admin_Controller
         // Delete one
         if ($id)
         {
-            $this->permissions_m->delete_rule($id);
+            $this->permissions_m->delete($id);
         }
         
         // Delete multiple
@@ -241,12 +236,12 @@ class Admin extends Admin_Controller
             {
                 foreach(array_keys($this->input->post('delete')) as $id)
                 {
-                    $this->permissions_m->delete_rule($id);
+                    $this->permissions_m->delete($id);
                 }
             }
         }
         
-        $this->session->set_flashdata('success', $this->lang->line('perm_rule_delete_success'));
+        $this->session->set_flashdata('success', lang('perm_rule_delete_success'));
         redirect('admin/permissions');
     }
     
@@ -264,4 +259,3 @@ class Admin extends Admin_Controller
         exit(json_encode($methods));
     }
 }
-?>

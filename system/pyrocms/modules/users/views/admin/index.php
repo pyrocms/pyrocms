@@ -16,7 +16,7 @@
 							<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 							<th><?php echo lang('user_name_label');?></th>
 							<th><?php echo lang('user_email_label');?></th>
-							<th><?php echo lang('user_role_label');?></th>
+							<th><?php echo lang('user_group_label');?></th>
 							<th><?php echo lang('user_joined_label');?></th>
 							<th><?php echo lang('user_last_visit_label');?></th>
 							<th><?php echo lang('user_actions_label');?></th>

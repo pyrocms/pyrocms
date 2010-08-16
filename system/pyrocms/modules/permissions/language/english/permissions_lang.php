@@ -28,18 +28,3 @@ $lang['perm_rule_add_error'] 				= 'An unexpected error occurred.';
 $lang['perm_rule_not_exist_error'] 			= 'This permission rule does not exist.';
 $lang['perm_rule_save_success'] 			= 'The permission rule was saved.';
 $lang['perm_rule_delete_success'] 			= 'The permission rule has been deleted.';
-
-$lang['perm_role_add'] 						= 'Add a role';
-$lang['perm_role_edit'] 					= 'Edit role';
-$lang['perm_role_delete'] 					= 'Delete role';
-$lang['perm_role_delete_confirm'] 			= 'Are you sure you would like to delete this permission role? This will delete ALL navigation links within the role, and the layout files will need to be edited to remove refference to it.';
-$lang['perm_role_no_rules'] 				= 'There are no rules for this role.';
-$lang['perm_no_roles'] 						= 'There are no roles. Add a type called Administrator with the abbreviation of admin as soon as possible.';
-$lang['perm_role_add_success'] 				= 'The permission role has been saved.';
-$lang['perm_role_add_error'] 				= 'An error occurred.';
-$lang['perm_role_not_exist_error'] 			= 'This permission role does not exist.';
-$lang['perm_role_save_success'] 			= 'The permission role was saved.';
-$lang['perm_role_delete_success'] 			= 'The permission role has been deleted.';
-$lang['perm_role_edit_title'] 				= 'Edit role "%s"';
-
-?>

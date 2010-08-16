@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="1.0">
+	<name>
+		<en>Groups</en>
+		<es>Groups</es>
+		<fr>Groups</fr>
+		<de>Groups</de>
+		<pl>Groups</pl>
+	</name>
+	<description>
+		<en>Users can be placed into groups to manage permissions.</en>
+		<es>Users can be placed into groups to manage permissions.</es>
+		<fr>Users can be placed into groups to manage permissions.</fr>
+		<de>Users can be placed into groups to manage permissions.</de>
+		<pl>Users can be placed into groups to manage permissions.</pl>
+	</description>
+	<is_frontend>0</is_frontend>
+	<is_backend>1</is_backend>
+	<is_backend_menu>1</is_backend_menu>
+	<controllers>
+		<controller name="admin">
+			<method>index</method>
+			<method>edit</method>
+			<method>delete</method>
+		</controller>
+	</controllers>
+</module>
