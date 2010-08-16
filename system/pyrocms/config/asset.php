@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +59,3 @@ $config['theme_asset_url'] = config_item('base_url').APPPATH.'themes/';
 $config['asset_img_dir'] = 'img';
 $config['asset_js_dir'] = 'js';
 $config['asset_css_dir'] = 'css';
-
-?>

@@ -74,6 +74,9 @@ class MY_Controller extends Controller
         $this->load->vars($pyro);
         $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.
 
+        // Assign segments to the template the new way
+		$this->template->settings = $this->settings->get_all();
+
         $this->benchmark->mark('my_controller_end');
 	}
 
