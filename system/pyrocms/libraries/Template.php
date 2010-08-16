@@ -554,7 +554,7 @@ class Template
     private function _load_view($view = '', $search = TRUE, $parse_view = TRUE)
     {
     	// Load exactly what we asked for, no f**king around!
-    	if($search !== TRUE)
+    	if($search == FALSE OR $this->_theme == '')
     	{
     		if($this->_parser_enabled === TRUE && $parse_view === TRUE)
 			{
