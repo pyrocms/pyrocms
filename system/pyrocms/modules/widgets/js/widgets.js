@@ -220,7 +220,12 @@
 
 		$('.widget-area table tbody').sortable({
 			handle: 'td',
-			helper: fixHelper,
+			helper: function(e, ui) {
+				ui.children().each(function() {
+					$(this).width($(this).width());
+				});
+				return ui;
+			},
 			update: function() {
 				order = new Array();
 				$('tr', this).each(function(){

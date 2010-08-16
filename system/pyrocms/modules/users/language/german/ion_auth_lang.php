@@ -49,6 +49,3 @@ $lang['update_successful'] 		 	 = 'Die Konto-Informationen wurden erfolgreich ge
 $lang['update_unsuccessful'] 		 = 'Die Konto-Informationen konnten nicht geändert werden';
 $lang['delete_successful'] 		 	 = 'Das Benutzerkonto wurde gelöscht';
 $lang['delete_unsuccessful'] 		 = 'Das Benutzerkonto konnte nicht gelöscht werden';
-
-
-?>

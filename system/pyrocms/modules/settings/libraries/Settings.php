@@ -156,6 +156,11 @@ class Settings
 	 */
 	public function get_all()
 	{
+		if(self::$cache)
+		{
+			return self::$cache;
+		}
+
 		$settings = ci()->settings_m->get_all();
 
 		foreach($settings as $setting)

@@ -45,6 +45,3 @@ $lang['update_successful'] 		= 'Konto zostało pomyślnie uaktualnione';
 $lang['update_unsuccessful'] 		= 'Nie można uaktualnić konta';
 $lang['delete_successful'] 		= 'Użytkownik został skasowany';
 $lang['delete_unsuccessful'] 		= 'Nie można skasować użytkownika';
-
-
-?>

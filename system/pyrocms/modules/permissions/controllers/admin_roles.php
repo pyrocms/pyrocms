@@ -175,4 +175,3 @@ class Admin_roles extends Admin_Controller
 		redirect('admin/permissions');
 	}
 }
-?>

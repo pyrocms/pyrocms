@@ -45,6 +45,3 @@ $lang['update_successful'] 		= 'Account Information Successfully Updated';
 $lang['update_unsuccessful'] 		= 'Unable to Update Account Information';
 $lang['delete_successful'] 		= 'User Deleted';
 $lang['delete_unsuccessful'] 		= 'Unable to Delete User';
-
-
-?>
