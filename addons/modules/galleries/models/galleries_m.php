@@ -63,7 +63,7 @@ class Galleries_m extends MY_Model {
 
 	/**
 	 * Insert a new gallery into the database
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param array $input The data to insert (a copy of $_POST)
@@ -76,6 +76,7 @@ class Galleries_m extends MY_Model {
 			'title' => $input['title'],
 			'slug' => $this->generate_slug($input['title']),
 			'description' => $input['description'],
+			'enable_comments' => $input['enable_comments'],
 			'updated_on' => time()
 		);
 
@@ -140,13 +141,13 @@ class Galleries_m extends MY_Model {
 
 	/**
 	 * HELPER METHODS
-	 * 
+	 *
 	 * The methods below perform tasks such as resizing thumbnails, counting photos, etc
 	 */
 
 	/**
 	 * Create the required folders for a gallery
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param string $gallery The name of the gallery
@@ -199,7 +200,7 @@ class Galleries_m extends MY_Model {
 
 	/**
 	 * Create a gallery slug based on the title
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param string $name The name of the gallery
@@ -231,6 +232,8 @@ class Galleries_m extends MY_Model {
 			  `description` text,
 			  `parent` int(11) DEFAULT NULL,
 			  `updated_on` int(15) NOT NULL,
+			  `preview` varchar(255) DEFAULT NULL,
+			  `enable_comments` INT( 1 ) default NULL,
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `slug` (`slug`),
 			  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
@@ -247,6 +250,7 @@ class Galleries_m extends MY_Model {
 			  `description` text,
 			  `uploaded_on` int(15) DEFAULT NULL,
 			  `updated_on` int(15) DEFAULT NULL,
+			  `order` INT(11) DEFAULT '0',
 			  PRIMARY KEY (`id`),
 			  KEY `gallery_id` (`gallery_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -14,4 +14,6 @@
 		<?php endif; ?>
 	</div>
 </div>
-<?php echo display_comments($gallery_image->id, 'galleries-image'); ?>
+<?php if($gallery->enable_comments == 1): ?>
+	<?php echo display_comments($gallery_image->id, 'gallery-image'); ?>
+<?php endif; ?>

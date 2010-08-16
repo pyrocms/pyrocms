@@ -29,6 +29,11 @@
 					<label for="description"><?php echo lang('galleries.description_label'); ?></label>
 					<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 				</li>
+
+				<li>
+					<label for="comments"><?php echo lang('galleries.comments_label'); ?></label>
+					<?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), '0'); ?>
+				</li>
 			</ol>
 
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>

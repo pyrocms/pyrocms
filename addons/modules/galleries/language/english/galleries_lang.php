@@ -27,6 +27,8 @@ $lang['galleries.actions_label']			= 'Actions';
 $lang['galleries.view_label']				= 'View';
 $lang['galleries.manage_label']				= 'Manage';
 $lang['galleries.delete_label']				= 'Delete';
+$lang['galleries.comments_enabled_label']	= 'Yes';
+$lang['galleries.comments_disabled_label']	= 'No';
 
 // General labels
 $lang['galleries.title_label']				= 'Title';
@@ -35,6 +37,7 @@ $lang['galleries.parent_label']				= 'Parent';
 $lang['galleries.none_label']				= '-- NONE --';
 $lang['galleries.description_label']		= 'Album Description';
 $lang['galleries.thumbnail_label']			= 'Thumbnail';
+$lang['galleries.comments_label']			= 'Enable Comments';
 $lang['galleries.current_label']			= 'Current Images (drag and drop to sort, click to edit)';
 
 // Sidebar labels
