@@ -5,14 +5,14 @@
 	<?php else: ?>
 		<h3><?php echo sprintf(lang('pages.edit_title'), $page->title);?></h3>
 	<?php endif; ?>
-	
-	<div class="box-container">	
-	
+
+	<div class="box-container">
+
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
-		<?php echo form_hidden('parent_id', @$page->parent_id); ?>
+		<?php echo form_hidden('parent_id', (@$page->parent_id == '')? 0 : $page->parent_id); ?>
 
 		<div class="tabs">
-		
+
 			<ul class="tab-menu">
 				<li><a href="#page-content"><span><?php echo lang('pages.content_label');?></span></a></li>
 				<li><a href="#page-meta"><span><?php echo lang('pages.meta_label');?></span></a></li>
@@ -21,9 +21,9 @@
 				<li><a href="#page-options"><span><?php echo lang('pages.options_label');?></span></a></li>
 				<li><a href="#revision-options"><span><?php echo lang('pages.revisions_label');?></span></a></li>
 			</ul>
-			
+
 			<div id="page-content">
-			
+
 				<ul>
 
 					<li>
@@ -31,20 +31,20 @@
 						<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
-					
+
 					<li class="even">
 						<label for="slug"><?php echo lang('pages.slug_label');?></label>
-						
+
 						<?php if(!empty($page->parent_id)): ?>
 							<?php echo site_url().$parent_page->path; ?>/
 						<?php else: ?>
 							<?php echo site_url(); ?>
 						<?php endif; ?>
-						
+
 						<?php if($this->uri->segment(3,'') == 'edit'): ?>
 							<?php echo form_hidden('old_slug', $page->slug); ?>
 						<?php endif; ?>
-						
+
 						<?php if($page->slug == 'home' || $page->slug == '404'): ?>
 							<?php echo form_hidden('slug', $page->slug); ?>
 							<?php echo form_input('', $page->slug, 'size="20" class="width-10" disabled="disabled"'); ?>
@@ -52,15 +52,15 @@
 							<?php echo form_input('slug', $page->slug, 'size="20" class="width-10"'); ?>
 							<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						<?php endif;?>
-						
+
 						<?php echo $this->config->item('url_suffix'); ?>
 					</li>
-					
+
 					<li>
 						<label for="category_id"><?php echo lang('pages.status_label');?></label>
-						<?php echo form_dropdown('status', array('draft'=>lang('pages.draft_label'), 'live'=>lang('pages.live_label')), $page->status) ?>	
+						<?php echo form_dropdown('status', array('draft'=>lang('pages.draft_label'), 'live'=>lang('pages.live_label')), $page->status) ?>
 					</li>
-					
+
 					<li class="even">
 						<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 					</li>
@@ -124,10 +124,10 @@
 				<br class="clear-both" />
 
 			</div>
-			
+
 			<!-- Meta data tab -->
 			<div id="page-options">
-			
+
 				<ul>
 					<li>
 						<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
@@ -139,9 +139,9 @@
 						<p><?php echo lang('pages.rss_explanation'); ?></p>
 					</li>
 				</ul>
-				
+
 			</div>
-			
+
 			<!-- Revisions -->
 			<div id="revision-options">
 				<ul>
@@ -151,12 +151,12 @@
 						<select id="use_revision_id" name="use_revision_id">
 							<!-- Current revision to be used -->
 							<optgroup label="Current">
-								<option value="<?php echo $page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', $page->revision_date); ?></option>
+								<option value="<?php echo @$page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', @$page->revision_date); ?></option>
 							</optgroup>
 							<!-- All available revisions -->
 							<optgroup label="Revisions">
 								<?php foreach ($revisions as $revision): ?>
-								<option value="<?php echo $revision->id; ?>"><?php echo date('d-m-Y @ H:i', $revision->revision_date); ?></option>
+								<option value="<?php echo @$revision->id; ?>"><?php echo date('d-m-Y @ H:i', @$revision->revision_date); ?></option>
 								<?php endforeach; ?>
 							</optgroup>
 						</select>
@@ -169,12 +169,12 @@
 						<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
 							<!-- Current revision to be used -->
 							<optgroup label="Current">
-								<option value="<?php echo $page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', $page->revision_date); ?></option>
+								<option value="<?php echo @$page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', @$page->revision_date); ?></option>
 							</optgroup>
 							<!-- All available revisions -->
 							<optgroup label="Revisions">
 								<?php foreach ($revisions as $revision): ?>
-								<option value="<?php echo $revision->id; ?>"><?php echo date('d-m-Y @ H:i', $revision->revision_date); ?></option>
+								<option value="<?php echo @$revision->id; ?>"><?php echo date('d-m-Y @ H:i', @$revision->revision_date); ?></option>
 								<?php endforeach; ?>
 							</optgroup>
 						</select>
@@ -183,14 +183,14 @@
 					</li>
 				</ul>
 			</div>
-			
+
 		</div>
 
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 
 		<?php echo form_close(); ?>
 	</div>
-	
+
 </div>
 
 <script type="text/javascript">
