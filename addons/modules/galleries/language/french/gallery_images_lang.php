@@ -1,29 +1,27 @@
 <?php
 // Success messages
-$lang['gallery_images.upload_success']		= 'The image has been uploaded successfully.';
-$lang['gallery_images.delete_success']		= 'The image has been deleted.';
-$lang['gallery_images.changes_success']	 	= 'The changes have been saved.';
+$lang['gallery_images.upload_success'] 		= 'L\'mage a été envoyée avec succès.';
+$lang['gallery_images.delete_success'] 		= 'L\'mage a été supprimée.';
+$lang['gallery_images.changes_success'] 	= 'Les modifications ont été sauvegardées.';
 
 // Errors
-$lang['gallery_images.upload_error']		= 'The image could not be uploaded.';
-$lang['gallery_images.exists_error'] 		= 'The specified image does not exist.';
-$lang['gallery_images.delete_error']	 	= 'The image could not be deleted.';
-$lang['gallery_images.changes_error']		= 'The changes could not be saved.';
+$lang['gallery_images.upload_error'] 		= 'L\'image n\'a pas pu être envoyée.';
+$lang['gallery_images.exists_error'] 		= 'L\'image spécifiée n\'existe pas.';
+$lang['gallery_images.delete_error'] 		= 'L\'image n\'a pas pu être supprimée.';
+$lang['gallery_images.changes_error'] 		= 'Les modifications n\'ont pas pu être sauvegardées.';
 
 // Labels
-$lang['gallery_images.upload_label']		= 'Upload Image';
-$lang['gallery_images.edit_image_label']	= 'Edit Image';
-$lang['gallery_images.thumbnail_label']		= 'Thumbnail';
-$lang['gallery_images.action_label']		= 'Action';
-$lang['gallery_images.none_label']			= '-- NONE --';
-$lang['gallery_images.crop_label']			= 'Crop thumbnail';
-$lang['gallery_images.recreate_label']		= 'Recreate thumbnail';
-$lang['gallery_images.delete_label']		= 'Delete Image';
-$lang['gallery_images.title_label']		 	= 'Title';
-$lang['gallery_images.image_label']			= 'Image';
-$lang['gallery_images.description_label']	= 'Caption';
-$lang['gallery_images.gallery_label']		= 'Gallery';
-$lang['gallery_images.no_images_label']		= 'No images have been added yet';
-
-
+$lang['gallery_images.upload_label'] 		= 'Envoyer une image';
+$lang['gallery_images.edit_image_label'] 	= 'Modifier l\'image';
+$lang['gallery_images.thumbnail_label'] 	= 'Vignette';
+$lang['gallery_images.action_label'] 		= 'Action';
+$lang['gallery_images.none_label'] 			= '-- AUCUN --';
+$lang['gallery_images.crop_label'] 			= 'Découper la vignette';
+$lang['gallery_images.recreate_label'] 		= 'Recréer la vignette';
+$lang['gallery_images.delete_label'] 		= 'Supprimer l\image';
+$lang['gallery_images.title_label'] 		= 'Titre';
+$lang['gallery_images.image_label'] 		= 'Image';
+$lang['gallery_images.description_label'] 	= 'Légende';
+$lang['gallery_images.gallery_label'] 		= 'Galerie';
+$lang['gallery_images.no_images_label'] 	= 'Aucune image n\'a encore été ajoutée';
 ?>
