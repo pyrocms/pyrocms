@@ -2,8 +2,8 @@
 /**
  * Roles controller for the groups module
  *
- * @author Phil Sturgeon - PyroAdmin Dev Team
- * @package PyroAdmin
+ * @author Phil Sturgeon - PyroCMS Dev Team
+ * @package PyroCMS
  * @subpackage Groups Module
  * @category Modules
  *
