@@ -112,7 +112,6 @@ class Admin_Controller extends MY_Controller
 
 
 	    $this->template->set_partial('header', 'admin/partials/header', FALSE);
-	    $this->template->set_partial('title', 'admin/partials/title', FALSE);
 	    $this->template->set_partial('navigation', 'admin/partials/navigation', FALSE);
 	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
 	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);

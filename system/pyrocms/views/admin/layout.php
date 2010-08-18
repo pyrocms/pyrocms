@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $template['partials']['title'];?></title>
+	<title><?php echo lang('cp_admin_title').' - '.$template['title'];?></title>
 	<?php echo $template['partials']['metadata']; ?>
 </head>
 

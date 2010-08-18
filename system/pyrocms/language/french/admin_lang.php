@@ -42,30 +42,30 @@ $lang['sb_recent_users'] 				= 'Utilisateurs récents';
 //Admin page titles
 
 //module names
-$lang['comments']						= 'Comments'; #translate
-$lang['pages']							= 'Pages'; #translate
-$lang['files']							= 'Files'; #translate
-$lang['variables']						= 'Variables'; #translate
-$lang['widgets']						= 'Widgets'; #translate
-$lang['themes']							= 'Themes'; #translate
-$lang['navigation']						= 'Navigation'; #translate
-$lang['modules']						= 'Modules'; #translate
-$lang['contact']						= 'Contact'; #translate
-$lang['forums']							= 'Forums'; #translate
-$lang['galleries']						= 'Galleries'; #translate
-$lang['news']							= 'News'; #translate
-$lang['newsletters']					= 'Newsletters'; #translate
-$lang['users']							= 'Users'; #translate
-$lang['settings']						= 'Settings'; #translate
+$lang['module.comments']						= 'Comments'; #translate
+$lang['module.pages']							= 'Pages'; #translate
+$lang['module.files']							= 'Files'; #translate
+$lang['module.variables']						= 'Variables'; #translate
+$lang['module.widgets']							= 'Widgets'; #translate
+$lang['module.themes']							= 'Themes'; #translate
+$lang['module.navigation']						= 'Navigation'; #translate
+$lang['module.modules']							= 'Modules'; #translate
+$lang['module.contact']							= 'Contact'; #translate
+$lang['module.forums']							= 'Forums'; #translate
+$lang['module.galleries']						= 'Galleries'; #translate
+$lang['module.news']							= 'News'; #translate
+$lang['module.newsletters']						= 'Newsletters'; #translate
+$lang['module.users']							= 'Users'; #translate
+$lang['module.settings']						= 'Settings'; #translate
 
 //methods
-$lang['edit']							= 'Edit'; #translate
-$lang['delete']							= 'Delete'; #translate
-$lang['upload']							= 'Upload'; #translate
-$lang['create']							= 'Create'; #translate
-$lang['layouts']						= 'Layouts'; #translate
-$lang['folders']						= 'Folders'; #translate
-$lang['groups']							= 'Groups'; #translate
-$lang['inactive']						= 'Inactive'; #translate
+$lang['method.edit']							= 'Edit'; #translate
+$lang['method.delete']							= 'Delete'; #translate
+$lang['method.upload']							= 'Upload'; #translate
+$lang['method.create']							= 'Create'; #translate
+$lang['method.layouts']							= 'Layouts'; #translate
+$lang['method.folders']							= 'Folders'; #translate
+$lang['method.groups']							= 'Groups'; #translate
+$lang['method.inactive']						= 'Inactive'; #translate
 
 ?>

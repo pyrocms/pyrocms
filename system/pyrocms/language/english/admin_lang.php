@@ -42,30 +42,30 @@ $lang['sb_recent_users'] 				= 'Recent users';
 //Admin page titles
 
 //module names
-$lang['comments']						= 'Comments';
-$lang['pages']							= 'Pages';
-$lang['files']							= 'Files';
-$lang['variables']						= 'Variables';
-$lang['widgets']						= 'Widgets';
-$lang['themes']							= 'Themes';
-$lang['navigation']						= 'Navigation';
-$lang['modules']						= 'Modules';
-$lang['contact']						= 'Contact';
-$lang['forums']							= 'Forums';
-$lang['galleries']						= 'Galleries';
-$lang['news']							= 'News';
-$lang['newsletters']					= 'Newsletters';
-$lang['users']							= 'Users';
-$lang['settings']						= 'Settings';
+$lang['module.comments']						= 'Comments';
+$lang['module.pages']							= 'Pages';
+$lang['module.files']							= 'Files';
+$lang['module.variables']						= 'Variables';
+$lang['module.widgets']							= 'Widgets';
+$lang['module.themes']							= 'Themes';
+$lang['module.navigation']						= 'Navigation';
+$lang['module.modules']							= 'Modules';
+$lang['module.contact']							= 'Contact';
+$lang['module.forums']							= 'Forums';
+$lang['module.galleries']						= 'Galleries';
+$lang['module.news']							= 'News';
+$lang['module.newsletters']						= 'Newsletters';
+$lang['module.users']							= 'Users';
+$lang['module.settings']						= 'Settings';
 
 //methods
-$lang['edit']							= 'Edit';
-$lang['delete']							= 'Delete';
-$lang['upload']							= 'Upload';
-$lang['create']							= 'Create';
-$lang['layouts']						= 'Layouts';
-$lang['folders']						= 'Folders';
-$lang['groups']							= 'Groups';
-$lang['inactive']						= 'Inactive';
+$lang['method.edit']							= 'Edit';
+$lang['method.delete']							= 'Delete';
+$lang['method.upload']							= 'Upload';
+$lang['method.create']							= 'Create';
+$lang['method.layouts']							= 'Layouts';
+$lang['method.folders']							= 'Folders';
+$lang['method.groups']							= 'Groups';
+$lang['method.inactive']						= 'Inactive';
 
 ?>
