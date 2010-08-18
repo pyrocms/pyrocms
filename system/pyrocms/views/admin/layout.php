@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PyroCMS - <?php echo $template['title'];?></title>
+	<title><?php echo $template['partials']['title'];?></title>
 	<?php echo $template['partials']['metadata']; ?>
 </head>
 

@@ -39,4 +39,33 @@ $lang['cp_shortcuts_title'] 			= 'Shortcuts';
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';
 
+//Admin page titles
+
+//module names
+$lang['comments']						= 'Comments';
+$lang['pages']							= 'Pages';
+$lang['files']							= 'Files';
+$lang['variables']						= 'Variables';
+$lang['widgets']						= 'Widgets';
+$lang['themes']							= 'Themes';
+$lang['navigation']						= 'Navigation';
+$lang['modules']						= 'Modules';
+$lang['contact']						= 'Contact';
+$lang['forums']							= 'Forums';
+$lang['galleries']						= 'Galleries';
+$lang['news']							= 'News';
+$lang['newsletters']					= 'Newsletters';
+$lang['users']							= 'Users';
+$lang['settings']						= 'Settings';
+
+//methods
+$lang['edit']							= 'Edit';
+$lang['delete']							= 'Delete';
+$lang['upload']							= 'Upload';
+$lang['create']							= 'Create';
+$lang['layouts']						= 'Layouts';
+$lang['folders']						= 'Folders';
+$lang['groups']							= 'Groups';
+$lang['inactive']						= 'Inactive';
+
 ?>
