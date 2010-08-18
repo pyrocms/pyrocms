@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Code here is run before frontend controllers
 class Public_Controller extends MY_Controller
@@ -73,8 +73,11 @@ class Public_Controller extends MY_Controller
 	    
 	    // Frontend data
 	    $this->load->library('variables/variables');
-	    
-	    $this->load->vars('variables', $this->variables->get());
+
+        // Assign segments to the template the new way
+	    $this->template->variables = $this->variables->get();
+		$this->template->settings = $this->settings->get_all();
+		$this->template->server = $_SERVER;
 	    
 	    $this->benchmark->mark('public_controller_end');
 	}

@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Code here is run before ALL controllers
 class MY_Controller extends Controller
@@ -69,13 +69,9 @@ class MY_Controller extends Controller
 
 		// Mega Pyro arrays
         $pyro['user'] 	=& $this->user;
-        $pyro['server'] =& $_SERVER;
 
         $this->load->vars($pyro);
         $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.
-
-        // Assign segments to the template the new way
-		$this->template->settings = $this->settings->get_all();
 
         $this->benchmark->mark('my_controller_end');
 	}
@@ -84,7 +80,6 @@ class MY_Controller extends Controller
 	{
 		return $this->input->server('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
 	}
-
 }
 
 /**
