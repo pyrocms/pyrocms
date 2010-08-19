@@ -5,7 +5,7 @@
  * @package 		PyroCMS
  * @subpackage 		Widgets
  * @author			Phil Sturgeon - PyroCMS Development Team
- * 
+ *
  */
 class Admin extends Admin_Controller
 {
@@ -17,7 +17,7 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 	    $this->template->append_metadata( js('widgets.js', 'widgets') );
 	    $this->template->append_metadata( css('widgets.css', 'widgets') );
 	}
-	
+
 	/**
 	 * Index method, lists all active widgets
 	 * @access public
@@ -41,19 +41,21 @@ class Admin extends Admin_Controller
 		}
 
 		$this->data->available_widgets = $this->widgets->list_available_widgets();
-		
+
 		$this->data->widget_areas = $this->widgets->list_areas();
-		
+
 		// Go through all widget areas
 		foreach($this->data->widget_areas as &$area)
 		{
 			$area->widgets = $this->widgets->list_area_instances($area->slug);
 		}
-		
+
 		// Create the layout
-		$this->template->build('admin/index', $this->data);
+		$this->template
+			->title(lang('module.widgets'))
+			->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Show info about available widgets
 	 * @access public
@@ -63,14 +65,14 @@ class Admin extends Admin_Controller
 	public function about_available($slug)
 	{
 		$widget = $this->widgets->get_widget($slug);
-		
+
 		$this->load->view('admin/about_widget', array(
 			'widget' => $widget,
 			'available' => TRUE,
 			'form_action' => 'admin/widgets/uninstall'
 		));
 	}
-	
+
 	/**
 	 * Show info about uninstalled widgets
 	 * @access public
@@ -80,7 +82,7 @@ class Admin extends Admin_Controller
 	public function about_uninstalled($slug)
 	{
 		$widget = $this->widgets->read_widget($slug);
-		
+
 		$this->load->view('admin/about_widget', array(
 			'widget' => $widget,
 			'available' => FALSE,

@@ -1,7 +1,7 @@
 <?php
 /**
  * Modules controller, lists all installed modules
- * 
+ *
  * @author 		Yorick Peterse - PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Core modules
@@ -28,7 +28,7 @@ class Admin extends Admin_Controller
 		parse_url($this->input->server('HTTP_REFERER'), PHP_URL_HOST) == parse_url(BASE_URL, PHP_URL_HOST) or show_error('Invalid Referrer');
 
 	}
-	
+
 	/**
 	 * Index method
 	 * @access public
@@ -38,10 +38,12 @@ class Admin extends Admin_Controller
 	{
 		$this->modules_m->import_all();
 		$this->cache->delete_all('modules_m');
-		
+
  		$this->data->modules = $this->modules_m->get_modules(NULL, TRUE);
-			  
-		$this->template->build('admin/index', $this->data);
+
+		$this->template
+			->title(lang('module.modules'))
+			->build('admin/index', $this->data);
 	}
 
 	/**
@@ -106,14 +108,16 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}
-	
+
 			// Clear the cache
 			$this->cache->delete_all('modules_m');
 
 			redirect('admin/modules');
 		}
 
-		$this->template->build('admin/upload', $this->data);
+		$this->template
+			->title(lang('module.modules'),lang('method.upload'))
+			->build('admin/upload', $this->data);
 	}
 
 	/**
@@ -144,7 +148,7 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
 			}
-			
+
 			redirect('admin/modules');
 		}
 		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $module_slug));

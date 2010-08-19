@@ -15,7 +15,7 @@ class Admin_groups extends Admin_Controller
 	 * @access private
 	 */
 	private $validation_rules = array();
-	
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -25,12 +25,12 @@ class Admin_groups extends Admin_Controller
 	{
 		// Call the parent's contstructor
 		parent::__construct();
-		
+
 		// Load the required classes
 		$this->load->model('navigation_m');
 		$this->load->library('form_validation');
 		$this->lang->load('navigation');
-		
+
 		// Set the validation rules
 		$this->validation_rules = array(
 			array(
@@ -44,11 +44,11 @@ class Admin_groups extends Admin_Controller
 				'rules'	=> 'trim|required|max_length[20]'
 			)
 		);
-		
+
 		$this->form_validation->set_rules($this->validation_rules);
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
-	
+
 	/**
 	 * Index method, redirects back to navigation/index
 	 * @access public
@@ -59,31 +59,31 @@ class Admin_groups extends Admin_Controller
 		// Redirect
 		redirect('admin/navigation');
 	}
-	
+
 	/**
 	 * Create a new navigation group
 	 * @access public
 	 * @return void
 	 */
 	public function create()
-	{					
+	{
 		// Validate
 		if ($this->form_validation->run())
 		{
 			// Insert the new group
 			if ($this->navigation_m->insert_group($_POST) > 0)
 			{
-				$this->session->set_flashdata('success', $this->lang->line('nav_group_add_success'));			
+				$this->session->set_flashdata('success', $this->lang->line('nav_group_add_success'));
 			}
 			else
 			{
 				$this->session->set_flashdata('error', $this->lang->line('nav_group_add_error'));
 			}
-			
+
 			// Redirect the user
 			redirect('admin/navigation/index');
 		}
-		
+
 		// Loop through each rule
 		foreach($this->validation_rules as $rule)
 		{
@@ -92,9 +92,11 @@ class Admin_groups extends Admin_Controller
 
 		// Render the view
 		$this->data->navigation_group =& $navigation_group;
-		$this->template->build('admin/groups/create', $this->data);
+		$this->template
+			->title(lang('module.navigation'),lang('module.groups'), lang('method.create'))
+			->build('admin/groups/create', $this->data);
 	}
-	
+
 	/**
 	 * Delete a navigation group (or delete multiple ones)
 	 * @access public
@@ -102,14 +104,14 @@ class Admin_groups extends Admin_Controller
 	 * @return void
 	 */
 	public function delete($id = 0)
-	{	
+	{
 		// Delete one
 		if($id)
 		{
 			$this->navigation_m->delete_group($id);
 			$this->navigation_m->delete_link(array('navigation_group_id'=>$id));
-		}	
-		
+		}
+
 		// Delete multiple
 		else
 		{
@@ -119,8 +121,8 @@ class Admin_groups extends Admin_Controller
 				$this->navigation_m->delete_link(array('navigation_group_id'=>$id));
 			}
 		}
-		
-		// Set the message and redirect		
+
+		// Set the message and redirect
 		$this->session->set_flashdata('success', $this->lang->line('nav_group_mass_delete_success'));
 		redirect('admin/navigation/index');
 	}

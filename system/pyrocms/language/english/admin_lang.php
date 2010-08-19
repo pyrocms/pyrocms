@@ -57,6 +57,8 @@ $lang['module.news']							= 'News';
 $lang['module.newsletters']						= 'Newsletters';
 $lang['module.users']							= 'Users';
 $lang['module.settings']						= 'Settings';
+$lang['module.groups']							= 'Groups';
+$lang['module.permissions']						= 'Permissions';
 
 //methods
 $lang['method.edit']							= 'Edit';
@@ -67,5 +69,9 @@ $lang['method.layouts']							= 'Layouts';
 $lang['method.folders']							= 'Folders';
 $lang['method.groups']							= 'Groups';
 $lang['method.inactive']						= 'Inactive';
+$lang['method.layouts']							= 'Layouts';
+$lang['method.unapproved']						= 'Unapproved';
+$lang['method.approved']						= 'Approved';
+$lang['method.add']								= 'Add';
 
 ?>

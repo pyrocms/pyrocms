@@ -6,14 +6,14 @@
  * @category 	Modules
  */
 class Admin_layouts extends Admin_Controller
-{	
+{
 	/**
 	 * Validation rules used by the form_validation library
 	 * @access private
 	 * @var array
 	 */
 	private $validation_rules = array();
-	
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -23,16 +23,16 @@ class Admin_layouts extends Admin_Controller
 	{
 		// Call the parent's constructor
 		parent::__construct();
-		
+
 		$this->load->model('page_layouts_m');
 		$this->lang->load('pages');
 		$this->lang->load('page_layouts');
-		
+
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-	
+
 		// Load the validation library
 		$this->load->library('form_validation');
-		
+
 		// Validation rules
 		$this->validation_rules = array(
 			array(
@@ -71,11 +71,13 @@ class Admin_layouts extends Admin_Controller
 	{
 		// Get all page layouts
 		$this->data->page_layouts = $this->page_layouts_m->get_all();
-		
+
 		// Render the view
-		$this->template->build('admin/layouts/index', $this->data);
+		$this->template
+			->title(lang('module.pages'),lang('method.layouts'))
+			->build('admin/layouts/index', $this->data);
 	}
-	
+
 	/**
 	 * Create method, creates a new page layout
 	 * @access public
@@ -93,18 +95,18 @@ class Admin_layouts extends Admin_Controller
 				'body' 		=> $this->input->post('body', FALSE),
 				'css' 		=> $this->input->post('css')
 			));
-			
+
 			// Success or fail?
 			if ($id > 0)
 			{
 				$this->session->set_flashdata('success', lang('page_layout_create_success'));
 			}
-		      
+
 			else
 			{
 				$this->session->set_flashdata('notice', lang('page_layout_create_error'));
 			}
-			
+
 			// Redirect
 			redirect('admin/pages/layouts');
 	    }
@@ -125,9 +127,11 @@ class Admin_layouts extends Admin_Controller
 	    $this->load->vars(array(
 			'page_layout' => &$page_layout
 		));
-	    
+
 	    // Load WYSIWYG editor
-		$this->template->append_metadata( js('codemirror/codemirror.js') );
+		$this->template
+			->title(lang('module.pages'),lang('method.layouts'),lang('method.create'))
+			->append_metadata( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/layouts/form', $this->data);
 	}
 
@@ -139,31 +143,31 @@ class Admin_layouts extends Admin_Controller
 	public function edit($id = 0)
 	{
 		empty($id) && redirect('admin/pages/layouts');
-		
+
 	    // We use this controller property for a validation callback later on
 	    $this->page_layout_id = $id;
-	    
+
 	    // Set data, if it exists
-	    if (!$page_layout = $this->page_layouts_m->get($id)) 
+	    if (!$page_layout = $this->page_layouts_m->get($id))
 	    {
 			$this->session->set_flashdata('error', lang('page_layout_page_not_found_error'));
 			redirect('admin/pages/layouts/create');
 	    }
-	    
+
 	    // Give validation a try, who knows, it just might work!
 		if ($this->form_validation->run())
 	    {
-			// Run the update code with the POST data	
+			// Run the update code with the POST data
 			$this->page_layouts_m->update($id, array(
 				'title' 	=> $this->input->post('title'),
 				'theme_layout' 	=> $this->input->post('theme_layout'),
 				'body' 		=> $this->input->post('body', FALSE),
 				'css' 		=> $this->input->post('css')
-			));			
-				
+			));
+
 			// Wipe cache for this model as the data has changed
-			$this->cache->delete_all('page_layouts_m');	
-					
+			$this->cache->delete_all('page_layouts_m');
+
 			$this->session->set_flashdata('success', sprintf(lang('page_layout_edit_success'), $this->input->post('title')));
 			redirect('admin/pages/layouts');
 	    }
@@ -187,10 +191,12 @@ class Admin_layouts extends Admin_Controller
 		$this->data->page_layout 	=& $page_layout;
 
 	    // Load WYSIWYG editor
-		$this->template->append_metadata( js('codemirror/codemirror.js') );
+		$this->template
+			->title(lang('module.pages'),lang('method.layouts'),lang('method.edit'))
+			->append_metadata( js('codemirror/codemirror.js') );
 	    $this->template->build('admin/layouts/form', $this->data);
 	}
-    
+
 	/**
 	 * Delete method, deletes an existing page layout
 	 * @access public
@@ -200,24 +206,24 @@ class Admin_layouts extends Admin_Controller
 	{
 		// Attention! Error of no selection not handeled yet.
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
-		
+
 		// Go through the array of slugs to delete
 		foreach ($ids as $id)
 		{
 			if ($id !== 1)
 			{
 				$deleted_ids = $this->page_layouts_m->delete($id);
-				
+
 				// Wipe cache for this model, the content has changd
 				$this->cache->delete_all('page_layouts_m');
 			}
-				
+
 			else
 			{
 				$this->session->set_flashdata('error', lang('page_layout_delete_home_error'));
 			}
 		}
-		
+
 		// Some pages have been deleted
 		if(!empty($deleted_ids))
 		{
@@ -225,19 +231,19 @@ class Admin_layouts extends Admin_Controller
 			if( count($deleted_ids) == 1 )
 			{
 				$this->session->set_flashdata('success', sprintf(lang('page_layout_delete_success'), $deleted_ids[0]));
-			}			
+			}
 			else // Deleting multiple pages
 			{
 				$this->session->set_flashdata('success', sprintf(lang('page_layout_mass_delete_success'), count($deleted_ids)));
 			}
 		}
-			
+
 		else // For some reason, none of them were deleted
 		{
 			$this->session->set_flashdata('notice', lang('page_layout_delete_none_notice'));
 		}
-			
+
 		redirect('admin/pages/layouts');
 	}
-    
+
 }

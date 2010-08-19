@@ -57,6 +57,8 @@ $lang['module.news']							= 'News'; #translate
 $lang['module.newsletters']						= 'Newsletters'; #translate
 $lang['module.users']							= 'Users'; #translate
 $lang['module.settings']						= 'Settings'; #translate
+$lang['module.groups']							= 'Groups'; #translate
+$lang['module.permissions']						= 'Permissions'; #translate
 
 //methods
 $lang['method.edit']							= 'Edit'; #translate
@@ -67,5 +69,9 @@ $lang['method.layouts']							= 'Layouts'; #translate
 $lang['method.folders']							= 'Folders'; #translate
 $lang['method.groups']							= 'Groups'; #translate
 $lang['method.inactive']						= 'Inactive'; #translate
+$lang['method.layouts']							= 'Layouts'; #translate
+$lang['method.unapproved']						= 'Unapproved'; #translate
+$lang['method.approved']						= 'Approved'; #translate
+$lang['method.add']								= 'Add'; #translate
 
 ?>

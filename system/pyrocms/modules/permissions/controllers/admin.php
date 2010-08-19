@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Permissions controller
- * 
+ *
  * @author 		Phil Sturgeon, Yorick Peterse - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Pages module
@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
         $this->lang->load('permissions');
         $this->lang->load('groups/group');
 		$this->load->library('form_validation');
-		
+
 		// Validation rules
 		$this->validation_rules = array(
 			array(
@@ -65,10 +65,10 @@ class Admin extends Admin_Controller
         $this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'name');
         $this->data->users 			= $this->users_m->get_all();
         $this->data->users_select 	= array_for_select($this->data->users, 'id', 'full_name');
-        
+
         $modules 					= $this->modules_m->get_modules(array('is_backend' => true));
         $this->data->modules_select = array('*' => lang('perm_module_select_default')) + array_for_select($modules, 'slug', 'name');
-        
+
         $this->template->append_metadata('
 			<script type="text/javascript">
 				var roleDeleteConfirm = "' . 			lang('perm_role_delete_confirm') 		. '";
@@ -76,11 +76,11 @@ class Admin extends Admin_Controller
 				var permMethodSelectDefault = "' . 		lang('perm_method_select_default') 	. '";
 			</script>
 		');
-        
+
         $this->template->append_metadata( js('permissions.js', 'permissions') );
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
     }
-    
+
     /**
      * Index methods, lists all permissions
 	 * @access public
@@ -94,15 +94,17 @@ class Admin extends Admin_Controller
             //... and get rules for each one
             $this->data->rules[$role->name] = $this->permissions_m->get_rules(array('role' => $role->id));
         }
-        
+
 		// Loop through each user
         foreach($this->data->users as $user)
         {
             $this->data->rules[$user->id] = $this->permissions_m->get_rules(array('user_id' => $user->id));
         }
-        
+
 		// Render the view
-        $this->template->build('admin/index', $this->data);
+        $this->template
+        	->title(lang('module.permissions'))
+        	->build('admin/index', $this->data);
     }
 
 	/**
@@ -141,7 +143,7 @@ class Admin extends Admin_Controller
 			// Redirect
             redirect('admin/permissions');
         }
-		
+
 		// Loop through each validation rule
 		foreach($this->validation_rules as $rule)
 		{
@@ -153,9 +155,11 @@ class Admin extends Admin_Controller
 		$this->data->permission_rule 	=& $permission_rule;
         $this->data->controllers_select = array('*' => lang('perm_controller_select_default')) 	+ array_for_select($this->modules_m->get_module_controllers($this->validation_rules[0]));
         $this->data->methods_select 	= array('*' => lang('perm_method_select_default')) 		+ array_for_select($this->modules_m->get_module_controller_methods($this->validation_rules[0], $this->validation_rules[1]));
-        $this->template->build('admin/form', $this->data);
+        $this->template
+        	->title(lang('module.permissions'),lang('method.create'))
+        	->build('admin/form', $this->data);
     }
-    
+
 	/**
 	 * Edit permission rules
 	 *
@@ -170,16 +174,16 @@ class Admin extends Admin_Controller
 		{
 			 redirect('admin/permissions');
 		}
-        
+
 		// Get the permissions
         $permission_rule = $this->permissions_m->get_rule($id);
-        
+
 		if ( !$permission_rule )
         {
             $this->session->set_flashdata('error', lang('perm_rule_not_exist_error'));
             redirect('admin/permissions/create');
         }
-        
+
 		// Set some extra rules based on the role type
         if ( $this->input->post('role_type') == 'user' )
         {
@@ -189,7 +193,7 @@ class Admin extends Admin_Controller
         {
             $this->validation_rules[5]['rules'] .= '|required';
         }
-		
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
@@ -210,13 +214,15 @@ class Admin extends Admin_Controller
         $this->data->permission_rule 		=& $permission_rule;
  		$this->data->controllers_select 	= array('*' => lang('perm_controller_select_default')) + array_for_select($this->modules_m->get_module_controllers($this->data->permission_rule->module));
         $this->data->methods_select 		= array('*' => lang('perm_method_select_default')) + array_for_select($this->modules_m->get_module_controller_methods($this->data->permission_rule->module, $this->data->permission_rule->controller));
-        
-        $this->template->build('admin/form', $this->data);
+
+        $this->template
+        	->title(lang('module.permissions'),lang('method.edit'))
+        	->build('admin/form', $this->data);
     }
 
 	/**
 	 * Delete permission rules
-	 * 
+	 *
 	 * @access public
 	 * @param int $id The ID of the rule
 	 * @return void
@@ -228,7 +234,7 @@ class Admin extends Admin_Controller
         {
             $this->permissions_m->delete($id);
         }
-        
+
         // Delete multiple
         else
         {
@@ -240,11 +246,11 @@ class Admin extends Admin_Controller
                 }
             }
         }
-        
+
         $this->session->set_flashdata('success', lang('perm_rule_delete_success'));
         redirect('admin/permissions');
     }
-    
+
     // AJAX Callbacks
 	// #TODO: Not sure how to document the 2 methods below. - Yorick
     function module_controllers($module = '')
@@ -252,7 +258,7 @@ class Admin extends Admin_Controller
         $controllers = $this->modules_m->get_module_controllers($module);
         exit(json_encode($controllers));
     }
-    
+
     function controller_methods($module = '', $controller = 'admin')
     {
         $methods = $this->modules_m->get_module_controller_methods($module, $controller);
