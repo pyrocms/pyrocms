@@ -10,19 +10,43 @@
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 	<p>
 		<label for="hostname">{server}</label>
-		<?php echo form_input('hostname', $this->session->userdata('hostname')); ?>
+		<?php
+			echo form_input(array(
+				'id' => 'hostname',
+				'name' => 'hostname',
+				'value' => $this->session->userdata('hostname')
+			));
+		?>
 	</p>
 	<p>
 		<?php echo lang('username','username'); ?>
-		<?php echo form_input('username', $this->session->userdata('username')); ?>
+		<?php
+			echo form_input(array(
+				'id' => 'username',
+				'name' => 'username',
+				'value' => $this->session->userdata('username')
+			));
+		?>
 	</p>
 	<p>
 		<?php echo lang('password','password'); ?>
-		<?php echo form_password('password', $this->session->userdata('password')); ?>
+		<?php
+			echo form_password(array(
+				'id' => 'password',
+				'name' => 'password',
+				'value' => $this->session->userdata('password')
+			));
+		?>
 	</p>
 	<p>
 		<?php echo lang('portnr','port'); ?>
-		<?php echo form_input('port', set_value('port', $port)); ?>
+		<?php
+			echo form_input(array(
+				'id' => 'port',
+				'name' => 'port',
+				'value' => set_value('port', $port)
+			));
+		?>
 	</p>
 	
 	<div id="notification">
@@ -32,8 +56,10 @@
 	<h3>{server_settings}</h3>
 
 	<p>
-		<?php echo lang('httpserver','httpserver'); ?>
-		<?php echo form_dropdown('http_server', $server_options, $this->session->userdata('http_server')); ?>
+		<?php echo lang('httpserver','http_server'); ?>
+		<?php
+			echo form_dropdown('http_server', $server_options, $this->session->userdata('http_server'), 'id="http_server"');
+		?>
 	</p>
 	
 	<input type="hidden" name="installation_step" value="step_1" />
