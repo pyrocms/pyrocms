@@ -141,7 +141,7 @@ class Widgets
 
 		$data['options'] = $options;
 
-        return $this->load->view('../../'.$path.'/views/display', $data, TRUE);
+        return $this->load->view('../../../.'.$path.'views/display', $data, TRUE);
     }
 
     function render_backend($name, $default_options = array())
