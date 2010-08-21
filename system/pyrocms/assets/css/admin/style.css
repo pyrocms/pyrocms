@@ -2,6 +2,7 @@
 @import "text.css";
 @import "../common.css";
 @import "uniform.default.css";
+@import "forms.css";
 
 body {
 	background: #FFFFFF url(../../img/admin2/bg.png) top left repeat-y;
