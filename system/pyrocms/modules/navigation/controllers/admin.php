@@ -16,7 +16,7 @@ class Admin extends Admin_Controller
 	 * @access private
 	 */
 	private $validation_rules 	= array();
-	
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -26,25 +26,25 @@ class Admin extends Admin_Controller
 	{
 		// Call the parent's contstructor
 		parent::__construct();
-		
+
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('navigation_m');
 		$this->load->model('pages/pages_m');
 		$this->lang->load('navigation');
-		
+
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	    $this->template->append_metadata( js('navigation.js', 'navigation') );
-		
+
 		// Get Navigation Groups
 		$this->data->groups 		= $this->navigation_m->get_groups();
-		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');				
+		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');
 		$modules 					= $this->modules_m->get_modules(array('is_frontend'=>true));
-		$this->data->modules_select = array_for_select($modules, 'slug', 'name');				
-		
+		$this->data->modules_select = array_for_select($modules, 'slug', 'name');
+
 		// Get Pages and create pages tree
 		$tree = array();
-		
+
 		if($pages = $this->pages_m->get_all())
 		{
 			foreach($pages AS $page)
@@ -52,10 +52,10 @@ class Admin extends Admin_Controller
 				$tree[$page->parent_id][] = $page;
 			}
 		}
-	
+
 		unset($pages);
 		$this->data->pages_select = $tree;
-		
+
 		// Set the validation rules for the navigation items
 		$this->validation_rules = array(
 			array(
@@ -99,10 +99,10 @@ class Admin extends Admin_Controller
 				'rules'	=> 'trim|max_length[10]'
 			),
 		);
-		
+
 		$this->form_validation->set_rules($this->validation_rules);
 	}
-	
+
 	/**
 	 * List all navigation elements
 	 * @access public
@@ -110,24 +110,26 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// Go through all the groups 
+		// Go through all the groups
 		foreach($this->data->groups as $group)
 		{
 			//... and get navigation links for each one
 			$this->data->navigation[$group->abbrev] = $this->navigation_m->get_links(array('group'=>$group->id, 'order'=>'position, title'));
 		}
-		
+
 		// Create the layout
-		$this->template->build('admin/index', $this->data);
+		$this->template
+			->title(lang('module.navigation'))
+			->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Create a new navigation item
 	 * @access public
 	 * @return void
 	 */
 	public function create()
-	{						
+	{
 		// Run if valid
 		if ($this->form_validation->run())
 		{
@@ -136,12 +138,12 @@ class Admin extends Admin_Controller
 			{
 				$this->cache->delete_all('navigation_m');
 				$this->session->set_flashdata('success', lang('nav_link_add_success'));
-			}            
-			else 
+			}
+			else
 			{
 				$this->session->set_flashdata('error', lang('nav_link_add_error'));
 			}
-			
+
 			// Redirect
 			redirect('admin/navigation');
 		}
@@ -153,10 +155,12 @@ class Admin extends Admin_Controller
 		}
 
 		// Render the view
-		$this->data->navigation_link =& $navigation_link;		
-		$this->template->build('admin/links/form', $this->data);
+		$this->data->navigation_link =& $navigation_link;
+		$this->template
+			->title(lang('module.navigation'),lang('method.create'))
+			->build('admin/links/form', $this->data);
 	}
-	
+
 	/**
 	 * Edit a navigation item
 	 * @access public
@@ -170,23 +174,23 @@ class Admin extends Admin_Controller
 		{
 			redirect('admin/navigation');
 		}
-		
+
 		// Get the navigation item based on the ID
 		$navigation_link = $this->navigation_m->get_link($id);
-		
-		if (!$navigation_link) 
+
+		if (!$navigation_link)
 		{
 			$this->session->set_flashdata('error', $this->lang->line('nav_link_not_exist_error'));
 			redirect('admin/navigation/create');
 		}
-		
+
 		// Valid data?
 		if ($this->form_validation->run())
 		{
 			// Update the link and flush the cache
 			$this->navigation_m->update_link($id, $_POST);
 			$this->cache->delete_all('navigation_m');
-					
+
 			// Notify and redirect
 			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
 			redirect('admin/navigation');
@@ -200,12 +204,14 @@ class Admin extends Admin_Controller
 				$navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
-		
+
 		// Render the view
-		$this->data->navigation_link =& $navigation_link;		
-		$this->template->build('admin/links/form', $this->data);
+		$this->data->navigation_link =& $navigation_link;
+		$this->template
+			->title(lang('module.navigation'),lang('method.edit'))
+			->build('admin/links/form', $this->data);
 	}
-	
+
 	/**
 	 * Delete an existing navigation link
 	 * @access public
@@ -215,7 +221,7 @@ class Admin extends Admin_Controller
 	public function delete($id = 0)
 	{
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
-		
+
 		// Loop through each item to delete
 		if(!empty($id_array))
 		{
@@ -229,7 +235,7 @@ class Admin extends Admin_Controller
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation');
 	}
-	
+
 	/**
 	 * Update the position of the navigation link
 	 * @access public
@@ -239,17 +245,17 @@ class Admin extends Admin_Controller
 	{
 		// Create an array containing the IDs
 		$ids = explode(',', $this->input->post('order'));
-		
+
 		// Counter variable
 		$i = 1;
-		
+
 		foreach($ids as $id)
 		{
 			// Update the position
 			$this->navigation_m->update_link_position($id, $i);
 			++$i;
 		}
-		
+
 		// Flush the cache
 		$this->cache->delete_all('navigation_m');
 	}

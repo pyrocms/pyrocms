@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PyroCMS - <?php echo $template['title'];?></title>
+	<title><?php echo lang('cp_admin_title').' - '.$template['title'];?></title>
 	<?php echo $template['partials']['metadata']; ?>
 </head>
 
@@ -11,7 +11,7 @@
 <?php echo $template['partials']['header']; ?>
 <?php echo $template['partials']['navigation']; ?>
 		<div id="lang-select">
-		<form action="<?php echo $this->uri->uri_string(); ?>" id="change_language" method="get">
+		<form action="<?php echo current_url(); ?>" id="change_language" method="get">
 				<select name="lang" onchange="this.form.submit();">
 					<option value="">-- Select Language --</option>
 			<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>
@@ -34,7 +34,7 @@
 			<?php if(!empty($template['partials']['shortcuts'])): ?>
 				<?php echo $template['partials']['shortcuts']; ?>
 			<?php endif; ?>
-			
+
 			<?php echo $template['body']; ?>
 
 		<footer>

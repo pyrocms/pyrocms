@@ -141,7 +141,7 @@ class Widgets
 
 		$data['options'] = $options;
 
-        return $this->load->view('../../'.$path.'/views/display', $data, TRUE);
+        return $this->load->view('../../../.'.$path.'views/display', $data, TRUE);
     }
 
     function render_backend($name, $default_options = array())
@@ -163,7 +163,7 @@ class Widgets
 				$data['options'][$field_name] = set_value($field_name, @$default_options[$field_name]);
 			}
 
-			return $this->load->view('../..'.$path.'/views/form', $data, TRUE);
+			return $this->load->view('../../../.'.$path.'views/form', $data, TRUE);
 		}
 
 		return '';

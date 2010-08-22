@@ -1,10 +1,10 @@
 <?php
 
-$lang['cp_admin_title'] 				= 'Panneau de contrôle'; 
+$lang['cp_admin_title'] 				= 'Panneau de contrôle';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
 
 $lang['cp_welcome_title'] 				= 'Bienvenue';
-$lang['cp_welcome_message'] 			= 'Bienvenue dans le panneau de contrôle de %s. Les liens de navigation ci-dessus et sur la gauche vous permettent de configurer la quasi totalité de votre site Internet.<br/> Au cas ou vous rencontrez un bug dans le système, veuillez s\'il vous plait créer un ticket dans notre bugtracker.'; 
+$lang['cp_welcome_message'] 			= 'Bienvenue dans le panneau de contrôle de %s. Les liens de navigation ci-dessus et sur la gauche vous permettent de configurer la quasi totalité de votre site Internet.<br/> Au cas ou vous rencontrez un bug dans le système, veuillez s\'il vous plait créer un ticket dans notre bugtracker.';
 
 $lang['cp_news_feed_title'] 			= 'Flux d\'actualités';
 
@@ -16,7 +16,7 @@ $lang['cp_logout_label'] 				= 'Déconnexion';
 $lang['cp_edit_profile_label'] 			= 'Mise à jour du Profil';
 
 // Footer
-$lang['cp_change_language'] 			= 'Changer de langue'; 
+$lang['cp_change_language'] 			= 'Changer de langue';
 $lang['cp_documentation'] 				= 'Documentation';
 $lang['cp_report_bug'] 					= 'Signaler un bug';
 $lang['cp_contact_support'] 			= 'Support';
@@ -38,3 +38,40 @@ $lang['cp_sidebar_title'] 				= 'Menu';
 
 $lang['required_label'] 				= 'Requis';
 $lang['sb_recent_users'] 				= 'Utilisateurs récents';
+
+//Admin page titles
+
+//module names
+$lang['module.comments']						= 'Comments'; #translate
+$lang['module.pages']							= 'Pages'; #translate
+$lang['module.files']							= 'Files'; #translate
+$lang['module.variables']						= 'Variables'; #translate
+$lang['module.widgets']							= 'Widgets'; #translate
+$lang['module.themes']							= 'Themes'; #translate
+$lang['module.navigation']						= 'Navigation'; #translate
+$lang['module.modules']							= 'Modules'; #translate
+$lang['module.contact']							= 'Contact'; #translate
+$lang['module.forums']							= 'Forums'; #translate
+$lang['module.galleries']						= 'Galleries'; #translate
+$lang['module.news']							= 'News'; #translate
+$lang['module.newsletters']						= 'Newsletters'; #translate
+$lang['module.users']							= 'Users'; #translate
+$lang['module.settings']						= 'Settings'; #translate
+$lang['module.groups']							= 'Groups'; #translate
+$lang['module.permissions']						= 'Permissions'; #translate
+
+//methods
+$lang['method.edit']							= 'Edit'; #translate
+$lang['method.delete']							= 'Delete'; #translate
+$lang['method.upload']							= 'Upload'; #translate
+$lang['method.create']							= 'Create'; #translate
+$lang['method.layouts']							= 'Layouts'; #translate
+$lang['method.folders']							= 'Folders'; #translate
+$lang['method.groups']							= 'Groups'; #translate
+$lang['method.inactive']						= 'Inactive'; #translate
+$lang['method.layouts']							= 'Layouts'; #translate
+$lang['method.unapproved']						= 'Unapproved'; #translate
+$lang['method.approved']						= 'Approved'; #translate
+$lang['method.add']								= 'Add'; #translate
+
+?>

@@ -44,8 +44,8 @@ class Admin_folders extends Admin_Controller {
 		{
 			show_error(lang('files.folders.not_exists'));
 		}
-		
-		$sub_folders = $this->file_folders_m->get_children($id);	
+
+		$sub_folders = $this->file_folders_m->get_children($id);
 		$this->data->folder = $this->file_folders_m->get($id);
 		$this->data->selected_folder = 0;
 		if(empty($sub_folders))
@@ -57,7 +57,7 @@ class Admin_folders extends Admin_Controller {
 			$sub_folders = array(0 => lang('files.dropdown.root')) + $sub_folders;
 		}
 		$this->data->sub_folders = $sub_folders;
-		
+
 /*		if($this->is_ajax())
 		{*/
 			$this->load->view('admin/folders/contents', $this->data);
@@ -66,14 +66,14 @@ class Admin_folders extends Admin_Controller {
 		{
 			redirect('admin/file');
 		}
-*/		
+*/
 	}
-	
+
 	public function create()
 	{
 		$this->_folder_create();
 	}
-	
+
 	public function delete($id)
 	{
 		$this->_folder_delete($id);
@@ -82,18 +82,20 @@ class Admin_folders extends Admin_Controller {
 	public function upload()
 	{
 
-		$this->template->build('admin/upload', $this->data);
+		$this->template
+			->title(lang('module.files'),lang('method.upload'))
+			->build('admin/upload', $this->data);
 	}
 
 	private function _folder_list($id)
 	{
 		if($id === NULL)
 		{
-			$file_folders = $this->file_folders_m->get_all();			
+			$file_folders = $this->file_folders_m->get_all();
 		}
 		else
 		{
-			$file_folders = $this->file_folders_m->get_children($id);			
+			$file_folders = $this->file_folders_m->get_children($id);
 		}
 
 		$this->data->file_folders = &$file_folders;
@@ -150,7 +152,9 @@ class Admin_folders extends Admin_Controller {
 		}
 
 		$this->data->folder =& $folder;
-		
-		$this->template->build('admin/folders/confirm', $this->data);
+
+		$this->template
+			->title(lang('module.files'),lang('method.delete'))
+			->build('admin/folders/confirm', $this->data);
 	}
 }

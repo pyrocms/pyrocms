@@ -1,0 +1,69 @@
+/** Global backend form styles **/
+
+/** tidy up how ol, ul look inside form areas **/
+form ol, ul {
+	list-style-type: none;
+}
+form li {
+	margin: 0;
+	vertical-align: middle;
+	padding: 15px 8px;
+}
+form li.even {
+	background-color: #f3f3f3;
+	-moz-border-radius: 5px 5px 5px 5px;
+}
+/** group labels and input **/
+form label {
+	display: block;
+	float: left;
+	font-weight: bold;
+	font-size: 11px;
+	width: 25%;
+	padding: .35em 0;
+	color: #545454;
+}
+fieldset ol li div, fieldset ul li div, form ul li div {
+	width: 75%;
+}
+
+/** text input **/
+form input[type=text] {
+	width: 20em;
+}
+/** selects **/
+form select {
+	width: 20em;
+}
+/** this sits the width back to a fixed width for selects **/
+form div.selector {
+	width: 200px;
+}
+/** check boxes **/
+form div.checker {
+	margin-right: 0;
+}
+/** helper text **/
+form li p, .text-small1 {
+	color: #7E7E7E;
+	font-style: italic;
+}
+span.text-small1 {
+	line-height: 16px;
+	vertical-align: middle;
+}
+form .ui-state-active a {
+	font-weight: bold;
+}
+form span.required-icon {
+	background:url("../../img/admin2/input-required.png") no-repeat scroll 0 0 transparent;
+	display:inline-block;
+	height:20px;
+	margin-left:-20px;
+	overflow:hidden;
+	position:relative;
+	text-indent:-9000px;
+	top:-4px;
+	vertical-align:top;
+	width:15px;
+}

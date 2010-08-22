@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * User settings controller for the users module
- * 
+ *
  * @author 		Phil Sturgeon - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Users module
@@ -9,21 +9,21 @@
  */
 class User_settings extends Public_Controller
 {
-	
+
 	/**
 	 * The ID of the user
 	 * @access private
 	 * @var int
 	 */
 	private $user_id 			= 0;
-	
+
 	/**
 	 * Array containing the validation rules
 	 * @access private
 	 * @var array
 	 */
 	private $validation_rules 	= array();
-	
+
 	/**
 	 * Constructor method
 	 *
@@ -34,20 +34,20 @@ class User_settings extends Public_Controller
 	{
 		// Call the parent's constructor method
 		parent::__construct();
-		
+
 		// Get the user ID, if it exists
 		if($user = $this->ion_auth->get_user())
 		{
 			$this->user_id = $user->id;
 		}
-        
+
 		// Load the required data
 		$this->load->model('users_m');
 		$this->load->library('form_validation');
-		
+
 		$this->load->helper('user');
 		$this->lang->load('user');
-		
+
 		// Validation rules
 		$this->validation_rules = array(
 			array(
@@ -93,7 +93,7 @@ class User_settings extends Public_Controller
 
 	/**
    	 * Show the current settings
-	 * 
+	 *
 	 * @access public
 	 * @return void
    	 */
@@ -101,10 +101,10 @@ class User_settings extends Public_Controller
 	{
 		$this->edit();
 	}
-	
+
 	/**
 	 * Edit the current user's settings
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -114,37 +114,37 @@ class User_settings extends Public_Controller
 		if(!$this->ion_auth->logged_in())
 		{
 			redirect('users/login');
-		}		   
-			
+		}
+
 	    // Get settings for this user
 	   $user_settings = $this->ion_auth->get_user();
-	    
+
 		// Settings valid?
 	    if ($this->form_validation->run())
 	    {
 			// Set the data to insert
 	    	$set['first_name'] 	= $this->input->post('settings_first_name', TRUE);
 	    	$set['last_name'] 	= $this->input->post('settings_last_name', TRUE);
-	    		
+
 	    	// Set the language for this user
 			$this->ion_auth->set_lang( $this->input->post('settings_lang', TRUE) );
 			$set['lang'] = $this->input->post('settings_lang', TRUE);
-	    		
+
 	    	// If password is being changed (and matches)
 	    	if($this->input->post('settings_password'))
-	    	{				
+	    	{
 				$set['password'] = $this->input->post('settings_password');
 	    	}
-	    	
+
 			if ($this->ion_auth->update_user($this->user_id, $set))
 			{
 	    		$this->session->set_flashdata('success', $this->ion_auth->messages());
-	    	}    		
+	    	}
 	    	else
 	    	{
 	    		$this->session->set_flashdata('error', $this->ion_auth->errors());
 	    	}
-			
+
 			// Redirect
 	    	redirect('edit-settings');
 	    }
@@ -160,17 +160,17 @@ class User_settings extends Public_Controller
 					$user_settings->{$fieldname} = set_value($rule['field']);
 				}
 			}
-		}		
-	    
+		}
+
 	    // Format languages for the dropdown box
 	    $this->data->languages = array();
 	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
 	    	$this->data->languages[$lang_code] = $lang['name'];
 	    }
-	    
+
 		$this->data->user_settings =& $user_settings;
 		$this->template->build('settings/edit', $this->data);
-	}	
+	}
 }
 ?>

@@ -51,7 +51,9 @@ class Admin extends Admin_Controller
 	public function index()
 	{
     	$this->template->groups = $this->group_m->get_all();
-    	$this->template->build('admin/index', $this->data);
+    	$this->template
+    		->title(lang('module.groups'))
+    		->build('admin/index', $this->data);
 	}
 
 	/**
@@ -88,7 +90,9 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template->group = $group;
-		$this->template->build('admin/form', $this->data);
+		$this->template
+			->title(lang('module.groups'),lang('method.add'))
+			->build('admin/form', $this->data);
 	}
 
 
@@ -102,7 +106,7 @@ class Admin extends Admin_Controller
 	public function edit($id = 0)
 	{
 		$group = $this->group_m->get($id);
-		
+
 		// Make sure we found something
 		$group or redirect('admin/groups');
 
@@ -125,7 +129,7 @@ class Admin extends Admin_Controller
 				$this->template->messages = array('error' => validation_errors());
 			}
 		}
-		
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -138,7 +142,9 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template->group = $group;
-		$this->template->build('admin/form', $this->data);
+		$this->template
+			->title(lang('module.groups'),lang('method.edit'))
+			->build('admin/form', $this->data);
 	}
 
 	/**
@@ -153,7 +159,7 @@ class Admin extends Admin_Controller
 		$this->group_m->delete($id)
 			? $this->session->set_flashdata('success', lang('groups.delete_success'))
 			: $this->session->set_flashdata('success', lang('groups.delete_error'));
-		
+
 		redirect('admin/groups');
 	}
 }

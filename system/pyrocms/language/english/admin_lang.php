@@ -39,4 +39,39 @@ $lang['cp_shortcuts_title'] 			= 'Shortcuts';
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';
 
+//Admin page titles
+
+//module names
+$lang['module.comments']						= 'Comments';
+$lang['module.pages']							= 'Pages';
+$lang['module.files']							= 'Files';
+$lang['module.variables']						= 'Variables';
+$lang['module.widgets']							= 'Widgets';
+$lang['module.themes']							= 'Themes';
+$lang['module.navigation']						= 'Navigation';
+$lang['module.modules']							= 'Modules';
+$lang['module.contact']							= 'Contact';
+$lang['module.forums']							= 'Forums';
+$lang['module.galleries']						= 'Galleries';
+$lang['module.news']							= 'News';
+$lang['module.newsletters']						= 'Newsletters';
+$lang['module.users']							= 'Users';
+$lang['module.settings']						= 'Settings';
+$lang['module.groups']							= 'Groups';
+$lang['module.permissions']						= 'Permissions';
+
+//methods
+$lang['method.edit']							= 'Edit';
+$lang['method.delete']							= 'Delete';
+$lang['method.upload']							= 'Upload';
+$lang['method.create']							= 'Create';
+$lang['method.layouts']							= 'Layouts';
+$lang['method.folders']							= 'Folders';
+$lang['method.groups']							= 'Groups';
+$lang['method.inactive']						= 'Inactive';
+$lang['method.layouts']							= 'Layouts';
+$lang['method.unapproved']						= 'Unapproved';
+$lang['method.approved']						= 'Approved';
+$lang['method.add']								= 'Add';
+
 ?>

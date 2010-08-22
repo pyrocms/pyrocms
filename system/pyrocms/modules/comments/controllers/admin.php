@@ -14,7 +14,7 @@ class Admin extends Admin_Controller
 	 * @var array
 	 */
 	private $validation_rules = array();
-	
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -24,12 +24,12 @@ class Admin extends Admin_Controller
 	{
 		// Call the parent constructor
 		parent::Admin_Controller();
-		
+
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');
-		
+
 		// Set the validation rules
 		$this->validation_rules = array(
 			array(
@@ -53,13 +53,13 @@ class Admin extends Admin_Controller
 				'rules'	=> 'trim|required'
 			),
 		);
-		
+
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-	
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 	}
-	
+
 	/**
 	 * Index
 	 * @access public
@@ -77,19 +77,21 @@ class Admin extends Admin_Controller
 	{
 		// Load the text helper
 		$this->load->helper('text');
-		
+
 		// Create pagination links
 		$total_rows 			= $this->comments_m->count_by('is_active', 0);
 		$this->data->pagination = create_pagination('admin/comments/unapproved', $total_rows);
-		
+
 		// get all comments
 		$comments = $this->comments_m
 			->limit($this->data->pagination['limit'])
 			->order_by('comments.created_on', 'desc')
 			->get_many_by('comments.is_active', 0);
-		
+
 		$this->data->comments = process_comment_items($comments);
-		$this->template->build('admin/index', $this->data);			
+		$this->template
+			->title(lang('module.comments'))
+			->build('admin/index', $this->data);
 	}
 
 	/**
@@ -113,9 +115,11 @@ class Admin extends Admin_Controller
 
 		$this->data->comments 	= process_comment_items($comments);
 
-		$this->template->build('admin/index', $this->data);
+		$this->template
+			->title(lang('module.comments'))
+			->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Action method, called whenever the user submits the form
 	 * @access public
@@ -127,7 +131,7 @@ class Admin extends Admin_Controller
 		{
 			// Get the action
 			$id_array = $this->input->post('action_to');
-			
+
 			// Switch statement
 			switch( strtolower( $this->input->post('btnAction') ) )
 			{
@@ -136,7 +140,7 @@ class Admin extends Admin_Controller
 					// Loop through each ID
 					foreach($id_array as $key => $value)
 					{
-						// Multiple ones ? 
+						// Multiple ones ?
 						if(count($id_array) > 1)
 						{
 							$this->approve($value,FALSE,TRUE);
@@ -152,7 +156,7 @@ class Admin extends Admin_Controller
 					// Loop through each ID
 					foreach($id_array as $key => $value)
 					{
-						// Multiple ones ? 
+						// Multiple ones ?
 						if(count($id_array) > 1)
 						{
 							$this->unapprove($value,FALSE,TRUE);
@@ -168,13 +172,13 @@ class Admin extends Admin_Controller
 					$this->delete();
 				break;
 			}
-			
+
 			// Redirect
 			redirect('admin/comments');
 		}
-		
+
 	}
-		
+
 	/**
 	 * Edit an existing comment
 	 * @access public
@@ -190,10 +194,10 @@ class Admin extends Admin_Controller
 
 		// Get the comment based on the ID
 		$comment = $this->comments_m->get($id);
-		
+
 		// Validate the results
 		if ($this->form_validation->run())
-		{		
+		{
 			if($comment->user_id > 0)
 			{
 				$commenter['user_id'] 	= $this->input->post('user_id');
@@ -203,14 +207,14 @@ class Admin extends Admin_Controller
 				$commenter['name'] 		= $this->input->post('name');
 				$commenter['email'] 	= $this->input->post('email');
 			}
-			
+
 			$comment = array_merge($commenter, array(
 				'comment'    	=> $this->input->post('comment'),
 				'website'    	=> $this->input->post('website'),
 				'module'   		=> $this->input->post('module'),
 				'module_id' 	=> $this->input->post('module_id')
 			));
-			
+
 			// Update the comment
 			if($this->comments_m->update($id, $comment))
 			{
@@ -220,7 +224,7 @@ class Admin extends Admin_Controller
 			{
 				$this->session->set_flashdata('error', lang('comments.edit_error'));
 			}
-			
+
 			// Redirect the user
 			redirect('admin/comments');
 		}
@@ -235,18 +239,20 @@ class Admin extends Admin_Controller
 		}
 
 		$this->data->comment =& $comment;
-		
+
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template
+			->title(lang('module.comments'),lang('method.edit'))
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
 		$this->template->build('admin/form', $this->data);
-	}	
-		
+	}
+
 	// Admin: Delete a comment
 	public function delete($id = 0)
 	{
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
-		
+
 		// Go through the array of ids to delete
 		$comments = array();
 		foreach ($ids as $id)
@@ -255,13 +261,13 @@ class Admin extends Admin_Controller
 			if($comment = $this->comments_m->get($id))
 			{
 				$this->comments_m->delete($id);
-				
+
 				// Wipe cache for this model, the content has changed
-				$this->cache->delete('comment_m');				
+				$this->cache->delete('comment_m');
 				$comments[] = $comment->id;
 			}
 		}
-		
+
 		// Some comments have been deleted
 		if(!empty($comments))
 		{
@@ -269,23 +275,23 @@ class Admin extends Admin_Controller
 			if(count( $comments ) == 1)
 			{
 				$this->session->set_flashdata( 'success', sprintf(lang('comments.delete_single_success'), $comments[0]) );
-			}			
+			}
 			// Deleting multiple comments
 			else
 			{
 				$this->session->set_flashdata( 'success', sprintf( lang('comments.delete_multi_success'), implode( ', #', $comments ) ) );
 			}
 		}
-		
+
 		// For some reason, none of them were deleted
 		else
 		{
 			$this->session->set_flashdata( 'error', lang('comments.delete_error') );
 		}
-			
+
 		redirect('admin/comments');
 	}
-	
+
 	// Admin: activate a comment
 	public function approve($id = 0, $redirect = TRUE, $multiple = FALSE)
 	{
@@ -293,10 +299,10 @@ class Admin extends Admin_Controller
 		{
 			redirect('admin/comments');
 		}
-					
+
 		if($this->comments_m->approve($id))
 		{
-			// Unapprove multiple comments ? 
+			// Unapprove multiple comments ?
 			if($multiple == TRUE)
 			{
 				$this->session->set_flashdata( array('success'=> lang('comments.approve_success_multiple')));
@@ -306,10 +312,10 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata( array('success'=> lang('comments.approve_success')));
 			}
 		}
-		
+
 		else
 		{
-			// Error for multiple comments ? 
+			// Error for multiple comments ?
 			if($multiple == TRUE)
 			{
 				$this->session->set_flashdata( array('error'=> lang('comments.approve_error_multiple')) );
@@ -319,13 +325,13 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata( array('error'=> lang('comments.approve_error')) );
 			}
 		}
-		
+
 		if($redirect == TRUE)
 		{
-			redirect('admin/comments');	
-		}		
+			redirect('admin/comments');
+		}
 	}
-	
+
 	// Admin: deativate a comment
 	public function unapprove($id = 0,$redirect = TRUE,$multiple = FALSE)
 	{
@@ -333,43 +339,43 @@ class Admin extends Admin_Controller
 		{
 			redirect('admin/comments');
 		}
-					
+
 		if($this->comments_m->unapprove($id))
 		{
-			// Unapprove multiple comments ? 
+			// Unapprove multiple comments ?
 			if($multiple == TRUE)
 			{
 				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success_multiple')) );
 			}
-			
+
 			else
 			{
-				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success')) );	
-			}			
+				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success')) );
+			}
 		}
-		
+
 		else
 		{
-			// Error for multiple comments ? 
+			// Error for multiple comments ?
 			if($multiple == TRUE)
 			{
 				$this->session->set_flashdata( array('error'=> lang('comments.unapprove_error_multiple')) );
 			}
-			
+
 			else
 			{
 				$this->session->set_flashdata( array('error'=> lang('comments.unapprove_error')) );
 			}
 		}
-		
+
 		if($redirect == TRUE)
 		{
-			redirect('admin/comments');	
+			redirect('admin/comments');
 		}
 	}
-	
+
 	public function preview($id = 0)
-	{		
+	{
 		$this->data->comment = $this->comments_m->get($id);
 		$this->template->set_layout(FALSE);
 		$this->template->build('admin/preview', $this->data);
