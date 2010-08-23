@@ -1,4 +1,4 @@
-<?php echo form_open('admin/files');?>
+<?php echo form_open('admin/files/folders');?>
 	<h3><?php echo lang('files.folders.manage_title'); ?></h3>
 	
 	<div id="files_toolbar">
@@ -7,31 +7,34 @@
 		</ul>
 	</div>
 	
-		<?php if (!empty($file_folders)): ?>
+		<?php if ( ! empty($file_folders)): ?>
+			
+			<?php
+				$tmpl = array ( 'table_open'  => '<table border="0" class="table-list">' );
+				$this->table->set_template($tmpl);
+				$this->table->set_heading(
+					form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')),
+					lang('files.folders.name'),
+					lang('files.folders.created'),
+					'<span>'. lang('files.labels.action') .'</span>'
+				);
+					
+					foreach ($file_folders as $folder)
+					{
+						$spcr = '&nbsp;&nbsp; &raquo; ';
+						$indent = ($folder['parent_id'] != 0) ? repeater($spcr, $folder['depth']) : '';
+						$edit = anchor('admin/files/folders/edit/' . $folder['id'], lang('files.labels.edit'));
+						$delete = anchor('admin/files/folders/delete/' . $folder['id'], lang('files.labels.delete'), array('class'=>'confirm'));
+						$this->table->add_row(
+						 	form_checkbox('action_to[]', $folder['id']),
+						 	$indent.$folder['name'],
+							date("m.d.y \a\\t g.i a", $folder['date_added']),
+							$edit .' | '. $delete
+						 );
+					}
 
-			<table border="0" class="table-list">
-				<thead>
-					<tr>
-						<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-						<th><?php echo lang('files.folders.name');?></th>
-						<th><?php echo lang('files.folders.created');?></th>
-						<th class="width-10"><span><?php echo lang('files.labels.action');?></span></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($file_folders as $folder): ?>
-						<tr>
-							<td><?php echo form_checkbox('action_to[]', $folder->id);?></td>
-							<td><?php echo $folder->name;?></td>
-							<td><?php echo date("m.d.y \a\\t g.i a", $folder->date_added);?></td>
-							<td>
-								<?php echo anchor('admin/files/folders/edit/' . $folder->id, lang('files.labels.edit'));?> |
-								<?php echo anchor('admin/files/folders/delete/' . $folder->id, lang('files.labels.delete'), array('class'=>'confirm')); ?>
-							</td>
-						</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>
+				echo $this->table->generate();
+			?>
 
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 
@@ -43,7 +46,7 @@
 	(function($)
 	{
 		$(function() {
-			$("#new_folder").fancybox();
+			$("#new_folder").colorbox();
 		});
 	});
 </script>

@@ -23,6 +23,12 @@
  */
 class File_folders_m extends MY_Model {
 
+	private $_folders = array();
+	
+	private $_all_folders = array();
+	
+	private $_sub_folders = array();
+	
 	/**
 	 * Exists
 	 *
@@ -40,7 +46,9 @@ class File_folders_m extends MY_Model {
 		}
 		return FALSE;
 	}
-
+	
+	// ------------------------------------------------------------------------
+	
 	/**
 	 * Has Children
 	 *
@@ -58,7 +66,9 @@ class File_folders_m extends MY_Model {
 		}
 		return FALSE;
 	}
-
+	
+	// ------------------------------------------------------------------------
+	
 	/**
 	 * Get Children
 	 *
@@ -69,18 +79,145 @@ class File_folders_m extends MY_Model {
 	 * @param		string	$type		The type of folders to return
 	 * @return		array
 	 */
-	public function get_children($parent_id)
+	public function get_children($id, $lev = 0)
 	{
 		$return = array();
 
-		$folders = $this->order_by('name')->get_many_by(array('parent_id' => $parent_id));
+		$this->db->from('file_folders')
+					->where('id', (int) $id)
+					->order_by('name');
+		
+		$query = $this->db->get();
 
-		foreach($folders as & $folder)
+		if ($query->num_rows() == 0) 
 		{
-			$return[$folder->id] = $folder->name;
+			return array();
 		}
+		
+		$folder = $query->row_array();
+		
+		$path = array();
+		
+		$path[$lev]['name'] = $folder['name'];
+		$path[$lev]['slug'] = $folder['slug'];
+		
+		if ($folder['parent_id'] != 0) 
+		{
+			$path = array_merge($this->get_children($cat['parent_id'],$lev+1), $path);
+		}
+		
+		return $path;
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Folder Tree
+	 *
+	 * Get folder in an array
+	 *
+	 * @uses folder_subtree
+	 */
+	public function folder_tree($start = FALSE)
+	{
+		$data = $this->_all_cats = $this->get_all('array');
+		
+		foreach ($data as $row)
+		{
+			// This assigns all the select fields to the array.
+			foreach ($row AS $key => $val)
+			{
+				$arr[$key] = $val;
+			}
+			
+			$menu_array[$row['id']] = $arr;
+		}
+		
+		unset($arr);
+		
+		foreach ($menu_array as $key => $val)
+		{
+			// This checks if the start value is set. Instead of displaying all.
+			if ($start !== FALSE && ($start == $val['parent_id'] OR $start == $val['id']))
+			{
+				foreach ($val AS $the_key => $the_val)
+				{
+					$arr[$the_key] = $the_val;
+				}
+				//$this->_folders[$key] = $arr;
+				$this->_folder_subtree($key, $menu_array, 0, $start);
+			}
+			elseif ($start === FALSE && 0 == $val['parent_id'])
+			{
+				foreach ($val AS $the_key => $the_val)
+				{
+					$arr[$the_key] = $the_val;
+				}
+				$this->_folders[$key] = $arr;
+				$this->_folder_subtree($key, $menu_array, 0);
+			}
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Folder Sub Tree
+	 *
+	 * Gets all the child folders for a parent.
+	 *
+	 * @param	int
+	 * @param	array
+	 * @param	int
+	 */
+	private function _folder_subtree($id, $cat_array, $depth, $start = FALSE)
+	{
+		$catarray = array();
 
-		return $return;
+		$depth++;
+
+		foreach ($cat_array as $key => $val)
+		{
+			if ($id == $val['parent_id'])
+			{
+				foreach ($val AS $the_key => $the_val)
+				{
+					$arr[$the_key] = $the_val;
+				}
+				
+				$arr = array_merge($arr, array('depth' => $depth));
+				$this->_folders[$key] = $arr;
+				$this->_folder_subtree($key, $cat_array, $depth, $start);
+			}
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Get Folders
+	 *
+	 * Get the full array of folders
+	 *
+	 * @return 	array
+	 */
+	public function get_folders()
+	{
+		return $this->_folders;
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Clear folders
+	 *
+	 * Clear out the folders so they do not overlap.
+	 *
+	 */
+	public function clear_folders()
+	{
+		unset($this->_folders);
+		$this->_folders = array();
 	}
 }
 

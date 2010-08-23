@@ -34,7 +34,7 @@ form ul li input.button:hover {
 }
 
 </style>
-<?php echo form_open('admin/files/folders/create'); ?>
+<?php echo form_open($this->uri->uri_string()); ?>
 <h2><?php echo lang('files.folders.create'); ?></h2>
 <ul>
 	<li>
@@ -44,6 +44,18 @@ form ul li input.button:hover {
 	<li>
 		<label for="slug"><?php echo lang('files.folders.slug'); ?></label>
 		<?php echo form_input('slug', $folder->slug, 'class="required"'); ?>
+	</li>
+	<li>
+		<?php echo form_label(lang('files.labels.parent'). ':', 'parent_id'); ?>
+		<?php 
+		$folder_options['0'] = lang('files.dropdown.no_subfolders');
+		foreach($folder->parents as $row)
+		{
+			$indent = ($row['parent_id'] != 0) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
+			$folder_options[$row['id']] = $indent.$row['name']; 
+		}	
+		echo form_dropdown('parent_id', $folder_options, $folder->parent_id, 'id="parent_id" class="required"');
+		?>
 	</li>
 	<li>
 		<label for="nothing"></label>

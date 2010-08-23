@@ -4,7 +4,18 @@
 		<ul>
 			<li>
 				<label for="folder"><?php echo lang('files.subfolders.label'); ?>:</label>
-				<?php echo form_dropdown('folder', $sub_folders, $selected_folder); ?>
+				<?php 
+				$folder_options['0'] = $sub_folders[0];
+				foreach($sub_folders as $row)
+				{
+					if ($row['id'] == $id OR $row['parent_id'] > 0)
+					{
+						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
+						$folder_options[$row['id']] = $indent.$row['name'];
+					}
+				}	
+				echo form_dropdown('parent_id', $folder_options, $folder->parent_id, 'id="parent_id" class="required"');
+				?>
 			</li>
 				<li>
 					<label for="folder">Filter:</label>

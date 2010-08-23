@@ -52,7 +52,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		$file_folders = $this->file_folders_m->get_all();
+		$file_folders = $this->file_folders_m->get_many_by(array('parent_id' => '0'));
 
 		$this->data->file_folders = &$file_folders;
 

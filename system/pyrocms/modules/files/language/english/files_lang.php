@@ -18,6 +18,7 @@ $lang['files.labels.action']				= 'Action';
 $lang['files.labels.edit']					= 'Edit';
 $lang['files.labels.delete']				= 'Delete';
 $lang['files.labels.upload']				= 'Upload';
+$lang['files.labels.parent']				= 'Parent';
 $lang['files.no_files']						= 'There are currently no files.';
 
 $lang['files.folders.title']				= 'File Folders';
