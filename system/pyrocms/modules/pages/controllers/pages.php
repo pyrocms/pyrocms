@@ -113,12 +113,6 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 	    
-        // Parser does not need ALL information for this bit, and I hate the Dwoo object syntax
-        $page_array = array('page' => (array) $page);
-        
-	    // Parse the layout string and output
-		$page->layout->body = $this->parser->parse_string(stripslashes($page->layout->body), $page_array, TRUE);
-
 	    // Define data elements
         $this->data->page =& $page;
         $this->data->page->layout = $page->layout;

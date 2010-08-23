@@ -5,7 +5,7 @@
 @import "forms.css";
 
 body {
-	background: #FFFFFF url(../../img/admin2/bg.png) top left repeat-y;
+	background: #FFFFFF url(../../img/admin/bg.png) top left repeat-y;
 }
 body#login {
 	background: #FFFFFF;
@@ -39,7 +39,7 @@ a:hover {
 	font-size: 90%;
 }
 #logo {
-	background: url(../../img/admin2/logo.png) top center no-repeat;
+	background: url(../../img/admin/logo.png) top center no-repeat;
 	min-height: 40px;
 	margin-bottom: 10px;
 }
@@ -117,12 +117,12 @@ header#main h1 {
 	*display:inline;
 }
 #main-nav ul ul li a:hover {
-	background: url(../../img/admin2/nav-arrow.png) center left no-repeat;
+	background: url(../../img/admin/nav-arrow.png) center left no-repeat;
 	color: #333333;
 	background-color: transparent;
 }
 #main-nav ul ul li a.current {
-	background: url(../../img/admin2/nav-arrow.png) center left no-repeat;
+	background: url(../../img/admin/nav-arrow.png) center left no-repeat;
 	background-color: transparent;
 	border: 0;
 	color: #333333;
@@ -166,27 +166,27 @@ header#main h1 {
 	padding: 0;
 }
 .error {
-	background: #ffcece url('../../img/admin2/icons/16/cross-circle.png');
+	background: #ffcece url('../../img/admin/icons/16/cross-circle.png');
 	border-color: #df8f8f;
 	color: #665252;
 }
 .attention {
-	background: #fffbcc url('../../img/admin2/icons/16/exclamation.png');
+	background: #fffbcc url('../../img/admin/icons/16/exclamation.png');
 	border-color: #e6db55;
 	color: #666452;
 }
 .success {
-	background: #d5ffce url('../../img/admin2/icons/16/tick-circle.png');
+	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png');
 	border-color: #9adf8f;
 	color: #556652;
 }
 .information {
-	background: #dbe3ff url('../../img/admin2/icons/16/information.png');
+	background: #dbe3ff url('../../img/admin/icons/16/information.png');
 	border-color: #a2b4ee;
 	color: #585b66;
 }
 .close {
-	background-image: url('../../img/admin2/icons/16/cross-small-grey.png');
+	background-image: url('../../img/admin/icons/16/cross-small-grey.png');
 	text-indent: -99999px;
 	overflow: hidden;
 	display: block;
@@ -229,7 +229,7 @@ table tbody tr.alt {
 
 /** Icons **/
 a.edit {
-	background-image: url('../../img/admin2/icons/16/pencil.png');
+	background-image: url('../../img/admin/icons/16/pencil.png');
 	text-indent: -99999px;
 	overflow: hidden;
 	display: inline-block;
@@ -237,7 +237,7 @@ a.edit {
 	width: 16px;
 }
 a.delete {
-	background-image: url('../../img/admin2/icons/16/cross.png');
+	background-image: url('../../img/admin/icons/16/cross.png');
 	text-indent: -99999px;
 	overflow: hidden;
 	display: inline-block;
@@ -297,7 +297,7 @@ a.delete {
 	background-color: #F9F9F9;
 }
 #shortcuts a.add {
-	background: #F2F2F2 url('../../img/admin2/icons/16/plus.png') 10px 11px no-repeat;
+	background: #F2F2F2 url('../../img/admin/icons/16/plus.png') 10px 11px no-repeat;
 	padding-left: 35px;
 }
 

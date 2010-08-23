@@ -332,4 +332,16 @@ class Widgets
 	{
 		return (array) unserialize($options);
 	}
+
+//	private function _load_view($path, $file, $data = array())
+//	{
+//		$orig_view_path = $this->load->_ci_view_path;
+//
+//		echo $this->load->_ci_view_path = $path.'views/';
+//
+//		$view = $this->load->view($file, $data, TRUE);
+//		$this->load->_ci_view_path = $orig_view_path;
+//
+//		return $view;
+//	}
 }
