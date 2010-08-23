@@ -86,7 +86,7 @@ $autoload['config'] = array('asset', 'language');
 |
 */
 
-$autoload['language'] = array('main', 'errors', 'fragments', 'users/user');
+$autoload['language'] = array('main', 'errors', 'users/user');
 
 
 /*

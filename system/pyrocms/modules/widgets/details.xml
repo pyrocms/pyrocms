@@ -2,6 +2,7 @@
 <module version="1.0">
 	<name>
 		<en>Widgets</en>
+		<nl>Widgets</nl>
 		<es>Widgets</es>
 		<fr>Widgets</fr>
 		<de>Widgets</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Manage small sections of self-contained logic in blocks or "Widgets".</en>
+		<nl>Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".</nl>
 		<es>Manage small sections of self-contained logic in blocks or "Widgets".</es>
 		<fr>Manage small sections of self-contained logic in blocks or "Widgets".</fr>
 		<de>Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".</de>

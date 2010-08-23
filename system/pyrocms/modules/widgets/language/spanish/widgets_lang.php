@@ -1,30 +1,30 @@
 <?php
 
 // sidebar
-$lang['widgets.available_title'] 			= 'Available widgets';
+$lang['widgets.available_title'] 			= 'Widgets disponibles';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';
-$lang['widgets.widget_author'] 				= 'Author';
-$lang['widgets.widget_short_name'] 			= 'Short name';
-$lang['widgets.widget_version'] 			= 'Version';
+$lang['widgets.widget_author'] 				= 'Autor';
+$lang['widgets.widget_short_name'] 			= 'Nombre corto';
+$lang['widgets.widget_version'] 			= 'Versión';
 
 // Widget area titles
-$lang['widgets.add_area'] 					= 'Add widget area';
-$lang['widgets.delete_area'] 				= 'Delete area';
+$lang['widgets.add_area'] 					= 'Agregar área de widget';
+$lang['widgets.delete_area'] 				= 'Eliminar área';
 
 // Widget area field names
-$lang['widgets.widget_area'] 				= 'Area';
-$lang['widgets.widget_area_title'] 			= 'Area name';
-$lang['widgets.widget_area_slug'] 			= 'Area short name';
+$lang['widgets.widget_area'] 				= 'Área';
+$lang['widgets.widget_area_title'] 			= 'Nombre de área';
+$lang['widgets.widget_area_slug'] 			= 'Nombre corto del área';
 
 // Widget instance titles
-$lang['widgets.add_instance'] 				= 'Add widget instance';
-$lang['widgets.edit_instance'] 				= 'Edit widget instance';
-$lang['widgets.delete_instance'] 			= 'Delete widget instance';
+$lang['widgets.add_instance'] 				= 'Agregar instancia del widget';
+$lang['widgets.edit_instance'] 				= 'Editar instancia del widget';
+$lang['widgets.delete_instance'] 			= 'Eliminar instancia del widget';
 
-$lang['widgets.instance_title'] 			= 'Title';
-$lang['widgets.tag_title']					= 'Tag'; #translate
+$lang['widgets.instance_title'] 			= 'Título';
+$lang['widgets.tag_title']					= 'Etiqueta';
 
-$lang['widgets.instance_edit'] 				= 'Edit';
-$lang['widgets.instance_delete'] 			= 'Delete';
+$lang['widgets.instance_edit'] 				= 'Editar';
+$lang['widgets.instance_delete'] 			= 'Eliminar';

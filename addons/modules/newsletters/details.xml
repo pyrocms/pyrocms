@@ -2,6 +2,7 @@
 <module version="0.2">
 	<name>
 		<en>Newsletters</en>
+		<nl>Nieuwsbrieven</nl>
                 <pl>Newslettery</pl>
 		<es>Boletines</es>
 		<fr>Newsletters</fr>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Let visitors subscribe via their email address.</en>
+		<nl>Laat bezoekers een abonnement nemen door hun emailadres achter te laten.</nl>
                 <pl>Umożliwia użytkownikom zapisanie się za pomocą adresu e-mail do newsleterrów.</pl>
 		<es>Permite que tus visitantes puedan suscribirse a las actualizaciones del sitio vía correo electrónico.</es>
 		<fr>Permet aux visiteurs de s'abonner avec leur adresse e-mail.</fr>

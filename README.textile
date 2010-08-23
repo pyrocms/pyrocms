@@ -50,3 +50,4 @@ h3. Translators
 * "Frederic Quie":http://www.bleekom.org/ (French)
 * "TheLoops":http://codeigniter.com/forums/member/62232/ (German)
 * "Bartosz Majewski":http://404design.pl/ (Polish)
+* "diederikeijgelaar":http://github.com/diederikeijgelaar (Dutch)

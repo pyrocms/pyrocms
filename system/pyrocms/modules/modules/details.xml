@@ -2,6 +2,7 @@
 <module version="0.5" type="admin">
 	<name>
 		<en>Modules</en>
+		<nl>Modules</nl>
 		<es>Módulos</es>
 		<fr>Modules</fr>
                 <de>Module</de>
@@ -9,6 +10,7 @@
 	</name>
 	<description>
 		<en>Allows admins to see a list of currently installed modules.</en>
+		<nl>Stelt admins in staat om een overzicht van geinstalleerde modules te genereren.</nl>
 		<es>Permite a los administradores ver una lista de los módulos instalados.</es>
 		<fr>Permet aux administrateurs de voir la liste des modules installés</fr>
                 <de>Zeigt Administratoren alle aktuell installierten Module.</de>

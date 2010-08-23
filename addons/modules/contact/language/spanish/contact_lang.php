@@ -38,4 +38,12 @@ $lang['contact_mail_text']					= 'Este mensaje fue enviado por el formulario de 
 $lang['contact_sent_text']					= 'Tu mensaje ha sido enviado. Te responderemos tan pronto podamos.';
 $lang['contact_capchar_text']				= 'Escribe la palabra que lees debajo:';
 
+//predefined subjects list
+$lang['subject_support']  = 'Support';
+$lang['subject_sales']    = 'Sales';
+$lang['subject_payments']	= 'Payments';
+$lang['subject_business']	= 'Business Development';
+$lang['subject_feedback']	= 'Feedback/Suggestions';
+$lang['subject_other']    = 'Other';
+
 /* End of file contact_lang.php */
