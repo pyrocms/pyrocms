@@ -183,9 +183,7 @@ class Versioning
 			 ->join('revisions', $this->table_name . '.revision_id = revisions.id')
 			 ->get();
 			
-		// Return the results
-		$result = $query->result();
-		return $result[0];
+		return $query->row();
 	}
 	
 	/**
@@ -205,9 +203,7 @@ class Versioning
 			 ->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
 			 ->get();
 			
-		// Return the results
-		$result = $query->result();
-		return $result[0];
+		return $query->row();
 	}
 	
 	/**
