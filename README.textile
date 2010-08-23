@@ -7,9 +7,7 @@ h1. PyroCMS
 h2. The Team
 
 * "Philip Sturgeon":http://philsturgeon.co.uk/
-* "Dan Horrigan":http://dhorrigan.com
-* "Ben Edmunds":http://benedmunds.com/
-* "Yorick Peterse":http://www.yorickpeterse.com/
+* "Eric Barnes":http://ericlbarnes.com/
 
 h2. DESCRIPTION
 
@@ -40,9 +38,11 @@ h2. THANKS
 h3. Contributors
 
 * "That Lee Guy":lee[at]thatleeguy[dot]com
-* "MrEnirO":mreniro[at]gmail[dot]com
 * "BenneX":http://github.com/BenneX
-* "Colin Williams":williamsconcepts.com
+* "Colin Williams":http://williamsconcepts.com
+* "Yorick Peterse":http://www.yorickpeterse.com/
+* "Dan Horrigan":http://dhorrigan.com
+* "Ben Edmunds":http://benedmunds.com/
 
 h3. Translators
 
