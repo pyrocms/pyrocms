@@ -1,6 +1,11 @@
 <!-- Welcome -->
 <ul id="flags">
 	<li>
+		<a href="<?php echo site_url('installer/change/brazilian'); ?>" title="brazilian portuguese">
+			<img src="<?php echo base_url(); ?>assets/images/flags/br.gif" alt="brazilian portuguese" />
+		</a>
+	</li>
+	<li>
 		<a href="<?php echo site_url('installer/change/dutch'); ?>" title="dutch">
 			<img src="<?php echo base_url(); ?>assets/images/flags/nl.gif" alt="dutch" />
 		</a>
