@@ -72,7 +72,7 @@
 
 
 <!-- Summary -->
-<h3>Summary</h3>
+<h3><?php echo lang('summary'); ?></h3>
 
 <?php if($step_passed === TRUE): ?>
 
