@@ -11,10 +11,16 @@
 class Ajax extends Controller 
 {
 
+	/**
+	 * Array of languages supported by the installer
+	 */
+	private $languages	= array ('english','dutch','brazilian');
+	
     public function __construct()
 	{
 		
 		parent::__construct();
+		$this->_set_language();
 		$this->lang->load('global');
         $this->lang->load('step_1');
         
@@ -46,6 +52,33 @@ class Ajax extends Controller
         
     }
 
+	/**
+	 * Sets the language and loads the corresponding language files like the installer controller
+	 *
+	 * @access	private
+	 * @author	wupsbr
+	 * @since	1.0.0.0
+	 * @return	void
+	 */
+	private function _set_language()
+	{
+		// let's check if the language is supported
+		if (in_array($this->session->userdata('language'), $this->languages))
+		{
+			// if so we set it
+			$this->config->set_item('language', $this->session->userdata('language'));
+		}
+
+		// let's load the language file belonging to the page i.e. method
+		$lang_file = $this->config->item('language') . '/' . $this->router->method . '_lang';
+		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
+		{
+			$this->lang->load($this->router->method);
+		}
+
+		// also we load some generic language labels
+		$this->lang->load('global');
+	}
 }
 
 /* End of file installer.php */
