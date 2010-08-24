@@ -6,6 +6,7 @@
 		<fr>Groups</fr>
 		<de>Groups</de>
 		<pl>Groups</pl>
+		<br>Grupos</br>
 	</name>
 	<description>
 		<en>Users can be placed into groups to manage permissions.</en>
@@ -13,6 +14,7 @@
 		<fr>Users can be placed into groups to manage permissions.</fr>
 		<de>Users can be placed into groups to manage permissions.</de>
 		<pl>Users can be placed into groups to manage permissions.</pl>
+		<br>Usuários podem ser inseridos em grupos para gerenciar permissões.</br>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
