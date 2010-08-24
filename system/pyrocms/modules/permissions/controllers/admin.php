@@ -103,7 +103,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
         $this->template
-        	->title(lang('module.permissions'))
+        	->title($this->module_data['name'])
         	->build('admin/index', $this->data);
     }
 
@@ -156,7 +156,7 @@ class Admin extends Admin_Controller
         $this->data->controllers_select = array('*' => lang('perm_controller_select_default')) 	+ array_for_select($this->modules_m->get_module_controllers($this->validation_rules[0]));
         $this->data->methods_select 	= array('*' => lang('perm_method_select_default')) 		+ array_for_select($this->modules_m->get_module_controller_methods($this->validation_rules[0], $this->validation_rules[1]));
         $this->template
-        	->title(lang('module.permissions'),lang('method.create'))
+        	->title($this->module_data['name'],lang('perm_rule_add'))
         	->build('admin/form', $this->data);
     }
 
@@ -216,7 +216,7 @@ class Admin extends Admin_Controller
         $this->data->methods_select 		= array('*' => lang('perm_method_select_default')) + array_for_select($this->modules_m->get_module_controller_methods($this->data->permission_rule->module, $this->data->permission_rule->controller));
 
         $this->template
-        	->title(lang('module.permissions'),lang('method.edit'))
+        	->title($this->module_data['name'],lang('perm_rule_edit'))
         	->build('admin/form', $this->data);
     }
 

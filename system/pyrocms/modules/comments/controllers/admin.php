@@ -90,7 +90,7 @@ class Admin extends Admin_Controller
 
 		$this->data->comments = process_comment_items($comments);
 		$this->template
-			->title(lang('module.comments'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -116,7 +116,7 @@ class Admin extends Admin_Controller
 		$this->data->comments 	= process_comment_items($comments);
 
 		$this->template
-			->title(lang('module.comments'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -242,7 +242,7 @@ class Admin extends Admin_Controller
 
 		// Load WYSIWYG editor
 		$this->template
-			->title(lang('module.comments'),lang('method.edit'))
+			->title($this->module_data['name'], lang('comments.edit_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
 		$this->template->build('admin/form', $this->data);
 	}

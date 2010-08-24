@@ -57,7 +57,7 @@ class Admin extends Admin_Controller {
 		$this->data->file_folders = &$file_folders;
 
 		$this->template
-			->title(lang('module.files'))
+			->title($this->module_data['name'])
 			->build('admin/layouts/index', $this->data);
 
 	}

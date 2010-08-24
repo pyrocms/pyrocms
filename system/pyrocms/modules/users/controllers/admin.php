@@ -108,7 +108,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title(lang('module.users'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -126,7 +126,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title(lang('module.users'))
+			->title($this->module_data['name'], lang('user_inactive_title'))
 			->build('admin/index', $this->data);
 	}
 
@@ -217,7 +217,7 @@ class Admin extends Admin_Controller
     	// Render the view
 		$this->data->member =& $member;
 		$this->template
-			->title(lang('module.users'),lang('method.create'))
+			->title($this->module_data['name'], lang('user_add_title'))
 			->build('admin/form', $this->data);
 	}
 
@@ -315,7 +315,7 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->data->member =& $member;
 		$this->template
-			->title(lang('module.users'),lang('method.edit'))
+			->title($this->module_data['name'], sprintf(lang('user_edit_title'), $member->full_name))
 			->build('admin/form', $this->data);
 	}
 

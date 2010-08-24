@@ -119,7 +119,7 @@ class Admin extends Admin_Controller
 
 		// Create the layout
 		$this->template
-			->title(lang('module.navigation'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -157,7 +157,7 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->data->navigation_link =& $navigation_link;
 		$this->template
-			->title(lang('module.navigation'),lang('method.create'))
+			->title($this->module_data['name'],lang('nav_link_create_title'))
 			->build('admin/links/form', $this->data);
 	}
 
@@ -208,7 +208,7 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->data->navigation_link =& $navigation_link;
 		$this->template
-			->title(lang('module.navigation'),lang('method.edit'))
+			->title($this->module_data['name'], sprintf(lang('nav_link_edit_title'), $navigation_link->title))
 			->build('admin/links/form', $this->data);
 	}
 

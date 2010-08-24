@@ -37,7 +37,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title(lang('module.themes'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -120,7 +120,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title(lang('module.themes'),lang('method.upload'))
+			->title($this->module_data['name'], lang('themes.upload_title'))
 			->build('admin/upload', $this->data);
 	}
 

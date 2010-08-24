@@ -93,7 +93,7 @@ class Admin_groups extends Admin_Controller
 		// Render the view
 		$this->data->navigation_group =& $navigation_group;
 		$this->template
-			->title(lang('module.navigation'),lang('module.groups'), lang('method.create'))
+			->title($this->module_data['name'],lang('nav_group_label'), lang('nav_group_create_title'))
 			->build('admin/groups/create', $this->data);
 	}
 

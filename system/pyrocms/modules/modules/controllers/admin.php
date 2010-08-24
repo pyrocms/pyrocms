@@ -42,7 +42,7 @@ class Admin extends Admin_Controller
  		$this->data->modules = $this->modules_m->get_modules(NULL, TRUE);
 
 		$this->template
-			->title(lang('module.modules'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -116,7 +116,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title(lang('module.modules'),lang('method.upload'))
+			->title($this->module_data['name'],lang('modules.upload_title'))
 			->build('admin/upload', $this->data);
 	}
 

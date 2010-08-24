@@ -132,7 +132,7 @@ class Admin extends Admin_Controller
 		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
 
 		$this->template
-			->title(lang('module.pages'))
+			->title($this->module_data['name'])
 			->append_metadata( css('jquery/jquery.treeview.css') )
 			->append_metadata( js('jquery/jquery.treeview.min.js') )
 			->append_metadata( js('index.js', 'pages') )
@@ -287,7 +287,7 @@ class Admin extends Admin_Controller
 
 	    // Load WYSIWYG editor
 		$this->template
-			->title(lang('module.pages'),lang('method.create'))
+			->title($this->module_data['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
@@ -386,7 +386,7 @@ class Admin extends Admin_Controller
 		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 
 			// Load form specific JavaScript
-			->title(lang('module.pages'),lang('method.edit'))
+			->title($this->module_data['name'], sprintf(lang('pages.edit_title'), $page->title))
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);

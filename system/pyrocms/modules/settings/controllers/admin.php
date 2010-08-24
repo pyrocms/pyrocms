@@ -54,7 +54,7 @@ class Admin extends Admin_Controller
 
 		// Render the layout
 		$this->template
-			->title(lang('module.settings'))
+			->title($this->module_data['name'])
 			->build('admin/index', $this->data);
 	}
 

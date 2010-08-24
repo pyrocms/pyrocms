@@ -39,39 +39,4 @@ $lang['cp_sidebar_title'] 				= 'Seitenleistenmenu';
 $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';
 
-//Admin page titles
-
-//module names
-$lang['module.comments']						= 'Comments'; #translate
-$lang['module.pages']							= 'Pages'; #translate
-$lang['module.files']							= 'Files'; #translate
-$lang['module.variables']						= 'Variables'; #translate
-$lang['module.widgets']							= 'Widgets'; #translate
-$lang['module.themes']							= 'Themes'; #translate
-$lang['module.navigation']						= 'Navigation'; #translate
-$lang['module.modules']							= 'Modules'; #translate
-$lang['module.contact']							= 'Contact'; #translate
-$lang['module.forums']							= 'Forums'; #translate
-$lang['module.galleries']						= 'Galleries'; #translate
-$lang['module.news']							= 'News'; #translate
-$lang['module.newsletters']						= 'Newsletters'; #translate
-$lang['module.users']							= 'Users'; #translate
-$lang['module.settings']						= 'Settings'; #translate
-$lang['module.groups']							= 'Groups'; #translate
-$lang['module.permissions']						= 'Permissions'; #translate
-
-//methods
-$lang['method.edit']							= 'Edit'; #translate
-$lang['method.delete']							= 'Delete'; #translate
-$lang['method.upload']							= 'Upload'; #translate
-$lang['method.create']							= 'Create'; #translate
-$lang['method.layouts']							= 'Layouts'; #translate
-$lang['method.folders']							= 'Folders'; #translate
-$lang['method.groups']							= 'Groups'; #translate
-$lang['method.inactive']						= 'Inactive'; #translate
-$lang['method.layouts']							= 'Layouts'; #translate
-$lang['method.unapproved']						= 'Unapproved'; #translate
-$lang['method.approved']						= 'Approved'; #translate
-$lang['method.add']								= 'Add'; #translate
-
 ?>
