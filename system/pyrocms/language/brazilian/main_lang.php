@@ -1,55 +1,55 @@
 <?php
 
 // The defaul title for the cp
-$lang['cp_title'] 									= 'Control Panel';
+$lang['cp_title'] 									= 'Painel de Controle';
 
-$lang['title_label'] 								= 'Title';
-$lang['name_label'] 								= 'Name';
-$lang['desc_label'] 								= 'Description';
-$lang['version_label'] 							= 'Version';
-$lang['author_label'] 							= 'Author';
-$lang['action_label'] 								= 'Action';
+$lang['title_label'] 								= 'Título';
+$lang['name_label'] 								= 'Nome';
+$lang['desc_label'] 								= 'Descrição';
+$lang['version_label'] 							= 'Versão';
+$lang['author_label'] 							= 'Autor';
+$lang['action_label'] 								= 'Ação';
 
-$lang['dialog_confirm'] 						= 'Confirm';
-$lang['dialog_yes'] 								= 'Yes';
-$lang['dialog_no'] 									= 'No';
+$lang['dialog_confirm'] 						= 'Confirmar';
+$lang['dialog_yes'] 								= 'Sim';
+$lang['dialog_no'] 									= 'Não';
 
-$lang['navigation_headline'] 				= 'Navigation';
+$lang['navigation_headline'] 				= 'Navegação';
 $lang['breadcrumb_base_label'] 			= 'Home';
 
-$lang['logged_in_welcome']					= 'Welcome %s, you are logged in.';
-$lang['logout_label'] 							= 'Log out';
-$lang['edit_profile_label'] 				= 'Edit Profile';
-$lang['settings_label'] 						= 'Settings';
+$lang['logged_in_welcome']					= 'Bem vindo(a) %s, você está logado(a).';
+$lang['logout_label'] 							= 'Sair';
+$lang['edit_profile_label'] 				= 'Editar Perfil';
+$lang['settings_label'] 						= 'Configurações';
 
-$lang['close_message'] 							= 'Close this message';
-$lang['general_error_label'] 				= 'Error';
-$lang['required_error_label'] 			= 'Required field missing';
-$lang['note_label'] 								= 'Note';
-$lang['success_label'] 							= 'Success';
+$lang['close_message'] 							= 'Fechar esta mensagem';
+$lang['general_error_label'] 				= 'Erro';
+$lang['required_error_label'] 			= 'Campo requerido está faltando';
+$lang['note_label'] 								= 'Nota';
+$lang['success_label'] 							= 'Sucesso';
 
-$lang['login_title'] 								= 'Log In';
-$lang['cms_fatal_error'] 						= 'Fatal error, is CMS installed?';
+$lang['login_title'] 								= 'Entrar';
+$lang['cms_fatal_error'] 						= 'Erro fatal, o CMS está instalado?';
 
-$lang['login_error_label'] 					= 'Login Error';
-$lang['forgot_password_label'] 			= 'Forgot your password ?';
+$lang['login_error_label'] 					= 'Erro de Login';
+$lang['forgot_password_label'] 			= 'Esqueceu sua senha ?';
 $lang['email_label'] 								= 'E-mail';
-$lang['password_label'] 						= 'Password';
-$lang['login_label'] 								= 'Log In';
+$lang['password_label'] 						= 'Senha';
+$lang['login_label'] 								= 'Entrar';
 
-$lang['save_label'] 								= 'Save';
-$lang['cancel_label'] 							= 'Cancel';
-$lang['update_label'] 							= 'Update Caption';
-$lang['delete_label'] 							= 'Delete';
-$lang['activate_label'] 						= 'Activate';
-$lang['approve_label']							= 'Approve'; #translate
-$lang['unapprove_label']						= 'Unapprove'; #translate
-$lang['publish_label'] 							= 'Publish';
+$lang['save_label'] 								= 'Salvar';
+$lang['cancel_label'] 							= 'Cancelar';
+$lang['update_label'] 							= 'Atualizar Título';
+$lang['delete_label'] 							= 'Deletar';
+$lang['activate_label'] 						= 'Ativar';
+$lang['approve_label']							= 'Aprovar';
+$lang['unapprove_label']						= 'Desaprovar';
+$lang['publish_label'] 							= 'Publicar';
 $lang['upload_label'] 							= 'Upload';
-$lang['uninstall_label'] 						= 'Uninstall';
-$lang['install_label'] 							= 'Install';
-$lang['enable_label']							= 'Enable';
-$lang['disable_label'] 							= 'Disable';
+$lang['uninstall_label'] 						= 'Remover';
+$lang['install_label'] 							= 'Instalar';
+$lang['enable_label']							= 'Ativar';
+$lang['disable_label'] 							= 'Desativar';
 
 
 // $lang[''] = '';
