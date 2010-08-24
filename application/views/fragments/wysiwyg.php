@@ -101,7 +101,7 @@
 			+ "textarea[cols|rows|disabled|name|readonly],tt,var,big"
 
 			// Customisation
-			+',embed[width|height|name|flashvars|src|bgcolor|align|play|loop|quality|allowscriptaccess|type|pluginspage]'
+			+',embed[width|height|name|flashvars|src|bgcolor|align|play|loop|quality|allowscriptaccess|type|pluginspage|wmode]'
 
 	});
 

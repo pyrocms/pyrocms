@@ -26,4 +26,12 @@ $lang['contact_mail_text'] 										= 'Dit bericht is verzonden vanaf het conta
 $lang['contact_sent_text'] 										= 'Uw bericht is verzonden. We zullen zo snel mogelijk reageren.';
 $lang['contact_capchar_text'] 								= 'Tik het woord hieronder in:';
 
+//predefined subjects list
+$lang['subject_support']  = 'Support';
+$lang['subject_sales']    = 'Sales';
+$lang['subject_payments']	= 'Payments';
+$lang['subject_business']	= 'Business Development';
+$lang['subject_feedback']	= 'Feedback/Suggestions';
+$lang['subject_other']    = 'Other';
+
 ?>

@@ -24,7 +24,7 @@ $lang['settings_label'] 						= 'Paramètres';
 
 $lang['close_message'] 							= 'Fermer ce message';
 $lang['general_error_label'] 				= 'Erreur';
-$lang['required_error_label'] 			= 'Champs obligatoire';
+$lang['required_error_label'] 			= 'Champ obligatoire';
 $lang['note_label'] 								= 'Note';
 $lang['success_label'] 							= 'Succès';
 
@@ -39,15 +39,15 @@ $lang['login_label'] 								= 'Connectez-vous';
 
 $lang['save_label'] 								= 'Enregistrer';
 $lang['cancel_label'] 							= 'Annuler';
-$lang['update_label'] 							= 'Update Caption'; #translate
+$lang['update_label'] 							= 'Mettre à jour la légende';
 $lang['delete_label'] 							= 'Supprimer';
 $lang['activate_label'] 						= 'Activer';
 $lang['publish_label'] 							= 'Publier';
 $lang['upload_label'] 							= 'Télécharger';
-$lang['uninstall_label'] 						= 'Desinstaller';
+$lang['uninstall_label'] 						= 'Désinstaller';
 $lang['install_label'] 							= 'Installer';
 $lang['enable_label']							= 'Activer';
-$lang['disable_label'] 							= 'Desactiver';
+$lang['disable_label'] 							= 'Désactiver';
 
 
 // $lang[''] = '';
