@@ -94,6 +94,23 @@ class Installer_lib
 	}
 	
 	/**
+	 * @return bool
+	 *
+	 * Function to check if zlib is installed
+	 */
+	function zlib_enabled()
+	{
+		if (extension_loaded('zlib'))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	/**
 	 * @param 	string $data The data that contains server related information.
 	 * @return 	bool
 	 *
@@ -124,8 +141,8 @@ class Installer_lib
 			return FALSE;
 		}
 
-		// If PHP, MySQL, etc is good but server is unknown, say partial
-		if( $data->http_server->supported === 'partial' || $data->gd_version === FALSE )
+		// If PHP, MySQL, etc is good but either server, gd, and/or zlib is unknown, say partial
+		if( $data->http_server->supported === 'partial' || $data->gd_version === FALSE || $data->zlib_enabled === FALSE)
 		{
 			return 'partial';
 		}

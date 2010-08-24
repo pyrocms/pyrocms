@@ -173,6 +173,9 @@ class Installer extends Controller
 		// Check the GD data
 		$data->gd_version = $this->installer_lib->get_gd_version();
 		
+		// Check to see if Zlib is enabled
+		$data->zlib_enabled = $this->installer_lib->zlib_enabled();
+		
 		// Get the server
 		$selected_server = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
