@@ -38,9 +38,14 @@
 					<label for="comments"><?php echo lang('galleries.comments_label'); ?></label>
 					<?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), $gallery->enable_comments); ?>
 				</li>
+				
+				<li class="even">
+					<label for="published"><?php echo lang('galleries.published_label'); ?></label>
+					<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published); ?>
+				</li>
 
 				<?php if ( !empty($gallery_images) ): ?>
-				<li class="even">
+				<li>
 					<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
 					<select name="gallery_thumbnail" id="gallery_thumbnail">
 
@@ -66,7 +71,7 @@
 
 					</select>
 				</li>
-				<li>
+				<li class="even">
 					<label for="gallery_images"><?php echo lang('galleries.current_label'); ?></label>
 					<div class="clear-both"></div>
 					<ul id="gallery_images_list">

@@ -34,6 +34,11 @@
 					<label for="comments"><?php echo lang('galleries.comments_label'); ?></label>
 					<?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), '0'); ?>
 				</li>
+				
+				<li class="even">
+					<label for="published"><?php echo lang('galleries.published_label'); ?></label>
+					<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published); ?>
+				</li>
 			</ol>
 
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>

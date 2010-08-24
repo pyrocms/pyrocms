@@ -10,49 +10,11 @@
 	height: 28px;
 }
 
-/* Style the labels and give some subtle st.even textarea
-{
-	width: 550px;
-}riping*/
-.even
-{
-	background-color: #fbfbfb;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin-top: 10px;
-	margin-bottom: 15px;
-}
+/*make the uniform file input usable */
 
-form.crud label
+form.crud ul li div
 {
-	float:left;
-	margin-right:15px;
-	display:block;
-	font-weight:bold;
-	width:150px;
-	padding-left: 5px;
-}
-
-.crud li
-{
-	list-style: none;
-}
-
-/*Style the textarea boxes etc.*/
-
-textarea, text, input
-{
-	width: 350px;
-}
-
-.even textarea
-{
-	width: 550px;
-}
-
-.caption textarea
-{
-	width: 350px;
+	width: auto;
 }
 
 /*Style the manage page thumbnails*/

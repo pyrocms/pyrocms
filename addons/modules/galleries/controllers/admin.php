@@ -69,6 +69,16 @@ class Admin extends Admin_Controller
 				'rules' => 'trim'
 			),
 			array(
+				'field' => 'enable_comments',
+				'label' => 'Enable Comments',
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'published',
+				'label' => 'Published',
+				'rules' => 'trim'
+			),
+			array(
 				'field' => 'gallery_thumbnail',
 				'label'	=> 'Thumbnail',
 				'rules'	=> 'trim'
@@ -115,7 +125,8 @@ class Admin extends Admin_Controller
 
 		// Load the view
 		$this->data->galleries =& $galleries;
-		$this->template->build('admin/index', $this->data);
+		$this->template->title($this->module_data['name'])
+						->build('admin/index', $this->data);
 	}
 
 	/**
@@ -164,6 +175,7 @@ class Admin extends Admin_Controller
 		$this->data->galleries 	=& $galleries;
 		$this->template->append_metadata( js('form.js', 'galleries') )
 						->append_metadata( css('galleries.css', 'galleries') )
+						->title($this->module_data['name'], lang('galleries.new_gallery_label'))
 						->build('admin/new_gallery', $this->data);
 	}
 
@@ -223,8 +235,9 @@ class Admin extends Admin_Controller
 		// Load the view itself
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
 		   				->append_metadata( js('drag_drop.js', 'galleries') )
-						->append_metadata( js('form.js', 'galleries') );
-		$this->template->build('admin/manage_gallery', $this->data);
+						->append_metadata( js('form.js', 'galleries') )
+						->title($this->module_data['name'], lang('galleries.manage_gallery_label'))
+						->build('admin/manage_gallery', $this->data);
 	}
 
 	/**
@@ -335,8 +348,9 @@ class Admin extends Admin_Controller
 		$this->data->gallery_image 	=& $gallery_image;
 
 		// Load the views
-		$this->template->append_metadata( css('galleries.css', 'galleries') );
-		$this->template->build('admin/upload', $this->data);
+		$this->template->append_metadata( css('galleries.css', 'galleries') )
+						->title($this->module_data['name'], lang('galleries.upload_label'))
+						->build('admin/upload', $this->data);
 	}
 
 	/**
@@ -419,8 +433,9 @@ class Admin extends Admin_Controller
 		$this->data->gallery_image =& $gallery_image;
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
 		   			   ->append_metadata( js('jcrop.js', 'galleries') )
-		   			   ->append_metadata( js('jcrop_init.js', 'galleries') );
-		$this->template->build('admin/edit', $this->data);
+		   			   ->append_metadata( js('jcrop_init.js', 'galleries') )
+					   ->title($this->module_data['name'], lang('gallery_images.edit_image_label'))
+					   ->build('admin/edit', $this->data);
 	}
 
 	/**

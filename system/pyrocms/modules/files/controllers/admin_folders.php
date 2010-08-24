@@ -114,7 +114,7 @@ class Admin_folders extends Admin_Controller {
 	public function upload()
 	{
 		$this->template
-			->title(lang('module.files'),lang('method.upload'))
+			->title($this->module['name'],lang('files.upload.title'))
 			->build('admin/upload', $this->data);
 	}
 	
@@ -241,7 +241,7 @@ class Admin_folders extends Admin_Controller {
 		$this->data->folder =& $folder;
 
 		$this->template
-			->title(lang('module.files'),lang('method.delete'))
+			->title($this->module['name'], lang('files.folders.delete_title'))
 			->build('admin/folders/confirm', $this->data);
 	}
 }

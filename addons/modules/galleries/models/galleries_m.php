@@ -50,7 +50,8 @@ class Galleries_m extends MY_Model {
 	{
 		$this->db->select('galleries.*, gallery_images.filename, gallery_images.extension')
 				->from('galleries')
-				->join('gallery_images', 'galleries.thumbnail_id = gallery_images.id', 'left');
+				->join('gallery_images', 'galleries.thumbnail_id = gallery_images.id', 'left')
+				->where('galleries.published', '1');
 
 		// Where clause provided?
 		if (!empty($where) && !empty($value))
@@ -77,6 +78,7 @@ class Galleries_m extends MY_Model {
 			'slug' => $this->generate_slug($input['title']),
 			'description' => $input['description'],
 			'enable_comments' => $input['enable_comments'],
+			'published' => $input['published'],
 			'updated_on' => time()
 		);
 

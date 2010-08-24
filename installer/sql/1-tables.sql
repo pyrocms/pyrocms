@@ -83,6 +83,7 @@ CREATE TABLE `galleries` (
   `updated_on` int(15) NOT NULL,
   `preview` varchar(255) DEFAULT NULL,
   `enable_comments` INT( 1 ) DEFAULT NULL,
+  `published` INT(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
