@@ -9,10 +9,10 @@
 			<li>
 				<label for="folder"><?php echo lang('files.subfolders.label'); ?>:</label>
 				<?php 
-				$folder_options['0'] = $sub_folders[0];
+				//$folder_options['0'] = $sub_folders[0];
 				foreach($sub_folders as $row)
 				{
-					if ($row['id'] == $id OR $row['parent_id'] > 0)
+					if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
 					{
 						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
 						$folder_options[$row['id']] = $indent.$row['name'];
@@ -67,7 +67,7 @@
 (function($) {
 	$(function() {
 		$('#parent_id').change(function() {
-			curr_url = '<?php echo site_url('admin/files/folders/contents/') ?>/'+$(this).val();
+			curr_url = '<?php echo site_url('admin/files/folders/contents/') ?>/'+$(this).val()+'/<?php echo $selected_filter; ?>';
 			curr_text = $(this).text();
 			$(this).text("Loading...");
 			$("#files_right_pane").load(curr_url);

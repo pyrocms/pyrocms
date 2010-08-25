@@ -23,7 +23,7 @@
 					{
 						$spcr = '&nbsp;&nbsp; &raquo; ';
 						$indent = ($folder['parent_id'] != 0) ? repeater($spcr, $folder['depth']) : '';
-						$edit = anchor('admin/files/folders/edit/' . $folder['id'], lang('files.labels.edit'));
+						$edit = anchor('admin/files/folders/edit/' . $folder['id'], lang('files.labels.edit'), 'class="edit_folder"');
 						$delete = anchor('admin/files/folders/delete/' . $folder['id'], lang('files.labels.delete'), array('class'=>'confirm'));
 						$this->table->add_row(
 						 	form_checkbox('action_to[]', $folder['id']),

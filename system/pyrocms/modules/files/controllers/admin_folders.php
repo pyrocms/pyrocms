@@ -64,11 +64,27 @@ class Admin_folders extends Admin_Controller {
 		
 		$this->load->library('table');
 		
+		// Make a breadcrumb trail
+		$crumbs = $this->file_folders_m->breadcrumb($id);
+		$breadcrumb = '';
+		foreach($crumbs AS $item)
+		{
+			$breadcrumb .= $item['name'] . ' &raquo; ';
+		}
+		$this->data->crumbs = reduce_multiples($breadcrumb, "&raquo; ", TRUE);
+		
 		// Get a list of all child folders
 		$this->file_folders_m->clear_folders();
-		$this->file_folders_m->folder_tree($id);
+		if (isset($crumbs[0]['id']) && $crumbs[0]['id'] != '')
+		{
+			$this->file_folders_m->folder_tree($crumbs[0]['id']);
+		}
+		else
+		{
+			$this->file_folders_m->folder_tree($id);
+		}
 		$sub_folders = $this->file_folders_m->get_folders();
-
+		
 		// Get the selected information.
 		$this->data->folder = $this->file_folders_m->get($id);
 		$this->data->selected_folder = 0;
@@ -89,21 +105,7 @@ class Admin_folders extends Admin_Controller {
 			$this->data->files = $this->file_m->get_many_by('folder_id', $id);
 		}
 		
-		// Make a breadcrumb trail
-		$crumbs = $this->file_folders_m->breadcrumb($id);
-		$breadcrumb = '';
-		foreach($crumbs AS $item)
-		{
-			if ($item['id'] <> $id)
-			{
-				$breadcrumb .= anchor('admin/files/folders/contents/'.$item['id'], $item['name'], 'class="crumb"') . ' &raquo; ';
-			}
-			else
-			{
-				$breadcrumb .= $item['name'];
-			}
-		}
-		$this->data->crumbs = $breadcrumb;
+		
 		
 		// Set a default label
 		if (empty($sub_folders))
@@ -194,7 +196,7 @@ class Admin_folders extends Admin_Controller {
 				'date_added'	=> now()
 			);
 			$this->file_folders_m->insert($data);
-			redirect('admin/file#folders');
+			redirect('admin/files#folders');
 		}
 		$folder->name = set_value('name');
 		$folder->parent_id = set_value('parent_id');

@@ -97,7 +97,10 @@ h3 span {
             $(this).colorbox().click();
             return false;
         });
-
+		$('.edit_folder').livequery('click', function(){
+			$(this).colorbox().click();
+			return false;
+		});
 	});
 })(jQuery);
 </script>

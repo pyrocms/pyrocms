@@ -60,7 +60,6 @@ form ul li input.button:hover {
 	<li>
 		<label for="nothing"></label>
 		<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
-		<?php echo form_submit('button_action', lang('buttons.cancel'), 'class="button"'); ?>
 	</li>
 </ul>
 
