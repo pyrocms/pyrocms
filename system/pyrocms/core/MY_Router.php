@@ -22,7 +22,7 @@ Modules::$locations = array(
  * Install this file as application/libraries/MY_Router.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.2
+ * @version 	2.3
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,11 +60,20 @@ class MY_Router extends CI_Router {
 			return $located;
 		}
 
+		// route 404 is now deprecated, use 404_override
+		if(isset($this->routes['404']))
+		{
+			$this->routes['404_override'] = $this->routes['404'];
+			unset($this->routes['404']);
+		}
+
 		/* use a default 404 controller */
-		if (isset($this->routes['404']) AND $segments = explode('/', $this->routes['404']))
+		if (isset($this->routes['404_override']) AND $segments = explode('/', $this->routes['404_override']))
 		{
 			if ($located = $this->locate($segments))
+			{
 				return $located;
+			}
 		}
 
 		/* no controller found */
