@@ -32,12 +32,23 @@ a:hover {
 	vertical-align: top;
 	font-size: 110%;
 }
-#content {
+#sidebar footer {
+	font-size: 11px;
+	text-align: center;
+	color: #999;
+	padding-top: 10px;
+	border-top: 1px solid #DDDDDD;
+	margin-top: 55px;
+}
+#content-wrapper {
+	margin: 0;
+	padding: 0;
 	display: table-cell;
-	padding: 40px 30px;
 	vertical-align: top;
-	color: #333333;
 	font-size: 90%;
+}
+#content {
+	padding: 10px;
 }
 #logo {
 	background: url(../../img/admin/logo.png) top center no-repeat;
@@ -147,32 +158,40 @@ header#main h1 {
 
 /** Headers **/
 #page-header {
-	margin-bottom: 30px;
+	background-color: #424242;
+	color: #ccd1d4;	
+	padding: 4px 10px;
 }
 #page-header h1 {
-	font-size: 25px;
+	font-size: 18px;
 	margin: 0;
+	display: inline-block;
 }
 #page-header a {
-	color: #333333;
+	color: #eef1f4;
 	text-decoration: none;
+	text-shadow: none;
 }
 #page-header p {
-	font-size: 15px;
-	margin: 0;
+	font-size: 12px;
+	font-style: italic;
+	margin: 0 0 0 12px;
 	font-weight: normal;
+	display: inline-block;
 }
 
 /** Notifications **/
 
 .notification {
 	border: 1px solid;
-	-webkit-border-radius: 5px;
+	border-left: none;
+	border-right: none;
+/*	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
 	border-radius: 5px;
-	padding: 10px 10px 10px 36px;
-	margin: 0 0 15px 0;
+*/	padding: 10px 10px 10px 36px;
+	margin: 0;
 	background-position: 10px 11px !important;
 	background-repeat: no-repeat !important;
 	position: relative;
@@ -270,15 +289,10 @@ a.delete {
 	text-align: left;
 	text-decoration: none;
 	color: #666666;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-background-clip: padding-box;
 }
 #shortcuts h6 {
 	margin: 0px;
-	padding: 9px 15px 7px 10px;
+	padding: 5px 15px 3px 10px;
 	display: inline-block;
 	float: right;
 	vertical-align: center;
@@ -295,20 +309,18 @@ a.delete {
 	display: inline-block;
 	float: left;
 	border-right: 1px solid #CCCCCC;
+	border-left: 1px solid #fefefe;
+}
+#shortcuts li:first-child {
+	border-left: none;
 }
 #shortcuts li a {
 	display: block;
-	padding: 10px;
-/*	border: 1px solid #DDDDDD;
-	background-color: #F2F2F2;
-*/	text-align: left;
+	padding: 5px 10px;
+	text-align: left;
 	text-decoration: none;
 	color: #666666;
-/*	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-*/	vertical-align: center;
+	vertical-align: center;
 	-webkit-background-clip: padding-box;
 
 }
@@ -316,21 +328,13 @@ a.delete {
 	background-color: #fcfcfc;
 }
 #shortcuts a.add {
-	background: #F2F2F2 url('../../img/admin/icons/16/plus.png') 10px 11px no-repeat;
+	background: #F2F2F2 url('../../img/admin/icons/16/plus.png') 10px 50% no-repeat;
 	padding-left: 35px;
 }
 
 #lang-select {
 	padding-left: 15px;
 	margin-top: 15px;
-}
-
-/** Footer **/
-footer {
-	text-align: center;
-	padding-top: 10px;
-	border-top: 1px solid #DDDDDD;
-	margin-top: 55px;
 }
 
 body#login #login-box {

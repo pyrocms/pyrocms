@@ -23,24 +23,28 @@
 
 		</form>
 		</div>
+		
+		<footer>
+			Copyright &copy; 2010 PyroCMS<br />
+			Version <?php echo CMS_VERSION; ?><br />
+			Rendered in {elapsed_time} sec. using {memory_usage}.
+		</footer>
 	</section>
-	<section id="content">
+	<section id="content-wrapper">
 		<header id="page-header">
 			<h1><?php echo $module_data['name'] ? anchor('admin/' . strtolower($module_data['name']), $module_data['name']) : lang('cp_admin_home_title'); ?></h1>
 			<p><?php echo $module_data['description'] ? $module_data['description'] : ''; ?></p>
 		</header>
-			<?php $this->load->view('admin/partials/notices') ?>
 
 			<?php if(!empty($template['partials']['shortcuts'])): ?>
 				<?php echo $template['partials']['shortcuts']; ?>
 			<?php endif; ?>
+			
+			<?php $this->load->view('admin/partials/notices') ?>
 
+		<div id="content">
 			<?php echo $template['body']; ?>
-
-		<footer>
-			Copyright &copy; 2010 PyroCMS<br />
-			Version <?php echo CMS_VERSION; ?>
-		</footer>
+		</div>
 	</section>
 </div>
 </body>
