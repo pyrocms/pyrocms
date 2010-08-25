@@ -127,6 +127,10 @@ class File_folders_m extends MY_Model {
 		
 		unset($arr);
 		
+		if ( ! isset($menu_array))
+		{
+			return FALSE;
+		}
 		foreach ($menu_array as $key => $val)
 		{
 			// This checks if the start value is set. Instead of displaying all.
