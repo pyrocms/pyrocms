@@ -164,13 +164,15 @@ header#main h1 {
 }
 #page-header h1 {
 	font-size: 18px;
+	color: #eef1f4;
 	margin: 0;
 	display: inline-block;
+	text-shadow: 0 -1px 0 #000;
 }
 #page-header a {
 	color: #eef1f4;
 	text-decoration: none;
-	text-shadow: none;
+	text-shadow: 0 -1px 0 #000;
 }
 #page-header p {
 	font-size: 12px;
@@ -283,7 +285,6 @@ a.delete {
 
 /** Shortcut Buttons **/
 #shortcuts {
-	margin-bottom: 10px;
 	border: 1px solid #DDDDDD;
 	background-color: #F2F2F2;
 	text-align: left;
