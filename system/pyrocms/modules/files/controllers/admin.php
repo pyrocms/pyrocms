@@ -25,9 +25,9 @@
 class Admin extends Admin_Controller {
 
 	private $_folders = array();
-	
+
 	private $_path = '';
-	
+
 	/**
 	 * Constructor
 	 *
@@ -44,7 +44,7 @@ class Admin extends Admin_Controller {
 		$this->lang->load('files');
 
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
-		
+
 		$this->_path = FCPATH.'/uploads/files/';
 	}
 
@@ -61,19 +61,20 @@ class Admin extends Admin_Controller {
 		$file_folders = $this->file_folders_m->get_many_by(array('parent_id' => '0'));
 
 		$this->data->file_folders = &$file_folders;
-		
+
 		$this->data->error = $this->_check_dir();
-		
+
 		$this->template
 			->title($this->module_data['name'])
 			->build('admin/layouts/index', $this->data);
 	}
-	
-	
+
+
 	public function upload($id = '')
 	{
+		$this->template->set_layout('admin/modal');
 		$this->config->load('files');
-		
+
 		$this->file_folders_m->folder_tree();
 		$folder->parents = $this->file_folders_m->get_folders();
 		// types = a','v','d','i','o'
@@ -83,8 +84,8 @@ class Admin extends Admin_Controller {
 		$this->data->selected_id = $id;
 		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
 		$this->data->folder =& $folder;
-		
-		
+
+
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('name', 'lang:files.folders.name', 'required');
@@ -92,12 +93,8 @@ class Admin extends Admin_Controller {
 		$this->form_validation->set_rules('folder_id', 'lang:files.labels.parent', 'required');
 		$this->form_validation->set_rules('type', 'lang:files.type', 'required');
 		// $this->form_validation->set_rules('userfile', 'lang:files.file', 'required');
-		
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('admin/files/upload', $this->data);
-		}
-		else
+
+		if ($this->form_validation->run())
 		{
 			// Setup upload config
 			$type = $this->input->post('type');
@@ -105,19 +102,17 @@ class Admin extends Admin_Controller {
 
 			$config['upload_path'] = $this->_path;
 			$config['allowed_types'] = $allowed[$type];
-			
+
 			$this->load->library('upload', $config);
-			
+
 			if ( ! $this->upload->do_upload('userfile'))
 			{
-				$this->data->error = $this->upload->display_errors();
-				$this->session->set_flashdata('notice', $this->upload->display_errors());
-				$this->load->view('admin/files/upload', $this->data);
+				$this->data->messages['notice'] = $this->upload->display_errors();
 			}
 			else
 			{
 				$img = array('upload_data' => $this->upload->data());
-				
+
 				$data = array(
 					'folder_id' 	=> $this->input->post('folder_id'),
 					'user_id' 		=> $this->user->id,
@@ -133,13 +128,33 @@ class Admin extends Admin_Controller {
 					'date_added'	=> time(),
 				);
 				$this->file_m->insert($data);
-				redirect('admin/files');
+				$this->data->messages['success'] = lang('files.success');
+				$this->data->error = "<script>parent.$.fn.colorbox.close(); </script>";
+				#redirect('admin/files');
 			}
 		}
+
+		$this->template->build('admin/files/upload', $this->data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
+	/**
+	 * Edit Upload file
+	 *
+	 */
+	public function edit($id = '')
+	{
+		if ($id == '')
+		{
+			redirect('admin/files/upload');
+		}
+		$this->template->set_layout('admin/modal');
+		$this->data->error = '';
+		$this->template->build('admin/files/edit', $this->data);
+	}
+	// ------------------------------------------------------------------------
+
 	/**
 	 * Validate our upload directory.
 	 */
@@ -166,12 +181,12 @@ class Admin extends Admin_Controller {
 			}
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------
 
 	/**
-	 * This is from dan and I left it in. 
-	 * 
+	 * This is from dan and I left it in.
+	 *
 	 */
 	private function _folder_dropdown_array($folders)
 	{
@@ -203,4 +218,4 @@ class Admin extends Admin_Controller {
 
 }
 /* End of file admin.php */
-/* Location: ./system/pyrocms/modules/files/controllers/admin.php */ 
+/* Location: ./system/pyrocms/modules/files/controllers/admin.php */

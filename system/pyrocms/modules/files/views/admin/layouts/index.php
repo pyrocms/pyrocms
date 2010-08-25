@@ -89,18 +89,6 @@ h3 span {
 			anchor.text(current_text);
 			return false;
 		});
-		$('#new_folder').livequery('click', function(){
-            $(this).colorbox().click();
-            return false;
-        });
-		$('#new_files').livequery('click', function(){
-            $(this).colorbox().click();
-            return false;
-        });
-		$('.edit_folder').livequery('click', function(){
-			$(this).colorbox().click();
-			return false;
-		});
 
 		// All this jazz allows direct links to folders
 		var current_folder = $('#files_left_pane ul li a[title='+parent.location.hash.substring(1)+']');
