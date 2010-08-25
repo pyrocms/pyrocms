@@ -1,5 +1,5 @@
 .widget-instructions {
-	color: #666666;
+	color: #666;
 	font-size: 15px;
 	font-style: italic;
 }
@@ -7,11 +7,18 @@
 #available-widgets li {
 	z-index: 1;
 	float: left;
-	margin: 5px;
-	padding: 20px;
-	width: 190px;
-	min-height: 115px;
-	background-image: url(../img/widget_bg.png);
+	margin: 10px;
+	padding: 10px;
+	width: 175px;
+	height: 110px;
+	box-shadow: #DDD 2px 5px 5px;
+	border-radius: 10px;
+	-webkit-box-shadow: #DDD 2px 5px 5px;
+	-webkit-border-radius: 10px;
+	-moz-box-shadow: #DDD 2px 5px 5px;
+	-moz-border-radius: 10px;
+	background: #F2F2F2;
+	border: 1px solid #DDD;
 	list-style: none;
 	cursor: move;
 	overflow: hidden;
@@ -25,8 +32,7 @@
 
 #available-widgets .author {
 	position: absolute;
-	bottom: 13px;
-	margin-left: 8px;
+	bottom: 3px;
 }
 
 .widget-area .box-container {
