@@ -57,10 +57,12 @@ class Modules_m extends MY_Model
 		}
 
 
-		$this->db->where(array('slug' => $module));
-		$result = $this->db->get($this->_table)->row();
+		$result = $this->db
+			->where('slug', $module)
+			->get($this->_table)
+			->row();
 
-		if (!empty($result))
+		if ($result)
 		{
 			// Return FALSE if the module is disabled
 			if ($result->enabled == 0)
@@ -72,7 +74,9 @@ class Modules_m extends MY_Model
 			if (!isset($descriptions[CURRENT_LANGUAGE]))
 			{
 				$description = $descriptions['en'];
-			} else
+			}
+
+			else
 			{
 				$description = $descriptions[CURRENT_LANGUAGE];
 			}
@@ -81,7 +85,9 @@ class Modules_m extends MY_Model
 			if (!isset($names[CURRENT_LANGUAGE]))
 			{
 				$name = $names['en'];
-			} else
+			}
+
+			else
 			{
 				$name = $names[CURRENT_LANGUAGE];
 			}
@@ -428,21 +434,12 @@ class Modules_m extends MY_Model
 	        {				
 	        	if(file_exists($xml_file = $module_name.'/details.xml'))
 	        	{
-	        		$module = $this->_parse_xml($xml_file) + array('slug'=>basename($module_name));
+	        		$module = $this->_parse_xml($xml_file) + array('slug' => basename($module_name));
 
-	        		$module['is_core'] = basename(dirname($directory.'/modules')) != 'addons';
-
+	        		$module['is_core'] = basename($directory) != 'addons';
 					$module['enabled'] = 1;
 
-					$names = $module['name'];
-					if(!isset($names[CURRENT_LANGUAGE]))
-					{
-						$name = $names['en'];
-					}
-					else
-					{
-						$name = $names[CURRENT_LANGUAGE];
-					}
+					$name = isset($module['name'][CURRENT_LANGUAGE]) ? $module['name'][CURRENT_LANGUAGE] : $module['name']['en'];
 
 					$this->add($module);
 	        	}
