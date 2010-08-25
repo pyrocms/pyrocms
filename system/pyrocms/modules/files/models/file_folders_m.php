@@ -40,11 +40,7 @@ class File_folders_m extends MY_Model {
 	 */
 	public function exists($folder_id)
 	{
-		if(parent::count_by(array('id' => $folder_id)) > 0)
-		{
-			return TRUE;
-		}
-		return FALSE;
+		return (bool) (parent::count_by(array('id' => $folder_id)) > 0);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -60,11 +56,7 @@ class File_folders_m extends MY_Model {
 	 */
 	public function has_children($folder_id)
 	{
-		if(parent::count_by(array('parent_id' => $folder_id)) > 0)
-		{
-			return TRUE;
-		}
-		return FALSE;
+		return (bool) (parent::count_by(array('parent_id' => $folder_id)) > 0);
 	}
 	
 	// ------------------------------------------------------------------------
