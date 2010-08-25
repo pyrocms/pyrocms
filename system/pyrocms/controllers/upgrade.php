@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9', '0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0');
 
 	function _remap()
 	{
@@ -88,7 +88,7 @@ class Upgrade extends Controller
 
 		// TODO: Convert them to galleries
 
-		echo "Adding file manager tables.";
+		echo "Adding file manager tables.<br/>";
 		$this->db->query("CREATE TABLE `files` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `folder_id` int(11) NOT NULL DEFAULT '0',
@@ -220,6 +220,19 @@ class Upgrade extends Controller
 		$this->db->query("ALTER TABLE `pages` CHANGE `slug` `slug` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 		$this->db->query("ALTER TABLE `pages` CHANGE `title` `title` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 
+		echo 'Removed default value from pages js field.<br />';
+		$this->db->query("ALTER TABLE `pages` CHANGE `js` `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
+
+		echo 'Added "preview" field to photo_albums table.<br/>';
+		$this->dbforge->add_column('photo_albums', array(
+			'enable_comments' => array(
+				'type' => 'INT',
+				'constraint' => 1,
+				'default' => 0,
+				'null' => FALSE
+			)
+		));
+
 		return TRUE;
 	}
 
@@ -325,104 +338,4 @@ class Upgrade extends Controller
 		
 		return TRUE;
 	}
-
- 	// Upgrade
- 	function upgrade_099()
-	{
-		echo "Creating modules table...<br />";
-		$this->db->query('DROP TABLE IF EXISTS `modules`');
-		$this->db->query('CREATE TABLE `modules` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `name` TEXT NOT NULL,
-		  `slug` varchar(50) NOT NULL,
-		  `version` varchar(20) NOT NULL,
-		  `type` varchar(20) DEFAULT NULL,
-		  `description` TEXT DEFAULT NULL,
-		  `skip_xss` tinyint(1) NOT NULL,
-		  `is_frontend` tinyint(1) NOT NULL,
-		  `is_backend` tinyint(1) NOT NULL,
-		  `is_backend_menu` tinyint(1) NOT NULL,
-		  `enabled` tinyint(1) NOT NULL,
-		  `is_core` tinyint(1) NOT NULL,
-		  `controllers` text NOT NULL,
-		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `slug` (`slug`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;');
-
-		echo "Importing current modules into database...<br />";
-
-		// Load the module import class
-		$this->load->library('module_import');
-		$this->module_import->_import();
-
-		echo 'Clearing the module cache...<br/>';
-		$this->cache->delete_all('modules_m');
-
-		echo 'Adding comments_enabled field to pages table...<br/>';
-		//add display_name to profiles table
-		$this->dbforge->add_column('pages', array(
-			'comments_enabled' => array(
-				'type' 	  	=> 'INT',
-				'constraint' => 1,
-				'default' => 0,
-				'null' 		=> FALSE
-			)
-        ));
-
-		echo 'Clearing the page cache...<br/>';
-		$this->cache->delete_all('pages_m');
-		
-		echo 'Adding theme_layout field to page_layouts table...<br/>';
-		//add display_name to profiles table
-		$this->dbforge->add_column('page_layouts', array(
-			'theme_layout' => array(
-				'type' 	  	=> 'VARCHAR',
-				'constraint' => '100',
-				'null' 		=> TRUE
-			)
-        ));
-
-		echo 'Adding display_name field to profiles table...<br/>';
-		$this->dbforge->add_column('profiles', array(
-			'display_name' => array(
-				'type' 	  	=> 'VARCHAR',
-				'constraint' => '100',
-				'null' 		=> TRUE
-			)
-        ));
-
-        //get the profiles
-        $this->db->select('profiles.id, users.id as user_id, profiles.first_name, profiles.last_name');
-		$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
-		$profile_result = $this->db->get('users')->result_array();
-
-		//insert the display names into profiles
-		foreach ($profile_result as $profile_data)
-		{
-			echo 'Inserting user ' . $profile_data['user_id'] . ' display_name into profiles table...<br/>';
-
-			$data = array('display_name' => $profile_data['first_name'].' '.$profile_data['last_name']);
-			$this->db->where('id', $profile_data['id']);
-			$this->db->update('profiles', $data);
-			echo '<br/>';
-		}
-
-		echo "Changing Forum Tables Collation...<br />";
-		$this->db->query("ALTER TABLE `forums` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE `forum_posts` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE `forum_categories` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		$this->db->query("ALTER TABLE `forum_subscriptions` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-
-		echo "Changing Forum Table Column Collation...<br />";
-		$this->db->query("ALTER TABLE `forums` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
-		$this->db->query("ALTER TABLE `forums` CHANGE  `description`  `description` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
-
-		$this->db->query("ALTER TABLE  `forum_categories` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
-
-		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `content`  `content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
-		$this->db->query("ALTER TABLE  `forum_posts` CHANGE  `title`  `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  ''");
-		
-		return TRUE;
-	}
-
 }
