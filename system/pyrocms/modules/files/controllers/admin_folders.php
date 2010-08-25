@@ -55,12 +55,13 @@ class Admin_folders extends Admin_Controller {
 	/**
 	 * Show the folders contents
 	 */
-	public function contents($id)
+	public function contents($id = '', $filter = '')
 	{
 		if ( ! $this->file_folders_m->exists($id))
 		{
 			show_error(lang('files.folders.not_exists'));
 		}
+		
 		$this->load->library('table');
 		
 		// Get a list of all child folders
@@ -72,10 +73,38 @@ class Admin_folders extends Admin_Controller {
 		$this->data->folder = $this->file_folders_m->get($id);
 		$this->data->selected_folder = 0;
 		$this->data->id = $id;
+		$this->data->selected_filter = $filter;
+		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
 		
 		// Get all files
-		$this->data->files = $this->file_m->get_many_by('folder_id', $id);
-
+		if ($filter != '')
+		{
+			$this->data->files = $this->file_m->get_many_by(array(
+				'folder_id'=>$id,
+				'type' => $filter
+			));
+		}
+		else
+		{
+			$this->data->files = $this->file_m->get_many_by('folder_id', $id);
+		}
+		
+		// Make a breadcrumb trail
+		$crumbs = $this->file_folders_m->breadcrumb($id);
+		$breadcrumb = '';
+		foreach($crumbs AS $item)
+		{
+			if ($item['id'] <> $id)
+			{
+				$breadcrumb .= anchor('admin/files/folders/contents/'.$item['id'], $item['name'], 'class="crumb"') . ' &raquo; ';
+			}
+			else
+			{
+				$breadcrumb .= $item['name'];
+			}
+		}
+		$this->data->crumbs = $breadcrumb;
+		
 		// Set a default label
 		if (empty($sub_folders))
 		{

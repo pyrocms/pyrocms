@@ -1,5 +1,8 @@
 <?php echo form_open('admin/files');?>
-	<h3><?php echo $folder->name; ?> <span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span></h3>
+	<h3>
+		<?php echo $crumbs; ?> 
+		<span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span>
+	</h3>
 	
 	<div id="files_toolbar">
 		<ul>
@@ -15,12 +18,12 @@
 						$folder_options[$row['id']] = $indent.$row['name'];
 					}
 				}	
-				echo form_dropdown('parent_id', $folder_options, $folder->parent_id, 'id="parent_id" class="required"');
+				echo form_dropdown('parent_id', $folder_options, $id, 'id="parent_id"');
 				?>
 			</li>
 			<li>
 				<label for="folder">Filter:</label>
-				<?php echo form_dropdown('filter', array("All", "Audio", "Video", "Images", "Documents", "Other")); ?>
+				<?php echo form_dropdown('filter', $types, $selected_filter, 'id="filter"'); ?>
 			</li>
 		</ul>
 	</div>
@@ -60,3 +63,30 @@
 	<?php endif; ?>
 
 <?php echo form_close();?>
+<script type="text/javascript">
+(function($) {
+	$(function() {
+		$('#parent_id').change(function() {
+			curr_url = '<?php echo site_url('admin/files/folders/contents/') ?>/'+$(this).val();
+			curr_text = $(this).text();
+			$(this).text("Loading...");
+			$("#files_right_pane").load(curr_url);
+			return false;
+		});
+		$('#filter').change(function() {
+			curr_url = '<?php echo site_url('admin/files/folders/contents/'.$id) ?>/'+$(this).val();
+			curr_text = $(this).text();
+			$(this).text("Loading...");
+			$("#files_right_pane").load(curr_url);
+			return false;
+		});
+		$(".crumb").click(function() {
+			curr_url = $(this).attr("href");
+			curr_text = $(this).text();
+			$(this).text("Loading...");
+			$("#files_right_pane").load(curr_url);
+			return false;
+		});
+	});
+})(jQuery);
+</script>

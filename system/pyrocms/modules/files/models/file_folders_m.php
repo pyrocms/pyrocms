@@ -127,10 +127,12 @@ class File_folders_m extends MY_Model {
 		
 		unset($arr);
 		
+		// Confirm we have something to work with.
 		if ( ! isset($menu_array))
 		{
 			return FALSE;
 		}
+
 		foreach ($menu_array as $key => $val)
 		{
 			// This checks if the start value is set. Instead of displaying all.
@@ -211,6 +213,45 @@ class File_folders_m extends MY_Model {
 	{
 		unset($this->_folders);
 		$this->_folders = array();
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	* Breadcrumb
+	* 
+	* Generates a breadcrumb nav for folders
+	* 
+	* @param	int $node The current folder id
+	* @param	int $lev The current level
+	* @return	array
+	*/
+	public function breadcrumb($id, $lev = 0) 
+	{
+		$this->db->from('file_folders')
+					->where('id', (int) $id)
+					->order_by('name');
+		
+		$query = $this->db->get();
+
+		if ($query->num_rows() == 0) 
+		{
+			return array();
+		}
+		
+		$cat = $query->row_array();
+		
+		$path = array();
+		
+		$path[$lev]['name'] = $cat['name'];
+		$path[$lev]['id'] = $cat['id'];
+		
+		if ($cat['parent_id'] != 0) 
+		{
+			$path = array_merge($this->breadcrumb($cat['parent_id'],$lev+1), $path);
+		}
+		
+		return $path;
 	}
 }
 

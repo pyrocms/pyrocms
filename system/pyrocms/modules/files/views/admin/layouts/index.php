@@ -88,7 +88,6 @@ h3 span {
 			$(this).text(curr_text);
 			return false;
 		});
-
 		$("#files_left_pane li:first-child a").click();
 		$('#new_folder').livequery('click', function(){
             $(this).colorbox().click();
