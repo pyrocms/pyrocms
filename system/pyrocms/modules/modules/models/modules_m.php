@@ -56,7 +56,6 @@ class Modules_m extends MY_Model
 			return $null_array;
 		}
 
-
 		$result = $this->db
 			->where('slug', $module)
 			->get($this->_table)
@@ -71,26 +70,10 @@ class Modules_m extends MY_Model
 			}
 
 			$descriptions = unserialize($result->description);
-			if (!isset($descriptions[CURRENT_LANGUAGE]))
-			{
-				$description = $descriptions['en'];
-			}
-
-			else
-			{
-				$description = $descriptions[CURRENT_LANGUAGE];
-			}
+			$description = isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions[CURRENT_LANGUAGE] : $descriptions['en'];
 
 			$names = unserialize($result->name);
-			if (!isset($names[CURRENT_LANGUAGE]))
-			{
-				$name = $names['en'];
-			}
-
-			else
-			{
-				$name = $names[CURRENT_LANGUAGE];
-			}
+			$name = isset($names[CURRENT_LANGUAGE]) ? $names[CURRENT_LANGUAGE] : $names['en'];
 
 			return array(
 				'name' => $name,
