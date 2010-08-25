@@ -47,13 +47,13 @@ form ul li input.button:hover {
 	</li>
 	<li>
 		<?php echo form_label(lang('files.labels.parent'). ':', 'parent_id'); ?>
-		<?php 
+		<?php
 		$folder_options['0'] = lang('files.dropdown.no_subfolders');
 		foreach($folder->parents as $row)
 		{
 			$indent = ($row['parent_id'] != 0) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-			$folder_options[$row['id']] = $indent.$row['name']; 
-		}	
+			$folder_options[$row['id']] = $indent.$row['name'];
+		}
 		echo form_dropdown('parent_id', $folder_options, $folder->parent_id, 'id="parent_id" class="required"');
 		?>
 	</li>
