@@ -12,11 +12,11 @@ jQuery(document).ready(function($)
 
 		if (action == 'crop')
 		{
-			// Show the preview using fancybox
+			// Show the preview using colorbox
 			$.colorbox({
-				'html': '<div><img src="' + image_url + '" id="jcrop_thumbnail" /></div>',
-				'overlayOpacity': 0.8,
-				'hideOnContentClick': false,
+				'html': '<img src="' + image_url + '" id="jcrop_thumbnail" />',
+				'opacity': 0.8,
+				'overlayClose': false,
 				'onComplete': show_jcrop
 			});
 		}
