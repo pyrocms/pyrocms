@@ -61,6 +61,7 @@ class Admin_folders extends Admin_Controller {
 		{
 			show_error(lang('files.folders.not_exists'));
 		}
+		$this->load->library('table');
 		
 		// Get a list of all child folders
 		$this->file_folders_m->clear_folders();
@@ -72,6 +73,9 @@ class Admin_folders extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->id = $id;
 		
+		// Get all files
+		$this->data->files = $this->file_m->get_many_by('folder_id', $id);
+
 		// Set a default label
 		if (empty($sub_folders))
 		{

@@ -23,6 +23,10 @@
  */
 class Admin extends Admin_Controller {
 
+	private $_folders = array();
+	
+	private $_path = '';
+	
 	/**
 	 * Constructor
 	 *
@@ -39,7 +43,8 @@ class Admin extends Admin_Controller {
 		$this->lang->load('files');
 
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
-
+		
+		$this->_path = FCPATH.'/uploads/files/';
 	}
 
 	/**
@@ -55,13 +60,113 @@ class Admin extends Admin_Controller {
 		$file_folders = $this->file_folders_m->get_many_by(array('parent_id' => '0'));
 
 		$this->data->file_folders = &$file_folders;
-
+		
+		$this->data->error = $this->_check_dir();
+		
 		$this->template
 			->title($this->module_data['name'])
 			->build('admin/layouts/index', $this->data);
-
 	}
+	
+	
+	public function upload($id = '')
+	{
+		$this->config->load('files');
+		
+		$this->file_folders_m->folder_tree();
+		$folder->parents = $this->file_folders_m->get_folders();
+		// types = a','v','d','i','o'
+		$this->data->name = '';
+		$this->data->description = '';
+		$this->data->type = '';
+		$this->data->selected_id = $id;
+		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
+		$this->data->folder =& $folder;
+		
+		
+		$this->load->library('form_validation');
 
+		$this->form_validation->set_rules('name', 'lang:files.folders.name', 'required');
+		$this->form_validation->set_rules('description', 'lang:files.description', '');
+		$this->form_validation->set_rules('folder_id', 'lang:files.labels.parent', 'required');
+		$this->form_validation->set_rules('type', 'lang:files.type', 'required');
+		// $this->form_validation->set_rules('userfile', 'lang:files.file', 'required');
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('admin/files/upload', $this->data);
+		}
+		else
+		{
+			// Setup upload config
+			$type = $this->input->post('type');
+			$allowed = $this->config->item('files_allowed_file_ext');
+
+			$config['upload_path'] = $this->_path;
+			$config['allowed_types'] = $allowed[$type];
+			
+			$this->load->library('upload', $config);
+			
+			if ( ! $this->upload->do_upload('userfile'))
+			{
+				$this->data->error = $this->upload->display_errors();
+				$this->session->set_flashdata('notice', $this->upload->display_errors());
+				$this->load->view('admin/files/upload', $this->data);
+			}
+			else
+			{
+				$img = array('upload_data' => $this->upload->data());
+				
+				$data = array(
+					'folder_id' 	=> $this->input->post('folder_id'),
+					'user_id' 		=> $this->user->id,
+					'type'			=> $type,
+					'name'			=> $this->input->post('name'),
+					'description'	=> $this->input->post('description'),
+					'filename'		=> $img['upload_data']['file_name'],
+					'extension'		=> $img['upload_data']['file_ext'],
+					'mimetype'		=> $img['upload_data']['file_type'],
+					'filesize'		=> $img['upload_data']['file_size'],
+					'width'			=> $img['upload_data']['image_width'],
+					'height'		=> $img['upload_data']['image_height'],
+					'date_added'	=> time(),
+				);
+				$this->file_m->insert($data);
+				redirect('admin/files');
+			}
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Validate our upload directory.
+	 */
+	private function _check_dir()
+	{
+		if (is_dir($this->_path) && is_really_writable($this->_path))
+		{
+			return TRUE;
+		}
+		elseif ( ! is_dir($this->_path))
+		{
+			if ( ! @mkdir($this->_path))
+			{
+				$this->session->set_flashdata('notice', lang('files.folders.mkdir'));
+				return FALSE;
+			}
+		}
+		else
+		{
+			if ( ! chmod($this->_path, 0777))
+			{
+				$this->session->set_flashdata('notice', lang('files.folders.chmod'));
+				return FALSE;
+			}
+		}
+	}
+	
+	
 	private function _folder_dropdown_array($folders)
 	{
 		static $depth = 0;

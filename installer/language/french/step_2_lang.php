@@ -24,6 +24,7 @@ $lang['gd_required']	= 	'PyroCMS nécessite GD library 1.0 ou supérieur pour ma
 $lang['gd_version']		= 	'Votre serveur a la bonne version';
 $lang['gd_fail']		=	'Nous ne pouvons pas déterminer la version de GD library. Cela signifie que GD n\'est pas installé. PyroCMS peut tourner correctement sur votre serveur, mais certaines actions sur les images seront pas possibles. Il est vivement recommandé d\'activer GD library.';
 
+$lang['summary']		=	'Résumé';
 $lang['summary_green']	=	'Votre serveur est prêt pour l\'installation de PyroCMS, cliquez sur le bouton ci-dessous pour passer à la prochaine étape.';
 $lang['summary_orange']	=	'Votre serveur contient quasiment tous les logiciels nécessaires à l\'installation de PyroCMS. Cela signifie vous pouvez lancer l\'installation, mais vous pourriez rencontrer des problèmes lors de la redimension d\'image et la création de vignette.';
 $lang['summary_red']	=	'Il semblerait que votre serveur ne puisse pas installé PyroCMS. Merci de contacter votre administrateur serveur ou votre hébergeur pour résoudre ce problème..';

@@ -24,6 +24,7 @@ $lang['gd_required']	= 	'PyroCMS vereist GD library 1.0 of hoger om afbeeldingen
 $lang['gd_version']		= 	'Uw server draait momenteel versie';
 $lang['gd_fail']		=	'We kunnen niet vaststellen welke versie van de GD Library is geinstalleerd. Dit betekent meestal dat de GD Library niet is geinstalleerd. PyroCMS zal nog steeds functioneren echter sommige functionaliteit werkt waarschijnlijk niet. Het wordt sterk aangeraden om de GD Library te activeren.';
 
+$lang['summary']		=	'Overzicht';
 $lang['summary_green']	=	'Uw server heeft alle benodigheden voor PyroCMS. Ga naar de volgende stap door op de knop hieronder te klikken.';
 $lang['summary_orange']	=	'Uw server heeft de <em>meeste</em> benodigheden voor PyroCMS. Dit betekent dat PyroCMS nog steeds zal functioneren, maar er bestaat een kans dat u problemen tegenkomt met het bewerken van afbeeldingen of miniaturen.';
 $lang['summary_red']	=	'Uw server heeft niet de benodigheden die PyroCMS nodig heeft. Neem alstublieft contact op met uw serverbeheerder of uw hostingprovider om dit op te lossen.';

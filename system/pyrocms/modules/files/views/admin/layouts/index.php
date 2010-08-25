@@ -1,5 +1,8 @@
 <style type="text/css">
-
+h3 span {
+	font-size: 14px;
+	padding-left: 10px;
+}
 #files_browser {
 	display: table;
 	width: 100%;
@@ -62,7 +65,9 @@
 	font-weight: bold;
 }
 </style>
+
 <div id="files_browser">
+	
 	<div id="files_left_pane">
 		<h3><?php echo lang('files.folders.title'); ?></h3>
 		<?php echo $template['partials']['nav']; ?>
@@ -89,6 +94,11 @@
             $(this).colorbox().click();
             return false;
         });
+		$('#new_files').livequery('click', function(){
+            $(this).colorbox().click();
+            return false;
+        });
+
 	});
 })(jQuery);
 </script>

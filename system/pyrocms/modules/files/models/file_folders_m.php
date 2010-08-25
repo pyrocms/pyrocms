@@ -173,9 +173,7 @@ class File_folders_m extends MY_Model {
 	private function _folder_subtree($id, $cat_array, $depth, $start = FALSE)
 	{
 		$catarray = array();
-
 		$depth++;
-
 		foreach ($cat_array as $key => $val)
 		{
 			if ($id == $val['parent_id'])
@@ -184,7 +182,6 @@ class File_folders_m extends MY_Model {
 				{
 					$arr[$the_key] = $the_val;
 				}
-				
 				$arr = array_merge($arr, array('depth' => $depth));
 				$this->_folders[$key] = $arr;
 				$this->_folder_subtree($key, $cat_array, $depth, $start);
