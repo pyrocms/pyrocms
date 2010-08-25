@@ -18,6 +18,7 @@
  * Provides an admin for the file module.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
+ * @author		Eric Barnes <eric@pyrocms.com>
  * @package		PyroCMS
  * @subpackage	file
  */
@@ -166,7 +167,12 @@ class Admin extends Admin_Controller {
 		}
 	}
 	
-	
+	// ------------------------------------------------------------------------
+
+	/**
+	 * This is from dan and I left it in. 
+	 * 
+	 */
 	private function _folder_dropdown_array($folders)
 	{
 		static $depth = 0;
@@ -196,5 +202,5 @@ class Admin extends Admin_Controller {
 	}
 
 }
-
 /* End of file admin.php */
+/* Location: ./system/pyrocms/modules/files/controllers/admin.php */ 

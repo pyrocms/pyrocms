@@ -28,30 +28,30 @@ class Admin_folders extends Admin_Controller {
 	 * Formatted array of all folders.
 	 */
 	private $_folders = array();
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	public function __construct()
 	{
 		parent::Admin_Controller();
 		$this->load->models(array('file_m', 'file_folders_m'));
 		$this->lang->load('files');
-		
+
 		$this->file_folders_m->folder_tree();
 		$this->_folders = $this->file_folders_m->get_folders();
-		
+
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
 	}
-	
+
 	// ------------------------------------------------------------------------
 
 	public function index($id = NULL)
 	{
 		$this->_folder_list($id);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Show the folders contents
 	 */
@@ -61,12 +61,28 @@ class Admin_folders extends Admin_Controller {
 		{
 			show_error(lang('files.folders.not_exists'));
 		}
-		
+
 		$this->load->library('table');
-		
+
+		// Make a breadcrumb trail
+		$crumbs = $this->file_folders_m->breadcrumb($id);
+		$breadcrumb = '';
+		foreach($crumbs AS $item)
+		{
+			$breadcrumb .= $item['name'] . ' &raquo; ';
+		}
+		$this->data->crumbs = reduce_multiples($breadcrumb, "&raquo; ", TRUE);
+
 		// Get a list of all child folders
 		$this->file_folders_m->clear_folders();
-		$this->file_folders_m->folder_tree($id);
+		if (isset($crumbs[0]['id']) && $crumbs[0]['id'] != '')
+		{
+			$this->file_folders_m->folder_tree($crumbs[0]['id']);
+		}
+		else
+		{
+			$this->file_folders_m->folder_tree($id);
+		}
 		$sub_folders = $this->file_folders_m->get_folders();
 
 		// Get the selected information.
@@ -75,7 +91,7 @@ class Admin_folders extends Admin_Controller {
 		$this->data->id = $id;
 		$this->data->selected_filter = $filter;
 		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
-		
+
 		// Get all files
 		if ($filter != '')
 		{
@@ -88,23 +104,8 @@ class Admin_folders extends Admin_Controller {
 		{
 			$this->data->files = $this->file_m->get_many_by('folder_id', $id);
 		}
-		
-		// Make a breadcrumb trail
-		$crumbs = $this->file_folders_m->breadcrumb($id);
-		$breadcrumb = '';
-		foreach($crumbs AS $item)
-		{
-			if ($item['id'] <> $id)
-			{
-				$breadcrumb .= anchor('admin/files/folders/contents/'.$item['id'], $item['name'], 'class="crumb"') . ' &raquo; ';
-			}
-			else
-			{
-				$breadcrumb .= $item['name'];
-			}
-		}
-		$this->data->crumbs = $breadcrumb;
-		
+
+
 		// Set a default label
 		if (empty($sub_folders))
 		{
@@ -114,45 +115,45 @@ class Admin_folders extends Admin_Controller {
 		{
 			$sub_folders = array(0 => lang('files.dropdown.root')) + $sub_folders;
 		}
-		
+
 		$this->data->sub_folders = $sub_folders;
 
 		$this->load->view('admin/folders/contents', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
-	
+
 	public function create()
 	{
 		$this->_folder_create();
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	public function edit($id)
 	{
 		$this->_folder_edit($id);
 	}
 
 	// ------------------------------------------------------------------------
-	
+
 	public function delete($id)
 	{
 		$this->_folder_delete($id);
 	}
 
 	// ------------------------------------------------------------------------
-	
-	
+
+
 	public function upload()
 	{
 		$this->template
 			->title($this->module['name'],lang('files.upload.title'))
 			->build('admin/upload', $this->data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * List all folders
 	 */
@@ -172,9 +173,9 @@ class Admin_folders extends Admin_Controller {
 
 		$this->load->view('admin/folders/index', $this->data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Create folder
 	 */
@@ -194,22 +195,22 @@ class Admin_folders extends Admin_Controller {
 				'date_added'	=> now()
 			);
 			$this->file_folders_m->insert($data);
-			redirect('admin/file#folders');
+			redirect('admin/files#folders');
 		}
 		$folder->name = set_value('name');
 		$folder->parent_id = set_value('parent_id');
 		$folder->type = set_value('type');
 		$folder->slug = set_value('slug');
-		
+
 		// Get the parent -> childs
 		$folder->parents = $this->_folders;
-		
+
 		$this->data->folder =& $folder;
 		$this->load->view('admin/folders/form', $this->data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Edit a folder
 	 *
@@ -218,9 +219,9 @@ class Admin_folders extends Admin_Controller {
 	private function _folder_edit($folder_id)
 	{
 		$this->load->library('form_validation');
-		
+
 		$folder = $this->file_folders_m->get($folder_id);
-		
+
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('slug', 'Slug', 'required');
 
@@ -237,16 +238,16 @@ class Admin_folders extends Admin_Controller {
 		$folder->name = set_value('name', $folder->name);
 		$folder->parent_id = set_value('parent_id', $folder->parent_id);
 		$folder->slug = set_value('slug', $folder->slug);
-		
+
 		// Get the parent -> childs
 		$folder->parents = $this->_folders;
 
 		$this->data->folder =& $folder;
 		$this->load->view('admin/folders/form', $this->data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Delete a folder
 	 */

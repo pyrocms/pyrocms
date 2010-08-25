@@ -20,7 +20,7 @@ h3 span {
 	display: table-cell;
 	border-right: 1px solid #CCCCCC;
 	padding: 10px 0;
-	
+
 }
 #files_left_pane ul,
 #files_left_pane ul li,
@@ -32,7 +32,7 @@ h3 span {
 }
 #files_browser h3 {
 	margin: 0px;
-	padding: 3px 0 5px 0px;	
+	padding: 3px 0 5px 0px;
 }
 #files_left_pane h3 {
 	padding-left: 10px;
@@ -67,7 +67,7 @@ h3 span {
 </style>
 
 <div id="files_browser">
-	
+
 	<div id="files_left_pane">
 		<h3><?php echo lang('files.folders.title'); ?></h3>
 		<?php echo $template['partials']['nav']; ?>
@@ -79,16 +79,16 @@ h3 span {
 (function($) {
 	$(function() {
 		$("#files_left_pane li a").click(function() {
-			curr_url = $(this).attr("href");
-			curr_text = $(this).text();
-			$(this).text("Loading...");
-			$("#files_right_pane").load(curr_url);
-			$(this).parent().parent().find('li').removeClass('current');
-			$(this).parent().addClass('current');
-			$(this).text(curr_text);
+			var anchor = $(this);
+			var current_text = anchor.text();
+			parent.location.hash = anchor.attr("title");
+			anchor.text("Loading...");
+			$("#files_right_pane").load(anchor.attr("href"));
+			anchor.parent().parent().find('li').removeClass('current');
+			anchor.parent().addClass('current');
+			anchor.text(current_text);
 			return false;
 		});
-		$("#files_left_pane li:first-child a").click();
 		$('#new_folder').livequery('click', function(){
             $(this).colorbox().click();
             return false;
@@ -98,9 +98,21 @@ h3 span {
             return false;
         });
 		$('.edit_folder').livequery('click', function(){
-            $(this).colorbox().click();
-            return false;
-        });
+			$(this).colorbox().click();
+			return false;
+		});
+
+		// All this jazz allows direct links to folders
+		var current_folder = $('#files_left_pane ul li a[title='+parent.location.hash.substring(1)+']');
+		if (current_folder.length)
+		{
+			current_folder.click();
+		}
+		else
+		{
+			$("#files_left_pane li:first-child a").click();
+		}
+
 	});
 })(jQuery);
 </script>

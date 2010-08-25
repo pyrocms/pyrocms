@@ -18,6 +18,7 @@
  * Interacts with the file_folders table in the database.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
+ * @author		Eric Barnes <eric@pyrocms.com>
  * @package		PyroCMS
  * @subpackage	Files
  */
@@ -110,7 +111,7 @@ class File_folders_m extends MY_Model {
 	 *
 	 * @uses folder_subtree
 	 */
-	public function folder_tree($start = FALSE)
+	public function folder_tree($start = FALSE, $i = 0)
 	{
 		$data = $this->_all_cats = $this->get_all('array');
 		
@@ -142,8 +143,10 @@ class File_folders_m extends MY_Model {
 				{
 					$arr[$the_key] = $the_val;
 				}
-				//$this->_folders[$key] = $arr;
-				$this->_folder_subtree($key, $menu_array, 0, $start);
+				$this_depth = $i++;
+				$arr = array_merge($arr, array('depth' => $this_depth));
+				$this->_folders[$key] = $arr;
+				$this->_folder_subtree($key, $menu_array, $this_depth--, $start);
 			}
 			elseif ($start === FALSE && 0 == $val['parent_id'])
 			{
@@ -168,11 +171,10 @@ class File_folders_m extends MY_Model {
 	 * @param	array
 	 * @param	int
 	 */
-	private function _folder_subtree($id, $cat_array, $depth, $start = FALSE)
+	private function _folder_subtree($id, $menu_array, $depth = 0, $start = FALSE)
 	{
-		$catarray = array();
 		$depth++;
-		foreach ($cat_array as $key => $val)
+		foreach ($menu_array as $key => $val)
 		{
 			if ($id == $val['parent_id'])
 			{
@@ -182,7 +184,7 @@ class File_folders_m extends MY_Model {
 				}
 				$arr = array_merge($arr, array('depth' => $depth));
 				$this->_folders[$key] = $arr;
-				$this->_folder_subtree($key, $cat_array, $depth, $start);
+				$this->_folder_subtree($key, $menu_array, $depth, $start);
 			}
 		}
 	}
@@ -256,3 +258,4 @@ class File_folders_m extends MY_Model {
 }
 
 /* End of file file_folders_m.php */
+/* Location: ./system/pyrocms/modules/files/models/file_folders_m.php */ 

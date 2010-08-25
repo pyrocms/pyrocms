@@ -18,6 +18,7 @@
  * Interacts with the files table in the database.
  *
  * @author		Dan Horrigan <dan@dhorrigan.com>
+ * @author		Eric Barnes <eric@pyrocms.com>
  * @package		PyroCMS
  * @subpackage	Files
  */
@@ -28,3 +29,4 @@ class File_m extends MY_Model {
 }
 
 /* End of file file_m.php */
+/* Location: ./system/pyrocms/modules/files/models/file_m.php */ 
