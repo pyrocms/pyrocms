@@ -274,6 +274,7 @@ a.delete {
 	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
 	border-radius: 5px;
+	-webkit-background-clip: padding-box;
 }
 #shortcuts h6 {
 	margin: 0px;
@@ -308,10 +309,11 @@ a.delete {
 	-o-border-radius: 5px;
 	border-radius: 5px;
 */	vertical-align: center;
+	-webkit-background-clip: padding-box;
 
 }
 #shortcuts li a:hover {
-	background-color: #F9F9F9;
+	background-color: #fcfcfc;
 }
 #shortcuts a.add {
 	background: #F2F2F2 url('../../img/admin/icons/16/plus.png') 10px 11px no-repeat;

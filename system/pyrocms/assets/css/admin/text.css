@@ -8,7 +8,7 @@ hr {
 	height:0
 }
 
-h1, h2, h3, h4 { text-shadow: -1px -1px 0 #cecece; }
+h1, h2, h3, h4 { text-shadow: 1px 1px 0px #dedede; }
 h1 {	font-size:25px }
 h2 { font-size:23px }
 h3 { font-size:21px }
