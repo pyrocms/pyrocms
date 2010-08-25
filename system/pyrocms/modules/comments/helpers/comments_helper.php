@@ -54,12 +54,20 @@ function process_comment_items($comments)
 		// What did they comment on
 		switch($comment->module)
 		{
+			case 'pages':
+
+				if($page = $ci->pages_m->get($comment->module_id))
+				{
+					$comment->item = anchor('admin/pages/preview/' . $page->id, $page->title, 'class="modal-large"');
+					break;
+				}
+				
 			case 'news':
 
 				if(!module_exists('news')) break;
 
 				$ci->load->model('news/news_m');
-				
+
 				if($article = $ci->news_m->get($comment->module_id))
 				{
 					$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');

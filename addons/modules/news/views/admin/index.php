@@ -44,7 +44,7 @@
 				</tbody>	
 			</table>
 			
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish') )); ?>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
 
 		<?php else: ?>
 			<p><?php echo lang('news_no_articles');?></p>
