@@ -14,43 +14,44 @@ class Ajax extends Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('english','dutch','brazilian');
+	private $languages	= array ('english', 'dutch', 'brazilian');
 	
-    public function __construct()
+	public function __construct()
 	{
 		
 		parent::__construct();
 		$this->_set_language();
 		$this->lang->load('global');
-        $this->lang->load('step_1');
+		$this->lang->load('step_1');
         
 	}
 
-    public function confirm_database() {
-    
-        $server     = $this->input->post('server');
-        $username   = $this->input->post('username');
-        $password   = $this->input->post('password');
-        $port       = $this->input->post('port');
-        
-        $host = $server . ':' . $port;
-        
-        $link = @mysql_connect($host, $username, $password, TRUE);
-        
-        if ( ! $link )
-        {
-            $data['success'] = 'false';
-            $data['message'] = lang('db_failure').mysql_error();
-        } 
-        else
-        {
-            $data['success'] = 'true';
-            $data['message'] = lang('db_success');
-        }
-        
-        echo json_encode($data);
-        
-    }
+	public function confirm_database()
+	{
+
+	$server     = $this->input->post('server');
+	$username   = $this->input->post('username');
+	$password   = $this->input->post('password');
+	$port       = $this->input->post('port');
+
+	$host = $server . ':' . $port;
+
+	$link = @mysql_connect($host, $username, $password, TRUE);
+
+	if ( ! $link )
+	{
+		$data['success'] = 'false';
+		$data['message'] = lang('db_failure').mysql_error();
+	} 
+	else
+	{
+		$data['success'] = 'true';
+		$data['message'] = lang('db_success');
+	}
+
+	echo json_encode($data);
+
+	}
 
 	/**
 	 * Sets the language and loads the corresponding language files like the installer controller
@@ -81,5 +82,5 @@ class Ajax extends Controller
 	}
 }
 
-/* End of file installer.php */
-/* Location: ./installer/controllers/installer.php */
+/* End of file ajax.php */
+/* Location: ./installer/controllers/ajax.php */

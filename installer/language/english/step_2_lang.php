@@ -25,6 +25,11 @@ $lang['gd_version']		= 	'Your server is currently running version';
 $lang['gd_fail']		=	'We cannot determine the version of the GD library. This usually means that the GD library is not installed. PyroCMS will still run properly but some of the image functions might not work. It is highly recommended to enable the GD library.';
 
 $lang['summary']		=	'Summary';
+
+$lang['zlib']			=	'Zlib';
+$lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.';
+$lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.';
+
 $lang['summary_green']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
 $lang['summary_orange']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
 $lang['summary_red']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';

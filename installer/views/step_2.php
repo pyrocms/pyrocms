@@ -70,6 +70,19 @@
 	<p class="red text"><?php echo lang('gd_fail'); ?>
 <?php endif; ?>
 
+<!-- Zlib -->
+<h3><?php echo lang('zlib'); ?></h3>
+<?php if ($zlib_enabled): ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
+<?php else: ?>
+	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
+<?php endif; ?>
+<p>
+	<?php echo lang('zlib_required'); ?> <br />
+	<?php if(!$zlib_enabled): ?>
+		<?php echo lang('zlib_fail'); ?>
+	<?php endif; ?>
+</p>
 
 <!-- Summary -->
 <h3><?php echo lang('summary'); ?></h3>
@@ -100,6 +113,6 @@
 	<p id="next_step">
 		<a href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
 	</p>
-	<?php endif; ?>
+<?php endif; ?>
 
 <br class="clear" />
