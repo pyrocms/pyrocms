@@ -6,6 +6,7 @@
 
 body {
 	background: #FFFFFF url(../../img/admin/bg.png) top left repeat-y;
+	color: #444;
 }
 body#login {
 	background: #FFFFFF;
@@ -90,20 +91,31 @@ header#main h1 {
 	border-bottom: 1px solid #d0d0d0;
 }
 #main-nav ul li a:hover {
-	background-color: #FFFFFF;
+	background-color: #fcfcfc;
+	margin-right: 4px;
+	padding-right: 16px;
 }
 #main-nav ul li a.current {
 	background-color: #FFFFFF;
+}
+#main-nav ul li a.current:hover {
+	margin-right: 0;
+	padding-right: 20px;
+	cursor: default;
 }
 #main-nav ul li a.bottom-border {
 	border-bottom: 1px solid #d0d0d0;
 }
 #main-nav ul ul {
-	margin: 5px 0 20px 0;
+	padding: 5px 0 20px 0;
+	margin-right: 5px;
+	background-color: #efeff6;
+	border-top: 1px solid #d6d6d6;
+	border-bottom: 1px solid #fcfcfc;
 }
 #main-nav ul ul li {
 	text-align: right;
-	padding: 2px 20px 4px 0;
+	padding: 2px 15px 4px 0;
 }
 #main-nav ul ul li a {
 	font-size: 12px;
@@ -126,6 +138,11 @@ header#main h1 {
 	background-color: transparent;
 	border: 0;
 	color: #333333;
+}
+#main-nav ul ul li a:hover,
+#main-nav ul ul li a.current:hover {
+	margin-right: 0;
+	padding-right: 0;
 }
 
 /** Headers **/
