@@ -23,13 +23,13 @@
 <fieldset>
 	<legend><?php echo lang('pages.meta_label');?></legend>
 	<p>
-		<strong><?php echo lang('pages.meta_title_label');?>:</strong> <?php echo $page->meta_title; ?>
+		<strong><?php echo lang('pages.meta_title_label');?>:</strong> <?php echo !empty($page->meta_title) ? $page->meta_title : '&mdash;'; ?>
 	</p>
 	<p>
-		<strong><?php echo lang('pages.meta_keywords_label');?>:</strong> <?php echo $page->meta_keywords; ?>
+		<strong><?php echo lang('pages.meta_keywords_label');?>:</strong> <?php echo !empty($page->meta_keywords) ? $page->meta_keywords : '&mdash;'; ?>
 	</p>
 	<p>
-		<strong><?php echo lang('pages.meta_desc_label');?>:</strong> <?php echo $page->meta_description; ?>
+		<strong><?php echo lang('pages.meta_desc_label');?>:</strong> <?php echo !empty($page->meta_description) ? $page->meta_description : '&mdash;'; ?>
 	</p>
 </fieldset>	
 
