@@ -275,7 +275,7 @@ class Users extends Public_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function reset_pass($code = '')
+	public function reset_pass()
 	{
 		if($this->input->post('btnSubmit'))
 		{
@@ -285,13 +285,12 @@ class Users extends Public_Controller
 			{
 				redirect('users/reset_complete');
 			}
-
 			else
 			{
 				// Set an error message explaining the reset failed
 				$this->data->error_string = $this->ion_auth->errors();
 			}
-		}
+		}	
 
 		$this->template->title($this->lang->line('user_reset_password_title'));
 		$this->template->build('reset_pass', $this->data);
@@ -300,12 +299,49 @@ class Users extends Public_Controller
 	/**
 	 * Password reset is finished
 	 * @access public
+	 * @param string $code Optional parameter the reset_password_code
 	 * @return void
 	 */
-	public function reset_complete()
+	public function reset_complete($code = FALSE)
 	{
+		//default view we show reset_code_form
+		$view = 'reset_code_form';
+		
+		if($this->input->post('reset_code') || $code !== FALSE)
+		{
+			//by default lets set the reset_code to post
+			$reset_code = $this->input->post('reset_code');
+			
+			//is it really a post?
+			if(!$reset_code)
+			{
+				//nope set the reset code to $code
+				$reset_code = $code;
+			}
+			
+			//verify reset_code against code stored in db
+			$reset = $this->ion_auth->forgotten_password_complete($reset_code);
+			
+			//did the password reset?
+			if($reset)
+			{
+				//yep, set the view to reset_pass_complete.
+				$view = 'reset_pass_complete';
+			}
+			else
+			{
+				//nope, set the view to show the reset_code_form and display errors.
+				$view = 'reset_code_form';
+				$this->data->error_string = $this->ion_auth->errors();
+			}
+		}
+		
+		//set page title	
 		$this->template->title($this->lang->line('user_password_reset_title'));
-		$this->template->build('reset_pass_complete', $this->data);
+		
+		//build and render the output
+		$this->template->build($view, $this->data);
+		
 	}
 
 	/**
