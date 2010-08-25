@@ -2,11 +2,10 @@
 
 $lang['perm_title_label'] 					= 'Titre';
 $lang['perm_abbrev_label'] 					= 'Abbréviation';
-$lang['perm_who_label'] 					= 'Qui';
 $lang['perm_actions_label']					= 'Actions';
 $lang['perm_type_label'] 					= 'Type';
 $lang['perm_user_label'] 					= 'Utilisateur';
-$lang['perm_role_label'] 					= 'Rôle';
+$lang['perm_group_label'] 					= 'Group'; #translate
 $lang['perm_what_label'] 					= 'Quoi';
 $lang['perm_module_label'] 					= 'Module';
 $lang['perm_controller_label'] 				= 'Controller';

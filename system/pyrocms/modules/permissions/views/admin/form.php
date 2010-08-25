@@ -9,7 +9,9 @@
 				<ol>
 					<li>
 						<label for="module"><?php echo lang('perm_type_label');?></label>
-						<span class="spacer-right"><?php echo form_radio('role_type', 'role', $permission_rule->permission_role_id > 0) ?> <?php echo lang('perm_role_label');?></span> 
+						<span class="spacer-right">
+							<?php echo form_radio('role_type', 'group', $permission_rule->group_id > 0) ?> <?php echo lang('perm_group_label');?>
+						</span>
 						<?php echo form_radio('role_type', 'user', $permission_rule->user_id > 0) ?> <?php echo lang('perm_user_label');?>
 					</li>
 					
@@ -18,9 +20,9 @@
 						<?php echo form_dropdown('user_id', array(''=> lang('perm_user_select_default'))+$users_select, $permission_rule->user_id) ?>
 					</li>
 						
-					<li class="even <?php echo $permission_rule->permission_role_id == 0 ? 'hidden' : ''; ?>">
-						<label for="permission_role_id"><?php echo lang('perm_role_label');?></label>
-						<?php echo form_dropdown('permission_role_id', array(''=> lang('perm_rule_select_default'))+$roles_select, $permission_rule->permission_role_id) ?>
+					<li class="even <?php echo $permission_rule->group_id == 0 ? 'hidden' : ''; ?>">
+						<label for="group_id"><?php echo lang('perm_role_label');?></label>
+						<?php echo form_dropdown('group_id', array(''=> lang('perm_rule_select_default'))+$groups_select, $permission_rule->group_id) ?>
 					</li>	
 				
 					<li>

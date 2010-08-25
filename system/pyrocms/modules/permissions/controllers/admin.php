@@ -250,18 +250,4 @@ class Admin extends Admin_Controller
         $this->session->set_flashdata('success', lang('perm_rule_delete_success'));
         redirect('admin/permissions');
     }
-
-    // AJAX Callbacks
-	// #TODO: Not sure how to document the 2 methods below. - Yorick
-    function module_controllers($module = '')
-    {
-        $controllers = $this->modules_m->get_module_controllers($module);
-        exit(json_encode($controllers));
-    }
-
-    function controller_methods($module = '', $controller = 'admin')
-    {
-        $methods = $this->modules_m->get_module_controller_methods($module, $controller);
-        exit(json_encode($methods));
-    }
 }

@@ -261,7 +261,7 @@ class Modules_m extends CI_Model
 	{
 		$module = $this->get($module);
 
-		return!empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();
+		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();
 	}
 
 	/**

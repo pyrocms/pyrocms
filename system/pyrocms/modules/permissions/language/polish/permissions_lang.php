@@ -2,14 +2,13 @@
 
 $lang['perm_title_label'] 					= 'Tytuł';
 $lang['perm_abbrev_label'] 					= 'Skrócona nazwa';
-$lang['perm_who_label'] 					= 'Kto';
-$lang['perm_actions_label']                                     = 'Akcje';
+$lang['perm_actions_label']					= 'Akcje';
 $lang['perm_type_label'] 					= 'Typ';
 $lang['perm_user_label'] 					= 'Użytkownik';
-$lang['perm_role_label'] 					= 'Rola';
+$lang['perm_group_label'] 					= 'Group'; #translate
 $lang['perm_what_label'] 					= 'Co';
 $lang['perm_module_label'] 					= 'Moduł';
-$lang['perm_controller_label']                                  = 'Kontroler';
+$lang['perm_controller_label']				= 'Kontroler';
 $lang['perm_method_label'] 					= 'Metoda';
 
 $lang['perm_user_select_default'] 			= '-- Już wkrótce --';
