@@ -67,7 +67,7 @@
 </p>
 
 <?php if (empty($gd_version) OR $gd_version === FALSE): ?>
-	<p class="red text"><?php echo lang('gd_fail'); ?>
+	<p class="red text"><?php echo lang('gd_fail'); ?></p>
 <?php endif; ?>
 
 <!-- Zlib -->
@@ -80,7 +80,7 @@
 <p>
 	<?php echo lang('zlib_required'); ?> <br />
 	<?php if(!$zlib_enabled): ?>
-		<?php echo lang('zlib_fail'); ?>
+		<p class="red text"><?php echo lang('zlib_fail'); ?></p>
 	<?php endif; ?>
 </p>
 
