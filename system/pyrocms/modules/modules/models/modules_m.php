@@ -430,7 +430,7 @@ class Modules_m extends MY_Model
 	        	{
 	        		$module = $this->_parse_xml($xml_file) + array('slug'=>basename($module_name));
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'addons';
+	        		$module['is_core'] = basename(dirname($directory.'/modules')) != 'addons';
 
 					$module['enabled'] = 1;
 
