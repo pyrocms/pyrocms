@@ -12,17 +12,17 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Save';
-$lang['buttons.cancel']		= 'Cancel';
+$lang['buttons.submit']		= 'Salvar';
+$lang['buttons.cancel']		= 'Cancelar';
 $lang['buttons.upload']		= 'Upload';
-$lang['buttons.save']		= 'Save';
-$lang['buttons.save_exit']	= 'Save &amp; Exit';
-$lang['buttons.delete']		= 'Delete';
-$lang['buttons.publish']	= 'Publish';
-$lang['buttons.approve']	= 'Approve';
-$lang['buttons.unapprove']	= 'Un-approve';
-$lang['buttons.install']	= 'Install';
-$lang['buttons.yes']		= 'Yes';
-$lang['buttons.no']			= 'No';
+$lang['buttons.save']		= 'Salvar';
+$lang['buttons.save_exit']	= 'Salvar &amp; Sair';
+$lang['buttons.delete']		= 'Deletar';
+$lang['buttons.publish']	= 'Publish'; #translate
+$lang['buttons.approve']	= 'Approve'; #translate
+$lang['buttons.unapprove']	= 'Un-approve'; #translate
+$lang['buttons.install']	= 'Instalar';
+$lang['buttons.yes']		= 'Sim';
+$lang['buttons.no']			= 'Não';
 
 /* End of file buttons_lang.php */
