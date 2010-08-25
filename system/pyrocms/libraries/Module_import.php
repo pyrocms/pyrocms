@@ -85,7 +85,7 @@ class Module_import {
 	        	{
 	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'addons';
+	        		$module['is_core'] = basename($directory) != 'addons';
 
 					$module['enabled'] = 1;
 
