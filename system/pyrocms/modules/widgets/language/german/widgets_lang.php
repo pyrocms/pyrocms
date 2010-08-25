@@ -2,6 +2,7 @@
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Verfügbare widgets';
+$lang['widgets.instructions']	 			= 'Drag & drop to install'; #translate
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';

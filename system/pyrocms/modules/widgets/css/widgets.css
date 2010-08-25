@@ -1,21 +1,48 @@
-#available-widgets li { z-index:1; }
-
-#available-widgets li a { 
-	background-color: #ffffe0;
-	cursor:move;
+.widget-instructions {
+	color: #666666;
+	font-size: 15px;
+	font-style: italic;
 }
 
-#available-widgets li.ui-draggable-dragging a { 
-	background-color: #fff;
-	width:16.7em;
+#available-widgets li {
+	z-index: 1;
+	float: left;
+	margin: 5px;
+	padding: 20px;
+	width: 190px;
+	min-height: 115px;
+	background-image: url(../img/widget_bg.png);
+	list-style: none;
+	cursor: move;
+	overflow: hidden;
+	position: relative;
+}
+
+#available-widgets .title {
+	color: #666666;
+	margin: 0 0 5px 10px;
+}
+
+#available-widgets .author {
+	position: absolute;
+	bottom: 13px;
+	margin-left: 8px;
 }
 
 .widget-area .box-container {
-	background-color: #ffffe0;
-	min-height: 10em;
+	background-color: #F2F2F2;
+	border: 1px solid #DDDDDD;
+	min-height: 15em;
 	z-index:0;
 }
 
-.widget-area .header-squish .tag {
-	float: left; color: #fff; padding: 0.4em 1em;
+.widget-area .header-squish {
+	color: #fff;
+	padding: 0.4em 1em;
+}
+
+.widget-area .tag, .pyro-button {
+	float: right;
+	color: #666666;
+	padding: 0 15px 0 15px;
 }

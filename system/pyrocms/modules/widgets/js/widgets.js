@@ -140,7 +140,7 @@
 			slug = this.id.replace('delete-area-', '')
 			box = $('div#area-' + slug);
 			
-			if(confirm(''))
+			if(confirm('Are you sure you wish to delete this item?'))
 			{
 				$.post(BASE_URI + 'widgets/ajax/delete_widget_area', { area_slug: slug }, function()
 				{

@@ -3,6 +3,7 @@
 // sidebar
 $lang['widgets.available_title'] 			= 'Beschikbare widgets';
 $lang['widgets.uninstalled_title'] 			= 'Gedeinstalleerd';
+$lang['widgets.instructions']	 			= 'Drag & drop to install'; #translate
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';
