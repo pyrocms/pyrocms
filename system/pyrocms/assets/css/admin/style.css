@@ -390,3 +390,11 @@ body#login #login-box input.button {
 body#login #login-box input.button:hover {
 	background-color: #666666;
 }
+
+
+/** Pyro Buttons **/
+.pyro-button {
+	width: auto;
+	display: inline-block;
+	margin-right: 10px;
+}
