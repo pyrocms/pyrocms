@@ -10,7 +10,7 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
         
 	    // Check the frontend hasnt been disabled by an admin
-	    if(!$this->settings->frontend_enabled)
+	    if ( ! $this->settings->frontend_enabled)
 	    {
 	    	$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
 	    	show_error($error);
@@ -23,7 +23,7 @@ class Public_Controller extends MY_Controller
 		// Load the current theme
 		$this->theme = $this->themes_m->get();
 
-		if(!$this->theme)
+		if ( ! $this->theme)
 		{
 			show_error('This site has been set to use a theme that does not exist. If you are an administrator please ' . anchor('admin/themes', 'change the theme') . '.');
 		}
@@ -45,13 +45,13 @@ class Public_Controller extends MY_Controller
 				</script>' );
 
 		// Is there a layout file for this module?
-		if($this->template->theme_layout_exists($this->module . '.html'))
+		if ($this->template->theme_layout_exists($this->module . '.html'))
 		{
 			$this->template->set_layout($this->module . '.html');
 		}
 
 		// Nope, just use the default layout
-		elseif($this->template->theme_layout_exists('default.html'))
+		elseif ($this->template->theme_layout_exists('default.html'))
 		{
 			$this->template->set_layout('default.html');
 		}
@@ -60,7 +60,7 @@ class Public_Controller extends MY_Controller
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 	    
 	    // If there is a news module, link to its RSS feed in the head
-	    if( module_exists('news') )
+	    if(module_exists('news'))
 	    {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('news/rss/all.rss').'" />');
 	    }
@@ -75,7 +75,7 @@ class Public_Controller extends MY_Controller
 	    $this->load->library('variables/variables');
 
         // Assign segments to the template the new way
-	    $this->template->variables = $this->variables->get();
+	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
 	    

@@ -31,7 +31,7 @@ class Pages extends Public_Controller
 		// This will be interesting later
 		$this->viewing_homepage = $this->uri->segment(1, $this->default_segment) == $this->default_segment;
 		
-		if($this->viewing_homepage && $route['default_controller'] != 'pages')
+		if ($this->viewing_homepage && $route['default_controller'] != 'pages')
 		{
 			redirect('');
 		}
@@ -47,7 +47,7 @@ class Pages extends Public_Controller
     public function _remap($method)
     {
     	// This page has been routed to with pages/view/whatever
-    	if($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
+    	if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
     	{
     		$url_segments = $this->uri->total_rsegments() > 0 ? $this->uri->rsegment_array() : array($this->default_segment);
     		$url_segments = array_slice($url_segments, 2);
@@ -77,45 +77,49 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if( !$page || ($page->status == 'draft' && !$this->ion_auth->is_admin()) )
+		if ( ! $page OR ($page->status == 'draft' && $this->user->group !== 'admin') )
         {
         	$page = $this->_404($url_segments);
         }
 
 		// If the page is missing, set the 404 status header
-        if( $page->slug == '404')
+        if ( $page->slug == '404')
         {
         	$this->output->set_status_header(404);
         }
         
     	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-        if($page->meta_title == '')
+        if ($page->meta_title == '')
         {
-        	$page->meta_title = $this->viewing_homepage ? $this->settings->item('site_slogan') : $page->title;
+        	$page->meta_title = $this->viewing_homepage ? $this->settings->site_slogan : $page->title;
         }
         
         // If this page has an RSS feed, show it
-    	if( $page->rss_enabled )
+    	if ($page->rss_enabled)
 	    {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url($this->uri->uri_string(). '.rss').'" />');
 	    }
         
     	// Wrap the page with a page layout, otherwise use the default 'Home' layout
-	    if(!$page->layout = $this->page_layouts_m->get($page->layout_id))
+	    if (!$page->layout = $this->page_layouts_m->get($page->layout_id))
 	    {
 	    	// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
 	    	$page->layout = $this->page_layouts_m->get(1);
 	    }
 
 		// If a Page Layout has a Theme Layout that exists, use it
-		if(!empty($page->layout->theme_layout) && $this->template->theme_layout_exists($page->layout->theme_layout))
+		if (!empty($page->layout->theme_layout) && $this->template->theme_layout_exists($page->layout->theme_layout))
 		{
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 	    
 	    // Define data elements
-        $this->data->page =& $page;
-        $this->data->page->layout = $page->layout;
+		$page_array = (array) $page;
+
+		$page_array['layout'] = (array) $page_array['layout'];
+
+		
+        $this->template->page = $page_array;
 	    
         // Create page output
 	    $this->template->title($page->meta_title)
@@ -150,7 +154,7 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if( empty($page) || ($page->status == 'draft' && !$this->ion_auth->is_admin()) || !$page->rss_enabled)
+		if (empty($page) OR ($page->status == 'draft' && $this->user->group !== 'admin') OR !$page->rss_enabled)
         {
         	// Will try the page then try 404 eventually
         	$this->_page('404');
@@ -167,7 +171,7 @@ class Pages extends Public_Controller
 		$data->rss->link = site_url($url_segments);
 		$data->rss->creator_email = $this->settings->contact_email;
 		
-		if(!empty($children))
+		if (!empty($children))
 		{
 			$this->load->helper(array('date', 'xml'));
 			
@@ -203,7 +207,7 @@ class Pages extends Public_Controller
     public function _404($url_segments)
     {
     	// Try and get an error page. If its been deleted, show nasty 404
-        if(!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
+        if (!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
         {
 			log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
 			

@@ -33,11 +33,9 @@ class Variables {
          
 	}
     
-    public function get()
+    public function get_all()
     {
     	return $this->_vars;
     }
 
 }
-
-?>
