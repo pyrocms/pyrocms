@@ -48,7 +48,7 @@
 | NO TRAILING SLASH!
 |
 */
-	$system_path = './system/codeigniter';
+	$system_path = 'system/codeigniter';
 
 /*
  *---------------------------------------------------------------
@@ -64,7 +64,7 @@
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = './system/pyrocms';
+	$application_folder = 'system/pyrocms';
 
 /*
  *---------------------------------------------------------------
@@ -80,7 +80,7 @@
  * NO TRAILING SLASH!
  *
  */
-	$addon_folder = './addons';
+	$addon_folder = 'addons';
 
 /*
  * --------------------------------------------------------------------

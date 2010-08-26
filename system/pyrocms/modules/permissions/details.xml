@@ -5,8 +5,8 @@
 		<nl>Toegangsrechten</nl>
 		<es>Permisos</es>
 		<fr>Permissions</fr>
-                <de>Zugriffsrechte</de>
-                <pl>Uprawnienia</pl>
+		<de>Zugriffsrechte</de>
+		<pl>Uprawnienia</pl>
 	</name>
 	<description>
 		<en>Control what type of users can see certain sections within the site.</en>
