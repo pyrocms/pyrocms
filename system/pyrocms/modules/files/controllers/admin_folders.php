@@ -41,6 +41,7 @@ class Admin_folders extends Admin_Controller {
 		$this->file_folders_m->folder_tree();
 		$this->_folders = $this->file_folders_m->get_folders();
 
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts', FALSE);
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
 	}
 

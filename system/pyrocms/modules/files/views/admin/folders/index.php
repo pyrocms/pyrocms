@@ -1,12 +1,6 @@
 <?php echo form_open('admin/files/folders');?>
 	<h3><?php echo lang('files.folders.manage_title'); ?></h3>
 
-	<div id="files_toolbar">
-		<ul>
-			<li><a href="<?php echo site_url('admin/files/folders/create');?>" id="new_folder"><?php echo lang('files.folders.create'); ?></a></li>
-		</ul>
-	</div>
-
 		<?php if ( ! empty($file_folders)): ?>
 
 			<?php
@@ -44,10 +38,6 @@
 <?php echo form_close();?>
 <script type="text/javascript">
 jQuery(function($) {
-	$("#new_folder").colorbox({
-		width:"400", height:"350", iframe:true,
-		onClosed:function(){ location.reload(); }
-	});
 	$(".edit_folder").colorbox({
 		width:"400", height:"350", iframe:true,
 		onClosed:function(){ location.reload(); }

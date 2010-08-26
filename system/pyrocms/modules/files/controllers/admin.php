@@ -44,6 +44,7 @@ class Admin extends Admin_Controller {
 		$this->lang->load('files');
 		$this->config->load('files');
 
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts', FALSE);
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
 
 		$this->_path = FCPATH.'/'.$this->config->item('files_folder').'/';
