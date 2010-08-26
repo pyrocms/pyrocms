@@ -22,6 +22,7 @@ $config['supported_languages'] = array(
 	'de'=> array('name' => 'Deutsch', 'folder' => 'german'),
 	'pl'=> array('name' => 'Polski', 'folder' => 'polish'),
 	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
+	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian')
 );
 
 /*
