@@ -24,11 +24,13 @@ $lang['files.no_files']						= 'There are currently no files.';
 $lang['files.folders.title']				= 'File Folders';
 $lang['files.folders.manage_title']			= 'Manage Folders';
 $lang['files.folders.label']				= 'Folders';
+$lang['files.folder.label']					= 'Folder';
 $lang['files.subfolders.label']				= 'Sub-Folders';
 $lang['files.folders.name']					= 'Name';
 $lang['files.folders.slug']					= 'URL Slug';
 $lang['files.folders.created']				= 'Created On';
 $lang['files.folders.create']				= 'New Folder';
+$lang['files.folders.success']				= 'The folder has now been saved.';
 $lang['files.folders.not_exists']			= 'An invalid folder has been selected.';
 $lang['files.folders.no_subfolders']		= 'None';
 $lang['files.folders.no_folders']			= 'There are currently no folders.';
@@ -45,6 +47,10 @@ $lang['files.description']					= 'Description';
 $lang['files.type']							= 'Type';
 $lang['files.file']							= 'File';
 $lang['files.file_name']							= 'File Name';
+$lang['files.success']				= 'The file has now been saved.';
+$lang['files.not_exists']			= 'An invalid folder has been selected.';
+$lang['files.delete.error']			= 'The file could not be deleted.';
+$lang['files.delete.success']			= 'The file was deleted.';
 
 // Types
 $lang['files.i'] = 'Image';

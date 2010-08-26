@@ -44,6 +44,13 @@
 <?php echo form_close();?>
 <script type="text/javascript">
 jQuery(function($) {
-	$("#new_folder").colorbox({width: "300px", height: "260px"});
+	$("#new_folder").colorbox({
+		width:"400", height:"350", iframe:true,
+		onClosed:function(){ location.reload(); }
+	});
+	$(".edit_folder").colorbox({
+		width:"400", height:"350", iframe:true,
+		onClosed:function(){ location.reload(); }
+	});
 });
 </script>

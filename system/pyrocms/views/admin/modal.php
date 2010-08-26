@@ -11,6 +11,7 @@
 </head>
 
 <body>
+	<?php $this->load->view('admin/partials/notices') ?>
 	<?php echo $template['body']; ?>
 </body>
 </html>

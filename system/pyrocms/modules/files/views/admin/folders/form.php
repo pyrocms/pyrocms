@@ -1,40 +1,15 @@
-<!-- TODO: Remove these styles for version 1.0 theme -->
-<style type="text/css">
-form ul {
-	list-style: none;
-}
-form ul li {
-	padding: 10px 0px;
-}
-form ul li label {
-	display: inline-block;
-	width: 70px;
-	font-size: 14px;
-}
-form ul li input {
-	width: 90%;
-	border: 1px solid #DDDDDD;
-	padding: 5px;
-	font-size: 14px;
-}
+<?php if (isset($messages['success'])): ?>
+<script type="text/javascript">
+(function($) {
+	$(function() {
+		parent.jQuery.colorbox.close();
+		return false;
+	});
+})(jQuery);
+</script>
+<?php else: ?>
 
-form ul li input.button {
-	background: #666666;
-	border: 1px solid #DDDDDD;
-	color: #FFFFFF;
-	font-size: 12px;
-	width: auto;
-	padding: 5px 15px;
-	margin-right: 10px;
-}
-form ul li input.button:hover {
-	background-color: #DDDDDD;
-	border: 1px solid #CCCCCC;
-	color: #333333;
-}
-
-</style>
-<?php echo form_open($this->uri->uri_string()); ?>
+<?php echo form_open($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
 <h2><?php echo lang('files.folders.create'); ?></h2>
 <ul>
 	<li>
@@ -65,3 +40,4 @@ form ul li input.button:hover {
 
 <?php echo form_close(); ?>
 
+<?php endif; ?>
