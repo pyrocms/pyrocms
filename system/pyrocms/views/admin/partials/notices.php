@@ -10,7 +10,7 @@
 </div>
 <?php endif; ?>
 
-<?php if (!empty($messages['error'])): ?>
+<?php if ( ! empty($messages['error'])): ?>
 <div class="closable notification error">
 	<?php echo $messages['error']; ?>
 </div>
@@ -22,7 +22,7 @@
 </div>
 <?php endif; ?>
 
-<?php if (!empty($messages['notice'])): ?>
+<?php if ( ! empty($messages['notice'])): ?>
 <div class="closable notification attention">
 	<?php echo $messages['notice']; ?>
 </div>
@@ -31,5 +31,11 @@
 <?php if ($this->session->flashdata('success')): ?>
 <div class="closable notification success">
 	<?php echo $this->session->flashdata('success'); ?>
+</div>
+<?php endif; ?>
+
+<?php if ( ! empty($messages['success'])): ?>
+<div class="closable notification success">
+	<?php echo $messages['success']; ?>
 </div>
 <?php endif; ?>

@@ -1,6 +1,6 @@
 /**
  * Pyro object
- * 
+ *
  * The Pyro object is the foundation of all PyroUI enhancements
  */
 var pyro = {};
@@ -45,7 +45,6 @@ jQuery(function($) {
 
 		// Fade in the notifications
 		$(".notification").fadeIn("slow");
-
 
 		// Check all checkboxes in table
 		$(".check-all").live('click', function () {

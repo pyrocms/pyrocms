@@ -1,6 +1,6 @@
 <?php
 
-$config['files_folder'] = 'uploads/';
+$config['files_folder'] = 'uploads/files';
 
 $config['files_allowed_file_ext'] = array(
 	'i'	=> 'bmp|gif|jpeg|jpg|jpe|png|tiff|tif',

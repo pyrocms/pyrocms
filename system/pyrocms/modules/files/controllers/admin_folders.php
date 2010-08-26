@@ -36,6 +36,7 @@ class Admin_folders extends Admin_Controller {
 		parent::Admin_Controller();
 		$this->load->models(array('file_m', 'file_folders_m'));
 		$this->lang->load('files');
+		$this->config->load('files');
 
 		$this->file_folders_m->folder_tree();
 		$this->_folders = $this->file_folders_m->get_folders();
@@ -181,6 +182,7 @@ class Admin_folders extends Admin_Controller {
 	 */
 	private function _folder_create()
 	{
+		$this->template->set_layout('admin/modal');
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('name', 'Name', 'required');
@@ -195,7 +197,7 @@ class Admin_folders extends Admin_Controller {
 				'date_added'	=> now()
 			);
 			$this->file_folders_m->insert($data);
-			redirect('admin/files#folders');
+			$this->data->messages['success'] = lang('files.folders.success');
 		}
 		$folder->name = set_value('name');
 		$folder->parent_id = set_value('parent_id');
@@ -206,7 +208,7 @@ class Admin_folders extends Admin_Controller {
 		$folder->parents = $this->_folders;
 
 		$this->data->folder =& $folder;
-		$this->load->view('admin/folders/form', $this->data);
+		$this->template->build('admin/folders/form', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -218,6 +220,7 @@ class Admin_folders extends Admin_Controller {
 	 */
 	private function _folder_edit($folder_id)
 	{
+		$this->template->set_layout('admin/modal');
 		$this->load->library('form_validation');
 
 		$folder = $this->file_folders_m->get($folder_id);
@@ -225,7 +228,7 @@ class Admin_folders extends Admin_Controller {
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('slug', 'Slug', 'required');
 
-		if($this->form_validation->run())
+		if ($this->form_validation->run())
 		{
 			$data = array(
 				'name'			=> $this->input->post('name'),
@@ -233,8 +236,10 @@ class Admin_folders extends Admin_Controller {
 				'slug'			=> $this->input->post('slug'),
 			);
 			$this->file_folders_m->update($folder_id, $data);
-			redirect('admin/files#folders');
+			$this->data->messages['success'] = lang('files.folders.success');
+			//redirect('admin/files#folders');
 		}
+
 		$folder->name = set_value('name', $folder->name);
 		$folder->parent_id = set_value('parent_id', $folder->parent_id);
 		$folder->slug = set_value('slug', $folder->slug);
@@ -243,7 +248,8 @@ class Admin_folders extends Admin_Controller {
 		$folder->parents = $this->_folders;
 
 		$this->data->folder =& $folder;
-		$this->load->view('admin/folders/form', $this->data);
+
+		$this->template->build('admin/folders/form', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -251,25 +257,25 @@ class Admin_folders extends Admin_Controller {
 	/**
 	 * Delete a folder
 	 */
-	private function _folder_delete()
+	private function _folder_delete($folder_id = '')
 	{
-		$folder_id = $this->uri->segment(5, NULL);
-
 		// If no folder is given, then 404
-		$folder_id == NULL and show_404();
-
-		$folder = $this->file_folders_m->get($folder_id);
+		if ( ! $folder = $this->file_folders_m->get($folder_id))
+		{
+			show_404();
+		}
 
 		if($this->input->post('button_action') == 'Yes')
 		{
+			$this->file_m->delete_files($folder_id);
 			$this->file_folders_m->delete($folder_id);
 			$this->session->set_flashdata('success', sprintf(lang('files.folders.delete_success'), $folder->name));
 
-			redirect('admin/files/folders');
+			redirect('admin/files#folders');
 		}
 		elseif($this->input->post('button_action') == 'No')
 		{
-			redirect('admin/files/folders');
+			redirect('admin/files#folders');
 		}
 
 		$this->data->folder =& $folder;

@@ -1,14 +1,14 @@
 <?php echo form_open('admin/files');?>
 	<h3>
-		<?php echo $crumbs; ?> 
+		<?php echo $crumbs; ?>
 		<span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span>
 	</h3>
-	
+
 	<div id="files_toolbar">
 		<ul>
 			<li>
 				<label for="folder"><?php echo lang('files.subfolders.label'); ?>:</label>
-				<?php 
+				<?php
 				//$folder_options['0'] = $sub_folders[0];
 				foreach($sub_folders as $row)
 				{
@@ -17,7 +17,7 @@
 						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
 						$folder_options[$row['id']] = $indent.$row['name'];
 					}
-				}	
+				}
 				echo form_dropdown('parent_id', $folder_options, $id, 'id="parent_id"');
 				?>
 			</li>
@@ -40,11 +40,11 @@
 				lang('files.folders.created'),
 				'<span>'. lang('files.labels.action') .'</span>'
 			);
-				
+
 				foreach ($files as $file)
 				{
-					$edit = anchor('admin/files/folders/edit/' . $file->id, lang('files.labels.edit'));
-					$delete = anchor('admin/files/folders/delete/' . $file->id, lang('files.labels.delete'), array('class'=>'confirm'));
+					$edit = anchor('admin/files/edit/' . $file->id, lang('files.labels.edit'), array('class' => 'edit_file'));
+					$delete = anchor('admin/files/delete/' . $file->id, lang('files.labels.delete'), array('class'=>'confirm'));
 					$this->table->add_row(
 					 	form_checkbox('action_to[]', $file->id),
 					 	$file->name,
@@ -66,6 +66,9 @@
 <script type="text/javascript">
 (function($) {
 	$(function() {
+
+		var curr_url = '<?php echo site_url('admin/files/folders/contents/'.$id.'/'.$selected_filter) ?>/';
+
 		$('#parent_id').change(function() {
 			curr_url = '<?php echo site_url('admin/files/folders/contents/') ?>/'+$(this).val()+'/<?php echo $selected_filter; ?>';
 			curr_text = $(this).text();
@@ -80,12 +83,13 @@
 			$("#files_right_pane").load(curr_url);
 			return false;
 		});
-		$(".crumb").click(function() {
-			curr_url = $(this).attr("href");
-			curr_text = $(this).text();
-			$(this).text("Loading...");
-			$("#files_right_pane").load(curr_url);
-			return false;
+		$(".edit_file").colorbox({
+			width:"400", height:"450", iframe:true,
+			onClosed:function(){ $("#files_right_pane").load(curr_url); }
+		});
+		$("#new_files").colorbox({
+			width:"400", height:"450", iframe:true,
+			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
 	});
 })(jQuery);
