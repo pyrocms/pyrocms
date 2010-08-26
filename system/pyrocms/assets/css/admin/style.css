@@ -106,6 +106,7 @@ a:hover {
 	display: table-cell;
 	vertical-align: top;
 	font-size: 110%;
+	min-width: 223px;
 }
 #sidebar footer {
 	font-size: 11px;
