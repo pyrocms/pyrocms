@@ -1,12 +1,4 @@
 <div class="box">
-	<nav id="shortcuts">
-		<h6>Shortcuts</h6>
-		<ul>
-			<li><?php echo anchor('admin/themes/upload', lang('themes.upload_title'), 'class="add"'); ?></li>
-		</ul>
-		<br class="clear-both" />
-	</nav>
-
 		<?php echo form_open('admin/themes/set_default'); ?>
 
 			<?php if(!empty($themes)): ?>

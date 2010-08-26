@@ -35,6 +35,8 @@ class Admin extends Admin_Controller
 		$this->template->append_metadata( css('themes.css', 'themes') );
 		$this->data->themes = $this->themes_m->get_all();
 
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+
 		// Render the view
 		$this->template
 			->title($this->module_data['name'])

@@ -16,7 +16,7 @@ $lang['nav_module_label'] 						= 'Module';
 $lang['nav_abbrev_label'] 						= 'Afkorting';
 $lang['nav_edit_label'] 						= 'Bewerk';
 $lang['nav_delete_label'] 						= 'Verwijder';
-$lang['nav_group_delete_label']					= 'Verwijder groep "%s"';
+$lang['nav_group_delete_label']					= 'Verwijder groep';
 $lang['nav_link_module_select_default'] 		= '-- Selecteer --';
 $lang['nav_link_page_select_default'] 			= '-- Selecteer --';
 

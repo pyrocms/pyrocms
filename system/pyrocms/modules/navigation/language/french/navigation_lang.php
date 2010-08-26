@@ -16,7 +16,7 @@ $lang['nav_module_label'] 						= 'Module';
 $lang['nav_abbrev_label'] 						= 'Abbréviation';
 $lang['nav_edit_label'] 						= 'Modifier';
 $lang['nav_delete_label'] 						= 'Supprimer';
-$lang['nav_group_delete_label']					= 'Supprimer le groupe "%s"';
+$lang['nav_group_delete_label']					= 'Supprimer le groupe';
 $lang['nav_link_module_select_default'] 		= '-- Selectionner --';
 $lang['nav_link_page_select_default'] 			= '-- Selectionner --';
 

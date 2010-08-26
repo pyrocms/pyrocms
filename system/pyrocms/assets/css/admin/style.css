@@ -96,6 +96,7 @@ a:hover {
 .clear-both {
 	clear: both;
 }
+
 #page-wrapper {
 	display: table;
 	width: 100%;
@@ -238,13 +239,15 @@ header#main h1 {
 }
 #page-header h1 {
 	font-size: 18px;
+	color: #eef1f4;
 	margin: 0;
 	display: inline-block;
+	text-shadow: 0 -1px 0 #000;
 }
 #page-header a {
 	color: #eef1f4;
 	text-decoration: none;
-	text-shadow: none;
+	text-shadow: 0 -1px 0 #000;
 }
 #page-header p {
 	font-size: 12px;
@@ -321,7 +324,7 @@ table td {
 table thead th {
 	font-weight: bold;
 	font-size: 14px;
-	border-bottom: 1px solid #DDDDDD;
+	border-bottom: 1px solid #c2c2c2;
 	text-align: left;
 }
 table thead th.checkboxes {
@@ -329,9 +332,6 @@ table thead th.checkboxes {
 }
 table tbody {
 	border-bottom: 1px solid #DDDDDD;
-}
-table tbody tr {
-	background-color: #FFFFFF;
 }
 table tbody tr.alt {
 	background-color: #F3F3F3;
@@ -357,7 +357,6 @@ a.delete {
 
 /** Shortcut Buttons **/
 #shortcuts {
-	margin-bottom: 10px;
 	border: 1px solid #DDDDDD;
 	background-color: #F2F2F2;
 	text-align: left;
@@ -467,4 +466,66 @@ body#login #login-box input.button {
 }
 body#login #login-box input.button:hover {
 	background-color: #666666;
+}
+
+
+/** Pyro Buttons **/
+.pyro-button {
+	width: auto;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+
+/** Flexiboxes **/
+.group-box {
+/*	background-color: #efeff6; */
+	background-color: #fbfbfc;
+	width: 100%;
+	min-width: 550px;
+	float: left; 
+	margin: 0 15px 25px 0;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+.group-box header, .group-box footer {
+	background-color: #f5f5f5;
+	padding: 0 10px;
+}
+.group-box header {
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+.group-box header h3 {
+	margin-bottom: 0;
+}
+.group-box header.open {
+	background-color: #fff;
+}
+.group-box header:hover {
+	background-color: #fcfcfc;
+}
+.group-box footer {
+	padding: 10px;
+	text-align: right;
+	border-top: 1px solid #d6d6d6;
+}
+.group-box table {
+	margin-bottom: 0;
+}
+.group-box table tbody {
+	border-bottom: none;
+}
+.group-box p {
+	margin: 10px;
+}
+
+.hover-toggle .toggle-item {
+	visibility: hidden;
+}
+.hover-toggle:hover .toggle-item {
+	visibility: visible;
 }

@@ -20,7 +20,9 @@
 				</ol>
 			</fieldset>
 			
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			<div style="text-align: right">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			</div>
 		<?php echo form_close(); ?>
 		
 	</div>

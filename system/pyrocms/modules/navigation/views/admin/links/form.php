@@ -15,12 +15,12 @@
 			<ol>
 				<li class="even">
 					<label for="title"><?php echo lang('nav_title_label');?></label>
-					<?php echo form_input('title', $navigation_link->title, 'maxlength="50"'); ?>
+					<?php echo form_input('title', $navigation_link->title, 'maxlength="50" class="text"'); ?>
 				</li>
 					
 				<li>
 					<label for="navigation_group_id"><?php echo lang('nav_group_label');?></label>
-					<?php echo form_dropdown('navigation_group_id', $groups_select, $navigation_link->navigation_group_id, 'size="'.count($groups_select).'"') ?>
+					<?php echo form_dropdown('navigation_group_id', $groups_select, $navigation_link->navigation_group_id) ?>
 				</li>
 				
 				<li class="even">
@@ -69,9 +69,10 @@
 				</li>
 			</ol>
 	
-			<br class="clear-both" />
-					
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+				
+			<div style="text-align: right">	
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			</div>
 
 		<?php echo form_close(); ?>
 		
