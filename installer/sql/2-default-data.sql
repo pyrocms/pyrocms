@@ -23,7 +23,7 @@ TRUNCATE `pages`;
 -- command split --
 
 INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
-(1, 'Default', '<h2>{$page.title}</h2>\n\n\n{$page.body}', '', NOW());
+(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', NOW());
 
 -- command split --
 
