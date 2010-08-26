@@ -46,21 +46,6 @@ jQuery(function($) {
 		// Fade in the notifications
 		$(".notification").fadeIn("slow");
 
-		// Confirmation
-		$("a.confirm").live('click', function(){
-			removemsg = $("em").attr("title");
-			if (removemsg === undefined) {
-				var answer = confirm('Are you sure you wish to delete this? It can not be undone.');
-			} else {
-				var answer = confirm(removemsg);
-			}
-
-			if (answer) {
-				return true;
-			}
-			return false;
-		});
-
 		// Check all checkboxes in table
 		$(".check-all").live('click', function () {
 			$(this).parents("table").find("tbody input[type='checkbox']").each(function () {
