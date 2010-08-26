@@ -52,8 +52,8 @@ textarea.uniform {
   font-weight: normal;
   padding: 3px;
   color: #777;
-  background: url('../../img/admin/uniform/bg-input-focus.png') repeat-x 0px 0px;
-  background: url('../../img/admin/uniform/bg-input.png') repeat-x 0px 0px;
+  background: #fff url('../../img/admin/uniform/bg-input-focus.png') repeat-x 0px 0px;
+  background: #fff url('../../img/admin/uniform/bg-input.png') repeat-x 0px 0px;
   border-top: solid 1px #aaa;
   border-left: solid 1px #aaa;
   border-bottom: solid 1px #ccc;
@@ -547,6 +547,10 @@ div.radio {
   position: relative;
   display: -moz-inline-box;
   display: inline-block;
+  margin-left: 10px;
+}
+div.radio:first-child {
+	margin-left: 0;
 }
 
 div.radio span {

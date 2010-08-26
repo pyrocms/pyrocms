@@ -1,59 +1,63 @@
 <?php if (!empty($groups)): ?>
 	<?php foreach ($groups as $group): ?>
 	
-		<div class="box">
-			<h3><?php echo $group->title;?></h3>	
+		<section class="group-box">
+			<header>
+				<div class="float-right" style="margin-top: 6px;">
+					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), 'class="delete_group"') ?>
+				</div>
 			
-			<div class="box-container">
+				<h3><?php echo $group->title;?></h3>
+			</header>
 			
-				<?php echo form_open('admin/navigation/delete');?>
-				
-					<div class="pyro-button small spacer-bottom float-right">
-						<?php echo anchor('admin/navigation/groups/delete/'.$group->id, sprintf(lang('nav_group_delete_label'), $group->title), 'class="delete_group"') ?>
-					</div>
-			
-					<?php if (!empty($navigation[$group->abbrev])): ?>
-					
-						<table border="0" class="table-list">		    
-							<thead>
-								<tr>
-									<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-									<th class="width-30"><?php echo lang('nav_title_label');?></th>
-									<th class="width-25"><?php echo lang('nav_url_label');?></th>
-									<th class="width-10"><?php echo lang('nav_actions_label');?></th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
-								<tr>
-									<td><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
-									<td><?php echo $navigation_link->title;?></td>
-									<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-									<td>
-										<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'));?> | 
-										<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm'));?>
-									</td>
-								</tr>
-								<?php endforeach; ?>	
-							</tbody>
-						</table>
-											
-						<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
-											
-					<?php else:?>
-						<p><?php echo lang('nav_group_no_links');?></p>
-					<?php endif; ?>	
+			<?php echo form_open('admin/navigation/delete');?>
 		
-				<?php echo form_close(); ?>
+				<?php if (!empty($navigation[$group->abbrev])): ?>
+				
+					<table border="0" class="table-list">		    
+						<thead>
+							<tr>
+								<th style="width: 3em"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
+								<th><?php echo lang('nav_title_label');?></th>
+								<th><?php echo lang('nav_url_label');?></th>
+								<th style="width: 5em">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
+							<tr class="hover-toggle">
+								<td><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
+								<td><?php echo $navigation_link->title;?></td>
+								<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
+								<td>
+									<span class="toggle-item">
+									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'));?> | 
+									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm'));?>
+									</span>
+								</td>
+							</tr>
+							<?php endforeach; ?>	
+						</tbody>
+					</table>
 					
-			</div>
-		</div>
+					<footer>	
+						<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+					</footer>
+										
+				<?php else:?>
+					<p><?php echo lang('nav_group_no_links');?></p>
+				<?php endif; ?>	
+	
+			<?php echo form_close(); ?>
+					
+		</section>
 		
 	<?php endforeach; ?>
 		
 <?php else: ?>
 	<p><?php echo lang('nav_no_groups');?></p>
 <?php endif; ?>
+
 
 <script type="text/javascript">
 (function($) {
