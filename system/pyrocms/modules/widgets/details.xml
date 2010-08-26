@@ -6,7 +6,8 @@
 		<es>Widgets</es>
 		<fr>Widgets</fr>
 		<de>Widgets</de>
-                <pl>Widgets</pl>
+        <pl>Widgets</pl>
+		<br>Widgets</br>
 	</name>
 	<description>
 		<en>Manage small sections of self-contained logic in blocks or "Widgets".</en>
@@ -14,7 +15,8 @@
 		<es>Manage small sections of self-contained logic in blocks or "Widgets".</es>
 		<fr>Manage small sections of self-contained logic in blocks or "Widgets".</fr>
 		<de>Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".</de>
-                <pl>Manage small sections of self-contained logic in blocks or "Widgets".</pl>
+        <pl>Manage small sections of self-contained logic in blocks or "Widgets".</pl>
+		<br>Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".</br>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
