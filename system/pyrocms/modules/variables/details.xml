@@ -7,6 +7,7 @@
 		<es>Variables</es>
 		<fr>Variables</fr>
 		<de>Variablen</de>
+		<en>Variáveis</en>
 	</name>
 	<description>
 		<en>Manage global variables to access from everywhere.</en>
@@ -15,6 +16,7 @@
 		<es>Manage global variables to access from everywhere.</es>
 		<fr>Manage global variables to access from everywhere.</fr>
 		<de>Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.</de>
+		<br>Gerencia as variáveis globais acessíveis de qualquer lugar.</br>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
