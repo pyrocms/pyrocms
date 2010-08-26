@@ -48,6 +48,9 @@ $lang['files.type']							= 'Type';
 $lang['files.file']							= 'File';
 $lang['files.file_name']							= 'File Name';
 $lang['files.success']				= 'The file has now been saved.';
+$lang['files.not_exists']			= 'An invalid folder has been selected.';
+$lang['files.delete.error']			= 'The file could not be deleted.';
+$lang['files.delete.success']			= 'The file was deleted.';
 
 // Types
 $lang['files.i'] = 'Image';

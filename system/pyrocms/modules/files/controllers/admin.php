@@ -42,10 +42,11 @@ class Admin extends Admin_Controller {
 
 		$this->load->models(array('file_m', 'file_folders_m'));
 		$this->lang->load('files');
+		$this->config->load('files');
 
 		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
 
-		$this->_path = FCPATH.'/uploads/files/';
+		$this->_path = FCPATH.'/'.$this->config->item('files_folder').'/';
 	}
 
 	/**
@@ -69,7 +70,15 @@ class Admin extends Admin_Controller {
 			->build('admin/layouts/index', $this->data);
 	}
 
+	// ------------------------------------------------------------------------
 
+	/**
+	 * Upload
+	 *
+	 * Upload a file to the destination folder
+	 *
+	 * @params int	The folder id
+	 */
 	public function upload($id = '')
 	{
 		$this->template->set_layout('admin/modal');
@@ -129,7 +138,6 @@ class Admin extends Admin_Controller {
 				);
 				$this->file_m->insert($data);
 				$this->data->messages['success'] = lang('files.success');
-				$this->data->error = "<script>parent.$.fn.colorbox.close(); </script>";
 				#redirect('admin/files');
 			}
 		}
@@ -153,6 +161,33 @@ class Admin extends Admin_Controller {
 		$this->data->error = '';
 		$this->template->build('admin/files/edit', $this->data);
 	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Delete a file
+	 *
+	 * @params 	int The file id
+	 */
+	public function delete($id = '')
+	{
+		if ( ! $this->file_m->exists($id))
+		{
+			show_error(lang('files.not_exists'));
+		}
+
+		if ( ! $this->file_m->delete($id))
+		{
+			$this->session->set_flashdata('error', lang('files.delete.error'));
+			redirect('admin/files');
+		}
+		else
+		{
+			$this->session->set_flashdata('success', lang('files.delete.success'));
+			redirect('admin/files');
+		}
+	}
+
 	// ------------------------------------------------------------------------
 
 	/**

@@ -36,6 +36,7 @@ class Admin_folders extends Admin_Controller {
 		parent::Admin_Controller();
 		$this->load->models(array('file_m', 'file_folders_m'));
 		$this->lang->load('files');
+		$this->config->load('files');
 
 		$this->file_folders_m->folder_tree();
 		$this->_folders = $this->file_folders_m->get_folders();
@@ -256,25 +257,25 @@ class Admin_folders extends Admin_Controller {
 	/**
 	 * Delete a folder
 	 */
-	private function _folder_delete()
+	private function _folder_delete($folder_id = '')
 	{
-		$folder_id = $this->uri->segment(5, NULL);
-
 		// If no folder is given, then 404
-		$folder_id == NULL and show_404();
-
-		$folder = $this->file_folders_m->get($folder_id);
+		if ( ! $folder = $this->file_folders_m->get($folder_id))
+		{
+			show_404();
+		}
 
 		if($this->input->post('button_action') == 'Yes')
 		{
+			$this->file_m->delete_files($folder_id);
 			$this->file_folders_m->delete($folder_id);
 			$this->session->set_flashdata('success', sprintf(lang('files.folders.delete_success'), $folder->name));
 
-			redirect('admin/files/folders');
+			redirect('admin/files#folders');
 		}
 		elseif($this->input->post('button_action') == 'No')
 		{
-			redirect('admin/files/folders');
+			redirect('admin/files#folders');
 		}
 
 		$this->data->folder =& $folder;
