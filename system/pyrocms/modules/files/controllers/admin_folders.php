@@ -197,7 +197,7 @@ class Admin_folders extends Admin_Controller {
 				'date_added'	=> now()
 			);
 			$this->file_folders_m->insert($data);
-			redirect('admin/files#folders');
+			$this->data->messages['success'] = lang('files.folders.success');
 		}
 		$folder->name = set_value('name');
 		$folder->parent_id = set_value('parent_id');
