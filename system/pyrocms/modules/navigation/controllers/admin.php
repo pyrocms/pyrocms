@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Admin controller for the navigation module. Handles actions such as editing links or creating new ones.
  *

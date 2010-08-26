@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @author 		Phil Sturgeon - PyroCMS Dev Team
  * @package 	PyroCMS
