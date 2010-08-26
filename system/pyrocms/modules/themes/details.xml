@@ -5,16 +5,18 @@
 		<nl>Thema's</nl>
 		<es>Temas</es>
 		<fr>Thèmes</fr>
-                <de>Thema</de>
-                <pl>Motywy</pl>
+        <de>Thema</de>
+        <pl>Motywy</pl>
+		<br>Temas</br>
 	</name>
 	<description>
 		<en>Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.</en>
 		<nl>Maakt het voor administratoren en medewerkers mogelijk om het thema van de website te wijzigen, nieuwe thema's te uploaden en ze visueel te beheren.</nl>
 		<es>Permite a los administradores y miembros del personal cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.</es>
 		<fr>Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle</fr>
-                <de>Ermöglicht es dem Administrator das Seiten Thema auszuwählen, neue Themen hochzulanden oder diese visuell zu verwalten.</de>
-                <pl>Umożliwia administratorowi zmianę motywu strony, wgrywanie nowych motywów oraz zarządzanie nimi.</pl>
+        <de>Ermöglicht es dem Administrator das Seiten Thema auszuwählen, neue Themen hochzulanden oder diese visuell zu verwalten.</de>
+        <pl>Umożliwia administratorowi zmianę motywu strony, wgrywanie nowych motywów oraz zarządzanie nimi.</pl>
+		<br>Permite com que administradores e membros da equipe configurem o tema de layout do website, fazer upload de novos temas e gerenciá-los em uma interface mais visual.</br>
 	</description>
 	<is_frontend>0</is_frontend>
 	<is_backend>1</is_backend>
