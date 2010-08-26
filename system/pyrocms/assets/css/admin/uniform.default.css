@@ -44,8 +44,8 @@ div.button span {
 
 /* INPUT & TEXTAREA */
 
-input.text, 
-input.password,
+input[type=text],
+input[type=password],
 textarea.uniform {
   font-size: 12px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -64,8 +64,8 @@ textarea.uniform {
   outline: 0;
 }
 
-input.text:focus,
-input.password:focus,
+input[type=text]:focus,
+input[type=password]:focus,
 textarea.uniform:focus {
   -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
   -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
