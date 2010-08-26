@@ -61,6 +61,21 @@ jQuery(function($) {
 			$.uniform.update();
 		});
 
+		// Confirmation
+		$("a.confirm").live('click', function(){
+			removemsg = $("em").attr("title");
+			if (removemsg === undefined) {
+				var answer = confirm(DIALOG_MESSAGE);
+			} else {
+				var answer = confirm(removemsg);
+			}
+
+			if (answer) {
+				return true;
+			}
+			return false;
+		});
+
 		// Table zerbra striping
 		$("tbody tr:nth-child(even)").livequery(function () {
 			$(this).addClass("alt");
