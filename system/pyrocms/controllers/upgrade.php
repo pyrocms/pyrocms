@@ -79,6 +79,10 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		echo "Updating comments module.<br/>";
+		$this->db->where('slug', 'comments');
+		$this->db->update('modules', array('version' => '1.0'));
+
 		echo "Merging categories module into news module.<br/>";
 		$this->dbforge->rename_table('categories', 'news_categories');
 		$this->db->delete('modules', array('slug' => 'categories'));
@@ -148,7 +152,7 @@ class Upgrade extends Controller
 	      UNIQUE KEY `Unique` (`slug`,`parent_id`),
 	      KEY `slug` (`slug`),
 	      KEY `parent` (`parent_id`)
-	    ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages'
+	    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages'
 	    ");
 
 	    // Now that the new pages table has been created it's time to create the revisions table
@@ -161,7 +165,7 @@ class Upgrade extends Controller
 	      `author_id` int(11) NOT NULL,
 	      PRIMARY KEY (`id`),
 	      KEY `Owner ID` (`owner_id`)
-	    ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8
+	    ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 	    ");
 
 	    // So far so good, time to migrate the old data back to the new table
@@ -205,7 +209,6 @@ class Upgrade extends Controller
 	            'null'            => TRUE
 	        )
 	    ));
-
 
 		// Clear some caches
 		echo "Clearing the module cache.<br/>";
