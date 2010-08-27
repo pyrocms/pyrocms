@@ -295,7 +295,7 @@ class Installer extends Controller
 
 				// Import the modules
 				$this->load->library('module_import');
-				$this->module_import->_import();
+				$this->module_import->import_all();
 
 				// Redirect
 				redirect('installer/complete');

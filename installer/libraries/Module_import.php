@@ -1,4 +1,10 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+define('PYROPATH', dirname(FCPATH).'/system/pyrocms/');
+define('ADDONPATH', dirname(FCPATH).'/addons/');
+
+// All modules talk to the Module class, best get that!
+include PYROPATH .'libraries/Module'.EXT;
 
 class Module_import {
 
@@ -22,94 +28,118 @@ class Module_import {
 		$db['dbcollat'] = "utf8_general_ci";
 
 		$this->ci->load->database($db);
-
 	}
 
 
-	private function add($module)
-    {
+	/**
+	 * Install
+	 *
+	 * Installs a module
+	 *
+	 * @param	string	$slug	The module slug
+	 * @return	bool
+	 */
+	public function install($slug, $is_core = FALSE)
+	{
+		$details_class = $this->_spawn_class($slug, $is_core);
 
+		// Get some basic info
+		$module = $details_class->info();
+
+		// Now lets set some details ourselves
+		$module['version'] = $details_class->version;
+		$module['is_core'] = $is_core;
+		$module['enabled'] = TRUE;
+		$module['slug'] = $slug;
+
+		// Run the install method to get it into the database
+		if ( ! $details_class->install())
+		{
+			return FALSE;
+		}
+
+		// Looks like it installed ok, add a record
+		return $this->add($module);
+	}
+
+	public function add($module)
+	{
 		return $this->ci->db->insert('modules', array(
-    		'name'				=>	$module['name'],
-    		'slug'				=>	$module['slug'],
-    		'version' 			=> 	$module['version'],
-    		'type' 				=> 	$module['type'],
-    		'description' 		=> 	$module['description'],
-    		'skip_xss'			=>	$module['skip_xss'],
-    		'is_frontend'		=>	$module['is_frontend'],
-    		'is_backend'		=>	$module['is_backend'],
-    		'is_backend_menu' 	=>	$module['is_backend_menu'],
-    		'controllers'		=>	serialize($module['controllers']),
-			'enabled'			=>  $module['enabled'],
-			'is_core'			=>  $module['is_core']
-    	));
-    }
-	
-	private function _format_xml($xml_file)
+			'name' => serialize($module['name']),
+			'slug' => $module['slug'],
+			'version' => $module['version'],
+			'description' => serialize($module['description']),
+			'skip_xss' => !empty($module['skip_xss']),
+			'is_frontend' => !empty($module['frontend']),
+			'is_backend' => !empty($module['backend']),
+			'is_backend_menu' => !empty($module['menu']),
+			'enabled' => $module['enabled'],
+			'controllers' => '',
+			'is_core' => $module['is_core']
+		));
+	}
+
+
+	public function import_all()
     {
-    	$xml = simplexml_load_file($xml_file);
-
-    	// Loop through all controllers in the XML file
-    	$controllers = array();
-
-    	foreach($xml->controllers as $controller)
-    	{
-    		$controller = $controller->controller;
-    		$controller_array['name'] = (string) $controller->attributes()->name;
-
-    		// Store methods from the controller
-    		$controller_array['methods'] = array();
-
-    		if($controller->method)
-    		{
-    			// Loop through to save methods
-    			foreach($controller->method as $method)
-    			{
-    				$controller_array['methods'][] = (string) $method;
-    			}
-    		}
-
-			// Save it all to one variable
-    		$controllers[$controller_array['name']] = $controller_array;
-    	}
-
-    	return array(
-    		'name'				=>	serialize((array) $xml->name),
-    		'version' 			=> 	(string) $xml->attributes()->version,
-    		'type' 				=> 	(string) $xml->attributes()->type,
-    		'description' 		=> 	serialize((array) $xml->description),
-    		'skip_xss'			=>	$xml->skip_xss == 1,
-    		'is_frontend'		=>	$xml->is_frontend == 1,
-    		'is_backend'		=>	$xml->is_backend == 1,
-    		'is_backend_menu' 	=>	$xml->is_backend_menu == 1,
-    		'controllers'		=>	$controllers
-    	);
-    }
-
-
-	public function _import()
-    {
-    	$modules = array();
+		// Clear out existing modules
+		$this->ci->db->empty_table('modules');
 
     	// Loop through directories that hold modules
-    	foreach (array('../system/pyrocms/', '../addons/') as $directory)
+		$is_core = TRUE;
+
+		foreach (array(PYROPATH, ADDONPATH) as $directory)
     	{
     		// Loop through modules
 	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 	        {
-	        	if(file_exists($xml_file = $module_name.'/details.xml'))
-	        	{
-	        		$module = $this->_format_xml($xml_file) + array('slug'=>basename($module_name));
+				$slug = basename($module_name);
 
-	        		$module['is_core'] = basename(dirname($directory)) != 'addons';
+				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				{
+					continue;
+				}
 
-					$module['enabled'] = 1;
+				$this->install($slug, $is_core);
+			}
 
-					$this->add($module);
-	        	}
-	        }
+			// Going back around, 2nd time is addons
+			$is_core = FALSE;
         }
-		
+
+		return TRUE;
 	}
 
+	/**
+	 * Spawn Class
+	 *
+	 * Checks to see if a details.php exists and returns a class
+	 *
+	 * @param	string	$module_slug	The folder name of the module
+	 * @access	private
+	 * @return	array
+	 */
+	private function _spawn_class($module_slug, $is_core = FALSE)
+	{
+		$path = $is_core ? PYROPATH : ADDONPATH;
+
+		// Before we can install anything we need to know some details about the module
+		$details_file = $path . 'modules/' . $module_slug . '/details'.EXT;
+
+		// Check the details file exists
+		if (!is_file($details_file))
+		{
+			return FALSE;
+		}
+
+		// Sweet, include the file
+		include_once $details_file;
+
+		// Now call the details class
+		$class = ucfirst($module_slug).'_details';
+
+		// Now we need to talk to it
+		return new $class;
+	}
+	
 }
