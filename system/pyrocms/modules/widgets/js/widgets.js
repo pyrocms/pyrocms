@@ -47,9 +47,15 @@
 	
 	function show_add_instance(area_slug)
 	{
-		$('div#area-' + area_slug).before(add_instance.detach());
+		my_area = '#area-' + area_slug + ' .widget-list ol';
 		
-		add_instance.slideDown();
+		$(my_area + ' .empty-drop-item').before(add_instance.detach());
+	
+		$(my_area = ' .empty-drop-item').css('display', 'none');
+		
+		add_instance.css('display', 'block');
+		
+		$('.accordion').accordion('resize');
 	}
 	
 	function hide_edit_instance()
@@ -58,6 +64,8 @@
 		
 		// Hide the form
 		edit_instance.slideUp();
+		
+		$('.accordion').accordion('resize');
 	}
 	
 	function show_edit_instance(area_slug)
@@ -69,29 +77,44 @@
 	
 	function refresh_lists()
 	{
-		$('.widget-list').each(function(){
-			widget_area_slug = $(this).closest('.widget-area').attr('id').replace(/^area-/, '');
+		$('.widget-list').each(function()
+		{
+			widget_area_slug = $(this).parent().parent().attr('id').replace(/^area-/, '');
+			
 			$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug);
 		});
+		
+		$('.accordion').accordion('resize');	
 	}
 	
 	// Drag/drop stuff
 	
 	function set_draggable()
 	{
-		$("#available-widgets li").draggable({
+		$(".widget-box").draggable({
 			revert: 'invalid',
 			cursor: 'move',
-			helper: 'clone'
+			helper: 'clone',
+			start: function(event, ui) {
+				$(this).addClass('widget-drag');
+			}
 		});
 	}
 	
 	function set_droppable()
 	{
-		$(".widget-area").droppable({
-			accept: '#available-widgets li',
-			drop: function(event, ui) {
-				area_slug = this.id.replace(/^area-/, '');
+		$("#widget-wrapper .accordion-content").droppable({
+			accept: '.widget-box',
+			hoverClass: 'drop-hover',
+			greedy: true,
+			over: function(event, ui) {
+				$(".accordion").accordion('resize');
+			},
+			out: function(event, ui) {
+				$(".accordion").accordion('resize');
+			},
+			drop: function(event, ui) {			
+				area_slug = $(this).parent().attr('id').replace(/^area-/, '');
 				widget_slug = ui.draggable.attr('id').replace(/^widget-/, '');
 				
 				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
@@ -104,15 +127,15 @@
 	
 	$(function() {
 		
-		add_area = $('div#add-area-box');
-		add_instance = $('div#add-instance-box');
-		edit_instance = $('div#edit-instance-box');
+		add_area = $('#add-area-box');
+		add_instance = $('#add-instance-box');
+		edit_instance = $('#edit-instance-box');
 		
 		// Widget Area add / remove --------------
 		
 		$('a#add-area').click(show_add_area);
 		
-		$('div#add-area-box form').submit(function()
+		$('#add-area-box form').submit(function()
 		{
 			title = $('input[name="title"]', this).val();
 			slug = $('input[name="slug"]', this).val();
@@ -120,7 +143,7 @@
 			if(!title || !slug) return false;
 			
 			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
-				$('div.widget-wrapper').append(data).children('div.widget-area:hidden').slideDown();
+				$('#widget-wrapper .accordion').append(data).accordion('destroy').accordion({collapsible: true,	header: 'header', autoHeight: false });
 				
 				// Done, hide this form
 				hide_add_area();
@@ -134,11 +157,18 @@
 
 		$('button#widget-area-cancel').live('click', hide_add_area);
 		
+		// Auto-create a short-name
+		$('#new-area-title').keyup(function(){
+			var new_val = $(this).val().toLowerCase().replace(/ /g, '_');
+		
+			$('#new-area-slug').val(new_val);
+		});
+		
 		$('a.delete-area').live('click', function()
 		{
 			// all div.box have an id="area-slug"
 			slug = this.id.replace('delete-area-', '')
-			box = $('div#area-' + slug);
+			box = $('#area-' + slug);
 			
 			if(confirm('Are you sure you wish to delete this item?'))
 			{
@@ -157,7 +187,7 @@
 		set_droppable();
 		
 		// Add new widget instance
-		$('div#add-instance-box form').submit(function()
+		$('#add-instance-box form').submit(function()
 		{
 			widget_id = $('input[name="widget_id"]', this).val();
 			widget_area_id = $('input[name="widget_area_id"]', this).val();
@@ -174,9 +204,9 @@
 					hide_add_instance();
 					
 					refresh_lists();
-				}
-				
-				else
+					
+					$('#widget-wrapper .accordion').accordion('destroy').accordion({collapsible: true, header: 'header'});
+				} else
 				{
 					form.html(data.form);
 				}
@@ -187,7 +217,7 @@
 		});
 		
 		// Edit widget instance
-		$('div#edit-instance-box form').submit(function()
+		$('#edit-instance-box form').submit(function()
 		{
 			title = $('input[name="title"]', this).val();
 			widget_id = $('input[name="widget_id"]', this).val();
@@ -239,10 +269,10 @@
 		});
 
 		
-		$('.widget-area table a.edit-instance').live('click', function(){
+		$('.accordion a.edit-instance').live('click', function(){
 			
-			id = $(this).closest('tr').attr('id').replace('instance-', '');
-			area_slug = $(this).closest('div.widget-area').attr('id').replace('area-', '');
+			id = $(this).closest('li').attr('id').replace('instance-', '');
+			area_slug = $(this).closest('section').attr('id').replace('area-', '');
 
 			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
 				$('form', edit_instance).html(html);
@@ -252,19 +282,30 @@
 			return false;
 		});
 		
-		$('.widget-area table a.delete-instance').live('click', function(){
+		$('.accordion a.delete-instance').live('click', function(){
 			
-			tr = $(this).closest('tr');
-			id = tr.attr('id').replace('instance-', '');
+			li = $(this).closest('li');
+			id = li.attr('id').replace('instance-', '');
 
 			if(confirm('Are you sure you wish to delete this item?'))
 			{
 				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
-					tr.slideUp(function() { $(this).remove(); });
+					li.slideUp(function() { 
+						$(this).remove(); 
+						
+						$('.accordion').accordion('resize');
+					});
 				});
 			}
 
 			return false;
+		});
+		
+		// Widget Areas Accordion
+		$(".accordion").accordion({
+			collapsible: true,
+			header: 'header',
+			autoHeight: false
 		});
 		
 	});

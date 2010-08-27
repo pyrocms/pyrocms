@@ -1,28 +1,22 @@
-	<table border="0" class="table-list">		    
-	<thead>
-		<tr>
-			<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-			<th class="width-30"><?php echo lang('widgets.instance_title'); ?></th>
-			<th class="width-25"><?php echo lang('widgets.widget'); ?></th>
-			<th class="width-25"><?php echo lang('widgets.tag_title'); ?></th>
-			<th class="width-10">&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
+<ol>
+<?php foreach($widgets as $widget): ?>
 
-	<?php foreach($widgets as $widget): ?>
+	<li id="instance-<?php echo $widget->id; ?>" class="widget-instance">
+		
+		<h4><?php echo $widget->instance_title;?></h4>
+		
+		<div class="widget-type"><?php echo $widget->title;?></div>
+		
+		<div class="widget-actions">
+			<a href="#" class="edit-instance"><?php echo lang('widgets.instance_edit'); ?></a> | 
+			<a href="#" class="delete-instance"><?php echo lang('widgets.instance_delete'); ?></a>
+		</div>
+		
+		<div class="widget-code"><?php echo sprintf('{widget_instance(%s)}', $widget->id);?></div>
+		
+		<div style="clear:both"></div>
+	</li>
 	
-		<tr id="instance-<?php echo $widget->id; ?>">
-			<td><?php echo form_checkbox('action_to[]', $widget->id); ?></td>
-			<td><?php echo $widget->instance_title;?></td>
-			<td><?php echo $widget->title;?></td>
-			<td><?php echo sprintf('{widget_instance(%s)}', $widget->id);?></td>
-			<td>
-				<a href="#" class="edit-instance"><?php echo lang('widgets.instance_edit'); ?></a> | 
-				<a href="#" class="delete-instance"><?php echo lang('widgets.instance_delete'); ?></a>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	
-	</tbody>
-</table>
+<?php endforeach; ?>
+	<li class="empty-drop-item"></li>
+</ol>
