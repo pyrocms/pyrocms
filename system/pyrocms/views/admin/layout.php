@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title><?php echo lang('cp_admin_title').' - '.$template['title'];?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<?php echo $template['partials']['metadata']; ?>
 </head>
 
