@@ -59,8 +59,8 @@
 							</li>	
 							
 							<li>
-								<label for="active"><?php echo lang('user_group_label');?></label>
-								<?php echo form_dropdown('group', $groups_select, $member->group_id); ?>
+								<label for="group_id"><?php echo lang('user_group_label');?></label>
+								<?php echo form_dropdown('group_id', $groups_select, $member->group_id); ?>
 							</li>
 							
 							<li class="even">

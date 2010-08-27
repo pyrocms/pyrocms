@@ -71,9 +71,9 @@ class Admin extends Admin_Controller
 				'rules' => 'required|alphanumeric|maxlength[20]'
 			),
 			array(
-				'field' => 'group',
-				'label' => lang('user_group_id_label'),
-				'rules' => 'required'
+				'field' => 'group_id',
+				'label' => lang('user_group_label'),
+				'rules' => 'required|numeric'
 			),
 			array(
 				'field' => 'active',
@@ -83,7 +83,7 @@ class Admin extends Admin_Controller
 		);
 
         $this->data->groups 			= $this->group_m->get_all();
-        $this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'name');
+        $this->data->groups_select		= array_for_select($this->data->groups, 'id', 'name');
 
 		// Sidebar data
 		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
@@ -172,13 +172,14 @@ class Admin extends Admin_Controller
 
 		$email 		  = $this->input->post('email');
 		$password 	  = $this->input->post('password');
-		$group		  = $this->input->post('group');
 		$username	  = $this->input->post('username');
 
-		$user_data 	= array('first_name' 	=> $this->input->post('first_name'),
-						    'last_name'  	=> $this->input->post('last_name'),
-						    'display_name'  => $this->input->post('display_name'),
-						   );
+		$user_data 	= array(
+			'first_name' 	=> $this->input->post('first_name'),
+			'last_name'  	=> $this->input->post('last_name'),
+			'display_name'  => $this->input->post('display_name'),
+			'group'  => $this->input->post('group_id')
+		);
 
 		if ($this->form_validation->run() !== FALSE)
 		{
@@ -189,7 +190,7 @@ class Admin extends Admin_Controller
 			}
 
 			// Try to register the user
-			if($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $group))
+			if($user_id = $this->ion_auth->register($username, $password, $email, $user_data))
 			{
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -273,9 +274,7 @@ class Admin extends Admin_Controller
 			$update_data['active'] 			= $this->input->post('active');
 			$update_data['username'] 		= $this->input->post('username');
 			$update_data['display_name']	= $this->input->post('display_name');
-
-			// Only worry about group if there is one, it wont show to people who shouldnt see it
-			if($this->input->post('group')) $update_data['group_id'] = $this->ion_auth->get_group_by_name($this->input->post('group'))->id;
+			$update_data['group_id']		= $this->input->post('group_id');
 
 			// Password provided, hash it for storage
 			if( $this->input->post('password') && $this->input->post('confirm_password') )
