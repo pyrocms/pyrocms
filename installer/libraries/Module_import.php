@@ -25,7 +25,7 @@ class Module_import {
 		$db['cache_on'] = FALSE;
 		$db['cachedir'] = "";
 		$db['char_set'] = "utf8";
-		$db['dbcollat'] = "utf8_general_ci";
+		$db['dbcollat'] = "utf8_unicode_ci";
 
 		$this->ci->load->database($db);
 	}
@@ -50,6 +50,7 @@ class Module_import {
 		$module['version'] = $details_class->version;
 		$module['is_core'] = $is_core;
 		$module['enabled'] = TRUE;
+		$module['installed'] = TRUE;
 		$module['slug'] = $slug;
 
 		// Run the install method to get it into the database
@@ -74,6 +75,7 @@ class Module_import {
 			'is_backend' => !empty($module['backend']),
 			'is_backend_menu' => !empty($module['menu']),
 			'enabled' => $module['enabled'],
+			'installed' => $module['installed'],
 			'controllers' => '',
 			'is_core' => $module['is_core']
 		));

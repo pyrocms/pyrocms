@@ -468,7 +468,6 @@ CREATE TABLE `modules` (
   `enabled` tinyint(1) NOT NULL,
   `installed` tinyint(1) NOT NULL,
   `is_core` tinyint(1) NOT NULL,
-  `controllers` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

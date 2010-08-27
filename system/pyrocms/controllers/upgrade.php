@@ -79,6 +79,8 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+	    $this->dbforge->drop_column('modules', 'controllers');
+
 		echo 'Updated modules table to have an "installed" option.<br/>';
 	    $this->dbforge->add_column('modules', array(
 	        'installed' => array(
@@ -89,6 +91,9 @@ class Upgrade extends Controller
 	        )
 	    ));
 
+		// Mark all existing modules as installed
+		$this->db->update('modules', array('installed' => 1));
+		
 		echo "Updating comments module.<br/>";
 		$this->db->where('slug', 'comments');
 		$this->db->update('modules', array('version' => '1.0'));

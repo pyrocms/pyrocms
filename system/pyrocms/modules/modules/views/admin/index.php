@@ -20,9 +20,23 @@
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
 					<td class="align-center">
-					<?php $make_status = ($module['enabled']) ? 'disable' : 'enable'; ?>
-					<?php echo anchor('admin/modules/' . $make_status . '/' . $module['slug'], lang($make_status . '_label'), "");?>
-					<?php echo ' | ' . anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
+
+					<?php if ($module['installed']): ?>
+
+						<?php if ($module['enabled']): ?>
+							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm')); ?>
+						<?php else: ?>
+							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm')); ?>
+						<?php endif; ?>
+						&nbsp;|&nbsp;
+						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
+
+					<?php else: ?>
+						
+						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label')); ?>
+
+					<?php endif; ?>
+
 					</td>
 				</tr>
 			<?php endforeach; ?>

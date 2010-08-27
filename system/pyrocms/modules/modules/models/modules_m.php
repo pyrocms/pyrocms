@@ -110,9 +110,9 @@ class Modules_m extends CI_Model
 			'is_frontend' => !empty($module['frontend']),
 			'is_backend' => !empty($module['backend']),
 			'is_backend_menu' => !empty($module['menu']),
-			'enabled' => $module['enabled'],
-			'controllers' => '',
-			'is_core' => $module['is_core']
+			'enabled' => !empty($module['enabled']),
+			'installed' => !empty($module['installed']),
+			'is_core' => 0
 		));
 	}
 
@@ -136,13 +136,13 @@ class Modules_m extends CI_Model
 	 *
 	 * Delete a module from the database
 	 *
-	 * @param	array	$module_slug	The module slug
+	 * @param	array	$slug	The module slug
 	 * @access	public
 	 * @return	object
 	 */
-	public function delete($module_slug)
+	public function delete($slug)
 	{
-		return $this->db->delete($this->_table, array('slug' => $module_slug));
+		return $this->db->delete($this->_table, array('slug' => $slug));
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Modules_m extends CI_Model
 		$modules = array();
 
 		// We have some parameters for the list of modules we want
-		if ($params) foreach($params as $field => $value)
+		if ($params) foreach ($params as $field => $value)
 		{
 			if (in_array($field, array('is_frontend', 'is_backend', 'is_backend_menu', 'is_core')))
 			$this->db->where($field, $value);
@@ -190,6 +190,7 @@ class Modules_m extends CI_Model
 				'is_backend' => $result->is_backend,
 				'is_backend_menu' => $result->is_backend_menu,
 				'enabled' => $result->enabled,
+				'installed' => $result->installed,
 				'is_core' => $result->is_core
 			);
 
@@ -256,20 +257,20 @@ class Modules_m extends CI_Model
 	{
 		$this->_module_exists = array();
 
-		if(!$module)
+		if (!$module)
 		{
 			return FALSE;
 		}
 
 		// We already know about this module
-		if(isset($this->_module_exists[$module]))
+		if (isset($this->_module_exists[$module]))
 		{
 			return $this->_module_exists[$module];
 		}
 
-		$query = $this->db->get_where($this->_table, array('slug' => $module), 1);
-
-		return $this->_module_exists[$module] = ($query->num_rows() > 0);
+		return $this->_module_exists[$module] = $this->db
+			->where('slug', $module)
+			->count_all_results($this->_table) > 0;
 	}
 
 	/**
@@ -316,29 +317,18 @@ class Modules_m extends CI_Model
 	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function install($slug, $is_core = FALSE)
+	public function install($slug)
 	{
-		$details_class = $this->_spawn_class($slug, $is_core);
-
-		// Get some basic info
-		$module = $details_class->info();
-
-		// Now lets set some details ourselves
-		$module['version'] = $details_class->version;
-		$module['is_core'] = $is_core;
-		$module['enabled'] = TRUE;
-		$module['slug'] = $slug;
-
-		$module['controllers'] = array();
-
-		// Run the install method to get it into the database
-		if ( ! $details_class->install())
+		if ( ! $details_class = $this->_spawn_class($slug))
 		{
 			return FALSE;
 		}
 
-		// Looks like it installed ok, add a record
-		return $this->add($module);
+		// TURN ME ON BABY!
+		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
+
+		// Run the install method to get it into the database
+		return $details_class->install();
 	}
 
 	/**
@@ -349,7 +339,7 @@ class Modules_m extends CI_Model
 	 * @param	string	$module	The module slug
 	 * @return	bool
 	 */
-	public function uninstall($module_slug)
+	public function uninstall($slug)
 	{
 		$details_class = $this->_spawn_class($slug);
 
@@ -359,34 +349,43 @@ class Modules_m extends CI_Model
 			return FALSE;
 		}
 
-		return $this->delete($module_slug);
+		return $this->delete($slug);
 	}
 
 
-	public function import_all()
+	public function import_unknown()
     {
     	$modules = array();
 		
-		$this->db->empty_table($this->_table);
+		// Loop through modules
+		foreach (glob(ADDONPATH.'modules/*', GLOB_ONLYDIR) as $module_name)
+		{
+			$slug = basename($module_name);
 
-    	// Loop through directories that hold modules
-    	foreach (array(APPPATH, ADDONPATH) as $directory)
-    	{
-			$is_core = $directory == APPPATH;
-
-    		// Loop through modules
-	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
-	        {				
-				$slug = basename($module_name);
-
-				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
-				{
-					continue;
-				}
-
-				$this->install($slug, $is_core);
+			// This doesnt have a valid details.php file! :o
+			if ( ! $details_class = $this->_spawn_class($slug))
+			{
+				continue;
 			}
-        }
+
+			// Yeah yeah we know
+			if ($this->exists($slug))
+			{
+				continue;
+			}
+			
+			// Get some basic info
+			$module = $details_class->info();
+
+			// Now lets set some details ourselves
+			$module['slug'] = $slug;
+			$module['version'] = $details_class->version;
+			$module['enabled'] = FALSE;
+			$module['installed'] = FALSE;
+
+			// Looks like it installed ok, add a record
+			return $this->add($module);
+		}
 
 		return TRUE;
 	}
@@ -396,16 +395,14 @@ class Modules_m extends CI_Model
 	 *
 	 * Checks to see if a details.php exists and returns a class
 	 *
-	 * @param	string	$module_slug	The folder name of the module
+	 * @param	string	$slug	The folder name of the module
 	 * @access	private
 	 * @return	array
 	 */
-	private function _spawn_class($module_slug, $is_core = FALSE)
+	private function _spawn_class($slug)
 	{
-		$path = $is_core ? APPPATH : ADDONPATH;
-
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path . 'modules/' . $module_slug . '/details'.EXT;
+		$details_file = ADDONPATH . 'modules/' . $slug . '/details'.EXT;
 
 		// Check the details file exists
 		if (!is_file($details_file))
@@ -417,7 +414,7 @@ class Modules_m extends CI_Model
 		include_once $details_file;
 
 		// Now call the details class
-		$class = ucfirst($module_slug).'_details';
+		$class = ucfirst($slug).'_details';
 
 		// Now we need to talk to it
 		return new $class;

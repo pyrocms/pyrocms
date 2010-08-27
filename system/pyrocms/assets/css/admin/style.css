@@ -263,6 +263,7 @@ header#main h1 {
 	border: 1px solid;
 	border-left: none;
 	border-right: none;
+	border-top: none;
 /*	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
