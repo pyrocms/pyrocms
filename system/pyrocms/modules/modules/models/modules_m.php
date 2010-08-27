@@ -372,17 +372,17 @@ class Modules_m extends CI_Model
     	// Loop through directories that hold modules
     	foreach (array(APPPATH, ADDONPATH) as $directory)
     	{
+			$is_core = $directory == APPPATH;
+
     		// Loop through modules
-	        foreach(glob($directory.'modules/*/details'.EXT, GLOB_ONLYDIR) as $module_name)
+	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 	        {				
 				$slug = basename($module_name);
 
-				if ( ! $details_class = $this->_spawn_class($slug))
+				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
 				{
 					continue;
 				}
-
-				$is_core = basename($directory) != 'addons';
 
 				$this->install($slug, $is_core);
 			}
