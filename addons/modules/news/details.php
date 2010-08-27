@@ -1,29 +1,34 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Files_details extends Module {
+class News_details extends Module {
 
 	public $version = '1.0';
-	
+
 	public function info()
 	{
 		return array(
 			'name' => array(
-				'en' => 'Files',
-				'br' => 'Files'
+				'en' => 'News',
+				'nl' => 'Nieuws',
+				'es' => 'Artículos',
+				'fr' => 'Actualités',
+				'de' => 'News',
+				'pl' => 'Aktualności'
 			),
 			'description' => array(
-				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.'
+				'en' => 'Post news articles and blog entries.',
+				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
+				'es' => 'Escribe entradas para los artículos y blogs (web log).',
+				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
+				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
+				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'edit', 'delete')
-			)
+			'frontend' => TRUE,
+			'backend' => TRUE,
+			'menu' => TRUE
 		);
 	}
-	
+
 	public function install()
 	{
 		// Your Install Logic
@@ -41,7 +46,7 @@ class Files_details extends Module {
 		// Your Upgrade Logic
 		return TRUE;
 	}
-	
+
 	public function help()
 	{
 		// Return a string containing help info

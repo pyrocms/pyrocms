@@ -1,29 +1,24 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Files_details extends Module {
+class Twitter_details extends Module {
 
-	public $version = '1.0';
-	
+	public $version = '0.2';
+
 	public function info()
 	{
 		return array(
 			'name' => array(
-				'en' => 'Files',
-				'br' => 'Files'
+				'en' => 'Twitter'
 			),
 			'description' => array(
-				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.'
+				'en' => 'Show twitter posts and support general Twitter integration.'
 			),
 			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'edit', 'delete')
-			)
+			'backend' => FALSE,
+			'menu' => FALSE
 		);
 	}
-	
+
 	public function install()
 	{
 		// Your Install Logic
@@ -41,7 +36,7 @@ class Files_details extends Module {
 		// Your Upgrade Logic
 		return TRUE;
 	}
-	
+
 	public function help()
 	{
 		// Return a string containing help info

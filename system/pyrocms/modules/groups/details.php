@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Files_details extends Module {
+class Groups_details extends Module {
 
 	public $version = '1.0';
 	
@@ -8,18 +8,18 @@ class Files_details extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Files',
-				'br' => 'Files'
+				'en' => 'Groups',
+				'br' => 'Grupos'
 			),
 			'description' => array(
-				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.'
+				'en' => 'Users can be placed into groups to manage permissions.',
+				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
 			'menu'	  => TRUE,
 			'controllers' => array(
-				'admin' => array('index', 'edit', 'delete')
+				'admin' => array('index', 'create', 'edit', 'delete')
 			)
 		);
 	}
