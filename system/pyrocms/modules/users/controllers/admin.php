@@ -28,6 +28,7 @@ class Admin extends Admin_Controller
 
 		// Load the required classes
 		$this->load->model('users_m');
+		$this->load->model('groups/group_m');
 		$this->load->helper('user');
 		$this->load->library('form_validation');
 		$this->lang->load('user');
@@ -81,8 +82,8 @@ class Admin extends Admin_Controller
 			)
 		);
 
-        $this->data->roles 			= $this->permissions_m->get_roles();
-        $this->data->roles_select 	= array_for_select($this->data->roles, 'name', 'title');
+        $this->data->groups 			= $this->group_m->get_all();
+        $this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'name');
 
 		// Sidebar data
 		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
@@ -273,7 +274,7 @@ class Admin extends Admin_Controller
 			$update_data['username'] 		= $this->input->post('username');
 			$update_data['display_name']	= $this->input->post('display_name');
 
-			// Only worry about role if there is one, it wont show to people who shouldnt see it
+			// Only worry about group if there is one, it wont show to people who shouldnt see it
 			if($this->input->post('group')) $update_data['group_id'] = $this->ion_auth->get_group_by_name($this->input->post('group'))->id;
 
 			// Password provided, hash it for storage

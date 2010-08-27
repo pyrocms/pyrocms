@@ -60,7 +60,7 @@
 							
 							<li>
 								<label for="active"><?php echo lang('user_group_label');?></label>
-								<?php echo form_dropdown('group', $roles_select, $member->group); ?>
+								<?php echo form_dropdown('group', $groups_select, $member->group_id); ?>
 							</li>
 							
 							<li class="even">
