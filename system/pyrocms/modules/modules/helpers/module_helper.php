@@ -31,7 +31,7 @@ function module_array()
 {
 	$ci =& get_instance();
 
-	$modules = $ci->modules_m->get_modules();
+	$modules = $ci->modules_m->get_all();
 	asort($modules);
 
 	return $modules;

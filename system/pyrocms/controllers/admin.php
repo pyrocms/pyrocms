@@ -64,9 +64,6 @@ class Admin extends Admin_Controller
 			$this->data->messages['notice'] = lang('cp_delete_installer_message');
 		}
 
-		// Load stuff
- 		$this->data->modules = $this->modules_m->get_modules();
-
 		$this->load->model('comments/comments_m');
 		$this->load->model('pages/pages_m');
 		$this->load->model('users/users_m');

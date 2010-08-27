@@ -65,7 +65,7 @@ class Admin_Controller extends MY_Controller
 	    // Get a list of all modules available to this role
 	    if($current_page != 'admin/login')
 	    {
-	  		$this->data->core_modules = $this->cache->model('modules_m', 'get_modules', array(
+	  		$this->data->core_modules = $this->cache->model('modules_m', 'get_all', array(
 	    		array(
 					'is_backend_menu' => TRUE,
 					'is_backend' => TRUE,
@@ -74,7 +74,7 @@ class Admin_Controller extends MY_Controller
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 	    	), $this->config->item('navigation_cache'));
 
-	    	$this->data->addon_modules = $this->cache->model('modules_m', 'get_modules', array(
+	    	$this->data->addon_modules = $this->cache->model('modules_m', 'get_all', array(
 	    		array(
 					'is_core' => FALSE,
 					'is_backend' => TRUE,

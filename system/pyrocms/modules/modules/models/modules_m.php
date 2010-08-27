@@ -40,13 +40,11 @@ class Modules_m extends CI_Model
 			'name' => NULL,
 			'slug' => NULL,
 			'version' => NULL,
-			'type' => NULL,
 			'description' => NULL,
 			'skip_xss' => NULL,
 			'is_frontend' => NULL,
 			'is_backend' => NULL,
 			'is_backend_menu' => NULL,
-			'controllers' => NULL,
 			'enabled' => 1,
 			'is_core' => NULL
 		);
@@ -79,13 +77,11 @@ class Modules_m extends CI_Model
 				'name' => $name,
 				'slug' => $result->slug,
 				'version' => $result->version,
-				'type' => $result->type,
 				'description' => $description,
 				'skip_xss' => $result->skip_xss,
 				'is_frontend' => $result->is_frontend,
 				'is_backend' => $result->is_backend,
 				'is_backend_menu' => $result->is_backend_menu,
-				'controllers' => unserialize($result->controllers),
 				'enabled' => $result->enabled,
 				'is_core' => $result->is_core
 			);
@@ -109,14 +105,13 @@ class Modules_m extends CI_Model
 			'name' => serialize($module['name']),
 			'slug' => $module['slug'],
 			'version' => $module['version'],
-			'type' => $module['type'],
 			'description' => serialize($module['description']),
-			'skip_xss' => $module['skip_xss'],
-			'is_frontend' => $module['is_frontend'],
-			'is_backend' => $module['is_backend'],
-			'is_backend_menu' => $module['is_backend_menu'],
-			'controllers' => serialize($module['controllers']),
+			'skip_xss' => !empty($module['skip_xss']),
+			'is_frontend' => !empty($module['frontend']),
+			'is_backend' => !empty($module['backend']),
+			'is_backend_menu' => !empty($module['menu']),
 			'enabled' => $module['enabled'],
+			'controllers' => '',
 			'is_core' => $module['is_core']
 		));
 	}
@@ -160,18 +155,25 @@ class Modules_m extends CI_Model
 	 * @access	public
 	 * @return	array
 	 */
-	public function get_modules($params = array(), $return_disabled = FALSE)
+	public function get_all($params = array(), $return_disabled = FALSE)
 	{
 		$modules = array();
 
+		// We have some parameters for the list of modules we want
+		if ($params) foreach($params as $field => $value)
+		{
+			if (in_array($field, array('is_frontend', 'is_backend', 'is_backend_menu', 'is_core')))
+			$this->db->where($field, $value);
+		}
+
+		// Skip the disabled modules
+		if ($return_disabled === FALSE)
+		{
+			$this->db->where('enabled', 1);
+		}
+
 		foreach ($this->db->get($this->_table)->result() as $result)
 		{
-			// Skip the disabled modules
-			if (!$return_disabled && $result->enabled == 0)
-			{
-				continue;
-			}
-
 			$descriptions = unserialize($result->description);
 			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
@@ -182,44 +184,22 @@ class Modules_m extends CI_Model
 				'name' => $name,
 				'slug' => $result->slug,
 				'version' => $result->version,
-				'type' => $result->type,
 				'description' => $description,
 				'skip_xss' => $result->skip_xss,
 				'is_frontend' => $result->is_frontend,
 				'is_backend' => $result->is_backend,
 				'is_backend_menu' => $result->is_backend_menu,
-				'controllers' => unserialize($result->controllers),
 				'enabled' => $result->enabled,
 				'is_core' => $result->is_core
 			);
 
-			if (!empty($params['is_frontend']) && empty($module['is_frontend']))
-			{
-				continue;
-			}
-
 			if (!empty($params['is_backend']))
 			{
-				if (empty($module['is_backend']))
-				{
-					continue;
-				}
-
 				// This user has no permissions for this module
 				if (!$this->permissions_m->has_admin_access($this->user->group_id, $module['slug']))
 				{
 					continue;
 				}
-			}
-
-			if (isset($params['is_core']) && $module['is_core'] != $params['is_core'])
-			{
-				continue;
-			}
-
-			if (isset($params['is_backend_menu']) && $module['is_backend_menu'] != $params['is_backend_menu'])
-			{
-				continue;
 			}
 
 			$modules[] = $module;
@@ -333,37 +313,31 @@ class Modules_m extends CI_Model
 	 *
 	 * Installs a module
 	 *
-	 * @param	string	$module	The module slug
+	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function install($module_slug)
+	public function install($slug, $is_core = FALSE)
 	{
-		if (!is_file(ADDONPATH . 'modules/' . $module_slug . '/details.xml'))
+		$details_class = $this->_spawn_class($slug, $is_core);
+
+		// Get some basic info
+		$module = $details_class->info();
+
+		// Now lets set some details ourselves
+		$module['version'] = $details_class->version;
+		$module['is_core'] = $is_core;
+		$module['enabled'] = TRUE;
+		$module['slug'] = $slug;
+
+		$module['controllers'] = array();
+
+		// Run the install method to get it into the database
+		if ( ! $details_class->install())
 		{
 			return FALSE;
 		}
 
-		$module = $this->_parse_xml(ADDONPATH . 'modules/' . $module_slug . '/details.xml');
-
-		$module['is_core'] = 0;
-		$module['enabled'] = 1;
-		$module['slug'] = $module_slug;
-
-		// Run the install sql if it is there
-		if (isset($module['install']) && !empty($module['install']))
-		{
-			$install_sql = explode('-- command split --', trim($module['install']));
-
-			foreach ($install_sql as $sql)
-			{
-				$sql = trim($sql);
-				if (!empty($sql))
-				{
-					$this->db->query(trim($sql));
-				}
-			}
-		}
-
+		// Looks like it installed ok, add a record
 		return $this->add($module);
 	}
 
@@ -377,26 +351,12 @@ class Modules_m extends CI_Model
 	 */
 	public function uninstall($module_slug)
 	{
-		if (!is_file(ADDONPATH . 'modules/' . $module_slug . '/details.xml'))
+		$details_class = $this->_spawn_class($slug);
+
+		// Run the uninstall method to get it into the database
+		if ( ! $details_class->uninstall())
 		{
 			return FALSE;
-		}
-
-		$module = $this->_parse_xml(ADDONPATH . 'modules/' . $module_slug . '/details.xml');
-
-		// Run the uninstall sql if it is there
-		if (isset($module['uninstall']) && !empty($module['uninstall']))
-		{
-			$uninstall_sql = explode('-- command split --', trim($module['uninstall']));
-
-			foreach ($uninstall_sql as $sql)
-			{
-				$sql = trim($sql);
-				if (!empty($sql))
-				{
-					$this->db->query(trim($sql));
-				}
-			}
 		}
 
 		return $this->delete($module_slug);
@@ -413,73 +373,54 @@ class Modules_m extends CI_Model
     	foreach (array(APPPATH, ADDONPATH) as $directory)
     	{
     		// Loop through modules
-	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+	        foreach(glob($directory.'modules/*/details'.EXT, GLOB_ONLYDIR) as $module_name)
 	        {				
-	        	if(file_exists($xml_file = $module_name.'/details.xml'))
-	        	{
-	        		$module = $this->_parse_xml($xml_file) + array('slug' => basename($module_name));
+				$slug = basename($module_name);
 
-	        		$module['is_core'] = basename($directory) != 'addons';
-					$module['enabled'] = 1;
+				if ( ! $details_class = $this->_spawn_class($slug))
+				{
+					continue;
+				}
 
-					$name = isset($module['name'][CURRENT_LANGUAGE]) ? $module['name'][CURRENT_LANGUAGE] : $module['name']['en'];
+				$is_core = basename($directory) != 'addons';
 
-					$this->add($module);
-	        	}
-	        }
+				$this->install($slug, $is_core);
+			}
         }
 
+		return TRUE;
 	}
 
 	/**
-	 * Parse XML
+	 * Spawn Class
 	 *
-	 * Parses the details.xml file
+	 * Checks to see if a details.php exists and returns a class
 	 *
-	 * @param	string	$xml_file	The XML file to load
+	 * @param	string	$module_slug	The folder name of the module
 	 * @access	private
 	 * @return	array
 	 */
-	private function _parse_xml($xml_file)
+	private function _spawn_class($module_slug, $is_core = FALSE)
 	{
-		$xml = simplexml_load_file($xml_file);
+		$path = $is_core ? APPPATH : ADDONPATH;
 
-		// Loop through all controllers in the XML file
-		$controllers = array();
+		// Before we can install anything we need to know some details about the module
+		$details_file = $path . 'modules/' . $module_slug . '/details'.EXT;
 
-		foreach ($xml->controllers as $controller)
+		// Check the details file exists
+		if (!is_file($details_file))
 		{
-			$controller_array['name'] = (string) $controller->attributes()->name;
-
-			// Store methods from the controller
-			$controller_array['methods'] = array();
-
-			if ($controller->method)
-			{
-				// Loop through to save methods
-				foreach ($controller->method as $method)
-				{
-					$controller_array['methods'][] = (string) $method;
-				}
-			}
-
-			// Save it all to one variable
-			$controllers[$controller_array['name']] = $controller_array;
+			return FALSE;
 		}
 
-		return array(
-			'name' => (array) $xml->name,
-			'version' => (string) $xml->attributes()->version,
-			'type' => (string) $xml->attributes()->type,
-			'description' => (array) $xml->description,
-			'skip_xss' => $xml->skip_xss == 1,
-			'is_frontend' => $xml->is_frontend == 1,
-			'is_backend' => $xml->is_backend == 1,
-			'is_backend_menu' => $xml->is_backend_menu == 1,
-			'controllers' => $controllers,
-			'install' => $xml->install,
-			'uninstall' => $xml->uninstall,
-		);
+		// Sweet, include the file
+		include_once $details_file;
+
+		// Now call the details class
+		$class = ucfirst($module_slug).'_details';
+
+		// Now we need to talk to it
+		return new $class;
 	}
 
 }
