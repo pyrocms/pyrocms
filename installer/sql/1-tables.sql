@@ -466,6 +466,7 @@ CREATE TABLE `modules` (
   `is_backend` tinyint(1) NOT NULL,
   `is_backend_menu` tinyint(1) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
+  `installed` tinyint(1) NOT NULL,
   `is_core` tinyint(1) NOT NULL,
   `controllers` text NOT NULL,
   PRIMARY KEY (`id`),
