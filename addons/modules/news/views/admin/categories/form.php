@@ -11,7 +11,7 @@
 	<div class="box-container">
 
 	
-	<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+	<?php echo form_open($this->uri->uri_string(), 'class="crud" id="categories"'); ?>
 	
 		<fieldset>
 			<ol>

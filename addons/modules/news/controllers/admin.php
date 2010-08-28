@@ -1,25 +1,25 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ *
+ * @package  	PyroCMS
+ * @subpackage  Categories
+ * @category  	Module
+ */
 class Admin extends Admin_Controller
 {
-	// Validation rules to be used for create and edit
-	private $rules = array(
-		'title' 			=> 'trim|htmlspecialchars|required|max_length[100]',
-		'slug' 				=> 'trim|required|alpha_dot_dash|max_length[100]',
-		'category_id' 		=> 'trim|numeric',
-		'intro' 			=> 'trim|required',
-		'body' 				=> 'trim|required',
-		'status' 			=> 'trim|alpha',
-		
-		'created_on_day' 	=> 'trim|numeric|required',
-		'created_on_month' 	=> 'trim|numeric|required',
-		'created_on_year' 	=> 'trim|numeric|required',
-		
-		'created_on_hour' 	=> 'trim|numeric|required',
-		'created_on_minute' => 'trim|numeric|required'
-	);
+	/**
+	 * Array that contains the validation rules
+	 * @access protected
+	 * @var array
+	 */
+	protected $validation_rules;
 	
-	function __construct()
+	/** 
+	 * The constructor
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
 		parent::Admin_Controller();
 		
@@ -27,6 +27,66 @@ class Admin extends Admin_Controller
 		$this->load->model('news_categories_m');
 		$this->lang->load('news');
 		$this->lang->load('categories');
+		$this->load->helper('news');
+		
+		//set the validation rules
+		$this->validation_rules = array(
+				array(
+					'field'   => 'title',
+					'label'   => 'Title',
+					'rules'   => 'trim|htmlspecialchars|required|max_length[100]'
+					),
+				array(
+					'field'	=> 'slug',
+					'label'	=> 'Slug',
+					'rules' => 'trim|required|alpha_dot_dash|max_length[100]'
+				),
+				array(
+					'field' => 'category_id',
+					'label' => 'Category ID',
+					'rules' => 'trim|numeric'
+				),
+				array(
+					'field' => 'intro',
+					'label' => 'Intro',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'body',
+					'label' => 'Body',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'status',
+					'label' => 'Status',
+					'rules' => 'trim|alpha'
+				),
+				array(
+					'field' => 'created_on_day',
+					'label' => 'Created On Day',
+					'rules' => 'trim|numeric|required'
+				),
+				array(
+					'field' => 'created_on_month',
+					'label' => 'Created on Month',
+					'rules' => 'trim|numeric|required'
+				),
+				array(
+					'field' => 'created_on_year',
+					'label' => 'Created On Year',
+					'rules' => 'trim|numeric|required'
+				),
+				array(
+					'field' => 'created_on_hour',
+					'label' => 'Created On Hour',
+					'rules' => 'trim|numeric|required'
+				),
+				array(
+					'field' => 'created_on_minute',
+					'label' => 'Created On Minute',
+					'rules' => 'trim|numeric|required'
+				)
+			);
 		
 		// Date ranges for select boxes
 		$this->data->days = array_combine($days = range(1, 31), $days);
@@ -45,11 +105,16 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->append_metadata( css('news.css', 'news') )
+				->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 	
-	// Admin: List news articles
-	function index()
+	/**
+	 * Show all created news articles
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		// Create pagination links
 		$total_rows = $this->news_m->count_by(array('show_future'=>TRUE, 'status' => 'all'));
@@ -64,35 +129,36 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/index', $this->data);
 	}
 	
-	// Admin: Create a new article
-	function create()
+	/**
+	 * Create new article
+	 * @access public
+	 * @return void
+	 */
+	public function create()
 	{
-		$this->load->library('validation');
-		$this->rules['slug'] .= '|callback__check_slug';
-		$this->validation->set_rules($this->rules);
-		$this->validation->set_fields();
+		$this->load->library('form_validation');
+		//append the check slug callback function to rules array
+		$this->validation_rules[1]['rules'] .= '|callback__check_slug';
+		$this->form_validation->set_rules($this->validation_rules);
+		//$this->form_validation->set_fields();
 		
-		// Go through all the known fields and get the post values
-		foreach(array_keys($this->rules) as $field)
-		{
-			$article->$field = set_value($field);
-		}
 		
-		if ($this->validation->run())
+		
+		if ($this->form_validation->run())
 		{
 			$id = $this->news_m->insert(array(
-	            'title'				=> $this->input->post('title'),
-	            'slug'				=> $this->input->post('slug'),
-	            'category_id'		=> $this->input->post('category_id'),
-	            'intro'				=> $this->input->post('intro'),
-	            'body'				=> $this->input->post('body'),
-	            'status'			=> $this->input->post('status'),
+				'title'			=> $this->input->post('title'),
+				'slug'			=> $this->input->post('slug'),
+				'category_id'		=> $this->input->post('category_id'),
+				'intro'			=> $this->input->post('intro'),
+				'body'			=> $this->input->post('body'),
+				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
 				'created_on_day'	=> $this->input->post('created_on_day'),
 				'created_on_month'	=> $this->input->post('created_on_month'),
 				'created_on_year'	=> $this->input->post('created_on_year'),
-	    	));
+			));
     	
 			if (!empty($id))
 			{
@@ -122,6 +188,15 @@ class Admin extends Admin_Controller
 			}			
 			redirect('admin/news');
 		}
+		else
+		{
+			// Go through all the known fields and get the post values
+			foreach($this->validation_rules as $key => $field)
+			{
+				
+				$article->$field['field'] = set_value($field['field']);
+			}
+		}
 		
 		$this->data->article =& $article;
 		
@@ -132,20 +207,25 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/form', $this->data);
 	}
 	
-	// Admin: Edit an article
-	function edit($id = 0)
+	/**
+	 * Edit news article
+	 * @access public
+	 * @param int $id the ID of the news article to edit
+	 * @return void
+	 */
+	public function edit($id = 0)
 	{
 		if (!$id)
 		{
 			redirect('admin/news');
 		}
 		
-		$this->load->library('validation');
-		$this->validation->set_rules($this->rules);
-		$this->validation->set_fields();		
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->validation_rules);
+		//$this->form_validation->set_fields();		
 		$article = $this->news_m->get($id);
 		
-		if ($this->validation->run())
+		if ($this->form_validation->run())
 		{
 			
 			$result = $this->news_m->update($id, array(
@@ -188,9 +268,9 @@ class Admin extends Admin_Controller
 		}
 		
 		// Go through all the known fields and get the post values
-		foreach(array_keys($this->rules) as $field)
+		foreach(array_keys($this->validation_rules) as $field)
 		{
-			if(isset($_POST[$field])) $article->$field = $this->validation->$field;
+			if(isset($_POST[$field])) $article->$field = $this->form_validation->$field;
 		}    	
 		$this->data->article =& $article;
 		
@@ -199,7 +279,13 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/form', $this->data);
 	}	
 	
-	function preview($id = 0)
+	/**
+	 * Preview news article
+	 * @access public
+	 * @param int $id the ID of the news article to preview
+	 * @return void
+	 */
+	public function preview($id = 0)
 	{		
 		$this->data->article = $this->news_m->get($id);
 		
@@ -207,8 +293,12 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/preview', $this->data);
 	}
 	
-	// Admin: Different actions
-	function action()
+	/**
+	 * Helper method to determine what to do with selected items from form post
+	 * @access public
+	 * @return void
+	 */
+	public function action()
 	{
 		switch($this->input->post('btnAction'))
 		{
@@ -224,8 +314,13 @@ class Admin extends Admin_Controller
 		}
 	}
 	
-	// Admin: Publish an article
-	function publish($id = 0)
+	/**
+	 * Publish news article
+	 * @access public
+	 * @param int $id the ID of the news article to make public
+	 * @return void
+	 */
+	public function publish($id = 0)
 	{
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
@@ -271,8 +366,13 @@ class Admin extends Admin_Controller
 		redirect('admin/news');
 	}
 	
-	// Admin: Delete an article
-	function delete($id = 0)
+	/**
+	 * Delete news article
+	 * @access public
+	 * @param int $id the ID of the news article to delete
+	 * @return void
+	 */
+	public function delete($id = 0)
 	{
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
@@ -318,13 +418,17 @@ class Admin extends Admin_Controller
 		redirect('admin/news');
 	}
 	
-	
-	// Callback: from create()
-	function _check_slug($slug = '')
+	/**
+	 * Callback method that checks the slug of an article
+	 * @access public
+	 * @param string slug The Slug to check
+	 * @return bool
+	 */
+	public function _check_slug($slug = '')
 	{
 		if(!$this->news_m->check_slug($slug))
 		{
-			$this->validation->set_message('_check_slug', lang('news_already_exist_error'));
+			$this->form_validation->set_message('_check_slug', lang('news_already_exist_error'));
 			return FALSE;
 		}
 		

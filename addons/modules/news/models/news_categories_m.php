@@ -51,4 +51,21 @@ class News_categories_m extends MY_Model
 	{
 		return parent::count_by('slug', url_title($title)) === 0;
 	}
+	
+	/**
+	 * Insert a new category into the database via ajax
+	 * @access public
+	 * @param array $input The data to insert
+	 * @return int
+	 */
+	public function insert_ajax($input = array())
+	{
+		$this->load->helper('text');
+		return parent::insert(array(
+				'title'=>$input['title'],
+				//is something wrong with convert_accented_characters?
+				//'slug'=>url_title(strtolower(convert_accented_characters($input['title'])))
+				'slug' => url_title(strtolower($input['title']))
+				));
+	}
 }
