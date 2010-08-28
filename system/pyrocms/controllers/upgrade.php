@@ -91,19 +91,61 @@ class Upgrade extends Controller
 	        )
 	    ));
 
-		// Mark all existing modules as installed
-		$this->db->update('modules', array('installed' => 1));
-		
-		echo "Updating comments module.<br/>";
-		$this->db->where('slug', 'comments');
-		$this->db->update('modules', array('version' => '1.0'));
+		// Clear out existing modules
+		$this->db->empty_table('modules');
 
-		echo "Merging categories module into news module.<br/>";
-		$this->dbforge->rename_table('categories', 'news_categories');
-		$this->db->delete('modules', array('slug' => 'categories'));
-		
-		// Removing photos table
-		$this->db->delete('modules', array('slug' => 'photos'));
+		$this->load->model('modules/modules_m');
+
+    	// Loop through directories that hold modules
+		$is_core = TRUE;
+
+		foreach (array(APPPATH, ADDONPATH) as $directory)
+    	{
+    		// Loop through modules
+	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+	        {
+				$slug = basename($module_name);
+
+				echo 'Re-indexing module: <strong>' . $slug .'</strong>.<br/>';
+
+				$this->modules_m->install($slug, $is_core);
+
+				$path = $is_core ? APPPATH : ADDONPATH;
+
+				// Before we can install anything we need to know some details about the module
+				$details_file = $path . 'modules/' . $slug . '/details'.EXT;
+
+				// Check the details file exists
+				if (!is_file($details_file))
+				{
+					continue;
+				}
+
+				// Sweet, include the file
+				include_once $details_file;
+
+				// Now call the details class
+				$class_name = ucfirst($slug).'_details';
+
+				$details_class = new $class_name;
+				
+				// Get some basic info
+				$module = $details_class->info();
+
+				// Now lets set some details ourselves
+				$module['slug'] = $slug;
+				$module['version'] = $details_class->version;
+				$module['enabled'] = TRUE;
+				$module['installed'] = TRUE;
+				$module['is_core'] = $is_core;
+
+				// Looks like it installed ok, add a record
+				$this->modules_m->add($module);
+			}
+
+			// Going back around, 2nd time is addons
+			$is_core = FALSE;
+        }
 
 		// TODO: Convert them to galleries
 

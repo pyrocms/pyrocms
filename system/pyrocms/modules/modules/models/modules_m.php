@@ -317,9 +317,9 @@ class Modules_m extends CI_Model
 	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function install($slug)
+	public function install($slug, $is_core = FALSE)
 	{
-		if ( ! $details_class = $this->_spawn_class($slug))
+		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
 		{
 			return FALSE;
 		}
@@ -339,9 +339,9 @@ class Modules_m extends CI_Model
 	 * @param	string	$module	The module slug
 	 * @return	bool
 	 */
-	public function uninstall($slug)
+	public function uninstall($slug, $is_core = FALSE)
 	{
-		$details_class = $this->_spawn_class($slug);
+		$details_class = $this->_spawn_class($slug, $is_core);
 
 		// Run the uninstall method to get it into the database
 		if ( ! $details_class->uninstall())
@@ -399,10 +399,12 @@ class Modules_m extends CI_Model
 	 * @access	private
 	 * @return	array
 	 */
-	private function _spawn_class($slug)
+	private function _spawn_class($slug, $is_core = FALSE)
 	{
+		$path = $is_core ? APPPATH : ADDONPATH;
+
 		// Before we can install anything we need to know some details about the module
-		$details_file = ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+		$details_file = $path . 'modules/' . $slug . '/details'.EXT;
 
 		// Check the details file exists
 		if (!is_file($details_file))
