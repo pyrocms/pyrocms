@@ -7,6 +7,10 @@
 	#AllowOverride All
 	#RewriteBase /wherever/pyro/is
 
+	# Restrict your site to only one domain
+	#RewriteCond %{HTTP_HOST} !^example\.com
+	#RewriteRule ^(.*)$ http://example.com/$1 [L]
+
 	# Keep people out of codeigniter directory and Git/Mercurial data
 	RedirectMatch 403 ^/(system\/pyrocms\/cache|system\/codeigniter|\.git|\.hg).*$
 
