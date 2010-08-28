@@ -10,44 +10,6 @@ CREATE TABLE `emails` (
 
 -- command split --
 
-DROP TABLE IF EXISTS `files`;
-
--- command split --
-
-CREATE TABLE `files` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `folder_id` int(11) NOT NULL DEFAULT '0',
-  `user_id` int(11) NOT NULL DEFAULT '1',
-  `type` enum('a','v','d','i','o') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `width` int(5) DEFAULT NULL,
-  `height` int(5) DEFAULT NULL,
-  `filesize` int(11) NOT NULL DEFAULT 0,
-  `date_added` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- command split --
-
-DROP TABLE IF EXISTS `file_folders`;
-
--- command split --
-
-CREATE TABLE `file_folders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT '0',
-  `slug` varchar(100) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `date_added` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- command split --
-
 DROP TABLE IF EXISTS `navigation_groups`;
 
 -- command split --
@@ -233,20 +195,6 @@ KEY `index - slug` (`slug`)
 
 -- command split --
 
-DROP TABLE IF EXISTS `groups`;
-
--- command split --
-
-CREATE TABLE IF NOT EXISTS `groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
-
--- command split --
-
 DROP TABLE IF EXISTS `users`;
 
 -- command split --
@@ -282,30 +230,6 @@ CREATE TABLE `variables` (
   `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- command split --
-
-DROP TABLE IF EXISTS `modules`;
-
--- command split --
-
-CREATE TABLE `modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` TEXT NOT NULL,
-  `slug` varchar(50) NOT NULL,
-  `version` varchar(20) NOT NULL,
-  `type` varchar(20) DEFAULT NULL,
-  `description` TEXT DEFAULT NULL,
-  `skip_xss` tinyint(1) NOT NULL,
-  `is_frontend` tinyint(1) NOT NULL,
-  `is_backend` tinyint(1) NOT NULL,
-  `is_backend_menu` tinyint(1) NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
-  `installed` tinyint(1) NOT NULL,
-  `is_core` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 

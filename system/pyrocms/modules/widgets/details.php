@@ -65,9 +65,15 @@ class Widgets_details extends Module {
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
+		
+		$default_data = "
+			INSERT INTO widget_areas (slug, title) VALUES ('unsorted', 'Unsorted');
+		";
+		
 		if($this->db->query($widget_areas) &&
 		   $this->db->query($widget_instances) &&
-		   $this->db->query($widgets))
+		   $this->db->query($widgets) &&
+		   $this->db->query($default_data))
 		{
 			return TRUE;
 		}
