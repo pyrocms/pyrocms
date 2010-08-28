@@ -1,24 +1,3 @@
-DROP TABLE IF EXISTS `comments`;
-
--- command split --
-
-CREATE TABLE `comments` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `is_active` tinyint(1) NOT NULL default '0',
-  `user_id` int(11) NOT NULL default '0',
-  `name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `comment` text collate utf8_unicode_ci NOT NULL,
-  `module` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
-  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  `ip_address` varchar(15) collate utf8_unicode_ci NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Comments by users or guests';
-
--- command split --
-
 DROP TABLE IF EXISTS `emails`;
 
 -- command split --
@@ -69,48 +48,6 @@ CREATE TABLE `file_folders` (
 
 -- command split --
 
-DROP TABLE IF EXISTS `galleries`;
-
--- command split --
-
-CREATE TABLE `galleries` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `thumbnail_id` int(11) DEFAULT NULL,
-  `description` text,
-  `parent` int(11) DEFAULT NULL,
-  `updated_on` int(15) NOT NULL,
-  `preview` varchar(255) DEFAULT NULL,
-  `enable_comments` INT( 1 ) DEFAULT NULL,
-  `published` INT(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- command split --
-
-DROP TABLE IF EXISTS `gallery_images`;
-
--- command split --
-
-CREATE TABLE `gallery_images` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `gallery_id` int(11) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `extension` varchar(255) NOT NULL,
-  `title` varchar(255) DEFAULT 'Untitled',
-  `description` text,
-  `uploaded_on` int(15) DEFAULT NULL,
-  `updated_on` int(15) DEFAULT NULL,
-  `order` INT(11) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `gallery_id` (`gallery_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- command split --
-
 DROP TABLE IF EXISTS `navigation_groups`;
 
 -- command split --
@@ -142,59 +79,6 @@ CREATE TABLE `navigation_links` (
   PRIMARY KEY  (`id`),
   KEY `navigation_group_id - normal` (`navigation_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
-
--- command split --
-
-DROP TABLE IF EXISTS `news_categories`;
-
--- command split --
-
-CREATE TABLE `news_categories` (
-  `id` int(11) NOT NULL auto_increment,
-  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `slug - unique` (`slug`),
-  UNIQUE KEY `title - unique` (`title`),
-  KEY `slug - normal` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='News Categories';
-
--- command split --
-
-DROP TABLE IF EXISTS `news`;
-
--- command split --
-
-CREATE TABLE `news` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `slug` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `category_id` int(11) NOT NULL,
-  `attachment` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `intro` text collate utf8_unicode_ci NOT NULL,
-  `body` text collate utf8_unicode_ci NOT NULL,
-  `created_on` int(11) NOT NULL,
-  `updated_on` int(11) NOT NULL default 0,
-  `status` enum('draft','live') collate utf8_unicode_ci NOT NULL default 'draft',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `title` (`title`),
-  KEY `category_id - normal` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='News articles or blog posts.';
-
--- command split --
-
-DROP TABLE IF EXISTS `newsletters`;
-
--- command split --
-
-CREATE TABLE `newsletters` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `body` text collate utf8_unicode_ci NOT NULL,
-  `created_on` int(11) default NULL,
-  `sent_on` int(11) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Newsletter emails stored before being sent then archived her';
 
 -- command split --
 
@@ -398,55 +282,6 @@ CREATE TABLE `variables` (
   `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- command split --
-
-DROP TABLE IF EXISTS `widget_areas`;
-
--- command split --
-
-CREATE TABLE `widget_areas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `slug` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_slug` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- command split --
-
-DROP TABLE IF EXISTS `widget_instances`;
-
--- command split --
-
-CREATE TABLE `widget_instances` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `widget_id` int(11) DEFAULT NULL,
-  `widget_area_id` int(11) DEFAULT NULL,
-  `options` text COLLATE utf8_unicode_ci NOT NULL,
-  `order` int(10) NOT NULL DEFAULT '0',
-  `created_on` int(11) NOT NULL DEFAULT '0',
-  `updated_on` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- command split --
-
-DROP TABLE IF EXISTS `widgets`;
-
--- command split --
-
-CREATE TABLE `widgets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `author` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `version` int(3) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 

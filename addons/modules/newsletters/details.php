@@ -31,14 +31,33 @@ class Newsletters_details extends Module {
 
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->load->dbforge();
+		$this->dbforge->drop_table('newsletters');
+		
+		$newsletters = "
+			CREATE TABLE `newsletters` (
+			  `id` smallint(5) unsigned NOT NULL auto_increment,
+			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
+			  `body` text collate utf8_unicode_ci NOT NULL,
+			  `created_on` int(11) default NULL,
+			  `sent_on` int(11) default NULL,
+			  PRIMARY KEY  (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Newsletter emails stored before being sent then archived her';
+		";
+		
+		if($this->db->query($newsletters))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		$this->load->dbforge();
+		if($this->dbforge->drop_table('newsletters'))
+		{
+			return TRUE;
+		}
 	}
 
 	public function upgrade($old_version)

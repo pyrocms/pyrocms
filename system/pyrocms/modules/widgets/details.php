@@ -24,14 +24,64 @@ class Widgets_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->load->dbforge();
+		$this->dbforge->drop_table('widget_areas');
+		$this->dbforge->drop_table('widget_instances');
+		$this->dbforge->drop_table('widgets');
+		
+		$widget_areas = "
+			CREATE TABLE `widget_areas` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `slug` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY `unique_slug` (`slug`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		";
+		
+		$widget_instances = "
+			CREATE TABLE `widget_instances` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `widget_id` int(11) DEFAULT NULL,
+			  `widget_area_id` int(11) DEFAULT NULL,
+			  `options` text COLLATE utf8_unicode_ci NOT NULL,
+			  `order` int(10) NOT NULL DEFAULT '0',
+			  `created_on` int(11) NOT NULL DEFAULT '0',
+			  `updated_on` int(11) NOT NULL DEFAULT '0',
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		";
+		
+		$widgets = "
+			CREATE TABLE `widgets` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+			  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+			  `description` text COLLATE utf8_unicode_ci NOT NULL,
+			  `author` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+			  `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+			  `version` int(3) NOT NULL DEFAULT '0',
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		";
+		if($this->db->query($widget_areas) &&
+		   $this->db->query($widget_instances) &&
+		   $this->db->query($widgets))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		$this->load->dbforge();
+		if($this->dbforge->drop_table('widget_areas')
+						->drop_table('widget_instances')
+						->drop_table('widgets'))
+		{
+			return TRUE;
+		}
 	}
 
 	public function upgrade($old_version)

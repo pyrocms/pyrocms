@@ -36,14 +36,39 @@ class Comments_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->load->dbforge();
+		$this->dbforge->drop_table('comments');
+		
+		$comments = "
+			CREATE TABLE `comments` (
+			  `id` smallint(5) unsigned NOT NULL auto_increment,
+			  `is_active` tinyint(1) NOT NULL default '0',
+			  `user_id` int(11) NOT NULL default '0',
+			  `name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+			  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+			  `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+			  `comment` text collate utf8_unicode_ci NOT NULL,
+			  `module` varchar(40) collate utf8_unicode_ci NOT NULL,
+			  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
+			  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
+			  `ip_address` varchar(15) collate utf8_unicode_ci NOT NULL default '',
+			  PRIMARY KEY  (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Comments by users or guests';
+		";
+		
+		if($this->db->query($comments))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		$this->load->dbforge();
+		if($this->dbforge->drop_table('comments'))
+		{
+			return TRUE;
+		}
 	}
 
 	public function upgrade($old_version)
