@@ -56,15 +56,13 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( css('admin/style.css') )
 			->append_metadata( css('jquery/jquery-ui.css') )
 			->append_metadata( css('jquery/colorbox.css') )
-			->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( '<script type="text/javascript">jQuery.noConflict();</script>' )
-	    	->append_metadata( js('jquery/jquery-ui.min.js') )
+	    	->append_metadata( js('jquery/jquery-ui-1.8.4.min.js') )
 	    	->append_metadata( js('jquery/jquery.colorbox.min.js') )
 	    	->append_metadata( js('jquery/jquery.livequery.js') )
 	    	->append_metadata( js('admin/jquery.uniform.min.js') )
 	    	->append_metadata( js('admin/functions.js') )
-    		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' )
-			->append_metadata( '<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->' );
+    		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' );
 
 
 	    $this->template->set_partial('header', 'admin/partials/header', FALSE);
@@ -72,7 +70,7 @@ class Admin_Controller extends MY_Controller
 	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
 	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);
 
-	    //$this->output->enable_profiler(TRUE);
+//	    $this->output->enable_profiler(TRUE);
 	}
 
 	private function _check_access()
