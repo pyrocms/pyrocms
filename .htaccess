@@ -8,7 +8,7 @@
 	#RewriteBase /wherever/pyro/is
 
 	# Restrict your site to only one domain
-	#RewriteCond %{HTTP_HOST} !^example\.com
+	#RewriteCond %{HTTP_HOST} !^example\.com$
 	#RewriteRule ^(.*)$ http://example.com/$1 [L]
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
