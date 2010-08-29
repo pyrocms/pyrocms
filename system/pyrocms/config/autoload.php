@@ -100,5 +100,5 @@ $autoload['language'] = array('main', 'errors', 'users/user');
 */
 
 // Autoloaded in MY_Controller
-//	permissions/permissions_m', modules/modules_m', 'pages/pages_m
+//	permissions/permission_m', modules/module_m', 'pages/pages_m
 $autoload['model'] = array();

@@ -31,7 +31,7 @@ function module_array()
 {
 	$ci =& get_instance();
 
-	$modules = $ci->modules_m->get_all();
+	$modules = $ci->module_m->get_all();
 	asort($modules);
 
 	return $modules;
@@ -52,7 +52,7 @@ function module_exists($module = '')
 	// Start looking
 	$ci =& get_instance();
 
-	return $ci->modules_m->exists($module);
+	return $ci->module_m->exists($module);
 }
 
 
@@ -74,7 +74,7 @@ function module_controller($controller, $module)
 
 	$ci =& get_instance();
 
-	$controllers = $ci->modules_m->get_module_controllers($module);
+	$controllers = $ci->module_m->get_module_controllers($module);
 
 	return isset($controllers[$controller]) ? TRUE : FALSE;
 }

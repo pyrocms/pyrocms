@@ -41,13 +41,13 @@ class MY_Controller extends Controller
 
 		// Loaded after $this->user is set so that data can be used everywhere
 		$this->load->model(array(
-			'permissions/permissions_m',
-			'modules/modules_m',
+			'permissions/permission_m',
+			'modules/module_m',
 			'pages/pages_m'
 		));
 
 		// Get meta data for the module
-        $this->module_data 			= $this->modules_m->get($this->module);
+        $this->module_data 			= $this->module_m->get($this->module);
 
 		// If the module is disabled, then show a 404.
 		$this->module_data['enabled'] == 1 or show_404();

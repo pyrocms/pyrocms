@@ -36,11 +36,11 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// We dont want to work with old data
-		$this->cache->delete_all('modules_m');
+		$this->cache->delete_all('module_m');
 		
-		$this->modules_m->import_unknown();
+		$this->module_m->import_unknown();
 
- 		$this->template->modules = $this->modules_m->get_all(NULL, TRUE);
+ 		$this->template->modules = $this->module_m->get_all(NULL, TRUE);
 
 		$this->template
 			->title($this->module_data['name'])
@@ -71,7 +71,7 @@ class Admin extends Admin_Controller
 				$upload_data = $this->upload->data();
 
 				// Check if we already have a dir with same name
-				if ($this->modules_m->exists($upload_data['raw_name']))
+				if ($this->module_m->exists($upload_data['raw_name']))
 				{
 					$this->session->set_flashdata('error', sprintf(lang('modules.already_exists_error'), $upload_data['raw_name']));
 				}
@@ -85,7 +85,7 @@ class Admin extends Admin_Controller
 					// Try and extract
 					if ($this->unzip->extract($upload_data['full_path'], ADDONPATH . 'modules/'))
 					{
-						if ($this->modules_m->install($upload_data['raw_name']))
+						if ($this->module_m->install($upload_data['raw_name']))
 						{
 							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $upload_data['raw_name']));
 						}
@@ -111,7 +111,7 @@ class Admin extends Admin_Controller
 			}
 
 			// Clear the cache
-			$this->cache->delete_all('modules_m');
+			$this->cache->delete_all('module_m');
 
 			redirect('admin/modules');
 		}
@@ -138,7 +138,7 @@ class Admin extends Admin_Controller
 			show_error(lang('modules.module_not_specified'));
 		}
 
-		if ($this->modules_m->uninstall($slug))
+		if ($this->module_m->uninstall($slug))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $slug));
 
@@ -166,10 +166,10 @@ class Admin extends Admin_Controller
 	 */
 	public function install($slug)
 	{
-		if ($this->modules_m->install($slug))
+		if ($this->module_m->install($slug))
 		{
 			// Clear the module cache
-			$this->cache->delete_all('modules_m');
+			$this->cache->delete_all('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
 		}
 		else
@@ -191,10 +191,10 @@ class Admin extends Admin_Controller
 	 */
 	public function enable($slug)
 	{
-		if ($this->modules_m->enable($slug))
+		if ($this->module_m->enable($slug))
 		{
 			// Clear the module cache
-			$this->cache->delete_all('modules_m');
+			$this->cache->delete_all('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.enable_success'), $slug));
 		}
 		else
@@ -216,10 +216,10 @@ class Admin extends Admin_Controller
 	 */
 	public function disable($slug)
 	{
-		if ($this->modules_m->disable($slug))
+		if ($this->module_m->disable($slug))
 		{
 			// Clear the module cache
-			$this->cache->delete_all('modules_m');
+			$this->cache->delete_all('module_m');
 			$this->session->set_flashdata('success', sprintf(lang('modules.disable_success'), $slug));
 		}
 		else

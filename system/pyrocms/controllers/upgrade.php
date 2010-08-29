@@ -94,7 +94,7 @@ class Upgrade extends Controller
 		// Clear out existing modules
 		$this->db->empty_table('modules');
 
-		$this->load->model('modules/modules_m');
+		$this->load->model('modules/module_m');
 
     	// Loop through directories that hold modules
 		$is_core = TRUE;
@@ -108,7 +108,7 @@ class Upgrade extends Controller
 
 				echo 'Re-indexing module: <strong>' . $slug .'</strong>.<br/>';
 
-				$this->modules_m->install($slug, $is_core);
+				$this->module_m->install($slug, $is_core);
 
 				$path = $is_core ? APPPATH : ADDONPATH;
 
@@ -140,7 +140,7 @@ class Upgrade extends Controller
 				$module['is_core'] = $is_core;
 
 				// Looks like it installed ok, add a record
-				$this->modules_m->add($module);
+				$this->module_m->add($module);
 			}
 
 			// Going back around, 2nd time is addons
@@ -269,7 +269,7 @@ class Upgrade extends Controller
 
 		// Clear some caches
 		echo "Clearing the module cache.<br/>";
-		$this->cache->delete_all('modules_m');
+		$this->cache->delete_all('module_m');
 	    
 	    return FALSE; // Change this when we go live
 	}
@@ -352,7 +352,7 @@ class Upgrade extends Controller
 		$this->cache->delete_all('pages_m');
 
 		echo 'Clearing module cache.<br/>';
-		$this->cache->delete_all('modules_m');
+		$this->cache->delete_all('module_m');
 
 		return TRUE;
 	}
