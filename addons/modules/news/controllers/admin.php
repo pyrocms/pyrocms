@@ -33,57 +33,57 @@ class Admin extends Admin_Controller
 		$this->validation_rules = array(
 				array(
 					'field'   => 'title',
-					'label'   => 'Title',
+					'label'   => lang('news_title_label'),
 					'rules'   => 'trim|htmlspecialchars|required|max_length[100]'
 					),
 				array(
 					'field'	=> 'slug',
-					'label'	=> 'Slug',
+					'label'	=> lang('news_slug_label'),
 					'rules' => 'trim|required|alpha_dot_dash|max_length[100]'
 				),
 				array(
 					'field' => 'category_id',
-					'label' => 'Category ID',
+					'label' => lang('news_category_label') . ' ID',
 					'rules' => 'trim|numeric'
 				),
 				array(
 					'field' => 'intro',
-					'label' => 'Intro',
+					'label' => lang('news_intro_label'),
 					'rules' => 'trim|required'
 				),
 				array(
 					'field' => 'body',
-					'label' => 'Body',
+					'label' => lang('news_content_label'),
 					'rules' => 'trim|required'
 				),
 				array(
 					'field' => 'status',
-					'label' => 'Status',
+					'label' => lang('news_status_label'),
 					'rules' => 'trim|alpha'
 				),
 				array(
 					'field' => 'created_on_day',
-					'label' => 'Created On Day',
+					'label' => lang('news_created_day'),
 					'rules' => 'trim|numeric|required'
 				),
 				array(
 					'field' => 'created_on_month',
-					'label' => 'Created on Month',
+					'label' => lang('news_created_month'),
 					'rules' => 'trim|numeric|required'
 				),
 				array(
 					'field' => 'created_on_year',
-					'label' => 'Created On Year',
+					'label' => lang('news_created_year'),
 					'rules' => 'trim|numeric|required'
 				),
 				array(
 					'field' => 'created_on_hour',
-					'label' => 'Created On Hour',
+					'label' => lang('news_created_hour'),
 					'rules' => 'trim|numeric|required'
 				),
 				array(
 					'field' => 'created_on_minute',
-					'label' => 'Created On Minute',
+					'label' => lang('news_created_minute'),
 					'rules' => 'trim|numeric|required'
 				)
 			);
@@ -140,9 +140,6 @@ class Admin extends Admin_Controller
 		//append the check slug callback function to rules array
 		$this->validation_rules[1]['rules'] .= '|callback__check_slug';
 		$this->form_validation->set_rules($this->validation_rules);
-		//$this->form_validation->set_fields();
-		
-		
 		
 		if ($this->form_validation->run())
 		{
@@ -222,25 +219,25 @@ class Admin extends Admin_Controller
 		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->validation_rules);
-		//$this->form_validation->set_fields();		
+			
 		$article = $this->news_m->get($id);
 		
 		if ($this->form_validation->run())
 		{
 			
 			$result = $this->news_m->update($id, array(
-	            'title'				=> $this->input->post('title'),
-	            'slug'				=> $this->input->post('slug'),
-	            'category_id'		=> $this->input->post('category_id'),
-	            'intro'				=> $this->input->post('intro'),
-	            'body'				=> $this->input->post('body'),
-	            'status'			=> $this->input->post('status'),
+				'title'			=> $this->input->post('title'),
+				'slug'			=> $this->input->post('slug'),
+				'category_id'		=> $this->input->post('category_id'),
+				'intro'			=> $this->input->post('intro'),
+				'body'			=> $this->input->post('body'),
+				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
 				'created_on_day'	=> $this->input->post('created_on_day'),
 				'created_on_month'	=> $this->input->post('created_on_month'),
 				'created_on_year'	=> $this->input->post('created_on_year'),
-	    	));
+				));
 			
 			if ($result)
 			{
@@ -275,7 +272,8 @@ class Admin extends Admin_Controller
 		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );		
+		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+					->append_metadata( js('news_form.js', 'news') );	
 		$this->template->build('admin/form', $this->data);
 	}	
 	

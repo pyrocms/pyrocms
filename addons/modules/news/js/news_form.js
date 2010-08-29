@@ -26,7 +26,7 @@
 						type: "POST",
 					        data: form_data,
 						success: function(data) {
-							alert('ajax success');
+							
 							var obj = $.parseJSON(data);
 							if(obj.status == 'ok') {
 								
