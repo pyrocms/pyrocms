@@ -7,17 +7,12 @@
 <?php echo form_open('users/reset_pass', array('id'=>'reset_pass')); ?>
 
 <p class="float-left spacer-right">
-	<label for="first_name"><?php echo lang('user_first_name') ?></label><br/>
-	<input type="text" name="first_name" maxlength="40" value="<?php echo set_value('first_name'); ?>" />
+	<label for="user_name"><?php echo lang('user_username') ?></label><br/>
+	<input type="text" name="user_name" maxlength="40" value="<?php echo set_value('user_name'); ?>" />
 </p>
 
 <p>
-	<label for="last_name"><?php echo lang('user_last_name') ?></label><br/>
-	<input type="text" name="last_name" maxlength="40" value="<?php echo set_value('last_name'); ?>" />
-</p>
-
-<p>
-	<label for="email">E-mail</label><br/>
+	<label for="email"><?php echo lang('user_email') ?></label><br/>
 	<input type="text" name="email" maxlength="100" value="<?php echo set_value('email'); ?>" />
 </p>
 
