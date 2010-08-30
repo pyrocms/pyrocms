@@ -2,6 +2,7 @@
 
 $lang['cp_admin_title'] 				= 'Painel de Controle';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['cp_admin_quick_links']			= 'Quick Links';
 
 $lang['cp_welcome_title'] 				= 'Bem vindo(a)';
 $lang['cp_welcome_message'] 			= 'Bem vindo(a) ao Painel de Controle de %s. Utilizando os links abaixo e os da esquerda você pode controlar quase todos os aspectos de seu website. Se você obter algum tipo de problema com o sistema, por favor, envie o problema para o nosso bugtracker.';

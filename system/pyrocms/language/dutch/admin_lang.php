@@ -2,6 +2,7 @@
 
 $lang['cp_admin_title'] 				= 'Controle Paneel';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['cp_admin_quick_links']			= 'Quick Links';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
 $lang['cp_welcome_message'] 			= 'Welkom in het %s Controle Paneel. Door de  links boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervind met dit systeem, plaats dan een issue op onze bugtracker..';
