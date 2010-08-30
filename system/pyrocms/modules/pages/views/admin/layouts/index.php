@@ -1,5 +1,4 @@
-<div class="box">
-	
+
 	<h3><?php echo lang('page_layouts.list_title'); ?></h3>
 	
 	<div class="box-container">
@@ -40,4 +39,3 @@
 		<?php echo form_close(); ?>
 
 	</div>
-</div>
