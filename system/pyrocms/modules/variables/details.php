@@ -14,7 +14,7 @@ class Variables_details extends Module {
 				'es' => 'Variables',
 				'fr' => 'Variables',
 				'de' => 'Variablen',
-				'en' => 'Variáveis',
+				'br' => 'Variáveis',
 			),
 			'description' => array(
 				'en' => 'Manage global variables to access from everywhere.',
@@ -33,14 +33,27 @@ class Variables_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->dbforge->drop_table('variables');
+		
+		$variables = "
+			CREATE TABLE `variables` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		";
+		
+		if($this->db->query($variables))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

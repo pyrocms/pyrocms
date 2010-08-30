@@ -24,7 +24,6 @@ class Widgets_details extends Module {
 	
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('widget_areas');
 		$this->dbforge->drop_table('widget_instances');
 		$this->dbforge->drop_table('widgets');
@@ -81,13 +80,8 @@ class Widgets_details extends Module {
 
 	public function uninstall()
 	{
-		$this->load->dbforge();
-		if($this->dbforge->drop_table('widget_areas')
-						->drop_table('widget_instances')
-						->drop_table('widgets'))
-		{
-			return TRUE;
-		}
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

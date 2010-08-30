@@ -36,7 +36,6 @@ class Comments_details extends Module {
 	
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('comments');
 		
 		$comments = "
@@ -64,11 +63,8 @@ class Comments_details extends Module {
 
 	public function uninstall()
 	{
-		$this->load->dbforge();
-		if($this->dbforge->drop_table('comments'))
-		{
-			return TRUE;
-		}
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

@@ -33,14 +33,13 @@ class Themes_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
 		return TRUE;
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

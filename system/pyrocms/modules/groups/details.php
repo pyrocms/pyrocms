@@ -26,7 +26,6 @@ class Groups_details extends Module {
 	
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('groups');
 		
 		$groups = "
@@ -53,11 +52,8 @@ class Groups_details extends Module {
 
 	public function uninstall()
 	{
-		$this->load->dbforge();
-		if($this->dbforge->drop_table('groups'))
-		{
-			return TRUE;
-		}
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

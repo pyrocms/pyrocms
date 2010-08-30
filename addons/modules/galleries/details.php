@@ -21,7 +21,6 @@ class Galleries_details extends Module {
 
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('galleries');
 		$this->dbforge->drop_table('gallery_images');
 		
@@ -66,9 +65,7 @@ class Galleries_details extends Module {
 	}
 
 	public function uninstall()
-	{
-		$this->load->dbforge();
-		
+	{		
 		if($this->dbforge->drop_table('galleries') &&
 		   $this->dbforge->drop_table('gallery_images'))
 		{

@@ -35,8 +35,26 @@ class Permissions_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->dbforge->drop_table('permission_roles');
+		$this->dbforge->drop_table('permission_rules');
+		
+		$permission_rules = "
+			CREATE TABLE `permission_rules` (
+			  `id` int(11) NOT NULL auto_increment,
+			  `user_id` int(11) NOT NULL,
+			  `permission_role_id` int(11) NOT NULL,
+			  `module` varchar(50) collate utf8_unicode_ci NOT NULL,
+			  `controller` varchar(50) collate utf8_unicode_ci NOT NULL,
+			  `method` varchar(50) collate utf8_unicode_ci NOT NULL,
+			  PRIMARY KEY  (`id`),
+			  KEY `user` (`user_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission rules for permission roles';
+		";
+		
+		if($this->db->query($permission_rules))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
@@ -47,8 +65,8 @@ class Permissions_details extends Module {
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 	
 	public function help()
