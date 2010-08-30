@@ -532,3 +532,17 @@ body#login #login-box input.button:hover {
 .hover-toggle:hover .toggle-item {
 	visibility: visible;
 }
+
+/* Blank Slates */
+div.blank-slate {
+	text-align: center;
+	vertical-align: top;
+	width: auto;
+	margin-top: 20%;
+}
+div.blank-slate img {
+	margin: 0px 25px 15px 0;
+}
+div.blank-slate h2 {
+	margin: -20px 0 0 0;
+}
