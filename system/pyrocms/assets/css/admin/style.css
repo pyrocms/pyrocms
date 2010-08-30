@@ -620,3 +620,7 @@ ul.big-list a:hover {
 	color: #ff6400;
 }
 
+/* Analytics */
+div#analytics table {
+	width: auto;
+}
