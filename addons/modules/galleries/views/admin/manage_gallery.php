@@ -2,20 +2,21 @@
 	<h3><?php echo lang('galleries.manage_gallery_label'); ?></h3>
 
 	<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
-		<ul>
-			<li>
+		<ol>
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="title"><?php echo lang('galleries.title_label'); ?></label>
 				<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
 				<span class="required-icon tooltip">Required</span>
 			</li>
 
-			<li class="even">
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="slug"><?php echo lang('galleries.slug_label'); ?></label>
 				<?php echo form_input('slug', $gallery->slug, 'class="width-15"'); ?>
 				<span class="required-icon tooltip">Required</span>
 			</li>
 
-			<li>
+			<?php if (!empty($galleries[1])): ?>
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="parent"><?php echo lang('galleries.parent_label'); ?></label>
 				<select name="parent" id="parent">
 					<!-- Available galleries -->
@@ -27,24 +28,25 @@
 					<?php endif; endforeach; endif; ?>
 				</select>
 			</li>
+			<?php endif; ?>
 
-			<li class="even">
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="description"><?php echo lang('galleries.description_label'); ?></label>
 				<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value' => $gallery->description, 'rows' => 10, 'class' => 'wysiwyg-simple')); ?>
 			</li>
 
-			<li>
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="comments"><?php echo lang('galleries.comments_label'); ?></label>
 				<?php echo form_dropdown('enable_comments', array('1'=>lang('galleries.comments_enabled_label'), '0'=>lang('galleries.comments_disabled_label')), $gallery->enable_comments); ?>
 			</li>
 
-			<li class="even">
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="published"><?php echo lang('galleries.published_label'); ?></label>
 				<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published); ?>
 			</li>
 
 			<?php if ( !empty($gallery_images) ): ?>
-			<li>
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
 				<select name="gallery_thumbnail" id="gallery_thumbnail">
 
@@ -70,14 +72,14 @@
 
 				</select>
 			</li>
-			<li class="even">
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="gallery_images"><?php echo lang('galleries.current_label'); ?></label>
 				<div class="clear-both"></div>
 				<ul id="gallery_images_list">
 					<?php if ( $gallery_images !== FALSE ): ?>
 					<?php foreach ( $gallery_images as $image ): ?>
 					<li>
-						<a href="<?php echo site_url('admin/galleries/edit_image/' . $image->id); ?>" title="<?php echo "File: " . $image->filename . '.' . $image->extension . "\nTitle: " . $image->title; ?>">
+						<a href="<?php echo site_url('admin/galleries/edit_image/' . $image->id); ?>" title="<?php echo "File: " . $image->filename . '.' . $image->extension . " \n Title: " . $image->title; ?>">
 							<img src="<?php echo site_url('uploads/galleries/' . $image->slug . '/thumbs/' . $image->filename . '_thumb.' . $image->extension);?>" alt="<?php echo $image->title; ?>" />
 							<?php echo form_hidden('action_to[]', $image->id); ?>
 						</a>
@@ -92,7 +94,7 @@
 				<div class="clear-both"></div>
 			</li>
 			<?php endif; ?>
-		</ul>
+		</ol>
 
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	<?php echo form_close(); ?>
