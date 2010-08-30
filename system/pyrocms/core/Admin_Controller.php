@@ -88,7 +88,7 @@ class Admin_Controller extends MY_Controller
 		}
 
 		// Admins can go straight in
-		else if ($this->user->group !== 'admin')
+		else if ($this->user->group === 'admin')
 		{
 			return TRUE;
 		}
@@ -97,20 +97,15 @@ class Admin_Controller extends MY_Controller
 		else if ($this->user)
 		{
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if($current_page == 'admin/index' && $this->permission_m->has_admin_access($this->user->group_id))
+			if($current_page == 'admin/index' && $this->permissions)
 			{
 				return TRUE;
 			}
 
-			// Check Perms: Not an admin and this is not a page to ignore
 			else
 			{
 				// Check if the current user can view that page
-				return $this->permission_m->check_rule_by_role($this->user->group_id, array(
-					'module' => $this->module,
-					'controller' =>$this->controller,
-					'method' =>$this->method
-				));
+				 return in_array($this->module, $this->permissions);
 			}
 		}
 

@@ -5,6 +5,7 @@
 			<ul>
 				<li><?php echo anchor('admin/comments', 'Comments', (($module == 'comments') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/pages', 'Pages', (($module == 'pages') ? 'class="current"' : ''));?></li>
+				<li><?php echo anchor('admin/news', 'News', (($module == 'news') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/files', 'Files', (($module == 'files') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/variables', 'Variables', (($module == 'variables') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/widgets', 'Widgets', (($module == 'widgets') ? 'class="current"' : ''));?></li>
