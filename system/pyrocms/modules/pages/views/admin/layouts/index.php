@@ -1,8 +1,6 @@
 
 	<h3><?php echo lang('page_layouts.list_title'); ?></h3>
-	
-	<div class="box-container">
-	
+		
 		<?php echo form_open('admin/pages/layouts/delete');?>
 	
 			<?php if (!empty($page_layouts)): ?>
@@ -32,10 +30,10 @@
 				<p><?php echo lang('page_layouts.no_pages');?></p>
 			<?php endif; ?>		
 			
-			<br/>
-					
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			<div class="float-right">
+								
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			</div>
 	
 		<?php echo form_close(); ?>
 
-	</div>

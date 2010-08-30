@@ -1,8 +1,5 @@
-<div class="box">
-
 	<h3><?php echo lang('perm_rule_add'); ?></h3>
 
-	<div class="box-container">
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
 			<fieldset>
@@ -42,8 +39,8 @@
 				</ol>
 			</fieldset>
 			
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			<div class="float-right">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			</div>
 		
 		<?php echo form_close(); ?>
-	</div>
-</div>

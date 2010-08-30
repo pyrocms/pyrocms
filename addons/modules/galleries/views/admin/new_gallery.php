@@ -1,4 +1,4 @@
-<div class="box" id="galleries_form_box">
+<div id="galleries_form_box">
 	<h3><?php echo lang('galleries.new_gallery_label'); ?></h3>
 	<div class="box-container">
 		<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
@@ -41,7 +41,11 @@
 				</li>
 			</ol>
 
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	
+			<div class="float-right">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+			</div>
+			
 		<?php echo form_close(); ?>
 	</div>
 </div>

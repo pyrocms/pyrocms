@@ -1,8 +1,8 @@
-<h3><?php echo lang('galleries.list_label'); ?></h3>
-
 <?php echo form_open('admin/galleries/delete');?>
 
 <?php if (!empty($galleries)): ?>
+	<h3><?php echo lang('galleries.list_label'); ?></h3>
+
 	<table border="0" class="table-list">
 		<thead>
 			<tr>
@@ -40,7 +40,11 @@
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 
 <?php else: ?>
-	<p><?php echo lang('galleries.no_galleries_error'); ?></p>
+	<div class="blank-slate">
+		<img src="<?php echo site_url('addons/modules/galleries/img/album.png') ?>" />
+		
+		<h2><?php echo lang('galleries.no_galleries_error'); ?></h2>
+	</div>
 <?php endif;?>
 
 <?php echo form_close(); ?>

@@ -53,7 +53,10 @@
 		
 	</div>
 	
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<div class="float-right buttons">
+		<br/>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	</div>
 
 <?php echo form_close(); ?>
 		

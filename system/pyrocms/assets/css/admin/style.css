@@ -547,6 +547,11 @@ div.blank-slate h2 {
 	margin: -20px 0 0 0;
 }
 
+
+.buttons {
+	margin-bottom: 25px;
+}
+
 noscript {
 	display: block !important;
 	padding: 7px 20px 7px 50px;

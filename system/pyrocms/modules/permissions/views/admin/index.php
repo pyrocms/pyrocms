@@ -3,11 +3,7 @@
 <?php if (!empty($groups)): ?>
 <?php foreach ($groups as $group): ?>
 
-	<div class="box">
-
 		<h3><?php echo $group->title; ?></h3>
-
-		<div class="box-container">
 
 		<?php if (!empty($rules[$group->name])): ?>
 			<table border="0" class="table-list clear-both spacer-bottom">
@@ -36,20 +32,21 @@
 				</tbody>
 			</table>
 
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			<div class="float-right">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			</div>
 
 		<?php else:?>
 			<p><?php echo lang('perm_role_no_rules');?></p>
 		<?php endif; ?>
 			
-		</div>
-
-	</div>
 
 <?php endforeach; ?>
 
 <?php else: ?>
-<p><?php echo lang('perm_no_roles');?></p>	
+	<div class="blank-slate">
+		<h2><?php echo lang('perm_no_roles');?></h2>	
+	</div>
 <?php endif; ?>
 
 <?php echo form_close(); ?>

@@ -4,7 +4,7 @@
 
 <?php echo form_open('admin/settings/edit', 'class="crud"');?>
 
-	<h3><?php echo lang('settings_edit_title');?></h3>
+	<!-- <h3><?php echo lang('settings_edit_title');?></h3> -->
 	
 	<div class="box-container">	
 	
@@ -42,7 +42,10 @@
 			
 		</div>
 		
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
+		<div class="float-right">
+			<br/>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
+		</div>
 		
 	</div>
 
