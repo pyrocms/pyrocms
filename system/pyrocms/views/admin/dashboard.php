@@ -1,3 +1,11 @@
+<?php if ($this->settings->google_analytic) : ?>
+<h3>Google Analytics</h3>
+
+<div id="analytics" class="line" style="width: 100%; height: 200px;"></div>
+
+<p>Total visits per day, based on information from your <a href="http://google.com/analytics" target="_blank">Google Analytics</a> account.</p>
+<?php endif; ?>
+
 <div class="line">
 	<section class="box unit size1of3">
 		<header>
@@ -45,3 +53,52 @@
 	</section>
 
 </div>	<!-- /line -->
+
+<script>
+jQuery(function($) {
+	$(document).ready(function(){
+		
+		// Build our Google Analytics chart, if we have the required information.
+		var visits = <?php echo isset($ga_visits) && !empty($ga_visits) ? $ga_visits : ''; ?>;
+		
+		if (visits != undefined)
+		{
+			var options = {
+				series: {
+					lines: {
+						show: true,
+						fill: true,
+						fillColor: '#e6f2fa',
+						lineWidth: 4
+					},
+					points: {
+						show: true
+					},
+					legend: {
+						show: false,
+						margin: 10,
+						backgroundOpacity: 0.5
+					}
+				},
+				xaxis: {
+					mode: 'time'
+				}, 
+				grid: {
+					color: '#aaa'
+				}
+			};
+	
+		
+			$.plot($('#analytics'), 
+				[
+					{ 
+						label: 'Visits', 
+						data: visits,
+						color: '#0077cc'
+					}
+				], options);
+		}
+		
+	});
+});
+</script>
