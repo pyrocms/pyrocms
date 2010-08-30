@@ -26,14 +26,38 @@ class Groups_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->load->dbforge();
+		$this->dbforge->drop_table('groups');
+		
+		$groups = "
+			CREATE TABLE IF NOT EXISTS `groups` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+			  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
+		";
+
+		$default_data = "
+			INSERT INTO `groups` (`id`, `title`, `name`, `description`) VALUES
+			(1, 'Administator', 'admin', NULL),
+			(2, 'User', 'user', NULL);
+		";
+		
+		if($this->db->query($groups) && $this->db->query($default_data))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		$this->load->dbforge();
+		if($this->dbforge->drop_table('groups'))
+		{
+			return TRUE;
+		}
 	}
 
 	public function upgrade($old_version)

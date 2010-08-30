@@ -67,6 +67,7 @@ class Admin_Categories extends Admin_Controller
 	 */
 	public function create()
 	{
+		
 		// Validate the data
 		if ($this->form_validation->run())
 		{
@@ -82,10 +83,10 @@ class Admin_Categories extends Admin_Controller
 		{
 			$category->{$rule['field']} = set_value($rule['field']);
 		}
-
-		// Render the view
-		$this->data->category =& $category;		
-		$this->template->build('admin/categories/form', $this->data);
+		
+		// Render the view	
+		$this->data->category =& $category;	
+		$this->template->build('admin/categories/form', $this->data);	
 	}
 	
 	/**
@@ -165,8 +166,8 @@ class Admin_Categories extends Admin_Controller
 		}
 		
 		redirect('admin/news/categories/index');
-	}	
-	
+	}
+		
 	/**
 	 * Callback method that checks the title of the category
 	 * @access public
@@ -182,5 +183,62 @@ class Admin_Categories extends Admin_Controller
 		}
 
 		return TRUE;
+	}
+	
+	/**
+	 * Create method, creates a new category via ajax
+	 * @access public
+	 * @return void
+	 */
+	public function create_ajax()
+	{
+		// Loop through each validation rule
+		foreach($this->validation_rules as $rule)
+		{
+			$category->{$rule['field']} = set_value($rule['field']);
+		}
+		
+		$this->data->method = 'create';
+		$this->data->category =& $category;
+		
+		if ($this->form_validation->run())
+		{
+			$id = $this->news_categories_m->insert_ajax($_POST);
+			
+			if($id > 0)
+			{
+				$message = sprintf( lang('cat_add_success'), $this->input->post('title'));
+			}
+			else
+			{
+				$message = lang('cat_add_error');
+			}
+			
+			$json = array('message' => $message,
+					'title' => $this->input->post('title'),
+					'category_id' => $id,
+					'status' => 'ok'
+					);
+			echo json_encode($json);
+		}	
+		else
+		{		
+			// Render the view
+			$errors = validation_errors();
+			$form = $this->load->view('admin/categories/form', $this->data, TRUE);
+			if(empty($errors))
+			{
+				
+				echo $form;
+			}
+			else
+			{
+				$json = array('message' => $errors,
+					      'status' => 'error',
+					      'form' => $form
+					     );
+				echo json_encode($json);
+			}
+		}
 	}
 }

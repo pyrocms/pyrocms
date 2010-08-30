@@ -34,7 +34,7 @@
 						</li>
 						
 						<li>
-							<label for="intro"><?php echo lang('news_intro_label');?></label>
+							<label class="intro" for="intro"><?php echo lang('news_intro_label');?></label>
 							<?php echo form_textarea(array('id'=>'intro', 'name'=>'intro', 'value' => $article->intro, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
 						</li>
 						
@@ -52,7 +52,7 @@
 						<li>
 							<label for="category_id"><?php echo lang('news_category_label');?></label>
 							<?php echo form_dropdown('category_id', array(lang('news_no_category_select_label'))+$categories, @$article->category_id) ?> 	
-							[ <?php echo anchor('admin/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
+							[ <?php echo anchor('admin/news/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
 						</li>
 						
 						<li class="even">
@@ -60,13 +60,13 @@
 							<?php echo form_dropdown('status', array('draft'=>lang('news_draft_label'), 'live'=>lang('news_live_label')), $article->status) ?>	
 						</li>
 						
-						<li>
+						<li class="date-meta">
 							<label><?php echo lang('news_date_label');?></label>
 							<?php echo form_dropdown('created_on_day', $days, !empty($article->created_on_day) ? $article->created_on_day : date('j', isset($article->created_on) ? $article->created_on : now())) ?>
 							<?php echo form_dropdown('created_on_month', $months, !empty($article->created_on_month) ? $article->created_on_month : date('n', isset($article->created_on) ? $article->created_on : now())) ?>
 							<?php echo form_dropdown('created_on_year', $years, !empty($article->created_on_year) ? $article->created_on_year : date('Y', isset($article->created_on) ? $article->created_on : now())) ?>
 							
-							<?php echo lang('news_time_label');?>
+							<label class="time-meta"><?php echo lang('news_time_label');?></label>
 							<?php echo form_dropdown('created_on_hour', $hours, !empty($article->created_on_hour) ? $article->created_on_hour : date('G', isset($article->created_on) ? $article->created_on : now())) ?>
 							<?php echo form_dropdown('created_on_minute', $minutes, !empty($article->created_on_minute) ? $article->created_on_minute : date('i', isset($article->created_on) ? $article->created_on : now())) ?>
 						</li>

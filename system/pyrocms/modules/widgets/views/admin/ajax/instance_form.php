@@ -1,4 +1,6 @@
-<h4><?php echo $widget->title; ?> in <?php echo $widget_area->title; ?></h4>
+<header>
+	<h3><?php echo $widget->title; ?></h3>
+</header>
 
 <?php if(isset($widget->instance_id)): ?>
 	<?php echo form_hidden('widget_instance_id', $widget->instance_id); ?>
@@ -38,10 +40,12 @@ if($form):
 	</fieldset>
 <?php endif; ?>
 
-<button type="submit">
-	<span><?php echo lang('save_label'); ?></span>
-</button>
-
-<button id="widget-instance-cancel">
-	<span><?php echo lang('cancel_label'); ?></span>
-</button>
+<div class="float-right" style="padding: 5px">
+	<button type="submit">
+		<span><?php echo lang('save_label'); ?></span>
+	</button>
+	
+	<button id="widget-instance-cancel">
+		<span><?php echo lang('cancel_label'); ?></span>
+	</button>
+</div>

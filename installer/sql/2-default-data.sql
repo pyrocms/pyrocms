@@ -78,21 +78,3 @@ INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `valu
  ('akismet_api_key', 'Akismet API Key', 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.', 'text', '', '', '', 0, '1', 'integration'),
  ('moderate_comments', 'Moderate Comments', 'Force comments to be approved before they appear on the site.', 'select', '0', '', '1=Enabled|0=Disabled', '0', '1', ''),
  ('version', 'Version', '', 'text', 'v0.9.8', '__VERSION__', '', '0', '0', '');
-	
--- command split --
-
-TRUNCATE `groups`;
-
--- command split --
-
-INSERT INTO `groups` (`id`, `title`, `name`, `description`) VALUES
-(1, 'Administator', 'admin', NULL),
-(2, 'User', 'user', NULL);
-
--- command split --
-
-TRUNCATE `widget_areas`;
-
--- command split --
-
-INSERT INTO widget_areas (slug, title) VALUES ('unsorted', 'Unsorted');

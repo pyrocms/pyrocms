@@ -19,9 +19,12 @@ form.crud label {
 	float: left;
 	font-weight: bold;
 	font-size: 11px;
-	width: 25%;
+	width: 33%;
+	margin-right: 15px;
 	padding: .35em 0;
 	color: #545454;
+	text-align: right;
+	
 }
 fieldset ol li div, fieldset ul li div, form.crud ul li div {
 	width: 75%;

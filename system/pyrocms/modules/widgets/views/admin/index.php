@@ -1,4 +1,5 @@
-<div id="add-area-box" class="box hidden">
+<!-- Add Area Box -->
+<div id="add-area-box" class="hidden">
 
 	<h3><?php echo lang('widgets.add_area'); ?></h3>
 
@@ -7,82 +8,114 @@
 		<ol>
 			<li>
 				<label for="title"><?php echo lang('widgets.widget_area_title'); ?></label>
-				<?php echo form_input('title'); ?>
+				<?php echo form_input('title', null, 'id="new-area-title"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
 			<li class="even">
 				<label for="slug"><?php echo lang('widgets.widget_area_slug'); ?></label>
-				<?php echo form_input('slug'); ?>
+				<?php echo form_input('slug', null, 'id="new-area-slug"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
 		</ol>
 	
-		<button type="submit">
-			<span><?php echo lang('save_label'); ?></span>
-		</button>
-		
-		<button id="widget-area-cancel">
-			<span><?php echo lang('cancel_label'); ?></span>
-		</button>
+		<div class="float-right">
+			<button type="submit">
+				<span><?php echo lang('save_label'); ?></span>
+			</button>
+			
+			<button id="widget-area-cancel">
+				<span><?php echo lang('cancel_label'); ?></span>
+			</button>
+		</div>
 	
 	</form>
+	
+	<div style="clear: both"></div>
 </div>
 
-<div id="add-instance-box" class="box hidden">
-
-	<h3><?php echo lang('widgets.add_instance'); ?></h3>
-
+<!-- Add Instance Box -->
+<li id="add-instance-box" class="box hidden widget-instance">
 	<form class="box-container crud">
 	
 	</form>
-</div>
+</li>
 
-<div id="edit-instance-box" class="box hidden">
+<!-- Edit Instance Box -->
+<li id="edit-instance-box" class="box hidden widget-instance">
 
 	<h3><?php echo lang('widgets.edit_instance'); ?></h3>
 
 	<form class="box-container crud">
 	
 	</form>
-</div>
+</li>
 
-<div class="widget-wrapper">
+<!-- Available Widgets Area -->
+<div style="width: 65%; float: left" id="available-widgets">
+<?php if ($available_widgets): ?>
+	<span class="widget-instructions float-right" style="margin-right: 20px"><?php echo lang('widgets.instructions')?></span>
+
+	<h3><?php echo lang('widgets.available_title')?></h3>
+
+		<?php foreach($available_widgets as $widget): ?>
+		<section id="widget-<?php echo $widget->slug; ?>" class="box widget-box">
+			<header>
+				<h3 class="title"><?php echo $widget->title; ?></h3>
+			</header>
+			
+			<div class="widget-box-body">
+				<p class="description"><?php echo $widget->description; ?></p>
+				<p class="author"><?php echo lang('widgets.widget_author').': '.$widget->author; ?>
+				<br /><?php echo anchor($widget->website); ?></p>
+			</div>
+		</section>
+		<?php endforeach; ?>
+</div>
+<?php else: ?>
+	<p>There are no available widgets.</p>
+<?php endif; ?>
+
+
+<!-- Widget Areas -->
+<section id="widget-wrapper">
+	<header>
+		<h3><?php echo lang('widgets.widget_area_wrapper'); ?></h3>
+	</header>
 
 	<?php if (!empty($widget_areas)): ?>
 
+		<div class="accordion">
 		<?php foreach ($widget_areas as $widget_area): ?>
 
-			<div id="area-<?php echo $widget_area->slug; ?>" class="box widget-area">
-				<h3><?php echo $widget_area->title; ?></h3>
-
-				<div class="box-container">
-
-					<div class="header-squish">
-
-						<div class="pyro-button">
-							<a id="delete-area-<?php echo $widget_area->slug; ?>" class="delete-area" href="#">
-								<?php echo lang('widgets.delete_area'); ?>
-							</a>
-						</div>
-						
-						<span class="tag">
-							<?php echo sprintf('{widget_area(\'%s\')}', $widget_area->slug);?>
-						</span>
-
-					</div>
-
+			<section id="area-<?php echo $widget_area->slug; ?>">
+				<header class="widget-area-header">
+					<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
+					
+					<a id="delete-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link delete-area" href="#">
+						<?php echo lang('widgets.delete_area'); ?>
+					</a>
+				</header>
+				
+				<div class="accordion-content">
+					<p class="tag"><?php echo sprintf('{widget_area(\'%s\')}', $widget_area->slug);?></p>
+	
 					<div class="widget-list">
 						<?php $this->load->view('admin/ajax/instance_list', array('widgets' => $widget_area->widgets)); ?>
+						
+						<div style="clear:both"></div>
 					</div>
 				</div>
-			</div>
+			</section>
 
 		<?php endforeach; ?>
+		</div>
 
 	<?php else: ?>
 		<p><?php echo lang('nav_no_groups');?></p>
 	<?php endif; ?>
+
+</section>
 
 </div>
