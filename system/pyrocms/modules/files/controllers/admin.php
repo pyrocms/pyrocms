@@ -160,6 +160,79 @@ class Admin extends Admin_Controller {
 		}
 		$this->template->set_layout('admin/modal');
 		$this->data->error = '';
+
+		$this->file_folders_m->folder_tree();
+		$folder->parents = $this->file_folders_m->get_folders();
+		// types = a','v','d','i','o'
+		$this->data->file = $this->file_m->get($id);
+		$this->data->selected_id = $id;
+		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
+		$this->data->folder =& $folder;
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('name', 'lang:files.folders.name', 'required');
+		$this->form_validation->set_rules('description', 'lang:files.description', '');
+		$this->form_validation->set_rules('folder_id', 'lang:files.labels.parent', 'required');
+		$this->form_validation->set_rules('type', 'lang:files.type', 'required');
+		// $this->form_validation->set_rules('userfile', 'lang:files.file', 'required');
+
+		if ($this->form_validation->run())
+		{
+			$filename = $this->data->file->filename;
+			$type = $this->input->post('type');
+
+			if ($_FILES['userfile']['name'] != '')
+			{
+				//we are uploading a file
+				$this->file_m->delete_file($id); //remove the original image
+
+				// Setup upload config
+				$allowed = $this->config->item('files_allowed_file_ext');
+				$config['upload_path'] = $this->_path;
+				$config['allowed_types'] = $allowed[$type];
+
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload('userfile'))
+				{
+					$this->data->messages['notice'] = $this->upload->display_errors();
+				}
+				else
+				{
+					$img = array('upload_data' => $this->upload->data());
+					$filename = $img['upload_data']['file_name'];
+					$data = array(
+							'folder_id' 	=> $this->input->post('folder_id'),
+							'user_id' 		=> $this->user->id,
+							'type'			=> $type,
+							'name'			=> $this->input->post('name'),
+							'description'	=> $this->input->post('description'),
+							'filename'		=> $img['upload_data']['file_name'],
+							'extension'		=> $img['upload_data']['file_ext'],
+							'mimetype'		=> $img['upload_data']['file_type'],
+							'filesize'		=> $img['upload_data']['file_size'],
+							'width'			=> $img['upload_data']['image_width'],
+							'height'		=> $img['upload_data']['image_height'],
+					);
+					$this->file_m->update($id, $data);
+					$this->data->messages['success'] = lang('files.success');
+				}
+			}
+			else
+			{
+				$data = array(
+						'folder_id' 	=> $this->input->post('folder_id'),
+						'user_id' 		=> $this->user->id,
+						'type'			=> $type,
+						'name'			=> $this->input->post('name'),
+						'description'	=> $this->input->post('description'),
+					);
+				$this->file_m->update($id, $data);
+				$this->data->messages['success'] = lang('files.success');
+			}
+		}
+
 		$this->template->build('admin/files/edit', $this->data);
 	}
 
