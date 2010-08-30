@@ -6,19 +6,19 @@
 		
 		<ul class="big-list">
 			<li class="clearfix">
-				<img src="<?php echo site_url('/system/pyrocms/assets/img/icons/comments.png'); ?>" />
+				<img src="<?php echo base_url(). 'system/pyrocms/assets/img/icons/comments.png'; ?>" />
 				<a href="<?php echo site_url('admin/comments') ?>"><h4>Manage Comments</h4></a>
 			</li>
 			<li class="clearfix">
-				<img src="<?php echo site_url('/system/pyrocms/assets/img/icons/pages.png'); ?>" />
+				<img src="<?php echo base_url() .'system/pyrocms/assets/img/icons/pages.png'; ?>" />
 				<a href="<?php echo site_url('admin/pages') ?>"><h4>Manage Pages</h4></a>
 			</li>
 			<li class="clearfix">
-				<img src="<?php echo site_url('/system/pyrocms/assets/img/icons/folder_open.png'); ?>" />
+				<img src="<?php echo base_url() .'system/pyrocms/assets/img/icons/folder_open.png'; ?>" />
 				<a href="<?php echo site_url('admin/files') ?>"><h4>Manage Files</h4></a>
 			</li>
 			<li class="clearfix">
-				<img src="<?php echo site_url('/system/pyrocms/assets/img/icons/user.png'); ?>" />
+				<img src="<?php echo base_url() .'system/pyrocms/assets/img/icons/user.png'; ?>" />
 				<a href="<?php echo site_url('admin/users') ?>"><h4>Manage Users</h4></a>
 			</li>
 		</ul>
