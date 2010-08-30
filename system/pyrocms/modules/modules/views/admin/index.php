@@ -1,6 +1,9 @@
-<div class="box">
-	<h3><?php echo lang('modules.addon_list');?></h3>
-	<div class="box-container">
+<section class="box">
+
+	<header>
+		<h3><?php echo lang('modules.addon_list');?></h3>
+	</header>
+		
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">
@@ -43,13 +46,13 @@
 			</tbody>
 		</table>
 
-	</div>
-</div>
+</section>
 
-<div class="box">
-	<h3><?php echo lang('modules.core_list');?></h3>
+<section class="box">
+	<header>
+		<h3><?php echo lang('modules.core_list');?></h3>
+	</header>
 
-	<div class="box-container">
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">
@@ -72,5 +75,4 @@
 			</tbody>	
 		</table>
 		
-	</div>
-</div>
+</section>

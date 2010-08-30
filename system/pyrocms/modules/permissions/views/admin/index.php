@@ -17,8 +17,6 @@
 			</td>
 		</tr>
 <?php endforeach; ?>
+
 	</tbody>
 </table>
-
-
-<?php echo form_close(); ?>

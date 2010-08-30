@@ -16,7 +16,7 @@ class Contact_details extends Module {
 				'de' => 'Kontakt'
 			),
 			'description' => array(
-				'en' => 'Adds a form to your site that allows visitors to send email\'s to you without discolosing an email address to them.',
+				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
 				'nl' => 'Voegt een formulier aan de site toe waarmee bezoekers een email kunnen sturen, zonder dat u ze een emailadres hoeft te tonen.',
 				'pl' => 'Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.',
 				'es' => 'Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.',

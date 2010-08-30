@@ -2,6 +2,7 @@
 
 $lang['cp_admin_title'] 				= 'Admin-Oberfläche';
 $lang['cp_admin_home_title'] 			= 'Admin-Oberfläche';
+$lang['cp_admin_quick_links']			= 'Quick Links';
 
 $lang['cp_welcome_title'] 				= 'Willkommen';
 $lang['cp_welcome_message'] 			= 'Willkommen zur %s Admin-Oberfläche. Mit Hilfe der Links zu deiner Linken, sowie oben kannst du fast jeden Aspekt deiner Webseite kontrollieren. Solltest du Probleme mit dem System haben, so reiche dein Problem bitte in unserem "bugtracker" ein.';

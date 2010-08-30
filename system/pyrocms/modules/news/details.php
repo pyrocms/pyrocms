@@ -31,7 +31,6 @@ class News_details extends Module {
 
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('news_categories');
 		$this->dbforge->drop_table('news');
 		
@@ -72,9 +71,7 @@ class News_details extends Module {
 	}
 
 	public function uninstall()
-	{
-		$this->load->dbforge();
-		
+	{		
 		if($this->dbforge->drop_table('news_categories') &&
 		   $this->dbforge->drop_table('news'))
 		{

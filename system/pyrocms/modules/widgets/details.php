@@ -24,7 +24,6 @@ class Widgets_details extends Module {
 	
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('widget_areas');
 		$this->dbforge->drop_table('widget_instances');
 		$this->dbforge->drop_table('widgets');
@@ -65,9 +64,15 @@ class Widgets_details extends Module {
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
+		
+		$default_data = "
+			INSERT INTO widget_areas (slug, title) VALUES ('unsorted', 'Unsorted');
+		";
+		
 		if($this->db->query($widget_areas) &&
 		   $this->db->query($widget_instances) &&
-		   $this->db->query($widgets))
+		   $this->db->query($widgets) &&
+		   $this->db->query($default_data))
 		{
 			return TRUE;
 		}
@@ -75,13 +80,8 @@ class Widgets_details extends Module {
 
 	public function uninstall()
 	{
-		$this->load->dbforge();
-		if($this->dbforge->drop_table('widget_areas')
-						->drop_table('widget_instances')
-						->drop_table('widgets'))
-		{
-			return TRUE;
-		}
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

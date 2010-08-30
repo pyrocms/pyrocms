@@ -2,6 +2,7 @@
 
 $lang['cp_admin_title'] 				= 'Panel administracyjny';
 $lang['cp_admin_home_title']            = 'Tablica informacyjna';
+$lang['cp_admin_quick_links']			= 'Quick Links';
 
 $lang['cp_welcome_title'] 				= 'Witaj';
 $lang['cp_welcome_message'] 			= 'Witaj w Panelu Administracyjnym strony %s. Z Panelu możesz kontrolować dowolną część Twojej strony WWW. Jeżeli napotkasz na jakieś problemy z użytkowaniem tego systemu, prosimy o przesłanie opisu problemu do naszego systemu obsługi błędów - bugtracker.';

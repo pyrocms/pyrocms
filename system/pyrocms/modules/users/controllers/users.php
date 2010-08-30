@@ -277,18 +277,39 @@ class Users extends Public_Controller
 	 */
 	public function reset_pass()
 	{
+		//if user is logged in they don't need to be here. and should use profile options
+		if($this->ion_auth->logged_in())
+		{
+			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
+			redirect('users/profile');
+		}
 		if($this->input->post('btnSubmit'))
 		{
-			$new_password = $this->ion_auth->forgotten_password($this->input->post('email'));
-
-			if($new_password)
+			$uname = $this->input->post('user_name');
+			$email = $this->input->post('email');
+			
+			$user_meta = $this->ion_auth->get_user_by_email($email);
+			
+			//supplied username match the email also given?  if yes keep going..
+			if($user_meta->username == $uname)
 			{
-				redirect('users/reset_complete');
+				$new_password = $this->ion_auth->forgotten_password($email);
+
+				if($new_password)
+				{
+					//redirect to next step.
+					redirect('users/reset_complete');
+				}
+				else
+				{
+					// Set an error message explaining the reset failed
+					$this->data->error_string = $this->ion_auth->errors();
+				}
 			}
 			else
 			{
-				// Set an error message explaining the reset failed
-				$this->data->error_string = $this->ion_auth->errors();
+				//wrong username / email combination
+				$this->data->error_string = $this->lang->line('user_forgot_incorrect');
 			}
 		}	
 
@@ -304,6 +325,13 @@ class Users extends Public_Controller
 	 */
 	public function reset_complete($code = FALSE)
 	{
+		//if user is logged in they don't need to be here. and should use profile options
+		if($this->ion_auth->logged_in())
+		{
+			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
+			redirect('users/profile');
+		}
+		
 		//default view we show reset_code_form
 		$view = 'reset_code_form';
 		
