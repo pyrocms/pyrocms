@@ -68,16 +68,11 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// If we are moderating comments, show unmoderated comments
-		$this->settings->moderate_comments
-			? $this->unapproved()
-			: $this->approved();
+		$this->approved();
 	}
 
 	public function unapproved()
 	{
-		// Load the text helper
-		$this->load->helper('text');
-
 		// Create pagination links
 		$total_rows 			= $this->comments_m->count_by('is_active', 0);
 		$this->data->pagination = create_pagination('admin/comments/unapproved', $total_rows);
@@ -101,8 +96,6 @@ class Admin extends Admin_Controller
 	 */
 	public function approved()
 	{
-		$this->load->helper('text');
-
 		// Create pagination links
 		$total_rows 			= $this->comments_m->count_by('is_active', 1);
 		$this->data->pagination = create_pagination('admin/comments/approved', $total_rows);
