@@ -26,29 +26,21 @@ class Permissions_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'create', 'edit', 'delete'),
-			)
+			'menu'	  => TRUE
 		);
 	}
 	
 	public function install()
 	{
-		$this->dbforge->drop_table('permission_roles');
-		$this->dbforge->drop_table('permission_rules');
+		$this->dbforge->drop_table('permissions');
 		
 		$permission_rules = "
-			CREATE TABLE `permission_rules` (
-			  `id` int(11) NOT NULL auto_increment,
-			  `user_id` int(11) NOT NULL,
-			  `permission_role_id` int(11) NOT NULL,
-			  `module` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  `controller` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  `method` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY  (`id`),
-			  KEY `user` (`user_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission rules for permission roles';
+			CREATE TABLE `permissions` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `group_id` int(11) NOT NULL,
+			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
 		";
 		
 		if($this->db->query($permission_rules))

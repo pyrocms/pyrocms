@@ -87,6 +87,11 @@ class Admin_Controller extends MY_Controller
 			return TRUE;
 		}
 
+		else if (!$this->user)
+		{
+			redirect('admin/login');
+		}
+
 		// Admins can go straight in
 		else if ($this->user->group === 'admin')
 		{

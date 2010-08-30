@@ -79,6 +79,27 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		// TODO: Convert photos to galleries
+
+		// ---- Permissions ---------------------------------
+
+		$this->dbforge->drop_table('permission_roles');
+		$this->dbforge->drop_table('permission_rules');
+
+		$this->db->query("
+			CREATE TABLE `permissions` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `group_id` int(11) NOT NULL,
+			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
+		");
+
+		// ---- / End Permissions ---------------------------
+
+
+		// ---- Modules -------------------------------------
+
 	    $this->dbforge->drop_column('modules', 'controllers');
 
 		echo 'Updated modules table to have an "installed" option.<br/>';
@@ -147,7 +168,10 @@ class Upgrade extends Controller
 			$is_core = FALSE;
         }
 
-		// TODO: Convert them to galleries
+		// ---- / End Modules --------------------------------
+
+
+		// ---- Files ----------------------------------------
 
 		echo "Adding file manager tables.<br/>";
 		$this->db->query("CREATE TABLE `files` (
@@ -176,7 +200,9 @@ class Upgrade extends Controller
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
-		// CONVERT PAGES ---------------------------------------------
+		// ---- / End Files --------------------------------
+
+		// ---- Page Conversion ----------------------------
 		echo "Upgrading pages to the new module.<br/>";
 
 		$this->load->library('versioning');
@@ -254,16 +280,16 @@ class Upgrade extends Controller
 	        $revision_id    = $this->versioning->create_revision( array('author_id' => 1, 'owner_id' => $page_insert_id, 'body' => $page->body) );
 
 	        // Now we can modify the pages table so that it uses the correct revision id
-	        $this->db->where( 'id', $page_insert_id);
-	        $this->db->update( 'pages', array('revision_id' => $revision_id) );
+	        $this->db->where('id', $page_insert_id);
+	        $this->db->update('pages', array('revision_id' => $revision_id) );
 	    }
 
 	    // Add the website column to the profiles table
-	    $this->dbforge->add_column(array(
+	    $this->dbforge->add_column('profiles', array(
 	        'website' => array(
-	            'type'             => 'varchar',
-	            'constraint'     => '255',
-	            'null'            => TRUE
+	            'type'        => 'varchar',
+	            'constraint'  => '255',
+	            'null'        => TRUE
 	        )
 	    ));
 
