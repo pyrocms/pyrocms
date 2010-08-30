@@ -22,6 +22,9 @@
 </head>
 
 <body>
+<noscript>
+	PyroCMS requires that Javascript be turned on for many of the functions to work correctly. Please turn javascript on and reload the page.
+</noscript>
 <div id="page-wrapper">
 	<section id="sidebar">
 <?php echo $template['partials']['header']; ?>
