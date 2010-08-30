@@ -3,7 +3,7 @@
 class Pages_details extends Module {
 
 	public $version = '1.0';
-	
+
 	public function info()
 	{
 		return array(
@@ -33,14 +33,14 @@ class Pages_details extends Module {
 			)
 		);
 	}
-	
+
 	public function install()
 	{
 		$this->dbforge->drop_table('page_layouts');
 		$this->dbforge->drop_table('pages');
 		$this->dbforge->drop_table('pages_lookup');
 		$this->dbforge->drop_table('revisions');
-		
+
 		$page_layouts = "
 			CREATE TABLE `page_layouts` (
 			`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -51,7 +51,7 @@ class Pages_details extends Module {
 			`updated_on` INT( 11 ) NOT NULL
 			) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
 		";
-		
+
 		$pages = "
 			CREATE TABLE `pages` (
 			 `id` int(11) unsigned NOT NULL auto_increment,
@@ -64,7 +64,7 @@ class Pages_details extends Module {
 			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			 `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			 `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			 `meta_description` text collate utf8_unicode_ci NOT NULL default '',
+			 `meta_description` text collate utf8_unicode_ci NOT NULL,
 			 `rss_enabled` INT(1)  NOT NULL default '0',
 			 `comments_enabled` INT(1)  NOT NULL default '0',
 			 `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft',
@@ -76,7 +76,7 @@ class Pages_details extends Module {
 			 KEY `parent` (`parent_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 		";
-		
+
 		$pages_lookup = "
 			CREATE TABLE `pages_lookup` (
 			  `id` int(11) NOT NULL,
@@ -84,7 +84,7 @@ class Pages_details extends Module {
 			  PRIMARY KEY  (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lookup table for page IDs and page paths.';
 		";
-		
+
 		$revisions = "
 			CREATE TABLE `revisions` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -97,24 +97,24 @@ class Pages_details extends Module {
 			  KEY `Owner ID` (`owner_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 		";
-		
+
 		$default_page_layouts = "
 			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
 			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', NOW());
 		";
-		
+
 		$default_pages = "
 			INSERT INTO `pages` (`id`, `slug`, `title`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`) VALUES
 			('1','home', 'Home', 1, 0, 1, 'live', NOW(), NOW()),
 			('2', '404', 'Page missing', 1, 0, '1', 'live', NOW(), NOW());
 		";
-		
+
 		$default_revisions = "
 			INSERT INTO `revisions` (`id`, `owner_id`, `body`, `revision_date`) VALUES
 			  ('1', '1', 'Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.', NOW()),
 			  ('2', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{page_url(1)}\">here</a> to go to the homepage.</p>', NOW());
 		";
-		
+
 		if($this->db->query($page_layouts) &&
 		   $this->db->query($pages) &&
 		   $this->db->query($pages_lookup) &&
@@ -138,7 +138,7 @@ class Pages_details extends Module {
 		// Your Upgrade Logic
 		return TRUE;
 	}
-	
+
 	public function help()
 	{
 		// Return a string containing help info
