@@ -1,6 +1,9 @@
+<style type="text/css">
+	label { width: 23% !important; }
+</style>
+
 <?php echo form_open('admin/settings/edit', 'class="crud"');?>
 
-<div class="box">
 	<h3><?php echo lang('settings_edit_title');?></h3>
 	
 	<div class="box-container">	
@@ -42,6 +45,5 @@
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
 		
 	</div>
-</div>
 
 <?php echo form_close(); ?>
