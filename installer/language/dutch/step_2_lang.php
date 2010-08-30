@@ -30,9 +30,9 @@ $lang['zlib']			=	'Zlib'; // needs to be translated
 $lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.'; // needs to be translated
 $lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.'; // needs to be translated
 
-$lang['summary_green']	=	'Uw server heeft alle benodigheden voor PyroCMS. Ga naar de volgende stap door op de knop hieronder te klikken.';
-$lang['summary_orange']	=	'Uw server heeft de <em>meeste</em> benodigheden voor PyroCMS. Dit betekent dat PyroCMS nog steeds zal functioneren, maar er bestaat een kans dat u problemen tegenkomt met het bewerken van afbeeldingen of miniaturen.';
-$lang['summary_red']	=	'Uw server heeft niet de benodigheden die PyroCMS nodig heeft. Neem alstublieft contact op met uw serverbeheerder of uw hostingprovider om dit op te lossen.';
+$lang['summary_success']	=	'Uw server heeft alle benodigheden voor PyroCMS. Ga naar de volgende stap door op de knop hieronder te klikken.';
+$lang['summary_partial']	=	'Uw server heeft de <em>meeste</em> benodigheden voor PyroCMS. Dit betekent dat PyroCMS nog steeds zal functioneren, maar er bestaat een kans dat u problemen tegenkomt met het bewerken van afbeeldingen of miniaturen.';
+$lang['summary_failure']	=	'Uw server heeft niet de benodigheden die PyroCMS nodig heeft. Neem alstublieft contact op met uw serverbeheerder of uw hostingprovider om dit op te lossen.';
 $lang['next_step']		=	'Ga naar de volgende stap';
 $lang['step3']			=	'Stap 3';
 $lang['retry']			=	'Probeer opnieuw';

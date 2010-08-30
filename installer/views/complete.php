@@ -1,5 +1,6 @@
 <!-- Install Complete -->
-<h2>{congrats}, {user_firstname} {user_lastname} !</h2>
+<h1>{congrats}, {user_firstname} {user_lastname} !</h1>
+
 <p>{intro_text}</p>
 
 <p>

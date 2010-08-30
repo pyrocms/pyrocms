@@ -25,9 +25,9 @@ $lang['gd_version']		= 	'Seu servidor está rodando a versão';
 $lang['gd_fail']		=	'Não conseguimos determinar a versão da sua biblioteca GD. Isto normalmente quer dizer que a biblioteca GD não está instalada. O PyroCMS irá funcionar perfeitamente, porém, as funções de imagens poderão não funcionar. É altamente recomendável habilitar a biblioteca GD.';
 
 $lang['summary']		=	'Resumo';
-$lang['summary_green']	=	'Seu servidor atende a todos os requisitos do PyroCMS para rodar corretamente, siga para o próximo passo clicando no botão abaixo.';
-$lang['summary_orange']	=	'Seu servidor atende a <em>quase</em> todos os requisitos do PyroCMS. Isto significa que o PyroCMS poderá rodar corretamente, porém, existe uma chance de você experimentar problemas com coisas relativas a manipulação de imagens e criação de miniaturas.';
-$lang['summary_red']	=	'Parece que o seu servidor falhou ao atender aos requisitos para rodar o PyroCMS. Por favor, contate o seu administrador de servidor ou empresa de hosepedagem para resolver este problema.';
+$lang['summary_success']	=	'Seu servidor atende a todos os requisitos do PyroCMS para rodar corretamente, siga para o próximo passo clicando no botão abaixo.';
+$lang['summary_partial']	=	'Seu servidor atende a <em>quase</em> todos os requisitos do PyroCMS. Isto significa que o PyroCMS poderá rodar corretamente, porém, existe uma chance de você experimentar problemas com coisas relativas a manipulação de imagens e criação de miniaturas.';
+$lang['summary_failure']	=	'Parece que o seu servidor falhou ao atender aos requisitos para rodar o PyroCMS. Por favor, contate o seu administrador de servidor ou empresa de hosepedagem para resolver este problema.';
 $lang['next_step']		=	'Siga para o próximo passo';
 $lang['step3']			=	'Passo 3';
 $lang['retry']			=	'Tente novamente';

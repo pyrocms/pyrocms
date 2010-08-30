@@ -83,7 +83,7 @@ class Installer extends Controller
 	public function step_1()
 	{
 		if($_POST)
-		{									
+		{				
 			// Data validation
 			if( $this->installer_lib->validate() )
 			{
@@ -91,10 +91,10 @@ class Installer extends Controller
 				if($this->installer_lib->test_db_connection())
 				{
 					// Set the flashdata message
-					$this->session->set_flashdata('message', lang('db_success'));
+					$this->session->set_flashdata('message', '<li>' . lang('db_success') . '</li>' );
 					$this->session->set_flashdata('message_type', 'success');
 
-					// Redirect to the first step
+					// Redirect to the second step
 					$this->session->set_userdata('step_1_passed', TRUE);
 					redirect('installer/step_2');
 				}
@@ -102,8 +102,9 @@ class Installer extends Controller
 				else
 				{
 					// Set the flashdata message
-					$this->session->set_flashdata('message', lang('db_failure').mysql_error());
-					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', '<li>' . lang('db_failure').mysql_error() . '</li>');
+					$this->session->set_flashdata('message_type', 'failure');
+					
 
 					// Redirect to the first step
 					redirect('installer/step_1');
@@ -113,11 +114,11 @@ class Installer extends Controller
 			else
 			{
 				// Set the flashdata message
-				$this->session->set_flashdata('message', validation_errors('<span>', '</span><br />'));
-				$this->session->set_flashdata('message_type', 'error');
+				//$this->session->set_flashdata('message', validation_errors('<li>', '</li>'));
+				//$this->session->set_flashdata('message_type', 'failure');
 
 				// Redirect to the first step
-				redirect('installer/step_1');
+				//redirect('installer/step_1');
 			}
 		}
 		
@@ -151,24 +152,28 @@ class Installer extends Controller
 	{
 		// Did the user enter the DB settings ?
 		if(!$this->session->userdata('step_1_passed'))
-		{	
+		{
 			// Set the flashdata message
-			$this->session->set_flashdata('message', lang('step1_failure'));
-			$this->session->set_flashdata('message_type','error');
+			$this->session->set_flashdata('message', '<li>' . lang('step1_failure') . '</li>');
+			$this->session->set_flashdata('message_type','failure');
 			
 			// Redirect
 			redirect('');
 		}
 			
 		// Check the PHP version
-		$data->php_version = $this->installer_lib->get_php_version();
-	
+		$data->php_acceptable = $this->installer_lib->php_acceptable();
+		$data->php_version = $this->installer_lib->php_version;	
+		
 		// Check the MySQL data
-		$data->mysql->server_version = $this->installer_lib->get_mysql_version('server');
-		$data->mysql->client_version = $this->installer_lib->get_mysql_version('client');
+		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');
+		$data->mysql->client_version_acceptable = $this->installer_lib->mysql_acceptable('client');
+		$data->mysql->server_version = $this->installer_lib->mysql_server_version;
+		$data->mysql->client_version = $this->installer_lib->mysql_client_version;
 	
 		// Check the GD data
-		$data->gd_version = $this->installer_lib->get_gd_version();
+		$data->gd_acceptable = $this->installer_lib->gd_acceptable();
+		$data->gd_version = $this->installer_lib->gd_version;
 		
 		// Check to see if Zlib is enabled
 		$data->zlib_enabled = $this->installer_lib->zlib_enabled();

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,14 +15,12 @@
 		<title>PyroCMS Installer</title>
 	</head>
 	<body>
-		<!-- Main wrapper -->
-		<div id="wrapper">
-			<div id="logo">
-				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" width="200" height="76" />
-			</div>
-			<!-- The header -->
-			<div id="header">
-				<ul>
+		
+		<!-- Header -->
+		<div id="header">
+			<div class="container">
+				<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="PyroCMS" />
+				<ul id="menu">
 					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
 					<li><?php echo anchor('installer/step_1', lang('step1'), $this->uri->segment(2, '') == 'step_1' ? 'id="current"' : ''); ?></li>
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : ''?>"><?php echo lang('step2'); ?></span></li>
@@ -31,15 +29,19 @@
 					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : ''?>"><?php echo lang('final'); ?></span></li>
 				</ul>
 			</div>
-			<!-- The content -->
-			<div id="content">
+		</div>
+			
+		<!-- Content -->
+		<div id="content">
+			<div class="container">
 				<?php if($this->session->flashdata('message')): ?>
-				<div id="notification" class="<?php if($this->session->flashdata('message_type')){echo $this->session->flashdata('message_type');} ?>">
-					<p><?php echo $this->session->flashdata('message'); ?></p>
-				</div>
+				<ul class="<?php echo ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'success'; ?>">
+					<?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?>
+				</ul>
 				<?php endif; ?>
 				<?php echo $page_output; echo "\n"; ?>
 			</div>
 		</div>
+		
 	</body>
 </html>

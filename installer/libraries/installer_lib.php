@@ -1,36 +1,42 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * @author 		Phil Sturgeon - PyroCMS development team
+ * @author 		Victor Michnowicz
  * @package 	PyroCMS
  * @subpackage 	Installer
  *
  * @since 		v0.9.8
  *
  */
-class Installer_lib
-{
+class Installer_lib {
+
 	private $ci;
+	public $php_version;
+	public $mysql_server_version;
+	public $mysql_client_version;
+	public $gd_version;
 	
 	function __construct()
 	{
 		$this->ci =& get_instance();
 	}
 	
-	// Functions used in Step 1 
+	// Functions used in Step 1
 	
 	/**
-	 * @return string The PHP version
+	 * @return bool
 	 *
-	 * Function to retrieve the PHP version
+	 * Function to see if the PHP version is acceptable (at least version 5)
 	 */
-	function get_php_version()
+	function php_acceptable()
 	{
 		// Set the PHP version
-		$php_version = phpversion();
+		$this->php_version = phpversion();
 		
-		// Validate the version
-		return ($php_version >= 5) ? $php_version : FALSE;
+		// Is this version of PHP greater than 5.0?
+		return ( version_compare(PHP_VERSION, '5.0', '>') ) ? TRUE : FALSE;
 	}
+	
 	
 	/**
 	 * @param 	string $type The MySQL type, client or server
@@ -38,9 +44,9 @@ class Installer_lib
 	 * 
 	 * Function to retrieve the MySQL version (client/server)
 	 */
-	function get_mysql_version($type = 'server')
+	function mysql_acceptable($type = 'server')
 	{
-		// What do we want to return, the client or the server ? 
+		// Server version
 		if($type == 'server')
 		{
 			// Retrieve the database settings from the session
@@ -51,11 +57,13 @@ class Installer_lib
 			// Connect to MySQL
 			if( $db = @mysql_connect($server,$username,$password) )
 			{
-				$mysql = @mysql_get_server_info($db);
-
+				$this->mysql_server_version = @mysql_get_server_info($db);
+				
 				// Close the connection
 				@mysql_close($db);
-				return $mysql;
+				
+				// If the MySQL server version is at least version 5 return TRUE, else FALSE
+				return ($this->mysql_server_version >= 5) ? TRUE : FALSE;
 			}
 			else
 			{
@@ -63,14 +71,15 @@ class Installer_lib
 				return FALSE;
 			}
 		}
-
+		
+		// Client version
 		else
 		{
 			// Get the version
-			$mysql = preg_replace('/[^0-9\.]/','', mysql_get_client_info());
-
-			// Compare it
-			return $mysql ? preg_replace('/[^0-9\.]/','', $mysql) : FALSE;
+			$this->mysql_client_version = preg_replace('/[^0-9\.]/','', mysql_get_client_info());
+		
+			// If the MySQL client version is at least version 5 return TRUE, else FALSE
+			return ($this->mysql_client_version >= 5) ? TRUE : FALSE;
 		}	
 	}
 	
@@ -79,19 +88,24 @@ class Installer_lib
 	 *
 	 * Function to retrieve the GD library version
 	 */
-	function get_gd_version()
+	function gd_acceptable()
 	{
 		// Get if the gd_info() function exists
 		if(function_exists('gd_info'))
 		{
 			$gd_info = gd_info();			
-			return preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
+			$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
+			
+			// If the GD version is at least 1.0 return TRUE, else FALSE
+			return ($this->gd_version >= 1) ? TRUE : FALSE;
 		}
+		
+		// Homeboy is not rockin GD at all
 		else
 		{
 			return FALSE;
 		}
-	}
+	}	
 	
 	/**
 	 * @return bool
@@ -111,20 +125,20 @@ class Installer_lib
 	 */
 	function check_server($data)
 	{
-		// Check PHP is ok
-		if( version_compare(PHP_VERSION, '5.0', '<') )
+		// Check PHP
+		if ( ! $this->php_acceptable() )
 		{
 			return FALSE;
 		}
-
-		// Check MySQL server is ok
-		if( $data->mysql->server_version < '5.0.0' )
+		
+		// Check MySQL server
+		if ( ! $this->mysql_acceptable('server') )
 		{
 			return FALSE;
 		}
-
-		// Check MySQL client is ok
-		if( $data->mysql->client_version < '5.0.0' )
+		
+		// Check MySQL client
+		if ( ! $this->mysql_acceptable('client') )
 		{
 			return FALSE;
 		}
@@ -134,14 +148,15 @@ class Installer_lib
 			return FALSE;
 		}
 
-		// If PHP, MySQL, etc is good but either server, gd, and/or zlib is unknown, say partial
-		if( $data->http_server->supported === 'partial' || $data->gd_version === FALSE || $data->zlib_enabled === FALSE)
+		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
+		if( $data->http_server->supported === 'partial' || $this->gd_acceptable() === FALSE || $this->zlib_enabled() === FALSE)
 		{
 			return 'partial';
 		}
 
 		// Must be fine
 		return TRUE;
+
 	}
 	
 	/**
@@ -209,7 +224,7 @@ class Installer_lib
 				'field' => 'http_server',
 				'label'	=> 'Server Software',
 				'rules'	=> 'trim|required'
-			),
+			)
 		));
 
 		return $this->ci->form_validation->run();

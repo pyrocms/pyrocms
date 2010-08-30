@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Step 4: Create database';
+$lang['header']			=	'Step 4: Create Database';
 $lang['intro_text']		=	'Complete the form below and hit the button labelled "Install" to install PyroCMS. Be sure to install PyroCMS into the right database since all existing changes will be lost!';
 
 $lang['db_settings']	=	'Database Settings';
