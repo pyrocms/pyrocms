@@ -39,6 +39,7 @@
 }
 
 /* Widget Instance */
+
 .widget-instance {
 	position: relative;
 	background-color: #dadadb;
@@ -89,9 +90,14 @@
 .widget-instance ol {
 	margin-bottom: 0;
 }
-.widget-instance input[type=text] {
-	width: 100% !important;
+.widget-instance textarea.uniform {
+	width: 97% !important;
 }
+
+.widget-instance form.crud label{
+	text-align: left;
+}
+
 .widget-instance form.crud span.required-icon {
 	display: none;
 }
@@ -114,6 +120,12 @@
 	background-color: #fcfcfc;
 }
 
+#edit-instance-box {
+	padding: 0;
+	margin-bottom: 20px;
+	background-color: #fcfcfc;
+}
+
 .widget-area .tag, .widget-area .button {
 	position: absolute;
 	left: 50%;
@@ -121,9 +133,16 @@
 	padding: 0 15px 0 15px;
 	margin-top: 7px;
 }
+
+/*Header has to float or jquery
+ can't insert edit form */
+.widget-area-header {
+	float: left;
+}
+
 #widget-wrapper {
 	width: 32%;
-	min-width: 240px;
+	min-width: 350px;
 	margin-left: 1%;
 	display: inline-block;
 	float: left;
