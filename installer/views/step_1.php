@@ -5,7 +5,6 @@
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>
 
-
 	<div class="database">
 		<h2>{db_settings}</h2>
 
@@ -67,7 +66,6 @@
 					echo form_dropdown('http_server', $server_options, $this->session->userdata('http_server'), 'id="http_server"');
 				?>
 			</div>
-		</form>
 	</div>
 	
 	<input type="hidden" name="installation_step" value="step_1" />
