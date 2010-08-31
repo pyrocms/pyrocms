@@ -14,7 +14,7 @@ $lang['nav_uri_label'] 							= 'Site Link (URI)';
 $lang['nav_page_label'] 						= 'Pagina';
 $lang['nav_module_label'] 						= 'Module';
 $lang['nav_abbrev_label'] 						= 'Afkorting';
-$lang['nav_edit_label'] 						= 'Bewerk';
+$lang['nav_edit_label'] 						= 'Wijzig';
 $lang['nav_delete_label'] 						= 'Verwijder';
 $lang['nav_group_delete_label']					= 'Verwijder groep';
 $lang['nav_link_module_select_default'] 		= '-- Selecteer --';
@@ -26,7 +26,7 @@ $lang['nav_link_target_blank'] 					= 'Nieuw scherm (_blank)';
 // titles
 $lang['nav_link_create_title'] 					= 'Voeg navigatielink toe';
 $lang['nav_group_create_title']					= 'Voeg een groep toe';
-$lang['nav_link_edit_title'] 					= 'Bewerk navigatielink "%s"';
+$lang['nav_link_edit_title'] 					= 'Wijzig navigatielink "%s"';
 $lang['nav_link_list_title'] 					= 'Toon alle links';
 
 // messages

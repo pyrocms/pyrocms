@@ -2,6 +2,7 @@
 
 // tabs
 $lang['pages.content_label'] 					= 'Paginainhoud';
+$lang['pages.script_label'] 					= 'Script';
 $lang['pages.design_label'] 					= 'Ontwerp';
 $lang['pages.meta_label'] 						= 'Meta data';
 $lang['pages.options_label'] 					= 'Opties';
@@ -23,22 +24,24 @@ $lang['pages.meta_keywords_label'] 				= 'Meta sleutelwoord';
 $lang['pages.meta_desc_label'] 					= 'Meta omschrijving';
 $lang['pages.layout_id_label'] 					= 'Paginalayout';
 $lang['pages.css_label'] 						= 'CSS';
+$lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Toegang';
 $lang['pages.rss_enabled_label'] 				= 'RSS ingeschakeld';
-$lang['pages.comments_enabled_label'] 		= 'Commentaren ingeschakeld';
+$lang['pages.comments_enabled_label'] 			= 'Commentaren ingeschakeld';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Concept';
 $lang['pages.live_label'] 						= 'Live';
+$lang['pages.revisions_label']					= 'Revisies';
 
 $lang['pages.view_label'] 						= 'Bekijk';
 $lang['pages.create_label'] 					= 'Voeg kind toe';
-$lang['pages.edit_label'] 						= 'Bewerk';
+$lang['pages.edit_label'] 						= 'Wijzig';
 $lang['pages.delete_label'] 					= 'Verwijder';
 
 // titles
 $lang['pages.create_title'] 					= 'Voeg pagina toe';
-$lang['pages.edit_title'] 						= 'Bewerk pagina "%s"';
+$lang['pages.edit_title'] 						= 'Wijzig pagina "%s"';
 $lang['pages.list_title'] 						= 'Toon alle pagina\'s';
 $lang['pages.layouts_create_title'] 			= 'Voeg een paginalayout toe';
 $lang['pages.layouts_list_title'] 				= 'Toon alle paginalayouts';

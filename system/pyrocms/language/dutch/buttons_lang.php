@@ -12,17 +12,17 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Save';
-$lang['buttons.cancel']		= 'Cancel';
+$lang['buttons.submit']		= 'Opslaan';
+$lang['buttons.cancel']		= 'Annuleren';
 $lang['buttons.upload']		= 'Upload';
-$lang['buttons.save']		= 'Save';
-$lang['buttons.save_exit']	= 'Save &amp; Exit';
-$lang['buttons.delete']		= 'Delete';
-$lang['buttons.publish']	= 'Publish';
-$lang['buttons.approve']	= 'Approve';
-$lang['buttons.unapprove']	= 'Un-approve';
-$lang['buttons.install']	= 'Install';
-$lang['buttons.yes']		= 'Yes';
-$lang['buttons.no']			= 'No';
+$lang['buttons.save']		= 'Opslaan';
+$lang['buttons.save_exit']	= 'Opslaan &amp; Sluiten';
+$lang['buttons.delete']		= 'Verwijderen';
+$lang['buttons.publish']	= 'Publiceren';
+$lang['buttons.approve']	= 'Goedkeuren';
+$lang['buttons.unapprove']	= 'Afkeuren';
+$lang['buttons.install']	= 'Installeren';
+$lang['buttons.yes']		= 'Ja';
+$lang['buttons.no']			= 'Nee';
 
 /* End of file buttons_lang.php */

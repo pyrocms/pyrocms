@@ -39,11 +39,11 @@ $lang['login_label'] 								= 'Log In';
 
 $lang['save_label'] 								= 'Opslaan';
 $lang['cancel_label'] 							= 'Annuleren';
-$lang['update_label'] 							= 'Update Caption'; #translate
+$lang['update_label'] 							= 'Update Bijschrift';
 $lang['delete_label'] 							= 'Verwijder';
 $lang['activate_label'] 						= 'Activeer';
-$lang['approve_label']							= 'Goedkeuren'; #translate
-$lang['unapprove_label']						= 'Afkeuren'; #translate
+$lang['approve_label']							= 'Goedkeuren';
+$lang['unapprove_label']						= 'Afkeuren';
 $lang['publish_label'] 							= 'Publiceren';
 $lang['upload_label'] 							= 'Uploaden';
 $lang['uninstall_label'] 						= 'Deinstalleren';

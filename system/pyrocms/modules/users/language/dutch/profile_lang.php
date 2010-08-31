@@ -32,6 +32,7 @@ $lang['profile_address_line1'] 			= 'Regel #1';
 $lang['profile_address_line2'] 			= 'Regel #2';
 $lang['profile_address_line3'] 			= 'Regel #3';
 $lang['profile_address_postcode'] 		= 'Postcode';
+$lang['profile_website']				= 'Website';
 
 $lang['profile_messenger_section'] 		= 'IM-accounts';
 
@@ -41,8 +42,10 @@ $lang['profile_yim_handle'] 			= 'Yahoo! messenger';
 $lang['profile_gtalk_handle'] 			= 'GTalk';
 
 $lang['profile_avatar_section'] 		= 'Avatar';
+$lang['profile_social_section'] 		= 'Social';
 
 $lang['profile_gravatar'] 				= 'Gravatar';
+$lang['profile_twitter'] 				= 'Twitter';
 
 $lang['profile_edit_success'] 			= 'Uw profiel is opgeslagen.';
 $lang['profile_edit_error'] 			= 'Er is een fout opgetreden.';
