@@ -1,6 +1,6 @@
 <?php
 
-$lang['cal_s']			= "Zo";
+$lang['cal_su']			= "Zo";
 $lang['cal_mo']			= "Ma";
 $lang['cal_tu']			= "Di";
 $lang['cal_we']			= "Wo";
