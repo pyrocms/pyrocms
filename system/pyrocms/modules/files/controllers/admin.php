@@ -92,7 +92,7 @@ class Admin extends Admin_Controller {
 		$this->data->description = '';
 		$this->data->type = '';
 		$this->data->selected_id = $id;
-		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
+		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 		$this->data->folder =& $folder;
 
 
@@ -166,7 +166,7 @@ class Admin extends Admin_Controller {
 		// types = a','v','d','i','o'
 		$this->data->file = $this->file_m->get($id);
 		$this->data->selected_id = $id;
-		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
+		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 		$this->data->folder =& $folder;
 
 		$this->load->library('form_validation');
