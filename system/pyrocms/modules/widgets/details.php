@@ -8,7 +8,8 @@ class Widgets_details extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Widgets'
+				'en' => 'Widgets',
+				'de' => 'Widgets'
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',

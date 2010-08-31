@@ -1,17 +1,18 @@
 <?php
 
 // sidebar
-$lang['widgets.available_title'] 			= 'Verfügbare widgets';
-$lang['widgets.instructions']	 			= 'Drag & drop to install'; #translate
+$lang['widgets.available_title'] 			= 'Verfügbare Widgets';
+$lang['widgets.widget_area_wrapper']                    = 'Verfügbare Bereiche';
+$lang['widgets.instructions']	 			= 'Verwende Drag and Drop um Widgets zu installieren';
 
 // Widgets
-$lang['widgets.widget'] 					= 'Widget';
+$lang['widgets.widget'] 				= 'Widget';
 $lang['widgets.widget_author'] 				= 'Autor';
 $lang['widgets.widget_short_name'] 			= 'Kurzname';
 $lang['widgets.widget_version'] 			= 'Version';
 
 // Widget area titles
-$lang['widgets.add_area'] 					= 'Widget Bereich hinzufügen';
+$lang['widgets.add_area'] 				= 'Widget Bereich hinzufügen';
 $lang['widgets.delete_area'] 				= 'Widget Bereich löschen';
 
 // Widget area field names
@@ -25,7 +26,7 @@ $lang['widgets.edit_instance'] 				= 'Widget bearbeiten';
 $lang['widgets.delete_instance'] 			= 'Widget löschen';
 
 $lang['widgets.instance_title'] 			= 'Titel';
-$lang['widgets.tag_title']					= 'Tag'; #translate
+$lang['widgets.tag_title']				= 'Tag';
 
 $lang['widgets.instance_edit'] 				= 'Editieren';
 $lang['widgets.instance_delete'] 			= 'Löschen';

@@ -12,7 +12,7 @@ class Themes_details extends Module {
 				'nl' => "Thema's",
 				'es' => 'Temas',
 				'fr' => 'Thèmes',
-				'de' => 'Thema',
+				'de' => 'Themen',
 				'pl' => 'Motywy',
 				'br' => 'Temas'
 			),

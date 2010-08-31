@@ -21,7 +21,7 @@ class Settings_details extends Module {
 				'nl' => 'Maakt het administratoren en medewerkers mogelijk om websiteinstellingen zoals naam en beschrijving te veranderen.',
 				'es' => 'Permite a los administradores y al personal configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.',
 				'fr' => 'Permet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description',
-				'de' => 'Erlaubt es Administratoren Einstellungen der Seite wie Name und Beschreibung zu ändern.',
+				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
 				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
 				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.'
 			),

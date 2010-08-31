@@ -9,11 +9,13 @@ class Files_details extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Files',
-				'br' => 'Files'
+				'br' => 'Files',
+				'de' => 'Dateien'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.'
+				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
+				'de' => 'Verwalte Dateien und Verzeichnisse.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

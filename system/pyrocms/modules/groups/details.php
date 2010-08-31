@@ -9,11 +9,13 @@ class Groups_details extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Groups',
-				'br' => 'Grupos'
+				'br' => 'Grupos',
+                                'de' => 'Gruppen'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
-				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.'
+				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.',
+				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
