@@ -1,4 +1,3 @@
-<div class="box">
 		<?php echo form_open('admin/themes/set_default'); ?>
 
 			<?php if(!empty($themes)): ?>
@@ -42,11 +41,14 @@
 	</script>
 
 			<?php else: ?>
-				<p><?php echo lang('themes.no_themes_installed'); ?></p>
+				<div class="blank-slate">
+					<h2><?php echo lang('themes.no_themes_installed'); ?></h2>
+				</div>
 			<?php endif; ?>
 		
-		<button type="submit" name="btnAction">Save</button>
+		<div class="float-right">
+			<button type="submit" name="btnAction">Save</button>
+		</div>
 		
 		<?php echo form_close(); ?>
 		
-	</div>

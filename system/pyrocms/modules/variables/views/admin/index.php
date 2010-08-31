@@ -1,6 +1,6 @@
-<h3><?php echo lang('variables.list_title');?></h3>
-
 <?php if ($variables): ?>  
+
+	<h3><?php echo lang('variables.list_title');?></h3>
 
 	<?php echo form_open('admin/variables/delete'); ?>
 		<table border="0" class="table-list">
@@ -35,9 +35,14 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+		
+		<div class="float-right">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+		</div>
 	<?php echo form_close(); ?>
 
 <?php else: ?>
-	<p><?php echo lang('variables.no_variables');?></p>
+	<div class="blank-slate">
+		<h2><?php echo lang('variables.no_variables');?></h2>
+	</div>
 <?php endif; ?>

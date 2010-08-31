@@ -27,7 +27,6 @@ class Admin extends Admin_Controller
 		$this->load->model('news_categories_m');
 		$this->lang->load('news');
 		$this->lang->load('categories');
-		$this->load->helper('news');
 		
 		//set the validation rules
 		$this->validation_rules = array(

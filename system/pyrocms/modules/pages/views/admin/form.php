@@ -1,12 +1,9 @@
-<div class="box">
-
 	<?php if($method == 'create'): ?>
 		<h3><?php echo lang('pages.create_title');?></h3>
 	<?php else: ?>
 		<h3><?php echo sprintf(lang('pages.edit_title'), $page->title);?></h3>
 	<?php endif; ?>
 
-	<div class="box-container">
 
 		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 		<?php echo form_hidden('parent_id', (@$page->parent_id == '')? 0 : $page->parent_id); ?>
@@ -186,12 +183,13 @@
 
 		</div>
 
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
+		<div class="float-right">
+			<br/>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
+		</div>
 
 		<?php echo form_close(); ?>
-	</div>
 
-</div>
 
 <script type="text/javascript">
 	css_editor('css_editor', "39em");

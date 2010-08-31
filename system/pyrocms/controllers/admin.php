@@ -81,6 +81,21 @@ class Admin extends Admin_Controller
 		$this->simplepie->set_feed_url($this->settings->dashboard_rss);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
+		
+		// Dashboard Analytics
+		//$this->load->library('analytics');
+		// Just use dummy data for now - we need more settings to make this work...
+		// Note: Data will need to be in javascript timestamps (multiply unix timestamp by 1000)
+		$times = array(
+			time() - (7*24*60*60*5*1000),
+			time() - (7*24*60*60*4*1000),
+			time() - (7*24*60*60*3*1000),
+			time() - (7*24*60*60*2*1000),
+			time() - (7*24*60*60*1000)
+		);
+		$this->data->ga_visits = '[['. $times[0] .', 300], ['. $times[1] .', 800], ['. $times[2] .', 500], ['. $times[3] .', 800], ['. $times[4] .', 1300]]';
+		
+		$this->template->append_metadata(js('jquery/jquery.flot.js'));
 
 		// Store the feed items
 		$this->data->rss_items = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);

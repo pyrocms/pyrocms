@@ -17,7 +17,7 @@ class Navigation_details extends Module {
 				'br' => 'Navegação'
 			),
 			'description' => array(
-				'en' => 'Manage links on navigation menu\'s and all the navigation groups they belong to.',
+				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
 				'nl' => 'Beheer links op de navigatiemenu\'s en alle navigatiegroepen waar ze onder vallen.',
 				'es' => 'Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.',
 				'fr' => 'Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.',
@@ -37,14 +37,60 @@ class Navigation_details extends Module {
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->dbforge->drop_table('navigation_groups');
+		$this->dbforge->drop_table('navigation_links');
+		
+		$navigation_groups = "
+			CREATE TABLE `navigation_groups` (
+			  `id` int(11) NOT NULL auto_increment,
+			  `title` varchar(50) collate utf8_unicode_ci NOT NULL,
+			  `abbrev` varchar(20) collate utf8_unicode_ci NOT NULL,
+			  PRIMARY KEY  (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Navigation groupings. Eg, header, sidebar, footer, etc';
+		";
+		
+		$navigation_links = "
+			CREATE TABLE `navigation_links` (
+			  `id` int(11) NOT NULL auto_increment,
+			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
+			  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
+			  `page_id` int(11) NOT NULL default '0',
+			  `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
+			  `url` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+			  `uri` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+			  `navigation_group_id` int(5) NOT NULL default '0',
+			  `position` int(5) NOT NULL default '0',
+			  `target` varchar(10) NULL default NULL,
+			  PRIMARY KEY  (`id`),
+			  KEY `navigation_group_id - normal` (`navigation_group_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';
+		";
+		
+		$default_groups = "
+			INSERT INTO `navigation_groups` VALUES
+			('1','Header','header'),
+			('2','Sidebar','sidebar'),
+			('3','Footer','footer');
+		";
+		
+		$default_links = "
+			INSERT INTO navigation_links (title, link_type, page_id, navigation_group_id, position) VALUES
+			('Home', 'page', 1, 1, 1);
+		";
+		
+		if($this->db->query($navigation_groups) &&
+		   $this->db->query($navigation_links) &&
+		   $this->db->query($default_groups) &&
+		   $this->db->query($default_links))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

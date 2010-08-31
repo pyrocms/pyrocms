@@ -47,7 +47,7 @@ class File_m extends MY_Model {
 	/**
 	 * Delete a file
 	 *
-	 * Deletes a single file by its id
+	 * Deletes a single file by its id and remove it from the db.
 	 *
 	 * @params	int	The file id
 	 * @return 	bool
@@ -64,6 +64,30 @@ class File_m extends MY_Model {
 		@unlink(FCPATH.'/' . $this->config->item('files_folder').'/'.$image->filename);
 
 		parent::delete($image->id);
+
+		return TRUE;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Delete a file
+	 *
+	 * Deletes a single file by its id
+	 *
+	 * @params	int	The file id
+	 * @return 	bool
+	 */
+	public function delete_file($id)
+	{
+		$this->load->helper('file');
+
+		if ( ! $image = parent::get($id))
+		{
+			return FALSE;
+		}
+
+		@unlink(FCPATH.'/' . $this->config->item('files_folder').'/'.$image->filename);
 
 		return TRUE;
 	}

@@ -1,9 +1,9 @@
 <?php if($this->settings->moderate_comments): ?>
-<?php if($method == 'index'): ?>
-	<h3><?php echo lang('comments.inactive_title');?></h3>
-<?php else: ?>
-	<h3><?php echo lang('comments.active_title');?></h3>
-<?php endif; ?>
+	<?php if($method == 'index'): ?>
+		<h3><?php echo lang('comments.active_title');?></h3>
+	<?php else: ?>
+		<h3><?php echo lang('comments.inactive_title');?></h3>
+	<?php endif; ?>
 <?php endif; ?>
 
 <?php if (!empty($comments)): ?>
@@ -68,9 +68,9 @@
 
 		<?php if($this->settings->moderate_comments): ?>
 			<?php if( $method == 'index' ): ?>
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))); ?>
-			<?php else: ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
+			<?php else: ?>
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))); ?>
 			<?php endif; ?>
 		<?php else: ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
@@ -79,5 +79,9 @@
 	<?php echo form_close();?>
 
 <?php else: ?>
-	<p><?php echo lang('comments.no_comments');?></p>
+	<div class="blank-slate">
+		<img src="<?php echo site_url('system/pyrocms/modules/comments/images/comments.png') ?>" />
+	
+		<h2><?php echo lang('comments.no_comments');?></h2>
+	</div>
 <?php endif; ?>

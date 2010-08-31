@@ -6,9 +6,9 @@
  * @package 	PyroCMS
  * @subpackage 	Modules
  * @category	Modules
- * @since 		v0.9.7
+ * @since 		v1.0
  */
-class Modules_m extends CI_Model
+class Module_m extends CI_Model
 {
 	private $_table = 'modules';
 	private $_module_exists = array();
@@ -112,7 +112,7 @@ class Modules_m extends CI_Model
 			'is_backend_menu' => !empty($module['menu']),
 			'enabled' => !empty($module['enabled']),
 			'installed' => !empty($module['installed']),
-			'is_core' => 0
+			'is_core' => !empty($module['is_core'])
 		));
 	}
 
@@ -197,52 +197,18 @@ class Modules_m extends CI_Model
 			if (!empty($params['is_backend']))
 			{
 				// This user has no permissions for this module
-				if (!$this->permissions_m->has_admin_access($this->user->group_id, $module['slug']))
+				if ( $this->user->group !== 'admin' AND ! empty($this->permissions[$result->slug]))
 				{
 					continue;
 				}
 			}
 
-			$modules[] = $module;
+			$modules[$module['name']] = $module;
 		}
 
-		return $modules;
-	}
+		ksort($modules);
 
-	/**
-	 * Get Module Controllers
-	 *
-	 * Gets the controller of the specified module
-	 *
-	 * @param	string	$module		The name of the module
-	 * @access	public
-	 * @return	array
-	 */
-	function get_module_controllers($module = '')
-	{
-		$module = $this->get($module);
-
-		if (is_array($module['controllers']))
-		{
-			return array_keys($module['controllers']);
-		}
-
-		return array();
-	}
-
-	/**
-	 * Get Module Controller Methods
-	 *
-	 * Get the methods of the specified module/controller combination
-	 *
-	 * @access public
-	 * @return mixed
-	 */
-	public function get_module_controller_methods($module, $controller)
-	{
-		$module = $this->get($module);
-
-		return !empty($module['controllers'][$controller]['methods']) ? $module['controllers'][$controller]['methods'] : array();
+		return array_values($modules);
 	}
 
 	/**

@@ -6,7 +6,7 @@
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
     <ul>
-		<li>
+		<li class="even">
 			<label for="name"><?php echo lang('groups.name');?></label>
 			<?php echo form_input('name', $group->name);?>
 		</li>
@@ -16,6 +16,8 @@
 		</li>
     </ul>
 
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	<div class="float-right">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+	</div>
 	
 <?php echo form_close();?>

@@ -31,8 +31,8 @@ class Newsletters_details extends Module {
 
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('newsletters');
+		$this->dbforge->drop_table('emails');
 		
 		$newsletters = "
 			CREATE TABLE `newsletters` (
@@ -45,7 +45,16 @@ class Newsletters_details extends Module {
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Newsletter emails stored before being sent then archived her';
 		";
 		
-		if($this->db->query($newsletters))
+		$emails = "
+			CREATE TABLE `emails` (
+			  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+			  `registered_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+			  PRIMARY KEY  (`email`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='E-mail addresses for newsletter subscriptions';
+		";
+		
+		if($this->db->query($newsletters) &&
+		   $this->db->query($emails))
 		{
 			return TRUE;
 		}
@@ -53,7 +62,6 @@ class Newsletters_details extends Module {
 
 	public function uninstall()
 	{
-		$this->load->dbforge();
 		if($this->dbforge->drop_table('newsletters'))
 		{
 			return TRUE;

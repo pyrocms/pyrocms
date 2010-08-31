@@ -26,7 +26,6 @@ class Files_details extends Module {
 	
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('files');
 		$this->dbforge->drop_table('file_folders');
 		
@@ -68,12 +67,8 @@ class Files_details extends Module {
 
 	public function uninstall()
 	{
-		$this->load->dbforge();
-		if($this->dbforge->drop_table('files') &&
-		   $this->dbforge->drop_table('file_folders'))
-		{
-			return TRUE;
-		}
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

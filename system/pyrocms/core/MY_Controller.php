@@ -18,17 +18,16 @@ class MY_Controller extends Controller
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-        // Load the user model and get user data
-        $this->load->model('users/users_m');
-        $this->load->library('users/ion_auth');
-
 		// Set the addons folder as a package
 		$this->load->add_package_path(ADDONPATH);
 
         $this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
         $this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
 
-		$this->data->user = $this->user = $this->ion_auth->get_user();
+        // Load the user model and get user data
+        $this->load->library('users/ion_auth');
+
+		$this->user = $this->ion_auth->get_user();
 
         // Work out module, controller and method and make them accessable throught the CI instance
         $this->module 				= $this->router->fetch_module();
@@ -41,13 +40,16 @@ class MY_Controller extends Controller
 
 		// Loaded after $this->user is set so that data can be used everywhere
 		$this->load->model(array(
-			'permissions/permissions_m',
-			'modules/modules_m',
+			'permissions/permission_m',
+			'modules/module_m',
 			'pages/pages_m'
 		));
 
+		// List available module permissions for this user
+		$this->permissions = $this->user ? $this->permission_m->get_group($this->user->group_id) : array();
+
 		// Get meta data for the module
-        $this->module_data 			= $this->modules_m->get($this->module);
+        $this->module_data = $this->module_m->get($this->module);
 
 		// If the module is disabled, then show a 404.
 		$this->module_data['enabled'] == 1 or show_404();
@@ -59,7 +61,7 @@ class MY_Controller extends Controller
 		}
 
         // Make them available to all layout files
-        $this->data->module_data	=& $this->module_data;
+        $this->data->module_data =& $this->module_data;
 
 		// Simple Pyro variables
         $pyro['base_url']			= BASE_URL;

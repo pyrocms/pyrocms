@@ -296,7 +296,7 @@
 
 /* Tabs
 ----------------------------------*/
-.ui-tabs { padding: .2em; zoom: 1; }
+.ui-tabs { padding: .2em; zoom: 1; border: 1px solid #e6e6e6; }
 .ui-tabs .ui-tabs-nav { list-style: none; position: relative; padding: .2em .2em 0; background: none; border: none; border-bottom: 1px solid #ccc; }
 .ui-tabs .ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 0 .2em -1px 0; padding: 0; }
 .ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; padding: .5em 1em; }

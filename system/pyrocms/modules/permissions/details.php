@@ -26,17 +26,27 @@ class Permissions_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'create', 'edit', 'delete'),
-			)
+			'menu'	  => TRUE
 		);
 	}
 	
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		$this->dbforge->drop_table('permissions');
+		
+		$permission_rules = "
+			CREATE TABLE `permissions` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `group_id` int(11) NOT NULL,
+			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
+		";
+		
+		if($this->db->query($permission_rules))
+		{
+			return TRUE;
+		}
 	}
 
 	public function uninstall()
@@ -47,8 +57,8 @@ class Permissions_details extends Module {
 
 	public function upgrade($old_version)
 	{
-		// Your Upgrade Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 	
 	public function help()

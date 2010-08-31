@@ -74,8 +74,8 @@ class Comments extends Public_Controller
 		// Logged in? in which case, we already know their name and email
 		if($this->ion_auth->logged_in())
 		{
-			$comment['user_id'] = $this->data->user->id;
-			$comment['website'] = $this->data->user->website;
+			$comment['user_id'] = $this->user->id;
+			$comment['website'] = $this->user->website;
 		}
 		
 		else
@@ -86,7 +86,7 @@ class Comments extends Public_Controller
 		
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
-		$comment['is_active']	= (bool) ($this->ion_auth->is_admin() OR ! $this->settings->item('moderate_comments'));
+		$comment['is_active']	= (bool) ($this->user->group == 'admin' OR ! $this->settings->moderate_comments);
 		
 		// Validate the results
 		if ($this->form_validation->run())
@@ -107,7 +107,7 @@ class Comments extends Public_Controller
 				if($this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if($this->settings->item('moderate_comments') || $this->ion_auth->is_admin())
+					if($this->settings->moderate_comments OR $this->user->group == 'admin')
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
 					}
@@ -204,4 +204,3 @@ class Comments extends Public_Controller
 		return array('status' => TRUE);
 	}
 }
-?>

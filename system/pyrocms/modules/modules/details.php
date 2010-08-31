@@ -36,7 +36,6 @@ class Modules_details extends Module {
 	
 	public function install()
 	{
-		$this->load->dbforge();
 		$this->dbforge->drop_table('modules');
 		
 		$modules = "
@@ -68,8 +67,7 @@ class Modules_details extends Module {
 	public function uninstall()
 	{
 		// you really don't want to uninstall this module
-		return TRUE;
-
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

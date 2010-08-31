@@ -1,10 +1,11 @@
 <nav id="main-nav">
 	<ul>
 		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($module) ? ' current"' : '"'));?></li>
-		<li><a href="#" class="top-link <?php echo in_array($this->module, array('comments', 'pages', 'files', 'widgets', 'variables')) ? 'current' : ''; ?>">Content</a>
+		<li><a href="#" class="top-link <?php echo in_array($this->module, array('comments', 'pages', 'news', 'files', 'widgets', 'variables')) ? 'current' : ''; ?>">Content</a>
 			<ul>
 				<li><?php echo anchor('admin/comments', 'Comments', (($module == 'comments') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/pages', 'Pages', (($module == 'pages') ? 'class="current"' : ''));?></li>
+				<li><?php echo anchor('admin/news', 'News', (($module == 'news') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/files', 'Files', (($module == 'files') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/variables', 'Variables', (($module == 'variables') ? 'class="current"' : ''));?></li>
 				<li><?php echo anchor('admin/widgets', 'Widgets', (($module == 'widgets') ? 'class="current"' : ''));?></li>

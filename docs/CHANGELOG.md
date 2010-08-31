@@ -4,19 +4,20 @@
 
 * Cleaned Users module view files. They now allow for easier styling without overriding them in the theme.
 * jQuery now on version 1.4.2
-* jQuery UI now on version 1.8.1
+* jQuery UI now on version 1.8.4
 * Removed old jQuery tabs plugin, now using the built-in jQuery UI tabs plugin.
 * (in-progress) Added File module. This will replace the photos module and allow for Images, Video, Audio and Documents.
 * Rewrite of Settings module to allow module developers easier access and CRUD of site settings.
-* Added third_party/helpers/ and third_party/libraries/ folders for custom code.
+* Added addons/helpers/ and addons/libraries/ folders for custom code.
 * Removed forums module from the core. You can get it back from http://pyrocms.com/modules
 * Added "Save" and "Save & Exit" buttons to Page manager so you can go back to the same page on save.
-* Widgets can now go in modules and any packages, not just third_party.
+* Widgets can now go in modules and any packages, not just /addons.
 * Logged in users will no longer see the stupid website box on comments, it will use their profile value.
 * Theme views and layouts must now use .html not .php.
 * If comment moderation is disabled you will only see a list of comments, no "unapproved" stuff.
 * Merged old categories module into news module.
 * Moved "Permission Roles" to a new Groups module.
+* Removed the crazy complicated and rather broken Permissions module. Replaced it with a VERY simple module.
 
 ### Deprecated
 

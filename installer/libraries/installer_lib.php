@@ -260,11 +260,7 @@ class Installer_lib {
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
 		// Get the SQL for the default data and parse it
-		$data_sql		= file_get_contents('./sql/2-default-data.sql');
-		$data_sql		= str_replace('__VERSION__', 	CMS_VERSION,				$data_sql);
-
-		// Get the SQL for the user data and parse it
-		$user_sql		= file_get_contents('./sql/3-default_user.sql');
+		$user_sql		= file_get_contents('./sql/default-user.sql');
 		$user_sql		= str_replace('__EMAIL__', 		$data['user_email'], 		$user_sql);
 		$user_sql		= str_replace('__USERNAME__', 	$data['user_name'], 		$user_sql);
 		$user_sql		= str_replace('__DISPLAYNAME__', 	$data['user_firstname'] . ' ' . $data['user_firstname'], 		$user_sql);
@@ -293,25 +289,6 @@ class Installer_lib {
 						'status'	=> FALSE,
 						'message'	=> '',
 						'code'		=> 101
-					);
-		}
-		
-		// HALT...! Query time!
-		if( !$this->_process_schema('1-tables') )
-		{
-			return array(
-						'status'	=> FALSE,
-						'message'	=> mysql_error($this->db),
-						'code'		=> 102
-					);
-		}
-		
-		if( !$this->_process_schema($data_sql, FALSE) )
-		{
-			return array(
-						'status'	=> FALSE,
-						'message'	=> mysql_error($this->db),
-						'code'		=> 103
 					);
 		}
 		

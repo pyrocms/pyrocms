@@ -21,7 +21,7 @@ class Admin_Controller extends MY_Controller
 	    // Get a list of all modules available to this user / group
 		if ($this->user)
 		{
-			$this->template->core_modules = $this->cache->model('modules_m', 'get_all', array(
+			$this->template->core_modules = $this->cache->model('module_m', 'get_all', array(
 				array(
 					'is_backend_menu' => TRUE,
 					'is_backend' => TRUE,
@@ -30,7 +30,7 @@ class Admin_Controller extends MY_Controller
 				) // This function does NOT need role OR language, that is to give it a unique md5 hash
 			), $this->config->item('navigation_cache'));
 
-			$addon_modules = $this->cache->model('modules_m', 'get_all', array(
+			$addon_modules = $this->cache->model('module_m', 'get_all', array(
 				array(
 					'is_core' => FALSE,
 					'is_backend' => TRUE,
@@ -87,8 +87,13 @@ class Admin_Controller extends MY_Controller
 			return TRUE;
 		}
 
+		else if (!$this->user)
+		{
+			redirect('admin/login');
+		}
+
 		// Admins can go straight in
-		else if ($this->user->group !== 'admin')
+		else if ($this->user->group === 'admin')
 		{
 			return TRUE;
 		}
@@ -97,20 +102,15 @@ class Admin_Controller extends MY_Controller
 		else if ($this->user)
 		{
 			// We are looking at the index page. Show it if they have ANY admin access at all
-			if($current_page == 'admin/index' && $this->permissions_m->has_admin_access($this->user->group_id))
+			if($current_page == 'admin/index' && $this->permissions)
 			{
 				return TRUE;
 			}
 
-			// Check Perms: Not an admin and this is not a page to ignore
 			else
 			{
 				// Check if the current user can view that page
-				return $this->permissions_m->check_rule_by_role($this->user->group_id, array(
-					'module' => $this->module,
-					'controller' =>$this->controller,
-					'method' =>$this->method
-				));
+				 return in_array($this->module, $this->permissions);
 			}
 		}
 

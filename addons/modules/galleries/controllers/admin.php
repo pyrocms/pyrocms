@@ -61,7 +61,7 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'parent',
 				'label' => 'Parent',
-				'rules' => 'trim|required'
+				'rules' => 'trim'
 			),
 			array(
 				'field' => 'description',

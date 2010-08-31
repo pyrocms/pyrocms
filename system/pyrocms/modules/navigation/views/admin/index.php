@@ -1,7 +1,7 @@
 <?php if (!empty($groups)): ?>
 	<?php foreach ($groups as $group): ?>
 	
-		<section class="group-box">
+		<section class="box">
 			<header>
 				<div class="float-right" style="margin-top: 6px;">
 					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), 'class="delete_group"') ?>
@@ -55,7 +55,9 @@
 	<?php endforeach; ?>
 		
 <?php else: ?>
-	<p><?php echo lang('nav_no_groups');?></p>
+	<div class="blank-slate">
+		<h2><?php echo lang('nav_no_groups');?></h2>
+	</div>
 <?php endif; ?>
 
 

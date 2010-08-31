@@ -493,6 +493,7 @@ body#login #login-box input.button:hover {
 	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
 	border-radius: 5px;
+	overflow: hidden;
 }
 .box header, .box footer {
 	background-color: #f5f5f5;
@@ -531,4 +532,95 @@ body#login #login-box input.button:hover {
 }
 .hover-toggle:hover .toggle-item {
 	visibility: visible;
+}
+
+/* Blank Slates */
+div.blank-slate {
+	text-align: center;
+	vertical-align: top;
+	width: auto;
+	margin-top: 20%;
+}
+div.blank-slate img {
+	margin: 0px 25px 15px 0;
+}
+div.blank-slate h2 {
+	margin: -20px 0 0 0;
+}
+
+
+.buttons {
+	margin-bottom: 25px;
+}
+
+noscript {
+	display: block !important;
+	padding: 7px 20px 7px 50px;
+	background: #fffbcc url('../../img/admin/icons/16/exclamation.png') 10px 50% no-repeat;
+	border: 2px solid #e6db55;
+	font-weight: bold;
+	color: #666452;
+}
+
+.clearfix:afer {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix {
+	display: inline-block;
+}
+html[xmlns] .clearfix {
+	display: block;
+}
+* html .clearfix {
+	height: 1%;
+}
+
+/* Grids */
+@media screen and (max-width: 319px) {.unit{float: none !important; width: auto !important;}}
+.line:after,.lastUnit:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
+.line{*zoom:1;}
+.unit{float:left;}
+.size1of1{float:none;}
+.size1of2{width:50%;}
+.size1of3{width:33.33333%;}
+.size2of3{width:66.66666%;}
+.size1of4{width:25%;}
+.size3of4{width:75%;}
+.size1of5{width:20%;}
+.size2of5{width:40%;}
+.size3of5{width:60%;}
+.size4of5{width:80%;}
+.lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
+
+/* Dashboard */
+ul.big-list li {
+	list-style: none;
+	width: 100%;
+	margin: 0;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
+	padding-top: 10px;
+}
+ul.big-list li:last-child {
+	border-bottom: none;
+}
+ul.big-list li img {
+	float: left; 
+	margin: 0 20px 10px 10px;
+}
+ul.big-list a {
+	color: #444;
+}
+ul.big-list a:hover {
+	color: #ff6400;
+}
+
+/* Analytics */
+div#analytics table {
+	width: auto;
 }
