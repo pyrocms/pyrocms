@@ -2,7 +2,7 @@
 
 $lang['cp_admin_title'] 				= 'Controle Paneel';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
-$lang['cp_admin_quick_links']			= 'Quick Links';
+$lang['cp_admin_quick_links']			= 'Snelkoppelingen';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
 $lang['cp_welcome_message'] 			= 'Welkom in het %s Controle Paneel. Door de  links boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervind met dit systeem, plaats dan een issue op onze bugtracker..';
@@ -27,7 +27,7 @@ $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_edit_settings']			= 'Wijzig instellingen';
 $lang['cp_nav_themes']					= 'Thema\'s';
 $lang['cp_nav_permissions']				= 'Rechten';
-$lang['cp_nav_variables']				= 'Variablen';
+$lang['cp_nav_variables']				= 'Variabelen';
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']		= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
