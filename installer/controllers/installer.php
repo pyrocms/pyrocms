@@ -67,6 +67,7 @@ class Installer extends Controller
 	 */
 	public function index()
 	{
+	
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
 		$data['page_output'] = $this->parser->parse('main', $this->lang->language, TRUE);
 		
@@ -83,7 +84,7 @@ class Installer extends Controller
 	public function step_1()
 	{
 		if($_POST)
-		{				
+		{
 			// Data validation
 			if( $this->installer_lib->validate() )
 			{
@@ -274,20 +275,23 @@ class Installer extends Controller
 
 			// Let's try to install the system
 			$install_results = $this->installer_lib->install($_POST);
-
+			
 			// Did the install fail?
 			if($install_results['status'] === FALSE)
 			{
+				
 				// Let's tell them why the install failed
-				$data['message'] = $this->lang->line('error_'.$install_results['code']) . $install_results['message'];
-
+				$data['message']['text'] = '<li>' . $this->lang->line('error_'.$install_results['code']) . $install_results['message'] . '</li>';
+				$data['message']['type'] = 'failure';
+				
 				$final_data['page_output'] = $this->parser->parse('step_4', $data, TRUE);
 				$this->load->view('global', $final_data);
+				
 			}
 			else
 			{
 				// Success!
-				$this->session->set_flashdata('message', lang('success'));
+				$this->session->set_flashdata('message', '<li>' . lang('success') . '</li>');
 				$this->session->set_flashdata('message_type','success');
 
 				// Store the default username and password in the session data

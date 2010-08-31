@@ -32,11 +32,6 @@ $(document).ready(function() {
 		);
         
     });
-	
-	// possibly update the permissions page to check for updates
-	$('body').click(function() {
-		//alert('asdf');
-	});
     
 	$('input[name=user_confirm_password]').bind('keyup focus', function() {
         

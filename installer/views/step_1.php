@@ -1,15 +1,6 @@
 <!-- Intro page -->
 <h1>{header}</h1>
 
-<?php if (validation_errors() OR isset($message)): ?>
-<div id="notification">
-	<ul class="failure">
-		<?php echo validation_errors('<li>', '</li>'); ?>
-	</ul>
-	<?php echo (isset($message)) ? $message : NULL; ?>
-</div>
-<?php endif; ?>
-
 <p>{intro_text}</p>
 
 <?php echo form_open(uri_string(), 'id="install_frm"'); ?>

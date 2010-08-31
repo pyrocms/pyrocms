@@ -118,6 +118,13 @@ Next
 	cursor: pointer;
 }
 
+#next_step.complete {
+	float: none;
+	display: block;
+	width: 50%;
+	margin: 0px auto;
+}
+
 /**********
 Menu
 **********/

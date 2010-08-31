@@ -10,4 +10,4 @@
 
 <p>{outro_text}</p>
 
-<?php echo anchor($admin_url) ?>
+<a href="<?php echo $admin_url ?>" id="next_step" class="complete"><?php echo $admin_url ?></a>

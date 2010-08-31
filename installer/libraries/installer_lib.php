@@ -247,7 +247,8 @@ class Installer_lib {
 	 * Install the PyroCMS database and write the database.php file
 	 */
 	function install($data)
-	{				
+	{
+		
 		// Retrieve the database server, username and password from the session
 		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
 		$username 	= $this->ci->session->userdata('username');

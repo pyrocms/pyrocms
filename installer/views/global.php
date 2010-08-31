@@ -23,10 +23,10 @@
 				<ul id="menu">
 					<li><?php echo anchor('', lang('intro'), $this->uri->segment(2, '') == '' ? 'id="current"' : ''); ?></li>
 					<li><?php echo anchor('installer/step_1', lang('step1'), $this->uri->segment(2, '') == 'step_1' ? 'id="current"' : ''); ?></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : ''?>"><?php echo lang('step2'); ?></span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : ''?>"><?php echo lang('step3'); ?></span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : ''?>"><?php echo lang('step4'); ?></span></li>
-					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : ''?>"><?php echo lang('final'); ?></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_2' ? 'current' : '' ?>"><?php echo lang('step2'); ?></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_3' ? 'current' : '' ?>"><?php echo lang('step3'); ?></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'step_4' ? 'current' : '' ?>"><?php echo lang('step4'); ?></span></li>
+					<li><span id="<?php echo $this->uri->segment(2, '') == 'complete' ? 'current' : '' ?>"><?php echo lang('final'); ?></span></li>
 				</ul>
 			</div>
 		</div>
@@ -34,11 +34,29 @@
 		<!-- Content -->
 		<div id="content">
 			<div class="container">
-				<?php if($this->session->flashdata('message')): ?>
-				<ul class="<?php echo ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'success'; ?>">
-					<?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?>
-				</ul>
+				<!-- Message type 1 (message array) -->
+				<?php if(isset($message)): ?>
+					<ul class="<?php echo ($message['type']) ? $message['type'] : 'success'; ?>">
+						<?php if($message['text']) { echo $message['text']; }; ?>
+					</ul>
 				<?php endif; ?>
+				
+				<!-- Message type 2 (flashdata) -->
+				<?php if($this->session->flashdata('message')): ?>
+					<ul class="<?php echo ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'success'; ?>">
+						<?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?>
+					</ul>
+				<?php endif; ?>
+				
+				<!-- Message type 3 (validation errors) -->
+				<?php if ( validation_errors() ): ?>
+					<div id="notification">
+						<ul class="failure">
+							<?php echo validation_errors('<li>', '</li>'); ?>
+						</ul>
+					</div>
+				<?php endif; ?>
+				
 				<?php echo $page_output; echo "\n"; ?>
 			</div>
 		</div>
