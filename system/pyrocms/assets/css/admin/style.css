@@ -598,7 +598,7 @@ html[xmlns] .clearfix {
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
 
 /* Dashboard */
-ul.big-list li {
+ul.quick-links li {
 	list-style: none;
 	width: 100%;
 	margin: 0;
@@ -606,18 +606,24 @@ ul.big-list li {
 	border-bottom: 1px solid #ccc;
 	padding-top: 10px;
 }
-ul.big-list li:last-child {
+ul.quick-links li:last-child {
 	border-bottom: none;
 }
-ul.big-list li img {
+ul.quick-links li img {
 	float: left; 
 	margin: 0 20px 10px 10px;
 }
-ul.big-list a {
+ul.quick-links a {
 	color: #444;
 }
-ul.big-list a:hover {
+ul.quick-links a:hover {
 	color: #ff6400;
+}
+ul.quick-links h4 {
+	font-size: 14px;
+	line-height: 10px;
+	margin-bottom: 8px;
+	margin-top: 0;
 }
 
 /* Analytics */
@@ -637,10 +643,10 @@ div#analytics table {
 	border-top: none;
 }
 #news-feed h3 {
-	font-size: 16px;
-	line-height: 16px;
-	margin-bottom: 10px;
-	margin-top: 4px;
+	font-size: 14px;
+	line-height: 10px;
+	margin-bottom: 8px;
+	margin-top: 0px;
 }
 #news-feed h3 a {
 	color: #444;

@@ -12,21 +12,21 @@
 			<h3><?php echo lang('cp_admin_quick_links') ?></h3>
 		</header>
 		
-		<ul class="big-list">
+		<ul class="quick-links">
 			<li class="clearfix">
-				<img src="<?php echo base_url(). 'system/pyrocms/assets/img/icons/comments.png'; ?>" />
+				<?php echo image('icons/comments.png'); ?>
 				<a href="<?php echo site_url('admin/comments') ?>"><h4>Manage Comments</h4></a>
 			</li>
 			<li class="clearfix">
-				<img src="<?php echo base_url() .'system/pyrocms/assets/img/icons/pages.png'; ?>" />
+				<?php echo image('icons/pages.png'); ?>
 				<a href="<?php echo site_url('admin/pages') ?>"><h4>Manage Pages</h4></a>
 			</li>
 			<li class="clearfix">
-				<img src="<?php echo base_url() .'system/pyrocms/assets/img/icons/folder_open.png'; ?>" />
+				<?php echo image('icons/folder_open.png'); ?>
 				<a href="<?php echo site_url('admin/files') ?>"><h4>Manage Files</h4></a>
 			</li>
 			<li class="clearfix">
-				<img src="<?php echo base_url() .'system/pyrocms/assets/img/icons/user.png'; ?>" />
+				<?php echo image('icons/user.png'); ?>
 				<a href="<?php echo site_url('admin/users') ?>"><h4>Manage Users</h4></a>
 			</li>
 		</ul>
