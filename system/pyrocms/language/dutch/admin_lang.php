@@ -9,6 +9,12 @@ $lang['cp_welcome_message'] 			= 'Welkom in het %s Controle Paneel. Door de  lin
 
 $lang['cp_news_feed_title'] 			= 'Nieuwsfeed';
 
+// Shortcuts
+$lang['cp_manage_comments']				= 'Beheer Reacties';
+$lang['cp_manage_pages']				= 'Manage Pagina&acute;s';
+$lang['cp_manage_files']				= 'Manage Bestanden';
+$lang['cp_manage_users']				= 'Manage Gebruikers';
+
 // Header
 $lang['cp_to_home'] 					= 'Terug naar het Dashboard';
 $lang['cp_view_frontend'] 				= 'Bekijk website';
@@ -38,4 +44,14 @@ $lang['cp_sidebar_title'] 				= 'Zijmenu';
 $lang['required_label'] 				= 'Verplicht';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';
 
+$lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
+$lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
+$lang['cp_delete_installer_message']		= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
+$lang['cp_upgrade_message']		= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
+
+// Admin-wide text
+$lang['cp_shortcuts_title'] 			= 'Snelkoppelingen';
+
+$lang['required_label'] 				= 'Vereist';
+$lang['sb_recent_users'] 				= 'Recente gebruikers';
 ?>

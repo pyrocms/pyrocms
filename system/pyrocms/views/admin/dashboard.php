@@ -15,19 +15,19 @@
 		<ul class="quick-links">
 			<li class="clearfix">
 				<?php echo image('icons/comments.png'); ?>
-				<a href="<?php echo site_url('admin/comments') ?>"><h4>Manage Comments</h4></a>
+				<a href="<?php echo site_url('admin/comments') ?>"><h4><?php echo lang('cp_manage_comments'); ?></h4></a>
 			</li>
 			<li class="clearfix">
 				<?php echo image('icons/pages.png'); ?>
-				<a href="<?php echo site_url('admin/pages') ?>"><h4>Manage Pages</h4></a>
+				<a href="<?php echo site_url('admin/pages') ?>"><h4><?php echo lang('cp_manage_pages'); ?></h4></a>
 			</li>
 			<li class="clearfix">
 				<?php echo image('icons/folder_open.png'); ?>
-				<a href="<?php echo site_url('admin/files') ?>"><h4>Manage Files</h4></a>
+				<a href="<?php echo site_url('admin/files') ?>"><h4><?php echo lang('cp_manage_files'); ?></h4></a>
 			</li>
 			<li class="clearfix">
 				<?php echo image('icons/user.png'); ?>
-				<a href="<?php echo site_url('admin/users') ?>"><h4>Manage Users</h4></a>
+				<a href="<?php echo site_url('admin/users') ?>"><h4><?php echo lang('cp_manage_users'); ?></h4></a>
 			</li>
 		</ul>
 		
