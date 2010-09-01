@@ -1,6 +1,5 @@
 <?php
 
-// The defaul title for the cp
 $lang['cp_title'] 									= 'Admin-Oberfläche';
 
 $lang['title_label'] 								= 'Titel';
@@ -51,8 +50,3 @@ $lang['uninstall_label'] 						= 'Deinstallieren';
 $lang['install_label'] 							= 'Installieren';
 $lang['enable_label']							= 'Aktivieren';
 $lang['disable_label'] 							= 'Deaktivieren';
-
-
-// $lang[''] = '';
-
-?>

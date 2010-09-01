@@ -1,6 +1,5 @@
 <?php
 
-// The defaul title for the cp
 $lang['cp_title'] 									= 'Controle Paneel';
 
 $lang['title_label'] 								= 'Titel';
@@ -50,8 +49,3 @@ $lang['uninstall_label'] 						= 'Deinstalleren';
 $lang['install_label'] 							= 'Installeren';
 $lang['enable_label']							= 'Inschakelen';
 $lang['disable_label'] 							= 'Uitschakelen';
-
-
-// $lang[''] = 'nl-nl';
-
-?>
