@@ -21,7 +21,7 @@ class Permissions_details extends Module {
 				'nl' => 'Bepaal welke typen gebruikers toegang hebben tot gedeeltes van de site.',
 				'pl' => 'Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.',
 				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
-				'de' => 'Steuert welche Art von Benutzer welche Sektion in der Seite sehen kann.',
+				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
 				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.'
 			),
 			'frontend' => FALSE,
