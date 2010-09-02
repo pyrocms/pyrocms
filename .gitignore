@@ -7,8 +7,7 @@ system/pyrocms/cache/*_lib/*
 system/pyrocms/cache/dwoo/compiled/*.php
 system/pyrocms/cache/simplepie/*.spc
 system/pyrocms/cache/twitter/*
-system/pyrocms/assets/img/photos/*/*
-system/pyrocms/uploads/assets/*
+system/pyrocms/config/database.php
 system/codeigniter/logs/log-*.php
 nbproject/
 uploads/galleries/*
