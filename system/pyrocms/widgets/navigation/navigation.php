@@ -23,7 +23,7 @@ class Navigation extends Widgets
 		)
 	);
 
-	public function prep_form()
+	public function form()
 	{
 		$this->load->model('navigation/navigation_m');
 

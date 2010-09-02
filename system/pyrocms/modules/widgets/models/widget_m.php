@@ -6,7 +6,7 @@
  * 
  * Model to handle widgets
  */
-class Widgets_m extends MY_Model
+class Widget_m extends MY_Model
 {
 
 	function get_instance($id)

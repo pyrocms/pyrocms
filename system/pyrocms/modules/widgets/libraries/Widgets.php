@@ -14,7 +14,7 @@ class Widgets
 
 	function __construct()
 	{
-		$this->load->model('widgets/widgets_m');
+		$this->load->model('widgets/widget_m');
 
 		// Map where all widgets are
 		foreach ($this->load->_ci_library_paths as $path)
@@ -33,17 +33,17 @@ class Widgets
 
 	function list_areas()
 	{
-		return $this->widgets_m->get_areas();
+		return $this->widget_m->get_areas();
 	}
 
 	function list_area_instances($slug)
 	{
-		return $this->widgets_m->get_by_area($slug);
+		return $this->widget_m->get_by_area($slug);
 	}
 
 	function list_available_widgets()
 	{
-		return $this->widgets_m->get_all();
+		return $this->widget_m->get_all();
 	}
 
 	function list_uninstalled_widgets()
@@ -72,7 +72,7 @@ class Widgets
 
 	function get_instance($instance_id)
 	{
-		$widget = $this->widgets_m->get_instance($instance_id);
+		$widget = $this->widget_m->get_instance($instance_id);
 
 		if ($widget)
 		{
@@ -86,15 +86,15 @@ class Widgets
 	function get_area($id)
 	{
 		return is_numeric($id)
-			? $this->widgets_m->get_area_by('id', $id)
-			: $this->widgets_m->get_area_by('slug', $id);
+			? $this->widget_m->get_area_by('id', $id)
+			: $this->widget_m->get_area_by('slug', $id);
 	}
 
 	function get_widget($id)
 	{
 		return is_numeric($id)
-			? $this->widgets_m->get_widget_by('id', $id)
-			: $this->widgets_m->get_widget_by('slug', $id);
+			? $this->widget_m->get_widget_by('id', $id)
+			: $this->widget_m->get_widget_by('slug', $id);
 	}
 
 
@@ -144,12 +144,12 @@ class Widgets
         return $this->load->view('../../../../'.$path.'views/display', $data, TRUE);
     }
 
-    function render_backend($name, $default_options = array())
+    function render_backend($name, $saved_data = array())
     {
     	$path = $this->_spawn_widget($name);
 
     	// Check for default data if there is any
-    	$data = method_exists($this->_widget, 'prep_form') ? call_user_func(array(&$this->_widget, 'prep_form')) : array();
+    	$data = method_exists($this->_widget, 'form') ? call_user_func(array(&$this->_widget, 'form'), $saved_data) : array();
 
     	$data['options'] = array();
 
@@ -160,7 +160,7 @@ class Widgets
 			{
 				$field_name =& $field['field'];
 
-				$data['options'][$field_name] = set_value($field_name, @$default_options[$field_name]);
+				$data['options'][$field_name] = set_value($field_name, @$saved_data[$field_name]);
 			}
 
 			return $this->load->view('../../../../'.$path.'views/form', $data, TRUE);
@@ -176,7 +176,7 @@ class Widgets
 			return $this->_rendered_areas[$area];
 		}
 
-		$widgets = $this->widgets_m->get_by_area($area);
+		$widgets = $this->widget_m->get_by_area($area);
 
 		$output = '';
 
@@ -199,22 +199,22 @@ class Widgets
 
 	function add_widget($input)
 	{
-		return $this->widgets_m->insert_widget($input);
+		return $this->widget_m->insert_widget($input);
 	}
 
 	function delete_widget($slug)
 	{
-		return $this->widgets_m->delete_widget($slug);
+		return $this->widget_m->delete_widget($slug);
 	}
 
 	function add_area($input)
 	{
-		return $this->widgets_m->insert_area((array)$input);
+		return $this->widget_m->insert_area((array)$input);
 	}
 
 	function delete_area($slug)
 	{
-		return $this->widgets_m->delete_area($slug);
+		return $this->widget_m->delete_area($slug);
 	}
 
 	function add_instance($title, $widget_id, $widget_area_id, $options = array())
@@ -229,7 +229,7 @@ class Widgets
 		// The widget has to do some stuff before it saves
 		$options = $this->widgets->prepare_options($slug, $options);
 
-		$this->widgets_m->insert_instance(array(
+		$this->widget_m->insert_instance(array(
 			'title' => $title,
 			'widget_id' => $widget_id,
 			'widget_area_id' => $widget_area_id,
@@ -241,7 +241,7 @@ class Widgets
 
 	function edit_instance($instance_id, $title, $widget_area_id, $options = array())
 	{
-		$slug = $this->widgets_m->get_instance($instance_id)->slug;
+		$slug = $this->widget_m->get_instance($instance_id)->slug;
 
 		if ( $error = $this->validation_errors($slug, $options) )
 		{
@@ -251,7 +251,7 @@ class Widgets
 		// The widget has to do some stuff before it saves
 		$options = $this->widgets->prepare_options($slug, $options);
 
-		$this->widgets_m->update_instance($instance_id, array(
+		$this->widget_m->update_instance($instance_id, array(
 			'title' => $title,
 			'widget_area_id' => $widget_area_id,
 			'options' => $this->_serialize_options($options)
@@ -262,12 +262,12 @@ class Widgets
 
 	function update_instance_order($id, $position)
 	{
-		return $this->widgets_m->update_instance_order($id, $position);
+		return $this->widget_m->update_instance_order($id, $position);
 	}
 
 	function delete_instance($id)
 	{
-		return $this->widgets_m->delete_instance($id);
+		return $this->widget_m->delete_instance($id);
 	}
 
 	function validation_errors($name, $options)
@@ -292,9 +292,9 @@ class Widgets
     {
     	$this->_widget || $this->_spawn_widget($name);
 
-    	if (method_exists($this->_widget, 'prep_options'))
+    	if (method_exists($this->_widget, 'save'))
 	    {
-			return (array) call_user_func(array(&$this->_widget, 'prep_options'), $options);
+			return (array) call_user_func(array(&$this->_widget, 'save'), $options);
 	    }
 
 	    return $options;
