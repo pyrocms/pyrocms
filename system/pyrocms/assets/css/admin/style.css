@@ -598,7 +598,7 @@ html[xmlns] .clearfix {
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
 
 /* Dashboard */
-ul.big-list li {
+ul.quick-links li {
 	list-style: none;
 	width: 100%;
 	margin: 0;
@@ -606,21 +606,74 @@ ul.big-list li {
 	border-bottom: 1px solid #ccc;
 	padding-top: 10px;
 }
-ul.big-list li:last-child {
+ul.quick-links li:last-child {
 	border-bottom: none;
 }
-ul.big-list li img {
+ul.quick-links li img {
 	float: left; 
 	margin: 0 20px 10px 10px;
 }
-ul.big-list a {
+ul.quick-links a {
 	color: #444;
 }
-ul.big-list a:hover {
+ul.quick-links a:hover {
 	color: #ff6400;
+}
+ul.quick-links h4 {
+	font-size: 14px;
+	line-height: 10px;
+	margin-bottom: 8px;
+	margin-top: 0;
 }
 
 /* Analytics */
 div#analytics table {
 	width: auto;
+}
+
+/* News Feed */
+#news-feed li {
+	border-top: 1px solid #e6e6e6;
+	padding: 15px 15px 10px 90px;
+	list-style: none;
+	margin-left: 0;
+	position: relative;
+}
+#news-feed li:first-child {
+	border-top: none;
+}
+#news-feed h3 {
+	font-size: 14px;
+	line-height: 10px;
+	margin-bottom: 8px;
+	margin-top: 0px;
+}
+#news-feed h3 a {
+	color: #444;
+}
+#news-feed h3 a:hover {
+	color: #ff6400;
+}
+#news-feed .date {
+	position: absolute;
+	top: 12px;
+	left: 22px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	color: #777;
+	background-color: #fff;
+	border: 1px solid #999;
+	width: 2.2em;
+}
+#news-feed .date span {
+	width: 100%;
+	display: block;
+	background-color: #ff6400;
+	color: #fff;
+	font-size: 12px;
+}
+#news-feed p {
+	margin-top: 0;
+	margin-left: 0;
 }

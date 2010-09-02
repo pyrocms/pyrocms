@@ -30,11 +30,11 @@ $lang['news_rss_name_suffix'] 						= ' News';
 $lang['news_rss_category_suffix'] 					= ' News';
 $lang['news_author_name_label'] 					= 'Autor';
 $lang['news_read_more_label'] 						= 'Mehr lesen&nbsp;&raquo;';
-$lang['news_created_day']                       = 'Created on Day';
-$lang['news_created_month']                     = 'Created on Month';
-$lang['news_created_year']                      = 'Created on Year';
-$lang['news_created_hour']                      = 'Created on Hour';
-$lang['news_created_minute']                    = 'Created on Minute';
+$lang['news_created_day']                       = 'Erstellt am Tag';
+$lang['news_created_month']                     = 'Erstellt am Monat';
+$lang['news_created_year']                      = 'Erstellt am Jahr';
+$lang['news_created_hour']                      = 'Erstellt am Stunde';
+$lang['news_created_minute']                    = 'Erstellt am Minute';
 
 // titles
 $lang['news_create_title'] 							= 'Artikel erstellen';
@@ -62,6 +62,6 @@ $lang['news_delete_error'] 							= 'Ein Fehler ist aufgetreten. Keine Artikel w
 $lang['news_already_exist_error'] 					= 'Ein Artikel mit dieser URL existiert bereits.';
 
 $lang['news_twitter_posted'] 						= 'Posted "%s" %s';
-$lang['news_twitter_error'] 						= 'Twitter Error'; #translate
+$lang['news_twitter_error'] 						= 'Twitter Fehler';
 
 ?>

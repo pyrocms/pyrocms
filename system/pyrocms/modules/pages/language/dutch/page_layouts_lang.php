@@ -10,7 +10,7 @@ $lang['page_layouts.actions_label'] 				= 'Acties';
 $lang['page_layouts.title_label'] 					= 'Titel';
 $lang['page_layouts.theme_layout_label'] 		= 'Thema Layout';
 
-$lang['page_layouts.edit_label'] 					= 'Bewerk';
+$lang['page_layouts.edit_label'] 					= 'Wijzig';
 $lang['page_layouts.delete_label'] 					= 'Verwijder';
 
 // titles

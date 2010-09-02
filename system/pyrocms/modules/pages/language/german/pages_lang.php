@@ -4,7 +4,7 @@
 $lang['pages.content_label'] 					= 'Inhalt'; //'Inhalt' commonly used term, not 'Seiteninhalt'
 $lang['pages.meta_label']						= 'Meta-Daten';
 $lang['pages.design_label'] 					= 'Design';
-$lang['pages.script_label'] 					= 'Script'; #translate
+$lang['pages.script_label'] 					= 'Script'; //Don't translate
 $lang['pages.options_label'] 					= 'Optionen';
 
 $lang['pages.detail_label'] 					= 'Details';
@@ -27,11 +27,12 @@ $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Zugang';
 $lang['pages.rss_enabled_label'] 				= 'RSS aktiviert';
-$lang['pages.comments_enabled_label']			= 'Comments enabled'; #translate
+$lang['pages.comments_enabled_label']			= 'Kommentare aktiviert';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Entwurf';
 $lang['pages.live_label'] 						= 'Live';
+$lang['pages.revisions_label']					= 'Änderungsübersicht'; 
 
 $lang['pages.view_label'] 						= 'Ansicht';
 $lang['pages.create_label'] 					= 'Unterobjekt hinzufügen';//there is no german word for 'child' (in this context at least)

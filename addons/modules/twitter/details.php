@@ -8,10 +8,12 @@ class Twitter_details extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Twitter'
+				'en' => 'Twitter',
+				'de' => 'Twitter'
 			),
 			'description' => array(
-				'en' => 'Show twitter posts and support general Twitter integration.'
+				'en' => 'Show twitter posts and support general Twitter integration.',
+				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,

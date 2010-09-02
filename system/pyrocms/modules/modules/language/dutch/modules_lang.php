@@ -1,6 +1,6 @@
 <?php
 $lang['modules.core_list']				= 'Basis Modules';
-$lang['modules.third_party_list']		= 'Externe Modules';
+$lang['modules.addon_list']				= 'Add-on Modules';
 $lang['modules.introduction']			= 'Onderstaande lijst geeft de geinstalleerde modules weer, inclusief hun beschrijving en versie.';
 $lang['modules.disable_error']			= 'De module "%s" kon niet worden uitgeschakeld.';
 $lang['modules.disable_success']		= 'De module "%s" is uitgeschakeld.';

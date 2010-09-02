@@ -40,7 +40,7 @@
 
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="published"><?php echo lang('galleries.published_label'); ?></label>
-				<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published = 1); ?>
+				<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), 1); ?>
 			</li>
 		</ol>
 

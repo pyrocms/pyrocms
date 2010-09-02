@@ -18,7 +18,7 @@ $lang['user_details_label'] = 'Details';
 $lang['user_first_name_label'] = 'Vorname';
 $lang['user_last_name_label'] = 'Nachname';
 $lang['user_email_label'] = 'Email';
-$lang['user_group_label'] = 'Group'; #translate
+$lang['user_group_label'] = 'Gruppe';
 $lang['user_activate_label'] = 'Aktivieren';
 $lang['user_password_label'] = 'Passwort';
 $lang['user_password_confirm_label'] = 'Passwort bestätigen';
@@ -28,7 +28,7 @@ $lang['user_last_visit_label'] = 'Letzer Besuch';
 $lang['user_actions_label'] = 'Aktion';
 $lang['user_never_label'] = 'Nie';
 $lang['user_delete_label'] = 'Löschen';
-$lang['user_edit_label'] = 'Editieren';
+$lang['user_edit_label'] = 'Bearbeiten';
 $lang['user_view_label'] = 'Anzeigen';
 
 $lang['user_no_inactives'] = 'Keine inaktiven Benutzer.';
@@ -47,13 +47,21 @@ $lang['user_activated_account_title'] = 'Aktivierter Benutzer';
 $lang['user_reset_password_title'] = 'Passwort zurückzusetzen';
 $lang['user_password_reset_title'] = 'Passwort zurückzusetzen';
 
+
+$lang['user_error_username'] 			= 'Der gewählte Benutzername ist bereits in Verwendung.';
+$lang['user_error_email'] 				= 'Die angegebene E-Mail-Adresse wird bereits verwendet';
+
 $lang['user_full_name'] 	= 'Name';
 $lang['user_first_name'] 	= 'Vorname';
 $lang['user_last_name'] 	= 'Nachname';
+$lang['user_username'] 					= 'Benutzername';
+$lang['user_display_name']				= 'Anzeigename';
 $lang['user_email'] 		= 'Email';
 $lang['user_confirm_email'] = 'Email bestätigen';
 $lang['user_password'] 		= 'Passwort';
+$lang['user_remember'] 					= 'Angemeldet bleiben';
 $lang['user_confirm_password'] = 'Passwort bestätigen';
+$lang['user_group_id_label']			= 'Gruppe';
 
 $lang['user_level']			= 'Benutzer Rolle';
 $lang['user_active']		= 'Aktiv';
@@ -122,7 +130,6 @@ $lang['user_inactive']   = 'Dein Benutzer ist nicht aktiv.<br />Überprüfe bitt
 
 // Logged Out
 $lang['user_logged_out']   = 'Du wurdest abgemeldet.';
-
 
 // Forgot Pass
 $lang['user_forgot_incorrect']   = "Benutzer konnte nicht gefunden werden.";

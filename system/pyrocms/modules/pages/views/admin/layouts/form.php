@@ -5,7 +5,7 @@
 <?php endif; ?>
 
 
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+<?php echo form_open(uri_string(), 'class="crud"'); ?>
 
 	<div class="tabs">
 	
@@ -20,8 +20,8 @@
 				<p><?php echo lang('page_layouts.variable_introduction'); ?>:</p>
 				
 				<ul class="list-unstyled spacer-bottom">
-					<li><strong>{$page.title}</strong> - <?php echo lang('page_layouts.variable_title'); ?></li>
-					<li><strong>{$page.body}</strong> - <?php echo lang('page_layouts.variable_body'); ?></li>
+					<li><strong>{pyro:page:title}</strong> - <?php echo lang('page_layouts.variable_title'); ?></li>
+					<li><strong>{pyro:page:body}</strong> - <?php echo lang('page_layouts.variable_body'); ?></li>
 				</ul>
 				
 				<ul>
@@ -60,7 +60,6 @@
 
 <?php echo form_close(); ?>
 		
-
 
 <script type="text/javascript">
 	html_editor('html_editor', '100%');

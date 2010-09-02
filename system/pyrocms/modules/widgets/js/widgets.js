@@ -70,7 +70,7 @@
 	
 	function show_edit_instance(area_slug)
 	{
-		$('div#area-' + area_slug).before(edit_instance.detach());
+		$('section#area-' + area_slug).after(edit_instance.detach());
 		
 		edit_instance.slideDown();
 	}

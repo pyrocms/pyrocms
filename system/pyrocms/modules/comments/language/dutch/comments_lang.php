@@ -21,7 +21,7 @@ $lang['comments.module_label'] 				= 'Module';
 $lang['comments.item_label'] 				= 'Item';
 $lang['comments.date_label'] 				= 'Datum';
 $lang['comments.actions_label'] 			= 'Acties';
-$lang['comments.edit_label'] 				= 'Bewerk';
+$lang['comments.edit_label'] 				= 'Wijzig';
 $lang['comments.delete_label'] 				= 'Verwijder';
 $lang['comments.posted_label'] 				= 'Gepost';
 $lang['comments.from_label'] 				= 'Van';
@@ -30,7 +30,7 @@ $lang['comments.send_label'] 				= 'Reageer';
 
 $lang['comments.inactive_title'] 			= 'Te beoordelen reacties';
 $lang['comments.active_title'] 				= 'Goedgekeurde reacties';
-$lang['comments.edit_title'] 				= 'Bewerk reactie';
+$lang['comments.edit_title'] 				= 'Wijzig reactie';
 
 // messages
 $lang['comments.add_success'] 				= 'De reactie is opgeslagen.';
