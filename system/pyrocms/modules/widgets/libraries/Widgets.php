@@ -107,7 +107,6 @@ class Widgets
 
 		if ( $this->_widget === FALSE OR ! is_subclass_of($this->_widget, 'Widgets'))
 		{
-			throw new Exception('Stuff');
 			return FALSE;
 		}
 
@@ -302,12 +301,14 @@ class Widgets
 
     private function _spawn_widget($name)
     {
-		$widget_path = $this->_widget_locations[$name] . '/' . $name . EXT;
+		$widget_path = FCPATH.$this->_widget_locations[$name] . '/' . $name . EXT;
 
 		if (file_exists($widget_path))
 		{
 			require_once $widget_path;
 			$class_name = ucfirst($name);
+
+
 			$this->_widget = new $class_name;
 
 			return $this->_widget_locations[$name].'/';
