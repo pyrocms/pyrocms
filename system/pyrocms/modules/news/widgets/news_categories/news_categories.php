@@ -7,7 +7,7 @@
  * Show a list of news categories.
  */
 
-class News_categories extends Widgets
+class Widget_News_categories extends Widgets
 {
 	public $title = 'News Categories';
 	public $description = 'Show a list of news categories.';

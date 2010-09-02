@@ -7,7 +7,7 @@
  * Show RSS feeds in your site
  */
 
-class Login extends Widgets
+class Widget_Login extends Widgets
 {
 	public $title = 'Login';
 	public $description = 'Display a simple login form anywhere.';

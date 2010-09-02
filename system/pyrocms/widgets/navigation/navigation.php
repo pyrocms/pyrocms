@@ -7,7 +7,7 @@
  * Show RSS feeds in your site
  */
 
-class Navigation extends Widgets
+class Widget_Navigation extends Widgets
 {
 	public $title = 'Navigation';
 	public $description = 'Display a navigation group with a widget.';

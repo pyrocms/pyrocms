@@ -7,7 +7,7 @@
  * Show RSS feeds in your site
  */
 
-class Social_bookmark extends Widgets
+class Widget_Social_bookmark extends Widgets
 {
 	public $title = 'Social Bookmark';
 	public $description = 'Configurable social bookmark links from AddThis.';

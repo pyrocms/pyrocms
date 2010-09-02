@@ -8,7 +8,7 @@
  * Show a Google Map in your site
  */
 
-class Google_maps extends Widgets
+class Widget_Google_maps extends Widgets
 {
     public $title = 'Google Maps';
     public $description = 'Display Google Maps on your site';

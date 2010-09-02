@@ -306,8 +306,7 @@ class Widgets
 		if (file_exists($widget_path))
 		{
 			require_once $widget_path;
-			$class_name = ucfirst($name);
-
+			$class_name = 'Widget_'.ucfirst($name);
 
 			$this->_widget = new $class_name;
 
