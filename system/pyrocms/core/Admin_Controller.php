@@ -49,7 +49,7 @@ class Admin_Controller extends MY_Controller
 		}
 
 	    // Template configuration
-	    $this->template->set_layout('admin/layout');
+	    $this->template->set_layout('admin/layouts/default');
 	    $this->template->enable_parser(FALSE);
 
 	    $this->template

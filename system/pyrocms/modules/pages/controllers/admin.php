@@ -218,7 +218,7 @@ class Admin extends Admin_Controller
 		$data->page 		= $this->pages_m->get($id);
 		$data->page->path 	= $this->pages_m->get_path_by_id($id);
 
-		$this->template->set_layout('admin/basic_layout');
+		$this->template->set_layout('admin/layouts/modal');
 		$this->template->build('admin/preview', $data);
 	}
 

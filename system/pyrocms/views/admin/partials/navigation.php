@@ -1,6 +1,6 @@
 <nav id="main-nav">
 	<ul>
-		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($module) ? ' current"' : '"'));?></li>
+		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($module) ? ' current' : '').'"');?></li>
 		<li><a href="#" class="top-link <?php echo in_array($this->module, array('comments', 'pages', 'news', 'files', 'widgets', 'variables')) ? 'current' : ''; ?>">Content</a>
 			<ul>
 				<li><?php echo anchor('admin/comments', 'Comments', (($module == 'comments') ? 'class="current"' : ''));?></li>
@@ -18,7 +18,7 @@
 				<!-- <li><?php echo anchor('admin/layouts', 'Layouts', (($module == 'layouts') ? 'class="current"' : ''));?></li> -->
 			</ul>
 		</li>
-		<li><a href="#" class="top-link <?php echo ((isset($addon_modules[$module]) OR $module == 'modules') ? 'current"' : '"'); ?>"><?php echo lang('cp_nav_modules'); ?></a>
+		<li><a href="#" class="top-link <?php echo ((isset($addon_modules[$module]) OR $module == 'modules') ? 'current' : ''); ?>"><?php echo lang('cp_nav_modules'); ?></a>
 			<ul>
 				<li><?php echo anchor('admin/modules', 'Manage Modules', array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : ''));?></li>
 			<?php foreach($addon_modules as $tp_module): ?>

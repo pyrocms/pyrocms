@@ -36,11 +36,19 @@
   * @param		mixed    variable to be output
   */
 
-function power_dump($testing, $file = '', $line = '')
+function power_dump()
 {
 	list($callee) = debug_backtrace();
-	
-	echo "<pre>".$callee['file'].' @ line: '.$callee['line'] .'<br />Result: ';
-	var_dump($testing);
+	$arguments = func_get_args();
+	$total_arguments = count($arguments);
+
+	echo "<pre>".$callee['file'].' @ line: '.$callee['line'] .'<br />';
+
+	foreach ($arguments as $argument)
+	{
+		echo '<br/>Debug #1 of '.$total_arguments.': ';
+		var_dump($argument);
+	}
+
 	echo "</pre>";
 }

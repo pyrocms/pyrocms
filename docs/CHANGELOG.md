@@ -18,6 +18,8 @@
 * Merged old categories module into news module.
 * Moved "Permission Roles" to a new Groups module.
 * Removed the crazy complicated and rather broken Permissions module. Replaced it with a VERY simple module.
+* Added class prefix to all Widgets_ to stop namespace collisions.
+* Replaced TinyMCE with CKEditor 3.4.
 
 ### Deprecated
 

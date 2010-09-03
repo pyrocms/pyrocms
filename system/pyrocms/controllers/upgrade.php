@@ -131,10 +131,8 @@ class Upgrade extends Controller
 
 				$this->module_m->install($slug, $is_core);
 
-				$path = $is_core ? APPPATH : ADDONPATH;
-
 				// Before we can install anything we need to know some details about the module
-				$details_file = $path . 'modules/' . $slug . '/details'.EXT;
+				$details_file = $directory . 'modules/' . $slug . '/details'.EXT;
 
 				// Check the details file exists
 				if (!is_file($details_file))
