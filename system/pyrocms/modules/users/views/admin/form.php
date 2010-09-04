@@ -11,7 +11,7 @@
 </script>
 
 
-<?php if($method == 'create'): ?>
+<?php if ($this->method == 'create'): ?>
 	<h3><?php echo lang('user_add_title');?></h3>
 
 <?php else: ?>

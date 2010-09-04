@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Twitter_details extends Module {
+class Detadils_Twitter extends Module {
 
 	public $version = '0.2';
 

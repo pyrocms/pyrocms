@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Comments_details extends Module {
+class Details_Comments extends Module {
 	
 	public $version = '1.0';
 
@@ -27,10 +27,7 @@ class Comments_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'edit', 'delete')
-			)
+			'menu'	  => 'content'
 		);
 	}
 	

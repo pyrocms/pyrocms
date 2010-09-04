@@ -1,5 +1,5 @@
 <?php if($this->settings->moderate_comments): ?>
-	<?php if($method == 'index'): ?>
+	<?php if ($this->method == 'index'): ?>
 		<h3><?php echo lang('comments.active_title');?></h3>
 	<?php else: ?>
 		<h3><?php echo lang('comments.inactive_title');?></h3>

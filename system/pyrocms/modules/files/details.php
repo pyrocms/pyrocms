@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Files_details extends Module {
+class Details_Files extends Module {
 
 	public $version = '1.0';
 	
@@ -19,10 +19,7 @@ class Files_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'edit', 'delete')
-			)
+			'menu'	  => 'content'
 		);
 	}
 	

@@ -1,5 +1,5 @@
 <?php if (!empty($users)): ?>
-	<?php if($method == 'index'): ?>
+	<?php if ($this->method == 'index'): ?>
 		<h3><?php echo lang('user_registred_title');?></h3>
 	<?php else: ?>
 		<h3><?php echo lang('user_inactive_title');?></h3>
@@ -44,7 +44,7 @@
 		</table>
 	
 	<div class="float-right">
-		<?php if($method == 'index'): ?>
+		<?php if ($this->method == 'index'): ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		<?php else: ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('activate', 'delete') )); ?>

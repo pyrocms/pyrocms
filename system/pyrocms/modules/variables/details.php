@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Variables_details extends Module {
+class Details_Variables extends Module {
 
 	public $version = '0.3';
 	
@@ -27,7 +27,7 @@ class Variables_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE
+			'menu'	  => 'content'
 		);
 	}
 	

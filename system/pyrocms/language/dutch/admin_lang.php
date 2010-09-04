@@ -29,15 +29,13 @@ $lang['cp_report_bug'] 					= 'Meld een fout';
 $lang['cp_contact_support'] 			= 'Ondersteuning';
 
 $lang['cp_nav_settings']				= 'Instellingen';
+$lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Modules';
-$lang['cp_nav_edit_settings']			= 'Wijzig instellingen';
-$lang['cp_nav_themes']					= 'Thema\'s';
-$lang['cp_nav_permissions']				= 'Rechten';
-$lang['cp_nav_variables']				= 'Variabelen';
+$lang['cp_nav_widgets']					= 'Widgets';
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
-$lang['cp_delete_installer_message']		= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
-$lang['cp_upgrade_message']		= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';
+$lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
+$lang['cp_upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';
 // Admin-wide text
 $lang['cp_sidebar_title'] 				= 'Zijmenu';
 
@@ -46,12 +44,11 @@ $lang['sb_recent_users'] 				= 'Recente gebruikers';
 
 $lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
 $lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
-$lang['cp_delete_installer_message']		= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
-$lang['cp_upgrade_message']		= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
+$lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
+$lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Snelkoppelingen';
 
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';
-?>

@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Settings_details extends Module {
+class Details_Settings extends Module {
 
-	public $version = '0.3';
+	public $version = '0.4';
 	
 	public function info()
 	{
@@ -27,7 +27,7 @@ class Settings_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE
+			'menu'	  => FALSE
 		);
 	}
 	

@@ -44,7 +44,7 @@ class Module_m extends CI_Model
 			'skip_xss' => NULL,
 			'is_frontend' => NULL,
 			'is_backend' => NULL,
-			'is_backend_menu' => NULL,
+			'menu' => FALSE,
 			'enabled' => 1,
 			'is_core' => NULL
 		);
@@ -81,7 +81,7 @@ class Module_m extends CI_Model
 				'skip_xss' => $result->skip_xss,
 				'is_frontend' => $result->is_frontend,
 				'is_backend' => $result->is_backend,
-				'is_backend_menu' => $result->is_backend_menu,
+				'menu' => $result->menu,
 				'enabled' => $result->enabled,
 				'is_core' => $result->is_core
 			);
@@ -109,7 +109,7 @@ class Module_m extends CI_Model
 			'skip_xss' => !empty($module['skip_xss']),
 			'is_frontend' => !empty($module['frontend']),
 			'is_backend' => !empty($module['backend']),
-			'is_backend_menu' => !empty($module['menu']),
+			'menu' => !empty($module['menu']) ? $module['menu'] : FALSE,
 			'enabled' => !empty($module['enabled']),
 			'installed' => !empty($module['installed']),
 			'is_core' => !empty($module['is_core'])
@@ -162,7 +162,7 @@ class Module_m extends CI_Model
 		// We have some parameters for the list of modules we want
 		if ($params) foreach ($params as $field => $value)
 		{
-			if (in_array($field, array('is_frontend', 'is_backend', 'is_backend_menu', 'is_core')))
+			if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core')))
 			$this->db->where($field, $value);
 		}
 
@@ -188,7 +188,7 @@ class Module_m extends CI_Model
 				'skip_xss' => $result->skip_xss,
 				'is_frontend' => $result->is_frontend,
 				'is_backend' => $result->is_backend,
-				'is_backend_menu' => $result->is_backend_menu,
+				'menu' => $result->menu,
 				'enabled' => $result->enabled,
 				'installed' => $result->installed,
 				'is_core' => $result->is_core
@@ -382,10 +382,10 @@ class Module_m extends CI_Model
 		include_once $details_file;
 
 		// Now call the details class
-		$class = ucfirst($slug).'_details';
+		$class = 'Details_'.ucfirst($slug);
 
 		// Now we need to talk to it
-		return new $class;
+		return class_exists($class) ? new $class : FALSE;
 	}
 
 }

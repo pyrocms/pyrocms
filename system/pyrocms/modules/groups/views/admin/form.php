@@ -1,4 +1,4 @@
-<?php if($method == 'edit'): ?>
+<?php if ($this->method == 'edit'): ?>
     <h3><?php echo sprintf(lang('groups.edit_title'), $group->name); ?></h3>
 <?php else: ?>
     <h3><?php echo lang('groups.add_title'); ?></h3>

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Galleries_details extends Module {
+class Details_Galleries extends Module {
 
 	public $version = '1.0';
 
@@ -9,7 +9,7 @@ class Galleries_details extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Galleries',
-				'en' => 'Galerien'
+				'de' => 'Galerien'
 			),
 			'description' => array(
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
@@ -17,7 +17,7 @@ class Galleries_details extends Module {
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
-			'menu' => TRUE
+			'menu' => 'content'
 		);
 	}
 

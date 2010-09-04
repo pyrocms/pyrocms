@@ -9,6 +9,8 @@ class Upgrade extends Controller
 {
 	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0');
 
+	private $_output = '';
+
 	function _remap()
 	{
 		// Always log out first, stops any weirdness with the user system
@@ -49,6 +51,8 @@ class Upgrade extends Controller
 			show_error('The database is expecting v'.$db_version.' but the version of PyroCMS you are using is v'.$file_version.'. Try downloading a newer version from ' . anchor('http://pyrocms.com/') . '.');
 		}
 
+		$this->_output .= '<style>* { font-family: arial; background-color: #E6E6E6; }</style>';
+
   		while($db_version != $file_version)
   		{
 	  		// Find the next version
@@ -62,19 +66,24 @@ class Upgrade extends Controller
 	  		$function = 'upgrade_' . preg_replace('/[^0-9a-z]/i', '', $next_version);
 
 			// If a method exists and its false fail. no method = no changes
-	  		if (method_exists($this, $function) && $this->$function() !== TRUE)
+	  		if (method_exists($this, $function) AND $this->$function() !== TRUE)
 	  		{
-	  			show_error('There was an error upgrading to "'.$next_version.'"');
+				echo $this->_output;
+	  			echo '<strong style="color:red">There was an error upgrading to "'.$next_version.'".</strong>';
+				exit;
 	  		}
 
-	  		$this->settings->set_item('version', $next_version);
+	  		$this->settings->version = $next_version;
 
-			echo "<p><strong>-- Upgraded to " . $next_version . '--</strong></p>';
+			$this->_output .= "<p><strong>-- Upgraded to " . $next_version . '--</strong></p>';
 
 	  		$db_version = $next_version;
   		}
 
-		echo "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
+		$this->_output .= "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
+
+		// finally, spit it out
+		echo $this->output;
  	}
 
 	function upgrade_100()
@@ -100,21 +109,26 @@ class Upgrade extends Controller
 
 		// ---- Modules -------------------------------------
 
-	    $this->dbforge->drop_column('modules', 'controllers');
-
-		echo 'Updated modules table to have an "installed" option.<br/>';
-	    $this->dbforge->add_column('modules', array(
-	        'installed' => array(
-	            'type'        => 'TINYINT',
-	            'constraint'  => '1',
-	            'null'        => FALSE,
-				'default'	  => 0
-	        )
-	    ));
-
-		// Clear out existing modules
-		$this->db->empty_table('modules');
-
+		$this->db->query('DROP TABLE modules');
+		$this->db->query("
+			CREATE TABLE `modules` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `name` TEXT NOT NULL,
+			  `slug` varchar(50) NOT NULL,
+			  `version` varchar(20) NOT NULL,
+			  `type` varchar(20) DEFAULT NULL,
+			  `description` TEXT DEFAULT NULL,
+			  `skip_xss` tinyint(1) NOT NULL,
+			  `is_frontend` tinyint(1) NOT NULL,
+			  `is_backend` tinyint(1) NOT NULL,
+			  `menu` varchar(20) NOT NULL,
+			  `enabled` tinyint(1) NOT NULL,
+			  `installed` tinyint(1) NOT NULL,
+			  `is_core` tinyint(1) NOT NULL,
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY `slug` (`slug`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
 		$this->load->model('modules/module_m');
 
     	// Loop through directories that hold modules
@@ -127,7 +141,7 @@ class Upgrade extends Controller
 	        {
 				$slug = basename($module_name);
 
-				echo 'Re-indexing module: <strong>' . $slug .'</strong>.<br/>';
+				$this->_output .=  'Re-indexing module: <strong>' . $slug .'</strong>.<br/>';
 
 				$this->module_m->install($slug, $is_core);
 
@@ -135,8 +149,9 @@ class Upgrade extends Controller
 				$details_file = $directory . 'modules/' . $slug . '/details'.EXT;
 
 				// Check the details file exists
-				if (!is_file($details_file))
+				if ( ! is_file($details_file))
 				{
+					$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
 					continue;
 				}
 
@@ -144,7 +159,13 @@ class Upgrade extends Controller
 				include_once $details_file;
 
 				// Now call the details class
-				$class_name = ucfirst($slug).'_details';
+				$class_name = 'Details_'.ucfirst($slug);
+
+				if ( ! class_exists($class_name))
+				{
+					$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: Class '.$class_name.' does not exist in file '.$details_file.'.</span><br/>';
+					continue;
+				}
 
 				$details_class = new $class_name;
 				
@@ -168,10 +189,9 @@ class Upgrade extends Controller
 
 		// ---- / End Modules --------------------------------
 
-
 		// ---- Files ----------------------------------------
 
-		echo "Adding file manager tables.<br/>";
+		$this->_output .= "Adding file manager tables.<br/>";
 		$this->db->query("CREATE TABLE `files` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `folder_id` int(11) NOT NULL DEFAULT '0',
@@ -201,7 +221,7 @@ class Upgrade extends Controller
 		// ---- / End Files --------------------------------
 
 		// ---- Page Conversion ----------------------------
-		echo "Upgrading pages to the new module.<br/>";
+		$this->_output .= "Upgrading pages to the new module.<br/>";
 
 		$this->load->library('versioning');
 		$this->versioning->set_table('pages');
@@ -292,7 +312,7 @@ class Upgrade extends Controller
 	    ));
 
 		// Clear some caches
-		echo "Clearing the module cache.<br/>";
+		$this->_output .= "Clearing the module cache.<br/>";
 		$this->cache->delete_all('module_m');
 	    
 	    return FALSE; // Change this when we go live
@@ -300,14 +320,14 @@ class Upgrade extends Controller
 
 	function upgrade_0997()
 	{
-		echo 'Page titles can have longer names and slugs.<br />';
+		$this->_output .= 'Page titles can have longer names and slugs.<br />';
 		$this->db->query("ALTER TABLE `pages` CHANGE `slug` `slug` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 		$this->db->query("ALTER TABLE `pages` CHANGE `title` `title` varchar(255) collate utf8_unicode_ci NOT NULL default ''");
 
-		echo 'Removed default value from pages js field.<br />';
+		$this->_output .= 'Removed default value from pages js field.<br />';
 		$this->db->query("ALTER TABLE `pages` CHANGE `js` `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL");
 
-		echo 'Added "preview" field to photo_albums table.<br/>';
+		$this->_output .= 'Added "preview" field to photo_albums table.<br/>';
 		$this->dbforge->add_column('photo_albums', array(
 			'enable_comments' => array(
 				'type' => 'INT',
@@ -322,7 +342,7 @@ class Upgrade extends Controller
 
 	function upgrade_0996()
 	{
-		echo 'Disabling XSS cleaning for pages.<br />';
+		$this->_output .= 'Disabling XSS cleaning for pages.<br />';
 		$this->db->where('slug', 'pages');
 		$this->db->update('modules', array('skip_xss' => 1));
 
@@ -331,7 +351,7 @@ class Upgrade extends Controller
 
 	function upgrade_0995()
 	{
-		echo 'Fixed theme_layout in strict mode.<br />';
+		$this->_output .= 'Fixed theme_layout in strict mode.<br />';
 		$this->dbforge->modify_column('page_layouts', array(
 			'theme_layout' => array(
 				'name' => 'theme_layout',
@@ -347,7 +367,7 @@ class Upgrade extends Controller
 
 	function upgrade_0994()
 	{
-		echo 'Added "preview" field to photo_albums table.<br/>';
+		$this->_output .= 'Added "preview" field to photo_albums table.<br/>';
 		$this->dbforge->add_column('photo_albums', array(
 			'preview' => array(
 				'type' => 'VARCHAR',
@@ -357,13 +377,13 @@ class Upgrade extends Controller
 			),
 		));
 
-		echo 'Fixing broken TinyCIMM record in Permissions list.<br/>';
+		$this->_output .= 'Fixing broken TinyCIMM record in Permissions list.<br/>';
 		$this->db
 			->set('name', 'a:4:{s:2:"en";s:8:"TinyCIMM";s:2:"fr";s:8:"TinyCIMM";s:2:"de";s:8:"TinyCIMM";s:2:"pl";s:8:"TinyCIMM";}')
 			->where('slug', 'tinycimm')
 			->update('modules');
 
-		echo 'Added "js" field to pages table.<br/>';
+		$this->_output .= 'Added "js" field to pages table.<br/>';
 		$this->dbforge->add_column('pages', array(
 			'js' => array(
 				'type' => 'TEXT',
@@ -372,10 +392,10 @@ class Upgrade extends Controller
 			),
 		));
 
-		echo 'Clearing page cache.<br/>';
+		$this->_output .= 'Clearing page cache.<br/>';
 		$this->cache->delete_all('pages_m');
 
-		echo 'Clearing module cache.<br/>';
+		$this->_output .= 'Clearing module cache.<br/>';
 		$this->cache->delete_all('module_m');
 
 		return TRUE;
@@ -385,10 +405,10 @@ class Upgrade extends Controller
 	{
 		$this->db->where('slug', 'dashboard_rss')->update('settings', array('`default`' => 'http://feeds.feedburner.com/pyrocms-installed'));
 
-		echo 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
+		$this->_output .= 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
 		$this->db->query('ALTER TABLE permission_rules CHANGE user_id user_id int(11) NOT NULL DEFAULT 0');
 
-		echo 'Adding Twitter token fields to user profiles<br />';
+		$this->_output .= 'Adding Twitter token fields to user profiles<br />';
 		$this->dbforge->add_column('profiles', array(
 			'twitter_access_token' => array(
 				'type' => 'VARCHAR',
@@ -402,7 +422,7 @@ class Upgrade extends Controller
 			),
 		));
 
-		echo 'Adding twitter consumer key settings<br />';
+		$this->_output .= 'Adding twitter consumer key settings<br />';
 		$this->db->insert('settings', array('slug' => 'twitter_consumer_key', 'title' => 'Consumer Key', 'description' => 'Twitter Consumer Key.', 'type' => 'text', 'is_required' => 0, 'is_gui' => 1, 'module' => 'twitter'));
 		$this->db->insert('settings', array('slug' => 'twitter_consumer_key_secret', 'title' => 'Consumer Key Secret', 'description' => 'Twitter Consumer Key Secret.', 'type' => 'text', 'is_required' => 0, 'is_gui' => 1, 'module' => 'twitter'));
 
@@ -411,7 +431,7 @@ class Upgrade extends Controller
 
 	function upgrade_0992()
 	{
-		echo 'Added missing theme_layout field to page_layouts table.<br />';
+		$this->_output .= 'Added missing theme_layout field to page_layouts table.<br />';
 		$this->dbforge->add_column('page_layouts', array(
 			'theme_layout' => array(
 				'type' => 'VARCHAR',
