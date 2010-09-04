@@ -79,7 +79,117 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
-		// TODO: Convert photos to galleries
+		// ---- Upgrade Photos to Galleries -----------------
+
+		$this->load->library('encrypt');
+
+		//create the new galleries tables
+		$this->dbforge->drop_table('galleries');
+		$this->dbforge->drop_table('gallery_images');
+
+		$galleries_sql = "
+			CREATE TABLE `galleries` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `title` varchar(255) NOT NULL,
+			  `slug` varchar(255) NOT NULL,
+			  `thumbnail_id` int(11) DEFAULT NULL,
+			  `description` text,
+			  `parent` int(11) DEFAULT NULL,
+			  `updated_on` int(15) NOT NULL,
+			  `preview` varchar(255) DEFAULT NULL,
+			  `enable_comments` INT( 1 ) DEFAULT NULL,
+			  `published` INT(1) DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY `slug` (`slug`),
+			  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		";
+
+		$gallery_images_sql = "
+			CREATE TABLE `gallery_images` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `gallery_id` int(11) NOT NULL,
+			  `filename` varchar(255) NOT NULL,
+			  `extension` varchar(255) NOT NULL,
+			  `title` varchar(255) DEFAULT 'Untitled',
+			  `description` text,
+			  `uploaded_on` int(15) DEFAULT NULL,
+			  `updated_on` int(15) DEFAULT NULL,
+			  `order` INT(11) DEFAULT '0',
+			  PRIMARY KEY (`id`),
+			  KEY `gallery_id` (`gallery_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		";
+
+		if($this->db->query($galleries_sql) && $this->db->query($gallery_images_sql))
+		{
+			$photo_albums = $this->db->get('photo_albums');
+
+			// We have a shiny new galleries table, lets put something in it
+			foreach ($photo_albums->result() as $album)
+			{
+				// prep the galleries info
+				$to_insert = array(
+					'id'					=> $album->id,
+					'title'					=> $album->title,
+					'slug'					=> $album->slug,
+					'description'			=> $album->description,
+					'parent'				=> $album->parent,
+					'updated_on'			=> $album->updated_on,
+					'enable_comments'		=> $album->enable_comments,
+					'published'				=> '1'
+				 );
+
+				// Create the gallery record
+				if($this->db->insert('galleries', $to_insert))
+				{
+
+					//time for the images (woot!)
+					$photos = $this->db->get_where('photos', array('album_id' => $album->id));
+
+					foreach ($photos->result() as $photo)
+					{
+						// prep the image filenames
+						$file = explode('.', $photo->filename);
+
+						$filename = $file[0];
+
+						//create the full size image folder
+						if(!file_exists('./uploads/galleries/'.$album->slug.'/full'))
+						{
+							mkdir('./uploads/galleries/'.$album->slug.'/full', 0755, TRUE);
+						}
+						//copy image to galleries folder
+						copy('./application/assets/img/photos/'.$album->id.'/'.$file[0].'.'.$file[1], './uploads/galleries/'.$album->slug.'/full/'.$filename.'.'.$file[1]);
+
+						//create the thumbnail folder
+						if(!file_exists('./uploads/galleries/'.$album->slug.'/thumbs'))
+						{
+							mkdir('./uploads/galleries/'.$album->slug.'/thumbs', 0755, TRUE);
+						}
+						//copy thumbnail to galleries folder
+						copy('./application/assets/img/photos/'.$album->id.'/'.$file[0].'_thumb.'.$file[1], './uploads/galleries/'.$album->slug.'/thumbs/'.$filename.'.'.$file[1]);
+
+						$photo_to_insert = array(
+							'id'					=> $photo->id,
+							'gallery_id'			=> $photo->album_id,
+							'filename'				=> $filename,
+							'extension'				=> $file[1],
+							'description'			=> $photo->caption,
+							'updated_on'			=> $photo->updated_on
+						 );
+
+						$this->db->insert('gallery_images', $photo_to_insert);
+					}
+				}
+			}
+			//we got this far without erroring out, lets pull the plug on the old data
+			$this->dbforge->drop_table('photo_albums');
+			$this->dbforge->drop_table('photos');
+		}
+		// ---- / End Upgrade Photos to Galleries -----------
+
+
 
 		// ---- Permissions ---------------------------------
 
@@ -131,8 +241,10 @@ class Upgrade extends Controller
 
 				$this->module_m->install($slug, $is_core);
 
+				$path = $is_core ? APPPATH : ADDONPATH;
+
 				// Before we can install anything we need to know some details about the module
-				$details_file = $directory . 'modules/' . $slug . '/details'.EXT;
+				$details_file = $path . 'modules/' . $slug . '/details'.EXT;
 
 				// Check the details file exists
 				if (!is_file($details_file))
