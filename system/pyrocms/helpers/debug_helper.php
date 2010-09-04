@@ -42,13 +42,15 @@ function power_dump()
 	$arguments = func_get_args();
 	$total_arguments = count($arguments);
 
-	echo "<pre>".$callee['file'].' @ line: '.$callee['line'] .'<br />';
+	echo '<fieldset style="background:white url(http://www.hiarchive.co.uk/images/binfordtools.gif) 5px right no-repeat; border:2px red solid; padding:5px">';
+	echo '<legend style="background:lightgrey; padding:5px;">'.$callee['file'].' @ line: '.$callee['line'].'</legend><pre>';
 
 	foreach ($arguments as $argument)
 	{
-		echo '<br/>Debug #1 of '.$total_arguments.': ';
+		echo '<br/><strong>Debug #1 of '.$total_arguments.'</strong>: ';
 		var_dump($argument);
 	}
 
 	echo "</pre>";
+	echo "</fieldset>";
 }
