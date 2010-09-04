@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach($modules as $module): ?>
+			<?php foreach($all_modules as $module): ?>
 			<?php if($module['is_core']) continue; ?>
 				<tr>
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
@@ -64,7 +64,7 @@
 				</tr>
 			</thead>	
 			<tbody>
-			<?php foreach($modules as $module): ?>
+			<?php foreach($all_modules as $module): ?>
 			<?php if(!$module['is_core']) continue; ?>
 				<tr>
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
