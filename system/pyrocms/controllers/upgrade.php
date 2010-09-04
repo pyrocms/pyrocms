@@ -88,131 +88,10 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
-		// ---- Upgrade Photos to Galleries -----------------
-
-		$this->load->library('encrypt');
-
-		//create the new galleries tables
-		$this->dbforge->drop_table('galleries');
-		$this->dbforge->drop_table('gallery_images');
-
-		$galleries_sql = "
-			CREATE TABLE `galleries` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(255) NOT NULL,
-			  `slug` varchar(255) NOT NULL,
-			  `thumbnail_id` int(11) DEFAULT NULL,
-			  `description` text,
-			  `parent` int(11) DEFAULT NULL,
-			  `updated_on` int(15) NOT NULL,
-			  `preview` varchar(255) DEFAULT NULL,
-			  `enable_comments` INT( 1 ) DEFAULT NULL,
-			  `published` INT(1) DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `slug` (`slug`),
-			  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-		";
-
-		$gallery_images_sql = "
-			CREATE TABLE `gallery_images` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `gallery_id` int(11) NOT NULL,
-			  `filename` varchar(255) NOT NULL,
-			  `extension` varchar(255) NOT NULL,
-			  `title` varchar(255) DEFAULT 'Untitled',
-			  `description` text,
-			  `uploaded_on` int(15) DEFAULT NULL,
-			  `updated_on` int(15) DEFAULT NULL,
-			  `order` INT(11) DEFAULT '0',
-			  PRIMARY KEY (`id`),
-			  KEY `gallery_id` (`gallery_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-		";
-
-		if($this->db->query($galleries_sql) && $this->db->query($gallery_images_sql))
-		{
-			$photo_albums = $this->db->get('photo_albums');
-
-			// We have a shiny new galleries table, lets put something in it
-			foreach ($photo_albums->result() as $album)
-			{
-				// prep the galleries info
-				$to_insert = array(
-					'id'					=> $album->id,
-					'title'					=> $album->title,
-					'slug'					=> $album->slug,
-					'description'			=> $album->description,
-					'parent'				=> $album->parent,
-					'updated_on'			=> $album->updated_on,
-					'enable_comments'		=> $album->enable_comments,
-					'published'				=> '1'
-				 );
-
-				// Create the gallery record
-				if($this->db->insert('galleries', $to_insert))
-				{
-
-					//time for the images (woot!)
-					$photos = $this->db->get_where('photos', array('album_id' => $album->id));
-
-					foreach ($photos->result() as $photo)
-					{
-						// prep the image filenames
-						$file = explode('.', $photo->filename);
-
-						$filename = $file[0];
-
-						//create the full size image folder
-						if(!file_exists('./uploads/galleries/'.$album->slug.'/full'))
-						{
-							mkdir('./uploads/galleries/'.$album->slug.'/full', 0755, TRUE);
-						}
-						//copy image to galleries folder
-						copy('./application/assets/img/photos/'.$album->id.'/'.$file[0].'.'.$file[1], './uploads/galleries/'.$album->slug.'/full/'.$filename.'.'.$file[1]);
-
-						//create the thumbnail folder
-						if(!file_exists('./uploads/galleries/'.$album->slug.'/thumbs'))
-						{
-							mkdir('./uploads/galleries/'.$album->slug.'/thumbs', 0755, TRUE);
-						}
-						//copy thumbnail to galleries folder
-						copy('./application/assets/img/photos/'.$album->id.'/'.$file[0].'_thumb.'.$file[1], './uploads/galleries/'.$album->slug.'/thumbs/'.$filename.'.'.$file[1]);
-
-						$photo_to_insert = array(
-							'id'					=> $photo->id,
-							'gallery_id'			=> $photo->album_id,
-							'filename'				=> $filename,
-							'extension'				=> $file[1],
-							'description'			=> $photo->caption,
-							'updated_on'			=> $photo->updated_on
-						 );
-
-						$this->db->insert('gallery_images', $photo_to_insert);
-					}
-				}
-			}
-			//we got this far without erroring out, lets pull the plug on the old data
-			$this->dbforge->drop_table('photo_albums');
-			$this->dbforge->drop_table('photos');
-		}
-		// ---- / End Upgrade Photos to Galleries -----------
-
-
-
 		// ---- Permissions ---------------------------------
 
 		$this->dbforge->drop_table('permission_roles');
 		$this->dbforge->drop_table('permission_rules');
-
-		$this->db->query("
-			CREATE TABLE `permissions` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `group_id` int(11) NOT NULL,
-			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
-		");
 
 		// ---- / End Permissions ---------------------------
 
@@ -301,36 +180,79 @@ class Upgrade extends Controller
 
 		// ---- / End Modules --------------------------------
 
-		// ---- Files ----------------------------------------
 
-		$this->_output .= "Adding file manager tables.<br/>";
-		$this->db->query("CREATE TABLE `files` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `folder_id` int(11) NOT NULL DEFAULT '0',
-		  `user_id` int(11) NOT NULL DEFAULT '1',
-		  `type` enum('a','v','d','i','o') COLLATE utf8_unicode_ci DEFAULT NULL,
-		  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		  `extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-		  `mimetype` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		  `width` int(5) DEFAULT NULL,
-		  `height` int(5) DEFAULT NULL,
-		  `filesize` int(11) NOT NULL DEFAULT 0,
-		  `date_added` int(11) NOT NULL DEFAULT 0,
-		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+		// ---- Upgrade Photos to Galleries -----------------
+		$this->load->library('encrypt');
 
-		$this->db->query("CREATE TABLE `file_folders` (
-		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `parent_id` int(11) DEFAULT '0',
-		  `slug` varchar(100) NOT NULL,
-		  `name` varchar(50) NOT NULL,
-		  `date_added` int(11) NOT NULL,
-		  PRIMARY KEY (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+		//create the new galleries tables
+		$this->dbforge->drop_table('galleries');
+		$this->dbforge->drop_table('gallery_images');
 
-		// ---- / End Files --------------------------------
+		$photo_albums = $this->db->get('photo_albums');
+
+		// We have a shiny new galleries table, lets put something in it
+		foreach ($photo_albums->result() as $album)
+		{
+			// prep the galleries info
+			$to_insert = array(
+				'id'					=> $album->id,
+				'title'					=> $album->title,
+				'slug'					=> $album->slug,
+				'description'			=> $album->description,
+				'parent'				=> $album->parent,
+				'updated_on'			=> $album->updated_on,
+				'enable_comments'		=> $album->enable_comments,
+				'published'				=> '1'
+			 );
+
+			// Create the gallery record
+			if($this->db->insert('galleries', $to_insert))
+			{
+				//time for the images (woot!)
+				$photos = $this->db->get_where('photos', array('album_id' => $album->id));
+
+				foreach ($photos->result() as $photo)
+				{
+					// prep the image filenames
+					$file = explode('.', $photo->filename);
+
+					$filename = $file[0];
+
+					//create the full size image folder
+					if(!file_exists('./uploads/galleries/'.$album->slug.'/full'))
+					{
+						mkdir('./uploads/galleries/'.$album->slug.'/full', 0755, TRUE);
+					}
+					//copy image to galleries folder
+					copy(APPPATH.'assets/img/photos/'.$album->id.'/'.$file[0].'.'.$file[1], './uploads/galleries/'.$album->slug.'/full/'.$filename.'.'.$file[1]);
+
+					//create the thumbnail folder
+					if(!file_exists('./uploads/galleries/'.$album->slug.'/thumbs'))
+					{
+						mkdir('./uploads/galleries/'.$album->slug.'/thumbs', 0755, TRUE);
+					}
+					//copy thumbnail to galleries folder
+					copy(APPPATH.'assets/img/photos/'.$album->id.'/'.$file[0].'_thumb.'.$file[1], './uploads/galleries/'.$album->slug.'/thumbs/'.$filename.'.'.$file[1]);
+
+					$photo_to_insert = array(
+						'id'					=> $photo->id,
+						'gallery_id'			=> $photo->album_id,
+						'filename'				=> $filename,
+						'extension'				=> $file[1],
+						'description'			=> $photo->caption,
+						'updated_on'			=> $photo->updated_on
+					 );
+
+					$this->db->insert('gallery_images', $photo_to_insert);
+				}
+			}
+		}
+
+		//we got this far without erroring out, lets pull the plug on the old data
+		$this->dbforge->drop_table('photo_albums');
+		$this->dbforge->drop_table('photos');
+		// ---- / End Upgrade Photos to Galleries -----------
+
 
 		// ---- Page Conversion ----------------------------
 		$this->_output .= "Upgrading pages to the new module.<br/>";
