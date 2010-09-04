@@ -2,7 +2,7 @@
 /**
  * Admin controller for the variables module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @author 	Phil Sturgeon - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Variables Module
  * @category	Modules
@@ -48,7 +48,14 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->append_metadata( js('variables.js', 'variables') )
+				->set_partial('shortcuts', 'admin/partials/shortcuts');
+				
+		//set template layout to false if request is of ajax type
+		if($this->_is_ajax())
+		{
+			$this->template->set_layout(FALSE);
+		}
 	}
 
 	/**
@@ -81,15 +88,30 @@ class Admin extends Admin_Controller
 		{
 			if ($this->variables_m->insert($_POST))
 			{
-				$this->session->set_flashdata('success', lang('var_add_success'));
+				$message = lang('variables.add_success');
+				$status = 'success';
 			}
 			else
 			{
-				$this->session->set_flashdata('error', lang('var_add_error'));
+				$message = lang('variables.add_error');
+				$status = 'error';
 			}
 
-			// Redirect
-			redirect('admin/variables');
+			//if request is ajax return json data, otherwise do normal stuff
+			if($this->_is_ajax())
+			{
+				$json = array('status' => $status,
+					      'message' => $message
+					      );
+				echo json_encode($json);
+				return;
+			}
+			else
+			{
+				// Redirect
+				$this->session->set_flashdata($status, $message);
+				redirect('admin/variables');
+			}
 		}
 		else
 		{
@@ -101,9 +123,23 @@ class Admin extends Admin_Controller
 		}
 
 		$this->data->variable =& $variable;
-		$this->template
-			->title($this->module_data['name'],lang('variables.create_title'))
-			->build('admin/form', $this->data);
+
+		if($this->_is_ajax() && $_POST)
+		{
+			$errors = validation_errors();
+			echo json_encode(array('status' => 'error',
+						'message' => $errors
+					       )
+					 );
+		}
+		else
+		{
+			$this->template
+				->title($this->module_data['name'],lang('variables.create_title'))
+				->build('admin/form', $this->data);
+		}
+		
+		
 	}
 
 	/**
@@ -131,14 +167,30 @@ class Admin extends Admin_Controller
 		{
 			if ($this->variables_m->update($id, $_POST))
 			{
-				$this->session->set_flashdata('success', $this->lang->line('var_edit_success'));
+				$message = lang('variables.edit_success');
+				$status = 'success';
 			}
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('var_edit_error'));
+				$message = lang('variables.edit_error');
+				$status = 'error';
 			}
-
-			redirect('admin/variables/index');
+			
+			//if request is ajax return json data, otherwise do normal stuff
+			if($this->_is_ajax())
+			{
+				$json = array('status' => $status,
+					      'message' => $message
+					      );
+				echo json_encode($json);
+				return;
+			}
+			else
+			{
+				// Redirect
+				$this->session->set_flashdata($status, $message);
+				redirect('admin/variables');
+			}
 		}
 		else
 		{
@@ -153,9 +205,21 @@ class Admin extends Admin_Controller
 		}
 
 		$this->data->variable =& $variable;
-		$this->template
-			->title($this->module_data['name'],sprintf(lang('variables.edit_title'), $variable->name))
-			->build('admin/form', $this->data);
+		
+		if($this->_is_ajax() && $_POST)
+		{
+			$errors = validation_errors();
+			echo json_encode(array('status' => 'error',
+						'message' => $errors
+					       )
+					 );
+		}
+		else
+		{
+			$this->template
+				->title($this->module_data['name'],sprintf(lang('variables.edit_title'), $variable->name))
+				->build('admin/form', $this->data);
+		}
 	}
 
 	/**
@@ -218,6 +282,11 @@ class Admin extends Admin_Controller
 		{
             return TRUE;
 		}
+	}
+	
+	private function _is_ajax()
+	{
+		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') ? TRUE : FALSE;
 	}
 }
 ?>

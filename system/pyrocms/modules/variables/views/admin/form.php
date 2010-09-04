@@ -4,8 +4,8 @@
 <?php else: ?>
 	<h3><?php echo sprintf(lang('variables.edit_title'), $variable->name);?></h3>
 <?php endif; ?>
-	
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+<?php echo validation_errors(); ?>	
+<?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"'); ?>
 
 	<fieldset>
 		<ul>

@@ -28,7 +28,7 @@
 					<td><?php form_input('', printf('{pyro:variables:%s}', $variable->name));?></td>
 					<td><?php echo $variable->data;?></td>
 					<td>
-						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('variables.edit_label')) . ' | '; ?>
+						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('variables.edit_label'), 'rel="ajax"') . ' | '; ?>
 						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('variables.delete_label'), array('class'=>'confirm'));?>
 					</td>
 				</tr>
