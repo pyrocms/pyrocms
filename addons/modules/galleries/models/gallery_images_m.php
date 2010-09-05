@@ -156,6 +156,7 @@ class Gallery_images_m extends MY_Model
 	 * Update an existing image
 	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @modified by Jerel Unruh - PyroCMS Dev Team to add crop
 	 * @access public
 	 * @param int $id The ID of the image
 	 * @param array $input The data used for updating the image
@@ -175,51 +176,52 @@ class Gallery_images_m extends MY_Model
 		$thumb_path = 'uploads/galleries/' . $image->slug . '/thumbs/' 	. $image->filename 	. '_thumb.' . $image->extension;
 		
 		// Crop an existing thumbnail
-		if ( $input['thumbnail_actions'] === 'crop' )
+		if ( $input['thumb_width'] && $input['thumb_height'] > '1')
 		{
 			// Get the required values for cropping the thumbnail
-			$options['width'] 		= $input['thumb_width'];
-			$options['height']		= $input['thumb_height'];
-			$options['x_axis']		= $input['thumb_x'];
-			$options['y_axis']		= $input['thumb_y'];
-			$options['create_thumb']	= FALSE;
-			$options['maintain_ratio']	= FALSE;
+			$size_array = getimagesize($full_path);
+			$width 		= $size_array[0];
+			$height 	= $size_array[1];
+			$scaled_height		 	= $input['scaled_height'];
+			$scaled_percent			= $scaled_height/$height;
 			
-			// Crop the thumbnail
-			if ( $this->create_thumbnail('crop', $full_path, $thumb_path, $options) !== TRUE)
+			$options['width'] 			= $input['thumb_width']/$scaled_percent;
+			$options['height']			= $input['thumb_height']/$scaled_percent;
+			$options['x_axis']			= $input['thumb_x']/$scaled_percent;
+			$options['y_axis']			= $input['thumb_y']/$scaled_percent;			
+			$options['create_thumb']	= FALSE;
+			$options['maintain_ratio']	= $input['maintain_ratio'];
+			
+			// Crop the fullsize image first
+			if ($this->create_thumbnail('crop', $full_path, $full_path, $options) !== TRUE)
+			{
+				return FALSE;
+			}
+			
+			//Create a new thumbnail from the newly cropped image
+			// Is the current size larger? If so, resize to a width/height of X pixels (determined by the config file)
+			if ( $options['width'] > $this->config->item('image_thumb_width'))
+			{
+				$options['width'] = $this->config->item('image_thumb_width');
+			}
+			if ( $options['height'] > $this->config->item('image_thumb_height'))
+			{
+				$options['height'] = $this->config->item('image_thumb_height');
+			}
+					
+			// Set the thumbnail option
+			$options['create_thumb'] = TRUE;
+			$options['maintain_ratio'] = TRUE;
+					
+			//create the thumbnail
+			if ( $this->create_thumbnail('resize', $full_path, 'uploads/galleries/' . $image->slug . '/thumbs/', $options) !== TRUE )
 			{
 				return FALSE;
 			}
 		} 
 		
-		// Create a new thumbnail
-		else if ( $input['thumbnail_actions'] === 'new' )
-		{
-			// We need to figure out if the source file is larger than the dimensions defined in the config file
-			$size_array = getimagesize($full_path);
-			$width 		= $size_array[0];
-			$height 	= $size_array[1];
-			$options	= array();
-			
-			// Is the current size larger? If so, resize to a width/height of X pixels (determined by the config file)
-			if ( $width > $this->config->item('image_thumb_width'))
-			{
-				$options['width'] = $this->config->item('image_thumb_width');
-			}
-			if ( $height > $this->config->item('image_thumb_height'))
-			{
-				$options['height'] = $this->config->item('image_thumb_height');
-			}
-			
-			// Create the new thumbnail
-			if ( $this->create_thumbnail('resize', $full_path, 'uploads/galleries/' . $image->slug . '/thumbs/', $options) !== TRUE )
-			{
-				return FALSE;
-			}
-		}
-		
 		// Delete the image from the DB and the filesystem
-		else if ( $input['thumbnail_actions'] === 'delete' )
+		else if ( $input['delete'] == 1 )
 		{
 			// First we'll delete it from the DB
 			if ( parent::delete($id) )
@@ -303,12 +305,6 @@ class Gallery_images_m extends MY_Model
 			{
 				$image_conf[$key] = $option;
 			}
-		}
-		
-		// If the thumbnail already exists, delete it
-		if ( is_file($destination) )
-		{
-			unlink($destination);
 		}
 		
 		$this->image_lib->initialize($image_conf);

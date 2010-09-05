@@ -16,7 +16,7 @@ $lang['gallery_images.edit_image_label']	= 'Wijzig Afbeelding';
 $lang['gallery_images.thumbnail_label']		= 'Thumbnail';
 $lang['gallery_images.action_label']		= 'Actie';
 $lang['gallery_images.none_label']			= '-- GEEN --';
-$lang['gallery_images.crop_label']			= 'Verklein thumbnail';
+$lang['gallery_images.crop_label']			= 'Verklein Image';
 $lang['gallery_images.recreate_label']		= 'Hercre&euml;er thumbnail';
 $lang['gallery_images.delete_label']		= 'Verwijder Afbeelding';
 $lang['gallery_images.title_label']		 	= 'Titel';
@@ -24,6 +24,7 @@ $lang['gallery_images.image_label']			= 'Afbeelding';
 $lang['gallery_images.description_label']	= 'Onderschrift';
 $lang['gallery_images.gallery_label']		= 'Gallerij';
 $lang['gallery_images.no_images_label']		= 'Er zijn nog geen afbeeldingen toegevoegd.';
-
-
+$lang['gallery_images.ratio_label']			= 'Maintain Ratio'; ##translate
+$lang['gallery_images.options_label']		= 'Options:'; ##translate
+$lang['gallery_images.crop.save_label']		= 'Click Save to apply the crop'; ##translate
 ?>

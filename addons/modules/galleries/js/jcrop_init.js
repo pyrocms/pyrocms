@@ -1,25 +1,13 @@
 jQuery(document).ready(function($)
 {
-	// Turn the thumbnail URL into a full sized image URL
-	var image_url 	= $('#current_thumbnail').attr('src');
-	image_url		= image_url.replace('/thumbs/', '/full/');
-	image_url		= image_url.replace('_thumb','');
-
-	$('#thumbnail_actions').change(function()
-	{
-		// Get the specified action
-		var action = $(this).val();
-
-		if (action == 'crop')
-		{
-			// Show the preview using colorbox
-			$.colorbox({
-				'html': '<img src="' + image_url + '" id="jcrop_thumbnail" />',
-				'opacity': 0.8,
-				'overlayClose': false,
-				'onComplete': show_jcrop
-			});
-		}
+	// Show the preview using colorbox
+	$('a.colorbox').colorbox({
+		'maxHeight': '100%',
+		'photo': true,
+		'scalePhotos': true,
+		'scrolling': false,
+		'opacity': 0.8,
+		'onComplete': show_jcrop
 	});
 
 	// Function to add the height, width and position to the hidden fields
@@ -29,13 +17,18 @@ jQuery(document).ready(function($)
 		$('#thumb_height').val(c.h);
 		$('#thumb_x').val(c.x);
 		$('#thumb_y').val(c.y);
+		//get the scaled image dimensions
+		$('#scaled_height').val($('#cboxLoadedContent').height());
 	};
 	function show_jcrop()
 	{
-		$('#jcrop_thumbnail').Jcrop(
+		$('#cboxPhoto').Jcrop(
 		{
 			onSelect: show_coords,
 			onChange: show_coords
 		});
+		
+		//this shows the Options: after crop dimensions are set
+		$('.crop_options').show()
 	}
 });
