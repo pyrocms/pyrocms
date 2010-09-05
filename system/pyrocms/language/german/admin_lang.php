@@ -9,6 +9,12 @@ $lang['cp_welcome_message'] 			= 'Willkommen zur %s Admin-Oberfläche. Mit Hilfe
 
 $lang['cp_news_feed_title'] 			= 'Nachrichten';
 
+// Shortcuts
+$lang['cp_manage_comments']				= 'Kommentare bearbeiten';
+$lang['cp_manage_pages']				= 'Seiten verwalten';
+$lang['cp_manage_files']				= 'Dateien verwalten';
+$lang['cp_manage_users']				= 'Benutzer verwalten';
+
 // Header
 $lang['cp_to_home'] 					= 'Zurück zur Admin-Oberfläche';
 $lang['cp_view_frontend'] 				= 'Webseite ansehen';
