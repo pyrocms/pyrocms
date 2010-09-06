@@ -26,6 +26,9 @@ $lang['cp_nav_settings']				= 'Einstellungen';
 $lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Module';
 $lang['cp_nav_widgets']					= 'Widgets';
+$lang['cp_nav_users']					= 'Gebruikers'; #translate
+$lang['cp_nav_design']					= 'Design'; #translate
+$lang['cp_nav_content']					= 'Content'; #translate
 
 $lang['cp_must_login']	 				= 'Um diese Seite zu sehen, musst du dich anmelden.';
 $lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsrechte um diese Seite anzusehen.';
