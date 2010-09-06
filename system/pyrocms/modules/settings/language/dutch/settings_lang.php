@@ -88,4 +88,13 @@ $lang['settings_section_users']					= 'Gebruikers';
 $lang['settings_section_statistics']			= 'Statistieken';
 $lang['settings_section_twitter']				= 'Twitter';
 
+#checkbox and radio options
+$lang['settings_form_option_Open']				= 'Online';
+$lang['settings_form_option_Closed']			= 'Offline';
+$lang['settings_form_option_Enabled']			= 'Ingeschakeld';
+$lang['settings_form_option_Disabled']			= 'Uitgeschakeld';
+$lang['settings_form_option_Required']			= 'Vereist';
+$lang['settings_form_option_Optional']			= 'Optioneel';
+
+
 ?>
