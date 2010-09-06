@@ -11,9 +11,9 @@ $lang['cp_news_feed_title'] 			= 'Nieuwsfeed';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Beheer Reacties';
-$lang['cp_manage_pages']				= 'Manage Pagina&acute;s';
-$lang['cp_manage_files']				= 'Manage Bestanden';
-$lang['cp_manage_users']				= 'Manage Gebruikers';
+$lang['cp_manage_pages']				= 'Beheer Pagina&acute;s';
+$lang['cp_manage_files']				= 'Beheer Bestanden';
+$lang['cp_manage_users']				= 'Beheer Gebruikers';
 
 // Header
 $lang['cp_to_home'] 					= 'Terug naar het Dashboard';
@@ -32,6 +32,9 @@ $lang['cp_nav_settings']				= 'Instellingen';
 $lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
+$lang['cp_nav_users']					= 'Gebruikers';
+$lang['cp_nav_design']					= 'Design';
+$lang['cp_nav_content']					= 'Content';
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
