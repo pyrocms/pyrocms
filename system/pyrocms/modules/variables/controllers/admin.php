@@ -35,12 +35,12 @@ class Admin extends Admin_Controller
 		$this->validation_rules = array(
 			array(
 				'field' => 'name',
-				'label' => lang('var_name_label'),
+				'label' => lang('variables.name_label'),
 				'rules' => 'trim|required|max_length[50]|callback__check_name[0]'
 			),
 			array(
 				'field' => 'data',
-				'label' => lang('var_data_label'),
+				'label' => lang('variables.data_label'),
 				'rules' => 'trim|max_length[250]'
 			),
 		);
@@ -214,6 +214,10 @@ class Admin extends Admin_Controller
 					       )
 					 );
 		}
+		elseif($this->_is_ajax() && !$_POST)
+		{
+			$this->template->build('admin/form_inline', $this->data);
+		}
 		else
 		{
 			$this->template
@@ -245,19 +249,19 @@ class Admin extends Admin_Controller
 				}
 				else
 				{
-					$this->session->set_flashdata('error', sprintf($this->lang->line('var_mass_delete_error'), $id));
+					$this->session->set_flashdata('error', sprintf(lang('variables.mass_delete_error'), $id));
 				}
 				$to_delete++;
 			}
 
 			if( $deleted > 0 )
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('var_mass_delete_success'), $deleted, $to_delete));
+				$this->session->set_flashdata('success', sprintf(lang('variables.mass_delete_success'), $deleted, $to_delete));
 			}
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $this->lang->line('var_no_select_error'));
+			$this->session->set_flashdata('error', lang('var_no_select_error'));
 		}
 
 		// Redirect
@@ -275,12 +279,12 @@ class Admin extends Admin_Controller
 	{
 		if ($this->variables_m->check_name($id, $name))
 		{
-			$this->form_validation->set_message('_check_name', sprintf(lang('var_already_exist_error'), $name));
+			$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
 			return FALSE;
 		}
 		else
 		{
-            return TRUE;
+			return TRUE;
 		}
 	}
 	
