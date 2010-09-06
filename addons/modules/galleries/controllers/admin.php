@@ -391,7 +391,7 @@ class Admin extends Admin_Controller
 			if ( $this->gallery_images_m->update_image($id, $_POST) === TRUE)
 			{
 				// The delete action requires a different message
-				if ( $_POST['thumbnail_actions'] === 'delete' )
+				if ( $_POST['delete'] == 1 )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
 				}
@@ -405,7 +405,7 @@ class Admin extends Admin_Controller
 			else
 			{
 				// The delete action requires a different message
-				if ( $_POST['thumbnail_actions'] === 'delete' )
+				if ( $_POST['delete'] == 1 )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
 				}
@@ -415,7 +415,7 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			if ( $_POST['thumbnail_actions'] === 'delete' )
+			if ( $_POST['delete'] == 1 )
 			{
 				redirect('admin/galleries');
 			}

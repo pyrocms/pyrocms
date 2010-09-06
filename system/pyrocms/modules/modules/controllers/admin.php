@@ -40,7 +40,7 @@ class Admin extends Admin_Controller
 		
 		$this->module_m->import_unknown();
 
- 		$this->template->modules = $this->module_m->get_all(NULL, TRUE);
+ 		$this->template->all_modules = $this->module_m->get_all(NULL, TRUE);
 
 		$this->template
 			->title($this->module_data['name'])

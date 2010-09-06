@@ -16,7 +16,7 @@ $lang['gallery_images.edit_image_label'] 	= 'Modifier l\'image';
 $lang['gallery_images.thumbnail_label'] 	= 'Vignette';
 $lang['gallery_images.action_label'] 		= 'Action';
 $lang['gallery_images.none_label'] 			= '-- AUCUN --';
-$lang['gallery_images.crop_label'] 			= 'Découper la vignette';
+$lang['gallery_images.crop_label'] 			= 'Crop Image';
 $lang['gallery_images.recreate_label'] 		= 'Recréer la vignette';
 $lang['gallery_images.delete_label'] 		= 'Supprimer l\image';
 $lang['gallery_images.title_label'] 		= 'Titre';
@@ -24,4 +24,7 @@ $lang['gallery_images.image_label'] 		= 'Image';
 $lang['gallery_images.description_label'] 	= 'Légende';
 $lang['gallery_images.gallery_label'] 		= 'Galerie';
 $lang['gallery_images.no_images_label'] 	= 'Aucune image n\'a encore été ajoutée';
+$lang['gallery_images.ratio_label']			= 'Maintain Ratio'; ##translate
+$lang['gallery_images.options_label']		= 'Options:'; ##translate
+$lang['gallery_images.crop.save_label']		= 'Click Save to apply the crop'; ##translate
 ?>

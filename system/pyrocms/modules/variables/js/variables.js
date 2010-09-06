@@ -68,6 +68,13 @@
 		return false;
 	    });
 	    
+	    //handle cancel button
+	    $('a.button').live('click', function() {
+		$('#content').slideUp('normal', function() {
+			load_list();
+		});
+	    });
+	    
 	    //load index function
 	    function load_list()
 	    {
