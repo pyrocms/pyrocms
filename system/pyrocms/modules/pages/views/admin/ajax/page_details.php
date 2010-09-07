@@ -1,7 +1,3 @@
-<script>
-$(this).uniform();
-</script>
-
 <h4><?php echo $page->title; ?></h4>
 
 <input id="page-id" type="hidden" value="<?php echo $page->id; ?>" />
