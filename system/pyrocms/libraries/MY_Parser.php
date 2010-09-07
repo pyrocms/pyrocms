@@ -173,6 +173,9 @@ class MY_Parser extends CI_Parser {
 			$this->_ci->load->library('tags');
 			$this->_ci->tags->set_trigger('pyro:');
 			$parsed = $this->_ci->tags->parse($string, $data);
+			$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
+			//$parsed = $result['content'];
+
 			// END TAG SUPPORT
 
 			foreach ($this->_parser_assign_refs as $ref)
@@ -209,6 +212,158 @@ class MY_Parser extends CI_Parser {
 		}
 
 		return $parsed_string;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Callback from template parser
+	 *
+	 * @param	array
+	 * @return 	mixed
+	 */
+	public function parser_callback($data)
+	{
+		if ( ! isset($data['segments'][0]) OR ! isset($data['segments'][1]))
+		{
+			return FALSE;
+		}
+
+		// Setup our paths from the data array
+		$class = $data['segments'][0];
+		$method = $data['segments'][1];
+		$addon = strtolower($class);
+		$return_data = '';
+
+		// Get active add-ons
+		$this->_ci->load->model('modules/module_m');
+		$addons = $this->_ci->module_m->get_all();
+
+		foreach ($addons as $item)
+		{
+			// First check core addons then 3rd party
+			if ($item['is_core'] == 1)
+			{
+				$addon_path = APPPATH.'modules/'.$class.'/libraries/'.ucfirst($class).'.plugin'.EXT;
+				if ( ! file_exists($addon_path))
+				{
+					log_message('error', 'Unable to load: '.$class);
+					$return = FALSE;
+				}
+				else
+				{
+					include_once($addon_path);
+					$class_name = 'Plugin_'.$class;
+					$class_init = new $class_name;
+					$return_data = $this->_process($class_init, $method, $data);
+				}
+				break;
+			}
+			else
+			{
+				$addon_path = ADDONPATH.'modules/'.$class.'/libraries/'.$class.'.plugin'.EXT;
+				if ( ! file_exists($addon_path))
+				{
+					log_message('error', 'Unable to load: '.$class);
+					$return = FALSE;
+				}
+				else
+				{
+					// Load it up
+					include_once($addon_path);
+					$class_name = 'Plugin_'.$class;
+					$class_init = new $class_name;
+
+					// How about a language file?
+					$lang_path = ADDONPATH.'modules/'.$class.'/language/'.$this->_ci->config->item('language').'/'.$addon.'_lang'.EXT;
+					if (file_exists($lang_path))
+					{
+						$this->_ci->lang->load($addon.'/'.$addon);
+					}
+
+					// Now the fun stuff!
+					$return_data = $this->_process($class_init, $method, $data);
+				}
+				break;
+			}
+		}
+
+		if (is_array($return_data))
+		{
+			if ( ! $this->_is_multi($return_data))
+			{
+				$return_data = $this->_make_multi($return_data);
+			}
+
+			$content = $data['content'];
+			$parsed_return = '';
+			$simpletags = new Simpletags();
+			foreach ($return_data as $result)
+			{
+				$parsed = $simpletags->parse($content, $result);
+				$parsed_return .= $parsed['content'];
+			}
+			unset($simpletags);
+
+			$return_data = $parsed_return;
+		}
+
+		return $return_data;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Process
+	 *
+	 * Just process the class
+	 *
+	 * @access	private
+	 * @param	object
+	 * @param	string
+	 * @param	array
+	 * @return	mixed
+	 */
+	private function _process($class, $method, $data)
+	{
+		if (method_exists($class, $method))
+		{
+			return $class->$method($data);
+		}
+		return FALSE;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Ensure we have a multi array
+	 *
+	 * @param	array
+	 * @return 	int
+	 */
+	private function _is_multi($array)
+	{
+		return (count($array) != count($array, 1));
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Forces a standard array in multidimensional.
+	 *
+	 * @param	array
+	 * @param	int		Used for recursion
+	 * @return	array	The multi array
+	 */
+	private function _make_multi($flat, $i=0)
+	{
+	    $multi = array();
+		$return = array();
+	    foreach ($flat as $item => $value)
+	    {
+	        $return[$i][$item] = $value;
+	    }
+	    return $return;
 	}
 }
 
