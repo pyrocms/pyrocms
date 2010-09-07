@@ -32,7 +32,7 @@ $lang['cp_nav_settings']				= 'Settings';
 $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
-$lang['cp_nav_users']					= 'Gebruikers';
+$lang['cp_nav_users']					= 'Users';
 $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Content';
 
