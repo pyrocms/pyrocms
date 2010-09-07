@@ -1,8 +1,8 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['congrats']	=	'Congratulations';
-$lang['intro_text']	=	'PyroCMS is now installed and ready to go! Please log into the admin panel with the following details.';
-$lang['email']		=	'E-mail';
-$lang['password']	=	'Password';
-$lang['outro_text']	=	'Finally, <strong>delete the installer from your server</strong> as if you leave it here it can be used to hack your website.';
+$lang['congrats']   = 'Felicitaciones';
+$lang['intro_text'] = 'PyroCMS está instalado y listo para visitar! Por favor ingrese al panel de administración con la siguiente información.';
+$lang['email']      = 'E-mail';
+$lang['password']   = 'Contraseña';
+$lang['outro_text'] = 'Finalmente, <strong>elimine el instalador de su servidor</strong> pues si lo deja puede ser usado para hackear su sitio web.';
