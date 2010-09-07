@@ -98,6 +98,3 @@ $lang['settings_form_option_Enabled']			= 'Enabled';
 $lang['settings_form_option_Disabled']			= 'Disabled';
 $lang['settings_form_option_Required']			= 'Required';
 $lang['settings_form_option_Optional']			= 'Optional';
-
-?>
-
