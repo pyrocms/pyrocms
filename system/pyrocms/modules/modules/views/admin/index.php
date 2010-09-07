@@ -27,16 +27,16 @@
 					<?php if ($module['installed']): ?>
 
 						<?php if ($module['enabled']): ?>
-							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm')); ?>
+							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button')); ?>
 						<?php else: ?>
-							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm')); ?>
+							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button')); ?>
 						<?php endif; ?>
-						&nbsp;|&nbsp;
-						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
+						&nbsp;&nbsp;
+						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm button')); ?>
 
 					<?php else: ?>
 						
-						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label')); ?>
+						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm button')); ?>
 
 					<?php endif; ?>
 

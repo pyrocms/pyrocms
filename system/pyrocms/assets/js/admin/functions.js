@@ -96,7 +96,7 @@ jQuery(function($) {
 				}
 			});
 		});
-		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, button, textarea").livequery(function () {
+		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, button, textarea, a.confirm").livequery(function () {
 			$(this).uniform();
 		});
 	}
