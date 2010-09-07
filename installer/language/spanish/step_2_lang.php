@@ -1,41 +1,41 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Step 2: Check requirements';
-$lang['intro_text']		= 	'The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
+$lang['header']          = 'Paso 2: Comprobar requisitos';
+$lang['intro_text']      = 'El primer paso en el proceso de instalación es la de comprobar si su servidor soporta PyroCMS. Muchos servidores pueden tener la capacidad de ejecutarlo sin ningún problema.';
 
-$lang['server_settings']= 	'HTTP Server Settings';
-$lang['server_version']	=	'Your server software:';
-$lang['server_fail']	=	'Your server software is not supported, therefore PyroCMS may or may not work. As long as your PHP and MySQL installations are up to date PyroCMS should be able to run properly, just without clean URL\'s.';
+$lang['server_settings'] = 'Configuración del Servidor HTTP';
+$lang['server_version']  = 'Su software del servidor:';
+$lang['server_fail']     = 'Su software del servidor no está soportado, por lo tanto PyroCMS puede o no puede funcionar. En la medida que su instalación de PHP y MySQL estén actualizados PyroCMS puede ejecutarse apropiadamente, solo sin URL\'s limpios.';
 
-$lang['php_settings']	=	'PHP Settings';
-$lang['php_required']	=	'PyroCMS requires PHP version 5.0 or higher.';
-$lang['php_version']	=	'Your server is currently running version';
-$lang['php_fail']		=	'Your PHP version is not supported. PyroCMS requires PHP version 5.0 or higher to run properly.';
+$lang['php_settings']    = 'Configuración PHP';
+$lang['php_required']    = 'PyroCMS requiere PHP versión 5.0 o superior.';
+$lang['php_version']     = 'Su servidor está actualmente ejecutando versión';
+$lang['php_fail']        = 'Su versión de PHP no está suportado. PyroCMS requiere PHP versión 5.0 o superior para ejecutarse apropiadamente.';
 
-$lang['mysql_settings']	=	'MySQL Settings';
-$lang['mysql_required']	=	'PyroCMS requires access to a MySQL database running version 5.0 or higher.';
-$lang['mysql_version1']	=	'Your server is currently running';
-$lang['mysql_version2']	=	'Your client is currently running';
-$lang['mysql_fail']		=	'Your MySQL version is not supported. PyroCMS requires MySQL version 5.0 or higher to run properly.';
+$lang['mysql_settings']  = 'Configuración MySQL';
+$lang['mysql_required']  = 'PyroCMS requiere la base de datos MySQL ejecutando versión 5.0 o superior.';
+$lang['mysql_version1']  = 'Su servidor actualmente está ejecutando';
+$lang['mysql_version2']  = 'Su cliente actualmente está ejecutando';
+$lang['mysql_fail']      = 'Su versión de MySQL no está soportada. PyroCMS requiere MySQL versión 5.0 o superior para ejecutarse apropiadamente.';
 
-$lang['gd_settings']	=	'GD Settings';
-$lang['gd_required']	= 	'PyroCMS requires GD library 1.0 or higher to manipulate images.';
-$lang['gd_version']		= 	'Your server is currently running version';
-$lang['gd_fail']		=	'We cannot determine the version of the GD library. This usually means that the GD library is not installed. PyroCMS will still run properly but some of the image functions might not work. It is highly recommended to enable the GD library.';
+$lang['gd_settings']     = 'Configuración de GD';
+$lang['gd_required']     = 'PyroCMS requiere la librería GD 1.0 o superior para manipular imágenes.';
+$lang['gd_version']      = 'Su servidor actualmente está ejecutando la versión';
+$lang['gd_fail']         = 'No se puede determinar la versión de la librería GD. Esto significa que la librería GD no está instalada. PyroCMS aún puede ejecutarse apropiadamente pero algunas de las operaciones con imágenes pueden no funcionar. Es muy recomendable activar la librería GD.';
 
-$lang['summary']		=	'Summary';
+$lang['summary']         = 'Resumen';
 
-$lang['zlib']			=	'Zlib';
-$lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.';
-$lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.';
+$lang['zlib']            = 'Zlib';
+$lang['zlib_required']   = 'PyroCMS requiere Zlib para descromprimir e instalar temas.';
+$lang['zlib_fail']       = 'Zlib no puede ser encontrado. Esto generalmente significa que Zlib no está instalado. PyroCMS aún puede ejecutarse apropiadamente pero la instalación de temas no funcionará. Es muy recomendable que instale Zlib.';
 
-$lang['summary_green']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
-$lang['summary_orange']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
-$lang['summary_red']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';
-$lang['next_step']		=	'Proceed to the next step';
-$lang['step3']			=	'Step 3';
-$lang['retry']			=	'Try again';
+$lang['summary_green']   = 'Su servidor cumple todos los requisitos para que PyroCMS se ejecute apropiadamente, dirígase al próximo paso realizando un click en el siguiente botón.';
+$lang['summary_orange']  = 'Su servidor cumple <em>varios</em> de los requisitos para PyroCMS. Esto significa que PyroCMS puede ejecutarse apropiadamente pero existen posibilidades que experimente problemas con cosas tales como redimensionado de imágenes o instalaciones de módulos y temas.';
+$lang['summary_red']     = 'Al parecer su servidor falló al cumplir los requisitos para ejecutar PyroCMS. Favor contacte a su administrador del servidor o compañía de hospedaje para resolver este problema.';
+$lang['next_step']       = 'Proceder al siguiente paso';
+$lang['step3']           = 'Paso 3';
+$lang['retry']           = 'Intentar de nuevo';
 
 // messages
-$lang['step1_failure']	=	'Please fill in the required database settings in the form below..';
+$lang['step1_failure']   = 'Favor rellene la configuración de la base de datos requerida en el formulario siguiente...';

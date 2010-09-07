@@ -13,9 +13,8 @@ $lang['password']        = 'Contraseña';
 $lang['portnr']          = 'Puerto';
 $lang['server_settings'] = 'Configuración del Servidor';
 $lang['httpserver']      = 'Servidor HTTP';
+$lang['step2']           = 'Paso 2'; //¿Used?
 
 // messages
 $lang['db_success']      = 'La configuración de la base de datos fueron probadas y funcionan bien.';
 $lang['db_failure']      = 'Hay problemas conectando a la base de datos: ';
-
-// $lang['step2']='Step 2'; //¿Used?
