@@ -105,7 +105,7 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
-		$orig_content = $content;
+		$orig_content = $this->parse_globals($content, $data);
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
 
@@ -218,6 +218,40 @@ class Tags
 	// --------------------------------------------------------------------
 
 	/**
+	 * Parse Globals
+	 *
+	 * Parses global data tags.  These are tags that do not use a trigger
+	 * and have a variable in the $data array.  This enables you to use
+	 * globals inside of other tags:
+	 *
+	 * The Tag:
+	 * {tag:blog:posts offset="{offset}"}
+	 *
+	 * The data array:
+	 * array(
+	 *     'offset' => $this->uri->segment(3),
+	 * );
+	 *
+	 * @access	public
+	 * @param	string	The content to parse
+	 * @param	array	The globals
+	 * @return	string	The parsed content
+	 */
+	public function parse_globals($content, $data)
+	{
+		foreach ($data as $var => $value)
+		{
+			if ( ! is_array($value))
+			{
+				$content = str_replace('{'.$var.'}', $value, $content);
+			}
+		}
+		return $content;
+	}
+
+    // --------------------------------------------------------------------
+
+	/**
 	 * Get the data pertaining to the given single tag.
 	 *
 	 * Example Data:
@@ -239,7 +273,7 @@ class Tags
 	{
 		foreach ($tag['segments'] as $segment)
 		{
-			if ( ! isset($data[$segment]))
+			if ( ! is_array($data) OR ! isset($data[$segment]))
 			{
 				return FALSE;
 			}
@@ -283,7 +317,7 @@ class Tags
 		$return_data = '';
 		foreach ($tag['segments'] as $segment)
 		{
-			if ( ! isset($data[$segment]))
+			if ( ! is_array($data) OR ! isset($data[$segment]))
 			{
 				return FALSE;
 			}
