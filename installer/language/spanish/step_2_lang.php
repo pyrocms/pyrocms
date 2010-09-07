@@ -19,7 +19,7 @@ $lang['mysql_version1']  = 'Su servidor actualmente está ejecutando';
 $lang['mysql_version2']  = 'Su cliente actualmente está ejecutando';
 $lang['mysql_fail']      = 'Su versión de MySQL no está soportada. PyroCMS requiere MySQL versión 5.0 o superior para ejecutarse apropiadamente.';
 
-$lang['gd_settings']     = 'Configuración de GD';
+$lang['gd_settings']     = 'Configuración GD';
 $lang['gd_required']     = 'PyroCMS requiere la librería GD 1.0 o superior para manipular imágenes.';
 $lang['gd_version']      = 'Su servidor actualmente está ejecutando la versión';
 $lang['gd_fail']         = 'No se puede determinar la versión de la librería GD. Esto significa que la librería GD no está instalada. PyroCMS aún puede ejecutarse apropiadamente pero algunas de las operaciones con imágenes pueden no funcionar. Es muy recomendable activar la librería GD.';
@@ -27,7 +27,7 @@ $lang['gd_fail']         = 'No se puede determinar la versión de la librería G
 $lang['summary']         = 'Resumen';
 
 $lang['zlib']            = 'Zlib';
-$lang['zlib_required']   = 'PyroCMS requiere Zlib para descromprimir e instalar temas.';
+$lang['zlib_required']   = 'PyroCMS requiere la librería Zlib para descromprimir e instalar temas.';
 $lang['zlib_fail']       = 'Zlib no puede ser encontrado. Esto generalmente significa que Zlib no está instalado. PyroCMS aún puede ejecutarse apropiadamente pero la instalación de temas no funcionará. Es muy recomendable que instale Zlib.';
 
 $lang['summary_green']   = 'Su servidor cumple todos los requisitos para que PyroCMS se ejecute apropiadamente, dirígase al próximo paso realizando un click en el siguiente botón.';
@@ -35,7 +35,7 @@ $lang['summary_orange']  = 'Su servidor cumple <em>varios</em> de los requisitos
 $lang['summary_red']     = 'Al parecer su servidor falló al cumplir los requisitos para ejecutar PyroCMS. Favor contacte a su administrador del servidor o compañía de hospedaje para resolver este problema.';
 $lang['next_step']       = 'Proceder al siguiente paso';
 $lang['step3']           = 'Paso 3';
-$lang['retry']           = 'Intentar de nuevo';
+$lang['retry']           = 'Reintentar';
 
 // messages
 $lang['step1_failure']   = 'Favor rellene la configuración de la base de datos requerida en el formulario siguiente...';

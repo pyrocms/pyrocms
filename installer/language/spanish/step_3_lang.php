@@ -1,21 +1,21 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Step 3: Set permissions';
-$lang['intro_text']		= 	'Before PyroCMS can be installed you need to make sure that certain files and folders are writeable, these files and folders are listed below. Make sure any subfolders have the correct permissions too !';
+$lang['header']       = 'Paso 3: Establecer permisos';
+$lang['intro_text']   = 'Antes que PyroCMS pueda ser instalado se necesita asegurar que ciertos archivos y carpetas son escribibles, estos archivos y carpetas se listan a continuación. Esté seguro que cualquier subcarpeta tenga los permisos correctos también!';
 
-$lang['folder_perm']	= 	'Folder Permissions';
-$lang['folder_text']	=	'The CHMOD values of the following folders must be changed to 777 (in some cases 775 works too).';
+$lang['folder_perm']  = 'Permisos de Carpeta';
+$lang['folder_text']  = 'Los valores de CHMOD de las siguientes carpetas deben cambiarse a 777 ( en algunos casos 775 funciona también).';
 
-$lang['file_perm']		=	'File Permissions';
-$lang['file_text']		=	'The CHMOD values of the following files must be changed to 666. It\'s very important to change the file permissions of the database file <em>before</em> installing PyroCMS.';
+$lang['file_perm']    = 'Permisos de Archivo';
+$lang['file_text']    = 'Los valores de CHMOD de los siguientes archivos deben cambiarse a 666. Es muy importante cambiar el permiso del archivo de la base de datos <em>antes</em> de instalar PyroCMS.';
 
-$lang['writable']		=	'Writable';
-$lang['not_writable']	=	'Not writable';
+$lang['writable']     = 'Escribible';
+$lang['not_writable'] = 'No escribible';
 
-$lang['next_step']		=	'Proceed to the next step';
-$lang['step4']			=	'Step 4';
-$lang['retry']			=	'Try again';
+$lang['next_step']    = 'Proceder al siguiente paso';
+$lang['step4']        = 'Paso 4';
+$lang['retry']        = 'Reintentar';
 
 // messages
-$lang['step1_failure']	=	'U moet de benodigde database settings in het formulier hieronder invullen.';
+$lang['step1_failure']='U moet de benodigde database settings in het formulier hieronder invullen.'; // Used?
