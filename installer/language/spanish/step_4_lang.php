@@ -1,26 +1,26 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Step 4: Create database';
-$lang['intro_text']		=	'Complete the form below and hit the button labelled "Install" to install PyroCMS. Be sure to install PyroCMS into the right database since all existing changes will be lost!';
+$lang['header']        = 'Paso 4: Crear la Base de datos';
+$lang['intro_text']    = 'Complete el formulario siguiente y presione el botón "Instalar" para instalar PyroCMS. Esté seguro de instalar PyroCMS en la base de datos correcta puesto que todos los datos existentes se perderán!';
 
-$lang['db_settings']	=	'Database Settings';
-$lang['db_create']		=	'Create Database';
-$lang['db_notice']		=	'You might need to do this yourself';
-$lang['default_user']	=	'Default User';
-$lang['database']		=	'Database';
-$lang['user_name']		= 	'Username';
-$lang['first_name']		= 	'First name';
-$lang['last_name']		=	'Last name';
-$lang['email']			=	'Email';
-$lang['password']		= 	'Password';
-$lang['conf_password']	=	'Confirm Password';
-$lang['finish']			=	'Install';
+$lang['db_settings']   = 'Configuración de la Base de datos';
+$lang['db_create']     = 'Crear la Base de datos';
+$lang['db_notice']     = 'Puede que necesite hacer esto usted mismo';
+$lang['default_user']  = 'Usuario por omisión';
+$lang['database']      = 'Base de datos';
+$lang['user_name']     = 'Nombre de usuario';
+$lang['first_name']    = 'Nombre';
+$lang['last_name']     = 'Apellido';
+$lang['email']         = 'Email';
+$lang['password']      = 'Contraseña';
+$lang['conf_password'] = 'Confirmar contraseña';
+$lang['finish']        = 'Instalar';
 
-$lang['error_101']		=	'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.';
-$lang['error_102']		=	'The installer could not add any tables to the Database.<br/><br/>';
-$lang['error_103']		=	'The installer could not insert the data into the database.<br/><br/>';
-$lang['error_104']		=	'The installer could not create the default user.<br/><br/>';
-$lang['error_105']		=	'The database configuration file could not be written, did you cheat on the installer by skipping step 3?';
-$lang['error_106']		=	'The config file could not be written, are you sure the file has the correct permissions ?';
-$lang['success']		=	'PyroCMS has been installed successfully.';
+$lang['error_101']     = 'La base de datos no se pudo encontrar. Si solicitó al instalador crear la base de datos entonces pudo haber fallado debido a permisos incorrectos.';
+$lang['error_102']     = 'El instalador no pudo agregar las tablas a la base de datos.<br/><br/>';
+$lang['error_103']     = 'El instalador no pudo agregar los datos en la base de datos.<br/><br/>';
+$lang['error_104']     = 'El instalador no pudo crear el usuario por omisión.<br/><br/>';
+$lang['error_105']     = 'La configuración de la base de datos no pudo ser escrita, ¿Ha omitido el paso 3 del instalador?';
+$lang['error_106']     = 'El archivo de configuración no pudo ser escrito, ¿está seguro que el archivo tiene permisos correctos?';
+$lang['success']       = 'PyroCMS ha sido instalado satisfactoriamente.';
