@@ -105,7 +105,7 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
-		$orig_content = $this->parse_globals($content, $data);
+		$orig_content = $content; // $this->parse_globals($content, $data);
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
 
