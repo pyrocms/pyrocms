@@ -10,12 +10,14 @@ class Details_Files extends Module {
 			'name' => array(
 				'en' => 'Files',
 				'br' => 'Files',
-				'de' => 'Dateien'
+				'de' => 'Dateien',
+				'nl' => 'Bestanden'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
 				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
-				'de' => 'Verwalte Dateien und Verzeichnisse.'
+				'de' => 'Verwalte Dateien und Verzeichnisse.',
+				'nl' => 'Beheer bestanden en folders op uw website.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

@@ -9,11 +9,13 @@ class Details_Twitter extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Twitter',
-				'de' => 'Twitter'
+				'de' => 'Twitter',
+				'nl' => 'Twitter'
 			),
 			'description' => array(
 				'en' => 'Show twitter posts and support general Twitter integration.',
-				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.'
+				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.',
+				'nl' => 'Toont Twitter posts en ondersteunt algemene Twitter integratie.'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,

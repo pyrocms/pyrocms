@@ -32,6 +32,9 @@ $lang['cp_nav_settings']				= 'Configurações';
 $lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Módulos';
 $lang['cp_nav_widgets']					= 'Widgets';
+$lang['cp_nav_users']					= 'Gebruikers'; #translate
+$lang['cp_nav_design']					= 'Design'; #translate
+$lang['cp_nav_content']					= 'Content'; #translate
 
 $lang['cp_must_login']	 				= 'Você deve estar logado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
