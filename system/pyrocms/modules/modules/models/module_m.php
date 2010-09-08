@@ -322,39 +322,47 @@ class Module_m extends CI_Model
 	public function import_unknown()
     {
     	$modules = array();
-		
-		// Loop through modules
-		foreach (glob(ADDONPATH.'modules/*', GLOB_ONLYDIR) as $module_name)
-		{
-			$slug = basename($module_name);
 
-			// This doesnt have a valid details.php file! :o
-			if ( ! $details_class = $this->_spawn_class($slug))
+		$is_core = TRUE;
+		foreach (array(APPPATH, ADDONPATH) as $directory)
+    	{
+			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 			{
-				continue;
+				$slug = basename($module_name);
+
+				// This doesnt have a valid details.php file! :o
+				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				{
+					continue;
+				}
+
+				// Yeah yeah we know
+				if ($this->exists($slug))
+				{
+					continue;
+				}
+
+				// Get some basic info
+				$module = $details_class->info();
+
+				// Now lets set some details ourselves
+				$module['slug'] = $slug;
+				$module['version'] = $details_class->version;
+				$module['enabled'] = $is_core; // enable if core
+				$module['installed'] = $is_core; // install if core
+				$module['is_core'] = $is_core; // is core if core
+
+				// Looks like it installed ok, add a record
+				return $this->add($module);
 			}
 
-			// Yeah yeah we know
-			if ($this->exists($slug))
-			{
-				continue;
-			}
-			
-			// Get some basic info
-			$module = $details_class->info();
-
-			// Now lets set some details ourselves
-			$module['slug'] = $slug;
-			$module['version'] = $details_class->version;
-			$module['enabled'] = FALSE;
-			$module['installed'] = FALSE;
-
-			// Looks like it installed ok, add a record
-			return $this->add($module);
+			// Going back around, 2nd time is addons
+			$is_core = FALSE;
 		}
 
 		return TRUE;
 	}
+
 
 	/**
 	 * Spawn Class
