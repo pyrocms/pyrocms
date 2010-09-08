@@ -46,6 +46,13 @@ class Pages extends Public_Controller
 	 */
     public function _remap($method)
     {
+		$this->load->model('redirects/redirect_m');
+		$uri = trim(uri_string(), '/');
+		if ($redirect = $this->redirect_m->get_from($uri))
+		{
+			redirect($redirect->to);
+		}
+
     	// This page has been routed to with pages/view/whatever
     	if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
     	{
