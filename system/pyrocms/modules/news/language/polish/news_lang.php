@@ -1,12 +1,12 @@
 <?php
 
 // labels
-$lang['news_posted_label'] 							= 'Posted in'; // #translate
-$lang['news_posted_label_alt']						= 'Opublikowano '; // #translate
+$lang['news_posted_label'] 							= 'Opublikowano w';
+$lang['news_posted_label_alt']						= 'Opublikowano ';
 $lang['news_category_label'] 						= 'Kategoria';
 $lang['news_post_label'] 							= 'Post';
 $lang['news_date_label'] 							= 'Data';
-$lang['news_date_at']								= ''; // #translate
+$lang['news_date_at']								= '';
 $lang['news_time_label'] 							= 'Czas';
 $lang['news_status_label'] 							= 'Status';
 $lang['news_draft_label'] 							= 'Robocza';
@@ -47,7 +47,7 @@ $lang['news_list_title'] 							= 'Lista artykułów';
 
 // messages
 $lang['news_no_articles'] 							= 'Nie ma żadnych artykułów.';
-$lang['news_subscripe_to_rss_desc'] 				= 'Bądź na bierząco subskrybując nasz kanał RSS. Możesz to zrobić za pomocą popularnych klientów pocztowych, lub skorzystać z <a href="http://reader.google.co.uk/">Google Reader\'a</a>.';
+$lang['news_subscripe_to_rss_desc'] 				= 'Bądź na bierząco subskrybując nasz kanał RSS. Możesz to zrobić za pomocą popularnych klientów pocztowych, lub skorzystać z <a href="http://reader.google.com/">Google Reader\'a</a>.';
 $lang['news_currently_no_articles'] 				= 'W tym momencie nie ma żadnych artykułów.';
 $lang['news_article_add_success'] 					= 'Artykuł "%s" został dodany.';
 $lang['news_article_add_error'] 					= 'Wystąpił błąd.';
@@ -62,6 +62,6 @@ $lang['news_delete_error'] 							= 'Żadne artykuły nie zostały skasowane.';
 $lang['news_already_exist_error'] 					= 'Artykuł z tym adresem URL już istnieje.';
 
 $lang['news_twitter_posted'] 						= 'Opublikowany "%s" %s';
-$lang['news_twitter_error'] 						= 'Twitter Error'; #translate
+$lang['news_twitter_error'] 						= 'Błąd Twittera';
 
 ?>

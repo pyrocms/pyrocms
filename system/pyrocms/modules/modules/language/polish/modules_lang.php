@@ -1,18 +1,18 @@
 <?php
-$lang['modules.core_list']				= 'Core Modules'; #Translate
-$lang['modules.addon_list']				= 'Add-on Modules'; #Translate
+$lang['modules.core_list']				= 'Moduły rdzenia';
+$lang['modules.addon_list']				= 'Moduły dodatków';
 $lang['modules.introduction']			= 'Poniżej znajduje się lista zainstalowanych modułów oraz ich informacjami, takimi jak krótki opis oraz wersja.';
-$lang['modules.disable_error']			= 'Could not disable the module "%s".'; #Translate
-$lang['modules.disable_success']		= 'The module "%s" has been disabled.'; #Translate
-$lang['modules.enable_error']			= 'Could not enable the module "%s".'; #Translate
-$lang['modules.enable_success']			= 'The module "%s" has been enabled.'; #Translate
-$lang['modules.install_error']			= 'Could not install the module.'; #Translate
-$lang['modules.install_success']		= 'The module has been installed.'; #Translate
-$lang['modules.uninstall_error']		= 'Could not uninstall the module "%s".'; #Translate
-$lang['modules.uninstall_success']		= 'The module "%s" has been uninstalled.'; #Translate
-$lang['modules.already_exists_error']	= 'A module with the name "%s" already exists.'; #Translate
-$lang['modules.module_not_specified']	= 'You must specifiy a module.'; #Translate
+$lang['modules.disable_error']			= 'Nie można wyłączyć modułu "%s".';
+$lang['modules.disable_success']		= 'Moduł "%s" został wyłączony.';
+$lang['modules.enable_error']			= 'Nie można włączyć modułu "%s".';
+$lang['modules.enable_success']			= 'Moduł "%s" został włączony.';
+$lang['modules.install_error']			= 'Could not install the module.';
+$lang['modules.install_success']		= 'Moduł został zainstalowany.';
+$lang['modules.uninstall_error']		= 'nie można odinstalować modułu "%s".';
+$lang['modules.uninstall_success']		= 'Moduł "%s" został odinstalowany.';
+$lang['modules.already_exists_error']	= 'Moduł o nazwie "%s" już istnieje.';
+$lang['modules.module_not_specified']	= 'Musisz wybrać moduł.';
 
-$lang['modules.manually_remove']		= 'You must manually remove "%s" to completely remove the module.'; #Translate
-$lang['modules.upload_title']			= 'Upload Module'; #Translate
-$lang['modules.upload_desc']			= 'Please select a file and click Upload button'; #Translate
+$lang['modules.manually_remove']		= 'Musisz ręcznie usunąć "%s" aby w pełni usunąć ten moduł.';
+$lang['modules.upload_title']			= 'Załaduj moduł';
+$lang['modules.upload_desc']			= 'Wybierz plik modułu i kliknij Wyślij';

@@ -7,29 +7,29 @@ $lang['user_register_step2'] 	= '<strong>Krok 2:</strong> Aktywuj konto';
 $lang['user_login_header'] 		= 'Login';
 
 // titles
-$lang['user_add_title'] = 'Dodaj użytkownika';
-$lang['user_inactive_title'] = 'Nieaktywni użytkownicy';
-$lang['user_active_title'] = 'Aktywni użytkownicy';
-$lang['user_registred_title'] = 'Zarejestrowani użytkownicy';
+$lang['user_add_title'] 		= 'Dodaj użytkownika';
+$lang['user_inactive_title']	= 'Nieaktywni użytkownicy';
+$lang['user_active_title'] 		= 'Aktywni użytkownicy';
+$lang['user_registred_title'] 	= 'Zarejestrowani użytkownicy';
 
 // labels
-$lang['user_edit_title'] = 'Edytuj użytkownika "%s"';
-$lang['user_details_label'] = 'Szczegóły';
-$lang['user_first_name_label'] = 'Imię';
-$lang['user_last_name_label'] = 'Nazwisko';
-$lang['user_email_label'] = 'E-mail';
-$lang['user_group_label'] = 'Group'; #translate
-$lang['user_activate_label'] = 'Aktywuj';
-$lang['user_password_label'] = 'Hasło';
+$lang['user_edit_title'] 		= 'Edytuj użytkownika "%s"';
+$lang['user_details_label'] 	= 'Szczegóły';
+$lang['user_first_name_label']	= 'Imię';
+$lang['user_last_name_label']	= 'Nazwisko';
+$lang['user_email_label'] 		= 'E-mail';
+$lang['user_group_label'] 		= 'Grupa';
+$lang['user_activate_label'] 	= 'Aktywuj';
+$lang['user_password_label'] 	= 'Hasło';
 $lang['user_password_confirm_label'] = 'Potwierdź hasło';
-$lang['user_name_label'] = 'Nazwa';
-$lang['user_joined_label'] = 'Utworzony';
-$lang['user_last_visit_label'] = 'Ostatnia wizyta';
-$lang['user_actions_label'] = 'Akcje';
-$lang['user_never_label'] = 'Nigdy';
-$lang['user_delete_label'] = 'Usuń';
-$lang['user_edit_label'] = 'Edytuj';
-$lang['user_view_label'] = 'Podgląd';
+$lang['user_name_label'] 		= 'Nazwa';
+$lang['user_joined_label'] 		= 'Utworzony';
+$lang['user_last_visit_label'] 	= 'Ostatnia wizyta';
+$lang['user_actions_label']		= 'Akcje';
+$lang['user_never_label'] 		= 'Nigdy';
+$lang['user_delete_label'] 		= 'Usuń';
+$lang['user_edit_label'] 		= 'Edytuj';
+$lang['user_view_label'] 		= 'Podgląd';
 
 $lang['user_no_inactives'] = 'Nie ma nieaktywnych użytkowników.';
 $lang['user_no_registred'] = 'Nie ma zarejestrowanych użytkowników.';
@@ -40,12 +40,12 @@ $lang['indicates_required'] = 'Wskazuje wymagane pola';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_register_title'] = 'Zarejestruj';
-$lang['user_activate_account_title'] = 'Aktywuj konto';
-$lang['user_activate_label'] = 'Aktywuj';
-$lang['user_activated_account_title'] = 'Konto aktywowane';
-$lang['user_reset_password_title'] = 'Resetuj hasło';
-$lang['user_password_reset_title'] = 'Reset hasła';
+$lang['user_register_title'] 			= 'Zarejestruj';
+$lang['user_activate_account_title'] 	= 'Aktywuj konto';
+$lang['user_activate_label'] 			= 'Aktywuj';
+$lang['user_activated_account_title'] 	= 'Konto aktywowane';
+$lang['user_reset_password_title'] 		= 'Resetuj hasło';
+$lang['user_password_reset_title'] 		= 'Reset hasła';
 
 $lang['user_full_name'] 	= 'Imię i nazwisko';
 $lang['user_first_name'] 	= 'Imię';
@@ -79,7 +79,7 @@ $lang['user_settings_saved_error'] 		= 'Wystąpił błąd.';
 
 $lang['user_register_btn']		= 'Zarejestruj się';
 $lang['user_activate_btn']		= 'Aktywuj';
-$lang['user_reset_pass_btn']            = 'Resetuj hasło';
+$lang['user_reset_pass_btn']    = 'Resetuj hasło';
 $lang['user_login_btn'] 		= 'Zaloguj się';
 $lang['user_settings_btn'] 		= 'Zapisz ustawienia';
 
@@ -90,7 +90,7 @@ $lang['user_added_and_activated_success'] 		= 'Nowy użytkownik został utworzon
 $lang['user_added_not_activated_success'] 		= 'Nowy użytkownik został utworzony i musi aktywować swoje konta.';
 
 // Edit
-$lang['user_edit_user_not_found_error'] 		= 'Użytkownik nie znaleziony.';
+$lang['user_edit_user_not_found_error'] = 'Użytkownik nie znaleziony.';
 $lang['user_edit_success'] 				= 'Użytkownik zaktualizowany pomyślnie.';
 $lang['user_edit_error'] 				= 'Wystąpił błąd podczas aktualizowania danych użytkownika.';
 
