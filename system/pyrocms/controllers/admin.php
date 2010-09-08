@@ -8,13 +8,6 @@
 class Admin extends Admin_Controller
 {
 	/**
-	 * Validation rules
-	 *
-	 * @var array
-	 */
-	private $validation_rules = array();
-
-	/**
 	 * Constructor method
 	 *
 	 * @access public
