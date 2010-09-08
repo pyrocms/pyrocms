@@ -85,10 +85,10 @@ $lang['settings_version_desc'] 					= '';
 
 
 #section titles
-$lang['settings_section_general']				= 'Algemeen';
-$lang['settings_section_integration']			= 'Integratie';
-$lang['settings_section_users']					= 'Gebruikers';
-$lang['settings_section_statistics']			= 'Statistieken';
+$lang['settings_section_general']				= 'General';
+$lang['settings_section_integration']			= 'Integration';
+$lang['settings_section_users']					= 'Users';
+$lang['settings_section_statistics']			= 'Statistics';
 $lang['settings_section_twitter']				= 'Twitter';
 
 #checkbox and radio options
@@ -98,6 +98,3 @@ $lang['settings_form_option_Enabled']			= 'Enabled';
 $lang['settings_form_option_Disabled']			= 'Disabled';
 $lang['settings_form_option_Required']			= 'Required';
 $lang['settings_form_option_Optional']			= 'Optional';
-
-?>
-
