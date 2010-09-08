@@ -4,7 +4,7 @@
 		<section class="box">
 			<header>
 				<div class="float-right" style="margin-top: 6px;">
-					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), 'class="delete_group"') ?>
+					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), 'class="delete_group minibutton"') ?>
 				</div>
 			
 				<h3><?php echo $group->title;?></h3>
@@ -29,11 +29,11 @@
 								<td><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
 								<td><?php echo $navigation_link->title;?></td>
 								<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-								<td>
-									<span class="toggle-item">
-									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'));?> | 
-									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm'));?>
-									</span>
+								<td width="180" align="right">
+                                	<span class="toggle-item">
+									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'), array('class'=>'minibutton'));?>  
+									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm minibutton'));?>
+                                    </span>
 								</td>
 							</tr>
 							<?php endforeach; ?>	

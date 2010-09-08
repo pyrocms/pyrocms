@@ -13,7 +13,7 @@
 		<tr>
 			<td><?php echo $group->title; ?></td>
 			<td>
-				<?php echo anchor('admin/permissions/group/' . $group->id, lang('permissions.edit')); ?>
+				<?php echo anchor('admin/permissions/group/' . $group->id, lang('permissions.edit'), array('class'=>'minibutton')); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>
