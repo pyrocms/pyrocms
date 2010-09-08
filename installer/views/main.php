@@ -15,6 +15,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/gb.gif" alt="english" />
 		</a>
 	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/spanish'); ?>" title="spanish">
+			<img src="<?php echo base_url(); ?>assets/images/flags/es.gif" alt="spànish" />
+		</a>
+	</li>
 
 </ul>
 <h2>{header}</h2>
