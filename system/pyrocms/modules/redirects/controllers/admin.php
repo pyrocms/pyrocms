@@ -23,6 +23,7 @@ class Admin extends Admin_Controller
 		$this->load->model('redirect_m');
 		$this->lang->load('redirects');
 
+		// Validation rules
 		$this->validation_rules = array(
 			array(
 				'field' => 'from',
