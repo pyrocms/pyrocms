@@ -1,12 +1,12 @@
 <?php
 
 $lang['comments.title'] 					= 'Komentarze';
-$lang['comments.your_comment'] 				= 'Wyślij post';
+$lang['comments.your_comment'] 				= 'Wyślij komentarz';
 $lang['comments.user_comments'] 			= 'Komentarze użytkowników';
 
-$lang['comments.list_comment'] 				= '%s commented on %s saying:';
-$lang['comments.recent_comments'] 			= 'Recent comments';
-$lang['comments.view_more'] 				= 'View more...';
+$lang['comments.list_comment'] 				= '%s skomentował(a) wpis %s tymi słowami:';
+$lang['comments.recent_comments'] 			= 'Ostatnie komentarze';
+$lang['comments.view_more'] 				= 'Zobacz więcej...';
 
 // labels
 $lang['comments.name_label'] 				= 'Nazwa';
@@ -18,7 +18,7 @@ $lang['comments.activate_label'] 			= 'Zatwierdź';
 $lang['comments.deactivate_label'] 			= 'Odmów';
 $lang['comments.author_label'] 				= 'Autor';
 $lang['comments.module_label'] 				= 'Moduł';
-$lang['comments.item_label'] 				= 'Item'; #translate
+$lang['comments.item_label'] 				= 'Numer';
 $lang['comments.date_label'] 				= 'Data';
 $lang['comments.actions_label'] 			= 'Akcje';
 $lang['comments.edit_label'] 				= 'Edycja';

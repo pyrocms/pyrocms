@@ -16,11 +16,15 @@
 		</a>
 	</li>
 	<li>
+		<a href="<?php echo site_url('installer/change/polish'); ?>" title="polish">
+			<img src="<?php echo base_url(); ?>assets/images/flags/pl.gif" alt="polish" />
+		</a>
+	</li>
+	<li>
 		<a href="<?php echo site_url('installer/change/spanish'); ?>" title="spanish">
 			<img src="<?php echo base_url(); ?>assets/images/flags/es.gif" alt="spànish" />
 		</a>
 	</li>
-
 </ul>
 <h2>{header}</h2>
 
