@@ -10,13 +10,13 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 $lang['page_layouts.updated_label'] 				= 'Mis à jour';
 $lang['page_layouts.actions_label'] 				= 'Actions';
 $lang['page_layouts.title_label'] 					= 'Titre';
-$lang['page_layouts.theme_layout_label'] 		= 'Theme Layout'; #translate
+$lang['page_layouts.theme_layout_label'] 		= 'Gabarit du theme';
 
 $lang['page_layouts.edit_label'] 					= 'Editer';
 $lang['page_layouts.delete_label'] 					= 'Supprimer';
 
 // titles
-$lang['page_layouts.list_title'] 					= 'List page layouts'; //Needs to be translated
+$lang['page_layouts.list_title'] 					= 'Listes les gabarits';
 $lang['page_layouts.create_title'] 					= 'Ajouter un modèle';
 $lang['page_layouts.edit_title'] 					= 'Editer le modèle "%s"';
 
@@ -25,7 +25,7 @@ $lang['page_layouts.no_pages'] 						= 'Il n`\'y a pas de modèles.';
 $lang['page_layouts.create_success'] 				= 'Le modèle a étét créé';
 $lang['page_layouts.create_error'] 					= 'Le modèle n\'a pas été créé.';
 $lang['page_layouts.page_layout.not_found_error']	= 'Ce modèle n\'existe pas.';
-$lang['page_layouts.edit_success'] 					= 'Le modèle "%s" a été enregistrée.';
+$lang['page_layouts.edit_success'] 					= 'Le modèle "%s" a été enregistré.';
 $lang['page_layouts.delete_home_error'] 			= 'Vous ne pouvez pas supprimer le modèle par défaut.';
 $lang['page_layouts.delete_success']				= 'Le modèle #%s a été supprimé.';
 $lang['page_layouts.mass_delete_success'] 			= '%s modèles ont été supprimés.';

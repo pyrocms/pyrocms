@@ -10,10 +10,10 @@ $lang['cp_welcome_message'] 			= 'Bienvenue dans le panneau de contrôle de %s. 
 $lang['cp_news_feed_title'] 			= 'Flux d\'actualités';
 
 // Shortcuts
-$lang['cp_manage_comments']				= 'Manage Comments'; #translate
-$lang['cp_manage_pages']				= 'Manage Pages'; #translate
-$lang['cp_manage_files']				= 'Manage Files'; #translate
-$lang['cp_manage_users']				= 'Manage Users'; #translate
+$lang['cp_manage_comments']				= 'Gérer les commentaires';
+$lang['cp_manage_pages']				= 'Gérer les pages';
+$lang['cp_manage_files']				= 'Gérer les fichiers';
+$lang['cp_manage_users']				= 'Gérer les utilisateurs';
 
 // header
 $lang['cp_to_home'] 					= 'Retour au panneau de contrôle';
@@ -29,14 +29,14 @@ $lang['cp_report_bug'] 					= 'Signaler un bug';
 $lang['cp_contact_support'] 			= 'Support';
 
 $lang['cp_nav_settings']				= 'Paramètres';
-$lang['cp_nav_addons']					= 'Add-ons'; #translate
+$lang['cp_nav_addons']					= 'Extensions';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
-$lang['cp_nav_users']					= 'Gebruikers'; #translate
-$lang['cp_nav_design']					= 'Design'; #translate
-$lang['cp_nav_content']					= 'Content'; #translate
+$lang['cp_nav_users']					= 'Utilisateurs';
+$lang['cp_nav_design']					= 'Design';
+$lang['cp_nav_content']					= 'Contenu';
 
-$lang['cp_must_login']	 				= 'You must be logged in to view this page.'; #translate
+$lang['cp_must_login']	 				= 'Vous devz être identifié pour voir cette page.';
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
 $lang['cp_delete_installer_message']	= 'Supprimez le répertoire "installer" de votre serveur. Le garder pourrait permettre à un tiers de prendre le contrôle de votre site.';
 $lang['cp_upgrade_message']				= 'Vous utilisez la version %s, mais votre base de données a pour version %s. Merci de <a href="%s">cliquer ici</a> pour mettre à jour votre base de données.';
