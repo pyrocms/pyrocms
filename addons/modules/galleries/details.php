@@ -10,12 +10,14 @@ class Details_Galleries extends Module {
 			'name' => array(
 				'en' => 'Galleries',
 				'de' => 'Galerien',
-				'nl' => 'Galerijen'
+				'nl' => 'Galerijen',
+				'fr' => 'Galeris'
 			),
 			'description' => array(
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
-				'nl' => 'De gallerij module is een krachtige module dat gebruikers in staat stelt gallerijen te plaatsen.'
+				'nl' => 'De gallerij module is een krachtige module dat gebruikers in staat stelt gallerijen te plaatsen.',
+				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
