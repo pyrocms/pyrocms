@@ -21,6 +21,8 @@ class Details_Redirects extends Module {
 
 	public function install()
 	{
+		$this->dbforge->drop_table('redirects');
+		
 		$revisions = "
 			CREATE TABLE `redirects` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
