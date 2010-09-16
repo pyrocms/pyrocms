@@ -4,6 +4,7 @@
  * The galleries module enables users to create albums, upload photos and manage their existing albums.
  *
  * @author 		Yorick Peterse - PyroCMS Dev Team
+ * @modified	Jerel Unruh - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Gallery Module
  * @category 	Modules
@@ -74,8 +75,7 @@ class Gallery_images_m extends MY_Model
 				
 		if ( $query->num_rows() > 0 )
 		{
-			$result = $query->result();
-			return $result[0];
+			return $query->row();
 		}
 		else
 		{
@@ -97,9 +97,10 @@ class Gallery_images_m extends MY_Model
 		$gallery = $this->db->select('slug')
 							->from('galleries')
 							->where('id', $input['gallery_id'])
-							->get();
-		$gallery 		= $gallery->result();
-		$gallery_slug 	= $gallery[0]->slug;
+							->get()
+							->row();
+
+		$gallery_slug 	= $gallery->slug;
 		
 		// First we need to upload the image to the server
 		$upload_conf['upload_path'] 	= 'uploads/galleries/' . $gallery_slug . '/full';
@@ -127,13 +128,12 @@ class Gallery_images_m extends MY_Model
 			}
 			
 			// Great, time to create a thumbnail
-			if ( $this->create_thumbnail('resize', $source, $destination, $options) === TRUE )
+			if ( $this->resize('resize', $source, $destination, $options) === TRUE )
 			{
 				// Image has been uploaded, thumbnail has been created, time to add it to the DB!
-				$file 					 = split('\.', $uploaded_data['file_name']);
 				$to_insert['gallery_id'] = $input['gallery_id'];
-				$to_insert['filename']	 = $file[0];
-				$to_insert['extension']	 = $file[1];
+				$to_insert['filename']	 = $uploaded_data['raw_name'];
+				$to_insert['extension']	 = $uploaded_data['file_ext'];
 				$to_insert['title']		 = $input['title'];
 				$to_insert['description']= $input['description'];
 				$to_insert['uploaded_on']= time();
@@ -168,12 +168,11 @@ class Gallery_images_m extends MY_Model
 		$image = $this->db->from('gallery_images')
 						  ->join('galleries', 'gallery_images.gallery_id = galleries.id')
 						  ->where('gallery_images.id', $id)
-						  ->get();
-		$image = $image->result();
-		$image = $image[0];
+						  ->get()
+						  ->row();
 		// Set the paths
-		$full_path 	= 'uploads/galleries/' . $image->slug . '/full/' 	. $image->filename 	. '.' 		. $image->extension;	
-		$thumb_path = 'uploads/galleries/' . $image->slug . '/thumbs/' 	. $image->filename 	. '_thumb.' . $image->extension;
+		$full_path 	= 'uploads/galleries/' . $image->slug . '/full/' 	. $image->filename . $image->extension;	
+		$thumb_path = 'uploads/galleries/' . $image->slug . '/thumbs/' 	. $image->filename 	. '_thumb' . $image->extension;
 		
 		// Crop an existing thumbnail
 		if ( $input['thumb_width'] && $input['thumb_height'] > '1')
@@ -193,7 +192,7 @@ class Gallery_images_m extends MY_Model
 			$options['maintain_ratio']	= $input['maintain_ratio'];
 			
 			// Crop the fullsize image first
-			if ($this->create_thumbnail('crop', $full_path, $full_path, $options) !== TRUE)
+			if ($this->resize('crop', $full_path, $full_path, $options) !== TRUE)
 			{
 				return FALSE;
 			}
@@ -214,7 +213,7 @@ class Gallery_images_m extends MY_Model
 			$options['maintain_ratio'] = TRUE;
 					
 			//create the thumbnail
-			if ( $this->create_thumbnail('resize', $full_path, 'uploads/galleries/' . $image->slug . '/thumbs/', $options) !== TRUE )
+			if ( $this->resize('resize', $full_path, 'uploads/galleries/' . $image->slug . '/thumbs/', $options) !== TRUE )
 			{
 				return FALSE;
 			}
@@ -281,9 +280,9 @@ class Gallery_images_m extends MY_Model
 	 * @param array $options Optional array that may contain data such as the new width, height, etc
 	 * @return bool
 	 */
-	public function create_thumbnail($mode, $source, $destination, $options = array())
+	public function resize($mode, $source, $destination, $options = array())
 	{		
-		// Time to resize the thumbnail
+		// Time to resize the image
 		$image_conf['image_library'] 	= 'gd2';
 		$image_conf['source_image']  	= $source;
 		
