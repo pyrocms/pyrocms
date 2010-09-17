@@ -28,6 +28,7 @@
 					<li class="even">
 						<label for="title"><?php echo lang('page_layouts.title_label');?></label>
 						<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>

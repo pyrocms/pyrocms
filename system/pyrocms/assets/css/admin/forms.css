@@ -49,6 +49,10 @@ form.crud div.selector {
 form.crud div.checker {
 	margin-right: 0;
 }
+/** file upload element **/
+form.crud ul li div.uploader {
+	width: 190px;
+}
 /** helper text **/
 form.crud li p, .text-small1 {
 	color: #7E7E7E;
