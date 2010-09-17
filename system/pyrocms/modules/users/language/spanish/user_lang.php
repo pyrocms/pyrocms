@@ -9,7 +9,7 @@ $lang['user_login_header'] 		= 'Login';
 // titles
 $lang['user_add_title'] 			= 'Crear usuario';
 $lang['user_inactive_title'] 		= 'Usuarios inactivos';
-$lang['user_active_title'] 		= 'Activar usuarios';
+$lang['user_active_title'] 		= 'Usuarios activos';
 $lang['user_registred_title'] 	= 'Usuarios registrados';
 
 // labels

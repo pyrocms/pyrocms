@@ -79,7 +79,7 @@
 					</li>
 					<li class="even">
 						<label for="meta_description"><?php echo lang('pages.meta_desc_label');?></label>
-						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
+						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5, 'style' => "margin-left: 160px;")); ?>
 					</li>
 				</ul>
 
@@ -96,7 +96,7 @@
 
 					<li>
 						<label for="css"><?php echo lang('pages.css_label');?></label>
-						<div class="float-right">
+						<div style="margin-left: 160px;">
 							<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
 						</div>
 					</li>
@@ -112,7 +112,7 @@
 				<ul>
 					<li>
 						<label for="js"><?php echo lang('pages.js_label');?></label>
-						<div class="float-right">
+						<div style="margin-left: 160px;">
 							<?php echo form_textarea('js', $page->js, 'id="js_editor"'); ?>
 						</div>
 					</li>
@@ -133,7 +133,7 @@
 					<li class="even">
 						<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 						<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>
-						<p><?php echo lang('pages.rss_explanation'); ?></p>
+						<p style="margin-left: 160px;"><?php echo lang('pages.rss_explanation'); ?></p>
 					</li>
 				</ul>
 

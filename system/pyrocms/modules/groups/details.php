@@ -34,8 +34,8 @@ class Details_Groups extends Module {
 		$groups = "
 			CREATE TABLE IF NOT EXISTS `groups` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-			  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
 			  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
