@@ -15,11 +15,12 @@ form.crud li.even {
 }
 /** group labels and input **/
 form.crud label {
-	display: block;
+	display: inline-block;
 	float: left;
 	font-weight: bold;
 	font-size: 11px;
-	width: 33%;
+	width: 140px;
+	min-width: 10em;
 	margin-right: 15px;
 	padding: .35em 0;
 	color: #545454;
@@ -27,7 +28,9 @@ form.crud label {
 	
 }
 fieldset ol li div, fieldset ul li div, form.crud ul li div {
-	width: 75%;
+	//width: 75%;
+	//max-width: 75%;
+	//min-width: 25%;
 }
 
 /** text input **/
