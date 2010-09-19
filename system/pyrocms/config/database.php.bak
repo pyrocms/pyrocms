@@ -35,7 +35,7 @@
 $db['local']['hostname'] = "localhost";
 $db['local']['username'] = "root";
 $db['local']['password'] = "";
-$db['local']['database'] = "pyro";
+$db['local']['database'] = "pyrocms";
 $db['local']['dbdriver'] = "mysql";
 $db['local']['dbprefix'] = "";
 $db['local']['stricton'] = TRUE;
@@ -63,7 +63,7 @@ $db['local']['stricton'] = TRUE;
 $db['live']['hostname'] = "localhost";
 $db['live']['username'] = "root";
 $db['live']['password'] = "";
-$db['live']['database'] = "pyro";
+$db['live']['database'] = "pyrocms";
 $db['live']['dbdriver'] = "mysql";
 $db['live']['dbprefix'] = "";
 $db['live']['stricton'] = TRUE;

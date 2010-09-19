@@ -67,8 +67,7 @@
 			
 			<div class="widget-box-body">
 				<p class="description"><?php echo $widget->description; ?></p>
-				<p class="author"><?php echo lang('widgets.widget_author').': '.$widget->author; ?>
-				<br /><?php echo anchor($widget->website); ?></p>
+				<p class="author"><?php echo lang('widgets.widget_author').': '.($widget->website ? anchor($widget->website, $widget->author) : $widget->author); ?>
 			</div>
 		</section>
 		<?php endforeach; ?>

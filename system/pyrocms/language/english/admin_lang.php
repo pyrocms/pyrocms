@@ -9,6 +9,12 @@ $lang['cp_welcome_message'] 			= 'Welcome to the %s Control Panel. Using the lin
 
 $lang['cp_news_feed_title'] 			= 'News feed';
 
+// Shortcuts
+$lang['cp_manage_comments']				= 'Manage Comments';
+$lang['cp_manage_pages']				= 'Manage Pages';
+$lang['cp_manage_files']				= 'Manage Files';
+$lang['cp_manage_users']				= 'Manage Users';
+
 // Header
 $lang['cp_to_home'] 					= 'Back to the Dashboard';
 $lang['cp_view_frontend'] 				= 'View website';

@@ -7,7 +7,7 @@
  * Show RSS feeds in your site
  */
 
-class Archive extends Widgets
+class Widget_Archive extends Widgets
 {
 	public $title = 'Archive';
 	public $description = 'Display a list of old months with links to articles in those months.';

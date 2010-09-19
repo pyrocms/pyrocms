@@ -7,7 +7,7 @@
  * Show RSS feeds in your site
  */
 
-class Rss_feed extends Widgets
+class Widget_Rss_feed extends Widgets
 {
 	public $title = 'RSS Feed';
 	public $description = 'Display parsed RSS feeds on your websites.';
@@ -44,13 +44,13 @@ class Rss_feed extends Widgets
 	}
 	
 	/*
-	public function prep_form()
+	public function form()
 	{
 		return array('test' => 'thing'); // $test = thing in form.php
 	}
 	*/
 	
-	public function prep_options($options)
+	public function save($options)
 	{
 		$this->load->helper('url');
 		

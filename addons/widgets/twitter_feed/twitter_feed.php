@@ -7,7 +7,7 @@
  * Show Twitter streams in your site
  */
 
-class Twitter_feed extends Widgets
+class Widget_Twitter_feed extends Widgets
 {
 	public $title = 'Twitter Feed';
 	public $description = 'Display Twitter feeds on your websites.';

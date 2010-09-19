@@ -7,7 +7,7 @@
  * Show RSS feeds in your site
  */
 
-class Navigation extends Widgets
+class Widget_Navigation extends Widgets
 {
 	public $title = 'Navigation';
 	public $description = 'Display a navigation group with a widget.';
@@ -23,7 +23,7 @@ class Navigation extends Widgets
 		)
 	);
 
-	public function prep_form()
+	public function form()
 	{
 		$this->load->model('navigation/navigation_m');
 
