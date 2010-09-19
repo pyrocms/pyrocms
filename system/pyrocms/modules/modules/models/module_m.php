@@ -44,7 +44,7 @@ class Module_m extends CI_Model
 			'skip_xss' => NULL,
 			'is_frontend' => NULL,
 			'is_backend' => NULL,
-			'is_backend_menu' => NULL,
+			'menu' => FALSE,
 			'enabled' => 1,
 			'is_core' => NULL
 		);
@@ -81,7 +81,7 @@ class Module_m extends CI_Model
 				'skip_xss' => $result->skip_xss,
 				'is_frontend' => $result->is_frontend,
 				'is_backend' => $result->is_backend,
-				'is_backend_menu' => $result->is_backend_menu,
+				'menu' => $result->menu,
 				'enabled' => $result->enabled,
 				'is_core' => $result->is_core
 			);
@@ -109,7 +109,7 @@ class Module_m extends CI_Model
 			'skip_xss' => !empty($module['skip_xss']),
 			'is_frontend' => !empty($module['frontend']),
 			'is_backend' => !empty($module['backend']),
-			'is_backend_menu' => !empty($module['menu']),
+			'menu' => !empty($module['menu']) ? $module['menu'] : FALSE,
 			'enabled' => !empty($module['enabled']),
 			'installed' => !empty($module['installed']),
 			'is_core' => !empty($module['is_core'])
@@ -162,7 +162,7 @@ class Module_m extends CI_Model
 		// We have some parameters for the list of modules we want
 		if ($params) foreach ($params as $field => $value)
 		{
-			if (in_array($field, array('is_frontend', 'is_backend', 'is_backend_menu', 'is_core')))
+			if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core')))
 			$this->db->where($field, $value);
 		}
 
@@ -188,7 +188,7 @@ class Module_m extends CI_Model
 				'skip_xss' => $result->skip_xss,
 				'is_frontend' => $result->is_frontend,
 				'is_backend' => $result->is_backend,
-				'is_backend_menu' => $result->is_backend_menu,
+				'menu' => $result->menu,
 				'enabled' => $result->enabled,
 				'installed' => $result->installed,
 				'is_core' => $result->is_core
@@ -322,39 +322,47 @@ class Module_m extends CI_Model
 	public function import_unknown()
     {
     	$modules = array();
-		
-		// Loop through modules
-		foreach (glob(ADDONPATH.'modules/*', GLOB_ONLYDIR) as $module_name)
-		{
-			$slug = basename($module_name);
 
-			// This doesnt have a valid details.php file! :o
-			if ( ! $details_class = $this->_spawn_class($slug))
+		$is_core = TRUE;
+		foreach (array(APPPATH, ADDONPATH) as $directory)
+    	{
+			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 			{
-				continue;
+				$slug = basename($module_name);
+
+				// This doesnt have a valid details.php file! :o
+				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				{
+					continue;
+				}
+
+				// Yeah yeah we know
+				if ($this->exists($slug))
+				{
+					continue;
+				}
+
+				// Get some basic info
+				$module = $details_class->info();
+
+				// Now lets set some details ourselves
+				$module['slug'] = $slug;
+				$module['version'] = $details_class->version;
+				$module['enabled'] = $is_core; // enable if core
+				$module['installed'] = $is_core; // install if core
+				$module['is_core'] = $is_core; // is core if core
+
+				// Looks like it installed ok, add a record
+				return $this->add($module);
 			}
 
-			// Yeah yeah we know
-			if ($this->exists($slug))
-			{
-				continue;
-			}
-			
-			// Get some basic info
-			$module = $details_class->info();
-
-			// Now lets set some details ourselves
-			$module['slug'] = $slug;
-			$module['version'] = $details_class->version;
-			$module['enabled'] = FALSE;
-			$module['installed'] = FALSE;
-
-			// Looks like it installed ok, add a record
-			return $this->add($module);
+			// Going back around, 2nd time is addons
+			$is_core = FALSE;
 		}
 
 		return TRUE;
 	}
+
 
 	/**
 	 * Spawn Class
@@ -382,10 +390,10 @@ class Module_m extends CI_Model
 		include_once $details_file;
 
 		// Now call the details class
-		$class = ucfirst($slug).'_details';
+		$class = 'Details_'.ucfirst($slug);
 
 		// Now we need to talk to it
-		return new $class;
+		return class_exists($class) ? new $class : FALSE;
 	}
 
 }

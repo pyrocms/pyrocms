@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Twitter_details extends Module {
+class Details_Twitter extends Module {
 
 	public $version = '0.2';
 
@@ -9,11 +9,13 @@ class Twitter_details extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Twitter',
-				'de' => 'Twitter'
+				'de' => 'Twitter',
+				'nl' => 'Twitter'
 			),
 			'description' => array(
 				'en' => 'Show twitter posts and support general Twitter integration.',
-				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.'
+				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.',
+				'nl' => 'Toont Twitter posts en ondersteunt algemene Twitter integratie.'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,

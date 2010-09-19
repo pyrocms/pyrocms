@@ -1,4 +1,4 @@
-<?php if($method == 'create'): ?>
+<?php if ($this->method == 'create'): ?>
 <h3><?php echo lang('page_layouts.create_title');?></h3>
 <?php else: ?>
 <h3><?php echo sprintf(lang('page_layouts.edit_title'), $page_layout->title);?></h3>
@@ -28,6 +28,7 @@
 					<li class="even">
 						<label for="title"><?php echo lang('page_layouts.title_label');?></label>
 						<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>

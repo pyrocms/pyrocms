@@ -79,8 +79,8 @@
 					<?php if ( $gallery_images !== FALSE ): ?>
 					<?php foreach ( $gallery_images as $image ): ?>
 					<li>
-						<a href="<?php echo site_url('admin/galleries/edit_image/' . $image->id); ?>" title="<?php echo "File: " . $image->filename . '.' . $image->extension . " \n Title: " . $image->title; ?>">
-							<img src="<?php echo site_url('uploads/galleries/' . $image->slug . '/thumbs/' . $image->filename . '_thumb.' . $image->extension);?>" alt="<?php echo $image->title; ?>" />
+						<a href="<?php echo site_url('admin/galleries/edit_image/' . $image->id); ?>" title="<?php echo "File: " . $image->filename . $image->extension . " \n Title: " . $image->title; ?>">
+							<img src="<?php echo site_url('uploads/galleries/' . $image->slug . '/thumbs/' . $image->filename . '_thumb' . $image->extension);?>" alt="<?php echo $image->title; ?>" />
 							<?php echo form_hidden('action_to[]', $image->id); ?>
 						</a>
 					</li>

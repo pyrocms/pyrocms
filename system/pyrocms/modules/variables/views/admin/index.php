@@ -8,8 +8,8 @@
 			<tr>
 				<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th><?php echo lang('variables.name_label');?></th>
-				<th><?php echo lang('variables.syntax_label');?></th>
 				<th><?php echo lang('variables.data_label');?></th>
+				<th><?php echo lang('variables.syntax_label');?></th>
 				<th class="width-10"><span><?php echo lang('variables.actions_label');?></span></th>
 			</tr>
 			</thead>
@@ -25,10 +25,10 @@
 				<tr>
 					<td><?php echo form_checkbox('action_to[]', $variable->id); ?></td>
 					<td><?php echo $variable->name;?></td>
-					<td><?php form_input('', printf('{pyro:variables:%s}', $variable->name));?></td>
 					<td><?php echo $variable->data;?></td>
+					<td><?php form_input('', printf('{pyro:variables:%s}', $variable->name));?></td>
 					<td>
-						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('variables.edit_label')) . ' | '; ?>
+						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('variables.edit_label'), 'rel="ajax-eip"') . ' | '; ?>
 						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('variables.delete_label'), array('class'=>'confirm'));?>
 					</td>
 				</tr>

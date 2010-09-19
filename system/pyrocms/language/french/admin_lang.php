@@ -9,6 +9,12 @@ $lang['cp_welcome_message'] 			= 'Bienvenue dans le panneau de contrôle de %s. 
 
 $lang['cp_news_feed_title'] 			= 'Flux d\'actualités';
 
+// Shortcuts
+$lang['cp_manage_comments']				= 'Manage Comments'; #translate
+$lang['cp_manage_pages']				= 'Manage Pages'; #translate
+$lang['cp_manage_files']				= 'Manage Files'; #translate
+$lang['cp_manage_users']				= 'Manage Users'; #translate
+
 // header
 $lang['cp_to_home'] 					= 'Retour au panneau de contrôle';
 $lang['cp_view_frontend'] 				= 'Visualiser le Site';
@@ -23,11 +29,12 @@ $lang['cp_report_bug'] 					= 'Signaler un bug';
 $lang['cp_contact_support'] 			= 'Support';
 
 $lang['cp_nav_settings']				= 'Paramètres';
+$lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Modules';
-$lang['cp_nav_edit_settings']			= 'Mise à jour des paramètres';
-$lang['cp_nav_themes']					= 'Thèmes';
-$lang['cp_nav_permissions']				= 'Autorisations';
-$lang['cp_nav_variables']				= 'Variables';
+$lang['cp_nav_widgets']					= 'Widgets';
+$lang['cp_nav_users']					= 'Gebruikers'; #translate
+$lang['cp_nav_design']					= 'Design'; #translate
+$lang['cp_nav_content']					= 'Content'; #translate
 
 $lang['cp_must_login']	 				= 'You must be logged in to view this page.'; #translate
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
@@ -39,5 +46,3 @@ $lang['cp_sidebar_title'] 				= 'Menu';
 
 $lang['required_label'] 				= 'Requis';
 $lang['sb_recent_users'] 				= 'Utilisateurs récents';
-
-?>

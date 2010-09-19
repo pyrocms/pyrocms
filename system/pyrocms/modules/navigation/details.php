@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Navigation_details extends Module {
+class Details_Navigation extends Module {
 
 	public $version = '1.0';
 	
@@ -27,11 +27,7 @@ class Navigation_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'create', 'edit', 'delete'),
-				'admin_groups' => array('index', 'create', 'edit', 'delete')
-			)
+			'menu'	  => 'design'
 		);
 	}
 	

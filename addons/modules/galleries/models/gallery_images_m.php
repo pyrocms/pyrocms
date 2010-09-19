@@ -4,6 +4,7 @@
  * The galleries module enables users to create albums, upload photos and manage their existing albums.
  *
  * @author 		Yorick Peterse - PyroCMS Dev Team
+ * @modified	Jerel Unruh - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Gallery Module
  * @category 	Modules
@@ -74,8 +75,7 @@ class Gallery_images_m extends MY_Model
 				
 		if ( $query->num_rows() > 0 )
 		{
-			$result = $query->result();
-			return $result[0];
+			return $query->row();
 		}
 		else
 		{
@@ -97,9 +97,10 @@ class Gallery_images_m extends MY_Model
 		$gallery = $this->db->select('slug')
 							->from('galleries')
 							->where('id', $input['gallery_id'])
-							->get();
-		$gallery 		= $gallery->result();
-		$gallery_slug 	= $gallery[0]->slug;
+							->get()
+							->row();
+
+		$gallery_slug 	= $gallery->slug;
 		
 		// First we need to upload the image to the server
 		$upload_conf['upload_path'] 	= 'uploads/galleries/' . $gallery_slug . '/full';
@@ -127,13 +128,12 @@ class Gallery_images_m extends MY_Model
 			}
 			
 			// Great, time to create a thumbnail
-			if ( $this->create_thumbnail('resize', $source, $destination, $options) === TRUE )
+			if ( $this->resize('resize', $source, $destination, $options) === TRUE )
 			{
 				// Image has been uploaded, thumbnail has been created, time to add it to the DB!
-				$file 					 = split('\.', $uploaded_data['file_name']);
 				$to_insert['gallery_id'] = $input['gallery_id'];
-				$to_insert['filename']	 = $file[0];
-				$to_insert['extension']	 = $file[1];
+				$to_insert['filename']	 = $uploaded_data['raw_name'];
+				$to_insert['extension']	 = $uploaded_data['file_ext'];
 				$to_insert['title']		 = $input['title'];
 				$to_insert['description']= $input['description'];
 				$to_insert['uploaded_on']= time();
@@ -156,6 +156,7 @@ class Gallery_images_m extends MY_Model
 	 * Update an existing image
 	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @modified by Jerel Unruh - PyroCMS Dev Team to add crop
 	 * @access public
 	 * @param int $id The ID of the image
 	 * @param array $input The data used for updating the image
@@ -167,59 +168,59 @@ class Gallery_images_m extends MY_Model
 		$image = $this->db->from('gallery_images')
 						  ->join('galleries', 'gallery_images.gallery_id = galleries.id')
 						  ->where('gallery_images.id', $id)
-						  ->get();
-		$image = $image->result();
-		$image = $image[0];
+						  ->get()
+						  ->row();
 		// Set the paths
-		$full_path 	= 'uploads/galleries/' . $image->slug . '/full/' 	. $image->filename 	. '.' 		. $image->extension;	
-		$thumb_path = 'uploads/galleries/' . $image->slug . '/thumbs/' 	. $image->filename 	. '_thumb.' . $image->extension;
+		$full_path 	= 'uploads/galleries/' . $image->slug . '/full/' 	. $image->filename . $image->extension;	
+		$thumb_path = 'uploads/galleries/' . $image->slug . '/thumbs/' 	. $image->filename 	. '_thumb' . $image->extension;
 		
 		// Crop an existing thumbnail
-		if ( $input['thumbnail_actions'] === 'crop' )
+		if ( $input['thumb_width'] && $input['thumb_height'] > '1')
 		{
 			// Get the required values for cropping the thumbnail
-			$options['width'] 		= $input['thumb_width'];
-			$options['height']		= $input['thumb_height'];
-			$options['x_axis']		= $input['thumb_x'];
-			$options['y_axis']		= $input['thumb_y'];
-			$options['create_thumb']	= FALSE;
-			$options['maintain_ratio']	= FALSE;
+			$size_array = getimagesize($full_path);
+			$width 		= $size_array[0];
+			$height 	= $size_array[1];
+			$scaled_height		 	= $input['scaled_height'];
+			$scaled_percent			= $scaled_height/$height;
 			
-			// Crop the thumbnail
-			if ( $this->create_thumbnail('crop', $full_path, $thumb_path, $options) !== TRUE)
+			$options['width'] 			= $input['thumb_width']/$scaled_percent;
+			$options['height']			= $input['thumb_height']/$scaled_percent;
+			$options['x_axis']			= $input['thumb_x']/$scaled_percent;
+			$options['y_axis']			= $input['thumb_y']/$scaled_percent;			
+			$options['create_thumb']	= FALSE;
+			$options['maintain_ratio']	= $input['maintain_ratio'];
+			
+			// Crop the fullsize image first
+			if ($this->resize('crop', $full_path, $full_path, $options) !== TRUE)
+			{
+				return FALSE;
+			}
+			
+			//Create a new thumbnail from the newly cropped image
+			// Is the current size larger? If so, resize to a width/height of X pixels (determined by the config file)
+			if ( $options['width'] > $this->config->item('image_thumb_width'))
+			{
+				$options['width'] = $this->config->item('image_thumb_width');
+			}
+			if ( $options['height'] > $this->config->item('image_thumb_height'))
+			{
+				$options['height'] = $this->config->item('image_thumb_height');
+			}
+					
+			// Set the thumbnail option
+			$options['create_thumb'] = TRUE;
+			$options['maintain_ratio'] = TRUE;
+					
+			//create the thumbnail
+			if ( $this->resize('resize', $full_path, 'uploads/galleries/' . $image->slug . '/thumbs/', $options) !== TRUE )
 			{
 				return FALSE;
 			}
 		} 
 		
-		// Create a new thumbnail
-		else if ( $input['thumbnail_actions'] === 'new' )
-		{
-			// We need to figure out if the source file is larger than the dimensions defined in the config file
-			$size_array = getimagesize($full_path);
-			$width 		= $size_array[0];
-			$height 	= $size_array[1];
-			$options	= array();
-			
-			// Is the current size larger? If so, resize to a width/height of X pixels (determined by the config file)
-			if ( $width > $this->config->item('image_thumb_width'))
-			{
-				$options['width'] = $this->config->item('image_thumb_width');
-			}
-			if ( $height > $this->config->item('image_thumb_height'))
-			{
-				$options['height'] = $this->config->item('image_thumb_height');
-			}
-			
-			// Create the new thumbnail
-			if ( $this->create_thumbnail('resize', $full_path, 'uploads/galleries/' . $image->slug . '/thumbs/', $options) !== TRUE )
-			{
-				return FALSE;
-			}
-		}
-		
 		// Delete the image from the DB and the filesystem
-		else if ( $input['thumbnail_actions'] === 'delete' )
+		else if ( $input['delete'] == 1 )
 		{
 			// First we'll delete it from the DB
 			if ( parent::delete($id) )
@@ -279,9 +280,9 @@ class Gallery_images_m extends MY_Model
 	 * @param array $options Optional array that may contain data such as the new width, height, etc
 	 * @return bool
 	 */
-	public function create_thumbnail($mode, $source, $destination, $options = array())
+	public function resize($mode, $source, $destination, $options = array())
 	{		
-		// Time to resize the thumbnail
+		// Time to resize the image
 		$image_conf['image_library'] 	= 'gd2';
 		$image_conf['source_image']  	= $source;
 		
@@ -303,12 +304,6 @@ class Gallery_images_m extends MY_Model
 			{
 				$image_conf[$key] = $option;
 			}
-		}
-		
-		// If the thumbnail already exists, delete it
-		if ( is_file($destination) )
-		{
-			unlink($destination);
 		}
 		
 		$this->image_lib->initialize($image_conf);

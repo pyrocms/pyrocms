@@ -117,7 +117,9 @@
 			page_id = $(this).attr('rel').replace('page-', '');
 			
 			// Update the "Details" panel
-			$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + page_id);
+			$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + page_id, function() {
+			 	$.uniform.update();
+			});
 			
 			return false;
 		});

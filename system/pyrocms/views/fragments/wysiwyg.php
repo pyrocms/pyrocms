@@ -1,14 +1,48 @@
-<!-- CKEditor -->
 <?php echo js('ckeditor/ckeditor.js'); ?>
-<script type="text/javascript">
-	jQuery(document).ready(function() {
-		CKEDITOR.replaceAll( 'wysiwyg-advanced', {
-			customConfig : '<?php echo js_path('ckeditor/config_advanced.js'); ?>'
-		});
+<?php echo js('ckeditor/adapters/jquery.js'); ?>
 
-		CKEDITOR.replaceAll( 'wysiwyg-simple', {
-			customConfig : '<?php echo js_path('ckeditor/config_simple.js'); ?>'
+<script type="text/javascript">
+
+	var instance;
+
+	function update_instance()
+	{
+		instance = CKEDITOR.currentInstance;
+	}
+
+	(function($) {
+		$(function(){
+
+			$('textarea.wysiwyg-simple').ckeditor({
+				toolbar: [
+					 ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+				  ],
+				width: '99%',
+				height: 100,
+				dialog_backgroundCoverColor: '#000'
+			});
+
+			$('textarea.wysiwyg-advanced').ckeditor({
+				toolbar: [
+                    ['Maximize'],
+					['pyrofiles'],
+					['Cut','Copy','Paste','PasteFromWord'],
+					['Undo','Redo','-','Find','Replace'],
+					['Link','Unlink'],
+					['Table','HorizontalRule','SpecialChar'],
+					'/',
+					['Bold','Italic','StrikeThrough'],
+					['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+					['Format', 'FontSize', 'Subscript','Superscript', 'NumberedList','BulletedList','Outdent','Indent','Blockquote'],
+					['ShowBlocks', 'RemoveFormat', 'Source']
+				],
+				extraPlugins: 'pyrofiles',
+				width: '99%',
+				height: 400,
+				dialog_backgroundCoverColor: '#000',
+				removePlugins: 'elementspath'
+			});
+
 		});
-	});
+	})(jQuery);
 </script>
-<!-- /CKEditor -->

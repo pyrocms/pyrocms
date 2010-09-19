@@ -33,10 +33,8 @@ class MY_Controller extends Controller
         $this->module 				= $this->router->fetch_module();
         $this->controller			= $this->router->fetch_class();
         $this->method 				= $this->router->fetch_method();
-
-        $this->data->module 		=& $this->module;
-        $this->data->controller 	=& $this->controller;
-        $this->data->method 		=& $this->method;
+		
+		$this->data->module     	=& $this->module;
 
 		// Loaded after $this->user is set so that data can be used everywhere
 		$this->load->model(array(

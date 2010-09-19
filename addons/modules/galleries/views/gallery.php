@@ -11,7 +11,7 @@
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
 				<a href="<?php echo site_url('galleries/' . $gallery->slug . '/' . $image->id); ?>" title="<?php echo $image->title; ?>">
-					<img src="<?php echo site_url('uploads/galleries/' . $gallery->slug . '/thumbs/' . $image->filename . '_thumb.' . $image->extension); ?>" alt="<?php echo $image->title; ?>" />
+					<img src="<?php echo site_url('uploads/galleries/' . $gallery->slug . '/thumbs/' . $image->filename . '_thumb' . $image->extension); ?>" alt="<?php echo $image->title; ?>" />
 				</a>
 			</li>
 			<?php endforeach; ?>
@@ -26,7 +26,7 @@
 	<div class="gallery clearfix">
 		<!-- Heading -->
 		<div class="gallery_heading">
-			<img src="<?php echo site_url('uploads/galleries/' . $gallery->slug . '/thumbs/' . $gallery->filename . '_thumb.' . $gallery->extension); ?>" alt="<?php echo $gallery->title; ?>" />
+			<img src="<?php echo site_url('uploads/galleries/' . $gallery->slug . '/thumbs/' . $gallery->filename . '_thumb' . $gallery->extension); ?>" alt="<?php echo $gallery->title; ?>" />
 			<h3><?php echo anchor('galleries/' . $gallery->slug, $gallery->title); ?></h3>
 		</div>
 		<!-- And the body -->

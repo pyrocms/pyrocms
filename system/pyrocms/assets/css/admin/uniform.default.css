@@ -1,7 +1,7 @@
 /*
 
 Uniform Theme: Uniform Default
-Version: 1.5.7
+Version: 1.6
 By: Josh Pyles
 License: MIT License
 ---
@@ -22,7 +22,9 @@ div.radio span,
 div.uploader, 
 div.uploader span.action,
 div.button,
-div.button span {
+div.button span,
+div.minibutton,
+div.minibutton span {
   background-image: url(../../img/admin/uniform/sprite.png);
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
@@ -32,28 +34,31 @@ div.button span {
 .radio, 
 .checker, 
 .uploader,
-.button, 
+.button,
+.minibutton,
 .selector *, 
 .radio *, 
 .checker *, 
 .uploader *,
-.button *{
+.button *,
+.minibutton *{
   margin: 0;
   padding: 0;
 }
 
 /* INPUT & TEXTAREA */
 
-input[type=text],
-input[type=password],
+input.text,
+input.email, 
+input.password,
 textarea.uniform {
   font-size: 12px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   padding: 3px;
   color: #777;
-  background: #fff url('../../img/admin/uniform/bg-input-focus.png') repeat-x 0px 0px;
-  background: #fff url('../../img/admin/uniform/bg-input.png') repeat-x 0px 0px;
+  background: url('../../img/admin/uniform/bg-input-focus.png') repeat-x 0px 0px;
+  background: url('../../img/admin/uniform/bg-input.png') repeat-x 0px 0px;
   border-top: solid 1px #aaa;
   border-left: solid 1px #aaa;
   border-bottom: solid 1px #ccc;
@@ -64,8 +69,9 @@ textarea.uniform {
   outline: 0;
 }
 
-input[type=text]:focus,
-input[type=password]:focus,
+input.text:focus,
+input.email:focus,
+input.password:focus,
 textarea.uniform:focus {
   -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
   -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
@@ -323,6 +329,8 @@ div.uploader.disabled span.action {
   background-position: right -381px;
 }
 
+/* normal button */
+
 div.button {
   background-position: 0px -523px;
 }
@@ -379,7 +387,7 @@ div.button {
 div.button span {
   margin-left: 13px;
   height: 22px;
-  padding-top: 9px;
+  padding-top: 8px;
   font-weight: bold;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
@@ -389,9 +397,76 @@ div.button span {
   padding-right: 15px;
 }
 
+/* mini button */
+
+div.minibutton {
+  background-position: 0px -763px;
+}
+
+div.minibutton span {
+  background-position: right -851px;
+}
+
+div.minibutton.focus,
+div.minibutton:focus,
+div.minibutton:hover,
+div.minibutton.hover {
+  background-position: 0px -785px;
+}
+
+div.minibutton.focus span,
+div.minibutton:focus span,
+div.minibutton:hover span,
+div.minibutton.hover span {
+  background-position: right -873px; 
+}
+
+div.minibutton.active,
+div.minibutton:active {
+  background-position: 0px -807px;
+}
+
+div.minibutton.active span,
+div.minibutton:active span {
+  background-position: right -895px;
+  color: #555;
+}
+
+div.minibutton.disabled,
+div.minibutton:disabled {
+  background-position: 0px -829px;
+}
+
+div.minibutton.disabled span,
+div.minibutton:disabled span {
+  background-position: right -917px;
+  color: #bbb;
+  cursor: default;
+}
+
+/* PRESENTATION */
+
+/* mini Button */
+
+div.minibutton {
+  height: 22px;
+}
+
+div.minibutton span {
+  margin-left: 13px;
+  height: 17px;
+  padding-top: 5px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-left: 2px;
+  padding-right: 15px;
+}
+
 /* Select */
 div.selector {
-  margin-bottom: 20px;
   width: 190px;
   font-size: 12px;
 }
@@ -425,13 +500,12 @@ div.checker {
 
 /* Radio */
 div.radio {
-  margin-right: 5px;
+  margin-right: 3px;
 }
 
 /* Uploader */
 div.uploader {
   width: 190px;
-  margin-bottom: 20px;
   cursor: pointer;
 }
 
@@ -471,6 +545,19 @@ Not advised to edit stuff below this line
 -----------------------------------------------------
 */
 
+.selector, 
+.checker, 
+.button,
+.minibutton,
+.radio, 
+.uploader {
+  display: -moz-inline-box;
+  display: inline-block;
+  vertical-align: middle;
+  zoom: 1;
+  *display: inline;
+}
+
 .selector select:focus, .radio input:focus, .checker input:focus, .uploader input:focus {
   outline: 0;
 }
@@ -479,6 +566,7 @@ Not advised to edit stuff below this line
 
 div.button a,
 div.button button,
+div.minibutton .minibutton,
 div.button input {
   position: absolute;
 }
@@ -486,8 +574,6 @@ div.button input {
 div.button {
   cursor: pointer;
   position: relative;
-  display: -moz-inline-box;
-  display: inline-block;
 }
 
 div.button span {
@@ -496,6 +582,19 @@ div.button span {
   line-height: 1;
   text-align: center;
 }
+
+div.minibutton {
+  cursor: pointer;
+  position: relative;
+}
+
+div.minibutton span {
+  display: -moz-inline-box;
+  display: inline-block;
+  line-height: 1;
+  text-align: center;
+}
+
 
 /* Select */
 
@@ -507,7 +606,6 @@ div.selector {
 
 div.selector span {
   display: block;
-  float: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -516,6 +614,7 @@ div.selector span {
 div.selector select {
   position: absolute;
   opacity: 0;
+  filter: alpha(opacity:0);
   height: 25px;
   border: none;
   background: none;
@@ -525,8 +624,6 @@ div.selector select {
 
 div.checker {
   position: relative;
-  display: -moz-inline-box;
-  display: inline-block;
 }
 
 div.checker span {
@@ -537,6 +634,7 @@ div.checker span {
 
 div.checker input {
   opacity: 0;
+  filter: alpha(opacity:0);
   display: inline-block;
   background: none;
 }
@@ -545,12 +643,6 @@ div.checker input {
 
 div.radio {
   position: relative;
-  display: -moz-inline-box;
-  display: inline-block;
-  margin-left: 10px;
-}
-div.radio:first-child {
-	margin-left: 0;
 }
 
 div.radio span {
@@ -561,16 +653,17 @@ div.radio span {
 
 div.radio input {
   opacity: 0;
+  filter: alpha(opacity:0);
   text-align: center;
   display: inline-block;
   background: none;
 }
 
+
 /* Uploader */
 
 div.uploader {
   position: relative;
-  float: left;
   overflow: hidden;
   cursor: default;
 }
@@ -595,6 +688,7 @@ div.uploader span.filename {
 
 div.uploader input {
   opacity: 0;
+  filter: alpha(opacity:0);
   position: absolute;
   top: 0;
   right: 0;

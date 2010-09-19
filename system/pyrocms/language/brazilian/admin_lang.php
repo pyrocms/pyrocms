@@ -9,6 +9,12 @@ $lang['cp_welcome_message'] 			= 'Bem vindo(a) ao Painel de Controle de %s. Util
 
 $lang['cp_news_feed_title'] 			= 'Feed de notícias';
 
+// Shortcuts
+$lang['cp_manage_comments']				= 'Manage Comments'; #translate
+$lang['cp_manage_pages']				= 'Manage Pages'; #translate
+$lang['cp_manage_files']				= 'Manage Files'; #translate
+$lang['cp_manage_users']				= 'Manage Users'; #translate
+
 // Header
 $lang['cp_to_home'] 					= 'Voltar para o Dashboard';
 $lang['cp_view_frontend'] 				= 'Ver website';
@@ -23,11 +29,12 @@ $lang['cp_report_bug'] 					= 'Report a bug';
 $lang['cp_contact_support'] 			= 'Suporte';
 
 $lang['cp_nav_settings']				= 'Configurações';
+$lang['cp_nav_addons']					= 'Add-ons'; #translate
 $lang['cp_nav_modules']					= 'Módulos';
-$lang['cp_nav_edit_settings']			= 'Editar configurações';
-$lang['cp_nav_themes']					= 'Temas';
-$lang['cp_nav_permissions']				= 'Permissões';
-$lang['cp_nav_variables']				= 'Variáveis';
+$lang['cp_nav_widgets']					= 'Widgets';
+$lang['cp_nav_users']					= 'Gebruikers'; #translate
+$lang['cp_nav_design']					= 'Design'; #translate
+$lang['cp_nav_content']					= 'Content'; #translate
 
 $lang['cp_must_login']	 				= 'Você deve estar logado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
@@ -39,5 +46,3 @@ $lang['cp_shortcuts_title'] 			= 'Atalhos';
 
 $lang['required_label'] 				= 'Requerido';
 $lang['sb_recent_users'] 				= 'Usuários recentes';
-
-?>

@@ -29,7 +29,7 @@
 							<?php endif; ?></td>
 
 				<td><?php echo $theme->version; ?></td>
-				<td><a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>">Preview</a> | <a href="#">Delete</a></td>
+				<td><a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="minibutton">Preview</a>  <a href="#"  class="minibutton">Delete</a></td>
 			</tr>
 				<?php endforeach; ?>
 		</tbody>

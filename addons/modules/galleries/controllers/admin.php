@@ -126,6 +126,7 @@ class Admin extends Admin_Controller
 		// Load the view
 		$this->data->galleries =& $galleries;
 		$this->template->title($this->module_data['name'])
+						->append_metadata(js('functions.js', 'galleries') )
 						->build('admin/index', $this->data);
 	}
 
@@ -174,6 +175,7 @@ class Admin extends Admin_Controller
 		$this->data->gallery 	=& $gallery;
 		$this->data->galleries 	=& $galleries;
 		$this->template->append_metadata( js('form.js', 'galleries') )
+						->append_metadata(js('functions.js', 'galleries') )
 						->append_metadata( css('galleries.css', 'galleries') )
 						->title($this->module_data['name'], lang('galleries.new_gallery_label'))
 						->build('admin/new_gallery', $this->data);
@@ -235,6 +237,7 @@ class Admin extends Admin_Controller
 		// Load the view itself
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
 		   				->append_metadata( js('drag_drop.js', 'galleries') )
+						->append_metadata(js('functions.js', 'galleries') )
 						->append_metadata( js('form.js', 'galleries') )
 						->title($this->module_data['name'], lang('galleries.manage_gallery_label'))
 						->build('admin/manage_gallery', $this->data);
@@ -348,7 +351,9 @@ class Admin extends Admin_Controller
 		$this->data->gallery_image 	=& $gallery_image;
 
 		// Load the views
-		$this->template->append_metadata( css('galleries.css', 'galleries') )
+		$this->template->set_layout('admin/modal')
+						->append_metadata( css('galleries.css', 'galleries') )
+						->append_metadata(js('functions.js', 'galleries') )
 						->title($this->module_data['name'], lang('galleries.upload_label'))
 						->build('admin/upload', $this->data);
 	}
@@ -386,7 +391,7 @@ class Admin extends Admin_Controller
 			if ( $this->gallery_images_m->update_image($id, $_POST) === TRUE)
 			{
 				// The delete action requires a different message
-				if ( $_POST['thumbnail_actions'] === 'delete' )
+				if ( $_POST['delete'] == 1 )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
 				}
@@ -400,7 +405,7 @@ class Admin extends Admin_Controller
 			else
 			{
 				// The delete action requires a different message
-				if ( $_POST['thumbnail_actions'] === 'delete' )
+				if ( $_POST['delete'] == 1 )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
 				}
@@ -410,7 +415,7 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			if ( $_POST['thumbnail_actions'] === 'delete' )
+			if ( $_POST['delete'] == 1 )
 			{
 				redirect('admin/galleries');
 			}
@@ -432,6 +437,7 @@ class Admin extends Admin_Controller
 		// Load the views
 		$this->data->gallery_image =& $gallery_image;
 		$this->template->append_metadata( css('galleries.css', 'galleries') )
+						->append_metadata(js('functions.js', 'galleries') )
 		   			   ->append_metadata( js('jcrop.js', 'galleries') )
 		   			   ->append_metadata( js('jcrop_init.js', 'galleries') )
 					   ->title($this->module_data['name'], lang('gallery_images.edit_image_label'))

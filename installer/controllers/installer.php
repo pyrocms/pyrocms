@@ -13,7 +13,7 @@ class Installer extends Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('english','dutch','brazilian');
+	private $languages	= array ('english','dutch','brazilian','polish');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -28,6 +28,7 @@ class Installer extends Controller
 		'system/pyrocms/cache/dwoo',
 		'system/pyrocms/cache/dwoo/compiled',
 		'system/pyrocms/cache/simplepie',
+		'system/pyrocms/config',
 		'uploads'
 	);
 	
@@ -38,8 +39,7 @@ class Installer extends Controller
 	 * @var array
 	 */
 	private $writeable_files = array(
-		'system/pyrocms/config/config.php',
-		'system/pyrocms/config/database.php'
+		'system/pyrocms/config/config.php'
 	);
 	
 	/**

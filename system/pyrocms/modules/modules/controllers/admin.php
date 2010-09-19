@@ -2,11 +2,11 @@
 /**
  * Modules controller, lists all installed modules
  *
- * @author 		Yorick Peterse - PyroCMS Development Team
+ * @author 		Phil Sturgeon - PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Core modules
  * @category 	Modules
- * @since 		v0.9.7
+ * @since 		v1.0
  */
 class Admin extends Admin_Controller
 {
@@ -40,7 +40,7 @@ class Admin extends Admin_Controller
 		
 		$this->module_m->import_unknown();
 
- 		$this->template->modules = $this->module_m->get_all(NULL, TRUE);
+ 		$this->template->all_modules = $this->module_m->get_all(NULL, TRUE);
 
 		$this->template
 			->title($this->module_data['name'])
@@ -59,7 +59,7 @@ class Admin extends Admin_Controller
 	{
 		if ($this->input->post('btnAction') == 'upload')
 		{
-			$config['upload_path'] 		= APPPATH.'uploads/';
+			$config['upload_path'] 		= FCPATH.'uploads/';
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
 			$config['overwrite'] 		= TRUE;

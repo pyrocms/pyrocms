@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Groups_details extends Module {
+class Details_Groups extends Module {
 
 	public $version = '1.0';
 	
@@ -10,19 +10,18 @@ class Groups_details extends Module {
 			'name' => array(
 				'en' => 'Groups',
 				'br' => 'Grupos',
-                                'de' => 'Gruppen'
+                'de' => 'Gruppen',
+				'nl' => 'Groepen'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
 				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.',
-				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.'
+				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
+				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'create', 'edit', 'delete')
-			)
+			'menu'	  => 'users'
 		);
 	}
 	
@@ -33,8 +32,8 @@ class Groups_details extends Module {
 		$groups = "
 			CREATE TABLE IF NOT EXISTS `groups` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-			  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
 			  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;

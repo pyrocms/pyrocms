@@ -286,7 +286,7 @@ class Admin extends Admin_Controller
 	{		
 		$this->data->article = $this->news_m->get($id);
 		
-		$this->template->set_layout('admin/basic_layout');
+		$this->template->set_layout('admin/layouts/modal');
 		$this->template->build('admin/preview', $this->data);
 	}
 	

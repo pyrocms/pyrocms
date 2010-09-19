@@ -96,7 +96,7 @@ jQuery(function($) {
 				}
 			});
 		});
-		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, button, textarea").livequery(function () {
+		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, a.minibutton, button, textarea").livequery(function () {
 			$(this).uniform();
 		});
 	}
@@ -105,3 +105,38 @@ jQuery(function($) {
 		pyro.init();
 	});
 });
+
+//functions for codemirror
+function html_editor(id, width)
+{
+	CodeMirror.fromTextArea(id, {
+	    height: "30em",
+	    width: width,
+	    parserfile: ["parsejavascript.js","parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
+	    stylesheet: [APPPATH_URI + "assets/css/codemirror/xmlcolors.css", APPPATH_URI + "assets/css/codemirror/csscolors.css"],
+	    path: APPPATH_URI + "assets/js/codemirror/",
+	    tabMode: 'spaces'
+	});
+}
+
+function css_editor(id, width)
+{
+	CodeMirror.fromTextArea(id, {
+	    height: "30em",
+	    width: width,
+	    parserfile: "parsecss.js",
+	    stylesheet: APPPATH_URI + "assets/css/codemirror/csscolors.css",
+	    path: APPPATH_URI + "assets/js/codemirror/"
+	});
+}
+
+function js_editor(id, width)
+{
+	CodeMirror.fromTextArea(id, {
+	    height: "30em",
+	    width: width,
+	    parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
+	    stylesheet: APPPATH_URI + "assets/css/codemirror/jscolors.css",
+	    path: APPPATH_URI + "assets/js/codemirror/"
+	});
+}

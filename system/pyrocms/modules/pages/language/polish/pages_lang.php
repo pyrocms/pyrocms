@@ -3,9 +3,9 @@
 // tabs
 $lang['pages.content_label'] 					= 'Zawartość strony';
 $lang['pages.meta_label'] 						= 'Meta dane';
-$lang['pages.design_label'] 					= 'Design';
-$lang['pages.script_label'] 					= 'Script'; #translate
-$lang['pages.options_label'] 					= 'Options'; #translate
+$lang['pages.design_label'] 					= 'Wygląd';
+$lang['pages.script_label'] 					= 'Skrypt';
+$lang['pages.options_label'] 					= 'Opcje';
 
 $lang['pages.detail_label'] 					= 'Szczegóły';
 
@@ -19,15 +19,15 @@ $lang['pages.title_label'] 						= 'Tytuł';
 $lang['pages.slug_label'] 						= 'URL';
 $lang['pages.body_label'] 						= 'Część body strony';
 $lang['pages.no_selection_label'] 				= '-- Brak --';
-$lang['pages.meta_title_label'] 					= 'Meta tytuł';
+$lang['pages.meta_title_label'] 				= 'Meta tytuł';
 $lang['pages.meta_keywords_label'] 				= 'Meta słowa kluczowe';
 $lang['pages.meta_desc_label'] 					= 'Meta opis';
 $lang['pages.layout_id_label'] 					= 'Layout strony';
 $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Dostęp';
-$lang['pages.rss_enabled_label'] 				= 'RSS enabled'; #translate
-$lang['pages.comments_enabled_label'] 		= 'Comments enabled'; #translate
+$lang['pages.rss_enabled_label'] 				= 'RSS włączony';
+$lang['pages.comments_enabled_label'] 			= 'Komentarze włączone';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label']						= 'Robocza';
@@ -59,8 +59,8 @@ $lang['pages_page_already_exist_error']			= 'Strona o adresie URL "%s" już istn
 $lang['pages_parent_not_exist_error']			= 'Strona nadrzędna, którą wybrałeś nie istnieje.';
 
 $lang['pages.tree_explanation'] 				= 'Lista po lewej stronie reprezentuje strony Twojej witryny.
-Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera Jeżeli klikniesz stronę w tym miejscu pojawi się wiele użytecznych informacji.';
+Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';
 
-$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.'; #translate
+$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';
 
 ?>

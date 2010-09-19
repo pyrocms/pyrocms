@@ -11,7 +11,7 @@
 </script>
 
 
-<?php if($method == 'create'): ?>
+<?php if ($this->method == 'create'): ?>
 	<h3><?php echo lang('user_add_title');?></h3>
 
 <?php else: ?>
@@ -34,26 +34,31 @@
 					<li class="even">
 						<label for="first_name"><?php echo lang('user_first_name_label');?></label>
 						<?php echo form_input('first_name', $member->first_name); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>
 						<label for="last_name"><?php echo lang('user_last_name_label');?></label>
 						<?php echo form_input('last_name', $member->last_name); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li class="even">
 						<label for="email"><?php echo lang('user_email_label');?></label>
 						<?php echo form_input('email', $member->email); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>
 						<label for="username"><?php echo lang('user_username');?></label>
 						<?php echo form_input('username', $member->username); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li class="even">
 						<label for="display_name"><?php echo lang('user_display_name');?></label>
 						<?php echo form_input('display_name', $member->display_name); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>
@@ -75,11 +80,13 @@
 					<li class="even">
 						<label for="password"><?php echo lang('user_password_label');?></label>
 						<?php echo form_password('password'); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>
 						<label for="confirm_password"><?php echo lang('user_password_confirm_label');?></label>
 						<?php echo form_password('confirm_password'); ?>
+						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 				</ol>
 			</fieldset>

@@ -75,12 +75,11 @@ class Admin extends Admin_Controller
 	 * @access public
 	 * @return void
 	 */
-	// #FIXME: Is this method still being used? - Yorick
 	public function upload()
 	{
 		if($this->input->post('btnAction') == 'upload')
 		{
-			$config['upload_path'] 		= APPPATH.'uploads/';
+			$config['upload_path'] 		= FCPATH.'uploads/';
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
 			$config['overwrite'] 		= TRUE;
@@ -133,7 +132,6 @@ class Admin extends Admin_Controller
 	 * @param string $theme_name The name of the theme to delete
 	 * @return void
 	 */
-	// #FIXME: Is this method still being used? - Yorick
 	public function delete($theme_name = "")
 	{
 		$this->load->helper('file');
@@ -156,7 +154,7 @@ class Admin extends Admin_Controller
 
 				else
 				{
-					$theme_dir = APPPATH.'themes/'.$theme_name;
+					$theme_dir = ADDONPATH.'themes/'.$theme_name;
 
 					if( is_really_writable($theme_dir) )
 					{
@@ -170,7 +168,7 @@ class Admin extends Admin_Controller
 
 					else
 					{
-						$this->session->set_flashdata('error', sprintf(lang('themes.delete_error'), APPPATH.'themes/'.$theme_name) );
+						$this->session->set_flashdata('error', sprintf(lang('themes.delete_error'), $theme_dir) );
 					}
 				}
 			}

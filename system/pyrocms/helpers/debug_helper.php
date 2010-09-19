@@ -36,11 +36,21 @@
   * @param		mixed    variable to be output
   */
 
-function power_dump($testing, $file = '', $line = '')
+function power_dump()
 {
 	list($callee) = debug_backtrace();
-	
-	echo "<pre>".$callee['file'].' @ line: '.$callee['line'] .'<br />Result: ';
-	var_dump($testing);
+	$arguments = func_get_args();
+	$total_arguments = count($arguments);
+
+	echo '<fieldset style="background:white url(http://www.hiarchive.co.uk/images/binfordtools.gif) 5px right no-repeat; border:2px red solid; padding:5px">';
+	echo '<legend style="background:lightgrey; padding:5px;">'.$callee['file'].' @ line: '.$callee['line'].'</legend><pre>';
+
+	foreach ($arguments as $argument)
+	{
+		echo '<br/><strong>Debug #1 of '.$total_arguments.'</strong>: ';
+		var_dump($argument);
+	}
+
 	echo "</pre>";
+	echo "</fieldset>";
 }

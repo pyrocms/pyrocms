@@ -1,21 +1,47 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Newsletters Module - Create and manage newsletters
+ *
+ * @author 	PyroCMS Development Team
+ * @package 	PyroCMS
+ * @subpackage 	Newsletters
+ * @category	Modules
+ */
 class Newsletters extends Public_Controller
 {
-	function __construct()
+	
+	/**
+	 * Constructor method
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
 	{
 		parent::Public_Controller();
 		$this->load->model('newsletters_m');
 		$this->lang->load('newsletter');
 	}
 	
-	function index()
+	/**
+	 * List Active newsletters
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function index()
 	{
 		$this->data->newsletters = $this->newsletters_m->getNewsletters(array('order'=>'created_on DESC'));
 		$this->template->build('index', $this->data);
 	}
 	
-	function archive($id = '')
+	/**
+	 * List archived newsletters
+	 *
+	 * @access public
+	 * @return void
+	 * @param $id the id of a newsletter
+	 */
+	public function archive($id = '')
 	{
 		$this->data->newsletter = $this->newsletters_m->getNewsletter($id);
 		if ($this->data->newsletter)
@@ -28,15 +54,20 @@ class Newsletters extends Public_Controller
 		}
 	}
 	
-	// Public: Register for newsletter
-	function subscribe()
+	/**
+	 * Subscribe to newsletters
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function subscribe()
 	{
-		$this->load->library('validation');
-		$rules['email'] = 'trim|required|valid_email';
-		$this->validation->set_rules($rules);
-		$this->validation->set_fields();
+		$this->load->library('form_validation');
 		
-		if ($this->validation->run())
+		$this->form_validation->set_rules('email', lang('letter_email_label'), 'trim|required|valid_email');
+		
+		
+		if ($this->form_validation->run())
 		{
 			if ($this->newsletters_m->subscribe($_POST))
 			{
@@ -58,15 +89,27 @@ class Newsletters extends Public_Controller
 		}
 	}
 	
-	// Public: Register for newsletter
-	function subscribed()
+	/**
+	 * Successful subscription
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function subscribed()
 	{
 		$this->template->build('subscribed', $this->data);
 	}
 	
-	// Public: Unsubscribe from newsletter
-	function unsubscribe($email = '')
+	/**
+	 * Un-subscribe from newsletters
+	 * 
+	 * @access public
+	 * @return void
+	 * @param $email - the email address to remove from email list
+	 */
+	public function unsubscribe($email = '') 
 	{
+		
 		if (!$email) redirect('');
 		
 		if ($this->newsletters_m->unsubscribe($email))

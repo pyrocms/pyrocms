@@ -14,7 +14,7 @@ class Ajax extends Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('english', 'dutch', 'brazilian');
+	private $languages	= array ('english', 'dutch', 'brazilian', 'spanish');
 	
 	public function __construct()
 	{

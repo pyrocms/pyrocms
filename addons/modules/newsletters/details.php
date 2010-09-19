@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Newsletters_details extends Module {
+class Details_Newsletters extends Module {
 
 	public $version = '0.2';
 
@@ -25,7 +25,7 @@ class Newsletters_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
-			'menu' => TRUE
+			'menu' => 'users'
 		);
 	}
 

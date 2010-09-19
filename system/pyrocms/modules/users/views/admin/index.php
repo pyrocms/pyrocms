@@ -1,5 +1,5 @@
 <?php if (!empty($users)): ?>
-	<?php if($method == 'index'): ?>
+	<?php if ($this->method == 'index'): ?>
 		<h3><?php echo lang('user_registred_title');?></h3>
 	<?php else: ?>
 		<h3><?php echo lang('user_inactive_title');?></h3>
@@ -35,8 +35,8 @@
 						<td><?php echo date('M d, Y', $member->created_on); ?></td>
 						<td><?php echo ($member->last_login > 0 ? date('M d, Y', $member->last_login) : lang('user_never_label')); ?></td>
 						<td>
-							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label')); ?> | 
-							<?php echo anchor('admin/users/delete/' . $member->id, lang('user_delete_label'), array('class'=>'confirm')); ?>
+							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label'), array('class'=>'minibutton')); ?>  
+							<?php echo anchor('admin/users/delete/' . $member->id, lang('user_delete_label'), array('class'=>'confirm minibutton')); ?>
 						</td>
 						</tr>
 				<?php endforeach; ?>
@@ -44,7 +44,7 @@
 		</table>
 	
 	<div class="float-right">
-		<?php if($method == 'index'): ?>
+		<?php if ($this->method == 'index'): ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		<?php else: ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('activate', 'delete') )); ?>

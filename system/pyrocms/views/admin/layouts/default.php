@@ -7,7 +7,7 @@
 
 	<title><?php echo lang('cp_admin_title').' - '.$template['title'];?></title>
 	
-	<base href="<?php echo base_url(); ?>"></base>
+	<base href="<?php echo base_url(); ?>" />
 	
 	<!-- Mobile Viewport Fix -->
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">

@@ -8,6 +8,7 @@ $lang['db_invalid_query'] = 'Zapytanie jest nieprawidłowe.';
 $lang['db_must_set_table'] = 'Musisz wybrać table z bazy danych by wykonać zapytanie.';
 $lang['db_must_set_database'] = 'Musisz ustawić nazwę bazy danych w pliku konfiguracyjnym bazy danych.';
 $lang['db_must_use_set'] = 'Musisz użyć metody "set" by uaktualnić wpis.';
+$lang['db_must_use_index'] = 'Musisz wyznaczyć indeks dla przetwarzania wsadowego.';
 $lang['db_must_use_where'] = 'Uaktualnienia nie są dozwolone dopóki nie posiadają formuły "where".';
 $lang['db_del_must_use_where'] = 'Usuwanie nie jest dozwolone dopóki nie posiada formuły "where" albo "like".';
 $lang['db_field_param_missing'] = 'Do tej operacji wymagana jest nazwa tabeli jako parametr.';

@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Permissions_details extends Module {
+class Details_Permissions extends Module {
 
-	public $version = '0.3';
+	public $version = '0.5';
 	
 	public function info()
 	{
@@ -26,7 +26,7 @@ class Permissions_details extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE
+			'menu'	  => 'users'
 		);
 	}
 	
@@ -51,14 +51,13 @@ class Permissions_details extends Module {
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)
 	{
-		//it's a core module, lets keep it around
-		return FALSE;
+		return TRUE;
 	}
 	
 	public function help()

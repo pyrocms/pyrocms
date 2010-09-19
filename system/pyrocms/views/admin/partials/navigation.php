@@ -1,39 +1,44 @@
 <nav id="main-nav">
+
 	<ul>
-		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($module) ? ' current"' : '"'));?></li>
-		<li><a href="#" class="top-link <?php echo in_array($this->module, array('comments', 'pages', 'news', 'files', 'widgets', 'variables')) ? 'current' : ''; ?>">Content</a>
+		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($this->module) ? ' current' : '').'"');?></li>
+		<li><a href="#" class="top-link <?php echo ($this->module_data AND $this->module_data['menu'] == 'content') ? 'current' : ''; ?>"><?php echo lang('cp_nav_content');?></a>
 			<ul>
-				<li><?php echo anchor('admin/comments', 'Comments', (($module == 'comments') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/pages', 'Pages', (($module == 'pages') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/news', 'News', (($module == 'news') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/files', 'Files', (($module == 'files') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/variables', 'Variables', (($module == 'variables') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/widgets', 'Widgets', (($module == 'widgets') ? 'class="current"' : ''));?></li>
+				<?php
+					ksort($modules['content']);
+					foreach ($modules['content'] as $module):
+				?>
+				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], ($this->module == $module['slug']) ? 'class="current"' : '');?></li>
+				<?php endforeach; ?>
 			</ul>
 		</li>
-		<li><a href="#" class="top-link <?php echo in_array($module, array('themes', 'navigation', 'layouts')) ? 'current' : ''; ?>">Design</a>
+
+		<li><a href="#" class="top-link <?php echo ($this->module_data AND $this->module_data['menu'] == 'design') ? 'current' : ''; ?>"><?php echo lang('cp_nav_design');?></a>
 			<ul>
-				<li><?php echo anchor('admin/themes', 'Themes', (($module == 'themes') ? 'class="current"' : ''));?></li>
-				<li><?php echo anchor('admin/navigation', 'Navigation', (($module == 'navigation') ? 'class="current"' : ''));?></li>
-				<!-- <li><?php echo anchor('admin/layouts', 'Layouts', (($module == 'layouts') ? 'class="current"' : ''));?></li> -->
+				<?php
+					ksort($modules['design']);
+					foreach ($modules['design'] as $module):
+				?>
+				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], (($this->module == $module['slug']) ? 'class="current"' : ''));?></li>
+				<?php endforeach; ?>
 			</ul>
 		</li>
-		<li><a href="#" class="top-link <?php echo ((isset($addon_modules[$module]) OR $module == 'modules') ? 'current"' : '"'); ?>"><?php echo lang('cp_nav_modules'); ?></a>
-			<ul>
-				<li><?php echo anchor('admin/modules', 'Manage Modules', array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : ''));?></li>
-			<?php foreach($addon_modules as $tp_module): ?>
-				<li><?php echo anchor('admin/' . $tp_module['slug'], $tp_module['name'], $module == $tp_module['slug'] ? 'class="current"' : ''); ?></li>
-			<?php endforeach; ?>
-			</ul>
-		</li>
+		
 		<li>
-			<a href="#" class="top-link <?php echo in_array($module, array('users', 'groups', 'permissions')) ? 'current' : ''; ?>">Users</a>
+			<a href="#" class="top-link <?php echo (($this->module_data AND $this->module_data['menu'] == 'users') OR $this->module == 'users') ? 'current' : ''; ?>"><?php echo lang('cp_nav_users');?></a>
 			<ul>
-				<li><?php echo anchor('admin/users', 'Manage Users', array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : ''));?></li>
-				<li><?php echo anchor('admin/groups', 'Groups', $module == 'groups' ? 'class="current"' : '');?></li>
-				<li><?php echo anchor('admin/permissions', 'Permissions', $module == 'permissions' ? 'class="current"' : '');?></li>
+				<li><?php echo anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : ''));?></li>
+
+				<?php
+					ksort($modules['users']);
+					foreach ($modules['users'] as $module):
+				?>
+				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], (($this->module == $module['slug']) ? 'class="current"' : ''));?></li>
+				<?php endforeach; ?>
 			</ul>
 		</li>
-		<li><?php echo anchor('admin/settings', 'Settings', 'class="last top-link no-submenu' . (($module == 'settings') ? ' current"' : '"'));?></li>
+
+		<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
+		<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="last top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
 	</ul>
 </nav>

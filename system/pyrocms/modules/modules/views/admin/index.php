@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach($modules as $module): ?>
+			<?php foreach($all_modules as $module): ?>
 			<?php if($module['is_core']) continue; ?>
 				<tr>
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
@@ -27,16 +27,16 @@
 					<?php if ($module['installed']): ?>
 
 						<?php if ($module['enabled']): ?>
-							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm')); ?>
+							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm minibutton')); ?>
 						<?php else: ?>
-							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm')); ?>
+							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm minibutton')); ?>
 						<?php endif; ?>
-						&nbsp;|&nbsp;
-						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm')); ?>
+						&nbsp;&nbsp;
+						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm minibutton')); ?>
 
 					<?php else: ?>
 						
-						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label')); ?>
+						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm minibutton')); ?>
 
 					<?php endif; ?>
 
@@ -64,10 +64,10 @@
 				</tr>
 			</thead>	
 			<tbody>
-			<?php foreach($modules as $module): ?>
+			<?php foreach($all_modules as $module): ?>
 			<?php if(!$module['is_core']) continue; ?>
 				<tr>
-					<td><?php echo $module['name']; ?></td>
+					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
 				</tr>

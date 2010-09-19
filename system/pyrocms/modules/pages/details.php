@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pages_details extends Module {
+class Details_Pages extends Module {
 
 	public $version = '1.0';
 
@@ -27,10 +27,7 @@ class Pages_details extends Module {
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
-			'menu'	  => TRUE,
-			'controllers' => array(
-				'admin' => array('index', 'create', 'edit', 'delete'),
-			)
+			'menu'	  => 'content'
 		);
 	}
 
@@ -60,16 +57,16 @@ class Pages_details extends Module {
 			 `parent_id` int(11) default '0',
 			 `revision_id` varchar(255) collate utf8_unicode_ci NOT NULL default '1',
 			 `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
-			 `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+			 `css` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			 `meta_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			 `meta_keywords` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-			 `meta_description` text collate utf8_unicode_ci NOT NULL,
+			 `meta_description` text collate utf8_unicode_ci,
 			 `rss_enabled` INT(1)  NOT NULL default '0',
 			 `comments_enabled` INT(1)  NOT NULL default '0',
 			 `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft',
-			 `created_on` INT(11)  NOT NULL default '0',
-			 `updated_on` varchar(11) collate utf8_unicode_ci NOT NULL default '',
+			 `created_on` INT(11) NOT NULL default '0',
+			 `updated_on` INT(11) NOT NULL default '0',
 			 PRIMARY KEY  (`id`),
 			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
@@ -92,7 +89,7 @@ class Pages_details extends Module {
 			  `table_name` varchar(100)  COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pages',
 			  `body` text COLLATE utf8_unicode_ci,
 			  `revision_date` int(11) NOT NULL,
-			  `author_id` int(11) NOT NULL,
+			  `author_id` int(11) NOT NULL default 0,
 			  PRIMARY KEY (`id`),
 			  KEY `Owner ID` (`owner_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
@@ -100,19 +97,19 @@ class Pages_details extends Module {
 
 		$default_page_layouts = "
 			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', NOW());
+			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', ".time().");
 		";
 
 		$default_pages = "
 			INSERT INTO `pages` (`id`, `slug`, `title`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`) VALUES
-			('1','home', 'Home', 1, 0, 1, 'live', NOW(), NOW()),
-			('2', '404', 'Page missing', 1, 0, '1', 'live', NOW(), NOW());
+			('1','home', 'Home', 1, 0, 1, 'live', ".time().", ".time()."),
+			('2', '404', 'Page missing', 1, 0, '1', 'live', ".time().", ".time().");
 		";
 
 		$default_revisions = "
 			INSERT INTO `revisions` (`id`, `owner_id`, `body`, `revision_date`) VALUES
-			  ('1', '1', 'Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.', NOW()),
-			  ('2', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{page_url(1)}\">here</a> to go to the homepage.</p>', NOW());
+			  ('1', '1', 'Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.', ".time()."),
+			  ('2', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{page_url(1)}\">here</a> to go to the homepage.</p>', ".time().");
 		";
 
 		if($this->db->query($page_layouts) &&

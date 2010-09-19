@@ -73,7 +73,7 @@ class Module_import {
 			'skip_xss' => !empty($module['skip_xss']),
 			'is_frontend' => !empty($module['frontend']),
 			'is_backend' => !empty($module['backend']),
-			'is_backend_menu' => !empty($module['menu']),
+			'menu' => !empty($module['menu']) ? $module['menu'] : FALSE,
 			'enabled' => $module['enabled'],
 			'installed' => $module['installed'],
 			'is_core' => $module['is_core']
@@ -98,7 +98,7 @@ class Module_import {
 			  `skip_xss` tinyint(1) NOT NULL,
 			  `is_frontend` tinyint(1) NOT NULL,
 			  `is_backend` tinyint(1) NOT NULL,
-			  `is_backend_menu` tinyint(1) NOT NULL,
+			  `menu` varchar(20) NOT NULL,
 			  `enabled` tinyint(1) NOT NULL,
 			  `installed` tinyint(1) NOT NULL,
 			  `is_core` tinyint(1) NOT NULL,
@@ -161,10 +161,9 @@ class Module_import {
 		include_once $details_file;
 
 		// Now call the details class
-		$class = ucfirst($module_slug).'_details';
+		$class = 'Details_'.ucfirst($module_slug);
 
 		// Now we need to talk to it
 		return new $class;
 	}
-	
 }

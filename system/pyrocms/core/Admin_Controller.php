@@ -21,35 +21,26 @@ class Admin_Controller extends MY_Controller
 	    // Get a list of all modules available to this user / group
 		if ($this->user)
 		{
-			$this->template->core_modules = $this->cache->model('module_m', 'get_all', array(
+			$modules = $this->cache->model('module_m', 'get_all', array(
 				array(
-					'is_backend_menu' => TRUE,
 					'is_backend' => TRUE,
 					'group' => $this->user->group,
 					'lang' => CURRENT_LANGUAGE
-				) // This function does NOT need role OR language, that is to give it a unique md5 hash
+				) // This function does NOT need group OR language, that is to give it a unique md5 hash
 			), $this->config->item('navigation_cache'));
 
-			$addon_modules = $this->cache->model('module_m', 'get_all', array(
-				array(
-					'is_core' => FALSE,
-					'is_backend' => TRUE,
-					'group' => $this->user->group,
-					'lang' => CURRENT_LANGUAGE
-				) // This function does NOT need role OR language, that is to give it a unique md5 hash
-			), $this->config->item('navigation_cache'));
+			$grouped_modules = array();
 
-			// This takes the modules array and creates a keyed array with the slug as the key.
-			$modules_keyed = array();
-			foreach($addon_modules as $mod)
+			foreach ($modules as $module)
 			{
-				$modules_keyed[$mod['slug']] = $mod;
+				$grouped_modules[$module['menu']][$module['name']] = $module;
 			}
-			$this->template->addon_modules = $modules_keyed;
+
+			$this->template->modules = $grouped_modules;
 		}
 
 	    // Template configuration
-	    $this->template->set_layout('admin/layout');
+	    $this->template->set_layout('admin/layouts/default');
 	    $this->template->enable_parser(FALSE);
 
 	    $this->template

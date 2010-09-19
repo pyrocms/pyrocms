@@ -23,7 +23,7 @@
  */
 class Settings
 {
-
+	protected $ci;
 	/**
 	 * Settings cache
 	 *
@@ -44,6 +44,9 @@ class Settings
 	public function __construct()
 	{
 		ci()->load->model('settings/settings_m');
+		
+		$this->ci =& get_instance();
+		$this->ci->lang->load('settings/settings');
 
 		$this->get_all();
 	}
@@ -259,6 +262,7 @@ class Settings
 				$form_control = '';
 
 				foreach($this->_format_options($setting->options) as $value => $label) {
+					
 					$form_control .= ''.form_radio(array(
 							'id'		=>	$setting->slug,
 							'name'		=>	$setting->slug,
@@ -286,6 +290,9 @@ class Settings
 
 		foreach(explode('|', $options) as $option) {
 			list($value, $name) = explode('=', $option);
+			if($this->ci->lang->line('settings_form_option_'.$name)!=''){
+				$name = $this->ci->lang->line('settings_form_option_'.$name);
+			}
 			$select_array[$value] = $name;
 		}
 

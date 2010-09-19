@@ -29,11 +29,12 @@ $lang['cp_report_bug'] 					= 'Report a bug';
 $lang['cp_contact_support'] 			= 'Support';
 
 $lang['cp_nav_settings']				= 'Settings';
+$lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
-$lang['cp_nav_edit_settings']			= 'Edit settings';
-$lang['cp_nav_themes']					= 'Themes';
-$lang['cp_nav_permissions']				= 'Permissions';
-$lang['cp_nav_variables']				= 'Variables';
+$lang['cp_nav_widgets']					= 'Widgets';
+$lang['cp_nav_users']					= 'Users';
+$lang['cp_nav_design']					= 'Design';
+$lang['cp_nav_content']					= 'Content';
 
 $lang['cp_must_login']	 				= 'You must be logged in to view this page.';
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
@@ -45,5 +46,3 @@ $lang['cp_shortcuts_title'] 			= 'Shortcuts';
 
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';
-
-?>

@@ -1,4 +1,4 @@
-<?php if($method == 'create'): ?>
+<?php if ($this->method == 'create'): ?>
 	<h3><?php echo lang('nav_link_create_title');?></h3>
 		
 <?php else: ?>
@@ -12,6 +12,7 @@
 			<li class="even">
 				<label for="title"><?php echo lang('nav_title_label');?></label>
 				<?php echo form_input('title', $navigation_link->title, 'maxlength="50" class="text"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 				
 			<li>
