@@ -391,7 +391,7 @@ ul.check p.fail {
 
 ul.check p.partial {
 	color: #b06216;
-	background: url(images/icons/bullet_error.png) no-repeat 5px 50%;
+	background: url(../images/icons/bullet_error.png) no-repeat 5px 50%;
 }
 
 /**********

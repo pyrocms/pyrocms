@@ -12,13 +12,13 @@
 	<li>
 		<h4><?php echo lang('server_settings'); ?></h4>
 		
-		<p class="result <?php echo ($http_server->supported) ? 'pass' : 'fail'; ?>">
-			<?php echo $http_server->name; ?>.
-			<?php if (!$http_server->supported): ?>
+		<p class="result <?php echo ($http_server->supported === TRUE) ? 'pass' : 'partial'; ?>">
+			<?php if ($http_server->supported === TRUE): ?>
+				<?php echo $http_server->name; ?>
+			<?php else: ?>
 				<?php echo lang('server_fail'); ?>
 			<?php endif; ?>
 		</p>
-		
 	</li>
 	
 	<!-- PHP -->

@@ -57,6 +57,9 @@ class Installer extends Controller
 
 		// Sets the language
 		$this->_set_language();
+		
+		// Load form validation
+		$this->load->library('form_validation');
 	}
 	
 	/**
@@ -83,46 +86,58 @@ class Installer extends Controller
 	 */
 	public function step_1()
 	{
-		if($_POST)
+		
+		// Save this junk for later
+		$this->session->set_userdata(array(
+			'hostname' => $this->input->post('hostname'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password'),
+			'port' => $this->input->post('port'),
+			'http_server' => $this->input->post('http_server')
+		));
+	
+		// Set rules
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'hostname',
+				'label'	=> 'lang:server',
+				'rules'	=> 'trim|required|callback_test_db_connection'
+			),
+			array(
+				'field' => 'username',
+				'label'	=> 'lang:username',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'password',
+				'label'	=> 'lang:password',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'port',
+				'label'	=> 'lang:portnr',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'http_server',
+				'label'	=> 'lang:server_settings',
+				'rules'	=> 'trim|required'
+			)
+		));
+		
+		// If the form validation passed
+		if ( $this->form_validation->run() )
 		{
-			// Data validation
-			if( $this->installer_lib->validate() )
-			{
-				// Check the connection works fine
-				if($this->installer_lib->test_db_connection())
-				{
-					// Set the flashdata message
-					$this->session->set_flashdata('message', '<li>' . lang('db_success') . '</li>' );
-					$this->session->set_flashdata('message_type', 'success');
-
-					// Redirect to the second step
-					$this->session->set_userdata('step_1_passed', TRUE);
-					redirect('installer/step_2');
-				}
-
-				else
-				{
-					// Set the flashdata message
-					$this->session->set_flashdata('message', '<li>' . lang('db_failure').mysql_error() . '</li>');
-					$this->session->set_flashdata('message_type', 'failure');
-					
-
-					// Redirect to the first step
-					redirect('installer/step_1');
-				}
-			}
+			// Set the flashdata message
+			$this->session->set_flashdata('message', lang('db_success') );
+			$this->session->set_flashdata('message_type', 'success');
 			
-			else
-			{
-				// Set the flashdata message
-				//$this->session->set_flashdata('message', validation_errors('<li>', '</li>'));
-				//$this->session->set_flashdata('message_type', 'failure');
-
-				// Redirect to the first step
-				//redirect('installer/step_1');
-			}
+			// Redirect to the second step
+			$this->session->set_userdata('step_1_passed', TRUE);
+			redirect('installer/step_2');
 		}
 		
+		// Get supported servers
 		$supported_servers 		= $this->config->item('supported_servers');
 		$data->server_options 	= array();
 	
@@ -144,6 +159,25 @@ class Installer extends Controller
 	}
 	
 	/**
+	 * Function to test the DB connection (used for the form validation)
+	 * 
+	 * @access public
+	 * @return bool
+	 */
+	function test_db_connection()
+	{
+		if ( ! $this->installer_lib->test_db_connection() )
+		{
+			$this->form_validation->set_message('test_db_connection', lang('db_failure') . mysql_error());
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	
+	/**
 	 * First actual installation step
 	 * 
 	 * @access public
@@ -155,7 +189,7 @@ class Installer extends Controller
 		if(!$this->session->userdata('step_1_passed'))
 		{
 			// Set the flashdata message
-			$this->session->set_flashdata('message', '<li>' . lang('step1_failure') . '</li>');
+			$this->session->set_flashdata('message', lang('step1_failure'));
 			$this->session->set_flashdata('message_type','failure');
 			
 			// Redirect
@@ -251,63 +285,103 @@ class Installer extends Controller
 			// Redirect the user back to step 2
 			redirect('installer/step_2');
 		}
-
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('database',		lang('database'),	'required|trim');
-		$this->form_validation->set_rules('user_name',		lang('user_name'),	'required|trim');
-		$this->form_validation->set_rules('user_firstname',	lang('first_name'),	'required|trim');
-		$this->form_validation->set_rules('user_lastname',	lang('last_name'),	'required|trim');
-		$this->form_validation->set_rules('user_email',		lang('email'),		'required|trim|valid_email');
-		$this->form_validation->set_rules('user_password',	lang('password'),	'required|trim');
-		$this->form_validation->set_rules('user_confirm_password', lang('conf_password'), 'required|trim|matches[user_password]');
-		$this->form_validation->set_error_delimiters('<span>','</span><br />');
-
+		
+		// Set rules
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'database',
+				'label'	=> 'lang:database',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'user_name',
+				'label'	=> 'lang:username',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'user_firstname',
+				'label'	=> 'lang:first_name',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'user_lastname',
+				'label'	=> 'lang:last_name',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'user_email',
+				'label'	=> 'lang:email',
+				'rules'	=> 'trim|required|valid_email'
+			),
+			array(
+				'field' => 'user_password',
+				'label'	=> 'lang:password',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'user_confirm_password',
+				'label'	=> 'lang:conf_password',
+				'rules'	=> 'trim|required|matches[user_password]|callback_attempt_install'
+			)
+		));
+		
+		// If the form validation failed (or did not run)
 		if ($this->form_validation->run() == FALSE)
 		{
 			$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
 			$this->load->view('global', $final_data);
 		}
+		
+		// If the form validation passed
 		else
 		{
-			// Let's load the language labels
-			$data =	$this->lang->language;
+			// Success!
+			$this->session->set_flashdata('message', lang('success'));
+			$this->session->set_flashdata('message_type','success');
 
+			// Store the default username and password in the session data
+			$this->session->set_userdata('user', array(
+				'user_email'	=> $this->input->post('user_email'),
+				'user_password'	=> $this->input->post('user_password'),
+				'user_firstname'=> $this->input->post('user_firstname'),
+				'user_lastname'	=> $this->input->post('user_lastname')
+			));
+
+			// Import the modules
+			$this->load->library('module_import');
+			$this->module_import->import_all();
+
+			// Redirect
+			redirect('installer/complete');
+		}
+	}
+	
+	/**
+	 * Attempt to install PyroCMS (used for form validation)
+	 * 
+	 * @access public
+	 * @return bool
+	 */
+	function attempt_install()
+	{
+		// If we do not have any validation errors so far
+		if ( ! validation_errors() )
+		{
 			// Let's try to install the system
 			$install_results = $this->installer_lib->install($_POST);
 			
 			// Did the install fail?
 			if($install_results['status'] === FALSE)
 			{
-				
 				// Let's tell them why the install failed
-				$data['message']['text'] = '<li>' . $this->lang->line('error_'.$install_results['code']) . $install_results['message'] . '</li>';
-				$data['message']['type'] = 'failure';
-				
-				$final_data['page_output'] = $this->parser->parse('step_4', $data, TRUE);
-				$this->load->view('global', $final_data);
-				
+				$this->form_validation->set_message('attempt_install', $this->lang->line('error_'.$install_results['code']) . $install_results['message']);
+				return FALSE;
 			}
+			
+			// If the install did not fail
 			else
 			{
-				// Success!
-				$this->session->set_flashdata('message', '<li>' . lang('success') . '</li>');
-				$this->session->set_flashdata('message_type','success');
-
-				// Store the default username and password in the session data
-				$this->session->set_userdata('user', array(
-					'user_email'	=> $this->input->post('user_email'),
-					'user_password'	=> $this->input->post('user_password'),
-					'user_firstname'=> $this->input->post('user_firstname'),
-					'user_lastname'	=> $this->input->post('user_lastname')
-				));
-
-				// Import the modules
-				$this->load->library('module_import');
-				$this->module_import->import_all();
-
-				// Redirect
-				redirect('installer/complete');
+				return TRUE;
 			}
 		}
 	}

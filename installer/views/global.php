@@ -34,21 +34,15 @@
 		<!-- Content -->
 		<div id="content">
 			<div class="container">
-				<!-- Message type 1 (message array) -->
-				<?php if(isset($message)): ?>
-					<ul class="<?php echo ($message['type']) ? $message['type'] : 'success'; ?>">
-						<?php if($message['text']) { echo $message['text']; }; ?>
-					</ul>
-				<?php endif; ?>
 				
-				<!-- Message type 2 (flashdata) -->
+				<!-- Message type 1 (flashdata) -->
 				<?php if($this->session->flashdata('message')): ?>
 					<ul class="<?php echo ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'success'; ?>">
-						<?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?>
+						<li><?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?></li>
 					</ul>
 				<?php endif; ?>
 				
-				<!-- Message type 3 (validation errors) -->
+				<!-- Message type 2 (validation errors) -->
 				<?php if ( validation_errors() ): ?>
 					<div id="notification">
 						<ul class="failure">

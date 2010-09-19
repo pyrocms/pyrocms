@@ -65,7 +65,7 @@
 	<div class="input">
 		<label for="user_password"><?php echo lang('password'); ?></label>
 		<?php
-			echo form_input(array(
+			echo form_password(array(
 				'id' => 'user_password',
 				'name' => 'user_password',
 				'value' => set_value('user_password')
@@ -76,7 +76,7 @@
 	<div class="input">
 		<label for="user_confirm_password"><?php echo lang('conf_password'); ?></label>
 		<?php
-			echo form_input(array(
+			echo form_password(array(
 				'id' => 'user_confirm_password',
 				'name' => 'user_confirm_password',
 				'value' => set_value('user_confirm_password')

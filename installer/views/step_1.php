@@ -16,7 +16,7 @@
 			echo form_input(array(
 				'id' => 'hostname',
 				'name' => 'hostname',
-				'value' => $this->session->userdata('hostname')
+				'value' => set_value('hostname')
 			));
 		?>
 		</div>
@@ -26,7 +26,7 @@
 				echo form_input(array(
 					'id' => 'username',
 					'name' => 'username',
-					'value' => $this->session->userdata('username')
+					'value' => set_value('username')
 				));
 			?>
 		</div>
@@ -36,7 +36,7 @@
 				echo form_password(array(
 					'id' => 'password',
 					'name' => 'password',
-					'value' => $this->session->userdata('password')
+					'value' => set_value('password')
 				));
 			?>
 		</div>
@@ -63,7 +63,7 @@
 			<div class="input">
 				<?php echo lang('httpserver','http_server'); ?>
 				<?php
-					echo form_dropdown('http_server', $server_options, $this->session->userdata('http_server'), 'id="http_server"');
+					echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"');
 				?>
 			</div>
 	</div>

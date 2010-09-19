@@ -181,55 +181,10 @@ class Installer_lib {
 	}
 	
 	/**
-	 * @param 	string $data The post data
-	 * @return 	bool
-	 * 
-	 * Function to validate the $_POST results from step 3
+	 * @return 	mixed
+	 *
+	 * Make sure we can connect to the database 
 	 */
-	function validate()
-	{
-		// Save this junk for later
-		$this->ci->session->set_userdata(array(
-			'hostname' => $this->ci->input->post('hostname'),
-			'username' => $this->ci->input->post('username'),
-			'password' => $this->ci->input->post('password'),
-			'port' => $this->ci->input->post('port'),
-			'http_server' => $this->ci->input->post('http_server')
-		));
-
-		$this->ci->load->library('form_validation');
-
-		$this->ci->form_validation->set_rules(array(
-			array(
-				'field' => 'hostname',
-				'label'	=> 'Server',
-				'rules'	=> 'trim|required'
-			),
-			array(
-				'field' => 'username',
-				'label'	=> 'Username',
-				'rules'	=> 'trim|required'
-			),
-			array(
-				'field' => 'password',
-				'label'	=> 'Password',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'port',
-				'label'	=> 'Port',
-				'rules'	=> 'trim|required'
-			),
-			array(
-				'field' => 'http_server',
-				'label'	=> 'Server Software',
-				'rules'	=> 'trim|required'
-			)
-		));
-
-		return $this->ci->form_validation->run();
-	}
-
 	function test_db_connection()
 	{
 		$hostname = $this->ci->session->userdata('hostname');
@@ -248,7 +203,6 @@ class Installer_lib {
 	 */
 	function install($data)
 	{
-		
 		// Retrieve the database server, username and password from the session
 		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
 		$username 	= $this->ci->session->userdata('username');
