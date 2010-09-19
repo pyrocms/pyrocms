@@ -34,7 +34,7 @@
 	</table>
 <?php else: ?>
 	<div class="blank-slate">
-		<img src="<?php echo site_url('addons/modules/newsletters/img/news.png') ?>" />
+		<img src="<?php echo base_url().'addons/modules/newsletters/img/news.png' ?>" />
 	
 		<h2><?php echo lang('newsletter.no_newsletters_error');?></h2>
 	</div>
