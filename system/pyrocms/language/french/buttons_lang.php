@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * PyroCMS
  *
@@ -20,7 +20,7 @@ $lang['buttons.save_exit']	= 'Enregister et sortir';
 $lang['buttons.delete']		= 'Supprimer';
 $lang['buttons.publish']	= 'Publier';
 $lang['buttons.approve']	= 'Approuver';
-$lang['buttons.unapprove']	= 'D�sapprouver';
+$lang['buttons.unapprove']	= 'Désapprouver';
 $lang['buttons.install']	= 'Installer';
 $lang['buttons.yes']		= 'Oui';
 $lang['buttons.no']			= 'Non';

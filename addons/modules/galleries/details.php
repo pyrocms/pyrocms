@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Details_Galleries extends Module {
 
@@ -17,7 +17,7 @@ class Details_Galleries extends Module {
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
 				'nl' => 'De gallerij module is een krachtige module dat gebruikers in staat stelt gallerijen te plaatsen.',
-				'fr' => 'Galerie est une puissante extension permettant de cr�er des galeries d\'images.'
+				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,

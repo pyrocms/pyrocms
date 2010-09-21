@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Details_Twitter extends Module {
 
@@ -17,7 +17,7 @@ class Details_Twitter extends Module {
 				'en' => 'Show twitter posts and support general Twitter integration.',
 				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.',
 				'nl' => 'Toont Twitter posts en ondersteunt algemene Twitter integratie.',
-				'fr' => 'Affiche les tweets et fournit l\'int�gration au service Twitter.'
+				'fr' => 'Affiche les tweets et fournit l\'intégration au service Twitter.'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,
