@@ -97,6 +97,7 @@ class Group_m extends CI_Model
 	public function insert($input)
 	{
 		return $this->db->insert('groups', array(
+		'title' => $input['title'],
         	'name' => $input['name'],
         	'description' => $input['description'],
 			//'site_id' => $this->site->id
@@ -117,6 +118,7 @@ class Group_m extends CI_Model
 			->where('id', $id)
 			//->where('site_id', $this->site->id)
 			->update('groups', array(
+				'title' => $input['title'],
 				'name' => $input['name'],
 				'description' => $input['description']
 			));
