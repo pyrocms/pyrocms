@@ -32,7 +32,6 @@ class Details_Groups extends Module {
 		$groups = "
 			CREATE TABLE IF NOT EXISTS `groups` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
 			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
 			  `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  PRIMARY KEY (`id`)
@@ -40,9 +39,9 @@ class Details_Groups extends Module {
 		";
 
 		$default_data = "
-			INSERT INTO `groups` (`id`, `title`, `name`, `description`) VALUES
-			(1, 'Administator', 'admin', NULL),
-			(2, 'User', 'user', NULL);
+			INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+			(1, 'admin', 'Administrators'),
+			(2, 'user', 'Users');
 		";
 		
 		if($this->db->query($groups) && $this->db->query($default_data))

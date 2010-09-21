@@ -6,11 +6,6 @@
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
     <ul>
-	    <li>
-			<label for="title"><?php echo lang('groups.title'); ?></label>
-			<?php echo form_input('title', $group->title); ?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-	    </li>
 		<li class="even">
 			<label for="name"><?php echo lang('groups.name');?></label>
 			<?php echo form_input('name', $group->name);?>

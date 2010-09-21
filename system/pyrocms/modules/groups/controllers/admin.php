@@ -28,11 +28,6 @@ class Admin extends Admin_Controller
 		// Validation rules
 		$this->validation_rules = array(
 			array(
-				'field' => 'title',
-				'label' => lang('groups.title'),
-				'rules' => 'trim|required|max_length[100]'
-			),
-			array(
 				'field' => 'name',
 				'label' => lang('groups.name'),
 				'rules' => 'trim|required|max_length[100]'

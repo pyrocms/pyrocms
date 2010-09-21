@@ -347,7 +347,7 @@ class Upgrade extends Controller
 	    
 	    // Upgrade Groups
 	    $this->output .= "Modifying groups table.<br/>";
-	    $this->db->query("ALTER TABLE `groups` CHANGE `title` `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
+	    $this->dbforge->drop_column('groups', 'title');
 	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
 	    $this->db->query("ALTER TABLE `description` CHANGE `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
 
