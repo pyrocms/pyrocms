@@ -37,6 +37,19 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
+		
+		<li>
+			<a href="#" class="top-link <?php echo (($this->module_data AND $this->module_data['menu'] == 'utilities') OR $this->module == 'utilities') ? 'current' : ''; ?>"><?php echo lang('cp_nav_utilities');?></a>
+			<ul>
+				<?php
+					ksort($modules['utilities']);
+					foreach ($modules['utilities'] as $module):
+				?>
+				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], (($this->module == $module['slug']) ? 'class="current"' : ''));?></li>
+				<?php endforeach; ?>
+			</ul>
+		</li>
+		
 
 		<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
 		<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="last top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>

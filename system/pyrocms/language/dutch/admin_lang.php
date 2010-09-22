@@ -35,6 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Gebruikers';
 $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Content';
+$lang['cp_nav_utilities']                               = 'Utilities'; #translate
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';

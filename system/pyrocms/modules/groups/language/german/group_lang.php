@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
+$lang['groups.title'] = 'Dateien';
 $lang['groups.name']				    = 'Name';
 $lang['groups.description'] 		    = 'Beschreibung';
 $lang['groups.actions']					= 'Aktionen';

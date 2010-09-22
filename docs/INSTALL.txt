@@ -9,13 +9,15 @@ INTALL
 	
 	cd /home/pyrocms/public_html/
 	
-	chmod 777 codeigniter/cache
-	chmod 777 codeigniter/logs
-	chmod -R 777 application/cache
-	chmod -R 777 application/uploads
-	chmod -R 777 application/assets/img/photos
-	chmod 666 application/config/config.php
-	chmod 666 application/config/database.php
+	chmod 777 system/codeigniter/cache
+	chmod 777 system/codeigniter/logs
+	chmod -R 777 system/pyrocms/cache
+	chmod -R 777 system/pyrocms/cache/dwoo
+	chmod -R 777 system/pyrocms/cache/dwoo/compiled
+	chmod -R 777 system/pyrocms/cache/simplepie
+	chmod -R 777 system/pyrocms/config
+	chmod -R 777 uploads
+	chmod 666 system/pyrocms/config/config.php
 
 4.) Run the installer, this can be done by navigating to http://www.yoursite.com/installer. This will set up the database
 	and create your config files. If this fails, run the SQL manually from installer/sql/.

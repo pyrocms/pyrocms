@@ -344,6 +344,12 @@ class Upgrade extends Controller
 	            'null'        => TRUE
 	        )
 	    ));
+	    
+	    // Upgrade Groups
+	    $this->output .= "Modifying groups table.<br/>";
+	    $this->dbforge->drop_column('groups', 'title');
+	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
+	    $this->db->query("ALTER TABLE `description` CHANGE `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
 
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";

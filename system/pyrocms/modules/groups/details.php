@@ -11,13 +11,15 @@ class Details_Groups extends Module {
 				'en' => 'Groups',
 				'br' => 'Grupos',
                 'de' => 'Gruppen',
-				'nl' => 'Groepen'
+				'nl' => 'Groepen',
+                'fr' => 'Groupes'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
 				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.',
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
-				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.'
+				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
+				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -32,17 +34,16 @@ class Details_Groups extends Module {
 		$groups = "
 			CREATE TABLE IF NOT EXISTS `groups` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-			  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+			  `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Permission roles such as admins, moderators, staff, etc' AUTO_INCREMENT=3 ;
 		";
 
 		$default_data = "
-			INSERT INTO `groups` (`id`, `title`, `name`, `description`) VALUES
-			(1, 'Administator', 'admin', NULL),
-			(2, 'User', 'user', NULL);
+			INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+			(1, 'admin', 'Administrators'),
+			(2, 'user', 'Users');
 		";
 		
 		if($this->db->query($groups) && $this->db->query($default_data))

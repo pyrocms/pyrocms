@@ -80,13 +80,17 @@
 					<li class="even">
 						<label for="password"><?php echo lang('user_password_label');?></label>
 						<?php echo form_password('password'); ?>
+						<?php if ($this->method == 'create'): ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+						<?php endif; ?>
 					</li>
 
 					<li>
 						<label for="confirm_password"><?php echo lang('user_password_confirm_label');?></label>
 						<?php echo form_password('confirm_password'); ?>
+						<?php if ($this->method == 'create'): ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+						<?php endif; ?>
 					</li>
 				</ol>
 			</fieldset>

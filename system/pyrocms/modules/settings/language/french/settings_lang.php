@@ -5,19 +5,19 @@ $lang['settings_edit_title'] 			= 'Modifier les paramètres';
 
 
 #section settings
-$lang['settings_site_name'] 					= 'Site Name';#translate
-$lang['settings_site_name_desc'] 				= 'The name of the website for page titles and for use around the site.';#translate
+$lang['settings_site_name'] 					= 'Nom du site';#translate
+$lang['settings_site_name_desc'] 				= 'Le nom du site. Ce nom sera utilisé dans le titre des pages ainsi que dans d\'autres emplacemnts';#translate
 
 $lang['settings_site_slogan'] 					= 'Site Slogan';#translate
 $lang['settings_site_slogan_desc'] 				= 'The slogan of the website for page titles and for use around the site.';#translate
 
-$lang['settings_contact_email'] 				= 'Contact E-mail';#translate
-$lang['settings_contact_email_desc'] 			= 'All e-mails from users, guests and the site will go to this e-mail address.';#translate
+$lang['settings_contact_email'] 				= 'E-mail de contact';#translate
+$lang['settings_contact_email_desc'] 			= 'Tous les emails provenant des utilisateurs, des invités et du site seront adressés à cette adresse.';#translate
 
-$lang['settings_server_email'] 					= 'Server E-mail';#translate
-$lang['settings_server_email_desc'] 			= 'All e-mails to users will come from this e-mail address.';#translate
+$lang['settings_server_email'] 					= 'E-mail du serveur';#translate
+$lang['settings_server_email_desc'] 			= 'Tous les emails seront envoyés depuis le site auront pour expéditeur cette adresse email.';#translate
 
-$lang['settings_meta_topic']					= 'Meta Topic';#translate
+$lang['settings_meta_topic']					= 'Balise Meta';#translate
 $lang['settings_meta_topic_desc']				= 'Two or three words describing this type of company/website.';#translate
 
 $lang['settings_currency'] 						= 'Currency';#translate
@@ -77,25 +77,25 @@ $lang['settings_twitter_cache_desc'] 			= 'How many minutes should your Tweets b
 $lang['settings_akismet_api_key'] 				= 'Akismet API Key';#translate
 $lang['settings_akismet_api_key_desc'] 			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';#translate
 
-$lang['settings_moderate_comments'] 			= 'Moderate Comments';#translate
-$lang['settings_moderate_comments_desc']		= 'Force comments to be approved before they appear on the site.';#translate
+$lang['settings_moderate_comments'] 			= 'Modérer les commentaires';#translate
+$lang['settings_moderate_comments_desc']		= 'Exige l\'approbation des commentaires avant leur publication sur le site.';#translate
 
 $lang['settings_version'] 						= 'Version';#translate
 $lang['settings_version_desc'] 					= '';
 
 
 #section titles
-$lang['settings_section_general']				= 'Algemeen';#translate
+$lang['settings_section_general']				= 'Général';#translate
 $lang['settings_section_integration']			= 'Integratie';#translate
-$lang['settings_section_users']					= 'Gebruikers';#translate
-$lang['settings_section_statistics']			= 'Statistieken';#translate
+$lang['settings_section_users']					= 'Utilisateurs';#translate
+$lang['settings_section_statistics']			= 'Statistiques';#translate
 $lang['settings_section_twitter']				= 'Twitter';#translate
 
 #checkbox and radio options
-$lang['settings_form_option_Open']				= 'Open';#translate
-$lang['settings_form_option_Closed']			= 'Closed';#translate
-$lang['settings_form_option_Enabled']			= 'Enabled';#translate
-$lang['settings_form_option_Disabled']			= 'Disabled';#translate
-$lang['settings_form_option_Required']			= 'Required';#translate
-$lang['settings_form_option_Optional']			= 'Optional';#translate
+$lang['settings_form_option_Open']				= 'Ouvrir';#translate
+$lang['settings_form_option_Closed']			= 'Fermé';#translate
+$lang['settings_form_option_Enabled']			= 'Actif';#translate
+$lang['settings_form_option_Disabled']			= 'Inactif';#translate
+$lang['settings_form_option_Required']			= 'Requis';#translate
+$lang['settings_form_option_Optional']			= 'Optionel';#translate
 ?>

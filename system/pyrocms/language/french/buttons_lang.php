@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * PyroCMS
  *
@@ -12,17 +12,18 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Save';
-$lang['buttons.cancel']		= 'Cancel';
-$lang['buttons.upload']		= 'Upload';
-$lang['buttons.save']		= 'Save';
-$lang['buttons.save_exit']	= 'Save &amp; Exit';
-$lang['buttons.delete']		= 'Delete';
-$lang['buttons.publish']	= 'Publish';
-$lang['buttons.approve']	= 'Approve';
-$lang['buttons.unapprove']	= 'Un-approve';
-$lang['buttons.install']	= 'Install';
-$lang['buttons.yes']		= 'Yes';
-$lang['buttons.no']			= 'No';
+$lang['buttons.submit']		= 'Enregistrer';
+$lang['buttons.cancel']		= 'Annuler';
+$lang['buttons.upload']		= 'Uploader';
+$lang['buttons.save']		= 'Enregistrer';
+$lang['buttons.save_exit']	= 'Enregister et sortir';
+$lang['buttons.delete']		= 'Supprimer';
+$lang['buttons.publish']	= 'Publier';
+$lang['buttons.approve']	= 'Approuver';
+$lang['buttons.unapprove']	= 'Désapprouver';
+$lang['buttons.install']	= 'Installer';
+$lang['buttons.yes']		= 'Oui';
+$lang['buttons.no']		= 'Non';
+$lang['buttons.activate']       = 'Activate'; #translate
 
 /* End of file buttons_lang.php */

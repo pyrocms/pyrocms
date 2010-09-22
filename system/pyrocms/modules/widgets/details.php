@@ -10,13 +10,15 @@ class Details_Widgets extends Module {
 			'name' => array(
 				'en' => 'Widgets',
 				'de' => 'Widgets',
-				'nl' => 'Widgets'
+				'nl' => 'Widgets',
+                'fr' => 'Widgets'
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
 				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
-				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".'
+				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',
+				'fr' => 'Gérer des mini application ou "Widgets".'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

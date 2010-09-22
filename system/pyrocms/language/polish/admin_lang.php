@@ -35,6 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgety';
 $lang['cp_nav_users']					= 'Użytkownicy';
 $lang['cp_nav_design']					= 'Wygląd';
 $lang['cp_nav_content']					= 'Zawartość';
+$lang['cp_nav_utilities']                               = 'Utilities'; #translate
 
 $lang['cp_must_login']	 				= 'Musisz być zalogowany, żeby zobaczyć tę stronę.';
 $lang['cp_access_denied'] 				= 'Nie posiadasz wystarczających uprawnień, żeby zobaczyć tą stronę.';
