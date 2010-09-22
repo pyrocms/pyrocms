@@ -41,6 +41,11 @@ class Admin extends Admin_Controller
 				'label'   => lang('photo_albums.desc_label'),
 				'rules'   => 'trim'
 			),
+                        array(
+				'field'   => 'enable_comments',
+				'label'   => lang('photo_albums.comments_label'),
+				'rules'   => 'trim|integer'
+			),
 			array(
 				'field'   => 'parent',
 				'label'   => lang('photo_albums.parent_album_label'),
