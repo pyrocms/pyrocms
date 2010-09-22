@@ -129,7 +129,8 @@ class Versioning
 	/**
 	 * Diff function
 	 * 
-	 * @author Yorick Peterse and Dan Horrigan
+	 * @author Paul Butler
+	 * @modified Dan Horrigan
 	 * @access private
 	 * @param string $old The old block of data
 	 * @param string $new The new block of data
