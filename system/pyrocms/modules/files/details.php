@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+﻿<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Details_Files extends Module {
 
@@ -11,13 +11,15 @@ class Details_Files extends Module {
 				'en' => 'Files',
 				'br' => 'Files',
 				'de' => 'Dateien',
-				'nl' => 'Bestanden'
+				'nl' => 'Bestanden',
+				'fr' => 'Fichiers'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
 				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
-				'nl' => 'Beheer bestanden en folders op uw website.'
+				'nl' => 'Beheer bestanden en folders op uw website.',
+				'fr' => 'Gérer les fichiers et dossiers de votre site.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

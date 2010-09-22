@@ -4,8 +4,8 @@
 $lang['pages.content_label'] 					= 'Contenu de la page';
 $lang['pages.meta_label'] 						= 'Méta données';
 $lang['pages.design_label'] 					= 'Design';
-$lang['pages.script_label'] 					= 'Script'; #translate
-$lang['pages.options_label'] 					= 'Options'; #translate
+$lang['pages.script_label'] 					= 'Script'; 
+$lang['pages.options_label'] 					= 'Options'; 
 
 $lang['pages.detail_label'] 					= 'Détails';
 
@@ -26,8 +26,8 @@ $lang['pages.layout_id_label'] 					= 'Modèle';
 $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.access_label'] 					= 'Accès';
-$lang['pages.rss_enabled_label'] 				= 'RSS enabled'; #translate
-$lang['pages.comments_enabled_label'] 		= 'Comments enabled'; #translate
+$lang['pages.rss_enabled_label'] 				= 'RSS activé';
+$lang['pages.comments_enabled_label'] 		= 'Commentaires activés';
 
 $lang['pages.status_label'] 					= 'Statut';
 $lang['pages.draft_label'] 						= 'Brouillon';
@@ -61,6 +61,6 @@ $lang['pages_parent_not_exist_error'] 			= 'La page parente que vous avez sélec
 $lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web. 
 Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
 
-$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.'; #translate
+$lang['pages.rss_explanation']					= 'Activer RSS pour cette page permettra à un utilisateur de souscrire au flux RSS contenant chacun des pages enfant.';
 
 ?>
