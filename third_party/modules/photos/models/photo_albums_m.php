@@ -69,13 +69,15 @@ class Photo_albums_m extends MY_Model
     function update($id, $input)
     {
         $this->load->helper('date');
-        
+
+        $enable_comments = (isset($input['enable_comments']) AND $input['enable_comments'] == 1) ? 1 : 0;
+
         return parent::update($id, array(
         	'title'				=> $input['title'],
         	'slug'				=> $input['slug'],
         	'description' 		=> $input['description'],
         	'parent' 			=> $input['parent'],
-        	'enable_comments' 	=> $input['enable_comments'],
+        	'enable_comments' 	=> $enable_comments,
         	'updated_on'		=> now()
         ));
     }
