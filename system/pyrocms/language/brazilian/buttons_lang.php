@@ -24,5 +24,6 @@ $lang['buttons.unapprove']	= 'Un-approve'; #translate
 $lang['buttons.install']	= 'Instalar';
 $lang['buttons.yes']		= 'Sim';
 $lang['buttons.no']			= 'Não';
+$lang['buttons.activate']       = 'Activate'; #translate
 
 /* End of file buttons_lang.php */

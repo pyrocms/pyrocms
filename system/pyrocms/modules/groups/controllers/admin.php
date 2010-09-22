@@ -30,13 +30,13 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'name',
 				'label' => lang('groups.name'),
-				'rules' => 'trim|required|max_length[50]'
+				'rules' => 'trim|required|max_length[100]'
 			),
 			array(
 				'field' => 'description',
 				'label' => lang('groups.description'),
-				'rules' => 'trim|required|max_length[250]'
-			),
+				'rules' => 'trim|max_length[250]'
+			)
 		);
 
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');

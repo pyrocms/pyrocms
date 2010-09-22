@@ -11,7 +11,7 @@
 		</thead>
 		<tbody>
 
-		<?php foreach($modules as $module): ?>
+		<?php foreach($module_groups as $module): ?>
 			<tr>
 				<td style="width: 30px"><?php echo form_checkbox('modules['.$module['slug'].']', 1, in_array($module['slug'], $edit_permissions)); ?></td>
 				<td><?php echo $module['name']; ?></td>

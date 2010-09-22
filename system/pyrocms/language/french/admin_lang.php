@@ -35,6 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Gebruikers'; #translate
 $lang['cp_nav_design']					= 'Design'; #translate
 $lang['cp_nav_content']					= 'Content'; #translate
+$lang['cp_nav_utilities']                               = 'Utilities'; #translate
 
 $lang['cp_must_login']	 				= 'You must be logged in to view this page.'; #translate
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
