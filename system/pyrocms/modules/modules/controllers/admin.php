@@ -43,7 +43,7 @@ class Admin extends Admin_Controller
  		$this->template->all_modules = $this->module_m->get_all(NULL, TRUE);
 
 		$this->template
-			->title($this->module_data['name'])
+			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -117,7 +117,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_data['name'],lang('modules.upload_title'))
+			->title($this->module_details['name'],lang('modules.upload_title'))
 			->build('admin/upload', $this->data);
 	}
 

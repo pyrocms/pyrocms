@@ -3,6 +3,9 @@
 // Code here is run before ALL controllers
 class MY_Controller extends Controller
 {
+	// Deprecated: No longer used globally
+	protected $data;
+
 	public $module;
 	public $controller;
 	public $method;
@@ -34,8 +37,6 @@ class MY_Controller extends Controller
         $this->controller			= $this->router->fetch_class();
         $this->method 				= $this->router->fetch_method();
 		
-		$this->data->module     	=& $this->module;
-
 		// Loaded after $this->user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
@@ -47,19 +48,16 @@ class MY_Controller extends Controller
 		$this->permissions = $this->user ? $this->permission_m->get_group($this->user->group_id) : array();
 
 		// Get meta data for the module
-        $this->module_data = $this->module_m->get($this->module);
+        $this->template->module_details = $this->module_details = $this->module_m->get($this->module);
 
 		// If the module is disabled, then show a 404.
-		$this->module_data['enabled'] == 1 or show_404();
+		empty($this->module_details['enabled']) AND show_404();
 
-		if(!$this->module_data['skip_xss'])
+		if(!$this->module_details['skip_xss'])
 		{
 			// TODO Re-enable this somehows
 			//$_POST = $this->security->xss_clean($_POST);
 		}
-
-        // Make them available to all layout files
-        $this->data->module_data =& $this->module_data;
 
 		// Simple Pyro variables
         $pyro['base_url']			= BASE_URL;

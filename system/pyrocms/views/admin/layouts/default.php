@@ -51,8 +51,8 @@
 	</section>
 	<section id="content-wrapper">
 		<header id="page-header">
-			<h1><?php echo $module_data['name'] ? anchor('admin/' . strtolower($module_data['name']), $module_data['name']) : lang('cp_admin_home_title'); ?></h1>
-			<p><?php echo $module_data['description'] ? $module_data['description'] : ''; ?></p>
+			<h1><?php echo $module_details['name'] ? anchor('admin/' . strtolower($module_details['name']), $module_details['name']) : lang('cp_admin_home_title'); ?></h1>
+			<p><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></p>
 		</header>
 
 			<?php if(!empty($template['partials']['shortcuts'])): ?>

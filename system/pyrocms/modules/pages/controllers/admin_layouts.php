@@ -74,7 +74,7 @@ class Admin_layouts extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title($this->module_data['name'], lang('pages.layout_id_label'))
+			->title($this->module_details['name'], lang('pages.layout_id_label'))
 			->build('admin/layouts/index', $this->data);
 	}
 
@@ -130,7 +130,7 @@ class Admin_layouts extends Admin_Controller
 
 	    // Load WYSIWYG editor
 		$this->template
-			->title($this->module_data['name'], lang('pages.layout_id_label'), lang('page_layouts.create_title'))
+			->title($this->module_details['name'], lang('pages.layout_id_label'), lang('page_layouts.create_title'))
 			->append_metadata(js('codemirror/codemirror.js'))
 			->build('admin/layouts/form', $this->data);
 	}
@@ -192,7 +192,7 @@ class Admin_layouts extends Admin_Controller
 
 	    // Load WYSIWYG editor
 		$this->template
-			->title($this->module_data['name'], lang('pages.layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
+			->title($this->module_details['name'], lang('pages.layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
 			->append_metadata(js('codemirror/codemirror.js'))
 			->build('admin/layouts/form', $this->data);
 	}

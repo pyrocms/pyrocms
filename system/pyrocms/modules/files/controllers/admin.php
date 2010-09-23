@@ -67,7 +67,7 @@ class Admin extends Admin_Controller {
 		$this->data->error = $this->_check_dir();
 
 		$this->template
-			->title($this->module_data['name'])
+			->title($this->module_details['name'])
 			->build('admin/layouts/index', $this->data);
 	}
 

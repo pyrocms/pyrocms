@@ -20,6 +20,8 @@
 * Removed the crazy complicated and rather broken Permissions module. Replaced it with a VERY simple module.
 * Added class prefix to all Widgets_ to stop namespace collisions.
 * Replaced TinyMCE with CKEditor 3.4.
+* Removed dependency on $this->data so controllers in modules can use whatever $data variable they like.
+* Renamed $this->module_data to $this->module_details to match details.php name.
 
 ### Deprecated
 
