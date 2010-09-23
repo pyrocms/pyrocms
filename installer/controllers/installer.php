@@ -346,6 +346,9 @@ class Installer extends Controller
 				'user_firstname'=> $this->input->post('user_firstname'),
 				'user_lastname'	=> $this->input->post('user_lastname')
 			));
+			
+			//define the default user email to be used in the settings module install
+			define('DEFAULT_EMAIL', $this->input->post('user_email'));
 
 			// Import the modules
 			$this->load->library('module_import');
