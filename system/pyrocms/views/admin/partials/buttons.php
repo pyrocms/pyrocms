@@ -16,7 +16,7 @@
 			</button>
 
 		<?php elseif( $button == 'cancel' ): ?>
-				<a href="<?php echo site_url('admin/'.$module);?>" class="button">
+				<a href="<?php echo site_url('admin/'.$this->module);?>" class="button">
 					<?php echo lang('buttons.cancel');?>
 				</a>
 
