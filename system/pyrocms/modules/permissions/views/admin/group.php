@@ -1,4 +1,4 @@
-<h3><?php echo $group->title; ?></h3>
+<h3><?php echo $group->description; ?></h3>
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 

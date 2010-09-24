@@ -2,7 +2,7 @@
 	<h3><?php echo lang('nav_link_create_title');?></h3>
 		
 <?php else: ?>
-	<h3><?php echo sprintf(lang('nav_link_edit_title'), $this->data->navigation_link->title);?></h3>
+	<h3><?php echo sprintf(lang('nav_link_edit_title'), $navigation_link->title);?></h3>
 	
 <?php endif; ?>
 
