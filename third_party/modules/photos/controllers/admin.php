@@ -29,12 +29,12 @@ class Admin extends Admin_Controller
 			array(
 				'field'   => 'title',
 				'label'   => lang('photo_albums.title_label'),
-				'rules'   => 'trim|required|max_length[255]|callback__check_slug'
+				'rules'   => 'trim|required|max_length[255]'
 			),
 			array(
 				'field'   => 'slug',
 				'label'   => lang('photo_albums.slug_label'),
-				'rules'   => 'trim|required|max_length[255]|alpha_dash'
+				'rules'   => 'trim|required|max_length[255]|alpha_dash|callback__check_slug'
 			),
 			array(
 				'field'   => 'description',
