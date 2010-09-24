@@ -88,37 +88,36 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
-		// ---- Permissions ---------------------------------
+		// ------------ Upgrade Modules Table----------------
+		
+		$menu = array(
+				'is_backend_menu' 	=> 	array(
+										'name' => 'menu',
+										'type' => 'varchar',
+										'constraint' => '20'
+										)
+		);
+		$installed = array(
+					'installed' 	=>	array(
+										'type' => 'tinyint',
+										'constraint' => '1',
+										'default' => '1'
+										)
+		);
+		$this->dbforge->modify_column('modules', $menu);
+		$this->dbforge->add_column('modules', $installed);
+		$this->dbforge->drop_column('modules', 'controllers');
+		
+		// --------------Install New Modules ----------------
 
-		$this->dbforge->drop_table('permission_roles');
-		$this->dbforge->drop_table('permission_rules');
-
-		// ---- / End Permissions ---------------------------
-
-
-		// ---- Modules -------------------------------------
-
-		$this->db->query('DROP TABLE modules');
-		$this->db->query("
-			CREATE TABLE `modules` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `name` TEXT NOT NULL,
-			  `slug` varchar(50) NOT NULL,
-			  `version` varchar(20) NOT NULL,
-			  `type` varchar(20) DEFAULT NULL,
-			  `description` TEXT DEFAULT NULL,
-			  `skip_xss` tinyint(1) NOT NULL,
-			  `is_frontend` tinyint(1) NOT NULL,
-			  `is_backend` tinyint(1) NOT NULL,
-			  `menu` varchar(20) NOT NULL,
-			  `enabled` tinyint(1) NOT NULL,
-			  `installed` tinyint(1) NOT NULL,
-			  `is_core` tinyint(1) NOT NULL,
-			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `slug` (`slug`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		");
 		$this->load->model('modules/module_m');
+
+		//get the slugs of all modules in the modules table
+		$all_modules = $this->module_m->get_all();
+		foreach($all_modules as $mod)
+		{
+			$slugs[] = $mod['slug'];
+		}
 
     	// Loop through directories that hold modules
 		$is_core = TRUE;
@@ -130,7 +129,10 @@ class Upgrade extends Controller
 	        {
 				$slug = basename($module_name);
 
-				$this->_output .=  'Re-indexing module: <strong>' . $slug .'</strong>.<br/>';
+				//don't reinstall a module
+				if(in_array($slug, $slugs)) continue;
+
+				$this->_output .=  'Installing module: <strong>' . $slug .'</strong>.<br/>';
 
 				$this->module_m->install($slug, $is_core);
 
@@ -178,11 +180,16 @@ class Upgrade extends Controller
 			$is_core = FALSE;
         }
 
-		// ---- / End Modules --------------------------------
+		// ---- / End Modules -------------------------------
+		
+		// ---- Permissions ---------------------------------
 
+		$this->dbforge->drop_table('permission_roles');
+		$this->dbforge->drop_table('permission_rules');
+
+		// ---- / End Permissions ---------------------------
 
 		// ---- Upgrade Photos to Galleries -----------------
-		$this->load->library('encrypt');
 
 		//create the new galleries tables
 		$this->dbforge->drop_table('galleries');
@@ -238,7 +245,7 @@ class Upgrade extends Controller
 						'id'					=> $photo->id,
 						'gallery_id'			=> $photo->album_id,
 						'filename'				=> $filename,
-						'extension'				=> $file[1],
+						'extension'				=> '.'.$file[1],
 						'description'			=> $photo->caption,
 						'updated_on'			=> $photo->updated_on
 					 );
