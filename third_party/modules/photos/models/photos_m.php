@@ -21,11 +21,14 @@ class Photos_m extends MY_Model
         $this->load->library('image_lib');
         $this->image_lib->initialize($image_cfg);
         $this->image_lib->resize();
-        
+
+        $order_id = (int) $this->db->select_max('id')->get('photos')->row()->id + 1;        
+
         return parent::insert(array(
         	'filename'		=> $filename,
         	'album_id'		=> $album_id,
         	'caption'	=> $caption,
+            '`order`'            => $order_id,
         	'updated_on'	=> now()
         ));
     }
