@@ -25,7 +25,7 @@
 			$('textarea.wysiwyg-advanced').ckeditor({
 				toolbar: [
                     ['Maximize'],
-					['pyrofiles'],
+					['pyroimages', 'pyrofiles'],
 					['Cut','Copy','Paste','PasteFromWord'],
 					['Undo','Redo','-','Find','Replace'],
 					['Link','Unlink'],
@@ -36,7 +36,7 @@
 					['Format', 'FontSize', 'Subscript','Superscript', 'NumberedList','BulletedList','Outdent','Indent','Blockquote'],
 					['ShowBlocks', 'RemoveFormat', 'Source']
 				],
-				extraPlugins: 'pyrofiles',
+				extraPlugins: 'pyroimages,pyrofiles',
 				width: '99%',
 				height: 400,
 				dialog_backgroundCoverColor: '#000',

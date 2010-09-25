@@ -109,7 +109,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title($this->module_data['name'])
+			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -127,7 +127,7 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title($this->module_data['name'], lang('user_inactive_title'))
+			->title($this->module_details['name'], lang('user_inactive_title'))
 			->build('admin/index', $this->data);
 	}
 
@@ -219,7 +219,7 @@ class Admin extends Admin_Controller
     	// Render the view
 		$this->data->member =& $member;
 		$this->template
-			->title($this->module_data['name'], lang('user_add_title'))
+			->title($this->module_details['name'], lang('user_add_title'))
 			->build('admin/form', $this->data);
 	}
 
@@ -315,7 +315,7 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->data->member =& $member;
 		$this->template
-			->title($this->module_data['name'], sprintf(lang('user_edit_title'), $member->full_name))
+			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
 			->build('admin/form', $this->data);
 	}
 

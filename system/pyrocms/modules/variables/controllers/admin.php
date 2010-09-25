@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 		// Using this data, get the relevant results
 		$this->data->variables = $this->variables_m->limit( $this->data->pagination['limit'] )->get_all();
 		$this->template
-			->title($this->module_data['name'])
+			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
 	}
 
@@ -135,7 +135,7 @@ class Admin extends Admin_Controller
 		else
 		{
 			$this->template
-				->title($this->module_data['name'],lang('variables.create_title'))
+				->title($this->module_details['name'],lang('variables.create_title'))
 				->build('admin/form', $this->data);
 		}
 		
@@ -221,7 +221,7 @@ class Admin extends Admin_Controller
 		else
 		{
 			$this->template
-				->title($this->module_data['name'],sprintf(lang('variables.edit_title'), $variable->name))
+				->title($this->module_details['name'],sprintf(lang('variables.edit_title'), $variable->name))
 				->build('admin/form', $this->data);
 		}
 	}

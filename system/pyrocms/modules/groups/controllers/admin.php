@@ -52,7 +52,7 @@ class Admin extends Admin_Controller
 	{
     	$this->template->groups = $this->group_m->get_all();
     	$this->template
-    		->title($this->module_data['name'])
+    		->title($this->module_details['name'])
     		->build('admin/index', $this->data);
 	}
 
@@ -91,7 +91,7 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->template->group = $group;
 		$this->template
-			->title($this->module_data['name'], lang('groups.add_title'))
+			->title($this->module_details['name'], lang('groups.add_title'))
 			->build('admin/form', $this->data);
 	}
 
@@ -143,7 +143,7 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->template->group = $group;
 		$this->template
-			->title($this->module_data['name'], sprintf(lang('groups.edit_title'), $group->name))
+			->title($this->module_details['name'], sprintf(lang('groups.edit_title'), $group->name))
 			->build('admin/form', $this->data);
 	}
 

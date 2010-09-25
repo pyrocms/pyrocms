@@ -125,7 +125,7 @@ class Admin extends Admin_Controller
 
 		// Load the view
 		$this->data->galleries =& $galleries;
-		$this->template->title($this->module_data['name'])
+		$this->template->title($this->module_details['name'])
 						->append_metadata(js('functions.js', 'galleries') )
 						->build('admin/index', $this->data);
 	}
@@ -177,7 +177,7 @@ class Admin extends Admin_Controller
 		$this->template->append_metadata( js('form.js', 'galleries') )
 						->append_metadata(js('functions.js', 'galleries') )
 						->append_metadata( css('galleries.css', 'galleries') )
-						->title($this->module_data['name'], lang('galleries.new_gallery_label'))
+						->title($this->module_details['name'], lang('galleries.new_gallery_label'))
 						->build('admin/new_gallery', $this->data);
 	}
 
@@ -239,7 +239,7 @@ class Admin extends Admin_Controller
 		   				->append_metadata( js('drag_drop.js', 'galleries') )
 						->append_metadata(js('functions.js', 'galleries') )
 						->append_metadata( js('form.js', 'galleries') )
-						->title($this->module_data['name'], lang('galleries.manage_gallery_label'))
+						->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
 						->build('admin/manage_gallery', $this->data);
 	}
 
@@ -354,7 +354,7 @@ class Admin extends Admin_Controller
 		$this->template->set_layout('admin/modal')
 						->append_metadata( css('galleries.css', 'galleries') )
 						->append_metadata(js('functions.js', 'galleries') )
-						->title($this->module_data['name'], lang('galleries.upload_label'))
+						->title($this->module_details['name'], lang('galleries.upload_label'))
 						->build('admin/upload', $this->data);
 	}
 
@@ -440,7 +440,7 @@ class Admin extends Admin_Controller
 						->append_metadata(js('functions.js', 'galleries') )
 		   			   ->append_metadata( js('jcrop.js', 'galleries') )
 		   			   ->append_metadata( js('jcrop_init.js', 'galleries') )
-					   ->title($this->module_data['name'], lang('gallery_images.edit_image_label'))
+					   ->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
 					   ->build('admin/edit', $this->data);
 	}
 
