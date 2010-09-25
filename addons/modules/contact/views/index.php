@@ -23,6 +23,10 @@
 		<?php echo form_dropdown('subject', $subjects, $form_values->subject, 'id="subject"'); ?>
 		<input id="other_subject" name="other_subject" type="text" />
 	</p>
+	<p>
+		<label for="message"><?php echo lang('contact_message_label'); ?></label>
+		<?php echo form_textarea('message', $form_values->message, 'id="message"'); ?>
+	</p>
 	<p class="form_buttons">
 		<input type="submit" value="<?php echo lang('contact_send_label') ?>" name="btnSubmit" />
 	</p>
