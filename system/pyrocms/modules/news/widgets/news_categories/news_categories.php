@@ -12,7 +12,7 @@ class Widget_News_categories extends Widgets
 	public $title = 'News Categories';
 	public $description = 'Show a list of news categories.';
 	public $author = 'Stephen Cozart';
-	public $website = 'http://stephenandloricozart.com/';
+	public $website = 'http://github.com/clip/';
 	public $version = '1.0';
 	
 	public function run()
