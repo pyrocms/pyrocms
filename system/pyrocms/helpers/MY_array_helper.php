@@ -12,14 +12,14 @@
 
 // ------------------------------------------------------------------------
 
-function array_object_merge(&$object, $array) {
-    if(!is_array($array)) {
-    	$array = get_object_vars($array);
-    }
+function array_object_merge(&$object, $array)
+{
+	is_array($array) OR $array = get_object_vars($array);
 	
-	foreach ($array as $key => $value):
+	foreach ($array as $key => $value)
+	{
         $object->{$key} = $value;
-    endforeach;
+	}
 }
 
 function array_for_select()
@@ -57,4 +57,26 @@ function array_for_select()
     return $return;
 }
 
-?>
+function html_to_assoc($html_array)
+{
+	$keys = array_keys($html_array);
+
+	if (!isset($keys[0]))
+	{
+		return array();
+	}
+
+	$total = count(current($html_array));
+
+	$array = array();
+
+	for ($i = 0; $i < $total; $i++)
+	{
+		foreach ($keys as $key)
+		{
+			$array[$i][$key] = $html_array[$key][$i];
+		}
+	}
+
+	return $array;
+}

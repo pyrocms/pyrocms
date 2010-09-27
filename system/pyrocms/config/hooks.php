@@ -29,6 +29,9 @@ $hook['pre_controller'][] = array(
 	'filepath' => 'hooks'
 );
 
-
-
-?>
+# PERFORM-TWEAK: Disable this to make your system slightly quicker
+$hook['pre_controller'][] = array(
+	'function' => 'check_installed',
+	'filename' => 'check_installed.php',
+	'filepath' => 'hooks'
+);

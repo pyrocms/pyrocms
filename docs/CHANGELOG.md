@@ -22,6 +22,7 @@
 * Replaced TinyMCE with CKEditor 3.4.
 * Removed dependency on $this->data so controllers in modules can use whatever $data variable they like.
 * Renamed $this->module_data to $this->module_details to match details.php name.
+* Added a hook to check if installed, automatically redirecting to the installer if not. This can be disabled in config/hooks.php.
 
 ### Deprecated
 
