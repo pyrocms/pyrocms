@@ -13,6 +13,9 @@ $lang['file_text']		=	'De CHMOD waarden van de volgende bestanden moeten verande
 $lang['writable']		=	'Beschrijfbaar';
 $lang['not_writable']	=	'Niet Beschrijfbaar';
 
+$lang['show_commands']		= 'Show commands'; #translate
+$lang['hide_commands']		= 'Hide commands'; #translate
+
 $lang['next_step']		=	'Ga door naar de volgende stap';
 $lang['step4']			=	'Stap 4';
 $lang['retry']			=	'Probeer nog eens';
