@@ -88,6 +88,17 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		// ------------- add comment sort setting --------------------//
+		$this->_output .= "Adding comment sort order setting.<br/>";
+		
+		$comment_sort_setting = "
+			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
+			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments')
+			 ";
+		
+		$this->db->query($comment_sort_setting);
+	    
+		
 		// ------------ Upgrade Modules Table----------------
 		
 		$menu = array(
@@ -357,7 +368,7 @@ class Upgrade extends Controller
 	    $this->dbforge->drop_column('groups', 'title');
 	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
 	    $this->db->query("ALTER TABLE `description` CHANGE `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
-
+	    
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";
 		$this->cache->delete_all('module_m');

@@ -80,6 +80,7 @@ class Details_Settings extends Module {
 			 ('twitter_cache', 'Cache time', 'How many minutes should your Tweets be stored?','text','300','','','0','1','twitter'),
 			 ('akismet_api_key', 'Akismet API Key', 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.', 'text', '', '', '', 0, '1', 'integration'),
 			 ('moderate_comments', 'Moderate Comments', 'Force comments to be approved before they appear on the site.', 'select', '0', '', '1=Enabled|0=Disabled', '0', '1', ''),
+			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments'),
 			 ('version', 'Version', '', 'text', 'v0.9.8', '".CMS_VERSION."', '', '0', '0', '');
 		";
 		
