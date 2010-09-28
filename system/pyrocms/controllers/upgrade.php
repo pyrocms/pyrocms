@@ -89,7 +89,11 @@ class Upgrade extends Controller
 	function upgrade_100()
 	{
 		// ------------- add comment sort setting --------------------//
-		$this->_output .= "Adding comment sort order setting.<br/>";
+		$this->_output .= "Adding/updating comment settings.<br/>";
+		
+		// ----- set module for moderate_comments to comments --------//
+		$this->db->where('slug', 'moderate_comments')
+				->update('settings', array('module'=>'comments'));
 		
 		$comment_sort_setting = "
 			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
@@ -97,7 +101,7 @@ class Upgrade extends Controller
 			 ";
 		
 		$this->db->query($comment_sort_setting);
-	    
+		
 		
 		// ------------ Upgrade Modules Table----------------
 		

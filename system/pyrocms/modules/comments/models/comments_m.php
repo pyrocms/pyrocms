@@ -65,7 +65,7 @@ class Comments_m extends MY_Model
     		->where('module', $module)
     		->where('module_id', $module_id)
     		->where('comments.is_active', $is_active)
-    		->order_by('comments.created_on', 'desc');
+    		->order_by('comments.created_on', $this->settings->comment_order);
     	
 	    return $this->get_all();
   	}
