@@ -64,6 +64,11 @@
 					</select>
 				</div>
 			</li>
+
+			<li>
+				<label for="parent"><?php echo lang('nav_link_parent');?></label>
+				<?php echo form_dropdown('parent', array('-1' => lang('nav_link_parent_top')), $navigation_link->parent); ?>
+			</li>
 		</ol>
 
 			
