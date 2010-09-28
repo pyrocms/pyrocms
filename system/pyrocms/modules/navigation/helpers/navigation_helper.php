@@ -23,3 +23,18 @@ function navigation($abbrev)
 
 	return $CI->cache->model('navigation_m', 'load_group', $abbrev, $CI->settings->navigation_cache);
 }
+
+/**
+ * Create a navigation menu with a tree structure
+ *
+ * @param string $abbrev The group abbreviation
+ * @return mixed
+ */
+function navigation_tree($abbrev)
+{
+	$CI =& get_instance();
+
+	$CI->load->model('navigation/navigation_m');
+
+	return $CI->cache->model('navigation_m', 'load_group_tree', $abbrev, $CI->settings->navigation_cache);
+}

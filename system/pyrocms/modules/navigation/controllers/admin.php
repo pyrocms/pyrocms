@@ -98,6 +98,11 @@ class Admin extends Admin_Controller
 				'label'	=> lang('nav_target_label'),
 				'rules'	=> 'trim|max_length[10]'
 			),
+			array(
+				'field' => 'parent_link_id',
+				'label' => lang('nav_link_parent'),
+				'rules' => 'trim|numeric'
+			),
 		);
 
 		$this->form_validation->set_rules($this->validation_rules);
@@ -156,6 +161,11 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->data->navigation_link =& $navigation_link;
+		$this->data->navigation_links_list =& $this->navigation_m->get_links(array(
+			'title_array' 			=> true,
+			'order'					=>'position',
+			'navigation_group_id'	=> $navigation_link->navigation_group_id,
+		));
 		$this->template
 			->title($this->module_details['name'],lang('nav_link_create_title'))
 			->build('admin/links/form', $this->data);
@@ -207,6 +217,11 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->data->navigation_link =& $navigation_link;
+		$this->data->navigation_links_list =& $this->navigation_m->get_links(array(
+			'title_array' 			=> true,
+			'order'					=>'position',
+			'group'	=> $navigation_link->navigation_group_id,
+		));
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('nav_link_edit_title'), $navigation_link->title))
 			->build('admin/links/form', $this->data);
@@ -258,6 +273,24 @@ class Admin extends Admin_Controller
 
 		// Flush the cache
 		$this->cache->delete_all('navigation_m');
+	}
+
+
+	/**
+	 * Get a list of navigation links in json format for the Parent link dropdown based on
+	 * the selected navigation group
+	 *
+	 * @access public
+	 * @return string
+	 */
+	function ajax_get_navigation_links()
+	{
+		$links =& $this->navigation_m->get_links(array(
+			'title_array' 			=> true,
+			'order'					=>'position',
+			'group'					=> $this->input->post('navigation_group_id'),
+		));
+		echo json_encode($links);
 	}
 }
 ?>
