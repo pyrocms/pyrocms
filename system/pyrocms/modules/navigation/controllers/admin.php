@@ -98,6 +98,11 @@ class Admin extends Admin_Controller
 				'label'	=> lang('nav_target_label'),
 				'rules'	=> 'trim|max_length[10]'
 			),
+			array(
+				'field' => 'parent',
+				'label' => lang('nav_link_parent'),
+				'rules' => 'trim|numeric'
+			),
 		);
 
 		$this->form_validation->set_rules($this->validation_rules);
