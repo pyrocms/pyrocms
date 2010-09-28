@@ -44,8 +44,8 @@ class Admin extends Admin_Controller {
 		$this->lang->load('files');
 		$this->config->load('files');
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts', FALSE);
-		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->set_partial('nav', 'admin/partials/nav');
 
 		$this->_path = FCPATH.'/'.$this->config->item('files_folder').'/';
 	}
@@ -82,7 +82,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload($id = '')
 	{
-		$this->template->set_layout('admin/modal');
+		$this->template->set_layout('modal', 'admin');
 		$this->config->load('files');
 
 		$this->file_folders_m->folder_tree();
@@ -158,7 +158,7 @@ class Admin extends Admin_Controller {
 		{
 			redirect('admin/files/upload');
 		}
-		$this->template->set_layout('admin/modal');
+		$this->template->set_layout('modal', 'admin');
 		$this->data->error = '';
 
 		$this->file_folders_m->folder_tree();

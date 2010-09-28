@@ -6,7 +6,7 @@ class Public_Controller extends MY_Controller
 	function Public_Controller()
 	{
 		parent::MY_Controller();
-        
+		
 		$this->benchmark->mark('public_controller_start');
         
 	    // Check the frontend hasnt been disabled by an admin
@@ -45,13 +45,13 @@ class Public_Controller extends MY_Controller
 				</script>' );
 
 		// Is there a layout file for this module?
-		if ($this->template->theme_layout_exists($this->module . '.html'))
+		if ($this->template->layout_exists($this->module . '.html'))
 		{
 			$this->template->set_layout($this->module . '.html');
 		}
 
 		// Nope, just use the default layout
-		elseif ($this->template->theme_layout_exists('default.html'))
+		elseif ($this->template->layout_exists('default.html'))
 		{
 			$this->template->set_layout('default.html');
 		}

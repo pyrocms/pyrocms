@@ -41,8 +41,8 @@ class Admin_folders extends Admin_Controller {
 		$this->file_folders_m->folder_tree();
 		$this->_folders = $this->file_folders_m->get_folders();
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts', FALSE);
-		$this->template->set_partial('nav', 'admin/partials/nav', FALSE);
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->set_partial('nav', 'admin/partials/nav');
 	}
 
 	// ------------------------------------------------------------------------
@@ -183,7 +183,7 @@ class Admin_folders extends Admin_Controller {
 	 */
 	private function _folder_create()
 	{
-		$this->template->set_layout('admin/modal');
+		$this->template->set_layout('modal', 'admin');
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('name', 'Name', 'required');
@@ -221,7 +221,7 @@ class Admin_folders extends Admin_Controller {
 	 */
 	private function _folder_edit($folder_id)
 	{
-		$this->template->set_layout('admin/modal');
+		$this->template->set_layout('modal', 'admin');
 		$this->load->library('form_validation');
 
 		$folder = $this->file_folders_m->get($folder_id);

@@ -1,27 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-function theme_view($view)
+function theme_partial($view)
 {
-	$ci =& get_instance();
-	
-	$data =& $ci->load->_ci_cached_vars;
+	$CI =& get_instance();
 
-	foreach($ci->template->theme_locations() as $location => $offset)
-	{
-		$view_path = $ci->settings->item('default_theme').'/views/'.$view;
+	$data =& $CI->load->_ci_cached_vars;
 
-		if(file_exists($location.$view_path.'.html'))
-		{
-			echo $ci->parser->parse($offset.$view_path.'.html', $data, TRUE);
-			break;
-		}
-
-		// TODO Deprecate php
-		if(file_exists($location.$view_path.EXT))
-		{
-			echo $ci->parser->parse($offset.$view_path, $data, TRUE);
-			break;
-		}
-	}
-
+	echo $CI->parser->parse_string($CI->load->_ci_load(array(
+		'_ci_path' => $data['template_views'].'partials/'.$view. '.html',
+		'_ci_return' => TRUE
+	)), $data, TRUE, TRUE);
 }

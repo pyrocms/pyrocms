@@ -27,7 +27,7 @@ class WYSIWYG_Controller extends MY_Controller
 		));
 
 		$this->template
-			->set_layout('admin/layouts/wysiwyg')
+			->set_layout('wysiwyg', 'admin')
 	    	->append_metadata( js('jquery/jquery.js') )
 	    	->append_metadata( '<script type="text/javascript">jQuery.noConflict();</script>' )
 	    	->append_metadata( js('jquery/jquery.livequery.js') )

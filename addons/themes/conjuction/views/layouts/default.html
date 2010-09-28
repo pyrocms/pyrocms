@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-{theme_view('partials/metadata')}
+{theme_partial('metadata')}
 	</head>
 	<body>
 	{if $settings->item('google_analytic')}
 		{$load->view('fragments/google_analytic')}
 	{/if}
 
-		{theme_view('partials/header')}
+		{theme_partial('header')}
 
 		<div id="page">
 			{if $session->flashdata('notice')}
@@ -62,7 +62,7 @@
 		</div>
 
 		<div id="footer">
-			{theme_view('partials/footer')}
+			{theme_partial('footer')}
 		</div>
 
 	</body>

@@ -93,7 +93,6 @@ class Admin extends Admin_Controller
 		// Store the feed items
 		$this->data->rss_items = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
 
-		$this->template->set_partial('sidebar', 'admin/partials/sidebar', FALSE);
 		$this->template
 			->title(lang('cp_admin_home_title'))
 			->build('admin/dashboard', $this->data);

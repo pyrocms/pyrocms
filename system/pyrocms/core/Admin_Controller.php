@@ -40,7 +40,7 @@ class Admin_Controller extends MY_Controller
 		}
 
 	    // Template configuration
-	    $this->template->set_layout('admin/layouts/default');
+		$this->template->set_layout('default', 'admin');
 	    $this->template->enable_parser(FALSE);
 
 	    $this->template
@@ -56,10 +56,10 @@ class Admin_Controller extends MY_Controller
     		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' );
 
 
-	    $this->template->set_partial('header', 'admin/partials/header', FALSE);
-	    $this->template->set_partial('navigation', 'admin/partials/navigation', FALSE);
-	    $this->template->set_partial('metadata', 'admin/partials/metadata', FALSE);
-	    $this->template->set_partial('footer', 'admin/partials/footer', FALSE);
+	    $this->template->set_partial('header', 'admin/partials/header');
+	    $this->template->set_partial('navigation', 'admin/partials/navigation');
+	    $this->template->set_partial('metadata', 'admin/partials/metadata');
+	    $this->template->set_partial('footer', 'admin/partials/footer');
 
 //	    $this->output->enable_profiler(TRUE);
 	}

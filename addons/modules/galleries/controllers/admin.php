@@ -351,11 +351,12 @@ class Admin extends Admin_Controller
 		$this->data->gallery_image 	=& $gallery_image;
 
 		// Load the views
-		$this->template->set_layout('admin/modal')
-						->append_metadata( css('galleries.css', 'galleries') )
-						->append_metadata(js('functions.js', 'galleries') )
-						->title($this->module_details['name'], lang('galleries.upload_label'))
-						->build('admin/upload', $this->data);
+		$this->template
+			->set_layout('modal', 'admin')
+			->append_metadata(css('galleries.css', 'galleries'))
+			->append_metadata(js('functions.js', 'galleries'))
+			->title($this->module_details['name'], lang('galleries.upload_label'))
+			->build('admin/upload', $this->data);
 	}
 
 	/**

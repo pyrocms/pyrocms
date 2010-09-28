@@ -36,13 +36,13 @@
   * @param		mixed    variable to be output
   */
 
-function power_dump()
+function dump()
 {
 	list($callee) = debug_backtrace();
 	$arguments = func_get_args();
 	$total_arguments = count($arguments);
 
-	echo '<fieldset style="background:white url(http://www.hiarchive.co.uk/images/binfordtools.gif) 5px right no-repeat; border:2px red solid; padding:5px">';
+	echo '<fieldset style="background: #fefefe !important; border:2px red solid; padding:5px">';
 	echo '<legend style="background:lightgrey; padding:5px;">'.$callee['file'].' @ line: '.$callee['line'].'</legend><pre>';
 
 	foreach ($arguments as $argument)

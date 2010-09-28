@@ -13,31 +13,33 @@ class Themes_m extends CI_Model
 
 	public function get_all()
 	{
-		foreach($this->template->theme_locations() as $location => $offset)
+		foreach($this->template->theme_locations() as $location)
 		{
-			foreach(glob($location.'*', GLOB_ONLYDIR) as $path)
+		    foreach(glob($location.'*', GLOB_ONLYDIR) as $theme_path)
 			{
-				$this->_get_details($path);
+				$this->_get_details(dirname($theme_path), basename($theme_path));
 			}
 		}
 
+		ksort($this->_themes);
+
 		return $this->_themes;
 	}
-	
+
 	public function get($slug = '')
 	{
-		if(!$slug)
-		{
-			$slug = $this->_theme;
-		}
+		$slug OR $slug = $this->_theme;
 
-		foreach($this->template->theme_locations() as $location => $offset)
+		foreach($this->template->theme_locations() as $location)
 		{
-			$theme = $this->_get_details($location.$slug);
-
-			if($theme !== FALSE)
+			if(is_dir($location.$slug))
 			{
-				return $theme;
+				$theme = $this->_get_details($location, $slug);
+
+				if($theme !== FALSE)
+				{
+					return $theme;
+				}
 			}
 		}
 
@@ -45,30 +47,27 @@ class Themes_m extends CI_Model
 	}
 
 
-	private function _get_details($path)
+	private function _get_details($location, $slug)
 	{
-		$slug = basename($path);
-		$location = dirname($path);
-
 		// If it exists already, use it
 		if(!empty($this->_themes[$slug]))
 		{
 			return $this->_themes[$slug];
 		}
 
-		if (is_dir($path))
+		if (is_dir($path = $location.$slug))
 		{
 			// Core theme or tird party?
-			$is_core = strpos($location, 'addons') === FALSE;
-			$web_path = $is_core ? APPPATH_URI : BASE_URL.'addons/';
+			$is_core = $location === ADDONPATH.'themes/';
+			$web_path = $location . 'themes/' . $slug;
 
-			$theme->slug				= $slug;
-			$theme->is_core				= $is_core;
-			$theme->path				= $path;
-			$theme->web_path 			= $web_path;
-			$theme->screenshot		=  $web_path . 'themes/' . $slug . '/screenshot.png';
+			$theme->slug			= $slug;
+			$theme->is_core			= $is_core;
+			$theme->path			= $path;
+			$theme->web_path 		= $web_path;
+			$theme->screenshot		= $web_path . '/screenshot.png';
 
-			$xml_file = $path . '/theme.xml';
+			$xml_file = $location . '/theme.xml';
 			if(file_exists($xml_file))
 			{
 				// Grab details from the theme.xml file
