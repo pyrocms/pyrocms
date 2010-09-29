@@ -83,12 +83,13 @@ class Upgrade extends Controller
 		$this->_output .= "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
 
 		// finally, spit it out
-		echo $this->output;
+		echo $this->_output;
  	}
 
 	function upgrade_100()
-	{
-		// ------------ Upgrade Modules Table----------------
+	{		
+		
+		// ---- first upgrade the Modules table -------------
 		
 		$menu = array(
 				'is_backend_menu' 	=> 	array(
@@ -108,7 +109,11 @@ class Upgrade extends Controller
 		$this->dbforge->add_column('modules', $installed);
 		$this->dbforge->drop_column('modules', 'controllers');
 		
-		// --------------Install New Modules ----------------
+		//get rid of permissions record so perms module will reinstall
+		$this->db->delete('modules', array('slug' => 'permissions'));
+		
+
+		// ---- now install any new modules -----------------
 
 		$this->load->model('modules/module_m');
 
@@ -118,6 +123,8 @@ class Upgrade extends Controller
 		{
 			$slugs[] = $mod['slug'];
 		}
+		//add core modules that aren't in the modules table
+		$slugs[] = 'groups';
 
     	// Loop through directories that hold modules
 		$is_core = TRUE;
@@ -132,7 +139,7 @@ class Upgrade extends Controller
 				//don't reinstall a module
 				if(in_array($slug, $slugs)) continue;
 
-				$this->_output .=  'Installing module: <strong>' . $slug .'</strong>.<br/>';
+				$this->_output .=  'Installing new module: <strong>' . $slug .'</strong>.<br/>';
 
 				$this->module_m->install($slug, $is_core);
 
@@ -180,26 +187,75 @@ class Upgrade extends Controller
 			$is_core = FALSE;
         }
 
-		// ---- / End Modules -------------------------------
 		
+		// ---- now let's start upgrading the existing modules
+		
+		// ---- Comments ------------------------------------
+
+		$this->_output .= "Adding/updating comment settings.<br/>";
+		
+		// set module for moderate_comments to comments
+		$this->db->where('slug', 'moderate_comments')
+				->update('settings', array('module'=>'comments'));
+		
+		$comment_sort_setting = "
+			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
+			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments')
+			 ";
+		
+		$this->db->query($comment_sort_setting);
+		
+		// ---- / End Comments ------------------------------
+		
+		
+		// ---- News ----------------------------------------
+		
+		$this->dbforge->rename_table('categories', 'news_categories');
+		
+		// ---- / End News ----------------------------------
+		
+
 		// ---- Permissions ---------------------------------
 
+		//clean up after the old permissions module
 		$this->dbforge->drop_table('permission_roles');
 		$this->dbforge->drop_table('permission_rules');
 
 		// ---- / End Permissions ---------------------------
+		
+		
+	    // ---- Groups --------------------------------------
+		
+	    $this->_output .= "Modifying groups table.<br/>";
+	    $this->dbforge->drop_column('groups', 'title');
+	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
+	    $this->db->query("ALTER TABLE `groups` CHANGE `description` `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
+		
+		// ---- / End Groups --------------------------------
+		
+		
+		// ---- Profiles ------------------------------------
+		
+		// Add the website column to the profiles table
+	    $this->dbforge->add_column('profiles', array(
+	        'website' => array(
+	            'type'        => 'varchar',
+	            'constraint'  => '255',
+	            'null'        => TRUE
+	        )
+	    ));
+		
+		// ---- / End Profiles ------------------------------
+
 
 		// ---- Upgrade Photos to Galleries -----------------
-
-		//create the new galleries tables
-		$this->dbforge->drop_table('galleries');
-		$this->dbforge->drop_table('gallery_images');
 
 		$photo_albums = $this->db->get('photo_albums');
 
 		// We have a shiny new galleries table, lets put something in it
 		foreach ($photo_albums->result() as $album)
 		{
+			$this->_output .=  'Moving album <strong>"' . $album->title .'"</strong> from photos to galleries.<br/>';
 			// prep the galleries info
 			$to_insert = array(
 				'id'					=> $album->id,
@@ -255,20 +311,18 @@ class Upgrade extends Controller
 			}
 		}
 
-		//we got this far without erroring out, lets pull the plug on the old data
+		//we got this far without erroring out, lets pull the plug on the photos module
 		$this->dbforge->drop_table('photo_albums');
 		$this->dbforge->drop_table('photos');
+		$this->db->delete('modules', array('slug' => 'photos'));
 		// ---- / End Upgrade Photos to Galleries -----------
 
 
 		// ---- Page Conversion ----------------------------
 		$this->_output .= "Upgrading pages to the new module.<br/>";
 
-		$this->load->library('versioning');
-		$this->versioning->set_table('pages');
-
 		// First we need to retrieve the current content from the pages table so no data gets lost
-		$pages = $this->db->get('pages');
+		$pages = $this->db->get('pages')->result();
 
 		// We need to make sure no data gets lost, therefore we're renaming the pages table to pages_old
 		$this->dbforge->rename_table('pages', 'pages_old');
@@ -311,11 +365,12 @@ class Upgrade extends Controller
 	    ");
 
 	    // So far so good, time to migrate the old data back to the new table
-	    foreach ($pages->result() as $page)
+	    foreach ($pages as $page)
 	    {
-	        // First insert the page without the revision ID to use
+	        // Page data
 	        $to_insert = array(
 	            'id'                => $page->id,
+				'revision_id'       => $page->id,
 	            'slug'                 => $page->slug,
 	            'title'                => $page->title,
 	            'parent_id'         => $page->parent_id,
@@ -331,38 +386,31 @@ class Upgrade extends Controller
 	            'updated_on'        => $page->updated_on,
 	         );
 
-	        // Inser the page
+	        // Insert the page
 	        $this->db->insert('pages', $to_insert);
 	        $page_insert_id = $this->db->insert_id();
+			
+			//the versioning lib gives up on large websites
+			//so we're just doing an insert instead
+			$revision_data = array(
+				'id'			=> $page->id,
+				'owner_id'		=> $page_insert_id,
+				'table_name'	=> 'pages',
+				'body'			=> $page->body,
+				'revision_date' => now(),
+				'author_id' 	=> '1',
+			);
 
-	        // Create the revsion, retrieve the ID and modify the page we added earlier
-	        $revision_id    = $this->versioning->create_revision( array('author_id' => 1, 'owner_id' => $page_insert_id, 'body' => $page->body) );
+	        // Insert the one and only revision for this page
+	        $this->db->insert('revisions', $revision_data);
 
-	        // Now we can modify the pages table so that it uses the correct revision id
-	        $this->db->where('id', $page_insert_id);
-	        $this->db->update('pages', array('revision_id' => $revision_id) );
 	    }
-
-	    // Add the website column to the profiles table
-	    $this->dbforge->add_column('profiles', array(
-	        'website' => array(
-	            'type'        => 'varchar',
-	            'constraint'  => '255',
-	            'null'        => TRUE
-	        )
-	    ));
 	    
-	    // Upgrade Groups
-	    $this->output .= "Modifying groups table.<br/>";
-	    $this->dbforge->drop_column('groups', 'title');
-	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
-	    $this->db->query("ALTER TABLE `description` CHANGE `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
-
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";
 		$this->cache->delete_all('module_m');
 	    
-	    return FALSE; // Change this when we go live
+	    return TRUE;
 	}
 
 	function upgrade_0997()
