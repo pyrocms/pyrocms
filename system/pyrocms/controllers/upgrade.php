@@ -83,27 +83,13 @@ class Upgrade extends Controller
 		$this->_output .= "<p>The upgrade is complete, please " . anchor('admin', 'click here') . ' to go back to the Control Panel.</p>';
 
 		// finally, spit it out
-		echo $this->output;
+		echo $this->_output;
  	}
 
 	function upgrade_100()
-	{
-		// ------------- add comment sort setting --------------------//
-		$this->_output .= "Adding/updating comment settings.<br/>";
+	{		
 		
-		// ----- set module for moderate_comments to comments --------//
-		$this->db->where('slug', 'moderate_comments')
-				->update('settings', array('module'=>'comments'));
-		
-		$comment_sort_setting = "
-			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
-			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments')
-			 ";
-		
-		$this->db->query($comment_sort_setting);
-		
-		
-		// ------------ Upgrade Modules Table----------------
+		// ---- first upgrade the Modules table -------------
 		
 		$menu = array(
 				'is_backend_menu' 	=> 	array(
@@ -123,7 +109,8 @@ class Upgrade extends Controller
 		$this->dbforge->add_column('modules', $installed);
 		$this->dbforge->drop_column('modules', 'controllers');
 		
-		// --------------Install New Modules ----------------
+
+		// ---- now install any new modules -----------------
 
 		$this->load->model('modules/module_m');
 
@@ -133,6 +120,8 @@ class Upgrade extends Controller
 		{
 			$slugs[] = $mod['slug'];
 		}
+		//add core modules that aren't in the modules table
+		$slugs[] = 'groups';
 
     	// Loop through directories that hold modules
 		$is_core = TRUE;
@@ -147,7 +136,7 @@ class Upgrade extends Controller
 				//don't reinstall a module
 				if(in_array($slug, $slugs)) continue;
 
-				$this->_output .=  'Installing module: <strong>' . $slug .'</strong>.<br/>';
+				$this->_output .=  'Installing new module: <strong>' . $slug .'</strong>.<br/>';
 
 				$this->module_m->install($slug, $is_core);
 
@@ -195,7 +184,25 @@ class Upgrade extends Controller
 			$is_core = FALSE;
         }
 
-		// ---- / End Modules -------------------------------
+		
+		// ---- now let's start upgrading the existing modules
+		
+		// ---- Comments ------------------------------------
+
+		$this->_output .= "Adding/updating comment settings.<br/>";
+		
+		// set module for moderate_comments to comments
+		$this->db->where('slug', 'moderate_comments')
+				->update('settings', array('module'=>'comments'));
+		
+		$comment_sort_setting = "
+			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
+			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments')
+			 ";
+		
+		$this->db->query($comment_sort_setting);
+		
+		// ---- / End Comments ------------------------------
 		
 		// ---- Permissions ---------------------------------
 
@@ -206,15 +213,12 @@ class Upgrade extends Controller
 
 		// ---- Upgrade Photos to Galleries -----------------
 
-		//create the new galleries tables
-		$this->dbforge->drop_table('galleries');
-		$this->dbforge->drop_table('gallery_images');
-
 		$photo_albums = $this->db->get('photo_albums');
 
 		// We have a shiny new galleries table, lets put something in it
 		foreach ($photo_albums->result() as $album)
 		{
+			$this->_output .=  'Moving album <strong>"' . $album->title .'"</strong> from photos to galleries.<br/>';
 			// prep the galleries info
 			$to_insert = array(
 				'id'					=> $album->id,
@@ -368,16 +372,16 @@ class Upgrade extends Controller
 	    ));
 	    
 	    // Upgrade Groups
-	    $this->output .= "Modifying groups table.<br/>";
+	    $this->_output .= "Modifying groups table.<br/>";
 	    $this->dbforge->drop_column('groups', 'title');
 	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
-	    $this->db->query("ALTER TABLE `description` CHANGE `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
+	    $this->db->query("ALTER TABLE `groups` CHANGE `description` `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
 	    
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";
 		$this->cache->delete_all('module_m');
 	    
-	    return FALSE; // Change this when we go live
+	    return TRUE; // Change this when we go live
 	}
 
 	function upgrade_0997()
