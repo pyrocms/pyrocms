@@ -75,6 +75,12 @@ jQuery(function($) {
 			}
 			return false;
 		});
+		
+		//minibutton fix
+		$("a.minibutton").live('click', function(e) {
+			e.preventDefault();
+			window.location.href = $(this).attr("href");
+		});
 
 		// Table zerbra striping
 		$("tbody tr:nth-child(even)").livequery(function () {
