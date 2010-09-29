@@ -1,5 +1,6 @@
 <!-- Install Complete -->
-<h2>{congrats}, {user_firstname} {user_lastname} !</h2>
+<h1>{congrats}, {user_firstname} {user_lastname} !</h1>
+
 <p>{intro_text}</p>
 
 <p>
@@ -9,4 +10,4 @@
 
 <p>{outro_text}</p>
 
-<?php echo anchor($admin_url) ?>
+<a href="<?php echo $admin_url ?>" id="next_step" class="complete"><?php echo $admin_url ?></a>

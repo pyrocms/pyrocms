@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Step 4: Create database';
+$lang['header']			=	'Step 4: Create Database';
 $lang['intro_text']		=	'Complete the form below and hit the button labelled "Install" to install PyroCMS. Be sure to install PyroCMS into the right database since all existing changes will be lost!';
 
 $lang['db_settings']	=	'Database Settings';
@@ -18,9 +18,9 @@ $lang['conf_password']	=	'Confirm Password';
 $lang['finish']			=	'Install';
 
 $lang['error_101']		=	'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.';
-$lang['error_102']		=	'The installer could not add any tables to the Database.<br/><br/>';
-$lang['error_103']		=	'The installer could not insert the data into the database.<br/><br/>';
-$lang['error_104']		=	'The installer could not create the default user.<br/><br/>';
+$lang['error_102']		=	'The installer could not add any tables to the Database.';
+$lang['error_103']		=	'The installer could not insert the data into the database.';
+$lang['error_104']		=	'The installer could not create the default user.';
 $lang['error_105']		=	'The database configuration file could not be written, did you cheat on the installer by skipping step 3?';
 $lang['error_106']		=	'The config file could not be written, are you sure the file has the correct permissions ?';
 $lang['success']		=	'PyroCMS has been installed successfully.';

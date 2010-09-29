@@ -1,118 +1,121 @@
 <!-- Install PyroCMS - Step two -->
-<h2><?php echo lang('header'); ?></h2>
-<p class="text"><?php echo lang('intro_text'); ?></p>
+<h1><?php echo lang('header'); ?></h1>
 
+<p><?php echo lang('intro_text'); ?></p>
 
-<!-- Server settings -->
-<h3><?php echo lang('server_setting'); ?></h3>
-<?php if($http_server->supported === TRUE): ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
-<?php else: ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
-<?php endif; ?>
-<p><?php echo lang('server_version'); ?> <strong><?php echo $http_server->name;?></strong>.</p>
+<!-- Recommended -->
+<h2><?php echo lang('mandatory'); ?></h2>
 
-<?php if($http_server->supported === FALSE): ?>
-	<p class="red text"><?php echo lang('server_fail'); ?></p>
-<?php endif; ?>
-
+<ul class="check">
 	
-<!-- PHP settings -->
-<h3><?php echo lang('php_settings'); ?></h3>
-<?php if ($php_version): ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
-<?php else: ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/exclamation.png" alt="fail" class="icon"/>
-<?php endif; ?>
-<p>
-	<?php echo lang('php_required'); ?><br />
-	<?php echo lang('php_version'); ?> <strong><?php echo $php_version; ?></strong>.
-</p>
+	<!-- Server -->
+	<li>
+		<h4><?php echo lang('server_settings'); ?></h4>
+		
+		<p class="result <?php echo ($http_server->supported === TRUE) ? 'pass' : 'partial'; ?>">
+			<?php if ($http_server->supported === TRUE): ?>
+				<?php echo $http_server->name; ?>
+			<?php else: ?>
+				<?php echo lang('server_fail'); ?>
+			<?php endif; ?>
+		</p>
+	</li>
+	
+	<!-- PHP -->
+	<li>
+		<h4><?php echo lang('php_settings'); ?></h4>
+		<p><?php echo lang('php_required'); ?></p>
+		
+		<p class="result <?php echo ($php_acceptable) ? 'pass' : 'fail'; ?>">
+			<?php echo lang('php_version'); ?> <strong><?php echo $php_version; ?></strong>.
+			<?php if (!$php_acceptable): ?>
+				<?php echo lang('php_fail'); ?>
+			<?php endif; ?>
+		</p>
+		
+	</li>
+	
+	<!-- MySQL -->
+	<li>
+		<h4><?php echo lang('mysql_settings'); ?></h4>
+		<p><?php echo lang('mysql_required'); ?></p>
+		
+		<!-- Server -->
+		<p class="result <?php echo ($mysql->server_version_acceptable) ? 'pass' : 'fail'; ?>">
+			<?php echo lang('mysql_version1'); ?> <strong><?php echo $mysql->server_version; ?></strong>.
+			<?php echo ($mysql->server_version_acceptable) ? '' : lang('mysql_fail'); ?>
+		</p>
+		
+		<!-- Client -->
+		<p class="result <?php echo ($mysql->client_version_acceptable) ? 'pass' : 'fail'; ?>">
+			<?php echo lang('mysql_version2'); ?> <strong><?php echo $mysql->client_version; ?></strong>.
+			<?php echo ($mysql->client_version_acceptable) ? '' : lang('mysql_fail') ; ?>
+		</p>
+		
+	</li>
+	
+</ul>
 
-<?php if ($php_version === FALSE): ?>
-	<p class="red text"><?php echo lang('php_fail'); ?></p>
-<?php endif; ?>
+<!-- Recommended -->
+<h2><?php echo lang('recommended'); ?></h2>
 
+<ul class="check">
 
-<!-- MySQL settings -->
-<h3><?php echo lang('mysql_settings'); ?></h3>
-<?php if ($mysql->server_version && $mysql->client_version): ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
-<?php else: ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/exclamation.png" alt="fail" class="icon"/>
-<?php endif; ?>
-<p>
-	<?php echo lang('mysql_required'); ?> <br />
-	<?php echo lang('mysql_version1'); ?> <strong><?php echo $mysql->server_version; ?></strong> <br />
-	<?php echo lang('mysql_version2'); ?> <strong><?php echo $mysql->client_version; ?></strong>
-</p>
+	<!-- GD -->
+	<li>
+		<h4><?php echo lang('gd_settings'); ?></h4>
+		<p><?php echo lang('gd_required'); ?></p>
+		
+		<p class="result <?php echo ($gd_acceptable) ? 'pass' : 'fail'; ?>">
+			<?php echo lang('gd_version'); ?> <strong><?php echo $gd_version; ?></strong>.
+			<?php if (!$gd_acceptable): ?>
+				<?php echo lang('gd_fail'); ?>
+			<?php endif; ?>
+		</p>
+		
+	</li>
+	
+	<!-- Zlib -->
+	<li>
+		<h4><?php echo lang('zlib'); ?></h4>
+		<p><?php echo lang('zlib_required'); ?></p>
+		
+		<p class="result <?php echo ($zlib_enabled) ? 'pass' : 'fail'; ?>">
+			<?php if ($zlib_enabled): ?>
+				<?php echo lang('zlib'); ?>
+			<?php else: ?>
+				<?php echo lang('zlib_fail'); ?>
+			<?php endif; ?>
+		</p>
+		
+	</li>
 
-<?php if ($mysql->server_version === FALSE OR $mysql->client_version === FALSE): ?>
-	<p class="red text"><?php echo lang('mysql_fail'); ?></p>
-<?php endif; ?>
-
-
-<!-- GD settiings -->
-<h3><?php echo lang('gd_settings'); ?></h3>
-<?php if ( ! empty($gd_version) && $gd_version !== FALSE): ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
-<?php else: ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
-<?php endif; ?>
-<p>
-	<?php echo lang('gd_required'); ?> <br />
-	<?php if( ! empty($gd_version)): ?>
-		<?php echo lang('gd_version'); ?> <strong><?php echo $gd_version; ?></strong>
-	<?php endif; ?>
-</p>
-
-<?php if (empty($gd_version) OR $gd_version === FALSE): ?>
-	<p class="red text"><?php echo lang('gd_fail'); ?></p>
-<?php endif; ?>
-
-<!-- Zlib -->
-<h3><?php echo lang('zlib'); ?></h3>
-<?php if ($zlib_enabled): ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/tick.png" alt="pass" class="icon" />
-<?php else: ?>
-	<img src="<?php echo base_url(); ?>assets/images/icons/bullet_error.png" alt="partial pass" class="icon" />
-<?php endif; ?>
-<p>
-	<?php echo lang('zlib_required'); ?> <br />
-	<?php if(!$zlib_enabled): ?>
-		<p class="red text"><?php echo lang('zlib_fail'); ?></p>
-	<?php endif; ?>
-</p>
+</ul>
 
 <!-- Summary -->
-<h3><?php echo lang('summary'); ?></h3>
+<h2><?php echo lang('summary'); ?></h2>
 
 <?php if($step_passed === TRUE): ?>
 
-	<p class="green">
-		<strong><?php echo lang('summary_green'); ?></strong>
+	<p class="success">
+		<?php echo lang('summary_success'); ?>
 	</p>
-	<p id="next_step">
-		<a href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
-	</p>
+
+	<a id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 
 <?php elseif($step_passed == 'partial'): ?>
 
-	<p class="orange">
-		<strong><?php echo lang('summary_orange'); ?></strong>
+	<p class="partial">
+		<?php echo lang('summary_partial'); ?>
 	</p>
-	<p id="next_step">
-		<a href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
-	</p>
+	
+	<a id="next_step" href="<?php echo site_url('installer/step_3'); ?>" title="<?php echo lang('next_step'); ?>"><?php echo lang('step3'); ?></a>
 
 <?php else: ?>
 
-	<p class="red">
-		<strong><?php echo lang('summary_red'); ?></strong>
+	<p class="failure">
+		<?php echo lang('summary_failure'); ?>
 	</p>
-	<p id="next_step">
-		<a href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
-	</p>
+	
+	<a id="next_step" href="<?php echo site_url('installer/step_2'); ?>"><?php echo lang('retry'); ?></a>
 <?php endif; ?>
-
-<br class="clear" />

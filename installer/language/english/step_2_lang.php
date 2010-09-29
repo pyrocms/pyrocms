@@ -1,8 +1,10 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Step 2: Check requirements';
+$lang['header']			=	'Step 2: Check Requirements';
 $lang['intro_text']		= 	'The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
+$lang['mandatory']		= 	'Mandatory';
+$lang['recommended']	= 	'Recommended';
 
 $lang['server_settings']= 	'HTTP Server Settings';
 $lang['server_version']	=	'Your server software:';
@@ -30,9 +32,9 @@ $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.';
 $lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.';
 
-$lang['summary_green']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
-$lang['summary_orange']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
-$lang['summary_red']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';
+$lang['summary_success']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
+$lang['summary_partial']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
+$lang['summary_failure']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';
 $lang['next_step']		=	'Proceed to the next step';
 $lang['step3']			=	'Step 3';
 $lang['retry']			=	'Try again';
