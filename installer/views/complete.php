@@ -10,4 +10,5 @@
 
 <p>{outro_text}</p>
 
-<a href="<?php echo $admin_url ?>" id="next_step" class="complete"><?php echo $admin_url ?></a>
+<?php echo anchor($website_url, lang('go_website'), 'class="go_to_site"'); ?>
+<?php echo anchor($control_panel_url, lang('go_control_panel'), 'class="go_to_site"'); ?>

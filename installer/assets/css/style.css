@@ -96,7 +96,7 @@ Flags
 Next
 **********/
 
-#next_step {
+#next_step, .go_to_site {
 	float: right;
 	font-weight: bold;
 	color: #fff;
@@ -113,16 +113,17 @@ Next
 	text-align: center;
 }
 
-#next_step:hover, #next_step:active, #next_step:focus {
+#next_step:hover, #next_step:active, #next_step:focus,
+.go_to_site:hover, .go_to_site:active, .go_to_site:focus{
 	background-color: #202931;
 	cursor: pointer;
 }
 
-#next_step.complete {
+.go_to_site {
 	float: none;
 	display: block;
 	width: 50%;
-	margin: 0px auto;
+	margin: 10px auto;
 }
 
 /**********

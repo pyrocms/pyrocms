@@ -402,11 +402,9 @@ class Installer extends Controller
 		{
 			redirect(site_url());
 		}
+
 		$server_name = $this->session->userdata('http_server');
 		$supported_servers = $this->config->item('supported_servers');
-
-		// Able to use clean URLs?
-		$admin_uri = $supported_servers[$server_name]['rewrite_support'] !== FALSE ? 'admin' : 'index.php/admin';
 
 		// Load our user's settings
 		$data = $this->session->userdata('user');
@@ -415,9 +413,10 @@ class Installer extends Controller
 		$data = array_merge((array) $data, $this->lang->language);
 
 		// Create the admin link
-		$data['admin_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', $admin_uri, $this->input->server('SCRIPT_NAME'));
+		$data['website_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', '', $this->input->server('SCRIPT_NAME'));
+		$data['control_panel_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'admin' : 'index.php/admin');
 
-		//Let's remove our session since it contains data we don't want anyone to see
+		// Let's remove our session since it contains data we don't want anyone to see
 		$this->session->sess_destroy();
 		
 		// Load the view files

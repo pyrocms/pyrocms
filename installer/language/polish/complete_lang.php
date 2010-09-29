@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['congrats']	=	'Gratulacje';
@@ -6,3 +6,6 @@ $lang['intro_text']	=	'PyroCMS jest teraz zainstalowany i gotowy do działania! 
 $lang['email']		=	'E-mail';
 $lang['password']	=	'Hasło';
 $lang['outro_text']	=	'Na końcu <strong>usuń katalog instalatora z serwera</strong>, w przeciwnym razie może on być wykorzystany do przejęcia kontroli nad Twoim serwisem!';
+
+$lang['go_website']			= 'Go to Website'; #translate
+$lang['go_control_panel']	= 'Go to Control Panel'; #translate

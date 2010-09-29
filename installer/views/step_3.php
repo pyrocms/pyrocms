@@ -32,10 +32,10 @@
 
 <textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:450px;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
 <?php foreach($permissions['directories'] as $directory => $status): ?>
-chmod 777 <?php echo $directory.PHP_EOL; ?>
+<?php echo $status ? '' : 'chmod 777 '.$directory.PHP_EOL; ?>
 <?php endforeach; ?>
 <?php foreach($permissions['files'] as $files=> $status): ?>
-chmod 666 <?php echo $files.PHP_EOL; ?>
+<?php echo $status ? '' : 'chmod 666 '.$files.PHP_EOL; ?>
 <?php endforeach; ?>
 </textarea>
 
