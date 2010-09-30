@@ -95,7 +95,8 @@ class Upgrade extends Controller
 				'is_backend_menu' 	=> 	array(
 										'name' => 'menu',
 										'type' => 'varchar',
-										'constraint' => '20'
+										'constraint' => '20',
+										'default' => 'FALSE'
 										)
 		);
 		$installed = array(
@@ -109,8 +110,11 @@ class Upgrade extends Controller
 		$this->dbforge->add_column('modules', $installed);
 		$this->dbforge->drop_column('modules', 'controllers');
 		
-		//get rid of permissions record so perms module will reinstall
+		//get rid of old modules and modules that need to be reinstalled
 		$this->db->delete('modules', array('slug' => 'permissions'));
+		$this->db->delete('modules', array('slug' => 'categories'));
+		$this->db->delete('modules', array('slug' => 'twitter'));
+		$this->db->delete('modules', array('slug' => 'tinycimm'));
 		
 
 		// ---- now install any new modules -----------------
@@ -190,6 +194,41 @@ class Upgrade extends Controller
 		
 		// ---- now let's start upgrading the existing modules
 		
+		// ---- Widgets -------------------------------------
+		
+		$this->db->where('slug', 'widgets')
+				->update('modules', array('menu'=>'content'));
+				
+		// ---- / End Widgets -------------------------------
+		
+		// ---- Variables -----------------------------------
+		
+		$this->db->where('slug', 'variables')
+				->update('modules', array('menu'=>'content'));
+				
+		// ---- / End Variables -----------------------------
+		
+		// ---- Newsletters ---------------------------------
+		
+		$this->db->where('slug', 'newsletters')
+				->update('modules', array('menu'=>'users'));
+				
+		// ---- / End Newsletters ---------------------------
+		
+		// ---- Navigation ----------------------------------
+		
+		$this->db->where('slug', 'navigation')
+				->update('modules', array('menu'=>'design'));
+				
+		// ---- / End Navigation ----------------------------
+		
+		// ---- Themes --------------------------------------
+		
+		$this->db->where('slug', 'themes')
+				->update('modules', array('menu'=>'design'));
+				
+		// ---- / End Themes --------------------------------
+		
 		// ---- Comments ------------------------------------
 
 		$this->_output .= "Adding/updating comment settings.<br/>";
@@ -205,12 +244,20 @@ class Upgrade extends Controller
 		
 		$this->db->query($comment_sort_setting);
 		
+		// set menu location
+		$this->db->where('slug', 'comments')
+				->update('modules', array('menu'=>'content'));
+		
 		// ---- / End Comments ------------------------------
 		
 		
 		// ---- News ----------------------------------------
 		
 		$this->dbforge->rename_table('categories', 'news_categories');
+
+		// set menu location
+		$this->db->where('slug', 'news')
+				->update('modules', array('menu'=>'content', 'is_core'=>'1'));
 		
 		// ---- / End News ----------------------------------
 		
@@ -220,6 +267,10 @@ class Upgrade extends Controller
 		//clean up after the old permissions module
 		$this->dbforge->drop_table('permission_roles');
 		$this->dbforge->drop_table('permission_rules');
+		
+		// set menu location
+		$this->db->where('slug', 'permissions')
+				->update('modules', array('menu'=>'users'));
 
 		// ---- / End Permissions ---------------------------
 		
@@ -230,6 +281,10 @@ class Upgrade extends Controller
 	    $this->dbforge->drop_column('groups', 'title');
 	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
 	    $this->db->query("ALTER TABLE `groups` CHANGE `description` `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
+		
+		// set menu location
+		$this->db->where('slug', 'groups')
+				->update('modules', array('menu'=>'users'));
 		
 		// ---- / End Groups --------------------------------
 		
@@ -405,6 +460,13 @@ class Upgrade extends Controller
 	        $this->db->insert('revisions', $revision_data);
 
 	    }
+		
+		// set menu location
+		$this->db->where('slug', 'pages')
+				->update('modules', array('menu'=>'content'));
+				
+		// ---- / End Pages ---------------------------------
+		
 	    
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";
