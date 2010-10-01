@@ -55,11 +55,11 @@ class Themes_m extends CI_Model
 			return $this->_themes[$slug];
 		}
 
-		if (is_dir($path = $location.$slug))
+		if (is_dir($path = $location.'/'.$slug))
 		{
 			// Core theme or tird party?
 			$is_core = $location === ADDONPATH.'themes/';
-			$web_path = $location . 'themes/' . $slug;
+			$web_path = $location . '/' . $slug;
 
 			$theme->slug			= $slug;
 			$theme->is_core			= $is_core;
@@ -67,7 +67,7 @@ class Themes_m extends CI_Model
 			$theme->web_path 		= $web_path;
 			$theme->screenshot		= $web_path . '/screenshot.png';
 
-			$xml_file = $location . '/theme.xml';
+			$xml_file = $location .'/'. $slug . '/theme.xml';
 			if(file_exists($xml_file))
 			{
 				// Grab details from the theme.xml file

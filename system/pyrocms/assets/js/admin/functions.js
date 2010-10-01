@@ -77,7 +77,7 @@ jQuery(function($) {
 		});
 		
 		//minibutton fix
-		$("a.minibutton").live('click', function(e) {
+		$("a.minibutton, a.button").live('click', function(e) {
 			e.preventDefault();
 			window.location.href = $(this).attr("href");
 		});
