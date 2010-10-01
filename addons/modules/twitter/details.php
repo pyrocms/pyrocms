@@ -12,14 +12,14 @@ class Details_Twitter extends Module {
 				'de' => 'Twitter',
 				'nl' => 'Twitter',
 				'fr' => 'Twitter',
-				'tw' => 'Twitter'
+				'zh' => 'Twitter'
 			),
 			'description' => array(
 				'en' => 'Show twitter posts and support general Twitter integration.',
 				'de' => 'Zeigt Twitter Nachrichten und bietet die Twitter Integration.',
 				'nl' => 'Toont Twitter posts en ondersteunt algemene Twitter integratie.',
 				'fr' => 'Affiche les tweets et fournit l\'intégration au service Twitter.',
-				'tw' => '顯示 twitter 的訊息以及其他整合'
+				'zh' => '顯示 twitter 的訊息以及其他整合'
 			),
 			'frontend' => FALSE,
 			'backend' => FALSE,
