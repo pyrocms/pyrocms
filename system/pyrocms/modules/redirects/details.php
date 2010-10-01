@@ -9,11 +9,11 @@ class Details_Redirects extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Redirects',
-				'tw' => '轉址'
+				'zh' => '轉址'
 			),
 			'description' => array(
 				'en' => 'Redirect from one URL to another.',
-				'tw' => '將某網址重新轉換到另外一個網址。'
+				'zh' => '將某網址重新轉換到另外一個網址。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
