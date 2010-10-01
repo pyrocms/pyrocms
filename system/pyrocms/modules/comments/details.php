@@ -14,7 +14,8 @@ class Details_Comments extends Module {
 				'es' => 'Comentarios',
 				'fr' => 'Commentaires',
 				'de' => 'Kommentare',
-				'pl' => 'Komentarze'
+				'pl' => 'Komentarze',
+				'tw' => '回應'
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
@@ -23,7 +24,8 @@ class Details_Comments extends Module {
 				'es' => 'Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.',
 				'fr' => 'Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.',
 				'de' => 'Benutzer und Gäste können für fast alles Kommentare schreiben.',
-				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.'
+				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
+				'tw' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

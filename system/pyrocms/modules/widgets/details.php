@@ -11,14 +11,16 @@ class Details_Widgets extends Module {
 				'en' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
-                'fr' => 'Widgets'
+                'fr' => 'Widgets',
+				'tw' => '小組件'
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
 				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',
-				'fr' => 'Gérer des mini application ou "Widgets".'
+				'fr' => 'Gérer des mini application ou "Widgets".',
+				'tw' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

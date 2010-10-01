@@ -25,6 +25,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/es.gif" alt="spànish" />
 		</a>
 	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/chinese_traditional'); ?>" title="繁體中文">
+			<img src="<?php echo base_url(); ?>assets/images/flags/tw.gif" alt="繁體中文" />
+		</a>
+	</li>	
 </ul>
 
 <h1>{header}</h1>

@@ -13,7 +13,8 @@ class Details_News extends Module {
 				'es' => 'Artículos',
 				'fr' => 'Actualités',
 				'de' => 'News',
-				'pl' => 'Aktualności'
+				'pl' => 'Aktualności',
+				'tw' => '新聞'
 			),
 			'description' => array(
 				'en' => 'Post news articles and blog entries.',
@@ -21,7 +22,8 @@ class Details_News extends Module {
 				'es' => 'Escribe entradas para los artículos y blogs (web log).',
 				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
-				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu'
+				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
+				'tw' => '發表新聞訊息、部落格文章。'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
