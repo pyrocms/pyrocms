@@ -13,7 +13,7 @@ class Installer extends Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('english','dutch','brazilian','polish');
+	private $languages	= array ('english','dutch','brazilian','polish','chinese_traditional');
 
 	/**
 	 * Array containing the directories that need to be writeable
