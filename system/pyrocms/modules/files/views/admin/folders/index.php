@@ -33,7 +33,19 @@
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 
 		<?php else: ?>
-			<p><?php echo lang('files.folders.no_folders');?></p>
+			<p>
+				<?php echo lang('files.folders.no_folders');?>
+				<?php echo anchor('admin/files/folders/create', lang('files.folders.create'), 'id="new_folder" class="new_folder"'); ?>
+			</p>
+
+			<script type="text/javascript">
+			jQuery(function($) {
+				$(".new_folder").colorbox({
+					width:"400", height:"350", iframe:true,
+					onClosed:function(){ location.reload(); }
+				});
+			});
+			</script>
 		<?php endif; ?>
 <?php echo form_close();?>
 <script type="text/javascript">

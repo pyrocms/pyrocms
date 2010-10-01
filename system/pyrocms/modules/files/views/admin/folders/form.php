@@ -7,7 +7,6 @@
 	});
 })(jQuery);
 </script>
-<p><?php echo $messages['success']; ?></p>
 <?php else: ?>
 
 <?php echo form_open($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
