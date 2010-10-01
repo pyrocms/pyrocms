@@ -14,7 +14,7 @@ class Details_Newsletters extends Module {
 				'fr' => 'Newsletters',
 				'de' => 'Newsletter',
 				'pl' => 'Newslettery',
-				'tw' => '電子報'
+				'zh' => '電子報'
 			),
 			'description' => array(
 				'en' => 'Let visitors subscribe via their email address.',
@@ -23,7 +23,7 @@ class Details_Newsletters extends Module {
 				'fr' => 'Permet aux visiteurs de s\'abonner avec leur adresse e-mail.',
 				'de' => 'Erlaube Besuchern Newsletter via Email zu abonnieren.',
 				'pl' => 'Umożliwia użytkownikom zapisanie się za pomocą adresu e-mail do newsleterrów.',
-				'tw' => '讓訪客填寫電子郵件以訂閱電子報。'
+				'zh' => '讓訪客填寫電子郵件以訂閱電子報。'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,

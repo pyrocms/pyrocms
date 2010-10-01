@@ -23,7 +23,7 @@ $config['supported_languages'] = array(
 	'pl'=> array('name' => 'Polski', 'folder' => 'polish'),
 	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
 	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian'),
-	'tw'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional')
+	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional')
 );
 
 /*

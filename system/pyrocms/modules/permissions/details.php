@@ -15,7 +15,7 @@ class Details_Permissions extends Module {
 				'de' => 'Zugriffsrechte',
 				'pl' => 'Uprawnienia',
 				'br' => 'Permissões',
-				'tw' => '權限'
+				'zh' => '權限'
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
@@ -24,7 +24,7 @@ class Details_Permissions extends Module {
 				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
 				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
 				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
-				'tw' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。'
+				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

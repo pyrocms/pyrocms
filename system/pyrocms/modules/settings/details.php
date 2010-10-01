@@ -15,7 +15,7 @@ class Details_Settings extends Module {
 				'de' => 'Einstellungen',
 				'pl' => 'Ustawienia',
 				'br' => 'Configurações',
-				'tw' => '網站設定'
+				'zh' => '網站設定'
 			),
 			'description' => array(
 				'en' => 'Allows adminsistators to update settings like Site Name, messages and email address, etc.',
@@ -25,7 +25,7 @@ class Details_Settings extends Module {
 				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
 				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
 				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
-				'tw' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。'
+				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
