@@ -14,7 +14,8 @@ class Details_Themes extends Module {
 				'fr' => 'Thèmes',
 				'de' => 'Themen',
 				'pl' => 'Motywy',
-				'br' => 'Temas'
+				'br' => 'Temas',
+				'tw' => '佈景主題'
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.',
@@ -23,7 +24,8 @@ class Details_Themes extends Module {
 				'fr' => 'Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle',
 				'de' => 'Ermöglicht es dem Administrator das Seiten Thema auszuwählen, neue Themen hochzulanden oder diese visuell zu verwalten.',
 				'pl' => 'Umożliwia administratorowi zmianę motywu strony, wgrywanie nowych motywów oraz zarządzanie nimi.',
-				'br' => 'Permite com que administradores e membros da equipe configurem o tema de layout do website, fazer upload de novos temas e gerenciá-los em uma interface mais visual.'
+				'br' => 'Permite com que administradores e membros da equipe configurem o tema de layout do website, fazer upload de novos temas e gerenciá-los em uma interface mais visual.',
+				'tw' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

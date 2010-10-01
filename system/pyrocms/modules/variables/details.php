@@ -15,6 +15,7 @@ class Details_Variables extends Module {
 				'fr' => 'Variables',
 				'de' => 'Variablen',
 				'br' => 'Variáveis',
+				'tw' => '系統變數'
 			),
 			'description' => array(
 				'en' => 'Manage global variables to access from everywhere.',
@@ -23,7 +24,8 @@ class Details_Variables extends Module {
 				'es' => 'Manage global variables to access from everywhere.',
 				'fr' => 'Manage global variables to access from everywhere.',
 				'de' => 'Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.',
-				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.'
+				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
+				'tw' => '管理此網站內可存取的全局變數。'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
