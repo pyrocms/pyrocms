@@ -253,8 +253,8 @@ class MY_Parser extends CI_Parser {
 					$class_name = 'Plugin_'.$class;
 					$class_init = new $class_name;
 					$return_data = $this->_process($class_init, $method, $data);
+					break;
 				}
-				break;
 			}
 			else
 			{
@@ -280,8 +280,8 @@ class MY_Parser extends CI_Parser {
 
 					// Now the fun stuff!
 					$return_data = $this->_process($class_init, $method, $data);
+					break;
 				}
-				break;
 			}
 		}
 
