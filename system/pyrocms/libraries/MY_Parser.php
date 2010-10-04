@@ -259,12 +259,10 @@ class MY_Parser extends CI_Parser {
 			else
 			{
 				$addon_path = ADDONPATH.'modules/'.$class.'/libraries/'.$class.'.plugin'.EXT;
-				if ( ! file_exists($addon_path))
-				{
-					log_message('error', 'Unable to load: '.$class);
-					$return = FALSE;
-				}
-				else
+				$library_path = ADDONPATH.'modules/libraries/'.$class.'.plugin'.EXT;
+
+				// First check addon_path
+				if (file_exists($addon_path))
 				{
 					// Load it up
 					include_once($addon_path);
@@ -281,6 +279,22 @@ class MY_Parser extends CI_Parser {
 					// Now the fun stuff!
 					$return_data = $this->_process($class_init, $method, $data);
 					break;
+				}
+				elseif (file_exists($library_path))
+				{
+					// Load it up
+					include_once($library_path);
+					$class_name = 'Plugin_'.$class;
+					$class_init = new $class_name;
+
+					// Now the fun stuff!
+					$return_data = $this->_process($class_init, $method, $data);
+					break;
+				}
+				else
+				{
+					log_message('error', 'Unable to load: '.$class);
+					$return = FALSE;
 				}
 			}
 		}
