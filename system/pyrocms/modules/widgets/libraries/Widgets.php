@@ -26,7 +26,7 @@ class Widgets
 				$slug = basename($widget_path);
 
 				// Set this so we know where it is later
-				$this->_widget_locations[$slug] = $widget_path;
+				$this->_widget_locations[$slug] = $widget_path . '/';
 			}
 		}
 	}
@@ -133,14 +133,14 @@ class Widgets
 		}
 
 		// If we have TRUE, just make an empty array
-		$data !== TRUE || $data = array();
+		$data !== TRUE OR $data = array();
 
 		// convert to array
-		is_array($data) || $data = (array) $data;
+		is_array($data) OR $data = (array) $data;
 
 		$data['options'] = $options;
 
-        return $this->load->view('../../../../'.$path.'views/display', $data, TRUE);
+		return $this->load_view('display', $data);
     }
 
     function render_backend($name, $saved_data = array())
@@ -162,7 +162,7 @@ class Widgets
 				$data['options'][$field_name] = set_value($field_name, @$saved_data[$field_name]);
 			}
 
-			return $this->load->view('../../../../'.$path.'views/form', $data, TRUE);
+			return $this->load_view('form', $data);
 		}
 
 		return '';
@@ -242,7 +242,7 @@ class Widgets
 	{
 		$slug = $this->widget_m->get_instance($instance_id)->slug;
 
-		if ( $error = $this->validation_errors($slug, $options) )
+		if ($error = $this->validation_errors($slug, $options))
 		{
 			return array('status' => 'error', 'error' => $error);
 		}
@@ -271,7 +271,7 @@ class Widgets
 
 	function validation_errors($name, $options)
 	{
-		$this->_widget || $this->_spawn_widget($name);
+		$this->_widget OR $this->_spawn_widget($name);
 
 	    if (property_exists($this->_widget, 'fields'))
     	{
@@ -289,7 +289,7 @@ class Widgets
 
     function prepare_options($name, $options = array())
     {
-    	$this->_widget || $this->_spawn_widget($name);
+    	$this->_widget OR $this->_spawn_widget($name);
 
     	if (method_exists($this->_widget, 'save'))
 	    {
@@ -301,26 +301,26 @@ class Widgets
 
     private function _spawn_widget($name)
     {
-		$widget_path = FCPATH.$this->_widget_locations[$name] . '/' . $name . EXT;
+		$widget_path = $this->_widget_locations[$name];
 
-		if (file_exists($widget_path))
+		if (file_exists($widget_path . $name . EXT))
 		{
-			require_once $widget_path;
+			require_once $widget_path . $name . EXT;
 			$class_name = 'Widget_'.ucfirst($name);
 
 			$this->_widget = new $class_name;
 
-			return $this->_widget_locations[$name].'/';
+			$this->_widget->path = $widget_path;
+
+			return;
 		}
 
-		return FALSE;
+		$this->_widget = NULL;
     }
 
     function __get($var)
     {
-        static $ci;
-    	isset($ci) OR $ci =& get_instance();
-        return $ci->$var;
+		return CI_Base::get_instance()->$var;
     }
 
 	private function _serialize_options($options)
@@ -333,15 +333,14 @@ class Widgets
 		return (array) unserialize($options);
 	}
 
-//	private function _load_view($path, $file, $data = array())
-//	{
-//		$orig_view_path = $this->load->_ci_view_path;
-//
-//		echo $this->load->_ci_view_path = $path.'views/';
-//
-//		$view = $this->load->view($file, $data, TRUE);
-//		$this->load->_ci_view_path = $orig_view_path;
-//
-//		return $view;
-//	}
+	protected function load_view($view, $data = array())
+	{
+		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
+
+		return $this->load->_ci_load(array(
+			'_ci_path' => $path.'views/'.$view.EXT,
+			'_ci_vars' => $data,
+			'_ci_return' => TRUE
+		));
+	}
 }
