@@ -2,7 +2,8 @@
 
 <p><?php echo lang('intro_text'); ?></p>
 
-<form id="install_frm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<?php echo form_open(uri_string(), 'id="install_frm"'); ?>
+
 	<h2><?php echo lang('db_settings'); ?></h2>
 	
 	<div class="input">
@@ -90,4 +91,4 @@
 	
 	<input id="next_step" type="submit" id="submit" value="<?php echo lang('finish'); ?>" />
 
-</form>
+<?php echo form_close(); ?>
