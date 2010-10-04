@@ -90,7 +90,5 @@ class MY_Controller extends Controller
  */
 function ci()
 {
-    static $ci;
-    isset($ci) OR $ci =& get_instance();
-    return $ci;
+	return CI_Base::get_instance();
 }
