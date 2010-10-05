@@ -431,7 +431,7 @@ class MX_Lang extends CI_Lang
 
 		if ($path === FALSE)
 		{
-			if (file_exists(APPPATH.'language/'.$idiom.'/'.$langfile.'_lang'.EXT))
+			if (file_exists(APPPATH.'language/'.$idiom.'/'.$langfile.'_lang'.EXT) OR file_exists(BASEPATH.'language/'.$idiom.'/'.$langfile.'_lang'.EXT))
 			{
 				if ($lang = parent::load($langfile, $lang, $return))
 				{
