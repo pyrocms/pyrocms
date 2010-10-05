@@ -1,20 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
-/**
-* Code Igniter
-*
-* An open source application development framework for PHP 4.3.2 or newer
-*
-* @package		CodeIgniter
-* @author		Rick Ellis
-* @copyright	Copyright (c) 2006, pMachine, Inc.
-* @license		http://www.codeignitor.com/user_guide/license.html
-* @link			http://www.codeigniter.com
-* @since        Version 1.0
-* @filesource
-*/
-
-// ------------------------------------------------------------------------
-
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * Code Igniter Debug Helpers
 *
@@ -25,7 +9,6 @@
 */
 
 // ------------------------------------------------------------------------
-
 
 /**
   * Debug Helper
@@ -39,15 +22,16 @@
 function dump()
 {
 	list($callee) = debug_backtrace();
-	$arguments = func_get_args();
+	$arguments = $callee['args'];
 	$total_arguments = count($arguments);
 
 	echo '<fieldset style="background: #fefefe !important; border:2px red solid; padding:5px">';
 	echo '<legend style="background:lightgrey; padding:5px;">'.$callee['file'].' @ line: '.$callee['line'].'</legend><pre>';
 
+	$i = 0;
 	foreach ($arguments as $argument)
 	{
-		echo '<br/><strong>Debug #1 of '.$total_arguments.'</strong>: ';
+		echo '<br/><strong>Debug #'.(++$i).' of '.$total_arguments.'</strong>: ';
 		var_dump($argument);
 	}
 
