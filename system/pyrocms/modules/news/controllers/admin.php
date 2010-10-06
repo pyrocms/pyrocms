@@ -125,7 +125,8 @@ class Admin extends Admin_Controller
 			'status' => 'all'
 		));
 		
-		$this->template->build('admin/index', $this->data);
+		$this->template->append_metadata( js('admin/filter.js') )
+				->build('admin/index', $this->data);
 	}
 	
 	/**
@@ -430,6 +431,44 @@ class Admin extends Admin_Controller
 		}
 		
 		return TRUE;
+	}
+	
+	/**
+	 * method to fetch filtered results for news list
+	 * @access public
+	 * @return void
+	 */
+	public function ajax_filter()
+	{
+		$category = $this->input->post('f_category');
+		$status = $this->input->post('f_status');
+		$keywords = $this->input->post('f_keywords');
+	
+		$post_data = array();
+	
+		if($category != 0)
+		{
+			array_push($post_data, array('category_id', $category));
+		}
+	
+		if($status != 0)
+		{
+			array_push($post_data, array('status', $status));
+		}
+	
+		//keywords, lets explode them out if they exist
+		if($keywords)
+		{
+			array_push($post_data, array('keywords', $keywords));
+		}
+	
+		$results = $this->news_m->search($post_data);
+		
+		$this->template->articles =& $results;	
+	
+		//set the layout to false and load the view
+		$this->template->set_layout(FALSE);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 }

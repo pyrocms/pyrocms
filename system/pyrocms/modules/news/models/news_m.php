@@ -188,8 +188,34 @@ class News_m extends MY_Model
         return $string ;
     }
 
-	function check_slug($slug = '')
+    function check_slug($slug = '')
     {
 		return parent::count_by('slug', $slug) == 0;
+    }
+    
+    /**
+     * Searches news articles based on supplied data array
+     * @param $data array
+     * @return array
+     */
+    public function search($data = array())
+    {
+	if(array_key_exists('category_id', $data))
+	{
+		$this->db->where('category_id', $data['category_id']);
+	}
+
+	if(array_key_exists('status', $data))
+	{
+		$this->db->where('status', $data['status']);
+	}
+
+	if(array_key_exists('keywords', $data))
+	{
+		$this->db->like('title', $data['keywords']);
+		$this->db->or_like('body', $data['keywords']);
+		$this->db->or_like('intro', $data['keywords']);
+	}
+	return $this->get_all();
     }
 }
