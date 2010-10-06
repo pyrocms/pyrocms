@@ -1,4 +1,3 @@
-<?php $this->load->view('admin/partials/filters', $this->data); ?>
 <?php echo form_open('admin/news/action');?>
 
 <h3><?php echo lang('news_list_title');?></h3>

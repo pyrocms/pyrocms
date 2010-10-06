@@ -95,7 +95,7 @@ class Admin extends Admin_Controller
 		$this->data->hours = array_combine($hours = range(1, 23), $hours);
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
-		$this->data->categories = array();
+		$this->data->categories = array(0 => '');
 		if($categories = $this->news_categories_m->get_all())
 		{
 			foreach($categories as $category)
@@ -125,7 +125,9 @@ class Admin extends Admin_Controller
 			'status' => 'all'
 		));
 		
+		
 		$this->template->append_metadata( js('admin/filter.js') )
+				->set_partial('filters', 'admin/partials/filters')
 				->build('admin/index', $this->data);
 	}
 	
@@ -446,25 +448,24 @@ class Admin extends Admin_Controller
 	
 		$post_data = array();
 	
-		if($category != 0)
+		if($status == 'live' OR $status == 'draft')
 		{
-			array_push($post_data, array('category_id', $category));
+			$post_data['status'] = $status;
 		}
 	
-		if($status != 0)
+		if($category != 0)
 		{
-			array_push($post_data, array('status', $status));
+			$post_data['category_id'] = $category;
 		}
 	
 		//keywords, lets explode them out if they exist
 		if($keywords)
 		{
-			array_push($post_data, array('keywords', $keywords));
+			$post_data['keywords'] = $keywords;
 		}
-	
 		$results = $this->news_m->search($post_data);
 		
-		$this->template->articles =& $results;	
+		$this->template->news = $results;	
 	
 		//set the layout to false and load the view
 		$this->template->set_layout(FALSE);

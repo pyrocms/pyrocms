@@ -36,7 +36,7 @@
         function do_filter(module, form_data)
         {
                 //send the request to the server
-                $.post(BASE_URI + '/admin/'+module+'/ajax_filter', form_data, function(data, response, xhr) {
+                $.post(BASE_URL + '/admin/'+module+'/ajax_filter', form_data, function(data, response, xhr) {
                         //success stuff here
                         $('#content').html(data);
                 });

@@ -80,3 +80,13 @@ form.crud span.required-icon {
 	vertical-align:top;
 	width:15px;
 }
+div#filter {
+	float: left;
+	width: 100%;
+}
+form.filter ul {
+	list-style-type: none;
+}
+form.filter li {
+	float: left;
+}

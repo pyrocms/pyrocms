@@ -212,9 +212,9 @@ class News_m extends MY_Model
 
 	if(array_key_exists('keywords', $data))
 	{
-		$this->db->like('title', $data['keywords']);
-		$this->db->or_like('body', $data['keywords']);
-		$this->db->or_like('intro', $data['keywords']);
+		$this->db->like('news.title', $data['keywords']);
+		$this->db->or_like('news.body', $data['keywords']);
+		$this->db->or_like('news.intro', $data['keywords']);
 	}
 	return $this->get_all();
     }
