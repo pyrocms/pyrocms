@@ -1,6 +1,5 @@
 <div id="filter">
 <?php echo form_open('', 'class="filter"'); ?>
-<h6>Filters: </h6>
 <?php echo form_hidden('f_module', $module_details['slug']); ?>
 <ul>  
 	<li>
@@ -12,7 +11,7 @@
             <?php echo form_dropdown('f_category', $categories); ?>
         </li>
 	<li><?php echo form_input('f_keywords'); ?></li>
-	<?php echo form_button('f_clear', 'Clear'); ?>
+	<?php echo form_button('f_clear', lang('buttons.cancel')); ?>
 </ul>
 <?php echo form_close(); ?>
 <br class="clear-both">

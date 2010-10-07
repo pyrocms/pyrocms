@@ -18,16 +18,16 @@
         
         //listener for keywords
         $('input[type="text"]', filter_form).live('keypress', function() {
-                
-                //build the form data
-                form_data = filter_form.serialize();
-        
+                        
                 field_val = $(this).val();
         
-                //fire the query as soon as user has entered more than five characters
-                if(field_val.length > 5)
+                //fire the query as soon as user has entered more than three characters
+                if(field_val.length >= 3)
                 {
-                        do_filter(f_module, form_data);
+                    //build the form data
+                    form_data = filter_form.serialize();
+                    
+                    do_filter(f_module, form_data);
                 }
         
         });
