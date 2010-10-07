@@ -35,10 +35,13 @@
         //launch the query based on module
         function do_filter(module, form_data)
         {
-                //send the request to the server
-                $.post(BASE_URL + '/admin/'+module+'/ajax_filter', form_data, function(data, response, xhr) {
-                        //success stuff here
-                        $('#content').html(data);
+                $('#content').fadeOut('fast', function() {
+                    //send the request to the server
+                    $.post(BASE_URL + '/admin/'+module+'/ajax_filter', form_data, function(data, response, xhr) {
+                            //success stuff here
+                            $.uniform.update();
+                            $('#content').html(data).fadeIn('fast');
+                    });
                 });
         }
         
@@ -51,7 +54,7 @@
                 
                 //clear text inputs
                 $('input[type="text"]').val('');
-                
+                $.uniform.update();
                 //build the form data
                 form_data = filter_form.serialize();
         
