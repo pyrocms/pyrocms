@@ -266,7 +266,7 @@ class Pages_m extends MY_Model
 
         $this->db->trans_complete();
 
-        return ($this->db->trans_status() !== FALSE) ? $id : FALSE;
+        return ($this->db->trans_status() === FALSE) ? FALSE : $id;
     }
 
     /**
@@ -297,6 +297,8 @@ class Pages_m extends MY_Model
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
+	
+	return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
     }
 
     /**
