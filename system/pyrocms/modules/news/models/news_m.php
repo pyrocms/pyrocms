@@ -212,7 +212,27 @@ class News_m extends MY_Model
 
 	if(array_key_exists('keywords', $data))
 	{
-	    $phrases = explode(' ', $data['keywords']);
+	    $matches = array();
+	    if(strstr($data['keywords'], '%'))
+	    {
+		preg_match_all('/%.*?%/i', $data['keywords'], $matches);
+	    }
+	    
+	    if(!empty($matches[0]))
+	    {
+		foreach($matches[0] as $match)
+		{
+		    $phrases[] = str_replace('%', '', $match);
+		}
+	    }
+	    else
+	    {
+		$temp_phrases = explode(' ', $data['keywords']);
+		foreach($temp_phrases as $phrase)
+		{
+		    $phrases[] = str_replace('%', '', $phrase);
+		}
+	    }
 	    
 	    $counter = 0;
 	    foreach($phrases as $phrase)
