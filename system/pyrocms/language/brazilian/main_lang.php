@@ -9,9 +9,18 @@ $lang['version_label'] 							= 'Versão';
 $lang['author_label'] 							= 'Autor';
 $lang['action_label'] 								= 'Ação';
 
-$lang['dialog_confirm'] 						= 'Confirmar';
-$lang['dialog_yes'] 								= 'Sim';
-$lang['dialog_no'] 									= 'Não';
+$lang['dialog.confirm'] 						= 'Confirmar';
+$lang['dialog.yes'] 								= 'Sim';
+$lang['dialog.no'] 									= 'Não';
+
+$lang['select.none'] 					= '-- None --'; #translate
+$lang['select.all'] 					= '-- All --'; #translate
+$lang['select.any'] 					= '-- Any --'; #translate
+
+$lang['operators.equal'] 				= 'Equal to'; #translate
+$lang['operators.not_equal'] 			= 'Not equal to'; #translate
+$lang['operators.less_than'] 			= 'Less than'; #translate
+$lang['operators.greater_than'] 		= 'Greater than'; #translate
 
 $lang['navigation_headline'] 				= 'Navegação';
 $lang['breadcrumb_base_label'] 			= 'Home';

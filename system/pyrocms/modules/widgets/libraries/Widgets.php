@@ -17,9 +17,23 @@ class Widgets
 		$this->load->model('widgets/widget_m');
 
 		// Map where all widgets are
-		foreach ($this->load->_ci_library_paths as $path)
+		foreach ($this->load->_ci_model_paths as $path)
 		{
-			$widgets = array_merge(glob($path.'widgets/*', GLOB_ONLYDIR), glob($path.'modules/*/widgets/*', GLOB_ONLYDIR));
+			$widgets = glob($path.'widgets/*', GLOB_ONLYDIR);
+
+			if ( ! is_array($widgets))
+			{
+				$widgets = array();
+			}
+
+			$module_widgets = glob($path.'modules/*/widgets/*', GLOB_ONLYDIR);
+
+			if ( ! is_array($module_widgets))
+			{
+				$module_widgets = array();
+			}
+
+			$widgets = array_merge($widgets, $module_widgets);
 
 			foreach ($widgets as $widget_path)
 			{

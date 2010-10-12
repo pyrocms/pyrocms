@@ -1,12 +1,12 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed.');
-/*****
+<?php defined('BASEPATH') OR exit('No direct script access allowed.');
+
+/**
   * The Pagination helper cuts out some of the bumf of normal pagination
   * @author		Philip Sturgeon
-  * @email		email@philsturgeon.co.uk
   * @filename	pagination_helper.php
   * @title		Pagination Helper
   * @version	1.0
-  *****/
+ **/
 
 function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 {
@@ -16,12 +16,7 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 	$current_page = $ci->uri->segment($uri_segment, 0);
 
 	// Initialize pagination
-
-        //  Old way: doesn't work without mod_rewrite
-        // $config['base_url'] = base_url().$uri.'/';
-        // New way: 
-        $config['base_url'] = site_url().'/'.$uri.'/';
-
+	$config['base_url'] = site_url().'/'.$uri.'/';
 	$config['total_rows'] = $total_rows; // count all records
 	$config['per_page'] = $limit === NULL ? $ci->settings->records_per_page : $limit;
 	$config['uri_segment'] = $uri_segment;
@@ -63,5 +58,3 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 		'links' 		=> $ci->pagination->create_links()
 	);
 }
-
-?>

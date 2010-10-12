@@ -20,5 +20,3 @@ $config['smtp_user'] = 'username';
 $config['smtp_pass'] = 'password';
 $config['smtp_port'] = '465';
 */
-
-?>

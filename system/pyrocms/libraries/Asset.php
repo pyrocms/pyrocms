@@ -217,7 +217,7 @@ class Asset {
 	 * @param		string    optional, module name
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public private function _asset_path($asset_name, $module_name = NULL, $asset_type = NULL)
+	private function _asset_path($asset_name, $module_name = NULL, $asset_type = NULL)
 	{
 		return $this->_other_asset_location($asset_name, $module_name, $asset_type, 'path');
 	}

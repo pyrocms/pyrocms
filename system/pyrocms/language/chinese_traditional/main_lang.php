@@ -9,10 +9,19 @@ $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['author_label'] 					= '作者'; 		//'Author';
 $lang['action_label'] 					= '操作'; 		//'Action';
 
-$lang['dialog_delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
-$lang['dialog_confirm'] 				= '確認'; 		//'Confirm';
-$lang['dialog_yes'] 					= '是'; 			//'Yes';
-$lang['dialog_no'] 						= '否'; 			//'No';
+$lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
+$lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
+$lang['dialog.yes'] 					= '是'; 			//'Yes';
+$lang['dialog.no'] 						= '否'; 			//'No';
+
+$lang['select.none'] 					= '-- None --'; #translate
+$lang['select.all'] 					= '-- All --'; #translate
+$lang['select.any'] 					= '-- Any --'; #translate
+
+$lang['operators.equal'] 				= 'Equal to'; #translate
+$lang['operators.not_equal'] 			= 'Not equal to'; #translate
+$lang['operators.less_than'] 			= 'Less than'; #translate
+$lang['operators.greater_than'] 		= 'Greater than'; #translate
 
 $lang['navigation_headline'] 			= '導覽'; 		//'Navigation';
 $lang['breadcrumb_base_label'] 			= '首頁'; 		//'Home';
