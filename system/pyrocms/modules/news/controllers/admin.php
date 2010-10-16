@@ -104,7 +104,7 @@ class Admin extends Admin_Controller
 		$this->data->hours = array_combine($hours = range(1, 23), $hours);
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
-		$this->data->categories = array();
+		$this->data->categories = array(0 => '');
 		if($categories = $this->news_categories_m->get_all())
 		{
 			foreach($categories as $category)
@@ -134,7 +134,10 @@ class Admin extends Admin_Controller
 			'status' => 'all'
 		));
 		
-		$this->template->build('admin/index', $this->data);
+		
+		$this->template->append_metadata( js('admin/filter.js') )
+				->set_partial('filters', 'admin/partials/filters')
+				->build('admin/index', $this->data);
 	}
 	
 	/**
@@ -456,6 +459,43 @@ class Admin extends Admin_Controller
 		}
 		
 		return TRUE;
+	}
+	
+	/**
+	 * method to fetch filtered results for news list
+	 * @access public
+	 * @return void
+	 */
+	public function ajax_filter()
+	{
+		$category = $this->input->post('f_category');
+		$status = $this->input->post('f_status');
+		$keywords = $this->input->post('f_keywords');
+	
+		$post_data = array();
+	
+		if($status == 'live' OR $status == 'draft')
+		{
+			$post_data['status'] = $status;
+		}
+	
+		if($category != 0)
+		{
+			$post_data['category_id'] = $category;
+		}
+	
+		//keywords, lets explode them out if they exist
+		if($keywords)
+		{
+			$post_data['keywords'] = $keywords;
+		}
+		$results = $this->news_m->search($post_data);
+		
+		$this->template->news = $results;	
+	
+		//set the layout to false and load the view
+		$this->template->set_layout(FALSE);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 }

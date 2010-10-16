@@ -81,3 +81,28 @@ form.crud span.required-icon {
 	vertical-align:top;
 	width:15px;
 }
+div#filter {
+	height: 34px;
+	padding: 0 10px;
+	border-bottom: 1px solid #C2C2C2;
+}
+form.filter h6 {
+	float: left;
+	margin: 4px 5px 0 0;
+	font-weight: lighter;
+	font-style: italic;
+}
+form.filter {
+	width: 100%;
+}
+form.filter ul {
+	list-style-type: none;
+	margin-bottom: 0;
+}
+form.filter div.button {
+	margin-top: 2px;
+}
+form.filter li {
+	float: left;
+	margin: 4px 0 0 0;
+}

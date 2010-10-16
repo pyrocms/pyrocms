@@ -9,10 +9,19 @@ $lang['version_label']				= 'Wersja';
 $lang['author_label']				= 'Autor';
 $lang['action_label']				= 'Akcja';
 
-$lang['dialog_delete_message'] 		= 'Czy na pewno usunąć? Ta operacja nie może być cofnięta.';
-$lang['dialog_confirm']				= 'Potwierdź';
-$lang['dialog_yes']					= 'Tak';
-$lang['dialog_no'] 					= 'Nie';
+$lang['dialog.delete_message'] 		= 'Czy na pewno usunąć? Ta operacja nie może być cofnięta.';
+$lang['dialog.confirm']				= 'Potwierdź';
+$lang['dialog.yes']					= 'Tak';
+$lang['dialog.no'] 					= 'Nie';
+
+$lang['select.none'] 					= '-- None --'; #translate
+$lang['select.all'] 					= '-- All --'; #translate
+$lang['select.any'] 					= '-- Any --'; #translate
+
+$lang['operators.equal'] 				= 'Equal to'; #translate
+$lang['operators.not_equal'] 			= 'Not equal to'; #translate
+$lang['operators.less_than'] 			= 'Less than'; #translate
+$lang['operators.greater_than'] 		= 'Greater than'; #translate
 
 $lang['navigation_headline'] 		= 'Nawigacja';
 $lang['breadcrumb_base_label']		= 'Strona główna';

@@ -9,10 +9,19 @@ $lang['version_label'] 					= 'Version';
 $lang['author_label'] 					= 'Author';
 $lang['action_label'] 					= 'Action';
 
-$lang['dialog_delete_message'] 			= 'Are you sure you want to delete this? It can not be undone.';
-$lang['dialog_confirm'] 				= 'Confirm';
-$lang['dialog_yes'] 					= 'Yes';
-$lang['dialog_no'] 						= 'No';
+$lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It can not be undone.';
+$lang['dialog.confirm'] 				= 'Confirm';
+$lang['dialog.yes'] 					= 'Yes';
+$lang['dialog.no'] 						= 'No';
+
+$lang['select.none'] 					= '-- None --';
+$lang['select.all'] 					= '-- All --';
+$lang['select.any'] 					= '-- Any --';
+
+$lang['operators.equal'] 				= 'Equal to';
+$lang['operators.not_equal'] 			= 'Not equal to';
+$lang['operators.less_than'] 			= 'Less than';
+$lang['operators.greater_than'] 		= 'Greater than';
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';

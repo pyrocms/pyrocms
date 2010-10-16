@@ -59,6 +59,10 @@
 				<?php echo $template['partials']['shortcuts']; ?>
 			<?php endif; ?>
 			
+			<?php if(!empty($template['partials']['filters'])): ?>
+				<?php echo $template['partials']['filters']; ?>
+			<?php endif; ?>
+			
 			<?php $this->load->view('admin/partials/notices') ?>
 
 		<div id="content">

@@ -188,8 +188,69 @@ class News_m extends MY_Model
         return $string ;
     }
 
-	function check_slug($slug = '')
+    function check_slug($slug = '')
     {
 		return parent::count_by('slug', $slug) == 0;
+    }
+    
+    /**
+     * Searches news articles based on supplied data array
+     * @param $data array
+     * @return array
+     */
+    public function search($data = array())
+    {
+	if(array_key_exists('category_id', $data))
+	{
+		$this->db->where('category_id', $data['category_id']);
+	}
+
+	if(array_key_exists('status', $data))
+	{
+		$this->db->where('status', $data['status']);
+	}
+
+	if(array_key_exists('keywords', $data))
+	{
+	    $matches = array();
+	    if(strstr($data['keywords'], '%'))
+	    {
+		preg_match_all('/%.*?%/i', $data['keywords'], $matches);
+	    }
+	    
+	    if(!empty($matches[0]))
+	    {
+		foreach($matches[0] as $match)
+		{
+		    $phrases[] = str_replace('%', '', $match);
+		}
+	    }
+	    else
+	    {
+		$temp_phrases = explode(' ', $data['keywords']);
+		foreach($temp_phrases as $phrase)
+		{
+		    $phrases[] = str_replace('%', '', $phrase);
+		}
+	    }
+	    
+	    $counter = 0;
+	    foreach($phrases as $phrase)
+	    {
+		if($counter == 0)
+		{
+		    $this->db->like('news.title', $phrase);
+		}
+		else
+		{
+		    $this->db->or_like('news.title', $phrase);
+		}
+		
+		$this->db->or_like('news.body', $phrase);
+		$this->db->or_like('news.intro', $phrase);
+		$counter++;
+	    }
+	}
+	return $this->get_all();
     }
 }
