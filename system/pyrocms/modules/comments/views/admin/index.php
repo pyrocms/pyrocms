@@ -66,8 +66,8 @@
 			</tbody>
 		</table>
 
-		<?php if($this->settings->moderate_comments): ?>
-			<?php if( $method == 'index' ): ?>
+		<?php if ($this->settings->moderate_comments): ?>
+			<?php if ($this->method == 'index'): ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
 			<?php else: ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))); ?>
