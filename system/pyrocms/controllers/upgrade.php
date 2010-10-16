@@ -13,9 +13,6 @@ class Upgrade extends Controller
 
 	function _remap()
 	{
-		// Always log out first, stops any weirdness with the user system
-		$this->ion_auth->logout();
-
   		$this->load->database();
   		$this->load->dbforge();
 
@@ -87,10 +84,8 @@ class Upgrade extends Controller
  	}
 
 	function upgrade_100()
-	{		
-		
+	{
 		// ---- first upgrade the Modules table -------------
-		
 		$menu = array(
 				'is_backend_menu' 	=> 	array(
 										'name' => 'menu',
@@ -193,11 +188,59 @@ class Upgrade extends Controller
 
 		
 		// ---- now let's start upgrading the existing modules
-		
+
+
+		// ---- Settings ------------------------------------
+
+		// Rename tracking code setting
+		$this->db
+			->where('slug', 'google_analytic')
+			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Anyaltic Tracking Code to activate Google Analytics view data capturing.'));
+
+		$this->db->insert('settings', array(
+			'slug' => 'ga_email',
+			'title' => 'Google Analytic E-mail',
+			'description' => 'E-mail address used for Google Analytics, we need this to show the grpah on the dashboard.',
+			'`default`' => '',
+			'`value`' => '',
+			'type' => 'text',
+			'`options`' => '',
+			'is_required' => 0,
+			'is_gui' => 1,
+			'module' => 'integration'
+		));
+
+		$this->db->insert('settings', array(
+			'slug' => 'ga_password',
+			'title' => 'Google Analytic Password',
+			'description' => 'Google Analytics password. This is also needed this to show the grpah on the dashboard.',
+			'`default`' => '',
+			'`value`' => '',
+			'type' => 'password',
+			'`options`' => '',
+			'is_required' => 0,
+			'is_gui' => 1,
+			'module' => 'integration'
+		));
+
+		$this->db->insert('settings', array(
+			'slug' => 'ga_profile',
+			'title' => 'Google Analytic Profile ID',
+			'description' => 'Profile ID for this website in Google Analytics.',
+			'`default`' => '',
+			'`value`' => '',
+			'type' => 'text',
+			'`options`' => '',
+			'is_required' => 0,
+			'is_gui' => 1,
+			'module' => 'integration'
+		));
+
 		// ---- Widgets -------------------------------------
 		
-		$this->db->where('slug', 'widgets')
-				->update('modules', array('menu'=>'content'));
+		$this->db
+			->where('slug', 'widgets')
+			->update('modules', array('menu'=>'content'));
 				
 		// ---- / End Widgets -------------------------------
 		

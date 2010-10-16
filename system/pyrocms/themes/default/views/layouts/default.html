@@ -6,9 +6,7 @@
 
 <body>
 
-	{if $settings->item('google_analytic')}
-		{$load->view('fragments/google_analytic')}
-	{/if}
+	{$template.partials.google_analytics}
 	
 	<div id="header">
 		{theme_partial('header')}

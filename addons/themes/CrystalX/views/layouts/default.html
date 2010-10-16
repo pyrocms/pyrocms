@@ -6,9 +6,7 @@
 
 <body id="www-url-cz">
 
-	{if $ci->settings->item('google_analytic')}
-		{$ci->load->view('fragments/google_analytic')}
-	{/if}
+	{$template.partials.google_analytics}
 
 <!-- Main -->
 <div id="main" class="boxc">

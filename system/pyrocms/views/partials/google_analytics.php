@@ -1,7 +1,9 @@
+<?php if ($this->settings->ga_tracking): ?>
+
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<?php echo $this->settings->google_analytic;?>']);
+  _gaq.push(['_setAccount', '<?php echo $this->settings->ga_tracking;?>']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -11,3 +13,5 @@
   })();
 
 </script>
+
+<?php endif; ?>

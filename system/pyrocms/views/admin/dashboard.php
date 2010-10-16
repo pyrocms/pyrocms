@@ -1,10 +1,30 @@
-<?php if ($this->settings->google_analytic) : ?>
-<h3>Google Analytics</h3>
+<script type="text/javascript">
 
-<div id="analytics" class="line" style="width: 100%; height: 200px;"></div>
+	jQuery(function($) {
+		var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
+		var views = <?php echo isset($analytic_views) ? $analytic_views : 0; ?>;
+		
+		$('#analytics').css({
+			height: '300px',
+			width: '95%'
+		});
 
-<p>Total visits per day, based on information from your <a href="http://google.com/analytics" target="_blank">Google Analytics</a> account.</p>
-<?php endif; ?>
+		$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
+			lines: { show: true },
+			points: { show: true },
+			grid: { backgroundColor: '#fffaff' },
+			series: {
+				lines: { show: true, lineWidth: 1 },
+				shadowSize: 0
+			},
+			xaxis: { mode: "time" },
+			yaxis: { min: 0},
+			selection: { mode: "x" }
+		});
+	});
+</script>
+
+<div id="analytics" class="line" style="padding-bottom: 10px"></div>
 
 <div class="line">
 	<section class="box unit size1of3">
@@ -62,53 +82,4 @@
 		
 	</section>
 
-</div>	<!-- /line -->
-
-<script>
-jQuery(function($) {
-	$(document).ready(function(){
-		
-		// Build our Google Analytics chart, if we have the required information.
-		var visits = <?php echo isset($ga_visits) && !empty($ga_visits) ? $ga_visits : ''; ?>;
-		
-		if (visits != undefined)
-		{
-			var options = {
-				series: {
-					lines: {
-						show: true,
-						fill: true,
-						fillColor: '#e6f2fa',
-						lineWidth: 4
-					},
-					points: {
-						show: true
-					},
-					legend: {
-						show: false,
-						margin: 10,
-						backgroundOpacity: 0.5
-					}
-				},
-				xaxis: {
-					mode: 'time'
-				}, 
-				grid: {
-					color: '#aaa'
-				}
-			};
-	
-		
-			$.plot($('#analytics'), 
-				[
-					{ 
-						label: 'Visits', 
-						data: visits,
-						color: '#0077cc'
-					}
-				], options);
-		}
-		
-	});
-});
-</script>
+</div>

@@ -80,7 +80,7 @@
 
 <?php else: ?>
 	<div class="blank-slate">
-		<img src="<?php echo base_url().'system/pyrocms/modules/comments/images/comments.png' ?>" />
+		<?php echo image('comments.png'); ?>
 	
 		<h2><?php echo lang('comments.no_comments');?></h2>
 	</div>

@@ -4,9 +4,8 @@
 {theme_partial('metadata')}
 	</head>
 	<body>
-	{if $settings->item('google_analytic')}
-		{$load->view('fragments/google_analytic')}
-	{/if}
+
+		{$template.partials.google_analytics}
 
 		{theme_partial('header')}
 
