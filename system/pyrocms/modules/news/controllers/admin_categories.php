@@ -24,8 +24,11 @@ class Admin_Categories extends Admin_Controller
 	{
 		parent::Admin_Controller();
 		$this->load->model('news_categories_m');
-		$this->lang->load('categories');
+        
+        // load the language files
+		$this->lang->load('categories');        
 		$this->lang->load('news');
+        $this->lang->load('tags');
 		
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	

@@ -55,6 +55,11 @@
 					<?php echo form_dropdown('category_id', array(lang('news_no_category_select_label'))+$categories, @$article->category_id) ?>
 					[ <?php echo anchor('admin/news/categories/create', lang('news_new_category_label'), 'target="_blank"'); ?> ]
 				</li>
+				
+				<li>
+				    <label for="tags"><?php echo lang('news_tags_label'); ?></label>
+				    <?php echo form_input('tags', ''); ?>
+				</li>
 
 				<li class="even date-meta">
 					<label><?php echo lang('news_date_label');?></label>

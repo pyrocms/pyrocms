@@ -27,3 +27,4 @@ $route['news/rss/all.rss'] = "rss/index";
 $route['news/rss/(:any).rss'] = "rss/category/$1";
 
 $route['news/admin/categories(:any)?'] = 'admin_categories$1';
+$route['news/admin/tags(:any)?'] = 'admin_tags$1';

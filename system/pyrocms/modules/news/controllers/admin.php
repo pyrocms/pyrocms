@@ -25,9 +25,13 @@ class Admin extends Admin_Controller
 		
 		$this->load->model('news_m');
 		$this->load->model('news_categories_m');
-		$this->lang->load('news');
-		$this->lang->load('categories');
+        $this->load->model('news_tags_m');
 		
+        // load the language files
+		$this->lang->load('categories');
+        $this->lang->load('news');
+		$this->lang->load('tags');
+        
 		//set the validation rules
 		$this->validation_rules = array(
 				array(
@@ -45,6 +49,11 @@ class Admin extends Admin_Controller
 					'label' => lang('news_category_label') . ' ID',
 					'rules' => 'trim|numeric'
 				),
+				array(
+                    'field' => 'tags',
+                    'label' => lang('news_tags_label'),
+                    'rules' => 'trim'
+                ),
 				array(
 					'field' => 'intro',
 					'label' => lang('news_intro_label'),
@@ -105,7 +114,7 @@ class Admin extends Admin_Controller
 		}
 		
 		$this->template->append_metadata( css('news.css', 'news') )
-				->set_partial('shortcuts', 'admin/partials/shortcuts');
+				       ->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 	
 	/**
@@ -142,10 +151,13 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run())
 		{
+		    var_dump($this->input->post('tags'));
+		    die('here');
+            
 			$id = $this->news_m->insert(array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
+				'category_id'	=> $this->input->post('category_id'),
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
@@ -158,6 +170,20 @@ class Admin extends Admin_Controller
     	
 			if (!empty($id))
 			{
+			    $tags = explode(',', $this->input->post('tags'));
+			    
+			    foreach ($tags as $tag)
+                {
+                    if ($this->news_tags_m->tag_exists($tag) === TRUE) 
+                    {
+                        continue;
+                    }    
+                    
+                    $tag_id = $this->news_tags_m->insert(array('tag' => $tag));
+                    
+                    // and now associate the tag
+                }
+                
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
 			
 				// The twitter module is here, and enabled!

@@ -2,8 +2,9 @@
 
 // labels
 $lang['news_posted_label'] 			= 'Posted'; 
-$lang['news_posted_label_alt']			= 'Posted at'; 
-$lang['news_category_label'] 			= 'Category';
+$lang['news_posted_label_alt']		= 'Posted at'; 
+$lang['news_category_label'] 		= 'Category';
+$lang['news_tags_label']            = 'Tags';
 $lang['news_post_label'] 			= 'Post';
 $lang['news_date_label'] 			= 'Date';
 $lang['news_date_at']				= 'at'; 
@@ -11,30 +12,30 @@ $lang['news_time_label'] 			= 'Time';
 $lang['news_status_label'] 			= 'Status';
 $lang['news_draft_label'] 			= 'Draft';
 $lang['news_live_label'] 			= 'Live';
-$lang['news_actions_label'] 			= 'Actions';
+$lang['news_actions_label'] 		= 'Actions';
 $lang['news_view_label'] 			= 'View';
-$lang['news_preview_label'] 			= 'Preview';
+$lang['news_preview_label'] 		= 'Preview';
 $lang['news_edit_label'] 			= 'Edit';
 $lang['news_delete_label'] 			= 'Delete';
-$lang['news_content_label'] 			= 'Content';
-$lang['news_options_label'] 			= 'Options';
+$lang['news_content_label'] 		= 'Content';
+$lang['news_options_label'] 		= 'Options';
 $lang['news_title_label'] 			= 'Title';
 $lang['news_slug_label'] 			= 'URL';
 $lang['news_intro_label'] 			= 'Introduction';
-$lang['news_no_category_select_label'] 		= '-- None --';
+$lang['news_no_category_select_label'] 	= '-- None --';
 $lang['news_new_category_label'] 		= 'Add a category';
-$lang['news_subscripe_to_rss_label'] 		= 'Subscribe to RSS';
+$lang['news_subscripe_to_rss_label'] 	= 'Subscribe to RSS';
 $lang['news_all_articles_label'] 		= 'All articles';
 $lang['news_articles_of_category_suffix'] 	= ' articles';
 $lang['news_rss_name_suffix'] 			= ' News';
 $lang['news_rss_category_suffix'] 		= ' News';
 $lang['news_author_name_label'] 		= 'Author name';
 $lang['news_read_more_label'] 			= 'Read More&nbsp;&raquo;';
-$lang['news_created_day']                       = 'Created on Day';
-$lang['news_created_month']                     = 'Created on Month';
-$lang['news_created_year']                      = 'Created on Year';
-$lang['news_created_hour']                      = 'Created on Hour';
-$lang['news_created_minute']                    = 'Created on Minute';
+$lang['news_created_day']               = 'Created on Day';
+$lang['news_created_month']             = 'Created on Month';
+$lang['news_created_year']              = 'Created on Year';
+$lang['news_created_hour']              = 'Created on Hour';
+$lang['news_created_minute']            = 'Created on Minute';
 
 // titles
 $lang['news_create_title'] 			= 'Add article';
