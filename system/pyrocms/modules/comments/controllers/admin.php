@@ -288,77 +288,46 @@ class Admin extends Admin_Controller
 	// Admin: activate a comment
 	public function approve($id = 0, $redirect = TRUE, $multiple = FALSE)
 	{
-		if (!$id)
-		{
-			redirect('admin/comments');
-		}
+		$id OR redirect('admin/comments');
 
 		if($this->comments_m->approve($id))
 		{
 			// Unapprove multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.approve_success_multiple')));
-			}
-			else
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.approve_success')));
-			}
+			$multiple == TRUE
+				? $this->session->set_flashdata('success', lang('comments.approve_success_multiple'))
+				: $this->session->set_flashdata('success', lang('comments.approve_success'));
 		}
 
 		else
 		{
 			// Error for multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.approve_error_multiple')) );
-			}
-			else
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.approve_error')) );
-			}
+			$multiple == TRUE
+				? $this->session->set_flashdata('error', lang('comments.approve_error_multiple'))
+				: $this->session->set_flashdata('error', lang('comments.approve_error'));
 		}
 
-		if($redirect == TRUE)
-		{
-			redirect('admin/comments');
-		}
+		$redirect AND redirect('admin/comments');
 	}
 
 	// Admin: deativate a comment
 	public function unapprove($id = 0,$redirect = TRUE,$multiple = FALSE)
 	{
-		if (!$id)
-		{
-			redirect('admin/comments');
-		}
+		$id OR redirect('cms/comments');
 
 		if($this->comments_m->unapprove($id))
 		{
 			// Unapprove multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success_multiple')) );
-			}
-
-			else
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success')) );
-			}
+			$multiple == TRUE
+				? $this->session->set_flashdata('success', lang('comments.unapprove_success_multiple'))
+				: $this->session->set_flashdata('success', lang('comments.unapprove_success'));
 		}
 
 		else
 		{
 			// Error for multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.unapprove_error_multiple')) );
-			}
-
-			else
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.unapprove_error')) );
-			}
+			$multiple == TRUE
+				? $this->session->set_flashdata('error', lang('comments.unapprove_error_multiple'))
+				: $this->session->set_flashdata('error', lang('comments.unapprove_error'));
 		}
 
 		if($redirect == TRUE)
@@ -374,5 +343,3 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/preview', $this->data);
 	}
 }
-
-?>
