@@ -389,8 +389,10 @@ class Template
 	 * @param	boolean
 	 * @return	void
 	 */
-	public function set_partial($name, $view, $data = array())
+	public function set_partial($name, $view = NULL, $data = array())
 	{
+		$view === NULL AND $view = $name;
+
 		$this->_partials[$name] = array('view' => $view, 'data' => $data);
 		return $this;
 	}
