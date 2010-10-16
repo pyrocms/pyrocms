@@ -71,5 +71,3 @@ class MY_Config extends CI_Config
 		}
 	}
 }
-
-?>

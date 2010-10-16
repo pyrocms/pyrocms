@@ -34,7 +34,7 @@
 */
 
 $route['default_controller'] = 'pages';
-$route['404_override'] = 'pages';
+$route['404'] = 'pages';
 
 $route['admin/([a-zA-Z_-]+)/(:any)'] = "$1/admin/$2";
 $route['admin/(login|logout)'] = "admin/$1";
