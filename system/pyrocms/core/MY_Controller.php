@@ -26,6 +26,34 @@ class MY_Controller extends Controller
 
         $this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
         $this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
+	
+	//email settings
+	
+	//set mail protocol
+	$this->config->set_item('protocol', $this->settings->mail_protocol);
+        
+        //sendmail options
+        if($this->settings->mail_protocol == 'sendmail')
+        {
+                if($this->settings->mail_sendmail_path == '')
+                {
+                        //set a default
+			$this->config->set_item('mailpath', '/usr/sbin/sendmail');
+                }
+                else
+                {
+                        $this->config->set_item('mailpath', $this->settings->mail_sendmail_path);
+                }
+        }
+        
+        //smtp options
+        if($this->settings->mail_protocol == 'smtp')
+        {
+                $this->config->set_item('smtp_host', $this->settings->mail_smtp_host);
+                $this->config->set_item('smtp_user', $this->settings->mail_smtp_user);
+                $this->config->set_item('smtp_pass', $this->settings->mail_smtp_pass);
+                $this->config->set_item('smtp_port', $this->settings->mail_smtp_port);
+        }
 
         // Load the user model and get user data
         $this->load->library('users/ion_auth');
