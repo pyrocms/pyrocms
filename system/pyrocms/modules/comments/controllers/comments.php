@@ -107,7 +107,7 @@ class Comments extends Public_Controller
 				if($this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if($this->settings->moderate_comments OR (isset($this->user->group) && $this->user->group == 'admin'))
+					if ( ! $this->settings->moderate_comments OR (isset($this->user->group) && $this->user->group == 'admin'))
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
 					}
