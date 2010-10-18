@@ -26,12 +26,10 @@
 
 	<p>
 		<label for="message"><?php echo lang('comments.message_label');?>:</label><br />
-		<textarea name="comment" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
+		<textarea name="comment" id="message" rows="5" cols="30" class="width-full"><?php echo $comment['comment'] ?></textarea>
+	</p>
 	<p>
 		<?php echo form_submit('btnSend', lang('comments.send_label'));?>
 	</p>
-	
+
 <?php echo form_close(); ?>
-
-
-
