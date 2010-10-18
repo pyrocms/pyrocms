@@ -120,56 +120,21 @@ class Admin extends Admin_Controller
 	 */
 	public function action()
 	{
-		if( $this->input->post('btnAction') )
+		$action = strtolower($this->input->post('btnAction'));
+		
+		if ($action)
 		{
-			// Get the action
+			// Get the id('s)
 			$id_array = $this->input->post('action_to');
 
-			// Switch statement
-			switch( strtolower( $this->input->post('btnAction') ) )
+			// Call the action we want to do
+			if (method_exists($this, $action))
 			{
-				// Approve the comment
-				case 'approve':
-					// Loop through each ID
-					foreach($id_array as $key => $value)
-					{
-						// Multiple ones ?
-						if(count($id_array) > 1)
-						{
-							$this->approve($value,FALSE,TRUE);
-						}
-						else
-						{
-							$this->approve($value,FALSE);
-						}
-					}
-				break;
-				// Unapprove the comment
-				case 'unapprove':
-					// Loop through each ID
-					foreach($id_array as $key => $value)
-					{
-						// Multiple ones ?
-						if(count($id_array) > 1)
-						{
-							$this->unapprove($value,FALSE,TRUE);
-						}
-						else
-						{
-							$this->unapprove($value,FALSE);
-						}
-					}
-				break;
-				// Delete the comment
-				case 'delete':
-					$this->delete();
-				break;
+				$this->{$action}($id_array);
 			}
-
-			// Redirect
-			redirect('admin/comments');
 		}
 
+		redirect('admin/comments');
 	}
 
 	/**
@@ -241,19 +206,19 @@ class Admin extends Admin_Controller
 	}
 
 	// Admin: Delete a comment
-	public function delete($id = 0)
+	public function delete($ids)
 	{
-		// Delete one
-		$ids = ($id) ? array($id) : $this->input->post('action_to');
+		// Check for one
+		$ids = ( ! is_array($ids)) ? array($ids) : $ids;
 
 		// Go through the array of ids to delete
 		$comments = array();
 		foreach ($ids as $id)
 		{
 			// Get the current comment so we can grab the id too
-			if($comment = $this->comments_m->get($id))
+			if ($comment = $this->comments_m->get($id))
 			{
-				$this->comments_m->delete($id);
+				$this->comments_m->delete( (int) $id);
 
 				// Wipe cache for this model, the content has changed
 				$this->cache->delete('comment_m');
@@ -286,85 +251,37 @@ class Admin extends Admin_Controller
 	}
 
 	// Admin: activate a comment
-	public function approve($id = 0, $redirect = TRUE, $multiple = FALSE)
+	public function approve($id, $redirect = TRUE)
 	{
-		if (!$id)
-		{
-			redirect('admin/comments');
-		}
+		$this->_do_action($id, 'approve');
 
-		if($this->comments_m->approve($id))
-		{
-			// Unapprove multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.approve_success_multiple')));
-			}
-			else
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.approve_success')));
-			}
-		}
-
-		else
-		{
-			// Error for multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.approve_error_multiple')) );
-			}
-			else
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.approve_error')) );
-			}
-		}
-
-		if($redirect == TRUE)
-		{
-			redirect('admin/comments');
-		}
+		if ($redirect == TRUE) redirect('admin/comments');
 	}
 
 	// Admin: deativate a comment
-	public function unapprove($id = 0,$redirect = TRUE,$multiple = FALSE)
+	public function unapprove($id, $redirect = TRUE)
 	{
-		if (!$id)
+		$this->_do_action($id, 'unapprove');
+
+		if ($redirect == TRUE) redirect('admin/comments');
+	}
+
+	protected function _do_action($ids, $action)
+	{
+		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
+		$multiple	= (count($ids) > 1) ? '_multiple' : NULL;
+		$status		= 'success';
+
+		foreach ($ids as $id)
 		{
-			redirect('admin/comments');
-		}
-
-		if($this->comments_m->unapprove($id))
-		{
-			// Unapprove multiple comments ?
-			if($multiple == TRUE)
+			if ( ! $this->comments_m->{$action}($id))
 			{
-				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success_multiple')) );
-			}
-
-			else
-			{
-				$this->session->set_flashdata( array('success'=> lang('comments.unapprove_success')) );
-			}
-		}
-
-		else
-		{
-			// Error for multiple comments ?
-			if($multiple == TRUE)
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.unapprove_error_multiple')) );
-			}
-
-			else
-			{
-				$this->session->set_flashdata( array('error'=> lang('comments.unapprove_error')) );
+				$status = 'error';
+				break;
 			}
 		}
 
-		if($redirect == TRUE)
-		{
-			redirect('admin/comments');
-		}
+		$this->session->set_flashdata( array('success'=> lang('comments.'.$action.'_'.$status.$multiple)));
 	}
 
 	public function preview($id = 0)
@@ -374,5 +291,3 @@ class Admin extends Admin_Controller
 		$this->template->build('admin/preview', $this->data);
 	}
 }
-
-?>
