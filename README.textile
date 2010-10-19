@@ -1,8 +1,8 @@
 h1. PyroCMS
 
-* Website: "http://pyrocms.com/":http://pyrocms.com/
-* Documentation: "http://pyrocms.com/documentation":http://pyrocms.com/documentation
-* Version: 1.0.0 (Development)
+* "Website":http://pyrocms.com/
+* "Documentation":http://pyrocms.com/documentation
+* Version: 1.0.0-beta1
 
 THIS IS NOT A STABLE RELEASE, USE V0.9.9.7 ON THE DOWNLOADS PAGE OR DONT COMPLAIN WHEN YOU FIND ERRORS!
 
@@ -20,7 +20,6 @@ it was built with modularity in mind. Lightweight, themeable and dynamic.
 h2. INSTALLATION
 
 Run http://example.com/installer to run the web-based installation script.
-For manual installation see docs/INSTALL.txt for step-by-step instructions.
 
 
 h2. UPGRADING
