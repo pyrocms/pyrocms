@@ -10,4 +10,4 @@ system/pyrocms/cache/twitter/*
 system/pyrocms/config/database.php
 system/codeigniter/logs/log-*.php
 nbproject/
-uploads/galleries/*
+uploads/*
