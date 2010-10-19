@@ -677,3 +677,28 @@ div#analytics table {
 	margin-top: 0;
 	margin-left: 0;
 }
+/* Pagination Styles */
+.pagination span {
+	width: 25px;
+	line-height: 25px;
+	display: block;
+	float: left;
+	text-align: center;
+	font-size: 1.3em;
+	vertical-align: middle;
+	margin-left: 2px;
+	border: 1px solid #DDDDDD;
+	font-weight: bold;
+}
+.pagination span.current {
+	border: 0;
+}
+.pagination span a {
+	text-decoration: none;
+	font-size: inherit;
+	display: block;
+	font-weight: inherit;
+}
+.pagination span a:hover {
+	background-color: #F3F3F3;
+}
