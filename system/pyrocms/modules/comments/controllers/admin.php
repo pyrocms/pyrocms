@@ -247,7 +247,13 @@ class Admin extends Admin_Controller
 		redirect('admin/comments');
 	}
 
-	// Admin: activate a comment
+	/**
+	 * Approve a comment
+	 * @access public
+	 * @param  mixed $ids		id or array of ids to process
+	 * @param  bool $redirect	optional if a redirect should be done
+	 * @return void
+	 */
 	public function approve($id, $redirect = TRUE)
 	{
 		$this->_do_action($id, 'approve');
@@ -255,7 +261,13 @@ class Admin extends Admin_Controller
 		if ($redirect == TRUE) redirect('admin/comments');
 	}
 
-	// Admin: deativate a comment
+	/**
+	 * Unapprove a comment
+	 * @access public
+	 * @param  mixed $ids		id or array of ids to process
+	 * @param  bool $redirect	optional if a redirect should be done
+	 * @return void
+	 */
 	public function unapprove($id, $redirect = TRUE)
 	{
 		$this->_do_action($id, 'unapprove');
@@ -263,6 +275,13 @@ class Admin extends Admin_Controller
 		if ($redirect == TRUE) redirect('admin/comments');
 	}
 
+	/**
+	 * Do the actual work for approve/unapprove
+	 * @access protected
+	 * @param  int|array $ids	id or array of ids to process
+	 * @param  string $action	action to take: maps to model
+	 * @return void
+	 */
 	protected function _do_action($ids, $action)
 	{
 		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
@@ -278,7 +297,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$this->session->set_flashdata( array('success'=> lang('comments.'.$action.'_'.$status.$multiple)));
+		$this->session->set_flashdata( array($status=> lang('comments.'.$action.'_'.$status.$multiple)));
 	}
 
 	public function preview($id = 0)
