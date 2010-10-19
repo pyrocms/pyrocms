@@ -1,5 +1,5 @@
 <script type="text/javascript">
-var CKEsDITOR = window.parent.CKEDITOR;
+var CKEDITOR = window.parent.CKEDITOR;
 
 function insertFile(id, title)
 {
@@ -7,7 +7,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + '<?php echo site_url(); ?>files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + '<?php echo BASE_URI; ?>files/download/' + id + '">' + title + '</a>');
     windowClose();
 }
 
@@ -15,7 +15,7 @@ function insertFile(id, title)
 var replace_html = null;
 
 (function($)
-{s
+{
 	$(function()
 	{
 		function detectFile()
@@ -46,11 +46,10 @@ var replace_html = null;
 				replace_html = maybe_element;
 			}
 
-			if( ! element.hasClass('mizu-document')) return false;
-			if( ! element.attr('href').match(/\/downloads\/document\/[0-9]+/)) return false;
+			if( ! element.hasClass('pyro-file')) return false;
 
-			$('#current_document').load(BASE_URI + 'admin/wysiwyg/files/ajax_get_document', {
-				doc_id: element.attr('href').match(/\/document\/([0-9]+)/)[1]
+			$('#current_document').load(BASE_URI + 'admin/wysiwyg/files/ajax_get_file', {
+				doc_id: element.attr('href').match(/\/download\/([0-9]+)/)[1]
 			});
 
 			return true;
@@ -61,19 +60,15 @@ var replace_html = null;
 })(jQuery);
 </script>
 
-<ul class="breadcrumb">
-    <li>
-        <strong><?php echo anchor('cms/wysiwyg/document', '&raquo; Root'); ?></strong>
-    </li>
-    <?php foreach( $breadcrumbs as $crumb ): ?>
-    <li>
-        <?php echo anchor('cms/wysiwyg/document/browse/folder/' . $crumb->id, "&raquo; " . $crumb->title); ?>
-    </li>
-    <?php endforeach; ?>
-    <div class="clear"></div>
+<?php if (!empty($folders)): ?>
+
+<ul>
+	<?php foreach ($folders as $folder): ?>
+	<li><?php echo anchor('admin/wysiwyg/files/browse/'.$folder->id, $folder->name); ?>
+	<?php endforeach; ?>
 </ul>
 
-<br style="clear:both"/>
+<?php endif;?>
 
 <?php if (!empty($files)): ?>
 
@@ -88,38 +83,22 @@ var replace_html = null;
 		</thead>
 		<tbody>
 
-            <?php foreach ($files as $document): ?>
-
-			<?php if($document->is_folder): ?>
-
-				<tr class="folder">
-					<td>&nbsp;&nbsp;<?php echo image('icons/black/16/folder_arrow.png'); ?><?php echo anchor('cms/wysiwyg/document/browse/' . $criteria_uri . 'folder/' . $document->id, $document->title); ?></td>
-					<td><em>Folder</em></td>
-					<td><?php echo lang('status.'.$document->status); ?>
-					<td></td>
-				</tr>
-
-			<?php else: ?>
+            <?php foreach ($files as $file): ?>
 
 				<tr class="file">
-					<td>&nbsp;&nbsp;<?php echo $document->title; ?></td>
-					<td><?php echo strtoupper($document->ext); ?></td>
-					<td><?php echo lang('status.'.$document->status); ?>
+					<td>&nbsp;&nbsp;<?php echo $file->name; ?></td>
+					<td><?php echo strtoupper($file->extension); ?></td>
 					<td class="buttons">
-						<?php if($document->status == 'live'): ?>
-							<button onclick="javascript:insertFile('<?php echo $document->id; ?>', '<?php echo htmlentities($document->title); ?>');">
-								<?php echo image('icons/black/16/round_plus.png'); ?>Insert
-							</button>
-						<?php endif; ?>
+						<button onclick="javascript:insertFile('<?php echo $file->id; ?>', '<?php echo htmlentities($file->name); ?>');">
+							Insert
+						</button>
 					</td>
 				</tr>
-
-			<?php endif; ?>
 
 			<?php endforeach; ?>
 		</tbody>
 	</table>
 
-<?php else: ?>
-	<p>No documents found.</p>
+<?php elseif (empty($folders)): ?>
+	<p>No files found.</p>
 <?php endif;?>

@@ -61,13 +61,15 @@ class Admin extends Admin_Controller {
 	{
 		$file_folders = $this->file_folders_m->order_by('name')->get_many_by(array('parent_id' => '0'));
 
-		$data->file_folders = &$file_folders;
-
-		$data->error = $this->_check_dir();
+		if ($error = $this->_check_dir())
+		{
+			$this->template->error = $this->_check_dir();
+		}
 
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/layouts/index', $data);
+			->set('file_folders', $file_folders)
+			->build('admin/layouts/index');
 	}
 
 	// ------------------------------------------------------------------------

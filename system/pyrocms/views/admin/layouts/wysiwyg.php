@@ -7,9 +7,6 @@
 	
 	<title><?php echo $template['title']; ?></title>
 
-	<?php echo js('jquery/jquery.js'); ?>
-	<script type="text/javascript">jQuery.noConflict();</script>
-
 	<?php echo $template['metadata']; ?>
 
 	<script type="text/javascript">

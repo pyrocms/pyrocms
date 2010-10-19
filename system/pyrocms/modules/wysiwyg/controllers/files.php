@@ -20,8 +20,19 @@ class Files extends WYSIWYG_Controller
 
 	function index()
 	{
-		$files = $this->file_m->get_all();
 		$folders = $this->file_folders_m->get_all();
+
+		$this->template
+			->set('folders', $folders)
+			->build('files/browse');
+	}
+
+	function browse($folder_id = 0)
+	{
+		$folder_id OR redirect('admin/wysiwyg/files');
+		
+		$files = $this->file_m->get_many_by('folder_id', $folder_id);
+		$folders = $this->file_folders_m->get_many_by('parent_id', $folder_id);
 
 		$this->template
 			->set('files', $files)
@@ -31,7 +42,7 @@ class Files extends WYSIWYG_Controller
 
 	public function ajax_get_files()
 	{
-		$doc = $this->file_m->get($this->input->post('doc_id'));
+		$file = $this->file_m->get($this->input->post('file_id'));
 
 		if($folder_id = $this->input->post('folder_id'))
 		{
@@ -40,7 +51,7 @@ class Files extends WYSIWYG_Controller
 		}
 
 		$this->load->view('files/ajax_current', array(
-			'doc' => $doc,
+			'file' => $file,
 			'folders' => empty($folders) ? array() : $folders
 		));
 	}

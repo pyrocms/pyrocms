@@ -3,7 +3,7 @@ CKEDITOR.plugins.add('pyrofiles',
 	init : function(editor)
 	{
 		// Add the link and unlink buttons.
-		CKEDITOR.dialog.addIframe('pyrofiles_dialog', 'filess', BASE_URI + 'admin/wysiwyg/files',800,500);
+		CKEDITOR.dialog.addIframe('pyrofiles_dialog', 'Files', BASE_URI + 'admin/wysiwyg/files',700,400);
 		editor.addCommand('pyrofiles', {exec:pyrofiles_onclick} );
 		editor.ui.addButton('pyrofiles',{ label:'Upload or insert files from library.', command:'pyrofiles', icon:this.path+'images/icon.png' });
 
@@ -18,7 +18,7 @@ CKEDITOR.plugins.add('pyrofiles',
 				element = evt.data.path.lastElement.getAscendant( 'a', true );
 
 			// If nothing or a valid files
-			if ( ! element || (element.getName() == 'a' && element.hasClass('pyro-files')))
+			if ( ! element || (element.getName() == 'a' && ! element.hasClass('pyro-files')))
 			{
 				command.setState(CKEDITOR.TRISTATE_OFF);
 			}
