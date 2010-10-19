@@ -40,10 +40,10 @@ class Admin_Controller extends MY_Controller
 		}
 
 	    // Template configuration
-		$this->template->set_layout('default', 'admin');
-	    $this->template->enable_parser(FALSE);
+		$this->template
+			->set_layout('default', 'admin')
+			->enable_parser(FALSE)
 
-	    $this->template
 	    	->append_metadata( css('admin/style.css') )
 			->append_metadata( css('jquery/jquery-ui.css') )
 			->append_metadata( css('jquery/colorbox.css') )
@@ -53,13 +53,12 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( js('jquery/jquery.livequery.js') )
 	    	->append_metadata( js('admin/jquery.uniform.min.js') )
 	    	->append_metadata( js('admin/functions.js') )
-    		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' );
+    		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' )
 
-
-	    $this->template->set_partial('header', 'admin/partials/header');
-	    $this->template->set_partial('navigation', 'admin/partials/navigation');
-	    $this->template->set_partial('metadata', 'admin/partials/metadata');
-	    $this->template->set_partial('footer', 'admin/partials/footer');
+			->set_partial('header', 'admin/partials/header')
+			->set_partial('navigation', 'admin/partials/navigation')
+			->set_partial('metadata', 'admin/partials/metadata')
+			->set_partial('footer', 'admin/partials/footer');
 
 //	    $this->output->enable_profiler(TRUE);
 	}
