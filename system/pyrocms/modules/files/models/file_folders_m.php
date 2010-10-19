@@ -76,11 +76,11 @@ class File_folders_m extends MY_Model {
 	{
 		$return = array();
 
-		$this->db->from('file_folders')
-					->where('id', (int) $id)
-					->order_by('name');
+		$this->db
+			->where('id', (int) $id)
+			->order_by('name');
 		
-		$query = $this->db->get();
+		$query = $this->db->get('file_folders');
 
 		if ($query->num_rows() == 0) 
 		{
@@ -158,6 +158,8 @@ class File_folders_m extends MY_Model {
 				$this->_folder_subtree($key, $menu_array, 0);
 			}
 		}
+
+		return $arr;
 	}
 	
 	// ------------------------------------------------------------------------
@@ -200,6 +202,11 @@ class File_folders_m extends MY_Model {
 	 */
 	public function get_folders()
 	{
+		if (empty($this->_folder))
+		{
+			$this->folder_tree();
+		}
+		
 		return $this->_folders;
 	}
 	
@@ -230,11 +237,10 @@ class File_folders_m extends MY_Model {
 	*/
 	public function breadcrumb($id, $lev = 0) 
 	{
-		$this->db->from('file_folders')
-					->where('id', (int) $id)
-					->order_by('name');
-		
-		$query = $this->db->get();
+		$query = $this->db
+			->where('id', (int) $id)
+			->order_by('name')
+			->get('file_folders');
 
 		if ($query->num_rows() == 0) 
 		{

@@ -1,4 +1,4 @@
-<?php  defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -8,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
- * @since		Version 1.0-dev
+ * @since		Version 1.0
  * @filesource
  */
 
@@ -25,7 +25,6 @@
 class Admin extends Admin_Controller {
 
 	private $_folders = array();
-
 	private $_path = '';
 
 	/**
@@ -47,7 +46,7 @@ class Admin extends Admin_Controller {
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 		$this->template->set_partial('nav', 'admin/partials/nav');
 
-		$this->_path = FCPATH.'/'.$this->config->item('files_folder').'/';
+		$this->_path = FCPATH . '/' . $this->config->item('files_folder') . '/';
 	}
 
 	/**
@@ -60,15 +59,15 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		$file_folders = $this->file_folders_m->get_many_by(array('parent_id' => '0'));
+		$file_folders = $this->file_folders_m->order_by('name')->get_many_by(array('parent_id' => '0'));
 
-		$this->data->file_folders = &$file_folders;
+		$data->file_folders = &$file_folders;
 
-		$this->data->error = $this->_check_dir();
+		$data->error = $this->_check_dir();
 
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/layouts/index', $this->data);
+			->build('admin/layouts/index', $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -83,26 +82,43 @@ class Admin extends Admin_Controller {
 	public function upload($id = '')
 	{
 		$this->template->set_layout('modal', 'admin');
-		$this->config->load('files');
 
-		$this->file_folders_m->folder_tree();
-		$folder->parents = $this->file_folders_m->get_folders();
-		// types = a','v','d','i','o'
-		$this->data->name = '';
-		$this->data->description = '';
-		$this->data->type = '';
-		$this->data->selected_id = $id;
-		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
-		$this->data->folder =& $folder;
+		$file->name = '';
+		$file->description = '';
+		$file->type = '';
+		$file->folder_id = $id;
 
+		$data->file =& $file;
+		$data->folders = $this->file_folders_m->get_folders();
+
+		$data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('name', 'lang:files.folders.name', 'required');
-		$this->form_validation->set_rules('description', 'lang:files.description', '');
-		$this->form_validation->set_rules('folder_id', 'lang:files.labels.parent', 'required');
-		$this->form_validation->set_rules('type', 'lang:files.type', 'required');
-		// $this->form_validation->set_rules('userfile', 'lang:files.file', 'required');
+		$rules = array(
+			array(
+				'field'   => 'name',
+				'label'   => 'lang:files.folders.name',
+				'rules'   => 'trim|required'
+			),
+			array(
+				'field'   => 'description',
+				'label'   => 'lang:files.description',
+				'rules'   => ''
+			),
+			array(
+				'field'   => 'folder_id',
+				'label'   => 'lang:files.labels.parent',
+				'rules'   => ''
+			),
+			array(
+				'field'   => 'type',
+				'label'   => 'lang:files.type',
+				'rules'   => 'trim|required'
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run())
 		{
@@ -115,78 +131,93 @@ class Admin extends Admin_Controller {
 
 			$this->load->library('upload', $config);
 
-			if ( ! $this->upload->do_upload('userfile'))
+			if (!$this->upload->do_upload('userfile'))
 			{
-				$this->data->messages['notice'] = $this->upload->display_errors();
+				$data->messages['notice'] = $this->upload->display_errors();
 			}
 			else
 			{
 				$img = array('upload_data' => $this->upload->data());
 
-				$data = array(
-					'folder_id' 	=> $this->input->post('folder_id'),
-					'user_id' 		=> $this->user->id,
-					'type'			=> $type,
-					'name'			=> $this->input->post('name'),
-					'description'	=> $this->input->post('description'),
-					'filename'		=> $img['upload_data']['file_name'],
-					'extension'		=> $img['upload_data']['file_ext'],
-					'mimetype'		=> $img['upload_data']['file_type'],
-					'filesize'		=> $img['upload_data']['file_size'],
-					'width'			=> $img['upload_data']['image_width'],
-					'height'		=> $img['upload_data']['image_height'],
-					'date_added'	=> time(),
-				);
-				$this->file_m->insert($data);
-				$this->data->messages['success'] = lang('files.success');
+				$this->file_m->insert(array(
+					'folder_id' => $this->input->post('folder_id'),
+					'user_id' => $this->user->id,
+					'type' => $type,
+					'name' => $this->input->post('name'),
+					'description' => $this->input->post('description'),
+					'filename' => $img['upload_data']['file_name'],
+					'extension' => $img['upload_data']['file_ext'],
+					'mimetype' => $img['upload_data']['file_type'],
+					'filesize' => $img['upload_data']['file_size'],
+					'width' => (int) $img['upload_data']['image_width'],
+					'height' => (int) $img['upload_data']['image_height'],
+					'date_added' => time(),
+				));
+
+				$data->messages['success'] = lang('files.success');
 				#redirect('admin/files');
 			}
 		}
 
-		$this->template->build('admin/files/upload', $this->data);
+		$this->template->build('admin/files/upload', $data);
 	}
 
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Edit Upload file
+	 * Edit Uploaded file
 	 *
 	 */
 	public function edit($id = '')
 	{
-		if ($id == '')
-		{
-			redirect('admin/files/upload');
-		}
-		$this->template->set_layout('modal', 'admin');
-		$this->data->error = '';
+		$id OR redirect('admin/files/upload');
 
-		$this->file_folders_m->folder_tree();
-		$folder->parents = $this->file_folders_m->get_folders();
-		// types = a','v','d','i','o'
-		$this->data->file = $this->file_m->get($id);
-		$this->data->selected_id = $id;
-		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
-		$this->data->folder =& $folder;
+		$this->template->set_layout('modal', 'admin');
+		$data->error = '';
+
+		$file = $this->file_m->get($id);
+
+		$data->file =& $file;
+		$data->folders = $this->file_folders_m->get_folders();
+
+		$data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('name', 'lang:files.folders.name', 'required');
-		$this->form_validation->set_rules('description', 'lang:files.description', '');
-		$this->form_validation->set_rules('folder_id', 'lang:files.labels.parent', 'required');
-		$this->form_validation->set_rules('type', 'lang:files.type', 'required');
-		// $this->form_validation->set_rules('userfile', 'lang:files.file', 'required');
+		$rules = array(
+			array(
+				'field'   => 'name',
+				'label'   => 'lang:files.folders.name',
+				'rules'   => 'trim|required'
+			),
+			array(
+				'field'   => 'description',
+				'label'   => 'lang:files.description',
+				'rules'   => ''
+			),
+			array(
+				'field'   => 'folder_id',
+				'label'   => 'lang:files.labels.parent',
+				'rules'   => ''
+			),
+			array(
+				'field'   => 'type',
+				'label'   => 'lang:files.type',
+				'rules'   => 'trim|required'
+			),
+		);
+
+		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run())
 		{
-			$filename = $this->data->file->filename;
+			$filename = $file->filename;
 			$type = $this->input->post('type');
 
-			if ($_FILES['userfile']['name'] != '')
+			if ( ! empty($_FILES['userfile']['name']))
 			{
 				//we are uploading a file
 				$this->file_m->delete_file($id); //remove the original image
-
 				// Setup upload config
 				$allowed = $this->config->item('files_allowed_file_ext');
 				$config['upload_path'] = $this->_path;
@@ -194,46 +225,47 @@ class Admin extends Admin_Controller {
 
 				$this->load->library('upload', $config);
 
-				if ( ! $this->upload->do_upload('userfile'))
+				if (!$this->upload->do_upload('userfile'))
 				{
-					$this->data->messages['notice'] = $this->upload->display_errors();
+					$data->messages['notice'] = $this->upload->display_errors();
 				}
 				else
 				{
 					$img = array('upload_data' => $this->upload->data());
 					$filename = $img['upload_data']['file_name'];
-					$data = array(
-							'folder_id' 	=> $this->input->post('folder_id'),
-							'user_id' 		=> $this->user->id,
-							'type'			=> $type,
-							'name'			=> $this->input->post('name'),
-							'description'	=> $this->input->post('description'),
-							'filename'		=> $img['upload_data']['file_name'],
-							'extension'		=> $img['upload_data']['file_ext'],
-							'mimetype'		=> $img['upload_data']['file_type'],
-							'filesize'		=> $img['upload_data']['file_size'],
-							'width'			=> $img['upload_data']['image_width'],
-							'height'		=> $img['upload_data']['image_height'],
-					);
-					$this->file_m->update($id, $data);
-					$this->data->messages['success'] = lang('files.success');
+
+					$this->file_m->update($id, array(
+						'folder_id' => $this->input->post('folder_id'),
+						'user_id' => $this->user->id,
+						'type' => $type,
+						'name' => $this->input->post('name'),
+						'description' => $this->input->post('description'),
+						'filename' => $img['upload_data']['file_name'],
+						'extension' => $img['upload_data']['file_ext'],
+						'mimetype' => $img['upload_data']['file_type'],
+						'filesize' => $img['upload_data']['file_size'],
+						'width' => $img['upload_data']['image_width'],
+						'height' => $img['upload_data']['image_height'],
+					));
+
+					$data->messages['success'] = lang('files.success');
 				}
 			}
 			else
 			{
-				$data = array(
-						'folder_id' 	=> $this->input->post('folder_id'),
-						'user_id' 		=> $this->user->id,
-						'type'			=> $type,
-						'name'			=> $this->input->post('name'),
-						'description'	=> $this->input->post('description'),
-					);
-				$this->file_m->update($id, $data);
-				$this->data->messages['success'] = lang('files.success');
+				$this->file_m->update($id, array(
+					'folder_id' => $this->input->post('folder_id'),
+					'user_id' => $this->user->id,
+					'type' => $type,
+					'name' => $this->input->post('name'),
+					'description' => $this->input->post('description'),
+				));
+				
+				$data->messages['success'] = lang('files.success');
 			}
 		}
 
-		$this->template->build('admin/files/edit', $this->data);
+		$this->template->build('admin/files/edit', $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -245,21 +277,14 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = '')
 	{
-		if ( ! $this->file_m->exists($id))
+		if (!$this->file_m->exists($id))
 		{
 			show_error(lang('files.not_exists'));
 		}
 
-		if ( ! $this->file_m->delete($id))
-		{
-			$this->session->set_flashdata('error', lang('files.delete.error'));
-			redirect('admin/files');
-		}
-		else
-		{
-			$this->session->set_flashdata('success', lang('files.delete.success'));
-			redirect('admin/files');
-		}
+		$this->file_m->delete($id) ? $this->session->set_flashdata('success', lang('files.delete.success')) : $this->session->set_flashdata('error', lang('files.delete.error'));
+
+		redirect('admin/files');
 	}
 
 	// ------------------------------------------------------------------------
@@ -273,9 +298,9 @@ class Admin extends Admin_Controller {
 		{
 			return TRUE;
 		}
-		elseif ( ! is_dir($this->_path))
+		elseif (!is_dir($this->_path))
 		{
-			if ( ! @mkdir($this->_path))
+			if (!@mkdir($this->_path))
 			{
 				$this->session->set_flashdata('notice', lang('files.folders.mkdir'));
 				return FALSE;
@@ -283,7 +308,7 @@ class Admin extends Admin_Controller {
 		}
 		else
 		{
-			if ( ! chmod($this->_path, 0777))
+			if (!chmod($this->_path, 0777))
 			{
 				$this->session->set_flashdata('notice', lang('files.folders.chmod'));
 				return FALSE;
@@ -291,40 +316,7 @@ class Admin extends Admin_Controller {
 		}
 	}
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * This is from dan and I left it in.
-	 *
-	 */
-	private function _folder_dropdown_array($folders)
-	{
-		static $depth = 0;
-		$return = array();
-
-		foreach($folders as $id => $folder)
-		{
-			// Skip the 'name' of a sub-folder
-			if($id == 'name')
-			{
-				continue;
-			}
-			if(is_array($folder))
-			{
-				$return[$id] = str_repeat('&nbsp;&nbsp;', $depth) . $folder['name'];
-				$depth++;
-				$return = $return + $this->_folder_dropdown_array($folder);
-				$depth--;
-			}
-			else
-			{
-				$return[$id] = str_repeat('&nbsp;&nbsp;', $depth) . $folder;
-			}
-		}
-
-		return $return;
-	}
-
 }
+
 /* End of file admin.php */
 /* Location: ./system/pyrocms/modules/files/controllers/admin.php */

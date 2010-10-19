@@ -16,7 +16,7 @@
 }
 </style>
 <?php if (isset($error)) echo $error; ?>
-<?php echo form_open_multipart($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
+<?php echo form_open_multipart(uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
 <h2><?php echo lang('files.upload.title'); ?></h2>
 <ul>
 	<li>
@@ -25,23 +25,20 @@
 	</li>
 	<li>
 		<?php echo form_label(lang('files.description'), 'description'); ?>
-		<?php
-		$data = array(
+		<?php echo form_textarea(array(
 		              'name'        => 'description',
 		              'id'          => 'description',
 		              'value'       => set_value('description', $file->description),
 		              'rows'   		=> '4',
 		              'cols'        => '30',
 					  'class'		=> 'crud'
-		            );
-		?>
-		<?php echo form_textarea($data); ?>
+		            )); ?>
 	</li>
 	<li>
 		<?php echo form_label(lang('files.folder.label'). ':', 'folder_id'); ?>
 		<?php
 		$folder_options['0'] = lang('files.dropdown.no_subfolders');
-		foreach($folder->parents as $row)
+		foreach($folders as $row)
 		{
 			$indent = ($row['parent_id'] != 0) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
 			$folder_options[$row['id']] = $indent.$row['name'];
