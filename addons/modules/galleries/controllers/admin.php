@@ -511,9 +511,9 @@ class Admin extends Admin_Controller
 	public function help()
 	{
 		//set second parameter to TRUE if module is core
-		$this->data->modal_data = $this->module_m->help($this->module_details['slug'], FALSE);
+		$this->data->help = $this->module_m->help($this->module_details['slug'], FALSE);
 
 		$this->template->set_layout('modal', 'admin')
-						->build('admin/layouts/modal', $this->data);
+						->build('admin/partials/help', $this->data);
 	}
 }

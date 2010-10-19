@@ -15,6 +15,6 @@
 </head>
 <body>
 	<?php $this->load->view('admin/partials/notices') ?>
-	<?php echo $modal_data; ?>
+	<?php echo $template['body']; ?>
 </body>
 </html>
