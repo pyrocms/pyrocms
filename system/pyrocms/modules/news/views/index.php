@@ -12,7 +12,7 @@
 			<?php endif; ?>
 		</div>
 		<div class="article_body">
-			<?php echo stripslashes($article->body); ?>
+			<?php echo stripslashes($article->intro); ?>
 		</div>
 	</div>
 <?php endforeach; ?>
