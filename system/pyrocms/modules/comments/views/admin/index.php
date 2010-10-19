@@ -6,7 +6,7 @@
 	<?php endif; ?>
 <?php endif; ?>
 
-<?php if (!empty($comments)): ?>
+<?php if ( ! empty($comments)): ?>
 
 	<?php echo form_open('admin/comments/action');?>
 		<?php echo form_hidden('redirect', $this->uri->uri_string()); ?>
@@ -80,7 +80,7 @@
 
 <?php else: ?>
 	<div class="blank-slate">
-		<?php echo image('comments.png'); ?>
+		<?php echo image('icons/comments.png'); ?>
 	
 		<h2><?php echo lang('comments.no_comments');?></h2>
 	</div>

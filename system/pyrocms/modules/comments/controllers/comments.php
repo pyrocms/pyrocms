@@ -86,7 +86,7 @@ class Comments extends Public_Controller
 		
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
-		$comment['is_active']	= (bool) ($this->user->group == 'admin' OR ! $this->settings->moderate_comments);
+		$comment['is_active']	= (bool) ((isset($this->user->group) && $this->user->group == 'admin') OR ! $this->settings->moderate_comments);
 		
 		// Validate the results
 		if ($this->form_validation->run())
@@ -107,7 +107,7 @@ class Comments extends Public_Controller
 				if($this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if($this->settings->moderate_comments OR $this->user->group == 'admin')
+					if ( ! $this->settings->moderate_comments OR (isset($this->user->group) && $this->user->group == 'admin'))
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
 					}

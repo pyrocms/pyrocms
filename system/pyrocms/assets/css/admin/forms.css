@@ -4,10 +4,11 @@
 form.crud ol, form.crud ul {
 	list-style-type: none;
 }
-form.crud li {
+form.crud li {	
 	margin: 0;
-	vertical-align: middle;
+	overflow: hidden;
 	padding: 15px 8px;
+	vertical-align: middle;	
 }
 form.crud li.even {
 	background-color: #f3f3f3;

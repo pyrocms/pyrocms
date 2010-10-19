@@ -293,6 +293,20 @@ class Upgrade extends Controller
 		
 		// ---- / End Comments ------------------------------
 		
+		// ---- Adding SMTP support for emails
+		
+		$insert_mail_settings = "
+			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`)
+			VALUES ('mail_protocol', 'Mail Protocol', 'Select desired email protocol.', 'select', 'mail', 'mail', 'mail=Mail|sendmail=Sendmail|smtp=SMTP', '1', '1', ''),
+			('mail_sendmail_path', 'Sendmail Path', 'Path to server sendmail binary.', 'text', '', '', '', '0', '1', ''),
+			('mail_smtp_host', 'SMTP Host Name', 'The host name of your smtp server.', 'text', '', '', '', '0', '1', ''),
+			('mail_smtp_user', 'SMTP User Name', 'SMPT user name.', 'text', '', '', '', '0', '1', ''),
+			('mail_smtp_pass', 'SMTP Password', 'SMPT password.', 'text', '', '', '', '0', '1', ''),
+			('mail_smtp_port', 'SMTP Port', 'SMPT port number.', 'text', '', '', '', '0', '1', '');			 
+			";
+		$this->db->query($insert_mail_settings);
+		
+		// ------ End SMTP support for emails
 		
 		// ---- News ----------------------------------------
 		
