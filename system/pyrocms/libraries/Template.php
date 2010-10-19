@@ -70,7 +70,7 @@ class Template
 	{
         $this->_ci =& get_instance();
 
-		if (!empty($config))
+		if ( ! empty($config))
 		{
 			$this->initialize($config);
 		}
@@ -93,7 +93,7 @@ class Template
 		{
 			if ($key == 'theme' AND $val != '')
 			{
-				$this->set_theme($key);
+				$this->set_theme($val);
 				continue;
 			}
 
@@ -114,7 +114,7 @@ class Template
 		}
 
     	// Modular Separation / Modular Extensions has been detected
-    	if ( method_exists( $this->_ci->router, 'fetch_module' ) )
+    	if (method_exists( $this->_ci->router, 'fetch_module' ))
     	{
     		$this->_module 	= $this->_ci->router->fetch_module();
     	}
@@ -161,6 +161,35 @@ class Template
     // --------------------------------------------------------------------
 
     /**
+     * Magic Set function to set data
+     *
+     * @access    public
+     * @param	  string
+     * @return    mixed
+     */
+	public function set($name, $value = NULL)
+	{
+		// Lots of things! Set them all
+		if (is_array($name) OR is_object($name))
+		{
+			foreach ($name as $item => $value)
+			{
+				$this->_data[$item] = $value;
+			}
+		}
+
+		// Just one thing, set that
+		else
+		{
+			$this->_data[$name] = $value;
+		}
+
+		return $this;
+	}
+
+    // --------------------------------------------------------------------
+
+    /**
      * Set the mode of the creation
      *
      * @access    public
@@ -196,7 +225,7 @@ class Template
     	foreach( $this->_partials as $name => $partial )
     	{
 			// We can only work with data arrays
-			is_object($partial['data']) AND $partial['data'] = (array) $partial['data'];
+			is_array($partial['data']) OR $partial['data'] = (array) $partial['data'];
 
 			// If it uses a view, load it
     		if (isset($partial['view']))
@@ -230,17 +259,17 @@ class Template
     	$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
 
         // Want this file wrapped with a layout file?
-        if ( $this->_layout )
+        if ($this->_layout)
         {
 			// Added to $this->_data['template'] by refference
 			$template['body'] = $this->_body;
 
 			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
-			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, !empty($this->_theme), self::_find_view_folder());
+			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
         }
 
         // Want it returned or output to browser?
-        if (!$return)
+        if ( ! $return)
         {
             $this->_ci->output->set_output($this->_body);
         }
@@ -389,10 +418,8 @@ class Template
 	 * @param	boolean
 	 * @return	void
 	 */
-	public function set_partial($name, $view = NULL, $data = array())
+	public function set_partial($name, $view, $data = array())
 	{
-		$view === NULL AND $view = $name;
-
 		$this->_partials[$name] = array('view' => $view, 'data' => $data);
 		return $this;
 	}
@@ -506,18 +533,6 @@ class Template
 	}
 
     /**
-     * layout_exists
-     * Check if a theme layout exists
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
-	public function layout_exists($layout)
-	{
-		return file_exists(self::_find_view_folder().'layouts/' . $layout . self::_ext($layout));
-	}
-    /**
      * get_layouts
      * Get all current layouts (if using a theme you'll get a list of theme layouts)
      *
@@ -535,6 +550,60 @@ class Template
 		}
 
 		return $layouts;
+	}
+
+
+    /**
+     * get_layouts
+     * Get all current layouts (if using a theme you'll get a list of theme layouts)
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    array
+     */
+	public function get_theme_layouts($theme = NULL)
+	{
+		$theme OR $theme = $this->_theme;
+
+		$layouts = array();
+
+		foreach ($this->_theme_locations as $location)
+		{
+			// Get special web layouts
+			if( is_dir($location.$theme.'/views/web/layouts/') )
+			{
+				foreach(glob($location.$theme . '/views/web/layouts/*.*') as $layout)
+				{
+					$layouts[] = pathinfo($layout, PATHINFO_BASENAME);
+				}
+				break;
+			}
+
+			// So there are no web layouts, assume all layouts are web layouts
+			if(is_dir($location.$theme.'/views/layouts/'))
+			{
+				foreach(glob($location.$theme . '/views/layouts/*.*') as $layout)
+				{
+					$layouts[] = pathinfo($layout, PATHINFO_BASENAME);
+				}
+				break;
+			}
+		}
+
+		return $layouts;
+	}
+
+    /**
+     * layout_exists
+     * Check if a theme layout exists
+     *
+     * @access    public
+     * @param     string	$view
+     * @return    array
+     */
+	public function layout_exists($layout)
+	{
+		return file_exists(self::_find_view_folder().'layouts/' . $layout . self::_ext($layout));
 	}
 
 	// find layout files, they could be mobile or web
