@@ -123,9 +123,7 @@ class Admin extends Admin_Controller
 		));
 		
 		
-		$this->template->append_metadata( js('admin/filter.js') )
-				->set_partial('filters', 'admin/partials/filters')
-				->build('admin/index', $this->data);
+		$this->template->build('admin/index', $this->data);
 	}
 	
 	/**
