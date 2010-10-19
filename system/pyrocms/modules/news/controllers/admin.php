@@ -12,8 +12,64 @@ class Admin extends Admin_Controller
 	 * @access protected
 	 * @var array
 	 */
-	protected $validation_rules;
-	
+	protected $validation_rules = array(
+		array(
+			'field'   => 'title',
+			'label'   => 'lang:news_title_label',
+			'rules'   => 'trim|htmlspecialchars|required|max_length[100]'
+			),
+		array(
+			'field'	=> 'slug',
+			'label'	=> 'lang:news_slug_label',
+			'rules' => 'trim|required|alpha_dot_dash|max_length[100]'
+		),
+		array(
+			'field' => 'category_id',
+			'label' => 'lang:news_category_label',
+			'rules' => 'trim|numeric'
+		),
+		array(
+			'field' => 'intro',
+			'label' => 'lang:news_intro_label',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'body',
+			'label' => 'lang:news_content_label',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'status',
+			'label' => 'lang:news_status_label',
+			'rules' => 'trim|alpha'
+		),
+		array(
+			'field' => 'created_on_day',
+			'label' => 'lang:news_created_day',
+			'rules' => 'trim|numeric|required'
+		),
+		array(
+			'field' => 'created_on_month',
+			'label' => 'lang:news_created_month',
+			'rules' => 'trim|numeric|required'
+		),
+		array(
+			'field' => 'created_on_year',
+			'label' => 'lang:news_created_year',
+			'rules' => 'trim|numeric|required'
+		),
+		array(
+			'field' => 'created_on_hour',
+			'label' => 'lang:news_created_hour',
+			'rules' => 'trim|numeric|required'
+		),
+		array(
+			'field' => 'created_on_minute',
+			'label' => 'lang:news_created_minute',
+			'rules' => 'trim|numeric|required'
+		)
+	);
+
 	/** 
 	 * The constructor
 	 * @access public
@@ -27,65 +83,6 @@ class Admin extends Admin_Controller
 		$this->load->model('news_categories_m');
 		$this->lang->load('news');
 		$this->lang->load('categories');
-		
-		//set the validation rules
-		$this->validation_rules = array(
-				array(
-					'field'   => 'title',
-					'label'   => lang('news_title_label'),
-					'rules'   => 'trim|htmlspecialchars|required|max_length[100]'
-					),
-				array(
-					'field'	=> 'slug',
-					'label'	=> lang('news_slug_label'),
-					'rules' => 'trim|required|alpha_dot_dash|max_length[100]'
-				),
-				array(
-					'field' => 'category_id',
-					'label' => lang('news_category_label') . ' ID',
-					'rules' => 'trim|numeric'
-				),
-				array(
-					'field' => 'intro',
-					'label' => lang('news_intro_label'),
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'body',
-					'label' => lang('news_content_label'),
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'status',
-					'label' => lang('news_status_label'),
-					'rules' => 'trim|alpha'
-				),
-				array(
-					'field' => 'created_on_day',
-					'label' => lang('news_created_day'),
-					'rules' => 'trim|numeric|required'
-				),
-				array(
-					'field' => 'created_on_month',
-					'label' => lang('news_created_month'),
-					'rules' => 'trim|numeric|required'
-				),
-				array(
-					'field' => 'created_on_year',
-					'label' => lang('news_created_year'),
-					'rules' => 'trim|numeric|required'
-				),
-				array(
-					'field' => 'created_on_hour',
-					'label' => lang('news_created_hour'),
-					'rules' => 'trim|numeric|required'
-				),
-				array(
-					'field' => 'created_on_minute',
-					'label' => lang('news_created_minute'),
-					'rules' => 'trim|numeric|required'
-				)
-			);
 		
 		// Date ranges for select boxes
 		$this->data->days = array_combine($days = range(1, 31), $days);
