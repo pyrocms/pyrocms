@@ -91,5 +91,3 @@ function create_tree_array($tree, $ParentID = 0, $lvl = 0)
 	}
 	return $return;
 }
-
-?>
