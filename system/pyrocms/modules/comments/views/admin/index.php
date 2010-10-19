@@ -1,5 +1,5 @@
 <?php if($this->settings->moderate_comments): ?>
-	<?php if ($this->router->fetch_method() == 'index'): ?>
+	<?php if ($this->method == 'index'): ?>
 		<h3><?php echo lang('comments.active_title');?></h3>
 	<?php else: ?>
 		<h3><?php echo lang('comments.inactive_title');?></h3>
@@ -67,7 +67,7 @@
 		</table>
 
 		<?php if($this->settings->moderate_comments): ?>
-			<?php if( $this->router->fetch_method() == 'index' ): ?>
+			<?php if ($this->method == 'index' ): ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
 			<?php else: ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))); ?>
