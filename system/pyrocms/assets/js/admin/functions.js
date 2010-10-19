@@ -58,7 +58,9 @@ jQuery(function($) {
 					$(this).click();
 				}
 			});
-			$.uniform.update();
+
+			// Update uniform if enabled
+			$.uniform && $.uniform.update();
 		});
 
 		// Confirmation
@@ -70,10 +72,7 @@ jQuery(function($) {
 				var answer = confirm(removemsg);
 			}
 
-			if (answer) {
-				return true;
-			}
-			return false;
+			return answer;
 		});
 		
 		//minibutton fix
@@ -103,8 +102,22 @@ jQuery(function($) {
 			});
 		});
 		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, a.minibutton, button, textarea").livequery(function () {
-			$(this).uniform();
+			// Update uniform if enabled
+			$.uniform && $(this).uniform();
 		});
+
+		// Fancybox modal window
+		$('a[rel=modal], a.modal').livequery(function() {
+			$(this).colorbox();
+		});
+
+		$('a[rel="modal-large"], a.modal-large').livequery(function() {
+			$(this).colorbox({
+				width: 900,
+				height: 600
+			});
+		});
+		// End Fancybox modal window
 	}
 
 	$(document).ready(function() {

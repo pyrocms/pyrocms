@@ -1,17 +1,38 @@
 CKEDITOR.plugins.add('pyroimages',{
     requires: ['iframedialog'],
-    init:function(a){
-        CKEDITOR.dialog.addIframe('pyroimages_dialog', 'Images', BASE_URI + 'admin/wysiwyg/images',800,500)
-        var cmd = a.addCommand('pyroimages', {exec:pyroimages_onclick})
+    init : function(editor)
+	{
+        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', BASE_URI + 'cms/wysiwyg/image',800,500)
+        var cmd = editor.addCommand('pyroimages', {exec:pyroimage_onclick})
         cmd.modes={wysiwyg:1}
-        cmd.canUndo=false
-        a.ui.addButton('pyroimages',{ label:'Select form from library', command:'pyroimages', icon:this.path+'images/icon.png' })
+        editor.ui.addButton('pyroimages',{ label:'Upload or insert images from library', command:'pyroimage', icon:this.path+'images/icon.png' });
+
+		editor.on('selectionChange', function(evt)
+		{
+			/*
+			 * Despite our initial hope, document.queryCommandEnabled() does not work
+			 * for this in Firefox. So we must detect the state by element paths.
+			 */
+			var command = editor.getCommand('pyroimages'),
+				element = evt.data.path.lastElement.getAscendant('img', true);
+
+			// If nothing or a valid document
+			if ( ! element || (element.getName() == 'img' && element.hasClass('pyro-image')))
+			{
+				command.setState(CKEDITOR.TRISTATE_OFF);
+			}
+
+			else
+			{
+				command.setState(CKEDITOR.TRISTATE_DISABLED);
+			}
+		});
     }
 });
 
-function pyroimages_onclick(e)
+function pyroimage_onclick(e)
 {
 	update_instance();
-    // run when custom button is clicked]
-    CKEDITOR.currentInstance.openDialog('pyroimages_dialog')
+    // run when pyro button is clicked]
+    CKEDITOR.currentInstance.openDialog('pyroimage_dialog')
 }
