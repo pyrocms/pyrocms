@@ -500,4 +500,20 @@ class Admin extends Admin_Controller
 			++$i;
 		}
 	}
+	
+	/**
+	 * Display the help string from this module's
+	 * details.php file in a modal window
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 */
+	
+	public function help()
+	{
+		//set second parameter to TRUE if module is core
+		$this->data->modal_data = $this->module_m->help($this->module_details['slug'], FALSE);
+
+		$this->template->set_layout('modal', 'admin')
+						->build('admin/layouts/modal', $this->data);
+	}
 }

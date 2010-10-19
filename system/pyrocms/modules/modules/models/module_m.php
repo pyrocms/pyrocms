@@ -395,5 +395,23 @@ class Module_m extends CI_Model
 		// Now we need to talk to it
 		return class_exists($class) ? new $class : FALSE;
 	}
+	
+	/**
+	 * Help
+	 *
+	 * Retrieves help string from details.php
+	 *
+	 * @param	string	$slug	The module slug
+	 * @return	bool
+	 */
+	public function help($slug, $is_core = FALSE)
+	{
+		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+		{
+			return FALSE;
+		}
+
+		return $details_class->help();
+	}
 
 }

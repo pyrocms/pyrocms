@@ -46,6 +46,7 @@ $lang['email_label'] 					= '電子郵件'; 		//'E-mail';
 $lang['password_label'] 				= '密碼'; 			//'Password';
 $lang['login_label'] 					= '登入'; 			//'Log In';
 
+$lang['help_label'] 					= 'Help';#translate
 $lang['save_label'] 					= '儲存'; 			//'Save';
 $lang['cancel_label'] 					= '取消'; 			//'Cancel';
 $lang['update_label'] 					= '更新'; 			//'Update Caption';

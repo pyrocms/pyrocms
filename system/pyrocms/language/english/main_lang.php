@@ -46,6 +46,7 @@ $lang['email_label'] 					= 'E-mail';
 $lang['password_label'] 				= 'Password';
 $lang['login_label'] 					= 'Log In';
 
+$lang['help_label'] 					= 'Help';
 $lang['save_label'] 					= 'Save';
 $lang['cancel_label'] 					= 'Cancel';
 $lang['update_label'] 					= 'Update Caption';

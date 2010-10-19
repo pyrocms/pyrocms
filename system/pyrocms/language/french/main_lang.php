@@ -45,6 +45,7 @@ $lang['email_label'] 					= 'E-mail';
 $lang['password_label'] 				= 'Mot de passe';
 $lang['login_label'] 					= 'Connectez-vous';
 
+$lang['help_label'] 					= 'Help';#translate
 $lang['save_label'] 					= 'Enregistrer';
 $lang['cancel_label'] 					= 'Annuler';
 $lang['update_label'] 					= 'Mettre à jour la légende';
