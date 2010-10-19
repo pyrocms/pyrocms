@@ -114,5 +114,3 @@ function process_comment_items($comments)
 	
 	return $comments;
 }
-
-?>

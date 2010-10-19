@@ -161,4 +161,3 @@ class Comments_m extends MY_Model
 		return parent::update($id, array('is_active' => 0));
 	}
 }
-?>
