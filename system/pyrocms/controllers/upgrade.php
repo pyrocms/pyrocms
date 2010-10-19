@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @name 		Upgrade Controller
  * @author 		PyroCMS Development Team
@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1');
 
 	private $_output = '';
 
@@ -83,26 +83,26 @@ class Upgrade extends Controller
 		echo $this->_output;
  	}
 
-	function upgrade_100()
+	function upgrade_100beta1()
 	{
 		// ---- first upgrade the Modules table -------------
-		$menu = array(
-				'is_backend_menu' 	=> 	array(
-										'name' => 'menu',
-										'type' => 'varchar',
-										'constraint' => '20',
-										'default' => 'FALSE'
-										)
-		);
-		$installed = array(
-					'installed' 	=>	array(
-										'type' => 'tinyint',
-										'constraint' => '1',
-										'default' => '1'
-										)
-		);
-		$this->dbforge->modify_column('modules', $menu);
-		$this->dbforge->add_column('modules', $installed);
+		$this->dbforge->modify_column('modules', array(
+			'is_backend_menu' 	=> 	array(
+				'name' => 'menu',
+				'type' => 'varchar',
+				'constraint' => '20',
+				'default' => 'FALSE'
+			)
+		));
+
+		$this->dbforge->add_column('modules', array(
+			'installed' 	=>	array(
+				'type' => 'tinyint',
+				'constraint' => '1',
+				'default' => '1'
+			)
+		));
+
 		$this->dbforge->drop_column('modules', 'controllers');
 		
 		//get rid of old modules and modules that need to be reinstalled

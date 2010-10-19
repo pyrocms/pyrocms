@@ -4,14 +4,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery.js'); ?>
+	<?php echo js('jquery/jquery-1.4.2.min.js'); ?>
 	<?php echo js('admin/jquery.uniform.min.js'); ?>
 	<?php echo js('admin/login.js'); ?>
 
 </head>
 
 <body id="login">
-<div id="login-box">
+	<div id="login-box">
 		<header id="main">
 			<div id="logo"></div>
 			<h1><?php echo $this->settings->site_name; ?></h1>
@@ -33,6 +33,6 @@
 				</li>
 			</ul>
 		<?php echo form_close(); ?>
-</div>
+	</div>
 </body>
 </html>
