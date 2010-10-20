@@ -76,17 +76,12 @@ class Galleries_m extends MY_Model {
 		$to_insert = array(
 			'title' => $input['title'],
 			'slug' => $this->generate_slug($input['title']),
+			'parent' => $input['parent'] !== 'NONE' ? $input['parent'] : 0,
 			'description' => $input['description'],
 			'enable_comments' => $input['enable_comments'],
 			'published' => $input['published'],
 			'updated_on' => time()
 		);
-
-		// Determine the gallery parent
-		if ($input['parent'] !== 'NONE')
-		{
-			$to_insert['parent'] = $input['parent'];
-		}
 
 		// First we create the directories (so that we can delete them in case something goes wrong)
 		if ($this->create_folders($input['title']) === TRUE)
@@ -95,17 +90,10 @@ class Galleries_m extends MY_Model {
 			$insert_id = parent::insert($to_insert);
 
 			// Everything ok?
-			if ($insert_id >= 0)
-			{
-				return TRUE;
-			} else
-			{
-				return FALSE;
-			}
-		} else
-		{
-			return FALSE;
+			return $insert_id >= 0;
 		}
+
+		return FALSE;
 	}
 
 	/**
