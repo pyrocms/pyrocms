@@ -9,7 +9,7 @@ class Details_Pages extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Pages',
-				'nl' => 'Pagina&acute;s',
+				'nl' => 'Pagina&apos;s',
 				'es' => 'Páginas',
 				'fr' => 'Pages',
 				'de' => 'Seiten',
@@ -19,7 +19,7 @@ class Details_Pages extends Module {
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
-				'nl' => "Voeg aangepaste pagina's met willekeurige inhoud aan de site toe.",
+				'nl' => "Voeg aangepaste pagina&apos;s met willekeurige inhoud aan de site toe.",
 				'pl' => 'Dodaj własne strony z dowolną treścią do witryny.',
 				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
 				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
