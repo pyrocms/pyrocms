@@ -6,11 +6,14 @@
 </div>
 
 <?php if(!empty($error_string)): ?>
-<div class="error_box">
+<div class="error-box">
 	<?php echo $error_string; ?>
 </div>
+<?php else: ?>
+<div class="success-box">
+	<?php echo lang('activation_email_successful'); ?>	
+</div>
 <?php endif;?>
-
 <?php echo form_open('users/activate', 'id="activate-user"'); ?>
 	<p>
 		<label for="email"><?php echo lang('user_email') ?></label>

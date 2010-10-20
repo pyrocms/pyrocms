@@ -68,9 +68,10 @@ class Users extends Public_Controller
 		if(!$this->session->userdata('redirect_to'))
 		{
 			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
-
+			
 			// If iwe aren't being redirected from the userl ogin page
 			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
+			
 			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri, '', $uri));
 		}
 		
@@ -186,7 +187,7 @@ class Users extends Public_Controller
 			if($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
 				$this->session->set_flashdata(array('notice'=> $this->ion_auth->messages()));
-				redirect('users/activate/'.$id);
+				redirect('users/activate');
 			}
 
 			// Can't create the user, show why
@@ -275,7 +276,7 @@ class Users extends Public_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function reset_pass()
+	public function reset_pass($code = FALSE)
 	{
 		//if user is logged in they don't need to be here. and should use profile options
 		if($this->ion_auth->logged_in())
@@ -283,6 +284,7 @@ class Users extends Public_Controller
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
 			redirect('users/profile');
 		}
+		
 		if($this->input->post('btnSubmit'))
 		{
 			$uname = $this->input->post('user_name');
@@ -297,8 +299,8 @@ class Users extends Public_Controller
 
 				if($new_password)
 				{
-					//redirect to next step.
-					redirect('users/reset_complete');
+					//set success message
+					$this->data->success_string = lang('forgot_password_successful');
 				}
 				else
 				{
@@ -311,7 +313,25 @@ class Users extends Public_Controller
 				//wrong username / email combination
 				$this->data->error_string = $this->lang->line('user_forgot_incorrect');
 			}
-		}	
+		}
+		
+		//code is supplied in url so lets try to reset the password
+		if($code)
+		{
+			//verify reset_code against code stored in db
+			$reset = $this->ion_auth->forgotten_password_complete($code);
+			
+			//did the password reset?
+			if($reset)
+			{
+				redirect('users/reset_complete');
+			}
+			else
+			{
+				//nope, set error message
+				$this->data->error_string = $this->ion_auth->errors();
+			}
+		}
 
 		$this->template->title($this->lang->line('user_reset_password_title'));
 		$this->template->build('reset_pass', $this->data);
@@ -323,7 +343,7 @@ class Users extends Public_Controller
 	 * @param string $code Optional parameter the reset_password_code
 	 * @return void
 	 */
-	public function reset_complete($code = FALSE)
+	public function reset_complete()
 	{
 		//if user is logged in they don't need to be here. and should use profile options
 		if($this->ion_auth->logged_in())
@@ -332,43 +352,11 @@ class Users extends Public_Controller
 			redirect('users/profile');
 		}
 		
-		//default view we show reset_code_form
-		$view = 'reset_code_form';
-		
-		if($this->input->post('reset_code') || $code !== FALSE)
-		{
-			//by default lets set the reset_code to post
-			$reset_code = $this->input->post('reset_code');
-			
-			//is it really a post?
-			if(!$reset_code)
-			{
-				//nope set the reset code to $code
-				$reset_code = $code;
-			}
-			
-			//verify reset_code against code stored in db
-			$reset = $this->ion_auth->forgotten_password_complete($reset_code);
-			
-			//did the password reset?
-			if($reset)
-			{
-				//yep, set the view to reset_pass_complete.
-				$view = 'reset_pass_complete';
-			}
-			else
-			{
-				//nope, set the view to show the reset_code_form and display errors.
-				$view = 'reset_code_form';
-				$this->data->error_string = $this->ion_auth->errors();
-			}
-		}
-		
 		//set page title	
 		$this->template->title($this->lang->line('user_password_reset_title'));
 		
 		//build and render the output
-		$this->template->build($view, $this->data);
+		$this->template->build('reset_pass_complete', $this->data);
 		
 	}
 
