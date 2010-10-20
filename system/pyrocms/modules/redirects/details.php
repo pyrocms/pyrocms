@@ -8,9 +8,11 @@ class Details_Redirects extends Module {
 	{
 		return array(
 			'name' => array(
+				'nl' => 'Verwijzingen',
 				'en' => 'Redirects'
 			),
 			'description' => array(
+        'nl' => 'Verwijs vanaf een URL naar een andere.',
 				'en' => 'Redirect from one URL to another.'
 			),
 			'frontend' => FALSE,
