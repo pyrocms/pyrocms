@@ -82,9 +82,9 @@ class Pages extends Public_Controller
     {
     	// Fetch this page from the database via cache
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
-    	
-    	// If page is missing or not live (and not an admin) show 404
-		if ( ! $page OR ($page->status == 'draft' && $this->user->group !== 'admin') )
+
+		// If page is missing or not live (and not an admin) show 404
+		if ( ! $page OR ($page->status == 'draft' && ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
         {
         	$page = $this->_404($url_segments);
         }
