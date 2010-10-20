@@ -29,7 +29,7 @@ $lang['cp_report_bug'] 					= 'Meld een fout';
 $lang['cp_contact_support'] 			= 'Ondersteuning';
 
 $lang['cp_nav_settings']				= 'Instellingen';
-$lang['cp_nav_addons']					= 'Add-ons';
+$lang['cp_nav_addons']					= 'Modules';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']           = 'Gebruikers';
