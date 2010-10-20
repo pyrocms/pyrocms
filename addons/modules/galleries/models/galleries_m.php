@@ -27,7 +27,8 @@ class Galleries_m extends MY_Model {
 		// Loop through each gallery and add the count of photos to the results
 		foreach ($galleries as $gallery)
 		{
-			$count = $this->db->select('id')
+			$count = $this->db
+				->select('id')
 				->where('gallery_id', $gallery->id)
 				->count_all_results('gallery_images');
 
@@ -76,7 +77,7 @@ class Galleries_m extends MY_Model {
 		$to_insert = array(
 			'title' => $input['title'],
 			'slug' => $this->generate_slug($input['title']),
-			'parent' => $input['parent'] !== 'NONE' ? $input['parent'] : 0,
+			'parent' => !empty($input['parent_id']) ? (int) $input['parent_id'] : 0,
 			'description' => $input['description'],
 			'enable_comments' => $input['enable_comments'],
 			'published' => $input['published'],
@@ -105,6 +106,7 @@ class Galleries_m extends MY_Model {
 	 * @param array $input The data to use for updating the DB record
 	 * @return bool
 	 */
+	// TODO: This whole fucking function is a mess, can somebody sort this and insert_gallery() out so it's less of an insecure ridiculous mess?
 	public function update_gallery($id, $input)
 	{
 		// Prepare the data
@@ -114,10 +116,8 @@ class Galleries_m extends MY_Model {
 		unset($input['action_to']);
 		$input['slug'] = $this->generate_slug($input['slug']);
 
-		if ($input['parent'] === 'NONE')
-		{
-			$input['parent'] = NULL;
-		}
+		$input['parent'] = ! empty($input['parent_id']) ? $input['parent_id'] : 0;
+		unset($input['parent_id']);
 
 		if (!empty($input['gallery_thumbnail']))
 		{
@@ -149,7 +149,7 @@ class Galleries_m extends MY_Model {
 		$slug = $this->generate_slug($gallery);
 
 		// Does the galleries directory exist?
-		is_dir('uploads/galleries') or mkdir('uploads/galleries');
+		is_dir('uploads/galleries') OR mkdir('uploads/galleries');
 
 		// Create the directories
 		if (mkdir('uploads/galleries/' . $slug))

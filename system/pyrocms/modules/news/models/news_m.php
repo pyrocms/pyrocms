@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class News_m extends MY_Model
 {
@@ -16,27 +16,27 @@ class News_m extends MY_Model
     {
     	$this->load->helper('date');
         
-    	if(!empty($params['category']))
+    	if ( ! empty($params['category']))
     	{
-	    	if(is_numeric($params['category']))  $this->db->where('c.id', $params['category']);
+	    	if (is_numeric($params['category']))  $this->db->where('c.id', $params['category']);
 	    	else  				 				 $this->db->where('c.slug', $params['category']);
     	}
     	
-    	if(!empty($params['month']))
+    	if ( ! empty($params['month']))
     	{
     		$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
     	}
     	
-    	if(!empty($params['year']))
+    	if ( ! empty($params['year']))
     	{
     		$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
     	}
     	
     	// Is a status set?
-    	if( !empty($params['status']) )
+    	if ( ! empty($params['status']) )
     	{
     		// If it's all, then show whatever the status
-    		if($params['status'] != 'all')
+    		if ($params['status'] != 'all')
     		{
 	    		// Otherwise, show only the specific status
     			$this->db->where('status', $params['status']);
@@ -50,14 +50,14 @@ class News_m extends MY_Model
     	}
     	
     	// By default, dont show future articles
-    	if(!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
+    	if ( ! isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
     	{
        		$this->db->where('created_on <=', now());
     	}
        	
        	// Limit the results based on 1 number or 2 (2nd is offset)
-       	if(isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
-       	elseif(isset($params['limit'])) $this->db->limit($params['limit']);
+       	if (isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
+       	elseif (isset($params['limit'])) $this->db->limit($params['limit']);
     	
     	return $this->get_all();
     }
@@ -66,27 +66,27 @@ class News_m extends MY_Model
     {
     	$this->db->join('news_categories c', 'news.category_id = c.id', 'left');
     	
-    	if(!empty($params['category']))
+    	if ( ! empty($params['category']))
     	{
-	    	if(is_numeric($params['category']))  $this->db->where('c.id', $params['category']);
+	    	if (is_numeric($params['category']))  $this->db->where('c.id', $params['category']);
 	    	else  				 				 $this->db->where('c.slug', $params['category']);
     	}
     	
-    	if(!empty($params['month']))
+    	if ( ! empty($params['month']))
     	{
     		$this->db->where('MONTH(FROM_UNIXTIME(created_on))', $params['month']);
     	}
     	
-    	if(!empty($params['year']))
+    	if ( ! empty($params['year']))
     	{
     		$this->db->where('YEAR(FROM_UNIXTIME(created_on))', $params['year']);
     	}
     	
     	// Is a status set?
-    	if( !empty($params['status']) )
+    	if ( ! empty($params['status']) )
     	{
     		// If it's all, then show whatever the status
-    		if($params['status'] != 'all')
+    		if ($params['status'] != 'all')
     		{
 	    		// Otherwise, show only the specific status
     			$this->db->where('status', $params['status']);
@@ -104,7 +104,7 @@ class News_m extends MY_Model
 
     function insert($input = array())
     {
-    	if(isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
+    	if (isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
     	{
     		$input['created_on'] = mktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
 
@@ -127,7 +127,7 @@ class News_m extends MY_Model
             
     	$input['updated_on'] = now();
 
-    	if(isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
+    	if (isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
     	{
     		$input['created_on'] = mktime($input['created_on_hour'], $input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
     		
@@ -200,25 +200,25 @@ class News_m extends MY_Model
      */
     public function search($data = array())
     {
-	if(array_key_exists('category_id', $data))
+	if (array_key_exists('category_id', $data))
 	{
 		$this->db->where('category_id', $data['category_id']);
 	}
 
-	if(array_key_exists('status', $data))
+	if (array_key_exists('status', $data))
 	{
 		$this->db->where('status', $data['status']);
 	}
 
-	if(array_key_exists('keywords', $data))
+	if (array_key_exists('keywords', $data))
 	{
 	    $matches = array();
-	    if(strstr($data['keywords'], '%'))
+	    if (strstr($data['keywords'], '%'))
 	    {
 		preg_match_all('/%.*?%/i', $data['keywords'], $matches);
 	    }
 	    
-	    if(!empty($matches[0]))
+	    if ( ! empty($matches[0]))
 	    {
 		foreach($matches[0] as $match)
 		{
@@ -237,7 +237,7 @@ class News_m extends MY_Model
 	    $counter = 0;
 	    foreach($phrases as $phrase)
 	    {
-		if($counter == 0)
+		if ($counter == 0)
 		{
 		    $this->db->like('news.title', $phrase);
 		}

@@ -1,7 +1,6 @@
 <?php echo form_open('admin/galleries/delete');?>
 
-<?php if (!empty($galleries)): ?>
-	<h3><?php echo lang('galleries.list_label'); ?></h3>
+<?php if ( ! empty($galleries)): ?>
 
 	<table border="0" class="table-list">
 		<thead>
