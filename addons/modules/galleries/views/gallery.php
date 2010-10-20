@@ -8,6 +8,7 @@
 		</div>
 		<!-- The list containing the gallery images -->
 		<ul class="galleries_list">
+			<?php if ($gallery_images): ?>
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
 				<a href="<?php echo site_url('galleries/' . $gallery->slug . '/' . $image->id); ?>" title="<?php echo $image->title; ?>">
@@ -15,6 +16,7 @@
 				</a>
 			</li>
 			<?php endforeach; ?>
+			<?php endif; ?>
 		</ul>
 	</div>
 </div>
