@@ -37,7 +37,7 @@ $lang['settings_default_theme'] 				= 'Standaard Thema';
 $lang['settings_default_theme_desc'] 			= 'Selecteer het thema dat u standaard wilt tonen aan de gebruikers.';
 
 $lang['settings_activation_email'] 				= 'Activatie E-mail';
-$lang['settings_activation_email_desc'] 		= 'Stuur een e-mail met een activatie link wanneer een gebruiker registreerd. Zet dit uit als u alleen administratoren leden wilt laten activeren.';
+$lang['settings_activation_email_desc'] 		= 'Stuur een e-mail met een activatie link wanneer een gebruiker registreert. Zet dit uit als u alleen administratoren leden wilt laten activeren.';
 
 $lang['settings_records_per_page'] 				= 'Records Per Pagina';
 $lang['settings_records_per_page_desc'] 		= 'Hoe veel records kan de website tonen in het admin gebied?';

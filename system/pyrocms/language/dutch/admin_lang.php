@@ -1,11 +1,11 @@
 <?php
 
-$lang['cp_admin_title'] 				= 'Controle Paneel';
+$lang['cp_admin_title'] 				= 'Controlepaneel';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Snelkoppelingen';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
-$lang['cp_welcome_message'] 			= 'Welkom in het %s Controle Paneel. Door de  links boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervind met dit systeem, plaats dan een issue op onze bugtracker..';
+$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de  links boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker..';
 
 $lang['cp_news_feed_title'] 			= 'Nieuwsfeed';
 
@@ -29,19 +29,19 @@ $lang['cp_report_bug'] 					= 'Meld een fout';
 $lang['cp_contact_support'] 			= 'Ondersteuning';
 
 $lang['cp_nav_settings']				= 'Instellingen';
-$lang['cp_nav_addons']					= 'Add-ons'; #translate
+$lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
-$lang['cp_nav_users']					= 'Gebruikers';
+$lang['cp_nav_users']           = 'Gebruikers';
 $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Content';
-$lang['cp_nav_utilities']                               = 'Utilities'; #translate
+$lang['cp_nav_utilities']       = 'Gereedschappen';
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
 $lang['cp_upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';
 // Admin-wide text
-$lang['cp_sidebar_title'] 				= 'Zijmenu';
+$lang['cp_sidebar_title'] 				= 'Menu';
 
 $lang['required_label'] 				= 'Verplicht';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';

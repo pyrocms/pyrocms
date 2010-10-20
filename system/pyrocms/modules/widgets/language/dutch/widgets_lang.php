@@ -3,7 +3,7 @@
 // sidebar
 $lang['widgets.available_title'] 			= 'Beschikbare widgets';
 $lang['widgets.widget_area_wrapper']		= 'Beschikbare gebieden';
-$lang['widgets.instructions']	 			= 'Drag & drop om te installeren'; #translate
+$lang['widgets.instructions']	 			= 'Drag & drop widgets om ze te installeren';
 
 // Widgets
 $lang['widgets.widget'] 					= 'Widget';

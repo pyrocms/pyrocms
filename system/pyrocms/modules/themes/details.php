@@ -9,7 +9,7 @@ class Details_Themes extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Themes',
-				'nl' => "Thema's",
+				'nl' => "Thema&apos;s",
 				'es' => 'Temas',
 				'fr' => 'Thèmes',
 				'de' => 'Themen',
@@ -19,7 +19,7 @@ class Details_Themes extends Module {
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.',
-				'nl' => 'Maakt het voor administratoren en medewerkers mogelijk om het thema van de website te wijzigen, nieuwe thema\'s te uploaden en ze visueel te beheren.',
+				'nl' => 'Maakt het voor administratoren en medewerkers mogelijk om het thema van de website te wijzigen, nieuwe thema&apos;s te uploaden en ze visueel te beheren.',
 				'es' => 'Permite a los administradores y miembros del personal cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.',
 				'fr' => 'Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle',
 				'de' => 'Ermöglicht es dem Administrator das Seiten Thema auszuwählen, neue Themen hochzulanden oder diese visuell zu verwalten.',

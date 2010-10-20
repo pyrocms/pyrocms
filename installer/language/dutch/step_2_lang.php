@@ -26,9 +26,9 @@ $lang['gd_fail']		=	'We kunnen niet vaststellen welke versie van de GD Library i
 
 $lang['summary']		=	'Overzicht';
 
-$lang['zlib']			=	'Zlib'; // needs to be translated
-$lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.'; // needs to be translated
-$lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.'; // needs to be translated
+$lang['zlib']			=	'Zlib';
+$lang['zlib_required']	= 	'PyroCMS heeft Zlib nodig om thema&acute;s te kunnen uitpakken en installeren'; 
+$lang['zlib_fail']		=	'Zlib werd niet aangetroffen. Dit betekent meestal dat Zlib niet geinstalleerd is. PyroCMS kan nog steeds uitstekend functioneren, maar installatie van thema&acute;s is niet mogelijk. U wordt dringend aangeraden Zlib te installeren.'; // needs to be translated
 
 $lang['summary_success']	=	'Uw server heeft alle benodigheden voor PyroCMS. Ga naar de volgende stap door op de knop hieronder te klikken.';
 $lang['summary_partial']	=	'Uw server heeft de <em>meeste</em> benodigheden voor PyroCMS. Dit betekent dat PyroCMS nog steeds zal functioneren, maar er bestaat een kans dat u problemen tegenkomt met het bewerken van afbeeldingen of miniaturen.';
@@ -38,4 +38,4 @@ $lang['step3']			=	'Stap 3';
 $lang['retry']			=	'Probeer opnieuw';
 
 // messages
-$lang['step1_failure']	=	'U moet de benodigde database settings in het formulier hieronder invullen.';
+$lang['step1_failure']	=	'U moet de benodigde databaseinstellingen in het formulier hieronder invullen.';

@@ -9,7 +9,7 @@ class Details_Pages extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Pages',
-				'nl' => 'Pagina\'s',
+				'nl' => 'Pagina&acute;s',
 				'es' => 'Páginas',
 				'fr' => 'Pages',
 				'de' => 'Seiten',
