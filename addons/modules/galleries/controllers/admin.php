@@ -17,7 +17,44 @@ class Admin extends Admin_Controller
 	 * @var array
 	 * @access private
 	 */
-	private $gallery_validation_rules = array();
+	private $gallery_validation_rules = array(
+		array(
+			'field' => 'title',
+			'label' => 'Title',
+			'rules' => 'trim|max_length[255]|required'
+		),
+		array(
+			'field' => 'slug',
+			'label' => 'Slug',
+			'rules' => 'trim|max_length[255]|required'
+		),
+		array(
+			'field' => 'parent',
+			'label' => 'Parent',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'description',
+			'label' => 'Description',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'enable_comments',
+			'label' => 'Enable Comments',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'published',
+			'label' => 'Published',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'gallery_thumbnail',
+			'label'	=> 'Thumbnail',
+			'rules'	=> 'trim'
+		)
+
+	);
 
 	/**
 	 * Validation rules for uploading photos
@@ -25,7 +62,28 @@ class Admin extends Admin_Controller
 	 * @var array
 	 * @access private
 	 */
-	private $photo_validation_rules = array();
+	private $image_validation_rules = array(
+		array(
+			'field' => 'title',
+			'label' => 'Title',
+			'rules' => 'trim|max_length[255]|required'
+		),
+		array(
+			'field' => 'userfile',
+			'label' => 'Image',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'gallery_id',
+			'label' => 'Gallery',
+			'rules' => 'trim|integer|required'
+		),
+		array(
+			'field' => 'description',
+			'label' => 'Description',
+			'rules' => 'trim'
+		)
+	);
 
 	/**
 	 * Constructor method
@@ -46,68 +104,6 @@ class Admin extends Admin_Controller
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
 
-		// Set the validation rules
-		$this->gallery_validation_rules = array(
-			array(
-				'field' => 'title',
-				'label' => 'Title',
-				'rules' => 'trim|max_length[255]|required'
-			),
-			array(
-				'field' => 'slug',
-				'label' => 'Slug',
-				'rules' => 'trim|max_length[255]|required'
-			),
-			array(
-				'field' => 'parent',
-				'label' => 'Parent',
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'description',
-				'label' => 'Description',
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'enable_comments',
-				'label' => 'Enable Comments',
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'published',
-				'label' => 'Published',
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'gallery_thumbnail',
-				'label'	=> 'Thumbnail',
-				'rules'	=> 'trim'
-			)
-
-		);
-		$this->image_validation_rules	= array(
-			array(
-				'field' => 'title',
-				'label' => 'Title',
-				'rules' => 'trim|max_length[255]|required'
-			),
-			array(
-				'field' => 'userfile',
-				'label' => 'Image',
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'gallery_id',
-				'label' => 'Gallery',
-				'rules' => 'trim|integer|required'
-			),
-			array(
-				'field' => 'description',
-				'label' => 'Description',
-				'rules' => 'trim'
-			)
-		);
-
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
@@ -125,9 +121,11 @@ class Admin extends Admin_Controller
 
 		// Load the view
 		$this->data->galleries =& $galleries;
-		$this->template->title($this->module_details['name'])
-						->append_metadata(js('functions.js', 'galleries') )
-						->build('admin/index', $this->data);
+		$this->template
+			->title($this->module_details['name'])
+			->append_metadata(js('functions.js', 'galleries'))
+			->set('galleries', $galleries)
+			->build('admin/index');
 	}
 
 	/**
@@ -147,13 +145,13 @@ class Admin extends Admin_Controller
 
 		if ( $this->form_validation->run() )
 		{
-			// Insert the gallery
-			if ( $this->galleries_m->insert_gallery($_POST) === TRUE )
+			if ($this->galleries_m->insert_gallery($_POST))
 			{
 				// Everything went ok..
 				$this->session->set_flashdata('success', lang('galleries.create_success'));
 				redirect('admin/galleries');
 			}
+			
 			// Something went wrong..
 			else
 			{
@@ -235,12 +233,13 @@ class Admin extends Admin_Controller
 		$this->data->gallery_images =& $gallery_images;
 
 		// Load the view itself
-		$this->template->append_metadata( css('galleries.css', 'galleries') )
-		   				->append_metadata( js('drag_drop.js', 'galleries') )
-						->append_metadata(js('functions.js', 'galleries') )
-						->append_metadata( js('form.js', 'galleries') )
-						->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
-						->build('admin/manage_gallery', $this->data);
+		$this->template
+			->append_metadata( css('galleries.css', 'galleries') )
+		   	->append_metadata( js('drag_drop.js', 'galleries') )
+			->append_metadata(js('functions.js', 'galleries') )
+			->append_metadata( js('form.js', 'galleries') )
+			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
+			->build('admin/manage_gallery', $this->data);
 	}
 
 	/**
@@ -485,7 +484,7 @@ class Admin extends Admin_Controller
 				'`order`' => $i
 			));
 
-			if ($i == '1')
+			if ($i === 1)
 			{
 				$preview = $this->db->get_where('galleries', array('id' => $id))->row();
 
@@ -513,7 +512,8 @@ class Admin extends Admin_Controller
 		//set second parameter to TRUE if module is core
 		$this->data->help = $this->module_m->help($this->module_details['slug'], FALSE);
 
-		$this->template->set_layout('modal', 'admin')
-						->build('admin/partials/help', $this->data);
+		$this->template
+			->set_layout('modal', 'admin')
+			->build('admin/partials/help', $this->data);
 	}
 }

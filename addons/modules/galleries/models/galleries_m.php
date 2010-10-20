@@ -42,19 +42,19 @@ class Galleries_m extends MY_Model {
 	/**
 	 * Get all galleries along with the thumbnail's filename and extension
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return mixed
 	 */
 	public function get_all_with_filename($where = NULL, $value = NULL)
 	{
-		$this->db->select('galleries.*, gallery_images.filename, gallery_images.extension')
-				->from('galleries')
-				->join('gallery_images', 'galleries.thumbnail_id = gallery_images.id', 'left')
-				->where('galleries.published', '1');
+		$this->db
+			->select('galleries.*, gallery_images.filename, gallery_images.extension')
+			->from('galleries')
+			->join('gallery_images', 'galleries.thumbnail_id = gallery_images.id', 'left')
+			->where('galleries.published', '1');
 
 		// Where clause provided?
-		if (!empty($where) && !empty($value))
+		if ( ! empty($where) AND ! empty($value))
 		{
 			$this->db->where($where, $value);
 		}
