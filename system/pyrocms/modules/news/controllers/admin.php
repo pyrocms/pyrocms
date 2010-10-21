@@ -282,10 +282,12 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = 0)
 	{		
-		$this->data->article = $this->news_m->get($id);
+		$article = $this->news_m->get($id);
 		
-		$this->template->set_layout('admin/layouts/modal');
-		$this->template->build('admin/preview', $this->data);
+		$this->template
+			->set_layout('modal', 'admin')
+			->set('article', $article)
+			->build('admin/preview');
 	}
 	
 	/**
