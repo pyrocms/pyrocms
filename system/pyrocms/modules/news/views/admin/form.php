@@ -30,7 +30,7 @@
 				</li>
 
 				<li>
-					<label for="category_id"><?php echo lang('news_status_label');?></label>
+					<label for="status"><?php echo lang('news_status_label');?></label>
 					<?php echo form_dropdown('status', array('draft'=>lang('news_draft_label'), 'live'=>lang('news_live_label')), $article->status) ?>
 				</li>
 
