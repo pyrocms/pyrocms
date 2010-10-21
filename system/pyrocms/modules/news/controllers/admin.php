@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *
  * @package  	PyroCMS
@@ -93,7 +93,7 @@ class Admin extends Admin_Controller
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
 		$this->data->categories = array(0 => '');
-		if($categories = $this->news_categories_m->get_all())
+		if ($categories = $this->news_categories_m->get_all())
 		{
 			foreach($categories as $category)
 			{
@@ -154,12 +154,12 @@ class Admin extends Admin_Controller
 				'created_on_year'	=> $this->input->post('created_on_year'),
 			));
     	
-			if (!empty($id))
+			if ( ! empty($id))
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
 			
 				// The twitter module is here, and enabled!
-				if($this->settings->item('twitter_news') == 1 && $this->user->twitter_access_token != NULL && $this->user->twitter_access_token_secret != NULL && $this->input->post('status') == 'live')
+				if ($this->settings->item('twitter_news') == 1 && $this->user->twitter_access_token != NULL && $this->user->twitter_access_token_secret != NULL && $this->input->post('status') == 'live')
 				{
 					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.$this->input->post('created_on_month').'/'.url_title($this->input->post('title')));
 					$this->load->library('twitter/twitter');
@@ -168,7 +168,7 @@ class Admin extends Admin_Controller
 					$auth = $this->twitter->oauth($this->settings->item('twitter_consumer_key'), $this->settings->item('twitter_consumer_key_secret'), $this->user->twitter_access_token, $this->user->twitter_access_token_secret);
 
 					$status_update = $this->twitter->call('statuses/update', array('status' => sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)));
-					if(!is_array($status_update))
+					if ( ! is_array($status_update))
 					{
 						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . 'Unable to update Twitter status');
 					}
@@ -209,7 +209,7 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if (!$id)
+		if ( ! $id)
 		{
 			redirect('admin/news');
 		}
@@ -241,11 +241,11 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata(array('success'=> sprintf($this->lang->line('news_edit_success'), $this->input->post('title'))));
 				
 				// The twitter module is here, and enabled!
-				if($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
+				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
 					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.str_pad($this->input->post('created_on_month'), 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
-					if(!$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
+					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{
 						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . $this->twitter->last_error['error']);
 					}
@@ -264,7 +264,7 @@ class Admin extends Admin_Controller
 		// Go through all the known fields and get the post values
 		foreach(array_keys($this->validation_rules) as $field)
 		{
-			if(isset($_POST[$field])) $article->$field = $this->form_validation->$field;
+			if (isset($_POST[$field])) $article->$field = $this->form_validation->$field;
 		}    	
 		$this->data->article =& $article;
 		
@@ -275,17 +275,19 @@ class Admin extends Admin_Controller
 	}	
 	
 	/**
-	 * Preview news article
-	 * @access public
-	 * @param int $id the ID of the news article to preview
-	 * @return void
-	 */
+	* Preview news article
+	* @access public
+	* @param int $id the ID of the news article to preview
+	* @return void
+	*/
 	public function preview($id = 0)
-	{		
-		$this->data->article = $this->news_m->get($id);
-		
-		$this->template->set_layout('admin/layouts/modal');
-		$this->template->build('admin/preview', $this->data);
+	{
+		$article = $this->news_m->get($id);
+
+		$this->template
+			->set_layout('modal', 'admin')
+			->set('article', $article)
+			->build('admin/preview');
 	}
 	
 	/**
@@ -320,14 +322,14 @@ class Admin extends Admin_Controller
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 		
-		if(!empty($ids))
+		if ( ! empty($ids))
 		{
 			// Go through the array of slugs to publish
 			$article_titles = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if($article = $this->news_m->get($id) )
+				if ($article = $this->news_m->get($id) )
 				{
 					$this->news_m->publish($id);
 					
@@ -339,10 +341,10 @@ class Admin extends Admin_Controller
 		}
 	
 		// Some articles have been published
-		if(!empty($article_titles))
+		if ( ! empty($article_titles))
 		{
 			// Only publishing one article
-			if( count($article_titles) == 1 )
+			if ( count($article_titles) == 1 )
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_publish_success'), $article_titles[0]));
 			}			
@@ -373,13 +375,13 @@ class Admin extends Admin_Controller
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 		
 		// Go through the array of slugs to delete
-		if(!empty($ids))
+		if ( ! empty($ids))
 		{
 			$article_titles = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if($article = $this->news_m->get($id) )
+				if ($article = $this->news_m->get($id) )
 				{
 					$this->news_m->delete($id);
 					
@@ -391,10 +393,10 @@ class Admin extends Admin_Controller
 		}
 		
 		// Some pages have been deleted
-		if(!empty($article_titles))
+		if ( ! empty($article_titles))
 		{
 			// Only deleting one page
-			if( count($article_titles) == 1 )
+			if ( count($article_titles) == 1 )
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_delete_success'), $article_titles[0]));
 			}			
@@ -421,7 +423,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_slug($slug = '')
 	{
-		if(!$this->news_m->check_slug($slug))
+		if ( ! $this->news_m->check_slug($slug))
 		{
 			$this->form_validation->set_message('_check_slug', lang('news_already_exist_error'));
 			return FALSE;
@@ -443,18 +445,18 @@ class Admin extends Admin_Controller
 	
 		$post_data = array();
 	
-		if($status == 'live' OR $status == 'draft')
+		if ($status == 'live' OR $status == 'draft')
 		{
 			$post_data['status'] = $status;
 		}
 	
-		if($category != 0)
+		if ($category != 0)
 		{
 			$post_data['category_id'] = $category;
 		}
 	
 		//keywords, lets explode them out if they exist
-		if($keywords)
+		if ($keywords)
 		{
 			$post_data['keywords'] = $keywords;
 		}
@@ -468,4 +470,3 @@ class Admin extends Admin_Controller
 	}
 	
 }
-?>
