@@ -145,7 +145,7 @@ class Admin extends Admin_Controller
 		}
 
 	    $this->template
-			->set_layout(FALSE);
+			->set_layout(FALSE)
 			->build('admin/login');
 	}
 
