@@ -3,6 +3,8 @@
 // labels
 $lang['header']          = 'Paso 2: Comprobar requisitos';
 $lang['intro_text']      = 'El primer paso en el proceso de instalación es la de comprobar si su servidor soporta PyroCMS. Muchos servidores pueden tener la capacidad de ejecutarlo sin ningún problema.';
+$lang['mandatory']		= 	'Mandatory'; #translate
+$lang['recommended']	= 	'Recommended'; #translate
 
 $lang['server_settings'] = 'Configuración del Servidor HTTP';
 $lang['server_version']  = 'Su software del servidor:';
@@ -30,6 +32,10 @@ $lang['zlib']            = 'Zlib';
 $lang['zlib_required']   = 'PyroCMS requiere la librería Zlib para descromprimir e instalar temas.';
 $lang['zlib_fail']       = 'Zlib no puede ser encontrado. Esto generalmente significa que Zlib no está instalado. PyroCMS aún puede ejecutarse apropiadamente pero la instalación de temas no funcionará. Es muy recomendable que instale Zlib.';
 
+$lang['curl']			=	'Curl'; #translate
+$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.'; #translate
+$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.'; #translate
+
 $lang['summary_green']   = 'Su servidor cumple todos los requisitos para que PyroCMS se ejecute apropiadamente, dirígase al próximo paso realizando un click en el siguiente botón.';
 $lang['summary_orange']  = 'Su servidor cumple <em>varios</em> de los requisitos para PyroCMS. Esto significa que PyroCMS puede ejecutarse apropiadamente pero existen posibilidades que experimente problemas con cosas tales como redimensionado de imágenes o instalaciones de módulos y temas.';
 $lang['summary_red']     = 'Al parecer su servidor falló al cumplir los requisitos para ejecutar PyroCMS. Favor contacte a su administrador del servidor o compañía de hospedaje para resolver este problema.';
@@ -39,3 +45,6 @@ $lang['retry']           = 'Reintentar';
 
 // messages
 $lang['step1_failure']   = 'Favor rellene la configuración de la base de datos requerida en el formulario siguiente...';
+
+/* End of file step_2_lang.php */
+/* Location: ./installer/language/spanish/step_2_lang.php */

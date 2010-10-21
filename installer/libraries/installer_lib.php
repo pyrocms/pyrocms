@@ -388,6 +388,11 @@ class Installer_lib {
 		
 		return FALSE;
 	}
+
+	public function curl_enabled()
+    {
+		return (bool) function_exists('curl_init');
+    }
 }
 
 /* End of file installer_lib.php */

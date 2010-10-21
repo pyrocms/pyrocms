@@ -3,6 +3,8 @@
 // labels
 $lang['header']			=	'Stap 2: Controleer benodigdheden';
 $lang['intro_text']		= 	'De eerste stap in het installatie proces is het controleren of PyroCMS wordt ondersteund door de server. De meeste servers ondersteunen PyroCMS.';
+$lang['mandatory']		= 	'Verplicht';
+$lang['recommended']	= 	'Aangeraden';
 
 $lang['server_settings']= 	'HTTP Server Instellingen';
 $lang['server_version']	=	'De server software:';
@@ -30,6 +32,10 @@ $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS heeft Zlib nodig om thema&acute;s te kunnen uitpakken en installeren'; 
 $lang['zlib_fail']		=	'Zlib werd niet aangetroffen. Dit betekent meestal dat Zlib niet geinstalleerd is. PyroCMS kan nog steeds uitstekend functioneren, maar installatie van thema&acute;s is niet mogelijk. U wordt dringend aangeraden Zlib te installeren.'; // needs to be translated
 
+$lang['curl']			=	'Curl';
+$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.';
+$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.';
+
 $lang['summary_success']	=	'Uw server heeft alle benodigheden voor PyroCMS. Ga naar de volgende stap door op de knop hieronder te klikken.';
 $lang['summary_partial']	=	'Uw server heeft de <em>meeste</em> benodigheden voor PyroCMS. Dit betekent dat PyroCMS nog steeds zal functioneren, maar er bestaat een kans dat u problemen tegenkomt met het bewerken van afbeeldingen of miniaturen.';
 $lang['summary_failure']	=	'Uw server heeft niet de benodigheden die PyroCMS nodig heeft. Neem alstublieft contact op met uw serverbeheerder of uw hostingprovider om dit op te lossen.';
@@ -39,3 +45,6 @@ $lang['retry']			=	'Probeer opnieuw';
 
 // messages
 $lang['step1_failure']	=	'U moet de benodigde databaseinstellingen in het formulier hieronder invullen.';
+
+/* End of file step_2_lang.php */
+/* Location: ./installer/language/dutch/step_2_lang.php */
