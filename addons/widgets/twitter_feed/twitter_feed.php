@@ -36,7 +36,7 @@ class Widget_Twitter_feed extends Widgets
 		$this->simplepie->init();
 
 		// If no number provided, just get 5
-		isset($options['number']) || $options['number'] = 5;
+		empty($options['number']) AND $options['number'] = 5;
 
 		$tweets = $this->simplepie->get_items(0, $options['number']);
 
