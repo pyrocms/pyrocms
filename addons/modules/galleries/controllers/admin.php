@@ -29,7 +29,7 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
-			'field' => 'parent',
+			'field' => 'parent_id',
 			'label' => 'Parent',
 			'rules' => 'trim'
 		),
@@ -94,7 +94,6 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// First call the parent's constructor
 		parent::__construct();
 
 		// Load all the required classes
@@ -120,7 +119,6 @@ class Admin extends Admin_Controller
 		$galleries = $this->galleries_m->get_all();
 
 		// Load the view
-		$this->data->galleries =& $galleries;
 		$this->template
 			->title($this->module_details['name'])
 			->append_metadata(js('functions.js', 'galleries'))
@@ -169,14 +167,14 @@ class Admin extends Admin_Controller
 			$gallery->{$rule['field']} = $this->input->post($rule['field']);
 		}
 
-		// Load the view
-		$this->data->gallery 	=& $gallery;
-		$this->data->galleries 	=& $galleries;
-		$this->template->append_metadata( js('form.js', 'galleries') )
-						->append_metadata(js('functions.js', 'galleries') )
-						->append_metadata( css('galleries.css', 'galleries') )
-						->title($this->module_details['name'], lang('galleries.new_gallery_label'))
-						->build('admin/new_gallery', $this->data);
+		$this->template
+			->append_metadata( js('form.js', 'galleries') )
+			->append_metadata(js('functions.js', 'galleries') )
+			->append_metadata( css('galleries.css', 'galleries') )
+			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
+			->set('gallery', $gallery)
+			->set('galleries', $galleries)
+			->build('admin/new_gallery');
 	}
 
 	/**
@@ -227,19 +225,16 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Load the view data
-		$this->data->gallery 		=& $gallery;
-		$this->data->galleries		=& $galleries;
-		$this->data->gallery_images =& $gallery_images;
-
-		// Load the view itself
 		$this->template
+			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('drag_drop.js', 'galleries') )
 			->append_metadata(js('functions.js', 'galleries') )
 			->append_metadata( js('form.js', 'galleries') )
-			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
-			->build('admin/manage_gallery', $this->data);
+			->set('gallery', $gallery)
+			->set('galleries', $galleries)
+			->set('gallery_images', $gallery_images)
+			->build('admin/manage_gallery');
 	}
 
 	/**
@@ -391,7 +386,7 @@ class Admin extends Admin_Controller
 			if ( $this->gallery_images_m->update_image($id, $_POST) === TRUE)
 			{
 				// The delete action requires a different message
-				if ( $_POST['delete'] == 1 )
+				if ( isset($_POST['delete']) )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
 				}
@@ -405,7 +400,7 @@ class Admin extends Admin_Controller
 			else
 			{
 				// The delete action requires a different message
-				if ( $_POST['delete'] == 1 )
+				if ( isset($_POST['delete']) )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
 				}
@@ -415,7 +410,7 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			if ( $_POST['delete'] == 1 )
+			if ( isset($_POST['delete']) )
 			{
 				redirect('admin/galleries');
 			}

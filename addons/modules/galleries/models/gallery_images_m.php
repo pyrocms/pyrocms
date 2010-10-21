@@ -189,7 +189,7 @@ class Gallery_images_m extends MY_Model
 			$options['x_axis']			= $input['thumb_x']/$scaled_percent;
 			$options['y_axis']			= $input['thumb_y']/$scaled_percent;			
 			$options['create_thumb']	= FALSE;
-			$options['maintain_ratio']	= $input['maintain_ratio'];
+			$options['maintain_ratio']	= $input['ratio'];
 			
 			// Crop the fullsize image first
 			if ($this->resize('crop', $full_path, $full_path, $options) !== TRUE)
@@ -220,7 +220,7 @@ class Gallery_images_m extends MY_Model
 		} 
 		
 		// Delete the image from the DB and the filesystem
-		else if ( $input['delete'] == 1 )
+		else if ( isset($input['delete']) )
 		{
 			// First we'll delete it from the DB
 			if ( parent::delete($id) )

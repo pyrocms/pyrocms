@@ -47,7 +47,7 @@ $lang['news_list_title'] 			= 'Toon alle artikelen';
 
 // messages
 $lang['news_no_articles'] 			= 'Er zijn geen artikelen.';
-$lang['news_subscripe_to_rss_desc'] 		= 'Ontvang artikelen meteen door te abonneren op onze RSS feed. U kan dit doen met de meeste populaire e-mail programma\'s, of probeer <a href="http://reader.google.co.uk/">Google Reader</a>.';
+$lang['news_subscripe_to_rss_desc'] 		= 'Ontvang artikelen meteen door te abonneren op onze RSS feed. U kan dit doen met de meeste populaire e-mail programma&acute;s, of probeer <a href="http://reader.google.co.uk/">Google Reader</a>.';
 $lang['news_currently_no_articles'] 		= 'Er zijn geen artikelen op dit moment.';
 $lang['news_article_add_success'] 		= 'Het artikel "%s" is opgeslagen.';
 $lang['news_article_add_error'] 		= 'Er is een fout opgetreden.';

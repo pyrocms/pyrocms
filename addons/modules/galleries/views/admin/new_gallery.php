@@ -18,9 +18,9 @@
 
 			<?php if ( ! empty($galleries) ): ?>
 			<li>
-				<label for="parent"><?php echo lang('galleries.parent_label'); ?></label>
-				<select name="parent" id="parent" size="1">
-					<option value="NONE"><?php echo lang('galleries.none_label'); ?></option>
+				<label for="parent_id"><?php echo lang('galleries.parent_label'); ?></label>
+				<select name="parent_id" id="parent" size="1">
+					<option value=""><?php echo lang('select.none'); ?></option>
 					<?php foreach ( $galleries as $available_gallery ): ?>
 					<option value="<?php echo $available_gallery->id; ?>"><?php echo $available_gallery->title; ?></option>
 					<?php endforeach; ?>

@@ -16,9 +16,9 @@ $lang['groups.edit_title'] 				= 'Wijzig Groep "%s"';
 // messages
 $lang['groups.no_groups']				= 'Geen groepen gevonden.';
 $lang['groups.add_success'] 			= 'De groep "%s" is opgeslagen.';
-$lang['groups.edit_error'] 				= 'De groepp "%s" kon niet worden opgeslagen.';
+$lang['groups.edit_error'] 				= 'De groep "%s" kon niet worden opgeslagen.';
 $lang['groups.edit_success'] 			= 'De groep "%s" is opgeslagen.';
 $lang['groups.edit_error'] 				= 'De groep "%s" kon niet worden opgeslagen.';
 $lang['groups.delete_success'] 			= 'De groep is verwijderd.';
 $lang['groups.delete_error'] 			= 'Er is een fout opgetreden bij het verwijderen van deze groep.';
-$lang['groups.already_exist_error']		= 'Een groep item met dezelfde naam "%s" bestaat al.';
+$lang['groups.already_exist_error']		= 'Een groep met dezelfde naam "%s" bestaat al.';

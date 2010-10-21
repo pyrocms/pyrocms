@@ -9,7 +9,7 @@ $lang['newsletter.actions'] 						= 'Acties';
 $lang['newsletter.not_sent_label'] 					= 'Niet verstuurd';
 $lang['newsletter.view'] 							= 'Bekijk';
 $lang['newsletters.send'] 							= 'Verstuurd';
-$lang['newsletters.export_title'] 					= 'Export Subscribers';
+$lang['newsletters.export_title'] 					= 'Exporteer Abonnees';
 $lang['letter_title_label'] 						= 'Titel';
 $lang['letter_email_label'] 						= 'Email';
 $lang['newsletters.subscribe'] 						= 'Abonneer';
@@ -24,7 +24,7 @@ $lang['newsletters.list_title'] 					= 'Toon alle nieuwsbrieven';
 
 // messages
 $lang['newsletter.no_newsletters_error'] 			= 'Er zijn geen nieuwsbrieven.';
-$lang['letter_subscribed_success'] 					= 'U bent nu geabonneerd. U zou spoedig van ons moeten horen wanneer we onze volgende nieuwsbrief versturen.';
+$lang['letter_subscribed_success'] 					= 'U bent nu geabonneerd. U zult spoedig van ons horen wanneer we onze volgende nieuwsbrief versturen.';
 $lang['letter_subscripe_desc'] 						= 'Abonneer op onze nieuwsbrief en ontvang emails met handige nieuwsartikelen.';
 $lang['letter_add_mail_success'] 					= 'Dit adres is al geregistreerd';
 $lang['letter_delete_mail_success'] 				= 'U bent verwijderd van de nieuwsbrief mailing lijst.';

@@ -21,7 +21,7 @@ $lang['galleries.manage_gallery_label']		= 'Beheer gallerij';
 $lang['galleries.new_gallery_label']		= 'Nieuwe Gallerij';
 
 $lang['galleries.album_label']				= 'Album';
-$lang['galleries.num_photos_label']			= 'Aantal Foto&acute;s';
+$lang['galleries.num_photos_label']			= 'Aantal Foto&apos;s';
 $lang['galleries.updated_label']			= 'Laatste Update';
 $lang['galleries.actions_label']			= 'Acties';
 $lang['galleries.view_label']				= 'Bekijk';
@@ -34,11 +34,11 @@ $lang['galleries.published_no_label']		= 'Nee';
 
 // General labels
 $lang['galleries.title_label']				= 'Titel';
-$lang['galleries.slug_label']				= 'Slug';#translate
-$lang['galleries.parent_label']				= 'Parent';#translate
-$lang['galleries.none_label']				= '-- GEEN --';
+$lang['galleries.slug_label']				= 'Sitenaam (URI)';
+$lang['galleries.parent_label']				= 'Bovenliggend';
+$lang['galleries.none_label']				= '-- Geen --';
 $lang['galleries.description_label']		= 'Album Beschrijving';
-$lang['galleries.thumbnail_label']			= 'Thumbnail';#translate
+$lang['galleries.thumbnail_label']			= 'Miniatuur';
 $lang['galleries.comments_label']			= 'Activeer Reacties';
 $lang['galleries.published_label']			= 'Gepubliceerd';
 $lang['galleries.current_label']			= 'Huidige Afbeeldingen (sleep om te sorteren, klik om te wijzigen)';
