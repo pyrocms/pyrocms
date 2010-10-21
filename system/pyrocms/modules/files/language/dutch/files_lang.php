@@ -18,7 +18,7 @@ $lang['files.labels.action']				= 'Actie';
 $lang['files.labels.edit']					= 'Wijzig';
 $lang['files.labels.delete']				= 'Verwijderen';
 $lang['files.labels.upload']				= 'Upload';
-$lang['files.labels.parent']				= 'Parent'; #translate
+$lang['files.labels.parent']				= 'Bovenliggend';
 $lang['files.no_files']						= 'Er zijn momenteel geen bestanden.';
 
 $lang['files.folders.title']				= 'Bestand folders';
@@ -27,7 +27,7 @@ $lang['files.folders.label']				= 'Folders';
 $lang['files.folder.label']					= 'Folder';
 $lang['files.subfolders.label']				= 'Sub-Folders';
 $lang['files.folders.name']					= 'Naam';
-$lang['files.folders.slug']					= 'URL Slug'; #translate
+$lang['files.folders.slug']					= 'URI';
 $lang['files.folders.created']				= 'Gemaakt Op';
 $lang['files.folders.create']				= 'Nieuwe Folder';
 $lang['files.folders.success']				= 'De folder is opgeslagen.';

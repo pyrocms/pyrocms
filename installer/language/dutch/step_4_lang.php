@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Stap 4: Creëer database';
+$lang['header']			=	'Stap 4: Cre&euml;er database';
 $lang['intro_text']		=	'Vul het formulier hieronder in en kiik op "Installeren" om PyroCMS te installeren. Zorg ervoor dat PyroCMS in de juiste database geïnstalleerd wordt, aangezien alle bestaande data wordt verwijderd!';
 
 $lang['db_settings']	=	'Database Settings';

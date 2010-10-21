@@ -14,14 +14,14 @@ $lang['dialog.confirm'] 				= 'Bevestigen';
 $lang['dialog.yes'] 					= 'Ja';
 $lang['dialog.no'] 						= 'Nee';
 
-$lang['select.none'] 					= '-- None --'; #translate
-$lang['select.all'] 					= '-- All --'; #translate
-$lang['select.any'] 					= '-- Any --'; #translate
+$lang['select.none'] 					= '-- Geen --';
+$lang['select.all'] 					= '-- Alles --';
+$lang['select.any'] 					= '-- Willekeurig --';
 
-$lang['operators.equal'] 				= 'Equal to'; #translate
-$lang['operators.not_equal'] 			= 'Not equal to'; #translate
-$lang['operators.less_than'] 			= 'Less than'; #translate
-$lang['operators.greater_than'] 		= 'Greater than'; #translate
+$lang['operators.equal'] 				= 'Gelijk aan'; 
+$lang['operators.not_equal'] 			= 'Niet gelijk aan';
+$lang['operators.less_than'] 			= 'Kleiner dan';
+$lang['operators.greater_than'] 		= 'Groter dan';
 
 $lang['navigation_headline'] 			= 'Navigatie';
 $lang['breadcrumb_base_label'] 			= 'Home';
@@ -46,7 +46,7 @@ $lang['email_label'] 					= 'E-mail';
 $lang['password_label'] 				= 'Wachtwoord';
 $lang['login_label'] 					= 'Log In';
 
-$lang['help_label'] 					= 'Help';#translate
+$lang['help_label'] 					= 'Help';
 $lang['save_label'] 					= 'Opslaan';
 $lang['cancel_label'] 					= 'Annuleren';
 $lang['update_label'] 					= 'Update Bijschrift';

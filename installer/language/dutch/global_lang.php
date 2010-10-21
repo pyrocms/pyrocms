@@ -1,6 +1,6 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-$lang['intro']	=	'Intro';
+$lang['intro']	=	'Introductie';
 $lang['step1']	=	'Stap #1';
 $lang['step2']	=	'Stap #2';
 $lang['step3']	=	'Stap #3';

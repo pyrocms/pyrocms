@@ -14,8 +14,8 @@
 
 // labels
 $lang['contact_details_label']				= 'Details';
-$lang['contact_name_label']					= 'Volledige Naam';
-$lang['contact_email_label']				= 'E-mail Adres';
+$lang['contact_name_label']					= 'Volledige naam';
+$lang['contact_email_label']				= 'Emailadres';
 $lang['contact_company_name_label']			= 'Bedrijf of Organisatie';
 $lang['contact_subject_label']				= 'Onderwerp';
 $lang['contact_other_label']				= 'Anders';
@@ -27,10 +27,10 @@ $lang['contact_mail_agent_label']			= 'Agent: %s';
 $lang['contact_mail_name_label']			= 'Naam: %s';
 $lang['contact_mail_company_label']			= 'Bedrijf: %s';
 $lang['contact_mail_above_message_label']	= '-- Hieronder is het bericht ---';
-$lang['contact_mail_below_message_label']	= '-- Verstuurder Details -----------';
+$lang['contact_mail_below_message_label']	= '-- Afzender Details -----------';
 
 // titles
-$lang['contact_sent_title']					= 'Bericht Verstuurd';
+$lang['contact_sent_title']					= 'Bericht verstuurd';
 $lang['contact_title']						= 'Contact';
 
 // texts
