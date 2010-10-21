@@ -144,8 +144,9 @@ class Admin extends Admin_Controller
 	    	redirect('admin');
 		}
 
-	    $this->template->set_layout(FALSE);
-	    $this->template->build('admin/login', $data);
+	    $this->template
+			->set_layout(FALSE);
+			->build('admin/login');
 	}
 
 	/**
