@@ -181,4 +181,3 @@ class Admin extends Admin_Controller
 	    return TRUE;
 	}
 }
-?>
