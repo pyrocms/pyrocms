@@ -3,6 +3,8 @@
 // labels
 $lang['header']			=	'Passo 2: Verificar requerimentos';
 $lang['intro_text']		= 	'O primeiro passo no processo de instalação é checar se o seu servidor suporta o PyroCMS. A maioria dos servidores costumam suporta-lo sem maiores problemas.';
+$lang['mandatory']		= 	'Mandatory'; #translate
+$lang['recommended']	= 	'Recommended'; #translate
 
 $lang['server_settings']= 	'Configurações do Servidor HTTP';
 $lang['server_version']	=	'Seu programa de Servidor:';
@@ -25,6 +27,15 @@ $lang['gd_version']		= 	'Seu servidor está rodando a versão';
 $lang['gd_fail']		=	'Não conseguimos determinar a versão da sua biblioteca GD. Isto normalmente quer dizer que a biblioteca GD não está instalada. O PyroCMS irá funcionar perfeitamente, porém, as funções de imagens poderão não funcionar. É altamente recomendável habilitar a biblioteca GD.';
 
 $lang['summary']		=	'Resumo';
+
+$lang['zlib']			=	'Zlib'; #translate
+$lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.'; #translate
+$lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.'; #translate
+
+$lang['curl']			=	'Curl'; #translate
+$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.'; #translate
+$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.'; #translate
+
 $lang['summary_success']	=	'Seu servidor atende a todos os requisitos do PyroCMS para rodar corretamente, siga para o próximo passo clicando no botão abaixo.';
 $lang['summary_partial']	=	'Seu servidor atende a <em>quase</em> todos os requisitos do PyroCMS. Isto significa que o PyroCMS poderá rodar corretamente, porém, existe uma chance de você experimentar problemas com coisas relativas a manipulação de imagens e criação de miniaturas.';
 $lang['summary_failure']	=	'Parece que o seu servidor falhou ao atender aos requisitos para rodar o PyroCMS. Por favor, contate o seu administrador de servidor ou empresa de hosepedagem para resolver este problema.';
@@ -34,3 +45,6 @@ $lang['retry']			=	'Tente novamente';
 
 // messages
 $lang['step1_failure']	=	'Por favor, preencha os campos relativos a configuração do banco de dados no formulário abaixo..';
+
+/* End of file step_2_lang.php */
+/* Location: ./installer/language/brazlilian/step_2_lang.php */

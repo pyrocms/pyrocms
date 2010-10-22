@@ -32,6 +32,10 @@ $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.';
 $lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.';
 
+$lang['curl']			=	'Curl';
+$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.';
+$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.';
+
 $lang['summary_success']	=	'Your server meets all the requirements for PyroCMS to run properly, go to the next step by clicking the button below.';
 $lang['summary_partial']	=	'Your server meets <em>most</em> of the requirements for PyroCMS. This means that PyroCMS should be able to run properly but there is a chance that you will experience problems with things such as image resizing and thumbnail creating.';
 $lang['summary_failure']	=	'It seems that your server failed to meet the requirements to run PyroCMS. Please contact your server administrator or hosting company to get this resolved.';
@@ -41,3 +45,6 @@ $lang['retry']			=	'Try again';
 
 // messages
 $lang['step1_failure']	=	'Please fill in the required database settings in the form below..';
+
+/* End of file step_2_lang.php */
+/* Location: ./installer/language/english/step_2_lang.php */

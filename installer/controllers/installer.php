@@ -212,6 +212,9 @@ class Installer extends Controller
 		
 		// Check to see if Zlib is enabled
 		$data->zlib_enabled = $this->installer_lib->zlib_enabled();
+
+		// Check to see if Curl is enabled
+		$data->curl_enabled = $this->installer_lib->curl_enabled();
 		
 		// Get the server
 		$selected_server = $this->session->userdata('http_server');
@@ -463,10 +466,10 @@ class Installer extends Controller
 		}
 
 		// let's load the language file belonging to the page i.e. method
-		$lang_file = $this->config->item('language') . '/' . $this->router->method . '_lang';
+		$lang_file = $this->config->item('language') . '/' . $this->router->fetch_method() . '_lang';
 		if (is_file(realpath(dirname(__FILE__) . '/../language/' . $lang_file . EXT)))
 		{
-			$this->lang->load($this->router->method);
+			$this->lang->load($this->router->fetch_method());
 		}
 
 		// also we load some generic language labels

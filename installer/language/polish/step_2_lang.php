@@ -3,6 +3,8 @@
 // labels
 $lang['header']			=	'Krok 2: Sprawdzanie wymagań';
 $lang['intro_text']		= 	'Instalator musi sprawdzić, czy Twój serwer obsługuje PyroCMS. Większość serwerów powinna być w stanie przejść ten test bez problemów.';
+$lang['mandatory']		= 	'Mandatory'; #translate
+$lang['recommended']	= 	'Recommended'; #translate
 
 $lang['server_settings']= 	'Konfiguracja serwera HTTP';
 $lang['server_version']	=	'Twój serwer HTTP:';
@@ -30,6 +32,10 @@ $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS wymaga biblioteki Zlib, aby rozpakować i instalować skórki.';
 $lang['zlib_fail']		=	'Nie można znaleźć Zlib. Najczęściej znaczy to, że biblioteka Zlib nie jest zainstalowana. PyroCMS będzie działał poprawnie, ale instalacja skórek może nie działać.';
 
+$lang['curl']			=	'Curl'; #translate
+$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.'; #translate
+$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.'; #translate
+
 $lang['summary_green']	=	'Twój serwer spełnia wszystkie wymagania dla PyroCMS, przejdź do następnego kroku.';
 $lang['summary_orange']	=	'Twój serwer spełnia <em>większość</em> wymagań dla PyroCMS. Powinien on działał prawidłowo, ale niektóre funkcje mogą nie działać.';
 $lang['summary_red']	=	'Twój serwer nie spełnia wymagań dla PyroCMS. Skontaktuj się z administratorem lub firmą hostingową.';
@@ -39,3 +45,6 @@ $lang['retry']			=	'Spróbuj ponownie';
 
 // messages
 $lang['step1_failure']	=	'Wypełnij wymagane pola w formularzu poniżej.';
+
+/* End of file step_2_lang.php */
+/* Location: ./installer/language/polish/step_2_lang.php */

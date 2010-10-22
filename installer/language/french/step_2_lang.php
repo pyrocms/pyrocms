@@ -3,6 +3,8 @@
 // labels
 $lang['header']			=	'Étape 2: Check requirements';
 $lang['intro_text']		= 	'La première étape de l\'installation va vérifir si votre serveur supporte PyroCMS. La plupart des serveurs peuvent lancer cette procédure sans aucun problème.';
+$lang['mandatory']		= 	'Mandatory'; #translate
+$lang['recommended']	= 	'Recommended'; #translate
 
 $lang['server_settings']= 	'Paramètres serveur HTTP';
 $lang['server_version']	=	'Les logiciels de votre serveur :';
@@ -30,6 +32,10 @@ $lang['zlib']			=	'Zlib'; // needs to be translated
 $lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.'; // needs to be translated
 $lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.'; // needs to be translated
 
+$lang['curl']			=	'Curl'; #translate
+$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.'; #translate
+$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.'; #translate
+
 $lang['summary_success']	=	'Votre serveur est prêt pour l\'installation de PyroCMS, cliquez sur le bouton ci-dessous pour passer à la prochaine étape.';
 $lang['summary_partial']	=	'Votre serveur contient quasiment tous les logiciels nécessaires à l\'installation de PyroCMS. Cela signifie vous pouvez lancer l\'installation, mais vous pourriez rencontrer des problèmes lors de la redimension d\'image et la création de vignette.';
 $lang['summary_failure']	=	'Il semblerait que votre serveur ne puisse pas installé PyroCMS. Merci de contacter votre administrateur serveur ou votre hébergeur pour résoudre ce problème..';
@@ -39,3 +45,6 @@ $lang['retry']			=	'Essayez encore';
 
 // messages
 $lang['step1_failure']	=	'Merci de remplir les champs obligatoires pour les paramètres de la base de données dans le formulaire ci-dessous...';
+
+/* End of file step_2_lang.php */
+/* Location: ./installer/language/french/step_2_lang.php */

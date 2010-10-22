@@ -72,7 +72,6 @@
 				<?php echo lang('gd_fail'); ?>
 			<?php endif; ?>
 		</p>
-		
 	</li>
 	
 	<!-- Zlib -->
@@ -87,7 +86,20 @@
 				<?php echo lang('zlib_fail'); ?>
 			<?php endif; ?>
 		</p>
-		
+	</li>
+
+	<!-- Curl -->
+	<li>
+		<h4><?php echo lang('curl'); ?></h4>
+		<p><?php echo lang('curl_required'); ?></p>
+
+		<p class="result <?php echo ($curl_enabled) ? 'pass' : 'fail'; ?>">
+			<?php if ($curl_enabled): ?>
+				<?php echo lang('curl'); ?>
+			<?php else: ?>
+				<?php echo lang('curl_fail'); ?>
+			<?php endif; ?>
+		</p>
 	</li>
 
 </ul>

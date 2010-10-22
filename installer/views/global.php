@@ -51,7 +51,7 @@
 					</div>
 				<?php endif; ?>
 				
-				<?php echo $page_output; echo "\n"; ?>
+				<?php echo $page_output . PHP_EOL; ?>
 			</div>
 		</div>
 		
