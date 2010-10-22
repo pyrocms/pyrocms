@@ -19,7 +19,9 @@
 				  ],
 				width: '99%',
 				height: 100,
-				dialog_backgroundCoverColor: '#000'
+				dialog_backgroundCoverColor: '#000',
+				defaultLanguage: '<?php echo config_item('default_language'); ?>',
+				language: '<?php echo CURRENT_LANGUAGE; ?>'
 			});
 
 			$('textarea.wysiwyg-advanced').ckeditor({
@@ -40,7 +42,9 @@
 				width: '99%',
 				height: 400,
 				dialog_backgroundCoverColor: '#000',
-				removePlugins: 'elementspath'
+				removePlugins: 'elementspath',
+				defaultLanguage: '<?php echo config_item('default_language'); ?>',
+				language: '<?php echo CURRENT_LANGUAGE; ?>'
 			});
 
 		});
