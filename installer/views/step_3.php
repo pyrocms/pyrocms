@@ -41,6 +41,7 @@
 
 <script>
 	$(function(){
+		$.get("<?php echo site_url('ajax/statistics');?>");
 		$('#show-commands').click(function(){
 			$(this).hide();
 			$('#hide-commands').show();
