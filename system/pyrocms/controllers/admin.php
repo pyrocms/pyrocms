@@ -52,7 +52,7 @@ class Admin extends Admin_Controller
 			$data->messages['notice'] = sprintf(lang('cp_upgrade_message'), CMS_VERSION, $this->settings->version, site_url('upgrade'));
 		}
 
-		else if(is_dir('./installer'))
+		elseif(is_dir('./installer'))
 		{
 			$data->messages['notice'] = lang('cp_delete_installer_message');
 		}
@@ -98,8 +98,13 @@ class Admin extends Admin_Controller
 
 			catch (Exception $e)
 			{
-				$data->messages['notice'] = $e;//'Could not connect to Google Analytics. Check in '.anchor('admin/settings', 'Configuration').'.';
+				$data->messages['notice'] = 'Could not connect to Google Analytics. Check in '.anchor('admin/settings', 'Settings').'.';
 			}
+		}
+
+		elseif (empty($data->messages['notice']))
+		{
+			$data->messages['notice'] = 'Google Analytics settings are missing. Add them into '.anchor('admin/settings', 'Settings').' or contact your administrator.';
 		}
 
 		$this->load->model('comments/comments_m');
