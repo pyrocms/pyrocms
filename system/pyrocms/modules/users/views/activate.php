@@ -9,23 +9,21 @@
 <div class="error-box">
 	<?php echo $error_string; ?>
 </div>
-<?php else: ?>
-<div class="success-box">
-	<?php echo lang('activation_email_successful'); ?>	
-</div>
 <?php endif;?>
 <?php echo form_open('users/activate', 'id="activate-user"'); ?>
-	<p>
+<ul>
+	<li>
 		<label for="email"><?php echo lang('user_email') ?></label>
 		<?php echo form_input('email', isset($user->email) ? $user->email : '', 'maxlength="40"');?>
-	</p>
+	</li>
 
-	<p>
+	<li>
 		<label for="activation_code"><?php echo lang('user_activation_code') ?></label>
 		<?php echo form_input('activation_code', '', 'maxlength="40"');?>
-	</p>
+	</li>
 
-	<p class="form_buttons">
+	<li class="form_buttons">
 		<?php echo form_submit('btnSubmit', lang('user_activate_btn'), array('class' => 'pyro_button')) ?>
-	</p>
+	</li>
+</ul>
 <?php echo form_close(); ?>

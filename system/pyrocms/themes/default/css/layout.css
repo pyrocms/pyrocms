@@ -143,3 +143,51 @@ textarea {
 #footer a {
 	color: #CCCCCC;
 }
+
+/* Form Styles */
+form#login ul, form#login-small ul, form#register ul, form#activate-user ul,
+form#reset-pass ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+form#login li, form#register li, form#activate-user li,
+form#reset-pass li {
+	padding: 10px 0;
+	vertical-align: middle;
+}
+form#login li label, form#register li label, form#activate-user li label,
+form#reset-pass li label {
+	width: 170px;
+	float: left;
+	line-height: inherit;
+	display: block;
+}
+form#login-small li {
+	float: left;
+}
+form#login-small li.form-buttons {
+	clear: left;
+	float: left;
+	width: 50%;
+	text-align: left;
+}
+form#login-small li.remember-me {
+	height: 18px;
+	vertical-align: middle;
+	float: left;
+	width: 49%;
+	text-align: left;
+}
+form#login-small li.remember-me * {
+	height: 20px;
+	display: block;
+	float: left;
+}
+form#login-small li.remember-me span {
+	margin: 2px 0 0 0;
+}
+form#login-small li label {
+	display: block;
+	text-align: left;
+}
