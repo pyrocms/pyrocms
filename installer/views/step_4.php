@@ -16,7 +16,9 @@
 		<input type="checkbox" name="create_db" value="true" id="create_db" />
 		<small>(<?php echo lang('db_notice'); ?>)</small>
 	</div>
-	
+
+	<br />
+
 	<h2><?php echo lang('default_user'); ?></h2>
 	
 	<div class="input">

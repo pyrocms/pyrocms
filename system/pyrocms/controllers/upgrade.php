@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2');
 
 	private $_output = '';
 
@@ -82,6 +82,17 @@ class Upgrade extends Controller
 		// finally, spit it out
 		echo $this->_output;
  	}
+
+	function upgrade_100beta2()
+	{
+		$this->_output .= 'Moving Google Tracking code from Comments to Integration.<br/>';
+
+		$this->db
+			->where('slug', 'ga_tracking')
+			->update('settings', array('module' => 'integration'));
+
+		return FALSE;
+	}
 
 	function upgrade_100beta1()
 	{
@@ -196,6 +207,8 @@ class Upgrade extends Controller
 		$this->db
 			->where('slug', 'google_analytic')
 			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Anyaltic Tracking Code to activate Google Analytics view data capturing.'));
+
+		$this->_output .= 'Adding more Google Analytic Settings.<br/>';
 
 		$this->db->insert('settings', array(
 			'slug' => 'ga_email',
