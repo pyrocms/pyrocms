@@ -223,18 +223,14 @@ class Users extends Public_Controller
 			$id = $this->data->activate_user->id;
 		}
 
-		else
-		{
-			$this->data->activate_user = $this->ion_auth->get_user($id);
-		}
-
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 
 		// If user has supplied both bits of information
-		if($id && $code) {
+		if($id AND $code)
+		{
 			// Try to activate this user
-			if($this->ion_auth->activate($id, $code)) {
-
+			if($this->ion_auth->activate($id, $code))
+			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
 
 				// Call post activation hook
@@ -242,7 +238,8 @@ class Users extends Public_Controller
 
 				redirect('users/activated');
 			}
-			else {
+			else
+			{
 				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}
