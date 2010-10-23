@@ -170,7 +170,14 @@ class Widgets
 		{
 			$field_name = &$field['field'];
 
-			$options[$field_name] = set_value($field_name, @$saved_data[$field_name]);
+			$options[$field_name] = set_value($field_name, isset($saved_data[$field_name]) ? $saved_data[$field_name] : '');
+			unset($saved_data[$field_name]);
+		}
+
+		// Any extra data? Merge it in, but options wins!
+		if ( ! empty($saved_data))
+		{
+			$options = array_merge($saved_data, $options);
 		}
 
 		// Check for default data if there is any
