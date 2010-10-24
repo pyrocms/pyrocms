@@ -82,10 +82,34 @@ div.box {margin-bottom:15px; width:100%;}
 body {
 	background: #FFFFFF url(../../img/admin/bg.png) top left repeat-y;
 	color: #444;
+	width: 100%;
+	overflow-x: hidden;
 }
 body#login {
-	background: #FFFFFF;
+	background-image: url(../../img/admin/body-bg.jpg);
+	background-repeat: repeat;
 }
+
+/* Wrap body with a border */
+#top, #bottom, #left, #right {
+	background: #202327;
+	position: fixed;
+}
+#left, #right {
+	top: 0; bottom: 0;
+	width: 15px;
+}
+#left { left: 0; }
+#right { right: 0; }
+
+#top, #bottom {
+	left: 0; right: 0;
+	height: 15px;
+}
+#top { top: 0; }
+#bottom { bottom: 0; }
+		
+		
 a, a:focus, a:active, a:visited {
 	outline: none;
 	-moz-outline-style: none;
@@ -99,7 +123,6 @@ a:hover {
 }
 
 #page-wrapper {
-	display: table;
 	width: 100%;
 }
 #sidebar {
@@ -307,8 +330,8 @@ header#main h1 {
 	overflow: hidden;
 	display: block;
 	position: absolute;
-	right: 0px;
-	top: 0px;
+	right: 10px;
+	top: 10px;
 	height: 16px;
 	width: 16px;
 }
@@ -414,22 +437,29 @@ a.delete {
 }
 
 body#login #login-box {
-	border: 1px solid #999999;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-box-shadow:0 0 80px #999999;
-	-moz-box-shadow: 0 0 80px #999999;
-	-o-box-shadow: 0 0 80px #999999;
-	box-shadow:0 0 80px #999999;
-	padding: 20px;
-	margin: 50px auto 0 auto;
-	background-color: #F5F5F5;
-	width: 360px;
+	background-color: #d1d5db;
+	background-image: url('../../img/admin/login-bg.jpg');
+	background-repeat: repeat-x;
+	border: 1px solid #ffffff;
+	outline: 5px solid #202327;
+	-moz-outline-radius: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	padding: 3px 35px 5px 35px;
+	margin: 14% auto 0 auto;
+	width: 330px;
 }
 body#login #login-box header {
 	margin-bottom: 25px;
+}
+#login-logo {
+	background-image: url('../../img/admin/login-logo.png');
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 40px;
+	margin: 0 auto;
 }
 body#login #login-box ul,
 body#login #login-box li {
@@ -446,31 +476,108 @@ body#login #login-box label {
 	font-size: 14px;
 }
 body#login #login-box input {
-	padding: 4px;
-	font-size: 16px;
-	width: 276px;
-	border: 1px solid #BBBBBB;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-o-border-radius: 4px;
-	border-radius: 4px;
-	background-color: #FFFFFF;
+	background-color: #eaedf2;
+	background-image: url('../../img/admin/input-bg.jpg');
+	background-repeat: repeat-x;
+	padding: 4px 4px 4px 35px;
+	font-family: "Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #6b6d71;
+	text-shadow: 1px 1px 0px #e6e8eb;
+	letter-spacing: 0.2px;
+	text-transform: uppercase;
+	width: 289px;
+	height: 28px;
+	border: 1px solid #a2a5a8;
+	outline: 1px solid #e7eaec;
+	-moz-outline-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+body#login #login-box input:hover {
+	border: 1px solid #ff6900;
+}
+.input-email {
+	margin: -25px 0 0 10px;
+	float: left;
+	position: relative;
+	z-index: 9999;
+}
+.input-password {
+	margin: -30px 0 0 14px;
+	float: left;
+	position: relative;
+	z-index: 9999;
 }
 body#login #login-box input.button {
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-	border-color: #CCCCCC;
-	background-color: #FF6400;
-	width: auto;
-	color: #FFFFFF;
+	background-image: url('../../img/admin/login-btn.png');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	width: 92px;
+	height: 35px;
+	border: 0;
+	outline: 0;
+	color: #6c727a;
+	text-shadow: 1px 1px 0px #f5f6f7;
 	padding: 4px 12px;
+	margin: 10px auto;
 }
 body#login #login-box input.button:hover {
-	background-color: #666666;
+	cursor: pointer;
+	background-position: 0 -36px;
+	color: #ff6900;
 }
-
+#login-box .error {
+	background: #ef8385 url('../../img/admin/icons/16/exclamation.png');
+	border: 1px solid #b87173;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	font-family: "Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #9b373a;
+	text-shadow: 1px 1px 0px #f3a8aa;
+	letter-spacing: 0.2px;
+	text-transform: uppercase;
+	margin: 0 0 15px 0;
+}
+#login-box .success {
+	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png');
+	border: 1px solid #9adf8f;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	font-family: "Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #549f48;
+	text-shadow: 1px 1px 0px #f4fff3;
+	letter-spacing: 0.2px;
+	text-transform: uppercase;
+	margin: 0 0 15px 0;
+}
+ul#login-footer {
+	width: 175px;
+	margin: 15px 0 0 0;
+}
+ul#login-footer li {
+	list-style: none;
+}
+ul#login-footer li a  {
+	background-image:  url('../../img/admin/poweredby.png');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	width: 125px;
+	height: 21px;
+	float: left;
+	text-indent: -9999px;
+}
+ul#login-footer li a:hover {
+	background-position: 0 -23px;
+}
 
 /** Pyro Buttons **/
 .pyro-button {
@@ -627,6 +734,10 @@ ul.quick-links h4 {
 }
 
 /* Analytics */
+#analytics {
+	width: 100%;
+	height: 300px;
+}
 div#analytics table {
 	width: auto;
 }
