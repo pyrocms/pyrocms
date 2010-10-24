@@ -9,7 +9,7 @@ $lang['comments.recent_comments'] 			= 'Recente reacties';
 $lang['comments.view_more'] 				= 'Bekijk meer...';
 
 // labels
-$lang['comments.name_label'] 				= 'Ue naam';
+$lang['comments.name_label'] 				= 'Uw naam';
 $lang['comments.email_label'] 				= 'Email Adres';
 $lang['comments.website_label'] 			= 'Website';
 $lang['comments.message_label'] 			= 'Mededeling';
