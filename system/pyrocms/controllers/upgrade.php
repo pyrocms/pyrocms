@@ -85,6 +85,13 @@ class Upgrade extends Controller
 
 	function upgrade_100beta2()
 	{
+		$this->_output .= 'Adding missing pages.js field.<br />';
+
+		$this->db->query("ALTER TABLE `pages` ADD `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `css`");
+
+		$this->_output .= 'Clearing page cache.<br/>';
+		$this->cache->delete_all('pages_m');
+
 		$this->_output .= 'Moving Google Tracking code from Comments to Integration.<br/>';
 
 		$this->db
