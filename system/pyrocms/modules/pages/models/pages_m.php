@@ -35,9 +35,6 @@ class Pages_m extends MY_Model
         $this->db->select($target_alias.'.*, revisions.id as revision_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
         $this->db->from('pages p1');
 
-		// Simple join enables revisions - Yorick
-		$this->db->join('revisions', 'p1.revision_id = revisions.id');
-
         // Loop thorugh each Slug
         $level = 1;
         foreach( $segments as $segment )
@@ -58,6 +55,9 @@ class Pages_m extends MY_Model
             // Increment
             ++$level;
         }
+
+		// Simple join enables revisions - Yorick
+		$this->db->join('revisions', $target_alias.'.revision_id = revisions.id');
 
         // Can only be one result
         $this->db->limit(1);
@@ -297,7 +297,7 @@ class Pages_m extends MY_Model
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
-	
+
 	return $this->db->affected_rows() > 0;
     }
 
