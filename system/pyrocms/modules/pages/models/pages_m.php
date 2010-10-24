@@ -298,7 +298,7 @@ class Pages_m extends MY_Model
 	        'updated_on' 	=> now()
         ), array('id' => $id));
 	
-	return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
+	return $this->db->affected_rows() > 0;
     }
 
     /**
@@ -328,4 +328,3 @@ class Pages_m extends MY_Model
         return $this->db->trans_status() !== FALSE ? $ids : FALSE;
     }
 }
-?>
