@@ -9,3 +9,10 @@ jQuery(function($) {
 	});
 	
 });
+
+function closeBox()
+{
+	jQuery(function($) {
+		$.colorbox.close();
+	});
+}
