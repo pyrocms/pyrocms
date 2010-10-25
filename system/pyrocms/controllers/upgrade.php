@@ -89,6 +89,20 @@ class Upgrade extends Controller
 
 		$this->db->query("ALTER TABLE `pages` ADD `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `css`");
 
+		// pages.js was previously ignored from the upgrade
+		$pages = $this->db->get('pages_old')->result();
+
+		foreach ($pages as $page)
+	    {
+			if ($page->js)
+			{
+				$this->db
+					->where('js', '')
+					->where('id', $page->id)
+					->update('pages', array('js' => $page->js));
+			}
+		}
+
 		$this->_output .= 'Clearing page cache.<br/>';
 		$this->cache->delete_all('pages_m');
 
@@ -503,16 +517,17 @@ class Upgrade extends Controller
 	        $to_insert = array(
 	            'id'                => $page->id,
 				'revision_id'       => $page->id,
-	            'slug'                 => $page->slug,
-	            'title'                => $page->title,
+	            'slug'              => $page->slug,
+	            'title'             => $page->title,
 	            'parent_id'         => $page->parent_id,
 	            'layout_id'         => $page->layout_id,
-	            'css'                => $page->css,
+	            'css'               => $page->css,
+	            'js'                => $page->js,
 	            'meta_title'        => $page->meta_title,
 	            'meta_keywords'     => $page->meta_keywords,
-	            'meta_description'    => $page->meta_description,
-	            'rss_enabled'        => $page->rss_enabled,
-	            'comments_enabled'    => $page->comments_enabled,
+	            'meta_description'  => $page->meta_description,
+	            'rss_enabled'       => $page->rss_enabled,
+	            'comments_enabled'  => $page->comments_enabled,
 	            'status'            => $page->status,
 	            'created_on'        => $page->created_on,
 	            'updated_on'        => $page->updated_on,
@@ -530,7 +545,7 @@ class Upgrade extends Controller
 				'table_name'	=> 'pages',
 				'body'			=> $page->body,
 				'revision_date' => now(),
-				'author_id' 	=> '1',
+				'author_id' 	=> 1,
 			);
 
 	        // Insert the one and only revision for this page
@@ -539,8 +554,9 @@ class Upgrade extends Controller
 	    }
 		
 		// set menu location
-		$this->db->where('slug', 'pages')
-				->update('modules', array('menu'=>'content'));
+		$this->db
+			->where('slug', 'pages')
+			->update('modules', array('menu'=>'content'));
 				
 		// ---- / End Pages ---------------------------------
 		
