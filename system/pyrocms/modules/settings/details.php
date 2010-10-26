@@ -18,7 +18,7 @@ class Details_Settings extends Module {
 				'zh' => '網站設定'
 			),
 			'description' => array(
-				'en' => 'Allows adminsistators to update settings like Site Name, messages and email address, etc.',
+				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
 				'nl' => 'Maakt het administratoren en medewerkers mogelijk om websiteinstellingen zoals naam en beschrijving te veranderen.',
 				'es' => 'Permite a los administradores y al personal configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.',
 				'fr' => 'Permet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description',
