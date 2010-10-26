@@ -38,12 +38,12 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'first_name',
 				'label' => lang('user_first_name_label'),
-				'rules' => 'required|alpha_dash'
+				'rules' => 'required|utf8'
 			),
 			array(
 				'field' => 'last_name',
 				'label' => lang('user_last_name_label'),
-				'rules' => 'required|surname'
+				'rules' => 'required|utf8'
 			),
 			array(
 				'field' => 'display_name',
