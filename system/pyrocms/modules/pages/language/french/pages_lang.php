@@ -27,11 +27,12 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.access_label'] 					= 'Accès';
 $lang['pages.rss_enabled_label'] 				= 'RSS activé';
-$lang['pages.comments_enabled_label'] 		= 'Commentaires activés';
+$lang['pages.comments_enabled_label'] 			= 'Commentaires activés';
 
 $lang['pages.status_label'] 					= 'Statut';
 $lang['pages.draft_label'] 						= 'Brouillon';
 $lang['pages.live_label'] 						= 'Publié';
+$lang['pages.revisions_label']					= 'Révisions';
 
 $lang['pages.view_label'] 						= 'Visualiser';
 $lang['pages.create_label'] 					= 'Ajouter enfant';

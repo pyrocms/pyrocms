@@ -29,18 +29,18 @@ $lang['galleries.manage_label'] 			= 'Gérer';
 $lang['galleries.delete_label'] 			= 'Supprimer';
 $lang['galleries.comments_enabled_label'] 	= 'Oui';
 $lang['galleries.comments_disabled_label'] 	= 'Non';
-$lang['galleries.published_yes_label']		= 'Yes';
-$lang['galleries.published_no_label']		= 'No';
+$lang['galleries.published_yes_label']		= 'Oui';
+$lang['galleries.published_no_label']		= 'Non';
 
 // General labels
 $lang['galleries.title_label'] 				= 'Titre';
-$lang['galleries.slug_label'] 				= 'Slug'; #non traduit, slug, veut dire limace ce n'est pas tres parlant
+$lang['galleries.slug_label'] 				= 'URL';
 $lang['galleries.parent_label'] 			= 'Parent';
 $lang['galleries.none_label'] 				= '-- AUCUN --';
 $lang['galleries.description_label'] 		= 'Description de l\'album';
 $lang['galleries.thumbnail_label'] 			= 'Vignette';
 $lang['galleries.comments_label'] 			= 'Activer les commentaires';
-$lang['galleries.published_label']			= 'Published';
+$lang['galleries.published_label']			= 'Publié';
 $lang['galleries.current_label'] 			= 'Images courantes (glisser-déposer pour ordonner, cliquer pour modifier)';
 
 // Sidebar labels
