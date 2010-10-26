@@ -185,4 +185,20 @@ class Admin extends Admin_Controller
 
 	    return TRUE;
 	}
+	
+	/**
+	 * Display the help string from a module's
+	 * details.php file in a modal window
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 */
+	
+	public function help($slug)
+	{
+		$this->data->help = $this->module_m->help($slug);
+
+		$this->template
+			->set_layout('modal', 'admin')
+			->build('admin/partials/help', $this->data);
+	}
 }

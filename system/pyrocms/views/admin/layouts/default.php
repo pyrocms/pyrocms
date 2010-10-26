@@ -53,6 +53,9 @@
 		<header id="page-header">
 			<h1><?php echo $module_details['name'] ? anchor('admin/' . strtolower($module_details['name']), $module_details['name']) : lang('cp_admin_home_title'); ?></h1>
 			<p><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></p>
+			<?php if($module_details['slug']): ?>
+				<p id="page-header-help"><a class="modal" title="<?php echo lang('help_label').'->'.$module_details['name']; ?>" href="<?php echo BASE_URL.'admin/help/'.$module_details['slug']; ?>">?</a></p>
+			<?php endif; ?>
 		</header>
 
 			<?php if(!empty($template['partials']['shortcuts'])): ?>
