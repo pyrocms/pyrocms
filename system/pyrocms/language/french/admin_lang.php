@@ -1,8 +1,8 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'Panneau de contrôle';
-$lang['cp_admin_home_title'] 			= 'Dashboard';
-$lang['cp_admin_quick_links']			= 'Quick Links';
+$lang['cp_admin_home_title'] 			= 'Tableau de bord';
+$lang['cp_admin_quick_links']			= 'Liens rapides';
 
 $lang['cp_welcome_title'] 				= 'Bienvenue';
 $lang['cp_welcome_message'] 			= 'Bienvenue dans le panneau de contrôle de %s. Les liens de navigation ci-dessus et sur la gauche vous permettent de configurer la quasi totalité de votre site Internet.<br/> Au cas ou vous rencontrez un bug dans le système, veuillez s\'il vous plait créer un ticket dans notre bugtracker.';
@@ -35,7 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Utilisateurs';
 $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Contenu';
-$lang['cp_nav_utilities']                               = 'Utilities'; #translate
+$lang['cp_nav_utilities']               = 'Utilitaires';
 
 $lang['cp_must_login']	 				= 'Vous devz être identifié pour voir cette page.';
 $lang['cp_access_denied'] 				= 'Vous n\'avez pas les autorisations suffisantes pour voir cette page.';
