@@ -404,14 +404,23 @@ class Module_m extends CI_Model
 	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function help($slug, $is_core = FALSE)
+	public function help($slug)
 	{
-		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+		//first try it as a core module
+		if($details_class = $this->_spawn_class($slug, 1))
 		{
-			return FALSE;
+			return $details_class->help();
+		}
+		else
+		{
+			//get the help string as addon module
+			if ($details_class = $this->_spawn_class($slug, 0))
+			{
+				return $details_class->help();
+			}
 		}
 
-		return $details_class->help();
+		return FALSE;
 	}
 
 }

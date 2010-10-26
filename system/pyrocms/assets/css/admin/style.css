@@ -280,6 +280,17 @@ header#main h1 {
 	margin: 0 0 0 12px;
 	font-weight: normal;
 	display: inline-block;
+}	
+
+#page-header-help {
+	float: right;
+}
+
+#page-header-help a {
+	color: #ff6400;
+	font-weight: bold;
+	font-style: normal;
+	font-size: 18px;
 }
 
 /** Notifications **/

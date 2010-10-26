@@ -80,7 +80,7 @@ class Details_Newsletters extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "Some Help Stuff";
+		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";
 	}
 }
 /* End of file details.php */
