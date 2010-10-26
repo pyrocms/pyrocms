@@ -82,7 +82,6 @@ div.box {margin-bottom:15px; width:100%;}
 body {
 	background: #FFFFFF url(../../img/admin/bg.png) top left repeat-y;
 	color: #444;
-	width: 100%;
 	overflow-x: hidden;
 }
 body#login {
@@ -146,6 +145,7 @@ a:hover {
 	display: table-cell;
 	vertical-align: top;
 	font-size: 90%;
+	width: 100%;
 }
 #content {
 	padding: 10px;
