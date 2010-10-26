@@ -308,6 +308,31 @@
 			autoHeight: false
 		});
 		
+		
+		// Sort da widgets
+		function do_sortable()
+		{
+		    var handle = $('.widget-list ol');
+		    
+		    if(handle !== undefined)
+		    {
+			$(handle).sortable({
+			    update: function() {
+					    order = new Array();
+					    $('li', this).each(function(){
+						id = $(this).attr('id').replace('instance-', '');
+						    order.push( id );
+					    });
+					    order = order.join(',');
+	    
+					    $.post(BASE_URL + '/widgets/ajax/update_order', { order: order });
+	    
+			    }
+			});
+		    }
+		}
+		
+		do_sortable();
 	});
 
 })(jQuery);
