@@ -5,8 +5,8 @@ $lang['comments.your_comment'] 				= 'Envoyez un commentaire';
 $lang['comments.user_comments'] 			= 'Commentaires des utilisateurs';
 
 $lang['comments.list_comment'] 				= '%s commented on %s saying:'; #translate
-$lang['comments.recent_comments'] 			= 'Recent comments'; #translate
-$lang['comments.view_more'] 				= 'View more...'; #translate
+$lang['comments.recent_comments'] 			= 'Commentaires récents';
+$lang['comments.view_more'] 				= 'Voir plus...';
 
 // labels
 $lang['comments.name_label'] 				= 'Votre Nom';
@@ -18,7 +18,7 @@ $lang['comments.activate_label'] 			= 'Approuver';
 $lang['comments.deactivate_label'] 			= 'Rejeter';
 $lang['comments.author_label'] 				= 'Auteur';
 $lang['comments.module_label'] 				= 'Module';
-$lang['comments.item_label'] 				= 'Item'; #translate
+$lang['comments.item_label'] 				= 'Elément';
 $lang['comments.date_label'] 				= 'Date';
 $lang['comments.actions_label'] 			= 'Actions';
 $lang['comments.edit_label'] 				= 'Modifier';
