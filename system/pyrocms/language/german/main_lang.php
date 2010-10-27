@@ -14,14 +14,14 @@ $lang['dialog.confirm'] 				= 'Bestätigen';
 $lang['dialog.yes'] 					= 'Ja';
 $lang['dialog.no'] 						= 'Nein';
 
-$lang['select.none'] 					= '-- None --'; #translate
-$lang['select.all'] 					= '-- All --'; #translate
-$lang['select.any'] 					= '-- Any --'; #translate
+$lang['select.none'] 					= '-- Keine --';
+$lang['select.all'] 					= '-- Alle --';
+$lang['select.any'] 					= '-- Eines --';
 
-$lang['operators.equal'] 				= 'Equal to'; #translate
-$lang['operators.not_equal'] 			= 'Not equal to'; #translate
-$lang['operators.less_than'] 			= 'Less than'; #translate
-$lang['operators.greater_than'] 		= 'Greater than'; #translate
+$lang['operators.equal'] 				= 'Gleicht';
+$lang['operators.not_equal'] 			= 'Gleicht nicht';
+$lang['operators.less_than'] 			= 'Kleiner als';
+$lang['operators.greater_than'] 		= 'Größer als';
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Start';
@@ -46,7 +46,7 @@ $lang['email_label'] 					= 'Email';
 $lang['password_label']					= 'Passwort';
 $lang['login_label'] 					= 'Anmelden';
 
-$lang['help_label'] 					= 'Help';#translate
+$lang['help_label'] 					= 'Hilfe';
 $lang['save_label']						= 'Sichern';
 $lang['cancel_label'] 					= 'Abbrechen';
 $lang['update_label'] 					= 'Beschriftung ändern';
