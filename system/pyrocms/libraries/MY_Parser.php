@@ -148,6 +148,12 @@ class MY_Parser extends CI_Parser {
 
 		foreach ($this->_parser_assign_refs as $ref)
 		{
+			// TAG SUPPORT
+			$this->_ci->load->library('tags');
+			$this->_ci->tags->set_trigger('pyro:');
+			$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
+			// END TAG SUPPORT
+
 			$data[$ref] = & $this->_ci->{$ref};
 		}
 
