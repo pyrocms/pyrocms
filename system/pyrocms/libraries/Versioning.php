@@ -284,21 +284,20 @@ class Versioning
 	 * @access public
 	 * @return void
 	 */
-	public function prune_revisions()
-	{
-		// Do we need to prune at all?
-		$this->ci->db->where('table_name', $this->table_name);
-		$this->ci->db->from('revisions');
-		
-		// We need to prune the data
-		if ( $this->ci->db->count_all_results() > 10)
-		{
-			// Remove the oldest 5 revisions
-			// query: SELECT * FROM revisions ORDER BY revision_date ASC LIMIT 5;
-			$this->ci->db->order_by('revision_date', 'asc');
-			$this->ci->db->limit(6);
-			$this->ci->db->delete('revisions', array('table_name' => $this->table_name));
-		}		
-	}
+//	public function prune_revisions()
+//	{
+//		// Do we need to prune at all?
+//		$this->ci->db->where('table_name', $this->table_name);
+//		$this->ci->db->from('revisions');
+//
+//		// We need to prune the data
+//		if ( $this->ci->db->count_all_results() > 10)
+//		{
+//			// Remove the oldest 5 revisions
+//			// query: SELECT * FROM revisions ORDER BY revision_date ASC LIMIT 5;
+//			$this->ci->db->order_by('revision_date', 'asc');
+//			$this->ci->db->limit(6);
+//			$this->ci->db->delete('revisions', array('table_name' => $this->table_name));
+//		}
+//	}
 }
-?>
