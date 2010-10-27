@@ -152,7 +152,7 @@ class Admin extends Admin_Controller
 		$open_parent_pages 	= isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
 		$pages 				= $this->pages_m->get_many_by('parent_id', $parent_id);
 
-		foreach($pages as &$page)
+		foreach ($pages as &$page)
 		{
 			$page->has_children = $this->pages_m->has_children($page->id);
 		}
@@ -186,15 +186,16 @@ class Admin extends Admin_Controller
 	 */
 	public function recurse_page_tree($parent_id, $open_parent_pages=array())
 	{
-		if (!in_array($parent_id, $open_parent_pages))
+		if ( ! in_array($parent_id, $open_parent_pages))
 		{
 			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
 		}
 
 		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
-		if (!empty($pages))
+
+		if ( ! empty($pages))
 		{
-			foreach($pages as &$page)
+			foreach ($pages as &$page)
 			{
 				$page->has_children = $this->pages_m->has_children($page->id);
 			}
@@ -240,20 +241,20 @@ class Admin extends Admin_Controller
 			if ($id = $this->pages_m->create($_POST))
 			{
 				// Create the revision
-				$revision_id = $this->versioning->create_revision( array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $page_body) );
+				$revision_id = $this->versioning->create_revision(array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $page_body));
 
 				// Update the page row
 				$to_update 					= $_POST;
 				$to_update['revision_id'] 	= $revision_id;
 
-				if ( $this->pages_m->update($id, $to_update ) )
+				if ($this->pages_m->update($id, $to_update))
 				{
 					$this->session->set_flashdata('success', lang('pages_create_success'));
 
-				// Redirect back to the form or main page
-				$this->input->post('btnAction') == 'save_exit'
-					? redirect('admin/pages')
-					: redirect('admin/pages/edit/'.$id);
+					// Redirect back to the form or main page
+					$this->input->post('btnAction') == 'save_exit'
+						? redirect('admin/pages')
+						: redirect('admin/pages/edit/'.$id);
 				}
 			}
 
@@ -265,7 +266,7 @@ class Admin extends Admin_Controller
 	    }
 
 		// Loop through each rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
 			$page->{$rule['field']} = $this->input->post($rule['field']);
 		}
@@ -302,11 +303,7 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		// Redirect if no ID has been specified
-		if (empty($id))
-	    {
-			redirect('admin/pages');
-	    }
+		$id OR redirect('admin/pages');
 
 	    // Set the page ID and get the current page
 	    $this->page_id 	= $id;
@@ -314,7 +311,7 @@ class Admin extends Admin_Controller
 		$revisions		= $this->versioning->get_revisions($id);
 
 	    // Got page?
-	    if (!$page)
+	    if ( ! $page)
 	    {
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
@@ -324,7 +321,7 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run())
 	    {
 			// Set the data for the revision
-			$revision_data 			= array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $_POST['body']);
+			$revision_data = array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $_POST['body']);
 
 			// Did the user wanted to restore a specific revision?
 			if ( $_POST['use_revision_id'] == $page->revision_id )
@@ -359,7 +356,7 @@ class Admin extends Admin_Controller
 	    }
 
 		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
 			if($this->input->post($rule['field']) !== FALSE)
 			{

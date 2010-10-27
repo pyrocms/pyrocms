@@ -5,47 +5,47 @@
  *
  * Build your CodeIgniter pages much easier with partials, breadcrumbs, layouts and themes
  *
- * @package        	CodeIgniter
- * @subpackage    	Libraries
- * @category    	Libraries
- * @author        	Philip Sturgeon
- * @license         http://philsturgeon.co.uk/code/dbad-license
+ * @package			CodeIgniter
+ * @subpackage		Libraries
+ * @category		Libraries
+ * @author			Philip Sturgeon
+ * @license			http://philsturgeon.co.uk/code/dbad-license
  * @link			http://philsturgeon.co.uk/code/codeigniter-template
  */
 class Template
 {
-    private $_module = '';
-    private $_controller = '';
-    private $_method = '';
+	private $_module = '';
+	private $_controller = '';
+	private $_method = '';
 
-    private $_theme = NULL;
-    private $_theme_path = NULL;
-    private $_layout = FALSE; // By default, dont wrap the view with anything
-    private $_layout_subdir = ''; // Layouts and partials will exist in views/layouts
+	private $_theme = NULL;
+	private $_theme_path = NULL;
+	private $_layout = FALSE; // By default, dont wrap the view with anything
+	private $_layout_subdir = ''; // Layouts and partials will exist in views/layouts
 	// but can be set to views/foo/layouts with a subdirectory
 
-    private $_title = '';
-    private $_metadata = array();
+	private $_title = '';
+	private $_metadata = array();
 
 	private $_partials = array();
 
-    private $_breadcrumbs = array();
+	private $_breadcrumbs = array();
 
-    private $_title_separator = ' | ';
+	private $_title_separator = ' | ';
 
-    private $_parser_enabled = TRUE;
-    private $_parser_body_enabled = TRUE;
+	private $_parser_enabled = TRUE;
+	private $_parser_body_enabled = TRUE;
 
 	private $_theme_locations = array();
 
 	private $_is_mobile = FALSE;
 
-    // Seconds that cache will be alive for
-    private $cache_lifetime = 0;//7200;
+	// Seconds that cache will be alive for
+	private $cache_lifetime = 0;//7200;
 
-    private $_ci;
+	private $_ci;
 
-    private $_data = array();
+	private $_data = array();
 
 	/**
 	 * Constructor - Sets Preferences
@@ -54,14 +54,14 @@ class Template
 	 */
 	function __construct($config = array())
 	{
-        $this->_ci =& get_instance();
+		$this->_ci =& get_instance();
 
 		if ( ! empty($config))
 		{
 			$this->initialize($config);
 		}
 
-        log_message('debug', 'Template class Initialized');
+		log_message('debug', 'Template class Initialized');
 	}
 
 	// --------------------------------------------------------------------
@@ -99,15 +99,15 @@ class Template
 			class_exists('CI_Parser') OR $this->_ci->load->library('parser');
 		}
 
-    	// Modular Separation / Modular Extensions has been detected
-    	if (method_exists( $this->_ci->router, 'fetch_module' ))
-    	{
-    		$this->_module 	= $this->_ci->router->fetch_module();
-    	}
+		// Modular Separation / Modular Extensions has been detected
+		if (method_exists( $this->_ci->router, 'fetch_module' ))
+		{
+			$this->_module 	= $this->_ci->router->fetch_module();
+		}
 
 		// What controllers or methods are in use
-        $this->_controller	= $this->_ci->router->fetch_class();
-        $this->_method 		= $this->_ci->router->fetch_method();
+		$this->_controller	= $this->_ci->router->fetch_class();
+		$this->_method 		= $this->_ci->router->fetch_method();
 
 		// Load user agent library if not loaded
 		class_exists('CI_User_agent') OR $this->_ci->load->library('user_agent');
@@ -116,43 +116,43 @@ class Template
 		$this->_is_mobile	= $this->_ci->agent->is_mobile();
 	}
 
-    // --------------------------------------------------------------------
+	// --------------------------------------------------------------------
 
-    /**
-     * Magic Get function to get data
-     *
-     * @access    public
-     * @param	  string
-     * @return    mixed
-     */
+	/**
+	 * Magic Get function to get data
+	 *
+	 * @access	public
+	 * @param	  string
+	 * @return	mixed
+	 */
 	public function __get($name)
 	{
 		return isset($this->_data[$name]) ? $this->_data[$name] : NULL;
 	}
 
-    // --------------------------------------------------------------------
+	// --------------------------------------------------------------------
 
-    /**
-     * Magic Set function to set data
-     *
-     * @access    public
-     * @param	  string
-     * @return    mixed
-     */
+	/**
+	 * Magic Set function to set data
+	 *
+	 * @access	public
+	 * @param	  string
+	 * @return	mixed
+	 */
 	public function __set($name, $value)
 	{
 		$this->_data[$name] = $value;
 	}
 
-    // --------------------------------------------------------------------
+	// --------------------------------------------------------------------
 
-    /**
-     * Set data using a chainable metod. Provide two strings or an array of data.
-     *
-     * @access    public
-     * @param	  string
-     * @return    mixed
-     */
+	/**
+	 * Set data using a chainable metod. Provide two strings or an array of data.
+	 *
+	 * @access	public
+	 * @param	  string
+	 * @return	mixed
+	 */
 	public function set($name, $value = NULL)
 	{
 		// Lots of things! Set them all
@@ -173,20 +173,20 @@ class Template
 		return $this;
 	}
 
-    // --------------------------------------------------------------------
+	// --------------------------------------------------------------------
 
-    /**
-     * Build the entire HTML output combining partials, layouts and views.
-     *
-     * @access    public
-     * @param    string
+	/**
+	 * Build the entire HTML output combining partials, layouts and views.
+	 *
+	 * @access	public
+	 * @param	string
 
-     * @return    void
-     */
-    public function build($view, $data = array(), $return = FALSE)
-    {
+	 * @return	void
+	 */
+	public function build($view, $data = array(), $return = FALSE)
+	{
 		// Set whatever values are given. These will be available to all view files
-    	is_array($data) OR $data = (array) $data;
+		is_array($data) OR $data = (array) $data;
 
 		// Merge in what we already have with the specific data
 		$this->_data = array_merge($this->_data, $data);
@@ -194,27 +194,27 @@ class Template
 		// We don't need you any more buddy
 		unset($data);
 
-        if (empty($this->_title))
-        {
-        	$this->_title = $this->_guess_title();
-        }
+		if (empty($this->_title))
+		{
+			$this->_title = $this->_guess_title();
+		}
 
-        // Output template variables to the template
-        $template['title']	= $this->_title;
-        $template['breadcrumbs'] = $this->_breadcrumbs;
-        $template['metadata']	= implode("\n\t\t", $this->_metadata);
-    	$template['partials']	= array();
+		// Output template variables to the template
+		$template['title']	= $this->_title;
+		$template['breadcrumbs'] = $this->_breadcrumbs;
+		$template['metadata']	= implode("\n\t\t", $this->_metadata);
+		$template['partials']	= array();
 
-    	// Assign by reference, as all loaded views will need access to partials
-        $this->_data['template'] =& $template;
+		// Assign by reference, as all loaded views will need access to partials
+		$this->_data['template'] =& $template;
 
-    	foreach( $this->_partials as $name => $partial )
-    	{
+		foreach( $this->_partials as $name => $partial )
+		{
 			// We can only work with data arrays
 			is_array($partial['data']) OR $partial['data'] = (array) $partial['data'];
 
 			// If it uses a view, load it
-    		if (isset($partial['view']))
+			if (isset($partial['view']))
 			{
 				$template['partials'][$name] = $this->_find_view($partial['view'], $partial['data']);
 			}
@@ -229,120 +229,120 @@ class Template
 
 				$template['partials'][$name] = $partial['string'];
 			}
-    	}
+		}
 
-        // Disable sodding IE7's constant cacheing!!
-        $this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
-        $this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
-        $this->_ci->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
-        $this->_ci->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-        $this->_ci->output->set_header('Pragma: no-cache');
+		// Disable sodding IE7's constant cacheing!!
+		$this->_ci->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
+		$this->_ci->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+		$this->_ci->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
+		$this->_ci->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+		$this->_ci->output->set_header('Pragma: no-cache');
 
-        // Let CI do the caching instead of the browser
-        $this->_ci->output->cache( $this->cache_lifetime );
+		// Let CI do the caching instead of the browser
+		$this->_ci->output->cache( $this->cache_lifetime );
 
-        // Test to see if this file
-    	$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
+		// Test to see if this file
+		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
 
-        // Want this file wrapped with a layout file?
-        if ($this->_layout)
-        {
+		// Want this file wrapped with a layout file?
+		if ($this->_layout)
+		{
 			// Added to $this->_data['template'] by refference
 			$template['body'] = $this->_body;
 
 			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
 			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
-        }
+		}
 
-        // Want it returned or output to browser?
-        if ( ! $return)
-        {
-            $this->_ci->output->set_output($this->_body);
-        }
+		// Want it returned or output to browser?
+		if ( ! $return)
+		{
+			$this->_ci->output->set_output($this->_body);
+		}
 
-        return $this->_body;
-    }
+		return $this->_body;
+	}
 
-    /**
-     * Set the title of the page
-     *
-     * @access    public
-     * @param    string
-     * @return    void
-     */
-    public function title()
-    {
-    	// If we have some segments passed
-    	if ($title_segments =& func_get_args())
-    	{
-    		$this->_title = implode($this->_title_separator, $title_segments);
-    	}
+	/**
+	 * Set the title of the page
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 */
+	public function title()
+	{
+		// If we have some segments passed
+		if ($title_segments =& func_get_args())
+		{
+			$this->_title = implode($this->_title_separator, $title_segments);
+		}
 
-        return $this;
-    }
-
-
-    /**
-     * Put extra javascipt, css, meta tags, etc before all other head data
-     *
-     * @access    public
-     * @param     string	$line	The line being added to head
-     * @return    void
-     */
-    public function prepend_metadata($line)
-    {
-    	array_unshift($this->_metadata, $line);
-        return $this;
-    }
+		return $this;
+	}
 
 
 	/**
-     * Put extra javascipt, css, meta tags, etc after other head data
-     *
-     * @access    public
-     * @param     string	$line	The line being added to head
-     * @return    void
-     */
-    public function append_metadata($line)
-    {
-    	$this->_metadata[] = $line;
-        return $this;
-    }
+	 * Put extra javascipt, css, meta tags, etc before all other head data
+	 *
+	 * @access	public
+	 * @param	 string	$line	The line being added to head
+	 * @return	void
+	 */
+	public function prepend_metadata($line)
+	{
+		array_unshift($this->_metadata, $line);
+		return $this;
+	}
 
 
-    /**
-     * Set metadata for output later
-     *
-     * @access    public
-     * @param	  string	$name		keywords, description, etc
-     * @param	  string	$content	The content of meta data
-     * @param	  string	$type		Meta-data comes in a few types, links for example
-     * @return    void
-     */
-    public function set_metadata($name, $content, $type = 'meta')
-    {
-        $name = htmlspecialchars(strip_tags($name));
-        $content = htmlspecialchars(strip_tags($content));
+	/**
+	 * Put extra javascipt, css, meta tags, etc after other head data
+	 *
+	 * @access	public
+	 * @param	 string	$line	The line being added to head
+	 * @return	void
+	 */
+	public function append_metadata($line)
+	{
+		$this->_metadata[] = $line;
+		return $this;
+	}
 
-        // Keywords with no comments? ARG! comment them
-        if ($name == 'keywords' AND ! strpos($content, ','))
-        {
-        	$content = preg_replace('/[\s]+/', ', ', trim($content));
-        }
 
-        switch($type)
-        {
-        	case 'meta':
-        		$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
-        	break;
+	/**
+	 * Set metadata for output later
+	 *
+	 * @access	public
+	 * @param	  string	$name		keywords, description, etc
+	 * @param	  string	$content	The content of meta data
+	 * @param	  string	$type		Meta-data comes in a few types, links for example
+	 * @return	void
+	 */
+	public function set_metadata($name, $content, $type = 'meta')
+	{
+		$name = htmlspecialchars(strip_tags($name));
+		$content = htmlspecialchars(strip_tags($content));
 
-        	case 'link':
-        		$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
-        	break;
-        }
+		// Keywords with no comments? ARG! comment them
+		if ($name == 'keywords' AND ! strpos($content, ','))
+		{
+			$content = preg_replace('/[\s]+/', ', ', trim($content));
+		}
 
-        return $this;
-    }
+		switch($type)
+		{
+			case 'meta':
+				$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
+			break;
+
+			case 'link':
+				$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
+			break;
+		}
+
+		return $this;
+	}
 
 
 	/**
@@ -434,75 +434,90 @@ class Template
 	 * @param	string	$url_ref	The URL segment
 	 * @return	void
 	 */
-    public function set_breadcrumb($name, $uri = '')
-    {
-    	$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
-        return $this;
-    }
+	public function set_breadcrumb($name, $uri = '')
+	{
+		$this->_breadcrumbs[] = array('name' => $name, 'uri' => $uri );
+		return $this;
+	}
+
+	/**
+	 * Set a the cache lifetime
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @param	boolean
+	 * @return	void
+	 */
+	public function set_cache($seconds = 0)
+	{
+		$this->cache_lifetime = $seconds;
+		return $this;
+	}
 
 
-    /**
-     * enable_parser
-     * Should be parser be used or the view files just loaded normally?
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    void
-     */
-    public function enable_parser($bool)
-    {
-        $this->_parser_enabled = $bool;
-        return $this;
-    }
+	/**
+	 * enable_parser
+	 * Should be parser be used or the view files just loaded normally?
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	void
+	 */
+	public function enable_parser($bool)
+	{
+		$this->_parser_enabled = $bool;
+		return $this;
+	}
 
-    /**
-     * enable_parser_body
-     * Should be parser be used or the body view files just loaded normally?
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    void
-     */
-    public function enable_parser_body($bool)
-    {
-        $this->_parser_body_enabled = $bool;
-        return $this;
-    }
+	/**
+	 * enable_parser_body
+	 * Should be parser be used or the body view files just loaded normally?
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	void
+	 */
+	public function enable_parser_body($bool)
+	{
+		$this->_parser_body_enabled = $bool;
+		return $this;
+	}
 
-    /**
-     * theme_locations
-     * List the locations where themes may be stored
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
-    public function theme_locations()
-    {
-        return $this->_theme_locations;
-    }
+	/**
+	 * theme_locations
+	 * List the locations where themes may be stored
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	array
+	 */
+	public function theme_locations()
+	{
+		return $this->_theme_locations;
+	}
 
-    /**
-     * add_theme_location
-     * Set another location for themes to be looked in
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
-    public function add_theme_location($location)
-    {
-        $this->_theme_locations[] = $location;
-    }
+	/**
+	 * add_theme_location
+	 * Set another location for themes to be looked in
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	array
+	 */
+	public function add_theme_location($location)
+	{
+		$this->_theme_locations[] = $location;
+	}
 
-    /**
-     * theme_exists
-     * Check if a theme exists
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
+	/**
+	 * theme_exists
+	 * Check if a theme exists
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	array
+	 */
 	public function theme_exists($theme = NULL)
 	{
 		$theme OR $theme = $this->_theme;
@@ -518,14 +533,14 @@ class Template
 		return FALSE;
 	}
 
-    /**
-     * get_layouts
-     * Get all current layouts (if using a theme you'll get a list of theme layouts)
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
+	/**
+	 * get_layouts
+	 * Get all current layouts (if using a theme you'll get a list of theme layouts)
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	array
+	 */
 	public function get_layouts()
 	{
 		$layouts = array();
@@ -539,14 +554,14 @@ class Template
 	}
 
 
-    /**
-     * get_layouts
-     * Get all current layouts (if using a theme you'll get a list of theme layouts)
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
+	/**
+	 * get_layouts
+	 * Get all current layouts (if using a theme you'll get a list of theme layouts)
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	array
+	 */
 	public function get_theme_layouts($theme = NULL)
 	{
 		$theme OR $theme = $this->_theme;
@@ -579,14 +594,14 @@ class Template
 		return $layouts;
 	}
 
-    /**
-     * layout_exists
-     * Check if a theme layout exists
-     *
-     * @access    public
-     * @param     string	$view
-     * @return    array
-     */
+	/**
+	 * layout_exists
+	 * Check if a theme layout exists
+	 *
+	 * @access	public
+	 * @param	 string	$view
+	 * @return	array
+	 */
 	public function layout_exists($layout)
 	{
 		// If there is a theme, check it exists in there
@@ -639,9 +654,9 @@ class Template
 		return $this->_ci->load->_ci_cached_vars['template_views'] = $view_folder;
 	}
 
-    // A module view file can be overriden in a theme
-    private function _find_view($view, array $data, $parse_view = TRUE)
-    {
+	// A module view file can be overriden in a theme
+	private function _find_view($view, array $data, $parse_view = TRUE)
+	{
 		// Only bother looking in themes if there is a theme
 		if ( ! empty($this->_theme))
 		{
@@ -664,7 +679,7 @@ class Template
 
 		// Not found it yet? Just load, its either in the module or root view
 		return self::_load_view($view, $this->_data + $data, $parse_view);
-    }
+	}
 
 	private function _load_view($view, array $data, $parse_view = TRUE, $override_view_path = NULL)
 	{
@@ -707,36 +722,36 @@ class Template
 		return $content;
 	}
 
-    private function _guess_title()
-    {
-        $this->_ci->load->helper('inflector');
+	private function _guess_title()
+	{
+		$this->_ci->load->helper('inflector');
 
-        // Obviously no title, lets get making one
-        $title_parts = array();
+		// Obviously no title, lets get making one
+		$title_parts = array();
 
-        // If the method is something other than index, use that
-        if ($this->_method != 'index')
-        {
-        	$title_parts[] = $this->_method;
-        }
+		// If the method is something other than index, use that
+		if ($this->_method != 'index')
+		{
+			$title_parts[] = $this->_method;
+		}
 
-        // Make sure controller name is not the same as the method name
-        if (!in_array($this->_controller, $title_parts))
-        {
-        	$title_parts[] = $this->_controller;
-        }
+		// Make sure controller name is not the same as the method name
+		if ( ! in_array($this->_controller, $title_parts))
+		{
+			$title_parts[] = $this->_controller;
+		}
 
-        // Is there a module? Make sure it is not named the same as the method or controller
-        if (!empty($this->_module) AND !in_array($this->_module, $title_parts))
-        {
-        	$title_parts[] = $this->_module;
-        }
+		// Is there a module? Make sure it is not named the same as the method or controller
+		if ( ! empty($this->_module) AND !in_array($this->_module, $title_parts))
+		{
+			$title_parts[] = $this->_module;
+		}
 
-        // Glue the title pieces together using the title separator setting
-        $title = humanize(implode($this->_title_separator, $title_parts));
+		// Glue the title pieces together using the title separator setting
+		$title = humanize(implode($this->_title_separator, $title_parts));
 
-        return $title;
-    }
+		return $title;
+	}
 
 	private function _ext($file)
 	{

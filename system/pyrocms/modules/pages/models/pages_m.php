@@ -281,7 +281,7 @@ class Pages_m extends MY_Model
     {
         $this->load->helper('date');
 
-        $this->db->update('pages', array(
+        return $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
 	        'revision_id'	=> $input['revision_id'],
@@ -297,8 +297,6 @@ class Pages_m extends MY_Model
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
-
-	return $this->db->affected_rows() > 0;
     }
 
     /**

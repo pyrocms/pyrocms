@@ -97,17 +97,10 @@ class Admin_layouts extends Admin_Controller
 			));
 
 			// Success or fail?
-			if ($id > 0)
-			{
-				$this->session->set_flashdata('success', lang('page_layout_create_success'));
-			}
+			$id > 0
+				? $this->session->set_flashdata('success', lang('page_layout_create_success'))
+				: $this->session->set_flashdata('notice', lang('page_layout_create_error'));
 
-			else
-			{
-				$this->session->set_flashdata('notice', lang('page_layout_create_error'));
-			}
-
-			// Redirect
 			redirect('admin/pages/layouts');
 	    }
 
@@ -117,7 +110,7 @@ class Admin_layouts extends Admin_Controller
 			$page_layout->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$theme_layouts = $this->template->get_theme_layouts( $this->settings->default_theme);
+		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
 		foreach($theme_layouts as $theme_layout)
 		{
 			$this->data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
@@ -142,7 +135,7 @@ class Admin_layouts extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		empty($id) && redirect('admin/pages/layouts');
+		empty($id) AND redirect('admin/pages/layouts');
 
 	    // We use this controller property for a validation callback later on
 	    $this->page_layout_id = $id;
@@ -181,19 +174,18 @@ class Admin_layouts extends Admin_Controller
 			}
 		}
 
-		$theme_layouts = $this->template->get_theme_layouts( $this->settings->default_theme);
+		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
+		$theme_layouts_options = array();
 		foreach($theme_layouts as $theme_layout)
 		{
-			$this->data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
+			$theme_layouts_options[$theme_layout] = basename($theme_layout, '.html');
 		}
 
-	    // Assign data for display
-		$this->data->page_layout 	=& $page_layout;
-
-	    // Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages.layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
 			->append_metadata(js('codemirror/codemirror.js'))
+			->set('theme_layouts', $theme_layouts_options)
+			->set('page_layout', $page_layout)
 			->build('admin/layouts/form', $this->data);
 	}
 

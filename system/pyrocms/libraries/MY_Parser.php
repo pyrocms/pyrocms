@@ -1,30 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP 4.3.2 or newer
- *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
-// ------------------------------------------------------------------------
 
 /**
- * Parser Class
+ * CodeIgniter Dwoo Parser Class
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Parser
- * @author		Phil Sturgeon
+ * @license     http://philsturgeon.co.uk/code/dbad-license
  * @link		http://philsturgeon.co.uk/code/codeigniter-dwoo
- * @version		2.0
  */
-include(APPPATH . 'libraries/dwoo/dwooAutoload.php');
+
+include APPPATH . 'libraries/dwoo/dwooAutoload.php';
 
 class MY_Parser extends CI_Parser {
 
@@ -39,7 +25,7 @@ class MY_Parser extends CI_Parser {
 
 	function __construct($config = array())
 	{
-		if (!empty($config))
+		if ( ! empty($config))
 		{
 			$this->initialize($config);
 		}
@@ -67,13 +53,6 @@ class MY_Parser extends CI_Parser {
 
 	// --------------------------------------------------------------------
 
-	/**
-	 * Spawn Dwoo instance
-	 *
-	 * @access	public
-	 * @param	array
-	 * @return	void
-	 */
 	function spawn()
 	{
 		// Main Dwoo object
@@ -160,39 +139,46 @@ class MY_Parser extends CI_Parser {
 		$this->_ci->benchmark->mark('dwoo_parse_start');
 
 		// Convert from object to array
-		if (!is_array($data))
+		if ( ! is_array($data))
 		{
 			$data = (array) $data;
 		}
 
 		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
+		foreach ($this->_parser_assign_refs as $ref)
+		{
+			$data[$ref] = & $this->_ci->{$ref};
+		}
+
+		// --------------------------------------------------------------------
+		// Parse out the elapsed time and memory usage,
+		// then swap the pseudo-variables with the data
+
+		$elapsed = $this->_ci->benchmark->elapsed_time('total_execution_time_start', 'total_execution_time_end');
+
+		if (CI_VERSION < 2 OR $this->_ci->output->parse_exec_vars === TRUE)
+		{
+			$memory = ( ! function_exists('memory_get_usage')) ? '0' : round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
+
+			$string = str_replace(array('{elapsed_time}', '{memory_usage}'), array($elapsed, $memory), $string);
+		}
+
+		// --------------------------------------------------------------------
+		// Object containing data
+		$dwoo_data = new Dwoo_Data;
+		$dwoo_data->setData($data);
+
 		try
 		{
-			// TAG SUPPORT
-			$this->_ci->load->library('tags');
-			$this->_ci->tags->set_trigger('pyro:');
-			$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
-			// END TAG SUPPORT
-
-			foreach ($this->_parser_assign_refs as $ref)
-			{
-				$data[$ref] = & $this->_ci->{$ref};
-			}
-
-			// Object containing data
-			$dwoo_data = new Dwoo_Data;
-			$dwoo_data->setData($data);
-
 			// Object of the template
-			$tpl = new Dwoo_Template_String($parsed['content']);
+			$tpl = new Dwoo_Template_String($string);
 
 			$dwoo = $is_include ? self::spawn() : $this->_dwoo;
 
 			// render the template
 			$parsed_string = $dwoo->get($tpl, $dwoo_data);
 		}
-
 		catch (Exception $e)
 		{
 			show_error($e);
@@ -202,7 +188,7 @@ class MY_Parser extends CI_Parser {
 		$this->_ci->benchmark->mark('dwoo_parse_end');
 
 		// Return results or not ?
-		if (!$return)
+		if ( ! $return)
 		{
 			$this->_ci->output->append_output($parsed_string);
 			return;
@@ -211,171 +197,7 @@ class MY_Parser extends CI_Parser {
 		return $parsed_string;
 	}
 
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Callback from template parser
-	 *
-	 * @param	array
-	 * @return 	mixed
-	 */
-	public function parser_callback($data)
-	{
-		if ( ! isset($data['segments'][0]) OR ! isset($data['segments'][1]))
-		{
-			return FALSE;
-		}
-
-		// Setup our paths from the data array
-		$class = $data['segments'][0];
-		$method = $data['segments'][1];
-		$addon = strtolower($class);
-		$return_data = '';
-
-		// Get active add-ons
-		$this->_ci->load->model('modules/module_m');
-		$addons = $this->_ci->module_m->get_all();
-
-		foreach ($addons as $item)
-		{
-			// First check core addons then 3rd party
-			if ($item['is_core'] == 1)
-			{
-				$addon_path = APPPATH.'modules/'.$class.'/libraries/'.ucfirst($class).'.plugin'.EXT;
-				if ( ! file_exists($addon_path))
-				{
-					log_message('error', 'Unable to load: '.$class);
-					$return = FALSE;
-				}
-				else
-				{
-					include_once($addon_path);
-					$class_name = 'Plugin_'.$class;
-					$class_init = new $class_name;
-					$return_data = $this->_process($class_init, $method, $data);
-					break;
-				}
-			}
-			else
-			{
-				$addon_path = ADDONPATH.'modules/'.$class.'/libraries/'.$class.'.plugin'.EXT;
-				$library_path = ADDONPATH.'modules/libraries/'.$class.'.plugin'.EXT;
-
-				// First check addon_path
-				if (file_exists($addon_path))
-				{
-					// Load it up
-					include_once($addon_path);
-					$class_name = 'Plugin_'.$class;
-					$class_init = new $class_name;
-
-					// How about a language file?
-					$lang_path = ADDONPATH.'modules/'.$class.'/language/'.$this->_ci->config->item('language').'/'.$addon.'_lang'.EXT;
-					if (file_exists($lang_path))
-					{
-						$this->_ci->lang->load($addon.'/'.$addon);
-					}
-
-					// Now the fun stuff!
-					$return_data = $this->_process($class_init, $method, $data);
-					break;
-				}
-				elseif (file_exists($library_path))
-				{
-					// Load it up
-					include_once($library_path);
-					$class_name = 'Plugin_'.$class;
-					$class_init = new $class_name;
-
-					// Now the fun stuff!
-					$return_data = $this->_process($class_init, $method, $data);
-					break;
-				}
-				else
-				{
-					log_message('error', 'Unable to load: '.$class);
-					$return = FALSE;
-				}
-			}
-		}
-
-		if (is_array($return_data))
-		{
-			if ( ! $this->_is_multi($return_data))
-			{
-				$return_data = $this->_make_multi($return_data);
-			}
-
-			$content = $data['content'];
-			$parsed_return = '';
-			$simpletags = new Tags();
-			foreach ($return_data as $result)
-			{
-				$parsed = $simpletags->parse($content, $result);
-				$parsed_return .= $parsed['content'];
-			}
-			unset($simpletags);
-
-			$return_data = $parsed_return;
-		}
-
-		return $return_data;
-	}
-
 	// --------------------------------------------------------------------
-
-	/**
-	 * Process
-	 *
-	 * Just process the class
-	 *
-	 * @access	private
-	 * @param	object
-	 * @param	string
-	 * @param	array
-	 * @return	mixed
-	 */
-	private function _process($class, $method, $data)
-	{
-		if (method_exists($class, $method))
-		{
-			return $class->$method($data);
-		}
-		return FALSE;
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Ensure we have a multi array
-	 *
-	 * @param	array
-	 * @return 	int
-	 */
-	private function _is_multi($array)
-	{
-		return (count($array) != count($array, 1));
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Forces a standard array in multidimensional.
-	 *
-	 * @param	array
-	 * @param	int		Used for recursion
-	 * @return	array	The multi array
-	 */
-	private function _make_multi($flat, $i=0)
-	{
-	    $multi = array();
-		$return = array();
-	    foreach ($flat as $item => $value)
-	    {
-	        $return[$i][$item] = $value;
-	    }
-	    return $return;
-	}
 }
 
 class MY_Security_Policy extends Dwoo_Security_Policy {
@@ -389,7 +211,6 @@ class MY_Security_Policy extends Dwoo_Security_Policy {
 	{
 		return TRUE;
 	}
-
 }
 
 // END MY_Parser Class

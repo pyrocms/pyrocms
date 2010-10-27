@@ -173,14 +173,14 @@ class Comments extends Public_Controller
 		if($this->settings->item('akismet_api_key'))
 		{
 			$this->load->library('akismet');
-			
+
 			$comment = array(
-				'author'	=> $this->input->post('name'),
-				'email'		=> $this->input->post('email'),
-				'website'	=> $this->input->post('website'),
+				'author'	=> $this->user ? $this->user->first_name .' '.$this->user->last_name : $this->input->post('name'),
+				'email'		=> $this->user ? $this->user->email : $this->input->post('email'),
+				'website'	=> $this->user ? $this->user->website : $this->input->post('website'),
 				'body'		=> $this->input->post('body')
 			);
-			
+
 			$config = array(
 				'blog_url' => BASE_URL,
 				'api_key' => $this->settings->item('akismet_api_key'),
