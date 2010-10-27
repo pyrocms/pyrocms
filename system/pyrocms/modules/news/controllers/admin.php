@@ -134,6 +134,7 @@ class Admin extends Admin_Controller
 	public function create()
 	{
 		$this->load->library('form_validation');
+		
 		//append the check slug callback function to rules array
 		$this->validation_rules[1]['rules'] .= '|callback__check_slug';
 		$this->form_validation->set_rules($this->validation_rules);
@@ -154,32 +155,10 @@ class Admin extends Admin_Controller
 				'created_on_year'	=> $this->input->post('created_on_year'),
 			));
     	
-			if ( ! empty($id))
-			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
-			
-				// The twitter module is here, and enabled!
-				if ($this->settings->item('twitter_news') == 1 && $this->user->twitter_access_token != NULL && $this->user->twitter_access_token_secret != NULL && $this->input->post('status') == 'live')
-				{
-					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.$this->input->post('created_on_month').'/'.url_title($this->input->post('title')));
-					$this->load->library('twitter/twitter');
+			$id
+				? $this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')))
+				: $this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
 
-					// Try to authenticate
-					$auth = $this->twitter->oauth($this->settings->item('twitter_consumer_key'), $this->settings->item('twitter_consumer_key_secret'), $this->user->twitter_access_token, $this->user->twitter_access_token_secret);
-
-					$status_update = $this->twitter->call('statuses/update', array('status' => sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)));
-					if ( ! is_array($status_update))
-					{
-						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . 'Unable to update Twitter status');
-					}
-				}
-				// End twitter code
-			}
-			
-			else
-			{
-				$this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
-			}			
 			redirect('admin/news');
 		}
 		else
