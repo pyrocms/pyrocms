@@ -24,6 +24,6 @@ $lang['buttons.unapprove']	= 'Freigabe zurückziehen';
 $lang['buttons.install']	= 'Installieren';
 $lang['buttons.yes']		= 'Ja';
 $lang['buttons.no']			= 'Nein';
-$lang['buttons.activate']       = 'Activate'; #translate
+$lang['buttons.activate']       = 'Aktivieren';
 
 /* End of file buttons_lang.php */
