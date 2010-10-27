@@ -112,6 +112,47 @@ class Upgrade extends Controller
 			->where('slug', 'ga_tracking')
 			->update('settings', array('module' => 'integration'));
 
+		// ------------- Assets conversion ------------------
+		$this->_output .= 'Moving assets images to Files';
+		
+		$asset_folder = $this->db->get('asset_folder')->row();
+		
+		//insert the folder record
+		$folder = $this->db->insert('file_folders', array(
+			'slug' => 'assets-images',
+			'name' => 'Assets Images',
+			'date_added' => strtotime($asset_folder->dateadded)
+		));
+		
+		//get all the images and put them in the files table
+		$asset_images = $this->db->get('asset')->result();
+		
+		foreach($asset_images as $image)
+		{
+			$this->db->insert('files', array(
+				'folder_id' 	=> $folder,
+				'user_id' 	=> $image->user_id,
+				'type'		=> 'i',
+				'name'		=> $image->name,
+				'filename'	=> $image->filename,
+				'description'	=> $image->description,
+				'extension'	=> $image->extension,
+				'mimetype'	=> $image->mimetype,
+				'width'		=> $image->width,
+				'height'	=> $image->height,
+				'filesize'	=> $image->filesize,
+				'date_added'	=> strtotime($image->dateadded)
+			));
+			
+			//copy image to files folder
+			copy(APPPATH.'uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
+				
+		}
+		//all good, drop the old assets tables
+		$this->dbforge->drop_table('asset');
+		$this->dbforge->drop_table('asset_folder');
+		// ------------End Assets conversion ----------------
+
 		return FALSE;
 	}
 
@@ -247,7 +288,7 @@ class Upgrade extends Controller
 		$this->db->insert('settings', array(
 			'slug' => 'ga_password',
 			'title' => 'Google Analytic Password',
-			'description' => 'Google Analytics password. This is also needed this to show the grpah on the dashboard.',
+			'description' => 'Google Analytics password. This is also needed this to show the graph on the dashboard.',
 			'`default`' => '',
 			'`value`' => '',
 			'type' => 'password',
@@ -522,7 +563,6 @@ class Upgrade extends Controller
 	            'parent_id'         => $page->parent_id,
 	            'layout_id'         => $page->layout_id,
 	            'css'               => $page->css,
-	            'js'                => $page->js,
 	            'meta_title'        => $page->meta_title,
 	            'meta_keywords'     => $page->meta_keywords,
 	            'meta_description'  => $page->meta_description,

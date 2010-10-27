@@ -5,7 +5,6 @@
 		<li><?php echo anchor('admin/galleries/create'	, lang('galleries.new_gallery_label'), 'class="add"') ?></li>
 		<li><?php echo anchor('admin/galleries/upload'	, lang('galleries.upload_label'), 'class="add '.$colorbox.'"'); ?></li>
 		<li><?php echo anchor('admin/galleries'			, lang('galleries.list_label')); ?></li>
-		<li><?php echo anchor('admin/galleries/help'	, lang('help_label'), 'class="modal"'); ?></li>
 	</ul>
 	<br class="clear-both" />
 </nav>

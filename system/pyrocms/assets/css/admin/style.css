@@ -82,7 +82,6 @@ div.box {margin-bottom:15px; width:100%;}
 body {
 	background: #FFFFFF url(../../img/admin/bg.png) top left repeat-y;
 	color: #444;
-	width: 100%;
 	overflow-x: hidden;
 }
 body#login {
@@ -146,6 +145,7 @@ a:hover {
 	display: table-cell;
 	vertical-align: top;
 	font-size: 90%;
+	width: 100%;
 }
 #content {
 	padding: 10px;
@@ -280,6 +280,17 @@ header#main h1 {
 	margin: 0 0 0 12px;
 	font-weight: normal;
 	display: inline-block;
+}	
+
+#page-header-help {
+	float: right;
+}
+
+#page-header-help a {
+	color: #ff6400;
+	font-weight: bold;
+	font-style: normal;
+	font-size: 18px;
 }
 
 /** Notifications **/
