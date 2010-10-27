@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+ <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @package 		PyroCMS
  * @subpackage 		Category Menu Widget
@@ -19,7 +19,7 @@ class Widget_News_categories extends Widgets
 	{
 		$this->load->model('news/news_categories_m');
 		
-		$categories = $this->news_categories_m->get_all();
+		$categories = $this->news_categories_m->order_by('title')->get_all();
 		
 		return array('categories' => $categories);
 	}
