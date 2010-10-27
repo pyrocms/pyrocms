@@ -29,3 +29,11 @@
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	<?php echo form_close(); ?>
 </div>
+<script type="text/javascript">
+jQuery(function($) {
+	$("a.button").click(function () {	
+		parent.closeBox();
+		return false;
+	});	
+});
+</script>

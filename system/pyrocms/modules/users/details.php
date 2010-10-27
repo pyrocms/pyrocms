@@ -55,7 +55,7 @@ class Details_Users extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "Some Help Stuff";
+		return "No documentation has been added for this module.";
 	}
 }
 /* End of file details.php */
