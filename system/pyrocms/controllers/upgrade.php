@@ -85,26 +85,31 @@ class Upgrade extends Controller
 
 	function upgrade_100beta2()
 	{
-		$this->_output .= 'Adding missing pages.js field.<br />';
+		// Does a table contain a field?
+		if(isset($this->db->limit(1)->get('pages')->row()->js))
+		{
+			$this->_output .= 'Adding missing pages.js field.<br />';
 
-		$this->db->query("ALTER TABLE `pages` ADD `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `css`");
+			$this->db->query("ALTER TABLE `pages` ADD `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `css`");
 
-		// pages.js was previously ignored from the upgrade
-		$pages = $this->db->get('pages_old')->result();
+			// pages.js was previously ignored from the upgrade
+			$pages = $this->db->get('pages_old')->result();
 
-		foreach ($pages as $page)
-	    {
-			if ($page->js)
+			foreach ($pages as $page)
 			{
-				$this->db
-					->where('js', '')
-					->where('id', $page->id)
-					->update('pages', array('js' => $page->js));
+				if ($page->js)
+				{
+					$this->db
+						->where('js', '')
+						->where('id', $page->id)
+						->update('pages', array('js' => $page->js));
+				}
 			}
-		}
 
-		$this->_output .= 'Clearing page cache.<br/>';
-		$this->cache->delete_all('pages_m');
+			$this->_output .= 'Clearing page cache.<br/>';
+			$this->cache->delete_all('pages_m');
+
+		}
 
 		$this->_output .= 'Moving Google Tracking code from Comments to Integration.<br/>';
 
