@@ -14,6 +14,7 @@ $lang['widgets.widget_version'] 			= 'Versie';
 // Widget area titles
 $lang['widgets.add_area'] 					= 'Voeg een widgetgebied toe';
 $lang['widgets.delete_area'] 				= 'Verwijder gebied';
+$lang['widgets.edit_area']                              = 'Edit area';#translate
 
 // Widget area field names
 $lang['widgets.widget_area'] 				= 'Gebied';

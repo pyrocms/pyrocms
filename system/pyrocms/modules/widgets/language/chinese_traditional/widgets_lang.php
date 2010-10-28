@@ -14,6 +14,7 @@ $lang['widgets.widget_version'] 			= '版本';
 // Widget area titles
 $lang['widgets.add_area'] 					= '新增組件區塊';
 $lang['widgets.delete_area'] 				= '刪除區塊';
+$lang['widgets.edit_area']                              = 'Edit area';#translate
 
 // Widget area field names
 $lang['widgets.widget_area'] 				= '區塊';

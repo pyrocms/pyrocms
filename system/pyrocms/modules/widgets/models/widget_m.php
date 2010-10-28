@@ -67,6 +67,17 @@ class Widget_m extends MY_Model
 		));
 	}
 	
+	public function update_area($input)
+	{		
+		$this->db->where('slug', $input['area_slug'])
+				->update('widget_areas', array('title' => $input['title'],
+								'slug' => $input['slug'] 
+				));
+		$result = $this->db->affected_rows();
+		
+		return ($result > 0) ? TRUE : FALSE;
+	}
+	
 	public function insert_instance($input)
 	{
 		$this->load->helper('date');
