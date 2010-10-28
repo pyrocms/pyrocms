@@ -1,7 +1,7 @@
 <nav id="main-nav">
 
 	<ul>
-		<li><?php echo anchor('admin', 'Dashboard', 'class="top-link no-submenu' . (empty($this->module) ? ' current' : '').'"');?></li>
+		<li><?php echo anchor('admin', lang('cp_admin_home_title'), 'class="top-link no-submenu' . (empty($this->module) ? ' current' : '').'"');?></li>
 		<li><a href="#" class="top-link <?php echo ($this->module_details AND $this->module_details['menu'] == 'content') ? 'current' : ''; ?>"><?php echo lang('cp_nav_content');?></a>
 			<ul>
 				<?php

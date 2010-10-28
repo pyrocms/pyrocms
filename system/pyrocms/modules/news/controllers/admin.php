@@ -171,13 +171,12 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$this->data->article =& $article;
-		
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('news_form.js', 'news') );
-			
-		$this->template->build('admin/form', $this->data);
+		$this->template
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('news_form.js', 'news') )
+			->set('article', $article)
+			->build('admin/form');
 	}
 	
 	/**
@@ -245,12 +244,13 @@ class Admin extends Admin_Controller
 		{
 			if (isset($_POST[$field])) $article->$field = $this->form_validation->$field;
 		}    	
-		$this->data->article =& $article;
 		
 		// Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-					->append_metadata( js('news_form.js', 'news') );	
-		$this->template->build('admin/form', $this->data);
+		$this->template
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('news_form.js', 'news') )
+			->set('article', $article)
+			->build('admin/form');
 	}	
 	
 	/**
@@ -440,12 +440,12 @@ class Admin extends Admin_Controller
 			$post_data['keywords'] = $keywords;
 		}
 		$results = $this->news_m->search($post_data);
-		
-		$this->template->news = $results;	
 	
 		//set the layout to false and load the view
-		$this->template->set_layout(FALSE);
-		$this->template->build('admin/index', $this->data);
+		$this->template
+			->set_layout(FALSE)
+			->set('news', $results)
+			->build('admin/index');
 	}
 	
 }

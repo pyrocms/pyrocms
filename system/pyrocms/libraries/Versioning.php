@@ -251,7 +251,7 @@ class Versioning
 			$insert_id = $this->ci->db->insert_id();
 			
 			// Now that we've created a new revision we need to check whether the data has to be cleaned up
-			$this->prune_revisions();
+			$this->prune_revisions($input['owner_id']);
 			
 			// Return the inserted ID
 			return $insert_id;
@@ -284,20 +284,22 @@ class Versioning
 	 * @access public
 	 * @return void
 	 */
-//	public function prune_revisions()
-//	{
-//		// Do we need to prune at all?
-//		$this->ci->db->where('table_name', $this->table_name);
-//		$this->ci->db->from('revisions');
-//
-//		// We need to prune the data
-//		if ( $this->ci->db->count_all_results() > 10)
-//		{
-//			// Remove the oldest 5 revisions
-//			// query: SELECT * FROM revisions ORDER BY revision_date ASC LIMIT 5;
-//			$this->ci->db->order_by('revision_date', 'asc');
-//			$this->ci->db->limit(6);
-//			$this->ci->db->delete('revisions', array('table_name' => $this->table_name));
-//		}
-//	}
+	public function prune_revisions($owner_id)
+	{
+		// Do we need to prune at all?
+		$this->ci->db->where('table_name', $this->table_name);
+		$this->ci->db->where('owner_id', $owner_id);
+		$this->ci->db->from('revisions');
+		
+		// We need to prune the data
+		if ( $this->ci->db->count_all_results() > 10)
+		{
+			// Remove the oldest 5 revisions
+			// query: SELECT * FROM revisions ORDER BY revision_date ASC LIMIT 5;
+			$this->ci->db->order_by('revision_date', 'asc');
+			$this->ci->db->where('owner_id', $owner_id);
+			$this->ci->db->limit(6);
+			$this->ci->db->delete('revisions', array('table_name' => $this->table_name));
+		}		
+	}
 }

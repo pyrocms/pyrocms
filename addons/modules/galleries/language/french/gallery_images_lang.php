@@ -1,7 +1,7 @@
 <?php
 // Success messages
-$lang['gallery_images.upload_success'] 		= 'L\'mage a été envoyée avec succès.';
-$lang['gallery_images.delete_success'] 		= 'L\'mage a été supprimée.';
+$lang['gallery_images.upload_success'] 		= 'L\'image a été envoyée avec succès.';
+$lang['gallery_images.delete_success'] 		= 'L\'image a été supprimée.';
 $lang['gallery_images.changes_success'] 	= 'Les modifications ont été sauvegardées.';
 
 // Errors
@@ -16,7 +16,7 @@ $lang['gallery_images.edit_image_label'] 	= 'Modifier l\'image';
 $lang['gallery_images.thumbnail_label'] 	= 'Vignette';
 $lang['gallery_images.action_label'] 		= 'Action';
 $lang['gallery_images.none_label'] 			= '-- AUCUN --';
-$lang['gallery_images.crop_label'] 			= 'Crop Image';
+$lang['gallery_images.crop_label'] 			= 'Recadrer l\'image';
 $lang['gallery_images.recreate_label'] 		= 'Recréer la vignette';
 $lang['gallery_images.delete_label'] 		= 'Supprimer l\image';
 $lang['gallery_images.title_label'] 		= 'Titre';
@@ -24,7 +24,7 @@ $lang['gallery_images.image_label'] 		= 'Image';
 $lang['gallery_images.description_label'] 	= 'Légende';
 $lang['gallery_images.gallery_label'] 		= 'Galerie';
 $lang['gallery_images.no_images_label'] 	= 'Aucune image n\'a encore été ajoutée';
-$lang['gallery_images.ratio_label']			= 'Maintain Ratio'; ##translate
-$lang['gallery_images.options_label']		= 'Options:'; ##translate
-$lang['gallery_images.crop.save_label']		= 'Click Save to apply the crop'; ##translate
+$lang['gallery_images.ratio_label']			= 'Maintenir la proportion';
+$lang['gallery_images.options_label']		= 'Options:';
+$lang['gallery_images.crop.save_label']		= 'Cliquez sur Enregistrer pour appliquer le recadrage';
 ?>
