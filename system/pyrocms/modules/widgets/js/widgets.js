@@ -1,8 +1,10 @@
 (function($)
 {
 	var add_area;
+	var edit_area;
 	var add_instance;
 	var edit_instance;
+	var sort_options;
 	
 	/*
 	window.onscroll = function()
@@ -29,12 +31,25 @@
 		
 		// Hide the form
 		add_area.slideUp();
+		return false;
 	}
 	
 	function show_add_area()
 	{
 		add_area.slideDown();
 		return false;
+	}
+	
+	function show_edit_area()
+	{
+		edit_area.slideDown();
+	}
+	
+	function hide_edit_area()
+	{
+		$('input[name="title"]', edit_area).attr('value', '');
+		$('input[name="slug"]', edit_area).attr('value', '');
+		edit_area.slideUp();
 	}
 	
 	function hide_add_instance()
@@ -81,10 +96,12 @@
 		{
 			widget_area_slug = $(this).parent().parent().attr('id').replace(/^area-/, '');
 			
-			$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug);
+			$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug, function() {
+				$('.widget-list ol').sortable('destroy').sortable(sort_options);
+			});
 		});
 		
-		$('.accordion').accordion('resize');	
+		$('.accordion').accordion('resize');
 	}
 	
 	// Drag/drop stuff
@@ -128,15 +145,29 @@
 	$(function() {
 		
 		add_area = $('#add-area-box');
+		edit_area = $('#edit-area-box');
 		add_instance = $('#add-instance-box');
 		edit_instance = $('#edit-instance-box');
+		sort_options = {
+				update: function() {
+				    order = new Array();
+				    $('li', this).each(function(){
+					id = $(this).attr('id').replace('instance-', '');
+					    order.push( id );
+				    });
+				    order = order.join(',');
+    
+				    $.post(BASE_URL + '/widgets/ajax/update_order', { order: order });
+				}
+		};
 		
 		// Widget Area add / remove --------------
 		
 		$('a#add-area').click(show_add_area);
 		
-		$('#add-area-box form').submit(function()
+		$('#add-area-box form').submit(function(e)
 		{
+			e.preventDefault();
 			title = $('input[name="title"]', this).val();
 			slug = $('input[name="slug"]', this).val();
 			
@@ -150,22 +181,66 @@
 				
 				// Re-bind the droppable areas
 				set_droppable();
+				
 			});
+		});
+		
+		$('#edit-area-box form').submit(function(e) {
+			e.preventDefault();
 			
-			return false;
+			form_data = $(this).serialize();
+			
+			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_area', form_data, function(data) {
+				if(data.status == 'success')
+				{
+					hide_edit_area();
+					
+					//update the dom with new area slug
+					$('section#area-'+data.find).attr('id', 'area-'+data.replace);
+					$('section#area-'+data.replace+' h3 a').html(data.title);
+					$('a#edit-area-'+data.find).attr('id', 'edit-area-'+data.replace);
+					$('a#delete-area-'+data.find).attr('id', 'delete-area-'+data.replace);
+				}
+				else
+				{
+					//todo: handle errors
+					hide_edit_area();
+				}
+			}, 'json')
 		});
 
 		$('button#widget-area-cancel').live('click', hide_add_area);
 		
+		//hide edit area
+		$('button#widget-edit-area-cancel').live('click', hide_edit_area);
+		
 		// Auto-create a short-name
-		$('#new-area-title').keyup(function(){
+		$('.new-area-title').keyup(function(){
 			var new_val = $(this).val().toLowerCase().replace(/ /g, '_');
 		
-			$('#new-area-slug').val(new_val);
+			$('.new-area-slug').val(new_val);
 		});
 		
-		$('a.delete-area').live('click', function()
+		$('a.edit-area').live('click', function(e) {
+			
+			e.preventDefault();
+
+			a_slug = this.id.replace('edit-area-', '');
+			a_title = a_slug.replace('_', ' ');
+			
+			//append hidden form field with area-slug
+			$('#edit-area-box form').append('<input type="hidden" name="area_id" value="'+a_slug+'" />');
+			
+			
+			$('#edit-area-box input[name=title]').val(a_title);
+			$('#edit-area-box input[name=slug]').val(a_slug);
+			
+			show_edit_area();
+		});
+		
+		$('a.delete-area').live('click', function(e)
 		{
+			e.preventDefault();
 			// all div.box have an id="area-slug"
 			slug = this.id.replace('delete-area-', '')
 			box = $('#area-' + slug);
@@ -177,8 +252,6 @@
 					box.slideUp(function(){ $(this).remove() });
 				});
 			}
-			
-			return false;
 		});
 		
 		// Widget controls -----------------------
@@ -187,8 +260,9 @@
 		set_droppable();
 		
 		// Add new widget instance
-		$('#add-instance-box form').submit(function()
+		$('#add-instance-box form').submit(function(e)
 		{
+			e.preventDefault();
 			widget_id = $('input[name="widget_id"]', this).val();
 			widget_area_id = $('input[name="widget_area_id"]', this).val();
 			title = $('input[name="title"]', this).val();
@@ -205,20 +279,25 @@
 					
 					refresh_lists();
 					
-					$('#widget-wrapper .accordion').accordion('destroy').accordion({collapsible: true, header: 'header'});
+					$('#widget-wrapper .accordion').accordion('destroy').accordion({
+						collapsible: true,
+						header: 'header',
+						autoHeight: false,
+						clearStyle: true
+					});
+					
 				} else
 				{
 					form.html(data.form);
 				}
 				
 			}, 'json');
-			
-			return false;
 		});
 		
 		// Edit widget instance
-		$('#edit-instance-box form').submit(function()
+		$('#edit-instance-box form').submit(function(e)
 		{
+			e.preventDefault();
 			title = $('input[name="title"]', this).val();
 			widget_id = $('input[name="widget_id"]', this).val();
 			widget_area_id = $('[name="widget_area_id"]', this).val();
@@ -242,8 +321,6 @@
 				}
 				
 			}, 'json');
-			
-			return false;
 		});
 		
 		$('button#widget-instance-cancel').live('click', hide_add_instance);
@@ -269,8 +346,8 @@
 		});
 
 		
-		$('.accordion a.edit-instance').live('click', function(){
-			
+		$('.accordion a.edit-instance').live('click', function(e){
+			e.preventDefault();
 			id = $(this).closest('li').attr('id').replace('instance-', '');
 			area_slug = $(this).closest('section').attr('id').replace('area-', '');
 
@@ -278,8 +355,6 @@
 				$('form', edit_instance).html(html);
 				show_edit_instance(area_slug);
 			});
-			
-			return false;
 		});
 		
 		$('.accordion a.delete-instance').live('click', function(){
@@ -308,31 +383,8 @@
 			autoHeight: false
 		});
 		
-		
-		// Sort da widgets
-		function do_sortable()
-		{
-		    var handle = $('.widget-list ol');
-		    
-		    if(handle !== undefined)
-		    {
-			$(handle).sortable({
-			    update: function() {
-					    order = new Array();
-					    $('li', this).each(function(){
-						id = $(this).attr('id').replace('instance-', '');
-						    order.push( id );
-					    });
-					    order = order.join(',');
-	    
-					    $.post(BASE_URL + '/widgets/ajax/update_order', { order: order });
-	    
-			    }
-			});
-		    }
-		}
-		
-		do_sortable();
+		//Init Sortable
+		$('.widget-list ol').sortable(sort_options);		
 	});
 
 })(jQuery);

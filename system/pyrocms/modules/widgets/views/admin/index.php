@@ -8,13 +8,13 @@
 		<ol>
 			<li>
 				<label for="title"><?php echo lang('widgets.widget_area_title'); ?></label>
-				<?php echo form_input('title', null, 'id="new-area-title"'); ?>
+				<?php echo form_input('title', null, 'class="new-area-title"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
 			<li class="even">
 				<label for="slug"><?php echo lang('widgets.widget_area_slug'); ?></label>
-				<?php echo form_input('slug', null, 'id="new-area-slug"'); ?>
+				<?php echo form_input('slug', null, 'class="new-area-slug"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
@@ -26,6 +26,41 @@
 			</button>
 			
 			<button id="widget-area-cancel">
+				<span><?php echo lang('cancel_label'); ?></span>
+			</button>
+		</div>
+	
+	</form>
+	
+	<div style="clear: both"></div>
+</div>
+<div id="edit-area-box" class="hidden">
+
+	<h3><?php echo lang('widgets.edit_area'); ?></h3>
+
+	<form class="box-container crud">
+	
+		<ol>
+			<li>
+				<label for="title"><?php echo lang('widgets.widget_area_title'); ?></label>
+				<?php echo form_input('title', null, 'class="new-area-title"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
+			
+			<li class="even">
+				<label for="slug"><?php echo lang('widgets.widget_area_slug'); ?></label>
+				<?php echo form_input('slug', null, 'class="new-area-slug"'); ?>
+				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			</li>
+			
+		</ol>
+	
+		<div class="float-right">
+			<button type="submit">
+				<span><?php echo lang('save_label'); ?></span>
+			</button>
+			
+			<button id="widget-edit-area-cancel">
 				<span><?php echo lang('cancel_label'); ?></span>
 			</button>
 		</div>
@@ -91,7 +126,9 @@
 			<section id="area-<?php echo $widget_area->slug; ?>">
 				<header class="widget-area-header">
 					<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
-					
+					<a id="edit-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link edit-area" href="#">
+						<?php echo lang('widgets.edit_area'); ?>
+					</a>
 					<a id="delete-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link delete-area" href="#">
 						<?php echo lang('widgets.delete_area'); ?>
 					</a>

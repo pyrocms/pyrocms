@@ -231,6 +231,11 @@ class Widgets
 	{
 		return $this->widget_m->insert_area((array)$input);
 	}
+	
+	function edit_area($input)
+	{
+		return $this->widget_m->update_area((array)$input);
+	}
 
 	function delete_area($slug)
 	{

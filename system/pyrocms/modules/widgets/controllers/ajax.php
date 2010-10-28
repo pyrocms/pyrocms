@@ -207,5 +207,30 @@ class Ajax extends Admin_Controller
 		
 		$this->cache->delete_all('widget_m');
 	}
+	
+	/**
+	 * Edit widget area
+	 * @access public
+	 * @return void
+	 */
+	public function edit_widget_area()
+	{
+		$area = $this->input->post('area_id');
+		$title = $this->input->post('title');
+		$slug = $this->input->post('slug');
+		
+		$edit = $this->widgets->edit_area(array('area_slug' => $area,
+						'title' => ucwords($title),
+						'slug' => $slug
+						));
+		$status = 'error';
+		
+		if($edit)
+		{
+			$status = 'success';
+		}
+		
+		echo json_encode(array('status' => $status, 'find' => $area, 'replace' => $slug, 'title' => ucwords($title)));
+	}
 }
 ?>
