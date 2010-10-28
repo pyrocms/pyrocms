@@ -29,13 +29,13 @@ $lang['cp_report_bug'] 					= 'Fehler melden';
 $lang['cp_contact_support'] 			= 'Support';
 
 $lang['cp_nav_settings']				= 'Einstellungen';
-$lang['cp_nav_addons']					= 'Add-ons'; #translate
+$lang['cp_nav_addons']					= 'Erweiterungen';
 $lang['cp_nav_modules']					= 'Module';
 $lang['cp_nav_widgets']					= 'Widgets';
-$lang['cp_nav_users']					= 'Gebruikers'; #translate
-$lang['cp_nav_design']					= 'Design'; #translate
-$lang['cp_nav_content']					= 'Content'; #translate
-$lang['cp_nav_utilities']                               = 'Utilities'; #translate
+$lang['cp_nav_users']					= 'Benutzer'
+$lang['cp_nav_design']					= 'Design';
+$lang['cp_nav_content']					= 'Inhalt';
+$lang['cp_nav_utilities']                               = 'Dienstprogramme';
 
 $lang['cp_must_login']	 				= 'Um diese Seite zu sehen, musst du dich anmelden.';
 $lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsrechte um diese Seite anzusehen.';
