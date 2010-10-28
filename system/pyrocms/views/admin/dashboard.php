@@ -33,22 +33,33 @@
 		</header>
 		
 		<ul class="quick-links">
+			<?php if(in_array('comments', $this->permissions) OR $this->user->group_id === '1'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/comments.png'); ?>
 				<a href="<?php echo site_url('admin/comments') ?>"><h4><?php echo lang('cp_manage_comments'); ?></h4></a>
 			</li>
+			<?php endif; ?>
+			
+			<?php if(in_array('pages', $this->permissions) OR $this->user->group_id === '1'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/pages.png'); ?>
 				<a href="<?php echo site_url('admin/pages') ?>"><h4><?php echo lang('cp_manage_pages'); ?></h4></a>
 			</li>
+			<?php endif; ?>
+			
+			<?php if(in_array('files', $this->permissions) OR $this->user->group_id === '1'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/folder_open.png'); ?>
 				<a href="<?php echo site_url('admin/files') ?>"><h4><?php echo lang('cp_manage_files'); ?></h4></a>
 			</li>
+			<?php endif; ?>
+			
+			<?php if(in_array('users', $this->permissions) OR $this->user->group_id === '1'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/user.png'); ?>
 				<a href="<?php echo site_url('admin/users') ?>"><h4><?php echo lang('cp_manage_users'); ?></h4></a>
 			</li>
+			<?php endif; ?>
 		</ul>
 		
 		
