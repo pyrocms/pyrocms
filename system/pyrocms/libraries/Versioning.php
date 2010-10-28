@@ -36,7 +36,6 @@ class Versioning
 	 */
 	public function __construct()
 	{
-		// Get the CI instance
 		$this->ci =& get_instance();
 	}
 	
@@ -49,14 +48,12 @@ class Versioning
 	 */
 	public function set_table($name)
 	{
-		if ( isset($name) )
-		{
-			$this->table_name = $name;
-		}
-		else
+		if ( ! isset($name) )
 		{
 			show_error('No name for the table has been specified');
 		}
+
+		$this->table_name = $name;
 	}
 	
 	/**
@@ -122,7 +119,6 @@ class Versioning
 			}
 		}
 
-		// Return the result
 		return $result;
 	}
 
@@ -177,14 +173,12 @@ class Versioning
 	 */
 	public function get($id)
 	{
-		// Create the query
-		$query = $this->ci->db->select($this->table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
-			 ->from($this->table_name)
-			 ->where($this->table_name . '.id', $id)
-			 ->join('revisions', $this->table_name . '.revision_id = revisions.id')
-			 ->get();
-			
-		return $query->row();
+		return $this->ci->db
+			->select($this->table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
+			->where($this->table_name . '.id', $id)
+			->join('revisions', $this->table_name . '.revision_id = revisions.id')
+			->get($this->table_name)
+			->row();
 	}
 	
 	/**
@@ -197,14 +191,12 @@ class Versioning
 	 */
 	public function get_by_revision($id)
 	{
-		// Create the query
-		$query = $this->ci->db->select($this->table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
-			 ->from('revisions')
-			 ->where('revisions.id', $id)
-			 ->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
-			 ->get();
-			
-		return $query->row();
+		return $this->ci->db
+			->select($this->table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
+			->where('revisions.id', $id)
+			->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
+			->get('revisions')
+			->row();
 	}
 	
 	/**
@@ -217,17 +209,14 @@ class Versioning
 	 */
 	public function get_revisions($owner_id)
 	{
-		// Active Record baby!
-		$query = $this->ci->db->select($this->table_name . '.title, revisions.*, users.username as author') 
-			 ->from('revisions')
-			 ->where('revisions.owner_id',$owner_id)
-			 ->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
-			 ->join('users', 'revisions.author_id = users.id')
-			 ->order_by('revisions.revision_date', 'desc')
-			 ->get();
-			
-		// Return the results
-		return $query->result();
+		$query = $this->ci->db
+			->select($this->table_name . '.title, revisions.*, users.username as author')
+			->where('revisions.owner_id',$owner_id)
+			->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
+			->join('users', 'revisions.author_id = users.id')
+			->order_by('revisions.revision_date', 'desc')
+			->get('revisions')
+			->result();
 	}
 	
 	/**
@@ -253,13 +242,10 @@ class Versioning
 			// Now that we've created a new revision we need to check whether the data has to be cleaned up
 			$this->prune_revisions($input['owner_id']);
 			
-			// Return the inserted ID
 			return $insert_id;
 		}
-		else
-		{
-			return FALSE;
-		}
+
+		return FALSE;
 	}
 	
 	/**
@@ -273,8 +259,9 @@ class Versioning
 	 */
 	public function set_revision($row_id, $revision_id)
 	{
-		$this->ci->db->where('id', $row_id)
-			 	 ->update($this->table_name, array('revision_id' => $revision_id));
+		$this->ci->db
+			->where('id', $row_id)
+			->update($this->table_name, array('revision_id' => $revision_id));
 	}
 	
 	/**
@@ -289,10 +276,9 @@ class Versioning
 		// Do we need to prune at all?
 		$this->ci->db->where('table_name', $this->table_name);
 		$this->ci->db->where('owner_id', $owner_id);
-		$this->ci->db->from('revisions');
 		
 		// We need to prune the data
-		if ( $this->ci->db->count_all_results() > 10)
+		if ( $this->ci->db->count_all_results('revisions') > 10)
 		{
 			// Remove the oldest 5 revisions
 			// query: SELECT * FROM revisions ORDER BY revision_date ASC LIMIT 5;
