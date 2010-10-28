@@ -1,7 +1,7 @@
 <h2 id="page_title"><?php echo lang('galleries.galleries_label'); ?></h2>
 <!-- Div containing all galleries -->
 <div class="galleries_container" id="gallery_index">
-	<?php if ( !empty($galleries) ): foreach ($galleries as $gallery): if ( $gallery->parent == NULL ): ?>
+	<?php if ( !empty($galleries) ): foreach ($galleries as $gallery): if (empty($gallery->parent)): ?>
 	<div class="gallery clearfix">
 		<!-- Heading -->
 		<div class="gallery_heading">
