@@ -57,7 +57,8 @@ class Admin_Categories extends Admin_Controller
 			
 		// Using this data, get the relevant results
 		$this->data->categories = $this->news_categories_m->limit( $this->data->pagination['limit'] )->get_all();
-		$this->template->build('admin/categories/index', $this->data);
+		$this->template->title($this->module_details['name'], lang('cat_list_title'))
+						->build('admin/categories/index', $this->data);
 	}
 	
 	/**
@@ -86,7 +87,8 @@ class Admin_Categories extends Admin_Controller
 		
 		// Render the view	
 		$this->data->category =& $category;	
-		$this->template->build('admin/categories/form', $this->data);	
+		$this->template->title($this->module_details['name'], lang('cat_create_title'))
+						->build('admin/categories/form', $this->data);	
 	}
 	
 	/**
@@ -124,7 +126,8 @@ class Admin_Categories extends Admin_Controller
 
 		// Render the view
 		$this->data->category =& $category;
-		$this->template->build('admin/categories/form', $this->data);
+		$this->template->title($this->module_details['name'], sprintf(lang('cat_edit_title'), $category->title))
+						->build('admin/categories/form', $this->data);
 	}	
 
 	/**

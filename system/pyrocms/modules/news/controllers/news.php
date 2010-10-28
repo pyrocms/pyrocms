@@ -23,9 +23,10 @@ class News extends Public_Controller
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 
-		$this->template->set_metadata('description', $meta['description']);
-		$this->template->set_metadata('keywords', $meta['keywords']);
-		$this->template->build('index', $this->data);
+		$this->template->title($this->module_details['name'])
+						->set_metadata('description', $meta['description'])
+						->set_metadata('keywords', $meta['keywords'])
+						->build('index', $this->data);
 	}
 	
 	function category($slug = '')
@@ -55,7 +56,7 @@ class News extends Public_Controller
 		$meta = $this->_articles_metadata($this->data->news);
 		
 		// Build the page
-		$this->template->title( lang('news_news_title'), $category->title )		
+		$this->template->title($this->module_details['name'], $category->title )		
 			->set_metadata('description', $category->title.'. '.$meta['description'] )
 			->set_metadata('keywords', $category->title )
 			->set_breadcrumb( lang('news_news_title'), 'news')
