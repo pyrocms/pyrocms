@@ -86,7 +86,7 @@ class Upgrade extends Controller
 	function upgrade_100beta2()
 	{
 		// Does a table contain a field?
-		if(isset($this->db->limit(1)->get('pages')->row()->js))
+		if( ! isset($this->db->limit(1)->get('pages')->row()->js))
 		{
 			$this->_output .= 'Adding missing pages.js field.<br />';
 
@@ -118,44 +118,47 @@ class Upgrade extends Controller
 			->update('settings', array('module' => 'integration'));
 
 		// ------------- Assets conversion ------------------
-		$this->_output .= 'Moving assets images to Files';
-		
-		$asset_folder = $this->db->get('asset_folder')->row();
-		
-		//insert the folder record
-		$folder = $this->db->insert('file_folders', array(
-			'slug' => 'assets-images',
-			'name' => 'Assets Images',
-			'date_added' => strtotime($asset_folder->dateadded)
-		));
-		
-		//get all the images and put them in the files table
-		$asset_images = $this->db->get('asset')->result();
-		
-		foreach($asset_images as $image)
+		if ($this->db->table_exists('asset_folder'))
 		{
-			$this->db->insert('files', array(
-				'folder_id' 	=> $folder,
-				'user_id' 	=> $image->user_id,
-				'type'		=> 'i',
-				'name'		=> $image->name,
-				'filename'	=> $image->filename,
-				'description'	=> $image->description,
-				'extension'	=> $image->extension,
-				'mimetype'	=> $image->mimetype,
-				'width'		=> $image->width,
-				'height'	=> $image->height,
-				'filesize'	=> $image->filesize,
-				'date_added'	=> strtotime($image->dateadded)
+			$this->_output .= 'Moving assets images to Files';
+
+			$asset_folder = $this->db->get('asset_folder')->row();
+
+			//insert the folder record
+			$folder = $this->db->insert('file_folders', array(
+				'slug' => 'assets-images',
+				'name' => 'Assets Images',
+				'date_added' => strtotime($asset_folder->dateadded)
 			));
-			
-			//copy image to files folder
-			copy(APPPATH.'uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
-				
+
+			//get all the images and put them in the files table
+			$asset_images = $this->db->get('asset')->result();
+
+			foreach($asset_images as $image)
+			{
+				$this->db->insert('files', array(
+					'folder_id' 	=> $folder,
+					'user_id' 	=> $image->user_id,
+					'type'		=> 'i',
+					'name'		=> $image->name,
+					'filename'	=> $image->filename,
+					'description'	=> $image->description,
+					'extension'	=> $image->extension,
+					'mimetype'	=> $image->mimetype,
+					'width'		=> $image->width,
+					'height'	=> $image->height,
+					'filesize'	=> $image->filesize,
+					'date_added'	=> strtotime($image->dateadded)
+				));
+
+				//copy image to files folder
+				copy(APPPATH.'uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
+
+			}
+			//all good, drop the old assets tables
+			$this->dbforge->drop_table('asset');
+			$this->dbforge->drop_table('asset_folder');
 		}
-		//all good, drop the old assets tables
-		$this->dbforge->drop_table('asset');
-		$this->dbforge->drop_table('asset_folder');
 		// ------------End Assets conversion ----------------
 
 		return FALSE;
