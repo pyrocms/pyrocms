@@ -108,7 +108,9 @@ jQuery(function($) {
 
 		// Fancybox modal window
 		$('a[rel=modal], a.modal').livequery(function() {
-			$(this).colorbox();
+			$(this).colorbox({
+				maxWidth: 600
+			});
 		});
 
 		$('a[rel="modal-large"], a.modal-large').livequery(function() {
