@@ -17,6 +17,7 @@
 					<th class="width-15"><?php echo lang('comments.teaser_label');?></th>
 					<th><?php echo lang('comments.item_label');?></th>
 					<th><?php echo lang('comments.author_label');?></th>
+					<th><?php echo lang('comments.email_label');?></th>
 					<th class="width-7"><?php echo lang('comments.date_label');?></th>
 					<th><?php echo lang('comments.actions_label');?></th>
 				</tr>
@@ -47,6 +48,7 @@
 								<?php echo $comment->name;?>
 							<?php endif; ?>
 						</td>
+						<td><?php echo mailto($comment->email);?></td>
 						<td><?php echo date('M d, Y', $comment->created_on);?></td>
 						<td>
 							<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comments.preview_label'), 'rel="modal" target="_blank"'); ?> |
