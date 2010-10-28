@@ -145,15 +145,15 @@ class MY_Parser extends CI_Parser {
 		}
 
 		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
-
+		
+		// TAG SUPPORT
+		$this->_ci->load->library('tags');
+		$this->_ci->tags->set_trigger('pyro:');
+		$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
+		// END TAG SUPPORT
+		
 		foreach ($this->_parser_assign_refs as $ref)
 		{
-			// TAG SUPPORT
-			$this->_ci->load->library('tags');
-			$this->_ci->tags->set_trigger('pyro:');
-			$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
-			// END TAG SUPPORT
-
 			$data[$ref] = & $this->_ci->{$ref};
 		}
 
@@ -167,7 +167,7 @@ class MY_Parser extends CI_Parser {
 		{
 			$memory = ( ! function_exists('memory_get_usage')) ? '0' : round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
 
-			$string = str_replace(array('{elapsed_time}', '{memory_usage}'), array($elapsed, $memory), $string);
+			$parsed['content'] = str_replace(array('{elapsed_time}', '{memory_usage}'), array($elapsed, $memory), $parsed['content']);
 		}
 
 		// --------------------------------------------------------------------
@@ -178,7 +178,7 @@ class MY_Parser extends CI_Parser {
 		try
 		{
 			// Object of the template
-			$tpl = new Dwoo_Template_String($string);
+			$tpl = new Dwoo_Template_String($parsed['content']);
 
 			$dwoo = $is_include ? self::spawn() : $this->_dwoo;
 
