@@ -27,6 +27,7 @@ class Galleries extends Public_Controller
 		$this->load->model('gallery_images_m');
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
+		$this->load->helper('html');
 	}
 	
 	/**

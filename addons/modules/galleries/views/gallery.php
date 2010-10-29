@@ -11,9 +11,8 @@
 			<?php if ($gallery_images): ?>
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
-				<a href="<?php echo BASE_URL.'galleries/' . $gallery->slug . '/' . $image->id; ?>" title="<?php echo $image->title; ?>">
-					<img src="<?php echo BASE_URL.'uploads/galleries/' . $gallery->slug . '/thumbs/' . $image->filename . '_thumb' . $image->extension; ?>" alt="<?php echo $image->title; ?>" />
-				</a>
+				<?php echo anchor('galleries/' . $gallery->slug . '/' . $image->id,
+								  img(array('src' => BASE_URL . 'uploads/galleries/' . $gallery->slug . '/thumbs/' . $image->filename . '_thumb' . $image->extension, 'alt' => $image->title))); ?>
 			</li>
 			<?php endforeach; ?>
 			<?php endif; ?>

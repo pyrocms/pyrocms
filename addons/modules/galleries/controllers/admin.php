@@ -102,6 +102,7 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('galleries');
 		$this->lang->load('gallery_images');
+		$this->load->helper('html');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
