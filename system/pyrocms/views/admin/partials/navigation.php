@@ -1,7 +1,10 @@
 <nav id="main-nav">
 
 	<ul>
-		<li><?php echo anchor('admin', lang('cp_admin_home_title'), 'class="top-link no-submenu' . (empty($this->module) ? ' current' : '').'"');?></li>
+		<li><?php echo anchor('admin', lang('cp_admin_home_title'), 'class="top-link no-submenu' . (!$this->module > '' ? ' current' : '').'"');?></li>
+		
+		<?php $display = ''; foreach($modules['design'] as $module) if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $display = 1; ?>
+		<?php if($display === 1): ?>
 		<li><a href="#" class="top-link <?php echo ($this->module_details AND $this->module_details['menu'] == 'content') ? 'current' : ''; ?>"><?php echo lang('cp_nav_content');?></a>
 			<ul>
 				<?php
@@ -16,7 +19,10 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
-
+		<?php endif; ?>
+		
+		<?php $display = ''; foreach($modules['design'] as $module) if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $display = 1; ?>
+		<?php if($display === 1): ?>
 		<li><a href="#" class="top-link <?php echo ($this->module_details AND $this->module_details['menu'] == 'design') ? 'current' : ''; ?>"><?php echo lang('cp_nav_design');?></a>
 			<ul>
 				<?php
@@ -31,7 +37,10 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
+		<?php endif; ?>
 		
+		<?php $display = ''; foreach($modules['users'] as $module) if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $display = 1; ?>
+		<?php if($display === 1): ?>
 		<li>
 			<a href="#" class="top-link <?php echo (($this->module_details AND $this->module_details['menu'] == 'users') OR $this->module == 'users') ? 'current' : ''; ?>"><?php echo lang('cp_nav_users');?></a>
 			<ul>
@@ -51,7 +60,10 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
-		
+		<?php endif; ?>
+
+		<?php $display = ''; foreach($modules['utilities'] as $module) if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $display = 1; ?>
+		<?php if($display === 1): ?>
 		<li>
 			<a href="#" class="top-link <?php echo (($this->module_details AND $this->module_details['menu'] == 'utilities') OR $this->module == 'utilities') ? 'current' : ''; ?>"><?php echo lang('cp_nav_utilities');?></a>
 			<ul>
@@ -67,6 +79,7 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
+		<?php endif; ?>
 		
 		<?php if(in_array('settings', $this->permissions) OR $this->user->group == 'admin'): ?>
 		<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
