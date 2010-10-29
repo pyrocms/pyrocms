@@ -5,7 +5,7 @@
 
 <div class="float-right spacer-right">
 
-	<div class="pyro-button">
+	<div class="button">
 		<?php if($comment->is_active): ?>
 			<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'));?>
 		<?php else: ?>
@@ -13,7 +13,7 @@
 		<?php endif; ?>
 	</div>
 	
-	<div class="pyro-button">
+	<div class="button">
 		<?php echo anchor('admin/comments/delete/' . $comment->id, 'Delete'); ?>
 	</div>
 </div>

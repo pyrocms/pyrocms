@@ -251,7 +251,7 @@ class MY_Parser extends CI_Parser {
 			else
 			{
 				$addon_path = ADDONPATH.'modules/'.$class.'/libraries/'.$class.'.plugin'.EXT;
-				$library_path = ADDONPATH.'modules/libraries/'.$class.'.plugin'.EXT;
+				$library_path = ADDONPATH.'libraries/'.$class.'.plugin'.EXT;
 
 				// First check addon_path
 				if (file_exists($addon_path))
