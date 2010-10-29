@@ -20,7 +20,7 @@
 				<label for="parent_id"><?php echo lang('galleries.parent_label'); ?></label>
 				<select name="parent_id" id="parent">
 					<!-- Available galleries -->
-					<option value="NONE"><?php echo lang('galleries.none_label'); ?></option>
+					<option value="0"><?php echo lang('galleries.none_label'); ?></option>
 					<?php if ( !empty($galleries) ): foreach ( $galleries as $available_gallery ): if ($available_gallery->id != $gallery->id): ?>
 					<option value="<?php echo $available_gallery->id; ?>" <?php if ($available_gallery->id == $gallery->parent) {echo ' selected="selected" ';} ?> >
 						<?php echo $available_gallery->title; ?>
