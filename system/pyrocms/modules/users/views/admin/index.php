@@ -58,7 +58,7 @@
 	
 		<img src="<?php echo site_url('system/pyrocms/modules/users/img/user.png') ?>" />
 		
-		<h2><?php echo lang($method == 'index' ? 'user_no_registred' : 'user_no_inactives');?></h2>
+		<h2><?php echo lang($this->method == 'index' ? 'user_no_registred' : 'user_no_inactives');?></h2>
 	</div>
 <?php endif; ?>
 		
