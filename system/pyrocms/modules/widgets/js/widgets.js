@@ -43,6 +43,7 @@
 	function show_edit_area()
 	{
 		edit_area.slideDown();
+		do_scrollto('#edit-area-box');
 	}
 	
 	function hide_edit_area()
@@ -71,6 +72,8 @@
 		add_instance.css('display', 'block');
 		
 		$('.accordion').accordion('resize');
+		
+		do_scrollto('#add-instance-box');
 	}
 	
 	function hide_edit_instance()
@@ -81,6 +84,7 @@
 		edit_instance.slideUp();
 		
 		$('.accordion').accordion('resize');
+		
 	}
 	
 	function show_edit_instance(area_slug)
@@ -102,6 +106,13 @@
 		});
 		
 		$('.accordion').accordion('resize');
+	}
+	
+	function do_scrollto(ele)
+	{
+		$('html, body').animate({
+			scrollTop: $(ele).offset().top
+		}, 1000);
 	}
 	
 	// Drag/drop stuff
@@ -126,6 +137,7 @@
 			greedy: true,
 			over: function(event, ui) {
 				$(".accordion").accordion('resize');
+				$('li.empty-drop-item').show();
 			},
 			out: function(event, ui) {
 				$(".accordion").accordion('resize');
@@ -200,6 +212,11 @@
 					$('section#area-'+data.replace+' h3 a').html(data.title);
 					$('a#edit-area-'+data.find).attr('id', 'edit-area-'+data.replace);
 					$('a#delete-area-'+data.find).attr('id', 'delete-area-'+data.replace);
+					
+					old_tag = $('section#area-'+data.replace+' p.tag').html();
+					new_tag = old_tag.replace(data.find, data.replace);
+					
+					$('section#area-'+data.replace+' p.tag').html(new_tag);
 				}
 				else
 				{
@@ -212,7 +229,10 @@
 		$('button#widget-area-cancel').live('click', hide_add_area);
 		
 		//hide edit area
-		$('button#widget-edit-area-cancel').live('click', hide_edit_area);
+		$('button#widget-edit-area-cancel').live('click', function(e) {
+			e.preventDefault();
+			hide_edit_area();	
+		});
 		
 		// Auto-create a short-name
 		$('.new-area-title').keyup(function(){
@@ -323,7 +343,10 @@
 			}, 'json');
 		});
 		
-		$('button#widget-instance-cancel').live('click', hide_add_instance);
+		$('button#widget-instance-cancel').live('click', function(e) {
+			e.preventDefault();
+			hide_add_instance();
+		});
 
 		$('.widget-area table tbody').sortable({
 			handle: 'td',
