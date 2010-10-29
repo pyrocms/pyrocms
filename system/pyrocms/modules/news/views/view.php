@@ -1,7 +1,7 @@
 <div class="news_article">
 	<!-- Article heading -->
 	<div class="article_heading">
-		<h2><?php echo  anchor('news/' .date('Y/m', $article->created_on) .'/'. $article->slug, $article->title); ?></h2>
+		<h2><?php echo $article->title; ?></h2>
 		<p class="article_date"><?php echo lang('news_posted_label');?>: <?php echo date('M d, Y', $article->created_on); ?></p>
 		<?php if($article->category->slug): ?>
 		<p class="article_category">
