@@ -84,11 +84,11 @@
 			return false;
 		});
 		$(".edit_file").colorbox({
-			width:"400", height:"450", iframe:true,
+			width:"400", height:"520", iframe:true,
 			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
 		$("#new_files").colorbox({
-			width:"400", height:"450", iframe:true,
+			width:"400", height:"520", iframe:true,
 			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
 	});

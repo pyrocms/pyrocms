@@ -123,7 +123,8 @@ class Admin extends Admin_Controller
 		));
 		
 		
-		$this->template->build('admin/index', $this->data);
+		$this->template->title($this->module_details['name'])
+						->build('admin/index', $this->data);
 	}
 	
 	/**
@@ -173,6 +174,7 @@ class Admin extends Admin_Controller
 		
 		// Load WYSIWYG editor
 		$this->template
+			->title($this->module_details['name'], lang('news_create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('news_form.js', 'news') )
 			->set('article', $article)
@@ -247,6 +249,7 @@ class Admin extends Admin_Controller
 		
 		// Load WYSIWYG editor
 		$this->template
+			->title($this->module_details['name'], sprintf(lang('news_edit_title'), $article->title))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('news_form.js', 'news') )
 			->set('article', $article)

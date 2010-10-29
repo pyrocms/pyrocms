@@ -13,7 +13,7 @@ $lang['widgets.widget_version'] 			= 'Version';
 // Widget area titles
 $lang['widgets.add_area'] 					= 'Ajouter une zone widget';
 $lang['widgets.delete_area'] 				= 'Supprimer une zone de widget';
-$lang['widgets.edit_area']                              = 'Edit area';#translate
+$lang['widgets.edit_area']                  = 'Editer une zone widget';
 
 // Widget area field names
 $lang['widgets.widget_area'] 				= 'Zone';

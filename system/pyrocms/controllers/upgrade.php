@@ -158,6 +158,8 @@ class Upgrade extends Controller
 			//all good, drop the old assets tables
 			$this->dbforge->drop_table('asset');
 			$this->dbforge->drop_table('asset_folder');
+            
+            $this->_output .= '<span style="color:#339999"> -- Assets images were successfully moved to Files but you will need to re-insert all images in your pages using the wysiwyg editor.</span><br/>';
 		}
 		// ------------End Assets conversion ----------------
 
