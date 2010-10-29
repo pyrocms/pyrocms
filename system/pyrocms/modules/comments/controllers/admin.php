@@ -165,22 +165,14 @@ class Admin extends Admin_Controller
 
 			$comment = array_merge($commenter, array(
 				'comment'    	=> $this->input->post('comment'),
-				'website'    	=> $this->input->post('website'),
-				'module'   		=> $this->input->post('module'),
-				'module_id' 	=> $this->input->post('module_id')
+				'website'    	=> $this->input->post('website')
 			));
 
 			// Update the comment
-			if($this->comments_m->update($id, $comment))
-			{
-				$this->session->set_flashdata('success', lang('comments.edit_success'));
-			}
-			else
-			{
-				$this->session->set_flashdata('error', lang('comments.edit_error'));
-			}
+			$this->comments_m->update($id, $comment)
+				? $this->session->set_flashdata('success', lang('comments.edit_success'))
+				: $this->session->set_flashdata('error', lang('comments.edit_error'));
 
-			// Redirect the user
 			redirect('admin/comments');
 		}
 
@@ -193,13 +185,11 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$this->data->comment =& $comment;
-
-		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('comments.edit_title'))
-			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) );
-		$this->template->build('admin/form', $this->data);
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->set('comment', $comment)
+			->build('admin/form', $this->data);
 	}
 
 	// Admin: Delete a comment
@@ -224,18 +214,15 @@ class Admin extends Admin_Controller
 		}
 
 		// Some comments have been deleted
-		if(!empty($comments))
+		if( ! empty($comments))
 		{
-			// Only deleting one comment
-			if(count( $comments ) == 1)
-			{
-				$this->session->set_flashdata( 'success', sprintf(lang('comments.delete_single_success'), $comments[0]) );
-			}
-			// Deleting multiple comments
-			else
-			{
-				$this->session->set_flashdata( 'success', sprintf( lang('comments.delete_multi_success'), implode( ', #', $comments ) ) );
-			}
+			count( $comments ) == 1
+
+				// Only deleting one comment
+				? $this->session->set_flashdata( 'success', sprintf(lang('comments.delete_single_success'), $comments[0]))
+
+				// Deleting multiple comments
+				: $this->session->set_flashdata( 'success', sprintf( lang('comments.delete_multi_success'), implode( ', #', $comments ) ) );
 		}
 
 		// For some reason, none of them were deleted
@@ -258,7 +245,7 @@ class Admin extends Admin_Controller
 	{
 		$this->_do_action($id, 'approve');
 
-		if ($redirect == TRUE) redirect('admin/comments');
+		$redirect AND redirect('admin/comments');
 	}
 
 	/**
@@ -272,7 +259,7 @@ class Admin extends Admin_Controller
 	{
 		$this->_do_action($id, 'unapprove');
 
-		if ($redirect == TRUE) redirect('admin/comments');
+		$redirect AND redirect('admin/comments');
 	}
 
 	/**
