@@ -25,7 +25,7 @@
 
 class Tags
 {
-	private $_trigger = '';
+	private $_trigger = 'pyro:';
 	private $_l_delim = '{';
 	private $_r_delim = '}';
 	private $_mark = 'k0dj3j4nJHDj22j';
