@@ -91,104 +91,6 @@ class Tags
 		return $this;
 	}
 
-	/**
-	 * Parse any language strings
-	 *
-	 * This is used to parse tags like {lang:lang_key}
-	 *
-	 * @param	string	The content to parse
-	 * @return	mixed	Either the tags as array or callback results
-	 */
-	private function _parse_lang($content)
-	{
-		$trigger = 'lang:';
-		$orig_content = $content;
-
-		$open_tag_regex = $this->_l_delim.$trigger.'.*?'.$this->_r_delim;
-
-		while (($start = strpos($orig_content, $this->_l_delim.$trigger)) !== FALSE)
-		{
-			$content = $orig_content;
-
-			if ( ! preg_match('/'.$open_tag_regex.'/i', $content, $tag))
-			{
-				break;
-			}
-
-			// We use these later
-			$tag_len = strlen($tag[0]);
-			$full_tag = $tag[0];
-
-			// Trim off the left and right delimeters
-			$tag = trim($full_tag, $this->_l_delim.$this->_r_delim);
-
-			// Get the segments of the tag
-			$segments = preg_replace('/(.*?)\s+.*/', '$1', $tag);
-
-			// Lets start to create the parsed tag
-			$parsed['full_tag'] = $full_tag;
-			$parsed['full_segments'] = str_replace($trigger, '', $segments);
-			$parsed['segments'] = $this->_parse_segments($parsed['full_segments']);
-
-			// Lets trim off the first part of the content
-			$content = substr($content, $start + $tag_len);
-
-			$parsed['content'] = '';
-			$parsed['marker'] = 'marker_'.$this->_tag_count.$this->_mark;
-
-			$orig_content = str_replace($parsed['full_tag'], $parsed['marker'], $orig_content);
-			$parsed_tags[] = $parsed;
-			$this->_tag_count++;
-		}
-
-		if (empty($parsed_tags))
-		{
-			return $orig_content;
-		}
-
-		// Lets replace all the lang tags
-		foreach ($parsed_tags as $key => $tag)
-		{
-			// Parse the single tags
-			if (empty($tag['content']))
-			{
-				$return_data = $this->_parse_lang_single($tag);
-			}
-
-			// If the tag referenced data then put that data in the content
-			if ($return_data)
-			{
-				$orig_content = str_replace($tag['marker'], $return_data, $orig_content);
-				unset($parsed_tags[$key]);
-			}
-		}
-
-		return $orig_content;
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Parse the lang lines
-	 *
-	 * If the language term is not found it shows the original line.
-	 *
-	 * @param	string - The language segment
-	 * @return 	string - The translated segment
-	 */
-	private function _parse_lang_single($tag)
-	{
-		foreach ($tag['segments'] as $segment)
-		{
-			$orig = $segment;
-			if ( ! $segment = $this->_ci->lang->line($segment))
-			{
-				$segment = $orig;
-			}
-		}
-		return $segment;
-	}
-
 	// --------------------------------------------------------------------
 
 	/**
@@ -204,8 +106,7 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
-		$orig_content = $this->_parse_lang($content);
-		// $orig_content = $this->parse_globals($orig_content, $data);
+		$orig_content = $this->parse_globals($orig_content, $data);
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
 
