@@ -71,7 +71,11 @@
 		
 		add_instance.css('display', 'block');
 		
-		$('.accordion').accordion('resize');
+		$('#widget-wrapper .accordion').accordion({
+			clearStyle: true,
+			autoHeight: true
+		});
+		$('#widget-wrapper .accordion').accordion('resize');
 		
 		do_scrollto('#add-instance-box');
 	}
@@ -154,6 +158,17 @@
 		});
 	}
 	
+	function re_accordion(active_id)
+	{
+		$('#widget-wrapper .accordion').accordion('destroy').accordion({
+						collapsible: true,
+						header: 'header',
+						autoHeight: false,
+						clearStyle: true,
+						active: active_id
+					});
+	}
+	
 	$(function() {
 		
 		add_area = $('#add-area-box');
@@ -177,7 +192,7 @@
 		
 		$('a#add-area').click(show_add_area);
 		
-		$('#add-area-box form').submit(function(e)
+		$('#add-area-box form').live('submit', function(e)
 		{
 			e.preventDefault();
 			title = $('input[name="title"]', this).val();
@@ -197,7 +212,7 @@
 			});
 		});
 		
-		$('#edit-area-box form').submit(function(e) {
+		$('#edit-area-box form').live('submit', function(e) {
 			e.preventDefault();
 			
 			form_data = $(this).serialize();
@@ -280,7 +295,7 @@
 		set_droppable();
 		
 		// Add new widget instance
-		$('#add-instance-box form').submit(function(e)
+		$('#add-instance-box form').live('submit', function(e)
 		{
 			e.preventDefault();
 			widget_id = $('input[name="widget_id"]', this).val();
@@ -290,7 +305,9 @@
 			form = $(this);
 			
 			if(!title || !widget_id || !widget_area_id) return false;
-
+			
+			var active_id = $( "#widget-wrapper .accordion" ).accordion( "option", "active" );
+			
 			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', form.serialize(), function(data) {
 				
 				if(data.status == 'success')
@@ -299,12 +316,7 @@
 					
 					refresh_lists();
 					
-					$('#widget-wrapper .accordion').accordion('destroy').accordion({
-						collapsible: true,
-						header: 'header',
-						autoHeight: false,
-						clearStyle: true
-					});
+					re_accordion(active_id);
 					
 				} else
 				{
@@ -315,7 +327,7 @@
 		});
 		
 		// Edit widget instance
-		$('#edit-instance-box form').submit(function(e)
+		$('#edit-instance-box form').live('submit', function(e)
 		{
 			e.preventDefault();
 			title = $('input[name="title"]', this).val();
@@ -403,7 +415,8 @@
 		$(".accordion").accordion({
 			collapsible: true,
 			header: 'header',
-			autoHeight: false
+			autoHeight: true,
+			clearStyle: true
 		});
 		
 		//Init Sortable
