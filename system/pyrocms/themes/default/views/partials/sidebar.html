@@ -1,0 +1,18 @@
+<!-- Begin sidebar -->
+<div id="sidebar">
+			
+<div id="navigation">
+<h2>{lang('navigation_headline')}</h2>
+				
+<ul>
+{foreach navigation('sidebar') link}
+<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
+{/foreach}
+</ul>
+			
+</div>
+			
+{widget_area('sidebar')}
+			
+</div>
+<!-- End sidebar -->

@@ -1,0 +1,50 @@
+/* GENERAL */
+.error-box {
+	background:#FFEBE8 none repeat scroll 0 0;
+	border:1px solid #DD3C10;
+	margin:5px 5px 10px 5px;
+	padding:5px;
+}
+.notice-box {
+	background:#FFFBE2 none repeat scroll 0 0;
+	border:1px solid #FFE222;
+	margin:5px 5px 10px 5px;
+	padding:5px;
+}
+.success-box {
+	background:#EEFFEE none repeat scroll 0 0;
+	border:1px solid #99CC99;
+	margin:5px 5px 10px 5px;
+	padding:5px;
+}
+
+
+code {
+	display:block;
+	white-space:pre;
+	background-color:#FBFBFD;
+	border:1px solid #DAE0E4;
+	font-size:11px;
+	margin:10px 4px;
+	overflow:auto;
+	padding:8px;
+	font-family:courier new, sans-serif;
+}
+
+
+/* Module content */
+ul.galleries_list li {
+	float:		left;
+	padding:	10px;
+	height:		150px;
+	list-style: none;
+}
+
+/* Comments */
+#comment-list-wrapper {	float:left;	width:45%; }
+#comment-list-wrapper ul { list-style-type:none; margin:0; }
+#comment-list-wrapper ul li { margin-bottom:10px; }
+.comments_list li .gravatar { float:left; margin:0px 10px 5px 0px; }
+.comments_list li .comment_date { font-size:10px; padding:0; }
+
+fieldset#write-comment { float:right; padding: 1em;	width:45%; }

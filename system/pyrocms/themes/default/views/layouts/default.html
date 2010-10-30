@@ -1,67 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	{theme_partial('metadata')}
-</head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 
-<body>
+{theme_partial('metadata')}
 
-	{$template.partials.google_analytics}
-	
-	<div id="header">
-		{theme_partial('header')}
-	</div>
-	
-	<ul id="menu">
-		{foreach navigation('header') link}
-			<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
-		{/foreach}
-	</ul>
-	
-	<div id="content">
-		{theme_partial('breadcrumbs')}
-	
-		<div id="left-column" class="sidebar">
-			
-			<div id="navigation">
-				<h2>{lang('navigation_headline')}</h2>
-				
-				<ul class="spacer-left-dbl">
-					{foreach navigation('sidebar') link}
-					<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
-					{/foreach}
-				</ul>
-				
-			</div>
-			
-			{widget_area('sidebar')}
-			
-		</div>
+<body id="top">
 
+<!-- Begin pageWrapper -->
+<div id="pageWrapper">
+{$template.partials.google_analytics}
+<!-- Begin header -->
+<div id="header">
+	
+{theme_partial('header')}
+</div>
+<!-- End header -->
 
-		<div id="right-column">
-			
-			{if $session->flashdata('notice')}
-		    	<div class="notice-box">{$session->flashdata('notice')}</div>
-		    {/if}
-		    {if $session->flashdata('success')}
-		    	<div class="success-box">{$session->flashdata('success')}</div>
-		    {/if}
-		    {if $session->flashdata('error')}
-		    	<div class="error-box">{$session->flashdata('error')}</div>
-		    {/if}
+<!-- Begin nav -->
+<ul id="head-nav">
+{theme_partial('nav')}
+</ul>
+<!-- End nav -->
+
+<!-- Begin contentWrapper -->
+<div id="contentWrapper">
+
+<!-- Begin content -->
+<div id="content">
+	
+{theme_partial('breadcrumbs')}
+
+{if $session->flashdata('notice')}
+<div class="notice-box">{$session->flashdata('notice')}</div>
+{/if}
+
+{if $session->flashdata('success')}
+<div class="success-box">{$session->flashdata('success')}</div>
+{/if}
+
+{if $session->flashdata('error')}
+<div class="error-box">{$session->flashdata('error')}</div>
+{/if}
 		
-		    {$template.body}
-	    		
-		</div>
+<div class="post">{$template.body}</div>
 	
-	</div>
+</div>
+<!-- End content -->
 
-	<!-- start footer -->
-	<div id="footer">
-		{theme_partial('footer')}
-	</div>
-	<!-- end footer -->
+{theme_partial('sidebar')}
 
-</body>
-</html>	
+</div>
+<!-- End contentWrapper -->
+
+{theme_partial('footer')}

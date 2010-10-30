@@ -1,0 +1,130 @@
+/* CSS RESET */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+body {
+	line-height: 1;
+}
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+ol, ul {
+	margin:0.2em 0 0 2em;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+dt {
+	font-weight:bold;
+	padding:0.5em 0;
+}
+dd {
+	margin-left:2em;
+}
+blockquote {
+	background-color:#FBFBFD;
+	border-color:#DAE0E4;
+	border-style:solid;
+	border-width:1px 1px 1px 3px;
+	padding:5px 8px;
+}
+
+strong {
+	font-weight:bold;
+}
+
+em {
+	font-style:italic;
+}
+
+small {
+	font-size:smaller;
+}
+
+p {
+	padding:0.2em 0 0.3em;
+}
+
+fieldset {
+	padding: 1em;
+	margin: 0 0 1em 0;
+	border:2px solid #254360;
+}
+legend {
+	padding: 0.2em 0.5em;
+	border:2px solid #0077DD;
+	font-size:90%;
+	text-align:right;
+}
+
+fieldset.alternative {
+	border:2px solid #0077DD;
+}
+fieldset.alternative legend {
+	border:2px solid #254360;
+}
+
+/* IMAGES */
+
+img, img:hover {
+	border:none;	
+}
+
+img.left {
+	float: left;
+	margin: 3px 20px 0px 0px;
+}
+
+/* HEADERS */
+
+h1, h2, h3, h4, h5, h6 {
+	display: block;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 2em;
+	margin: .67em 0;
+}
+
+h2 {
+	font-size: 1.5em;
+	margin: .83em 0;
+}
+
+h3 {
+	font-size: 1.17em;
+	margin: 1em 0;
+}
+
+h4 {
+	margin: 1.33em 0;
+}
+
+h5 {
+	font-size: 0.83em;
+	margin: 1.67em 0;
+}
+
+h6 {
+	font-size: 0.67em;
+	margin: 2.33em 0;
+}

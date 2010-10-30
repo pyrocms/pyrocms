@@ -1,0 +1,14 @@
+/* LIST STYLES
+------------------------------------------------------------------------ */
+
+.list-unstyled, .list-inline {
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.list-inline li {
+	display:inline;
+	float:left;
+	margin:0 0.2em;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+{theme_partial('metadata')}
+	</head>
+	<body>
+
+		{$template.partials.google_analytics}
+
+		{theme_partial('header')}
+
+		<div id="page">
+			{if $session->flashdata('notice')}
+		    	<div class="notice-box">{$session->flashdata('notice')}</div>
+		    {/if}
+		    {if $session->flashdata('success')}
+		    	<div class="success-box">{$session->flashdata('success')}</div>
+		    {/if}
+		    {if $session->flashdata('error')}
+		    	<div class="error-box">{$session->flashdata('error')}</div>
+		    {/if}
+			
+			<div id="content">
+				{pyro:template:body}
+			</div>
+
+			<div id="sidebar">
+				<ul>
+					<li>
+						<h2>{lang('navigation_headline')}</h2>
+						<ul>
+						{foreach navigation('sidebar') link}
+							<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
+						{/foreach}
+						</ul>
+					</li>
+					<li>
+					{if $session->userdata('user_id')}
+						<h2>{cat($user->first_name ' ' $user->last_name)}</h2>
+						<ul>
+							<li><a href="{site_url('users/logout')}">{lang('logout_label')}</a></li>
+
+						{if $settings->item('enable_profiles')}
+							<li>{anchor('edit-profile', lang('edit_profile_label'))}</li>
+						{/if}
+
+							<li>{anchor('edit-settings', lang('settings_label'))}</li>
+
+						{if $ion_auth->is_admin()}
+							<li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
+						{/if}
+						</ul>
+					{else}
+						{$load->view('users/login_small')}
+					{/if}
+					</li>
+				</ul>
+			</div>
+
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+
+		<div id="footer">
+			{theme_partial('footer')}
+		</div>
+
+	</body>
+</html>

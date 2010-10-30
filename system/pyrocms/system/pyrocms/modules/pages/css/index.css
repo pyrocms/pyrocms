@@ -1,0 +1,44 @@
+#page-tree { 
+	background-color:#efeff6;
+	border:1px #BBB solid;
+	float:left;
+	height: 35em;
+	overflow:auto;
+	width: 48%;
+}
+
+#page-tree ul { background:none; margin-left:0.7em !important; }
+#page-tree a { text-decoration: none; color:black; padding:0.2em }
+#page-tree a.selected { border:1px dotted black; }
+#page-tree a:hover { background-color: black; border:1px dotted white; color: #fff; }
+
+#page-details {
+	background-color: #fff;
+	border-top: 1px solid #ddd;
+	border-left: none;
+	border-right: none; 
+	float:right;
+	min-height: 33em;
+	padding:1em;
+	width: 48%;
+	color: #666;
+}
+
+#page-details h4 { margin:0.5em 0; }
+#page-details fieldset { 
+	border: 1px solid #ddd;
+	border-right: none;
+	border-left: none;
+	background-color: #fcfcfc;
+	padding: 0px 5px;
+}
+#page-details fieldset p strong {
+	width: 35%;
+	display: inline-block;
+	text-align: right;
+	padding-right: 10px;
+}
+#page-details fieldset legend {
+	margin-left: 10px;
+	font-weight: bold;
+}

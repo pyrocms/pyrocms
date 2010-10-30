@@ -1,0 +1,108 @@
+/** Global backend form.crud styles **/
+
+/** tidy up how ol, ul look inside form.crud areas **/
+form.crud ol, form.crud ul {
+	list-style-type: none;
+}
+form.crud li {	
+	margin: 0;
+	overflow: hidden;
+	padding: 15px 8px;
+	vertical-align: middle;	
+}
+form.crud li.even {
+	background-color: #f3f3f3;
+	-moz-border-radius: 5px 5px 5px 5px;
+}
+/** group labels and input **/
+form.crud label {
+	display: inline-block;
+	float: left;
+	font-weight: bold;
+	font-size: 11px;
+	width: 140px;
+	max-width: 140px;
+	min-width: 10em;
+	margin-right: 15px;
+	padding: .35em 0;
+	color: #545454;
+	text-align: right;
+	
+}
+/*
+fieldset ol li div, fieldset ul li div, form.crud ul li div {
+	width: 75%;
+	max-width: 75%;
+	min-width: 25%;
+}
+*/
+
+/** text input **/
+form.crud input[type=text] {
+	width: 20em;
+}
+/** selects **/
+form.crud select {
+	width: 20em;
+}
+/** this sits the width back to a fixed width for selects **/
+form.crud div.selector {
+	width: 200px;
+}
+/** check boxes **/
+form.crud div.checker {
+	margin-right: 0;
+}
+/** file upload element **/
+form.crud ul li div.uploader {
+	width: 190px;
+}
+/** helper text **/
+form.crud li p, .text-small1 {
+	color: #7E7E7E;
+	font-style: italic;
+}
+span.text-small1 {
+	line-height: 16px;
+	vertical-align: middle;
+}
+form.crud .ui-state-active a {
+	font-weight: bold;
+}
+form.crud span.required-icon {
+	background:url("../../img/admin/input-required.png") no-repeat scroll 0 0 transparent;
+	display:inline-block;
+	height:20px;
+	margin-left:-20px;
+	overflow:hidden;
+	position:relative;
+	text-indent:-9000px;
+	top:-4px;
+	vertical-align:top;
+	width:15px;
+}
+div#filter {
+	height: 34px;
+	padding: 0 10px;
+	border-bottom: 1px solid #C2C2C2;
+}
+form.filter h6 {
+	float: left;
+	margin: 4px 5px 0 0;
+	font-weight: lighter;
+	font-style: italic;
+}
+form.filter {
+	width: 100%;
+}
+form.filter ul {
+	list-style-type: none;
+	margin-bottom: 0;
+}
+form.filter div.button {
+	margin-top: 2px;
+}
+form.filter li {
+	float: left;
+	margin: 4px 0 0 0;
+}

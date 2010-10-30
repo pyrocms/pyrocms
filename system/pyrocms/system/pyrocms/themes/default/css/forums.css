@@ -1,0 +1,289 @@
+
+/*************************************
+ * Breadcrumbs Style
+ *************************************/
+
+p#forum_breadcrumbs {
+	font-size: 11px;
+	color: #333333;
+}
+p#forum_breadcrumbs a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #333333;
+}
+
+p#forum_breadcrumbs a:hover {
+	text-decoration: underline;
+}
+
+p#forum_breadcrumbs span.current {
+	font-weight: normal;
+}
+
+
+/*************************************
+ * Forum Table Styles
+ *************************************/
+
+table.forum_table {
+	width: 100%;
+	border: 0px;
+	font-size: 12px;
+}
+
+table.forum_table * td,
+table.forum_table * th {
+	padding: 10px;
+}
+
+
+table.forum_table thead tr td,
+table.forum_table thead tr th {
+	padding: 5px;
+	line-height: 1.5em;
+}
+
+table.forum_table thead th {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #EEEEEE;
+	color: #333333;
+}
+
+table.forum_table thead th.header {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #DDDDDD;
+	color: #333333;
+	padding-left: 10px;
+}
+
+table.forum_table tbody td {
+	color: #333333;
+	border-bottom: 1px solid #DDDDDD;
+	vertical-align: middle;
+}
+
+table.forum_table tbody td span.description {
+	font-size: 10px;
+}
+
+table.forum_table tbody td.lastpost_info {
+	font-size: 10px;
+	line-height: 1.5em;
+}
+
+
+/*************************************
+ * Topic Table Styles
+ *************************************/
+
+table.topic_table {
+	width: 100%;
+	border: 0px;
+	font-size: 12px;
+	border-collapse: collapse;
+}
+
+table.topic_table * td,
+table.topic_table * th {
+	padding: 10px;
+}
+
+table.topic_table thead tr td,
+table.topic_table thead tr th {
+	padding: 5px;
+	line-height: 1.5em;
+}
+
+table.topic_table tbody td {
+	border: 1px solid #DDDDDD;
+	border-collapse: collapse;
+	vertical-align: top;
+}
+
+table.topic_table tbody td.postreport {
+	font-weight: normal;
+	text-align: right;
+	padding: 5px;
+	line-height: 1em;
+}
+
+table.topic_table tbody tr.postlinks td {
+	padding: 5px;
+	line-height: 1em;
+}
+
+table.topic_table thead th.header {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #BBBBBB;
+	color: #333333;
+	padding-left: 10px;
+}
+table.topic_table tbody tr.postinfo td {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #DDDDDD;
+	color: #333333;
+	border-top: 3px solid #CCCCCC;
+	border-left: 0px;
+	border-right: 0px;
+	padding: 5px;
+	line-height: 1em;
+}
+
+
+/*************************************
+ * Form Table Styles
+ *************************************/
+
+table.form_table * td,
+table.form_table * th {
+	padding: 8px;
+}
+
+table.form_table tbody td, table.form_table tbody th {
+	color: #333333;
+	vertical-align: middle;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.form_table tbody th.textarea_label,
+table.form_table tbody td.textarea_label {
+	vertical-align: top;
+}
+
+table.form_table tbody th {
+	text-align: right;
+	font-weight: bold;
+}
+
+table.form_table thead th.header {
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.form_table tbody td input,
+table.form_table tbody td textarea {
+	width: 100%;
+}
+
+table.form_table tbody td.form_buttons input,
+table.form_table tbody td.form_options input {
+	width: auto;
+}
+
+
+/*************************************
+ * Error Styles
+ *************************************/
+
+div.errors {
+	padding: 10px;
+	font-size: 12px;
+	color: #FF0000;
+	background-color: #EEEEEE;
+	border: 1px solid #CCCCCC;
+}
+
+p.form_error {
+	padding: 0px;
+	margin: 3px 0;
+	color: #FF0000;
+	font-weight: bold;
+}
+
+/*************************************
+ * General Forum Styles
+ *************************************/
+td.forum_icon {
+	padding: 0px;
+	text-align: center;
+}
+div.forum_buttons {
+	display: block;
+	margin: 10px 0px;
+}
+div.forum_buttons a {
+	display: block;
+	float: left;
+	padding: 2px 15px;
+	color: #FFFFFF;
+	background-color: #666666;
+	text-decoration: none;
+	margin: 0 5px 0 0;
+}
+
+div.forum_buttons a:hover {
+	color: #333333;
+	background-color: #DDDDDD;
+}
+
+div.preview {
+	border: 1px solid #CCCCCC;
+	background-color: #EEEEEE;
+	padding: 10px;
+}
+div.preview h4 {
+	font-size: 14px;
+	margin: 0 0 5px 0;
+	padding: 0px;
+	font-weight: bold;
+	color: #FF0000;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+div.preview h5 {
+	font-size: 12px;
+	margin: 0 0 5px 0;
+	font-weight: bold;
+}
+
+td.center_col, th.center_col {
+	text-align: center;
+}
+
+code {
+	background-color:		#fbfbfd;
+	border:					1px solid #dae0e4;
+	font-size:				11px;
+	margin:					10px 4px;
+	padding:				8px;
+	/*width:					95%;*/
+	overflow:				auto;
+	white-space: pre;
+}
+
+blockquote {
+	border:					1px solid #dae0e4;
+	border-left:			3px solid #dae0e4;
+	background-color:		#fbfbfd;
+	padding:				5px 8px;
+}
+
+.quote_author {
+	font-size:				10px;
+	font-weight:			bold;
+	font-style:				italic;
+}
+
+.authorinfo {font-size: small}
+
+p.forum_buttons a {
+	display: block;
+	float: left;
+	padding: 2px 10px;
+	color: #FFFFFF;
+	background-color: #666666;
+	text-decoration: none;
+	margin: 0 5px 0 0;
+}
+
+p.forum_buttons a:hover {
+	color: #333333;
+	background-color: #DDDDDD;
+}

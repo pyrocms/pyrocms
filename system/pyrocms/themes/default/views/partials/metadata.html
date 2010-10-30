@@ -1,13 +1,41 @@
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>{pyro:template:title} | {pyro:settings:site_name}</title>
+ <!-- saved from url=(0014)about:internet -->
 
+<!-- Begin head -->
+<head profile="http://gmpg.org/xfn/11">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta name="author" content="iKreativ.com" />
+<meta name="copyright" content="PyroCMS.com" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="language" content="en" />
+
+<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
+<!-- Begin stylesheets -->
 {css('style.css')}
-{theme_css('layout.css')}
-
-{js('jquery/jquery.js')}
-{js('jquery/jquery.fancybox.js')}
-{css('jquery/jquery.fancybox.css')}
-
-{js('front.js')}
+{theme_css('style.css')}
+<!-- End stylesheets -->
 
 {pyro:template:metadata}
+
+<!-- Place CSS bug fixes for IE 6 in this comment -->
+<!--[if IE 6]>
+<meta http-equiv="refresh" content="0; url=http://www.microsoft.com/windows/internet-explorer/default.aspx" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window.top.location = 'http://www.microsoft.com/windows/internet-explorer/default.aspx';
+/* ]]> */
+</script>
+<![endif]-->
+
+<!-- Place CSS bug fixes for IE 7 in this comment -->
+<!--[if IE 7]>
+{theme_css('ie.css')}
+<![endif]-->
+
+<title>{pyro:settings:site_name}&nbsp;&bull;&nbsp;{pyro:template:title}</title>
+
+</head>

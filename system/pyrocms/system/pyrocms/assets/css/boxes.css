@@ -1,0 +1,39 @@
+/* STANDARD DIV STYLING
+   Most boxes inherit properties from the generic box style.
+---------------------------------------------------------------------- */
+
+/* generic box with no colour or dimensions set */
+
+.box {
+	position: relative;
+	height: 1%;
+	padding: 0 0.79em;
+	margin: 0 0 0.79em 0;
+	text-align:left;
+}
+.box h3 {
+	font-size: 1.5em;
+}
+.box h4 {
+	font-size: 1.3em;
+}
+
+.width-full 		{ width:100% !important; }
+.width-three-quaters{ width:74% !important; }
+.width-two-thirds 	{ width:66% !important; }
+.width-half 		{ width:45% !important; }
+.width-third 		{ width:33% !important; }
+.width-quater 		{ width:25% !important; }
+
+.width-5  { width:5em !important; }
+.width-7  { width:7em !important; }
+.width-10 { width:10em !important; }
+.width-15 { width:15em !important; }
+.width-20 { width:20em !important; }
+.width-22 { width:22em !important; }
+.width-25 { width:25em !important; }
+.width-30 { width:30em !important; }
+.width-40 { width:40em !important; }
+.width-50 { width:50em !important; }
+
+.dark-grey-bg {	background-color: #555; }

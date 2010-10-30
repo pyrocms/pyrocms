@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	{theme_partial('metadata')}
+</head>
+
+<body>
+
+	{if $settings->item('google_analytic')}
+		{$load->view('fragments/google_analytic')}
+	{/if}
+	
+	<div id="header">
+		{theme_partial('header')}
+	</div>
+	
+	<ul id="menu">
+		{foreach navigation('header') link}
+			<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
+		{/foreach}
+	</ul>
+	
+	<div id="content">
+
+			{if $session->flashdata('notice')}
+		    	<div class="notice-box">{$session->flashdata('notice')}</div>
+		    {/if}
+		    {if $session->flashdata('success')}
+		    	<div class="success-box">{$session->flashdata('success')}</div>
+		    {/if}
+		    {if $session->flashdata('error')}
+		    	<div class="error-box">{$session->flashdata('error')}</div>
+		    {/if}
+		
+		    {$template.body}
+	    		
+	</div>
+
+	<!-- start footer -->
+	<div id="footer">
+		{theme_partial('footer')}
+	</div>
+	<!-- end footer -->
+
+</body>
+</html>	

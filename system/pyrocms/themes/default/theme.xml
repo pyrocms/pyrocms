@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <theme>
-  <name>Advertising</name>
-  <author>Free CSS Templates</author>
-  <author_website>http://freecsstemplates.org</author_website>
-  <website>http://www.freecsstemplates.org/preview/advertising</website>
-  <description>2-column, fixed; horizontal nav; blue header with white body.</description>
+  <name>PyroCMS Theme</name>
+  <author>Built by iKreativ for PyroCMS</author>
+  <author_website>http://ikreativ.com</author_website>
+  <website>http://pyrocms.com</website>
+  <description>Default PyroCMS v1.0 Theme - 2 Column, Fixed width, Horizontal navigation, CSS3 styling.</description>
   <version>1.0</version>
 </theme>
