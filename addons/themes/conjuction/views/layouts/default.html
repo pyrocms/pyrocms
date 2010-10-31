@@ -29,9 +29,7 @@
 					<li>
 						<h2>{lang('navigation_headline')}</h2>
 						<ul>
-						{foreach navigation('sidebar') link}
-							<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
-						{/foreach}
+							{pyro:navigation:links group="header"}
 						</ul>
 					</li>
 					<li>

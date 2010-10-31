@@ -21,9 +21,7 @@
      <div id="tabs" class="noprint">
 
             <ul class="boxc">
-			{foreach navigation('header') link}
-                <li{if $link->url == current_url()} id='active'{/if}><a href="{$link->url}" target="{$link->target}">{$link->title}<span class="tab-l"></span><span class="tab-r"></span></a></li>
-			{/foreach}
+				{pyro:navigation:links group="header"}
 			</ul>
 		<hr class="noscreen" />
      </div> <!-- /tabs -->
@@ -90,22 +88,18 @@
 				
 				<li>{anchor('edit-settings', lang('settings_label'))}</li>
 				
-				{if $ci->ion_auth->is_admin()}
+				{if $user->grouo eq 'admin'}
 					 <li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
 				{/if}
 				</ul>
 				
 			{/if}
-			
-				{if navigation('sidebar')}
-					<h3><span>{lang('navigation_headline')}</span></h3>
-					<ul id="links">
-					{foreach navigation('sidebar') link}
-						<li>{anchor($link->url, $link->title, array(target=$link->target))}</li>
-					{/foreach}
-					</ul>
-				{/if}
-				
+
+				<h3><span>{lang('navigation_headline')}</span></h3>
+				<ul id="links">
+					{pyro:navigation:links group="sidebar"}
+				</ul>
+
 				{widget_area('sidebar')}
 				
                 <hr class="noscreen" />

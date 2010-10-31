@@ -53,7 +53,7 @@ $autoload['libraries'] = array('asset', 'database', 'session', 'cache', 'templat
 
 $autoload['helper'] = array(
 	'debug', 'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array', 'gravatar',
-	'comments/comments', 'pages/pages', 'modules/module', 'navigation/navigation', 'widgets/widgets', 'themes/theme'
+	'comments/comments', 'pages/pages', 'modules/module', 'widgets/widgets'
 );
 
 

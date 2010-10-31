@@ -1,15 +1,16 @@
 <!-- Begin footer -->
 <div id="footerWrapper">
-<div id="footer">
-	
-<div id="poweredby"><a href="http://pyrocms.com"><img src="{$pyro.application_uri}/themes/default/img/logo.png" alt="Poweredby PyroCMS"> Powered by PyroCMS</div>
+	<div id="footer">
 
-<ul id="foot-nav">
-{foreach navigation('header') link}<li class="link">{anchor( $link->url, $link->title,  array(target=$link->target))}</li>{/foreach} {foreach navigation('footer') link}<li class="link">{anchor( $link->url, $link->title,  array(target=$link->target))}</li>{/foreach} <li><a class="last" href="#top" title="Back to Top">Top &uarr;</a></li><br />
-&copy;{date('Y')} {$settings->item('site_name')}. All Rights Reserved.
-</ul>
+	<div id="poweredby"><a href="http://pyrocms.com/"><img src="{$pyro.application_uri}/themes/default/img/logo.png" alt="Poweredby PyroCMS"> Powered by PyroCMS</div>
 
-</div>
+	<ul id="foot-nav">
+		{pyro:navigation:links group="footer"}
+		<li><a class="last" href="#top" title="Back to Top">Top &uarr;</a></li><br />
+		&copy;{date('Y')} {$settings->site_name}. All Rights Reserved.
+	</ul>
+
+	</div>
 </div>
 <!-- End footer -->
 

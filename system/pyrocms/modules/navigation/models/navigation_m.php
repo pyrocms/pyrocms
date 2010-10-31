@@ -238,16 +238,21 @@ class Navigation_m extends CI_Model
 	public function load_group($abbrev)
 	{
 		$group = $this->get_group_by('abbrev', $abbrev);
-		
+
+		if ( ! $group)
+		{
+			return FALSE;
+		}
+
 		$group_links = $this->get_links(array(
-    			'group'=>$group->id,
-    			'order'=>'position, title'
-    		));
+			'group'=> $group->id,
+			'order'=>'position, title'
+		));
     		
 		$has_current_link = false;
 			
 		// Loop through all links and add a "current_link" property to show if it is active
-		if( !empty($group_links) )
+		if( ! empty($group_links) )
 		{
 			foreach($group_links as &$link)
 			{

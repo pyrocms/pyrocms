@@ -110,5 +110,3 @@ function js_path($asset_name, $module_name = NULL)
 	$CI->load->library('asset');
 	return $CI->asset->js_path($asset_name, $module_name);
 }
-
-?>
