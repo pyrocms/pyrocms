@@ -213,83 +213,9 @@ class MY_Parser extends CI_Parser {
 	 */
 	public function parser_callback($data)
 	{
-		if ( ! isset($data['segments'][0]) OR ! isset($data['segments'][1]))
-		{
-			return FALSE;
-		}
-
-		// Setup our paths from the data array
-		$class = $data['segments'][0];
-		$method = $data['segments'][1];
-		$addon = strtolower($class);
-		$return_data = '';
-
-		// Get active add-ons
-		$this->_ci->load->model('modules/module_m');
-		$addons = $this->_ci->module_m->get_all();
-
-		foreach ($addons as $item)
-		{
-			// First check core addons then 3rd party
-			if ($item['is_core'] == 1)
-			{
-				$addon_path = APPPATH.'modules/'.$class.'/libraries/'.ucfirst($class).'.plugin'.EXT;
-				if ( ! file_exists($addon_path))
-				{
-					log_message('error', 'Unable to load: '.$class);
-					$return = FALSE;
-				}
-				else
-				{
-					include_once($addon_path);
-					$class_name = 'Plugin_'.$class;
-					$class_init = new $class_name;
-					$return_data = $this->_process($class_init, $method, $data);
-					break;
-				}
-			}
-			else
-			{
-				$addon_path = ADDONPATH.'modules/'.$class.'/libraries/'.$class.'.plugin'.EXT;
-				$library_path = ADDONPATH.'libraries/'.$class.'.plugin'.EXT;
-
-				// First check addon_path
-				if (file_exists($addon_path))
-				{
-					// Load it up
-					include_once($addon_path);
-					$class_name = 'Plugin_'.$class;
-					$class_init = new $class_name;
-
-					// How about a language file?
-					$lang_path = ADDONPATH.'modules/'.$class.'/language/'.$this->_ci->config->item('language').'/'.$addon.'_lang'.EXT;
-					if (file_exists($lang_path))
-					{
-						$this->_ci->lang->load($addon.'/'.$addon);
-					}
-
-					// Now the fun stuff!
-					$return_data = $this->_process($class_init, $method, $data);
-					break;
-				}
-				elseif (file_exists($library_path))
-				{
-					// Load it up
-					include_once($library_path);
-					$class_name = 'Plugin_'.$class;
-					$class_init = new $class_name;
-
-					// Now the fun stuff!
-					$return_data = $this->_process($class_init, $method, $data);
-					break;
-				}
-				else
-				{
-					log_message('error', 'Unable to load: '.$class);
-					$return = FALSE;
-				}
-			}
-		}
+		$this->_ci->load->library('plugins');
+		
+		$return_data = $this->_ci->plugins->locate($data);
 
 		if (is_array($return_data))
 		{
@@ -312,28 +238,6 @@ class MY_Parser extends CI_Parser {
 		}
 
 		return $return_data;
-	}
-
-	 // --------------------------------------------------------------------
-
-	/**
-	 * Process
-	 *
-	 * Just process the class
-	 *
-	 * @access	private
-	 * @param	object
-	 * @param	string
-	 * @param	array
-	 * @return	mixed
-	 */
-	private function _process($class, $method, $data)
-	{
-		if (method_exists($class, $method))
-		{
-			return $class->$method($data);
-		}
-		return FALSE;
 	}
 
 	// ------------------------------------------------------------------------

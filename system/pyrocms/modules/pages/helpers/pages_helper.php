@@ -15,6 +15,7 @@
  * @param int $id The ID of the page
  * @return string
  */
+#deprecated
 function page_url($id)
 {
 	$CI =& get_instance();
@@ -31,6 +32,7 @@ function page_url($id)
  * @param array $options Optional options, how awesome sounds that?
  * @return string
  */
+#deprecated
 function page_anchor($id, $text = '', $options = array())
 {
 	$CI =& get_instance();

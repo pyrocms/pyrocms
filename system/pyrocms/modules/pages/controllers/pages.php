@@ -31,7 +31,7 @@ class Pages extends Public_Controller
 		// This will be interesting later
 		$this->viewing_homepage = $this->uri->segment(1, $this->default_segment) == $this->default_segment;
 		
-		if ($this->viewing_homepage && $route['default_controller'] != 'pages')
+		if ($this->viewing_homepage AND $route['default_controller'] != 'pages')
 		{
 			redirect('');
 		}
@@ -84,7 +84,7 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
 
 		// If page is missing or not live (and not an admin) show 404
-		if ( ! $page OR ($page->status == 'draft' && ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
+		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
         {
         	$page = $this->_404($url_segments);
         }
@@ -108,31 +108,32 @@ class Pages extends Public_Controller
 	    }
         
     	// Wrap the page with a page layout, otherwise use the default 'Home' layout
-	    if (!$page->layout = $this->page_layouts_m->get($page->layout_id))
+	    if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
 	    {
 	    	// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
 	    	$page->layout = $this->page_layouts_m->get(1);
 	    }
 
 		// If a Page Layout has a Theme Layout that exists, use it
-		if (!empty($page->layout->theme_layout) && $this->template->layout_exists($page->layout->theme_layout))
+		if ( ! empty($page->layout->theme_layout) AND $this->template->layout_exists($page->layout->theme_layout))
 		{
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 	    
-	    // Define data elements
+	    // Convert to an array for nicer Dwoo syntax
 		$page_array = (array) $page;
-
 		$page_array['layout'] = (array) $page_array['layout'];
 
+		// Parse it so the content is parsed
+//		$page->body = $this->parser->parse_string($page->body, array('page' => $page_array), TRUE);
 		
-        $this->template->page = $page_array;
-	    
         // Create page output
 	    $this->template->title($page->meta_title)
 	    
         	->set_metadata('keywords', $page->meta_keywords)
         	->set_metadata('description', $page->meta_description)
+
+			->set('page', $page_array)
 
 			->append_metadata('
 				<style type="text/css">
@@ -161,7 +162,7 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if (empty($page) OR ($page->status == 'draft' && $this->user->group !== 'admin') OR !$page->rss_enabled)
+		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR !$page->rss_enabled)
         {
         	// Will try the page then try 404 eventually
         	$this->_page('404');
@@ -178,7 +179,7 @@ class Pages extends Public_Controller
 		$data->rss->link = site_url($url_segments);
 		$data->rss->creator_email = $this->settings->contact_email;
 		
-		if (!empty($children))
+		if ( ! empty($children))
 		{
 			$this->load->helper(array('date', 'xml'));
 			
@@ -214,7 +215,7 @@ class Pages extends Public_Controller
     public function _404($url_segments)
     {
     	// Try and get an error page. If its been deleted, show nasty 404
-        if (!$page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
+        if ( ! $page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
         {
 			log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
 			
