@@ -209,7 +209,7 @@ class Versioning
 	 */
 	public function get_revisions($owner_id)
 	{
-		$query = $this->ci->db
+		return $this->ci->db
 			->select($this->table_name . '.title, revisions.*, users.username as author')
 			->where('revisions.owner_id',$owner_id)
 			->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')

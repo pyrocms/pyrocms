@@ -309,7 +309,7 @@ class Admin extends Admin_Controller
 	    $this->page_id 	= $id;
 	    $page 			= $this->versioning->get($id);
 		$revisions		= $this->versioning->get_revisions($id);
-
+	
 	    // Got page?
 	    if ( ! $page)
 	    {
@@ -459,7 +459,8 @@ class Admin extends Admin_Controller
 
 		// Output the results
 		$data['difference'] = $diff;
-		$this->load->view('admin/revisions/compare', $data);
+		$this->template->set_layout('modal', 'admin')
+				->build('admin/revisions/compare', $data);
 	}
 
 	/**
@@ -474,6 +475,7 @@ class Admin extends Admin_Controller
 	{
 		// Easy isn't it?
 		$data['revision'] = $this->versioning->get_by_revision($id);
-		$this->load->view('admin/revisions/preview', $data);
+		$this->template->set_layout('modal', 'admin')
+				->build('admin/revisions/preview', $data);
 	}
 }
