@@ -9,7 +9,7 @@
  * @copyright	Copyright (c) 2008 - 2010, PyroCMS
  *
  */
-class Plugin_Pages extends Plugin
+class Plugin_Widgets extends Plugin
 {
 	function __construct($data)
 	{
@@ -31,7 +31,7 @@ class Plugin_Pages extends Plugin
 	 */
 	public function area()
 	{
-		$area = $this->attribute('area');
+		$slug = $this->attribute('slug');
 
 		return $this->widgets->render_area($slug);
 	}

@@ -29,10 +29,6 @@
 	
 {pyro:theme:partial file="breadcrumbs"}
 
-{pyro:pages:children id="6"}
- 	<h2>Hi {pyro:title}</h2>
-{/pyro:pages:children}
-
 {if $session->flashdata('notice')}
 <div class="notice-box">{$session->flashdata('notice')}</div>
 {/if}
