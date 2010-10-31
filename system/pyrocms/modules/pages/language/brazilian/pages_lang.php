@@ -33,6 +33,9 @@ $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Rascunho';
 $lang['pages.live_label'] 						= 'Produção';
 $lang['pages.revisions_label']					= 'Revisões';
+$lang['pages.compare_label']                                    = 'Compare'; #translate
+$lang['pages.preview_label']                                    = 'Preview'; #translate
+$lang['pages.current_label']                                    = 'Current'; #translate
 
 $lang['pages.view_label'] 						= 'Ver';
 $lang['pages.create_label'] 					= 'Adicionar filho';
@@ -45,6 +48,8 @@ $lang['pages.edit_title'] 						= 'Editar página "%s"';
 $lang['pages.list_title'] 						= 'Listar páginas';
 $lang['pages.layouts_create_title'] 			= 'Adicionar página de layout';
 $lang['pages.layouts_list_title'] 				= 'Listar páginas de layout';
+$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
+$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
 
 // messages
 $lang['pages.no_pages'] 						= 'Nenhuma página encontrada.';

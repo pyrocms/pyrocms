@@ -144,39 +144,39 @@
 				<ul>
 					<!-- Select a revision -->
 					<li>
-						<label for="use_revision_id">Use Revision</label>
+						<label for="use_revision_id"><?php echo lang('pages.preview_revision_title'); ?></label>
 						<select id="use_revision_id" name="use_revision_id">
 							<!-- Current revision to be used -->
-							<optgroup label="Current">
+							<optgroup label="<?php echo lang('pages.current_label'); ?>">
 								<option value="<?php echo @$page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', @$page->revision_date); ?></option>
 							</optgroup>
 							<!-- All available revisions -->
-							<optgroup label="Revisions">
+							<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 								<?php foreach ($revisions as $revision): ?>
 								<option value="<?php echo @$revision->id; ?>"><?php echo date('d-m-Y @ H:i', @$revision->revision_date); ?></option>
 								<?php endforeach; ?>
 							</optgroup>
 						</select>
-						<input type="button" name="btn_preview_revision" id="btn_preview_revision" value="Preview" />
+						<input type="button" name="btn_preview_revision" id="btn_preview_revision" value="<?php echo lang('pages.preview_label'); ?>" />
 					</li>
 					<!-- Compare two revisions -->
 					<li class="even">
-						<label for="compare_revision_1">Compare Revisions</label>
+						<label for="compare_revision_1"><?php echo lang('pages.compare_revisions_title'); ?></label>
 						<?php $i = 1; while ($i <= 2): ?>
 						<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
 							<!-- Current revision to be used -->
-							<optgroup label="Current">
+							<optgroup label="<?php echo lang('pages.current_label'); ?>">
 								<option value="<?php echo @$page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', @$page->revision_date); ?></option>
 							</optgroup>
 							<!-- All available revisions -->
-							<optgroup label="Revisions">
+							<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 								<?php foreach ($revisions as $revision): ?>
 								<option value="<?php echo @$revision->id; ?>"><?php echo date('d-m-Y @ H:i', @$revision->revision_date); ?></option>
 								<?php endforeach; ?>
 							</optgroup>
 						</select>
 						<?php ++$i; endwhile; ?>
-						<input type="button" name="btn_compare_revisions" id="btn_compare_revisions" value="Compare" />
+						<input type="button" name="btn_compare_revisions" id="btn_compare_revisions" value="<?php echo lang('pages.compare_label'); ?>" />
 					</li>
 				</ul>
 			</div>

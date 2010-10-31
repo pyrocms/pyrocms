@@ -32,7 +32,10 @@ $lang['pages.comments_enabled_label']			= 'Comments enabled';
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Draft';
 $lang['pages.live_label'] 						= 'Live';
-$lang['pages.revisions_label']					= 'Revisions'; #translate
+$lang['pages.revisions_label']					= 'Revisions';
+$lang['pages.compare_label']                                    = 'Compare';
+$lang['pages.preview_label']                                    = 'Preview';
+$lang['pages.current_label']                                    = 'Current';
 
 $lang['pages.view_label'] 						= 'View';
 $lang['pages.create_label'] 					= 'Add child';
@@ -45,6 +48,8 @@ $lang['pages.edit_title'] 						= 'Edit page "%s"';
 $lang['pages.list_title'] 						= 'List pages';
 $lang['pages.layouts_create_title'] 			= 'Add page layout';
 $lang['pages.layouts_list_title'] 				= 'List page layouts';
+$lang['pages.compare_revisions_title']                          = 'Compare Revisions';
+$lang['pages.preview_revision_title']                           = 'Preview Revision';
 
 // messages
 $lang['pages.no_pages'] 						= 'There are no pages.';

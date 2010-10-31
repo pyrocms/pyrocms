@@ -32,6 +32,11 @@ $lang['pages.comments_enabled_label'] 			= 'Komentarze włączone';
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label']						= 'Robocza';
 $lang['pages.live_label'] 						= 'Opublikowana';
+$lang['pages.revisions_label']					= 'Revisions'; #translate
+$lang['pages.compare_label']                                    = 'Compare'; #translate
+$lang['pages.preview_label']                                    = 'Preview'; #translate
+$lang['pages.current_label']                                    = 'Current'; #translate
+
 
 $lang['pages.view_label'] 						= 'Podgląd';
 $lang['pages.create_label'] 					= 'Dodaj potomka';
@@ -44,6 +49,8 @@ $lang['pages.edit_title'] 						= 'Edytuj stronę "%s"';
 $lang['pages.list_title'] 						= 'Lista stron';
 $lang['pages.layouts_create_title'] 			= 'Dodaj layout strony';
 $lang['pages.layouts_list_title'] 				= 'Lista layoutów stron';
+$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
+$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
 
 // messages
 $lang['pages.no_pages'] 						= 'Nie ma żadnych stron.';

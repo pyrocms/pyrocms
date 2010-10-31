@@ -33,6 +33,10 @@ $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Concept';
 $lang['pages.live_label'] 						= 'Live';
 $lang['pages.revisions_label']					= 'Revisies';
+$lang['pages.compare_label']                                    = 'Compare'; #translate
+$lang['pages.preview_label']                                    = 'Preview'; #translate
+$lang['pages.current_label']                                    = 'Current'; #translate
+
 
 $lang['pages.view_label'] 						= 'Bekijk';
 $lang['pages.create_label'] 					= 'Voeg kind toe';
@@ -45,6 +49,8 @@ $lang['pages.edit_title'] 						= 'Wijzig pagina "%s"';
 $lang['pages.list_title'] 						= 'Toon alle pagina&apos;s';
 $lang['pages.layouts_create_title'] 			= 'Voeg een paginalayout toe';
 $lang['pages.layouts_list_title'] 				= 'Toon alle paginalayouts';
+$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
+$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
 
 // messages
 $lang['pages.no_pages'] 						= 'Er zijn geen pagina&apos;s';

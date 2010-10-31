@@ -32,7 +32,11 @@ $lang['pages.comments_enabled_label']			= 'Kommentare aktiviert';
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Entwurf';
 $lang['pages.live_label'] 						= 'Live';
-$lang['pages.revisions_label']					= 'Änderungsübersicht'; 
+$lang['pages.revisions_label']					= 'Änderungsübersicht';
+$lang['pages.compare_label']                                    = 'Compare'; #translate
+$lang['pages.preview_label']                                    = 'Preview'; #translate
+$lang['pages.current_label']                                    = 'Current'; #translate
+
 
 $lang['pages.view_label'] 						= 'Ansicht';
 $lang['pages.create_label'] 					= 'Unterobjekt hinzufügen';//there is no german word for 'child' (in this context at least)
@@ -45,6 +49,8 @@ $lang['pages.edit_title'] 						= 'Seite "%s" bearbeiten';
 $lang['pages.list_title'] 						= 'Seiten auflisten';
 $lang['pages.layouts_create_title'] 			= 'Seitenlayout hinzufügen';
 $lang['pages.layouts_list_title'] 				= 'Seitenlayouts auflisten';
+$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
+$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
 
 // messages
 $lang['pages.no_pages'] 						= 'Es existieren keine Seiten.';
