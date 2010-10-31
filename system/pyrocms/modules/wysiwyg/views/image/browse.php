@@ -1,14 +1,22 @@
 <script type="text/javascript">
 var CKEDITOR = window.parent.CKEDITOR;
-
+var img_float;
 function insertImage(file, alt)
 {
 	if(replace_html)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/' + file + '" alt="' + alt + '" />');
+	var img_width = document.getElementById('insert_width').value;
+	
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="<?php echo base_url(); ?>uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
     windowClose();
+}
+
+function get_float()
+{
+    img_float = jQuery('input[name=insert_float]:checked').val();
+    return img_float;
 }
 
 // By default, insert (which will also replace)
@@ -56,21 +64,46 @@ var replace_html = null;
 		}
 
 		detectFile() || $('#current_document h2').hide();
+		
+		$('#images-container img').hover( function() {
+		    $(this).attr('title', 'Click to insert image');
+		});
 	});
 })(jQuery);
 </script>
 <?php if (!empty($folders)): ?>
-
-<ul>
-	<?php foreach ($folders as $folder): ?>
-	<li><?php echo anchor('admin/wysiwyg/image/browse/'.$folder->id, $folder->name); ?>
-	<?php endforeach; ?>
-</ul>
-
+<div id="folder-container">
+<h3>Available Folders</h3>
+    <ul>
+	    <?php foreach ($folders as $folder): ?>
+	    <li class="folder">
+		<p class="name"><?php echo anchor('admin/wysiwyg/image/browse/'.$folder->id, $folder->name); ?></p>
+		<p class="image">
+		    <?php echo anchor('admin/wysiwyg/image/browse/'.$folder->id,
+		    '<img src="'.base_url().'system/pyrocms/assets/img/icons/folder_open.png" alt="" />'); ?>
+		</p>
+	    </li>
+	    <?php endforeach; ?>
+    </ul>
+</div>
 <?php endif;?>
-	
+<div id="images-container">
+<?php if (!empty($folder_meta)): ?>
+<h3>Images in "<?php echo $folder_meta->name; ?>"<span><?php echo anchor('admin/wysiwyg/image', 'Go Back'); ?></span></h3>
+<?php endif; ?>
 <?php if (!empty($files)): ?>
-
+    
+	<div class="defaults">
+	    <p class="element">
+		<label for="insert_width">Image Width:</label>
+		<input id="insert_width" type="text" name="insert_width" value="200" />
+	    </p>
+	    <p class="element element-last">
+		<label for="insert_float">Float:</label>
+		<span>Left</span><input type="radio" name="insert_float" value="left" checked="checked" />
+		<span>Right</span><input type="radio" name="insert_float" value="right" />
+	    </p>
+	</div>
 	<ul>
             <?php foreach ($files as $file): ?>
 
@@ -78,12 +111,9 @@ var replace_html = null;
 		    <p class="name"><?php echo $file->name; ?></p>
 		    <p class="type"><?php echo $file->mimetype; ?></p>
 		    <p class="image">
-			<img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/<?php echo $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" /></p>
-		    <p class="buttons">
-			    <button onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');">
-				    Insert
-			    </button>
+			<img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/<?php echo $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" />
 		    </p>
+		    
 	    </li>
 
 	    <?php endforeach; ?>
@@ -92,3 +122,4 @@ var replace_html = null;
 <?php elseif (empty($folders)): ?>
 	<p>No files found.</p>
 <?php endif;?>
+</div>

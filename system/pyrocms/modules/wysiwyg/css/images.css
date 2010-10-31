@@ -1,0 +1,85 @@
+#images-container ul, #folder-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    clear: both;
+}
+#images-container p, #folder-container p {
+    margin: 0;
+}
+#images-container div.defaults {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e1e1e1;
+    float: left;
+    width: 100%;
+}
+#images-container div.defaults input {
+    width: 35px;
+}
+#images-container p.name, #folder-container p.name {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #e9e9e9;
+    padding: 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+#images-container p.type {
+    padding: 5px 0;
+}
+#images-container li {
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    height: 210px;
+    padding: 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #e1e1e1;
+    overflow: hidden;
+}
+#images-container img {
+    cursor: pointer;
+}
+#images-container label {
+    font-weight: bold;
+}
+#images-container p.element {
+    float: left;
+    padding: 0 5px;
+    border-right: 2px solid #d1d1d1;
+}
+#images-container p.element-last {
+    border-right: none;
+}
+
+#images-container h3 span {
+    float: right;
+}
+#images-container h3 span a {
+    color: #FF6400;
+    font-size: smaller;
+}
+
+#folder-container li {
+    float: left;
+    margin: 0 5px 5px 0;
+    padding: 5px;
+    width: 100px;
+    height: 100px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #e1e1e1;
+    overflow: hidden;
+}
+li.folder a {
+    display: block;
+}
+li.folder img {
+    margin: 0 auto;
+    display: block;
+    border: none;
+}

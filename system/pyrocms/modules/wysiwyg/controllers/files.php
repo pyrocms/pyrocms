@@ -11,7 +11,7 @@ class Files extends WYSIWYG_Controller
 	function __construct()
 	{
 		parent::WYSIWYG_Controller();
-
+		
 		$this->load->model('files/file_folders_m');
 		$this->load->model('files/file_m');
 
