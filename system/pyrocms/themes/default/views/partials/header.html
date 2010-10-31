@@ -20,7 +20,7 @@
 		
 {else}
 
-<form action="<?php echo $base_url; ?>users/login" method="post" accept-charset="utf-8" id="login-small">
+<form action="{site_url(users/login)}" method="post" accept-charset="utf-8" id="login-small">
 
 <ul>
 <li class="email">
@@ -32,7 +32,7 @@
 </li>
 
 <li class="form-buttons">
-<input type="submit" value="Login" name="btnLogin" /> or &nbsp;<a href="<?php echo $base_url; ?>register">Signup</a> <input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /><span>Remember Me</span>
+<input type="submit" value="Login" name="btnLogin" /> or &nbsp;<a href="{site_url('register')}">Signup</a> <input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /><span>Remember Me</span>
 </li>
 
 </ul>
