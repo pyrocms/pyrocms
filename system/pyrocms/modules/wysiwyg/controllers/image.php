@@ -12,130 +12,33 @@ class Image extends WYSIWYG_Controller
 	{
 		parent::WYSIWYG_Controller();
 
-		$this->load->helper('tree');
-
-		$this->load->model('libraries/folders_m');
-		$this->load->model('libraries/images_m');
+		$this->load->model('files/file_folders_m');
+		$this->load->model('files/file_m');
 
 		$this->template->title('Images');
 	}
 	
 	public function index()
 	{
-		if($folder_id = $this->input->post('folder_id'))
-		{
-			$this->load->model('folders/folders_m');
-			$folders = $this->folders_m->get_folder_path($folder_id);
-		}
+		$folders = $this->file_folders_m->get_all();
 
-		$this->load->vars(array(
-			'source' => $this->input->post('source') ? SITE_UPLOAD_URI . 'images/' . $this->input->post('source') : '',
-			'title' => $this->input->post('title'),
-			'width' => (int) $this->input->post('width'),
-			'height' => (int) $this->input->post('height'),
-			'folder_id' => $folder_id,
-			'folders' => empty($folders) ? array() : $folders
-		));
-
-		$this->template->build('image/form', $this->data);
+		$this->template
+			->set('folders', $folders)
+			->build('image/browse');
 	}
 
-	public function browse()
+	public function browse($folder_id = FALSE)
 	{
-		$this->load->helper('tree');
+		$folder_id OR redirect('admin/wysiwyg/image');
+		
+		$this->db->where('folder_id', $folder_id);
+		$files = $this->file_m->get_many_by('type', 'i');
+		$folders = $this->file_folders_m->get_many_by('parent_id', $folder_id);
 
-		// Create the nested select list
-		$folder_options = array();
-		foreach($this->folders_m->get_image_folders() as $folder)
-		{
-			$folder_options[$folder->parent_id][] = $folder;
-		}
-
-		// Slice up the URL
-		$segments = $this->uri->uri_to_assoc(5);
-
-		$query = !empty($segments['q']) ? urldecode($segments['q']) : $this->input->post('q');
-		$folder_id = !empty($segments['folder']) ? $segments['folder'] : $this->input->post('folder_id');
-		$hide_folders = (int) !empty($segments['hide_folders']) ? $segments['hide_folders'] : $this->input->post('hide_folders');
-		$status = !empty($segments['status']) ? $segments['status'] : $this->input->post('status');
-
-		$query_pair = $folder_pair = $status_pair = $hide_folders_pair = '';
-
-		if($query != FALSE)
-		{
-			$_POST['q'] = $criteria['query'] = $query;
-
-			$query_pair = 'q/' . urlencode($query) . '/';
-		}
-
-		if($folder_id != FALSE)
-		{
-			$_POST['folder_id'] = $criteria['folder_id'] = $folder_id;
-
-			$folder_pair = 'folder/' . $folder_id . '/';
-		}
-
-		if($hide_folders != FALSE)
-		{
-			$_POST['hide_folders'] = $criteria['hide_folders'] = $hide_folders;
-
-			$hide_folders_pair = 'hide_folders/' . $hide_folders . '/';
-		}
-
-		if($status != FALSE)
-		{
-			$_POST['status'] = $criteria['status'] = $status;
-
-			$status_pair = 'status/' . $status . '/';
-		}
-
-		// Show relevent pages
-		if(!empty($criteria))
-		{
-			$pagination = create_pagination(
-				$test = 'cms/wysiwyg/images/index/' . $query_pair . $status_pair . $folder_pair . $hide_folders_pair,
-				count($this->images_m->filter($criteria)),
-				NULL,
-				6 + (count($criteria) * 2)
-			);
-
-			// Generate the breadcrumbs
-			$breadcrumbs = $this->folders_m->get_parent_tree($folder_id);
-
-			// Save this for folder links
-			$this->data->criteria_uri = $query_pair . $status_pair . $hide_folders_pair;
-
-			$images = $this->images_m->filter($criteria, $pagination['limit'][0], $pagination['limit'][1]);
-		}
-
-		// Show all pages
-		else
-		{
-			$pagination = create_pagination(
-				'cms/wysiwyg/images/index',
-				count($this->images_m->get_root_images()),
-				NULL,
-				6
-			);
-
-			$breadcrumbs = array();
-
-			$this->data->criteria_uri = '';
-
-			$images = $this->images_m->get_root_images($pagination['limit'][0], $pagination['limit'][1]);
-		}
-
-		$this->load->vars(array(
-			'folder_options' => &$folder_options,
-			'pagination' => &$pagination,
-			'breadcrumbs' => &$breadcrumbs,
-			'images' => &$images
-		));
-
-		// Create the layout
 		$this->template
-			->append_metadata( css('library.css', 'libraries') )
-			->build('image/browse', $this->data);
+			->set('files', $files)
+			->set('folders', $folders)
+			->build('image/browse');
 	}
 
 	public function upload()

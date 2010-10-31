@@ -1,125 +1,94 @@
-<?php echo form_open_multipart('cms/wysiwyg/image/upload'); ?>
-    <input type="hidden" name="MAX_FILE_SIZE" value="2048000" />
+<script type="text/javascript">
+var CKEDITOR = window.parent.CKEDITOR;
 
-    <ul class="crud">
-        <li>
-            <label for="folder_id">Folder</label>
-            <select name="folder_id" size="1">
-                <option value="">-- None --</option>
-                <?php create_tree_select($folder_options, 0, 0, set_value('folder_id')); ?>
-            </select>
-        </li>
+function insertImage(file, alt)
+{
+	if(replace_html)
+	{
+		replace_html.remove();
+	}
+	window.parent.instance.insertHtml('<img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/' + file + '" alt="' + alt + '" />');
+    windowClose();
+}
 
-        <li>
-            <label for="title">Title</label>
-            <?php echo form_input('title', set_value('title')); ?>
-        </li>
+// By default, insert (which will also replace)
+var replace_html = null;
 
-        <li>
-            <label for="image">Image</label>
-            <?php echo form_upload('image', set_value('image')); ?>
-        </li>
+(function($)
+{
+	$(function()
+	{
+		function detectFile()
+		{
+			// Get whatever is selected
+			selection = window.parent.instance.getSelection();
 
-        <li>
-            <label for="status">Status</label>
-            <?php echo form_dropdown('status', array('live'=> lang('status.live'), 'hold'=> lang('status.hold')), set_value('status')); ?>
-        </li>
-    </ul>
+			// A Tag has been fuly selected
+			if(selection.getSelectedElement())
+			{
+				element = jQuery( selection.getSelectedElement().$ );
+			}
 
-    <div class="buttons label-offset">
-        <button type="submit" name="save" value="" class="positive"><?php echo image('icons/black/16/round_plus.png'); ?><?php echo lang('button.upload');?></button>
-    </div>
-    <div class="clear"></div>
-<?php echo form_close(); ?>
-<br /><br />
-	
-<?php echo form_open('cms/wysiwyg/image/browse');?>
+			// If the cursor is anywhere in the textbox
+			else(selection.getRanges()[ 0 ])
+			{
+				// Find the range of the selection
+				range = selection.getRanges()[ 0 ];
+				range.shrink( CKEDITOR.SHRINK_TEXT );
 
-	<ul class="filter">
-            <li>
-                <label for="folder_id">Filter by folder</label>
-                <select name="folder_id" size="1">
-                    <option value="">-- All --</option>
-                    <?php echo create_tree_select($folder_options, 0, 0, set_value('folder_id')); ?>
-                </select>
-            </li>
-            <li>
-                <label for="status">Status</label>
-                <?php echo form_dropdown('status', array(
-                    '' => '-- All --',
-                    'hold'=> lang('status.hold'),
-                    'live'=> lang('status.live'),
-                    'deleted'=> lang('status.deleted')),
-                set_value('status')); ?>
-            </li>
-            <li>
-                <label for="hide_folders">Hide folders?</label>
-                <?php echo form_checkbox('hide_folders', 1, set_value('hide_folders') == 1); ?>
-            </li>
-            <li>
-                <label for="q">Keywords</label>
-                <?php echo form_input('q', set_value('q')); ?>
-                <?php echo form_submit('filter', 'Go'); ?>
-            </li>
-	</ul>
+				// Have they clicked inside an <img> tag?
+				maybe_element = range.getCommonAncestor().getAscendant( 'img', true );
 
-	<br style="clear:both"/>
+				if(!maybe_element) return false;
+				else element = jQuery(maybe_element.$);
 
-<?php echo form_close(); ?>
+				// Save this HTML to be replaced up update
+				replace_html = maybe_element;
+			}
 
-<ul class="breadcrumb">
-    <li>
-        <strong><?php echo anchor('cms/wysiwyg/image/browse', '&raquo; Root'); ?></strong>
-    </li>
-    <?php foreach( $breadcrumbs as $crumb ): ?>
-    <li>
-        <?php echo anchor('cms/wysiwyg/image/browse/folder/' . $crumb->id, "&raquo; " . $crumb->title); ?>
-    </li>
-    <?php endforeach; ?>
-    <div class="clear"></div>
+			if( ! element.hasClass('pyro-image')) return false;
+
+			$('#current_document').load(BASE_URI + 'admin/wysiwyg/files/ajax_get_file', {
+				doc_id: element.attr('href').match(/\/download\/([0-9]+)/)[1]
+			});
+
+			return true;
+		}
+
+		detectFile() || $('#current_document h2').hide();
+	});
+})(jQuery);
+</script>
+<?php if (!empty($folders)): ?>
+
+<ul>
+	<?php foreach ($folders as $folder): ?>
+	<li><?php echo anchor('admin/wysiwyg/image/browse/'.$folder->id, $folder->name); ?>
+	<?php endforeach; ?>
 </ul>
 
-<br style="clear:both"/>
+<?php endif;?>
+	
+<?php if (!empty($files)): ?>
 
-<?php if (!empty($images)): ?>
+	<ul>
+            <?php foreach ($files as $file): ?>
 
-	<?php foreach ($images as $image): ?>
+	    <li class="file">
+		    <p class="name"><?php echo $file->name; ?></p>
+		    <p class="type"><?php echo $file->mimetype; ?></p>
+		    <p class="image">
+			<img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/<?php echo $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" /></p>
+		    <p class="buttons">
+			    <button onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');">
+				    Insert
+			    </button>
+		    </p>
+	    </li>
 
-		<?php if($image->is_folder): ?>
-			<div class="image folder">
-				<?php echo anchor('cms/wysiwyg/image/browse/' . $criteria_uri . 'folder/' . $image->id, image('icons/black/32/folder_arrow.png'));?>
-				<h4><?php echo anchor('cms/wysiwyg/image/browse/' . $criteria_uri . 'folder/' . $image->id, $image->title); ?></h4>
-			</div>
+	    <?php endforeach; ?>
+	</ul>
 
-		<?php else: ?>
-			<div class="image">
-				<?php echo form_open('cms/wysiwyg/image', NULL, array(
-					'title' => $image->title, 'source' => $image->filename, 'folder_id' => $image->folder_id,
-					'width' => $image->width, 'height' => $image->height
-				)); ?>
-
-				<h4><?php echo $image->title; ?></h4>
-
-				<img src="<?php echo SITE_UPLOAD_URI . 'images/' . $image->thumb; ?>" alt="" width="160" />
-
-				<?php if($image->status == 'live'): ?>
-					<div class="buttons">
-						<button type="submit" name="insert-image" value=""><?php echo image('icons/black/16/round_plus.png'); ?>Insert</button>
-						<p style="float: right;"><?php echo $image->width . ' x ' . $image->height; ?>
-						<br /><strong><?php echo lang('status.'.$image->status); ?></strong></p>
-					</div>
-					<div class="clear"></div>
-				<?php endif; ?>
-
-				<?php echo form_close(); ?>
-			</div>
-		<?php endif; ?>
-
-		<?php echo alternator('', '', '', '<br style="clear:both;" />');?>
-	<?php endforeach; ?>
-
-	<br style="clear:both;" />
-
-<?php else: ?>
-    <p>No images found.</p>
+<?php elseif (empty($folders)): ?>
+	<p>No files found.</p>
 <?php endif;?>

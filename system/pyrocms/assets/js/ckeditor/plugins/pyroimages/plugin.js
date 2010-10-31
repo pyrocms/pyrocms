@@ -1,11 +1,11 @@
-CKEDITOR.plugins.add('pyroimages',{
+CKEDITOR.plugins.add('pyroimages',
+{
     requires: ['iframedialog'],
     init : function(editor)
-	{
-        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', BASE_URI + 'cms/wysiwyg/image',800,500)
-        var cmd = editor.addCommand('pyroimages', {exec:pyroimage_onclick})
-        cmd.modes={wysiwyg:1}
-        editor.ui.addButton('pyroimages',{ label:'Upload or insert images from library', command:'pyroimage', icon:this.path+'images/icon.png' });
+    {
+        CKEDITOR.dialog.addIframe('pyroimage_dialog', 'Image', BASE_URI + 'index.php/admin/wysiwyg/image',800,500)
+        editor.addCommand('pyroimages', {exec:pyroimage_onclick});
+        editor.ui.addButton('pyroimages',{ label:'Upload or insert images from library', command:'pyroimages', icon:this.path+'images/icon.png' });
 
 		editor.on('selectionChange', function(evt)
 		{
