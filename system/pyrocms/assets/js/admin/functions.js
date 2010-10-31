@@ -105,18 +105,25 @@ jQuery(function($) {
 			// Update uniform if enabled
 			$.uniform && $(this).uniform();
 		});
-
+		var current_module = $('#page-header h1 a').text();
 		// Fancybox modal window
 		$('a[rel=modal], a.modal').livequery(function() {
 			$(this).colorbox({
-				maxWidth: 600
+				width: "60%",
+				onComplete: function() {
+					$.uniform.update();
+				},
+				current: current_module + " {current} / {total}"
 			});
 		});
 
 		$('a[rel="modal-large"], a.modal-large').livequery(function() {
 			$(this).colorbox({
-				width: 900,
-				height: 600
+				width: "90%",
+				height: "95%",
+				iframe: true,
+				scrolling: false,
+				current: current_module + " {current} / {total}"
 			});
 		});
 		// End Fancybox modal window
