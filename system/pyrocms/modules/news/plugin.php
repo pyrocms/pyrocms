@@ -1,24 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * CodeIgniter
+ * News Plugin
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * Create lists of articles
  *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
-
-// ------------------------------------------------------------------------
-
-/**
- * News Parser Library
- *
- * @subpackage	Libraries
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2008 - 2010, PyroCMS
  *
  */
 class Plugin_News extends Plugin
@@ -52,6 +40,7 @@ class Plugin_News extends Plugin
 			{
 				$this->db->where('c.id', $params['category']);
 			}
+			
 			else
 			{
 				$this->db->where('c.slug', $params['category']);
@@ -76,4 +65,4 @@ class Plugin_News extends Plugin
 	}
 }
 
-/* End of file news.plugin.php */
+/* End of file plugin.php */

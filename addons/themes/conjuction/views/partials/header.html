@@ -1,14 +1,12 @@
 		<div id="logo">
-			<h1>{anchor('', $settings->item('site_name'))}</h1>
-			<p><em>{$settings->item('site_slogan')}</em></p>
+			<h1>{anchor('', $settings->site_name)}</h1>
+			<p><em>{$settings->site_slogan}</em></p>
 		</div>
 		<hr />
 		<div id="header">
 			<div id="menu">
 				<ul>
-				{foreach navigation('header') link}
-					<li>{anchor( $link->url, $link->title, array(target=$link->target))}</li>
-				{/foreach}
+				{pyro:navigation:links group="header"}
 				</ul>
 			</div>
 			<div id="search">

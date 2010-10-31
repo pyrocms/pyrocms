@@ -4,9 +4,9 @@
  *
  * Load partials and access data
  *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2008 - 2010, PyroCMS
  *
  */
 class Plugin_Theme extends Plugin
@@ -104,4 +104,4 @@ class Plugin_Theme extends Plugin
 	}
 }
 
-/* End of file news.plugin.php */
+/* End of file theme.php */

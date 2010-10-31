@@ -1,24 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-{theme_partial('metadata')}
+		{pyro:theme:partial file="metadata"}
 	</head>
 	<body>
 
-		{$template.partials.google_analytics}
+		{pyro:integration:analytics}
 
-		{theme_partial('header')}
+		{pyro:theme:partial file="header"}
 
 		<div id="page">
-			{if $session->flashdata('notice')}
-		    	<div class="notice-box">{$session->flashdata('notice')}</div>
-		    {/if}
-		    {if $session->flashdata('success')}
-		    	<div class="success-box">{$session->flashdata('success')}</div>
-		    {/if}
-		    {if $session->flashdata('error')}
-		    	<div class="error-box">{$session->flashdata('error')}</div>
-		    {/if}
+			{if $session->flashdata('notice')}<div class="notice-box">{$session->flashdata('notice')}</div>{/if}
+		    {if $session->flashdata('success')}<div class="success-box">{$session->flashdata('success')}</div>{/if}
+		    {if $session->flashdata('error')}<div class="error-box">{$session->flashdata('error')}</div>{/if}
 			
 			<div id="content">
 				{pyro:template:body}
@@ -34,7 +28,7 @@
 					</li>
 					<li>
 					{if $session->userdata('user_id')}
-						<h2>{cat($user->first_name ' ' $user->last_name)}</h2>
+						<h2>{pyro:user:first_name} {pyro:user:last_name}</h2>
 						<ul>
 							<li><a href="{site_url('users/logout')}">{lang('logout_label')}</a></li>
 
@@ -44,7 +38,7 @@
 
 							<li>{anchor('edit-settings', lang('settings_label'))}</li>
 
-						{if $ion_auth->is_admin()}
+						{if $user->group == 'admin'}
 							<li>{anchor('admin', lang('cp_title'), 'target="_blank"')}</li>
 						{/if}
 						</ul>
@@ -59,7 +53,7 @@
 		</div>
 
 		<div id="footer">
-			{theme_partial('footer')}
+			{pyro:theme:partial file="footer"}
 		</div>
 
 	</body>
