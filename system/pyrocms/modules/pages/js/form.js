@@ -12,7 +12,7 @@
 				return;
 			}
 			
-			$.post(BASE_URL + '/ajax/url_title', { title : $(this).val() }, function(new_slug){
+			$.post(BASE_URI + 'index.php/ajax/url_title', { title : $(this).val() }, function(new_slug){
 				slug.val( new_slug );
 			});
 		});
@@ -26,7 +26,7 @@
 			$.colorbox({
 				width: "85%",
 				height: "85%",
-				href: BASE_URL + '/admin/pages/compare/' + first + '/' + second
+				href: BASE_URI + 'index.php/admin/pages/compare/' + first + '/' + second
 			});
 		});
 		
@@ -37,7 +37,7 @@
 			$.colorbox({
 				width: "85%",
 				height: "85%",
-				href: BASE_URL + '/admin/pages/preview_revision/' + revision
+				href: BASE_URI + 'index.php/admin/pages/preview_revision/' + revision
 			})
 		});
 		
