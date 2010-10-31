@@ -15,13 +15,13 @@ class Plugin_Theme extends Plugin
 	 * Partial
 	 *
 	 * Loads a theme partial
+	 * 
 	 * Usage:
 	 * {pyro:theme:partial file="header"}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-
 	function partial()
 	{
 		$file = $this->attribute('file');
@@ -37,22 +37,70 @@ class Plugin_Theme extends Plugin
 	/**
 	 * Theme CSS
 	 *
-	 * Creates a list of news posts
+	 * Insert a CSS tag from the theme
 	 *
 	 * Usage:
-	 * {pyro:theme:partial name=""}
+	 *
+	 * {pyro:theme:css file=""}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-
 	function css()
 	{
+		$this->load->library('asset');
+		
 		$file = $this->attribute('file');
 		$attributes = $this->attributes();
 		unset($attributes['file']);
 
-		return theme_css($file, $attributes);
+		return $this->asset->css($file, '_theme_', $attributes);
+	}
+
+	/**
+	 * Theme Image
+	 *
+	 * Insert a image tag from the theme
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:css file=""}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function image()
+	{
+		$this->load->library('asset');
+
+		$file = $this->attribute('file');
+		$attributes = $this->attributes();
+		unset($attributes['file']);
+
+		return $this->asset->image($file, '_theme_', $attributes);
+	}
+
+	/**
+	 * Theme JS
+	 *
+	 * Insert a JS tag from the theme
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:css file=""}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function js()
+	{
+		$this->load->library('asset');
+
+		$file = $this->attribute('file');
+		$attributes = $this->attributes();
+		unset($attributes['file']);
+
+		return $this->asset->js($file, '_theme_', $attributes);
 	}
 }
 
