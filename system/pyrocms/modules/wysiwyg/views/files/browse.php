@@ -54,30 +54,41 @@ var replace_html = null;
 
 			return true;
 		}
-
+		$('#images-container tr:odd').addClass('even');
 		detectFile() || $('#current_document h2').hide();
 	});
 })(jQuery);
 </script>
 
 <?php if (!empty($folders)): ?>
-
+<div id="folder-container">
+<h3>Available Folders</h3>
 <ul>
 	<?php foreach ($folders as $folder): ?>
-	<li><?php echo anchor('admin/wysiwyg/files/browse/'.$folder->id, $folder->name); ?>
+	<li class="folder">
+		<p class="name"><?php echo anchor('admin/wysiwyg/files/browse/'.$folder->id, $folder->name); ?></p>
+		<p class="image">
+			<?php echo anchor('admin/wysiwyg/files/browse/'.$folder->id,
+			'<img src="'.base_url().'system/pyrocms/assets/img/icons/folder_open.png" alt="" />'); ?>
+		</p>
+	</li>
+	
 	<?php endforeach; ?>
 </ul>
+</div>
 
 <?php endif;?>
-
+<div id="images-container">
+<?php if (!empty($folder_meta)): ?>
+<h3>Files in "<?php echo $folder_meta->name; ?>"<span><?php echo anchor('admin/wysiwyg/files', 'Go Back'); ?></span></h3>
+<?php endif; ?>
 <?php if (!empty($files)): ?>
 
-	<table width="100%" border="0" class="table-list">
+	<table width="100%" border="0" class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
 				<th width="50%"><strong>Title</strong></th>
-				<th width="10%"><strong>File Type</strong></th>
-				<th width="20%"><strong>Status</strong></th>
+				<th width="30%"><strong>File Type</strong></th>
 				<th width="20%" />
 			</tr>
 		</thead>
@@ -102,3 +113,4 @@ var replace_html = null;
 <?php elseif (empty($folders)): ?>
 	<p>No files found.</p>
 <?php endif;?>
+</div>

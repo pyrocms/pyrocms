@@ -15,7 +15,8 @@ class Files extends WYSIWYG_Controller
 		$this->load->model('files/file_folders_m');
 		$this->load->model('files/file_m');
 
-		$this->template->title('Files');
+		$this->template->append_metadata( css('images.css', 'wysiwyg') )
+				->title('Files');
 	}
 
 	function index()
@@ -33,10 +34,12 @@ class Files extends WYSIWYG_Controller
 		
 		$files = $this->file_m->get_many_by('folder_id', $folder_id);
 		$folders = $this->file_folders_m->get_many_by('parent_id', $folder_id);
+		$folder_meta = $this->file_folders_m->get($folder_id);
 
 		$this->template
 			->set('files', $files)
 			->set('folders', $folders)
+			->set('folder_meta', $folder_meta)
 			->build('files/browse');
 	}
 
