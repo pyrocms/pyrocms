@@ -1,7 +1,5 @@
 <p>
-	{foreach navigation('footer') link}
-		<span class="link">{anchor( $link->url, $link->title, cat('target="', $link->target, '"'))}</span>
-	{/foreach}
+	{pyro:navigation:links group="footer" tag="span"}
 
 	<br />
 	
