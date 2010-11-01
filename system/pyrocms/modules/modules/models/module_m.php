@@ -67,11 +67,17 @@ class Module_m extends CI_Model
 				return FALSE;
 			}
 
-			$descriptions = unserialize($result->description);
-			$description = isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions[CURRENT_LANGUAGE] : $descriptions['en'];
+			if(!$descriptions = unserialize($result->description))
+			{
+				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
+			}
+			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
-			$names = unserialize($result->name);
-			$name = isset($names[CURRENT_LANGUAGE]) ? $names[CURRENT_LANGUAGE] : $names['en'];
+			if(!$names = unserialize($result->name))
+			{
+				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
+			}
+			$name = !isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 
 			return array(
 				'name' => $name,
@@ -174,10 +180,16 @@ class Module_m extends CI_Model
 
 		foreach ($this->db->get($this->_table)->result() as $result)
 		{
-			$descriptions = unserialize($result->description);
+			if(!$descriptions = unserialize($result->description))
+			{
+				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
+			}
 			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
-			$names = unserialize($result->name);
+			if(!$names = unserialize($result->name))
+			{
+				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
+			}
 			$name = !isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 
 			$module = array(

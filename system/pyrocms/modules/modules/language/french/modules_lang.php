@@ -12,6 +12,7 @@ $lang['modules.uninstall_error']		= 'Le module "%s" n\'a pu être installé.';
 $lang['modules.uninstall_success']		= 'Le module "%s" a été désinstallé.';
 $lang['modules.already_exists_error']	= 'Un module ayant le nom "%s" existe déjà.';
 $lang['modules.module_not_specified']	= 'Vous devez indiqué un module.';
+$lang['modules.details_error']			= 'There is an error in the details.php file of the %s module. Correct the error, then reinstall the module.'; #translate
 
 $lang['modules.manually_remove']		= 'Vous devez supprimer "%s" manuellement pour supprimer complètement le module.';
 $lang['modules.upload_title']			= 'Uploader le module';
