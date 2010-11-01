@@ -66,9 +66,22 @@ jQuery(function($) {
 		// Confirmation
 		$("a.confirm").live('click', function(){
 			removemsg = $("em").attr("title");
-			if (removemsg === undefined) {
-				var answer = confirm(DIALOG_MESSAGE);
-			} else {
+	
+			if (removemsg === undefined)
+			{
+				confirm_msg = $(this).attr('title');
+				
+				if(confirm_msg.length <= 0)
+				{
+					var answer = confirm(DIALOG_MESSAGE);
+				}
+				else
+				{
+					var answer = confirm(confirm_msg);
+				}
+			}
+			else
+			{
 				var answer = confirm(removemsg);
 			}
 

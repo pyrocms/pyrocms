@@ -27,16 +27,16 @@
 					<?php if ($module['installed']): ?>
 
 						<?php if ($module['enabled']): ?>
-							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm minibutton')); ?>
+							<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_disable'))); ?>
 						<?php else: ?>
-							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm minibutton')); ?>
+							<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_enable'))); ?>
 						<?php endif; ?>
 						&nbsp;&nbsp;
-						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm minibutton')); ?>
+						<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_uninstall'))); ?>
 
 					<?php else: ?>
 						
-						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm minibutton')); ?>
+						<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_install'))); ?>
 
 					<?php endif; ?>
 
