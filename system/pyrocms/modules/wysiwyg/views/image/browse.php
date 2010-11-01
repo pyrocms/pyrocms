@@ -100,8 +100,9 @@ var replace_html = null;
 	    </p>
 	    <p class="element element-last">
 		<label for="insert_float">Float:</label>
-		<span>Left</span><input type="radio" name="insert_float" value="left" checked="checked" />
+		<span>Left</span><input type="radio" name="insert_float" value="left" />
 		<span>Right</span><input type="radio" name="insert_float" value="right" />
+		<span>None</span><input type="radio" name="insert_float" value="none" checked="checked" />
 	    </p>
 	</div>
 	<ul>

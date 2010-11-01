@@ -83,3 +83,21 @@ li.folder img {
     display: block;
     border: none;
 }
+
+#images-container th {
+    text-align: left;
+}
+#images-container tr.even {
+    background-color: #ffffff;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+#images-container td, #images-container th {
+    padding: 5px 0;
+}
+#images-container td.buttons {
+    text-align: right;
+}
+#images-container td.buttons button {
+    margin-right: 2px;
+}
