@@ -135,7 +135,7 @@
 				</header>
 				
 				<div class="accordion-content">
-					<p class="tag"><?php echo sprintf('{widget_area(%s)}', $widget_area->slug);?></p>
+					<p class="tag"><?php echo sprintf('{pyro:widgets:area slug="%s"}', $widget_area->slug);?></p>
 	
 					<div class="widget-list">
 						<?php $this->load->view('admin/ajax/instance_list', array('widgets' => $widget_area->widgets)); ?>
