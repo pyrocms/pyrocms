@@ -1,0 +1,36 @@
+<h2>Installation</h2>
+
+<h3>Installing PyroCMS</h3>
+
+<ol>
+	<li>Download <a class="link-subtle" href="http://github.com/pyrocms/pyrocms/downloads" target="_blank">PyroCMS</a> and extract the files.
+	<li>Upload the files to your web-server.
+	<li>
+		<p>Apply the following file permissions (Mac/Linux/BSD/etc only):</p>
+
+		<blockquote>
+			cd /path/to/pyrocms/webroot/<br /><br />
+
+			chmod 777 system/codeigniter/cache<br />
+			chmod 777 system/codeigniter/logs<br />
+			chmod 777 system/pyrocms/cache<br />
+			chmod 777 system/pyrocms/cache/dwoo<br />
+			chmod 777 system/pyrocms/cache/dwoo/compiled<br />
+			chmod 777 system/pyrocms/cache/simplepie<br />
+			chmod 777 system/pyrocms/config<br />
+			chmod 777 uploads<br /><br />
+
+			chmod 666 application/config/config.php
+		</blockquote>
+	</li>
+
+	<li>
+		<p>Navigate to your installation, E.g: http://example.com/ and you will automatically be redirected to the installer.</p>
+
+		<p><em>Note: If this fails for any reason, go to http://example.com/installer/</em></p>
+	</li>
+
+	<li>Follow all instructions on the screen, the when you are finished click Control Panel link.</li>
+
+	<li>When you have confirmed the install worked, delete the /installer/ directory.</li>
+</ol>
