@@ -100,7 +100,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// Create pagination links
-		$this->data->pagination = create_pagination('admin/users', $this->data->active_user_count);
+		$this->data->pagination = create_pagination('admin/users/index', $this->data->active_user_count);
 
 		// Using this data, get the relevant results
 		$this->data->users = $this->users_m
