@@ -1,0 +1,3 @@
+[submodule "documentation"]
+	path = documentation
+	url = git://github.com/pyrocms/documentation.git
