@@ -17,3 +17,7 @@ $lang['modules.manually_remove']		= '您必須手動移除 "%s"，才能完整�
 $lang['modules.upload_title']			= '上傳模組';
 $lang['modules.upload_desc']			= '請選擇一個檔案並點選上傳按鈕。';
 
+$lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';#translate
+$lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';#translate
+$lang['modules.confirm_install']        = 'Are you sure you want to install this module?';#translate
+$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';#translate

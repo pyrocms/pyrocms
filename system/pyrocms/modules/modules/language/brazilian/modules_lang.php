@@ -17,3 +17,7 @@ $lang['modules.manually_remove']		= 'Você precisa remover manualmente o módulo
 $lang['modules.upload_title']			= 'Upload de Módulo';
 $lang['modules.upload_desc']			= 'Por favor selecione o arquivo e clique no botão Upload';
 
+$lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';#translate
+$lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';#translate
+$lang['modules.confirm_install']        = 'Are you sure you want to install this module?';#translate
+$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';#translate

@@ -17,3 +17,7 @@ $lang['modules.manually_remove']		= 'U moet "%s" handmatig verwijderen om de mod
 $lang['modules.upload_title']			= 'Upload Module';
 $lang['modules.upload_desc']			= 'Selecteer een bestand en klik de Upload-knop';
 
+$lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';#translate
+$lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';#translate
+$lang['modules.confirm_install']        = 'Are you sure you want to install this module?';#translate
+$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';#translate

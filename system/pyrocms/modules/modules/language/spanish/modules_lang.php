@@ -16,3 +16,8 @@ $lang['modules.module_not_specified']	= 'You must specifiy a module.'; #Translat
 $lang['modules.manually_remove']		= 'You must manually remove "%s" to completely remove the module.'; #Translate
 $lang['modules.upload_title']			= 'Upload Module'; #Translate
 $lang['modules.upload_desc']			= 'Please select a file and click Upload button'; #Translate
+
+$lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';#translate
+$lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';#translate
+$lang['modules.confirm_install']        = 'Are you sure you want to install this module?';#translate
+$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';#translate
