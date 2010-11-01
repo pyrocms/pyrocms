@@ -3,8 +3,8 @@
 $lang['permissions.group']				= 'Groupe';
 $lang['permissions.edit']				= 'Editer les Permissions';
 
-$lang['permissions.introduction'] 		= 'Vous pouvez créer des autorisations personnalisées pour les différents utilisateurs
-en les attribuant à des groupes dans "Utilisateurs > Gérer les utilisateurs". Ensuite, vous pouvez Modifier les autorisations pour chaque groupe
-et contrôler les "modules" et les "rôles" que chaque groupe peut avoir.';
+$lang['permissions.introduction'] 		= 'Vous pouvez crÃ©er des autorisations personnalisÃ©es pour les diffÃ©rents utilisateurs
+en les attribuant Ã  des groupes dans "Utilisateurs > GÃ©rer les utilisateurs". Ensuite, vous pouvez Modifier les autorisations pour chaque groupe
+et contrÃ´ler les "modules" et les "rÃ´les" que chaque groupe peut avoir.';
 
-$lang['permissions.message_group_saved'] = 'Les autorisations pour ce groupe ont été enregistrées.';
+$lang['permissions.message_group_saved'] = 'Les autorisations pour ce groupe ont Ã©tÃ© enregistrÃ©es.';
