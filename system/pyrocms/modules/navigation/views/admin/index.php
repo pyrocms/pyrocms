@@ -1,4 +1,4 @@
-<?php if (!empty($groups)): ?>
+<?php if ( ! empty($groups)): ?>
 	<?php foreach ($groups as $group): ?>
 	
 		<section class="box">
@@ -12,14 +12,14 @@
 			
 			<?php echo form_open('admin/navigation/delete');?>
 		
-				<?php if (!empty($navigation[$group->abbrev])): ?>
+				<?php if ( ! empty($navigation[$group->abbrev])): ?>
 				
 					<table border="0" class="table-list">		    
 						<thead>
 							<tr>
 								<th style="width: 3em"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-								<th><?php echo lang('nav_title_label');?></th>
-								<th><?php echo lang('nav_url_label');?></th>
+								<th style="width: 40%"><?php echo lang('nav_title_label');?></th>
+								<th style="width: 40%"><?php echo lang('nav_url_label');?></th>
 								<th style="width: 5em">&nbsp;</th>
 							</tr>
 						</thead>
