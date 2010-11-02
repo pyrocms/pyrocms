@@ -163,7 +163,7 @@ class Upgrade extends Controller
 		}
 		// ------------End Assets conversion ----------------
 
-		return FALSE;
+		return TRUE;
 	}
 
 	function upgrade_100beta1()
