@@ -90,6 +90,13 @@ class Upgrade extends Controller
 		$this->db
 			->where('slug', 'dashboard_rss')
 			->update('settings', array('is_gui' => 1));
+		
+		//fix the unserialize() error
+		$this->_output .= 'Correcting translation errors in the redirects module.';
+		
+		$this->db
+			->where('slug', 'redirects')
+			->update('modules', array('description' => 'a:3:{s:2:"nl";s:38:"Verwijs vanaf een URL naar een andere.";s:2:"en";s:33:"Redirect from one URL to another.";s:2:"fr";s:34:"Redirection d\'une URL à un autre.";}'));
 
 		return FALSE;
 	}
