@@ -101,6 +101,13 @@ class Upgrade extends Controller
 		$this->db
 			->where('slug', 'dashboard_rss')
 			->update('settings', array('is_gui' => 1));
+		
+		//fix the unserialize() error
+		$this->_output .= 'Correcting translation errors in the redirects module.';
+		
+		$this->db
+			->where('slug', 'redirects')
+			->update('modules', array('description' => 'a:3:{s:2:"nl";s:38:"Verwijs vanaf een URL naar een andere.";s:2:"en";s:33:"Redirect from one URL to another.";s:2:"fr";s:34:"Redirection d\'une URL à un autre.";}'));
 
 		return FALSE;
 	}
@@ -300,14 +307,14 @@ class Upgrade extends Controller
 		// Rename tracking code setting
 		$this->db
 			->where('slug', 'google_analytic')
-			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Anyaltic Tracking Code to activate Google Analytics view data capturing.'));
+			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing.'));
 
 		$this->_output .= 'Adding more Google Analytic Settings.<br/>';
 
 		$this->db->insert('settings', array(
 			'slug' => 'ga_email',
 			'title' => 'Google Analytic E-mail',
-			'description' => 'E-mail address used for Google Analytics, we need this to show the grpah on the dashboard.',
+			'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
 			'`default`' => '',
 			'`value`' => '',
 			'type' => 'text',

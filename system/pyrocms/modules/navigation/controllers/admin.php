@@ -84,7 +84,14 @@ class Admin extends Admin_Controller
 		// Get Navigation Groups
 		$this->data->groups 		= $this->navigation_m->get_groups();
 		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');
-		$modules 					= $this->module_m->get_all(array('is_frontend'=>true));
+		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
+
+		//only allow modules that user has permissions for
+		foreach($all_modules as $module)
+		{
+			if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $modules[] = $module;
+		}
+		
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');
 
 		// Get Pages and create pages tree
