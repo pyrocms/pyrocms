@@ -3,6 +3,7 @@
 // labels
 $lang['nav_title_label'] 						= '標題';
 $lang['nav_target_label']						= '目的';
+$lang['nav_class_label']						= 'Class'; #translate
 $lang['nav_url_label'] 							= '網址';
 $lang['nav_actions_label'] 						= '操作';
 $lang['nav_details_label'] 						= '細節';
@@ -17,8 +18,6 @@ $lang['nav_abbrev_label'] 						= '縮寫';
 $lang['nav_edit_label'] 						= '編輯';
 $lang['nav_delete_label'] 						= '刪除';
 $lang['nav_group_delete_label']					= '刪除群組';
-$lang['nav_link_module_select_default'] 		= '-- 請選擇 --';
-$lang['nav_link_page_select_default'] 			= '-- 請選擇 --';
 
 $lang['nav_link_target_self'] 					= '原視窗開啟 (default)';
 $lang['nav_link_target_blank'] 					= '新視窗開啟 (_blank)';
@@ -43,5 +42,3 @@ $lang['nav_link_edit_success'] 					= '此導航連結已經儲存。';
 $lang['nav_link_delete_success'] 				= '此導航連結已經刪除。';
 
 $lang['nav_link_type_desc'] 					= '請選擇一個連結類型以建立您的連結。';
-
-?>

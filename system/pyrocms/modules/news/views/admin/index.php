@@ -1,8 +1,6 @@
 <?php echo form_open('admin/news/action');?>
 
-<h3><?php echo lang('news_list_title');?></h3>
-
-<?php if (!empty($news)): ?>
+<?php if ( ! empty($news)): ?>
 
 	<table border="0" class="table-list">
 		<thead>
