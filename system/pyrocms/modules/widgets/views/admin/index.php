@@ -152,6 +152,8 @@
 		<p><?php echo lang('nav_no_groups');?></p>
 	<?php endif; ?>
 
+        <div style="height:150px;"></div>
+
 </section>
 
 </div>
