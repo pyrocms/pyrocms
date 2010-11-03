@@ -66,8 +66,7 @@ class Permission_m extends CI_Model
 		$this->db->where('group_id', $group_id)->delete('permissions');
 
 		// For each module mentioned (with a value of 1 for most browser compatibility
-		if (is_array($modules)) {
-  		foreach ($modules as $module => $permission)
+  		foreach ((array)$modules as $module => $permission)
   		{
   			if ( ! empty($permission))
   			{
@@ -78,7 +77,6 @@ class Permission_m extends CI_Model
   				));
   			}
   		}
-    }
 	}
 
 }
