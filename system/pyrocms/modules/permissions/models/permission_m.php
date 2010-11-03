@@ -66,18 +66,19 @@ class Permission_m extends CI_Model
 		$this->db->where('group_id', $group_id)->delete('permissions');
 
 		// For each module mentioned (with a value of 1 for most browser compatibility
-		foreach ($modules as $module => $permission)
-		{
-			if ( ! empty($permission))
-			{
-				// Save this module in the list of "allowed modules"
-				$this->db->insert('permissions', array(
-					'module' => $module,
-					'group_id' => $group_id
-				));
-			}
-		}
-
+		if (is_array($modules)) {
+  		foreach ($modules as $module => $permission)
+  		{
+  			if ( ! empty($permission))
+  			{
+  				// Save this module in the list of "allowed modules"
+  				$this->db->insert('permissions', array(
+  					'module' => $module,
+  					'group_id' => $group_id
+  				));
+  			}
+  		}
+    }
 	}
 
 }
