@@ -1,5 +1,5 @@
 <?php if ($redirects): ?>
-    <?php echo form_open('cms/redirects/delete'); ?>
+    <?php echo form_open('admin/redirects/delete'); ?>
 	<table border="0" class="table-list">
 	    <thead>
 		<tr>
@@ -16,7 +16,7 @@
 			<td><?php echo $redirect->from;?></td>
 			<td><?php echo $redirect->to;?></td>
 			<td>
-			    <?php echo anchor('cms/redirects/edit/'.$redirect->id, lang('redirects.edit'));?>&nbsp;&nbsp;|&nbsp;&nbsp;<?php echo anchor('cms/redirects/delete/'.$redirect->id, lang('redirects.delete'), array('class'=>'confirm'));?>
+			    <?php echo anchor('admin/redirects/edit/'.$redirect->id, lang('redirects.edit'));?>&nbsp;&nbsp;|&nbsp;&nbsp;<?php echo anchor('admin/redirects/delete/'.$redirect->id, lang('redirects.delete'), array('class'=>'confirm'));?>
 			</td>
 		    </tr>
 		<?php endforeach; ?>
