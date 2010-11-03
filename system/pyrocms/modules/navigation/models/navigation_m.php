@@ -51,47 +51,36 @@ class Navigation_m extends CI_Model
 			$this->db->order_by('title');
 		}
 
-		$query = $this->db->get('navigation_links');
+		$result = $this->db->get('navigation_links')->result();
 
-		if ($query->num_rows() > 0)
+		// If we should build the urls
+		if( ! isset($params['make_urls']) or $params['make_urls'])
 		{
-			// If we should build the urls
-			if(!isset($params['make_urls']) or $params['make_urls'])
+			$this->load->helper('url');
+
+			foreach($result as &$row)
 			{
-				$this->load->helper('url');
-
-				$result = $query->result();
-				foreach($result as &$row)
+				// If its any other type than a URL, it needs some help becoming one
+				switch($row->link_type)
 				{
-					// If its any other type than a URL, it needs some help becoming one
-					switch($row->link_type)
-					{
-						case 'uri':
-							$row->url = site_url($row->uri);
-						break;
-							
-						case 'module':
-							$row->url = site_url($row->module_name);
-						break;
+					case 'uri':
+						$row->url = site_url($row->uri);
+					break;
 
-						case 'page':
-							$CI =& get_instance();
-							$page_uri = $CI->pages_m->get_path_by_id($row->page_id);
-							$row->url = site_url($page_uri);
-						break;
-					}
+					case 'module':
+						$row->url = site_url($row->module_name);
+					break;
+
+					case 'page':
+						$CI =& get_instance();
+						$page_uri = $CI->pages_m->get_path_by_id($row->page_id);
+						$row->url = site_url($page_uri);
+					break;
 				}
-				
-				return $result;
-					
-				// Just return the result, dont do anything fancy
 			}
-			
-			return $query->result();
-
 		}
-		
-		return array();
+
+		return $result;
 	}
 	
 	/**
@@ -121,6 +110,7 @@ class Navigation_m extends CI_Model
         	'page_id' 				=> (int) $input['page_id'],
         	'position' 				=> $position,
 			'target'				=> $input['target'],
+			'class'					=> $input['class'],
         	'navigation_group_id'	=> (int) $input['navigation_group_id']
 		));
         
@@ -139,7 +129,7 @@ class Navigation_m extends CI_Model
 	{
 		$input = $this->_format_array($input);
 		 
-		$this->db->update('navigation_links', array(
+		return $this->db->update('navigation_links', array(
         	'title' 				=> $input['title'],
         	'link_type' 			=> $input['link_type'],
         	'url' 					=> $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
@@ -147,10 +137,9 @@ class Navigation_m extends CI_Model
         	'module_name'			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
 			'target'				=> $input['target'],
+			'class'					=> $input['class'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id']
 		), array('id' => $id));
-		
-		return TRUE; // #FIXME: Wait, doesn't this kinda kill the whole possibility of validating the results? It will now always return TRUE, or is it just me? - Yorick
 	}
 	
 	/**
@@ -220,11 +209,9 @@ class Navigation_m extends CI_Model
 	 */
 	public function delete_link($id = 0)
 	{
-		if(is_array($id))  	$params = $id;
-		else   				$params = array('id'=>$id);
-		 
-		$this->db->delete('navigation_links', $params);
-        return $this->db->affected_rows();
+		$params = is_array($id) ? $id : array('id' => $id);
+		
+		return $this->db->delete('navigation_links', $params);
 	}
 
 
@@ -237,9 +224,7 @@ class Navigation_m extends CI_Model
 	 */
 	public function load_group($abbrev)
 	{
-		$group = $this->get_group_by('abbrev', $abbrev);
-
-		if ( ! $group)
+		if ( ! $group = $this->get_group_by('abbrev', $abbrev))
 		{
 			return FALSE;
 		}
@@ -322,8 +307,7 @@ class Navigation_m extends CI_Model
 	 */
 	public function delete_group($id = 0)
 	{
-		if(is_array($id))  	$params = $id;
-		else   				$params = array('id'=>$id);
+		$params = is_array($id) ? $id : array('id'=>$id);
 		 
 		$this->db->delete('navigation_groups', $params);
         return $this->db->affected_rows();

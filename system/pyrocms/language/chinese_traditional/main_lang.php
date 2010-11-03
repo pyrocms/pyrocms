@@ -17,6 +17,7 @@ $lang['dialog.no'] 						= '否'; 			//'No';
 $lang['select.none'] 					= '-- None --'; #translate
 $lang['select.all'] 					= '-- All --'; #translate
 $lang['select.any'] 					= '-- Any --'; #translate
+$lang['select.pick']					= '-- 請選擇 --';
 
 $lang['operators.equal'] 				= 'Equal to'; #translate
 $lang['operators.not_equal'] 			= 'Not equal to'; #translate

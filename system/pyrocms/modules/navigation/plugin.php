@@ -35,11 +35,14 @@ class Plugin_Navigation extends Plugin
 		{
 			foreach ($links as $link)
 			{
-				$attributes = array('target' => $link->target);
+				$attributes = array(
+					'target' => $link->target,
+					'class' => $link->class
+				);
 
 				if (current_url() == $link->url)
 				{
-					$attributes['class'] = $current_class;
+					$attributes['class'] .= ' '.$current_class;
 				}
 				
 				$list .= '<'.$tag.'>' . anchor($link->url, $link->title, $attributes). '</'.$tag.'>'.PHP_EOL;

@@ -3,6 +3,7 @@
 // labels
 $lang['nav_title_label'] 						= 'Titel';
 $lang['nav_target_label']						= 'Ziel';
+$lang['nav_class_label']						= 'Class'; #translate
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Aktionen';
 $lang['nav_details_label'] 						= 'Details';
@@ -17,8 +18,6 @@ $lang['nav_abbrev_label'] 						= 'Abkürzung';
 $lang['nav_edit_label'] 						= 'Bearbeiten';
 $lang['nav_delete_label'] 						= 'Löschen';
 $lang['nav_group_delete_label']					= 'Gruppe löschen';
-$lang['nav_link_module_select_default'] 		= '-- Auswählen --';
-$lang['nav_link_page_select_default'] 			= '-- Auswählen --';
 
 $lang['nav_link_target_self'] 					= 'Aktuelles Fenster (Standard)';
 $lang['nav_link_target_blank'] 					= 'Neues Fenster (_blank)';
@@ -43,5 +42,3 @@ $lang['nav_link_edit_success'] 					= 'Navigations-link wurde gesichert.';
 $lang['nav_link_delete_success'] 				= 'Navigations-link wurde gelöscht.';
 
 $lang['nav_link_type_desc'] 					= 'Bitte wähle einen Link-Typ aus, um weitere Optionen angezeigt zu bekommen.';
-
-?>

@@ -85,6 +85,17 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		$this->_output .= 'Adding "class" field to navigation.<br/>';
+
+		// Not a foolproof method of column detection, but unless they have no entries in the db it'll be fine
+		$nav = $this->db->get('navigation_links', 1)->row();
+
+		if ( ! isset($nav->class))
+		{
+			$this->db->query("ALTER TABLE `navigation_links`
+				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `target`");
+		}
+
 		$this->_output .= 'Setting "Dashboard RSS Feed" will now show in the Settings page.<br/>';
 
 		$this->db
