@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0');
 
 	private $_output = '';
 
@@ -82,6 +82,35 @@ class Upgrade extends Controller
 		// finally, spit it out
 		echo $this->_output;
  	}
+
+	function upgrade_100()
+	{
+		$this->_output .= 'Adding "class" field to navigation.<br/>';
+
+		// Not a foolproof method of column detection, but unless they have no entries in the db it'll be fine
+		$nav = $this->db->get('navigation_links', 1)->row();
+
+		if ( ! isset($nav->class))
+		{
+			$this->db->query("ALTER TABLE `navigation_links`
+				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `target`");
+		}
+
+		$this->_output .= 'Setting "Dashboard RSS Feed" will now show in the Settings page.<br/>';
+
+		$this->db
+			->where('slug', 'dashboard_rss')
+			->update('settings', array('is_gui' => 1));
+		
+		//fix the unserialize() error
+		$this->_output .= 'Correcting translation errors in the redirects module.';
+		
+		$this->db
+			->where('slug', 'redirects')
+			->update('modules', array('description' => 'a:3:{s:2:"nl";s:38:"Verwijs vanaf een URL naar een andere.";s:2:"en";s:33:"Redirect from one URL to another.";s:2:"fr";s:34:"Redirection d\'une URL à un autre.";}'));
+
+		return FALSE;
+	}
 
 	function upgrade_100beta2()
 	{
@@ -163,7 +192,7 @@ class Upgrade extends Controller
 		}
 		// ------------End Assets conversion ----------------
 
-		return FALSE;
+		return TRUE;
 	}
 
 	function upgrade_100beta1()
@@ -278,14 +307,14 @@ class Upgrade extends Controller
 		// Rename tracking code setting
 		$this->db
 			->where('slug', 'google_analytic')
-			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Anyaltic Tracking Code to activate Google Analytics view data capturing.'));
+			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing.'));
 
 		$this->_output .= 'Adding more Google Analytic Settings.<br/>';
 
 		$this->db->insert('settings', array(
 			'slug' => 'ga_email',
 			'title' => 'Google Analytic E-mail',
-			'description' => 'E-mail address used for Google Analytics, we need this to show the grpah on the dashboard.',
+			'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
 			'`default`' => '',
 			'`value`' => '',
 			'type' => 'text',

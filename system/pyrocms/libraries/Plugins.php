@@ -96,6 +96,11 @@ class Plugins
 			return $this->_process($path, $class, $method, $data);
 		}
 
+		if (file_exists($path = ADDONPATH.'plugins/'.$class.EXT))
+		{
+			return $this->_process($path, $class, $method, $data);
+		}
+
 		// Maybe it's a module
 		if ($module = $this->_ci->module_m->get($class))
 		{

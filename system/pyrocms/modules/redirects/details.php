@@ -15,7 +15,7 @@ class Details_Redirects extends Module {
 			'description' => array(
 				'nl' => 'Verwijs vanaf een URL naar een andere.',
 				'en' => 'Redirect from one URL to another.',
-				'fr' => 'Redirection d\'une URL à un autre.'
+				'fr' => 'Redirection d\'une URL Ã  un autre.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

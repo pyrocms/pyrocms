@@ -1,0 +1,216 @@
+<h2>Change Log</h2>
+
+<h3>v1.0.0</h3>
+
+<ul>
+	<li>Cleaned Users module view files. They now allow for easier styling without overriding them in the theme.</li>
+	<li>jQuery now on version 1.4.2</li>
+	<li>jQuery UI now on version 1.8.4</li>
+	<li>Removed old jQuery tabs plugin, now using the built-in jQuery UI tabs plugin.</li>
+	<li>(in-progress) Added File module. This will replace the photos module and allow for Images, Video, Audio and Documents.</li>
+	<li>Rewrite of Settings module to allow module developers easier access and CRUD of site settings.</li>
+	Big structure rewrite and added an addons folder for modules, helpers, libraries, widgets, etc.
+	<li>Removed forums module from the core. It is now an optional download in the <a href="http://pyrocms.com/addons" target="_blank">Addon Store</a></li>
+	<li>Added "Save" and "Save & Exit" buttons to Page manager so you can go back to the same page on save.</li>
+	<li>Widgets can now go in modules and any packages, not just /addons.</li>
+	<li>Logged in users will no longer see the stupid website box on comments, it will use their profile value.</li>
+	<li>Theme views and layouts must now use .html not .php.</li>
+	<li>If comment moderation is disabled you will only see a list of comments, no "unapproved" stuff.</li>
+	<li>Merged old categories module into news module.</li>
+	<li>Moved "Permission Roles" to a new Groups module.</li>
+	<li>Removed the crazy complicated and rather broken Permissions module. Replaced it with a VERY simple module.</li>
+	<li>Added class prefix to all Widgets_ to stop namespace collisions.</li>
+	<li>Replaced TinyMCE with CKEditor 3.4.</li>
+	<li>Removed dependency on $this->data so controllers in modules can use whatever $data variable they like.</li>
+	<li>Renamed $this->module_data to $this->module_details to match details.php name.</li>
+	<li>Added a hook to check if installed, automatically redirecting to the installer if not. This can be disabled in config/hooks.php.</li>
+</ul>
+
+<h4>Deprecated</h4>
+
+<ul>
+	<li>Use of Dwoo syntax, i.e {$ci->foo->bar()} and {$template.body}. Use <a href="development/tags">PyroCMS Tags</a>.</li>
+	<li>Settings methods item() and set(), use $this->settings->foo = 'bar' instead.</li>
+</ul>
+
+<h3>v0.9.9.7</h3>
+<ul>
+	<li>Increased page title and slug length from 60 to 255.</li>
+	<li>Removed all non-cool characters from Widget short name to stop you having to.</li>
+	<li>Added Dutch language pack.</li>
+</ul>
+<p><strong><span style="text-decoration: underline;">Bugs</span></strong></p>
+<ul>
+	<li>Language switcher will now work when Pyro is installed out of web root.</li>
+</ul>
+<h3>v0.9.9.6</h3>
+<ul>
+	<li>{literal}{js('http://example.com/foo.js')} will now work as</li>
+	<li>script, iframe, etc are no longer removed from pages.</li>
+	<li>Added {$pyro.server.xxxx} for things like {$pyro.server.server_name}.{/literal}</li>
+</ul>
+<h3>v0.9.9.5</h3>
+<ul>
+	<li>Loading CP &gt; Widgets will now automatically install any new widgets found.</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong>Bugs</strong></span></p>
+<ul>
+	<li>Fixed Widget title validation error.</li>
+	<li>Fixed issue #251: MySQL Strict mode error for page_layouts.theme_layout.</li>
+	<li>Fixed XSS security issue.</li>
+	<li>Fixed issue where new modules were not automatically imported when viewing the Modules list.</li>
+</ul>
+<h3>v0.9.9.4</h3>
+<ul>
+	<li>Added a "Script" tab to CP &gt; Pages which contains a JavaScript editor.</li>
+	<li>Upgraded TinyMCE to 3.3.8.</li>
+	<li>The first photo will be displayed beside the description on the frontend.</li>
+	<li>Admin login now shows login error messages.</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong>Bugs</strong></span></p>
+<ul>
+	<li>Added mime type support for "application/octet-stream" to zip.</li>
+	<li>Running PyroCMS on a port other than 80 will no longer break login.</li>
+	<li>Fixed issue #236: TinyMCE missing images.</li>
+	<li>Fixed link in forgotten password email.</li>
+	<li>Fixed broken TinyCIMM record in Permissions list.</li>
+	<li>Fixed syntax error in french admin language file.</li>
+	<li>Fixed "Read more" link in Spanish.</li>
+	<li>Fixed issue of thumbnails not being created on photo upload.</li>
+	<li>Drag and drop sorting that you do in the admin panel is reflected on the front end.</li>
+</ul>
+<h3>v0.9.9.3</h3>
+<p><span style="text-decoration: underline;"><strong>Bugs</strong></span></p>
+<ul>
+	<li>Fixed issue #234. Admin's could not log in due to Validation being called instead of Form_validation.</li>
+	<li>Fixed "MX_Language not found" bug.</li>
+	<li>Patched a MySQL Strict Mode error in permission_rules.user_id.</li>
+	<li>Fixed theme layouts attached to page layouts.</li>
+	<li>Improved admin rounded corners for WebKit.</li>
+</ul>
+<h3>v0.9.9.2</h3>
+<ul>
+	<li>If a module is missing a language file for the current language, then it now falls back to english, instead of breaking.</li>
+	<li>Updated navigation widget to add class="current" to the current navigation list item.</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong>Bugs</strong></span></p>
+<ul>
+	<li>Fixed <a class="link-subtle" href="http://github.com/philsturgeon/pyrocms/issues#issue/218" target="_blank">issue #218</a>: theme_layout field was missing from page_layouts table.</li>
+	<li>Fixed <a class="link-subtle" href="http://github.com/philsturgeon/pyrocms/issues#issue/223" target="_blank">issue #223</a>: _parse_xml in modules doesn't parse XML controller for multiple controllers.</li>
+	<li>Fixed cookie settings that were being reset to blank in the config file.</li>
+	<li>Fixed <a class="link-subtle" href="http://github.com/philsturgeon/pyrocms/issues#issue/228" target="_blank">issue #228</a>: Removed random / in the Spanish navigation lang.</li>
+	<li>Fixed an issue that caused cookies not to function correctly when running PyroCMS locally.</li>
+</ul>
+<h3>v0.9.9.1</h3>
+<p><span style="text-decoration: underline;"><strong>Bugs</strong></span></p>
+<ul>
+	<li>Fixed issue #211: Field 'display_name' doesn't have a default value (MySQL Strict Mode).</li>
+	<li>Fixed User edit in CP.&nbsp; Can now change password.</li>
+	<li>Fixed issue #210: Breadcrumb "Array" issue in CrystalX theme.</li>
+	<li>Fixed issue #213: Navigation target causing HTML validation failure when set to "Current window"</li>
+	<li>Fixed issue #145: News titles now allow html characters without blowing up everything.</li>
+</ul>
+<h3>v0.9.9</h3>
+<ul>
+	<li>Theme Layouts can now be assigned to Page Layouts.</li>
+	<li>Installer can now get server information from (and install to) remote database servers.</li>
+	<li>Comments can be added to a Page with a checkbox on Add/Edit "Options" tab.</li>
+	<li>Added third_party/widgets so you can add your own Widgets out of the way of application folder.</li>
+	<li>Query strings are now fully supported.</li>
+	<li>Added hooks for post_user_activation and post_user_login for custom actions.</li>
+	<li>Twitter/News integration now handles errors gracefully and gives you any error Twitter returns.</li>
+	<li>Modules have been moved to the DB (details.xml still required for import).</li>
+	<li>Themes with no theme.xml will still function fine, they just won't have author name, website, etc.</li>
+	<li>Widget tags added to Control Panel to show how to insert widgets and widget areas.</li>
+	<li>DEPRECATED support for .php in themes, use .html for all theme view files and theme layouts.</li>
+	<li>Modules can now be uploaded, installed, uninstalled, enabled and disabled via the admin panel.</li>
+	<li>A Module's details.xml can now contain SQL data to be run on module upload (see the forums details.xml for example).</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong>Bugs</strong></span></p>
+<ul>
+	<li>Fixed issue #200: Call to undefined method Permissions_m::checkRuleByRole().</li>
+	<li>Fixed table and column collation in the forum tables.</li>
+	<li>Fixed Tiny MCE bug that prevented the image manager from working when PyroCMS was installed in a sub-directory.</li>
+	<li>Fixed enable_query_string setting in the installer config template.</li>
+	<li>Fixed error in users/register that prevented form_validation errors from displaying.</li>
+	<li>Fixed issue #205: The news article date cannot be changed on creation or edit.</li>
+	<li>Fixed upgrade script issue that caused an error by trying to create a column in a table that didn't exist yet.</li>
+	<li>Fixed issue #206: Twitter/News integration issues.</li>
+	<li>Fixed redirect loop for any users logging in with a direct visit to /users/login that only affected root installs.</li>
+	<li>Fixed CP &gt; Themes &gt; Upload Theme.</li>
+</ul>
+<h3>v0.9.8</h3>
+<ul>
+	<li>Added "Widgets" which allow very flexible chunks of code to be placed almost anywhere.</li>
+	<li>Added custom CSS area for pages.</li>
+	<li>Added GUI editable "Page layouts" to control shared layouts for grouped pages.</li>
+	<li>"Check all" boxes and CTRL + Click selecting added to all listing pages.</li>
+	<li>Switched module system from Matchbox to Modular Separation (minor performance boost).</li>
+	<li>Switched template system from HelpfulParser to Dwoo (dramaticallty improved syntax support, if/else, loops, etc).</li>
+	<li>Removed Layout library and replaced with the much cleaner Template library.</li>
+	<li>Removed all PHP short-tags.</li>
+	<li>Standardized much of the model code, and removed deprecated CodeIgniter ActiveRecord methods like getwhere().</li>
+	<li>Disabled GZIP compression by default. If you want it, re-enable in application/config/config.php.</li>
+	<li>Settings library now loads all settings on instantiation, instead of one query-per-setting.</li>
+	<li>Added "Preview" windows for pages and news, much more accurate than before.</li>
+	<li>Draft/Live status added for pages, admins can see pages anyway.</li>
+	<li>Swapped Facebox for Fancybox. Mainly iframe support, but it seems generally better.</li>
+	<li>Re-enabled page slug editing.</li>
+	<li>Navigation add/edit form is now much more user-friendly.</li>
+	<li>Removed all CAPTCHAs and use Akismet and some clever trickery to check for spam.</li>
+	<li>Upgraded to Google Async Analytics (much quicker).</li>
+	<li>Added editable 404 page which actually sends 404 header.</li>
+	<li>Navigation links are drag/drop sortable in admin.</li>
+	<li>URI slugs in News and Pages are now editable.</li>
+	<li>Upgraded Dwoo to v1.1.1.</li>
+	<li>Upgraded jQuery to v1.4.2.</li>
+	<li>Upgraded jQuery UI to v1.7.2.</li>
+	<li>Updated default theme to use entirely Dwoo syntax as an example.</li>
+	<li>Required metadata such as jQuery / front.js loading is now handled internally so theme designers dont need to remember it.</li>
+	<li>Optional RSS feeds of a pages children, available for any page.</li>
+	<li>Tidied up the dashboard, added recent users &amp; comments and made it multi-lang.</li>
+	<li>Added Polish language support.</li>
+	<li>Added "Variables" module which allows user-defined variables accross the site.</li>
+	<li>Merged Ion Auth project into the core to replace legacy user system</li>
+	<li>Added /third_party folder to store downloadable modules and themes.</li>
+	<li>Error message added in case active theme is deleted.</li>
+	<li>Added IP tracking to comments.</li>
+</ul>
+<h3>v0.9.7.4</h3>
+<ul>
+	<li>Full support for PHP 5.3.</li>
+	<li>Fixed "could not open application/assets/config/config.php" error on Install Step 4.</li>
+	<li>Extra support for different server types.</li>
+	<li>index.php is no longer removed by default, unless a supported server is picked.</li>
+</ul>
+<h3>v0.9.7.3</h3>
+<ul>
+	<li>Removed MySQLi as a dependency - should fix installer.</li>
+	<li>Fixed AJAXify for FF2 and IE7. </li>
+	<li>Fixed loads of TinyCIMM bugs (Image Manager)</li>
+	<li>Added better JS support for IE6 (not going to make a habit of that)</li>
+	<li>Added German language support.</li>
+	<li>Stopped PHP errors showing if you clicked Publish/Delete with no news articles selected.</li>
+</ul>
+<h3>v0.9.7.2</h3>
+<ul>
+	<li>Contact captcha fixed</li>
+	<li>More installer bugs fixed</li>
+	<li>Added "target" to navigation links</li>
+	<li>Fixed an issue with Cache library lazy-loading that was breaking lazydays theme</li>
+</ul>
+<h3>v0.9.7.1</h3>
+<ul>
+	<li>Improved PHP 5.3 support</li>
+	<li>Several installer bugs fixed</li>
+	<li>Added Gravatar support to comment</li>
+	<li>Enabled short-tag rewriting by default</li>
+</ul>
+<h3>v0.9.7</h3>
+<ul>
+	<li>New Page manager - Use a tree navigation view to manage and link your unlimited levels of pages.</li>
+	<li>Image uploading via TinyMCE - Not just any plugin, Richard Wills (@badsyntax) has been going nuts on the development here and made an amazing plugin which strongly integrated with PyroCMS.</li>
+	<li>Improved interface - Now using a slightly darker theme. Less brown, more black and orange.</li>
+	<li>Added French language pack</li>
+	<li>Cross-browser improvements - much better support for Safari, Opera and Chrome.</li>
+</ul>

@@ -1,0 +1,151 @@
+<h2>Modules</h2>
+
+
+
+<p>
+	PyroCMS is built to be modular, so creating modules is a pretty simple process. The core modules are
+	stored in <def>system/pyrocms/modules</def> and you can install extra ones to <def>addons/modules</def>.
+	Any module you create or download should go into the addons folder.
+</p>
+
+<p>
+	Each module can contain the following directories: config, <a href="devlopment/controllers.html">controllers</a>,
+	<a href="devlopment/helpers.html">helpers</a>, <a href="devlopment/libraries.html">libraries</a>,
+	<a href="devlopment/models.html">models</a>, <a href="devlopment/views.html">views</a>,
+	js, css and img. If a module will have a frontend (something that displays to the user) then it should 
+	contain at least one controller, and that controller should be the same name as the module.
+</p>
+
+<blockquote>E.g: addons/modules/news/controllers/news.php</blockquote>
+
+<p>The rest of it is pretty much normal CodeIgniter development except for a few things.</p>
+
+<h3>Module Details</h3>
+
+<p>Each module contains a details.php file which contains its name,  description, version, wether they are available to the   backend and/or frontend, etc. &nbsp;This file is only used when installing and uninstalling the module. &nbsp;On install the file is parsed and imported into the database.</p>
+
+<p>Here is the basic structure for the details.php file:</p>
+
+<pre><code class="php">&lt;?php defined('BASEPATH') or exit('No direct script access allowed');
+
+class Details_Polls extends Module {
+
+	public $version = '1.0';
+
+	public function info()
+	{
+		return array(
+			'name' =&gt; array(
+				'en' =&gt; 'Polls'
+			),
+			'description' =&gt; array(
+				'en' =&gt; 'Create totally awesome polls.'
+			),
+			'frontend' =&gt; TRUE,
+			'backend' =&gt; TRUE,
+			'menu' =&gt; FALSE
+		);
+	}
+
+	public function install()
+	{
+		// Create polls table
+		$this-&gt;db-&gt;query("
+			CREATE TABLE IF NOT EXISTS `polls` (
+			`id` tinyint(11) unsigned NOT NULL AUTO_INCREMENT,
+			`slug` varchar(64) NOT NULL,
+			PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT
+		");
+
+		// It worked!
+		return TRUE;
+	}
+
+	public function uninstall()
+	{
+		// Get 
+		$this-&gt;db-&gt;query("DROP TABLE `polls`");
+		return TRUE;
+	}
+
+	public function upgrade($old_version)
+	{
+		// Your Upgrade Logic
+		return TRUE;
+	}
+
+	public function help()
+	{
+		// You could include a file and return it here.
+		return "Some Help Stuff";
+	}
+}
+/* End of file details.php */</code></pre>
+
+<p>The info array contains details that will be read and saved to the database on install. You can supply as many extra languages as you like, by default the en version of name and description will be used.</p>
+
+<h3>Public Controllers</h3>
+
+<p>In normal CodeIgniter there is only one controller class. In PyroCMS  there are four. Controller, MY_Controller, Admin_Controller and Public_Controller. To  use one of these you can extend them like so:</p>
+
+<pre><code class="php">&lt;?php
+class News extends Public_Controller {
+	
+	function index()
+	{
+		$data['message'] = "Hello World!";
+
+		// Loads from addons/modules/news/views/view_name.php
+		$this-&gt;template-&gt;build('view_name', $data);
+	}
+}</code></pre>
+
+<p>This page will be available to anyone whether logged in or not and  will use the frontend design. That means it will use the current active  theme and show any login data and navigation, etc and can be viewed via  "http://example.com/modulename".</p>
+
+<h3>Admin Controllers</h3>
+
+<p>Admin controllers have a few different properties to them. It will automatically check that a user has permission to be there, and redirect  them to a login page if not. This means they either need to have a user  role of "admin" or be allowed specific permission to access the module.</p>
+
+<p><def>system/pyrocms/modules/modulename/controllers/admin.php</def></p>
+
+<pre><code class="php">&lt;?php
+class Admin extends Admin_Controller {
+
+	function index()
+	{
+		$data['message'] = "Hello logged in admin guy!";
+
+		// Loads from addons/modules/news/views/admin/view_name.php
+		$this-&gt;template-&gt;build('admin/view_name', $data);
+	}
+}</code></pre>
+
+<p>This page can be accessed via "http://example.com/admin/modulename".</p>
+
+<h3>Module Cache</h3>
+
+<p>When you put together your module structure and made your details.php file, you might notice there is still no sign of your module in the Control Panel. The navigation is cached to save CPU cycles as parsing 10+ XML files on each page load is silly. To get your backend module to appear (if you have told it to do so with is_backend_menu in details.php) you need to clear the system/pyrocms/cache/modules_m/ cache folder like so:</p>
+<blockquote>sudo rm -rf system/pyrocms/cache/modules_m</blockquote>
+
+<p>Now your module should appear and you can start developing your module using normal CodeIgniter methods, your own libraries and those included with PyroCMS.</p>
+
+<h3>Installing the Module</h3>
+
+<p>The module can be installed in 2 different ways.</p>
+
+<ol>
+	<li>Copy the module into the <def>addons/modules</def> folder.</li>
+	<li>Log into the Control Panel and click on "Modules", then click Install.</li>
+	<li>That's it!</li>
+</ol>
+
+<p>If you want to install a module on a server but you don't have access to the filesystem you can upload a zip containing the module through the Control Panel instead, then click install.</p>
+
+<h3>Uninstall the Module</h3>
+
+<p>To uninstall simply go into the admin, click on "Modules" then click "Uninstall" next to the module you will to uninstall. This will run the uninstall method which should drop any tables.</p>
+
+<h3>Disabling the Module</h3>
+
+<p>To disable simply go into the Control Panel, click on "Modules" then click "Disable" next to the module you want to disable. This will disable both on the front end (it will 404 when you try to visit it) and in the Control Panel.</p>

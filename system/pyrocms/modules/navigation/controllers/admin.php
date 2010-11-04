@@ -15,7 +15,53 @@ class Admin extends Admin_Controller
 	 * @var array
 	 * @access private
 	 */
-	private $validation_rules 	= array();
+	private $validation_rules 	= array(
+		array(
+			'field' => 'title',
+			'label'	=> 'lang:nav_title_label',
+			'rules'	=> 'trim|required|max_length[40]'
+		),
+		array(
+			'field' => 'link_type',
+			'label'	=> 'lang:nav_type_label',
+			'rules'	=> 'trim|alpha'
+		),
+		array(
+			'field' => 'url',
+			'label'	=> 'lang:nav_url_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'uri',
+			'label'	=> 'lang:nav_uri_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'module_name',
+			'label'	=> 'lang:nav_module_label',
+			'rules'	=> 'trim|alpha_dash'
+		),
+		array(
+			'field' => 'page_id',
+			'label'	=> 'lang:nav_page_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'navigation_group_id',
+			'label'	=> 'lang:nav_group_label',
+			'rules'	=> 'trim|numeric|required'
+		),
+		array(
+			'field' => 'target',
+			'label'	=> 'lang:nav_target_label',
+			'rules'	=> 'trim|max_length[10]'
+		),
+		array(
+			'field' => 'class',
+			'label'	=> 'lang:nav_class_label',
+			'rules'	=> 'trim|alpha_dash'
+		)
+	);
 
 	/**
 	 * Constructor method
@@ -24,7 +70,6 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's contstructor
 		parent::__construct();
 
 		// Load the required classes
@@ -39,7 +84,14 @@ class Admin extends Admin_Controller
 		// Get Navigation Groups
 		$this->data->groups 		= $this->navigation_m->get_groups();
 		$this->data->groups_select 	= array_for_select($this->data->groups, 'id', 'title');
-		$modules 					= $this->module_m->get_all(array('is_frontend'=>true));
+		$all_modules				= $this->module_m->get_all(array('is_frontend'=>true));
+
+		//only allow modules that user has permissions for
+		foreach($all_modules as $module)
+		{
+			if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $modules[] = $module;
+		}
+		
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');
 
 		// Get Pages and create pages tree
@@ -57,49 +109,6 @@ class Admin extends Admin_Controller
 		$this->data->pages_select = $tree;
 
 		// Set the validation rules for the navigation items
-		$this->validation_rules = array(
-			array(
-				'field' => 'title',
-				'label'	=> lang('nav_title_label'),
-				'rules'	=> 'trim|required|max_length[40]'
-			),
-			array(
-				'field' => 'link_type',
-				'label'	=> lang('nav_type_label'),
-				'rules'	=> 'trim|alpha'
-			),
-			array(
-				'field' => 'url',
-				'label'	=> lang('nav_url_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'uri',
-				'label'	=> lang('nav_uri_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'module_name',
-				'label'	=> lang('nav_module_label'),
-				'rules'	=> 'trim|alpha_dash'
-			),
-			array(
-				'field' => 'page_id',
-				'label'	=> lang('nav_page_label'),
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'navigation_group_id',
-				'label'	=> lang('nav_group_label'),
-				'rules'	=> 'trim|numeric|required'
-			),
-			array(
-				'field' => 'target',
-				'label'	=> lang('nav_target_label'),
-				'rules'	=> 'trim|max_length[10]'
-			),
-		);
-
 		$this->form_validation->set_rules($this->validation_rules);
 	}
 
@@ -206,9 +215,9 @@ class Admin extends Admin_Controller
 		}
 
 		// Render the view
-		$this->data->navigation_link =& $navigation_link;
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('nav_link_edit_title'), $navigation_link->title))
+			->set('navigation_link', $navigation_link)
 			->build('admin/links/form', $this->data);
 	}
 

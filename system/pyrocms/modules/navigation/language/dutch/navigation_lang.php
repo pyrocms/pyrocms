@@ -3,6 +3,7 @@
 // labels
 $lang['nav_title_label'] 						= 'Titel';
 $lang['nav_target_label']						= 'Doel';
+$lang['nav_class_label']						= 'Class'; #translate
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Acties';
 $lang['nav_details_label'] 						= 'Details';
@@ -17,8 +18,6 @@ $lang['nav_abbrev_label'] 						= 'Afkorting';
 $lang['nav_edit_label'] 						= 'Wijzig';
 $lang['nav_delete_label'] 						= 'Verwijder';
 $lang['nav_group_delete_label']					= 'Verwijder groep';
-$lang['nav_link_module_select_default'] 		= '-- Selecteer --';
-$lang['nav_link_page_select_default'] 			= '-- Selecteer --';
 
 $lang['nav_link_target_self'] 					= 'Huidig scherm (default)';
 $lang['nav_link_target_blank'] 					= 'Nieuw scherm (_blank)';
@@ -43,5 +42,3 @@ $lang['nav_link_edit_success'] 					= 'De navigatielink is opgeslagen.';
 $lang['nav_link_delete_success'] 				= 'De navigatielink is verwijderd.';
 
 $lang['nav_link_type_desc'] 					= 'Selecteer een type voor meer opties bij het maken van uw link.';
-
-?>

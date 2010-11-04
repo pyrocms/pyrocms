@@ -12,6 +12,7 @@ $lang['modules.uninstall_error']		= '無法卸載名稱為 "%s" 的模組';
 $lang['modules.uninstall_success']		= '此模組 "%s" 已經卸載';
 $lang['modules.already_exists_error']	= '一個相同名稱的模組 "%s" 已經存在。';
 $lang['modules.module_not_specified']	= '您必須指定一個模組';
+$lang['modules.details_error']			= 'There is an error in the details.php file of the %s module. Correct the error, then reinstall the module.'; #translate
 
 $lang['modules.manually_remove']		= '您必須手動移除 "%s"，才能完整移除此模組。';
 $lang['modules.upload_title']			= '上傳模組';

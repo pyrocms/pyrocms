@@ -1,0 +1,26 @@
+<h2>Widgets</h2>
+
+<p>
+	Widgets are quite similar to <a href="developers/Widgets.html">Widgets</a>, in the way they are inserted into content, but they are
+	a little more clever. They allow even your least experienced client or administrator to manage chunks of intelligent content on there 
+	site without needing to learn loads of tags, HTML or call you in to help.
+</p>
+
+<p>
+	Widget Areas can be defined (header, sidebar, news page footers, etc) then Widget Instances can be added in.
+	Available Widgets currently include HTML blocks, Twitter Feeds, RSS Feeds, Google Maps and Social Bookmarks. More will be included over time,
+	and you can make your own very easily.
+</p>
+
+<p>There places you can put your Widgets:</p>
+
+<ol>
+	<li>Standalone Widget <def>addons/widgets/<em>widgetname/widgetname</em>.php</def></li>
+	<li>Modular Widget <def>addons/modules/<em>modulename</em>/widgets/<em>widgetname/widgetname</em>.php</def></li>
+</ol>
+
+<h3>Example usage</h3>
+
+<p>All you need to do for this to work is open up a theme layout or page layout and enter:</p>
+
+<pre><code class="html">{pyro:widgets:area slug="sidebar"}</code></pre>

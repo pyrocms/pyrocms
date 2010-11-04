@@ -10,7 +10,7 @@ class Redirect_m extends MY_Model
 
 	function get_from($from)
 	{
-		$this->db->where('from', $from);
+		$this->db->where('`from`', $from);
 		//$this->db->where('site_id', $this->site->id);
 		return $this->db->get('redirects')->row();
 	}
@@ -38,8 +38,8 @@ class Redirect_m extends MY_Model
 		));
 
     	return $this->db->update('redirects', array(
-    		'from' => $input['from'],
-    		'to' => trim($input['to'], '/')
+    		'`from`' => $input['from'],
+    		'`to`' => trim($input['to'], '/')
         ));
     }
 
