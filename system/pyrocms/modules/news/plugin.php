@@ -32,7 +32,7 @@ class Plugin_News extends Plugin
 			'category' => '',
 		);
 
-		$params = parent::attributes($data['attributes'], $defaults);
+		$params = parent::attributes();
 
 		if ( ! empty($params['category']))
 		{
@@ -46,13 +46,17 @@ class Plugin_News extends Plugin
 				$this->db->where('c.slug', $params['category']);
 			}
 		}
+		if(empty($params['limit']))
+		{
+			$params['limit'] = 10;
+		}
 
-    	$this->_ci->db->from('news')
-			->where('status', 'live')
-			->where('created_on <=', now())
-    		->limit($params['limit']);
-
-		$query = $this->_ci->db->get();
+		$this->db->from('news')
+				->where('status', 'live')
+				->where('created_on <=', now())
+				->limit($params['limit']);
+	
+		$query = $this->db->get();
 
 		if ($query->num_rows() == 0) // no records so we can't continue
 		{
