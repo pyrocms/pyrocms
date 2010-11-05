@@ -47,7 +47,7 @@ class Plugin_Widgets extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	public function instance($id)
+	public function instance()
 	{
 		$id = $this->attribute('id');
 
