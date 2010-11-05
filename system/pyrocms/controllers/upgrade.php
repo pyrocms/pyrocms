@@ -94,6 +94,8 @@ class Upgrade extends Controller
 		{
 			$this->db->query("ALTER TABLE `navigation_links`
 				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `target`");
+
+			$this->cache->delete_all('navigation_m');
 		}
 
 		$this->_output .= 'Setting "Dashboard RSS Feed" will now show in the Settings page.<br/>';
