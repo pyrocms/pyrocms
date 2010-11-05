@@ -59,31 +59,3 @@
 		<h2><?php echo lang('nav_no_groups');?></h2>
 	</div>
 <?php endif; ?>
-
-
-<script type="text/javascript">
-(function($) {
-	$(function() {
-		
-		$('a.delete_group').click(function(){
-			return confirm('<?php echo lang('nav_group_delete_confirm');?>');
-		});
-
-		$('table tbody').sortable({
-			handle: 'td',
-			helper: fixHelper,
-			update: function() {
-				order = new Array();
-				$('tr', this).each(function(){
-					order.push( $(this).find('input[name="action_to[]"]').val() );
-				});
-				order = order.join(',');
-				
-				$.post(BASE_URI + 'index.php/admin/navigation/ajax_update_positions', { order: order });
-			}
-			
-		}).disableSelection();
-				
-	});
-})(jQuery);
-</script>
