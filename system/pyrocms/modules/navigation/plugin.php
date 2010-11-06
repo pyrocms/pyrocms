@@ -35,10 +35,8 @@ class Plugin_Navigation extends Plugin
 		{
 			foreach ($links as $link)
 			{
-				$attributes = array(
-					'target' => $link->target,
-					'class' => $link->class
-				);
+				$attributes['target'] = (isset($link->target)) ? $link->target : '';
+				$attributes['class']  = (isset($link->class))  ? $link->class  : '';
 
 				if (current_url() == $link->url)
 				{
