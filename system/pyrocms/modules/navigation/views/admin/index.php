@@ -31,8 +31,8 @@
 								<td><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
 								<td><?php echo $navigation_link->title;?></td>
 								<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-								<td><?php echo $navigation_link->target;?></td>
-								<td><?php echo $navigation_link->class;?></td>
+								<td><?php echo (isset($navigation_link->target) ? $navigation_link->target : '');?></td>
+								<td><?php echo (isset($navigation_link->class) ? $navigation_link->class : '');?></td>
 								<td width="180" align="right">
                                 	<span class="toggle-item">
 									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'), array('class'=>'minibutton'));?>  
