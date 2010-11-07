@@ -88,9 +88,9 @@ class Details_Settings extends Module {
 			 ('mail_protocol', 'Mail Protocol', 'Select desired email protocol.', 'select', 'mail', 'mail', 'mail=Mail|sendmail=Sendmail|smtp=SMTP', '1', '1', ''),
 			 ('mail_sendmail_path', 'Sendmail Path', 'Path to server sendmail binary.', 'text', '', '', '', '0', '1', ''),
 			 ('mail_smtp_host', 'SMTP Host Name', 'The host name of your smtp server.', 'text', '', '', '', '0', '1', ''),
-			 ('mail_smtp_user', 'SMTP User Name', 'SMPT user name.', 'text', '', '', '', '0', '1', ''),
-			 ('mail_smtp_pass', 'SMTP Password', 'SMPT password.', 'text', '', '', '', '0', '1', ''),
-			 ('mail_smtp_port', 'SMTP Port', 'SMPT port number.', 'text', '', '', '', '0', '1', ''),
+			 ('mail_smtp_user', 'SMTP User Name', 'SMTP user name.', 'text', '', '', '', '0', '1', ''),
+			 ('mail_smtp_pass', 'SMTP Password', 'SMTP password.', 'text', '', '', '', '0', '1', ''),
+			 ('mail_smtp_port', 'SMTP Port', 'SMTP port number.', 'text', '', '', '', '0', '1', ''),
 			 ('version', 'Version', '', 'text', 'v0.9.8', '".CMS_VERSION."', '', '0', '0', '');
 		";
 		

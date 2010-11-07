@@ -691,6 +691,7 @@ class Template
 				// Load content and pass through the parser
 				$content = $this->_ci->parser->parse_string($this->_ci->load->_ci_load(array(
 					'_ci_path' => $override_view_path.$view.self::_ext($view),
+					'_ci_vars' => $data,
 					'_ci_return' => TRUE
 				)), $data, TRUE);
 			}

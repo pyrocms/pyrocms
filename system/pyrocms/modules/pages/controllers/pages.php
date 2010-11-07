@@ -125,7 +125,7 @@ class Pages extends Public_Controller
 		$page_array['layout'] = (array) $page_array['layout'];
 
 		// Parse it so the content is parsed
-//		$page->body = $this->parser->parse_string($page->body, array('page' => $page_array), TRUE);
+		$page_array['body'] = $this->parser->parse_string(str_replace('&quot;', '"', $page->body), $this->data, TRUE);
 		
         // Create page output
 	    $this->template->title($page->meta_title)
