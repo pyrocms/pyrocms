@@ -4,7 +4,7 @@
 <h3><?php echo sprintf(lang('news_edit_title'), $article->title);?></h3>
 <?php endif; ?>
 
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+<?php echo form_open(uri_string(), 'class="crud"'); ?>
 
 	<div class="tabs">
 
@@ -72,6 +72,6 @@
 
 	</div>
 
-<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 
 <?php echo form_close(); ?>

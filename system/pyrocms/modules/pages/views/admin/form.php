@@ -5,7 +5,7 @@
 	<?php endif; ?>
 
 
-		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+		<?php echo form_open(uri_string(), 'class="crud"'); ?>
 		<?php echo form_hidden('parent_id', (@$page->parent_id == '')? 0 : $page->parent_id); ?>
 
 		<div class="tabs">
