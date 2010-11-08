@@ -44,19 +44,8 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|alpha'
 		),
 		array(
-			'field' => 'created_on_day',
-			'label' => 'lang:news_created_day',
-			'rules' => 'trim|numeric|required'
-		),
-		array(
-			'field' => 'created_on_month',
-			'label' => 'lang:news_created_month',
-			'rules' => 'trim|numeric|required'
-		),
-		array(
-			'field' => 'created_on_year',
-			'label' => 'lang:news_created_year',
-			'rules' => 'trim|numeric|required'
+			'field' => 'date',
+			'rules' => 'trim|max_length[10]'
 		),
 		array(
 			'field' => 'created_on_hour',
@@ -84,11 +73,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('news');
 		$this->lang->load('categories');
 		
-		// Date ranges for select boxes
-		$this->data->days = array_combine($days = range(1, 31), $days);
-		$this->data->months = array_combine($months = range(1, 12), $months);
-		$this->data->years = array_combine($years = range(date('Y')-2, date('Y')+2), $years);
-		
+		// Date ranges for select boxes		
 		$this->data->hours = array_combine($hours = range(1, 23), $hours);
 		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
 		
@@ -142,6 +127,11 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run())
 		{
+			
+			$date = $this->input->post('date');
+			
+			$date =  explode('/', $date);
+			
 			$id = $this->news_m->insert(array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
@@ -151,9 +141,9 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $this->input->post('created_on_day'),
-				'created_on_month'	=> $this->input->post('created_on_month'),
-				'created_on_year'	=> $this->input->post('created_on_year'),
+				'created_on_day'	=> $date[1],
+				'created_on_month'	=> $date[0],
+				'created_on_year'	=> $date[2],
 			));
     	
 			$id
@@ -167,7 +157,6 @@ class Admin extends Admin_Controller
 			// Go through all the known fields and get the post values
 			foreach($this->validation_rules as $key => $field)
 			{
-				
 				$article->$field['field'] = set_value($field['field']);
 			}
 		}
@@ -201,6 +190,9 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run())
 		{
+			$date = $this->input->post('date');
+			
+			$date =  explode('/', $date);
 			
 			$result = $this->news_m->update($id, array(
 				'title'			=> $this->input->post('title'),
@@ -211,9 +203,9 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $this->input->post('created_on_day'),
-				'created_on_month'	=> $this->input->post('created_on_month'),
-				'created_on_year'	=> $this->input->post('created_on_year'),
+				'created_on_day'	=> $date[1],
+				'created_on_month'	=> $month[0],
+				'created_on_year'	=> $year[2],
 				));
 			
 			if ($result)
@@ -223,7 +215,7 @@ class Admin extends Admin_Controller
 				// The twitter module is here, and enabled!
 				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
-					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.str_pad($this->input->post('created_on_month'), 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
+					$url = shorten_url('news/'.$year.'/'.str_pad($month, 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
 					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{
@@ -244,7 +236,10 @@ class Admin extends Admin_Controller
 		// Go through all the known fields and get the post values
 		foreach(array_keys($this->validation_rules) as $field)
 		{
-			if (isset($_POST[$field])) $article->$field = $this->form_validation->$field;
+			
+			if (isset($_POST[$field])){
+				$article->$field = $this->form_validation->$field;
+			}
 		}    	
 		
 		// Load WYSIWYG editor

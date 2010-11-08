@@ -11,7 +11,7 @@ jQuery(function($) {
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
-		$( "#datepicker" ).datepicker();
+		
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
@@ -103,6 +103,11 @@ jQuery(function($) {
 		$('.tabs').livequery(function () {
 			$(this).tabs();
 		});
+		
+		$( "#datepicker" ).livequery(function (){
+			$(this).datepicker();
+		}); 
+		
 		$('#tabs').livequery(function () {
 			$(this).tabs({
 				// This allows for the Back button to work.
