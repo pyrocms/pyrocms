@@ -125,13 +125,15 @@
 
 			<section id="area-<?php echo $widget_area->slug; ?>">
 				<header class="widget-area-header">
-					<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
-					<a id="edit-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link edit-area" href="#">
+                	<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
+					<a id="edit-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link edit-area minibutton" href="#">
 						<?php echo lang('widgets.edit_area'); ?>
 					</a>
-					<a id="delete-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link delete-area" href="#">
+					<a id="delete-area-<?php echo $widget_area->slug; ?>" class="accordion-header-link delete-area minibutton" href="#">
 						<?php echo lang('widgets.delete_area'); ?>
 					</a>
+                    
+					
 				</header>
 				
 				<div class="accordion-content">
