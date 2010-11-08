@@ -204,8 +204,8 @@ class Admin extends Admin_Controller
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
 				'created_on_day'	=> $date[1],
-				'created_on_month'	=> $month[0],
-				'created_on_year'	=> $year[2],
+				'created_on_month'	=> $date[0],
+				'created_on_year'	=> $date[2],
 				));
 			
 			if ($result)
