@@ -63,15 +63,19 @@
                     <div style="float:left;">
                                        
                     <?php
-										
-                    if($article->created_on_day===''){
-                    	$date ='';
+                    if(@$article->created_on_day==''&&@$article->date==''){
+                    	$date =date('n/j/y');
                     }
                     else{
-                    	$date = $article->created_on_month.'/'.$article->created_on_day.'/'.$article->created_on_year;
+                    	if(!isset($article->date)){
+							$date = $article->created_on_month.'/'.$article->created_on_day.'/'.$article->created_on_year;
+						}
+						else{
+							$date = $article->date;
+						}
                     }
                     
-                    echo form_input('date', htmlspecialchars_decode($article->date), 'maxlength="10" id="datepicker" class="text width-20"'); ?>
+                    echo form_input('date', htmlspecialchars_decode($date), 'maxlength="10" id="datepicker" class="text width-20"'); ?>
                     </div>
 
 					<label class="time-meta"><?php echo lang('news_time_label');?></label>
