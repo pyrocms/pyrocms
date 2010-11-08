@@ -105,11 +105,34 @@ class Upgrade extends Controller
 			->update('settings', array('is_gui' => 1));
 		
 		//fix the unserialize() error
-		$this->_output .= 'Correcting translation errors in the redirects module.';
+		$this->_output .= 'Correcting translation errors in the redirects module.<br />';
 		
 		$this->db
 			->where('slug', 'redirects')
 			->update('modules', array('description' => 'a:3:{s:2:"nl";s:38:"Verwijs vanaf een URL naar een andere.";s:2:"en";s:33:"Redirect from one URL to another.";s:2:"fr";s:34:"Redirection d\'une URL à un autre.";}'));
+
+		// move newsletters to utilities
+		$this->_output .= 'Moving Newsletter module to Utilities menu.<br />';
+		
+		$this->db->where('slug', 'newsletters')
+				->update('modules', array('menu'=>'utilities'));
+				
+		// put the missing groups module record back in the modules table
+		$this->_output .= 'Reactivating the groups module.<br />';
+		
+		$this->db->insert('modules', array(
+			'name' => 'a:6:{s:2:"en";s:6:"Groups";s:2:"br";s:6:"Grupos";s:2:"de";s:7:"Gruppen";s:2:"nl";s:7:"Groepen";s:2:"fr";s:7:"Groupes";s:2:"zh";s:6:"群組";}',
+			'slug' => 'groups',
+			'version' => '1.0',
+			'description' => 'a:6:{s:2:"en";s:54:"Users can be placed into groups to manage permissions.";s:2:"br";s:67:"Usuários podem ser inseridos em grupos para gerenciar permissões.";s:2:"de";s:85:"Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.";s:2:"nl";s:73:"Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.";s:2:"fr";s:82:"Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.";s:2:"zh";s:45:"用戶可以依群組分類並管理其權限";}',
+			'skip_xss' => '0',
+			'is_frontend' => '0',
+			'is_backend' => '1',
+			'menu' => 'users',
+			'enabled' => '1',
+			'installed' => '1',
+			'is_core' => '1'
+		));
 
 		return FALSE;
 	}
