@@ -215,7 +215,7 @@ class Admin extends Admin_Controller
 				// The twitter module is here, and enabled!
 				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
-					$url = shorten_url('news/'.$year.'/'.str_pad($month, 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
+					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[0], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
 					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{
