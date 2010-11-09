@@ -103,6 +103,7 @@ class Contact extends Public_Controller
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');
+		
 		$this->email->from($this->input->post('contact_email'), $this->input->post('contact_name'));
 		$this->email->to($this->settings->item('contact_email'));
 

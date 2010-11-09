@@ -5,7 +5,7 @@ class Ajax extends Controller
 	{
 		$this->load->helper('text');
 
-		$slug = url_title(htmlentities($this->input->post('title')), 'dash', TRUE);
+		$slug = url_title($this->input->post('title'), 'dash', TRUE);
 
 		$this->output->set_output( $slug );
 	}

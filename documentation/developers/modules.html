@@ -149,3 +149,20 @@ class Admin extends Admin_Controller {
 <h3>Disabling the Module</h3>
 
 <p>To disable simply go into the Control Panel, click on "Modules" then click "Disable" next to the module you want to disable. This will disable both on the front end (it will 404 when you try to visit it) and in the Control Panel.</p>
+
+
+<h3>Best Practices</h3>
+
+<h4>Database Interaction</h4>
+
+<p>We recommend you use the Database or DBForge libraries for any database interaction (i.e. creating tables).  These two libraries are made available to you as follows:</p>
+
+<pre><code>$this->db->query('whatever sql here');
+$this->dbforge->create_table('table_name');</code></pre>
+
+<h4>Other Library Usage</h4>
+
+<p>You can access any CI library as you normally would inside a Controller, including loading other libraries:</p>
+
+<pre><code>$this->load->library('whatever');
+$this->whatever->method();</code></pre>

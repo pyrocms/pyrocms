@@ -157,16 +157,12 @@
 	</tbody>
 </table>
 
-
-
 <!-- Widget Areas -->
 <section id="widget-wrapper">
 	<header>
 		
 	</header>
 
-	
-
-        <div style="height:150px;"></div>
+    <div style="height:150px;"></div>
 
 </section>
