@@ -95,7 +95,7 @@
 	<h3><?php echo lang('widgets.available_title')?></h3>
 
 		<?php foreach($available_widgets as $widget): ?>
-		<section id="widget-<?php echo $widget->slug; ?>" class="box widget-box" style="<?php echo alternator('clear:both;', '', '', ''); ?>">
+		<section id="widget-<?php echo $widget->slug; ?>" class="box widget-box" >
 			<header>
 				<h3 class="title"><?php echo $widget->title; ?></h3>
 			</header>
