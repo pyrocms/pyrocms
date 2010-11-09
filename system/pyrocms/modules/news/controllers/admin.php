@@ -159,14 +159,18 @@ class Admin extends Admin_Controller
 				'created_on_year'	=> $this->input->post('created_on_year'),
 			));
     	
-			$id
-				? $this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')))
-				: $this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
+			if($id)
+			{
+				$this->cache->delete_all('news_m');
+				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
+			}
 
 			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit'
-				? redirect('admin/news')
-				: redirect('admin/news/edit/'.$id);
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/news') : redirect('admin/news/edit/'.$id);
 		}
 
 		else
