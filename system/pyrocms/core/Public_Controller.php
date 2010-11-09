@@ -6,19 +6,19 @@ class Public_Controller extends MY_Controller
 	function Public_Controller()
 	{
 		parent::MY_Controller();
-		
+
 		$this->benchmark->mark('public_controller_start');
-        
-	    // Check the frontend hasnt been disabled by an admin
-	    if ( ! $this->settings->frontend_enabled)
-	    {
-	    	$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
-	    	show_error($error);
-	    }
-		
-	    // -- Navigation menu -----------------------------------
-	    $this->load->model('pages/pages_m');
-	    $this->load->model('themes/themes_m');
+
+		// Check the frontend hasnt been disabled by an admin
+		if ( ! $this->settings->frontend_enabled && (empty($this->user) OR $this->user->group != 'admin'))
+		{
+			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
+			show_error($error);
+		}
+
+		// -- Navigation menu -----------------------------------
+		$this->load->model('pages/pages_m');
+		$this->load->model('themes/themes_m');
 
 		// Load the current theme
 		$this->theme = $this->themes_m->get();
@@ -58,19 +58,19 @@ class Public_Controller extends MY_Controller
 
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
-	    
+
 	    // If there is a news module, link to its RSS feed in the head
 	    if(module_exists('news'))
 	    {
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('news/rss/all.rss').'" />');
 	    }
-		
+
 		// Enable profiler on local box
 	    if( ENV == 'local' && $this->input->get('_debug') )
 	    {
 	    	$this->output->enable_profiler(TRUE);
 	    }
-	    
+
 	    // Frontend data
 	    $this->load->library('variables/variables');
 
@@ -78,7 +78,7 @@ class Public_Controller extends MY_Controller
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
-	    
+
 	    $this->benchmark->mark('public_controller_end');
 	}
 }

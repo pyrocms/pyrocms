@@ -106,7 +106,7 @@ class News_m extends MY_Model
     {
     	if (isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
     	{
-    		$input['created_on'] = mktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
+    		$input['created_on'] = gmmktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
 
 			unset($input['created_on_hour'], $input['created_on_minute'], $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
     	}
