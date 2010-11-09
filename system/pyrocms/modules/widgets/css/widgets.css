@@ -6,18 +6,17 @@
 }
 
 #available-widgets .widget-box {
-	z-index: 1;
-	float: left;
-	margin: 10px;
-	width: 22.5%;
-	height: 150px;
-	width: 170px;
+	cursor: move;
 	box-shadow: #DDD 2px 5px 5px;
 	-webkit-box-shadow: #DDD 2px 5px 5px;
 	-moz-box-shadow: #DDD 2px 5px 5px;
+	float: left;
+	height: 150px;
+	margin: 10px;
 	overflow: hidden;
 	position: relative;
-	cursor: move;
+	width: 170px;
+	z-index: 1;
 }
 
 #available-widgets .widget-box header {
