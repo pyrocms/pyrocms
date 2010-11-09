@@ -34,17 +34,23 @@
 		return false;
 	}
 	
+	//--------------------------------------------------------------------
+	
 	function show_add_area()
 	{
 		add_area.slideDown();
 		return false;
 	}
 	
+	//--------------------------------------------------------------------
+	
 	function show_edit_area()
 	{
 		edit_area.slideDown();
 		do_scrollto('#edit-area-box');
 	}
+	
+	//--------------------------------------------------------------------
 	
 	function hide_edit_area()
 	{
@@ -53,50 +59,67 @@
 		edit_area.slideUp();
 	}
 	
+	//--------------------------------------------------------------------
+	
 	function hide_add_instance()
 	{
+		// Clean up
 		$('input, select, textarea', add_instance).attr('value', '');
 		
 		// Hide the form
-		add_instance.slideUp();
+		add_instance.slideUp(500);
+		
+		$("#add-instance-box").detach();
+		
+		$('#widget-list .accordion').accordion('resize');
 	}
+	
+	//--------------------------------------------------------------------
 	
 	function show_add_instance(area_slug)
 	{
-		my_area = '#area-' + area_slug + ' .widget-list ol';
+		my_area = '#area-' + area_slug + ' ol';
 		
-		$(my_area + ' .empty-drop-item').before(add_instance.detach());
-	
-		$(my_area = ' .empty-drop-item').css('display', 'none');
+		$(my_area).append(add_instance.detach());
+		$(my_area + ' .empty-drop-item').css('display', 'none');
 		
 		add_instance.css('display', 'block');
 		
-		$('#widget-wrapper .accordion').accordion({
-			clearStyle: true,
-			autoHeight: true
-		});
-		$('#widget-wrapper .accordion').accordion('resize');
+		$('#widget-areas .accordion').accordion('resize');
 		
 		do_scrollto('#add-instance-box');
 	}
 	
+	//--------------------------------------------------------------------
+	
 	function hide_edit_instance()
 	{
+		// Clear any data
 		$('input, select, textarea', add_instance).attr('value', '');
 		
 		// Hide the form
 		edit_instance.slideUp();
 		
-		$('.accordion').accordion('resize');
+		$("#edit-instance-box").detach();
 		
+		$('#widget-list .accordion').accordion('resize');
 	}
 	
-	function show_edit_instance(area_slug)
+	//--------------------------------------------------------------------
+	
+	function show_edit_instance(area_slug, id)
 	{
-		$('section#area-' + area_slug).after(edit_instance.detach());
+		my_area = '#area-' + area_slug + ' ol';
 		
-		edit_instance.slideDown();
+		$(my_area + " #instance-"+ id).after(edit_instance.detach().removeClass('hidden'));
+		$(my_area + ' .empty-drop-item').css('display', 'none');
+		
+		edit_instance.css('display', 'block').slideDown(500, function(){
+			$('#widget-areas .accordion').accordion('resize');
+		});
 	}
+	
+	//--------------------------------------------------------------------
 	
 	function refresh_lists()
 	{
@@ -106,11 +129,13 @@
 			
 			$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug, function() {
 				$('.widget-list ol').sortable('destroy').sortable(sort_options);
+				$('.accordion').accordion('resize');
 			});
 		});
 		
-		$('.accordion').accordion('resize');
 	}
+	
+	//--------------------------------------------------------------------
 	
 	function do_scrollto(ele)
 	{
@@ -119,7 +144,9 @@
 		}, 1000);
 	}
 	
-	// Drag/drop stuff
+	//--------------------------------------------------------------------
+	// !Drag/drop stuff
+	//--------------------------------------------------------------------
 	
 	function set_draggable()
 	{
@@ -127,16 +154,27 @@
 			revert: 'invalid',
 			cursor: 'move',
 			helper: 'clone',
+			cursorAt: { left: 100 },
 			start: function(event, ui) {
-				$(this).addClass('widget-drag');
+				// Grab our desired width from the widget area list
+				var width = $(".widget-list").css("width");
+				
+				// Setup our new dragging object
+				$(this).addClass('widget-drag')
+				$(ui).css("width", width + " !important");
+			},
+			stop: function() {
+				$(this).removeClass('widget-drag');
 			}
 		});
 	}
 	
+	//--------------------------------------------------------------------
+	
 	function set_droppable()
 	{
-		$("#widget-wrapper .accordion-content").droppable({
-			accept: '.widget-box',
+		$("#widget-areas .accordion-content").droppable({
+			
 			hoverClass: 'drop-hover',
 			greedy: true,
 			over: function(event, ui) {
@@ -144,11 +182,13 @@
 				$('li.empty-drop-item').show();
 			},
 			out: function(event, ui) {
+				$("li.emptydrop-item").hide();
 				$(".accordion").accordion('resize');
 			},
 			drop: function(event, ui) {			
 				area_slug = $(this).parent().attr('id').replace(/^area-/, '');
 				widget_slug = ui.draggable.attr('id').replace(/^widget-/, '');
+				
 				
 				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
 					$('form', add_instance).html(html);
@@ -158,9 +198,11 @@
 		});
 	}
 	
+	//--------------------------------------------------------------------
+	
 	function re_accordion(active_id)
 	{
-		$('#widget-wrapper .accordion').accordion('destroy').accordion({
+		$('#widget-areas .accordion').accordion('destroy').accordion({
 						collapsible: true,
 						header: 'header',
 						autoHeight: false,
@@ -168,6 +210,8 @@
 						active: active_id
 					});
 	}
+	
+	//--------------------------------------------------------------------
 	
 	$(function() {
 		
@@ -188,9 +232,13 @@
 				}
 		};
 		
+		//--------------------------------------------------------------------
+		
 		// Widget Area add / remove --------------
 		
 		$('a#add-area').click(show_add_area);
+		
+		//--------------------------------------------------------------------
 		
 		$('#add-area-box form').live('submit', function(e)
 		{
@@ -212,6 +260,9 @@
 			});
 		});
 		
+		//--------------------------------------------------------------------
+		
+		/* Handle Edit Area Form Submission */
 		$('#edit-area-box form').live('submit', function(e) {
 			e.preventDefault();
 			
@@ -240,14 +291,21 @@
 				}
 			}, 'json')
 		});
+		
+		//--------------------------------------------------------------------
 
+		/* Widget Area Cancel hook */
 		$('button#widget-area-cancel').live('click', hide_add_area);
+		
+		//--------------------------------------------------------------------
 		
 		//hide edit area
 		$('button#widget-edit-area-cancel').live('click', function(e) {
 			e.preventDefault();
 			hide_edit_area();	
 		});
+		
+		//--------------------------------------------------------------------
 		
 		// Auto-create a short-name
 		$('.new-area-title').keyup(function(){
@@ -256,6 +314,9 @@
 			$('.new-area-slug').val(new_val);
 		});
 		
+		//--------------------------------------------------------------------
+		
+		/* do edit area */
 		$('a.edit-area').live('click', function(e) {
 			
 			e.preventDefault();
@@ -273,6 +334,8 @@
 			show_edit_area();
 		});
 		
+		//--------------------------------------------------------------------
+		
 		$('a.delete-area').live('click', function(e)
 		{
 			e.preventDefault();
@@ -289,7 +352,11 @@
 			}
 		});
 		
-		// Widget controls -----------------------
+		//--------------------------------------------------------------------
+		
+		//--------------------------------------------------------------------
+		// Widget controls
+		//--------------------------------------------------------------------
 		
 		set_draggable();
 		set_droppable();
@@ -306,7 +373,7 @@
 			
 			if(!title || !widget_id || !widget_area_id) return false;
 			
-			var active_id = $( "#widget-wrapper .accordion" ).accordion( "option", "active" );
+			var active_id = $( "#widget-areas .accordion" ).accordion( "option", "active" );
 			
 			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', form.serialize(), function(data) {
 				
@@ -325,6 +392,8 @@
 				
 			}, 'json');
 		});
+		
+		//--------------------------------------------------------------------
 		
 		// Edit widget instance
 		$('#edit-instance-box form').live('submit', function(e)
@@ -355,12 +424,18 @@
 			}, 'json');
 		});
 		
+		//--------------------------------------------------------------------
+		
 		$('button#widget-instance-cancel').live('click', function(e) {
 			e.preventDefault();
 			hide_add_instance();
+			hide_edit_instance();
+			re_accordion();
 		});
+		
+		//--------------------------------------------------------------------
 
-		$('.widget-area table tbody').sortable({
+		$('.widget-area ol').sortable({
 			handle: 'td',
 			helper: function(e, ui) {
 				ui.children().each(function() {
@@ -380,6 +455,7 @@
 			
 		});
 
+		//--------------------------------------------------------------------
 		
 		$('.accordion a.edit-instance').live('click', function(e){
 			e.preventDefault();
@@ -387,12 +463,16 @@
 			area_slug = $(this).closest('section').attr('id').replace('area-', '');
 
 			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
+				// Insert the form into the edit_instance li node
 				$('form', edit_instance).html(html);
-				show_edit_instance(area_slug);
+
+				show_edit_instance(area_slug, id);
 			});
 		});
 		
-		$('.accordion a.delete-instance').live('click', function(){
+		//--------------------------------------------------------------------
+		
+		$('#widget-areas .accordion a.delete-instance').live('click', function(){
 			
 			li = $(this).closest('li');
 			id = li.attr('id').replace('instance-', '');
@@ -402,14 +482,18 @@
 				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
 					li.slideUp(function() { 
 						$(this).remove(); 
+
+						$("#widget-areas .accordion").accordion("resize");
 						
-						$('.accordion').accordion('resize');
+						return false;
 					});
 				});
 			}
 
 			return false;
 		});
+		
+		//--------------------------------------------------------------------
 		
 		// Widget Areas Accordion
 		$(".accordion").accordion({
@@ -418,6 +502,8 @@
 			autoHeight: true,
 			clearStyle: true
 		});
+		
+		//--------------------------------------------------------------------
 		
 		//Init Sortable
 		$('.widget-list ol').sortable(sort_options);		
