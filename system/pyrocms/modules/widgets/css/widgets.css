@@ -10,7 +10,8 @@
 	float: left;
 	margin: 10px;
 	width: 22.5%;
-	min-height: 110px;
+	height: 150px;
+	width: 170px;
 	box-shadow: #DDD 2px 5px 5px;
 	-webkit-box-shadow: #DDD 2px 5px 5px;
 	-moz-box-shadow: #DDD 2px 5px 5px;
@@ -30,6 +31,8 @@
 
 #available-widgets .widget-box .author {
 	color: #999;
+	position: absolute;
+	bottom: 0;
 }
 #available-widgets .widget-box .author a {
 	color: #999;
