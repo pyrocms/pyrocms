@@ -103,6 +103,11 @@ class Contact extends Public_Controller
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');
+		
+		//set mail type to html
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		
 		$this->email->from($this->input->post('contact_email'), $this->input->post('contact_name'));
 		$this->email->to($this->settings->item('contact_email'));
 
