@@ -252,13 +252,13 @@ class Installer extends Controller
 		// Get the write permissions for the folders
 		foreach($this->writeable_directories as $dir)
 		{
-			@chmod("../$dir", 0777);
+			@chmod('../'.$dir, 0777);
 			$permissions['directories'][$dir] = is_really_writable('../' . $dir);
 		}
 		
 		foreach($this->writeable_files as $file)
 		{
-			@chmod("../$file", 0666);
+			@chmod('../'.$file, 0666);
 			$permissions['files'][$file] = is_really_writable('../' . $file);
 		}
 		
