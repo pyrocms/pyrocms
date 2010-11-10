@@ -44,6 +44,7 @@ h3. Contributors
 * "Yorick Peterse":http://www.yorickpeterse.com/
 * "Dan Horrigan":http://dhorrigan.com
 * "Ben Edmunds":http://benedmunds.com/
+* "Stephen Cozart":http://twitter.com/stephencozart
 
 h3. Translators
 
