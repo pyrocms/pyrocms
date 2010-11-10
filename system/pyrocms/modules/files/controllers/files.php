@@ -21,6 +21,6 @@ class Files extends Public_Controller
 		// Read the file's contents
 		$data = file_get_contents('uploads/files/' . $file->filename);
 
-		force_download($file->name . '.' . $file->extension , $data);
+		force_download($file->name . $file->extension , $data);
 	}
 }
