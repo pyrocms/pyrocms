@@ -1,6 +1,11 @@
 <!-- Welcome -->
 <ul id="flags">
 	<li>
+		<a href="<?php echo site_url('installer/change/arabic'); ?>" title="العربية">
+			<img src="<?php echo base_url(); ?>assets/images/flags/ar.gif" alt="العربية" />
+		</a>
+	</li>
+	<li>
 		<a href="<?php echo site_url('installer/change/english'); ?>" title="English">
 			<img src="<?php echo base_url(); ?>assets/images/flags/gb.gif" alt="English" />
 		</a>
