@@ -92,9 +92,9 @@ function js($asset_name, $module_name = NULL)
 	return $CI->asset->js($asset_name, $module_name);
 }
 
-function theme_js($asset, $attributes = array())
+function theme_js($asset)
 {
-	return js($asset, '_theme_', $attributes);
+	return js($asset, '_theme_');
 }
 
 function js_url($asset_name, $module_name = NULL)

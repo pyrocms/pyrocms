@@ -17,6 +17,7 @@ $lang['dialog.no'] 						= 'Nee';
 $lang['select.none'] 					= '-- Geen --';
 $lang['select.all'] 					= '-- Alles --';
 $lang['select.any'] 					= '-- Willekeurig --';
+$lang['select.pick']					= '-- Selecteer --';
 
 $lang['operators.equal'] 				= 'Gelijk aan'; 
 $lang['operators.not_equal'] 			= 'Niet gelijk aan';

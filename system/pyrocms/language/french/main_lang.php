@@ -1,6 +1,6 @@
 <?php
 
-$lang['cp_title'] 						= 'Panneau de Contrôle';
+$lang['cp_title']								= 'Panneau de Contrôle';
 
 $lang['title_label'] 					        = 'Titre';
 $lang['name_label'] 					        = 'Nom';
@@ -16,6 +16,7 @@ $lang['dialog.no'] 								= 'Non';
 $lang['select.none'] 					        = '-- Aucun --';
 $lang['select.all'] 					        = '-- Tous --';
 $lang['select.any'] 					        = '-- N\'importe quel --';
+$lang['select.pick']							= '-- Selectionner --';
 
 $lang['operators.equal'] 				        = 'Égal à';
 $lang['operators.not_equal'] 			        = 'Pas égal à';
@@ -40,12 +41,12 @@ $lang['login_title'] 					        = 'Connexion';
 $lang['cms_fatal_error'] 				        = 'Erreur Fatale, CMS déjà installé?';
 
 $lang['login_error_label'] 				        = 'Erreur de Connexion';
-$lang['forgot_password_label'] 			         = 'Mot de passe oublié ?';
+$lang['forgot_password_label'] 			        = 'Mot de passe oublié ?';
 $lang['email_label'] 					        = 'E-mail';
 $lang['password_label'] 				        = 'Mot de passe';
 $lang['login_label'] 					        = 'Connectez-vous';
 
-$lang['help_label']                              = 'Aide';
+$lang['help_label']                             = 'Aide';
 $lang['save_label'] 					        = 'Enregistrer';
 $lang['cancel_label'] 					        = 'Annuler';
 $lang['update_label'] 					        = 'Mettre à jour la légende';

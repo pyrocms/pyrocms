@@ -26,6 +26,12 @@ class MY_Email extends CI_Email {
         //set mail protocol
         $config['protocol'] = $this->ci->settings->mail_protocol;
         
+        //set a few config items (duh)
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'utf-8';
+        $config['crlf'] = '\r\n';
+        $config['newline'] = '\r\n';
+        
         //sendmail options
         if($this->ci->settings->mail_protocol == 'sendmail')
         {

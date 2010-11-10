@@ -59,6 +59,7 @@ class Details_Navigation extends Module {
 			  `navigation_group_id` int(5) NOT NULL default '0',
 			  `position` int(5) NOT NULL default '0',
 			  `target` varchar(10) NULL default NULL,
+			  `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY  (`id`),
 			  KEY `navigation_group_id - normal` (`navigation_group_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Links for site navigation';

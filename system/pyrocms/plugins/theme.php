@@ -97,10 +97,8 @@ class Plugin_Theme extends Plugin
 		$this->load->library('asset');
 
 		$file = $this->attribute('file');
-		$attributes = $this->attributes();
-		unset($attributes['file']);
 
-		return $this->asset->js($file, '_theme_', $attributes);
+		return $this->asset->js($file, '_theme_');
 	}
 }
 

@@ -3,7 +3,7 @@
 	<ul>
 		<li><?php echo anchor('admin', lang('cp_admin_home_title'), 'class="top-link no-submenu' . (!$this->module > '' ? ' current' : '').'"');?></li>
 		
-		<?php $display = ''; foreach($modules['design'] as $module) if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $display = 1; ?>
+		<?php $display = ''; foreach($modules['content'] as $module) if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $display = 1; ?>
 		<?php if($display === 1): ?>
 		<li><a href="#" class="top-link <?php echo ($this->module_details AND $this->module_details['menu'] == 'content') ? 'current' : ''; ?>"><?php echo lang('cp_nav_content');?></a>
 			<ul>
@@ -54,7 +54,7 @@
 				?>
 				
 				<?php if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin'): ?>
-				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], (($this->module == $module['slug']) ? 'class="current"' : ''));?></li>
+				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], ($this->module == $module['slug']) ? 'class="current"' : '');?></li>
 				<?php endif; ?>
 				
 				<?php endforeach; ?>

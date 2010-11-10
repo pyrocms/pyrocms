@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0');
 
 	private $_output = '';
 
@@ -82,6 +82,60 @@ class Upgrade extends Controller
 		// finally, spit it out
 		echo $this->_output;
  	}
+
+	function upgrade_100()
+	{
+		$this->_output .= 'Adding "class" field to navigation.<br/>';
+
+		// Not a foolproof method of column detection, but unless they have no entries in the db it'll be fine
+		$nav = $this->db->get('navigation_links', 1)->row();
+
+		if ( ! isset($nav->class))
+		{
+			$this->db->query("ALTER TABLE `navigation_links`
+				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `target`");
+
+			$this->cache->delete_all('navigation_m');
+		}
+
+		$this->_output .= 'Setting "Dashboard RSS Feed" will now show in the Settings page.<br/>';
+
+		$this->db
+			->where('slug', 'dashboard_rss')
+			->update('settings', array('is_gui' => 1));
+		
+		//fix the unserialize() error
+		$this->_output .= 'Correcting translation errors in the redirects module.<br />';
+		
+		$this->db
+			->where('slug', 'redirects')
+			->update('modules', array('description' => 'a:3:{s:2:"nl";s:38:"Verwijs vanaf een URL naar een andere.";s:2:"en";s:33:"Redirect from one URL to another.";s:2:"fr";s:34:"Redirection d\'une URL à un autre.";}'));
+
+		// move newsletters to utilities
+		$this->_output .= 'Moving Newsletter module to Utilities menu.<br />';
+		
+		$this->db->where('slug', 'newsletters')
+				->update('modules', array('menu'=>'utilities'));
+				
+		// put the missing groups module record back in the modules table
+		$this->_output .= 'Reactivating the groups module.<br />';
+		
+		$this->db->insert('modules', array(
+			'name' => 'a:6:{s:2:"en";s:6:"Groups";s:2:"br";s:6:"Grupos";s:2:"de";s:7:"Gruppen";s:2:"nl";s:7:"Groepen";s:2:"fr";s:7:"Groupes";s:2:"zh";s:6:"群組";}',
+			'slug' => 'groups',
+			'version' => '1.0',
+			'description' => 'a:6:{s:2:"en";s:54:"Users can be placed into groups to manage permissions.";s:2:"br";s:67:"Usuários podem ser inseridos em grupos para gerenciar permissões.";s:2:"de";s:85:"Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.";s:2:"nl";s:73:"Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.";s:2:"fr";s:82:"Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.";s:2:"zh";s:45:"用戶可以依群組分類並管理其權限";}',
+			'skip_xss' => '0',
+			'is_frontend' => '0',
+			'is_backend' => '1',
+			'menu' => 'users',
+			'enabled' => '1',
+			'installed' => '1',
+			'is_core' => '1'
+		));
+
+		return FALSE;
+	}
 
 	function upgrade_100beta2()
 	{
@@ -278,14 +332,14 @@ class Upgrade extends Controller
 		// Rename tracking code setting
 		$this->db
 			->where('slug', 'google_analytic')
-			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Anyaltic Tracking Code to activate Google Analytics view data capturing.'));
+			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing.'));
 
 		$this->_output .= 'Adding more Google Analytic Settings.<br/>';
 
 		$this->db->insert('settings', array(
 			'slug' => 'ga_email',
 			'title' => 'Google Analytic E-mail',
-			'description' => 'E-mail address used for Google Analytics, we need this to show the grpah on the dashboard.',
+			'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
 			'`default`' => '',
 			'`value`' => '',
 			'type' => 'text',

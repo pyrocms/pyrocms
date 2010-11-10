@@ -24,6 +24,8 @@ class Plugin_Navigation extends Plugin
 	{
 		$group = $this->attribute('group');
 		$tag = $this->attribute('tag', 'li');
+		$current_class = $this->attribute('class', 'current');
+		$separator = $this->attribute('separator', '');
 
 		$this->load->model('navigation/navigation_m');
 		$links = $this->cache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
@@ -32,9 +34,20 @@ class Plugin_Navigation extends Plugin
 
 		if ($links)
 		{
+			$i = 1;
 			foreach ($links as $link)
 			{
-				$list .= '<'.$tag.'>' . anchor($link->url, $link->title, array('target' => $link->target)). '</'.$tag.'>'.PHP_EOL;
+				$attributes['target'] = $link->target;
+				$attributes['class']  = $link->class;
+
+				if (current_url() == $link->url)
+				{
+					$attributes['class'] .= ' '.$current_class;
+				}
+				
+				$list .= '<'.$tag.'>' . anchor($link->url, $link->title, $attributes). '</'.$tag.'>'.PHP_EOL;
+				if ($separator AND count($links) > $i) $list .= $separator;
+				$i++;
 			}
 		}
 
