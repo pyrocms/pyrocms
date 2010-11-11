@@ -14,10 +14,36 @@
 
 class Contact extends Public_Controller
 {
-	var $subjects = array();
+	private $subjects = array();
 
 	// Fields must match this certain criteria
-	private $rules = array();
+	private $rules = array(
+		array(
+			'field'	=> 'contact_name',
+			'label'	=> 'lang:contact_name_label',
+			'rules'	=> 'required|trim|max_length[80]'
+		),
+		array(
+			'field'	=> 'contact_email',
+			'label'	=> 'lang:contact_email_label',
+			'rules'	=> 'required|trim|valid_email|max_length[80]'
+		),
+		array(
+			'field'	=> 'company_name',
+			'label'	=> 'lang:contact_company_name_label',
+			'rules'	=> 'trim|max_length[80]'
+		),
+		array(
+			'field'	=> 'subject',
+			'label'	=> 'lang:contact_subject_label',
+			'rules'	=> 'required|trim'
+		),
+		array(
+			'field'	=> 'message',
+			'label'	=> 'lang:contact_message_label',
+			'rules'	=> 'required'
+		)
+	);
 
 	function __construct()
 	{
@@ -32,35 +58,6 @@ class Contact extends Public_Controller
 			'feedback'  => lang('subject_feedback'),
 			'other'     => lang('subject_other')
 		);
-
-		$this->rules = array(
-			array(
-				'field'	=> 'contact_name',
-				'label'	=> lang('contact_name_label'),
-				'rules'	=> 'required|trim|max_length[80]'
-			),
-			array(
-				'field'	=> 'contact_email',
-				'label'	=> lang('contact_email_label'),
-				'rules'	=> 'required|trim|valid_email|max_length[80]'
-			),
-			array(
-				'field'	=> 'company_name',
-				'label'	=> lang('contact_company_name_label'),
-				'rules'	=> 'trim|max_length[80]'
-			),
-			array(
-				'field'	=> 'subject',
-				'label'	=> lang('contact_subject_label'),
-				'rules'	=> 'required|trim'
-			),
-			array(
-				'field'	=> 'message',
-				'label'	=> lang('contact_message_label'),
-				'rules'	=> 'required'
-			)
-		);
-
 	}
 
 	function index()
@@ -79,25 +76,26 @@ class Contact extends Public_Controller
 				// Store this session to limit useage
 				$this->session->set_flashdata('sent_contact_form', TRUE);
 
-				// Now redirect
 				redirect('contact/sent');
 			}
 		}
 
-		$this->data->subjects =& $this->subjects;
-
 		// Set the values for the form inputs
 		foreach($this->rules as $rule)
 		{
-			$this->data->form_values->{$rule['field']} = set_value($rule['field']);
+			$form_values->{$rule['field']} = set_value($rule['field']);
 		}
-		$this->template->build('index', $this->data);
+		
+		$this->template
+			->set('subjects', $this->subjects)
+			->set('form_values', $form_values)
+			->build('index');
 	}
 
 
 	function sent()
 	{
-		$this->template->build('sent', $this->data);
+		$this->template->build('sent');
 	}
 
 
@@ -105,6 +103,7 @@ class Contact extends Public_Controller
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');
+		
 		$this->email->from($this->input->post('contact_email'), $this->input->post('contact_name'));
 		$this->email->to($this->settings->item('contact_email'));
 
@@ -127,7 +126,7 @@ class Contact extends Public_Controller
 		$this->email->set_alt_message($this->load->view('email/contact_plain', $data, TRUE));
 
 		// If the email has sent with no known erros, show the message
-		return ( $this->email->send() );
+		return (bool) $this->email->send();
 	}
 
 }

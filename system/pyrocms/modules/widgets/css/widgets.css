@@ -5,18 +5,68 @@
 	margin-top: 6px;
 }
 
-#available-widgets .widget-box {
-	z-index: 1;
+/*--------------------------------------------------------------------
+// AVAILABLE WIDGETS LIST
+//-------------------------------------------------------------------*/
+#available-widgets {
+	margin: 0;
+}
+#available-widgets li {
+	list-style-type: none;
+	position: relative;
+	border-top: 1px dotted #ccc;
+	padding: 10px;
+	margin: 0;
+}
+#available-widgets h3,
+.ui-draggable-dragging h3 {
+	font-size: 14px;
+	width: 150px;
+	padding-right: 25px;
+	height: 100%;
+	text-align: right;
 	float: left;
-	margin: 10px;
-	width: 22.5%;
-	min-height: 110px;
+}
+#available-widgets p,
+.ui-draggable-dragging p {
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+#available-widgets li:hover {
+	background-color: #e6e6e6;
+	cursor: move;
+}
+#available-widgets a {
+	color: #999;
+}
+#available-widgets a:hover {
+	color: #ff6400;
+}
+
+/* Drag State for Available Widgets */
+.widget-drag {
+	opacity: 0.3;
+}
+#available-widgets .ui-draggable-dragging {
+	background: #e6e6e6;
+	border: 1px solid #999;
+	cursor: move;
+	z-index: 500;
+}
+
+/*
+#available-widgets .widget-box {
+	cursor: move;
 	box-shadow: #DDD 2px 5px 5px;
 	-webkit-box-shadow: #DDD 2px 5px 5px;
 	-moz-box-shadow: #DDD 2px 5px 5px;
+	float: left;
+	height: 150px;
+	margin: 10px;
 	overflow: hidden;
 	position: relative;
-	cursor: move;
+	width: 170px;
+	z-index: 1;
 }
 
 #available-widgets .widget-box header {
@@ -30,6 +80,8 @@
 
 #available-widgets .widget-box .author {
 	color: #999;
+	position: absolute;
+	bottom: 0;
 }
 #available-widgets .widget-box .author a {
 	color: #999;
@@ -37,6 +89,7 @@
 #available-widgets .widget-box .author a:hover {
 	color: #ff6400;
 }
+*/
 
 /* Widget Instance */
 

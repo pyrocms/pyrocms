@@ -350,7 +350,7 @@ header#main h1 {
 /** Tables **/
 table {
 	width: 100%;
-	border-collapse: collapse;
+	border-collapse: separate;
 }
 table th,
 table td {
@@ -367,7 +367,8 @@ table thead th {
 table thead th.checkboxes {
 	width: 18px;
 }
-table tbody {
+table tfoot td {
+	padding: 0;
 	border-bottom: 1px solid #DDDDDD;
 }
 table tbody tr.alt {
@@ -809,6 +810,7 @@ div#analytics table {
 	font-size: 1.3em;
 	vertical-align: middle;
 	margin-left: 2px;
+	margin-bottom: 8px;
 	border: 1px solid #DDDDDD;
 	font-weight: bold;
 }

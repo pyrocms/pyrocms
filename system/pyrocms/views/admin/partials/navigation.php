@@ -54,7 +54,7 @@
 				?>
 				
 				<?php if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin'): ?>
-				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], (($this->module == $module['slug']) ? 'class="current"' : ''));?></li>
+				<li><?php echo anchor('admin/'.$module['slug'], $module['name'], ($this->module == $module['slug']) ? 'class="current"' : '');?></li>
 				<?php endif; ?>
 				
 				<?php endforeach; ?>

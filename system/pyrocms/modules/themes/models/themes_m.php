@@ -59,7 +59,7 @@ class Themes_m extends CI_Model
 		{
 			// Core theme or tird party?
 			$is_core = $location === ADDONPATH.'themes/';
-			$web_path = $location . $slug;
+			$web_path = $location . '/' . $slug;
 
 			$theme->slug			= $slug;
 			$theme->is_core			= $is_core;
