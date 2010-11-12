@@ -173,12 +173,14 @@ class Details_Pages extends Module {
 		<p>Page layouts allows you to control the layout of the page without modifying the theme files. You can embed tags into the page layout
 		instead of placing them in every page. For example: If you have a twitter feed widget that you want to display at the bottom of every page you can just place
 		the widget tag in the page layout:
-<pre>{pyro:page:title}
+<pre><code>
+{pyro:page:title}
 {pyro:page:body}
 
 < div class=\"my-twitter-widget\" >
 	{pyro:widgets:instance id=\"1\"}
-< /div ></pre>
+< /div >
+</code></pre>
 		Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
 	}
 }

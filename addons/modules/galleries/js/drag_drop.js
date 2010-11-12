@@ -14,7 +14,7 @@ jQuery(document).ready(function($)
 				});
 				order = order.join(',');
 
-				$.post(BASE_URI + 'admin/galleries/ajax_update_order', { order: order });
+				$.post(BASE_URL + 'admin/galleries/ajax_update_order', { order: order });
 
 			}
 
