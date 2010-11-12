@@ -13,7 +13,8 @@ class Details_Files extends Module {
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
-				'zh' => '檔案'
+				'zh' => '檔案',
+				'ru' => 'Файлы'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -21,7 +22,8 @@ class Details_Files extends Module {
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
 				'nl' => 'Beheer bestanden en folders op uw website.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
-				'zh' => '管理網站中的檔案與目錄'
+				'zh' => '管理網站中的檔案與目錄',
+				'ru' => 'Управление файлами и папками вашего сайта.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

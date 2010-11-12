@@ -15,7 +15,8 @@ class Details_Navigation extends Module {
 				'de' => 'Navigation',
 				'pl' => 'Nawigacja',
 				'br' => 'Navegação',
-				'zh' => '導航列'
+				'zh' => '導航列',
+				'ru' => 'Навигация'
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -25,7 +26,8 @@ class Details_Navigation extends Module {
 				'de' => 'Verwalte Links in Navigationsmenüs und alle zugehörigen Navigationsgruppen',
 				'pl' => 'Zarządzaj linkami w menu nawigacji oraz wszystkimi grupami nawigacji do których one należą.',
 				'br' => 'Gerenciar links do menu de navegação e todos os grupos de navegação pertencentes a ele.',
-				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。'
+				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
