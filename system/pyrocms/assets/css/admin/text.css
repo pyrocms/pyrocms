@@ -21,3 +21,5 @@ h6 { font-size:15px }
 ol { list-style:decimal }
 ul { list-style:disc }
 li { margin-left:30px }
+
+#help-container { font:13px/1.5 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif; };

@@ -88,7 +88,7 @@ class Details_Files extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "<h6>Overview</h6>
+		return "<h4>Overview</h4><hr>
 		<p>The files module is an excellent way for the site admin to manage the files in use on the
 		site. All images or files that are inserted into pages or blog posts are stored here. You may upload
 		them directly from the WYSIWYG editor or you can upload them here and just insert them via WYSIWYG.</p>
