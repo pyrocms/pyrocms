@@ -107,7 +107,7 @@ class Plugins
 			// First check core addons then 3rd party
 			$path = $module['is_core'] ? APPPATH : ADDONPATH;
 
-			if (file_exists($path = APPPATH.'modules/'.$class.'/plugin'.EXT))
+			if (file_exists($path = $path.'modules/'.$class.'/plugin'.EXT))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
