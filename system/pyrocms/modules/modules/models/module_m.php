@@ -180,18 +180,18 @@ class Module_m extends CI_Model
 
 		foreach ($this->db->get($this->_table)->result() as $result)
 		{
-			if ( ! $descriptions = unserialize($result->description))
+			if ( ! $descriptions = @unserialize($result->description))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
 			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
-			if ( ! $names = unserialize($result->name))
+			if ( ! $names = @unserialize($result->name))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
-			
-			$name = !isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
+
+			$name = ! isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 
 			$module = array(
 				'name' => $name,
@@ -203,7 +203,7 @@ class Module_m extends CI_Model
 				'is_backend' => $result->is_backend,
 				'menu' => $result->menu,
 				'enabled' => $result->enabled,
-				'installed' => $result->installed,
+				'installed' => ! empty($result->installed),
 				'is_core' => $result->is_core
 			);
 
@@ -408,7 +408,7 @@ class Module_m extends CI_Model
 		// Now we need to talk to it
 		return class_exists($class) ? new $class : FALSE;
 	}
-	
+
 	/**
 	 * Help
 	 *
