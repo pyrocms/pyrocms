@@ -67,13 +67,13 @@ class Module_m extends CI_Model
 				return FALSE;
 			}
 
-			if(!$descriptions = unserialize($result->description))
+			if ( ! $descriptions = unserialize($result->description))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
 			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
-			if(!$names = unserialize($result->name))
+			if ( ! $names = unserialize($result->name))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
@@ -180,16 +180,17 @@ class Module_m extends CI_Model
 
 		foreach ($this->db->get($this->_table)->result() as $result)
 		{
-			if(!$descriptions = unserialize($result->description))
+			if ( ! $descriptions = unserialize($result->description))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
 			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
-			if(!$names = unserialize($result->name))
+			if ( ! $names = unserialize($result->name))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
+			
 			$name = !isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 
 			$module = array(
@@ -206,7 +207,7 @@ class Module_m extends CI_Model
 				'is_core' => $result->is_core
 			);
 
-			if (!empty($params['is_backend']))
+			if ( ! empty($params['is_backend']))
 			{
 				// This user has no permissions for this module
 				if ( $this->user->group !== 'admin' AND ! empty($this->permissions[$result->slug]))
@@ -235,7 +236,7 @@ class Module_m extends CI_Model
 	{
 		$this->_module_exists = array();
 
-		if (!$module)
+		if ( ! $module)
 		{
 			return FALSE;
 		}
@@ -393,7 +394,7 @@ class Module_m extends CI_Model
 		$details_file = $path . 'modules/' . $slug . '/details'.EXT;
 
 		// Check the details file exists
-		if (!is_file($details_file))
+		if ( ! is_file($details_file))
 		{
 			return FALSE;
 		}
