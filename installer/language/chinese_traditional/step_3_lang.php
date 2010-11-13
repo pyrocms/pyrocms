@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'步驟三：設定權限';
@@ -16,6 +16,3 @@ $lang['not_writable']	=	'禁止寫入';
 $lang['next_step']		=	'進行下一個步驟';
 $lang['step4']			=	'步驟四';
 $lang['retry']			=	'再試一次';
-
-// messages
-$lang['step1_failure']	=	'請在下方的表單中輸入資料庫設定的必要資訊。';

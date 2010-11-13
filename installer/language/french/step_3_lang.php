@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Étape 3: Définir les permissions';
@@ -19,6 +19,3 @@ $lang['hide_commands']		= 'Hide commands'; #translate
 $lang['next_step']		=	'Passer à la prochaine étape';
 $lang['step4']			=	'Étape 4';
 $lang['retry']			=	'Essayez encore';
-
-// messages
-$lang['step1_failure']	=	'Vous avez besoin des paramètres de base de données appropriée dans le formulaire ci-dessous.';
