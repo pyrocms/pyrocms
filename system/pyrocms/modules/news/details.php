@@ -14,7 +14,8 @@ class Details_News extends Module {
 				'fr' => 'Actualités',
 				'de' => 'News',
 				'pl' => 'Aktualności',
-				'zh' => '新聞'
+				'zh' => '新聞',
+				'it' => 'Notizie'
 			),
 			'description' => array(
 				'en' => 'Post news articles and blog entries.',
@@ -23,7 +24,8 @@ class Details_News extends Module {
 				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
 				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
-				'zh' => '發表新聞訊息、部落格文章。'
+				'zh' => '發表新聞訊息、部落格文章。',
+				'it' => 'Pubblica notizie e post per il blog.',
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
