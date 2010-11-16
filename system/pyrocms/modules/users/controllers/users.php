@@ -72,7 +72,7 @@ class Users extends Public_Controller
 			// If iwe aren't being redirected from the userl ogin page
 			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
 			
-			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri, '', $uri));
+			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
 		}
 		
 	    // If the validation worked, or the user is already logged in
