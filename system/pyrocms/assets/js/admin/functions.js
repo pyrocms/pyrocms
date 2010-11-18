@@ -114,7 +114,7 @@ jQuery(function($) {
 				}
 			});
 		});
-		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, a.minibutton, button, textarea").livequery(function () {
+		$("select, textarea, input[type=text], input[type=file], input[type=submit], a.button, a.minibutton, button").livequery(function () {
 			// Update uniform if enabled
 			$.uniform && $(this).uniform();
 		});
