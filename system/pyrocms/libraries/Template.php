@@ -686,7 +686,7 @@ class Template
 		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
 		if ($override_view_path !== NULL)
 		{
-			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
+			if ($this->_parser_enabled === TRUE AND $this->_parser_body_enabled === TRUE AND $parse_view === TRUE)
 			{
 				// Load content and pass through the parser
 				$content = $this->_ci->parser->parse_string($this->_ci->load->_ci_load(array(
