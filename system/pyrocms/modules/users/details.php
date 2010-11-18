@@ -16,7 +16,8 @@ class Details_Users extends Module {
 				'de' => 'Benutzer',
 				'br' => 'Usuários',
 				'zh' => '用戶',
-				'it' => 'Utenti'
+				'it' => 'Utenti',
+				'ru' => 'Пользователи'
 			),
 			'description' => array(
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -27,7 +28,8 @@ class Details_Users extends Module {
 				'de' => 'Erlaube Benutzern das Registrieren und Einloggen auf der Seite und verwalte sie über die Admin-Oberfläche.',
 				'br' => 'Permite com que usuários se registrem e entrem no site e também que eles sejam gerenciáveis apartir do painel de controle.',
 				'zh' => '讓用戶可以註冊並登入網站，並且管理者可在控制台內進行管理。',
-				'it' => 'Fai iscrivere de entrare nel sito gli utenti, e gestiscili attraverso il pannello di controllo.'
+				'it' => 'Fai iscrivere de entrare nel sito gli utenti, e gestiscili attraverso il pannello di controllo.',
+				'ru' => 'Управление зарегистрированными пользователями, активирование новых пользователей.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

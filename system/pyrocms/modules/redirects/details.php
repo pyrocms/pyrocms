@@ -11,13 +11,15 @@ class Details_Redirects extends Module {
 				'nl' => 'Verwijzingen',
 				'en' => 'Redirects',
 				'fr' => 'Redirections',
-				'it' => 'Reindirizzi'
+				'it' => 'Reindirizzi',
+				'ru' => 'Перенаправления'
 			),
 			'description' => array(
 				'nl' => 'Verwijs vanaf een URL naar een andere.',
 				'en' => 'Redirect from one URL to another.',
 				'fr' => 'Redirection d\'une URL à un autre.',
-				'it' => 'Reindirizza da una URL ad un altra.'
+				'it' => 'Reindirizza da una URL ad un altra.',
+				'ru' => 'Перенаправления с одного адреса на другой.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

@@ -16,7 +16,8 @@ class Details_Modules extends Module {
 				'pl' => 'Moduły',
 				'br' => 'Módulos',
 				'zh' => '模組',
-				'it' => 'Moduli'
+				'it' => 'Moduli',
+				'ru' => 'Модули'
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -27,7 +28,8 @@ class Details_Modules extends Module {
 				'pl' => 'Umożliwiają administratorowi wgląd do listy obecnie zainstalowanych modułów.',
 				'br' => 'Permite aos administradores ver a lista dos módulos instalados atualmente.',
 				'zh' => '管理員可以檢視目前已經安裝模組的列表',
-				'it' => 'Permette agli amministratori di vedere una lista dei moduli attualmente installati.'
+				'it' => 'Permette agli amministratori di vedere una lista dei moduli attualmente installati.',
+				'ru' => 'Список модулей, которые установлены на сайте.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

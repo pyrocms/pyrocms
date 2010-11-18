@@ -16,7 +16,8 @@ class Details_News extends Module {
 				'pl' => 'Aktualności',
 				'br' => 'Novidades',
 				'zh' => '新聞',
-				'it' => 'Notizie'
+				'it' => 'Notizie',
+				'ru' => 'Новости'
 			),
 			'description' => array(
 				'en' => 'Post news articles and blog entries.',
@@ -28,6 +29,7 @@ class Details_News extends Module {
 				'br' => 'Poste novidades',
 				'zh' => '發表新聞訊息、部落格文章。',
 				'it' => 'Pubblica notizie e post per il blog.',
+				'ru' => 'Управление новостными статьями и записями блога.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
