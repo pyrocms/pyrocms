@@ -34,11 +34,13 @@
 					<tr>
 						<td><?php echo form_checkbox('action_to[]', $comment->id);?></td>
 						<td>
-							<?php if( strlen($comment->comment) > 30 ): ?>
-								<?php echo character_limiter($comment->comment, 30); ?>...
-							<?php else: ?>
-								<?php echo $comment->comment; ?>
-							<?php endif; ?>
+							<a href="<?php echo site_url('admin/comments/preview/'. $comment->id); ?>" rel="modal" target="_blank">
+								<?php if( strlen($comment->comment) > 30 ): ?>
+									<?php echo character_limiter($comment->comment, 30); ?>...
+								<?php else: ?>
+									<?php echo $comment->comment; ?>
+								<?php endif; ?>
+							</a>
 						</td>
 						<td><?php echo isset($comment->item) ? $comment->item : '???'; ?></td>
 						<td>
