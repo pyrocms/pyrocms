@@ -22,4 +22,4 @@ $lang['ut_notes']			= 'ملاحظات';
 
 
 /* End of file unit_test_lang.php */
-/* Location: ./system/language/english/unit_test_lang.php */
+/* Location: ./system/language/arabic/unit_test_lang.php */

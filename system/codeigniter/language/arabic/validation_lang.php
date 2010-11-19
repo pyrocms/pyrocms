@@ -18,4 +18,4 @@ $lang['matches']		= "الحقل %s لا يطابق %s.";
 
 
 /* End of file validation_lang.php */
-/* Location: ./system/language/english/validation_lang.php */
+/* Location: ./system/language/arabic/validation_lang.php */

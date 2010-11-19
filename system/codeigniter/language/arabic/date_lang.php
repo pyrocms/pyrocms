@@ -15,8 +15,8 @@ $lang['date_minutes'] = "دقائق";
 $lang['date_second'] = "ثانية";
 $lang['date_seconds'] = "ثواني";
 
-$lang['UM12']	= '(UTC -12:00) Baker/Howland Island';
-$lang['UM11']	= '(UTC -11:00) Samoa Time Zone, Niue';
+$lang['UM12']	= '(UTC -12:00) جزيرة بيكر/هاولاند';
+$lang['UM11']	= '(UTC -11:00) توقيت ساموا، نيو';
 $lang['UM10']	= '(UTC -10:00) Hawaii-Aleutian Standard Time, Cook Islands, Tahiti';
 $lang['UM95']	= '(UTC -9:30) Marquesas Islands';
 $lang['UM9']	= '(UTC -9:00) Alaska Standard Time, Gambier Islands';
@@ -33,13 +33,13 @@ $lang['UM1']	= '(UTC -1:00) Azores, Cape Verde Islands';
 $lang['UTC']	= '(UTC) Greenwich Mean Time, Western European Time';
 $lang['UP1']	= '(UTC +1:00) Central European Time, West Africa Time';
 $lang['UP2']	= '(UTC +2:00) Central Africa Time, Eastern European Time, Kaliningrad Time';
-$lang['UP3']	= '(UTC +3:00) Moscow Time, East Africa Time';
-$lang['UP35']	= '(UTC +3:30) Iran Standard Time';
-$lang['UP4']	= '(UTC +4:00) Azerbaijan Standard Time, Samara Time';
-$lang['UP45']	= '(UTC +4:30) Afghanistan';
+$lang['UP3']	= '(UTC +3:00) توقيت موسكو، توقيت شرق إفريقيا';
+$lang['UP35']	= '(UTC +3:30) توقيت إيران القياسي';
+$lang['UP4']	= '(UTC +4:00) توقيت أذربيجان القياسي، توقيت سمارا';
+$lang['UP45']	= '(UTC +4:30) أفغانستان';
 $lang['UP5']	= '(UTC +5:00) Pakistan Standard Time, Yekaterinburg Time';
-$lang['UP55']	= '(UTC +5:30) Indian Standard Time, Sri Lanka Time';
-$lang['UP575']	= '(UTC +5:45) Nepal Time';
+$lang['UP55']	= '(UTC +5:30) توقيت الهند القياسي، توقيت سريلانكا';
+$lang['UP575']	= '(UTC +5:45) توقيت نيبال';
 $lang['UP6']	= '(UTC +6:00) Bangladesh Standard Time, Bhutan Time, Omsk Time';
 $lang['UP65']	= '(UTC +6:30) Cocos Islands, Myanmar';
 $lang['UP7']	= '(UTC +7:00) Krasnoyarsk Time, Cambodia, Laos, Thailand, Vietnam';
@@ -58,4 +58,4 @@ $lang['UP14']	= '(UTC +14:00) Line Islands';
 
 
 /* End of file date_lang.php */
-/* Location: ./system/language/english/date_lang.php */
+/* Location: ./system/language/arabic/date_lang.php */

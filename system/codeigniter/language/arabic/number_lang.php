@@ -7,4 +7,4 @@ $lang['kilobyte_abbr'] = "ك.ب";
 $lang['bytes'] = "بايت";
 
 /* End of file number_lang.php */
-/* Location: ./system/language/english/number_lang.php */
+/* Location: ./system/language/arabic/number_lang.php */

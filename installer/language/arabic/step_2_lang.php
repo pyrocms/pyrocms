@@ -47,4 +47,4 @@ $lang['retry']			=	'حاول مجدداً';
 $lang['step1_failure']	=	'الرجاء إدخال جميع بيانات إعدادات قاعدة البيانات في النموذج أدناه.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/english/step_2_lang.php */
+/* Location: ./installer/language/arabic/step_2_lang.php */

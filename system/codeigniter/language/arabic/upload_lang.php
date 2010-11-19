@@ -19,4 +19,4 @@ $lang['upload_not_writable'] = "يبدو أن المجلد المطلوب رفع
 
 
 /* End of file upload_lang.php */
-/* Location: ./system/language/english/upload_lang.php */
+/* Location: ./system/language/arabic/upload_lang.php */

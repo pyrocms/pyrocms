@@ -14,7 +14,7 @@ $lang['db_del_must_use_where'] = 'Deletes are not allowed unless they contain a 
 $lang['db_field_param_missing'] = 'To fetch fields requires the name of the table as a parameter.';
 $lang['db_unsupported_function'] = 'This feature is not available for the database you are using.';
 $lang['db_transaction_failure'] = 'Transaction failure: Rollback performed.';
-$lang['db_unable_to_drop'] = 'Unable to drop the specified database.';
+$lang['db_unable_to_drop'] = 'تعذّر حذف قاعدة البيانات المحدّدة.';
 $lang['db_unsuported_feature'] = 'Unsupported feature of the database platform you are using.';
 $lang['db_unsuported_compression'] = 'The file compression format you chose is not supported by your server.';
 $lang['db_filepath_error'] = 'Unable to write data to the file path you have submitted.';
@@ -26,4 +26,4 @@ $lang['db_unable_to_set_charset'] = 'Unable to set client connection character s
 $lang['db_error_heading'] = 'حدث خطأ في قاعدة البيانات';
 
 /* End of file db_lang.php */
-/* Location: ./system/language/english/db_lang.php */
+/* Location: ./system/language/arabic/db_lang.php */
