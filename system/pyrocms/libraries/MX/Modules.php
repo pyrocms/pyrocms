@@ -21,8 +21,8 @@ spl_autoload_register('Modules::autoload');
  *
  * Install this file as application/third_party/MX/Modules.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-11-12
- * @version 	5.3.5
+ * @copyright	Copyright (c) Wiredesignz 2010-09-09
+ * @version 	5.3.4
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,8 +58,11 @@ class Modules
 			$method = substr($module, $pos + 1);		
 			$module = substr($module, 0, $pos);
 		}
-
-		if($class = self::load($module)) {
+	
+		$controller = end(explode('/', $module));
+		if ($controller != $module) $controller = $module.'/'.$controller;
+		
+		if($class = self::load($controller)) {
 			
 			if (method_exists($class, $method))	{
 				ob_start();
@@ -70,18 +73,18 @@ class Modules
 			}
 		}
 		
-		log_message('error', "Module controller failed to run: {$module}/{$method}");
+		log_message('error', "Module controller failed to run: {$controller}/{$method}");
 	}
 	
 	/** Load a module controller **/
 	public static function load($module) {
 		(is_array($module)) ? list($module, $params) = each($module) : $params = NULL;	
 		
-		/* get the requested controller class name */
-		$alias = strtolower(end(explode('/', $module)));
+		/* get the controller class name */
+		$class = strtolower(end(explode('/', $module)));
 
 		/* return an existing controller from the registry */
-		if (isset(self::$registry[$alias])) return self::$registry[$alias];
+		if (isset(self::$registry[$class])) return self::$registry[$class];
 			
 		/* get the module path */
 		$segments = explode('/', $module);
@@ -99,33 +102,24 @@ class Modules
 		$class = $class.CI::$APP->config->item('controller_suffix');
 		self::load_file($class, $path);
 		
-		/* create and register the new controller */
-		$controller = ucfirst($class);	
-		self::$registry[$alias] = new $controller($params);
-		return self::$registry[$alias];
+		/* create the new controller */
+		$class = ucfirst($class);
+		$controller = new $class($params);
+		return $controller;
 	}
 	
 	/** Library base class autoload **/
 	public static function autoload($class) {
 		
-		/* don't autoload CI_ prefixed classes or those using the config subclass_prefix */
-		if (strstr($class, 'CI_') OR strstr($class, config_item('subclass_prefix'))) return;
+		/* don't autoload CI_ or MY_ prefixed classes */
+		if (strstr($class, 'CI_') || strstr($class, 'MY_')) return;
 
-		/* autoload Modular Extensions MX core classes */
-		if (strstr($class, 'MX_') AND is_file($location = dirname(__FILE__).'/'.substr($class, 3).EXT)) {
+		if(( ! CI_VERSION < 2) && is_file($location = APPPATH.'core/'.$class.EXT)) {
 			include_once $location;
-			return;
-		}
-		
-		/* autoload CI 2 core classes */
-		if( ! (CI_VERSION < 2) AND is_file($location = APPPATH.'core/'.$class.EXT)) {
-			include_once $location;
-			return;
 		}		
 		
 		if(is_file($location = APPPATH.'libraries/'.$class.EXT)) {
 			include_once $location;
-			return;
 		}		
 	}
 
@@ -176,19 +170,16 @@ class Modules
 		}	
 
 		foreach (Modules::$locations as $location => $offset) {					
-			foreach($modules as $module => $subpath) {			
+			foreach($modules as $module => $subpath) {
 				$fullpath = $location.$module.'/'.$base.$subpath;
-				
+				if ($base == 'libraries/' && is_file($fullpath.ucfirst($file_ext))) return array($fullpath, ucfirst($file));
 				if (is_file($fullpath.$file_ext)) return array($fullpath, $file);
-				
-				if ($base == 'libraries/' AND is_file($fullpath.ucfirst($file_ext))) 
-					return array($fullpath, ucfirst($file));
 			}
 		}
 		
 		/* is the file in an application directory? */
-		if ($base == 'views/' OR $base == 'models/' OR $base == 'plugins/') {
-			if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);	
+		if ($base == 'views/' || $base == 'models/' || $base == 'plugins/') {
+			if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);
 			show_error("Unable to locate the file: {$path}{$file_ext}");
 		}
 
