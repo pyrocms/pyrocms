@@ -26,7 +26,7 @@ class WYSIWYG_Controller extends MY_Controller
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
 
-	    	->append_metadata(js('jquery/jquery-1.4.2.min.js'))
+	    	->append_metadata(js('jquery/jquery.js'))
 	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
 	    	->append_metadata(js('jquery/jquery.livequery.js'))
 	    	->append_metadata(js('jquery/jquery.fancybox.js'))
