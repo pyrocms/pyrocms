@@ -16,6 +16,7 @@
 |
 */
 $config['supported_languages'] = array(
+	'ar'=> array('name' => 'العربية', 'folder' => 'arabic'),
 	'en'=> array('name' => 'English', 'folder' => 'english'),
 	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish'),
 	'fr'=> array('name' => 'Français', 'folder' => 'french'),
