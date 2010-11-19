@@ -242,7 +242,7 @@ class Template
 		$this->_ci->output->cache( $this->cache_lifetime );
 
 		// Test to see if this file
-		$this->_body = $this->_find_view($view, array());
+		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
 
 		// Want this file wrapped with a layout file?
 		if ($this->_layout)
@@ -251,7 +251,7 @@ class Template
 			$template['body'] = $this->_body;
 
 			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
-			$this->_body = self::_load_view('layouts/'.$this->_layout, $this->_data, self::_find_view_folder(), TRUE);
+			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
 		}
 
 		// Want it returned or output to browser?
@@ -655,7 +655,7 @@ class Template
 	}
 
 	// A module view file can be overriden in a theme
-	private function _find_view($view, array $data)
+	private function _find_view($view, array $data, $parse_view = TRUE)
 	{
 		// Only bother looking in themes if there is a theme
 		if ( ! empty($this->_theme))
@@ -671,24 +671,22 @@ class Template
 				{
 					if (file_exists($location . $theme_view . self::_ext($theme_view)))
 					{
-						return self::_load_view($theme_view, $this->_data + $data, $location);
+						return self::_load_view($theme_view, $this->_data + $data, $parse_view, $location);
 					}
 				}
 			}
 		}
 
 		// Not found it yet? Just load, its either in the module or root view
-		return self::_load_view($view, $this->_data + $data);
+		return self::_load_view($view, $this->_data + $data, $parse_view);
 	}
 
-	private function _load_view($view, array $data, $override_view_path = NULL, $is_layout = FALSE)
+	private function _load_view($view, array $data, $parse_view = TRUE, $override_view_path = NULL)
 	{
-		$to_parse = ($this->_parser_enabled === TRUE AND $is_layout === TRUE) OR ($this->_parser_body_enabled === TRUE AND $is_layout === FALSE);
-
 		// Sevear hackery to load views from custom places AND maintain compatibility with Modular Extensions
 		if ($override_view_path !== NULL)
 		{
-			if ($to_parse)
+			if ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 			{
 				// Load content and pass through the parser
 				$content = $this->_ci->parser->parse_string($this->_ci->load->_ci_load(array(
@@ -713,7 +711,7 @@ class Template
 		else
 		{
 			// Grab the content of the view (parsed or loaded)
-			$content = $to_parse === TRUE
+			$content = ($this->_parser_enabled === TRUE AND $parse_view === TRUE)
 
 				// Parse that bad boy
 				? $this->_ci->parser->parse($view, $data, TRUE )
