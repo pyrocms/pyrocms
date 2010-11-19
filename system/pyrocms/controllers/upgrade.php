@@ -163,7 +163,7 @@ class Upgrade extends Controller
 				for ($i = 0; $i < count($tags[0]);++ $i)
 				{
 					$replace_from[] = $tags[0][$i];
-					$replace_to[] = '{pyro:pages:url id="'.$tags[2][$i].'"}';
+					$replace_to[] = '{pyro:pages:url id=\''.$tags[2][$i].'\'}';
 				}
 
 				$replace_from AND $revision->body = str_replace($replace_from, $replace_to, $revision->body);

@@ -45,9 +45,9 @@ class Tags
 		$this->_ci = & get_instance();
 		foreach ($config as $key => $val)
 		{
-			if (isset($this->_{$key}))
+			if (isset($this->{'_'.$key}))
 			{
-				$this->_{$key} = $val;
+				$this->{'_'.$key} = $val;
 			}
 		}
 	}

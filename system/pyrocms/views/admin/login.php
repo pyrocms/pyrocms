@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery-1.4.2.min.js'); ?>
+	<?php echo js('jquery/jquery.js'); ?>
 	<?php echo js('admin/jquery.uniform.min.js'); ?>
 	<?php echo js('admin/login.js'); ?>
 	
