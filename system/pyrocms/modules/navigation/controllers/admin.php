@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'link_type',
 			'label'	=> 'lang:nav_type_label',
-			'rules'	=> 'trim|alpha'
+			'rules'	=> 'trim|required|alpha'
 		),
 		array(
 			'field' => 'url',
