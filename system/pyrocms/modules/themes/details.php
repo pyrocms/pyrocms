@@ -16,6 +16,7 @@ class Details_Themes extends Module {
 				'pl' => 'Motywy',
 				'br' => 'Temas',
 				'zh' => '佈景主題',
+				'it' => 'Temi',
 				'ru' => 'Темы'
 			),
 			'description' => array(
@@ -27,6 +28,7 @@ class Details_Themes extends Module {
 				'pl' => 'Umożliwia administratorowi zmianę motywu strony, wgrywanie nowych motywów oraz zarządzanie nimi.',
 				'br' => 'Permite com que administradores e membros da equipe configurem o tema de layout do website, fazer upload de novos temas e gerenciá-los em uma interface mais visual.',
 				'zh' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。',
+				'it' => 'Permette ad amministratori e staff di cambiare il tema del sito, carica nuovi temi e gestiscili in um modo più visuale.',
 				'ru' => 'Управление темами оформления сайта, загрузка новых тем.'
 			),
 			'frontend' => FALSE,

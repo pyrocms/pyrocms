@@ -13,6 +13,7 @@ class Details_Galleries extends Module {
 				'nl' => 'Gallerijen',
 				'fr' => 'Galeries',
 				'zh' => '畫廊',
+				'it' => 'Gallerie',
 				'ru' => 'Галереи'
 			),
 			'description' => array(
@@ -21,6 +22,7 @@ class Details_Galleries extends Module {
 				'nl' => 'De gallerij module is een krachtige module dat gebruikers in staat stelt gallerijen te plaatsen.',
 				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.',
 				'zh' => '這是一個功能完整的模組，可以讓用戶建立自己的相簿或畫廊。',
+				'it' => 'Il modulo gallerie è un potente modulo che permette agli utenti di creare gallerie di immagini.',
 				'ru' => 'Галереи - мощный модуль, который даёт пользователям возможность создавать галереи изображений.'
 			),
 			'frontend' => TRUE,

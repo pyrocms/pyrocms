@@ -19,7 +19,7 @@ abstract class Plugin
 
     function __get($var)
     {
-		return CI_Base::get_instance()->$var;
+		return get_instance()->$var;
     }
 
 	// ------------------------------------------------------------------------
@@ -107,7 +107,7 @@ class Plugins
 			// First check core addons then 3rd party
 			$path = $module['is_core'] ? APPPATH : ADDONPATH;
 
-			if (file_exists($path = APPPATH.'modules/'.$class.'/plugin'.EXT))
+			if (file_exists($path = $path.'modules/'.$class.'/plugin'.EXT))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
@@ -136,7 +136,7 @@ class Plugins
 	private function _process($path, $class, $method, $data)
 	{
 		$class_name = 'Plugin_'.ucfirst(strtolower($class));
-		
+
 		if ( ! isset($this->instances[$class]))
 		{
 			// Load it up
@@ -152,7 +152,7 @@ class Plugins
 			$this->instances[$class]->set_data($data);
 		}
 
-		if ( ! class_exists($class_name) OR ! method_exists($class_name, $method))
+		if ( ! class_exists($class_name))
 		{
 			throw new Exception('Plugin "'.$class_name.'" does not exist.');
 			return FALSE;

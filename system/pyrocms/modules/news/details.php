@@ -16,6 +16,7 @@ class Details_News extends Module {
 				'pl' => 'Aktualności',
 				'br' => 'Novidades',
 				'zh' => '新聞',
+				'it' => 'Notizie',
 				'ru' => 'Новости'
 			),
 			'description' => array(
@@ -27,6 +28,7 @@ class Details_News extends Module {
 				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
 				'br' => 'Poste novidades',
 				'zh' => '發表新聞訊息、部落格文章。',
+				'it' => 'Pubblica notizie e post per il blog.',
 				'ru' => 'Управление новостными статьями и записями блога.'
 			),
 			'frontend' => TRUE,
@@ -98,4 +100,5 @@ class Details_News extends Module {
 		return "No documentation has been added for this module.";
 	}
 }
+
 /* End of file details.php */

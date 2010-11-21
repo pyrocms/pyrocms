@@ -20,11 +20,12 @@ $config['supported_languages'] = array(
 	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish'),
 	'fr'=> array('name' => 'Français', 'folder' => 'french'),
 	'de'=> array('name' => 'Deutsch', 'folder' => 'german'),
-	'pl'=> array('name' => 'Polski', 'folder' => 'polish'),
+	'it'=> array('name' => 'Italiano', 'folder' => 'italian'),
 	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
+	'pl'=> array('name' => 'Polski', 'folder' => 'polish'),
 	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian'),
-	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional'),
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian'),
+	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional')
 );
 
 /*
@@ -38,5 +39,3 @@ $config['supported_languages'] = array(
 |
 */
 $config['default_language'] = 'en';
-
-?>

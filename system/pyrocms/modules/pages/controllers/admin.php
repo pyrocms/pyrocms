@@ -347,7 +347,8 @@ class Admin extends Admin_Controller
 			$this->cache->delete_all('pages_m');
 
 			// Set the flashdata message and redirect the user
-			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $this->input->post('title')));
+			$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
+			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
 
 			// Redirect back to the form or main page
 			$this->input->post('btnAction') == 'save_exit'

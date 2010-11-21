@@ -48,9 +48,8 @@ class Users_m extends MY_Model
     	$this->db->select('profiles.*, users.*, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name', FALSE);
     	$this->db->limit(1);
     	$this->db->join('profiles', 'profiles.user_id = users.id', 'left');
-    	$query = $this->db->get('users');
 
-    	return $query->row();
+    	return $this->db->get('users')->row();
     }
     
   	public function get_recent($limit = 10)

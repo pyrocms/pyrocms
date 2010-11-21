@@ -7,51 +7,53 @@
 
 <!-- Begin pageWrapper -->
 <div id="pageWrapper">
-{pyro:integration:analytics}
-<!-- Begin header -->
-<div id="header">
-	
-{pyro:theme:partial file="header"}
-</div>
-<!-- End header -->
+	{pyro:integration:analytics}
+	<!-- Begin header -->
+	<div id="header">
 
-<!-- Begin nav -->
-<ul id="head-nav">
-{pyro:navigation:links group="header"}
-</ul>
-<!-- End nav -->
+	{pyro:theme:partial file="header"}
+	</div>
+	<!-- End header -->
 
-<!-- Begin contentWrapper -->
-<div id="contentWrapper">
+	<!-- Begin nav -->
+	<ul id="head-nav">
+	{pyro:navigation:links group="header"}
+	</ul>
+	<!-- End nav -->
 
-<!-- Begin content -->
-<div id="content">
-	
-{pyro:theme:partial file="breadcrumbs"}
+	<!-- Begin contentWrapper -->
+	<div id="contentWrapper">
 
-{if $session->flashdata('notice')}
-<div class="notice-box">{$session->flashdata('notice')}</div>
-{/if}
+	<!-- Begin content -->
+		<div id="content">
 
-{if $session->flashdata('success')}
-<div class="success-box">{$session->flashdata('success')}</div>
-{/if}
+			{pyro:theme:partial file="breadcrumbs"}
 
-{if $session->flashdata('error')}
-<div class="error-box">{$session->flashdata('error')}</div>
-{/if}
-		
-<div class="post">
-	{pyro:template:body}
-	<br style="clear:both;" />
-</div>
-	
-</div>
-<!-- End content -->
+			{if $session->flashdata('notice')}
+			<div class="notice-box">{$session->flashdata('notice')}</div>
+			{/if}
 
-{pyro:theme:partial file="sidebar"}
+			{if $session->flashdata('success')}
+			<div class="success-box">{$session->flashdata('success')}</div>
+			{/if}
 
-</div>
+			{if $session->flashdata('error')}
+			<div class="error-box">{$session->flashdata('error')}</div>
+			{/if}
+
+			<div class="post">
+				{pyro:template:body}
+				<br style="clear:both;" />
+			</div>
+
+		</div>
+		<!-- End content -->
+
+		{pyro:theme:partial file="sidebar"}
+
+	</div>
 <!-- End contentWrapper -->
 
 {pyro:theme:partial file="footer"}
+
+</div>

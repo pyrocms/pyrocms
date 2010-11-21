@@ -16,6 +16,7 @@ class Details_Pages extends Module {
 				'pl' => 'Strony',
 				'br' => 'Páginas',
 				'zh' => '頁面',
+				'it' => 'Pagine',
 				'ru' => 'Страницы'
 			),
 			'description' => array(
@@ -27,6 +28,7 @@ class Details_Pages extends Module {
 				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
 				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
 				'zh' => '為您的網站新增自定的頁面。',
+				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.'
 			),
 			'frontend' => TRUE,
