@@ -13,7 +13,7 @@
 			{if $session->flashdata('notice')}<div class="notice-box">{$session->flashdata('notice')}</div>{/if}
 		    {if $session->flashdata('success')}<div class="success-box">{$session->flashdata('success')}</div>{/if}
 		    {if $session->flashdata('error')}<div class="error-box">{$session->flashdata('error')}</div>{/if}
-			
+
 			<div id="content">
 				{pyro:template:body}
 			</div>
@@ -28,7 +28,7 @@
 					</li>
 					<li>
 					{if $session->userdata('user_id')}
-						<h2>{pyro:user:first_name} {pyro:user:last_name}</h2>
+						<h2><?php echo $user->first_name.' '.$user->last_name; ?></h2>
 						<ul>
 							<li><a href="{site_url('users/logout')}">{lang('logout_label')}</a></li>
 
