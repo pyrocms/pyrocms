@@ -262,7 +262,7 @@ class Admin extends Admin_Controller {
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
 				));
-				
+
 				$data->messages['success'] = lang('files.success');
 			}
 		}
@@ -279,14 +279,45 @@ class Admin extends Admin_Controller {
 	 */
 	public function delete($id = '')
 	{
-		if (!$this->file_m->exists($id))
+		// Delete one
+		$ids = ($id) ? array($id) : $this->input->post('action_to');
+
+		// Go through the array of ids to delete
+		if ( ! empty($ids))
+		{
+			foreach ($ids as $id)
+			{
+				if ($this->file_m->exists($id))
+				{
+					$this->file_m->delete($id);
+				}
+			}
+			$this->session->set_flashdata('success', lang('files.delete.success'));
+		}
+		else
 		{
 			show_error(lang('files.not_exists'));
 		}
 
-		$this->file_m->delete($id) ? $this->session->set_flashdata('success', lang('files.delete.success')) : $this->session->set_flashdata('error', lang('files.delete.error'));
-
 		redirect('admin/files');
+	}
+
+	/**
+	 * Helper method to determine what to do with selected items from form post
+	 * @access public
+	 * @return void
+	 */
+	public function action()
+	{
+		switch($this->input->post('btnAction'))
+		{
+			case 'delete':
+				$this->delete();
+			break;
+			default:
+				redirect('admin/files');
+			break;
+		}
 	}
 
 	// ------------------------------------------------------------------------
