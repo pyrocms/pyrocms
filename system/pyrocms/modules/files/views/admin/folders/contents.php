@@ -1,4 +1,4 @@
-<?php echo form_open('admin/files');?>
+<?php echo form_open('admin/files/action');?>
 	<h3>
 		<?php echo $crumbs; ?>
 		<span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span>
@@ -57,7 +57,7 @@
 
 			echo $this->table->generate();
 		?>
-
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
 	<?php else: ?>
 		<p><?php echo lang('files.no_files');?></p>
 	<?php endif; ?>
