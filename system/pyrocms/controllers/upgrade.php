@@ -184,7 +184,7 @@ class Upgrade extends Controller
 		if ( ! isset($nav->class))
 		{
 			$this->db->query("ALTER TABLE `navigation_links`
-				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `target`");
+				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '' AFTER `target`");
 
 			$this->cache->delete_all('navigation_m');
 		}
