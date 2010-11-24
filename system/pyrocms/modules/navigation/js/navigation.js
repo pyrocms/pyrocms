@@ -13,9 +13,6 @@
 			.find('input:not([value="http://"]), select').val('');
 		});
 		
-		$('a.delete_group').click(function(){
-			return confirm("<?php echo lang('nav_group_delete_confirm');?>");
-		});
 
 		$('table tbody').sortable({
 			handle: 'td',

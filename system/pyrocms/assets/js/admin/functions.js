@@ -65,33 +65,28 @@ jQuery(function($) {
 
 		// Confirmation
 		$("a.confirm").live('click', function(){
-			removemsg = $("em").attr("title");
+			removemsg = $(this).attr("title");
 	
-			if (removemsg === undefined)
+			if (removemsg != 'undefined')
 			{
-				confirm_msg = $(this).attr('title');
-				
-				if(confirm_msg.length <= 0)
+				if(removemsg.length <= 0)
 				{
-					var answer = confirm(DIALOG_MESSAGE);
+					msg = DIALOG_MESSAGE;
 				}
 				else
 				{
-					var answer = confirm(confirm_msg);
+					msg = removemsg;
 				}
 			}
 			else
 			{
-				var answer = confirm(removemsg);
+				msg = DIALOG_MESSAGE;
 			}
 
-			return answer;
-		});
-		
-		//minibutton fix
-		$("a.minibutton, a.button").live('click', function(e) {
-			e.preventDefault();
-			window.location.href = $(this).attr("href");
+			if(confirm(msg))
+			{
+				window.location.href = $(this).attr("href");
+			}
 		});
 
 		// Table zerbra striping
