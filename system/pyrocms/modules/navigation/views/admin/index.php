@@ -4,7 +4,7 @@
 		<section class="box">
 			<header>
 				<div class="float-right" style="margin-top: 6px;">
-					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), 'class="delete_group minibutton"') ?>
+					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm minibutton",  'title' => lang('nav_group_delete_confirm'))) ?>
 				</div>
 			
 				<h3><?php echo $group->title;?></h3>
