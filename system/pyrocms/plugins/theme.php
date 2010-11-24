@@ -34,6 +34,12 @@ class Plugin_Theme extends Plugin
 		)), $data, TRUE, TRUE);
 	}
 
+	function path()
+	{
+		$data =& $this->load->_ci_cached_vars;
+		return dirname($data['template_views']).'/';
+	}
+
 	/**
 	 * Theme CSS
 	 *
@@ -64,7 +70,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css file=""}
+	 * {pyro:theme:image file=""}
 	 *
 	 * @param	array
 	 * @return	array

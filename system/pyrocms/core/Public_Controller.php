@@ -78,8 +78,7 @@ class Public_Controller extends MY_Controller
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
-
-        $this->load->vars('user', (array) $this->user);
+		$this->template->user = (array) $this->user;
 
 		$this->benchmark->mark('public_controller_end');
 	}
