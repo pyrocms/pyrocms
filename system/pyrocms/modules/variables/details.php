@@ -17,7 +17,8 @@ class Details_Variables extends Module {
 				'br' => 'Variáveis',
 				'zh' => '系統變數',
 				'it' => 'Variabili',
-				'ru' => 'Переменные'
+				'ru' => 'Переменные',
+				'ar' => 'المتغيّرات'
 			),
 			'description' => array(
 				'en' => 'Manage global variables to access from everywhere.',
@@ -29,7 +30,8 @@ class Details_Variables extends Module {
 				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
 				'zh' => '管理此網站內可存取的全局變數。',
 				'it' => 'Gestisci le variabili globali per accedervi da ogni parte.',
-				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.'
+				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.',
+				'ar' => 'إدارة المُتغيّرات العامة لاستخدامها في أرجاء الموقع.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
