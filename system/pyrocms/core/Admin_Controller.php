@@ -55,6 +55,8 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( js('admin/functions.js') )
     		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' )
 
+			->set('user', $this->user)
+
 			->set_partial('header', 'admin/partials/header')
 			->set_partial('navigation', 'admin/partials/navigation')
 			->set_partial('metadata', 'admin/partials/metadata')
