@@ -29,17 +29,17 @@
 
 			{pyro:theme:partial file="breadcrumbs"}
 
-			{if $session->flashdata('notice')}
-			<div class="notice-box">{$session->flashdata('notice')}</div>
-			{/if}
+				{if '{pyro:session:flash name="notice"}'}
+				<div class="notice-box">{pyro:session:flash name="notice"}</div>
+				{/if}
 
-			{if $session->flashdata('success')}
-			<div class="success-box">{$session->flashdata('success')}</div>
-			{/if}
+				{if '{pyro:session:flash name="success"}'}
+				<div class="success-box">{pyro:session:flash name="success"}</div>
+				{/if}
 
-			{if $session->flashdata('error')}
-			<div class="error-box">{$session->flashdata('error')}</div>
-			{/if}
+				{if '{pyro:session:flash name="error"}'}
+				<div class="error-box">{pyro:session:flash name="error"}</div>
+				{/if}
 
 			<div class="post">
 				{pyro:template:body}
@@ -57,3 +57,7 @@
 {pyro:theme:partial file="footer"}
 
 </div>
+
+</body>
+
+</html>

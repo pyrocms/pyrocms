@@ -25,7 +25,7 @@
 
 class Tags
 {
-	private $_trigger = 'pyro:';
+	private $_trigger = '';
 	private $_l_delim = '{';
 	private $_r_delim = '}';
 	private $_mark = 'k0dj3j4nJHDj22j';
@@ -42,7 +42,6 @@ class Tags
 	 */
 	public function __construct($config = array())
 	{
-		$this->_ci = & get_instance();
 		foreach ($config as $key => $val)
 		{
 			if (isset($this->{'_'.$key}))
@@ -106,8 +105,8 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
-		$orig_content = $content;
-		// $orig_content = $this->parse_globals($orig_content, $data);
+		$orig_content = $this->parse_globals($content, $data);
+
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
 
@@ -164,6 +163,7 @@ class Tags
 
 		if (empty($parsed_tags))
 		{
+			$orig_content = $this->parse_php($this->parse_conditionals($orig_content), $data);
 			return array('content' => $orig_content, 'tags' => array());
 		}
 
@@ -213,11 +213,56 @@ class Tags
 				$orig_content = str_replace($tag['marker'], '', $orig_content);
 			}
 		}
+		$orig_content = $this->parse_php($this->parse_conditionals($orig_content), $data);
 
 		return array('content' => $orig_content, 'tags' => $parsed_tags);
 	}
 
-	// ------------------------------------------------------------------------
+	// --------------------------------------------------------------------
+
+	public function parse_conditionals($content)
+	{
+		preg_match_all('#{if (.*?)}#i', $content, $matches, PREG_OFFSET_CAPTURE);
+
+		$len_offset = 0;
+		foreach ($matches[0] as $match)
+		{
+			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9]*))#i', '$2\$$3', $match[0]);
+			$content = substr($content, 0, $match[1] + $len_offset).$replacement.substr($content, $match[1] + strlen($match[0]) + $len_offset);
+			$len_offset += strlen($replacement) - strlen($match[0]);
+		}
+
+		preg_match_all('#{elseif (.*?)}#i', $content, $matches, PREG_OFFSET_CAPTURE);
+
+		$len_offset = 0;
+		foreach ($matches[0] as $match)
+		{
+			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9]*))#i', '$2\$$3', $match[0]);
+			$content = substr($content, 0, $match[1] + $len_offset).$replacement.substr($content, $match[1] + strlen($match[0]) + $len_offset);
+			$len_offset += strlen($replacement) - strlen($match[0]);
+		}
+
+		$content = preg_replace('#{if (.*?)}#i', '<?php if($1): ?>', $content);
+		$content = preg_replace('#{elseif (.*?)}#i', '<?php elseif($1): ?>', $content);
+		$content = preg_replace('#{else}#i', '<?php else: ?>', $content);
+		$content = preg_replace('#{/if}#i', '<?php endif; ?>', $content);
+
+		return $content;
+	}
+
+	// --------------------------------------------------------------------
+
+	private function parse_php($_content_to_parse, $data = array())
+	{
+		extract($data);
+		ob_start();
+		echo eval('?>'.$_content_to_parse.'<?php ');
+		$_content_to_parse = ob_get_contents();
+		ob_end_clean();
+		return $_content_to_parse;
+	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * Parse Globals
@@ -243,6 +288,11 @@ class Tags
 	{
 		foreach ($data as $var => $value)
 		{
+			if (is_object($value))
+			{
+				$value = (array) $value;
+			}
+			
 			if ( ! is_array($value))
 			{
 				$content = str_replace('{'.$var.'}', $value, $content);
@@ -326,7 +376,7 @@ class Tags
 			$data = $data[$segment];
 		}
 
-		$temp = new Tags();
+		$temp = new Tags;
 		foreach ($data as $val)
 		{
 			$return = $temp->parse($tag['content'], $val);

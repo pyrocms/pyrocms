@@ -66,11 +66,7 @@ class MY_Controller extends Controller
         $pyro['application_uri'] 	= APPPATH_URI;
         $pyro['lang']				= CURRENT_LANGUAGE;
 
-		// Mega Pyro arrays
-        $pyro['user'] 	=& $this->user;
-
         $this->load->vars($pyro);
-        $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.
 
         $this->benchmark->mark('my_controller_end');
 	}

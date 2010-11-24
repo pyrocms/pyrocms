@@ -115,7 +115,10 @@ class Plugins
 
 		log_message('error', 'Unable to load: '.$class);
 
-		throw new Exception('Unable to load: '.$class);
+		if (ENV == 'local')
+		{
+			throw new Exception('Unable to load: '.$class);
+		}
 
 		return FALSE;
 	}
