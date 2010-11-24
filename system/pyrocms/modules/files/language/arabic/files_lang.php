@@ -15,6 +15,7 @@
 $lang['files.title']						= 'الملفات';
 $lang['files.upload.title']					= 'رفع الملفات';
 $lang['files.labels.action']				= 'الإجراء';
+$lang['files.labels.download']				= 'Download'; #translate
 $lang['files.labels.edit']					= 'تعديل';
 $lang['files.labels.delete']				= 'حذف';
 $lang['files.labels.upload']				= 'رفع';

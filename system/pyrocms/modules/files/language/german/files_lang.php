@@ -15,6 +15,7 @@
 $lang['files.title']						= 'Dateien';
 $lang['files.upload.title']					= 'Dateien hochladen';
 $lang['files.labels.action']				= 'Aktionen';
+$lang['files.labels.download']				= 'Download'; #translate
 $lang['files.labels.edit']					= 'Bearbeiten';
 $lang['files.labels.delete']				= 'Löschen';
 $lang['files.labels.upload']				= 'Hochladen';

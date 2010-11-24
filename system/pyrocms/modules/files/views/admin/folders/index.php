@@ -22,7 +22,7 @@
 						$this->table->add_row(
 						 	form_checkbox('action_to[]', $folder['id']),
 						 	$indent.$folder['name'],
-							date("m.d.y \a\\t g.i a", $folder['date_added']),
+							date("d/m/Y \a\\t g.i a", $folder['date_added']),
 							$edit .' | '. $delete
 						 );
 					}

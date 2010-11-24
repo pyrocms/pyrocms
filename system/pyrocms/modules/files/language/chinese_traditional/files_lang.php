@@ -15,6 +15,7 @@
 $lang['files.title']						= '檔案';
 $lang['files.upload.title']					= '上傳檔案';
 $lang['files.labels.action']				= '操作';
+$lang['files.labels.download']				= 'Download'; #translate
 $lang['files.labels.edit']					= '編輯';
 $lang['files.labels.delete']				= '刪除';
 $lang['files.labels.upload']				= '上傳';
