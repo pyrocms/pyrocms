@@ -188,7 +188,7 @@ class Tags
 				}
 
 				// If the tag referenced data then put that data in the content
-				if ($return_data)
+				if ($return_data !== FALSE)
 				{
 					$orig_content = str_replace($tag['marker'], $return_data, $orig_content);
 					unset($parsed_tags[$key]);

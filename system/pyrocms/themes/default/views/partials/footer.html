@@ -2,12 +2,12 @@
 <div id="footerWrapper">
 	<div id="footer">
 
-	<div id="poweredby"><a href="http://pyrocms.com/"><img src="{$pyro.application_uri}/themes/default/img/logo.png" alt="Poweredby PyroCMS"> Powered by PyroCMS</div>
+	<div id="poweredby"><a href="http://pyrocms.com/">{pyro:theme:image file="logo.png" alt="Poweredby PyroCMS"} Powered by PyroCMS</div>
 
 	<ul id="foot-nav">
 		{pyro:navigation:links group="footer"}
 		<li><a class="last" href="#top" title="Back to Top">Top &uarr;</a></li>
-        <li>&copy;{date('Y')} {pyro:settings:site_name}. All Rights Reserved.</li>
+        <li>&copy;{pyro:helper:date format="Y"} {pyro:settings:site_name}. All Rights Reserved.</li>
 	</ul>
 
 	</div>
@@ -20,12 +20,13 @@
 <!-- Begin scripts -->
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">google.load('jquery', '1.4.2');</script>
-<script type="text/javascript" src="{$pyro.application_uri}/themes/default/js/localscroll.js"></script>
-<script type="text/javascript" src="{$pyro.application_uri}/themes/default/js/scrollto.js"></script>
-<script type="text/javascript" src="{$pyro.application_uri}/themes/default/js/easing.js"></script>
-<script type="text/javascript" src="{$pyro.application_uri}/themes/default/js/cufon.js"></script>
-<script type="text/javascript" src="{$pyro.application_uri}/themes/default/js/qk.font.js"></script>
-<script type="text/javascript" src="{$pyro.application_uri}/themes/default/js/global.js"></script>
+
+{pyro:theme:js file="localscroll.js"}
+{pyro:theme:js file="scrollto.js"}
+{pyro:theme:js file="easing.js"}
+{pyro:theme:js file="cufon.js"}
+{pyro:theme:js file="qk.font.js"}
+{pyro:theme:js file="global.js"}
 <!-- End scripts -->
 
 <script type="text/javascript">Cufon.now();</script>

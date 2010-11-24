@@ -9,6 +9,7 @@
 abstract class Plugin
 {
 	private $attributes = array();
+	private $content = array();
 
 	function __construct($data)
 	{
@@ -21,6 +22,22 @@ abstract class Plugin
     {
 		return get_instance()->$var;
     }
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Get param
+	 *
+	 * This is a helper used from the parser files to process a list of params
+	 *
+	 * @param	array - Params passed from view
+	 * @param	array - Array of default params
+	 * @return 	array
+	 */
+	public function content()
+	{
+		return $this->content;
+	}
 
 	// ------------------------------------------------------------------------
 
@@ -67,6 +84,7 @@ abstract class Plugin
 	 */
 	public function set_data($data)
 	{
+		isset($data['content']) AND $this->content = $data['content'];
 		isset($data['attributes']) AND $this->attributes = $data['attributes'];
 	}
 }
