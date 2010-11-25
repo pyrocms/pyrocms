@@ -25,8 +25,6 @@ class Installer extends Controller
 		'system/codeigniter/cache',
 		'system/codeigniter/logs',
 		'system/pyrocms/cache',
-		'system/pyrocms/cache/dwoo',
-		'system/pyrocms/cache/dwoo/compiled',
 		'system/pyrocms/cache/simplepie',
 		'system/pyrocms/config',
 		'uploads'
