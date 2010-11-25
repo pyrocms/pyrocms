@@ -1,7 +1,7 @@
 <?php
 
-$lang['user_register_header'] 			= 'الاشتراك';
-$lang['user_register_step1'] 			= '<strong>الخطوة الأولى:</strong> الاشتراك';
+$lang['user_register_header'] 			= 'الإشتراك';
+$lang['user_register_step1'] 			= '<strong>الخطوة الأولى:</strong> الإشتراك';
 $lang['user_register_step2'] 			= '<strong>الخطوة الثانية:</strong> التفعيل';
 
 $lang['user_login_header'] 				= 'تسجيل الدخول';
@@ -16,14 +16,14 @@ $lang['user_registred_title'] 			= 'المستخدمون المسجّلون';
 $lang['user_edit_title'] 				= 'تعديل المستخدم "%s"';
 $lang['user_details_label'] 			= 'التفاصيل';
 $lang['user_first_name_label'] 			= 'الإسم الأول';
-$lang['user_last_name_label'] 			= 'الإسم الأ×ير';
+$lang['user_last_name_label'] 			= 'الإسم الأخير';
 $lang['user_email_label'] 				= 'البريد الإلكتروني';
 $lang['user_group_label'] 				= 'المجموعة';
 $lang['user_activate_label'] 			= 'تفعيل';
 $lang['user_password_label'] 			= 'كلمة السرّ';
 $lang['user_password_confirm_label'] 	= 'تأكيد كلمة السرّ';
 $lang['user_name_label'] 				= 'الإسم';
-$lang['user_joined_label'] 				= 'إنضم في';
+$lang['user_joined_label'] 				= 'انضم في';
 $lang['user_last_visit_label'] 			= 'آخر زيارة';
 $lang['user_actions_label'] 			= 'الإجراءات';
 $lang['user_never_label'] 				= 'لم يتم';
@@ -32,7 +32,7 @@ $lang['user_edit_label'] 				= 'تعديل';
 $lang['user_view_label'] 				= 'عرض';
 
 $lang['user_no_inactives'] 				= 'ليس هناك أي مستخدمين مُعطلين.';
-$lang['user_no_registred'] 				= 'ليس هناك أي مستخدمين مُسجلين';
+$lang['user_no_registred'] 				= 'ليس هناك أي مستخدمين مُسجلين.';
 
 $lang['account_changes_saved'] 			= 'تم حفظ التعديلات على حسابك بنجاح.';
 
@@ -51,10 +51,10 @@ $lang['user_password_reset_title'] 		= 'تمت استعادة كلمة السر�
 $lang['user_error_username'] 			= 'إسم المستخدم الذي اخترته مُستخدم';
 $lang['user_error_email'] 				= 'عنوان البريد الإلكتروني الذي أدخلته مُستخدم.';
 
-$lang['user_full_name'] 				= 'الاسم الكامل';
-$lang['user_first_name'] 				= 'الاسم الأول';
+$lang['user_full_name'] 				= 'الإسم الكامل';
+$lang['user_first_name'] 				= 'الإسم الأول';
 $lang['user_last_name'] 				= 'إسم العائلة';
-$lang['user_username'] 					= 'اسم المستخدم';
+$lang['user_username'] 					= 'إسم المستخدم';
 $lang['user_display_name']				= 'إسم العرض';
 $lang['user_email'] 					= 'البريد الإلكترني';
 $lang['user_confirm_email'] 			= 'تأكيد البريد الإلكتروني';
