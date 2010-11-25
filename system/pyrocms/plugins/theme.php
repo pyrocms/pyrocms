@@ -24,12 +24,13 @@ class Plugin_Theme extends Plugin
 	 */
 	function partial()
 	{
-		$file = $this->attribute('file');
+		$name = $this->attribute('name');
+		$name = $this->attribute('file', $name); #deprecated
 
 		$data =& $this->load->_ci_cached_vars;
 
 		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path' => $data['template_views'].'partials/'.$file.'.html',
+			'_ci_path' => $data['template_views'].'partials/'.$name.'.html',
 			'_ci_return' => TRUE
 		)), $data, TRUE, TRUE);
 	}

@@ -69,7 +69,7 @@ class Plugin_User extends Plugin
 
 	function __call($foo, $arguments)
 	{
-		return $this->user->$foo;
+		return isset($this->user->$foo) ? $this->user->$foo : NULL;
 	}
 }
 
