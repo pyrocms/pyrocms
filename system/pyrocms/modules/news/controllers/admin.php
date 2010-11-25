@@ -201,6 +201,9 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
+		
+		//append the check slug callback function to rules array
+		$this->validation_rules[1]['rules'] .= '|callback__check_slug';
 		$this->form_validation->set_rules($this->validation_rules);
 			
 		$article = $this->news_m->get($id);
