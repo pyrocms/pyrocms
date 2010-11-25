@@ -21,13 +21,11 @@ class Admin_Controller extends MY_Controller
 	    // Get a list of all modules available to this user / group
 		if ($this->user)
 		{
-			$modules = $this->cache->model('module_m', 'get_all', array(
-				array(
-					'is_backend' => TRUE,
-					'group' => $this->user->group,
-					'lang' => CURRENT_LANGUAGE
-				) // This function does NOT need group OR language, that is to give it a unique md5 hash
-			), $this->config->item('navigation_cache'));
+			$modules = $this->module_m->get_all(array(
+				'is_backend' => TRUE,
+				'group' => $this->user->group,
+				'lang' => CURRENT_LANGUAGE
+			));
 
 			$grouped_modules = array();
 
@@ -54,6 +52,8 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( js('admin/jquery.uniform.min.js') )
 	    	->append_metadata( js('admin/functions.js') )
     		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' )
+
+			->set('user', $this->user)
 
 			->set_partial('header', 'admin/partials/header')
 			->set_partial('navigation', 'admin/partials/navigation')

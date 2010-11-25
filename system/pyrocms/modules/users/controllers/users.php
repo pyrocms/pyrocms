@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * User controller for the users module (frontend)
- * 
+ *
  * @author 		Phil Sturgeon - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Users module
@@ -15,7 +15,7 @@ class Users extends Public_Controller
 	 * @var array
 	 */
 	private $validation_rules 	= array();
-	
+
 	/**
 	 * Constructor method
 	 *
@@ -26,7 +26,7 @@ class Users extends Public_Controller
 	{
 		// Call the parent's constructor method
 		parent::__construct();
-		
+
 		// Load the required classes
 		$this->load->model('users_m');
 		$this->load->helper('user');
@@ -46,7 +46,7 @@ class Users extends Public_Controller
 			'email' => $this->input->post('email'),
 			'password' => $this->input->post('password')
 		);
-		
+
 		// Validation rules
 		$this->validation_rules = array(
 			array(
@@ -63,21 +63,23 @@ class Users extends Public_Controller
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
-		
+
 		// Set the redirect page as soon as they get to login
 		if(!$this->session->userdata('redirect_to'))
 		{
 			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
-			
+
 			// If iwe aren't being redirected from the userl ogin page
 			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
-			
+
 			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
 		}
-		
+
 	    // If the validation worked, or the user is already logged in
 	    if ($this->form_validation->run() or $this->ion_auth->logged_in())
 	    {
+			$this->session->set_flashdata('success', lang('user_logged_in'));
+
 	    	$redirect_to = $this->session->userdata('redirect_to')
 				? $this->session->userdata('redirect_to')
 				: ''; // Home
@@ -170,7 +172,7 @@ class Users extends Public_Controller
 			'last_name'  => $this->input->post('last_name'),
 			'display_name'  => $this->input->post('display_name'),
 		);
-		
+
 		// Convert the array to an object
 		$user_data						= new stdClass();
 		$user_data->first_name 			= $user_data_array['first_name'];
@@ -261,7 +263,7 @@ class Users extends Public_Controller
 		{
 			redirect(base_url());
 		}
-		
+
 		$this->data->activated_email = ($email = $this->session->flashdata('activated_email')) ? $email : '';
 
 		$this->template->title($this->lang->line('user_activated_account_title'));
@@ -281,14 +283,14 @@ class Users extends Public_Controller
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
 			redirect('users/profile');
 		}
-		
+
 		if($this->input->post('btnSubmit'))
 		{
 			$uname = $this->input->post('user_name');
 			$email = $this->input->post('email');
-			
+
 			$user_meta = $this->ion_auth->get_user_by_email($email);
-			
+
 			//supplied username match the email also given?  if yes keep going..
 			if($user_meta->username == $uname)
 			{
@@ -311,13 +313,13 @@ class Users extends Public_Controller
 				$this->data->error_string = $this->lang->line('user_forgot_incorrect');
 			}
 		}
-		
+
 		//code is supplied in url so lets try to reset the password
 		if($code)
 		{
 			//verify reset_code against code stored in db
 			$reset = $this->ion_auth->forgotten_password_complete($code);
-			
+
 			//did the password reset?
 			if($reset)
 			{
@@ -348,40 +350,40 @@ class Users extends Public_Controller
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
 			redirect('users/profile');
 		}
-		
-		//set page title	
+
+		//set page title
 		$this->template->title($this->lang->line('user_password_reset_title'));
-		
+
 		//build and render the output
 		$this->template->build('reset_pass_complete', $this->data);
-		
+
 	}
 
 	/**
 	 * Callback method used during login
 	 * @access public
-	 * @param str $email The Email address 
+	 * @param str $email The Email address
 	 * @return bool
 	 */
 	public function _check_login($email)
 	{
 		$remember = FALSE;
-		if ($this->input->post('remember') == 1) 
+		if ($this->input->post('remember') == 1)
 		{
-			$remember = TRUE;	
+			$remember = TRUE;
 		}
-		
+
 		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
 		{
 			return TRUE;
 		}
-		
+
 		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
 		return FALSE;
 	}
-	
 
-	
+
+
 	/**
 	 * Username check
 	 *
@@ -400,7 +402,7 @@ class Users extends Public_Controller
 	        return TRUE;
 	    }
 	}
-	
+
 	/**
 	 * Email check
 	 *

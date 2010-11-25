@@ -123,6 +123,7 @@ $lang['user_activated_message']   				= 'Uw account is geactiveerd, u kunt nu op
 
 
 // Login
+$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
 $lang['user_already_logged_in'] 				= 'U bent al ingelogd. Log eerst uit voordat u het opnieuw probeert.';
 $lang['user_login_incorrect'] 					= 'E-mail en wachtwoord kloppen niet. Verifieer uw logingegevens en kijk of CAPS LOCK niet aanstaat.';
 $lang['user_inactive']   						= 'Het account waarop u probeer in te loggen is inactief.<br />Bekijk de e-mail met instructies hoe u uw account kunt activeren - <em>de mail kan ook in uw spamfolder zitten</em>.';
@@ -150,5 +151,3 @@ $lang['user_activated_email_content_line2'] 	= 'Mocht uw emailprogramma deze tek
 // Reset Pass
 $lang['user_reset_pass_email_subject'] 			= 'Wachtwoord Reset';
 $lang['user_reset_pass_email_body'] 			= 'Uw wachtwoord voor %s is opnieuw ingesteld . Mocht u hier niet om gevraagd hebben, stuur dan een een email naar %s zodat wij de situtie kunnen oplossen.';
-
-?>

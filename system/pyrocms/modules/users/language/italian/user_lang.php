@@ -48,8 +48,8 @@ $lang['user_reset_password_title'] 		= 'Reset Password';
 $lang['user_password_reset_title'] 		= 'Password Reset';  
 
 
-$lang['user_error_username'] 			= 'La username scelta è già in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_error_email'] 				= 'L\' indirizzo email fornito è già in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_error_username'] 			= 'La username scelta ï¿½ giï¿½ in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_error_email'] 				= 'L\' indirizzo email fornito ï¿½ giï¿½ in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 
 $lang['user_full_name'] 				= 'Nome completo';
 $lang['user_first_name'] 				= 'Nome';
@@ -71,8 +71,8 @@ $lang['user_activation_code'] 			= 'Codice di attivazione';
 
 $lang['user_reset_password_link'] 		= 'Password dimenticata?';
 
-$lang['user_activation_code_sent_notice']	= 'Ti è stata inviata una email con il tuo codice di attivazione.';
-$lang['user_activation_by_admin_notice'] 	= 'La tua registrazione è in attesa di essere approvata da un amministratore.';
+$lang['user_activation_code_sent_notice']	= 'Ti ï¿½ stata inviata una email con il tuo codice di attivazione.';
+$lang['user_activation_by_admin_notice'] 	= 'La tua registrazione ï¿½ in attesa di essere approvata da un amministratore.';
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -81,7 +81,7 @@ $lang['user_password_section'] 			= 'Modifica password';
 $lang['user_other_settings_section'] 	= 'Altre impostazioni';
 
 $lang['user_settings_saved_success'] 	= 'Le impostazioni del tuo profilo sono state salvate.';
-$lang['user_settings_saved_error'] 		= 'C\' è stato un errore.';
+$lang['user_settings_saved_error'] 		= 'C\' ï¿½ stato un errore.';
 
 // -- Buttons ----------------------------------------------------------------------------------------------
 
@@ -94,8 +94,8 @@ $lang['user_settings_btn'] 				= 'Salva Impostazioni';
 // -- Errors & Messages ------------------------------------------------------------------------------------
 
 // Create
-$lang['user_added_and_activated_success'] 		= 'Il nuovo utente è stato creato ed attivato.';
-$lang['user_added_not_activated_success'] 		= 'Il nuovo utente è stato creato, necessita di essere attivato.';
+$lang['user_added_and_activated_success'] 		= 'Il nuovo utente ï¿½ stato creato ed attivato.';
+$lang['user_added_not_activated_success'] 		= 'Il nuovo utente ï¿½ stato creato, necessita di essere attivato.';
 
 // Edit
 $lang['user_edit_user_not_found_error'] 		= 'Utente non trovato.';
@@ -113,28 +113,29 @@ $lang['user_mass_delete_error'] 				= 'Devi prima selezionare gli utenti.';
 
 // Register
 $lang['user_email_pass_missing'] 				= 'I campi email o password sono incompleti';
-$lang['user_email_exists'] 						= 'L\' indirizzo email che hai scelto è già in uso da un altro utente.';
-$lang['user_register_reasons'] 					= 'Unisciti per accedere ad aree speciali normalmente riservate. Questo significa che le tue impostazioni saranno salvate, più contenuti e minore pubblicità.';
+$lang['user_email_exists'] 						= 'L\' indirizzo email che hai scelto ï¿½ giï¿½ in uso da un altro utente.';
+$lang['user_register_reasons'] 					= 'Unisciti per accedere ad aree speciali normalmente riservate. Questo significa che le tue impostazioni saranno salvate, piï¿½ contenuti e minore pubblicitï¿½.';
 
 
 // Activation
 $lang['user_activation_incorrect']   			= 'Attivazione fallita. Verifica i tuoi dettagli e che non sia attivo il BLOCCO MAIUSCOLE.';
-$lang['user_activated_message']   				= 'Il tuo profilo è stato attivato, ora puoi accedere.';
+$lang['user_activated_message']   				= 'Il tuo profilo ï¿½ stato attivato, ora puoi accedere.';
 
 
 // Login
-$lang['user_already_logged_in'] 				= 'Accesso già effettuato. Per favore disconnettiti e rieffettua l\' accesso.';
+$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
+$lang['user_already_logged_in'] 				= 'Accesso giï¿½ effettuato. Per favore disconnettiti e rieffettua l\' accesso.';
 $lang['user_login_incorrect'] 					= 'Email o password non corrispondono. Verifica i tuoi dati e che non sia attivo il BLOCCO MAIUSCOLE.';
-$lang['user_inactive']   						= 'Il profilo a cui stai cercando di accedere è disattivato.<br />Verifica la tua email per le istruzioni su come attivarlo - <em>potrebbero essere finite tra lo spam</em>.';
+$lang['user_inactive']   						= 'Il profilo a cui stai cercando di accedere ï¿½ disattivato.<br />Verifica la tua email per le istruzioni su come attivarlo - <em>potrebbero essere finite tra lo spam</em>.';
 
 
 // Logged Out
 $lang['user_logged_out']   						= 'Uscito con successo.';
 
 // Forgot Pass
-$lang['user_forgot_incorrect']   				= "Non è stato trovato nessun profilo con questi dettagli.";
+$lang['user_forgot_incorrect']   				= "Non ï¿½ stato trovato nessun profilo con questi dettagli.";
 
-$lang['user_password_reset_message']   			= "La tua password è stata resettata. Dovresti ricevere una email nelle prossime 2 ore. Se no la trovi, controlla che non sia finita per sbaglio fra la posta indesiderata.";
+$lang['user_password_reset_message']   			= "La tua password ï¿½ stata resettata. Dovresti ricevere una email nelle prossime 2 ore. Se no la trovi, controlla che non sia finita per sbaglio fra la posta indesiderata.";
 
 // Emails ----------------------------------------------------------------------------------------------------
 
@@ -149,6 +150,4 @@ $lang['user_activated_email_content_line2'] 	= 'Nel c aso il tuo programma per l
 
 // Reset Pass
 $lang['user_reset_pass_email_subject'] 			= 'Password Reset';
-$lang['user_reset_pass_email_body'] 			= 'La tua password di %s è stata resettata. Se non hai richiesto questa modifica inviaci per favore una email a %s e risolveremo il problema.';
-
-?>
+$lang['user_reset_pass_email_body'] 			= 'La tua password di %s ï¿½ stata resettata. Se non hai richiesto questa modifica inviaci per favore una email a %s e risolveremo il problema.';
