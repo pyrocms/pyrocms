@@ -30,7 +30,7 @@ class Details_Permissions extends Module {
 				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
 				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
 				'it' => 'Controlla che tipo di utenti posssono accedere a determinate sezioni del sito.',
-				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.'
+				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
 				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.'
 			),
 			'frontend' => FALSE,
