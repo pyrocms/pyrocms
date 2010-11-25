@@ -60,11 +60,15 @@ class MY_Controller extends Controller
 			//$_POST = $this->security->xss_clean($_POST);
 		}
 
+		$langs = $this->config->item('supported_languages');
+		
+		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
+		$pyro['lang']['code'] = CURRENT_LANGUAGE;
+
 		// Simple Pyro variables
         $pyro['base_url']			= BASE_URL;
         $pyro['base_uri'] 			= BASE_URI;
         $pyro['application_uri'] 	= APPPATH_URI;
-        $pyro['lang']				= CURRENT_LANGUAGE;
 
         $this->load->vars($pyro);
 
