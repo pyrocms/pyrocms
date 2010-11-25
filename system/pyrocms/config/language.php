@@ -16,17 +16,17 @@
 |
 */
 $config['supported_languages'] = array(
-	'en'=> array('name' => 'English', 'folder' => 'english'),
-	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish'),
-	'fr'=> array('name' => 'Français', 'folder' => 'french'),
-	'de'=> array('name' => 'Deutsch', 'folder' => 'german'),
-	'it'=> array('name' => 'Italiano', 'folder' => 'italian'),
-	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch'),
-	'pl'=> array('name' => 'Polski', 'folder' => 'polish'),
-	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian'),
-	'ru'=> array('name' => 'Русский', 'folder' => 'russian'),
-	'ar'=> array('name' => 'العربية', 'folder' => 'arabic'),
-	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional')
+	'en'=> array('name' => 'English', 'folder' => 'english', 'direction' => 'ltr'),
+	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr'),
+	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr'),
+	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr'),
+	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr'),
+	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr'),
+	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr'),
+	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr'),
+	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr'),
+	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl'),
+	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr')
 );
 
 /*
