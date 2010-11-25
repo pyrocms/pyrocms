@@ -39,6 +39,24 @@ class Plugin_Url extends Plugin
 	{
 		return base_url();
 	}
+
+	/**
+	 *
+	 * Pick a segment and provide a default if nothing there
+	 *
+	 * Usage:
+	 * {pyro:url:segments segment="1" default="home"}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function segments()
+	{
+		$default = $this->attribute('default');
+		$segment = $this->attribute('segment');
+
+		return $this->uri->segment($segment, $default);
+	}
 }
 
 /* End of file theme.php */
