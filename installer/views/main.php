@@ -40,6 +40,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/ru.gif" alt="Русский" />
 		</a>
 	</li>	
+	<li>
+		<a href="<?php echo site_url('installer/change/german'); ?>" title="german">
+			<img src="<?php echo base_url(); ?>assets/images/flags/de.gif" alt="german" />
+		</a>
+	</li>
 </ul>
 
 <h1>{header}</h1>

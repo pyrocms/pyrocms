@@ -89,8 +89,8 @@ class Admin extends Admin_Controller
 		$this->data->months = array_combine($months = range(1, 12), $months);
 		$this->data->years = array_combine($years = range(date('Y')-2, date('Y')+2), $years);
 		
-		$this->data->hours = array_combine($hours = range(1, 23), $hours);
-		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
+		$this->data->hours = array_combine($hours = range(0, 23), $hours);
+		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
 		
 		$this->data->categories = array(0 => '');
 		if ($categories = $this->news_categories_m->get_all())

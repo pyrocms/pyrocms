@@ -39,6 +39,8 @@ if (CI_VERSION < 2) {
  **/
 class MX_Lang extends CI_Lang
 {
+	public static $fall_back = 'english';
+
 	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)	{
 		if (is_array($langfile)) 
 			return $this->load_many($langfile);
@@ -51,6 +53,12 @@ class MX_Lang extends CI_Lang
 	
 		$_module || $_module = CI::$APP->router->fetch_module();
 		list($path, $_langfile) = Modules::find($langfile.'_lang', $_module, 'language/'.$idiom.'/');
+
+		// Falls back to a default language if the current language file is missing.
+		if ($path === FALSE && self::$fall_back)
+		{
+			list($path, $_langfile) = Modules::find($langfile . '_lang', $_module, 'language/' . self::$fall_back . '/');
+		}
 
 		if ($path === FALSE) {
 			if ($lang = parent::load($langfile, $lang, $return)) return $lang;
