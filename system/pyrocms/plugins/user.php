@@ -17,7 +17,9 @@ class Plugin_User extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {pyro:helper:lang line="foo"}
+	 * {pyro:user:logged_in group="admin"}
+	 *	<p>Hello admin!</p>
+	 * {/pyro:user:logged_in}
 	 *
 	 * @param	array
 	 * @return	array
@@ -35,7 +37,33 @@ class Plugin_User extends Plugin
 
 			return $this->content();
 		}
-		
+
+		return '';
+	}
+
+	/**
+	 * Data
+	 *
+	 * Loads a theme partial
+	 *
+	 * Usage:
+	 * {pyro:user:not_logged_in group="admin"}
+	 *	<p>Hello not an admin</p>
+	 * {/pyro:user:not_logged_in}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function not_logged_in()
+	{
+		$group = $this->attribute('group', NULL);
+
+		// Logged out or not the right user
+		if ( ! $this->user OR ($group AND $group !== $this->user->group))
+		{
+			return $this->content();
+		}
+
 		return '';
 	}
 
