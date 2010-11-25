@@ -11,17 +11,7 @@
 
 		<div id="page">
 
-			{if '{pyro:session:flash name="notice"}'}
-			<div class="notice-box">{pyro:session:flash name="notice"}</div>
-			{/if}
-
-			{if '{pyro:session:flash name="success"}'}
-			<div class="success-box">{pyro:session:flash name="success"}</div>
-			{/if}
-
-			{if '{pyro:session:flash name="error"}'}
-			<div class="error-box">{pyro:session:flash name="error"}</div>
-			{/if}
+			{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
 
 			<div id="content">
 				{pyro:template:body}
