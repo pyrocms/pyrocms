@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 
 <head>
-	{pyro:theme:partial file="metadata"}
+	{pyro:theme:partial name="metadata"}
 </head>
 
 <body id="top">
@@ -13,7 +13,7 @@
 		<!-- Begin header -->
 		<div id="header">
 
-		{pyro:theme:partial file="header"}
+		{pyro:theme:partial name="header"}
 		</div>
 		<!-- End header -->
 
@@ -29,7 +29,7 @@
 		<!-- Begin content -->
 			<div id="content">
 
-				{pyro:theme:partial file="breadcrumbs"}
+				{pyro:theme:partial name="breadcrumbs"}
 
 				{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
 
@@ -41,12 +41,12 @@
 			</div>
 			<!-- End content -->
 
-			{pyro:theme:partial file="sidebar"}
+			{pyro:theme:partial name="sidebar"}
 
 		</div>
 	<!-- End contentWrapper -->
 
-	{pyro:theme:partial file="footer"}
+	{pyro:theme:partial name="footer"}
 
 	</div>
 

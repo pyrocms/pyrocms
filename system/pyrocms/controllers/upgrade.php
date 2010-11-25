@@ -85,6 +85,10 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		$this->db->query('ALTER TABLE `news`
+							DROP INDEX `title` ,
+							ADD UNIQUE INDEX `slug` USING BTREE (`slug`);');
+
 		$this->db->where('1', 1, FALSE);
 		$this->db->delete('modules');
 
