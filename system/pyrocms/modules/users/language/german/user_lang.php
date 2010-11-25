@@ -123,6 +123,7 @@ $lang['user_activated_message']   = 'Dein Zugang wurde aktiviert. Du kannst dich
 
 
 // Login
+$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
 $lang['user_already_logged_in'] = 'Du bist bereits angemeldet. Bitte melde dich zuvor ab.';
 $lang['user_login_incorrect'] = 'Email oder Passwort stimmen nicht. Bitte überprüfe deine Angaben und stell sicher, dass du die Feststelltaste nicht gedrückt hast.';
 $lang['user_inactive']   = 'Dein Benutzer ist nicht aktiv.<br />Überprüfe bitte deine Emails und folge der Anleitung zur Aktivierung deines Zugangs. - <em>Überprüfe bitte auch das SPAM Verzeichnis</em>.';
@@ -150,5 +151,3 @@ $lang['user_activated_email_content_line2'] = 'Sollte dein Email-Programm den Li
 // Reset Pass
 $lang['user_reset_pass_email_subject'] = 'Passwort zurückzusetzen';
 $lang['user_reset_pass_email_body'] = 'Dein Passwort bei %s wurde zurückgesetzt. Wenn du dies nicht veranlasst hast, sende bitte umgehend eine Email an %s.';
-
-?>

@@ -123,6 +123,7 @@ $lang['user_activated_message']   				= 'Sua conta foi ativada, agora você pode
 
 
 // Login
+$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
 $lang['user_already_logged_in'] 				= 'Você já está logado. Por favor, saia antes de tentar entrar.';
 $lang['user_login_incorrect'] 					= 'E-mail ou senha não confere. Por favor, verifique se as suas informações de acesso estão corretas e certifique-se que o CAPS LOCK ( CAIXA ALTA ) não esteja ativo.';
 $lang['user_inactive']   						= 'A conta que você tentou acessar está desativada.<br />Verifique o seu e-mail para maiores informações de como ativar a sua conta - <em>pode estar na pasta de lixo eletrônico</em>.';
@@ -150,5 +151,3 @@ $lang['user_activated_email_content_line2'] 	= 'No caso de seu programa de email
 // Reset Pass
 $lang['user_reset_pass_email_subject'] 			= 'Reinicio de Senha';
 $lang['user_reset_pass_email_body'] 			= 'Sua senha em %s foi reiniciada. Se você não fez esta solicitação de mudança, por favor, envie um email para %s que nós resolveremos esta situação.';
-
-?>

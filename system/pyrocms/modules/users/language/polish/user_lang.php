@@ -115,6 +115,7 @@ $lang['user_activated_message']   = 'Twoje konto zostało aktywowane, możesz te
 
 
 // Login
+$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
 $lang['user_already_logged_in'] = 'Jesteś już zalogowany. Proszę się wylogować zanim spróbujesz ponowanie się zalogować.';
 $lang['user_login_incorrect'] = 'Podany email i hasło nie pasują. Sprawdź dane i upewnij się, że klawisz CAPS LOCK nie jest wciśnięty.';
 $lang['user_inactive']   = 'Konto do którego próbujesz uzyskać dostęp jest w tym momencie nieaktywne.<br />Sprawdź czy na Twojej skrzynce pocztowej nie ma wiadomości z instrukcjami jak aktywować konto - <em>wiadomość może znajdować się w folderze ze SPAMem</em>.';
@@ -143,5 +144,3 @@ $lang['user_activated_email_content_line2'] = 'W przypadku gdy Twój klient pocz
 // Reset Pass
 $lang['user_reset_pass_email_subject'] = 'Reset hasła';
 $lang['user_reset_pass_email_body'] = 'Twoje hasło na stronie %s zostało zresetowane. Jeśli nie żądałeś zmiany hasły, skontaktuj się z nami wysyłąc email na adres %s postaramy się rozwiązać problem.';
-
-?>
