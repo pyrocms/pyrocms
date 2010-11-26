@@ -48,20 +48,13 @@ function user_displayname($user)
 
     $user = (array) $user;
 
-    $user_name = $user['username'];
+    $user_name = empty($user['display_name']) ? $user['username'] : $user['display_name'];
 
-    if(ci()->settings->enable_profiles == 1)
+    if (ci()->settings->enable_profiles)
     {
-        if(empty($user['display_name']))
-        {
-            $user_name = $user['first_name'] . ' ' . $user['last_name'];
-        }
-        else
-        {
-            $user_name = $user['display_name'];
-        }
+        $user_name = anchor('users/profile/view/' . $user['id'], $user_name);
     }
-    
+
     return $user_name;
 }
 /* End of file users/helpers/user_helper.php */
