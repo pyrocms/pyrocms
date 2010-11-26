@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Modules extends Module {
+class Module_Modules extends Module {
 
 	public $version = '1.0';
 	

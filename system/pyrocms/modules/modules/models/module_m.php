@@ -403,7 +403,7 @@ class Module_m extends CI_Model
 		include_once $details_file;
 
 		// Now call the details class
-		$class = 'Details_'.ucfirst($slug);
+		$class = 'Module_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
 		return class_exists($class) ? new $class : FALSE;
@@ -419,15 +419,10 @@ class Module_m extends CI_Model
 	 */
 	public function help($slug)
 	{
-		//first try it as a core module
-		if($details_class = $this->_spawn_class($slug, 1))
-		{
-			return $details_class->help();
-		}
-		else
-		{
-			//get the help string as addon module
-			if ($details_class = $this->_spawn_class($slug, 0))
+		foreach (array(0, 1) as $is_core)
+    	{
+			//first try it as a core module
+			if($details_class = $this->_spawn_class($slug, $is_core))
 			{
 				return $details_class->help();
 			}
