@@ -19,7 +19,7 @@
  *
  * @author		Stephen Cozart
  * @package		PyroCMS
- * @subpackage	Modules
+ * @subpackage	Themes
  * @abstract
  */
 abstract class Theme {
@@ -54,12 +54,6 @@ abstract class Theme {
 	 */
 	public $version;
 
-        /**
-         * Theme Details
-         * 
-         * @access public
-         * @return array
-         */
 }
 
 /* End of file Theme.php */
