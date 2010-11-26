@@ -89,6 +89,15 @@ jQuery(function($) {
 			}
 		});
 
+                //make page buttons work
+                $('a.button, a.minibutton').live('click', function() {
+                    var href = $(this).attr("href");
+                    if(href.indexOf('delete') < 0)
+                    {
+                         window.location.href = href;
+                    }
+                });
+
 		// Table zerbra striping
 		$("tbody tr:nth-child(even)").livequery(function () {
 			$(this).addClass("alt");

@@ -28,8 +28,40 @@
 
 function loggedIn()
 {
-	$CI =& get_instance();
-	$CI->load->library('session');
-	return $CI->session->userdata('user_id') > 0;
+    $CI =& get_instance();
+    $CI->load->library('session');
+    return $CI->session->userdata('user_id') > 0;
 }
-?>
+
+/**
+ * Return a users display name based on settings
+ *
+ * @param int $user the users id
+ * @return  string
+ */
+function user_displayname($user)
+{
+    if (is_numeric($user))
+    {
+        $user = ci()->ion_auth->get_user($user);
+    }
+
+    $user = (array) $user;
+
+    $user_name = $user['username'];
+
+    if(ci()->settings->enable_profiles == 1)
+    {
+        if(empty($user['display_name']))
+        {
+            $user_name = $user['first_name'] . ' ' . $user['last_name'];
+        }
+        else
+        {
+            $user_name = $user['display_name'];
+        }
+    }
+    
+    return $user_name;
+}
+/* End of file users/helpers/user_helper.php */
