@@ -27,45 +27,28 @@ class Plugin_News extends Plugin
 	 */
 	function posts($data = array())
 	{
-		$defaults = array(
-			'limit' => 10,
-			'category' => '',
-		);
+		$limit = $this->attribute('limit', 10);
+		$category = $this->attribute('category');
 
-		$params = parent::attributes();
-
-		if ( ! empty($params['category']))
+		if ($category)
 		{
-			if (is_numeric($params['category']))
+			if (is_numeric($category))
 			{
-				$this->db->where('c.id', $params['category']);
+				$this->db->where('c.id', $category);
 			}
 			
 			else
 			{
-				$this->db->where('c.slug', $params['category']);
+				$this->db->where('c.slug', $category);
 			}
 		}
-		if(empty($params['limit']))
-		{
-			$params['limit'] = 10;
-		}
-
-		$this->db->from('news')
-				->where('status', 'live')
-				->where('created_on <=', now())
-				->limit($params['limit']);
-	
-		$query = $this->db->get();
-
-		if ($query->num_rows() == 0) // no records so we can't continue
-		{
-			return FALSE;
-		}
-
-		$results = $query->result_array();
-
-    	return $results;
+		
+		return $this->db
+			->where('status', 'live')
+			->where('created_on <=', now())
+			->limit($limit)
+			->get('news')
+			->result_array();
 	}
 }
 

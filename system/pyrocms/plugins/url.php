@@ -22,7 +22,7 @@ class Plugin_Url extends Plugin
 	 */
 	function current()
 	{
-		return $this->uri->uri_string();
+		return site_url($this->uri->uri_string());
 	}
 
 	/**

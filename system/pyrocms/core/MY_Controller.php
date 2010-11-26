@@ -65,11 +65,6 @@ class MY_Controller extends Controller
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
-		// Simple Pyro variables
-        $pyro['base_url']			= BASE_URL;
-        $pyro['base_uri'] 			= BASE_URI;
-        $pyro['application_uri'] 	= APPPATH_URI;
-
         $this->load->vars($pyro);
 
         $this->benchmark->mark('my_controller_end');
