@@ -17,7 +17,8 @@ class Module_Themes extends Module {
 				'br' => 'Temas',
 				'zh' => '佈景主題',
 				'it' => 'Temi',
-				'ru' => 'Темы'
+				'ru' => 'Темы',
+				'ar' => 'السّمات'
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.',
@@ -29,7 +30,8 @@ class Module_Themes extends Module {
 				'br' => 'Permite com que administradores e membros da equipe configurem o tema de layout do website, fazer upload de novos temas e gerenciá-los em uma interface mais visual.',
 				'zh' => '讓管理者可以更改網站顯示風貌，以視覺化的操作上傳並管理這些網站佈景主題。',
 				'it' => 'Permette ad amministratori e staff di cambiare il tema del sito, carica nuovi temi e gestiscili in um modo più visuale.',
-				'ru' => 'Управление темами оформления сайта, загрузка новых тем.'
+				'ru' => 'Управление темами оформления сайта, загрузка новых тем.',
+				'ar' => 'تمكّن الإدارة وأعضاء الموقع تغيير سِمة الموقع، وتحميل سمات جديدة وإدارتها بطريقة مرئية سلسة.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
