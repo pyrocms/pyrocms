@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Details_Minimal {
+class Theme_Minimal extends Theme {
 
     public $name = 'Minimal';
     public $author = 'Yorick Peterse';
@@ -11,5 +11,4 @@ class Details_Minimal {
 
 }
 
-
-/* End of file details.php */
+/* End of file theme.php */

@@ -185,7 +185,7 @@ class Themes_m extends CI_Model
         $path = $is_core ? APPPATH : ADDONPATH;
 
         // Before we can install anything we need to know some details about the module
-        $details_file = $path . 'themes/' . $slug . '/details'.EXT;
+        $details_file = $path . 'themes/' . $slug . '/theme'.EXT;
 
         // Check the details file exists
         if ( ! is_file($details_file))
@@ -197,7 +197,7 @@ class Themes_m extends CI_Model
         include_once $details_file;
 
         // Now call the details class
-        $class = 'Details_'.ucfirst($slug);
+        $class = 'Theme_'.ucfirst($slug);
 
         // Now we need to talk to it
         return class_exists($class) ? new $class : FALSE;

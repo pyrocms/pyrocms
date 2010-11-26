@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Details_Default {
+class Theme_Default extends Theme {
 
     public $name = 'PyroCMS Theme';
     public $author = 'Built by iKreativ for PyroCMS';
@@ -11,5 +11,4 @@ class Details_Default {
     
 }
 
-
-/* End of file details.php */
+/* End of file theme.php */

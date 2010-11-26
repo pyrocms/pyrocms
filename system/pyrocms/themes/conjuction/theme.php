@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Details_Conjuction {
+class Theme_Conjuction extends Theme {
 
     public $name = 'Conjuction';
     public $author = 'Free CSS Templates';
@@ -11,5 +11,4 @@ class Details_Conjuction {
 
 }
 
-
-/* End of file details.php */
+/* End of file theme.php */
