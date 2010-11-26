@@ -235,7 +235,7 @@ class Upgrade extends Controller
 		// put the missing groups module record back in the modules table
 		$this->_output .= 'Reactivating the groups module.<br />';
 
-		return FALSE;
+		return TRUE;
 	}
 
 	function upgrade_100beta2()
@@ -306,7 +306,7 @@ class Upgrade extends Controller
 				));
 
 				//copy image to files folder
-				copy(APPPATH.'uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
+				copy('./uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
 
 			}
 			//all good, drop the old assets tables
