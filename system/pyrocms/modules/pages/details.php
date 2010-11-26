@@ -17,7 +17,8 @@ class Module_Pages extends Module {
 				'br' => 'Páginas',
 				'zh' => '頁面',
 				'it' => 'Pagine',
-				'ru' => 'Страницы'
+				'ru' => 'Страницы',
+				'ar' => 'الصفحات'
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -29,7 +30,8 @@ class Module_Pages extends Module {
 				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
 				'zh' => '為您的網站新增自定的頁面。',
 				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
-				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.'
+				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
+				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
