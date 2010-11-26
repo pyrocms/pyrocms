@@ -64,7 +64,7 @@ ul#comment_list li { list-style: none; }
 ul#comment_list li.comment img { float: left; }
 p.comment_heading { margin: 6px; padding: 0; float: left; }
 p.comment_date { width: 575px; background-color: #e8e8e8; font-size: 12px; padding: 5px 20px 5px 10px; margin: 0 0 25px 5px; float: left; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
-ul#comment_list li.comment p { width: 550px; float; left; }
+ul#comment_list li.comment p { width: 550px; float: left; }
 #comment-list-wrapper {	float:left;	width:45%; }
 #comment-list-wrapper ul { list-style-type:none; margin:0; }
 #comment-list-wrapper ul li { margin-bottom:10px; }
