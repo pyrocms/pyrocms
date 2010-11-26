@@ -1,7 +1,5 @@
 <h2>Modules</h2>
 
-
-
 <p>
 	PyroCMS is built to be modular, so creating modules is a pretty simple process. The core modules are
 	stored in <def>system/pyrocms/modules</def> and you can install extra ones to <def>addons/modules</def>.
@@ -22,13 +20,13 @@
 
 <h3>Module Details</h3>
 
-<p>Each module contains a details.php file which contains its name,  description, version, wether they are available to the   backend and/or frontend, etc. &nbsp;This file is only used when installing and uninstalling the module. &nbsp;On install the file is parsed and imported into the database.</p>
+<p>Each module contains a details.php file which contains its name,  description, version, whether they are available to the backend and/or frontend, etc. &nbsp;This file is only used when installing and uninstalling the module. &nbsp;On install the file is parsed and imported into the database.</p>
 
 <p>Here is the basic structure for the details.php file:</p>
 
 <pre><code class="php">&lt;?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Polls extends Module {
+class Module_Polls extends Module {
 
 	public $version = '1.0';
 

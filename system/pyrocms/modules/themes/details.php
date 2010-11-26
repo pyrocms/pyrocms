@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Themes extends Module {
+class Module_Themes extends Module {
 
 	public $version = '0.5';
 	

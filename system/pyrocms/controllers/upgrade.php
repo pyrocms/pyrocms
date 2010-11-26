@@ -120,7 +120,7 @@ class Upgrade extends Controller
 				include_once $details_file;
 
 				// Now call the details class
-				$class_name = 'Details_'.ucfirst($slug);
+				$class_name = 'Module_'.ucfirst(strtolower($slug));
 
 				if ( ! class_exists($class_name))
 				{
@@ -384,7 +384,7 @@ class Upgrade extends Controller
 				include_once $details_file;
 
 				// Now call the details class
-				$class_name = 'Details_'.ucfirst($slug);
+				$class_name = 'Module_'.ucfirst(strtolower($slug));
 
 				if ( ! class_exists($class_name))
 				{
