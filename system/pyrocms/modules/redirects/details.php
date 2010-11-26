@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Redirects extends Module {
+class Module_Redirects extends Module {
 
 	public $version = '1.0';
 

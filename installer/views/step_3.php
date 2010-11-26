@@ -30,7 +30,7 @@
 	<a href="#" id="hide-commands" style="display:none">- <?php echo lang('hide_commands'); ?></a>
 </p>
 
-<textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:450px;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
+<textarea id="commands" style="display:none; margin: 0 0 10px 10px; width:450px; background-color: #111; color: limegreen; padding: 0.5em;" rows="<?php echo count($permissions['directories']) + count($permissions['files']); ?>">
 <?php foreach($permissions['directories'] as $directory => $status): ?>
 <?php echo $status ? '' : 'chmod 777 '.$directory.PHP_EOL; ?>
 <?php endforeach; ?>

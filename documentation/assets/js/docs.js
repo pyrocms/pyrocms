@@ -16,7 +16,9 @@ function change_tab(tab_name)
 
 	// Load the menu file
 	$('#menu_bin').load(tab_name + '/menu.html');
-	
+
+	document.location.hash = tab_name + '/index.html'
+
 	// Load the index page for that category.
 	$('#content_bin').load(tab_name + '/index.html');
 

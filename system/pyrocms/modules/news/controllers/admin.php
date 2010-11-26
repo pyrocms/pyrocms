@@ -201,6 +201,7 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
+		
 		$this->form_validation->set_rules($this->validation_rules);
 			
 		$article = $this->news_m->get($id);

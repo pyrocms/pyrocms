@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Permissions extends Module {
+class Module_Permissions extends Module {
 
 	public $version = '0.5';
 	
@@ -73,7 +73,11 @@ class Details_Permissions extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h2>Overview</h2>
+				<p>The Permissions module works together with the User Manager and the Groups module to give PyroCMS access control.</p>
+				<h2>Setting Permissions</h2>
+				<p>New groups have no permissions at all by default. Simply check the box
+				by each module that you want users in that group to be able to access.</p>";
 	}
 }
 /* End of file details.php */

@@ -1,0 +1,68 @@
+<h1>Tags and Plugins</h1>
+
+<p>
+	Tags are a way to put dynamic content into your theme layouts and partials. They represent data or Plugins which are more advanced
+	Tags that can take attributes to effect how they display and run.
+</p>
+
+<p>Here are some examples, a more extensive list with parameters and defaults will be drawn up soon.</p>
+
+<h2>Tags</h2>
+
+<pre>
+
+{pyro:lang:name} - E.g: English
+{pyro:lang:folder} - E.g: english
+{pyro:lang:code} - E.g: en
+{pyro:lang:direction} - E.g: ltr
+
+
+{pyro:settings:site_name}
+{pyro:settings:site_slogan} - or any other setting
+
+{pyro:variables:foo}
+</pre>
+
+<h2>Plugins</h2>
+
+<pre>
+{pyro:navigation:links group="header"}
+
+{pyro:session:data name="foo"}
+{pyro:session:flash name="foo"}
+
+{pyro:session:messages}
+{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
+
+{pyro:template:title}
+{pyro:template:metadata}
+{pyro:template:body}
+{pyro:template:partial name="sidebar"}
+
+{pyro:theme:path} - produces /path/to/addons/theme/xxx/
+{pyro:theme:partial name="header"}
+{pyro:theme:css file="style.css"}
+{pyro:theme:js file="jquery.js"}
+{pyro:theme:image file="logo.gif"}
+
+{pyro:pages:url id="2"}
+
+{pyro:url:current} - outputs http://example.com/the/current/url
+{pyro:url:base} - outputs http://example.com/
+{pyro:url:segments segment="2" default="something"}
+
+{pyro:helper:lang line="foo"}
+{pyro:helper:date format="d/m/Y"}
+
+{pyro:pages:children id="2"}
+	{title}
+{/pyro:pages:children}
+
+{pyro:news:posts limit="5"}
+	&lt;h2>{title}&lt;/h2>
+	{body}
+{/pyro:news:posts}
+
+{pyro:widgets:area slug="sidebar"}
+{pyro:widgets:instance id="8"}
+</pre>

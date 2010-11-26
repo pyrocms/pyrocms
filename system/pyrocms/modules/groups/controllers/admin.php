@@ -35,7 +35,7 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'description',
 				'label' => lang('groups.description'),
-				'rules' => 'trim|max_length[250]'
+				'rules' => 'trim|required|max_length[250]'
 			)
 		);
 

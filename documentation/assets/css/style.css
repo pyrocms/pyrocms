@@ -23,7 +23,7 @@ time, mark, audio, video {
     padding:0;
     border:0;
     outline:0;
-    font-size:100%;
+	font-size: 10pt;
     vertical-align:baseline;
     background:transparent;
 }

@@ -35,7 +35,7 @@ class Plugin_User extends Plugin
 				return '';
 			}
 
-			return $this->content();
+			return $this->content() ? $this->content() : TRUE;
 		}
 
 		return '';

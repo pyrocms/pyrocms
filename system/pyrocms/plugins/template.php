@@ -14,7 +14,27 @@ class Plugin_Template extends Plugin
 	/**
 	 * Data
 	 *
-	 * Loads a theme partial
+	 * Loads a template partial
+	 *
+	 * Usage:
+	 * {pyro:template:has_partial name="sidebar"}
+	 *	<p>Hello admin!</p>
+	 * {/pyro:template:has_partial}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function partial()
+	{
+		$name = $this->attribute('name');
+
+		$data =& $this->load->_ci_cached_vars;
+
+		return isset($data['template']['partials'][$name]) ? $data['template']['partials'][$name] : '';
+	}
+
+	/**
+	 * Checks for existance of a partial
 	 *
 	 * Usage:
 	 * {pyro:template:has_partial name="sidebar"}
@@ -32,10 +52,10 @@ class Plugin_Template extends Plugin
 
 		if (isset($data['template']['partials'][$name]))
 		{
-			return array(array('partial' => $data['template']['partials'][$name]));
+			return $this->content() ? array(array('partial' => $data['template']['partials'][$name])) : TRUE;
 		}
 
-		return array();
+		return $this->content() ? array() : '';
 	}
 
 	function __call($foo, $arguments)
