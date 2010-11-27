@@ -84,7 +84,15 @@ class Module_Newsletters extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";
+		return "<h4>Overview</h4>
+		<p>The Newsletter module is a quick way to create email \"blasts\" to send to your email newsletter subscribers.</p>
+		<h4>Subscribers</h4><hr>
+		<p>To collect email addresses use the Newsletter Subscribe widget. Embed the widget anywhere on your site and
+		let your visitors subscribe.</p>
+		<h4>Sending Newsletters</h4><hr>
+		<p>Creating a newsletter is very similar to creating page content. Use the WYSIWYG editor to generate the html
+		that will be used in the email. Keep in mind that any images that you place in the newsletter will be fetched
+		from your server whenever the recipient reads the email. So don't delete the images from your server as soon as you send the blast.</p>";
 	}
 }
 /* End of file details.php */

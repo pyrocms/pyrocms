@@ -74,7 +74,11 @@ class Module_Variables extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+		<p>With the Variables module you can add simple values and display them anywhere on the site.</p>
+		<h4>Adding Global Variables</h4><hr>
+		<p>To use Variables simply choose a short name and assign a value. You can then embed the
+			generated tag in page content, news posts, etc. and the assigned value will be displayed.</p>";
 	}
 }
 /* End of file details.php */
