@@ -123,12 +123,10 @@ class Admin extends Admin_Controller {
 
 <p>This page can be accessed via "http://example.com/admin/modulename".</p>
 
-<h3>Module Cache</h3>
+<h3>Module Index</h3>
 
-<p>When you put together your module structure and made your details.php file, you might notice there is still no sign of your module in the Control Panel. The navigation is cached to save CPU cycles as parsing 10+ XML files on each page load is silly. To get your backend module to appear (if you have told it to do so with is_backend_menu in details.php) you need to clear the system/pyrocms/cache/modules_m/ cache folder like so:</p>
-<blockquote>sudo rm -rf system/pyrocms/cache/modules_m</blockquote>
-
-<p>Now your module should appear and you can start developing your module using normal CodeIgniter methods, your own libraries and those included with PyroCMS.</p>
+<p>When you place a module inside the addons/modules directory and go to CP > Modules page, it will "index" the file into the database. If you change the details of this module, you will need to uninstall and delete,
+or manually change the information in the database. We'll add a "re-index" feature in for v1.1.</p>
 
 <h3>Installing the Module</h3>
 

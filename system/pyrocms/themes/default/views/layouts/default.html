@@ -1,59 +1,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 
-{pyro:theme:partial file="metadata"}
+<head>
+	{pyro:theme:partial name="metadata"}
+</head>
 
 <body id="top">
 
-<!-- Begin pageWrapper -->
-<div id="pageWrapper">
-	{pyro:integration:analytics}
-	<!-- Begin header -->
-	<div id="header">
+	<!-- Begin pageWrapper -->
+	<div id="pageWrapper">
+		{pyro:integration:analytics}
+		<!-- Begin header -->
+		<div id="header">
 
-	{pyro:theme:partial file="header"}
-	</div>
-	<!-- End header -->
+		{pyro:theme:partial name="header"}
+		</div>
+		<!-- End header -->
 
-	<!-- Begin nav -->
-	<ul id="head-nav">
-	{pyro:navigation:links group="header"}
-	</ul>
-	<!-- End nav -->
+		<!-- Begin nav -->
+		<ul id="head-nav">
+		{pyro:navigation:links group="header"}
+		</ul>
+		<!-- End nav -->
 
-	<!-- Begin contentWrapper -->
-	<div id="contentWrapper">
+		<!-- Begin contentWrapper -->
+		<div id="contentWrapper">
 
-	<!-- Begin content -->
-		<div id="content">
+		<!-- Begin content -->
+			<div id="content">
 
-			{pyro:theme:partial file="breadcrumbs"}
+				{pyro:theme:partial name="breadcrumbs"}
 
-			{if $session->flashdata('notice')}
-			<div class="notice-box">{$session->flashdata('notice')}</div>
-			{/if}
+				{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
 
-			{if $session->flashdata('success')}
-			<div class="success-box">{$session->flashdata('success')}</div>
-			{/if}
+				<div class="post">
+					{pyro:template:body}
+					<br style="clear:both;" />
+				</div>
 
-			{if $session->flashdata('error')}
-			<div class="error-box">{$session->flashdata('error')}</div>
-			{/if}
-
-			<div class="post">
-				{pyro:template:body}
-				<br style="clear:both;" />
 			</div>
+			<!-- End content -->
+
+			{pyro:theme:partial name="sidebar"}
 
 		</div>
-		<!-- End content -->
+	<!-- End contentWrapper -->
 
-		{pyro:theme:partial file="sidebar"}
+	{pyro:theme:partial name="footer"}
 
 	</div>
-<!-- End contentWrapper -->
 
-{pyro:theme:partial file="footer"}
+	</body>
 
-</div>
+</html>

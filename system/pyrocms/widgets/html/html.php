@@ -31,7 +31,7 @@ class Widget_Html extends Widgets
 		}
 		
 		// Store the feed items
-		return array('output' => $this->parser->string_parse($options['html'], NULL, TRUE));
+		return array('output' => $this->parser->parse_string($options['html'], NULL, TRUE));
 	}
 	
 }

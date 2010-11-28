@@ -13,7 +13,7 @@ class Installer extends Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('english', 'dutch', 'french', 'german', 'brazilian', 'polish', 'chinese_traditional', 'spanish', 'russian');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'spanish', 'russian');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -25,8 +25,6 @@ class Installer extends Controller
 		'system/codeigniter/cache',
 		'system/codeigniter/logs',
 		'system/pyrocms/cache',
-		'system/pyrocms/cache/dwoo',
-		'system/pyrocms/cache/dwoo/compiled',
 		'system/pyrocms/cache/simplepie',
 		'system/pyrocms/config',
 		'uploads'

@@ -85,6 +85,10 @@ class Upgrade extends Controller
 
 	function upgrade_100()
 	{
+		$this->db->query('ALTER TABLE `news`
+							DROP INDEX `title` ,
+							ADD UNIQUE INDEX `slug` USING BTREE (`slug`);');
+
 		$this->db->where('1', 1, FALSE);
 		$this->db->delete('modules');
 
@@ -149,6 +153,26 @@ class Upgrade extends Controller
 			$is_core = FALSE;
         }
 
+		if ($page_layouts = $this->db->get('page_layouts')->result())
+		{
+			$this->_output .= 'Re-writing page layouts to use new tags.<br />';
+
+			foreach ($page_layouts as $layout)
+			{
+				$layout->body = str_replace(array(
+					'{$page.body}',
+					'{$page.title}'
+				), array(
+					'{pyro:page:body}',
+					'{pyro:page:title}'
+				), $layout->body);
+
+				$this->db
+					->where('id', $layout->id)
+					->update('page_layouts', array('body' => $layout->body));
+			}
+		}
+
 		// Does a table contain a field?
 		if ($pages = $this->db->get('revisions')->result())
 		{
@@ -172,10 +196,10 @@ class Upgrade extends Controller
 					->where('id', $revision->id)
 					->update('revisions', array('body' => $revision->body));
 			}
-
-			$this->cache->delete_all('pages_m');
 		}
 
+		$this->cache->delete_all('pages_m');
+		
 		$this->_output .= 'Adding "class" field to navigation.<br/>';
 
 		// Not a foolproof method of column detection, but unless they have no entries in the db it'll be fine

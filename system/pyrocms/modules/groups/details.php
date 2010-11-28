@@ -15,7 +15,8 @@ class Details_Groups extends Module {
                 'fr' => 'Groupes',
 				'zh' => '群組',
 				'it' => 'Gruppi',
-				'ru' => 'Группы'
+				'ru' => 'Группы',
+				'ar' => 'المجموعات'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
@@ -25,7 +26,8 @@ class Details_Groups extends Module {
 				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
 				'zh' => '用戶可以依群組分類並管理其權限',
 				'it' => 'Gli utenti possono essere inseriti in gruppi per gestirne i permessi.',
-				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.'
+				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
+				'ar' => 'يمكن وضع المستخدمين في مجموعات لتسهيل إدارة صلاحياتهم.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

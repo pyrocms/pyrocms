@@ -9,18 +9,30 @@
 abstract class Plugin
 {
 	private $attributes = array();
-
-	function __construct($data)
-	{
-		$this->set_data($data);
-	}
+	private $content = array();
 
 	// ------------------------------------------------------------------------
 
     function __get($var)
     {
-		return get_instance()->$var;
+		return CI_Base::get_instance()->$var;
     }
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Get param
+	 *
+	 * This is a helper used from the parser files to process a list of params
+	 *
+	 * @param	array - Params passed from view
+	 * @param	array - Array of default params
+	 * @return 	array
+	 */
+	public function content()
+	{
+		return $this->content;
+	}
 
 	// ------------------------------------------------------------------------
 
@@ -67,13 +79,14 @@ abstract class Plugin
 	 */
 	public function set_data($data)
 	{
+		isset($data['content']) AND $this->content = $data['content'];
 		isset($data['attributes']) AND $this->attributes = $data['attributes'];
 	}
 }
 
 class Plugins
 {
-	private $instances = array();
+	private $loaded = array();
 
 	function __construct()
 	{
@@ -96,18 +109,10 @@ class Plugins
 			return $this->_process($path, $class, $method, $data);
 		}
 
-		if (file_exists($path = ADDONPATH.'plugins/'.$class.EXT))
-		{
-			return $this->_process($path, $class, $method, $data);
-		}
-
 		// Maybe it's a module
-		if ($module = $this->_ci->module_m->get($class))
+		if (module_exists($class))
 		{
-			// First check core addons then 3rd party
-			$path = $module['is_core'] ? APPPATH : ADDONPATH;
-
-			if (file_exists($path = $path.'modules/'.$class.'/plugin'.EXT))
+			if (file_exists($path = APPPATH.'modules/'.$class.'/plugin'.EXT))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
@@ -135,22 +140,17 @@ class Plugins
 	 */
 	private function _process($path, $class, $method, $data)
 	{
-		$class_name = 'Plugin_'.ucfirst(strtolower($class));
+		$class = strtolower($class);
+		$class_name = 'Plugin_'.ucfirst($class);
 
-		if ( ! isset($this->instances[$class]))
+		if ( ! isset($this->loaded[$class]))
 		{
-			// Load it up
-			include_once $path;
-
-			$class_init = new $class_name($data);
-
-			$this->instances[$class] = $class_init;
+			include $path;
+			$this->loaded[$class] = TRUE;
 		}
 
-		else
-		{
-			$this->instances[$class]->set_data($data);
-		}
+		$class_init = new $class_name;
+		$class_init->set_data($data);
 
 		if ( ! class_exists($class_name))
 		{
@@ -158,6 +158,6 @@ class Plugins
 			return FALSE;
 		}
 
-		return $this->instances[$class]->$method();
+		return $class_init->$method();
 	}
 }

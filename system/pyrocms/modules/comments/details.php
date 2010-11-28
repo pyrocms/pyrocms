@@ -17,7 +17,8 @@ class Details_Comments extends Module {
 				'pl' => 'Komentarze',
 				'zh' => '回應',
 				'it' => 'Commenti',
-				'ru' => 'Комментарии'
+				'ru' => 'Комментарии',
+				'ar' => 'العربيّة'
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
@@ -29,7 +30,8 @@ class Details_Comments extends Module {
 				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
 				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali news, pagine e foto.',
-				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.'
+				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
+				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

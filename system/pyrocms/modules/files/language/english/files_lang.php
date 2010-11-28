@@ -15,6 +15,7 @@
 $lang['files.title']						= 'Files';
 $lang['files.upload.title']					= 'Upload Files';
 $lang['files.labels.action']				= 'Action';
+$lang['files.labels.download']				= 'Download';
 $lang['files.labels.edit']					= 'Edit';
 $lang['files.labels.delete']				= 'Delete';
 $lang['files.labels.upload']				= 'Upload';

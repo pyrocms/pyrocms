@@ -15,7 +15,8 @@ class Details_Files extends Module {
 				'fr' => 'Fichiers',
 				'zh' => '檔案',
 				'it' => 'File',
-				'ru' => 'Файлы'
+				'ru' => 'Файлы',
+				'ar' => 'العربيّة'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -25,7 +26,8 @@ class Details_Files extends Module {
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
 				'zh' => '管理網站中的檔案與目錄',
 				'it' => 'Gestisci file e cartelle del tuo sito.',
-				'ru' => 'Управление файлами и папками вашего сайта.'
+				'ru' => 'Управление файлами и папками вашего сайта.',
+				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

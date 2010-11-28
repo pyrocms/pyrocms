@@ -123,6 +123,7 @@ $lang['user_activated_message']   				= 'Your account has been activated, you ca
 
 
 // Login
+$lang['user_logged_in']							= 'You have logged in successfully.';
 $lang['user_already_logged_in'] 				= 'You are already logged in. Please logout before trying again.';
 $lang['user_login_incorrect'] 					= 'E-mail or password do not match. Please check your login and make sure CAPS LOCK is not on.';
 $lang['user_inactive']   						= 'The account you are trying to access is currently inactive.<br />Check your e-mail for instructions on how to activate your account - <em>it may be in the junk folder</em>.';
@@ -150,5 +151,3 @@ $lang['user_activated_email_content_line2'] 	= 'In case your email program does 
 // Reset Pass
 $lang['user_reset_pass_email_subject'] 			= 'Password Reset';
 $lang['user_reset_pass_email_body'] 			= 'Your password at %s has been reset. If you did not request this change, please email us at %s and we will resolve the situation.';
-
-?>

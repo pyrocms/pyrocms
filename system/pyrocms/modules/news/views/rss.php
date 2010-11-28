@@ -11,7 +11,8 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "
 		<dc:creator><?php echo $rss->creator_email; ?></dc:creator>
 		<dc:rights>Copyright <?php echo gmdate("Y", time()); ?></dc:rights>
 		<admin:generatorAgent rdf:resource="http://www.styledna.net/" />
-		
+
+		<?php if ( ! empty($rss->items)): ?>
 		<?php foreach($rss->items as $item): ?>
 			<item>
 				<title><?php echo $item->title;?></title>
@@ -22,5 +23,6 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "
 				<guid><?php echo $item->guid;?></guid>
 			</item>
 		<?php endforeach; ?>
+		<?php endif; ?>
 	</channel>
 </rss>

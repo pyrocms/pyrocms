@@ -111,6 +111,7 @@ $lang['user_activation_incorrect']   				= 'Activación fallida. Por favor, revi
 $lang['user_activated_message']   					= 'Tu cuenta ha sido activada, ahora puedes ingresar con tu cuenta.';
 
 // Login
+$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
 $lang['user_already_logged_in'] 						= 'Ya te encuentras logueado. Por favor, sal de tu cuente antes de tratar nuevamente.';
 $lang['user_login_incorrect'] 						= 'E-mail o contrase&ntilde;a no coinciden. Por favor, revisa tus detalles y asegúrate que el BLOQ MAYUS no está activado.';
 $lang['user_inactive']   								= 'La cuenta a la que tratas de acceder se encuentra inactiva.<br />Revisa tu e-mail para instrucciones de como activar tu cuenta - <em>puede estar en tu correo no deseado</em>.';
@@ -137,5 +138,3 @@ $lang['user_activated_email_content_line2'] 		= 'En caso que no puedas ingresar 
 // Reset Pass
 $lang['user_reset_pass_email_subject'] 			= 'Contraseña reestablecida';
 $lang['user_reset_pass_email_body'] 				= 'Tu contraseña en %s ha sido reestablecido. Si no pediste este cambio, por favor escribe a %s y resolveremos esta situación por ti.';
-
-?>
