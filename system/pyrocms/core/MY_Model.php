@@ -157,13 +157,18 @@ class MY_Model extends CI_Model
 	/**
 	 * Get all records in the database
 	 *
-	 * @return array
-	 * @author Jamie Rumbelow
+	 * @param	string 	Type object or array
+	 * @return 	mixed
+	 * @author 	Jamie Rumbelow
 	 */
-	public function get_all()
+	public function get_all($type = 'object')
 	{
-		return $this->db->get($this->_table)
-			->result();
+		if ($type == 'array')
+		{
+			return $this->db->get($this->table)->result_array();
+		}
+
+		return $this->db->get($this->table)->result();
 	}
 
 	/**
