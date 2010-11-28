@@ -90,14 +90,25 @@ jQuery(function($) {
 			}
 		});
 
-                //make page buttons work
-                $('a.button, a.minibutton').live('click', function() {
-                    var href = $(this).attr("href");
-                    if(href.indexOf('delete') < 0)
-                    {
-                         window.location.href = href;
-                    }
-                });
+		//make page buttons work
+		$('a.button, a.minibutton').live('click', function() {
+			var href = $(this).attr("href");
+			if(href.indexOf('delete') < 0)
+			{
+				window.location.href = href;
+			}
+		});
+		
+		//use a confirm dialog on "delete many" buttons
+		$('button.button').live('click', function(event) {
+			if($(this).val() == 'delete')
+			{
+				if(!confirm(DIALOG_MESSAGE))
+				{
+					event.preventDefault();
+				}
+			}
+		});
 
 		// Table zerbra striping
 		$("tbody tr:nth-child(even)").livequery(function () {
