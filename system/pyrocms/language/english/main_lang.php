@@ -9,7 +9,7 @@ $lang['version_label'] 					= 'Version';
 $lang['author_label'] 					= 'Author';
 $lang['action_label'] 					= 'Action';
 
-$lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It can not be undone.';
+$lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.';
 $lang['dialog.confirm'] 				= 'Confirm';
 $lang['dialog.yes'] 					= 'Yes';
 $lang['dialog.no'] 						= 'No';

@@ -266,7 +266,7 @@ class Admin_folders extends Admin_Controller {
 			show_404();
 		}
 
-		if($this->input->post('button_action') == 'Yes')
+		if($this->input->post('button_action') == lang('dialog.yes'))
 		{
 			$this->file_m->delete_files($folder_id);
 			$this->file_folders_m->delete($folder_id);
@@ -274,7 +274,7 @@ class Admin_folders extends Admin_Controller {
 
 			redirect('admin/files#folders');
 		}
-		elseif($this->input->post('button_action') == 'No')
+		elseif($this->input->post('button_action') == lang('dialog.no'))
 		{
 			redirect('admin/files#folders');
 		}

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Files extends Module {
+class Module_Files extends Module {
 
 	public $version = '1.0';
 	
@@ -16,7 +16,7 @@ class Details_Files extends Module {
 				'zh' => '檔案',
 				'it' => 'File',
 				'ru' => 'Файлы',
-				'ar' => 'العربيّة'
+				'ar' => 'الملفّات'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',

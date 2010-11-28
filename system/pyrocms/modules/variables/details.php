@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Variables extends Module {
+class Module_Variables extends Module {
 
 	public $version = '0.3';
 	
@@ -17,7 +17,8 @@ class Details_Variables extends Module {
 				'br' => 'Variáveis',
 				'zh' => '系統變數',
 				'it' => 'Variabili',
-				'ru' => 'Переменные'
+				'ru' => 'Переменные',
+				'ar' => 'المتغيّرات'
 			),
 			'description' => array(
 				'en' => 'Manage global variables to access from everywhere.',
@@ -29,7 +30,8 @@ class Details_Variables extends Module {
 				'br' => 'Gerencia as variáveis globais acessíveis de qualquer lugar.',
 				'zh' => '管理此網站內可存取的全局變數。',
 				'it' => 'Gestisci le variabili globali per accedervi da ogni parte.',
-				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.'
+				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.',
+				'ar' => 'إدارة المُتغيّرات العامة لاستخدامها في أرجاء الموقع.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -72,7 +74,11 @@ class Details_Variables extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+		<p>With the Variables module you can add simple values and display them anywhere on the site.</p>
+		<h4>Adding Global Variables</h4><hr>
+		<p>To use Variables simply choose a short name and assign a value. You can then embed the
+			generated tag in page content, news posts, etc. and the assigned value will be displayed.</p>";
 	}
 }
 /* End of file details.php */

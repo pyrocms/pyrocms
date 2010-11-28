@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Users extends Module {
+class Module_Users extends Module {
 
 	public $version = '0.8';
 	
@@ -61,7 +61,14 @@ class Details_Users extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+		<p>The Users module works together with Groups and Permissions to give PyroCMS access control.</p>
+		<h4>Add a User</h4><hr>
+		<p>Fill out the user's details (including a password) and save. If you have activation emails enabled in Settings
+		an email will be sent to the new user with an activation link.</p>
+		<h4>Activating New Users</h4><hr>
+		<p>If activation emails are disabled in Settings users that register on the website front-end will appear under the Inactive Users
+		menu item until you either approve or delete their account. If activation emails are enabled users may register silently, without an admin's help.</p>";
 	}
 }
 /* End of file details.php */

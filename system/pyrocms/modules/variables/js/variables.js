@@ -21,7 +21,7 @@
 					   fetch_url,
 					   function(data, status, xhr) {
 						    add_styles();
-						   $.uniform.update();
+						   $.uniform.update('input[type=checkbox], button');
 						   $(this).slideDown('normal');
 					   }
 			   );
@@ -62,7 +62,7 @@
 			orig_tr.load(load_url,
 				     function(data, status, xhr) {
 					add_styles();
-					$.uniform.update();
+					$.uniform.update('input[type=checkbox], button');
 				     }
 				     );
 			orig_tr.fadeIn('slow');
@@ -103,7 +103,7 @@
 				function(data, status, xhr)
 				{
 					add_styles();
-					$.uniform.update();
+					$.uniform.update('input[type=checkbox], button');
 					$(this).slideDown('fast');
 				}
 		);

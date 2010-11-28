@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Widgets extends Module {
+class Module_Widgets extends Module {
 
 	public $version = '1.0';
 	
@@ -11,10 +11,11 @@ class Details_Widgets extends Module {
 				'en' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
-                'fr' => 'Widgets',
+				'fr' => 'Widgets',
 				'zh' => '小組件',
 				'it' => 'Widgets',
-				'ru' => 'Виджеты'
+				'ru' => 'Виджеты',
+				'ar' => 'الودجت',
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -24,7 +25,8 @@ class Details_Widgets extends Module {
 				'fr' => 'Gérer des mini application ou "Widgets".',
 				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
 				'it' => 'Gestisci piccole sezioni di logica a se stante in blocchi o "Widgets".',
-				'ru' => 'Управление небольшими, самостоятельными блоками.'
+				'ru' => 'Управление небольшими, самостоятельными блоками.',
+				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

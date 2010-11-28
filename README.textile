@@ -2,14 +2,14 @@ h1. PyroCMS
 
 * "Website":http://pyrocms.com/
 * "Documentation":http://pyrocms.com/documentation
-* Version: 1.0.0-beta2
-
-THIS IS NOT A STABLE RELEASE, USE V0.9.9.7 ON THE DOWNLOADS PAGE OR DONT COMPLAIN WHEN YOU FIND ERRORS!
+* Version: 1.0.0
 
 h2. The Team
 
 * "Philip Sturgeon":http://philsturgeon.co.uk/
 * "Eric Barnes":http://ericlbarnes.com/
+* "Stephen Cozart":http://twitter.com/stephencozart
+* "Jerel Unruh":http://www.unruhdesigns.com/
 
 h2. DESCRIPTION
 
@@ -32,7 +32,7 @@ h2. BUGS / FEATURE REQUESTS
 Issue tracker: "http://github.com/pyrocms/pyrocms/issues":http://github.com/pyrocms/pyrocms/issues
 Forum: "http://www.pyrocms.com/forums":http://www.pyrocms.com/forums
 
-Before reporting bugs or requesting any features, please check there is not already a ticket.
+Before reporting bugs or requesting any features, please check that a  does not already exist.
 
 h2. THANKS
 
@@ -44,7 +44,6 @@ h3. Contributors
 * "Yorick Peterse":http://www.yorickpeterse.com/
 * "Dan Horrigan":http://dhorrigan.com
 * "Ben Edmunds":http://benedmunds.com/
-* "Stephen Cozart":http://twitter.com/stephencozart
 
 h3. Translators
 

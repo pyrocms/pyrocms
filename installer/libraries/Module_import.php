@@ -161,7 +161,7 @@ class Module_import {
 		include_once $details_file;
 
 		// Now call the details class
-		$class = 'Details_'.ucfirst($module_slug);
+		$class = 'Module_'.ucfirst(strtolower($module_slug));
 
 		// Now we need to talk to it
 		return new $class;

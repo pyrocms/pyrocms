@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Permissions extends Module {
+class Module_Permissions extends Module {
 
 	public $version = '0.5';
 	
@@ -17,7 +17,8 @@ class Details_Permissions extends Module {
 				'br' => 'Permissões',
 				'zh' => '權限',
 				'it' => 'Permessi',
-				'ru' => 'Права доступа'
+				'ru' => 'Права доступа',
+				'ar' => 'الصلاحيات'
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
@@ -29,7 +30,8 @@ class Details_Permissions extends Module {
 				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
 				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
 				'it' => 'Controlla che tipo di utenti posssono accedere a determinate sezioni del sito.',
-				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.'
+				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
+				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -71,7 +73,11 @@ class Details_Permissions extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h2>Overview</h2>
+				<p>The Permissions module works together with the User Manager and the Groups module to give PyroCMS access control.</p>
+				<h2>Setting Permissions</h2>
+				<p>New groups have no permissions at all by default. Simply check the box
+				by each module that you want users in that group to be able to access.</p>";
 	}
 }
 /* End of file details.php */

@@ -11,6 +11,7 @@ jQuery(function($) {
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
+		$( "#datepicker" ).datepicker();
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
@@ -64,7 +65,7 @@ jQuery(function($) {
 		});
 
 		// Confirmation
-		$("a.confirm").live('click', function(){
+		$("a.confirm").live('click', function(e){
 			removemsg = $(this).attr("title");
 	
 			if (removemsg != 'undefined')
@@ -83,9 +84,47 @@ jQuery(function($) {
 				msg = DIALOG_MESSAGE;
 			}
 
-			if(confirm(msg))
+			if(!confirm(msg))
 			{
-				window.location.href = $(this).attr("href");
+				e.preventDefault();
+			}
+		});
+
+		//make page buttons work
+		$('a.button, a.minibutton').live('click', function() {
+			var href = $(this).attr("href");
+			if(href.indexOf('delete') < 0)
+			{
+				window.location.href = href;
+			}
+		});
+		
+		//use a confirm dialog on "delete many" buttons
+		$(':button.button').live('click', function(e) {
+			if($(this).val() == 'delete')
+			{
+				removemsg = $(this).attr("title");
+				
+				if (removemsg != 'undefined')
+				{
+					if(removemsg.length <= 0)
+					{
+						msg = DIALOG_MESSAGE;
+					}
+					else
+					{
+						msg = removemsg;
+					}
+				}
+				else
+				{
+					msg = DIALOG_MESSAGE;
+				}
+				
+				if(!confirm(msg))
+				{
+					e.preventDefault();
+				}
 			}
 		});
 
