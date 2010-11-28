@@ -15,6 +15,15 @@ class Variables {
 
 	private $_vars = array();
 
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Constructor
+	 *
+	 * Get all the variables and assign them to the vars array
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
 		$this->CI =& get_instance();
@@ -28,21 +37,39 @@ class Variables {
 		}
 	}
 
-	function __get($name)
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Magic get
+	 *
+	 * Used to pull out a variable's data
+	 *
+	 * @param	string
+	 * @return 	mixed
+	 */
+	public function __get($name)
 	{
 		// getting data
-        if (isset($this->_vars->$name))
-        {
-            return $this->_vars[$name];
-        }
+		if (isset($this->_vars[$name]))
+		{
+			return $this->_vars[$name];
+		}
 
-        return NULL;
+		return NULL;
 	}
 
-    public function get_all()
-    {
-    	return $this->_vars;
-    }
+	// ------------------------------------------------------------------------
 
+	/**
+	 * Get all
+	 *
+	 * Get an array of all the vars
+	 *
+	 * @return array
+	 */
+	public function get_all()
+	{
+		return $this->_vars;
+	}
 }
 /* End of file Variables.php */
