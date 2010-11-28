@@ -65,7 +65,7 @@ jQuery(function($) {
 		});
 
 		// Confirmation
-		$("a.confirm").live('click', function(){
+		$("a.confirm").live('click', function(e){
 			removemsg = $(this).attr("title");
 	
 			if (removemsg != 'undefined')
@@ -84,9 +84,9 @@ jQuery(function($) {
 				msg = DIALOG_MESSAGE;
 			}
 
-			if(confirm(msg))
+			if(!confirm(msg))
 			{
-				window.location.href = $(this).attr("href");
+				e.preventDefault();
 			}
 		});
 
@@ -100,12 +100,30 @@ jQuery(function($) {
 		});
 		
 		//use a confirm dialog on "delete many" buttons
-		$('button.button').live('click', function(event) {
+		$(':button.button').live('click', function(e) {
 			if($(this).val() == 'delete')
 			{
-				if(!confirm(DIALOG_MESSAGE))
+				removemsg = $(this).attr("title");
+				
+				if (removemsg != 'undefined')
 				{
-					event.preventDefault();
+					if(removemsg.length <= 0)
+					{
+						msg = DIALOG_MESSAGE;
+					}
+					else
+					{
+						msg = removemsg;
+					}
+				}
+				else
+				{
+					msg = DIALOG_MESSAGE;
+				}
+				
+				if(!confirm(msg))
+				{
+					e.preventDefault();
 				}
 			}
 		});
