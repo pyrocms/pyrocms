@@ -52,13 +52,17 @@ class Admin_Categories extends Admin_Controller
 	{
 		$this->cache->delete_all('modules_m');
 		// Create pagination links
-		$total_rows 			= $this->news_categories_m->count_all();
-		$this->data->pagination = create_pagination('admin/news/categories/index', $total_rows);
+		$total_rows = $this->news_categories_m->count_all();
+		$pagination = create_pagination('admin/news/categories/index', $total_rows);
 			
 		// Using this data, get the relevant results
-		$this->data->categories = $this->news_categories_m->limit( $this->data->pagination['limit'] )->get_all();
-		$this->template->title($this->module_details['name'], lang('cat_list_title'))
-						->build('admin/categories/index', $this->data);
+		$categories = $this->news_categories_m->order_by('title')->limit($pagination['limit'])->get_all();
+
+		$this->template
+			->title($this->module_details['name'], lang('cat_list_title'))
+			->set('categories', $categories)
+			->set('pagination', $pagination)
+			->build('admin/categories/index', $this->data);
 	}
 	
 	/**
