@@ -12,31 +12,17 @@
 class Plugin_Settings extends Plugin
 {
 	/**
-	 * Site Name
+	 * Load a variable
 	 *
-	 * Returns the site name
+	 * Magic method to get the setting.
 	 *
-	 * @param	array
+	 * @param	string
+	 * @param	string
 	 * @return	string
 	 */
-	public function site_name($data = array())
+	function __call($name, $data)
 	{
-		return $this->settings->item('site_name');
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Site Slogan
-	 *
-	 * Displays the site slogan
-	 *
-	 * @param	array
-	 * @return 	string
-	 */
-	public function site_slogan($data = array())
-	{
-		return $this->settings->item('site_slogan');
+		return $this->settings->item($name);
 	}
 }
 
