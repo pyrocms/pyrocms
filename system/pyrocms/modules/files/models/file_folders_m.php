@@ -123,7 +123,7 @@ class File_folders_m extends MY_Model {
 				$arr[$key] = $val;
 			}
 			
-			$menu_array[$row['id']] = $arr;
+			$menu_array[$row->id] = $arr;
 		}
 		
 		unset($arr);
