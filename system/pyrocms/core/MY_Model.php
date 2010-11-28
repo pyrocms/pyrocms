@@ -165,10 +165,10 @@ class MY_Model extends CI_Model
 	{
 		if ($type == 'array')
 		{
-			return $this->db->get($this->table)->result_array();
+			return $this->db->get($this->_table)->result_array();
 		}
 
-		return $this->db->get($this->table)->result();
+		return $this->db->get($this->_table)->result();
 	}
 
 	/**
