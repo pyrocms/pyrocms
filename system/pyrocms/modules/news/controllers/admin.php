@@ -52,6 +52,11 @@ class Admin extends Admin_Controller
       'field' => 'date',
       'rules' => 'trim|max_length[10]'
     ),
+    array(
+      'field' => 'created_on_hour',
+      'label' => 'lang:news_created_hour',
+      'rules' => 'trim|numeric|required'
+    ),
 		array(
 			'field' => 'created_on_minute',
 			'label' => 'lang:news_created_minute',
