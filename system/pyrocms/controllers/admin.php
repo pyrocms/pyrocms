@@ -47,12 +47,7 @@ class Admin extends Admin_Controller
  	 */
  	public function index()
 	{
-		if(CMS_VERSION !== $this->settings->version)
-		{
-			$data->messages['notice'] = sprintf(lang('cp_upgrade_message'), CMS_VERSION, $this->settings->version, site_url('upgrade'));
-		}
-
-		elseif(is_dir('./installer'))
+		if (is_dir('./installer'))
 		{
 			$data->messages['notice'] = lang('cp_delete_installer_message');
 		}

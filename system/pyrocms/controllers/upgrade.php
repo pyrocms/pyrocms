@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0', '1.0.1');
 
 	private $_output = '';
 
@@ -20,7 +20,7 @@ class Upgrade extends Controller
 		$db_version = $this->settings->version;
 
 		// What version is the file system running (this is the target version to upgrade to)
-  		$file_version = CMS_VERSION;
+  		$file_version = CMS_VERSION > '1.0.1' ? '1.0.1' : CMS_VERSION; // Only upgrade to 1.0.0
 
 		// What is the base version of the db, no rc/beta tags.
 		list($base_db_version) = explode('-', $db_version);
@@ -82,6 +82,17 @@ class Upgrade extends Controller
 		// finally, spit it out
 		echo $this->_output;
  	}
+
+	// Last time upgrade will ever need to be run
+	function upgrade_101()
+	{
+		$this->load->library('migrations');
+		$this->migrations->latest();
+
+		$this->settings->version = CMS_VERSION;
+
+		exit("Migrated to the latest version of the database. This upgrade script is no longer required, when you or anyone visits your website (frontend or Control Panel) it will automatically upgrade to the latest version.");
+	}
 
 	function upgrade_100()
 	{
