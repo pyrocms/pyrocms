@@ -66,6 +66,7 @@ jQuery(function($) {
 
 		// Confirmation
 		$("a.confirm").live('click', function(e){
+			var href = $(this).attr("href");
 			removemsg = $(this).attr("title");
 	
 			if (removemsg != 'undefined')
@@ -88,15 +89,20 @@ jQuery(function($) {
 			{
 				e.preventDefault();
 			}
-		});
-
-		//make page buttons work
-		$('a.button, a.minibutton').live('click', function() {
-			var href = $(this).attr("href");
-			if(href.indexOf('delete') < 0)
+			else
 			{
+				//submits it whether uniform likes it or not
 				window.location.href = href;
 			}
+		});
+
+		//make page buttons work (fixes a uniform bug in FF)
+		$('a.button, a.minibutton').live('click', function() {
+		  var href = $(this).attr("href");
+		  if($(this).hasClass('confirm') === false && $(this).hasClass('colorbox') === false)
+		  {
+			window.location.href = href;
+		  }
 		});
 		
 		//use a confirm dialog on "delete many" buttons
