@@ -21,4 +21,4 @@ $lang['modules.upload_desc']			= 'Please select a file and click Upload button';
 $lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';
 $lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';
 $lang['modules.confirm_install']        = 'Are you sure you want to install this module?';
-$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';
+$lang['modules.confirm_uninstall']      = 'All module files and database records will be removed! Are you sure you want to un-install this module?';
