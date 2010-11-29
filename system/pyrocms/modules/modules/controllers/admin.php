@@ -35,16 +35,12 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// We dont want to work with old data
-		$this->cache->delete_all('module_m');
-		
 		$this->module_m->import_unknown();
-
- 		$this->template->all_modules = $this->module_m->get_all(NULL, TRUE);
 
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->set('all_modules', $this->module_m->get_all(NULL, TRUE))
+			->build('admin/index');
 	}
 
 	/**
@@ -110,14 +106,11 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}
 
-			// Clear the cache
-			$this->cache->delete_all('module_m');
-
 			redirect('admin/modules');
 		}
 
 		$this->template
-			->title($this->module_details['name'],lang('modules.upload_title'))
+			->title($this->module_details['name'], lang('modules.upload_title'))
 			->build('admin/upload', $this->data);
 	}
 

@@ -432,12 +432,14 @@ class Admin extends Admin_Controller
 
 		// Load the views
 		$this->data->gallery_image =& $gallery_image;
-		$this->template->append_metadata( css('galleries.css', 'galleries') )
-						->append_metadata(js('functions.js', 'galleries') )
-		   			   ->append_metadata( js('jcrop.js', 'galleries') )
-		   			   ->append_metadata( js('jcrop_init.js', 'galleries') )
-					   ->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
-					   ->build('admin/edit', $this->data);
+		
+		$this->template
+			->append_metadata( css('galleries.css', 'galleries') )
+			->append_metadata(js('functions.js', 'galleries') )
+			->append_metadata( js('jcrop.js', 'galleries') )
+			->append_metadata( js('jcrop_init.js', 'galleries') )
+			->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
+			->build('admin/edit', $this->data);
 	}
 
 	/**
