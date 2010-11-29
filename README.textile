@@ -2,7 +2,7 @@ h1. PyroCMS
 
 * "Website":http://pyrocms.com/
 * "Documentation":http://pyrocms.com/documentation
-* Version: 1.0.0
+* Version: 1.0.1
 
 h2. The Team
 
@@ -24,7 +24,7 @@ Run http://example.com/installer to run the web-based installation script.
 
 h2. UPGRADING
 
-Run http://example.com/upgrade to run the upgrade script after downloading a new version.
+You no longer need to do anything to upgrade. Simply update the files and the database will upgrade automatically.
 
 
 h2. BUGS / FEATURE REQUESTS
