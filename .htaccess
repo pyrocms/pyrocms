@@ -1,6 +1,7 @@
 <IfModule mod_rewrite.c>
 
-	Options +FollowSymLinks
+    # Make sure directory listing is disabled
+	Options +FollowSymLinks -Indexes
 	RewriteEngine on
 
 	# NOTICE: If you get a 404 play with combinations of the following commented out lines

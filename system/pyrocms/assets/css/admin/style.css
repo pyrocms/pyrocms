@@ -23,7 +23,7 @@
 	-webkit-border-bottom-right-radius:5px;
 	display:block;
 }
-	
+
 div.box {margin-bottom:15px; width:100%;}
 */
 .CodeMirror-line-numbers {
@@ -107,8 +107,8 @@ body#login {
 }
 #top { top: 0; }
 #bottom { bottom: 0; }
-		
-		
+
+
 a, a:focus, a:active, a:visited {
 	outline: none;
 	-moz-outline-style: none;
@@ -259,7 +259,7 @@ header#main h1 {
 /** Headers **/
 #page-header {
 	background-color: #424242;
-	color: #ccd1d4;	
+	color: #ccd1d4;
 	padding: 4px 10px;
 }
 #page-header h1 {
@@ -280,7 +280,7 @@ header#main h1 {
 	margin: 0 0 0 12px;
 	font-weight: normal;
 	display: inline-block;
-}	
+}
 
 #page-header-help {
 	float: right;
@@ -497,7 +497,6 @@ body#login #login-box input {
 	color: #6b6d71;
 	text-shadow: 1px 1px 0px #e6e8eb;
 	letter-spacing: 0.2px;
-	text-transform: uppercase;
 	width: 289px;
 	height: 28px;
 	border: 1px solid #a2a5a8;
@@ -605,7 +604,7 @@ ul#login-footer li a:hover {
 	background-color: #fbfbfc;
 	width: 100%;
 /*	min-width: 550px; */
-	float: left; 
+	float: left;
 	margin: 0 15px 25px 0;
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
@@ -729,7 +728,7 @@ ul.quick-links li:last-child {
 	border-bottom: none;
 }
 ul.quick-links li img {
-	float: left; 
+	float: left;
 	margin: 0 20px 10px 10px;
 }
 ul.quick-links a {

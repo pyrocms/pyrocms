@@ -11,11 +11,11 @@ class Module_Widgets extends Module {
 				'en' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
-                'fr' => 'Widgets',
+				'fr' => 'Widgets',
 				'zh' => '小組件',
 				'it' => 'Widgets',
 				'ru' => 'Виджеты',
-				'en' => 'الودجت',
+				'ar' => 'الودجت',
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
