@@ -16,10 +16,11 @@ class MY_Controller extends Controller
 		$this->benchmark->mark('my_controller_start');
 
 		// Migrate DB if its out of date
-		if (CMS_VERSION > '1.0.0' AND config_item('migrations_version') !== CMS_VERSION)
+		if (CMS_VERSION > '1.0.0')
 		{
 			$this->load->library('migrations');
 			$this->migrations->latest();
+			$this->settings->version = CMS_VERSION;
 		}
 		
 		// Use this to define hooks with a nicer syntax
@@ -92,5 +93,5 @@ class MY_Controller extends Controller
  */
 function ci()
 {
-	return CI_Base::get_instance();
+	return get_instance();
 }
