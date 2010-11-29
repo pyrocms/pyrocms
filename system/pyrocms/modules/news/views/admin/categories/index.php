@@ -4,9 +4,9 @@
 	<table border="0" class="table-list">
 		<thead>
 		<tr>
-			<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
+			<th style="width: 20px;"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 			<th><?php echo lang('cat_category_label');?></th>
-			<th class="width-10"><span><?php echo lang('cat_actions_label');?></span></th>
+			<th style="width:10em"><span><?php echo lang('cat_actions_label');?></span></th>
 		</tr>
 		</thead>
 		<tfoot>

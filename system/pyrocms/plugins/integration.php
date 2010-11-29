@@ -15,7 +15,7 @@ class Plugin_Integration extends Plugin
 	 * Partial
 	 *
 	 * Loads Google Analytic
-	 * 
+	 *
 	 * Usage:
 	 * {pyro:integration:analytics}
 	 *
@@ -24,7 +24,7 @@ class Plugin_Integration extends Plugin
 	 */
 	function analytics()
 	{
-		return $this->load->view('partials/google_analytics');
+		return $this->load->view('partials/google_analytics', NULL, TRUE);
 	}
 }
 
