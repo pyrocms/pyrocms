@@ -218,13 +218,13 @@ class Gallery_images_m extends MY_Model
 			if ( parent::delete($id) )
 			{	
 				// Change the table
-				$this->table = 'galleries';
+				$this->_table = 'galleries';
 						
 				// Unset the thumbnail for each gallery that was using this image
 				if ( parent::update_by('thumbnail_id', $id, array('thumbnail_id' => NULL)) )
 				{
 					// Change the table back
-					$this->table = 'gallery_images';
+					$this->_table = 'gallery_images';
 					
 					// Delete the files
 					if ( unlink($full_path) === TRUE AND unlink($thumb_path) === TRUE )
