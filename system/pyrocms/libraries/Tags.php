@@ -105,6 +105,13 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
+		if (trim($this->_trigger) == '')
+		{
+			throw new Exception('You must set a trigger before you can parse the content.');
+
+			return $content;
+		}
+		
 		$orig_content = $this->parse_globals($content, $data);
 
 
@@ -222,6 +229,11 @@ class Tags
 
 	public function parse_conditionals($content)
 	{
+		if (strpos($content, '{if ') === false)
+		{
+			return $content;
+		}
+
 		preg_match_all('#{if (.*?)}#i', $content, $matches, PREG_OFFSET_CAPTURE);
 
 		$len_offset = 0;

@@ -15,7 +15,7 @@ abstract class Plugin
 
     function __get($var)
     {
-		return CI_Base::get_instance()->$var;
+		return get_instance()->$var;
     }
 
 	// ------------------------------------------------------------------------
@@ -104,25 +104,26 @@ class Plugins
 		$class = $data['segments'][0];
 		$method = $data['segments'][1];
 
-		if (file_exists($path = APPPATH.'plugins/'.$class.EXT))
+		foreach (array(APPPATH, ADDONPATH) as $directory)
 		{
-			return $this->_process($path, $class, $method, $data);
-		}
-
-		// Maybe it's a module
-		if (module_exists($class))
-		{
-			if (file_exists($path = APPPATH.'modules/'.$class.'/plugin'.EXT))
+			if (file_exists($path = $directory.'plugins/'.$class.EXT))
 			{
 				return $this->_process($path, $class, $method, $data);
+			}
+
+			// Maybe it's a module
+			if (module_exists($class))
+			{
+				if (file_exists($path = $directory.'modules/'.$class.'/plugin'.EXT))
+				{
+					return $this->_process($path, $class, $method, $data);
+				}
 			}
 		}
 
 		log_message('error', 'Unable to load: '.$class);
 
-		throw new Exception('Unable to load: '.$class);
-
-		return FALSE;
+		return '';
 	}
 
 	 // --------------------------------------------------------------------

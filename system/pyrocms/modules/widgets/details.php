@@ -27,6 +27,7 @@ class Module_Widgets extends Module {
 				'it' => 'Gestisci piccole sezioni di logica a se stante in blocchi o "Widgets".',
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".'
+
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
