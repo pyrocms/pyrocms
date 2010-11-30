@@ -27,6 +27,21 @@ class Plugin_Url extends Plugin
 
 	/**
 	 *
+	 * site URL of the install
+	 *
+	 * Usage:
+	 * {pyro:url:site}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function site()
+	{
+		return rtrim(site_url(), '/').'/';
+	}
+
+	/**
+	 *
 	 * base URL of the install
 	 *
 	 * Usage:

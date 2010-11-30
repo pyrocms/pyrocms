@@ -81,7 +81,9 @@ class Module_Polls extends Module {
 }
 /* End of file details.php */</code></pre>
 
-<p>The info array contains details that will be read and saved to the database on install. You can supply as many extra languages as you like, by default the en version of name and description will be used.</p>
+<p>The array contains details that will be read and saved to the database on install. You can supply as many extra languages as you like, by default the en version of name and description will be used.</p>
+
+<p>This array will be available in your Public_Controller's and Admin_Controller's via $this->module_details['name']. Notice, name and description will use the current language, not return the whole array.</p>
 
 <h3>Public Controllers</h3>
 
