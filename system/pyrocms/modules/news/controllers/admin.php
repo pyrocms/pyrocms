@@ -48,21 +48,15 @@ class Admin extends Admin_Controller
 			'label' => 'lang:news_created_day',
 			'rules' => 'trim|numeric|required'
 		),
-		array(
-			'field' => 'created_on_month',
-			'label' => 'lang:news_created_month',
-			'rules' => 'trim|numeric|required'
-		),
-		array(
-			'field' => 'created_on_year',
-			'label' => 'lang:news_created_year',
-			'rules' => 'trim|numeric|required'
-		),
-		array(
-			'field' => 'created_on_hour',
-			'label' => 'lang:news_created_hour',
-			'rules' => 'trim|numeric|required'
-		),
+    array(
+      'field' => 'date',
+      'rules' => 'trim|max_length[10]'
+    ),
+    array(
+      'field' => 'created_on_hour',
+      'label' => 'lang:news_created_hour',
+      'rules' => 'trim|numeric|required'
+    ),
 		array(
 			'field' => 'created_on_minute',
 			'label' => 'lang:news_created_minute',
@@ -85,10 +79,6 @@ class Admin extends Admin_Controller
 		$this->lang->load('categories');
 		
 		// Date ranges for select boxes
-		$this->data->days = array_combine($days = range(1, 31), $days);
-		$this->data->months = array_combine($months = range(1, 12), $months);
-		$this->data->years = array_combine($years = range(date('Y')-2, date('Y')+2), $years);
-		
 		$this->data->hours = array_combine($hours = range(0, 23), $hours);
 		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
 		
@@ -145,7 +135,12 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run())
 		{
-			$id = $this->news_m->insert(array(
+			
+      $date = $this->input->post('date');
+      
+      $date =  explode('/', $date);
+    
+      $id = $this->news_m->insert(array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
@@ -154,9 +149,9 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $this->input->post('created_on_day'),
-				'created_on_month'	=> $this->input->post('created_on_month'),
-				'created_on_year'	=> $this->input->post('created_on_year'),
+        'created_on_day'  => $date[1],
+        'created_on_month'  => $date[0],
+        'created_on_year' => $date[2],
 			));
     	
 			if($id)
@@ -198,7 +193,12 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$id OR redirect('admin/news');
+		
+    $date = $this->input->post('date');
+    
+    $date =  explode('/', $date);
+  
+    $id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
 		
@@ -218,9 +218,9 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $this->input->post('created_on_day'),
-				'created_on_month'	=> $this->input->post('created_on_month'),
-				'created_on_year'	=> $this->input->post('created_on_year'),
+        'created_on_day'  => $date[1],
+        'created_on_month'  => $date[0],
+        'created_on_year' => $date[2],
 				));
 			
 			if ($result)
@@ -230,7 +230,7 @@ class Admin extends Admin_Controller
 				// The twitter module is here, and enabled!
 				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
-					$url = shorten_url('news/'.$this->input->post('created_on_year').'/'.str_pad($this->input->post('created_on_month'), 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
+					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[0], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
 					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{

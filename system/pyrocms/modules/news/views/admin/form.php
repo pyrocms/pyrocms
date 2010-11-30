@@ -57,15 +57,31 @@
 				</li>
 
 				<li class="even date-meta">
-					<label><?php echo lang('news_date_label');?></label>
-					<?php echo form_dropdown('created_on_day', $days, !empty($article->created_on_day) ? $article->created_on_day : date('j', isset($article->created_on) ? $article->created_on : now())) ?>
-					<?php echo form_dropdown('created_on_month', $months, !empty($article->created_on_month) ? $article->created_on_month : date('n', isset($article->created_on) ? $article->created_on : now())) ?>
-					<?php echo form_dropdown('created_on_year', $years, !empty($article->created_on_year) ? $article->created_on_year : date('Y', isset($article->created_on) ? $article->created_on : now())) ?>
-
-					<label class="time-meta"><?php echo lang('news_time_label');?></label>
-					<?php echo form_dropdown('created_on_hour', $hours, !empty($article->created_on_hour) ? $article->created_on_hour : date('G', isset($article->created_on) ? $article->created_on : now())) ?>
-					<?php echo form_dropdown('created_on_minute', $minutes, !empty($article->created_on_minute) ? $article->created_on_minute : date('i', isset($article->created_on) ? $article->created_on : now())) ?>
-				</li>
+                
+            <label><?php echo lang('news_date_label');?></label>
+                      
+                      <div style="float:left;">
+                                         
+                      <?php
+                      if(@$article->created_on_day==''&&@$article->date==''){
+                        $date =date('n/j/y');
+                      }
+                      else{
+                        if(!isset($article->date)){
+                $date = $article->created_on_month.'/'.$article->created_on_day.'/'.$article->created_on_year;
+              }
+              else{
+                $date = $article->date;
+              }
+                      }
+                      
+                      echo form_input('date', htmlspecialchars_decode($date), 'maxlength="10" id="datepicker" class="text width-20"'); ?>
+                      </div>
+  
+            <label class="time-meta"><?php echo lang('news_time_label');?></label>
+            <?php echo form_dropdown('created_on_hour', $hours, !empty($article->created_on_hour) ? $article->created_on_hour : date('G', isset($article->created_on) ? $article->created_on : now())) ?>
+            <?php echo form_dropdown('created_on_minute', $minutes, !empty($article->created_on_minute) ? $article->created_on_minute : date('i', isset($article->created_on) ? $article->created_on : now())) ?>
+        </li>
 			</ol>
 
 		</div>

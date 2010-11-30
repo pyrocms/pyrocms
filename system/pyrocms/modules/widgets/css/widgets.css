@@ -177,6 +177,7 @@
 	padding: 0;
 	margin-bottom: 20px;
 	background-color: #fcfcfc;
+	float:none;
 }
 
 .widget-area .tag, .widget-area .button {
@@ -185,6 +186,10 @@
 	color: #666666;
 	padding: 0 15px 0 15px;
 	margin-top: 7px;
+}
+
+.widget-list textarea {
+	width: 98%;
 }
 
 /*Header has to float or jquery
