@@ -166,10 +166,15 @@ class Module_m extends CI_Model
 		$modules = array();
 
 		// We have some parameters for the list of modules we want
-		if ($params) foreach ($params as $field => $value)
+		if ($params)
 		{
-			if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core')))
-			$this->db->where($field, $value);
+			foreach ($params as $field => $value)
+			{
+				if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core')))
+				{
+					$this->db->where($field, $value);
+				}
+			}
 		}
 
 		// Skip the disabled modules
