@@ -432,33 +432,14 @@ class Admin extends Admin_Controller
 
 		// Load the views
 		$this->data->gallery_image =& $gallery_image;
-		$this->template->append_metadata( css('galleries.css', 'galleries') )
-						->append_metadata(js('functions.js', 'galleries') )
-		   			   ->append_metadata( js('jcrop.js', 'galleries') )
-		   			   ->append_metadata( js('jcrop_init.js', 'galleries') )
-					   ->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
-					   ->build('admin/edit', $this->data);
-	}
-
-	/**
-	 * Method to install the module
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @return void
-	 */
-	public function install()
-	{
-		if ( $this->galleries_m->install_module() === TRUE )
-		{
-			$this->session->set_flashdata('success', lang('galleries.install_success'));
-		}
-		else
-		{
-			$this->session->set_flashdata('error', lang('galleries.install_error'));
-		}
-
-		redirect('admin/galleries');
+		
+		$this->template
+			->append_metadata( css('galleries.css', 'galleries') )
+			->append_metadata(js('functions.js', 'galleries') )
+			->append_metadata( js('jcrop.js', 'galleries') )
+			->append_metadata( js('jcrop_init.js', 'galleries') )
+			->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
+			->build('admin/edit', $this->data);
 	}
 
 	/**

@@ -11,6 +11,14 @@ class News_m extends MY_Model
            
         return $this->db->get('news')->result();
     }
+  
+    function get($id)
+    {
+      $this->db->select("*, MONTH(FROM_UNIXTIME(created_on)) as created_on_month, DAY(FROM_UNIXTIME(created_on)) as created_on_day, YEAR(FROM_UNIXTIME(created_on)) as created_on_year,  MINUTE(FROM_UNIXTIME(created_on)) as created_on_minute,  HOUR(FROM_UNIXTIME(created_on)) as created_on_hour, CONCAT(MONTH(FROM_UNIXTIME(created_on)),'/',DAY(FROM_UNIXTIME(created_on)),'/',YEAR(FROM_UNIXTIME(created_on))) as date");
+    $this->db->where(array('id'=>$id));
+           
+        return $this->db->get('news')->row();
+    }
 	
 	function get_many_by($params = array())
     {

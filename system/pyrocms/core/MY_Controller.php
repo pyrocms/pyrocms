@@ -15,6 +15,14 @@ class MY_Controller extends Controller
 		parent::Controller();
 		$this->benchmark->mark('my_controller_start');
 
+		// Migrate DB if its out of date
+		if (CMS_VERSION > '1.0.0')
+		{
+			$this->load->library('migrations');
+			$this->migrations->latest();
+			$this->settings->version = CMS_VERSION;
+		}
+		
 		// Use this to define hooks with a nicer syntax
 		$this->hooks =& $GLOBALS['EXT'];
 
@@ -26,7 +34,6 @@ class MY_Controller extends Controller
 
         $this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
         $this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
-
 
         // Load the user model and get user data
         $this->load->library('users/ion_auth');
@@ -86,5 +93,5 @@ class MY_Controller extends Controller
  */
 function ci()
 {
-	return CI_Base::get_instance();
+	return get_instance();
 }

@@ -3,7 +3,7 @@
 class Module_Settings extends Module {
 
 	public $version = '0.4';
-	
+
 	public function info()
 	{
 		return array(
@@ -36,11 +36,11 @@ class Module_Settings extends Module {
 			'menu'	  => FALSE
 		);
 	}
-	
+
 	public function install()
 	{
 		$this->dbforge->drop_table('settings');
-		
+
 		$settings = "
 			CREATE TABLE `settings` (
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
@@ -58,7 +58,7 @@ class Module_Settings extends Module {
 			KEY `index - slug` (`slug`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all sorts of settings for the admin to change';
 		";
-		
+
 		$default_settings = "
 			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
 			 ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
@@ -79,7 +79,8 @@ class Module_Settings extends Module {
 			 ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users'),
 			 ('ga_email','Google Analytic E-mail','E-mail address used for Google Analytics, we need this to show the graph on the dashboard.','text','','','','0','1','integration'),
 			 ('ga_password','Google Analytic Password','Google Analytics password. This is also needed this to show the graph on the dashboard.','password','','','','0','1','integration'),
-			 ('ga_profile','Google Analytic Key','Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. Example: UA-19483569-6','text','','','','0','1','integration'),
+			 ('ga_profile','Google Analytic Profile ID','Profile ID for this website in Google Analytics.','text','','','','0','1','integration'),
+			 ('ga_tracking','Google Tracking Code','Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6','text','','','','0','1','integration'),
 			 ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter'),
 			 ('twitter_consumer_key','Consumer Key','Twitter consumer key.','text','','','','0','1','twitter'),
 			 ('twitter_consumer_key_secret','Consumer Key Secret','Twitter consumer key secret.','text','','','','0','1','twitter'),
@@ -95,11 +96,10 @@ class Module_Settings extends Module {
 			 ('mail_smtp_user', 'SMTP User Name', 'SMTP user name.', 'text', '', '', '', '0', '1', ''),
 			 ('mail_smtp_pass', 'SMTP Password', 'SMTP password.', 'text', '', '', '', '0', '1', ''),
 			 ('mail_smtp_port', 'SMTP Port', 'SMTP port number.', 'text', '', '', '', '0', '1', ''),
-			 ('version', 'Version', '', 'text', 'v0.9.8', '".CMS_VERSION."', '', '0', '0', '');
+			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '');
 		";
-		
-		if($this->db->query($settings) &&
-		   $this->db->query($default_settings))
+
+		if ($this->db->query($settings) && $this->db->query($default_settings))
 		{
 			return TRUE;
 		}
@@ -116,7 +116,7 @@ class Module_Settings extends Module {
 		// Your Upgrade Logic
 		return TRUE;
 	}
-	
+
 	public function help()
 	{
 		// Return a string containing help info
