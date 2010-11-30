@@ -37,7 +37,11 @@ class Plugin_Url extends Plugin
 	 */
 	function site()
 	{
+<<<<<<< HEAD
 		return site_url();
+=======
+		return rtrim(site_url(), '/').'/';
+>>>>>>> 3025d30a16abc75cf8e93b911e66bdfa7c973c7c
 	}
 
 	/**
