@@ -28,7 +28,7 @@
 |	$route['default_controller'] = 'welcome';
 |
 | This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
+| URI contains no data. In the above example, the 'welcome' class
 | would be loaded.
 |
 */
@@ -36,14 +36,14 @@
 $route['default_controller'] = 'pages';
 $route['404'] = 'pages';
 
-$route['admin/help/([a-zA-Z_-]+)'] = "admin/help/$1";
-$route['admin/([a-zA-Z_-]+)/(:any)'] = "$1/admin/$2";
-$route['admin/(login|logout)'] = "admin/$1";
-$route['admin/([a-zA-Z_-]+)'] = "$1/admin/index";
+$route['admin/help/([a-zA-Z_-]+)'] = 'admin/help/$1';
+$route['admin/([a-zA-Z_-]+)/(:any)'] = '$1/admin/$2';
+$route['admin/(login|logout)'] = 'admin/$1';
+$route['admin/([a-zA-Z_-]+)'] = '$1/admin/index';
 
-$route['register'] = "users/register";
+$route['register'] = 'users/register';
 
-$route['user/(:any)'] = "users/profile/view/$1";
-$route['my-profile'] = "users/profile/index";
-$route['edit-profile'] = "users/profile/edit";
-$route['edit-settings'] = "users/user_settings/edit";
+$route['user/(:any)'] = 'users/profile/view/$1';
+$route['my-profile'] = 'users/profile/index';
+$route['edit-profile'] = 'users/profile/edit';
+$route['edit-settings'] = 'users/user_settings/edit';

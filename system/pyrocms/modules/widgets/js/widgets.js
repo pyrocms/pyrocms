@@ -176,6 +176,7 @@
 		$("#widget-areas .accordion-content").droppable({
 			
 			hoverClass: 'drop-hover',
+			accept: '.widget-box',
 			greedy: true,
 			over: function(event, ui) {
 				$(".accordion").accordion('resize');
@@ -249,11 +250,14 @@
 			if(!title || !slug) return false;
 			
 			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
-				$('#widget-wrapper .accordion').append(data).accordion('destroy').accordion({collapsible: true,	header: 'header', autoHeight: false });
+				$('#widget-areas .accordion').append(data).accordion('destroy').accordion({collapsible: true,	header: 'header', autoHeight: false });
+				
+				//open the newly appended area
+				$('.widget-area-header:last').click();
 				
 				// Done, hide this form
 				hide_add_area();
-				
+							
 				// Re-bind the droppable areas
 				set_droppable();
 				

@@ -129,6 +129,7 @@ class MY_Parser extends CI_Parser {
 			$content = $data['content'];
 			$parsed_return = '';
 			$simpletags = new Tags;
+			$simpletags->set_trigger('pyro:');
 			foreach ($return_data as $result)
 			{
 				$parsed = $simpletags->parse($content, $result);
