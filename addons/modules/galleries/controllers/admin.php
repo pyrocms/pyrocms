@@ -443,27 +443,6 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	 * Method to install the module
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @return void
-	 */
-	public function install()
-	{
-		if ( $this->galleries_m->install_module() === TRUE )
-		{
-			$this->session->set_flashdata('success', lang('galleries.install_success'));
-		}
-		else
-		{
-			$this->session->set_flashdata('error', lang('galleries.install_error'));
-		}
-
-		redirect('admin/galleries');
-	}
-
-	/**
 	 * Sort images in an existing gallery
 	 *
 	 * @author Jerel Unruh - PyroCMS Dev Team
