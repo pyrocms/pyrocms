@@ -18,7 +18,7 @@ class Module_Comments extends Module {
 				'zh' => '回應',
 				'it' => 'Commenti',
 				'ru' => 'Комментарии',
-				'ar' => 'العربيّة'
+				'ar' => 'التعليقات'
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
