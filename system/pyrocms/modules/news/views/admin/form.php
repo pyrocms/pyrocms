@@ -63,16 +63,11 @@
                       <div style="float:left;">
                                          
                       <?php
-                      if(@$article->created_on_day==''&&@$article->date==''){
-                        $date =date('n/j/y');
+                      if(@$article->created_on_day==''&& @$article->date==''){
+                        $date = date('d/m/y');
                       }
                       else{
-                        if(!isset($article->date)){
-                $date = $article->created_on_month.'/'.$article->created_on_day.'/'.$article->created_on_year;
-              }
-              else{
-                $date = $article->date;
-              }
+		                $date = isset($article->date) ? $article->date : date('d/m/Y', strtotime($article->created_on_year.'-'.$article->created_on_month.'-'.$article->created_on_day));
                       }
                       
                       echo form_input('date', htmlspecialchars_decode($date), 'maxlength="10" id="datepicker" class="text width-20"'); ?>
