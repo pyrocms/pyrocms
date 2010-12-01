@@ -18,7 +18,8 @@ class Module_Users extends Module {
 				'zh' => '用戶',
 				'it' => 'Utenti',
 				'ru' => 'Пользователи',
-				'ar' => 'المستخدمون'
+				'ar' => 'المستخدمون',
+				'cs' => 'Uživatelé'
 			),
 			'description' => array(
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
@@ -32,6 +33,7 @@ class Module_Users extends Module {
 				'it' => 'Fai iscrivere de entrare nel sito gli utenti, e gestiscili attraverso il pannello di controllo.',
 				'ru' => 'Управление зарегистрированными пользователями, активирование новых пользователей.',
 				'ar' => 'تمكين المستخدمين من التسجيل والدخول إلى الموقع، وإدارتهم من لوحة التحكم.',
+				'cs' => 'Umožňuje uživatelům se registrovat a přihlašovat a zároveň jejich správu v Kontrolním panelu.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

@@ -15,7 +15,8 @@ class Module_Widgets extends Module {
 				'zh' => '小組件',
 				'it' => 'Widgets',
 				'ru' => 'Виджеты',
-				'ar' => 'الودجت'
+				'ar' => 'الودجت',
+				'cs' => 'Widgety'
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -26,7 +27,8 @@ class Module_Widgets extends Module {
 				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
 				'it' => 'Gestisci piccole sezioni di logica a se stante in blocchi o "Widgets".',
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
-				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".'
+				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".',
+				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".'
 
 			),
 			'frontend' => FALSE,

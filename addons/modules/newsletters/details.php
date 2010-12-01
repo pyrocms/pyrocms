@@ -17,7 +17,8 @@ class Module_Newsletters extends Module {
 				'zh' => '電子報',
 				'it' => 'Newsletter',
 				'ru' => 'Подписка на новости',
-				'ar' => 'النّشرات البريديّة'
+				'ar' => 'النّشرات البريديّة',
+				 'cs' => 'Novinky e-mailem'
 			),
 			'description' => array(
 				'en' => 'Let visitors subscribe via their email address.',
@@ -29,7 +30,8 @@ class Module_Newsletters extends Module {
 				'zh' => '讓訪客填寫電子郵件以訂閱電子報。',
 				'it' => 'Permette ai visitatori di iscriversi attraverso i loro indirizzi email.',
 				'ru' => 'Посетители могут подписаться на рассылку новостей, используя свой адрес Email.',
-				'ar' => 'مكّن زوّار موقعك من الإشتراك باستخدام عنوان بريدهم الإلكتروني.'
+				'ar' => 'مكّن زوّار موقعك من الإشتراك باستخدام عنوان بريدهم الإلكتروني.',
+				 'cs' => 'Umožněte návštěvník přihlásit se k novinkám e-mailem.'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,

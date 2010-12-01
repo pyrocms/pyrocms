@@ -18,7 +18,8 @@ class Module_Modules extends Module {
 				'zh' => '模組',
 				'it' => 'Moduli',
 				'ru' => 'Модули',
-				'ar' => 'الوحدات'
+				'ar' => 'الوحدات',
+				'cs' => 'Moduly'
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -31,7 +32,8 @@ class Module_Modules extends Module {
 				'zh' => '管理員可以檢視目前已經安裝模組的列表',
 				'it' => 'Permette agli amministratori di vedere una lista dei moduli attualmente installati.',
 				'ru' => 'Список модулей, которые установлены на сайте.',
-				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.'
+				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.',
+				'cs' => 'Umožňuje administrátorům vidět seznam nainstalovaných modulů.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

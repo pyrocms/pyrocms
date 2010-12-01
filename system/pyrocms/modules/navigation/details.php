@@ -18,7 +18,8 @@ class Module_Navigation extends Module {
 				'zh' => '導航列',
 				'it' => 'Navigazione',
 				'ru' => 'Навигация',
-				'ar' => 'الروابط'
+				'ar' => 'الروابط',
+				'cs' => 'Navigace'
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -32,6 +33,7 @@ class Module_Navigation extends Module {
 				'it' => 'Gestisci i collegamenti dei menu di navigazione e tutti i gruppi di navigazione da cui dipendono.',
 				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'ar' => 'إدارة روابط وقوائم ومجموعات الروابط في الموقع.',
+				'cs' => 'Správa odkazů v navigaci a všech souvisejících navigačních skupin.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

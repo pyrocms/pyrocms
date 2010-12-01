@@ -17,7 +17,8 @@ class Module_Settings extends Module {
 				'br' => 'Configurações',
 				'zh' => '網站設定',
 				'it' => 'Impostazioni',
-				'ru' => 'Настройки'
+				'ru' => 'Настройки',
+				'cs' => 'Nastavení'
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -29,7 +30,8 @@ class Module_Settings extends Module {
 				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
 				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
-				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.'
+				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
+				'cs' => 'Umožňuje administrátorům měnit nastavení webu jako jeho jméno, zprávy a emailovou adresu apod.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

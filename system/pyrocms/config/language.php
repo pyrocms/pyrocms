@@ -26,7 +26,8 @@ $config['supported_languages'] = array(
 	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr'),
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr'),
 	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl'),
-	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr')
+	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr'),
+	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr')
 );
 
 /*
