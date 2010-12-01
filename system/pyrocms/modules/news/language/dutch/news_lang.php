@@ -30,11 +30,8 @@ $lang['news_rss_name_suffix'] 			= ' Nieuws';
 $lang['news_rss_category_suffix'] 		= ' Nieuws';
 $lang['news_author_name_label'] 		= 'Auteur naam';
 $lang['news_read_more_label'] 			= 'Lees Meer&nbsp;&raquo;';
-$lang['news_created_day']                       = 'Gemaakt op Dag';
-$lang['news_created_month']                     = 'Gemaakt op Maand';
-$lang['news_created_year']                      = 'Gemaakt op Jaar';
-$lang['news_created_hour']                      = 'Gemaakt op Uur';
-$lang['news_created_minute']                    = 'Gemaakt op Minuut';
+$lang['news_created_hour']                  = 'Time (Hour)'; #translate
+$lang['news_created_minute']                = 'Time (Minute)'; #translate
 
 // titles
 $lang['news_create_title'] 			= 'Voeg artikel toe';
