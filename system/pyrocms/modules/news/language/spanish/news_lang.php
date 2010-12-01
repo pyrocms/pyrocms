@@ -29,11 +29,8 @@ $lang['news_rss_category_suffix'] 			= ' Noticias';
 $lang['news_posted_label'] 					= 'Escrito en';
 $lang['news_author_name_label'] 			= 'Nombre del autor';
 $lang['news_read_more_label'] 				= 'Leer má;s&nbsp;&raquo;';
-$lang['news_created_day']                       = 'Created on Day';
-$lang['news_created_month']                     = 'Created on Month';
-$lang['news_created_year']                      = 'Created on Year';
-$lang['news_created_hour']                      = 'Created on Hour';
-$lang['news_created_minute']                    = 'Created on Minute';
+$lang['news_created_hour']                  = 'Time (Hour)'; #translate
+$lang['news_created_minute']                = 'Time (Minute)'; #translate
 
 // titles
 $lang['news_create_title'] 					= 'Crear un artículo';

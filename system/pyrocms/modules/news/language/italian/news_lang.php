@@ -32,11 +32,8 @@ $lang['news_rss_name_suffix'] 			= ' Notizie';
 $lang['news_rss_category_suffix'] 		= ' Notizie';
 $lang['news_author_name_label'] 		= 'Nome autore';
 $lang['news_read_more_label'] 			= 'Leggi tutto&nbsp;&raquo;';
-$lang['news_created_day']                       = 'Creato il Giorno';
-$lang['news_created_month']                     = 'Creato il Mese';
-$lang['news_created_year']                      = 'Creato l\' Anno';
-$lang['news_created_hour']                      = 'Creato alle Ore';
-$lang['news_created_minute']                    = 'Creato al Minuto';
+$lang['news_created_hour']                  = 'Time (Hour)'; #translate
+$lang['news_created_minute']                = 'Time (Minute)'; #translate
 
 // titles
 $lang['news_create_title'] 			= 'Aggiungi un articolo';

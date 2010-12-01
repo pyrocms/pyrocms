@@ -44,19 +44,15 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|alpha'
 		),
 		array(
-			'field' => 'created_on_day',
-			'label' => 'lang:news_created_day',
-			'rules' => 'trim|numeric|required'
+			'field' => 'date',
+			'label' => 'lang:news_date_label',
+			'rules' => 'trim|required'
 		),
-    array(
-      'field' => 'date',
-      'rules' => 'trim|max_length[10]'
-    ),
-    array(
-      'field' => 'created_on_hour',
-      'label' => 'lang:news_created_hour',
-      'rules' => 'trim|numeric|required'
-    ),
+		array(
+		  'field' => 'created_on_hour',
+		  'label' => 'lang:news_created_hour',
+		  'rules' => 'trim|numeric|required'
+		),
 		array(
 			'field' => 'created_on_minute',
 			'label' => 'lang:news_created_minute',

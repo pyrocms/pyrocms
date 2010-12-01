@@ -30,9 +30,6 @@ $lang['news_rss_name_suffix'] 			= ' News';
 $lang['news_rss_category_suffix'] 		= ' News';
 $lang['news_author_name_label'] 		= 'Author name';
 $lang['news_read_more_label'] 			= 'Read More&nbsp;&raquo;';
-$lang['news_created_day']                       = 'Created on Day';
-$lang['news_created_month']                     = 'Created on Month';
-$lang['news_created_year']                      = 'Created on Year';
 $lang['news_created_hour']                      = 'Created on Hour';
 $lang['news_created_minute']                    = 'Created on Minute';
 
