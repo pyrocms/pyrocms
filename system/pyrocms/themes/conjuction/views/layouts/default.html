@@ -29,21 +29,21 @@
 					{if '{pyro:session:data name="user_id"}'}
 						<h2>{pyro:user:first_name} {pyro:user:last_name}</h2>
 						<ul>
-							<li><a href="{pyro:url:base}/users/logout">{pyro:helper:lang line="logout_label"}</a></li>
+							<li><a href="{pyro:url:site}/users/logout">{pyro:helper:lang line="logout_label"}</a></li>
 
 						{if '{pyro:settings:enable_profiles}'}
-							<li><a href="{pyro:url:base}/edit-profile" target="_blank">{pyro:helper:lang line="edit_profile_label"}</a></li>
+							<li><a href="{pyro:url:site}/edit-profile" target="_blank">{pyro:helper:lang line="edit_profile_label"}</a></li>
 						{/if}
 
-						<li><a href="{pyro:url:base}/edit-settings" target="_blank">{pyro:helper:lang line="settings_label"}</a></li>
+						<li><a href="{pyro:url:site}/edit-settings" target="_blank">{pyro:helper:lang line="settings_label"}</a></li>
 
 						{if '{pyro:user:group}' == 'admin'}
-							<li><a href="{pyro:url:base}/admin" target="_blank">{pyro:helper:lang line="cp_title"}</a></li>
+							<li><a href="{pyro:url:site}/admin" target="_blank">{pyro:helper:lang line="cp_title"}</a></li>
 						{/if}
 						</ul>
 					{else}
 
-						<form method="{pyro:url:base}/users/login" id="login-small">
+						<form method="{pyro:url:site}/users/login" id="login-small">
 							<ul>
 								<li class="email">
 									<label for="email">{pyro:helper:lang line="user_email"}</label>
@@ -55,7 +55,7 @@
 								</li>
 								<li class="form-buttons">
 									<input type="submit" value="{pyro:helper:lang line='user_login_btn'}" name="btnLogin" /> or 
-									<a href="{pyro:url:base}/register">{pyro:helper:lang line="user_register_btn"}</a>
+									<a href="{pyro:url:site}/register">{pyro:helper:lang line="user_register_btn"}</a>
 								</li>
 								<li class="remember-me">
 									<input type="checkbox" name="remember" value="1" /><span>{pyro:helper:lang line="user_remember"}</span>

@@ -30,11 +30,8 @@ $lang['news_rss_name_suffix'] 			= ' &raquo; الأخبار';
 $lang['news_rss_category_suffix'] 		= ' &raquo; الأخبار';
 $lang['news_author_name_label'] 		= 'إسم الكاتب';
 $lang['news_read_more_label'] 			= 'إقرأ المزيد&nbsp;&raquo;';
-$lang['news_created_day']                       = 'كتب في يوم';
-$lang['news_created_month']                     = 'كتب في شهر';
-$lang['news_created_year']                      = 'كتب في سنة';
-$lang['news_created_hour']                      = 'كتب في الساعة';
-$lang['news_created_minute']                    = 'كتب في الدقيقة';
+$lang['news_created_hour']                  = 'Time (Hour)'; #translate
+$lang['news_created_minute']                = 'Time (Minute)'; #translate
 
 // titles
 $lang['news_create_title'] 			= 'إضافة مقال';

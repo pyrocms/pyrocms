@@ -30,11 +30,8 @@ $lang['news_rss_name_suffix'] 					= ' 新聞';
 $lang['news_rss_category_suffix'] 				= ' 新聞';
 $lang['news_author_name_label'] 				= '作者名稱';
 $lang['news_read_more_label'] 					= '閱讀更多&nbsp;&raquo;';
-$lang['news_created_day']                       = '建立日';
-$lang['news_created_month']                     = '建立月';
-$lang['news_created_year']                      = '建立年';
-$lang['news_created_hour']                      = '建立時';
-$lang['news_created_minute']                    = '建立分';
+$lang['news_created_hour']                  = 'Time (Hour)'; #translate
+$lang['news_created_minute']                = 'Time (Minute)'; #translate
 
 // titles
 $lang['news_create_title'] 				= '新增文章';

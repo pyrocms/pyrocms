@@ -16,7 +16,8 @@ class Module_Contact extends Module {
 				'de' => 'Kontakt',
 				'zh' => '聯絡我們',
 				'it' => 'Contattaci',
-				'ru' => 'Обратная связь'
+				'ru' => 'Обратная связь',
+				'ar' => 'الإتصال'
 			),
 			'description' => array(
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
@@ -27,7 +28,8 @@ class Module_Contact extends Module {
 				'de' => 'Fügt ein Formular hinzu, welches Besuchern erlaubt Emails zu schreiben, ohne die Kontakt Email-Adresse offen zu legen.',
 				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
 				'it' => 'Aggiunge un modulo al tuo sito che permette ai visitatori di inviarti email senza mostrare loro il tuo indirizzo email.',
-				'ru' => 'Добавляет форму обратной связи на сайт, через которую посетители могут отправлять вам письма, при этом адрес Email остаётся скрыт.'
+				'ru' => 'Добавляет форму обратной связи на сайт, через которую посетители могут отправлять вам письма, при этом адрес Email остаётся скрыт.',
+				'ar' => 'إضافة استمارة إلى موقعك تُمكّن الزوّار من مراسلتك دون علمهم بعنوان البريد الإلكتروني.'
 			),
 			'frontend' => TRUE,
 			'backend' => FALSE,
