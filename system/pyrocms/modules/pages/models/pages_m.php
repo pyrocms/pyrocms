@@ -281,14 +281,14 @@ class Pages_m extends MY_Model
     {
         $this->load->helper('date');
 
-        return $this->db->update('pages', array(
+        $return = $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
 	        'revision_id'	=> $input['revision_id'],
 	        'parent_id'		=> $input['parent_id'],
-            'layout_id'		=> $input['layout_id'],
-            'css'			=> $input['css'],
-            'js'			=> $input['js'],
+	        'layout_id'		=> $input['layout_id'],
+	        'css'			=> $input['css'],
+	        'js'			=> $input['js'],
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
@@ -297,6 +297,10 @@ class Pages_m extends MY_Model
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
+
+        $this->cache->delete_all('navigation_m');
+
+        return $return;
     }
 
     /**
