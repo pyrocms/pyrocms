@@ -1,22 +1,22 @@
 <?php
 
-$lang['upload_userfile_not_set'] = "Não foi encontrada nenhuma variável post identificada como userfile.";
-$lang['upload_file_exceeds_limit'] = "O arquivo enviado excede o tamanho máximo permitido no seu arquivo de configuração PHP.";
-$lang['upload_file_exceeds_form_limit'] = "O arquivo enviado excede o tamanho máximo permitido pelo formulário.";
+$lang['upload_userfile_not_set'] = "NÃ£o foi encontrada nenhuma variÃ¡vel post identificada como userfile.";
+$lang['upload_file_exceeds_limit'] = "O arquivo enviado excede o tamanho mÃ¡ximo permitido no seu arquivo de configuraÃ§Ã£o PHP.";
+$lang['upload_file_exceeds_form_limit'] = "O arquivo enviado excede o tamanho mÃ¡ximo permitido pelo formulÃ¡rio.";
 $lang['upload_file_partial'] = "O arquivo foi parcialmente transferido.";
-$lang['upload_no_temp_directory'] = "A pasta temporária não foi encontrada.";
-$lang['upload_unable_to_write_file'] = "O arquivo não pôde ser gravado no disco.";
-$lang['upload_stopped_by_extension'] = "O envio de arquivos foi interrompido por causa da extensão.";
+$lang['upload_no_temp_directory'] = "A pasta temporÃ¡ria nÃ£o foi encontrada.";
+$lang['upload_unable_to_write_file'] = "O arquivo nÃ£o pÃ´de ser gravado no disco.";
+$lang['upload_stopped_by_extension'] = "O envio de arquivos foi interrompido por causa da extensÃ£o.";
 $lang['upload_no_file_selected'] = "Nenhum arquivo foi selecionado para envio.";
-$lang['upload_invalid_filetype'] = "O tipo de arquivo que você está tentando enviar não é permitido.";
-$lang['upload_invalid_filesize'] = "O arquivo que você está tentando enviar é maior que o permitido.";
-$lang['upload_invalid_dimensions'] = "A imagem que você está tentando enviar excede a altura ou a largura máxima.";
+$lang['upload_invalid_filetype'] = "O tipo de arquivo que vocÃª estÃ¡ tentando enviar nÃ£o Ã© permitido.";
+$lang['upload_invalid_filesize'] = "O arquivo que vocÃª estÃ¡ tentando enviar Ã© maior que o permitido.";
+$lang['upload_invalid_dimensions'] = "A imagem que vocÃª estÃ¡ tentando enviar excede a altura ou a largura mÃ¡xima.";
 $lang['upload_destination_error'] = "Foi encontrado um problema durante a tentativa de mover o arquivo enviado para o destino final.";
-$lang['upload_no_filepath'] = "O caminho de envio parece ser inválido.";
+$lang['upload_no_filepath'] = "O caminho de envio parece ser invÃ¡lido.";
 $lang['upload_no_file_types'] = "Nenhum tipo de arquivo permitido foi especificado.";
-$lang['upload_bad_filename'] = "O nome do arquivo especificado já existe no servidor.";
-$lang['upload_not_writable'] = "Parece não haver permissão de escrita para a pasta de destino do envio.";
+$lang['upload_bad_filename'] = "O nome do arquivo especificado jÃ¡ existe no servidor.";
+$lang['upload_not_writable'] = "Parece nÃ£o haver permissÃ£o de escrita para a pasta de destino do envio.";
 
 
 /* End of file upload_lang.php */
-/* Location: ./system/language/english/upload_lang.php */
+/* Location: ./system/language/brazilian/upload_lang.php */

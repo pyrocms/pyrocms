@@ -21,4 +21,4 @@ $lang['is_natural_no_zero']	= "O campo %s precisa conter um número maior que ze
 
 
 /* End of file validation_lang.php */
-/* Location: ./system/language/english/validation_lang.php */
+/* Location: ./system/language/brazilian/validation_lang.php */

@@ -2,7 +2,7 @@
 
 $lang['date_year']      = "Ano";
 $lang['date_years']     = "Anos";
-$lang['date_month']     = "Mês";
+$lang['date_month']     = "MÃªs";
 $lang['date_months']    = "Meses";
 $lang['date_week']      = "Semana";
 $lang['date_weeks']     = "Semanas";
