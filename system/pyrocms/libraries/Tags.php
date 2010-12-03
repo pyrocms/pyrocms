@@ -111,9 +111,8 @@ class Tags
 
 			return $content;
 		}
-		
-		$orig_content = $this->parse_globals($content, $data);
 
+		$orig_content = $this->parse_globals($content, $data);
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
 
@@ -304,7 +303,7 @@ class Tags
 			{
 				$value = (array) $value;
 			}
-			
+
 			if ( ! is_array($value))
 			{
 				$content = str_replace('{'.$var.'}', $value, $content);
@@ -389,6 +388,7 @@ class Tags
 		}
 
 		$temp = new Tags;
+		$temp->set_trigger($this->_trigger);
 		foreach ($data as $val)
 		{
 			$return = $temp->parse($tag['content'], $val);
