@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['comments.title'] 					= 'Comentários';
 $lang['comments.your_comment'] 				= 'Postar um comentário';
@@ -54,3 +54,6 @@ $lang['comments.delete_single_success'] 	= 'O comentário #%s foi removido e nã
 $lang['comments.delete_multi_success'] 		= 'Os comentários #%s foram removidos e não será mais possível visualiza-los no site público.';
 
 $lang['comments.no_comments'] 				= 'Não existem comentários';
+
+/* End of file comments_lang.php */
+/* Location: ./system/pyrocms/modules/comments/language/brazilian/comments_lang.php */

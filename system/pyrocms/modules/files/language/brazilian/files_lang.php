@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * PyroCMS
  *
@@ -39,5 +40,5 @@ $lang['files.folders.confirm_delete']		= 'Você tem certeza que deseja deletar "
 $lang['files.dropdown.no_subfolders']		= '-- Vazio --';
 $lang['files.dropdown.root']				= '-- Raiz --';
 
-
-/* End of file file_lang.php */
+/* End of file files_lang.php */
+/* Location: ./system/pyrocms/modules/files/language/brazilian/files_lang.php */
