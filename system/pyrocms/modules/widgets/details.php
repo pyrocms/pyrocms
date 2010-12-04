@@ -9,6 +9,7 @@ class Module_Widgets extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Widgets',
+				'br' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
 				'fr' => 'Widgets',

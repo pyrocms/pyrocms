@@ -20,7 +20,7 @@ class Module_Groups extends Module {
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
-				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.',
+				'br' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
 				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
 				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',

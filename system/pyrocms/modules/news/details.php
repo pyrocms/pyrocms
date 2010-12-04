@@ -27,7 +27,7 @@ class Module_News extends Module {
 				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
 				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
-				'br' => 'Poste novidades',
+				'br' => 'Escrever novos artigos e publicações de blog',
 				'zh' => '發表新聞訊息、部落格文章。',
 				'it' => 'Pubblica notizie e post per il blog.',
 				'ru' => 'Управление новостными статьями и записями блога.',

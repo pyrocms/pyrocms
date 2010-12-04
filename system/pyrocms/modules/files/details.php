@@ -9,7 +9,7 @@ class Module_Files extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Files',
-				'br' => 'Files',
+				'br' => 'Arquivos',
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
