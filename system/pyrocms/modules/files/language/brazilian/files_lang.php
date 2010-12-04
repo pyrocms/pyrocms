@@ -13,16 +13,15 @@
  */
 
 $lang['files.title']						= 'Arquivos';
-$lang['files.upload.title']					= 'Upload de Arquivos';
+$lang['files.upload.title']					= 'Envio de arquivos';
 $lang['files.labels.action']				= 'Ações';
-$lang['files.labels.download']				= 'Download'; #translate
 $lang['files.labels.edit']					= 'Editar';
-$lang['files.labels.delete']				= 'Deletar';
-$lang['files.labels.upload']				= 'Upload';
-$lang['files.labels.parent']				= 'Topo';
+$lang['files.labels.delete']				= 'Remover';
+$lang['files.labels.upload']				= 'Enviar';
+$lang['files.labels.parent']				= 'Pai';
 $lang['files.no_files']						= 'Não existem arquivos atualmente.';
 
-$lang['files.folders.title']				= 'Pasta de Arquivos';
+$lang['files.folders.title']				= 'Pasta de arquivos';
 $lang['files.folders.manage_title']			= 'Gerenciar Pastas';
 $lang['files.folders.label']				= 'Pastas';
 $lang['files.subfolders.label']				= 'Sub-Pastas';
