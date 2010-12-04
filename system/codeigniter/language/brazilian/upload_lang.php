@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['upload_userfile_not_set'] = "Não foi encontrada nenhuma variável post identificada como userfile.";
 $lang['upload_file_exceeds_limit'] = "O arquivo enviado excede o tamanho máximo permitido no seu arquivo de configuração PHP.";
@@ -16,7 +16,6 @@ $lang['upload_no_filepath'] = "O caminho de envio parece ser inválido.";
 $lang['upload_no_file_types'] = "Nenhum tipo de arquivo permitido foi especificado.";
 $lang['upload_bad_filename'] = "O nome do arquivo especificado já existe no servidor.";
 $lang['upload_not_writable'] = "Parece não haver permissão de escrita para a pasta de destino do envio.";
-
 
 /* End of file upload_lang.php */
 /* Location: ./system/language/brazilian/upload_lang.php */

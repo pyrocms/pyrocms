@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['email_must_be_array'] = "O método de validação de e-mail deve ser passado num Array.";
 $lang['email_invalid_address'] = "Endereço de e-mail inválido: %s";
@@ -18,7 +18,6 @@ $lang['email_smtp_auth_un'] = "Nome de usuário não autenticado. Erro: %s";
 $lang['email_smtp_auth_pw'] = "Senha não autenticada. Erro: %s";
 $lang['email_smtp_data_failure'] = "Não foi possível enviar dados: %s";
 $lang['email_exit_status'] = "Código de status de saída: %s";
-
 
 /* End of file email_lang.php */
 /* Location: ./system/language/brazilian/email_lang.php */

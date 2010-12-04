@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['imglib_source_image_required'] = "Favor especificar imagem fonte nas suas configurações.";
 $lang['imglib_gd_required'] = "Para uso deste recurso, é necessária a biblioteca de imagens GD.";
@@ -18,7 +18,6 @@ $lang['imglib_invalid_path'] = "O caminho para a imagem está incorreto.";
 $lang['imglib_copy_failed'] = "Falha na cópia da imagem.";
 $lang['imglib_missing_font'] = "Não foi possível encontrar uma fonte para ser utilizada.";
 $lang['imglib_save_failed'] = "Não foi possível salvar a imagem. Favor confirmar se há permissão de escrita para a imagem e para o diretório.";
-
 
 /* End of file imglib_lang.php */
 /* Location: ./system/language/brazilian/imglib_lang.php */
