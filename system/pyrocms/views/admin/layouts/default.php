@@ -51,7 +51,7 @@
 	</section>
 	<section id="content-wrapper">
 		<header id="page-header">
-			<h1><?php echo $module_details['name'] ? anchor('admin/' . strtolower($module_details['name']), $module_details['name']) : lang('cp_admin_home_title'); ?></h1>
+			<h1><?php echo $module_details['name'] ? anchor('admin/' . $module_details['slug'], $module_details['name']) : lang('cp_admin_home_title'); ?></h1>
 			<p><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></p>
 			<?php if($module_details['slug']): ?>
 				<p id="page-header-help"><?php echo anchor('admin/help/'.$module_details['slug'], '?', array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?></p>
