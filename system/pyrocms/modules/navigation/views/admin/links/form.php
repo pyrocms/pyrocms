@@ -62,7 +62,7 @@
 
 		<li class="even">
 			<label for="target"><?php echo lang('nav_target_label'); ?></label>
-			<?php echo form_dropdown('target', array('_self'=> lang('nav_link_target_self'), '_blank' => lang('nav_link_target_blank')), $navigation_link->target); ?>
+			<?php echo form_dropdown('target', array(''=> lang('nav_link_target_self'), '_blank' => lang('nav_link_target_blank')), $navigation_link->target); ?>
 		</li>
 
 		<li>
