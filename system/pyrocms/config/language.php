@@ -23,7 +23,7 @@ $config['supported_languages'] = array(
 	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr'),
 	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr'),
 	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr'),
-	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr'),
+	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr'),
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr'),
 	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl'),
 	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr')

@@ -14,6 +14,7 @@ class Module_Redirects extends Module {
 				'it' => 'Reindirizzi',
 				'ru' => 'Перенаправления',
 				'ar' => 'التوجيهات',
+				'pt' => 'Redirecionamentos'
 			),
 			'description' => array(
 				'nl' => 'Verwijs vanaf een URL naar een andere.',
@@ -21,7 +22,8 @@ class Module_Redirects extends Module {
 				'fr' => 'Redirection d\'une URL à un autre.',
 				'it' => 'Reindirizza da una URL ad un altra.',
 				'ru' => 'Перенаправления с одного адреса на другой.',
-				'ar' => 'التوجيه من رابط URL إلى آخر.'
+				'ar' => 'التوجيه من رابط URL إلى آخر.',
+				'pt' => 'Redirecionamento de uma URL para outra.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
