@@ -1,11 +1,11 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
 | -------------------------------------------------------------------
 | This file will contain the settings needed to access your database.
 |
-| For complete instructions please consult the "Database Connection"
+| For complete instructions please consult the 'Database Connection'
 | page of the User Guide.
 |
 | -------------------------------------------------------------------
@@ -32,48 +32,48 @@
 */
 
 // Local
-$db['local']['hostname'] = "__HOSTNAME__";
-$db['local']['username'] = "__USERNAME__";
-$db['local']['password'] = "__PASSWORD__";
-$db['local']['database'] = "__DATABASE__";
-$db['local']['dbdriver'] = "mysql";
-$db['local']['dbprefix'] = "";
+$db['local']['hostname'] = '__HOSTNAME__';
+$db['local']['username'] = '__USERNAME__';
+$db['local']['password'] = '__PASSWORD__';
+$db['local']['database'] = '__DATABASE__';
+$db['local']['dbdriver'] = 'mysql';
+$db['local']['dbprefix'] = '';
 $db['local']['stricton'] = TRUE;
 $db['local']['active_r'] = TRUE;
 $db['local']['pconnect'] = TRUE;
 $db['local']['db_debug'] = TRUE;
 $db['local']['cache_on'] = FALSE;
-$db['local']['cachedir'] = "";
-$db['local']['char_set'] = "utf8";
-$db['local']['dbcollat'] = "utf8_unicode_ci";
+$db['local']['cachedir'] = '';
+$db['local']['char_set'] = 'utf8';
+$db['local']['dbcollat'] = 'utf8_unicode_ci';
 $db['local']['port'] 	 = __PORT__;
 
-// "Tough love": Forces strict mode to test your app for best compatibility
+// 'Tough love': Forces strict mode to test your app for best compatibility
 $db['local']['stricton'] = TRUE;
 
 // Dev
-//$db['dev']['hostname'] = "localhost";
+//$db['dev']['hostname'] = 'localhost';
 // ...etc
 
 // QA
-//$db['qa']['hostname'] = "localhost";
+//$db['qa']['hostname'] = 'localhost';
 // ...etc
 
 // Live
-$db['live']['hostname'] = "__HOSTNAME__";
-$db['live']['username'] = "__USERNAME__";
-$db['live']['password'] = "__PASSWORD__";
-$db['live']['database'] = "__DATABASE__";
-$db['live']['dbdriver'] = "mysql";
-$db['live']['dbprefix'] = "";
+$db['live']['hostname'] = '__HOSTNAME__';
+$db['live']['username'] = '__USERNAME__';
+$db['live']['password'] = '__PASSWORD__';
+$db['live']['database'] = '__DATABASE__';
+$db['live']['dbdriver'] = 'mysql';
+$db['live']['dbprefix'] = '';
 $db['live']['stricton'] = TRUE;
 $db['live']['active_r'] = TRUE;
 $db['live']['pconnect'] = TRUE;
 $db['live']['db_debug'] = TRUE;
 $db['live']['cache_on'] = FALSE;
-$db['live']['cachedir'] = "";
-$db['live']['char_set'] = "utf8";
-$db['live']['dbcollat'] = "utf8_unicode_ci";
+$db['live']['cachedir'] = '';
+$db['live']['char_set'] = 'utf8';
+$db['live']['dbcollat'] = 'utf8_unicode_ci';
 $db['live']['port'] 	= __PORT__;
 
 // Check the configuration group in use exists
