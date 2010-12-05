@@ -38,8 +38,8 @@ $lang['news_rss_name_suffix']								= ' новости';
 $lang['news_rss_category_suffix']						= ' новости';
 $lang['news_author_name_label']							= 'Автор';
 $lang['news_read_more_label']								= 'читать целиком&nbsp;&raquo;';
-$lang['news_created_hour']                  = 'Time (Hour)'; #translate
-$lang['news_created_minute']                = 'Time (Minute)'; #translate
+$lang['news_created_hour']									= 'Время (Час)';
+$lang['news_created_minute']								= 'Время (Минута)';
 
 // заголовки
 $lang['news_create_title']									= 'Создать статью';
