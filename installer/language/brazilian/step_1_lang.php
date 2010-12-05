@@ -16,5 +16,5 @@ $lang['httpserver']		=	'Servidor HTTP';
 $lang['step2']			=	'Passo 2';
 
 // messages
-$lang['db_success']		=	'As configurações do banco de dados foram testas e estão corretas.';
+$lang['db_success']		=	'As configurações do banco de dados foram testadas e estão corretas.';
 $lang['db_failure']		=	'Problema ao conectar ao banco de dados: ';

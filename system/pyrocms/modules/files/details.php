@@ -9,7 +9,7 @@ class Module_Files extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Files',
-				'br' => 'Files',
+				'pt' => 'Arquivos',
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
@@ -20,7 +20,7 @@ class Module_Files extends Module {
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
+				'pt' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
 				'nl' => 'Beheer bestanden en folders op uw website.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',

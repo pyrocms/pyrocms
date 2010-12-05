@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * PyroCMS
  *
@@ -13,16 +14,15 @@
  */
 
 $lang['files.title']						= 'Arquivos';
-$lang['files.upload.title']					= 'Upload de Arquivos';
+$lang['files.upload.title']					= 'Envio de arquivos';
 $lang['files.labels.action']				= 'Ações';
-$lang['files.labels.download']				= 'Download'; #translate
 $lang['files.labels.edit']					= 'Editar';
-$lang['files.labels.delete']				= 'Deletar';
-$lang['files.labels.upload']				= 'Upload';
-$lang['files.labels.parent']				= 'Topo';
+$lang['files.labels.delete']				= 'Remover';
+$lang['files.labels.upload']				= 'Enviar';
+$lang['files.labels.parent']				= 'Pai';
 $lang['files.no_files']						= 'Não existem arquivos atualmente.';
 
-$lang['files.folders.title']				= 'Pasta de Arquivos';
+$lang['files.folders.title']				= 'Pasta de arquivos';
 $lang['files.folders.manage_title']			= 'Gerenciar Pastas';
 $lang['files.folders.label']				= 'Pastas';
 $lang['files.subfolders.label']				= 'Sub-Pastas';
@@ -40,5 +40,5 @@ $lang['files.folders.confirm_delete']		= 'Você tem certeza que deseja deletar "
 $lang['files.dropdown.no_subfolders']		= '-- Vazio --';
 $lang['files.dropdown.root']				= '-- Raiz --';
 
-
-/* End of file file_lang.php */
+/* End of file files_lang.php */
+/* Location: ./system/pyrocms/modules/files/language/brazilian/files_lang.php */
