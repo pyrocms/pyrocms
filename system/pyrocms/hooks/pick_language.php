@@ -10,28 +10,26 @@ function pick_language()
 	parse_str($_SERVER['QUERY_STRING'], $_GET);
 		
     // Lang set in URL via ?lang=something
-    if(!empty($_GET['lang']))
+    if ( ! empty($_GET['lang']))
     {
         // Turn en-gb into en
         $lang = substr($_GET['lang'], 0, 2);
-        $_SESSION['lang_code'] = $lang;
     }
     
     // Lang has already been set and is stored in a session
-    elseif( !empty($_SESSION['lang_code']) )
+    elseif ( ! empty($_SESSION['lang_code']) )
     {
         $lang = $_SESSION['lang_code'];
     }
     
     // Lang has is picked by a user.
-    // Set it to a session variable so we are only checking one place most of the time
-    elseif( !empty($_COOKIE['lang_code']) )
+    elseif ( ! empty($_COOKIE['lang_code']) )
     {
-        $lang = $_SESSION['lang_code'] = $_COOKIE['lang_code'];
+        $lang = $_COOKIE['lang_code'];
     }
     
     // Still no Lang. Lets try some browser detection then
-    else if (!empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ))
+    elseif ( ! empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
     {
     	// explode languages into array
     	$accept_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -53,7 +51,7 @@ function pick_language()
     }
     
     // If no language has been worked out - or it is not supported - use the default
-    if(empty($lang) or !array_key_exists($lang, $config['supported_languages']))
+    if (empty($lang) OR !array_key_exists($lang, $config['supported_languages']))
     {
         $lang = $config['default_language'];
     }
@@ -69,5 +67,4 @@ function pick_language()
 
     // Sets a constant to use throughout ALL of CI.
     define('CURRENT_LANGUAGE', $lang);
-	
 }

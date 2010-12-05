@@ -14,16 +14,17 @@
 
 $lang['buttons.submit']		= 'Salvar';
 $lang['buttons.cancel']		= 'Cancelar';
-$lang['buttons.upload']		= 'Upload';
+$lang['buttons.upload']		= 'Enviar';
 $lang['buttons.save']		= 'Salvar';
 $lang['buttons.save_exit']	= 'Salvar &amp; Sair';
-$lang['buttons.delete']		= 'Deletar';
-$lang['buttons.publish']	= 'Publish'; #translate
-$lang['buttons.approve']	= 'Approve'; #translate
-$lang['buttons.unapprove']	= 'Un-approve'; #translate
+$lang['buttons.delete']		= 'Remover';
+$lang['buttons.publish']	= 'Publicar';
+$lang['buttons.approve']	= 'Aprovar';
+$lang['buttons.unapprove']	= 'Rejeitar';
 $lang['buttons.install']	= 'Instalar';
 $lang['buttons.yes']		= 'Sim';
 $lang['buttons.no']			= 'Não';
-$lang['buttons.activate']       = 'Activate'; #translate
+$lang['buttons.activate']       = 'Ativar';
 
 /* End of file buttons_lang.php */
+/* Location: ./system/pyrocms/language/brazilian/buttons_lang.php */

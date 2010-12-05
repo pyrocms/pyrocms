@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['required'] 			= "O campo %s é obrigatório.";
 $lang['isset']				= "O campo %s precisa ter um valor.";
@@ -19,6 +19,5 @@ $lang['matches']			= "O campo %s não bate com o outro campo %s.";
 $lang['is_natural']			= "O campo %s precisa conter um número.";
 $lang['is_natural_no_zero']	= "O campo %s precisa conter um número maior que zero.";
 
-
 /* End of file validation_lang.php */
-/* Location: ./system/language/english/validation_lang.php */
+/* Location: ./system/language/brazilian/validation_lang.php */
