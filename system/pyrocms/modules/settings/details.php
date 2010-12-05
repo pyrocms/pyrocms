@@ -14,7 +14,7 @@ class Module_Settings extends Module {
 				'fr' => 'Paramètres',
 				'de' => 'Einstellungen',
 				'pl' => 'Ustawienia',
-				'br' => 'Configurações',
+				'pt' => 'Configurações',
 				'zh' => '網站設定',
 				'it' => 'Impostazioni',
 				'ru' => 'Настройки'
@@ -26,7 +26,7 @@ class Module_Settings extends Module {
 				'fr' => 'Permet aux admistrateurs et au personnel de modifier les paramètres du site : nom du site et description',
 				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
 				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
-				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
+				'pt' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
 				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
 				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
 				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.'

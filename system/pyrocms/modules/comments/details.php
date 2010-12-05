@@ -9,7 +9,7 @@ class Module_Comments extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Comments',
-				'br' => 'Comentários',
+				'pt' => 'Comentários',
 				'nl' => 'Reacties',
 				'es' => 'Comentarios',
 				'fr' => 'Commentaires',
@@ -22,7 +22,7 @@ class Module_Comments extends Module {
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
-				'br' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
+				'pt' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'nl' => 'Gebruikers en gasten kunnen reageren op bijna alles.',
 				'es' => 'Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.',
 				'fr' => 'Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.',

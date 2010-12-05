@@ -9,7 +9,7 @@ class Module_Widgets extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Widgets',
-				'br' => 'Widgets',
+				'pt' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
 				'fr' => 'Widgets',
@@ -20,7 +20,7 @@ class Module_Widgets extends Module {
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
-				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
+				'pt' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',
 				'fr' => 'Gérer des mini application ou "Widgets".',
