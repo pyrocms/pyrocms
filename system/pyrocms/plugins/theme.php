@@ -94,7 +94,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css file=""}
+	 * {pyro:theme:js file=""}
 	 *
 	 * @param	array
 	 * @return	array
@@ -109,12 +109,14 @@ class Plugin_Theme extends Plugin
 	}
 
 	/**
-	 * Data
 	 *
-	 * Loads a theme partial
+	 * Theme JS URL
+	 *
+	 * Insert a JS file's URL
 	 *
 	 * Usage:
-	 * {pyro:session:data name="foo"}
+	 *
+	 * {pyro:theme:js_url file=""}
 	 *
 	 * @param	array
 	 * @return	array
@@ -136,6 +138,15 @@ class Plugin_Theme extends Plugin
 		}
 
 		return $variables[$name];
+	}
+
+	function js_url()
+	{
+		$this->load->library('asset');
+
+		$file = $this->attribute('file');
+
+		return $this->asset->js_url($file, '_theme_');
 	}
 }
 
