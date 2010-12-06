@@ -64,6 +64,18 @@
     font-size: smaller;
 }
 
+#create_folder {
+    font-size: larger;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#create_folder a {
+    color: #FF6400;
+}
+
 #folder-container li {
     float: left;
     margin: 0 5px 5px 0;
