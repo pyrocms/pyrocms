@@ -342,6 +342,20 @@ class Module_m extends CI_Model
     	$modules = array();
 
 		$is_core = TRUE;
+
+		$known = $this->get_all(array(), TRUE);
+		$known_array = array();
+
+		// Loop through the known array and assign it to a single dimension because
+		// in_array can not search a multi array.
+		if (is_array($known) && count($known) > 0)
+		{
+			foreach ($known AS $item)
+			{
+				$known_array = array_merge(array($item['slug']), $known_array);
+			}
+		}
+
 		foreach (array(APPPATH, ADDONPATH) as $directory)
     	{
 			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
@@ -355,7 +369,7 @@ class Module_m extends CI_Model
 				}
 
 				// Yeah yeah we know
-				if ($this->exists($slug))
+				if (in_array($slug, $known_array))
 				{
 					continue;
 				}
