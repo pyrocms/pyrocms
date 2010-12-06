@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -32,7 +32,7 @@
  *
  * @access	public
  * @return	bool
- */	
+ */
 if ( ! function_exists('valid_email'))
 {
 	function valid_email($address)
@@ -48,7 +48,7 @@ if ( ! function_exists('valid_email'))
  *
  * @access	public
  * @return	bool
- */	
+ */
 if ( ! function_exists('send_email'))
 {
 	function send_email($recipient, $subject = 'Test email', $message = 'Hello World')

@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -369,8 +369,8 @@ class CI_DB_driver {
 
 		// Load and instantiate the result driver
 
-		$driver 		= $this->load_rdriver();
-		$RES 			= new $driver();
+		$driver			= $this->load_rdriver();
+		$RES			= new $driver();
 		$RES->conn_id	= $this->conn_id;
 		$RES->result_id	= $this->result_id;
 
@@ -396,7 +396,7 @@ class CI_DB_driver {
 			// result object, so we'll have to compile the data
 			// and save it)
 			$CR = new CI_DB_result();
-			$CR->num_rows 		= $RES->num_rows();
+			$CR->num_rows		= $RES->num_rows();
 			$CR->result_object	= $RES->result_object();
 			$CR->result_array	= $RES->result_array();
 
@@ -416,7 +416,7 @@ class CI_DB_driver {
 	 * Load the result drivers
 	 *
 	 * @access	public
-	 * @return	string 	the name of the result class
+	 * @return	string	the name of the result class
 	 */
 	function load_rdriver()
 	{
@@ -708,9 +708,9 @@ class CI_DB_driver {
 	 * @param	string
 	 * @return	mixed
 	 */
-    function escape_like_str($str)
-    {
-    	return $this->escape_str($str, TRUE);
+	function escape_like_str($str)
+	{
+		return $this->escape_str($str, TRUE);
 	}
 
 	// --------------------------------------------------------------------

@@ -3,7 +3,7 @@
 // Code here is run before admin controllers
 class Admin_Controller extends MY_Controller
 {
-	function Admin_Controller()
+	public function Admin_Controller()
 	{
 		parent::__construct();
 

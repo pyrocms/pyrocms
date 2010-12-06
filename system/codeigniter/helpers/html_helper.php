@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -216,16 +216,16 @@ if ( ! function_exists('img'))
 
 				if ($index_page === TRUE)
 				{
-					$img .= ' src="'.$CI->config->site_url($v).'" ';
+					$img .= ' src="'.$CI->config->site_url($v).'"';
 				}
 				else
 				{
-					$img .= ' src="'.$CI->config->slash_item('base_url').$v.'" ';
+					$img .= ' src="'.$CI->config->slash_item('base_url').$v.'"';
 				}
 			}
 			else
 			{
-				$img .= " $k=\"$v\" ";
+				$img .= " $k=\"$v\"";
 			}
 		}
 
@@ -388,9 +388,9 @@ if ( ! function_exists('meta'))
 		$str = '';
 		foreach ($name as $meta)
 		{
-			$type 		= ( ! isset($meta['type']) OR $meta['type'] == 'name') ? 'name' : 'http-equiv';
-			$name 		= ( ! isset($meta['name'])) 	? '' 	: $meta['name'];
-			$content	= ( ! isset($meta['content']))	? '' 	: $meta['content'];
+			$type		= ( ! isset($meta['type']) OR $meta['type'] == 'name') ? 'name' : 'http-equiv';
+			$name		= ( ! isset($meta['name']))		? ''	: $meta['name'];
+			$content	= ( ! isset($meta['content']))	? ''	: $meta['content'];
 			$newline	= ( ! isset($meta['newline']))	? "\n"	: $meta['newline'];
 
 			$str .= '<meta '.$type.'="'.$name.'" content="'.$content.'" />'.$newline;

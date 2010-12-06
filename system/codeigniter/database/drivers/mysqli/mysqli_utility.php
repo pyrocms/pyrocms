@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -23,7 +23,7 @@
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_mysqli_utility extends CI_DB_utility {
-	
+
 	/**
 	 * List databases
 	 *
@@ -34,7 +34,7 @@ class CI_DB_mysqli_utility extends CI_DB_utility {
 	{
 		return "SHOW DATABASES";
 	}
-	
+
 	// --------------------------------------------------------------------
 
 	/**

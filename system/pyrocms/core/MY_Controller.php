@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Code here is run before ALL controllers
-class MY_Controller extends Controller
+class MY_Controller extends CI_Controller
 {
 	// Deprecated: No longer used globally
 	protected $data;
@@ -10,9 +10,9 @@ class MY_Controller extends Controller
 	public $controller;
 	public $method;
 
-	function MY_Controller()
+	public function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		$this->benchmark->mark('my_controller_start');
 
 		// Migrate DB if its out of date

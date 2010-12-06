@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -28,7 +28,7 @@
  */
 class CI_URI {
 
-	var	$keyval	= array();
+	var	$keyval			= array();
 	var $uri_string;
 	var $segments		= array();
 	var $rsegments		= array();
@@ -42,7 +42,7 @@ class CI_URI {
 	 *
 	 * @access	public
 	 */
-	function CI_URI()
+	function __construct()
 	{
 		$this->config =& load_class('Config', 'core');
 		log_message('debug', "URI Class Initialized");
@@ -195,7 +195,7 @@ class CI_URI {
 		}
 
 		// Convert programatic characters to entities
-		$bad	= array('$', 		'(', 		')',	 	'%28', 		'%29');
+		$bad	= array('$',		'(',		')',		'%28',		'%29');
 		$good	= array('&#36;',	'&#40;',	'&#41;',	'&#40;',	'&#41;');
 
 		return str_replace($bad, $good, $str);
@@ -321,7 +321,7 @@ class CI_URI {
 	 */
 	function uri_to_assoc($n = 3, $default = array())
 	{
-	 	return $this->_uri_to_assoc($n, $default, 'segment');
+		return $this->_uri_to_assoc($n, $default, 'segment');
 	}
 	/**
 	 * Identical to above only it uses the re-routed segment array
@@ -329,7 +329,7 @@ class CI_URI {
 	 */
 	function ruri_to_assoc($n = 3, $default = array())
 	{
-	 	return $this->_uri_to_assoc($n, $default, 'rsegment');
+		return $this->_uri_to_assoc($n, $default, 'rsegment');
 	}
 
 	// --------------------------------------------------------------------
@@ -482,21 +482,18 @@ class CI_URI {
 	 */
 	function _slash_segment($n, $where = 'trailing', $which = 'segment')
 	{
+		$leading	= '/';
+		$trailing	= '/';
+		
 		if ($where == 'trailing')
 		{
-			$trailing	= '/';
 			$leading	= '';
 		}
 		elseif ($where == 'leading')
 		{
-			$leading	= '/';
 			$trailing	= '';
 		}
-		else
-		{
-			$leading	= '/';
-			$trailing	= '/';
-		}
+		
 		return $leading.$this->$which($n).$trailing;
 	}
 

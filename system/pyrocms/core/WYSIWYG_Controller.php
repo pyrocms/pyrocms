@@ -10,9 +10,9 @@
  */
 class WYSIWYG_Controller extends MY_Controller
 {
-	function WYSIWYG_Controller()
+	public function WYSIWYG_Controller()
 	{
-		parent::MY_Controller();
+		parent::__construct();
 
 	    //Not an admin and not allowed to see files, SO PISS OFF!
 	    if($this->user->group !== 'admin' AND empty($this->permissions['files']))

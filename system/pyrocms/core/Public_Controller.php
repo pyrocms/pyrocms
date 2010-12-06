@@ -3,9 +3,9 @@
 // Code here is run before frontend controllers
 class Public_Controller extends MY_Controller
 {
-	function Public_Controller()
+	public function Public_Controller()
 	{
-		parent::MY_Controller();
+		parent::__construct();
 
 		$this->benchmark->mark('public_controller_start');
 

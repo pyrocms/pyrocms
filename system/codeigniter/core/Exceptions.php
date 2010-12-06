@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -50,14 +50,13 @@ class CI_Exceptions {
 
 	/**
 	 * Constructor
-	 *
-	 */	
-	function CI_Exceptions()
+	 */
+	public function __construct()
 	{
 		$this->ob_level = ob_get_level();
 		// Note:  Do not log messages from this constructor.
 	}
-  	
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -73,9 +72,9 @@ class CI_Exceptions {
 	 * @return	string
 	 */
 	function log_exception($severity, $message, $filepath, $line)
-	{	
+	{
 		$severity = ( ! isset($this->levels[$severity])) ? $severity : $this->levels[$severity];
-		
+
 		log_message('error', 'Severity: '.$severity.'  --> '.$message. ' '.$filepath.' '.$line, TRUE);
 	}
 
@@ -89,7 +88,7 @@ class CI_Exceptions {
 	 * @return	string
 	 */
 	function show_404($page = '', $log_error = TRUE)
-	{	
+	{
 		$heading = "404 Page Not Found";
 		$message = "The page you requested was not found.";
 
@@ -102,7 +101,7 @@ class CI_Exceptions {
 		echo $this->show_error($heading, $message, 'error_404', 404);
 		exit;
 	}
-  	
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -121,12 +120,12 @@ class CI_Exceptions {
 	function show_error($heading, $message, $template = 'error_general', $status_code = 500)
 	{
 		set_status_header($status_code);
-		
+
 		$message = '<p>'.implode('</p><p>', ( ! is_array($message)) ? array($message) : $message).'</p>';
 
 		if (ob_get_level() > $this->ob_level + 1)
 		{
-			ob_end_flush();	
+			ob_end_flush();
 		}
 		ob_start();
 		include(APPPATH.'errors/'.$template.EXT);
@@ -148,21 +147,21 @@ class CI_Exceptions {
 	 * @return	string
 	 */
 	function show_php_error($severity, $message, $filepath, $line)
-	{	
+	{
 		$severity = ( ! isset($this->levels[$severity])) ? $severity : $this->levels[$severity];
-	
+
 		$filepath = str_replace("\\", "/", $filepath);
-		
+
 		// For safety reasons we do not show the full file path
 		if (FALSE !== strpos($filepath, '/'))
 		{
 			$x = explode('/', $filepath);
 			$filepath = $x[count($x)-2].'/'.end($x);
 		}
-		
+
 		if (ob_get_level() > $this->ob_level + 1)
 		{
-			ob_end_flush();	
+			ob_end_flush();
 		}
 		ob_start();
 		include(APPPATH.'errors/error_php'.EXT);

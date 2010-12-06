@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -28,20 +28,20 @@
  */
 class CI_Hooks {
 
-	var $enabled 		= FALSE;
-	var $hooks   		= array();
+	var $enabled		= FALSE;
+	var $hooks			= array();
 	var $in_progress	= FALSE;
 
 	/**
 	 * Constructor
 	 *
 	 */
-	function CI_Hooks()
+	function __construct()
 	{
 		$this->_initialize();
 		log_message('debug', "Hooks Class Initialized");
 	}
-  
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -49,9 +49,9 @@ class CI_Hooks {
 	 *
 	 * @access	private
 	 * @return	void
-	 */  
-  	function _initialize()
-  	{
+	 */
+	function _initialize()
+	{
 		$CFG =& load_class('Config', 'core');
 
 		// If hooks are not enabled in the config file
@@ -74,8 +74,8 @@ class CI_Hooks {
 
 		$this->hooks =& $hook;
 		$this->enabled = TRUE;
-  	}
-  
+	}
+
 	// --------------------------------------------------------------------
 
 	/**
