@@ -64,7 +64,7 @@
                                          
                       <?php
                       if(@$article->created_on_day==''&& @$article->date==''){
-                        $date = date('d/m/y');
+                        $date = date('d/m/Y');
                       }
                       else{
 		                $date = isset($article->date) ? $article->date : date('d/m/Y', strtotime($article->created_on_year.'-'.$article->created_on_month.'-'.$article->created_on_day));

@@ -11,7 +11,7 @@ jQuery(function($) {
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
-		$( "#datepicker" ).datepicker();
+		$("#datepicker").datepicker({dateFormat:'dd/mm/yy'});
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
