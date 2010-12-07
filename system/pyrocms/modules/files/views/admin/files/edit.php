@@ -7,7 +7,6 @@
 	});
 })(jQuery);
 </script>
-<p><?php echo $messages['success']; ?></p>
 <?php else: ?>
 
 <style type="text/css">
@@ -45,10 +44,6 @@
 		}
 		echo form_dropdown('folder_id', $folder_options, $file->folder_id, 'id="folder_id" class="crud"');
 		?>
-	</li>
-	<li>
-		<?php echo form_label(lang('files.type'), 'type'); ?>
-		<?php echo form_dropdown('type', $types, $file->type, 'id="type" class="crud"'); ?>
 	</li>
 	<li>
 		<label for="nothing"><?php echo lang('files.file'); ?></label>
