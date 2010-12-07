@@ -15,7 +15,7 @@
 $lang['files.title']						= '檔案';
 $lang['files.upload.title']					= '上傳檔案';
 $lang['files.labels.action']				= '操作';
-$lang['files.labels.download']				= 'Download'; #translate
+$lang['files.labels.download']				= '下載';
 $lang['files.labels.edit']					= '編輯';
 $lang['files.labels.delete']				= '刪除';
 $lang['files.labels.upload']				= '上傳';
@@ -48,6 +48,8 @@ $lang['files.description']					= '說明';
 $lang['files.type']							= '種類';
 $lang['files.file']							= '檔案';
 $lang['files.file_name']					= '檔案名稱';
+$lang['files.file.no_upload']				= '必須上傳檔案';
+$lang['files.file.no_extension']			= '檔案必須有副檔名';
 $lang['files.success']						= '此檔案已經儲存';
 $lang['files.not_exists']					= '已選取了一個不正確的目錄';
 $lang['files.delete.error']					= '此檔案無法刪除';

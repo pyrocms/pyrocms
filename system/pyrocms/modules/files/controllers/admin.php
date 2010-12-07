@@ -99,6 +99,11 @@ class Admin extends Admin_Controller {
 
 		$rules = array(
 			array(
+				'field'   => 'userfile',
+				'label'   => 'lang:files.file',
+				'rules'   => 'callback__check_ext'
+			),
+			array(
 				'field'   => 'name',
 				'label'   => 'lang:files.folders.name',
 				'rules'   => 'trim|required'
@@ -112,12 +117,7 @@ class Admin extends Admin_Controller {
 				'field'   => 'folder_id',
 				'label'   => 'lang:files.labels.parent',
 				'rules'   => ''
-			),
-			array(
-				'field'   => 'type',
-				'label'   => 'lang:files.type',
-				'rules'   => 'trim|required'
-			),
+			)
 		);
 
 		$this->form_validation->set_rules($rules);
@@ -125,11 +125,21 @@ class Admin extends Admin_Controller {
 		if ($this->form_validation->run())
 		{
 			// Setup upload config
-			$type = $this->input->post('type');
 			$allowed = $this->config->item('files_allowed_file_ext');
 
 			$config['upload_path'] = $this->_path;
-			$config['allowed_types'] = $allowed[$type];
+			$config['allowed_types'] = '';
+			
+			while ($str = current($allowed))
+			{				
+				if (preg_match('/'.$this->ext.'/', $str))
+				{
+					$config['allowed_types'] = $allowed[key($allowed)];
+					break;
+				}
+				
+				next($allowed);
+			}
 
 			$this->load->library('upload', $config);
 
@@ -144,7 +154,7 @@ class Admin extends Admin_Controller {
 				$this->file_m->insert(array(
 					'folder_id' => $this->input->post('folder_id'),
 					'user_id' => $this->user->id,
-					'type' => $type,
+					'type' => key($allowed),
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
 					'filename' => $img['upload_data']['file_name'],
@@ -201,12 +211,7 @@ class Admin extends Admin_Controller {
 				'field'   => 'folder_id',
 				'label'   => 'lang:files.labels.parent',
 				'rules'   => ''
-			),
-			array(
-				'field'   => 'type',
-				'label'   => 'lang:files.type',
-				'rules'   => 'trim|required'
-			),
+			)
 		);
 
 		$this->form_validation->set_rules($rules);
@@ -214,7 +219,6 @@ class Admin extends Admin_Controller {
 		if ($this->form_validation->run())
 		{
 			$filename = $file->filename;
-			$type = $this->input->post('type');
 
 			if ( ! empty($_FILES['userfile']['name']))
 			{
@@ -222,12 +226,28 @@ class Admin extends Admin_Controller {
 				$this->file_m->delete_file($id); //remove the original image
 				// Setup upload config
 				$allowed = $this->config->item('files_allowed_file_ext');
+				$ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
 				$config['upload_path'] = $this->_path;
-				$config['allowed_types'] = $allowed[$type];
+				$config['allowed_types'] = '';
+				
+				while ($str = current($allowed))
+				{				
+					if (preg_match('/'.$ext.'/', $str))
+					{
+						$config['allowed_types'] = $allowed[key($allowed)];
+						break;
+					}
+					
+					next($allowed);
+				}
 
 				$this->load->library('upload', $config);
 
-				if (!$this->upload->do_upload('userfile'))
+				if (empty($ext))
+				{
+					$data->messages['notice'] = lang('files.file.no_extension');
+				}
+				elseif (!$this->upload->do_upload('userfile'))
 				{
 					$data->messages['notice'] = $this->upload->display_errors();
 				}
@@ -239,15 +259,15 @@ class Admin extends Admin_Controller {
 					$this->file_m->update($id, array(
 						'folder_id' => $this->input->post('folder_id'),
 						'user_id' => $this->user->id,
-						'type' => $type,
+						'type' => key($allowed),
 						'name' => $this->input->post('name'),
 						'description' => $this->input->post('description'),
 						'filename' => $img['upload_data']['file_name'],
 						'extension' => $img['upload_data']['file_ext'],
 						'mimetype' => $img['upload_data']['file_type'],
 						'filesize' => $img['upload_data']['file_size'],
-						'width' => $img['upload_data']['image_width'],
-						'height' => $img['upload_data']['image_height'],
+						'width' => (int) $img['upload_data']['image_width'],
+						'height' => (int) $img['upload_data']['image_height'],
 					));
 
 					$data->messages['success'] = lang('files.success');
@@ -258,7 +278,6 @@ class Admin extends Admin_Controller {
 				$this->file_m->update($id, array(
 					'folder_id' => $this->input->post('folder_id'),
 					'user_id' => $this->user->id,
-					'type' => $type,
 					'name' => $this->input->post('name'),
 					'description' => $this->input->post('description'),
 				));
@@ -348,7 +367,34 @@ class Admin extends Admin_Controller {
 			}
 		}
 	}
-
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Validate upload file name and extension.
+	 */
+	function _check_ext()
+	{
+		if(!empty($_FILES['userfile']['name']))
+		{			
+			$this->ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+			
+			if($this->ext == '')
+			{
+				$this->form_validation->set_message('_check_ext', lang('files.file.no_extension'));
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+		}		
+		else
+		{
+			$this->form_validation->set_message('_check_ext', lang('files.file.no_upload'));
+			return FALSE;
+		}
+	}
 }
 
 /* End of file admin.php */

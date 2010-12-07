@@ -14,7 +14,7 @@ class News_m extends MY_Model
   
     function get($id)
     {
-      $this->db->select("*, MONTH(FROM_UNIXTIME(created_on)) as created_on_month, DAY(FROM_UNIXTIME(created_on)) as created_on_day, YEAR(FROM_UNIXTIME(created_on)) as created_on_year,  MINUTE(FROM_UNIXTIME(created_on)) as created_on_minute,  HOUR(FROM_UNIXTIME(created_on)) as created_on_hour, CONCAT(MONTH(FROM_UNIXTIME(created_on)),'/',DAY(FROM_UNIXTIME(created_on)),'/',YEAR(FROM_UNIXTIME(created_on))) as date");
+      $this->db->select("*, MONTH(FROM_UNIXTIME(created_on)) as created_on_month, DAY(FROM_UNIXTIME(created_on)) as created_on_day, YEAR(FROM_UNIXTIME(created_on)) as created_on_year,  MINUTE(FROM_UNIXTIME(created_on)) as created_on_minute,  HOUR(FROM_UNIXTIME(created_on)) as created_on_hour, CONCAT(DAY(FROM_UNIXTIME(created_on, '%d')),'/',MONTH(FROM_UNIXTIME(created_on, '%m')),'/',YEAR(FROM_UNIXTIME(created_on))) as date");
     $this->db->where(array('id'=>$id));
            
         return $this->db->get('news')->row();
@@ -114,7 +114,7 @@ class News_m extends MY_Model
     {
     	if (isset($input['created_on_day']) && isset($input['created_on_month']) && isset($input['created_on_year']) )
     	{
-    		$input['created_on'] = gmmktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
+    		$input['created_on'] = mktime(@$input['created_on_hour'], @$input['created_on_minute'], 0, $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
 
 			unset($input['created_on_hour'], $input['created_on_minute'], $input['created_on_month'], $input['created_on_day'], $input['created_on_year']);
     	}
