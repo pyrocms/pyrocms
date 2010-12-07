@@ -10,19 +10,16 @@ class MY_Controller extends CI_Controller
 	public $controller;
 	public $method;
 
-	public function __construct()
+	public function MY_Controller()
 	{
 		parent::__construct();
+		
 		$this->benchmark->mark('my_controller_start');
 
-		// Migrate DB if its out of date
-		if (CMS_VERSION > '1.0.0')
-		{
-			$this->load->library('migrations');
-			$this->migrations->latest();
-			$this->settings->version = CMS_VERSION;
-		}
-		
+		// Migrate DB to the latest version
+		$this->load->library('migrations');
+		$this->migrations->latest();
+
 		// Use this to define hooks with a nicer syntax
 		$this->hooks =& $GLOBALS['EXT'];
 
@@ -41,10 +38,10 @@ class MY_Controller extends CI_Controller
 		$this->user = $this->ion_auth->get_user();
 
         // Work out module, controller and method and make them accessable throught the CI instance
-        $this->module 				= $this->router->fetch_module();
-        $this->controller			= $this->router->fetch_class();
-        $this->method 				= $this->router->fetch_method();
-		
+        $this->module 		= $this->router->fetch_module();
+        $this->controller	= $this->router->fetch_class();
+        $this->method 		= $this->router->fetch_method();
+
 		// Loaded after $this->user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
@@ -68,7 +65,7 @@ class MY_Controller extends CI_Controller
 		}
 
 		$langs = $this->config->item('supported_languages');
-		
+
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
