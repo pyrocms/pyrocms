@@ -30,6 +30,7 @@ class Tags
 	private $_r_delim = '}';
 	private $_mark = 'k0dj3j4nJHDj22j';
 	private $_tag_count = 0;
+	private $_current_callback = array();
 
 	// --------------------------------------------------------------------
 
@@ -105,6 +106,7 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
+		$this->_current_callback = $callback;
 		if (trim($this->_trigger) == '')
 		{
 			throw new Exception('You must set a trigger before you can parse the content.');
@@ -403,7 +405,7 @@ class Tags
 			// We add the array element to the full data array so that full data
 			// tags can work within double data tags
 			$val = $val + $data;
-			$return = $temp->parse($tag['content'], $val);
+			$return = $temp->parse($tag['content'], $val, $this->_current_callback);
 			$return_data .= $return['content'];
 		}
 		unset($temp);
