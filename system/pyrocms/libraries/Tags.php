@@ -190,7 +190,11 @@ class Tags
 				// Parse the double tags
 				else
 				{
-					$return_data = $this->_parse_data_double($tag, $data);
+					$return_data = FALSE;
+					if (array_key_exists($tag['segments'][0], $data))
+					{
+						$return_data = $this->_parse_data_double($tag, $data);
+					}
 				}
 
 				// If the tag referenced data then put that data in the content
@@ -378,19 +382,27 @@ class Tags
 	private function _parse_data_double($tag, $data)
 	{
 		$return_data = '';
+		$new_data = $data;
 		foreach ($tag['segments'] as $segment)
 		{
-			if ( ! is_array($data) OR ! isset($data[$segment]))
+			if ( ! is_array($new_data) OR ! isset($new_data[$segment]))
 			{
 				return FALSE;
 			}
-			$data = $data[$segment];
+			$new_data = $new_data[$segment];
 		}
-
 		$temp = new Tags;
 		$temp->set_trigger($this->_trigger);
-		foreach ($data as $val)
+		foreach ($new_data as $val)
 		{
+			if ( ! is_array($val))
+			{
+				$val = array($val);
+			}
+
+			// We add the array element to the full data array so that full data
+			// tags can work within double data tags
+			$val = $val + $data;
 			$return = $temp->parse($tag['content'], $val);
 			$return_data .= $return['content'];
 		}
