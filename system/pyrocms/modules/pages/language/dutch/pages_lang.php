@@ -1,10 +1,10 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // tabs
 $lang['pages.content_label'] 					= 'Paginainhoud';
+$lang['pages.meta_label'] 						= 'Meta data';
 $lang['pages.script_label'] 					= 'Script';
 $lang['pages.design_label'] 					= 'Ontwerp';
-$lang['pages.meta_label'] 						= 'Meta data';
 $lang['pages.options_label'] 					= 'Opties';
 
 $lang['pages.detail_label'] 					= 'Details';
@@ -33,14 +33,13 @@ $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Concept';
 $lang['pages.live_label'] 						= 'Live';
 $lang['pages.revisions_label']					= 'Revisies';
-$lang['pages.compare_label']                                    = 'Compare'; #translate
-$lang['pages.preview_label']                                    = 'Preview'; #translate
-$lang['pages.current_label']                                    = 'Current'; #translate
+$lang['pages.compare_label']					= 'Vergelijk';
+$lang['pages.preview_label']					= 'Preview';
+$lang['pages.current_label']					= 'Huidig';
 
-
-$lang['pages.view_label'] 						= 'Bekijk';
+$lang['pages.view_label']						= 'Bekijk';
 $lang['pages.create_label'] 					= 'Voeg kind toe';
-$lang['pages.edit_label'] 						= 'Wijzig';
+$lang['pages.edit_label']						= 'Wijzig';
 $lang['pages.delete_label'] 					= 'Verwijder';
 
 // titles
@@ -49,8 +48,8 @@ $lang['pages.edit_title'] 						= 'Wijzig pagina "%s"';
 $lang['pages.list_title'] 						= 'Toon alle pagina&apos;s';
 $lang['pages.layouts_create_title'] 			= 'Voeg een paginalayout toe';
 $lang['pages.layouts_list_title'] 				= 'Toon alle paginalayouts';
-$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
-$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
+$lang['pages.compare_revisions_title']			= 'Vergelijk Revisies';
+$lang['pages.preview_revision_title']			= 'Preview Revisie';
 
 // messages
 $lang['pages.no_pages'] 						= 'Er zijn geen pagina&apos;s';
@@ -69,5 +68,3 @@ $lang['pages.tree_explanation'] 				= 'De lijst aan de linkerkant stellen de pag
 Klik op het "+" icoon naast de pagina om de onderliggende pagina&apos;s te zien. Als u een pagina selecteerd ziet u  de informatie over de pagina in dit veld.';
 
 $lang['pages.rss_explanation']					= 'Het inschakelen van RSS voor deze pagina laat gebruikers een abonnement op een RSS-feed nemen waarin onderliggende pagina&apos;s direct getoond worden.';
-
-?>
