@@ -9,6 +9,7 @@ $lang['version_label'] 					= 'Versão';
 $lang['author_label'] 					= 'Autor';
 $lang['action_label'] 					= 'Ação';
 
+$lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
 $lang['dialog.confirm'] 				= 'Confirmar';
 $lang['dialog.yes'] 					= 'Sim';
 $lang['dialog.no'] 						= 'Não';
