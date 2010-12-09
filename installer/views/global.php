@@ -7,7 +7,8 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/reset.css" type="text/css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" />
 		<script type="text/javascript">
-            var base_url = '<?php echo base_url(); ?>';
+			var base_url = '<?php echo base_url(); ?>',
+				pass_match = ['<?php echo lang('installer.passwords_match'); ?>','<?php echo lang('installer.passwords_dont_match'); ?>'];
 		</script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/installer.js"></script>

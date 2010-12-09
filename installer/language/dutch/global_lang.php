@@ -6,3 +6,6 @@ $lang['step2']	=	'Stap #2';
 $lang['step3']	=	'Stap #3';
 $lang['step4']	=	'Stap #4';
 $lang['final']	=	'Laatste Stap';
+
+$lang['installer.passwords_match']		= "Passwords Match."; #translate
+$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
