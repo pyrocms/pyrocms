@@ -49,7 +49,7 @@ class News_categories_m extends MY_Model
 	 */
 	public function check_title($title = '')
 	{
-		return parent::count_by('slug', url_title($title)) === 0;
+		return parent::count_by('slug', url_title($title)) > 0;
 	}
 	
 	/**
