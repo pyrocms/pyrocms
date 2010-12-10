@@ -16,7 +16,7 @@
 $lang['contact_details_label']				= 'Dettagli';
 $lang['contact_name_label']					= 'Nome completo';
 $lang['contact_email_label']				= 'Indirizzo email';
-$lang['contact_company_name_label']			= 'Societ‡ o Organizzazione';
+$lang['contact_company_name_label']			= 'Societ√† o Organizzazione';
 $lang['contact_subject_label']				= 'Soggetto';
 $lang['contact_other_label']				= 'Altro';
 $lang['contact_message_label']				= 'Messaggio';
@@ -25,7 +25,7 @@ $lang['contact_mail_ip_label']				= 'IP: %s';
 $lang['contact_mail_os_label']				= 'OS: %s';
 $lang['contact_mail_agent_label']			= 'Agent: %s';
 $lang['contact_mail_name_label']			= 'Nome: %s';
-$lang['contact_mail_company_label']			= 'Societ‡: %s';
+$lang['contact_mail_company_label']			= 'Societ√†: %s';
 $lang['contact_mail_above_message_label']	= '-- Di seguito il messaggio ---';
 $lang['contact_mail_below_message_label']	= '-- Dettagli modulo -----------';
 
@@ -34,8 +34,8 @@ $lang['contact_sent_title']					= 'Messaggio inviato';
 $lang['contact_title']						= 'Contattaci';
 
 // texts
-$lang['contact_mail_text']					= 'Questo messaggio Ë stato inviato attraverso il modulo di contatto di %s con i seguenti dettagli:';
-$lang['contact_sent_text']					= 'Il tuo messaggio Ë stato inviato. Ti risponderemo il prima possibile.';
+$lang['contact_mail_text']					= 'Questo messaggio √® stato inviato attraverso il modulo di contatto di %s con i seguenti dettagli:';
+$lang['contact_sent_text']					= 'Il tuo messaggio √® stato inviato. Ti risponderemo il prima possibile.';
 $lang['contact_capchar_text']				= 'Inserisci la parola che vedi qui di seguito:';
 
 //predefined subjects list

@@ -1,18 +1,19 @@
 <?php
-$lang['galleries.create_success'] 	= 'La galleria � stata creata con successo.';
-$lang['galleries.update_success'] 	= 'La galleria � stata aggiornata con successo.';
+// Success notifications
+$lang['galleries.create_success'] 	= 'La galleria è stata creata con successo.';
+$lang['galleries.update_success'] 	= 'La galleria è stata aggiornata con successo.';
 $lang['galleries.delete_success']	= 'Tutte le gallerie sono state eliminate con successo.';
-$lang['galleries.install_success']	= 'Il modulo � stato installato con successo.';
+$lang['galleries.install_success']	= 'Il modulo è stato installato con successo.';
 
 // Error notifications
-$lang['galleries.create_error']			= 'La galleria non pu� essere creata.';
+$lang['galleries.create_error']			= 'La galleria non può essere creata.';
 $lang['galleries.exists_error']			= 'La galleria specificata non esiste.';
-$lang['galleries.update_error']			= 'La galleria non pu� essere aggiornata.';
-$lang['galleries.id_error']				= 'Non � stato specificato nessun ID.';
+$lang['galleries.update_error']			= 'La galleria non può essere aggiornata.';
+$lang['galleries.id_error']				= 'Non è stato specificato nessun ID.';
 $lang['galleries.folder_error']			= 'Le cartelle della galleria "%s" non possono essere eliminate.';
-$lang['galleries.delete_error']			= 'La galleria "%s" non pu� essere eliminata.';
-$lang['galleries.no_galleries_error'] 	= 'Non � ancora stata creata nessuna galleria.';
-$lang['galleries.install_error']		= 'Il modulo non pu� essere installato.';
+$lang['galleries.delete_error']			= 'La galleria "%s" non può essere eliminata.';
+$lang['galleries.no_galleries_error'] 	= 'Non è ancora stata creata nessuna galleria.';
+$lang['galleries.install_error']		= 'Il modulo non può essere installato.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Gallerie';
