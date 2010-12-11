@@ -38,7 +38,8 @@ class Plugin_Theme extends Plugin
 	function path()
 	{
 		$data =& $this->load->_ci_cached_vars;
-		return dirname($data['template_views']).'/';
+		$path = rtrim($data['template_views'], '/');
+		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
 	}
 
 	/**
@@ -106,6 +107,36 @@ class Plugin_Theme extends Plugin
 		$file = $this->attribute('file');
 
 		return $this->asset->js($file, '_theme_');
+	}
+
+	/**
+	 * Data
+	 *
+	 * Loads a theme partial
+	 *
+	 * Usage:
+	 * {pyro:session:data name="foo"}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	public function variables()
+	{
+		if ( ! isset($variables))
+		{
+			static $variables = array();
+		}
+
+		$name = $this->attribute('name');
+		$value = $this->attribute('value');
+
+		if ($value !== NULL)
+		{
+			$variables[$name] = $value;
+			return;
+		}
+
+		return $variables[$name];
 	}
 }
 
