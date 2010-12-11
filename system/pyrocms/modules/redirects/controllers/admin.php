@@ -152,16 +152,16 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{	
-		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
+		$id_array = ( ! empty($id)) ? array($id) : $this->input->post('action_to');
 		
 		// Delete multiple
-		if(!empty($id_array))
+		if( ! empty($id_array))
 		{
 			$deleted = 0;
 			$to_delete = 0;
 			foreach ($id_array as $id) 
 			{
-				if($this->redirect_m->delete($id))
+				if ($this->redirect_m->delete($id))
 				{
 					$deleted++;
 				}
@@ -172,7 +172,7 @@ class Admin extends Admin_Controller
 				$to_delete++;
 			}
 			
-			if( $deleted > 0 )
+			if ($deleted > 0)
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('redirects.mass_delete_success'), $deleted, $to_delete));
 			}
