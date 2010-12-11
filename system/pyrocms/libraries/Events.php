@@ -61,21 +61,13 @@ class Events {
 			return FALSE;
 		}
 
-		foreach (array(APPPATH, ADDONPATH) as $directory)
-    	{
-			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+		foreach ($results as $row)
+		{
+			// This doesnt have a valid details.php file! :o
+			if ( ! $details_class = self::_spawn_class($row['slug'], $row['is_core']))
 			{
-				$slug = basename($module_name);
-
-				// This doesnt have a valid details.php file! :o
-				if ( ! $details_class = self::_spawn_class($slug, $is_core))
-				{
-					continue;
-				}
+				continue;
 			}
-
-			// Going back around, 2nd time is addons
-			$is_core = FALSE;
 		}
 
 		return TRUE;
