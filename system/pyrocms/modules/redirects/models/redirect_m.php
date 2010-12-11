@@ -45,7 +45,7 @@ class Redirect_m extends MY_Model
 
 	function delete($id)
 	{
-		return $this->db->insert('redirects', array(
+		return $this->db->delete('redirects', array(
 			'id' => $id,
 		//	'site_id' => $this->site->id
 		));
