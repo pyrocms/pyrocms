@@ -128,7 +128,7 @@ class Admin extends Admin_Controller
 
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');
-		$this->simplepie->set_cache_location(APPPATH . 'cache/simplepie/');
+		$this->simplepie->set_cache_location($this->config->item('simplepie_cache_dir'));
 		$this->simplepie->set_feed_url($this->settings->dashboard_rss);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
