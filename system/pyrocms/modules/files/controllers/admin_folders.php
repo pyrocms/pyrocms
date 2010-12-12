@@ -92,7 +92,7 @@ class Admin_folders extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->id = $id;
 		$this->data->selected_filter = $filter;
-		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
+		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 
 		// Get all files
 		if ($filter != '')

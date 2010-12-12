@@ -52,6 +52,7 @@ $lang['files.success']				= 'Le fichier a été enregistré.';
 $lang['files.not_exists']			= 'Un dossier invalide a été sélectionné';
 $lang['files.delete.error']			= 'Le fichier n\'a pu êttree supprimé';
 $lang['files.delete.success']			= 'Le fichier a été supprimer.';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Types
 $lang['files.i'] = 'Image';

@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * PyroCMS
  *
@@ -49,9 +50,10 @@ $lang['files.type']							= 'Type';
 $lang['files.file']							= 'File';
 $lang['files.file_name']							= 'File Name';
 $lang['files.success']				= 'The file has now been saved.';
-$lang['files.not_exists']			= 'An invalid folder has been selected.';
+$lang['files.not_exists']			= 'An invalid file has been selected.';
 $lang['files.delete.error']			= 'The file could not be deleted.';
 $lang['files.delete.success']			= 'The file was deleted.';
+$lang['files.filter']						= 'Filter';
 
 // Types
 $lang['files.i'] = 'Image';
@@ -60,4 +62,4 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Other';
 
-/* End of file file_lang.php */
+/* End of file files_lang.php */
