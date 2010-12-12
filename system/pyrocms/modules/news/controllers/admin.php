@@ -145,8 +145,8 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-        'created_on_day'  => $date[1],
-        'created_on_month'  => $date[0],
+        'created_on_day'  => $date[0],
+        'created_on_month'  => $date[1],
         'created_on_year' => $date[2],
 			));
     	
@@ -214,8 +214,8 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-        'created_on_day'  => $date[1],
-        'created_on_month'  => $date[0],
+        'created_on_day'  => $date[0],
+        'created_on_month'  => $date[1],
         'created_on_year' => $date[2],
 				));
 			
@@ -226,7 +226,7 @@ class Admin extends Admin_Controller
 				// The twitter module is here, and enabled!
 				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
-					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[0], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
+					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[1], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
 					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{
