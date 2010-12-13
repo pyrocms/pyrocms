@@ -41,7 +41,12 @@ class Themes_m extends CI_Model
     {
         foreach($this->template->theme_locations() as $location)
         {
-            foreach(glob($location.'*', GLOB_ONLYDIR) as $theme_path)
+			if ( ! $themes = glob($location.'*', GLOB_ONLYDIR))
+			{
+				continue;
+			}
+            
+			foreach($themes as $theme_path)
             {
                 $this->_get_details(dirname($theme_path), basename($theme_path));
             }
