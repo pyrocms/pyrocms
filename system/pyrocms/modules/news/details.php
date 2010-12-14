@@ -18,7 +18,8 @@ class Module_News extends Module {
 				'zh' => '新聞',
 				'it' => 'Notizie',
 				'ru' => 'Новости',
-				'ar' => 'الأخبار'
+				'ar' => 'الأخبار',
+				'cs' => 'Novinky'
 			),
 			'description' => array(
 				'en' => 'Post news articles and blog entries.',
@@ -31,7 +32,8 @@ class Module_News extends Module {
 				'zh' => '發表新聞訊息、部落格文章。',
 				'it' => 'Pubblica notizie e post per il blog.',
 				'ru' => 'Управление новостными статьями и записями блога.',
-				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.'
+				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.',
+				'cs' => 'Publikujte nové články a příspěvky na blog.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
