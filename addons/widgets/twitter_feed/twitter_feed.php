@@ -31,7 +31,7 @@ class Widget_Twitter_feed extends Widgets
 	public function run($options)
 	{
 		$this->load->library('simplepie');
-		$this->simplepie->set_cache_location(APPPATH . 'cache/simplepie/');
+		$this->simplepie->set_cache_location($this->config->item('simplepie_cache_dir'));
 		$this->simplepie->set_feed_url('http://twitter.com/statuses/user_timeline/'.$options['username'].'.rss');
 		$this->simplepie->init();
 
