@@ -32,10 +32,10 @@ $lang['pages.comments_enabled_label'] 			= 'Komentarze włączone';
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label']						= 'Robocza';
 $lang['pages.live_label'] 						= 'Opublikowana';
-$lang['pages.revisions_label']					= 'Revisions'; #translate
-$lang['pages.compare_label']                                    = 'Compare'; #translate
-$lang['pages.preview_label']                                    = 'Preview'; #translate
-$lang['pages.current_label']                                    = 'Current'; #translate
+$lang['pages.revisions_label']					= 'Historia';
+$lang['pages.compare_label']                                    = 'Porównaj';
+$lang['pages.preview_label']                                    = 'Podgląd';
+$lang['pages.current_label']                                    = 'Aktualny';
 
 
 $lang['pages.view_label'] 						= 'Podgląd';
@@ -49,8 +49,8 @@ $lang['pages.edit_title'] 						= 'Edytuj stronę "%s"';
 $lang['pages.list_title'] 						= 'Lista stron';
 $lang['pages.layouts_create_title'] 			= 'Dodaj layout strony';
 $lang['pages.layouts_list_title'] 				= 'Lista layoutów stron';
-$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
-$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
+$lang['pages.compare_revisions_title']                          = 'Porównaj wersje';
+$lang['pages.preview_revision_title']                           = 'Podgląd wersji';
 
 // messages
 $lang['pages.no_pages'] 						= 'Nie ma żadnych stron.';
@@ -68,6 +68,6 @@ $lang['pages_parent_not_exist_error']			= 'Strona nadrzędna, którą wybrałeś
 $lang['pages.tree_explanation'] 				= 'Lista po lewej stronie reprezentuje strony Twojej witryny.
 Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';
 
-$lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';
+$lang['pages.rss_explanation']					= 'Włączenie RSS dla tej strony, daje użytkownikom możliwość subskrybcji kanału RSS, w którym będą się pokazywały wszytskie podstrony dla tego wpisu.';
 
 ?>

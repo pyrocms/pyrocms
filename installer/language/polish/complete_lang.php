@@ -7,5 +7,5 @@ $lang['email']		=	'E-mail';
 $lang['password']	=	'Hasło';
 $lang['outro_text']	=	'Na końcu <strong>usuń katalog instalatora z serwera</strong>, w przeciwnym razie może on być wykorzystany do przejęcia kontroli nad Twoim serwisem!';
 
-$lang['go_website']			= 'Go to Website'; #translate
-$lang['go_control_panel']	= 'Go to Control Panel'; #translate
+$lang['go_website']			= 'Przejdź do strony';
+$lang['go_control_panel']	= 'Przejdź do Panelu administracyjnego';
