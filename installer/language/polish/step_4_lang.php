@@ -17,10 +17,10 @@ $lang['password']		= 	'Hasło';
 $lang['conf_password']	=	'Potwierdź hasło';
 $lang['finish']			=	'Instaluj';
 
-$lang['error_101']		=	'The database could not be found. If you asked the installer to create this database, it could have failed due to bad permissions.';
-$lang['error_102']		=	'The installer could not add any tables to the Database.<br/><br/>';
-$lang['error_103']		=	'The installer could not insert the data into the database.<br/><br/>';
-$lang['error_104']		=	'The installer could not create the default user.<br/><br/>';
-$lang['error_105']		=	'The database configuration file could not be written, did you cheat on the installer by skipping step 3?';
-$lang['error_106']		=	'The config file could not be written, are you sure the file has the correct permissions ?';
+$lang['error_101']		=	'Baza danych nie może zostać znaleziona. Jeśli poprosiłeś instalator o utworzenie bazy danych, to akcja ta mogła się zakończyć niepowodzeniam wskutek błędnych danych dostępowych do bazy.';
+$lang['error_102']		=	'Instalator nie może dodać tabel do bazy danych.<br/><br/>';
+$lang['error_103']		=	'Instalator nie może wstawić danych do bazy danych.<br/><br/>';
+$lang['error_104']		=	'Instalator nie może utworzyć domyślnego użytkownika.<br/><br/>';
+$lang['error_105']		=	'Plik konfiguracyjny dla bazy danych nie może zostać zapisany, czy oszukiwałeś podczas instalacji pomijając krok 3?';
+$lang['error_106']		=	'Plik konfiguracyjny nie może zostać zapisany, czy jesteś pewien że ustawiłeś poprawnie uprawnienia?';
 $lang['success']		=	'PyroCMS został poprawnie zainstalowany!';

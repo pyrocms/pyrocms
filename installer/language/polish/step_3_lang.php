@@ -13,8 +13,8 @@ $lang['file_text']		=	'Zmień uprawnienia CHMOD poniższych plików na 666. Bard
 $lang['writable']		=	'Zapisywalny';
 $lang['not_writable']		=	'Niezapisywalny';
 
-$lang['show_commands']		= 'Show commands'; #translate
-$lang['hide_commands']		= 'Hide commands'; #translate
+$lang['show_commands']		= 'Pokaż polecenia';
+$lang['hide_commands']		= 'Ukryj polecenia';
 
 $lang['next_step']		=	'Przejdź do następnego kroku';
 $lang['step4']			=	'Krkok 4';
