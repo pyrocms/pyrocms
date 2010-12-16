@@ -12,13 +12,13 @@ $lang['modules.uninstall_error']		= 'nie można odinstalować modułu "%s".';
 $lang['modules.uninstall_success']		= 'Moduł "%s" został odinstalowany.';
 $lang['modules.already_exists_error']	= 'Moduł o nazwie "%s" już istnieje.';
 $lang['modules.module_not_specified']	= 'Musisz wybrać moduł.';
-$lang['modules.details_error']			= 'There is an error in the details.php file of the %s module. Correct the error, then reinstall the module.'; #translate
+$lang['modules.details_error']			= 'Wystąpił błąd w pliku details.php w module %s. Popraw błąd i wykonaj reinstalacje tego modułu.';
 
 $lang['modules.manually_remove']		= 'Musisz ręcznie usunąć "%s" aby w pełni usunąć ten moduł.';
 $lang['modules.upload_title']			= 'Załaduj moduł';
 $lang['modules.upload_desc']			= 'Wybierz plik modułu i kliknij Wyślij';
 
-$lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';#translate
-$lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';#translate
-$lang['modules.confirm_install']        = 'Are you sure you want to install this module?';#translate
-$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';#translate
+$lang['modules.confirm_enable']         = 'Czy na pewno włączyć ten moduł?';
+$lang['modules.confirm_disable']        = 'Czy na pewno wyłączyć ten moduł?';
+$lang['modules.confirm_install']        = 'Czy na pewno zainstalować ten moduł?';
+$lang['modules.confirm_uninstall']      = 'Czy na pewno odinstalować ten moduł?';

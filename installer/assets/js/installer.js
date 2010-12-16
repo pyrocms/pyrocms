@@ -1,8 +1,8 @@
-$(document).ready(function() {
-	
+$(function() {
+
 	// Highlight current step in header
 	$('#current').closest('li').addClass('current');
-	
+
 	// Add that cool orange bkg to the input that has focus
 	$('input, select').bind({
 		focusin: function() {
@@ -14,9 +14,9 @@ $(document).ready(function() {
 			$(wrapper).removeClass('focus');
 		}
 	});
-	
+
 	$('input[name=password]').bind('keyup focus', function() {
-        
+
 		$.post(base_url + 'index.php/ajax/confirm_database', {
 				server: $('input[name=hostname]').val(),
 				username: $('input[name=username]').val(),
@@ -30,20 +30,20 @@ $(document).ready(function() {
 				}
 			}, 'json'
 		);
-        
+
     });
-    
+
 	$('input[name=user_confirm_password]').bind('keyup focus', function() {
-        
+
         password                = $('input[name=user_password]').val();
         password_confirmation   = $(this).val();
-        
+
         if (password == password_confirmation) {
-            $('#confirm_pass').html('<b>Passwords Match.</b>').removeClass('failure').addClass('success');
+            $('#confirm_pass').html('<b>'+pass_match[0]+'</b>').removeClass('failure').addClass('success');
         } else {
-            $('#confirm_pass').html('<b>Passwords Don\'t Match.</b>').removeClass('success').addClass('failure');
+            $('#confirm_pass').html('<b>'+pass_match[1]+'</b>').removeClass('success').addClass('failure');
         }
-        
+
     });
 
 });

@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
 /**
  * CodeIgniter Curl Class
  *
@@ -37,10 +36,7 @@ class Curl
             log_message('error', 'cURL Class - PHP was not built with cURL enabled. Rebuild PHP with --with-curl to use cURL.') ;
         }
 
-        if ($url)
-        {
-        	$this->create($url);
-        }
+		$url AND $this->create($url);
     }
 
 
@@ -172,9 +168,9 @@ class Curl
         return $this;
     }
 
-    public function http_header($header_string)
+    public function http_header($header, $content = NULL)
     {
-		$this->headers[] = $header_string;
+		$this->headers[] = $content ? $header.': '.$content : $header;
     }
 
     public function http_method($method)
@@ -202,6 +198,21 @@ class Curl
         $this->option(CURLOPT_PROXYUSERPWD, $username.':'.$password);
         return $this;
     }
+
+    public function ssl( $verify_peer = TRUE, $verify_host = 2, $path_to_cert = NULL) {
+        if ($verify_peer)
+        {
+            $this->option(CURLOPT_SSL_VERIFYPEER, TRUE);
+            $this->option(CURLOPT_SSL_VERIFYHOST, $verify_host);
+            $this->option(CURLOPT_CAINFO, $path_to_cert);
+        }
+        else
+        {
+            $this->option(CURLOPT_SSL_VERIFYPEER, FALSE);
+        }
+        return $this;
+    }
+
 
     public function options($options = array())
     {
@@ -251,10 +262,19 @@ class Curl
     public function execute()
     {
         // Set two default options, and merge any extra ones in
-        if ( ! isset($this->options[CURLOPT_TIMEOUT]))           $this->options[CURLOPT_TIMEOUT] = 30;
-        if ( ! isset($this->options[CURLOPT_RETURNTRANSFER]))    $this->options[CURLOPT_RETURNTRANSFER] = TRUE;
-        if ( ! isset($this->options[CURLOPT_FOLLOWLOCATION]))    $this->options[CURLOPT_FOLLOWLOCATION] = TRUE;
-        if ( ! isset($this->options[CURLOPT_FAILONERROR]))       $this->options[CURLOPT_FAILONERROR] = TRUE;
+        if (!isset($this->options[CURLOPT_TIMEOUT]))           $this->options[CURLOPT_TIMEOUT] = 30;
+        if (!isset($this->options[CURLOPT_RETURNTRANSFER]))    $this->options[CURLOPT_RETURNTRANSFER] = TRUE;
+        if (!isset($this->options[CURLOPT_FAILONERROR]))       $this->options[CURLOPT_FAILONERROR] = TRUE;
+
+		// Only set follow location if not running securely
+		if ( ! ini_get('safe_mode') && ! ini_get('open_basedir'))
+		{
+			// Ok, follow location is not set already so lets set it to true
+			if (!isset($this->options[CURLOPT_FOLLOWLOCATION]))
+			{
+				$this->options[CURLOPT_FOLLOWLOCATION] = TRUE;
+			}
+        }
 
 		if ( ! empty($this->headers))
 		{

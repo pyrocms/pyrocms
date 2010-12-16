@@ -38,7 +38,8 @@ class Plugin_Theme extends Plugin
 	function path()
 	{
 		$data =& $this->load->_ci_cached_vars;
-		return dirname($data['template_views']).'/';
+		$path = rtrim($data['template_views'], '/');
+		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
 	}
 
 	/**

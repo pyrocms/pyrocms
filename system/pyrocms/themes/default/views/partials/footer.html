@@ -2,7 +2,7 @@
 <div id="footerWrapper">
 	<div id="footer">
 
-	<div id="poweredby"><a href="http://pyrocms.com/">{pyro:theme:image file="logo.png" alt="Poweredby PyroCMS"} Powered by PyroCMS</div>
+	<div id="poweredby"><a href="http://pyrocms.com/">{pyro:theme:image file="logo.png" alt="Powered by PyroCMS"} Powered by PyroCMS</div>
 
 	<ul id="foot-nav">
 		{pyro:navigation:links group="footer"}
@@ -19,12 +19,16 @@
 
 <!-- Begin scripts -->
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">google.load('jquery', '1.4.2');</script>
+<script type="text/javascript">google.load('jquery', '1.4');</script>
 
 {pyro:theme:js file="localscroll.js"}
 {pyro:theme:js file="scrollto.js"}
 {pyro:theme:js file="easing.js"}
+
+{if '{pyro:lang:direction}' == 'ltr'}
 {pyro:theme:js file="cufon.js"}
+{/if}
+
 {pyro:theme:js file="qk.font.js"}
 {pyro:theme:js file="global.js"}
 <!-- End scripts -->

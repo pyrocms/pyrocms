@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // tabs
 $lang['pages.content_label'] 					= 'Page Content';
@@ -33,9 +33,9 @@ $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Draft';
 $lang['pages.live_label'] 						= 'Live';
 $lang['pages.revisions_label']					= 'Revisions';
-$lang['pages.compare_label']                                    = 'Compare';
-$lang['pages.preview_label']                                    = 'Preview';
-$lang['pages.current_label']                                    = 'Current';
+$lang['pages.compare_label']					= 'Compare';
+$lang['pages.preview_label']					= 'Preview';
+$lang['pages.current_label']					= 'Current';
 
 $lang['pages.view_label'] 						= 'View';
 $lang['pages.create_label'] 					= 'Add child';
@@ -68,5 +68,3 @@ $lang['pages.tree_explanation'] 				= 'The list on the left represents pages on 
 Click the "+" icon next to the page to show pages within it. When you click a page you will see all sorts of handy information in this box.';
 
 $lang['pages.rss_explanation']					= 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';
-
-?>
