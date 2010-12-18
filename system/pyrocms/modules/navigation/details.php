@@ -127,6 +127,7 @@ class Module_Navigation extends Module {
 				</ul>
 				Target specifies if this link should open in a new browser window or tab. (Tip: use New Window sparingly to
 				avoid annoying your site visitors.) The Class field allows you to add a css class to a single link.</p>
+				<p></p>
 				<h4>Ordering Navigation Links</h4>
 				<p>The order of your links in the admin panel are reflected on the website front-end. To change the order that
 				they appear simply drag and drop them until they are in the order that you like.</p>";
