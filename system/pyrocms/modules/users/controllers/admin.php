@@ -85,10 +85,6 @@ class Admin extends Admin_Controller
         $this->data->groups 			= $this->group_m->get_all();
         $this->data->groups_select		= array_for_select($this->data->groups, 'id', 'name');
 
-		// Sidebar data
-		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
-		$this->data->active_user_count 		= $this->users_m->count_by('active', 1);
-
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
@@ -99,35 +95,38 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		//base where clause
+		$base_where = array('active' => 0);
+		
+		//determine active param
+		$base_where['active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['active'] ;
+		
+		//determine group param
+		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int) $this->input->post('f_group')) : $base_where ;
+		
+		//keyphrase param
+		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
+		
 		// Create pagination links
-		$this->data->pagination = create_pagination('admin/users/index', $this->data->active_user_count);
-
+		$pagination = create_pagination('admin/users/index', $this->users_m->count_by($base_where));
+		
+		
 		// Using this data, get the relevant results
-		$this->data->users = $this->users_m
-			 ->order_by('users.id', 'desc')
-			 ->get_many_by('active', 1 );
+		$users = $this->users_m
+			 ->order_by('active', 'desc')
+			 ->limit($pagination['limit'])
+			 ->get_many_by($base_where);
 
+		//unset the layout if we have an ajax request
+		$this->is_ajax() ? $this->template->set_layout(FALSE) : '' ;
+		
 		// Render the view
 		$this->template
+				->set('pagination', $pagination)
+				->set('users', $users)
+				->set_partial('filters', 'admin/partials/filters')
+				->append_metadata( js('admin/filter.js') )
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
-	}
-
-	/**
-	 * Show all inactive users
-	 * @access public
-	 * @return voud
-	 */
-	public function inactive()
-	{
-		$this->data->pagination = create_pagination('admin/users/inactive', $this->data->inactive_user_count);
-		$this->data->users		= $this->users_m->limit($this->data->pagination['limit'])
-			->order_by('users.id', 'desc')
-			->get_many_by('active', 0);
-
-		// Render the view
-		$this->template
-			->title($this->module_details['name'], lang('user_inactive_title'))
 			->build('admin/index', $this->data);
 	}
 

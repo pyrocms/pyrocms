@@ -1,9 +1,4 @@
 <?php if (!empty($users)): ?>
-	<?php if ($this->method == 'index'): ?>
-		<h3><?php echo lang('user_registred_title');?></h3>
-	<?php else: ?>
-		<h3><?php echo lang('user_inactive_title');?></h3>
-	<?php endif; ?>
 
 	<?php echo form_open('admin/users/action'); ?>
 		<table border="0" class="table-list">
@@ -14,13 +9,14 @@
 					<th><?php echo lang('user_email_label');?></th>
 					<th><?php echo lang('user_group_label');?></th>
 					<th><?php echo lang('user_joined_label');?></th>
+					<th><?php echo lang('user_active'); ?></th>
 					<th><?php echo lang('user_last_visit_label');?></th>
 					<th><?php echo lang('user_actions_label');?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<td colspan="7">
+					<td colspan="8">
 						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 					</td>
 				</tr>
@@ -33,6 +29,7 @@
 						<td><?php echo mailto($member->email); ?></td>
 						<td><?php echo $member->role_title; ?></td>
 						<td><?php echo date('M d, Y', $member->created_on); ?></td>
+						<td><?php echo $member->active ? lang('dialog.yes') : lang('dialog.no') ; ?></td>
 						<td><?php echo ($member->last_login > 0 ? date('M d, Y', $member->last_login) : lang('user_never_label')); ?></td>
 						<td>
 							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label'), array('class'=>'minibutton')); ?>  
@@ -43,12 +40,8 @@
 			</tbody>	
 		</table>
 	
-	<div class="float-right">
-		<?php if ($this->method == 'index'): ?>
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
-		<?php else: ?>
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('activate', 'delete') )); ?>
-		<?php endif; ?>
+	<div class="float-left">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
 	
 <?php echo form_close(); ?>
