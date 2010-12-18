@@ -2,7 +2,7 @@
     $(function() {
         //filter form object
         var filter_form = $('form.filter');
-        
+        $('a.cancel').button();
         //lets get the current module,  we will need to know where to post the search criteria
         var f_module = $('input[name="f_module"]').val();
         
@@ -60,7 +60,7 @@
         }
         
         //clear filters
-        $('button[name="f_clear"]', filter_form).click(function() {
+        $('a.cancel', filter_form).click(function() {
         
                 //reset the defaults
                 //$('select', filter_form).children('option:first').addAttribute('selected', 'selected');

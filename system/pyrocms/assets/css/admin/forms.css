@@ -106,3 +106,11 @@ form.filter li {
 	float: left;
 	margin: 4px 0 0 0;
 }
+/* this is the cancel button for the filter form */
+a.cancel {
+	padding: 1px 6px;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-left: 8px;
+	display: block;
+}
