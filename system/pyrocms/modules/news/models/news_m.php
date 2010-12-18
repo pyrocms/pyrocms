@@ -62,6 +62,14 @@ class News_m extends MY_Model
     	{
        		$this->db->where('created_on <=', now());
     	}
+		
+		//Search for keywords
+		if ( ! empty($params['keywords']))
+		{
+			$this->db->like('news.title', $params['keywords'])
+						->or_like('news.intro', $params['keywords'])
+						->or_like('news.body', $params['keywords']);
+		}
        	
        	// Limit the results based on 1 number or 2 (2nd is offset)
        	if (isset($params['limit']) && is_array($params['limit'])) $this->db->limit($params['limit'][0], $params['limit'][1]);
@@ -106,6 +114,14 @@ class News_m extends MY_Model
     	{
     		$this->db->where('status', 'live');
     	}
+		
+		//Search for keywords
+		if ( ! empty($params['keywords']))
+		{
+			$this->db->like('news.title', $params['keywords'])
+						->or_like('news.intro', $params['keywords'])
+						->or_like('news.body', $params['keywords']);
+		}
        	
 		return $this->db->count_all_results('news');
     }

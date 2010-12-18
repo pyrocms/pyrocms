@@ -98,19 +98,30 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		//set the base/default where clause
+		$base_where = array('show_future'=>TRUE, 'status' => 'all');
+		
+		//add post values to base_where if f_module is posted
+		$base_where = $this->input->post('f_category') ? $base_where + array('category' => $this->input->post('f_category')) : $base_where ;
+		
+		$base_where['status'] = $this->input->post('f_status') ? $this->input->post('f_status') : $base_where['status'] ;
+		
+		$base_where = $this->input->post('f_keywords') ? $base_where + array('keywords' => $this->input->post('f_keywords')) : $base_where ;
+		
 		// Create pagination links
-		$total_rows = $this->news_m->count_by(array('show_future'=>TRUE, 'status' => 'all'));
+		$total_rows = $this->news_m->count_by($base_where);
 		$pagination = create_pagination('admin/news/index', $total_rows);
 		
 		// Using this data, get the relevant results
-		$news = $this->news_m->limit($pagination['limit'])->get_many_by(array(
-			'show_future' => TRUE,
-			'status' => 'all'
-		));
+		$news = $this->news_m->limit($pagination['limit'])->get_many_by($base_where);
 		
+		//do we need to unset the layout because the request is ajax?
+		$this->is_ajax() ? $this->template->set_layout(FALSE) : '' ;
 		
 		$this->template
 			->title($this->module_details['name'])
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata( js('admin/filter.js') )
 			->set('pagination', $pagination)
 			->set('news', $news)
 			->build('admin/index', $this->data);
