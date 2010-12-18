@@ -224,7 +224,8 @@ class News_m extends MY_Model
 		if ($keyphrase)
 		{
 			$matches = array();
-			if (strstr($keyphrase, '%'))
+			
+			if (strpos($keyphrase, '%') !== FALSE)
 			{
 				preg_match_all('/%.*?%/i', $keyphrase, $matches);
 			}
