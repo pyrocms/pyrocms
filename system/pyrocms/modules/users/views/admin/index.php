@@ -27,9 +27,9 @@
 						<td align="center"><?php echo form_checkbox('action_to[]', $member->id); ?></td>
 						<td><?php echo anchor('admin/users/edit/' . $member->id, $member->full_name); ?></td>
 						<td><?php echo mailto($member->email); ?></td>
-						<td><?php echo $member->role_title; ?></td>
-						<td><?php echo date('M d, Y', $member->created_on); ?></td>
+						<td><?php echo $member->group_name; ?></td>
 						<td><?php echo $member->active ? lang('dialog.yes') : lang('dialog.no') ; ?></td>
+						<td><?php echo date('M d, Y', $member->created_on); ?></td>
 						<td><?php echo ($member->last_login > 0 ? date('M d, Y', $member->last_login) : lang('user_never_label')); ?></td>
 						<td>
 							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label'), array('class'=>'minibutton')); ?>  

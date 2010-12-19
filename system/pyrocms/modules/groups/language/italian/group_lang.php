@@ -3,8 +3,9 @@
 /* Date 04/11/2010 */
 
 // labels
-$lang['groups.title'] = 'Title';
+$lang['groups.title']					= 'Title';
 $lang['groups.name']				    = 'Nome';
+$lang['groups.short_name']						= 'Short Name'; #translate
 $lang['groups.description'] 		    = 'Descrizione';
 $lang['groups.actions']					= 'Azioni';
 $lang['groups.edit']					= 'Modifica';

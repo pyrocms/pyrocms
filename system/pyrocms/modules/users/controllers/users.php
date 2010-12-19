@@ -186,7 +186,7 @@ class Users extends Public_Controller
 		if ($this->form_validation->run())
 		{
 			// Try to create the user
-			if($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
+			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
 				$this->session->set_flashdata(array('notice'=> $this->ion_auth->messages()));
 				redirect('users/activate');

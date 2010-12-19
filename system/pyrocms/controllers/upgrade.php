@@ -5,7 +5,7 @@
  * @package 	PyroCMS
  * @subpackage 	Controllers
  */
-class Upgrade extends Controller
+class Upgrade extends CI_Controller
 {
 	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0', '1.0.1');
 

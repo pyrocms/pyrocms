@@ -61,7 +61,7 @@ class Users_m extends MY_Model
     
 	function get_all()
     {
-    	$this->db->select('profiles.*, users.*, g.description as role_title, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name')
+    	$this->db->select('profiles.*, users.*, g.description as group_name, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name')
     			 ->join('groups g', 'g.id = users.group_id')
     			 ->join('profiles', 'profiles.user_id = users.id', 'left');
     		

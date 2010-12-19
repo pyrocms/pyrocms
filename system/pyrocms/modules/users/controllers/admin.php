@@ -122,10 +122,10 @@ class Admin extends Admin_Controller
 		
 		// Render the view
 		$this->template
-				->set('pagination', $pagination)
-				->set('users', $users)
-				->set_partial('filters', 'admin/partials/filters')
-				->append_metadata( js('admin/filter.js') )
+			->set('pagination', $pagination)
+			->set('users', $users)
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata( js('admin/filter.js'))
 			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
 	}

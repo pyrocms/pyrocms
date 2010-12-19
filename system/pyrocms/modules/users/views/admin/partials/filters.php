@@ -11,7 +11,7 @@
             <?php echo form_dropdown('f_group', array(0 => '') + $groups_select); ?>
         </li>
 	<li><?php echo form_input('f_keywords'); ?></li>
-	<li><?php echo anchor(current_url() . '#', lang('buttons.cancel'), 'class="cancel"'); ?></li>
+	<li><?php echo anchor(current_url(), lang('buttons.cancel'), 'class="cancel"'); ?></li>
 </ul>
 <?php echo form_close(); ?>
 <br class="clear-both">

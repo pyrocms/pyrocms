@@ -6,14 +6,15 @@
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
     <ul>
-		<li class="even">
-			<label for="name"><?php echo lang('groups.name');?></label>
-			<?php echo form_input('name', $group->name);?>
+		<li>
+			<label for="description"><?php echo lang('groups.name');?>:</label>
+			<?php echo form_input('description', $group->description);?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</li>
-		<li>
-			<label for="description"><?php echo lang('groups.description');?>:</label>
-			<?php echo form_input('description', $group->description);?>
+		<li class="even">
+			<label for="name"><?php echo lang('groups.short_name');?></label>
+			<?php echo form_input('name', $group->name);?>
+			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</li>
     </ul>
 
@@ -22,3 +23,16 @@
 	</div>
 	
 <?php echo form_close();?>
+
+<script type="text/javascript">
+	jQuery(function($) {
+		$('form input[name="description"]').keyup($.debounce(300, function(){
+
+			var slug = $('input[name="name"]');
+
+			$.post(BASE_URI + 'index.php/ajax/url_title', { title : $(this).val() }, function(new_slug){
+				slug.val( new_slug );
+			});
+		}));
+	});
+</script>
