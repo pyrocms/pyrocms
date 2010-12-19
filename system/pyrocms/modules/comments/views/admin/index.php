@@ -1,10 +1,4 @@
-<?php if($this->settings->moderate_comments): ?>
-	<?php if ($this->method == 'index'): ?>
-		<h3><?php echo lang('comments.active_title');?></h3>
-	<?php else: ?>
-		<h3><?php echo lang('comments.inactive_title');?></h3>
-	<?php endif; ?>
-<?php endif; ?>
+<h3><?php echo $content_title;?></h3>
 
 <?php if ( ! empty($comments)): ?>
 
@@ -14,7 +8,7 @@
 			<thead>
 				<tr>
 					<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-					<th class="width-15"><?php echo lang('comments.teaser_label');?></th>
+					<th class="width-15"><?php echo lang('comments.message_label');?></th>
 					<th><?php echo lang('comments.item_label');?></th>
 					<th><?php echo lang('comments.author_label');?></th>
 					<th><?php echo lang('comments.email_label');?></th>

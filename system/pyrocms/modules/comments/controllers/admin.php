@@ -67,8 +67,40 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// If we are moderating comments, show unmoderated comments
-		$this->approved();
+		$base_where = array('is_active' => 0);
+		
+		//capture active
+		$base_where['is_active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['is_active'] ;
+		
+		//capture module slug
+		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where ;
+	
+		// Create pagination links
+		$total_rows = $this->comments_m->count_by($base_where);
+		$pagination = create_pagination('admin/comments/index', $total_rows);
+		
+		$comments = $this->comments_m
+			->limit($pagination['limit'])
+			->order_by('comments.created_on', 'desc')
+			->get_many_by($base_where);
+		
+		$content_title = $base_where['is_active'] === 0 ? lang('comments.inactive_title') : lang('comments.active_title') ;
+		
+		$this->is_ajax() ? $this->template->set_layout(FALSE) : '' ;
+		
+		$module_list = $this->comments_m->get_slugs();
+		
+		
+		
+		$this->template
+			->title($this->module_details['name'])
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata( js('admin/filter.js') )
+			->set('module_list', $module_list)
+			->set('content_title', $content_title)
+			->set('comments', process_comment_items($comments))
+			->set('pagination', $pagination)
+			->build('admin/index');
 	}
 
 	public function unapproved()
