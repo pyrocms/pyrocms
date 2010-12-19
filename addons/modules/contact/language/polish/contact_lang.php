@@ -39,11 +39,11 @@ $lang['contact_sent_text']					= 'Twoja wiadomość została wysłana. Skontaktu
 $lang['contact_capchar_text']				= 'Wpisz słowo, które widzisz poniżej:';
 
 //predefined subjects list
-$lang['subject_support']  = 'Support';
-$lang['subject_sales']    = 'Sales';
-$lang['subject_payments']	= 'Payments';
+$lang['subject_support']  = 'Pomoc techniczna';
+$lang['subject_sales']    = 'Sprzedaż';
+$lang['subject_payments']	= 'Płatności';
 $lang['subject_business']	= 'Business Development';
-$lang['subject_feedback']	= 'Feedback/Suggestions';
-$lang['subject_other']    = 'Other';
+$lang['subject_feedback']	= 'Sugestie';
+$lang['subject_other']    = 'Inne';
 
 /* End of file contact_lang.php */

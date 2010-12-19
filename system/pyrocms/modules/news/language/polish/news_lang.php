@@ -30,8 +30,8 @@ $lang['news_rss_name_suffix'] 						= ' Nowości';
 $lang['news_rss_category_suffix'] 					= ' Nowości';
 $lang['news_author_name_label'] 					= 'Imię autora';
 $lang['news_read_more_label'] 						= 'Czytaj więcej&nbsp;&raquo;';
-$lang['news_created_hour']                  = 'Time (Hour)'; #translate
-$lang['news_created_minute']                = 'Time (Minute)'; #translate
+$lang['news_created_hour']                  = 'Czas (Godzina)';
+$lang['news_created_minute']                = 'Czas (Minuta)';
 
 // titles
 $lang['news_create_title'] 							= 'Dodaj artykuł';

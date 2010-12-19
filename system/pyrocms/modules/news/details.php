@@ -101,7 +101,16 @@ class Module_News extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+				<p>The News module is a simple tool for publishing blog entries or news articles.</p>
+				<h4>Categories</h4>
+				<p>You may create as many categories as you like to organize your posts. If you would like your visitors to
+				be able to browse by category simply embed the News Categories widget on the front-end.</p>
+				<h4>Articles</h4>
+				<p>Choose a good title for your posts as they will be displayed on the main News page (along with the introduction)
+				and will also be used as the title in search engine results. After creating a post you may either save it as Live to publish it or
+				you may save it as a Draft if you want to come back and edit it later. You may also save it as Live but set the date
+				in the future and your post will not show until that date is reached.</p>";
 	}
 }
 
