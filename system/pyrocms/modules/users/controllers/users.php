@@ -10,13 +10,6 @@
 class Users extends Public_Controller
 {
 	/**
-	 * Array containing the validation rules
-	 * @access private
-	 * @var array
-	 */
-	private $validation_rules 	= array();
-
-	/**
 	 * Constructor method
 	 *
 	 * @access public
@@ -47,8 +40,7 @@ class Users extends Public_Controller
 			'password' => $this->input->post('password')
 		);
 
-		// Validation rules
-		$this->validation_rules = array(
+		$validation = array(
 			array(
 				'field' => 'email',
 				'label' => lang('user_email_label'),
@@ -62,10 +54,10 @@ class Users extends Public_Controller
 		);
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules($validation);
 
 		// Set the redirect page as soon as they get to login
-		if(!$this->session->userdata('redirect_to'))
+		if ( ! $this->session->userdata('redirect_to'))
 		{
 			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
 
@@ -118,7 +110,7 @@ class Users extends Public_Controller
 	public function register()
 	{
 		// Validation rules
-		$this->validation_rules = array(
+		$validation = array(
 			array(
 				'field' => 'first_name',
 				'label' => lang('user_first_name'),
@@ -162,7 +154,7 @@ class Users extends Public_Controller
 		);
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules($validation);
 
 		$email 				= $this->input->post('email');
 		$password 			= $this->input->post('password');

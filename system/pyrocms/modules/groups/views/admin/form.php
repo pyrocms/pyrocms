@@ -11,10 +11,17 @@
 			<?php echo form_input('description', $group->description);?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</li>
+
 		<li class="even">
 			<label for="name"><?php echo lang('groups.short_name');?></label>
+
+			<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 			<?php echo form_input('name', $group->name);?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+
+			<?php else: ?>
+			<p><?php echo $group->name; ?></p>
+			<?php endif; ?>
 		</li>
     </ul>
 

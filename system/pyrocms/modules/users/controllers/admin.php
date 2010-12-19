@@ -14,7 +14,53 @@ class Admin extends Admin_Controller
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'first_name',
+			'label' => 'lang:user_first_name_label',
+			'rules' => 'required|utf8'
+		),
+		array(
+			'field' => 'last_name',
+			'label' => 'lang:user_last_name_label',
+			'rules' => 'required|utf8'
+		),
+		array(
+			'field' => 'display_name',
+			'label' => 'lang:user_display_name',
+			'rules' => 'required|alphanumeric|maxlength[50]'
+		),
+		array(
+			'field' => 'password',
+			'label' => 'lang:user_password_label',
+			'rules' => 'min_length[6]|max_length[20]'
+		),
+		array(
+			'field' => 'confirm_password',
+			'label' => 'lang:user_password_confirm_label',
+			'rules' => 'matches[password]'
+		),
+		array(
+			'field' => 'email',
+			'label' => 'lang:user_email_label',
+			'rules' => 'required|valid_email'
+		),
+		array(
+			'field' => 'username',
+			'label' => 'lang:user_username',
+			'rules' => 'required|alphanumeric|maxlength[20]'
+		),
+		array(
+			'field' => 'group_id',
+			'label' => 'lang:user_group_label',
+			'rules' => 'required|numeric'
+		),
+		array(
+			'field' => 'active',
+			'label' => 'lang:user_active_label',
+			'rules' => ''
+		)
+	);
 
 	/**
 	 * Constructor method
@@ -33,57 +79,8 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		// Create the validation array
-		$this->validation_rules = array(
-			array(
-				'field' => 'first_name',
-				'label' => lang('user_first_name_label'),
-				'rules' => 'required|utf8'
-			),
-			array(
-				'field' => 'last_name',
-				'label' => lang('user_last_name_label'),
-				'rules' => 'required|utf8'
-			),
-			array(
-				'field' => 'display_name',
-				'label' => lang('user_display_name'),
-				'rules' => 'required|alphanumeric|maxlength[50]'
-			),
-			array(
-				'field' => 'password',
-				'label' => lang('user_password_label'),
-				'rules' => 'min_length[6]|max_length[20]'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label' => lang('user_password_confirm_label'),
-				'rules' => 'matches[password]'
-			),
-			array(
-				'field' => 'email',
-				'label' => lang('user_email_label'),
-				'rules' => 'required|valid_email'
-			),
-			array(
-				'field' => 'username',
-				'label' => lang('user_username'),
-				'rules' => 'required|alphanumeric|maxlength[20]'
-			),
-			array(
-				'field' => 'group_id',
-				'label' => lang('user_group_label'),
-				'rules' => 'required|numeric'
-			),
-			array(
-				'field' => 'active',
-				'label' => lang('user_active_label'),
-				'rules' => ''
-			)
-		);
-
         $this->data->groups 			= $this->group_m->get_all();
-        $this->data->groups_select		= array_for_select($this->data->groups, 'id', 'name');
+        $this->data->groups_select		= array_for_select($this->data->groups, 'id', 'description');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
