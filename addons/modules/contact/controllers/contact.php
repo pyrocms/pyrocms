@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -64,7 +64,7 @@ class Contact extends Public_Controller
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-		
+
 		$this->form_validation->set_rules($this->rules);
 
 		// If the user has provided valid information
@@ -85,7 +85,7 @@ class Contact extends Public_Controller
 		{
 			$form_values->{$rule['field']} = set_value($rule['field']);
 		}
-		
+
 		$this->template
 			->set('subjects', $this->subjects)
 			->set('form_values', $form_values)
@@ -98,12 +98,11 @@ class Contact extends Public_Controller
 		$this->template->build('sent');
 	}
 
-
 	function _send_email()
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');
-		
+
 		$this->email->from($this->input->post('contact_email'), $this->input->post('contact_name'));
 		$this->email->to($this->settings->item('contact_email'));
 
