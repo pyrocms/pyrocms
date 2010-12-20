@@ -32,20 +32,16 @@ class Plugin_News extends Plugin
 
 		if ($category)
 		{
-			if (is_numeric($category))
-			{
-				$this->db->where('c.id', $category);
-			}
-			
-			else
-			{
-				$this->db->where('c.slug', $category);
-			}
+			is_numeric($category)
+				? $this->db->where('c.id', $category)
+				: $this->db->where('c.slug', $category);
 		}
 		
 		return $this->db
+			->select('news.*, c.title as category_title, c.slug as category_slug')
 			->where('status', 'live')
 			->where('created_on <=', now())
+			->join('news_categories c', 'news.category_id = c.id', 'LEFT')
 			->limit($limit)
 			->get('news')
 			->result_array();
