@@ -1,21 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * PyroCMS
+ * Asset Plugin
  *
- * An open source CMS based on CodeIgniter
+ * Load asset data
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 0.9.8
- * @filesource
+ * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ *
  */
-
-class Contact extends Public_Controller
+class Plugin_Contact extends Plugin
 {
-	private $subjects = array();
-
 	// Fields must match this certain criteria
 	private $rules = array(
 		array(
@@ -45,12 +40,11 @@ class Contact extends Public_Controller
 		)
 	);
 
-	function __construct()
+	public function __construct()
 	{
-		parent::Public_Controller();
 		$this->lang->load('contact');
-
-		$this->subjects = array(
+		
+		$this->default_subjects = array(
 			'support'   => lang('subject_support'),
 			'sales'     => lang('subject_sales'),
 			'payments'  => lang('subject_payments'),
@@ -59,11 +53,37 @@ class Contact extends Public_Controller
 			'other'     => lang('subject_other')
 		);
 	}
-
-	function index()
+	
+	/**
+	 * Asset CSS
+	 *
+	 * Insert a CSS tag
+	 *
+	 * Usage:
+	 *
+	 * {pyro:asset:css file="" module=""}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function form()
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
+		
+		if ($this->attribute('subjects') && $subjects = explode('|', $this->attribute('subjects')))
+		{
+			$subjects = array_combine($subjects, $subjects);
+		}
+
+		else
+		{
+			$subjects = $this->default_subjects;
+		}
+
+//		$attributes = $this->attributes();
+//		unset($attributes['file']);
+//		unset($attributes['module']);
 
 		$this->form_validation->set_rules($this->rules);
 
@@ -73,10 +93,13 @@ class Contact extends Public_Controller
 			// The try to send the email
 			if($this->_send_email())
 			{
-				// Store this session to limit useage
-				$this->session->set_flashdata('sent_contact_form', TRUE);
 
-				redirect('contact/sent');
+				$sent_message = $this->attribute('subjects', lang('contact_sent_text'));
+
+				// Store this session to limit useage
+				$this->session->set_flashdata('success', $sent_message);
+
+				redirect(current_url());
 			}
 		}
 
@@ -86,19 +109,11 @@ class Contact extends Public_Controller
 			$form_values->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$this->template
-			->set('subjects', $this->subjects)
-			->set('form_values', $form_values)
-			->build('index');
+		return $this->module_view('contact', 'form', array('subjects' => $subjects, 'form_values' => $form_values), TRUE);
 	}
 
 
-	function sent()
-	{
-		$this->template->build('sent');
-	}
-
-	function _send_email()
+	function _send_email($subjects = array())
 	{
 		$this->load->library('email');
 		$this->load->library('user_agent');
@@ -107,7 +122,7 @@ class Contact extends Public_Controller
 		$this->email->to($this->settings->item('contact_email'));
 
 		// If "other subject" exists then use it, if not then use the selected subject
-		$subject = ($this->input->post('other_subject')) ? $this->input->post('other_subject') : $this->subjects[$this->input->post('subject')];
+		$subject = ($this->input->post('other_subject')) ? $this->input->post('other_subject') : $this->default_subjects[$this->input->post('subject')];
 		$this->email->subject($this->settings->item('site_name') .' - '.$subject);
 
 		// Loop through cleaning data and inputting to $data
@@ -121,13 +136,12 @@ class Contact extends Public_Controller
 		$data['sender_ip']		=	$this->input->ip_address();
 		$data['sender_os']		=	$this->agent->platform();
 
-		$this->email->message($this->load->view('email/contact_html', $data, TRUE));
-		$this->email->set_alt_message($this->load->view('email/contact_plain', $data, TRUE));
+		$this->email->message($this->module_view('contact', 'email/contact_html', $data));
+		$this->email->set_alt_message($this->module_view('contact', 'email/contact_plain', $data));
 
 		// If the email has sent with no known erros, show the message
 		return (bool) $this->email->send();
 	}
-
 }
 
-/* End of file contact.php */
+/* End of file plugin.php */

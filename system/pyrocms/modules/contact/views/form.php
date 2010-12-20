@@ -1,11 +1,10 @@
-<h2 id="page_title"><?php echo lang('contact_title');?></h2>
-
 <?php if (validation_errors()): ?>
-<div class="error_box">
+<div class="error-box">
 	<?php echo validation_errors();?>
 </div>
 <?php endif; ?>
-<?php echo form_open('contact');?>
+<?php echo form_open(current_url());?>
+
 	<p>
 		<label for="contact_email"><?php echo lang('contact_name_label');?></label>
 		<?php echo form_input('contact_name', $form_values->contact_name);?>

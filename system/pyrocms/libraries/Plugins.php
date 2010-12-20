@@ -77,6 +77,32 @@ abstract class Plugin
 	 * @param	array - Array of default params
 	 * @return 	array
 	 */
+	public function module_view($module, $view, $vars = array())
+	{
+		list($path, $view) = Modules::find($view, $module, 'views/');
+
+		$save_path = $this->load->_ci_view_path;
+		$this->load->_ci_view_path = $path;
+
+		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array) $vars), '_ci_return' => TRUE));
+
+		// Put the path back
+		$this->load->_ci_view_path = $save_path;
+
+		return $content;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Get param
+	 *
+	 * This is a helper used from the parser files to process a list of params
+	 *
+	 * @param	array - Params passed from view
+	 * @param	array - Array of default params
+	 * @return 	array
+	 */
 	public function set_data($data)
 	{
 		isset($data['content']) AND $this->content = $data['content'];
@@ -116,7 +142,16 @@ class Plugins
 			{
 				if (file_exists($path = $directory.'modules/'.$class.'/plugin'.EXT))
 				{
-					return $this->_process($path, $class, $method, $data);
+					$dirname = dirname($path).'/';
+
+					// Set the module as a package so I can load stuff
+					$this->_ci->load->add_package_path($dirname);
+
+					$response = $this->_process($path, $class, $method, $data);
+
+					$this->_ci->load->remove_package_path($dirname);
+
+					return $response;
 				}
 			}
 		}

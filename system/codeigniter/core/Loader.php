@@ -524,10 +524,10 @@ class CI_Loader {
 	 * @param	string
 	 * @return	void
 	 */
-	function add_package_path($path)
+	public function add_package_path($path)
 	{
 		$path = rtrim($path, '/').'/';
-		
+
 		array_unshift($this->_ci_library_paths, $path);
 		array_unshift($this->_ci_model_paths, $path);
 		array_unshift($this->_ci_helper_paths, $path);
@@ -535,6 +535,22 @@ class CI_Loader {
 		// Add config file path
 		$config =& $this->_ci_get_component('config');
 		array_unshift($config->_config_paths, $path);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Get Package Paths
+	 *
+	 * Return a list of all package paths, by default it will ignore BASEPATH.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 */
+	function get_package_paths($include_base = FALSE)
+	{
+		return $include_base === TRUE ? $this->_ci_library_paths : $this->_ci_model_paths;
 	}
 
 	// --------------------------------------------------------------------
@@ -598,19 +614,22 @@ class CI_Loader {
 	 * @param	array
 	 * @return	void
 	 */
-	function _ci_load($_ci_data)
+	function _ci_load($_ci_data, $error_on_fail = TRUE)
 	{
 		// Set the default data variables
 		foreach (array('_ci_view', '_ci_vars', '_ci_path', '_ci_return') as $_ci_val)
 		{
 			$$_ci_val = ( ! isset($_ci_data[$_ci_val])) ? FALSE : $_ci_data[$_ci_val];
 		}
-
+		
+			echo $this->_ci_view_path ."\n";
+			
 		// Set the path to the requested file
 		if ($_ci_path == '')
 		{
 			$_ci_ext = pathinfo($_ci_view, PATHINFO_EXTENSION);
 			$_ci_file = ($_ci_ext == '') ? $_ci_view.EXT : $_ci_view;
+
 			$_ci_path = $this->_ci_view_path.$_ci_file;
 		}
 		else
@@ -621,7 +640,16 @@ class CI_Loader {
 
 		if ( ! file_exists($_ci_path))
 		{
-			show_error('Unable to load the requested file: '.$_ci_file);
+			// Sometimes we just want a bool, not an error
+			if ($error_on_fail !== TRUE)
+			{
+				return FALSE;
+			}
+
+			else
+			{
+				show_error('Unable to load the requested file: '.$_ci_file);
+			}
 		}
 
 		// This allows anything loaded using $this->load (views, files, etc.)
