@@ -11,4 +11,4 @@
 <?php echo lang('contact_mail_below_message_label');?>
 
 <?php echo sprintf(lang('contact_mail_name_label'), $contact_name);?>
-<?php echo sprintf(lang('contact_mail_company_label', $company_name));?>
+<?php echo sprintf(lang('contact_mail_company_label'), $company_name);?>
