@@ -104,7 +104,7 @@ class Comments extends Public_Controller
 			else
 			{
 				// Save the comment
-				if($this->comments_m->insert($comment))
+				if($comment_id = $this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
 					if ( ! $this->settings->moderate_comments OR (isset($this->user->group) && $this->user->group == 'admin'))
@@ -117,6 +117,11 @@ class Comments extends Public_Controller
 					{
 						$this->session->set_flashdata('success', lang('comments.add_approve'));
 					}
+					
+					$comment['comment_id'] = $comment_id;
+					
+					//send the notification email
+					$this->_send_email($comment);
 				}
 				
 				// Failed to add the comment
@@ -202,5 +207,39 @@ class Comments extends Public_Controller
 
 		// F**k knows, its probably fine...
 		return array('status' => TRUE);
+	}
+	
+	/**
+	 * Send an email
+	 *
+	 * @access private
+	 * @return void
+	 */
+	private function _send_email($comment = array())
+	{
+		$this->load->library('email');
+		$this->load->library('user_agent');
+		
+		$this->email->from($comment['email'], $comment['name']);
+		$this->email->to($this->settings->contact_email);
+
+		// If "other subject" exists then use it, if not then use the selected subject
+		$subject = '"' . $comment['name'] . ' has posted a comment on something" via ' . $this->settings->site_name;
+		$this->email->subject($subject);
+
+		// Add in some extra details
+		$comment['sender_agent']	=	$this->agent->browser().' '.$this->agent->version();
+		$comment['sender_ip']		=	$this->input->ip_address();
+		$comment['sender_os']		=	$this->agent->platform();
+		$comment['redirect_url']	= 	anchor(ltrim($comment['redirect_to'], '/') . '#' . $comment['comment_id']);
+		
+		$template = $this->load->view('email/comment_html', '', TRUE);
+		$template_plain = $this->load->view('email/comment_plain', '', TRUE);
+		
+		$this->email->message($this->parser->parse_string($template, $comment, TRUE));
+		$this->email->set_alt_message($this->parser->parse_string($template_plain, $comment, TRUE));
+
+		// If the email has sent with no known erros, show the message
+		return (bool) $this->email->send();
 	}
 }
