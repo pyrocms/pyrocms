@@ -31,7 +31,13 @@ class Plugin_Helper extends Plugin
 	function date()
 	{
 		$format = $this->attribute('format');
-		return date($format);
+		$timestamp = $this->attribute('timestamp');
+		
+		if(0 >= $timestamp)
+		{
+			$timestamp = time();
+		}
+		return date($format, $timestamp);
 	}
 }
 
