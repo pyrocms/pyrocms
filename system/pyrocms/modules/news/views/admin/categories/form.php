@@ -1,8 +1,8 @@
-<?php if ($this->method == 'create'): ?>
-<h3><?php echo lang('cat_create_title');?></h3>
+<?php if ($this->controller == 'admin_categories' && $this->method === 'edit'): ?>
+<h3><?php echo sprintf(lang('cat_edit_title'), $category->title);?></h3>
 
 <?php else: ?>
-<h3><?php echo sprintf(lang('cat_edit_title'), $category->title);?></h3>
+<h3><?php echo lang('cat_create_title');?></h3>
 
 <?php endif; ?>
 
