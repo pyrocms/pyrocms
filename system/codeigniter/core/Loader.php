@@ -81,12 +81,12 @@ class CI_Loader {
 		{
 			foreach($library as $read)
 			{
-				$this->library($read);	
+				$this->library($read);
 			}
-			
+
 			return;
 		}
-		
+
 		if ($library == '' OR isset($this->_base_classes[$library]))
 		{
 			return FALSE;
@@ -524,7 +524,7 @@ class CI_Loader {
 	 * @param	string
 	 * @return	void
 	 */
-	public function add_package_path($path)
+	function add_package_path($path)
 	{
 		$path = rtrim($path, '/').'/';
 
@@ -579,7 +579,7 @@ class CI_Loader {
 		else
 		{
 			$path = rtrim($path, '/').'/';
-			
+
 			foreach (array('_ci_library_paths', '_ci_model_paths', '_ci_helper_paths') as $var)
 			{
 				if (($key = array_search($path, $this->{$var})) !== FALSE)
@@ -614,22 +614,19 @@ class CI_Loader {
 	 * @param	array
 	 * @return	void
 	 */
-	function _ci_load($_ci_data, $error_on_fail = TRUE)
+	function _ci_load($_ci_data)
 	{
 		// Set the default data variables
 		foreach (array('_ci_view', '_ci_vars', '_ci_path', '_ci_return') as $_ci_val)
 		{
 			$$_ci_val = ( ! isset($_ci_data[$_ci_val])) ? FALSE : $_ci_data[$_ci_val];
 		}
-		
-			echo $this->_ci_view_path ."\n";
-			
+
 		// Set the path to the requested file
 		if ($_ci_path == '')
 		{
 			$_ci_ext = pathinfo($_ci_view, PATHINFO_EXTENSION);
 			$_ci_file = ($_ci_ext == '') ? $_ci_view.EXT : $_ci_view;
-
 			$_ci_path = $this->_ci_view_path.$_ci_file;
 		}
 		else
@@ -640,16 +637,7 @@ class CI_Loader {
 
 		if ( ! file_exists($_ci_path))
 		{
-			// Sometimes we just want a bool, not an error
-			if ($error_on_fail !== TRUE)
-			{
-				return FALSE;
-			}
-
-			else
-			{
-				show_error('Unable to load the requested file: '.$_ci_file);
-			}
+			show_error('Unable to load the requested file: '.$_ci_file);
 		}
 
 		// This allows anything loaded using $this->load (views, files, etc.)
