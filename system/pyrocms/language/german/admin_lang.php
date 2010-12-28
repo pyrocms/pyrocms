@@ -17,7 +17,7 @@ $lang['cp_manage_users']				= 'Benutzer verwalten';
 
 // Header
 $lang['cp_to_home'] 					= 'Zurück zur Admin-Oberfläche';
-$lang['cp_view_frontend'] 				= 'Webseite ansehen';
+$lang['cp_view_frontend'] 				= 'Webseite anschauen';
 $lang['cp_logged_in_welcome'] 			= 'Hallo %s';
 $lang['cp_logout_label'] 				= 'Abmelden';
 $lang['cp_edit_profile_label'] 			= 'Profil bearbeiten';
@@ -37,13 +37,13 @@ $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Inhalt';
 $lang['cp_nav_utilities']                               = 'Dienstprogramme';
 
-$lang['cp_must_login']	 				= 'Um diese Seite zu sehen, musst du dich anmelden.';
-$lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsrechte um diese Seite anzusehen.';
+$lang['cp_must_login']	 				= 'Du musst eingeloggt sein, um diese Seite sehen zu können.';
+$lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
 $lang['cp_delete_installer_message']	= 'Bitte lösche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen könnten.';
-$lang['cp_upgrade_message']				= 'Du benutzt aktuell Version %s, aber die Datenbank ist noch Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
+$lang['cp_upgrade_message']				= 'Du benutzt aktuell Version %s, aber die Datenbank ist in der älteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
 
 // Admin-wide text
-$lang['cp_sidebar_title'] 				= 'Seitenleistenmenu';
+$lang['cp_shortcuts_title'] 			= 'Verknüpfungen';
 
 $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';
