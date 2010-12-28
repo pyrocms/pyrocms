@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 // labels
 $lang['variables.name_label'] 			    = 'Nom';

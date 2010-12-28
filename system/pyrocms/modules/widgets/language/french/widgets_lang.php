@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Widgets disponibles';
