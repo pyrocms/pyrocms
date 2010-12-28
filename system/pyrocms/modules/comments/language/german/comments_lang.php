@@ -45,12 +45,12 @@ $lang['comments.approve_success_multiple'] 	= 'Die ausgewählten Kommentare wurd
 $lang['comments.approve_error'] 			= 'Kommentar konnte nicht bestätigt werden.';
 $lang['comments.approve_error_multiple'] 	= 'Ausgewählte Kommentare konnten nicht bestätigt werden.';
 
-$lang['comments.unapprove_success'] 		= 'Kommentar-Bestätigung wurde aufgehoben. Der Kommentar wird nicht länger auf der Live-Seite angezeigt.';
-$lang['comments.unapprove_success_multiple'] = 'Ausgewählte Kommentar-Bestätigungen wurden aufgehoben. Die Kommentare werden nicht länger auf der Live-Seite angezeigt.';
+$lang['comments.unapprove_success'] 		= 'Kommentar-Bestätigung wurde aufgehoben. Der Kommentar wird nicht länger auf der Seite angezeigt.';
+$lang['comments.unapprove_success_multiple'] = 'Ausgewählte Kommentar-Bestätigungen wurden aufgehoben. Die Kommentare werden nicht länger auf der Seite angezeigt.';
 $lang['comments.unapprove_error'] 			= 'Ein Fehler ist aufgetreten. Kommentar-Bestätigung konnte nicht aufgehoben werden.';
 $lang['comments.unapprove_error_multiple']	= 'Ein Fehler ist aufgetreten. Ausgewählte Kommentar-Bestätigungen konnten nicht aufgehoben werden.';
 
-$lang['comments.delete_single_success'] 	= 'Dieser Kommentar #%s wurde gelöscht und wird nicht länger auf der Live-Seite angezeigt.';
-$lang['comments.delete_multi_success'] 		= 'Diese Kommentare #%s wurden gelöscht und werden nicht länger auf der Live-Seite angezeigt.';
+$lang['comments.delete_single_success'] 	= 'Dieser Kommentar #%s wurde gelöscht und wird nicht länger auf der Seite angezeigt.';
+$lang['comments.delete_multi_success'] 		= 'Diese Kommentare #%s wurden gelöscht und werden nicht länger auf der Seite angezeigt.';
 
-$lang['comments.no_comments'] 				= 'Es gibt keine Kommentare';
+$lang['comments.no_comments'] 				= 'Keine Kommentare vorhanden';

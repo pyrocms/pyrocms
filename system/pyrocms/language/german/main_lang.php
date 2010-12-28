@@ -39,7 +39,7 @@ $lang['note_label'] 					= 'Hinweis';
 $lang['success_label'] 					= 'Erfolgreich';
 
 $lang['login_title'] 					= 'Anmelden';
-$lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler, ist das CMS installiert?';
+$lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler! Ist das CMS installiert?';
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
