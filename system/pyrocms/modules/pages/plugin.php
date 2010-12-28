@@ -28,20 +28,29 @@ class Plugin_Pages extends Plugin
 	/**
 	 * Children list
 	 *
-	 * Creates a list of news posts
+	 * Creates a list of child pages
 	 *
 	 * Usage:
-	 * {pyro:news:posts limit="5"}
-	 *	<h2>{pyro:title}</h2>
-	 *	{pyro:body}
-	 * {/pyro:news:posts}
+	 * {pyro:pages:children id="1" limit="5"}
+	 *	<h2>{title}</h2>
+	 *	    {body}
+	 * {/pyro:pages:children}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
+	
 	function children()
 	{
-		return $this->pages_m->get_many_by('parent_id', $this->attribute('id'));
+		$limit = $this->attribute('limit');
+		
+		return $this->db->select('pages.*, revisions.*')
+						->where('pages.parent_id', $this->attribute('id'))
+						->where('status', 'live')
+						->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
+						->limit($limit)
+						->get('pages')
+						->result_array();
 	}
 }
 
