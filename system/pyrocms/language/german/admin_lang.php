@@ -35,7 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Benutzer';
 $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Inhalt';
-$lang['cp_nav_utilities']                               = 'Dienstprogramme';
+$lang['cp_nav_utilities']               = 'Dienstprogramme';
 
 $lang['cp_must_login']	 				= 'Du musst eingeloggt sein, um diese Seite sehen zu können.';
 $lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
@@ -43,7 +43,7 @@ $lang['cp_delete_installer_message']	= 'Bitte lösche das Installationsverzeichn
 $lang['cp_upgrade_message']				= 'Du benutzt aktuell Version %s, aber die Datenbank ist in der älteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Verknüpfungen';
+$lang['cp_shortcuts_title'] 			= 'Shortcuts';
 
 $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';

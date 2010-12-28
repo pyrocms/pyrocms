@@ -20,4 +20,4 @@ $lang['redirects.edit_error']                = 'Änderungen zur Umleitung konnte
 $lang['redirects.mass_delete_error']         = 'Es ist ein Fehler bei dem Versuch aufgetreten die Umleitung %s zu löschen!';
 $lang['redirects.mass_delete_success']       = '%s von %s Umleitung(en) erfolgreich gelöscht.';
 $lang['redirects.no_select_error']           = 'Du musst vorher eine Umleitung auswählen um eine zu löschen.';
-$lang['redirects.request_conflict_error']    = 'A redirect already exists for "%s".';
+$lang['redirects.request_conflict_error']    = 'Es existiert bereits eine Umleitung zu "%s".';
