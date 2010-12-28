@@ -151,3 +151,6 @@ $lang['user_activated_email_content_line2']    = 'In case your email program doe
 // Reset Pass
 $lang['user_reset_pass_email_subject']         = 'Password Reset';
 $lang['user_reset_pass_email_body']            = 'Your password at %s has been reset. If you did not request this change, please email us at %s and we will resolve the situation.';
+
+/* End of file user_lang.php */
+/* Location: ./system/pyrocms/modules/users/language/english/user_lang.php */

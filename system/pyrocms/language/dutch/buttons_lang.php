@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -27,3 +27,4 @@ $lang['buttons.no']			= 'Nee';
 $lang['buttons.activate']       = 'Activate'; #translate
 
 /* End of file buttons_lang.php */
+/* Location: ./system/pyrocms/language/dutch/buttons_lang.php

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Stap 1: Configureer de Database en de Server';
@@ -18,3 +18,6 @@ $lang['step2']			=	'Stap 2';
 // messages
 $lang['db_success']		=	'De database instellingen zijn getest en werken.';
 $lang['db_failure']		=	'Er heeft zich een probleem voorgedaan tijdens het verbinden met de database: ';
+
+/* End of file step_1_lang.php */
+/* Location: ./installer/language/dutch/step_1_lang.php */

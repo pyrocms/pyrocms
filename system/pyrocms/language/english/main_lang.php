@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_title'] 						= 'Control Panel';
 
@@ -61,3 +61,6 @@ $lang['uninstall_label'] 				= 'Uninstall';
 $lang['install_label'] 					= 'Install';
 $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
+
+/* End of file main_lang.php */
+/* Location: ./system/pyrocms/language/english/main_lang.php */

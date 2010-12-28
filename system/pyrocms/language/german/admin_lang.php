@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Admin-Oberfläche';
 $lang['cp_admin_home_title'] 			= 'Admin-Oberfläche';
@@ -47,3 +47,6 @@ $lang['cp_shortcuts_title'] 			= 'Shortcuts';
 
 $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';
+
+/* End of file admin_lang.php */
+/* Location: ./system/pyrocms/language/german/admin_lang.php */

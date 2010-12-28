@@ -18,3 +18,6 @@ $lang['step2']			=	'Step 2';
 // messages
 $lang['db_success']		=	'The database settings are tested and working fine.';
 $lang['db_failure']		=	'Problem connecting to the database: ';
+
+/* End of file step_1_lang.php */
+/* Location: ./installer/language/english/step_1_lang.php */

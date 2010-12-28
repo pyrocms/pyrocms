@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Error 404
 $lang['error_404_title'] = 'Pagina mist';
@@ -7,4 +7,5 @@ $lang['error_404_message'] = 'Deze pagina kan helaas niet gevonden worden. Klik 
 // Database
 $lang['error_invalid_db_group'] = 'De database probeert een ongeldige configuratiegroep te gebruiken "%s".';
 
-?>
+/* End of file errors_lang.php */
+/* Location: ./system/pyrocms/language/dutch/errors_lang.php */
