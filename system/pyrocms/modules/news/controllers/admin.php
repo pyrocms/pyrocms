@@ -1,12 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
+
 /**
  *
  * @package  	PyroCMS
  * @subpackage  Categories
  * @category  	Module
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+
 	/**
 	 * Array that contains the validation rules
 	 * @access protected
@@ -14,13 +18,13 @@ class Admin extends Admin_Controller
 	 */
 	protected $validation_rules = array(
 		array(
-			'field'   => 'title',
-			'label'   => 'lang:news_title_label',
-			'rules'   => 'trim|htmlspecialchars|required|max_length[100]'
-			),
+			'field' => 'title',
+			'label' => 'lang:news_title_label',
+			'rules' => 'trim|htmlspecialchars|required|max_length[100]'
+		),
 		array(
-			'field'	=> 'slug',
-			'label'	=> 'lang:news_slug_label',
+			'field' => 'slug',
+			'label' => 'lang:news_slug_label',
 			'rules' => 'trim|required|alpha_dot_dash|max_length[100]'
 		),
 		array(
@@ -49,9 +53,9 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|required'
 		),
 		array(
-		  'field' => 'created_on_hour',
-		  'label' => 'lang:news_created_hour',
-		  'rules' => 'trim|numeric|required'
+			'field' => 'created_on_hour',
+			'label' => 'lang:news_created_hour',
+			'rules' => 'trim|numeric|required'
 		),
 		array(
 			'field' => 'created_on_minute',
@@ -60,7 +64,7 @@ class Admin extends Admin_Controller
 		)
 	);
 
-	/** 
+	/**
 	 * The constructor
 	 * @access public
 	 * @return void
@@ -68,29 +72,29 @@ class Admin extends Admin_Controller
 	public function __construct()
 	{
 		parent::Admin_Controller();
-		
+
 		$this->load->model('news_m');
 		$this->load->model('news_categories_m');
 		$this->lang->load('news');
 		$this->lang->load('categories');
-		
+
 		// Date ranges for select boxes
 		$this->data->hours = array_combine($hours = range(0, 23), $hours);
 		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
-		
+
 		$this->data->categories = array(0 => '');
 		if ($categories = $this->news_categories_m->get_all())
 		{
-			foreach($categories as $category)
+			foreach ($categories as $category)
 			{
 				$this->data->categories[$category->id] = $category->title;
 			}
 		}
-		
-		$this->template->append_metadata( css('news.css', 'news') )
+
+		$this->template->append_metadata(css('news.css', 'news'))
 				->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
-	
+
 	/**
 	 * Show all created news articles
 	 * @access public
@@ -99,34 +103,34 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		//set the base/default where clause
-		$base_where = array('show_future'=>TRUE, 'status' => 'all');
-		
+		$base_where = array('show_future' => TRUE, 'status' => 'all');
+
 		//add post values to base_where if f_module is posted
-		$base_where = $this->input->post('f_category') ? $base_where + array('category' => $this->input->post('f_category')) : $base_where ;
-		
-		$base_where['status'] = $this->input->post('f_status') ? $this->input->post('f_status') : $base_where['status'] ;
-		
-		$base_where = $this->input->post('f_keywords') ? $base_where + array('keywords' => $this->input->post('f_keywords')) : $base_where ;
-		
+		$base_where = $this->input->post('f_category') ? $base_where + array('category' => $this->input->post('f_category')) : $base_where;
+
+		$base_where['status'] = $this->input->post('f_status') ? $this->input->post('f_status') : $base_where['status'];
+
+		$base_where = $this->input->post('f_keywords') ? $base_where + array('keywords' => $this->input->post('f_keywords')) : $base_where;
+
 		// Create pagination links
 		$total_rows = $this->news_m->count_by($base_where);
 		$pagination = create_pagination('admin/news/index', $total_rows);
-		
+
 		// Using this data, get the relevant results
 		$news = $this->news_m->limit($pagination['limit'])->get_many_by($base_where);
-		
+
 		//do we need to unset the layout because the request is ajax?
-		$this->is_ajax() ? $this->template->set_layout(FALSE) : '' ;
-		
+		$this->is_ajax() ? $this->template->set_layout(FALSE) : '';
+
 		$this->template
-			->title($this->module_details['name'])
-			->set_partial('filters', 'admin/partials/filters')
-			->append_metadata( js('admin/filter.js') )
-			->set('pagination', $pagination)
-			->set('news', $news)
-			->build('admin/index', $this->data);
+				->title($this->module_details['name'])
+				->set_partial('filters', 'admin/partials/filters')
+				->append_metadata(js('admin/filter.js'))
+				->set('pagination', $pagination)
+				->set('news', $news)
+				->build('admin/index', $this->data);
 	}
-	
+
 	/**
 	 * Create new article
 	 * @access public
@@ -135,33 +139,33 @@ class Admin extends Admin_Controller
 	public function create()
 	{
 		$this->load->library('form_validation');
-		
+
 		//append the check slug callback function to rules array
 		$this->validation_rules[1]['rules'] .= '|callback__check_slug';
 		$this->form_validation->set_rules($this->validation_rules);
-		
+
 		if ($this->form_validation->run())
 		{
-			
-      $date = $this->input->post('date');
-      
-      $date =  explode('/', $date);
-    
-      $id = $this->news_m->insert(array(
-				'title'			=> $this->input->post('title'),
-				'slug'			=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
-				'intro'			=> $this->input->post('intro'),
-				'body'			=> $this->input->post('body'),
-				'status'		=> $this->input->post('status'),
-				'created_on_hour'	=> $this->input->post('created_on_hour'),
-				'created_on_minute'	=> $this->input->post('created_on_minute'),
-        'created_on_day'  => $date[0],
-        'created_on_month'  => $date[1],
-        'created_on_year' => $date[2],
-			));
-    	
-			if($id)
+
+			$date = $this->input->post('date');
+
+			$date = explode('/', $date);
+
+			$id = $this->news_m->insert(array(
+						'title' => $this->input->post('title'),
+						'slug' => $this->input->post('slug'),
+						'category_id' => $this->input->post('category_id'),
+						'intro' => $this->input->post('intro'),
+						'body' => $this->input->post('body'),
+						'status' => $this->input->post('status'),
+						'created_on_hour' => $this->input->post('created_on_hour'),
+						'created_on_minute' => $this->input->post('created_on_minute'),
+						'created_on_day' => $date[0],
+						'created_on_month' => $date[1],
+						'created_on_year' => $date[2],
+					));
+
+			if ($id)
 			{
 				$this->cache->delete_all('news_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
@@ -172,26 +176,25 @@ class Admin extends Admin_Controller
 			}
 
 			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/news') : redirect('admin/news/edit/'.$id);
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/news') : redirect('admin/news/edit/' . $id);
 		}
-
 		else
 		{
 			// Go through all the known fields and get the post values
-			foreach($this->validation_rules as $key => $field)
+			foreach ($this->validation_rules as $key => $field)
 			{
 				$article->$field['field'] = set_value($field['field']);
 			}
 		}
-		
+
 		$this->template
-			->title($this->module_details['name'], lang('news_create_title'))
-			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('news_form.js', 'news') )
-			->set('article', $article)
-			->build('admin/form');
+				->title($this->module_details['name'], lang('news_create_title'))
+				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+				->append_metadata(js('news_form.js', 'news'))
+				->set('article', $article)
+				->build('admin/form');
 	}
-	
+
 	/**
 	 * Edit news article
 	 * @access public
@@ -200,95 +203,93 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		
-    $date = $this->input->post('date');
-    
-    $date =  explode('/', $date);
-  
-    $id OR redirect('admin/news');
-		
+
+		$date = $this->input->post('date');
+
+		$date = explode('/', $date);
+
+		$id OR redirect('admin/news');
+
 		$this->load->library('form_validation');
-		
+
 		$this->form_validation->set_rules($this->validation_rules);
-			
+
 		$article = $this->news_m->get($id);
-		
+
 		if ($this->form_validation->run())
 		{
-			
+
 			$result = $this->news_m->update($id, array(
-				'title'			=> $this->input->post('title'),
-				'slug'			=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
-				'intro'			=> $this->input->post('intro'),
-				'body'			=> $this->input->post('body'),
-				'status'		=> $this->input->post('status'),
-				'created_on_hour'	=> $this->input->post('created_on_hour'),
-				'created_on_minute'	=> $this->input->post('created_on_minute'),
-        'created_on_day'  => $date[0],
-        'created_on_month'  => $date[1],
-        'created_on_year' => $date[2],
-				));
-			
+						'title' => $this->input->post('title'),
+						'slug' => $this->input->post('slug'),
+						'category_id' => $this->input->post('category_id'),
+						'intro' => $this->input->post('intro'),
+						'body' => $this->input->post('body'),
+						'status' => $this->input->post('status'),
+						'created_on_hour' => $this->input->post('created_on_hour'),
+						'created_on_minute' => $this->input->post('created_on_minute'),
+						'created_on_day' => $date[0],
+						'created_on_month' => $date[1],
+						'created_on_year' => $date[2],
+					));
+
 			if ($result)
 			{
-				$this->session->set_flashdata(array('success'=> sprintf($this->lang->line('news_edit_success'), $this->input->post('title'))));
-				
+				$this->session->set_flashdata(array('success' => sprintf($this->lang->line('news_edit_success'), $this->input->post('title'))));
+
 				// The twitter module is here, and enabled!
 				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
 				{
-					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[0], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
+					$url = shorten_url('news/' . $date[2] . '/' . str_pad($date[0], 2, '0', STR_PAD_LEFT) . '/' . url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
-					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
+					if (!$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{
 						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . $this->twitter->last_error['error']);
 					}
 				}
 				// End twitter code
 			}
-			
 			else
 			{
-				$this->session->set_flashdata(array('error'=> $this->lang->line('news_edit_error')));
+				$this->session->set_flashdata(array('error' => $this->lang->line('news_edit_error')));
 			}
-			
+
 			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit'
-				? redirect('admin/news')
-				: redirect('admin/news/edit/'.$id);
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/news') : redirect('admin/news/edit/' . $id);
 		}
-		
+
 		// Go through all the known fields and get the post values
-		foreach(array_keys($this->validation_rules) as $field)
+		foreach (array_keys($this->validation_rules) as $field)
 		{
-			if (isset($_POST[$field])) $article->$field = $this->form_validation->$field;
-		}    	
-		
+			if (isset($_POST[$field]))
+				$article->$field = $this->form_validation->$field;
+		}
+
 		// Load WYSIWYG editor
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('news_edit_title'), $article->title))
-			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('news_form.js', 'news') )
-			->set('article', $article)
-			->build('admin/form');
-	}	
-	
+				->title($this->module_details['name'], sprintf(lang('news_edit_title'), $article->title))
+				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+				->append_metadata(js('news_form.js', 'news'))
+				->set('article', $article)
+				->build('admin/form');
+	}
+
 	/**
-	* Preview news article
-	* @access public
-	* @param int $id the ID of the news article to preview
-	* @return void
-	*/
+	 * Preview news article
+	 * @access public
+	 * @param int $id the ID of the news article to preview
+	 * @return void
+	 */
 	public function preview($id = 0)
 	{
 		$article = $this->news_m->get($id);
 
 		$this->template
-			->set_layout('modal', 'admin')
-			->set('article', $article)
-			->build('admin/preview');
+				->set_layout('modal', 'admin')
+				->set('article', $article)
+				->build('admin/preview');
 	}
-	
+
 	/**
 	 * Helper method to determine what to do with selected items from form post
 	 * @access public
@@ -296,20 +297,20 @@ class Admin extends Admin_Controller
 	 */
 	public function action()
 	{
-		switch($this->input->post('btnAction'))
+		switch ($this->input->post('btnAction'))
 		{
 			case 'publish':
 				$this->publish();
-			break;
+				break;
 			case 'delete':
 				$this->delete();
-			break;
+				break;
 			default:
 				redirect('admin/news');
-			break;
+				break;
 		}
 	}
-	
+
 	/**
 	 * Publish news article
 	 * @access public
@@ -320,48 +321,48 @@ class Admin extends Admin_Controller
 	{
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
-		
-		if ( ! empty($ids))
+
+		if (!empty($ids))
 		{
 			// Go through the array of slugs to publish
 			$article_titles = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if ($article = $this->news_m->get($id) )
+				if ($article = $this->news_m->get($id))
 				{
 					$this->news_m->publish($id);
-					
+
 					// Wipe cache for this model, the content has changed
-					$this->cache->delete('news_m');				
+					$this->cache->delete('news_m');
 					$article_titles[] = $article->title;
 				}
 			}
 		}
-	
+
 		// Some articles have been published
-		if ( ! empty($article_titles))
+		if (!empty($article_titles))
 		{
 			// Only publishing one article
-			if ( count($article_titles) == 1 )
+			if (count($article_titles) == 1)
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_publish_success'), $article_titles[0]));
-			}			
+			}
 			// Publishing multiple articles
 			else
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_mass_publish_success'), implode('", "', $article_titles)));
 			}
-		}		
+		}
 		// For some reason, none of them were published
 		else
 		{
 			$this->session->set_flashdata('notice', $this->lang->line('news_publish_error'));
 		}
-		
+
 		redirect('admin/news');
 	}
-	
+
 	/**
 	 * Delete news article
 	 * @access public
@@ -372,48 +373,48 @@ class Admin extends Admin_Controller
 	{
 		// Delete one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
-		
+
 		// Go through the array of slugs to delete
-		if ( ! empty($ids))
+		if (!empty($ids))
 		{
 			$article_titles = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if ($article = $this->news_m->get($id) )
+				if ($article = $this->news_m->get($id))
 				{
 					$this->news_m->delete($id);
-					
+
 					// Wipe cache for this model, the content has changed
-					$this->cache->delete('news_m');				
+					$this->cache->delete('news_m');
 					$article_titles[] = $article->title;
 				}
 			}
 		}
-		
+
 		// Some pages have been deleted
-		if ( ! empty($article_titles))
+		if (!empty($article_titles))
 		{
 			// Only deleting one page
-			if ( count($article_titles) == 1 )
+			if (count($article_titles) == 1)
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_delete_success'), $article_titles[0]));
-			}			
+			}
 			// Deleting multiple pages
 			else
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('news_mass_delete_success'), implode('", "', $article_titles)));
 			}
-		}		
+		}
 		// For some reason, none of them were deleted
 		else
 		{
 			$this->session->set_flashdata('notice', lang('news_delete_error'));
 		}
-		
+
 		redirect('admin/news');
 	}
-	
+
 	/**
 	 * Callback method that checks the slug of an article
 	 * @access public
@@ -422,15 +423,15 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_slug($slug = '')
 	{
-		if ( ! $this->news_m->check_slug($slug))
+		if (!$this->news_m->check_slug($slug))
 		{
 			$this->form_validation->set_message('_check_slug', lang('news_already_exist_error'));
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
-	
+
 	/**
 	 * method to fetch filtered results for news list
 	 * @access public
@@ -441,31 +442,31 @@ class Admin extends Admin_Controller
 		$category = $this->input->post('f_category');
 		$status = $this->input->post('f_status');
 		$keywords = $this->input->post('f_keywords');
-	
+
 		$post_data = array();
-	
+
 		if ($status == 'live' OR $status == 'draft')
 		{
 			$post_data['status'] = $status;
 		}
-	
+
 		if ($category != 0)
 		{
 			$post_data['category_id'] = $category;
 		}
-	
+
 		//keywords, lets explode them out if they exist
 		if ($keywords)
 		{
 			$post_data['keywords'] = $keywords;
 		}
 		$results = $this->news_m->search($post_data);
-	
+
 		//set the layout to false and load the view
 		$this->template
-			->set_layout(FALSE)
-			->set('news', $results)
-			->build('admin/index');
+				->set_layout(FALSE)
+				->set('news', $results)
+				->build('admin/index');
 	}
-	
+
 }
