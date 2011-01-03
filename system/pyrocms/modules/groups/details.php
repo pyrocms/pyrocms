@@ -3,7 +3,7 @@
 class Module_Groups extends Module {
 
 	public $version = '1.0';
-	
+
 	public function info()
 	{
 		return array(
@@ -17,7 +17,8 @@ class Module_Groups extends Module {
 				'it' => 'Gruppi',
 				'ru' => 'Группы',
 				'ar' => 'المجموعات',
-				'cs' => 'Skupiny'
+				'cs' => 'Skupiny',
+				'es' => 'Grupos'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
@@ -29,18 +30,19 @@ class Module_Groups extends Module {
 				'it' => 'Gli utenti possono essere inseriti in gruppi per gestirne i permessi.',
 				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
 				'ar' => 'يمكن وضع المستخدمين في مجموعات لتسهيل إدارة صلاحياتهم.',
-				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.'
+				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.',
+				'es' => 'Los usuarios podrán ser colocados en grupos para administrar sus permisos.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
 			'menu'	  => 'users'
 		);
 	}
-	
+
 	public function install()
 	{
 		$this->dbforge->drop_table('groups');
-		
+
 		$groups = "
 			CREATE TABLE IF NOT EXISTS `groups` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -55,7 +57,7 @@ class Module_Groups extends Module {
 			(1, 'admin', 'Administrators'),
 			(2, 'user', 'Users');
 		";
-		
+
 		if($this->db->query($groups) && $this->db->query($default_data))
 		{
 			return TRUE;
@@ -73,7 +75,7 @@ class Module_Groups extends Module {
 		// Your Upgrade Logic
 		return TRUE;
 	}
-	
+
 	public function help()
 	{
 		// Return a string containing help info
