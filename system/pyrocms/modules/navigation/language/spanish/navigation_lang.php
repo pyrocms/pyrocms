@@ -2,7 +2,7 @@
 
 # labels
 $lang['nav_title_label'] 		= 'Título';
-$lang['nav_target_label']		= 'Target (Donde abrirá el link)';
+$lang['nav_target_label']		= 'Target';
 $lang['nav_class_label']		= 'Clase';
 $lang['nav_url_label'] 			= 'URL';
 $lang['nav_actions_label'] 		= 'Acciones';
@@ -31,7 +31,7 @@ $lang['nav_link_list_title'] 		= 'Listar vínculos';
 # messages
 $lang['nav_group_no_links'] 		= 'No hay vínculos en este grupo.';
 $lang['nav_no_groups'] 			= 'No hay grupos de navegación.';
-$lang['nav_group_delete_confirm'	= 'Estás seguro que quieres borrar este grupo de navegación? Esto borrará TODOS los vínculos de navegación dentro del grupo, y los archivos de dise&ntilde;o necesitarán ser editados para remover la referencia a ellos.';
+$lang['nav_group_delete_confirm']	= 'Estás seguro que quieres borrar este grupo de navegación? Esto borrará TODOS los vínculos de navegación dentro del grupo, y los archivos de diseño necesitarán ser editados para remover la referencia a ellos.';
 $lang['nav_group_add_success'] 		= 'Tu grupo de navegación ha sido grabado.';
 $lang['nav_group_add_error'] 		= 'Ha ocurrido un error.';
 $lang['nav_group_mass_delete_success']	= 'El gurpo de navegación ha sido eliminado.';
