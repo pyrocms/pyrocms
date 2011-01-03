@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -12,18 +12,18 @@
  * @filesource
  */
 
-$lang['buttons.submit']		= 'Save';
-$lang['buttons.cancel']		= 'Cancel';
-$lang['buttons.upload']		= 'Upload';
-$lang['buttons.save']		= 'Save';
-$lang['buttons.save_exit']	= 'Save &amp; Exit';
-$lang['buttons.delete']		= 'Delete';
-$lang['buttons.publish']	= 'Publish';
-$lang['buttons.approve']	= 'Approve';
-$lang['buttons.unapprove']	= 'Un-approve';
-$lang['buttons.install']	= 'Install';
-$lang['buttons.yes']		= 'Yes';
-$lang['buttons.no']			= 'No';
-$lang['buttons.activate']       = 'Activate'; #translate
+$lang['buttons.submit']		= 'Enviar';
+$lang['buttons.cancel']		= 'Cancelar';
+$lang['buttons.upload']		= 'Subir';
+$lang['buttons.save']		= 'Guardar';
+$lang['buttons.save_exit']	= 'Guardar y Salir';
+$lang['buttons.delete']		= 'Eliminar';
+$lang['buttons.publish']	= 'Publicar';
+$lang['buttons.approve']	= 'Aprobar';
+$lang['buttons.unapprove']	= 'Desaprobar';
+$lang['buttons.install']	= 'Instalar';
+$lang['buttons.yes']		= 'Si';
+$lang['buttons.no']		= 'No';
+$lang['buttons.activate']       = 'Activar';
 
 /* End of file buttons_lang.php */
