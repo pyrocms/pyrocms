@@ -131,12 +131,10 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run())
 		{
-			
-      $date = $this->input->post('date');
-      
-      $date =  explode('/', $date);
-    
-      $id = $this->news_m->insert(array(
+			$date = $this->input->post('date');
+			$date =  explode('/', $date);
+
+			$id = $this->news_m->insert(array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
@@ -145,11 +143,11 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-        'created_on_day'  => $date[1],
-        'created_on_month'  => $date[0],
-        'created_on_year' => $date[2],
+				'created_on_day'	=> $date[0],
+				'created_on_month'	=> $date[1],
+				'created_on_year'	=> $date[2],
 			));
-    	
+
 			if($id)
 			{
 				$this->cache->delete_all('news_m');
@@ -189,12 +187,10 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		
-    $date = $this->input->post('date');
-    
-    $date =  explode('/', $date);
-  
-    $id OR redirect('admin/news');
+		$date = $this->input->post('date');
+		$date =  explode('/', $date);
+
+		$id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
 		
@@ -204,7 +200,6 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run())
 		{
-			
 			$result = $this->news_m->update($id, array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
@@ -214,9 +209,9 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-        'created_on_day'  => $date[1],
-        'created_on_month'  => $date[0],
-        'created_on_year' => $date[2],
+				'created_on_day'  => $date[0],
+				'created_on_month'  => $date[1],
+				'created_on_year' => $date[2],
 				));
 			
 			if ($result)
