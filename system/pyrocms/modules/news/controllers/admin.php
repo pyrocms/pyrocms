@@ -143,8 +143,8 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $date[0],
-				'created_on_month'	=> $date[1],
+				'created_on_day'	=> $date[1],
+				'created_on_month'	=> $date[0],
 				'created_on_year'	=> $date[2],
 			));
 
@@ -209,8 +209,8 @@ class Admin extends Admin_Controller
 				'status'		=> $this->input->post('status'),
 				'created_on_hour'	=> $this->input->post('created_on_hour'),
 				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'  => $date[0],
-				'created_on_month'  => $date[1],
+				'created_on_day'  => $date[1],
+				'created_on_month'=> $date[0],
 				'created_on_year' => $date[2],
 				));
 			
