@@ -17,9 +17,7 @@ class Plugin_Template extends Plugin
 	 * Loads a template partial
 	 *
 	 * Usage:
-	 * {pyro:template:has_partial name="sidebar"}
-	 *	<p>Hello admin!</p>
-	 * {/pyro:template:has_partial}
+	 * {pyro:template:partial name="sidebar"}
 	 *
 	 * @param	array
 	 * @return	array
