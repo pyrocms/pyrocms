@@ -15,7 +15,7 @@ class Plugin_Example extends Plugin
 	 * Hello
 	 *
 	 * Usage:
-	 * {pyro:integration:analytics}
+	 * {pyro:example:hello}
 	 *
 	 * @param	array
 	 * @return	array
