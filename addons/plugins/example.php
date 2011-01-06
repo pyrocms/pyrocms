@@ -28,4 +28,4 @@ class Plugin_Example extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file example.php */
