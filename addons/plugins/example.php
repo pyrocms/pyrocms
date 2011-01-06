@@ -15,7 +15,7 @@ class Plugin_Example extends Plugin
 	 * Hello
 	 *
 	 * Usage:
-	 * {pyro:integration:analytics}
+	 * {pyro:example:hello}
 	 *
 	 * @param	array
 	 * @return	array
@@ -28,4 +28,4 @@ class Plugin_Example extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file example.php */
