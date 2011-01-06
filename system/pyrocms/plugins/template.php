@@ -66,4 +66,4 @@ class Plugin_Template extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file template.php */
