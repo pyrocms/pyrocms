@@ -19,3 +19,6 @@ $lang['hide_commands']		= 'Verberg commando&acute;s';
 $lang['next_step']		=	'Ga door naar de volgende stap';
 $lang['step4']			=	'Stap 4';
 $lang['retry']			=	'Probeer nog eens';
+
+/* End of file step_3_lang.php */
+/* Location: ./installer/language/dutch/step_3_lang.php */

@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Controlepaneel';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
@@ -56,3 +56,6 @@ $lang['cp_shortcuts_title'] 			= 'Snelkoppelingen';
 
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';
+
+/* End of file admin_lang.php */
+/* Location: ./system/pyrocms/language/dutch/admin_lang.php */

@@ -36,7 +36,7 @@ class CI_Input {
 	var $_enable_csrf			= FALSE; // Set automatically based on config setting
 
 	protected $headers			= array();
-	
+
 
 	/**
 	 * Constructor
@@ -374,9 +374,9 @@ class CI_Input {
 	function _sanitize_globals()
 	{
 		// It would be "wrong" to unset any of these GLOBALS.
-		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST', 
+		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST',
 							'_SESSION', '_ENV', 'GLOBALS', 'HTTP_RAW_POST_DATA',
-							'system_folder', 'application_folder', 'BM', 'EXT', 
+							'system_folder', 'application_folder', 'BM', 'EXT',
 							'CFG', 'URI', 'RTR', 'OUT', 'IN');
 
 		// Unset globals for securiy.
@@ -548,7 +548,7 @@ class CI_Input {
 	/**
 	 * Request Headers
 	 *
-	 * In Apache, you can simply call apache_request_headers(), however for 
+	 * In Apache, you can simply call apache_request_headers(), however for
 	 * people running other webservers the function is undefined.
 	 *
 	 * @return array
@@ -578,10 +578,10 @@ class CI_Input {
 		{
 			$key = str_replace('_', ' ', strtolower($key));
 			$key = str_replace(' ', '-', ucwords($key));
-			
+
 			$this->headers[$key] = $val;
 		}
-		
+
 		return $this->headers;
 	}
 
@@ -602,7 +602,7 @@ class CI_Input {
 		{
 			$this->request_headers();
 		}
-		
+
 		if ( ! isset($this->headers[$index]))
 		{
 			return FALSE;
@@ -614,17 +614,17 @@ class CI_Input {
 			return $_security->xss_clean($this->headers[$index]);
 		}
 
-		return $this->headers[$index];		
+		return $this->headers[$index];
 	}
 
 	// --------------------------------------------------------------------
-	
+
 	/**
 	 * Is ajax Request?
 	 *
 	 * Test to see if a request contains the HTTP_X_REQUESTED_WITH header
 	 *
-	 * @return 	boolean 	
+	 * @return 	boolean
 	 */
 	public function is_ajax_request()
 	{

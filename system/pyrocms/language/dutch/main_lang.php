@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_title'] 						= 'Controle Paneel';
 
@@ -61,3 +61,6 @@ $lang['uninstall_label'] 				= 'Deinstalleren';
 $lang['install_label'] 					= 'Installeren';
 $lang['enable_label']					= 'Inschakelen';
 $lang['disable_label']					= 'Uitschakelen';
+
+/* End of file main_lang.php */
+/* Location: ./system/pyrocms/language/dutch/main_lang.php */

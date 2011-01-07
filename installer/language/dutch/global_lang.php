@@ -9,3 +9,6 @@ $lang['final']	=	'Laatste Stap';
 
 $lang['installer.passwords_match']		= "Passwords Match."; #translate
 $lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
+
+/* End of file global_lang.php */
+/* Location: ./installer/language/dutch/global_lang.php */

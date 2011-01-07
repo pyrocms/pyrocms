@@ -1,4 +1,4 @@
-﻿<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Widgets disponibles';
@@ -30,3 +30,6 @@ $lang['widgets.tag_title']					= 'Tag';
 
 $lang['widgets.instance_edit'] 				= 'Editer';
 $lang['widgets.instance_delete'] 			= 'Supprimer';
+
+/* End of file widgets_lang.php */
+/* Location: ./system/pyrocms/modules/widgets/language/french/widgets_lang.php */

@@ -1,101 +1,101 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 		= 'Deine Einstellungen wurden gesichert!';
-$lang['settings_edit_title'] 			= 'Einstellungen bearbeiten';
+$lang['settings_save_success']                        = 'Deine Einstellungen wurden gesichert!';
+$lang['settings_edit_title']                          = 'Einstellungen bearbeiten';
 
 
 #section settings
-$lang['settings_site_name'] 					= 'Site Name';#translate
-$lang['settings_site_name_desc'] 				= 'The name of the website for page titles and for use around the site.';#translate
+$lang['settings_site_name']                           = 'Name der Seite';
+$lang['settings_site_name_desc']                      = 'Der Name der Seite zur Anzeige auf der kompletten Web-Präsenz.';
 
-$lang['settings_site_slogan'] 					= 'Site Slogan';#translate
-$lang['settings_site_slogan_desc'] 				= 'The slogan of the website for page titles and for use around the site.';#translate
+$lang['settings_site_slogan']                         = 'Slogan der Seite';
+$lang['settings_site_slogan_desc']                    = 'Der Sloagen der Seite zur Anzeige auf der kompletten Web-Präsenz.';
 
-$lang['settings_contact_email'] 				= 'Contact E-mail';#translate
-$lang['settings_contact_email_desc'] 			= 'All e-mails from users, guests and the site will go to this e-mail address.';#translate
+$lang['settings_contact_email']                       = 'Kontakt-Email';
+$lang['settings_contact_email_desc']                  = 'Sämtliche E-Mail von Benutzern und Gästen, sowie von der Seite allgemein werden an diese E-Mail-Adresse versendet.';
 
-$lang['settings_server_email'] 					= 'Server E-mail';#translate
-$lang['settings_server_email_desc'] 			= 'All e-mails to users will come from this e-mail address.';#translate
+$lang['settings_server_email']                        = 'Server-Email';
+$lang['settings_server_email_desc']                   = 'Sämtliche E-Mails, die an Benutzer der Seite versendet werden, nutzen diese E-Mail als Absender.';
 
-$lang['settings_meta_topic']					= 'Meta Topic';#translate
-$lang['settings_meta_topic_desc']				= 'Two or three words describing this type of company/website.';#translate
+$lang['settings_meta_topic']                          = 'Meta-Beschreibung';
+$lang['settings_meta_topic_desc']                     = 'Zwei oder drei Wörter, welche die Seite oder das Unternehmen kurz beschreiben.';
 
-$lang['settings_currency'] 						= 'Currency';#translate
-$lang['settings_currency_desc'] 				= 'The currency symbol for use on products, services, etc.';#translate
+$lang['settings_currency']                            = 'Währung';
+$lang['settings_currency_desc']                       = 'Das Symbol der Währung, welches auf der Seite genutzt werden soll.';
 
-$lang['settings_dashboard_rss'] 				= 'Dashboard RSS Feed';#translate
-$lang['settings_dashboard_rss_desc'] 			= 'Link to an RSS feed that will be displayed on the dashboard.';#translate
+$lang['settings_dashboard_rss']                       = 'RRS-Feed der Admin-Oberfläche';
+$lang['settings_dashboard_rss_desc']                  = 'Link zu einem RSS-Feed, welches auf der Admin-Oberfläche angezeigt werden soll.';
 
-$lang['settings_dashboard_rss_count'] 			= 'Dashboard RSS Items';#translate
-$lang['settings_dashboard_rss_count_desc'] 		= 'How many RSS items would you like to display on the dashboard ?';#translate
+$lang['settings_dashboard_rss_count']                 = 'Anzahl der RRS-Feeds';
+$lang['settings_dashboard_rss_count_desc']            = 'Wie viele Feeds sollen auf der Admin-Oberfläche maximal angezeigt werden?';
 
-$lang['settings_frontend_enabled'] 				= 'Site Status';#translate
-$lang['settings_frontend_enabled_desc'] 		= 'Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence';#translate
+$lang['settings_frontend_enabled']                    = 'Status der Seite';
+$lang['settings_frontend_enabled_desc']               = 'Nutze diese Option um die Seite für Nutzer unerreichbar zu machen. Nützlich für Wartungen der Seite.';
 
-$lang['settings_unavailable_message']			= 'Unavailable Message';#translate
-$lang['settings_unavailable_message_desc'] 		= 'When the site is turned off or there is a major problem, this message will show to users.';#translate
+$lang['settings_unavailable_message']                 = 'Nachricht zur Unerreichbarkeit';
+$lang['settings_unavailable_message_desc']            = 'Diese Nachricht wird den Benutzern angezeigt, sollte die Seite deaktiviert sein oder ein bedeutendes Problem vorliegen.';
 
-$lang['settings_default_theme'] 				= 'Default Theme';#translate
-$lang['settings_default_theme_desc'] 			= 'Select the theme you want users to see by default.';#translate
+$lang['settings_default_theme']                       = 'Standart Design';
+$lang['settings_default_theme_desc']                  = 'Wähle das Design, welches dem Benutzer standartmäßig angezeigt wird.';
 
-$lang['settings_activation_email'] 				= 'Activation Email';#translate
-$lang['settings_activation_email_desc'] 		= 'Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.';#translate
+$lang['settings_activation_email']                    = 'E-Mail Aktivierung';
+$lang['settings_activation_email_desc']               = 'Verschickt zur Aktivierung des Accounts eine E-Mail an den neu registrierten Benutzer. Deaktiviere diese Option sofern die Accounts der Benutzer manuell von Admins freigeschaltet werden sollen.';
 
-$lang['settings_records_per_page'] 				= 'Records Per Page';#translate
-$lang['settings_records_per_page_desc'] 		= 'How many records should we show per page in the admin section?';#translate
+$lang['settings_records_per_page']                    = 'Einträge per Seite';
+$lang['settings_records_per_page_desc']               = 'Wie viele Einträge sollen auf der Admin-Oberfläche per Seite angezeigt werden?';
 
-$lang['settings_rss_feed_items'] 				= 'Feed item count';#translate
-$lang['settings_rss_feed_items_desc'] 			= 'How many items should we show in RSS/news feeds?';#translate
+$lang['settings_rss_feed_items']                      = 'RSS-Feed Anzahl';
+$lang['settings_rss_feed_items_desc']                 = 'Wie viele Einträge sollen im RSS/News-Bereich der Seite angezeigt werden?';
 
-$lang['settings_require_lastname'] 				= 'Require last names?';#translate
-$lang['settings_require_lastname_desc'] 		= 'For some situations, a last name may not be required. Do you want to force users to enter one or not?';#translate
+$lang['settings_require_lastname']                    = 'Nachnamen sind Pflicht?';
+$lang['settings_require_lastname_desc']               = 'In manchen Sitationen werden Nachnamen der Benutzer nicht benötigt. Möchtest du die Angabe der Nachnamen der Benutzer erzwingen?';
 
-$lang['settings_enable_profiles'] 				= 'Enable profiles';#translate
-$lang['settings_enable_profiles_desc'] 			= 'Allow users to add and edit profiles.';#translate
+$lang['settings_enable_profiles']                     = 'Profile aktivieren';
+$lang['settings_enable_profiles_desc']                = 'Erlaubt das Erstellen und Bearbeiten von Benutzer-Profilen.';
 
-$lang['settings_google_analytic'] 				= 'Google Analytic';#translate
-$lang['settings_google_analytic_desc'] 			= 'Enter your analytic key to activate Google Analytic.';#translate
+$lang['settings_google_analytic']                     = 'Google-Analytic';
+$lang['settings_google_analytic_desc']                = 'Trage dein Google-Analytic Schlüssel ein um die Funktion zu aktivieren.';
 
-$lang['settings_twitter_username'] 				= 'Username';#translate
-$lang['settings_twitter_username_desc'] 		= 'Twitter username.';#translate
+$lang['settings_twitter_username']                    = 'Twitter-Benutzername';
+$lang['settings_twitter_username_desc']               = 'Dein Twitter-Benutzername.';
 
-$lang['settings_twitter_consumer_key'] 			= 'Consumer Key';#translate
-$lang['settings_twitter_consumer_key_desc'] 	= 'Twitter consumer key.';#translate
+$lang['settings_twitter_consumer_key']                = 'Nutzungsschlüssel';
+$lang['settings_twitter_consumer_key_desc']           = 'Dein Nutzungsschlüssel.';
 
-$lang['settings_twitter_consumer_key_secret'] 	= 'Consumer Key Secret';#translate
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';#translate
+$lang['settings_twitter_consumer_key_secret']         = 'Sicherer Nutzungsschlüssel';
+$lang['settings_twitter_consumer_key_secret_desc']    = 'Dein sicherer Nutzungsschlüssel.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; News integration.';#translate
-$lang['settings_twitter_news_desc'] 			= 'Would you like to post links to new news articles on Twitter?';#translate
+$lang['settings_twitter_news']                        = 'Twitter &amp; News-Intigrierung.';
+$lang['settings_twitter_news_desc']                   = 'Möchtest du Links zu neuen News auf Twitter posten?';
 
-$lang['settings_twitter_feed_count'] 			= 'Feed Count';#translate
-$lang['settings_twitter_feed_count_desc'] 		= 'How many tweets should be returned to the Twitter feed block?';
+$lang['settings_twitter_feed_count']                  = 'Anzahl der Feeds';
+$lang['settings_twitter_feed_count_desc']             = 'Wie viele Tweets sollen im Twitter-Block maximal angezeigt werden?';
 
-$lang['settings_twitter_cache'] 				= 'Cache time';#translate
-$lang['settings_twitter_cache_desc'] 			= 'How many minutes should your Tweets be temporairily stored for?';#translate
+$lang['settings_twitter_cache']                       = 'Dauer im Cache';
+$lang['settings_twitter_cache_desc']                  = 'Wie lange sollen deine Tweets temporär im Cache gesichert werden?';
 
-$lang['settings_akismet_api_key'] 				= 'Akismet API Key';#translate
-$lang['settings_akismet_api_key_desc'] 			= 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.';#translate
+$lang['settings_akismet_api_key']                     = 'Akismet API Schlüssel';
+$lang['settings_akismet_api_key_desc']                = 'Akismet ist ein Spam-Blocker der Wordpress-Entwickler. Es hält Spam unter Kontrolle ohne das Benutzer Captchas nutzen müssen.';
 
-$lang['settings_moderate_comments'] 			= 'Moderate Comments';#translate
-$lang['settings_moderate_comments_desc']		= 'Force comments to be approved before they appear on the site.';#translate
+$lang['settings_moderate_comments']                   = 'Kommentare moderieren';
+$lang['settings_moderate_comments_desc']              = 'Kommentare müssen vorher von einem Moderator oder Admin überprüft werden, bevor sie für alle Benutzer der Seite sichtbar werden.';
 
-$lang['settings_version'] 						= 'Version';#translate
-$lang['settings_version_desc'] 					= '';
+$lang['settings_version']                             = 'Version';
+$lang['settings_version_desc']                        = '';
 
 
 #section titles
-$lang['settings_section_general']				= 'Algemeen';#translate
-$lang['settings_section_integration']			= 'Integratie';#translate
-$lang['settings_section_users']					= 'Gebruikers';#translate
-$lang['settings_section_statistics']			= 'Statistieken';#translate
-$lang['settings_section_twitter']				= 'Twitter';#translate
+$lang['settings_section_general']                     = 'Allgemein';
+$lang['settings_section_integration']                 = 'Integrierung';
+$lang['settings_section_users']                       = 'Benutzer';
+$lang['settings_section_statistics']                  = 'Statistiken';
+$lang['settings_section_twitter']                     = 'Twitter';
 
 #checkbox and radio options
-$lang['settings_form_option_Open']				= 'Open';#translate
-$lang['settings_form_option_Closed']			= 'Closed';#translate
-$lang['settings_form_option_Enabled']			= 'Enabled';#translate
-$lang['settings_form_option_Disabled']			= 'Disabled';#translate
-$lang['settings_form_option_Required']			= 'Required';#translate
-$lang['settings_form_option_Optional']			= 'Optional';#translate
+$lang['settings_form_option_Open']                    = 'Geöffnet';
+$lang['settings_form_option_Closed']                  = 'Geschlossen';
+$lang['settings_form_option_Enabled']                 = 'Aktiviert';
+$lang['settings_form_option_Disabled']                = 'Deaktiviert';
+$lang['settings_form_option_Required']                = 'Benötigt';
+$lang['settings_form_option_Optional']                = 'Optional';
 ?>

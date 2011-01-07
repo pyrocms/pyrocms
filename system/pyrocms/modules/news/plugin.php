@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Plugin_News extends Plugin
@@ -29,6 +29,7 @@ class Plugin_News extends Plugin
 	{
 		$limit = $this->attribute('limit', 10);
 		$category = $this->attribute('category');
+		$order = $this->attribute('order');
 
 		if ($category)
 		{
@@ -42,6 +43,7 @@ class Plugin_News extends Plugin
 			->where('status', 'live')
 			->where('created_on <=', now())
 			->join('news_categories c', 'news.category_id = c.id', 'LEFT')
+			->order_by('news.created_on', $order)
 			->limit($limit)
 			->get('news')
 			->result_array();

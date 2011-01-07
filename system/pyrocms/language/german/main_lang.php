@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_title'] 						= 'Admin-Oberfläche';
 
@@ -39,7 +39,7 @@ $lang['note_label'] 					= 'Hinweis';
 $lang['success_label'] 					= 'Erfolgreich';
 
 $lang['login_title'] 					= 'Anmelden';
-$lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler, ist das CMS installiert?';
+$lang['cms_fatal_error'] 				= 'Schwerwiegender Fehler! Ist das CMS installiert?';
 
 $lang['login_error_label'] 				= 'Anmeldefehler';
 $lang['forgot_password_label'] 			= 'Passwort vergessen ?';
@@ -61,3 +61,6 @@ $lang['uninstall_label'] 				= 'Deinstallieren';
 $lang['install_label'] 					= 'Installieren';
 $lang['enable_label']					= 'Aktivieren';
 $lang['disable_label'] 					= 'Deaktivieren';
+
+/* End of file main_lang.php */
+/* Location: ./system/pyrocms/language/german/main_lang.php */

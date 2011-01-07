@@ -1,24 +1,25 @@
-<?php
-$lang['modules.core_list']				= 'Core Modules'; #Translate
-$lang['modules.addon_list']				= 'Add-on Modules'; #Translate
-$lang['modules.introduction']			= 'Debajo hay una lista de los módulos instalados y su informaci&oacute;n, como la descripci&oacute;n y la versión del mismo.';
-$lang['modules.disable_error']			= 'Could not disable the module "%s".'; #Translate
-$lang['modules.disable_success']		= 'The module "%s" has been disabled.'; #Translate
-$lang['modules.enable_error']			= 'Could not enable the module "%s".'; #Translate
-$lang['modules.enable_success']			= 'The module "%s" has been enabled.'; #Translate
-$lang['modules.install_error']			= 'Could not install the module.'; #Translate
-$lang['modules.install_success']		= 'The module has been installed.'; #Translate
-$lang['modules.uninstall_error']		= 'Could not uninstall the module "%s".'; #Translate
-$lang['modules.uninstall_success']		= 'The module "%s" has been uninstalled.'; #Translate
-$lang['modules.already_exists_error']	= 'A module with the name "%s" already exists.'; #Translate
-$lang['modules.module_not_specified']	= 'You must specifiy a module.'; #Translate
-$lang['modules.details_error']			= 'There is an error in the details.php file of the %s module. Correct the error, then reinstall the module.'; #translate
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$lang['modules.manually_remove']		= 'You must manually remove "%s" to completely remove the module.'; #Translate
-$lang['modules.upload_title']			= 'Upload Module'; #Translate
-$lang['modules.upload_desc']			= 'Please select a file and click Upload button'; #Translate
+$lang['modules.core_list']		= 'Módulos del Núcleo';
+$lang['modules.addon_list']		= 'Módulos Agregados';
+$lang['modules.introduction']		= 'Debajo hay una lista de los módulos instalados y su información, como la descripción y la versión del mismo.';
+$lang['modules.disable_error']		= 'No se pudo desactivar el módulo "%s".';
+$lang['modules.disable_success']	= 'El módulo "%s" ha sido desactivado.';
+$lang['modules.enable_error']		= 'No se pudo activar el módulo "%s".';
+$lang['modules.enable_success']		= 'El módulo "%s" ha sido activado.';
+$lang['modules.install_error']		= 'No se pudo instalar el módulo.';
+$lang['modules.install_success']	= 'El módulo ha sido instalado.';
+$lang['modules.uninstall_error']	= 'No se pudo desinstalar el módulo "%s".';
+$lang['modules.uninstall_success']	= 'El módulo "%s" ha sido desinstalado.';
+$lang['módulos.already_exists_error']	= 'El módulo con el nombre "%s" ya existe.';
+$lang['módulos.módulo_not_specified']	= 'Debes especificar un módulo.';
+$lang['módulos.details_error']		= 'Hay un error en el archivo details.php del módulo %s. Corrije el error y luego reinstala el módulo.';
 
-$lang['modules.confirm_enable']         = 'Are you sure you want to enable this module?';#translate
-$lang['modules.confirm_disable']        = 'Are you sure you want to disable this module?';#translate
-$lang['modules.confirm_install']        = 'Are you sure you want to install this module?';#translate
-$lang['modules.confirm_uninstall']      = 'Are you sure you want to un-install this module?';#translate
+$lang['módulos.manually_remove']	= 'Debes eliminar manualmente "%s" para eliminar el módulo por completo.';
+$lang['módulos.upload_title']		= 'Subir Módulo';
+$lang['módulos.upload_desc']		= 'Por favor, elije un archivo y haz click en el botón "Subir"';
+
+$lang['módulos.confirm_enable']         = 'Estás seguro que quieres activar este módulo?';
+$lang['módulos.confirm_disable']        = 'Estás seguro que quieres desactivar este módulo?';
+$lang['módulos.confirm_install']        = 'Estás seguro que quieres instalar este módulo?';
+$lang['módulos.confirm_uninstall']      = 'Estás seguro que quieres desinstalar este módulo?';

@@ -1,7 +1,4 @@
-<?php
-
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  *
@@ -146,24 +143,23 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run())
 		{
-
 			$date = $this->input->post('date');
 
 			$date = explode('/', $date);
 
 			$id = $this->news_m->insert(array(
-						'title' => $this->input->post('title'),
-						'slug' => $this->input->post('slug'),
-						'category_id' => $this->input->post('category_id'),
-						'intro' => $this->input->post('intro'),
-						'body' => $this->input->post('body'),
-						'status' => $this->input->post('status'),
-						'created_on_hour' => $this->input->post('created_on_hour'),
-						'created_on_minute' => $this->input->post('created_on_minute'),
-						'created_on_day' => $date[0],
-						'created_on_month' => $date[1],
-						'created_on_year' => $date[2],
-					));
+				'title' => $this->input->post('title'),
+				'slug' => $this->input->post('slug'),
+				'category_id' => $this->input->post('category_id'),
+				'intro' => $this->input->post('intro'),
+				'body' => $this->input->post('body'),
+				'status' => $this->input->post('status'),
+				'created_on_hour' => $this->input->post('created_on_hour'),
+				'created_on_minute' => $this->input->post('created_on_minute'),
+				'created_on_day' => $date[0],
+				'created_on_month' => $date[1],
+				'created_on_year' => $date[2],
+			));
 
 			if ($id)
 			{
@@ -203,7 +199,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-
 		$date = $this->input->post('date');
 
 		$date = explode('/', $date);
@@ -218,20 +213,19 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run())
 		{
-
 			$result = $this->news_m->update($id, array(
-						'title' => $this->input->post('title'),
-						'slug' => $this->input->post('slug'),
-						'category_id' => $this->input->post('category_id'),
-						'intro' => $this->input->post('intro'),
-						'body' => $this->input->post('body'),
-						'status' => $this->input->post('status'),
-						'created_on_hour' => $this->input->post('created_on_hour'),
-						'created_on_minute' => $this->input->post('created_on_minute'),
-						'created_on_day' => $date[0],
-						'created_on_month' => $date[1],
-						'created_on_year' => $date[2],
-					));
+				'title'			=> $this->input->post('title'),
+				'slug'			=> $this->input->post('slug'),
+				'category_id'		=> $this->input->post('category_id'),
+				'intro'			=> $this->input->post('intro'),
+				'body'			=> $this->input->post('body'),
+				'status'		=> $this->input->post('status'),
+				'created_on_hour'	=> $this->input->post('created_on_hour'),
+				'created_on_minute'	=> $this->input->post('created_on_minute'),
+				'created_on_day'  => $date[1],
+				'created_on_month'=> $date[0],
+				'created_on_year' => $date[2],
+			));
 
 			if ($result)
 			{
@@ -242,13 +236,14 @@ class Admin extends Admin_Controller {
 				{
 					$url = shorten_url('news/' . $date[2] . '/' . str_pad($date[0], 2, '0', STR_PAD_LEFT) . '/' . url_title($this->input->post('title')));
 					$this->load->model('twitter/twitter_m');
-					if (!$this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
+					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
 					{
 						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . $this->twitter->last_error['error']);
 					}
 				}
 				// End twitter code
 			}
+			
 			else
 			{
 				$this->session->set_flashdata(array('error' => $this->lang->line('news_edit_error')));
@@ -322,7 +317,7 @@ class Admin extends Admin_Controller {
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
-		if (!empty($ids))
+		if ( ! empty($ids))
 		{
 			// Go through the array of slugs to publish
 			$article_titles = array();
@@ -341,7 +336,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Some articles have been published
-		if (!empty($article_titles))
+		if ( ! empty($article_titles))
 		{
 			// Only publishing one article
 			if (count($article_titles) == 1)
@@ -375,7 +370,7 @@ class Admin extends Admin_Controller {
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
 		// Go through the array of slugs to delete
-		if (!empty($ids))
+		if ( ! empty($ids))
 		{
 			$article_titles = array();
 			foreach ($ids as $id)
@@ -393,7 +388,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Some pages have been deleted
-		if (!empty($article_titles))
+		if ( ! empty($article_titles))
 		{
 			// Only deleting one page
 			if (count($article_titles) == 1)
@@ -423,7 +418,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function _check_slug($slug = '')
 	{
-		if (!$this->news_m->check_slug($slug))
+		if ( ! $this->news_m->check_slug($slug))
 		{
 			$this->form_validation->set_message('_check_slug', lang('news_already_exist_error'));
 			return FALSE;
@@ -468,5 +463,4 @@ class Admin extends Admin_Controller {
 				->set('news', $results)
 				->build('admin/index');
 	}
-
 }
