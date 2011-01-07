@@ -10,7 +10,7 @@
 	<base href="<?php echo base_url(); ?>" />
 	
 	<!-- Mobile Viewport Fix -->
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	
 	<!-- Grab Google CDNs jQuery, fall back if necessary -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>

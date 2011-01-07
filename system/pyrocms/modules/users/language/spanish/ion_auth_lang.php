@@ -1,47 +1,47 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - English
-* 
+*
 * Author: Ben Edmunds
 * 		  ben.edmunds@gmail.com
 *         @benedmunds
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
-* Created:  03.14.2010 
-* 
+*
+* Created:  03.14.2010
+*
 * Description:  English language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	= 'Account Successfully Created';
-$lang['account_creation_unsuccessful'] 	= 'Unable to Create Account';
-$lang['account_creation_duplicate_email'] 	 = 'Email Already Used or Invalid';
-$lang['account_creation_duplicate_username'] = 'Username Already Used or Invalid';
+$lang['account_creation_successful']		= 'Cuenta creada exitosamente';
+$lang['account_creation_unsuccessful']		= 'Imposible crear cuenta';
+$lang['account_creation_duplicate_email']	= 'E-mail existente o inválido';
+$lang['account_creation_duplicate_username']	= 'Usuario existente o inválido';
 
 
 // Password
-$lang['password_change_successful'] 	= 'Password Successfully Changed';
-$lang['password_change_unsuccessful'] 	= 'Unable to Change Password';
-$lang['forgot_password_successful'] 	= 'Password Reset Email Sent';
-$lang['forgot_password_unsuccessful'] 	= 'Unable to Reset Password';
+$lang['password_change_successful']		= 'Contraseña actualizada correctamente';
+$lang['password_change_unsuccessful']		= 'Imposible actualizar la contraseña';
+$lang['forgot_password_successful']		= 'Se envió e-mail de reestablecimiento de contraseña';
+$lang['forgot_password_unsuccessful']		= 'Imposible restablecer contraseña';
 
 // Activation
-$lang['activate_successful'] 		= 'Account Activated';
-$lang['activate_unsuccessful'] 		= 'Unable to Activate Account';
-$lang['deactivate_successful'] 		= 'Account De-Activated';
-$lang['deactivate_unsuccessful'] 	= 'Unable to De-Activate Account';
-$lang['activation_email_successful'] 	= 'Activation Email Sent';
-$lang['activation_email_unsuccessful'] 	= 'Unable to Send Activation Email';
+$lang['activate_successful']			= 'Cuenta Activada';
+$lang['activate_unsuccessful']			= 'Imposible Activar Cuenta';
+$lang['deactivate_successful']			= 'Cuenta Desactivada';
+$lang['deactivate_unsuccessful']		= 'Imposible Desactivar Cuenta';
+$lang['activation_email_successful']		= 'E-mail de Activación Enviado';
+$lang['activation_email_unsuccessful']		= 'Imposible Enviar e-mail de Activación';
 
 // Login / Logout
-$lang['login_successful'] 		= 'Logged In Successfully';
-$lang['login_unsuccessful'] 		= 'In-Correct Login';
-$lang['logout_successful'] 		= 'Logged Out Successfully';
+$lang['login_successful']			= 'Sesión Iniciada Correctamente';
+$lang['login_unsuccessful']			= 'Inicio de Sesión Incorrecto';
+$lang['logout_successful']			= 'Sesión Cerrada Correctamente';
 
 // Account Changes
-$lang['update_successful'] 		= 'Account Information Successfully Updated';
-$lang['update_unsuccessful'] 		= 'Unable to Update Account Information';
-$lang['delete_successful'] 		= 'User Deleted';
-$lang['delete_unsuccessful'] 		= 'Unable to Delete User';
+$lang['update_successful']			= 'Información de cuenta cambiada exitosamente';
+$lang['update_unsuccessful']			= 'Imposible actualizar información de cuenta';
+$lang['delete_successful']			= 'Usuario Eliminado';
+$lang['delete_unsuccessful']			= 'Imposible eliminar Usuario';

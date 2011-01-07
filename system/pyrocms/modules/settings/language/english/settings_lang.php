@@ -86,7 +86,7 @@ $lang['settings_version_desc']                     = '';
 
 #section titles
 $lang['settings_section_general']                = 'General';
-$lang['settings_section_integration']            = 'Einbindung';
+$lang['settings_section_integration']            = 'Integration';
 $lang['settings_section_users']                    = 'Users';
 $lang['settings_section_statistics']            = 'Statistics';
 $lang['settings_section_twitter']                = 'Twitter';
