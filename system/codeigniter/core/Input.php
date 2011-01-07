@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
@@ -30,27 +30,28 @@ class CI_Input {
 
 	var $ip_address				= FALSE;
 	var $user_agent				= FALSE;
-	var $_allow_get_array		= FALSE;
+	var $_allow_get_array		= TRUE;
 	var $_standardize_newlines	= TRUE;
 	var $_enable_xss			= FALSE; // Set automatically based on config setting
 	var $_enable_csrf			= FALSE; // Set automatically based on config setting
 
+	protected $headers			= array();
+
 
 	/**
-	* Constructor
-	*
-	* Sets whether to globally enable the XSS processing
-	* and whether to allow the $_GET array
-	*
-	* @access	public
-	*/
-	function CI_Input()
+	 * Constructor
+	 *
+	 * Sets whether to globally enable the XSS processing
+	 * and whether to allow the $_GET array
+	 *
+	 */
+	public function __construct()
 	{
 		log_message('debug', "Input Class Initialized");
 
-		$this->_allow_get_array	= (config_item('enable_query_strings') === TRUE) ? TRUE : FALSE;
-		$this->_enable_xss		= (config_item('global_xss_filtering') === TRUE) ? TRUE : FALSE;
-		$this->_enable_csrf		= (config_item('csrf_protection') === TRUE) ? TRUE : FALSE;
+		$this->_allow_get_array	= (config_item('allow_get_array') === TRUE);
+		$this->_enable_xss		= (config_item('global_xss_filtering') === TRUE);
+		$this->_enable_csrf		= (config_item('csrf_protection') === TRUE);
 
 		// Do we need to load the security class?
 		if ($this->_enable_xss == TRUE OR $this->_enable_csrf == TRUE)
@@ -72,16 +73,16 @@ class CI_Input {
 	// --------------------------------------------------------------------
 
 	/**
-	* Fetch from array
-	*
-	* This is a helper function to retrieve values from global arrays
-	*
-	* @access	private
-	* @param	array
-	* @param	string
-	* @param	bool
-	* @return	string
-	*/
+	 * Fetch from array
+	 *
+	 * This is a helper function to retrieve values from global arrays
+	 *
+	 * @access	private
+	 * @param	array
+	 * @param	string
+	 * @param	bool
+	 * @return	string
+	 */
 	function _fetch_from_array(&$array, $index = '', $xss_clean = FALSE)
 	{
 		if ( ! isset($array[$index]))
@@ -215,14 +216,7 @@ class CI_Input {
 		}
 		else
 		{
-			if ($expire > 0)
-			{
-				$expire = time() + $expire;
-			}
-			else
-			{
-				$expire = 0;
-			}
+			$expire = ($expire > 0) ? time() + $expire : 0;
 		}
 
 		setcookie($prefix.$name, $value, $expire, $path, $domain, 0);
@@ -257,7 +251,7 @@ class CI_Input {
 		{
 			return $this->ip_address;
 		}
-		
+
 		if (config_item('proxy_ips') != '' && $this->server('HTTP_X_FORWARDED_FOR') && $this->server('REMOTE_ADDR'))
 		{
 			$proxies = preg_split('/[\s,]/', config_item('proxy_ips'), -1, PREG_SPLIT_NO_EMPTY);
@@ -308,7 +302,7 @@ class CI_Input {
 	* Validate IP Address
 	*
 	* Updated version suggested by Geert De Deckere
-	* 
+	*
 	* @access	public
 	* @param	string
 	* @return	string
@@ -330,7 +324,7 @@ class CI_Input {
 		// Check each segment
 		foreach ($ip_segments as $segment)
 		{
-			// IP segments must be digits and can not be 
+			// IP segments must be digits and can not be
 			// longer than 3 digits or greater then 255
 			if ($segment == '' OR preg_match("/[^0-9]/", $segment) OR $segment > 255 OR strlen($segment) > 3)
 			{
@@ -380,10 +374,12 @@ class CI_Input {
 	function _sanitize_globals()
 	{
 		// It would be "wrong" to unset any of these GLOBALS.
-		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST', '_SESSION', '_ENV', 'GLOBALS', 'HTTP_RAW_POST_DATA',
-							'system_folder', 'application_folder', 'BM', 'EXT', 'CFG', 'URI', 'RTR', 'OUT', 'IN');
+		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST',
+							'_SESSION', '_ENV', 'GLOBALS', 'HTTP_RAW_POST_DATA',
+							'system_folder', 'application_folder', 'BM', 'EXT',
+							'CFG', 'URI', 'RTR', 'OUT', 'IN');
 
-		// Unset globals for securiy. 
+		// Unset globals for securiy.
 		// This is effectively the same as register_globals = off
 		foreach (array($_GET, $_POST, $_COOKIE) as $global)
 		{
@@ -489,7 +485,7 @@ class CI_Input {
 		}
 
 		// We strip slashes if magic quotes is on to keep things consistent
-		if (get_magic_quotes_gpc())
+		if (function_exists('get_magic_quotes_gpc') AND get_magic_quotes_gpc())
 		{
 			$str = stripslashes($str);
 		}
@@ -511,7 +507,7 @@ class CI_Input {
 		{
 			if (strpos($str, "\r") !== FALSE)
 			{
-				$str = str_replace(array("\r\n", "\r"), "\n", $str);
+				$str = str_replace(array("\r\n", "\r"), PHP_EOL, $str);
 			}
 		}
 
@@ -545,6 +541,94 @@ class CI_Input {
 		}
 
 		return $str;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Request Headers
+	 *
+	 * In Apache, you can simply call apache_request_headers(), however for
+	 * people running other webservers the function is undefined.
+	 *
+	 * @return array
+	 */
+	public function request_headers($xss_clean = FALSE)
+	{
+		// Look at Apache go!
+		if (function_exists('apache_request_headers'))
+		{
+			$headers = apache_request_headers();
+		}
+		else
+		{
+			$headers['Content-Type'] = (isset($_SERVER['CONTENT_TYPE'])) ? $_SERVER['CONTENT_TYPE'] : @getenv('CONTENT_TYPE');
+
+			foreach ($_SERVER as $key => $val)
+			{
+				if (strncmp($key, 'HTTP_', 5) === 0)
+				{
+					$headers[substr($key, 5)] = $this->_fetch_from_array($_SERVER, $key, $xss_clean);
+				}
+			}
+		}
+
+		// take SOME_HEADER and turn it into Some-Header
+		foreach ($headers as $key => $val)
+		{
+			$key = str_replace('_', ' ', strtolower($key));
+			$key = str_replace(' ', '-', ucwords($key));
+
+			$this->headers[$key] = $val;
+		}
+
+		return $this->headers;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Get Request Header
+	 *
+	 * Returns the value of a single member of the headers class member
+	 *
+	 * @param 	string		array key for $this->headers
+	 * @param	boolean		XSS Clean or not
+	 * @return 	mixed		FALSE on failure, string on success
+	 */
+	public function get_request_header($index, $xss_clean = FALSE)
+	{
+		if (empty($this->headers))
+		{
+			$this->request_headers();
+		}
+
+		if ( ! isset($this->headers[$index]))
+		{
+			return FALSE;
+		}
+
+		if ($xss_clean === TRUE)
+		{
+			$_security =& load_class('Security');
+			return $_security->xss_clean($this->headers[$index]);
+		}
+
+		return $this->headers[$index];
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Is ajax Request?
+	 *
+	 * Test to see if a request contains the HTTP_X_REQUESTED_WITH header
+	 *
+	 * @return 	boolean
+	 */
+	public function is_ajax_request()
+	{
+		return ($this->server('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest');
 	}
 
 }
