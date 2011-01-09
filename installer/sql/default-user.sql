@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `display_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `first_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `company` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `company` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
   `bio` text COLLATE utf8_unicode_ci,
   `dob` int(11) DEFAULT NULL,
