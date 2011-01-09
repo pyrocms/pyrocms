@@ -59,7 +59,7 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'class',
 			'label'	=> 'lang:nav_class_label',
-			'rules'	=> 'trim|alpha_dash'
+			'rules'	=> 'trim'
 		)
 	);
 
