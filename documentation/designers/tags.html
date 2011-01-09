@@ -65,6 +65,10 @@
 	{body}
 {/pyro:news:posts}
 
+{pyro:galleries:images slug="landscape-photos" limit="5"}
+    <a href="galleries/{slug}/{id}"><img src="uploads/galleries/{slug}/full/{filename}{extension}" alt="{description}"/></a>
+{/pyro:galleries:images}
+
 {pyro:widgets:area slug="sidebar"}
 {pyro:widgets:instance id="8"}
 </pre>
