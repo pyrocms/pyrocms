@@ -74,7 +74,7 @@ class Admin extends Admin_Controller
 					$this->analytics->setProfileById('ga:'.$this->settings->ga_profile);
 
 					$end_date = date('Y-m-d');
-					$start_date = date('Y-m-d', strtotime('-30 days'));
+					$start_date = date('Y-m-d', strtotime('-1 month'));
 
 					$this->analytics->setDateRange($start_date, $end_date);
 
@@ -84,12 +84,16 @@ class Admin extends Admin_Controller
 					/* build tables */
 					if (count($visits))
 					{
-						foreach ($visits as $day => $visit)
+						foreach ($visits as $date => $visit)
 						{
-							$utc = mktime(date('h') + 1, NULL, NULL, date('m'), $day) * 1000;
+							$year = substr($date, 0, 4);
+							$month = substr($date, 4, 2);
+							$day = substr($date, 6, 2);
+
+							$utc = mktime(date('h') + 1, NULL, NULL, $month, $day, $year) * 1000;
 
 							$flot_datas_visits[] = '[' . $utc . ',' . $visit . ']';
-							$flot_datas_views[] = '[' . $utc . ',' . $views[$day] . ']';
+							$flot_datas_views[] = '[' . $utc . ',' . $views[$date] . ']';
 						}
 
 						$flot_data_visits = '[' . implode(',', $flot_datas_visits) . ']';
