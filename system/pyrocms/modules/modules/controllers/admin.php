@@ -222,6 +222,31 @@ class Admin extends Admin_Controller
 
 		redirect('admin/modules');
 	}
+	
+	/**
+	 * Upgrade
+	 *
+	 * Upgrade an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to disable
+	 * @access	public
+	 * @return	void
+	 */
+	public function upgrade($slug)
+	{
+		// If upgrade succeeded
+		if ($this->module_m->upgrade($slug))
+		{
+			$this->session->set_flashdata('success', sprintf(lang('modules.upgrade_success'), $slug));
+		}
+		// If upgrade failed
+		else
+		{
+			$this->session->set_flashdata('error', sprintf(lang('modules.upgrade_error'), $slug));
+		}
+		
+		redirect('admin/modules');
+	}
 
 	/**
 	 * Delete Recursive

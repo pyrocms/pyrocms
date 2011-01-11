@@ -61,6 +61,7 @@ $lang['uninstall_label'] 				= 'Uninstall';
 $lang['install_label'] 					= 'Install';
 $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
+$lang['upgrade_label'] 					= 'Upgrade';
 
 /* End of file main_lang.php */
 /* Location: ./system/pyrocms/language/english/main_lang.php */
