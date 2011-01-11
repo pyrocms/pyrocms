@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Plugin_Helper extends Plugin
@@ -31,7 +31,9 @@ class Plugin_Helper extends Plugin
 	function date()
 	{
 		$format = $this->attribute('format');
-		return date($format);
+		$timestamp = $this->attribute('timestamp');
+		
+		return $timestamp ? date($format, $timestamp) : date($format);
 	}
 }
 

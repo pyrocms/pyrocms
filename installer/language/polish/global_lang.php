@@ -7,5 +7,5 @@ $lang['step3']	=	'Krok 3';
 $lang['step4']	=	'Krok 4';
 $lang['final']	=	'Zakończenie';
 
-$lang['installer.passwords_match']		= "Passwords Match."; #translate
-$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
+$lang['installer.passwords_match']		= "Hasła są jednakowe.";
+$lang['installer.passwords_dont_match']	= "Hasła nie są jednakowe.";

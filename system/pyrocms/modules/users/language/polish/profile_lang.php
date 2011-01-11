@@ -1,6 +1,6 @@
 <?php
 
-$lang['profile_of_title'] = '%s\'s Profil';
+$lang['profile_of_title'] = '%s Profil';
 
 $lang['profile_user_details_label'] = 'Szczegóły profilu użytkownika';
 $lang['profile_role_label'] = 'Rola';

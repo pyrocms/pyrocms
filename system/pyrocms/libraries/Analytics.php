@@ -30,7 +30,7 @@
  *
  * @version 0.1
  */
-class analytics {
+class Analytics {
 
 	private $_sUser;
 	private $_sPass;
@@ -63,7 +63,6 @@ class analytics {
 	 */
 	private function auth()
 	{
-
 		if (isset($_SESSION['auth']))
 		{
 			$this->_sAuth = $_SESSION['auth'];
@@ -123,7 +122,6 @@ class analytics {
 	 */
 	private function getXml($sUrl)
 	{
-
 		return $this->getUrl($sUrl, array(), array('Authorization: GoogleLogin auth=' . $this->_sAuth));
 	}
 
@@ -132,7 +130,6 @@ class analytics {
 	 */
 	public function setProfileById($sProfileId)
 	{
-
 		$this->_sProfileId = $sProfileId;
 	}
 
@@ -142,7 +139,6 @@ class analytics {
 	 */
 	public function setProfileByName($sAccountName)
 	{
-
 		if (isset($_SESSION['profile']))
 		{
 			$this->_sProfileId = $_SESSION['profile'];
@@ -177,7 +173,6 @@ class analytics {
 	 */
 	public function getProfileList()
 	{
-
 		$sXml = $this->getXml('https://www.google.com/analytics/feeds/accounts/default');
 		$aAccounts = $this->parseAccountList($sXml);
 		$aReturn = array();
@@ -196,7 +191,6 @@ class analytics {
 	 */
 	private function getCache($sKey)
 	{
-
 		if ($this->_bUseCache === false)
 		{
 			return false;
@@ -230,7 +224,7 @@ class analytics {
 			return false;
 		}
 
-		if (!isset($_SESSION['cache'][$this->_sProfileId]))
+		if ( ! isset($_SESSION['cache'][$this->_sProfileId]))
 		{
 			$_SESSION['cache'][$this->_sProfileId] = array();
 		}
@@ -249,16 +243,11 @@ class analytics {
 	 */
 	public function getData($aProperties = array())
 	{
-		$aParams = array();
-		foreach ($aProperties as $sKey => $sProperty)
-		{
-			$aParams[] = $sKey . '=' . $sProperty;
-		}
-
 		$sUrl = 'https://www.google.com/analytics/feeds/data?ids=' . $this->_sProfileId .
 				'&start-date=' . $this->_sStartDate .
 				'&end-date=' . $this->_sEndDate . '&' .
-				implode('&', $aParams);
+				http_build_query($aProperties);
+
 		$aCache = $this->getCache($sUrl);
 		if ($aCache !== false)
 		{
@@ -282,7 +271,6 @@ class analytics {
 			// Fix the array key when multiple dimensions are given
 			if (strpos($sTitle, ' | ') !== false && strpos($aProperties['dimensions'], ',') !== false)
 			{
-
 				$aDimensions = explode(',', $aProperties['dimensions']);
 				$aDimensions[] = '|';
 				$aDimensions[] = '=';
@@ -305,7 +293,6 @@ class analytics {
 	 */
 	private function parseAccountList($sXml)
 	{
-
 		$oDoc = new DOMDocument();
 		$oDoc->loadXML($sXml);
 		$oEntries = $oDoc->getElementsByTagName('entry');
@@ -346,7 +333,7 @@ class analytics {
 			$oTableId = $oEntry->getElementsByTagName('tableId');
 			$aProfiles[$i]["tableId"] = $oTableId->item(0)->nodeValue;
 
-			$i++;
+			++$i;
 		}
 		return $aProfiles;
 	}
@@ -426,9 +413,11 @@ class analytics {
 		{
 			// Curl is not installed, use file_get_contents
 			// create headers and post
-			$aContext = array('http' => array('method' => $sMethod,
-					'header' => implode("\r\n", $aHeader) . "\r\n",
-					'content' => $sContent));
+			$aContext = array('http' => array(
+				'method' => $sMethod,
+				'header' => implode("\r\n", $aHeader) . "\r\n",
+				'content' => $sContent
+			));
 			$rContext = stream_context_create($aContext);
 
 			$sOutput = @file_get_contents($sUrl, 0, $rContext);
@@ -449,7 +438,6 @@ class analytics {
 	 */
 	public function setDateRange($sStartDate, $sEndDate)
 	{
-
 		$this->_sStartDate = $sStartDate;
 		$this->_sEndDate = $sEndDate;
 	}
@@ -462,7 +450,6 @@ class analytics {
 	 */
 	public function setMonth($iMonth, $iYear)
 	{
-
 		$this->_sStartDate = date('Y-m-d', strtotime($iYear . '-' . $iMonth . '-01'));
 		$this->_sEndDate = date('Y-m-d', strtotime($iYear . '-' . $iMonth . '-' . date('t', strtotime($iYear . '-' . $iMonth . '-01'))));
 	}
@@ -473,10 +460,11 @@ class analytics {
 	 */
 	public function getVisitors()
 	{
-
-		return $this->getData(array('dimensions' => 'ga:day',
+		return $this->getData(array(
+			'dimensions' => 'ga:date',
 			'metrics' => 'ga:visits',
-			'sort' => 'ga:day'));
+			'sort' => 'ga:date'
+		));
 	}
 
 	/**
@@ -485,10 +473,24 @@ class analytics {
 	 */
 	public function getPageviews()
 	{
-
-		return $this->getData(array('dimensions' => 'ga:day',
+		return $this->getData(array(
+			'dimensions' => 'ga:date',
 			'metrics' => 'ga:pageviews',
-			'sort' => 'ga:day'));
+			'sort' => 'ga:date'
+		));
+	}
+
+	/**
+	 * Get pageviews for given period
+	 *
+	 */
+	public function getTimeOnSite()
+	{
+		return $this->getData(array(
+			'dimensions' => 'ga:date',
+			'metrics' => 'ga:timeOnSite',
+			'sort' => 'ga:date'
+		));
 	}
 
 	/**
@@ -497,10 +499,11 @@ class analytics {
 	 */
 	public function getVisitsPerHour()
 	{
-
-		return $this->getData(array('dimensions' => 'ga:hour',
+		return $this->getData(array(
+			'dimensions' => 'ga:hour',
 			'metrics' => 'ga:visits',
-			'sort' => 'ga:hour'));
+			'sort' => 'ga:hour'
+		));
 	}
 
 	/**
@@ -509,10 +512,11 @@ class analytics {
 	 */
 	public function getBrowsers()
 	{
-
-		$aData = $this->getData(array('dimensions' => 'ga:browser,ga:browserVersion',
-					'metrics' => 'ga:visits',
-					'sort' => 'ga:visits'));
+		$aData = $this->getData(array(
+		   'dimensions' => 'ga:browser,ga:browserVersion',
+			'metrics' => 'ga:visits',
+			'sort' => 'ga:visits'
+		));
 		arsort($aData);
 		return $aData;
 	}
@@ -523,10 +527,11 @@ class analytics {
 	 */
 	public function getOperatingSystem()
 	{
-
-		$aData = $this->getData(array('dimensions' => 'ga:operatingSystem',
-					'metrics' => 'ga:visits',
-					'sort' => 'ga:visits'));
+		$aData = $this->getData(array(
+			'dimensions' => 'ga:operatingSystem',
+			'metrics' => 'ga:visits',
+			'sort' => 'ga:visits'
+		));
 		// sort descending by number of visits
 		arsort($aData);
 		return $aData;
@@ -538,10 +543,11 @@ class analytics {
 	 */
 	public function getScreenResolution()
 	{
-
-		$aData = $this->getData(array('dimensions' => 'ga:screenResolution',
-					'metrics' => 'ga:visits',
-					'sort' => 'ga:visits'));
+		$aData = $this->getData(array(
+			'dimensions' => 'ga:screenResolution',
+			'metrics' => 'ga:visits',
+			'sort' => 'ga:visits'
+		));
 
 		// sort descending by number of visits
 		arsort($aData);
@@ -554,10 +560,11 @@ class analytics {
 	 */
 	public function getReferrers()
 	{
-
-		$aData = $this->getData(array('dimensions' => 'ga:source',
-					'metrics' => 'ga:visits',
-					'sort' => 'ga:source'));
+		$aData = $this->getData(array(
+			'dimensions' => 'ga:source',
+			'metrics' => 'ga:visits',
+			'sort' => 'ga:source'
+		));
 
 		// sort descending by number of visits
 		arsort($aData);
@@ -570,9 +577,11 @@ class analytics {
 	 */
 	public function getSearchWords()
 	{
-		$aData = $this->getData(array('dimensions' => 'ga:keyword',
-					'metrics' => 'ga:visits',
-					'sort' => 'ga:keyword'));
+		$aData = $this->getData(array(
+			'dimensions' => 'ga:keyword',
+			'metrics' => 'ga:visits',
+			'sort' => 'ga:keyword'
+		));
 		// sort descending by number of visits
 		arsort($aData);
 		return $aData;

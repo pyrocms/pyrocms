@@ -16,7 +16,9 @@ class Module_Galleries extends Module {
 				'it' => 'Gallerie',
 				'ru' => 'Галереи',
 				'ar' => 'معارض الصّور',
-				'pt' => 'Galerias'
+				'pt' => 'Galerias',
+				'cs' => 'Galerie',
+				'es' => 'Galerías'
 			),
 			'description' => array(
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
@@ -27,7 +29,9 @@ class Module_Galleries extends Module {
 				'it' => 'Il modulo gallerie è un potente modulo che permette agli utenti di creare gallerie di immagini.',
 				'ru' => 'Галереи - мощный модуль, который даёт пользователям возможность создавать галереи изображений.',
 				'ar' => 'هذه الوحدة تمُكّنك من إنشاء معارض الصّور بسهولة.',
-				'pt' => 'O módulo de galerias é um poderoso módulo que permite aos usuários criar galerias de imagens.'
+				'pt' => 'O módulo de galerias é um poderoso módulo que permite aos usuários criar galerias de imagens.',
+			    	'cs' => 'Silný modul pro vytváření a správu galerií obrázků.',
+				'es' => 'Galerías es un potente módulo que permite a los usuarios crear galerías de imágenes.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
@@ -39,7 +43,7 @@ class Module_Galleries extends Module {
 	{
 		$this->dbforge->drop_table('galleries');
 		$this->dbforge->drop_table('gallery_images');
-		
+
 		$galleries = "
 			CREATE TABLE `galleries` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -81,7 +85,7 @@ class Module_Galleries extends Module {
 	}
 
 	public function uninstall()
-	{		
+	{
 		if($this->dbforge->drop_table('galleries') &&
 		   $this->dbforge->drop_table('gallery_images'))
 		{

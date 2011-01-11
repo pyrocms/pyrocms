@@ -18,7 +18,8 @@ class Module_Modules extends Module {
 				'zh' => '模組',
 				'it' => 'Moduli',
 				'ru' => 'Модули',
-				'ar' => 'الوحدات'
+				'ar' => 'الوحدات',
+				'cs' => 'Moduly'
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -31,7 +32,8 @@ class Module_Modules extends Module {
 				'zh' => '管理員可以檢視目前已經安裝模組的列表',
 				'it' => 'Permette agli amministratori di vedere una lista dei moduli attualmente installati.',
 				'ru' => 'Список модулей, которые установлены на сайте.',
-				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.'
+				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.',
+				'cs' => 'Umožňuje administrátorům vidět seznam nainstalovaných modulů.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -60,7 +62,15 @@ class Module_Modules extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+				<p>The Addons module allows admins to upload, install, and uninstall third-party modules.</p>
+				<h4>Uploading</h4>
+				<p>New modules must be in a zip file and the folder must be named the same as the module.
+				For example if you are uploading the 'forums' module the folder must be named 'forums' not 'test_forums'.</p>
+				<h4>Disabling or Uninstalling a module</h4>
+				<p>If you want to remove a module from the front-end and from the admin menus you may Disable the module. If you
+				are completely done with it you may Uninstall it. <font color=\"red\">Warning: Uninstalling a module deletes all
+				source files, uploaded files, and database records associated with the module.</font></p>";
 	}
 }
 /* End of file details.php */

@@ -112,4 +112,4 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.0.0');
+define('CMS_VERSION', '1.0.2');

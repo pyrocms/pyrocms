@@ -14,7 +14,18 @@ class Admin extends Admin_Controller
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'name',
+			'label' => 'lang:variables.name_label',
+			'rules' => 'trim|required|alpha_dash|max_length[50]|callback__check_name[0]'
+		),
+		array(
+			'field' => 'data',
+			'label' => 'lang:variables.data_label',
+			'rules' => 'trim|max_length[250]'
+		),
+	);
 
 	/**
 	 * Constructor method
@@ -30,20 +41,6 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->load->model('variables_m');
 		$this->lang->load('variables');
-
-		// Validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'name',
-				'label' => lang('variables.name_label'),
-				'rules' => 'trim|required|max_length[50]|callback__check_name[0]'
-			),
-			array(
-				'field' => 'data',
-				'label' => lang('variables.data_label'),
-				'rules' => 'trim|max_length[250]'
-			),
-		);
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);

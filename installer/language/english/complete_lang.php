@@ -9,3 +9,6 @@ $lang['outro_text']			= 'Finally, <strong>delete the installer from your server<
 
 $lang['go_website']			= 'Go to Website';
 $lang['go_control_panel']	= 'Go to Control Panel';
+
+/* End of file complete_lang.php */
+/* Location: ./installer/language/english/complete_lang.php */

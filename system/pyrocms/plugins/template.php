@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Plugin_Template extends Plugin
@@ -17,9 +17,7 @@ class Plugin_Template extends Plugin
 	 * Loads a template partial
 	 *
 	 * Usage:
-	 * {pyro:template:has_partial name="sidebar"}
-	 *	<p>Hello admin!</p>
-	 * {/pyro:template:has_partial}
+	 * {pyro:template:partial name="sidebar"}
 	 *
 	 * @param	array
 	 * @return	array
@@ -66,4 +64,4 @@ class Plugin_Template extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file template.php */

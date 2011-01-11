@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Plugin_News extends Plugin
@@ -29,23 +29,21 @@ class Plugin_News extends Plugin
 	{
 		$limit = $this->attribute('limit', 10);
 		$category = $this->attribute('category');
+		$order = $this->attribute('order');
 
 		if ($category)
 		{
-			if (is_numeric($category))
-			{
-				$this->db->where('c.id', $category);
-			}
-			
-			else
-			{
-				$this->db->where('c.slug', $category);
-			}
+			is_numeric($category)
+				? $this->db->where('c.id', $category)
+				: $this->db->where('c.slug', $category);
 		}
 		
 		return $this->db
+			->select('news.*, c.title as category_title, c.slug as category_slug')
 			->where('status', 'live')
 			->where('created_on <=', now())
+			->join('news_categories c', 'news.category_id = c.id', 'LEFT')
+			->order_by('news.created_on', $order)
 			->limit($limit)
 			->get('news')
 			->result_array();

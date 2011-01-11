@@ -3,7 +3,7 @@
 class Module_Files extends Module {
 
 	public $version = '1.0';
-	
+
 	public function info()
 	{
 		return array(
@@ -16,7 +16,9 @@ class Module_Files extends Module {
 				'zh' => '檔案',
 				'it' => 'File',
 				'ru' => 'Файлы',
-				'ar' => 'الملفّات'
+				'ar' => 'الملفّات',
+				'cs' => 'Soubory',
+				'es' => 'Archivos'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -28,18 +30,20 @@ class Module_Files extends Module {
 				'it' => 'Gestisci file e cartelle del tuo sito.',
 				'ru' => 'Управление файлами и папками вашего сайта.',
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
+				'cs' => 'Spravujte soubory a složky na vašem webu.',
+				'es' => 'Administra archivos y carpetas en tu sitio.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
 			'menu'	  => 'content'
 		);
 	}
-	
+
 	public function install()
 	{
 		$this->dbforge->drop_table('files');
 		$this->dbforge->drop_table('file_folders');
-		
+
 		$files = "
 			CREATE TABLE `files` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -58,7 +62,7 @@ class Module_Files extends Module {
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
-		
+
 		$file_folders = "
 			CREATE TABLE `file_folders` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -87,7 +91,7 @@ class Module_Files extends Module {
 		// Your Upgrade Logic
 		return TRUE;
 	}
-	
+
 	public function help()
 	{
 		// Return a string containing help info

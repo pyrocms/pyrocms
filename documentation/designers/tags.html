@@ -2,7 +2,7 @@
 
 <p>
 	Tags are a way to put dynamic content into your theme layouts and partials. They represent data or Plugins which are more advanced
-	Tags that can take attributes to effect how they display and run.
+	Tags that can take attributes to affect how they display and run.
 </p>
 
 <p>Here are some examples, a more extensive list with parameters and defaults will be drawn up soon.</p>
@@ -55,14 +55,21 @@
 {pyro:helper:lang line="foo"}
 {pyro:helper:date format="d/m/Y"}
 
-{pyro:pages:children id="2"}
+{pyro:pages:children id="2" limit="5"}
 	{title}
+	{body}
 {/pyro:pages:children}
 
-{pyro:news:posts limit="5"}
+{pyro:news:posts limit="5" category="test" order="desc"} - both category & order are optional
 	&lt;h2>{title}&lt;/h2>
 	{body}
 {/pyro:news:posts}
+
+{pyro:galleries:images slug="landscape-photos" limit="5"}
+    &lt;a href="galleries/{slug}/{id}">
+        &lt;img src="uploads/galleries/{slug}/full/{filename}{extension}" alt="{description}"/>
+    &lt;/a>
+{/pyro:galleries:images}
 
 {pyro:widgets:area slug="sidebar"}
 {pyro:widgets:instance id="8"}

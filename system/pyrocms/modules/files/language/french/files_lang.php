@@ -1,4 +1,4 @@
-﻿<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -61,4 +61,5 @@ $lang['files.v'] = 'Vidéo';
 $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Autre';
 
-/* End of file file_lang.php */
+/* End of file files_lang.php */
+/* Location: ./system/pyrocms/modules/files/language/french/files_lang.php */

@@ -537,7 +537,7 @@ class Ion_auth_model extends CI_Model
 				{
 					$data[$input] = $additional_data[$input];
 				}
-				else
+				elseif ($this->input->post($input))
 				{
 					$data[$input] = $this->input->post($input);
 				}
