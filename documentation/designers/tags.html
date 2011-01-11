@@ -49,15 +49,11 @@
 
 <pre class="tags">
 {if '{pyro:url:segments segment="2"}' == 'blog'}
-
 	{pyro:widgets:area slug="blog"}
-	
-{elseif '{pyro:url:segments segment="2"}' == 'home' }
 
+{elseif '{pyro:url:segments segment="2"}' == 'home' }
 	{pyro:widgets:area slug="home"}
 
 {else}
-
 	No widgets available.
-
 {/if}</pre>
