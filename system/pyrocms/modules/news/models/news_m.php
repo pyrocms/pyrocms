@@ -14,8 +14,8 @@ class News_m extends MY_Model
   
     function get($id)
     {
-      $this->db->select("*, MONTH(FROM_UNIXTIME(created_on)) as created_on_month, DAY(FROM_UNIXTIME(created_on)) as created_on_day, YEAR(FROM_UNIXTIME(created_on)) as created_on_year,  MINUTE(FROM_UNIXTIME(created_on)) as created_on_minute,  HOUR(FROM_UNIXTIME(created_on)) as created_on_hour, CONCAT(MONTH(FROM_UNIXTIME(created_on)),'/',DAY(FROM_UNIXTIME(created_on)),'/',YEAR(FROM_UNIXTIME(created_on))) as date");
-    $this->db->where(array('id'=>$id));
+		$this->db->select("*, MONTH(FROM_UNIXTIME(created_on)) as created_on_month, DAY(FROM_UNIXTIME(created_on)) as created_on_day, YEAR(FROM_UNIXTIME(created_on)) as created_on_year,  MINUTE(FROM_UNIXTIME(created_on)) as created_on_minute,  HOUR(FROM_UNIXTIME(created_on)) as created_on_hour, CONCAT(MONTH(FROM_UNIXTIME(created_on)),'/',DAY(FROM_UNIXTIME(created_on)),'/',YEAR(FROM_UNIXTIME(created_on))) as date");
+		$this->db->where(array('id'=>$id));
            
         return $this->db->get('news')->row();
     }
@@ -196,9 +196,20 @@ class News_m extends MY_Model
         return $string ;
     }
 
-    function check_slug($slug = '')
+    function check_exists($field, $value = '', $id = 0)
     {
-		return parent::count_by('slug', $slug) == 0;
+		if (is_array($field))
+		{
+			$params = $field;
+			$id = $value;
+		}
+		else
+		{
+			$params[$field] = $value;
+		}
+		$params['id !='] = (int) $id;
+
+		return parent::count_by($params) == 0;
     }
     
     /**

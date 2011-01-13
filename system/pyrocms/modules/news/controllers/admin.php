@@ -8,20 +8,27 @@
 class Admin extends Admin_Controller
 {
 	/**
+	 * The id of article
+	 * @access protected
+	 * @var int
+	 */
+	protected $id = 0;
+
+	/**
 	 * Array that contains the validation rules
 	 * @access protected
 	 * @var array
 	 */
 	protected $validation_rules = array(
 		array(
-			'field'   => 'title',
-			'label'   => 'lang:news_title_label',
-			'rules'   => 'trim|htmlspecialchars|required|max_length[100]'
-			),
+			'field'	=> 'title',
+			'label'	=> 'lang:news_title_label',
+			'rules'	=> 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
+		),
 		array(
 			'field'	=> 'slug',
 			'label'	=> 'lang:news_slug_label',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[100]'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
 		),
 		array(
 			'field' => 'category_id',
@@ -49,14 +56,19 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|required'
 		),
 		array(
-		  'field' => 'created_on_hour',
-		  'label' => 'lang:news_created_hour',
-		  'rules' => 'trim|numeric|required'
+			'field' => 'created_on_hour',
+			'label' => 'lang:news_created_hour',
+			'rules' => 'trim|numeric|required'
 		),
 		array(
 			'field' => 'created_on_minute',
 			'label' => 'lang:news_created_minute',
 			'rules' => 'trim|numeric|required'
+		),
+		array(
+			'field' => 'created_on_day',
+			'label' => 'lang:news_created_day',
+			'rules' => 'trim|numeric'
 		)
 	);
 
@@ -124,9 +136,7 @@ class Admin extends Admin_Controller
 	public function create()
 	{
 		$this->load->library('form_validation');
-		
-		//append the check slug callback function to rules array
-		$this->validation_rules[1]['rules'] .= '|callback__check_slug';
+
 		$this->form_validation->set_rules($this->validation_rules);
 		
 		if ($this->form_validation->run())
@@ -193,10 +203,11 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
-		
 		$this->form_validation->set_rules($this->validation_rules);
 			
 		$article = $this->news_m->get($id);
+
+		$this->id = $article->id;
 		
 		if ($this->form_validation->run())
 		{
@@ -399,6 +410,23 @@ class Admin extends Admin_Controller
 	}
 	
 	/**
+	 * Callback method that checks the title of an article
+	 * @access public
+	 * @param string title The Title to check
+	 * @return bool
+	 */
+	public function _check_title($title = '')
+	{
+		if ( ! $this->news_m->check_exists('title', $title, $this->id))
+		{
+			$this->form_validation->set_message('_check_title', sprintf(lang('news_already_exist_error'), lang('news_title_label')));
+			return FALSE;
+		}
+		
+		return TRUE;
+	}
+	
+	/**
 	 * Callback method that checks the slug of an article
 	 * @access public
 	 * @param string slug The Slug to check
@@ -406,9 +434,9 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_slug($slug = '')
 	{
-		if ( ! $this->news_m->check_slug($slug))
+		if ( ! $this->news_m->check_exists('slug', $slug, $this->id))
 		{
-			$this->form_validation->set_message('_check_slug', lang('news_already_exist_error'));
+			$this->form_validation->set_message('_check_slug', sprintf(lang('news_already_exist_error'), lang('news_slug_label')));
 			return FALSE;
 		}
 		
@@ -450,6 +478,5 @@ class Admin extends Admin_Controller
 			->set_layout(FALSE)
 			->set('news', $results)
 			->build('admin/index');
-	}
-	
+	}	
 }
