@@ -125,8 +125,20 @@ class Galleries_m extends MY_Model {
 			unset($input['gallery_thumbnail']);
 		}
 
+		$gallery	= $this->get($id);
+		$old_slug	= $gallery->slug;
+
 		// Update the DB
-		return parent::update($id, $input);
+		if ($result = parent::update($id, $input))
+		{
+			// Update gallery upload images dir slug
+			if ( ! rename('uploads/galleries/' . $old_slug, 'uploads/galleries/' . $input['slug']))
+			{
+				// TODO - set error
+			}
+		}
+
+		return $result;
 	}
 
 	/**
