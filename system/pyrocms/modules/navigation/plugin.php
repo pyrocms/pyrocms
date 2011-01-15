@@ -25,7 +25,7 @@ class Plugin_Navigation extends Plugin
 		$group		= $this->attribute('group');
 		$tag		= $this->attribute('tag', 'li');
 		$current_class  = $this->attribute('class', 'current');
-		$separato       = $this->attribute('separator', '');
+		$separator       = $this->attribute('separator', '');
 
 		$this->load->model('navigation/navigation_m');
 		$links = $this->cache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
