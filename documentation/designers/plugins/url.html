@@ -1,0 +1,53 @@
+<h1>Url Plugin</h1>
+
+<p>The <em>url</em> plugin gives you access to url data and logic.</p>
+
+<p>The user plugin's slug is <strong>url</strong>, so it can be used like so:</p>
+
+<pre class="tags">{pyro:url:<em>function</em>}</pre>
+
+<h2>Functions</h2>
+
+<h3>{pyro:url:current}</h3>
+
+<p>Displays the full current URL.</p>
+
+<br />
+
+<h3>{pyro:url:site}</h3>
+
+<p>Displays the full site URL.</p>
+
+<br />
+
+<h3>{pyro:url:base}</h3>
+
+<p>Displays the full site base URL.</p>
+
+<br />
+
+<h3>{pyro:url:segments}</h3>
+
+<p>Displays a specific URL segment.</p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">segment</td>
+		<td>Required. Number of the segment of the URL you want to use.</td>
+	</tr>
+	<tr>
+		<td width="100">default</td>
+		<td>A default value to use if nothing is in the URL segment specified.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{pyro:url:segments segment="1" default="home"}</code></pre>
