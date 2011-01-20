@@ -35,5 +35,15 @@ class Email_templates_m extends MY_Model {
         
         return $templates;
     }
+   
+    /**
+     * Delete a template only if it's not a default
+     */
+    public function delete_template($id = 0)
+    {
+        return $this->db->where('id', $id)
+                    ->where('is_default <', 1)
+                    ->delete($this->_table);
+    }
 }
 /* End of file models/email_templates_m.php */
