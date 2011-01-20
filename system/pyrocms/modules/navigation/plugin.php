@@ -23,9 +23,12 @@ class Plugin_Navigation extends Plugin
 	function links()
 	{
 		$group = $this->attribute('group');
+		$group_segment = $this->attribute('group_segment');
 		$tag = $this->attribute('tag', 'li');
 		$current_class = $this->attribute('class', 'current');
 		$separator = $this->attribute('separator', '');
+
+		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL ;
 
 		$this->load->model('navigation/navigation_m');
 		$links = $this->cache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
@@ -65,4 +68,4 @@ class Plugin_Navigation extends Plugin
 	}
 }
 
-/* End of file news.plugin.php */
+/* End of file plugin.php */

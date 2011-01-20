@@ -109,6 +109,9 @@ class Galleries_m extends MY_Model {
 	// TODO: This whole fucking function is a mess, can somebody sort this and insert_gallery() out so it's less of an insecure ridiculous mess?
 	public function update_gallery($id, $input)
 	{
+        // we need oldslug for later use
+        $oldslug = parent::get($id)->slug;
+
 		// Prepare the data
 		unset($input['btnAction']);
 		unset($input['form_id']);
@@ -126,7 +129,16 @@ class Galleries_m extends MY_Model {
 		}
 
 		// Update the DB
-		return parent::update($id, $input);
+		$result = parent::update($id, $input);
+        
+        // if we had no errors (like slug dublicate), proceed with renaming:
+        if($result)
+        {
+            if ($oldslug != $input['slug'])
+                rename('uploads/galleries/'.$oldslug, 'uploads/galleries/'.$input['slug']);
+        }
+        
+        return $result;
 	}
 
 	/**
