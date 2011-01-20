@@ -60,4 +60,6 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Other';
 
-/* End of file file_lang.php */
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';
+
+/* End of file files_lang.php */
