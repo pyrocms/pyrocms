@@ -94,6 +94,8 @@ class Admin_folders extends Admin_Controller {
 		$this->data->selected_filter = $filter;
 		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
 
+		$this->file_m->order_by('date_added', 'DESC');
+
 		// Get all files
 		if ($filter != '')
 		{
