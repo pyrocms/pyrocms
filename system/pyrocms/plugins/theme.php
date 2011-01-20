@@ -112,10 +112,10 @@ class Plugin_Theme extends Plugin
 	/**
 	 * Data
 	 *
-	 * Loads a theme partial
+	 * Set and get theme variables
 	 *
 	 * Usage:
-	 * {pyro:session:data name="foo"}
+	 * {pyro:theme:variables name="foo"}
 	 *
 	 * @param	array
 	 * @return	array
