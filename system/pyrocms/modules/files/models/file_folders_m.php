@@ -126,7 +126,7 @@ class File_folders_m extends MY_Model {
 			$menu_array[$row->id] = $arr;
 		}
 		
-		unset($arr);
+		$arr = array();
 		
 		// Confirm we have something to work with.
 		if ( ! isset($menu_array))
