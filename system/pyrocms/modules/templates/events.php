@@ -11,11 +11,16 @@ class Events_Templates {
     
     protected $ci;
     
-    protected $defaults = array();
+    protected $fallbacks = array();
     
     public function __construct()
     {
         $this->ci =& get_instance();
+        
+        $this->fallbacks = array(
+            'comments' => array('comments' => 'email/comment'),
+            'contact' => array('contact' => 'email/contact')
+        );
         
         //register the email event
         Events::register('email', array($this, 'send_email'));

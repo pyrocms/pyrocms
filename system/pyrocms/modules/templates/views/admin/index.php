@@ -27,8 +27,9 @@
                 <td><?php echo $template->description; ?></td>
                 <td><?php echo $template->lang; ?></td>
                 <td>
+					<?php echo anchor('admin/templates/preview/' . $template->id, 'Preview'); ?>
                     <?php echo anchor('admin/templates/edit/' . $template->id, 'Edit'); ?>
-                    <?php echo anchor('admin/templates/preview/' . $template->id, 'Preview'); ?>
+                    <?php echo !$template->is_default ? anchor('admin/templates/delete/' . $template->id, 'Delete') : '' ; ?>
                 </td>
             </tr>
     <?php endforeach; ?>
