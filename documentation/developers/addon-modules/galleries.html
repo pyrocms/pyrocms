@@ -1,0 +1,76 @@
+<h2>Galleries Module</h2>
+
+
+<h2>Overview</h2>
+
+<p>The galleries module is a basic photo management tool. Features include drag & drop sorting, a crop tool, and sub galleries.</p>
+		
+<h2>Creating Galleries</h2>
+
+<p>Click "Create a new Gallery" in the shortcut menu. Fill out the title, slug, and the (optional) Description. (The Description shows
+	beside the gallery thumbnail at http://example.com/galleries). Choose whether you want to enable comments for this gallery or not
+	and select Publish if you wish for the gallery to show in the list of galleries. Note: selecting Unpublish does not disable the gallery, it just
+	removes it from the list at http://example.com/galleries. You can still create a navigation link directly to it and the
+	gallery will be viewable. For example: http://example.com/galleries/gallery-title
+</p>
+
+<h2>Uploading Images</h2>
+
+<p>After saving the gallery select the Upload button to upload images. Fill out the title, select an image, choose which gallery to upload to, and
+	fill in an (optional) caption. If the upload is not successful check your image size. Many hosts do not allow file uploads over 2MB. Many modern cameras
+	produce images in exess of 5MB. To remedy this limitation you may either ask your host to change the upload limit or you may wish to
+	resize your images before uploading. Resizing has the added advantage of faster upload times.
+</p>
+
+<h2>Manage Gallery</h2>
+
+<p>Click on List Galleries->Manage. Here you may change the gallery's title, slug, description, etc. If you want a thumbnail to represent this
+	gallery in the gallery list you may choose one from the dropdown. To change the order that the images are displayed in on the front-end
+	simply grab the images and drag them into the proper order.
+</p>
+
+<h2>Editing an Image</h2>
+
+<p>From the Manage page click on the image that you would like to edit. From the edit page you may change all of the image's info or crop the image.
+	To crop simply click the Crop button, draw a box with your mouse where you would like the crop to be, close the modal window, and click Save. To
+	delete the image check the Delete checkbox and click Save.
+</p>
+
+<h2>Gallery Tags</h2>
+
+<h3>{pyro:galleries:images}</h3><br />
+
+<p>Display images anywhere on the site.</p>
+	 
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">slug</td>
+		<td width="100"></td>
+		<td>Required. The slug of the gallery to display images from.</td>
+	</tr>
+	<tr>
+		<td width="100">limit</td>
+		<td width="100"></td>
+		<td>Optional. Number of images to display.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example</strong></p>
+
+<pre><code>{pyro:galleries:images slug="wallpapers"}
+	&#60;a href="galleries/{title}">
+	&#60;img alt="{description}" src="uploads/galleries/{slug}/full/{filename}{extension}" title="{description}" />
+	&#60;/a>
+{/pyro:galleries:images}</code></pre>
+
+<br />
