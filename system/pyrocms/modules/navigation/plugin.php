@@ -15,7 +15,7 @@ class Plugin_Navigation extends Plugin
 	 * Creates a list of news posts
 	 *
 	 * Usage:
-	 * {pyro:navigation:list group="header"}
+	 * {pyro:navigation:links group="header"}
 	 *
 	 * @param	array
 	 * @return	array
