@@ -107,41 +107,59 @@ class Gallery_images_m extends MY_Model
 			// Set the data for creating a thumbnail
 			$source			= 'uploads/galleries/' . $gallery_slug . '/full/' . $uploaded_data['file_name'];
 			$destination	= 'uploads/galleries/' . $gallery_slug . '/thumbs';
-			$options		= array();
+			$options['create_thumb']	= FALSE;
+			$options['quality']			= '85';
 			
 			// Is the current size larger? If so, resize to a width/height of X pixels (determined by the config file)
-			if ( $uploaded_data['image_width'] > $this->config->item('image_thumb_width'))
+			if ( $uploaded_data['image_width'] > $this->config->item('image_width'))
 			{
-				$options['width'] = $this->config->item('image_thumb_width');
+				$options['width'] = $this->config->item('image_width');
 			}
-			if ( $uploaded_data['image_height'] > $this->config->item('image_thumb_height'))
+			if ( $uploaded_data['image_height'] > $this->config->item('image_height'))
 			{
-				$options['height'] = $this->config->item('image_thumb_height');
+				$options['height'] = $this->config->item('image_height');
 			}
 			
-			// Great, time to create a thumbnail
-			if ( $this->resize('resize', $source, $destination, $options) === TRUE )
+			// resize the main image
+			if ( $this->resize('resize', $source, $source, $options) === TRUE )
 			{
-				// Image has been uploaded, thumbnail has been created, time to add it to the DB!
-				$to_insert['gallery_id'] = $input['gallery_id'];
-				$to_insert['filename']	 = $uploaded_data['raw_name'];
-				$to_insert['extension']	 = $uploaded_data['file_ext'];
-				$to_insert['title']		 = $input['title'];
-				$to_insert['description']= $input['description'];
-				$to_insert['uploaded_on']= time();
-				$to_insert['updated_on'] = time();
+				// Is the current size larger? If so, resize to a width/height of X pixels (determined by the config file)
+				if ( $uploaded_data['image_width'] > $this->config->item('image_thumb_width'))
+				{
+					$options['width'] = $this->config->item('image_thumb_width');
+				}
+				if ( $uploaded_data['image_height'] > $this->config->item('image_thumb_height'))
+				{
+					$options['height'] = $this->config->item('image_thumb_height');
+				}
 				
-				// Insert it
-				if ( is_int(parent::insert($to_insert)) )
-				{
-					return TRUE;
-				}
-				else
-				{
-					return FALSE;
-				}
+				$options['create_thumb'] = TRUE;
+				
+					// Great, time to create a thumbnail
+					if ( $this->resize('resize', $source, $destination, $options) === TRUE )
+					{
+						// Image has been uploaded, thumbnail has been created, time to add it to the DB!
+						$to_insert['gallery_id'] = $input['gallery_id'];
+						$to_insert['filename']	 = $uploaded_data['raw_name'];
+						$to_insert['extension']	 = $uploaded_data['file_ext'];
+						$to_insert['title']		 = $input['title'];
+						$to_insert['description']= $input['description'];
+						$to_insert['uploaded_on']= time();
+						$to_insert['updated_on'] = time();
+						
+						// Insert it
+						if ( $id = parent::insert($to_insert) )
+						{
+							if($this->db->where('id', $input['gallery_id'])
+										->update('galleries', array('thumbnail_id' => $id)) )
+							{
+								return TRUE;
+							}
+						}
+					}	
 			}
-		}	
+		}
+		return FALSE;
 	}
 	
 	/**
