@@ -147,7 +147,7 @@ class Admin extends Admin_Controller
 			$id = $this->news_m->insert(array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
+				'category_id'	=> $this->input->post('category_id'),
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
@@ -214,7 +214,7 @@ class Admin extends Admin_Controller
 			$result = $this->news_m->update($id, array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
-				'category_id'		=> $this->input->post('category_id'),
+				'category_id'	=> $this->input->post('category_id'),
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
@@ -257,7 +257,7 @@ class Admin extends Admin_Controller
 		foreach(array_keys($this->validation_rules) as $field)
 		{
 			if (isset($_POST[$field])) $article->$field = $this->form_validation->$field;
-		}    	
+		}
 		
 		// Load WYSIWYG editor
 		$this->template
@@ -478,5 +478,5 @@ class Admin extends Admin_Controller
 			->set_layout(FALSE)
 			->set('news', $results)
 			->build('admin/index');
-	}	
+	}
 }

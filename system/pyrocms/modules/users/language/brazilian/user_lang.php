@@ -42,7 +42,7 @@ $lang['indicates_required'] 			= 'Indica campos obrigatórios';
 
 $lang['user_register_title'] 			= 'Cadastrar';
 $lang['user_activate_account_title'] 	= 'Ativar conta';
-$lang['user_activate_label'] 			= 'Desativar';
+$lang['user_activate_label'] 			= 'Ativar';
 $lang['user_activated_account_title'] 	= 'Contas ativadas';
 $lang['user_reset_password_title'] 		= 'Redefinir senha';
 $lang['user_password_reset_title'] 		= 'Redefinicão de senha';  
