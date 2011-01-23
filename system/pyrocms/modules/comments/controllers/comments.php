@@ -14,7 +14,28 @@ class Comments extends Public_Controller
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'name',
+			'label' => 'lang:comments.name_label',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'email',
+			'label' => 'lang:comments.email_label',
+			'rules' => 'trim|valid_email'
+		),
+		array(
+			'field' => 'website',
+			'label' => 'lang:comments.website_label',
+			'rules' => 'trim|max_length[255]'
+		),
+		array(
+			'field' => 'comment',
+			'label' => 'lang:comments.comment_label',
+			'rules' => 'trim|required'
+		),
+	);
 	
 	/**
 	 * Constructor method
@@ -23,37 +44,12 @@ class Comments extends Public_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor
 		parent::Public_Controller();
 		
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');		
-		
-		// Create the array containing the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'name',
-				'label' => lang('comments.name_label'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'email',
-				'label' => lang('comments.email_label'),
-				'rules' => 'trim|valid_email'
-			),
-			array(
-				'field' => 'website',
-				'label' => lang('comments.website_label'),
-				'rules' => 'trim|max_length[255]'
-			),
-			array(
-				'field' => 'comment',
-				'label' => lang('comments.comment_label'),
-				'rules' => 'trim|required'
-			),
-		);
 		
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);

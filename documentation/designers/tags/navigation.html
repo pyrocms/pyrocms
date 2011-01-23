@@ -1,0 +1,52 @@
+<h1>pyro:navigation</h1>
+
+<p>The <em>navigation</em> tag creates lists of navigation links based on navigation groups defined in the Design -> Navigation section of PyroCMS.</p>
+
+<h2>Tags</h2>
+
+<h3>{pyro:navigation:links}</h3><br />
+
+<p>Creates a list of links for a group.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">group</td>
+		<td width="100"></td>
+		<td>Required. The navigation group the tag should use.</td>
+	</tr>
+	<tr>
+		<td>tag</td>
+		<td>li</td>
+		<td>Type of tag that surrounds each navigation item. The value of this wrapped in brackets on either end.</td>
+	</tr>
+	<tr>
+		<td>class</td>
+		<td>current</td>
+		<td>The class to use when an element is the current page.</td>
+	</tr>
+	<tr>
+		<td>separator</td>
+		<td></td>
+		<td>String that separates each navigation item.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example</strong></p>
+
+<pre><code>{pyro:navigation:links group="header" separator="|"}</code></pre>
+
+<pre><code>&lt;li&gt;
+	&lt;a href="http://localhost/PyroCMS/pyrocms/index.php" class=" current">Home&lt;/a&gt;&lt;/li&gt; |
+	&lt;li&gt;&lt;a href="http://www.google.com"&gt;About Us&lt;/a&gt;
+&lt;/li&gt; </code></pre>
+

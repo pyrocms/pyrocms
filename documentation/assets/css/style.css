@@ -175,8 +175,8 @@ em, i { font-style: italic; }
 p { margin-bottom: 18px; }
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 h1 { font-size: 24px; line-height: 36px; margin-bottom: 18px; }
-h2 { font-size: 16px; line-height: 18px; margin-bottom: 18px; }
-h3 { font-size: 1em; line-height: 18px; }
+h2 { font-size: 19px; line-height: 18px; margin-bottom: 18px; }
+h3 { font-size: 16px; line-height: 18px; margin-bottom: 10px; }
 h4 { font-size: 10px; line-height: 18px; }
 p.intro { font-weight: bold; }
 
@@ -186,6 +186,8 @@ ol { margin-bottom: 18px; list-style: decimal; margin-left: 2em; }
 .horizontal ul { margin-left: 0; }
 .horizontal li { float: left; padding: 0 9px; }
 .horizontal li:first-child { padding-left: 0; }
+
+pre.tags {background: #FFFCE9; margin-bottom: 15px; padding: 10px; border: 1px solid #F1EABB;}
 
 /*---------------------------------------------------------------
 //	GENERAL
@@ -215,6 +217,9 @@ ol { margin-bottom: 18px; list-style: decimal; margin-left: 2em; }
 html[xmlns] .clearfix { display: block; }
 * html .clearfix { height: 1%; }
 
+table {width: 100%; margin-bottom: 15px;}
+table th {padding: 5px; background: #383838; color: #fff; font-weight: bold;}
+table td {padding: 5px; background: #F5F5F5; border-bottom: 1px solid #D4D4D4;}
 
 /*---------------------------------------------------------------
 //	NOTIFICATIONS

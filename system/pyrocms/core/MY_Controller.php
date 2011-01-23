@@ -44,7 +44,7 @@ class MY_Controller extends Controller
         $this->module 				= $this->router->fetch_module();
         $this->controller			= $this->router->fetch_class();
         $this->method 				= $this->router->fetch_method();
-		
+
 		// Loaded after $this->user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
@@ -61,14 +61,14 @@ class MY_Controller extends Controller
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();
 
-		if(!$this->module_details['skip_xss'])
+		if ( ! $this->module_details['skip_xss'])
 		{
-			// TODO Re-enable this somehows
-			//$_POST = $this->security->xss_clean($_POST);
+			$this->load->library('security');
+			$_POST = $this->security->xss_clean($_POST);
 		}
 
 		$langs = $this->config->item('supported_languages');
-		
+
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 

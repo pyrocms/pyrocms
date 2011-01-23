@@ -94,6 +94,8 @@ class Admin_folders extends Admin_Controller {
 		$this->data->selected_filter = $filter;
 		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 
+		$this->file_m->order_by('date_added', 'DESC');
+
 		// Get all files
 		if ($filter != '')
 		{
@@ -229,13 +231,24 @@ class Admin_folders extends Admin_Controller {
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('slug', 'Slug', 'required');
 
+		$parent_count = (int) $this->file_folders_m->count_by('parent_id', 0);
+
 		if ($this->form_validation->run())
-		{
+		{			
 			$data = array(
 				'name'			=> $this->input->post('name'),
 				'parent_id'		=> $this->input->post('parent_id'),
 				'slug'			=> $this->input->post('slug'),
 			);
+			
+			//if there is only one parent and the folder we are updating is a
+			//potential parent.. we shouldn't change it.
+			
+			if($parent_count <= 1 and $folder->parent_id == 0)
+			{
+				unset($data['parent_id']);
+			}
+			
 			$this->file_folders_m->update($folder_id, $data);
 			$this->data->messages['success'] = lang('files.folders.success');
 			//redirect('admin/files#folders');

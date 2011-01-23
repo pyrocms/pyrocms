@@ -27,7 +27,10 @@
 		foreach($folder->parents as $row)
 		{
 			$indent = ($row['parent_id'] != 0) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-			$folder_options[$row['id']] = $indent.$row['name'];
+			if($row['id'] != $folder->id)
+			{
+				$folder_options[$row['id']] = $indent.$row['name'];
+			}
 		}
 		echo form_dropdown('parent_id', $folder_options, $folder->parent_id, 'id="parent_id" class="required"');
 		?>

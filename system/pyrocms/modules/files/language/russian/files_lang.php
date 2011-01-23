@@ -57,5 +57,7 @@ $lang['files.v']											= 'Видео';
 $lang['files.d']											= 'Документ';
 $lang['files.o']											= 'Разное';
 
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.'; #translate
+
 /* End of file files_lang.php */
 /* Location: ./system/pyrocms/modules/files/language/russian/comments_lang.php */

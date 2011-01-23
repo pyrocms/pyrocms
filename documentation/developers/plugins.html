@@ -47,7 +47,7 @@ class Plugin_Session extends Plugin
 	/**
 	 * Data
 	 *
-	 * Loads a theme partial
+	 * Loads a piece of session data
 	 *
 	 * Usage:
 	 * {pyro:session:data name="foo"}
@@ -71,9 +71,9 @@ class Plugin_Session extends Plugin
 	}
 
 	/**
-	 * Data
+	 * Flash
 	 *
-	 * Loads a theme partial
+	 * Loads a piece of flashdata
 	 *
 	 * Usage:
 	 * {pyro:session:flash name="foo"}
@@ -86,7 +86,7 @@ class Plugin_Session extends Plugin
 		$name = $this->attribute('name');
 		$value = $this->attribute('value');
 
-		// Mo vaue? Just getting
+		// No value? Just getting
 		if ($value !== NULL)
 		{
 			$this->session->set_flashdata($name, $value);
@@ -109,7 +109,7 @@ class Plugin_Session extends Plugin
 
 <pre><code class="html">{pyro:session:data name="foo"}</code></pre>
 
-<p>That will display bar on your page. Obivously this is a very simple example, but by loading up your Module Models, you could do all sorts of things.</p>
+<p>That will display bar on your page. Obviously this is a very simple example, but by loading up your Module Models, you could do all sorts of things.</p>
 
 <h3>Installing? Loading?</h3>
 

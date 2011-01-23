@@ -12,14 +12,13 @@ class WYSIWYG_Controller extends MY_Controller
 {
 	function WYSIWYG_Controller()
 	{
-		parent::MY_Controller();
+		parent::__construct();
 
-	    //Not an admin and not allowed to see files, SO PISS OFF!
-	    if($this->user->group !== 'admin' AND empty($this->permissions['files']))
+	    // Not an admin and not allowed to see files
+	    if($this->user->group !== 'admin' AND ! in_array('files', $this->permissions))
 	    {
-			$this->ion_auth->logout();
-	    	redirect('admin/login');
-	    	exit;
+			$this->load->language('files/files');
+			show_error('files.no_permissions');
 	    }
 
 		$this->template
