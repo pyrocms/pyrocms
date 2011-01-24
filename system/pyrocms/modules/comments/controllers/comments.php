@@ -72,6 +72,8 @@ class Comments extends Public_Controller
 		{
 			$comment['user_id'] = $this->user->id;
 			$comment['website'] = $this->user->website;
+			$comment['name'] = $this->user->first_name . ' ' . $this->user->last_name;
+			$comment['email'] = $this->user->email;
 		}
 		
 		else
@@ -219,26 +221,14 @@ class Comments extends Public_Controller
 		$this->load->library('email');
 		$this->load->library('user_agent');
 		
-		$this->email->from($comment['email'], $comment['name']);
-		$this->email->to($this->settings->contact_email);
-
-		// If "other subject" exists then use it, if not then use the selected subject
-		$subject = '"' . $comment['name'] . ' has posted a comment on something" via ' . $this->settings->site_name;
-		$this->email->subject($subject);
-
 		// Add in some extra details
+		$comment['slug'] = 'comments';
 		$comment['sender_agent']	=	$this->agent->browser().' '.$this->agent->version();
 		$comment['sender_ip']		=	$this->input->ip_address();
 		$comment['sender_os']		=	$this->agent->platform();
 		$comment['redirect_url']	= 	anchor(ltrim($comment['redirect_to'], '/') . '#' . $comment['comment_id']);
 		
-		$template = $this->load->view('email/comment_html', '', TRUE);
-		$template_plain = $this->load->view('email/comment_plain', '', TRUE);
-		
-		$this->email->message($this->parser->parse_string($template, $comment, TRUE));
-		$this->email->set_alt_message($this->parser->parse_string($template_plain, $comment, TRUE));
-
-		// If the email has sent with no known erros, show the message
-		return (bool) $this->email->send();
+		//trigger the event
+		return (bool) Events::trigger('email', $comment);
 	}
 }

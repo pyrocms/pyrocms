@@ -118,13 +118,9 @@ class Plugin_Contact extends Plugin
 		$this->load->library('email');
 		$this->load->library('user_agent');
 
-		$this->email->from($this->input->post('contact_email'), $this->input->post('contact_name'));
-		$this->email->to($this->settings->item('contact_email'));
-
 		// If "other subject" exists then use it, if not then use the selected subject
 		$subject = ($this->input->post('other_subject')) ? $this->input->post('other_subject') : $this->default_subjects[$this->input->post('subject')];
-		$this->email->subject($this->settings->item('site_name') .' - '.$subject);
-
+		
 		// Loop through cleaning data and inputting to $data
 		foreach(array_keys($_POST) as $field_name)
 		{
@@ -132,15 +128,16 @@ class Plugin_Contact extends Plugin
 		}
 
 		// Add in some extra details
+		$data['subject']		= 	$subject;
 		$data['sender_agent']	=	$this->agent->browser().' '.$this->agent->version();
 		$data['sender_ip']		=	$this->input->ip_address();
 		$data['sender_os']		=	$this->agent->platform();
-
-		$this->email->message($this->module_view('contact', 'email/contact_html', $data));
-		$this->email->set_alt_message($this->module_view('contact', 'email/contact_plain', $data));
+		$data['slug'] 			= 	'contact';
+		$data['email'] 			= 	$data['contact_email'];
+		$data['name']			= 	$data['contact_name'];
 
 		// If the email has sent with no known erros, show the message
-		return (bool) $this->email->send();
+		return (bool) Events::trigger('email', $data);
 	}
 }
 
