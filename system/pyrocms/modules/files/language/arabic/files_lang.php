@@ -60,4 +60,6 @@ $lang['files.v'] = 'فيديو';
 $lang['files.d'] = 'مستند';
 $lang['files.o'] = 'آخر';
 
-/* End of file file_lang.php */
+$lang['files.no_permissions'] = 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
+
+/* End of file files_lang.php */
