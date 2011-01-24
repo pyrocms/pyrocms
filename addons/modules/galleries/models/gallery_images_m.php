@@ -264,6 +264,24 @@ class Gallery_images_m extends MY_Model
 				return FALSE;
 			}
 		}
+		//are we moving the image to a new gallery?
+		elseif($input['gallery_id'] != $image->gallery_id)
+		{
+			//it looks like it lets move those assets
+			$new_slug = $this->_find_slug($input['gallery_id']);  
+			
+			$rename = array(
+				'slug' => $image->slug,
+				'new_slug' => $new_slug,
+				'filename' => $image->filename,
+				'extension' => $image->extension
+			);
+			
+			if($this->_move_image($rename))
+			{
+				$to_update['gallery_id'] = $input['gallery_id'];
+			}
+		}
 		
 		// Just save it already, do note that data isn't saved if the user decides to delete an image
 		$to_update['title'] 		= $input['title'];
@@ -328,5 +346,55 @@ class Gallery_images_m extends MY_Model
 		}
 		
 		return FALSE;
+	}
+	
+	/**
+	 * Move thumbnail and full image to a new gallery
+	 *
+	 * @access private
+	 * @return bool
+	 * @param $data (array)
+	 *
+	 * array(
+	 *		'slug' => 'the current slug',
+	 *		'filename' => 'the image filename',
+	 *		'extension' => 'the image extension,
+	 *		'new_slug' => 'the new album slug'
+	 * )
+	 */
+	private function _move_image($data = array())
+	{
+		
+		if( !empty($data) )
+		{
+			$original_thumb = "uploads/galleries/{$data['slug']}/thumbs/{$data['filename']}_thumb{$data['extension']}";
+			$original_full = "uploads/galleries/{$data['slug']}/full/{$data['filename']}{$data['extension']}";
+			
+			$new_thumb = "uploads/galleries/{$data['new_slug']}/thumbs/{$data['filename']}_thumb{$data['extension']}";
+			$new_full = "uploads/galleries/{$data['new_slug']}/full/{$data['filename']}{$data['extension']}";
+			
+			if(rename($original_thumb, $new_thumb))
+			{
+				return rename($original_full, $new_full);
+			}
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Find a gallery slug
+	 *
+	 * @access private
+	 * @return mixed (bool, string)
+	 * @param $id (int)
+	 */
+	private function _find_slug($id = FALSE)
+	{
+		$gallery = $this->db->where('id', $id)
+							->from('galleries')
+							->get()
+							->row();
+					
+		return !empty($gallery) ? $gallery->slug : FALSE ;
 	}
 }

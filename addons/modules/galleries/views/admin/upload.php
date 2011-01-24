@@ -4,20 +4,26 @@
 
 	<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
 		<ul>
-			<li>
-				<label for="title"><?php echo lang('gallery_images.title_label'); ?></label>
-				<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery_image->title; ?>" />
-			</li>
-			<li class="even uploader_file_input">
+			<li class="uploader_file_input">
 				<label for="userfile"><?php echo lang('gallery_images.image_label'); ?></label>
 				<input type="file" name="userfile" id="userfile" />
+			</li>
+			<li class="even">
+				<label for="title"><?php echo lang('gallery_images.title_label'); ?></label>
+				<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery_image->title; ?>" />
 			</li>
 			<li>
 				<label for="gallery_id"><?php echo lang('gallery_images.gallery_label'); ?></label>
 				<select id="gallery_id" name="gallery_id">
-					<?php foreach ( $galleries as $gallery ): ?>
-					<option value="<?php echo $gallery->id; ?>"><?php echo $gallery->title; ?></option>
-					<?php endforeach; ?>
+					<?php
+						foreach ( $galleries as $gallery )
+						{
+							$gid = !$this->session->flashdata('gallery_id') ? $this->input->post('gallery_id') : $this->session->flashdata('gallery_id');
+							$selected = $gid == $gallery->id ? ' selected="selected"' : '';
+							echo '<option value="' . $gallery->id . '"' . $selected . '>' . $gallery->title . '</option>';
+						}
+					?>
+					
 				</select>
 			</li>
 			<li class="even caption">
