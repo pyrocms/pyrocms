@@ -25,7 +25,7 @@
 				<td><?php echo form_checkbox('action_to[]', $gallery->id); ?></td>
 				<td><?php echo $gallery->title; ?></td>
 				<td><?php echo $gallery->photo_count; ?></td>
-				<td><?php echo date('M d, Y',$gallery->updated_on); ?></td>
+				<td><?php echo format_date($gallery->updated_on); ?></td>
 				<td>
 					<?php echo
 					anchor('galleries/' 						. $gallery->slug, 	lang('galleries.view_label'), 'target="_blank"') 	. ' | ' .

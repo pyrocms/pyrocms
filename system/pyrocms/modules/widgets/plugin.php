@@ -30,6 +30,9 @@ class Plugin_Widgets extends Plugin
 	public function area()
 	{
 		$slug = $this->attribute('slug');
+		$slug_segment = $this->attribute('slug_segment');
+		
+		is_numeric($slug_segment) ? $slug = $this->uri->segment($slug_segment) : NULL ;
 
 		return $this->widgets->render_area($slug);
 	}

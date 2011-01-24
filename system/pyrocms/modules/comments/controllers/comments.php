@@ -14,7 +14,28 @@ class Comments extends Public_Controller
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'name',
+			'label' => 'lang:comments.name_label',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'email',
+			'label' => 'lang:comments.email_label',
+			'rules' => 'trim|valid_email'
+		),
+		array(
+			'field' => 'website',
+			'label' => 'lang:comments.website_label',
+			'rules' => 'trim|max_length[255]'
+		),
+		array(
+			'field' => 'comment',
+			'label' => 'lang:comments.comment_label',
+			'rules' => 'trim|required'
+		),
+	);
 	
 	/**
 	 * Constructor method
@@ -23,37 +44,12 @@ class Comments extends Public_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor
 		parent::Public_Controller();
 		
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');		
-		
-		// Create the array containing the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'name',
-				'label' => lang('comments.name_label'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'email',
-				'label' => lang('comments.email_label'),
-				'rules' => 'trim|valid_email'
-			),
-			array(
-				'field' => 'website',
-				'label' => lang('comments.website_label'),
-				'rules' => 'trim|max_length[255]'
-			),
-			array(
-				'field' => 'comment',
-				'label' => lang('comments.comment_label'),
-				'rules' => 'trim|required'
-			),
-		);
 		
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -67,7 +63,7 @@ class Comments extends Public_Controller
 	 * @return void
 	 */
 	public function create($module = 'home', $id = 0)
-	{			
+	{		
 		// Set the comment data
 		$comment = $_POST;
 				
@@ -146,6 +142,9 @@ class Comments extends Public_Controller
 				$comment[$rule['field']] = $this->input->post($rule['field']);
 			}
 		}
+		
+		// Is _pages_ given as module it will cause an error. It should be home as well cause' module pages handles other modules.
+		$module = 'home' ? $module == 'pages' : $module;
 		
 		// If for some reason the post variable doesnt exist, just send to module main page
 		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $module;

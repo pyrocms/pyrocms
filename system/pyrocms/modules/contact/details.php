@@ -63,7 +63,7 @@ class Module_Contact extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.<br/>Contact the module developer for assistance.";
+		return "This module has no inline docs as it does not have a back-end.";
 	}
 }
 /* End of file details.php */

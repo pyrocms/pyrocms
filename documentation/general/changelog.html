@@ -14,16 +14,35 @@
 <h4>Bugs</h4>
 
 <ul>
-	<li>Fixed UK date format (dd/mm/yyyy) on News Module.</li>
+	<li>Double data tags can now contain full tags (even other double tags) as well as plugin tags.</li>
+	<li>The parser will now automatically parse nested plugin tags when they fall inside a double plugin tag.</li>
+</ul>
+
+<h3>v1.0.3</h3>
+
+<ul>
+	<li>Reworked all date handling and formatting throughout the system. format_date() handles output based on a setting.</li>
+	<li>When uploading an image to a gallery, the album dropdown remembers its previous selection.</li>
+	<li>Images can now be moved from one gallery to another.</li>
+	<li>Added Galleries plugin. Images from specified gallery can be output anywhere</li>
+	<li>Added sort="" parameter to the News plugin.</li>
+	<li>Added inline documentation for Contact and Galleries modules.</li>
+	<li>Added lots of Design documentation for plugins, tags and more. - Adam Fairholm</li>
 </ul>
 
 <h4>Bugs</h4>
 
 <ul>
-	<li>Double data tags can now contain full tags (even other double tags) as well as plugin tags.</li>
-	<li>The parser will now automatically parse nested plugin tags when they fall inside a double plugin tag.</li>
-</ul>
+	<li>Fixed news date weirdness.</li>
+	<li>Dashboard Analytics now longer appears to be predicting the future.</li>
+	<li>Fix problem with comment handler with wrong redirect if comments are enabled on home site.</li>
+	<li>Added a missing string to the Arabic language file of Files module</li>
+	<li>Fixed bug where only one module would be indexed at a time.</li>
+	<li>Fixed issue 275,  files are listed newest to oldest.</li>
+	<li>Fixed undefined var error in CP > Files when no folders are present.</li>
+	<li>Fixed #221 and #261. - Directories for Gallery images will rename automatically if slug is changed.</li>
 
+</ul>
 
 <h3>v1.0.2</h3>
 
@@ -36,7 +55,6 @@
 	<li>Tags can now work inside double tag areas.</li>
 	<li>Default theme will only load cufon.js in the default theme if language is LTR.</li>
 	<li>Inline documentation added for Comments, News, Navigation and Module Manager.</li>
-
 </ul>
 
 <h4>Bugs</h4>

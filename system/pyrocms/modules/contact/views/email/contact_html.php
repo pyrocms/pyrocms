@@ -1,6 +1,6 @@
 <table width="100%" style="font:Tahoma, Arial, Helvetica, sans-serif; font-size:16px;">
 	<tr>
-		<td colspan="3"><?php echo sprintf(lang('contact_mail_text'), $this->config->item('site_name'));?></td>
+		<td colspan="3"><?php echo sprintf(lang('contact_mail_text'), $this->settings->item('site_name'));?></td>
 	</tr>
 	<tr>
 		<td width="33%"><?php echo sprintf('<strong>'.lang('contact_mail_ip_label').'</strong>', $sender_ip);?></td>

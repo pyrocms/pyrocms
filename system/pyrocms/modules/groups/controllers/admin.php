@@ -78,11 +78,6 @@ class Admin extends Admin_Controller
 
 				redirect('admin/groups');
 			}
-
-			else
-			{
-				$this->template->messages = array('error' => validation_errors());
-			}
 		}
 
 		// Loop through each validation rule

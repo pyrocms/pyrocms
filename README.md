@@ -45,6 +45,8 @@ Before reporting bugs or requesting any features, please check that it does not 
 * [Dan Horrigan](http://dhorrigan.com/)
 * [Ben Edmunds](http://benedmunds.com/)
 
+Think you should be on this list? Add your name to it with your next bug pull request. We can't list everybody because there are loads of you.
+
 [All Contributors](https://github.com/pyrocms/pyrocms/contributors)
 
 ### Translators

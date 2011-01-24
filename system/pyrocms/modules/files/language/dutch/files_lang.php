@@ -52,6 +52,7 @@ $lang['files.success']				= 'Het bestand is nu opgeslagen.';
 $lang['files.not_exists']			= 'Een ongeldige folder is geselecteerd.';
 $lang['files.delete.error']			= 'Het bestand kon niet worden verwijderd.';
 $lang['files.delete.success']			= 'Het bestand is verwijderd.';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Types
 $lang['files.i'] = 'Afbeelding';

@@ -1,70 +1,56 @@
-<h1>Tags and Plugins</h1>
+<h1>Tags</h1>
 
-<p>
-	Tags are a way to put dynamic content into your theme layouts and partials. They represent data or Plugins which are more advanced
-	Tags that can take attributes to affect how they display and run.
-</p>
+<p>Tags are a way to put dynamic content into your theme layouts and partials. They represent functions or variables that are made available via plugins. Tags can also accept attributes that affect their output.</p>
 
-<p>Here are some examples, a more extensive list with parameters and defaults will be drawn up soon.</p>
+<h2>Tag Syntax</h2>
 
-<h2>Tags</h2>
+<p>Tags are surrounded by curly braces and start with "pyro", followed by the module, plugin, or widget you are accessing, and the specific variable or function. Each of these is separated by a colon. For example:</p>
 
-<pre>
+<pre class="tags">{pyro:settings:site_name}</pre>
 
-{pyro:lang:name} - E.g: English
-{pyro:lang:folder} - E.g: english
-{pyro:lang:code} - E.g: en
-{pyro:lang:direction} - E.g: ltr
+<p>The above will be replaced by the site name from your site settings. This usage is most basic of PyroCMS tags.</p>
 
+<h2>Tag Parameters</h2>
 
-{pyro:settings:site_name}
-{pyro:settings:site_slogan} - or any other setting
+<p>Tags can be modified via parameters that are included after the tag definition. They follow a simple parameter="value" syntax. For example:</p>
 
-{pyro:variables:foo}
-</pre>
+<pre class="tags">{pyro:template:partial name="sidebar"}</pre>
 
-<h2>Plugins</h2>
+<p>The above will be replaced by a partial in your template. For the tag to know which template to replace, you need to pass the "name" parameter. Some parameters are required and some are optional.</p>
 
-<pre>
-{pyro:navigation:links group="header"}
+<h2>Tag Pairs</h2>
 
-{pyro:session:data name="foo"}
-{pyro:session:flash name="foo"}
+<p>Instead of being replaced by a single value, tags can be paired to loop through multiple values. For example:</p>
 
-{pyro:session:messages}
-{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-
-{pyro:template:title}
-{pyro:template:metadata}
-{pyro:template:body}
-{pyro:template:partial name="sidebar"}
-
-{pyro:theme:path} - produces /path/to/addons/theme/xxx/
-{pyro:theme:partial name="header"}
-{pyro:theme:css file="style.css"}
-{pyro:theme:js file="jquery.js"}
-{pyro:theme:image file="logo.gif"}
-
-{pyro:pages:url id="2"}
-
-{pyro:url:current} - outputs http://example.com/the/current/url
-{pyro:url:site} - outputs http://example.com/ (including index.php if you have it)
-{pyro:url:base} - outputs http://example.com/
-{pyro:url:segments segment="2" default="something"}
-
-{pyro:helper:lang line="foo"}
-{pyro:helper:date format="d/m/Y"}
-
+<pre class="tags">
 {pyro:pages:children id="2" limit="5"}
-	{title}
-	{body}
-{/pyro:pages:children}
+	&lt;h1&gt;{title}&lt;/h1&gt;
+	&lt;p&gt;{body}&lt;/p&gt;
+{/pyro:pages:children}</pre>
 
-{pyro:news:posts limit="5" category="test" order="desc"} - both category & order are optional
-	&lt;h2>{title}&lt;/h2>
-	{body}
-{/pyro:news:posts}
+<p>The above will loop through child of the page defined by the id parameter, replacing {title} and {body} with the title and body values for each entry.</p>
 
-{pyro:widgets:area slug="sidebar"}
-{pyro:widgets:instance id="8"}
-</pre>
+<h2>Tag Conditionals</h2>
+
+<p>PyroCMS tags have the ability to perform simple conditionals, allowing you to display data based on variables in your templates.</p>
+
+<p>Tag conditionals use the following format:</p>
+
+<pre class="tags">{if '{pyro:lang:name}' == 'ltr'}
+	{pyro:theme:js file="cufon.js"}
+{/if}</pre>
+
+<p>The above code checks the value of <em>{pyro:lang:name}</em> to see if it equals 'ltr', and displays a js file if this is true.</p>
+
+<p>PyroCMS' conditionals also support <em>ifelse</em> and <em>else</em> conditionals:</p>
+
+<pre class="tags">
+{if '{pyro:url:segments segment="2"}' == 'blog'}
+	{pyro:widgets:area slug="blog"}
+
+{elseif '{pyro:url:segments segment="2"}' == 'home' }
+	{pyro:widgets:area slug="home"}
+
+{else}
+	No widgets available.
+{/if}</pre>

@@ -54,6 +54,7 @@ $lang['files.success']						= '此檔案已經儲存';
 $lang['files.not_exists']					= '已選取了一個不正確的目錄';
 $lang['files.delete.error']					= '此檔案無法刪除';
 $lang['files.delete.success']				= '此檔案已刪除';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Types
 $lang['files.i'] = '圖片';

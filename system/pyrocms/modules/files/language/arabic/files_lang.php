@@ -52,6 +52,7 @@ $lang['files.success']				= 'تم حفظ الملف.';
 $lang['files.not_exists']			= 'تم اختيار مجلد غير صالح.';
 $lang['files.delete.error']			= 'تعذر حذف الملف.';
 $lang['files.delete.success']			= 'تم حذف الملف';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Types
 $lang['files.i'] = 'صورة';
@@ -60,4 +61,6 @@ $lang['files.v'] = 'فيديو';
 $lang['files.d'] = 'مستند';
 $lang['files.o'] = 'آخر';
 
-/* End of file file_lang.php */
+$lang['files.no_permissions'] = 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
+
+/* End of file files_lang.php */

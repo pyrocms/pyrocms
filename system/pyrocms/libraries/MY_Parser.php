@@ -13,7 +13,6 @@
 class MY_Parser extends CI_Parser {
 
 	private $_ci;
-	private $_current_data = array();
 
 	function __construct($config = array())
 	{
@@ -78,21 +77,19 @@ class MY_Parser extends CI_Parser {
 	{
 		// Start benchmark
 		$this->_ci->benchmark->mark('parse_start');
-		$this->_current_data = $data;
-		unset($data);
 
 		// Convert from object to array
-		if ( ! is_array($this->_current_data))
+		if ( ! is_array($data))
 		{
-			$this->_current_data = (array) $this->_current_data;
+			$data = (array) $data;
 		}
 
-		$data = array_merge($this->_current_data, $this->_ci->load->_ci_cached_vars);
+		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
 		// TAG SUPPORT
 		$this->_ci->load->library('tags');
 		$this->_ci->tags->set_trigger('pyro:');
-		$parsed = $this->_ci->tags->parse($string, $this->_current_data, array($this, 'parser_callback'));
+		$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
 		// END TAG SUPPORT
 
 		// Finish benchmark
@@ -122,28 +119,28 @@ class MY_Parser extends CI_Parser {
 
 		$return_data = $this->_ci->plugins->locate($data);
 
-		if ( ! is_array($return_data))
+		if (is_array($return_data))
 		{
-			return $return_data;
+			if ( ! $this->_is_multi($return_data))
+			{
+				$return_data = $this->_make_multi($return_data);
+			}
+
+			$content = $data['content'];
+			$parsed_return = '';
+			$simpletags = new Tags;
+			$simpletags->set_trigger('pyro:');
+			foreach ($return_data as $result)
+			{
+				$parsed = $simpletags->parse($content, $result);
+				$parsed_return .= $parsed['content'];
+			}
+			unset($simpletags);
+
+			$return_data = $parsed_return;
 		}
 
-		if ( ! $this->_is_multi($return_data))
-		{
-			$return_data = $this->_make_multi($return_data);
-		}
-		$parsed_return = '';
-		$simpletags = new Tags;
-		$simpletags->set_trigger('pyro:');
-		foreach ($return_data as $result)
-		{
-			$result = $result + $this->_current_data;
-			$parsed = $simpletags->parse($data['content'], $result, array($this, 'parser_callback'));
-			$parsed_return .= $parsed['content'];
-		}
-		unset($simpletags);
-
-
-		return $parsed_return;
+		return $return_data;
 	}
 
 	// ------------------------------------------------------------------------

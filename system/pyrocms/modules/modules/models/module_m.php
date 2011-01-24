@@ -46,7 +46,8 @@ class Module_m extends CI_Model
 			'is_backend' => NULL,
 			'menu' => FALSE,
 			'enabled' => 1,
-			'is_core' => NULL
+			'is_core' => NULL,
+			'is_current' => NULL
 		);
 
 		if (is_array($module) || empty($module))
@@ -89,7 +90,8 @@ class Module_m extends CI_Model
 				'is_backend' => $result->is_backend,
 				'menu' => $result->menu,
 				'enabled' => $result->enabled,
-				'is_core' => $result->is_core
+				'is_core' => $result->is_core,
+				'is_current' => version_compare($result->version, $this->version($result->slug),  '>=')
 			);
 		}
 
@@ -209,7 +211,9 @@ class Module_m extends CI_Model
 				'menu' => $result->menu,
 				'enabled' => $result->enabled,
 				'installed' => ! empty($result->installed),
-				'is_core' => $result->is_core
+				'is_core' => $result->is_core,
+				'is_current' => version_compare($result->version, $this->version($result->slug),  '>='),
+				'current_version' => $this->version($result->slug)
 			);
 
 			if ( ! empty($params['is_backend']))
@@ -335,8 +339,48 @@ class Module_m extends CI_Model
 
 		return $this->delete($slug);
 	}
-
-
+	
+	/**
+	 * Upgrade
+	 *
+	 * Upgrade a module
+	 *
+	 * @param	string	$module	The module slug
+	 * @return	bool
+	 */
+	public function upgrade($slug)
+	{
+		// Get info on the new module
+		if ( ! $details_class = $this->_spawn_class($slug) )
+		{
+			return FALSE;
+		}
+		
+		// Get info on the old module
+		if ( ! $old_module = $this->get($slug) )
+		{
+			return FALSE;
+		}
+		
+		// Get the old module version number
+		$old_version = $old_module['version'];
+		
+		// Run the update method to get it into the database
+		if ($details_class->upgrade($old_version))
+		{
+			// Update version number
+			$this->db->where('slug', $slug)->update('modules', array('version' => $details_class->version));
+			
+			return TRUE;
+		}
+		
+		// The upgrade failed
+		else
+		{
+			return FALSE;
+		}
+	}
+	
 	public function import_unknown()
     {
     	$modules = array();
@@ -385,7 +429,7 @@ class Module_m extends CI_Model
 				$module['is_core'] = $is_core; // is core if core
 
 				// Looks like it installed ok, add a record
-				return $this->add($module);
+				$this->add($module);
 			}
 
 			// Going back around, 2nd time is addons
@@ -445,6 +489,24 @@ class Module_m extends CI_Model
 			{
 				return $details_class->help();
 			}
+		}
+
+		return FALSE;
+	}
+	
+	/**
+	 * Help
+	 *
+	 * Retrieves version number from details.php
+	 *
+	 * @param	string	$slug	The module slug
+	 * @return	bool
+	 */
+	public function version($slug)
+	{
+		if($details_class = $this->_spawn_class($slug))
+		{
+			return $details_class->version;
 		}
 
 		return FALSE;

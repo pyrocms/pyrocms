@@ -54,6 +54,7 @@ $lang['files.success']				= 'Il file è stato salvato.';
 $lang['files.not_exists']			= 'E\' stata selezionata una cartella non valida.';
 $lang['files.delete.error']			= 'Il file non può essere eliminato.';
 $lang['files.delete.success']			= 'Il file è stato eliminato.';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Types
 $lang['files.i'] = 'Immagine';
@@ -62,4 +63,6 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Documento';
 $lang['files.o'] = 'Altro';
 
-/* End of file file_lang.php */
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.'; #translate
+
+/* End of file files_lang.php */

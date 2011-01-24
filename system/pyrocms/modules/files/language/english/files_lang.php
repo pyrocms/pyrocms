@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * PyroCMS
  *
@@ -54,6 +55,7 @@ $lang['files.file.no_extension']			= 'File must have extension.';
 $lang['files.not_exists']			= 'An invalid folder has been selected.';
 $lang['files.delete.error']			= 'The file could not be deleted.';
 $lang['files.delete.success']			= 'The file was deleted.';
+$lang['files.filter']						= 'Filter';
 
 // Types
 $lang['files.i'] = 'Image';
@@ -62,4 +64,6 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Other';
 
-/* End of file file_lang.php */
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';
+
+/* End of file files_lang.php */

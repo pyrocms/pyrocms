@@ -111,13 +111,10 @@ class Plugin_Theme extends Plugin
 
 	/**
 	 *
-	 * Theme JS URL
-	 *
-	 * Insert a JS file's URL
+	 * Set and get theme variables
 	 *
 	 * Usage:
-	 *
-	 * {pyro:theme:js_url file=""}
+	 * {pyro:theme:variables name="foo"}
 	 *
 	 * @param	array
 	 * @return	array

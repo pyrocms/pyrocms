@@ -27,13 +27,13 @@ class MY_Email extends CI_Email {
         $config['protocol'] = $this->ci->settings->mail_protocol;
         
         //set a few config items (duh)
-        $config['mailtype'] = 'html';
-        $config['charset'] = 'utf-8';
-        $config['crlf'] = '\r\n';
-        $config['newline'] = '\r\n';
+        $config['mailtype']	= 'html';
+        $config['charset']	= 'utf-8';
+        $config['crlf']		= '\r\n';
+        $config['newline']	= '\r\n';
         
         //sendmail options
-        if($this->ci->settings->mail_protocol == 'sendmail')
+        if ($this->ci->settings->mail_protocol == 'sendmail')
         {
                 if($this->ci->settings->mail_sendmail_path == '')
                 {
@@ -47,7 +47,7 @@ class MY_Email extends CI_Email {
         }
         
         //smtp options
-        if($this->ci->settings->mail_protocol == 'smtp')
+        if ($this->ci->settings->mail_protocol == 'smtp')
         {
                 $config['smtp_host'] = $this->ci->settings->mail_smtp_host;
                 $config['smtp_user'] = $this->ci->settings->mail_smtp_user;
