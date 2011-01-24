@@ -1,4 +1,4 @@
-<?php echo sprintf(lang('contact_mail_text'), $this->config->item('site_name'));?>
+<?php echo sprintf(lang('contact_mail_text'), $this->settings->item('site_name'));?>
 
 	<?php echo sprintf(lang('contact_mail_ip_label'), $sender_ip);?>
 	<?php echo sprintf(lang('contact_mail_os_label'), $sender_os);?>

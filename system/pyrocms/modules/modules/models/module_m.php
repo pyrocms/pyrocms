@@ -429,7 +429,7 @@ class Module_m extends CI_Model
 				$module['is_core'] = $is_core; // is core if core
 
 				// Looks like it installed ok, add a record
-				return $this->add($module);
+				$this->add($module);
 			}
 
 			// Going back around, 2nd time is addons

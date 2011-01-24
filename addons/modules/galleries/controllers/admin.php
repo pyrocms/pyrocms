@@ -321,9 +321,13 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('galleries.no_galleries_error'));
 			redirect('admin/galleries');
 		}
-
+		
+		//lets put the gallery id into flashdata.  We be usin' this later
+		$this->session->set_flashdata('gallery_id', $this->input->post('gallery_id'));
+		
 		if ( $this->form_validation->run() )
 		{
+			
 			if ( $this->gallery_images_m->upload_image($_POST) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
@@ -433,7 +437,21 @@ class Admin extends Admin_Controller
 		// Load the views
 		$this->data->gallery_image =& $gallery_image;
 		
+		//get list of available galleries
+		$galleries = $this->galleries_m->get_all();
+		
+		$gallery_options = array();
+		
+		if(!empty($galleries))
+		{
+			foreach($galleries as $gallery)
+			{
+				$gallery_options[$gallery->id] = $gallery->title;
+			}
+		}
+		
 		$this->template
+			->set('gallery_options', $gallery_options)
 			->append_metadata( css('galleries.css', 'galleries') )
 			->append_metadata(js('functions.js', 'galleries') )
 			->append_metadata( js('jcrop.js', 'galleries') )

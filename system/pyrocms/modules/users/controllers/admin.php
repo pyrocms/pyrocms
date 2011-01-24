@@ -43,7 +43,7 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'last_name',
 				'label' => lang('user_last_name_label'),
-				'rules' => 'required|utf8'
+				'rules' => 'utf8'
 			),
 			array(
 				'field' => 'display_name',
@@ -178,7 +178,7 @@ class Admin extends Admin_Controller
 			'first_name' 	=> $this->input->post('first_name'),
 			'last_name'  	=> $this->input->post('last_name'),
 			'display_name'  => $this->input->post('display_name'),
-			'group'  => $this->input->post('group_id')
+			'group_id'  	=> $this->input->post('group_id')
 		);
 
 		if ($this->form_validation->run() !== FALSE)
@@ -190,7 +190,7 @@ class Admin extends Admin_Controller
 			}
 
 			// Try to register the user
-			if($user_id = $this->ion_auth->register($username, $password, $email, $user_data))
+			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data))
 			{
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());

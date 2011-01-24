@@ -61,9 +61,9 @@
             <label><?php echo lang('news_date_label');?></label>
                       
                       <div style="float:left;">
-                                         
+
                       <?php
-                      if(@$article->created_on_day==''&& @$article->date==''){
+                      if ($article->created_on_day == '' AND $article->date == ''){
                         $date = date('d/m/y');
                       }
                       else{

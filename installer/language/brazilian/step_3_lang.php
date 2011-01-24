@@ -13,8 +13,8 @@ $lang['file_text']		= 'O valor do CHMOD para os arquivos abaixo precisam ser sub
 $lang['writable']		= 'Escrita';
 $lang['not_writable']		= 'Sem escrita';
 
-$lang['show_commands']		= 'Show commands'; #translate
-$lang['hide_commands']		= 'Hide commands'; #translate
+$lang['show_commands']		= 'Exibir comandos';
+$lang['hide_commands']		= 'Ocultar comandos';
 
 $lang['next_step']		= 'Seguir para o próximo passo';
 $lang['step4']			= 'Passo 4';

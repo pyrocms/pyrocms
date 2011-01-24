@@ -35,7 +35,7 @@ h2 {
 form.crud ol, form.crud ul {
 	list-style-type: none;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 10px 0;
 }
 form.crud li {
 	margin: 0;
@@ -110,4 +110,38 @@ form.crud span.required-icon {
 	top:-4px;
 	vertical-align:top;
 	width:15px;
+}
+form.crud textarea {
+	width: 22em;
+}
+div.notification {
+	border: 1px solid;
+	padding: 10px 10px 10px 36px;
+	background-repeat: no-repeat !important;
+	background-position: 10px 11px !important;
+	position: relative;
+}
+.notification p {
+	margin: 0;
+	padding: 0;
+}
+.error {
+	background: #ffcece url('../../img/admin/icons/16/cross-circle.png');
+	border-color: #df8f8f;
+	color: #665252;
+}
+.attention {
+	background: #fffbcc url('../../img/admin/icons/16/exclamation.png');
+	border-color: #e6db55;
+	color: #666452;
+}
+.success {
+	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png');
+	border-color: #9adf8f;
+	color: #556652;
+}
+.information {
+	background: #dbe3ff url('../../img/admin/icons/16/information.png');
+	border-color: #a2b4ee;
+	color: #585b66;
 }

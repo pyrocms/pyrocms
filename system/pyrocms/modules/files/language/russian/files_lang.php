@@ -48,6 +48,7 @@ $lang['files.success']								= 'Файл сохранён.';
 $lang['files.not_exists']							= 'Выбрана неправильная папка.';
 $lang['files.delete.error']						= 'Невозможно удалить файл.';
 $lang['files.delete.success']					= 'Файл удалён.';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Типы файлов
 $lang['files.i']											= 'Изображение';
