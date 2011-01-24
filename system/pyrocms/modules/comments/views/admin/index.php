@@ -51,7 +51,7 @@
 							<?php endif; ?>
 						</td>
 						<td><?php echo mailto($comment->email);?></td>
-						<td><?php echo date('M d, Y', $comment->created_on);?></td>
+						<td><?php echo format_date($comment->created_on);?></td>
 						<td>
 							<?php echo anchor('admin/comments/preview/'. $comment->id, lang('comments.preview_label'), 'rel="modal" target="_blank"'); ?> |
 							
