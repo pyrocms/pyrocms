@@ -29,6 +29,10 @@
 			<textarea id="description" name="description" rows="3" col="20"><?php echo $gallery_image->description; ?></textarea>
 		</li>
 		<li class="<?php echo alternator('', 'even'); ?>">
+			<label for="gallery_id"><?php echo lang('gallery_images.gallery_label'); ?></label>
+			<?php echo form_dropdown('gallery_id', $gallery_options, $gallery_image->gallery_id); ?>
+		</li>
+		<li class="<?php echo alternator('', 'even'); ?>">
 			<label for="delete"><?php echo lang('gallery_images.delete_label'); ?></label>
 			<?php echo form_checkbox('delete', '1', FALSE); ?>
 		</li>
