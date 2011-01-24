@@ -7,9 +7,9 @@
 	<fieldset id="user_details">
 		<legend><?php echo lang('profile_user_details_label');?></legend>
 		<p><strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?></p>
-		<p><strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->created_on); ?></p>
+		<p><strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo format_date($user->created_on); ?></p>
 	<?php if($user->last_login > 0): ?>
-		<p><strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo date('M d, Y \a\\t g:i a', $user->last_login); ?></p>
+		<p><strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo format_date($user->last_login); ?></p>
 	<?php endif; ?>
 	</fieldset>
 
@@ -30,7 +30,7 @@
 		<?php endif; ?>
 		
 		<?php if($profile->dob): ?>
-			<p><strong><?php echo lang('profile_dob'); ?>:</strong> <?php echo date('M d, Y', $profile->dob) ?></p>
+			<p><strong><?php echo lang('profile_dob'); ?>:</strong> <?php echo format_date($profile->dob) ?></p>
 		<?php endif; ?>
 	</fieldset>
 	

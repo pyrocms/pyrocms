@@ -32,8 +32,8 @@
 						<td><?php echo anchor('admin/users/edit/' . $member->id, $member->full_name); ?></td>
 						<td><?php echo mailto($member->email); ?></td>
 						<td><?php echo $member->role_title; ?></td>
-						<td><?php echo date('M d, Y', $member->created_on); ?></td>
-						<td><?php echo ($member->last_login > 0 ? date('M d, Y', $member->last_login) : lang('user_never_label')); ?></td>
+						<td><?php echo format_date($member->created_on); ?></td>
+						<td><?php echo ($member->last_login > 0 ? format_date($member->last_login) : lang('user_never_label')); ?></td>
 						<td>
 							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label'), array('class'=>'minibutton')); ?>  
 							<?php echo anchor('admin/users/delete/' . $member->id, lang('user_delete_label'), array('class'=>'confirm minibutton')); ?>

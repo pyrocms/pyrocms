@@ -51,7 +51,7 @@
 					 	$file->name,
 					 	lang('files.'.$file->type),
 						$file->filename,
-						date("d/m/Y \a\\t g.i a", $file->date_added),
+						format_date($file->date_added),
 						$download .' | '. $edit .' | '. $delete
 					 );
 				}

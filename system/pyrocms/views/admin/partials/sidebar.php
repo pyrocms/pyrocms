@@ -18,7 +18,7 @@
 	
 		<?php foreach($recent_comments as $comment): ?>
 			<p>
-				<?php echo sprintf(lang('comments.list_comment'), $comment->name, $comment->item, date('d/m/Y', $comment->created_on)); ?>
+				<?php echo sprintf(lang('comments.list_comment'), $comment->name, $comment->item, format_date($comment->created_on)); ?>
 				
 				<br/><br/>
 				

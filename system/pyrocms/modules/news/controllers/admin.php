@@ -51,7 +51,7 @@ class Admin extends Admin_Controller
 			'rules' => 'trim|alpha'
 		),
 		array(
-			'field' => 'date',
+			'field' => 'created_on',
 			'label' => 'lang:news_date_label',
 			'rules' => 'trim|required'
 		),
@@ -64,11 +64,6 @@ class Admin extends Admin_Controller
 			'field' => 'created_on_minute',
 			'label' => 'lang:news_created_minute',
 			'rules' => 'trim|numeric|required'
-		),
-		array(
-			'field' => 'created_on_day',
-			'label' => 'lang:news_created_day',
-			'rules' => 'trim|numeric'
 		)
 	);
 
@@ -138,12 +133,19 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules($this->validation_rules);
-		
+
+		if ($this->input->post('created_on'))
+		{
+			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
+		}
+
+		else
+		{
+			$created_on = now();
+		}
+
 		if ($this->form_validation->run())
 		{
-			$date = $this->input->post('date');
-			$date =  explode('/', $date);
-
 			$id = $this->news_m->insert(array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
@@ -151,11 +153,7 @@ class Admin extends Admin_Controller
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
-				'created_on_hour'	=> $this->input->post('created_on_hour'),
-				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $date[0],
-				'created_on_month'	=> $date[1],
-				'created_on_year'	=> $date[2],
+				'created_on' => $created_on
 			));
 
 			if($id)
@@ -179,6 +177,7 @@ class Admin extends Admin_Controller
 			{
 				$article->$field['field'] = set_value($field['field']);
 			}
+			$article->created_on = $created_on;
 		}
 		
 		$this->template
@@ -197,15 +196,23 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$date = $this->input->post('date');
-		$date =  explode('/', $date);
-
 		$id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->validation_rules);
 			
 		$article = $this->news_m->get($id);
+
+		// If we have a useful date, use it
+		if ($this->input->post('created_on'))
+		{
+			$created_on = strtotime(sprintf('%s %s:%s', $this->input->post('created_on'), $this->input->post('created_on_hour'), $this->input->post('created_on_minute')));
+		}
+
+		else
+		{
+			$created_on = $article->created_on;
+		}
 
 		$this->id = $article->id;
 		
@@ -218,11 +225,7 @@ class Admin extends Admin_Controller
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
-				'created_on_hour'	=> $this->input->post('created_on_hour'),
-				'created_on_minute'	=> $this->input->post('created_on_minute'),
-				'created_on_day'	=> $date[0],
-				'created_on_month'	=> $date[1],
-				'created_on_year'	=> $date[2],
+				'created_on' => $created_on
 			));
 			
 			if ($result)
@@ -230,15 +233,15 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata(array('success'=> sprintf($this->lang->line('news_edit_success'), $this->input->post('title'))));
 				
 				// The twitter module is here, and enabled!
-				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
-				{
-					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[1], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
-					$this->load->model('twitter/twitter_m');
-					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
-					{
-						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . $this->twitter->last_error['error']);
-					}
-				}
+//				if ($this->settings->item('twitter_news') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
+//				{
+//					$url = shorten_url('news/'.$date[2].'/'.str_pad($date[1], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
+//					$this->load->model('twitter/twitter_m');
+//					if ( ! $this->twitter_m->update(sprintf($this->lang->line('news_twitter_posted'), $this->input->post('title'), $url)))
+//					{
+//						$this->session->set_flashdata('error', lang('news_twitter_error') . ": " . $this->twitter->last_error['error']);
+//					}
+//				}
 				// End twitter code
 			}
 			
@@ -256,8 +259,13 @@ class Admin extends Admin_Controller
 		// Go through all the known fields and get the post values
 		foreach(array_keys($this->validation_rules) as $field)
 		{
-			if (isset($_POST[$field])) $article->$field = $this->form_validation->$field;
+			if (isset($_POST[$field]))
+			{
+				$article->$field = $this->form_validation->$field;
+			}
 		}
+
+		$article->created_on = $created_on;
 		
 		// Load WYSIWYG editor
 		$this->template
