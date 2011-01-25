@@ -206,6 +206,7 @@ class Admin_folders extends Admin_Controller {
 		$folder->parent_id = set_value('parent_id');
 		$folder->type = set_value('type');
 		$folder->slug = set_value('slug');
+		$folder->id = null;
 
 		// Get the parent -> childs
 		$folder->parents = $this->_folders;
