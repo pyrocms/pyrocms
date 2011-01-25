@@ -70,10 +70,11 @@ class Comments extends Public_Controller
 		// Logged in? in which case, we already know their name and email
 		if($this->ion_auth->logged_in())
 		{
-			$comment['user_id'] = $this->user->id;
-			$comment['website'] = $this->user->website;
-		}
-		
+			$comment['user_id']     = $this->user->id;
+			$comment['name']        = $this->user->display_name;
+			$comment['email']       = $this->user->email;
+			$comment['website']     = $this->user->website;
+		}	
 		else
 		{
 			$this->validation_rules[0]['rules'] .= '|required';
@@ -138,11 +139,14 @@ class Comments extends Public_Controller
 			}
 		}
 		
-		// Is _pages_ given as module it will cause an error. It should be home as well cause' module pages handles other modules.
-		$module = 'home' ? $module == 'pages' : $module;
-		
 		// If for some reason the post variable doesnt exist, just send to module main page
 		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $module;
+		
+		if($redirect_to == 'pages')
+		{
+			$redirect_to = 'home';
+		}
+		
 		redirect($redirect_to);
 	}
 	
