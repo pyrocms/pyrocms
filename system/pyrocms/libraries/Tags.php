@@ -116,7 +116,7 @@ class Tags
 
 		$orig_content = $this->parse_globals($content, $data);
 
-		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
+		$open_tag_regex = $this->_l_delim.$this->_trigger.'[^'.$this->_l_delim.$this->_r_delim.']*?'.$this->_r_delim;
 
 		while (($start = strpos($orig_content, $this->_l_delim.$this->_trigger)) !== FALSE)
 		{
@@ -164,12 +164,13 @@ class Tags
 			}
 			$parsed['marker'] = 'marker_'.$this->_tag_count.$this->_mark;
 
-			$orig_content = str_replace($parsed['full_tag'], $parsed['marker'], $orig_content);
+			$orig_content = str_replace($parsed['full_tag'], $parsed['marker'], $orig_content, $count);
+			$parsed['replacements'] = $count;
 			$parsed_tags[] = $parsed;
 			$this->_tag_count++;
 		}
 
-		if (empty($parsed_tags))
+		if ( ! isset($parsed_tags) OR empty($parsed_tags))
 		{
 			$orig_content = $this->parse_php($this->parse_conditionals($orig_content), $data);
 			return array('content' => $orig_content, 'tags' => array());
@@ -202,7 +203,46 @@ class Tags
 				// If the tag referenced data then put that data in the content
 				if ($return_data !== FALSE)
 				{
-					$orig_content = str_replace($tag['marker'], $return_data, $orig_content);
+					$orig_content = str_replace($tag['marker'], $return_data, $orig_content, $count);
+
+					// Search and set missing replacements (tags in content and/or attributes of anothers tags)
+					if ($count < $tag['replacements'])
+					{
+						$i = $key;
+						while (isset($parsed_tags[++$i]))
+						{
+							if (strpos($parsed_tags[$i]['full_tag'], $tag['marker']) !== FALSE)
+							{
+								$parsed_tags[$i]['full_tag'] = str_replace($tag['marker'], $return_data, $parsed_tags[$i]['full_tag'], $count_full_tag);
+								$count_content = 0;
+								if ($parsed_tags[$i]['content'])
+								{
+									$parsed_tags[$i]['content'] = str_replace($tag['marker'], $return_data, $parsed_tags[$i]['content'], $count_content);
+								}
+
+								if ($count_content < $count_full_tag && $parsed_tags[$i]['attributes'])
+								{
+									$count_attributes = 0;
+									foreach ($parsed_tags[$i]['attributes'] as &$attr)
+									{
+										$attr = str_replace($tag['marker'], $return_data, $attr, $count_attr);
+										$count_attributes += $count_attr;
+
+										if (($count_attributes + $count_content) >= $count_full_tag)
+										{
+											break;
+										}
+									}
+								}
+
+								$count += $count_full_tag;
+								if ($count >= $tag['replacements'])
+								{
+									break;
+								}								
+							}
+						}
+					}
 					unset($parsed_tags[$key]);
 				}
 			}

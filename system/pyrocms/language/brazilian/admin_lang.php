@@ -29,7 +29,7 @@ $lang['cp_report_bug'] 					= 'Report a bug';
 $lang['cp_contact_support'] 			= 'Suporte';
 
 $lang['cp_nav_settings']				= 'Configurações';
-$lang['cp_nav_addons']					= 'Add-ons'; #translate
+$lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Módulos';
 $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Usuários';
@@ -39,8 +39,10 @@ $lang['cp_nav_utilities']				= 'Utilidades';
 
 $lang['cp_must_login']	 				= 'Você deve estar conectado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
-$lang['cp_delete_installer_message']	= 'Por favor, delete o diretório de instalação de seu servidor. Deixa-lo online significa permitir o controle do seu site para qualquer outra pessoa.';
+$lang['cp_delete_installer_message']	= 'Por favor, remova o diretório de instalação de seu servidor. Deixa-lo online significa permitir o controle do seu site para qualquer outra pessoa.';
 $lang['cp_upgrade_message']				= 'Você está rodando a versão %s, mas seu banco de dados é versão %s. Por favor, <a href="%s" title="Upgrade">clique aqui</a> para atualizar o banco de dados.';
+$lang['cp_google_analytics_missing']	= 'Faltam as configuração para o Google Analytics. Adicione-as em %s ou entre em contato com seu administrador.';
+$lang['cp_google_analytics_no_connect']	= 'Não foi possível se conectar ao Google Analytics. Verifique suas %s.';
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Atalhos';

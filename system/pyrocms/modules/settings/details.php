@@ -70,6 +70,7 @@ class Module_Settings extends Module {
 			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
 			 ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1',''),
 			 ('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://feeds.feedburner.com/pyrocms-installed', '', '', 0, 1, ''),
+			 ('date_format', 'Date Format', 'How should dates be displayed accross the website and control panel? Using PHP date format.', 'text', 'Y-m-d', '', '', 1, 1, ''),
 			 ('dashboard_rss_count', 'Dashboard RSS Items', 'How many RSS items would you like to display on the dashboard ? ', 'text', '5', '5', '', 1, 1, ''),
 			 ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1',''),
 			 ('unavailable_message','Unavailable Message','When the site is turned off or there is a major problem, this message will show to users.','textarea','Sorry, this website is currently unavailable.','','','0','1',''),

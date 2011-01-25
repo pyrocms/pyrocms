@@ -15,7 +15,7 @@ class Plugin_Navigation extends Plugin
 	 * Creates a list of news posts
 	 *
 	 * Usage:
-	 * {pyro:navigation:list group="header"}
+	 * {pyro:navigation:links group="header"}
 	 *
 	 * @param	array
 	 * @return	array
@@ -46,7 +46,7 @@ class Plugin_Navigation extends Plugin
 
 				if (current_url() == $link->url)
 				{
-					$attributes['class'] .= ' '.$current_class;
+					$attributes['class'] = trim($attributes['class'] . ' ' . $current_class);
 				}
 
 				// Just return data
@@ -57,8 +57,11 @@ class Plugin_Navigation extends Plugin
 
 				else
 				{
-					$list .= '<'.$tag.'>' . anchor($link->url, $link->title, $attributes). '</'.$tag.'>'.PHP_EOL;
-					if ($separator AND count($links) > $i) $list .= $separator;
+					$list .= '<'.$tag.'>' . anchor($link->url, $link->title, $attributes). '</'.$tag.'>' . PHP_EOL;
+					if ($separator AND count($links) > $i)
+					{
+						$list .= $separator;
+					}
 					$i++;
 				}
 			}

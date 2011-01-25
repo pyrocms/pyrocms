@@ -73,7 +73,7 @@ class Admin_folders extends Admin_Controller {
 		{
 			$breadcrumb .= $item['name'] . ' &raquo; ';
 		}
-		$this->data->crumbs = reduce_multiples($breadcrumb, "&raquo; ", TRUE);
+		$this->data->crumbs = trim(reduce_multiples($breadcrumb, "&raquo; "));
 
 		// Get a list of all child folders
 		$this->file_folders_m->clear_folders();
@@ -92,7 +92,7 @@ class Admin_folders extends Admin_Controller {
 		$this->data->selected_folder = 0;
 		$this->data->id = $id;
 		$this->data->selected_filter = $filter;
-		$this->data->types = array('a' => 'Audio', 'v' => 'Video', 'd' => 'Document', 'i' => 'Image', 'o' => 'Other');
+		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
 
 		$this->file_m->order_by('date_added', 'DESC');
 

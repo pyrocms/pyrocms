@@ -22,7 +22,7 @@
 				?>
 			</li>
 			<li>
-				<label for="folder">Filter:</label>
+				<label for="folder"><?php echo lang('files.filter'); ?>:</label>
 				<?php echo form_dropdown('filter', $types, $selected_filter, 'id="filter"'); ?>
 			</li>
 		</ul>
@@ -51,7 +51,7 @@
 					 	$file->name,
 					 	lang('files.'.$file->type),
 						$file->filename,
-						date("d/m/Y \a\\t g.i a", $file->date_added),
+						format_date($file->date_added),
 						$download .' | '. $edit .' | '. $delete
 					 );
 				}

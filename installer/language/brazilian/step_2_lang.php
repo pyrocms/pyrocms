@@ -3,8 +3,8 @@
 // labels
 $lang['header']			=	'Passo 2: Verificar requerimentos';
 $lang['intro_text']		= 	'O primeiro passo no processo de instalação é checar se o seu servidor suporta o PyroCMS. A maioria dos servidores costumam suporta-lo sem maiores problemas.';
-$lang['mandatory']		= 	'Mandatory'; #translate
-$lang['recommended']	= 	'Recommended'; #translate
+$lang['mandatory']		= 	'Obrigatório';
+$lang['recommended']	= 	'Recomendado';
 
 $lang['server_settings']= 	'Configurações do Servidor HTTP';
 $lang['server_version']	=	'Seu programa de Servidor:';
@@ -28,13 +28,13 @@ $lang['gd_fail']		=	'Não conseguimos determinar a versão da sua biblioteca GD.
 
 $lang['summary']		=	'Resumo';
 
-$lang['zlib']			=	'Zlib'; #translate
-$lang['zlib_required']	= 	'PyroCMS requires Zlib in order to unzip and install themes.'; #translate
-$lang['zlib_fail']		=	'Zlib can not be found. This usually means that Zlib is not installed. PyroCMS will still run properly but installation of themes will not work. It is highly recommended to install Zlib.'; #translate
+$lang['zlib']			=	'Zlib';
+$lang['zlib_required']	= 	'PyroCMS necessita da biblioteca Zlib para descomprimir e instalar temas.';
+$lang['zlib_fail']		=	'A biblioteca Zlib não foi encontrada. Isso normalmente quer dizer que a biblioteca Zlib não está instalada. O PyroCMS irá funcionar perfeitamente, porém, a instalação de temas não vai funcionar. É altamente recomendável habilitar a biblioteca Zlib.';
 
-$lang['curl']			=	'Curl'; #translate
-$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.'; #translate
-$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.'; #translate
+$lang['curl']			=	'Curl';
+$lang['curl_required']	=	'PyroCMS necessita da biblioteca Curl para poder se conectar a outros sites.';
+$lang['curl_fail']		=	'A bilioteca Curl não foi encontrada. Isso normalmente quer dizer que a biblioteca Curl não está instalada. O PyroCMS irá funcionar, porém, mas algumas funcionalidades podem falhar. É altamente recomendável habilitar a biblioteca Curl.';
 
 $lang['summary_success']	=	'Seu servidor atende a todos os requisitos do PyroCMS para rodar corretamente, siga para o próximo passo clicando no botão abaixo.';
 $lang['summary_partial']	=	'Seu servidor atende a <em>quase</em> todos os requisitos do PyroCMS. Isto significa que o PyroCMS poderá rodar corretamente, porém, existe uma chance de você experimentar problemas com coisas relativas a manipulação de imagens e criação de miniaturas.';

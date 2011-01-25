@@ -63,7 +63,7 @@ class Comments extends Public_Controller
 	 * @return void
 	 */
 	public function create($module = 'home', $id = 0)
-	{			
+	{		
 		// Set the comment data
 		$comment = $_POST;
 				
@@ -137,6 +137,9 @@ class Comments extends Public_Controller
 				$comment[$rule['field']] = $this->input->post($rule['field']);
 			}
 		}
+		
+		// Is _pages_ given as module it will cause an error. It should be home as well cause' module pages handles other modules.
+		$module = 'home' ? $module == 'pages' : $module;
 		
 		// If for some reason the post variable doesnt exist, just send to module main page
 		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $module;

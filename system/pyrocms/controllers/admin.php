@@ -109,14 +109,14 @@ class Admin extends Admin_Controller
 
 				catch (Exception $e)
 				{
-					$data->messages['notice'] = 'Could not connect to Google Analytics. Check in '.anchor('admin/settings', 'Settings').'.';
+					$data->messages['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
 				}
 			}
 		}
 
 		elseif (empty($data->messages['notice']))
 		{
-			$data->messages['notice'] = 'Google Analytics settings are missing. Add them into '.anchor('admin/settings', 'Settings').' or contact your administrator.';
+			$data->messages['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
 		}
 
 		$this->load->model('comments/comments_m');

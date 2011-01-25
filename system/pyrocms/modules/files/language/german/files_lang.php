@@ -52,6 +52,7 @@ $lang['files.success']				= 'Die Datei wurde gespeichert.';
 $lang['files.not_exists']			= 'Es wurde ein ungültiges Verzeichnis ausgewählt.';
 $lang['files.delete.error']			= 'Die Datei konnte nicht gelöscht werden.';
 $lang['files.delete.success']			= 'Die Datei wurde gelöscht.';
+$lang['files.filter']						= 'Filter'; #translate
 
 // Types
 $lang['files.i'] = 'Bild';
