@@ -38,6 +38,12 @@
                     <ul>
                     <?php
                     
+					if( (in_array('users', $this->permissions) OR $this->user->group == 'admin') && $menu_item == 'users'): ?>
+                    
+						<li><?php echo anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : ''));?></li>
+                        
+					<?php endif;
+					
                     ksort($modules[$menu_item]);
                     foreach ($modules[$menu_item] as $module){
                         
