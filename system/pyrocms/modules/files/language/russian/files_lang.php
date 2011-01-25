@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link		http://pyrocms.com
  */
 
@@ -48,7 +48,7 @@ $lang['files.success']								= 'Файл сохранён.';
 $lang['files.not_exists']							= 'Выбрана неправильная папка.';
 $lang['files.delete.error']						= 'Невозможно удалить файл.';
 $lang['files.delete.success']					= 'Файл удалён.';
-$lang['files.filter']						= 'Filter'; #translate
+$lang['files.filter']									= 'Фильтр';
 
 // Типы файлов
 $lang['files.i']											= 'Изображение';
@@ -57,7 +57,7 @@ $lang['files.v']											= 'Видео';
 $lang['files.d']											= 'Документ';
 $lang['files.o']											= 'Разное';
 
-$lang['files.no_permissions'] = 'You do not have permissions to see the files module.'; #translate
+$lang['files.no_permissions']					= 'У вас нет прав для доступа к файловому модулю.';
 
 /* End of file files_lang.php */
 /* Location: ./system/pyrocms/modules/files/language/russian/comments_lang.php */
