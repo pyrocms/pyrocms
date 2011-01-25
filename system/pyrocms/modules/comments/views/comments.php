@@ -7,7 +7,7 @@
 		<?php foreach( $comments as $comment): ?>
 		<li class="comment">
 			<?php echo gravatar($comment->email, 40); if($comment->user_id): ?>
-				<p class="comment_heading"><strong><?php echo anchor('user/' . $comment->user_id, $this->user->display_name); ?></strong>
+				<p class="comment_heading"><strong><?php echo anchor('user/' . $comment->user_id, $this->ion_auth->get_user($comment->user_id)->display_name); ?></strong>
 				<p class="comment_date"><?php echo format_date($comment->created_on); ?></p>
 			<?php else: ?>
 				<p class="comment_heading"><strong><?php echo anchor($comment->website, $comment->name); ?></strong>
