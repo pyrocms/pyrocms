@@ -1,8 +1,7 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['settings_save_success'] 					= 'Le tue impostazioni sono state salvate!';
 $lang['settings_edit_title'] 					= 'Modifica impostazioni';
-
 
 #section settings
 $lang['settings_site_name'] 					= 'Nome del Sito';
@@ -18,22 +17,43 @@ $lang['settings_server_email'] 					= 'Server Email';
 $lang['settings_server_email_desc'] 			= 'Tutte le email agli utenti arriveranno da questo indizzo email.';
 
 $lang['settings_meta_topic']					= 'Meta Topic';
-$lang['settings_meta_topic_desc']				= 'Due o tre parole che descrivano il tipo di società/sito.';
+$lang['settings_meta_topic_desc']				= 'Due o tre parole che descrivano il tipo di societÃ /sito.';
 
 $lang['settings_currency'] 						= 'Valuta';
 $lang['settings_currency_desc'] 				= 'Il simbolo della valuta da usare per prodotti, servizi, ecc.';
 
 $lang['settings_dashboard_rss'] 				= 'Dashboard RSS Feed';
-$lang['settings_dashboard_rss_desc'] 			= 'Collegamento ad un feed RSS che verrà mostrato nella dashboard.';
+$lang['settings_dashboard_rss_desc'] 			= 'Collegamento ad un feed RSS che verrÃ  mostrato nella dashboard.';
 
 $lang['settings_dashboard_rss_count'] 			= 'Post RSS della Dashboard';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Quanti post RSS vuoi mostrare nella dashboard ?';
 
+$lang['settings_date_format'] 					= 'Date Format'; #translate
+$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+
 $lang['settings_frontend_enabled'] 				= 'Stato del Sito';
 $lang['settings_frontend_enabled_desc'] 		= 'Usa questa opzione per rendere o meno visibile il frontend del sito. Utile quando vuoi mettere offline il sito per manutenzione';
 
+$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
+$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+
+$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
+$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+
+$lang['settings_mail_smtp_host'] 				= 'Mail Protocol'; #translate
+$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+
+$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
+$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+
+$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+
+$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
+$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
+
 $lang['settings_unavailable_message']			= 'Avviso di Non Disponibile';
-$lang['settings_unavailable_message_desc'] 		= 'Quando il sito è messo offline o c\' è un grave problema, agli utenti verrà mostrato questo avviso.';
+$lang['settings_unavailable_message_desc'] 		= 'Quando il sito Ã¨ messo offline o c\' Ã¨ un grave problema, agli utenti verrÃ  mostrato questo avviso.';
 
 $lang['settings_default_theme'] 				= 'Tema predefinito';
 $lang['settings_default_theme_desc'] 			= 'Seleziona il tema che vuoi sia il predefinito per gli utenti.';
@@ -53,8 +73,17 @@ $lang['settings_require_lastname_desc'] 		= 'In alcune situazioniil cognome potr
 $lang['settings_enable_profiles'] 				= 'Abilita profili';
 $lang['settings_enable_profiles_desc'] 			= 'Permetti agli utenti di aggiungere e modificare profili.';
 
-$lang['settings_google_analytic'] 				= 'Google Analytic';
-$lang['settings_google_analytic_desc'] 			= 'Inserisci la tua chiave per attivare Google Analytic.';
+$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
+$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+
+$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
+$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+
+$lang['settings_ga_profile'] 					= 'Google Analytic Password'; #translate
+$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+
+$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
+$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
 
 $lang['settings_twitter_username'] 				= 'Username';
 $lang['settings_twitter_username_desc'] 		= 'Twitter username.';
@@ -75,7 +104,10 @@ $lang['settings_twitter_cache'] 				= 'Tempo di caching';
 $lang['settings_twitter_cache_desc'] 			= 'Per quanti minuti devono essere conservati temporaneamente i tuoi Tweets?';
 
 $lang['settings_akismet_api_key'] 				= 'Akismet API Key';
-$lang['settings_akismet_api_key_desc'] 			= 'Akismet è uno spam-blocker prodotto dal team di WordPress. Tiene sotto controllo lo spam senza obbligare gli utenti a superare i moduli CAPTCHA.';
+$lang['settings_akismet_api_key_desc'] 			= 'Akismet Ã¨ uno spam-blocker prodotto dal team di WordPress. Tiene sotto controllo lo spam senza obbligare gli utenti a superare i moduli CAPTCHA.';
+
+$lang['settings_comment_order'] 				= 'Comment Order'; #translate
+$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
 
 $lang['settings_moderate_comments'] 			= 'Moderazione dei Commenti';
 $lang['settings_moderate_comments_desc']		= 'Obbliga che i commenti siano approvati prima di comparire sul sito.';
@@ -83,10 +115,10 @@ $lang['settings_moderate_comments_desc']		= 'Obbliga che i commenti siano approv
 $lang['settings_version'] 						= 'Versione';
 $lang['settings_version_desc'] 					= '';
 
-
 #section titles
 $lang['settings_section_general']				= 'Generale';
 $lang['settings_section_integration']			= 'Integrazione';
+$lang['settings_section_comments']				= 'Comments'; #translate
 $lang['settings_section_users']					= 'Utenti';
 $lang['settings_section_statistics']			= 'Statistiche';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -98,3 +130,6 @@ $lang['settings_form_option_Enabled']			= 'Abilita';
 $lang['settings_form_option_Disabled']			= 'Disabilita';
 $lang['settings_form_option_Required']			= 'Richiesto';
 $lang['settings_form_option_Optional']			= 'Opzionale';
+
+/* End of file settings_lang.php */
+/* Location: ./system/pyrocms/modules/settings/language/italian/settings_lang.php */

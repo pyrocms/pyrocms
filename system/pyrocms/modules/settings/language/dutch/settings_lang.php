@@ -1,8 +1,9 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['settings_save_success'] 					= 'Uw instellingen zijn opgeslagen!';
 $lang['settings_edit_title'] 					= 'Wijzig instellingen';
 
+#section settings
 $lang['settings_site_name'] 					= 'Website Naam';
 $lang['settings_site_name_desc'] 				= 'De naam van de website voor de pagina titels en voor gebruik rond de website.';
 
@@ -27,8 +28,29 @@ $lang['settings_dashboard_rss_desc'] 			= 'Link naar een RSS feed dat getoont wo
 $lang['settings_dashboard_rss_count'] 			= 'Dashboard RSS Items';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Hoe veel RSS items wilt u tonen op de dashboard ?';
 
+$lang['settings_date_format'] 					= 'Date Format'; #translate
+$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+
 $lang['settings_frontend_enabled'] 				= 'Website Status';
 $lang['settings_frontend_enabled_desc'] 		= 'Gebruik deze optie om de gebruikerskant van de website aan of uit te zetten. Handig wanneer u de website offline wilt halen voor onderhoud.';
+
+$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
+$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+
+$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
+$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+
+$lang['settings_mail_smtp_host'] 				= 'Mail Protocol'; #translate
+$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+
+$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
+$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+
+$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+
+$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
+$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
 
 $lang['settings_unavailable_message']			= 'Onbeschikbaar Bericht';
 $lang['settings_unavailable_message_desc'] 		= 'Wanneer de website uit is of er is een groot probleem, dan wordt dit bericht getoond naar de gebruikers.';
@@ -51,8 +73,17 @@ $lang['settings_require_lastname_desc'] 		= 'Voor sommmige situaties hoeft een a
 $lang['settings_enable_profiles'] 				= 'Gebruikers Profielen';
 $lang['settings_enable_profiles_desc'] 			= 'Staat gebruikers in staat om een profiel toe te voegen en te bewerken.';
 
-$lang['settings_google_analytic'] 				= 'Google Analytic';
-$lang['settings_google_analytic_desc'] 			= 'Voer uw analytic sleutel in om Google Analytic in het cms te activeren.';
+$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
+$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+
+$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
+$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+
+$lang['settings_ga_profile'] 					= 'Google Analytic Password'; #translate
+$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+
+$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
+$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
 
 $lang['settings_twitter_username'] 				= 'Gebruikersnaam';
 $lang['settings_twitter_username_desc'] 		= 'Twitter gebruikersnaam.';
@@ -75,6 +106,9 @@ $lang['settings_twitter_cache_desc'] 			= 'Hoeveel minuten moeten de Tweets tijd
 $lang['settings_akismet_api_key'] 				= 'Akismet API Sleutel';
 $lang['settings_akismet_api_key_desc'] 			= 'Akismet is een spam-blokker van het WordPress team. Het houdt spam onder controle zonder gebruikers te dwingen een mens-checkend CAPTCHA formulier te gebruiken.';
 
+$lang['settings_comment_order'] 				= 'Comment Order'; #translate
+$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+
 $lang['settings_moderate_comments'] 			= 'Beheer Reacties';
 $lang['settings_moderate_comments_desc']		= 'Forceer dat reacties eerst moeten geaccepteerd worden voordat ze worden getoond op de website.';
 
@@ -84,6 +118,7 @@ $lang['settings_version_desc'] 					= '';
 #section titles
 $lang['settings_section_general']				= 'Algemeen';
 $lang['settings_section_integration']			= 'Integratie';
+$lang['settings_section_comments']				= 'Comments'; #translate
 $lang['settings_section_users']					= 'Gebruikers';
 $lang['settings_section_statistics']			= 'Statistieken';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -96,5 +131,5 @@ $lang['settings_form_option_Disabled']			= 'Uitgeschakeld';
 $lang['settings_form_option_Required']			= 'Vereist';
 $lang['settings_form_option_Optional']			= 'Optioneel';
 
-
-?>
+/* End of file settings_lang.php */
+/* Location: ./system/pyrocms/modules/settings/language/dutch/settings_lang.php */

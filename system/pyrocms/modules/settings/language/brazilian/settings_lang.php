@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 		= 'Suas configurações foram salvas!';
-$lang['settings_edit_title'] 			= 'Editar configurações';
-
+$lang['settings_save_success']					= 'Suas configurações foram salvas!';
+$lang['settings_edit_title']					= 'Editar configurações';
 
 #section settings
 $lang['settings_site_name'] 					= 'Nome do site';
@@ -29,8 +28,29 @@ $lang['settings_dashboard_rss_desc'] 			= 'Link para um feed RSS que deve ser mo
 $lang['settings_dashboard_rss_count'] 			= 'Itens RSS do Dashboard';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Quantos itens RSS devem ser mostrados no dashboard?';
 
+$lang['settings_date_format'] 					= 'Date Format'; #translate
+$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+
 $lang['settings_frontend_enabled'] 				= 'Situação do site';
 $lang['settings_frontend_enabled_desc'] 		= 'Use esta opção para definir se a frente do site ficará visível ou não. Últil quando houver a necessidade de desligar o site para manutenção.';
+
+$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
+$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+
+$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
+$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+
+$lang['settings_mail_smtp_host'] 				= 'Mail Protocol'; #translate
+$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+
+$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
+$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+
+$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+
+$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
+$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
 
 $lang['settings_unavailable_message']			= 'Mensagem de indisponibilidade';
 $lang['settings_unavailable_message_desc'] 		= 'Quando o site for desligado ou houver um problema maior, esta mensagem deverá aparecer para os usuários.';
@@ -53,8 +73,17 @@ $lang['settings_require_lastname_desc'] 		= 'Em algumas situações, um sobrenom
 $lang['settings_enable_profiles'] 				= 'Ativar perfis';
 $lang['settings_enable_profiles_desc'] 			= 'Permitir que usuários adicionem e editem perfis.';
 
-$lang['settings_google_analytic'] 				= 'Google Analytic';
-$lang['settings_google_analytic_desc'] 			= 'Digite sua chave do analytic para ativar o Google Analytic.';
+$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
+$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+
+$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
+$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+
+$lang['settings_ga_profile'] 					= 'Google Analytic Password'; #translate
+$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+
+$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
+$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
 
 $lang['settings_twitter_username'] 				= 'Nome de usuário';
 $lang['settings_twitter_username_desc'] 		= 'Nome de usuário do Twitter.';
@@ -77,16 +106,19 @@ $lang['settings_twitter_cache_desc'] 			= 'Quantos minutos seus Tweets devem ser
 $lang['settings_akismet_api_key'] 				= 'Chave da API do Akismet';
 $lang['settings_akismet_api_key_desc'] 			= 'Akismet é um bloqueador de spam da equipe WordPress. Isto mantém spam sobre controle sem forçar que usuários façam a confirmação humana de CAPTCHA nos formulários.';
 
+$lang['settings_comment_order'] 				= 'Comment Order'; #translate
+$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+
 $lang['settings_moderate_comments'] 			= 'Moderar comentários';
 $lang['settings_moderate_comments_desc']		= 'Forçar comentários a serem aprovados antes que apareçan no site.';
 
 $lang['settings_version'] 						= 'Versão';
 $lang['settings_version_desc'] 					= '';
 
-
 #section titles
 $lang['settings_section_general']				= 'Geral';
 $lang['settings_section_integration']			= 'Integração';
+$lang['settings_section_comments']				= 'Comments'; #translate
 $lang['settings_section_users']					= 'Usuários';
 $lang['settings_section_statistics']			= 'Estatísticas';
 $lang['settings_section_twitter']				= 'Twitter';
