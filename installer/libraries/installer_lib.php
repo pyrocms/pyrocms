@@ -214,7 +214,7 @@ class Installer_lib {
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
 		// Include migration config to know which migration to start from
-		include '../system/pyrocms/migrations.php';
+		include '../system/pyrocms/config/migrations.php';
 
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
