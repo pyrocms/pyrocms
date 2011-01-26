@@ -14,18 +14,42 @@ class Image extends WYSIWYG_Controller
 
 		$this->load->model('files/file_folders_m');
 		$this->load->model('files/file_m');
+		$this->lang->load('files/files');
+		$this->lang->load('wysiwyg');
 
 		$this->template->append_metadata( css('images.css', 'wysiwyg') )
+				->append_metadata( css('admin/uniform.default.css') )
+				->append_metadata( js('images.js', 'wysiwyg') )
+				->append_metadata( js('admin/jquery.uniform.min.js') )
+				->append_metadata( js('jquery/jquery-ui-1.8.4.min.js') )
+				->append_metadata('<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />')
 				->title('Images');
 	}
 	
-	public function index()
+	public function index($id = FALSE)
 	{
-		$folders = $this->file_folders_m->get_all();
+		//list of folders for the sidebar
+		$folders = $this->file_folders_m->get_many_by('parent_id', 0);
+		
+		//for dropdown list
+		$sub_folders = $this->file_folders_m->get_folders();
 
+		if(!empty($folders) and !$id)
+		{
+			$active_folder = $folders[0];
+			$active_folder->items = $this->file_m->get_many_by(array('folder_id' => $active_folder->id, 'type' => 'i'));
+		}
+		elseif(!empty($folders) and $id)
+		{
+			$active_folder = $this->file_folders_m->get($id);
+			$active_folder->items = $this->file_m->get_many_by(array('folder_id' => $id, 'type' => 'i'));
+		}
+		
 		$this->template
 			->set('folders', $folders)
-			->build('image/browse');
+			->set('sub_folders', $sub_folders)
+			->set('active_folder', $active_folder)
+			->build('image/index');
 	}
 
 	public function browse($folder_id = FALSE)
@@ -46,56 +70,7 @@ class Image extends WYSIWYG_Controller
 
 	public function upload()
 	{
-		if ($this->images_m->validate())
-		{
-			$image_path = SITE_UPLOAD_PATH . 'images/';
-
-			if( !is_dir($image_path) )
-			{
-				mkdir($image_path, 0777, TRUE);
-				chmod($image_path, 0777);
-			}
-
-			$this->load->library('upload', array(
-				'upload_path' => $image_path,
-				'allowed_types' => 'gif|jpg|png',
-				'encrypt_name' => TRUE
-			));
-
-			if ( ! $this->upload->do_upload('image') )
-			{
-				$this->data->messages['error'] = $this->upload->display_errors();
-			}
-
-			else
-			{
-				$image = $this->upload->data();
-
-				$id = $this->images_m->insert(array(
-					'folder_id' => $this->input->post('folder_id'),
-					'title' => $this->input->post('title'),
-					'description' => $this->input->post('description'),
-					'keywords' => $this->input->post('keywords'),
-					'status' => $this->input->post('status'),
-					'filename' => $image['file_name'],
-					'ext' => strtolower($image['image_type']),
-					'size' => $image['file_size'],
-					'width' => $image['image_width'],
-					'height' => $image['image_height']
-				));
-
-				$id > 0
-					? $this->session->set_flashdata('success', sprintf('Added image "%s".', $this->input->post('title')))
-					: $this->session->set_flashdata('error', 'There was a problem adding the image.');
-			}
-		}
-
-		else
-		{
-			$this->data->messages['error'] = validation_errors();
-		}
-
-		$this->browse();
+		
 	}
 
 	public function ajax_get_image()
