@@ -2,8 +2,6 @@
 
 class News extends Public_Controller
 {
-	public $limit = 10; // TODO: PS - Make me a settings option
-	
 	function __construct()
 	{
 		parent::Public_Controller();		
@@ -17,21 +15,22 @@ class News extends Public_Controller
 	// news/page/x also routes here
 	function index()
 	{	
-		$this->data->pagination = create_pagination('news/page', $this->news_m->count_by(array('status' => 'live')), $this->limit, 3);	
+		$this->data->pagination = create_pagination('news/page', $this->news_m->count_by(array('status' => 'live')), NULL, 3);
 		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array('status' => 'live'));	
 
 		// Set meta description based on article titles
 		$meta = $this->_articles_metadata($this->data->news);
 
-		$this->template->title($this->module_details['name'])
-						->set_metadata('description', $meta['description'])
-						->set_metadata('keywords', $meta['keywords'])
-						->build('index', $this->data);
+		$this->template
+			->title($this->module_details['name'])
+			->set_metadata('description', $meta['description'])
+			->set_metadata('keywords', $meta['keywords'])
+			->build('index', $this->data);
 	}
 	
 	function category($slug = '')
 	{	
-		if(!$slug) redirect('news');
+		$slug OR redirect('news');
 		
 		// Get category data
 		$category = $this->news_categories_m->get_by('slug', $slug);
