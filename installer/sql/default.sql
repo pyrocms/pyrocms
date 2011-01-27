@@ -73,4 +73,4 @@ CREATE TABLE `schema_version` (
 
 -- command split --
 
-INSERT INTO `schema_version` VALUES ('4');
+INSERT INTO `schema_version` VALUES ('__MIGRATION__');

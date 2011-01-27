@@ -149,7 +149,7 @@ class Installer_lib {
 		}
 
 		// If PHP, MySQL, etc is good but either server, GD, and/or Zlib is unknown, say partial
-		if( $data->http_server->supported === 'partial' || $this->gd_acceptable() === FALSE || $this->zlib_enabled() === FALSE)
+		if ( $data->http_server->supported === 'partial' || $this->gd_acceptable() === FALSE || $this->zlib_enabled() === FALSE)
 		{
 			return 'partial';
 		}
@@ -213,16 +213,20 @@ class Installer_lib {
 		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
+		// Include migration config to know which migration to start from
+		include '../system/pyrocms/config/migrations.php';
+
 		// Get the SQL for the default data and parse it
-		$user_sql		= file_get_contents('./sql/default-user.sql');
-		$user_sql		= str_replace('__EMAIL__', 		$data['user_email'], 		$user_sql);
-		$user_sql		= str_replace('__USERNAME__', 	$data['user_name'], 		$user_sql);
-		$user_sql		= str_replace('__DISPLAYNAME__', 	$data['user_firstname'] . ' ' . $data['user_firstname'], 		$user_sql);
-		$user_sql		= str_replace('__PASSWORD__', 	$data['user_password'], 	$user_sql);
-		$user_sql		= str_replace('__FIRSTNAME__', 	$data['user_firstname'], 	$user_sql);
-		$user_sql		= str_replace('__LASTNAME__', 	$data['user_lastname'], 	$user_sql);
-		$user_sql		= str_replace('__SALT__', 		$user_salt,					$user_sql);
-		$user_sql		= str_replace('__NOW__', 		time(),						$user_sql);
+		$user_sql = file_get_contents('./sql/default.sql');
+		$user_sql = str_replace('__EMAIL__', $data['user_email'], $user_sql);
+		$user_sql = str_replace('__USERNAME__', $data['user_name'], $user_sql);
+		$user_sql = str_replace('__DISPLAYNAME__', $data['user_firstname'] . ' ' . $data['user_firstname'], $user_sql);
+		$user_sql = str_replace('__PASSWORD__', $data['user_password'], $user_sql);
+		$user_sql = str_replace('__FIRSTNAME__', $data['user_firstname'], $user_sql);
+		$user_sql = str_replace('__LASTNAME__', $data['user_lastname'], $user_sql);
+		$user_sql = str_replace('__SALT__', $user_salt, $user_sql);
+		$user_sql = str_replace('__NOW__', time(), $user_sql);
+		$user_sql = str_replace('__MIGRATION__', $config['migrations_version'], $user_sql);
 		
 		// Create a connection
 		if( !$this->db = mysql_connect($server, $username, $password) )
