@@ -131,19 +131,8 @@ class Installer_lib {
 			return FALSE;
 		}
 		
-		// Check MySQL server
-		if ( ! $this->mysql_acceptable('server') )
-		{
-			return FALSE;
-		}
-		
-		// Check MySQL client
-		if ( ! $this->mysql_acceptable('client') )
-		{
-			return FALSE;
-		}
-		
-		if($data->http_server->supported === FALSE)
+		// Check MySQL server AND Mysql client | One of them has to be true
+		if ( ! $this->mysql_acceptable('server') &&  ! $this->mysql_acceptable('client'))
 		{
 			return FALSE;
 		}
