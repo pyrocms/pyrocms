@@ -12,6 +12,16 @@ function insertImage(file, alt)
     windowClose();
 }
 
+function insertFile(id, title)
+{
+	if(replace_html)
+	{
+		replace_html.remove();
+	}
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + SITE_URL + '/files/download/' + id + '">' + title + '</a>');
+    windowClose();
+}
+
 function get_float()
 {
     img_float = jQuery('input[name=insert_float]:checked').val();
@@ -91,34 +101,57 @@ var replace_html = null;
             //add class to click anchor parent
             $(this).parent('li').addClass('current');
             
-            $('#files_right_pane').load(href_val + ' #files_right_pane');
+            $('#files_right_pane').load(href_val + ' #files-wrapper', function() {
+				$(this).children().fadeIn('slow');
+			});
             
         });
         
         $('select[name=parent_id]').live('change', function() {
             var folder_id = $(this).val();
-            var href_val = 'image/index/' + folder_id;
-            $('#files_right_pane').load(href_val + ' #files_right_pane', function() {
-                $('#files-nav li').removeClass('current');
-                $('li#folder-id-'+folder_id).addClass('current');   
+			var controller = $(this).attr('title');
+            var href_val = controller + '/index/' + folder_id;
+            $('#files_right_pane').load(href_val + ' #files-wrapper', function() {
+				$(this).children().fadeIn('slow');
+				var class_exists = $('#folder-id-' + folder_id).html();
+				
+				if(class_exists !== null)
+				{
+					$('#files-nav li').removeClass('current');
+					$('li#folder-id-'+folder_id).addClass('current'); 
+				}
+				  
             });
         })
         
         //slider
        
-        $( "#slider" ).slider({
-            value:200,
-            min: 200,
-            max: 800,
-            step: 50,
-            slide: function( event, ui ) {
-                $( "#insert_width" ).val( ui.value + 'px' );
-            }
+        $( "#slider" ).livequery(function() {
+			$(this).fadeIn('slow');
+			$(this).slider({
+				value:200,
+				min: 50,
+				max: 800,
+				step: 50,
+				slide: function( event, ui ) {
+					$( "#insert_width" ).val( ui.value + 'px' );
+				}
+			});
+			$( "#insert_width" ).val( $( "#slider" ).slider( "value" ) + 'px' );
         });
-        $( "#insert_width" ).val( $( "#slider" ).slider( "value" ) + 'px' );
-    
-        $('#radio-group').buttonset();
+        
+		$( '#radio-group' ).livequery(function() {
+			$(this).fadeIn('slow');
+			$('#radio-group').buttonset();
+		});
 
+		$( '#files_right_pane' ).livequery(function() {
+			$(this).children().fadeIn('slow');
+		});
+		
+		$( 'td.image button').livequery(function() {
+			$(this).button();
+		});
         
 	});
 })(jQuery);

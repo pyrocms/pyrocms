@@ -7,13 +7,13 @@
                 <?php foreach($folders as $key => $folder): ?>
                 
                 <li id="folder-id-<?php echo $folder->id; ?>" class="<?php echo $key == 0 ? 'current' : ''; ?>">
-                    <?php echo anchor("admin/wysiwyg/image/index/{$folder->id}", $folder->name, 'title="'.$folder->slug.'"'); ?>  
+                    <?php echo anchor("admin/wysiwyg/files/index/{$folder->id}", $folder->name, 'title="'.$folder->slug.'"'); ?>  
                 </li>
                 
                 <?php endforeach; ?>
                 
                 <li class="upload">
-                    <?php //echo anchor("admin/wysiwyg/image/upload", lang('files.upload.title'), 'title="upload"'); ?>  
+                    <?php //echo anchor("admin/wysiwyg/files/upload", lang('files.upload.title'), 'title="upload"'); ?>  
                 </li>
                 
             </ul>
@@ -40,33 +40,12 @@
 						$folder_options[$row['id']] = $indent.$row['name'];
 					}
 				}
-				echo form_dropdown('parent_id', $folder_options, $active_folder->id, 'id="parent_id" title="image"');
+				echo form_dropdown('parent_id', $folder_options, $active_folder->id, 'id="parent_id" title="files"');
 				?>
 			</li>
             </ul>
             
         </div>
-        
-        <div id="options-bar">
-            
-            <label for="insert_width"><?php echo lang('wysiwyg.label.insert_width'); ?></label>
-            <input id="insert_width" type="text" name="insert_width" value="200" />
-            
-        </div>
-        
-        <div id="radio-group">
-            <label for="insert_float"><?php echo lang('wysiwyg.label.float'); ?></label>
-                <label for="radio_left"><?php echo lang('wysiwyg.label.left'); ?></label>
-                <input id="radio_left" type="radio" name="insert_float" value="left" />
-                
-                <label for="radio_right"><?php echo lang('wysiwyg.label.right'); ?></label>
-                <input id="radio_right" type="radio" name="insert_float" value="right" />
-                
-                <label for="radio_none"><?php echo lang('wysiwyg.label.none'); ?></label>
-                <input id="radio_none" type="radio" name="insert_float" value="none" checked="checked" />
-            </div>
-        
-        <div id="slider"></div>
         
         <?php  if(!empty($active_folder->items)): ?>
         <table class="table-list" border="0">
@@ -74,12 +53,10 @@
             <thead>
                 
                 <tr>
-                    <th><?php echo lang('files.i'); ?></th>
+                    <th><?php echo lang('files.labels.action'); ?></th>
                     <th><?php echo lang('files.folders.name') . '/' . lang('files.description'); ?></th>
                     <th><?php echo lang('files.file_name') . '/' . lang('files.folders.created'); ?></th>
-                    <th><?php echo lang('wysiwyg.meta.width'); ?></th>
-                    <th><?php echo lang('wysiwyg.meta.height'); ?></th>
-                    <th><?php echo lang('wysiwyg.meta.size'); ?></th>
+                    <th><?php echo lang('wysiwyg.meta.mime'); ?></th>
                 </tr>
                 
             </thead>
@@ -88,7 +65,11 @@
                 
                 <?php foreach($active_folder->items as $file): ?>
                 <tr class="<?php echo alternator('', 'alt'); ?>">
-                    <td class="image"><img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/<?php echo $file->filename; ?>" alt="<?php echo $file->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" /></td>
+                    <td class="image">
+						<button onclick="javascript:insertFile('<?php echo $file->id; ?>', '<?php echo htmlentities($file->name); ?>');">
+							Insert
+						</button>
+					</td>
                     <td class="name-description">
                         <p><?php echo $file->name; ?><p>
                         <p><?php echo $file->description; ?></p>
@@ -97,9 +78,7 @@
                         <p><?php echo $file->filename; ?></p>
                         <p><?php echo date('Y.m.d', $file->date_added); ?></p>
                     </td>
-                    <td class="meta width"><?php echo $file->width; ?></td>
-                    <td class="meta height"><?php echo $file->height; ?></td>
-                    <td class="meta size"><?php echo $file->filesize; ?></td>
+                    <td class="meta width"><?php echo $file->mimetype; ?></td>
                 </tr>
                 <?php endforeach; ?>
             

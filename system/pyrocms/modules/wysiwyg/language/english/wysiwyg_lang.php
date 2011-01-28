@@ -8,7 +8,8 @@ $lang = array(
     'wysiwyg.label.float'   =>  'Float',
     'wysiwyg.label.left'    =>  'Left',
     'wysiwyg.label.right'   =>  'Right',
-    'wysiwyg.label.none'    =>  'None'
+    'wysiwyg.label.none'    =>  'None',
+    'wysiwyg.meta.mime'     =>  'Mime Type'
     
 );
 

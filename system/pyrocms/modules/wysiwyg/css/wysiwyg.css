@@ -19,10 +19,12 @@ input#insert_width {
 }
 #radio-group {
     float: right;
+	display: none;
 }
 #slider {
     margin: 0 0 10px 0;
     clear: left;
+	display: none;
 }
 #files_browser {
 	display: table;
@@ -63,6 +65,9 @@ input#insert_width {
 	display: table-cell;
 	padding: 10px;
 }
+#files_right_pane >* {
+	display: none;
+}
 #files_left_pane li a {
 	padding: 10px;
 	background: transparent;
@@ -77,6 +82,9 @@ input#insert_width {
 #files_left_pane li.current a {
 	background-color: #3a4043;
 	color: #FFFFFF;
+}
+#files_toolbar {
+	padding: 5px;
 }
 #files_toolbar ul li {
 	display: inline-block;
