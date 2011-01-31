@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -36,29 +36,29 @@ $lang['settings_dashboard_rss_desc']			= 'Ссылка на новостную �
 $lang['settings_dashboard_rss_count']			= 'Количество записей RSS';
 $lang['settings_dashboard_rss_count_desc']		= 'Какое количество записей RSS-ленты отображать на главной странице панели управления?';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format']							= 'Формат даты';
+$lang['settings_date_format_desc']					= 'Настройка отображения даты на сайте и в панели администратора. Используйте формат даты PHP.';
 
 $lang['settings_frontend_enabled']				= 'Сайт';
 $lang['settings_frontend_enabled_desc']			= 'Используйте эту опцию для контроля активности пользовательской части сайта. Полезно, если вы хотите временно отключить ваш сайт для технического обслуживания.';
 
-$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
-$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+$lang['settings_mail_protocol']						= 'Протокол почты';
+$lang['settings_mail_protocol_desc']				= 'Выберите предпочтительный почтовый протокол.';
 
-$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
-$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+$lang['settings_mail_sendmail_path']			= 'Пусть Sendmail';
+$lang['settings_mail_sendmail_path_desc']		= 'Путь к исполнимому файлу sendmail на сервере.';
 
-$lang['settings_mail_smtp_host'] 				= 'SMTP Host'; #translate
-$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+$lang['settings_mail_smtp_host']					= 'Хост SMTP';
+$lang['settings_mail_smtp_host_desc']				= 'Имя хоста вашего SMTP-сервера.';
 
-$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
-$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+$lang['settings_mail_smtp_pass']					= 'Пароль SMTP';
+$lang['settings_mail_smtp_pass_desc']				= 'Пароль SMTP.';
 
-$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
-$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+$lang['settings_mail_smtp_port']					= 'Порт SMPT';
+$lang['settings_mail_smtp_port_desc']				= 'Номер порта SMTP.';
 
-$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
-$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
+$lang['settings_mail_smtp_user']					= 'Имя пользователя SMTP';
+$lang['settings_mail_smtp_user_desc']				= 'Имя пользователя SMTP.';
 
 $lang['settings_unavailable_message']			= 'Сообщение о недоступности';
 $lang['settings_unavailable_message_desc']		= 'Когда сайт отключен или произошла серьёзная проблема - это сообщение увидят посетители сайта.';
@@ -81,17 +81,17 @@ $lang['settings_require_lastname_desc']			= 'В некоторых случая�
 $lang['settings_enable_profiles']				= 'Разрешить профили';
 $lang['settings_enable_profiles_desc']			= 'Разрешить пользователям добавлять и редактировать профили.';
 
-$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
-$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_email']							= 'E-mail Google Analytic';
+$lang['settings_ga_email_desc']						= 'Адрес E-mail для Google Analytics, нужно указать, если вы хотите видеть график посещаемости на главной странице панели администратора.';
 
-$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
-$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_password']						= 'Пароль Google Analytic';
+$lang['settings_ga_password_desc']				= 'Пароль Google Analytics. Тоже нужно указать, для отображения графика.';
 
-$lang['settings_ga_profile'] 					= 'Google Analytic Profile'; #translate
-$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+$lang['settings_ga_profile']						= 'Профиль Google Analytic';
+$lang['settings_ga_profile_desc']					= 'ID профиля этого сайта в Google Analytics.';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
-$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
+$lang['settings_ga_tracking'] 					= 'Код отслеживания Google Tracking';
+$lang['settings_ga_tracking_desc']				= 'Укажите код отслеживания Google Analytic для активации учёта посетителей вашего сайта. Например: UA-19483569-6';
 
 $lang['settings_twitter_username']				= 'Логин';
 $lang['settings_twitter_username_desc']			= 'Имя пользователя Twitter.';
@@ -114,8 +114,8 @@ $lang['settings_twitter_cache_desc']			= 'На какое количество �
 $lang['settings_akismet_api_key']				= 'API-ключ Akismet';
 $lang['settings_akismet_api_key_desc']			= 'Akismet - это система блокирования спама от комманды WordPress. Она держит спам под контролем, без необходимости ввода пользователями капчи.';
 
-$lang['settings_comment_order'] 				= 'Comment Order'; #translate
-$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+$lang['settings_comment_order'] 				= 'Сортировка комментариев';
+$lang['settings_comment_order_desc']			= 'Порядок сортировки комментариев.';
 
 $lang['settings_moderate_comments']				= 'Модерация комментариев';
 $lang['settings_moderate_comments_desc']		= 'Администратор будет просматривать и утверждать комментарии, перед тем, как они появятся на сайте.';
@@ -124,22 +124,22 @@ $lang['settings_version']						= 'Версия';
 $lang['settings_version_desc']					= '';
 
 // заголовки
-$lang['settings_section_general']				= 'Основные';
-$lang['settings_section_integration']			= 'Интеграция';
-$lang['settings_section_comments']				= 'Comments'; #translate
-$lang['settings_section_users']					= 'Пользователи';
-$lang['settings_section_statistics']			= 'Статистика';
-$lang['settings_section_twitter']				= 'Twitter';
+$lang['settings_section_general']							= 'Основные';
+$lang['settings_section_integration']					= 'Интеграция';
+$lang['settings_section_comments']						= 'Комментарии';
+$lang['settings_section_users']								= 'Пользователи';
+$lang['settings_section_statistics']					= 'Статистика';
+$lang['settings_section_twitter']							= 'Twitter';
 
 // чекбоксы и прочая фигня
-$lang['settings_form_option_Open']				= 'Работает';
-$lang['settings_form_option_Closed']			= 'Закрыт';
-$lang['settings_form_option_Enabled']			= 'Включено';
-$lang['settings_form_option_Disabled']			= 'Выключено';
-$lang['settings_form_option_Required']			= 'Требуется';
-$lang['settings_form_option_Optional']			= 'Рекомендуется';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Open']						= 'Работает';
+$lang['settings_form_option_Closed']					= 'Закрыт';
+$lang['settings_form_option_Enabled']					= 'Включено';
+$lang['settings_form_option_Disabled']				= 'Выключено';
+$lang['settings_form_option_Required']				= 'Требуется';
+$lang['settings_form_option_Optional']				= 'Рекомендуется';
+$lang['settings_form_option_Oldest First']		= 'Старые сначала';
+$lang['settings_form_option_Newest First']		= 'Новые сначала';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/russian/settings_lang.php */
