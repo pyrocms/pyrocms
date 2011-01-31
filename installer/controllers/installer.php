@@ -8,7 +8,7 @@
  *
  * Installer controller.
  */
-class Installer extends Controller 
+class Installer extends CI_Controller
 {
 	/**
 	 * Array of languages supported by the installer
@@ -22,8 +22,6 @@ class Installer extends Controller
 	 * @var array
 	 */
 	private $writeable_directories = array(
-		'system/codeigniter/cache',
-		'system/codeigniter/logs',
 		'system/pyrocms/cache',
 		'system/pyrocms/cache/simplepie',
 		'system/pyrocms/config',

@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -870,15 +870,28 @@ class CI_Loader {
 		// Is there an associated config file for this class?  Note: these should always be lowercase
 		if ($config === NULL)
 		{
-			// We test for both uppercase and lowercase, for servers that
-			// are case-sensitive with regard to file names
-			if (file_exists(APPPATH.'config/'.strtolower($class).EXT))
+			// Fetch the config paths containing any package paths
+			$config_component = $this->_ci_get_component('config');
+
+			if (is_array($config_component->_config_paths))
 			{
-				include_once(APPPATH.'config/'.strtolower($class).EXT);
-			}
-			elseif (file_exists(APPPATH.'config/'.ucfirst(strtolower($class)).EXT))
-			{
-				include_once(APPPATH.'config/'.ucfirst(strtolower($class)).EXT);
+				// Break on the first found file, thus package files
+				// are not overridden by default paths
+				foreach ($config_component->_config_paths as $path)
+				{
+					// We test for both uppercase and lowercase, for servers that
+					// are case-sensitive with regard to file names
+					if (file_exists($path .'config/'.strtolower($class).EXT))
+					{
+						include_once($path .'config/'.strtolower($class).EXT);
+						break;
+					}
+					elseif (file_exists($path .'config/'.ucfirst(strtolower($class)).EXT))
+					{
+						include_once($path .'config/'.ucfirst(strtolower($class)).EXT);
+						break;
+					}
+				}
 			}
 		}
 
@@ -956,6 +969,15 @@ class CI_Loader {
 		if ( ! isset($autoload))
 		{
 			return FALSE;
+		}
+
+		// Autoload packages
+		if (isset($autoload['packages']))
+		{
+			foreach ($autoload['packages'] as $package_path)
+			{
+				$this->add_package_path($package_path);
+			}
 		}
 
 		// Load any custom config file

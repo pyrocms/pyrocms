@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -171,7 +171,7 @@ class CI_Form_validation {
 		}
 
 		$this->_error_messages = array_merge($this->_error_messages, $lang);
-		
+
 		return $this;
 	}
 
@@ -191,7 +191,7 @@ class CI_Form_validation {
 	{
 		$this->_error_prefix = $prefix;
 		$this->_error_suffix = $suffix;
-		
+
 		return $this;
 	}
 
@@ -339,13 +339,7 @@ class CI_Form_validation {
 				}
 			}
 
-			preg_match_all('/([a-zA-Z_-]*(\[.*\])?)\|?/i', $row['rules'], $matches);
-
-			$rules = $matches[1];
-			array_pop($rules);
-			unset($matches);
-
-			$this->_execute($row, $rules, $this->_field_data[$field]['postdata']);
+			$this->_execute($row, explode('|', $row['rules']), $this->_field_data[$field]['postdata']);
 		}
 
 		// Did we end up with any errors?
@@ -734,6 +728,13 @@ class CI_Form_validation {
 		if ( ! isset($this->_field_data[$field]))
 		{
 			return $default;
+		}
+
+		// If the data is an array output them one at a time.
+		//     E.g: form_input('name[]', set_value('name[]');
+		if (is_array($this->_field_data[$field]['postdata']))
+		{
+			return array_shift($this->_field_data[$field]['postdata']);
 		}
 
 		return $this->_field_data[$field]['postdata'];
