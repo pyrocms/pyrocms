@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 		= 'Suas configurações foram salvas!';
-$lang['settings_edit_title'] 			= 'Editar configurações';
-
+$lang['settings_save_success']					= 'Suas configurações foram salvas!';
+$lang['settings_edit_title']					= 'Editar configurações';
 
 #section settings
 $lang['settings_site_name'] 					= 'Nome do site';
@@ -29,8 +28,29 @@ $lang['settings_dashboard_rss_desc'] 			= 'Link para um feed RSS que deve ser mo
 $lang['settings_dashboard_rss_count'] 			= 'Itens RSS do Dashboard';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Quantos itens RSS devem ser mostrados no dashboard?';
 
+$lang['settings_date_format'] 					= 'Formato de data';
+$lang['settings_date_format_desc'] 				= 'Como devem ser exibidas as datas em todo o site e painel de controle? Utilizando formato de data PHP.';
+
 $lang['settings_frontend_enabled'] 				= 'Situação do site';
 $lang['settings_frontend_enabled_desc'] 		= 'Use esta opção para definir se a frente do site ficará visível ou não. Últil quando houver a necessidade de desligar o site para manutenção.';
+
+$lang['settings_mail_protocol'] 				= 'Protocolo de e-mail';
+$lang['settings_mail_protocol_desc'] 			= 'Selecione o protocolo de e-mail desejado.';
+
+$lang['settings_mail_sendmail_path'] 			= 'Caminho do Sendmail';
+$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+
+$lang['settings_mail_smtp_host'] 				= 'Host do SMTP';
+$lang['settings_mail_smtp_host_desc'] 			= 'O nome do host do seu servidor SMTP.';
+
+$lang['settings_mail_smtp_pass'] 				= 'Senha do SMTP';
+$lang['settings_mail_smtp_pass_desc'] 			= 'A senha do SMTP.';
+
+$lang['settings_mail_smtp_port'] 				= 'Porta do SMPT';
+$lang['settings_mail_smtp_port_desc'] 			= 'O número da porta do SMTP.';
+
+$lang['settings_mail_smtp_user'] 				= 'Usuário do SMTP';
+$lang['settings_mail_smtp_user_desc'] 			= 'O nome de usuário do SMTP.';
 
 $lang['settings_unavailable_message']			= 'Mensagem de indisponibilidade';
 $lang['settings_unavailable_message_desc'] 		= 'Quando o site for desligado ou houver um problema maior, esta mensagem deverá aparecer para os usuários.';
@@ -53,8 +73,17 @@ $lang['settings_require_lastname_desc'] 		= 'Em algumas situações, um sobrenom
 $lang['settings_enable_profiles'] 				= 'Ativar perfis';
 $lang['settings_enable_profiles_desc'] 			= 'Permitir que usuários adicionem e editem perfis.';
 
-$lang['settings_google_analytic'] 				= 'Google Analytic';
-$lang['settings_google_analytic_desc'] 			= 'Digite sua chave do analytic para ativar o Google Analytic.';
+$lang['settings_ga_email'] 						= 'E-mail do Google Analytic';
+$lang['settings_ga_email_desc']					= 'E-mail utilizado para o Google Analytics, é necessário para mostrar o gráfico no dashboard.';
+
+$lang['settings_ga_password'] 					= 'Senha do Google Analytic';
+$lang['settings_ga_password_desc']				= 'Senha do Google Analytics. Isso também é necessária para mostrar o gráfico no dashboard.';
+
+$lang['settings_ga_profile'] 					= 'Perfil do Google Analytic';
+$lang['settings_ga_profile_desc']				= 'ID do Perfil para este site no Google Analytics.';
+
+$lang['settings_ga_tracking'] 					= 'Cód. de acompanhamento Google';
+$lang['settings_ga_tracking_desc']				= 'Digite seu código de acompanhamento do Google Analytics para ativar a captura de dados do Google Analytics. Ex.: UA-19483569-6';
 
 $lang['settings_twitter_username'] 				= 'Nome de usuário';
 $lang['settings_twitter_username_desc'] 		= 'Nome de usuário do Twitter.';
@@ -77,16 +106,19 @@ $lang['settings_twitter_cache_desc'] 			= 'Quantos minutos seus Tweets devem ser
 $lang['settings_akismet_api_key'] 				= 'Chave da API do Akismet';
 $lang['settings_akismet_api_key_desc'] 			= 'Akismet é um bloqueador de spam da equipe WordPress. Isto mantém spam sobre controle sem forçar que usuários façam a confirmação humana de CAPTCHA nos formulários.';
 
+$lang['settings_comment_order'] 				= 'Ordenar comentários';
+$lang['settings_comment_order_desc']			= 'A ordem de classificação no qual exibir comentários.';
+
 $lang['settings_moderate_comments'] 			= 'Moderar comentários';
 $lang['settings_moderate_comments_desc']		= 'Forçar comentários a serem aprovados antes que apareçan no site.';
 
 $lang['settings_version'] 						= 'Versão';
 $lang['settings_version_desc'] 					= '';
 
-
 #section titles
 $lang['settings_section_general']				= 'Geral';
 $lang['settings_section_integration']			= 'Integração';
+$lang['settings_section_comments']				= 'Comentários';
 $lang['settings_section_users']					= 'Usuários';
 $lang['settings_section_statistics']			= 'Estatísticas';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -98,6 +130,8 @@ $lang['settings_form_option_Enabled']			= 'Ativo';
 $lang['settings_form_option_Disabled']			= 'Desativado';
 $lang['settings_form_option_Required']			= 'Obrigatório';
 $lang['settings_form_option_Optional']			= 'Opcional';
+$lang['settings_form_option_Oldest First']		= 'Antigos primeiro';
+$lang['settings_form_option_Newest First']		= 'Novos primeiro';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/brazilian/settings_lang.php */
