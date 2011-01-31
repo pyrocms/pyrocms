@@ -31,15 +31,13 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// Get the required data
-		$this->template->append_metadata( css('themes.css', 'themes') );
-		$this->data->themes = $this->themes_m->get_all();
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$data['themes'] = $this->themes_m->get_all();
 
 		// Render the view
 		$this->template
 			->title($this->module_details['name'])
+			->append_metadata( css('themes.css', 'themes'))
+			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->build('admin/index', $this->data);
 	}
 
@@ -55,9 +53,9 @@ class Admin extends Admin_Controller
 		$theme = $this->input->post('theme');
 
 		// Set the theme
-		if($this->themes_m->set_default($theme) )
+		if ($this->themes_m->set_default($theme))
 		{
-			$this->session->set_flashdata('success', sprintf( lang('themes.set_default_success'), $theme));
+			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}
 
 		else
@@ -65,7 +63,6 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme));
 		}
 
-		// Redirect the user
 		redirect('admin/themes');
 	}
 

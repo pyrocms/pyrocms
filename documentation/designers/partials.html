@@ -5,7 +5,7 @@
 	header will be different but there could be two columns instead of one, etc.
 </p>
 
-<p>Partials are created as <dfn>addons/themes/xxx/views/partialname.html</dfn> and are loaded with:</p>
+<p>Partials are created as <dfn>addons/themes/xxx/views/partials/partialname.html</dfn> and are loaded with:</p>
 
 <blockquote>{pyro:theme:partial name="partialname"}</blockquote>
 
@@ -21,7 +21,7 @@
 	{pyro:template:partials:header}
 &lt;/head&gt;
 &lt;body&gt;
-	&lt;h1&gt;{$template.title}&lt;/h1&gt;
+	&lt;h1&gt;{pyro:template:title}&lt;/h1&gt;
 	{pyro:template:body}
 &lt;/body&gt;
 

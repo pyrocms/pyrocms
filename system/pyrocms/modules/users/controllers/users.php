@@ -114,12 +114,12 @@ class Users extends Public_Controller
 			array(
 				'field' => 'first_name',
 				'label' => lang('user_first_name'),
-				'rules' => 'required|alpha_dash'
+				'rules' => 'required'
 			),
 			array(
 				'field' => 'last_name',
 				'label' => lang('user_last_name'),
-				'rules' => ($this->settings->require_lastname ? 'required|' : '').'surname'
+				'rules' => ($this->settings->require_lastname ? 'required' : '')
 			),
 			array(
 				'field' => 'password',

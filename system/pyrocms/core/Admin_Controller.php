@@ -28,13 +28,31 @@ class Admin_Controller extends MY_Controller
 			));
 
 			$grouped_modules = array();
-
+			
+			$grouped_menu[] = 'content';
+			
 			foreach ($modules as $module)
 			{
-				$grouped_modules[$module['menu']][$module['name']] = $module;
+				if($module['menu']!='content' && $module['menu']!='design' && $module['menu']!='users' && $module['menu']!='utilities'&&$module['menu']!='0'){
+					
+					$grouped_menu[] = $module['menu'];	
+					
+				}
 			}
-
+			
+			array_push($grouped_menu, 'design', 'users', 'utilities');
+			
+			$grouped_menu = array_unique($grouped_menu);
+			
+			foreach($modules as $module){
+				
+				$grouped_modules[$module['menu']][$module['name']] = $module;
+				
+			}
+			
+			$this->template->menu_items = $grouped_menu;
 			$this->template->modules = $grouped_modules;
+			
 		}
 
 	    // Template configuration

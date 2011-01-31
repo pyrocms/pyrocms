@@ -56,3 +56,4 @@ Think you should be on this list? Add your name to it with your next bug pull re
 * [TheLoops](http://codeigniter.com/forums/member/62232/) German
 * [Bartosz Majewski](http://404design.pl/) Polish
 * [diederikeijgelaar](http://github.com/diederikeijgelaar) Dutch
+* [okhayat](http://webymaster.com/) Arabic

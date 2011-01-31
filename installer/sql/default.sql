@@ -64,3 +64,13 @@ CREATE TABLE IF NOT EXISTS `profiles` (
 			
 INSERT INTO `profiles` (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
 			(1, 1, '__FIRSTNAME__', '__LASTNAME__', '__DISPLAYNAME__', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- command split --
+
+CREATE TABLE `schema_version` (
+  `version` int(3) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- command split --
+
+INSERT INTO `schema_version` VALUES ('__MIGRATION__');

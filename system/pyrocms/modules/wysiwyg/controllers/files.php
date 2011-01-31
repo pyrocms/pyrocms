@@ -12,35 +12,31 @@ class Files extends WYSIWYG_Controller
 	{
 		parent::WYSIWYG_Controller();
 		
-		$this->load->model('files/file_folders_m');
-		$this->load->model('files/file_m');
-
-		$this->template->append_metadata( css('images.css', 'wysiwyg') )
-				->title('Files');
 	}
 
-	function index()
+	function index($id = FALSE)
 	{
-		$folders = $this->file_folders_m->get_all();
+		$folders = $this->file_folders_m->get_many_by('parent_id', 0);
 
-		$this->template
-			->set('folders', $folders)
-			->build('files/browse');
-	}
+		//for dropdown list
+		$sub_folders = $this->file_folders_m->get_folders();
 
-	function browse($folder_id = 0)
-	{
-		$folder_id OR redirect('admin/wysiwyg/files');
+		if(!empty($folders) and !$id)
+		{
+			$active_folder = $folders[0];
+			$active_folder->items = $this->file_m->get_many_by(array('folder_id' => $active_folder->id, 'type !=' => 'i'));
+		}
+		elseif(!empty($folders) and $id)
+		{
+			$active_folder = $this->file_folders_m->get($id);
+			$active_folder->items = $this->file_m->get_many_by(array('folder_id' => $id, 'type !=' => 'i'));
+		}
 		
-		$files = $this->file_m->get_many_by('folder_id', $folder_id);
-		$folders = $this->file_folders_m->get_many_by('parent_id', $folder_id);
-		$folder_meta = $this->file_folders_m->get($folder_id);
-
 		$this->template
-			->set('files', $files)
 			->set('folders', $folders)
-			->set('folder_meta', $folder_meta)
-			->build('files/browse');
+			->set('sub_folders', $sub_folders)
+			->set('active_folder', $active_folder)
+			->build('files/index');
 	}
 
 	public function ajax_get_files()

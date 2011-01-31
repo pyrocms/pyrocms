@@ -53,12 +53,12 @@ class User_settings extends Public_Controller
 			array(
 				'field' => 'settings_first_name',
 				'label' => lang('user_first_name'),
-				'rules' => 'required|alpha_dash'
+				'rules' => 'required'
 			),
 			array(
 				'field' => 'settings_last_name',
 				'label' => lang('user_last_name'),
-				'rules' => ($this->settings->require_lastname ? 'required|' : '').'surname'
+				'rules' => ($this->settings->require_lastname ? 'required' : '')
 			),
 			array(
 				'field' => 'settings_password',
