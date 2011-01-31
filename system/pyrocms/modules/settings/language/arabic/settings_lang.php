@@ -28,29 +28,29 @@ $lang['settings_dashboard_rss_desc'] 			= 'رابط إلى تغذية RSS تظه
 $lang['settings_dashboard_rss_count'] 			= 'عدد أخبار RSS في لوحة التحكم';
 $lang['settings_dashboard_rss_count_desc'] 		= 'كم عدد أخبار RSS التي تود إظهارها في لوحة التحكم؟';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format'] 					= 'نسق التاريخ';
+$lang['settings_date_format_desc'] 				= 'كيفية عرض التواريخ في الموقع ولوحة التحكم باستخدام نسق تاريخ PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'حالة الموقع';
 $lang['settings_frontend_enabled_desc'] 		= 'استخدم هذا الخيار لإتاحة أو حجب واجهة الموقع. يُمكن الإستفادة من هذا الخيار لحجب الموقع وقت الصيانة.';
 
-$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
-$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+$lang['settings_mail_protocol'] 				= 'بروتوكول البريد';
+$lang['settings_mail_protocol_desc'] 			= 'اختر بروتوكول البريد الإلكتروني المطلوب.';
 
-$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
-$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+$lang['settings_mail_sendmail_path'] 			= 'مسار Sendmail';
+$lang['settings_mail_sendmail_path_desc']		= 'المسار إلى برنامج sendmail.';
 
-$lang['settings_mail_smtp_host'] 				= 'SMTP Host'; #translate
-$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+$lang['settings_mail_smtp_host'] 				= 'مضيف SMTP';
+$lang['settings_mail_smtp_host_desc'] 			= 'اسم مضيف خادم smtp.';
 
-$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
-$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+$lang['settings_mail_smtp_pass'] 				= 'كلمة مرور SMTP';
+$lang['settings_mail_smtp_pass_desc'] 			= 'كلمة مرور SMTP.';
 
-$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
-$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+$lang['settings_mail_smtp_port'] 				= 'منفذ SMTP';
+$lang['settings_mail_smtp_port_desc'] 			= 'رقم منفذ SMTP.';
 
-$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
-$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
+$lang['settings_mail_smtp_user'] 				= 'اسم مستخدم SMTP';
+$lang['settings_mail_smtp_user_desc'] 			= 'اسم مستخدم SMTP.';
 
 $lang['settings_unavailable_message']			= 'رسالة توقّف الموقع';
 $lang['settings_unavailable_message_desc'] 		= 'عند إيقاف الموقع أو عندما تكون هناك مشكلة، ستظهر هذه الرسالة للمستخدمين.';
@@ -73,17 +73,17 @@ $lang['settings_require_lastname_desc'] 		= 'في بعض الحالات، قد �
 $lang['settings_enable_profiles'] 				= 'تمكين الملفات الشخصية';
 $lang['settings_enable_profiles_desc'] 			= 'تمكين المستخدمين من إضافة وتعديل ملفّاتهم الشخصيّة.';
 
-$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
-$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_email'] 						= 'البريد الإلكتروني المرتبط بخدمة إحصائيات جوجل.';
+$lang['settings_ga_email_desc']					= 'عنوان البريد الإلكتروني المستخدم لخدمة إحصائيات جوجل. نحتاج لهذه المعلومة لعرض الرسم البياني في لوحة التحكم.';
 
-$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
-$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_password'] 					= 'كلمة مرور خدمة إحصائيات جوجل';
+$lang['settings_ga_password_desc']				= 'كلمة مرور خدمة إحصائيات جوجل. نحتاج لهذه المعلومة أيضاً لعرض الرسم البياني في لوحة التحكم.';
 
-$lang['settings_ga_profile'] 					= 'Google Analytic Profile'; #translate
-$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+$lang['settings_ga_profile'] 					= 'سجلّ خدمة إحصائيات جوجل';
+$lang['settings_ga_profile_desc']				= 'مُعرّف السجل لهذا الموقع في خدمة إحصائيات جوجل.';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
-$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
+$lang['settings_ga_tracking'] 					= 'رمز تتبّع جوجل';
+$lang['settings_ga_tracking_desc']				= 'أدخل رمز تتبع خدمة إحصائيات جوجل لتفعيل عرض بيانات الخدمة. مثال: UA-19483569-6';
 
 $lang['settings_twitter_username'] 				= 'إسم المستخدم';
 $lang['settings_twitter_username_desc'] 		= 'إسم مستخدم تويتر.';
@@ -106,8 +106,8 @@ $lang['settings_twitter_cache_desc'] 			= 'ما المدة بالدقائق ال
 $lang['settings_akismet_api_key'] 				= 'رمز API لخدمة أكيزمت';
 $lang['settings_akismet_api_key_desc'] 			= 'خدمة أكيزمت هي خدمة منع الرسائل الغير مرغوبة أنشأها فريق وورد برس. تسيطر هذه الخدمة على المُحتوى الغير مرغوب دون الحاجة إلى استخدام الكابتشا في الاستمارات.';
 
-$lang['settings_comment_order'] 				= 'Comment Order'; #translate
-$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+$lang['settings_comment_order'] 				= 'ترتيب التعليقات';
+$lang['settings_comment_order_desc']			= 'ترتيب ظهور التعليقات.';
 
 $lang['settings_moderate_comments'] 			= 'مراقبة التعليقات';
 $lang['settings_moderate_comments_desc']		= 'طلب الموافقة على التعليقات قبل ظهورها على الموقع.';
@@ -118,7 +118,7 @@ $lang['settings_version_desc'] 					= '';
 #section titles
 $lang['settings_section_general']				= 'عام';
 $lang['settings_section_integration']			= 'الدمج';
-$lang['settings_section_comments']				= 'Comments'; #translate
+$lang['settings_section_comments']				= 'تعليقات';
 $lang['settings_section_users']					= 'المستخدمون';
 $lang['settings_section_statistics']			= 'إحصاءيات';
 $lang['settings_section_twitter']				= 'تويتر';
@@ -130,8 +130,8 @@ $lang['settings_form_option_Enabled']			= 'مُمكّن';
 $lang['settings_form_option_Disabled']			= 'مُعطّل';
 $lang['settings_form_option_Required']			= 'إجباري';
 $lang['settings_form_option_Optional']			= 'اختياري';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Oldest First']		= 'الأقدم أولاً';
+$lang['settings_form_option_Newest First']		= 'الأحدث أولاً';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/arabic/settings_lang.php */
