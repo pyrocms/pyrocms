@@ -38,7 +38,7 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'])
 			->append_metadata( css('themes.css', 'themes'))
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
-			->build('admin/index', $this->data);
+			->build('admin/index', $data);
 	}
 
 	/**
