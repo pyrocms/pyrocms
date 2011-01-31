@@ -80,9 +80,10 @@ var replace_html = null;
 		});
         
         //cue up uniform
-        $('select[name=parent_id]').livequery(function() {
+        $('select, #upload-box input[type=text], input[type=file], input[type=submit]').livequery(function() {
             $.uniform && $(this).uniform(); 
         });
+		
         
         /**
          * left files navigation handler
@@ -100,21 +101,50 @@ var replace_html = null;
             
             //add class to click anchor parent
             $(this).parent('li').addClass('current');
+			
+			//remove any notifications
+			$( 'div.notification' ).fadeOut('fast');
             
-            $('#files_right_pane').load(href_val + ' #files-wrapper', function() {
-				$(this).children().fadeIn('slow');
-			});
-            
+			if($(this).attr('title') != 'upload')
+			{
+				$('#files_right_pane').load(href_val + ' #files-wrapper', function() {
+					$(this).children().fadeIn('slow');
+				});
+			}
+			else
+			{
+				var box = $('#upload-box');
+				if (box.is( ":visible" ))
+				{
+					// Hide - slide up.
+					box.fadeOut( 800 );
+				}
+				else
+				{
+					// Show - slide down.
+					box.fadeIn( 800 );
+					 
+				}
+			}
         });
+		
+		$( '#upload-box span.close' ).live('click', function() {
+			
+			$( '#upload-box' ).fadeOut( 800, function() {
+				$(this).find('input[type=text], input[type=file]').val('');
+				$.uniform.update('input[type=file]');
+			});
+			
+		});
         
         $('select[name=parent_id]').live('change', function() {
             var folder_id = $(this).val();
 			var controller = $(this).attr('title');
-            var href_val = controller + '/index/' + folder_id;
+            var href_val = '/wysiwyg/' + controller + '/index/' + folder_id;
             $('#files_right_pane').load(href_val + ' #files-wrapper', function() {
 				$(this).children().fadeIn('slow');
 				var class_exists = $('#folder-id-' + folder_id).html();
-				
+				$( 'div.notification' ).fadeOut('fast');
 				if(class_exists !== null)
 				{
 					$('#files-nav li').removeClass('current');
@@ -147,11 +177,12 @@ var replace_html = null;
 
 		$( '#files_right_pane' ).livequery(function() {
 			$(this).children().fadeIn('slow');
+			$('#upload-box').hide();
 		});
 		
 		$( 'td.image button').livequery(function() {
 			$(this).button();
 		});
-        
+		
 	});
 })(jQuery);

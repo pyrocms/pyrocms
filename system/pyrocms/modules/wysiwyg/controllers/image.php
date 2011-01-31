@@ -1,8 +1,8 @@
 <?php  defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @package 		MizuCMS
+ * @package 		PyroCMS
  * @subpackage 		WYSIWYG
- * @author			Phil Sturgeon
+ * @author			Phil Sturgeon, Stephen Cozart
  *
  * Manages image selection and insertion for WYSIWYG editors
  */
@@ -39,11 +39,6 @@ class Image extends WYSIWYG_Controller
 			->set('active_folder', $active_folder)
 			->title('Images')
 			->build('image/index');
-	}
-
-	public function upload()
-	{
-		
 	}
 
 }

@@ -1,3 +1,29 @@
+<?php foreach($sub_folders as $row)
+				{
+					if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
+					{
+						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
+						$folder_options[$row['id']] = $indent.$row['name'];
+					}
+				}
+?>
+<div id="upload-box">
+	<h2><?php echo lang('files.upload.title'); ?><span class="close ui-icon ui-icon-closethick">Close</span></h2>
+		<?php echo form_open_multipart('admin/wysiwyg/upload'); ?>
+		<?php echo form_hidden('type', 'i'); ?>
+		<?php echo form_hidden('redirect_to', 'image'); ?>
+		<p>
+			<?php echo form_input('name', set_value('name',lang('files.folders.name'))); ?>
+			<?php echo form_upload('userfile'); ?>
+		</p>
+		<p>
+			<?php echo form_dropdown('folder_id', $folder_options); ?>
+		</p>
+		<p>
+			<?php echo form_submit('button_action', lang('buttons.save'), 'class="button"'); ?>
+		</p>
+		<?php echo form_close(); ?>
+  </div>
 <div id="files_browser">
   
     <div id="files_left_pane">
@@ -13,7 +39,7 @@
                 <?php endforeach; ?>
                 
                 <li class="upload">
-                    <?php //echo anchor("admin/wysiwyg/image/upload", lang('files.upload.title'), 'title="upload"'); ?>  
+                    <?php echo anchor("admin/wysiwyg/image/#upload", lang('files.upload.title'), 'title="upload"'); ?>  
                 </li>
                 
             </ul>
@@ -32,14 +58,7 @@
 				<label for="folder"><?php echo lang('files.subfolders.label'); ?>:</label>
 				<?php
 				//$folder_options['0'] = $sub_folders[0];
-				foreach($sub_folders as $row)
-				{
-					if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
-					{
-						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-						$folder_options[$row['id']] = $indent.$row['name'];
-					}
-				}
+				
 				echo form_dropdown('parent_id', $folder_options, $active_folder->id, 'id="parent_id" title="image"');
 				?>
 			</li>
@@ -110,7 +129,9 @@
         <p><?php echo lang('files.no_files'); ?></p>
         <?php endif; ?>
         <?php endif; ?>
+		
         </div>
+		
     </div>
     
 </div>
