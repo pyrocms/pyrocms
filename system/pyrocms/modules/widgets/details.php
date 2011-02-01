@@ -82,7 +82,7 @@ class Module_Widgets extends Module {
 		";
 		
 		$default_data = "
-			INSERT INTO widget_areas (slug, title) VALUES ('unsorted', 'Unsorted');
+			INSERT INTO widget_areas (slug, title) VALUES ('sidebar', 'Sidebar');
 		";
 		
 		if($this->db->query($widget_areas) &&
