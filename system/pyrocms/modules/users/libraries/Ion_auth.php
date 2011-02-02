@@ -200,11 +200,12 @@ class Ion_auth
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+			$this->ci->email->from($this->ci->settings->get('server_email'), $this->ci->settings->get('site_name'));
+			$this->ci->email->reply_to($this->ci->settings->get('contact_email'));
 			$this->ci->email->to($user->email);
-			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
+			$this->ci->email->subject($this->ci->settings->get('site_name') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
-
+			
 			if ($this->ci->email->send())
 			{
 				$this->set_error('forgot_password_successful');
@@ -255,9 +256,10 @@ class Ion_auth
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+			$this->ci->email->from($this->ci->settings->get('server_email'), $this->ci->settings->get('site_name'));
+			$this->ci->email->reply_to($this->ci->settings->get('contact_email'));
 			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - New Password');
+			$this->ci->email->subject($this->ci->settings->get('site_name') . ' - New Password');
 			$this->ci->email->message($message);
 
 			if ($this->ci->email->send())
@@ -334,9 +336,10 @@ class Ion_auth
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+			$this->ci->email->from($this->ci->settings->get('server_email'), $this->ci->settings->get('site_name'));
+			$this->ci->email->reply_to($this->ci->settings->get('contact_email'));
 			$this->ci->email->to($email);
-			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Account Activation');
+			$this->ci->email->subject($this->ci->settings->get('site_name') . ' - Account Activation');
 			$this->ci->email->message($message);
 
 			if ($this->ci->email->send() == TRUE)
