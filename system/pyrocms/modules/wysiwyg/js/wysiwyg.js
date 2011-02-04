@@ -8,7 +8,7 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="/uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
     windowClose();
 }
 
@@ -18,7 +18,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + SITE_URL + '/files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="/files/download/' + id + '">' + title + '</a>');
     windowClose();
 }
 
@@ -162,7 +162,7 @@ var replace_html = null;
 				value:200,
 				min: 50,
 				max: 800,
-				step: 50,
+				step: 1,
 				slide: function( event, ui ) {
 					$( "#insert_width" ).val( ui.value + 'px' );
 				}
