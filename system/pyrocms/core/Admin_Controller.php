@@ -67,7 +67,7 @@ class Admin_Controller extends MY_Controller
 	    	->append_metadata( js('jquery/jquery-ui-1.8.4.min.js') )
 	    	->append_metadata( js('jquery/jquery.colorbox.min.js') )
 	    	->append_metadata( js('jquery/jquery.livequery.js') )
-	    	->append_metadata( js('admin/jquery.uniform.min.js') )
+	    	->append_metadata( js('jquery/jquery.uniform.min.js') )
 	    	->append_metadata( js('admin/functions.js') )
     		->append_metadata( '<script type="text/javascript">pyro.apppath_uri="'.APPPATH_URI.'";pyro.base_uri="'.BASE_URI.'";</script>' )
 
