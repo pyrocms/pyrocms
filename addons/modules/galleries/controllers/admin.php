@@ -476,7 +476,7 @@ class Admin extends Admin_Controller
 		foreach ($ids as $id)
 		{
 			$this->gallery_images_m->update($id, array(
-				'`order`' => $i
+				'order' => $i
 			));
 
 			if ($i === 1)
