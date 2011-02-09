@@ -19,7 +19,8 @@ class Module_Themes extends Module {
 				'it' => 'Temi',
 				'ru' => 'Темы',
 				'ar' => 'السّمات',
-				'cs' => 'Motivy vzhledu'
+				'cs' => 'Motivy vzhledu',
+				'fi' => 'Teemat'
 			),
 			'description' => array(
 				'en' => 'Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.',
@@ -33,7 +34,8 @@ class Module_Themes extends Module {
 				'it' => 'Permette ad amministratori e staff di cambiare il tema del sito, carica nuovi temi e gestiscili in um modo più visuale.',
 				'ru' => 'Управление темами оформления сайта, загрузка новых тем.',
 				'ar' => 'تمكّن الإدارة وأعضاء الموقع تغيير سِمة الموقع، وتحميل سمات جديدة وإدارتها بطريقة مرئية سلسة.',
-				'cs' => 'Umožňuje administrátorům a dalším osobám měnit vzhled webu, nahrávat nové motivy a spravovat je.'
+				'cs' => 'Umožňuje administrátorům a dalším osobám měnit vzhled webu, nahrávat nové motivy a spravovat je.',
+				'fi' => 'Mahdollistaa sivuston teeman vaihtamisen, uusien teemojen lataamisen ja niiden hallinnoinnin visuaalisella käyttöliittymällä.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

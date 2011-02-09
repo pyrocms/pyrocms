@@ -19,7 +19,8 @@ class Module_Variables extends Module {
 				'it' => 'Variabili',
 				'ru' => 'Переменные',
 				'ar' => 'المتغيّرات',
-				'cs' => 'Proměnné'
+				'cs' => 'Proměnné',
+				'fi' => 'Muuttujat'
 			),
 			'description' => array(
 				'en' => 'Manage global variables to access from everywhere.',
@@ -33,7 +34,8 @@ class Module_Variables extends Module {
 				'it' => 'Gestisci le variabili globali per accedervi da ogni parte.',
 				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.',
 				'ar' => 'إدارة المُتغيّرات العامة لاستخدامها في أرجاء الموقع.',
-				'cs' => 'Spravujte globální proměnné přístupné odkudkoliv.'
+				'cs' => 'Spravujte globální proměnné přístupné odkudkoliv.',
+				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

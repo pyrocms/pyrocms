@@ -18,7 +18,8 @@ class Module_Files extends Module {
 				'ru' => 'Файлы',
 				'ar' => 'الملفّات',
 				'cs' => 'Soubory',
-				'es' => 'Archivos'
+				'es' => 'Archivos',
+				'fi' => 'Tiedostot'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -31,7 +32,8 @@ class Module_Files extends Module {
 				'ru' => 'Управление файлами и папками вашего сайта.',
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
 				'cs' => 'Spravujte soubory a složky na vašem webu.',
-				'es' => 'Administra archivos y carpetas en tu sitio.'
+				'es' => 'Administra archivos y carpetas en tu sitio.',
+				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
