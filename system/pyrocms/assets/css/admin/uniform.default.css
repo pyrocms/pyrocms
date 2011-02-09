@@ -21,8 +21,6 @@ div.checker span,
 div.radio span, 
 div.uploader, 
 div.uploader span.action,
-div.button,
-div.button span,
 div.minibutton,
 div.minibutton span {
   background-image: url(../../img/admin/uniform/sprite.png);
@@ -34,13 +32,11 @@ div.minibutton span {
 .radio, 
 .checker, 
 .uploader,
-.button,
 .minibutton,
 .selector *, 
 .radio *, 
 .checker *, 
 .uploader *,
-.button *,
 .minibutton *{
   margin: 0;
   padding: 0;
@@ -331,53 +327,6 @@ div.uploader.disabled span.action {
   background-position: right -381px;
 }
 
-/* normal button */
-
-div.button {
-  background-position: 0px -523px;
-}
-
-div.button span {
-  background-position: right -643px;
-}
-
-div.button.focus,
-div.button:focus,
-div.button:hover,
-div.button.hover {
-  background-position: 0px -553px;
-}
-
-div.button.focus span,
-div.button:focus span,
-div.button:hover span,
-div.button.hover span {
-  background-position: right -673px; 
-}
-
-div.button.active,
-div.button:active {
-  background-position: 0px -583px;
-}
-
-div.button.active span,
-div.button:active span {
-  background-position: right -703px;
-  color: #555;
-}
-
-div.button.disabled,
-div.button:disabled {
-  background-position: 0px -613px;
-}
-
-div.button.disabled span,
-div.button:disabled span {
-  background-position: right -733px;
-  color: #bbb;
-  cursor: default;
-}
-
 /* PRESENTATION */
 
 /* Button */
@@ -549,7 +498,6 @@ Not advised to edit stuff below this line
 
 .selector, 
 .checker, 
-.button,
 .minibutton,
 .radio, 
 .uploader {
@@ -566,23 +514,9 @@ Not advised to edit stuff below this line
 
 /* Button */
 
-div.button a,
-div.button button,
 div.minibutton .minibutton,
 div.button input {
   position: absolute;
-}
-
-div.button {
-  cursor: pointer;
-  position: relative;
-}
-
-div.button span {
-  display: -moz-inline-box;
-  display: inline-block;
-  line-height: 1;
-  text-align: center;
 }
 
 div.minibutton {

@@ -1,5 +1,6 @@
 var CKEDITOR = window.parent.CKEDITOR;
 var img_float;
+
 function insertImage(file, alt)
 {
 	if(replace_html)
@@ -8,7 +9,7 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="/uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + 'uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
     windowClose();
 }
 
@@ -18,7 +19,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="/files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + BASE_URI + 'files/download/' + id + '">' + title + '</a>');
     windowClose();
 }
 
@@ -65,7 +66,7 @@ var replace_html = null;
 
 			if( ! element.hasClass('pyro-image')) return false;
 
-			$('#current_document').load(BASE_URI + 'admin/wysiwyg/files/ajax_get_file', {
+			$('#current_document').load(BASE_URI + 'index.php/admin/wysiwyg/files/ajax_get_file', {
 				doc_id: element.attr('href').match(/\/download\/([0-9]+)/)[1]
 			});
 

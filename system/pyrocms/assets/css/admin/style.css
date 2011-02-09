@@ -3,6 +3,7 @@
 @import "../common.css";
 @import "uniform.default.css";
 @import "forms.css";
+@import "buttons.css";
 
 /* MOVE ME SOMEWHERE */
 
@@ -589,14 +590,6 @@ ul#login-footer li a  {
 ul#login-footer li a:hover {
 	background-position: 0 -23px;
 }
-
-/** Pyro Buttons **/
-.pyro-button {
-	width: auto;
-	display: inline-block;
-	margin-right: 10px;
-}
-
 
 /** Flexiboxes **/
 .box {

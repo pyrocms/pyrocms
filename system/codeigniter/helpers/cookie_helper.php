@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -51,7 +51,7 @@ if ( ! function_exists('set_cookie'))
 		$CI->input->set_cookie($name, $value, $expire, $domain, $path, $prefix);
 	}
 }
-	
+
 // --------------------------------------------------------------------
 
 /**
@@ -67,14 +67,14 @@ if ( ! function_exists('get_cookie'))
 	function get_cookie($index = '', $xss_clean = FALSE)
 	{
 		$CI =& get_instance();
-		
+
 		$prefix = '';
-		
+
 		if ( ! isset($_COOKIE[$index]) && config_item('cookie_prefix') != '')
 		{
 			$prefix = config_item('cookie_prefix');
 		}
-		
+
 		return $CI->input->cookie($prefix.$index, $xss_clean);
 	}
 }

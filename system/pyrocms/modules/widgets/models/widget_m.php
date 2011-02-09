@@ -95,7 +95,7 @@ class Widget_m extends MY_Model
 			'widget_id' => $input['widget_id'],
 			'widget_area_id' => $input['widget_area_id'],
 			'options' => $input['options'],
-			'`order`' => $order,
+			'order' => $order,
 			'created_on' => now(),
 			'updated_on' => now()
 		));
@@ -117,7 +117,7 @@ class Widget_m extends MY_Model
 		$this->db->where('id', $id);
 		
 		return $this->db->update('widget_instances', array(
-        	'`order`' => (int) $order
+        	'order' => (int) $order
 		));
 	}
 	
@@ -138,7 +138,7 @@ class Widget_m extends MY_Model
 		// Get the id for this area
 		$area = $this->db->select('id')->get_where('widget_areas', array('slug' => $slug))->row();
 		
-		if(isset($area->id))
+		if (isset($area->id))
 		{
 			// Delete widgets in that area
 			$this->db->delete('widget_instances', array('widget_area_id' => $area->id));

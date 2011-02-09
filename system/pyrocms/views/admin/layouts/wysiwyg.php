@@ -7,6 +7,12 @@
 	
 	<title><?php echo $template['title']; ?></title>
 
+	<script type="text/javascript">
+		var APPPATH_URI = "<?php echo APPPATH_URI;?>";
+		var BASE_URL = "<?php echo rtrim(site_url(), '/').'/';?>";
+		var BASE_URI = "<?php echo BASE_URI;?>";
+	</script>
+
 	<?php echo $template['metadata']; ?>
 
 	<script type="text/javascript">
@@ -31,14 +37,16 @@
 
 			$(function()
 			{
-//				// Fancybox modal window
-//				$('a[rel=modal], a.modal').livequery(function() {
-//					$(this).fancybox({
-//						overlayOpacity: 0.8,
-//						overlayColor: '#000',
-//						hideOnContentClick: false
-//					});
-//				});
+				// Fancybox modal window
+				$('a[rel=modal], a.modal').livequery(function() {
+					$(this).fancybox({
+						overlayOpacity: 0.8,
+						overlayColor: '#000',
+						hideOnContentClick: false,
+						onClosed: function(){ location.reload(); }
+					});
+				});
+
 //
 //				$('a[rel="modal-large"], a.modal-large').livequery(function() {
 //					$(this).fancybox({

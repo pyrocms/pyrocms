@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -36,7 +36,7 @@ class CI_Input {
 	var $_enable_csrf			= FALSE; // Set automatically based on config setting
 
 	protected $headers			= array();
-
+	
 
 	/**
 	 * Constructor
@@ -59,7 +59,7 @@ class CI_Input {
 			$this->security =& load_class('Security');
 		}
 
-		// Do we need the Unicode class?
+		// Do we need the UTF-8 class?
 		if (UTF8_ENABLED === TRUE)
 		{
 			global $UNI;
@@ -374,9 +374,9 @@ class CI_Input {
 	function _sanitize_globals()
 	{
 		// It would be "wrong" to unset any of these GLOBALS.
-		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST',
+		$protected = array('_SERVER', '_GET', '_POST', '_FILES', '_REQUEST', 
 							'_SESSION', '_ENV', 'GLOBALS', 'HTTP_RAW_POST_DATA',
-							'system_folder', 'application_folder', 'BM', 'EXT',
+							'system_folder', 'application_folder', 'BM', 'EXT', 
 							'CFG', 'URI', 'RTR', 'OUT', 'IN');
 
 		// Unset globals for securiy.
@@ -548,7 +548,7 @@ class CI_Input {
 	/**
 	 * Request Headers
 	 *
-	 * In Apache, you can simply call apache_request_headers(), however for
+	 * In Apache, you can simply call apache_request_headers(), however for 
 	 * people running other webservers the function is undefined.
 	 *
 	 * @return array
@@ -578,10 +578,10 @@ class CI_Input {
 		{
 			$key = str_replace('_', ' ', strtolower($key));
 			$key = str_replace(' ', '-', ucwords($key));
-
+			
 			$this->headers[$key] = $val;
 		}
-
+		
 		return $this->headers;
 	}
 
@@ -602,7 +602,7 @@ class CI_Input {
 		{
 			$this->request_headers();
 		}
-
+		
 		if ( ! isset($this->headers[$index]))
 		{
 			return FALSE;
@@ -614,7 +614,7 @@ class CI_Input {
 			return $_security->xss_clean($this->headers[$index]);
 		}
 
-		return $this->headers[$index];
+		return $this->headers[$index];		
 	}
 
 	// --------------------------------------------------------------------
@@ -629,6 +629,20 @@ class CI_Input {
 	public function is_ajax_request()
 	{
 		return ($this->server('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest');
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Is cli Request?
+	 *
+	 * Test to see if a request was made from the command line
+	 *
+	 * @return 	boolean
+	 */
+	public function is_cli_request()
+	{
+		return (bool) defined('STDIN');
 	}
 
 }

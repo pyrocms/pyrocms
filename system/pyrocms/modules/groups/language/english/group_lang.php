@@ -1,12 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['groups.title'] = 'Title';
-$lang['groups.name']                    = 'Name';
-$lang['groups.description']             = 'Description';
-$lang['groups.actions']                 = 'Actions';
-$lang['groups.edit']                    = 'Edit';
-$lang['groups.delete']                  = 'Delete';
+$lang['groups.title']					= 'Title';
+$lang['groups.name']				    = 'Name';
+$lang['groups.short_name']				= 'Short Name'; 
+$lang['groups.description'] 		    = 'Description';
+$lang['groups.actions']					= 'Actions';
+$lang['groups.edit']					= 'Edit';
+$lang['groups.delete']					= 'Delete';
 
 // titles
 $lang['groups.index_title']             = 'List Groups';

@@ -156,4 +156,34 @@ class Comments_m extends MY_Model
 	{
 		return parent::update($id, array('is_active' => 0));
 	}
+	
+	public function get_slugs()
+	{
+		$this->db->select('comments.module, modules.name')
+						->distinct()
+						->join('modules', 'comments.module = modules.slug', 'left');
+		$slugs = parent::get_all();
+		
+		$options = array();
+		
+		if(!empty($slugs))
+		{
+			foreach($slugs as $slug)
+			{
+				//get the module name
+				$module_names = unserialize($slug->name);
+				
+				if(array_key_exists(CURRENT_LANGUAGE, $module_names))
+				{
+					$name = $module_names[CURRENT_LANGUAGE];
+				}
+				else
+				{
+					$name = $module_names['en'];
+				}
+				$options[$slug->module] = $name;
+			}
+		}
+		return $options;
+	}
 }

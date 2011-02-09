@@ -1,8 +1,8 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 /* load MX core classes */
-require_once 'Lang.php';
-require_once 'Config.php';
+require_once dirname(__FILE__).'/Lang.php';
+require_once dirname(__FILE__).'/Config.php';
 
 /**
  * Modular Extensions - HMVC
@@ -16,8 +16,8 @@ require_once 'Config.php';
  *
  * Install this file as application/third_party/MX/Base.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-09-09
- * @version 	5.3.4
+ * @copyright	Copyright (c) Wiredesignz 2010-11-12
+ * @version 	5.3.5
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,37 +37,44 @@ require_once 'Config.php';
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
+if ( ! (CI_VERSION < 2)) {
+	class CI_Base extends CI_Controller	{}
+}
+
 class CI extends CI_Base
 {
 	public static $APP;
 	
 	public function __construct() {
 		
+		/* assign the application instance */
+		self::$APP = $this;
+		
 		parent::__construct();
 		
-		/* assign the application instance */
-		self::$APP = CI_Base::get_instance();
+		if (CI_VERSION < 2) {
+			
+			/* assign the core classes */
+			$classes = array(
+				'config'	=> 'Config',
+				'input'		=> 'Input',
+				'benchmark'	=> 'Benchmark',
+				'uri'		=> 'URI',
+				'output'	=> 'Output',
+				'lang'		=> 'Language',
+				'router'	=> 'Router'
+			);
+			
+			foreach ($classes as $key => $class) {	
+				$this->$key = load_class($class);	
+			}
 		
-		/* assign the core classes */
-		$classes = (CI_VERSION < 2) ? array(
-			'config'	=> 'Config',
-			'input'		=> 'Input',
-			'benchmark'	=> 'Benchmark',
-			'uri'		=> 'URI',
-			'output'	=> 'Output',
-			'lang'		=> 'Language',
-			'router'	=> 'Router'
-		) : is_loaded();
-		
-		foreach ($classes as $key => $class) {
-			$this->$key = load_class($class);	
+			/* assign the core loader */
+			$this->load = load_class('Loader');
+			
+			/* autoload application items */
+			$this->load->_ci_autoloader();
 		}
-		
-		/* assign the core loader */
-		$this->load = load_class('Loader', 'core');
-		
-		/* autoload application items */
-		$this->load->_ci_autoloader();
 		
 		/* re-assign language and config for modules */
 		if ( ! is_a($this->lang, 'MX_Lang')) $this->lang = new MX_Lang;

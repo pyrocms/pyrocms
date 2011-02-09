@@ -39,6 +39,7 @@ class Module_News extends Module {
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
+			'skip_xss' => TRUE,
 			'menu' => 'content'
 		);
 	}
