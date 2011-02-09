@@ -1,5 +1,5 @@
 <?php
-class Ajax extends Controller
+class Ajax extends CI_Controller
 {
 	function url_title()
 	{

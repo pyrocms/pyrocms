@@ -2,7 +2,7 @@
     $(function() {
         //filter form object
         var filter_form = $('form.filter');
-        
+        $('a.cancel').button();
         //lets get the current module,  we will need to know where to post the search criteria
         var f_module = $('input[name="f_module"]').val();
         
@@ -33,21 +33,34 @@
         
         });
         
+        //listener for pagination
+        $('.pagination a').live('click', function(e) {
+            e.preventDefault();
+            url = $(this).attr('href');
+            form_data = filter_form.serialize();
+            do_filter(f_module, form_data, url);
+        });
+        
         //launch the query based on module
-        function do_filter(module, form_data)
+        function do_filter(module, form_data, url)
         {
+            post_url = BASE_URI + 'admin/' + module;
+            if(typeof url !== 'undefined')
+            {
+                post_url = url;
+            }
                 $('#content').fadeOut('fast', function() {
                     //send the request to the server
-                    $.post(BASE_URL + '/admin/'+module+'/ajax_filter', form_data, function(data, response, xhr) {
+                    $.post(post_url, form_data, function(data, response, xhr) {
                             //success stuff here
-                            $.uniform.update();
+                            $.uniform.update('button, select, input');
                             $('#content').html(data).fadeIn('fast');
                     });
                 });
         }
         
         //clear filters
-        $('button[name="f_clear"]', filter_form).click(function() {
+        $('a.cancel', filter_form).click(function() {
         
                 //reset the defaults
                 //$('select', filter_form).children('option:first').addAttribute('selected', 'selected');
@@ -55,7 +68,7 @@
                 
                 //clear text inputs
                 $('input[type="text"]').val('');
-                $.uniform.update();
+        
                 //build the form data
                 form_data = filter_form.serialize();
         

@@ -204,12 +204,12 @@
 	function re_accordion(active_id)
 	{
 		$('#widget-areas .accordion').accordion('destroy').accordion({
-						collapsible: true,
-						header: 'header',
-						autoHeight: false,
-						clearStyle: true,
-						active: active_id
-					});
+			collapsible: true,
+			header: 'header',
+			autoHeight: false,
+			clearStyle: true,
+			active: active_id
+		});
 	}
 	
 	//--------------------------------------------------------------------
@@ -221,16 +221,16 @@
 		add_instance = $('#add-instance-box');
 		edit_instance = $('#edit-instance-box');
 		sort_options = {
-				update: function() {
-				    order = new Array();
-				    $('li', this).each(function(){
-					id = $(this).attr('id').replace('instance-', '');
-					    order.push( id );
-				    });
-				    order = order.join(',');
-    
-				    $.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order });
-				}
+			update: function() {
+				order = new Array();
+				$('li', this).each(function(){
+				id = $(this).attr('id').replace('instance-', '');
+					order.push( id );
+				});
+				order = order.join(',');
+
+				$.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order });
+			}
 		};
 		
 		//--------------------------------------------------------------------

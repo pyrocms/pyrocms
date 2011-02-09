@@ -11,16 +11,6 @@
 class MY_Image_lib extends CI_Image_lib
 {
 	/**
-	 * Constructor method
-	 * @access public
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::CI_Image_lib();
-	}
-	
-	/**
 	 * Image Process Using GD/GD2
 	 *
 	 * This function will resize or crop

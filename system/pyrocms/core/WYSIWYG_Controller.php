@@ -10,7 +10,7 @@
  */
 class WYSIWYG_Controller extends MY_Controller
 {
-	function WYSIWYG_Controller()
+	public function WYSIWYG_Controller()
 	{
 		parent::__construct();
 

@@ -11,7 +11,7 @@
             <?php echo form_dropdown('f_category', $categories); ?>
         </li>
 	<li><?php echo form_input('f_keywords'); ?></li>
-	<?php echo form_button('f_clear', lang('buttons.cancel')); ?>
+	<li><?php echo anchor(current_url() . '#', lang('buttons.cancel'), 'class="cancel"'); ?></li>
 </ul>
 <?php echo form_close(); ?>
 <br class="clear-both">

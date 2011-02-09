@@ -7,8 +7,8 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + '/files/download/' + id + '">' + title + '</a>');
-    windowClose();
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + BASE_URI + 'files/download/' + id + '">' + title + '</a>');
+	windowClose();
 }
 
 // By default, insert (which will also replace)
@@ -80,7 +80,10 @@ var replace_html = null;
 <?php endif;?>
 <div id="images-container">
 <?php if (!empty($folder_meta)): ?>
-<h3>Files in "<?php echo $folder_meta->name; ?>"<span><?php echo anchor('admin/wysiwyg/files', 'Go Back'); ?></span></h3>
+<h3>Files in "<?php echo $folder_meta->name; ?>"
+<span><?php echo anchor('admin/wysiwyg/files', 'Go Back'); ?></span><br />
+<span><?php echo anchor('admin/files/upload/'.$folder_meta->id, 'Upload', 'class="iframe" rel="modal"'); ?></span>
+</h3>
 <?php endif; ?>
 <?php if (!empty($files)): ?>
 
@@ -113,4 +116,5 @@ var replace_html = null;
 <?php elseif (empty($folders)): ?>
 	<p>No files found.</p>
 <?php endif;?>
+	<p id="create_folder"><?php echo anchor('admin/files/folders/create', 'Create Folder', 'class="iframe" rel="modal"'); ?></p>
 </div>

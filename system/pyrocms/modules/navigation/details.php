@@ -82,7 +82,8 @@ class Module_Navigation extends Module {
 		
 		$default_links = "
 			INSERT INTO navigation_links (title, link_type, page_id, navigation_group_id, position) VALUES
-			('Home', 'page', 1, 1, 1);
+			('Home', 'page', 1, 1, 1),
+			('Contact', 'page', 3, 1, 2);
 		";
 		
 		if($this->db->query($navigation_groups) &&

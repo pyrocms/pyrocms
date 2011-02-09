@@ -132,9 +132,9 @@ class News_m extends MY_Model {
 	{
 		$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', FALSE);
 		$this->db->distinct();
-		$this->db->select('(SELECT count(id) FROM news t2 
-							WHERE MONTH(FROM_UNIXTIME(t1.created_on)) = MONTH(FROM_UNIXTIME(t2.created_on)) 
-								AND YEAR(FROM_UNIXTIME(t1.created_on)) = YEAR(FROM_UNIXTIME(t2.created_on)) 
+		$this->db->select('(SELECT count(id) FROM news t2
+							WHERE MONTH(FROM_UNIXTIME(t1.created_on)) = MONTH(FROM_UNIXTIME(t2.created_on))
+								AND YEAR(FROM_UNIXTIME(t1.created_on)) = YEAR(FROM_UNIXTIME(t2.created_on))
 								AND status = "live"
 								AND created_on <= ' . now() . '
 						   ) as article_count');
