@@ -114,8 +114,8 @@ class Module_Pages extends Module {
 		$default_pages = "
 			INSERT INTO `pages` (`id`, `slug`, `title`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`) VALUES
 			('1','home', 'Home', 1, 0, 1, 'live', ".time().", ".time()."),
-			('2', '404', 'Page missing', 1, 0, '1', 'live', ".time().", ".time()."),
-			('3','contact', 'Contact', 1, 0, 1, 'live', ".time().", ".time().");
+			('2', '404', 'Page missing', 2, 0, '1', 'live', ".time().", ".time()."),
+			('3','contact', 'Contact', 3, 0, 1, 'live', ".time().", ".time().");
 		";
 
 		$default_revisions = "
