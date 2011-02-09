@@ -9,8 +9,8 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="'+get_align()+';" src="<?php echo base_url();?>uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
-    windowClose();
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + 'uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+    	windowClose();
 }
 
 function get_align()

@@ -229,7 +229,7 @@
 				});
 				order = order.join(',');
 
-				$.post(BASE_URL + '/widgets/ajax/update_order', { order: order });
+				$.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order });
 			}
 		};
 		

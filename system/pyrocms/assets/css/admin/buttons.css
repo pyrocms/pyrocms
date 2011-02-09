@@ -1,0 +1,64 @@
+button:hover {
+    cursor: pointer;
+}
+button:-moz-focus-inner {
+    border: 0 none;
+}
+.buttons a {
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
+    border: 1px solid #B9B9B9;
+    color: #666666;
+    display: inline-block;
+    font-size: 150%;
+    line-height: 1;
+    margin: 8px 4px 0 0;
+    min-width: 150px;
+    padding: 9px 12px 11px 10px;
+    text-align: center;
+}
+button {
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
+    border: 1px solid #B9B9B9;
+    color: #666666;
+    font-size: 150%;
+    line-height: 1;
+    margin: 8px 4px 0 0;
+    min-width: 150px;
+    padding: 9px 12px 11px 10px;
+    text-align: center;
+}
+button:hover {
+    background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;
+}
+button:active {
+    background: -moz-linear-gradient(0% 100% 90deg, #EEEEEE, #E8E8E8) repeat scroll 0 0 transparent;
+}
+button.positive {
+    background: -moz-linear-gradient(0% 100% 90deg, #63A62F, #7FBF4D) repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #FFFFFF;
+}
+button.positive:hover {
+    background: -moz-linear-gradient(0% 100% 90deg, #5A962C, #72AC45) repeat scroll 0 0 transparent;
+}
+button.positive:active {
+    background: -moz-linear-gradient(0% 100% 90deg, #7FBF4D, #63A62F) repeat scroll 0 0 transparent;
+}
+.buttons a.small, button.small {
+    font-size: 115%;
+    margin: 0 4px 0 0;
+    min-width: 60px;
+    padding: 4px 8px 5px;
+}
+.buttons a img, button img {
+    margin: -2px 2px 0 0;
+    vertical-align: middle;
+}

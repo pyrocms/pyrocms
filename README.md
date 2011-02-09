@@ -57,3 +57,4 @@ Think you should be on this list? Add your name to it with your next bug pull re
 * [Bartosz Majewski](http://404design.pl/) Polish
 * [diederikeijgelaar](http://github.com/diederikeijgelaar) Dutch
 * [okhayat](http://webymaster.com/) Arabic
+* [DarkPreacher](http://darklab.ru) Russian

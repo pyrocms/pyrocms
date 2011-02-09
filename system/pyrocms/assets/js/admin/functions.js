@@ -154,10 +154,9 @@ jQuery(function($) {
 				}
 			});
 		});
-		$("select, textarea, input[type=text], input[type=file], input[type=submit], a.button, a.minibutton, button").livequery(function () {
-			// Update uniform if enabled
-			$.uniform && $(this).uniform();
-		});
+
+		$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform();
+
 		var current_module = $('#page-header h1 a').text();
 		// Fancybox modal window
 		$('a[rel=modal], a.modal').livequery(function() {

@@ -7,7 +7,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + '<?php echo site_url(); ?>files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + BASE_URI + 'files/download/' + id + '">' + title + '</a>');
 	windowClose();
 }
 
