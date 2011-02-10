@@ -1,12 +1,3 @@
-<?php foreach($sub_folders as $row)
-				{
-					if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
-					{
-						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-						$folder_options[$row['id']] = $indent.$row['name'];
-					}
-				}
-?>
 <div id="upload-box">
 	<h2><?php echo lang('files.upload.title'); ?><span class="close ui-icon ui-icon-closethick">Close</span></h2>
 		<?php echo form_open_multipart('admin/wysiwyg/upload'); ?>

@@ -35,9 +35,23 @@ class Image extends WYSIWYG_Controller
 			$active_folder->items = $this->file_m->get_many_by(array('folder_id' => $id, 'type' => 'i'));
 		}
 		
+		$folder_options = array();
+		
+		if(!empty($sub_folders))
+		{
+			foreach($sub_folders as $row)
+			{
+				if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
+				{
+					$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
+					$folder_options[$row['id']] = $indent.$row['name'];
+				}
+			}
+		}
+		
 		$this->template
 			->set('folders', $folders)
-			->set('sub_folders', $sub_folders)
+			->set('folder_options', $folder_options)
 			->set('active_folder', $active_folder)
 			->title('Images')
 			->build('image/index');
