@@ -1,7 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-/* define the module locations and offset */
-Modules::$locations = array(
+/* get module locations from config settings or use the default module location and offset */
+is_array(Modules::$locations = config_item('modules_locations')) OR Modules::$locations = array(
 	APPPATH.'modules/' => '../modules/',
 );
 
@@ -20,8 +20,8 @@ spl_autoload_register('Modules::autoload');
  *
  * Install this file as application/third_party/MX/Modules.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-11-12
- * @version 	5.3.5
+ * @copyright	Copyright (c) 2011 Wiredesignz
+ * @version 	5.4
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,7 @@ class Modules
 				$args = func_get_args();
 				$output = call_user_func_array(array($class, $method), array_slice($args, 1));
 				$buffer = ob_get_clean();
-				return ($output) ? $output : $buffer;
+				return ($output !== NULL) ? $output : $buffer;
 			}
 		}
 		
@@ -74,6 +74,7 @@ class Modules
 	
 	/** Load a module controller **/
 	public static function load($module) {
+		
 		(is_array($module)) ? list($module, $params) = each($module) : $params = NULL;	
 		
 		/* get the requested controller class name */
@@ -116,8 +117,8 @@ class Modules
 			return;
 		}
 		
-		/* autoload CI 2 core classes */
-		if( ! (CI_VERSION < 2) AND is_file($location = APPPATH.'core/'.$class.EXT)) {
+		/* autoload core classes */
+		if(is_file($location = APPPATH.'core/'.$class.EXT)) {
 			include_once $location;
 			return;
 		}		
@@ -186,7 +187,7 @@ class Modules
 		}
 		
 		/* is the file in an application directory? */
-		if ($base == 'views/' OR $base == 'models/' OR $base == 'plugins/') {
+		if ($base == 'views/' OR $base == 'plugins/') {
 			if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);	
 			show_error("Unable to locate the file: {$path}{$file_ext}");
 		}
