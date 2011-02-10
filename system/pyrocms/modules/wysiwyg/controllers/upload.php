@@ -68,7 +68,7 @@ class Upload extends WYSIWYG_Controller
 					'user_id' => $this->user->id,
 					'type' => $type,
 					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
+					'description' => $this->input->post('description') ? $this->input->post('description') : '',
 					'filename' => $img['upload_data']['file_name'],
 					'extension' => $img['upload_data']['file_ext'],
 					'mimetype' => $img['upload_data']['file_type'],
