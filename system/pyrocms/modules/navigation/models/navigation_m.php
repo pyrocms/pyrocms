@@ -104,13 +104,13 @@ class Navigation_m extends CI_Model
 		$this->db->insert('navigation_links', array(
         	'title' 				=> $input['title'],
         	'link_type' 			=> $input['link_type'],
-        	'url' 					=> $input['url'],
-        	'uri' 					=> $input['uri'],
+        	'url' 					=> isset($input['url']) ? $input['url'] : '',
+        	'uri' 					=> isset($input['uri']) ? $input['uri'] : '',
         	'module_name' 			=> $input['module_name'],
         	'page_id' 				=> (int) $input['page_id'],
         	'position' 				=> $position,
-			'target'				=> $input['target'],
-			'class'					=> $input['class'],
+			'target'				=> isset($input['target']) ? $input['target'] : '',
+			'class'					=> isset($input['class']) ? $input['class'] : '',
         	'navigation_group_id'	=> (int) $input['navigation_group_id']
 		));
         
