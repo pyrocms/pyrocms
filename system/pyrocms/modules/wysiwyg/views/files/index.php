@@ -88,6 +88,9 @@
         <?php else: ?>
         <p><?php echo lang('files.no_files'); ?></p>
         <?php endif; ?>
+		
+		<?php else: ?>
+		<p><?php echo lang('files.folders.no_folders'); ?><?php echo anchor('admin/files/folders/create', lang('files.folders.create'), 'class="button"'); ?></p>
         <?php endif; ?>
         </div>
     </div>
