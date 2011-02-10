@@ -109,7 +109,6 @@ class Cache
 		// See if we have this cached or delete if $expires is negative
 		if($expires >= 0)
 		{
-			echo "caching ".$cache_file;
 			$cached_response = $this->get($cache_file);
 		}
 		else
