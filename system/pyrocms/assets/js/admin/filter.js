@@ -1,7 +1,7 @@
 (function($) {
     $(function() {
         //filter form object
-        var filter_form = $('form.filter');
+        var filter_form = $('.filter form');
         $('a.cancel').button();
         //lets get the current module,  we will need to know where to post the search criteria
         var f_module = $('input[name="f_module"]').val();
