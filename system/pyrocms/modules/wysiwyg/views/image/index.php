@@ -38,9 +38,11 @@
                 
                 <?php endforeach; ?>
                 
+				<?php if(!empty($folder_options)): ?>
                 <li class="upload">
                     <?php echo anchor("admin/wysiwyg/image/#upload", lang('files.upload.title'), 'title="upload"'); ?>  
                 </li>
+				<?php endif; ?>
                 
             </ul>
     </div>
@@ -128,7 +130,10 @@
         <?php else: ?>
         <p><?php echo lang('files.no_files'); ?></p>
         <?php endif; ?>
-        <?php endif; ?>
+	
+	<?php else: ?>	
+		<p><?php echo lang('files.folders.no_folders'); ?><?php echo anchor('admin/files/folders/create', lang('files.folders.create'), 'class="button"'); ?></p>
+<?php endif; ?>
 		
         </div>
 		
