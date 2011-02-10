@@ -5,7 +5,7 @@
  *
  * Partial Caching library for CodeIgniter
  *
- * @category	        Libraries
+ * @category	Libraries
  * @author		Phil Sturgeon
  * @link		http://philsturgeon.co.uk/code/codeigniter-cache
  * @license		MIT
@@ -14,14 +14,14 @@
 
 class Cache
 {
-	private $ci;
-	private $path;
-	private $contents;
-	private $filename;
-	private $expires;
-	private $default_expires;
-	private $created;
-	private $dependencies;
+	private $_ci;
+	private $_path;
+	private $_contents;
+	private $_filename;
+	private $_expires;
+	private $_default_expires;
+	private $_created;
+	private $_dependencies;
 
 	/**
 	 * Constructor - Initializes and references CI
@@ -30,16 +30,16 @@ class Cache
 	{
 		log_message('debug', "Cache Class Initialized.");
 
-		$this->ci =& get_instance();
+		$this->_ci =& get_instance();
 		$this->_reset();
 
-		$this->ci->load->config('cache');
+		$this->_ci->load->config('cache');
 
-		$this->path = $this->ci->config->item('cache_dir');
-		$this->default_expires = $this->ci->config->item('cache_default_expires');
-		if ( ! is_dir($this->path))
+		$this->_path = $this->_ci->config->item('cache_dir');
+		$this->_default_expires = $this->_ci->config->item('cache_default_expires');
+		if ( ! is_dir($this->_path))
 		{
-			show_error("Cache Path not found: $this->path");
+			show_error("Cache Path not found: $this->_path");
 		}
 	}
 
@@ -51,11 +51,11 @@ class Cache
 	 */
 	private function _reset()
 	{
-		$this->contents = NULL;
-		$this->name = NULL;
-		$this->expires = NULL;
-		$this->created = NULL;
-		$this->dependencies = array();
+		$this->_contents = NULL;
+		$this->_filename = NULL;
+		$this->_expires = NULL;
+		$this->_created = NULL;
+		$this->_dependencies = array();
 	}
 
 	/**
@@ -67,9 +67,9 @@ class Cache
 	 */
 	public function library($library, $method, $arguments = array(), $expires = NULL)
 	{
-		if(!in_array(ucfirst($library), $this->ci->load->_ci_classes))
+		if(!in_array(ucfirst($library), $this->_ci->load->_ci_classes))
 		{
-			$this->ci->load->library($library);
+			$this->_ci->load->library($library);
 		}
 
 		return $this->_call($library, $method, $arguments, $expires);
@@ -83,9 +83,9 @@ class Cache
 	 */
 	public function model($model, $method, $arguments = array(), $expires = NULL)
 	{
-		if(!in_array(ucfirst($model), $this->ci->load->_ci_classes))
+		if(!in_array(ucfirst($model), $this->_ci->load->_ci_classes))
 		{
-			$this->ci->load->model($model);
+			$this->_ci->load->model($model);
 		}
 
 		return $this->_call($model, $method, $arguments, $expires);
@@ -94,7 +94,7 @@ class Cache
 	// Depreciated, use model() or library()
 	private function _call($property, $method, $arguments = array(), $expires = NULL)
 	{
-		$this->ci->load->helper('security');
+		$this->_ci->load->helper('security');
 
 		if(!is_array($arguments))
 		{
@@ -106,11 +106,20 @@ class Cache
 
 		$cache_file = $property.DIRECTORY_SEPARATOR.dohash($method.serialize($arguments), 'sha1');
 
-		// See if we have this cached
-		$cached_response = $this->get($cache_file);
+		// See if we have this cached or delete if $expires is negative
+		if($expires >= 0)
+		{
+			echo "caching ".$cache_file;
+			$cached_response = $this->get($cache_file);
+		}
+		else
+		{
+			$this->delete($cache_file);
+			return;
+		}
 
 		// Not FALSE? Return it
-		if($cached_response)
+		if($cached_response !== FALSE && $cached_response !== NULL)
 		{
 			return $cached_response;
 		}
@@ -118,7 +127,7 @@ class Cache
 		else
 		{
 			// Call the model or library with the method provided and the same arguments
-			$new_response = call_user_func_array(array($this->ci->$property, $method), $arguments);
+			$new_response = call_user_func_array(array($this->_ci->$property, $method), $arguments);
 			$this->write($new_response, $cache_file, $expires);
 
 			return $new_response;
@@ -131,9 +140,9 @@ class Cache
 	function set_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
-			$this->dependencies = $dependencies;
+			$this->_dependencies = $dependencies;
 		else
-			$this->dependencies = array($dependencies);
+			$this->_dependencies = array($dependencies);
 
 		// Return $this to support chaining
 		return $this;
@@ -142,20 +151,20 @@ class Cache
 	function add_dependencies($dependencies)
 	{
 		if (is_array($dependencies))
-			$this->dependencies = array_merge($this->dependencies, $dependencies);
+			$this->_dependencies = array_merge($this->_dependencies, $dependencies);
 		else
-			$this->dependencies[] = $dependencies;
+			$this->_dependencies[] = $dependencies;
 
 		// Return $this to support chaining
 		return $this;
 	}
 
-	function get_dependencies() { return $this->dependencies; }
+	function get_dependencies() { return $this->_dependencies; }
 
 	/**
 	 * Helper function to get the cache creation date
 	 */
-	function get_created($created) { return $this->created; }
+	function get_created($created) { return $this->_created; }
 
 
 	/**
@@ -172,17 +181,17 @@ class Cache
 		if ($filename !== NULL)
 		{
 			$this->_reset();
-			$this->filename = $filename;
+			$this->_filename = $filename;
 		}
 
 		// Check directory permissions
-		if ( ! is_dir($this->path) OR ! is_really_writable($this->path))
+		if ( ! is_dir($this->_path) OR ! is_really_writable($this->_path))
 		{
 			return FALSE;
 		}
 
 		// Build the file path.
-		$filepath = $this->path.$this->filename.'.cache';
+		$filepath = $this->_path.$this->_filename.'.cache';
 
 		// Check if the cache exists, if not return FALSE
 		if ( ! @file_exists($filepath))
@@ -202,11 +211,11 @@ class Cache
 		// If the file contains data return it, otherwise return NULL
 		if (filesize($filepath) > 0)
 		{
-			$this->contents = unserialize(fread($fp, filesize($filepath)));
+			$this->_contents = unserialize(fread($fp, filesize($filepath)));
 		}
 		else
 		{
-			$this->contents = NULL;
+			$this->_contents = NULL;
 		}
 
 		// Unlock the cache and close the file
@@ -214,21 +223,21 @@ class Cache
 		fclose($fp);
 
 		// Check cache expiration, delete and return FALSE when expired
-		if ($use_expires && ! empty($this->contents['__cache_expires']) && $this->contents['__cache_expires'] < time())
+		if ($use_expires && ! empty($this->_contents['__cache_expires']) && $this->_contents['__cache_expires'] < time())
 		{
 			$this->delete($filename);
 			return FALSE;
 		}
 
 		// Check Cache dependencies
-		if(isset($this->contents['__cache_dependencies']))
+		if(isset($this->_contents['__cache_dependencies']))
 		{
-			foreach ($this->contents['__cache_dependencies'] as $dep)
+			foreach ($this->_contents['__cache_dependencies'] as $dep)
 			{
-				$cache_created = filemtime($this->path.$this->filename.'.cache');
+				$cache_created = filemtime($this->_path.$this->_filename.'.cache');
 
 				// If dependency doesn't exist or is newer than this cache, delete and return FALSE
-				if (! file_exists($this->path.$dep.'.cache') or filemtime($this->path.$dep.'.cache') > $cache_created)
+				if (! file_exists($this->_path.$dep.'.cache') or filemtime($this->_path.$dep.'.cache') > $cache_created)
 				{
 					$this->delete($filename);
 					return FALSE;
@@ -237,16 +246,16 @@ class Cache
 		}
 
 		// Instantiate the object variables
-		$this->expires		= isset($this->contents['__cache_expires']) ? $this->contents['__cache_expires'] : NULL;
-		$this->dependencies = isset($this->contents['__cache_dependencies']) ? $this->contents['__cache_dependencies'] : NULL;
-		$this->created		= isset($this->contents['__cache_created']) ? $this->contents['__cache_created'] : NULL;
+		$this->_expires		= isset($this->_contents['__cache_expires']) ? $this->_contents['__cache_expires'] : NULL;
+		$this->_dependencies = isset($this->_contents['__cache_dependencies']) ? $this->_contents['__cache_dependencies'] : NULL;
+		$this->_created		= isset($this->_contents['__cache_created']) ? $this->_contents['__cache_created'] : NULL;
 
 		// Cleanup the meta variables from the contents
-		$this->contents = @$this->contents['__cache_contents'];
+		$this->_contents = @$this->_contents['__cache_contents'];
 
 		// Return the cache
 		log_message('debug', "Cache retrieved: ".$filename);
-		return $this->contents;
+		return $this->_contents;
 	}
 
 	/**
@@ -265,28 +274,28 @@ class Cache
 		if ($contents !== NULL)
 		{
 			$this->_reset();
-			$this->contents = $contents;
-			$this->filename = $filename;
-			$this->expires = $expires;
-			$this->dependencies = $dependencies;
+			$this->_contents = $contents;
+			$this->_filename = $filename;
+			$this->_expires = $expires;
+			$this->_dependencies = $dependencies;
 		}
 
 		// Put the contents in an array so additional meta variables
 		// can be easily removed from the output
-		$this->contents = array('__cache_contents' => $this->contents);
+		$this->_contents = array('__cache_contents' => $this->_contents);
 
 		// Check directory permissions
-		if ( ! is_dir($this->path) OR ! is_really_writable($this->path))
+		if ( ! is_dir($this->_path) OR ! is_really_writable($this->_path))
 		{
 			return;
 		}
 
 		// check if filename contains dirs
-		$subdirs = explode(DIRECTORY_SEPARATOR, $this->filename);
+		$subdirs = explode(DIRECTORY_SEPARATOR, $this->_filename);
 		if (count($subdirs) > 1)
 		{
 			array_pop($subdirs);
-			$test_path = $this->path.implode(DIRECTORY_SEPARATOR, $subdirs);
+			$test_path = $this->_path.implode(DIRECTORY_SEPARATOR, $subdirs);
 
 			// check if specified subdir exists
 			if ( ! @file_exists($test_path))
@@ -297,7 +306,7 @@ class Cache
 		}
 
 		// Set the path to the cachefile which is to be created
-		$cache_path = $this->path.$this->filename.'.cache';
+		$cache_path = $this->_path.$this->_filename.'.cache';
 
 		// Open the file and log if an error occures
 		if ( ! $fp = @fopen($cache_path, FOPEN_WRITE_CREATE_DESTRUCTIVE))
@@ -307,24 +316,24 @@ class Cache
 		}
 
 		// Meta variables
-		$this->contents['__cache_created'] = time();
-		$this->contents['__cache_dependencies'] = $this->dependencies;
+		$this->_contents['__cache_created'] = time();
+		$this->_contents['__cache_dependencies'] = $this->_dependencies;
 
 		// Add expires variable if its set...
-		if (! empty($this->expires))
+		if (! empty($this->_expires))
 		{
-			$this->contents['__cache_expires'] = $this->expires + time();
+			$this->_contents['__cache_expires'] = $this->_expires + time();
 		}
 		// ...or add default expiration if its set
-		elseif (! empty($this->default_expires) )
+		elseif (! empty($this->_default_expires) )
 		{
-			$this->contents['__cache_expires'] = $this->default_expires + time();
+			$this->_contents['__cache_expires'] = $this->_default_expires + time();
 		}
 
 		// Lock the file before writing or log an error if it failes
 		if (flock($fp, LOCK_EX))
 		{
-			fwrite($fp, serialize($this->contents));
+			fwrite($fp, serialize($this->_contents));
 			flock($fp, LOCK_UN);
 		}
 		else
@@ -351,11 +360,47 @@ class Cache
 	 */
 	function delete($filename = NULL)
 	{
-		if ($filename !== NULL) $this->filename = $filename;
+		if ($filename !== NULL) $this->_filename = $filename;
 
-		$file_path = $this->path.$this->filename.'.cache';
+		$file_path = $this->_path.$this->_filename.'.cache';
 
 		if (file_exists($file_path)) unlink($file_path);
+
+		// Reset values
+		$this->_reset();
+	}
+
+	/**
+	 * Delete a group of cached files
+	 *
+	 * Allows you to pass a group to delete cache. Example:
+	 *
+	 * <code>
+	 * $this->cache->write($data, 'nav_title');
+	 * $this->cache->write($links, 'nav_links');
+	 * $this->cache->delete_group('nav_');
+	 * </code>
+	 *
+	 * @param 	string $group
+	 * @return 	void
+	 */
+	public function delete_group($group = null)
+	{
+		if ($group === null)
+		{
+			return FALSE;
+		}
+
+		$this->_ci->load->helper('directory');
+		$map = directory_map($this->_path, TRUE);
+
+		foreach ($map AS $file)
+		{
+			if (strpos($file, $group)  !== FALSE)
+			{
+				unlink($this->_path.$file);
+			}
+		}
 
 		// Reset values
 		$this->_reset();
@@ -370,15 +415,18 @@ class Cache
 	 */
 	function delete_all($dirname = '')
 	{
-		if (empty($this->path))
+		if (empty($this->_path))
 		{
 			return FALSE;
 		}
 
-		$this->ci->load->helper('file');
-		if (file_exists($this->path.$dirname)) delete_files($this->path.$dirname, TRUE);
+		$this->_ci->load->helper('file');
+		if (file_exists($this->_path.$dirname)) delete_files($this->_path.$dirname, TRUE);
 
 		// Reset values
 		$this->_reset();
 	}
 }
+
+/* End of file Cache.php */
+/* Location: ./application/libraries/Cache.php */
