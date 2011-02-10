@@ -52,7 +52,7 @@ $lang['files.success']				= 'تم حفظ الملف.';
 $lang['files.not_exists']			= 'تم اختيار مجلد غير صالح.';
 $lang['files.delete.error']			= 'تعذر حذف الملف.';
 $lang['files.delete.success']			= 'تم حذف الملف';
-$lang['files.filter']						= 'Filter'; #translate
+$lang['files.filter']						= 'انتقاء';
 
 // Types
 $lang['files.i'] = 'صورة';

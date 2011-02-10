@@ -17,10 +17,12 @@ class Module_Templates extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Email Templates'
+				'en' => 'Email Templates',
+				'ar' => 'قوالب الرسائل الإلكترونية'
 			),
 			'description' => array(
-				'en' => 'Create, edit, and save dynamic email templates'
+				'en' => 'Create, edit, and save dynamic email templates',
+				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
