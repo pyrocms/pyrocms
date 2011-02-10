@@ -16,8 +16,8 @@ require_once dirname(__FILE__).'/Config.php';
  *
  * Install this file as application/third_party/MX/Base.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-11-12
- * @version 	5.3.5
+ * @copyright	Copyright (c) 2011 Wiredesignz
+ * @version 	5.4
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,11 +37,7 @@ require_once dirname(__FILE__).'/Config.php';
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-if ( ! (CI_VERSION < 2)) {
-	class CI_Base extends CI_Controller	{}
-}
-
-class CI extends CI_Base
+class CI extends CI_Controller
 {
 	public static $APP;
 	
@@ -51,30 +47,6 @@ class CI extends CI_Base
 		self::$APP = $this;
 		
 		parent::__construct();
-		
-		if (CI_VERSION < 2) {
-			
-			/* assign the core classes */
-			$classes = array(
-				'config'	=> 'Config',
-				'input'		=> 'Input',
-				'benchmark'	=> 'Benchmark',
-				'uri'		=> 'URI',
-				'output'	=> 'Output',
-				'lang'		=> 'Language',
-				'router'	=> 'Router'
-			);
-			
-			foreach ($classes as $key => $class) {	
-				$this->$key = load_class($class);	
-			}
-		
-			/* assign the core loader */
-			$this->load = load_class('Loader');
-			
-			/* autoload application items */
-			$this->load->_ci_autoloader();
-		}
 		
 		/* re-assign language and config for modules */
 		if ( ! is_a($this->lang, 'MX_Lang')) $this->lang = new MX_Lang;

@@ -130,14 +130,14 @@ class Galleries_m extends MY_Model {
 
 		// Update the DB
 		$result = parent::update($id, $input);
-        
+
         // if we had no errors (like slug dublicate), proceed with renaming:
         if($result)
         {
             if ($oldslug != $input['slug'])
                 rename('uploads/galleries/'.$oldslug, 'uploads/galleries/'.$input['slug']);
         }
-        
+
         return $result;
 	}
 
@@ -161,10 +161,10 @@ class Galleries_m extends MY_Model {
 		$slug = $this->generate_slug($gallery);
 
 		// Does the galleries directory exist?
-		is_dir('uploads/galleries') OR mkdir('uploads/galleries');
+		is_dir('uploads/galleries') OR mkdir('uploads/galleries', 0777);
 
 		// Create the directories
-		if (mkdir('uploads/galleries/' . $slug))
+		if (mkdir('uploads/galleries/' . $slug, 0777))
 		{
 			// Create the full and thumbs directory
 			mkdir('uploads/galleries/'.$slug.'/full');
@@ -211,7 +211,7 @@ class Galleries_m extends MY_Model {
 	public function generate_slug($name)
 	{
 		$slug = strtolower($name);
-		$slug = preg_replace('/\s+/', '-', $slug);
+		$slug = preg_replace('/(\s|\/)+/', '-', $slug);
 
 		return $slug;
 	}

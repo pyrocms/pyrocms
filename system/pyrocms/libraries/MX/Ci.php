@@ -39,14 +39,10 @@ require_once dirname(__FILE__).'/Config.php';
 
 if ( ! (CI_VERSION < 2))
 {
+
 	if ( ! class_exists('CI_Controller'))
 	{
 		class CI_Controller extends Controller {}
-	}
-
-	if ( ! class_exists('CI_Base'))
-	{
-		class CI_Base extends CI_Controller {}
 	}
 }
 
@@ -55,8 +51,8 @@ class CI
 	public static $APP;
 
 	public function __construct() {
-
-		self::$APP = CI_Base::get_instance();
+		
+		self::$APP = CI_Controller::get_instance();
 
 		/* assign the core loader */
 		self::$APP->load = new MX_Loader;

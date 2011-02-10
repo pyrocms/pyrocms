@@ -181,7 +181,7 @@ var replace_html = null;
 			$('#upload-box').hide();
 		});
 		
-		$( 'td.image button').livequery(function() {
+		$( 'td.image button, a.button').livequery(function() {
 			$(this).button();
 		});
 		

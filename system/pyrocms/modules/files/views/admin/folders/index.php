@@ -41,7 +41,7 @@
 			<script type="text/javascript">
 			jQuery(function($) {
 				$(".new_folder").colorbox({
-					width:"400", height:"350", iframe:true,
+					width:"600", height:"350", iframe:true,
 					onClosed:function(){ location.reload(); }
 				});
 			});
@@ -51,7 +51,7 @@
 <script type="text/javascript">
 jQuery(function($) {
 	$(".edit_folder").colorbox({
-		width:"400", height:"350", iframe:true,
+		width:"600", height:"350", iframe:true,
 		onClosed:function(){ location.reload(); }
 	});
 });

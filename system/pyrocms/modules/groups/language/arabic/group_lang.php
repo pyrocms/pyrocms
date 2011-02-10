@@ -3,7 +3,7 @@
 // labels
 $lang['groups.title']					= 'اللقب';
 $lang['groups.name']				    = 'الإسم';
-$lang['groups.short_name']				= 'Short Name'; #translate
+$lang['groups.short_name']				= 'الإسم المختصر';
 $lang['groups.description'] 		    = 'الوصف';
 $lang['groups.actions']					= 'الإجراءات';
 $lang['groups.edit']					= 'تعديل';
