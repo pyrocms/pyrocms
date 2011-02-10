@@ -19,7 +19,8 @@ class Module_Comments extends Module {
 				'it' => 'Commenti',
 				'ru' => 'Комментарии',
 				'ar' => 'العربيّة',
-				'cs' => 'Komentáře'
+				'cs' => 'Komentáře',
+				'fi' => 'Kommentit'
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
@@ -33,7 +34,8 @@ class Module_Comments extends Module {
 				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali news, pagine e foto.',
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
-				'cs' => 'Uživatelé a hosté mohou psát komentáře k obsahu, např. neovinkám, stránkám a fotografiím.'
+				'cs' => 'Uživatelé a hosté mohou psát komentáře k obsahu, např. neovinkám, stránkám a fotografiím.',
+				'fi' => 'Käyttäjät ja vieraat voivat kirjoittaa kommentteja eri sisältöihin kuten uutisiin, sivuihin ja kuviin.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

@@ -19,7 +19,8 @@ class Module_Pages extends Module {
 				'it' => 'Pagine',
 				'ru' => 'Страницы',
 				'ar' => 'الصفحات',
-				'cs' => 'Stránky'
+				'cs' => 'Stránky',
+				'fi' => 'Sivut'
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
@@ -33,7 +34,8 @@ class Module_Pages extends Module {
 				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
 				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
-				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.'
+				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
+				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
