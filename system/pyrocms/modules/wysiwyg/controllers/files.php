@@ -20,6 +20,8 @@ class Files extends WYSIWYG_Controller
 
 		//for dropdown list
 		$sub_folders = $this->file_folders_m->get_folders();
+		
+		$active_folder = array();
 
 		if(!empty($folders) and !$id)
 		{
