@@ -53,7 +53,7 @@
                     //send the request to the server
                     $.post(post_url, form_data, function(data, response, xhr) {
                             //success stuff here
-                            $.uniform.update('button, select, input');
+                            $.uniform.update('select, input');
                             $('#content').html(data).fadeIn('fast');
                     });
                 });
