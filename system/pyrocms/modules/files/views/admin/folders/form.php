@@ -1,3 +1,21 @@
+<script type="text/javascript">
+(function($) {
+	$(document).ready(function() {
+		//auto create slug
+		form = $('form#folders_crud');
+			
+		$('input[name="name"]', form).keyup(function(){
+			
+			slug = $(this).val().toLowerCase()
+							.replace(/[^\w ]+/g,' ')
+							.replace(/ +/g,'-');
+
+			$('input[name="slug"]', form).val( slug );
+		});
+	});
+})(jQuery)
+</script>
+
 <?php if (isset($messages['success'])): ?>
 <script type="text/javascript">
 (function($) {
