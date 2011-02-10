@@ -68,7 +68,7 @@ class Admin_layouts extends Admin_Controller
 	 * @return void
 	 */
 	public function index()
-	{
+	{	
 		// Get all page layouts
 		$this->data->page_layouts = $this->page_layouts_m->get_all();
 
@@ -88,18 +88,29 @@ class Admin_layouts extends Admin_Controller
 		// Got validation?
 		if ($this->form_validation->run())
 	    {
-			// Insert the page
+			// Insert the layout
 	    	$id = $this->page_layouts_m->insert(array(
 				'title' 	=> $this->input->post('title'),
 				'theme_layout' 	=> $this->input->post('theme_layout'),
 				'body' 		=> $this->input->post('body', FALSE),
 				'css' 		=> $this->input->post('css')
 			));
+			
+			//Save as a file
+			if( $this->settings->get('enable_layout_files') == '1' ):
+			
+				if( ! $this->page_layouts_m->save_layout_file( $id, $this->input->post('title'), $this->input->post('body', FALSE)) ):
+				
+					$this->session->set_flashdata('notice', lang('page_layouts.layout_file_save_error'));
+				
+				endif;
+			
+			endif;
 
 			// Success or fail?
 			$id > 0
-				? $this->session->set_flashdata('success', lang('page_layout_create_success'))
-				: $this->session->set_flashdata('notice', lang('page_layout_create_error'));
+				? $this->session->set_flashdata('success', lang('page_layouts.create_success'))
+				: $this->session->set_flashdata('notice', lang('page_layouts.create_error'));
 
 			redirect('admin/pages/layouts');
 	    }
@@ -143,7 +154,7 @@ class Admin_layouts extends Admin_Controller
 	    // Set data, if it exists
 	    if (!$page_layout = $this->page_layouts_m->get($id))
 	    {
-			$this->session->set_flashdata('error', lang('page_layout_page_not_found_error'));
+			$this->session->set_flashdata('error', lang('page_layouts.page_layout.not_found_error'));
 			redirect('admin/pages/layouts/create');
 	    }
 
@@ -158,10 +169,21 @@ class Admin_layouts extends Admin_Controller
 				'css' 		=> $this->input->post('css')
 			));
 
+			// Update layout file
+			if( $this->settings->get('enable_layout_files') == '1' ):
+			
+				if( ! $this->page_layouts_m->save_layout_file( $id, $this->input->post('title'), $this->input->post('body', FALSE)) ):
+				
+					$this->session->set_flashdata('notice', lang('page_layouts.layout_file_save_error'));
+				
+				endif;
+			
+			endif;
+
 			// Wipe cache for this model as the data has changed
 			$this->cache->delete_all('page_layouts_m');
 
-			$this->session->set_flashdata('success', sprintf(lang('page_layout_edit_success'), $this->input->post('title')));
+			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
 			redirect('admin/pages/layouts');
 	    }
 
@@ -188,13 +210,36 @@ class Admin_layouts extends Admin_Controller
 			->set('page_layout', $page_layout)
 			->build('admin/layouts/form', $this->data);
 	}
+	
+	/**
+	 * Sync/Delete Action
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function action()
+	{
+		if( $this->input->post('btnAction') == 'delete' ):
+		
+			$this->_delete();
+
+		elseif( $this->input->post('btnAction') == 'sync' ):
+		
+			$this->page_layouts_m->sync_layouts( $this->input->post('action_to') );
+			
+			$this->session->set_flashdata('success', lang('page_layouts.sync_success'));
+			
+		endif;
+		
+		redirect('admin/pages/layouts');
+	}
 
 	/**
 	 * Delete method, deletes an existing page layout
-	 * @access public
+	 * @access private
 	 * @return void
 	 */
-	public function delete($id = 0)
+	private function _delete($id = 0)
 	{
 		// Attention! Error of no selection not handeled yet.
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
@@ -204,6 +249,9 @@ class Admin_layouts extends Admin_Controller
 		{
 			if ($id !== 1)
 			{
+				// Delete layout file
+				$this->page_layouts_m->delete_layout_file( $id );
+			
 				$deleted_ids = $this->page_layouts_m->delete($id);
 
 				// Wipe cache for this model, the content has changd
@@ -212,7 +260,7 @@ class Admin_layouts extends Admin_Controller
 
 			else
 			{
-				$this->session->set_flashdata('error', lang('page_layout_delete_home_error'));
+				$this->session->set_flashdata('error', lang('page_layouts.delete_home_error'));
 			}
 		}
 
@@ -226,16 +274,14 @@ class Admin_layouts extends Admin_Controller
 			}
 			else // Deleting multiple pages
 			{
-				$this->session->set_flashdata('success', sprintf(lang('page_layout_mass_delete_success'), count($deleted_ids)));
+				$this->session->set_flashdata('success', sprintf(lang('page_layouts.delete_success'), count($deleted_ids)));
 			}
 		}
 
 		else // For some reason, none of them were deleted
 		{
-			$this->session->set_flashdata('notice', lang('page_layout_delete_none_notice'));
+			$this->session->set_flashdata('notice', lang('page_layouts.delete_none_notice'));
 		}
-
-		redirect('admin/pages/layouts');
 	}
 
 }

@@ -1,7 +1,7 @@
 
 	<h3><?php echo lang('page_layouts.list_title'); ?></h3>
 		
-		<?php echo form_open('admin/pages/layouts/delete');?>
+		<?php echo form_open('admin/pages/layouts/action');?>
 	
 			<?php if (!empty($page_layouts)): ?>
 				<table border="0" class="table-list">		    
@@ -31,7 +31,11 @@
 			<?php endif; ?>		
 			
 			<div class="float-right">
-								
+			
+				<?php if( $this->settings->get('enable_layout_files') == '1' ): ?>
+				<button type="submit" name="btnAction" value="sync" class="button confirm"><span>Sync</span></button>
+				<?php endif; ?>
+				
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			</div>
 	

@@ -29,6 +29,8 @@ $lang['page_layouts.delete_success']                 = 'Page layout #%s has been
 $lang['page_layouts.mass_delete_success']            = '%s page layouts have been deleted.';
 $lang['page_layouts.delete_none_notice']             = 'No page layouts were deleted.';
 $lang['page_layouts.already_exist_error']            = 'A page layout with the slug "%s" already exists.';
+$lang['page_layouts.layout_file_save_error']		 = 'Unable to save page layout as file. Please check the path and make sure it\'s writable.';
+$lang['page_layouts.sync_success']					 = 'Layouts successfully synced.';
 
 $lang['page_layouts.variable_introduction']          = 'In this input box there are two variables available';
 $lang['page_layouts.variable_title']                 = 'Contains the title of the page.';
