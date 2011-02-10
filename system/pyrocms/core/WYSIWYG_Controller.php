@@ -25,9 +25,12 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->load->model('files/file_m');
 		$this->lang->load('files/files');
 		$this->lang->load('wysiwyg');
+		$file_types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
+
 
 		$this->template
 			->set_layout('wysiwyg', 'admin')
+			->set('file_types', $file_types)
 			->enable_parser(FALSE)
 			->append_metadata(js('jquery/jquery.js'))
 	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
