@@ -15,7 +15,6 @@ $lang['gallery_images.upload_label']		= 'Bild hochladen';
 $lang['gallery_images.edit_image_label']	= 'Bild bearbeiten';
 $lang['gallery_images.thumbnail_label']		= 'Thumbnail';
 $lang['gallery_images.action_label']		= 'Aktion';
-$lang['gallery_images.none_label']			= '-- Keine --';
 $lang['gallery_images.crop_label']			= 'Image zuschneiden';
 $lang['gallery_images.recreate_label']		= 'Thumbnail neu anlegen';
 $lang['gallery_images.delete_label']		= 'Bild löschen';
@@ -27,4 +26,3 @@ $lang['gallery_images.no_images_label']		= 'Es wurden noch keine Bilder hinzugef
 $lang['gallery_images.ratio_label']			= 'Maintain Ratio'; ##translate
 $lang['gallery_images.options_label']		= 'Options:'; ##translate
 $lang['gallery_images.crop.save_label']		= 'Click Save to apply the crop'; ##translate
-?>

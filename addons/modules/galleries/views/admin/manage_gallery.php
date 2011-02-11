@@ -6,29 +6,14 @@
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="title"><?php echo lang('galleries.title_label'); ?></label>
 				<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
-				<span class="required-icon tooltip">Required</span>
+				<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 			</li>
 
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="slug"><?php echo lang('galleries.slug_label'); ?></label>
 				<?php echo form_input('slug', $gallery->slug, 'class="width-15"'); ?>
-				<span class="required-icon tooltip">Required</span>
+				<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 			</li>
-
-			<?php if (!empty($galleries[1])): ?>
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<label for="parent_id"><?php echo lang('galleries.parent_label'); ?></label>
-				<select name="parent_id" id="parent">
-					<!-- Available galleries -->
-					<option value="0"><?php echo lang('galleries.none_label'); ?></option>
-					<?php if ( !empty($galleries) ): foreach ( $galleries as $available_gallery ): if ($available_gallery->id != $gallery->id): ?>
-					<option value="<?php echo $available_gallery->id; ?>" <?php if ($available_gallery->id == $gallery->parent) {echo ' selected="selected" ';} ?> >
-						<?php echo $available_gallery->title; ?>
-					</option>
-					<?php endif; endforeach; endif; ?>
-				</select>
-			</li>
-			<?php endif; ?>
 
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="description"><?php echo lang('galleries.description_label'); ?></label>

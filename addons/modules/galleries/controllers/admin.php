@@ -20,37 +20,37 @@ class Admin extends Admin_Controller
 	private $gallery_validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'Title',
+			'label' => 'lang:galleries.title_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
 			'field' => 'slug',
-			'label' => 'Slug',
+			'label' => 'lang:galleries.slug_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
-			'field' => 'parent_id',
-			'label' => 'Parent',
-			'rules' => 'trim'
+			'field' => 'folder_id',
+			'label' => 'lang:galleries.folder_label',
+			'rules' => 'trim|numeric|required'
 		),
 		array(
 			'field' => 'description',
-			'label' => 'Description',
+			'label' => 'lang:galleries.description_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'enable_comments',
-			'label' => 'Enable Comments',
+			'label' => 'lang:galleries.comments_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'published',
-			'label' => 'Published',
+			'label' => 'lang:galleries.published_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'gallery_thumbnail',
-			'label'	=> 'Thumbnail',
+			'label'	=> 'lang:galleries.thumbnail_label',
 			'rules'	=> 'trim'
 		)
 
@@ -65,22 +65,22 @@ class Admin extends Admin_Controller
 	private $image_validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'Title',
+			'label' => 'gallery_images.title_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
 			'field' => 'userfile',
-			'label' => 'Image',
+			'label' => 'lang:gallery_images.image_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'gallery_id',
-			'label' => 'Gallery',
+			'label' => 'gallery_images.gallery_label',
 			'rules' => 'trim|integer|required'
 		),
 		array(
 			'field' => 'description',
-			'label' => 'Description',
+			'label' => 'gallery_images.description_label',
 			'rules' => 'trim'
 		)
 	);
@@ -110,7 +110,6 @@ class Admin extends Admin_Controller
 	/**
 	 * List all existing albums
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
@@ -130,14 +129,15 @@ class Admin extends Admin_Controller
 	/**
 	 * Create a new gallery
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
 	public function create()
 	{
-		// Get all the galleries
-		$galleries = $this->galleries_m->get_all();
+		$this->load->model('files/file_folders_m');
+
+		$this->file_folders_m->folder_tree();
+		$file_folders = $this->file_folders_m->get_folders();
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->gallery_validation_rules);
@@ -174,7 +174,7 @@ class Admin extends Admin_Controller
 			->append_metadata( css('galleries.css', 'galleries') )
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
 			->set('gallery', $gallery)
-			->set('galleries', $galleries)
+			->set('file_folders', $file_folders)
 			->build('admin/new_gallery');
 	}
 
@@ -466,13 +466,11 @@ class Admin extends Admin_Controller
 	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
 	 */
-
 	public function ajax_update_order()
 	{
 		$ids = explode(',', $this->input->post('order'));
 
 		$i = 1;
-
 		foreach ($ids as $id)
 		{
 			$this->gallery_images_m->update($id, array(
@@ -493,5 +491,19 @@ class Admin extends Admin_Controller
 			}
 			++$i;
 		}
+	}
+
+	/**
+	 * Sort images in an existing gallery
+	 *
+	 * @author Phil Sturgeon - PyroCMS Dev Team
+	 * @access public
+	 */
+	public function ajax_select_folder($folder_id)
+	{
+		$this->load->model('files/file_folders_m');
+		$folder = $this->file_folders_m->get($folder_id);
+
+		echo json_encode($folder);
 	}
 }

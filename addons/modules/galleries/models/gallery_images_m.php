@@ -31,22 +31,59 @@ class Gallery_images_m extends MY_Model
 	}
 	
 	/**
-	 * Get all gallery images along with the gallery slug
+	 * Get all gallery images in a folder
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author Phil Sturgeon - PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the gallery
 	 * @return mixed
 	 */
 	public function get_images_by_gallery($id)
 	{
-		return $this->db->select('gallery_images.*, galleries.slug, galleries.id as galleries_table_id')
-						->from('gallery_images')
-						->join('galleries', 'gallery_images.gallery_id = galleries.id')
-						->where('gallery_id', $id)
-						->order_by('gallery_images.order', 'asc')
-						->get()
-						->result();
+		$images = $this->db
+				->select('gi.*, f.name as title, f.filename, f.extension, g.folder_id, g.slug as gallery_slug')
+				->join('galleries g', 'gi.gallery_id = g.id')
+				->join('files f', 'gi.file_id = f.id')
+				->where('g.folder_id', $id)
+				->order_by('`order`', 'asc')
+				->get('gallery_images gi')
+				->result();
+
+		// Nothing? Return nothing
+		if ( ! isset($images[0]))
+		{
+			return array();
+		}
+
+		// Which folder is this gallery lookig at? There may be unknown images
+		$folder_id = $images[0]->folder_id;
+
+		$file_ids = array();
+		foreach ($images as &$image)
+		{
+			$file_ids[] = $image->file_id;
+		}
+
+		// Add these images to the array
+		$images += $new_images = $this->db
+			->select('id as file_id, name as title, filename, extension, date_added as `order`')
+			->where('folder_id', $folder_id)
+			->where('type', 'i')
+			->where_not_in('id', $file_ids)
+			->get('files')
+			->result();
+
+		// To avoid messing about with this in the future, add these to the gallery
+		foreach ($new_images as $new_image)
+		{
+			$this->db->insert('gallery_images', array(
+				'gallery_id' => $id,
+				'file_id' => $new_image->file_id,
+				'`order`' => $new_image->order
+			));
+		}
+
+		return $images;
 	}
 	
 	/**

@@ -35,8 +35,7 @@ $lang['galleries.published_no_label']		= 'Non';
 // General labels
 $lang['galleries.title_label'] 				= 'Titre';
 $lang['galleries.slug_label'] 				= 'URL';
-$lang['galleries.parent_label'] 			= 'Parent';
-$lang['galleries.none_label'] 				= '-- AUCUN --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label'] 		= 'Description de l\'album';
 $lang['galleries.thumbnail_label'] 			= 'Vignette';
 $lang['galleries.comments_label'] 			= 'Activer les commentaires';
@@ -50,4 +49,3 @@ $lang['galleries.upload_label'] 			= 'Envoyer une image';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label'] 		= 'Sous galeries';
-?>

@@ -12,14 +12,14 @@
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
 				<?php echo anchor('galleries/' . $gallery->slug . '/' . $image->id,
-								  img(array('src' => BASE_URL . 'uploads/galleries/' . $gallery->slug . '/thumbs/' . $image->filename . '_thumb' . $image->extension, 'alt' => $image->title))); ?>
+								  img(array('src' => BASE_URL . 'uploads/files/' . $image->filename, 'alt' => $image->title))); ?>
 			</li>
 			<?php endforeach; ?>
 			<?php endif; ?>
 		</ul>
 	</div>
 </div>
-<?php if ( !empty($sub_galleries) ): ?>
+<?php if ( ! empty($sub_galleries) ): ?>
 <h2><?php echo lang('galleries.sub-galleries_label'); ?></h2>
 <!-- Show all sub-galleries -->
 <div class="sub_galleries_container">
@@ -27,7 +27,7 @@
 	<div class="gallery clearfix">
 		<!-- Heading -->
 		<div class="gallery_heading">
-			<img src="<?php echo BASE_URL.'uploads/galleries/' . $gallery->slug . '/thumbs/' . $gallery->filename . '_thumb' . $gallery->extension; ?>" alt="<?php echo $gallery->title; ?>" />
+			<img src="<?php echo BASE_URL.'uploads/galleries/' . $gallery->filename; ?>" alt="<?php echo $gallery->title; ?>" />
 			<h3><?php echo anchor('galleries/' . $gallery->slug, $gallery->title); ?></h3>
 		</div>
 		<!-- And the body -->
