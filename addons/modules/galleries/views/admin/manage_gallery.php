@@ -1,7 +1,7 @@
 <div id="galleries_form_box">
 	<h3><?php echo lang('galleries.manage_gallery_label'); ?></h3>
 
-	<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud"'); ?>
+	<?php echo form_open($this->uri->uri_string(), 'class="crud"', array('folder_id' => $gallery->folder_id)); ?>
 		<ol>
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="title"><?php echo lang('galleries.title_label'); ?></label>
@@ -40,7 +40,7 @@
 					<optgroup label="Current">
 						<?php foreach ( $gallery_images as $image ): if ( $image->id == $gallery->thumbnail_id ): ?>
 						<option value="<?php echo $gallery->thumbnail_id; ?>">
-							<?php echo $image->title; ?>
+							<?php echo $image->name; ?>
 						</option>
 						<?php break; endif; endforeach; ?>
 					</optgroup>
@@ -50,7 +50,7 @@
 					<optgroup label="Thumbnails">
 						<?php foreach ( $gallery_images as $image ): ?>
 						<option value="<?php echo $image->id; ?>">
-							<?php echo $image->title; ?>
+							<?php echo $image->name; ?>
 						</option>
 						<?php endforeach; ?>
 					</optgroup>
@@ -64,9 +64,10 @@
 					<?php if ( $gallery_images !== FALSE ): ?>
 					<?php foreach ( $gallery_images as $image ): ?>
 					<li>
-						<?php echo anchor('admin/galleries/edit_image/' . $image->id,
-								  img(array('src' => BASE_URL . 'uploads/galleries/' . $gallery->slug . '/thumbs/' . $image->filename . '_thumb' . $image->extension, 'alt' => $image->title, 'title' => 'File: ' . $image->filename . $image->extension . ' Title: ' . $image->title))); ?>
+						<a href="<?php echo base_url() . 'uploads/files/' . $image->filename; ?>" class="modal">
+							<?php echo img(array('src' => base_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'File: ' . $image->filename . $image->extension . ' Title: ' . $image->name)); ?>
 							<?php echo form_hidden('action_to[]', $image->id); ?>
+						</a>
 					</li>
 					<?php endforeach; ?>
 					<?php else: ?>

@@ -65,7 +65,7 @@ class Admin extends Admin_Controller
 	private $image_validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'gallery_images.title_label',
+			'label' => 'lang:gallery_images.title_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
@@ -75,12 +75,12 @@ class Admin extends Admin_Controller
 		),
 		array(
 			'field' => 'gallery_id',
-			'label' => 'gallery_images.gallery_label',
+			'label' => 'lang:gallery_images.gallery_label',
 			'rules' => 'trim|integer|required'
 		),
 		array(
 			'field' => 'description',
-			'label' => 'gallery_images.description_label',
+			'label' => 'lang:gallery_images.description_label',
 			'rules' => 'trim'
 		)
 	);
@@ -352,107 +352,6 @@ class Admin extends Admin_Controller
 			->build('admin/upload', $this->data);
 	}
 
-	/**
-	 * Edit an existing image
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id The ID of the image to edit
-	 * @return void
-	 */
-	public function edit_image($id)
-	{
-		// Get the specific image
-		$gallery_image 		= $this->gallery_images_m->get_image($id);
-
-		if (empty($gallery_image) )
-		{
-			$this->session->set_flashdata('error', lang('gallery_images.exists_error'));
-			redirect('admin/galleries');
-		}
-
-		// Get rid of the validation rules we don't need
-		$validation_rules 	= $this->image_validation_rules;
-		unset($validation_rules[1]);
-		unset($validation_rules[2]);
-
-		$this->form_validation->set_rules($validation_rules);
-
-		// I can haz valid formdata?
-		if ($this->form_validation->run() )
-		{
-			// Successfully updated the changes?
-			if ($this->gallery_images_m->update_image($id, $_POST) === TRUE)
-			{
-				// The delete action requires a different message
-				if (isset($_POST['delete']) )
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
-				}
-				else
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.changes_success'));
-				}
-			}
-
-			// Something went wrong...
-			else
-			{
-				// The delete action requires a different message
-				if (isset($_POST['delete']) )
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
-				}
-				else
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.changes_error'));
-				}
-			}
-
-			if (isset($_POST['delete']) )
-			{
-				redirect('admin/galleries');
-			}
-			else
-			{
-				redirect($this->uri->uri_string());
-			}
-		}
-
-		// Required for validation
-		foreach ($validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']))
-			{
-				$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
-			}
-		}
-
-		// Load the views
-		$this->data->gallery_image =& $gallery_image;
-		
-		//get list of available galleries
-		$galleries = $this->galleries_m->get_all();
-		
-		$gallery_options = array();
-		
-		if ( ! empty($galleries))
-		{
-			foreach ($galleries as $gallery)
-			{
-				$gallery_options[$gallery->id] = $gallery->title;
-			}
-		}
-		
-		$this->template
-			->set('gallery_options', $gallery_options)
-			->append_metadata( css('galleries.css', 'galleries') )
-			->append_metadata(js('functions.js', 'galleries') )
-			->append_metadata( js('jcrop.js', 'galleries') )
-			->append_metadata( js('jcrop_init.js', 'galleries') )
-			->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
-			->build('admin/edit', $this->data);
-	}
 
 	/**
 	 * Sort images in an existing gallery
@@ -468,7 +367,7 @@ class Admin extends Admin_Controller
 		foreach ($ids as $id)
 		{
 			$this->gallery_images_m->update($id, array(
-				'order' => $i
+				'`order`' => $i
 			));
 
 			if ($i === 1)

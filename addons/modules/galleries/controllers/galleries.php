@@ -56,7 +56,7 @@ class Galleries extends Public_Controller
 	{
 		$slug or show_404();
 		
-		$gallery = $this->galleries_m->get_by('slug', $slug);
+		$gallery = $this->galleries_m->get_by('slug', $slug) or show_404();
 		$gallery_images = $this->gallery_images_m->get_images_by_gallery($gallery->id);
 		$sub_galleries 	= $this->galleries_m->get_all_with_filename('parent_id', $gallery->id);
 
