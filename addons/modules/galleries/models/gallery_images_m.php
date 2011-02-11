@@ -3,7 +3,7 @@
  *
  * The galleries module enables users to create albums, upload photos and manage their existing albums.
  *
- * @author 		Yorick Peterse - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @modified	Jerel Unruh - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Gallery Module
@@ -15,7 +15,7 @@ class Gallery_images_m extends MY_Model
 	/**
 	 * Constructor method
 	 * 
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
@@ -33,7 +33,7 @@ class Gallery_images_m extends MY_Model
 	/**
 	 * Get all gallery images in a folder
 	 *
-	 * @author Phil Sturgeon - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the gallery
 	 * @return mixed
@@ -41,7 +41,7 @@ class Gallery_images_m extends MY_Model
 	public function get_images_by_gallery($id)
 	{
 		$images = $this->db
-				->select('gi.*, f.name as title, f.filename, f.extension, g.folder_id, g.slug as gallery_slug')
+				->select('gi.*, f.name, f.filename, f.extension, g.folder_id, g.slug as gallery_slug')
 				->join('galleries g', 'gi.gallery_id = g.id')
 				->join('files f', 'gi.file_id = f.id')
 				->where('g.folder_id', $id)
@@ -66,7 +66,7 @@ class Gallery_images_m extends MY_Model
 
 		// Add these images to the array
 		$images += $new_images = $this->db
-			->select('id as file_id, name as title, filename, extension, date_added as `order`')
+			->select('id as file_id, name, filename, extension, date_added as `order`')
 			->where('folder_id', $folder_id)
 			->where('type', 'i')
 			->where_not_in('id', $file_ids)
@@ -89,18 +89,19 @@ class Gallery_images_m extends MY_Model
 	/**
 	 * Get an image along with the gallery slug
 	 * 
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the image
 	 * @return mixed
 	 */
-	public function get_image($id)
+	public function get($id)
 	{
-		$query = $this->db->select('gallery_images.*, galleries.id as galleries_table_id, galleries.slug')
-				 		  ->from('gallery_images')
-				 		  ->join('galleries', 'gallery_images.gallery_id = galleries.id')
-				    	  ->where('gallery_images.id', $id)
-				 		  ->get();
+		$query = $this->db
+			->select('gi.*, f.name, f.filename, f.extension, g.folder_id, g.slug as gallery_slug')
+			->join('galleries g', 'gi.gallery_id = g.id')
+			->join('files f', 'gi.file_id = f.id')
+			->where('gi.id', $id)
+			->get('gallery_images gi');
 				
 		if ( $query->num_rows() > 0 )
 		{
@@ -115,7 +116,7 @@ class Gallery_images_m extends MY_Model
 	/**
 	 * Upload an image to the server and add it to the DB
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param array $input The data sent by the form
 	 * @return bool
@@ -202,7 +203,7 @@ class Gallery_images_m extends MY_Model
 	/**
 	 * Update an existing image
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @modified by Jerel Unruh - PyroCMS Dev Team to add crop
 	 * @access public
 	 * @param int $id The ID of the image
@@ -337,7 +338,7 @@ class Gallery_images_m extends MY_Model
 	/**
 	 * Create a thumbnail
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param string $mode The mode of image manipulation, either "resize" or "crop"
 	 * @param string $source The image to use for creating the thumbnail

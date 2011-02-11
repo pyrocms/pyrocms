@@ -142,9 +142,9 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->gallery_validation_rules);
 
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
-			if ($this->galleries_m->insert_gallery($_POST))
+			if ($this->galleries_m->insert($_POST))
 			{
 				// Everything went ok..
 				$this->session->set_flashdata('success', lang('galleries.create_success'));
@@ -154,16 +154,13 @@ class Admin extends Admin_Controller
 			// Something went wrong..
 			else
 			{
-				// Remove the directory
-				$this->galleries_m->rm_gallery_dir($_POST['slug']);
-
 				$this->session->set_flashdata('error', lang('galleries.create_error'));
 				redirect('admin/galleries/create');
 			}
 		}
 
 		// Required for validation
-		foreach($this->gallery_validation_rules as $rule)
+		foreach ($this->gallery_validation_rules as $rule)
 		{
 			$gallery->{$rule['field']} = $this->input->post($rule['field']);
 		}
@@ -202,10 +199,10 @@ class Admin extends Admin_Controller
 		}
 
 		// Valid form data?
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
 			// Try to update the gallery
-			if ( $this->galleries_m->update_gallery($id, $_POST) === TRUE )
+			if ($this->galleries_m->update($id, $_POST) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('galleries.update_success'));
 				redirect('admin/galleries/manage/' . $id);
@@ -218,7 +215,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Required for validation
-		foreach($this->gallery_validation_rules as $rule)
+		foreach ($this->gallery_validation_rules as $rule)
 		{
 			if ($this->input->post($rule['field']))
 			{
@@ -251,13 +248,13 @@ class Admin extends Admin_Controller
 		$id_array = array();
 
 		// Multiple IDs or just a single one?
-		if ( $_POST )
+		if ($_POST )
 		{
 			$id_array = $_POST['action_to'];
 		}
 		else
 		{
-			if ( $id !== NULL )
+			if ($id !== NULL )
 			{
 				$id_array[0] = $id;
 			}
@@ -280,13 +277,10 @@ class Admin extends Admin_Controller
 			{
 
 				// Delete the gallery along with all the images from the database
-				if ( $this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
+				if ($this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
 				{
-					if ( !$this->galleries_m->rm_gallery_dir($gallery->slug) )
-					{
-						$this->session->set_flashdata('error', sprintf( lang('galleries.folder_error'), $gallery->title));
-						redirect('admin/galleries');
-					}
+					$this->session->set_flashdata('error', sprintf( lang('galleries.folder_error'), $gallery->title));
+					redirect('admin/galleries');
 				}
 				else
 				{
@@ -303,7 +297,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Upload a new image
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
@@ -325,10 +319,10 @@ class Admin extends Admin_Controller
 		//lets put the gallery id into flashdata.  We be usin' this later
 		$this->session->set_flashdata('gallery_id', $this->input->post('gallery_id'));
 		
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
 			
-			if ( $this->gallery_images_m->upload_image($_POST) === TRUE )
+			if ($this->gallery_images_m->upload_image($_POST) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
 				redirect('admin/galleries/upload');
@@ -340,7 +334,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		foreach($this->image_validation_rules as $rule)
+		foreach ($this->image_validation_rules as $rule)
 		{
 			$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
 		}
@@ -371,7 +365,7 @@ class Admin extends Admin_Controller
 		// Get the specific image
 		$gallery_image 		= $this->gallery_images_m->get_image($id);
 
-		if ( empty($gallery_image) )
+		if (empty($gallery_image) )
 		{
 			$this->session->set_flashdata('error', lang('gallery_images.exists_error'));
 			redirect('admin/galleries');
@@ -385,13 +379,13 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($validation_rules);
 
 		// I can haz valid formdata?
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
 			// Successfully updated the changes?
-			if ( $this->gallery_images_m->update_image($id, $_POST) === TRUE)
+			if ($this->gallery_images_m->update_image($id, $_POST) === TRUE)
 			{
 				// The delete action requires a different message
-				if ( isset($_POST['delete']) )
+				if (isset($_POST['delete']) )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
 				}
@@ -405,7 +399,7 @@ class Admin extends Admin_Controller
 			else
 			{
 				// The delete action requires a different message
-				if ( isset($_POST['delete']) )
+				if (isset($_POST['delete']) )
 				{
 					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
 				}
@@ -415,7 +409,7 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			if ( isset($_POST['delete']) )
+			if (isset($_POST['delete']) )
 			{
 				redirect('admin/galleries');
 			}
@@ -426,7 +420,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Required for validation
-		foreach($validation_rules as $rule)
+		foreach ($validation_rules as $rule)
 		{
 			if ($this->input->post($rule['field']))
 			{
@@ -442,9 +436,9 @@ class Admin extends Admin_Controller
 		
 		$gallery_options = array();
 		
-		if(!empty($galleries))
+		if ( ! empty($galleries))
 		{
-			foreach($galleries as $gallery)
+			foreach ($galleries as $gallery)
 			{
 				$gallery_options[$gallery->id] = $gallery->title;
 			}

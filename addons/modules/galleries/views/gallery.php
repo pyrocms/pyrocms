@@ -12,7 +12,7 @@
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
 				<?php echo anchor('galleries/' . $gallery->slug . '/' . $image->id,
-								  img(array('src' => BASE_URL . 'uploads/files/' . $image->filename, 'alt' => $image->title))); ?>
+								  img(array('src' => base_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name))); ?>
 			</li>
 			<?php endforeach; ?>
 			<?php endif; ?>
@@ -27,8 +27,8 @@
 	<div class="gallery clearfix">
 		<!-- Heading -->
 		<div class="gallery_heading">
-			<img src="<?php echo BASE_URL.'uploads/galleries/' . $gallery->filename; ?>" alt="<?php echo $gallery->title; ?>" />
-			<h3><?php echo anchor('galleries/' . $gallery->slug, $gallery->title); ?></h3>
+			<img src="<?php echo BASE_URL.'uploads/galleries/' . $gallery->filename; ?>" alt="<?php echo $gallery->name; ?>" />
+			<h3><?php echo anchor('galleries/' . $gallery->slug, $gallery->name); ?></h3>
 		</div>
 		<!-- And the body -->
 		<div class="gallery_body">

@@ -68,15 +68,14 @@ class Galleries_m extends MY_Model {
 	/**
 	 * Insert a new gallery into the database
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param array $input The data to insert (a copy of $_POST)
 	 * @return bool
 	 */
-	public function insert_gallery($input)
+	public function insert($input)
 	{
-		// Get rid of everything we don't need
-		$to_insert = array(
+		return (bool) parent::insert(array(
 			'title' => $input['title'],
 			'slug' => $input['slug'],
 			'folder_id' => $input['folder_id'],
@@ -84,40 +83,29 @@ class Galleries_m extends MY_Model {
 			'enable_comments' => $input['enable_comments'],
 			'published' => $input['published'],
 			'updated_on' => time()
-		);
-
-		// First we create the directories (so that we can delete them in case something goes wrong)
-		if ($this->create_folders($input['title']) === TRUE)
-		{
-			// Insert the data into the database
-			$insert_id = parent::insert($to_insert);
-
-			// Everything ok?
-			return $insert_id >= 0;
-		}
-
-		return FALSE;
+		));
 	}
 
 	/**
 	 * Update an existing gallery
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the row to update
 	 * @param array $input The data to use for updating the DB record
 	 * @return bool
 	 */
-	// TODO: This whole fucking function is a mess, can somebody sort this and insert_gallery() out so it's less of an insecure ridiculous mess?
-	public function update_gallery($id, $input)
+	public function update($id, $input)
 	{
-		if (!empty($input['gallery_thumbnail']))
-		{
-			$input['thumbnail_id'] = $input['gallery_thumbnail'];
-			unset($input['gallery_thumbnail']);
-		}
-
-        return parent::update($id, $input);
+        return parent::update($id, array(
+			'title' => $input['title'],
+			'slug' => $input['slug'],
+			'description' => $input['description'],
+			'enable_comments' => $input['enable_comments'],
+			'thumbnail_id' => ! empty($input['gallery_thumbnail']) ? (int) $input['gallery_thumbnail'] : 0,
+			'published' => $input['published'],
+			'updated_on' => time()
+		));
 	}
 
 }

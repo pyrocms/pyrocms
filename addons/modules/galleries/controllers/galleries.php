@@ -83,7 +83,7 @@ class Galleries extends Public_Controller
 		}
 		
 		$gallery = $this->galleries_m->get_by('slug', $gallery_slug);
-		$gallery_image = $this->gallery_images_m->get_by('id', $image_id);
+		$gallery_image = $this->gallery_images_m->get($image_id);
 		
 		// Do the gallery and the image ID match?
 		if ( $gallery->id != $gallery_image->gallery_id )
