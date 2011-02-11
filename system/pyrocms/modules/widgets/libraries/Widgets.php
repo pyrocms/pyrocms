@@ -350,7 +350,7 @@ class Widgets
 
     function __get($var)
     {
-		return CI_Base::get_instance()->$var;
+		return get_instance()->$var;
     }
 
 	protected function load_view($view, $data = array())

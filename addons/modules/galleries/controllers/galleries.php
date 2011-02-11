@@ -3,7 +3,7 @@
  *
  * The galleries module enables users to create albums, upload photos and manage their existing albums.
  *
- * @author 		Yorick Peterse - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Gallery Module
  * @category 	Modules
@@ -14,7 +14,7 @@ class Galleries extends Public_Controller
 	/**
 	 * Constructor method
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
@@ -33,14 +33,16 @@ class Galleries extends Public_Controller
 	/**
 	 * Index method
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
 	public function index()
 	{
-		$this->data->galleries = $this->galleries_m->get_all_with_filename();
-		$this->template->build('index', $this->data);
+		$galleries = $this->galleries_m->get_all_with_filename();
+		
+		$this->template->build('index', array(
+			'galleries' => $galleries
+		));
 	}
 	
 	/**
@@ -52,15 +54,17 @@ class Galleries extends Public_Controller
 	 */
 	public function gallery($slug = NULL)
 	{
-		if ( empty($slug) )
-		{
-			show_404();
-		}
+		$slug or show_404();
 		
-		$this->data->gallery 		= $this->galleries_m->get_by('slug', $slug);
-		$this->data->gallery_images = $this->gallery_images_m->get_images_by_gallery($this->data->gallery->id);
-		$this->data->sub_galleries 	= $this->galleries_m->get_all_with_filename('parent', $this->data->gallery->id);
-		$this->template->build('gallery', $this->data);
+		$gallery = $this->galleries_m->get_by('slug', $slug) or show_404();
+		$gallery_images = $this->gallery_images_m->get_images_by_gallery($gallery->id);
+		$sub_galleries 	= $this->galleries_m->get_all_with_filename('parent_id', $gallery->id);
+
+		$this->template->build('gallery', array(
+			'gallery' => $gallery,
+			'gallery_images' => $gallery_images,
+			'sub_galleries' => $sub_galleries
+		));
 	}
 	
 	/**
@@ -78,8 +82,8 @@ class Galleries extends Public_Controller
 			show_404();
 		}
 		
-		$gallery 		= $this->galleries_m->get_by('slug', $gallery_slug);
-		$gallery_image	= $this->gallery_images_m->get_by('id', $image_id);
+		$gallery = $this->galleries_m->get_by('slug', $gallery_slug);
+		$gallery_image = $this->gallery_images_m->get($image_id);
 		
 		// Do the gallery and the image ID match?
 		if ( $gallery->id != $gallery_image->gallery_id )
@@ -87,9 +91,9 @@ class Galleries extends Public_Controller
 			show_404();
 		}
 		
-		// Load the view
-		$this->data->gallery 		=& $gallery;
-		$this->data->gallery_image 	=& $gallery_image;
-		$this->template->build('image', $this->data);
+		$this->template->build('image', array(
+			'gallery' => $gallery,
+			'gallery_image' => $gallery_image
+		));
 	}
 }

@@ -19,7 +19,8 @@ class Module_News extends Module {
 				'it' => 'Notizie',
 				'ru' => 'Новости',
 				'ar' => 'الأخبار',
-				'cs' => 'Novinky'
+				'cs' => 'Novinky',
+				'fi' => 'Uutiset'
 			),
 			'description' => array(
 				'en' => 'Post news articles and blog entries.',
@@ -33,10 +34,12 @@ class Module_News extends Module {
 				'it' => 'Pubblica notizie e post per il blog.',
 				'ru' => 'Управление новостными статьями и записями блога.',
 				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.',
-				'cs' => 'Publikujte nové články a příspěvky na blog.'
+				'cs' => 'Publikujte nové články a příspěvky na blog.',
+				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
+			'skip_xss' => TRUE,
 			'menu' => 'content'
 		);
 	}

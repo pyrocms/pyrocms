@@ -15,7 +15,6 @@ $lang['gallery_images.upload_label']		= 'Upload Afbeelding';
 $lang['gallery_images.edit_image_label']	= 'Wijzig Afbeelding';
 $lang['gallery_images.thumbnail_label']		= 'Miniatuur';
 $lang['gallery_images.action_label']		= 'Actie';
-$lang['gallery_images.none_label']			= '-- Geen --';
 $lang['gallery_images.crop_label']			= 'Snijd Afbeelding';
 $lang['gallery_images.recreate_label']		= 'Hercre&euml;er thumbnail';
 $lang['gallery_images.delete_label']		= 'Verwijder Afbeelding';
@@ -27,4 +26,3 @@ $lang['gallery_images.no_images_label']		= 'Er zijn nog geen afbeeldingen toegev
 $lang['gallery_images.ratio_label']			= 'Behoud verhoudingen';
 $lang['gallery_images.options_label']		= 'Opties:';
 $lang['gallery_images.crop.save_label']		= 'Klik Opslaan om de snijactie door te voeren.';
-?>

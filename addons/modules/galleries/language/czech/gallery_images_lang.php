@@ -15,7 +15,6 @@ $lang['gallery_images.upload_label']		= 'Nahrát obrázek';
 $lang['gallery_images.edit_image_label']	= 'Upravit obrázek';
 $lang['gallery_images.thumbnail_label']		= 'Náhled';
 $lang['gallery_images.action_label']		= 'Akce';
-$lang['gallery_images.none_label']			= '-- Nic --';
 $lang['gallery_images.crop_label']			= 'Oříznout obrázek';
 $lang['gallery_images.recreate_label']		= 'Znovu vytvořit náhled';
 $lang['gallery_images.delete_label']		= 'Vymazat obrázek';
@@ -27,4 +26,3 @@ $lang['gallery_images.no_images_label']		= 'Žádné obrázky zatím nebyly při
 $lang['gallery_images.ratio_label']			= 'Dodržet poměr stran';
 $lang['gallery_images.options_label']		= 'Možnosti:';
 $lang['gallery_images.crop.save_label']		= 'Klikněte na Uložit pro oříznutí obrázku';
-?>

@@ -1,3 +1,21 @@
+<script type="text/javascript">
+(function($) {
+	$(document).ready(function() {
+		//auto create slug
+		form = $('form#folders_crud');
+			
+		$('input[name="name"]', form).keyup(function(){
+			
+			slug = $(this).val().toLowerCase()
+							.replace(/[^\w ]+/g,' ')
+							.replace(/ +/g,'-');
+
+			$('input[name="slug"]', form).val( slug );
+		});
+	});
+})(jQuery)
+</script>
+
 <?php if (isset($messages['success'])): ?>
 <script type="text/javascript">
 (function($) {
@@ -10,7 +28,14 @@
 <?php else: ?>
 
 <?php echo form_open($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
-<h2><?php echo lang('files.folders.create'); ?></h2>
+<h2>
+<?php if($this->method == 'edit'): ?>
+<?php echo lang('files.labels.edit') . ' ' . lang('files.folder.label') . ' "' . $folder->name . '"'; ?>
+<?php else: ?>
+<?php echo lang('files.folders.create'); ?>
+<?php endif; ?>
+</h2>
+
 <ul>
 	<li>
 		<label for="name"><?php echo lang('files.folders.name'); ?></label>

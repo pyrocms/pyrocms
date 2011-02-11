@@ -1,7 +1,11 @@
 <div id="comments_container">
 	<h2><?php echo lang('comments.title');?></h2>
 
-	<?php $comments = $this->comments_m->get_by_module_item($module, $module_id); if(!empty($comments)): ?>
+	<?php
+	$comments = $this->comments_m->get_by_module_item($module, $module_id);
+	if(!empty($comments)): 
+	?>
+	
 	<ul id="comment_list">
 
 		<?php foreach( $comments as $comment): ?>

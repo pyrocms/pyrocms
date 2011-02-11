@@ -35,8 +35,7 @@ $lang['galleries.published_no_label']		= 'Ne';
 // General labels
 $lang['galleries.title_label']				= 'Titulek';
 $lang['galleries.slug_label']				= 'Adresa v URL';
-$lang['galleries.parent_label']				= 'Rodič';
-$lang['galleries.none_label']				= '-- Nic --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label']		= 'Popis alba';
 $lang['galleries.thumbnail_label']			= 'Náhled';
 $lang['galleries.comments_label']			= 'Povolit komentáře';
@@ -50,4 +49,3 @@ $lang['galleries.upload_label']				= 'Nahrát obrázek';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Podgalerie';
-?>

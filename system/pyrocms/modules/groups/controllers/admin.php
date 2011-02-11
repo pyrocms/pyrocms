@@ -50,9 +50,11 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-    	$this->template->groups = $this->group_m->get_all();
+    	$groups = $this->group_m->get_all();
+
     	$this->template
     		->title($this->module_details['name'])
+			->set('groups', $groups)
     		->build('admin/index', $this->data);
 	}
 
@@ -67,6 +69,7 @@ class Admin extends Admin_Controller
 		if ($_POST)
 		{
 			$this->form_validation->set_rules($this->validation_rules);
+
 			if ($this->form_validation->run())
 			{
 				$this->group_m->insert($_POST)
@@ -83,10 +86,9 @@ class Admin extends Admin_Controller
 			$group->{$rule['field']} = set_value($rule['field']);
 		}
 
-		// Render the view
-		$this->template->group = $group;
 		$this->template
 			->title($this->module_details['name'], lang('groups.add_title'))
+			->set('group', $group)
 			->build('admin/form', $this->data);
 	}
 
@@ -135,10 +137,9 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		// Render the view
-		$this->template->group = $group;
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('groups.edit_title'), $group->name))
+			->set('group', $group)
 			->build('admin/form', $this->data);
 	}
 

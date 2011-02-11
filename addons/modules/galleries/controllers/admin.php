@@ -20,37 +20,37 @@ class Admin extends Admin_Controller
 	private $gallery_validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'Title',
+			'label' => 'lang:galleries.title_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
 			'field' => 'slug',
-			'label' => 'Slug',
+			'label' => 'lang:galleries.slug_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
-			'field' => 'parent_id',
-			'label' => 'Parent',
-			'rules' => 'trim'
+			'field' => 'folder_id',
+			'label' => 'lang:galleries.folder_label',
+			'rules' => 'trim|numeric|required'
 		),
 		array(
 			'field' => 'description',
-			'label' => 'Description',
+			'label' => 'lang:galleries.description_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'enable_comments',
-			'label' => 'Enable Comments',
+			'label' => 'lang:galleries.comments_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'published',
-			'label' => 'Published',
+			'label' => 'lang:galleries.published_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'gallery_thumbnail',
-			'label'	=> 'Thumbnail',
+			'label'	=> 'lang:galleries.thumbnail_label',
 			'rules'	=> 'trim'
 		)
 
@@ -65,22 +65,22 @@ class Admin extends Admin_Controller
 	private $image_validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'Title',
+			'label' => 'lang:gallery_images.title_label',
 			'rules' => 'trim|max_length[255]|required'
 		),
 		array(
 			'field' => 'userfile',
-			'label' => 'Image',
+			'label' => 'lang:gallery_images.image_label',
 			'rules' => 'trim'
 		),
 		array(
 			'field' => 'gallery_id',
-			'label' => 'Gallery',
+			'label' => 'lang:gallery_images.gallery_label',
 			'rules' => 'trim|integer|required'
 		),
 		array(
 			'field' => 'description',
-			'label' => 'Description',
+			'label' => 'lang:gallery_images.description_label',
 			'rules' => 'trim'
 		)
 	);
@@ -110,7 +110,6 @@ class Admin extends Admin_Controller
 	/**
 	 * List all existing albums
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
@@ -130,21 +129,22 @@ class Admin extends Admin_Controller
 	/**
 	 * Create a new gallery
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
 	public function create()
 	{
-		// Get all the galleries
-		$galleries = $this->galleries_m->get_all();
+		$this->load->model('files/file_folders_m');
+
+		$this->file_folders_m->folder_tree();
+		$file_folders = $this->file_folders_m->get_folders();
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->gallery_validation_rules);
 
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
-			if ($this->galleries_m->insert_gallery($_POST))
+			if ($this->galleries_m->insert($_POST))
 			{
 				// Everything went ok..
 				$this->session->set_flashdata('success', lang('galleries.create_success'));
@@ -154,16 +154,13 @@ class Admin extends Admin_Controller
 			// Something went wrong..
 			else
 			{
-				// Remove the directory
-				$this->galleries_m->rm_gallery_dir($_POST['slug']);
-
 				$this->session->set_flashdata('error', lang('galleries.create_error'));
 				redirect('admin/galleries/create');
 			}
 		}
 
 		// Required for validation
-		foreach($this->gallery_validation_rules as $rule)
+		foreach ($this->gallery_validation_rules as $rule)
 		{
 			$gallery->{$rule['field']} = $this->input->post($rule['field']);
 		}
@@ -174,7 +171,7 @@ class Admin extends Admin_Controller
 			->append_metadata( css('galleries.css', 'galleries') )
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
 			->set('gallery', $gallery)
-			->set('galleries', $galleries)
+			->set('file_folders', $file_folders)
 			->build('admin/new_gallery');
 	}
 
@@ -202,10 +199,10 @@ class Admin extends Admin_Controller
 		}
 
 		// Valid form data?
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
 			// Try to update the gallery
-			if ( $this->galleries_m->update_gallery($id, $_POST) === TRUE )
+			if ($this->galleries_m->update($id, $_POST) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('galleries.update_success'));
 				redirect('admin/galleries/manage/' . $id);
@@ -218,7 +215,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Required for validation
-		foreach($this->gallery_validation_rules as $rule)
+		foreach ($this->gallery_validation_rules as $rule)
 		{
 			if ($this->input->post($rule['field']))
 			{
@@ -251,13 +248,13 @@ class Admin extends Admin_Controller
 		$id_array = array();
 
 		// Multiple IDs or just a single one?
-		if ( $_POST )
+		if ($_POST )
 		{
 			$id_array = $_POST['action_to'];
 		}
 		else
 		{
-			if ( $id !== NULL )
+			if ($id !== NULL )
 			{
 				$id_array[0] = $id;
 			}
@@ -280,13 +277,10 @@ class Admin extends Admin_Controller
 			{
 
 				// Delete the gallery along with all the images from the database
-				if ( $this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
+				if ($this->galleries_m->delete($id) AND $this->gallery_images_m->delete_by('gallery_id', $id) )
 				{
-					if ( !$this->galleries_m->rm_gallery_dir($gallery->slug) )
-					{
-						$this->session->set_flashdata('error', sprintf( lang('galleries.folder_error'), $gallery->title));
-						redirect('admin/galleries');
-					}
+					$this->session->set_flashdata('error', sprintf( lang('galleries.folder_error'), $gallery->title));
+					redirect('admin/galleries');
 				}
 				else
 				{
@@ -303,7 +297,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Upload a new image
 	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
+	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @return void
 	 */
@@ -325,10 +319,10 @@ class Admin extends Admin_Controller
 		//lets put the gallery id into flashdata.  We be usin' this later
 		$this->session->set_flashdata('gallery_id', $this->input->post('gallery_id'));
 		
-		if ( $this->form_validation->run() )
+		if ($this->form_validation->run() )
 		{
 			
-			if ( $this->gallery_images_m->upload_image($_POST) === TRUE )
+			if ($this->gallery_images_m->upload_image($_POST) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
 				redirect('admin/galleries/upload');
@@ -340,7 +334,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		foreach($this->image_validation_rules as $rule)
+		foreach ($this->image_validation_rules as $rule)
 		{
 			$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
 		}
@@ -358,107 +352,6 @@ class Admin extends Admin_Controller
 			->build('admin/upload', $this->data);
 	}
 
-	/**
-	 * Edit an existing image
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id The ID of the image to edit
-	 * @return void
-	 */
-	public function edit_image($id)
-	{
-		// Get the specific image
-		$gallery_image 		= $this->gallery_images_m->get_image($id);
-
-		if ( empty($gallery_image) )
-		{
-			$this->session->set_flashdata('error', lang('gallery_images.exists_error'));
-			redirect('admin/galleries');
-		}
-
-		// Get rid of the validation rules we don't need
-		$validation_rules 	= $this->image_validation_rules;
-		unset($validation_rules[1]);
-		unset($validation_rules[2]);
-
-		$this->form_validation->set_rules($validation_rules);
-
-		// I can haz valid formdata?
-		if ( $this->form_validation->run() )
-		{
-			// Successfully updated the changes?
-			if ( $this->gallery_images_m->update_image($id, $_POST) === TRUE)
-			{
-				// The delete action requires a different message
-				if ( isset($_POST['delete']) )
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.delete_success'));
-				}
-				else
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.changes_success'));
-				}
-			}
-
-			// Something went wrong...
-			else
-			{
-				// The delete action requires a different message
-				if ( isset($_POST['delete']) )
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.delete_error'));
-				}
-				else
-				{
-					$this->session->set_flashdata('success', lang('gallery_images.changes_error'));
-				}
-			}
-
-			if ( isset($_POST['delete']) )
-			{
-				redirect('admin/galleries');
-			}
-			else
-			{
-				redirect($this->uri->uri_string());
-			}
-		}
-
-		// Required for validation
-		foreach($validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']))
-			{
-				$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
-			}
-		}
-
-		// Load the views
-		$this->data->gallery_image =& $gallery_image;
-		
-		//get list of available galleries
-		$galleries = $this->galleries_m->get_all();
-		
-		$gallery_options = array();
-		
-		if(!empty($galleries))
-		{
-			foreach($galleries as $gallery)
-			{
-				$gallery_options[$gallery->id] = $gallery->title;
-			}
-		}
-		
-		$this->template
-			->set('gallery_options', $gallery_options)
-			->append_metadata( css('galleries.css', 'galleries') )
-			->append_metadata(js('functions.js', 'galleries') )
-			->append_metadata( js('jcrop.js', 'galleries') )
-			->append_metadata( js('jcrop_init.js', 'galleries') )
-			->title($this->module_details['name'], lang('gallery_images.edit_image_label'))
-			->build('admin/edit', $this->data);
-	}
 
 	/**
 	 * Sort images in an existing gallery
@@ -466,13 +359,11 @@ class Admin extends Admin_Controller
 	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
 	 */
-
 	public function ajax_update_order()
 	{
 		$ids = explode(',', $this->input->post('order'));
 
 		$i = 1;
-
 		foreach ($ids as $id)
 		{
 			$this->gallery_images_m->update($id, array(
@@ -493,5 +384,19 @@ class Admin extends Admin_Controller
 			}
 			++$i;
 		}
+	}
+
+	/**
+	 * Sort images in an existing gallery
+	 *
+	 * @author Phil Sturgeon - PyroCMS Dev Team
+	 * @access public
+	 */
+	public function ajax_select_folder($folder_id)
+	{
+		$this->load->model('files/file_folders_m');
+		$folder = $this->file_folders_m->get($folder_id);
+
+		echo json_encode($folder);
 	}
 }

@@ -12,8 +12,8 @@
  *
  * Install this file as application/third_party/MX/Config.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-09-09
- * @version 	5.3.4
+ * @copyright	Copyright (c) 2011 Wiredesignz
+ * @version 	5.4
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,12 +36,12 @@
 class MX_Config extends CI_Config 
 {	
 	public function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE, $_module = NULL) {
+		
 		($file == '') AND $file = 'config';
 
-		if (in_array($file, $this->is_loaded, TRUE))
-			return $this->item($file);
+		if (in_array($file, $this->is_loaded, TRUE)) return $this->item($file);
 
-		$_module || $_module = CI::$APP->router->fetch_module();
+		$_module OR $_module = CI::$APP->router->fetch_module();
 		list($path, $file) = Modules::find($file, $_module, 'config/');
 		
 		if ($path === FALSE) {

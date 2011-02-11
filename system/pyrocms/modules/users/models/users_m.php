@@ -61,7 +61,7 @@ class Users_m extends MY_Model
     
 	function get_all()
     {
-    	$this->db->select('profiles.*, users.*, g.description as role_title, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name')
+    	$this->db->select('profiles.*, users.*, g.description as group_name, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name')
     			 ->join('groups g', 'g.id = users.group_id')
     			 ->join('profiles', 'profiles.user_id = users.id', 'left');
     		
@@ -100,6 +100,56 @@ class Users_m extends MY_Model
 	function activate($id)
 	{
 		return parent::update($id, array('is_active' => 1, 'activation_code' => ''));
+	}
+	
+	public function count_by($params = array())
+	{
+		$this->db->from($this->_table)->join('profiles', 'users.id = profiles.user_id', 'left');
+							
+		if(!empty($params['active']))
+		{
+			$params['active'] = $params['active'] === 2 ? 0 : $params['active'] ;
+			$this->db->where('users.active', $params['active']);
+		}
+		
+		if(!empty($params['group_id']))
+		{
+			$this->db->where('group_id', $params['group_id']);
+		}
+		
+		if(!empty($params['name']))
+		{
+			$this->db->like('users.username', trim($params['name']))
+						->or_like('users.email', trim($params['name']))
+						->or_like('profiles.first_name', trim($params['name']))
+						->or_like('profiles.last_name', trim($params['name']));
+		}
+		
+		return $this->db->count_all_results();
+	}
+	
+	public function get_many_by($params = array())
+	{
+		if(!empty($params['active']))
+		{
+			$params['active'] = $params['active'] === 2 ? 0 : $params['active'] ;
+			$this->db->where('active', $params['active']);
+		}
+		
+		if(!empty($params['group_id']))
+		{
+			$this->db->where('group_id', $params['group_id']);
+		}
+		
+		if(!empty($params['name']))
+		{
+			$this->db->like('users.username', trim($params['name']))
+						->or_like('users.email', trim($params['name']))
+						->or_like('profiles.first_name', trim($params['name']))
+						->or_like('profiles.last_name', trim($params['name']));
+		}
+		
+		return $this->get_all();
 	}
 
 }

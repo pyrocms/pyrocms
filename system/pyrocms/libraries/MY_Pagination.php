@@ -14,8 +14,6 @@
 
 class MY_Pagination extends CI_Pagination {
 	
-	// --------------------------------------------------------------------
-	
 	/**
 	 * Generate the pagination links
 	 *
