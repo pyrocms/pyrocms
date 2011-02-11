@@ -287,12 +287,12 @@ class CI_DB_mysql_driver extends CI_DB {
 		if (is_array($str))
 		{
 			foreach($str as $key => $val)
-			{
+	   		{
 				$str[$key] = $this->escape_str($val, $like);
-			}
+	   		}
 
-			return $str;
-		}
+	   		return $str;
+	   	}
 
 		if (function_exists('mysql_real_escape_string') AND is_resource($this->conn_id))
 		{
@@ -592,7 +592,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	{
 		foreach($values as $key => $val)
 		{
-			$valstr[] = $key." = ".$val;
+			$valstr[] = $key . ' = ' . $val;
 		}
 
 		$limit = ( ! $limit) ? '' : ' LIMIT '.$limit;

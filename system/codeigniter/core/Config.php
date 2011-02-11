@@ -74,6 +74,8 @@ class CI_Config {
 	 *
 	 * @access	public
 	 * @param	string	the config file name
+	 * @param   boolean  if configuration values should be loaded into their own section
+	 * @param   boolean  true if errors should just return false, false if an error message should be displayed
 	 * @return	boolean	if the file was loaded correctly
 	 */
 	function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE)
@@ -82,8 +84,8 @@ class CI_Config {
 		$loaded = FALSE;
 
 		foreach($this->_config_paths as $path)
-		{
-			$file_path = $path.'config/'.$file.EXT;
+		{			
+			$file_path = $path.'config/'.ENVIRONMENT.'/'.$file.EXT;
 
 			if (in_array($file_path, $this->is_loaded, TRUE))
 			{
@@ -91,11 +93,17 @@ class CI_Config {
 				continue;
 			}
 
-			if ( ! file_exists($path.'config/'.$file.EXT))
+			if ( ! file_exists($file_path))
 			{
-				continue;
+				log_message('debug', 'Config for '.ENVIRONMENT.' environment is not found. Trying global config.');
+				$file_path = $path.'config/'.$file.EXT;
+				
+				if ( ! file_exists($file_path))
+				{
+					continue;
+				}
 			}
-
+			
 			include($file_path);
 
 			if ( ! isset($config) OR ! is_array($config))
@@ -136,9 +144,9 @@ class CI_Config {
 			{
 				return FALSE;
 			}
-			show_error('The configuration file '.$file.EXT.' does not exist.');
+			show_error('The configuration file '.ENVIRONMENT.'/'.$file.EXT.' and '.$file.EXT.' do not exist.');
 		}
-
+		
 		return TRUE;
 	}
 
