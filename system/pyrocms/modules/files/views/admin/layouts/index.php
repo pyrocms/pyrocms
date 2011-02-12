@@ -68,6 +68,20 @@ h3 span {
 #uploader form {
 	min-height: 100px;
 }
+
+div.selector {
+	z-index: 9999;
+}
+.file_upload {
+	background-color: #EFEFF6;
+	border: 1px solid #d0d0d0;
+}
+.file_upload_start button, .file_upload_cancel button {
+	width: 20px;
+	height: 20px;
+	min-width: 0;
+	margin: 0;
+}
 </style>
 
 <div id="files_browser">
@@ -87,10 +101,9 @@ h3 span {
 		<div>Upload files</div>
 		<button id="start_uploads">Start uploads</button>
 
-
 	<?php echo form_close(); ?>
 </div>
-<table id="file-queue"></table>
+<ul id="file-queue"></ul>
 <script type="text/javascript">
 (function($) {
 	$(function() {
@@ -101,30 +114,30 @@ h3 span {
 			uploadTable: $('#file-queue'),
 			downloadTable: $('#file-queue'),
 			buildUploadRow: function (files, index) {
-				return $('<tr><td class="file_upload_preview"><\/td>' +
-						'<td>' + files[index].name + '<\/td>' +
-						'<td><input class="file-name" type="text" name="name" value="'+files[index].name+'" />' + 
-						'<td class="file_upload_progress"><div><\/div><\/td>' +
-						'<td class="file_upload_start">' +
+				return $('<li><div class="file_upload_preview"><\/td>' +
+						'<div>' + files[index].name + '</div>' +
+						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' + 
+						'<div class="file_upload_progress"><div></div></div>' +
+						'<div class="file_upload_start">' +
 						'<button class="ui-state-default ui-corner-all" title="Start Upload">' +
-						'<span class="ui-icon ui-icon-circle-arrow-e">Start Upload<\/span>' +
-						'<\/button><\/td>' +
-						'<td class="file_upload_cancel">' +
+						'<span class="ui-icon ui-icon-circle-arrow-e">Start Upload</span>' +
+						'</button></div>' +
+						'<div class="file_upload_cancel">' +
 						'<button class="ui-state-default ui-corner-all" title="Cancel">' +
-						'<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
-						'<\/button><\/td><\/tr>');
+						'<span class="ui-icon ui-icon-cancel">Cancel</span>' +
+						'</button></div></li>');
 			},
 			buildDownloadRow: function (file) {
-				return $('<tr><td colspan="4">' + file.name + '</td></tr>');
+				return $('<li><div>' + file.name + '</div></li>');
 			},
 			beforeSend: function (event, files, index, xhr, handler, callBack) {
-				handler.uploadRow.find('.file_upload_start button').click(function() {
+				
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
 						folder_id: $('select#folder_id').val()
 					};
 					callBack();
-				});
+			
 			},
 			onComplete: function(event, files, index, xhr, handler) {
 				$('.file_upload_start button').trigger('click', function() {
