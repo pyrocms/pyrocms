@@ -64,6 +64,10 @@ h3 span {
 #files_toolbar label {
 	font-weight: bold;
 }
+
+#uploader form {
+	min-height: 100px;
+}
 </style>
 
 <div id="files_browser">
@@ -75,9 +79,61 @@ h3 span {
 	<div id="files_right_pane">
 	</div>
 </div>
+<div id="uploader">
+	<?php echo form_open_multipart('admin/files/upload'); ?>
+		<?php echo form_dropdown('folder_id', $folder_options, array(), 'id="folder_id"'); ?>
+		<input class="no-uniform" type="file" name="userfile" multiple>
+		<button>Upload</button>
+		<div>Upload files</div>
+		<button id="start_uploads">Start uploads</button>
+
+
+	<?php echo form_close(); ?>
+</div>
+<table id="file-queue"></table>
 <script type="text/javascript">
 (function($) {
 	$(function() {
+		
+		//file upload stuff
+		$('#uploader form').fileUploadUI({
+			fieldName: 'userfile',
+			uploadTable: $('#file-queue'),
+			downloadTable: $('#file-queue'),
+			buildUploadRow: function (files, index) {
+				return $('<tr><td class="file_upload_preview"><\/td>' +
+						'<td>' + files[index].name + '<\/td>' +
+						'<td><input class="file-name" type="text" name="name" value="'+files[index].name+'" />' + 
+						'<td class="file_upload_progress"><div><\/div><\/td>' +
+						'<td class="file_upload_start">' +
+						'<button class="ui-state-default ui-corner-all" title="Start Upload">' +
+						'<span class="ui-icon ui-icon-circle-arrow-e">Start Upload<\/span>' +
+						'<\/button><\/td>' +
+						'<td class="file_upload_cancel">' +
+						'<button class="ui-state-default ui-corner-all" title="Cancel">' +
+						'<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
+						'<\/button><\/td><\/tr>');
+			},
+			buildDownloadRow: function (file) {
+				return $('<tr><td colspan="4">' + file.name + '</td></tr>');
+			},
+			beforeSend: function (event, files, index, xhr, handler, callBack) {
+				handler.uploadRow.find('.file_upload_start button').click(function() {
+					handler.formData = {
+						name: handler.uploadRow.find('input.file-name').val(),
+						folder_id: $('select#folder_id').val()
+					};
+					callBack();
+				});
+			},
+			onComplete: function(event, files, index, xhr, handler) {
+				$('.file_upload_start button').trigger('click', function() {
+					
+				});
+			}
+		});
+
+		
 		$("#files_left_pane li a").click(function() {
 			var anchor = $(this);
 			var current_text = anchor.text();

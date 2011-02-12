@@ -60,14 +60,20 @@ class Admin extends Admin_Controller {
 	public function index()
 	{
 		$file_folders = $this->file_folders_m->order_by('name')->get_many_by(array('parent_id' => '0'));
-
+		
+		$folder_options = $this->file_folders_m->dropdown('id', 'name');
+		
 		if ($error = $this->_check_dir())
 		{
 			$this->template->error = $this->_check_dir();
 		}
 
 		$this->template
+			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
+			->append_metadata( js('jquery.fileupload.js', 'files') )
+			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
 			->title($this->module_details['name'])
+			->set('folder_options', $folder_options)
 			->set('file_folders', $file_folders)
 			->build('admin/layouts/index');
 	}
@@ -168,6 +174,16 @@ class Admin extends Admin_Controller {
 
 				$data->messages['success'] = lang('files.success');
 				#redirect('admin/files');
+				$json = array(
+								'name' 	=> 	$img['upload_data']['file_name'],
+								'type'	=>	$img['upload_data']['file_type'],
+								'size'	=>	$img['upload_data']['file_size']
+							);
+				if($this->input->is_ajax_request())
+				{
+					echo json_encode($json);
+					return;
+				}
 			}
 		}
 
