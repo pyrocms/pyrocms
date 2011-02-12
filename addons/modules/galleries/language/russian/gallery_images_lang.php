@@ -24,7 +24,6 @@ $lang['gallery_images.upload_label']				= 'Загрузить изображен
 $lang['gallery_images.edit_image_label']		= 'Редактировать изображение';
 $lang['gallery_images.thumbnail_label']			= 'Миниатюра';
 $lang['gallery_images.action_label']				= 'Действия';
-$lang['gallery_images.none_label']					= '-- нет --';
 $lang['gallery_images.crop_label']					= 'Обрезать изображение';
 $lang['gallery_images.recreate_label']			= 'Обновить миниатюру';
 $lang['gallery_images.delete_label']				= 'Удалить изображение';

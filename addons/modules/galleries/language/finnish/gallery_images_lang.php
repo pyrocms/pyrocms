@@ -23,7 +23,6 @@ $lang['gallery_images.upload_label']		= 'Lisää kuva';
 $lang['gallery_images.edit_image_label']	= 'Muokkaa kuvaa';
 $lang['gallery_images.thumbnail_label']		= 'Esikatselu';
 $lang['gallery_images.action_label']		= 'Toiminnot';
-$lang['gallery_images.none_label']			= '-- Ei mitään --';
 $lang['gallery_images.crop_label']			= 'Rajaa kuva';
 $lang['gallery_images.recreate_label']		= 'Luo esikatselu kuva uudelleen';
 $lang['gallery_images.delete_label']		= 'Poista kuva';
@@ -35,4 +34,3 @@ $lang['gallery_images.no_images_label']		= 'Kuvia ei vielä ole lisätty';
 $lang['gallery_images.ratio_label']			= 'Säilytä kuvasuhde';
 $lang['gallery_images.options_label']		= 'Asetukset:';
 $lang['gallery_images.crop.save_label']		= 'Tallenna rajaus';
-?>

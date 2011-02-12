@@ -35,8 +35,7 @@ $lang['galleries.published_no_label']		= 'No';
 // General labels
 $lang['galleries.title_label']				= 'Titolo';
 $lang['galleries.slug_label']				= 'Slug (Friendly URL)';
-$lang['galleries.parent_label']				= 'Superiore';
-$lang['galleries.none_label']				= '-- Nessuna --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label']		= 'Descrizione album';
 $lang['galleries.thumbnail_label']			= 'Anteprime';
 $lang['galleries.comments_label']			= 'Abilita commenti';
