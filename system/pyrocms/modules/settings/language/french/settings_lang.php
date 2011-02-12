@@ -130,8 +130,8 @@ $lang['settings_form_option_Enabled']			= 'Actif';
 $lang['settings_form_option_Disabled']			= 'Inactif';
 $lang['settings_form_option_Required']			= 'Requis';
 $lang['settings_form_option_Optional']			= 'Optionnel';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Oldest First']		= 'Plus anciens en premier'; # Oldest first translate
+$lang['settings_form_option_Newest First']		= 'Les plus récents en premier'; #Newest first translate
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/french/settings_lang.php */
