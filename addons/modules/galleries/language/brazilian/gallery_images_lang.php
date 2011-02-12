@@ -15,7 +15,6 @@ $lang['gallery_images.upload_label']		= 'Enviar imagem';
 $lang['gallery_images.edit_image_label']	= 'Editar imagem';
 $lang['gallery_images.thumbnail_label']		= 'Mimiatura';
 $lang['gallery_images.action_label']		= 'Ação';
-$lang['gallery_images.none_label']			= '-- NENHUMA --';
 $lang['gallery_images.crop_label']			= 'Cortar imagem';
 $lang['gallery_images.recreate_label']		= 'Re-criar mimiatura';
 $lang['gallery_images.delete_label']		= 'Remover imagem';
@@ -27,4 +26,3 @@ $lang['gallery_images.no_images_label']		= 'Nenhuma imagem foi adicionada ainda'
 $lang['gallery_images.ratio_label']			= 'Manter proporção';
 $lang['gallery_images.options_label']		= 'Opções:';
 $lang['gallery_images.crop.save_label']		= 'Clique em salvar par aplicar o corte';
-?>

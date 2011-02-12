@@ -16,7 +16,6 @@ $lang['gallery_images.upload_label']		= 'Subir Imagen';
 $lang['gallery_images.edit_image_label']	= 'Editar Imagen';
 $lang['gallery_images.thumbnail_label']		= 'Miniatura';
 $lang['gallery_images.action_label']		= 'Acción';
-$lang['gallery_images.none_label']		= '-- Ninguna --';
 $lang['gallery_images.crop_label']		= 'Cortar Imagen';
 $lang['gallery_images.recreate_label']		= 'Recrear Miniatura';
 $lang['gallery_images.delete_label']		= 'Eliminar Imagen';

@@ -35,8 +35,7 @@ $lang['galleries.published_no_label']		= 'لا';
 // General labels
 $lang['galleries.title_label']				= 'العنوان';
 $lang['galleries.slug_label']				= 'مُختصر الرابط';
-$lang['galleries.parent_label']				= 'المُحتوي';
-$lang['galleries.none_label']				= '-- لاشيء --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label']		= 'وصْف الألبوم';
 $lang['galleries.thumbnail_label']			= 'مُصغّر';
 $lang['galleries.comments_label']			= 'تمكين التعليقات';
@@ -50,4 +49,3 @@ $lang['galleries.upload_label']				= 'رفع صورة';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'معارض الصّور الفرعيّة';
-?>
