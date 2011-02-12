@@ -22,3 +22,4 @@ $lang['modules.confirm_enable']         = 'Voulez-vous vraiment activer ce modul
 $lang['modules.confirm_disable']        = 'Voulez-vous vraiment désactiver ce module?';
 $lang['modules.confirm_install']        = 'Voulez-vous vraiment installer ce module?';
 $lang['modules.confirm_uninstall']      = 'Voulez-vous vraiment désinstaller ce module?';
+
