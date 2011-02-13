@@ -15,7 +15,7 @@
 $lang['files.title']						= 'Fichiers';
 $lang['files.upload.title']					= 'Uploader des fichiers';
 $lang['files.labels.action']				= 'Action';
-$lang['files.labels.download']				= 'Download'; #translate
+$lang['files.labels.download']				= 'Télécharger';
 $lang['files.labels.edit']					= 'Editer';
 $lang['files.labels.delete']				= 'Effacer';
 $lang['files.labels.upload']				= 'Uploader';
@@ -52,7 +52,7 @@ $lang['files.success']				= 'Le fichier a été enregistré.';
 $lang['files.not_exists']			= 'Un dossier invalide a été sélectionné';
 $lang['files.delete.error']			= 'Le fichier n\'a pu êttree supprimé';
 $lang['files.delete.success']			= 'Le fichier a été supprimer.';
-$lang['files.filter']						= 'Filter'; #translate
+$lang['files.filter']						= 'Filtre';
 
 // Types
 $lang['files.i'] = 'Image';
