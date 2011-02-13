@@ -138,7 +138,7 @@ class Admin extends Admin_Controller {
 			
 			while ($str = current($allowed))
 			{				
-				if (preg_match('/'.$this->ext.'/', $str))
+				if (preg_match('/'.strtolower($this->ext).'/', $str))
 				{
 					$config['allowed_types'] = $allowed[key($allowed)];
 					break;
@@ -162,7 +162,7 @@ class Admin extends Admin_Controller {
 					'user_id' => $this->user->id,
 					'type' => key($allowed),
 					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
+					'description' => $this->input->post('description') ? $this->input->post('description') : '',
 					'filename' => $img['upload_data']['file_name'],
 					'extension' => $img['upload_data']['file_ext'],
 					'mimetype' => $img['upload_data']['file_type'],
