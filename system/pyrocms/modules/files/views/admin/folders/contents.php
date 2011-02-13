@@ -23,7 +23,7 @@
 			</li>
 			<li>
 				<label for="folder"><?php echo lang('files.filter'); ?>:</label>
-				<?php echo form_dropdown('filter', $types, $selected_filter, 'id="filter"'); ?>
+				<?php echo form_dropdown('filter', array('' => '') + $types, $selected_filter, 'id="filter"'); ?>
 			</li>
 		</ul>
 	</div>
