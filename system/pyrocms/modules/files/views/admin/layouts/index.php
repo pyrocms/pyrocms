@@ -64,7 +64,13 @@ h3 span {
 #files_toolbar label {
 	font-weight: bold;
 }
-
+#uploader {
+	display: none;
+	position: absolute;
+	width: 100%;
+	background-color: #EFEFF6;
+	border: 1px solid #d0d0d0;
+}
 #uploader form {
 	min-height: 100px;
 }
@@ -73,8 +79,9 @@ div.selector {
 	z-index: 9999;
 }
 .file_upload {
-	background-color: #EFEFF6;
-	border: 1px solid #d0d0d0;
+	background-color: transparent;
+	border: 2px dashed #d0d0d0;
+	margin: 40px auto;
 }
 .file_upload_start button, .file_upload_cancel button {
 	width: 20px;
@@ -83,6 +90,16 @@ div.selector {
 	margin: 0;
 }
 </style>
+<div id="uploader">
+	<?php echo form_open_multipart('admin/files/upload'); ?>
+		<input type="hidden" value="" id="folder_id" />
+		<input class="no-uniform" type="file" name="userfile" multiple>
+			
+		<div>Upload files</div>
+
+	<?php echo form_close(); ?>
+	<ul id="file-queue"></ul>
+</div>
 
 <div id="files_browser">
 
@@ -93,22 +110,68 @@ div.selector {
 	<div id="files_right_pane">
 	</div>
 </div>
-<div id="uploader">
-	<?php echo form_open_multipart('admin/files/upload'); ?>
-		<?php echo form_dropdown('folder_id', $folder_options, array(), 'id="folder_id"'); ?>
-		<input class="no-uniform" type="file" name="userfile" multiple>
-		<button>Upload</button>
-		<div>Upload files</div>
-		<button id="start_uploads">Start uploads</button>
 
-	<?php echo form_close(); ?>
-</div>
-<ul id="file-queue"></ul>
 <script type="text/javascript">
 (function($) {
 	$(function() {
 		
+		$("#files_left_pane li a").click(function() {
+			var anchor = $(this);
+			var current_text = anchor.text();
+			parent.location.hash = anchor.attr("title");
+			anchor.text("Loading...");
+			$("#files_right_pane").load(anchor.attr("href"));
+			anchor.parent().parent().find('li').removeClass('current');
+			anchor.parent().addClass('current');
+			anchor.text(current_text);
+			return false;
+		});
+
+		// All this jazz allows direct links to folders
+		var current_folder = $('#files_left_pane ul li a[title='+parent.location.hash.substring(1)+']');
+		if (current_folder.length)
+		{
+			current_folder.click();
+		}
+		else
+		{
+			$("#files_left_pane li:first-child a").click();
+		}
+		
 		//file upload stuff
+		$('.dd-upload').click(function(e) {
+			
+			e.preventDefault();
+			
+			//get the folder id
+			folder_id = $('select#parent_id').val();
+			$('input#folder_id').val(folder_id);
+			
+			//upload box object
+			box = $('#uploader');
+			
+			//empty the file queue contents
+			$('#file-queue').html('');
+			
+			b_width = $('#files_browser').width();
+			b_height = $('#files_browser').height();
+			
+			
+			if(box.is( ":visible" ))
+			{
+				$("#files_right_pane").load('admin/files/folders/contents/'+folder_id);
+				box.fadeOut('fast');
+			}
+			else
+			{
+				box.height(b_height);
+				box.width(b_width);
+			
+				box.fadeIn('fast');
+				
+			}
+		});
+		
 		$('#uploader form').fileUploadUI({
 			fieldName: 'userfile',
 			uploadTable: $('#file-queue'),
@@ -134,7 +197,7 @@ div.selector {
 				
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
-						folder_id: $('select#folder_id').val()
+						folder_id: $('input#folder_id').val()
 					};
 					callBack();
 			
@@ -145,30 +208,6 @@ div.selector {
 				});
 			}
 		});
-
-		
-		$("#files_left_pane li a").click(function() {
-			var anchor = $(this);
-			var current_text = anchor.text();
-			parent.location.hash = anchor.attr("title");
-			anchor.text("Loading...");
-			$("#files_right_pane").load(anchor.attr("href"));
-			anchor.parent().parent().find('li').removeClass('current');
-			anchor.parent().addClass('current');
-			anchor.text(current_text);
-			return false;
-		});
-
-		// All this jazz allows direct links to folders
-		var current_folder = $('#files_left_pane ul li a[title='+parent.location.hash.substring(1)+']');
-		if (current_folder.length)
-		{
-			current_folder.click();
-		}
-		else
-		{
-			$("#files_left_pane li:first-child a").click();
-		}
 
 	});
 })(jQuery);
