@@ -73,7 +73,27 @@ h3 span {
 #uploader form {
 	min-height: 100px;
 }
-
+#file-queue {
+    list-style-type: none;
+}
+#file-queue div {
+    float: left;
+    margin-right: 5px;
+}
+#file-queue li {
+    float: left;
+    clear: left;
+    padding: 4px 0;
+}
+.filename {
+    min-width: 350px;
+}
+button.start {
+    display: none;
+}
+button.start-upload {
+    margin: 0 0 10px 10px;
+}
 div.selector {
 	z-index: 9999;
 }
@@ -81,10 +101,4 @@ div.selector {
 	background-color: transparent;
 	border: 2px dashed #d0d0d0;
 	margin: 40px auto;
-}
-.file_upload_start button, .file_upload_cancel button {
-	width: 20px;
-	height: 20px;
-	min-width: 0;
-	margin: 0;
 }

@@ -6,6 +6,7 @@
 		<div>Upload files</div>
 
 	<?php echo form_close(); ?>
+	<button class="start-upload">Upload Files</button>
 	<ul id="file-queue"></ul>
 </div>
 
@@ -72,7 +73,7 @@
 			}
 			else
 			{
-				box.height(b_height);
+				box.css('min-height', b_height);
 				box.width(b_width);
 			
 				box.fadeIn('fast');
@@ -84,37 +85,32 @@
 			fieldName: 'userfile',
 			uploadTable: $('#file-queue'),
 			downloadTable: $('#file-queue'),
+			previewSelector: '.file_upload_preview div',
 			buildUploadRow: function (files, index) {
-				return $('<li><div class="file_upload_preview"><\/td>' +
-						'<div>' + files[index].name + '</div>' +
-						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' + 
+				return $('<li><div class="file_upload_preview"><div></div></div>' +
+						'<div class="filename">' + files[index].name + '</div>' +
+						'<input class="file-name" type="hidden" name="name" value="'+files[index].name+'" />' +
+						'<button class="start">Start</button>'+
 						'<div class="file_upload_progress"><div></div></div>' +
-						'<div class="file_upload_start">' +
-						'<button class="ui-state-default ui-corner-all" title="Start Upload">' +
-						'<span class="ui-icon ui-icon-circle-arrow-e">Start Upload</span>' +
-						'</button></div>' +
-						'<div class="file_upload_cancel">' +
-						'<button class="ui-state-default ui-corner-all" title="Cancel">' +
-						'<span class="ui-icon ui-icon-cancel">Cancel</span>' +
-						'</button></div></li>');
+						'</li>');
 			},
 			buildDownloadRow: function (file) {
 				return $('<li><div>' + file.name + '</div></li>');
 			},
 			beforeSend: function (event, files, index, xhr, handler, callBack) {
-				
+				handler.uploadRow.find('button.start').click(function () {
 					handler.formData = {
 						name: handler.uploadRow.find('input.file-name').val(),
 						folder_id: $('input#folder_id').val()
 					};
 					callBack();
-			
-			},
-			onComplete: function(event, files, index, xhr, handler) {
-				$('.file_upload_start button').trigger('click', function() {
-					
 				});
+				
 			}
+		});
+		
+		$('button.start-upload').click(function() {
+			$('button.start').click();
 		});
 
 	});
