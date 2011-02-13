@@ -17,7 +17,7 @@ $lang['pages.actions_label'] 					= 'Actions';
 $lang['pages.unknown_label'] 					= 'Inconnu';
 $lang['pages.title_label'] 						= 'Titre';
 $lang['pages.slug_label'] 						= 'URL';
-$lang['pages.navigation_label']                  = 'Add to Navigation'; #translate
+$lang['pages.navigation_label']                  = 'Ajouter à la navigation';
 $lang['pages.body_label'] 						= 'Corps de la page'; 
 $lang['pages.meta_title_label'] 				= 'Meta title';
 $lang['pages.meta_keywords_label'] 				= 'Meta keywords';
@@ -33,9 +33,9 @@ $lang['pages.status_label'] 					= 'Statut';
 $lang['pages.draft_label'] 						= 'Brouillon';
 $lang['pages.live_label'] 						= 'Publié';
 $lang['pages.revisions_label']					= 'Révisions';
-$lang['pages.compare_label']                                    = 'Compare'; #translate
-$lang['pages.preview_label']                                    = 'Preview'; #translate
-$lang['pages.current_label']                                    = 'Current'; #translate
+$lang['pages.compare_label']                                    = 'Comparer';
+$lang['pages.preview_label']                                    = 'Previsualiser';
+$lang['pages.current_label']                                    = 'Courant';
 
 
 $lang['pages.view_label'] 						= 'Visualiser';
@@ -49,8 +49,8 @@ $lang['pages.edit_title'] 						= 'Modifier la page "%s"';
 $lang['pages.list_title'] 						= 'Lister les pages'; 
 $lang['pages.layouts_create_title'] 			= 'Ajouter un modèle';
 $lang['pages.layouts_list_title'] 				= 'Lister les modèles';
-$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
-$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
+$lang['pages.compare_revisions_title']                          = 'Comparer les versions';
+$lang['pages.preview_revision_title']                           = 'Previsualiser la version';
 
 // messages
 $lang['pages.no_pages'] 						= 'Il n\'y a aucune page.';

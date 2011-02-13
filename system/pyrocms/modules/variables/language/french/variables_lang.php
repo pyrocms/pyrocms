@@ -21,5 +21,5 @@ $lang['variables.edit_success'] 				= 'La variable a été crée.';
 $lang['variables.edit_error'] 				= 'Une erreur est survenue.';
 $lang['variables.mass_delete_error'] 			= 'Une erreur est survenue lors de la suppression de la variable "%s".';
 $lang['variables.mass_delete_success']		= '%s variables sur %s ont été supprimées.';
-$lang['variables.no_select_error'] 			= 'Vous devez d\'abord selectionnez une variable.';
+$lang['variables.no_select_error'] 			= 'Vous devez d\'abord sélectionnez une variable.';
 $lang['variables.already_exist_error']		= 'Une variable nommée "%s" existe déjà.';
