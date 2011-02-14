@@ -19,6 +19,7 @@ class Module_Settings extends Module {
 				'it' => 'Impostazioni',
 				'ru' => 'Настройки',
 				'cs' => 'Nastavení',
+				'ar' => 'الإعدادات',
 				'fi' => 'Asetukset'
 			),
 			'description' => array(
@@ -33,6 +34,7 @@ class Module_Settings extends Module {
 				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
 				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
 				'cs' => 'Umožňuje administrátorům měnit nastavení webu jako jeho jméno, zprávy a emailovou adresu apod.',
+				'ar' => 'تمكن المدراء من تحديث الإعدادات كإسم الموقع، والرسائل وعناوين البريد الإلكتروني، .. إلخ.',
 				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.'
 			),
 			'frontend' => FALSE,

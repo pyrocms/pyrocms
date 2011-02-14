@@ -28,7 +28,7 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'from',
 				'label' => lang('redirects.from'),
-				'rules' => 'trim|required|max_length[250]'
+				'rules' => 'trim|required|max_length[250]|callback__check_unique'
 			),
 			array(
 				'field' => 'to',
@@ -64,9 +64,7 @@ class Admin extends Admin_Controller
 	 * @return void
 	 */
 	public function add()
-	{
-		$this->validation_rules[0]['rules'] .= 'callback__check_unique[0]';
-		
+	{		
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -79,11 +77,6 @@ class Admin extends Admin_Controller
 			}
 			
 			$this->data->messages['error'] = lang('redirects.add_error');
-		}
-
-		else
-		{
-			$this->data->messages['error'] = validation_errors();
 		}
 
 		// Loop through each validation rule
@@ -110,10 +103,6 @@ class Admin extends Admin_Controller
 		// Get the redirect
 		$redirect = $this->redirect_m->get($id);
 		
-		// Modified validation rules
-		$this->validation_rules[0]['rules'] .= 'callback__check_unique['.$id.']';
-		$this->form_validation->set_rules($this->validation_rules);
-		
 		if ($this->form_validation->run())
 		{		
 			if ($this->redirect_m->update($id, $_POST))
@@ -124,20 +113,6 @@ class Admin extends Admin_Controller
 			}
 			
 			$this->data->messages['error'] = lang('redirects.edit_error');
-		}
-
-		else
-		{
-			$this->data->messages['error'] = validation_errors();
-		}
-		
-		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
-		{
-			if ($this->input->post($rule['field']) !== FALSE)
-			{
-				$redirect->{$rule['field']} = set_value($rule['field']);
-			}
 		}
 	
 		$this->data->redirect =& $redirect;
@@ -193,11 +168,13 @@ class Admin extends Admin_Controller
 	 * @param int $id the ID of the redirect
 	 * @return bool
 	 */
-	public function _check_unique($from, $id = 0)
+	public function _check_unique($from)
 	{
+		$id = $this->uri->segment(4);
+
 		if ($this->redirect_m->check_from($from, $id))
 		{
-			$this->form_validation->set_message('_check_from', sprintf(lang('redirects.from_conflict_error'), $from));
+			$this->form_validation->set_message('_check_unique', sprintf(lang('redirects.request_conflict_error'), $from));
 			return FALSE;
 		}
 

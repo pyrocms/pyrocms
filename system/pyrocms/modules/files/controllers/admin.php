@@ -60,14 +60,21 @@ class Admin extends Admin_Controller {
 	public function index()
 	{
 		$file_folders = $this->file_folders_m->order_by('name')->get_many_by(array('parent_id' => '0'));
-
+		
+		$folder_options = $this->file_folders_m->dropdown('id', 'name');
+		
 		if ($error = $this->_check_dir())
 		{
 			$this->template->error = $this->_check_dir();
 		}
 
 		$this->template
+			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
+			->append_metadata( js('jquery.fileupload.js', 'files') )
+			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
+			->append_metadata( css('files.css', 'files') )
 			->title($this->module_details['name'])
+			->set('folder_options', $folder_options)
 			->set('file_folders', $file_folders)
 			->build('admin/layouts/index');
 	}
@@ -132,7 +139,7 @@ class Admin extends Admin_Controller {
 			
 			while ($str = current($allowed))
 			{				
-				if (preg_match('/'.$this->ext.'/', $str))
+				if (preg_match('/'.strtolower($this->ext).'/', $str))
 				{
 					$config['allowed_types'] = $allowed[key($allowed)];
 					break;
@@ -156,7 +163,7 @@ class Admin extends Admin_Controller {
 					'user_id' => $this->user->id,
 					'type' => key($allowed),
 					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
+					'description' => $this->input->post('description') ? $this->input->post('description') : '',
 					'filename' => $img['upload_data']['file_name'],
 					'extension' => $img['upload_data']['file_ext'],
 					'mimetype' => $img['upload_data']['file_type'],
@@ -168,6 +175,16 @@ class Admin extends Admin_Controller {
 
 				$data->messages['success'] = lang('files.success');
 				#redirect('admin/files');
+				$json = array(
+								'name' 	=> 	$img['upload_data']['file_name'],
+								'type'	=>	$img['upload_data']['file_type'],
+								'size'	=>	$img['upload_data']['file_size']
+							);
+				if($this->input->is_ajax_request())
+				{
+					echo json_encode($json);
+					return;
+				}
 			}
 		}
 
