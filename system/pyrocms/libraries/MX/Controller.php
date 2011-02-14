@@ -1,7 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 /* load MX core classes */
-require 'Base.php';
+require dirname(__FILE__).'/Base.php';
 
 /**
  * Modular Extensions - HMVC
@@ -15,8 +15,8 @@ require 'Base.php';
  *
  * Install this file as application/third_party/MX/Controller.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-09-09
- * @version 	5.3.4
+ * @copyright	Copyright (c) 2011 Wiredesignz
+ * @version 	5.4
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,17 +36,14 @@ require 'Base.php';
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-class MX_Controller
-{			
+class MX_Controller 
+{
 	public $autoload = array();
 	
-	public function __construct() {
-		
+	public function __construct() 
+	{
 		$class = str_replace(CI::$APP->config->item('controller_suffix'), '', get_class($this));
-		log_message('debug', $class." MX_Controller Initialized");
-		
-		/* register this controller */
-		Modules::$registry[strtolower($class)] =& $this;	
+		log_message('debug', $class." MX_Controller Initialized");	
 		
 		/* copy a loader instance and initialize */
 		$this->load = clone load_class('Loader');
@@ -56,7 +53,7 @@ class MX_Controller
 		$this->load->_autoloader($this->autoload);
 	}
 	
-	public function __get($var) {
-		return CI::$APP->$var;
+	public function __get($class) {
+		return CI::$APP->$class;
 	}
 }

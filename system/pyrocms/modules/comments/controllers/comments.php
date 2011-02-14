@@ -101,7 +101,7 @@ class Comments extends Public_Controller
 			else
 			{
 				// Save the comment
-				if($this->comments_m->insert($comment))
+				if($comment_id = $this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
 					if ( ! $this->settings->moderate_comments OR (isset($this->user->group) && $this->user->group == 'admin'))
@@ -114,6 +114,11 @@ class Comments extends Public_Controller
 					{
 						$this->session->set_flashdata('success', lang('comments.add_approve'));
 					}
+					
+					$comment['comment_id'] = $comment_id;
+					
+					//send the notification email
+					$this->_send_email($comment);
 				}
 				
 				// Failed to add the comment
@@ -205,5 +210,27 @@ class Comments extends Public_Controller
 
 		// F**k knows, its probably fine...
 		return array('status' => TRUE);
+	}
+	
+	/**
+	 * Send an email
+	 *
+	 * @access private
+	 * @return void
+	 */
+	private function _send_email($comment = array())
+	{
+		$this->load->library('email');
+		$this->load->library('user_agent');
+		
+		// Add in some extra details
+		$comment['slug'] = 'comments';
+		$comment['sender_agent']	=	$this->agent->browser().' '.$this->agent->version();
+		$comment['sender_ip']		=	$this->input->ip_address();
+		$comment['sender_os']		=	$this->agent->platform();
+		$comment['redirect_url']	= 	anchor(ltrim($comment['redirect_to'], '/') . '#' . $comment['comment_id']);
+		
+		//trigger the event
+		return (bool) Events::trigger('email', $comment);
 	}
 }

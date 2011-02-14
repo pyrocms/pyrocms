@@ -95,7 +95,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css file=""}
+	 * {pyro:theme:js file=""}
 	 *
 	 * @param	array
 	 * @return	array
@@ -110,7 +110,6 @@ class Plugin_Theme extends Plugin
 	}
 
 	/**
-	 * Data
 	 *
 	 * Set and get theme variables
 	 *
@@ -137,6 +136,15 @@ class Plugin_Theme extends Plugin
 		}
 
 		return $variables[$name];
+	}
+
+	function js_url()
+	{
+		$this->load->library('asset');
+
+		$file = $this->attribute('file');
+
+		return $this->asset->js_url($file, '_theme_');
 	}
 }
 

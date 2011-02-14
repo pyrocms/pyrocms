@@ -3,11 +3,13 @@
 // Code here is run before frontend controllers
 class Public_Controller extends MY_Controller
 {
-	function Public_Controller()
+	public function Public_Controller()
 	{
-		parent::MY_Controller();
+		parent::__construct();
 
 		$this->benchmark->mark('public_controller_start');
+
+		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
 		if ( ! $this->settings->frontend_enabled && (empty($this->user) OR $this->user->group != 'admin'))

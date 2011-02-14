@@ -15,7 +15,68 @@ class Admin extends Admin_Controller
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+			array(
+				'field' => 'title',
+				'label'	=> 'lang:pages.title_label',
+				'rules'	=> 'trim|required|max_length[250]'
+			),
+			array(
+				'field' => 'slug',
+				'label'	=> 'lang:pages.slug_label',
+				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
+			),
+			array(
+				'field' => 'body',
+				'label'	=> 'lang:pages.body_label',
+				'rules' => 'trim|required'
+			),
+			array(
+				'field' => 'layout_id',
+				'label'	=> 'lang:pages.layout_id_label',
+				'rules'	=> 'trim|numeric|required'
+			),
+			array(
+				'field'	=> 'css',
+				'label'	=> 'lang:pages.css_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field'	=> 'js',
+				'label'	=> 'lang:pages.js_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'meta_title',
+				'label' => 'lang:pages.meta_title_label',
+				'rules' => 'trim|max_length[250]'
+			),
+			array(
+				'field'	=> 'meta_keywords',
+				'label' => 'lang:pages.meta_keywords_label',
+				'rules' => 'trim|max_length[250]'
+			),
+			array(
+				'field'	=> 'meta_description',
+				'label'	=> 'lang:pages.meta_description_label',
+				'rules'	=> 'trim'
+			),
+			array(
+				'field' => 'rss_enabled',
+				'label'	=> 'lang:pages.rss_enabled_label',
+				'rules'	=> 'trim|numeric'
+			),
+			array(
+				'field' => 'comments_enabled',
+				'label'	=> 'lang:pages.comments_enabled_label',
+				'rules'	=> 'trim|numeric'
+			),
+			array(
+				'field'	=> 'status',
+				'label'	=> 'lang:pages.status_label',
+				'rules'	=> 'trim|alpha|required'
+			)
+		);
 
 	/**
 	 * The ID of the page, used for the validation callback
@@ -49,71 +110,6 @@ class Admin extends Admin_Controller
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
-		// Large array is large
-		$this->validation_rules = array(
-			array(
-				'field' => 'title',
-				'label'	=> lang('pages.title_label'),
-				'rules'	=> 'trim|required|max_length[250]'
-			),
-			array(
-				'field' => 'slug',
-				'label'	=> lang('pages.slug_label'),
-				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
-			),
-			array(
-				'field' => 'body',
-				'label'	=> lang('pages.body_label'),
-				'rules' => 'trim|required'
-			),
-			array(
-				'field' => 'layout_id',
-				'label'	=> lang('pages.layout_id_label'),
-				'rules'	=> 'trim|numeric|required'
-			),
-			array(
-				'field'	=> 'css',
-				'label'	=> lang('pages.css_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field'	=> 'js',
-				'label'	=> lang('pages.js_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'meta_title',
-				'label' => lang('pages.meta_title_label'),
-				'rules' => 'trim|max_length[250]'
-			),
-			array(
-				'field'	=> 'meta_keywords',
-				'label' => lang('pages.meta_keywords_label'),
-				'rules' => 'trim|max_length[250]'
-			),
-			array(
-				'field'	=> 'meta_description',
-				'label'	=> lang('pages.meta_description_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'rss_enabled',
-				'label'	=> lang('pages.rss_enabled_label'),
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'comments_enabled',
-				'label'	=> lang('pages.comments_enabled_label'),
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field'	=> 'status',
-				'label'	=> lang('pages.status_label'),
-				'rules'	=> 'trim|alpha|required'
-			),
-		);
-
-		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 	}
 
@@ -216,8 +212,8 @@ class Admin extends Admin_Controller
 	 */
 	public function preview($id = 0)
 	{
-		$data->page 		= $this->pages_m->get($id);
-		$data->page->path 	= $this->pages_m->get_path_by_id($id);
+		$data->page  = $this->pages_m->get($id);
+		$data->page->path = $this->pages_m->get_path_by_id($id);
 
 		$this->template->set_layout('modal', 'admin');
 		$this->template->build('admin/preview', $data);
@@ -246,6 +242,21 @@ class Admin extends Admin_Controller
 				// Update the page row
 				$to_update 					= $_POST;
 				$to_update['revision_id'] 	= $revision_id;
+
+				// Add a Navigation Link
+				if ($this->input->post('navigation_group_id'))
+				{
+					$this->load->model('navigation/navigation_m');
+					$this->navigation_m->insert_link(array(
+						'title' => $this->input->post('title'),
+						'link_type'	=> 'page',
+						'page_id' => $id,
+						'navigation_group_id' => (int) $this->input->post('navigation_group_id')
+					));
+
+					// Clear navigation cache
+					$this->cache->delete_all('navigation_m');
+				}
 
 				if ($this->pages_m->update($id, $to_update))
 				{
@@ -280,11 +291,16 @@ class Admin extends Admin_Controller
 	    }
 
 	    // Assign data for display
-	    $this->data->page 			=& $page;
-	    $this->data->parent_page 	=& $parent_page;
+		$data['page'] = & $page;
+		$data['parent_page'] = & $parent_page;
 
-		$page_layouts 				= $this->page_layouts_m->get_all();
-		$this->data->page_layouts 	= array_for_select($page_layouts, 'id', 'title');
+		$page_layouts = $this->page_layouts_m->get_all();
+		$data['page_layouts'] = array_for_select($page_layouts, 'id', 'title');
+
+		// Load navigation list
+		$this->load->model('navigation/navigation_m');
+		$navigation_groups = $this->navigation_m->get_groups();
+		$data['navigation_groups'] = array_for_select($navigation_groups, 'id', 'title');
 
 	    // Load WYSIWYG editor
 		$this->template
@@ -292,7 +308,7 @@ class Admin extends Admin_Controller
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
-			->build('admin/form', $this->data);
+			->build('admin/form', $data);
 	}
 
 	/**

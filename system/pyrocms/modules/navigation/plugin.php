@@ -25,7 +25,6 @@ class Plugin_Navigation extends Plugin
 		$group = $this->attribute('group');
 		$group_segment = $this->attribute('group_segment');
 		$tag = $this->attribute('tag', 'li');
-		$current_class = $this->attribute('class', 'current');
 		$separator = $this->attribute('separator', '');
 
 		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL ;
@@ -39,6 +38,7 @@ class Plugin_Navigation extends Plugin
 		if ($links)
 		{
 			$i = 1;
+			$total = count($links);
 			foreach ($links as $link)
 			{
 				$attributes['target'] = ( ! empty($link->target)) ? $link->target : NULL;
@@ -46,7 +46,17 @@ class Plugin_Navigation extends Plugin
 
 				if (current_url() == $link->url)
 				{
-					$attributes['class'] = trim($attributes['class'] . ' ' . $current_class);
+					$attributes['class'] .= ' '.$this->attribute('class', 'current');
+				}
+
+				if ($i == 1)
+				{
+					$attributes['class'] .= ' '.$this->attribute('first_class', 'first');
+				}
+
+				if ($i == $total)
+				{
+					$attributes['class'] .= ' '.$this->attribute('last_class', 'last');
 				}
 
 				// Just return data
@@ -62,7 +72,7 @@ class Plugin_Navigation extends Plugin
 					{
 						$list .= $separator;
 					}
-					$i++;
+					++$i;
 				}
 			}
 		}

@@ -8,11 +8,8 @@
  */
 class Files extends Public_Controller
 {
-	function download($id = 0)
+	public function download($id = 0)
 	{
-		// Do they have this feature?
-//		$this->features->libraries OR show_404();
-
 		$this->load->model('file_m');
 		$this->load->helper('download');
 
@@ -23,4 +20,35 @@ class Files extends Public_Controller
 
 		force_download($file->name . $file->extension , $data);
 	}
+
+	public function thumb($id, $width = 100, $height = 100)
+	{
+		$this->load->model('file_m');
+
+		$file = $this->file_m->get($id) OR show_404();
+
+		// Path to image thumbnail
+		$image_thumb = APPPATH . 'cache/' . $height . '_' . $width . '_' . $file->filename;
+
+		if( ! file_exists($image_thumb))
+		{
+			// LOAD LIBRARY
+			$this->load->library('image_lib');
+
+			// CONFIGURE IMAGE LIBRARY
+			$config['image_library']    = 'gd2';
+			$config['source_image']     = 'uploads/files/' . $file->filename;
+			$config['new_image']        = $image_thumb;
+			$config['maintain_ratio']   = TRUE;
+			$config['height']           = $height;
+			$config['width']            = $width;
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();
+			$this->image_lib->clear();
+		}
+
+		header('Content-type: '.$file->mimetype);
+		readfile($image_thumb);
+	}
+
 }

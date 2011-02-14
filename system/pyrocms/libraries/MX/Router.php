@@ -1,7 +1,7 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 /* load the MX core module class */
-require 'Modules.php';
+require dirname(__FILE__).'/Modules.php';
 
 /**
  * Modular Extensions - HMVC
@@ -14,8 +14,8 @@ require 'Modules.php';
  *
  * Install this file as application/third_party/MX/Router.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-09-09
- * @version 	5.3.4
+ * @copyright	Copyright (c) 2011 Wiredesignz
+ * @version 	5.4
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,10 +46,10 @@ class MX_Router extends CI_Router
 	public function _validate_request($segments) {		
 		
 		/* locate module controller */
-		if ($located = $this->locate($segments)) return $located;
+		if ($located = $this->locate($segments)) return $located;	
 		
-		/* use a default 404 controller */
-		if (isset($this->routes['404']) AND $segments = explode('/', $this->routes['404'])) {
+		/* use a default 404_override controller */
+		if (isset($this->routes['404_override']) AND $segments = explode('/', $this->routes['404_override'])) {
 			if ($located = $this->locate($segments)) return $located;
 		}
 		
@@ -119,7 +119,7 @@ class MX_Router extends CI_Router
 			return array_slice($segments, 1);
 		}
 	}
-	
+
 	public function set_class($class) {
 		$this->class = $class.$this->config->item('controller_suffix');
 	}

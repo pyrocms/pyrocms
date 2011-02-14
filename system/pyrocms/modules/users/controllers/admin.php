@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Admin controller for the users module
  *
@@ -7,14 +8,60 @@
  * @subpackage 	Users module
  * @category	Modules
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+
 	/**
 	 * Validation array
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'first_name',
+			'label' => 'lang:user_first_name_label',
+			'rules' => 'required|utf8'
+		),
+		array(
+			'field' => 'last_name',
+			'label' => 'lang:user_last_name_label',
+			'rules' => 'utf8'
+		),
+		array(
+			'field' => 'display_name',
+			'label' => 'lang:user_display_name',
+			'rules' => 'required|alphanumeric|maxlength[50]'
+		),
+		array(
+			'field' => 'password',
+			'label' => 'lang:user_password_label',
+			'rules' => 'min_length[6]|max_length[20]'
+		),
+		array(
+			'field' => 'confirm_password',
+			'label' => 'lang:user_password_confirm_label',
+			'rules' => 'matches[password]'
+		),
+		array(
+			'field' => 'email',
+			'label' => 'lang:user_email_label',
+			'rules' => 'required|valid_email'
+		),
+		array(
+			'field' => 'username',
+			'label' => 'lang:user_username',
+			'rules' => 'required|alphanumeric|maxlength[20]'
+		),
+		array(
+			'field' => 'group_id',
+			'label' => 'lang:user_group_label',
+			'rules' => 'required|numeric'
+		),
+		array(
+			'field' => 'active',
+			'label' => 'lang:user_active_label',
+			'rules' => ''
+		)
+	);
 
 	/**
 	 * Constructor method
@@ -33,61 +80,8 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		// Create the validation array
-		$this->validation_rules = array(
-			array(
-				'field' => 'first_name',
-				'label' => lang('user_first_name_label'),
-				'rules' => 'required|utf8'
-			),
-			array(
-				'field' => 'last_name',
-				'label' => lang('user_last_name_label'),
-				'rules' => 'utf8'
-			),
-			array(
-				'field' => 'display_name',
-				'label' => lang('user_display_name'),
-				'rules' => 'required|alphanumeric|maxlength[50]'
-			),
-			array(
-				'field' => 'password',
-				'label' => lang('user_password_label'),
-				'rules' => 'min_length[6]|max_length[20]'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label' => lang('user_password_confirm_label'),
-				'rules' => 'matches[password]'
-			),
-			array(
-				'field' => 'email',
-				'label' => lang('user_email_label'),
-				'rules' => 'required|valid_email'
-			),
-			array(
-				'field' => 'username',
-				'label' => lang('user_username'),
-				'rules' => 'required|alphanumeric|maxlength[20]'
-			),
-			array(
-				'field' => 'group_id',
-				'label' => lang('user_group_label'),
-				'rules' => 'required|numeric'
-			),
-			array(
-				'field' => 'active',
-				'label' => lang('user_active_label'),
-				'rules' => ''
-			)
-		);
-
-        $this->data->groups 			= $this->group_m->get_all();
-        $this->data->groups_select		= array_for_select($this->data->groups, 'id', 'name');
-
-		// Sidebar data
-		$this->data->inactive_user_count 	= $this->users_m->count_by('active', 0);
-		$this->data->active_user_count 		= $this->users_m->count_by('active', 1);
+		$this->data->groups = $this->group_m->get_all();
+		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
@@ -99,36 +93,39 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
+		//base where clause
+		$base_where = array('active' => 0);
+
+		//determine active param
+		$base_where['active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['active'];
+
+		//determine group param
+		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int) $this->input->post('f_group')) : $base_where;
+
+		//keyphrase param
+		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
+
 		// Create pagination links
-		$this->data->pagination = create_pagination('admin/users/index', $this->data->active_user_count);
+		$pagination = create_pagination('admin/users/index', $this->users_m->count_by($base_where));
+
 
 		// Using this data, get the relevant results
-		$this->data->users = $this->users_m
-			 ->order_by('users.id', 'desc')
-			 ->get_many_by('active', 1 );
+		$users = $this->users_m
+						->order_by('active', 'desc')
+						->limit($pagination['limit'])
+						->get_many_by($base_where);
+
+		//unset the layout if we have an ajax request
+		$this->is_ajax() ? $this->template->set_layout(FALSE) : '';
 
 		// Render the view
 		$this->template
-			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
-	}
-
-	/**
-	 * Show all inactive users
-	 * @access public
-	 * @return voud
-	 */
-	public function inactive()
-	{
-		$this->data->pagination = create_pagination('admin/users/inactive', $this->data->inactive_user_count);
-		$this->data->users		= $this->users_m->limit($this->data->pagination['limit'])
-			->order_by('users.id', 'desc')
-			->get_many_by('active', 0);
-
-		// Render the view
-		$this->template
-			->title($this->module_details['name'], lang('user_inactive_title'))
-			->build('admin/index', $this->data);
+				->set('pagination', $pagination)
+				->set('users', $users)
+				->set_partial('filters', 'admin/partials/filters')
+				->append_metadata(js('admin/filter.js'))
+				->title($this->module_details['name'])
+				->build('admin/index', $this->data);
 	}
 
 	/**
@@ -139,17 +136,17 @@ class Admin extends Admin_Controller
 	public function action()
 	{
 		// Determine the type of action
-		switch($this->input->post('btnAction'))
+		switch ($this->input->post('btnAction'))
 		{
 			case 'activate':
 				$this->activate();
-			break;
+				break;
 			case 'delete':
 				$this->delete();
-			break;
+				break;
 			default:
 				redirect('admin/users');
-			break;
+				break;
 		}
 	}
 
@@ -170,15 +167,15 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
-		$email 		  = $this->input->post('email');
-		$password 	  = $this->input->post('password');
-		$username	  = $this->input->post('username');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$username = $this->input->post('username');
 
-		$user_data 	= array(
-			'first_name' 	=> $this->input->post('first_name'),
-			'last_name'  	=> $this->input->post('last_name'),
-			'display_name'  => $this->input->post('display_name'),
-			'group_id'  	=> $this->input->post('group_id')
+		$user_data = array(
+			'first_name' => $this->input->post('first_name'),
+			'last_name' => $this->input->post('last_name'),
+			'display_name' => $this->input->post('display_name'),
+			'group_id' => $this->input->post('group_id')
 		);
 
 		if ($this->form_validation->run() !== FALSE)
@@ -207,20 +204,20 @@ class Admin extends Admin_Controller
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
 		}
 		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
 
-    	// Render the view
-		$this->data->member =& $member;
+		// Render the view
+		$this->data->member = & $member;
 		$this->template
-			->title($this->module_details['name'], lang('user_add_title'))
-			->build('admin/form', $this->data);
+				->title($this->module_details['name'], lang('user_add_title'))
+				->build('admin/form', $this->data);
 	}
 
 	/**
@@ -233,19 +230,19 @@ class Admin extends Admin_Controller
 	public function edit($id = 0)
 	{
 		// confirm_password is required in case the user enters a new password
-		if($this->input->post('password') && $this->input->post('password') != '')
+		if ($this->input->post('password') && $this->input->post('password') != '')
 		{
 			$this->validation_rules[3]['rules'] .= '|required';
 			$this->validation_rules[3]['rules'] .= '|matches[password]';
 		}
 
 		// Get the user's data
-		$member 			= $this->ion_auth->get_user($id);
+		$member = $this->ion_auth->get_user($id);
 
-		$member->full_name 	= $member->first_name .' '. $member->last_name;
+		$member->full_name = $member->first_name . ' ' . $member->last_name;
 
 		// Got user?
-		if(!$member)
+		if (!$member)
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_edit_user_not_found_error'));
 			redirect('admin/users');
@@ -268,21 +265,21 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run() === TRUE)
 		{
 			// Get the POST data
-			$update_data['first_name'] 		= $this->input->post('first_name');
-			$update_data['last_name'] 		= $this->input->post('last_name');
-			$update_data['email'] 			= $this->input->post('email');
-			$update_data['active'] 			= $this->input->post('active');
-			$update_data['username'] 		= $this->input->post('username');
-			$update_data['display_name']	= $this->input->post('display_name');
-			$update_data['group_id']		= $this->input->post('group_id');
+			$update_data['first_name'] = $this->input->post('first_name');
+			$update_data['last_name'] = $this->input->post('last_name');
+			$update_data['email'] = $this->input->post('email');
+			$update_data['active'] = $this->input->post('active');
+			$update_data['username'] = $this->input->post('username');
+			$update_data['display_name'] = $this->input->post('display_name');
+			$update_data['group_id'] = $this->input->post('group_id');
 
 			// Password provided, hash it for storage
-			if( $this->input->post('password') && $this->input->post('confirm_password') )
+			if ($this->input->post('password') && $this->input->post('confirm_password'))
 			{
 				$update_data['password'] = $this->input->post('password');
 			}
 
-			if($this->ion_auth->update_user($id, $update_data))
+			if ($this->ion_auth->update_user($id, $update_data))
 			{
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
@@ -299,24 +296,24 @@ class Admin extends Admin_Controller
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member 			= (object)$_POST;
-				$member->full_name 	= $member->first_name .' '. $member->last_name;
+				$member = (object) $_POST;
+				$member->full_name = $member->first_name . ' ' . $member->last_name;
 			}
 		}
 		// Loop through each validation rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== FALSE)
 			{
 				$member->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
 		// Render the view
-		$this->data->member =& $member;
+		$this->data->member = & $member;
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
-			->build('admin/form', $this->data);
+				->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
+				->build('admin/form', $this->data);
 	}
 
 	/**
@@ -330,13 +327,13 @@ class Admin extends Admin_Controller
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
 		// Activate multiple
-		if( !empty($ids) )
+		if (!empty($ids))
 		{
 			$activated = 0;
 			$to_activate = 0;
 			foreach ($ids as $id)
 			{
-				if($this->ion_auth->activate($id))
+				if ($this->ion_auth->activate($id))
 				{
 					$activated++;
 				}
@@ -364,57 +361,56 @@ class Admin extends Admin_Controller
 	{
 		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
 
-		if(!empty($ids))
+		if (!empty($ids))
 		{
 			$deleted = 0;
 			$to_delete = 0;
 			foreach ($ids as $id)
 			{
 				// Make sure the admin is not trying to delete themself
-				if($this->ion_auth->get_user()->id == $id)
+				if ($this->ion_auth->get_user()->id == $id)
 				{
 					$this->session->set_flashdata('notice', $this->lang->line('user_delete_self_error'));
 					continue;
 				}
 
-				if($this->ion_auth->delete_user($id))
+				if ($this->ion_auth->delete_user($id))
 				{
 					$deleted++;
 				}
 				$to_delete++;
 			}
 
-			if($to_delete > 0)
+			if ($to_delete > 0)
 			{
 				$this->session->set_flashdata('success', sprintf($this->lang->line('user_mass_delete_success'), $deleted, $to_delete));
 			}
 		}
 		// The array of id's to delete is empty
-		else $this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
+		else
+			$this->session->set_flashdata('error', $this->lang->line('user_mass_delete_error'));
 
 		// Redirect
 		redirect('admin/users');
 	}
-
-
 
 	/**
 	 * Username check
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
-	 **/
+	 * */
 	public function _username_check($username)
 	{
-	    if ($this->ion_auth->username_check($username))
-	    {
-	        $this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
-	        return FALSE;
-	    }
-	    else
-	    {
-	        return TRUE;
-	    }
+		if ($this->ion_auth->username_check($username))
+		{
+			$this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 
 	/**
@@ -422,18 +418,18 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
-	 **/
+	 * */
 	public function _email_check($email)
 	{
-	    if ($this->ion_auth->email_check($email))
-	    {
-	        $this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
-	        return FALSE;
-	    }
-	    else
-	    {
-	        return TRUE;
-	    }
+		if ($this->ion_auth->email_check($email))
+		{
+			$this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
+
 }
-?>

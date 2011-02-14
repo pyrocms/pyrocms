@@ -30,8 +30,8 @@ $lang['news_rss_name_suffix'] 			= ' &raquo; الأخبار';
 $lang['news_rss_category_suffix'] 		= ' &raquo; الأخبار';
 $lang['news_author_name_label'] 		= 'إسم الكاتب';
 $lang['news_read_more_label'] 			= 'إقرأ المزيد&nbsp;&raquo;';
-$lang['news_created_hour']                  = 'Time (Hour)'; #translate
-$lang['news_created_minute']                = 'Time (Minute)'; #translate
+$lang['news_created_hour']                  = 'الوقت (الساعة)';
+$lang['news_created_minute']                = 'الوقت (الدقيقة)';
 
 // titles
 $lang['news_create_title'] 			= 'إضافة مقال';

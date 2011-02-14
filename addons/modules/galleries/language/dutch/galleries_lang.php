@@ -35,8 +35,7 @@ $lang['galleries.published_no_label']		= 'Nee';
 // General labels
 $lang['galleries.title_label']				= 'Titel';
 $lang['galleries.slug_label']				= 'Sitenaam (URI)';
-$lang['galleries.parent_label']				= 'Bovenliggend';
-$lang['galleries.none_label']				= '-- Geen --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label']		= 'Album Beschrijving';
 $lang['galleries.thumbnail_label']			= 'Miniatuur';
 $lang['galleries.comments_label']			= 'Activeer Reacties';
@@ -50,4 +49,3 @@ $lang['galleries.upload_label']				= 'Upload Afbeelding';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Sub Gallerijen';
-?>

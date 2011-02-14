@@ -3,9 +3,9 @@
 
 	<h3><?php echo lang('widgets.add_area'); ?></h3>
 
-	<form class="box-container crud">
+	<form class="crud">
 	
-		<ol>
+		<ul>
 			<li>
 				<label for="title"><?php echo lang('widgets.widget_area_title'); ?></label>
 				<?php echo form_input('title', null, 'class="new-area-title"'); ?>
@@ -18,7 +18,7 @@
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
 			
-		</ol>
+		</ul>
 	
 		<div class="float-right">
 			<button type="submit">

@@ -5,6 +5,8 @@
 		<?php if (isset($id)): ?>
 		<li><?php echo anchor('admin/files/upload/'.$id, lang('files.upload.title'), 'id="new_files"'); ?></li>
 		<?php endif; ?>
+		<li><?php echo anchor('admin/files/#upload', lang('files.upload.title'), 'class="dd-upload"'); ?></li>
+
 	</ul>
 	<br class="clear-both" />
 </nav>
@@ -12,7 +14,7 @@
 <script type="text/javascript">
 jQuery(function($) {
 	$("#new_folder").colorbox({
-		width:"400", height:"350", iframe:true,
+		width:"600", height:"350", iframe:true,
 		onClosed:function(){ location.reload(); }
 	});
 });
