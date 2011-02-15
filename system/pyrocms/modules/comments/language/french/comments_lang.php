@@ -4,13 +4,13 @@ $lang['comments.title'] 					= 'Commentaires';
 $lang['comments.your_comment'] 				= 'Envoyez un commentaire';
 $lang['comments.user_comments'] 			= 'Commentaires des utilisateurs';
 
-$lang['comments.list_comment'] 				= '%s commented on %s saying:'; #translate
+$lang['comments.list_comment'] 				= '%s a commenté %s :'; #translate
 $lang['comments.recent_comments'] 			= 'Commentaires récents';
 $lang['comments.view_more'] 				= 'Voir plus...';
 
 // labels
 $lang['comments.name_label'] 				= 'Votre Nom';
-$lang['comments.email_label'] 				= 'Adresse e-Mail';
+$lang['comments.email_label'] 				= 'Adresse e-mail';
 $lang['comments.website_label'] 			= 'Site Internet';
 $lang['comments.message_label'] 			= 'Message';
 $lang['comments.status_label'] 				= 'Statut';

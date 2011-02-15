@@ -24,8 +24,8 @@ class Redirect_m extends MY_Model
     function insert($input = array())
     {
     	return $this->db->insert('redirects', array(
-    		'from' => $input['from'],
-    		'to' => trim($input['to'], '/'),
+    		'`from`' => $input['from'],
+    		'`to`' => trim($input['to'], '/'),
 		//	'site_id' => $this->site->id
         ));
     }
@@ -38,8 +38,8 @@ class Redirect_m extends MY_Model
 		));
 
     	return $this->db->update('redirects', array(
-    		'from' => $input['from'],
-    		'to' => trim($input['to'], '/')
+    		'`from`' => $input['from'],
+    		'`to`' => trim($input['to'], '/')
         ));
     }
 
@@ -52,14 +52,14 @@ class Redirect_m extends MY_Model
 	}
 
     // Callbacks
-    function check_unique($from, $id = 0)
+    function check_from($from, $id = 0)
     {
 		if($id > 0)
 		{
 			$this->db->where('id !=', $id);
 		}
 
-    	return $this->where(array(
+    	return $this->db->where(array(
 			'`from`' =>  $from,
 		//	'site_id' => $this->site->id
 		))->count_all_results('redirects');
