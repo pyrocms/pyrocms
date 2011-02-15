@@ -112,5 +112,5 @@ a.cancel {
 	text-decoration: none;
 	vertical-align: middle;
 	margin-left: 8px;
-	display: block;
+	display: inline-block;
 }
