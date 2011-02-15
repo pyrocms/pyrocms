@@ -43,7 +43,7 @@ class News extends Public_Controller
 		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count_by(array(
 			'category'=>$slug,
 			'status' => 'live'
-		)), $this->settings->records_per_page, 4);
+		)), NULL, 4);
 		
 		// Get the current page of news articles
 		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array(
