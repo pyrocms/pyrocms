@@ -3,7 +3,7 @@
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<ul>
 
-		<li>
+		<li class="<?php echo alternator('', 'even'); ?>">
 			<?php echo form_label(lang('galleries.folder_label'). ':', 'folder_id'); ?>
 			<?php
 			$folder_options = array(lang('select.pick'));

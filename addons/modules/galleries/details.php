@@ -2,7 +2,7 @@
 
 class Module_Galleries extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1';
 
 	public function info()
 	{
@@ -51,22 +51,24 @@ class Module_Galleries extends Module {
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `title` varchar(255) NOT NULL,
 			  `slug` varchar(255) NOT NULL,
+			  `folder_id` int(11) DEFAULT NULL,
 			  `thumbnail_id` int(11) DEFAULT NULL,
 			  `description` text,
 			  `parent` int(11) DEFAULT NULL,
 			  `updated_on` int(15) NOT NULL,
 			  `preview` varchar(255) DEFAULT NULL,
-			  `enable_comments` INT( 1 ) DEFAULT NULL,
-			  `published` INT(1) DEFAULT NULL,
+			  `enable_comments` int(1) DEFAULT NULL,
+			  `published` int(1) DEFAULT NULL,
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `slug` (`slug`),
 			  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8
 		";
 
 		$gallery_images = "
 			CREATE TABLE `gallery_images` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `file_id` int(11) DEFAULT NULL,
 			  `gallery_id` int(11) NOT NULL,
 			  `filename` varchar(255) NOT NULL,
 			  `extension` varchar(255) NOT NULL,
@@ -74,10 +76,10 @@ class Module_Galleries extends Module {
 			  `description` text,
 			  `uploaded_on` int(15) DEFAULT NULL,
 			  `updated_on` int(15) DEFAULT NULL,
-			  `order` INT(11) DEFAULT '0',
+			  `order` int(11) DEFAULT '0',
 			  PRIMARY KEY (`id`),
 			  KEY `gallery_id` (`gallery_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8
 		";
 
 		if($this->db->query($galleries) && $this->db->query($gallery_images))
