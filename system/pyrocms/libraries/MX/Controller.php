@@ -1,6 +1,6 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-/* load MX core classes */
+/** load the CI class for Modular Extensions **/
 require dirname(__FILE__).'/Base.php';
 
 /**

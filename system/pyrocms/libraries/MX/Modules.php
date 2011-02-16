@@ -123,6 +123,7 @@ class Modules
 			return;
 		}		
 		
+		/* autoload library classes */
 		if(is_file($location = APPPATH.'libraries/'.$class.EXT)) {
 			include_once $location;
 			return;

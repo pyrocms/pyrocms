@@ -30,8 +30,8 @@ class Pages extends Public_Controller
 		
 		// This will be interesting later
 		$this->viewing_homepage = $this->uri->segment(1, $this->default_segment) == $this->default_segment;
-		
-		if ($this->viewing_homepage AND $route['default_controller'] != 'pages')
+
+		if ($this->viewing_homepage AND $this->uri->segment(1) AND $route['default_controller'] != 'pages')
 		{
 			redirect('');
 		}
