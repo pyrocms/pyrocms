@@ -34,6 +34,12 @@ class Users extends Public_Controller
 	 */
 	public function login()
 	{
+		// Any idea where we are heading after login?
+		if ($args = func_get_args())
+		{
+			$this->session->set_userdata('redirect_to', implode('/', $args));
+		}
+
 		// Get the user data
 		$user_data = (object) array(
 			'email' => $this->input->post('email'),
@@ -64,7 +70,10 @@ class Users extends Public_Controller
 			// If iwe aren't being redirected from the userl ogin page
 			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
 
-			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
+			if (strpos($uri, '/users/login') !== FALSE)
+			{
+				$this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
+			}
 		}
 
 	    // If the validation worked, or the user is already logged in
@@ -72,16 +81,14 @@ class Users extends Public_Controller
 	    {
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
-	    	$redirect_to = $this->session->userdata('redirect_to')
-				? $this->session->userdata('redirect_to')
-				: ''; // Home
-
+			$redirect_to = $this->session->userdata('redirect_to') ? $this->session->userdata('redirect_to') : ''; // '' = Home
+			
+			// Unset the redirection
 			$this->session->unset_userdata('redirect_to');
 
 			// Call post login hook
 			$this->hooks->_call_hook('post_user_login');
 
-			// Redirect the user
 			redirect($redirect_to);
 	    }
 

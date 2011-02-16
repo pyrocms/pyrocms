@@ -29,10 +29,8 @@ class Migration_CreateContactPage extends Migration {
 				'status' 		=> 'live',
 			));
 
-			$user = $this->ion_auth->get_user();
-
 			// Create the revision
-			$revision_id = $this->versioning->create_revision(array('author_id' => $user->id, 'owner_id' => $id, 'body' => '{pyro:contact:form}'));
+			$revision_id = $this->versioning->create_revision(array('author_id' => 1, 'owner_id' => $id, 'body' => '{pyro:contact:form}'));
 
 			$this->db->where('id', $id);
 			$this->db->update('pages', array('revision_id' => $revision_id));

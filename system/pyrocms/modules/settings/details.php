@@ -20,7 +20,7 @@ class Module_Settings extends Module {
 				'ru' => 'Настройки',
 				'cs' => 'Nastavení',
 				'ar' => 'الإعدادات',
-				'fi' => 'Asetukset',
+				'fi' => 'Asetukset'
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -35,7 +35,7 @@ class Module_Settings extends Module {
 				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.',
 				'cs' => 'Umožňuje administrátorům měnit nastavení webu jako jeho jméno, zprávy a emailovou adresu apod.',
 				'ar' => 'تمكن المدراء من تحديث الإعدادات كإسم الموقع، والرسائل وعناوين البريد الإلكتروني، .. إلخ.',
-				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.',
+				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

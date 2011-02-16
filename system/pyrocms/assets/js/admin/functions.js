@@ -95,15 +95,6 @@ jQuery(function($) {
 				window.location.href = href;
 			}
 		});
-
-		//make page buttons work (fixes a uniform bug in FF)
-		$('a.button, a.minibutton').live('click', function() {
-		  var href = $(this).attr("href");
-		  if($(this).hasClass('confirm') === false && $(this).hasClass('colorbox') === false)
-		  {
-			window.location.href = href;
-		  }
-		});
 		
 		//use a confirm dialog on "delete many" buttons
 		$(':button.button').live('click', function(e) {
@@ -183,6 +174,12 @@ jQuery(function($) {
 
 	$(document).ready(function() {
 		pyro.init();
+	});
+	
+	//close colorbox only when cancel button is clicked
+	$('#cboxLoadedContent a.cancel').live('click', function(e) {
+		e.preventDefault();
+		$.colorbox.close();
 	});
 });
 
