@@ -1,4 +1,4 @@
-<div id="filter">
+<div class="filter">
 <?php echo form_open('', 'class="filter"'); ?>
 <?php echo form_hidden('f_module', $module_details['slug']); ?>
 <ul>  
