@@ -11,7 +11,7 @@
 		
 		$('#news-options-tab ol li:first a').colorbox({
 			srollable: false,
-			innerWidth: 330,
+			innerWidth: 600,
 			innerHeight: 280,
 			href: BASE_URL + '/admin/news/categories/create_ajax',
 			onComplete: function() {
