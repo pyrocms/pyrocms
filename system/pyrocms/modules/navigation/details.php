@@ -19,7 +19,8 @@ class Module_Navigation extends Module {
 				'it' => 'Navigazione',
 				'ru' => 'Навигация',
 				'ar' => 'الروابط',
-				'cs' => 'Navigace'
+				'cs' => 'Navigace',
+				'fi' => 'Navigointi'
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -33,7 +34,8 @@ class Module_Navigation extends Module {
 				'it' => 'Gestisci i collegamenti dei menu di navigazione e tutti i gruppi di navigazione da cui dipendono.',
 				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'ar' => 'إدارة روابط وقوائم ومجموعات الروابط في الموقع.',
-				'cs' => 'Správa odkazů v navigaci a všech souvisejících navigačních skupin.'
+				'cs' => 'Správa odkazů v navigaci a všech souvisejících navigačních skupin.',
+				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -82,7 +84,8 @@ class Module_Navigation extends Module {
 		
 		$default_links = "
 			INSERT INTO navigation_links (title, link_type, page_id, navigation_group_id, position) VALUES
-			('Home', 'page', 1, 1, 1);
+			('Home', 'page', 1, 1, 1),
+			('Contact', 'page', 3, 1, 2);
 		";
 		
 		if($this->db->query($navigation_groups) &&

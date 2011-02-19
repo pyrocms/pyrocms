@@ -12,9 +12,9 @@ class Migration_AddedDateFormat extends Migration {
 			'title' => 'Date Format',
 			'description' => 'How should dates be displayed accross the website and control panel? Using PHP date format.',
 			'type' => 'text',
-			'`default`' => 'Y-m-d',
-			'`value`' => '',
-			'`options`' => '',
+			'default' => 'Y-m-d',
+			'value' => '',
+			'options' => '',
 			'module' => '',
 			'is_required' => 1,
 			'is_gui' => 1

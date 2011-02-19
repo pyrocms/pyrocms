@@ -23,7 +23,7 @@
 			</li>
 			<li>
 				<label for="folder"><?php echo lang('files.filter'); ?>:</label>
-				<?php echo form_dropdown('filter', $types, $selected_filter, 'id="filter"'); ?>
+				<?php echo form_dropdown('filter', array('' => '') + $types, $selected_filter, 'id="filter"'); ?>
 			</li>
 		</ul>
 	</div>
@@ -85,11 +85,11 @@
 			return false;
 		});
 		$(".edit_file").colorbox({
-			width:"400", height:"520", iframe:true,
+			width:"600", height:"450", iframe:true,
 			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
 		$("#new_files").colorbox({
-			width:"400", height:"520", iframe:true,
+			width:"600", height:"450", iframe:true,
 			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
 	});

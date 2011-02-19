@@ -1,12 +1,3 @@
-<?php foreach($sub_folders as $row)
-				{
-					if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
-					{
-						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-						$folder_options[$row['id']] = $indent.$row['name'];
-					}
-				}
-?>
 <div id="upload-box">
 	<h2><?php echo lang('files.upload.title'); ?><span class="close ui-icon ui-icon-closethick">Close</span></h2>
 		<?php echo form_open_multipart('admin/wysiwyg/upload'); ?>
@@ -38,9 +29,11 @@
                 
                 <?php endforeach; ?>
                 
+				<?php if(!empty($folder_options)): ?>
                 <li class="upload">
                     <?php echo anchor("admin/wysiwyg/image/#upload", lang('files.upload.title'), 'title="upload"'); ?>  
                 </li>
+				<?php endif; ?>
                 
             </ul>
     </div>
@@ -128,7 +121,10 @@
         <?php else: ?>
         <p><?php echo lang('files.no_files'); ?></p>
         <?php endif; ?>
-        <?php endif; ?>
+	
+	<?php else: ?>	
+		<p><?php echo lang('files.folders.no_folders'); ?><?php echo anchor('admin/files/folders/create', lang('files.folders.create'), 'class="button"'); ?></p>
+<?php endif; ?>
 		
         </div>
 		

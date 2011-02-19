@@ -35,8 +35,7 @@ $lang['galleries.published_no_label']		= '否';
 // General labels
 $lang['galleries.title_label']				= '標題';
 $lang['galleries.slug_label']				= '縮略名(Slug)';
-$lang['galleries.parent_label']				= '上層';
-$lang['galleries.none_label']				= '-- 無 --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label']		= '相本說明';
 $lang['galleries.thumbnail_label']			= '縮圖';
 $lang['galleries.comments_label']			= '開啟回應';

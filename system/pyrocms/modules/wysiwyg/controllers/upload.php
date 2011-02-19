@@ -13,6 +13,9 @@ class Upload extends WYSIWYG_Controller
 		parent::WYSIWYG_Controller();
         $this->config->load('files/files');
         $this->_path = FCPATH . '/' . $this->config->item('files_folder') . '/';
+		
+		//if the folder hasn't been created by the files module create it now
+		is_dir($this->_path) OR mkdir($this->_path, 0777, TRUE);
 	}
 
 	public function index()
@@ -52,7 +55,8 @@ class Upload extends WYSIWYG_Controller
 
 			$config['upload_path'] = $this->_path;
 			$config['allowed_types'] = $allowed[$type];
-
+			
+			
 			$this->load->library('upload', $config);
 
 			if (!$this->upload->do_upload('userfile'))
@@ -68,7 +72,7 @@ class Upload extends WYSIWYG_Controller
 					'user_id' => $this->user->id,
 					'type' => $type,
 					'name' => $this->input->post('name'),
-					'description' => $this->input->post('description'),
+					'description' => $this->input->post('description') ? $this->input->post('description') : '',
 					'filename' => $img['upload_data']['file_name'],
 					'extension' => $img['upload_data']['file_ext'],
 					'mimetype' => $img['upload_data']['file_type'],
@@ -79,8 +83,8 @@ class Upload extends WYSIWYG_Controller
 				));
 
                 $this->session->set_flashdata('success',  lang('files.success'));
-				redirect("admin/wysiwyg/{$this->input->post('redirect_to')}/index/{$this->input->post('folder_id')}");
 			}
+			redirect("admin/wysiwyg/{$this->input->post('redirect_to')}/index/{$this->input->post('folder_id')}");
 		}
 	}
 

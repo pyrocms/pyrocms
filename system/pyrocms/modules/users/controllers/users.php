@@ -10,13 +10,6 @@
 class Users extends Public_Controller
 {
 	/**
-	 * Array containing the validation rules
-	 * @access private
-	 * @var array
-	 */
-	private $validation_rules 	= array();
-
-	/**
 	 * Constructor method
 	 *
 	 * @access public
@@ -41,14 +34,19 @@ class Users extends Public_Controller
 	 */
 	public function login()
 	{
+		// Any idea where we are heading after login?
+		if ($args = func_get_args())
+		{
+			$this->session->set_userdata('redirect_to', implode('/', $args));
+		}
+
 		// Get the user data
 		$user_data = (object) array(
 			'email' => $this->input->post('email'),
 			'password' => $this->input->post('password')
 		);
 
-		// Validation rules
-		$this->validation_rules = array(
+		$validation = array(
 			array(
 				'field' => 'email',
 				'label' => lang('user_email_label'),
@@ -62,17 +60,20 @@ class Users extends Public_Controller
 		);
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules($validation);
 
 		// Set the redirect page as soon as they get to login
-		if(!$this->session->userdata('redirect_to'))
+		if ( ! $this->session->userdata('redirect_to'))
 		{
 			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
 
 			// If iwe aren't being redirected from the userl ogin page
 			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
 
-			strpos($uri, '/users/login') !== FALSE || $this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
+			if (strpos($uri, '/users/login') !== FALSE)
+			{
+				$this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
+			}
 		}
 
 	    // If the validation worked, or the user is already logged in
@@ -80,16 +81,14 @@ class Users extends Public_Controller
 	    {
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
-	    	$redirect_to = $this->session->userdata('redirect_to')
-				? $this->session->userdata('redirect_to')
-				: ''; // Home
-
+			$redirect_to = $this->session->userdata('redirect_to') ? $this->session->userdata('redirect_to') : ''; // '' = Home
+			
+			// Unset the redirection
 			$this->session->unset_userdata('redirect_to');
 
 			// Call post login hook
 			$this->hooks->_call_hook('post_user_login');
 
-			// Redirect the user
 			redirect($redirect_to);
 	    }
 
@@ -118,7 +117,7 @@ class Users extends Public_Controller
 	public function register()
 	{
 		// Validation rules
-		$this->validation_rules = array(
+		$validation = array(
 			array(
 				'field' => 'first_name',
 				'label' => lang('user_first_name'),
@@ -162,7 +161,7 @@ class Users extends Public_Controller
 		);
 
 		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules($validation);
 
 		$email 				= $this->input->post('email');
 		$password 			= $this->input->post('password');
@@ -186,7 +185,7 @@ class Users extends Public_Controller
 		if ($this->form_validation->run())
 		{
 			// Try to create the user
-			if($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
+			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
 				$this->session->set_flashdata(array('notice'=> $this->ion_auth->messages()));
 				redirect('users/activate');

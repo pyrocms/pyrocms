@@ -115,7 +115,7 @@ $lang['user_activated_message']   = 'Votre compte a été activé, vous pouvez m
 
 
 // Login
-$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
+$lang['user_logged_in']							= 'Vous êtes connecté.';
 $lang['user_already_logged_in'] = 'Vous êtes déjà connecté. S\'il vous plaît déconnectez-vous avant de ré-essayer.';
 $lang['user_login_incorrect'] = 'L\'email ou le mot de passe sont erronés. S\'il vous plaît vérifiez votre login et assurez vous que les MAJUSCULES (CAPS LOCK) ne sont pas actives.';
 $lang['user_inactive']   = 'Le compte que vous tentez d\'accéder est inactif.<br />Vérifiez vos mails concernant l\'activation de votre compte - <em>il est peut être dans les spams</em>.';

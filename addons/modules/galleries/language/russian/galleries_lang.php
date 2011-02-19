@@ -44,8 +44,7 @@ $lang['galleries.published_no_label']					= 'Нет';
 // основные подписи
 $lang['galleries.title_label']								= 'Заголовок';
 $lang['galleries.slug_label']									= 'Алиас';
-$lang['galleries.parent_label']								= 'Родитель';
-$lang['galleries.none_label']									= '-- нет --';
+$lang['galleries.folder_label']				= 'Folder'; #translate
 $lang['galleries.description_label']					= 'Описание альбома';
 $lang['galleries.thumbnail_label']						= 'Миниатюра';
 $lang['galleries.comments_label']							= 'Разрешить комментарии';

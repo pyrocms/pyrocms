@@ -4,11 +4,11 @@
 form.crud ol, form.crud ul {
 	list-style-type: none;
 }
-form.crud li {	
+form.crud li {
 	margin: 0;
 	overflow: hidden;
 	padding: 15px 8px;
-	vertical-align: middle;	
+	vertical-align: middle;
 }
 form.crud li.even {
 	background-color: #f3f3f3;
@@ -27,7 +27,7 @@ form.crud label {
 	padding: .35em 0;
 	color: #545454;
 	text-align: right;
-	
+
 }
 /*
 fieldset ol li div, fieldset ul li div, form.crud ul li div {
@@ -81,28 +81,36 @@ form.crud span.required-icon {
 	vertical-align:top;
 	width:15px;
 }
-div#filter {
+div.filter {
 	height: 34px;
 	padding: 0 10px;
 	border-bottom: 1px solid #C2C2C2;
 }
-form.filter h6 {
+div.filter form h6 {
 	float: left;
 	margin: 4px 5px 0 0;
 	font-weight: lighter;
 	font-style: italic;
 }
-form.filter {
+div.filter form {
 	width: 100%;
 }
-form.filter ul {
+div.filter form ul {
 	list-style-type: none;
 	margin-bottom: 0;
 }
-form.filter div.button {
+div.filter form div.button {
 	margin-top: 2px;
 }
-form.filter li {
+div.filter form li {
 	float: left;
 	margin: 4px 0 0 0;
+}
+/* this is the cancel button for the filter form */
+a.cancel {
+	padding: 1px 6px;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-left: 8px;
+	display: inline-block;
 }

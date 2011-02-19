@@ -309,3 +309,17 @@ $config['time_reference'] = 'gmt';
 |
 */
 $config['rewrite_short_tags'] = FALSE;
+
+
+/*
+|--------------------------------------------------------------------------
+| Module Locations
+|--------------------------------------------------------------------------
+|
+| Modular Extensions: Where are modules located?
+|
+*/
+$config['modules_locations'] = array(
+	APPPATH.'modules/' => '../modules/',
+	ADDONPATH.'modules/' => '../../../addons/modules/'
+);

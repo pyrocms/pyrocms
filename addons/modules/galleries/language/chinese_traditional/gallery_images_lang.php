@@ -15,7 +15,6 @@ $lang['gallery_images.upload_label']		= '上傳圖片';
 $lang['gallery_images.edit_image_label']	= '編輯圖片';
 $lang['gallery_images.thumbnail_label']		= '縮圖';
 $lang['gallery_images.action_label']		= '操作';
-$lang['gallery_images.none_label']			= '-- 無 --';
 $lang['gallery_images.crop_label']			= '裁切圖片';
 $lang['gallery_images.recreate_label']		= '重新產生縮圖';
 $lang['gallery_images.delete_label']		= '刪除圖片';

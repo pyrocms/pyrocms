@@ -43,7 +43,7 @@ class News extends Public_Controller
 		$this->data->pagination = create_pagination('news/category/'.$slug, $this->news_m->count_by(array(
 			'category'=>$slug,
 			'status' => 'live'
-		)), $this->limit, 4);
+		)), NULL, 4);
 		
 		// Get the current page of news articles
 		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array(
@@ -67,7 +67,7 @@ class News extends Public_Controller
 	{	
 		if(!$year) $year = date('Y');		
 		$month_date = new DateTime($year.'-'.$month.'-01');
-		$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->count_by(array('year'=>$year,'month'=>$month)), $this->limit, 5);
+		$this->data->pagination = create_pagination('news/archive/'.$year.'/'.$month, $this->news_m->count_by(array('year'=>$year,'month'=>$month)), NULL, 5);
 		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array('year'=> $year,'month'=> $month));
 		$this->data->month_year = $month_date->format("F 'y");
 		

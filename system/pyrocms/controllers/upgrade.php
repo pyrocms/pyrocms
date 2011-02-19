@@ -5,7 +5,7 @@
  * @package 	PyroCMS
  * @subpackage 	Controllers
  */
-class Upgrade extends Controller
+class Upgrade extends CI_Controller
 {
 	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0', '1.0.1');
 
@@ -429,10 +429,10 @@ class Upgrade extends Controller
 			'slug' => 'ga_email',
 			'title' => 'Google Analytic E-mail',
 			'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
-			'`default`' => '',
-			'`value`' => '',
+			'default' => '',
+			'value' => '',
 			'type' => 'text',
-			'`options`' => '',
+			'options' => '',
 			'is_required' => 0,
 			'is_gui' => 1,
 			'module' => 'integration'
@@ -442,10 +442,10 @@ class Upgrade extends Controller
 			'slug' => 'ga_password',
 			'title' => 'Google Analytic Password',
 			'description' => 'Google Analytics password. This is also needed this to show the graph on the dashboard.',
-			'`default`' => '',
-			'`value`' => '',
+			'default' => '',
+			'value' => '',
 			'type' => 'password',
-			'`options`' => '',
+			'options' => '',
 			'is_required' => 0,
 			'is_gui' => 1,
 			'module' => 'integration'
@@ -455,10 +455,10 @@ class Upgrade extends Controller
 			'slug' => 'ga_profile',
 			'title' => 'Google Analytic Profile ID',
 			'description' => 'Profile ID for this website in Google Analytics.',
-			'`default`' => '',
-			'`value`' => '',
+			'default' => '',
+			'value' => '',
 			'type' => 'text',
-			'`options`' => '',
+			'options' => '',
 			'is_required' => 0,
 			'is_gui' => 1,
 			'module' => 'integration'
@@ -840,7 +840,7 @@ class Upgrade extends Controller
 
 	function upgrade_0993()
 	{
-		$this->db->where('slug', 'dashboard_rss')->update('settings', array('`default`' => 'http://feeds.feedburner.com/pyrocms-installed'));
+		$this->db->where('slug', 'dashboard_rss')->update('settings', array('default' => 'http://feeds.feedburner.com/pyrocms-installed'));
 
 		$this->_output .= 'Updated user_id in permission_rules to accept 0 as a value.<br/>';
 		$this->db->query('ALTER TABLE permission_rules CHANGE user_id user_id int(11) NOT NULL DEFAULT 0');

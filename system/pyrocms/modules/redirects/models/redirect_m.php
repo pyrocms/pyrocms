@@ -52,14 +52,14 @@ class Redirect_m extends MY_Model
 	}
 
     // Callbacks
-    function check_unique($from, $id = 0)
+    function check_from($from, $id = 0)
     {
 		if($id > 0)
 		{
 			$this->db->where('id !=', $id);
 		}
 
-    	return $this->where(array(
+    	return $this->db->where(array(
 			'`from`' =>  $from,
 		//	'site_id' => $this->site->id
 		))->count_all_results('redirects');

@@ -17,7 +17,8 @@ class Module_Widgets extends Module {
 				'it' => 'Widgets',
 				'ru' => 'Виджеты',
 				'ar' => 'الودجت',
-				'cs' => 'Widgety'
+				'cs' => 'Widgety',
+				'fi' => 'Widgetit'
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
@@ -29,7 +30,8 @@ class Module_Widgets extends Module {
 				'it' => 'Gestisci piccole sezioni di logica a se stante in blocchi o "Widgets".',
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".',
-				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".'
+				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',
+				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".'
 
 			),
 			'frontend' => FALSE,
@@ -82,7 +84,7 @@ class Module_Widgets extends Module {
 		";
 		
 		$default_data = "
-			INSERT INTO widget_areas (slug, title) VALUES ('unsorted', 'Unsorted');
+			INSERT INTO widget_areas (slug, title) VALUES ('sidebar', 'Sidebar');
 		";
 		
 		if($this->db->query($widget_areas) &&

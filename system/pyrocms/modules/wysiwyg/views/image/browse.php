@@ -9,14 +9,28 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
-    windowClose();
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + 'uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+    	windowClose();
 }
 
-function get_float()
+function get_align()
 {
-    img_float = jQuery('input[name=insert_float]:checked').val();
-    return img_float;
+	img_align = jQuery('input[name=insert_align]:checked').val();
+	
+	if(img_align == 'none')
+	{
+		return '';
+	}
+	
+	if(img_align == 'left' || img_align == 'right')
+	{
+		return 'float: '+img_align+';';
+	}
+	
+	if(img_align == "center")
+	{
+		return 'display: block; margin: 0 auto;';
+	}
 }
 
 // By default, insert (which will also replace)
@@ -89,8 +103,10 @@ var replace_html = null;
 <?php endif;?>
 <div id="images-container">
 <?php if (!empty($folder_meta)): ?>
-<h3>Images in "<?php echo $folder_meta->name; ?>"<span><?php echo anchor('admin/wysiwyg/image', 'Go Back'); ?></span></h3>
-<?php endif; ?>
+<h3>Images in "<?php echo $folder_meta->name; ?>"
+<span><?php echo anchor('admin/wysiwyg/image', 'Go Back'); ?></span><br />
+<span><?php echo anchor('admin/files/upload/'.$folder_meta->id, 'Upload', 'class="iframe" rel="modal"'); ?></span>
+</h3><?php endif; ?>
 <?php if (!empty($files)): ?>
     
 	<div class="defaults">
@@ -100,9 +116,10 @@ var replace_html = null;
 	    </p>
 	    <p class="element element-last">
 		<label for="insert_float">Float:</label>
-		<span>Left</span><input type="radio" name="insert_float" value="left" />
-		<span>Right</span><input type="radio" name="insert_float" value="right" />
-		<span>None</span><input type="radio" name="insert_float" value="none" checked="checked" />
+		<span>Left</span><input type="radio" name="insert_align" value="left" />
+		<span>Right</span><input type="radio" name="insert_align" value="right" />
+		<span>Center</span><input type="radio" name="insert_align" value="center" />
+		<span>None</span><input type="radio" name="insert_align" value="none" checked="checked" />
 	    </p>
 	</div>
 	<ul>
@@ -123,4 +140,5 @@ var replace_html = null;
 <?php elseif (empty($folders)): ?>
 	<p>No files found.</p>
 <?php endif;?>
+<p id="create_folder"><?php echo anchor('admin/files/folders/create', 'Create Folder', 'class="iframe" rel="modal"'); ?></p>
 </div>
