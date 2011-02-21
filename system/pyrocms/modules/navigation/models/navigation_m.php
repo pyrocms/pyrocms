@@ -40,6 +40,12 @@ class Navigation_m extends CI_Model
 		{
 			$this->db->where('navigation_group_id', $params['group']);
 		}
+		
+		//get only links with no parent
+		if(isset($params['top']))
+		{
+			$this->db->where('parent', $params['top']);
+		}
 
 		if(!empty($params['order']))
 		{
@@ -156,6 +162,32 @@ class Navigation_m extends CI_Model
         	'position' => (int) $position
 		), array('id' => $id));
 	}
+	
+	/**
+	 * Record the link's parent
+	 * 
+	 * @access public
+	 * @param int $id The ID of the link item
+	 * @param int $parent ID of the parent
+	 * @return void
+	 */
+	public function update_link_parent($id = 0, $parent = 0) 
+	{
+		if($parent == 0)
+		{
+			//if they're trying to clear the parent selection we need to get the parent's id
+			$existing = $this->db->get_where('navigation_links', array('id' => $id))->row();
+			
+			//mark that it has no children
+			$this->db->update('navigation_links', array('has_kids' => 0), array('id' => $existing->parent));
+		}
+		else
+		{
+			$this->db->update('navigation_links', array('has_kids' => 1), array('id' => $parent));
+		}
+		
+		return $this->db->update('navigation_links', array('parent' => $parent), array('id' => $id));
+	}
 
 	/**
 	 * Format an array
@@ -231,7 +263,8 @@ class Navigation_m extends CI_Model
 
 		$group_links = $this->get_links(array(
 			'group'=> $group->id,
-			'order'=>'position, title'
+			'order'=>'position, title',
+			'top'=> 0
 		));
     		
 		$has_current_link = false;
@@ -249,12 +282,51 @@ class Navigation_m extends CI_Model
 				{
 					$has_current_link = true;
 				}
+				
+				//build a multidimensional array for submenus
+				if($link->has_kids > 0 AND $link->parent == 0)
+				{
+					$link->children = $this->get_children($link->id);
+					
+					foreach($link->children as $key => $child)
+					{
+						//what is this world coming to?
+						if($child->has_kids > 0)
+						{
+							$link->children[$key]->children = $this->get_children($child->id);
+							
+							foreach($link->children[$key]->children as $index => $item)
+							{
+								if($item->has_kids > 0)
+								{
+									$link->children[$key]->children[$index]->children = $this->get_children($item->id);
+								}
+							}
+						}
+					}
+				}
 			}
 			
 		}
-			
+
 		// Assign it 
 	    return $group_links;
+	}
+	
+	/**
+	 * Get children
+	 *
+	 * @access public
+	 * @param integer Get links by parent id
+	 * @return mixed
+	 */
+	public function get_children($id)
+	{
+		return $this->db->where('parent', $id)
+						->order_by('position')
+						->order_by('title')
+						->get('navigation_links')
+						->result();	
 	}
 	
 	/**
