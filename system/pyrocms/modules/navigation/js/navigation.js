@@ -40,5 +40,15 @@
 			
 		}).disableSelection();
 		
+		//update the parent
+		$('select[name="parent"]').change(function(){
+			var elem = this;
+				$(elem).parents().siblings().children('.parent-gif').show();
+				$.post(BASE_URI + 'index.php/admin/navigation/ajax_update_parent', { id: $(elem).attr('id'), parent: $(elem).val() }, function() {
+					//success! hide the gif
+					$(elem).parents().siblings().children('.parent-gif').hide();
+				});
+		});
+		
 	});
 })(jQuery);

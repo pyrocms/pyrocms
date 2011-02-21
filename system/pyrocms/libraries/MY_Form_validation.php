@@ -32,6 +32,12 @@ class MY_Form_validation extends CI_Form_validation
 	 */
 	function utf8($str)
 	{
+		// If they don't have mbstring enabled (suckers) then we'll have to do with what we got
+		if ( ! function_exists($str))
+		{
+			return $str;
+		}
+
 		$str = mb_convert_encoding($str, 'UTF-8', 'UTF-8');
 
 		return htmlentities($str, ENT_QUOTES, 'UTF-8');

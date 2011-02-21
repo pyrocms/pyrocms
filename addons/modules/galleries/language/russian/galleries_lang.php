@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -44,7 +44,7 @@ $lang['galleries.published_no_label']					= 'Нет';
 // основные подписи
 $lang['galleries.title_label']								= 'Заголовок';
 $lang['galleries.slug_label']									= 'Алиас';
-$lang['galleries.folder_label']				= 'Folder'; #translate
+$lang['galleries.folder_label']								= 'Папка';
 $lang['galleries.description_label']					= 'Описание альбома';
 $lang['galleries.thumbnail_label']						= 'Миниатюра';
 $lang['galleries.comments_label']							= 'Разрешить комментарии';

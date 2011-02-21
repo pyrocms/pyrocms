@@ -51,3 +51,35 @@
 <p><strong>Example:</strong></p>
 
 <pre><code>{pyro:url:segments segment="1" default="home"}</code></pre>
+
+<h3>{pyro:url:anchor}</h3>
+
+<p>Generates an anchor tag based on the supplied attributes.  This is essentially
+a wrapper for the built in anchor() function found in the url helper.</p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">segments</td>
+		<td>Required. The segments passed to the anchor function.</td>
+	</tr>
+	<tr>
+		<td width="100">title</td>
+		<td>Optional. The text that is displayed between the &lt;a>&lt;/a> tags.
+		If omitted, the generated url will be displayed.</td>
+	</tr>
+	<tr>
+		<td width="100">class</td>
+		<td>Optional.  A class to be assigned to the anchor tag.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{pyro:url:anchor segments="users/login" title="Login" class="login"}</code></pre>

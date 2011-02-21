@@ -11,7 +11,7 @@ require_once dirname(__FILE__).'/Config.php';
  * @link	http://codeigniter.com
  *
  * Description:
- * This library extends the CodeIgniter CI_Base class and creates an application 
+ * This library extends the CodeIgniter CI_Controller class and creates an application 
  * object allowing use of the HMVC design pattern.
  *
  * Install this file as application/third_party/MX/Base.php
