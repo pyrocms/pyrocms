@@ -64,26 +64,7 @@ class Navigation_m extends CI_Model
 		{
 			$this->load->helper('url');
 
-			foreach($result as &$row)
-			{
-				// If its any other type than a URL, it needs some help becoming one
-				switch($row->link_type)
-				{
-					case 'uri':
-						$row->url = site_url($row->uri);
-					break;
-
-					case 'module':
-						$row->url = site_url($row->module_name);
-					break;
-
-					case 'page':
-						$CI =& get_instance();
-						$page_uri = $CI->pages_m->get_path_by_id($row->page_id);
-						$row->url = site_url($page_uri);
-					break;
-				}
-			}
+			$result = $this->make_url($result);
 		}
 
 		return $result;
@@ -322,11 +303,45 @@ class Navigation_m extends CI_Model
 	 */
 	public function get_children($id)
 	{
-		return $this->db->where('parent', $id)
-						->order_by('position')
-						->order_by('title')
-						->get('navigation_links')
-						->result();	
+		$children = $this->db->where('parent', $id)
+							->order_by('position')
+							->order_by('title')
+							->get('navigation_links')
+							->result();
+							
+		return $this->make_url($children);
+	}
+	
+	/**
+	 * Make URL
+	 *
+	 * @access public
+	 * @param array $row Navigation record
+	 * @return mixed Valid url
+	 */
+	public function make_url($result)
+	{
+		foreach($result as &$row)
+		{
+			// If its any other type than a URL, it needs some help becoming one
+			switch($row->link_type)
+			{
+				case 'uri':
+					$row->url = site_url($row->uri);
+				break;
+
+				case 'module':
+					$row->url = site_url($row->module_name);
+				break;
+
+				case 'page':
+					$CI =& get_instance();
+					$page_uri = $CI->pages_m->get_path_by_id($row->page_id);
+					$row->url = site_url($page_uri);
+				break;
+			}
+		}
+		return $result;
 	}
 	
 	/**
