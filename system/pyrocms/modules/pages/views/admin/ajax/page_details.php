@@ -1,7 +1,7 @@
 <h4><?php echo $page->title; ?></h4>
 
 <input id="page-id" type="hidden" value="<?php echo $page->id; ?>" />
-<input id="page-path" type="hidden" value="<?php echo !empty($page->path) ? $page->path : $page->slug; ?>" />
+<input id="page-uri" type="hidden" value="<?php echo !empty($page->uri) ? $page->uri : $page->slug; ?>" />
 
 <fieldset>
 	<legend><?php echo lang('pages.detail_label'); ?></legend>
@@ -14,7 +14,7 @@
 	<p>
 		<strong><?php echo lang('pages.slug_label');?>:</strong> 
 		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="modal-large" target="_blank">
-			<?php echo site_url(!empty($page->path) ? $page->path : $page->slug); ?>
+			<?php echo site_url(!empty($page->uri) ? $page->uri : $page->slug); ?>
 		</a>
 	</p>
 </fieldset>

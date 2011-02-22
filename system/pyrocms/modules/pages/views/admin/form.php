@@ -33,7 +33,7 @@
 				<label for="slug"><?php echo lang('pages.slug_label');?></label>
 
 				<?php if(!empty($page->parent_id)): ?>
-					<?php echo site_url($parent_page->path); ?>/
+					<?php echo site_url($parent_page->uri); ?>/
 				<?php else: ?>
 					<?php echo ( ! empty($this->config->config->index_page)) ? site_url().'/' : site_url(); ?>
 				<?php endif; ?>

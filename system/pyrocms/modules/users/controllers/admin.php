@@ -27,9 +27,9 @@ class Admin extends Admin_Controller {
 			'rules' => 'utf8'
 		),
 		array(
-			'field' => 'display_name',
-			'label' => 'lang:user_display_name',
-			'rules' => 'required|alphanumeric|maxlength[50]'
+			'field' => 'email',
+			'label' => 'lang:user_email_label',
+			'rules' => 'required|valid_email'
 		),
 		array(
 			'field' => 'password',
@@ -42,14 +42,14 @@ class Admin extends Admin_Controller {
 			'rules' => 'matches[password]'
 		),
 		array(
-			'field' => 'email',
-			'label' => 'lang:user_email_label',
-			'rules' => 'required|valid_email'
-		),
-		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alphanumeric|maxlength[20]'
+		),
+		array(
+			'field' => 'display_name',
+			'label' => 'lang:user_display_name',
+			'rules' => 'alphanumeric|maxlength[50]'
 		),
 		array(
 			'field' => 'group_id',

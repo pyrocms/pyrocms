@@ -3,7 +3,7 @@
 <h3>v1.1.0</h3>
 
 <ul>
-	<li>Upgraded to the very latest CI 2.0 (a.k.a Reactor) which drops PHP4 support from the framework.</li>
+	<li>Upgraded to the very latest CI 2.0.0 (a.k.a Reactor) which drops PHP4 support from the framework.</li>
 	<li>Added "Add to Navigation" option when creating a page.</li>
 	<li>Contact module has been replaced with a page containing the tag {pyro:contact:form}. Customise it!</li>
 	<li>Added last_class and first_class attributes to navigation plugin, defaulting to "first" and "last".</li>
@@ -11,6 +11,7 @@
 	<li>Redirect users to any page you like after login with the url /users/login/where/ever/you/want.</li>
 	<li>Now you can upload files/images and create folder directly from WYSIWYG editor.</li>
 	<li>Tag loops and double tags can now contain other tags and plugins.</li>
+	<li>Removed page_lookups table which was no longer required which will increase pages performance.</li>
 	<li>Updated Dutch, Italian and other languages.</li>
 </ul>
 
@@ -20,6 +21,7 @@
 	<li>Double data tags can now contain full tags (even other double tags) as well as plugin tags.</li>
 	<li>The parser will now automatically parse nested plugin tags when they fall inside a double plugin tag.</li>
 	<li>The utf8 validation rule was throwing errors if mbstring was not enabled.</li>
+	<li>Stopped Users Display Name being required on the admin form.</li>
 </ul>
 
 <h3>v1.0.4</h3>
