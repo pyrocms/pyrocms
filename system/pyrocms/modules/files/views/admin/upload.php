@@ -9,5 +9,7 @@
 	</li>
 </ol>
 
-<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?>
+<div class="buttons float-right padding-top">
+	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?>
+</div>
 <?php echo form_close(); ?>

@@ -21,6 +21,8 @@
 		</tbody>
 	</table>
 
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))); ?>
+	<div class="buttons float-right padding-top">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel'))); ?>
+	</div>
 
 <?php echo form_close(); ?>
