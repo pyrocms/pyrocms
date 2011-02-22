@@ -106,7 +106,6 @@ class Admin extends Admin_Controller
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
-		$this->load->helper(array('array', 'pages'));
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
@@ -168,7 +167,6 @@ class Admin extends Admin_Controller
 	public function ajax_page_details($page_id)
 	{
 		$page 			= $this->pages_m->get($page_id);
-		$page->path 	= $this->pages_m->get_path_by_id($page_id);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -213,7 +211,6 @@ class Admin extends Admin_Controller
 	public function preview($id = 0)
 	{
 		$data->page  = $this->pages_m->get($id);
-		$data->page->path = $this->pages_m->get_path_by_id($id);
 
 		$this->template->set_layout('modal', 'admin');
 		$this->template->build('admin/preview', $data);
@@ -287,7 +284,6 @@ class Admin extends Admin_Controller
 	    {
 			$page->parent_id 	= $parent_id;
 			$parent_page 		= $this->pages_m->get($parent_id);
-			$parent_page->path 	= $this->pages_m->get_path_by_id($parent_id);
 	    }
 
 	    // Assign data for display
@@ -385,7 +381,6 @@ class Admin extends Admin_Controller
 	    if($page->parent_id > 0)
 	    {
 			$parent_page 		= $this->pages_m->get($page->parent_id);
-			$parent_page->path 	= $this->pages_m->get_path_by_id($page->parent_id);
 	    }
 
 	    // Assign data for display
