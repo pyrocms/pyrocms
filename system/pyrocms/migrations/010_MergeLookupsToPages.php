@@ -10,6 +10,7 @@ class Migration_MergeLookupsToPages extends Migration {
 		ALTER TABLE `pages`
 			ADD `uri` TEXT NULL AFTER title");
 
+		// Move the lookups that we have over to the pages table
 		foreach ($this->db->get('pages_lookup')->result() as $lookup)
 		{
 			$this->db->update('pages', array(
@@ -17,6 +18,12 @@ class Migration_MergeLookupsToPages extends Migration {
 			), array(
 				'id' => $lookup->id
 			));
+		}
+
+		// Build any lookups that are still missing
+		foreach ($this->db->where('uri', '')->get('pages')->result() as $page)
+		{
+			$this->pages_m->build_lookup($page->id);
 		}
 
 		$this->dbforge->drop_table('pages_lookup');
