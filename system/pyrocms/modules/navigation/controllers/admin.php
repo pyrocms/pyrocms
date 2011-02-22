@@ -124,6 +124,22 @@ class Admin extends Admin_Controller
 		{
 			//... and get navigation links for each one
 			$this->data->navigation[$group->abbrev] = $this->navigation_m->get_links(array('group'=>$group->id, 'order'=>'position, title'));
+			
+			// build a list of eligible parents for the dropdown
+			$parents[0] = '';
+			foreach($this->data->navigation[$group->abbrev] as $item)
+			{
+				$parents[$item->id]	= $item->title;
+			}
+			
+			//add the list to each link
+			foreach($this->data->navigation[$group->abbrev] as $key => $item)
+			{
+				$this->data->navigation[$group->abbrev][$key]->{'parents'}	= $parents;
+				
+				//remove the this link from its own available parents list
+				unset($this->data->navigation[$group->abbrev][$key]->{'parents'}[$item->id]);
+			}
 		}
 
 		// Create the layout
@@ -267,6 +283,21 @@ class Admin extends Admin_Controller
 
 		// Flush the cache
 		$this->cache->delete_all('navigation_m');
+	}
+	
+	/**
+	 * Assign this link a parent
+	 * @access public
+	 * @return void
+	 */
+	function ajax_update_parent()
+	{
+		$status = $this->navigation_m->update_link_parent($this->input->post('id'), $this->input->post('parent'));
+
+		// Flush the cache
+		$this->cache->delete_all('navigation_m');
+		
+		return $status;
 	}
 }
 ?>

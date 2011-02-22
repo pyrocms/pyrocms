@@ -1,6 +1,5 @@
+<h2 id="page_title" class="page-title"><?php echo lang('profile_edit') ?></h2>
 <div id="user_edit_profile">
-	<h2 id="page_title"><?php echo lang('profile_edit') ?></h2>
-
 	<?php if(validation_errors()):?>
 	<div class="error_box">
 		<?php echo validation_errors();?>
