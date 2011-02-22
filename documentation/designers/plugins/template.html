@@ -84,3 +84,41 @@
 </code></pre>
 
 <br />
+
+<h3>{pyro:template:has_breadcrumbs}</h3>
+<p>Check for the existence of template breadcrumbs.  Returns true or false.</p>
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">none</td>
+		<td>This function does not require any parameters.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>
+{if '{pyro:template:has_breadcrumbs}'}
+&lt;div class="breadcrumbs">
+{pyro:template:breadcrumbs}
+    {if '{pyro:uri}'}
+        {pyro:url:anchor segments='{pyro:uri}' title='{pyro:name}'}
+    {else}
+        {pyro:name}
+    {/if}
+{/pyro:template:breadcrumbs}
+&lt;/div>
+{/if}
+</code></pre>
+
+<br />
+
+

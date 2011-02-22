@@ -55,6 +55,32 @@ class Plugin_Template extends Plugin
 
 		return $this->content() ? array() : '';
 	}
+	
+	/**
+	 * Check for the existance of breadcrumbs
+	 *
+	 * Usage:
+	 * {if '{pyro:template:has_breadcrumbs}'}
+	 *	{pyro:template:breadcrumbs}
+	 *		{if '{pyro:uri}'}
+     *			{pyro:url:anchor segments='{pyro:uri}' title='{pyro:name}'}
+     *		{else}
+	 *			{pyro:name}
+     *		{/if}
+	 *	{/pyro:template:breadcrumbs}
+	 * {/if}
+	 *
+	 * @param	none
+	 * @return	bool
+	 */
+	function has_breadcrumbs()
+	{
+		$data =& $this->load->_ci_cached_vars;
+		
+		$crumbs = $data['template']['breadcrumbs'];
+		
+		return !empty($crumbs) ? TRUE : FALSE ;
+	}
 
 	function __call($foo, $arguments)
 	{
