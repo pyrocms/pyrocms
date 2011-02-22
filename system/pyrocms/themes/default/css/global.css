@@ -26,12 +26,28 @@ body { background-color: #e1e1e1; background-image: url(../img/body-bg.jpg); bac
 #header #user-meta form ul li input[type=submit] { padding: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 11px; color: #ff6900; background: none; border: none; cursor: pointer; outline: none; }
 #header #user-meta form ul li input[type=submit]:hover { color: #060a14; text-shadow: 1px 1px 0px #3e444d; }
 
-/* Header Nav */
+/* Header Menu */
 ul#head-nav { width: 1000px; height: 36px; padding: 13px 0 2px 0; margin: 0 auto; }
-ul#head-nav li { list-style: none; margin: 0 35px 0 0; padding: 0; float: left; }
+ul#head-nav li { position: relative; list-style: none; margin: 0 35px 0 0; padding: 0; float: left; }
 ul#head-nav li a, ul#head-nav li a:visited{ font-size: 12px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #ffffff; }
 ul#head-nav li a:hover, ul#head-nav a:visited:hover { color: #ff6900; text-decoration: none; }
 ul#head-nav li a:active, ul#head-nav li a:visited:active { color: #ffffff; }
+
+/* Header Menu second level */
+ul#head-nav li:hover ul { visibility: visible; }/*make 2 visible when hovering on 1*/
+ul#head-nav ul { height: 0; left: 0; position: absolute; top: 18px; padding-top: 20px; visibility: hidden; width: 149px; }
+ul#head-nav ul li { border: 1px solid #e9e9e9; padding: 3px; background: #d8d8d8; width: 149px; }
+ul#head-nav ul li:hover { background: #c9c9c9; width: 149px; visibility: visible; }/*keep it visible*/
+
+/* Header Menu third level */
+ul#head-nav ul ul li { visibility: hidden; }/*make 3 visible when hovering on 2*/
+ul#head-nav ul li:hover ul li { visibility: visible; }
+ul#head-nav ul ul { left: 156px; top:-1px; width:149px; padding-top: 0; }
+
+/* Header Menu fourth level */
+ul#head-nav ul li:hover ul ul li { visibility: hidden; }/*hide by default*/
+ul#head-nav ul ul li:hover ul li { visibility: visible; }/*make 4 visible when hovering on 4*/
+ul#head-nav ul ul { left: 156px; top:-1px; width:149px; padding-top: 0; }
 
 /* Breadcrumbs */
 #forum_breadcrumbs { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }

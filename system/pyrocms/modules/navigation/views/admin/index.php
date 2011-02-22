@@ -20,7 +20,9 @@
 								<th style="width: 3em"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 								<th style="width: 20%"><?php echo lang('nav_title_label');?></th>
 								<th style="width: 30%"><?php echo lang('nav_url_label');?></th>
-								<th style="width: 15%"><?php echo lang('nav_target_label');?></th>
+								<th style="width: 5%"></th>
+								<th style="width: 10%"><?php echo lang('nav_parent_label');?></th>
+								<th style="width: 10%"><?php echo lang('nav_target_label');?></th>
 								<th style="width: 15%"><?php echo lang('nav_class_label');?></th>
 								<th style="width: 5em">&nbsp;</th>
 							</tr>
@@ -28,12 +30,14 @@
 						<tbody>
 							<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
 							<tr class="hover-toggle">
-								<td><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
-								<td><?php echo $navigation_link->title;?></td>
-								<td><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-								<td><?php echo $navigation_link->target;?></td>
-								<td><?php echo $navigation_link->class;?></td>
-								<td width="180" align="right">
+								<td style="padding:4px"><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
+								<td style="padding:4px"><?php echo $navigation_link->title;?></td>
+								<td style="padding:4px"><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
+								<td style="padding:4px"><img class="parent-gif" style="display:none;" src="<?php echo base_url(); ?>system/pyrocms/assets/img/admin/loading.gif"/></td>
+								<td style="padding:4px"><?php echo form_dropdown('parent', $navigation_link->parents, $navigation_link->parent, 'id="'.$navigation_link->id.'"'); ?></td>
+								<td style="padding:4px"><?php echo $navigation_link->target;?></td>
+								<td style="padding:4px"><?php echo $navigation_link->class;?></td>
+								<td style="padding:4px" width="180" align="right">
                                 	<span class="toggle-item">
 									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'), array('class'=>'minibutton'));?>  
 									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm minibutton'));?>

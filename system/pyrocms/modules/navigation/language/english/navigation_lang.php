@@ -2,6 +2,7 @@
 
 // labels
 $lang['nav_title_label']                        = 'Title';
+$lang['nav_parent_label']						= 'Parent';
 $lang['nav_target_label']                       = 'Target';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';

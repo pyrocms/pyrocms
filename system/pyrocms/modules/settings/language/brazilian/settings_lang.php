@@ -38,7 +38,7 @@ $lang['settings_mail_protocol'] 				= 'Protocolo de e-mail';
 $lang['settings_mail_protocol_desc'] 			= 'Selecione o protocolo de e-mail desejado.';
 
 $lang['settings_mail_sendmail_path'] 			= 'Caminho do Sendmail';
-$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+$lang['settings_mail_sendmail_path_desc']		= 'Caminho para o sendmail.';
 
 $lang['settings_mail_smtp_host'] 				= 'Host do SMTP';
 $lang['settings_mail_smtp_host_desc'] 			= 'O nome do host do seu servidor SMTP.';
@@ -46,7 +46,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'O nome do host do seu servidor SMTP.
 $lang['settings_mail_smtp_pass'] 				= 'Senha do SMTP';
 $lang['settings_mail_smtp_pass_desc'] 			= 'A senha do SMTP.';
 
-$lang['settings_mail_smtp_port'] 				= 'Porta do SMPT';
+$lang['settings_mail_smtp_port'] 				= 'Porta do SMTP';
 $lang['settings_mail_smtp_port_desc'] 			= 'O número da porta do SMTP.';
 
 $lang['settings_mail_smtp_user'] 				= 'Usuário do SMTP';
@@ -108,6 +108,9 @@ $lang['settings_akismet_api_key_desc'] 			= 'Akismet é um bloqueador de spam da
 
 $lang['settings_comment_order'] 				= 'Ordenar comentários';
 $lang['settings_comment_order_desc']			= 'A ordem de classificação no qual exibir comentários.';
+
+$lang['settings_enable_comments'] 				= 'Permitir comentários';
+$lang['settings_enable_comments_desc']			= 'Permite a escrita de comentários';
 
 $lang['settings_moderate_comments'] 			= 'Moderar comentários';
 $lang['settings_moderate_comments_desc']		= 'Forçar comentários a serem aprovados antes que apareçan no site.';

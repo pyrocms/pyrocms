@@ -111,6 +111,11 @@ class Module_Pages extends Module {
 			('3','contact', 'Contact', 3, 0, 1, 'live', ".time().", ".time().");
 		";
 
+		$default_page_lookup = "
+			INSERT INTO `pages_lookup` (`id`, `path`) VALUES
+			(3, 'contact');
+		";
+
 		$default_revisions = "
 			INSERT INTO `revisions` (`id`, `owner_id`, `body`, `revision_date`) VALUES
 			  ('1', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', ".time()."),
@@ -123,6 +128,7 @@ class Module_Pages extends Module {
 		   $this->db->query($revisions) &&
 		   $this->db->query($default_page_layouts) &&
 		   $this->db->query($default_pages) &&
+		   $this->db->query($default_page_lookup) &&
 		   $this->db->query($default_revisions))
 		{
 			return TRUE;

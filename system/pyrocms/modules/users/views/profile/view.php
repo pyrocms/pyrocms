@@ -1,7 +1,8 @@
+<h2 class="page-title" id="page_title"><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
 <!-- Container for the user's profile -->
 <div id="user_profile_container">
 	<?php echo gravatar($user->email, 50);?>
-	<h2 id="page_title"><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
+	
 	
 	<!-- Details about the user, such as role and when the user was registered -->
 	<fieldset id="user_details">
