@@ -20,9 +20,9 @@ class Plugin_Pages extends Plugin
 	function url()
 	{
 		$id = $this->attribute('id');
-		$uri = $this->pages_m->get_path_by_id($id);
+		$page = $this->cache->model('pages_m', 'get', array($id));
 
-		return site_url($uri);
+		return site_url($page ? $page->uri : '');
 	}
 	
 	/**
