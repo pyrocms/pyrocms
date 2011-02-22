@@ -1,4 +1,4 @@
-<h2 id="page_title"><?php echo lang('user_login_header') ?></h2>
+<h2 class="page-title" id="page_title"><?php echo lang('user_login_header') ?></h2>
 
 <?php if (validation_errors()): ?>
 <div class="error_box">
