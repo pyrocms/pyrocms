@@ -52,6 +52,7 @@ $lang['files.success']			= 'El archivo ha sido guardado.';
 $lang['files.not_exists']		= 'Se ha seleccionado una carpeta inválida.';
 $lang['files.delete.error']		= 'El archivo no pudo ser borrado.';
 $lang['files.delete.success']		= 'El archivo fue borrado.';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Imagen';

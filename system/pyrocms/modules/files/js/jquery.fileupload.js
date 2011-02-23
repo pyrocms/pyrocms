@@ -1,5 +1,5 @@
 /*
- * jQuery File Upload Plugin 3.4
+ * jQuery File Upload Plugin 3.7.1
  *
  * Copyright 2010, Sebastian Tschan, AQUANTUM
  * Licensed under the MIT license:
@@ -14,46 +14,59 @@
 
 (function ($) {
 
-    var FileUpload,
-        methods;
+    var defaultNamespace = 'file_upload',
+        undef = 'undefined',
+        func = 'function',
+        num = 'number',
+        FileUpload,
+        methods,
+
+        MultiLoader = function (callBack, numberComplete) {
+            var loaded = 0;
+            this.complete = function () {
+                loaded += 1;
+                if (loaded === numberComplete) {
+                    callBack();
+                }
+            };
+        };
         
     FileUpload = function (container) {
         var fileUpload = this,
-            uploadForm = (container.is('form') ? container : container.find('form').first()),
-            fileInput = uploadForm.find('input:file').first(),
+            uploadForm,
+            fileInput,
             settings = {
-                namespace: 'file_upload',
-                cssClass: 'file_upload',
+                namespace: defaultNamespace,
+                uploadFormFilter: function (index) {
+                    return true;
+                },
+                fileInputFilter: function (index) {
+                    return true;
+                },
+                cssClass: defaultNamespace,
                 dragDropSupport: true,
                 dropZone: container,
-                url: uploadForm.attr('action'),
-                method: uploadForm.attr('method'),
-                fieldName: fileInput.attr('name'),
+                url: function (form) {
+                    return form.attr('action');
+                },
+                method: function (form) {
+                    return form.attr('method');
+                },
+                fieldName: function (input) {
+                    return input.attr('name');
+                },
+                formData: function (form) {
+                    return form.serializeArray();
+                },
                 multipart: true,
                 multiFileRequest: false,
-                formData: function () {
-                    return uploadForm.serializeArray();
-                },
                 withCredentials: false,
                 forceIframeUpload: false
             },
             documentListeners = {},
             dropZoneListeners = {},
-            fileInputListeners = {},
-            undef = 'undefined',
-            func = 'function',
-            num = 'number',
             protocolRegExp = /^http(s)?:\/\//,
-
-            MultiLoader = function (callBack, numberComplete) {
-                var loaded = 0;
-                this.complete = function () {
-                    loaded += 1;
-                    if (loaded === numberComplete) {
-                        callBack();
-                    }
-                };
-            },
+            optionsReference,
 
             isXHRUploadCapable = function () {
                 return typeof XMLHttpRequest !== undef && typeof File !== undef && (
@@ -64,26 +77,33 @@
             initEventHandlers = function () {
                 if (settings.dragDropSupport) {
                     if (typeof settings.onDocumentDragEnter === func) {
-                        documentListeners['dragenter.' + settings.namespace] = settings.onDocumentDragEnter;
+                        documentListeners['dragenter.' + settings.namespace] = function (e) {
+                            settings.onDocumentDragEnter(e);
+                        };
                     }
                     if (typeof settings.onDocumentDragLeave === func) {
-                        documentListeners['dragleave.' + settings.namespace] = settings.onDocumentDragLeave;
+                        documentListeners['dragleave.' + settings.namespace] = function (e) {
+                            settings.onDocumentDragLeave(e);
+                        };
                     }
                     documentListeners['dragover.'   + settings.namespace] = fileUpload.onDocumentDragOver;
                     documentListeners['drop.'       + settings.namespace] = fileUpload.onDocumentDrop;
                     $(document).bind(documentListeners);
                     if (typeof settings.onDragEnter === func) {
-                        dropZoneListeners['dragenter.' + settings.namespace] = settings.onDragEnter;
+                        dropZoneListeners['dragenter.' + settings.namespace] = function (e) {
+                            settings.onDragEnter(e);
+                        };
                     }
                     if (typeof settings.onDragLeave === func) {
-                        dropZoneListeners['dragleave.' + settings.namespace] = settings.onDragLeave;
+                        dropZoneListeners['dragleave.' + settings.namespace] = function (e) {
+                            settings.onDragLeave(e);
+                        };
                     }
                     dropZoneListeners['dragover.'   + settings.namespace] = fileUpload.onDragOver;
                     dropZoneListeners['drop.'       + settings.namespace] = fileUpload.onDrop;
                     settings.dropZone.bind(dropZoneListeners);
                 }
-                fileInputListeners['change.'    + settings.namespace] = fileUpload.onChange;
-                fileInput.bind(fileInputListeners);
+                fileInput.bind('change.' + settings.namespace, fileUpload.onChange);
             },
 
             removeEventHandlers = function () {
@@ -93,9 +113,7 @@
                 $.each(dropZoneListeners, function (key, value) {
                     settings.dropZone.unbind(key, value);
                 });
-                $.each(fileInputListeners, function (key, value) {
-                    fileInput.unbind(key, value);
-                });
+                fileInput.unbind('change.' + settings.namespace);
             },
 
             initUploadEventHandlers = function (files, index, xhr, settings) {
@@ -121,13 +139,35 @@
                 }
             },
 
+            getUrl = function (settings) {
+                if (typeof settings.url === func) {
+                    return settings.url(settings.uploadForm || uploadForm);
+                }
+                return settings.url;
+            },
+            
+            getMethod = function (settings) {
+                if (typeof settings.method === func) {
+                    return settings.method(settings.uploadForm || uploadForm);
+                }
+                return settings.method;
+            },
+            
+            getFieldName = function (settings) {
+                if (typeof settings.fieldName === func) {
+                    return settings.fieldName(settings.fileInput || fileInput);
+                }
+                return settings.fieldName;
+            },
+
             getFormData = function (settings) {
+                var formData;
                 if (typeof settings.formData === func) {
-                    return settings.formData();
+                    return settings.formData(settings.uploadForm || uploadForm);
                 } else if ($.isArray(settings.formData)) {
                     return settings.formData;
                 } else if (settings.formData) {
-                    var formData = [];
+                    formData = [];
                     $.each(settings.formData, function (name, value) {
                         formData.push({name: name, value: value});
                     });
@@ -166,7 +206,7 @@
                     formData.append(field.name, field.value);
                 });
                 for (i = 0; i < files.length; i += 1) {
-                    formData.append(settings.fieldName, files[i]);
+                    formData.append(getFieldName(settings), files[i]);
                 }
                 xhr.send(formData);
             },
@@ -180,7 +220,7 @@
                 fileReader.readAsBinaryString(file);
             },
 
-            buildMultiPartFormData = function (boundary, files, fields) {
+            buildMultiPartFormData = function (boundary, files, filesFieldName, fields) {
                 var doubleDash = '--',
                     crlf     = '\r\n',
                     formData = '';
@@ -194,7 +234,7 @@
                 $.each(files, function (index, file) {
                     formData += doubleDash + boundary + crlf +
                         'Content-Disposition: form-data; name="' +
-                        unescape(encodeURIComponent(settings.fieldName)) +
+                        unescape(encodeURIComponent(filesFieldName)) +
                         '"; filename="' + unescape(encodeURIComponent(file.name)) + '"' + crlf +
                         'Content-Type: ' + file.type + crlf + crlf +
                         file.content + crlf;
@@ -212,6 +252,7 @@
                     xhr.sendAsBinary(buildMultiPartFormData(
                         boundary,
                         files,
+                        getFieldName(settings),
                         getFormData(settings)
                     ));
                 }, files.length);
@@ -221,10 +262,11 @@
             },
 
             upload = function (files, index, xhr, settings) {
-                var sameDomain = isSameDomain(settings.url),
+                var url = getUrl(settings),
+                    sameDomain = isSameDomain(url),
                     filesToUpload;
                 initUploadEventHandlers(files, index, xhr, settings);
-                xhr.open(settings.method, settings.url, true);
+                xhr.open(getMethod(settings), url, true);
                 if (sameDomain) {
                     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 } else if (settings.withCredentials) {
@@ -248,11 +290,13 @@
                 }
             },
 
-            handleUpload = function (event, files, index) {
+            handleUpload = function (event, files, input, form, index) {
                 var xhr = new XMLHttpRequest(),
                     uploadSettings = $.extend({}, settings);
-                if (typeof settings.initUpload === func) {
-                    settings.initUpload(
+                uploadSettings.fileInput = input;
+                uploadSettings.uploadForm = form;
+                if (typeof uploadSettings.initUpload === func) {
+                    uploadSettings.initUpload(
                         event,
                         files,
                         index,
@@ -267,20 +311,20 @@
                 }
             },
 
-            handleFiles = function (event, files) {
+            handleFiles = function (event, files, input, form) {
                 var i;
                 if (settings.multiFileRequest) {
-                    handleUpload(event, files);
+                    handleUpload(event, files, input, form);
                 } else {
                     for (i = 0; i < files.length; i += 1) {
-                        handleUpload(event, files, i);
+                        handleUpload(event, files, input, form, i);
                     }
                 }
             },
 
-            legacyUploadFormDataInit = function (input, settings) {
+            legacyUploadFormDataInit = function (input, form, settings) {
                 var formData = getFormData(settings);
-                uploadForm.find(':input').not(':disabled')
+                form.find(':input').not(':disabled')
                     .attr('disabled', true)
                     .addClass(settings.namespace + '_disabled');
                 $.each(formData, function (index, field) {
@@ -288,20 +332,25 @@
                         .attr('name', field.name)
                         .val(field.value)
                         .addClass(settings.namespace + '_form_data')
-                        .insertBefore(fileInput);
+                        .appendTo(form);
                 });
-                input.insertAfter(fileInput);
+                input
+                    .attr('name', getFieldName(settings))
+                    .appendTo(form);
             },
 
-            legacyUploadFormDataReset = function (input, settings) {
-                input.remove();
-                uploadForm.find('.' + settings.namespace + '_disabled')
+            legacyUploadFormDataReset = function (input, form, settings) {
+                input.detach();
+                form.find('.' + settings.namespace + '_disabled')
                     .removeAttr('disabled')
                     .removeClass(settings.namespace + '_disabled');
-                uploadForm.find('.' + settings.namespace + '_form_data').remove();
+                form.find('.' + settings.namespace + '_form_data').remove();
             },
 
-            legacyUpload = function (input, iframe, settings) {
+            legacyUpload = function (input, form, iframe, settings) {
+                var originalAction = form.attr('action'),
+                    originalMethod = form.attr('method'),
+                    originalTarget = form.attr('target');
                 iframe
                     .unbind('abort')
                     .bind('abort', function (e) {
@@ -319,49 +368,68 @@
                         if (typeof settings.onLoad === func) {
                             settings.onLoad(e, [{name: input.val(), type: null, size: null}], 0, iframe, settings);
                         }
+                        // Fix for IE endless progress bar activity bug (happens on form submits to iframe targets):
+                        $('<iframe src="javascript:false;" style="display:none"></iframe>').appendTo(form).remove();
                     });
-                uploadForm
-                    .attr('action', settings.url)
+                form
+                    .attr('action', getUrl(settings))
+                    .attr('method', getMethod(settings))
                     .attr('target', iframe.attr('name'));
-                legacyUploadFormDataInit(input, settings);
+                legacyUploadFormDataInit(input, form, settings);
                 iframe.readyState = 2;
-                uploadForm.get(0).submit();
-                legacyUploadFormDataReset(input, settings);
+                form.get(0).submit();
+                legacyUploadFormDataReset(input, form, settings);
+                form
+                    .attr('action', originalAction)
+                    .attr('method', originalMethod)
+                    .attr('target', originalTarget);
             },
 
-            handleLegacyUpload = function (event, input) {
+            handleLegacyUpload = function (event, input, form) {
                 // javascript:false as iframe src prevents warning popups on HTTPS in IE6:
                 var iframe = $('<iframe src="javascript:false;" style="display:none" name="iframe_' +
                     settings.namespace + '_' + (new Date()).getTime() + '"></iframe>'),
                     uploadSettings = $.extend({}, settings);
+                uploadSettings.fileInput = input;
+                uploadSettings.uploadForm = form;
                 iframe.readyState = 0;
                 iframe.abort = function () {
                     iframe.trigger('abort');
                 };
                 iframe.bind('load', function () {
                     iframe.unbind('load');
-                    if (typeof settings.initUpload === func) {
-                        settings.initUpload(
+                    if (typeof uploadSettings.initUpload === func) {
+                        uploadSettings.initUpload(
                             event,
                             [{name: input.val(), type: null, size: null}],
                             0,
                             iframe,
                             uploadSettings,
                             function () {
-                                legacyUpload(input, iframe, uploadSettings);
+                                legacyUpload(input, form, iframe, uploadSettings);
                             }
                         );
                     } else {
-                        legacyUpload(input, iframe, uploadSettings);
+                        legacyUpload(input, form, iframe, uploadSettings);
                     }
-                }).appendTo(uploadForm);
+                }).appendTo(form);
             },
-
-            resetFileInput = function () {
-                var inputClone = fileInput.clone(true);
+            
+            initUploadForm = function () {
+                uploadForm = (container.is('form') ? container : container.find('form'))
+                    .filter(settings.uploadFormFilter);
+            },
+            
+            initFileInput = function () {
+                fileInput = uploadForm.find('input:file')
+                    .filter(settings.fileInputFilter);
+            },
+            
+            replaceFileInput = function (input) {
+                var inputClone = input.clone(true);
                 $('<form/>').append(inputClone).get(0).reset();
-                fileInput.replaceWith(inputClone);
-                fileInput = inputClone;
+                input.after(inputClone).detach();
+                initFileInput();
             };
 
         this.onDocumentDragOver = function (e) {
@@ -409,18 +477,28 @@
                     settings.onChange(e) === false) {
                 return false;
             }
-            if (!settings.forceIframeUpload && e.target.files && isXHRUploadCapable()) {
-                handleFiles(e, e.target.files);
+            var input = $(e.target),
+                form = $(e.target.form);
+            if (form.length === 1) {
+                input.data(defaultNamespace + '_form', form);
+                replaceFileInput(input);
             } else {
-                handleLegacyUpload(e, $(e.target));
+                form = input.data(defaultNamespace + '_form');
             }
-            resetFileInput();
+            if (!settings.forceIframeUpload && e.target.files && isXHRUploadCapable()) {
+                handleFiles(e, e.target.files, input, form);
+            } else {
+                handleLegacyUpload(e, input, form);
+            }
         };
 
         this.init = function (options) {
             if (options) {
                 $.extend(settings, options);
+                optionsReference = options;
             }
+            initUploadForm();
+            initFileInput();
             if (container.data(settings.namespace)) {
                 $.error('FileUpload with namespace "' + settings.namespace + '" already assigned to this element');
                 return;
@@ -428,8 +506,71 @@
             container
                 .data(settings.namespace, fileUpload)
                 .addClass(settings.cssClass);
-            settings.dropZone.addClass(settings.cssClass);
+            settings.dropZone.not(container).addClass(settings.cssClass);
             initEventHandlers();
+        };
+
+        this.options = function (options) {
+            var oldCssClass,
+                oldDropZone,
+                uploadFormFilterUpdate,
+                fileInputFilterUpdate;
+            if (typeof options === undef) {
+                return $.extend({}, settings);
+            }
+            if (optionsReference) {
+                $.extend(optionsReference, options);
+            }
+            removeEventHandlers();
+            $.each(options, function (name, value) {
+                switch (name) {
+                case 'namespace':
+                    $.error('The FileUpload namespace cannot be updated.');
+                    return;
+                case 'uploadFormFilter':
+                    uploadFormFilterUpdate = true;
+                    fileInputFilterUpdate = true;
+                    break;
+                case 'fileInputFilter':
+                    fileInputFilterUpdate = true;
+                    break;
+                case 'cssClass':
+                    oldCssClass = settings.cssClass;
+                    break;
+                case 'dropZone':
+                    oldDropZone = settings.dropZone;
+                    break;
+                }
+                settings[name] = value;
+            });
+            if (uploadFormFilterUpdate) {
+                initUploadForm();
+            }
+            if (fileInputFilterUpdate) {
+                initFileInput();
+            }
+            if (typeof oldCssClass !== undef) {
+                container
+                    .removeClass(oldCssClass)
+                    .addClass(settings.cssClass);
+                (oldDropZone ? oldDropZone : settings.dropZone).not(container)
+                    .removeClass(oldCssClass);
+                settings.dropZone.not(container).addClass(settings.cssClass);
+            } else if (oldDropZone) {
+                oldDropZone.not(container).removeClass(settings.cssClass);
+                settings.dropZone.not(container).addClass(settings.cssClass);
+            }
+            initEventHandlers();
+        };
+        
+        this.option = function (name, value) {
+            var options;
+            if (typeof value === undef) {
+                return settings[name];
+            }
+            options = {};
+            options[name] = value;
+            fileUpload.options(options);
         };
         
         this.destroy = function () {
@@ -437,7 +578,7 @@
             container
                 .removeData(settings.namespace)
                 .removeClass(settings.cssClass);
-            settings.dropZone.removeClass(settings.cssClass);
+            settings.dropZone.not(container).removeClass(settings.cssClass);
         };
     };
 
@@ -447,10 +588,23 @@
                 (new FileUpload($(this))).init(options);
             });
         },
+        
+        option: function (option, value, namespace) {
+            namespace = namespace ? namespace : defaultNamespace;
+            var fileUpload = $(this).data(namespace);
+            if (fileUpload) {
+                if (typeof option === 'string') {
+                    return fileUpload.option(option, value);
+                }
+                return fileUpload.options(option);
+            } else {
+                $.error('No FileUpload with namespace "' + namespace + '" assigned to this element');
+            }
+        },
                 
         destroy : function (namespace) {
+            namespace = namespace ? namespace : defaultNamespace;
             return this.each(function () {
-                namespace = namespace ? namespace : 'file_upload';
                 var fileUpload = $(this).data(namespace);
                 if (fileUpload) {
                     fileUpload.destroy();

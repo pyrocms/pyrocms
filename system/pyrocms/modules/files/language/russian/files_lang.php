@@ -49,6 +49,7 @@ $lang['files.not_exists']							= 'Выбрана неправильная па�
 $lang['files.delete.error']						= 'Невозможно удалить файл.';
 $lang['files.delete.success']					= 'Файл удалён.';
 $lang['files.filter']									= 'Фильтр';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Типы файлов
 $lang['files.i']											= 'Изображение';

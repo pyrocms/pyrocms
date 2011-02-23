@@ -29,7 +29,7 @@
 
 				echo $this->table->generate();
 			?>
-			<div class="buttons buttons-small float-right padding-top">
+			<div class="buttons buttons-small align-right padding-top">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			</div>
 
