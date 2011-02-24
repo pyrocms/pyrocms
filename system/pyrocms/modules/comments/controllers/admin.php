@@ -54,7 +54,6 @@ class Admin extends Admin_Controller
 			),
 		);
 
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -67,10 +66,16 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$base_where = array('is_active' => 0);
+		$base_where = array('is_active' => 1);
 		
-		//capture active
-		$base_where['is_active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['is_active'] ;
+		//capture active only if we are moderating comments
+		if($this->settings->moderate_comments)
+		{
+			//if we are moderating lets show the comments awaiting approval by default
+			$base_where = array('is_active' => 0);
+			
+			$base_where['is_active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['is_active'] ;
+		}
 		
 		//capture module slug
 		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where ;
