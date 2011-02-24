@@ -81,7 +81,7 @@ class Pages extends Public_Controller
     public function _page($url_segments)
     {
     	// Fetch this page from the database via cache
-    	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
+    	$page = $this->cache->model('pages_m', 'get_by_uri', array($url_segments));
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
@@ -141,6 +141,7 @@ class Pages extends Public_Controller
 					' . $page->css . '
 				</style>
 				<script type="text/javascript">
+					' . $page->layout->js . '
 					' . $page->js . '
 				</script>')
 
@@ -159,7 +160,7 @@ class Pages extends Public_Controller
     	$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
     	
     	// Fetch this page from the database via cache
-    	$page = $this->cache->model('pages_m', 'get_by_path', array($url_segments));
+    	$page = $this->cache->model('pages_m', 'get_by_uri', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR !$page->rss_enabled)
@@ -185,8 +186,7 @@ class Pages extends Public_Controller
 			
 			foreach($children as &$row)
 			{
-				$path = $this->pages_m->get_path_by_id($row->id);
-				$row->link = site_url($path);
+				$row->link = $row->uri ? $row->uri : $row->slug;
 				$row->created_on = standard_date('DATE_RSS', $row->created_on);
 				
 				$item = array(
@@ -215,7 +215,7 @@ class Pages extends Public_Controller
     public function _404($url_segments)
     {
     	// Try and get an error page. If its been deleted, show nasty 404
-        if ( ! $page = $this->cache->model('pages_m', 'get_by_path', array('404')) )
+        if ( ! $page = $this->cache->model('pages_m', 'get_by_uri', array('404')) )
         {
 			log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
 			

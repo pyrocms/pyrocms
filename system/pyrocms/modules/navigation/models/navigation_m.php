@@ -335,12 +335,12 @@ class Navigation_m extends CI_Model
 				break;
 
 				case 'page':
-					$CI =& get_instance();
-					$page_uri = $CI->pages_m->get_path_by_id($row->page_id);
-					$row->url = site_url($page_uri);
+					$page = $this->pages_m->get($row->page_id);
+					$row->url = $page ? site_url($page->uri) : '';
 				break;
 			}
 		}
+
 		return $result;
 	}
 	

@@ -20,9 +20,9 @@ class Plugin_Pages extends Plugin
 	function url()
 	{
 		$id = $this->attribute('id');
-		$uri = $this->pages_m->get_path_by_id($id);
+		$page = $this->cache->model('pages_m', 'get', array($id));
 
-		return site_url($uri);
+		return site_url($page ? $page->uri : '');
 	}
 	
 	/**
@@ -45,12 +45,12 @@ class Plugin_Pages extends Plugin
 		$limit = $this->attribute('limit');
 		
 		return $this->db->select('pages.*, revisions.*')
-						->where('pages.parent_id', $this->attribute('id'))
-						->where('status', 'live')
-						->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
-						->limit($limit)
-						->get('pages')
-						->result_array();
+			->where('pages.parent_id', $this->attribute('id'))
+			->where('status', 'live')
+			->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
+			->limit($limit)
+			->get('pages')
+			->result_array();
 	}
 
 	// --------------------------------------------------------------------------
@@ -80,16 +80,14 @@ class Plugin_Pages extends Plugin
 		// Get the URIs so we don't have to keep querying the
 		// DB later
 		
-		$db_obj = $this->db->get('pages_lookup');
-		$uris = $db_obj->result_array();
+		$pages = $this->db->select('id, uri')->get('pages')->result();
 		
 		$this->uris = array();
 		
-		foreach( $uris as $uri ):
-		
-			$this->uris[$uri['id']] = $uri['path'];
-		
-		endforeach;
+		foreach ($pages as $uri)
+		{
+			$this->uris[$uri->id] = $uri->uri;
+		}
 		
 		// Set the level, start the level & start the party
 		
@@ -117,11 +115,10 @@ class Plugin_Pages extends Plugin
 		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
 		
 		//Unset the parent
-		foreach( $pages as $key => $page ):
-			
+		foreach( $pages as $key => $page )
+		{
 			if( $page->id == $parent_id): unset( $pages[$key] ); endif;
-			
-		endforeach;
+		}
 		
 		if ( ! empty($pages) ):
 				

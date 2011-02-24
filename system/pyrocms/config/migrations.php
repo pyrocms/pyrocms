@@ -22,7 +22,7 @@ $config['migrations_enabled'] = TRUE;
 | be upgraded / downgraded to.
 |
 */
-$config['migrations_version'] = 9;
+$config['migrations_version'] = 11;
 
 
 /*
