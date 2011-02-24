@@ -55,6 +55,11 @@ class Admin_layouts extends Admin_Controller
 				'label' => lang('page_layouts.css_label'),
 				'rules' => 'trim'
 			),
+			array(
+				'field' => 'js',
+				'label' => lang('page.js_label'),
+				'rules' => 'trim'
+			),
 		);
 
 		// Set the validation rules
@@ -93,7 +98,8 @@ class Admin_layouts extends Admin_Controller
 				'title' 	=> $this->input->post('title'),
 				'theme_layout' 	=> $this->input->post('theme_layout'),
 				'body' 		=> $this->input->post('body', FALSE),
-				'css' 		=> $this->input->post('css')
+				'css' 		=> $this->input->post('css'),
+				'js' 		=> $this->input->post('js')
 			));
 
 			// Success or fail?
@@ -155,7 +161,8 @@ class Admin_layouts extends Admin_Controller
 				'title' 	=> $this->input->post('title'),
 				'theme_layout' 	=> $this->input->post('theme_layout'),
 				'body' 		=> $this->input->post('body', FALSE),
-				'css' 		=> $this->input->post('css')
+				'css' 		=> $this->input->post('css'),
+				'js'		=> $this->input->post('js')
 			));
 
 			// Wipe cache for this model as the data has changed

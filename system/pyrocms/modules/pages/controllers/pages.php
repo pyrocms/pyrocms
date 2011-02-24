@@ -141,6 +141,7 @@ class Pages extends Public_Controller
 					' . $page->css . '
 				</style>
 				<script type="text/javascript">
+					' . $page->layout->js . '
 					' . $page->js . '
 				</script>')
 
