@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_CreateContactPage extends Migration {
+class Migration_Createcontactpage extends Migration {
 	
 	function up() 
 	{

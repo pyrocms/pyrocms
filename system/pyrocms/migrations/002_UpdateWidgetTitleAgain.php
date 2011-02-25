@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_UpdateWidgetTitleAgain extends Migration {
+class Migration_Updatewidgettitleagain extends Migration {
 	
 	function up() 
 	{

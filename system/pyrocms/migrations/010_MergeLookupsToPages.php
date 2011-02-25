@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_MergeLookupsToPages extends Migration {
+class Migration_Mergelookupstopages extends Migration {
 
 	function up()
 	{

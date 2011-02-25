@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_AddedDateFormat extends Migration {
+class Migration_Addeddateformat extends Migration {
 
 	function up()
 	{
