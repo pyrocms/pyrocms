@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_PageLayoutJS extends Migration {
+class Migration_Pagelayoutjs extends Migration {
 	
 	function up() 
 	{

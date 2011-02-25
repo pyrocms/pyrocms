@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_UpdateDefaultProfileFields extends Migration {
+class Migration_Updatedefaultprofilefields extends Migration {
 
 	function up()
 	{

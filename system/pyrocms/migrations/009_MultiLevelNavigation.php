@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_MultiLevelNavigation extends Migration {
+class Migration_Multilevelnavigation extends Migration {
 	
 	function up() 
 	{
