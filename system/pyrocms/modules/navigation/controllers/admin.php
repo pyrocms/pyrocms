@@ -97,7 +97,7 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$tree = array();
 
-		if($pages = $this->pages_m->get_all())
+		if ($pages = $this->pages_m->get_all())
 		{
 			foreach($pages AS $page)
 			{
@@ -181,6 +181,10 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->data->navigation_link =& $navigation_link;
+
+		// Get Pages and create pages tree
+		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
+
 		$this->template
 			->title($this->module_details['name'],lang('nav_link_create_title'))
 			->build('admin/links/form', $this->data);
@@ -229,6 +233,9 @@ class Admin extends Admin_Controller
 				$navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
+
+		// Get Pages and create pages tree
+		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
 
 		// Render the view
 		$this->template
@@ -298,6 +305,78 @@ class Admin extends Admin_Controller
 		$this->cache->delete_all('navigation_m');
 		
 		return $status;
+	}
+
+	/**
+	 * Tree select function
+	 *
+	 * Creates a tree to form select
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	function _build_tree_select($params)
+	{
+		$params = array_merge(array(
+			'tree'			=> array(),
+			'parent_id'		=> 0,
+			'current_parent'=> 0,
+			'current_id'	=> 0,
+			'level'			=> 0
+		), $params);
+
+		extract($params);
+
+		if ( ! $tree)
+		{
+			if ($pages = $this->db->select('id, parent_id, title')->get('pages')->result())
+			{
+				foreach($pages as $page)
+				{
+					$tree[$page->parent_id][] = $page;
+				}
+			}
+		}
+
+		if ( ! isset($tree[$parent_id]))
+		{
+			return;
+		}
+
+		$html = '';
+
+		foreach ($tree[$parent_id] as $item)
+		{
+			if ($current_id == $item->id)
+			{
+				continue;
+			}
+
+			$html .= '<option value="' . $item->id . '"';
+			$html .= $current_parent == $item->id ? ' selected="selected">': '>';
+
+			if ($level > 0) 
+			{
+				for ($i = 0; $i < ($level*2); $i++)
+				{
+					$html .= '&nbsp;';
+				}
+
+				$html .= '-&nbsp;';
+			}
+
+			$html .= $item->title . '</option>';
+
+			$html .= $this->_build_tree_select(array(
+				'tree'			=> $tree,
+				'parent_id'		=> (int) $item->id,
+				'current_parent'=> $current_parent,
+				'current_id'	=> $current_id,
+				'level'			=> $level + 1
+			));
+		}
+
+		return $html;
 	}
 }
 ?>
