@@ -153,6 +153,7 @@ jQuery(function($) {
 		$('a[rel=modal], a.modal').livequery(function() {
 			$(this).colorbox({
 				width: "60%",
+				maxHeight: "90%",
 				onComplete: function() {
 					$.uniform.update();
 				},

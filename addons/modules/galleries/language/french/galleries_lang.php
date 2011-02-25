@@ -14,6 +14,9 @@ $lang['galleries.folder_error'] 			= 'Le dossier de la galerie "%s" n\'a pas pu 
 $lang['galleries.delete_error'] 			= 'La galerie "%s" n\'a pas pu être supprimée.';
 $lang['galleries.no_galleries_error'] 		= 'Aucune galerie n\'a encore été créée.';
 $lang['galleries.install_error'] 			= 'Le module n\'a pas pu être installé.';
+$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
+$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
+$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
 
 // Labels
 $lang['galleries.galleries_label'] 			= 'Galeries';

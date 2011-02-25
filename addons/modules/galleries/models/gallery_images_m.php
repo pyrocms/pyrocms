@@ -39,48 +39,46 @@ class Gallery_images_m extends MY_Model
 	 */
 	public function get_images_by_gallery($id)
 	{
+		// Get unknown images from folder files to this gallery images
+		if ($new_images = $this->db
+				->select('f.id as file_id, g.id as gallery_id')
+				->join('galleries g', 'g.folder_id = f.folder_id', 'left')
+				->join('gallery_images gi', 'gi.file_id = f.id', 'left')
+				->where('f.type', 'i')
+				->where('g.id', $id)
+				->where('gi.id', NULL)
+				->order_by('`f`.`date_added`', 'asc')
+				->get('files f')
+				->result())
+		{
+			$last_image = $this->db
+				->select('`order`')
+				->order_by('`order`', 'desc')
+				->limit(1)
+				->get_where('gallery_images', array('gallery_id' => $id))
+				->row();
+
+			$order = isset($last_image->order) ? $last_image->order + 1: 1;
+
+			foreach ($new_images as $new_image)
+			{
+				$this->db->insert('gallery_images', array(
+					'gallery_id'	=> $new_image->gallery_id,
+					'file_id'		=> $new_image->file_id,
+					'`order`'		=> $order++
+				));
+			}
+		}
+
 		$images = $this->db
-				->select('gi.*, f.name, f.filename, f.extension, g.folder_id, g.slug as gallery_slug')
-				->join('galleries g', 'gi.gallery_id = g.id')
-				->join('files f', 'gi.file_id = f.id')
-				->where('g.folder_id', $id)
+				->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug')
+				->join('galleries g', 'g.id = gi.gallery_id', 'left')
+				->join('files f', 'f.id = gi.file_id', 'left')
+				->where('g.id', $id)
+				->where('f.type', 'i')
 				->order_by('`order`', 'asc')
 				->get('gallery_images gi')
 				->result();
-
-		// Nothing? Return nothing
-		if ( ! isset($images[0]))
-		{
-			return array();
-		}
-
-		// Which folder is this gallery lookig at? There may be unknown images
-		$folder_id = $images[0]->folder_id;
-
-		$file_ids = array();
-		foreach ($images as &$image)
-		{
-			$file_ids[] = $image->file_id;
-		}
-
-		// Add these images to the array
-		$images += $new_images = $this->db
-			->select('id as file_id, name, filename, extension, date_added as `order`')
-			->where('folder_id', $folder_id)
-			->where('type', 'i')
-			->where_not_in('id', $file_ids)
-			->get('files')
-			->result();
-
-		// To avoid messing about with this in the future, add these to the gallery
-		foreach ($new_images as $new_image)
-		{
-			$this->db->insert('gallery_images', array(
-				'gallery_id' => $id,
-				'file_id' => $new_image->file_id,
-				'`order`' => $new_image->order
-			));
-		}
 
 		return $images;
 	}
@@ -96,9 +94,9 @@ class Gallery_images_m extends MY_Model
 	public function get($id)
 	{
 		$query = $this->db
-			->select('gi.*, f.name, f.filename, f.extension, g.folder_id, g.slug as gallery_slug')
-			->join('galleries g', 'gi.gallery_id = g.id')
-			->join('files f', 'gi.file_id = f.id')
+			->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug')
+			->join('galleries g', 'gi.gallery_id = g.id', 'left')
+			->join('files f', 'f.id = gi.file_id', 'left')
 			->where('gi.id', $id)
 			->get('gallery_images gi');
 				

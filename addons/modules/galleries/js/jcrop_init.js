@@ -1,5 +1,5 @@
-jQuery(document).ready(function($)
-{
+jQuery(function($){
+
 	// Show the preview using colorbox
 	$('a.colorbox').colorbox({
 		'maxHeight': '100%',
@@ -11,8 +11,7 @@ jQuery(document).ready(function($)
 	});
 
 	// Function to add the height, width and position to the hidden fields
-	function show_coords(c)
-	{
+	function show_coords(c){
 		$('#thumb_width').val(c.w);
 		$('#thumb_height').val(c.h);
 		$('#thumb_x').val(c.x);
@@ -20,10 +19,8 @@ jQuery(document).ready(function($)
 		//get the scaled image dimensions
 		$('#scaled_height').val($('#cboxLoadedContent').height());
 	};
-	function show_jcrop()
-	{
-		$('#cboxPhoto').Jcrop(
-		{
+	function show_jcrop(){
+		$('#cboxPhoto').Jcrop({
 			onSelect: show_coords,
 			onChange: show_coords
 		});

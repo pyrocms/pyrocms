@@ -11,6 +11,8 @@
  */
 class Admin extends Admin_Controller
 {
+	public $id = 0;
+
 	/**
 	 * Validation rules for creating a new gallery
 	 *
@@ -26,12 +28,12 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'slug',
 			'label' => 'lang:galleries.slug_label',
-			'rules' => 'trim|max_length[255]|required'
+			'rules' => 'trim|max_length[255]|required|callback__check_slug'
 		),
 		array(
 			'field' => 'folder_id',
 			'label' => 'lang:galleries.folder_label',
-			'rules' => 'trim|numeric|required'
+			'rules' => 'trim|numeric|required|callback__check_folder'
 		),
 		array(
 			'field' => 'description',
@@ -197,6 +199,8 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('galleries.exists_error'));
 			redirect('admin/galleries');
 		}
+
+		$this->id = $id;
 
 		// Valid form data?
 		if ($this->form_validation->run() )
@@ -372,7 +376,7 @@ class Admin extends Admin_Controller
 
 			if ($i === 1)
 			{
-				$preview = $this->db->get_where('galleries', array('id' => $id))->row();
+				$preview = $this->gallery_images_m->get($id);
 
 				if ($preview)
 				{
@@ -398,5 +402,66 @@ class Admin extends Admin_Controller
 		$folder = $this->file_folders_m->get($folder_id);
 
 		echo json_encode($folder);
+	}
+
+	/**
+	 * Callback method that checks the slug of the gallery
+	 * @access public
+	 * @param string title The slug to check
+	 * @return bool
+	 */
+	public function _check_slug($slug = '')
+	{
+		if ( ! $this->galleries_m->check_slug($slug, $this->id))
+		{
+			return TRUE;
+		}
+
+		$this->form_validation->set_message('_check_slug', sprintf(lang('galleries.already_exist_error'), $slug));
+
+		return FALSE;
+	}
+
+	/**
+	 * Callback method that checks the file folder of the gallery
+	 * @access public
+	 * @param int id The id to check if file folder exists or prep to create new folder
+	 * @return bool
+	 */
+	public function _check_folder($id = 0)
+	{
+		// Is not creating or folder exist.. Nothing to do.
+		if ($this->method !== 'create')
+		{
+			return $id;
+		}
+		elseif ($this->file_folders_m->exists($id))
+		{
+			if ($this->galleries_m->count_by('folder_id', $id) > 0)
+			{
+				$this->form_validation->set_message('_check_folder', lang('galleries.folder_duplicated_error'));
+
+				return FALSE;
+			}
+
+			return $id;
+		}
+
+		$folder_name = $this->input->post('title');
+		$folder_slug = url_title(strtolower($folder_name));
+
+		// Check if folder already exist, rename if necessary.
+		$i = 0;
+		$counter = '';
+		while ( ((int) $this->file_folders_m->count_by('slug', $folder_slug . $counter) > 0))
+		{
+			$counter = '-' . ++$i;
+		}
+
+		// Return data to create a new folder to this gallery.
+		return array(
+			'name' => $folder_name . ($i > 0 ? ' (' . $i . ')' : ''),
+			'slug' => $folder_slug . $counter
+		);
 	}
 }

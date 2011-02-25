@@ -14,6 +14,9 @@ $lang['galleries.folder_error']			= '"%s" 這個畫廊目錄無法被刪除。';
 $lang['galleries.delete_error']			= '"%s" 這個畫廊無法被刪除';
 $lang['galleries.no_galleries_error'] 	= '尚未建立任何的畫廊';
 $lang['galleries.install_error']		= '模組無法安裝';
+$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
+$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
+$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
 
 // Labels
 $lang['galleries.galleries_label']			= '畫廊';

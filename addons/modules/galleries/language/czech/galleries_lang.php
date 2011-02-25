@@ -14,6 +14,9 @@ $lang['galleries.folder_error']			= 'Složky galerie "%s" se nepodařilo vymazat
 $lang['galleries.delete_error']			= 'Galerii "%s" se nepodařilo vymazat.';
 $lang['galleries.no_galleries_error'] 	= 'Žádné galerie zatím nebyly vytvořeny.';
 $lang['galleries.install_error']		= 'Modul se nepodařilo nainstalovat.';
+$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
+$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
+$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
 
 // Labels
 $lang['galleries.galleries_label']			= 'Galerie';

@@ -1,6 +1,4 @@
-
-jQuery(function($) {
-	
+jQuery(function($){
 	$(".upload_colorbox").colorbox({
 		width:"600",
 		height:"400",
@@ -10,8 +8,7 @@ jQuery(function($) {
 	
 });
 
-function closeBox()
-{
+function closeBox(){
 	jQuery(function($) {
 		$.colorbox.close();
 	});
