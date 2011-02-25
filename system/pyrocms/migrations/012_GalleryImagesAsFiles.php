@@ -1,18 +1,16 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Migration_MergeLookupsToPages extends Migration {
+class Migration_Galleryimagesasfiles extends Migration {
 
 	function up()
 	{
 		$this->db->query("
-		ALTER TABLE `galleries`
-			ADD `folder_id` int(11) NOT NULL AFTER slug");
+			ALTER TABLE `galleries`
+				ADD `folder_id` int(11) NOT NULL AFTER slug");
 
 		$this->db->query("
-		ALTER TABLE `gallery_images`
-			ADD `file_id` TEXT NULL AFTER id");
+			ALTER TABLE `gallery_images`
+				ADD `file_id` TEXT NULL AFTER id");
 
 		$this->db->query("
 			ALTER TABLE `gallery_images`
@@ -38,5 +36,4 @@ class Migration_MergeLookupsToPages extends Migration {
 	function down()
 	{
 	}
-
 }
