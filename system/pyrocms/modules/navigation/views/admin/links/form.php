@@ -33,7 +33,7 @@
 		<li>
 
 			<p style="<?php echo ! empty($navigation_link->link_type) ? 'display:none' : ''; ?>">
-				<?php echo lang('nav_link_type_desc');?>
+				<?php echo lang('nav_link_type_desc'); ?>
 			</p>
 
 			<div id="navigation-url" style="<?php echo @$navigation_link->link_type == 'url' ? '' : 'display:none'; ?>">
@@ -55,7 +55,7 @@
 				<label for="page_id"><?php echo lang('nav_page_label');?></label>
 				<select name="page_id">
 					<option value=""><?php echo lang('nav_link_page_select_default');?></option>
-					<?php create_tree_select($pages_select, 0, 0, $navigation_link->page_id); ?>
+					<?php echo $tree_select; ?>
 				</select>
 			</div>
 		</li>
