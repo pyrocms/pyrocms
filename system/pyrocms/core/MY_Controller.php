@@ -17,7 +17,20 @@ class MY_Controller extends CI_Controller {
 
 		// Migrate DB to the latest version
 		$this->load->library('migrations');
-		$this->migrations->latest();
+		$schema_version = $this->migrations->latest();
+
+		// Result of schema version migration
+		if (is_numeric($schema_version))
+		{
+			// show notification to user?
+			// $this->session->set_flashdata('update_error', ...);
+		}
+		elseif ($schema_version === FALSE)
+		{
+			log_message('error', $this->migrations->error);
+			// show notification to user?
+			// $this->session->set_flashdata('update_success', ...);
+		}
 
 		// Use this to define hooks with a nicer syntax
 		$this->hooks = & $GLOBALS['EXT'];
