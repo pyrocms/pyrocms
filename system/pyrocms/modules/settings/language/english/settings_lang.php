@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count']			= 'Dashboard RSS Items';
 $lang['settings_dashboard_rss_count_desc']		= 'How many RSS items would you like to display on the dashboard ?';
 
 $lang['settings_date_format']					= 'Date Format';
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? Using PHP date format.';
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.';
 
 $lang['settings_frontend_enabled']				= 'Site Status';
 $lang['settings_frontend_enabled_desc']			= 'Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence';
