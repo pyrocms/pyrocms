@@ -285,6 +285,7 @@ class Curl
 
         // Execute the request & and hide all output
         $this->response = curl_exec($this->session);
+        $this->info = curl_getinfo($this->session);
 
         // Request failed
         if ($this->response === FALSE)
@@ -300,8 +301,6 @@ class Curl
         // Request successful
         else
         {
-            $this->info = curl_getinfo($this->session);
-
             curl_close($this->session);
             $this->session = NULL;
             return $this->response;
