@@ -2,7 +2,7 @@
 <?php echo form_open(''); ?>
 <?php echo form_hidden('f_module', $module_details['slug']); ?>
 <ul>
-	<?php if($this->settings->moderate_comments): ?>
+	<?php if (Settings::get('moderate_comments')): ?>
 	<li>
 		<?php echo lang('comments.status_label', 'f_active'); ?>
 		<?php echo form_dropdown('f_active', array(0 =>lang('comments.inactive_title'), 1 => lang('comments.active_title'))); ?>

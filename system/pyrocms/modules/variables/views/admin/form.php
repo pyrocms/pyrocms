@@ -14,7 +14,7 @@
 				<?php echo  form_input('name', $variable->name); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
-			<li class="even">
+			<li>
 				<label for="data"><?php echo lang('variables.data_label');?></label>
 				<?php echo  form_input('data', $variable->data); ?>
 			</li>
