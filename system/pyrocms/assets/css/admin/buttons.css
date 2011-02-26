@@ -4,7 +4,7 @@ button:hover {
 button:-moz-focus-inner {
     border: 0 none;
 }
-.buttons a {
+a.button {
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     -o-border-radius: 6px;
@@ -13,12 +13,12 @@ button:-moz-focus-inner {
     border: 1px solid #B9B9B9;
     color: #666666;
     display: inline-block;
-    font-size: 150%;
-    line-height: 1;
-    margin: 8px 4px 0 0;
-    min-width: 150px;
-    padding: 9px 12px 11px 10px;
+    font-size: 130%;
+    margin: 5px;
+    min-width: 120px;
+    padding: 7px 12px 8px 10px;
     text-align: center;
+	float:left;
 }
 button {
     -moz-border-radius: 6px;
@@ -28,12 +28,13 @@ button {
     background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
     border: 1px solid #B9B9B9;
     color: #666666;
-    font-size: 150%;
+    font-size: 130%;
     line-height: 1;
-    margin: 8px 4px 0 0;
-    min-width: 150px;
-    padding: 9px 12px 11px 10px;
+    margin: 5px;
+    min-width: 120px;
+    padding: 7px 12px 8px 10px;
     text-align: center;
+	float:left;
 }
 button:hover {
     background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;

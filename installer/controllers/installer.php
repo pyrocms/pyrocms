@@ -182,7 +182,7 @@ class Installer extends CI_Controller
 	public function step_2()
 	{
 		// Did the user enter the DB settings ?
-		if(!$this->session->userdata('step_1_passed'))
+		if ( ! $this->session->userdata('step_1_passed'))
 		{
 			// Set the flashdata message
 			$this->session->set_flashdata('message', lang('step1_failure'));
@@ -236,7 +236,7 @@ class Installer extends CI_Controller
 	 */
 	public function step_3()
 	{
-		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed'))
+		if ( ! $this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed'))
 		{
 			// Redirect the user back to step 1
 			redirect('installer/step_2');
@@ -281,7 +281,7 @@ class Installer extends CI_Controller
 	 */
 	public function step_4()
 	{
-		if(!$this->session->userdata('step_1_passed') OR !$this->session->userdata('step_2_passed') OR !$this->session->userdata('step_3_passed'))
+		if ( ! $this->session->userdata('step_1_passed') OR ! $this->session->userdata('step_2_passed') OR ! $this->session->userdata('step_3_passed'))
 		{
 			// Redirect the user back to step 2
 			redirect('installer/step_2');
