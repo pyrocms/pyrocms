@@ -35,8 +35,8 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		
-		<div class="float-right">
+
+		<div class="buttons float-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		</div>
 	<?php echo form_close(); ?>

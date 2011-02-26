@@ -2,6 +2,7 @@
 
 // labels
 $lang['nav_title_label'] 						= 'Título';
+$lang['nav_parent_label'] 						= 'Link Pai';
 $lang['nav_target_label']						= 'Destino';
 $lang['nav_class_label']						= 'Classe';
 $lang['nav_url_label'] 							= 'URL';

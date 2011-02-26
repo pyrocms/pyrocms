@@ -48,7 +48,7 @@
 						</tbody>
 					</table>
 					
-					<footer>	
+					<footer class="buttons buttons-small">
 						<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 					</footer>
 										

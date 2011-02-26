@@ -13,7 +13,28 @@ class Admin extends Admin_Controller
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'name',
+			'label'	=> 'lang:comments.name_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'email',
+			'label' => 'lang:comments.email_label',
+			'rules'	=> 'trim|valid_email'
+		),
+		array(
+			'field'	=> 'website',
+			'label' => 'lang:comments.website_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'comment',
+			'label' => 'lang:comments.send_label',
+			'rules'	=> 'trim|required'
+		),
+	);
 
 	/**
 	 * Constructor method
@@ -30,30 +51,7 @@ class Admin extends Admin_Controller
 		$this->load->model('comments_m');
 		$this->lang->load('comments');
 
-		// Set the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'name',
-				'label'	=> lang('comments.name_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field'	=> 'email',
-				'label' => lang('comments.email_label'),
-				'rules'	=> 'trim|valid_email'
-			),
-			array(
-				'field'	=> 'website',
-				'label' => lang('comments.website_label'),
-				'rules'	=> 'trim'
-			),
-			array(
-				'field'	=> 'comment',
-				'label' => lang('comments.send_label'),
-				'rules'	=> 'trim|required'
-			),
-		);
-
+	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -66,37 +64,30 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$base_where = array('is_active' => 1);
-		
-		//capture active only if we are moderating comments
-		if($this->settings->moderate_comments)
-		{
-			//if we are moderating lets show the comments awaiting approval by default
-			$base_where = array('is_active' => 0);
-			
-			$base_where['is_active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['is_active'] ;
-		}
-		
+		// Only show is_active = 0 if we are moderating comments
+		$base_where = array('is_active' => (int) ! Settings::get('moderate_comments'));
+
+		//capture active
+		$base_where['is_active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['is_active'] ;
+
 		//capture module slug
 		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where ;
-	
+
 		// Create pagination links
 		$total_rows = $this->comments_m->count_by($base_where);
 		$pagination = create_pagination('admin/comments/index', $total_rows);
-		
+
 		$comments = $this->comments_m
 			->limit($pagination['limit'])
 			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
-		
+
 		$content_title = $base_where['is_active'] === 0 ? lang('comments.inactive_title') : lang('comments.active_title') ;
-		
+
 		$this->is_ajax() ? $this->template->set_layout(FALSE) : '' ;
-		
+
 		$module_list = $this->comments_m->get_slugs();
-		
-		
-		
+
 		$this->template
 			->title($this->module_details['name'])
 			->set_partial('filters', 'admin/partials/filters')
@@ -108,48 +99,6 @@ class Admin extends Admin_Controller
 			->build('admin/index');
 	}
 
-	public function unapproved()
-	{
-		// Create pagination links
-		$total_rows = $this->comments_m->count_by('is_active', 0);
-		$pagination = create_pagination('admin/comments/unapproved', $total_rows);
-
-		// get all comments
-		$comments = $this->comments_m
-			->limit($pagination['limit'])
-			->order_by('comments.created_on', 'desc')
-			->get_many_by('comments.is_active', 0);
-
-		$this->template
-			->title($this->module_details['name'])
-			->set('comments', process_comment_items($comments))
-			->set('pagination', $pagination)
-			->build('admin/index');
-	}
-
-	/**
-	 * Displays active comments
-	 * @access public
-	 * @return void
-	 */
-	public function approved()
-	{
-		// Create pagination links
-		$total_rows = $this->comments_m->count_by('is_active', 1);
-		$pagination = create_pagination('admin/comments/approved', $total_rows);
-
-		// get all comments
-		$comments = $this->comments_m
-			->limit($pagination['limit'])
-			->order_by('comments.created_on', 'desc')
-			->get_many_by('comments.is_active', 1);
-
-		$this->template
-			->title($this->module_details['name'])
-			->set('comments', process_comment_items($comments))
-			->set('pagination', $pagination)
-			->build('admin/index');
-	}
 
 	/**
 	 * Action method, called whenever the user submits the form

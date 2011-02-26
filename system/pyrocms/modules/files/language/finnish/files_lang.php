@@ -48,6 +48,7 @@ $lang['files.not_exists']			= 'Ei voitu valita tiedostoa (ei ole olemassa).';
 $lang['files.delete.error']			= 'Tiedostoa ei voitu poistaa.';
 $lang['files.delete.success']		= 'Tiedosto poistettiin.';
 $lang['files.filter']				= 'Suodata';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Kuva';

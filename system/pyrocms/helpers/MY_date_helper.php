@@ -17,6 +17,10 @@ function format_date($unix)
 	{
 		$unix = strtotime($unix);
 	}
-	
-	return date(get_instance()->settings->date_format, $unix);
+
+	$format = get_instance()->settings->date_format;
+
+	return strstr($format, '%') !== FALSE
+		? strftime($format, $unix) //or? mb_convert_case(strftime($format, $unix), MB_CASE_TITLE, 'UTF-8')
+		: date($format, $unix);
 }

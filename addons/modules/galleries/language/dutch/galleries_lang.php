@@ -14,6 +14,9 @@ $lang['galleries.folder_error']			= 'De "%s" gallerij folders konden niet worden
 $lang['galleries.delete_error']			= 'De "%s" kon niet worden verwijderd.';
 $lang['galleries.no_galleries_error'] 	= 'Er zijn nog geen gallerijen aangemaakt.';
 $lang['galleries.install_error']		= 'De module kon niet worden geinstalleerd.';
+$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
+$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
+$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
 
 // Labels
 $lang['galleries.galleries_label']			= 'Gallerijen';

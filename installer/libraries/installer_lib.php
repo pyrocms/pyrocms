@@ -47,7 +47,7 @@ class Installer_lib {
 	function mysql_acceptable($type = 'server')
 	{
 		// Server version
-		if($type == 'server')
+		if ($type == 'server')
 		{
 			// Retrieve the database settings from the session
 			$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
@@ -55,7 +55,7 @@ class Installer_lib {
 			$password 	= $this->ci->session->userdata('password');
 			
 			// Connect to MySQL
-			if( $db = @mysql_connect($server,$username,$password) )
+			if ( $db = @mysql_connect($server,$username,$password) )
 			{
 				$this->mysql_server_version = @mysql_get_server_info($db);
 				
@@ -91,7 +91,7 @@ class Installer_lib {
 	function gd_acceptable()
 	{
 		// Get if the gd_info() function exists
-		if(function_exists('gd_info'))
+		if (function_exists('gd_info'))
 		{
 			$gd_info = gd_info();			
 			$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
@@ -143,7 +143,7 @@ class Installer_lib {
 			return FALSE;
 		}
 		
-		if($data->http_server->supported === FALSE)
+		if ($data->http_server->supported === FALSE)
 		{
 			return FALSE;
 		}
@@ -170,7 +170,7 @@ class Installer_lib {
 	function verify_http_server($server_name)
 	{
 		// Set all the required variables
-		if($server_name == 'other')
+		if ($server_name == 'other')
 		{
 			return 'partial';
 		}
@@ -229,19 +229,19 @@ class Installer_lib {
 		$user_sql = str_replace('__MIGRATION__', $config['migrations_version'], $user_sql);
 		
 		// Create a connection
-		if( !$this->db = mysql_connect($server, $username, $password) )
+		if ( ! $this->db = mysql_connect($server, $username, $password) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
 		
 		// Do we want to create the database using the installer ? 
-		if( !empty($data['create_db'] ))
+		if ( ! empty($data['create_db'] ))
 		{
 			mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $this->db);
 		}
 		
 		// Select the database we created before
-		if( !mysql_select_db($database, $this->db) )
+		if ( !mysql_select_db($database, $this->db) )
 		{
 			return array(
 						'status'	=> FALSE,
@@ -250,7 +250,7 @@ class Installer_lib {
 					);
 		}
 		
-		if( !$this->_process_schema($user_sql, FALSE) )
+		if ( ! $this->_process_schema($user_sql, FALSE) )
 		{
 			return array(
 						'status'	=> FALSE,
@@ -263,7 +263,7 @@ class Installer_lib {
 		mysql_close($this->db);
 		
 		// Write the database file
-		if( ! $this->write_db_file($database) )
+		if ( ! $this->write_db_file($database) )
 		{
 			return array(
 						'status'	=> FALSE,
@@ -273,7 +273,7 @@ class Installer_lib {
 		}
 		
 		// Write the config file.
-		if( ! $this->write_config_file() )
+		if ( ! $this->write_config_file() )
 		{
 			return array(
 						'status'	=> FALSE,
@@ -306,7 +306,7 @@ class Installer_lib {
 			
 			@mysql_query($query, $this->db);
 			
-			if(mysql_errno($this->db) > 0)
+			if (mysql_errno($this->db) > 0)
 			{
 				return FALSE;
 			}
@@ -346,7 +346,7 @@ class Installer_lib {
 		$handle 	= @fopen('../system/pyrocms/config/database.php','w+');
 		
 		// Validate the handle results
-		if($handle !== FALSE)
+		if ($handle !== FALSE)
 		{
 			return @fwrite($handle, $new_file);
 		}
@@ -368,7 +368,7 @@ class Installer_lib {
 		$supported_servers = $this->ci->config->item('supported_servers');
 
 		// Able to use clean URLs?
-		if($supported_servers[$server_name]['rewrite_support'] !== FALSE)
+		if ($supported_servers[$server_name]['rewrite_support'] !== FALSE)
 		{
 			$index_page = '';
 		}
@@ -385,7 +385,7 @@ class Installer_lib {
 		$handle = @fopen('../system/pyrocms/config/config.php','w+');
 		
 		// Validate the handle results
-		if($handle !== FALSE)
+		if ($handle !== FALSE)
 		{
 			return fwrite($handle, $new_file);
 		}

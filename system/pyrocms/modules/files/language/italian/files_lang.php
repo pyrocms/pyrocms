@@ -55,6 +55,7 @@ $lang['files.not_exists']			= 'E\' stata selezionata una cartella non valida.';
 $lang['files.delete.error']			= 'Il file non può essere eliminato.';
 $lang['files.delete.success']			= 'Il file è stato eliminato.';
 $lang['files.filter']						= 'Filter'; #translate
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Immagine';

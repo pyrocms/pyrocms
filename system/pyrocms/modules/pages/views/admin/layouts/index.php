@@ -30,8 +30,7 @@
 				<p><?php echo lang('page_layouts.no_pages');?></p>
 			<?php endif; ?>		
 			
-			<div class="float-right">
-								
+			<div class="buttons float-right padding-top">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			</div>
 	

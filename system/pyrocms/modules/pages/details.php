@@ -2,7 +2,7 @@
 
 class Module_Pages extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1';
 
 	public function info()
 	{
@@ -66,6 +66,7 @@ class Module_Pages extends Module {
 			 `id` int(11) unsigned NOT NULL auto_increment,
 			 `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			 `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+			 `uri` text COLLATE utf8_unicode_ci,
 			 `parent_id` int(11) default '0',
 			 `revision_id` varchar(255) collate utf8_unicode_ci NOT NULL default '1',
 			 `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,

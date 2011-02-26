@@ -39,7 +39,7 @@ class Galleries extends Public_Controller
 	public function index()
 	{
 		$galleries = $this->galleries_m->get_all_with_filename();
-		
+
 		$this->template->build('index', array(
 			'galleries' => $galleries
 		));
@@ -55,15 +55,15 @@ class Galleries extends Public_Controller
 	public function gallery($slug = NULL)
 	{
 		$slug or show_404();
-		
-		$gallery = $this->galleries_m->get_by('slug', $slug) or show_404();
-		$gallery_images = $this->gallery_images_m->get_images_by_gallery($gallery->id);
-		$sub_galleries 	= $this->galleries_m->get_all_with_filename('parent_id', $gallery->id);
+
+		$gallery		= $this->galleries_m->get_by('slug', $slug) or show_404();
+		$gallery_images	= $this->gallery_images_m->get_images_by_gallery($gallery->id);
+		$sub_galleries	= $this->galleries_m->get_all_with_filename('parent_id', $gallery->id);
 
 		$this->template->build('gallery', array(
-			'gallery' => $gallery,
-			'gallery_images' => $gallery_images,
-			'sub_galleries' => $sub_galleries
+			'gallery'			=> $gallery,
+			'gallery_images'	=> $gallery_images,
+			'sub_galleries'		=> $sub_galleries
 		));
 	}
 	
@@ -82,18 +82,18 @@ class Galleries extends Public_Controller
 			show_404();
 		}
 		
-		$gallery = $this->galleries_m->get_by('slug', $gallery_slug);
-		$gallery_image = $this->gallery_images_m->get($image_id);
+		$gallery		= $this->galleries_m->get_by('slug', $gallery_slug);
+		$gallery_image	= $this->gallery_images_m->get($image_id);
 		
 		// Do the gallery and the image ID match?
-		if ( $gallery->id != $gallery_image->gallery_id )
+		if ($gallery->id != $gallery_image->gallery_id)
 		{
 			show_404();
 		}
 		
 		$this->template->build('image', array(
-			'gallery' => $gallery,
-			'gallery_image' => $gallery_image
+			'gallery'		=> $gallery,
+			'gallery_image'	=> $gallery_image
 		));
 	}
 }

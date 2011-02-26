@@ -1,5 +1,5 @@
 /*
- * jQuery File Upload User Interface Plugin 3.2.2
+ * jQuery File Upload User Interface Plugin 3.6
  *
  * Copyright 2010, Sebastian Tschan, AQUANTUM
  * Licensed under the MIT license:
@@ -10,28 +10,57 @@
  */
 
 /*jslint browser: true */
-/*global jQuery */
+/*global jQuery, FileReader, URL */
 
 (function ($) {
 
-    var UploadHandler,
-        methods;
+    var undef = 'undefined',
+        func = 'function',
+        UploadHandler,
+        methods,
+
+        LocalImage = function (file, imageTypes) {
+            var img,
+                fileReader;
+            if (!imageTypes.test(file.type)) {
+                return null;
+            }
+            img = document.createElement('img');
+            if (typeof URL !== undef && typeof URL.createObjectURL === func) {
+                img.src = URL.createObjectURL(file);
+                img.onload = function () {
+                    URL.revokeObjectURL(this.src);
+                };
+                return img;
+            }
+            if (typeof FileReader !== undef) {
+                fileReader = new FileReader();
+                if (typeof fileReader.readAsDataURL === func) {
+                    fileReader.onload = function (e) {
+                        img.src = e.target.result;
+                    };
+                    fileReader.readAsDataURL(file);
+                    return img;
+                }
+            }
+            return null;
+        };
         
     UploadHandler = function (container, options) {
         var uploadHandler = this,
-            undef = 'undefined',
-            func = 'function',
             dragOverTimeout,
             isDropZoneEnlarged;
         
         this.dropZone = container;
+        this.imageTypes = /^image\/(gif|jpeg|png)$/;
+        this.previewSelector = '.file_upload_preview';
         this.progressSelector = '.file_upload_progress div';
-        this.cancelSelector = '.file_upload_cancel div';
+        this.cancelSelector = '.file_upload_cancel button';
         this.cssClassSmall = 'file_upload_small';
         this.cssClassLarge = 'file_upload_large';
         this.cssClassHighlight = 'file_upload_highlight';
         this.dropEffect = 'highlight';
-        this.uploadTable = this.downloadTable = $();
+        this.uploadTable = this.downloadTable = null;
         
         this.buildUploadRow = this.buildDownloadRow = function () {
             return null;
@@ -75,7 +104,7 @@
         };
 
         this.onAbort = function (event, files, index, xhr, handler) {
-            uploadHandler.removeNode(handler.uploadRow);
+            handler.removeNode(handler.uploadRow);
         };
         
         this.cancelUpload = function (event, files, index, xhr, handler) {
@@ -102,23 +131,30 @@
         };
         
         this.initUploadRow = function (event, files, index, xhr, handler, callBack) {
-            var uploadRow = handler.uploadRow = uploadHandler.buildUploadRow(files, index);
+            var uploadRow = handler.uploadRow = handler.buildUploadRow(files, index, handler);
             if (uploadRow) {
-                handler.progressbar = uploadHandler.initProgressBar(
-                    uploadRow.find(uploadHandler.progressSelector),
+                handler.progressbar = handler.initProgressBar(
+                    uploadRow.find(handler.progressSelector),
                     (xhr.upload ? 0 : 100)
                 );
-                uploadRow.find(uploadHandler.cancelSelector).click(function (e) {
-                    uploadHandler.cancelUpload(e, files, index, xhr, handler);
+                uploadRow.find(handler.cancelSelector).click(function (e) {
+                    handler.cancelUpload(e, files, index, xhr, handler);
+                });
+                uploadRow.find(handler.previewSelector).each(function () {
+                    $(this).append(new LocalImage(files[index], handler.imageTypes));
                 });
             }
-            uploadHandler.addNode(uploadHandler.uploadTable, uploadRow, callBack);
+            handler.addNode(
+                (typeof handler.uploadTable === func ? handler.uploadTable(handler) : handler.uploadTable),
+                uploadRow,
+                callBack
+            );
         };
         
         this.initUpload = function (event, files, index, xhr, handler, callBack) {
-            uploadHandler.initUploadRow(event, files, index, xhr, handler, function () {
-                if (typeof uploadHandler.beforeSend === func) {
-                    uploadHandler.beforeSend(event, files, index, xhr, handler, callBack);
+            handler.initUploadRow(event, files, index, xhr, handler, function () {
+                if (typeof handler.beforeSend === func) {
+                    handler.beforeSend(event, files, index, xhr, handler, callBack);
                 } else {
                     callBack();
                 }
@@ -146,13 +182,17 @@
         this.initDownloadRow = function (event, files, index, xhr, handler, callBack) {
             var json, downloadRow;
             try {
-                json = handler.response = uploadHandler.parseResponse(xhr);
-                downloadRow = handler.downloadRow = uploadHandler.buildDownloadRow(json);
-                uploadHandler.addNode(uploadHandler.downloadTable, downloadRow, callBack);
+                json = handler.response = handler.parseResponse(xhr);
+                downloadRow = handler.downloadRow = handler.buildDownloadRow(json, handler);
+                handler.addNode(
+                    (typeof handler.downloadTable === func ? handler.downloadTable(handler) : handler.downloadTable),
+                    downloadRow,
+                    callBack
+                );
             } catch (e) {
-                if (typeof uploadHandler.onError === func) {
+                if (typeof handler.onError === func) {
                     handler.originalEvent = event;
-                    uploadHandler.onError(e, files, index, xhr, handler);
+                    handler.onError(e, files, index, xhr, handler);
                 } else {
                     throw e;
                 }
@@ -160,10 +200,10 @@
         };
         
         this.onLoad = function (event, files, index, xhr, handler) {
-            uploadHandler.removeNode(handler.uploadRow, function () {
-                uploadHandler.initDownloadRow(event, files, index, xhr, handler, function () {
-                    if (typeof uploadHandler.onComplete === func) {
-                        uploadHandler.onComplete(event, files, index, xhr, handler);
+            handler.removeNode(handler.uploadRow, function () {
+                handler.initDownloadRow(event, files, index, xhr, handler, function () {
+                    if (typeof handler.onComplete === func) {
+                        handler.onComplete(event, files, index, xhr, handler);
                     }
                 });
             });
@@ -238,7 +278,16 @@
                 $(this).fileUpload(new UploadHandler($(this), options));
             });
         },
-    
+        
+        option: function (option, value, namespace) {
+            if (typeof option === undef || (typeof option === 'string' && typeof value === undef)) {
+                return $(this).fileUpload('option', option, value, namespace);
+            }
+            return this.each(function () {
+                $(this).fileUpload('option', option, value, namespace);
+            });
+        },
+            
         destroy : function (namespace) {
             return this.each(function () {
                 $(this).fileUpload('destroy', namespace);

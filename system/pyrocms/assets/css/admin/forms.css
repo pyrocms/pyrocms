@@ -107,7 +107,7 @@ div.filter form li {
 	margin: 4px 0 0 0;
 }
 /* this is the cancel button for the filter form */
-a.cancel {
+div.filter a.cancel {
 	padding: 1px 6px;
 	text-decoration: none;
 	vertical-align: middle;
