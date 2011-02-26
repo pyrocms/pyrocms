@@ -54,6 +54,7 @@ $lang['files.not_exists']					= 'Um arquivo inválido foi selecionada.';
 $lang['files.delete.error']					= 'O arquivo não pode ser removido.';
 $lang['files.delete.success']				= 'O arquivo foi removido.';
 $lang['files.filter']						= 'Filtrar';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Imagem';

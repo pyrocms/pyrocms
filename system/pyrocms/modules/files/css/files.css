@@ -67,6 +67,10 @@ h3 span {
 	display: none;
 	position: absolute;
 	width: 100%;
+	background-color: #fff;
+}
+#uploader .uploader-browser {
+	width: 100%;
 	background-color: #EFEFF6;
 	border: 1px solid #d0d0d0;
 }
@@ -75,25 +79,45 @@ h3 span {
 }
 #file-queue {
     list-style-type: none;
-}
-#file-queue div {
-    float: left;
-    margin-right: 5px;
+    margin: 10px 12px;
 }
 #file-queue li {
-    float: left;
-    clear: left;
     padding: 4px 0;
+    margin: 0;
 }
-.filename {
+#file-queue li > div {
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: top;
+}
+#file-queue .file_upload_preview div {
+    width: 80px;
+    height: 40px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    background: #fff;
+}
+#file-queue .file_upload_preview img {
+    width: 80px;
+}
+#file-queue .filename {
     min-width: 350px;
+    color: #666666;
+    font-size: 10px;
+    margin-top: 15px;
+}
+#file-queue .file_upload_progress {
+    margin-top: 15px;
+}
+#file-queue .file_upload_cancel {
+    margin-top: 10px;
 }
 button.start {
     display: none;
 }
-button.start-upload {
+/*button.start-upload {
     margin: 0 0 10px 10px;
-}
+}*/
 div.selector {
 	z-index: 9999;
 }

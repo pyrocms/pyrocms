@@ -66,6 +66,7 @@
 			</tbody>
 		</table>
 
+		<div class="buttons float-right padding-top">
 		<?php if ($this->settings->moderate_comments): ?>
 			<?php if ($this->method == 'index'): ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
@@ -75,6 +76,7 @@
 		<?php else: ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
 		<?php endif; ?>
+		</div>
 
 	<?php echo form_close();?>
 

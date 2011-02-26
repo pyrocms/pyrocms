@@ -4,7 +4,7 @@
 		<table border="0" class="table-list">
 			<thead>
 				<tr>
-					<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
+					<th class="align-center"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 					<th><?php echo lang('user_name_label');?></th>
 					<th><?php echo lang('user_email_label');?></th>
 					<th><?php echo lang('user_group_label');?></th>
@@ -24,7 +24,7 @@
 			<tbody>
 				<?php foreach ($users as $member): ?>
 					<tr>
-						<td align="center"><?php echo form_checkbox('action_to[]', $member->id); ?></td>
+						<td class="align-center"><?php echo form_checkbox('action_to[]', $member->id); ?></td>
 						<td><?php echo anchor('admin/users/edit/' . $member->id, $member->full_name); ?></td>
 						<td><?php echo mailto($member->email); ?></td>
 						<td><?php echo $member->group_name; ?></td>
@@ -40,7 +40,7 @@
 			</tbody>	
 		</table>
 	
-	<div class="float-left">
+	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
 	

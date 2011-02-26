@@ -51,6 +51,7 @@ $lang['files.success']				= 'Plik został zachowany.';
 $lang['files.not_exists']			= 'Wybrano nieprawidłowy katalog.';
 $lang['files.delete.error']			= 'Plik nie mógł zostać usunięty.';
 $lang['files.delete.success']			= 'Plik został usunięty.';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i']                                = 'Obraz';

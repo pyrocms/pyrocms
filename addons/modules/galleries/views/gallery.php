@@ -19,29 +19,32 @@
 		</ul>
 	</div>
 </div>
+<br style="clear: both;" />
 <?php if ( ! empty($sub_galleries) ): ?>
 <h2><?php echo lang('galleries.sub-galleries_label'); ?></h2>
 <!-- Show all sub-galleries -->
 <div class="sub_galleries_container">
-	<?php foreach ( $sub_galleries as $gallery ): ?>
+	<?php foreach ($sub_galleries as $sub_gallery): ?>
 	<div class="gallery clearfix">
 		<!-- Heading -->
 		<div class="gallery_heading">
-			<img src="<?php echo BASE_URL.'uploads/galleries/' . $gallery->filename; ?>" alt="<?php echo $gallery->name; ?>" />
-			<h3><?php echo anchor('galleries/' . $gallery->slug, $gallery->name); ?></h3>
+			<?php if ( ! empty($sub_gallery->filename)) : ?>
+			<?php echo img(array('src' => base_url() . 'files/thumb/' . $sub_gallery->file_id, 'alt' => $sub_gallery->title)); ?>
+			<?php endif; ?>
+			<h3><?php echo anchor('galleries/' . $sub_gallery->slug, $sub_gallery->title); ?></h3>
 		</div>
 		<!-- And the body -->
 		<div class="gallery_body">
 			<p>
-				<?php if ( !empty($gallery->description) ) { echo $gallery->description; } else { echo "No description has been added yet.";} ?>
+				<?php echo ( ! empty($sub_gallery->description)) ? $sub_gallery->description : lang('galleries.no_gallery_description'); ?>
 			</p>
 		</div>
 	</div>
 	<?php endforeach; ?>
 </div>
 <?php endif; ?>
-<div class="clear-both"></div>
+<br style="clear: both;" />
 
-<?php if($gallery->enable_comments == 1): ?>
+<?php if ($gallery->enable_comments == 1): ?>
 	<?php echo display_comments($gallery->id, 'gallery'); ?>
 <?php endif; ?>

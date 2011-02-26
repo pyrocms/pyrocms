@@ -11,6 +11,8 @@
         <?php echo form_hidden('variable_id', $variable->id); ?>
     </td>
     <td>
+	<div class="buttons buttons-small">
         <?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>  
+	</div>
     </td>
 <?php echo form_close(); ?>

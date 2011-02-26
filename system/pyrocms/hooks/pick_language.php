@@ -65,6 +65,15 @@ function pick_language()
     // Set the language config. Selects the folder name from its key of 'en'
     $CI_config->set_item('language', $config['supported_languages'][$lang]['folder']);
 
+	// Set php locale time
+	if (isset($config['supported_languages'][$lang]['codes']) &&
+		sizeof($locale = (array) $config['supported_languages'][$lang]['codes']) > 1)
+	{
+		array_unshift($locale, LC_TIME);
+		call_user_func_array('setlocale', $locale);
+		unset($locale);
+	}
+
     // Sets a constant to use throughout ALL of CI.
     define('CURRENT_LANGUAGE', $lang);
 }

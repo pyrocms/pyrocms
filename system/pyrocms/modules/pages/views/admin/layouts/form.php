@@ -12,6 +12,7 @@
 		<ul class="tab-menu">
 			<li><a href="#page-layout-html"><span><?php echo lang('page_layouts.html_label');?></span></a></li>
 			<li><a href="#page-layout-css"><span><?php echo lang('page_layouts.css_label');?></span></a></li>
+			<li><a href="#page-layout-script"><span><?php echo lang('pages.js_label');?></span></a></li>
 		</ul>
 		
 		<div id="page-layout-html">
@@ -52,10 +53,18 @@
 			</ul>
 		</div>
 		
+		<!-- Script tab -->
+		<div id="page-layout-script">
+			<ul>
+				<li>
+					<?php echo form_textarea('js', $page_layout->js, 'id="js_editor"'); ?>
+				</li>
+			</ul>
+		</div>
+		
 	</div>
 	
-	<div class="float-right buttons">
-		<br/>
+	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	</div>
 
@@ -65,4 +74,5 @@
 <script type="text/javascript">
 	html_editor('html_editor', '100%');
 	css_editor('css_editor', '100%');
+	js_editor('js_editor', '100%');
 </script>

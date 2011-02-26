@@ -96,8 +96,7 @@
 		</div>
 	</div>
 
-	<div class="float-right">
-		<br/>
+	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	</div>
 

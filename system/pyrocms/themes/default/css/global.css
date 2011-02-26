@@ -108,8 +108,8 @@ fieldset#write-comment { float:right; padding: 1em;	width:45%; }
 .widget ul.rss li a { font-size: 12px; }
 
 /* Gallery widget */
-ul.galleries_list li { float: left; padding: 0 20px 0 0; list-style: none; }
-ul.galleries_list li a img { width: 100px; height: 100px; }
+ul.galleries_list li { float: left; padding: 0 20px 0 0; list-style: none; width: 106px; height: 126px; }
+ul.galleries_list li a img { max-width: 100px; max-height: 100px; }
 .gallery_image_full img { max-width: 670px; }
 
 /* Form login / register */

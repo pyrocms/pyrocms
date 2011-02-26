@@ -29,8 +29,9 @@
 
 				echo $this->table->generate();
 			?>
-
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			<div class="buttons buttons-small align-right padding-top">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			</div>
 
 		<?php else: ?>
 			<p>

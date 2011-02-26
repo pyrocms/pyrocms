@@ -14,6 +14,9 @@ $lang['galleries.folder_error']			= 'The "%s" gallery folders could not be delet
 $lang['galleries.delete_error']			= 'The "%s" gallery could not be deleted.';
 $lang['galleries.no_galleries_error'] 	= 'No galleries have been created yet.';
 $lang['galleries.install_error']		= 'The module could not be installed.';
+$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.';
+$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.';
+$lang['galleries.no_gallery_description']	= 'No description has been added yet.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Galleries';
