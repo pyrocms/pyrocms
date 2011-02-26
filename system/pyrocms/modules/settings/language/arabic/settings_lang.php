@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'عدد أخبار RSS في لوحة 
 $lang['settings_dashboard_rss_count_desc'] 		= 'كم عدد أخبار RSS التي تود إظهارها في لوحة التحكم؟';
 
 $lang['settings_date_format'] 					= 'نسق التاريخ';
-$lang['settings_date_format_desc'] 				= 'كيفية عرض التواريخ في الموقع ولوحة التحكم باستخدام نسق تاريخ PHP.';
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled'] 				= 'حالة الموقع';
 $lang['settings_frontend_enabled_desc'] 		= 'استخدم هذا الخيار لإتاحة أو حجب واجهة الموقع. يُمكن الإستفادة من هذا الخيار لحجب الموقع وقت الصيانة.';
