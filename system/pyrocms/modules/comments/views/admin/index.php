@@ -1,9 +1,11 @@
+<?php if (Settings::get('moderate_comments')): ?>
 <h3><?php echo $content_title;?></h3>
+<?php endif; ?>
 
 <?php if ( ! empty($comments)): ?>
 
 	<?php echo form_open('admin/comments/action');?>
-		<?php echo form_hidden('redirect', $this->uri->uri_string()); ?>
+		<?php echo form_hidden('redirect', uri_string()); ?>
 		<table border="0" class="table-list clear-both">
 			<thead>
 				<tr>
