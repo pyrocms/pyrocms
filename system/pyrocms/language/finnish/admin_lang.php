@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Pikalinkit';
 $lang['cp_welcome_title'] 				= 'Tervetuloa';
 $lang['cp_welcome_message'] 			= 'Tervetuloa sivuston %s hallintapaneeliin. Käyttämällä yläpuolella ja vasemmalla olevia linkkejä, voit hallinnoida kattavasti koko sivustoa. Jos järjestelmän kanssa ilmenee ongelmia, pyydämme teitä ottamaan yhteyttä meidän bugi seurantaan.';
 
-$lang['cp_news_feed_title'] 			= 'Uutis-syöte';
+$lang['cp_blog_feed_title'] 			= 'Uutis-syöte';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Hallitse kommentteja';

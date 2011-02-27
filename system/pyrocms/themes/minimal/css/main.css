@@ -121,7 +121,7 @@ blockquote
 	margin-top:		25px;
 }
 /* General margins */
-#header,.news_article, .gallery
+#header,.blog_article, .gallery
 {
 	margin-bottom:	40px;
 }
@@ -195,19 +195,19 @@ blockquote
 		padding:		0px;
 	}
 /* == NEWS == */
-.news_article .article_heading h2
+.blog_article .article_heading h2
 {
 	margin-bottom:	5px;
 }
-.news_article .article_heading .article_date
+.blog_article .article_heading .article_date
 {
 	float:		left;
 }
-.news_article .article_heading .article_category
+.blog_article .article_heading .article_category
 {
 	float:		right;
 }
-.news_article .article_body
+.blog_article .article_body
 {
 	clear:		both;
 }

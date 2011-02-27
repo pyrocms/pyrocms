@@ -249,7 +249,7 @@ class Versioning
 	}
 	
 	/**
-	 * Change the revision of a page/news article/etc
+	 * Change the revision of a page/blog article/etc
 	 * 
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public

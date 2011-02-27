@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Collegamenti veloci';
 $lang['cp_welcome_title'] 				= 'Benvenuto';
 $lang['cp_welcome_message'] 			= 'Benvenuto al Pannello di Controllo di %s. Usando i link qui sopra e sulla sinistra puoi controllare quasi tutti gli elementi del tuo sito. Se dovessi avere un problema con il sistema, per favore segnalalo attraverso il nostro bugtracker.';
 
-$lang['cp_news_feed_title'] 			= 'News feed';
+$lang['cp_blog_feed_title'] 			= 'News feed';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Gestisci Commenti';
@@ -40,7 +40,7 @@ $lang['cp_nav_utilities']               = 'Accessori';
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
 $lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di prendere il controllo del tuo sito.';
-$lang['cp_upgrade_message']				= 'Stai usndo la versione %s, ma la versione del tuo database è la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
+$lang['cp_upgrade_message']				= 'Stai usndo la versione %s, ma la versione del tuo database ï¿½ la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Collegamenti';

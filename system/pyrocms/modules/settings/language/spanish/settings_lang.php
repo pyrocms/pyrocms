@@ -94,8 +94,8 @@ $lang['settings_twitter_consumer_key_desc']		= 'Consumer key de Twitter.';
 $lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Consumer key secret de Twitter.';
 
-$lang['settings_twitter_news']					= 'Integración con Twitter';
-$lang['settings_twitter_news_desc']				= '¿Te gustaría publicar enlaces a los artículos publicados en Twitter?';
+$lang['settings_twitter_blog']					= 'Integración con Twitter';
+$lang['settings_twitter_blog_desc']				= '¿Te gustaría publicar enlaces a los artículos publicados en Twitter?';
 
 $lang['settings_twitter_feed_count']			= 'Cantidad de Tweets';
 $lang['settings_twitter_feed_count_desc']		= 'Cantidad de tweets que seran mostrados en el bloque de twitter.';

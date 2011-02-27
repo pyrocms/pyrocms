@@ -25,7 +25,7 @@ $lang['settings_currency_desc']					= 'Symbol waluty do stosowania przy produkta
 $lang['settings_dashboard_rss']					= 'Kanał RSS na tablicy';
 $lang['settings_dashboard_rss_desc']			= 'Link do kanału RSS, który będzie wyświetlany w zakładce Tablica informacyjna.';
 
-$lang['settings_dashboard_rss_count']			= 'Ilość newsów RSS';
+$lang['settings_dashboard_rss_count']			= 'Ilość blogów RSS';
 $lang['settings_dashboard_rss_count_desc']		= 'Ile wpisów z kanału RSS ma być wyświetlane w zakładce Tablica informacyjna?';
 
 $lang['settings_date_format'] 					= 'Date Format'; #translate
@@ -64,7 +64,7 @@ $lang['settings_activation_email_desc']			= 'Wyślij e-mail do administratora st
 $lang['settings_records_per_page']				= 'Rekordów na stronę';
 $lang['settings_records_per_page_desc']			= 'Jak wiele rekordów na stronę powinno być pokazywane w sekcji administracyjnej?';
 
-$lang['settings_rss_feed_items']				= 'Ilość newsów RSS';
+$lang['settings_rss_feed_items']				= 'Ilość blogów RSS';
 $lang['settings_rss_feed_items_desc']			= 'Ile elementów należy pokazać w kanale RSS/nowości?';
 
 $lang['settings_require_lastname']				= 'Wymagane nazwisko?';
@@ -94,8 +94,8 @@ $lang['settings_twitter_consumer_key_desc']		= 'Klucz klienta Twitter.';
 $lang['settings_twitter_consumer_key_secret']	= 'Prywatny klucz klienta';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Prywatny klucz klienta Twitter.';
 
-$lang['settings_twitter_news']					= 'Integracja z Twitterem';
-$lang['settings_twitter_news_desc']				= 'Czy chciałbyś publikować linki do nowości i artykułów bezpośrednio w serwisie Twitter?';
+$lang['settings_twitter_blog']					= 'Integracja z Twitterem';
+$lang['settings_twitter_blog_desc']				= 'Czy chciałbyś publikować linki do nowości i artykułów bezpośrednio w serwisie Twitter?';
 
 $lang['settings_twitter_feed_count']			= 'Ilość wpisów z Twittera';
 $lang['settings_twitter_feed_count_desc']		= 'Ile twittów powinno zostać przekazanych do bloku Twittera?';

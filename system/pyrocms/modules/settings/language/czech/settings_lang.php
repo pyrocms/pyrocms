@@ -94,8 +94,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Consumer Key pro Twitter.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consumer Key Secret';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Consumer Key Secret pro Twitter.';
 
-$lang['settings_twitter_news']					= 'Integrace novinek s Twitterem.';
-$lang['settings_twitter_news_desc'] 			= 'Chcete odesílat zprávy o nivinkách na Twitter?';
+$lang['settings_twitter_blog']					= 'Integrace novinek s Twitterem.';
+$lang['settings_twitter_blog_desc'] 			= 'Chcete odesílat zprávy o nivinkách na Twitter?';
 
 $lang['settings_twitter_feed_count'] 			= 'Počet příspěvků';
 $lang['settings_twitter_feed_count_desc'] 		= 'Kolik tweetů se má zobrazit v sekci Twitteru?';

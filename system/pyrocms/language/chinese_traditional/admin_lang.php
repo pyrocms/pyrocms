@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= '快速連結'; 		//'Quick Links';
 $lang['cp_welcome_title'] 				= '歡迎';
 $lang['cp_welcome_message'] 			= '歡迎來到 %s 控制台。使用上方與左側的選單，您將可以控制所有的網站功能。如果您遇到任何系統的問題，請將之提交到我們的錯誤追蹤系統。';
 
-$lang['cp_news_feed_title'] 			= '新聞發佈'; 		//News feed';
+$lang['cp_blog_feed_title'] 			= '新聞發佈'; 		//News feed';
 
 // Shortcuts
 $lang['cp_manage_comments']				= '管理回應';

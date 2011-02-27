@@ -61,16 +61,17 @@ function process_comment_items($comments)
 					$comment->item = anchor('admin/pages/preview/' . $page->id, $page->title, 'class="modal-large"');
 					break;
 				}
-				
-			case 'news':
 
-				if(!module_exists('news')) break;
+			case 'blog':
+			case 'news': # Deprecated v1.1.0
 
-				$ci->load->model('news/news_m');
+				if(!module_exists('blog')) break;
 
-				if($article = $ci->news_m->get($comment->module_id))
+				$ci->load->model('blog/blog_m');
+
+				if($article = $ci->blog_m->get($comment->module_id))
 				{
-					$comment->item = anchor('admin/news/preview/' . $article->id, $article->title, 'class="modal-large"');
+					$comment->item = anchor('admin/blog/preview/' . $article->id, $article->title, 'class="modal-large"');
 					break;
 				}
 
