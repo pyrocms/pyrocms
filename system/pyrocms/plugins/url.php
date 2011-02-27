@@ -72,6 +72,26 @@ class Plugin_Url extends Plugin
 
 		return $this->uri->segment($segment, $default);
 	}
+	
+	/**
+	 * build an anchor tag
+	 *
+	 * Usage:
+	 * {pyro:url:anchor segments="users/login" title="Login" class="login"}
+	 *
+	 * @param	array
+	 * @return	string
+	 */
+	function anchor()
+	{
+		$segments = $this->attribute('segments');
+		$title = $this->attribute('title', '');
+		$class = $this->attribute('class', '');
+		
+		$class = !empty($class) ? 'class="' . $class . '"' : '' ;
+		
+		return anchor($segments, $title, $class);
+	}
 }
 
 /* End of file theme.php */
