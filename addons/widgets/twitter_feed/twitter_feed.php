@@ -30,15 +30,17 @@ class Widget_Twitter_feed extends Widgets
 
 	public function run($options)
 	{
-		$this->load->library('simplepie');
-		$this->simplepie->set_cache_location($this->config->item('simplepie_cache_dir'));
-		$this->simplepie->set_feed_url('http://twitter.com/statuses/user_timeline/'.$options['username'].'.rss');
-		$this->simplepie->init();
+		if ( ! $tweets = $this->cache->get('twitter-'.$options['username']))
+		{
+			$tweets = json_decode(@file_get_contents('http://twitter.com/statuses/user_timeline/'.$options['username'].'.json'));
+
+			$this->cache->write($tweets, 'twitter-'.$options['username'], $this->settings->twitter_cache);
+		}
 
 		// If no number provided, just get 5
 		empty($options['number']) AND $options['number'] = 5;
 
-		$tweets = $this->simplepie->get_items(0, $options['number']);
+		$tweets = array_slice($tweets, 0, $options['number']);
 
 		$patterns = array(
 			// Detect URL's
@@ -56,8 +58,8 @@ class Widget_Twitter_feed extends Widgets
 
 		foreach($tweets as &$tweet)
 		{
-			$tweet->text = str_replace($options['username'].': ', '', $tweet->get_title());
-			$tweet->text = preg_replace(array_keys($patterns), array_values($patterns), $tweet->text);
+			$tweet->text = str_replace($options['username'].': ', '', $tweet->text);
+			$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
 		}
 
 		// Store the feed items
