@@ -16,6 +16,7 @@
 		.input-email { margin: -24px 0 0 10px;}
 		.input-password { margin: -30px 0 0 14px; }
 		body#login #login-box input { height: 20px; padding: 10px 4px 4px 35px; }
+		body#login{ margin-top: 14%;}
 	</style>
 	<![endif]-->
 

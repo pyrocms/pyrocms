@@ -94,8 +94,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'رمز مستخدم تويتر.'
 $lang['settings_twitter_consumer_key_secret'] 	= 'كلمة سرّ المستفيد';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'كلمة سرّ مُستفيد تويتر.';
 
-$lang['settings_twitter_news']					= 'الدمج مع تويتر والأخبار';
-$lang['settings_twitter_news_desc'] 			= 'هل تريد نشر روابط مقالات الأخبار الجديدة على تويتر؟';
+$lang['settings_twitter_blog']					= 'الدمج مع تويتر والأخبار';
+$lang['settings_twitter_blog_desc'] 			= 'هل تريد نشر روابط مقالات الأخبار الجديدة على تويتر؟';
 
 $lang['settings_twitter_feed_count'] 			= 'عدد رسائل تويتر';
 $lang['settings_twitter_feed_count_desc'] 		= 'ما عدد رسائل تويتر التي يجب قراءتها في بلوك تويتر؟';

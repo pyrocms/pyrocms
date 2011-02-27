@@ -14,7 +14,7 @@
 	contain at least one controller, and that controller should be the same name as the module.
 </p>
 
-<blockquote>E.g: addons/modules/news/controllers/news.php</blockquote>
+<blockquote>E.g: addons/modules/blog/controllers/blog.php</blockquote>
 
 <p>The rest of it is pretty much normal CodeIgniter development except for a few things.</p>
 
@@ -96,7 +96,7 @@ class News extends Public_Controller {
 	{
 		$data['message'] = "Hello World!";
 
-		// Loads from addons/modules/news/views/view_name.php
+		// Loads from addons/modules/blog/views/view_name.php
 		$this-&gt;template-&gt;build('view_name', $data);
 	}
 }</code></pre>
@@ -116,7 +116,7 @@ class Admin extends Admin_Controller {
 	{
 		$data['message'] = "Hello logged in admin guy!";
 
-		// Loads from addons/modules/news/views/admin/view_name.php
+		// Loads from addons/modules/blog/views/admin/view_name.php
 		$this-&gt;template-&gt;build('admin/view_name', $data);
 	}
 }</code></pre>

@@ -94,8 +94,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter consumer key.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consumer Key Secret';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
 
-$lang['settings_twitter_news']					= 'Integrazione Twitter &amp; Notizie.';
-$lang['settings_twitter_news_desc'] 			= 'Vuoi postare i collegamenti alle nuove notizie su Twitter?';
+$lang['settings_twitter_blog']					= 'Integrazione Twitter &amp; Notizie.';
+$lang['settings_twitter_blog_desc'] 			= 'Vuoi postare i collegamenti alle nuove notizie su Twitter?';
 
 $lang['settings_twitter_feed_count'] 			= 'Numero dei Feed';
 $lang['settings_twitter_feed_count_desc'] 		= 'Quanti tweets devono essere restituiti blocco dei feed di Twitter?';

@@ -23,7 +23,7 @@ class Module_Comments extends Module {
 				'fi' => 'Kommentit'
 			),
 			'description' => array(
-				'en' => 'Users and guests can write comments for content like news, pages and photos.',
+				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
 				'pt' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'nl' => 'Gebruikers en gasten kunnen reageren op bijna alles.',
 				'es' => 'Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.',
@@ -31,7 +31,7 @@ class Module_Comments extends Module {
 				'de' => 'Benutzer und Gäste können für fast alles Kommentare schreiben.',
 				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
-				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali news, pagine e foto.',
+				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali blog, pagine e foto.',
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
 				'cs' => 'Uživatelé a hosté mohou psát komentáře k obsahu, např. neovinkám, stránkám a fotografiím.',
