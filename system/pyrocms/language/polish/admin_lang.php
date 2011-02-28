@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Szybkie linki';
 $lang['cp_welcome_title'] 				= 'Witaj';
 $lang['cp_welcome_message'] 			= 'Witaj w Panelu administracyjnym strony %s. Stąd możesz kontrolować dowolną część Twojej strony WWW. Jeżeli napotkasz na jakieś problemy z użytkowaniem tego systemu, prosimy o przesłanie opisu problemu do naszego systemu obsługi błędów.';
 
-$lang['cp_news_feed_title'] 			= 'Kanał informacyjny';
+$lang['cp_blog_feed_title'] 			= 'Kanał informacyjny';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Zarządzaj komentarzami';

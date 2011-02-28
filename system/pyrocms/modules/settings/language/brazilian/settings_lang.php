@@ -96,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Chave de consumo do Twitter.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Chave de consumo secreta';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Chave de consumo secreta do Twitter.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; Integração de novidades.';
-$lang['settings_twitter_news_desc'] 			= 'Você deseja escrever no twitter links para os novos artigos de novidades?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; Integração de novidades.';
+$lang['settings_twitter_blog_desc'] 			= 'Você deseja escrever no twitter links para os novos artigos de novidades?';
 
 $lang['settings_twitter_feed_count'] 			= 'Contador do Feed';
 $lang['settings_twitter_feed_count_desc'] 		= 'Quantos tweets devem ser retornados para o bloco de feed do Twitter?';

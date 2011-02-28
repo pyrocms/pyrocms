@@ -67,7 +67,7 @@ $lang['settings_records_per_page'] 				= 'Records Per Pagina';
 $lang['settings_records_per_page_desc'] 		= 'Hoe veel records kan de website tonen in het admin gebied?';
 
 $lang['settings_rss_feed_items'] 				= 'Feed item teller';
-$lang['settings_rss_feed_items_desc'] 			= 'Hoe veel items kunnen er getoond worden in de RSS/news feeds?';
+$lang['settings_rss_feed_items_desc'] 			= 'Hoe veel items kunnen er getoond worden in de RSS/blog feeds?';
 
 $lang['settings_require_lastname'] 				= 'Achternamen Vereist?';
 $lang['settings_require_lastname_desc'] 		= 'Voor sommmige situaties hoeft een achternaam niet nodig te zijn. Wilt u een ingevulde achternaam als vereiste of niet?';
@@ -96,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter Consument Sleutel.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consument Sleutel Geheim';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter Consument Sleutel Geheim.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; Nieuws integratie.';
-$lang['settings_twitter_news_desc'] 			= 'Wilt u links plaatsen naar nieuws artikelen op Twitter?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; Nieuws integratie.';
+$lang['settings_twitter_blog_desc'] 			= 'Wilt u links plaatsen naar nieuws artikelen op Twitter?';
 
 $lang['settings_twitter_feed_count'] 			= 'Feed Teller';
 $lang['settings_twitter_feed_count_desc'] 		= 'Hoeveel tweets moeten geretourneerd worden naar het Twitter feed blok?';

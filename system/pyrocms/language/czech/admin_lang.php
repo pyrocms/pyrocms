@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Rychlé odkazy';
 $lang['cp_welcome_title'] 			= 'Vítejte';
 $lang['cp_welcome_message'] 			= 'Vítejte v Kontrolním panelu pro %s. Pomocí odkazů nahoře a vlevo můžete zmněnit téměř cokoliv na vašem webu. Pokud budete mít jakýkoliv problém s tímto systémem, nahlašte ho prosím do bugtrackeru.';
 
-$lang['cp_news_feed_title'] 			= 'Novinky';
+$lang['cp_blog_feed_title'] 			= 'Novinky';
 
 // Shortcuts
 $lang['cp_manage_comments']			= 'Správa komentářů';

@@ -67,7 +67,7 @@ $lang['settings_records_per_page'] 				= 'Enregistrements par page';
 $lang['settings_records_per_page_desc'] 		= 'Combien d\'enregistrements devons nous montrer par page dans la section admin?';
 
 $lang['settings_rss_feed_items'] 				= 'Nombre de flux RSS';
-$lang['settings_rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux news et RSS?';
+$lang['settings_rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS?';
 
 $lang['settings_require_lastname'] 				= 'Nom requis?';
 $lang['settings_require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom?';
@@ -96,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter consumer key.';#translat
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consumer Key Secret';#translate
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';#translate
 
-$lang['settings_twitter_news']					= 'Intégrations de Twitter &amp; des news.';
-$lang['settings_twitter_news_desc'] 			= 'Poster les liens des articles sur Twitter';
+$lang['settings_twitter_blog']					= 'Intégrations de Twitter &amp; des blog.';
+$lang['settings_twitter_blog_desc'] 			= 'Poster les liens des articles sur Twitter';
 
 $lang['settings_twitter_feed_count'] 			= 'Nombre de tweets';
 $lang['settings_twitter_feed_count_desc'] 		= 'Combien de tweet doivent être affiché dans le block Twitter?';
