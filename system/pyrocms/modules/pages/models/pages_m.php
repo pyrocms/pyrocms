@@ -255,8 +255,9 @@ class Pages_m extends MY_Model
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
-        	'rss_enabled' 	=> (int) !empty($input['rss_enabled']),
-        	'comments_enabled' 	=> (int) !empty($input['comments_enabled']),
+        	'restricted_to' 	=> $input['restricted_to'],
+        	'rss_enabled' 	=> (int) ! empty($input['rss_enabled']),
+        	'comments_enabled' 	=> (int) ! empty($input['comments_enabled']),
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));

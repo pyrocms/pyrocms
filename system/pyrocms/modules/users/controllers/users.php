@@ -35,7 +35,7 @@ class Users extends Public_Controller
 	public function login()
 	{
 		// Any idea where we are heading after login?
-		if ($args = func_get_args())
+		if ( ! $_POST AND $args = func_get_args())
 		{
 			$this->session->set_userdata('redirect_to', implode('/', $args));
 		}
@@ -62,27 +62,13 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
 
-		// Set the redirect page as soon as they get to login
-		if ( ! $this->session->userdata('redirect_to'))
-		{
-			$uri = parse_url($this->input->server('HTTP_REFERER'), PHP_URL_PATH);
-
-			// If iwe aren't being redirected from the userl ogin page
-			$root_uri = BASE_URI == '/' ? '' : BASE_URI;
-
-			if (strpos($uri, '/users/login') !== FALSE)
-			{
-				$this->session->set_userdata('redirect_to', str_replace($root_uri . $this->config->item('index_page'), '', $uri));
-			}
-		}
-
 	    // If the validation worked, or the user is already logged in
 	    if ($this->form_validation->run() or $this->ion_auth->logged_in())
 	    {
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
 			$redirect_to = $this->session->userdata('redirect_to') ? $this->session->userdata('redirect_to') : ''; // '' = Home
-			
+
 			// Unset the redirection
 			$this->session->unset_userdata('redirect_to');
 
