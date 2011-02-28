@@ -98,8 +98,8 @@ $lang['settings_twitter_username_desc']			= 'Twitterin käyttäjätunnus.';
 $lang['settings_twitter_consumer_key']			= 'Kuluttajan avain';
 $lang['settings_twitter_consumer_key_desc']		= 'Twitterin kuluttaja avain (consumer key).';
 
-$lang['settings_twitter_consumer_key_secret']	= 'Kuluttajan avaimen salaus';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitterin kuluttaja avaimen salaus (consumer key secret).';
+$lang['settings_twitter_consumer_key_secret']		= 'Kuluttajan avaimen salaus';
+$lang['settings_twitter_consumer_key_secret_desc']	= 'Twitterin kuluttaja avaimen salaus (consumer key secret).';
 
 $lang['settings_twitter_blog']					= 'Twitter &amp; Uutisten integrointi.';
 $lang['settings_twitter_blog_desc']				= 'Haluatko, että uutisartikkelit julkaistaan automaattisesti Twitterissä?';
@@ -137,8 +137,8 @@ $lang['settings_form_option_Enabled']			= 'Päällä';
 $lang['settings_form_option_Disabled']			= 'Pois päältä';
 $lang['settings_form_option_Required']			= 'Pakollinen';
 $lang['settings_form_option_Optional']			= 'Vaihtoehtoinen';
-$lang['settings_form_option_Oldest First']		= 'Vanhin ensin'; #translate
-$lang['settings_form_option_Newest First']		= 'Uusin ensin'; #translate
+$lang['settings_form_option_Oldest First']		= 'Vanhin ensin';
+$lang['settings_form_option_Newest First']		= 'Uusin ensin';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/finnish/settings_lang.php */

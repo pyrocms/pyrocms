@@ -14,17 +14,17 @@ $lang['galleries.delete_success']	= 'Kaikki galleriat poistettiin onnistuneesti.
 $lang['galleries.install_success']	= 'Moduuli asennettiin onnistuneesti.';
 
 // Error notifications
-$lang['galleries.create_error']			= 'Galleriaa ei voitu luoda.';
-$lang['galleries.exists_error']			= 'Valittua galleriaa ei löydy.';
-$lang['galleries.update_error']			= 'Galleriaa ei voitu päivittää.';
-$lang['galleries.id_error']				= 'Yhtään ID:tä ei ole määritelty.';
-$lang['galleries.folder_error']			= 'Gallerian "%s" kansioita ei voitu poistaa.';
-$lang['galleries.delete_error']			= 'Galleriaa "%s" ei voitu poistaa.';
-$lang['galleries.no_galleries_error'] 	= 'Yhtään galleiaa ei ole luotu vielä.';
-$lang['galleries.install_error']		= 'Moduulia ei voitu asentaa.';
-$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
-$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
-$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
+$lang['galleries.create_error']				= 'Galleriaa ei voitu luoda.';
+$lang['galleries.exists_error']				= 'Valittua galleriaa ei löydy.';
+$lang['galleries.update_error']				= 'Galleriaa ei voitu päivittää.';
+$lang['galleries.id_error']					= 'Yhtään ID:tä ei ole määritelty.';
+$lang['galleries.folder_error']				= 'Gallerian "%s" kansioita ei voitu poistaa.';
+$lang['galleries.delete_error']				= 'Galleriaa "%s" ei voitu poistaa.';
+$lang['galleries.no_galleries_error']		= 'Yhtään galleiaa ei ole luotu vielä.';
+$lang['galleries.install_error']			= 'Moduulia ei voitu asentaa.';
+$lang['galleries.already_exist_error']		= 'Galleria polkutunnuksella "%s" on jo olemassa.';
+$lang['galleries.folder_duplicated_error']	= 'Virhe on tapahtunut! Kansio kuuluu jo gallerialle.';
+$lang['galleries.no_gallery_description']	= 'Kuvausta ei ole vielä lisätty.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Galleriat';
@@ -45,7 +45,7 @@ $lang['galleries.published_no_label']		= 'Ei';
 
 // General labels
 $lang['galleries.title_label']				= 'Otsikko';
-$lang['galleries.slug_label']				= 'Lyhenne';
+$lang['galleries.slug_label']				= 'Polkutunnus';
 $lang['galleries.parent_label']				= 'Yläkohta';
 $lang['galleries.none_label']				= '-- Ei mikään --';
 $lang['galleries.description_label']		= 'Albumin kuvaus';
