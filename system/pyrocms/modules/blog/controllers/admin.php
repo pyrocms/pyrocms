@@ -9,7 +9,7 @@
 class Admin extends Admin_Controller {
 
 	/**
-	 * The id of article
+	 * The id of post
 	 * @access protected
 	 * @var int
 	 */
@@ -101,7 +101,7 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Show all created blog articles
+	 * Show all created blog posts
 	 * @access public
 	 * @return void
 	 */
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Create new article
+	 * Create new post
 	 * @access public
 	 * @return void
 	 */
@@ -172,11 +172,11 @@ class Admin extends Admin_Controller {
 			if ($id)
 			{
 				$this->cache->delete_all('blog_m');
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_article_add_success'), $this->input->post('title')));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
 			}
 			else
 			{
-				$this->session->set_flashdata('error', $this->lang->line('blog_article_add_error'));
+				$this->session->set_flashdata('error', $this->lang->line('blog_post_add_error'));
 			}
 
 			// Redirect back to the form or main page
@@ -187,23 +187,23 @@ class Admin extends Admin_Controller {
 			// Go through all the known fields and get the post values
 			foreach ($this->validation_rules as $key => $field)
 			{
-				$article->$field['field'] = set_value($field['field']);
+				$post->$field['field'] = set_value($field['field']);
 			}
-			$article->created_on = $created_on;
+			$post->created_on = $created_on;
 		}
 
 		$this->template
 				->title($this->module_details['name'], lang('blog_create_title'))
 				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 				->append_metadata(js('blog_form.js', 'blog'))
-				->set('article', $article)
+				->set('post', $post)
 				->build('admin/form');
 	}
 
 	/**
-	 * Edit blog article
+	 * Edit blog post
 	 * @access public
-	 * @param int $id the ID of the blog article to edit
+	 * @param int $id the ID of the blog post to edit
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -214,7 +214,7 @@ class Admin extends Admin_Controller {
 
 		$this->form_validation->set_rules($this->validation_rules);
 
-		$article = $this->blog_m->get($id);
+		$post = $this->blog_m->get($id);
 
 		// If we have a useful date, use it
 		if ($this->input->post('created_on'))
@@ -224,10 +224,10 @@ class Admin extends Admin_Controller {
 
 		else
 		{
-			$created_on = $article->created_on;
+			$created_on = $post->created_on;
 		}
 
-		$this->id = $article->id;
+		$this->id = $post->id;
 		
 		if ($this->form_validation->run())
 		{
@@ -246,7 +246,7 @@ class Admin extends Admin_Controller {
 				$this->session->set_flashdata(array('success' => sprintf($this->lang->line('blog_edit_success'), $this->input->post('title'))));
 
 				// The twitter module is here, and enabled!
-//				if ($this->settings->item('twitter_blog') == 1 && ($article->status != 'live' && $this->input->post('status') == 'live'))
+//				if ($this->settings->item('twitter_blog') == 1 && ($post->status != 'live' && $this->input->post('status') == 'live'))
 //				{
 //					$url = shorten_url('blog/'.$date[2].'/'.str_pad($date[1], 2, '0', STR_PAD_LEFT).'/'.url_title($this->input->post('title')));
 //					$this->load->model('twitter/twitter_m');
@@ -271,34 +271,34 @@ class Admin extends Admin_Controller {
 		{
 			if (isset($_POST[$field]))
 			{
-				$article->$field = $this->form_validation->$field;
+				$post->$field = $this->form_validation->$field;
 			}
 		}
 
-		$article->created_on = $created_on;
+		$post->created_on = $created_on;
 		
 		// Load WYSIWYG editor
 		$this->template
-				->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $article->title))
+				->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
 				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 				->append_metadata(js('blog_form.js', 'blog'))
-				->set('article', $article)
+				->set('post', $post)
 				->build('admin/form');
 	}
 
 	/**
-	 * Preview blog article
+	 * Preview blog post
 	 * @access public
-	 * @param int $id the ID of the blog article to preview
+	 * @param int $id the ID of the blog post to preview
 	 * @return void
 	 */
 	public function preview($id = 0)
 	{
-		$article = $this->blog_m->get($id);
+		$post = $this->blog_m->get($id);
 
 		$this->template
 				->set_layout('modal', 'admin')
-				->set('article', $article)
+				->set('post', $post)
 				->build('admin/preview');
 	}
 
@@ -324,9 +324,9 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Publish blog article
+	 * Publish blog post
 	 * @access public
-	 * @param int $id the ID of the blog article to make public
+	 * @param int $id the ID of the blog post to make public
 	 * @return void
 	 */
 	public function publish($id = 0)
@@ -337,33 +337,33 @@ class Admin extends Admin_Controller {
 		if ( ! empty($ids))
 		{
 			// Go through the array of slugs to publish
-			$article_titles = array();
+			$post_titles = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if ($article = $this->blog_m->get($id))
+				if ($post = $this->blog_m->get($id))
 				{
 					$this->blog_m->publish($id);
 
 					// Wipe cache for this model, the content has changed
 					$this->cache->delete('blog_m');
-					$article_titles[] = $article->title;
+					$post_titles[] = $post->title;
 				}
 			}
 		}
 
-		// Some articles have been published
-		if ( ! empty($article_titles))
+		// Some posts have been published
+		if ( ! empty($post_titles))
 		{
-			// Only publishing one article
-			if (count($article_titles) == 1)
+			// Only publishing one post
+			if (count($post_titles) == 1)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_publish_success'), $article_titles[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_publish_success'), $post_titles[0]));
 			}
-			// Publishing multiple articles
+			// Publishing multiple posts
 			else
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_mass_publish_success'), implode('", "', $article_titles)));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_mass_publish_success'), implode('", "', $post_titles)));
 			}
 		}
 		// For some reason, none of them were published
@@ -376,9 +376,9 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Delete blog article
+	 * Delete blog post
 	 * @access public
-	 * @param int $id the ID of the blog article to delete
+	 * @param int $id the ID of the blog post to delete
 	 * @return void
 	 */
 	public function delete($id = 0)
@@ -389,33 +389,33 @@ class Admin extends Admin_Controller {
 		// Go through the array of slugs to delete
 		if ( ! empty($ids))
 		{
-			$article_titles = array();
+			$post_titles = array();
 			foreach ($ids as $id)
 			{
 				// Get the current page so we can grab the id too
-				if ($article = $this->blog_m->get($id))
+				if ($post = $this->blog_m->get($id))
 				{
 					$this->blog_m->delete($id);
 
 					// Wipe cache for this model, the content has changed
 					$this->cache->delete('blog_m');
-					$article_titles[] = $article->title;
+					$post_titles[] = $post->title;
 				}
 			}
 		}
 
 		// Some pages have been deleted
-		if ( ! empty($article_titles))
+		if ( ! empty($post_titles))
 		{
 			// Only deleting one page
-			if (count($article_titles) == 1)
+			if (count($post_titles) == 1)
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_delete_success'), $article_titles[0]));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_delete_success'), $post_titles[0]));
 			}
 			// Deleting multiple pages
 			else
 			{
-				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_mass_delete_success'), implode('", "', $article_titles)));
+				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_mass_delete_success'), implode('", "', $post_titles)));
 			}
 		}
 		// For some reason, none of them were deleted
@@ -428,7 +428,7 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Callback method that checks the title of an article
+	 * Callback method that checks the title of an post
 	 * @access public
 	 * @param string title The Title to check
 	 * @return bool
@@ -445,7 +445,7 @@ class Admin extends Admin_Controller {
 	}
 	
 	/**
-	 * Callback method that checks the slug of an article
+	 * Callback method that checks the slug of an post
 	 * @access public
 	 * @param string slug The Slug to check
 	 * @return bool

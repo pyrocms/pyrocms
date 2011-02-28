@@ -18,8 +18,8 @@ class Blog extends Public_Controller
 		$this->data->pagination = create_pagination('blog/page', $this->blog_m->count_by(array('status' => 'live')), NULL, 3);
 		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('status' => 'live'));	
 
-		// Set meta description based on article titles
-		$meta = $this->_articles_metadata($this->data->blog);
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($this->data->blog);
 
 		$this->template
 			->title($this->module_details['name'])
@@ -37,20 +37,20 @@ class Blog extends Public_Controller
 		
 		$this->data->category =& $category;
 		
-		// Count total blog articles and work out how many pages exist
+		// Count total blog posts and work out how many pages exist
 		$this->data->pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
 			'category'=>$slug,
 			'status' => 'live'
 		)), NULL, 4);
 		
-		// Get the current page of blog articles
+		// Get the current page of blog posts
 		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array(
 			'category'=>$slug,
 			'status' => 'live'
 		));
 		
-		// Set meta description based on article titles
-		$meta = $this->_articles_metadata($this->data->blog);
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($this->data->blog);
 		
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title )		
@@ -69,8 +69,8 @@ class Blog extends Public_Controller
 		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('year'=> $year,'month'=> $month));
 		$this->data->month_year = $month_date->format("F 'y");
 		
-		// Set meta description based on article titles
-		$meta = $this->_articles_metadata($this->data->blog);
+		// Set meta description based on post titles
+		$meta = $this->_posts_metadata($this->data->blog);
 
 		$this->template->title( $this->data->month_year, $this->lang->line('blog_archive_title'), $this->lang->line('blog_blog_title'))		
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
@@ -80,67 +80,67 @@ class Blog extends Public_Controller
 			->build('archive', $this->data);
 	}
 	
-	// Public: View an article
+	// Public: View an post
 	function view($slug = '')
 	{	
-		if (!$slug or !$article = $this->blog_m->get_by('slug', $slug))
+		if (!$slug or !$post = $this->blog_m->get_by('slug', $slug))
 		{
 			redirect('blog');
 		}
 		
-		if($article->status != 'live' && !$this->ion_auth->is_admin())
+		if($post->status != 'live' && !$this->ion_auth->is_admin())
 		{
 			redirect('blog');
 		}
 		
-		// IF this article uses a category, grab it
-		if($article->category_id > 0)
+		// IF this post uses a category, grab it
+		if($post->category_id > 0)
 		{
-			$article->category = $this->blog_categories_m->get( $article->category_id );
+			$post->category = $this->blog_categories_m->get( $post->category_id );
 		}
 		
 		// Set some defaults
 		else
 		{
-			$article->category->id = 0;
-			$article->category->slug = '';
-			$article->category->title = '';
+			$post->category->id = 0;
+			$post->category->slug = '';
+			$post->category->title = '';
 		}
 		
 		$this->session->set_flashdata(array('referrer'=>$this->uri->uri_string));	
 		
-		$this->data->article =& $article;
+		$this->data->post =& $post;
 
-		$this->template->title($article->title, $this->lang->line('blog_blog_title'))
-			->set_metadata('description', $this->data->article->intro)
-			->set_metadata('keywords', $this->data->article->category->title.' '.$this->data->article->title)	
+		$this->template->title($post->title, $this->lang->line('blog_blog_title'))
+			->set_metadata('description', $this->data->post->intro)
+			->set_metadata('keywords', $this->data->post->category->title.' '.$this->data->post->title)	
 			->set_breadcrumb($this->lang->line('blog_blog_title'), 'blog');
 		
-		if($article->category_id > 0)
+		if($post->category_id > 0)
 		{
-			$this->template->set_breadcrumb($article->category->title, 'blog/category/'.$article->category->slug);
+			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
 		}
 		
-		$this->template->set_breadcrumb($article->title, 'blog/'.date('Y/m', $article->created_on).'/'.$article->slug);
+		$this->template->set_breadcrumb($post->title, 'blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
 		$this->template->build('view', $this->data);
 	}	
 	
 	// Private methods not used for display
-	private function _articles_metadata(&$articles = array())
+	private function _posts_metadata(&$posts = array())
 	{
 		$keywords = array();
 		$description = array();
 		
-		// Loop through articles and use titles for meta description
-		if ( ! empty($articles))
+		// Loop through posts and use titles for meta description
+		if(!empty($posts))
 		{
-			foreach($articles as &$article)
+			foreach($posts as &$post)
 			{
-				if($article->category_title)
+				if($post->category_title)
 				{
-					$keywords[$article->category_id] = $article->category_title .', '. $article->category_slug;
+					$keywords[$post->category_id] = $post->category_title .', '. $post->category_slug;
 				}
-				$description[] = $article->title; 
+				$description[] = $post->title; 
 			}
 		}
 		

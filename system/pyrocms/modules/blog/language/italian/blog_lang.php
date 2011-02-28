@@ -26,8 +26,8 @@ $lang['blog_intro_label'] 			= 'Introduzione';
 $lang['blog_no_category_select_label'] 		= '-- Nessuna --';
 $lang['blog_new_category_label'] 		= 'Aggiungi una categoria';
 $lang['blog_subscripe_to_rss_label'] 		= 'Abbonati all\' RSS';
-$lang['blog_all_articles_label'] 		= 'Tutti gli articoli';
-$lang['blog_articles_of_category_suffix'] 	= ' articoli';
+$lang['blog_all_posts_label'] 		= 'Tutti gli articoli';
+$lang['blog_posts_of_category_suffix'] 	= ' articoli';
 $lang['blog_rss_name_suffix'] 			= ' Notizie';
 $lang['blog_rss_category_suffix'] 		= ' Notizie';
 $lang['blog_author_name_label'] 		= 'Nome autore';
@@ -39,17 +39,17 @@ $lang['blog_created_minute']                = 'Time (Minute)'; #translate
 $lang['blog_create_title'] 			= 'Aggiungi un articolo';
 $lang['blog_edit_title'] 			= 'Modifica l\' articolo "%s"';
 $lang['blog_archive_title'] 			= 'Archivio';
-$lang['blog_articles_title'] 			= 'Articoli';
-$lang['blog_rss_articles_title'] 		= 'Notizie per %s';
+$lang['blog_posts_title'] 			= 'Articoli';
+$lang['blog_rss_posts_title'] 		= 'Notizie per %s';
 $lang['blog_blog_title'] 			= 'Notizie';
 $lang['blog_list_title'] 			= 'Elenco articoli';
 
 // messages
-$lang['blog_no_articles'] 			= 'Non ci sono articoli.';
+$lang['blog_no_posts'] 			= 'Non ci sono articoli.';
 $lang['blog_subscripe_to_rss_desc'] 		= 'Ricevi gli articoli subito abbonandoti al nostro feed RSS. Lo puoi fare con i comuni programmi di posta elettronica, altrimenti prova <a href="http://reader.google.co.uk/">Google Reader</a>.';
-$lang['blog_currently_no_articles'] 		= 'Non ci sono articoli al momento.';
-$lang['blog_article_add_success'] 		= 'L\' articolo "%s" è stato aggiunto.';
-$lang['blog_article_add_error'] 		= 'C\' è stato un errore.';
+$lang['blog_currently_no_posts'] 		= 'Non ci sono articoli al momento.';
+$lang['blog_post_add_success'] 		= 'L\' articolo "%s" è stato aggiunto.';
+$lang['blog_post_add_error'] 		= 'C\' è stato un errore.';
 $lang['blog_edit_success'] 			= 'L\' articolo "%s" è stato modificato.';
 $lang['blog_edit_error'] 			= 'C\' è stato un errore.';
 $lang['blog_publish_success'] 			= 'L\' articolo "%s" è stato pubblicato.';

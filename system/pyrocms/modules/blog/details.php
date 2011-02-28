@@ -2,7 +2,7 @@
 
 class Module_Blog extends Module {
 
-	public $version = '1.0';
+	public $version = '2.0';
 
 	public function info()
 	{
@@ -11,19 +11,19 @@ class Module_Blog extends Module {
 				'en' => 'Blog'
 			),
 			'description' => array(
-				'en' => 'Post blog articles and blog entries.',
-				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
-				'es' => 'Escribe entradas para los artículos y blogs (web log).',
-				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
-				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
-				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
-				'pt' => 'Escrever novos artigos e publicações de blog',
-				'zh' => '發表新聞訊息、部落格文章。',
-				'it' => 'Pubblica notizie e post per il blog.',
-				'ru' => 'Управление новостными статьями и записями блога.',
-				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.',
-				'cs' => 'Publikujte nové články a příspěvky na blog.',
-				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.'
+				'en' => 'Post blog entries.',
+				'nl' => 'Post nieuwsartikelen en blog op uw site.', #update translation
+				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
+				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
+				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
+				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu', #update translation
+				'pt' => 'Escrever publicações de blog',
+				'zh' => '發表新聞訊息、部落格文章。', #update translation
+				'it' => 'Pubblica notizie e post per il blog.', #update translation
+				'ru' => 'Управление новостными статьями и записями блога.', #update translation
+				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.', #update translation
+				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
+				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.' #update translation
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
@@ -46,7 +46,7 @@ class Module_Blog extends Module {
 			  UNIQUE KEY `slug - unique` (`slug`),
 			  UNIQUE KEY `title - unique` (`title`),
 			  KEY `slug - normal` (`slug`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog Categories';
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog Categories.';
 		";
 
 		$blog = "
@@ -64,7 +64,7 @@ class Module_Blog extends Module {
 			  PRIMARY KEY  (`id`),
 			  UNIQUE KEY `title` (`title`),
 			  KEY `category_id - normal` (`category_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog articles.';
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog posts.';
 		";
 		
 		if($this->db->query($blog_categories) && $this->db->query($blog))
@@ -93,12 +93,12 @@ class Module_Blog extends Module {
 		// Return a string containing help info
 		// You could include a file and return it here.
 		return "<h4>Overview</h4>
-				<p>The News module is a simple tool for publishing blog entries or blog articles.</p>
+				<p>The Blog module is a simple tool for publishing blog entries.</p>
 				<h4>Categories</h4>
 				<p>You may create as many categories as you like to organize your posts. If you would like your visitors to
-				be able to browse by category simply embed the News Categories widget on the front-end.</p>
-				<h4>Articles</h4>
-				<p>Choose a good title for your posts as they will be displayed on the main News page (along with the introduction)
+				be able to browse by category simply embed the Blog Categories widget on the front-end.</p>
+				<h4>Posts</h4>
+				<p>Choose a good title for your posts as they will be displayed on the main Blog page (along with the introduction)
 				and will also be used as the title in search engine results. After creating a post you may either save it as Live to publish it or
 				you may save it as a Draft if you want to come back and edit it later. You may also save it as Live but set the date
 				in the future and your post will not show until that date is reached.</p>";

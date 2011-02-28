@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'روابط سريعة';
 $lang['cp_welcome_title'] 				= 'أهلاً';
 $lang['cp_welcome_message'] 			= 'أهلاً بك في لوحة التحكم. باستخدام الروابط المتاحة يمكن التحكم تقريباً في كل جزء من موقعك. إن واجهتك أية مشاكل بالنظام، الرجاء سجل تقريراً بالمشكلة في نظام تتبع الأخطاء.';
 
-$lang['cp_blog_feed_title'] 			= 'التغذية الإخبارية';
+$lang['cp_news_feed_title'] 			= 'التغذية الإخبارية';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'إدارة التعليقات';

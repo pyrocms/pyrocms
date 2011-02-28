@@ -10,7 +10,7 @@
 class Widget_Archive extends Widgets
 {
 	public $title = 'Archive';
-	public $description = 'Display a list of old months with links to articles in those months.';
+	public $description = 'Display a list of old months with links to posts in those months.';
 	public $author = 'Phil Sturgeon';
 	public $website = 'http://philsturgeon.co.uk/';
 	public $version = '1.0';

@@ -96,7 +96,7 @@ $lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
 $lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
 
-$lang['settings_twitter_blog']					= 'Twitter &amp; News integration.';
+$lang['settings_twitter_blog']					= 'Twitter &amp; Blog integration.';
 $lang['settings_twitter_blog_desc']				= 'Would you like to post links to new blog articles on Twitter?';
 
 $lang['settings_twitter_feed_count']			= 'Feed Count';
