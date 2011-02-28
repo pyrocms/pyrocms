@@ -11,7 +11,7 @@
 
 // ------------------------------------------------------------------------
 
-function format_date($unix)
+function format_date($unix, $show_time = FALSE)
 {
 	if ($unix == '' || ! is_numeric($unix))
 	{
@@ -19,6 +19,11 @@ function format_date($unix)
 	}
 
 	$format = get_instance()->settings->date_format;
+
+	if ($show_time)
+	{
+		$format .= ' h:i';
+	}
 
 	return strstr($format, '%') !== FALSE
 		? strftime($format, $unix) //or? mb_convert_case(strftime($format, $unix), MB_CASE_TITLE, 'UTF-8')

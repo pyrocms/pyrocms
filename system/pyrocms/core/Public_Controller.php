@@ -61,10 +61,10 @@ class Public_Controller extends MY_Controller
 	    // Make sure whatever page the user loads it by, its telling search robots the correct formatted URL
 	    $this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
-	    // If there is a news module, link to its RSS feed in the head
-	    if(module_exists('news'))
+	    // If there is a blog module, link to its RSS feed in the head
+	    if(module_exists('blog'))
 	    {
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('news/rss/all.rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
 	    }
 
 		// Enable profiler on local box

@@ -67,7 +67,7 @@ $lang['settings_records_per_page']				= 'Records Per Page';
 $lang['settings_records_per_page_desc']			= 'How many records should we show per page in the admin section?';
 
 $lang['settings_rss_feed_items']				= 'Feed item count';
-$lang['settings_rss_feed_items_desc']			= 'How many items should we show in RSS/news feeds?';
+$lang['settings_rss_feed_items_desc']			= 'How many items should we show in RSS/blog feeds?';
 
 $lang['settings_require_lastname']				= 'Require last names?';
 $lang['settings_require_lastname_desc']			= 'For some situations, a last name may not be required. Do you want to force users to enter one or not?';
@@ -96,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
 $lang['settings_twitter_consumer_key_secret']	= 'Consumer Key Secret';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; News integration.';
-$lang['settings_twitter_news_desc']				= 'Would you like to post links to new news articles on Twitter?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; News integration.';
+$lang['settings_twitter_blog_desc']				= 'Would you like to post links to new blog articles on Twitter?';
 
 $lang['settings_twitter_feed_count']			= 'Feed Count';
 $lang['settings_twitter_feed_count_desc']		= 'How many tweets should be returned to the Twitter feed block?';

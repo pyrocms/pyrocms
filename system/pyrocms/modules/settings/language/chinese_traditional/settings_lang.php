@@ -67,7 +67,7 @@ $lang['settings_records_per_page'] 				= '每頁顯示的資料數';
 $lang['settings_records_per_page_desc'] 		= '在管理系統中，每頁所顯示的資料筆數。';
 
 $lang['settings_rss_feed_items'] 				= 'Feed 項目數量';
-$lang['settings_rss_feed_items_desc'] 			= '在 RSS/news feeds 中所顯示的項目數量';
+$lang['settings_rss_feed_items_desc'] 			= '在 RSS/blog feeds 中所顯示的項目數量';
 
 $lang['settings_require_lastname'] 				= '需要輸入姓氏？';
 $lang['settings_require_lastname_desc'] 		= '某些情況下，姓氏是不需要輸入的項目。您要強制用戶輸入這項資料嗎？';
@@ -96,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter 的消費者金鑰(Consu
 $lang['settings_twitter_consumer_key_secret'] 	= '消費者機密';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter 的消費者機密序號(Consumer Key Secret)。';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; 新聞 整合.';
-$lang['settings_twitter_news_desc'] 			= '您想要自動在 Twitter 上發佈最新文章的連結嗎？';
+$lang['settings_twitter_blog']					= 'Twitter &amp; 新聞 整合.';
+$lang['settings_twitter_blog_desc'] 			= '您想要自動在 Twitter 上發佈最新文章的連結嗎？';
 
 $lang['settings_twitter_feed_count'] 			= 'Feed 數量';
 $lang['settings_twitter_feed_count_desc'] 		= '請設定在 Twitter feed 區塊內顯示的 Tweets 訊息數量。';
