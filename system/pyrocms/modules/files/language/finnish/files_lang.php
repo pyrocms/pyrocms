@@ -23,7 +23,7 @@ $lang['files.folders.label']				= 'Kansiot';
 $lang['files.folder.label']					= 'Kansio';
 $lang['files.subfolders.label']				= 'Alakansio';
 $lang['files.folders.name']					= 'Nimi';
-$lang['files.folders.slug']					= 'URL lyhenne';
+$lang['files.folders.slug']					= 'Polkutunnus';
 $lang['files.folders.created']				= 'Luotu';
 $lang['files.folders.create']				= 'Uusi kansio';
 $lang['files.folders.success']				= 'Kansio tallennettiin.';
@@ -48,7 +48,7 @@ $lang['files.not_exists']			= 'Ei voitu valita tiedostoa (ei ole olemassa).';
 $lang['files.delete.error']			= 'Tiedostoa ei voitu poistaa.';
 $lang['files.delete.success']		= 'Tiedosto poistettiin.';
 $lang['files.filter']				= 'Suodata';
-$lang['files.loading']						= 'Loading...'; #translate
+$lang['files.loading']				= 'Ladataan...';
 
 // Types
 $lang['files.i'] = 'Kuva';
