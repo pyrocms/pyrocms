@@ -22,7 +22,7 @@ function format_date($unix, $show_time = FALSE)
 
 	if ($show_time)
 	{
-		$format .= ' h:i';
+		$format .= strstr($format, '%') !== FALSE ? ' %H:%I' : ' h:i';
 	}
 
 	return strstr($format, '%') !== FALSE
