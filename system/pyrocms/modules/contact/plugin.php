@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Asset Plugin
+ * Contact Plugin
  *
- * Load asset data
+ * Build and send contact forms
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
@@ -55,13 +55,13 @@ class Plugin_Contact extends Plugin
 	}
 	
 	/**
-	 * Asset CSS
+	 * Form
 	 *
-	 * Insert a CSS tag
+	 * Insert a form template
 	 *
 	 * Usage:
 	 *
-	 * {pyro:asset:css file="" module=""}
+	 * {pyro:contact:form subjects=""}
 	 *
 	 * @param	array
 	 * @return	array
@@ -70,7 +70,8 @@ class Plugin_Contact extends Plugin
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-		
+
+		// Set the message subject		
 		if ($this->attribute('subjects') && $subjects = explode('|', $this->attribute('subjects')))
 		{
 			$subjects = array_combine($subjects, $subjects);
@@ -80,10 +81,6 @@ class Plugin_Contact extends Plugin
 		{
 			$subjects = $this->default_subjects;
 		}
-
-//		$attributes = $this->attributes();
-//		unset($attributes['file']);
-//		unset($attributes['module']);
 
 		$this->form_validation->set_rules($this->rules);
 
