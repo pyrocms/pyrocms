@@ -56,7 +56,7 @@ $lang['settings_mail_smtp_host_desc']				= 'Имя хоста вашего SMTP-
 $lang['settings_mail_smtp_pass']					= 'Пароль SMTP';
 $lang['settings_mail_smtp_pass_desc']				= 'Пароль SMTP.';
 
-$lang['settings_mail_smtp_port']					= 'Порт SMPT';
+$lang['settings_mail_smtp_port']					= 'Порт SMTP';
 $lang['settings_mail_smtp_port_desc']				= 'Номер порта SMTP.';
 
 $lang['settings_mail_smtp_user']					= 'Имя пользователя SMTP';

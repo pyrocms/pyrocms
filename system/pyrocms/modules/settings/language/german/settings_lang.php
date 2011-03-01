@@ -48,7 +48,7 @@ $lang['settings_mail_smtp_host_desc']			= 'The host name of your smtp server.'; 
 $lang['settings_mail_smtp_pass']				= 'SMTP password'; #translate
 $lang['settings_mail_smtp_pass_desc']			= 'SMTP password.'; #translate
 
-$lang['settings_mail_smtp_port']				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port']				= 'SMTP Port'; #translate
 $lang['settings_mail_smtp_port_desc']			= 'SMTP port number.'; #translate
 
 $lang['settings_mail_smtp_user']				= 'SMTP User Name'; #translate
