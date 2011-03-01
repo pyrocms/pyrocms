@@ -30,11 +30,11 @@ class Widget_Twitter_feed extends Widgets
 
 	public function run($options)
 	{
-		if ( ! $tweets = $this->cache->get('twitter-'.$options['username']))
+		if ( ! $tweets = $this->cache->get('twitter-' . $options['username']))
 		{
-			$tweets = json_decode(@file_get_contents('http://twitter.com/statuses/user_timeline/'.$options['username'].'.json'));
+			$tweets = json_decode(@file_get_contents('http://twitter.com/statuses/user_timeline/' . $options['username'] . '.json'));
 
-			$this->cache->write($tweets, 'twitter-'.$options['username'], $this->settings->twitter_cache);
+			$this->cache->write($tweets, 'twitter-' . $options['username'], $this->settings->twitter_cache);
 		}
 
 		// If no number provided, just get 5
@@ -58,13 +58,15 @@ class Widget_Twitter_feed extends Widgets
 
 		foreach($tweets as &$tweet)
 		{
-			$tweet->text = str_replace($options['username'].': ', '', $tweet->text);
-			$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			$tweet->id		= sprintf('%.0f', $tweet->id);
+			$tweet->text	= str_replace($options['username'].': ', '', $tweet->text);
+			$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
 		}
 
 		// Store the feed items
 		return array(
-			'tweets' => $tweets
+			'username'	=> $options['username'],
+			'tweets'	=> $tweets
 		);
 	}
 	
