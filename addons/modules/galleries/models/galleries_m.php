@@ -35,6 +35,8 @@ class Galleries_m extends MY_Model {
 				->where('g.id', $gallery->id)
 				->count_all_results('files f');
 
+			$gallery->folder = $this->file_folders_m->get($gallery->folder_id);
+
 			$gallery->photo_count = $count;
 			$results[] = $gallery;
 		}
