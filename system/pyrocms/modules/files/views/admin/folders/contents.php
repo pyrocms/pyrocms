@@ -1,7 +1,7 @@
 <?php echo form_open('admin/files/action');?>
 	<h3>
 		<?php echo $crumbs; ?>
-		<span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span>
+		<span><?php echo anchor('admin/files/#upload', lang('files.upload.title'), 'class="dd-upload"'); ?></span>
 	</h3>
 
 	<div id="files_toolbar">
