@@ -59,6 +59,25 @@ class Widget_m extends MY_Model
 		));
 	}
 	
+	public function update_widget($input)
+	{
+		if ( ! isset($input['slug']))
+		{
+			return FALSE;
+		}
+
+		return $this->db
+			->where('slug', $input['slug'])
+			->update('widgets', array(
+				'title' 		=> $input['title'],
+				'slug' 			=> $input['slug'],
+				'description' 	=> $input['description'],
+				'author' 		=> $input['author'],
+				'website' 		=> $input['website'],
+				'version' 		=> $input['version']
+			));
+	}
+	
 	public function insert_area($input)
 	{
 		return $this->db->insert('widget_areas', array(
