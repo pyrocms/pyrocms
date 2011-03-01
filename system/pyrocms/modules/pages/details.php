@@ -103,15 +103,15 @@ class Module_Pages extends Module {
 		";
 
 		$default_page_layouts = "
-			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', ".time().");
+			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
+			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', '', ".time().");
 		";
 
 		$default_pages = "
-			INSERT INTO `pages` (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`) VALUES
-			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time()."),
-			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time()."),
-			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().");
+			INSERT INTO `pages` (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`) VALUES
+			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", ''),
+			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", ''),
+			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '');
 		";
 
 		$default_revisions = "

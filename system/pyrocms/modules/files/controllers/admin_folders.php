@@ -299,4 +299,19 @@ class Admin_folders extends Admin_Controller {
 			->title($this->module['name'], lang('files.folders.delete_title'))
 			->build('admin/folders/confirm', $this->data);
 	}
+	
+	public function action()
+	{
+		$ids = $this->input->post('action_to');
+		
+		if(is_array($ids))
+		{
+			foreach($ids as $folder_id)
+			{
+				$this->file_m->delete_files($folder_id);
+				$this->file_folders_m->delete($folder_id);
+			}
+		}
+		redirect('admin/files#folders');
+	}
 }
