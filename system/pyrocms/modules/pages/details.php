@@ -81,6 +81,7 @@ class Module_Pages extends Module {
 			 `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft',
 			 `created_on` INT(11) NOT NULL default '0',
 			 `updated_on` INT(11) NOT NULL default '0',
+			 `restricted_to` VARCHAR(255) collate utf8_unicode_ci DEFAULT NULL,
 			 PRIMARY KEY  (`id`),
 			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
