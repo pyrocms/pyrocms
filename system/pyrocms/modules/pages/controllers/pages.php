@@ -94,7 +94,19 @@ class Pages extends Public_Controller
         {
         	$this->output->set_status_header(404);
         }
-        
+
+		// Nope, it's a page but do they have access?
+		elseif ($page->restricted_to)
+		{
+			$page->restricted_to = (array) explode(',', $page->restricted_to);
+
+			// Are they logged in and an admin or a member of the correct group?
+			if ( ! $this->user OR (isset($this->user->group) AND $this->user->group != 'admin' AND ! in_array($this->user->group_id, $page->restricted_to)))
+			{
+				redirect('users/login/' . implode('/', $url_segments));
+			}
+		}
+		
     	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if ($page->meta_title == '')
         {
@@ -104,7 +116,7 @@ class Pages extends Public_Controller
         // If this page has an RSS feed, show it
     	if ($page->rss_enabled)
 	    {
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url($this->uri->uri_string(). '.rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string(). '.rss').'" />');
 	    }
         
     	// Wrap the page with a page layout, otherwise use the default 'Home' layout
@@ -163,7 +175,7 @@ class Pages extends Public_Controller
     	$page = $this->cache->model('pages_m', 'get_by_uri', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
-		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR !$page->rss_enabled)
+		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR ! $page->rss_enabled)
         {
         	// Will try the page then try 404 eventually
         	$this->_page('404');

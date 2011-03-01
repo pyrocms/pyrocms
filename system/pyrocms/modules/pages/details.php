@@ -55,8 +55,8 @@ class Module_Pages extends Module {
 			`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 			`title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 			`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			`js` TEXT COLLATE utf8_unicode_ci NOT NULL,
+			`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
 			`updated_on` INT( 11 ) NOT NULL
 			) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
@@ -81,6 +81,7 @@ class Module_Pages extends Module {
 			 `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft',
 			 `created_on` INT(11) NOT NULL default '0',
 			 `updated_on` INT(11) NOT NULL default '0',
+			 `restricted_to` VARCHAR(255) collate utf8_unicode_ci DEFAULT NULL,
 			 PRIMARY KEY  (`id`),
 			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),

@@ -32,7 +32,6 @@
 					['Undo','Redo','-','Find','Replace'],
 					['Link','Unlink'],
 					['Table','HorizontalRule','SpecialChar'],
-					'/',
 					['Bold','Italic','StrikeThrough'],
 					['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 					['Format', 'FontSize', 'Subscript','Superscript', 'NumberedList','BulletedList','Outdent','Indent','Blockquote'],

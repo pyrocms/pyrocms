@@ -21,9 +21,29 @@ class Migration_Mergelookupstopages extends Migration {
 		}
 
 		// Build any lookups that are still missing
-		foreach ($this->db->where('uri', '')->get('pages')->result() as $page)
+		foreach ($this->db->where('uri', NULL)->get('pages')->result() as $item)
 		{
-			$this->pages_m->build_lookup($page->id);
+			$current_id = $item->id;
+	
+			$segments = array();
+			do
+			{
+				$page = $this->db
+					->select('slug, parent_id')
+					->where('id', $current_id)
+					->get('pages')
+					->row();
+	
+				$current_id = $page->parent_id;
+				array_unshift($segments, $page->slug);
+			}
+			while( $page->parent_id > 0 );
+	
+			// If the URI has been passed as a string, explode to create an array of segments
+			$this->db
+				->where('id', $item->id)
+				->set('uri', implode('/', $segments))
+				->update('pages');
 		}
 
 		$this->dbforge->drop_table('pages_lookup');
