@@ -53,7 +53,7 @@ $lang['files.not_exists']			= 'تم اختيار مجلد غير صالح.';
 $lang['files.delete.error']			= 'تعذر حذف الملف.';
 $lang['files.delete.success']			= 'تم حذف الملف';
 $lang['files.filter']						= 'انتقاء';
-$lang['files.loading']						= 'Loading...'; #translate
+$lang['files.loading']						= 'جاري التحميل...';
 
 // Types
 $lang['files.i'] = 'صورة';

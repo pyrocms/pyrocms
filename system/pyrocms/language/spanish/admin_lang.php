@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']		= 'Enlaces Rápidos';
 $lang['cp_welcome_title']		= 'Bienvenido';
 $lang['cp_welcome_message']		= 'Bienvenido al Panel de Control de %s. Al usar el menú superior podrás controlar casi todos los aspectos de tu sitio web. Si encuentras algún problema con el sistema, por favor envía tu problema utilizando el "bugtracker" o seguidor de problemas.';
 
-$lang['cp_blog_feed_title']		= 'Feed de Noticias';
+$lang['cp_news_feed_title']		= 'Feed de Noticias';
 
 // Shortcuts
 $lang['cp_manage_comments']		= 'Administrar Comentarios';
