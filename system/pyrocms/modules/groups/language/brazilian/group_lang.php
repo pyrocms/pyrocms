@@ -3,7 +3,7 @@
 // labels
 $lang['groups.title']					= 'Arquivos';
 $lang['groups.name']				    = 'Nome';
-$lang['groups.short_name']				= 'Short Name'; #translate
+$lang['groups.short_name']				= 'Nome curto';
 $lang['groups.description'] 		    = 'Descrição';
 $lang['groups.actions']					= 'Ações';
 $lang['groups.edit']					= 'Editar';
@@ -11,7 +11,7 @@ $lang['groups.delete']					= 'Remover';
 
 // titles
 $lang['groups.index_title'] 			= 'Listar grupos';
-$lang['groups.add_title']				= 'Adicionar grupos';
+$lang['groups.add_title']				= 'Adicionar grupo';
 $lang['groups.edit_title'] 				= 'Editando o grupo "%s"';
 
 // messages
