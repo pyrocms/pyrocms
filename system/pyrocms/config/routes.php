@@ -47,3 +47,6 @@ $route['user/(:any)']	= 'users/profile/view/$1';
 $route['my-profile']	= 'users/profile/index';
 $route['edit-profile']	= 'users/profile/edit';
 $route['edit-settings']	= 'users/user_settings/edit';
+
+// Just for now, map calls to /news to /blog
+$route['news']	= 'blog';
