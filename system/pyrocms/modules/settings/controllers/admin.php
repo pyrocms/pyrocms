@@ -72,8 +72,12 @@ class Admin extends Admin_Controller
 		// Create dynamic validation rules
 		foreach($all_settings as $setting)
 		{
-			$this->validation_rules			.= array('field' => $setting->slug, 'label' => $setting->slug, 'rules' => 'trim' . ($setting->is_required ? '|required' : ''));
-			$settings_array[$setting->slug]	 = $setting->value;
+			$this->validation_rules[] = array(
+				'field' => $setting->slug,
+				'label' => 'lang:settings_' . $setting->slug,
+				'rules' => 'trim' . ($setting->is_required ? '|required' : '') . '|max_length[255]'
+			);
+			$settings_array[$setting->slug] = $setting->value;
 		}
 
 		// Set the validation rules
@@ -95,9 +99,9 @@ class Admin extends Admin_Controller
 			// Success...
 			$this->session->set_flashdata('success', $this->lang->line('settings_save_success'));
 		}
-		else
+		elseif (validation_errors())
 		{
-			$this->session->set_flashdata('error', $this->form_validation->error_string);
+			$this->session->set_flashdata('error', validation_errors());
 		}
 
 		// Redirect user back to index page or the module/section settings they are editing
