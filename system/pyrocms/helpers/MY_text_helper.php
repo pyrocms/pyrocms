@@ -102,4 +102,9 @@ function convert_accented_characters($string, $replacement = '-')
   $map = $foreign_characters + $merge;
   return preg_replace(array_keys($map), array_values($map), $string);
 }
-?>
+
+
+function escape_tags($string)
+{
+	return str_replace(array('{', '}'), array('&#123;', '&#125;'), $string);
+}
