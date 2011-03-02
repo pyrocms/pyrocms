@@ -11,7 +11,7 @@
 			<?php if ($gallery_images): ?>
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
-				<a href="<?php echo site_url('galleries/' . $gallery->slug . '/' . $image->id); ?>" class="gallery-image" rel="<?php echo base_url() . 'files/' . $image->file_id; ?>">
+				<a href="<?php echo site_url('galleries/' . $gallery->slug . '/' . $image->id); ?>" class="gallery-image" rel="<?php echo base_url().'uploads/files/' . $image->filename; ?>">
 					<?php echo img(array('src' => base_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name)); ?>
 				</a>
 			</li>
