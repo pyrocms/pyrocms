@@ -30,7 +30,6 @@ class Galleries_m extends MY_Model {
 			$count = $this->db
 				->select('f.id')
 				->join('galleries g', 'g.folder_id = f.folder_id', 'left')
-				->join('gallery_images gi', 'gi.file_id = f.id', 'left')
 				->where('f.type', 'i')
 				->where('g.id', $gallery->id)
 				->count_all_results('files f');
