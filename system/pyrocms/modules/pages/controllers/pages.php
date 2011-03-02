@@ -229,11 +229,7 @@ class Pages extends Public_Controller
     	// Try and get an error page. If its been deleted, show nasty 404
         if ( ! $page = $this->cache->model('pages_m', 'get_by_uri', array('404')) )
         {
-			log_message('error', '404 Page Not Found --> '.implode('/', $url_segments));
-			
-			$EXP = new CI_Exceptions;
-			echo $EXP->show_error('', '', 'error_404', 404);
-			exit;
+			show_404();
         }
         
         return $page;
