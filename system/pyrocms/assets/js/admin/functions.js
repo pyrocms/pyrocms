@@ -47,9 +47,13 @@ jQuery(function($) {
 		// Fade in the notifications
 		$(".notification").fadeIn("slow");
 
-		// Check all checkboxes in table
+		// Check all checkboxes in container table or grid
 		$(".check-all").live('click', function () {
-			$(this).parents("table").find("tbody input[type='checkbox']").each(function () {
+			var all_checkbox = $(this).is('.grid-check-all')
+				? $(this).parents(".list-items").find(".grid input[type='checkbox']")
+				: $(this).parents("table").find("tbody input[type='checkbox']");
+
+			all_checkbox.each(function () {
 				if($(".check-all").is(":checked") && !$(this).is(':checked'))
 				{
 					$(this).click();
