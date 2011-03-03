@@ -61,4 +61,8 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Dokument';
 $lang['files.o'] = 'Ostatní';
 
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';#translate
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
+
 /* End of file file_lang.php */
