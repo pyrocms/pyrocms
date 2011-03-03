@@ -18,7 +18,7 @@ class Module_Comments extends Module {
 				'zh' => '回應',
 				'it' => 'Commenti',
 				'ru' => 'Комментарии',
-				'ar' => 'العربيّة',
+				'ar' => 'التعليقات',
 				'cs' => 'Komentáře',
 				'fi' => 'Kommentit'
 			),
