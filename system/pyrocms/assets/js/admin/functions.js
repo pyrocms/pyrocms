@@ -49,16 +49,17 @@ jQuery(function($) {
 
 		// Check all checkboxes in container table or grid
 		$(".check-all").live('click', function () {
-			var all_checkbox = $(this).is('.grid-check-all')
-				? $(this).parents(".list-items").find(".grid input[type='checkbox']")
-				: $(this).parents("table").find("tbody input[type='checkbox']");
+			var check_all		= $(this),
+				all_checkbox	= $(this).is('.grid-check-all')
+					? $(this).parents(".list-items").find(".grid input[type='checkbox']")
+					: $(this).parents("table").find("tbody input[type='checkbox']");
 
 			all_checkbox.each(function () {
-				if($(".check-all").is(":checked") && !$(this).is(':checked'))
+				if (check_all.is(":checked") && ! $(this).is(':checked'))
 				{
 					$(this).click();
 				}
-				else if(!$(".check-all").is(":checked") && $(this).is(':checked'))
+				else if ( ! check_all.is(":checked") && $(this).is(':checked'))
 				{
 					$(this).click();
 				}
