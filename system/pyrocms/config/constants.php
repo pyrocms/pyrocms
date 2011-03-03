@@ -99,10 +99,12 @@ if (isset($_SERVER['HTTP_HOST']))
 
 else
 {
+	$base_url = 'http://localhost/';
 	$base_uri = '/';
 }
 
 // Define these values to be used later on
+define('BASE_URL', $base_url);
 define('BASE_URI', $base_uri);
 define('APPPATH_URI', BASE_URI.APPPATH);
 
