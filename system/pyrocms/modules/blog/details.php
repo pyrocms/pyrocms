@@ -8,7 +8,8 @@ class Module_Blog extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Blog'
+				'en' => 'Blog',
+				'ar' => 'المُدوّنة'
 			),
 			'description' => array(
 				'en' => 'Post blog articles and blog entries.',
