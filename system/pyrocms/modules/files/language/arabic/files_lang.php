@@ -63,5 +63,7 @@ $lang['files.d'] = 'مستند';
 $lang['files.o'] = 'آخر';
 
 $lang['files.no_permissions'] = 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file files_lang.php */

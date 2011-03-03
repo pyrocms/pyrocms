@@ -73,6 +73,11 @@
                 form_data = filter_form.serialize();
         
                 do_filter(f_module, form_data);
-        });        
+        });
+        
+        //prevent default form submission
+        filter_form.submit(function(e) {
+            e.preventDefault(); 
+        });
     });
 })(jQuery);

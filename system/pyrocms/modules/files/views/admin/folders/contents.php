@@ -1,8 +1,10 @@
 <?php echo form_open('admin/files/action');?>
 	<h3>
 		<?php echo $crumbs; ?>
-		<span><?php echo anchor('admin/files/#upload', lang('files.upload.title'), 'class="dd-upload"'); ?></span>
-	</h3>
+		<span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span>
+        <a href="#" title="grid" class="toggle-view"><?php echo lang('files.grid'); ?></a>
+        <a href="#" title="list" class="toggle-view active-view"><?php echo lang('files.list'); ?></a>
+    </h3>
 
 	<div id="files_toolbar">
 		<ul>
@@ -28,9 +30,30 @@
 		</ul>
 	</div>
 	<?php if ( ! empty($files)): ?>
-
-		<?php
-			$tmpl = array ( 'table_open'  => '<table border="0" class="table-list">' );
+    <div id="grid">
+        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'grid-check-all')); ?>
+        <ul>
+        <?php foreach($files as $file): ?>
+            <li>
+                <div class="actions">
+                <?php echo form_checkbox('action_to[]', $file->id); ?>
+                <?php echo anchor('files/download/' . $file->id, lang('files.labels.download'), array('class' => 'download_file')); ?>
+                <?php echo anchor('admin/files/edit/' . $file->id, lang('files.labels.edit'), array('class' => 'edit_file')); ?>
+                <?php echo anchor('admin/files/delete/' . $file->id, lang('files.labels.delete'), array('class'=>'confirm')); ?>
+                </div>
+            <?php if($file->type == 'i'): ?>
+            <a title="<?php echo $file->name; ?>" href="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" rel="colorbox">
+                <img title="<?php echo $file->name; ?>" height="64" src="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" />
+            </a>
+            <?php else: ?>
+                <?php echo image($file->type . '.png', 'files'); ?>
+            <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+        <?php
+			$tmpl = array ( 'table_open'  => '<table border="0" class="table-list" id="list">' );
 			$this->table->set_template($tmpl);
 			$this->table->set_heading(
 				form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')),
@@ -58,6 +81,9 @@
 
 			echo $this->table->generate();
 		?>
+
+        <br class="clear-both" />
+        
 		<div class="buttons buttons-small align-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
 		</div>
@@ -94,6 +120,47 @@
 			width:"600", height:"450", iframe:true,
 			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
+        
+        $('a[rel="colorbox"]').colorbox({
+            maxWidth: "80%",
+            maxHeight: "80%"
+        });
+        
+        $('.grid-check-all').click(function() {
+            $('#grid-view').find("input[type='checkbox']").each(function () {
+				if($(".grid-check-all").is(":checked") && !$(this).is(':checked'))
+				{
+					$(this).click();
+				}
+				else if(!$(".grid-check-all").is(":checked") && $(this).is(':checked'))
+				{
+					$(this).click();
+				}
+			}); 
+        });
+        
+        $('#grid').hide();
+        
+        $('a.toggle-view').click(function(e) {
+            e.preventDefault();
+            view = $(this).attr('title');
+            $('a.active-view').removeClass('active-view');
+            $(this).addClass('active-view');
+            
+            if(view == 'grid')
+            {
+                hide_view = 'list';
+            }
+            else
+            {
+                hide_view = 'grid';
+            }
+            
+            $('#'+hide_view).fadeOut(1000, function() {
+                $('#'+view).fadeIn(700);   
+            });            
+        });
+        
 	});
 })(jQuery);
 </script>

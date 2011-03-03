@@ -64,6 +64,8 @@ $lang['files.d'] = 'Documento';
 $lang['files.o'] = 'Outro';
 
 $lang['files.no_permissions'] = 'Você não tem permissões suficientes para ver o módulo Arquivos.';
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file files_lang.php */
 /* Location: ./system/pyrocms/modules/files/language/brazilian/files_lang.php */
