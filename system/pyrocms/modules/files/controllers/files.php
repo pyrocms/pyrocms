@@ -29,7 +29,7 @@ class Files extends Public_Controller
 
 		if ( ! is_dir(APPPATH . 'cache/image_files/'))
 		{
-			mkdir('cache/image_files/');
+			mkdir(APPPATH . 'cache/image_files/');
 		}
 		
 		// Path to image thumbnail
