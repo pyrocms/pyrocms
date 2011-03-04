@@ -127,7 +127,7 @@
         });
         
         $('.grid-check-all').click(function() {
-            $('#grid-view').find("input[type='checkbox']").each(function () {
+            $('#grid').find("input[type='checkbox']").each(function () {
 				if($(".grid-check-all").is(":checked") && !$(this).is(':checked'))
 				{
 					$(this).click();
