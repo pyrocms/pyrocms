@@ -23,17 +23,17 @@
 			</tr>
 		</tfoot>
 		<tbody>
-			<?php foreach ($blog as $article): ?>
+			<?php foreach ($blog as $post): ?>
 				<tr>
-					<td><?php echo form_checkbox('action_to[]', $article->id);?></td>
-					<td><?php echo $article->title;?></td>
-					<td><?php echo $article->category_title;?></td>
-					<td><?php echo format_date($article->created_on);?></td>
-					<td><?php echo lang('blog_'.$article->status.'_label');?></td>
+					<td><?php echo form_checkbox('action_to[]', $post->id);?></td>
+					<td><?php echo $post->title;?></td>
+					<td><?php echo $post->category_title;?></td>
+					<td><?php echo format_date($post->created_on);?></td>
+					<td><?php echo lang('blog_'.$post->status.'_label');?></td>
 					<td>
-						<?php echo anchor('admin/blog/preview/' . $article->id, lang($article->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
-						<?php echo anchor('admin/blog/edit/' . $article->id, lang('blog_edit_label'));?> |
-						<?php echo anchor('admin/blog/delete/' . $article->id, lang('blog_delete_label'), array('class'=>'confirm')); ?>
+						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
+						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'));?> |
+						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -45,7 +45,7 @@
 	</div>
 
 <?php else: ?>
-	<p><?php echo lang('blog_no_articles');?></p>
+	<p><?php echo lang('blog_no_posts');?></p>
 <?php endif; ?>
 
 <?php echo form_close();?>

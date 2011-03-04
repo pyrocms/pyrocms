@@ -59,7 +59,7 @@ class Blog_m extends MY_Model {
 			$this->db->where('status', 'live');
 		}
 
-		// By default, dont show future articles
+		// By default, dont show future posts
 		if (!isset($params['show_future']) || (isset($params['show_future']) && $params['show_future'] == FALSE))
 		{
 			$this->db->where('created_on <=', now());
@@ -139,11 +139,11 @@ class Blog_m extends MY_Model {
 								AND YEAR(FROM_UNIXTIME(t1.created_on)) = YEAR(FROM_UNIXTIME(t2.created_on))
 								AND status = "live"
 								AND created_on <= ' . now() . '
-						   ) as article_count');
+						   ) as post_count');
 
 		$this->db->where('status', 'live');
 		$this->db->where('created_on <=', now());
-		$this->db->having('article_count >', 0);
+		$this->db->having('post_count >', 0);
 		$this->db->order_by('t1.created_on DESC');
 		$query = $this->db->get('blog t1');
 
@@ -165,9 +165,9 @@ class Blog_m extends MY_Model {
 		if ($query->num_rows() > 0)
 		{
 			$this->load->helper('text');
-			foreach ($query->result() as $blogs)
+			foreach ($query->result() as $blog)
 			{
-				$string .= '<p>' . anchor('blog/' . date('Y/m') . '/' . $blogs->slug, $blogs->title) . '<br />' . strip_tags($blogs->intro) . '</p>';
+				$string .= '<p>' . anchor('blog/' . date('Y/m') . '/' . $blog->slug, $blog->title) . '<br />' . strip_tags($blog->intro) . '</p>';
 			}
 		}
 		return $string;
@@ -190,7 +190,7 @@ class Blog_m extends MY_Model {
 	}
 
 	/**
-	 * Searches blog articles based on supplied data array
+	 * Searches blog posts based on supplied data array
 	 * @param $data array
 	 * @return array
 	 */

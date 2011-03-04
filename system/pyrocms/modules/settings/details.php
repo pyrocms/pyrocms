@@ -91,7 +91,7 @@ class Module_Settings extends Module {
 			 ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter'),
 			 ('twitter_consumer_key','Consumer Key','Twitter consumer key.','text','','','','0','1','twitter'),
 			 ('twitter_consumer_key_secret','Consumer Key Secret','Twitter consumer key secret.','text','','','','0','1','twitter'),
-			 ('twitter_blog','Twitter &amp; News integration.','Would you like to post links to new blog articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter'),
+			 ('twitter_blog','Twitter &amp; Blog integration.','Would you like to post links to new blog articles on Twitter?','radio','0','','1=Enabled|0=Disabled','0','1','twitter'),
 			 ('twitter_feed_count','Feed Count','How many tweets should be returned to the Twitter feed block?','text','5','','','0','1','twitter'),
 			 ('twitter_cache', 'Cache time', 'How many minutes should your Tweets be stored?','text','300','','','0','1','twitter'),
 			 ('akismet_api_key', 'Akismet API Key', 'Akismet is a spam-blocker from the WordPress team. It keeps spam under control without forcing users to get past human-checking CAPTCHA forms.', 'text', '', '', '', 0, '1', 'integration'),

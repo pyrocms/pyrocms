@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count']			= 'Ilość blogów RSS';
 $lang['settings_dashboard_rss_count_desc']		= 'Ile wpisów z kanału RSS ma być wyświetlane w zakładce Tablica informacyjna?';
 
 $lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled']				= 'Status strony';
 $lang['settings_frontend_enabled_desc'] 		= 'Opcja ta pozwala na włączanie i wyłączanie strony dla zwykłych użytkowników i gości. Przydatna opcja m.in. podczas prowadzenia prac konserwacyjnych lub wprowadzenia usprawnień na stronie.';

@@ -24,8 +24,8 @@ $lang['blog_intro_label'] 				= '簡介';
 $lang['blog_no_category_select_label'] 	= '-- 無 --';
 $lang['blog_new_category_label'] 		= '新增分類';
 $lang['blog_subscripe_to_rss_label'] 	= '訂閱 RSS';
-$lang['blog_all_articles_label'] 		= '所有文章';
-$lang['blog_articles_of_category_suffix'] 		= ' 文章';
+$lang['blog_all_posts_label'] 		= '所有文章';
+$lang['blog_posts_of_category_suffix'] 		= ' 文章';
 $lang['blog_rss_name_suffix'] 					= ' 新聞';
 $lang['blog_rss_category_suffix'] 				= ' 新聞';
 $lang['blog_author_name_label'] 				= '作者名稱';
@@ -37,17 +37,17 @@ $lang['blog_created_minute']                = 'Time (Minute)'; #translate
 $lang['blog_create_title'] 				= '新增文章';
 $lang['blog_edit_title'] 				= '編輯文章 "%s"';
 $lang['blog_archive_title'] 			= '檔案櫃';
-$lang['blog_articles_title'] 			= '文章';
-$lang['blog_rss_articles_title'] 		= '%s 的最新文章';
+$lang['blog_posts_title'] 			= '文章';
+$lang['blog_rss_posts_title'] 		= '%s 的最新文章';
 $lang['blog_blog_title'] 				= '新聞';
 $lang['blog_list_title'] 				= '文章列表';
 
 // messages
-$lang['blog_no_articles'] 				= '沒有文章';
+$lang['blog_no_posts'] 				= '沒有文章';
 $lang['blog_subscripe_to_rss_desc'] 	= '訂閱我們的 RSS 摘要可立即獲得最新的文章，您可以使用慣用的收件軟體，或試試看 <a href="http://reader.google.com.tw">Google 閱讀器</a>。';
-$lang['blog_currently_no_articles'] 	= '目前沒有文章';
-$lang['blog_article_add_success'] 		= '文章 "%s" 已經新增';
-$lang['blog_article_add_error'] 		= '發生了錯誤';
+$lang['blog_currently_no_posts'] 	= '目前沒有文章';
+$lang['blog_post_add_success'] 		= '文章 "%s" 已經新增';
+$lang['blog_post_add_error'] 		= '發生了錯誤';
 $lang['blog_edit_success'] 				= '這文章 "%s" 更新了。';
 $lang['blog_edit_error'] 				= '發生了錯誤';
 $lang['blog_publish_success'] 			= '此文章 "%s" 已經被發佈。';

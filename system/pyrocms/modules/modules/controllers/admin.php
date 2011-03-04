@@ -87,7 +87,7 @@ class Admin extends Admin_Controller
 						}
 						else
 						{
-
+							$this->session->set_flashdata('success', sprintf(lang('modules.install_error'), $upload_data['raw_name']));
 						}
 					}
 					else
@@ -144,6 +144,7 @@ class Admin extends Admin_Controller
 
 			redirect('admin/modules');
 		}
+
 		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $slug));
 		redirect('admin/modules');
 	}

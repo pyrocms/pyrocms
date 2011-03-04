@@ -68,10 +68,10 @@
 	<!-- News Feed -->
 	<section class="box unit size2of3 lastUnit">
 		<header>
-			<h3><?php echo lang('cp_blog_feed_title'); ?></h3>
+			<h3><?php echo lang('cp_news_feed_title'); ?></h3>
 		</header>
 			
-			<ul id="blog-feed">
+			<ul id="news-feed">
 				<?php foreach($rss_items as $rss_item): ?>
 				<li>
 					<h3><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h3>

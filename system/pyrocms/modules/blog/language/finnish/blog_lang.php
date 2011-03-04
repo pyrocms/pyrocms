@@ -31,8 +31,8 @@ $lang['blog_intro_label']                    = 'Alkuteksti';
 $lang['blog_no_category_select_label']       = '-- Ei mikään --';
 $lang['blog_new_category_label']             = 'Luo kategoria';
 $lang['blog_subscripe_to_rss_label']         = 'Tilaa RSS';
-$lang['blog_all_articles_label']             = 'Kaikki artikkelit';
-$lang['blog_articles_of_category_suffix']    = ' artikkelia'; // @todo Where this is used?
+$lang['blog_all_posts_label']             = 'Kaikki artikkelit';
+$lang['blog_posts_of_category_suffix']    = ' artikkelia'; // @todo Where this is used?
 $lang['blog_rss_name_suffix']                = ' Uutiset'; // @todo Where this is used?
 $lang['blog_rss_category_suffix']            = ' Uutiset'; // @todo Where this is used?
 $lang['blog_author_name_label']              = 'Tekijän nimi';
@@ -44,17 +44,17 @@ $lang['blog_created_minute']                 = 'Luotiin minuutissa'; // @todo Wh
 $lang['blog_create_title']                   = 'Luo artikkeli';
 $lang['blog_edit_title']                     = 'Muokkaa artikkelia "%s"';
 $lang['blog_archive_title']                  = 'Arkisto';
-$lang['blog_articles_title']                 = 'Artikkelit';
-$lang['blog_rss_articles_title']             = 'Uutisartikkeleita %s';
+$lang['blog_posts_title']                 = 'Artikkelit';
+$lang['blog_rss_posts_title']             = 'Uutisartikkeleita %s';
 $lang['blog_blog_title']                     = 'Uutiset';
 $lang['blog_list_title']                     = 'Listaa artikkelit';
 
 // messages
-$lang['blog_no_articles']                    = 'Artikkeleita ei ole.';
+$lang['blog_no_posts']                    = 'Artikkeleita ei ole.';
 $lang['blog_subscripe_to_rss_desc']          = 'Lue artikkelit tilaamalla RSS syöte. Suosituimmat sähköposti ohjelmat tukevat tätä. Voit myös vaihtoehtoisesti kokeilla <a href="http://reader.google.co.uk/">Google Readeria</a>.';
-$lang['blog_currently_no_articles']          = 'Ei artikkeleita tällä hetkellä.';
-$lang['blog_article_add_success']            = 'Artikkeli "%s" lisättiin.';
-$lang['blog_article_add_error']              = 'Tapahtui virhe.';
+$lang['blog_currently_no_posts']          = 'Ei artikkeleita tällä hetkellä.';
+$lang['blog_post_add_success']            = 'Artikkeli "%s" lisättiin.';
+$lang['blog_post_add_error']              = 'Tapahtui virhe.';
 $lang['blog_edit_success']                   = 'Artikkeli "%s" päivitettiin.';
 $lang['blog_edit_error']                     = 'Tapahtui virhe.';
 $lang['blog_publish_success']                = 'Artikkeli "%s" julkaistiin.';

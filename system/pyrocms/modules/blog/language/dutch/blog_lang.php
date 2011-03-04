@@ -24,8 +24,8 @@ $lang['blog_intro_label'] 			= 'Introductie';
 $lang['blog_no_category_select_label'] 		= '-- Geen --';
 $lang['blog_new_category_label'] 		= 'Voeg een categorie toe';
 $lang['blog_subscripe_to_rss_label'] 		= 'Abonneer op RSS';
-$lang['blog_all_articles_label'] 		= 'Alle artikelen';
-$lang['blog_articles_of_category_suffix'] 	= ' artikelen';
+$lang['blog_all_posts_label'] 		= 'Alle artikelen';
+$lang['blog_posts_of_category_suffix'] 	= ' artikelen';
 $lang['blog_rss_name_suffix'] 			= ' Nieuws';
 $lang['blog_rss_category_suffix'] 		= ' Nieuws';
 $lang['blog_author_name_label'] 		= 'Auteur naam';
@@ -37,17 +37,17 @@ $lang['blog_created_minute']                = 'Time (Minute)'; #translate
 $lang['blog_create_title'] 			= 'Voeg artikel toe';
 $lang['blog_edit_title'] 			= 'Wijzig artikel "%s"';
 $lang['blog_archive_title'] 			= 'Archief';
-$lang['blog_articles_title'] 			= 'Artikelen';
-$lang['blog_rss_articles_title'] 		= 'Nieuws artikelen voor %s';
+$lang['blog_posts_title'] 			= 'Artikelen';
+$lang['blog_rss_posts_title'] 		= 'Nieuws artikelen voor %s';
 $lang['blog_blog_title'] 			= 'Nieuws';
 $lang['blog_list_title'] 			= 'Toon alle artikelen';
 
 // messages
-$lang['blog_no_articles'] 			= 'Er zijn geen artikelen.';
+$lang['blog_no_posts'] 			= 'Er zijn geen artikelen.';
 $lang['blog_subscripe_to_rss_desc'] 		= 'Ontvang artikelen meteen door te abonneren op onze RSS feed. U kan dit doen met de meeste populaire e-mail programma&acute;s, of probeer <a href="http://reader.google.co.uk/">Google Reader</a>.';
-$lang['blog_currently_no_articles'] 		= 'Er zijn geen artikelen op dit moment.';
-$lang['blog_article_add_success'] 		= 'Het artikel "%s" is opgeslagen.';
-$lang['blog_article_add_error'] 		= 'Er is een fout opgetreden.';
+$lang['blog_currently_no_posts'] 		= 'Er zijn geen artikelen op dit moment.';
+$lang['blog_post_add_success'] 		= 'Het artikel "%s" is opgeslagen.';
+$lang['blog_post_add_error'] 		= 'Er is een fout opgetreden.';
 $lang['blog_edit_success'] 			= 'Het artikel "%s" is opgeslagen.';
 $lang['blog_edit_error'] 			= 'Er is een fout opgetreden.';
 $lang['blog_publish_success'] 			= 'Het artikel "%s" is gepubliceerd.';

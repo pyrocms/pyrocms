@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Post RSS della Dashboard';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Quanti post RSS vuoi mostrare nella dashboard ?';
 
 $lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled'] 				= 'Stato del Sito';
 $lang['settings_frontend_enabled_desc'] 		= 'Usa questa opzione per rendere o meno visibile il frontend del sito. Utile quando vuoi mettere offline il sito per manutenzione';
@@ -46,7 +48,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.';
 $lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
 $lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
 
-$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
 $lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
 
 $lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate

@@ -49,9 +49,10 @@
 		{
 			$("#files_left_pane li:first-child a").click();
 		}
-		
+
 		//file upload stuff
-		$('.dd-upload, button.cancel-upload').click(function(e){
+		$('.dd-upload, button.cancel-upload').livequery(function(e){
+			$(this).click(function(e){
 
 			e.preventDefault();
 			
@@ -81,6 +82,7 @@
 			
 				box.fadeIn('fast');
 			}
+			});
 		});
 		
 		$('#uploader form').fileUploadUI({

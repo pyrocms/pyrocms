@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Collegamenti veloci';
 $lang['cp_welcome_title'] 				= 'Benvenuto';
 $lang['cp_welcome_message'] 			= 'Benvenuto al Pannello di Controllo di %s. Usando i link qui sopra e sulla sinistra puoi controllare quasi tutti gli elementi del tuo sito. Se dovessi avere un problema con il sistema, per favore segnalalo attraverso il nostro bugtracker.';
 
-$lang['cp_blog_feed_title'] 			= 'News feed';
+$lang['cp_news_feed_title'] 			= 'News feed';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Gestisci Commenti';

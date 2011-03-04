@@ -106,6 +106,8 @@ class Admin extends Admin_Controller
 		$this->lang->load('gallery_images');
 		$this->load->helper('html');
 
+		$this->load->model('files/file_folders_m');
+
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
@@ -136,8 +138,6 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
-		$this->load->model('files/file_folders_m');
-
 		$this->file_folders_m->folder_tree();
 		$file_folders = $this->file_folders_m->get_folders();
 
@@ -398,7 +398,6 @@ class Admin extends Admin_Controller
 	 */
 	public function ajax_select_folder($folder_id)
 	{
-		$this->load->model('files/file_folders_m');
 		$folder = $this->file_folders_m->get($folder_id);
 
 		echo json_encode($folder);

@@ -132,7 +132,7 @@ class MY_Parser extends CI_Parser {
 			$simpletags->set_trigger('pyro:');
 			foreach ($return_data as $result)
 			{
-				$parsed = $simpletags->parse($content, $result);
+				$parsed = $simpletags->parse($content, $result, array($this, 'parser_callback'));
 				$parsed_return .= $parsed['content'];
 			}
 			unset($simpletags);

@@ -10,10 +10,10 @@
  * where 'name_of_area' is the name of the widget area you created in the admin control panel
  */
 
-class Widget_Latest_articles extends Widgets
+class Widget_Latest_posts extends Widgets
 {
-	public $title = 'Latest blog';
-	public $description = 'Display latest blog articles with a widget.';
+	public $title = 'Latest posts';
+	public $description = 'Display latest blog posts with a widget.';
 	public $author = 'Erik Berman';
 	public $website = 'http://www.nukleo.fr';
 	public $version = '1.0';
@@ -23,13 +23,13 @@ class Widget_Latest_articles extends Widgets
 	public $fields = array(
 		array(
 			'field'   => 'limit',
-			'label'   => 'Number of articles',
+			'label'   => 'Number of posts',
 		)
 	);
 
 	public function form($options)
 	{
-		! empty($options['limit']) OR $options['limit'] = 5;
+		!empty($options['limit']) OR $options['limit'] = 5;
 
 		return array(
 			'options' => $options
@@ -41,7 +41,7 @@ class Widget_Latest_articles extends Widgets
 		// load the blog module's model
 		class_exists('Blog_m') OR $this->load->model('blog/blog_m');
 
-		// sets default number of articles to be shown
+		// sets default number of posts to be shown
 		empty($options['limit']) AND $options['limit'] = 5;
 
 		// retrieve the records using the blog module's model

@@ -2,7 +2,7 @@
 /**
  * Blog Plugin
  *
- * Create lists of articles
+ * Create lists of posts
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
