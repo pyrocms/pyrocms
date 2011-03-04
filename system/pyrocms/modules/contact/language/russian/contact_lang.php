@@ -32,7 +32,7 @@ $lang['contact_title']											= 'Обратная связь';
 // тексты
 $lang['contact_mail_text']									= 'Это сообщение было отправлено с помощью формы обратной связи на %s:';
 $lang['contact_sent_text']									= 'Ваше сообщение отправлено. Мы постараемся ответить Вам как можно быстрее.';
-$lang['contact_capchar_text']								= 'Введите слово, которое указано ниже:';
+$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
 
 // список тем
 $lang['subject_support']										= 'Поддержка';
