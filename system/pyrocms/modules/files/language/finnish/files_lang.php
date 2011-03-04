@@ -58,5 +58,7 @@ $lang['files.d'] = 'Dokumentti';
 $lang['files.o'] = 'Muu';
 
 $lang['files.no_permissions'] = 'Sinulla ei ole käyttöoikeuksia hallinnoida moduulia.';
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file files_lang.php */

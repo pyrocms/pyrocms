@@ -236,7 +236,6 @@ class Admin extends Admin_Controller
 			$page_body = $_POST['body'];
 
 			$input = $this->input->post();
-
 			unset($input['body']);
 			
 			if ($id = $this->pages_m->create($input))
@@ -247,7 +246,7 @@ class Admin extends Admin_Controller
 				// Update the page row
 				$input['revision_id'] = $revision_id;
 
-				$input['restricted_to'] = implode(',', $input['restricted_to']);
+				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 				// Add a Navigation Link
 				if ($input['navigation_group_id'])
@@ -356,7 +355,7 @@ class Admin extends Admin_Controller
 				$input['revision_id'] = $input['use_revision_id'];
 			}
 
-			$input['restricted_to'] = implode(',', $input['restricted_to']);
+			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 			// Run the update code with the POST data
 			$this->pages_m->update($id, $input);

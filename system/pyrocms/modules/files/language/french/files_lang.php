@@ -62,5 +62,9 @@ $lang['files.v'] = 'Vidéo';
 $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Autre';
 
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';#translate
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
+
 /* End of file files_lang.php */
 /* Location: ./system/pyrocms/modules/files/language/french/files_lang.php */

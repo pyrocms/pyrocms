@@ -136,7 +136,7 @@
 
 			<li class="even">
 				<label for="restricted_to[]"><?php echo lang('pages.access_label');?></label>
-				<?php echo form_multiselect('restricted_to[]', $group_options, $page->restricted_to, 'size="'.($count = count($group_options) > 1 ? $count : 2).'"'); ?>
+				<?php echo form_multiselect('restricted_to[]', $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
 			</li>
 			<li>
 				<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>

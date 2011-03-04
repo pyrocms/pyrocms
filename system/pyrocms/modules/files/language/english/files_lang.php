@@ -66,5 +66,7 @@ $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Other';
 
 $lang['files.no_permissions'] = 'You do not have permissions to see the files module.';
+$lang['files.grid'] = 'Grid';
+$lang['files.list'] = 'List';
 
 /* End of file files_lang.php */

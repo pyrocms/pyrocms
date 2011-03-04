@@ -1,15 +1,18 @@
 // Cufon
-Cufon.replace('#header h1', { textShadow: '2px 1px 0px #000000' });
-Cufon.replace('.post h1, .post h2, .post h3, .post h4, .post h5, .post h6 #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4, #sidebar h5, #sidebar h6', { textShadow: '1px 1px 0px #ffffff' });
-
-// Scroll
-$(document).ready(function(){
-jQuery.localScroll();
+Cufon.replace('#header h1', {
+	textShadow: '2px 1px 0px #000000'
+});
+Cufon.replace('.post h1, .post h2, .post h3, .post h4, .post h5, .post h6 #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4, #sidebar h5, #sidebar h6', {
+	textShadow: '1px 1px 0px #ffffff'
 });
 
-// Link Nudge
-$(document).ready(function() {
-$('#sidebar #navigation li a').nudge();	
+$(function($){
+
+	// Scroll
+	$.localScroll();
+
+	// Link Nudge
+	$('#sidebar #navigation li a').nudge();
 });
 
 jQuery.fn.nudge = function(params) {
@@ -31,15 +34,17 @@ jQuery.fn.nudge = function(params) {
 		var prop = jQueryp.property + dir.substring(0,1).toUpperCase() + dir.substring(1,dir.length);
 		var initialValue = jQueryt.css(prop);
 		/* fx */
-		var go = {}; go[prop] = parseInt(jQueryp.amount) + parseInt(initialValue);
-		var bk = {}; bk[prop] = initialValue;
+		var go = {};
+		go[prop] = parseInt(jQueryp.amount) + parseInt(initialValue);
+		var bk = {};
+		bk[prop] = initialValue;
 		
 		//Proceed to nudge on hover
 		jQueryt.hover(function() {
-					jQueryt.stop().animate(go, jQueryp.duration, '', jQueryp.toCallback);
-				}, function() {
-					jQueryt.stop().animate(bk, jQueryp.duration, '', jQueryp.fromCallback);
-				});
-});
-return this;
+			jQueryt.stop().animate(go, jQueryp.duration, '', jQueryp.toCallback);
+		}, function() {
+			jQueryt.stop().animate(bk, jQueryp.duration, '', jQueryp.fromCallback);
+		});
+	});
+	return this;
 };

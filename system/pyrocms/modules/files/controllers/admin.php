@@ -325,6 +325,9 @@ class Admin extends Admin_Controller {
 			{
 				if ($this->file_m->exists($id))
 				{
+					$file	= $this->file_m->get($id);
+					$folder	= $this->file_folders_m->get($file->folder_id);
+
 					$this->file_m->delete($id);
 				}
 			}
@@ -335,7 +338,7 @@ class Admin extends Admin_Controller {
 			show_error(lang('files.not_exists'));
 		}
 
-		redirect('admin/files');
+		isset($folder) ? redirect('admin/files#' . $folder->slug) : redirect('admin/files');
 	}
 
 	/**

@@ -59,6 +59,8 @@ $lang['files.d']											= 'Документ';
 $lang['files.o']											= 'Разное';
 
 $lang['files.no_permissions']					= 'У вас нет прав для доступа к файловому модулю.';
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file files_lang.php */
 /* Location: ./system/pyrocms/modules/files/language/russian/comments_lang.php */
