@@ -25,6 +25,8 @@ $lang['buttons.install']	= 'Installer';
 $lang['buttons.yes']		= 'Oui';
 $lang['buttons.no']			= 'Non';
 $lang['buttons.activate']   = 'Activer';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/french/buttons_lang.php */
