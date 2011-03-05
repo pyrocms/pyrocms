@@ -29,7 +29,11 @@
 							<?php endif; ?></td>
 
 				<td><?php echo $theme->version; ?></td>
-				<td><a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="minibutton">Preview</a>  <a href="#"  class="minibutton">Delete</a></td>
+				<td>	
+				<div class="buttons buttons-small align-right">
+					<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button"><?php echo lang('buttons.preview'); ?></a>  <a href="#"  class="button delete"><?php echo lang('buttons.delete'); ?></a>
+				</div>
+				</td>
 			</tr>
 				<?php endforeach; ?>
 		</tbody>
@@ -45,9 +49,9 @@
 					<h2><?php echo lang('themes.no_themes_installed'); ?></h2>
 				</div>
 			<?php endif; ?>
-		
-		<div class="float-right">
-			<button type="submit" name="btnAction">Save</button>
+	
+		<div class="buttons align-right padding-top">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
 		</div>
 		
 		<?php echo form_close(); ?>

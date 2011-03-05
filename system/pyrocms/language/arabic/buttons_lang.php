@@ -24,6 +24,8 @@ $lang['buttons.unapprove']	= 'حجب';
 $lang['buttons.install']	= 'تثبيت';
 $lang['buttons.yes']		= 'نعم';
 $lang['buttons.no']			= 'لا';
-$lang['buttons.activate']       = 'تنشيط';
+$lang['buttons.activate']	= 'تنشيط';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
 
 /* End of file buttons_lang.php */

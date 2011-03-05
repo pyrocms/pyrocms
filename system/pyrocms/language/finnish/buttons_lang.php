@@ -25,6 +25,8 @@ $lang['buttons.install']	= 'Asenna';
 $lang['buttons.yes']		= 'Kyllä';
 $lang['buttons.no']			= 'Ei';
 $lang['buttons.activate']   = 'Aktivoi';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/finnish/buttons_lang.php */

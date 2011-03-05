@@ -3,11 +3,11 @@
 	
 		<section class="box">
 			<header>
-				<div class="float-right" style="margin-top: 6px;">
-					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm minibutton",  'title' => lang('nav_group_delete_confirm'))) ?>
+				<div class="buttons buttons-small float-right">
+					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm button",  'title' => lang('nav_group_delete_confirm'))) ?>
 				</div>
 			
-				<h3><?php echo $group->title;?></h3>
+				<h3 class="spacer-top-half spacer-bottom-half"><?php echo $group->title;?></h3>
 			</header>
 			
 			<?php echo form_open('admin/navigation/delete');?>
