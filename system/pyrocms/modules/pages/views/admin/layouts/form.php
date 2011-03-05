@@ -21,8 +21,8 @@
 				<p><?php echo lang('page_layouts.variable_introduction'); ?>:</p>
 				
 				<ul class="list-unstyled spacer-bottom">
-					<li><strong>{pyro:page:title}</strong> - <?php echo lang('page_layouts.variable_title'); ?></li>
-					<li><strong>{pyro:page:body}</strong> - <?php echo lang('page_layouts.variable_body'); ?></li>
+					<li><strong>{<?php echo config_item('tags_trigger'); ?>:page:title}</strong> - <?php echo lang('page_layouts.variable_title'); ?></li>
+					<li><strong>{<?php echo config_item('tags_trigger'); ?>:page:body}</strong> - <?php echo lang('page_layouts.variable_body'); ?></li>
 				</ul>
 				
 				<ul>

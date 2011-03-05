@@ -7,7 +7,7 @@
         <?php echo  form_input('data', $variable->data); ?>
     </td>
     <td>
-        <?php form_input('', printf('{pyro:variables:%s}', $variable->name));?>
+        <?php form_input('', printf('{%s:variables:%s}', config_item('tags_trigger'), $variable->name));?>
         <?php echo form_hidden('variable_id', $variable->id); ?>
     </td>
     <td>
