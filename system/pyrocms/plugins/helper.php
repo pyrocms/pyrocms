@@ -22,18 +22,23 @@ class Plugin_Helper extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function lang()
+	public function lang()
 	{
 		$line = $this->attribute('line');
 		return $this->lang->line($line);
 	}
 
-	function date()
+	public function date()
 	{
 		$format = $this->attribute('format');
 		$timestamp = $this->attribute('timestamp');
 		
 		return $timestamp ? date($format, $timestamp) : date($format);
+	}
+
+	public function strip()
+	{
+		return preg_replace('!\s+!', $this->attribute('replace', ' '), $this->content());
 	}
 }
 
