@@ -67,10 +67,11 @@
 
 <p><strong>Example</strong></p>
 
-<pre><code>{pyro:galleries:images slug="wallpapers"}
-	&#60;a href="galleries/{title}">
-	&#60;img alt="{description}" src="uploads/galleries/{slug}/full/{filename}{extension}" title="{description}" />
-	&#60;/a>
-{/pyro:galleries:images}</code></pre>
+<pre><code>{pyro:galleries:images slug="nature" limit="5"}
+	&#60;a href="{pyro:url:base}galleries/{gallery_slug}/{id}" title="{name}"&#62;
+		&#60;img src="{pyro:url:base}files/thumb/{file_id}/75/75" alt="{description}"/&#62;
+	&#60;/a&#62;
+{/pyro:galleries:images}
+</code></pre>
 
 <br />

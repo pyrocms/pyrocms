@@ -13,29 +13,34 @@ class Plugin_Galleries extends Plugin
 {
 	/**
 	 * Image List
-	 *
+	 * 
 	 * Creates a list of gallery images
-	 *
+	 * 
 	 * Usage:
+	 * 
 	 * {pyro:galleries:images slug="nature" limit="5"}
-	 *      <a href="galleries/{slug}/{id}"><img src="uploads/galleries/{slug}/full/{filename}{extension}" alt="{description}"/></a>
+	 * 	<a href="{pyro:url:base}galleries/{gallery_slug}/{id}" title="{name}">
+	 * 		<img src="{pyro:url:base}files/thumb/{file_id}/75/75" alt="{description}"/>
+	 * 	</a>
 	 * {/pyro:galleries:images}
-	 *
+	 * 
 	 * @return	array
 	 */
 	function images()
 	{
-		$limit = $this->attribute('limit');
-		$slug = $this->attribute('slug');
-		
-		return $this->db->select('gallery_images.*, galleries.slug, galleries.id as galleries_table_id')
-						->from('gallery_images')
-						->join('galleries', 'gallery_images.gallery_id = galleries.id')
-						->where('slug', $slug)
-						->order_by('`order`', 'desc')
-						->limit($limit)
-						->get()
-						->result_array();
+		$limit	= $this->attribute('limit');
+		$slug	= $this->attribute('slug');
+
+		$this->load->model(array(
+			'galleries_m',
+			'gallery_images_m'
+		));
+
+		$gallery = $this->galleries_m->get_by('slug', $slug);
+
+		return $gallery ? $this->gallery_images_m->get_images_by_gallery($gallery->id, array(
+			'limit' => $limit
+		)) : array();
 	}
 }
 
