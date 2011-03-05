@@ -79,7 +79,6 @@ class Admin extends Admin_Controller {
 		$this->load->helper('user');
 		$this->load->library('form_validation');
 		$this->lang->load('user');
-
 		$this->data->groups = $this->group_m->get_all();
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
 
@@ -183,7 +182,7 @@ class Admin extends Admin_Controller {
 			//hack to activate immediately
 			if ($this->input->post('active'))
 			{
-				$this->config->set_item('email_activation', $this->settings->email_activation, 'ion_auth');
+				$this->config->config['ion_auth']['email_activation'] = FALSE;
 			}
 
 			// Try to register the user
