@@ -12,7 +12,7 @@
 			<a href="#" class="delete-instance"><?php echo lang('widgets.instance_delete'); ?></a>
 		</div>
 		
-		<div class="widget-code"><?php echo sprintf('{pyro:widgets:instance id="%s"}', $widget->id);?></div>
+		<div class="widget-code"><?php echo sprintf('{%s:widgets:instance id="%s"}', config_item('tags_trigger'), $widget->id);?></div>
 		
 		<div style="clear:both"></div>
 	</li>
