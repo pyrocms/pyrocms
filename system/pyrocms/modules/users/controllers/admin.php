@@ -54,7 +54,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'group_id',
 			'label' => 'lang:user_group_label',
-			'rules' => 'required|numeric'
+			'rules' => 'required'
 		),
 		array(
 			'field' => 'active',
@@ -80,7 +80,7 @@ class Admin extends Admin_Controller {
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 		$this->data->groups = $this->group_m->get_all();
-		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
+		$this->data->groups_select = array_for_select($this->data->groups, 'name', 'description');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
@@ -186,7 +186,7 @@ class Admin extends Admin_Controller {
 			}
 
 			// Try to register the user
-			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data))
+			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $this->input->post('group_id')))
 			{
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
