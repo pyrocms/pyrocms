@@ -4,11 +4,14 @@ class Migration_Rename_news_to_blog extends Migration {
 
 	function up()
 	{
-		$this->dbforge->rename_table('news', 'blog');
-		$this->dbforge->rename_table('news_categories', 'blog_categories');
+		if ($this->db->table_exists('news'))
+		{
+			$this->dbforge->rename_table('news', 'blog');
+			$this->dbforge->rename_table('news_categories', 'blog_categories');
 
-		$this->db->query("ALTER TABLE `blog` COMMENT ='Blog posts.';");
-		$this->db->query("ALTER TABLE `blog_categories` COMMENT = 'Blog categories.'");
+			$this->db->query("ALTER TABLE `blog` COMMENT ='Blog posts.';");
+			$this->db->query("ALTER TABLE `blog_categories` COMMENT = 'Blog categories.'");
+		}
 
 		$this->db->query("DELETE FROM modules WHERE slug = 'blog'");
 
@@ -16,7 +19,7 @@ class Migration_Rename_news_to_blog extends Migration {
 		$this->db->where('slug', 'latest_news')->update('widgets', array('slug' => 'latest_posts'));
 		$this->db->where('slug', 'news_categories')->update('widgets', array('slug' => 'blog_categories'));
 
-		$this->load->library('widgets');
+		$this->load->library('widgets/widgets');
 		$this->widgets->reload_widget(array('latest_posts', 'blog_categories'));
 
 		reload_module_details('blog');
