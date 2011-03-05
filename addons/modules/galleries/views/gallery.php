@@ -12,7 +12,7 @@
 			<?php foreach ( $gallery_images as $image): ?>
 			<li>
 				<a href="<?php echo site_url('galleries/' . $gallery->slug . '/' . $image->id); ?>" class="gallery-image" rel="gallery-image" data-src="<?php echo base_url().'uploads/files/' . $image->filename; ?>" title="<?php echo $image->name; ?>">
-					<?php echo img(array('src' => base_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name)); ?>
+					<?php echo img(array('src' => site_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name)); ?>
 				</a>
 			</li>
 			<?php endforeach; ?>
@@ -30,7 +30,7 @@
 		<!-- Heading -->
 		<div class="gallery_heading">
 			<?php if ( ! empty($sub_gallery->filename)) : ?>
-			<?php echo img(array('src' => base_url() . 'files/thumb/' . $sub_gallery->file_id, 'alt' => $sub_gallery->title)); ?>
+			<?php echo img(array('src' => site_url() . 'files/thumb/' . $sub_gallery->file_id, 'alt' => $sub_gallery->title)); ?>
 			<?php endif; ?>
 			<h3><?php echo anchor('galleries/' . $sub_gallery->slug, $sub_gallery->title); ?></h3>
 		</div>

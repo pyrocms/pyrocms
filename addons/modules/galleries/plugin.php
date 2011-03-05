@@ -56,6 +56,7 @@ class Plugin_Galleries extends Plugin
 				->where('f.type', 'i')
 				// Order by user order
 				->order_by('`gi`.`order`', 'asc')
+				->limit($limit)
 				// Get all!
 				->get('gallery_images gi')
 				->result_array();

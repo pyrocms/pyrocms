@@ -28,31 +28,31 @@ $lang['settings_dashboard_rss_desc']			= 'Enlace al feed RSS que será mostrado 
 $lang['settings_dashboard_rss_count']			= 'Número de items RSS del Tablero';
 $lang['settings_dashboard_rss_count_desc']		= 'Cantidad de items que se mostrarán en el tablero.';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format'] 					= 'Formato de la Fecha';
+$lang['settings_date_format_desc']				= '¿Como deberían ser presentadas las fechas en el sitio web y panel de control? ' .
+													'Usando <a href="http://php.net/manual/es/function.date.php" target="_black">formato de fecha</a> de PHP - OR - ' .
+													'Usando el formato de <a href="http://php.net/manual/es/function.strftime.php" target="_black">cadenas formateadas como fechas</a> desde PHP.';
 
 $lang['settings_frontend_enabled']				= 'Estado del Sitio';
 $lang['settings_frontend_enabled_desc']			= 'Usa esta opción para habilitar o desabilitar el sitio visible al usuario. Útil cuando quieres poner el sitio en mantenimiento.';
 
-$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
-$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+$lang['settings_mail_protocol'] 				= 'Protocolo de correo';
+$lang['settings_mail_protocol_desc'] 			= 'Seleccione el protocolo de correo deseado.';
 
-$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
-$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+$lang['settings_mail_sendmail_path'] 			= 'Ruta a Sendmail';
+$lang['settings_mail_sendmail_path_desc']		= 'Ruta al binario del servidor sendmail.';
 
-$lang['settings_mail_smtp_host'] 				= 'SMTP Host'; #translate
-$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+$lang['settings_mail_smtp_host'] 				= 'SMTP Host';
+$lang['settings_mail_smtp_host_desc'] 			= 'El nombre del host de tu servidor smpt.';
 
-$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
-$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+$lang['settings_mail_smtp_pass'] 				= 'Contraseña SMTP';
+$lang['settings_mail_smtp_pass_desc'] 			= 'Contraseña para tu servidor SMTP.';
 
-$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
-$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+$lang['settings_mail_smtp_port'] 				= 'Puerto SMTP';
+$lang['settings_mail_smtp_port_desc'] 			= 'El puerto usado por tu servidor SMTP.';
 
-$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
-$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
+$lang['settings_mail_smtp_user'] 				= 'Nombre de usuario SMTP';
+$lang['settings_mail_smtp_user_desc'] 			= 'El nombre de usuario de tu servidor SMTP.';
 
 $lang['settings_unavailable_message']			= 'Mensaje de Disponibilidad';
 $lang['settings_unavailable_message_desc']		= 'Cuando el sitio esta fuera de línea por un problema mayor, este mensaje será mostrado a los usuarios.';
@@ -75,17 +75,17 @@ $lang['settings_require_lastname_desc'] 		= 'Para algunas situaciones es requeri
 $lang['settings_enable_profiles']				= 'Habilitar Perfiles';
 $lang['settings_enable_profiles_desc']			= 'Permitir a los usuarios editar sus perfiles.';
 
-$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
-$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_email'] 						= 'Correo Electrónico de Google Analytic';
+$lang['settings_ga_email_desc']					= 'Correo electrónico usado por Google Analytics, necesitamos esto para mostrar el gráfico en el tablero.';
 
-$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
-$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_password'] 					= 'Contraseña de Google Analytic';
+$lang['settings_ga_password_desc']				= 'Contraseña de Google Analytic. Esto también es necesario para mostrar el gráfico en el tablero.';
 
-$lang['settings_ga_profile'] 					= 'Google Analytic Profile'; #translate
-$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+$lang['settings_ga_profile'] 					= 'Perfil de Google Analytic';
+$lang['settings_ga_profile_desc']				= 'ID del perfil para este sitio web en Google Analytics.';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
-$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
+$lang['settings_ga_tracking'] 					= 'Código de seguimiento de Google';
+$lang['settings_ga_tracking_desc']				= 'Inserte su código de seguimiento de Google para permitir que Google Analytics capture los datos. E.g: UA-19483569-6';
 
 $lang['settings_twitter_username']				= 'Usuario';
 $lang['settings_twitter_username_desc']			= 'Usuario de Twitter.';
@@ -108,8 +108,8 @@ $lang['settings_twitter_cache_desc']			= 'Tiempo en minutos que serán almacenad
 $lang['settings_akismet_api_key']				= 'Clave de Akismet';
 $lang['settings_akismet_api_key_desc']			= 'Akismet es un bloqueador de spam del equipo de Wordpress. Mantiene el spam bajo control forzando a los usuarios a rellenar CAPTCHAS.';
 
-$lang['settings_comment_order'] 				= 'Comment Order'; #translate
-$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+$lang['settings_comment_order'] 				= 'Orden de los comentarios';
+$lang['settings_comment_order_desc']			= 'Criterio para ordenar los comentarios.';
 
 $lang['settings_moderate_comments']				= 'Moderar Comentarios';
 $lang['settings_moderate_comments_desc']		= 'Forzar comentarios a ser aprobados antes de mostrarse en el sitio.';
@@ -121,7 +121,7 @@ $lang['settings_version_desc']					= '';
 #section titles
 $lang['settings_section_general']				= 'General';
 $lang['settings_section_integration']			= 'Integración';
-$lang['settings_section_comments']				= 'Comments'; #translate
+$lang['settings_section_comments']				= 'Comentarios';
 $lang['settings_section_users']					= 'Usuarios';
 $lang['settings_section_statistics']			= 'Estadísticas';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -133,8 +133,8 @@ $lang['settings_form_option_Enabled']			= 'Activado';
 $lang['settings_form_option_Disabled']			= 'Desactivado';
 $lang['settings_form_option_Required']			= 'Requerido';
 $lang['settings_form_option_Optional']			= 'Opcional';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Oldest First']		= 'Antiguos Primero';
+$lang['settings_form_option_Newest First']		= 'Nuevos Primero';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/spanish/settings_lang.php */

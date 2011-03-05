@@ -13,7 +13,7 @@ class Widget_Twitter_feed extends Widgets
 	public $description = 'Display Twitter feeds on your websites.';
 	public $author = 'Phil Sturgeon';
 	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.1';
+	public $version = '1.2';
 	
 	public $fields = array(
 		array(
@@ -44,7 +44,7 @@ class Widget_Twitter_feed extends Widgets
 
 		$patterns = array(
 			// Detect URL's
-			'|([a-z]{3,9}://[a-z0-9-_./?&+]*)|i'     => '<a href="$0" target="_blank">$0</a>',
+			'((https?|ftp|gopher|telnet|file|notes|ms-help):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)'     => '<a href="$0" target="_blank">$0</a>',
 
 			// Detect Email
 			'|[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,6}|i' => '<a href="mailto:$0">$0</a>',
