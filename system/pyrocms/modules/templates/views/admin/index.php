@@ -42,7 +42,7 @@
 	<table border="0" class="table-list clear-both">
         <thead>
 			<tr>
-				<th colspan="5"><?php echo lang('templates.user_defined_titles'); ?></th>
+				<th colspan="5"><?php echo lang('templates.user_defined_title'); ?></th>
 			</tr>
             <tr>
                 <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
