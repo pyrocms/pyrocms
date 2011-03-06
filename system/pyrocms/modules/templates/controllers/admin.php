@@ -9,7 +9,9 @@
  */
 class Admin extends Admin_Controller {
     
-    private $_validation_rules = array();
+    private $_validation_rules		= array();
+    private $_edit_default_rules	= array();
+    private $_clone_rules			= array();
     
     /**
      * Constructor method
@@ -20,7 +22,8 @@ class Admin extends Admin_Controller {
     function __construct()
     {
         parent::__construct();
-        
+
+        $this->lang->load('templates');
         $this->load->model('email_templates_m');
         
         foreach($this->config->item('supported_languages') as $key => $lang)
@@ -28,63 +31,65 @@ class Admin extends Admin_Controller {
             $lang_options[$key] = $lang['name'];
         }
         
-        $this->template->set('lang_options', $lang_options)
-                        ->set_partial('shortcuts', 'admin/partials/shortcuts');
+        $this->template
+			->set('lang_options', $lang_options)
+			->set_partial('shortcuts', 'admin/partials/shortcuts');
         
         $base_rules = 'required|trim|xss_clean';
         
         $this->_validation_rules = array(
-                                    array(
-                                        'field' => 'name',
-                                        'label' => 'Name',
-                                        'rules' => $base_rules
-                                    ),
-                                    array(
-                                        'field' => 'slug',
-                                        'label' => 'Slug',
-                                        'rules' => $base_rules . '|alpha_dash'
-                                    ),
-                                    array(
-                                        'field' => 'description',
-                                        'label' => 'Description',
-                                        'rules' => $base_rules
-                                    ),
-                                    array(
-                                        'field' => 'subject',
-                                        'label' => 'Subject',
-                                        'rules' => $base_rules
-                                    ),
-                                    array(
-                                        'field' => 'body',
-                                        'label' => 'Body',
-                                        'rules' => $base_rules
-                                    ),
-                                    array(
-                                        'field' => 'lang',
-                                        'label' => 'Language',
-                                        'rules' => 'trim|xss_clean|max_length[2]'
-                                    )
+			array(
+				'field' => 'name',
+				'label' => 'lang:templates.name_label',
+				'rules' => $base_rules
+			),
+			array(
+				'field' => 'slug',
+				'label' => 'lang:templates.slug_label',
+				'rules' => $base_rules . '|alpha_dash'
+			),
+			array(
+				'field' => 'description',
+				'label' => 'lang:templates.description_label',
+				'rules' => $base_rules
+			),
+			array(
+				'field' => 'subject',
+				'label' => 'lang:templates.subject_label',
+				'rules' => $base_rules
+			),
+			array(
+				'field' => 'body',
+				'label' => 'lang:templates.body_label',
+				'rules' => $base_rules
+			),
+			array(
+				'field' => 'lang',
+				'label' => 'lang:templates.language_label',
+				'rules' => 'trim|xss_clean|max_length[2]'
+			)
         );
         
         $this->_edit_default_rules = array(
-                                        array(
-                                        'field' => 'subject',
-                                        'label' => 'Subject',
-                                        'rules' => $base_rules
-                                        ),
-                                        array(
-                                            'field' => 'body',
-                                            'label' => 'Body',
-                                            'rules' => $base_rules
-                                        )
-                                    );
+			array(
+				'field' => 'subject',
+				'label' => 'lang:templates.subject_label',
+				'rules' => $base_rules
+			),
+			array(
+				'field' => 'body',
+				'label' => 'lang:templates.body_label',
+				'rules' => $base_rules
+			)
+		);
+
         $this->_clone_rules = array(
-                                array(
-                                        'field' => 'lang',
-                                        'label' => 'Language',
-                                        'rules' => 'trim|xss_clean|max_length[2]'
-                                    )
-                            );
+			array(
+				'field' => 'lang',
+				'label' => 'lang:templates.language_label',
+				'rules' => 'trim|xss_clean|max_length[2]'
+			)
+		);
     }
     
     /**
@@ -131,16 +136,17 @@ class Admin extends Admin_Controller {
             unset($data['btnAction']);
             if($this->email_templates_m->insert($data))
             {
-                $this->session->set_flashdata('success', 'Email template "' . $data['name'] . '" has been saved.');
+                $this->session->set_flashdata('success', sprintf(lang('templates.tmpl_create_success'), $data['name']));
             }
             else
             {
-                $this->session->set_flashdata('error', 'Email template "' . $data['name'] . '" was not saved.');
+                $this->session->set_flashdata('error', sprintf(lang('templates.tmpl_create_error'), $data['name']));
             }
             redirect('admin/templates');
         }
         
         $this->template->set('email_template', $email_template)
+						->title(lang('templates.create_title'))
                         ->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
                         ->build('admin/form');
     }
@@ -191,17 +197,18 @@ class Admin extends Admin_Controller {
             
             if($this->email_templates_m->update($id, $data))
             {
-                $this->session->set_flashdata('success', 'Changes made to email template "' . $email_template->name . '" have been saved.');
+                $this->session->set_flashdata('success', sprintf(lang('templates.tmpl_edit_success'), $email_template->name));
             }
             else
             {
-                $this->session->set_flashdata('error', 'Changes made to email template "' . $email_template->name . '" were not saved.');
+                $this->session->set_flashdata('error', sprintf(lang('templates.tmpl_edit_error'), $email_template->name));
             }
             redirect('admin/templates');
         }
     
         
         $this->template->set('email_template', $email_template)
+						->title(lang('templates.edit_title'))
                         ->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
                         ->build('admin/form');
     }
@@ -213,10 +220,51 @@ class Admin extends Admin_Controller {
      * @param   int $id
      * @return  void
      */
-    public function delete($id = FALSE)
+    public function delete($id = 0)
     {
-        $id = (int) $id;
-        redirect('admin/templates');
+		$ids = $id ? array($id) : $this->input->post('action_to');
+		
+		// Delete multiple
+		if ($ids)
+		{
+			$deleted	= 0;
+			$to_delete 	= 0;
+
+			foreach ($ids as $id) 
+			{
+				if ($this->email_templates_m->delete($id))
+				{
+					$deleted++;
+				}
+				elseif ($this->email_templates_m->is_default($id))
+				{
+					$this->session->set_flashdata('error', sprintf(lang('templates.default_delete_error'), $id));
+				}
+				else
+				{
+					$this->session->set_flashdata('error', sprintf(lang('templates.mass_delete_error'), $id));
+				}
+				$to_delete++;
+			}
+
+			if ($deleted > 0)
+			{
+				if (sizeof($ids) > 1)
+				{
+					$this->session->set_flashdata('success', sprintf(lang('templates.mass_delete_success'), $deleted, $to_delete));
+				}
+				else
+				{
+					$this->session->set_flashdata('success', sprintf(lang('templates.single_delete_success')));
+				}
+			}
+		}		
+		else
+		{
+			$this->session->set_flashdata('error', $this->lang->line('templates.no_select_error'));
+		}
+
+		redirect('admin/templates');
     }
     
     /**
@@ -275,12 +323,12 @@ class Admin extends Admin_Controller {
             
             if($new_id = $this->email_templates_m->insert($copy))
             {
-                $this->session->set_flashdata('success', $copy->name . ' has been cloned.  You may now edit the template to your liking.');
+                $this->session->set_flashdata('success', sprintf(lang('templates.tmpl_clone_success'), $copy->name));
                 redirect('admin/templates/edit/' . $new_id);
             }
             else
             {
-                $this->session->set_flashdata('error', $copy->name . 'was unable to be cloned.  Please try again.');
+                $this->session->set_flashdata('error', sprintf(lang('templates.tmpl_clone_error'), $copy->name));
             }
             
             redirect('admin/templates');
