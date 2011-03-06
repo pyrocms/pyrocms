@@ -4,7 +4,7 @@ button:hover {
 button:-moz-focus-inner {
     border: 0 none;
 }
-.buttons a {
+.buttons a.button {
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     -o-border-radius: 6px;
@@ -38,10 +38,10 @@ button {
     text-align: center;
 }
 
-button:hover, .buttons a:hover {
+button:hover, .buttons a.button:hover {
     background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;
 }
-button:active {
+button:active, .buttons a.button:active {
     background: -moz-linear-gradient(0% 100% 90deg, #EEEEEE, #E8E8E8) repeat scroll 0 0 transparent;
 }
 button.positive {
@@ -55,24 +55,22 @@ button.positive:hover {
 button.positive:active {
     background: -moz-linear-gradient(0% 100% 90deg, #7FBF4D, #63A62F) repeat scroll 0 0 transparent;
 }
-.buttons a {
-	color: #666 !important;
+.buttons a.cancel:hover,
+.buttons a.delete:hover {
+	color: #FF6900;
 }
-.buttons a:hover {
-	color: #FF6900 !important;
-}
-.buttons a.delete {
+.buttons a.button {
 	overflow: visible;
 	text-indent: inherit;
 	width: auto;
 	height: auto;
 	background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
 }
-.buttons a.delete:hover {
+.buttons a.button:hover {
     background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;
 }
 .buttons-small { margin-bottom: 0 !important; }
-.buttons-small a, .buttons a.small {
+.buttons-small a.button, .buttons a.small {
     font-size: 110%;
     margin: 0 0 0 5px;
     line-height: 1.4em;
