@@ -9,4 +9,4 @@
 |
 */
 
-$config['tags_trigger'] = 'stuff';
+$config['tags_trigger'] = 'pyro';
