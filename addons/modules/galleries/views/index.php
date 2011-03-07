@@ -6,7 +6,7 @@
 		<!-- Heading -->
 		<div class="gallery_heading">
 			<?php if ( ! empty($gallery->filename)): ?>
-			<?php echo img(array('src' => base_url() . 'files/thumb/' . $gallery->file_id, 'alt' => $gallery->title)); ?>
+			<?php echo img(array('src' => site_url() . 'files/thumb/' . $gallery->file_id, 'alt' => $gallery->title)); ?>
 			<?php endif; ?>
 			<h3><?php echo anchor('galleries/' . $gallery->slug, $gallery->title); ?></h3>
 		</div>

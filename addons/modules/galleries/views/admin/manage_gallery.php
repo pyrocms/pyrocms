@@ -65,7 +65,7 @@
 					<?php foreach ( $gallery_images as $image ): ?>
 					<li>
 						<a href="<?php echo base_url() . 'uploads/files/' . $image->filename; ?>" class="modal">
-							<?php echo img(array('src' => base_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'File: ' . $image->filename . $image->extension . ' Title: ' . $image->name)); ?>
+							<?php echo img(array('src' => site_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'File: ' . $image->filename . $image->extension . ' Title: ' . $image->name)); ?>
 							<?php echo form_hidden('action_to[]', $image->id); ?>
 						</a>
 					</li>

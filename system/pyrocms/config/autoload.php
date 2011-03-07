@@ -70,7 +70,7 @@ $autoload['helper'] = array(
 |
 */
 
-$autoload['config'] = array('asset', 'language');
+$autoload['config'] = array('asset', 'language', 'tags');
 
 
 /*
