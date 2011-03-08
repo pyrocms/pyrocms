@@ -36,7 +36,7 @@ $lang['contact_title']						= 'جهة الإتصال';
 // texts
 $lang['contact_mail_text']					= 'الرسالة التالية أرسلت باستخدام استمارة الإتصال في %s بالبيانات التالية:';
 $lang['contact_sent_text']					= 'تم إرسال رسالتك. سوف نتّصل بك في أقرب وقت ممكن.';
-$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
+$lang['contact_error_message']			= 'حدثت مشكلة أثناء إرسال هذه الرسالة. الرجاء حاول مجدداً لاحقاً...';
 
 //predefined subjects list
 $lang['subject_support']  = 'الدّعم';
