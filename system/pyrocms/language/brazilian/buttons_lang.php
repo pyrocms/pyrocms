@@ -27,6 +27,9 @@ $lang['buttons.no']			= 'Não';
 $lang['buttons.activate']	= 'Ativar';
 $lang['buttons.preview']	= 'Visualizar';
 $lang['buttons.close']		= 'Fechar';
+$lang['buttons.edit']		= 'Editar';
+$lang['buttons.clone']		= 'Clonar';
+$lang['buttons.copy']		= 'Copiar';
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/brazilian/buttons_lang.php */

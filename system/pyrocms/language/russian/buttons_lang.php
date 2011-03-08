@@ -23,6 +23,9 @@ $lang['buttons.no']			= 'Нет';
 $lang['buttons.activate']	= 'Активировать';
 $lang['buttons.preview']	= 'Preview'; #translate
 $lang['buttons.close']		= 'Close'; #translate
+$lang['buttons.edit']		= 'Edit'; #translate
+$lang['buttons.clone']		= 'Clone'; #translate
+$lang['buttons.copy']		= 'Copy'; #translate
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/russian/buttons_lang.php */
