@@ -23,9 +23,9 @@ $lang['galleries.folder_error']								= 'Во время удаления па�
 $lang['galleries.delete_error']								= 'Галерея "%s" не может быть удалена.';
 $lang['galleries.no_galleries_error']					= 'Галереи отсутствуют.';
 $lang['galleries.install_error']							= 'Во время установки модуля произошла ошибка.';
-$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
-$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
-$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
+$lang['galleries.already_exist_error']				= 'Галерея с алиасом "%s" уже существует.';
+$lang['galleries.folder_duplicated_error']		= 'Ошибка! Папка уже принадлежит другой галерее.';
+$lang['galleries.no_gallery_description']			= 'Описание пока ещё отсутствует.';
 
 // подписи
 $lang['galleries.galleries_label']						= 'Галереи';

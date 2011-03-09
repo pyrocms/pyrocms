@@ -228,6 +228,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
+		//overide the group select data,  we need the actuall id number here
+		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
+		
 		// confirm_password is required in case the user enters a new password
 		if ($this->input->post('password') && $this->input->post('password') != '')
 		{
