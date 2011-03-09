@@ -82,6 +82,7 @@ class Module_Pages extends Module {
 			 `created_on` INT(11) NOT NULL default '0',
 			 `updated_on` INT(11) NOT NULL default '0',
 			 `restricted_to` VARCHAR(255) collate utf8_unicode_ci DEFAULT NULL,
+			 `is_home` TINYINT(1) NOT NULL default '0',
 			 PRIMARY KEY  (`id`),
 			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
@@ -108,10 +109,10 @@ class Module_Pages extends Module {
 		";
 
 		$default_pages = "
-			INSERT INTO `pages` (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`) VALUES
-			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", ''),
-			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", ''),
-			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '');
+			INSERT INTO `pages` (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, is_home) VALUES
+			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", '', 1),
+			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", '', 0),
+			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '', 0);
 		";
 
 		$default_revisions = "

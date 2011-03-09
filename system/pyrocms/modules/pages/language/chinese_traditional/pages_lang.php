@@ -28,6 +28,7 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= '存取';
 $lang['pages.rss_enabled_label'] 				= 'RSS 功能開啟';
 $lang['pages.comments_enabled_label']			= '回應功能開啟';
+$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 
 $lang['pages.status_label'] 					= '狀態';
 $lang['pages.draft_label'] 						= '草稿';
