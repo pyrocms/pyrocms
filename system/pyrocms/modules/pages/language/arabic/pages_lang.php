@@ -28,7 +28,7 @@ $lang['pages.js_label'] 						= 'جافاسكربت';
 $lang['pages.access_label'] 					= 'الصلاحيات';
 $lang['pages.rss_enabled_label'] 				= 'تمكين خُلاصات RSS';
 $lang['pages.comments_enabled_label']			= 'تمكين التعليقات';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      = 'هذه هي الصفحة (الرئيسية) الافتراضية؟';
 
 $lang['pages.status_label'] 					= 'الحالة';
 $lang['pages.draft_label'] 						= 'مسودّة';
