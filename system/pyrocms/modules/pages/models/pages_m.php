@@ -89,6 +89,24 @@ class Pages_m extends MY_Model
     }
 
 	/**
+	 * Get the home page
+	 *
+	 * @access public
+	 * @param string	The uri of the page
+	 * @return object
+	 */
+    public function get_home()
+    {
+        return $this->db
+			->select('p.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')
+			->where('p.is_home', 1)
+			->join('revisions r', 'p.revision_id = r.id')
+			->limit(1)
+			->get('pages p')
+			->row();
+    }
+
+	/**
 	 * Count the amount of pages with param X
 	 *
 	 * @access public
@@ -205,6 +223,14 @@ class Pages_m extends MY_Model
 
         $this->db->trans_start();
 
+		if ( ! empty($input['is_home']))
+		{
+			// Remove other homepages
+			$this->db
+				->where('is_home', 1)
+				->update('pages', array('is_home' => 0));
+		}
+		
         $this->db->insert('pages', array(
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
@@ -218,6 +244,7 @@ class Pages_m extends MY_Model
         	'meta_description' => $input['meta_description'],
         	'rss_enabled' 	=> (int) !empty($input['rss_enabled']),
         	'comments_enabled' 	=> (int) !empty($input['comments_enabled']),
+        	'is_home' 	=> (int) ! empty($input['is_home']),
         	'status' 		=> $input['status'],
         	'created_on'	=> now()
         ));
@@ -243,6 +270,14 @@ class Pages_m extends MY_Model
     {
         $this->load->helper('date');
 
+		if ( ! empty($input['is_home']))
+		{
+			// Remove other homepages
+			$this->db
+				->where('is_home', 1)
+				->update('pages', array('is_home' => 0));
+		}
+
         $return = $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
@@ -258,7 +293,8 @@ class Pages_m extends MY_Model
         	'restricted_to' 	=> $input['restricted_to'],
         	'rss_enabled' 	=> (int) ! empty($input['rss_enabled']),
         	'comments_enabled' 	=> (int) ! empty($input['comments_enabled']),
-        	'status' 		=> $input['status'],
+          	'is_home' 	=> (int) ! empty($input['is_home']),
+	      	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
 

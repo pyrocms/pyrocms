@@ -28,6 +28,7 @@ $lang['pages.js_label']			= 'JavaScript';
 $lang['pages.access_label']		= 'Acceder';
 $lang['pages.rss_enabled_label']	= 'RSS habilitado';
 $lang['pages.comments_enabled_label']	= 'Comentarios habilitados';
+$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 
 $lang['pages.status_label']		= 'Estado';
 $lang['pages.draft_label'] 		= 'Borrador';
