@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_CreateEmailTemplates extends Migration {
+class Migration_Createemailtemplates extends Migration {
 	
 	function up() 
 	{

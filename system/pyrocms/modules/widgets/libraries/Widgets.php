@@ -216,10 +216,40 @@ class Widgets
 		return $output;
 	}
 
+	function reload_widget($slug)
+	{
+		if (is_array($slug))
+		{
+			foreach ($slug as $_slug)
+			{
+				if ( ! $this->reload_widget($_slug))
+				{
+					return FALSE;
+				}
+			}
+			return TRUE;
+		}
+
+		$widget = $this->read_widget($slug);
+
+		return $this->edit_widget(array(
+			'title' 		=> $widget->title,
+			'slug' 			=> $widget->slug,
+			'description' 	=> $widget->description,
+			'author' 		=> $widget->author,
+			'website' 		=> $widget->website,
+			'version' 		=> $widget->version
+		));
+	}
 
 	function add_widget($input)
 	{
 		return $this->widget_m->insert_widget($input);
+	}
+
+	function edit_widget($input)
+	{
+		return $this->widget_m->update_widget($input);
 	}
 
 	function delete_widget($slug)

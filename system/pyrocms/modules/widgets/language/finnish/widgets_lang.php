@@ -26,7 +26,7 @@ $lang['widgets.edit_area']              = 'Muokkaa aluetta';
 // Widget area field names
 $lang['widgets.widget_area']            = 'Alue';
 $lang['widgets.widget_area_title']      = 'Alueen nimi';
-$lang['widgets.widget_area_slug']       = 'Alueen lyhyt nimi';
+$lang['widgets.widget_area_slug']       = 'Alueen polkutunnus';
 
 // Widget instance titles
 $lang['widgets.add_instance']           = 'Lisää widget instanssi';

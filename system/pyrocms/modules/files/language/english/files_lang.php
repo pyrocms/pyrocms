@@ -48,14 +48,15 @@ $lang['files.dropdown.root']				= '-- Root --';
 $lang['files.description']					= 'Description';
 $lang['files.type']							= 'Type';
 $lang['files.file']							= 'File';
-$lang['files.file_name']							= 'File Name';
-$lang['files.success']				= 'The file has now been saved.';
+$lang['files.file_name']					= 'File Name';
+$lang['files.success']						= 'The file has now been saved.';
 $lang['files.file.no_upload']				= 'A file must be uploaded.';
 $lang['files.file.no_extension']			= 'File must have extension.';
-$lang['files.not_exists']			= 'An invalid folder has been selected.';
-$lang['files.delete.error']			= 'The file could not be deleted.';
-$lang['files.delete.success']			= 'The file was deleted.';
+$lang['files.not_exists']					= 'An invalid folder has been selected.';
+$lang['files.delete.error']					= 'The file could not be deleted.';
+$lang['files.delete.success']				= 'The file was deleted.';
 $lang['files.filter']						= 'Filter';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Image';
@@ -65,5 +66,7 @@ $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Other';
 
 $lang['files.no_permissions'] = 'You do not have permissions to see the files module.';
+$lang['files.grid'] = 'Grid';
+$lang['files.list'] = 'List';
 
 /* End of file files_lang.php */

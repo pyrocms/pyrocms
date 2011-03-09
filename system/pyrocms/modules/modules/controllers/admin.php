@@ -25,7 +25,7 @@ class Admin extends Admin_Controller
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Check the referrer
-		parse_url($this->input->server('HTTP_REFERER'), PHP_URL_HOST) == parse_url(BASE_URL, PHP_URL_HOST) or show_error('Invalid Referrer');
+		parse_url($this->input->server('HTTP_REFERER'), PHP_URL_HOST) == parse_url(base_url(), PHP_URL_HOST) or show_error('Invalid Referrer');
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Admin extends Admin_Controller
 						}
 						else
 						{
-
+							$this->session->set_flashdata('success', sprintf(lang('modules.install_error'), $upload_data['raw_name']));
 						}
 					}
 					else
@@ -144,6 +144,7 @@ class Admin extends Admin_Controller
 
 			redirect('admin/modules');
 		}
+
 		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $slug));
 		redirect('admin/modules');
 	}

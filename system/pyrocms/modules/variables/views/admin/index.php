@@ -26,7 +26,7 @@
 					<td><?php echo form_checkbox('action_to[]', $variable->id); ?></td>
 					<td><?php echo $variable->name;?></td>
 					<td><?php echo $variable->data;?></td>
-					<td><?php form_input('', printf('{pyro:variables:%s}', $variable->name));?></td>
+					<td><?php form_input('', printf('{%s:variables:%s}', config_item('tags_trigger'), $variable->name));?></td>
 					<td>
 						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('variables.edit_label'), 'rel="ajax-eip"') . ' | '; ?>
 						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('variables.delete_label'), array('class'=>'confirm'));?>
@@ -35,8 +35,8 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		
-		<div class="float-right">
+
+		<div class="buttons float-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 		</div>
 	<?php echo form_close(); ?>

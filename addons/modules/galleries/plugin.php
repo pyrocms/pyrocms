@@ -18,9 +18,24 @@ class Plugin_Galleries extends Plugin
 	 *
 	 * Usage:
 	 * {pyro:galleries:images slug="nature" limit="5"}
-	 *      <a href="galleries/{slug}/{id}"><img src="uploads/galleries/{slug}/full/{filename}{extension}" alt="{description}"/></a>
+	 * 	<a href="/galleries/{gallery_slug}/{file_id}">
+	 *		<img src="/uploads/files/{filename}" alt="{title}" title="{title}" />
+	 * 	</a>
 	 * {/pyro:galleries:images}
 	 *
+	 * The following is a list of tags that are available to use from this method
+	 * 
+	 * 	{file_id}
+	 * 	{folder_id}
+	 * 	{gallery_id}
+	 * 	{gallery_slug}
+	 * 	{title}
+	 * 	{order}
+	 * 	{name}
+	 * 	{filename}
+	 * 	{description}
+	 * 	{extension}
+	 * 	
 	 * @return	array
 	 */
 	function images()
@@ -28,14 +43,25 @@ class Plugin_Galleries extends Plugin
 		$limit = $this->attribute('limit');
 		$slug = $this->attribute('slug');
 		
-		return $this->db->select('gallery_images.*, galleries.slug, galleries.id as galleries_table_id')
-						->from('gallery_images')
-						->join('galleries', 'gallery_images.gallery_id = galleries.id')
-						->where('slug', $slug)
-						->order_by('`order`', 'desc')
-						->limit($limit)
-						->get()
-						->result_array();
+		$images = $this->db
+				// Select fields on gallery images table
+				->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug')
+				// Set my gallery by id
+				->where('g.slug', $slug)
+				// Filter images from my gallery
+				->join('galleries g', 'g.id = gi.gallery_id', 'left')
+				// Filter files from my images
+				->join('files f', 'f.id = gi.file_id', 'left')
+				// Filter files type image
+				->where('f.type', 'i')
+				// Order by user order
+				->order_by('`gi`.`order`', 'asc')
+				->limit($limit)
+				// Get all!
+				->get('gallery_images gi')
+				->result_array();
+		
+		return $images;
 	}
 }
 

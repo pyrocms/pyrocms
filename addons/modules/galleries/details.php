@@ -51,7 +51,7 @@ class Module_Galleries extends Module {
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `title` varchar(255) NOT NULL,
 			  `slug` varchar(255) NOT NULL,
-			  `folder_id` int(11) DEFAULT NULL,
+			  `folder_id` int(11) NOT NULL,
 			  `thumbnail_id` int(11) DEFAULT NULL,
 			  `description` text,
 			  `parent` int(11) DEFAULT NULL,
@@ -68,14 +68,8 @@ class Module_Galleries extends Module {
 		$gallery_images = "
 			CREATE TABLE `gallery_images` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `file_id` int(11) DEFAULT NULL,
+			  `file_id` int(11) NOT NULL,
 			  `gallery_id` int(11) NOT NULL,
-			  `filename` varchar(255) NOT NULL,
-			  `extension` varchar(255) NOT NULL,
-			  `title` varchar(255) DEFAULT 'Untitled',
-			  `description` text,
-			  `uploaded_on` int(15) DEFAULT NULL,
-			  `updated_on` int(15) DEFAULT NULL,
 			  `order` int(11) DEFAULT '0',
 			  PRIMARY KEY (`id`),
 			  KEY `gallery_id` (`gallery_id`)

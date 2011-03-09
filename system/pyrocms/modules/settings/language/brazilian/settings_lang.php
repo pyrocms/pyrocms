@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Itens RSS do Dashboard';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Quantos itens RSS devem ser mostrados no dashboard?';
 
 $lang['settings_date_format'] 					= 'Formato de data';
-$lang['settings_date_format_desc'] 				= 'Como devem ser exibidas as datas em todo o site e painel de controle? Utilizando formato de data PHP.';
+$lang['settings_date_format_desc'] 				= 'Como devem ser exibidas as datas em todo o site e painel de controle? ' .
+													'Utilize o <a href="http://php.net/manual/en/function.date.php" target="_black">formato de data</a> PHP - OU - ' .
+													'Utilize o formato de <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formatadas como data</a> do PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Situação do site';
 $lang['settings_frontend_enabled_desc'] 		= 'Use esta opção para definir se a frente do site ficará visível ou não. Últil quando houver a necessidade de desligar o site para manutenção.';
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Chave de consumo do Twitter.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Chave de consumo secreta';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Chave de consumo secreta do Twitter.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; Integração de novidades.';
-$lang['settings_twitter_news_desc'] 			= 'Você deseja escrever no twitter links para os novos artigos de novidades?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; Integração de novidades.';
+$lang['settings_twitter_blog_desc'] 			= 'Você deseja escrever no twitter links para os novos artigos de novidades?';
 
 $lang['settings_twitter_feed_count'] 			= 'Contador do Feed';
 $lang['settings_twitter_feed_count_desc'] 		= 'Quantos tweets devem ser retornados para o bloco de feed do Twitter?';

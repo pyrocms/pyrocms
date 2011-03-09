@@ -52,6 +52,7 @@ $lang['files.success']			= 'El archivo ha sido guardado.';
 $lang['files.not_exists']		= 'Se ha seleccionado una carpeta inválida.';
 $lang['files.delete.error']		= 'El archivo no pudo ser borrado.';
 $lang['files.delete.success']		= 'El archivo fue borrado.';
+$lang['files.loading']						= 'Cargando...';
 
 // Types
 $lang['files.i'] = 'Imagen';
@@ -60,6 +61,8 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Documento';
 $lang['files.o'] = 'Otro';
 
-$lang['files.no_permissions'] = 'You do not have permissions to see the files module.'; #translate
+$lang['files.no_permissions'] = 'No tienes permiso para ver el módulo de archivos.';
+$lang['files.grid'] = 'Cuadrícula';
+$lang['files.list'] = 'Lista';
 
 /* End of file file_lang.php */

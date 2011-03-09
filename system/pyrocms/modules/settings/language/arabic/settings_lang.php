@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'عدد أخبار RSS في لوحة 
 $lang['settings_dashboard_rss_count_desc'] 		= 'كم عدد أخبار RSS التي تود إظهارها في لوحة التحكم؟';
 
 $lang['settings_date_format'] 					= 'نسق التاريخ';
-$lang['settings_date_format_desc'] 				= 'كيفية عرض التواريخ في الموقع ولوحة التحكم باستخدام نسق تاريخ PHP.';
+$lang['settings_date_format_desc']				= 'كيف يجب عرض التواريخ في الموقع ولوحة التحكم؟ ' .
+													'باستخدام <a href="http://php.net/manual/en/function.date.php" target="_black">نسق تواريخ</a> PHP - أو - ' .
+													'باستخدام نسق <a href="http://php.net/manual/en/function.strftime.php" target="_black">النصوص المُنسّقة كتواريخ</a> باستخدام PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'حالة الموقع';
 $lang['settings_frontend_enabled_desc'] 		= 'استخدم هذا الخيار لإتاحة أو حجب واجهة الموقع. يُمكن الإستفادة من هذا الخيار لحجب الموقع وقت الصيانة.';
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'رمز مستخدم تويتر.'
 $lang['settings_twitter_consumer_key_secret'] 	= 'كلمة سرّ المستفيد';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'كلمة سرّ مُستفيد تويتر.';
 
-$lang['settings_twitter_news']					= 'الدمج مع تويتر والأخبار';
-$lang['settings_twitter_news_desc'] 			= 'هل تريد نشر روابط مقالات الأخبار الجديدة على تويتر؟';
+$lang['settings_twitter_blog']					= 'الدمج مع تويتر والأخبار';
+$lang['settings_twitter_blog_desc'] 			= 'هل تريد نشر روابط مقالات الأخبار الجديدة على تويتر؟';
 
 $lang['settings_twitter_feed_count'] 			= 'عدد رسائل تويتر';
 $lang['settings_twitter_feed_count_desc'] 		= 'ما عدد رسائل تويتر التي يجب قراءتها في بلوك تويتر؟';

@@ -62,6 +62,11 @@ class Admin extends Admin_Controller
 				'rules'	=> 'trim'
 			),
 			array(
+				'field' => 'restricted_to[]',
+				'label'	=> 'lang:pages.access_label',
+				'rules'	=> 'trim|numeric'
+			),
+			array(
 				'field' => 'rss_enabled',
 				'label'	=> 'lang:pages.rss_enabled_label',
 				'rules'	=> 'trim|numeric'
@@ -106,7 +111,6 @@ class Admin extends Admin_Controller
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
-		$this->load->helper(array('array', 'pages'));
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
@@ -168,7 +172,6 @@ class Admin extends Admin_Controller
 	public function ajax_page_details($page_id)
 	{
 		$page 			= $this->pages_m->get($page_id);
-		$page->path 	= $this->pages_m->get_path_by_id($page_id);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -213,7 +216,6 @@ class Admin extends Admin_Controller
 	public function preview($id = 0)
 	{
 		$data->page  = $this->pages_m->get($id);
-		$data->page->path = $this->pages_m->get_path_by_id($id);
 
 		$this->template->set_layout('modal', 'admin');
 		$this->template->build('admin/preview', $data);
@@ -232,33 +234,36 @@ class Admin extends Admin_Controller
 	    {
 			// First create the page
 			$page_body = $_POST['body'];
-			unset($_POST['body']);
 
-			if ($id = $this->pages_m->create($_POST))
+			$input = $this->input->post();
+			unset($input['body']);
+			
+			if ($id = $this->pages_m->create($input))
 			{
 				// Create the revision
 				$revision_id = $this->versioning->create_revision(array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $page_body));
 
 				// Update the page row
-				$to_update 					= $_POST;
-				$to_update['revision_id'] 	= $revision_id;
+				$input['revision_id'] = $revision_id;
+
+				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 				// Add a Navigation Link
-				if ($this->input->post('navigation_group_id'))
+				if ($input['navigation_group_id'])
 				{
 					$this->load->model('navigation/navigation_m');
 					$this->navigation_m->insert_link(array(
-						'title' => $this->input->post('title'),
+						'title' => $input['title'],
 						'link_type'	=> 'page',
 						'page_id' => $id,
-						'navigation_group_id' => (int) $this->input->post('navigation_group_id')
+						'navigation_group_id' => (int) $input['navigation_group_id']
 					));
 
 					// Clear navigation cache
 					$this->cache->delete_all('navigation_m');
 				}
 
-				if ($this->pages_m->update($id, $to_update))
+				if ($this->pages_m->update($id, $input))
 				{
 					$this->session->set_flashdata('success', lang('pages_create_success'));
 
@@ -282,25 +287,21 @@ class Admin extends Admin_Controller
 			$page->{$rule['field']} = $this->input->post($rule['field']);
 		}
 
+		$page->restricted_to = $this->input->post('restricted_to');
+
 	    // If a parent id was passed, fetch the parent details
-	    if($parent_id > 0)
+	    if ($parent_id > 0)
 	    {
 			$page->parent_id 	= $parent_id;
 			$parent_page 		= $this->pages_m->get($parent_id);
-			$parent_page->path 	= $this->pages_m->get_path_by_id($parent_id);
 	    }
 
 	    // Assign data for display
 		$data['page'] = & $page;
 		$data['parent_page'] = & $parent_page;
 
-		$page_layouts = $this->page_layouts_m->get_all();
-		$data['page_layouts'] = array_for_select($page_layouts, 'id', 'title');
-
-		// Load navigation list
-		$this->load->model('navigation/navigation_m');
-		$navigation_groups = $this->navigation_m->get_groups();
-		$data['navigation_groups'] = array_for_select($navigation_groups, 'id', 'title');
+		// Set some data that both create and edit forms will need
+		self::_form_data();
 
 	    // Load WYSIWYG editor
 		$this->template
@@ -325,7 +326,7 @@ class Admin extends Admin_Controller
 	    $this->page_id 	= $id;
 	    $page 			= $this->versioning->get($id);
 		$revisions		= $this->versioning->get_revisions($id);
-	
+
 	    // Got page?
 	    if ( ! $page)
 	    {
@@ -333,28 +334,34 @@ class Admin extends Admin_Controller
 			redirect('admin/pages/create');
 	    }
 
-	    // Validate it
+		// It's stored as a CSV list
+		$page->restricted_to = explode(',', $page->restricted_to);
+
 		if ($this->form_validation->run())
 	    {
+			$input = $this->input->post();
+
 			// Set the data for the revision
-			$revision_data = array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $_POST['body']);
+			$revision_data = array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $input['body']);
 
 			// Did the user wanted to restore a specific revision?
-			if ( $_POST['use_revision_id'] == $page->revision_id )
+			if ($input['use_revision_id'] == $page->revision_id )
 			{
-				$_POST['revision_id'] 	= $this->versioning->create_revision($revision_data);
+				$input['revision_id'] 	= $this->versioning->create_revision($revision_data);
 			}
 			// Manually restore a revision
 			else
 			{
-				$_POST['revision_id'] = $_POST['use_revision_id'];
+				$input['revision_id'] = $input['use_revision_id'];
 			}
 
+			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+
 			// Run the update code with the POST data
-			$this->pages_m->update($id, $_POST);
+			$this->pages_m->update($id, $input);
 
 			// The slug has changed
-			if($this->input->post('slug') != $this->input->post('old_slug'))
+			if ($this->input->post('slug') != $this->input->post('old_slug'))
 			{
 				$this->pages_m->reindex_descendants($id);
 			}
@@ -375,17 +382,16 @@ class Admin extends Admin_Controller
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== FALSE)
 			{
 				$page->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
 	    // If a parent id was passed, fetch the parent details
-	    if($page->parent_id > 0)
+	    if ($page->parent_id > 0)
 	    {
 			$parent_page 		= $this->pages_m->get($page->parent_id);
-			$parent_page->path 	= $this->pages_m->get_path_by_id($page->parent_id);
 	    }
 
 	    // Assign data for display
@@ -393,17 +399,38 @@ class Admin extends Admin_Controller
 		$this->data->revisions		=& $revisions;
 	    $this->data->parent_page 	=& $parent_page;
 
-		$page_layouts 				= $this->page_layouts_m->get_all();
-		$this->data->page_layouts 	= array_for_select($page_layouts, 'id', 'title');
+		self::_form_data();
 
-	    // Load WYSIWYG editor
-		$this->template->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+		$this->template
+			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page->title))
+
+			// Load WYSIWYG Editor
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 
 			// Load form specific JavaScript
-			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page->title))
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);
+	}
+
+
+	private function _form_data()
+	{
+		$page_layouts = $this->page_layouts_m->get_all();
+		$this->template->page_layouts = array_for_select($page_layouts, 'id', 'title');
+
+		// Load navigation list
+		$this->load->model('navigation/navigation_m');
+		$navigation_groups = $this->navigation_m->get_groups();
+		$this->template->navigation_groups = array_for_select($navigation_groups, 'id', 'title');
+
+		$this->load->model('groups/group_m');
+		$groups = $this->group_m->get_all();
+		foreach($groups as $group)
+		{
+			$group->name == 'admin' OR $group_options[$group->id] = $group->name;
+		}
+		$this->template->group_options = $group_options;
 	}
 
 	/**
@@ -436,10 +463,10 @@ class Admin extends Admin_Controller
 		}
 
 		// Some pages have been deleted
-		if(!empty($deleted_ids))
+		if ( ! empty($deleted_ids))
 		{
 			// Only deleting one page
-			if( count($deleted_ids) == 1 )
+			if ( count($deleted_ids) == 1 )
 			{
 				$this->session->set_flashdata('success', sprintf(lang('pages_delete_success'), $deleted_ids[0]));
 			}
@@ -454,7 +481,6 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('notice', lang('pages_delete_none_notice'));
 		}
 
-		// Redirect
 		redirect('admin/pages');
 	}
 

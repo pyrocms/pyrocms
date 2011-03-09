@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Nombre d\'entrées RSS à afficher s
 $lang['settings_dashboard_rss_count_desc'] 		= 'Combien d\entrées RSS afficher sur le tableau de bord ?';
 
 $lang['settings_date_format'] 					= 'Format de date';
-$lang['settings_date_format_desc'] 				= 'Format d\affichage des dates sur le site et dans le tableau de bord';
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled'] 				= 'Statut du site';
 $lang['settings_frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
@@ -46,7 +48,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'Le nom d\'hôte du serveur SMTP';
 $lang['settings_mail_smtp_pass'] 				= 'Mot de passe SMTP';
 $lang['settings_mail_smtp_pass_desc'] 			= 'Le mot de passe SMTP.';
 
-$lang['settings_mail_smtp_port'] 				= 'Port SMPT'; 
+$lang['settings_mail_smtp_port'] 				= 'Port SMTP'; 
 $lang['settings_mail_smtp_port_desc'] 			= 'Le numéro du port SMTP.';
 
 $lang['settings_mail_smtp_user'] 				= 'Nom d\utilisateur SMTP';
@@ -65,7 +67,7 @@ $lang['settings_records_per_page'] 				= 'Enregistrements par page';
 $lang['settings_records_per_page_desc'] 		= 'Combien d\'enregistrements devons nous montrer par page dans la section admin?';
 
 $lang['settings_rss_feed_items'] 				= 'Nombre de flux RSS';
-$lang['settings_rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux news et RSS?';
+$lang['settings_rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS?';
 
 $lang['settings_require_lastname'] 				= 'Nom requis?';
 $lang['settings_require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom?';
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter consumer key.';#translat
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consumer Key Secret';#translate
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter consumer key secret.';#translate
 
-$lang['settings_twitter_news']					= 'Intégrations de Twitter &amp; des news.';
-$lang['settings_twitter_news_desc'] 			= 'Poster les liens des articles sur Twitter';
+$lang['settings_twitter_blog']					= 'Intégrations de Twitter &amp; des blog.';
+$lang['settings_twitter_blog_desc'] 			= 'Poster les liens des articles sur Twitter';
 
 $lang['settings_twitter_feed_count'] 			= 'Nombre de tweets';
 $lang['settings_twitter_feed_count_desc'] 		= 'Combien de tweet doivent être affiché dans le block Twitter?';

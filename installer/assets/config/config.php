@@ -12,7 +12,7 @@
 |
 */
 
-$config['base_url'] = BASE_URL;
+$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ $config['index_page'] = '__INDEX__';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= "AUTO";
+$config['uri_protocol']	= 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -159,7 +159,7 @@ $config['function_trigger'] = 'm';
 | Error Logging Threshold
 |--------------------------------------------------------------------------
 |
-| If you have enabled error logging, you can set an error threshold to 
+| If you have enabled error logging, you can set an error threshold to
 | determine what gets logged. Threshold options are:
 | You can enable error logging by setting a threshold over zero. The
 | threshold determines what gets logged. Threshold options are:
@@ -251,7 +251,7 @@ $config['sess_time_to_update'] 		= 300;
 | 'cookie_path'   =  Typically will be a forward slash
 |
 */
-$config['cookie_domain']		= ($_SERVER['SERVER_NAME'] == 'localhost' ? '' : preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
+$config['cookie_domain']		= (isset($_SERVER['SERVER_NAME']) AND $_SERVER['SERVER_NAME'] == 'localhost') ? '' : preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']);
 $config['cookie_path']			= BASE_URI;
 
 /*

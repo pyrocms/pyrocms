@@ -36,7 +36,9 @@ $lang['settings_dashboard_rss_count']			= 'Dashboard RSS syötteitä';
 $lang['settings_dashboard_rss_count_desc']		= 'Kuinka monta syötettä haluat listaa dashboardissa?';
 
 $lang['settings_date_format']					= 'Päiväyksen muoto';
-$lang['settings_date_format_desc']				= 'Missä muodossa haluat päiväysten näyttävän? Käytä PHP date() fomaattia.';
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled']				= 'Sivuston status';
 $lang['settings_frontend_enabled_desc']			= 'Käytä tätä asetusta kun et halua näyttää sivuja käyttäjille. Käytetään yleensä sivuston ylläpidon yhteydessä.';
@@ -98,11 +100,11 @@ $lang['settings_twitter_username_desc']			= 'Twitterin käyttäjätunnus.';
 $lang['settings_twitter_consumer_key']			= 'Kuluttajan avain';
 $lang['settings_twitter_consumer_key_desc']		= 'Twitterin kuluttaja avain (consumer key).';
 
-$lang['settings_twitter_consumer_key_secret']	= 'Kuluttajan avaimen salaus';
-$lang['settings_twitter_consumer_key_secret_desc'] = 'Twitterin kuluttaja avaimen salaus (consumer key secret).';
+$lang['settings_twitter_consumer_key_secret']		= 'Kuluttajan avaimen salaus';
+$lang['settings_twitter_consumer_key_secret_desc']	= 'Twitterin kuluttaja avaimen salaus (consumer key secret).';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; Uutisten integrointi.';
-$lang['settings_twitter_news_desc']				= 'Haluatko, että uutisartikkelit julkaistaan automaattisesti Twitterissä?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; Uutisten integrointi.';
+$lang['settings_twitter_blog_desc']				= 'Haluatko, että uutisartikkelit julkaistaan automaattisesti Twitterissä?';
 
 $lang['settings_twitter_feed_count']			= 'Syöte lukumäärä';
 $lang['settings_twitter_feed_count_desc']		= 'Monta Twitterin syötteitä haluat näyttää lohkossa?';
@@ -137,8 +139,8 @@ $lang['settings_form_option_Enabled']			= 'Päällä';
 $lang['settings_form_option_Disabled']			= 'Pois päältä';
 $lang['settings_form_option_Required']			= 'Pakollinen';
 $lang['settings_form_option_Optional']			= 'Vaihtoehtoinen';
-$lang['settings_form_option_Oldest First']		= 'Vanhin ensin'; #translate
-$lang['settings_form_option_Newest First']		= 'Uusin ensin'; #translate
+$lang['settings_form_option_Oldest First']		= 'Vanhin ensin';
+$lang['settings_form_option_Newest First']		= 'Uusin ensin';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/finnish/settings_lang.php */

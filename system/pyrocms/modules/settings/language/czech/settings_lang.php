@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Počet RSS položek na Nástěnce';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Kolik položek z RSS zdroje zobrazovat na Nástěnce?';
 
 $lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled'] 				= 'Stav webu';
 $lang['settings_frontend_enabled_desc'] 		= 'Tímto nastavení můžete vypnout obsahovou část webu (nikoliv administraci). Užitečné např. při úpravách serveru.';
@@ -46,7 +48,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.';
 $lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
 $lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
 
-$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
 $lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
 
 $lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Consumer Key pro Twitter.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consumer Key Secret';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Consumer Key Secret pro Twitter.';
 
-$lang['settings_twitter_news']					= 'Integrace novinek s Twitterem.';
-$lang['settings_twitter_news_desc'] 			= 'Chcete odesílat zprávy o nivinkách na Twitter?';
+$lang['settings_twitter_blog']					= 'Integrace novinek s Twitterem.';
+$lang['settings_twitter_blog_desc'] 			= 'Chcete odesílat zprávy o nivinkách na Twitter?';
 
 $lang['settings_twitter_feed_count'] 			= 'Počet příspěvků';
 $lang['settings_twitter_feed_count_desc'] 		= 'Kolik tweetů se má zobrazit v sekci Twitteru?';

@@ -110,17 +110,17 @@ class Module_m extends CI_Model
 	public function add($module)
 	{
 		return $this->db->insert($this->_table, array(
-			'name' => serialize($module['name']),
-			'slug' => $module['slug'],
-			'version' => $module['version'],
-			'description' => serialize($module['description']),
-			'skip_xss' => !empty($module['skip_xss']),
-			'is_frontend' => !empty($module['frontend']),
-			'is_backend' => !empty($module['backend']),
-			'menu' => !empty($module['menu']) ? $module['menu'] : FALSE,
-			'enabled' => !empty($module['enabled']),
-			'installed' => !empty($module['installed']),
-			'is_core' => !empty($module['is_core'])
+			'name'			=> serialize($module['name']),
+			'slug'			=> $module['slug'],
+			'version'		=> $module['version'],
+			'description'	=> serialize($module['description']),
+			'skip_xss'		=> ! empty($module['skip_xss']),
+			'is_frontend'	=> ! empty($module['frontend']),
+			'is_backend'	=> ! empty($module['backend']),
+			'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
+			'enabled'		=> ! empty($module['enabled']),
+			'installed'		=> ! empty($module['installed']),
+			'is_core'		=> ! empty($module['is_core'])
 		));
 	}
 
@@ -201,19 +201,19 @@ class Module_m extends CI_Model
 			$name = ! isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
 
 			$module = array(
-				'name' => $name,
-				'slug' => $result->slug,
-				'version' => $result->version,
-				'description' => $description,
-				'skip_xss' => $result->skip_xss,
-				'is_frontend' => $result->is_frontend,
-				'is_backend' => $result->is_backend,
-				'menu' => $result->menu,
-				'enabled' => $result->enabled,
-				'installed' => ! empty($result->installed),
-				'is_core' => $result->is_core,
-				'is_current' => version_compare($result->version, $this->version($result->slug),  '>='),
-				'current_version' => $this->version($result->slug)
+				'name'				=> $name,
+				'slug'				=> $result->slug,
+				'version'			=> $result->version,
+				'description'		=> $description,
+				'skip_xss'			=> $result->skip_xss,
+				'is_frontend'		=> $result->is_frontend,
+				'is_backend'		=> $result->is_backend,
+				'menu'				=> $result->menu,
+				'enabled'			=> $result->enabled,
+				'installed'			=> ! empty($result->installed),
+				'is_core'			=> $result->is_core,
+				'is_current'		=> version_compare($result->version, $this->version($result->slug),  '>='),
+				'current_version'	=> $this->version($result->slug)
 			);
 
 			if ( ! empty($params['is_backend']))
@@ -311,6 +311,9 @@ class Module_m extends CI_Model
 		{
 			return FALSE;
 		}
+
+		// Search for a module from upload recent
+		$this->import_unknown();
 
 		// TURN ME ON BABY!
 		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
@@ -422,11 +425,11 @@ class Module_m extends CI_Model
 				$module = $details_class->info();
 
 				// Now lets set some details ourselves
-				$module['slug'] = $slug;
-				$module['version'] = $details_class->version;
-				$module['enabled'] = $is_core; // enable if core
-				$module['installed'] = $is_core; // install if core
-				$module['is_core'] = $is_core; // is core if core
+				$module['slug']			= $slug;
+				$module['version']		= $details_class->version;
+				$module['enabled']		= $is_core; // enable if core
+				$module['installed']	= $is_core; // install if core
+				$module['is_core']		= $is_core; // is core if core
 
 				// Looks like it installed ok, add a record
 				$this->add($module);

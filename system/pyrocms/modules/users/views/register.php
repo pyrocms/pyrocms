@@ -1,4 +1,4 @@
-<h2 id="page_title"><?php echo lang('user_register_header') ?></h2>
+<h2 class="page-title" id="page_title"><?php echo lang('user_register_header') ?></h2>
 
 <p>
 	<span id="active_step"><?php echo lang('user_register_step1') ?></span> -&gt; 

@@ -53,6 +53,7 @@ $lang['files.not_exists']			= 'Een ongeldige folder is geselecteerd.';
 $lang['files.delete.error']			= 'Het bestand kon niet worden verwijderd.';
 $lang['files.delete.success']			= 'Het bestand is verwijderd.';
 $lang['files.filter']						= 'Filter'; #translate
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Afbeelding';
@@ -60,5 +61,9 @@ $lang['files.a'] = 'Audio';
 $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Document';
 $lang['files.o'] = 'Anders';
+
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';#translate
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file file_lang.php */

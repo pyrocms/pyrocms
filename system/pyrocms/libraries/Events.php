@@ -197,7 +197,8 @@ class Events {
 				break;
 		}
 
-		return FALSE;
+		// Doesn't do anything, so send NULL. FALSE would suggest an error
+		return NULL;
 	}
 
 	/**

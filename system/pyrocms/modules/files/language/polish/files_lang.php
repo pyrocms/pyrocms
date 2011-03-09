@@ -51,6 +51,7 @@ $lang['files.success']				= 'Plik został zachowany.';
 $lang['files.not_exists']			= 'Wybrano nieprawidłowy katalog.';
 $lang['files.delete.error']			= 'Plik nie mógł zostać usunięty.';
 $lang['files.delete.success']			= 'Plik został usunięty.';
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i']                                = 'Obraz';
@@ -60,5 +61,7 @@ $lang['files.d']                                = 'Dokument';
 $lang['files.o']                                = 'Inny';
 
 $lang['files.no_permissions'] = 'You do not have permissions to see the files module.'; #translate
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file file_lang.php */

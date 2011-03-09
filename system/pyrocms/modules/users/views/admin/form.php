@@ -58,7 +58,6 @@
 					<li class="even">
 						<label for="display_name"><?php echo lang('user_display_name');?></label>
 						<?php echo form_input('display_name', $member->display_name); ?>
-						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li>
@@ -97,8 +96,7 @@
 		</div>
 	</div>
 
-	<div class="float-right">
-		<br/>
+	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	</div>
 

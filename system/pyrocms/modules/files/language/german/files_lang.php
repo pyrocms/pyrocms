@@ -53,6 +53,7 @@ $lang['files.not_exists']			= 'Es wurde ein ungültiges Verzeichnis ausgewählt.
 $lang['files.delete.error']			= 'Die Datei konnte nicht gelöscht werden.';
 $lang['files.delete.success']			= 'Die Datei wurde gelöscht.';
 $lang['files.filter']						= 'Filter'; #translate
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = 'Bild';
@@ -61,6 +62,8 @@ $lang['files.v'] = 'Video';
 $lang['files.d'] = 'Dokument';
 $lang['files.o'] = 'Anderer';
 
-$lang['files.no_permissions'] = 'You do not have permissions to see the files module.'; #translate
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';#translate
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file files_lang.php */

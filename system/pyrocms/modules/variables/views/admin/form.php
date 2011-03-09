@@ -14,13 +14,13 @@
 				<?php echo  form_input('name', $variable->name); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
-			<li class="even">
+			<li>
 				<label for="data"><?php echo lang('variables.data_label');?></label>
 				<?php echo  form_input('data', $variable->data); ?>
 			</li>
 		</ul>
 
-		<div class="float-right">
+		<div class="buttons float-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		</div>
 	</fieldset>

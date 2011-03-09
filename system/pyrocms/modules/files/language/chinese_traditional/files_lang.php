@@ -55,6 +55,7 @@ $lang['files.not_exists']					= '已選取了一個不正確的目錄';
 $lang['files.delete.error']					= '此檔案無法刪除';
 $lang['files.delete.success']				= '此檔案已刪除';
 $lang['files.filter']						= 'Filter'; #translate
+$lang['files.loading']						= 'Loading...'; #translate
 
 // Types
 $lang['files.i'] = '圖片';
@@ -62,5 +63,9 @@ $lang['files.a'] = '音樂';
 $lang['files.v'] = '影片';
 $lang['files.d'] = '文件';
 $lang['files.o'] = '其他';
+
+$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';#translate
+$lang['files.grid'] = 'Grid';#translate
+$lang['files.list'] = 'List';#translate
 
 /* End of file file_lang.php */

@@ -53,7 +53,7 @@ $autoload['libraries'] = array('events', 'asset', 'database', 'session', 'cache'
 
 $autoload['helper'] = array(
 	'debug', 'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array', 'gravatar',
-	'comments/comments', 'pages/pages', 'modules/module'
+	'comments/comments', 'modules/module'
 );
 
 
@@ -70,7 +70,7 @@ $autoload['helper'] = array(
 |
 */
 
-$autoload['config'] = array('asset', 'language');
+$autoload['config'] = array('asset', 'language', 'tags');
 
 
 /*

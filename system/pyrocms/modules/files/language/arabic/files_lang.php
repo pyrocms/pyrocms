@@ -53,6 +53,7 @@ $lang['files.not_exists']			= 'تم اختيار مجلد غير صالح.';
 $lang['files.delete.error']			= 'تعذر حذف الملف.';
 $lang['files.delete.success']			= 'تم حذف الملف';
 $lang['files.filter']						= 'انتقاء';
+$lang['files.loading']						= 'جاري التحميل...';
 
 // Types
 $lang['files.i'] = 'صورة';
@@ -62,5 +63,7 @@ $lang['files.d'] = 'مستند';
 $lang['files.o'] = 'آخر';
 
 $lang['files.no_permissions'] = 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
+$lang['files.grid'] = 'شبكي';
+$lang['files.list'] = 'سرد';
 
 /* End of file files_lang.php */

@@ -42,7 +42,7 @@ class Comments_m extends MY_Model
   	{
     	$this->db->order_by('comments.created_on', 'desc');
     	
-    	if($limit > 0)
+    	if ($limit > 0)
     	{
 	    	$this->db->limit($limit);
     	}
@@ -166,22 +166,23 @@ class Comments_m extends MY_Model
 		
 		$options = array();
 		
-		if(!empty($slugs))
+		if ( ! empty($slugs))
 		{
 			foreach($slugs as $slug)
 			{
 				//get the module name
-				$module_names = unserialize($slug->name);
-				
-				if(array_key_exists(CURRENT_LANGUAGE, $module_names))
+				if ($slug->name AND $module_names = unserialize($slug->name))
 				{
-					$name = $module_names[CURRENT_LANGUAGE];
+					if (array_key_exists(CURRENT_LANGUAGE, $module_names))
+					{
+						$name = $module_names[CURRENT_LANGUAGE];
+					}
+					else
+					{
+						$name = $module_names['en'];
+					}
+					$options[$slug->module] = $name;
 				}
-				else
-				{
-					$name = $module_names['en'];
-				}
-				$options[$slug->module] = $name;
 			}
 		}
 		return $options;

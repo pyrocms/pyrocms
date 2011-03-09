@@ -36,7 +36,7 @@ $lang['contact_title']						= '聯繫';
 // texts
 $lang['contact_mail_text']					= '這段訊息是從 %s 的聯絡表單送出，將包含以下內容：';
 $lang['contact_sent_text']					= '您的訊息已經送出。我們會儘快回覆您，謝謝。';
-$lang['contact_capchar_text']				= '將下方的文字送出：';
+$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
 
 //predefined subjects list
 $lang['subject_support']  	= '技術支援';

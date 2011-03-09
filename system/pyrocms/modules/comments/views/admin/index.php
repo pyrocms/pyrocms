@@ -1,9 +1,11 @@
+<?php if (Settings::get('moderate_comments')): ?>
 <h3><?php echo $content_title;?></h3>
+<?php endif; ?>
 
 <?php if ( ! empty($comments)): ?>
 
 	<?php echo form_open('admin/comments/action');?>
-		<?php echo form_hidden('redirect', $this->uri->uri_string()); ?>
+		<?php echo form_hidden('redirect', uri_string()); ?>
 		<table border="0" class="table-list clear-both">
 			<thead>
 				<tr>
@@ -64,15 +66,17 @@
 			</tbody>
 		</table>
 
-		<?php if ($this->settings->moderate_comments): ?>
+		<div class="buttons float-right padding-top">
+		<?php if (Settings::get('moderate_comments')): ?>
 			<?php if ($this->method == 'index'): ?>
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
-			<?php else: ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('approve','delete'))); ?>
+			<?php else: ?>
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('unapprove','delete'))); ?>
 			<?php endif; ?>
 		<?php else: ?>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
 		<?php endif; ?>
+		</div>
 
 	<?php echo form_close();?>
 

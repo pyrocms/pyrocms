@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= '控制台 RSS 項目';
 $lang['settings_dashboard_rss_count_desc'] 		= '您想要多少 RSS 項目顯示在控制台中呢？';
 
 $lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled'] 				= '網站狀態';
 $lang['settings_frontend_enabled_desc'] 		= '您可使用這個選項將網站關閉或開啟。若您想要暫時關閉網站以進行維護工作，這會非常有用。';
@@ -46,7 +48,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.';
 $lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
 $lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
 
-$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
 $lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
 
 $lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
@@ -65,7 +67,7 @@ $lang['settings_records_per_page'] 				= '每頁顯示的資料數';
 $lang['settings_records_per_page_desc'] 		= '在管理系統中，每頁所顯示的資料筆數。';
 
 $lang['settings_rss_feed_items'] 				= 'Feed 項目數量';
-$lang['settings_rss_feed_items_desc'] 			= '在 RSS/news feeds 中所顯示的項目數量';
+$lang['settings_rss_feed_items_desc'] 			= '在 RSS/blog feeds 中所顯示的項目數量';
 
 $lang['settings_require_lastname'] 				= '需要輸入姓氏？';
 $lang['settings_require_lastname_desc'] 		= '某些情況下，姓氏是不需要輸入的項目。您要強制用戶輸入這項資料嗎？';
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter 的消費者金鑰(Consu
 $lang['settings_twitter_consumer_key_secret'] 	= '消費者機密';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter 的消費者機密序號(Consumer Key Secret)。';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; 新聞 整合.';
-$lang['settings_twitter_news_desc'] 			= '您想要自動在 Twitter 上發佈最新文章的連結嗎？';
+$lang['settings_twitter_blog']					= 'Twitter &amp; 新聞 整合.';
+$lang['settings_twitter_blog_desc'] 			= '您想要自動在 Twitter 上發佈最新文章的連結嗎？';
 
 $lang['settings_twitter_feed_count'] 			= 'Feed 數量';
 $lang['settings_twitter_feed_count_desc'] 		= '請設定在 Twitter feed 區塊內顯示的 Tweets 訊息數量。';

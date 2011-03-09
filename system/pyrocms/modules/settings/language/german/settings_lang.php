@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count']			= 'Anzahl der RRS-Feeds';
 $lang['settings_dashboard_rss_count_desc']		= 'Wie viele Feeds sollen auf der Admin-Oberfläche maximal angezeigt werden?';
 
 $lang['settings_date_format']					= 'Date Format'; #translate
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled']				= 'Status der Seite';
 $lang['settings_frontend_enabled_desc']			= 'Nutze diese Option um die Seite für Nutzer unerreichbar zu machen. Nützlich für Wartungen der Seite.';
@@ -46,7 +48,7 @@ $lang['settings_mail_smtp_host_desc']			= 'The host name of your smtp server.'; 
 $lang['settings_mail_smtp_pass']				= 'SMTP password'; #translate
 $lang['settings_mail_smtp_pass_desc']			= 'SMTP password.'; #translate
 
-$lang['settings_mail_smtp_port']				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port']				= 'SMTP Port'; #translate
 $lang['settings_mail_smtp_port_desc']			= 'SMTP port number.'; #translate
 
 $lang['settings_mail_smtp_user']				= 'SMTP User Name'; #translate
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc']		= 'Dein Nutzungsschlüssel.';
 $lang['settings_twitter_consumer_key_secret']	= 'Sicherer Nutzungsschlüssel';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Dein sicherer Nutzungsschlüssel.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; News-Intigrierung.';
-$lang['settings_twitter_news_desc']				= 'Möchtest du Links zu neuen News auf Twitter posten?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; News-Intigrierung.';
+$lang['settings_twitter_blog_desc']				= 'Möchtest du Links zu neuen News auf Twitter posten?';
 	
 $lang['settings_twitter_feed_count']			= 'Anzahl der Feeds';
 $lang['settings_twitter_feed_count_desc']		= 'Wie viele Tweets sollen im Twitter-Block maximal angezeigt werden?';

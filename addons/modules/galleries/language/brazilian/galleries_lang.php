@@ -14,6 +14,9 @@ $lang['galleries.folder_error']			= 'O diretório da galeria "%s" não pode ser 
 $lang['galleries.delete_error']			= 'A galeria "%s" não pode ser removida.';
 $lang['galleries.no_galleries_error'] 	= 'Nenhuma galeria foi criada ainda.';
 $lang['galleries.install_error']		= 'O módulo não pode ser instalado.';
+$lang['galleries.already_exist_error']	= 'Uma galeria com o apelido "%s" já existe.';
+$lang['galleries.folder_duplicated_error']	= 'Ocorreu um erro! A pasta já pertence a uma galeria.';
+$lang['galleries.no_gallery_description']	= 'Sem descrição.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Galerias';

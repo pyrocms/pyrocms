@@ -43,27 +43,34 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 
 // Local: localhost or local.example.com
-if(strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
+if ($_SERVER['SERVER_NAME'])
 {
-  define('ENV', 'local');
-}
+	if (strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
+	{
+		define('ENV', 'local');
+	}
 
-// Development: dev.example.com
-elseif(strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
-{
-  define('ENV', 'dev');
-}
+	// Development: dev.example.com
+	elseif (strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
+	{
+		define('ENV', 'dev');
+	}
 
-// Quality Assurance: qa.example.com
-elseif(strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
-{
-  define('ENV', 'qa');
-}
+	// Quality Assurance: qa.example.com
+	elseif (strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
+	{
+		define('ENV', 'qa');
+	}
 
-// Live: example.com
+	// Live: example.com
+	else
+	{
+		define('ENV', 'live');
+	}
+}
 else
 {
-  define('ENV', 'live');
+	define('ENV', 'local');
 }
 
 /*
@@ -76,16 +83,18 @@ else
 */
 
 // Base URL (keeps this crazy sh*t out of the config.php
-if(isset($_SERVER['HTTP_HOST']))
+if (isset($_SERVER['HTTP_HOST']))
 {
 	$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
-	$base_url .= '://'. $_SERVER['HTTP_HOST'];
+	$base_url .= '://' . $_SERVER['HTTP_HOST'];
 	$base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-	
+
 	// Base URI (It's different to base URL!)
 	$base_uri = parse_url($base_url, PHP_URL_PATH);
-	if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
-	if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
+	if (substr($base_uri, 0, 1) != '/')
+		$base_uri = '/' . $base_uri;
+	if (substr($base_uri, -1, 1) != '/')
+		$base_uri .= '/';
 }
 
 else
@@ -111,7 +120,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.1.0-dev');
+define('CMS_VERSION', '1.1.0');
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +131,7 @@ define('CMS_VERSION', '1.1.0-dev');
 |
 */
 
-define('CMS_DATE', '24/01/2011');
+define('CMS_DATE', '01/03/2011');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

@@ -1,4 +1,4 @@
-<?php echo form_open('admin/files/folders');?>
+<?php echo form_open('admin/files/folders/action');?>
 	<h3><?php echo lang('files.folders.manage_title'); ?></h3>
 
 		<?php if ( ! empty($file_folders)): ?>
@@ -29,8 +29,9 @@
 
 				echo $this->table->generate();
 			?>
-
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			<div class="buttons buttons-small align-right padding-top">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+			</div>
 
 		<?php else: ?>
 			<p>

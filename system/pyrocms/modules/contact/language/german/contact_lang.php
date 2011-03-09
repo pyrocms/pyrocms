@@ -36,7 +36,7 @@ $lang['contact_title']						= 'Kontakt';
 // texts
 $lang['contact_mail_text']					= 'Diese Mitteilung wurde via Kontakt Formular auf %s mit den folgenden Details verschickt:';
 $lang['contact_sent_text']					= 'Ihre Mitteilung wurde verschickt. Wir kommen schnellstmöglich auf Sie zurück.';
-$lang['contact_capchar_text']				= 'Bitte tippen Sie das untenstehende Wort ein:';
+$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
 
 //predefined subjects list
 $lang['subject_support']  = 'Support';

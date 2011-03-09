@@ -27,9 +27,9 @@ class Admin extends Admin_Controller {
 			'rules' => 'utf8'
 		),
 		array(
-			'field' => 'display_name',
-			'label' => 'lang:user_display_name',
-			'rules' => 'required|alphanumeric|maxlength[50]'
+			'field' => 'email',
+			'label' => 'lang:user_email_label',
+			'rules' => 'required|valid_email'
 		),
 		array(
 			'field' => 'password',
@@ -42,19 +42,19 @@ class Admin extends Admin_Controller {
 			'rules' => 'matches[password]'
 		),
 		array(
-			'field' => 'email',
-			'label' => 'lang:user_email_label',
-			'rules' => 'required|valid_email'
-		),
-		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alphanumeric|maxlength[20]'
 		),
 		array(
+			'field' => 'display_name',
+			'label' => 'lang:user_display_name',
+			'rules' => 'alphanumeric|maxlength[50]'
+		),
+		array(
 			'field' => 'group_id',
 			'label' => 'lang:user_group_label',
-			'rules' => 'required|numeric'
+			'rules' => 'required'
 		),
 		array(
 			'field' => 'active',
@@ -79,9 +79,8 @@ class Admin extends Admin_Controller {
 		$this->load->helper('user');
 		$this->load->library('form_validation');
 		$this->lang->load('user');
-
 		$this->data->groups = $this->group_m->get_all();
-		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
+		$this->data->groups_select = array_for_select($this->data->groups, 'name', 'description');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
@@ -183,11 +182,11 @@ class Admin extends Admin_Controller {
 			//hack to activate immediately
 			if ($this->input->post('active'))
 			{
-				$this->config->set_item('email_activation', $this->settings->email_activation, 'ion_auth');
+				$this->config->config['ion_auth']['email_activation'] = FALSE;
 			}
 
 			// Try to register the user
-			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data))
+			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $this->input->post('group_id')))
 			{
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -229,6 +228,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
+		//overide the group select data,  we need the actuall id number here
+		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
+		
 		// confirm_password is required in case the user enters a new password
 		if ($this->input->post('password') && $this->input->post('password') != '')
 		{

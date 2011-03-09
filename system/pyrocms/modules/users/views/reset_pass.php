@@ -1,4 +1,4 @@
-<h2><?php echo lang('user_reset_password_title');?></h2>
+<h2 class="page-title"><?php echo lang('user_reset_password_title');?></h2>
 
 <?php if(!empty($error_string)):?>
 	<div class="error-box">

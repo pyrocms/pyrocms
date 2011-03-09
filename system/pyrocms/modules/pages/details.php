@@ -2,7 +2,7 @@
 
 class Module_Pages extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1';
 
 	public function info()
 	{
@@ -48,7 +48,6 @@ class Module_Pages extends Module {
 	{
 		$this->dbforge->drop_table('page_layouts');
 		$this->dbforge->drop_table('pages');
-		$this->dbforge->drop_table('pages_lookup');
 		$this->dbforge->drop_table('revisions');
 
 		$page_layouts = "
@@ -56,7 +55,8 @@ class Module_Pages extends Module {
 			`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 			`title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 			`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+			`css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			 `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			`theme_layout` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default',
 			`updated_on` INT( 11 ) NOT NULL
 			) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store shared page layouts & CSS';
@@ -67,6 +67,7 @@ class Module_Pages extends Module {
 			 `id` int(11) unsigned NOT NULL auto_increment,
 			 `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			 `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+			 `uri` text COLLATE utf8_unicode_ci,
 			 `parent_id` int(11) default '0',
 			 `revision_id` varchar(255) collate utf8_unicode_ci NOT NULL default '1',
 			 `layout_id` varchar(255) collate utf8_unicode_ci NOT NULL,
@@ -80,19 +81,12 @@ class Module_Pages extends Module {
 			 `status` ENUM( 'draft', 'live' ) collate utf8_unicode_ci NOT NULL DEFAULT 'draft',
 			 `created_on` INT(11) NOT NULL default '0',
 			 `updated_on` INT(11) NOT NULL default '0',
+			 `restricted_to` VARCHAR(255) collate utf8_unicode_ci DEFAULT NULL,
 			 PRIMARY KEY  (`id`),
 			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
 			 KEY `parent` (`parent_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
-		";
-
-		$pages_lookup = "
-			CREATE TABLE `pages_lookup` (
-			  `id` int(11) NOT NULL,
-			  `path` text character set utf8 collate utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY  (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Lookup table for page IDs and page paths.';
 		";
 
 		$revisions = "
@@ -109,20 +103,15 @@ class Module_Pages extends Module {
 		";
 
 		$default_page_layouts = "
-			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', ".time().");
+			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
+			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', '', ".time().");
 		";
 
 		$default_pages = "
-			INSERT INTO `pages` (`id`, `slug`, `title`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`) VALUES
-			('1','home', 'Home', 1, 0, 1, 'live', ".time().", ".time()."),
-			('2', '404', 'Page missing', 2, 0, '1', 'live', ".time().", ".time()."),
-			('3','contact', 'Contact', 3, 0, 1, 'live', ".time().", ".time().");
-		";
-
-		$default_page_lookup = "
-			INSERT INTO `pages_lookup` (`id`, `path`) VALUES
-			(3, 'contact');
+			INSERT INTO `pages` (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`) VALUES
+			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", ''),
+			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", ''),
+			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '');
 		";
 
 		$default_revisions = "
@@ -134,11 +123,9 @@ class Module_Pages extends Module {
 
 		if($this->db->query($page_layouts) &&
 		   $this->db->query($pages) &&
-		   $this->db->query($pages_lookup) &&
 		   $this->db->query($revisions) &&
 		   $this->db->query($default_page_layouts) &&
 		   $this->db->query($default_pages) &&
-		   $this->db->query($default_page_lookup) &&
 		   $this->db->query($default_revisions))
 		{
 			return TRUE;

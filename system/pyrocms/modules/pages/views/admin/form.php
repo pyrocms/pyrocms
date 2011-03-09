@@ -32,17 +32,17 @@
 			<li class="even">
 				<label for="slug"><?php echo lang('pages.slug_label');?></label>
 
-				<?php if(!empty($page->parent_id)): ?>
-					<?php echo site_url($parent_page->path); ?>/
+				<?php if ( ! empty($page->parent_id)): ?>
+					<?php echo site_url($parent_page->uri); ?>/
 				<?php else: ?>
-					<?php echo ( ! empty($this->config->config->index_page)) ? site_url().'/' : site_url(); ?>
+					<?php echo site_url() . (config_item('index_page') ? '/' : ''); ?>
 				<?php endif; ?>
 
-				<?php if($this->uri->segment(3,'') == 'edit'): ?>
+				<?php if ($this->uri->segment(3,'') == 'edit'): ?>
 					<?php echo form_hidden('old_slug', $page->slug); ?>
 				<?php endif; ?>
 
-				<?php if($page->slug == 'home' || $page->slug == '404'): ?>
+				<?php if ($page->slug == 'home' || $page->slug == '404'): ?>
 					<?php echo form_hidden('slug', $page->slug); ?>
 					<?php echo form_input('', $page->slug, 'size="20" class="width-10" disabled="disabled"'); ?>
 				<?php else: ?>
@@ -50,7 +50,7 @@
 					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 				<?php endif;?>
 
-				<?php echo $this->config->item('url_suffix'); ?>
+				<?php echo config_item('url_suffix'); ?>
 			</li>
 
 			<li>
@@ -59,13 +59,13 @@
 			</li>
 
 			<?php if ($this->method == 'create'): ?>
-			<li>
+			<li class="even">
 				<label for="navigation_group_id"><?php echo lang('pages.navigation_label');?></label>
 				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, set_value('navigation_group_id')) ?>
 			</li>
 			<?php endif; ?>
 
-			<li class="even">
+			<li>
 				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 			</li>
 		</ul>
@@ -133,6 +133,11 @@
 	<div id="page-options">
 
 		<ul>
+
+			<li class="even">
+				<label for="restricted_to[]"><?php echo lang('pages.access_label');?></label>
+				<?php echo form_multiselect('restricted_to[]', $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
+			</li>
 			<li>
 				<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
 				<?php echo form_checkbox('comments_enabled', 1, $page->comments_enabled == 1); ?>
@@ -140,7 +145,6 @@
 			<li class="even">
 				<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 				<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>
-				<p style="margin-left: 160px;"><?php echo lang('pages.rss_explanation'); ?></p>
 			</li>
 		</ul>
 
@@ -155,12 +159,12 @@
 				<select id="use_revision_id" name="use_revision_id">
 					<!-- Current revision to be used -->
 					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo @$page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', @$page->revision_date); ?></option>
+						<option value="<?php echo @$page->revision_id; ?>"><?php echo format_date(@$page->revision_date, TRUE); ?></option>
 					</optgroup>
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
-						<option value="<?php echo @$revision->id; ?>"><?php echo date('d-m-Y @ H:i', @$revision->revision_date); ?></option>
+						<option value="<?php echo @$revision->id; ?>"><?php echo format_date(@$revision->revision_date, TRUE); ?></option>
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
@@ -173,12 +177,12 @@
 				<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
 					<!-- Current revision to be used -->
 					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo @$page->revision_id; ?>"><?php echo date('d-m-Y @ H:i', @$page->revision_date); ?></option>
+						<option value="<?php echo @$page->revision_id; ?>"><?php echo format_date(@$page->revision_date, TRUE); ?></option>
 					</optgroup>
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
-						<option value="<?php echo @$revision->id; ?>"><?php echo date('d-m-Y @ H:i', @$revision->revision_date); ?></option>
+						<option value="<?php echo @$revision->id; ?>"><?php echo format_date(@$revision->revision_date, TRUE); ?></option>
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
@@ -190,8 +194,7 @@
 
 </div>
 
-<div class="float-right">
-	<br/>
+<div class="buttons float-right padding-top">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 </div>
 

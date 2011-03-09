@@ -18,12 +18,12 @@ class Module_Comments extends Module {
 				'zh' => '回應',
 				'it' => 'Commenti',
 				'ru' => 'Комментарии',
-				'ar' => 'العربيّة',
+				'ar' => 'التعليقات',
 				'cs' => 'Komentáře',
 				'fi' => 'Kommentit'
 			),
 			'description' => array(
-				'en' => 'Users and guests can write comments for content like news, pages and photos.',
+				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
 				'pt' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'nl' => 'Gebruikers en gasten kunnen reageren op bijna alles.',
 				'es' => 'Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.',
@@ -31,7 +31,7 @@ class Module_Comments extends Module {
 				'de' => 'Benutzer und Gäste können für fast alles Kommentare schreiben.',
 				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
 				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
-				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali news, pagine e foto.',
+				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali blog, pagine e foto.',
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
 				'cs' => 'Uživatelé a hosté mohou psát komentáře k obsahu, např. neovinkám, stránkám a fotografiím.',
@@ -89,7 +89,7 @@ class Module_Comments extends Module {
 		return "<h4>Overview</h4>
 		<p>The comments module allows visitors to comment on any part of your website that you enable comments for.</p>
 		<h4>Enabling Comments</h4><hr>
-		<p>Comments can be enabled in Pages, Galleries, and News. If you want to moderate comments you must enable
+		<p>Comments can be enabled in Pages, Galleries, and Blog. If you want to moderate comments you must enable
 		comment moderation in Settings.</p>
 		<h4>Comment Moderation</h4><hr>
 		<p>Comments may be Approved or Unapproved at any time from the admin panel. If you approve a comment and later want to unapprove it you may do so.</p>";

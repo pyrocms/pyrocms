@@ -16,18 +16,18 @@
 |
 */
 $config['supported_languages'] = array(
-	'en'=> array('name' => 'English', 'folder' => 'english', 'direction' => 'ltr'),
-	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr'),
-	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr'),
-	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr'),
-	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr'),
-	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr'),
-	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr'),
-	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr'),
-	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr'),
-	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl'),
-	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr'),
-	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr')
+	'en'=> array('name' => 'English', 'folder' => 'english', 'direction' => 'ltr', 'codes' => array('english', 'en_US')),
+	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr', 'codes' => array('esp', 'es_ES')),
+	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr', 'codes' => array('fra', 'fr_FR')),
+	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr', 'codes' => array('deu', 'de_DE')),
+	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr', 'codes' => array('ita', 'it_IT')),
+	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
+	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
+	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('ptb', 'pt_BR')),
+	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
+	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl', 'codes' => array(/*set it for php locale*/)),
+	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
+	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/))
 );
 
 /*

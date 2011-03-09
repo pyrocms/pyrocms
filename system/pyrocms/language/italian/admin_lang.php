@@ -40,7 +40,7 @@ $lang['cp_nav_utilities']               = 'Accessori';
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
 $lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di prendere il controllo del tuo sito.';
-$lang['cp_upgrade_message']				= 'Stai usndo la versione %s, ma la versione del tuo database è la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
+$lang['cp_upgrade_message']				= 'Stai usndo la versione %s, ma la versione del tuo database ï¿½ la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Collegamenti';

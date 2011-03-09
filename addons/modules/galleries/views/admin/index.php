@@ -28,15 +28,19 @@
 				<td><?php echo format_date($gallery->updated_on); ?></td>
 				<td>
 					<?php echo
-					anchor('galleries/' 						. $gallery->slug, 	lang('galleries.view_label'), 'target="_blank"') 	. ' | ' .
-					anchor('admin/galleries/manage/' 			. $gallery->id, 	lang('galleries.manage_label')) 					. ' | ' .
-					anchor('admin/galleries/delete/'		 	. $gallery->id, 	lang('galleries.delete_label'), array('class'=>'confirm')); ?>
+					anchor('galleries/'					. $gallery->slug, 			lang('galleries.view_label'), 'target="_blank"') 	. ' | ' .
+					anchor('admin/files#'				. $gallery->folder->slug, 	lang('galleries.upload_label')) 						. ' | ' .
+					anchor('admin/galleries/manage/'	. $gallery->id, 			lang('galleries.manage_label')) 					. ' | ' .
+					anchor('admin/galleries/delete/'	. $gallery->id, 			lang('galleries.delete_label'), array('class'=>'confirm')); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+
+	<div class="buttons float-right padding-top">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+	</div>
 
 <?php else: ?>
 	<div class="blank-slate">

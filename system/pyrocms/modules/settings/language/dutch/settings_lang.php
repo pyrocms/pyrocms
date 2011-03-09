@@ -29,7 +29,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Dashboard RSS Items';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Hoe veel RSS items wilt u tonen op de dashboard ?';
 
 $lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc'] 				= 'How should dates be displayed accross the website and control panel? Using PHP date format.'; #translate
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled'] 				= 'Website Status';
 $lang['settings_frontend_enabled_desc'] 		= 'Gebruik deze optie om de gebruikerskant van de website aan of uit te zetten. Handig wanneer u de website offline wilt halen voor onderhoud.';
@@ -46,7 +48,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.';
 $lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
 $lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
 
-$lang['settings_mail_smtp_port'] 				= 'SMPT Port'; #translate
+$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
 $lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
 
 $lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
@@ -65,7 +67,7 @@ $lang['settings_records_per_page'] 				= 'Records Per Pagina';
 $lang['settings_records_per_page_desc'] 		= 'Hoe veel records kan de website tonen in het admin gebied?';
 
 $lang['settings_rss_feed_items'] 				= 'Feed item teller';
-$lang['settings_rss_feed_items_desc'] 			= 'Hoe veel items kunnen er getoond worden in de RSS/news feeds?';
+$lang['settings_rss_feed_items_desc'] 			= 'Hoe veel items kunnen er getoond worden in de RSS/blog feeds?';
 
 $lang['settings_require_lastname'] 				= 'Achternamen Vereist?';
 $lang['settings_require_lastname_desc'] 		= 'Voor sommmige situaties hoeft een achternaam niet nodig te zijn. Wilt u een ingevulde achternaam als vereiste of niet?';
@@ -94,8 +96,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Twitter Consument Sleutel.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Consument Sleutel Geheim';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Twitter Consument Sleutel Geheim.';
 
-$lang['settings_twitter_news']					= 'Twitter &amp; Nieuws integratie.';
-$lang['settings_twitter_news_desc'] 			= 'Wilt u links plaatsen naar nieuws artikelen op Twitter?';
+$lang['settings_twitter_blog']					= 'Twitter &amp; Nieuws integratie.';
+$lang['settings_twitter_blog_desc'] 			= 'Wilt u links plaatsen naar nieuws artikelen op Twitter?';
 
 $lang['settings_twitter_feed_count'] 			= 'Feed Teller';
 $lang['settings_twitter_feed_count_desc'] 		= 'Hoeveel tweets moeten geretourneerd worden naar het Twitter feed blok?';

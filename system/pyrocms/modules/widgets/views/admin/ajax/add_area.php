@@ -10,7 +10,7 @@
 	</header>
 	
 	<div class="accordion-content hidden">
-		<p class="tag"><?php echo sprintf('{pyro:widgets:area slug="%s"}', $widget_area->slug);?></p>
+		<p class="tag"><?php echo sprintf('{%s:widgets:area slug="%s"}', config_item('tags_trigger'), $widget_area->slug);?></p>
 
 		<div class="widget-list">
 			<ol>

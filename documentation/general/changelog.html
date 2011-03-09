@@ -1,16 +1,27 @@
 <h2>Change Log</h2>
 
+<h3>v1.1.1</h3>
+
+<ul>
+	<li>Allowed the pyro: trigger to be set to whatever the developer likes in the new config/tags.php file.</li>
+</ul>
+
 <h3>v1.1.0</h3>
 
 <ul>
-	<li>Upgraded to the very latest CI 2.0 (a.k.a Reactor) which drops PHP4 support from the framework.</li>
+	<li>Upgraded to the very latest CI 2.0.0 (a.k.a Reactor) which drops PHP4 support from the framework.</li>
 	<li>Added "Add to Navigation" option when creating a page.</li>
+	<li>Pages can be restricted to specific user groups.</li>
+	<li>Added filters to Comments, News and Users to help find content.</li>
 	<li>Contact module has been replaced with a page containing the tag {pyro:contact:form}. Customise it!</li>
+	<li>Renamed News module to Blog. That was some old client request from 3 years back and nobody liked it. Old links will be routed to the new URL.</li>
 	<li>Added last_class and first_class attributes to navigation plugin, defaulting to "first" and "last".</li>
 	<li>Added file type auto-detect in File Module.</li>
 	<li>Redirect users to any page you like after login with the url /users/login/where/ever/you/want.</li>
 	<li>Now you can upload files/images and create folder directly from WYSIWYG editor.</li>
 	<li>Tag loops and double tags can now contain other tags and plugins.</li>
+	<li>Removed page_lookups table which was no longer required which will increase pages performance.</li>
+	<li>Display Name is no longer required.</li>
 	<li>Updated Dutch, Italian and other languages.</li>
 </ul>
 
@@ -20,11 +31,7 @@
 	<li>Double data tags can now contain full tags (even other double tags) as well as plugin tags.</li>
 	<li>The parser will now automatically parse nested plugin tags when they fall inside a double plugin tag.</li>
 	<li>The utf8 validation rule was throwing errors if mbstring was not enabled.</li>
-</ul>
-
-<h3>v1.0.4</h3>
-
-<ul>
+	<li>Stopped Users Display Name being required on the admin form.</li>
 	<li>Removed restrictive validation for user first and last names.</li>
 </ul>
 

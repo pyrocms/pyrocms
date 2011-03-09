@@ -37,7 +37,9 @@ $lang['settings_dashboard_rss_count']			= 'Количество записей R
 $lang['settings_dashboard_rss_count_desc']		= 'Какое количество записей RSS-ленты отображать на главной странице панели управления?';
 
 $lang['settings_date_format']							= 'Формат даты';
-$lang['settings_date_format_desc']					= 'Настройка отображения даты на сайте и в панели администратора. Используйте формат даты PHP.';
+$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
+													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
+													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
 
 $lang['settings_frontend_enabled']				= 'Сайт';
 $lang['settings_frontend_enabled_desc']			= 'Используйте эту опцию для контроля активности пользовательской части сайта. Полезно, если вы хотите временно отключить ваш сайт для технического обслуживания.';
@@ -54,7 +56,7 @@ $lang['settings_mail_smtp_host_desc']				= 'Имя хоста вашего SMTP-
 $lang['settings_mail_smtp_pass']					= 'Пароль SMTP';
 $lang['settings_mail_smtp_pass_desc']				= 'Пароль SMTP.';
 
-$lang['settings_mail_smtp_port']					= 'Порт SMPT';
+$lang['settings_mail_smtp_port']					= 'Порт SMTP';
 $lang['settings_mail_smtp_port_desc']				= 'Номер порта SMTP.';
 
 $lang['settings_mail_smtp_user']					= 'Имя пользователя SMTP';
@@ -102,8 +104,8 @@ $lang['settings_twitter_consumer_key_desc']		= 'Ключ пользовател�
 $lang['settings_twitter_consumer_key_secret']	= 'Секретный ключ пользователя';
 $lang['settings_twitter_consumer_key_secret_desc']	= 'Секретный ключ пользователя Twitter.';
 
-$lang['settings_twitter_news']					= 'Интеграция Twitter и Новостей.';
-$lang['settings_twitter_news_desc']				= 'Вы желаете отправлять ссылки на новые новости сайта в Twitter?';
+$lang['settings_twitter_blog']					= 'Интеграция Twitter и Новостей.';
+$lang['settings_twitter_blog_desc']				= 'Вы желаете отправлять ссылки на новые новости сайта в Twitter?';
 
 $lang['settings_twitter_feed_count']			= 'Кол-во записей';
 $lang['settings_twitter_feed_count_desc']		= 'Какое количество твитов должно быть показано в блоке фидов Твиттера?';

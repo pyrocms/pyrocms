@@ -14,6 +14,9 @@ $lang['galleries.folder_error']			= 'تعذّر حذف مجلّدات معرض �
 $lang['galleries.delete_error']			= 'تعذّر حذف معرض الصّوَر "%s".';
 $lang['galleries.no_galleries_error'] 	= 'لم يُنشأ أي معرض صُوَر بعد.';
 $lang['galleries.install_error']		= 'تعذّر تثبيت الوحدة.';
+$lang['galleries.already_exist_error']	= 'هناك معرض صور له العنوان "%s".';
+$lang['galleries.folder_duplicated_error']	= 'حدث خطأ! المُجلّد ينتمي لمعرض الصّور.';
+$lang['galleries.no_gallery_description']	= 'لم يضاف أي وصف بعد.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'معارض الصّور';
@@ -35,7 +38,7 @@ $lang['galleries.published_no_label']		= 'لا';
 // General labels
 $lang['galleries.title_label']				= 'العنوان';
 $lang['galleries.slug_label']				= 'مُختصر الرابط';
-$lang['galleries.folder_label']				= 'Folder'; #translate
+$lang['galleries.folder_label']				= 'مجلد';
 $lang['galleries.description_label']		= 'وصْف الألبوم';
 $lang['galleries.thumbnail_label']			= 'مُصغّر';
 $lang['galleries.comments_label']			= 'تمكين التعليقات';

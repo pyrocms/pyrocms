@@ -17,6 +17,7 @@ class Pages_m extends MY_Model
 	 * @param array $segments The path segments
 	 * @return array
 	 */
+/*
     public function get_by_path($segments = array())
     {
     	// If the URI has been passed as a string, explode to create an array of segments
@@ -32,7 +33,7 @@ class Pages_m extends MY_Model
         $target_alias = 'p'.$total_segments;
 
         // Start Query, Select (*) from Target Alias, from Pages
-        $this->db->select($target_alias.'.*, revisions.id as revision_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
+        $this->db->select($target_alias.'.*, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
         $this->db->from('pages p1');
 
         // Loop thorugh each Slug
@@ -63,6 +64,28 @@ class Pages_m extends MY_Model
         $this->db->limit(1);
 
         return $this->db->get()->row();
+    }
+ */
+
+	/**
+	 * Get a page by it's URI
+	 *
+	 * @access public
+	 * @param string	The uri of the page
+	 * @return object
+	 */
+    public function get_by_uri($uri)
+    {
+    	// If the URI has been passed as a string, explode to create an array of segments
+    	is_string($uri) OR $uri = implode('/', $uri);
+
+        return $this->db
+			->select('p.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')
+			->where('p.uri', trim($uri, '/'))
+			->join('revisions r', 'p.revision_id = r.id')
+			->limit(1)
+			->get('pages p')
+			->row();
     }
 
 	/**
@@ -122,45 +145,6 @@ class Pages_m extends MY_Model
 	}
 
 	/**
-	 * Get a path based on ID X
-	 *
-	 * @access public
-	 * @param int $id The ID to use
-	 * @return string
-	 */
-	public function get_path_by_id($id)
-	{
-		$page = $this->db->select('path')
-			->where('id', $id)
-			->get('pages_lookup')
-			->row();
-
-		return isset($page->path) ? $page->path : '';
-	}
-
-	/**
-	 * Get an ID based on a specified path
-	 *
-	 * @access public
-	 * @param string $path The path to use
-	 * @return array
-	 */
-	public function get_id_by_path($path)
-	{
-		// If the URI has been passed as a string, explode to create an array of segments
-    	if(is_array($path))
-        {
-        	$path = implode('/', $path);
-        }
-
-		return @$this->db->select('id')
-			->where('path', $path)
-			->get('pages_lookup')
-			->row()
-			->id;
-	}
-
-	/**
 	 * Build a lookup
 	 *
 	 * @access public
@@ -187,31 +171,9 @@ class Pages_m extends MY_Model
 
 		// If the URI has been passed as a string, explode to create an array of segments
     	return $this->db
-			->set('id', $id)
-			->set('path', implode('/', $segments))
-			->insert('pages_lookup');
-	}
-
-	/**
-	 * Delete a lookup
-	 *
-	 * @access public
-	 * @param int $id
-	 * @return array
-	 */
-	public function delete_lookup($id)
-	{
-    	if( is_array($id) )
-    	{
-    		$this->db->where_in('id', $id);
-    	}
-
-    	else
-    	{
-    		$this->db->where('id', $id);
-    	}
-
-		return $this->db->delete('pages_lookup');
+			->where('id', $id)
+			->set('uri', implode('/', $segments))
+			->update('pages');
 	}
 
 	/**
@@ -224,7 +186,6 @@ class Pages_m extends MY_Model
 	public function reindex_descendants($id)
 	{
 		$descendants = $this->get_descendant_ids($id);
-		$this->delete_lookup($descendants);
 		foreach($descendants as $descendant)
 		{
 			$this->build_lookup($descendant);
@@ -247,6 +208,7 @@ class Pages_m extends MY_Model
         $this->db->insert('pages', array(
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
+			'uri'				=> NULL,
         	'parent_id'		=> (int) $input['parent_id'],
             'layout_id'		=> (int) $input['layout_id'],
             'css'			=> $input['css'],
@@ -262,7 +224,7 @@ class Pages_m extends MY_Model
 
         $id = $this->db->insert_id();
 
-        $this->build_lookup($id);
+		$this->build_lookup($id);
 
         $this->db->trans_complete();
 
@@ -284,6 +246,7 @@ class Pages_m extends MY_Model
         $return = $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
+			'uri'				=> NULL,
 	        'revision_id'	=> $input['revision_id'],
 	        'parent_id'		=> $input['parent_id'],
 	        'layout_id'		=> $input['layout_id'],
@@ -292,11 +255,14 @@ class Pages_m extends MY_Model
         	'meta_title'	=> $input['meta_title'],
         	'meta_keywords'	=> $input['meta_keywords'],
         	'meta_description' => $input['meta_description'],
-        	'rss_enabled' 	=> (int) !empty($input['rss_enabled']),
-        	'comments_enabled' 	=> (int) !empty($input['comments_enabled']),
+        	'restricted_to' 	=> $input['restricted_to'],
+        	'rss_enabled' 	=> (int) ! empty($input['rss_enabled']),
+        	'comments_enabled' 	=> (int) ! empty($input['comments_enabled']),
         	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
+
+		$this->build_lookup($id);
 
         $this->cache->delete_all('navigation_m');
 
@@ -318,9 +284,6 @@ class Pages_m extends MY_Model
 
         $this->db->where_in('id', $ids);
     	$this->db->delete('pages');
-
-        $this->db->where_in('id', $ids);
-    	$this->db->delete('pages_lookup');
 
         $this->db->where_in('page_id', $ids);
     	$this->db->delete('navigation_links');
