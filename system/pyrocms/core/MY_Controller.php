@@ -22,14 +22,11 @@ class MY_Controller extends CI_Controller {
 		// Result of schema version migration
 		if (is_numeric($schema_version))
 		{
-			// show notification to user?
-			// $this->session->set_flashdata('update_error', ...);
+			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
 		elseif ($schema_version === FALSE)
 		{
 			log_message('error', $this->migrations->error);
-			// show notification to user?
-			// $this->session->set_flashdata('update_success', ...);
 		}
 
 		// Use this to define hooks with a nicer syntax

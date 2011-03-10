@@ -87,6 +87,8 @@ class Migrations {
 
 		$this->_ci =& get_instance();
 
+		$this->_ci->lang->load('migrations');
+
 		// They'll probably be using dbforge
 		$this->_ci->load->dbforge();
 
@@ -146,7 +148,7 @@ class Migrations {
 
 		else
 		{
-			$this->error = $this->_ci->lang->line('no_migrations_found');
+			$this->error = $this->_ci->lang->line('migrations.no_migrations_found');
 			return FALSE;
 		}
 	}
@@ -166,8 +168,8 @@ class Migrations {
 	function version($version)
 	{
 		$schema_version = $this->_get_schema_version();
-		$start = $schema_version;
-		$stop = $version;
+		$start	= $schema_version;
+		$stop	= $version;
 
 		if ($version > $schema_version)
 		{
@@ -195,20 +197,20 @@ class Migrations {
 			// Only one migration per step is permitted
 			if (count($f) > 1)
 			{
-				$this->error = sprintf($this->_ci->lang->line('multiple_migrations_version'), $i);
+				$this->error = sprintf($this->_ci->lang->line('migrations.multiple_migrations_version'), $i);
 				return FALSE;
 			}
 
 			// Migration step not found
 			if (count($f) == 0)
 			{
-				// If trying to migrate up to a version greater than the last
-				// existing one, migrate to the last one.
-				if ($step == 1) break;
+				// If trying to migrate
+				// existing one, migrate to one.
+				if ($migrations) break;
 
-				// If trying to migrate down but we're missing a step,
+				// If trying to migrate but we're missing a step,
 				// something must definitely be wrong.
-				$this->error = sprintf($this->_ci->lang->line('migration_not_found'), $i);
+				$this->error = sprintf($this->_ci->lang->line('migrations.migration_not_found'), $i);
 				return FALSE;
 			}
 
@@ -223,7 +225,7 @@ class Migrations {
 				// Cannot repeat a migration at different steps
 				if (in_array($match[1], $migrations))
 				{
-					$this->error = sprintf($this->_ci->lang->line('multiple_migrations_name'), $match[1]);
+					$this->error = sprintf($this->_ci->lang->line('migrations.multiple_migrations_name'), $match[1]);
 					return FALSE;
 				}
 
@@ -232,13 +234,13 @@ class Migrations {
 
 				if ( ! class_exists($class))
 				{
-					$this->error = sprintf($this->_ci->lang->line('migration_class_doesnt_exist'), $class);
+					$this->error = sprintf($this->_ci->lang->line('migrations.migration_class_doesnt_exist'), $class);
 					return FALSE;
 				}
 
 				if ( ! is_callable(array($class, 'up')) || !is_callable(array($class, 'down')))
 				{
-					$this->error = sprintf($this->_ci->lang->line('wrong_migration_interface'), $class);
+					$this->error = sprintf($this->_ci->lang->line('migrations.wrong_migration_interface'), $class);
 					return FALSE;
 				}
 
@@ -246,7 +248,7 @@ class Migrations {
 			}
 			else
 			{
-				$this->error = sprintf($this->_ci->lang->line('invalid_migration_filename'), $file);
+				$this->error = sprintf($this->_ci->lang->line('migrations.invalid_migration_filename'), $file);
 				return FALSE;
 			}
 		}
