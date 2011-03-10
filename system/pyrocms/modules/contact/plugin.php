@@ -85,23 +85,29 @@ class Plugin_Contact extends Plugin
 		$this->form_validation->set_rules($this->rules);
 
 		// If the user has provided valid information
-		if($this->form_validation->run())
+		if ($this->form_validation->run())
 		{
 			// The try to send the email
-			if($this->_send_email())
+			if ($this->_send_email())
 			{
-
-				$sent_message = $this->attribute('subjects', lang('contact_sent_text'));
+				$message = $this->attribute('confirmation', lang('contact_sent_text'));
 
 				// Store this session to limit useage
-				$this->session->set_flashdata('success', $sent_message);
-
-				redirect(current_url());
+				$this->session->set_flashdata('success', $message);
 			}
+
+			else
+			{
+				$message = $this->attribute('error', lang('contact_error_message'));
+
+				$this->session->set_flashdata('error', $message);
+			}
+
+			redirect(current_url());
 		}
 
 		// Set the values for the form inputs
-		foreach($this->rules as $rule)
+		foreach ($this->rules as $rule)
 		{
 			$form_values->{$rule['field']} = set_value($rule['field']);
 		}
@@ -119,11 +125,8 @@ class Plugin_Contact extends Plugin
 		$subject = ($this->input->post('other_subject')) ? $this->input->post('other_subject') : $this->default_subjects[$this->input->post('subject')];
 		
 		// Loop through cleaning data and inputting to $data
-		foreach(array_keys($_POST) as $field_name)
-		{
-			$data[$field_name] = $this->input->post($field_name, TRUE);
-		}
-
+		$data = $this->input->post();
+		
 		// Add in some extra details
 		$data['subject']		= 	$subject;
 		$data['sender_agent']	=	$this->agent->browser().' '.$this->agent->version();
@@ -134,7 +137,7 @@ class Plugin_Contact extends Plugin
 		$data['name']			= 	$data['contact_name'];
 
 		// If the email has sent with no known erros, show the message
-		return (bool) Events::trigger('email', $data);
+		return (Events::trigger('email', $data) !== FALSE);
 	}
 }
 

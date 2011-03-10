@@ -37,9 +37,9 @@ $lang['settings_dashboard_rss_count']			= 'Количество записей R
 $lang['settings_dashboard_rss_count_desc']		= 'Какое количество записей RSS-ленты отображать на главной странице панели управления?';
 
 $lang['settings_date_format']							= 'Формат даты';
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format_desc']					= 'Как будут отображаться даты на сайте и в панели управления? ' .
+													'С помощью <a href="http://php.net/manual/ru/function.date.php" target="_black">функции date</a> из PHP - или - ' .
+													'Используя <a href="http://php.net/manual/ru/function.strftime.php" target="_black">форматирование строк с датой</a> из PHP.';
 
 $lang['settings_frontend_enabled']				= 'Сайт';
 $lang['settings_frontend_enabled_desc']			= 'Используйте эту опцию для контроля активности пользовательской части сайта. Полезно, если вы хотите временно отключить ваш сайт для технического обслуживания.';

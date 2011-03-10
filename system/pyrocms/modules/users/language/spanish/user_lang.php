@@ -111,7 +111,7 @@ $lang['user_activation_incorrect']   		= 'Activación fallida. Por favor, revisa
 $lang['user_activated_message']   		= 'Tu cuenta ha sido activada, ahora puedes ingresar con tu cuenta.';
 
 # Login
-$lang['user_logged_in']				= 'You have logged in successfully.'; #translate
+$lang['user_logged_in']				= 'Usted se ha conectado satisfactoriamente.';
 $lang['user_already_logged_in'] 		= 'Ya te encuentras logueado. Por favor, sal de tu cuente antes de tratar nuevamente.';
 $lang['user_login_incorrect'] 			= 'E-mail o contraseña no coinciden. Por favor, revisa tus detalles y asegúrate que el BLOQ MAYUS no está activado.';
 $lang['user_inactive']   			= 'La cuenta a la que tratas de acceder se encuentra inactiva.<br />Revisa tu e-mail para instrucciones de como activar tu cuenta - <em>puede estar en tu correo no deseado</em>.';

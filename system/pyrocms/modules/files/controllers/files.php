@@ -27,6 +27,11 @@ class Files extends Public_Controller
 
 		$file = $this->file_m->get($id) OR show_404();
 
+		if ( ! is_dir(APPPATH . 'cache/image_files/'))
+		{
+			mkdir(APPPATH . 'cache/image_files/');
+		}
+		
 		// Path to image thumbnail
 		$image_thumb = APPPATH . 'cache/image_files/' . $height . '_' . $width . '_' . md5($file->filename) . $file->extension;
 

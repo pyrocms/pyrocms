@@ -1,7 +1,7 @@
-You have received an email from {pyro:name}
+You have received an email from {<?php echo config_item('tags_trigger'); ?>:name}
 
-IP Address: {pyro:sender_ip}
-Operating System: {pyro:sender_os}
-User Agent: {pyro:sender_agent}
+IP Address: {<?php echo config_item('tags_trigger'); ?>:sender_ip}
+Operating System: {<?php echo config_item('tags_trigger'); ?>:sender_os}
+User Agent: {<?php echo config_item('tags_trigger'); ?>:sender_agent}
 
-{pyro:comment}
+{<?php echo config_item('tags_trigger'); ?>:comment}

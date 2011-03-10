@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -32,7 +32,7 @@ $lang['contact_title']											= 'Обратная связь';
 // тексты
 $lang['contact_mail_text']									= 'Это сообщение было отправлено с помощью формы обратной связи на %s:';
 $lang['contact_sent_text']									= 'Ваше сообщение отправлено. Мы постараемся ответить Вам как можно быстрее.';
-$lang['contact_capchar_text']								= 'Введите слово, которое указано ниже:';
+$lang['contact_error_message']							= 'Во время отправления сообщения возникла ошибка. Пожалуйста, попробуйте ещё раз чуть позже.';
 
 // список тем
 $lang['subject_support']										= 'Поддержка';

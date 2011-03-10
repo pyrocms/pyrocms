@@ -88,7 +88,7 @@ class MY_Parser extends CI_Parser {
 
 		// TAG SUPPORT
 		$this->_ci->load->library('tags');
-		$this->_ci->tags->set_trigger('pyro:');
+		$this->_ci->tags->set_trigger(config_item('tags_trigger').':');
 		$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
 		// END TAG SUPPORT
 
@@ -129,7 +129,7 @@ class MY_Parser extends CI_Parser {
 			$content = $data['content'];
 			$parsed_return = '';
 			$simpletags = new Tags;
-			$simpletags->set_trigger('pyro:');
+			$simpletags->set_trigger(config_item('tags_trigger').':');
 			foreach ($return_data as $result)
 			{
 				$parsed = $simpletags->parse($content, $result, array($this, 'parser_callback'));

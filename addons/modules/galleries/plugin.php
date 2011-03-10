@@ -24,6 +24,19 @@ class Plugin_Galleries extends Plugin
 	 * 	</a>
 	 * {/pyro:galleries:images}
 	 * 
+	 * The following is a list of tags that are available to use from this method
+	 * 
+	 * 	{file_id}
+	 * 	{folder_id}
+	 * 	{gallery_id}
+	 * 	{gallery_slug}
+	 * 	{title}
+	 * 	{order}
+	 * 	{name}
+	 * 	{filename}
+	 * 	{description}
+	 * 	{extension}
+	 * 
 	 * @return	array
 	 */
 	function images()
