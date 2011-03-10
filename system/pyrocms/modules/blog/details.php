@@ -75,12 +75,9 @@ class Module_Blog extends Module {
 	}
 
 	public function uninstall()
-	{		
-		if($this->dbforge->drop_table('blog_categories') &&
-		   $this->dbforge->drop_table('blog'))
-		{
-			return TRUE;
-		}
+	{
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

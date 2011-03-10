@@ -89,7 +89,7 @@ class Module_Templates extends Module {
 
 	public function uninstall()
 	{
-		//Core module, no uninstalling for you
+		//it's a core module, lets keep it around
 		return FALSE;
 	}
 

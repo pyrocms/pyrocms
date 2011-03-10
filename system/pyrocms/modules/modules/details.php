@@ -50,7 +50,7 @@ class Module_Modules extends Module {
 
 	public function uninstall()
 	{
-		// you really don't want to uninstall this module
+		//it's a core module, lets keep it around
 		return FALSE;
 	}
 
