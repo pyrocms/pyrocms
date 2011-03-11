@@ -111,7 +111,21 @@
 					callBack();
 				});
 				
+			},
+			onComplete: function (event, files, index, xhr, handler) {
+				handler.onCompleteAll(files);
+			},
+			onCompleteAll: function (files) {
+				if (!files.uploadCounter) {
+					files.uploadCounter = 1;  
+				} else {
+					files.uploadCounter = files.uploadCounter + 1;
+				}
+				if (files.uploadCounter === files.length) {
+					$('button.cancel-upload').click();
+				}
 			}
+
 		});
 		
 		$('button.start-upload').click(function(){
