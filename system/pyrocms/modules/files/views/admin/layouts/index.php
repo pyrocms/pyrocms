@@ -51,7 +51,7 @@
 		}
 
 		//file upload stuff
-		$('.dd-upload, button.cancel-upload').livequery(function(e){
+		$('#new_files, button.cancel-upload').livequery(function(e){
 			$(this).click(function(e){
 
 			e.preventDefault();
