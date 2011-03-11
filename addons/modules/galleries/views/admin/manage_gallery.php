@@ -77,8 +77,8 @@
 					<?php if ( $gallery_images !== FALSE ): ?>
 					<?php foreach ( $gallery_images as $image ): ?>
 					<li>
-						<a href="<?php echo base_url() . 'uploads/files/' . $image->filename; ?>" class="modal">
-							<?php echo img(array('src' => site_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'File: ' . $image->filename . $image->extension . ' Title: ' . $image->name)); ?>
+						<a href="<?php echo site_url() . 'admin/files/edit/' . $image->file_id; ?>" class="upload_colorbox">
+							<?php echo img(array('src' => site_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'Title: ' . $image->name . ' -- Caption: ' . $image->description)); ?>
 							<?php echo form_hidden('action_to[]', $image->id); ?>
 						</a>
 					</li>
