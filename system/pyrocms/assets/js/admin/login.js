@@ -13,6 +13,4 @@
 
 		// Fade in the notifications
 		$(".notification").fadeIn("slow");
-
-		$("select, input:checkbox, input:radio, input:file").uniform();
 	});

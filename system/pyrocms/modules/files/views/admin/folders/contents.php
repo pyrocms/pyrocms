@@ -1,7 +1,6 @@
 <?php echo form_open('admin/files/action');?>
 	<h3>
 		<?php echo $crumbs; ?>
-		<span><a href="<?php echo site_url('admin/files/upload'); ?>" class="dd-upload"><?php echo lang('files.upload.title'); ?></a></span>
         <a href="#" title="grid" class="toggle-view"><?php echo lang('files.grid'); ?></a>
         <a href="#" title="list" class="toggle-view active-view"><?php echo lang('files.list'); ?></a>
     </h3>
@@ -26,6 +25,11 @@
 			<li>
 				<label for="folder"><?php echo lang('files.filter'); ?>:</label>
 				<?php echo form_dropdown('filter', array('' => '') + $types, $selected_filter, 'id="filter"'); ?>
+			</li>
+			<li class="buttons buttons-small">
+				<a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files">
+					<?php echo lang('files.upload.title'); ?>
+				</a>
 			</li>
 		</ul>
 	</div>
@@ -113,10 +117,6 @@
 			return false;
 		});
 		$(".edit_file").colorbox({
-			width:"600", height:"450", iframe:true,
-			onClosed:function(){ $("#files_right_pane").load(curr_url); }
-		});
-		$("#new_files").colorbox({
 			width:"600", height:"450", iframe:true,
 			onClosed:function(){ $("#files_right_pane").load(curr_url); }
 		});
