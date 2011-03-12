@@ -8,7 +8,7 @@ class Module_Galleries extends Module {
 	{
 		return array(
 			'name' => array(
-				'si' => 'Glarije',
+				'si' => 'Galerija',
 				'en' => 'Galleries',
 				'de' => 'Galerien',
 				'nl' => 'Gallerijen',
