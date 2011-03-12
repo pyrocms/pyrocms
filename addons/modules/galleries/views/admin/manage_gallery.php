@@ -4,6 +4,19 @@
 	<?php echo form_open($this->uri->uri_string(), 'class="crud"', array('folder_id' => $gallery->folder_id)); ?>
 		<ol>
 			<li class="<?php echo alternator('', 'even'); ?>">
+				<?php echo form_label(lang('galleries.folder_label'). ':', 'folder_id'); ?>
+				<?php
+				$folder_options = array(lang('select.pick'));
+				foreach($file_folders as $row)
+				{
+					$indent = ($row['parent_id'] != 0) ? repeater(' &raquo; ', $row['depth']) : '';
+					$folder_options[$row['id']] = $indent.$row['name'];
+				}
+				echo form_dropdown('folder_id', $folder_options, $gallery->folder_id, 'id="folder_id" class="required"');
+				?>
+			</li>
+
+			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="title"><?php echo lang('galleries.title_label'); ?></label>
 				<input type="text" id="title" name="title" maxlength="255" value="<?php echo $gallery->title; ?>" />
 				<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
@@ -64,8 +77,8 @@
 					<?php if ( $gallery_images !== FALSE ): ?>
 					<?php foreach ( $gallery_images as $image ): ?>
 					<li>
-						<a href="<?php echo base_url() . 'uploads/files/' . $image->filename; ?>" class="modal">
-							<?php echo img(array('src' => site_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'File: ' . $image->filename . $image->extension . ' Title: ' . $image->name)); ?>
+						<a href="<?php echo site_url() . 'admin/files/edit/' . $image->file_id; ?>" class="upload_colorbox">
+							<?php echo img(array('src' => site_url() . 'files/thumb/' . $image->file_id, 'alt' => $image->name, 'title' => 'Title: ' . $image->name . ' -- Caption: ' . $image->description)); ?>
 							<?php echo form_hidden('action_to[]', $image->id); ?>
 						</a>
 					</li>
@@ -86,4 +99,24 @@
 		</div>
 	<?php echo form_close(); ?>
 
+<script type="text/javascript">
+
+jQuery(function($){
+$('select#folder_id').change(function(){
+	$.get(BASE_URI + 'index.php/admin/galleries/ajax_select_folder/' + this.value.toString(), function(data) {
+
+		if (data) {
+			$('input[name=title]').val(data.name);
+			$('input[name=slug]').val(data.slug);
+		}
+		else {
+			$('input[name=title]').val('');
+			$('input[name=slug]').val('');
+		}
+
+	}, 'json');
+});
+});
+
+</script>
 </div>

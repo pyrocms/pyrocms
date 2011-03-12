@@ -155,7 +155,7 @@ jQuery(function($) {
 				width: "60%",
 				maxHeight: "90%",
 				onComplete: function() {
-					$.uniform.update();
+					$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform();
 				},
 				current: current_module + " {current} / {total}"
 			});

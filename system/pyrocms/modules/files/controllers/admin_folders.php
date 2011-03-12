@@ -71,9 +71,9 @@ class Admin_folders extends Admin_Controller {
 		$breadcrumb = '';
 		foreach($crumbs AS $item)
 		{
-			$breadcrumb .= $item['name'] . ' &raquo; ';
+			$breadcrumb[] = $item['name'];
 		}
-		$this->data->crumbs = trim(reduce_multiples($breadcrumb, "&raquo; "));
+		$this->data->crumbs = implode(' &raquo; ', $breadcrumb);		
 
 		// Get a list of all child folders
 		$this->file_folders_m->clear_folders();

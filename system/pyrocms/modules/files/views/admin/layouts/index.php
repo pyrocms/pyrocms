@@ -51,7 +51,7 @@
 		}
 
 		//file upload stuff
-		$('.dd-upload, button.cancel-upload').livequery(function(e){
+		$('#new_files, button.cancel-upload').livequery(function(e){
 			$(this).click(function(e){
 
 			e.preventDefault();
@@ -111,7 +111,21 @@
 					callBack();
 				});
 				
+			},
+			onComplete: function (event, files, index, xhr, handler) {
+				handler.onCompleteAll(files);
+			},
+			onCompleteAll: function (files) {
+				if (!files.uploadCounter) {
+					files.uploadCounter = 1;  
+				} else {
+					files.uploadCounter = files.uploadCounter + 1;
+				}
+				if (files.uploadCounter === files.length) {
+					$('button.cancel-upload').click();
+				}
 			}
+
 		});
 		
 		$('button.start-upload').click(function(){

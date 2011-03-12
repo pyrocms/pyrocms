@@ -9,7 +9,7 @@
 			$folder_options = array(lang('select.pick'));
 			foreach($file_folders as $row)
 			{
-				$indent = ($row['parent_id'] != 0) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
+				$indent = ($row['parent_id'] != 0) ? repeater(' &raquo; ', $row['depth']) : '';
 				$folder_options[$row['id']] = $indent.$row['name'];
 			}
 			echo form_dropdown('folder_id', $folder_options, set_value('folder_id'), 'id="folder_id" class="required"');

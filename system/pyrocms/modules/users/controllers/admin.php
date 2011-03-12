@@ -92,6 +92,9 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
+		//get the selected group by name so we can use its ID to filter results
+		$selected_group = $this->group_m->get_by_name($this->input->post('f_group'));
+
 		//base where clause
 		$base_where = array('active' => 0);
 
@@ -99,7 +102,7 @@ class Admin extends Admin_Controller {
 		$base_where['active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['active'];
 
 		//determine group param
-		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int) $this->input->post('f_group')) : $base_where;
+		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => $selected_group->id) : $base_where;
 
 		//keyphrase param
 		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;

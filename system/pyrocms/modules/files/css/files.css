@@ -139,6 +139,7 @@ div.selector {
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
+	overflow: hidden;
 }
 .actions, .actions a, .actions input {
 	vertical-align: middle;
@@ -171,4 +172,8 @@ a.toggle-view {
 	float: right;
 	text-decoration: none;
 	font-size: 14px;
+}
+a#new_files {
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
