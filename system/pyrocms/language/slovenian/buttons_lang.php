@@ -5,7 +5,7 @@
  * An open source CMS based on CodeIgniter
  *
  * @package		PyroCMS
- * @author		IMAMO, Danijel Ocepek s.p
+ * @author		IMAMO, Danijel Ocepek s.pd for slovenian translation
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0
@@ -27,4 +27,4 @@ $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']   = 'Aktiviraj';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/pyrocms/language/slovensko/buttons_lang.php */
+/* Location: ./system/pyrocms/language/slovenian/buttons_lang.php */

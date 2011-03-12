@@ -64,4 +64,4 @@ $lang['disable_label'] 					= 'Onemogoči';
 $lang['upgrade_label'] 					= 'Posodobi';
 
 /* End of file main_lang.php */
-/* Location: ./system/pyrocms/language/slovensko/main_lang.php */
+/* Location: ./system/pyrocms/language/slovenian/main_lang.php */
