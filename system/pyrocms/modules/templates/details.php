@@ -17,11 +17,13 @@ class Module_Templates extends Module {
 	{
 		return array(
 			'name' => array(
+				'si' => 'Email predloge',
 				'en' => 'Email Templates',
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'pt' => 'Modelos de e-mail'
 			),
 			'description' => array(
+				'si' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'en' => 'Create, edit, and save dynamic email templates',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
 				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos'
