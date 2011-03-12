@@ -1,8 +1,8 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Module_Variables extends Module {
 
-	public $version = '0.3';
+	public $version = '0.3.1';
 	
 	public function info()
 	{
@@ -37,9 +37,9 @@ class Module_Variables extends Module {
 				'cs' => 'Spravujte globální proměnné přístupné odkudkoliv.',
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.'
 			),
-			'frontend' => FALSE,
-			'backend'  => TRUE,
-			'menu'	  => 'content'
+			'frontend'	=> FALSE,
+			'backend'	=> TRUE,
+			'menu'		=> 'content'
 		);
 	}
 	
@@ -85,4 +85,5 @@ class Module_Variables extends Module {
 			generated tag in page content, blog posts, etc. and the assigned value will be displayed.</p>";
 	}
 }
+
 /* End of file details.php */

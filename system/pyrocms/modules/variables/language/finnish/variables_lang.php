@@ -1,10 +1,14 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
  * 
- * @author Mikael Kundert <mikael@kundert.fi>
- * @date 07.02.2011
- * @version 1.0.3
+ * @author		Mikael Kundert <mikael@kundert.fi>
+ * @package		PyroCMS
+ * @subpackage 	Variables Module
+ * @category	Modules
+ * @link		http://pyrocms.com
+ * @date		2011-03-13
+ * @version		1.1.0
  */
 
 // labels
@@ -12,8 +16,6 @@ $lang['variables.name_label'] 			    = 'Nimi';
 $lang['variables.syntax_label']				= 'Syntaksi';
 $lang['variables.data_label'] 			    = 'Arvo';
 $lang['variables.actions_label'] 			= 'Toiminnot';
-$lang['variables.edit_label'] 				= 'Muokkaa';
-$lang['variables.delete_label'] 			= 'Poista';
 
 // titles
 $lang['variables.create_title'] 			= 'Lisää muuttuja';
@@ -26,7 +28,11 @@ $lang['variables.add_success'] 				= 'Muuttuja tallennettiin.';
 $lang['variables.add_error'] 				= 'Tapahtui virhe.';
 $lang['variables.edit_success'] 			= 'Muutokset tallennettiin.';
 $lang['variables.edit_error'] 				= 'Tapahtui virhe.';
-$lang['variables.mass_delete_error'] 		= 'Muuttujaa "%s" poistaessa tapahtui virhe.';
+$lang['variables.delete_success']			= 'The variable "%s" successfully deleted.'; #translate
+$lang['variables.delete_error'] 			= 'An error occurred while trying to delete the variable "%s".'; #translate
 $lang['variables.mass_delete_success']		= '%s muuttujaa %s muuttujasta poistettiin onnistuneesti.';
+$lang['variables.mass_delete_error'] 		= 'Muuttujaa "%s" poistaessa tapahtui virhe.';
 $lang['variables.no_select_error'] 			= 'Valitse ensin muuttuja.';
 $lang['variables.already_exist_error']		= 'Muttuja nimeltään "%s" on jo olemassa.';
+
+/* End of file variables_lang.php */

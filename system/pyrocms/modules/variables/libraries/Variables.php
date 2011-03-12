@@ -4,15 +4,16 @@
  *
  * Handles the variables data
  *
- * @package		PyroCMS
  * @author		PyroCMS Dev Team
+ * @package		PyroCMS
+ * @subpackage	Variables module
+ * @category	Modules
  * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Variables {
 
-	private $CI;
-
+	private $_CI;
 	private $_vars = array();
 
 	// ------------------------------------------------------------------------
@@ -26,10 +27,10 @@ class Variables {
 	 */
 	public function __construct()
 	{
-		$this->CI =& get_instance();
-		$this->CI->load->model('variables/variables_m');
+		$this->_CI =& get_instance();
+		$this->_CI->load->model('variables/variables_m');
 
-		$vars = $this->CI->variables_m->get_all();
+		$vars = $this->_CI->variables_m->get_all();
 
 		foreach ($vars as $var)
 		{
@@ -49,7 +50,7 @@ class Variables {
 	 */
 	public function __get($name)
 	{
-		// getting data
+		// Getting data
 		if (isset($this->_vars[$name]))
 		{
 			return $this->_vars[$name];
@@ -72,4 +73,5 @@ class Variables {
 		return $this->_vars;
 	}
 }
+
 /* End of file Variables.php */
