@@ -8,6 +8,7 @@ class Module_Pages extends Module {
 	{
 		return array(
 			'name' => array(
+				'si' => 'Strani',
 				'en' => 'Pages',
 				'nl' => 'Pagina&apos;s',
 				'es' => 'Páginas',
@@ -23,6 +24,7 @@ class Module_Pages extends Module {
 				'fi' => 'Sivut'
 			),
 			'description' => array(
+				'si' => 'Dodaj stran s kakršno koli vsebino želite.',
 				'en' => 'Add custom pages to the site with any content you want.',
 				'nl' => "Voeg aangepaste pagina&apos;s met willekeurige inhoud aan de site toe.",
 				'pl' => 'Dodaj własne strony z dowolną treścią do witryny.',
