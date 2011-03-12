@@ -32,7 +32,7 @@ class Comments extends Public_Controller
 		),
 		array(
 			'field' => 'comment',
-			'label' => 'lang:comments.comment_label',
+			'label' => 'lang:comments.message_label',
 			'rules' => 'trim|required'
 		),
 	);
@@ -50,9 +50,6 @@ class Comments extends Public_Controller
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');		
-		
-		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
 	}
 	
 	/**
@@ -80,6 +77,9 @@ class Comments extends Public_Controller
 			$this->validation_rules[0]['rules'] .= '|required';
 			$this->validation_rules[1]['rules'] .= '|required';
 		}
+		
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
 		
 		$comment['module']		= $module;
 		$comment['module_id'] 	= $id;
@@ -133,15 +133,17 @@ class Comments extends Public_Controller
 		else
 		{		
 			$this->session->set_flashdata('error', validation_errors());
-		}
-
-		// Loop through each rule
-		foreach($this->validation_rules as $rule)
-		{
-			if($this->input->post($rule['field']) !== FALSE)
+			
+			// Loop through each rule
+			foreach($this->validation_rules as $rule)
 			{
-				$comment[$rule['field']] = $this->input->post($rule['field']);
+				if($this->input->post($rule['field']) !== FALSE)
+				{
+					$comment[$rule['field']] = $this->input->post($rule['field']);
+				}
 			}
+			$this->session->set_flashdata('comment', $comment);
+		
 		}
 		
 		// If for some reason the post variable doesnt exist, just send to module main page
