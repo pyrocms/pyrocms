@@ -26,6 +26,11 @@
 		</a>
 	</li>
 	<li>
+		<a href="<?php echo site_url('installer/change/slovenian'); ?>" title="Slovensko">
+			<img src="<?php echo base_url(); ?>assets/images/flags/si.gif" alt="Slovensko" />
+		</a>
+	</li>
+	<li>
 		<a href="<?php echo site_url('installer/change/spanish'); ?>" title="Spanish">
 			<img src="<?php echo base_url(); ?>assets/images/flags/es.gif" alt="Spànish" />
 		</a>
