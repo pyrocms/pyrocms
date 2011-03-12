@@ -54,7 +54,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'group_id',
 			'label' => 'lang:user_group_label',
-			'rules' => 'required'
+			'rules' => 'required|callback__group_check'
 		),
 		array(
 			'field' => 'active',
@@ -435,6 +435,22 @@ class Admin extends Admin_Controller {
 		{
 			return TRUE;
 		}
+	}
+	
+	/**
+	 * Check that a proper group has been selected
+	 *
+	 * @return bool
+	 * @author Stephen Cozart
+	 */
+	public function _group_check($group)
+	{
+		if ($group == '0')
+		{
+			$this->form_validation->set_message('_group_check', $this->lang->line('regex_match'));
+			return FALSE;
+		}
+		return TRUE;
 	}
 
 }
