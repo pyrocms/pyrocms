@@ -8,6 +8,7 @@ class Module_Galleries extends Module {
 	{
 		return array(
 			'name' => array(
+				'si' => 'Glarije'
 				'en' => 'Galleries',
 				'de' => 'Galerien',
 				'nl' => 'Gallerijen',
@@ -22,6 +23,7 @@ class Module_Galleries extends Module {
 				'fi' => 'Galleriat'
 			),
 			'description' => array(
+				'si' => 'Modul galerije je mogočen modul ki dovoljuje uporabnikom ustavrjanje galerije slik'
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
 				'nl' => 'De gallerij module is een krachtige module dat gebruikers in staat stelt gallerijen te plaatsen.',
