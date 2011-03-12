@@ -67,6 +67,20 @@ class Group_m extends CI_Model
 			//'site_id' => $this->site->id
 		))->row();
 	}
+	
+	/**
+	 * Return one group by name
+	 *
+	 * @access public
+	 * @param string $name The name of the group
+	 * @return mixed
+	 */
+	public function get_by_name($name = 0)
+	{
+		return $this->db->get_where('groups', array(
+			'name' => $name,
+		))->row();
+	}
 
 	/**
 	 * Return an array of groups
