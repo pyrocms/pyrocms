@@ -12,7 +12,7 @@
  * @version		2.1
  */
 
-class Cache
+class PyroCache
 {
 	private $_ci;
 	private $_path;
