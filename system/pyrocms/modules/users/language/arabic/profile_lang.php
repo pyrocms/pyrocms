@@ -38,7 +38,7 @@ $lang['profile_messenger_section'] 		= 'المراسلات الفوريّة';
 
 $lang['profile_msn_handle'] 			= 'MSN';
 $lang['profile_aim_handle'] 			= 'AIM';
-$lang['profile_yim_handle'] 			= 'Yahoo! messenger';
+$lang['profile_yim_handle'] 			= 'ياهو مسنجر';
 $lang['profile_gtalk_handle'] 			= 'GTalk';
 
 $lang['profile_avatar_section'] 		= 'أفاتار';
