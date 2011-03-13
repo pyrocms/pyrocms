@@ -163,8 +163,8 @@ class Admin extends Admin_Controller {
 		// We need a password don't you think?
 		$this->validation_rules[2]['rules'] .= '|required';
 		$this->validation_rules[3]['rules'] .= '|required';
-		$this->validation_rules[5]['rules'] .= '|callback__email_check';
-		$this->validation_rules[6]['rules'] .= '|callback__username_check';
+		$this->validation_rules[2]['rules'] .= '|callback__email_check';
+		$this->validation_rules[5]['rules'] .= '|callback__username_check';
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
