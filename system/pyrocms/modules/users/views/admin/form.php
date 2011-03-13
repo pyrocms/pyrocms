@@ -40,7 +40,6 @@
 					<li>
 						<label for="last_name"><?php echo lang('user_last_name_label');?></label>
 						<?php echo form_input('last_name', $member->last_name); ?>
-						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li class="even">
