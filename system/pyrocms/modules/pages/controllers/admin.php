@@ -260,7 +260,7 @@ class Admin extends Admin_Controller
 					));
 
 					// Clear navigation cache
-					$this->cache->delete_all('navigation_m');
+					$this->pyrocache->delete_all('navigation_m');
 				}
 
 				if ($this->pages_m->update($id, $input))
@@ -367,7 +367,7 @@ class Admin extends Admin_Controller
 			}
 
 			// Wipe cache for this model as the data has changed
-			$this->cache->delete_all('pages_m');
+			$this->pyrocache->delete_all('pages_m');
 
 			// Set the flashdata message and redirect the user
 			$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
@@ -452,8 +452,8 @@ class Admin extends Admin_Controller
 				$deleted_ids = $this->pages_m->delete($id);
 
 				// Wipe cache for this model, the content has changd
-				$this->cache->delete_all('pages_m');
-				$this->cache->delete_all('navigation_m');
+				$this->pyrocache->delete_all('pages_m');
+				$this->pyrocache->delete_all('navigation_m');
 			}
 
 			else

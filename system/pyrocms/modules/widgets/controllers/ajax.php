@@ -205,7 +205,7 @@ class Ajax extends Admin_Controller
 			++$i;
 		}
 		
-		$this->cache->delete_all('widget_m');
+		$this->pyrocache->delete_all('widget_m');
 	}
 	
 	/**

@@ -30,11 +30,11 @@ class Widget_Twitter_feed extends Widgets
 
 	public function run($options)
 	{
-		if ( ! $tweets = $this->cache->get('twitter-' . $options['username']))
+		if ( ! $tweets = $this->pyrocache->get('twitter-' . $options['username']))
 		{
 			$tweets = json_decode(@file_get_contents('http://twitter.com/statuses/user_timeline/' . $options['username'] . '.json'));
 
-			$this->cache->write($tweets, 'twitter-' . $options['username'], $this->settings->twitter_cache);
+			$this->pyrocache->write($tweets, 'twitter-' . $options['username'], $this->settings->twitter_cache);
 		}
 
 		// If no number provided, just get 5

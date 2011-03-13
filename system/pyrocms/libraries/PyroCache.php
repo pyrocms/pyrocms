@@ -33,7 +33,7 @@ class PyroCache
 		$this->_ci =& get_instance();
 		$this->_reset();
 
-		$this->_ci->load->config('cache');
+		$this->_ci->load->config('pyrocache');
 
 		$this->_path = $this->_ci->config->item('cache_dir');
 		$this->_default_expires = $this->_ci->config->item('cache_default_expires');
@@ -375,9 +375,9 @@ class PyroCache
 	 * Allows you to pass a group to delete cache. Example:
 	 *
 	 * <code>
-	 * $this->cache->write($data, 'nav_title');
-	 * $this->cache->write($links, 'nav_links');
-	 * $this->cache->delete_group('nav_');
+	 * $this->pyrocache->write($data, 'nav_title');
+	 * $this->pyrocache->write($links, 'nav_links');
+	 * $this->pyrocache->delete_group('nav_');
 	 * </code>
 	 *
 	 * @param 	string $group
