@@ -40,7 +40,6 @@
 					<li>
 						<label for="last_name"><?php echo lang('user_last_name_label');?></label>
 						<?php echo form_input('last_name', $member->last_name); ?>
-						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
 
 					<li class="even">
@@ -62,7 +61,7 @@
 
 					<li>
 						<label for="group_id"><?php echo lang('user_group_label');?></label>
-						<?php echo form_dropdown('group_id', $groups_select, $member->group_id); ?>
+						<?php echo form_dropdown('group_id', array(0 => lang('select.pick')) + $groups_select, $member->group_id); ?>
 					</li>
 
 					<li class="even">
