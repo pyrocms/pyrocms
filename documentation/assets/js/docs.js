@@ -11,19 +11,24 @@
  */
 function load_page() {
 	
-	if(document.location.hash.substr(1))
+	if(window.location.hash.substr(1))
 	{
 		//get url segments
-		var segments = document.location.hash.substr(1).split('/');
+		var segments = window.location.hash.substr(1).split('/');
 		
 		// Load the menu file in case visitor came from external link
 		$('#menu_bin').load(segments[0] + '/menu.html', $('#menu-tab').show());
 	
 		//ajax load the page content
-		$('#content_bin').load(document.location.hash.substr(1), $('#menu_bin').slideUp('fast'));
-	
-		// Don't follow the link
-		return false;
+		$('#content_bin').load(window.location.hash.substr(1), $('#menu_bin').slideUp('fast'));
+		
+		//uppercase the first letter of the segment for the current class
+		var first = segments[0].substring(0, 1);
+		var last = segments[0].substring(1);
+
+		// Set the current class
+		$('#nav-main a').removeClass('current');
+		$('#nav-main a:contains(' + first.toUpperCase() + last + ')').addClass('current');	
 	}
 }
 
@@ -40,9 +45,9 @@ $(document).ready(function(){
 	$(window).hashchange( function(){
 
 		//lets the Back button work on home page also
-		if( ! document.location.hash.substr(1))
+		if( ! window.location.hash.substr(1))
 		{
-			location = document.location;
+			window.location.href = window.location;
 		}
 	
 		//if it's a hash uri load it
@@ -60,12 +65,9 @@ $(document).ready(function(){
 		
 		var tab_name = $(this).text().toLowerCase();
 	
-		document.location.hash = tab_name + '/index.html'
-		
-		// Reset our current class
-		$('#nav-main a').removeClass('current');
-		$(this).addClass('current');
+		window.location.hash = tab_name + '/index.html'
 
+		//don't follow the link
 		return false;
 	});
 	
@@ -87,7 +89,7 @@ $(document).ready(function(){
 		var url = $(this).attr('href');
 
 		//change the url and hashchange() will take over
-		document.location.hash = url
+		window.location.hash = url
 		
 		//stop default action
 		return false;
