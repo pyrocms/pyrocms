@@ -270,7 +270,7 @@ class Admin extends Admin_Controller
 			else
 			{
 				// Success / Error messages
-				$this->session->set_flashdata($status, sprintf(lang('variables.delete_' . $status), $names[0]));
+				$this->session->set_flashdata($status, sprintf(lang('variables.delete_' . $status), $values[0]));
 			}
 		}
 
