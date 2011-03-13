@@ -41,7 +41,12 @@
 
 </table>
 
-<p><strong>Example</strong></p>
+<p><strong>Examples</strong></p>
+
+<p>
+	You can use the basic single-tag approach to output a chunk of HTML by itself. This will apply classes to the <kdb>&lt;a&gt;</kdb> tags and
+	defaults to wrapping links in <kdb>&lt;li&gt;</kdb>'s.
+</p>
 
 <pre><code>{pyro:navigation:links group="header" separator="|"}</code></pre>
 
@@ -50,3 +55,10 @@
 	&lt;li&gt;&lt;a href="http://www.google.com"&gt;About Us&lt;/a&gt;
 &lt;/li&gt; </code></pre>
 
+<p>
+	If this layout is not flexible enough you can use double-tags to control how each link is output yourself.
+</p>
+
+<pre><code>{pyro:navigation:links group="header"}
+&lt;li class="menu-item"&gt;&lt;a href="{url}" class="{class}"&gt;{title}&lt;/a&gt;&lt;/li&gt;
+{/pyro:navigation:links}</code></pre>
