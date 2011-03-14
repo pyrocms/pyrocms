@@ -2,23 +2,23 @@
 
 $lang['required'] 			= "El campo %s es obligatorio.";
 $lang['isset']				= "El campo %s debe contener un valor.";
-$lang['valid_email']		= "El campo %s debe contener una direcci髇 de email v醠ida.";
-$lang['valid_emails'] 		= "El campo %s debe contener todas las direcciones de email v醠idas.";
-$lang['valid_url'] 			= "El campo %s debe contener una URL v醠ida.";
-$lang['valid_ip'] 			= "El campo %s debe contener una IP v醠ida.";
+$lang['valid_email']		= "El campo %s debe contener una direcci贸n de email v谩lida.";
+$lang['valid_emails'] 		= "El campo %s debe contener todas las direcciones de email v谩lidas.";
+$lang['valid_url'] 			= "El campo %s debe contener una URL v谩lida.";
+$lang['valid_ip'] 			= "El campo %s debe contener una IP v谩lida.";
 $lang['min_length']			= "El campo %s debe tener al menos %s caracteres de longitud.";
 $lang['max_length']			= "El campo %s no puede exceder los %s caracteres de longitud.";
 $lang['exact_length']		= "El campo %s debe tener exactamente %s caracteres de longitud.";
-$lang['alpha']				= "El campo %s debe contener s髄o caracteres alfab閠icos.";
-$lang['alpha_numeric']		= "El campo %s debe contener s髄o caracteres alfa-num閞icos.";
-$lang['alpha_dash']			= "El campo %s debe contener s髄o caracteres alfa-num閞icos, guiones bajos y guiones.";
-$lang['numeric']			= "El campo %s debe contener s髄o n鷐eros.";
-$lang['is_numeric']			= "El campo %s debe contener s髄o caracteres num閞icos.";
-$lang['integer']			= "El campo %s debe contener un n鷐ero entero.";
+$lang['alpha']				= "El campo %s debe contener s贸lo caracteres alfab茅ticos.";
+$lang['alpha_numeric']		= "El campo %s debe contener s贸lo caracteres alfa-num茅ricos.";
+$lang['alpha_dash']			= "El campo %s debe contener s贸lo caracteres alfa-num茅ricos, guiones bajos y guiones.";
+$lang['numeric']			= "El campo %s debe contener s贸lo n煤meros.";
+$lang['is_numeric']			= "El campo %s debe contener s贸lo caracteres num茅ricos.";
+$lang['integer']			= "El campo %s debe contener un n煤mero entero.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "El campo %s no coincide con el campo %s.";
-$lang['is_natural']			= "El campo %s debe contener s髄o m鷐eros positivos.";
-$lang['is_natural_no_zero']	= "El campo %s debe contener un n鷐ero mayor que cero.";
-
+$lang['is_natural']			= "El campo %s debe contener s贸lo m煤meros positivos.";
+$lang['is_natural_no_zero']	= "El campo %s debe contener un n煤mero mayor que cero.";
 
 /* End of file form_validation_lang.php */
 /* Location: ./system/language/spanish/form_validation_lang.php */

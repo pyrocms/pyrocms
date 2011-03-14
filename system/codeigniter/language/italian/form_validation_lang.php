@@ -19,6 +19,7 @@ $lang['alpha_dash']			= "Il campo %s deve contenere solo caratteri alfa-numerici
 $lang['numeric']			= "Il campo %s deve contenere un numero.";
 $lang['is_numeric']			= "Il campo %s deve contenere un numero.";
 $lang['integer']			= "Il campo %s deve contenere un intero.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "Il campo %s non &egrave; uguale al campo %s.";
 $lang['is_natural']			= "Il campo %s deve contenenre un numero.";
 $lang['is_natural_no_zero']	= "Il campo %s deve contenere un numero più grande di zero.";

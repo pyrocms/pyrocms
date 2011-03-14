@@ -15,6 +15,7 @@ $lang['alpha_dash']			= "Het veld %s mag alleen alfanumerieke tekens, underscore
 $lang['numeric']			= "Het veld %s mag alleen nummers bevatten.";
 $lang['is_numeric']			= "Het veld %s mag alleen numerieke tekens bevatten.";
 $lang['integer']			= "Het veld %s mag alleen een integer bevatten.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "Het veld %s is niet gelijk aan het veld %s.";
 $lang['is_natural']			= "Het veld %s mag alleen positieve getallen bevatten.";
 $lang['is_natural_no_zero']	= "Het veld %s moet een nummer groter dan 0 bevatten.";
