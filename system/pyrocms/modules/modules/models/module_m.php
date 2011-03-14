@@ -8,9 +8,9 @@
  * @category	Modules
  * @since 		v1.0
  */
-class Module_m extends CI_Model
+class Module_m extends MY_Model
 {
-	private $_table = 'modules';
+	protected $_table = 'modules';
 	private $_module_exists = array();
 
 	/**
