@@ -24,7 +24,7 @@ class Gallery_images_m extends MY_Model
 		parent::__construct();
 		
 		// Load all required classes
-		$this->config->load('gallery_config');
+		$this->config->load('gallery_config', FALSE, FALSE, 'galleries');
 		$this->load->library('upload');
 		$this->load->library('image_lib');
 	}

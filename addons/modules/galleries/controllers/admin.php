@@ -244,6 +244,34 @@ class Admin extends Admin_Controller
 	}
 
 	/**
+	 * Show a gallery preview
+	 * @access	public
+	 * @param	int $id The ID of the gallery
+	 * @return	void
+	 */
+	public function preview($id = 0)
+	{
+		$data->gallery  = $this->galleries_m->get($id);
+
+		$this->template->set_layout('modal', 'admin');
+		$this->template->build('admin/preview', $data);
+	}
+
+	/**
+	 * Show a gallery image preview
+	 * @access	public
+	 * @param	int $id The ID of the gallery image
+	 * @return	void
+	 */
+	public function image_preview($id = 0)
+	{
+		$data->image  = $this->gallery_images_m->get($id);
+
+		$this->template->set_layout('modal', 'admin');
+		$this->template->build('admin/image_preview', $data);
+	}
+
+	/**
 	 * Delete an existing gallery
 	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team

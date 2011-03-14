@@ -5,11 +5,11 @@
 	<table border="0" class="table-list">
 		<thead>
 			<tr>
-				<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
+				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th><?php echo lang('galleries.album_label'); ?></th>
-				<th><?php echo lang('galleries.num_photos_label'); ?></th>
-				<th><?php echo lang('galleries.updated_label'); ?></th>
-				<th><?php echo lang('galleries.actions_label'); ?></th>
+				<th width="140"><?php echo lang('galleries.num_photos_label'); ?></th>
+				<th width="140"><?php echo lang('galleries.updated_label'); ?></th>
+				<th width="350" class="align-center"><?php echo lang('galleries.actions_label'); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -23,22 +23,20 @@
 			<?php foreach( $galleries as $gallery ): ?>
 			<tr>
 				<td><?php echo form_checkbox('action_to[]', $gallery->id); ?></td>
-				<td><?php echo $gallery->title; ?></td>
+				<td><?php echo anchor('admin/galleries/preview/' . $gallery->id, $gallery->title, 'target="_blank" class="modal-large"'); ?></td>
 				<td><?php echo $gallery->photo_count; ?></td>
 				<td><?php echo format_date($gallery->updated_on); ?></td>
-				<td>
-					<?php echo
-					anchor('galleries/'					. $gallery->slug, 			lang('galleries.view_label'), 'target="_blank"') 	. ' | ' .
-					anchor('admin/files#'				. $gallery->folder->slug, 	lang('galleries.upload_label')) 						. ' | ' .
-					anchor('admin/galleries/manage/'	. $gallery->id, 			lang('galleries.manage_label')) 					. ' | ' .
-					anchor('admin/galleries/delete/'	. $gallery->id, 			lang('galleries.delete_label'), array('class'=>'confirm')); ?>
+				<td class="align-center buttons buttons-small">
+					<?php echo anchor('admin/files#'			. $gallery->folder->slug, 	lang('galleries.upload_label'), 'class="button"'); ?>
+					<?php echo anchor('admin/galleries/manage/'	. $gallery->id, 			lang('galleries.manage_label'), 'class="button"'); ?>
+					<?php echo anchor('admin/galleries/delete/'	. $gallery->id, 			lang('galleries.delete_label'), array('class'=>'confirm button delete')); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
 
-	<div class="buttons float-right padding-top">
+	<div class="buttons align-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
 
