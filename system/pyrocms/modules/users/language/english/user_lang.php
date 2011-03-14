@@ -8,6 +8,7 @@ $lang['user_login_header']                     = 'Login';
 
 // titles
 $lang['user_add_title']                        = 'Add user';
+$lang['user_list_title'] 				= 'List users';
 $lang['user_inactive_title']                   = 'Inactive users';
 $lang['user_active_title']                     = 'Active users';
 $lang['user_registred_title']                  = 'Registered Users';
