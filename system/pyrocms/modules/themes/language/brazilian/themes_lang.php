@@ -11,13 +11,15 @@ $lang['themes.mass_delete_success'] 	= '%s temas de %s foram removidos com suces
 $lang['themes.mass_delete_error']		= 'Apenas %s temas de %s foram removidos.';
 $lang['themes.delete_select_error'] 	= 'Antes você precisa selecionar os temas para deletar';
 $lang['themes.upload_title']			= 'Envio de tema';
-$lang['themes.list_label']				= 'Lista de temas';
-$lang['themes.upload_desc']				= 'Por favor, selecione o arquivo e clique no botão Enviar';
+$lang['themes.list_title']				= 'Listar temas';
+$lang['themes.upload_desc']				= 'Selecione o arquivo e clique no botão Enviar';
 
 $lang['themes.theme_label'] 			= 'Tema';
 $lang['themes.actions_label']			= 'Ações';
 $lang['themes.make_default']			= 'Definir como padrão';
-$lang['themes.delete']					= 'Remover';
+$lang['themes.description_label']		= 'Descrição';
+$lang['themes.author_label']			= 'Autor';
+$lang['themes.version_label']			= 'Versão';
 $lang['themes.default_theme_label'] 	= 'Tema padrão';
 $lang['themes.no_themes_installed'] 	= 'Não existem temas instalados.';
 

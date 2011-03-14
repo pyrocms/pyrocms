@@ -11,13 +11,15 @@ $lang['themes.mass_delete_success']     = '%s von %s Themen(a) wurde(n) erfolgre
 $lang['themes.mass_delete_error']       = 'Nur %s von %s Themen(a) wurde(n) gelöscht.';
 $lang['themes.delete_select_error']     = 'Du musst zuerst Themen(a) auswählen, um sie zu löschen.';
 $lang['themes.upload_title']            = 'Thema hochladen';
-$lang['themes.list_label']              = 'Themen-Liste';
+$lang['themes.list_title']              = 'Themen-Liste';
 $lang['themes.upload_desc']             = 'Bitte wähle eine Datei aus und klicke auf Hochladen';
 
 $lang['themes.theme_label']             = 'Thema';
 $lang['themes.actions_label']           = 'Aktionen';
 $lang['themes.make_default']            = 'Als Standard festlegen';
-$lang['themes.delete']                  = 'Löschen';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label']     = 'Standard-Thema';
 $lang['themes.no_themes_installed']     = 'Es sind keine Themen installiert.';
 

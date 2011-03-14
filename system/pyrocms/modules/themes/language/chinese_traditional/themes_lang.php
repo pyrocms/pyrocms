@@ -11,13 +11,15 @@ $lang['themes.mass_delete_success'] 	= '%s 個主題已經刪除(共選擇 %s �
 $lang['themes.mass_delete_error']		= '只有 %s 個主題被刪除(共選擇 %s 個主題)。'; 	//'Only %s themes out of %s themes were deleted.';
 $lang['themes.delete_select_error'] 	= '請先選擇要刪除的佈景主題。';
 $lang['themes.upload_title']			= '上傳佈景主題';
-$lang['themes.list_label']				= '佈景主題列表';
+$lang['themes.list_title']				= '佈景主題列表';
 $lang['themes.upload_desc']				= '請選擇檔案並點選上傳按鈕。';
 
 $lang['themes.theme_label'] 			= '佈景主題';
 $lang['themes.actions_label']			= '操作';
 $lang['themes.make_default']			= '設為預設';
-$lang['themes.delete']					= '刪除';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label'] 	= '預設佈景主題';
 $lang['themes.no_themes_installed'] 	= '目前沒有安裝任何佈景主題。';
 

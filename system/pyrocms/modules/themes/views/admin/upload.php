@@ -4,12 +4,12 @@
 
 	<ol>
 		<li>
-			<label for="userfile"><?php echo lang('themes.upload_desc');?></label><br/>
+			<label for="userfile" style="float: none; display: inherit; width: auto; max-width: none; text-align: left; "><?php echo lang('themes.upload_desc'); ?></label><br/>
 			<input type="file" name="userfile" class="input" />
 		</li>
 	</ol>
 	
-	<div class="buttons float-right padding-top">
+	<div class="buttons align-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?>
 	</div>
 <?php echo form_close(); ?>

@@ -11,13 +11,15 @@ $lang['themes.mass_delete_success'] 	= '%s van %s thema&apos;s verwijderd.';
 $lang['themes.mass_delete_error']		= '%s thema&acute;s van %s themes verwijderd.';
 $lang['themes.delete_select_error'] 	= 'U moet eerst thema(&apos;s) selecteren om te verwijderen.';
 $lang['themes.upload_title']			= 'Upload thema';
-$lang['themes.list_label']				= 'Toon alle thema&apos;s';
+$lang['themes.list_title']				= 'Toon alle thema&apos;s';
 $lang['themes.upload_desc']				= 'Selecteer een bestand en klik de Upload-knop';
 
 $lang['themes.theme_label'] 			= 'Thema';
 $lang['themes.actions_label']			= 'Acties';
 $lang['themes.make_default']			= 'Maak standaard';
-$lang['themes.delete']					= 'Verwijder';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label'] 	= 'Standaard thema';
 $lang['themes.no_themes_installed'] 	= 'Er zijn geen thema&apos;s geinstalleerd.';
 

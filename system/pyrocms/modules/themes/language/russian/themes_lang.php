@@ -19,13 +19,15 @@ $lang['themes.mass_delete_success'] 	= '%s темы из %s удалены.';
 $lang['themes.mass_delete_error']			= 'Только %s темы из %s удалены.';
 $lang['themes.delete_select_error'] 	= 'Вы должны выбрать темы, которые хотите удалить.';
 $lang['themes.upload_title']					= 'Загрузить тему';
-$lang['themes.list_label']						= 'Список тем';
+$lang['themes.list_title']						= 'Список тем';
 $lang['themes.upload_desc']						= 'Выберите архив с темой и нажмите Загрузить';
 
 $lang['themes.theme_label'] 					= 'Тема';
 $lang['themes.actions_label']					= 'Действия';
 $lang['themes.make_default']					= 'Установить по-умолчанию';
-$lang['themes.delete']								= 'Удалить';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label'] 	= 'Тема по-умолчанию';
 $lang['themes.no_themes_installed'] 	= 'Темы оформления отсутствуют';
 
