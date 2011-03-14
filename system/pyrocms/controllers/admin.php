@@ -55,7 +55,7 @@ class Admin extends Admin_Controller
 		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
 		{
 			// Not FALSE? Return it
-			if ($cached_response = $this->cache->get('analytics'))
+			if ($cached_response = $this->pyrocache->get('analytics'))
 			{
 				$data->analytic_visits = $cached_response['analytic_visits'];
 				$data->analytic_views = $cached_response['analytic_views'];
@@ -104,7 +104,7 @@ class Admin extends Admin_Controller
 					$data->analytic_views = $flot_data_views;
 
 					// Call the model or library with the method provided and the same arguments
-					$this->cache->write(array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 'analytics', 60 * 60 * 6); // 6 hours
+					$this->pyrocache->write(array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 'analytics', 60 * 60 * 6); // 6 hours
 				}
 
 				catch (Exception $e)
