@@ -17,13 +17,13 @@ class Migration_Add_default_page extends Migration {
 			->where('slug', 'home')
 			->update('pages', array('is_home' => 1));
 
-		$this->cache->delete_all('pages_m');
+		$this->pyrocache->delete_all('pages_m');
 	}
 
 	function down()
 	{
 		$this->dbforge->drop_column('pages', 'is_home');
 		
-		$this->cache->delete_all('pages_m');
+		$this->pyrocache->delete_all('pages_m');
 	}
 }

@@ -73,9 +73,9 @@ class Pages extends Public_Controller
     	$page = $url_segments !== NULL
 		
 			// Fetch this page from the database via cache
-			? $this->cache->model('pages_m', 'get_by_uri', array($url_segments))
+			? $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments))
 
-			: $this->cache->model('pages_m', 'get_home');
+			: $this->pyrocache->model('pages_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
@@ -166,7 +166,7 @@ class Pages extends Public_Controller
     	$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
     	
     	// Fetch this page from the database via cache
-    	$page = $this->cache->model('pages_m', 'get_by_uri', array($url_segments));
+    	$page = $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR ! $page->rss_enabled)
@@ -176,7 +176,7 @@ class Pages extends Public_Controller
         	return;
         }
     	
-    	$children = $this->cache->model('pages_m', 'get_many_by', array(array(
+    	$children = $this->pyrocache->model('pages_m', 'get_many_by', array(array(
     		'parent_id' => $page->id,
     		'status' => 'live'
     	)));
@@ -221,7 +221,7 @@ class Pages extends Public_Controller
     public function _404($url_segments)
     {
     	// Try and get an error page. If its been deleted, show nasty 404
-        if ( ! $page = $this->cache->model('pages_m', 'get_by_uri', array('404')) )
+        if ( ! $page = $this->pyrocache->model('pages_m', 'get_by_uri', array('404')) )
         {
 			show_404();
         }

@@ -171,7 +171,7 @@ class Admin extends Admin_Controller {
 
 			if ($id)
 			{
-				$this->cache->delete_all('blog_m');
+				$this->pyrocache->delete_all('blog_m');
 				$this->session->set_flashdata('success', sprintf($this->lang->line('blog_post_add_success'), $this->input->post('title')));
 			}
 			else
@@ -346,7 +346,7 @@ class Admin extends Admin_Controller {
 					$this->blog_m->publish($id);
 
 					// Wipe cache for this model, the content has changed
-					$this->cache->delete('blog_m');
+					$this->pyrocache->delete('blog_m');
 					$post_titles[] = $post->title;
 				}
 			}
@@ -398,7 +398,7 @@ class Admin extends Admin_Controller {
 					$this->blog_m->delete($id);
 
 					// Wipe cache for this model, the content has changed
-					$this->cache->delete('blog_m');
+					$this->pyrocache->delete('blog_m');
 					$post_titles[] = $post->title;
 				}
 			}

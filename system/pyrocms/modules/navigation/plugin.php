@@ -31,7 +31,7 @@ class Plugin_Navigation extends Plugin
 		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL ;
 
 		$this->load->model('navigation/navigation_m');
-		$links = $this->cache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
+		$links = $this->pyrocache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
 
 		$list = '';
 		$array = array();

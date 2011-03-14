@@ -5,6 +5,7 @@
 system/pyrocms/cache/*.*
 system/pyrocms/cache/*_m/*
 system/pyrocms/cache/*_lib/*
+system/pyrocms/cache/codeigniter/*
 system/pyrocms/cache/dwoo/compiled/*.php
 system/pyrocms/cache/image_files/*
 system/pyrocms/cache/simplepie/*.spc

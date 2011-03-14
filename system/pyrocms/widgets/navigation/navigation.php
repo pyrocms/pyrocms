@@ -41,7 +41,7 @@ class Widget_Navigation extends Widgets
 	public function run($options)
 	{
 		$this->load->model('navigation/navigation_m');
-		$links = $this->cache->model('navigation_m', 'load_group', $options['group'], $this->settings->item('navigation_cache'));
+		$links = $this->pyrocache->model('navigation_m', 'load_group', $options['group'], $this->settings->item('navigation_cache'));
 		return array('links' => $links);
 	}
 }

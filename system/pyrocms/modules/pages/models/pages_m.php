@@ -300,7 +300,7 @@ class Pages_m extends MY_Model
 
 		$this->build_lookup($id);
 
-        $this->cache->delete_all('navigation_m');
+        $this->pyrocache->delete_all('navigation_m');
 
         return $return;
     }
