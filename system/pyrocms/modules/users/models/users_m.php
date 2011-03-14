@@ -143,7 +143,7 @@ class Users_m extends MY_Model
 		
 		if(!empty($params['name']))
 		{
-			$this->db->like('users.username', trim($params['name']))
+			$this->db->or_like('users.username', trim($params['name']))
 						->or_like('users.email', trim($params['name']))
 						->or_like('profiles.first_name', trim($params['name']))
 						->or_like('profiles.last_name', trim($params['name']));

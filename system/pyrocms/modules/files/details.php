@@ -8,6 +8,7 @@ class Module_Files extends Module {
 	{
 		return array(
 			'name' => array(
+				'si' => 'Datoteke',
 				'en' => 'Files',
 				'pt' => 'Arquivos',
 				'de' => 'Dateien',
@@ -22,6 +23,7 @@ class Module_Files extends Module {
 				'fi' => 'Tiedostot'
 			),
 			'description' => array(
+				'si' => 'Uredi datoteke in mape na vaši strani',
 				'en' => 'Manages files and folders for your site.',
 				'pt' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'de' => 'Verwalte Dateien und Verzeichnisse.',

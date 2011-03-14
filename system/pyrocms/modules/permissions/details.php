@@ -8,6 +8,7 @@ class Module_Permissions extends Module {
 	{
 		return array(
 			'name' => array(
+				'si' => 'Dovoljenja',
 				'en' => 'Permissions',
 				'nl' => 'Toegangsrechten',
 				'es' => 'Permisos',
@@ -23,6 +24,7 @@ class Module_Permissions extends Module {
 				'fi' => 'Käyttöoikeudet'
 			),
 			'description' => array(
+				'si' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
 				'en' => 'Control what type of users can see certain sections within the site.',
 				'nl' => 'Bepaal welke typen gebruikers toegang hebben tot gedeeltes van de site.',
 				'pl' => 'Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.',

@@ -8,6 +8,7 @@ class Module_Groups extends Module {
 	{
 		return array(
 			'name' => array(
+				'si' => 'Skupine',
 				'en' => 'Groups',
 				'pt' => 'Grupos',
 				'de' => 'Gruppen',
@@ -22,6 +23,7 @@ class Module_Groups extends Module {
 				'fi' => 'Ryhmät'
 			),
 			'description' => array(
+				'si' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
 				'en' => 'Users can be placed into groups to manage permissions.',
 				'pt' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
