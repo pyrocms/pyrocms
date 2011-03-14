@@ -31,6 +31,7 @@ $lang['comments.send_label'] 				= 'Comment';
 $lang['comments.inactive_title'] 			= 'Comments awaiting approval';
 $lang['comments.active_title'] 				= 'Approved comments';
 $lang['comments.edit_title'] 				= 'Edit comment';
+$lang['comments.list_title'] 				= 'List comments';
 
 // messages
 $lang['comments.add_success'] 				= 'The comment has been saved.';

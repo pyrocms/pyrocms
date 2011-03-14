@@ -33,6 +33,7 @@ $lang['comments.send_label'] 				= 'Commento';
 $lang['comments.inactive_title'] 			= 'Commenti in attesa di accettazione';
 $lang['comments.active_title'] 				= 'Commenti accettati';
 $lang['comments.edit_title'] 				= 'Modifica il commento';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 // messages
 $lang['comments.add_success'] 				= 'Il commento è stato salvato.';

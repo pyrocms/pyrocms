@@ -39,6 +39,7 @@ $lang['comments.send_label']									= 'Добавить';
 $lang['comments.inactive_title']							= 'Комментарии, ожидающие утверждения';
 $lang['comments.active_title']								= 'Утверждённые комментарии';
 $lang['comments.edit_title']									= 'Редактирование комментария';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 // сообщения
 $lang['comments.add_success']									= 'Ваш комментарий добавлен.';

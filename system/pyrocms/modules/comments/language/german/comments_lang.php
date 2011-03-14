@@ -31,6 +31,7 @@ $lang['comments.send_label'] 				= 'Kommentar';
 $lang['comments.inactive_title'] 			= 'Noch unbestätigte Kommentare';
 $lang['comments.active_title'] 				= 'Bestätigte Kommentare';
 $lang['comments.edit_title'] 				= 'Kommentar bearbeiten';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 // messages
 $lang['comments.add_success'] 				= 'Der Kommentar wurde erfolgreich gesichert.';

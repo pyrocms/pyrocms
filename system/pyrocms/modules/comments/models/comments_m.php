@@ -163,28 +163,61 @@ class Comments_m extends MY_Model
 						->distinct()
 						->join('modules', 'comments.module = modules.slug', 'left');
 		$slugs = parent::get_all();
-		
+
 		$options = array();
 		
 		if ( ! empty($slugs))
 		{
 			foreach($slugs as $slug)
 			{
+				if ( ! $slug->name && ($pos = strpos($slug->module, '-')) !== FALSE)
+				{
+					$slug->ori_module	= $slug->module;
+					$slug->module		= substr($slug->module, 0, $pos);
+				}
+
+				if ( ! $slug->name && $module = $this->module_m->get_by('slug', plural($slug->module)))
+				{
+					$slug->name = $module->name;
+				}
+
 				//get the module name
 				if ($slug->name AND $module_names = unserialize($slug->name))
 				{
 					if (array_key_exists(CURRENT_LANGUAGE, $module_names))
 					{
-						$name = $module_names[CURRENT_LANGUAGE];
+						$slug->name = $module_names[CURRENT_LANGUAGE];
 					}
 					else
 					{
-						$name = $module_names['en'];
+						$slug->name = $module_names['en'];
 					}
-					$options[$slug->module] = $name;
+
+					if (isset($slug->ori_module))
+					{
+						$options[$slug->ori_module] = $slug->name . " ($slug->ori_module)";
+					}
+					else
+					{
+						$options[$slug->module] = $slug->name;
+					}
+				}
+				else
+				{
+					if (isset($slug->ori_module))
+					{
+						$options[$slug->ori_module] = $slug->ori_module;
+					}
+					else
+					{
+						$options[$slug->module] = $slug->module;
+					}
 				}
 			}
 		}
+
+		asort($options);
+
 		return $options;
 	}
 }

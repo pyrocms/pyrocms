@@ -31,6 +31,7 @@ $lang['comments.send_label'] 				= 'Odeslat';
 $lang['comments.inactive_title'] 			= 'Komenáře čekající na schválení';
 $lang['comments.active_title'] 				= 'Schválené komentáře';
 $lang['comments.edit_title'] 				= 'Upravit komentář';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 // messages
 $lang['comments.add_success'] 				= 'Komentář byl uložen.';
