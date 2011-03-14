@@ -4,7 +4,7 @@
 <ul>  
 	<li>
             <?php echo lang('user_active', 'f_active'); ?>
-            <?php echo form_dropdown('f_active', array(0 =>lang('select.all'), 1 => lang('dialog.yes'), 2 => lang('dialog.no') )); ?>
+            <?php echo form_dropdown('f_active', array(0 => lang('select.all'), 1 => lang('dialog.yes'), 2 => lang('dialog.no') )); ?>
         </li>
 	<li>
             <?php echo lang('user_group_label', 'f_group'); ?>

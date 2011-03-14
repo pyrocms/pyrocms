@@ -79,8 +79,9 @@ class Admin extends Admin_Controller {
 		$this->load->helper('user');
 		$this->load->library('form_validation');
 		$this->lang->load('user');
+
 		$this->data->groups = $this->group_m->get_all();
-		$this->data->groups_select = array_for_select($this->data->groups, 'name', 'description');
+		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
@@ -92,9 +93,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		//get the selected group by name so we can use its ID to filter results
-		$selected_group = $this->group_m->get_by_name($this->input->post('f_group'));
-
 		//base where clause
 		$base_where = array('active' => 0);
 
@@ -102,7 +100,7 @@ class Admin extends Admin_Controller {
 		$base_where['active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['active'];
 
 		//determine group param
-		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => $selected_group->id) : $base_where;
+		$base_where = $this->input->post('f_group') ? $base_where + array('group_id' => (int) $this->input->post('f_group')) : $base_where;
 
 		//keyphrase param
 		$base_where = $this->input->post('f_keywords') ? $base_where + array('name' => $this->input->post('f_keywords')) : $base_where;
@@ -161,9 +159,8 @@ class Admin extends Admin_Controller {
 	public function create()
 	{
 		// We need a password don't you think?
-		$this->validation_rules[2]['rules'] .= '|required';
-		$this->validation_rules[3]['rules'] .= '|required';
 		$this->validation_rules[2]['rules'] .= '|callback__email_check';
+		$this->validation_rules[3]['rules'] .= '|required';
 		$this->validation_rules[5]['rules'] .= '|callback__username_check';
 
 		// Set the validation rules
@@ -182,14 +179,16 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run() !== FALSE)
 		{
-			//hack to activate immediately
+			// Hack to activate immediately
 			if ($this->input->post('active'))
 			{
 				$this->config->config['ion_auth']['email_activation'] = FALSE;
 			}
 
+			$group = $this->group_m->get($this->input->post('group_id'));
+
 			// Try to register the user
-			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $this->input->post('group_id')))
+			if ($user_id = $this->ion_auth->register($username, $password, $email, $user_data, $group->name))
 			{
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -231,9 +230,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-		//overide the group select data,  we need the actuall id number here
-		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
-		
 		// confirm_password is required in case the user enters a new password
 		if ($this->input->post('password') && $this->input->post('password') != '')
 		{
@@ -445,7 +441,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function _group_check($group)
 	{
-		if ($group == '0')
+		if ( ! $this->group_m->get($group))
 		{
 			$this->form_validation->set_message('_group_check', $this->lang->line('regex_match'));
 			return FALSE;
