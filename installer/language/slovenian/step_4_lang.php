@@ -5,9 +5,9 @@ $lang['header']			=	'Korak 4: Ustvarimo podatkovno bazo';
 $lang['intro_text']		=	'Izpolnite obrazec spodaj in kliknite na gumb "Namesti" za namestitev PyroCMS-ja. Prepričajte se da ste vnesli pravilno bazo ker bodo vsi obstoječi podatki odstranjeni!';
 
 $lang['db_settings']	=	'Nastavitve podatkovne baze';
-$lang['db_create']		=	'Ustvari podatkovo bazo';
-$lang['db_notice']		=	'Lahko da jo boste morali ustvariti sami.';
-$lang['default_user']	=	'Prvi uporabnik';
+$lang['db_create']		=	'Ustvari MYSQL DB';
+$lang['db_notice']		=	'<small>Lahko da jo boste morali vseeno ustvariti sami.</small>';
+$lang['default_user']	=	'Ustvarimo prvega uporabnik (admin)';
 $lang['database']		=	'Podatkovna baza';
 $lang['user_name']		= 	'Uporabniško ime';
 $lang['first_name']		= 	'Ime';

@@ -11,7 +11,7 @@ class Module_Blog extends Module {
 				'en' => 'Blog'
 			),
 			'description' => array(
-				'si' => 'Objavite blog prispevke',
+				'sl' => 'Objavite blog prispevke',
 				'en' => 'Post blog articles and blog entries.',
 				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
 				'es' => 'Escribe entradas para los artículos y blogs (web log).',

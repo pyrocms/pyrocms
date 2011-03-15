@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // labels
-$lang['header']			=	'Korak 2: Preveritev zahtev';
+$lang['header']			=	'Korak 2: Preveritev strežnika';
 $lang['intro_text']		= 	'Prvi korak pri namestitvenem postopku je da preverimo ali vas strežnik lahko poganja PyroCMS. Večina strežnikov s tem nima težav.';
 $lang['mandatory']		= 	'Obvezno';
 $lang['recommended']	= 	'Priporočeno';
@@ -26,7 +26,7 @@ $lang['gd_required']	= 	'PyroCMS potrebuje GD knjižnico 1.0 ali več za obdelav
 $lang['gd_version']		= 	'Vaš strežnik ima trenutno verzijo';
 $lang['gd_fail']		=	'Ne moremo določiti verzije GD knjižnice. To ponavadi pomeni da GD knjžnica ni nameščena. PyroCMS bo vseeno deloval vendar nekaterih funkcij slik ne bo mogoče uporabljati. Toplo vam priporočamo omogočitev uporabe GD knjižnice.';
 
-$lang['summary']		=	'Povzetel';
+$lang['summary']		=	'Povzetek';
 
 $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS potrebuje Zlib da bo lahko razširil in namestil predloge.';

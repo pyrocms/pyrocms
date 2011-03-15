@@ -7,7 +7,7 @@ $lang['step3']	=	'Korak #3';
 $lang['step4']	=	'Korak #4';
 $lang['final']	=	'Zaključek';
 
-$lang['installer.passwords_match']		= "Geslo se ujema."; #translate
+$lang['installer.passwords_match']		= "Gesli se ujemata."; #translate
 $lang['installer.passwords_dont_match']	= "Gesli se ne ujemata"; #translate
 
 /* End of file global_lang.php */
