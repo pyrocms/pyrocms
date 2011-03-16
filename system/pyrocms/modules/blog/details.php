@@ -13,19 +13,19 @@ class Module_Blog extends Module {
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
-				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.',
-				'cs' => 'Publikujte nové články a příspěvky na blog.',
-				'es' => 'Escribe entradas para los artículos y blogs (web log).',
-				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
-				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.',
-				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
-				'it' => 'Pubblica notizie e post per il blog.',
-				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
-				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
-				'pt' => 'Escrever novos artigos e publicações de blog',
-				'ru' => 'Управление новостными статьями и записями блога.',
+				'nl' => 'Post nieuwsartikelen en blog op uw site.', #update translation
+				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
+				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
+				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
+				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu', #update translation
+				'pt' => 'Escrever publicações de blog',
+				'zh' => '發表新聞訊息、部落格文章。', #update translation
+				'it' => 'Pubblica notizie e post per il blog.', #update translation
+				'ru' => 'Управление новостными статьями и записями блога.', #update translation
+				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.', #update translation
+				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'si' => 'Objavite blog prispevke',
-				'zh' => '發表新聞訊息、部落格文章。',
+				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.' #update translation
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
