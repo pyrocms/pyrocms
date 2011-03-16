@@ -4,11 +4,11 @@
 <ul>  
 	<li>
             <?php echo lang('blog_status_label', 'f_status'); ?>
-            <?php echo form_dropdown('f_status', array(0 => '', 'draft'=>lang('blog_draft_label'), 'live'=>lang('blog_live_label'))); ?>
+            <?php echo form_dropdown('f_status', array(0 => lang('select.all'), 'draft'=>lang('blog_draft_label'), 'live'=>lang('blog_live_label'))); ?>
         </li>
 	<li>
             <?php echo lang('blog_category_label', 'f_category'); ?>
-            <?php echo form_dropdown('f_category', $categories); ?>
+            <?php echo form_dropdown('f_category', array(0 => lang('select.all')) + $categories); ?>
         </li>
 	<li><?php echo form_input('f_keywords'); ?></li>
 	<li><?php echo anchor(current_url() . '#', lang('buttons.cancel'), 'class="cancel"'); ?></li>
