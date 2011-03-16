@@ -24,8 +24,8 @@ $lang['blog_intro_label']                    = 'Navodila';
 $lang['blog_no_category_select_label']       = '-- Brez --';
 $lang['blog_new_category_label']             = 'Dodaj kategorijo';
 $lang['blog_subscripe_to_rss_label']         = 'Prijava na RSS';
-$lang['blog_all_articles_label']             = 'Vsi prispevki';
-$lang['blog_articles_of_category_suffix']    = ' prispevki';
+$lang['blog_all_posts_label']             = 'Vsi prispevki';
+$lang['blog_posts_of_category_suffix']    = ' prispevki';
 $lang['blog_rss_name_suffix']                = ' Blog';
 $lang['blog_rss_category_suffix']            = ' Blog';
 $lang['blog_author_name_label']              = 'Ime avtorja';
@@ -37,17 +37,17 @@ $lang['blog_created_minute']                 = 'Ustvarjeno minuta';
 $lang['blog_create_title']                   = 'Dodaj prispevek';
 $lang['blog_edit_title']                     = 'Uredi prispevek "%s"';
 $lang['blog_archive_title']                  = 'Arhiv';
-$lang['blog_articles_title']                 = 'Članki';
-$lang['blog_rss_articles_title']             = 'Blog prispevki za %s';
+$lang['blog_posts_title']                 = 'Članki';
+$lang['blog_rss_posts_title']             = 'Blog prispevki za %s';
 $lang['blog_blog_title']                     = 'Blog';
 $lang['blog_list_title']                     = 'Seznam prispevkov';
 
 // messages
-$lang['blog_no_articles']                    = 'Trenutno še ni prispevkov.';
+$lang['blog_no_posts']                    = 'Trenutno še ni prispevkov.';
 $lang['blog_subscripe_to_rss_desc']          = 'Pridite do prispevkov v najkrajšem možnem času tako da se prijavite na RSS podajalca. To lahko storite preko popularnega email programa ali poizkusite  <a href="http://reader.google.co.uk/">Google Reader</a>.';
-$lang['blog_currently_no_articles']          = 'Ta trenutek ni prispevkov';
-$lang['blog_article_add_success']            = 'Vap prispevek je bil dodan "%s" ';
-$lang['blog_article_add_error']              = 'Prišlo je do napake';
+$lang['blog_currently_no_posts']          = 'Ta trenutek ni prispevkov';
+$lang['blog_post_add_success']            = 'Vap prispevek je bil dodan "%s" ';
+$lang['blog_post_add_error']              = 'Prišlo je do napake';
 $lang['blog_edit_success']                   = 'Prispevek "%s" je bil oddan.';
 $lang['blog_edit_error']                     = 'Prišlo je do napake.';
 $lang['blog_publish_success']                = 'Prispevek "%s" je bil objavljen.';
@@ -61,4 +61,8 @@ $lang['blog_already_exist_error']            = 'Prispevek s tem URL-jem že obst
 $lang['blog_twitter_posted']                 = 'Objavljeno "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter napaka';
 
-?>
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
+/* End of file blog_lang.php */
+/* Location: ./system/pyrocms/modules/blog/language/slovenian/blog_lang.php */

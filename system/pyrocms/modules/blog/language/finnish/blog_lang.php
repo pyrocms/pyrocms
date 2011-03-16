@@ -68,4 +68,7 @@ $lang['blog_already_exist_error']            = 'Artikkelin URL osoite on jo käy
 $lang['blog_twitter_posted']                 = 'Lähetetty "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter Virhe';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
 ?>

@@ -67,7 +67,7 @@ class Blog extends Public_Controller
 		$month_date = new DateTime($year.'-'.$month.'-01');
 		$this->data->pagination = create_pagination('blog/archive/'.$year.'/'.$month, $this->blog_m->count_by(array('year'=>$year,'month'=>$month)), NULL, 5);
 		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('year'=> $year,'month'=> $month));
-		$this->data->month_year = $month_date->format("F 'y");
+		$this->data->month_year = format_date($month_date->format('U'), lang('blog_archive_date_format'));
 		
 		// Set meta description based on post titles
 		$meta = $this->_posts_metadata($this->data->blog);
@@ -76,7 +76,7 @@ class Blog extends Public_Controller
 			->set_metadata('description', $this->data->month_year.'. '.$meta['description'])
 			->set_metadata('keywords', $this->data->month_year.', '.$meta['keywords'])
 			->set_breadcrumb($this->lang->line('blog_blog_title'), 'blog')
-			->set_breadcrumb($this->lang->line('blog_archive_title').': '.$month_date->format("F 'y"))
+			->set_breadcrumb($this->lang->line('blog_archive_title').': '.format_date($month_date->format('U'), lang('blog_archive_date_format')))
 			->build('archive', $this->data);
 	}
 	
@@ -94,13 +94,10 @@ class Blog extends Public_Controller
 		}
 		
 		// IF this post uses a category, grab it
-		if($post->category_id > 0)
-		{
-			$post->category = $this->blog_categories_m->get( $post->category_id );
-		}
+		$post->category_id && $category = $this->blog_categories_m->get($post->category_id) && $post->category = $category;
 		
 		// Set some defaults
-		else
+		if ( ! isset($post->category->id))
 		{
 			$post->category->id = 0;
 			$post->category->slug = '';
@@ -116,7 +113,7 @@ class Blog extends Public_Controller
 			->set_metadata('keywords', $this->data->post->category->title.' '.$this->data->post->title)	
 			->set_breadcrumb($this->lang->line('blog_blog_title'), 'blog');
 		
-		if($post->category_id > 0)
+		if ($post->category->id > 0)
 		{
 			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
 		}

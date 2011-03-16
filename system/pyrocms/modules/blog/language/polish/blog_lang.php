@@ -61,4 +61,7 @@ $lang['blog_already_exist_error'] 					= 'Artykuł z tym adresem URL już istnie
 $lang['blog_twitter_posted'] 						= 'Opublikowany "%s" %s';
 $lang['blog_twitter_error'] 						= 'Błąd Twittera';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
 ?>
