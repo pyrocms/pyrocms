@@ -17,7 +17,7 @@
 
 					<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
-						<?php echo anchor('admin/groups/delete/'.$group->id, lang('groups.delete')); ?>
+						<?php echo anchor('admin/groups/delete/'.$group->id, lang('groups.delete'), 'class="confirm"'); ?>
 					<?php endif; ?>
 				</td>
 			</tr>

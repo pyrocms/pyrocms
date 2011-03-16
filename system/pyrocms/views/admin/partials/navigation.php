@@ -47,7 +47,7 @@
 				// Not a big fan of the following hack, if a module needs two navigation links, we should be able to define that
 				if ( (in_array('users', $this->permissions) OR $this->user->group == 'admin') && $menu_item == 'users')
 				{
-					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : '')) . '</li>';
+					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'current' : '')) . '</li>';
 				}
 
 				//Lets get the sub-menu links, or parent link if that is the case

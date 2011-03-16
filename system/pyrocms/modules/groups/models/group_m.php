@@ -154,10 +154,8 @@ class Group_m extends CI_Model
 		// The controller should handle the error message, this is just insurance
 		$this->db->where_not_in('name', array('user', 'admin'));
 
-		$this->db
-			//->where('site_id', $this->site->id)
-			->delete('groups', $id);
-		
-        return $this->db->affected_rows() > 0;
+		return $this->db
+					//->where('site_id', $this->site->id)
+					->delete('groups', $id);
 	}
 }

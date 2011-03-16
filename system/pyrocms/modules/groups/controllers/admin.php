@@ -110,7 +110,17 @@ class Admin extends Admin_Controller
 		if ($_POST)
 		{
 			// Got validation?
-			$this->form_validation->set_rules($this->validation_rules);
+			if($group->name == 'admin' || $group->name == 'user')
+			{
+				//if they're changing description on admin or user save the old name
+				$_POST['name'] = $group->name;
+				$this->form_validation->set_rules('description', lang('groups.description'), 'trim|required|max_length[250]');
+			}
+			else
+			{
+				$this->form_validation->set_rules($this->validation_rules);
+			}
+			
 			if ($this->form_validation->run())
 			{
 				$this->group_m->update($id, $_POST)
@@ -119,21 +129,6 @@ class Admin extends Admin_Controller
 
 				// Redirect
 				redirect('admin/groups');
-			}
-
-			else
-			{
-				$this->template->messages = array('error' => validation_errors());
-			}
-		}
-
-		// Loop through each validation rule
-		foreach ($this->validation_rules as $rule)
-		{
-			// Ignore if there was no POST data specified
-			if ($this->input->post($rule['field']) !== FALSE)
-			{
-				$group->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 
@@ -154,7 +149,7 @@ class Admin extends Admin_Controller
 	{
 		$this->group_m->delete($id)
 			? $this->session->set_flashdata('success', lang('groups.delete_success'))
-			: $this->session->set_flashdata('success', lang('groups.delete_error'));
+			: $this->session->set_flashdata('error', lang('groups.delete_error'));
 
 		redirect('admin/groups');
 	}
