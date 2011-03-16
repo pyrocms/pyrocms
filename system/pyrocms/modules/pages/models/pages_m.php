@@ -77,7 +77,7 @@ class Pages_m extends MY_Model
     public function get_by_uri($uri)
     {
     	// If the URI has been passed as a string, explode to create an array of segments
-    	is_string($uri) OR $uri = implode('/', $uri);
+    	is_array($uri) and $uri = implode('/', $uri);
 
         return $this->db
 			->select('p.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')

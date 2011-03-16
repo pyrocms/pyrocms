@@ -100,6 +100,34 @@ class Pages extends Public_Controller
 				redirect('users/login/' . implode('/', $url_segments));
 			}
 		}
+
+		// Don't worry about breadcrumbs for 404 or restricted
+		elseif (count($url_segments) > 1)
+		{
+			// we dont care about the last one
+			array_pop($url_segments);
+
+			// This array of parents in the cache?
+			if ( ! $parents = $this->pyrocache->get('pages_m/'.md5(implode('/', $url_segments))))
+			{
+				$parents = $breadcrumb_segments = array();
+
+				foreach ($url_segments as $segment)
+				{
+					$breadcrumb_segments[] = $segment;
+
+					$parents[] = $this->pyrocache->model('pages_m', 'get_by_uri', array($breadcrumb_segments));
+				}
+
+				// Cache for next time
+				$this->pyrocache->write($parents, 'pages_m/'.md5(implode('/', $url_segments)));
+			}
+
+			foreach ($parents as $parent_page)
+			{
+				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
+			}
+		}
 		
     	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if ($page->meta_title == '')
@@ -140,6 +168,9 @@ class Pages extends Public_Controller
         	->set_metadata('description', $page->meta_description)
 
 			->set('page', $page_array)
+
+			// Most likely the other breadcrumbs are set above, set this one
+			->set_breadcrumb($page->title)
 
 			->append_metadata('
 				<style type="text/css">
