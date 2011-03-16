@@ -52,5 +52,5 @@ $route['edit-settings']	= 'users/user_settings/edit';
 $route['news']							= 'blog';
 $route['news/(:num)/(:num)/(:any)']		= 'blog/view/$3';
 $route['news/page(/:num)?']				= 'blog/index$1';
-$route['news/rss/all.rss']				= 'rss/index';
-$route['news/rss/(:any).rss']			= 'rss/category/$1';
+$route['news/rss/all.rss']				= 'blog/rss/index';
+$route['news/rss/(:any).rss']			= 'blog/rss/category/$1';
