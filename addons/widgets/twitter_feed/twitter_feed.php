@@ -40,7 +40,7 @@ class Widget_Twitter_feed extends Widgets
 		// If no number provided, just get 5
 		empty($options['number']) AND $options['number'] = 5;
 
-		$tweets = array_slice($tweets, 0, $options['number']);
+		$tweets = is_array($tweets) ? array_slice($tweets, 0, $options['number']) : array();
 
 		$patterns = array(
 			// Detect URL's
