@@ -18,17 +18,17 @@
 $config['supported_languages'] = array(
 	'si' => array('name' => 'Slovensko', 'folder' => 'slovenian', 'direction' => 'ltr', 'codes' => array('slovenian', 'sl_SI')), 
 	'en'=> array('name' => 'English', 'folder' => 'english', 'direction' => 'ltr', 'codes' => array('english', 'en_US')),
-	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr', 'codes' => array('esp', 'es_ES')),
-	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr', 'codes' => array('fra', 'fr_FR')),
-	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr', 'codes' => array('deu', 'de_DE')),
-	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr', 'codes' => array('ita', 'it_IT')),
-	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
-	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
-	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('ptb', 'pt_BR')),
-	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
-	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl', 'codes' => array(/*set it for php locale*/)),
-	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/)),
-	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array(/*set it for php locale*/))
+	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr', 'codes' => array('esp', 'spanish', 'es_ES')),
+	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr', 'codes' => array('fra', 'french', 'fr_FR')),
+	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr', 'codes' => array('deu', 'german', 'de_DE')),
+	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr', 'codes' => array('ita', 'italian', 'it_IT')),
+	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr', 'codes' => array('dutch', 'nld', 'nl-NL')),
+	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr', 'codes' => array('plk', 'polish', 'pl_PL')),
+	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('portuguese-brazil', 'ptb', 'pt_BR')),
+	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array('rus', 'russian', 'ru_RU')),
+	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl', 'codes' => array('arabic', 'ar_SA')),
+	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array('chinese-traditional', 'cht', 'zh_HK')),
+	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array('csy', 'czech', 'cs_CZ'))
 );
 
 /*
