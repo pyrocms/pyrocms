@@ -100,9 +100,8 @@ class Ajax extends Controller {
 		$this->installer_lib->mysql_acceptable('client');
 		$this->installer_lib->gd_acceptable();
 
-		$data = array('version' => CMS_VERSION,
-			'ip_address' => $this->input->ip_address(),
-			'ip_address_long' => ip2long($this->input->ip_address()),
+		$data = array(
+			'version' => CMS_VERSION,
 			'php_version' => phpversion(),
 			'webhost_hash' => md5($this->session->userdata('http_server').$this->input->server('SERVER_NAME').$this->input->server('SERVER_ADDR').$this->input->server('SERVER_SIGNATURE')),
 			'webserver_software' => $this->input->server('SERVER_SOFTWARE'),
