@@ -8,7 +8,7 @@ class Module_Variables extends Module {
 	{
 		return array(
 			'name' => array(
-				'si' => 'Spremenljivke',
+				'sl' => 'Spremenljivke',
 				'en' => 'Variables',
 				'nl' => 'Variabelen',
 				'pl' => 'Zmienne',
@@ -24,7 +24,7 @@ class Module_Variables extends Module {
 				'fi' => 'Muuttujat'
 			),
 			'description' => array(
-				'si' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
+				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
 				'en' => 'Manage global variables to access from everywhere.',
 				'nl' => 'Beheer globale variabelen die overal beschikbaar zijn.',
 				'pl' => 'Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.',

@@ -2,7 +2,7 @@
 
 $lang['header']		=	'Dobrodošli';
 $lang['thankyou']	= 	'Zahvaljujemo se vam za izbiro PyroCMS!';
-$lang['text']		=	'Namestitev PyroCMS je izredno preprosto, samo sledite korakom in sporočilom na zaslonu. V primeru da boste naleteli na težave pri nameščanju, ne skrbite Installer (namestilnik) vam bo razložil kaj storiti.';
+$lang['text']		=	'Namestitev PyroCMS je izredno preprosta, sledite korakom in navodilom na zaslonu. V primeru težave pri nameščanju, ne skrbite Installer (namestilnik) vam bo razložil kaj storiti.';
 $lang['step1'] 		= 'Korak 1';
 $lang['link']		= 'Pojdite na prvi korak';
 
