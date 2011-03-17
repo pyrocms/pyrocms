@@ -64,7 +64,7 @@
 						<?php if ( !empty($gallery->thumbnail_id) ): ?>
 						<!-- Current thumbnail -->
 						<optgroup label="Current">
-							<?php foreach ( $gallery_images as $image ): if ( $image->id == $gallery->thumbnail_id ): ?>
+							<?php foreach ( $gallery_images as $image ): if ( $image->file_id == $gallery->thumbnail_id ): ?>
 							<option value="<?php echo $gallery->thumbnail_id; ?>">
 								<?php echo $image->name; ?>
 							</option>
@@ -75,7 +75,7 @@
 						<!-- Available thumbnails -->
 						<optgroup label="Thumbnails">
 							<?php foreach ( $gallery_images as $image ): ?>
-							<option value="<?php echo $image->id; ?>">
+							<option value="<?php echo $image->file_id; ?>">
 								<?php echo $image->name; ?>
 							</option>
 							<?php endforeach; ?>
