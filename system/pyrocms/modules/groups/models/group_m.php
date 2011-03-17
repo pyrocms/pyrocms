@@ -8,7 +8,7 @@
  * @category Modules
  *
  */
-class Group_m extends CI_Model
+class Group_m extends MY_Model
 {
 	/**
 	 * Check a rule based on it's role
@@ -54,35 +54,6 @@ class Group_m extends CI_Model
 	}
 
 	/**
-	 * Return an object containing rule properties
-	 *
-	 * @access public
-	 * @param int $id The ID of the role
-	 * @return mixed
-	 */
-	public function get($id = 0)
-	{
-		return $this->db->get_where('groups', array(
-			'id' => $id,
-			//'site_id' => $this->site->id
-		))->row();
-	}
-	
-	/**
-	 * Return one group by name
-	 *
-	 * @access public
-	 * @param string $name The name of the group
-	 * @return mixed
-	 */
-	public function get_by_name($name = 0)
-	{
-		return $this->db->get_where('groups', array(
-			'name' => $name,
-		))->row();
-	}
-
-	/**
 	 * Return an array of groups
 	 *
 	 * @access public
@@ -96,9 +67,7 @@ class Group_m extends CI_Model
 			$this->db->where_not_in('name', $params['except']);
 		}
 
-		return $this->db
-			//->where('site_id', $this->site->id)
-			->get('groups')->result();
+		return parent::get_all();
 	}
 
 	/**
@@ -108,12 +77,11 @@ class Group_m extends CI_Model
 	 * @param array $input The data to insert
 	 * @return array
 	 */
-	public function insert($input)
+	public function insert($input = array())
 	{
-		return $this->db->insert('groups', array(
-		'name' => $input['name'],
-        	'description' => $input['description'],
-			//'site_id' => $this->site->id
+		return parent::insert(array(
+			'name'			=> $input['name'],
+			'description'	=> $input['description']
 		));
 	}
 
@@ -125,15 +93,12 @@ class Group_m extends CI_Model
 	 * @param array $input The data to update
 	 * @return array
 	 */
-	public function update($id, $input)
+	public function update($id = 0, $input = array())
 	{
-		return $this->db
-			->where('id', $id)
-			//->where('site_id', $this->site->id)
-			->update('groups', array(
-				'name' => $input['name'],
-				'description' => $input['description']
-			));
+		return parent::update($id, array(
+			'name'			=> $input['name'],
+			'description'	=> $input['description']
+		));
 	}
 
 	/**
@@ -143,19 +108,14 @@ class Group_m extends CI_Model
 	 * @param int $id The ID of the role to delete
 	 * @return
 	 */
-	public function delete($id) {
-
-		if ( ! is_array($id))
-		{
-			$id = array('id' => $id);
-		}
+	public function delete($ids = 0)
+	{
+		is_array($ids) OR $ids = array('id' => $ids);
 
 		// Dont let them delete these.
 		// The controller should handle the error message, this is just insurance
 		$this->db->where_not_in('name', array('user', 'admin'));
 
-		return $this->db
-					//->where('site_id', $this->site->id)
-					->delete('groups', $id);
+		return parent::delete_many($ids);
 	}
 }
