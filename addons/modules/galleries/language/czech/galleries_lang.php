@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= 'Galerie';
 $lang['galleries.manage_gallery_label']		= 'Spravovat galerie';
 $lang['galleries.new_gallery_label']		= 'Nová galerie';
 
-$lang['galleries.album_label']				= 'Album';
+$lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Počet obrázků';
 $lang['galleries.updated_label']			= 'Poslední úpravy';
 $lang['galleries.actions_label']			= 'Akce';

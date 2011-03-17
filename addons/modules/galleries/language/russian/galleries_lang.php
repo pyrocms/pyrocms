@@ -32,7 +32,7 @@ $lang['galleries.galleries_label']						= 'Галереи';
 $lang['galleries.manage_gallery_label']				= 'Управление галереей';
 $lang['galleries.new_gallery_label']					= 'Создать галерею';
 
-$lang['galleries.album_label']								= 'Альбом';
+$lang['galleries.gallery_label']								= 'Альбом';
 $lang['galleries.num_photos_label']						= 'Количество фотографий';
 $lang['galleries.updated_label']							= 'Последнее обновление';
 $lang['galleries.actions_label']							= 'Действия';

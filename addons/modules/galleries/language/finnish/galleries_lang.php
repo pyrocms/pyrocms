@@ -31,7 +31,7 @@ $lang['galleries.galleries_label']			= 'Galleriat';
 $lang['galleries.manage_gallery_label']		= 'Hallitse galleriaa';
 $lang['galleries.new_gallery_label']		= 'Uusi galleria';
 
-$lang['galleries.album_label']				= 'Albumi';
+$lang['galleries.gallery_label']				= 'Albumi';
 $lang['galleries.num_photos_label']			= 'Kuvia';
 $lang['galleries.updated_label']			= 'Viimeksi päivitetty';
 $lang['galleries.actions_label']			= 'Toiminnot';

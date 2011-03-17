@@ -6,7 +6,7 @@
 		<thead>
 			<tr>
 				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-				<th><?php echo lang('galleries.album_label'); ?></th>
+				<th><?php echo lang('galleries.gallery_label'); ?></th>
 				<th width="140"><?php echo lang('galleries.num_photos_label'); ?></th>
 				<th width="140"><?php echo lang('galleries.updated_label'); ?></th>
 				<th width="350" class="align-center"><?php echo lang('galleries.actions_label'); ?></th>

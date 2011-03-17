@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= 'Galerije';
 $lang['galleries.manage_gallery_label']		= 'Uredi galerijo';
 $lang['galleries.new_gallery_label']		= 'Nova galerija';
 
-$lang['galleries.album_label']				= 'Album';
+$lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Število slik';
 $lang['galleries.updated_label']			= 'Zadnja posodobitev';
 $lang['galleries.actions_label']			= 'Akcije';

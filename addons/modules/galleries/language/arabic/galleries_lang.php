@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= 'معارض الصّور';
 $lang['galleries.manage_gallery_label']		= 'إدارة معرض الصّور';
 $lang['galleries.new_gallery_label']		= 'معرض صوَر جديد';
 
-$lang['galleries.album_label']				= 'الألبوم';
+$lang['galleries.gallery_label']				= 'الألبوم';
 $lang['galleries.num_photos_label']			= 'عدد الصّور';
 $lang['galleries.updated_label']			= 'آخر تحديث';
 $lang['galleries.actions_label']			= 'الإجراءات';

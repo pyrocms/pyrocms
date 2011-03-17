@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= 'Gallerijen';
 $lang['galleries.manage_gallery_label']		= 'Beheer gallerij';
 $lang['galleries.new_gallery_label']		= 'Nieuwe Gallerij';
 
-$lang['galleries.album_label']				= 'Album';
+$lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Aantal Foto&apos;s';
 $lang['galleries.updated_label']			= 'Laatste Update';
 $lang['galleries.actions_label']			= 'Acties';

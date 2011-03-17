@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']              = 'Galerie';
 $lang['galleries.manage_gallery_label']         = 'Zarządzaj galerią';
 $lang['galleries.new_gallery_label']		= 'Nowa galeria';
 
-$lang['galleries.album_label']			= 'Galeria';
+$lang['galleries.gallery_label']			= 'Galeria';
 $lang['galleries.num_photos_label']		= 'Liczba zdjęć';
 $lang['galleries.updated_label']		= 'Ostatnia aktualizacja';
 $lang['galleries.actions_label']		= 'Akcje';

@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= '畫廊';
 $lang['galleries.manage_gallery_label']		= '管理畫廊';
 $lang['galleries.new_gallery_label']		= '新增畫廊';
 
-$lang['galleries.album_label']				= '相本';
+$lang['galleries.gallery_label']				= '相本';
 $lang['galleries.num_photos_label']			= '照片數量';
 $lang['galleries.updated_label']			= '最後更新';
 $lang['galleries.actions_label']			= '操作';
