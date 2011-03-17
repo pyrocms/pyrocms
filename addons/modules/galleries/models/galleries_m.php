@@ -21,6 +21,10 @@ class Galleries_m extends MY_Model {
 	 */
 	public function get_all()
 	{
+		$this->db
+			->select('galleries.*, ff.slug as folder_slug, ff.name as folder_name')
+			->join('file_folders ff', 'ff.id = galleries.folder_id', 'left');
+
 		$galleries	= parent::get_all();
 		$results	= array();
 
@@ -33,8 +37,6 @@ class Galleries_m extends MY_Model {
 				->where('f.type', 'i')
 				->where('g.id', $gallery->id)
 				->count_all_results('files f');
-
-			$gallery->folder = $this->file_folders_m->get($gallery->folder_id);
 
 			$gallery->photo_count = $count;
 			$results[] = $gallery;

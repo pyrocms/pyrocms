@@ -125,7 +125,6 @@ class Admin extends Admin_Controller
 		// Load the view
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata(js('functions.js', 'galleries'))
 			->set('galleries', $galleries)
 			->build('admin/index');
 	}
@@ -169,7 +168,6 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->append_metadata( js('form.js', 'galleries') )
-			->append_metadata(js('functions.js', 'galleries') )
 			->append_metadata( css('galleries.css', 'galleries') )
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
 			->set('gallery', $gallery)
@@ -234,7 +232,6 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('drag_drop.js', 'galleries') )
-			->append_metadata(js('functions.js', 'galleries') )
 			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery', $gallery)
 			->set('galleries', $galleries)
@@ -328,64 +325,6 @@ class Admin extends Admin_Controller
 
 		$this->session->set_flashdata('success', lang('galleries.delete_success'));
 		redirect('admin/galleries');
-	}
-
-	/**
-	 * Upload a new image
-	 *
-	 * @author PyroCMS Dev Team
-	 * @access public
-	 * @return void
-	 */
-	public function upload()
-	{
-		// Set the validation rules
-		$this->form_validation->set_rules($this->image_validation_rules);
-
-		// Get all available galleries
-		$galleries = $this->galleries_m->get_all();
-
-		// Are there any galleries at all?
-		if ( empty($galleries) )
-		{
-			$this->session->set_flashdata('error', lang('galleries.no_galleries_error'));
-			redirect('admin/galleries');
-		}
-		
-		//lets put the gallery id into flashdata.  We be usin' this later
-		$this->session->set_flashdata('gallery_id', $this->input->post('gallery_id'));
-		
-		if ($this->form_validation->run() )
-		{
-			
-			if ($this->gallery_images_m->upload_image($_POST) === TRUE )
-			{
-				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
-				redirect('admin/galleries/upload');
-			}
-			else
-			{
-				$this->session->set_flashdata('error', lang('gallery_images.upload_error'));
-				redirect('admin/galleries/upload');
-			}
-		}
-
-		foreach ($this->image_validation_rules as $rule)
-		{
-			$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
-		}
-
-		// Set the view data
-		$this->data->galleries		=& $galleries;
-		$this->data->gallery_image 	=& $gallery_image;
-
-		// Load the views
-		$this->template
-			->set_layout('modal', 'admin')
-			->append_metadata(css('galleries.css', 'galleries'))
-			->append_metadata(js('functions.js', 'galleries'))
-			->title($this->module_details['name'], lang('galleries.upload_label'))
-			->build('admin/upload', $this->data);
 	}
 
 
