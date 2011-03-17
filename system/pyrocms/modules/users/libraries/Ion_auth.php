@@ -288,12 +288,12 @@ class Ion_auth
 	{
 	    $email_activation = $this->ci->config->item('email_activation', 'ion_auth');
 
-		if (!$email_activation)
+		if ( ! $email_activation)
 		{
-			if ($this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name))
+			if ($id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name))
 			{
 				$this->set_message('account_creation_successful');
-				return TRUE;
+				return $id;
 			}
 			else
 			{
@@ -305,7 +305,7 @@ class Ion_auth
 		{
 			$id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
 
-			if (!$id)
+			if ( ! $id)
 			{
 				$this->set_error('account_creation_unsuccessful');
 				return FALSE;
@@ -313,7 +313,7 @@ class Ion_auth
 
 			$deactivate = $this->ci->ion_auth_model->deactivate($id);
 
-			if (!$deactivate)
+			if ( ! $deactivate)
 			{
 				$this->set_error('deactivate_unsuccessful');
 				return FALSE;
@@ -345,7 +345,7 @@ class Ion_auth
 			if ($this->ci->email->send() == TRUE)
 			{
 				$this->set_message('activation_email_successful');
-				return TRUE;
+				return $id;
 			}
 
 			$this->set_error('activation_email_unsuccessful');

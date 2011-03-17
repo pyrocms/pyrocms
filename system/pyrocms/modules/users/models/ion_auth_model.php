@@ -497,10 +497,10 @@ class Ion_auth_model extends CI_Model
 				$group_name = $this->config->item('default_group', 'ion_auth');
 			}
 
-			$group_id = $this->db->select('id')
+			$group_id = ($group = $this->db->select('id')
 				->where('name', $group_name)
 				->get($this->tables['groups'])
-				->row()->id;
+				->row()) ? $group->id: 0;
 		}
 
 		// IP Address
@@ -525,7 +525,7 @@ class Ion_auth_model extends CI_Model
 			$data['salt'] = $salt;
 		}
 
-		if($this->ion_auth->_extra_set)
+		if ($this->ion_auth->_extra_set)
 		{
 			$this->db->set($this->ion_auth->_extra_set);
 		}
@@ -537,7 +537,7 @@ class Ion_auth_model extends CI_Model
 
 		$data = array($this->meta_join => $id);
 
-		if (!empty($this->columns))
+		if ( ! empty($this->columns))
 		{
 			foreach ($this->columns as $input)
 			{
@@ -554,7 +554,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->insert($this->tables['meta'], $data);
 
-		return $this->db->affected_rows() > 0 ? $id : false;
+		return $this->db->affected_rows() > 0 ? $id: false;
 	}
 
 	/**
