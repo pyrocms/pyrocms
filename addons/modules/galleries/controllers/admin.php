@@ -145,11 +145,15 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run() )
 		{
-			if ($this->galleries_m->insert($_POST))
+			if ($id = $this->galleries_m->insert($this->input->post()))
 			{
 				// Everything went ok..
 				$this->session->set_flashdata('success', lang('galleries.create_success'));
-				redirect('admin/galleries');
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/galleries')
+					: redirect('admin/galleries/manage/' . $id);
 			}
 			
 			// Something went wrong..
@@ -207,10 +211,14 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run() )
 		{
 			// Try to update the gallery
-			if ($this->galleries_m->update($id, $_POST) === TRUE )
+			if ($this->galleries_m->update($id, $this->input->post()) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('galleries.update_success'));
-				redirect('admin/galleries/manage/' . $id);
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/galleries')
+					: redirect('admin/galleries/manage/' . $id);
 			}
 			else
 			{

@@ -94,8 +94,9 @@
 			<?php endif; ?>
 		</ol>
 
-		<div class="buttons float-right padding-top">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+
+		<div class="buttons align-right padding-top">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 		</div>
 	<?php echo form_close(); ?>
 
