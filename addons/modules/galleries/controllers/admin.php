@@ -248,7 +248,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
+			->title($this->module_details['name'], sprintf(lang('galleries.manage_gallery_label'), $gallery->title))
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('drag_drop.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )

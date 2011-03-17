@@ -1,7 +1,7 @@
 <?php if ($this->method === 'create'): ?>
 <h3><?php echo lang('galleries.new_gallery_label'); ?></h3>
 <?php else: ?>
-<h3><?php echo lang('galleries.manage_gallery_label'); ?></h3>
+<h3><?php echo sprintf(lang('galleries.manage_gallery_label'), $gallery->title); ?></h3>
 <?php endif; ?>
 
 <?php echo form_open(uri_string(), 'class="crud"', array('folder_id' => $gallery->folder_id)); ?>
