@@ -176,7 +176,7 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
 			->set('gallery', $gallery)
 			->set('file_folders', $file_folders)
-			->build('admin/new_gallery');
+			->build('admin/form');
 	}
 
 	/**
@@ -245,7 +245,7 @@ class Admin extends Admin_Controller
 			->set('galleries', $galleries)
 			->set('gallery_images', $gallery_images)
 			->set('file_folders', $file_folders)
-			->build('admin/manage_gallery');
+			->build('admin/form');
 	}
 
 	/**
@@ -260,20 +260,6 @@ class Admin extends Admin_Controller
 
 		$this->template->set_layout('modal', 'admin');
 		$this->template->build('admin/preview', $data);
-	}
-
-	/**
-	 * Show a gallery image preview
-	 * @access	public
-	 * @param	int $id The ID of the gallery image
-	 * @return	void
-	 */
-	public function image_preview($id = 0)
-	{
-		$data->image  = $this->gallery_images_m->get($id);
-
-		$this->template->set_layout('modal', 'admin');
-		$this->template->build('admin/image_preview', $data);
 	}
 
 	/**
@@ -335,6 +321,19 @@ class Admin extends Admin_Controller
 		redirect('admin/galleries');
 	}
 
+	/**
+	 * Show a gallery image preview
+	 * @access	public
+	 * @param	int $id The ID of the gallery image
+	 * @return	void
+	 */
+	public function image_preview($id = 0)
+	{
+		$data->image  = $this->gallery_images_m->get($id);
+
+		$this->template->set_layout('modal', 'admin');
+		$this->template->build('admin/image/preview', $data);
+	}
 
 	/**
 	 * Sort images in an existing gallery
