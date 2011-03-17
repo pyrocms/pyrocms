@@ -56,4 +56,8 @@ class Files extends Public_Controller
 		readfile($image_thumb);
 	}
 
+	public function large($id)
+	{
+		return $this->thumb($id, NULL, NULL);
+	}
 }
