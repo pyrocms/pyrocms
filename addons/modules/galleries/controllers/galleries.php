@@ -60,6 +60,10 @@ class Galleries extends Public_Controller
 		$gallery_images	= $this->gallery_images_m->get_images_by_gallery($gallery->id);
 		$sub_galleries	= $this->galleries_m->get_all_with_filename('parent_id', $gallery->id);
 
+		$this->template->append_metadata(
+				'<style type="text/css">' . PHP_EOL . $gallery->css . PHP_EOL . '</style>' .
+				'<script type="text/javascript">' . PHP_EOL . $gallery->js . PHP_EOL . '</script>');
+
 		$this->template->build('gallery', array(
 			'gallery'			=> $gallery,
 			'gallery_images'	=> $gallery_images,

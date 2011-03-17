@@ -34,6 +34,8 @@ $lang['galleries.comments_enabled_label']	= 'نعم';
 $lang['galleries.comments_disabled_label']	= 'لا';
 $lang['galleries.published_yes_label']		= 'نعم';
 $lang['galleries.published_no_label']		= 'لا';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // General labels
 $lang['galleries.title_label']				= 'العنوان';
@@ -52,3 +54,8 @@ $lang['galleries.upload_label']				= 'رفع صورة';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'معارض الصّور الفرعيّة';
+
+// tabs
+$lang['galleries.content_label']			= 'Gallery content'; #translate
+$lang['galleries.design_label']				= 'Design'; #translate
+$lang['galleries.script_label']				= 'Script'; #translate

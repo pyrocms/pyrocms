@@ -61,6 +61,8 @@ class Module_Galleries extends Module {
 			  `preview` varchar(255) DEFAULT NULL,
 			  `enable_comments` int(1) DEFAULT NULL,
 			  `published` int(1) DEFAULT NULL,
+			  `css` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			  `js` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `slug` (`slug`),
 			  UNIQUE KEY `thumbnail_id` (`thumbnail_id`)

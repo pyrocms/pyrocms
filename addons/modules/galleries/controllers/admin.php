@@ -54,8 +54,17 @@ class Admin extends Admin_Controller
 			'field' => 'gallery_thumbnail',
 			'label'	=> 'lang:galleries.thumbnail_label',
 			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'css',
+			'label'	=> 'lang:galleries.css_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'js',
+			'label'	=> 'lang:galleries.js_label',
+			'rules'	=> 'trim'
 		)
-
 	);
 
 	/**
@@ -171,9 +180,11 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->append_metadata( js('form.js', 'galleries') )
-			->append_metadata( css('galleries.css', 'galleries') )
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
+			->append_metadata( css('galleries.css', 'galleries') )
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery', $gallery)
 			->set('file_folders', $file_folders)
 			->build('admin/form');
@@ -240,6 +251,8 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('drag_drop.js', 'galleries') )
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery', $gallery)
 			->set('galleries', $galleries)

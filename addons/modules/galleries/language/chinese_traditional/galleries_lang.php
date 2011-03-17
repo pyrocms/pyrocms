@@ -34,6 +34,8 @@ $lang['galleries.comments_enabled_label']	= '是';
 $lang['galleries.comments_disabled_label']	= '否';
 $lang['galleries.published_yes_label']		= '是';
 $lang['galleries.published_no_label']		= '否';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // General labels
 $lang['galleries.title_label']				= '標題';
@@ -52,3 +54,8 @@ $lang['galleries.upload_label']				= '上傳圖片';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= '子畫廊';
+
+// tabs
+$lang['galleries.content_label']			= 'Gallery content'; #translate
+$lang['galleries.design_label']				= 'Design'; #translate
+$lang['galleries.script_label']				= 'Script'; #translate

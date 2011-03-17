@@ -34,6 +34,8 @@ $lang['galleries.comments_enabled_label']	= 'Si';
 $lang['galleries.comments_disabled_label']	= 'No';
 $lang['galleries.published_yes_label']		= 'Si';
 $lang['galleries.published_no_label']		= 'No';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // General labels
 $lang['galleries.title_label']				= 'Titolo';
@@ -52,3 +54,8 @@ $lang['galleries.upload_label']				= 'Carica immagine';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Sotto gallerie';
+
+// tabs
+$lang['galleries.content_label']			= 'Gallery content'; #translate
+$lang['galleries.design_label']				= 'Design'; #translate
+$lang['galleries.script_label']				= 'Script'; #translate

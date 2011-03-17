@@ -34,6 +34,8 @@ $lang['galleries.comments_enabled_label']	= 'Da';
 $lang['galleries.comments_disabled_label']	= 'Ne';
 $lang['galleries.published_yes_label']		= 'Da';
 $lang['galleries.published_no_label']		= 'Ne';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // General labels
 $lang['galleries.title_label']				= 'Naslov';
@@ -52,3 +54,8 @@ $lang['galleries.upload_label']				= 'Naloži sliko';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Pod Galerije';
+
+// tabs
+$lang['galleries.content_label']			= 'Gallery content'; #translate
+$lang['galleries.design_label']				= 'Design'; #translate
+$lang['galleries.script_label']				= 'Script'; #translate

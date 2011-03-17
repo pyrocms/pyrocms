@@ -43,6 +43,8 @@ $lang['galleries.comments_enabled_label']			= 'Да';
 $lang['galleries.comments_disabled_label']		= 'Нет';
 $lang['galleries.published_yes_label']				= 'Да';
 $lang['galleries.published_no_label']					= 'Нет';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // основные подписи
 $lang['galleries.title_label']								= 'Заголовок';
@@ -61,6 +63,11 @@ $lang['galleries.upload_label']								= 'Загрузить изображен�
 
 // подписи фронт-энда
 $lang['galleries.sub-galleries_label']				= 'Вложенные галереи';
+
+// tabs
+$lang['galleries.content_label']			= 'Gallery content'; #translate
+$lang['galleries.design_label']				= 'Design'; #translate
+$lang['galleries.script_label']				= 'Script'; #translate
 
 /* End of file galleries_lang.php */
 /* Location: ./addons/modules/galleries/language/russian/galleries_lang.php */
