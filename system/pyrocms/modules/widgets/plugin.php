@@ -29,8 +29,8 @@ class Plugin_Widgets extends Plugin
 	 */
 	public function area()
 	{
-		$slug = $this->attribute('slug');
-		$slug_segment = $this->attribute('slug_segment');
+		$slug			= $this->attribute('slug');
+		$slug_segment	= $this->attribute('slug_segment');
 		
 		is_numeric($slug_segment) ? $slug = $this->uri->segment($slug_segment) : NULL ;
 
@@ -50,11 +50,30 @@ class Plugin_Widgets extends Plugin
 	 */
 	public function instance()
 	{
-		$id = $this->attribute('id');
+		$id		= $this->attribute('id');
+		$widget	= $this->widgets->get_instance($id);
 
-		$widget = $this->widgets->get_instance($id);
+		if ( ! $widget)
+		{
+			return;
+		}
 
-		return $widget ? $this->widgets->render($widget->slug, $widget->options) : '';
+		$attributes = array_merge(array(
+			'instance_title'	=> $widget->instance_title
+		), $this->attributes(), array(
+			'instance_id'		=> $widget->instance_id,
+			'widget_id'			=> $widget->id,
+			'widget_slug'		=> $widget->slug,
+			'widget_title'		=> $widget->title,
+			'widget_area_id'	=> $widget->widget_area_id,
+			'widget_area_slug'	=> $widget->widget_area_slug
+		));
+
+		unset($attributes['id']);
+
+		$widget->options['widget'] = $attributes;
+
+		return $this->widgets->render($widget->slug, $widget->options);
 	}
 }
 
