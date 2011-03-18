@@ -121,7 +121,6 @@ footer {
 	padding-top: 1em;
 	color: #666;
 }
-section { padding-bottom: 30px; }
 
 /* !Grid System  */
 
@@ -271,6 +270,8 @@ body { background-color: #ececec; text-align: center; }
 .content {
 	padding: 0 20px 20px 20px;
 }
+
+section #content_bin { padding-top: 30px; min-height: 300px; }
 
 /*---------------------------------------------------------------
 // PAGE HEADER

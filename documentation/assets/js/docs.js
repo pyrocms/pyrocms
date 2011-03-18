@@ -84,7 +84,7 @@ $(document).ready(function(){
 	/*
 		Make sure all (internal) links will load properly
 	*/
-	$('#menu_bin a, #content_bin a:not([target="_blank"])').live('click', function(){
+	$('#menu_bin a:not([target="_blank"]), #content_bin a:not([target="_blank"])').live('click', function(){
 		
 		var url = $(this).attr('href');
 
