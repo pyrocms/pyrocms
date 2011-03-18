@@ -24,7 +24,7 @@ class Module_Blog extends Module {
 				'ru' => 'Управление новостными статьями и записями блога.', #update translation
 				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.', #update translation
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
-				'si' => 'Objavite blog prispevke',
+				'sl' => 'Objavite blog prispevke',
 				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.' #update translation
 			),
 			'frontend' => TRUE,

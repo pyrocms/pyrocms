@@ -2,13 +2,13 @@
 
 // labels
 $lang['header']			=	'Korak 1: Vnesite dostopne podatke za podatkovno bazo in strežnik';
-$lang['intro_text']		=	'Predno lahko preverimo podatkovo bazo, potrebujemo podatke za prijavo za podatkovno bazo';
+$lang['intro_text']		=	'Pred preveritivjo podatkovne baze, potrebujemo podatke za prijavo za podatkovno bazo';
 
-$lang['db_settings']	=	'Namestitev podatkovne baze';
-$lang['db_text']		=	'Da bo lahko Installer preveril verzijo MYSQL strežnika je potrebno da vnesete hostname (ponavadi: localhost) MYSQL uporabnika ter geslo uporabnika. Ti podatki bodo uporabljeni tudi takrat ko se bo nameščalo podatkovno bazo.';
+$lang['db_settings']	=	'Namestitev podatkovne baze (MYSQL DB)';
+$lang['db_text']		=	'Da bo lahko Installer preveril verzijo MYSQL strežnika je potrebno, da vnesete pot do MYSQL strežnika (ponavadi: localhost) MYSQL uporabnika ter geslo uporabnika. Ti podatki bodo uporabljeni tudi pri namestitvi podatkov v podatkovno bazo.';
 
-$lang['server']			=	'Strežnik (npr: localhost)';
-$lang['username']		=	'Uporabnik';
+$lang['server']			=	'Strežnik';
+$lang['username']		=	'DB Uporabnik';
 $lang['password']		=	'Geslo';
 $lang['portnr']			=	'Port';
 $lang['server_settings']=	'Podatki strežnika';

@@ -16,7 +16,7 @@
 |
 */
 $config['supported_languages'] = array(
-	'si' => array('name' => 'Slovensko', 'folder' => 'slovenian', 'direction' => 'ltr', 'codes' => array('slovenian', 'sl_SI')), 
+	'sl' => array('name' => 'Slovensko', 'folder' => 'slovenian', 'direction' => 'ltr', 'codes' => array('slovenian', 'sl_SI')), 
 	'en'=> array('name' => 'English', 'folder' => 'english', 'direction' => 'ltr', 'codes' => array('english', 'en_US')),
 	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr', 'codes' => array('esp', 'spanish', 'es_ES')),
 	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr', 'codes' => array('fra', 'french', 'fr_FR')),
