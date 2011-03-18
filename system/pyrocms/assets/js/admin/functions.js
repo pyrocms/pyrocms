@@ -71,33 +71,29 @@ jQuery(function($) {
 
 		// Confirmation
 		$("a.confirm").live('click', function(e){
-			var href = $(this).attr("href");
-			removemsg = $(this).attr("title");
-	
-			if (removemsg != 'undefined')
-			{
-				if(removemsg.length <= 0)
-				{
-					msg = DIALOG_MESSAGE;
-				}
-				else
-				{
-					msg = removemsg;
-				}
-			}
-			else
-			{
-				msg = DIALOG_MESSAGE;
-			}
 
-			if(!confirm(msg))
+			if ($.data(this, 'confirmed')) return true;
+
+			e.preventDefault();
+
+			var href		= $(this).attr("href"),
+				removemsg	= $(this).attr("title");
+	
+			msg = (removemsg !== undefined && removemsg.length > 0) ? removemsg: DIALOG_MESSAGE;
+
+			if ( ! confirm(msg))
 			{
-				e.preventDefault();
+				$.data(this, 'confirmed', false);
 			}
 			else
 			{
-				//submits it whether uniform likes it or not
-				window.location.href = href;
+				$.data(this, 'confirmed', true);
+
+				// its poor to not redirect ajax handler
+				if ( ! $(this).click().data('stop-click')){
+					//submits it whether uniform likes it or not
+					window.location.replace(href);
+				}
 			}
 		});
 		

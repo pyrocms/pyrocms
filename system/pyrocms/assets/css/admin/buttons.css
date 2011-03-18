@@ -16,6 +16,7 @@ button:-moz-focus-inner {
     color: #666666;
     display: inline-block;
     font-size: 130%;
+	font-weight: normal;
     line-height: 1.25em;
     margin: 0 0 0 5px;
     min-width: 120px;
@@ -46,6 +47,7 @@ button:hover, .buttons a.button:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8', endColorstr='#FFFFFF'); /* for IE */
     background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;
 	background: -webkit-gradient(linear, left bottom, left top, from(#FFFFFF), to(#E8E8E8));
+	font-weight: normal;
 }
 button:active, .buttons a.button:active {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8', endColorstr='#EEEEEE'); /* for IE */

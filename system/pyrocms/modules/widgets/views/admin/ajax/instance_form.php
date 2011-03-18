@@ -40,12 +40,11 @@ if($form):
 	</fieldset>
 <?php endif; ?>
 
-<div class="float-right" style="padding: 5px">
-	<button type="submit">
+<div class="align-right padding-bottom padding-right buttons buttons-small">
+	<button type="submit" class="button save">
 		<span><?php echo lang('save_label'); ?></span>
 	</button>
-	
-	<button id="widget-instance-cancel">
+	<button id="widget-instance-cancel" class="button cancel">
 		<span><?php echo lang('cancel_label'); ?></span>
 	</button>
 </div>
