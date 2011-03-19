@@ -26,6 +26,24 @@ class Plugin_Pages extends Plugin
 	}
 	
 	/**
+	 * Get a page by ID or slug
+	 *
+	 * @param int 		$id The ID of the page
+	 * @param string 	$slug The uri of the page
+	 * @return array
+	 */
+	function display()
+	{
+		return $this->db->select('pages.*, revisions.*')
+					->where('pages.id', $this->attribute('id'))
+					->or_where('pages.slug', $this->attribute('slug'))
+					->where('status', 'live')
+					->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
+					->get('pages')
+					->row_array();
+	}
+	
+	/**
 	 * Children list
 	 *
 	 * Creates a list of child pages
