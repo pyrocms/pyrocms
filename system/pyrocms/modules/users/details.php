@@ -21,7 +21,8 @@ class Module_Users extends Module {
 				'ru' => 'Пользователи',
 				'ar' => 'المستخدمون',
 				'cs' => 'Uživatelé',
-				'fi' => 'Käyttäjät'
+				'fi' => 'Käyttäjät',
+				'el' => 'Χρήστες'
 			),
 			'description' => array(
 				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
@@ -37,7 +38,8 @@ class Module_Users extends Module {
 				'ru' => 'Управление зарегистрированными пользователями, активирование новых пользователей.',
 				'ar' => 'تمكين المستخدمين من التسجيل والدخول إلى الموقع، وإدارتهم من لوحة التحكم.',
 				'cs' => 'Umožňuje uživatelům se registrovat a přihlašovat a zároveň jejich správu v Kontrolním panelu.',
-				'fi' => 'Antaa käyttäjien rekisteröityä ja kirjautua sisään sivustolle sekä mahdollistaa niiden muokkaamisen hallintapaneelista.'
+				'fi' => 'Antaa käyttäjien rekisteröityä ja kirjautua sisään sivustolle sekä mahdollistaa niiden muokkaamisen hallintapaneelista.',
+				'el' => 'Παρέχει την δυνατότητα εγγραφής λογαριασμών χρηστών και σύνδεσης τους στους επισκέπτες του ιστοτόπου. Με αυτό το πρόσθετο μπορείτε επίσης να τους διαχειριστείτε.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

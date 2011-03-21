@@ -110,7 +110,10 @@ $lang['settings_akismet_api_key_desc']			= 'Το Akismet σταματάει το
 
 $lang['settings_comment_order']					= 'Ταξινόμηση Σχολίων';
 $lang['settings_comment_order_desc']			= 'Σειρά ταξινόμησης για την προβολή των σχολίων.';
-	
+
+$lang['settings_enable_comments'] 				= 'Ενεργοποίηση Σχολίων';
+$lang['settings_enable_comments_desc']			= 'Να επιτρέπονται τα σχόλια από χρήστες';
+
 $lang['settings_moderate_comments']				= 'Συντονισμός Σχολίων';
 $lang['settings_moderate_comments_desc']		= 'Να απαιτείται η έγκριση των σχολίων πριν την δημοσίευσή τους.';
 
@@ -119,7 +122,7 @@ $lang['settings_version_desc']					= '';
 
 #section titles
 $lang['settings_section_general']				= 'Γενικά';
-$lang['settings_section_integration']			= 'Integration';
+$lang['settings_section_integration']			= 'Ενσωμάτωση';
 $lang['settings_section_comments']				= 'Σχόλια';
 $lang['settings_section_users']					= 'Χρήστες';
 $lang['settings_section_statistics']			= 'Στατιστικά';

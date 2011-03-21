@@ -21,7 +21,8 @@ class Module_Permissions extends Module {
 				'ru' => 'Права доступа',
 				'ar' => 'الصلاحيات',
 				'cs' => 'Oprávnění',
-				'fi' => 'Käyttöoikeudet'
+				'fi' => 'Käyttöoikeudet',
+				'el' => 'Δικαιώματα'
 			),
 			'description' => array(
 				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
@@ -37,7 +38,8 @@ class Module_Permissions extends Module {
 				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
 				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.',
 				'cs' => 'Spravujte oprávnění pro jednotlivé typy uživatelů a ke kterým sekcím mají přístup.',
-				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.'
+				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
+				'el' => 'Ελέγξτε οι χρήστες ποιας ομάδας μπορούν να δούν ποιες περιοχές του ιστοτόπου.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

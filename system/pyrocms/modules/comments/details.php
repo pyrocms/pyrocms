@@ -21,7 +21,8 @@ class Module_Comments extends Module {
 				'ru' => 'Комментарии',
 				'ar' => 'التعليقات',
 				'cs' => 'Komentáře',
-				'fi' => 'Kommentit'
+				'fi' => 'Kommentit',
+				'el' => 'Σχόλια'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
@@ -37,7 +38,8 @@ class Module_Comments extends Module {
 				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
 				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
 				'cs' => 'Uživatelé a hosté mohou psát komentáře k obsahu, např. neovinkám, stránkám a fotografiím.',
-				'fi' => 'Käyttäjät ja vieraat voivat kirjoittaa kommentteja eri sisältöihin kuten uutisiin, sivuihin ja kuviin.'
+				'fi' => 'Käyttäjät ja vieraat voivat kirjoittaa kommentteja eri sisältöihin kuten uutisiin, sivuihin ja kuviin.',
+				'el' => 'Οι χρήστες και οι επισκέπτες μπορούν να αφήνουν σχόλια για περιεχόμενο όπως το ιστολόγιο, τις σελίδες και τις φωτογραφίες.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
