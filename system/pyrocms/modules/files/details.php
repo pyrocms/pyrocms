@@ -20,7 +20,8 @@ class Module_Files extends Module {
 				'ar' => 'الملفّات',
 				'cs' => 'Soubory',
 				'es' => 'Archivos',
-				'fi' => 'Tiedostot'
+				'fi' => 'Tiedostot',
+				'el' => 'Αρχεία'
 			),
 			'description' => array(
 				'sl' => 'Uredi datoteke in mape na vaši strani',
@@ -35,7 +36,8 @@ class Module_Files extends Module {
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
 				'cs' => 'Spravujte soubory a složky na vašem webu.',
 				'es' => 'Administra archivos y carpetas en tu sitio.',
-				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.'
+				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
+				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
