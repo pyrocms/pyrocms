@@ -1,8 +1,9 @@
+<?php if(isset($analytic_visits)||isset($analytic_views)): ?>
 <script type="text/javascript">
 
 	jQuery(function($) {
-		var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
-		var views = <?php echo isset($analytic_views) ? $analytic_views : 0; ?>;
+		var visits = <?php echo $analytic_visits; ?>;
+		var views = <?php echo $analytic_views; ?>;
 		
 		$('#analytics').css({
 			height: '300px',
@@ -25,7 +26,7 @@
 </script>
 
 <div id="analytics" class="line" style="padding-bottom: 10px"></div>
-
+<?php endif; ?>
 <div class="line">
 	<section class="box unit size1of3">
 		<header>
@@ -92,5 +93,4 @@
 			</ul>
 		
 	</section>
-
 </div>
