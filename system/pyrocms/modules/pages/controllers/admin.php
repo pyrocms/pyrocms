@@ -80,6 +80,11 @@ class Admin extends Admin_Controller
 				'field'	=> 'status',
 				'label'	=> 'lang:pages.status_label',
 				'rules'	=> 'trim|alpha|required'
+			),
+			array(
+				'field' => 'navigation_group_id',
+				'label' => 'lang:pages.navigation_label',
+				'rules' => 'numeric'
 			)
 		);
 
@@ -234,9 +239,10 @@ class Admin extends Admin_Controller
 	    {
 			// First create the page
 			$page_body = $_POST['body'];
+			$nav_group_id = $_POST['navigation_group_id'];
 
 			$input = $this->input->post();
-			unset($input['body']);
+			unset($input['body'], $input['navigation_group_id']);
 			
 			if ($id = $this->pages_m->create($input))
 			{
@@ -249,14 +255,14 @@ class Admin extends Admin_Controller
 				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 				// Add a Navigation Link
-				if ($input['navigation_group_id'])
+				if ($nav_group_id)
 				{
 					$this->load->model('navigation/navigation_m');
 					$this->navigation_m->insert_link(array(
 						'title' => $input['title'],
 						'link_type'	=> 'page',
 						'page_id' => $id,
-						'navigation_group_id' => (int) $input['navigation_group_id']
+						'navigation_group_id' => (int) $nav_group_id
 					));
 
 					// Clear navigation cache
