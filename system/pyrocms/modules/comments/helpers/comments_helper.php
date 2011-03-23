@@ -17,15 +17,15 @@
  */
 function display_comments($ref_id = '', $reference = NULL)
 {
-	if(!$ref_id)
+	if ( ! (Settings::get('enable_comments') && $ref_id))
 	{
-		return '';
+		return;
 	}
 
 	$ci =& get_instance();
 
 	// Set ref to module if none provided
-	$reference || $reference = $ci->router->fetch_module();
+	$reference OR $reference = $ci->router->fetch_module();
 
 	$ci->lang->load('comments/comments');
 	$ci->load->model('comments/comments_m');
