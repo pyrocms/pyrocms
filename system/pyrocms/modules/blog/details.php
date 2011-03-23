@@ -9,7 +9,8 @@ class Module_Blog extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Blog',
-				'ar' => 'المدوّنة'
+				'ar' => 'المدوّنة',
+				'el' => 'Ιστολόγιο',
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -28,6 +29,7 @@ class Module_Blog extends Module {
 				'ru' => 'Управление новостными статьями и записями блога.',
 				'sl' => 'Objavite blog prispevke',
 				'zh' => '發表新聞訊息、部落格文章。',
+				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,

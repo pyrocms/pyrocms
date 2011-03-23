@@ -33,7 +33,8 @@ class Module_Widgets extends Module {
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".',
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',
-				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".'
+				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".',
+				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".'
 
 			),
 			'frontend' => FALSE,
