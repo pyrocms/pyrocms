@@ -11,63 +11,6 @@
 class Pages_m extends MY_Model
 {
 	/**
-	 * Get a page by it's path
-	 *
-	 * @access public
-	 * @param array $segments The path segments
-	 * @return array
-	 */
-/*
-    public function get_by_path($segments = array())
-    {
-    	// If the URI has been passed as a string, explode to create an array of segments
-    	if(is_string($segments))
-        {
-        	$segments = explode('/', $segments);
-        }
-
-    	// Work out how many segments there are
-        $total_segments = count($segments);
-
-		// Which is the target alias (the final page in the tree)
-        $target_alias = 'p'.$total_segments;
-
-        // Start Query, Select (*) from Target Alias, from Pages
-        $this->db->select($target_alias.'.*, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
-        $this->db->from('pages p1');
-
-        // Loop thorugh each Slug
-        $level = 1;
-        foreach( $segments as $segment )
-        {
-            // Current is the current page, child is the next page to join on.
-            $current_alias = 'p'.$level;
-            $child_alias = 'p'.($level - 1);
-
-            // We dont want to join the first page again
-            if($level != 1)
-            {
-                $this->db->join('pages '.$current_alias, $current_alias.'.parent_id = '.$child_alias.'.id');
-            }
-
-            // Add slug to where clause to keep us on the right tree
-            $this->db->where($current_alias . '.slug', $segment);
-
-            // Increment
-            ++$level;
-        }
-
-		// Simple join enables revisions - Yorick
-		$this->db->join('revisions', $target_alias.'.revision_id = revisions.id');
-
-        // Can only be one result
-        $this->db->limit(1);
-
-        return $this->db->get()->row();
-    }
- */
-
-	/**
 	 * Get a page by it's URI
 	 *
 	 * @access public
@@ -76,8 +19,8 @@ class Pages_m extends MY_Model
 	 */
     public function get_by_uri($uri)
     {
-    	// If the URI has been passed as a string, explode to create an array of segments
-    	is_array($uri) and $uri = implode('/', $uri);
+		// If the URI has been passed as a array, implode to create an string of uri segments
+		is_array($uri) && $uri = implode('/', $uri);
 
         return $this->db
 			->select('p.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')
@@ -107,20 +50,6 @@ class Pages_m extends MY_Model
     }
 
 	/**
-	 * Count the amount of pages with param X
-	 *
-	 * @access public
-	 * @param array $params The parameters
-	 * @return int
-	 */
-	public function count($params = array())
-	{
-		$results = $this->get_many_by($params);
-
-		return count($results);
-	}
-
-	/**
 	 * Does the page has any children, wait, can pages actually get pregnant and have kids?
 	 *
 	 * @access public
@@ -129,8 +58,7 @@ class Pages_m extends MY_Model
 	 */
 	public function has_children($parent_id)
 	{
-		$this->db->where('parent_id', $parent_id);
-		return $this->db->count_all_results('pages') > 0;
+		return parent::count_by(array('parent_id' => $parent_id)) > 0;
 	}
 
 	/**
@@ -188,10 +116,9 @@ class Pages_m extends MY_Model
 		while( $page->parent_id > 0 );
 
 		// If the URI has been passed as a string, explode to create an array of segments
-    	return $this->db
-			->where('id', $id)
-			->set('uri', implode('/', $segments))
-			->update('pages');
+		return parent::update($id, array(
+			'uri' => implode('/', $segments)
+		));
 	}
 
 	/**
@@ -231,22 +158,22 @@ class Pages_m extends MY_Model
 				->update('pages', array('is_home' => 0));
 		}
 		
-        $this->db->insert('pages', array(
-        	'slug' 			=> $input['slug'],
-        	'title' 		=> $input['title'],
-			'uri'				=> NULL,
-        	'parent_id'		=> (int) $input['parent_id'],
-            'layout_id'		=> (int) $input['layout_id'],
-            'css'			=> $input['css'],
-            'js'			=> $input['js'],
-        	'meta_title'	=> $input['meta_title'],
-        	'meta_keywords'	=> $input['meta_keywords'],
-        	'meta_description' => $input['meta_description'],
-        	'rss_enabled' 	=> (int) !empty($input['rss_enabled']),
-        	'comments_enabled' 	=> (int) !empty($input['comments_enabled']),
-        	'is_home' 	=> (int) ! empty($input['is_home']),
-        	'status' 		=> $input['status'],
-        	'created_on'	=> now()
+        parent::insert(array(
+	        'slug'				=> $input['slug'],
+	        'title'				=> $input['title'],
+	        'uri'				=> NULL,
+	        'parent_id'			=> (int) $input['parent_id'],
+	        'layout_id'			=> (int) $input['layout_id'],
+	        'css'				=> $input['css'],
+	        'js'				=> $input['js'],
+	        'meta_title'		=> $input['meta_title'],
+	        'meta_keywords'		=> $input['meta_keywords'],
+	        'meta_description'	=> $input['meta_description'],
+	        'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
+	        'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+	        'is_home'			=> (int) ! empty($input['is_home']),
+	        'status'			=> $input['status'],
+	        'created_on'		=> now()
         ));
 
         $id = $this->db->insert_id();
@@ -275,32 +202,33 @@ class Pages_m extends MY_Model
 			// Remove other homepages
 			$this->db
 				->where('is_home', 1)
-				->update('pages', array('is_home' => 0));
+				->update($this->_table, array('is_home' => 0));
 		}
 
-        $return = $this->db->update('pages', array(
-	        'title' 		=> $input['title'],
-	        'slug' 			=> $input['slug'],
-			'uri'				=> NULL,
-	        'revision_id'	=> $input['revision_id'],
-	        'parent_id'		=> $input['parent_id'],
-	        'layout_id'		=> $input['layout_id'],
-	        'css'			=> $input['css'],
-	        'js'			=> $input['js'],
-        	'meta_title'	=> $input['meta_title'],
-        	'meta_keywords'	=> $input['meta_keywords'],
-        	'meta_description' => $input['meta_description'],
-        	'restricted_to' 	=> $input['restricted_to'],
-        	'rss_enabled' 	=> (int) ! empty($input['rss_enabled']),
-        	'comments_enabled' 	=> (int) ! empty($input['comments_enabled']),
-          	'is_home' 	=> (int) ! empty($input['is_home']),
-	      	'status' 		=> $input['status'],
-	        'updated_on' 	=> now()
-        ), array('id' => $id));
+        $return = parent::update($id, array(
+	        'title'				=> $input['title'],
+	        'slug'				=> $input['slug'],
+	        'uri'				=> NULL,
+	        'revision_id'		=> $input['revision_id'],
+	        'parent_id'			=> $input['parent_id'],
+	        'layout_id'			=> $input['layout_id'],
+	        'css'				=> $input['css'],
+	        'js'				=> $input['js'],
+	        'meta_title'		=> $input['meta_title'],
+	        'meta_keywords'		=> $input['meta_keywords'],
+	        'meta_description'	=> $input['meta_description'],
+	        'restricted_to'		=> $input['restricted_to'],
+	        'rss_enabled'		=> (int) ! empty($input['rss_enabled']),
+	        'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
+	        'is_home'			=> (int) ! empty($input['is_home']),
+	        'status'			=> $input['status'],
+	        'updated_on'		=> now()
+        ));
 
 		$this->build_lookup($id);
 
-        $this->pyrocache->delete_all('navigation_m');
+		// Wipe cache for this model as the data has changed
+		$this->pyrocache->delete_all('pages_m');
 
         return $return;
     }
