@@ -68,14 +68,20 @@
         
         <div id="radio-group">
             <label for="insert_float"><?php echo lang('wysiwyg.label.float'); ?></label>
-                <label for="radio_left"><?php echo lang('wysiwyg.label.left'); ?></label>
-                <input id="radio_left" type="radio" name="insert_float" value="left" />
+                <label for="radio_left">
+					<input id="radio_left" type="radio" name="insert_float" value="left" />
+					<?php echo lang('wysiwyg.label.left'); ?>
+				</label>
                 
-                <label for="radio_right"><?php echo lang('wysiwyg.label.right'); ?></label>
-                <input id="radio_right" type="radio" name="insert_float" value="right" />
+                <label for="radio_right">
+					<input id="radio_right" type="radio" name="insert_float" value="right" />
+					<?php echo lang('wysiwyg.label.right'); ?>
+				</label>
                 
-                <label for="radio_none"><?php echo lang('wysiwyg.label.none'); ?></label>
-                <input id="radio_none" type="radio" name="insert_float" value="none" checked="checked" />
+                <label for="radio_none">
+					<input id="radio_none" type="radio" name="insert_float" value="none" checked="checked" />
+					<?php echo lang('wysiwyg.label.none'); ?>
+				</label>
             </div>
         
         <div id="slider"></div>
@@ -107,7 +113,7 @@
                     </td>
                     <td class="filename">
                         <p><?php echo $file->filename; ?></p>
-                        <p><?php echo date('Y.m.d', $file->date_added); ?></p>
+                        <p><?php echo format_date($file->date_added); ?></p>
                     </td>
                     <td class="meta width"><?php echo $file->width; ?></td>
                     <td class="meta height"><?php echo $file->height; ?></td>
