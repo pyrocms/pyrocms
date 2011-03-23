@@ -72,7 +72,7 @@ class Admin extends Admin_Controller
 
 			if ($this->form_validation->run())
 			{
-				$this->group_m->insert($_POST)
+				$this->group_m->insert($this->input->post())
 					? $this->session->set_flashdata('success', sprintf(lang('groups.add_success'), $this->input->post('name')))
 					: $this->session->set_flashdata('error', sprintf(lang('groups.add_error'), $this->input->post('name')));
 
@@ -110,7 +110,7 @@ class Admin extends Admin_Controller
 		if ($_POST)
 		{
 			// Got validation?
-			if($group->name == 'admin' || $group->name == 'user')
+			if ($group->name == 'admin' OR $group->name == 'user')
 			{
 				//if they're changing description on admin or user save the old name
 				$_POST['name'] = $group->name;
@@ -123,7 +123,7 @@ class Admin extends Admin_Controller
 			
 			if ($this->form_validation->run())
 			{
-				$this->group_m->update($id, $_POST)
+				$this->group_m->update($id, $this->input->post())
 					? $this->session->set_flashdata('success', sprintf(lang('groups.edit_success'), $this->input->post('name')))
 					: $this->session->set_flashdata('error', sprintf(lang('groups.edit_error'), $this->input->post('name')));
 
