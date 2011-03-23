@@ -47,9 +47,11 @@ class Admin extends Admin_Controller
  	 */
  	public function index()
 	{
+		$data = array();
+		
 		if (is_dir('./installer'))
 		{
-			$data->messages['notice'] = lang('cp_delete_installer_message');
+			$data['notice'] = lang('cp_delete_installer_message');
 		}
 
 		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
@@ -57,8 +59,8 @@ class Admin extends Admin_Controller
 			// Not FALSE? Return it
 			if ($cached_response = $this->pyrocache->get('analytics'))
 			{
-				$data->analytic_visits = $cached_response['analytic_visits'];
-				$data->analytic_views = $cached_response['analytic_views'];
+				$data['analytic_visits'] = $cached_response['analytic_visits'];
+				$data['analytic_views'] = $cached_response['analytic_views'];
 			}
 
 			else
@@ -100,8 +102,8 @@ class Admin extends Admin_Controller
 						$flot_data_views = '[' . implode(',', $flot_datas_views) . ']';
 					}
 
-					$data->analytic_visits = $flot_data_visits;
-					$data->analytic_views = $flot_data_views;
+					$data['analytic_visits'] = $flot_data_visits;
+					$data['analytic_views'] = $flot_data_views;
 
 					// Call the model or library with the method provided and the same arguments
 					$this->pyrocache->write(array('analytic_visits' => $flot_data_visits, 'analytic_views' => $flot_data_views), 'analytics', 60 * 60 * 6); // 6 hours
@@ -109,14 +111,15 @@ class Admin extends Admin_Controller
 
 				catch (Exception $e)
 				{
-					$data->messages['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
+					$data['messages']['notice'] = sprintf(lang('cp_google_analytics_no_connect'), anchor('admin/settings', lang('cp_nav_settings')));
 				}
 			}
 		}
 
-		elseif (empty($data->messages['notice']))
+		// Only mention this notice if no other notices are set
+		elseif (empty($data['messages']['notice']))
 		{
-			$data->messages['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
+			$data['messages']['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
 		}
 
 		$this->load->model('comments/comments_m');
@@ -125,10 +128,10 @@ class Admin extends Admin_Controller
 
 		$this->lang->load('comments/comments');
 
-		$data->recent_users = $this->users_m->get_recent(5);
+		$data['recent_users'] = $this->users_m->get_recent(5);
 
 		$recent_comments = $this->comments_m->get_recent(5);
-		$data->recent_comments = process_comment_items($recent_comments);
+		$data['recent_comments'] = process_comment_items($recent_comments);
 
 		// Dashboard RSS feed (using SimplePie)
 		$this->load->library('simplepie');
@@ -140,7 +143,7 @@ class Admin extends Admin_Controller
 		$this->template->append_metadata(js('jquery/jquery.flot.js'));
 
 		// Store the feed items
-		$data->rss_items = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
+		$data['rss_items'] = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
 
 		$this->template
 			->title(lang('cp_admin_home_title'))
