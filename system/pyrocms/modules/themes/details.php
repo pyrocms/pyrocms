@@ -21,7 +21,8 @@ class Module_Themes extends Module {
 				'ru' => 'Темы',
 				'ar' => 'السّمات',
 				'cs' => 'Motivy vzhledu',
-				'fi' => 'Teemat'
+				'fi' => 'Teemat',
+				'el' => 'Θέματα Εμφάνισης'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
@@ -37,7 +38,8 @@ class Module_Themes extends Module {
 				'ru' => 'Управление темами оформления сайта, загрузка новых тем.',
 				'ar' => 'تمكّن الإدارة وأعضاء الموقع تغيير سِمة الموقع، وتحميل سمات جديدة وإدارتها بطريقة مرئية سلسة.',
 				'cs' => 'Umožňuje administrátorům a dalším osobám měnit vzhled webu, nahrávat nové motivy a spravovat je.',
-				'fi' => 'Mahdollistaa sivuston teeman vaihtamisen, uusien teemojen lataamisen ja niiden hallinnoinnin visuaalisella käyttöliittymällä.'
+				'fi' => 'Mahdollistaa sivuston teeman vaihtamisen, uusien teemojen lataamisen ja niiden hallinnoinnin visuaalisella käyttöliittymällä.',
+				'el' => 'Επιτρέπει στους διαχειριστές να αλλάξουν το θέμα προβολής του ιστοτόπου να ανεβάσουν νέα θέματα και να τα διαχειριστούν.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

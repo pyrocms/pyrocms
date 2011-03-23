@@ -8,6 +8,14 @@ class Public_Controller extends MY_Controller
 		parent::__construct();
 
 		$this->benchmark->mark('public_controller_start');
+		
+		//check for a redirect
+		$this->load->model('redirects/redirect_m');
+		$uri = trim(uri_string(), '/');
+		if ($redirect = $this->redirect_m->get_from($uri))
+		{
+			redirect($redirect->to);
+		}
 
 		Events::trigger('public_controller');
 

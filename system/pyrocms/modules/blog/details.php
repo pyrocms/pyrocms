@@ -9,7 +9,9 @@ class Module_Blog extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Blog',
-				'ar' => 'المدوّنة'
+				'ar' => 'المدوّنة',
+				'el' => 'Ιστολόγιο',
+				'pt' => 'Blog'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -25,12 +27,13 @@ class Module_Blog extends Module {
 				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.', #update translation
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'sl' => 'Objavite blog prispevke',
-				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.' #update translation
+				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
+				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.'
 			),
-			'frontend' => TRUE,
-			'backend' => TRUE,
-			'skip_xss' => TRUE,
-			'menu' => 'content'
+			'frontend'	=> TRUE,
+			'backend'	=> TRUE,
+			'skip_xss'	=> TRUE,
+			'menu'		=> 'content'
 		);
 	}
 
