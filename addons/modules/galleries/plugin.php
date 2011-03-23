@@ -55,6 +55,22 @@ class Plugin_Galleries extends Plugin
 			'limit' => $limit
 		)) : array();
 	}
+
+	/**
+	 * Gallery exists
+	 * 
+	 * Check if a gallery exists
+	 * 
+	 * @return	bool
+	 */
+	function exists()
+	{
+		$slug = $this->attribute('slug');
+
+		$this->load->model('galleries_m');
+
+		return $slug ? (int) $this->galleries_m->count_by('slug', $slug) > 0 : FALSE;
+	}
 }
 
 /* End of file plugin.php */
