@@ -1,4 +1,4 @@
-<?php if(isset($analytic_visits)||isset($analytic_views)): ?>
+<?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
 <script type="text/javascript">
 
 	jQuery(function($) {
