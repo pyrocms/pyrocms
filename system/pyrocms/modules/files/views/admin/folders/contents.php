@@ -34,9 +34,9 @@
 		</ul>
 	</div>
 	<?php if ( ! empty($files)): ?>
-    <div id="grid">
-        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'grid-check-all')); ?>
-        <ul>
+    <div id="grid" class="list-items">
+        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?>
+        <ul class="grid">
         <?php foreach($files as $file): ?>
             <li>
                 <div class="actions">
@@ -124,19 +124,6 @@
         $('a[rel="colorbox"]').colorbox({
             maxWidth: "80%",
             maxHeight: "80%"
-        });
-        
-        $('.grid-check-all').click(function() {
-            $('#grid').find("input[type='checkbox']").each(function () {
-				if($(".grid-check-all").is(":checked") && !$(this).is(':checked'))
-				{
-					$(this).click();
-				}
-				else if(!$(".grid-check-all").is(":checked") && $(this).is(':checked'))
-				{
-					$(this).click();
-				}
-			}); 
         });
         
         $('#grid').hide();

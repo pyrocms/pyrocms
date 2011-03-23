@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= 'Galleries';
 $lang['galleries.manage_gallery_label']		= 'Manage Gallery';
 $lang['galleries.new_gallery_label']		= 'New Gallery';
 
-$lang['galleries.album_label']				= 'Album';
+$lang['galleries.gallery_label']			= 'Gallery';
 $lang['galleries.num_photos_label']			= 'Number of Photos';
 $lang['galleries.updated_label']			= 'Last Updated';
 $lang['galleries.actions_label']			= 'Actions';
@@ -34,6 +34,8 @@ $lang['galleries.comments_enabled_label']	= 'Yes';
 $lang['galleries.comments_disabled_label']	= 'No';
 $lang['galleries.published_yes_label']		= 'Yes';
 $lang['galleries.published_no_label']		= 'No';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // General labels
 $lang['galleries.title_label']				= 'Title';
@@ -52,3 +54,8 @@ $lang['galleries.upload_label']				= 'Upload Image';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Sub Galleries';
+
+// tabs
+$lang['galleries.content_label']			= 'Gallery content';
+$lang['galleries.design_label']				= 'Design';
+$lang['galleries.script_label']				= 'Script';

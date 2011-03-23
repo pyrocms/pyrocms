@@ -61,4 +61,7 @@ $lang['blog_already_exist_error'] 		= 'Een artikel met deze URL bestaat al.';
 $lang['blog_twitter_posted']			= 'Geplaatst "%s" %s';
 $lang['blog_twitter_error'] 			= 'Twitter Error';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
 ?>

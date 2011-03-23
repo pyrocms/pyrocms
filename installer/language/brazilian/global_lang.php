@@ -1,11 +1,11 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-$lang['intro']	=	'Intro';
-$lang['step1']	=	'Passo #1';
-$lang['step2']	=	'Passo #2';
-$lang['step3']	=	'Passo #3';
-$lang['step4']	=	'Passo #4';
-$lang['final']	=	'Passo Final';
+$lang['intro']							=	'Introdução';
+$lang['step1']							=	'1ª Etapa';
+$lang['step2']							=	'2ª Etapa';
+$lang['step3']							=	'3ª Etapa';
+$lang['step4']							=	'4ª Etapa';
+$lang['final']							=	'Última etapa';
 
 $lang['installer.passwords_match']		= "As senhas coincidem.";
 $lang['installer.passwords_dont_match']	= "As senhas não coincidem.";

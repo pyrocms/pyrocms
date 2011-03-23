@@ -40,5 +40,7 @@ $lang['widgets.tag_title']							= 'Тэг';
 $lang['widgets.instance_edit'] 					= 'Редактировать';
 $lang['widgets.instance_delete'] 				= 'Удалить';
 
+$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate
+
 /* End of file widgets_lang.php */
 /* Location: ./system/pyrocms/modules/widgets/language/russian/widgets_lang.php */

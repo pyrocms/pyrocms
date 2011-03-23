@@ -50,64 +50,46 @@ function process_comment_items($comments)
 		{
 			$comment->name = anchor('admin/users/edit/' . $comment->user_id, $comment->name);
 		}
-		
+
 		// What did they comment on
-		switch($comment->module)
+		switch ($comment->module)
 		{
-			case 'pages':
-
-				if($page = $ci->pages_m->get($comment->module_id))
-				{
-					$comment->item = anchor('admin/pages/preview/' . $page->id, $page->title, 'class="modal-large"');
-					break;
-				}
-
-			case 'blog':
 			case 'news': # Deprecated v1.1.0
-
-				if(!module_exists('blog')) break;
-
-				$ci->load->model('blog/blog_m');
-
-				if($article = $ci->blog_m->get($comment->module_id))
+				$comment->module = 'blog';
+				break;
+			case 'gallery':
+				$comment->module = plural($comment->module);
+				break;
+			case 'gallery-image':
+				$comment->module = 'galleries';
+				$ci->load->model('galleries/gallery_images_m');
+				if ($item = $ci->gallery_images_m->get($comment->module_id))
 				{
-					$comment->item = anchor('admin/blog/preview/' . $article->id, $article->title, 'class="modal-large"');
-					break;
+					$comment->item = anchor('admin/' . $comment->module . '/image_preview/' . $item->id, $item->title, 'class="modal-large"');
+					continue 2;
 				}
+				break;
+		}
 
-			case 'photos':
-				
-				if(!module_exists('photos')) break;
+		if (module_exists($comment->module))
+		{
+			if ( ! isset($ci->{$comment->module . '_m'}))
+			{
+				$ci->load->model($comment->module . '/' . $comment->module . '_m');
+			}
 
-				$ci->load->model('photos/photos_m');
-				$ci->load->model('photos/photo_albums_m');
-				$photo = $ci->photos_m->get($comment->module_id);
-				
-				if($photo && $album = $ci->photo_albums_m->get($photo->album_id))
-				{
-					$comment->item = anchor(image_path('photos/'.$album->id .'/' . $photo->filename), $photo->caption, 'class="modal"');
-					break;
-				}
-
-			case 'photos-album':
-
-				if(!module_exists('photos')) break;
-				
-				$ci->load->model('photos/photo_albums_m');
-
-				if($album = $ci->photo_albums_m->get($comment->module_id))
-				{
-					$comment->item = anchor('photos/' . $album->slug, $album->title, 'class="modal-large iframe"');
-					break;
-				}
-		
-			default:
-				$comment->item = $comment->module .' #'. $comment->module_id;
-			break;
+			if ($item = $ci->{$comment->module . '_m'}->get($comment->module_id))
+			{
+				$comment->item = anchor('admin/' . $comment->module . '/preview/' . $item->id, $item->title, 'class="modal-large"');
+			}
+		}
+		else
+		{
+			$comment->item = $comment->module .' #'. $comment->module_id;
 		}
 		
 		// Link to the comment
-		if( strlen($comment->comment) > 30 )
+		if (strlen($comment->comment) > 30)
 		{
 			$comment->comment = character_limiter($comment->comment, 30);
 		}

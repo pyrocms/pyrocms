@@ -16,6 +16,7 @@ $lang['user_login_header']									= 'Вход';
 
 // заголовки
 $lang['user_add_title']											= 'Создать пользователя';
+$lang['user_list_title'] 				= 'List users'; #translate
 $lang['user_inactive_title']								= 'Неактивные пользователи';
 $lang['user_active_title']									= 'Активные пользователи';
 $lang['user_registred_title']								= 'Зарегистрированные пользователи';

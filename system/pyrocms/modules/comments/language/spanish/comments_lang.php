@@ -31,6 +31,7 @@ $lang['comments.send_label'] 			= 'Comentar';
 $lang['comments.inactive_title'] 		= 'Comentarios esperando por aprobación';
 $lang['comments.active_title'] 			= 'Comentarios aprobados';
 $lang['comments.edit_title'] 			= 'Editar comentario';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 # messages
 $lang['comments.add_success'] 			= 'El comentario ha sido guardado.';

@@ -8,9 +8,9 @@
  * @category	Modules
  * @since 		v1.0
  */
-class Module_m extends CI_Model
+class Module_m extends MY_Model
 {
-	private $_table = 'modules';
+	protected $_table = 'modules';
 	private $_module_exists = array();
 
 	/**
@@ -332,7 +332,10 @@ class Module_m extends CI_Model
 	 */
 	public function uninstall($slug, $is_core = FALSE)
 	{
-		$details_class = $this->_spawn_class($slug, $is_core);
+		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+		{
+			return FALSE;
+		}
 
 		// Run the uninstall method to get it into the database
 		if ( ! $details_class->uninstall())

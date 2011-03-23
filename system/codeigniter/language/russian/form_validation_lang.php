@@ -14,6 +14,7 @@ $lang['alpha_dash']			= "<span class=\"error\">Поле <strong>%s</strong> мо
 $lang['numeric']			= "<span class=\"error\">Поле <strong>%s</strong> должно содержать только числа.</span>";
 $lang['is_numeric']			= "<span class=\"error\">Поле <strong>%s</strong> должно содержать только цифры.</span>";
 $lang['integer']			= "<span class=\"error\">Поле <strong>%s</strong> должно содержать целое число.</span>";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "<span class=\"error\">Значение <strong>%s</strong> не совпадает со значением <strong>%s</strong>.</span>";
 $lang['is_natural']			= "<span class=\"error\">Поле <strong>%s</strong> должно содержать только положительные числа.</span>";
 $lang['is_natural_no_zero']	= "<span class=\"error\">Поле <strong>%s</strong> должно содержать только положительные числа.</span>";

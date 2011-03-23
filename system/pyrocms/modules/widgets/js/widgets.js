@@ -1,516 +1,381 @@
-(function($)
-{
-	var add_area;
-	var edit_area;
-	var add_instance;
-	var edit_instance;
-	var sort_options;
-	
-	/*
-	window.onscroll = function()
-	{
-		// Thanks to Johan Sundström (http://ecmanaut.blogspot.com/) and David Lantner (http://lantner.net/david) 
-		// for their help getting Safari working as documented at http://www.derekallard.com/blog/post/conditionally-sticky-sidebar
-		if( window.XMLHttpRequest ) { // IE 6 doesn't implement position fixed nicely...
-			if (document.documentElement.scrollTop > 190 || self.pageYOffset > 190) {
-				
-				$('#left-col').css('position', 'fixed');
-				$('#left-col').css('top', '10px');
-			} else if (document.documentElement.scrollTop < 200 || self.pageYOffset < 200) {
-				$('#left-col').css('position', 'absolute');
-				$('#left-col').css('top', '190px');
-			}
-		}
-	}
-	*/
-	
-	function hide_add_area()
-	{
-		$('input[name="title"]', add_area).attr('value', '');
-		$('input[name="slug"]', add_area).attr('value', '');
-		
-		// Hide the form
-		add_area.slideUp();
-		return false;
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function show_add_area()
-	{
-		add_area.slideDown();
-		return false;
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function show_edit_area()
-	{
-		edit_area.slideDown();
-		do_scrollto('#edit-area-box');
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function hide_edit_area()
-	{
-		$('input[name="title"]', edit_area).attr('value', '');
-		$('input[name="slug"]', edit_area).attr('value', '');
-		edit_area.slideUp();
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function hide_add_instance()
-	{
-		// Clean up
-		$('input, select, textarea', add_instance).attr('value', '');
-		
-		// Hide the form
-		add_instance.slideUp(500);
-		
-		$("#add-instance-box").detach();
-		
-		$('#widget-list .accordion').accordion('resize');
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function show_add_instance(area_slug)
-	{
-		my_area = '#area-' + area_slug + ' ol';
-		
-		$(my_area).append(add_instance.detach());
-		$(my_area + ' .empty-drop-item').css('display', 'none');
-		
-		add_instance.css('display', 'block');
-		
-		$('#widget-areas .accordion').accordion('resize');
-		
-		do_scrollto('#add-instance-box');
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function hide_edit_instance()
-	{
-		// Clear any data
-		$('input, select, textarea', add_instance).attr('value', '');
-		
-		// Hide the form
-		edit_instance.slideUp();
-		
-		$("#edit-instance-box").detach();
-		
-		$('#widget-list .accordion').accordion('resize');
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function show_edit_instance(area_slug, id)
-	{
-		my_area = '#area-' + area_slug + ' ol';
-		
-		$(my_area + " #instance-"+ id).after(edit_instance.detach().removeClass('hidden'));
-		$(my_area + ' .empty-drop-item').css('display', 'none');
-		
-		edit_instance.css('display', 'block').slideDown(500, function(){
-			$('#widget-areas .accordion').accordion('resize');
-		});
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function refresh_lists()
-	{
-		$('.widget-list').each(function()
-		{
-			widget_area_slug = $(this).parent().parent().attr('id').replace(/^area-/, '');
-			
-			$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug, function() {
-				$('.widget-list ol').sortable('destroy').sortable(sort_options);
-				$('.accordion').accordion('resize');
-			});
-		});
-		
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function do_scrollto(ele)
-	{
-		$('html, body').animate({
-			scrollTop: $(ele).offset().top
-		}, 1000);
-	}
-	
-	//--------------------------------------------------------------------
-	// !Drag/drop stuff
-	//--------------------------------------------------------------------
-	
-	function set_draggable()
-	{
-		$(".widget-box").draggable({
-			revert: 'invalid',
-			cursor: 'move',
-			helper: 'clone',
-			cursorAt: { left: 100 },
-			start: function(event, ui) {
-				// Grab our desired width from the widget area list
-				var width = $(".widget-list").css("width");
-				
-				// Setup our new dragging object
-				$(this).addClass('widget-drag')
-				$(ui).css("width", width + " !important");
-			},
-			stop: function() {
-				$(this).removeClass('widget-drag');
-			}
-		});
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function set_droppable()
-	{
-		$("#widget-areas .accordion-content").droppable({
-			
-			hoverClass: 'drop-hover',
-			accept: '.widget-box',
-			greedy: true,
-			over: function(event, ui) {
-				$(".accordion").accordion('resize');
-				$('li.empty-drop-item').show();
-			},
-			out: function(event, ui) {
-				$("li.emptydrop-item").hide();
-				$(".accordion").accordion('resize');
-			},
-			drop: function(event, ui) {			
-				area_slug = $(this).parent().attr('id').replace(/^area-/, '');
-				widget_slug = ui.draggable.attr('id').replace(/^widget-/, '');
-				
-				
-				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
-					$('form', add_instance).html(html);
-					show_add_instance(area_slug);
-				});
-			}
-		});
-	}
-	
-	//--------------------------------------------------------------------
-	
-	function re_accordion(active_id)
-	{
-		$('#widget-areas .accordion').accordion('destroy').accordion({
-			collapsible: true,
-			header: 'header',
-			autoHeight: false,
-			clearStyle: true,
-			active: active_id
-		});
-	}
-	
-	//--------------------------------------------------------------------
-	
-	$(function() {
-		
-		add_area = $('#add-area-box');
-		edit_area = $('#edit-area-box');
-		add_instance = $('#add-instance-box');
-		edit_instance = $('#edit-instance-box');
-		sort_options = {
-			update: function() {
-				order = new Array();
-				$('li', this).each(function(){
-				id = $(this).attr('id').replace('instance-', '');
-					order.push( id );
-				});
-				order = order.join(',');
+(function($){$(function(){
 
-				$.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order });
-			}
-		};
-		
-		//--------------------------------------------------------------------
-		
-		// Widget Area add / remove --------------
-		
-		$('a#add-area').click(show_add_area);
-		
-		//--------------------------------------------------------------------
-		
-		$('#add-area-box form').live('submit', function(e)
-		{
-			e.preventDefault();
-			title = $('input[name="title"]', this).val();
-			slug = $('input[name="slug"]', this).val();
-			
-			if(!title || !slug) return false;
-			
-			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data) {
-				$('#widget-areas .accordion').append(data).accordion('destroy').accordion({collapsible: true,	header: 'header', autoHeight: false });
-				
-				//open the newly appended area
-				$('.widget-area-header:last').click();
-				
-				// Done, hide this form
-				hide_add_area();
-							
-				// Re-bind the droppable areas
-				set_droppable();
-				
-			});
-		});
-		
-		//--------------------------------------------------------------------
-		
-		/* Handle Edit Area Form Submission */
-		$('#edit-area-box form').live('submit', function(e) {
-			e.preventDefault();
-			
-			form_data = $(this).serialize();
-			
-			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_area', form_data, function(data) {
-				if(data.status == 'success')
-				{
-					hide_edit_area();
-					
-					//update the dom with new area slug
-					$('section#area-'+data.find).attr('id', 'area-'+data.replace);
-					$('section#area-'+data.replace+' h3 a').html(data.title);
-					$('a#edit-area-'+data.find).attr('id', 'edit-area-'+data.replace);
-					$('a#delete-area-'+data.find).attr('id', 'delete-area-'+data.replace);
-					
-					old_tag = $('section#area-'+data.replace+' p.tag').html();
-					new_tag = old_tag.replace(data.find, data.replace);
-					
-					$('section#area-'+data.replace+' p.tag').html(new_tag);
+	pyro.widgets = {
+		add_area		: null,
+		edit_area		: null,
+		add_instance	: null,
+		edit_instance	: null,
+
+		init: function(){
+			$.extend(true, pyro.widgets, {
+				add_area 		: $('#add-area-box'),
+				edit_area		: $('#edit-area-box'),
+				add_instance	: $('#add-instance-box'),
+				edit_instance	: $('#edit-instance-box'),
+				sort_options	: {
+					cancel: '.no-sortable,:input,option',
+					update: function(){
+						var order = [];
+
+						$('li', this).each(function(){
+							order.push($(this).attr('id').replace(/^instance-/, ''));
+						});
+
+						$.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order.join(',') });
+					}
 				}
-				else
-				{
+			});
+
+			pyro.widgets.set_draggable();
+			pyro.widgets.set_droppable();
+
+			// Widget Areas Accordion
+			$(".accordion").accordion({
+				collapsible: true,
+				header: 'header',
+				autoHeight: true,
+				clearStyle: true
+			});
+
+			//Init Sortable
+			$('.widget-list ol').sortable(pyro.widgets.sort_options);
+
+			$('#add-area').click(function(e){
+				e.preventDefault();
+
+				pyro.widgets.toogle_area('show', 'add');
+			});
+
+			$('.edit-area').live('click', function(e){
+				e.preventDefault();
+
+				var a_slug	= this.id.replace(/^edit-area-/, ''),
+					a_title	= $(this).attr('data-title');
+
+				$('#edit-area-box form').append('<input type="hidden" name="area_id" value="'+a_slug+'" />');
+
+				$('#edit-area-box input[name=title]').val(a_title);
+				$('#edit-area-box input[name=slug]').val(a_slug);
+
+				pyro.widgets.toogle_area('show', 'edit');
+			});
+
+			$('#widget-area-cancel, #widget-edit-area-cancel').live('click', function(e){
+				e.preventDefault();
+
+				pyro.widgets.toogle_area('hide', (this.id.indexOf('edit') !== -1 ? 'edit': 'add'));
+			});
+
+			// Auto-create a short-name
+			$('.new-area-title').keyup(function(){
+				var val = $(this).val().toLowerCase().replace(/ /g, '_');
+
+				$('.new-area-slug').val(val);
+			});
+
+			$('#add-area-box form').live('submit', function(e){
+				e.preventDefault();
+
+				var title	= $('input[name="title"]', this).val();
+				var slug	= $('input[name="slug"]', this).val();
+				
+				if ( ! (title || slug)) return;
+				
+				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data){
+
+					$('#widget-areas .accordion')
+						.append(data)
+						.accordion('destroy')
+						.accordion({ collapsible: true,	header: 'header', autoHeight: false });
+					
+					// Open the newly appended area
+					$('.widget-area-header:last').click();
+					
+					// Done, hide this form
+					pyro.widgets.toogle_area('hide', 'add');
+
+					// Re-bind the droppable areas
+					pyro.widgets.set_droppable();
+					
+				});
+			});
+
+			$('#edit-area-box form').live('submit', function(e){
+				e.preventDefault();
+
+				var form_data = $(this).serialize();
+
+				$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_area', form_data, function(data){
+
+					pyro.widgets.toogle_area('hide', 'edit');
+
+					if (data.status == 'success'){
+
+						//update the dom with new area slug
+						$('section#area-'+data.find).attr('id', 'area-'+data.replace);
+						$('section#area-'+data.replace+' h3 a').html(data.title);
+						$('a#edit-area-'+data.find).attr({'id': 'edit-area-'+data.replace, 'data-title': data.title});
+						$('a#delete-area-'+data.find).attr('id', 'delete-area-'+data.replace);
+
+						var old_tag = $('section#area-'+data.replace+' p.tag').html(),
+							new_tag = old_tag.replace(data.find, data.replace);
+
+						$('section#area-'+data.replace+' p.tag').html(new_tag);
+					}
+
 					//todo: handle errors
-					hide_edit_area();
-				}
-			}, 'json')
-		});
-		
-		//--------------------------------------------------------------------
 
-		/* Widget Area Cancel hook */
-		$('button#widget-area-cancel').live('click', hide_add_area);
-		
-		//--------------------------------------------------------------------
-		
-		//hide edit area
-		$('button#widget-edit-area-cancel').live('click', function(e) {
-			e.preventDefault();
-			hide_edit_area();	
-		});
-		
-		//--------------------------------------------------------------------
-		
-		// Auto-create a short-name
-		$('.new-area-title').keyup(function(){
-			var new_val = $(this).val().toLowerCase().replace(/ /g, '_');
-		
-			$('.new-area-slug').val(new_val);
-		});
-		
-		//--------------------------------------------------------------------
-		
-		/* do edit area */
-		$('a.edit-area').live('click', function(e) {
-			
-			e.preventDefault();
-
-			a_slug = this.id.replace('edit-area-', '');
-			a_title = a_slug.replace('_', ' ');
-			
-			//append hidden form field with area-slug
-			$('#edit-area-box form').append('<input type="hidden" name="area_id" value="'+a_slug+'" />');
-			
-			
-			$('#edit-area-box input[name=title]').val(a_title);
-			$('#edit-area-box input[name=slug]').val(a_slug);
-			
-			show_edit_area();
-		});
-		
-		//--------------------------------------------------------------------
-		
-		$('a.delete-area').live('click', function(e)
-		{
-			e.preventDefault();
-			// all div.box have an id="area-slug"
-			slug = this.id.replace('delete-area-', '')
-			box = $('#area-' + slug);
-			
-			if(confirm('Are you sure you wish to delete this item?'))
-			{
-				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_area', { area_slug: slug }, function()
-				{
-					box.slideUp(function(){ $(this).remove() });
-				});
-			}
-		});
-		
-		//--------------------------------------------------------------------
-		
-		//--------------------------------------------------------------------
-		// Widget controls
-		//--------------------------------------------------------------------
-		
-		set_draggable();
-		set_droppable();
-		
-		// Add new widget instance
-		$('#add-instance-box form').live('submit', function(e)
-		{
-			e.preventDefault();
-			widget_id = $('input[name="widget_id"]', this).val();
-			widget_area_id = $('input[name="widget_area_id"]', this).val();
-			title = $('input[name="title"]', this).val();
-			
-			form = $(this);
-			
-			if(!title || !widget_id || !widget_area_id) return false;
-			
-			var active_id = $( "#widget-areas .accordion" ).accordion( "option", "active" );
-			
-			$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', form.serialize(), function(data) {
-				
-				if(data.status == 'success')
-				{
-					hide_add_instance();
-					
-					refresh_lists();
-					
-					re_accordion(active_id);
-					
-				} else
-				{
-					form.html(data.form);
-				}
-				
-			}, 'json');
-		});
-		
-		//--------------------------------------------------------------------
-		
-		// Edit widget instance
-		$('#edit-instance-box form').live('submit', function(e)
-		{
-			e.preventDefault();
-			title = $('input[name="title"]', this).val();
-			widget_id = $('input[name="widget_id"]', this).val();
-			widget_area_id = $('[name="widget_area_id"]', this).val();
-
-			if(!title || !widget_id || !widget_area_id) return false;
-
-			form = $(this);
-			
-			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance', $(this).serialize(), function(data) {
-				
-				if(data.status == 'success')
-				{
-					hide_edit_instance();
-					
-					refresh_lists();
-				}
-				
-				else
-				{
-					form.html(data.form);
-				}
-				
-			}, 'json');
-		});
-		
-		//--------------------------------------------------------------------
-		
-		$('button#widget-instance-cancel').live('click', function(e) {
-			e.preventDefault();
-			hide_add_instance();
-			hide_edit_instance();
-			re_accordion();
-		});
-		
-		//--------------------------------------------------------------------
-
-		$('.widget-area ol').sortable({
-			handle: 'td',
-			helper: function(e, ui) {
-				ui.children().each(function() {
-					$(this).width($(this).width());
-				});
-				return ui;
-			},
-			update: function() {
-				order = new Array();
-				$('tr', this).each(function(){
-					order.push( $(this).find('input[name="action_to[]"]').val() );
-				});
-				order = order.join(',');
-				
-				$.post(BASE_URI + 'index.php/widgets/ajax/update_order', { order: order });
-			}
-			
-		});
-
-		//--------------------------------------------------------------------
-		
-		$('.accordion a.edit-instance').live('click', function(e){
-			e.preventDefault();
-			id = $(this).closest('li').attr('id').replace('instance-', '');
-			area_slug = $(this).closest('section').attr('id').replace('area-', '');
-
-			$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
-				// Insert the form into the edit_instance li node
-				$('form', edit_instance).html(html);
-
-				show_edit_instance(area_slug, id);
+				}, 'json')
 			});
-		});
-		
-		//--------------------------------------------------------------------
-		
-		$('#widget-areas .accordion a.delete-instance').live('click', function(){
-			
-			li = $(this).closest('li');
-			id = li.attr('id').replace('instance-', '');
 
-			if(confirm('Are you sure you wish to delete this item?'))
-			{
-				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
-					li.slideUp(function() { 
-						$(this).remove(); 
+			$('a.button.delete-area').live('click', function(e){
+				e.preventDefault();
 
-						$("#widget-areas .accordion").accordion("resize");
-						
-						return false;
+				if ( ! $.data(this, 'confirmed')) return;
+
+				$.data(this, { 'confirmed': false, 'stop-click': true });
+
+				var slug	= this.id.replace(/^delete-area-/, ''),
+					box		= $('#area-' + slug);
+
+				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_area', { area_slug: slug }, function(){
+					box.slideUp(function(){
+						$(this).remove()
 					});
 				});
+			});
+
+			// Add new widget instance
+			$('#add-instance-box form').live('submit', function(e){
+				e.preventDefault();
+
+				var widget_id = $('input[name="widget_id"]', this).val(),
+					widget_area_id = $('input[name="widget_area_id"]', this).val(),
+					title = $('input[name="title"]', this).val(),
+
+					form = $(this),
+
+					active_id = $( "#widget-areas .accordion" ).accordion( "option", "active" );
+
+				if ( ! (title || widget_id || widget_area_id)) return false;
+		
+				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', form.serialize(), function(data){
+			
+					if (data.status == 'success')
+					{
+						pyro.widgets.hide_instance('add');
+						pyro.widgets.refresh_lists();
+						pyro.widgets.re_accordion(active_id);
+					}
+					else
+					{
+						form.html(data.form);
+					}
+
+				}, 'json');
+			});
+
+			// Edit widget instance
+			$('#edit-instance-box form').live('submit', function(e){
+				e.preventDefault();
+
+				var title			= $('input[name="title"]', this).val(),
+					widget_id		= $('input[name="widget_id"]', this).val(),
+					widget_area_id	= $('[name="widget_area_id"]', this).val(),
+
+					form = $(this);
+
+				if ( ! (title || widget_id || widget_area_id)) return false;
+
+				$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance', form.serialize(), function(data){
+			
+					if (data.status == 'success')
+					{
+						pyro.widgets.hide_instance('edit');
+						pyro.widgets.refresh_lists();
+					}
+					else
+					{
+						form.html(data.form);
+					}
+			
+				}, 'json');
+			});
+
+			$('#widget-instance-cancel').live('click', function(e){
+				e.preventDefault();
+
+				pyro.widgets.hide_instance(['add','edit']);
+				pyro.widgets.re_accordion();
+			});
+
+			$('a.edit-instance').live('click', function(e){
+				e.preventDefault();
+
+				var id			= $(this).closest('li').attr('id').replace('instance-', ''),
+					area_slug	= $(this).closest('section').attr('id').replace('area-', '');
+
+				$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
+					// Insert the form into the edit_instance li node
+					$('form', pyro.widgets.edit_instance).html(html);
+
+					pyro.widgets.show_edit_instance(area_slug, id);
+				});
+			});
+
+			$('a.delete-instance').live('click', function(e){
+				e.preventDefault();
+
+				if ( ! $.data(this, 'confirmed')) return;
+
+				$.data(this, { 'confirmed': false, 'stop-click': true });
+
+				var li	= $(this).closest('li'),
+					id	= li.attr('id').replace('instance-', '');
+
+				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
+					li.slideUp(function() { 
+						$(this).remove();
+						$("#widget-areas .accordion").accordion("resize");
+					});
+				});
+			});
+		},
+
+		toogle_area: function(display, action){
+
+			if (display == 'show')
+			{
+				pyro.widgets[action+'_area'].slideDown(function(){
+					pyro.widgets.scroll_to(this);
+				});
+			} else {
+				pyro.widgets[action+'_area'].slideUp(function(){
+					$('input[name="title"]', this).attr('value', '');
+					$('input[name="slug"]', this).attr('value', '');
+				});
+			}
+		},
+
+		scroll_to: function(ele){
+			$('html, body').animate({
+				scrollTop: $(ele).offset().top
+			}, 1000);
+		},
+
+		show_add_instance: function(area_slug){
+			var my_area = '#area-' + area_slug + ' ol';
+
+			$(my_area).append(pyro.widgets.add_instance.detach());
+			$('.widget-list .empty-drop-item').css('display', 'none');
+
+			pyro.widgets.add_instance.css('display', 'block');
+
+			$('#widget-areas .accordion').accordion('resize');
+
+			pyro.widgets.scroll_to(pyro.widgets.add_instance);
+		},
+
+		show_edit_instance: function(area_slug, id){
+			var my_area = '#area-' + area_slug + ' ol';
+
+			$(my_area + " #instance-"+ id).after(pyro.widgets.edit_instance.detach().removeClass('hidden'));
+			$('.widget-list .empty-drop-item').css('display', 'none');
+
+			pyro.widgets.edit_instance.css('display', 'block').slideDown(function(){
+				$('#widget-areas .accordion').accordion('resize');
+			});
+		},
+
+		hide_instance: function(action){
+
+			if (action instanceof Array)
+			{
+				for (i in action)
+				{
+					pyro.widgets.hide_instance(action[i]);
+				}
+				return;
 			}
 
-			return false;
-		});
-		
-		//--------------------------------------------------------------------
-		
-		// Widget Areas Accordion
-		$(".accordion").accordion({
-			collapsible: true,
-			header: 'header',
-			autoHeight: true,
-			clearStyle: true
-		});
-		
-		//--------------------------------------------------------------------
-		
-		//Init Sortable
-		$('.widget-list ol').sortable(sort_options);		
-	});
+			// Hide the form
+			pyro.widgets[action + '_instance'].slideUp(function(){
 
-})(jQuery);
+				// Clean up
+				$('input, select, textarea', this).attr('value', '');
+				$('#'+action+'-instance-box').detach();
+				$('#widget-list .accordion').accordion('resize');
+			});
+		},
+
+		refresh_lists: function(){
+			$('.widget-list').each(function(){
+				var widget_area_slug = $(this).parent().parent().attr('id').replace(/^area-/, '');
+
+				$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug, function(){
+					$('.widget-list ol').sortable('destroy').sortable(pyro.widgets.sort_options);
+					$('.accordion').accordion('resize');
+				});
+			});
+		},
+
+		re_accordion: function(active_id){
+			$('#widget-areas .accordion').accordion('destroy').accordion({
+				collapsible: true,
+				header: 'header',
+				autoHeight: false,
+				clearStyle: true,
+				active: active_id
+			});
+		},
+
+		set_droppable: function(){
+			$("#widget-areas .accordion-content").droppable({
+				hoverClass : 'drop-hover',
+				accept : '.widget-box',
+				greedy : true,
+				over : function(event, ui){
+					$(".accordion").accordion('resize');
+					$('li.empty-drop-item').show();
+				},
+				out : function(event, ui){
+					$("li.emptydrop-item").hide();
+					$(".accordion").accordion('resize');
+				},
+				drop : function(event, ui){
+					var area_slug	= $(this).parent().attr('id').replace(/^area-/, ''),
+						widget_slug	= ui.draggable.attr('id').replace(/^widget-/, '');
+
+					$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
+						$('form', pyro.widgets.add_instance).html(html);
+
+						pyro.widgets.show_add_instance(area_slug);
+					});
+				}
+			});
+		},
+
+		set_draggable: function(){
+			$(".widget-box").draggable({
+				revert : 'invalid',
+				cursor : 'move',
+				helper : 'clone',
+				cursorAt : { left: 100 },
+				start : function(event, ui) {
+					// Grab our desired width from the widget area list
+					var width = $(".widget-list").css("width");
+
+					// Setup our new dragging object
+					$(this).addClass('widget-drag')
+					$(ui).css("width", width + " !important");
+				},
+				stop: function() {
+					$(this).removeClass('widget-drag');
+				}
+			});
+		}
+	};
+
+	pyro.widgets.init();
+
+});})(jQuery);

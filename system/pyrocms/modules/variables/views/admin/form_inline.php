@@ -10,9 +10,7 @@
         <?php form_input('', printf('{%s:variables:%s}', config_item('tags_trigger'), $variable->name));?>
         <?php echo form_hidden('variable_id', $variable->id); ?>
     </td>
-    <td>
-	<div class="buttons buttons-small">
+    <td class="align-center buttons buttons-small actions">
         <?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>  
-	</div>
     </td>
 <?php echo form_close(); ?>

@@ -86,7 +86,7 @@ class Admin extends Admin_Controller {
 		$this->data->hours = array_combine($hours = range(0, 23), $hours);
 		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
 
-		$this->data->categories = array(0 => '');
+		$this->data->categories = array();
 		if ($categories = $this->blog_categories_m->order_by('title')->get_all())
 		{
 			foreach ($categories as $category)

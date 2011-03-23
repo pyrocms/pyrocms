@@ -31,6 +31,7 @@ $lang['comments.send_label'] 				= '發表回應';
 $lang['comments.inactive_title'] 			= '待核准的回應';
 $lang['comments.active_title'] 				= '已核准的回應';
 $lang['comments.edit_title'] 				= '編輯回應';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 // messages
 $lang['comments.add_success'] 				= '回應已經儲存。';

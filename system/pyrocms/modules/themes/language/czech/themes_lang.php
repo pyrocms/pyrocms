@@ -11,13 +11,15 @@ $lang['themes.mass_delete_success'] 	= '%s motivů z %s bylo vymazáno.';
 $lang['themes.mass_delete_error']		= 'Pouze %s motivů z %s bylo vymazáno.';
 $lang['themes.delete_select_error'] 	= 'Je třeba nejprve vybrat motiv ke smazání.';
 $lang['themes.upload_title']			= 'Nahrát motiv';
-$lang['themes.list_label']				= 'Seznam motivů';
+$lang['themes.list_title']				= 'Seznam motivů';
 $lang['themes.upload_desc']				= 'Prosím vyberte soubor a klikněte na Nahrát';
 
 $lang['themes.theme_label'] 			= 'Motiv vzhledu';
 $lang['themes.actions_label']			= 'Akce';
 $lang['themes.make_default']			= 'Nastavit jako výchozí';
-$lang['themes.delete']					= 'Vymazat';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label'] 	= 'Výchozí vzhled';
 $lang['themes.no_themes_installed'] 	= 'Nejsou nainstalovány žádné motivy.';
 

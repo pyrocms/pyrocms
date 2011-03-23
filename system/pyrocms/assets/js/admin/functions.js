@@ -47,14 +47,19 @@ jQuery(function($) {
 		// Fade in the notifications
 		$(".notification").fadeIn("slow");
 
-		// Check all checkboxes in table
+		// Check all checkboxes in container table or grid
 		$(".check-all").live('click', function () {
-			$(this).parents("table").find("tbody input[type='checkbox']").each(function () {
-				if($(".check-all").is(":checked") && !$(this).is(':checked'))
+			var check_all		= $(this),
+				all_checkbox	= $(this).is('.grid-check-all')
+					? $(this).parents(".list-items").find(".grid input[type='checkbox']")
+					: $(this).parents("table").find("tbody input[type='checkbox']");
+
+			all_checkbox.each(function () {
+				if (check_all.is(":checked") && ! $(this).is(':checked'))
 				{
 					$(this).click();
 				}
-				else if(!$(".check-all").is(":checked") && $(this).is(':checked'))
+				else if ( ! check_all.is(":checked") && $(this).is(':checked'))
 				{
 					$(this).click();
 				}
@@ -66,33 +71,29 @@ jQuery(function($) {
 
 		// Confirmation
 		$("a.confirm").live('click', function(e){
-			var href = $(this).attr("href");
-			removemsg = $(this).attr("title");
-	
-			if (removemsg != 'undefined')
-			{
-				if(removemsg.length <= 0)
-				{
-					msg = DIALOG_MESSAGE;
-				}
-				else
-				{
-					msg = removemsg;
-				}
-			}
-			else
-			{
-				msg = DIALOG_MESSAGE;
-			}
 
-			if(!confirm(msg))
+			if ($.data(this, 'confirmed')) return true;
+
+			e.preventDefault();
+
+			var href		= $(this).attr("href"),
+				removemsg	= $(this).attr("title");
+	
+			msg = (removemsg !== undefined && removemsg.length > 0) ? removemsg: DIALOG_MESSAGE;
+
+			if ( ! confirm(msg))
 			{
-				e.preventDefault();
+				$.data(this, 'confirmed', false);
 			}
 			else
 			{
-				//submits it whether uniform likes it or not
-				window.location.href = href;
+				$.data(this, 'confirmed', true);
+
+				// its poor to not redirect ajax handler
+				if ( ! $(this).click().data('stop-click')){
+					//submits it whether uniform likes it or not
+					window.location.replace(href);
+				}
 			}
 		});
 		
@@ -146,7 +147,7 @@ jQuery(function($) {
 			});
 		});
 
-		$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform();
+		$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform().addClass('no-uniform');
 
 		var current_module = $('#page-header h1 a').text();
 		// Fancybox modal window
@@ -155,7 +156,7 @@ jQuery(function($) {
 				width: "60%",
 				maxHeight: "90%",
 				onComplete: function() {
-					$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform();
+					$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform().addClass('no-uniform');
 				},
 				current: current_module + " {current} / {total}"
 			});

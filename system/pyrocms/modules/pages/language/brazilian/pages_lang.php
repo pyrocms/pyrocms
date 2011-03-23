@@ -16,7 +16,7 @@ $lang['pages.updated_label'] 					= 'Atualizada';
 $lang['pages.actions_label'] 					= 'Ações';
 $lang['pages.unknown_label'] 					= 'Desconhecida';
 $lang['pages.title_label']						= 'Título';
-$lang['pages.slug_label']						= 'URL';
+$lang['pages.slug_label']						= 'URI';
 $lang['pages.navigation_label']					= 'Adicionar em Navegação';
 $lang['pages.body_label']						= 'Corpo da página';
 $lang['pages.meta_title_label']					= 'Meta título';
@@ -28,7 +28,7 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Acesso';
 $lang['pages.rss_enabled_label'] 				= 'RSS ativo';
 $lang['pages.comments_enabled_label']			= 'Comentários ativo';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']					= 'É a página padrão (inicial)?';
 
 $lang['pages.status_label'] 					= 'Situação';
 $lang['pages.draft_label'] 						= 'Rascunho';

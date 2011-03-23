@@ -15,6 +15,7 @@ $lang['alpha_dash']			= "Pole %s może zawierać tylko znaki alfanumeryczne, pod
 $lang['numeric']			= "Pole %s może zawierać tylko liczby.";
 $lang['is_numeric']			= "Pole %s może zawierać tylko liczby znaki numeryczne.";
 $lang['integer']			= "Pole %s może zawierać tylko wartości typu integer.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "Pole %s nie pasuje do pola %s.";
 $lang['is_natural']			= "Pole %s może zawierać tylko wartości dodatnie.";
 $lang['is_natural_no_zero']             = "Pole %s może zawierać tylko wartości dodatnie większe od zera.";

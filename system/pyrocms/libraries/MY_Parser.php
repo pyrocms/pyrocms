@@ -160,7 +160,7 @@ class MY_Parser extends CI_Parser {
 
 	/**
 	 * Forces a standard array in multidimensional.
-	 *
+	 * 
 	 * @param	array
 	 * @param	int		Used for recursion
 	 * @return	array	The multi array
@@ -171,7 +171,14 @@ class MY_Parser extends CI_Parser {
 		$return = array();
 		foreach ($flat as $item => $value)
 		{
-			$return[$i][$item] = $value;
+			if (is_object($value))
+			{
+				$return[$item] = (array) $value;
+			}
+			else
+			{
+				$return[$i][$item] = $value;
+			}
 		}
 		return $return;
 	}

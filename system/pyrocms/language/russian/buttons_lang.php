@@ -5,22 +5,27 @@
  *
  * @package		PyroCMS
  * @author		Dark Preacher 
- * @link			http://pyrocms.com
+ * @link		http://pyrocms.com
  */
 
-$lang['buttons.submit']			= 'Сохранить';
-$lang['buttons.cancel']			= 'Отмена';
-$lang['buttons.upload']			= 'Загрузить';
-$lang['buttons.save']				= 'Сохранить';
+$lang['buttons.submit']		= 'Сохранить';
+$lang['buttons.cancel']		= 'Отмена';
+$lang['buttons.upload']		= 'Загрузить';
+$lang['buttons.save']		= 'Сохранить';
 $lang['buttons.save_exit']	= 'Сохранить и Выйти';
-$lang['buttons.delete']			= 'Удалить';
-$lang['buttons.publish']		= 'Опубликовать';
-$lang['buttons.approve']		= 'Утвердить';
+$lang['buttons.delete']		= 'Удалить';
+$lang['buttons.publish']	= 'Опубликовать';
+$lang['buttons.approve']	= 'Утвердить';
 $lang['buttons.unapprove']	= 'Скрыть';
-$lang['buttons.install']		= 'Установить';
-$lang['buttons.yes']				= 'Да';
-$lang['buttons.no']					= 'Нет';
-$lang['buttons.activate']		= 'Активировать';
+$lang['buttons.install']	= 'Установить';
+$lang['buttons.yes']		= 'Да';
+$lang['buttons.no']			= 'Нет';
+$lang['buttons.activate']	= 'Активировать';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
+$lang['buttons.edit']		= 'Edit'; #translate
+$lang['buttons.clone']		= 'Clone'; #translate
+$lang['buttons.copy']		= 'Copy'; #translate
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/russian/buttons_lang.php */

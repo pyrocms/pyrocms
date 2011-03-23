@@ -54,8 +54,17 @@ class Admin extends Admin_Controller
 			'field' => 'gallery_thumbnail',
 			'label'	=> 'lang:galleries.thumbnail_label',
 			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'css',
+			'label'	=> 'lang:galleries.css_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'js',
+			'label'	=> 'lang:galleries.js_label',
+			'rules'	=> 'trim'
 		)
-
 	);
 
 	/**
@@ -125,7 +134,6 @@ class Admin extends Admin_Controller
 		// Load the view
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata(js('functions.js', 'galleries'))
 			->set('galleries', $galleries)
 			->build('admin/index');
 	}
@@ -146,11 +154,15 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run() )
 		{
-			if ($this->galleries_m->insert($_POST))
+			if ($id = $this->galleries_m->insert($this->input->post()))
 			{
 				// Everything went ok..
 				$this->session->set_flashdata('success', lang('galleries.create_success'));
-				redirect('admin/galleries');
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/galleries')
+					: redirect('admin/galleries/manage/' . $id);
 			}
 			
 			// Something went wrong..
@@ -168,13 +180,14 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->append_metadata( js('form.js', 'galleries') )
-			->append_metadata(js('functions.js', 'galleries') )
-			->append_metadata( css('galleries.css', 'galleries') )
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
+			->append_metadata( css('galleries.css', 'galleries') )
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery', $gallery)
 			->set('file_folders', $file_folders)
-			->build('admin/new_gallery');
+			->build('admin/form');
 	}
 
 	/**
@@ -209,10 +222,14 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run() )
 		{
 			// Try to update the gallery
-			if ($this->galleries_m->update($id, $_POST) === TRUE )
+			if ($this->galleries_m->update($id, $this->input->post()) === TRUE )
 			{
 				$this->session->set_flashdata('success', lang('galleries.update_success'));
-				redirect('admin/galleries/manage/' . $id);
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/galleries')
+					: redirect('admin/galleries/manage/' . $id);
 			}
 			else
 			{
@@ -231,16 +248,31 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('galleries.manage_gallery_label'))
+			->title($this->module_details['name'], sprintf(lang('galleries.manage_gallery_label'), $gallery->title))
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('drag_drop.js', 'galleries') )
-			->append_metadata(js('functions.js', 'galleries') )
+			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
+			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery', $gallery)
 			->set('galleries', $galleries)
 			->set('gallery_images', $gallery_images)
 			->set('file_folders', $file_folders)
-			->build('admin/manage_gallery');
+			->build('admin/form');
+	}
+
+	/**
+	 * Show a gallery preview
+	 * @access	public
+	 * @param	int $id The ID of the gallery
+	 * @return	void
+	 */
+	public function preview($id = 0)
+	{
+		$data->gallery  = $this->galleries_m->get($id);
+
+		$this->template->set_layout('modal', 'admin');
+		$this->template->build('admin/preview', $data);
 	}
 
 	/**
@@ -303,63 +335,18 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	 * Upload a new image
-	 *
-	 * @author PyroCMS Dev Team
-	 * @access public
-	 * @return void
+	 * Show a gallery image preview
+	 * @access	public
+	 * @param	int $id The ID of the gallery image
+	 * @return	void
 	 */
-	public function upload()
+	public function image_preview($id = 0)
 	{
-		// Set the validation rules
-		$this->form_validation->set_rules($this->image_validation_rules);
+		$data->image  = $this->gallery_images_m->get($id);
 
-		// Get all available galleries
-		$galleries = $this->galleries_m->get_all();
-
-		// Are there any galleries at all?
-		if ( empty($galleries) )
-		{
-			$this->session->set_flashdata('error', lang('galleries.no_galleries_error'));
-			redirect('admin/galleries');
-		}
-		
-		//lets put the gallery id into flashdata.  We be usin' this later
-		$this->session->set_flashdata('gallery_id', $this->input->post('gallery_id'));
-		
-		if ($this->form_validation->run() )
-		{
-			
-			if ($this->gallery_images_m->upload_image($_POST) === TRUE )
-			{
-				$this->session->set_flashdata('success', lang('gallery_images.upload_success'));
-				redirect('admin/galleries/upload');
-			}
-			else
-			{
-				$this->session->set_flashdata('error', lang('gallery_images.upload_error'));
-				redirect('admin/galleries/upload');
-			}
-		}
-
-		foreach ($this->image_validation_rules as $rule)
-		{
-			$gallery_image->{$rule['field']} = $this->input->post($rule['field']);
-		}
-
-		// Set the view data
-		$this->data->galleries		=& $galleries;
-		$this->data->gallery_image 	=& $gallery_image;
-
-		// Load the views
-		$this->template
-			->set_layout('modal', 'admin')
-			->append_metadata(css('galleries.css', 'galleries'))
-			->append_metadata(js('functions.js', 'galleries'))
-			->title($this->module_details['name'], lang('galleries.upload_label'))
-			->build('admin/upload', $this->data);
+		$this->template->set_layout('modal', 'admin');
+		$this->template->build('admin/image/preview', $data);
 	}
-
 
 	/**
 	 * Sort images in an existing gallery

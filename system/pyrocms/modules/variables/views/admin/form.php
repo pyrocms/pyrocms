@@ -6,6 +6,7 @@
 <?php endif; ?>
 	
 <?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"'); ?>
+<?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id); ?>
 
 	<fieldset>
 		<ul>
@@ -14,7 +15,7 @@
 				<?php echo  form_input('name', $variable->name); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
-			<li>
+			<li class="">
 				<label for="data"><?php echo lang('variables.data_label');?></label>
 				<?php echo  form_input('data', $variable->data); ?>
 			</li>

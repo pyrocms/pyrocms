@@ -24,7 +24,7 @@ class Gallery_images_m extends MY_Model
 		parent::__construct();
 		
 		// Load all required classes
-		$this->config->load('gallery_config');
+		$this->config->load('gallery_config', FALSE, FALSE, 'galleries');
 		$this->load->library('upload');
 		$this->load->library('image_lib');
 	}
@@ -35,15 +35,26 @@ class Gallery_images_m extends MY_Model
 	 * @author PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the gallery
+	 * @param array $options Options
 	 * @return mixed
 	 */
-	public function get_images_by_gallery($id)
+	public function get_images_by_gallery($id, $options = array())
 	{
 		// Find new images on files
 		$this->set_new_image_files($id);
 
 		// Clear old files on images
 		$this->unset_old_image_files($id);
+
+		if (isset($options['offset']))
+		{
+			$this->db->limit($options['offset']);
+		}
+
+		if (isset($options['limit']))
+		{
+			$this->db->limit($options['limit']);
+		}
 
 		// Grand finale, do what you gotta do!!
 		$images = $this->db

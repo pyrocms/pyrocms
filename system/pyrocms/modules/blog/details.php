@@ -11,30 +11,29 @@ class Module_Blog extends Module {
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
 				'el' => 'Ιστολόγιο',
+				'pt' => 'Blog'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
-				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.',
-				'cs' => 'Publikujte nové články a příspěvky na blog.',
-				'en' => 'Post blog articles and blog entries.',
-				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
-				'es' => 'Escribe entradas para los artículos y blogs (web log).',
-				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
-				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.',
-				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
-				'it' => 'Pubblica notizie e post per il blog.',
-				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
-				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
-				'pt' => 'Escrever novos artigos e publicações de blog',
-				'ru' => 'Управление новостными статьями и записями блога.',
+				'nl' => 'Post nieuwsartikelen en blog op uw site.', #update translation
+				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
+				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
+				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
+				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu', #update translation
+				'pt' => 'Escrever publicações de blog',
+				'zh' => '發表新聞訊息、部落格文章。', #update translation
+				'it' => 'Pubblica notizie e post per il blog.', #update translation
+				'ru' => 'Управление новостными статьями и записями блога.', #update translation
+				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.', #update translation
+				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'sl' => 'Objavite blog prispevke',
-				'zh' => '發表新聞訊息、部落格文章。',
-				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
+				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
+				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.'
 			),
-			'frontend' => TRUE,
-			'backend' => TRUE,
-			'skip_xss' => TRUE,
-			'menu' => 'content'
+			'frontend'	=> TRUE,
+			'backend'	=> TRUE,
+			'skip_xss'	=> TRUE,
+			'menu'		=> 'content'
 		);
 	}
 
@@ -80,12 +79,9 @@ class Module_Blog extends Module {
 	}
 
 	public function uninstall()
-	{		
-		if($this->dbforge->drop_table('blog_categories') &&
-		   $this->dbforge->drop_table('blog'))
-		{
-			return TRUE;
-		}
+	{
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

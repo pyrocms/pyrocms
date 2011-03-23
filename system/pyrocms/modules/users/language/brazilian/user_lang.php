@@ -1,13 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['user_register_header'] 			= 'Cadastro';
-$lang['user_register_step1'] 			= '<strong>Passo 1:</strong> Cadastro';
-$lang['user_register_step2'] 			= '<strong>Passo 2:</strong> Ativação';
+$lang['user_register_step1'] 			= '<strong>Etapa 1:</strong> Cadastro';
+$lang['user_register_step2'] 			= '<strong>Etapa 2:</strong> Ativação';
 
 $lang['user_login_header'] 				= 'Entrar';
 
 // titles
 $lang['user_add_title'] 				= 'Adicionar usuário';
+$lang['user_list_title'] 				= 'Listar usuários';
 $lang['user_inactive_title'] 			= 'Usuários inativos';
 $lang['user_active_title'] 				= 'Usuários ativos';
 $lang['user_registred_title'] 			= 'Usuários cadastrados';
@@ -64,7 +65,7 @@ $lang['user_confirm_password'] 			= 'Confirmar Senha';
 $lang['user_group_id_label']			= 'ID de Grupo';
 
 $lang['user_level']						= 'Papel de usuário';
-$lang['user_active']					= 'Ativar';
+$lang['user_active']					= 'Ativo';
 $lang['user_lang']						= 'Idioma';
 
 $lang['user_activation_code'] 			= 'Código de ativação';

@@ -25,7 +25,7 @@ class Widget_Html extends Widgets
 
 	public function run($options)
 	{
-		if(empty($options['html']))
+		if (empty($options['html']))
 		{
 			return array('output' => '');
 		}

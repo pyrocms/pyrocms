@@ -1,9 +1,8 @@
-(function($)
-{
-	$(function() {
+(function($){
+	$(function(){
 
 		// Pick a rule type, show the correct field
-		$('input[name="link_type"]').change(function() {
+		$('input[name="link_type"]').change(function(){
 			$('#navigation-' + $(this).val())
 			
 			// Show only the selected type
@@ -11,16 +10,17 @@
 			
 			// Reset values when switched
 			.find('input:not([value="http://"]), select').val('');
-		});
-		
+
+		// Trigger default checked
+		}).filter(':checked').change();
 
 		$('table tbody').sortable({
 			handle: 'td',
 			helper: 'clone',
-			start: function(event, ui) {
+			start: function(event, ui){
 				$('tr').removeClass('alt');
 			},
-			update: function() {
+			update: function(){
 				order = new Array();
 				$('tr', this).each(function(){
 					order.push( $(this).find('input[name="action_to[]"]').val() );
@@ -33,22 +33,21 @@
 				});
 			},
 			stop: function(event, ui) {
-				$("tbody tr:nth-child(even)").livequery(function () {
+				$("tbody tr:nth-child(even)").livequery(function(){
 					$(this).addClass("alt");
 				});
 			}
-			
 		}).disableSelection();
-		
+
 		//update the parent
 		$('select[name="parent"]').change(function(){
 			var elem = this;
-				$(elem).parents().siblings().children('.parent-gif').show();
-				$.post(BASE_URI + 'index.php/admin/navigation/ajax_update_parent', { id: $(elem).attr('id'), parent: $(elem).val() }, function() {
-					//success! hide the gif
-					$(elem).parents().siblings().children('.parent-gif').hide();
-				});
+
+			$(elem).parents().siblings().children('.parent-gif').show();
+			$.post(BASE_URI + 'index.php/admin/navigation/ajax_update_parent', { id: $(elem).attr('id'), parent: $(elem).val() }, function() {
+				//success! hide the gif
+				$(elem).parents().siblings().children('.parent-gif').hide();
+			});
 		});
-		
 	});
 })(jQuery);

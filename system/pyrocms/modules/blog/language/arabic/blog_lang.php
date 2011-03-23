@@ -61,4 +61,7 @@ $lang['blog_already_exist_error'] 		= 'يوجد مقال له عنوان URL م�
 $lang['blog_twitter_posted']			= 'منشور في "%s" %s';
 $lang['blog_twitter_error'] 			= 'خطأ في تويتر';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
 ?>

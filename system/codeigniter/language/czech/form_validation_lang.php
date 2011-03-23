@@ -14,6 +14,7 @@ $lang['alpha_numeric']	= "Pole %s může obsahovat pouze písmena a číslice.";
 $lang['alpha_dash']		= "Pole %s může obsahovat pouze písmena, číslice, podtržítka a pomlčky.";
 $lang['numeric']		= "Pole %s musí obsahovat pouze čísla.";
 $lang['is_numeric']			= "Pole %s musí obsahovat pouze numerické znaky.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['integer']			= "Pole %s musí obsahovat číslo.";
 $lang['matches']		= "Obsah polí %s a %s se neshoduje.";
 $lang['is_natural']			= "Pole %s musí obsahovat pouze kladná čísla.";

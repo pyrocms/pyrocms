@@ -8,6 +8,7 @@ $lang['user_login_header'] 				= 'تسجيل الدخول';
 
 // titles
 $lang['user_add_title'] 				= 'إضافة مستخدم';
+$lang['user_list_title'] 				= 'List users'; #translate
 $lang['user_inactive_title'] 			= 'المستخدمون المُعطلون';
 $lang['user_active_title'] 				= 'المستخدمون النشطون';
 $lang['user_registred_title'] 			= 'المستخدمون المسجّلون';

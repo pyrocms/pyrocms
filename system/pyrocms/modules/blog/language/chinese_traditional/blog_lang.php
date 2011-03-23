@@ -61,4 +61,7 @@ $lang['blog_already_exist_error'] 		= '一則相同網址的文章已經存在�
 $lang['blog_twitter_posted']			= '發佈 "%s" %s';
 $lang['blog_twitter_error'] 			= 'Twitter 錯誤';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
 ?>

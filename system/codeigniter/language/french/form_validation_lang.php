@@ -15,6 +15,7 @@ $lang['alpha_dash']			= "Le champ %s ne peut contenir que des caract&egrave;res 
 $lang['numeric']			= "Le champ %s doit contenir un nombre (caract&egrave;res num&eacute;riques).";
 $lang['is_numeric']			= "Le champ %s ne peut contenir que de signes du type nombre.";
 $lang['integer']			= "Le champ %s doit contenir un integer.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "Le champ %s doit correspondre au champ %s.";
 $lang['is_natural']			= "Le champ %s ne peut contenir que des nombres positifs.";
 $lang['is_natural_no_zero']	= "Le champ %s ne peut contenir que des nombres plus grand que z&eacute;.";

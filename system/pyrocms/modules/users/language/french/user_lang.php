@@ -8,6 +8,7 @@ $lang['user_login_header'] 		= 'Login';
 
 // titles
 $lang['user_add_title'] = 'Créer un utilisateur';
+$lang['user_list_title'] 				= 'List users'; #translate
 $lang['user_inactive_title'] = 'Utilisateurs Inactifs';
 $lang['user_active_title'] = 'Utilisateurs Actifs';
 $lang['user_registred_title'] = 'Utilisateurs Enregistrés';
