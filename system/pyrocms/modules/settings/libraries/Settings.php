@@ -255,9 +255,29 @@ class Settings
 				break;
 
 			case 'checkbox':
+
+				$form_control = '';
+				foreach($this->_format_options($setting->options) as $value => $label) {
+					
+					if (is_array($setting->value)):
+						$checked = in_array($value, $setting->value);
+					else:
+						$checked = FALSE;
+					endif;
+				
+					$form_control .= $label . ' ';
+					$form_control .= ''.form_checkbox(array(
+							'id'		=>	$setting->slug,
+							'name'		=>	$setting->slug,
+							'checked'	=>	$checked,
+							'value'		=>	$value
+							));
+				}
+				break;
+				
 			case 'radio':
 
-				$func = $setting->type == 'checkbox' ? 'form_checkbox' : 'form_radio';
+				//$func = $setting->type == 'checkbox' ? 'form_checkbox' : 'form_radio';
 
 				$form_control = '';
 

@@ -709,6 +709,9 @@ html[xmlns] .clearfix {
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
 
 /* Dashboard */
+ul.quick-links {
+	margin-bottom: 0px;
+}
 ul.quick-links li {
 	list-style: none;
 	width: 100%;
@@ -747,9 +750,12 @@ div#analytics table {
 }
 
 /* News Feed */
+ul#news-feed {
+	margin-bottom: 0px;
+}
 #news-feed li {
 	border-top: 1px solid #e6e6e6;
-	padding: 15px 15px 10px 90px;
+	padding: 10px 15px 10px 90px;
 	list-style: none;
 	margin-left: 0;
 	position: relative;
@@ -791,6 +797,7 @@ div#analytics table {
 #news-feed p {
 	margin-top: 0;
 	margin-left: 0;
+	margin-bottom: 0;
 }
 /* Pagination Styles */
 .pagination span {
