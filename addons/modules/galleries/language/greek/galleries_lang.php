@@ -14,7 +14,7 @@ $lang['galleries.folder_error']		    	= 'Οι φάκελη της γκαλερί
 $lang['galleries.delete_error']			    = 'Η γκαλερί "%s" δεν ήταν δυνατό να διαγραφεί.';
 $lang['galleries.no_galleries_error'] 	    = 'Δεν έχουν δημιουργηθεί ακόμη γκαλερί.';
 $lang['galleries.install_error']		    = 'Το πρόσθετο δεν ήταν δυνατό να εγκατασταθεί.';
-$lang['galleries.already_exist_error']	    = 'Υπάρχει ήδη μια γκαλερί με σύντομο όνοα "%s".';
+$lang['galleries.already_exist_error']	    = 'Υπάρχει ήδη μια γκαλερί με σύντομο όνομα "%s".';
 $lang['galleries.folder_duplicated_error']	= 'Συνέβη κάποιο σφάλμα! Ο φάκελος ήδη ανήκει σε κάποια γκαλερί.';
 $lang['galleries.no_gallery_description']	= 'Δεν έχει οριστεί ακόμη περιγραφή.';
 
