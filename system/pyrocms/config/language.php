@@ -16,19 +16,20 @@
 |
 */
 $config['supported_languages'] = array(
-	'sl' => array('name' => 'Slovensko', 'folder' => 'slovenian', 'direction' => 'ltr', 'codes' => array('slovenian', 'sl_SI')), 
 	'en'=> array('name' => 'English', 'folder' => 'english', 'direction' => 'ltr', 'codes' => array('english', 'en_US')),
+	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr', 'codes' => array('deu', 'german', 'de_DE')),
+	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl', 'codes' => array('arabic', 'ar_SA')),
+	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array('csy', 'czech', 'cs_CZ')),
+    'el'=> array('name' => 'Ελληνικά', 'folder' => 'greek', 'direction' => 'ltr', 'codes' => array('ell', 'greek', 'el_GR')),
 	'es'=> array('name' => 'Espa&ntilde;ol', 'folder' => 'spanish', 'direction' => 'ltr', 'codes' => array('esp', 'spanish', 'es_ES')),
 	'fr'=> array('name' => 'Français', 'folder' => 'french', 'direction' => 'ltr', 'codes' => array('fra', 'french', 'fr_FR')),
-	'de'=> array('name' => 'Deutsch', 'folder' => 'german', 'direction' => 'ltr', 'codes' => array('deu', 'german', 'de_DE')),
 	'it'=> array('name' => 'Italiano', 'folder' => 'italian', 'direction' => 'ltr', 'codes' => array('ita', 'italian', 'it_IT')),
 	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr', 'codes' => array('dutch', 'nld', 'nl-NL')),
+	'sl' => array('name' => 'Slovensko', 'folder' => 'slovenian', 'direction' => 'ltr', 'codes' => array('slovenian', 'sl_SI')), 
 	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr', 'codes' => array('plk', 'polish', 'pl_PL')),
 	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('portuguese-brazil', 'ptb', 'pt_BR')),
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array('rus', 'russian', 'ru_RU')),
-	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl', 'codes' => array('arabic', 'ar_SA')),
 	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array('chinese-traditional', 'cht', 'zh_HK')),
-	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array('csy', 'czech', 'cs_CZ'))
 );
 
 /*
