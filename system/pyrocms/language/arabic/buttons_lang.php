@@ -25,10 +25,10 @@ $lang['buttons.install']	= 'تثبيت';
 $lang['buttons.yes']		= 'نعم';
 $lang['buttons.no']			= 'لا';
 $lang['buttons.activate']	= 'تنشيط';
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.preview']	= 'معاينة';
+$lang['buttons.close']		= 'إغلاق';
+$lang['buttons.edit']		= 'تحرير';
+$lang['buttons.clone']		= 'استنساخ';
+$lang['buttons.copy']		= 'نسخ';
 
 /* End of file buttons_lang.php */

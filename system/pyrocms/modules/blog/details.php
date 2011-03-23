@@ -24,7 +24,7 @@ class Module_Blog extends Module {
 				'zh' => '發表新聞訊息、部落格文章。', #update translation
 				'it' => 'Pubblica notizie e post per il blog.', #update translation
 				'ru' => 'Управление новостными статьями и записями блога.', #update translation
-				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.', #update translation
+				'ar' => 'أنشر المقالات على مدوّنتك.',
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'sl' => 'Objavite blog prispevke',
 				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
