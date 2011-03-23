@@ -34,7 +34,7 @@ class WYSIWYG_Controller extends MY_Controller
 			->enable_parser(FALSE)
 			->append_metadata(js('jquery/jquery.js'))
 	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
-	    	->append_metadata(js('jquery/jquery.livequery.js'))
+	    	->append_metadata(js('jquery/jquery.livequery.min.js'))
 	    	->append_metadata(js('jquery/jquery.fancybox.js'))
 	    	->append_metadata(css('jquery/jquery.fancybox.css'))
 			->set('editor_path', $editor_path = APPPATH_URI . 'assets/js/editor/')
