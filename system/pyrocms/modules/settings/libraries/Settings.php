@@ -114,7 +114,14 @@ class Settings
 	 */
 	public static function set($name, $value)
 	{
-		$setting = ci()->settings_m->update($name, array('value' => $value));
+		if (is_string($name) && is_scalar($value))
+		{
+			$setting = ci()->settings_m->update($name, array('value' => $value));
+		}
+		elseif ( ! is_string($name))
+		{
+			return FALSE;
+		}
 
 		self::$cache[$name] = $value;
 
