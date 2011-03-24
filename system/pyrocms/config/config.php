@@ -174,7 +174,7 @@ $config['function_trigger'] = 'm';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 2;
 
 /*
 |--------------------------------------------------------------------------
@@ -207,7 +207,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = APPPATH . 'cache/codeigniter/';
+$config['cache_path'] = '';
 
 /*
 |--------------------------------------------------------------------------
