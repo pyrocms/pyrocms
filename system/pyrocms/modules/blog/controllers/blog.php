@@ -94,7 +94,12 @@ class Blog extends Public_Controller
 		}
 		
 		// IF this post uses a category, grab it
-		$post->category_id && $category = $this->blog_categories_m->get($post->category_id) && $post->category = $category;
+		if( $post->category_id ){
+			$category = $this->blog_categories_m->get($post->category_id);
+			if($category) {
+				$post->category = $category;
+			}
+		}
 		
 		// Set some defaults
 		if ( ! isset($post->category->id))
