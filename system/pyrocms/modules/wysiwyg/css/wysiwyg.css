@@ -23,7 +23,7 @@ input#insert_width {
 }
 #slider {
     margin: 0 0 10px 0;
-    clear: left;
+    clear: both;
 	display: none;
 }
 #files_browser {

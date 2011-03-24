@@ -106,7 +106,7 @@
                 
                 <?php foreach($active_folder->items as $file): ?>
                 <tr class="<?php echo alternator('', 'alt'); ?>">
-                    <td class="image"><img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/<?php echo $file->filename; ?>" alt="<?php echo $file->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" /></td>
+                    <td class="image"><img class="pyro-image" src="<?php echo base_url(); ?>files/thumb/<?php echo $file->id; ?>/50/50" alt="<?php echo $file->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" /></td>
                     <td class="name-description">
                         <p><?php echo $file->name; ?><p>
                         <p><?php echo $file->description; ?></p>
