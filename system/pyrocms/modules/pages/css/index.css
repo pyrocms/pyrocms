@@ -1,4 +1,4 @@
-#page-tree { 
+#page-list { 
 	background-color:#efeff6;
 	border:1px #BBB solid;
 	float:left;
@@ -7,10 +7,12 @@
 	width: 48%;
 }
 
-#page-tree ul { background:none; margin-left:0.7em !important; }
-#page-tree a { text-decoration: none; color:black; padding:0.2em }
-#page-tree a.selected { border:1px dotted black; }
-#page-tree a:hover { background-color: black; border:1px dotted white; color: #fff; }
+#page-list ol { background:none; margin-left:2em !important; }
+#page-list a { text-decoration: none; color:black; padding:0.2em }
+#page-list a:hover { text-decoration: underline; }
+
+.plus { list-style-image: url('../img/plus.gif'); }
+.minus { list-style-image: url('../img/minus.gif'); }
 
 #page-details {
 	background-color: #fff;
@@ -41,4 +43,51 @@
 #page-details fieldset legend {
 	margin-left: 10px;
 	font-weight: bold;
+}
+
+/* Sortable CSS */
+
+.placeholder {
+	background-color: #cfcfcf;
+}
+
+.ui-nestedSortable-error {
+	background:#fbe3e4;
+	color:#8a1f11;
+}
+
+ol {
+	margin: 0;
+	padding: 0;
+	padding-left: 30px;
+}
+
+ol.sortable, ol.sortable ol {
+	margin: 0 0 0 25px;
+	padding: 0;
+	list-style-type: none;
+}
+
+ol.sortable {
+	margin: 2em;
+}
+
+.sortable li {
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.sortable li div  {
+	padding: 3px 1px 3px 5px;
+	margin: 0;
+	cursor: move;
+}
+
+.sortable li div:hover {
+	background-color: #e7e7ed;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
 }
