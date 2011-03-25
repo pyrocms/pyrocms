@@ -33,7 +33,7 @@
 	</p>
 </fieldset>	
 
-<div id="page-buttons">
+<div class="buttons">
 	<?php echo anchor('admin/pages/create/' . $page->id, lang('pages.create_label'), 'class="button"'); ?>
 	<?php echo anchor('admin/pages/edit/' . $page->id, lang('pages.edit_label'), 'class="button"'); ?>
 	<?php echo anchor('admin/pages/delete/' . $page->id, lang('pages.delete_label'), 'class="confirm button"'); ?>
