@@ -2,10 +2,28 @@
 
 <div class="box-container">
 
-	<div id="page-tree">
-		<ul class="filetree">
-			<?php echo $page_tree_html; ?>  
-		</ul>
+	<div id="page-list">
+		<ol class="sortable">
+
+			<?php foreach($pages as $page): ?>
+	
+					<li id="page_<?php echo $page['id']; ?>">
+						<div>
+							<a href="#" rel="<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a>
+						</div>
+				
+				<?php if(isset($page['children'])): ?>
+						<ol>
+							<?php $controller->tree_builder($page); ?>
+						</ol>
+					</li>
+				<?php else: ?>
+					</li>
+				<?php endif; ?>
+				
+			<?php endforeach; ?>
+
+		</ol>
 	</div>
 	
 	<div id="page-details">

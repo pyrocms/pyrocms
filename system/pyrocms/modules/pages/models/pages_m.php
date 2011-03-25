@@ -10,6 +10,7 @@
  */
 class Pages_m extends MY_Model
 {
+		
 	/**
 	 * Get a page by it's URI
 	 *
@@ -50,7 +51,74 @@ class Pages_m extends MY_Model
     }
 
 	/**
-	 * Does the page has any children, wait, can pages actually get pregnant and have kids?
+	 * Build a multi-array of parent > children.
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @return array An array representing the page tree
+	 */
+	public function get_page_tree()
+	{
+
+		$all_pages = $this->db->select('id, parent_id, title')
+									 ->order_by('`order`')
+									 ->get('pages')
+									 ->result_array();
+
+		// we must reindex the array first
+		foreach($all_pages as $row)
+		{
+			$pages[$row['id']] = $row;
+		}
+		
+		unset($all_pages);
+
+		// build a multidimensional array of parent > children
+		foreach($pages as $row)
+		{
+			if(array_key_exists($row['parent_id'], $pages))
+			{
+				// add this page to the children array of the parent page
+				$pages[$row['parent_id']]['children'][] =& $pages[$row['id']];
+			}
+			
+			// this is a root page
+			if($row['parent_id'] == 0)
+			{
+				$page_array[] =& $pages[$row['id']];
+			}
+		}
+
+		return $page_array;
+	}
+	
+	/**
+	 * Set the parent > child relations and child order
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @param array $page
+	 * @return void
+	 */
+	public function _set_children($page)
+	{
+		if(isset($page['children']))
+		{
+			foreach($page['children'] as $i => $child)
+			{
+				$this->db->where('id', str_replace('page_', '', $child['id']));
+				$this->db->update('pages', array('parent_id' => str_replace('page_', '', $page['id']), '`order`' => $i));
+				
+				//repeat as long as there are children
+				if(isset($child['children']))
+				{
+					$this->_set_children($child);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Does the page have children?
 	 *
 	 * @access public
 	 * @param int $parent_id The ID of the parent page
@@ -157,7 +225,7 @@ class Pages_m extends MY_Model
 				->where('is_home', 1)
 				->update('pages', array('is_home' => 0));
 		}
-		
+
         parent::insert(array(
 	        'slug'				=> $input['slug'],
 	        'title'				=> $input['title'],
@@ -173,7 +241,8 @@ class Pages_m extends MY_Model
 	        'comments_enabled'	=> (int) ! empty($input['comments_enabled']),
 	        'is_home'			=> (int) ! empty($input['is_home']),
 	        'status'			=> $input['status'],
-	        'created_on'		=> now()
+			'created_on'		=> now(),
+			'`order`'			=> now()
         ));
 
         $id = $this->db->insert_id();
