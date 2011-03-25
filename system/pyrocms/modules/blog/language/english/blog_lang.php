@@ -61,4 +61,7 @@ $lang['blog_already_exist_error']            = 'An post with this URL already ex
 $lang['blog_twitter_posted']                 = 'Posted "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter Error';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y";
+
 ?>

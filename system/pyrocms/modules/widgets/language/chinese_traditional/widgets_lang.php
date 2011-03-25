@@ -31,3 +31,5 @@ $lang['widgets.tag_title']					= '標籤';
 
 $lang['widgets.instance_edit'] 				= '編輯';
 $lang['widgets.instance_delete'] 			= '刪除';
+
+$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate

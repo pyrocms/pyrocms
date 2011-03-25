@@ -31,6 +31,7 @@ $lang['comments.send_label'] 				= 'Reageer';
 $lang['comments.inactive_title'] 			= 'Te beoordelen reacties';
 $lang['comments.active_title'] 				= 'Goedgekeurde reacties';
 $lang['comments.edit_title'] 				= 'Wijzig reactie';
+$lang['comments.list_title'] 				= 'List comments'; #translate
 
 // messages
 $lang['comments.add_success'] 				= 'De reactie is opgeslagen.';

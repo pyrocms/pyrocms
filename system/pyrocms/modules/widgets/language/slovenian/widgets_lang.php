@@ -31,3 +31,5 @@ $lang['widgets.tag_title']              = 'Značka';
 
 $lang['widgets.instance_edit']          = 'Uredi';
 $lang['widgets.instance_delete']        = 'Izbriši';
+
+$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate

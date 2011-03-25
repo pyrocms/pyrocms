@@ -21,7 +21,8 @@ class Module_Pages extends Module {
 				'ru' => 'Страницы',
 				'ar' => 'الصفحات',
 				'cs' => 'Stránky',
-				'fi' => 'Sivut'
+				'fi' => 'Sivut',
+				'el' => 'Σελίδες'
 			),
 			'description' => array(
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
@@ -37,7 +38,8 @@ class Module_Pages extends Module {
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
 				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.',
 				'cs' => 'Přidávejte vlastní stránky na web s jakýmkoliv obsahem budete chtít.',
-				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.'
+				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
+				'el' => 'Προσθέστε δικές σας σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,

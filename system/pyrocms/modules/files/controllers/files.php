@@ -33,7 +33,7 @@ class Files extends Public_Controller
 		}
 		
 		// Path to image thumbnail
-		$image_thumb = APPPATH . 'cache/image_files/' . $height . '_' . $width . '_' . md5($file->filename) . '.' . $file->extension;
+		$image_thumb = APPPATH . 'cache/image_files/' . $height . '_' . $width . '_' . md5($file->filename) . $file->extension;
 
 		if( ! file_exists($image_thumb))
 		{
@@ -56,4 +56,8 @@ class Files extends Public_Controller
 		readfile($image_thumb);
 	}
 
+	public function large($id)
+	{
+		return $this->thumb($id, NULL, NULL);
+	}
 }

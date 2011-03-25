@@ -18,13 +18,15 @@ $lang['themes.mass_delete_success']     = '%s teemaa %s teemasta poistettiin onn
 $lang['themes.mass_delete_error']       = 'Vain %s teemaa %s teemasta poistettiin.';
 $lang['themes.delete_select_error']     = 'Valitse teemat, jotka haluat poistaa.';
 $lang['themes.upload_title']            = 'Lataa teema';
-$lang['themes.list_label']              = 'Teemat';
+$lang['themes.list_title']              = 'Teemat';
 $lang['themes.upload_desc']             = 'Valitse tiedosto ja paina "Lataa" nappia';
 
 $lang['themes.theme_label']             = 'Teema';
 $lang['themes.actions_label']           = 'Toiminnot';
 $lang['themes.make_default']            = 'Aseta oletusteemaksi';
-$lang['themes.delete']                  = 'Poista';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label']     = 'Oletusteema';
 $lang['themes.no_themes_installed']     = 'Teemoja ei ole asennettu.';
 

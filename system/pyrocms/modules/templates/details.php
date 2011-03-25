@@ -20,13 +20,15 @@ class Module_Templates extends Module {
 				'sl' => 'Email predloge',
 				'en' => 'Email Templates',
 				'ar' => 'قوالب الرسائل الإلكترونية',
-				'pt' => 'Modelos de e-mail'
+				'pt' => 'Modelos de e-mail',
+				'el' => 'Δυναμικά email',
 			),
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'en' => 'Create, edit, and save dynamic email templates',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
-				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos'
+				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
+				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -54,7 +56,7 @@ class Module_Templates extends Module {
 		
 		$create = $this->db->query($email_templates);
 		
-		$comment_body = '<h3>You have recieved a comment from {pyro:name}</h3>';
+		$comment_body = '<h3>You have received a comment from {pyro:name}</h3>';
 		$comment_body .= '<strong>IP Address: {pyro:sender_ip}</strong>\n';
 		$comment_body .= '<strong>Operating System: {pyro:sender_os}\n';
 		$comment_body .= '<strong>User Agent: {pyro:sender_agent}</strong>\n';
@@ -91,7 +93,7 @@ class Module_Templates extends Module {
 
 	public function uninstall()
 	{
-		//Core module,  no uninstalling for you
+		//it's a core module, lets keep it around
 		return FALSE;
 	}
 

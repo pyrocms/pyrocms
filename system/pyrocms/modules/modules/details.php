@@ -21,7 +21,8 @@ class Module_Modules extends Module {
 				'ru' => 'Модули',
 				'ar' => 'الوحدات',
 				'cs' => 'Moduly',
-				'fi' => 'Moduulit'
+				'fi' => 'Moduulit',
+				'el' => 'Πρόσθετα'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem pregled trenutno nameščenih modulov.',
@@ -37,7 +38,8 @@ class Module_Modules extends Module {
 				'ru' => 'Список модулей, которые установлены на сайте.',
 				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.',
 				'cs' => 'Umožňuje administrátorům vidět seznam nainstalovaných modulů.',
-				'fi' => 'Listaa järjestelmänvalvojalle käytössä olevat moduulit.'
+				'fi' => 'Listaa järjestelmänvalvojalle käytössä olevat moduulit.',
+				'el' => 'Επιτρέπει στους διαχειριστές να προβάλουν μια λίστα των εγκατεστημένων πρόσθετων.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -52,7 +54,7 @@ class Module_Modules extends Module {
 
 	public function uninstall()
 	{
-		// you really don't want to uninstall this module
+		//it's a core module, lets keep it around
 		return FALSE;
 	}
 

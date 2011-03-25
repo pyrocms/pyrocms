@@ -21,6 +21,10 @@ class Admin extends Admin_Controller
 		parent::Admin_Controller();
 		$this->load->model('themes_m');
 		$this->lang->load('themes');
+
+		$this->template
+			->set_partial('shortcuts', 'admin/partials/shortcuts')
+			->append_metadata(css('themes.css', 'themes'));
 	}
 
 	/**
@@ -36,8 +40,6 @@ class Admin extends Admin_Controller
 		// Render the view
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata( css('themes.css', 'themes'))
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->build('admin/index', $data);
 	}
 
@@ -129,13 +131,13 @@ class Admin extends Admin_Controller
 	 * @param string $theme_name The name of the theme to delete
 	 * @return void
 	 */
-	public function delete($theme_name = "")
+	public function delete($theme_name = '')
 	{
 		$this->load->helper('file');
-		$name_array = $theme_name != "" ? array($theme_name) : $this->input->post('action_to');
+		$name_array = $theme_name ? array($theme_name) : $this->input->post('action_to');
 
 		// Delete multiple
-		if(!empty($name_array))
+		if ( ! empty($name_array))
 		{
 			$deleted = 0;
 			$to_delete = 0;

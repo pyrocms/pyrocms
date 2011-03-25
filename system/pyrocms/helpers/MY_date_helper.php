@@ -11,21 +11,19 @@
 
 // ------------------------------------------------------------------------
 
-function format_date($unix, $show_time = FALSE)
+function format_date($unix, $format = '')
 {
 	if ($unix == '' || ! is_numeric($unix))
 	{
 		$unix = strtotime($unix);
 	}
 
-	$format = get_instance()->settings->date_format;
-
-	if ($show_time)
+	if ( ! $format)
 	{
-		$format .= strstr($format, '%') !== FALSE ? ' %H:%I' : ' h:i';
+		$format = Settings::get('date_format');
 	}
 
 	return strstr($format, '%') !== FALSE
-		? strftime($format, $unix) //or? mb_convert_case(strftime($format, $unix), MB_CASE_TITLE, 'UTF-8')
+		? ucfirst(utf8_encode(strftime($format, $unix))) //or? strftime($format, $unix)
 		: date($format, $unix);
 }

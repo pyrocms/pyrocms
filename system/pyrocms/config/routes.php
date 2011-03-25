@@ -49,9 +49,8 @@ $route['edit-profile']	= 'users/profile/edit';
 $route['edit-settings']	= 'users/user_settings/edit';
 
 // Just for now, map calls to /news to /blog
-$route['news']	= 'blog';
-$route['(blog|news)/(:num)/(:num)/(:any)']		= 'blog/view/$4';
-$route['(blog|news)/page(/:num)?']				= 'blog/index$2';
-
-$route['(blog|news)/rss/all.rss']				= 'blog/rss/index';
-$route['(blog|news)/rss/(:any).rss']			= 'blog/rss/category/$2';
+$route['news']							= 'blog';
+$route['news/(:num)/(:num)/(:any)']		= 'blog/view/$3';
+$route['news/page(/:num)?']				= 'blog/index$1';
+$route['news/rss/all.rss']				= 'blog/rss/index';
+$route['news/rss/(:any).rss']			= 'blog/rss/category/$1';

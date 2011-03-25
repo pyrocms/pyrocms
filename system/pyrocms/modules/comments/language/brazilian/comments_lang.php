@@ -25,12 +25,13 @@ $lang['comments.edit_label'] 				= 'Editar';
 $lang['comments.delete_label'] 				= 'Remover';
 $lang['comments.posted_label'] 				= 'Escrever';
 $lang['comments.from_label'] 				= 'De';
-$lang['comments.preview_label'] 			= 'Pré-visualizar';
+$lang['comments.preview_label'] 			= 'Visualizar';
 $lang['comments.send_label'] 				= 'Comentar';
 
 $lang['comments.inactive_title'] 			= 'Comentários aguardando aprovação';
 $lang['comments.active_title'] 				= 'Comentários aprovados';
-$lang['comments.edit_title'] 				= 'Editar comentários';
+$lang['comments.edit_title'] 				= 'Editando o comentário #%s';
+$lang['comments.list_title'] 				= 'Listar comentários';
 
 // messages
 $lang['comments.add_success'] 				= 'O comentário foi salvo.';

@@ -11,13 +11,15 @@ $lang['themes.mass_delete_success']     = '%s predlog od %s uspešno izbrisanih.
 $lang['themes.mass_delete_error']       = 'Samo %s  predlog od %s predlog so bile izbrisane.';
 $lang['themes.delete_select_error']     = 'Nejprej morate izbrati predloge za izbris.';
 $lang['themes.upload_title']            = 'Naloži predlogo';
-$lang['themes.list_label']              = 'Seznam predlog';
+$lang['themes.list_title']              = 'Seznam predlog';
 $lang['themes.upload_desc']             = 'Prosimo izberite datoteko in kliknite naloži gumb';
 
 $lang['themes.theme_label']             = 'Predloga';
 $lang['themes.actions_label']           = 'Akcija';
 $lang['themes.make_default']            = 'Naredi za prednastavljeno';
-$lang['themes.delete']                  = 'Izbriši';
+$lang['themes.description_label']		= 'Description'; #translate
+$lang['themes.author_label']			= 'Author'; #translate
+$lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label']     = 'Prednastavljena predloga';
 $lang['themes.no_themes_installed']     = 'Ni nameščenih predlog.';
 

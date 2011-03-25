@@ -7,12 +7,12 @@
 		
 		<div class="widget-type"><?php echo $widget->title;?></div>
 		
-		<div class="widget-actions">
-			<a href="#" class="edit-instance"><?php echo lang('widgets.instance_edit'); ?></a> | 
-			<a href="#" class="delete-instance"><?php echo lang('widgets.instance_delete'); ?></a>
-		</div>
+		<pre class="widget-code no-sortable"><code><?php echo sprintf('{%s:widgets:instance id="%s"}', config_item('tags_trigger'), $widget->id);?></code></pre>
 		
-		<div class="widget-code"><?php echo sprintf('{%s:widgets:instance id="%s"}', config_item('tags_trigger'), $widget->id);?></div>
+		<div class="widget-actions buttons buttons-small">
+			<a href="#" class="edit-instance button edit"><?php echo lang('widgets.instance_edit'); ?></a>
+			<a href="#" class="delete-instance confirm button delete"><?php echo lang('widgets.instance_delete'); ?></a>
+		</div>
 		
 		<div style="clear:both"></div>
 	</li>

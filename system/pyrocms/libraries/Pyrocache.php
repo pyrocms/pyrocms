@@ -12,7 +12,7 @@
  * @version		2.1
  */
 
-class PyroCache
+class Pyrocache
 {
 	private $_ci;
 	private $_path;
@@ -427,5 +427,5 @@ class PyroCache
 	}
 }
 
-/* End of file Cache.php */
-/* Location: ./application/libraries/Cache.php */
+/* End of file Pyrocache.php */
+/* Location: ./system/pyrocms/libraries/Pyrocache.php */

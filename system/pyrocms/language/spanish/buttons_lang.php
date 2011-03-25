@@ -23,7 +23,12 @@ $lang['buttons.approve']	= 'Aprobar';
 $lang['buttons.unapprove']	= 'Desaprobar';
 $lang['buttons.install']	= 'Instalar';
 $lang['buttons.yes']		= 'Si';
-$lang['buttons.no']		= 'No';
-$lang['buttons.activate']       = 'Activar';
+$lang['buttons.no']			= 'No';
+$lang['buttons.activate']	= 'Activar';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
+$lang['buttons.edit']		= 'Edit'; #translate
+$lang['buttons.clone']		= 'Clone'; #translate
+$lang['buttons.copy']		= 'Copy'; #translate
 
 /* End of file buttons_lang.php */

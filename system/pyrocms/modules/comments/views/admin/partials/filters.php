@@ -5,7 +5,7 @@
 	<?php if (Settings::get('moderate_comments')): ?>
 	<li>
 		<?php echo lang('comments.status_label', 'f_active'); ?>
-		<?php echo form_dropdown('f_active', array(0 =>lang('comments.inactive_title'), 1 => lang('comments.active_title'))); ?>
+		<?php echo form_dropdown('f_active', array(0 =>lang('comments.inactive_title'), 1 => lang('comments.active_title')), (int) $comments_active); ?>
     </li>
 	<?php endif; ?>
 	<li>

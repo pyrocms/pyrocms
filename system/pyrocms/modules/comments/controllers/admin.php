@@ -68,7 +68,8 @@ class Admin extends Admin_Controller
 		$base_where = array('is_active' => (int) ! Settings::get('moderate_comments'));
 
 		//capture active
-		$base_where['is_active'] = $this->input->post('f_module') ? (int) $this->input->post('f_active') : $base_where['is_active'] ;
+		$base_where['is_active'] = is_int($this->session->flashdata('is_active')) ? $this->session->flashdata('is_active') : $base_where['is_active'];
+		$base_where['is_active'] = $this->input->post('f_active') ? (int) $this->input->post('f_active') : $base_where['is_active'];
 
 		//capture module slug
 		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where ;
@@ -82,9 +83,9 @@ class Admin extends Admin_Controller
 			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
 
-		$content_title = $base_where['is_active'] === 0 ? lang('comments.inactive_title') : lang('comments.active_title') ;
+		$content_title = $base_where['is_active'] ? lang('comments.active_title') : lang('comments.inactive_title');
 
-		$this->is_ajax() ? $this->template->set_layout(FALSE) : '' ;
+		$this->is_ajax() && $this->template->set_layout(FALSE);
 
 		$module_list = $this->comments_m->get_slugs();
 
@@ -92,10 +93,11 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'])
 			->set_partial('filters', 'admin/partials/filters')
 			->append_metadata( js('admin/filter.js') )
-			->set('module_list', $module_list)
-			->set('content_title', $content_title)
-			->set('comments', process_comment_items($comments))
-			->set('pagination', $pagination)
+			->set('module_list',		$module_list)
+			->set('content_title',		$content_title)
+			->set('comments',			process_comment_items($comments))
+			->set('comments_active',	$base_where['is_active'])
+			->set('pagination',			$pagination)
 			->build('admin/index');
 	}
 
@@ -172,7 +174,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('comments.edit_title'))
+			->title($this->module_details['name'], sprintf(lang('comments.edit_title'), $comment->id))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE))
 			->set('comment', $comment)
 			->build('admin/form', $this->data);
@@ -227,9 +229,9 @@ class Admin extends Admin_Controller
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
 	 */
-	public function approve($id, $redirect = TRUE)
+	public function approve($id = 0, $redirect = TRUE)
 	{
-		$this->_do_action($id, 'approve');
+		$id && $this->_do_action($id, 'approve');
 
 		$redirect AND redirect('admin/comments');
 	}
@@ -241,11 +243,16 @@ class Admin extends Admin_Controller
 	 * @param  bool $redirect	optional if a redirect should be done
 	 * @return void
 	 */
-	public function unapprove($id, $redirect = TRUE)
+	public function unapprove($id = 0, $redirect = TRUE)
 	{
-		$this->_do_action($id, 'unapprove');
+		$id && $this->_do_action($id, 'unapprove');
 
-		$redirect AND redirect('admin/comments');
+		if ($redirect)
+		{
+			$this->session->set_flashdata('is_active', 1);
+
+			redirect('admin/comments');
+		}
 	}
 
 	/**

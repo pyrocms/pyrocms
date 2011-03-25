@@ -15,6 +15,7 @@ $lang['alpha_dash']			= "يجب أن يحتوي %s على أرقام وأحرف 
 $lang['numeric']			= "يجب أن يحتوي %s على أعداد فقط.";
 $lang['is_numeric']			= "يجب أن يحتوي %s أعداد فقط.";
 $lang['integer']			= "يجب أن يحتوي %s على عدد.";
+$lang['regex_match']		= "The %s field is not in the correct format."; #translate
 $lang['matches']			= "قيمة %s لا تطابق قيمة %s.";
 $lang['is_natural']			= "يجب أن يحتوي %s أرقام موجبة فقط.";
 $lang['is_natural_no_zero']	= "يجب أن يحتوي %s رقماً أكبر من الصفر.";

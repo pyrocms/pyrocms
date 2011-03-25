@@ -45,5 +45,16 @@ class Email_templates_m extends MY_Model {
                     ->where('is_default <', 1)
                     ->delete($this->_table);
     }
+   
+    /**
+     * Is Default
+     */
+    public function is_default($id = 0)
+    {
+		return parent::count_by(array(
+			'id'			=> $id,
+			'is_default >'	=> 0,
+		)) > 0;
+    }
 }
 /* End of file models/email_templates_m.php */

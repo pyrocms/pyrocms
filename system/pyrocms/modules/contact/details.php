@@ -21,7 +21,8 @@ class Module_Contact extends Module {
 				'ar' => 'الإتصال',
 				'pt' => 'Contato',
 				'cs' => 'Kontakt',
-				'fi' => 'Ota yhteyttä'
+				'fi' => 'Ota yhteyttä',
+				'el' => 'Επικοινωνία'
 			),
 			'description' => array(
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
@@ -37,7 +38,8 @@ class Module_Contact extends Module {
 				'ar' => 'إضافة استمارة إلى موقعك تُمكّن الزوّار من مراسلتك دون علمهم بعنوان البريد الإلكتروني.',
 				'pt' => 'Adiciona um formulário para o seu site permitir aos visitantes que enviem e-mails para voce sem divulgar um endereço de e-mail para eles.',
 				'cs' => 'Přidá na web kontaktní formulář pro návštěvníky a uživatele, díky kterému vás mohou kontaktovat i bez znalosti vaší e-mailové adresy.',
-				'fi' => 'Luo lomakkeen sivustollesi, josta kävijät voivat lähettää sähköpostia tietämättä vastaanottajan sähköpostiosoitetta.'
+				'fi' => 'Luo lomakkeen sivustollesi, josta kävijät voivat lähettää sähköpostia tietämättä vastaanottajan sähköpostiosoitetta.',
+				'el' => 'Προσθέτει μια φόρμα στον ιστότοπό σας που επιτρέπει σε επισκέπτες να σας στέλνουν μηνύμα μέσω email χωρίς να τους αποκαλύπτεται η διεύθυνση του email σας.'
 			),
 			'frontend' => TRUE,
 			'backend' => FALSE,
@@ -53,8 +55,8 @@ class Module_Contact extends Module {
 
 	public function uninstall()
 	{
-		// Your Uninstall Logic
-		return TRUE;
+		//it's a core module, lets keep it around
+		return FALSE;
 	}
 
 	public function upgrade($old_version)

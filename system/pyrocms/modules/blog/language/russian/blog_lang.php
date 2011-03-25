@@ -69,5 +69,8 @@ $lang['blog_already_exist_error']						= 'Статья с данным адре�
 $lang['blog_twitter_posted']								= 'Добавлен "%s" %s';
 $lang['blog_twitter_error']									= 'Ошибка Twitter\'а';
 
+// date
+$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+
 /* End of file blog_lang.php */
 /* Location: ./system/pyrocms/modules/blog/language/russian/blog_lang.php */

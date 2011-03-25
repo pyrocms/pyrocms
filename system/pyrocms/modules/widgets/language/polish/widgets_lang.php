@@ -31,4 +31,4 @@ $lang['widgets.tag_title']					= 'Tag';
 $lang['widgets.instance_edit'] 				= 'Edytuj';
 $lang['widgets.instance_delete'] 			= 'Usuń';
 
-?>
+$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate

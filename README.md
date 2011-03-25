@@ -60,3 +60,4 @@ Think you should be on this list? Add your name to it with your next bug pull re
 * [DarkPreacher](http://darklab.ru) Russian
 * [Marcos Coelho](http://marcoscoelho.com/) Portuguese Brazilian
 * [imamo](http://www.imamo.si/) Slovenian
+* [Petsagourakis George](https://github.com/petsagouris) Greek

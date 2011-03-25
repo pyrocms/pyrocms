@@ -38,3 +38,5 @@ $lang['widgets.tag_title']              = 'Tag';
 
 $lang['widgets.instance_edit']          = 'Muokkaa';
 $lang['widgets.instance_delete']        = 'Poista';
+
+$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate

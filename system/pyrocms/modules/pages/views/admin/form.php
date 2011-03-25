@@ -61,7 +61,7 @@
 			<?php if ($this->method == 'create'): ?>
 			<li class="even">
 				<label for="navigation_group_id"><?php echo lang('pages.navigation_label');?></label>
-				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, set_value('navigation_group_id')) ?>
+				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id) ?>
 			</li>
 			<?php endif; ?>
 
@@ -149,6 +149,7 @@
 
 			<li>
 				<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
+                <?php var_dump($page); ?>
 				<?php echo form_checkbox('is_home', 1, $page->is_home == 1); ?>
 			</li>
 		</ul>

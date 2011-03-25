@@ -4,14 +4,14 @@
 		<table border="0" class="table-list">
 			<thead>
 				<tr>
-					<th class="align-center"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
+					<th with="30" class="align-center"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 					<th><?php echo lang('user_name_label');?></th>
 					<th><?php echo lang('user_email_label');?></th>
 					<th><?php echo lang('user_group_label');?></th>
 					<th><?php echo lang('user_joined_label');?></th>
 					<th><?php echo lang('user_active'); ?></th>
 					<th><?php echo lang('user_last_visit_label');?></th>
-					<th><?php echo lang('user_actions_label');?></th>
+					<th width="200" class="align-center"><?php echo lang('user_actions_label');?></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -31,9 +31,9 @@
 						<td><?php echo $member->active ? lang('dialog.yes') : lang('dialog.no') ; ?></td>
 						<td><?php echo format_date($member->created_on); ?></td>
 						<td><?php echo ($member->last_login > 0 ? format_date($member->last_login) : lang('user_never_label')); ?></td>
-						<td>
-							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label'), array('class'=>'minibutton')); ?>  
-							<?php echo anchor('admin/users/delete/' . $member->id, lang('user_delete_label'), array('class'=>'confirm minibutton')); ?>
+						<td class="align-center buttons buttons-small">
+							<?php echo anchor('admin/users/edit/' . $member->id, lang('user_edit_label'), array('class'=>'button edit')); ?>
+							<?php echo anchor('admin/users/delete/' . $member->id, lang('user_delete_label'), array('class'=>'confirm button delete')); ?>
 						</td>
 						</tr>
 				<?php endforeach; ?>
