@@ -18,7 +18,11 @@ class MY_Loader extends MX_Loader {
 	 */
 	function _pyro_autoloader()
 	{
-		include_once(ADDONPATH.'config/autoload'.EXT);
+		// Check if autoload exists.
+		if (file_exists(ADDONPATH.'config/autoload'.EXT))
+		{
+			include_once(ADDONPATH.'config/autoload'.EXT);
+		}
 
 		if ( ! isset($autoload))
 		{
