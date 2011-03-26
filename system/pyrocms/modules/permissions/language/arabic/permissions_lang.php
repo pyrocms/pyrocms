@@ -1,10 +1,10 @@
 <?php
 
-$lang['permissions.group']				= 'المجموعة';
-$lang['permissions.roles']                  = 'Roles'; #translate
-$lang['permissions.edit']				= 'تعديل الصلاحيات';
+$lang['permissions.group']               = 'المجموعة';
+$lang['permissions.roles']               = 'الوظائف';
+$lang['permissions.edit']                = 'تعديل الصلاحيات';
 
-$lang['permissions.introduction'] 		= 'يمكنك إعطاء صلاحيات مُخصّصة لكل مستخدم
+$lang['permissions.introduction']        = 'يمكنك إعطاء صلاحيات مُخصّصة لكل مستخدم
 	بتعيين مجموعة خاصة لكل مستخدم من خلال صفحة المستخدمون > إدارة المستخدمين. ثم يمكنك إعطاء الصلاحيات لكل مجموعة
 	والتحكم بأسماء الوحدات و"الأدوار" المُعيّنة لكل مجموعة.';
 
