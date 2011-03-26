@@ -57,7 +57,7 @@ class Asset {
 			$attribute_str .= ' rel="stylesheet"';
 		}
 
-		return '<link href="' . $this->css_path($asset_name, $module_name) . '" type="text/css"' . $attribute_str . ' />' . "\n";
+		return '<link href="' . $this->css_path($asset_name, $module_name) . '" type="text/css"' . $attribute_str . ' />';
 	}
 
 	// ------------------------------------------------------------------------
@@ -168,7 +168,7 @@ class Asset {
 	 */
 	public function js($asset_name, $module_name = NULL)
 	{
-		return '<script type="text/javascript" src="' . $this->js_path($asset_name, $module_name) . '"></script>' . "\n";
+		return '<script type="text/javascript" src="' . $this->js_path($asset_name, $module_name) . '"></script>';
 	}
 
 	// ------------------------------------------------------------------------

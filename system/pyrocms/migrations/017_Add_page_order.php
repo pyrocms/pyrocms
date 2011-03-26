@@ -16,6 +16,6 @@ class Migration_Add_page_order extends Migration {
 
 	function down()
 	{
-		$this->dbforge->drop_column('pages', 'sort');
+		$this->dbforge->drop_column('pages', 'order');
 	}
 }

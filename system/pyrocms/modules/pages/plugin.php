@@ -19,8 +19,8 @@ class Plugin_Pages extends Plugin
 	 */
 	function url()
 	{
-		$id = $this->attribute('id');
-		$page = $this->pyrocache->model('pages_m', 'get', array($id));
+		$id		= $this->attribute('id');
+		$page	= $this->pyrocache->model('pages_m', 'get', array($id));
 
 		return site_url($page ? $page->uri : '');
 	}
@@ -116,6 +116,48 @@ class Plugin_Pages extends Plugin
 		$this->_build_page_tree($start_id);
 		
 		return $this->html;
+	}
+
+	public function is()
+	{
+		$children_id	= $this->attribute('children');
+		$descendent_id	= $this->attribute('descendent');
+		$parent_id		= $this->attribute('parent');
+
+		if ($children_id && $descendent_id)
+		{
+			if ( ! is_numeric($children_id))
+			{
+				$children_id = ($children = $this->pages_m->get_by(array('slug' => $children_id))) ? $children->id: 0;
+			}
+
+			if ( ! is_numeric($descendent_id))
+			{
+				$descendent_id = ($descendent = $this->pages_m->get_by(array('slug' => $descendent_id))) ? $descendent->id: 0;
+			}
+
+			if ( ! ($children_id && $descendent_id))
+			{
+				return FALSE;
+			}
+
+			$descendent_ids	= $this->pages_m->get_descendant_ids($descendent_id);
+
+			return in_array($children_id, $descendent_ids);
+		}
+
+		if ($children_id && $parent_id)
+		{
+			if ( ! is_numeric($children_id))
+			{
+				$parent_id = ($parent = $this->pages_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
+			}
+
+			return $parent_id ? (int) $this->pages_m->count_by(array(
+				(is_numeric($children) ? 'id' : 'slug') => $children,
+				'parent_id'	=> $parent_id
+			)) > 0: FALSE;
+		}
 	}
 
 	// --------------------------------------------------------------------------

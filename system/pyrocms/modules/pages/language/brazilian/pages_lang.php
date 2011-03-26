@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // tabs
-$lang['pages.content_label'] 					= 'Conteúdo de Página';
+$lang['pages.content_label'] 					= 'Conteúdo da página';
 $lang['pages.meta_label'] 						= 'Meta dados';
 $lang['pages.design_label'] 					= 'Design';
 $lang['pages.script_label'] 					= 'Script';
@@ -17,7 +17,7 @@ $lang['pages.actions_label'] 					= 'Ações';
 $lang['pages.unknown_label'] 					= 'Desconhecida';
 $lang['pages.title_label']						= 'Título';
 $lang['pages.slug_label']						= 'URI';
-$lang['pages.navigation_label']					= 'Adicionar em Navegação';
+$lang['pages.navigation_label']					= 'Adicionar na Navegação';
 $lang['pages.body_label']						= 'Corpo da página';
 $lang['pages.meta_title_label']					= 'Meta título';
 $lang['pages.meta_keywords_label'] 				= 'Meta palavras-chave';
@@ -25,18 +25,18 @@ $lang['pages.meta_desc_label'] 					= 'Meta descrição';
 $lang['pages.layout_id_label'] 					= 'Layout da página';
 $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.js_label'] 						= 'JavaScript';
-$lang['pages.access_label'] 					= 'Acesso';
-$lang['pages.rss_enabled_label'] 				= 'RSS ativo';
-$lang['pages.comments_enabled_label']			= 'Comentários ativo';
-$lang['pages.is_home_label']					= 'É a página padrão (inicial)?';
+$lang['pages.access_label'] 					= 'Restrito a';
+$lang['pages.rss_enabled_label'] 				= 'Habilitar RSS';
+$lang['pages.comments_enabled_label']			= 'Permitir comentários';
+$lang['pages.is_home_label']					= 'Página padrão (inicial)?';
 
 $lang['pages.status_label'] 					= 'Situação';
 $lang['pages.draft_label'] 						= 'Rascunho';
 $lang['pages.live_label'] 						= 'Publica';
 $lang['pages.revisions_label']					= 'Revisões';
-$lang['pages.compare_label']                                    = 'Comparar';
-$lang['pages.preview_label']                                    = 'Pré-visualizar';
-$lang['pages.current_label']                                    = 'Atual';
+$lang['pages.compare_label']					= 'Comparar';
+$lang['pages.preview_label']					= 'Visualizar';
+$lang['pages.current_label']					= 'Atual';
 
 $lang['pages.view_label'] 						= 'Ver';
 $lang['pages.create_label'] 					= 'Adicionar filho';
@@ -49,8 +49,8 @@ $lang['pages.edit_title'] 						= 'Editar página "%s"';
 $lang['pages.list_title'] 						= 'Listar páginas';
 $lang['pages.layouts_create_title'] 			= 'Adicionar página de layout';
 $lang['pages.layouts_list_title'] 				= 'Listar páginas de layout';
-$lang['pages.compare_revisions_title']                          = 'Comprar revisões';
-$lang['pages.preview_revision_title']                           = 'Pré-visualizar revisões';
+$lang['pages.compare_revisions_title']			= 'Comprar revisões';
+$lang['pages.preview_revision_title']			= 'Visualizar revisões';
 
 // messages
 $lang['pages.no_pages'] 						= 'Nenhuma página encontrada.';

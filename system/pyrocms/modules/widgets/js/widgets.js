@@ -67,10 +67,11 @@
 			});
 
 			// Auto-create a short-name
-			$('.new-area-title').keyup(function(){
-				var val = $(this).val().toLowerCase().replace(/ /g, '_');
-
-				$('.new-area-slug').val(val);
+			$('input[name="title"]').live('keyup', function(){
+				var form = $(this).parents('form');
+				$.post(BASE_URL + '/ajax/url_title', { title : $(this).val() }, function(slug){
+					$('input[name="slug"]', form).val(slug);
+				});
 			});
 
 			$('#add-area-box form').live('submit', function(e){
