@@ -31,7 +31,7 @@ $lang['comments.send_label'] 				= 'إرسال';
 $lang['comments.inactive_title'] 			= 'التعليقات التي بانتظار الإعتماد';
 $lang['comments.active_title'] 				= 'التعليقات المُعتمدة';
 $lang['comments.edit_title'] 				= 'تعديل التعليق';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'سرد التعليقات';
 
 // messages
 $lang['comments.add_success'] 				= 'تم حفظ التعليق.';

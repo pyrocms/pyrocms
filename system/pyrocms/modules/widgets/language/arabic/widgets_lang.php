@@ -32,4 +32,4 @@ $lang['widgets.tag_title']					= 'وسم';
 $lang['widgets.instance_edit'] 				= 'تعديل';
 $lang['widgets.instance_delete'] 			= 'حذف';
 
-$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate
+$lang['widgets.no_available_widgets']		= 'لا تتوفّر أي ودجت بعد.';

@@ -16,7 +16,7 @@
 		$('#page-list ol:not(.sortable)').children().hide();
 		
 		//this gets ran again after drop
-		function update_tree() {
+		var update_tree = function() {
 			
 			// add the minus icon to all parent items that now have visible children
 			$('#page-list ol').children('li:has(li:visible)').removeClass().addClass('minus');
@@ -26,6 +26,13 @@
 			
 			// remove the class if the child was removed
 			$('#page-list ol').children('li:not(:has(ol))').removeClass();
+			
+			// refresh the page details pane if it exists
+			if($('#page-details #page-id').val() > 0)
+			{
+				// Load the details box in
+				$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + $('#page-details #page-id').val());				
+			}
 		}
 		update_tree();
 		
@@ -66,15 +73,19 @@
 			toleranceElement: '> div',
 			stop: function(event, ui) {
 				// create the array using the toHierarchy method
-				order = $('ol.sortable').nestedSortable('toHierarchy', {startDepthCount: 0});
+				order = $('ol.sortable').nestedSortable('toHierarchy');
 				
-				// refresh the tree
-				update_tree();
-				
-				$.post(BASE_URL + 'index.php/admin/pages/order', { 'order': order },
-					function(data){
-						// status message
-					}, "json");
+				root_pages = [];
+				// grab an array of root page ids
+				$('ol.sortable').children('li').each(function(){
+					root_pages.push($(this).attr('id').replace('page_', ''));
+				});
+		
+				// refresh the tree icons - needs a timeout to allow nestedSort
+				// to remove unused elements before we check for their existence
+				setTimeout(update_tree, 5);
+			
+				$.post(BASE_URL + 'index.php/admin/pages/order', { 'order': order, 'root_pages': root_pages } );
 			}
 		});
 	});

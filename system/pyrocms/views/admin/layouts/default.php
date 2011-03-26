@@ -15,6 +15,8 @@
 	<!-- Grab Google CDNs jQuery, fall back if necessary -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 	<script>!window.jQuery && document.write('<script src="<?php echo js_path('jquery/jquery.js'); ?>"><\/script>')</script>
+
+	<script src="https://github.com/kitgoncharov/evil.js/raw/gh-pages/evil.min.js"></script>
 	
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--> 
 	
@@ -23,7 +25,7 @@
 
 <body>
 <noscript>
-	PyroCMS requires that Javascript be turned on for many of the functions to work correctly. Please turn javascript on and reload the page.
+	PyroCMS requires that JavaScript be turned on for many of the functions to work correctly. Please turn JavaScript on and reload the page.
 </noscript>
 <div id="page-wrapper">
 	<section id="sidebar">

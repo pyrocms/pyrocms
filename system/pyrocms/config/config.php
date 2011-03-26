@@ -24,7 +24,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -207,7 +207,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = APPPATH . 'cache/codeigniter/';
+$config['cache_path'] = '';
 
 /*
 |--------------------------------------------------------------------------

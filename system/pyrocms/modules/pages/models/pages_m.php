@@ -204,6 +204,27 @@ class Pages_m extends MY_Model
 			$this->build_lookup($descendant);
 		}
 	}
+	
+	/**
+	 * Update lookup for entire page tree
+	 * used to update page uri after ajax sort
+	 *
+	 * @access public
+	 * @param array $root_pages An array of top level pages
+	 * @return void
+	 */
+	public function update_lookup($root_pages)
+	{
+		// first reset the URI of all root pages
+		$this->db->where('parent_id', 0)
+				 ->set('uri', 'slug', FALSE)
+				 ->update('pages');
+				 
+		foreach($root_pages as $page)
+		{
+			$this->reindex_descendants($page);
+		}
+	}
 
 	/**
 	 * Create a new page

@@ -3,6 +3,7 @@
 /* Date 08/11/2010 */
 
 $lang['permissions.group']				= 'Gruppi';
+$lang['permissions.roles']                  = 'Roles'; #translate
 $lang['permissions.edit']				= 'Modifica Permessi';
 
 $lang['permissions.introduction'] 		= 'Puoi creare permessi personalizzati per più utenti

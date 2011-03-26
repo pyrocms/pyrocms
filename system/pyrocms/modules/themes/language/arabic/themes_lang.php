@@ -17,9 +17,9 @@ $lang['themes.upload_desc']				= 'رجاءً اختر ملف واضغط زر ا�
 $lang['themes.theme_label'] 			= 'السّمة';
 $lang['themes.actions_label']			= 'الإجراءات';
 $lang['themes.make_default']			= 'تعيين كافتراضيّة';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
-$lang['themes.version_label']			= 'Version'; #translate
+$lang['themes.description_label']		= 'الوصف';
+$lang['themes.author_label']			= 'الناشر';
+$lang['themes.version_label']			= 'النسخة';
 $lang['themes.default_theme_label'] 	= 'السّمة الافتراضيّة';
 $lang['themes.no_themes_installed'] 	= 'لا يوجد أيّ سمات مثبّتة.';
 
