@@ -255,7 +255,7 @@ class Pages_m extends MY_Model
 		}
 		while( $page->parent_id > 0 );
 
-		// If the URI has been passed as a string, explode to create an array of segments
+		// implode segments to create the parent/child/uri
     	return $this->db
 			->where('id', $id)
 			->set('uri', implode('/', $segments))
@@ -275,6 +275,27 @@ class Pages_m extends MY_Model
 		foreach($descendants as $descendant)
 		{
 			$this->build_lookup($descendant);
+		}
+	}
+	
+	/**
+	 * Update lookup for entire page tree
+	 * used to update page uri after ajax sort
+	 *
+	 * @access public
+	 * @param array $root_pages An array of top level pages
+	 * @return void
+	 */
+	public function update_lookup($root_pages)
+	{
+		// first reset the URI of all root pages
+		$this->db->where('parent_id', 0)
+				 ->set('uri', 'slug', FALSE)
+				 ->update('pages');
+				 
+		foreach($root_pages as $page)
+		{
+			$this->reindex_descendants($page);
 		}
 	}
 

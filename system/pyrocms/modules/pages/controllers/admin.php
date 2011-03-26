@@ -167,13 +167,16 @@ class Admin extends Admin_Controller
 				//iterate through children and set their order and parent
 				$this->pages_m->_set_children($page);
 			}
-			$json['result'] = 'success';
+			
+			// rebuild page URIs
+			$this->pages_m->update_lookup($this->input->post('root_pages'));
+				
+			echo 'Success';
 		}
 		else
 		{
-			$json['result'] = 'error';
+			echo 'Fail';
 		}
-		exit(json_encode($json));
 	}
 
 	/**
