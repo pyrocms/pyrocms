@@ -85,7 +85,7 @@
 				// to remove unused elements before we check for their existence
 				setTimeout(update_tree, 5);
 			
-				$.post(BASE_URL + 'index.php/admin/pages/order', { 'order': order, 'root_pages': root_pages } );
+				$.post(BASE_URI + 'index.php/admin/pages/order', { 'order': order, 'root_pages': root_pages } );
 			}
 		});
 	});
