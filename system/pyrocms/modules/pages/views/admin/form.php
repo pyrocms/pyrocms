@@ -149,7 +149,6 @@
 
 			<li>
 				<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
-                <?php var_dump($page); ?>
 				<?php echo form_checkbox('is_home', 1, $page->is_home == 1); ?>
 			</li>
 		</ul>
