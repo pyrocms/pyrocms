@@ -47,7 +47,7 @@
                 </div>
             <?php if($file->type == 'i'): ?>
             <a title="<?php echo $file->name; ?>" href="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" rel="colorbox">
-                <img title="<?php echo $file->name; ?>" height="64" src="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" />
+                <img title="<?php echo $file->name; ?>" height="64" src="<?php echo site_url() . 'files/thumb/' . $file->id . '/80'; ?>" alt="<?php echo $file->name; ?>" />
             </a>
             <?php else: ?>
                 <?php echo image($file->type . '.png', 'files'); ?>
@@ -125,12 +125,25 @@
             maxWidth: "80%",
             maxHeight: "80%"
         });
-        
-        $('#grid').hide();
+
+		if($.cookie('file_view') != 'grid')
+		{
+			$('#grid').hide();
+		}
+		else
+		{
+			$('#list').hide();
+            $('a.active-view').removeClass('active-view');
+            $("a[title='grid']").addClass('active-view');
+		}
         
         $('a.toggle-view').click(function(e) {
             e.preventDefault();
             view = $(this).attr('title');
+			
+			// remember the user's preference
+			$.cookie('file_view', view);
+			
             $('a.active-view').removeClass('active-view');
             $(this).addClass('active-view');
             
@@ -143,8 +156,8 @@
                 hide_view = 'grid';
             }
             
-            $('#'+hide_view).fadeOut(1000, function() {
-                $('#'+view).fadeIn(700);   
+            $('#'+hide_view).fadeOut(50, function() {
+                $('#'+view).fadeIn(500);   
             });            
         });
         
