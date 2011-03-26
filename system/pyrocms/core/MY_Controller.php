@@ -22,14 +22,11 @@ class MY_Controller extends CI_Controller {
 		// Result of schema version migration
 		if (is_numeric($schema_version))
 		{
-			// show notification to user?
-			// $this->session->set_flashdata('update_error', ...);
+			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
 		elseif ($schema_version === FALSE)
 		{
 			log_message('error', $this->migrations->error);
-			// show notification to user?
-			// $this->session->set_flashdata('update_success', ...);
 		}
 
 		// Use this to define hooks with a nicer syntax
@@ -40,7 +37,8 @@ class MY_Controller extends CI_Controller {
 
 		// Set the addons folder as a package
 		$this->load->add_package_path(ADDONPATH);
-
+		$this->load->_pyro_autoloader();
+		
 		$this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
 		$this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
 
