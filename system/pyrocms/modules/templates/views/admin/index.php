@@ -11,7 +11,7 @@
                 <th><?php echo lang('templates.name_label'); ?></th>
                 <th><?php echo lang('templates.description_label'); ?></th>
                 <th><?php echo lang('templates.language_label'); ?></th>
-                <th width="260" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
+                <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
             </tr>
         </thead>
         
@@ -49,7 +49,7 @@
                 <th><?php echo lang('templates.name_label'); ?></th>
                 <th><?php echo lang('templates.description_label'); ?></th>
                 <th><?php echo lang('templates.language_label'); ?></th>
-                <th width="260" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
+                <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
             </tr>
         </thead>
         

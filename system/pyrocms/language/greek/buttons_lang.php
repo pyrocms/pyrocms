@@ -25,6 +25,11 @@ $lang['buttons.install']	= 'Εγκατάσταση';
 $lang['buttons.yes']		= 'Ναι';
 $lang['buttons.no']			= 'Όχι';
 $lang['buttons.activate']   = 'Ενεργοποίηση';
+$lang['buttons.preview']	= 'Προεπισκόπηση';
+$lang['buttons.close']		= 'Κλείσιμο';
+$lang['buttons.edit']		= 'Επεξεργασία';
+$lang['buttons.clone']		= 'Κλωνοποίηση';
+$lang['buttons.copy']		= 'Αντιγραφή';
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/greek/buttons_lang.php */
