@@ -87,6 +87,7 @@ class Module_Pages extends Module {
 			 `updated_on` INT(11) NOT NULL default '0',
 			 `restricted_to` VARCHAR(255) collate utf8_unicode_ci DEFAULT NULL,
 			 `is_home` TINYINT(1) NOT NULL default '0',
+			 `order` INT(11) NOT NULL default '0',
 			 PRIMARY KEY  (`id`),
 			 UNIQUE KEY `Unique` (`slug`,`parent_id`),
 			 KEY `slug` (`slug`),
