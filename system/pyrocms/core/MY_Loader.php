@@ -22,6 +22,8 @@ class MY_Loader extends MX_Loader {
 		if (file_exists(ADDONPATH.'config/autoload'.EXT))
 		{
 			include_once(ADDONPATH.'config/autoload'.EXT);
+		} else {
+			return FALSE;
 		}
 
 		if ( ! isset($autoload))
