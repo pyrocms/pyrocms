@@ -63,5 +63,3 @@ $lang['blog_twitter_error']                  = 'Twitter Fehler';
 
 // date
 $lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
-
-?>

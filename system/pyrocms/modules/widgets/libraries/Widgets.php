@@ -17,7 +17,7 @@ class Widgets
 		$this->load->model('widgets/widget_m');
 
 		// Map where all widgets are
-		foreach ($this->load->_ci_model_paths as $path)
+		foreach ($this->load->get_package_paths() as $path)
 		{
 			$widgets = glob($path.'widgets/*', GLOB_ONLYDIR);
 

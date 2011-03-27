@@ -23,7 +23,7 @@
 
 <body>
 <noscript>
-	PyroCMS requires that Javascript be turned on for many of the functions to work correctly. Please turn javascript on and reload the page.
+	PyroCMS requires that JavaScript be turned on for many of the functions to work correctly. Please turn JavaScript on and reload the page.
 </noscript>
 <div id="page-wrapper">
 	<section id="sidebar">

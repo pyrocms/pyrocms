@@ -72,6 +72,7 @@ class Admin extends Admin_Controller {
 			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
 			->append_metadata( js('jquery.fileupload.js', 'files') )
 			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
+			->append_metadata( js('jquery/jquery.cookie.js') )
 			->append_metadata( css('files.css', 'files') )
 			->title($this->module_details['name'])
 			->set('folder_options', $folder_options)

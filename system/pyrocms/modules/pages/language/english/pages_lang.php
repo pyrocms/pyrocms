@@ -66,6 +66,6 @@ $lang['pages_page_already_exist_error']    = 'A page with the URL "%s" already e
 $lang['pages_parent_not_exist_error']      = 'The parent page you have selected does not exist.';
 
 $lang['pages.tree_explanation']            = 'The list on the left represents pages on your website. 
-Click the "+" icon next to the page to show pages within it. When you click a page you will see all sorts of handy information in this box.';
+Click the page item to show its children. You may drag pages to order them; drag horizontally to make it a child. When you click the page text you will see all sorts of handy information in this box.';
 
 $lang['pages.rss_explanation']             = 'Enabling RSS for this page will give users a chance to subscribe to an RSS feed which shows each immediate page child as a new entry.';

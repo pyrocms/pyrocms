@@ -86,7 +86,7 @@
                     </td>
                     <td class="filename">
                         <p><?php echo $file->filename; ?></p>
-                        <p><?php echo date('Y.m.d', $file->date_added); ?></p>
+                        <p><?php echo format_date($file->date_added); ?></p>
                     </td>
                     <td class="meta width"><?php echo $file->mimetype; ?></td>
                 </tr>

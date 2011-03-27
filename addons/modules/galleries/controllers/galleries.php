@@ -38,11 +38,11 @@ class Galleries extends Public_Controller
 	 */
 	public function index()
 	{
-		$galleries = $this->galleries_m->get_all_with_filename();
+		$data->galleries = $this->galleries_m->get_all_with_filename();
 
-		$this->template->build('index', array(
-			'galleries' => $galleries
-		));
+		$this->template
+			->title($this->module_details['name'])
+			->build('index', $data);
 	}
 	
 	/**

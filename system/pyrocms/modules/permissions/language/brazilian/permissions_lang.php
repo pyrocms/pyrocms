@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['permissions.group']				= 'Grupo';
+$lang['permissions.roles']                  = 'Roles'; #translate
 $lang['permissions.edit']				= 'Editar permissões';
 
 $lang['permissions.introduction'] 		= 'Você pode criar permissões personalidadas para usuários diferentes

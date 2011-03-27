@@ -59,7 +59,7 @@ class Gallery_images_m extends MY_Model
 		// Grand finale, do what you gotta do!!
 		$images = $this->db
 				// Select fields on gallery images table
-				->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug')
+				->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug, g.title as gallery_title')
 				// Set my gallery by id
 				->where('g.id', $id)
 				// Filter images from my gallery

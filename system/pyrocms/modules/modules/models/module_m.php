@@ -191,7 +191,7 @@ class Module_m extends MY_Model
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
 			}
-			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
+			$description = ! isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
 
 			if ( ! $names = @unserialize($result->name))
 			{
@@ -491,13 +491,41 @@ class Module_m extends MY_Model
 		foreach (array(0, 1) as $is_core)
     	{
 			//first try it as a core module
-			if($details_class = $this->_spawn_class($slug, $is_core))
+			if ($details_class = $this->_spawn_class($slug, $is_core))
 			{
 				return $details_class->help();
 			}
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Roles
+	 *
+	 * Retrieves roles for a specific module
+	 *
+	 * @param	string	$slug	The module slug
+	 * @return	bool
+	 */
+	public function roles($slug)
+	{
+		foreach (array(0, 1) as $is_core)
+    	{
+			//first try it as a core module
+			if ($details_class = $this->_spawn_class($slug, $is_core))
+			{
+				$info = $details_class->info();
+
+				if ( ! empty($info['roles']))
+				{
+					$this->load->language($slug.'/permission');
+					return $info['roles'];
+				}
+			}
+		}
+
+		return array();
 	}
 	
 	/**
@@ -510,7 +538,7 @@ class Module_m extends MY_Model
 	 */
 	public function version($slug)
 	{
-		if($details_class = $this->_spawn_class($slug))
+		if ($details_class = $this->_spawn_class($slug))
 		{
 			return $details_class->version;
 		}

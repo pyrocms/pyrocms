@@ -77,6 +77,11 @@ class Admin extends Admin_Controller
 				'rules'	=> 'trim|numeric'
 			),
 			array(
+				'field' => 'is_home',
+				'label'	=> 'lang:pages.is_home_label',
+				'rules'	=> 'trim|numeric'
+			),
+			array(
 				'field'	=> 'status',
 				'label'	=> 'lang:pages.status_label',
 				'rules'	=> 'trim|alpha|required'
@@ -130,42 +135,53 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// Get list of open parent pages from cookie
-		$open_parent_pages = isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
-
-		// Get the page tree
-		$this->data->page_tree_html = $this->recurse_page_tree(0, $open_parent_pages);
+		
+		// Get the page tree		
+		$this->data->pages = $this->pages_m->get_page_tree();
+		$this->data->controller =& $this;
 
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata( css('jquery/jquery.treeview.css') )
-			->append_metadata( js('jquery/jquery.treeview.min.js') )
+			->append_metadata( js('jquery/jquery.ui.nestedSortable.js') )
+			->append_metadata( js('jquery/jquery.cookie.js') )
 			->append_metadata( js('index.js', 'pages') )
 			->append_metadata( css('index.css', 'pages') )
 			->build('admin/index', $this->data);
 	}
-
+	
 	/**
-	 * Fetch the children using Ajax
+	 * Order the pages and record their children
+	 * 
 	 * @access public
-	 * @param int $parent_id The ID of the parent page
-	 * @return void
+	 * @return string json message
 	 */
-	public function ajax_fetch_children($parent_id)
+	public function order()
 	{
-		// get list of open parent pages from cookie
-		$open_parent_pages 	= isset($_COOKIE['page_parent_ids']) ? explode(',', '0,'.$_COOKIE['page_parent_ids']) : array(0);
-		$pages 				= $this->pages_m->get_many_by('parent_id', $parent_id);
+		$order = $this->input->post('order');
 
-		foreach ($pages as &$page)
+		if (is_array($order))
 		{
-			$page->has_children = $this->pages_m->has_children($page->id);
+			//reset all parent > child relations
+			$this->pages_m->update_all(array('parent_id' => 0));
+			
+			foreach ($order as $i => $page)
+			{
+				//set the order of the root pages
+				$this->pages_m->update_by('id', str_replace('page_', '', $page['id']), array('order' => $i));
+				
+				//iterate through children and set their order and parent
+				$this->pages_m->_set_children($page);
+			}
+			
+			// rebuild page URIs
+			$this->pages_m->update_lookup($this->input->post('root_pages'));
+				
+			echo 'Success';
 		}
-
-		$this->data->open_parent_pages 	= $open_parent_pages;
-		$this->data->controller 		=& $this;
-		$this->data->pages 				=& $pages;
-		$this->load->view('admin/ajax/child_list', $this->data);
+		else
+		{
+			echo 'Fail';
+		}
 	}
 
 	/**
@@ -179,37 +195,6 @@ class Admin extends Admin_Controller
 		$page 			= $this->pages_m->get($page_id);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
-	}
-
-	/**
-	 * Show the page tree
-	 * @access public
-	 * @param int $parent_id The ID of the parent
-	 * @param array $open_parent_pages An array containing the parent pages
-	 * @return mixed
-	 */
-	public function recurse_page_tree($parent_id, $open_parent_pages=array())
-	{
-		if ( ! in_array($parent_id, $open_parent_pages))
-		{
-			return $this->pages_m->has_children($parent_id) ? '<ul></ul>' : '';
-		}
-
-		$pages = $this->pages_m->get_many_by('parent_id', $parent_id);
-
-		if ( ! empty($pages))
-		{
-			foreach ($pages as &$page)
-			{
-				$page->has_children = $this->pages_m->has_children($page->id);
-			}
-
-			$this->data->pages 				=& $pages;
-			$this->data->controller 		=& $this;
-			$this->data->open_parent_pages 	= $open_parent_pages;
-			return $this->load->view('admin/ajax/child_list', $this->data, true);
-		}
-		return '';
 	}
 
 	/**
@@ -237,11 +222,12 @@ class Admin extends Admin_Controller
 		// Validate the page
 		if ($this->form_validation->run())
 	    {
-			// First create the page
-			$page_body = $_POST['body'];
-			$nav_group_id = $_POST['navigation_group_id'];
-
 			$input = $this->input->post();
+
+			// First create the page
+			$page_body		= $input['body'];
+			$nav_group_id	= $input['navigation_group_id'];
+
 			unset($input['body'], $input['navigation_group_id']);
 			
 			if ($id = $this->pages_m->create($input))
@@ -259,10 +245,10 @@ class Admin extends Admin_Controller
 				{
 					$this->load->model('navigation/navigation_m');
 					$this->navigation_m->insert_link(array(
-						'title' => $input['title'],
-						'link_type'	=> 'page',
-						'page_id' => $id,
-						'navigation_group_id' => (int) $nav_group_id
+						'title'					=> $input['title'],
+						'link_type'				=> 'page',
+						'page_id'				=> $id,
+						'navigation_group_id'	=> (int) $nav_group_id
 					));
 
 					// Clear navigation cache
@@ -372,9 +358,6 @@ class Admin extends Admin_Controller
 				$this->pages_m->reindex_descendants($id);
 			}
 
-			// Wipe cache for this model as the data has changed
-			$this->pyrocache->delete_all('pages_m');
-
 			// Set the flashdata message and redirect the user
 			$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
 			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
@@ -434,7 +417,7 @@ class Admin extends Admin_Controller
 		$groups = $this->group_m->get_all();
 		foreach($groups as $group)
 		{
-			$group->name == 'admin' OR $group_options[$group->id] = $group->name;
+			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
 		}
 		$this->template->group_options = $group_options;
 	}
@@ -526,5 +509,38 @@ class Admin extends Admin_Controller
 		$data['revision'] = $this->versioning->get_by_revision($id);
 		$this->template->set_layout('modal', 'admin')
 				->build('admin/revisions/preview', $data);
+	}
+	
+	/**
+	 * Build the html for the admin page tree view
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @param array $page Current page
+	 */
+	
+	public function tree_builder($page)
+	{
+		if(isset($page['children'])):
+		
+				foreach($page['children'] as $page): ?>
+			
+					<li id="page_<?php echo $page['id']; ?>">
+						<div>
+							<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
+						</div>
+					
+				<?php if(isset($page['children'])): ?>
+						<ol>
+								<?php $this->tree_builder($page); ?>
+						</ol>
+					</li>
+				<?php else: ?>
+					</li>
+				<?php endif; ?>
+				
+			<?php endforeach; ?>
+			
+		<?php endif;
 	}
 }

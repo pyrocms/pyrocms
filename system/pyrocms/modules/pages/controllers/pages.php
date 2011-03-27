@@ -141,8 +141,16 @@ class Pages extends Public_Controller
 	    	$page->layout = $this->page_layouts_m->get(1);
 	    }
 
+		// Set pages layout files in your theme folder
+		if ($this->template->layout_exists($page->uri . '.html'))
+		{
+			$this->template->set_layout($page->uri . '.html');
+		}
+
 		// If a Page Layout has a Theme Layout that exists, use it
-		if ( ! empty($page->layout->theme_layout) AND $this->template->layout_exists($page->layout->theme_layout))
+		if ( ! empty($page->layout->theme_layout) AND $this->template->layout_exists($page->layout->theme_layout)
+			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
+			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html'))
 		{
 			$this->template->set_layout($page->layout->theme_layout);
 		}

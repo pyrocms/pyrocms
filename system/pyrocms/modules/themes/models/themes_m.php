@@ -69,11 +69,11 @@ class Themes_m extends CI_Model
 
         foreach($this->template->theme_locations() as $location)
         {
-            if(is_dir($location.$slug))
+            if (is_dir($location.$slug))
             {
                 $theme = $this->_get_details($location, $slug);
 
-                if($theme !== FALSE)
+                if ($theme !== FALSE)
                 {
                     return $theme;
                 }
@@ -94,7 +94,7 @@ class Themes_m extends CI_Model
     private function _get_details($location, $slug)
     {
         // If it exists already, use it
-        if(!empty($this->_themes[$slug]))
+        if ( ! empty($this->_themes[$slug]))
         {
             return $this->_themes[$slug];
         }
@@ -102,13 +102,13 @@ class Themes_m extends CI_Model
         if (is_dir($path = $location.'/'.$slug))
         {
             // Core theme or tird party?
-            $is_core = $location === APPPATH.'themes';
+            $is_core = trim($location, '/') === APPPATH.'themes';
 
             //path to theme
             $web_path = $location . '/' . $slug;
 
             $theme->slug			= $slug;
-            $theme->is_core               = $is_core;
+            $theme->is_core         = $is_core;
             $theme->path			= $path;
             $theme->web_path 		= $web_path;
             $theme->screenshot		= $web_path . '/screenshot.png';
@@ -125,11 +125,11 @@ class Themes_m extends CI_Model
             $details = $this->_spawn_class($slug, $is_core);
 
             //assign values
-            if($details)
+            if ($details)
             {
                 foreach(get_object_vars($details) as $key => $val)
                 {
-                    $theme->$key = $val;
+                    $theme->{$key} = $val;
                 }
             }
 

@@ -7,10 +7,11 @@ $lang['user_register_step2']                   = '<strong>Βήμα 2:</strong> �
 $lang['user_login_header']                     = 'Σύνδεση';
 
 // titles
-$lang['user_add_title']                        = 'Προσθήκη χρήστη';
-$lang['user_inactive_title']                   = 'Ανενεργοί χρήστες';
-$lang['user_active_title']                     = 'Ενεργοί χρήστες';
-$lang['user_registred_title']                  = 'Εγγεγραμμένοι χρήστες';
+$lang['user_add_title']					= 'Προσθήκη χρήστη';
+$lang['user_list_title']				= 'Λίστα Χρηστών';
+$lang['user_inactive_title']            = 'Ανενεργοί χρήστες';
+$lang['user_active_title']				= 'Ενεργοί χρήστες';
+$lang['user_registred_title']			= 'Εγγεγραμμένοι χρήστες';
 
 // labels
 $lang['user_edit_title']                       = 'Επεξεργασία χρήστη "%s"';

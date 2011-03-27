@@ -1,6 +1,7 @@
 <?php
 
 $lang['permissions.group']				= 'Skupina';
+$lang['permissions.roles']                  = 'Roles'; #translate
 $lang['permissions.edit']				= 'Upravit oprávnění';
 
 $lang['permissions.introduction'] = 'Můžete vytvořit vlastní oprávnění pro různé uživatele jejich přiřazením do skupin v sekci Uživatelé > Správa uživatelů. Pak můžete upravovat oprávnění pro každou skupinu a ovlivnit které moduly a "role" může skupina mít.';

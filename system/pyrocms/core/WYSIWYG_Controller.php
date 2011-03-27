@@ -34,7 +34,7 @@ class WYSIWYG_Controller extends MY_Controller
 			->enable_parser(FALSE)
 			->append_metadata(js('jquery/jquery.js'))
 	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
-	    	->append_metadata(js('jquery/jquery.livequery.js'))
+	    	->append_metadata(js('jquery/jquery.livequery.min.js'))
 	    	->append_metadata(js('jquery/jquery.fancybox.js'))
 	    	->append_metadata(css('jquery/jquery.fancybox.css'))
 			->set('editor_path', $editor_path = APPPATH_URI . 'assets/js/editor/')
@@ -43,7 +43,9 @@ class WYSIWYG_Controller extends MY_Controller
 			->append_metadata( js('wysiwyg.js', 'wysiwyg') )
 			->append_metadata( js('jquery/jquery.uniform.min.js') )
 			->append_metadata( js('jquery/jquery-ui-1.8.4.min.js') )
-			->append_metadata('<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />')
+			// fail offline
+			// ->append_metadata('<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />')
+			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') ) // TODO: Merge this with default jquery-ui.css
 			->append_metadata('<script type="text/javascript">var FILES_PATH = "'.base_url().'uploads/files/"</script>')
 			->append_metadata( '<script type="text/javascript">var SITE_URL = "'.rtrim(site_url(), '/').'"</script>');
 	}
