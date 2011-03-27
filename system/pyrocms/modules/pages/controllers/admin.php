@@ -135,7 +135,6 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		
 		// Get the page tree		
 		$this->data->pages = $this->pages_m->get_page_tree();
 		$this->data->controller =& $this;
@@ -192,7 +191,7 @@ class Admin extends Admin_Controller
 	 */
 	public function ajax_page_details($page_id)
 	{
-		$page 			= $this->pages_m->get($page_id);
+		$page = $this->pages_m->get($page_id);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -223,6 +222,11 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run())
 	    {
 			$input = $this->input->post();
+
+			if ($input['status'] == 'live')
+			{
+				role_or_die('pages', 'put_live');
+			}
 
 			// First create the page
 			$page_body		= $input['body'];
@@ -314,6 +318,8 @@ class Admin extends Admin_Controller
 	{
 		$id OR redirect('admin/pages');
 
+		role_or_die('pages', 'edit_live');
+
 	    // Set the page ID and get the current page
 	    $this->page_id 	= $id;
 	    $page 			= $this->versioning->get($id);
@@ -331,6 +337,11 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run())
 	    {
+			if ($page->status != 'live' and $input['status'] == 'live')
+			{
+				role_or_die('pages', 'put_live');
+			}
+
 			$input = $this->input->post();
 
 			// Set the data for the revision
@@ -380,7 +391,7 @@ class Admin extends Admin_Controller
 	    // If a parent id was passed, fetch the parent details
 	    if ($page->parent_id > 0)
 	    {
-			$parent_page 		= $this->pages_m->get($page->parent_id);
+			$parent_page = $this->pages_m->get($page->parent_id);
 	    }
 
 	    // Assign data for display
@@ -430,6 +441,8 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
+		role_or_die('pages', 'delete_live');
+
 		// Attention! Error of no selection not handeled yet.
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 

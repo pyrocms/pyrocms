@@ -14,7 +14,7 @@
 
 	<?php foreach ($permisison_modules as $module): ?>
 		<tr>
-			<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', 1, in_array($module['slug'], $edit_permissions)); ?></td>
+			<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, array_key_exists($module['slug'], $edit_permissions)); ?></td>
 			<td>
 				<?php echo $module['name']; ?>
 			</td>
@@ -24,8 +24,8 @@
 
 					<?php foreach ($module['roles'] as $role): ?>
 
-						<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', 1); ?>
-						<?php echo lang('blog.role_'.$role); ?>
+						<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, array_key_exists($role, $edit_permissions[$module['slug']])); ?>
+						<?php echo lang($module['slug'].'.role_'.$role); ?>
 
 					<?php endforeach; ?>
 				<?php endif; ?>

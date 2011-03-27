@@ -1,4 +1,6 @@
-<?php  defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * User Helpers
@@ -8,6 +10,41 @@
  * @category	Helpers
  * @author		Phil Sturgeon
  */
+// ------------------------------------------------------------------------
+
+/**
+ * Return a users display name based on settings
+ *
+ * @param int $user the users id
+ * @return  string
+ */
+function group_has_roll($module, $role)
+{
+	if (empty(ci()->user))
+	{
+		return FALSE;
+	}
+
+	if (ci()->user->group == 'admin')
+	{
+		return TRUE;
+	}
+
+	$permissions = ci()->permission_m->get_group(ci()->user->group_id);
+
+	if (empty($permissions[$module]) or empty($permissions[$module]->$role))
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+
+function role_or_die($module, $role)
+{
+	group_has_roll($module, $role) or die(lang('cp_access_denied'));
+}
 
 // ------------------------------------------------------------------------
 
@@ -19,12 +56,12 @@
  */
 function user_displayname($user)
 {
-    if (is_numeric($user))
-    {
-        $user = ci()->ion_auth->get_user($user);
-    }
+	if (is_numeric($user))
+	{
+		$user = ci()->ion_auth->get_user($user);
+	}
 
-    $user = (array) $user;
+	$user = (array) $user;
 
 	// Static var used for cache
 	if ( ! isset($_users))
@@ -38,15 +75,16 @@ function user_displayname($user)
 		return $_users[$user['id']];
 	}
 
-    $user_name = empty($user['display_name']) ? $user['username'] : $user['display_name'];
+	$user_name = empty($user['display_name']) ? $user['username'] : $user['display_name'];
 
-    if (ci()->settings->enable_profiles)
-    {
-        $user_name = anchor('users/profile/view/' . $user['id'], $user_name);
-    }
+	if (ci()->settings->enable_profiles)
+	{
+		$user_name = anchor('users/profile/view/' . $user['id'], $user_name);
+	}
 
 	$_users[$user['id']] = $user_name;
 
-    return $user_name;
+	return $user_name;
 }
+
 /* End of file users/helpers/user_helper.php */
