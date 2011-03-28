@@ -1,93 +1,30 @@
-#page-list { 
-	background-color:#efeff6;
-	border:1px #BBB solid;
-	float:left;
-	height: 35em;
-	overflow:auto;
-	width: 48%;
-}
+
+/* Left pane */
+#page-list { background-color:#efeff6; border:1px #BBB solid; float:left; height: 35em; overflow:auto; width: 48%; }
 
 #page-list ol { background:none; margin-left:2em !important; }
-#page-list a { text-decoration: none; color:black; padding:0.2em }
+#page-list a { text-decoration: none; color:#5c5b5b; padding: 1px 1px 1px 12px; }
 #page-list a:hover { text-decoration: underline; }
-
-.plus { list-style-image: url('../img/plus.gif'); }
-.minus { list-style-image: url('../img/minus.gif'); }
-
-#page-details {
-	background-color: #fff;
-	border-top: 1px solid #ddd;
-	border-left: none;
-	border-right: none; 
-	float:right;
-	min-height: 33em;
-	padding:1em;
-	width: 48%;
-	color: #666;
-}
-
-#page-details h4 { margin:0.5em 0; }
-#page-details fieldset { 
-	border: 1px solid #ddd;
-	border-right: none;
-	border-left: none;
-	background-color: #fcfcfc;
-	padding: 0px 5px;
-}
-#page-details fieldset p strong {
-	width: 35%;
-	display: inline-block;
-	text-align: right;
-	padding-right: 10px;
-}
-#page-details fieldset legend {
-	margin-left: 10px;
-	font-weight: bold;
-}
+#page-list a.selected { color: black; background: url('../img/circle.png') no-repeat left; }
 
 /* Sortable CSS */
+.ui-nestedSortable-error { background:#fbe3e4; color:#8a1f11; }
 
-.placeholder {
-	background-color: #cfcfcf;
-}
+ol { margin: 0; padding: 0; }
+ol.sortable, ol.sortable ol { margin: 0 0 0 25px; padding: 0; list-style-type: none; cursor: default; }
+ol.sortable { margin: 2em; }
 
-.ui-nestedSortable-error {
-	background:#fbe3e4;
-	color:#8a1f11;
-}
+.sortable li { margin: 5px 0; padding-left: 20px; }
+.sortable li div  { padding: 3px 1px 3px 15px; margin: 0; cursor: move; background-color: #d6d4d4; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; }
+.sortable li div:hover { background-color: #dedcdc; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; }
+.sortable li.placeholder { background-color: #c2c0c0; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; margin-left: 20px; }
 
-ol {
-	margin: 0;
-	padding: 0;
-	padding-left: 30px;
-}
+.plus { background: url('../img/more.png') no-repeat 0 3px; }
+.minus { background: url('../img/less.png') no-repeat 0 10px; }
 
-ol.sortable, ol.sortable ol {
-	margin: 0 0 0 25px;
-	padding: 0;
-	list-style-type: none;
-}
-
-ol.sortable {
-	margin: 2em;
-}
-
-.sortable li {
-	margin: 0;
-	padding: 0;
-	cursor: pointer;
-}
-
-.sortable li div  {
-	padding: 3px 1px 3px 5px;
-	margin: 0;
-	cursor: move;
-}
-
-.sortable li div:hover {
-	background-color: #e7e7ed;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-o-border-radius: 10px;
-	border-radius: 10px;
-}
+/* Right pane */
+#page-details { background-color: #fff; border-top: 1px solid #ddd; border-left: none; border-right: none;  float:right; min-height: 33em; padding:1em; width: 48%; color: #666; }
+#page-details h4 { margin:0.5em 0; }
+#page-details fieldset {  border: 1px solid #ddd; border-right: none; border-left: none; background-color: #fcfcfc; padding: 0px 5px; }
+#page-details fieldset p strong { width: 35%; display: inline-block; text-align: right; padding-right: 10px; }
+#page-details fieldset legend { margin-left: 10px; font-weight: bold; }
