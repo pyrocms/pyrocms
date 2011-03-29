@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @param int $user the users id
  * @return  string
  */
-function group_has_roll($module, $role)
+function group_has_role($module, $role)
 {
 	if (empty(ci()->user))
 	{
@@ -43,7 +43,7 @@ function group_has_roll($module, $role)
 
 function role_or_die($module, $role)
 {
-	group_has_roll($module, $role) or die(lang('cp_access_denied'));
+	group_has_role($module, $role) or die(lang('cp_access_denied'));
 }
 
 // ------------------------------------------------------------------------

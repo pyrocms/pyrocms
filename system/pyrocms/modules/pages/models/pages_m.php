@@ -10,6 +10,65 @@
  */
 class Pages_m extends MY_Model
 {
+
+	/**
+	 * Get a page by it's path
+	 *
+	 * @access public
+	 * @param array $segments The path segments
+	 * @return array
+	 */
+/*
+ * Not in use right now but added back for a) historical purposes and b) it was f**king difficult to write and I dont want to have to do it again
+ * 
+    public function get_by_path($segments = array())
+    {
+    	// If the URI has been passed as a string, explode to create an array of segments
+    	if(is_string($segments))
+        {
+        	$segments = explode('/', $segments);
+        }
+
+    	// Work out how many segments there are
+        $total_segments = count($segments);
+
+		// Which is the target alias (the final page in the tree)
+        $target_alias = 'p'.$total_segments;
+
+        // Start Query, Select (*) from Target Alias, from Pages
+        $this->db->select($target_alias.'.*, revisions.id as revision_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id');
+        $this->db->from('pages p1');
+
+		// Simple join enables revisions - Yorick
+		$this->db->join('revisions', 'p1.revision_id = revisions.id');
+
+        // Loop thorugh each Slug
+        $level = 1;
+        foreach( $segments as $segment )
+        {
+            // Current is the current page, child is the next page to join on.
+            $current_alias = 'p'.$level;
+            $child_alias = 'p'.($level - 1);
+
+            // We dont want to join the first page again
+            if($level != 1)
+            {
+                $this->db->join('pages '.$current_alias, $current_alias.'.parent_id = '.$child_alias.'.id');
+            }
+
+            // Add slug to where clause to keep us on the right tree
+            $this->db->where($current_alias . '.slug', $segment);
+
+            // Increment
+            ++$level;
+        }
+
+        // Can only be one result
+        $this->db->limit(1);
+
+        return $this->db->get()->row();
+    }
+ */
 		
 	/**
 	 * Get a page by it's URI
@@ -60,13 +119,14 @@ class Pages_m extends MY_Model
 	public function get_page_tree()
 	{
 
-		$all_pages = $this->db->select('id, parent_id, title')
-									 ->order_by('`order`')
-									 ->get('pages')
-									 ->result_array();
+		$all_pages = $this->db
+			->select('id, parent_id, title')
+			 ->order_by('`order`')
+			 ->get('pages')
+			 ->result_array();
 
 		// we must reindex the array first
-		foreach($all_pages as $row)
+		foreach ($all_pages as $row)
 		{
 			$pages[$row['id']] = $row;
 		}
@@ -74,16 +134,16 @@ class Pages_m extends MY_Model
 		unset($all_pages);
 
 		// build a multidimensional array of parent > children
-		foreach($pages as $row)
+		foreach ($pages as $row)
 		{
-			if(array_key_exists($row['parent_id'], $pages))
+			if (array_key_exists($row['parent_id'], $pages))
 			{
 				// add this page to the children array of the parent page
 				$pages[$row['parent_id']]['children'][] =& $pages[$row['id']];
 			}
 			
 			// this is a root page
-			if($row['parent_id'] == 0)
+			if ($row['parent_id'] == 0)
 			{
 				$page_array[] =& $pages[$row['id']];
 			}
@@ -101,15 +161,15 @@ class Pages_m extends MY_Model
 	 */
 	public function _set_children($page)
 	{
-		if(isset($page['children']))
+		if (isset($page['children']))
 		{
-			foreach($page['children'] as $i => $child)
+			foreach ($page['children'] as $i => $child)
 			{
 				$this->db->where('id', str_replace('page_', '', $child['id']));
 				$this->db->update('pages', array('parent_id' => str_replace('page_', '', $page['id']), '`order`' => $i));
 				
 				//repeat as long as there are children
-				if(isset($child['children']))
+				if (isset($child['children']))
 				{
 					$this->_set_children($child);
 				}
@@ -146,10 +206,10 @@ class Pages_m extends MY_Model
 
 		$has_children = !empty($children);
 
-		if($has_children)
+		if ($has_children)
 		{
 			// Loop through all of the children and run this function again
-			foreach($children as $child)
+			foreach ($children as $child)
 			{
 				$id_array = $this->get_descendant_ids($child->id, $id_array);
 			}
@@ -199,7 +259,7 @@ class Pages_m extends MY_Model
 	public function reindex_descendants($id)
 	{
 		$descendants = $this->get_descendant_ids($id);
-		foreach($descendants as $descendant)
+		foreach ($descendants as $descendant)
 		{
 			$this->build_lookup($descendant);
 		}
@@ -220,7 +280,7 @@ class Pages_m extends MY_Model
 				 ->set('uri', 'slug', FALSE)
 				 ->update('pages');
 				 
-		foreach($root_pages as $page)
+		foreach ($root_pages as $page)
 		{
 			$this->reindex_descendants($page);
 		}
