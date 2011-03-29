@@ -1,11 +1,11 @@
 
 /* Left pane */
-#page-list { background-color:#efeff6; border:1px #BBB solid; float:left; height: 35em; overflow:auto; width: 48%; }
+#page-list { background-color:#efeff6; border:1px #BBB solid; float:left; min-height: 33em; max-height: 45em; overflow:auto; width: 48%; }
 
 #page-list ol { background:none; margin-left:2em !important; }
-#page-list a { text-decoration: none; color:#5c5b5b; padding: 1px 1px 1px 12px; }
+#page-list a { text-decoration: none; font-size: 13px; color:#5c5b5b; padding: 1px 1px 1px 15px; background: url('../img/off.png') no-repeat left; }
 #page-list a:hover { text-decoration: underline; }
-#page-list a.selected { color: black; background: url('../img/circle.png') no-repeat left; }
+#page-list a.selected { color: black; background: url('../img/on.png') no-repeat left; }
 
 /* Sortable CSS */
 .ui-nestedSortable-error { background:#fbe3e4; color:#8a1f11; }
@@ -15,7 +15,7 @@ ol.sortable, ol.sortable ol { margin: 0 0 0 25px; padding: 0; list-style-type: n
 ol.sortable { margin: 2em; }
 
 .sortable li { margin: 5px 0; padding-left: 20px; }
-.sortable li div  { padding: 3px 1px 3px 15px; margin: 0; cursor: move; background-color: #d6d4d4; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; }
+.sortable li div  { padding: 3px 1px 3px 10px; margin: 0; cursor: move; background-color: #d6d4d4; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; }
 .sortable li div:hover { background-color: #dedcdc; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; }
 .sortable li.placeholder { background-color: #c2c0c0; -webkit-border-radius: 8px; -moz-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; margin-left: 20px; }
 
