@@ -490,9 +490,23 @@ class Module_m extends MY_Model
 	{
 		foreach (array(0, 1) as $is_core)
     	{
+			$path = $is_core ? APPPATH : ADDONPATH;
+			$languages = $this->config->item('supported_languages');
+			$default = $languages[$this->config->item('default_language')]['folder'];
+			
 			//first try it as a core module
 			if ($details_class = $this->_spawn_class($slug, $is_core))
 			{
+				if (file_exists($path . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
+				{
+					$this->lang->load($slug . '/help');
+
+					if (lang('help_body'))
+					{
+						return lang('help_body');
+					}
+				}
+
 				return $details_class->help();
 			}
 		}
