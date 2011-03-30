@@ -1,7 +1,7 @@
 <?php echo form_open('users/login');?>
 
 	<ul>
-		<li>
+<!--		<li>
 			<label>Email:</label>
 			<?php echo form_input('login_email');?>
 		</li>
@@ -9,16 +9,24 @@
 			<label>Password:</label>
 			<?php echo form_password('login_password');?>
 		</li>
-	</ul>
+-->
+	<li>
+		<label for="email"><?php echo lang('user_email'); ?></label>
+		<input type="text" id="email" name="email" maxlength="120" />
+	</li>
+	<li>
+		<label for="password"><?php echo lang('user_password'); ?></label>
+		<input type="password" id="password" name="password" maxlength="20" />
+	</li>
+    </ul>
 
 	<div class="pyro-buttons">
+        <?php echo form_checkbox('remember', '1', FALSE); ?><?php echo lang('user_remember')?><br />
 		<button type="submit" class="login_submit">
-			Login
+			<?php echo lang('user_login_btn') ?>
 		</button>
 
-		<a href="<?php echo site_url('users/reset_pass'); ?>" class="reset_pass">
-			Forgot password?
-		</a>
+		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?> | <?php echo anchor('register', lang('user_register_btn'));?>
 	</div>
 
 <?php echo form_close();?>
