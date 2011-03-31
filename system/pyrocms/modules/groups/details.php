@@ -86,11 +86,7 @@ class Module_Groups extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "<h4>Overview</h4>
-		<p>The Groups module works together with the User Manager and the Permissions module to give PyroCMS access control.</p>
-		<h4>Add a Group</h4><hr>
-		<p>Give your group a name (usually lowercase) and a short description. Now use the Permissions module to control what
-		this group's users can access.</p>";
+		return TRUE;
 	}
 }
 /* End of file details.php */
