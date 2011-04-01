@@ -28,7 +28,8 @@ $config['supported_languages'] = array(
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array('rus', 'russian', 'ru_RU')),
 	'ar'=> array('name' => 'العربية', 'folder' => 'arabic', 'direction' => 'rtl', 'codes' => array('arabic', 'ar_SA')),
 	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array('chinese-traditional', 'cht', 'zh_HK')),
-	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array('csy', 'czech', 'cs_CZ'))
+	'cs'=> array('name' => 'Česky', 'folder' => 'czech', 'direction' => 'ltr', 'codes' => array('csy', 'czech', 'cs_CZ')),
+	'he'=> array('name' => 'עברית', 'folder' => 'hebrew', 'direction' => 'rtl', 'codes' => array('he', 'hebrew', 'he_IL'))
 );
 
 /*
