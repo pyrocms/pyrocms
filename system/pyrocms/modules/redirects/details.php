@@ -73,7 +73,7 @@ class Module_Redirects extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return TRUE;
 	}
 }
 /* End of file details.php */
