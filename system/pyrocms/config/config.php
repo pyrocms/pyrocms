@@ -207,7 +207,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = '';
+$config['cache_path'] = APPPATH . 'cache/codeigniter/';
 
 /*
 |--------------------------------------------------------------------------
@@ -251,7 +251,7 @@ $config['sess_time_to_update'] 		= 300;
 | 'cookie_path'   =  Typically will be a forward slash
 |
 */
-$config['cookie_domain']		= (isset($_SERVER['SERVER_NAME']) AND $_SERVER['SERVER_NAME'] == 'localhost') ? '' : preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']);
+$config['cookie_domain']		= (isset($_SERVER['SERVER_NAME']) AND $_SERVER['SERVER_NAME'] == 'pyrocmsrepo') ? '' : preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']);
 $config['cookie_path']			= BASE_URI;
 
 /*
