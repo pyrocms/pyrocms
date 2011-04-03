@@ -117,7 +117,6 @@ $lang['settings_moderate_comments_desc']		= 'Forzar comentarios a ser aprobados 
 $lang['settings_version']						= 'Versión';
 $lang['settings_version_desc']					= '';
 
-
 #section titles
 $lang['settings_section_general']				= 'General';
 $lang['settings_section_integration']			= 'Integración';
