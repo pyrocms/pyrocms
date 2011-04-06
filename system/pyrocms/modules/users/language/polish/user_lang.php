@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['user_register_header'] 	= 'Rejestracja';
 $lang['user_register_step1'] 	= '<strong>Krok 1:</strong> Zarejestruj się';
@@ -8,7 +8,7 @@ $lang['user_login_header'] 		= 'Login';
 
 // titles
 $lang['user_add_title'] 		= 'Dodaj użytkownika';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 		= 'Lista użytkowników';
 $lang['user_inactive_title']	= 'Nieaktywni użytkownicy';
 $lang['user_active_title'] 		= 'Aktywni użytkownicy';
 $lang['user_registred_title'] 	= 'Zarejestrowani użytkownicy';
@@ -48,13 +48,21 @@ $lang['user_activated_account_title'] 	= 'Konto aktywowane';
 $lang['user_reset_password_title'] 		= 'Resetuj hasło';
 $lang['user_password_reset_title'] 		= 'Reset hasła';
 
+
+$lang['user_error_username']                   = 'Wybrana nazwa użytkownika jest już zajęta';
+$lang['user_error_email']                      = 'Podany adres email jest już w użyciu';
+
 $lang['user_full_name'] 	= 'Imię i nazwisko';
 $lang['user_first_name'] 	= 'Imię';
 $lang['user_last_name'] 	= 'Nazwisko';
+$lang['user_username']                         = 'Nazwa użytkownika';
+$lang['user_display_name']                     = 'Wyświetlana nazwa';
 $lang['user_email'] 		= 'E-mail';
 $lang['user_confirm_email'] = 'Potwierdź E-mail';
 $lang['user_password'] 		= 'Hasło';
+$lang['user_remember']                         = 'Pamiętaj mnie';
 $lang['user_confirm_password'] = 'Potwierdź hasło';
+$lang['user_group_id_label']                   = 'ID grupy';
 
 $lang['user_level']			= 'Rola użytkownika';
 $lang['user_active']		= 'Aktywuj';
@@ -104,11 +112,11 @@ $lang['user_delete_self_error'] 			= 'Nie możesz sam usunąć swojego konta!';
 $lang['user_mass_delete_success'] 			= '%s użytkowników z %s skasowano pomyślnie.';
 $lang['user_mass_delete_error'] 			= 'Najpierw musisz wybrać użytkowników.';
 
+
 // Register
 $lang['user_email_pass_missing'] = 'Pola email lub hasło nie zostały wypełnione.';
 $lang['user_email_exists'] = 'Adres email, który wybrałeś jest już używany przez innego użytkownika.';
 $lang['user_register_reasons'] = 'Dołącz do nas, aby uzyskać dostęp do treści zarezerwowanych tylko dla zarejestrowanych użytkowników. Oznacza tom ze Twoje osobiste ustawienia zostaną zapamiętane, więcej treści, mniej reklam.';
-
 
 // Activation
 $lang['user_activation_incorrect']   = 'Aktywacja nie powiodła się. Sprawdź dane i upewnij się, że klawisz CAPS LOCK nie jest wciśnięty.';
@@ -116,7 +124,7 @@ $lang['user_activated_message']   = 'Twoje konto zostało aktywowane, możesz te
 
 
 // Login
-$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
+$lang['user_logged_in']	= 'Logowanie przebiegło pomyślnie.';
 $lang['user_already_logged_in'] = 'Jesteś już zalogowany. Proszę się wylogować zanim spróbujesz ponowanie się zalogować.';
 $lang['user_login_incorrect'] = 'Podany email i hasło nie pasują. Sprawdź dane i upewnij się, że klawisz CAPS LOCK nie jest wciśnięty.';
 $lang['user_inactive']   = 'Konto do którego próbujesz uzyskać dostęp jest w tym momencie nieaktywne.<br />Sprawdź czy na Twojej skrzynce pocztowej nie ma wiadomości z instrukcjami jak aktywować konto - <em>wiadomość może znajdować się w folderze ze SPAMem</em>.';
@@ -145,3 +153,7 @@ $lang['user_activated_email_content_line2'] = 'W przypadku gdy Twój klient pocz
 // Reset Pass
 $lang['user_reset_pass_email_subject'] = 'Reset hasła';
 $lang['user_reset_pass_email_body'] = 'Twoje hasło na stronie %s zostało zresetowane. Jeśli nie żądałeś zmiany hasły, skontaktuj się z nami wysyłąc email na adres %s postaramy się rozwiązać problem.';
+
+
+/* End of file user_lang.php */
+/* Location: ./system/pyrocms/modules/users/language/polish/user_lang.php */

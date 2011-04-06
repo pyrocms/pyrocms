@@ -174,6 +174,9 @@ class Admin extends Admin_Controller
 			
 			// rebuild page URIs
 			$this->pages_m->update_lookup($this->input->post('root_pages'));
+			
+			$this->pyrocache->delete_all('navigation_m');
+			$this->pyrocache->delete_all('pages_m');
 				
 			echo 'Success';
 		}

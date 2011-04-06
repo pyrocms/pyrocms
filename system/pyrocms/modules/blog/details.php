@@ -96,18 +96,17 @@ class Module_Blog extends Module {
 
 	public function help()
 	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "<h4>Overview</h4>
-				<p>The Blog module is a simple tool for publishing blog entries.</p>
-				<h4>Categories</h4>
-				<p>You may create as many categories as you like to organize your posts. If you would like your visitors to
-				be able to browse by category simply embed the Blog Categories widget on the front-end.</p>
-				<h4>Posts</h4>
-				<p>Choose a good title for your posts as they will be displayed on the main Blog page (along with the introduction)
-				and will also be used as the title in search engine results. After creating a post you may either save it as Live to publish it or
-				you may save it as a Draft if you want to come back and edit it later. You may also save it as Live but set the date
-				in the future and your post will not show until that date is reached.</p>";
+		/**
+		 * Either return a string containing help info
+		 * return "Some help info";
+		 *
+		 * Or add a language/help_lang.php file and
+		 * return TRUE;
+		 *
+		 * help_lang.php contents
+		 * $lang['help_body'] = "Some help info";
+		*/
+		return TRUE;
 	}
 }
 
