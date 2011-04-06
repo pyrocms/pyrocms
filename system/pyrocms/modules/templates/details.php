@@ -75,7 +75,7 @@ class Module_Templates extends Module {
 			INSERT INTO `email_templates` (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('contact', 'Contact Notification', 'Template for the contact form', '{pyro:setting:site_name} :: {pyro:subject}', 'This message was sent via the contact form on with the following details:
 				<hr />
 				IP Address: {pyro:sender_ip}
-				OS {pryo:sender_os}
+				OS {pyro:sender_os}
 				Agent {pyro:sender_agent}
 				<hr />
 				{pyro:message}
