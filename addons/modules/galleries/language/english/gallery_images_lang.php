@@ -1,29 +1,29 @@
 <?php
 
 // Success messages
-$lang['gallery_images.upload_success']		= 'La imágen ha sido subida satisfactoriamente.';
-$lang['gallery_images.delete_success']		= 'La imágen ha sido eliminada.';
-$lang['gallery_images.changes_success']	 	= 'Los cambios han sido guardados.';
+$lang['gallery_images.upload_success']		= 'The image has been uploaded successfully.';
+$lang['gallery_images.delete_success']		= 'The image has been deleted.';
+$lang['gallery_images.changes_success']	 	= 'The changes have been saved.';
 
 // Errors
-$lang['gallery_images.upload_error']		= 'La imágen no pudo ser subida.';
-$lang['gallery_images.exists_error'] 		= 'La imágen especificada no existe.';
-$lang['gallery_images.delete_error']	 	= 'La imágen no pudo ser eliminada.';
-$lang['gallery_images.changes_error']		= 'Los cambios no pudieron ser guardados.';
+$lang['gallery_images.upload_error']		= 'The image could not be uploaded.';
+$lang['gallery_images.exists_error'] 		= 'The specified image does not exist.';
+$lang['gallery_images.delete_error']	 	= 'The image could not be deleted.';
+$lang['gallery_images.changes_error']		= 'The changes could not be saved.';
 
 // Labels
-$lang['gallery_images.upload_label']		= 'Subir imágen';
-$lang['gallery_images.edit_image_label']	= 'Editar imágen';
-$lang['gallery_images.thumbnail_label']		= 'Miniatura';
-$lang['gallery_images.action_label']		= 'Accion';
-$lang['gallery_images.crop_label']			= 'Cortar imágen';
-$lang['gallery_images.recreate_label']		= 'Actualizar miniatura';
-$lang['gallery_images.delete_label']		= 'Eliminar imágen';
-$lang['gallery_images.title_label']		 	= 'Título';
-$lang['gallery_images.image_label']			= 'Imágen';
-$lang['gallery_images.description_label']	= 'Caption'; #translate
-$lang['gallery_images.gallery_label']		= 'Galería';
-$lang['gallery_images.no_images_label']		= 'Ninguna imágen ha sido agregada todavía';
-$lang['gallery_images.ratio_label']			= 'Mantener proporción';
-$lang['gallery_images.options_label']		= 'Opciones:';
-$lang['gallery_images.crop.save_label']		= 'Clic en guardar para aplicar el corte';
+$lang['gallery_images.upload_label']		= 'Upload Image';
+$lang['gallery_images.edit_image_label']	= 'Edit Image';
+$lang['gallery_images.thumbnail_label']		= 'Thumbnail';
+$lang['gallery_images.action_label']		= 'Action';
+$lang['gallery_images.crop_label']			= 'Crop Image';
+$lang['gallery_images.recreate_label']		= 'Recreate thumbnail';
+$lang['gallery_images.delete_label']		= 'Delete Image';
+$lang['gallery_images.title_label']		 	= 'Title';
+$lang['gallery_images.image_label']			= 'Image';
+$lang['gallery_images.description_label']	= 'Caption';
+$lang['gallery_images.gallery_label']		= 'Gallery';
+$lang['gallery_images.no_images_label']		= 'No images have been added yet';
+$lang['gallery_images.ratio_label']			= 'Maintain Ratio';
+$lang['gallery_images.options_label']		= 'Options:';
+$lang['gallery_images.crop.save_label']		= 'Click Save to apply the crop';
