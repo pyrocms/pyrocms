@@ -27,8 +27,8 @@
 				<td><?php echo $gallery->photo_count; ?></td>
 				<td><?php echo format_date($gallery->updated_on); ?></td>
 				<td class="align-center buttons buttons-small">
-					<?php if ($gallery->folder_slug): ?>
-						<?php echo anchor('admin/files#'		. $gallery->folder_slug, 	lang('galleries.upload_label'), 'class="button"'); ?>
+					<?php if ($gallery->folder_id && isset($folders[$gallery->folder_id]) && $path = $folders[$gallery->folder_id]->virtual_path): ?>
+						<?php echo anchor('admin/files#!path='	. $path, 	lang('galleries.upload_label'), 'class="button"'); ?>
 					<?php endif; ?>
 					<?php echo anchor('admin/galleries/manage/'	. $gallery->id, 			lang('galleries.manage_label'), 'class="button"'); ?>
 					<?php echo anchor('admin/galleries/delete/'	. $gallery->id, 			lang('galleries.delete_label'), array('class'=>'confirm button delete')); ?>

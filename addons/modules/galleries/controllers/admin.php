@@ -131,10 +131,15 @@ class Admin extends Admin_Controller
 		// Get all the galleries
 		$galleries = $this->galleries_m->get_all();
 
+		// Get aux. folders
+		$this->load->model('file_folders_m');
+		$folders = $this->file_folders_m->get_folders();
+
 		// Load the view
 		$this->template
 			->title($this->module_details['name'])
-			->set('galleries', $galleries)
+			->set('galleries',	$galleries)
+			->set('folders',	$folders)
 			->build('admin/index');
 	}
 
@@ -146,8 +151,13 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
-		$this->file_folders_m->folder_tree();
 		$file_folders = $this->file_folders_m->get_folders();
+		$folders_tree = array();
+		foreach($file_folders as $folder)
+		{
+			$indent = repeater('&raquo; ', $folder->depth);
+			$folders_tree[$folder->id] = $indent . $folder->name;
+		}
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->gallery_validation_rules);
@@ -185,8 +195,8 @@ class Admin extends Admin_Controller
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
-			->set('gallery', $gallery)
-			->set('file_folders', $file_folders)
+			->set('gallery',		$gallery)
+			->set('folders_tree',	$folders_tree)
 			->build('admin/form');
 	}
 
@@ -200,8 +210,12 @@ class Admin extends Admin_Controller
 	 */
 	public function manage($id)
 	{
-		$this->file_folders_m->folder_tree();
 		$file_folders = $this->file_folders_m->get_folders();
+		foreach($file_folders as $folder)
+		{
+			$indent = repeater('&raquo; ', $folder->depth);
+			$folders_tree[$folder->id] = $indent . $folder->name;
+		}
 		
 		$this->form_validation->set_rules($this->gallery_validation_rules);
 
@@ -254,10 +268,10 @@ class Admin extends Admin_Controller
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
-			->set('gallery', $gallery)
-			->set('galleries', $galleries)
-			->set('gallery_images', $gallery_images)
-			->set('file_folders', $file_folders)
+			->set('gallery',		$gallery)
+			->set('galleries',		$galleries)
+			->set('gallery_images',	$gallery_images)
+			->set('folders_tree',	$folders_tree)
 			->build('admin/form');
 	}
 

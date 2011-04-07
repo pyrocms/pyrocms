@@ -35,7 +35,7 @@ class Files extends Public_Controller
 		// Path to image thumbnail
 		$image_thumb = APPPATH . 'cache/image_files/' . $height . '_' . $width . '_' . md5($file->filename) . $file->extension;
 
-		if( ! file_exists($image_thumb))
+		if ( ! file_exists($image_thumb))
 		{
 			// LOAD LIBRARY
 			$this->load->library('image_lib');

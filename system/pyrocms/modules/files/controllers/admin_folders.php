@@ -28,28 +28,80 @@ class Admin_folders extends Admin_Controller {
 	 * Formatted array of all folders.
 	 */
 	private $_folders = array();
+	private $_validation_rules = array(
+		array(
+			'field'	=> 'name',
+			'label'	=> 'lang:file_folders.name_label',
+			'rules'	=> 'required'
+		),
+		array(
+			'field'	=> 'slug',
+			'label'	=> 'lang:file_folders.slug_label',
+			'rules'	=> 'required'
+		),
+		array(
+			'field'	=> 'parent_id',
+			'label'	=> 'lang:file_folders.parent_label',
+			'rules'	=> 'required'
+		)
+	);
 
 	// ------------------------------------------------------------------------
 
 	public function __construct()
 	{
 		parent::Admin_Controller();
+
 		$this->load->models(array('file_m', 'file_folders_m'));
 		$this->lang->load('files');
 		$this->config->load('files');
 
-		$this->file_folders_m->folder_tree();
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->_validation_rules);
+
 		$this->_folders = $this->file_folders_m->get_folders();
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-		$this->template->set_partial('nav', 'admin/partials/nav');
+		// Array for select
+		$this->data->folders_tree = array();
+		foreach ($this->_folders as $folder)
+		{
+			$this->data->folders_tree[$folder->id] = repeater('&raquo; ', $folder->depth) . $folder->name;
+		}
+
+		$this->template
+			->set_partial('shortcuts', 'admin/partials/shortcuts')
+			->set_partial('nav', 'admin/partials/nav', array(
+				'file_folders'	=> $this->_folders,
+				'current_id'	=> 0
+			));
 	}
 
 	// ------------------------------------------------------------------------
 
-	public function index($id = NULL)
+	public function index()
 	{
-		$this->_folder_list($id);
+		$this->load->library('table');
+
+		$data->file_folders = $this->_folders;
+
+		if ($this->is_ajax())
+		{
+			$content	= $this->load->view('admin/folders/index', $data, TRUE);
+			$navigation	= $this->load->view('admin/partials/nav', array(
+				'file_folders'	=> $this->_folders,
+				'current_id'	=> 0
+			), TRUE);
+
+			return print( json_encode((object) array(
+				'status'	=> 'success',
+				'content'	=> $content,
+				'navigation'=> $navigation,
+			)) );
+		}
+
+		$this->template
+			->title($this->module_details['name'], lang('file_folders.manage_title'))
+			->build('admin/folders/index', $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -57,93 +109,350 @@ class Admin_folders extends Admin_Controller {
 	/**
 	 * Show the folders contents
 	 */
-	public function contents($id = '', $filter = '')
+	public function contents($id = 0, $filter = '')
 	{
-		if ( ! $this->file_folders_m->exists($id))
+		if ($id)
 		{
-			show_error(lang('files.folders.not_exists'));
+			$folder = $this->file_folders_m->get($id);
+		}
+		elseif ($path = $this->input->get('path'))
+		{
+			$folder = $this->file_folders_m->get_by_path($path);
+			$filter = $this->input->get('filter');
+		}
+
+		if ( ! (isset($folder) && $folder))
+		{
+			if ($this->is_ajax())
+			{
+				return print( json_encode((object) array(
+					'status'	=> 'error',
+					'message'	=> lang('file_folders.not_exists')
+				)) );
+			}
+
+			show_error(lang('file_folders.not_exists'));
+			return;
+		}
+		elseif ( ! isset($folder->root_id))
+		{
+			$folder->root_id		= $this->_folders[$folder->id]->root_id;
+			$folder->virtual_path	= $this->_folders[$folder->id]->virtual_path;
 		}
 
 		$this->load->library('table');
 
 		// Make a breadcrumb trail
-		$crumbs = $this->file_folders_m->breadcrumb($id);
-		$breadcrumb = '';
-		foreach($crumbs AS $item)
-		{
-			$breadcrumb[] = $item['name'];
-		}
-		$this->data->crumbs = implode(' &raquo; ', $breadcrumb);		
+		$this->data->crumbs = $this->file_folders_m->breadcrumb($folder->id);
 
 		// Get a list of all child folders
-		$this->file_folders_m->clear_folders();
-		if (isset($crumbs[0]['id']) && $crumbs[0]['id'] != '')
-		{
-			$this->file_folders_m->folder_tree($crumbs[0]['id']);
-		}
-		else
-		{
-			$this->file_folders_m->folder_tree($id);
-		}
-		$sub_folders = $this->file_folders_m->get_folders();
+		$sub_folders = $this->file_folders_m->folder_tree($folder->root_id);
 
-		// Get the selected information.
-		$this->data->folder = $this->file_folders_m->get($id);
-		$this->data->selected_folder = 0;
-		$this->data->id = $id;
-		$this->data->selected_filter = $filter;
-		$this->data->types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
-
-		$this->file_m->order_by('date_added', 'DESC');
-
-		// Get all files
-		if ($filter != '')
+		// Array for select
+		$this->data->sub_folders = array();
+		foreach ($sub_folders as $sub_folder)
 		{
-			$this->data->files = $this->file_m->get_many_by(array(
-				'folder_id'=>$id,
-				'type' => $filter
-			));
-		}
-		else
-		{
-			$this->data->files = $this->file_m->get_many_by('folder_id', $id);
+			$this->data->sub_folders[$sub_folder->virtual_path] = repeater('&raquo; ', $sub_folder->depth) . $sub_folder->name;
 		}
 
+		$root_folder = $this->_folders[$folder->root_id];
 
 		// Set a default label
-		if (empty($sub_folders))
+		$this->data->sub_folders = $this->data->sub_folders
+			? array($root_folder->virtual_path => lang('files.dropdown_root')) + $this->data->sub_folders
+			: array($root_folder->virtual_path => lang('files.dropdown_no_subfolders'));
+
+		// Get the selected information.
+		$this->data->folder				= $folder;
+		$this->data->selected_filter	= $filter;
+
+		// Avaliable type filters
+		$this->data->types = array();
+
+		$this->db
+			->select('type as letter')
+			->group_by('type');
+
+		$types = $this->file_m->get_many_by('folder_id', $folder->id);
+
+		foreach ($types as $type)
 		{
-			$sub_folders = array(0 => lang('files.dropdown.no_subfolders'));
-		}
-		else
-		{
-			$sub_folders = array(0 => lang('files.dropdown.root')) + $sub_folders;
+			$this->data->types[$type->letter] = lang('files.type_' . $type->letter);
 		}
 
-		$this->data->sub_folders = $sub_folders;
+		asort($this->data->types);
 
-		$this->load->view('admin/folders/contents', $this->data);
+		// Get all files
+		in_array($filter, array('a', 'v', 'd', 'i', 'o')) && $this->db->where('type', $filter);
+
+		$this->data->files = $this->file_m
+			->order_by('date_added', 'DESC')
+			->get_many_by('folder_id', $folder->id);
+
+		// Response ajax
+		if ($this->is_ajax())
+		{
+			$content	= $this->load->view('admin/folders/contents', $this->data, TRUE);
+			$navigation	= $this->load->view('admin/partials/nav', array(
+				'file_folders'	=> $this->_folders,
+				'current_id'	=> $folder->root_id
+			), TRUE);
+
+			return print( json_encode((object) array(
+				'status'	=> 'success',
+				'content'	=> $content,
+				'navigation'=> $navigation,
+			)) );
+		}
+
+		$this->template
+			->title($this->module_details['name'], $folder->name)
+			->append_metadata( css('files.css', 'files') )
+			->build('admin/folders/contents', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
 
 	public function create()
 	{
-		$this->_folder_create();
+		if ($this->form_validation->run())
+		{
+			$name = $this->input->post('name');
+
+			if ($this->file_folders_m->insert(array(
+				'name'			=> $name,
+				'slug'			=> $this->input->post('slug'),
+				'parent_id'		=> $this->input->post('parent_id'),
+				'date_added'	=> now()
+			)))
+			{
+				$message	= sprintf(lang('file_folders.create_success'), $name);
+				$status		= 'success';
+			}
+			else
+			{
+				$message	= sprintf(lang('files.folders.error'), $name);
+				$status		= 'error';
+			}
+
+			// If request is ajax return json data, otherwise do normal stuff
+			if ($this->is_ajax())
+			{
+				return print ( json_encode((object) array(
+					'status'	=> $status,
+					'message'	=> $message
+				)) );
+			}
+
+			// Redirect
+			$this->session->set_flashdata($status, $message);
+			redirect('admin/files/folders' . ($status === 'error' OR $this->input->post('btnAction') !== 'save_exit' ? '/edit': ''));
+		}
+		elseif (validation_errors())
+		{
+			// if request is ajax return json data, otherwise do normal stuff
+			if ($this->is_ajax())
+			{
+				return print( json_encode((object) array(
+					'status'	=> 'error',
+					'message'	=> validation_errors()
+				)) );
+			}
+		}
+
+		foreach ($this->_validation_rules as $rules)
+		{
+			$folder->{$rules['field']} = set_value($rules['field']);
+		}
+
+		$this->data->folder = $folder;
+
+		$this->is_ajax() && $this->template->set_layout(FALSE);
+
+		$this->template
+			->title($this->module_details['name'], lang('file_folders.create_title'))
+			->build('admin/folders/form', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
 
-	public function edit($id)
+	public function edit($id = 0)
 	{
-		$this->_folder_edit($id);
+		$folder = $this->file_folders_m->get($id);
+		if ( ! $folder)
+		{
+			if ($this->is_ajax())
+			{
+				return print( json_encode((object) array(
+					'status'	=> 'error',
+					'message'	=> lang('file_folders.not_exists')
+				)) );
+			}
+
+			redirect('files/folders');
+		}
+
+		if ($this->form_validation->run())
+		{
+			$name = $this->input->post('name');
+
+			if ($this->file_folders_m->update($id, array(
+				'name'			=> $name,
+				'slug'			=> $this->input->post('slug'),
+				'parent_id'		=> $this->input->post('parent_id')
+			)))
+			{
+				$message	= sprintf(lang('file_folders.create_success'), $name);
+				$status		= 'success';
+			}
+			else
+			{
+				$message	= sprintf(lang('files.folders.error'), $name);
+				$status		= 'error';
+			}
+
+			// If request is ajax return json data, otherwise do normal stuff
+			if ($this->is_ajax())
+			{
+				return print ( json_encode((object) array(
+					'status'	=> $status,
+					'message'	=> $message,
+					'title'		=> sprintf(lang('file_folders.edit_title'), $name)
+				)) );
+			}
+
+			// Redirect
+			$this->session->set_flashdata($status, $message);
+			redirect('admin/files/folders' . ($status === 'error' ? '/edit': ''));
+		}
+		elseif (validation_errors())
+		{
+			// if request is ajax return json data, otherwise do normal stuff
+			if ($this->is_ajax())
+			{
+				return print( json_encode((object) array(
+					'status'	=> 'error',
+					'message'	=> validation_errors()
+				)) );
+			}
+		}
+
+		foreach ($this->_validation_rules as $rules)
+		{
+			$this->input->post($rules['field']) && $folder->{$rules['field']} = set_value($rules['field']);
+		}
+
+		$this->data->folder = $folder;
+
+		$this->is_ajax() && $this->template->set_layout(FALSE);
+
+		$this->template
+			->title($this->module_details['name'], sprintf(lang('file_folders.edit_title'), $folder->name))
+			->build('admin/folders/form', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
 
-	public function delete($id)
+	public function delete($id = 0)
 	{
-		$this->_folder_delete($id);
+		$ids = $id
+			? is_array($id)
+				? $id
+				: array($id)
+			: (array) $this->input->post('action_to');
+
+		// Do deletion
+		if ($this->input->post('confirm_delete') === 'yes')
+		{
+			$total		= sizeof($ids);
+			$deleted	= array();
+
+			// Try do deletion
+			foreach ($ids as $id)
+			{
+				// Get the row to use a value.. as title, name
+				if ($folder = $this->file_folders_m->get($id))
+				{
+					// Make deletion retrieving an status and store an value to display in the messages
+					$deleted[($this->file_folders_m->delete($id) ? 'success': 'error')][] = $folder->name;
+				}
+			}
+
+			// Set status messages
+			foreach ($deleted as $status => &$values)
+			{
+				// Mass deletion
+				if (($status_total = sizeof($values)) > 1)
+				{
+					$last_value		= array_pop($values);
+					$first_values	= implode(', ', $values);
+
+					// Success / Error message
+					$values = sprintf(lang('file_folders.mass_delete_' . $status), $status_total, $total, $first_values, $last_value);
+				}
+
+				// Single deletion
+				else
+				{
+					// Success / Error messages
+					$values = sprintf(lang('file_folders.delete_' . $status), $values[0]);
+				}
+			}
+
+			// He arrived here but it was not done nothing, certainly valid ids not were selected
+			if ( ! $deleted)
+			{
+				$status		= 'error';
+				$message	= lang('file_folders.no_select_error');
+			}
+
+			if ($this->is_ajax())
+			{
+				// urg.. ¬¬
+				return print( json_encode((object) array(
+					'success'	=> isset($deleted['success']) ? $deleted['success'] : '',
+					'error'		=> isset($deleted['error']) ? $deleted['error'] : '',
+				)) );
+			}
+
+			foreach ($deleted as $status => $message)
+			{
+				$this->session->set_flashdata($status, $message);
+			}
+
+			redirect('admin/files');
+		}
+
+		$data->file_folders = array();
+		foreach ($ids as $id)
+		{
+			isset($this->_folders[$id]) && $data->file_folders[$id] = $this->_folders[$id];
+		}
+
+		if ($this->is_ajax())
+		{
+			$this->template->set_layout(FALSE);
+
+			if ( ! empty($data->file_folders))
+			{
+				$status	= 'success';
+				$html	= $this->load->view('admin/folders/confirm', $data, TRUE);
+			}
+			else
+			{
+				$status	= 'error';
+				$html	= lang('file_folders.no_select_error');
+			}
+
+			return print( json_encode((object) array(
+				'status'	=> $status,
+				'html'		=> $html
+			)) );
+		}
+
+		$this->template
+			->title($this->module_details['name'], lang('file_folders.delete_title'))
+			->build('admin/folders/confirm', $data);
 	}
 
 	// ------------------------------------------------------------------------
@@ -152,166 +461,28 @@ class Admin_folders extends Admin_Controller {
 	public function upload()
 	{
 		$this->template
-			->title($this->module['name'],lang('files.upload.title'))
+			->title($this->module['name'],lang('files.upload_title'))
 			->build('admin/upload', $this->data);
 	}
 
 	// ------------------------------------------------------------------------
 
-	/**
-	 * List all folders
-	 */
-	private function _folder_list($id)
-	{
-		$this->load->library('table');
-		if($id === NULL)
-		{
-			$file_folders = $this->_folders;
-		}
-		else
-		{
-			$file_folders = $this->file_folders_m->get_children($id);
-		}
-
-		$this->data->file_folders = &$file_folders;
-
-		$this->load->view('admin/folders/index', $this->data);
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Create folder
-	 */
-	private function _folder_create()
-	{
-		$this->template->set_layout('modal', 'admin');
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('slug', 'Slug', 'required');
-
-		if($this->form_validation->run())
-		{
-			$data = array(
-				'name'			=> $this->input->post('name'),
-				'parent_id'		=> $this->input->post('parent_id'),
-				'slug'			=> $this->input->post('slug'),
-				'date_added'	=> now()
-			);
-			$this->file_folders_m->insert($data);
-			$this->data->messages['success'] = lang('files.folders.success');
-		}
-		$folder->name = set_value('name');
-		$folder->parent_id = set_value('parent_id');
-		$folder->type = set_value('type');
-		$folder->slug = set_value('slug');
-		$folder->id = null;
-
-		// Get the parent -> childs
-		$folder->parents = $this->_folders;
-
-		$this->data->folder =& $folder;
-		$this->template->build('admin/folders/form', $this->data);
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Edit a folder
-	 *
-	 * @param	int
-	 */
-	private function _folder_edit($folder_id)
-	{
-		$this->template->set_layout('modal', 'admin');
-		$this->load->library('form_validation');
-
-		$folder = $this->file_folders_m->get($folder_id);
-
-		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('slug', 'Slug', 'required');
-
-		$parent_count = (int) $this->file_folders_m->count_by('parent_id', 0);
-
-		if ($this->form_validation->run())
-		{			
-			$data = array(
-				'name'			=> $this->input->post('name'),
-				'parent_id'		=> $this->input->post('parent_id'),
-				'slug'			=> $this->input->post('slug'),
-			);
-			
-			//if there is only one parent and the folder we are updating is a
-			//potential parent.. we shouldn't change it.
-			
-			if($parent_count <= 1 and $folder->parent_id == 0)
-			{
-				unset($data['parent_id']);
-			}
-			
-			$this->file_folders_m->update($folder_id, $data);
-			$this->data->messages['success'] = lang('files.folders.success');
-			//redirect('admin/files#folders');
-		}
-
-		$folder->name = set_value('name', $folder->name);
-		$folder->parent_id = set_value('parent_id', $folder->parent_id);
-		$folder->slug = set_value('slug', $folder->slug);
-
-		// Get the parent -> childs
-		$folder->parents = $this->_folders;
-
-		$this->data->folder =& $folder;
-
-		$this->template->build('admin/folders/form', $this->data);
-	}
-
-	// ------------------------------------------------------------------------
-
-	/**
-	 * Delete a folder
-	 */
-	private function _folder_delete($folder_id = '')
-	{
-		// If no folder is given, then 404
-		if ( ! $folder = $this->file_folders_m->get($folder_id))
-		{
-			show_404();
-		}
-
-		if($this->input->post('button_action') == lang('dialog.yes'))
-		{
-			$this->file_m->delete_files($folder_id);
-			$this->file_folders_m->delete($folder_id);
-			$this->session->set_flashdata('success', sprintf(lang('files.folders.delete_success'), $folder->name));
-
-			redirect('admin/files#folders');
-		}
-		elseif($this->input->post('button_action') == lang('dialog.no'))
-		{
-			redirect('admin/files#folders');
-		}
-
-		$this->data->folder =& $folder;
-
-		$this->template
-			->title($this->module['name'], lang('files.folders.delete_title'))
-			->build('admin/folders/confirm', $this->data);
-	}
-	
 	public function action()
 	{
-		$ids = $this->input->post('action_to');
+		$action = strtolower($this->input->post('btnAction'));
 		
-		if(is_array($ids))
+		if ($action)
 		{
-			foreach($ids as $folder_id)
+			// Get the id('s)
+			$id_array = $this->input->post('action_to');
+
+			// Call the action we want to do
+			if (method_exists($this, $action))
 			{
-				$this->file_m->delete_files($folder_id);
-				$this->file_folders_m->delete($folder_id);
+				return $this->{$action}($id_array);
 			}
 		}
-		redirect('admin/files#folders');
+
+		redirect('admin/files');
 	}
 }
