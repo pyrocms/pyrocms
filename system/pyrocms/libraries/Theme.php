@@ -24,31 +24,31 @@
  */
 abstract class Theme {
 
-        /**
-         * @var theme name
-         */
-        public $name;
+	/**
+	 * @var theme name
+	 */
+	public $name;
 
-        /**
-         * @var author name
-         */
-        public $author;
+	/**
+	 * @var author name
+	 */
+	public $author;
 
-        /**
-         * @var authors website
-         */
-        public $author_website;
+	/**
+	 * @var authors website
+	 */
+	public $author_website;
 
-        /**
-         * @var theme website
-         */
-        public $website;
+	/**
+	 * @var theme website
+	 */
+	public $website;
 
-        /**
-         * @var theme description
-         */
-        public $description;
-        
+	/**
+	 * @var theme description
+	 */
+	public $description;
+
 	/**
 	 * @var The version of the theme.
 	 */
