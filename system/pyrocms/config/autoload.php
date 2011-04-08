@@ -53,7 +53,7 @@ $autoload['libraries'] = array('events', 'asset', 'database', 'session', 'pyroca
 
 $autoload['helper'] = array(
 	'debug', 'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array', 'gravatar',
-	'comments/comments', 'modules/module'
+	'comments/comments', 'modules/module', 'users/user'
 );
 
 

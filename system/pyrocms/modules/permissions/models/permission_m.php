@@ -10,15 +10,23 @@
  */
 class Permission_m extends CI_Model
 {
+	private $_groups = array();
+
 	/**
 	 * Get a rule based on the ID
-	 * 
+	 *
 	 * @access public
 	 * @param int $id The ID
 	 * @return mixed
 	 */
 	public function get_group($group_id)
 	{
+		// Save a query if you can
+		if (isset($this->_groups[$group_id]))
+		{
+			return $this->_groups[$group_id];
+		}
+
 		$result = $this->db
 			->where('group_id', $group_id)
 			->get('permissions')
@@ -27,11 +35,17 @@ class Permission_m extends CI_Model
 		$permissions = array();
 		foreach ($result as $row)
 		{
-			$permissions[] = $row->module;
+			// Either pass roles or just TRUE
+			$permissions[$row->module] = $row->roles ? json_decode($row->roles) : TRUE;
 		}
+
+		// Save this result for later
+		$this->_groups[$group_id] = $permissions;
 
 		return $permissions;
 	}
+
+
 	
 	/**
 	 * Get a rule based on the ID
@@ -60,7 +74,7 @@ class Permission_m extends CI_Model
 	 * @param int $id The ID
 	 * @return mixed
 	 */
-	function save($group_id, $modules)
+	function save($group_id, $modules, $module_roles)
 	{
 		// Clear out the old permissions
 		$this->db->where('group_id', $group_id)->delete('permissions');
@@ -75,7 +89,8 @@ class Permission_m extends CI_Model
 					// Save this module in the list of "allowed modules"
 					$result = $this->db->insert('permissions', array(
 						'module' => $module,
-						'group_id' => $group_id
+						'group_id' => $group_id,
+						'roles' => ! empty($module_roles[$module]) ? json_encode($module_roles[$module]) : NULL,
 					));
 
 					// Fail, give up trying

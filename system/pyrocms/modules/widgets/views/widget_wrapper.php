@@ -2,4 +2,5 @@
 	<h3><?php echo $widget->instance_title; ?></h3>
 	
 	<?php echo $widget->body; ?>
+	<div class="divider"></div>
 </div>
