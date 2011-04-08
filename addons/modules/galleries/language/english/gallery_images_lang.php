@@ -1,4 +1,5 @@
 <?php
+
 // Success messages
 $lang['gallery_images.upload_success']		= 'The image has been uploaded successfully.';
 $lang['gallery_images.delete_success']		= 'The image has been deleted.';

@@ -62,7 +62,7 @@ $lang['user_confirm_email']                    = 'Confirm E-mail';
 $lang['user_password']                         = 'Password';
 $lang['user_remember']                         = 'Remember Me';
 $lang['user_confirm_password']                 = 'Confirm Password';
-$lang['user_group_id_label']                   = 'Group ID'; // #TRANSLATE #TODO: Translate this into Spanish
+$lang['user_group_id_label']                   = 'Group ID';
 
 $lang['user_level']                            = 'User Role';
 $lang['user_active']                           = 'Active';
