@@ -15,6 +15,7 @@ $lang['profile_edit'] = 'Edytuj swój profil';
 
 $lang['profile_personal_section'] = 'Osobiste';
 
+$lang['profile_display_name']         = 'Wyświetlana nazwa'; 
 $lang['profile_dob']		= 'Data urodzenia';
 $lang['profile_dob_day']	= 'Dzień';
 $lang['profile_dob_month']	= 'Miesiąc';
@@ -31,6 +32,7 @@ $lang['profile_address_line1'] = 'Linia #1';
 $lang['profile_address_line2'] = 'Linia #2';
 $lang['profile_address_line3'] = 'Linia #3';
 $lang['profile_address_postcode'] = 'Kod pocztowy';
+$lang['profile_website']              = 'Strona www';
 
 $lang['profile_messenger_section'] = 'Komunikatory';
 
@@ -40,8 +42,10 @@ $lang['profile_yim_handle'] = 'Yahoo! messenger';
 $lang['profile_gtalk_handle'] = 'GTalk';
 
 $lang['profile_avatar_section'] = 'Avatar';
+$lang['profile_social_section']       = 'Social'; # translate this
 
 $lang['profile_gravatar'] = 'Gravatar';
+$lang['profile_twitter']             = 'Twitter';
 
 $lang['profile_edit_success'] = 'Twój profil został zapisany.';
 $lang['profile_edit_error'] = 'Wystąpił błąd.';
@@ -50,4 +54,5 @@ $lang['profile_edit_error'] = 'Wystąpił błąd.';
 
 $lang['profile_save_btn'] = 'Zapisz profil';
 
-?>
+/* End of file profile_lang.php */
+/* Location: ./system/pyrocms/modules/users/language/polish/profile_lang.php */

@@ -1,36 +1,36 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Actions'; #translate
-$lang['templates.name_label']				= 'Name'; #translate
-$lang['templates.description_label']		= 'Description'; #translate
-$lang['templates.language_label']			= 'Language'; #translate
-$lang['templates.choose_lang_label']		= 'Choose language'; #translate
-$lang['templates.subject_label']			= 'Subject'; #translate
-$lang['templates.body_label']				= 'Body'; #translate
-$lang['templates.slug_label']				= 'Slug'; #translate
+$lang['templates.actions_label']			= 'Acciones';
+$lang['templates.name_label']				= 'Nombre';
+$lang['templates.description_label']		= 'Descripción';
+$lang['templates.language_label']			= 'Lenguaje';
+$lang['templates.choose_lang_label']		= 'Elegir lenguaje';
+$lang['templates.subject_label']			= 'Asunto';
+$lang['templates.body_label']				= 'Contenido';
+$lang['templates.slug_label']				= 'Slug';
 
 // Titles
-$lang['templates.create_title']				= 'Create template'; #translate
-$lang['templates.edit_title']				= 'Editing template "%s"'; #translate
-$lang['templates.clone_title']				= 'Coping template "%s"'; #translate
-$lang['templates.list_title']				= 'List templates'; #translate
-$lang['templates.default_title']			= 'Default templates'; #translate
-$lang['templates.user_defined_title']		= 'User defined templates'; #translate
+$lang['templates.create_title']				= 'Crear plantilla';
+$lang['templates.edit_title']				= 'Editando la plantilla "%s"';
+$lang['templates.clone_title']				= 'Copiando la plantilla "%s"';
+$lang['templates.list_title']				= 'Lista de plantillas';
+$lang['templates.default_title']			= 'Plantillas por defecto';
+$lang['templates.user_defined_title']		= 'Plantillas definidas por el usuario';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.'; #translate
-$lang['templates.tmpl_clone_error']			= '"%s" was unable to be cloned.  Please try again.'; #translate
-$lang['templates.single_delete_success']	= 'The email template has been deleted.'; #translate
-$lang['templates.mass_delete_success']		= '%s email templates out of %s successfully deleted.'; #translate
-$lang['templates.mass_delete_error'] 		= 'Error occurred while trying to delete email template "%s".'; #translate
-$lang['templates.default_delete_error'] 	= 'Error occurred, default email templates can not be removed.'; #translate
-$lang['templates.no_select_error'] 			= 'You need to select email templates first.'; #translate
-$lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.'; #translate
+$lang['templates.tmpl_create_success']		= 'La plantilla "%s" ha sido guardada.';
+$lang['templates.tmpl_create_error']		= 'La plantilla "%s" no ha sido guardada.';
+$lang['templates.tmpl_edit_success']		= 'Los cambios hechos a la plantilla "%s" han sido guardados.';
+$lang['templates.tmpl_edit_error']			= 'Los cambios hechos a la plantilla "%s" no han sido guardados.';
+$lang['templates.tmpl_clone_success']		= 'La plantilla "%s" ha sido copiada. Ya puedes editarla a tu gusto.';
+$lang['templates.tmpl_clone_error']			= 'La plantilla "%s" fue imposible de copiar. Por favor, intente nuevamente.';
+$lang['templates.single_delete_success']	= 'La plantilla ha sido eliminada.';
+$lang['templates.mass_delete_success']		= '%s de %s plantillas han sido eliminadas.';
+$lang['templates.mass_delete_error'] 		= 'Un error ha ocurrido cuando se intentaba eliminar la plantilla "%s".';
+$lang['templates.default_delete_error'] 	= 'Las plantillas por defecto no pueden eliminarse.';
+$lang['templates.no_select_error'] 			= 'Necesitas seleccionar alguna plantilla.';
+$lang['templates.already_exist_error']		= 'Ya existe una plantilla con el nombre "%s".';
 
 /* End of file templates_lang.php */
 /* Location: ./system/pyrocms/modules/templates/language/spanish/templates_lang.php */

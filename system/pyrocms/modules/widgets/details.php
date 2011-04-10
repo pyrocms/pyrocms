@@ -10,6 +10,7 @@ class Module_Widgets extends Module {
 			'name' => array(
 				'sl' => 'Vtičniki',
 				'en' => 'Widgets',
+				'es' => 'Widgets',
 				'pt' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
@@ -24,6 +25,7 @@ class Module_Widgets extends Module {
 			'description' => array(
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
+				'es' => 'Manejar pequeñas secciones de lógica autocontenida en bloques o "Widgets"',
 				'pt' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',

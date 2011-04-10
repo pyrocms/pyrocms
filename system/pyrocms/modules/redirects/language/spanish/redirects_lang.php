@@ -21,3 +21,6 @@ $lang['redirects.mass_delete_error']         = 'Ocurrió un error mientras se in
 $lang['redirects.mass_delete_success']       = 'Se eliminaron con éxito %s de %s redirecciones.';
 $lang['redirects.no_select_error']           = 'Debes seleccionar al menos una redirección para eliminar.';
 $lang['redirects.request_conflict_error']    = 'Ya existe una redireccion para "%s".';
+
+/* End of file redirects_lang.php */
+/* Location: ./system/pyrocms/modules/redirects/language/spanish/redirects_lang.php */

@@ -6,6 +6,8 @@
 		$('#page-list li a').live('click', function()
 		{
 			page_id = $(this).attr('rel');
+			$('#page-list a').removeClass('selected');
+			$(this).addClass('selected');
 			
 			// Load the details box in
 			$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + page_id);
