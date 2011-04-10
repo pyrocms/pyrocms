@@ -2,7 +2,9 @@
 
 class Blog extends Public_Controller
 {
-	function __construct()
+	public $limit = 5; // TODO: PS - Make me a settings option
+	
+	public function __construct()
 	{
 		parent::Public_Controller();		
 		$this->load->model('blog_m');
@@ -13,7 +15,7 @@ class Blog extends Public_Controller
 	}
 	
 	// blog/page/x also routes here
-	function index()
+	public function index()
 	{	
 		$this->data->pagination = create_pagination('blog/page', $this->blog_m->count_by(array('status' => 'live')), NULL, 3);
 		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array('status' => 'live'));	
@@ -28,40 +30,41 @@ class Blog extends Public_Controller
 			->build('index', $this->data);
 	}
 	
-	function category($slug = '')
+	public function category($slug = '')
 	{	
 		$slug OR redirect('blog');
 		
 		// Get category data
 		$category = $this->blog_categories_m->get_by('slug', $slug) OR show_404();
 		
-		$this->data->category =& $category;
-		
 		// Count total blog posts and work out how many pages exist
-		$this->data->pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
+		$pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
 			'category'=>$slug,
 			'status' => 'live'
 		)), NULL, 4);
 		
 		// Get the current page of blog posts
-		$this->data->blog = $this->blog_m->limit($this->data->pagination['limit'])->get_many_by(array(
-			'category'=>$slug,
+		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by(array(
+			'category'=> $slug,
 			'status' => 'live'
 		));
 		
 		// Set meta description based on post titles
-		$meta = $this->_posts_metadata($this->data->blog);
+		$meta = $this->_posts_metadata($blog);
 		
 		// Build the page
 		$this->template->title($this->module_details['name'], $category->title )		
 			->set_metadata('description', $category->title.'. '.$meta['description'] )
 			->set_metadata('keywords', $category->title )
 			->set_breadcrumb( lang('blog_blog_title'), 'blog')
-			->set_breadcrumb( $category->title )		
-			->build( 'category', $this->data );
+			->set_breadcrumb( $category->title )
+			->set('blog', $blog)
+			->set('category', $category)
+			->set('pagination', $pagination)
+			->build('category', $this->data );
 	}	
 	
-	function archive($year = NULL, $month = '01')
+	public function archive($year = NULL, $month = '01')
 	{	
 		$year OR $year = date('Y');
 		$month_date = new DateTime($year.'-'.$month.'-01');
@@ -81,24 +84,22 @@ class Blog extends Public_Controller
 	}
 	
 	// Public: View an post
-	function view($slug = '')
+	public function view($slug = '')
 	{	
-		if (!$slug or !$post = $this->blog_m->get_by('slug', $slug))
+		if ( ! $slug or ! $post = $this->blog_m->get_by('slug', $slug))
 		{
 			redirect('blog');
 		}
 		
-		if($post->status != 'live' && !$this->ion_auth->is_admin())
+		if ($post->status != 'live' && ! $this->ion_auth->is_admin())
 		{
 			redirect('blog');
 		}
 		
 		// IF this post uses a category, grab it
-		if( $post->category_id ){
-			$category = $this->blog_categories_m->get($post->category_id);
-			if($category) {
-				$post->category = $category;
-			}
+		if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
+		{
+			$post->category = $category;
 		}
 		
 		// Set some defaults
@@ -109,22 +110,22 @@ class Blog extends Public_Controller
 			$post->category->title = '';
 		}
 		
-		$this->session->set_flashdata(array('referrer'=>$this->uri->uri_string));	
-		
-		$this->data->post =& $post;
+		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
 
-		$this->template->title($post->title, $this->lang->line('blog_blog_title'))
-			->set_metadata('description', $this->data->post->intro)
-			->set_metadata('keywords', $this->data->post->category->title.' '.$this->data->post->title)	
-			->set_breadcrumb($this->lang->line('blog_blog_title'), 'blog');
+		$this->template->title($post->title, lang('blog_blog_title'))
+			->set_metadata('description', $post->intro)
+			->set_metadata('keywords', $post->category->title.' '.$post->title)	
+			->set_breadcrumb(lang('blog_blog_title'), 'blog');
 		
 		if ($post->category->id > 0)
 		{
 			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
 		}
 		
-		$this->template->set_breadcrumb($post->title, 'blog/'.date('Y/m', $post->created_on).'/'.$post->slug);
-		$this->template->build('view', $this->data);
+		$this->template
+			->set_breadcrumb($post->title, 'blog/'.date('Y/m', $post->created_on).'/'.$post->slug)
+			->set('post', $post)
+			->build('view', $this->data);
 	}	
 	
 	// Private methods not used for display
