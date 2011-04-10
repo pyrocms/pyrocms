@@ -15,7 +15,7 @@ $lang['user_login_header']                     = 'Kirjaudu';
 
 // titles
 $lang['user_add_title']                        = 'Lisää käyttäjä';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title']					   = 'Listaa käyttäjät';
 $lang['user_inactive_title']                   = 'Ei-aktiiviset käyttäjät';
 $lang['user_active_title']                     = 'Aktiiviset käyttäjät';
 $lang['user_registred_title']                  = 'Rekisteröityneet käyttäjät';

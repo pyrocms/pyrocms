@@ -69,6 +69,6 @@ $lang['blog_twitter_posted']                 = 'Lähetetty "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter Virhe';
 
 // date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%B, %Y";
 
 ?>
