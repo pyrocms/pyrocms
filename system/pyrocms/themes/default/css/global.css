@@ -16,7 +16,8 @@ body { background-color: #e1e1e1; background-image: url(../img/body-bg.jpg); bac
 
 /* User meta */
 #header #user-meta { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold; color: #ffffff; letter-spacing: 0.5px; line-height: 1.5em; text-shadow: 1px 1px 0px #000000; margin: 45px 0 0 0; float: right; }
-#header #user-meta a:hover { color: #060a14; text-shadow: 1px 1px 0px #3e444d; }
+#header #user-meta a, #header #user-meta a:link { color: #7b818c; text-shadow: 1px 1px 0px #3e444d; }
+#header #user-meta a:hover { color: #ff6900; text-shadow: 1px 1px 0px #3e444d; }
 #header #user-meta .nav-splitter { color: #060a14; text-shadow: 1px 1px 0px #3e444d; }
 
 #header #user-meta form { width: 301px; margin: 0; padding: 0; float: right; }

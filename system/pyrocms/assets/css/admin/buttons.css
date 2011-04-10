@@ -17,9 +17,9 @@ button:-moz-focus-inner {
     display: inline-block;
     font-size: 130%;
 	font-weight: normal;
-    line-height: 1.25em;
+    line-height: 1em;
     margin: 0 0 0 5px;
-    min-width: 120px;
+    min-width: 110px;
     padding: 7px 12px 8px;
     text-align: center;
     text-decoration: none;
@@ -38,7 +38,7 @@ button {
     font-size: 130%;
     line-height: 1em;
     margin: 0 0 0 5px;
-    min-width: 120px;
+    min-width: 110px;
     padding: 7px 12px 8px;
     text-align: center;
 }

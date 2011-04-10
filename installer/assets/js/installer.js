@@ -37,12 +37,13 @@ $(function() {
 
         password                = $('input[name=user_password]').val();
         password_confirmation   = $(this).val();
-
-        if (password == password_confirmation) {
-            $('#confirm_pass').html('<b>'+pass_match[0]+'</b>').removeClass('failure').addClass('success');
-        } else {
-            $('#confirm_pass').html('<b>'+pass_match[1]+'</b>').removeClass('success').addClass('failure');
-        }
+		if(password !== '') {
+			if (password == password_confirmation) {
+				$('#confirm_pass').html('<b>'+pass_match[0]+'</b>').removeClass('failure').addClass('success');
+			} else {
+				$('#confirm_pass').html('<b>'+pass_match[1]+'</b>').removeClass('success').addClass('failure');
+			}
+		}
 
     });
 

@@ -194,7 +194,7 @@ Form
 }
 
 .input {
-	width: 440px;
+	width: 600px;
 	height: 30px;
 	padding: 10px;
 	margin: 0px 0px;
@@ -213,7 +213,7 @@ Form
 
 label {
 	display: block;
-	width: 140px;
+	width: 250px;
 	height: 30px;
 	font-size: 14px;
 	line-height: 30px;

@@ -6,7 +6,7 @@ $lang['groups.name']				    = 'Όνομα';
 $lang['groups.short_name']				= 'Συντομο όνομα'; 
 $lang['groups.description'] 		    = 'Περιγραφή';
 $lang['groups.actions']					= 'Ενέργειες';
-$lang['groups.edit']					= 'Επξεργασία';
+$lang['groups.edit']					= 'Επεξεργασία';
 $lang['groups.delete']					= 'Διαγραφή';
 
 // titles

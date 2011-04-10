@@ -49,7 +49,12 @@
 		<a href="<?php echo site_url('installer/change/arabic'); ?>" title="العربية">
 			<img src="<?php echo base_url(); ?>assets/images/flags/ar.gif" alt="العربية" />
 		</a>
-	</li>	
+	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/greek'); ?>" title="Ελληνικά">
+			<img src="<?php echo base_url(); ?>assets/images/flags/el.gif" alt="Greek" />
+		</a>
+	</li>
 	<li>
 		<a href="<?php echo site_url('installer/change/german'); ?>" title="german">
 			<img src="<?php echo base_url(); ?>assets/images/flags/de.gif" alt="german" />

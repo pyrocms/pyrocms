@@ -88,15 +88,7 @@ class Module_Comments extends Module {
 
 	public function help()
 	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "<h4>Overview</h4>
-		<p>The comments module allows visitors to comment on any part of your website that you enable comments for.</p>
-		<h4>Enabling Comments</h4><hr>
-		<p>Comments can be enabled in Pages, Galleries, and Blog. If you want to moderate comments you must enable
-		comment moderation in Settings.</p>
-		<h4>Comment Moderation</h4><hr>
-		<p>Comments may be Approved or Unapproved at any time from the admin panel. If you approve a comment and later want to unapprove it you may do so.</p>";
+		return TRUE;
 	}
 
 }

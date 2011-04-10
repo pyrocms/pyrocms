@@ -6,15 +6,15 @@ $lang['galleries.delete_success']	= 'Όλες οι γκαλερί διαγράφ
 $lang['galleries.install_success']	= 'Το πρόσθετο εγκαταστάθηκε με επιτυχία';
 
 // Error notifications
-$lang['galleries.create_error']			= 'Η γκαλερί δεν ήταν δυνατό να δημιουργηθεί.';
-$lang['galleries.exists_error']			= 'Η συγκεκριμένη γκαλερί δεν υπάρχει.';
-$lang['galleries.update_error']			= 'Η γκαλερί δεν ήταν δυνατό να ενημερωθεί.';
-$lang['galleries.id_error']				= 'Δεν έχουν οριστεί IDs.';
-$lang['galleries.folder_error']			= 'Οι φάκελη της γκαλερί "%s" δεν ήταν δυνατό να διαγραφούν.';
-$lang['galleries.delete_error']			= 'Η γκαλερί "%s" δεν ήταν δυνατό να διαγραφεί.';
-$lang['galleries.no_galleries_error'] 	= 'Δεν έχουν δημιουργηθεί ακόμη γκαλερί.';
-$lang['galleries.install_error']		= 'Το πρόσθετο δεν ήταν δυνατό να εγκατασταθεί.';
-$lang['galleries.already_exist_error']	= 'Υπάρχει ήδη μια γκαλερί με σύντομο όνοα "%s".';
+$lang['galleries.create_error']			    = 'Η γκαλερί δεν ήταν δυνατό να δημιουργηθεί.';
+$lang['galleries.exists_error']			    = 'Η συγκεκριμένη γκαλερί δεν υπάρχει.';
+$lang['galleries.update_error']			    = 'Η γκαλερί δεν ήταν δυνατό να ενημερωθεί.';
+$lang['galleries.id_error']				    = 'Δεν έχουν οριστεί IDs.';
+$lang['galleries.folder_error']		    	= 'Οι φάκελη της γκαλερί "%s" δεν ήταν δυνατό να διαγραφούν.';
+$lang['galleries.delete_error']			    = 'Η γκαλερί "%s" δεν ήταν δυνατό να διαγραφεί.';
+$lang['galleries.no_galleries_error'] 	    = 'Δεν έχουν δημιουργηθεί ακόμη γκαλερί.';
+$lang['galleries.install_error']		    = 'Το πρόσθετο δεν ήταν δυνατό να εγκατασταθεί.';
+$lang['galleries.already_exist_error']	    = 'Υπάρχει ήδη μια γκαλερί με σύντομο όνομα "%s".';
 $lang['galleries.folder_duplicated_error']	= 'Συνέβη κάποιο σφάλμα! Ο φάκελος ήδη ανήκει σε κάποια γκαλερί.';
 $lang['galleries.no_gallery_description']	= 'Δεν έχει οριστεί ακόμη περιγραφή.';
 
@@ -23,7 +23,7 @@ $lang['galleries.galleries_label']			= 'Γκαλερί';
 $lang['galleries.manage_gallery_label']		= 'Διαχείριση Γκαλερί';
 $lang['galleries.new_gallery_label']		= 'Νέα Γκαλερί';
 
-$lang['galleries.album_label']				= 'Άλμπουμ';
+$lang['galleries.gallery_label']			= 'Άλμπουμ';
 $lang['galleries.num_photos_label']			= 'Αριθμός Φωτογραφιών';
 $lang['galleries.updated_label']			= 'Τελευταία Ενημέρωση';
 $lang['galleries.actions_label']			= 'Ενέργειες';
@@ -34,6 +34,8 @@ $lang['galleries.comments_enabled_label']	= 'Ναί';
 $lang['galleries.comments_disabled_label']	= 'Όχι';
 $lang['galleries.published_yes_label']		= 'Ναί';
 $lang['galleries.published_no_label']		= 'Όχι';
+$lang['galleries.css_label']				= 'CSS';
+$lang['galleries.js_label']					= 'JavaScript';
 
 // General labels
 $lang['galleries.title_label']				= 'Τίτλος';
@@ -52,3 +54,7 @@ $lang['galleries.upload_label']				= 'Ανέβασμα Εικόνας';
 
 // Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Υπο-Γκαλερί';
+// tabs
+$lang['galleries.content_label']			= 'Περιεχόμενο γκαλερί';
+$lang['galleries.design_label']				= 'Σχεδιασμός';
+$lang['galleries.script_label']				= 'Script';

@@ -12,7 +12,7 @@ $lang['redirects.edit_title']                = 'Επεξεργασία Ανακ�
 $lang['redirects.list_title']                = 'Ανακατευθύνσεις';
 
 // messages
-$lang['redirects.no_redirects']              = 'Προς το παρόν δεν υπάρχουν ανακατευθήνσεις.';
+$lang['redirects.no_redirects']              = 'Προς το παρόν δεν υπάρχουν ανακατευθύνσεις.';
 $lang['redirects.add_success']               = 'Μια νέα ανακατεύθυνση αποθηκεύτηκε.';
 $lang['redirects.add_error']                 = 'Η νέα ανακατεύθυνση δεν ήταν δυνατό να αποθηκευτεί, παρακαλούμε προσπαθήστε ξανά αργότερα.';
 $lang['redirects.edit_success']              = 'Οι αλλαγές σε αυτήν την ανακατεύθυνση αποθηκεύτηκαν.';
