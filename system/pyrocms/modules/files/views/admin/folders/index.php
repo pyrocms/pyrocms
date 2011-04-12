@@ -1,59 +1,48 @@
-<?php echo form_open('admin/files/folders/action');?>
-	<h3><?php echo lang('files.folders.manage_title'); ?></h3>
+<?php if ($file_folders): ?>
 
-		<?php if ( ! empty($file_folders)): ?>
+	<h3><?php echo lang('file_folders.manage_title'); ?></h3>
 
-			<?php
-				$tmpl = array ( 'table_open'  => '<table border="0" class="table-list">' );
-				$this->table->set_template($tmpl);
-				$this->table->set_heading(
-					form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')),
-					lang('files.folders.name'),
-					lang('files.folders.created'),
-					'<span>'. lang('files.labels.action') .'</span>'
-				);
+	<?php echo form_open('admin/files/folders/action', 'id="folders_list"');?>
 
-					foreach ($file_folders as $folder)
-					{
-						$spcr = '&nbsp;&nbsp; &raquo; ';
-						$indent = ($folder['parent_id'] != 0) ? repeater($spcr, $folder['depth']) : '';
-						$edit = anchor('admin/files/folders/edit/' . $folder['id'], lang('files.labels.edit'), 'class="edit_folder"');
-						$delete = anchor('admin/files/folders/delete/' . $folder['id'], lang('files.labels.delete'), array('class'=>'confirm'));
-						$this->table->add_row(
-						 	form_checkbox('action_to[]', $folder['id']),
-						 	$indent.$folder['name'],
-							format_date($folder['date_added']),
-							$edit .' | '. $delete
-						 );
-					}
-
-				echo $this->table->generate();
-			?>
-			<div class="buttons buttons-small align-right padding-top">
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
-			</div>
-
-		<?php else: ?>
-			<p>
-				<?php echo lang('files.folders.no_folders');?>
-				<?php echo anchor('admin/files/folders/create', lang('files.folders.create'), 'id="new_folder" class="new_folder"'); ?>
-			</p>
-
-			<script type="text/javascript">
-			jQuery(function($) {
-				$(".new_folder").colorbox({
-					width:"600", height:"350", iframe:true,
-					onClosed:function(){ location.reload(); }
-				});
-			});
-			</script>
-		<?php endif; ?>
-<?php echo form_close();?>
-<script type="text/javascript">
-jQuery(function($) {
-	$(".edit_folder").colorbox({
-		width:"600", height:"350", iframe:true,
-		onClosed:function(){ location.reload(); }
-	});
-});
-</script>
+		<table border="0" class="table-list">
+			<thead>
+				<tr>
+					<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
+					<th><?php echo lang('files.name_label'); ?></th>
+					<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
+					<th width="200" class="align-center"><?php echo lang('files.actions_label'); ?></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+			<?php foreach ($file_folders as $folder): ?>
+				<tr>
+					<td><?php echo form_checkbox('action_to[]', $folder->id); ?></td>
+					<td><?php echo anchor('admin/files/folders/contents/' . $folder->id, repeater('&raquo; ', $folder->depth) . $folder->name, 'title="' . $folder->name .'" data-path="' . $folder->virtual_path . '" class="folder-hash"'); ?></td>
+					<td class="align-center"><?php echo format_date($folder->date_added); ?></td>
+					<td class="align-center buttons buttons-small">
+						<?php echo anchor('admin/files/folders/edit/' . $folder->id, lang('buttons.edit'), 'class="folder-edit button edit"'); ?>
+						<?php echo anchor('admin/files/folders/delete/' . $folder->id, lang('buttons.delete'), array('class'=>'confirm button delete')); ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+		<div class="buttons buttons-small align-right padding-top">
+			<button type="submit" name="btnAction" value="delete" class="button delete confirm">
+				<span><?php echo lang('buttons.delete'); ?></span>
+			</button>
+		</div>
+	<?php echo form_close();?>
+<?php else: ?>
+	<div class="blank-slate file-folders">
+		<h2><?php echo lang('file_folders.no_folders');?>
+		[ <?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="folder-create"'); ?> ]</h2>
+	</div>
+<?php endif; ?>

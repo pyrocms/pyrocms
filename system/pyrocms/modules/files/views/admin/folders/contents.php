@@ -1,53 +1,44 @@
+<h3><?php echo $crumbs; ?></h3>
 <?php echo form_open('admin/files/action');?>
-	<h3>
-		<?php echo $crumbs; ?>
-        <a href="#" title="grid" class="toggle-view"><?php echo lang('files.grid'); ?></a>
-        <a href="#" title="list" class="toggle-view active-view"><?php echo lang('files.list'); ?></a>
-    </h3>
-
-	<div id="files_toolbar">
+	<div id="files-toolbar">
 		<ul>
 			<li>
-				<label for="folder"><?php echo lang('files.subfolders.label'); ?>:</label>
-				<?php
-				//$folder_options['0'] = $sub_folders[0];
-				foreach($sub_folders as $row)
-				{
-					if ($row['name'] != '-') //$id OR $row['parent_id'] > 0)
-					{
-						$indent = ($row['parent_id'] != 0 && isset($row['depth'])) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-						$folder_options[$row['id']] = $indent.$row['name'];
-					}
-				}
-				echo form_dropdown('parent_id', $folder_options, $id, 'id="parent_id"');
-				?>
+				<label for="folder"><?php echo lang('file_folders.subfolders_label'); ?></label>
+				<?php echo form_dropdown('folder_path', $sub_folders, $folder->virtual_path, 'id="folder_path" class="folder-hash"'); ?>
 			</li>
 			<li>
-				<label for="folder"><?php echo lang('files.filter'); ?>:</label>
-				<?php echo form_dropdown('filter', array('' => '') + $types, $selected_filter, 'id="filter"'); ?>
+				<label for="folder"><?php echo lang('files.filter_label'); ?></label>
+				<?php echo form_dropdown('filter', array('' => lang('select.all')) + $types, $selected_filter, 'id="filter" class="folder-hash"'); ?>
 			</li>
 			<li class="buttons buttons-small">
-				<a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files">
-					<?php echo lang('files.upload.title'); ?>
+				<?php echo form_hidden('folder_id', $folder->id); ?>
+				<a href="<?php echo site_url('admin/files/upload/'.$folder->id);?>" class="button upload open-files-uploader">
+					<?php echo lang('files.upload_title'); ?>
 				</a>
 			</li>
 		</ul>
 	</div>
-	<?php if ( ! empty($files)): ?>
+
+	<?php if ($files): ?>
+	<div id="files-display">	
+        <a href="#" title="grid" class="toggle-view"><?php echo lang('files.display_grid'); ?></a>
+        <a href="#" title="list" class="toggle-view active-view"><?php echo lang('files.display_list'); ?></a>
+	</div>
+
     <div id="grid" class="list-items">
-        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?>
-        <ul class="grid">
+        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?><br />
+        <ul class="grid clearfix">
         <?php foreach($files as $file): ?>
             <li>
                 <div class="actions">
                 <?php echo form_checkbox('action_to[]', $file->id); ?>
-                <?php echo anchor('files/download/' . $file->id, lang('files.labels.download'), array('class' => 'download_file')); ?>
-                <?php echo anchor('admin/files/edit/' . $file->id, lang('files.labels.edit'), array('class' => 'edit_file')); ?>
-                <?php echo anchor('admin/files/delete/' . $file->id, lang('files.labels.delete'), array('class'=>'confirm')); ?>
+                <?php echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'download_file')); ?>
+                <?php echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'edit_file')); ?>
+                <?php echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm')); ?>
                 </div>
-            <?php if($file->type == 'i'): ?>
+            <?php if ($file->type === 'i'): ?>
             <a title="<?php echo $file->name; ?>" href="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" rel="colorbox">
-                <img title="<?php echo $file->name; ?>" height="64" src="<?php echo site_url() . 'files/thumb/' . $file->id . '/80'; ?>" alt="<?php echo $file->name; ?>" />
+                <img title="<?php echo $file->name; ?>" height="64" src="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" />
             </a>
             <?php else: ?>
                 <?php echo image($file->type . '.png', 'files'); ?>
@@ -56,111 +47,50 @@
         <?php endforeach; ?>
         </ul>
     </div>
-        <?php
-			$tmpl = array ( 'table_open'  => '<table border="0" class="table-list" id="list">' );
-			$this->table->set_template($tmpl);
-			$this->table->set_heading(
-				form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')),
-				lang('files.folders.name'),
-				lang('files.type'),
-				lang('files.file_name'),
-				lang('files.folders.created'),
-				'<span>'. lang('files.labels.action') .'</span>'
-			);
 
-				foreach ($files as $file)
-				{
-					$download = anchor('files/download/' . $file->id, lang('files.labels.download'), array('class' => 'download_file'));
-					$edit = anchor('admin/files/edit/' . $file->id, lang('files.labels.edit'), array('class' => 'edit_file'));
-					$delete = anchor('admin/files/delete/' . $file->id, lang('files.labels.delete'), array('class'=>'confirm'));
-					$this->table->add_row(
-					 	form_checkbox('action_to[]', $file->id),
-					 	$file->name,
-					 	lang('files.'.$file->type),
-						$file->filename,
-						format_date($file->date_added),
-						$download .' | '. $edit .' | '. $delete
-					 );
-				}
+	<table border="0" class="table-list" id="list">
+		<thead>
+			<tr>
+				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
+				<th><?php echo lang('files.name_label'); ?></th>
+				<th><?php echo lang('files.type_label'); ?></th>
+				<th><?php echo lang('files.filename_label'); ?></th>
+				<th width="100" class="align-center"><?php echo lang('files.created_label'); ?></th>
+				<th width="300" class="align-center"><?php echo lang('files.actions_label'); ?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
+				</td>
+			</tr>
+		</tfoot>
+		<tbody>
+		<?php foreach ($files as $file): ?>
+			<tr>
+				<td><?php echo form_checkbox('action_to[]', $file->id); ?></td>
+				<td><?php echo $file->name; ?></td>
+				<td><?php echo lang('files.type_'.$file->type); ?></td>
+				<td><?php echo $file->filename; ?></td>
+				<td class="align-center"><?php echo format_date($file->date_added); ?></td>
+				<td class="align-center buttons buttons-small">
+					<?php echo anchor('files/download/' . $file->id, lang('files.download_label'), 'class="button download download_file"'); ?>
+					<?php echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), 'class="button edit edit_file"'); ?>
+					<?php echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), 'class="confirm button delete"'); ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
+	
+	<div class="buttons align-right padding-top">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
+	</div>
 
-			echo $this->table->generate();
-		?>
-
-        <br class="clear-both" />
-        
-		<div class="buttons buttons-small align-right padding-top">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
-		</div>
 	<?php else: ?>
-		<p><?php echo lang('files.no_files');?></p>
+	<div class="blank-slate files">
+		<h2><?php echo lang('files.no_files');?></h2>
+	</div>
 	<?php endif; ?>
-
 <?php echo form_close();?>
-<script type="text/javascript">
-(function($) {
-	$(function() {
-
-		var curr_url = '<?php echo site_url('admin/files/folders/contents/'.$id.'/'.$selected_filter) ?>/';
-
-		$('#parent_id').change(function() {
-			curr_url = '<?php echo site_url('admin/files/folders/contents/') ?>/'+$(this).val()+'/<?php echo $selected_filter; ?>';
-			curr_text = $(this).text();
-			$(this).text("Loading...");
-			$("#files_right_pane").load(curr_url);
-			return false;
-		});
-		$('#filter').change(function() {
-			curr_url = '<?php echo site_url('admin/files/folders/contents/'.$id) ?>/'+$(this).val();
-			curr_text = $(this).text();
-			$(this).text("Loading...");
-			$("#files_right_pane").load(curr_url);
-			return false;
-		});
-		$(".edit_file").colorbox({
-			width:"600", height:"450", iframe:true,
-			onClosed:function(){ $("#files_right_pane").load(curr_url); }
-		});
-        
-        $('a[rel="colorbox"]').colorbox({
-            maxWidth: "80%",
-            maxHeight: "80%"
-        });
-
-		if($.cookie('file_view') != 'grid')
-		{
-			$('#grid').hide();
-		}
-		else
-		{
-			$('#list').hide();
-            $('a.active-view').removeClass('active-view');
-            $("a[title='grid']").addClass('active-view');
-		}
-        
-        $('a.toggle-view').click(function(e) {
-            e.preventDefault();
-            view = $(this).attr('title');
-			
-			// remember the user's preference
-			$.cookie('file_view', view);
-			
-            $('a.active-view').removeClass('active-view');
-            $(this).addClass('active-view');
-            
-            if(view == 'grid')
-            {
-                hide_view = 'list';
-            }
-            else
-            {
-                hide_view = 'grid';
-            }
-            
-            $('#'+hide_view).fadeOut(50, function() {
-                $('#'+view).fadeIn(500);   
-            });            
-        });
-        
-	});
-})(jQuery);
-</script>

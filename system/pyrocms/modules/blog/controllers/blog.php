@@ -103,7 +103,7 @@ class Blog extends Public_Controller
 		}
 		
 		// Set some defaults
-		if ( ! isset($post->category->id))
+		else
 		{
 			$post->category->id = 0;
 			$post->category->slug = '';

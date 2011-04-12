@@ -246,10 +246,10 @@ class Admin extends Admin_Controller
 		foreach ($ids as $id)
 		{
 			// Get the row to use a value.. as title, name
-			if ($customer = $this->variables_m->get($id))
+			if ($variable = $this->variables_m->get($id))
 			{
 				// Make deletion retrieving an status and store an value to display in the messages
-				$deleted[($this->variables_m->delete($id) ? 'success': 'error')][] = $customer->name;
+				$deleted[($this->variables_m->delete($id) ? 'success': 'error')][] = $variable->name;
 			}
 		}
 

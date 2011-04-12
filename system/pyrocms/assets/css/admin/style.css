@@ -423,6 +423,9 @@ a.delete {
 	border-right: 1px solid #CCCCCC;
 	border-left: 1px solid #fefefe;
 }
+#shortcuts li.hidden {
+	display: none;
+}
 #shortcuts li:first-child {
 	border-left: none;
 }

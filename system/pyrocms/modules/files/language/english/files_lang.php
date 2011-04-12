@@ -13,60 +13,87 @@
  * @filesource
  */
 
-$lang['files.title']						= 'Files';
-$lang['files.upload.title']					= 'Upload Files';
-$lang['files.labels.action']				= 'Action';
-$lang['files.labels.download']				= 'Download';
-$lang['files.labels.edit']					= 'Edit';
-$lang['files.labels.delete']				= 'Delete';
-$lang['files.labels.upload']				= 'Upload';
-$lang['files.labels.parent']				= 'Parent';
-$lang['files.no_files']						= 'There are currently no files.';
+// Files
 
-$lang['files.folders.title']				= 'File Folders';
-$lang['files.folders.manage_title']			= 'Manage Folders';
-$lang['files.folders.label']				= 'Folders';
-$lang['files.folder.label']					= 'Folder';
-$lang['files.subfolders.label']				= 'Sub-Folders';
-$lang['files.folders.name']					= 'Name';
-$lang['files.folders.slug']					= 'URL Slug';
-$lang['files.folders.created']				= 'Created On';
-$lang['files.folders.create']				= 'New Folder';
-$lang['files.folders.success']				= 'The folder has now been saved.';
-$lang['files.folders.not_exists']			= 'An invalid folder has been selected.';
-$lang['files.folders.no_subfolders']		= 'None';
-$lang['files.folders.no_folders']			= 'Your files are sorted by folders, currently you do not have any folders setup.';
-$lang['files.folders.delete_success']		= 'The folder "%s" was deleted.';
-$lang['files.folders.delete_title']			= 'Confirm Delete';
-$lang['files.folders.confirm_delete']		= 'Are you sure you want to delete "%s"?<br /><br />Doing so will also delete all of the files and folders within the folder.';
-$lang['files.folders.mkdir']				= 'Could not make the uploads/files directory';
-$lang['files.folders.chmod']				= 'Could not chmod the uploads/files directory';
+// Titles
+$lang['files.files_title']					= 'Files';
+$lang['files.upload_title']					= 'Upload Files';
+$lang['files.edit_title']					= 'Edit file "%s"';
 
-$lang['files.dropdown.no_subfolders']		= '-- None --';
-$lang['files.dropdown.root']				= '-- Root --';
+// Labels
+$lang['files.actions_label']				= 'Actions';
+$lang['files.download_label']				= 'Download';
+$lang['files.edit_label']					= 'Edit';
+$lang['files.delete_label']					= 'Delete';
+$lang['files.upload_label']					= 'Upload';
+$lang['files.description_label']			= 'Description';
+$lang['files.type_label']					= 'Type';
+$lang['files.file_label']					= 'File';
+$lang['files.filename_label']				= 'File Name';
+$lang['files.filter_label']					= 'Filter';
+$lang['files.loading_label']				= 'Loading...';
+$lang['files.name_label']					= 'Name';
 
-$lang['files.description']					= 'Description';
-$lang['files.type']							= 'Type';
-$lang['files.file']							= 'File';
-$lang['files.file_name']					= 'File Name';
-$lang['files.success']						= 'The file has now been saved.';
-$lang['files.file.no_upload']				= 'A file must be uploaded.';
-$lang['files.file.no_extension']			= 'File must have extension.';
+$lang['files.dropdown_no_subfolders']		= '-- None --';
+$lang['files.dropdown_root']				= '-- Root --';
+
+$lang['files.type_a']						= 'Audio';
+$lang['files.type_v']						= 'Video';
+$lang['files.type_d']						= 'Document';
+$lang['files.type_i']						= 'Image';
+$lang['files.type_o']						= 'Other';
+
+$lang['files.display_grid']					= 'Grid';
+$lang['files.display_list']					= 'List';
+
+// Messages
+$lang['files.create_success']				= 'The file has now been saved.';
+$lang['files.create_error']					= 'An error as occourred.';
+$lang['files.edit_success']					= 'The file was successfully saved.';
+$lang['files.edit_error']					= 'An error occurred while trying to save the file.';
+$lang['files.delete_success']				= 'The file was deleted.';
+$lang['files.delete_error']					= 'The file could not be deleted.';
+$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"';
+$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".';
+$lang['files.upload_error']					= 'A file must be uploaded.';
+$lang['files.invalid_extension']			= 'File must have a valid extension.';
 $lang['files.not_exists']					= 'An invalid folder has been selected.';
-$lang['files.delete.error']					= 'The file could not be deleted.';
-$lang['files.delete.success']				= 'The file was deleted.';
-$lang['files.filter']						= 'Filter';
-$lang['files.loading']						= 'Loading...'; #translate
+$lang['files.no_files']						= 'There are currently no files.';
+$lang['files.no_permissions']				= 'You do not have permissions to see the files module.';
+$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.';
 
-// Types
-$lang['files.i'] = 'Image';
-$lang['files.a'] = 'Audio';
-$lang['files.v'] = 'Video';
-$lang['files.d'] = 'Document';
-$lang['files.o'] = 'Other';
+// File folders
 
-$lang['files.no_permissions'] = 'You do not have permissions to see the files module.';
-$lang['files.grid'] = 'Grid';
-$lang['files.list'] = 'List';
+// Titles
+$lang['file_folders.folders_title']			= 'File Folders';
+$lang['file_folders.manage_title']			= 'Manage Folders';
+$lang['file_folders.create_title']			= 'New Folder';
+$lang['file_folders.delete_title']			= 'Confirm Delete';
+$lang['file_folders.edit_title']			= 'Edit folder "%s"';
+
+// Labels
+$lang['file_folders.folders_label']			= 'Folders';
+$lang['file_folders.folder_label']			= 'Folder';
+$lang['file_folders.subfolders_label']		= 'Sub-Folders';
+$lang['file_folders.parent_label']			= 'Parent';
+$lang['file_folders.name_label']			= 'Name';
+$lang['file_folders.slug_label']			= 'URL Slug';
+$lang['file_folders.created_label']			= 'Created On';
+
+// Messages
+$lang['file_folders.create_success']		= 'The folder has now been saved.';
+$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.';
+$lang['file_folders.edit_success']			= 'The folder was successfully saved.';
+$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.';
+$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
+$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.';
+$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".';
+$lang['file_folders.delete_success']		= 'The folder "%s" was deleted.';
+$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".';
+$lang['file_folders.not_exists']			= 'An invalid folder has been selected.';
+$lang['file_folders.no_subfolders']			= 'None';
+$lang['file_folders.no_folders']			= 'Your files are sorted by folders, currently you do not have any folders setup.';
+$lang['file_folders.mkdir_error']			= 'Could not make the uploads/files directory';
+$lang['file_folders.chmod_error']			= 'Could not chmod the uploads/files directory';
 
 /* End of file files_lang.php */
