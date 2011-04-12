@@ -2,7 +2,6 @@
 
 class Blog extends Public_Controller
 {
-
 	public $limit = 5; // TODO: PS - Make me a settings option
 	
 	public function __construct()
@@ -125,7 +124,7 @@ class Blog extends Public_Controller
 		
 		$this->template
 			->set_breadcrumb($post->title, 'blog/'.date('Y/m', $post->created_on).'/'.$post->slug)
-			->set('post', $posts)
+			->set('post', $post)
 			->build('view', $this->data);
 	}	
 	
