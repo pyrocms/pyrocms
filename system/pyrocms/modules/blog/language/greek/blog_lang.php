@@ -32,6 +32,7 @@ $lang['blog_author_name_label']              = 'Όνομα συγγραφέα';
 $lang['blog_read_more_label']                = 'Διαβάστε περισσότερα &raquo;';
 $lang['blog_created_hour']                   = 'Ώρα δημιουργίας';
 $lang['blog_created_minute']                 = 'Λεπτό δημιουργίας';
+$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
 
 // titles
 $lang['blog_create_title']                   = 'Προσθήκη δημοσίευσης';

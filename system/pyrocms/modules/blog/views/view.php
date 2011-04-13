@@ -13,4 +13,8 @@
 		<?php echo stripslashes($post->body); ?>
 	</div>
 </div>
-<?php echo display_comments($post->id); ?>
+
+<?php if($post->comments_enabled): ?>
+	<?php echo display_comments($post->id); ?>
+<?php endif; ?>
+

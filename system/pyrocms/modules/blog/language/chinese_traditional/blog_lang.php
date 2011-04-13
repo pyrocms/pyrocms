@@ -32,6 +32,7 @@ $lang['blog_author_name_label'] 				= '作者名稱';
 $lang['blog_read_more_label'] 					= '閱讀更多&nbsp;&raquo;';
 $lang['blog_created_hour']                  = 'Time (Hour)'; #translate
 $lang['blog_created_minute']                = 'Time (Minute)'; #translate
+$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
 
 // titles
 $lang['blog_create_title'] 				= '新增文章';

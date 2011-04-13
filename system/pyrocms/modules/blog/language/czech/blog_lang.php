@@ -35,6 +35,7 @@ $lang['blog_created_month']                     = 'Vytvořeno měsíce';
 $lang['blog_created_year']                      = 'Vytvořeno roku';
 $lang['blog_created_hour']                      = 'Vytvořeno v hodině';
 $lang['blog_created_minute']                    = 'Vytvořeno v minutě';
+$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
 
 // titles
 $lang['blog_create_title'] 			= 'Přidat článek';

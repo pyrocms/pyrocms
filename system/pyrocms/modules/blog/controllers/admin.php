@@ -65,7 +65,13 @@ class Admin extends Admin_Controller {
 			'field' => 'created_on_minute',
 			'label' => 'lang:blog_created_minute',
 			'rules' => 'trim|numeric|required'
+		),
+                array(
+				'field' => 'comments_enabled',
+				'label'	=> 'lang:blog_comments_enabled_label',
+				'rules'	=> 'trim|numeric'
 		)
+            
 	);
 
 	/**
@@ -172,7 +178,8 @@ class Admin extends Admin_Controller {
 				'intro' => $this->input->post('intro'),
 				'body' => $this->input->post('body'),
 				'status' => $this->input->post('status'),
-				'created_on' => $created_on
+				'created_on' => $created_on,
+                                'comments_enabled' => $this->input->post('comments_enabled')
 			));
 
 			if ($id)
@@ -250,7 +257,8 @@ class Admin extends Admin_Controller {
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
-				'created_on' => $created_on
+				'created_on' => $created_on,
+                                'comments_enabled' => $this->input->post('comments_enabled')
 			));
 			
 			if ($result)

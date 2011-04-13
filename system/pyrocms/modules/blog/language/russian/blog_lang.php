@@ -40,6 +40,7 @@ $lang['blog_author_name_label']							= 'Автор';
 $lang['blog_read_more_label']								= 'читать целиком&nbsp;&raquo;';
 $lang['blog_created_hour']									= 'Время (Час)';
 $lang['blog_created_minute']								= 'Время (Минута)';
+$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
 
 // заголовки
 $lang['blog_create_title']									= 'Создать статью';
