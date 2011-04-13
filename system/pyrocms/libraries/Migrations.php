@@ -37,9 +37,11 @@ abstract class Migration {
 
 	function __get($var)
 	{
-		return get_instance()->$var;
+		if (isset(get_instance()->$var))
+		{
+			return get_instance()->$var;
+		}
 	}
-
 }
 
 // ------------------------------------------------------------------------
@@ -59,7 +61,7 @@ class Migrations {
 	private $_migrations_version = 0;
 
 	public $verbose = FALSE;
-	public $error = '';
+	public $error = NULL;
 
 	function __construct($config = array())
 	{
