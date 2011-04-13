@@ -8,7 +8,7 @@
  */
 
 $lang['permissions.group']                  = 'Ryhmä';
-$lang['permissions.roles']                  = 'Roles'; #translate
+$lang['permissions.roles']                  = 'Roolit';
 $lang['permissions.edit']                   = 'Muokkaa ryhmän käyttöoikeuksia';
 
 $lang['permissions.introduction']           = 'You can create custom permissions for different users by assigning them to groups in the Users > Manage Users area. Then you can Edit Permissions for each group and control what modules and "roles" a group can have.';

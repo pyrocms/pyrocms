@@ -65,7 +65,7 @@ $lang['galleries.upload_label']				= 'Lisää kuva';
 $lang['galleries.sub-galleries_label']		= 'Ala galleriat';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.content_label']			= 'Gallerian sisältö';
+$lang['galleries.design_label']				= 'Design';
+$lang['galleries.script_label']				= 'Script';
 ?>

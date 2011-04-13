@@ -1,36 +1,36 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Actions'; #translate
-$lang['templates.name_label']				= 'Name'; #translate
-$lang['templates.description_label']		= 'Description'; #translate
-$lang['templates.language_label']			= 'Language'; #translate
-$lang['templates.choose_lang_label']		= 'Choose language'; #translate
-$lang['templates.subject_label']			= 'Subject'; #translate
-$lang['templates.body_label']				= 'Body'; #translate
-$lang['templates.slug_label']				= 'Slug'; #translate
+$lang['templates.actions_label']			= 'Toiminnot';
+$lang['templates.name_label']				= 'Nimi';
+$lang['templates.description_label']		= 'Kuvaus';
+$lang['templates.language_label']			= 'Kieli';
+$lang['templates.choose_lang_label']		= 'Valitse kieli';
+$lang['templates.subject_label']			= 'Aihe';
+$lang['templates.body_label']				= 'Sisältö';
+$lang['templates.slug_label']				= 'Polkutunnus';
 
 // Titles
-$lang['templates.create_title']				= 'Create template'; #translate
-$lang['templates.edit_title']				= 'Editing template "%s"'; #translate
-$lang['templates.clone_title']				= 'Coping template "%s"'; #translate
-$lang['templates.list_title']				= 'List templates'; #translate
-$lang['templates.default_title']			= 'Default templates'; #translate
-$lang['templates.user_defined_title']		= 'User defined templates'; #translate
+$lang['templates.create_title']				= 'Luo malli';
+$lang['templates.edit_title']				= 'Muokataan mallia "%s"';
+$lang['templates.clone_title']				= 'Kopioidaan mallia "%s"';
+$lang['templates.list_title']				= 'Listaa mallit';
+$lang['templates.default_title']			= 'Oletus mallit';
+$lang['templates.user_defined_title']		= 'Käyttäjän määrittämät mallit';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.'; #translate
-$lang['templates.tmpl_clone_error']			= '"%s" was unable to be cloned.  Please try again.'; #translate
-$lang['templates.single_delete_success']	= 'The email template has been deleted.'; #translate
-$lang['templates.mass_delete_success']		= '%s email templates out of %s successfully deleted.'; #translate
-$lang['templates.mass_delete_error'] 		= 'Error occurred while trying to delete email template "%s".'; #translate
-$lang['templates.default_delete_error'] 	= 'Error occurred, default email templates can not be removed.'; #translate
-$lang['templates.no_select_error'] 			= 'You need to select email templates first.'; #translate
-$lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.'; #translate
+$lang['templates.tmpl_create_success']		= 'Sähköpostiviesti malli "%s" on poistettu.';
+$lang['templates.tmpl_create_error']		= 'Sähköpostiviesti mallia "%s" ei poistettu.';
+$lang['templates.tmpl_edit_success']		= 'Muutokset sähköpostiviesti mallin "%s" on tallennettu.';
+$lang['templates.tmpl_edit_error']			= 'Muutokset sähköpostiviesti malliin "%s" ei tallennettu.';
+$lang['templates.tmpl_clone_success']		= '"%s" malli kloonattiin. Voit nyt muokata mallia sinulle sopivaksi.';
+$lang['templates.tmpl_clone_error']			= '"%s" mallia ei voitu kloonata. Yritä uudelleen.';
+$lang['templates.single_delete_success']	= 'Sähköpostiviesti malli poistettiin.';
+$lang['templates.mass_delete_success']		= '%s/%s sähköpostiviesti malleista poistettiin onnistuneesti.';
+$lang['templates.mass_delete_error'] 		= 'Sähköpostiviesti mallia "%s" poistaessa tapahtui virhe.';
+$lang['templates.default_delete_error'] 	= 'Tapahtui virhe, oletus sähköpostiviesti malleja ei voida poistaa.';
+$lang['templates.no_select_error'] 			= 'Sinun tulee ensin valita sähköpostiviesti malli.';
+$lang['templates.already_exist_error']		= 'Sähköpostiviesti malli nimeltä "%s" on jo olemassa.';
 
 /* End of file templates_lang.php */
 /* Location: ./system/pyrocms/modules/templates/language/finnish/templates_lang.php */

@@ -25,11 +25,11 @@ $lang['buttons.install']	= 'Asenna';
 $lang['buttons.yes']		= 'Kyllä';
 $lang['buttons.no']			= 'Ei';
 $lang['buttons.activate']   = 'Aktivoi';
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.preview']	= 'Esikatsele';
+$lang['buttons.close']		= 'Sulje';
+$lang['buttons.edit']		= 'Muokkaa';
+$lang['buttons.clone']		= 'Kloonaa';
+$lang['buttons.copy']		= 'Kopioi';
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/finnish/buttons_lang.php */
