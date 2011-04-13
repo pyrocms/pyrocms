@@ -10,7 +10,7 @@
 // labels
 $lang['groups.title']					= 'Otsikko';
 $lang['groups.name']                    = 'Nimi';
-$lang['groups.short_name']				= 'Short Name'; #translate
+$lang['groups.short_name']				= 'Lyhyt nimi';
 $lang['groups.description']             = 'Kuvaus';
 $lang['groups.actions']                 = 'Toiminnot';
 $lang['groups.edit']                    = 'Muokkaa';
