@@ -12,13 +12,13 @@
  * @filesource
  */
 
-$lang['migrations.no_migrations_found']				= 'No migrations found.'; #translate
-$lang['migrations.multiple_migrations_version']		= 'Only one migration per step is permitted, there multiple migrations to step "%03d".'; #translate
-$lang['migrations.migration_not_found']				= 'Migration to step "%03d" not found.'; #translate
-$lang['migrations.multiple_migrations_name']		= 'Cannot repeat a migration at different steps, there multiple migrations named "%s".'; #translate
-$lang['migrations.migration_class_doesnt_exist']	= 'Migration class "%s" doesn\'t exist.'; #translate
-$lang['migrations.wrong_migration_interface']		= 'Wrong migration interface on class "%s".'; #translate
-$lang['migrations.invalid_migration_filename']		= 'Invalid migration filename: %s'; #translate
+$lang['migrations.no_migrations_found']				= 'Migraatioita ei löytynyt.';
+$lang['migrations.multiple_migrations_version']		= 'Vain yksi migraatio per vaihe on sallittu, useita migraatioita on vaiheessa "%03d"';
+$lang['migrations.migration_not_found']				= 'Migraatiota vaiheelle "%03d" ei löytynyt.';
+$lang['migrations.multiple_migrations_name']		= 'Ei voida uudelleen toistaa migraatioita useissa vaiheissa, useita migraatioita nimettynä "%s".';
+$lang['migrations.migration_class_doesnt_exist']	= 'Migraatioluokkaa "%s" ei ole olemassa.';
+$lang['migrations.wrong_migration_interface']		= 'Väärä migraatio käyttöliittymä luokassa "%s".';
+$lang['migrations.invalid_migration_filename']		= 'Migraation tiedostonimi %s ei kelpaa.';
 
 /* End of file migrations_lang.php */
 /* Location: ./system/pyrocms/language/finnish/migrations_lang.php */

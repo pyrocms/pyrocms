@@ -31,7 +31,7 @@ $lang['contact_title']						= 'Ota yhteyttä';
 // texts
 $lang['contact_mail_text']					= 'Tämä viesti lähetettiin lomakkeesta %s seuraavilla tiedoilla:';
 $lang['contact_sent_text']					= 'Viesti lähetettiin. Otamme yhteyttä niin pian kuin mahdollista.';
-$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
+$lang['contact_error_message']			    = 'Viestin lähettämisessä tapahtui virhe. Yritä myöhemmin uudelleen..';
 
 //predefined subjects list
 $lang['subject_support']  = 'Tuki';

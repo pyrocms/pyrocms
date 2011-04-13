@@ -36,9 +36,9 @@ $lang['settings_dashboard_rss_count']			= 'Dashboard RSS syötteitä';
 $lang['settings_dashboard_rss_count_desc']		= 'Kuinka monta syötettä haluat listaa dashboardissa?';
 
 $lang['settings_date_format']					= 'Päiväyksen muoto';
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format_desc']				= 'Miten päiväyksen muoto tulisi olla sivustolla ja hallintapaneelissa? ' .
+													'Käyttämällä PHP:n <a href="http://php.net/manual/en/function.date.php" target="_black">date muotoa</a> - TAI - ' .
+													'Käyttämällä PHP:n <a href="http://php.net/manual/en/function.strftime.php" target="_black">strftime muotoa</a>.';
 
 $lang['settings_frontend_enabled']				= 'Sivuston status';
 $lang['settings_frontend_enabled_desc']			= 'Käytä tätä asetusta kun et halua näyttää sivuja käyttäjille. Käytetään yleensä sivuston ylläpidon yhteydessä.';

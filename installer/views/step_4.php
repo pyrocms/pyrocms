@@ -2,7 +2,7 @@
 
 <p><?php echo lang('intro_text'); ?></p>
 
-<?php echo form_open(uri_string(), 'id="install_frm"'); ?>
+<?php echo form_open('', 'id="install_frm"'); ?>
 
 	<h2><?php echo lang('db_settings'); ?></h2>
 	

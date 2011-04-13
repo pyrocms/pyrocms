@@ -40,6 +40,8 @@ $lang['files.type_o']						= 'Muu';
 
 $lang['files.display_grid']					= 'Grid'; #translate
 $lang['files.display_list']					= 'List'; #translate
+$lang['files.grid'] = 'Ruudukko';
+$lang['files.list'] = 'Lista';
 
 // Messages
 $lang['files.create_success']				= 'Tiedosto tallennettiin.';
@@ -75,7 +77,7 @@ $lang['file_folders.name_label']			= 'Nimi';
 $lang['file_folders.slug_label']			= 'Polkutunnus';
 $lang['file_folders.created_label']			= 'Luotu';
 
-// Messages
+
 $lang['file_folders.create_success']		= 'Kansio tallennettiin.';
 $lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
 $lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
@@ -90,5 +92,6 @@ $lang['file_folders.no_subfolders']			= 'Ei yhtään';
 $lang['file_folders.no_folders']			= 'Tiedostot listataan kansioittain. Tällä hetkellä kansioita ei ole luotu.';
 $lang['file_folders.mkdir_error']			= 'Ei voitu luoda uploads/files kansiota';
 $lang['file_folders.chmod_error']			= 'Ei voitu määrittää käyttöoikeuksia uploads/files kansioon';
+$lang['files.no_permissions'] = 'Sinulla ei ole käyttöoikeuksia hallinnoida moduulia.';
 
 /* End of file files_lang.php */

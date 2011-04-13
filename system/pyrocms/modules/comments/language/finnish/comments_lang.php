@@ -38,7 +38,7 @@ $lang['comments.send_label'] 				= 'Kommentoi';
 $lang['comments.inactive_title'] 			= 'Kommentit odottavat hyväksyntää';
 $lang['comments.active_title'] 				= 'Hyväksytyt kommentit';
 $lang['comments.edit_title'] 				= 'Muokkaa kommenttia';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Listaa kommentit';
 
 // messages
 $lang['comments.add_success'] 				= 'Kommentti tallennettiin.';

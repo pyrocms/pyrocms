@@ -32,6 +32,7 @@ $lang['blog_author_name_label']              = 'Ime avtorja';
 $lang['blog_read_more_label']                = 'Preberi vse&nbsp;&raquo;';
 $lang['blog_created_hour']                   = 'Ustvarjeno ura';
 $lang['blog_created_minute']                 = 'Ustvarjeno minuta';
+$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
 
 // titles
 $lang['blog_create_title']                   = 'Dodaj prispevek';

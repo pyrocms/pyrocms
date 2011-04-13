@@ -39,6 +39,7 @@ $lang['blog_author_name_label']              = 'Tekijän nimi';
 $lang['blog_read_more_label']                = 'Lue lisää&nbsp;&raquo;';
 $lang['blog_created_hour']                   = 'Luotiin tunnissa'; // @todo Where this is used?
 $lang['blog_created_minute']                 = 'Luotiin minuutissa'; // @todo Where this is used?
+$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
 
 // titles
 $lang['blog_create_title']                   = 'Luo artikkeli';
@@ -69,6 +70,6 @@ $lang['blog_twitter_posted']                 = 'Lähetetty "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter Virhe';
 
 // date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%B, %Y";
 
 ?>

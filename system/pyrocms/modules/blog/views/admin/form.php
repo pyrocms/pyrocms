@@ -58,6 +58,10 @@
 				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?>
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 			</li>
+                        <li>
+				<label for="comments_enabled"><?php echo lang('blog_comments_enabled_label');?></label>
+				<?php echo form_checkbox('comments_enabled', 1, $post->comments_enabled == 1); ?>
+			</li>
 		</ol>
 	</div>
 
