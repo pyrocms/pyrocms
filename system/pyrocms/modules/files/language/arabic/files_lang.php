@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * PyroCMS
  *
@@ -12,58 +13,87 @@
  * @filesource
  */
 
-$lang['files.title']						= 'الملفات';
-$lang['files.upload.title']					= 'رفع الملفات';
-$lang['files.labels.action']				= 'الإجراء';
-$lang['files.labels.download']				= 'تنزيل';
-$lang['files.labels.edit']					= 'تعديل';
-$lang['files.labels.delete']				= 'حذف';
-$lang['files.labels.upload']				= 'رفع';
-$lang['files.labels.parent']				= 'المحتوي';
+// Files
+
+// Titles
+$lang['files.files_title']					= 'الملفات';
+$lang['files.upload_title']					= 'رفع الملفات';
+$lang['files.edit_title']					= 'Edit file "%s"'; #translate
+
+// Labels
+$lang['files.actions_label']				= 'الإجراء';
+$lang['files.download_label']				= 'تنزيل';
+$lang['files.edit_label']					= 'تعديل';
+$lang['files.delete_label']					= 'حذف';
+$lang['files.upload_label']					= 'رفع';
+$lang['files.description_label']			= 'الوصف';
+$lang['files.type_label']					= 'النوع';
+$lang['files.file_label']					= 'الملف';
+$lang['files.filename_label']				= 'إسم الملف';
+$lang['files.filter_label']					= 'انتقاء';
+$lang['files.loading_label']				= 'جاري التحميل...';
+$lang['files.name_label']					= 'Name'; #translate
+
+$lang['files.dropdown_no_subfolders']		= '-- لاشيء --';
+$lang['files.dropdown_root']				= '-- رئيسي --';
+
+$lang['files.type_a']						= 'صوت';
+$lang['files.type_v']						= 'فيديو';
+$lang['files.type_d']						= 'مستند';
+$lang['files.type_i']						= 'صورة';
+$lang['files.type_o']						= 'آخر';
+
+$lang['files.display_grid']					= 'شبكي';
+$lang['files.display_list']					= 'سرد';
+
+// Messages
+$lang['files.create_success']				= 'تم حفظ الملف.';
+$lang['files.create_error']					= 'An error as occourred.'; #translate
+$lang['files.edit_success']					= 'The file was successfully saved.'; #translate
+$lang['files.edit_error']					= 'An error occurred while trying to save the file.'; #translate
+$lang['files.delete_success']				= 'تم حذف الملف';
+$lang['files.delete_error']					= 'تعذر حذف الملف.';
+$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"'; #translate
+$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".'; #translate
+$lang['files.upload_error']					= 'A file must be uploaded.'; #translate
+$lang['files.invalid_extension']			= 'File must have a valid extension.'; #translate
+$lang['files.not_exists']					= 'تم اختيار مجلد غير صالح.';
 $lang['files.no_files']						= 'لا يوجد أية ملفات.';
+$lang['files.no_permissions']				= 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
+$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.'; #translate
 
-$lang['files.folders.title']				= 'مجلدات الملفات';
-$lang['files.folders.manage_title']			= 'إدارة المجلدات';
-$lang['files.folders.label']				= 'مجلدات';
-$lang['files.folder.label']					= 'مجلد';
-$lang['files.subfolders.label']				= 'مجلدات فرعية';
-$lang['files.folders.name']					= 'الإسم';
-$lang['files.folders.slug']					= 'مختصر URL';
-$lang['files.folders.created']				= 'أنشئ في';
-$lang['files.folders.create']				= 'مجلد جديد';
-$lang['files.folders.success']				= 'تم حفظ المجلد.';
-$lang['files.folders.not_exists']			= 'تم اختيار مجلد غير صالح.';
-$lang['files.folders.no_subfolders']		= 'لاشيء';
-$lang['files.folders.no_folders']			= 'ملفاتك مرتبة ضمن مجلدات، وليس لديك حالياً أية مجلدات مُعدّة.';
-$lang['files.folders.delete_success']		= 'تم حذف المجلد "%s".';
-$lang['files.folders.delete_title']			= 'تأكيد الحذف';
-$lang['files.folders.confirm_delete']		= 'متأكد أنك تريد حذف "%s"؟<br /><br />هذا الأمر سيحذف أيضاً جميع الملفات والمجلدات التي ضمن هذا المجلد.';
-$lang['files.folders.mkdir']				= 'تعذر إنشاء دليل الملفات المرفوعة';
-$lang['files.folders.chmod']				= 'تعذر تنفيذ chmod على دليل الملفات المرفوعة';
+// File folders
 
-$lang['files.dropdown.no_subfolders']		= '-- لاشيء --';
-$lang['files.dropdown.root']				= '-- رئيسي --';
+// Titles
+$lang['file_folders.folders_title']			= 'مجلدات الملفات';
+$lang['file_folders.manage_title']			= 'إدارة المجلدات';
+$lang['file_folders.create_title']			= 'مجلد جديد';
+$lang['file_folders.delete_title']			= 'تأكيد الحذف';
+$lang['file_folders.edit_title']			= 'Edit folder "%s"'; #translate
 
-$lang['files.description']					= 'الوصف';
-$lang['files.type']							= 'النوع';
-$lang['files.file']							= 'الملف';
-$lang['files.file_name']							= 'إسم الملف';
-$lang['files.success']				= 'تم حفظ الملف.';
-$lang['files.not_exists']			= 'تم اختيار مجلد غير صالح.';
-$lang['files.delete.error']			= 'تعذر حذف الملف.';
-$lang['files.delete.success']			= 'تم حذف الملف';
-$lang['files.filter']						= 'انتقاء';
-$lang['files.loading']						= 'جاري التحميل...';
+// Labels
+$lang['file_folders.folders_label']			= 'مجلدات';
+$lang['file_folders.folder_label']			= 'مجلد';
+$lang['file_folders.subfolders_label']		= 'مجلدات فرعية';
+$lang['file_folders.parent_label']			= 'المحتوي';
+$lang['file_folders.name_label']			= 'الإسم';
+$lang['file_folders.slug_label']			= 'مختصر URL';
+$lang['file_folders.created_label']			= 'أنشئ في';
 
-// Types
-$lang['files.i'] = 'صورة';
-$lang['files.a'] = 'صوت';
-$lang['files.v'] = 'فيديو';
-$lang['files.d'] = 'مستند';
-$lang['files.o'] = 'آخر';
-
-$lang['files.no_permissions'] = 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
-$lang['files.grid'] = 'شبكي';
-$lang['files.list'] = 'سرد';
+// Messages
+$lang['file_folders.create_success']		= 'تم حفظ المجلد.';
+$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
+$lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
+$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
+$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
+$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.'; #translate
+$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".'; #translate
+$lang['file_folders.delete_success']		= 'تم حذف المجلد "%s".';
+$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".'; #translate
+$lang['file_folders.not_exists']			= 'تم اختيار مجلد غير صالح.';
+$lang['file_folders.no_subfolders']			= 'لاشيء';
+$lang['file_folders.no_folders']			= 'ملفاتك مرتبة ضمن مجلدات، وليس لديك حالياً أية مجلدات مُعدّة.';
+$lang['file_folders.mkdir_error']			= 'تعذر إنشاء دليل الملفات المرفوعة';
+$lang['file_folders.chmod_error']			= 'تعذر تنفيذ chmod على دليل الملفات المرفوعة';
 
 /* End of file files_lang.php */

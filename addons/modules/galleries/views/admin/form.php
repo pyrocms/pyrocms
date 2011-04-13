@@ -17,16 +17,8 @@
 		<div id="gallery-content">
 			<ol>
 				<li class="<?php echo alternator('', 'even'); ?>">
-					<?php echo form_label(lang('galleries.folder_label'). ':', 'folder_id'); ?>
-					<?php
-					$folder_options = array(lang('select.pick'));
-					foreach($file_folders as $row)
-					{
-						$indent = ($row['parent_id'] != 0) ? repeater(' &raquo; ', $row['depth']) : '';
-						$folder_options[$row['id']] = $indent.$row['name'];
-					}
-					echo form_dropdown('folder_id', $folder_options, $gallery->folder_id, 'id="folder_id" class="required"');
-					?>
+					<?php echo form_label(lang('galleries.folder_label'), 'folder_id'); ?>
+					<?php echo form_dropdown('folder_id', array(lang('select.pick')) + $folders_tree, $gallery->folder_id, 'id="folder_id" class="required"'); ?>
 				</li>
 
 				<li class="<?php echo alternator('', 'even'); ?>">

@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-			<th></th>
+			<th>Module</th>
 			<th>Roles</th>
 		</tr>
 	</thead>

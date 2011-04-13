@@ -25,7 +25,13 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->load->model('files/file_m');
 		$this->lang->load('files/files');
 		$this->lang->load('wysiwyg');
-		$file_types = array('a' => lang('files.a'), 'v' => lang('files.v'), 'd' => lang('files.d'), 'i' => lang('files.i'), 'o' => lang('files.o'));
+		$file_types = array(
+			'a' => lang('files.type_a'),
+			'v' => lang('files.type_v'),
+			'd' => lang('files.type_d'),
+			'i' => lang('files.type_i'),
+			'o' => lang('files.type_o')
+		);
 
 
 		$this->template

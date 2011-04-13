@@ -26,10 +26,6 @@ class File_folders_m extends MY_Model {
 
 	private $_folders = array();
 	
-	private $_all_folders = array();
-	
-	private $_sub_folders = array();
-	
 	/**
 	 * Exists
 	 *
@@ -39,7 +35,7 @@ class File_folders_m extends MY_Model {
 	 * @param	int		The folder id
 	 * @return	bool	If the folder exists
 	 */
-	public function exists($folder_id)
+	public function exists($folder_id = 0)
 	{
 		return (bool) (parent::count_by(array('id' => $folder_id)) > 0);
 	}
@@ -55,51 +51,9 @@ class File_folders_m extends MY_Model {
 	 * @param	int		The folder id
 	 * @return	bool	If the folder has children
 	 */
-	public function has_children($folder_id)
+	public function has_children($folder_id = 0)
 	{
 		return (bool) (parent::count_by(array('parent_id' => $folder_id)) > 0);
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	/**
-	 * Get Children
-	 *
-	 * Gets all the children in a given folder.
-	 *
-	 * @access		public
-	 * @param		int		$parent_id	The folder id
-	 * @param		string	$type		The type of folders to return
-	 * @return		array
-	 */
-	public function get_children($id, $lev = 0)
-	{
-		$return = array();
-
-		$this->db
-			->where('id', (int) $id)
-			->order_by('name');
-		
-		$query = $this->db->get('file_folders');
-
-		if ($query->num_rows() == 0) 
-		{
-			return array();
-		}
-		
-		$folder = $query->row_array();
-		
-		$path = array();
-		
-		$path[$lev]['name'] = $folder['name'];
-		$path[$lev]['slug'] = $folder['slug'];
-		
-		if ($folder['parent_id'] != 0) 
-		{
-			$path = array_merge($this->get_children($cat['parent_id'],$lev+1), $path);
-		}
-		
-		return $path;
 	}
 	
 	// ------------------------------------------------------------------------
@@ -111,84 +65,69 @@ class File_folders_m extends MY_Model {
 	 *
 	 * @uses folder_subtree
 	 */
-	public function folder_tree($start = FALSE, $i = 0)
+	public function folder_tree($parent_id = 0, $depth = 0, &$arr = array())
 	{
-		$data = $this->_all_cats = $this->get_all('array');
-		
-		foreach ($data as $row)
+		$arr = $arr ? $arr : array();
+
+		if ($parent_id === 0)
 		{
-			// This assigns all the select fields to the array.
-			foreach ($row AS $key => $val)
-			{
-				$arr[$key] = $val;
-			}
-			
-			$menu_array[$row->id] = $arr;
-		}
-		
-		$arr = array();
-		
-		// Confirm we have something to work with.
-		if ( ! isset($menu_array))
-		{
-			return FALSE;
+			$arr	= array();
+			$depth	= 0;
 		}
 
-		foreach ($menu_array as $key => $val)
+		$folders = $this
+			->order_by('name')
+			->get_many_by(array('parent_id' => $parent_id));
+
+		if ( ! $folders)
 		{
-			// This checks if the start value is set. Instead of displaying all.
-			if ($start !== FALSE && ($start == $val['parent_id'] OR $start == $val['id']))
+			return $arr;
+		}
+
+		static $root = NULL;
+
+		foreach ($folders as $folder)
+		{
+			if ($depth < 1)
 			{
-				foreach ($val AS $the_key => $the_val)
-				{
-					$arr[$the_key] = $the_val;
-				}
-				$this_depth = $i++;
-				$arr = array_merge($arr, array('depth' => $this_depth));
-				$this->_folders[$key] = $arr;
-				$this->_folder_subtree($key, $menu_array, $this_depth--, $start);
+				$root = $folder->id;
 			}
-			elseif ($start === FALSE && 0 == $val['parent_id'])
+
+//			$folder->name_indent		= repeater('&raquo; ', $depth) . $folder->name;
+			$folder->root_id			= $root;
+			$folder->depth				= $depth;
+			$folder->count_files		= sizeof($this->db->get_where('files', array('folder_id' => $folder->id))->result());
+			$arr[$folder->id]			= $folder;
+			$old_size					= sizeof($arr);
+
+			$this->folder_tree($folder->id, $depth+1, $arr);
+
+			$folder->count_subfolders	= sizeof($arr) - $old_size;
+		}
+
+		if ($parent_id === 0)
+		{
+			foreach ($arr as $id => &$folder)
 			{
-				foreach ($val AS $the_key => $the_val)
-				{
-					$arr[$the_key] = $the_val;
-				}
-				$this->_folders[$key] = $arr;
-				$this->_folder_subtree($key, $menu_array, 0);
+				$folder->virtual_path		= $this->_build_asc_segments($id, array(
+					'segments'	=> $arr,
+					'separator'	=> '/',
+					'attribute'	=> 'slug'
+				));
+			}
+
+			$this->_folders = $arr;
+		}
+
+		if ($parent_id > 0 && $depth < 1)
+		{
+			foreach ($arr as $id => &$folder)
+			{
+				$folder->virtual_path = $this->_folders[$id]->virtual_path;
 			}
 		}
 
 		return $arr;
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	/**
-	 * Folder Sub Tree
-	 *
-	 * Gets all the child folders for a parent.
-	 *
-	 * @param	int
-	 * @param	array
-	 * @param	int
-	 */
-	private function _folder_subtree($id, $menu_array, $depth = 0, $start = FALSE)
-	{
-		$depth++;
-		foreach ($menu_array as $key => $val)
-		{
-			if ($id == $val['parent_id'])
-			{
-				foreach ($val AS $the_key => $the_val)
-				{
-					$arr[$the_key] = $the_val;
-				}
-				$arr = array_merge($arr, array('depth' => $depth));
-				$this->_folders[$key] = $arr;
-				$this->_folder_subtree($key, $menu_array, $depth, $start);
-			}
-		}
 	}
 	
 	// ------------------------------------------------------------------------
@@ -200,28 +139,18 @@ class File_folders_m extends MY_Model {
 	 *
 	 * @return 	array
 	 */
-	public function get_folders()
+	public function get_folders($id = 0)
 	{
-		if (empty($this->_folder))
+		if ($id)
+		{
+			$this->folder_tree($id);
+		}
+		elseif (empty($this->_folder))
 		{
 			$this->folder_tree();
 		}
 		
 		return $this->_folders;
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	/**
-	 * Clear folders
-	 *
-	 * Clear out the folders so they do not overlap.
-	 *
-	 */
-	public function clear_folders()
-	{
-		unset($this->_folders);
-		$this->_folders = array();
 	}
 	
 	// ------------------------------------------------------------------------
@@ -235,31 +164,79 @@ class File_folders_m extends MY_Model {
 	* @param	int $lev The current level
 	* @return	array
 	*/
-	public function breadcrumb($id, $lev = 0) 
+	public function breadcrumb($id, $separator = '&raquo;', $limit = 3) 
 	{
-		$query = $this->db
-			->where('id', (int) $id)
-			->order_by('name')
-			->get('file_folders');
+		if ( ! $this->_folders)
+		{
+			$this->folder_tree();
+		}
 
-		if ($query->num_rows() == 0) 
+		return $this->_build_asc_segments($id, array(
+			'segments'	=> $this->_folders,
+			'attribute'	=> 'name',
+			'separator'	=> ' ' . trim($separator) . ' ',
+			'limit'		=> $limit
+		));
+	}
+
+	public function _build_asc_segments($id, $options = array()) 
+	{
+		if ( ! isset($options['segments']))
 		{
-			return array();
+			return;
 		}
-		
-		$cat = $query->row_array();
-		
-		$path = array();
-		
-		$path[$lev]['name'] = $cat['name'];
-		$path[$lev]['id'] = $cat['id'];
-		
-		if ($cat['parent_id'] != 0) 
+
+		$defaults = array(
+			'attribute'	=> 'name',
+			'separator'	=> ' &raquo; ',
+			'limit'		=> 0
+		);
+
+		$options = array_merge($defaults, $options);
+
+		extract($options);
+
+		$arr = array();
+
+		while (isset($segments[$id]))
 		{
-			$path = array_merge($this->breadcrumb($cat['parent_id'],$lev+1), $path);
+			array_unshift($arr, $segments[$id]->{$attribute});
+			$id = $segments[$id]->parent_id;
 		}
-		
-		return $path;
+
+		if (is_int($limit) && $limit > 0 && sizeof($arr) > $limit)
+		{
+			array_splice($arr, 1, -($limit-1), '&#8230;');
+		}
+
+		return implode($separator, $arr);
+	}
+
+	public function get_by_path($path)
+	{
+		if (is_array($path))
+		{
+			$path = implode('/', $path);
+		}
+
+		$path = trim($path, '/');
+
+		foreach ($this->_folders as $id => $folder)
+		{
+			if ($folder->virtual_path == $path)
+			{
+				return $folder;
+			}
+		}
+
+		return array();
+	}
+
+	public function delete($id = 0)
+	{
+		$this->file_m->delete_files($id);
+
+		parent::delete($id);
 	}
 }
 
