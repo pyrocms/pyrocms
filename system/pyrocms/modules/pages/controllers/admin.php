@@ -340,6 +340,9 @@ class Admin extends Admin_Controller
 
 		if ($this->form_validation->run())
 	    {
+			$input = $this->input->post();
+			//dump($page);
+			//dump($input);
 			if ($page->status != 'live' and $input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
