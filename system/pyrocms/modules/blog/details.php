@@ -28,7 +28,8 @@ class Module_Blog extends Module {
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'sl' => 'Objavite blog prispevke',
 				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
-				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.'
+				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
+				'he' => 'ניהול בלוג'
 			),
 			'frontend'	=> TRUE,
 			'backend'	=> TRUE,

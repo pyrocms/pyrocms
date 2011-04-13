@@ -30,6 +30,7 @@ $config['supported_languages'] = array(
 	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('portuguese-brazil', 'ptb', 'pt_BR')),
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array('rus', 'russian', 'ru_RU')),
 	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array('chinese-traditional', 'cht', 'zh_HK')),
+	'he'=> array('name' => 'עברית', 'folder' => 'hebrew', 'direction' => 'rtl', 'codes' => array('he', 'hebrew', 'he_IL')),
 );
 
 /*

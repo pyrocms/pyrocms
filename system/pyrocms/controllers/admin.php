@@ -45,9 +45,11 @@ class Admin extends Admin_Controller
 	 * @access public
 	 * @return void
  	 */
+ 	 
  	public function index()
 	{
 		$data = array();
+		$this->config->load('language');
 		
 		if (is_dir('./installer'))
 		{
@@ -145,6 +147,7 @@ class Admin extends Admin_Controller
 		// Store the feed items
 		$data['rss_items'] = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
 
+		
 		$this->template
 			->title(lang('cp_admin_home_title'))
 			->build('admin/dashboard', $data);

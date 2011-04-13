@@ -3,11 +3,11 @@
 	<ul>
 <!--		<li>
 			<label>Email:</label>
-			<?php echo form_input('login_email');?>
+			<?php echo form_input('email');?>
 		</li>
 		<li>
 			<label>Password:</label>
-			<?php echo form_password('login_password');?>
+			<?php echo form_password('password');?>
 		</li>
 -->
 	<li>
