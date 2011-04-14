@@ -18,7 +18,7 @@
 // Titles
 $lang['files.files_title']					= 'Αρχεία';
 $lang['files.upload_title']					= 'Ανέβασμα Αρχείων';
-$lang['files.edit_title']					= 'Edit file "%s"'; #translate
+$lang['files.edit_title']					= 'Επεξεργασία αρχείου "%s"';
 
 // Labels
 $lang['files.actions_label']				= 'Ενέργεια';
@@ -32,13 +32,13 @@ $lang['files.file_label']					= 'Αρχείο';
 $lang['files.filename_label']				= 'Όνομα Αρχείου';
 $lang['files.filter_label']					= 'Φίλτρο';
 $lang['files.loading_label']				= 'Φορτώνει...';
-$lang['files.name_label']					= 'Name'; #translate
+$lang['files.name_label']					= 'Όνομα';
 
 $lang['files.dropdown_no_subfolders']		= '-- Κανένας --';
 $lang['files.dropdown_root']				= '-- Αρχικός --';
 
 $lang['files.type_a']						= 'Ηχητικό';
-$lang['files.type_v']						= 'Video'; #translate
+$lang['files.type_v']						= 'Video';
 $lang['files.type_d']						= 'Έγγραφο';
 $lang['files.type_i']						= 'Εικόνα';
 $lang['files.type_o']						= 'Άλλο';
@@ -48,19 +48,19 @@ $lang['files.display_list']					= 'Λίστα';
 
 // Messages
 $lang['files.create_success']				= 'Το αρχείο αποθηκεύτηκε.';
-$lang['files.create_error']					= 'An error as occourred.'; #translate
-$lang['files.edit_success']					= 'The file was successfully saved.'; #translate
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.'; #translate
+$lang['files.create_error']					= 'Συνέβη κάποιο σφάλμα.';
+$lang['files.edit_success']					= 'Το αρχείο αποθηκεύτηκε επιτυχώς.';
+$lang['files.edit_error']					= 'Συνέβη κάποιο σφάλμα κατά την αποθήκευση του αρχείου.';
 $lang['files.delete_success']				= 'Το αρχείο διαγράφηκε.';
 $lang['files.delete_error']					= 'Δεν ήταν δυνατό να διαγραφεί το αρχείο.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"'; #translate
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".'; #translate
+$lang['files.mass_delete_success']			= '%d από τα %d αρχεία διαγράφηκαν, ήταν "%s και %s"';
+$lang['files.mass_delete_error']			= 'Συνέβη κάποιο σφάλμα κατά την διαγραφή %d από %d αρχείων, είναι "%s και %s".';
 $lang['files.upload_error']					= 'Πρέπει να μεταφορτωθεί ένα αρχείο.';
 $lang['files.invalid_extension']			= 'Το αρχείο πρέπει να έχει μια επέκταση.';
 $lang['files.not_exists']					= 'Επιλέχθηκε μη έγκυρος φάκελος.';
 $lang['files.no_files']						= 'Προς το παρόν δεν υπάρχουν αρχεία.';
 $lang['files.no_permissions']				= 'Δεν έχετε δικαίωμα να δείτε το πρόσθετο Αρχεία.';
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.'; #translate
+$lang['files.no_select_error'] 				= 'Πρέπει να επιλέξετε ένα αρχείο πρώτα, αυτή η αίτηση διεκόπει.';
 
 // File folders
 
@@ -82,14 +82,14 @@ $lang['file_folders.created_label']			= 'Δημιουργήθηκε στις';
 
 // Messages
 $lang['file_folders.create_success']		= 'Ο φάκελος αποθηκεύτηκε.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.'; #translate
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".'; #translate
+$lang['file_folders.create_error']			= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να δημιουργηθεί ο φάκελος.';
+$lang['file_folders.edit_success']			= 'Οι αλλαγές στο φάκελο αποθηκεύτηκαν επιτυχώς.';
+$lang['file_folders.edit_error']			= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να αποθηκευτούν οι αλλαγές.';
+$lang['file_folders.confirm_delete']		= 'Είσαστε σίγουροι ότι θέλετε να διαγράψετε τους παρακάτω φακέλους μαζί με τα αρχεία που υπάρχουν μέσα σε αυτούς;';
+$lang['file_folders.delete_mass_success']	= '%d από τους %d φακέλους διαγράφηκαν επιτυχώς, ήταν "%s και %s".';
+$lang['file_folders.delete_mass_error']		= 'Συνέβη κάποιο σφάλμα κατά την προσπάθεια να διαγραφούν %d από %d φάκελοι, είναι "%s και %s".';
 $lang['file_folders.delete_success']		= 'Ο φάκελος "%s" διαγράφηκε.';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".'; #translate
+$lang['file_folders.delete_error']			= 'Συνέβη κάποιο σφάλμα κατά την πρόσπαθεια διαγραφής του φακέλου "%s".';
 $lang['file_folders.not_exists']			= 'Επιλέχθηκε ένας μη έγκυρος φάκελος.';
 $lang['file_folders.no_subfolders']			= 'Κανένας';
 $lang['file_folders.no_folders']			= 'Τα αρχεία σας ταξινομούνται κατά φακέλους, προς το παρόν δεν έχετε ορίσει κανέναν φάκελο.';
