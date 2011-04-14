@@ -21,4 +21,4 @@ $lang['modules.upload_desc']			= 'Selecteer een bestand en klik de Upload-knop';
 $lang['modules.confirm_enable']         = 'Weet u zeker dat u deze module wilt activeren?';
 $lang['modules.confirm_disable']        = 'Weet u zeker dat u deze module wilt uitschakelen?';
 $lang['modules.confirm_install']        = 'Weet u zeker dat u deze module wilt installeren?';
-$lang['modules.confirm_uninstall']      = 'Weet u zeker dat u deze module wilt verwijderen?';
+$lang['modules.confirm_uninstall']      = 'Weet u zeker dat u deze module wilt deinstalleren?';
