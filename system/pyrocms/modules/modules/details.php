@@ -22,7 +22,8 @@ class Module_Modules extends Module {
 				'ar' => 'الوحدات',
 				'cs' => 'Moduly',
 				'fi' => 'Moduulit',
-				'el' => 'Πρόσθετα'
+				'el' => 'Πρόσθετα',
+				'he' => 'מודולים'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem pregled trenutno nameščenih modulov.',
@@ -39,7 +40,8 @@ class Module_Modules extends Module {
 				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.',
 				'cs' => 'Umožňuje administrátorům vidět seznam nainstalovaných modulů.',
 				'fi' => 'Listaa järjestelmänvalvojalle käytössä olevat moduulit.',
-				'el' => 'Επιτρέπει στους διαχειριστές να προβάλουν μια λίστα των εγκατεστημένων πρόσθετων.'
+				'el' => 'Επιτρέπει στους διαχειριστές να προβάλουν μια λίστα των εγκατεστημένων πρόσθετων.',
+				'he' => 'נותן אופציה למנהל לראות רשימה של המודולים אשר מותקנים כעת באתר או להתקין מודולים נוספים'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
