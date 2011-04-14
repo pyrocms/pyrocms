@@ -18,7 +18,12 @@ class MY_Controller extends CI_Controller {
 		// Migrate DB to the latest version
 		$this->load->library('migrations');
 		$schema_version = $this->migrations->latest();
-
+		
+		if ($this->migrations->error)
+		{
+			show_error($this->migrations->error);
+		}
+		
 		// Result of schema version migration
 		if (is_numeric($schema_version))
 		{

@@ -341,15 +341,12 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run())
 	    {
 			$input = $this->input->post();
-			//dump($page);
-			//dump($input);
+			
 			if ($page->status != 'live' and $input['status'] == 'live')
 			{
 				role_or_die('pages', 'put_live');
 			}
-
-			$input = $this->input->post();
-
+			
 			// Set the data for the revision
 			$revision_data = array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $input['body']);
 

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_blog_comments_enable extends Migration {
+class Migration_Add_blog_comments_enabled extends Migration {
 
 	function up()
 	{

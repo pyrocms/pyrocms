@@ -20,10 +20,14 @@
 {pyro:theme:js file="scrollto.js"}
 {pyro:theme:js file="easing.js"}
 
+{if '{pyro:settings:theme_default:cufon_enabled}' == true}
 {pyro:theme:js file="cufon.js"}
 {pyro:theme:js file="{pyro:settings:theme_default:cufon_font}"}
+{/if}
 
 {pyro:theme:js file="global.js"}
 <!-- End scripts -->
 
+{if '{pyro:settings:theme_default:cufon_enabled}' == true}
 <script type="text/javascript">Cufon.now();</script>
+{/if}
