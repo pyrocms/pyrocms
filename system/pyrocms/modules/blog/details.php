@@ -11,7 +11,8 @@ class Module_Blog extends Module {
 				'en' => 'Blog',
 				'ar' => 'المدوّنة',
 				'el' => 'Ιστολόγιο',
-				'pt' => 'Blog'
+				'pt' => 'Blog',
+				'he' => 'בלוג'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
