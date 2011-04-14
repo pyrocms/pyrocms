@@ -13,7 +13,7 @@ $lang['templates.slug_label']				= 'Slug'; #translate
 // Titles
 $lang['templates.create_title']				= 'Een sjabloon maken'; 
 $lang['templates.edit_title']				= 'Een sjabloon bewerken "%s"';
-$lang['templates.clone_title']				= Kopieer sjabloon "%s"';
+$lang['templates.clone_title']				= 'Kopieer sjabloon "%s"';
 $lang['templates.list_title']				= 'Lijst sjablonen';
 $lang['templates.default_title']			= 'Standaard sjablonen';
 $lang['templates.user_defined_title']		= 'Door de gebruiker gedefinieerde sjablonen';
