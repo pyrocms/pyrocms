@@ -70,22 +70,21 @@ jQuery(function($) {
 		});
 
 		// Confirmation
-		$("a.confirm").live('click', function(e){
+		$('a.confirm').live('click', function(e){
 
-			if ($.data(this, 'confirmed')) return true;
+			if ($.data(this, 'confirmed'))
+			{
+				$.data(this, 'confirmed', false);
+
+				return true;
+			}
 
 			e.preventDefault();
 
-			var href		= $(this).attr("href"),
-				removemsg	= $(this).attr("title");
-	
-			msg = (removemsg !== undefined && removemsg.length > 0) ? removemsg: DIALOG_MESSAGE;
+			var href		= $(this).attr('href'),
+				removemsg	= $(this).attr('title');
 
-			if ( ! confirm(msg))
-			{
-				$.data(this, 'confirmed', false);
-			}
-			else
+			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
 				$.data(this, 'confirmed', true);
 
@@ -98,31 +97,22 @@ jQuery(function($) {
 		});
 		
 		//use a confirm dialog on "delete many" buttons
-		$(':button.button').live('click', function(e) {
-			if($(this).val() == 'delete')
+		$(':submit.confirm').live('click', function(e){
+
+			if ($.data(this, 'confirmed'))
 			{
-				removemsg = $(this).attr("title");
-				
-				if (removemsg != 'undefined')
-				{
-					if(removemsg.length <= 0)
-					{
-						msg = DIALOG_MESSAGE;
-					}
-					else
-					{
-						msg = removemsg;
-					}
-				}
-				else
-				{
-					msg = DIALOG_MESSAGE;
-				}
-				
-				if(!confirm(msg))
-				{
-					e.preventDefault();
-				}
+				$.data(this, 'confirmed', false);
+
+				return true;
+			}
+
+			e.preventDefault();
+
+			var removemsg = $(this).attr('title');
+
+			if (confirm(removemsg || DIALOG_MESSAGE))
+			{
+				$.data(this, 'confirmed', true).click();
 			}
 		});
 

@@ -23,9 +23,6 @@ class Admin extends Admin_Controller
 		$this->lang->load('modules');
 
 		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-
-		// Check the referrer
-		parse_url($this->input->server('HTTP_REFERER'), PHP_URL_HOST) == parse_url(base_url(), PHP_URL_HOST) or show_error('Invalid Referrer');
 	}
 
 	/**

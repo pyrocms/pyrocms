@@ -2,7 +2,7 @@
 
 class Module_Files extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1beta';
 
 	public function info()
 	{

@@ -32,6 +32,7 @@ $lang['blog_author_name_label']              = 'Author name';
 $lang['blog_read_more_label']                = 'Read More&nbsp;&raquo;';
 $lang['blog_created_hour']                   = 'Created on Hour';
 $lang['blog_created_minute']                 = 'Created on Minute';
+$lang['blog_comments_enabled_label']         = 'Comments Enabled';
 
 // titles
 $lang['blog_create_title']                   = 'Add post';

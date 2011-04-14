@@ -44,7 +44,11 @@ class Module_Pages extends Module {
 			'frontend' => TRUE,
 			'backend'  => TRUE,
 			'skip_xss' => TRUE,
-			'menu'	  => 'content'
+			'menu'	  => 'content',
+
+			'roles' => array(
+				'put_live', 'edit_live', 'delete_live'
+			)
 		);
 	}
 
@@ -194,4 +198,5 @@ class Module_Pages extends Module {
 		Now you can apply css styling to the \"my-twitter-widget\" class in the CSS tab.</p>";
 	}
 }
+
 /* End of file details.php */

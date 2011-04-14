@@ -47,15 +47,15 @@ class Admin extends Admin_Controller
 		if ($_POST)
 		{
 			// register the user
-        	$this->permission_m->save($group_id, $this->input->post('modules'));
+        	$this->permission_m->save($group_id, $this->input->post('modules'), $this->input->post('module_roles'));
 			
 			$this->session->set_flashdata('success', lang('permissions.message_group_saved'));
 
        		redirect('admin/permissions/group/'.$group_id);
 		}
 
-		$edit_permissions = $this->permission_m->get_group($group_id);
 		$group = $this->group_m->get($group_id);
+		$edit_permissions = $this->permission_m->get_group($group_id);
 		$permisison_modules = $this->module_m->get_all(array('is_backend' => TRUE));
 
 		foreach ($permisison_modules as &$module)

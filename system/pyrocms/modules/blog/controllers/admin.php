@@ -65,7 +65,13 @@ class Admin extends Admin_Controller {
 			'field' => 'created_on_minute',
 			'label' => 'lang:blog_created_minute',
 			'rules' => 'trim|numeric|required'
+		),
+                array(
+				'field' => 'comments_enabled',
+				'label'	=> 'lang:blog_comments_enabled_label',
+				'rules'	=> 'trim|numeric'
 		)
+            
 	);
 
 	/**
@@ -159,6 +165,12 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run())
 		{
+			// They are trying to put this live
+			if ($this->input->post('status') == 'live')
+			{
+				role_or_die('blog', 'put_live');
+			}
+
 			$id = $this->blog_m->insert(array(
 				'title' => $this->input->post('title'),
 				'slug' => $this->input->post('slug'),
@@ -166,7 +178,8 @@ class Admin extends Admin_Controller {
 				'intro' => $this->input->post('intro'),
 				'body' => $this->input->post('body'),
 				'status' => $this->input->post('status'),
-				'created_on' => $created_on
+				'created_on' => $created_on,
+                                'comments_enabled' => $this->input->post('comments_enabled')
 			));
 
 			if ($id)
@@ -231,6 +244,12 @@ class Admin extends Admin_Controller {
 		
 		if ($this->form_validation->run())
 		{
+			// They are trying to put this live
+			if ($post->status != 'live' and $this->input->post('status') == 'live')
+			{
+				role_or_die('blog', 'put_live');
+			}
+
 			$result = $this->blog_m->update($id, array(
 				'title'			=> $this->input->post('title'),
 				'slug'			=> $this->input->post('slug'),
@@ -238,7 +257,8 @@ class Admin extends Admin_Controller {
 				'intro'			=> $this->input->post('intro'),
 				'body'			=> $this->input->post('body'),
 				'status'		=> $this->input->post('status'),
-				'created_on' => $created_on
+				'created_on' => $created_on,
+                                'comments_enabled' => $this->input->post('comments_enabled')
 			));
 			
 			if ($result)
@@ -312,11 +332,15 @@ class Admin extends Admin_Controller {
 		switch ($this->input->post('btnAction'))
 		{
 			case 'publish':
+				role_or_die('blog', 'put_live');
 				$this->publish();
 				break;
+			
 			case 'delete':
+				role_or_die('blog', 'delete_live');
 				$this->delete();
 				break;
+			
 			default:
 				redirect('admin/blog');
 				break;
@@ -331,6 +355,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function publish($id = 0)
 	{
+		role_or_die('blog', 'put_live');
+
 		// Publish one
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
