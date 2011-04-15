@@ -22,7 +22,8 @@ class Module_Contact extends Module {
 				'pt' => 'Contato',
 				'cs' => 'Kontakt',
 				'fi' => 'Ota yhteyttä',
-				'el' => 'Επικοινωνία'
+				'el' => 'Επικοινωνία',
+				'lt' => 'Kontaktinė formą'
 			),
 			'description' => array(
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
@@ -39,7 +40,8 @@ class Module_Contact extends Module {
 				'pt' => 'Adiciona um formulário para o seu site permitir aos visitantes que enviem e-mails para voce sem divulgar um endereço de e-mail para eles.',
 				'cs' => 'Přidá na web kontaktní formulář pro návštěvníky a uživatele, díky kterému vás mohou kontaktovat i bez znalosti vaší e-mailové adresy.',
 				'fi' => 'Luo lomakkeen sivustollesi, josta kävijät voivat lähettää sähköpostia tietämättä vastaanottajan sähköpostiosoitetta.',
-				'el' => 'Προσθέτει μια φόρμα στον ιστότοπό σας που επιτρέπει σε επισκέπτες να σας στέλνουν μηνύμα μέσω email χωρίς να τους αποκαλύπτεται η διεύθυνση του email σας.'
+				'el' => 'Προσθέτει μια φόρμα στον ιστότοπό σας που επιτρέπει σε επισκέπτες να σας στέλνουν μηνύμα μέσω email χωρίς να τους αποκαλύπτεται η διεύθυνση του email σας.',
+				'lt' => 'Prideda jūsų puslapyje formą leidžianti lankytojams siūsti jums el. laiškus neatskleidžiant jūsų el. pašto adreso.'
 			),
 			'frontend' => TRUE,
 			'backend' => FALSE,
