@@ -139,6 +139,7 @@ ul#foot-nav li a.last { border: none; }
 
 /* Widget */
 #sidebar .widget { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #7d7d7d; font-size: 13px; text-shadow: 1px 1px #ffffff; letter-spacing: 0.2px; padding: 0 0 25px  }
+#sidebar .widget ul { margin-left: 30px; }
 
 /* Global Classes */
 .nav-splitter { font-family: Arial, helvetica, sans-serif; font-size: 12px; }
