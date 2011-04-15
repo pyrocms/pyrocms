@@ -20,7 +20,8 @@ class Module_Redirects extends Module {
 				'cs' => 'Přesměrování',
 				'fi' => 'Uudelleenohjaukset',
 				'el' => 'Ανακατευθύνσεις',
-				'he' => 'הפניות'
+				'he' => 'הפניות',
+				'lt' => 'Peradresavimai'
 			),
 			'description' => array(
 				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
@@ -35,7 +36,8 @@ class Module_Redirects extends Module {
 				'cs' => 'Přesměrujte z jedné adresy URL na jinou.',
 				'fi' => 'Uudelleenohjaa käyttäjän paikasta toiseen.',
 				'el' => 'Ανακατευθείνετε μια διεύθυνση URL σε μια άλλη',
-				'he' => 'הפניות מכתובת אחת לאחרת'
+				'he' => 'הפניות מכתובת אחת לאחרת',
+				'lt' => 'Peradresuokite puslapį iš vieno adreso (URL) į kitą.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
