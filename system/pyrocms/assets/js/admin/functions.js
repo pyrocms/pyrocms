@@ -137,7 +137,9 @@ jQuery(function($) {
 			});
 		});
 
-		$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform().addClass('no-uniform');
+		$("select, textarea, input[type=text], input[type=file], input[type=submit]").livequery(function(){
+			$(this).not('.no-uniform').uniform().addClass('no-uniform');
+		});
 
 		var current_module = $('#page-header h1 a').text();
 		// Fancybox modal window
@@ -145,9 +147,6 @@ jQuery(function($) {
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",
-				onComplete: function() {
-					$("select, textarea, input[type=text], input[type=file], input[type=submit]").not('.no-uniform').uniform().addClass('no-uniform');
-				},
 				current: current_module + " {current} / {total}"
 			});
 		});
