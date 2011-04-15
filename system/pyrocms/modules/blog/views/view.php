@@ -14,7 +14,6 @@
 	</div>
 </div>
 
-<?php if($post->comments_enabled): ?>
+<?php if ($post->comments_enabled): ?>
 	<?php echo display_comments($post->id); ?>
 <?php endif; ?>
-

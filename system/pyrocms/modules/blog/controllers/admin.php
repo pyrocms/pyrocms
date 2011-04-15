@@ -71,7 +71,6 @@ class Admin extends Admin_Controller {
 				'label'	=> 'lang:blog_comments_enabled_label',
 				'rules'	=> 'trim|numeric'
 		)
-            
 	);
 
 	/**
@@ -172,14 +171,14 @@ class Admin extends Admin_Controller {
 			}
 
 			$id = $this->blog_m->insert(array(
-				'title' => $this->input->post('title'),
-				'slug' => $this->input->post('slug'),
-				'category_id' => $this->input->post('category_id'),
-				'intro' => $this->input->post('intro'),
-				'body' => $this->input->post('body'),
-				'status' => $this->input->post('status'),
-				'created_on' => $created_on,
-                                'comments_enabled' => $this->input->post('comments_enabled')
+				'title'				=> $this->input->post('title'),
+				'slug'				=> $this->input->post('slug'),
+				'category_id'		=> $this->input->post('category_id'),
+				'intro'				=> $this->input->post('intro'),
+				'body'				=> $this->input->post('body'),
+				'status'			=> $this->input->post('status'),
+				'created_on'		=> $created_on,
+				'comments_enabled'	=> $this->input->post('comments_enabled')
 			));
 
 			if ($id)
@@ -251,14 +250,14 @@ class Admin extends Admin_Controller {
 			}
 
 			$result = $this->blog_m->update($id, array(
-				'title'			=> $this->input->post('title'),
-				'slug'			=> $this->input->post('slug'),
-				'category_id'	=> $this->input->post('category_id'),
-				'intro'			=> $this->input->post('intro'),
-				'body'			=> $this->input->post('body'),
-				'status'		=> $this->input->post('status'),
-				'created_on' => $created_on,
-                                'comments_enabled' => $this->input->post('comments_enabled')
+				'title'				=> $this->input->post('title'),
+				'slug'				=> $this->input->post('slug'),
+				'category_id'		=> $this->input->post('category_id'),
+				'intro'				=> $this->input->post('intro'),
+				'body'				=> $this->input->post('body'),
+				'status'			=> $this->input->post('status'),
+				'created_on'		=> $created_on,
+				'comments_enabled'	=> $this->input->post('comments_enabled')
 			));
 			
 			if ($result)
