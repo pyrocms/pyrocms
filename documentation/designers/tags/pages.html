@@ -116,3 +116,69 @@ Body Content Two
 <pre><code>&lt;h2&gt;Page Title&lt;/h2&gt;
 &lt;p&gt;Page Body&lt;/p&gt;
 </code></pre>
+
+<br />
+
+<h3>{pyro:pages:is}</h3><br />
+
+<p>A tag that says if a page is direct child of another page or is descendent of another page.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">child</td>
+		<td width="100"></td>
+		<td>ID or Slug of the page you want check relation.</td>
+	</tr>
+
+	<tr>
+		<td width="100">children</td>
+		<td width="100"></td>
+		<td>Child separated by comma.</td>
+	</tr>
+
+	<tr>
+		<td width="100">parent</td>
+		<td width="100"></td>
+		<td>ID or Slug of the page to check if is parent of child.</td>
+	</tr>
+
+	<tr>
+		<td width="100">descendent</td>
+		<td width="100"></td>
+		<td>ID or Slug of the page to check if is descendent of child.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example</strong></p>
+
+<pre><code>{if '{pyro:pages:is child="ingredients" parent="cookbook"}' == true}
+&lt;p&gt;
+    Click here to see table of contents cookbook
+    etc...
+&lt;/p&gt;
+{/if}
+
+Display:
+
+Click here to see table of contents cookbook
+etc...</code></pre>
+
+<pre><code>{if '{pyro:pages:is child="terms-and-conditions" parent="information"}' == true}
+&lt;body class="terms information"&gt;
+{else}
+&lt;body class=""&gt;
+{/if}
+
+Display:
+
+&lt;body class="terms information"&gt;</code></pre>
