@@ -18,7 +18,38 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+
+// Local: localhost or local.example.com
+if ($_SERVER['SERVER_NAME'])
+{
+	if (strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
+	{
+		define('ENVIRONMENT', 'local');
+	}
+
+	// Development: dev.example.com
+	elseif (strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
+	{
+		define('ENVIRONMENT', 'dev');
+	}
+
+	// Quality Assurance: qa.example.com
+	elseif (strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
+	{
+		define('ENVIRONMENT', 'qa');
+	}
+
+	// Live: example.com
+	else
+	{
+		define('ENVIRONMENT', 'live');
+	}
+}
+else
+{
+	define('ENVIRONMENT', 'local');
+}
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -30,12 +61,13 @@
 
 	switch (ENVIRONMENT)
 	{
-		case 'development':
+		case 'local':
+		case 'dev':
 			error_reporting(E_ALL);
 		break;
 
-		case 'testing':
-		case 'production':
+		case 'qa':
+		case 'live':
 			error_reporting(0);
 		break;
 
