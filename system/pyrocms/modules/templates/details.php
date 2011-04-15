@@ -23,6 +23,7 @@ class Module_Templates extends Module {
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'pt' => 'Modelos de e-mail',
 				'el' => 'Δυναμικά email',
+				'he' => 'תבניות'
 			),
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
@@ -31,6 +32,7 @@ class Module_Templates extends Module {
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
 				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
 				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
+				'he' => 'ניהול של תבניות דואר אלקטרוני'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,

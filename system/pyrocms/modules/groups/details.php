@@ -21,7 +21,8 @@ class Module_Groups extends Module {
 				'cs' => 'Skupiny',
 				'es' => 'Grupos',
 				'fi' => 'Ryhmät',
-				'el' => 'Ομάδες'
+				'el' => 'Ομάδες',
+				'he' => 'קבוצות'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
@@ -37,7 +38,8 @@ class Module_Groups extends Module {
 				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.',
 				'es' => 'Los usuarios podrán ser colocados en grupos para administrar sus permisos.',
 				'fi' => 'Käyttäjät voidaan liittää ryhmiin, jotta käyttöoikeuksia voidaan hallinnoida.',
-				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.'
+				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.',
+				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
