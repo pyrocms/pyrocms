@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		MizuCMS
  * @subpackage 		Login Widget
@@ -9,15 +10,17 @@
 
 class Widget_Login extends Widgets
 {
-	public $title = 'Login';
-	public $description = 'Display a simple login form anywhere.';
-	public $author = 'Phil Sturgeon';
-	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.0';
+	public $title		= 'Login';
+	public $description	= array(
+		'en' => 'Display a simple login form anywhere',
+		'pt' => 'Permite colocar um formulário de login em qualquer lugar do seu site'
+	);
+	public $author		= 'Phil Sturgeon';
+	public $website		= 'http://philsturgeon.co.uk/';
+	public $version		= '1.0';
 
 	public function run()
 	{
 		return !$this->ion_auth->logged_in();
 	}
-
 }
