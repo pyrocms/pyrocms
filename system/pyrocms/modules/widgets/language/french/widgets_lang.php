@@ -2,6 +2,7 @@
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Widgets disponibles';
+$lang['widgets.widget_area_wrapper']		= 'Available Areas'; #translate
 $lang['widgets.instructions']	 			= 'Glisser-déposer pour installer le widget';
 
 // Widgets
