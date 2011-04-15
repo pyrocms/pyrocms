@@ -79,7 +79,14 @@ abstract class Plugin
 	 */
 	public function module_view($module, $view, $vars = array())
 	{
-		list($path, $view) = Modules::find($view, $module, 'views/');
+		if (file_exists($this->template->get_theme_path() . 'views/modules/contact/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+		{
+			$path = $this->template->get_theme_path() . 'views/modules/contact/';
+		}
+		else
+		{
+			list($path, $view) = Modules::find($view, $module, 'views/');
+		}
 
 		$save_path = $this->load->_ci_view_path;
 		$this->load->_ci_view_path = $path;
