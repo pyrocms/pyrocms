@@ -187,6 +187,7 @@ class Admin_folders extends Admin_Controller {
 
 		$this->data->files = $this->file_m
 			->order_by('date_added', 'DESC')
+			->order_by('id', 'DESC')
 			->get_many_by('folder_id', $folder->id);
 
 		// Response ajax

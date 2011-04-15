@@ -10,6 +10,9 @@ $lang['settings_site_name_desc'] 				= 'Il nome del sito per i titoli della pagi
 $lang['settings_site_slogan'] 					= 'Slogan del sito';
 $lang['settings_site_slogan_desc'] 				= 'Lo slogan del sito per i titoli della pagina e per essere usato in giro per il sito.';
 
+$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+
 $lang['settings_contact_email'] 				= 'Email per contatti';
 $lang['settings_contact_email_desc'] 			= 'Tuttele email dagli utenti, dai visitatori e dal sito saranno dirette a questo indizzo email.';
 

@@ -25,6 +25,7 @@ class Blog extends Public_Controller
 
 		$this->template
 			->title($this->module_details['name'])
+			->set_breadcrumb( lang('blog_blog_title'))
 			->set_metadata('description', $meta['description'])
 			->set_metadata('keywords', $meta['keywords'])
 			->build('index', $this->data);
@@ -105,9 +106,9 @@ class Blog extends Public_Controller
 		// Set some defaults
 		else
 		{
-			$post->category->id = 0;
-			$post->category->slug = '';
-			$post->category->title = '';
+			$post->category->id		= 0;
+			$post->category->slug	= '';
+			$post->category->title	= '';
 		}
 		
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
@@ -123,7 +124,7 @@ class Blog extends Public_Controller
 		}
 		
 		$this->template
-			->set_breadcrumb($post->title, 'blog/'.date('Y/m', $post->created_on).'/'.$post->slug)
+			->set_breadcrumb($post->title)
 			->set('post', $post)
 			->build('view', $this->data);
 	}	

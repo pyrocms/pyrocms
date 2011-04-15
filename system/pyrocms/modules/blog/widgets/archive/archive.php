@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		PyroCMS
  * @subpackage 		RSS Feed Widget
@@ -9,11 +10,17 @@
 
 class Widget_Archive extends Widgets
 {
-	public $title = 'Archive';
-	public $description = 'Display a list of old months with links to posts in those months.';
-	public $author = 'Phil Sturgeon';
-	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.0';
+	public $title		= array(
+		'en' => 'Archive',
+		'pt' => 'Arquivo do Blog'
+	);
+	public $description	= array(
+		'en' => 'Display a list of old months with links to posts in those months',
+		'pt' => 'Mostra uma lista navegação cronológica contendo o índice dos artigos publicados mensalmente'
+	);
+	public $author		= 'Phil Sturgeon';
+	public $website		= 'http://philsturgeon.co.uk/';
+	public $version		= '1.0';
 	
 	public function run($options)
 	{
@@ -23,6 +30,5 @@ class Widget_Archive extends Widgets
 		return array(
 			'archive_months' => $this->blog_m->get_archive_months()
 		);
-	}
-	
+	}	
 }

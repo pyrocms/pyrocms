@@ -37,8 +37,8 @@
                 <?php echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm')); ?>
                 </div>
             <?php if ($file->type === 'i'): ?>
-            <a title="<?php echo $file->name; ?>" href="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" rel="colorbox">
-                <img title="<?php echo $file->name; ?>" height="64" src="<?php echo base_url() . 'uploads/files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" />
+            <a title="<?php echo $file->name; ?>" href="<?php echo base_url() . 'media/image/' . $file->filename; ?>" rel="colorbox">
+                <img title="<?php echo $file->name; ?>" width="80" src="<?php echo site_url('files/thumb/' . $file->id . '/80'); ?>" alt="<?php echo $file->name; ?>" />
             </a>
             <?php else: ?>
                 <?php echo image($file->type . '.png', 'files'); ?>
@@ -55,7 +55,7 @@
 				<th><?php echo lang('files.name_label'); ?></th>
 				<th><?php echo lang('files.type_label'); ?></th>
 				<th><?php echo lang('files.filename_label'); ?></th>
-				<th width="100" class="align-center"><?php echo lang('files.created_label'); ?></th>
+				<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
 				<th width="300" class="align-center"><?php echo lang('files.actions_label'); ?></th>
 			</tr>
 		</thead>

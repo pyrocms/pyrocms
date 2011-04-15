@@ -10,6 +10,9 @@ $lang['settings_site_name_desc'] 				= 'Jméno, které se objeví v titulcích s
 $lang['settings_site_slogan'] 					= 'Slogan';
 $lang['settings_site_slogan_desc'] 				= 'Slogan se objeví v titulcích stránek a různě po webu.';
 
+$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+
 $lang['settings_contact_email'] 				= 'Kontaktní e-mail';
 $lang['settings_contact_email_desc'] 			= 'Všechny e-maily od uživatelů a hostů budou odeslány na tuto adresu.';
 

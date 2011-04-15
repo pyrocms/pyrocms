@@ -22,14 +22,14 @@ class Widgets {
 		{
 			$widgets = glob($path . 'widgets/*', GLOB_ONLYDIR);
 
-			if (!is_array($widgets))
+			if ( ! is_array($widgets))
 			{
 				$widgets = array();
 			}
 
 			$module_widgets = glob($path . 'modules/*/widgets/*', GLOB_ONLYDIR);
 
-			if (!is_array($module_widgets))
+			if ( ! is_array($module_widgets))
 			{
 				$module_widgets = array();
 			}
@@ -58,7 +58,7 @@ class Widgets {
 
 	function list_available_widgets()
 	{
-		return $this->widget_m->order_by('title')->get_all();
+		return $this->widget_m->order_by('slug')->get_all();
 	}
 
 	function list_uninstalled_widgets()
@@ -77,7 +77,7 @@ class Widgets {
 		{
 			$slug = basename($widget_path);
 
-			if (!in_array($slug, $available_slugs) AND $widget = $this->read_widget($slug))
+			if ( ! in_array($slug, $available_slugs) AND $widget = $this->read_widget($slug))
 			{
 				$uninstalled[] = $widget;
 			}
@@ -114,7 +114,7 @@ class Widgets {
 	{
 		$this->_spawn_widget($slug);
 
-		if ($this->_widget === FALSE OR !is_subclass_of($this->_widget, 'Widgets'))
+		if ($this->_widget === FALSE OR ! is_subclass_of($this->_widget, 'Widgets'))
 		{
 			return FALSE;
 		}
@@ -161,17 +161,27 @@ class Widgets {
 		}
 
 		$options = array();
+		$_arrays = array();
 
 		foreach ($this->_widget->fields as $field)
 		{
 			$field_name = &$field['field'];
+			if (($pos = strpos($field_name, '[')) !== FALSE)
+			{
+				$key = substr($field_name, 0, $pos);
 
+				if ( ! in_array($key, $_arrays))
+				{
+					$options[$key] = $this->input->post($key);
+					$_arrays[] = $key;
+				}
+			}
 			$options[$field_name] = set_value($field_name, isset($saved_data[$field_name]) ? $saved_data[$field_name] : '');
 			unset($saved_data[$field_name]);
 		}
 
 		// Any extra data? Merge it in, but options wins!
-		if (!empty($saved_data))
+		if ( ! empty($saved_data))
 		{
 			$options = array_merge($saved_data, $options);
 		}
@@ -218,7 +228,7 @@ class Widgets {
 		{
 			foreach ($slug as $_slug)
 			{
-				if (!$this->reload_widget($_slug))
+				if ( ! $this->reload_widget($_slug))
 				{
 					return FALSE;
 				}
@@ -229,12 +239,12 @@ class Widgets {
 		$widget = $this->read_widget($slug);
 
 		return $this->edit_widget(array(
-			'title' => $widget->title,
-			'slug' => $widget->slug,
-			'description' => $widget->description,
-			'author' => $widget->author,
-			'website' => $widget->website,
-			'version' => $widget->version
+			'title' 		=> $widget->title,
+			'slug' 			=> $widget->slug,
+			'description' 	=> $widget->description,
+			'author' 		=> $widget->author,
+			'website' 		=> $widget->website,
+			'version' 		=> $widget->version
 		));
 	}
 
@@ -335,7 +345,7 @@ class Widgets {
 			//$this->form_validation->set_rules('title', 'Title', 'required');
 			$this->form_validation->set_rules($this->_widget->fields);
 
-			if (!$this->form_validation->run('', FALSE))
+			if ( ! $this->form_validation->run('', FALSE))
 			{
 				return validation_errors();
 			}
@@ -386,9 +396,9 @@ class Widgets {
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
 
 		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path' => $path . 'views/' . $view . EXT,
-			'_ci_vars' => $data,
-			'_ci_return' => TRUE
+			'_ci_path'		=> $path . 'views/' . $view . EXT,
+			'_ci_vars'		=> $data,
+			'_ci_return'	=> TRUE
 		)), array(), TRUE);
 	}
 

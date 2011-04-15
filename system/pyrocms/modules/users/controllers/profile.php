@@ -176,20 +176,21 @@ class Profile extends Public_Controller
 	/**
 	 * View a user profile based on the ID
 	 * 
-	 * @access public 
-	 * @param int $id The ID of the user
-	 * @return void
+	 * @access	public
+	 * @param	mixed $id The Username or ID of the user
+	 * @return	void
 	 */
-	public function view($id = 0)
+	public function view($id = NULL)
 	{
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message 
-		if(!$this->data->user = $this->ion_auth->get_user($id) )
+		if (!$user = $this->ion_auth->get_user($id) )
 		{
 			show_404();
 		}
-		
+
 		// Render view
-		$this->data->profile = $this->ion_auth->get_user($id);
+		$this->data->user = $user; //what data used, user or profile?
+		$this->data->profile = $user;
 		$this->template->build('profile/view', $this->data);
 	}
 	

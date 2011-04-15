@@ -35,7 +35,7 @@ class Admin extends Admin_Controller
 	{
 		// Firstly, install any uninstalled widgets
 		$uninstalled_widgets = $this->widgets->list_uninstalled_widgets();
-		foreach($uninstalled_widgets as $widget)
+		foreach ($uninstalled_widgets as $widget)
 		{
 			$this->widgets->add_widget((array)$widget);
 		}
@@ -45,7 +45,7 @@ class Admin extends Admin_Controller
 		$this->data->widget_areas = $this->widgets->list_areas();
 
 		// Go through all widget areas
-		foreach($this->data->widget_areas as &$area)
+		foreach ($this->data->widget_areas as &$area)
 		{
 			$area->widgets = $this->widgets->list_area_instances($area->slug);
 		}

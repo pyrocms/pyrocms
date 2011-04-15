@@ -21,16 +21,18 @@
 #available-widgets h3,
 .ui-draggable-dragging h3 {
 	font-size: 14px;
-	width: 150px;
-	padding-right: 25px;
+	width: 180px;
+	padding-right: 20px;
 	height: 100%;
 	text-align: right;
 	float: left;
+	margin-bottom: 0;
 }
 #available-widgets p,
 .ui-draggable-dragging p {
 	margin-bottom: 0;
 	line-height: 1.5;
+	margin-left: 200px; /* h3 size */
 }
 #available-widgets li:hover {
 	background-color: #e6e6e6;
@@ -137,14 +139,22 @@
 	margin: 15px 0 10px 0;
 	padding-left: 5px;
 	color: #999;
-	cursor: auto;
 }
-
+.no-sortable,
+.no-sortable li,
+.no-sortable header {
+	cursor: auto !important;
+}
 .widget-instance ol {
 	margin-bottom: 0;
 }
-.widget-instance textarea.uniform {
+.widget-list textarea.uniform {
 	width: 97% !important;
+	resize: none;
+}
+.widget-list textarea.inline {
+	width: 60% !important;
+	resize: none;
 }
 
 .widget-instance form.crud label{
@@ -195,9 +205,6 @@
 	margin-top: 7px;
 }
 
-.widget-list textarea {
-	width: 98%;
-}
 
 .widget-area-header {
 	background-color: #f2f2f2;
@@ -207,6 +214,7 @@
 }
 .widget-area-header h3 {
 	font-size: 16px;
+	display: inline-block;
 }
 .widget-area-header a.button {
 	font-size: 100%;
@@ -228,9 +236,20 @@
 	cursor: auto;
 	padding: 0 10px;
 }
+.widget-list fieldset ol {
+	padding: 0;
+}
+.widget-list fieldset li li {
+	padding-left: 0;
+	padding-rigth: 0;
+}
 .widget-list ol li {
 	margin: 0 0 10px;
 	cursor: move;
+}
+.widget-list ol li label {
+	text-align: right;
+	color: #666;
 }
 li.empty-drop-item {
 	border: 2px dashed #666;
@@ -245,4 +264,22 @@ p.tag {
 	font-family: monospace; 
 	text-align: center;
 	color: #999;
+}
+.box-container header h3 {
+	font-size: 14px;
+	padding: 6px 0;
+}
+.box-container h3 {
+	font-size: 14px;
+}
+.box-container fieldset h4 {
+	font-size: 13px;
+	font-style: italic;
+	margin: 10px 0 12px;
+	text-shadow: none;
+	background: #eee;
+	padding: 4px 8px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }

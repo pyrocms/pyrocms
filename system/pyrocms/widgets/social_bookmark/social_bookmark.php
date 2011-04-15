@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		MizuCMS
  * @subpackage 		RSS Feed Widget
@@ -9,17 +10,20 @@
 
 class Widget_Social_bookmark extends Widgets
 {
-	public $title = 'Social Bookmark';
-	public $description = 'Configurable social bookmark links from AddThis.';
-	public $author = 'Phil Sturgeon';
-	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.0';
+	public $title		= 'Social Bookmark';
+	public $description	= array(
+		'en' => 'Configurable social bookmark links from AddThis',
+		'pt' => 'Adiciona links de redes sociais usando o AddThis, podendo fazer algumas configurações'
+	);
+	public $author		= 'Phil Sturgeon';
+	public $website		= 'http://philsturgeon.co.uk/';
+	public $version		= '1.0';
 	
 	public $fields = array(
 		array(
-			'field'   => 'mode',
-			'label'   => 'Mode',
-			'rules'   => 'required'
+			'field' => 'mode',
+			'label' => 'Mode',
+			'rules' => 'required'
 		)
 	);
 

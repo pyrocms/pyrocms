@@ -10,6 +10,9 @@ $lang['settings_site_name_desc']				= 'Ime strani za spletno stran in za naslove
 $lang['settings_site_slogan']					= 'Slogan strani';
 $lang['settings_site_slogan_desc']				= 'Slogan za spletno stran in za uporabo na podstraneh.';
 
+$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+
 $lang['settings_contact_email']					= 'Kontaktni E-mail';
 $lang['settings_contact_email_desc']			= 'Vsi email-i od uporabnikov, gostov na strani bodo poslani na vnešeni email naslov.';
 

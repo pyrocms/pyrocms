@@ -18,6 +18,9 @@ $lang['settings_site_name_desc']				= 'Имя сайта, используетс
 $lang['settings_site_slogan']					= 'Слоган сайта';
 $lang['settings_site_slogan_desc']				= 'Слоган сайта, используется в заголовках страниц и разных местах на сайте.';
 
+$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+
 $lang['settings_contact_email']					= 'E-mail для связи';
 $lang['settings_contact_email_desc']			= 'Вся почта от пользователей, гостей и самого сайта будет отправляться на этот адрес.';
 
