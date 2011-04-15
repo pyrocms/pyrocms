@@ -17,7 +17,7 @@ $lang['pages.actions_label'] 					= 'Acties';
 $lang['pages.unknown_label'] 					= 'Onbekend';
 $lang['pages.title_label'] 						= 'Titel';
 $lang['pages.slug_label'] 						= 'URL';
-$lang['pages.navigation_label']                  = 'Add to Navigation'; #translate
+$lang['pages.navigation_label']                  = 'Toevoegen aan navigatie';
 $lang['pages.body_label'] 						= 'Paginainhoud';
 $lang['pages.meta_title_label'] 				= 'Meta titel';
 $lang['pages.meta_keywords_label'] 				= 'Meta sleutelwoord';
@@ -28,7 +28,7 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Toegang';
 $lang['pages.rss_enabled_label'] 				= 'RSS ingeschakeld';
 $lang['pages.comments_enabled_label'] 			= 'Commentaren ingeschakeld';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      = 'Is standaard (home) pagina?';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label'] 						= 'Concept';

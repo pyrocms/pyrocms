@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['email_must_be_array'] 		= "שיטת אימות דואר אלקטרוני חייבת להיות עבר מערך.";
 $lang['email_invalid_address'] 		= "כתובת דואר האלקטרוני שגויה: %s";
