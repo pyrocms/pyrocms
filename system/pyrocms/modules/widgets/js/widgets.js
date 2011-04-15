@@ -129,12 +129,9 @@
 				}, 'json')
 			});
 
-			$('a.button.delete-area').live('click', function(e){
+			$('a.button.delete-area').live('click-confirmed', function(e){
 				e.preventDefault();
-
-				if ( ! $.data(this, 'confirmed')) return;
-
-				$.data(this, { 'confirmed': false, 'stop-click': true });
+				$.data(this, 'stop-click', true);
 
 				var slug	= this.id.replace(/^delete-area-/, ''),
 					box		= $('#area-' + slug);
@@ -224,12 +221,9 @@
 				});
 			});
 
-			$('a.delete-instance').live('click', function(e){
+			$('a.delete-instance').live('click-confirmed', function(e){
 				e.preventDefault();
-
-				if ( ! $.data(this, 'confirmed')) return;
-
-				$.data(this, { 'confirmed': false, 'stop-click': true });
+				$.data(this, 'stop-click', true);
 
 				var li	= $(this).closest('li'),
 					id	= li.attr('id').replace('instance-', '');

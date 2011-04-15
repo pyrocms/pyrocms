@@ -71,14 +71,6 @@ jQuery(function($) {
 
 		// Confirmation
 		$('a.confirm').live('click', function(e){
-
-			if ($.data(this, 'confirmed'))
-			{
-				$.data(this, 'confirmed', false);
-
-				return true;
-			}
-
 			e.preventDefault();
 
 			var href		= $(this).attr('href'),
@@ -86,13 +78,15 @@ jQuery(function($) {
 
 			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
-				$.data(this, 'confirmed', true);
+				$(this).trigger('click-confirmed');
 
-				// its poor to not redirect ajax handler
-				if ( ! $(this).click().data('stop-click')){
-					//submits it whether uniform likes it or not
-					window.location.replace(href);
+				if ($.data(this, 'stop-click')){
+					$.data(this, 'stop-click', false);
+					return;
 				}
+
+				//submits it whether uniform likes it or not
+				window.location.replace(href);
 			}
 		});
 		
