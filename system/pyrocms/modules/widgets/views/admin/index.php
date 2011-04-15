@@ -69,30 +69,25 @@
 	
 	<div style="clear: both"></div>
 </div>
-
-<!-- Add Instance Box -->
-<li id="add-instance-box" class="box hidden widget-instance">
-	<form class="box-container crud">
-	
-	</form>
-</li>
-
-<!-- Edit Instance Box -->
-<li id="edit-instance-box" class="box hidden">
-	<form class="box-container crud">
-	
-	</form>
-</li>
-
+<ol class="hidden">
+	<!-- Add Instance Box -->
+	<li id="add-instance-box" class="box hidden widget-instance no-sortable">
+		<form class="box-container crud"></form>
+	</li>
+	<!-- Edit Instance Box -->
+	<li id="edit-instance-box" class="box hidden no-sortable">
+		<form class="box-container crud"></form>
+	</li>
+</ol>
 <!-- Available Widgets Area -->
 <table>
 	<tbody style="border-bottom: none">
 		<tr>
 			<!-- Available Widgets -->
-			<td valign="top" width="50%">
+			<td valign="top" style="vertical-align: top;" width="50%">
 				<span class="widget-instructions float-right spacer-right"><?php echo lang('widgets.instructions')?></span>
 			
-				<h3><?php echo lang('widgets.available_title')?></h3>
+				<h2><?php echo lang('widgets.available_title')?></h2>
 			
 				<?php if ($available_widgets): ?>
 					<!-- Available Widget List -->
@@ -117,7 +112,7 @@
 			
 			<!-- Widget Areas -->
 			<td valign="top" width="50%" style="vertical-align: top;" id="widget-areas">
-				<h3><?php echo lang('widgets.widget_area_wrapper'); ?></h3>
+				<h2><?php echo lang('widgets.widget_area_wrapper'); ?></h2>
 			
 				<?php if (!empty($widget_areas)): ?>
 
@@ -141,7 +136,6 @@
 
 						<div class="widget-list">
 							<?php $this->load->view('admin/ajax/instance_list', array('widgets' => $widget_area->widgets)); ?>
-
 							<div style="clear:both"></div>
 						</div>
 					</div>

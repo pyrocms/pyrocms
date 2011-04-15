@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		PyroCMS
  * @subpackage 		RSS Feed Widget
@@ -9,22 +10,28 @@
 
 class Widget_Rss_feed extends Widgets
 {
-	public $title = 'RSS Feed';
-	public $description = 'Display parsed RSS feeds on your websites.';
-	public $author = 'Phil Sturgeon';
-	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.0';
+	public $title		= array(
+		'en' => 'RSS Feed',
+		'pt' => 'Feed RSS'
+	);
+	public $description	= array(
+		'en' => 'Display parsed RSS feeds on your websites',
+		'pt' => 'Interpreta e exibe qualquer feed RSS no seu site'
+	);
+	public $author		= 'Phil Sturgeon';
+	public $website		= 'http://philsturgeon.co.uk/';
+	public $version		= '1.0';
 	
 	public $fields = array(
 		array(
-			'field'   => 'feed_url',
-			'label'   => 'Feed URL',
-			'rules'   => 'required'
+			'field' => 'feed_url',
+			'label' => 'Feed URL',
+			'rules' => 'required'
 		),
 		array(
-			'field'   => 'number',
-			'label'   => 'Number of items',
-			'rules'   => 'numeric'
+			'field' => 'number',
+			'label' => 'Number of items',
+			'rules' => 'numeric'
 		)
 	);
 

@@ -26,6 +26,7 @@ class Theme_Default extends Theme {
 				$cufon_enabled	= FALSE;
 				break;
 			case 'ar':
+			case 'he':
 				$cufon_enabled	= TRUE;
 			case 'ru':
 				$cufon_font		= 'times.font.js';

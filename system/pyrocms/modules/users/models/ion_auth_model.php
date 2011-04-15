@@ -695,7 +695,8 @@ class Ion_auth_model extends CI_Model
 			$id = $this->session->userdata('user_id');
 		}
 
-		$this->db->where($this->tables['users'].'.id', $id);
+		$this->db->where(sprintf('%s.%s', $this->tables['users'], (is_numeric($id) ? 'id' : 'username')), $id);
+
 		$this->db->limit(1);
 
 		return $this->get_users();

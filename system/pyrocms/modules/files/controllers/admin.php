@@ -277,9 +277,6 @@ class Admin extends Admin_Controller {
 			// We are uploading a new file
 			if ( ! empty($_FILES['userfile']['name']))
 			{
-				// Remove the original file
-				$this->file_m->delete_file($id);
-
 				// Setup upload config
 				$this->load->library('upload', array(
 					'upload_path'	=> $this->_path,
@@ -305,6 +302,9 @@ class Admin extends Admin_Controller {
 				// File upload success
 				else
 				{
+					// Remove the original file
+					$this->file_m->delete_file($id);
+
 					$file = $this->upload->data();
 					$data = array(
 						'folder_id'		=> (int) $this->input->post('folder_id'),

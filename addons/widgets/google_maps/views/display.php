@@ -31,7 +31,8 @@
                        navigationControlOptions : 
                        {
                            style : google.maps.NavigationControlStyle.SMALL
-                       }
+                       },
+					   streetViewControl: true
                     });
                     
                     var marker = new google.maps.Marker(

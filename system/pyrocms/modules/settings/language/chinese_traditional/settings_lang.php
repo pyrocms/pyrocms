@@ -10,6 +10,9 @@ $lang['settings_site_name_desc'] 				= '在這裡設定的名稱會應用在 tit
 $lang['settings_site_slogan'] 					= '網站標語';
 $lang['settings_site_slogan_desc'] 				= '在這裡設定的標語會應用在 title 標籤以及整個網站。';
 
+$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+
 $lang['settings_contact_email'] 				= '收件者信箱';
 $lang['settings_contact_email_desc'] 			= '所有來自於網站中用戶或訪客的信件，都將會寄到這個信箱裡。';
 

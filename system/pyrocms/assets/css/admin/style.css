@@ -393,6 +393,14 @@ a.delete {
 	height: 16px;
 	width: 16px;
 }
+a.add-icon {
+	background-image: url('../../img/admin/icons/16/plus.png');
+	text-indent: -99999px;
+	overflow: hidden;
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+}
 
 /** Shortcut Buttons **/
 #shortcuts {
@@ -407,7 +415,7 @@ a.delete {
 	padding: 5px 15px 3px 10px;
 	display: inline-block;
 	float: right;
-	vertical-align: center;
+	vertical-align: middle;
 	color: #999999;
 	font-size: 13px;
 }
@@ -435,7 +443,7 @@ a.delete {
 	text-align: left;
 	text-decoration: none;
 	color: #666666;
-	vertical-align: center;
+	vertical-align: middle;
 	-webkit-background-clip: padding-box;
 
 }

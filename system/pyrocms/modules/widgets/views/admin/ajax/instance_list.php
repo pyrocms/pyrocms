@@ -3,9 +3,9 @@
 
 	<li id="instance-<?php echo $widget->id; ?>" class="widget-instance">
 		
-		<h4><?php echo $widget->instance_title;?></h4>
+		<h4><?php echo $widget->instance_title; ?></h4>
 		
-		<div class="widget-type"><?php echo $widget->title;?></div>
+		<div class="widget-type"><?php echo $widget->title; ?></div>
 		
 		<pre class="widget-code no-sortable"><code><?php echo sprintf('{%s:widgets:instance id="%s"}', config_item('tags_trigger'), $widget->id);?></code></pre>
 		

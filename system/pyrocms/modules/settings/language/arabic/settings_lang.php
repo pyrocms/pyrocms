@@ -10,6 +10,9 @@ $lang['settings_site_name_desc'] 				= 'إسم الموقع المستخدم ف�
 $lang['settings_site_slogan'] 					= 'شعار الموقع';
 $lang['settings_site_slogan_desc'] 				= 'شعار الموقع المستخدم في عناوين الصفحات وفي مختلف أقسام الموقع.';
 
+$lang['settings_site_lang']						= 'Site Language'; #translate
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+
 $lang['settings_contact_email'] 				= 'عنوان البريد الإلكتروني للإتصال';
 $lang['settings_contact_email_desc'] 			= 'جميع الرسائل الواردة من المستخدمين، والضيوف والموقع سترسل إلى عنوان البريد الإلكتروني هذا.';
 
