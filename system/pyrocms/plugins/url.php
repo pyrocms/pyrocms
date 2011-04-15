@@ -37,7 +37,9 @@ class Plugin_Url extends Plugin
 	 */
 	function site()
 	{
-		return rtrim(site_url(), '/').'/';
+		$uri = $this->attribute('uri');
+
+		return $uri ? site_url($uri) : rtrim(site_url(), '/').'/';
 	}
 
 	/**
