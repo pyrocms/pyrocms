@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['date_year'] = "שנה";
 $lang['date_years'] = "שנים";

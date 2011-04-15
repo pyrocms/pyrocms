@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['ut_test_name']		= 'Test Name';
 $lang['ut_test_datatype']	= 'Test Datatype';
