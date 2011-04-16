@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['cal_su']			= "א";
 $lang['cal_mo']			= "ב";

@@ -14,7 +14,7 @@ $lang['widgets.widget_version'] 			= 'Versie';
 // Widget area titles
 $lang['widgets.add_area'] 					= 'Voeg een widgetgebied toe';
 $lang['widgets.delete_area'] 				= 'Verwijder gebied';
-$lang['widgets.edit_area']					= 'Edit area';#translate
+$lang['widgets.edit_area']                              = 'Bewerk gebied';
 
 // Widget area field names
 $lang['widgets.widget_area'] 				= 'Gebied';
@@ -32,4 +32,4 @@ $lang['widgets.tag_title']					= 'Tag';
 $lang['widgets.instance_edit'] 				= 'Wijzig';
 $lang['widgets.instance_delete'] 			= 'Verwijder';
 
-$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate
+$lang['widgets.no_available_widgets']		= 'Er zijn momenteel geen beschikbare widgets.';

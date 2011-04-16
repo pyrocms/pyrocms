@@ -36,7 +36,7 @@ $lang['contact_title']						= 'Contact';
 // texts
 $lang['contact_mail_text']					= 'Dit bericht is verstuurd via het contact formulier op %s met de volgende details:';
 $lang['contact_sent_text']					= 'Uw bericht is verstuurd. We nemen spoedig contact met u op.';
-$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
+$lang['contact_error_message']			= 'Er was een probleem met het verzenden van dit bericht. Probeer het later opnieuw ..';
 
 //predefined subjects list
 $lang['subject_support']  = 'Ondersteuning';
