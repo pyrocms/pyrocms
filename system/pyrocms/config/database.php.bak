@@ -77,10 +77,10 @@ $db['live']['dbcollat'] = 'utf8_unicode_ci';
 $db['live']['port'] 	= 3306;
 
 // Check the configuration group in use exists
-if(!array_key_exists(ENV, $db))
+if( ! array_key_exists(ENVIRONMENT, $db))
 {
-	show_error(sprintf(lang('error_invalid_db_group'), ENV));
+	show_error(sprintf(lang('error_invalid_db_group'), ENVIRONMENT));
 }
 
 // Assign the group to be used
-$active_group = ENV;
+$active_group = ENVIRONMENT;

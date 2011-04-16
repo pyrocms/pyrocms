@@ -42,36 +42,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |--------------------------------------------------------------------------
 */
 
-// Local: localhost or local.example.com
-if ($_SERVER['SERVER_NAME'])
-{
-	if (strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
-	{
-		define('ENV', 'local');
-	}
-
-	// Development: dev.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
-	{
-		define('ENV', 'dev');
-	}
-
-	// Quality Assurance: qa.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
-	{
-		define('ENV', 'qa');
-	}
-
-	// Live: example.com
-	else
-	{
-		define('ENV', 'live');
-	}
-}
-else
-{
-	define('ENV', 'local');
-}
+# Deprecated: This feature was rolled into CodeIgniter so we don't need to handle it ourselves anymore.
+define('ENV', ENVIRONMENT);
 
 /*
 |--------------------------------------------------------------------------
