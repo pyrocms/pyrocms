@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_title'] 						= 'Pannello di Controllo';
 
@@ -7,9 +7,9 @@ $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrizione';
 $lang['version_label'] 					= 'Versione';
 $lang['author_label'] 					= 'Autore';
-$lang['action_label'] 					= 'Aczione';
+$lang['action_label'] 					= 'Azione';
 
-$lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L&quote; azione non può essere annullata.';
+$lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non pu&ograve; essere annullata.';
 $lang['dialog.confirm'] 				= 'Conferma';
 $lang['dialog.yes'] 					= 'Si';
 $lang['dialog.no'] 						= 'No';
@@ -17,6 +17,7 @@ $lang['dialog.no'] 						= 'No';
 $lang['select.none'] 					= '-- Nessuno --';
 $lang['select.all'] 					= '-- Tutti --';
 $lang['select.any'] 					= '-- Ognuno --';
+$lang['select.pick'] 					= '-- Seleziona --';
 
 $lang['operators.equal'] 				= 'Uguale a';
 $lang['operators.not_equal'] 			= 'Diverso da';
@@ -41,14 +42,14 @@ $lang['login_title'] 					= 'Entra';
 $lang['cms_fatal_error'] 				= 'Errore fatale, il CMS $eacute; installato?';
 
 $lang['login_error_label'] 				= 'Errore di accesso';
-$lang['forgot_password_label'] 			= 'Password dimanticata?';
+$lang['forgot_password_label'] 			= 'Password dimenticata?';
 $lang['email_label'] 					= 'E-mail';
 $lang['password_label'] 				= 'Password';
 $lang['login_label'] 					= 'Entra';
 
 $lang['help_label'] 					= 'Aiuto';
 $lang['save_label'] 					= 'Salva';
-$lang['cancel_label'] 					= 'Resetta';
+$lang['cancel_label'] 					= 'Annulla';
 $lang['update_label'] 					= 'Aggiorna';
 $lang['delete_label'] 					= 'Elimina';
 $lang['activate_label'] 				= 'Attiva';
@@ -60,3 +61,7 @@ $lang['uninstall_label'] 				= 'Disinstalla';
 $lang['install_label'] 					= 'Installa';
 $lang['enable_label']					= 'Abilita';
 $lang['disable_label'] 					= 'Disabilita';
+$lang['upgrade_label'] 					= 'Aggiorna';
+
+/* End of file main_lang.php */
+/* Location: ./system/pyrocms/language/italian/main_lang.php */
