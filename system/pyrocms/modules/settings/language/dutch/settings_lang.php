@@ -31,31 +31,31 @@ $lang['settings_dashboard_rss_desc'] 			= 'Link naar een RSS feed dat getoont wo
 $lang['settings_dashboard_rss_count'] 			= 'Dashboard RSS Items';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Hoe veel RSS items wilt u tonen op de dashboard ?';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format'] 					= 'Datum formaat';
+$lang['settings_date_format_desc']				= 'Hoe moet de datum worden weergegeven op de website en in het bedieningspaneel? ' .
+													'Met behulp van de <a href="http://php.net/manual/en/function.date.php" target="_black">Datum formaat</a> from PHP - OR - ' .
+													'Met behulp van het formaat van <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings geformatteerd als datum</a> from PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Website Status';
 $lang['settings_frontend_enabled_desc'] 		= 'Gebruik deze optie om de gebruikerskant van de website aan of uit te zetten. Handig wanneer u de website offline wilt halen voor onderhoud.';
 
-$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
-$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+$lang['settings_mail_protocol'] 				= 'E-mail protocol';
+$lang['settings_mail_protocol_desc'] 			= 'Selecteer het gewenste e-mail protocol.';
 
-$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
-$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+$lang['settings_mail_sendmail_path'] 			= 'Sendmail pad';
+$lang['settings_mail_sendmail_path_desc']		= 'Pad naar server sendmail binaire.';
 
-$lang['settings_mail_smtp_host'] 				= 'SMTP Host'; #translate
-$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+$lang['settings_mail_smtp_host'] 				= 'SMTP Host';
+$lang['settings_mail_smtp_host_desc'] 			= 'De host naam van uw SMTP-server.';
 
-$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
-$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+$lang['settings_mail_smtp_pass'] 				= 'SMTP wachtwoord';
+$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP wachtwoord.';
 
-$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
-$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+$lang['settings_mail_smtp_port'] 				= 'SMTP poort';
+$lang['settings_mail_smtp_port_desc'] 			= 'SMTP poort nummer.';
 
-$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
-$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
+$lang['settings_mail_smtp_user'] 				= 'SMTP gebruikersnaam';
+$lang['settings_mail_smtp_user_desc'] 			= 'SMTP gebruikersnaam.';
 
 $lang['settings_unavailable_message']			= 'Onbeschikbaar Bericht';
 $lang['settings_unavailable_message_desc'] 		= 'Wanneer de website uit is of er is een groot probleem, dan wordt dit bericht getoond naar de gebruikers.';
@@ -78,17 +78,17 @@ $lang['settings_require_lastname_desc'] 		= 'Voor sommmige situaties hoeft een a
 $lang['settings_enable_profiles'] 				= 'Gebruikers Profielen';
 $lang['settings_enable_profiles_desc'] 			= 'Staat gebruikers in staat om een profiel toe te voegen en te bewerken.';
 
-$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
-$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_email'] 						= 'Google Analytics e-mail';
+$lang['settings_ga_email_desc']					= 'E-mail adres welke wordt gebruikt voor Google Analytics, deze is nodig om de grafiek op het dashboard te laten zien.';
 
-$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
-$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_password'] 					= 'Google Analytics wachtwoord';
+$lang['settings_ga_password_desc']				= 'Google Analytics wachtwoord. deze is ook nodig om de grafiek op het dashboard te laten zien';
 
-$lang['settings_ga_profile'] 					= 'Google Analytic Profile'; #translate
-$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+$lang['settings_ga_profile'] 					= 'Google Analytic profiel';
+$lang['settings_ga_profile_desc']				= 'Profiel-ID voor deze website in Google Analytics.';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
-$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
+$lang['settings_ga_tracking'] 					= 'Google Tracking Code';
+$lang['settings_ga_tracking_desc']				= 'Voer uw Google Analytics Tracking Code in voor het activeren van Google Analytics om datacaptatie te bekijken. E.g: UA-19483569-6';
 
 $lang['settings_twitter_username'] 				= 'Gebruikersnaam';
 $lang['settings_twitter_username_desc'] 		= 'Twitter gebruikersnaam.';
@@ -111,8 +111,8 @@ $lang['settings_twitter_cache_desc'] 			= 'Hoeveel minuten moeten de Tweets tijd
 $lang['settings_akismet_api_key'] 				= 'Akismet API Sleutel';
 $lang['settings_akismet_api_key_desc'] 			= 'Akismet is een spam-blokker van het WordPress team. Het houdt spam onder controle zonder gebruikers te dwingen een mens-checkend CAPTCHA formulier te gebruiken.';
 
-$lang['settings_comment_order'] 				= 'Comment Order'; #translate
-$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+$lang['settings_comment_order'] 				= 'Reactie volgorde';
+$lang['settings_comment_order_desc']			= 'Sorteervolgorde om reacties te tonen.';
 
 $lang['settings_moderate_comments'] 			= 'Beheer Reacties';
 $lang['settings_moderate_comments_desc']		= 'Forceer dat reacties eerst moeten geaccepteerd worden voordat ze worden getoond op de website.';
@@ -123,7 +123,7 @@ $lang['settings_version_desc'] 					= '';
 #section titles
 $lang['settings_section_general']				= 'Algemeen';
 $lang['settings_section_integration']			= 'Integratie';
-$lang['settings_section_comments']				= 'Comments'; #translate
+$lang['settings_section_comments']				= 'Reacties';
 $lang['settings_section_users']					= 'Gebruikers';
 $lang['settings_section_statistics']			= 'Statistieken';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -135,8 +135,8 @@ $lang['settings_form_option_Enabled']			= 'Ingeschakeld';
 $lang['settings_form_option_Disabled']			= 'Uitgeschakeld';
 $lang['settings_form_option_Required']			= 'Vereist';
 $lang['settings_form_option_Optional']			= 'Optioneel';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Oldest First']		= 'Oudste eerst';
+$lang['settings_form_option_Newest First']		= 'Nieuwste eerst';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/dutch/settings_lang.php */

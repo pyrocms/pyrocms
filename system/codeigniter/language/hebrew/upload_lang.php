@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['upload_userfile_not_set'] 			= "לא ניתן למצוא משתנה post בשם userfile.";
 $lang['upload_file_exceeds_limit'] 		= "הקובץ שהועלה חורג מהגודל המרבי המותר שהוגדר בקובץ התצורה PHP.";
