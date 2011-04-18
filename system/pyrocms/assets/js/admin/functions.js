@@ -34,18 +34,24 @@ jQuery(function($) {
 		});
 
 		// Add the close link to all boxes with the closable class
-		$(".closable").append('<a href="#" class="close">close</a>');
+		$('.closable').livequery(function(){
+			$(this).append('<a href="#" class="close">close</a>');
+		});
 
 		// Close the notifications when the close link is clicked
-		$("a.close").live('click', function () {
+		$('a.close').live('click', function(e){
+			e.preventDefault();
 			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
 			$(this).parent().fadeTo(200, 0);
-			$(this).parent().slideUp(400);
-			return false;
+			$(this).parent().slideUp(400, function(){
+				$(this).remove();
+			});
 		});
 
 		// Fade in the notifications
-		$(".notification").fadeIn("slow");
+		$('.notification').livequery(function(){
+			$(this).fadeIn('slow');
+		});
 
 		// Check all checkboxes in container table or grid
 		$(".check-all").live('click', function () {
