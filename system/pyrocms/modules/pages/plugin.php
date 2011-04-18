@@ -118,17 +118,77 @@ class Plugin_Pages extends Plugin
 		return $this->html;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Page is function
+	 *
+	 * Check the pages parent or descendent relation
+	 *
+	 * Usage:
+	 * {pyro:pages:is child="7" parent="cookbook"} // return 1 (TRUE)
+	 * {pyro:pages:is child="recipes" descendent="books"} // return 1 (TRUE)
+	 * {pyro:pages:is children="7,8,literature" parent="6"} // return 0 (FALSE)
+	 * {pyro:pages:is children="recipes,ingredients,9" descendent="4"} // return 1 (TRUE)
+	 *
+	 * Use Id or Slug as param, following usage data reference
+	 * Id: 4 = Slug: books
+	 * Id: 6 = Slug: cookbook
+	 * Id: 7 = Slug: recipes
+	 * Id: 8 = Slug: ingredients
+	 * Id: 9 = Slug: literature
+	 *
+	 * @param	array	Plugin attributes
+	 * @return	int		0 or 1
+	 */
 	public function is()
 	{
-		$children_id	= $this->attribute('children');
+		$children_ids	= $this->attribute('children');
+		$child_id		= $this->attribute('child');
+
+		if ( ! $children_ids)
+		{
+			return (int) $this->_check_page_is($child_id);
+		}
+
+		$children_ids = explode(',', $children_ids);
+		$children_ids = array_map('trim', $children_ids);
+
+		if ($child_id)
+		{
+			$children_ids[] = $child_id;
+		}
+
+		foreach ($children_ids as $child_id)
+		{
+			if ( ! $this->_check_page_is($child_id))
+			{
+				return (int) FALSE;
+			}
+		}
+
+		return (int) TRUE;
+	}
+
+	/**
+	 * Check Page is function
+	 *
+	 * Works for page is function
+	 *
+	 * @param	mixed	The Id or Slug of the page
+	 * @param	array	Plugin attributes
+	 * @return	int		0 or 1
+	 */
+	private function _check_page_is($child_id = 0)
+	{
 		$descendent_id	= $this->attribute('descendent');
 		$parent_id		= $this->attribute('parent');
 
-		if ($children_id && $descendent_id)
+		if ($child_id && $descendent_id)
 		{
-			if ( ! is_numeric($children_id))
+			if ( ! is_numeric($child_id))
 			{
-				$children_id = ($children = $this->pages_m->get_by(array('slug' => $children_id))) ? $children->id: 0;
+				$child_id = ($child = $this->pages_m->get_by(array('slug' => $child_id))) ? $child->id: 0;
 			}
 
 			if ( ! is_numeric($descendent_id))
@@ -136,25 +196,25 @@ class Plugin_Pages extends Plugin
 				$descendent_id = ($descendent = $this->pages_m->get_by(array('slug' => $descendent_id))) ? $descendent->id: 0;
 			}
 
-			if ( ! ($children_id && $descendent_id))
+			if ( ! ($child_id && $descendent_id))
 			{
 				return FALSE;
 			}
 
 			$descendent_ids	= $this->pages_m->get_descendant_ids($descendent_id);
 
-			return in_array($children_id, $descendent_ids);
+			return in_array($child_id, $descendent_ids);
 		}
 
-		if ($children_id && $parent_id)
+		if ($child_id && $parent_id)
 		{
-			if ( ! is_numeric($children_id))
+			if ( ! is_numeric($child_id))
 			{
 				$parent_id = ($parent = $this->pages_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
 			}
 
 			return $parent_id ? (int) $this->pages_m->count_by(array(
-				(is_numeric($children) ? 'id' : 'slug') => $children,
+				(is_numeric($child) ? 'id' : 'slug') => $child,
 				'parent_id'	=> $parent_id
 			)) > 0: FALSE;
 		}

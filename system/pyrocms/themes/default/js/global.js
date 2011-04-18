@@ -10,7 +10,7 @@ if (typeof(Cufon) !== 'undefined')
 
 	$(function(){
 		// rtl cufon hack
-		if ($('html').attr('dir') === 'rtl')
+		if ($('html').attr('dir') === 'rtl') // todo: select by attr dir value rtl -> find cufon -> foreach results... 
 		{
 			var cache = {};
 			$('cufon').each(function(){
@@ -29,7 +29,7 @@ if (typeof(Cufon) !== 'undefined')
 
 				if (ltr_str in cache) return;
 
-				cache[ltr_str] = rtl_str;
+				cache[ltr_str] = rtl_str; // todo: change cache .. container context
 
 				if ((no_rtl_str && rv_ltr_str) && (no_rtl_str.length == rv_ltr_str.length))
 				{

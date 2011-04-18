@@ -18,6 +18,28 @@
 
 <p>Displays the full site URL.</p>
 
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">uri</td>
+		<td>Optional. The URI segments passed to the site_url function.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{pyro:helper:site uri="contact"}</code></pre>
+
+<pre><code>http://www.example.com/contact</code></pre>
+
 <br />
 
 <h3>{pyro:url:base}</h3>
@@ -51,6 +73,8 @@
 <p><strong>Example:</strong></p>
 
 <pre><code>{pyro:url:segments segment="1" default="home"}</code></pre>
+
+<br />
 
 <h3>{pyro:url:anchor}</h3>
 
