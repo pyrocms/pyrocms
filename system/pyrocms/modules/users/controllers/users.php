@@ -137,12 +137,12 @@ class Users extends Public_Controller
 			array(
 				'field' => 'username',
 				'label' => lang('user_username'),
-				'rules' => 'required|alphanumeric|maxlength[20]|callback__username_check'
+				'rules' => 'required|alphanumeric|min_length[3]|max_length[20]|callback__username_check'
 			),
 			array(
 				'field' => 'display_name',
 				'label' => lang('user_display_name'),
-				'rules' => 'required|alphanumeric|maxlength[50]'
+				'rules' => 'required|alphanumeric|min_length[3]|max_length[50]'
 			),
 		);
 
