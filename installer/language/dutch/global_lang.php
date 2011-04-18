@@ -7,8 +7,8 @@ $lang['step3']	=	'Stap #3';
 $lang['step4']	=	'Stap #4';
 $lang['final']	=	'Laatste Stap';
 
-$lang['installer.passwords_match']		= "Passwords Match."; #translate
-$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
+$lang['installer.passwords_match']		= "Wachtwoorden komen overeen.";
+$lang['installer.passwords_dont_match']	= "Wachtwoorden komen niet overeen.";
 
 /* End of file global_lang.php */
 /* Location: ./installer/language/dutch/global_lang.php */
