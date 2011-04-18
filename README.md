@@ -2,11 +2,11 @@
 
 * [Website](http://pyrocms.com/)
 * [Documentation](http://pyrocms.com/documentation)
-* Version: 1.1.0
+* Version: 1.2.0
 
 ## Team
 
-* [Philip Sturgeon](http://philsturgeon.co.uk/)
+* [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Eric Barnes](http://ericlbarnes.com/)
 * [Stephen Cozart](http://twitter.com/stephencozart)
 * [Jerel Unruh](http://www.unruhdesigns.com/)
@@ -45,7 +45,7 @@ Before reporting bugs or requesting any features, please check that it does not 
 * [Dan Horrigan](http://dhorrigan.com/)
 * [Ben Edmunds](http://benedmunds.com/)
 
-Think you should be on this list? Add your name to it with your next bug pull request. We can't list everybody because there are loads of you.
+Think you should be on this list? Add yourself in the next pull request you submit.
 
 [All Contributors](https://github.com/pyrocms/pyrocms/contributors)
 
