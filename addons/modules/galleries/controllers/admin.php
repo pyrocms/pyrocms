@@ -187,6 +187,9 @@ class Admin extends Admin_Controller
 	 */
 	public function manage($id)
 	{
+		$this->file_folders_m->folder_tree();
+		$file_folders = $this->file_folders_m->get_folders();
+		
 		$this->form_validation->set_rules($this->gallery_validation_rules);
 
 		// Get the gallery and all images
@@ -236,6 +239,7 @@ class Admin extends Admin_Controller
 			->set('gallery', $gallery)
 			->set('galleries', $galleries)
 			->set('gallery_images', $gallery_images)
+			->set('file_folders', $file_folders)
 			->build('admin/manage_gallery');
 	}
 

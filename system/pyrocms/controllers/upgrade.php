@@ -209,7 +209,7 @@ class Upgrade extends CI_Controller
 			}
 		}
 
-		$this->cache->delete_all('pages_m');
+		$this->pyrocache->delete_all('pages_m');
 		
 		$this->_output .= 'Adding "class" field to navigation.<br/>';
 
@@ -221,7 +221,7 @@ class Upgrade extends CI_Controller
 			$this->db->query("ALTER TABLE `navigation_links`
 				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '' AFTER `target`");
 
-			$this->cache->delete_all('navigation_m');
+			$this->pyrocache->delete_all('navigation_m');
 		}
 
 		$this->_output .= 'Setting "Dashboard RSS Feed" will now show in the Settings page.<br/>';
@@ -273,7 +273,7 @@ class Upgrade extends CI_Controller
 			}
 
 			$this->_output .= 'Clearing page cache.<br/>';
-			$this->cache->delete_all('pages_m');
+			$this->pyrocache->delete_all('pages_m');
 		}
 
 		$this->_output .= 'Moving Google Tracking code from Comments to Integration.<br/>';
@@ -750,7 +750,7 @@ class Upgrade extends CI_Controller
 
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";
-		$this->cache->delete_all('module_m');
+		$this->pyrocache->delete_all('module_m');
 
 	    return TRUE;
 	}
@@ -830,10 +830,10 @@ class Upgrade extends CI_Controller
 		));
 
 		$this->_output .= 'Clearing page cache.<br/>';
-		$this->cache->delete_all('pages_m');
+		$this->pyrocache->delete_all('pages_m');
 
 		$this->_output .= 'Clearing module cache.<br/>';
-		$this->cache->delete_all('module_m');
+		$this->pyrocache->delete_all('module_m');
 
 		return TRUE;
 	}

@@ -28,6 +28,7 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Přístup';
 $lang['pages.rss_enabled_label'] 				= 'RSS povoleno';
 $lang['pages.comments_enabled_label']			= 'Komentáře povoleny';
+$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 
 $lang['pages.status_label'] 					= 'Stav';
 $lang['pages.draft_label'] 						= 'Koncept';

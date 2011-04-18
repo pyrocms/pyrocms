@@ -17,21 +17,14 @@
         });
         
         //listener for keywords
-        $('input[type="text"]', filter_form).live('keyup', function() {
-                        
-                field_val = $(this).val();
+        $('input[type="text"]', filter_form).live('keyup', $.debounce(500, function() {
         
-                //fire the query as soon as user has entered more than three characters
-                if(field_val.length >= 3 || field_val.length == 0)
-                {
-                    //build the form data
-                    form_data = filter_form.serialize();
+            //build the form data
+            form_data = filter_form.serialize();
                     
-                    do_filter(f_module, form_data);
-                }
-                
+            do_filter(f_module, form_data);
         
-        });
+        }));
         
         //listener for pagination
         $('.pagination a').live('click', function(e) {

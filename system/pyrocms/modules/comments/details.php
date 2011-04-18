@@ -8,6 +8,7 @@ class Module_Comments extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Komentarji',
 				'en' => 'Comments',
 				'pt' => 'Comentários',
 				'nl' => 'Reacties',
@@ -23,6 +24,7 @@ class Module_Comments extends Module {
 				'fi' => 'Kommentit'
 			),
 			'description' => array(
+				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
 				'en' => 'Users and guests can write comments for content like blog, pages and photos.',
 				'pt' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'nl' => 'Gebruikers en gasten kunnen reageren op bijna alles.',

@@ -13,7 +13,7 @@ class Rss extends Public_Controller
 	
 	function index()
 	{
-		$posts = $this->cache->model('blog_m', 'get_many_by', array(array(
+		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
 			'limit' => $this->settings->item('rss_feed_items'))
 		), $this->settings->item('rss_cache'));
@@ -33,7 +33,7 @@ class Rss extends Public_Controller
 			redirect('blog/rss/index');
 		}
 		
-		$posts = $this->cache->model('blog_m', 'get_many_by', array(array(
+		$posts = $this->pyrocache->model('blog_m', 'get_many_by', array(array(
 			'status' => 'live',
 			'category' => $slug,
 			'limit' => $this->settings->item('rss_feed_items') )

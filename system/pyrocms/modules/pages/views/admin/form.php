@@ -146,6 +146,11 @@
 				<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 				<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>
 			</li>
+
+			<li>
+				<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
+				<?php echo form_checkbox('is_home', 1, $page->is_home == 1); ?>
+			</li>
 		</ul>
 
 	</div>

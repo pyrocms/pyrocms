@@ -77,11 +77,29 @@ class Pages_m extends MY_Model
     public function get_by_uri($uri)
     {
     	// If the URI has been passed as a string, explode to create an array of segments
-    	is_string($uri) OR $uri = implode('/', $uri);
+    	is_array($uri) and $uri = implode('/', $uri);
 
         return $this->db
 			->select('p.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')
 			->where('p.uri', trim($uri, '/'))
+			->join('revisions r', 'p.revision_id = r.id')
+			->limit(1)
+			->get('pages p')
+			->row();
+    }
+
+	/**
+	 * Get the home page
+	 *
+	 * @access public
+	 * @param string	The uri of the page
+	 * @return object
+	 */
+    public function get_home()
+    {
+        return $this->db
+			->select('p.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')
+			->where('p.is_home', 1)
 			->join('revisions r', 'p.revision_id = r.id')
 			->limit(1)
 			->get('pages p')
@@ -205,6 +223,14 @@ class Pages_m extends MY_Model
 
         $this->db->trans_start();
 
+		if ( ! empty($input['is_home']))
+		{
+			// Remove other homepages
+			$this->db
+				->where('is_home', 1)
+				->update('pages', array('is_home' => 0));
+		}
+		
         $this->db->insert('pages', array(
         	'slug' 			=> $input['slug'],
         	'title' 		=> $input['title'],
@@ -218,6 +244,7 @@ class Pages_m extends MY_Model
         	'meta_description' => $input['meta_description'],
         	'rss_enabled' 	=> (int) !empty($input['rss_enabled']),
         	'comments_enabled' 	=> (int) !empty($input['comments_enabled']),
+        	'is_home' 	=> (int) ! empty($input['is_home']),
         	'status' 		=> $input['status'],
         	'created_on'	=> now()
         ));
@@ -243,6 +270,14 @@ class Pages_m extends MY_Model
     {
         $this->load->helper('date');
 
+		if ( ! empty($input['is_home']))
+		{
+			// Remove other homepages
+			$this->db
+				->where('is_home', 1)
+				->update('pages', array('is_home' => 0));
+		}
+
         $return = $this->db->update('pages', array(
 	        'title' 		=> $input['title'],
 	        'slug' 			=> $input['slug'],
@@ -258,13 +293,14 @@ class Pages_m extends MY_Model
         	'restricted_to' 	=> $input['restricted_to'],
         	'rss_enabled' 	=> (int) ! empty($input['rss_enabled']),
         	'comments_enabled' 	=> (int) ! empty($input['comments_enabled']),
-        	'status' 		=> $input['status'],
+          	'is_home' 	=> (int) ! empty($input['is_home']),
+	      	'status' 		=> $input['status'],
 	        'updated_on' 	=> now()
         ), array('id' => $id));
 
 		$this->build_lookup($id);
 
-        $this->cache->delete_all('navigation_m');
+        $this->pyrocache->delete_all('navigation_m');
 
         return $return;
     }

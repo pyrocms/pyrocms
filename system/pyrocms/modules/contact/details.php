@@ -8,6 +8,7 @@ class Module_Contact extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Kontakt',
 				'en' => 'Contact',
 				'nl' => 'Contact',
 				'pl' => 'Kontakt',
@@ -23,6 +24,7 @@ class Module_Contact extends Module {
 				'fi' => 'Ota yhteyttä'
 			),
 			'description' => array(
+				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
 				'nl' => 'Voegt een formulier aan de site toe waarmee bezoekers een email kunnen sturen, zonder dat u ze een emailadres hoeft te tonen.',
 				'pl' => 'Dodaje formularz kontaktowy do Twojej strony, który pozwala użytkownikom wysłanie maila za pomocą formularza kontaktowego.',

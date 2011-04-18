@@ -8,13 +8,6 @@
 class Pages extends Public_Controller
 {
 	/**
-	 * The default segment
-	 * @access private
-	 * @var string
-	 */
-	private $default_segment = 'home';
-	
-	/**
 	 * Constructor method
 	 * @access public
 	 * @return void
@@ -28,10 +21,8 @@ class Pages extends Public_Controller
         // This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
-		// This will be interesting later
-		$this->viewing_homepage = $this->uri->segment(1, $this->default_segment) == $this->default_segment;
-
-		if ($this->viewing_homepage AND $this->uri->segment(1) AND $route['default_controller'] != 'pages')
+		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
+		if ( ! $this->uri->segment(1) AND $route['default_controller'] != 'pages')
 		{
 			redirect('');
 		}
@@ -46,28 +37,20 @@ class Pages extends Public_Controller
 	 */
     public function _remap($method)
     {
-		$this->load->model('redirects/redirect_m');
-		$uri = trim(uri_string(), '/');
-		if ($redirect = $this->redirect_m->get_from($uri))
-		{
-			redirect($redirect->to);
-		}
-
     	// This page has been routed to with pages/view/whatever
     	if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
     	{
-    		$url_segments = $this->uri->total_rsegments() > 0 ? $this->uri->rsegment_array() : array($this->default_segment);
-    		$url_segments = array_slice($url_segments, 2);
+    		$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($url_segments, $this->uri->rsegment_array(), 2) : null;
     	}
     	
     	// not routed, so use the actual URI segments
     	else
     	{
-    		$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : array($this->default_segment);
+    		$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
     	}
     	
     	// If it has .rss on the end then parse the RSS feed
-        preg_match('/.rss$/', end($url_segments))
+        $url_segments && preg_match('/.rss$/', end($url_segments))
 			? $this->_rss($url_segments)
         	: $this->_page($url_segments);
     }
@@ -80,8 +63,12 @@ class Pages extends Public_Controller
 	 */
     public function _page($url_segments)
     {
-    	// Fetch this page from the database via cache
-    	$page = $this->cache->model('pages_m', 'get_by_uri', array($url_segments));
+    	$page = $url_segments !== NULL
+		
+			// Fetch this page from the database via cache
+			? $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments))
+
+			: $this->pyrocache->model('pages_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
@@ -106,11 +93,39 @@ class Pages extends Public_Controller
 				redirect('users/login/' . implode('/', $url_segments));
 			}
 		}
+
+		// Don't worry about breadcrumbs for 404 or restricted
+		elseif (count($url_segments) > 1)
+		{
+			// we dont care about the last one
+			array_pop($url_segments);
+
+			// This array of parents in the cache?
+			if ( ! $parents = $this->pyrocache->get('pages_m/'.md5(implode('/', $url_segments))))
+			{
+				$parents = $breadcrumb_segments = array();
+
+				foreach ($url_segments as $segment)
+				{
+					$breadcrumb_segments[] = $segment;
+
+					$parents[] = $this->pyrocache->model('pages_m', 'get_by_uri', array($breadcrumb_segments));
+				}
+
+				// Cache for next time
+				$this->pyrocache->write($parents, 'pages_m/'.md5(implode('/', $url_segments)));
+			}
+
+			foreach ($parents as $parent_page)
+			{
+				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
+			}
+		}
 		
     	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
         if ($page->meta_title == '')
         {
-        	$page->meta_title = $this->viewing_homepage ? $this->settings->site_slogan : $page->title;
+        	$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
         }
         
         // If this page has an RSS feed, show it
@@ -147,6 +162,9 @@ class Pages extends Public_Controller
 
 			->set('page', $page_array)
 
+			// Most likely the other breadcrumbs are set above, set this one
+			->set_breadcrumb($page->title)
+
 			->append_metadata('
 				<style type="text/css">
 					' . $page->layout->css . '
@@ -172,7 +190,7 @@ class Pages extends Public_Controller
     	$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
     	
     	// Fetch this page from the database via cache
-    	$page = $this->cache->model('pages_m', 'get_by_uri', array($url_segments));
+    	$page = $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments));
     	
     	// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR ! $page->rss_enabled)
@@ -182,7 +200,7 @@ class Pages extends Public_Controller
         	return;
         }
     	
-    	$children = $this->cache->model('pages_m', 'get_many_by', array(array(
+    	$children = $this->pyrocache->model('pages_m', 'get_many_by', array(array(
     		'parent_id' => $page->id,
     		'status' => 'live'
     	)));
@@ -227,7 +245,7 @@ class Pages extends Public_Controller
     public function _404($url_segments)
     {
     	// Try and get an error page. If its been deleted, show nasty 404
-        if ( ! $page = $this->cache->model('pages_m', 'get_by_uri', array('404')) )
+        if ( ! $page = $this->pyrocache->model('pages_m', 'get_by_uri', array('404')) )
         {
 			show_404();
         }

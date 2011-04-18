@@ -46,8 +46,8 @@ class Migration_Createcontactpage extends Migration {
 				'navigation_group_id'	=> 1
 			));
 
-			$this->cache->delete_all('pages_m');
-			$this->cache->delete_all('navigation_m');
+			$this->pyrocache->delete_all('pages_m');
+			$this->pyrocache->delete_all('navigation_m');
 		}
 	}
 

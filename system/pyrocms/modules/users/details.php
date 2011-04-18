@@ -8,6 +8,7 @@ class Module_Users extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Uporabniki',
 				'en' => 'Users',
 				'nl' => 'Gebruikers',
 				'pl' => 'Użytkownicy',
@@ -23,6 +24,7 @@ class Module_Users extends Module {
 				'fi' => 'Käyttäjät'
 			),
 			'description' => array(
+				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
 				'nl' => 'Laat gebruikers registreren en inloggen op de site, en beheer ze via het controlepaneel.',
 				'pl' => 'Pozwól użytkownikom na logowanie się na stronie i zarządzaj nimi za pomocą panelu.',

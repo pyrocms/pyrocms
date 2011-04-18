@@ -36,7 +36,7 @@
 					echo '<li>';
 
 					$name = lang('cp_nav_'.$menu_item)!=''&&lang('cp_nav_'.$menu_item)!=NULL ? lang('cp_nav_'.$menu_item) : $menu_item;
-					$current = $this->module_details && $this->module_details['menu'] == $menu_item;
+					$current = (($this->module_details && $this->module_details['menu'] == $menu_item) or $menu_item == $this->module);
 					$class = $current ? "top-link current" : "top-link";
 					echo anchor('#', $name, array('class' => $class));
 
@@ -47,7 +47,7 @@
 				// Not a big fan of the following hack, if a module needs two navigation links, we should be able to define that
 				if ( (in_array('users', $this->permissions) OR $this->user->group == 'admin') && $menu_item == 'users')
 				{
-					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $module == 'modules' ? 'current' : '')) . '</li>';
+					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'current' : '')) . '</li>';
 				}
 
 				//Lets get the sub-menu links, or parent link if that is the case

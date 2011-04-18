@@ -8,6 +8,7 @@ class Module_Navigation extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Navigacija',
 				'en' => 'Navigation',
 				'nl' => 'Navigatie',
 				'es' => 'Navegación',
@@ -23,6 +24,7 @@ class Module_Navigation extends Module {
 				'fi' => 'Navigointi'
 			),
 			'description' => array(
+				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
 				'nl' => 'Beheer links op de navigatiemenu&apos;s en alle navigatiegroepen waar ze onder vallen.',
 				'es' => 'Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.',

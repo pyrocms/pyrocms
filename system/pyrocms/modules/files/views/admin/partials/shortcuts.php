@@ -5,8 +5,6 @@
 		<?php if (isset($id)): ?>
 		<li><?php echo anchor('admin/files/upload/'.$id, lang('files.upload.title'), 'id="new_files"'); ?></li>
 		<?php endif; ?>
-		<li><?php echo anchor('admin/files/#upload', lang('files.upload.title'), 'class="dd-upload"'); ?></li>
-
 	</ul>
 	<br class="clear-both" />
 </nav>

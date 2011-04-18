@@ -59,3 +59,5 @@ Think you should be on this list? Add your name to it with your next bug pull re
 * [okhayat](http://webymaster.com/) Arabic
 * [DarkPreacher](http://darklab.ru) Russian
 * [Marcos Coelho](http://marcoscoelho.com/) Portuguese Brazilian
+* [imamo](http://www.imamo.si/) Slovenian
+* [Petsagourakis George](https://github.com/petsagouris) Greek

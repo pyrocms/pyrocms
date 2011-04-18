@@ -8,7 +8,7 @@
         </li>
 	<li>
             <?php echo lang('user_group_label', 'f_group'); ?>
-            <?php echo form_dropdown('f_group', array(0 => '') + $groups_select); ?>
+            <?php echo form_dropdown('f_group', array(0 => lang('select.all')) + $groups_select); ?>
         </li>
 	<li><?php echo form_input('f_keywords'); ?></li>
 	<li><?php echo anchor(current_url(), lang('buttons.cancel'), 'class="cancel"'); ?></li>

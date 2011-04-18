@@ -116,9 +116,10 @@ class Galleries_m extends MY_Model {
         return parent::update($id, array(
 			'title'				=> $input['title'],
 			'slug'				=> $input['slug'],
+			'folder_id'			=> $input['folder_id'],
 			'description'		=> $input['description'],
 			'enable_comments'	=> $input['enable_comments'],
-			'thumbnail_id'		=> ! empty($input['gallery_thumbnail']) ? (int) $input['gallery_thumbnail'] : 0,
+			'thumbnail_id'		=> ! empty($input['gallery_thumbnail']) ? (int) $input['gallery_thumbnail'] : NULL,
 			'published'			=> $input['published'],
 			'updated_on'		=> time()
 		));

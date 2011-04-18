@@ -8,6 +8,7 @@ class Module_Settings extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Nastavitve',
 				'en' => 'Settings',
 				'nl' => 'Instellingen',
 				'es' => 'Configuraciones',
@@ -23,6 +24,7 @@ class Module_Settings extends Module {
 				'fi' => 'Asetukset'
 			),
 			'description' => array(
+				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
 				'nl' => 'Maakt het administratoren en medewerkers mogelijk om websiteinstellingen zoals naam en beschrijving te veranderen.',
 				'es' => 'Permite a los administradores y al personal configurar los detalles del sitio como el nombre del sitio y la descripción del mismo.',

@@ -13,13 +13,13 @@ class Migration_Add_page_restrictions extends Migration {
 			)
 		));
 
-		$this->cache->delete_all('pages_m');
+		$this->pyrocache->delete_all('pages_m');
 	}
 
 	function down()
 	{
 		$this->dbforge->drop_column('pages', 'restricted_to');
 		
-		$this->cache->delete_all('pages_m');
+		$this->pyrocache->delete_all('pages_m');
 	}
 }

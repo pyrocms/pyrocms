@@ -26,8 +26,8 @@ class Migration_Rename_news_to_blog extends Migration {
 
 		$this->db->query("UPDATE navigation_links SET module_name = 'blog' WHERE module_name = 'news' ");
 
-		$this->cache->delete_all('modules_m');
-		$this->cache->delete_all('navigation_m');
+		$this->pyrocache->delete_all('modules_m');
+		$this->pyrocache->delete_all('navigation_m');
 	}
 
 	function down()
@@ -57,7 +57,7 @@ class Migration_Rename_news_to_blog extends Migration {
 				 ->update('widgets', array('slug' => 'latest_news',
 										   'description' => 'Display latest news articles with a widget.'));
 
-		$this->cache->delete_all('modules_m');
-		$this->cache->delete_all('navigation_m');
+		$this->pyrocache->delete_all('modules_m');
+		$this->pyrocache->delete_all('navigation_m');
 	}
 }

@@ -8,6 +8,7 @@ class Module_Redirects extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Preusmeritve',
 				'nl' => 'Verwijzingen',
 				'en' => 'Redirects',
 				'fr' => 'Redirections',
@@ -19,6 +20,7 @@ class Module_Redirects extends Module {
 				'fi' => 'Uudelleenohjaukset'
 			),
 			'description' => array(
+				'sl' => 'Preusmeritev iz enega URL naslova na drugega',
 				'nl' => 'Verwijs vanaf een URL naar een andere.',
 				'en' => 'Redirect from one URL to another.',
 				'fr' => 'Redirection d\'une URL à un autre.',

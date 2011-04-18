@@ -8,6 +8,7 @@ class Module_Modules extends Module {
 	{
 		return array(
 			'name' => array(
+				'sl' => 'Moduli',
 				'en' => 'Modules',
 				'nl' => 'Modules',
 				'es' => 'Módulos',
@@ -23,6 +24,7 @@ class Module_Modules extends Module {
 				'fi' => 'Moduulit'
 			),
 			'description' => array(
+				'sl' => 'Dovoljuje administratorjem pregled trenutno nameščenih modulov.',
 				'en' => 'Allows admins to see a list of currently installed modules.',
 				'nl' => 'Stelt admins in staat om een overzicht van geinstalleerde modules te genereren.',
 				'es' => 'Permite a los administradores ver una lista de los módulos instalados.',

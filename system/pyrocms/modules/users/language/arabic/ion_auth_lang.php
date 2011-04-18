@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth Lang - English
+* Name:  Ion Auth Lang - Arabic
 * 
 * Author: Ben Edmunds
 * 		  ben.edmunds@gmail.com
