@@ -14,9 +14,9 @@ $lang['galleries.folder_error']			= 'De "%s" gallerij folders konden niet worden
 $lang['galleries.delete_error']			= 'De "%s" kon niet worden verwijderd.';
 $lang['galleries.no_galleries_error'] 	= 'Er zijn nog geen gallerijen aangemaakt.';
 $lang['galleries.install_error']		= 'De module kon niet worden geinstalleerd.';
-$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
-$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
-$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
+$lang['galleries.already_exist_error']	= 'Een gallerij met de slug "%s" bestaat al.';
+$lang['galleries.folder_duplicated_error']	= 'Er is een fout opgetreden! De map behoort al tot een galerij.';
+$lang['galleries.no_gallery_description']	= 'Er is nog geen omschrijving aanwezig.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Gallerijen';
@@ -40,7 +40,7 @@ $lang['galleries.js_label']					= 'JavaScript';
 // General labels
 $lang['galleries.title_label']				= 'Titel';
 $lang['galleries.slug_label']				= 'Sitenaam (URI)';
-$lang['galleries.folder_label']				= 'Folder'; #translate
+$lang['galleries.folder_label']				= 'Map';
 $lang['galleries.description_label']		= 'Album Beschrijving';
 $lang['galleries.thumbnail_label']			= 'Miniatuur';
 $lang['galleries.comments_label']			= 'Activeer Reacties';
@@ -56,6 +56,6 @@ $lang['galleries.upload_label']				= 'Upload Afbeelding';
 $lang['galleries.sub-galleries_label']		= 'Sub Gallerijen';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.content_label']			= 'Gallerij inhoud';
+$lang['galleries.design_label']				= 'Ontwerp';
+$lang['galleries.script_label']				= 'Script';

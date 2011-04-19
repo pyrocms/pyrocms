@@ -30,9 +30,9 @@ $lang['blog_rss_name_suffix'] 			= ' Nieuws';
 $lang['blog_rss_category_suffix'] 		= ' Nieuws';
 $lang['blog_author_name_label'] 		= 'Auteur naam';
 $lang['blog_read_more_label'] 			= 'Lees Meer&nbsp;&raquo;';
-$lang['blog_created_hour']                  = 'Time (Hour)'; #translate
-$lang['blog_created_minute']                = 'Time (Minute)'; #translate
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_created_hour']                  = 'Tijd (Uren)';
+$lang['blog_created_minute']                = 'Tijd (Minuten)';
+$lang['blog_comments_enabled_label']         = 'Reacties ingeschakeld';
 
 // titles
 $lang['blog_create_title'] 			= 'Voeg artikel toe';

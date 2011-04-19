@@ -22,7 +22,8 @@ class Module_Settings extends Module {
 				'cs' => 'Nastavení',
 				'ar' => 'الإعدادات',
 				'fi' => 'Asetukset',
-				'el' => 'Ρυθμίσεις'
+				'el' => 'Ρυθμίσεις',
+				'he' => 'הגדרות'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
@@ -39,7 +40,8 @@ class Module_Settings extends Module {
 				'cs' => 'Umožňuje administrátorům měnit nastavení webu jako jeho jméno, zprávy a emailovou adresu apod.',
 				'ar' => 'تمكن المدراء من تحديث الإعدادات كإسم الموقع، والرسائل وعناوين البريد الإلكتروني، .. إلخ.',
 				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.',
-				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.'
+				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.',
+				'he' => 'ניהול הגדרות שונות של האתר כגון: שם האתר, הודעות, כתובות דואר וכו'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

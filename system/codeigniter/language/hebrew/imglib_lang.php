@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['imglib_source_image_required'] 		= "אתה חייב לציין תמונת מקור בהעדפות שלך.";
 $lang['imglib_gd_required'] 				= "הספרייה תמונת GD נדרשת עבור תכונה זו .";

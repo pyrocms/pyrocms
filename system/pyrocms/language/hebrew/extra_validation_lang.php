@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['alpha_dot_dash']			= "שדה %s יכול להכיל רק תווים אלפאנומריים, קווים תחתונים, נקודות ומקפים.";
 $lang['decimal']				= "שדה %s יכול להכיל מספרים דצימליים בלבד";
