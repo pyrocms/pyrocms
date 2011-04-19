@@ -7,5 +7,5 @@ $lang['step3']	=	'الخطوة الثالثة';
 $lang['step4']	=	'الخطوة الرابعة';
 $lang['final']	=	'الخطوة الأخيرة';
 
-$lang['installer.passwords_match']		= "Passwords Match."; #translate
-$lang['installer.passwords_dont_match']	= "Passwords Don\'t Match."; #translate
+$lang['installer.passwords_match']		= "كلمتا السرّ متطابقتان.";
+$lang['installer.passwords_dont_match']	= "كلمتا السرّ غير متطابقتين.";
