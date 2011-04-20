@@ -33,64 +33,87 @@ class Plugin_Navigation extends Plugin
 		return $this->_build_links($links, $this->content());
 	}
 
-	private function _build_links($links = array(), $return_arr = TRUE, $depth = 0)
+	private function _build_links($links = array(), $return_arr = TRUE)
 	{
 		static $is_current	= FALSE;
 		static $level		= 0;
 
 		$separator	= $this->attribute('separator', '');
-		$classnames	= $this->attribute('class', '');
-		$array		= array();
+		$link_class	= $this->attribute('class', '');
+		$output		= $return_arr ? array() : '';
 
 		$i		= 1;
 		$total	= sizeof($links);
 
+		if ( ! $return_arr)
+		{
+			$tag		= $this->attribute('tag', 'li');
+			$list_tag	= $this->attribute('list_tag', 'ul');
+
+			switch ($this->attribute('indent'))
+			{
+				case 't':
+				case 'tab':
+				case '	':
+					break;
+				case 's':
+				case 'space':
+				case ' ':
+					$indent = "    ";
+					break;
+				default:
+					$indent = FALSE;
+					break;
+			}
+
+			if ($indent)
+			{
+				$ident_a = repeater($indent, $level);
+				$ident_b = $ident_a . $indent;
+				$ident_c = $ident_b . $indent;
+			}
+		}
+
 		foreach ($links as $link)
 		{
-			$attr = array();
+			$item		= array();
+			$wrapper	= array();
 
 			// attributes of anchor
-			$attr['anchor']['url']		= $link->url;
-			$attr['anchor']['title']	= $link->title;
-			$attr['anchor']['attributes']['target']	= $link->target ? 'target="' . $link->target . '"' : NULL;
-			$attr['anchor']['attributes']['class']	= $classnames ? 'class="' . $classnames. '"' : NULL;
+			$item['url']					= $link->url;
+			$item['title']					= $link->title;
+			$item['attributes']['target']	= $link->target ? 'target="' . $link->target . '"' : NULL;
+			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
 
 			// attributes of anchor wrapper
-			$attr['item']['class']		= $link->class ? explode(' ', $link->class) : array();
-			$attr['item']['children']	= $return_arr ? array() : '';
-			$attr['item']['separator']	= $separator;
-			$attr['item']['level']		= $level;
+			$wrapper['class']		= $link->class ? explode(' ', $link->class) : array();
+			$wrapper['children']	= $return_arr ? array() : NULL;
+			$wrapper['separator']	= $separator;
 
 			// is single ?
 			if ($total === 1)
 			{
-				$attr['item']['class'][] = 'single';
+				$wrapper['class'][] = 'single';
 			}
 
 			// is first ?
 			elseif ($i === 1)
 			{
-				$attr['item']['class'][] = 'first';
+				$wrapper['class'][] = 'first';
 			}
 
 			// is last ?
 			elseif ($i === $total)
 			{
-				$attr['item']['class'][]	= 'last';
-				$attr['item']['separator']	= '';
-			}
-
-			// is comum ?
-			else
-			{
-				$attr['item']['class'][] = ''; // 'comum' ? lol
+				$wrapper['class'][]		= 'last';
+				$wrapper['separator']	= '';
 			}
 
 			// has children ? build children
 			if ($link->has_kids)
 			{
 				++$level;
-				$attr['item']['children'] = $this->_build_links($link->children, $return_arr, $depth+1);
+				$wrapper['children'] = $this->_build_links($link->children, $return_arr);
 				--$level;
 			}
 
@@ -98,110 +121,77 @@ class Plugin_Navigation extends Plugin
 			if (current_url() === $link->url)
 			{
 				$is_current = TRUE;
-				$attr['item']['class'][] = 'current';
+				$wrapper['class'][] = 'current';
 			}
+
+			// current experimental
+			// fail ..
+			/*elseif ($link->module_name === get_instance()->module)
+			{
+				$is_current = TRUE;
+				$wrapper['class'][] = 'current';
+			}*/
 
 			// has children as current ?
 			if ($is_current && $level === 0)
 			{
-				if ( ! in_array('current', $attr['item']['class']))
+				if ( ! in_array('current', $wrapper['class']))
 				{
-					$attr['item']['class'][] = 'has_current';
+					$wrapper['class'][] = 'has_current';
 				}
 
 				// we've got the expected result, stop check if has current children
 				$is_current = FALSE;
 			}
 
-			// assign attributes to depth family
-			$array[] = $attr;
-
 			++$i;
-		}
 
-		if ($return_arr)
-		{
-			foreach ($array as &$link)
+			if ($return_arr)
 			{
-				$item = $link['item'];
-				$link = $link['anchor'];
-				$link['target'] =& $link['attributes']['target'];
-				$link['class']	=& $link['attributes']['class'];
-	
-				if ($item['class'] && $link['class'])
+				$item['target']		=& $item['attributes']['target'];
+				$item['class']		=& $item['attributes']['class'];
+				$item['children']	= $wrapper['children'];
+
+				if ($wrapper['class'] && $item['class'])
 				{
-					$link['class'] = 'class="' . implode(' ', $item['class']) . ' ' . substr($link['class'], 7);
+					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7);
 				}
-				elseif ($item['class'])
+				elseif ($wrapper['class'])
 				{
-					$link['class'] = 'class="' . implode(' ', $item['class']) . '"';
+					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . '"';
+				}
+
+				// assign attributes to level family
+				$output[] = $item;
+			}
+			else
+			{
+				$add_first_tag = $level > 0 OR ! in_array($this->attribute('itens_only', 'true'), array('1','y','yes','true'));
+
+				// render and indent or only render inline?
+				if ($indent)
+				{
+					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
+					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
+					$output .= $ident_c . anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
+					$output .= $wrapper['children'] ? $ident_c . str_replace(PHP_EOL, (PHP_EOL . $indent),  trim($wrapper['children'])) . PHP_EOL : '';
+					$output .= $wrapper['separator'] ? $ident_c . $wrapper['separator'] . PHP_EOL : '';
+					$output .= $ident_b . "</{$tag}>" . PHP_EOL;
+					$output .= $add_first_tag ? $ident_a . "</{$list_tag}>" . PHP_EOL : '';
+				}
+				else
+				{
+					$output .= $add_first_tag ? "<{$list_tag}>" : '';
+					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
+					$output .= anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					$output .= $wrapper['children'] .  $wrapper['separator'];
+					$output .= "</{$tag}>";
+					$output .= $add_first_tag ? "</{$list_tag}>" : '';
 				}
 			}
-			return $array;
 		}
 
-		$tag		= $this->attribute('tag', 'li');
-		$list_tag	= $this->attribute('list_tag', 'ul');
-
-		switch ($this->attribute('indent'))
-		{
-			case 't':
-			case 'tab':
-			case '	':
-				$indent = "\t";
-				break;
-			case 's':
-			case 'space':
-			case ' ':
-				$indent = "    ";
-				break;
-			default:
-				$indent = FALSE;
-				break;
-		}
-
-		// render and indent or only render inline?
-		if ($indent)
-		{
-			$ident_a = repeater($indent, $level);
-			$ident_b = $ident_a . $indent;
-			$ident_c = $ident_b . $indent;
-
-			$html = $level > 0 ? "<{$list_tag}>" . PHP_EOL : '';
-			foreach ($array as $link)
-			{
-				$html .= $ident_b . '<' . $tag . ' class="' . implode(' ', $link['item']['class']) . '">' . PHP_EOL;
-				$html .= $ident_c . anchor($link['anchor']['url'], $link['anchor']['title'], trim(implode(' ', $link['anchor']['attributes']))) . PHP_EOL;
-
-				if ($link['item']['children'])
-				{
-					$html .= $ident_c . str_replace(PHP_EOL, (PHP_EOL . $indent),  trim($link['item']['children'])) . PHP_EOL;
-				}
-
-				if ($link['item']['separator'])
-				{
-					$html .= $ident_c . $link['item']['separator'] . PHP_EOL;
-				}
-
-				$html .= $ident_b . "</{$tag}>" . PHP_EOL;
-			}
-			$html .= $level > 0 ? $ident_a . "</{$list_tag}>" . PHP_EOL : '';
-		}
-		else
-		{
-			$html = $level > 0 ? "<{$list_tag}>" : '';
-			foreach ($array as $link)
-			{
-				$html .= '<' . $tag . ' class="' . implode(' ', $link['item']['class']) . '">';
-				$html .= anchor($link['anchor']['url'], $link['anchor']['title'], trim(implode(' ', $link['anchor']['attributes'])));
-				$html .= $link['item']['children'];
-				$html .= $link['item']['separator'];
-				$html .= "</{$tag}>";
-			}
-			$html .= $level > 0 ? "</{$list_tag}>" : '';
-		}
-
-		return $html;
+		return $output;
 	}
 }
 
