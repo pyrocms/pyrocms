@@ -395,11 +395,19 @@ class Widgets {
 	{
 		$path = isset($this->_widget->path) ? $this->_widget->path : $this->path;
 
-		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path'		=> $path . 'views/' . $view . EXT,
-			'_ci_vars'		=> $data,
-			'_ci_return'	=> TRUE
-		)), array(), TRUE);
+		return $view == 'display'
+
+			? $this->parser->parse_string($this->load->_ci_load(array(
+				'_ci_path'		=> $path . 'views/' . $view . EXT,
+				'_ci_vars'		=> $data,
+				'_ci_return'	=> TRUE
+			)), array(), TRUE)
+
+			: $this->load->_ci_load(array(
+				'_ci_path'		=> $path . 'views/' . $view . EXT,
+				'_ci_vars'		=> $data,
+				'_ci_return'	=> TRUE
+			));
 	}
 
 	private function _serialize_options($options)
