@@ -32,7 +32,7 @@ $lang['blog_author_name_label'] 		= 'إسم الكاتب';
 $lang['blog_read_more_label'] 			= 'إقرأ المزيد&nbsp;&raquo;';
 $lang['blog_created_hour']                  = 'الوقت (الساعة)';
 $lang['blog_created_minute']                = 'الوقت (الدقيقة)';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'إتاحة التعليقات';
 
 // titles
 $lang['blog_create_title'] 			= 'إضافة مقال';
