@@ -211,6 +211,7 @@ class Admin extends Admin_Controller
 	public function manage($id)
 	{
 		$file_folders = $this->file_folders_m->get_folders();
+		$folders_tree = array();
 		foreach($file_folders as $folder)
 		{
 			$indent = repeater('&raquo; ', $folder->depth);

@@ -63,7 +63,7 @@ class Widget_Navigation extends Widgets
 			'links'				=> $links,
 			'title'				=> $title,
 			'list_open_tag'		=> '<' . $list_tag . $list_id . $list_class . '>',
-			'list_close_tag'	=> '<' . $list_tag . '>',
+			'list_close_tag'	=> '</' . $list_tag . '>',
 			'group'				=> $options['group']
 		);
 	}
