@@ -133,15 +133,18 @@ class Plugin_Navigation extends Plugin
 			}*/
 
 			// has children as current ?
-			if ($is_current && $level === 0)
+			if ($is_current)
 			{
 				if ( ! in_array('current', $wrapper['class']))
 				{
 					$wrapper['class'][] = 'has_current';
 				}
 
-				// we've got the expected result, stop check if has current children
-				$is_current = FALSE;
+				if ($level === 0)
+				{
+					// we've got the expected result, stop check if has current children
+					$is_current = FALSE;
+				}
 			}
 
 			++$i;
