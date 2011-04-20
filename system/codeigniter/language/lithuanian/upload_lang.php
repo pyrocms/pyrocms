@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['upload_userfile_not_set'] = "Nepavyksta rasti pranešimo pavadinimu userfile.";
 $lang['upload_file_exceeds_limit'] = "Įkeltas failas viršija didžiausią leidžiamą dydį PHP konfiguracijoje.";

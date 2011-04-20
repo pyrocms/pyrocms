@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['email_must_be_array'] = "Pašto patvirtinimo metodui privalima perduoti masyvui.";
 $lang['email_invalid_address'] = "Netinkamas el.pašto adresas: %s";

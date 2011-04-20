@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['cal_su']			= "S";
 $lang['cal_mo']			= "P";

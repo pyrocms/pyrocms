@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['date_year'] = "Metai";
 $lang['date_years'] = "Metai";

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Success messages
 $lang['gallery_images.upload_success']		= 'Paveikslėlis įkrautas sėkmingai.';
 $lang['gallery_images.delete_success']		= 'Paveikslėlis buvo ištrintas.';

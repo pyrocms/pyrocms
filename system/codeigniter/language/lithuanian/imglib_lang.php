@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['imglib_source_image_required'] = "Turite nurody pageidaujamą vaizdo šaltinį.";
 $lang['imglib_gd_required'] = "GD vaizdų bibliotekai reikalinga ši funkcija.";

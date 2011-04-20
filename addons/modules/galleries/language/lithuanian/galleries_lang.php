@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Success notifications
 $lang['galleries.create_success'] 	= 'Galerija sukurta sėkmingai.';
 $lang['galleries.update_success'] 	= 'Galerija sėkminagai atnaujinta.';

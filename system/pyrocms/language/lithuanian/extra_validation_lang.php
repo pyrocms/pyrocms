@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['alpha_dot_dash']			= " %s laukelyje galima naudoti tik angliškos abėcėlės simbolius, pabraukimus, taškus ir brūkšnius.";
 $lang['decimal']				= "%s laukelyje galima naudoti tik  dešimtainiai skaičiai.";

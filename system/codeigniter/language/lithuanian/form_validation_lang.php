@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['required']			= " %s laukelis privalomas.";
 $lang['isset']				= " %s laukelis turi tureti reikšmę.";

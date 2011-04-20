@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['ftp_no_connection']			= "Nepavyksta rasti galiojančio prisijungimo ID.  Prašome įsitikinti, kad esate prisijungę prieš pradėdami betkokį failų kėlimą.";
 $lang['ftp_unable_to_connect']		= "Nepavyksta prisijungti prie jūsų FTP serverio naudojant pateiktą hosname.";
