@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['settings_save_success']                    = 'Jūsų parametrai išsaugoti!';
 $lang['settings_edit_title']                    = 'Redaguoti parametrus';

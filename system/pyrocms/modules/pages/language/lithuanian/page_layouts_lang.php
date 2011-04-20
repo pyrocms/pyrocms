@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // tabs
 $lang['page_layouts.html_label']                     = 'HTML';

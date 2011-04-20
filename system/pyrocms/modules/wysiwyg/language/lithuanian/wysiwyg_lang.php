@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang = array(
     'wysiwyg.meta.width'    =>  'Plotis',

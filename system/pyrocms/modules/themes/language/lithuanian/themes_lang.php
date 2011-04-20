@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['themes.set_default_success']     = 'Tema "%s" dabar yra jusu numatyta tema.';
 $lang['themes.set_default_error']       = 'Nepavyko nustatyti temą "%s" kaip numatytą.';

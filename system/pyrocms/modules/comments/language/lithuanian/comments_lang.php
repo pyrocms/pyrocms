@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $lang['comments.title'] 					= 'Komentarai';
 $lang['comments.your_comment'] 				= 'Rašyti komentarą';

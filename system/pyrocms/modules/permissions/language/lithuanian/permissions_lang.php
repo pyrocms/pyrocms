@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['permissions.group']                  = 'Grupė';
 $lang['permissions.roles']                  = 'Vaidmenys';

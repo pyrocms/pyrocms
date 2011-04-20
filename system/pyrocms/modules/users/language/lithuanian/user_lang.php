@@ -1,4 +1,4 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['user_register_header']                  = 'Registration';
 $lang['user_register_step1']                   = '<strong>Žingsnis 1:</strong> Registracija';
