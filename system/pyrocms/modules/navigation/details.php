@@ -23,7 +23,8 @@ class Module_Navigation extends Module {
 				'cs' => 'Navigace',
 				'fi' => 'Navigointi',
 				'el' => 'Πλοήγηση',
-				'he' => 'ניווט'
+				'he' => 'ניווט',
+				'lt' => 'Navigacija'
 			),
 			'description' => array(
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
@@ -41,7 +42,8 @@ class Module_Navigation extends Module {
 				'cs' => 'Správa odkazů v navigaci a všech souvisejících navigačních skupin.',
 				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.',
 				'el' => 'Διαχειριστείτε τους συνδέσμους στα μενού πλοήγησης και όλες τις ομάδες συνδέσμων πλοήγησης στις οποίες ανήκουν.',
-				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט'
+				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
+				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
