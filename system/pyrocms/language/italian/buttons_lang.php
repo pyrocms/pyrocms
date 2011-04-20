@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -25,10 +25,11 @@ $lang['buttons.install']	= 'Installa';
 $lang['buttons.yes']		= 'Si';
 $lang['buttons.no']			= 'No';
 $lang['buttons.activate']	= 'Attiva';
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.preview']	= 'Anteprima';
+$lang['buttons.close']		= 'Chiudi';
+$lang['buttons.edit']		= 'Modifica';
+$lang['buttons.clone']		= 'Clona';
+$lang['buttons.copy']		= 'Copia';
 
 /* End of file buttons_lang.php */
+/* Location: ./system/pyrocms/language/italian/buttons_lang.php */

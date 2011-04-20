@@ -174,7 +174,7 @@ class Admin extends Admin_Controller
 
 			if( $deleted == $to_delete)
 			{
-				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $delete, $to_delete) );
+				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete) );
 			}
 		}
 
