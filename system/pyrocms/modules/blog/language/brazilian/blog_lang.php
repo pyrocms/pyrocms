@@ -32,7 +32,7 @@ $lang['blog_author_name_label']			= 'Nome do autor';
 $lang['blog_read_more_label']			= 'Leia mais &raquo;';
 $lang['blog_created_hour']				= 'Horário (Hora)';
 $lang['blog_created_minute']			= 'Horário (Minuto)';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']	= 'Ativar comentários';
 
 // titles
 $lang['blog_create_title']				= 'Adicionar artigo';
@@ -40,7 +40,7 @@ $lang['blog_edit_title']				= 'Editar artigo "%s"';
 $lang['blog_archive_title'] 			= 'Arquivo';
 $lang['blog_posts_title'] 				= 'Artigos';
 $lang['blog_rss_posts_title'] 			= 'Artigos novos para %s';
-$lang['blog_blog_title']				= 'Novidades';
+$lang['blog_blog_title']				= 'Blog';
 $lang['blog_list_title']				= 'Listar artigos';
 
 // messages
