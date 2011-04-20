@@ -263,28 +263,11 @@ class Navigation_m extends CI_Model
 				{
 					$has_current_link = true;
 				}
-				
+
 				//build a multidimensional array for submenus
-				if($link->has_kids > 0 AND $link->parent == 0)
+				if ($link->parent == 0)
 				{
-					$link->children = $this->get_children($link->id);
-					
-					foreach($link->children as $key => $child)
-					{
-						//what is this world coming to?
-						if($child->has_kids > 0)
-						{
-							$link->children[$key]->children = $this->get_children($child->id);
-							
-							foreach($link->children[$key]->children as $index => $item)
-							{
-								if($item->has_kids > 0)
-								{
-									$link->children[$key]->children[$index]->children = $this->get_children($item->id);
-								}
-							}
-						}
-					}
+					$link->children = $this->_build_multidimensional_array($link);
 				}
 			}
 			
@@ -292,6 +275,23 @@ class Navigation_m extends CI_Model
 
 		// Assign it 
 	    return $group_links;
+	}
+
+	public function _build_multidimensional_array($link)
+	{
+		$children = array();
+
+		if ($link->has_kids > 0)
+		{
+			$children = $this->get_children($link->id);
+			
+			foreach ($children as $key => $child)
+			{
+				$children[$key]->children = $this->_build_multidimensional_array($child);
+			}
+		}
+
+		return $children;
 	}
 	
 	/**
