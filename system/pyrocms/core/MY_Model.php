@@ -123,7 +123,7 @@ class MY_Model extends CI_Model
 	}
 
 	/**
-	 * Similar to get_by(), but returns a result array of
+	 * Similar to get(), but returns a result array of
 	 * many result objects.
 	 *
 	 * @param string $key The key to search by
