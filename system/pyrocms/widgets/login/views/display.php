@@ -1,23 +1,14 @@
 <?php echo form_open('users/login');?>
 
 	<ul>
-<!--		<li>
-			<label>Email:</label>
-			<?php echo form_input('email');?>
+		<li>
+			<label for="email"><?php echo lang('user_email'); ?></label>
+			<?php echo form_input('email', '', 'id="email" maxlength="120"'); ?>
 		</li>
 		<li>
-			<label>Password:</label>
-			<?php echo form_password('password');?>
+			<label for="password"><?php echo lang('user_password'); ?></label>
+			<?php echo form_password('password', '', 'id="password" maxlength="20"'); ?>
 		</li>
--->
-	<li>
-		<label for="email"><?php echo lang('user_email'); ?></label>
-		<input type="text" id="email" name="email" maxlength="120" />
-	</li>
-	<li>
-		<label for="password"><?php echo lang('user_password'); ?></label>
-		<input type="password" id="password" name="password" maxlength="20" />
-	</li>
     </ul>
 
 	<div class="pyro-buttons">
