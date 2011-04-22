@@ -23,7 +23,8 @@ class Module_Variables extends Module {
 				'cs' => 'Proměnné',
 				'fi' => 'Muuttujat',
 				'el' => 'Μεταβλητές',
-				'he' => 'משתנים'
+				'he' => 'משתנים',
+				'lt' => 'Kintamieji'
 			),
 			'description' => array(
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
@@ -41,7 +42,8 @@ class Module_Variables extends Module {
 				'cs' => 'Spravujte globální proměnné přístupné odkudkoliv.',
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.',
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
-				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר'
+				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
+				'lt' => 'Globalių kintamujų tvarkymas kurie yra pasiekiami iš bet kur.'
 			),
 			'frontend'	=> FALSE,
 			'backend'	=> TRUE,

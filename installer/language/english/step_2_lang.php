@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']			=	'Step 2: Check Requirements';
-$lang['intro_text']		= 	'The first step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
+$lang['intro_text']		= 	'The second step in the installation process is to check whether your server supports PyroCMS. Most servers should be able to run it without any trouble.';
 $lang['mandatory']		= 	'Mandatory';
 $lang['recommended']	= 	'Recommended';
 

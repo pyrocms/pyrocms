@@ -20,7 +20,8 @@ class Module_Galleries extends Module {
 				'pt' => 'Galerias',
 				'cs' => 'Galerie',
 				'es' => 'Galerías',
-				'fi' => 'Galleriat'
+				'fi' => 'Galleriat',
+				'lt' => 'Galerijos'
 			),
 			'description' => array(
 				'sl' => 'Modul galerije je mogočen modul ki dovoljuje uporabnikom ustavrjanje galerije slik',
@@ -35,7 +36,8 @@ class Module_Galleries extends Module {
 				'pt' => 'O módulo de galerias é um poderoso módulo que permite aos usuários criar galerias de imagens.',
 			    'cs' => 'Silný modul pro vytváření a správu galerií obrázků.',
 				'es' => 'Galerías es un potente módulo que permite a los usuarios crear galerías de imágenes.',
-				'fi' => 'Galleria moduuli antaa käyttäjien luoda kuva gallerioita.'
+				'fi' => 'Galleria moduuli antaa käyttäjien luoda kuva gallerioita.',
+				'lt' => 'Galerijos modulis leidžia vartotojams kurti nuotraukų galerijas'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
