@@ -72,11 +72,18 @@ class Fizzle extends CI_Controller {
 		
 		echo $compiled['content'];
 	}
+
+	// --------------------------------------------------------------------------
 	
+	/**
+	 * Parse embeds
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return 	string
+	 */
 	public function embed_callback($tag_data)
 	{
-		print_r($tag_data);
-		
 		if(!isset($tag_data['attributes']['file'])) return;
 		
 		// Load the file. Always an .html
