@@ -1,24 +1,23 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
- *
  * An open source CMS based on CodeIgniter
+ * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		PyroCMS Dev Team
+ * @author		PyroCMS Dev Team & Dark Preacher
  * @license		Apache License v2.0
- * @link		http://pyrocms.com
- * @since		Version 1.0
- * @filesource
+ * @link			http://pyrocms.com
+ * @since			Version 1.0
  */
 
-$lang['migrations.no_migrations_found']				= 'No migrations found.'; #translate
-$lang['migrations.multiple_migrations_version']		= 'Only one migration per step is permitted, there multiple migrations to step "%03d".'; #translate
-$lang['migrations.migration_not_found']				= 'Migration to step "%03d" not found.'; #translate
-$lang['migrations.multiple_migrations_name']		= 'Cannot repeat a migration at different steps, there multiple migrations named "%s".'; #translate
-$lang['migrations.migration_class_doesnt_exist']	= 'Migration class "%s" doesn\'t exist.'; #translate
-$lang['migrations.wrong_migration_interface']		= 'Wrong migration interface on class "%s".'; #translate
-$lang['migrations.invalid_migration_filename']		= 'Invalid migration filename: %s'; #translate
+$lang['migrations.no_migrations_found']						= 'Миграции не обнаружены.';
+$lang['migrations.multiple_migrations_version']		= 'Можно произвести только одну миграцию за шаг, присутствуют множественные миграции к шагу "%03d".';
+$lang['migrations.migration_not_found']						= 'Миграция к шагу "%03d" не найдена.';
+$lang['migrations.multiple_migrations_name']			= 'Невозможно повторить миграцию на разных шагах, присутствуют множественные миграции под именем "%s".';
+$lang['migrations.migration_class_doesnt_exist']	= 'Класс миграции "%s" не существует.';
+$lang['migrations.wrong_migration_interface']			= 'Неправильный интерфейс миграции на классе "%s".';
+$lang['migrations.invalid_migration_filename']		= 'Неправильное имя файла миграции: %s';
 
 /* End of file migrations_lang.php */
 /* Location: ./system/pyrocms/language/russian/migrations_lang.php */

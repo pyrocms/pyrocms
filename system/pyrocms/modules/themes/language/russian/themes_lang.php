@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -25,11 +25,11 @@ $lang['themes.upload_desc']						= 'Выберите архив с темой и
 $lang['themes.theme_label'] 					= 'Тема';
 $lang['themes.actions_label']					= 'Действия';
 $lang['themes.make_default']					= 'Установить по-умолчанию';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
-$lang['themes.version_label']			= 'Version'; #translate
-$lang['themes.default_theme_label'] 	= 'Тема по-умолчанию';
-$lang['themes.no_themes_installed'] 	= 'Темы оформления отсутствуют';
+$lang['themes.description_label']			= 'Описание';
+$lang['themes.author_label']					= 'Автор';
+$lang['themes.version_label']					= 'Версия';
+$lang['themes.default_theme_label']		= 'Тема по-умолчанию';
+$lang['themes.no_themes_installed']		= 'Темы оформления отсутствуют';
 
 /* End of file themes_lang.php */
 /* Location: ./system/pyrocms/modules/themes/language/russian/themes_lang.php */
