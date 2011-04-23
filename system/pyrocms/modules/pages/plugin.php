@@ -62,7 +62,7 @@ class Plugin_Pages extends Plugin
 	{
 		$limit = $this->attribute('limit');
 		
-		return $this->db->select('pages.*, revisions.*')
+		return $this->db->select('pages.*, revisions.body, revisions.revision_date, revisions.author_id')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
 			->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
