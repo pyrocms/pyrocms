@@ -69,4 +69,6 @@ $lang['files.no_permissions'] = 'אין לך הרשאות כדי לראות המ
 $lang['files.grid'] = 'רשת';
 $lang['files.list'] = 'רשימה';
 
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
+
 /* End of file files_lang.php */
