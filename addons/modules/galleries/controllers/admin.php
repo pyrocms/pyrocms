@@ -192,6 +192,7 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], lang('galleries.new_gallery_label'))
 			->append_metadata( css('galleries.css', 'galleries') )
+			->append_metadata( js('manage.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
@@ -265,7 +266,7 @@ class Admin extends Admin_Controller
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('galleries.manage_gallery_label'), $gallery->title))
 			->append_metadata( css('galleries.css', 'galleries') )
-		   	->append_metadata( js('drag_drop.js', 'galleries') )
+		   	->append_metadata( js('manage.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
@@ -405,8 +406,16 @@ class Admin extends Admin_Controller
 	public function ajax_select_folder($folder_id)
 	{
 		$folder = $this->file_folders_m->get($folder_id);
-
-		echo json_encode($folder);
+		
+		if (isset($folder->id))
+		{
+			$folder->images = $this->gallery_images_m->get_images_by_file_folder($folder->id);
+			
+			echo json_encode($folder);
+			
+			return;
+		}
+		echo FALSE;
 	}
 
 	/**

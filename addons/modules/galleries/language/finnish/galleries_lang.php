@@ -45,7 +45,7 @@ $lang['galleries.published_no_label']		= 'Ei';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels
+// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
 $lang['galleries.title_label']				= 'Otsikko';
 $lang['galleries.slug_label']				= 'Polkutunnus';
 $lang['galleries.parent_label']				= 'Yläkohta';

@@ -37,7 +37,7 @@ $lang['galleries.published_no_label']		= 'لا';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'جافاسكربت';
 
-// General labels
+// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
 $lang['galleries.title_label']				= 'العنوان';
 $lang['galleries.slug_label']				= 'مُختصر الرابط';
 $lang['galleries.folder_label']				= 'مجلد';

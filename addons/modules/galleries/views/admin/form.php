@@ -49,7 +49,7 @@
 				</li>
 
 				<?php if (isset($gallery_images) && $gallery_images): ?>
-				<li class="<?php echo alternator('', 'even'); ?>">
+				<li class="thumbnail-manage <?php echo alternator('', 'even'); ?>">
 					<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
 					<select name="gallery_thumbnail" id="gallery_thumbnail">
 
@@ -66,6 +66,7 @@
 
 						<!-- Available thumbnails -->
 						<optgroup label="Thumbnails">
+							<option value="0"><?php echo lang('galleries.no_thumb_label'); ?></option>
 							<?php foreach ( $gallery_images as $image ): ?>
 							<option value="<?php echo $image->file_id; ?>">
 								<?php echo $image->name; ?>
@@ -75,7 +76,7 @@
 
 					</select>
 				</li>
-				<li class="<?php echo alternator('', 'even'); ?>">
+				<li class="images-manage <?php echo alternator('', 'even'); ?>">
 					<label for="gallery_images"><?php echo lang('galleries.current_label'); ?></label>
 					<div class="clear-both"></div>
 					<ul id="gallery_images_list">
@@ -88,15 +89,32 @@
 							</a>
 						</li>
 						<?php endforeach; ?>
-						<?php else: ?>
-						<li>
-							<?php echo lang('gallery_images.no_images_label'); ?>
-						</li>
 						<?php endif; ?>
 					</ul>
 					<div class="clear-both"></div>
 				</li>
 				<?php endif; ?>
+				
+				<li style="display: none;" class="thumbnail-placeholder <?php echo alternator('', 'even'); ?>">
+					<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
+					<select name="gallery_thumbnail" id="gallery_thumbnail">
+
+						<!-- Available thumbnails -->
+						<optgroup label="Thumbnails">
+							<option value="0"><?php echo lang('galleries.no_thumb_label'); ?></option>
+						</optgroup>
+
+					</select>
+				</li>
+				<li style="display: none;" class="images-placeholder <?php echo alternator('', 'even'); ?>">
+					<label for="gallery_images"><?php echo lang('galleries.preview_label'); ?></label>
+					<div class="clear-both"></div>
+					<ul id="gallery_images_list">
+
+					</ul>
+					<div class="clear-both"></div>
+				</li>				
+
 			</ol>
 
 		</div>
@@ -142,23 +160,6 @@
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
-jQuery(function($){
-	$('select#folder_id').change(function(){
-		$.get(BASE_URI + 'index.php/admin/galleries/ajax_select_folder/' + this.value.toString(), function(data) {
-
-			if (data) {
-				$('input[name=title]').val(data.name);
-				$('input[name=slug]').val(data.slug);
-			}
-			else {
-				$('input[name=title]').val('');
-				$('input[name=slug]').val('');
-			}
-
-		}, 'json');
-	});
-});
-
 css_editor('css_editor', '100%');
 js_editor('js_editor', '100%');
 </script>
