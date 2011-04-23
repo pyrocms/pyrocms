@@ -34,6 +34,12 @@ You no longer need to do anything to upgrade the database. Simply update the fil
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
+## Our Git Structure
+
+We use the git-flow model to structure our branches. This means you won't see a lot of activity on the master branch besides releases.
+Most of the magic happens in the develop branch.
+[More about git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
+
 ## Thanks
 
 ### Major Contributors
