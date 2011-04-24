@@ -26,6 +26,14 @@ class Fizzle extends CI_Controller {
 			$segments = array('index');
 			
 		endif;
+
+		// Is this a folder? If so we are looking for the index
+		// file in the folder.
+		if(is_dir('site/'.implode('/', $segments))):
+		
+			$segments[] = 'index';
+		
+		endif;
 		
 		// Okay let's take a look at the last element
 		$file = array_pop($segments);
@@ -41,29 +49,39 @@ class Fizzle extends CI_Controller {
 		endif;
 		
 		// Turn the URL into a file path
-		$file_path = 'site/'.implode('/', $segments).'/'.implode('.', $file_elems);
+		$file_path = 'site';
 		
-		// Does this exist?
+		if($segments) $file_path .= '/'.implode('/', $segments);
+		
+		$file_path .= '/'.implode('.', $file_elems);
+		
+		// -------------------------------------
+		// Set headers
+		// -------------------------------------
+				
 		if(!file_exists($file_path)):
 		
-			show_404();
+			// No file for this? Set us a 404
+			header('HTTP/1.0 404 Not Found');
+						
+			$is_404 = true;
+			
+		else:
+
+			$is_404 = false;
+
+			switch($file_elems[1]):
+			
+				case 'html':
+					$this->output->set_content_type('text/html');
+					break;
+				default:
+					$this->output->set_content_type('text/html');						
+			
+			endswitch;
 		
 		endif;
 		
-		// -------------------------------------
-		// Set Headers	
-		// -------------------------------------
-
-		switch($file_elems[1]):
-		
-			case 'html':
-				$this->output->set_content_type('text/html');
-				break;
-			default:
-				$this->output->set_content_type('text/html');						
-		
-		endswitch;
-
 		// -------------------------------------
 		// Set Template	
 		// -------------------------------------
@@ -76,6 +94,10 @@ class Fizzle extends CI_Controller {
 		
 			$template = read_file($template_path.'/home.html');
 			
+		elseif($is_404):
+		
+			$template = read_file('fizzle/standards/404.html');
+			
 		elseif(is_file($template_path.'/sub.html')):
 		
 			$template = read_file($template_path.'/sub.html');
@@ -85,13 +107,21 @@ class Fizzle extends CI_Controller {
 		// -------------------------------------
 		// Get Content	
 		// -------------------------------------
+		
+		if(!$is_404):
 				
-		$content = read_file($file_path);
-
-		if($template):
-
-			$content = $this->parser->parse_string($template, array('content'=>$content), TRUE);
-			
+			$content = read_file($file_path);
+	
+			if($template):
+	
+				$content = $this->parser->parse_string($template, array('content'=>$content), TRUE);
+				
+			endif;
+		
+		else:
+		
+			$content = $template;
+		
 		endif;
 
 		// -------------------------------------
@@ -116,7 +146,8 @@ class Fizzle extends CI_Controller {
 			'segment_6'		=> $this->uri->segment(6),
 			'segment_7'		=> $this->uri->segment(7),
 			'current_url'	=> current_url(),
-			'site_url'		=> site_url()
+			'site_url'		=> site_url(),
+			'base_url'		=> $this->config->item('base_url')
 		);
 
 		// Get them configs
