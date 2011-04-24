@@ -10,6 +10,7 @@ class Fizzle extends CI_Controller {
 	{
 		$this->load->library('Simpletags');
 		$this->load->library('Parser');
+		$this->load->library('Plugin');
 
 		$this->load->helper(array('file', 'url'));
 	
@@ -167,14 +168,20 @@ class Fizzle extends CI_Controller {
 			$vars[trim($items[0])] = trim($items[1]);
 		
 		endforeach;
-				
-		$page = $this->parser->parse_string($compiled['content'], $vars, TRUE);
+
+		// -------------------------------------
+		// Parse Plugins	
+		// -------------------------------------
+
+		$this->simpletags->set_trigger('fiz');
 		
+		$compiled = $this->simpletags->parse($compiled['content'], array(), array($this, 'plugin_callback'));
+				
 		// -------------------------------------
 		// Return Content	
 		// -------------------------------------
-		
-		echo $page;
+
+		echo $this->parser->parse_string($compiled['content'], $vars, TRUE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -204,6 +211,40 @@ class Fizzle extends CI_Controller {
 		endforeach;
 		
 		return $embed_content;
+	}
+	
+	function plugin_callback($tag_data)
+	{
+		$plugin = $tag_data['segments'][1];
+
+		$call = $tag_data['segments'][2];
+		
+		if(!$call) $call = $plugin;
+		
+		if(is_dir(APPPATH.'third_party/'.$plugin)):
+		
+			$this->load->add_package_path(APPPATH.'third_party/'.$plugin);
+			
+		elseif(is_dir(FCPATH.'fizzle/third_party/'.$plugin)):
+			
+			$this->load->add_package_path(FCPATH.'fizzle/third_party/'.$plugin);
+			
+		else:
+		
+			return;
+		
+		endif;
+		
+		$this->load->library($plugin);
+		
+		// Add our params to the lib
+		foreach($tag_data['attributes'] as $key => $val):
+		
+			$this->$plugin->$key = $val;
+		
+		endforeach;
+		
+		return $this->$plugin->$call();
 	}
 }
 

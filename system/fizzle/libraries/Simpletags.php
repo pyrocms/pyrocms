@@ -114,7 +114,7 @@ class Simpletags
 
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
-
+		
 		while (($start = strpos($orig_content, $this->_l_delim.$this->_trigger)) !== FALSE)
 		{
 			$content = $orig_content;
