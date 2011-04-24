@@ -28,6 +28,57 @@ class Fizl extends CI_Controller {
 		$this->load->library('Plugin');
 
 		$this->load->helper(array('file', 'url'));
+
+		// -------------------------------------
+		// Configs
+		// -------------------------------------
+		// We do this first since we need this
+		// data
+		// -------------------------------------
+		
+		$vars = array(
+			'segment_1'		=> $this->uri->segment(1),
+			'segment_2'		=> $this->uri->segment(2),
+			'segment_3'		=> $this->uri->segment(3),
+			'segment_4'		=> $this->uri->segment(4),
+			'segment_5'		=> $this->uri->segment(5),
+			'segment_6'		=> $this->uri->segment(6),
+			'segment_7'		=> $this->uri->segment(7),
+			'current_url'	=> current_url(),
+			'site_url'		=> site_url(),
+			'base_url'		=> $this->config->item('base_url')
+		);
+
+		// Get them configs
+		$raw_configs = read_file(FCPATH.'fizl/config.txt');
+		
+		// Parse the configs
+		$lines = explode("\n", $raw_configs);
+		
+		foreach($lines as $line):
+		
+			$line = trim($line);
+
+			if($line == '' or $line[0] == '#') continue;
+			
+			$items = explode(':', $line);
+			
+			if(count($items) != 2) continue;
+		
+			// Set the var
+			$vars[trim($items[0])] = trim($items[1]);
+			
+			// Set configs so eeeeveryone can use them
+			$this->config->set_item(trim($items[0]), trim($items[1]));
+		
+		endforeach;
+		
+		// Set the site folder as a constant
+		define('SITE_FOLDER', $vars['site_folder']);
+
+		// -------------------------------------
+		// Look for page
+		// -------------------------------------
 	
 		// So... does this file exist?
 		$segments = $this->uri->segment_array();
@@ -45,7 +96,7 @@ class Fizl extends CI_Controller {
 
 		// Is this a folder? If so we are looking for the index
 		// file in the folder.
-		if(is_dir('site/'.implode('/', $segments))):
+		if(is_dir(SITE_FOLDER.'/'.implode('/', $segments))):
 		
 			$segments[] = 'index';
 		
@@ -65,7 +116,7 @@ class Fizl extends CI_Controller {
 		endif;
 		
 		// Turn the URL into a file path
-		$file_path = 'site';
+		$file_path = SITE_FOLDER;
 		
 		if($segments) $file_path .= '/'.implode('/', $segments);
 		
@@ -155,42 +206,6 @@ class Fizl extends CI_Controller {
 		$this->simpletags->set_trigger('link');
 		
 		$compiled = $this->simpletags->parse($compiled['content'], array(), array($this, 'link_callback'));
-
-		// -------------------------------------
-		// Parse Template	
-		// -------------------------------------
-		
-		// Standards
-		$vars = array(
-			'segment_1'		=> $this->uri->segment(1),
-			'segment_2'		=> $this->uri->segment(2),
-			'segment_3'		=> $this->uri->segment(3),
-			'segment_4'		=> $this->uri->segment(4),
-			'segment_5'		=> $this->uri->segment(5),
-			'segment_6'		=> $this->uri->segment(6),
-			'segment_7'		=> $this->uri->segment(7),
-			'current_url'	=> current_url(),
-			'site_url'		=> site_url(),
-			'base_url'		=> $this->config->item('base_url')
-		);
-
-		// Get them configs
-		$raw_configs = read_file(FCPATH.'fizl/config.txt');
-		
-		// Parse the configs
-		$lines = explode("\n", $raw_configs);
-		
-		foreach($lines as $line):
-		
-			$line = trim($line);
-			
-			$items = explode(':', $line);
-			
-			if(count($items) != 2) continue;
-		
-			$vars[trim($items[0])] = trim($items[1]);
-		
-		endforeach;
 
 		// -------------------------------------
 		// Parse Plugins	
