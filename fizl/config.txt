@@ -1,3 +1,10 @@
+# Fizl Configs
+
 site_title: 			Fizzle Test Site
-home_uses_template:		yes
-contact:				adam.fairholm@gmail.com
+asset_folder: 			assets
+site_folder: 			site
+
+# Custom Configs
+
+contact_email:			adam.fairholm@gmail.com
+
