@@ -72,7 +72,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'system/fizzle';
+	$application_folder = 'system/fizl_app';
 
 /*
  * --------------------------------------------------------------------
