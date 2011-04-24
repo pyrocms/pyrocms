@@ -8,8 +8,15 @@
  * @author			Phil Sturgeon - PyroCMS Development Team
  * 
  */
-class Navigation_m extends CI_Model
+class Navigation_m extends MY_Model
 {
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->_table = 'navigation_links';
+	}
+	
 	/**
 	 * Get a navigation link
 	 * 
@@ -130,44 +137,72 @@ class Navigation_m extends CI_Model
 	}
 	
 	/**
-	 * Update a link's position
-	 * 
+	 * Build a multi-array of parent > children.
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
-	 * @param int $id The ID of the link item
-	 * @param int $position The current position of the link item
-	 * @return void
+	 * @return array An array representing the link tree
 	 */
-	public function update_link_position($id = 0, $position) 
+	public function get_link_tree($group_id)
 	{
-		return $this->db->update('navigation_links', array(
-        	'position' => (int) $position
-		), array('id' => $id));
+
+		$all_links = $this->db
+			->select('id, parent, title', 'navigation_group_id')
+			->where('navigation_group_id', $group_id)
+			 ->order_by('position')
+			 ->get($this->_table)
+			 ->result_array();
+
+		// we must reindex the array first
+		foreach ($all_links as $row)
+		{
+			$links[$row['id']] = $row;
+		}
+		
+		unset($all_links);
+
+		// build a multidimensional array of parent > children
+		foreach ($links as $row)
+		{
+			if (array_key_exists($row['parent'], $links))
+			{
+				// add this link to the children array of the parent link
+				$links[$row['parent']]['children'][] =& $links[$row['id']];
+			}
+			
+			// this is a root link
+			if ($row['parent'] == 0)
+			{
+				$link_array[] =& $links[$row['id']];
+			}
+		}
+
+		return $link_array;
 	}
 	
 	/**
-	 * Record the link's parent
-	 * 
-	 * @access public
-	 * @param int $id The ID of the link item
-	 * @param int $parent ID of the parent
+	 * Set the parent > child relations and child order
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @param array $link
 	 * @return void
 	 */
-	public function update_link_parent($id = 0, $parent = 0) 
+	public function _set_children($link)
 	{
-		if($parent == 0)
+		if (isset($link['children']))
 		{
-			//if they're trying to clear the parent selection we need to get the parent's id
-			$existing = $this->db->get_where('navigation_links', array('id' => $id))->row();
-			
-			//mark that it has no children
-			$this->db->update('navigation_links', array('has_kids' => 0), array('id' => $existing->parent));
+			foreach ($link['children'] as $i => $child)
+			{
+				$this->db->where('id', str_replace('link_', '', $child['id']));
+				$this->db->update($this->_table, array('parent' => str_replace('link_', '', $link['id']), 'position' => $i));
+				
+				//repeat as long as there are children
+				if (isset($child['children']))
+				{
+					$this->_set_children($child);
+				}
+			}
 		}
-		else
-		{
-			$this->db->update('navigation_links', array('has_kids' => 1), array('id' => $parent));
-		}
-		
-		return $this->db->update('navigation_links', array('parent' => $parent), array('id' => $id));
 	}
 
 	/**

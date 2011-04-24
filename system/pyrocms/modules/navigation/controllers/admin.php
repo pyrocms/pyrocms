@@ -80,6 +80,7 @@ class Admin extends Admin_Controller
 
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	    $this->template->append_metadata( js('navigation.js', 'navigation') );
+		$this->template->append_metadata( css('navigation.css', 'navigation') );
 
 		// Get Navigation Groups
 		$this->data->groups 		= $this->navigation_m->get_groups();
@@ -123,29 +124,64 @@ class Admin extends Admin_Controller
 		foreach($this->data->groups as $group)
 		{
 			//... and get navigation links for each one
-			$this->data->navigation[$group->abbrev] = $this->navigation_m->get_links(array('group'=>$group->id, 'order'=>'position, title'));
-			
-			// build a list of eligible parents for the dropdown
-			$parents[0] = '';
-			foreach($this->data->navigation[$group->abbrev] as $item)
-			{
-				$parents[$item->id]	= $item->title;
-			}
-			
-			//add the list to each link
-			foreach($this->data->navigation[$group->abbrev] as $key => $item)
-			{
-				$this->data->navigation[$group->abbrev][$key]->{'parents'}	= $parents;
-				
-				//remove the this link from its own available parents list
-				unset($this->data->navigation[$group->abbrev][$key]->{'parents'}[$item->id]);
-			}
+			$this->data->navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
 		}
-
+		
+		$this->data->controller =& $this;
+		
 		// Create the layout
 		$this->template
+			->append_metadata( js('jquery/jquery.ui.nestedSortable.js') )
+			->append_metadata( js('jquery/jquery.cookie.js') )
 			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
+	}
+	
+	/**
+	 * Order the links and record their children
+	 * 
+	 * @access public
+	 * @return string json message
+	 */
+	public function order()
+	{
+		$order = $this->input->post('order');
+
+		if (is_array($order))
+		{
+			//reset all parent > child relations
+			$this->navigation_m->update_all(array('parent' => 0));
+			
+			foreach ($order as $i => $link)
+			{
+				//set the order of the root links
+				$this->navigation_m->update_by('id', str_replace('link_', '', $link['id']), array('position' => $i));
+				
+				//iterate through children and set their order and parent
+				$this->navigation_m->_set_children($link);
+			}
+			
+			$this->pyrocache->delete_all('navigation_m');
+				
+			echo 'Success';
+		}
+		else
+		{
+			echo 'Fail';
+		}
+	}
+
+	/**
+	 * Get the details of a link using Ajax
+	 * @access public
+	 * @param int $link_id The ID of the link
+	 * @return void
+	 */
+	public function ajax_link_details($link_id)
+	{
+		$link = $this->navigation_m->get($link_id);
+
+		$this->load->view('admin/ajax/link_details', array('link' => $link));
 	}
 
 	/**
@@ -153,7 +189,7 @@ class Admin extends Admin_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function create()
+	public function create($group_id = '')
 	{
 		// Run if valid
 		if ($this->form_validation->run())
@@ -162,32 +198,33 @@ class Admin extends Admin_Controller
 			if ($this->navigation_m->insert_link($_POST) > 0)
 			{
 				$this->pyrocache->delete_all('navigation_m');
-				$this->session->set_flashdata('success', lang('nav_link_add_success'));
+				
+				$this->data->messages['success'] = lang('nav_link_add_success');
+				
+				echo $this->load->view('admin/partials/notices', $this->data);
+				return;
 			}
 			else
 			{
-				$this->session->set_flashdata('error', lang('nav_link_add_error'));
+				$this->data->messages['error'] = lang('nav_link_add_error');
+				
+				echo $this->load->view('admin/partials/notices', $this->data);
+				return;
 			}
-
-			// Redirect
-			redirect('admin/navigation');
 		}
 
 		// Loop through each validation rule
 		foreach($this->validation_rules as $rule)
 		{
-			$navigation_link->{$rule['field']} = set_value($rule['field']);
+			$this->data->navigation_link->{$rule['field']} = set_value($rule['field']);
 		}
-
-		// Render the view
-		$this->data->navigation_link =& $navigation_link;
+		
+		$this->data->navigation_link->navigation_group_id = $group_id;
 
 		// Get Pages and create pages tree
 		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
 
-		$this->template
-			->title($this->module_details['name'],lang('nav_link_create_title'))
-			->build('admin/links/form', $this->data);
+		$this->load->view('admin/links/form', $this->data);
 	}
 
 	/**
@@ -201,16 +238,18 @@ class Admin extends Admin_Controller
 		// Got ID?
 		if (empty($id))
 		{
-			redirect('admin/navigation');
+			return;
 		}
 
 		// Get the navigation item based on the ID
-		$navigation_link = $this->navigation_m->get_link($id);
+		$this->data->navigation_link = $this->navigation_m->get_link($id);
 
-		if (!$navigation_link)
+		if ( ! $this->data->navigation_link)
 		{
-			$this->session->set_flashdata('error', $this->lang->line('nav_link_not_exist_error'));
-			redirect('admin/navigation/create');
+			$this->data->messages['error'] = lang('nav_link_not_exist_error');
+			
+			echo $this->load->view('admin/partials/notices', $this->data);
+			return;
 		}
 
 		// Valid data?
@@ -219,10 +258,11 @@ class Admin extends Admin_Controller
 			// Update the link and flush the cache
 			$this->navigation_m->update_link($id, $_POST);
 			$this->pyrocache->delete_all('navigation_m');
+			
+			$this->data->messages['success'] = lang('nav_link_edit_success');
 
-			// Notify and redirect
-			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
-			redirect('admin/navigation');
+			echo $this->load->view('admin/partials/notices', $this->data);
+			return;
 		}
 
 		// Loop through each rule
@@ -230,7 +270,7 @@ class Admin extends Admin_Controller
 		{
 			if($this->input->post($rule['field']) !== FALSE)
 			{
-				$navigation_link->{$rule['field']} = $this->input->post($rule['field']);
+				$this->data->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
 
@@ -238,10 +278,7 @@ class Admin extends Admin_Controller
 		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
 
 		// Render the view
-		$this->template
-			->title($this->module_details['name'], sprintf(lang('nav_link_edit_title'), $navigation_link->title))
-			->set('navigation_link', $navigation_link)
-			->build('admin/links/form', $this->data);
+		$this->load->view('admin/links/form', $this->data);
 	}
 
 	/**
@@ -267,46 +304,7 @@ class Admin extends Admin_Controller
 		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
 		redirect('admin/navigation');
 	}
-
-	/**
-	 * Update the position of the navigation link
-	 * @access public
-	 * @return void
-	 */
-	function ajax_update_positions()
-	{
-		// Create an array containing the IDs
-		$ids = explode(',', $this->input->post('order'));
-
-		// Counter variable
-		$i = 1;
-
-		foreach($ids as $id)
-		{
-			// Update the position
-			$this->navigation_m->update_link_position($id, $i);
-			++$i;
-		}
-
-		// Flush the cache
-		$this->pyrocache->delete_all('navigation_m');
-	}
 	
-	/**
-	 * Assign this link a parent
-	 * @access public
-	 * @return void
-	 */
-	function ajax_update_parent()
-	{
-		$status = $this->navigation_m->update_link_parent($this->input->post('id'), $this->input->post('parent'));
-
-		// Flush the cache
-		$this->pyrocache->delete_all('navigation_m');
-		
-		return $status;
-	}
-
 	/**
 	 * Tree select function
 	 *
@@ -377,6 +375,39 @@ class Admin extends Admin_Controller
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Build the html for the admin link tree view
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @param array $link Current navigation link
+	 */
+	
+	public function tree_builder($link)
+	{
+		if(isset($link['children'])):
+		
+				foreach($link['children'] as $link): ?>
+			
+					<li id="link_<?php echo $link['id']; ?>">
+						<div>
+							<a href="#" rel="<?php echo $link['id'] . '">' . $link['title']; ?></a>
+						</div>
+					
+				<?php if(isset($link['children'])): ?>
+						<ol>
+								<?php $this->tree_builder($link); ?>
+						</ol>
+					</li>
+				<?php else: ?>
+					</li>
+				<?php endif; ?>
+				
+			<?php endforeach; ?>
+			
+		<?php endif;
 	}
 }
 ?>
