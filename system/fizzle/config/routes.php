@@ -38,10 +38,10 @@
 |
 */
 
-$route['default_controller'] = "fizzle";
+$route['default_controller'] = "fizl";
 $route['404_override'] = '';
 
-$route['(:any)'] = "fizzle";
+$route['(:any)'] = "fizl";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

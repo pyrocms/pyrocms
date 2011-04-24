@@ -1,0 +1,3 @@
+site_title: 			Fizzle Test Site
+home_uses_template:		yes
+contact:				adam.fairholm@gmail.com

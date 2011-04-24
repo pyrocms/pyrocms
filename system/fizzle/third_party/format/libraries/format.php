@@ -8,8 +8,11 @@
  * - Markdown
  * - Textile
  *
- * @package		Fizzle
- * @author		Adam Fairholm
+ * @package		Fizl
+ * @author		Adam Fairholm (@adamfairholm)
+ * @copyright	Copyright (c) 2011, 1bit
+ * @license		http://1bitapps.com/fizl/license.html
+ * @link		http://1bitapps.com/fizl
  */
 class Format extends Plugin {
 

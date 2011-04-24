@@ -1,10 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Fizzle extends CI_Controller {
+/**
+ * Fizzle
+ *
+ * Simple tool for making simple sites.
+ *
+ * @package		Fizl
+ * @author		Adam Fairholm (@adamfairholm)
+ * @copyright	Copyright (c) 2011, 1bit
+ * @license		http://1bitapps.com/fizl/license.html
+ * @link		http://1bitapps.com/fizl
+ */
+class Fizl extends CI_Controller {
 
 	/**
-	 * Fizzle
+	 * Main Fizl Function
 	 *
+	 * Routes and processes all page requests
+	 *
+	 * @access	public
+	 * @return	void
 	 */
 	public function _remap()
 	{
@@ -89,7 +104,7 @@ class Fizzle extends CI_Controller {
 
 		$template = false;
 
-		$template_path = 'fizzle/templates';
+		$template_path = 'fizl/templates';
 
 		if($is_home and is_file($template_path.'/home.html')):
 		
@@ -97,7 +112,7 @@ class Fizzle extends CI_Controller {
 			
 		elseif($is_404):
 		
-			$template = read_file('fizzle/standards/404.html');
+			$template = read_file('fizl/standards/404.html');
 			
 		elseif(is_file($template_path.'/sub.html')):
 		
@@ -134,6 +149,14 @@ class Fizzle extends CI_Controller {
 		$compiled = $this->simpletags->parse($content, array(), array($this, 'embed_callback'));
 
 		// -------------------------------------
+		// Parse Links	
+		// -------------------------------------
+			
+		$this->simpletags->set_trigger('link');
+		
+		$compiled = $this->simpletags->parse($compiled['content'], array(), array($this, 'link_callback'));
+
+		// -------------------------------------
 		// Parse Template	
 		// -------------------------------------
 		
@@ -152,7 +175,7 @@ class Fizzle extends CI_Controller {
 		);
 
 		// Get them configs
-		$raw_configs = read_file(FCPATH.'fizzle/config.txt');
+		$raw_configs = read_file(FCPATH.'fizl/config.txt');
 		
 		// Parse the configs
 		$lines = explode("\n", $raw_configs);
@@ -198,7 +221,7 @@ class Fizzle extends CI_Controller {
 		if(!isset($tag_data['attributes']['file'])) return;
 		
 		// Load the file. Always an .html
-		$embed_content = read_file(FCPATH.'fizzle/embeds/'.$tag_data['attributes']['file'].'.html');
+		$embed_content = read_file(FCPATH.'fizl/embeds/'.$tag_data['attributes']['file'].'.html');
 		
 		// Parse passed variables
 		// We want all of them except 'file'
@@ -212,22 +235,56 @@ class Fizzle extends CI_Controller {
 		
 		return $embed_content;
 	}
+
+	// --------------------------------------------------------------------------
 	
+	/**
+	 * Parse Links
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return 	string
+	 */
+	public function link_callback($tag_data)
+	{
+		if(!isset($tag_data['attributes']['path'])) return;
+		
+		return site_url($tag_data['attributes']['path']);
+	}
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Parse Plugin
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return 	string
+	 */
 	function plugin_callback($tag_data)
 	{
 		$plugin = $tag_data['segments'][1];
 
-		$call = $tag_data['segments'][2];
+		$call = false;
+
+		if(isset($tag_data['segments'][2])):
 		
+			$call = $tag_data['segments'][2];
+		
+		endif;
+		
+		// We'll use a function with the same name as the
+		// call if one is not specified
 		if(!$call) $call = $plugin;
 		
+		// Look for the plugin file
 		if(is_dir(APPPATH.'third_party/'.$plugin)):
 		
 			$this->load->add_package_path(APPPATH.'third_party/'.$plugin);
 			
-		elseif(is_dir(FCPATH.'fizzle/third_party/'.$plugin)):
+		elseif(is_dir(FCPATH.'fizl/third_party/'.$plugin)):
 			
-			$this->load->add_package_path(FCPATH.'fizzle/third_party/'.$plugin);
+			$this->load->add_package_path(FCPATH.'fizl/third_party/'.$plugin);
 			
 		else:
 		
@@ -244,9 +301,11 @@ class Fizzle extends CI_Controller {
 		
 		endforeach;
 		
+		// Add content to the lib
+		$this->$plugin->tag_content = $tag_data['content'];
+		
 		return $this->$plugin->$call();
 	}
 }
 
-/* End of file fizzle.php */
-/* Location: ./application/controllers/fizzle.php */
+/* End of file fizl.php */
