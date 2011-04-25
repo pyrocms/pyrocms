@@ -84,13 +84,13 @@ Plugins? We have plugins. They are accessed via a `{fiz:plugin:optional_function
 
 Fizl is a good application for having your content in markdown or textile. You can format your text like so:
 
-`{fiz:format}
+	{fiz:format}
 
 	# Welcome
 
 	This is a cool page!
 
-{/fiz:format}`
+	{/fiz:format}
 
 The default method is mardown, but you can change it by feeding it a param called "method" that has a value of "textile".
 
@@ -108,14 +108,14 @@ Some people like calling assets via plugins, so here you go. Very easy:
 
 Hate writing a whole ul list for your nav? Fizl has a nav plugin that allows you to create a navigation ul list with a simple syntax:
 
-`{fiz:nav}
-	
-|Home
-about|About
-- about/team|Team
-contact|Contact
-	
-{/fiz:nav}`
+	{fiz:nav}
+		
+	|Home
+	about|About
+	- about/team|Team
+	contact|Contact
+		
+	{/fiz:nav}
 
 The current page's li will be given a class of "current".
 
