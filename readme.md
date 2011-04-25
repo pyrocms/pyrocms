@@ -2,6 +2,8 @@
 
 Fizl is a simple way to create a site that doesn't need a CMS and has a relatively simple structure. It doesn't have a database - you simply create the site structure in the filesystem and use Fizl tools and plugins to embed and template your site.
 
+Fizl is in beta and has a few more features to be added (more templating features and more plugins), but take a look and see what's up!
+
 ## Installation
 
 You shouldn't need to do anything for installation. Just put the files from the download into the directory you want your site to be in.
