@@ -13,7 +13,8 @@ class Module_Blog extends Module {
 				'el' => 'Ιστολόγιο',
 				'pt' => 'Blog',
 				'he' => 'בלוג',
-				'lt' => 'Blogas'
+				'lt' => 'Blogas',
+				'ru' => 'Блог'
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
@@ -25,7 +26,7 @@ class Module_Blog extends Module {
 				'pt' => 'Escrever publicações de blog',
 				'zh' => '發表新聞訊息、部落格文章。', #update translation
 				'it' => 'Pubblica notizie e post per il blog.', #update translation
-				'ru' => 'Управление новостными статьями и записями блога.', #update translation
+				'ru' => 'Управление записями блога.',
 				'ar' => 'أنشر المقالات على مدوّنتك.',
 				'cs' => 'Publikujte nové články a příspěvky na blog.', #update translation
 				'sl' => 'Objavite blog prispevke',
@@ -49,7 +50,7 @@ class Module_Blog extends Module {
 	{
 		$this->dbforge->drop_table('blog_categories');
 		$this->dbforge->drop_table('blog');
-		
+
 		$blog_categories = "
 			CREATE TABLE `blog_categories` (
 			  `id` int(11) NOT NULL auto_increment,
@@ -80,7 +81,7 @@ class Module_Blog extends Module {
 			  KEY `category_id - normal` (`category_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Blog posts.';
 		";
-		
+
 		if($this->db->query($blog_categories) && $this->db->query($blog))
 		{
 			return TRUE;

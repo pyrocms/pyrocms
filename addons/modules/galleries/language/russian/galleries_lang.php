@@ -32,7 +32,7 @@ $lang['galleries.galleries_label']						= 'Галереи';
 $lang['galleries.manage_gallery_label']				= 'Управление галереей';
 $lang['galleries.new_gallery_label']					= 'Создать галерею';
 
-$lang['galleries.gallery_label']								= 'Альбом';
+$lang['galleries.gallery_label']							= 'Альбом';
 $lang['galleries.num_photos_label']						= 'Количество фотографий';
 $lang['galleries.updated_label']							= 'Последнее обновление';
 $lang['galleries.actions_label']							= 'Действия';
@@ -43,8 +43,8 @@ $lang['galleries.comments_enabled_label']			= 'Да';
 $lang['galleries.comments_disabled_label']		= 'Нет';
 $lang['galleries.published_yes_label']				= 'Да';
 $lang['galleries.published_no_label']					= 'Нет';
-$lang['galleries.css_label']				= 'CSS';
-$lang['galleries.js_label']					= 'JavaScript';
+$lang['galleries.css_label']									= 'CSS';
+$lang['galleries.js_label']										= 'JavaScript';
 
 // основные подписи
 $lang['galleries.title_label']								= 'Заголовок';
@@ -64,10 +64,10 @@ $lang['galleries.upload_label']								= 'Загрузить изображен�
 // подписи фронт-энда
 $lang['galleries.sub-galleries_label']				= 'Вложенные галереи';
 
-// tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+// табы
+$lang['galleries.content_label']							= 'Содержимое';
+$lang['galleries.design_label']								= 'Оформление';
+$lang['galleries.script_label']								= 'Скрипты';
 
 /* End of file galleries_lang.php */
 /* Location: ./addons/modules/galleries/language/russian/galleries_lang.php */
