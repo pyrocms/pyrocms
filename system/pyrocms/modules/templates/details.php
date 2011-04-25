@@ -24,7 +24,8 @@ class Module_Templates extends Module {
 				'pt' => 'Modelos de e-mail',
 				'el' => 'Δυναμικά email',
 				'he' => 'תבניות',
-				'lt' => 'El. laiškų šablonai'
+				'lt' => 'El. laiškų šablonai',
+				'ru' => 'Шаблоны почты'
 			),
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
@@ -34,7 +35,8 @@ class Module_Templates extends Module {
 				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
 				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
 				'he' => 'ניהול של תבניות דואר אלקטרוני',
-				'lt' => 'Kurk, tvarkyk ir saugok dinaminius el. laiškų šablonus.'
+				'lt' => 'Kurk, tvarkyk ir saugok dinaminius el. laiškų šablonus.',
+				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -59,9 +61,9 @@ class Module_Templates extends Module {
             UNIQUE KEY slug_lang (`slug`, `lang`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Store dynamic email templates';
         ";
-		
+
 		$create = $this->db->query($email_templates);
-		
+
 		$comment_body = '<h3>You have received a comment from {pyro:name}</h3>';
 		$comment_body .= '<strong>IP Address: {pyro:sender_ip}</strong>\n';
 		$comment_body .= '<strong>Operating System: {pyro:sender_os}\n';
@@ -69,12 +71,12 @@ class Module_Templates extends Module {
 		$comment_body .= '<div>{pyro:comment}</div>\n';
 		$comment_body .= '<div>View Comment:{pyro:redirect_url}</div>';
 		$comment_subject = 'You have just received a comment from {pyro:name}';
-		
+
 		$comment_template = "
 			INSERT INTO `email_templates` (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES
 			('comments', 'Comment Notificiation', 'Email that is sent to admin when someone creates a comment', '".$comment_subject."', '".$comment_body."', 'en', 1);
 		";
-		
+
 		$contact_template = "
 			INSERT INTO `email_templates` (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('contact', 'Contact Notification', 'Template for the contact form', '{pyro:settings:site_name} :: {pyro:subject}', 'This message was sent via the contact form on with the following details:
 				<hr />
@@ -83,12 +85,12 @@ class Module_Templates extends Module {
 				Agent {pyro:sender_agent}
 				<hr />
 				{pyro:message}
-				
+
 				{pyro:contact_name},
 				{pyro:contact_company}', 'en', '1');
 		";
-		
-		
+
+
 			$this->db->query($comment_template); //sent when a user posts a comment to something
 			$this->db->query($contact_template); //sent when a user uses the contact form
 			//$this->db->insert($activate_template); //activation_required.php - when user registers this is sent

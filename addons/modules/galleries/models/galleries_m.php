@@ -97,7 +97,7 @@ class Galleries_m extends MY_Model {
 			'title'				=> $input['title'],
 			'slug'				=> $input['slug'],
 			'folder_id'			=> $input['folder_id'],
-			'thumbnail_id'		=> $input['gallery_thumbnail'],
+			'thumbnail_id'		=> ! empty($input['gallery_thumbnail']) ? (int) $input['gallery_thumbnail'] : NULL,
 			'description'		=> $input['description'],
 			'enable_comments'	=> $input['enable_comments'],
 			'published'			=> $input['published'],

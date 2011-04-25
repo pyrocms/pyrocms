@@ -40,7 +40,7 @@ $lang['blog_author_name_label']							= 'Автор';
 $lang['blog_read_more_label']								= 'читать целиком&nbsp;&raquo;';
 $lang['blog_created_hour']									= 'Время (Час)';
 $lang['blog_created_minute']								= 'Время (Минута)';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']				= 'Комментарии разрешены';
 
 // заголовки
 $lang['blog_create_title']									= 'Создать статью';
@@ -70,8 +70,8 @@ $lang['blog_already_exist_error']						= 'Статья с данным адре�
 $lang['blog_twitter_posted']								= 'Добавлен "%s" %s';
 $lang['blog_twitter_error']									= 'Ошибка Twitter\'а';
 
-// date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+// дата
+$lang['blog_archive_date_format']						= "%B' %Y"; #see php strftime documentation
 
 /* End of file blog_lang.php */
 /* Location: ./system/pyrocms/modules/blog/language/russian/blog_lang.php */
