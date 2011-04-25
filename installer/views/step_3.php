@@ -33,7 +33,7 @@ foreach($permissions['files'] as $files => $status) {
 	$cmds_f .= $status ? '' : 'chmod 666 '.$files.PHP_EOL;
 }
 ?>
-<?php if(!empty($commands['dirs']) || !empty($commands['files'])): ?>
+<?php if(!empty($cmds_d) || !empty($cmds_f)): ?>
 <p>
 	<a href="#" id="show-commands">+ <?php echo lang('show_commands'); ?></a>
 	<a href="#" id="hide-commands" style="display:none">- <?php echo lang('hide_commands'); ?></a>
@@ -44,6 +44,7 @@ foreach($permissions['files'] as $files => $status) {
 <?php echo $cmds_d;?>
 <?php echo $cmds_f;?>
 </textarea>
+<?php endif; ?>
 
 <script>
 	$(function(){
@@ -67,7 +68,7 @@ foreach($permissions['files'] as $files => $status) {
 		});
 	});
 </script>
-<?php endif; ?>
+
 <?php if($step_passed): ?>
 	<a id="next_step" href="<?php echo site_url('installer/step_4'); ?>" title="{next_step}">{step4}</a>
 <?php else: ?>

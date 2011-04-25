@@ -9,7 +9,7 @@
  *
  * Installer's Ajax controller.
  */
-class Ajax extends Controller {
+class Ajax extends CI_Controller {
 
 	/**
 	 * Array of languages supported by the installer
