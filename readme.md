@@ -31,7 +31,7 @@ and access it through this.
 
 ### Syntax
 
-For content you can just write your own HTML or use something like Markdown or Textile for formatting, but functionality in Fizl is accessed via a tag syntax that you'll be very familiar with if you've ever used ExpressionEngine, MojoMotor, or PyroCMS.
+For content you can just write your own HTML or use something like Markdown or Textile for formatting (see the format plugin below), but functionality in Fizl is accessed via a tag syntax that you'll be very familiar with if you've ever used ExpressionEngine, MojoMotor, or PyroCMS.
 
 `{variable}`
 
@@ -41,7 +41,7 @@ For content you can just write your own HTML or use something like Markdown or T
 
 Content
 
-`{\fiz:plugin}`
+{\fiz:plugin}`
 
 ### Variables
 
@@ -64,7 +64,7 @@ Now this variable is available via:
 
 ### Embedding
 
-This would be kind of dumb if you couldn't embed pieces of re-usable stuff in your pages. To embed something, create an embed HTML document in your fizl/embeds and embed it like so:
+Who doesn't like pieces of re-usable stuff in their pages? Am I right? To embed something, create an embed HTML document in your fizl/embeds and embed it like so:
 
 `{embed file="example"}`
 
@@ -84,9 +84,9 @@ Fizl is a good application for having your content in markdown or textile. You c
 
 `{fiz:format}
 
-# Welcome
+	# Welcome
 
-This is a cool page!
+	This is a cool page!
 
 {/fiz:format}`
 
@@ -104,7 +104,18 @@ Some people like calling assets via plugins, so here you go. Very easy:
 
 #### Navigation
 
-Hate writing a whole ul list for your nav? Fizl has a 
+Hate writing a whole ul list for your nav? Fizl has a nav plugin that allows you to create a navigation ul list with a simple syntax:
+
+`{fiz:nav}
+	
+|Home
+about|About
+- about/team|Team
+contact|Contact
+	
+{/fiz:nav}`
+
+The current page's li will be given a class of "current".
 
 ### Templating
 
