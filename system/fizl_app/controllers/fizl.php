@@ -297,9 +297,9 @@ class Fizl extends CI_Controller {
 		
 			$this->load->add_package_path(APPPATH.'third_party/'.$plugin);
 			
-		elseif(is_dir(FCPATH.'fizl/third_party/'.$plugin)):
+		elseif(is_dir(FCPATH.'fizl/plugins/'.$plugin)):
 			
-			$this->load->add_package_path(FCPATH.'fizl/third_party/'.$plugin);
+			$this->load->add_package_path(FCPATH.'fizl/plugins/'.$plugin);
 			
 		else:
 		
