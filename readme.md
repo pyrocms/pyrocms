@@ -37,11 +37,11 @@ For content you can just write your own HTML or use something like Markdown or T
 
 `{fiz:plugin param="value"}`
 
-`{fiz:plugin param="value"}
+	{fiz:plugin param="value"}
 
-Content
+	Content
 
-{\fiz:plugin}`
+	{\fiz:plugin}
 
 ### Variables
 
