@@ -30,12 +30,15 @@ jQuery(function($){
 				
 				// remove images from last selection
 				$('#gallery_images_list').empty();
-				
-				// remove the original thumbnail select and images if user is on the manage page
-				$('.thumbnail-manage').remove();
-				$('.images-manage').remove();
+				$('#gallery_thumbnail optgroup, .images-manage').remove();
 				
 				if (data.images) {
+					
+					$('#gallery_thumbnail').append(
+						'<optgroup label="Thumbnails">'+
+							'<option selected value="0">No Thumbnail</option>'+
+						'</optgroup>'
+					);
 					
 					$.each(data.images, function(i, image){
 						$('#gallery_images_list').append(
@@ -44,18 +47,19 @@ jQuery(function($){
 						'</li>'
 						);
 						
-						$('#gallery_thumbnail optgroup').append(
+						$('#gallery_thumbnail optgroup[label="Thumbnails"]').append(
 						'<option value="' + image.id + '">' + image.name + '</option>'
 						);
 					});
-					$('.thumbnail-placeholder, .images-placeholder').slideDown();
+					$('.images-placeholder').slideDown();
 				}
 			}
 			else {
 				$('input[name=title]').val('');
 				$('input[name=slug]').val('');
-				$('.thumbnail-placeholder, .images-placeholder').hide();
+				$('.images-placeholder').hide();
 			}
+			$.uniform.update('#gallery_thumbnail')
 
 		}, 'json');
 	});

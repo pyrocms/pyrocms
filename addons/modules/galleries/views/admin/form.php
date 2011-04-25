@@ -48,12 +48,11 @@
 					<?php echo form_dropdown('published', array('1'=>lang('galleries.published_yes_label'), '0'=>lang('galleries.published_no_label')), $gallery->published); ?>
 				</li>
 
-				<?php if (isset($gallery_images) && $gallery_images): ?>
 				<li class="thumbnail-manage <?php echo alternator('', 'even'); ?>">
 					<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
 					<select name="gallery_thumbnail" id="gallery_thumbnail">
 
-						<?php if ( !empty($gallery->thumbnail_id) ): ?>
+						<?php if ( ! empty($gallery->thumbnail_id) ): ?>
 						<!-- Current thumbnail -->
 						<optgroup label="Current">
 							<?php foreach ( $gallery_images as $image ): if ( $image->file_id == $gallery->thumbnail_id ): ?>
@@ -76,6 +75,8 @@
 
 					</select>
 				</li>
+				
+				<?php if (isset($gallery_images) && $gallery_images): ?>
 				<li class="images-manage <?php echo alternator('', 'even'); ?>">
 					<label for="gallery_images"><?php echo lang('galleries.current_label'); ?></label>
 					<div class="clear-both"></div>
@@ -95,17 +96,6 @@
 				</li>
 				<?php endif; ?>
 				
-				<li style="display: none;" class="thumbnail-placeholder <?php echo alternator('', 'even'); ?>">
-					<label for="gallery_thumbnail"><?php echo lang('galleries.thumbnail_label'); ?></label>
-					<select name="gallery_thumbnail" id="gallery_thumbnail">
-
-						<!-- Available thumbnails -->
-						<optgroup label="Thumbnails">
-							<option value="0"><?php echo lang('galleries.no_thumb_label'); ?></option>
-						</optgroup>
-
-					</select>
-				</li>
 				<li style="display: none;" class="images-placeholder <?php echo alternator('', 'even'); ?>">
 					<label for="gallery_images"><?php echo lang('galleries.preview_label'); ?></label>
 					<div class="clear-both"></div>
@@ -113,7 +103,7 @@
 
 					</ul>
 					<div class="clear-both"></div>
-				</li>				
+				</li>
 
 			</ol>
 
