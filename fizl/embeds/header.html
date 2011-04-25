@@ -8,9 +8,19 @@
 	
 	<title>{site_title}</title> 
 	
-	<link href="css/main.css" type="text/css" rel="stylesheet" /> 
-		
+	{fiz:asset:css file="main.css"}
+	
 </head>
+
+<section id="wrap">
+
+<header>
+
+	<a href=""><h1>Fizl Example Site</h1></a>
+
+</header>
+
+<nav>
 
 {fiz:nav}
 	
@@ -20,3 +30,5 @@ about|About
 contact|Contact
 	
 {/fiz:nav}
+
+</nav>
