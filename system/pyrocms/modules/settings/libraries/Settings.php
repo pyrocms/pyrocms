@@ -222,6 +222,26 @@ class Settings
 	 */
 	public function form_control(&$setting)
 	{
+		if ($setting->options)
+		{
+			if (substr($setting->options, 0, 5) == 'func:')
+			{
+				if (is_callable($func = substr($setting->options, 5)))
+				{
+					$setting->options = call_user_func($func);
+				}
+				else
+				{
+					$setting->options = array('=' . lang('select.none'));
+				}
+			}
+
+			if (is_string($setting->options))
+			{
+				$setting->options = explode('|', $setting->options);
+			}
+		}
+
 		switch($setting->type)
 		{
 			default:
@@ -315,11 +335,15 @@ class Settings
 	{
 		$select_array = array();
 
-		foreach(explode('|', $options) as $option) {
+		foreach ($options as $option)
+		{
 			list($value, $name) = explode('=', $option);
-			if($this->ci->lang->line('settings_form_option_'.$name)!=''){
-				$name = $this->ci->lang->line('settings_form_option_'.$name);
+
+			if ($this->ci->lang->line('settings_form_option_' . $name) !== FALSE)
+			{
+				$name = $this->ci->lang->line('settings_form_option_' . $name);
 			}
+
 			$select_array[$value] = $name;
 		}
 

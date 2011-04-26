@@ -475,14 +475,6 @@ class Installer extends CI_Controller
 		// modules > settings > details.php uses this
 		require_once(dirname(FCPATH).'/system/pyrocms/config/language.php');
 
-		$settings_string = '';
-		
-		foreach ($config['supported_languages'] AS $key => $lang)
-		{
-			$settings_string .= $key . '=' . $lang['name'] . '|';
-		}
-
-		define('SUPPORTED_LANG', rtrim($settings_string, '|'));
 		define('DEFAULT_LANG', $config['default_language']);
 	}
 }

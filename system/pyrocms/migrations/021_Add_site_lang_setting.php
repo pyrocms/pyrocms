@@ -9,11 +9,11 @@ class Migration_Add_site_lang_setting extends Migration {
 		$this->db->insert('settings', array(
 			'slug'			=> 'site_lang',
 			'title'			=> 'Site Language',
-			'description'	=> 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.',
-			'type'			=> 'text',
+			'description'	=> 'The native language of the website, used to choose templates of e-mail notifications, contact form, and other features that should not depend on the language of a user.',
+			'type'			=> 'select',
 			'default'		=> 'en',
 			'value'			=> '',
-			'options'		=> '',
+			'options'		=> 'func:get_supported_lang',
 			'module'		=> '',
 			'is_required'	=> 1,
 			'is_gui'		=> 1
