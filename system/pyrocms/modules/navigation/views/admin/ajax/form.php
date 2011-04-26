@@ -12,13 +12,22 @@
 		<ul>
 			<?php echo form_hidden('link_id', $navigation_link->id) ?>
 			
-			<?php echo form_hidden('navigation_group_id', $navigation_link->navigation_group_id) ?>
+			<?php echo form_hidden('current_group_id', $navigation_link->navigation_group_id) ?>
 			
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="title"><?php echo lang('nav_title_label');?></label>
 				<?php echo form_input('title', $navigation_link->title, 'maxlength="50" class="text"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
+			
+			<?php if ($this->method == 'edit'): ?>
+				<li class="<?php echo alternator('', 'even'); ?>">
+					<label for="navigation_group_id"><?php echo lang('nav_group_label');?></label>
+					<?php echo form_dropdown('navigation_group_id', $groups_select, $navigation_link->navigation_group_id) ?>
+				</li>
+			<?php else: ?>
+				<?php echo form_hidden('navigation_group_id', $navigation_link->navigation_group_id) ?>
+			<?php endif; ?>
 	
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<label for="link_type"><?php echo lang('nav_type_label');?></label>
@@ -71,7 +80,7 @@
 			</li>
 		</ul>
 	
-		<div class="buttons float-right padding-top">
+		<div class="buttons float-left padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		</div>
 	

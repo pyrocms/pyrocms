@@ -2,14 +2,36 @@
 		
 	$(function() {
 		
-		// load create/edit via ajax
-		$('.box header .ajax, a.ajax').live('click', function(){
-
-			$('#link-list').removeClass('empty');
-			$('#link-list a').removeClass('selected');
+		// show the first box with js to get around page jump
+		$('.box .box-container:first').slideDown(600).removeClass('collapsed');
+		
+		// show and hide the sections
+		$('.box header').click(function(){
+			if ($(this).next('div.box-container').hasClass('collapsed')) {
+				$('.box .box-container').slideUp(600).addClass('collapsed');
+				$(this).next('div.collapsed').slideDown(600).removeClass('collapsed');
+			}
+		});
+		
+		// load create via ajax
+		$('.box header .ajax').live('click', function(){
+			// make sure we load it into the right one
+			var id = $(this).attr('rel');
+			$('.group-'+ id +' #link-list a').removeClass('selected');
 			// Load the form
-			$('div#link-details').load($(this).attr('href'), '', function(){
-				$('#link-details').fadeIn();
+			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
+				$('div#link-details.group-'+ id +'').fadeIn();
+			});
+			return false;			
+		});
+		
+		// load edit via ajax
+		$('a.ajax').live('click', function(){
+			// make sure we load it into the right one
+			var id = $(this).attr('rel');
+			// Load the form
+			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
+				$('div#link-details.group-'+ id +'').fadeIn();
 			});
 			return false;			
 		});
@@ -18,9 +40,17 @@
 		$('#nav-create button:submit').live('click', function(e){
 			e.preventDefault();
 			$.post(BASE_URL + 'index.php/admin/navigation/create', $('#nav-create').serialize(), function(message){
-				$('nav#shortcuts').after(message);
-				// Fade in the notifications
-				$(".notification").fadeIn("slow");
+				
+				// if message is simply "success" then it's a go. Refresh!
+				if (message == 'success') {
+					window.location.href = window.location
+				}
+				else {
+					$('.notification').remove();
+					$('nav#shortcuts').after(message);
+					// Fade in the notifications
+					$(".notification").fadeIn("slow");
+				}
 			});
 		});
 		
@@ -28,10 +58,19 @@
 		$('#nav-edit button:submit').live('click', function(e){
 			e.preventDefault();
 			$.post(BASE_URL + 'index.php/admin/navigation/edit/' + $('input[name="link_id"]').val(), $('#nav-edit').serialize(), function(message){
-				$('nav#shortcuts').after(message);
-				// Fade in the notifications
-				$(".notification").fadeIn("slow");
+			
+				// if message is simply "success" then it's a go. Refresh!
+				if (message == 'success') {
+					window.location.href = window.location
+				}
+				else {
+					$('.notification').remove();
+					$('nav#shortcuts').after(message);
+					// Fade in the notifications
+					$(".notification").fadeIn("slow");
+				}
 			});
+
 		});
 		
 		// Pick a rule type, show the correct field
@@ -49,14 +88,15 @@
 		
 		// show link details
 		$('#link-list li a').live('click', function()
-		{			
-			link_id = $(this).attr('rel');
-			$('#link-list a').removeClass('selected');
+		{
+			var id = $(this).attr('rel');
+			link_id = $(this).attr('alt');
+			$('.group-'+ id +' #link-list a').removeClass('selected');
 			$(this).addClass('selected');
 			
 			// Load the details box in
-			$('div#link-details').load(BASE_URI + 'index.php/admin/navigation/ajax_link_details/' + link_id, '', function(){
-				$('#link-details').fadeIn();
+			$('div#link-details.group-'+ id +'').load(BASE_URI + 'index.php/admin/navigation/ajax_link_details/' + link_id, '', function(){
+				$('div#link-details.group-'+ id +'').fadeIn();
 			});
 			return false;
 		});

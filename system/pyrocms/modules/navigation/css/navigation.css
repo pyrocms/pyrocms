@@ -3,12 +3,13 @@ section.box header { float: left; width: 99%; padding: 10px 8px 0 5px !important
 section.box header h3 { float: left; margin: 0; padding-left: 20px; }
 
 .box { max-height: 40em; }
-
+.box .collapsed { display: none; border: none; }
 #title-value { display: none; }
+
+#nav-edit li { padding: 13px 8px }
 
 /* Left pane */
 #link-list { background-color:#efeff6; float:left; height: 38em; border-right: 2px dotted #ddd; overflow:auto; width: 48%; }
-#link-list.empty { height: auto; }
 
 #link-list ol { background:none; margin-left:2em !important; }
 #link-list a { text-decoration: none; font-size: 13px; color:#5c5b5b; padding: 1px 1px 1px 15px; background: url('../img/off.png') no-repeat left; }

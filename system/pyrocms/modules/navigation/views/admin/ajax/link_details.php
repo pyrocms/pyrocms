@@ -3,40 +3,37 @@
 	
 	<input id="link-id" type="hidden" value="<?php echo $link->id; ?>" />
 	<input id="link-uri" type="hidden" value="<?php echo !empty($link->uri) ? $link->uri : $link->slug; ?>" />
-	
+
 	<fieldset>
-		<legend><?php echo lang('links.detail_label'); ?></legend>
+		<legend><?php echo lang('nav_details_label'); ?></legend>
 		<p>
 			<strong>ID:</strong> #<?php echo $link->id; ?>
 		</p>
+
 		<p>
-			<strong><?php echo lang('links.status_label'); ?>:</strong> <?php echo lang('links.' . $link->status . '_label'); ?>
+			<strong><?php echo lang('nav_title_label');?>:</strong> <?php echo $link->title; ?>
 		</p>
+		
 		<p>
-			<strong><?php echo lang('links.slug_label');?>:</strong> 
-			<a href="<?php echo site_url('admin/links/preview/'.$link->id);?>?iframe" rel="modal-large" target="_blank">
-				<?php echo site_url(!empty($link->uri) ? $link->uri : $link->slug); ?>
-			</a>
+			<strong><?php echo lang('nav_target_label');?>:</strong> <?php echo (!empty($link->target)) ? lang('nav_link_target_blank') : lang('nav_link_target_self'); ?>
 		</p>
-	</fieldset>
-	
-	<!-- Meta data tab -->
-	<fieldset>
-		<legend><?php echo lang('links.meta_label');?></legend>
+		
 		<p>
-			<strong><?php echo lang('links.meta_title_label');?>:</strong> <?php echo !empty($link->meta_title) ? $link->meta_title : '&mdash;'; ?>
+			<strong><?php echo lang('nav_class_label');?>:</strong> <?php echo $link->class; ?>
 		</p>
+		
 		<p>
-			<strong><?php echo lang('links.meta_keywords_label');?>:</strong> <?php echo !empty($link->meta_keywords) ? $link->meta_keywords : '&mdash;'; ?>
+			<strong><?php echo lang('nav_type_label');?>:</strong> <?php echo $link->link_type; ?>
 		</p>
+		
 		<p>
-			<strong><?php echo lang('links.meta_desc_label');?>:</strong> <?php echo !empty($link->meta_description) ? $link->meta_description : '&mdash;'; ?>
+			<strong><?php echo lang('nav_location_label');?>:</strong>
+			<a href="<?php echo $link->url; ?>"><?php echo $link->url; ?></a>
 		</p>
 	</fieldset>	
 	
 	<div class="buttons">
-		<?php echo anchor('admin/navigation/create/' . $link->id, lang('links.create_label'), 'class="button ajax"'); ?>
-		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('links.edit_label'), 'class="button ajax"'); ?>
-		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('links.delete_label'), 'class="confirm button"'); ?>
+		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('nav_edit_label'), 'rel="'.$link->navigation_group_id.'" class="button ajax"'); ?>
+		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('nav_delete_label'), 'class="confirm button"'); ?>
 	</div>
 </div>

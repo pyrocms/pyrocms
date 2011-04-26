@@ -6,6 +6,7 @@
  * @subpackage 		Navigation module
  * @category		Modules
  * @author			Phil Sturgeon - PyroCMS Development Team
+ * @author			Jerel Unruh - PyroCMS Development Team
  *
  */
 class Admin extends Admin_Controller
@@ -49,7 +50,12 @@ class Admin extends Admin_Controller
 		array(
 			'field' => 'navigation_group_id',
 			'label'	=> 'lang:nav_group_label',
-			'rules'	=> 'trim|numeric|required'
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'current_group_id',
+			'label'	=> 'lang:nav_group_label',
+			'rules'	=> 'trim|numeric'
 		),
 		array(
 			'field' => 'target',
@@ -179,9 +185,9 @@ class Admin extends Admin_Controller
 	 */
 	public function ajax_link_details($link_id)
 	{
-		$link = $this->navigation_m->get($link_id);
+		$link = $this->navigation_m->get_url($link_id);
 
-		$this->load->view('admin/ajax/link_details', array('link' => $link));
+		$this->load->view('admin/ajax/link_details', array('link' => $link['0']));
 	}
 
 	/**
@@ -199,9 +205,10 @@ class Admin extends Admin_Controller
 			{
 				$this->pyrocache->delete_all('navigation_m');
 				
-				$this->data->messages['success'] = lang('nav_link_add_success');
+				$this->session->set_flashdata('success', lang('nav_link_add_success'));
 				
-				echo $this->load->view('admin/partials/notices', $this->data);
+				// echo success to let the js refresh the page
+				echo 'success';
 				return;
 			}
 			else
@@ -211,6 +218,15 @@ class Admin extends Admin_Controller
 				echo $this->load->view('admin/partials/notices', $this->data);
 				return;
 			}
+		}
+		
+		// check for errors
+		if (validation_errors())
+		{
+			echo 	'<div class="closable notification error" style="display: block;">'
+						. validation_errors() .
+					'<a class="close" href="#">close</a></div>';
+			return;
 		}
 
 		// Loop through each validation rule
@@ -224,7 +240,7 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
 
-		$this->load->view('admin/links/form', $this->data);
+		$this->load->view('admin/ajax/form', $this->data);
 	}
 
 	/**
@@ -259,9 +275,19 @@ class Admin extends Admin_Controller
 			$this->navigation_m->update_link($id, $_POST);
 			$this->pyrocache->delete_all('navigation_m');
 			
-			$this->data->messages['success'] = lang('nav_link_edit_success');
-
-			echo $this->load->view('admin/partials/notices', $this->data);
+			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
+				
+			// echo success to let the js refresh the page
+			echo 'success';
+			return;
+		}
+		
+		// check for errors
+		if (validation_errors())
+		{
+			echo 	'<div class="closable notification error" style="display: block;">'
+						. validation_errors() .
+					'<a class="close" href="#">close</a></div>';
 			return;
 		}
 
@@ -278,7 +304,7 @@ class Admin extends Admin_Controller
 		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
 
 		// Render the view
-		$this->load->view('admin/links/form', $this->data);
+		$this->load->view('admin/ajax/form', $this->data);
 	}
 
 	/**
@@ -385,7 +411,7 @@ class Admin extends Admin_Controller
 	 * @param array $link Current navigation link
 	 */
 	
-	public function tree_builder($link)
+	public function tree_builder($link, $group_id)
 	{
 		if(isset($link['children'])):
 		
@@ -393,12 +419,12 @@ class Admin extends Admin_Controller
 			
 					<li id="link_<?php echo $link['id']; ?>">
 						<div>
-							<a href="#" rel="<?php echo $link['id'] . '">' . $link['title']; ?></a>
+							<a href="#" rel="<?php echo $group_id . '" alt="' . $link['id'] .'">' . $link['title']; ?></a>
 						</div>
 					
 				<?php if(isset($link['children'])): ?>
 						<ol>
-								<?php $this->tree_builder($link); ?>
+								<?php $this->tree_builder($link, $group_id); ?>
 						</ol>
 					</li>
 				<?php else: ?>

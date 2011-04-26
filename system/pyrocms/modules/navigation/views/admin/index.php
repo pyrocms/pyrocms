@@ -1,10 +1,10 @@
 <?php if ( ! empty($groups)): ?>
 	<?php foreach ($groups as $group): ?>
 	
-		<section class="box">
+		<section class="group-<?php echo $group->id; ?> box">
 			<header>
 				<div class="buttons buttons-small float-left">
-					<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'class="add ajax button"') ?>
+					<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
 				</div>
 
 				<div class="buttons buttons-small float-right">
@@ -16,7 +16,7 @@
 			
 			<?php if ( ! empty($navigation[$group->id])): ?>
 				
-				<div class="box-container">
+				<div class="box-container collapsed" >
 					
 					<div id="link-list">
 						<ol class="sortable">
@@ -25,12 +25,12 @@
 						
 									<li id="link_<?php echo $link['id']; ?>">
 										<div>
-											<a href="#" rel="<?php echo $link['id']; ?>"><?php echo $link['title']; ?></a>
+											<a href="#" rel="<?php echo $group->id; ?>" alt="<?php echo $link['id']; ?>"><?php echo $link['title']; ?></a>
 										</div>
 
 								<?php if(isset($link['children'])): ?>
 										<ol>
-											<?php $controller->tree_builder($link); ?>
+											<?php $controller->tree_builder($link, $group->id); ?>
 										</ol>
 									</li>
 								<?php else: ?>
@@ -42,7 +42,7 @@
 						</ol>
 					</div>
 					
-					<div id="link-details">
+					<div id="link-details" class="group-<?php echo $group->id; ?>">
 						
 						<p>
 							<?php echo lang('navs.tree_explanation'); ?>
@@ -56,7 +56,7 @@
 										
 				<?php else:?>
 
-				<div class="box-container">
+				<div class="box-container collapsed">
 					
 					<div id="link-list" class="empty">
 						<ol class="sortable">
@@ -66,7 +66,7 @@
 						</ol>
 					</div>
 					
-					<div id="link-details">
+					<div id="link-details" class="group-<?php echo $group->id; ?>">
 						
 						<p>
 							<?php echo lang('navs.tree_explanation'); ?>

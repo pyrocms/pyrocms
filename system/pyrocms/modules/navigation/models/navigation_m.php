@@ -27,10 +27,35 @@ class Navigation_m extends MY_Model
 	public function get_link($id = 0)
 	{
 		$query = $this->db->get_where('navigation_links', array('id'=>$id));
-		if ($query->num_rows() == 0) {
+
+		if ($query->num_rows() == 0)
+		{
 			return FALSE;
-		} else {
+		}
+		else
+		{
 			return $query->row();
+		}
+	}
+	
+	/**
+	 * Get a navigation link with all the trimmings
+	 * 
+	 * @access public 
+	 * @param int $id The ID of the item
+	 * @return mixed
+	 */
+	public function get_url($id = 0)
+	{
+		$query = $this->db->get_where('navigation_links', array('id'=>$id));
+
+		if ($query->num_rows() == 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return $this->make_url($query->result());
 		}
 	}
 
@@ -122,8 +147,8 @@ class Navigation_m extends MY_Model
 	public function update_link($id = 0, $input = array()) 
 	{
 		$input = $this->_format_array($input);
-		 
-		return $this->db->update('navigation_links', array(
+		
+		$insert = array(
         	'title' 				=> $input['title'],
         	'link_type' 			=> $input['link_type'],
         	'url' 					=> $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
@@ -133,7 +158,19 @@ class Navigation_m extends MY_Model
 			'target'				=> $input['target'],
 			'class'					=> $input['class'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id']
-		), array('id' => $id));
+		);
+		
+		// if it was changed to a different group we need to reset the parent > child
+		if ($input['current_group_id'] != $input['navigation_group_id'])
+		{
+			// modify the link update array to reset this link in case it's a child
+			$insert['parent'] = 0;
+		
+			// reset all of this link's children
+			$this->db->where('parent', $id)->update($this->_table, array('parent' => 0));
+		}
+
+		return $this->db->update('navigation_links', $insert, array('id' => $id));
 	}
 	
 	/**
