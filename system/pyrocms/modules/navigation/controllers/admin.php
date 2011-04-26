@@ -223,9 +223,7 @@ class Admin extends Admin_Controller
 		// check for errors
 		if (validation_errors())
 		{
-			echo 	'<div class="closable notification error" style="display: block;">'
-						. validation_errors() .
-					'<a class="close" href="#">close</a></div>';
+			echo $this->load->view('admin/partials/notices', $this->data);
 			return;
 		}
 
@@ -284,10 +282,8 @@ class Admin extends Admin_Controller
 		
 		// check for errors
 		if (validation_errors())
-		{
-			echo 	'<div class="closable notification error" style="display: block;">'
-						. validation_errors() .
-					'<a class="close" href="#">close</a></div>';
+		{	
+			echo $this->load->view('admin/partials/notices', $this->data);
 			return;
 		}
 
