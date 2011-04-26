@@ -1,36 +1,46 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * PyroCMS
+ * An open source CMS based on CodeIgniter
+ * Русский перевод от Dark Preacher - dark[at]darklab.ru
+ *
+ * @package		PyroCMS
+ * @author		PyroCMS Dev Team & Dark Preacher
+ * @license		Apache License v2.0
+ * @link			http://pyrocms.com
+ */
 
-// Labels
-$lang['templates.actions_label']			= 'Actions'; #translate
-$lang['templates.name_label']				= 'Name'; #translate
-$lang['templates.description_label']		= 'Description'; #translate
-$lang['templates.language_label']			= 'Language'; #translate
-$lang['templates.choose_lang_label']		= 'Choose language'; #translate
-$lang['templates.subject_label']			= 'Subject'; #translate
-$lang['templates.body_label']				= 'Body'; #translate
-$lang['templates.slug_label']				= 'Slug'; #translate
+// Подписи
+$lang['templates.actions_label']					= 'Действия';
+$lang['templates.name_label']							= 'Имя';
+$lang['templates.description_label']			= 'Описание';
+$lang['templates.language_label']					= 'Язык';
+$lang['templates.choose_lang_label']			= 'Выберите язык';
+$lang['templates.subject_label']					= 'Тема';
+$lang['templates.body_label']							= 'Содержимое';
+$lang['templates.slug_label']							= 'Алиас';
 
-// Titles
-$lang['templates.create_title']				= 'Create template'; #translate
-$lang['templates.edit_title']				= 'Editing template "%s"'; #translate
-$lang['templates.clone_title']				= 'Coping template "%s"'; #translate
-$lang['templates.list_title']				= 'List templates'; #translate
-$lang['templates.default_title']			= 'Default templates'; #translate
-$lang['templates.user_defined_title']		= 'User defined templates'; #translate
+// Заголовки
+$lang['templates.create_title']						= 'Создание шаблона';
+$lang['templates.edit_title']							= 'Редактирование шаблона "%s"';
+$lang['templates.clone_title']						= 'Копирование шаблона "%s"';
+$lang['templates.list_title']							= 'Список шаблонов';
+$lang['templates.default_title']					= 'Шаблоны по-умолчанию';
+$lang['templates.user_defined_title']			= 'Шаблоны пользователя';
 
-// Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.'; #translate
-$lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.'; #translate
-$lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.'; #translate
-$lang['templates.tmpl_clone_error']			= '"%s" was unable to be cloned.  Please try again.'; #translate
-$lang['templates.single_delete_success']	= 'The email template has been deleted.'; #translate
-$lang['templates.mass_delete_success']		= '%s email templates out of %s successfully deleted.'; #translate
-$lang['templates.mass_delete_error'] 		= 'Error occurred while trying to delete email template "%s".'; #translate
-$lang['templates.default_delete_error'] 	= 'Error occurred, default email templates can not be removed.'; #translate
-$lang['templates.no_select_error'] 			= 'You need to select email templates first.'; #translate
-$lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.'; #translate
+// Сообщения
+$lang['templates.tmpl_create_success']		= 'Шаблон "%s" сохранён.';
+$lang['templates.tmpl_create_error']			= 'Во время создания шаблона "%s" произошла ошибка.';
+$lang['templates.tmpl_edit_success']			= 'Шаблон "%s" сохранён.';
+$lang['templates.tmpl_edit_error']				= 'Во время сохранения шаблона "%s" произошла ошибка.';
+$lang['templates.tmpl_clone_success']			= 'Шаблон "%s" был клонирован. Теперь вы можете его отредактировать.';
+$lang['templates.tmpl_clone_error']				= 'Не удалось клонировать шаблон "%s". Пожалуйста, попробуйте ещё раз.';
+$lang['templates.single_delete_success']	= 'Шаблон удалён.';
+$lang['templates.mass_delete_success']		= '%s из %s шаблонов удалены.';
+$lang['templates.mass_delete_error']			= 'Во время удаления шаблона "%s" произошла ошибка.';
+$lang['templates.default_delete_error']		= 'Произошла ошибка, шаблоны по-умолчанию нельзя удалять.';
+$lang['templates.no_select_error']				= 'Сначала вы должны выбрать шаблон.';
+$lang['templates.already_exist_error']		= 'Шаблон с именем "%s" уже существует.';
 
 /* End of file templates_lang.php */
 /* Location: ./system/pyrocms/modules/templates/language/russian/templates_lang.php */

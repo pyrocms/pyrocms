@@ -37,7 +37,7 @@ $lang['galleries.published_no_label']		= 'Não';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels
+// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
 $lang['galleries.title_label']				= 'Título';
 $lang['galleries.slug_label']				= 'Apelido';
 $lang['galleries.folder_label']				= 'Pasta';

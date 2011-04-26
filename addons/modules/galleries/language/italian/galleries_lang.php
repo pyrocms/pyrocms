@@ -37,7 +37,7 @@ $lang['galleries.published_no_label']		= 'No';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels
+// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
 $lang['galleries.title_label']				= 'Titolo';
 $lang['galleries.slug_label']				= 'Slug (Friendly URL)';
 $lang['galleries.folder_label']				= 'Folder'; #translate

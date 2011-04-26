@@ -43,6 +43,6 @@
 <?php else: ?>
 	<div class="blank-slate file-folders">
 		<h2><?php echo lang('file_folders.no_folders');?>
-		[ <?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="folder-create"'); ?> ]</h2>
+		<br />[ <?php echo anchor('admin/files/folders/create', lang('file_folders.create_title'), 'class="folder-create"'); ?> ]</h2>
 	</div>
 <?php endif; ?>

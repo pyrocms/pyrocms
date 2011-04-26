@@ -11,7 +11,7 @@ $lang['settings_site_slogan']					= 'Site Slogan';
 $lang['settings_site_slogan_desc']				= 'The slogan of the website for page titles and for use around the site.';
 
 $lang['settings_site_lang']						= 'Site Language';
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.';
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail notifications, contact form, and other features that should not depend on the language of a user.';
 
 $lang['settings_contact_email']					= 'Contact E-mail';
 $lang['settings_contact_email_desc']			= 'All e-mails from users, guests and the site will go to this e-mail address.';

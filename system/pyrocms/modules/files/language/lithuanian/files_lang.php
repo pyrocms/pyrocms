@@ -69,4 +69,6 @@ $lang['files.no_permissions'] = 'Jūs neturite leidimo pamatyti šį failų modu
 $lang['files.grid'] = 'Tinklelis';
 $lang['files.list'] = 'Sąrašas';
 
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
+
 /* End of file files_lang.php */

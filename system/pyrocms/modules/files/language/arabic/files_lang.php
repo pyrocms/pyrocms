@@ -83,6 +83,7 @@ $lang['file_folders.created_label']			= 'أنشئ في';
 // Messages
 $lang['file_folders.create_success']		= 'تم حفظ المجلد.';
 $lang['file_folders.create_error']			= 'حدث خطأ اثناء محاولة إنشاء المجلد.';
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
 $lang['file_folders.edit_success']			= 'تم حفظ المجلد بنجاح.';
 $lang['file_folders.edit_error']			= 'حدث خطأ أثناء محاولة حفظ التغييرات.';
 $lang['file_folders.confirm_delete']		= 'متأكد أنك تريد حذف المجلدات أدناه، بما فيها من ملفات ومجلدات فرعية؟';

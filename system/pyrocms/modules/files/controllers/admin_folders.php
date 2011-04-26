@@ -219,21 +219,29 @@ class Admin_folders extends Admin_Controller {
 		if ($this->form_validation->run())
 		{
 			$name = $this->input->post('name');
-
-			if ($this->file_folders_m->insert(array(
-				'name'			=> $name,
-				'slug'			=> $this->input->post('slug'),
-				'parent_id'		=> $this->input->post('parent_id'),
-				'date_added'	=> now()
-			)))
+			
+			if ( count($this->file_folders_m->get_by('name', $name)) > 0)
 			{
-				$message	= sprintf(lang('file_folders.create_success'), $name);
-				$status		= 'success';
+				$message	= sprintf(lang('file_folders.duplicate_error'), $name);
+				$status		= 'error';				
 			}
 			else
 			{
-				$message	= sprintf(lang('files.folders.error'), $name);
-				$status		= 'error';
+				if ($this->file_folders_m->insert(array(
+					'name'			=> $name,
+					'slug'			=> $this->input->post('slug'),
+					'parent_id'		=> $this->input->post('parent_id'),
+					'date_added'	=> now()
+				)))
+				{
+					$message	= sprintf(lang('file_folders.create_success'), $name);
+					$status		= 'success';
+				}
+				else
+				{
+					$message	= sprintf(lang('file_folders.create_error'), $name);
+					$status		= 'error';
+				}
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff

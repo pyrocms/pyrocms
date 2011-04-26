@@ -83,9 +83,10 @@ $lang['file_folders.created_label']			= 'Created On';
 // Messages
 $lang['file_folders.create_success']		= 'The folder has now been saved.';
 $lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.';
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.';
 $lang['file_folders.edit_success']			= 'The folder was successfully saved.';
 $lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.';
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
+$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?';
 $lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.';
 $lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".';
 $lang['file_folders.delete_success']		= 'The folder "%s" was deleted.';

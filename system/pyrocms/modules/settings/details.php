@@ -77,7 +77,7 @@ class Module_Settings extends Module {
 			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
 			 ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1',''),
 			 ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','Add your slogan here','','','0','1',''),
-			 ('site_lang','Site Language','The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.','text','en','".CURRENT_LANGUAGE."','','1','1',''),
+			 ('site_lang','Site Language','The native language of the website, used to choose templates of e-mail notifications, contact form, and other features that should not depend on the language of a user.','select','".DEFAULT_LANG."','".DEFAULT_LANG."','".SUPPORTED_LANG."','1','1',''),
 			 ('contact_email','Contact E-mail','All e-mails from users, guests and the site will go to this e-mail address.','text','".DEFAULT_EMAIL."','','','1','1',''),
 			 ('server_email','Server E-mail','All e-mails to users will come from this e-mail address.','text','admin@localhost','','','1','1',''),
 			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
