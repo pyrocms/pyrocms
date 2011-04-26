@@ -134,8 +134,8 @@ class Plugins
 		}
 
 		// Setup our paths from the data array
-		$class = $data['segments'][0];
-		$method = $data['segments'][1];
+		$class	= $data['segments'][0];
+		$method	= $data['segments'][1];
 
 		foreach (array(APPPATH, ADDONPATH) as $directory)
 		{
@@ -147,7 +147,7 @@ class Plugins
 			// Maybe it's a module
 			if (module_exists($class))
 			{
-				if (file_exists($path = $directory.'modules/'.$class.'/plugin'.EXT))
+				if (file_exists($path = $directory . 'modules/' . $class . '/plugin' . EXT))
 				{
 					$dirname = dirname($path).'/';
 
@@ -163,9 +163,9 @@ class Plugins
 			}
 		}
 
-		log_message('error', 'Unable to load: '.$class);
+		log_message('error', 'Unable to load: ' . $class);
 
-		return '';
+		return FALSE;
 	}
 
 	 // --------------------------------------------------------------------
@@ -192,15 +192,29 @@ class Plugins
 			$this->loaded[$class] = TRUE;
 		}
 
-		$class_init = new $class_name;
-		$class_init->set_data($data);
-
 		if ( ! class_exists($class_name))
 		{
-			throw new Exception('Plugin "'.$class_name.'" does not exist.');
+//			throw new Exception('Plugin "' . $class_name . '" does not exist.');
+//			return FALSE;
+
+			log_message('error', 'Plugin class "' . $class_name . '" does not exist.');
+
 			return FALSE;
 		}
 
-		return $class_init->$method();
+		$class_init = new $class_name;
+		$class_init->set_data($data);
+
+		if ( ! is_callable(array($class_init, $method)))
+		{
+//			throw new Exception('Method "' . $method . '" does not exist in plugin "' . $class_name . '".');
+//			return FALSE;
+
+			log_message('error', 'Plugin method "' . $method . '" does not exist on class "' . $class_name . '".');
+
+			return FALSE;
+		}
+
+		return $class_init->{$method}();
 	}
 }
