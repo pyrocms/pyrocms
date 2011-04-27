@@ -1,7 +1,7 @@
 <?php if ( ! empty($groups)): ?>
 	<?php foreach ($groups as $group): ?>
 	
-		<section class="group-<?php echo $group->id; ?> box">
+		<section rel="<?php echo $group->id; ?>" class="group-<?php echo $group->id; ?> box">
 			<header>
 				<div class="buttons buttons-small float-left">
 					<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>

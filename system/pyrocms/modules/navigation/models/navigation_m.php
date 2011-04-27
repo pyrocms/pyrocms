@@ -174,18 +174,42 @@ class Navigation_m extends MY_Model
 	}
 	
 	/**
+	 * Update links by group
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @param int $group
+	 * @param array $data
+	 * @return boolean
+	 */
+	public function update_by_group($group = 0, $data)
+	{
+		
+		return $this->db->where_in('navigation_group_id', $group)
+			->set($data)
+			->update($this->_table);
+	}
+	
+	/**
 	 * Build a multi-array of parent > children.
 	 *
 	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
+	 * @param  string $group Either the group abbrev or the group id
 	 * @return array An array representing the link tree
 	 */
-	public function get_link_tree($group_id)
+	public function get_link_tree($group)
 	{
+		// the plugin passes the abbreviation
+		if ( ! is_numeric($group))
+		{
+			$row = $this->get_group_by('abbrev', $group);
+			$group = $row->id;
+		}
 
 		$all_links = $this->db
 			->select('id, parent, title', 'navigation_group_id')
-			->where('navigation_group_id', $group_id)
+			->where('navigation_group_id', $group)
 			 ->order_by('position')
 			 ->get($this->_table)
 			 ->result_array();
@@ -297,91 +321,6 @@ class Navigation_m extends MY_Model
 		$params = is_array($id) ? $id : array('id' => $id);
 		
 		return $this->db->delete('navigation_links', $params);
-	}
-
-
-	/**
-	 * Load a group
-	 * 
-	 * @access public
-	 * @param string $abbrev The group abbrevation
-	 * @return mixed
-	 */
-	public function load_group($abbrev)
-	{
-		if ( ! $group = $this->get_group_by('abbrev', $abbrev))
-		{
-			return FALSE;
-		}
-
-		$group_links = $this->get_links(array(
-			'group'=> $group->id,
-			'order'=>'position, title',
-			'top'=> 0
-		));
-    		
-		$has_current_link = false;
-			
-		// Loop through all links and add a "current_link" property to show if it is active
-		if( ! empty($group_links) )
-		{
-			foreach($group_links as &$link)
-			{
-				$full_match 	= site_url($this->uri->uri_string()) == $link->uri;
-				$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->uri;
-				
-				// Either the whole URI matches, or the first segment matches
-				if($link->current_link = $full_match || $segment1_match)
-				{
-					$has_current_link = true;
-				}
-
-				//build a multidimensional array for submenus
-				if ($link->parent == 0)
-				{
-					$link->children = $this->_build_multidimensional_array($link);
-				}
-			}
-			
-		}
-
-		// Assign it 
-	    return $group_links;
-	}
-
-	public function _build_multidimensional_array($link)
-	{
-		$children = array();
-
-		if ($link->has_kids > 0)
-		{
-			$children = $this->get_children($link->id);
-			
-			foreach ($children as $key => $child)
-			{
-				$children[$key]->children = $this->_build_multidimensional_array($child);
-			}
-		}
-
-		return $children;
-	}
-	
-	/**
-	 * Get children
-	 *
-	 * @access public
-	 * @param integer Get links by parent id
-	 * @return mixed
-	 */
-	public function get_children($id)
-	{
-		$children = $this->db->where('parent', $id)
-							->order_by('position')
-							->order_by('title')
-							->get('navigation_links')
-							->result();
-							
-		return $this->make_url($children);
 	}
 	
 	/**

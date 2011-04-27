@@ -28,7 +28,7 @@ class Plugin_Navigation extends Plugin
 		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL;
 
 		$this->load->model('navigation/navigation_m');
-		$links = $this->pyrocache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', array($group), $this->settings->navigation_cache);
 
 		return $this->_build_links($links, $this->content());
 	}
@@ -80,9 +80,9 @@ class Plugin_Navigation extends Plugin
 			$wrapper	= array();
 
 			// attributes of anchor
-			$item['url']					= $link->url;
-			$item['title']					= $link->title;
-			$item['attributes']['target']	= $link->target ? 'target="' . $link->target . '"' : NULL;
+			$item['url']					= $link['url'];
+			$item['title']					= $link['title'];
+			$item['attributes']['target']	= $link['target'] ? 'target="' . $link['target'] . '"' : NULL;
 			$item['attributes']['class']	= $link_class ? 'class="' . $link_class . '"' : '';
 
 			// attributes of anchor wrapper
@@ -110,10 +110,10 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// has children ? build children
-			if ($link->has_kids)
+			if (is_array($link['children']))
 			{
 				++$level;
-				$wrapper['children'] = $this->_build_links($link->children, $return_arr);
+				$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
 				--$level;
 			}
 
@@ -169,27 +169,27 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				$add_first_tag = $level > 0 OR ! in_array($this->attribute('itens_only', 'true'), array('1','y','yes','true'));
-
+				$class = implode(' ', $wrapper['class']);
+				
 				// render and indent or only render inline?
 				if ($indent)
 				{
-					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
-					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
+					$output .= (($class == 'single' OR $class == 'first') AND $level > 0) ? "<{$list_tag}>" . PHP_EOL : '';
+					$output .= $ident_b . '<' . $tag . ' class="' . $class . '">' . PHP_EOL;
 					$output .= $ident_c . anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
 					$output .= $wrapper['children'] ? $ident_c . str_replace(PHP_EOL, (PHP_EOL . $indent),  trim($wrapper['children'])) . PHP_EOL : '';
 					$output .= $wrapper['separator'] ? $ident_c . $wrapper['separator'] . PHP_EOL : '';
 					$output .= $ident_b . "</{$tag}>" . PHP_EOL;
-					$output .= $add_first_tag ? $ident_a . "</{$list_tag}>" . PHP_EOL : '';
+					$output .= (($class == 'single' OR $class == 'last') AND $level > 0) ? $ident_a . "</{$list_tag}>" . PHP_EOL : '';
 				}
 				else
 				{
-					$output .= $add_first_tag ? "<{$list_tag}>" : '';
-					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
+					$output .= (($class == 'single' OR $class == 'first') AND $level > 0) ? "<{$list_tag}>" : '';
+					$output .= '<' . $tag . ' class="' . $class . '">';
 					$output .= anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 					$output .= $wrapper['children'] .  $wrapper['separator'];
 					$output .= "</{$tag}>";
-					$output .= $add_first_tag ? "</{$list_tag}>" : '';
+					$output .= (($class == 'single' OR $class == 'last') AND $level > 0) ? "</{$list_tag}>" : '';
 				}
 			}
 		}

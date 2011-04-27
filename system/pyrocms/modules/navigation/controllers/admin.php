@@ -152,11 +152,12 @@ class Admin extends Admin_Controller
 	public function order()
 	{
 		$order = $this->input->post('order');
+		$group = (int) $this->input->post('group');
 
 		if (is_array($order))
 		{
 			//reset all parent > child relations
-			$this->navigation_m->update_all(array('parent' => 0));
+			$this->navigation_m->update_by_group($group, array('parent' => 0));
 			
 			foreach ($order as $i => $link)
 			{

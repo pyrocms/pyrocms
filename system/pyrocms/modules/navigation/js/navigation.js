@@ -162,13 +162,16 @@
 			toleranceElement: '> div',
 			stop: function(event, ui) {
 				// create the array using the toHierarchy method
-				order = $('ol.sortable').nestedSortable('toHierarchy');
+				order = $(this).nestedSortable('toHierarchy');
+				
+				// get the group id
+				var group = $(this).parents('section').attr('rel');
 		
 				// refresh the tree icons - needs a timeout to allow nestedSort
 				// to remove unused elements before we check for their existence
 				setTimeout(update_tree, 5);
 			
-				$.post(BASE_URI + 'index.php/admin/navigation/order', { 'order': order } );
+				$.post(BASE_URI + 'index.php/admin/navigation/order', { 'order': order, 'group': group } );
 			}
 		});
 	});
