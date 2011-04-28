@@ -182,7 +182,8 @@ class Navigation_m extends MY_Model
 		$links = array();
 		
 		// we must reindex the array first and build urls
-		foreach ($this->make_url_array($all_links) AS $row)
+		$all_links = $this->make_url_array($all_links);
+		foreach ($all_links AS $row)
 		{
 			$links[$row['id']] = $row;
 		}
@@ -306,7 +307,7 @@ class Navigation_m extends MY_Model
 	 */
 	public function make_url($result)
 	{
-		foreach($result as &$row)
+		foreach($result as $key => &$row)
 		{
 			// If its any other type than a URL, it needs some help becoming one
 			switch($row->link_type)
@@ -320,8 +321,17 @@ class Navigation_m extends MY_Model
 				break;
 
 				case 'page':
-					$page = $this->pages_m->get($row->page_id);
-					$row->url = $page ? site_url($page->uri) : '';
+					if ($page = $this->pages_m->get_by(array(
+						'id'		=> $row->page_id,
+						'status'	=> 'live'
+					)))
+					{
+						$row->url = site_url($page->uri);
+					}
+					else
+					{
+						unset($links[$key]);
+					}
 				break;
 			}
 		}
@@ -338,7 +348,7 @@ class Navigation_m extends MY_Model
 	 */
 	public function make_url_array($links)
 	{
-		foreach($links as &$row)
+		foreach($links as $key => &$row)
 		{
 			// If its any other type than a URL, it needs some help becoming one
 			switch($row['link_type'])
@@ -352,8 +362,17 @@ class Navigation_m extends MY_Model
 				break;
 
 				case 'page':
-					$page = $this->pages_m->get($row['page_id']);
-					$row['url'] = $page ? site_url($page->uri) : '';
+					if ($page = $this->pages_m->get_by(array(
+						'id'		=> $row['page_id'],
+						'status'	=> 'live'
+					)))
+					{
+						$row['url'] = site_url($page->uri);
+					}
+					else
+					{
+						unset($links[$key]);
+					}
 				break;
 			}
 		}

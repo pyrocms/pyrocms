@@ -377,8 +377,9 @@ class Pages_m extends MY_Model
 
 		$this->build_lookup($id);
 
-		// Wipe cache for this model as the data has changed
+		// Wipe cache for this model, the content has changd
 		$this->pyrocache->delete_all('pages_m');
+		$this->pyrocache->delete_all('navigation_m');
 
         return $return;
     }
