@@ -70,7 +70,6 @@ class Module_Navigation extends Module {
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
 			  `parent` int(11) NOT NULL default '0',
-			  `has_kids` tinyint(1) NOT NULL default '0',
 			  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
 			  `page_id` int(11) NOT NULL default '0',
 			  `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
