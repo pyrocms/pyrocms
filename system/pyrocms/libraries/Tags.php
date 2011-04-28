@@ -171,7 +171,7 @@ class Tags {
 					log_message('debug', "There's a probability of exists a syntax error in:" . PHP_EOL . $orig_content);
 				}
 			}
-			
+
 			foreach ($this->_skip_content as $skip_marker => $skip_content)
 			{
 				$orig_content = str_replace($skip_marker, $skip_content, $orig_content);
@@ -301,68 +301,80 @@ class Tags {
 	public function _skip_content($parsed = array(), $content = '')
 	{
 		$offset = 0;
-		$_loop_b_limit = 300;
-		while (($double_start_a = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
+		$_limit = 300;
+		while (($pos_tag_start = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
 		{
-			if ( ! (--$_loop_b_limit))
+			// this is still experimental so we must prevent infinite loops
+			if ( ! (--$_limit))
 			{
 				log_message('error', 'loop B error');
+
 				break;
 			}
 
-			$tag_start			= $this->_l_delim . $this->_trigger;
-			$tag_start_str		= substr($content, $double_start_a);
-			$tag_segments		= preg_replace('/(.*?)\s+.*/', '$1', $tag_start_str);
-			$tag_end			= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
+			// we need some info before think on skip content
+			$tag_name		= $this->_l_delim . $this->_trigger;
+			$tag_unclosed	= substr($content, $pos_tag_start);
+			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', $tag_unclosed);
+			$tag_end		= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
 
-			if (($double_end_a = strpos($content, $tag_end, $double_start_a)) !== FALSE)
+			// has nested double tag ?
+			if (($pos_skip_end = strpos($content, $tag_end, $pos_tag_start)) !== FALSE)
 			{
-				$tag_start_str	= substr($tag_start_str, strlen($tag_start));
-				$tag_start_parts = explode($this->_r_delim, $tag_start_str);
+				$tag_unclosed	= substr($tag_unclosed, strlen($tag_name));
+				$tag_name_parts = explode($this->_r_delim, $tag_unclosed);
 
+				// what is the tag name ?
 				$_skip = 0;
-				while (list($_d_str_key, $_d_str_arg) = each($tag_start_parts))
+				while (list($key, $part) = each($tag_name_parts))
 				{
-					$tag_start .= $_d_str_arg . $this->_r_delim;
+					$tag_name .= $part . $this->_r_delim;
 
-					if (($_l_cont = substr_count($_d_str_arg, $this->_l_delim)) > 1)
+					// there may be something like: foo="{bar}" inside the tag that we need
+					if (($l_delim_total = substr_count($part, $this->_l_delim)) > 1)
 					{
-						$_skip += $_l_cont - 1;
+						$_skip += $l_delim_total - 1;
 					}
 
-					if (strpos($_d_str_arg, $this->_l_delim) === FALSE)
+					// it seems that now we can close the tag
+					if (strpos($part, $this->_l_delim) === FALSE)
 					{
+						// really, we can!
 						if (($_skip--) == 0)
 						{
-							$tag_start_len	= strlen($tag_start);
-							$double_start_b	= $double_start_a + $tag_start_len;
-
 							break;
 						}
 					}
 				}
 
-				$skip_marker	= 'skip_' . ($this->_tag_count++) . $this->_mark;
-				$skip_content	= substr($content, $double_start_b, $double_end_a - $double_start_b);
+				// ok! we have the tag name and a position to starts skip content
+				$pos_skip_start	= $pos_tag_start + strlen($tag_name);
 
-				$parsed['skip_content'][$skip_marker] = $skip_content;
+				// generate a marker
+				$skip_marker = 'skip_' . ($this->_tag_count++) . $this->_mark;
 
-				$content = substr_replace($content, $skip_marker, $double_start_b, $double_end_a - $double_start_b);
+				// save a copy of safe content
+				$parsed['skip_content'][$skip_marker] = substr($content, $pos_skip_start, $pos_skip_end - $pos_skip_start);
 
+				// finally skip the content
+				$content = substr_replace($content, $skip_marker, $pos_skip_start, $pos_skip_end - $pos_skip_start);
+
+				// increase offset position
 				$offset = strpos($content, $skip_marker) + strlen($skip_marker . $tag_end);
 			}
 			else
 			{
-				$offset += strlen($tag_start);
+				// just increase offset position
+				$offset += strlen($tag_name);
 			}
 		}
 
-		$parsed['content']	= $content;
+		$parsed['content'] = $content;
 
 		return $parsed;
 	}
 
-	function _replace_data($orig_content = '', &$parsed_tags = array(), $data = array())
+	public function _replace_data($orig_content = '', &$parsed_tags = array(), $data = array())
 	{
 		// Clean up the array
 		$data = $this->_force_array($data);
