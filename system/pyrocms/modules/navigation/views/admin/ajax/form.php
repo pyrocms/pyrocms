@@ -1,10 +1,12 @@
 <div id="details-container">
 	<?php if ($this->method == 'create'): ?>
-		<div id="title-value"><?php echo lang('nav_link_create_title');?></div>
-			
+		<div class="hidden" id="title-value-<?php echo $navigation_link->navigation_group_id; ?>">
+			<?php echo lang('nav_link_create_title');?>
+		</div>
 	<?php else: ?>
-		<div id="title-value"><?php echo sprintf(lang('nav_link_edit_title'), $navigation_link->title);?></div>
-		
+		<div class="hidden" id="title-value-<?php echo $navigation_link->navigation_group_id; ?>">
+			<?php echo sprintf(lang('nav_link_edit_title'), $navigation_link->title);?>
+		</div>
 	<?php endif; ?>
 	
 	<?php echo form_open(uri_string(), 'id="nav-' . $this->method . '" class="crud"'); ?>

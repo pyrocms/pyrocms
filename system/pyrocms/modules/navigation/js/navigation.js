@@ -21,6 +21,9 @@
 			// Load the form
 			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
+				// display the create/edit title in the header
+				var title = $('#title-value-'+id).html();
+				$('section.box header h3.group-title-'+id).html(title);
 			});
 			return false;			
 		});
@@ -32,6 +35,9 @@
 			// Load the form
 			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
+				// display the create/edit title in the header
+				var title = $('#title-value-'+id).html();
+				$('section.box header h3.group-title-'+id).html(title);
 			});
 			return false;			
 		});
@@ -75,7 +81,7 @@
 		
 		// Pick a rule type, show the correct field
 		$('input[name="link_type"]').live('change', function(){
-			$('#navigation-' + $(this).val())
+			$(this).parents('ul').find('#navigation-' + $(this).val())
 			
 			// Show only the selected type
 			.show().siblings().hide()
@@ -141,7 +147,7 @@
 			var links = [];
 			 
 			// get all of the open parents
-			$('#link-list').find('li.minus:visible').each(function(){ links.push('#' + this.id) });
+			$('.box-container').find('li.minus').each(function(){ links.push('#' + this.id) });
 
 			// save open parents in the cookie
 			$.cookie('open_links', links.join(', '), { expires: 1 });

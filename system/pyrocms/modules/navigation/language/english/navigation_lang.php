@@ -19,6 +19,7 @@ $lang['nav_abbrev_label']                       = 'Abbreviation';
 $lang['nav_edit_label']                         = 'Edit';
 $lang['nav_delete_label']                       = 'Delete';
 $lang['nav_group_delete_label']                 = 'Delete group';
+$lang['nav_link_page_select_default']			= '--Select Page--';
 
 $lang['nav_link_target_self']                   = 'Current window (default)';
 $lang['nav_link_target_blank']                  = 'New window (_blank)';

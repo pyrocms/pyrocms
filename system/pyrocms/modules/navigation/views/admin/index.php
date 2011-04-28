@@ -12,6 +12,7 @@
 				</div>
 			
 				<h3 class="spacer-bottom-half"><?php echo $group->title;?></h3>
+				<h3 class="form-title group-title-<?php echo $group->id; ?>"></h3>
 			</header>
 			
 			<?php if ( ! empty($navigation[$group->id])): ?>

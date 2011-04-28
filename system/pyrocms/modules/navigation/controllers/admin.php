@@ -298,7 +298,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Get Pages and create pages tree
-		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
+		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $this->data->navigation_link->page_id));
 
 		// Render the view
 		$this->load->view('admin/ajax/form', $this->data);
