@@ -16,7 +16,7 @@ class Plugin_Navigation extends Plugin
 	 *
 	 * Usage:
 	 * {pyro:navigation:links group="header"}
-	 * Optional:  indent="", tag="li", list_tag="ul", separator="", group_segment="", class=""
+	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class=""
 	 * @param	array
 	 * @return	array
 	 */
@@ -38,6 +38,7 @@ class Plugin_Navigation extends Plugin
 		static $is_current	= FALSE;
 		static $level		= 0;
 
+		$top		= $this->attribute('top', FALSE);
 		$separator	= $this->attribute('separator', '');
 		$link_class	= $this->attribute('class', '');
 		$output		= $return_arr ? array() : '';
@@ -176,7 +177,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= (($class == 'single' OR $class == 'first') AND $level > 0) ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ' class="' . $class . '">' . PHP_EOL;
-					$output .= $ident_c . anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
+					$output .= $ident_c . (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
 					$output .= $wrapper['children'] ? $ident_c . str_replace(PHP_EOL, (PHP_EOL . $indent),  trim($wrapper['children'])) . PHP_EOL : '';
 					$output .= $wrapper['separator'] ? $ident_c . $wrapper['separator'] . PHP_EOL : '';
 					$output .= $ident_b . "</{$tag}>" . PHP_EOL;
@@ -186,7 +187,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= (($class == 'single' OR $class == 'first') AND $level > 0) ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ' class="' . $class . '">';
-					$output .= anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					$output .= (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 					$output .= $wrapper['children'] .  $wrapper['separator'];
 					$output .= "</{$tag}>";
 					$output .= (($class == 'single' OR $class == 'last') AND $level > 0) ? "</{$list_tag}>" : '';

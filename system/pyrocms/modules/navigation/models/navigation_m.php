@@ -58,49 +58,6 @@ class Navigation_m extends MY_Model
 			return $this->make_url($query->result());
 		}
 	}
-
-	/**
-	 * Return an object of objects containing NavigationLink data
-	 * 
-	 * @access public
-	 * @param array $params The link parameters
-	 * @return mixed
-	 */
-	public function get_links($params = array())
-	{
-		if(!empty($params['group']))
-		{
-			$this->db->where('navigation_group_id', $params['group']);
-		}
-		
-		//get only links with no parent
-		if(isset($params['top']))
-		{
-			$this->db->where('parent', $params['top']);
-		}
-
-		if(!empty($params['order']))
-		{
-			$this->db->order_by($params['order']);
-		}
-		
-		else
-		{
-			$this->db->order_by('title');
-		}
-
-		$result = $this->db->get('navigation_links')->result();
-
-		// If we should build the urls
-		if( ! isset($params['make_urls']) or $params['make_urls'])
-		{
-			$this->load->helper('url');
-
-			$result = $this->make_url($result);
-		}
-
-		return $result;
-	}
 	
 	/**
 	 * Create a new Navigation Link
@@ -198,7 +155,7 @@ class Navigation_m extends MY_Model
 	 * @param  string $group Either the group abbrev or the group id
 	 * @return array An array representing the link tree
 	 */
-	public function get_link_tree($group)
+	public function get_link_tree($group, $params = array())
 	{
 		// the plugin passes the abbreviation
 		if ( ! is_numeric($group))
@@ -206,16 +163,24 @@ class Navigation_m extends MY_Model
 			$row = $this->get_group_by('abbrev', $group);
 			$group = $row->id;
 		}
+		
+		if(!empty($params['order']))
+		{
+			$this->db->order_by($params['order']);
+		}
+		else
+		{
+			$this->db->order_by('position');
+		}
 
-		$all_links = $this->db
-			->select('id, parent, title', 'navigation_group_id')
-			->where('navigation_group_id', $group)
-			 ->order_by('position')
+		$all_links = $this->db->where('navigation_group_id', $group)
 			 ->get($this->_table)
 			 ->result_array();
 
-		// we must reindex the array first
-		foreach ($all_links as $row)
+		$this->load->helper('url');
+		
+		// we must reindex the array first and build urls
+		foreach ($this->make_url_array($all_links) AS $row)
 		{
 			$links[$row['id']] = $row;
 		}
@@ -223,7 +188,7 @@ class Navigation_m extends MY_Model
 		unset($all_links);
 
 		// build a multidimensional array of parent > children
-		foreach ($links as $row)
+		foreach ($links AS $row)
 		{
 			if (array_key_exists($row['parent'], $links))
 			{
@@ -353,6 +318,38 @@ class Navigation_m extends MY_Model
 		}
 
 		return $result;
+	}
+	
+	/**
+	 * Make a URL array
+	 *
+	 * @access public
+	 * @param array $row Array of links
+	 * @return mixed Array of links with valid urls
+	 */
+	public function make_url_array($links)
+	{
+		foreach($links as &$row)
+		{
+			// If its any other type than a URL, it needs some help becoming one
+			switch($row['link_type'])
+			{
+				case 'uri':
+					$row['url'] = site_url($row['uri']);
+				break;
+
+				case 'module':
+					$row['url'] = site_url($row['module_name']);
+				break;
+
+				case 'page':
+					$page = $this->pages_m->get($row['page_id']);
+					$row['url'] = $page ? site_url($page->uri) : '';
+				break;
+			}
+		}
+
+		return $links;
 	}
 	
 	/**
