@@ -38,9 +38,10 @@ class Plugin_Navigation extends Plugin
 		static $is_current	= FALSE;
 		static $level		= 0;
 
-		$separator	= $this->attribute('separator', '');
-		$link_class	= $this->attribute('class', '');
-		$output		= $return_arr ? array() : '';
+		$separator		= $this->attribute('separator', '');
+		$link_class		= $this->attribute('link_class', '');
+		$current_class	= $this->attribute('class', 'current');
+		$output			= $return_arr ? array() : '';
 
 		$i		= 1;
 		$total	= sizeof($links);
@@ -55,6 +56,7 @@ class Plugin_Navigation extends Plugin
 				case 't':
 				case 'tab':
 				case '	':
+					$indent = "\t";
 					break;
 				case 's':
 				case 'space':
@@ -76,6 +78,22 @@ class Plugin_Navigation extends Plugin
 
 		foreach ($links as $link)
 		{
+// TODO: move it to model
+//			if ($link->link_type === 'page')
+//			{
+//				$public_page = $this->pages_m->count_by(array(
+//					'id'		=> $link->page_id,
+//					'status'	=> 'live'
+//				));
+//
+//				if ( ! $public_page)
+//				{
+//					--$total; // fixes of the "last" class addition but not if the link skipped was the last
+//
+//					continue;
+//				}
+//			}
+
 			$item		= array();
 			$wrapper	= array();
 
@@ -121,7 +139,7 @@ class Plugin_Navigation extends Plugin
 			if (current_url() === $link->url)
 			{
 				$is_current = TRUE;
-				$wrapper['class'][] = 'current';
+				$wrapper['class'][] = $current_class;
 			}
 
 			// current experimental
@@ -135,9 +153,9 @@ class Plugin_Navigation extends Plugin
 			// has children as current ?
 			if ($is_current)
 			{
-				if ( ! in_array('current', $wrapper['class']))
+				if ( ! in_array($current_class, $wrapper['class']))
 				{
-					$wrapper['class'][] = 'has_current';
+					$wrapper['class'][] = 'has_' . $current_class;
 				}
 
 				if ($level === 0)
@@ -169,7 +187,7 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				$add_first_tag = $level > 0 OR ! in_array($this->attribute('itens_only', 'true'), array('1','y','yes','true'));
+				$add_first_tag = $level === 0 && ! in_array($this->attribute('itens_only', 'true'), array('1','y','yes','true'));
 
 				// render and indent or only render inline?
 				if ($indent)
@@ -177,7 +195,14 @@ class Plugin_Navigation extends Plugin
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
 					$output .= $ident_c . anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
-					$output .= $wrapper['children'] ? $ident_c . str_replace(PHP_EOL, (PHP_EOL . $indent),  trim($wrapper['children'])) . PHP_EOL : '';
+
+					if ($wrapper['children'])
+					{
+						$output .= $ident_c . "<{$list_tag}>" . PHP_EOL;
+						$output .= $ident_c . $indent . str_replace(PHP_EOL, (PHP_EOL . $indent),  trim($ident_c . $wrapper['children'])) . PHP_EOL;
+						$output .= $ident_c . "</{$list_tag}>" . PHP_EOL;
+					}
+					
 					$output .= $wrapper['separator'] ? $ident_c . $wrapper['separator'] . PHP_EOL : '';
 					$output .= $ident_b . "</{$tag}>" . PHP_EOL;
 					$output .= $add_first_tag ? $ident_a . "</{$list_tag}>" . PHP_EOL : '';
@@ -187,7 +212,15 @@ class Plugin_Navigation extends Plugin
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
 					$output .= anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
-					$output .= $wrapper['children'] .  $wrapper['separator'];
+
+					if ($wrapper['children'])
+					{
+						$output .= "<{$list_tag}>";
+						$output .= $wrapper['children'];
+						$output .= "</{$list_tag}>";
+					}
+
+					$output .= $wrapper['separator'];
 					$output .= "</{$tag}>";
 					$output .= $add_first_tag ? "</{$list_tag}>" : '';
 				}
