@@ -237,7 +237,7 @@ class Admin extends Admin_Controller
 		$this->data->navigation_link->navigation_group_id = $group_id;
 
 		// Get Pages and create pages tree
-		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $navigation_link->page_id));
+		$this->data->tree_select = $this->_build_tree_select(array('current_parent' => $this->data->navigation_link->page_id));
 
 		$this->load->view('admin/ajax/form', $this->data);
 	}
@@ -407,10 +407,9 @@ class Admin extends Admin_Controller
 	 * @access public
 	 * @param array $link Current navigation link
 	 */
-	
 	public function tree_builder($link, $group_id)
 	{
-		if(isset($link['children'])):
+		if ($link['children']):
 		
 				foreach($link['children'] as $link): ?>
 			
@@ -419,7 +418,7 @@ class Admin extends Admin_Controller
 							<a href="#" rel="<?php echo $group_id . '" alt="' . $link['id'] .'">' . $link['title']; ?></a>
 						</div>
 					
-				<?php if(isset($link['children'])): ?>
+				<?php if ($link['children']): ?>
 						<ol>
 								<?php $this->tree_builder($link, $group_id); ?>
 						</ol>

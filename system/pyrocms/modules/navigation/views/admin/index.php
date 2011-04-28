@@ -29,7 +29,7 @@
 											<a href="#" rel="<?php echo $group->id; ?>" alt="<?php echo $link['id']; ?>"><?php echo $link['title']; ?></a>
 										</div>
 
-								<?php if(isset($link['children'])): ?>
+								<?php if ($link['children']): ?>
 										<ol>
 											<?php $controller->tree_builder($link, $group->id); ?>
 										</ol>

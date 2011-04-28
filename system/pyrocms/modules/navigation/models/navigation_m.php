@@ -202,7 +202,7 @@ class Navigation_m extends MY_Model
 
 			if ( ! isset($links[$row['id']]['children']))
 			{
-				$links[$row['id']]['children'] = FALSE;
+				$links[$row['id']]['children'] = array();
 			}
 
 			// this is a root link
@@ -224,7 +224,7 @@ class Navigation_m extends MY_Model
 	 */
 	public function _set_children($link)
 	{
-		if (isset($link['children']))
+		if ($link['children'])
 		{
 			foreach ($link['children'] as $i => $child)
 			{
@@ -232,7 +232,7 @@ class Navigation_m extends MY_Model
 				$this->db->update($this->_table, array('parent' => str_replace('link_', '', $link['id']), 'position' => $i));
 				
 				//repeat as long as there are children
-				if (isset($child['children']))
+				if ($child['children'])
 				{
 					$this->_set_children($child);
 				}

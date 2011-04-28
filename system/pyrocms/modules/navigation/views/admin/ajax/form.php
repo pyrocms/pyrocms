@@ -12,7 +12,9 @@
 	<?php echo form_open(uri_string(), 'id="nav-' . $this->method . '" class="crud"'); ?>
 	
 		<ul>
+<?php if ($this->method == 'edit'): ?>
 			<?php echo form_hidden('link_id', $navigation_link->id) ?>
+<?php endif; ?>
 			
 			<?php echo form_hidden('current_group_id', $navigation_link->navigation_group_id) ?>
 			
