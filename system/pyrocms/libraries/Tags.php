@@ -143,6 +143,35 @@ class Tags {
 
 		if ($this->_skip_content)
 		{
+			if (preg_match_all('/{[\w\d_]*?}/i', $orig_content, $strs))
+			{
+				$ignore		= array('{else}');
+				$escaped	= array();
+
+				$total	= sizeof($strs[0]);
+
+				for ($i = 0; $i < $total; $i++)
+				{
+					$str = $strs[0][$i];
+
+					if (in_array($str, $ignore) OR in_array($str, $escaped))
+					{
+						$ignore[] = $str;
+
+						continue;
+					}
+
+					$escaped[($str_escaped = escape_tags($str))] = $str;
+
+					$orig_content = str_replace($str, $str_escaped, $orig_content);
+				}
+
+				if ($escaped)
+				{
+					log_message('debug', "There's a probability of exists a syntax error in:" . PHP_EOL . $orig_content);
+				}
+			}
+			
 			foreach ($this->_skip_content as $skip_marker => $skip_content)
 			{
 				$orig_content = str_replace($skip_marker, $skip_content, $orig_content);
@@ -152,6 +181,11 @@ class Tags {
 		}
 
 		$parsed_tags = $this->_extract_tags($orig_content);
+
+		if (isset($escaped) && $escaped)
+		{
+			$orig_content = str_replace(array_keys($escaped), array_values($escaped), $orig_content);
+		}
 
 		if ( ! $parsed_tags)
 		{
@@ -195,12 +229,12 @@ class Tags {
 	{
 		$parsed_tags = array();
 
-		$_loop_experimental_a = 0;
+		$_loop_a_limit = 200;
 		while (($start = strpos($orig_content, $this->_l_delim . $this->_trigger)) !== FALSE)
 		{
-			if ($_loop_experimental_a++ > 200)
+			if ( ! (--$_loop_a_limit))
 			{
-				log_message('error', 'erro na busca de tags comuns');
+				log_message('error', 'loop A error');
 				break;
 			}
 
@@ -244,128 +278,8 @@ class Tags {
 			{
 				$content = substr($content, 0, $end);
 				$parsed['full_tag']	.= $content . $end_tag;
-/*
-				$tag_end		= $this->_l_delim . '/' . $this->_trigger;
-				$tag_end_len	= strlen($tag_end);
-				$offset			= 0;
 
-				$w2 = 0;
-				while (($double_end_a = strpos($content, $tag_end, $offset)) !== FALSE
-					&& ($double_end_b = strpos($content, $this->_r_delim, $double_end_a)) !== FALSE)
-				{
-					if ($w2++ > 200)
-					{
-						log_message('error', 'erro na busca de double tags internas');
-						break;
-					}
-
-					$tag_start		= $this->_l_delim . $this->_trigger;
-					$tag_start		.= substr($content, $double_end_a + $tag_end_len, $double_end_b - ($double_end_a + $tag_end_len));
-					$tag_start_len	= strlen($tag_start);
-
-					if (($double_start_a = strpos($content, $tag_start, $offset)) !== FALSE)
-					{
-						$double_start_b		= $double_start_a + $tag_start_len;
-						$tag_start_str		= substr($content, $double_start_b, $double_end_a - $double_start_b);
-						$tag_start_parts	= explode($this->_r_delim, $tag_start_str);
-
-						$_skip = 0;
-						$w3 = 0;
-						while (list($_d_str_key, $_d_str_arg) = each($tag_start_parts))
-						{
-							if ($w3++ > 200)
-							{
-								log_message('error', 'erro na simplificação da tag');
-								break;
-							}
-
-							$tag_start .= $_d_str_arg . $this->_r_delim;
-
-							if (($_l_cont = substr_count($_d_str_arg, $this->_l_delim)) > 1)
-							{
-								$_skip += $_l_cont - 1;
-							}
-
-							if (strpos($_d_str_arg, $this->_l_delim) === FALSE)
-							{
-								if (($_skip--) == 0)
-								{
-									$tag_start_len	= strlen($tag_start);
-									$double_start_b	= $double_start_a + $tag_start_len;
-									break;
-								}
-							}
-						}
-
-						$skip_marker	= 'skip_' . ($this->_tag_count++) . $this->_mark;
-						$skip_content	= substr($content, $double_start_b, $double_end_a - $double_start_b);
-
-						$parsed['skip_content'][$skip_marker] = $skip_content;
-
-						$content = substr_replace($content, $skip_marker, $double_start_b, $double_end_a - $double_start_b);
-
-						$offset = strpos($content, $skip_marker) + strlen($skip_marker . $tag_end);
-					}
-				}*/
-
-				$offset = 0;
-				$_loop_experimental_b = 0;
-				while (($double_start_a = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
-				{
-					if ($_loop_experimental_b++ > 300)
-					{
-						log_message('error', 'erro na busca de double tags internas');
-						break;
-					}
-
-					$tag_start			= $this->_l_delim . $this->_trigger;
-					$tag_start_str		= substr($content, $double_start_a);
-					$tag_segments		= preg_replace('/(.*?)\s+.*/', '$1', $tag_start_str);
-					$tag_end			= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
-
-					if (($double_end_a = strpos($content, $tag_end, $double_start_a)) !== FALSE)
-					{
-						$tag_start_str	= substr($tag_start_str, strlen($tag_start));
-						$tag_start_parts = explode($this->_r_delim, $tag_start_str);
-
-						$_skip = 0;
-						while (list($_d_str_key, $_d_str_arg) = each($tag_start_parts))
-						{
-							$tag_start .= $_d_str_arg . $this->_r_delim;
-
-							if (($_l_cont = substr_count($_d_str_arg, $this->_l_delim)) > 1)
-							{
-								$_skip += $_l_cont - 1;
-							}
-
-							if (strpos($_d_str_arg, $this->_l_delim) === FALSE)
-							{
-								if (($_skip--) == 0)
-								{
-									$tag_start_len	= strlen($tag_start);
-									$double_start_b	= $double_start_a + $tag_start_len;
-
-									break;
-								}
-							}
-						}
-
-						$skip_marker	= 'skip_' . ($this->_tag_count++) . $this->_mark;
-						$skip_content	= substr($content, $double_start_b, $double_end_a - $double_start_b);
-
-						$parsed['skip_content'][$skip_marker] = $skip_content;
-
-						$content = substr_replace($content, $skip_marker, $double_start_b, $double_end_a - $double_start_b);
-
-						$offset = strpos($content, $skip_marker) + strlen($skip_marker . $tag_end);
-					}
-					else
-					{
-						$offset += strlen($tag_start);
-					}
-				}
-
-				$parsed['content']	= $content;
+				$parsed = $this->_skip_content($parsed, $content);
 			}
 			else
 			{
@@ -382,6 +296,70 @@ class Tags {
 		}
 
 		return $parsed_tags;
+	}
+
+	public function _skip_content($parsed = array(), $content = '')
+	{
+		$offset = 0;
+		$_loop_b_limit = 300;
+		while (($double_start_a = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
+		{
+			if ( ! (--$_loop_b_limit))
+			{
+				log_message('error', 'loop B error');
+				break;
+			}
+
+			$tag_start			= $this->_l_delim . $this->_trigger;
+			$tag_start_str		= substr($content, $double_start_a);
+			$tag_segments		= preg_replace('/(.*?)\s+.*/', '$1', $tag_start_str);
+			$tag_end			= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
+
+			if (($double_end_a = strpos($content, $tag_end, $double_start_a)) !== FALSE)
+			{
+				$tag_start_str	= substr($tag_start_str, strlen($tag_start));
+				$tag_start_parts = explode($this->_r_delim, $tag_start_str);
+
+				$_skip = 0;
+				while (list($_d_str_key, $_d_str_arg) = each($tag_start_parts))
+				{
+					$tag_start .= $_d_str_arg . $this->_r_delim;
+
+					if (($_l_cont = substr_count($_d_str_arg, $this->_l_delim)) > 1)
+					{
+						$_skip += $_l_cont - 1;
+					}
+
+					if (strpos($_d_str_arg, $this->_l_delim) === FALSE)
+					{
+						if (($_skip--) == 0)
+						{
+							$tag_start_len	= strlen($tag_start);
+							$double_start_b	= $double_start_a + $tag_start_len;
+
+							break;
+						}
+					}
+				}
+
+				$skip_marker	= 'skip_' . ($this->_tag_count++) . $this->_mark;
+				$skip_content	= substr($content, $double_start_b, $double_end_a - $double_start_b);
+
+				$parsed['skip_content'][$skip_marker] = $skip_content;
+
+				$content = substr_replace($content, $skip_marker, $double_start_b, $double_end_a - $double_start_b);
+
+				$offset = strpos($content, $skip_marker) + strlen($skip_marker . $tag_end);
+			}
+			else
+			{
+				$offset += strlen($tag_start);
+			}
+		}
+
+		$parsed['content']	= $content;
+
+		return $parsed;
 	}
 
 	function _replace_data($orig_content = '', &$parsed_tags = array(), $data = array())
