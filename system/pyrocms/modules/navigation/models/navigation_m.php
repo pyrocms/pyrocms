@@ -164,7 +164,7 @@ class Navigation_m extends MY_Model
 			$group = $row->id;
 		}
 		
-		if(!empty($params['order']))
+		if ( ! empty($params['order']))
 		{
 			$this->db->order_by($params['order']);
 		}
@@ -178,14 +178,18 @@ class Navigation_m extends MY_Model
 			 ->result_array();
 
 		$this->load->helper('url');
+
+		$links = array();
 		
 		// we must reindex the array first and build urls
 		foreach ($this->make_url_array($all_links) AS $row)
 		{
 			$links[$row['id']] = $row;
 		}
-		
+
 		unset($all_links);
+
+		$link_array = array();
 
 		// build a multidimensional array of parent > children
 		foreach ($links AS $row)
@@ -195,7 +199,12 @@ class Navigation_m extends MY_Model
 				// add this link to the children array of the parent link
 				$links[$row['parent']]['children'][] =& $links[$row['id']];
 			}
-			
+
+			if ( ! isset($links[$row['id']]['children']))
+			{
+				$links[$row['id']]['children'] = FALSE;
+			}
+
 			// this is a root link
 			if ($row['parent'] == 0)
 			{
