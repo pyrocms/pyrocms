@@ -28,7 +28,7 @@
 		
 		<p>
 			<strong><?php echo lang('nav_location_label');?>:</strong>
-			<a href="<?php echo $link->url; ?>"><?php echo $link->url; ?></a>
+			<a target="_blank" href="<?php echo $link->url; ?>"><?php echo $link->url; ?></a>
 		</p>
 	</fieldset>	
 	

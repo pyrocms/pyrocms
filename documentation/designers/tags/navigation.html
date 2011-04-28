@@ -24,9 +24,14 @@
 		<td>Required. The navigation group the tag should use.</td>
 	</tr>
 	<tr>
+		<td>list_tag</td>
+		<td>ul</td>
+		<td>Choose between ol and ul lists. The value of this is wrapped in brackets on either end.</td>
+	</tr>
+	<tr>
 		<td>tag</td>
 		<td>li</td>
-		<td>Type of tag that surrounds each navigation item. The value of this wrapped in brackets on either end.</td>
+		<td>Type of tag that surrounds each navigation item. The value of this is wrapped in brackets on either end.</td>
 	</tr>
 	<tr>
 		<td>class</td>
@@ -35,8 +40,13 @@
 	</tr>
 	<tr>
 		<td>separator</td>
-		<td></td>
+		<td>None</td>
 		<td>String that separates each navigation item.</td>
+	</tr>
+	<tr>
+		<td>top</td>
+		<td>None</td>
+		<td>Set to "text" and the top level menu items will be rendered as plain text instead of links.</td>
 	</tr>
 
 </table>
@@ -50,15 +60,52 @@
 
 <pre><code>{pyro:navigation:links group="header" separator="|"}</code></pre>
 
-<pre><code>&lt;li&gt;
-	&lt;a href="http://localhost/PyroCMS/pyrocms/index.php" class=" current">Home&lt;/a&gt;&lt;/li&gt; |
-	&lt;li&gt;&lt;a href="http://www.google.com"&gt;About Us&lt;/a&gt;
-&lt;/li&gt; </code></pre>
+<pre><code>
+&lt;li&gt;
+	&lt;a href="http://localhost/PyroCMS/pyrocms/index.php" class=" current">Home&lt;/a&gt;
+&lt;/li&gt; |
+&lt;li&gt;
+	&lt;a href="http://www.google.com"&gt;About Us&lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+
+<p>
+	The default tag outputs the following html when menu items are arranged in a multilevel menu.
+</p>
+
+<pre><code>{pyro:navigation:links group="header"}</code></pre>
+
+<pre><code>
+&lt;li class=&quot;first&quot;&gt;
+	&lt;a href=&quot;http://example.com/home&quot;&gt;Home&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;&quot;&gt;
+	&lt;a href=&quot;http://example.com/about-us&quot;&gt;About Us&lt;/a&gt;
+	&lt;ul&gt;
+		&lt;li class=&quot;first&quot;&gt;
+			&lt;a href=&quot;http://example.com/contact&quot;&gt;Contact&lt;/a&gt;
+		&lt;/li&gt;
+		&lt;li class=&quot;last&quot;&gt;
+			&lt;a href=&quot;http://example.com/staff&quot;&gt;Staff&lt;/a&gt;
+			&lt;ul&gt;
+				&lt;li class=&quot;single&quot;&gt;
+					&lt;a href=&quot;http://example.com/history&quot;&gt;History&lt;/a&gt;
+				&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;last&quot;&gt;
+	&lt;a href=&quot;http://example.com/blog&quot;&gt;Blog&lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
 
 <p>
 	If this layout is not flexible enough you can use double-tags to control how each link is output yourself.
 </p>
 
-<pre><code>{pyro:navigation:links group="header"}
-&lt;li class="menu-item"&gt;&lt;a href="{url}" class="{class}"&gt;{title}&lt;/a&gt;&lt;/li&gt;
-{/pyro:navigation:links}</code></pre>
+<pre><code>
+{pyro:navigation:links group="header"}
+	&lt;li class="menu-item"&gt;&lt;a href="{url}" class="{class}"&gt;{title}&lt;/a&gt;&lt;/li&gt;
+{/pyro:navigation:links}
+</code></pre>
