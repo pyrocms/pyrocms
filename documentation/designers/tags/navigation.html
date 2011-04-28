@@ -44,7 +44,7 @@
 		<td>String that separates each navigation item.</td>
 	</tr>
 	<tr>
-		<td>itens_only</td>
+		<td>items_only</td>
 		<td>false</td>
 		<td>true or false. Set if the output source code should be wrapped with an optional list_tag.</td>
 	</tr>
@@ -68,15 +68,29 @@
 
 <p><strong>Examples</strong></p>
 
+<h3>Simple Usage</h3>
+
 <p>
-	You can use the basic single-tag approach to output a chunk of HTML that renders a indented source code and add an custom class name to all link anchors.
+	You can use the basic single-tag approach to output a chunk of HTML by itself. This will apply the class names to the <kdb>&lt;li&gt;</kdb>
+	tags (default) and use the <kdb>&lt;a&gt;</kdb> tags (default) to wrap the anchors. 
+</p>
+
+<pre><code>{pyro:navigation:links group="header"}
+
+Return:
+
+&lt;li class="first current"&gt;&lt;a href="http://localhost/pyrocms/index.php">Home&lt;/a&gt;&lt;/li&gt;&lt;li class="last"&gt;&lt;a href="...
+http://www.google.com"&gt;About Us&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+<p>
+	You can use the basic single-tag approach like this to output a chunk of HTML that renders indented source code and adds a custom class name to all link anchors.
 </p>
 
 <pre><code>{pyro:navigation:links group="header" indent="tab" link_class="foo"}
 
 Return:
 
-&lt;li class="fisrt current"&gt;
+&lt;li class="first current"&gt;
 	&lt;a href="http://localhost/pyrocms/index.php" class="foo">Home&lt;/a&gt;
 &lt;/li&gt;
 &lt;li class="last"&gt;
@@ -84,38 +98,13 @@ Return:
 &lt;/li&gt;</code></pre>
 
 <p>
-	You can use the an combination of params to output a chunk of HTML that show a short paragraph of navigation, using <kdb>&lt;p&gt;</kdb> as list_tag
-	to wrap all itens after disable itens only and using the tag <kdb>&lt;span&gt;</kdb> to wrap each anchor link, you also can use class to change current class name and
-	a character separator.
-</p>
-
-<pre><code>{pyro:navigation:links group="header" tag="span" class="active" separator="|" list_tag="p" itens_only="false"}
-
-Return:
-
-&lt;p&gt;&lt;span class="fisrt active"&gt;&lt;a href="http://localhost/pyrocms/index.php">Home&lt;/a&gt;&lt;/span&gt; | &lt;span class="last"&gt;...
-&lt;ahref="http://www.google.com"&gt;About Us&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</code></pre>
-
-<p>
-	You can use the basic single-tag approach to output a chunk of HTML by itself. This will apply the class names to the <kdb>&lt;li&gt;</kdb>
-	tags that is the default to wrap the anchors (<kdb>&lt;a&gt;</kdb>). 
-</p>
-
-<pre><code>{pyro:navigation:links group="header"}
-
-Return:
-
-&lt;li class="fisrt current"&gt;&lt;a href="http://localhost/pyrocms/index.php">Home&lt;/a&gt;&lt;/li&gt;&lt;li class="last"&gt;&lt;a href="...
-http://www.google.com"&gt;About Us&lt;/a&gt;&lt;/li&gt;</code></pre>
-
-<p>
 	If you use nested links the default tag outputs the following html when menu items are arranged in a multilevel menu.
 </p>
 
-<pre><code>{pyro:navigation:links group="header"}
+<pre><code>{pyro:navigation:links group="header" indent="tab"}
 
 Return:
-&lt;li class=&quot;first&quot;&gt;
+&lt;li class=&quot;first current&quot;&gt;
 	&lt;a href=&quot;http://example.com/home&quot;&gt;Home&lt;/a&gt;
 &lt;/li&gt;
 &lt;li class=&quot;&quot;&gt;
@@ -138,6 +127,20 @@ Return:
 	&lt;a href=&quot;http://example.com/blog&quot;&gt;Blog&lt;/a&gt;
 &lt;/li&gt;
 </code></pre>
+
+<h3>Advanced Options</h3>
+
+<p>
+	You can use a combination of params to output a chunk of HTML that shows a short paragraph of navigation, using <kdb>&lt;p&gt;</kdb> as list_tag
+	to wrap all items by disabling items_only and using the tag <kdb>&lt;span&gt;</kdb> to wrap each anchor link.
+</p>
+
+<pre><code>{pyro:navigation:links group="header" tag="span" class="active" separator="|" list_tag="p" items_only="false"}
+
+Return:
+
+&lt;p&gt;&lt;span class="first active"&gt;&lt;a href="http://localhost/pyrocms/index.php">Home&lt;/a&gt;&lt;/span&gt; | &lt;span class="last"&gt;...
+&lt;ahref="http://www.google.com"&gt;About Us&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</code></pre>
 
 <p>
 	If this layout is not flexible enough you can use double-tags to control how each link is output yourself.

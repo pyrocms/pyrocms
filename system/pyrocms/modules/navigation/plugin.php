@@ -188,7 +188,7 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				$add_first_tag = $level === 0 && ! in_array($this->attribute('itens_only', 'true'), array('1','y','yes','true'));
+				$add_first_tag = $level === 0 && ! in_array($this->attribute('items_only', 'true'), array('1','y','yes','true'));
 
 				// render and indent or only render inline?
 				if ($indent)
