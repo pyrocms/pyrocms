@@ -29,6 +29,8 @@ class Admin extends Admin_Controller
 		$this->load->library('settings');
 		$this->load->library('form_validation');
 		$this->lang->load('settings');
+		$this->template->append_metadata(js('settings.js', 'settings'));
+		$this->template->append_metadata(css('settings.css', 'settings'));
 	}
 
 	/**
@@ -106,6 +108,26 @@ class Admin extends Admin_Controller
 
 		// Redirect user back to index page or the module/section settings they are editing
 		redirect('admin/settings');
+	}
+	
+	/**
+	 * Sort settings items
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 */
+	public function ajax_update_order()
+	{
+		$slugs = explode(',', $this->input->post('order'));
+
+		$i = 1000;
+		foreach ($slugs as $slug)
+		{
+			$this->settings_m->update($slug, array(
+				'order' => $i
+			));
+			$i--;
+		}
 	}
 }
 ?>

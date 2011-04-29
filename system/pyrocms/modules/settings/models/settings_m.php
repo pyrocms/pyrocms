@@ -67,6 +67,7 @@ class Settings_m extends MY_Model {
 		return $this->db
 			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
 			->where($where)
+			->order_by('`order`', 'DESC')
 			->get('settings')
 			->result();
 	}
