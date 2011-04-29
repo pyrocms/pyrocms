@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_RemoveOldNavColumn extends Migration {
+class Migration_Remove_old_nav_column extends Migration {
 	
 	function up() 
 	{
