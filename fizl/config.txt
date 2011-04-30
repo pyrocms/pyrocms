@@ -3,6 +3,7 @@
 site_title: 			Fizzle Test Site
 asset_folder: 			assets
 site_folder: 			site
+fizl_date_format:		Y-m-d H:i:s
 
 # Custom Configs
 
