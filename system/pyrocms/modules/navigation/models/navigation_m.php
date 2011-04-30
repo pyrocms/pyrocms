@@ -327,6 +327,7 @@ class Navigation_m extends MY_Model
 					)))
 					{
 						$row->url = site_url($page->uri);
+						$row->is_home = $page->is_home;
 					}
 					else
 					{
@@ -368,6 +369,7 @@ class Navigation_m extends MY_Model
 					)))
 					{
 						$row['url'] = site_url($page->uri);
+						$row['is_home'] = $page->is_home;
 					}
 					else
 					{
