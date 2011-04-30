@@ -330,7 +330,7 @@ class Navigation_m extends MY_Model
 					}
 					else
 					{
-						unset($links[$key]);
+						unset($result[$key]);
 					}
 				break;
 			}
