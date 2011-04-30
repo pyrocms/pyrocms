@@ -104,7 +104,7 @@ class Fizl extends CI_Controller {
 		
 		// Okay let's take a look at the last element
 		$file = array_pop($segments);
-		
+				
 		// We just want two things
 		$file_elems = array_slice(explode('.', $file), 0, 2);
 		
@@ -164,6 +164,11 @@ class Fizl extends CI_Controller {
 		elseif($is_404):
 		
 			$template = read_file('fizl/standards/404.html');
+			
+		// Do we have a template for this folder?
+		elseif(is_file($template_path.'/'.implode('_', $segments).'.html')):
+		
+			$template = read_file($template_path.'/'.implode('_', $segments).'.html');
 			
 		elseif(is_file($template_path.'/sub.html')):
 		
