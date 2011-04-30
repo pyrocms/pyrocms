@@ -8,7 +8,7 @@ $lang['user_login_header']                     = 'Prijava';
 
 // titles
 $lang['user_add_title']                        = 'Dodaj uporabnika';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 				= 'Seznam uporabnikov';
 $lang['user_inactive_title']                   = 'Neaktivni uporabniki';
 $lang['user_active_title']                     = 'Aktivni uporabniki';
 $lang['user_registred_title']                  = 'Registrirani uporabniki';
@@ -62,7 +62,7 @@ $lang['user_confirm_email']                    = 'Potrdi E-mail';
 $lang['user_password']                         = 'Geslo';
 $lang['user_remember']                         = 'Zapomni si me';
 $lang['user_confirm_password']                 = 'Potrdi geslo';
-$lang['user_group_id_label']                   = 'ID skupine'; // #TRANSLATE #TODO: Translate this into Spanish
+$lang['user_group_id_label']                   = 'ID skupine';
 
 $lang['user_level']                            = 'Vloga uporabnika';
 $lang['user_active']                           = 'Aktiven';
@@ -124,7 +124,7 @@ $lang['user_activated_message']                = 'Vaš račun je bil aktiviran. 
 
 
 // Login
-$lang['user_logged_in']                        = 'Uspešno se se prijavili.'; # TODO: Translate this in spanish
+$lang['user_logged_in']                        = 'Uspešno se se prijavili.'; 
 $lang['user_already_logged_in']                = 'Ste že prijavljeni.Prosimo odjavite se predno ponovno poizkusite.';
 $lang['user_login_incorrect']                  = 'E-mail ali geslo se ne ujemata. Prosimo preverite vaše prijavne podatke ter da nimate vključenega CAPS LOCK-a.';
 $lang['user_inactive']                         = 'Račun do katerega želite dostopati je trenutno onemogočen.<br />Preverite vaš e-mail za navodila za aktivaicijo računa - <em>lahko da je v SPAM/JUNK mapi</em>.';
