@@ -98,10 +98,6 @@ class Nav extends Plugin {
 		return $html .= "</li>\n</ul>";
 	}
 		
-	function create_link($data)
-	{
-	}
-	
 }
 
 /* End of file format.php */
