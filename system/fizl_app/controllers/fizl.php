@@ -61,7 +61,7 @@ class Fizl extends CI_Controller {
 
 			if($line == '' or $line[0] == '#') continue;
 			
-			$items = explode(':', $line);
+			$items = explode(':', $line, 2);
 			
 			if(count($items) != 2) continue;
 		
