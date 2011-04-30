@@ -13,6 +13,8 @@
  */
 class Fizl extends CI_Controller {
 
+	public $vars = array();
+
 	/**
 	 * Main Fizl Function
 	 *
@@ -36,7 +38,7 @@ class Fizl extends CI_Controller {
 		// data
 		// -------------------------------------
 		
-		$vars = array(
+		$this->vars = array(
 			'segment_1'		=> $this->uri->segment(1),
 			'segment_2'		=> $this->uri->segment(2),
 			'segment_3'		=> $this->uri->segment(3),
@@ -66,7 +68,7 @@ class Fizl extends CI_Controller {
 			if(count($items) != 2) continue;
 		
 			// Set the var
-			$vars[trim($items[0])] = trim($items[1]);
+			$this->vars[trim($items[0])] = trim($items[1]);
 			
 			// Set configs so eeeeveryone can use them
 			$this->config->set_item(trim($items[0]), trim($items[1]));
@@ -74,7 +76,7 @@ class Fizl extends CI_Controller {
 		endforeach;
 		
 		// Set the site folder as a constant
-		define('SITE_FOLDER', $vars['site_folder']);
+		define('SITE_FOLDER', $this->vars['site_folder']);
 
 		// -------------------------------------
 		// Look for page
@@ -205,6 +207,14 @@ class Fizl extends CI_Controller {
 		$compiled = $this->simpletags->parse($content, array(), array($this, 'embed_callback'));
 
 		// -------------------------------------
+		// Parse Variables	
+		// -------------------------------------
+			
+		$this->simpletags->set_trigger('var');
+		
+		$compiled = $this->simpletags->parse($compiled['content'], array(), array($this, 'var_callback'));
+
+		// -------------------------------------
 		// Parse Links	
 		// -------------------------------------
 			
@@ -224,7 +234,7 @@ class Fizl extends CI_Controller {
 		// Return Content	
 		// -------------------------------------
 
-		echo $this->parser->parse_string($compiled['content'], $vars, TRUE);
+		echo $this->parser->parse_string($compiled['content'], $this->vars, TRUE);
 	}
 
 	// --------------------------------------------------------------------------
@@ -270,6 +280,28 @@ class Fizl extends CI_Controller {
 		if(!isset($tag_data['attributes']['path'])) return;
 		
 		return site_url($tag_data['attributes']['path']);
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Parse Vars
+	 *
+	 * All we really do is just get rid of them and put them ino
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return 	string
+	 */
+	public function var_callback($tag_data)
+	{
+		if(isset($tag_data['attributes']['name']) and isset($tag_data['attributes']['val'])):
+		
+			$this->vars[trim($tag_data['attributes']['name'])] = trim($tag_data['attributes']['val']);
+
+			$this->config->set_item(trim($tag_data['attributes']['name']), trim($tag_data['attributes']['val']));
+		
+		endif;
 	}
 	
 	// --------------------------------------------------------------------------

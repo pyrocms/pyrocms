@@ -13,6 +13,8 @@
  */
 class Files extends Plugin {
 
+	public $vars = array();
+
 	/**
 	 * List pages in a folder
 	 */
@@ -35,7 +37,7 @@ class Files extends Plugin {
 		if(!is_dir('site/'.$url)) return;
 	
 		$map = get_dir_file_info('site/'.$url, true);
-				
+		
 		// Do we want to remove the index file?
 		if($this->get_param('include_index', 'no') == 'no'):
 	
@@ -45,6 +47,8 @@ class Files extends Plugin {
 				
 		$vars = array();
 		$count = 0;
+		$this->CI->simpletags->set_trigger('var');
+
 		// Run through each page and get some info
 		foreach($map as $file_name => $file_info):
 		
@@ -59,7 +63,24 @@ class Files extends Plugin {
 
 			// Get the date
 			$vars['pages'][$count]['date'] = date($this->CI->config->item('fizl_date_format'), $file_info['date']);
-		
+			
+			// Get any vars from the item
+			if($file_content = read_file($file_info['server_path'])):
+			
+				if(strpos($file_content, '{var ') !== FALSE):
+				
+					// Grab them vars
+					$this->CI->simpletags->parse($file_content, array(), array($this, 'var_callback'));
+					
+					$vars['pages'][$count] = array_merge($vars['pages'][$count], $this->vars);
+					
+					// Clear it
+					$this->vars = array();
+				
+				endif;
+			
+			endif;
+			
 			$count++;
 		
 		endforeach;
@@ -68,6 +89,16 @@ class Files extends Plugin {
 		$vars['total'] = count($map);
 		
 		return $this->CI->parser->parse_string($this->tag_content, $vars, TRUE);	
+	}
+	
+	function var_callback($tag_data)
+	{
+		if(isset($tag_data['attributes']['name']) and isset($tag_data['attributes']['val'])):
+		
+			$this->vars[$tag_data['attributes']['name']] = $tag_data['attributes']['val'];
+		
+		endif;
+	
 	}
 			
 }
