@@ -19,6 +19,8 @@ class Files extends Plugin {
 	public function pages()
 	{
 		$this->CI = get_instance();
+		
+		$this->CI->load->helper('file');
 	
 		// Get the folder
 		if(!$url = $this->get_param('url', FALSE)):
@@ -32,32 +34,31 @@ class Files extends Plugin {
 		// Check this out.
 		if(!is_dir('site/'.$url)) return;
 	
-		$this->CI->load->helper('directory');
-		
-		$map = directory_map('site/'.$url, 1);
+		$map = get_dir_file_info('site/'.$url, true);
 				
 		// Do we want to remove the index file?
 		if($this->get_param('include_index', 'no') == 'no'):
 	
-			if($key = array_search('index.html', $map)):
-			
-				unset($map[$key]);
-			
-			endif;
+			if(isset($map['index.html'])) unset($map['index.html']);
 			
 		endif;
-
+				
 		$vars = array();
 		$count = 0;
 		// Run through each page and get some info
-		foreach($map as $file_name):
+		foreach($map as $file_name => $file_info):
 		
 			// Create guessed name
 			$name = str_replace('.html', '', $file_name);
 			$name = str_replace(array('-', '.', '_'), ' ', $name);
+			
+			// Guess the name
 			$vars['pages'][$count]['guessed_name'] = ucwords($name);
 			$vars['pages'][$count]['uri'] = $url.'/'.str_replace('.html', '', $file_name);
 			$vars['pages'][$count]['url'] = site_url($url.'/'.str_replace('.html', '', $file_name));
+
+			// Get the date
+			$vars['pages'][$count]['date'] = date($this->CI->config->item('fizl_date_format'), $file_info['date']);
 		
 			$count++;
 		
