@@ -38,6 +38,16 @@ class Plugin_Helper extends Plugin
 		return $timestamp ? format_date($timestamp, $format) : format_date(now(), $format);
 	}
 
+	public function gravatar()
+	{
+		$email		= $this->attribute('email', '');
+		$size		= $this->attribute('size', '50');
+		$rating		= $this->attribute('rating', 'g');
+		$url_only	= (bool) in_array($this->attribute('url_only', 'false'), array('1', 'y', 'yes', 'true'));
+
+		return gravatar($email, $size, $rating, $url_only);
+	}
+
 	public function strip()
 	{
 		return preg_replace('!\s+!', $this->attribute('replace', ' '), $this->content());
