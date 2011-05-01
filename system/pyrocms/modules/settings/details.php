@@ -2,7 +2,7 @@
 
 class Module_Settings extends Module {
 
-	public $version = '0.4';
+	public $version = '0.6';
 
 	public function info()
 	{
