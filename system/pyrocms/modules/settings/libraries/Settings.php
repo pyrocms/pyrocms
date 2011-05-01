@@ -171,7 +171,13 @@ class Settings
 			return self::$cache;
 		}
 
-		$settings = ci()->settings_m->get_all();
+		// FIXME: Put this back after 1.2.2 is released
+		// $settings = ci()->settings_m->get_all();
+		
+		$settings = ci()->db
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->get('settings')
+			->result();
 
 		foreach($settings as $setting)
 		{
