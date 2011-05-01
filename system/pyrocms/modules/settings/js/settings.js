@@ -12,7 +12,7 @@ jQuery(function($){
 			});
 			order = order.join(',');
 
-			$.post(BASE_URL + 'index.php/admin/settings/ajax_update_order', { order: order });
+			$.post(BASE_URL + 'admin/settings/ajax_update_order', { order: order });
 		}
 
 	}).disableSelection();
