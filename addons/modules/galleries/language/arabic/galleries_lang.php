@@ -35,9 +35,9 @@ $lang['galleries.comments_disabled_label']	= 'لا';
 $lang['galleries.published_yes_label']		= 'نعم';
 $lang['galleries.published_no_label']		= 'لا';
 $lang['galleries.css_label']				= 'CSS';
-$lang['galleries.js_label']					= 'JavaScript';
+$lang['galleries.js_label']					= 'جافاسكربت';
 
-// General labels
+// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
 $lang['galleries.title_label']				= 'العنوان';
 $lang['galleries.slug_label']				= 'مُختصر الرابط';
 $lang['galleries.folder_label']				= 'مجلد';
@@ -56,6 +56,6 @@ $lang['galleries.upload_label']				= 'رفع صورة';
 $lang['galleries.sub-galleries_label']		= 'معارض الصّور الفرعيّة';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.content_label']			= 'مُحتوى معرض الصّور';
+$lang['galleries.design_label']				= 'التصميم';
+$lang['galleries.script_label']				= 'النص البرمجي';

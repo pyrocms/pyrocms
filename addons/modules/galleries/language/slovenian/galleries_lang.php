@@ -37,7 +37,7 @@ $lang['galleries.published_no_label']		= 'Ne';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels
+// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
 $lang['galleries.title_label']				= 'Naslov';
 $lang['galleries.slug_label']				= 'nasov url';
 $lang['galleries.folder_label']				= 'Mapa';
@@ -56,6 +56,6 @@ $lang['galleries.upload_label']				= 'Naloži sliko';
 $lang['galleries.sub-galleries_label']		= 'Pod Galerije';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.content_label']			= 'Vsebina galerije';
+$lang['galleries.design_label']				= 'Izgled';
+$lang['galleries.script_label']				= 'Koda';

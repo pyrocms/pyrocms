@@ -36,7 +36,7 @@ $lang['pages.js_label']									= 'JavaScript';
 $lang['pages.access_label']							= 'Доступ';
 $lang['pages.rss_enabled_label']				= 'Включить RSS';
 $lang['pages.comments_enabled_label']		= 'Разрешить комментарии';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']						= 'Это страница по-умолчанию (главная)?';
 
 $lang['pages.status_label']							= 'Статус';
 $lang['pages.draft_label']							= 'Черновик';

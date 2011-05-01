@@ -67,12 +67,12 @@
 			});
 
 			// Auto-create a short-name
-			$('input[name="title"]').live('keyup', function(){
+			$('input[name="title"]').live('keyup', $.debounce(350, function(e){
 				var form = $(this).parents('form');
-				$.post(BASE_URL + '/ajax/url_title', { title : $(this).val() }, function(slug){
+				$.post(BASE_URL + 'index.php/ajax/url_title', { title : $(this).val() }, function(slug){
 					$('input[name="slug"]', form).val(slug);
 				});
-			});
+			}));
 
 			$('#add-area-box form').live('submit', function(e){
 				e.preventDefault();

@@ -19,7 +19,7 @@
 // Titles
 $lang['files.files_title']					= 'Datoteke';
 $lang['files.upload_title']					= 'Naloži datoteke';
-$lang['files.edit_title']					= 'Edit file "%s"'; #translate
+$lang['files.edit_title']					= 'Uredi datoteko "%s"';
 
 // Labels
 $lang['files.actions_label']				= 'Akcija';
@@ -32,8 +32,8 @@ $lang['files.type_label']					= 'Tip';
 $lang['files.file_label']					= 'Datoteka';
 $lang['files.filename_label']				= 'Naziv datoteke';
 $lang['files.filter_label']					= 'Razvrstitev';
-$lang['files.loading_label']				= 'Nalagam...'; #translate
-$lang['files.name_label']					= 'Name'; #translate
+$lang['files.loading_label']				= 'Nalagam...';
+$lang['files.name_label']					= 'Ime';
 
 $lang['files.dropdown_no_subfolders']		= '-- Brez --';
 $lang['files.dropdown_root']				= '-- Root --';
@@ -44,24 +44,24 @@ $lang['files.type_d']						= 'Dokument';
 $lang['files.type_i']						= 'Slika';
 $lang['files.type_o']						= 'Ostalo';
 
-$lang['files.display_grid']					= 'Grid'; #translate
-$lang['files.display_list']					= 'List'; #translate
+$lang['files.display_grid']					= 'Mreža';
+$lang['files.display_list']					= 'Seznam';
 
 // Messages
 $lang['files.create_success']				= 'Datoteka je bila shranjena.';
-$lang['files.create_error']					= 'An error as occourred.'; #translate
-$lang['files.edit_success']					= 'The file was successfully saved.'; #translate
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.'; #translate
+$lang['files.create_error']					= 'Prišlo je do napake.';
+$lang['files.edit_success']					= 'Datoteka je bila uspešno shranjena';
+$lang['files.edit_error']					= 'Prišlo je do napake pri shranjevanju datoteke';
 $lang['files.delete_success']				= 'Datoteka je bila izbrisana';
 $lang['files.delete_error']					= 'Datoteko ni možno izbrisati.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"'; #translate
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".'; #translate
+$lang['files.mass_delete_success']			= '%d od %d datotek je bilo uspešno odstranjenih, bile so od "%s in %s"';
+$lang['files.mass_delete_error']			= 'Prišlo je do napake med poizkusom izbrisa %d od %d datotek, v "%s in %s".';
 $lang['files.upload_error']					= 'Datoteka mora biti naložena.';
 $lang['files.invalid_extension']			= 'Datoteka mora imeti končnico.';
 $lang['files.not_exists']					= 'Izbrana je bila neveljavna mapa';
 $lang['files.no_files']						= 'Trenutno ni datotek.';
 $lang['files.no_permissions']				= 'Nimate dovolj dovoljen za ogled tega modula.';
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.'; #translate
+$lang['files.no_select_error'] 				= 'Najprej morate izbrati datoteko, zahteva je bila prekinjena';
 
 // File folders
 
@@ -70,7 +70,7 @@ $lang['file_folders.folders_title']			= 'Mape datotek';
 $lang['file_folders.manage_title']			= 'Uredi mape';
 $lang['file_folders.create_title']			= 'Nova mapa';
 $lang['file_folders.delete_title']			= 'Potrdi izbris';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"'; #translate
+$lang['file_folders.edit_title']			= 'Uredi mapo "%s"';
 
 // Labels
 $lang['file_folders.folders_label']			= 'Mape';
@@ -83,14 +83,15 @@ $lang['file_folders.created_label']			= 'Ustvarjeno';
 
 // Messages
 $lang['file_folders.create_success']		= 'Mapa je bila shranjena.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.'; #translate
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".'; #translate
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
+$lang['file_folders.create_error']			= 'Prišlo je do napake pri ustvarjanju vaše mape.';
+$lang['file_folders.edit_success']			= 'Mapa je bila uspešno shranjena';
+$lang['file_folders.edit_error']			= 'Prišlo je do napake pri shranjevanju sprememb.';
+$lang['file_folders.confirm_delete']		= 'Ali ste prepričani da želite odstraniti spodnje mape, skupaj s vsemi datotekam in podmapami v njih?';
+$lang['file_folders.delete_mass_success']	= '%d od %d map je bilo uspešno odstranjenih v "%s in %s.';
+$lang['file_folders.delete_mass_error']		= 'Prišlo je do napake pri izbrisu  %d od %d map v "%s in %s".';
 $lang['file_folders.delete_success']		= 'Mapa "%s" je bila izbrisana';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".'; #translate
+$lang['file_folders.delete_error']			= 'Prišlo je do napake pri poizkusu izbrisa mape "%s".';
 $lang['file_folders.not_exists']			= 'Izbrana je bila neveljavna mapa.';
 $lang['file_folders.no_subfolders']			= 'Brez';
 $lang['file_folders.no_folders']			= 'Vaše datoteke so razvrščene po mapah, trenutno nimate usvarjene nobene mape.';

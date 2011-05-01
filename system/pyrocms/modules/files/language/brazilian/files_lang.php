@@ -83,6 +83,7 @@ $lang['file_folders.created_label']			= 'Criado em';
 // Messages
 $lang['file_folders.create_success']		= 'A pasta foi salva com sucesso.';
 $lang['file_folders.create_error']			= 'Ocorreu um erro ao tentar criar sua pasta.';
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
 $lang['file_folders.edit_success']			= 'A pasta foi salva com sucesso.';
 $lang['file_folders.edit_error']			= 'Ocorreu um erro ao tentar salvar as alterações.';
 $lang['file_folders.confirm_delete']		= 'Tem certeza de que deseja remover as pastas abaixo, incluindo todos os arquivos e subpastas dentro delas?';

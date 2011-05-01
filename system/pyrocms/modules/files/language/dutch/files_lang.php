@@ -83,6 +83,7 @@ $lang['file_folders.created_label']			= 'Gemaakt Op';
 // Messages
 $lang['file_folders.create_success']		= 'De folder is opgeslagen.';
 $lang['file_folders.create_error']			= 'Een fout is opgetreden tijdens een poging om je map te maken.';
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
 $lang['file_folders.edit_success']			= 'De map is opgeslagen.';
 $lang['file_folders.edit_error']			= 'Er is een fout opgetreden tijdens het proberen om de wijzigingen op te slaan.';
 $lang['file_folders.confirm_delete']		= 'Weet u zeker dat u de mappen hieronder wilt verwijderen, inclusief alle bestanden en submappen erin?';

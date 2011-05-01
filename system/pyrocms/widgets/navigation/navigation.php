@@ -49,7 +49,7 @@ class Widget_Navigation extends Widgets
 	{
 		$this->load->model('navigation/navigation_m');
 
-		$links = $this->pyrocache->model('navigation_m', 'load_group', $options['group'], $this->settings->item('navigation_cache'));
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $options['group'], $this->settings->item('navigation_cache'));
 
 		$widget		=& $options['widget'];
 		$title		= isset($widget['title_tag'])	? '<' . $widget['title_tag'] . '>' . $widget['instance_title'] . '</' . $widget['title_tag'] . '>' : '';
@@ -63,7 +63,7 @@ class Widget_Navigation extends Widgets
 			'links'				=> $links,
 			'title'				=> $title,
 			'list_open_tag'		=> '<' . $list_tag . $list_id . $list_class . '>',
-			'list_close_tag'	=> '<' . $list_tag . '>',
+			'list_close_tag'	=> '</' . $list_tag . '>',
 			'group'				=> $options['group']
 		);
 	}

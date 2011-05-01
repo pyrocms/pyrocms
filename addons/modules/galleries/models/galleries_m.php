@@ -57,7 +57,7 @@ class Galleries_m extends MY_Model {
 		$this->db
 			->select('g.*, f.filename, f.extension, f.id as file_id, ff.parent_id as parent')
 			->from('galleries g')
-			->join('gallery_images gi', 'gi.id = g.thumbnail_id', 'left')
+			->join('gallery_images gi', 'gi.file_id = g.thumbnail_id', 'left')
 			->join('files f', 'f.id = gi.file_id', 'left')
 			->join('file_folders ff', 'ff.id = g.folder_id', 'left')
 			->where('g.published', '1');
@@ -93,10 +93,11 @@ class Galleries_m extends MY_Model {
 			));
 		}
 
-		return (bool) parent::insert(array(
+		return (int) parent::insert(array(
 			'title'				=> $input['title'],
 			'slug'				=> $input['slug'],
 			'folder_id'			=> $input['folder_id'],
+			'thumbnail_id'		=> ! empty($input['gallery_thumbnail']) ? (int) $input['gallery_thumbnail'] : NULL,
 			'description'		=> $input['description'],
 			'enable_comments'	=> $input['enable_comments'],
 			'published'			=> $input['published'],

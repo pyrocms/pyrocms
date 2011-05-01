@@ -62,7 +62,7 @@ class Events_Templates {
             $this->ci->email->subject($subject);
             $this->ci->email->message($body);
 
-            return (bool) $this->ci->email->send();
+			return (bool) $this->ci->email->send();
         }
 
         //return false if we can't find the necessary templates

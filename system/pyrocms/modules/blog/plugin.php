@@ -27,17 +27,15 @@ class Plugin_Blog extends Plugin
 	 */
 	function posts($data = array())
 	{
-		$limit = $this->attribute('limit', 10);
-		$category = $this->attribute('category');
-		$order = $this->attribute('order');
+		$limit		= $this->attribute('limit', 10);
+		$category	= $this->attribute('category');
+		$order		= $this->attribute('order');
 
 		if ($category)
 		{
-			is_numeric($category)
-				? $this->db->where('c.id', $category)
-				: $this->db->where('c.slug', $category);
+			$this->db->where('c.' . (is_numeric($category) ? 'id' : 'slug'), $category);
 		}
-		
+
 		return $this->db
 			->select('blog.*, c.title as category_title, c.slug as category_slug')
 			->where('status', 'live')

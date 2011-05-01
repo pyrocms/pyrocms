@@ -2,7 +2,7 @@
 
 class Module_Files extends Module {
 
-	public $version = '1.1beta';
+	public $version = '1.2';
 
 	public function info()
 	{
@@ -22,7 +22,8 @@ class Module_Files extends Module {
 				'es' => 'Archivos',
 				'fi' => 'Tiedostot',
 				'el' => 'Αρχεία',
-				'he' => 'קבצים'
+				'he' => 'קבצים',
+				'lt' => 'Failai'
 			),
 			'description' => array(
 				'sl' => 'Uredi datoteke in mape na vaši strani',
@@ -39,7 +40,8 @@ class Module_Files extends Module {
 				'es' => 'Administra archivos y carpetas en tu sitio.',
 				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
 				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
-				'he' => 'ניהול תיקיות וקבצים שבאתר'
+				'he' => 'ניהול תיקיות וקבצים שבאתר',
+				'lt' => 'Katalogų ir bylų valdymas.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

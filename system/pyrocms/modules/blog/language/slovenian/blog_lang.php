@@ -32,7 +32,7 @@ $lang['blog_author_name_label']              = 'Ime avtorja';
 $lang['blog_read_more_label']                = 'Preberi vse&nbsp;&raquo;';
 $lang['blog_created_hour']                   = 'Ustvarjeno ura';
 $lang['blog_created_minute']                 = 'Ustvarjeno minuta';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'Komentaji omogočeni';
 
 // titles
 $lang['blog_create_title']                   = 'Dodaj prispevek';
@@ -63,7 +63,7 @@ $lang['blog_twitter_posted']                 = 'Objavljeno "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter napaka';
 
 // date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%d' %m' %Y"; #translate format - see php strftime documentation
 
 /* End of file blog_lang.php */
 /* Location: ./system/pyrocms/modules/blog/language/slovenian/blog_lang.php */

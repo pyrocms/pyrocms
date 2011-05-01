@@ -124,7 +124,7 @@ footer {
 
 /* !Grid System  */
 
-.row { *zoom: 1; display: table-row; }
+/*.row { *zoom: 1; display: table-row; }*/
 .row:after,
 .last-column:after {
 	clear:both;

@@ -4,7 +4,6 @@
  * The galleries module enables users to create albums, upload photos and manage their existing albums.
  *
  * @author 		PyroCMS Dev Team
- * @modified	Jerel Unruh - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Gallery Module
  * @category 	Modules
@@ -22,11 +21,6 @@ class Gallery_images_m extends MY_Model
 	public function __construct()
 	{
 		parent::__construct();
-		
-		// Load all required classes
-		$this->config->load('gallery_config', FALSE, FALSE, 'galleries');
-		$this->load->library('upload');
-		$this->load->library('image_lib');
 	}
 	
 	/**
@@ -157,6 +151,39 @@ class Gallery_images_m extends MY_Model
 		}
 
 		return TRUE;
+	}
+	
+	/**
+	 * Preview images from folder
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @param int $id The ID of the folder
+	 * @param array $options Options
+	 * @return mixed
+	 */
+	public function get_images_by_file_folder($id, $options = array())
+	{
+
+		if (isset($options['offset']))
+		{
+			$this->db->limit($options['offset']);
+		}
+
+		if (isset($options['limit']))
+		{
+			$this->db->limit($options['limit']);
+		}
+
+		// Grand finale, do what you gotta do!!
+		$images = $this->db
+				->select('files.*')
+				->where('folder_id', $id)
+				->where('files.type', 'i')
+				->get('files')
+				->result();
+
+		return $images;
 	}
 	
 	/**

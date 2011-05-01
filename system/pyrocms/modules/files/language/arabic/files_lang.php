@@ -18,7 +18,7 @@
 // Titles
 $lang['files.files_title']					= 'الملفات';
 $lang['files.upload_title']					= 'رفع الملفات';
-$lang['files.edit_title']					= 'Edit file "%s"'; #translate
+$lang['files.edit_title']					= 'تعديل الملف "%s"';
 
 // Labels
 $lang['files.actions_label']				= 'الإجراء';
@@ -32,7 +32,7 @@ $lang['files.file_label']					= 'الملف';
 $lang['files.filename_label']				= 'إسم الملف';
 $lang['files.filter_label']					= 'انتقاء';
 $lang['files.loading_label']				= 'جاري التحميل...';
-$lang['files.name_label']					= 'Name'; #translate
+$lang['files.name_label']					= 'الاسم';
 
 $lang['files.dropdown_no_subfolders']		= '-- لاشيء --';
 $lang['files.dropdown_root']				= '-- رئيسي --';
@@ -48,19 +48,19 @@ $lang['files.display_list']					= 'سرد';
 
 // Messages
 $lang['files.create_success']				= 'تم حفظ الملف.';
-$lang['files.create_error']					= 'An error as occourred.'; #translate
-$lang['files.edit_success']					= 'The file was successfully saved.'; #translate
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.'; #translate
+$lang['files.create_error']					= 'حدث خطأ ما.';
+$lang['files.edit_success']					= 'تم حفظ الملف بنجاح.';
+$lang['files.edit_error']					= 'حدث خطأ أثناء محاولة حفظ الملف.';
 $lang['files.delete_success']				= 'تم حذف الملف';
 $lang['files.delete_error']					= 'تعذر حذف الملف.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"'; #translate
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".'; #translate
-$lang['files.upload_error']					= 'A file must be uploaded.'; #translate
-$lang['files.invalid_extension']			= 'File must have a valid extension.'; #translate
+$lang['files.mass_delete_success']			= '%d من %d ملفات تم حذفها بنجاح، وهي "%s و %s"';
+$lang['files.mass_delete_error']			= 'حدث خطأ أثناء محاولة حذف %d من %d ملفات، والتي هي "%s و %s".';
+$lang['files.upload_error']					= 'يجب رفع ملف.';
+$lang['files.invalid_extension']			= 'يجب أن يكون للملف امتداد صحيحة.';
 $lang['files.not_exists']					= 'تم اختيار مجلد غير صالح.';
 $lang['files.no_files']						= 'لا يوجد أية ملفات.';
 $lang['files.no_permissions']				= 'ليست لديك صلاحية الوصول إلى وحدة الملفات.';
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.'; #translate
+$lang['files.no_select_error'] 				= 'يجب أن تختار ملفاً أولاً. تم إيقاف هذا الطلب.';
 
 // File folders
 
@@ -69,7 +69,7 @@ $lang['file_folders.folders_title']			= 'مجلدات الملفات';
 $lang['file_folders.manage_title']			= 'إدارة المجلدات';
 $lang['file_folders.create_title']			= 'مجلد جديد';
 $lang['file_folders.delete_title']			= 'تأكيد الحذف';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"'; #translate
+$lang['file_folders.edit_title']			= 'تعديل المجلد "%s"';
 
 // Labels
 $lang['file_folders.folders_label']			= 'مجلدات';
@@ -82,14 +82,15 @@ $lang['file_folders.created_label']			= 'أنشئ في';
 
 // Messages
 $lang['file_folders.create_success']		= 'تم حفظ المجلد.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.'; #translate
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".'; #translate
+$lang['file_folders.create_error']			= 'حدث خطأ اثناء محاولة إنشاء المجلد.';
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
+$lang['file_folders.edit_success']			= 'تم حفظ المجلد بنجاح.';
+$lang['file_folders.edit_error']			= 'حدث خطأ أثناء محاولة حفظ التغييرات.';
+$lang['file_folders.confirm_delete']		= 'متأكد أنك تريد حذف المجلدات أدناه، بما فيها من ملفات ومجلدات فرعية؟';
+$lang['file_folders.delete_mass_success']	= '%d من %d مجلدات تم حذفها بنجاح، وهي "%s و %s.';
+$lang['file_folders.delete_mass_error']		= 'حدث خطأ أثناء محاولة حذف المجلدات %d من %d، وهي "%s و %s".';
 $lang['file_folders.delete_success']		= 'تم حذف المجلد "%s".';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".'; #translate
+$lang['file_folders.delete_error']			= 'حدث خطأ أثناء محاولة حذف المجلد "%s".';
 $lang['file_folders.not_exists']			= 'تم اختيار مجلد غير صالح.';
 $lang['file_folders.no_subfolders']			= 'لاشيء';
 $lang['file_folders.no_folders']			= 'ملفاتك مرتبة ضمن مجلدات، وليس لديك حالياً أية مجلدات مُعدّة.';
