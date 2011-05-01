@@ -59,7 +59,7 @@ class Settings_m extends MY_Model {
 	 */
 	public function get_all($where = array())
 	{
-		if(!is_array($where))
+		if ( ! is_array($where))
 		{
 			$where = array('module' => $where);
 		}

@@ -79,22 +79,6 @@ class Plugin_Navigation extends Plugin
 
 		foreach ($links as $link)
 		{
-// TODO: move it to model
-//			if ($link->link_type === 'page')
-//			{
-//				$public_page = $this->pages_m->count_by(array(
-//					'id'		=> $link->page_id,
-//					'status'	=> 'live'
-//				));
-//
-//				if ( ! $public_page)
-//				{
-//					--$total; // fixes of the "last" class addition but not if the link skipped was the last
-//
-//					continue;
-//				}
-//			}
-
 			$item		= array();
 			$wrapper	= array();
 
@@ -137,7 +121,7 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// is current ?
-			if (current_url() === $link['url'] OR $link['is_home'] == TRUE AND site_url() === current_url())
+			if (current_url() === $link['url'] OR ($link['link_type'] === 'page' && $link['is_home'] == TRUE) AND site_url() === current_url())
 			{
 				$is_current = TRUE;
 				$wrapper['class'][] = $current_class;
