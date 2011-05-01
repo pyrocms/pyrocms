@@ -139,7 +139,7 @@ class Navigation_m extends MY_Model
 	 * @param array $data
 	 * @return boolean
 	 */
-	public function update_by_group($group = 0, $data)
+	public function update_by_group($group = 0, $data = array())
 	{
 		
 		return $this->db->where_in('navigation_group_id', $group)
