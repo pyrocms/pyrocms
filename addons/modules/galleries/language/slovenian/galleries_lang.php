@@ -56,6 +56,6 @@ $lang['galleries.upload_label']				= 'Naloži sliko';
 $lang['galleries.sub-galleries_label']		= 'Pod Galerije';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
-$lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.content_label']			= 'Vsebina galerije';
+$lang['galleries.design_label']				= 'Izgled';
+$lang['galleries.script_label']				= 'Koda';
