@@ -229,15 +229,11 @@ class Tags {
 	{
 		$parsed_tags = array();
 
-		$_loop_a_limit = 200;
+//		log_message('error', PHP_EOL . repeater('-', 100) . PHP_EOL . $orig_content);
+
+		$_limit = 50;
 		while (($start = strpos($orig_content, $this->_l_delim . $this->_trigger)) !== FALSE)
 		{
-			if ( ! (--$_loop_a_limit))
-			{
-				log_message('error', 'loop A error');
-				break;
-			}
-
 			$content = $orig_content;
 
 			if ( ! preg_match($this->_regex_all_tags, $content, $tag))
@@ -245,9 +241,19 @@ class Tags {
 				break;
 			}
 
+			if ( ! (--$_limit))
+			{
+				log_message('error', 'loop A error');
+
+				break;
+			}
+
 			// We use these later
 			$tag_len	= strlen($tag[0]);
 			$full_tag	= $tag[0];
+			$start		= strpos($content, $full_tag);
+
+//			log_message('error', $full_tag);
 
 			// Trim off the left and right delimeters
 			$tag = trim($full_tag, $this->_l_delim . $this->_r_delim);
@@ -293,6 +299,54 @@ class Tags {
 			$parsed['replacements'] = $count;
 
 			$parsed_tags[] = $parsed;
+		}
+
+		if ($start !== FALSE)
+		{
+			$pos_tag_start =& $start;
+
+			// we need some info before think on skip content
+			$tag_name		= $this->_l_delim . $this->_trigger;
+			$tag_unclosed	= substr($orig_content, $pos_tag_start);
+			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', $tag_unclosed);
+			$tag_end		= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
+
+			// has nested double tag ?
+			if (($pos_skip_end = strpos($orig_content, $tag_end, $pos_tag_start)) !== FALSE)
+			{
+				$tag_unclosed	= substr($tag_unclosed, strlen($tag_name));
+				$tag_name_parts = explode($this->_r_delim, $tag_unclosed);
+
+				// what is the tag name ?
+				$_skip = 0;
+				while (list($key, $part) = each($tag_name_parts))
+				{
+					$tag_name .= $part . $this->_r_delim;
+
+					// there may be something like: foo="{bar}" inside the tag that we need
+					if (($l_delim_total = substr_count($part, $this->_l_delim)) > 1)
+					{
+						$_skip += $l_delim_total - 1;
+					}
+
+					// it seems that now we can close the tag
+					if (strpos($part, $this->_l_delim) === FALSE)
+					{
+						// really, we can!
+						if (($_skip--) == 0)
+						{
+							break;
+						}
+					}
+				}
+			}
+
+			$tag_replace = $this->_l_delim . escape_tags(trim($tag_name, $this->_l_delim . $this->_r_delim)) . $this->_r_delim;
+			$orig_content = str_replace($tag_name, $tag_replace, $orig_content);
+
+			$parsed_tags = array_merge($parsed_tags, $this->_extract_tags($orig_content));
+
+//			var_dump($orig_content);die;
 		}
 
 		return $parsed_tags;
@@ -417,10 +471,14 @@ class Tags {
 			$i = $key;
 			while (($count < $tag['replacements']) && isset($parsed_tags[++$i]))
 			{
-				log_message('debug', 'occurrences nok');
+				$next_tag =& $parsed_tags[$i];
 
-				$next_tag	=& $parsed_tags[$i];
-				$occurences	= substr_count($next_tag['full_tag'], $tag['marker']);
+				if ( ! $occurences	= substr_count($next_tag['full_tag'], $tag['marker']))
+				{
+					continue;
+				}
+
+				log_message('debug', 'There more occurrences in: ' . PHP_EOL . $next_tag['full_tag']);
 
 				if (($count + $occurences) > $tag['replacements'])
 				{
@@ -468,8 +526,8 @@ class Tags {
 						$next_tag['attributes'][$j] = str_replace($tag['marker'], $return_data, $attribute);
 					}
 
-					$next_tag['content']	= str_replace($tag['marker'], $return_data, $next_tag['content']);
-					$next_tag['full_tag']	= str_replace($tag['marker'], $return_data, $next_tag['full_tag']);
+					$next_tag['content']	= str_replace($tag['marker'], $return_data, $next_tag['content'], $count_content);
+					$next_tag['full_tag']	= str_replace($tag['marker'], $return_data, $next_tag['full_tag'], $count_full_tag);
 
 					++$oc_ok;
 				}
