@@ -46,6 +46,7 @@ class Fizl extends CI_Controller {
 			'segment_5'		=> $this->uri->segment(5),
 			'segment_6'		=> $this->uri->segment(6),
 			'segment_7'		=> $this->uri->segment(7),
+			'current_year'	=> date('Y'),
 			'current_url'	=> current_url(),
 			'site_url'		=> site_url(),
 			'base_url'		=> $this->config->item('base_url')
