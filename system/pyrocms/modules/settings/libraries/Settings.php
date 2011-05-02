@@ -1,4 +1,4 @@
-<?php  defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -21,8 +21,8 @@
  * @package		PyroCMS
  * @subpackage	Settings
  */
-class Settings
-{
+class Settings {
+
 	protected $ci;
 	/**
 	 * Settings cache
@@ -30,13 +30,12 @@ class Settings
 	 * @var	array
 	 */
 	private static $cache = array();
-
 	/**
 	 * The settings table columns
 	 *
 	 * @var	array
 	 */
-	private $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module');
+	private $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
 
 	/**
 	 * The Settings Construct
@@ -44,7 +43,7 @@ class Settings
 	public function __construct()
 	{
 		ci()->load->model('settings/settings_m');
-		
+
 		$this->ci =& get_instance();
 		$this->ci->lang->load('settings/settings');
 
@@ -87,7 +86,7 @@ class Settings
 	 */
 	public static function get($name)
 	{
-		if(isset(self::$cache[$name]))
+		if (isset(self::$cache[$name]))
 		{
 			return self::$cache[$name];
 		}
@@ -107,7 +106,7 @@ class Settings
 	 * Set
 	 *
 	 * Sets a config item
-	 * 
+	 *
 	 * @param	string	$name
 	 * @param	string	$value
 	 * @return	bool
@@ -127,8 +126,6 @@ class Settings
 
 		return TRUE;
 	}
-
-
 
 	/**
 	 * Item
@@ -166,14 +163,20 @@ class Settings
 	 */
 	public function get_all()
 	{
-		if(self::$cache)
+		if (self::$cache)
 		{
 			return self::$cache;
 		}
 
-		$settings = ci()->settings_m->get_all();
+		// FIXME: Put this back after 1.2.2 is released
+		// $settings = ci()->settings_m->get_all();
+		
+		$settings = ci()->db
+			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
+			->get('settings')
+			->result();
 
-		foreach($settings as $setting)
+		foreach ($settings as $setting)
 		{
 			self::$cache[$setting->slug] = $setting->value;
 		}
@@ -191,7 +194,7 @@ class Settings
 	 */
 	public function add($setting)
 	{
-		if(!$this->_check_format($setting))
+		if ( ! $this->_check_format($setting))
 		{
 			return FALSE;
 		}
@@ -242,80 +245,78 @@ class Settings
 			}
 		}
 
-		switch($setting->type)
+		switch ($setting->type)
 		{
 			default:
 			case 'text':
 				$form_control = form_input(array(
-						'id'	=>	$setting->slug,
-						'name'	=>	$setting->slug,
-						'value'	=>	$setting->value,
-						'class' => 'text width-20'
+					'id'	=> $setting->slug,
+					'name'	=> $setting->slug,
+					'value'	=> $setting->value,
+					'class'	=> 'text width-20'
 				));
 				break;
 
 			case 'textarea':
 				$form_control = form_textarea(array(
-						'id'	=>	$setting->slug,
-						'name'	=>	$setting->slug,
-						'value'	=>	$setting->value,
-						'class'	=>	'width-20'
+					'id'	=> $setting->slug,
+					'name'	=> $setting->slug,
+					'value'	=> $setting->value,
+					'class'	=> 'width-20'
 				));
 				break;
 
 			case 'password':
 				$form_control = form_password(array(
-						'id'	=>	$setting->slug,
-						'name'	=>	$setting->slug,
-						'value'	=>	$setting->value,
-						'class' => 'text width-20'
+					'id'	=> $setting->slug,
+					'name'	=> $setting->slug,
+					'value'	=> $setting->value,
+					'class'	=> 'text width-20',
+					'autocomplete' => 'off',
 				));
 				break;
 
 			case 'select':
-				$form_control = form_dropdown(
-						$setting->slug,
-						$this->_format_options($setting->options),
-						$setting->value,
-						'class="width-20"'
-				);
+				$form_control = form_dropdown($setting->slug, $this->_format_options($setting->options), $setting->value, 'class="width-20"');
 				break;
 
 			case 'checkbox':
 
 				$form_control = '';
-				foreach($this->_format_options($setting->options) as $value => $label) {
-					
+				foreach ($this->_format_options($setting->options) as $value => $label)
+				{
+
 					if (is_array($setting->value)):
 						$checked = in_array($value, $setting->value);
 					else:
 						$checked = FALSE;
 					endif;
-				
+
 					$form_control .= $label . ' ';
-					$form_control .= ''.form_checkbox(array(
-							'id'		=>	$setting->slug,
-							'name'		=>	$setting->slug,
-							'checked'	=>	$checked,
-							'value'		=>	$value
-							));
+					$form_control .= '' . form_checkbox(array(
+						'id'		=> $setting->slug,
+						'name'		=> $setting->slug,
+						'checked'	=> $checked,
+						'value'		=> $value
+					));
 				}
 				break;
-				
+
 			case 'radio':
 
 				//$func = $setting->type == 'checkbox' ? 'form_checkbox' : 'form_radio';
 
 				$form_control = '';
 
-				foreach($this->_format_options($setting->options) as $value => $label) {
-					
-					$form_control .= ''.form_radio(array(
-							'id'		=>	$setting->slug,
-							'name'		=>	$setting->slug,
-							'checked'	=>	$setting->value == $value,
-							'value'		=>	$value
-							)) . ' ' . $label . '';
+				foreach ($this->_format_options($setting->options) as $value => $label)
+				{
+
+					$form_control .= '' . form_radio(array(
+						'id'		=> $setting->slug,
+						'name'		=> $setting->slug,
+						'checked'	=> $setting->value == $value,
+						'value'		=> $value
+					)) . ' ' . $label . '';
 				}
 				break;
 		}
@@ -361,14 +362,14 @@ class Settings
 	 */
 	private function _check_format($setting)
 	{
-		if(!isset($setting))
+		if ( ! isset($setting))
 		{
 			return FALSE;
 		}
 
-		foreach($setting as $key)
+		foreach ($setting as $key)
 		{
-			if(!array_key_exists($key, $this->columns))
+			if ( ! array_key_exists($key, $this->columns))
 			{
 				return FALSE;
 			}
@@ -376,6 +377,7 @@ class Settings
 
 		return TRUE;
 	}
+
 }
 
 /* End of file Settings.php */

@@ -9,16 +9,17 @@
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0
+ * @sloveniantranslation	IMAMO (www.imamo.si) 
  * @filesource
  */
 
-$lang['migrations.no_migrations_found']				= 'No migrations found.'; #translate
-$lang['migrations.multiple_migrations_version']		= 'Only one migration per step is permitted, there multiple migrations to step "%03d".'; #translate
-$lang['migrations.migration_not_found']				= 'Migration to step "%03d" not found.'; #translate
-$lang['migrations.multiple_migrations_name']		= 'Cannot repeat a migration at different steps, there multiple migrations named "%s".'; #translate
-$lang['migrations.migration_class_doesnt_exist']	= 'Migration class "%s" doesn\'t exist.'; #translate
-$lang['migrations.wrong_migration_interface']		= 'Wrong migration interface on class "%s".'; #translate
-$lang['migrations.invalid_migration_filename']		= 'Invalid migration filename: %s'; #translate
+$lang['migrations.no_migrations_found']				= 'Ni bilo najdenih prenosov.';
+$lang['migrations.multiple_migrations_version']		= 'Samo en prenos na korak je dovoljen, na voljo je več prenosov na korak "%03d".'; #translate
+$lang['migrations.migration_not_found']				= 'Prenos na korak "%03d" ni bil najden.';
+$lang['migrations.multiple_migrations_name']		= 'Prenosov ni mogoče ponoviti na različnih korakih, obstajajo prenosi s imenom "%s".'; #translate
+$lang['migrations.migration_class_doesnt_exist']	= 'Class prenosa "%s" ne obstaja.';
+$lang['migrations.wrong_migration_interface']		= 'Napačen izgled na prenoso pri class-u "%s".';
+$lang['migrations.invalid_migration_filename']		= 'Neveljavno ime datoteke prenosa: %s';
 
 /* End of file migrations_lang.php */
 /* Location: ./system/pyrocms/language/slovenian/migrations_lang.php */

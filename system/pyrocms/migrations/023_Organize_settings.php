@@ -1,18 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Migration_Organize_settings extends Migration {
-	
-	function up() 
+
+	function up()
 	{
-		
+
 		$this->dbforge->add_column('settings', array(
-				'`order`' => array(
-								'type' => 'int',
-								'constraint' => 5,
-								'null' => FALSE,
-								'default' => 0
-								)
-				));
+			'`order`' => array(
+				'type'			=> 'int',
+				'constraint'	=> 5,
+				'null'			=> FALSE,
+				'default'		=> 0
+			)
+		));
+
 		$this->db->where('slug', 'site_name')->update('settings', array('order' => 1000));
 		$this->db->where('slug', 'site_slogan')->update('settings', array('order' => 999));
 		$this->db->where('slug', 'meta_topic')->update('settings', array('order' => 998));
@@ -31,11 +32,11 @@ class Migration_Organize_settings extends Migration {
 		$this->db->where('slug', 'ga_password')->update('settings', array('order' => 985));
 		$this->db->where('slug', 'akismet_api_key')->update('settings', array('order' => 984));
 		$this->db->where('slug', 'contact_email')->update('settings', array('module' => 'email', 'order' => 983));
-		$this->db->where('slug', 'activation_email')->update('settings', array('module' => 'email', 'order' => 982));
-		$this->db->where('slug', 'server_email')->update('settings', array('module' => 'email', 'order' => 981));		
+		$this->db->where('slug', 'activation_email')->update('settings', array('module' => 'users', 'order' => 963));
+		$this->db->where('slug', 'server_email')->update('settings', array('module' => 'email', 'order' => 981));
 		$this->db->where('slug', 'mail_protocol')->update('settings', array('module' => 'email', 'order' => 980));
 		$this->db->where('slug', 'mail_smtp_host')->update('settings', array('module' => 'email', 'order' => 979));
-		$this->db->where('slug', 'mail_smtp_pass')->update('settings', array('module' => 'email', 'order' => 978));
+		$this->db->where('slug', 'mail_smtp_pass')->update('settings', array('module' => 'email', 'order' => 978, 'type' => 'password'));
 		$this->db->where('slug', 'mail_smtp_port')->update('settings', array('module' => 'email', 'order' => 977));
 		$this->db->where('slug', 'mail_smtp_user')->update('settings', array('module' => 'email', 'order' => 976));
 		$this->db->where('slug', 'mail_sendmail_path')->update('settings', array('module' => 'email', 'order' => 975));
@@ -49,12 +50,14 @@ class Migration_Organize_settings extends Migration {
 		$this->db->where('slug', 'moderate_comments')->update('settings', array('order' => 967));
 		$this->db->where('slug', 'comment_order')->update('settings', array('order' => 966));
 		$this->db->where('slug', 'enable_profiles')->update('settings', array('order' => 965));
-		$this->db->where('slug', 'require_lastname')->update('settings', array('order' => 964));
-	}
-		
-	
+		$this->db->where('slug', 'require_lastname')->update('settings', array('order' => 964, 'module' => 'users'));
 
-	function down() 
+	}
+
+
+
+	function down()
 	{
+		$this->dbforge->drop_column('settings', 'order');
 	}
 }

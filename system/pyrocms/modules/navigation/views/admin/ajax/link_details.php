@@ -2,7 +2,7 @@
 	<h4><?php echo $link->title; ?></h4>
 	
 	<input id="link-id" type="hidden" value="<?php echo $link->id; ?>" />
-	<input id="link-uri" type="hidden" value="<?php echo !empty($link->uri) ? $link->uri : $link->slug; ?>" />
+	<input id="link-uri" type="hidden" value="<?php echo ! empty($link->uri) ? $link->uri : ''; ?>" />
 
 	<fieldset>
 		<legend><?php echo lang('nav_details_label'); ?></legend>

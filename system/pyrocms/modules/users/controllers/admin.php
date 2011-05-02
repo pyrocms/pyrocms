@@ -240,8 +240,6 @@ class Admin extends Admin_Controller {
 		// Get the user's data
 		$member = $this->ion_auth->get_user($id);
 
-		$member->full_name = $member->first_name . ' ' . $member->last_name;
-
 		// Got user?
 		if (!$member)
 		{
@@ -315,6 +313,21 @@ class Admin extends Admin_Controller {
 		$this->template
 				->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
 				->build('admin/form', $this->data);
+	}
+
+	/**
+	 * Show a user preview
+	 * @access	public
+	 * @param	int $id The ID of the user
+	 * @return	void
+	 */
+	public function preview($id = 0)
+	{
+		$data->user = $this->ion_auth->get_user($id);
+
+		$this->template
+			->set_layout('modal', 'admin')
+			->build('admin/preview', $data);
 	}
 
 	/**
@@ -432,7 +445,7 @@ class Admin extends Admin_Controller {
 			return TRUE;
 		}
 	}
-	
+
 	/**
 	 * Check that a proper group has been selected
 	 *
