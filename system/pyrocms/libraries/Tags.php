@@ -303,43 +303,7 @@ class Tags {
 
 		if ($start !== FALSE)
 		{
-			$pos_tag_start =& $start;
-
-			// we need some info before think on skip content
-			$tag_name		= $this->_l_delim . $this->_trigger;
-			$tag_unclosed	= substr($orig_content, $pos_tag_start);
-			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', $tag_unclosed);
-			$tag_end		= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
-
-			// has nested double tag ?
-			if (($pos_skip_end = strpos($orig_content, $tag_end, $pos_tag_start)) !== FALSE)
-			{
-				$tag_unclosed	= substr($tag_unclosed, strlen($tag_name));
-				$tag_name_parts = explode($this->_r_delim, $tag_unclosed);
-
-				// what is the tag name ?
-				$_skip = 0;
-				while (list($key, $part) = each($tag_name_parts))
-				{
-					$tag_name .= $part . $this->_r_delim;
-
-					// there may be something like: foo="{bar}" inside the tag that we need
-					if (($l_delim_total = substr_count($part, $this->_l_delim)) > 1)
-					{
-						$_skip += $l_delim_total - 1;
-					}
-
-					// it seems that now we can close the tag
-					if (strpos($part, $this->_l_delim) === FALSE)
-					{
-						// really, we can!
-						if (($_skip--) == 0)
-						{
-							break;
-						}
-					}
-				}
-			}
+			$tag_name = $this->_extract_complex_tag($orig_content, $start);
 
 			$tag_replace = $this->_l_delim . escape_tags(trim($tag_name, $this->_l_delim . $this->_r_delim)) . $this->_r_delim;
 			$orig_content = str_replace($tag_name, $tag_replace, $orig_content);
@@ -348,6 +312,38 @@ class Tags {
 		}
 
 		return $orig_content;
+	}
+
+	public function _extract_complex_tag($content = '', $pos_tag_start = 0)
+	{
+		$tag_name		= $this->_l_delim . $this->_trigger;
+		$tag_unclosed	= substr($content, $pos_tag_start + strlen($tag_name));
+		$tag_name_parts = explode($this->_r_delim, $tag_unclosed);
+
+		// what is the tag name ?
+		$_skip = 0;
+		while (list($key, $part) = each($tag_name_parts))
+		{
+			$tag_name .= $part . $this->_r_delim;
+
+			// there may be something like: foo="{bar}" inside the tag that we need
+			if (($l_delim_total = substr_count($part, $this->_l_delim)) > 1)
+			{
+				$_skip += $l_delim_total - 1;
+			}
+
+			// it seems that now we can close the tag
+			if (strpos($part, $this->_l_delim) === FALSE)
+			{
+				// really, we can!
+				if (($_skip--) == 0)
+				{
+					break;
+				}
+			}
+		}
+
+		return $tag_name;
 	}
 
 	public function _skip_content($parsed = array(), $content = '')
@@ -365,39 +361,13 @@ class Tags {
 			}
 
 			// we need some info before think on skip content
-			$tag_name		= $this->_l_delim . $this->_trigger;
-			$tag_unclosed	= substr($content, $pos_tag_start);
-			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', $tag_unclosed);
+			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', substr($content, $pos_tag_start));
 			$tag_end		= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
 
 			// has nested double tag ?
 			if (($pos_skip_end = strpos($content, $tag_end, $pos_tag_start)) !== FALSE)
 			{
-				$tag_unclosed	= substr($tag_unclosed, strlen($tag_name));
-				$tag_name_parts = explode($this->_r_delim, $tag_unclosed);
-
-				// what is the tag name ?
-				$_skip = 0;
-				while (list($key, $part) = each($tag_name_parts))
-				{
-					$tag_name .= $part . $this->_r_delim;
-
-					// there may be something like: foo="{bar}" inside the tag that we need
-					if (($l_delim_total = substr_count($part, $this->_l_delim)) > 1)
-					{
-						$_skip += $l_delim_total - 1;
-					}
-
-					// it seems that now we can close the tag
-					if (strpos($part, $this->_l_delim) === FALSE)
-					{
-						// really, we can!
-						if (($_skip--) == 0)
-						{
-							break;
-						}
-					}
-				}
+				$tag_name = $this->_extract_complex_tag($content, $pos_tag_start);
 
 				// ok! we have the tag name and a position to starts skip content
 				$pos_skip_start	= $pos_tag_start + strlen($tag_name);
@@ -417,7 +387,7 @@ class Tags {
 			else
 			{
 				// just increase offset position
-				$offset += strlen($tag_name);
+				++$offset;
 			}
 		}
 
