@@ -137,6 +137,8 @@ class Tags {
 			return $content;
 		}
 
+		log_message('debug', 'Tag Class: Parser method Initialized');
+
 		$this->_current_callback	= $callback;
 		$this->_regex_all_tags		= '/' . $this->_l_delim . $this->_trigger . '[^' . $this->_l_delim . $this->_r_delim . ']*?' . $this->_r_delim . '/i';
 		$this->_tags				= array();
@@ -170,7 +172,7 @@ class Tags {
 
 				if ($escaped)
 				{
-					log_message('debug', "There's a probability of exists a syntax error in:" . PHP_EOL . $content);
+					log_message('debug', "There's a probability of exists a syntax error in:" . PHP_EOL . "\t\t\t\t\t\t\t\t=> " . $content);
 				}
 			}
 
@@ -182,16 +184,109 @@ class Tags {
 			$this->_skip_content = array();
 		}
 
-		$content = $this->_extract_tags($content);
+// currently most slow
+//		$hash = md5($content . $this->_l_delim . $this->_trigger . $this->_r_delim . $this->_regex_all_tags);
+//
+//		if ( ! $cache = ci()->pyrocache->get('parser/' . $hash))
+//		{
+//			log_message('info', 'Tag Class: Saving cache...');
+//
+//			$cache = array();
+//
+//			$content = $this->_extract_tags($content);
+//
+//			if (isset($escaped) && $escaped)
+//			{
+//				$content = str_replace(array_keys($escaped), array_values($escaped), $content);
+//			}
+//
+//			$cache['content'] = $content;
+//
+//			foreach ($this as $prop => $val)
+//			{
+//				if ( ! in_array($prop, array('_current_callback')))
+//				{
+//					$cache[$prop] = $val;
+//				}
+//			}
+//
+//			// Cache for next time
+//			ci()->pyrocache->write($cache, 'parser/' . $hash, 60 * 60 * 24); // 24 hours
+//		}
+//		else
+//		{
+//			log_message('info', 'Tag Class: Retrieving cache...');
+//
+//			$content = $cache['content'];
+//
+//			foreach ($cache as $prop => $val)
+//			{
+//				if ( ! in_array($prop, array('content')))
+//				{
+//					$this->{$prop} = $val;
+//				}
+//			}
+//		}
 
-		if (isset($escaped) && $escaped)
+// currently most fast
+		$hash = md5($content . $this->_l_delim . $this->_trigger . $this->_r_delim . $this->_regex_all_tags);
+
+		ci()->load->driver('cache');
+
+		if ( ! $cache = ci()->cache->file->get('parser-fragment-' . $hash))
 		{
-			$content = str_replace(array_keys($escaped), array_values($escaped), $content);
+			log_message('info', 'Tag Class: Saving cache...');
+
+			$cache = array();
+
+			$content = $this->_extract_tags($content);
+
+			if (isset($escaped) && $escaped)
+			{
+				$content = str_replace(array_keys($escaped), array_values($escaped), $content);
+			}
+
+			$cache['content'] = $content;
+
+			foreach ($this as $prop => $val)
+			{
+				if ( ! in_array($prop, array('_current_callback')))
+				{
+					$cache[$prop] = $val;
+				}
+			}
+
+			// Cache for next time
+			ci()->cache->file->save('parser-fragment-' . $hash, $cache, 60 * 60 * 24); // 24 hours
 		}
+		else
+		{
+			log_message('info', 'Tag Class: Retrieving cache...');
+
+			$content = $cache['content'];
+
+			foreach ($cache as $prop => $val)
+			{
+				if ( ! in_array($prop, array('content')))
+				{
+					$this->{$prop} = $val;
+				}
+			}
+		}
+
+// currently most fast
+//		$content = $this->_extract_tags($content);
+//
+//		if (isset($escaped) && $escaped)
+//		{
+//			$content = str_replace(array_keys($escaped), array_values($escaped), $content);
+//		}
 
 		if ( ! $this->_tags)
 		{
 			$content = $this->parse_php($this->parse_conditionals($content), $data);
+
+			log_message('debug', 'Tag Class: Parser method End');
 
 			return array(
 				'content'	=> $content,
@@ -221,13 +316,15 @@ class Tags {
 
 		$content = $this->parse_php($this->parse_conditionals($content), $data);
 
+		log_message('debug', 'Tag Class: Parser method End');
+
 		return array(
 			'content'	=> $content,
 			'tags'		=> $this->_tags
 		);
 	}
 
-	public function _extract_tags($orig_content = '', $attemp = 0)
+	private function _extract_tags($orig_content = '', $attemp = 0)
 	{
 		$_limit = 50;
 		while (($start = strpos($orig_content, $this->_l_delim . $this->_trigger)) !== FALSE)
@@ -241,7 +338,7 @@ class Tags {
 
 			if ( ! (--$_limit))
 			{
-				log_message('error', 'loop A error');
+				log_message('error', 'Tag Class: Extract tag loop aborted');
 
 				break;
 			}
@@ -310,7 +407,7 @@ class Tags {
 		return $orig_content;
 	}
 
-	public function _get_tag_by_pos($content = '', $start = 0)
+	private function _get_tag_by_pos($content = '', $start = 0)
 	{
 		$tag_name		= $this->_l_delim . $this->_trigger;
 		$tag_unclosed	= substr($content, $start + strlen($tag_name));
@@ -342,7 +439,7 @@ class Tags {
 		return $tag_name;
 	}
 
-	public function _skip_content($tag = array(), $content = '')
+	private function _skip_content($tag = array(), $content = '')
 	{
 		$offset = 0;
 		$_limit = 300;
@@ -351,7 +448,7 @@ class Tags {
 			// this is still experimental so we must prevent infinite loops
 			if ( ! (--$_limit))
 			{
-				log_message('error', 'loop B error');
+				log_message('error', 'Tag Class: Skip content loop aborted');
 
 				break;
 			}
@@ -393,7 +490,7 @@ class Tags {
 		return $tag;
 	}
 
-	public function _replace_data($content = '', $data = array())
+	private function _replace_data($content = '', $data = array())
 	{
 		// Clean up the array
 		$data = $this->_force_array($data);
@@ -443,7 +540,7 @@ class Tags {
 					continue;
 				}
 
-				log_message('debug', 'There more occurrences in: ' . PHP_EOL . $next_tag['full_tag']);
+				log_message('debug', 'Tag Class: There more occurrences in:' . PHP_EOL . "\t\t\t\t\t\t\t\t=> " . $next_tag['full_tag']);
 
 				if (($count + $occurences) > $tag['replacements'])
 				{
@@ -460,7 +557,7 @@ class Tags {
 
 							if ($count_attributes === $tag['replacements'])
 							{
-								// update full_tag
+								// todo: update full_tag
 								break 3;
 							}
 						}
@@ -476,7 +573,7 @@ class Tags {
 
 							if ($count_content === $tag['replacements'])
 							{
-								// update full_tag
+								// todo: update full_tag
 								break 3;
 							}
 						}
@@ -498,8 +595,8 @@ class Tags {
 				}
 			}
 
-			$oc_nok && log_message('debug', sprintf('%d occurrences nok', $oc_nok));
-			$oc_ok && log_message('debug', sprintf('%d occurrences ok', $oc_ok));
+			$oc_nok && log_message('debug', sprintf('Tag Class: Find %d occurrences nok', $oc_nok));
+			$oc_ok && log_message('debug', sprintf('Tag Class: Find %d occurrences ok', $oc_ok));
 
 			unset($this->_tags[$key]);
 		}
