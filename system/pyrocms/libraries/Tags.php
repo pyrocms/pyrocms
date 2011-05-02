@@ -33,6 +33,7 @@ class Tags {
 	private $_current_callback	= array();
 	private $_regex_all_tags	= '';
 	private $_skip_content		= array();
+	private $_tags				= array();
 
 	// --------------------------------------------------------------------
 
@@ -138,6 +139,7 @@ class Tags {
 
 		$this->_current_callback	= $callback;
 		$this->_regex_all_tags		= '/' . $this->_l_delim . $this->_trigger . '[^' . $this->_l_delim . $this->_r_delim . ']*?' . $this->_r_delim . '/i';
+		$this->_tags				= array();
 
 		$orig_content = $this->parse_globals($content, $data);
 
@@ -180,14 +182,14 @@ class Tags {
 			$this->_skip_content = array();
 		}
 
-		$parsed_tags = $this->_extract_tags($orig_content);
+		$orig_content = $this->_extract_tags($orig_content);
 
 		if (isset($escaped) && $escaped)
 		{
 			$orig_content = str_replace(array_keys($escaped), array_values($escaped), $orig_content);
 		}
 
-		if ( ! $parsed_tags)
+		if ( ! $this->_tags)
 		{
 			$orig_content = $this->parse_php($this->parse_conditionals($orig_content), $data);
 
@@ -197,12 +199,12 @@ class Tags {
 			);
 		}
 
-		$orig_content = $this->_replace_data($orig_content, $parsed_tags, $data);
+		$orig_content = $this->_replace_data($orig_content, $data);
 
 		// If there is a callback, call it for each tag
 		if ( ! empty($callback) AND is_callable($callback))
 		{
-			foreach ($parsed_tags as $tag)
+			foreach ($this->_tags as $tag)
 			{
 				$orig_content = str_replace($tag['marker'], call_user_func($callback, $tag), $orig_content);
 			}
@@ -211,7 +213,7 @@ class Tags {
 		// If there is no callback then lets loop through any remaining tags and just set them as ''
 		else
 		{
-			foreach ($parsed_tags as $tag)
+			foreach ($this->_tags as $tag)
 			{
 				$orig_content = str_replace($tag['marker'], '', $orig_content);
 			}
@@ -221,14 +223,12 @@ class Tags {
 
 		return array(
 			'content'	=> $orig_content,
-			'tags'		=> $parsed_tags
+			'tags'		=> $this->_tags
 		);
 	}
 
-	public function _extract_tags(&$orig_content = '')
+	public function _extract_tags($orig_content = '')
 	{
-		$parsed_tags = array();
-
 //		log_message('error', PHP_EOL . repeater('-', 100) . PHP_EOL . $orig_content);
 
 		$_limit = 50;
@@ -298,7 +298,7 @@ class Tags {
 
 			$parsed['replacements'] = $count;
 
-			$parsed_tags[] = $parsed;
+			$this->_tags[] = $parsed;
 		}
 
 		if ($start !== FALSE)
@@ -344,12 +344,10 @@ class Tags {
 			$tag_replace = $this->_l_delim . escape_tags(trim($tag_name, $this->_l_delim . $this->_r_delim)) . $this->_r_delim;
 			$orig_content = str_replace($tag_name, $tag_replace, $orig_content);
 
-			$parsed_tags = array_merge($parsed_tags, $this->_extract_tags($orig_content));
-
-//			var_dump($orig_content);die;
+			$orig_content = $this->_extract_tags($orig_content);
 		}
 
-		return $parsed_tags;
+		return $orig_content;
 	}
 
 	public function _skip_content($parsed = array(), $content = '')
@@ -428,7 +426,7 @@ class Tags {
 		return $parsed;
 	}
 
-	public function _replace_data($orig_content = '', &$parsed_tags = array(), $data = array())
+	public function _replace_data($orig_content = '', $data = array())
 	{
 		// Clean up the array
 		$data = $this->_force_array($data);
@@ -441,7 +439,7 @@ class Tags {
 		$oc_nok = 0;
 		$oc_ok = 0;
 
-		foreach ($parsed_tags as $key => $tag)
+		foreach ($this->_tags as $key => $tag)
 		{
 			// Parse the single tags
 			if (empty($tag['content']))
@@ -469,9 +467,9 @@ class Tags {
 
 			// Search and set missing replacements (tags in content and/or attributes of anothers tags)
 			$i = $key;
-			while (($count < $tag['replacements']) && isset($parsed_tags[++$i]))
+			while (($count < $tag['replacements']) && isset($this->_tags[++$i]))
 			{
-				$next_tag =& $parsed_tags[$i];
+				$next_tag =& $this->_tags[$i];
 
 				if ( ! $occurences	= substr_count($next_tag['full_tag'], $tag['marker']))
 				{
@@ -536,7 +534,7 @@ class Tags {
 			log_message('debug', sprintf('%d occurrences nok', $oc_nok));
 			log_message('debug', sprintf('%d occurrences ok', $oc_ok));
 
-			unset($parsed_tags[$key]);
+			unset($this->_tags[$key]);
 		}
 
 		return $orig_content;
