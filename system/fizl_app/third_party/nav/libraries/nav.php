@@ -37,24 +37,25 @@ class Nav extends Plugin {
 		
 		foreach($lines as $key => $line):
 
-			// Get the data
-			$items = explode(" ", trim($line));
-			
-			// Count the level we're at.
-			if(count($items) == 1):
+			$line = trim($line);
+
+			if($line[0] == '-'):
+	
+				// Get the data
+				$items = explode(" ", trim($line), 2);
+				
+				// This has some sort of sub level
+				$tmp_level = substr_count(trim($items[0]), '-');
+				$link_data = $items[1];
+				
+			else:
 			
 				// This is a top level item
 				$tmp_level = 0;
 				$link_data = $line;
-				
-			else:
-			
-				// This has some sort of sub level
-				$tmp_level = substr_count(trim($items[0]), '-');
-				$link_data = $items[1];
 			
 			endif;
-				
+							
 			// Set the level. Has it changed?
 			if($this->level < $tmp_level):
 			
@@ -64,28 +65,46 @@ class Nav extends Plugin {
 				$html .= "\n<ul>\n";
 								
 			endif;
-			
-			$html .= '<li class="';
-			
-			// Looks like we just a single item
-			$pieces = explode('|', $link_data);
-			
-			// Is the current link?
-			if($pieces[0] == $this->CI->uri->uri_string()):
-			
-				$html .= trim($this->get_param('current_class', 'current')).' ';
-			
-			endif;
 
-			$html .= 'level_'.$tmp_level.'"><a href="'.site_url($pieces[0]).'">'.$pieces[1].'</a>';
-
-			if($this->level < $tmp_level):
+			if($this->level > $tmp_level):
 				
 				// We are stepping into a shallower level.
 				// Close off the ul and the li and 
 				$html .= "</li>\n</ul>\n";
 				
 			endif;
+			
+			$html .= '<li class="';
+			
+			// Looks like we just a single item
+			$pieces = explode('|', trim($link_data), 2);
+			
+			// Get the current string
+			$uri_segs = explode('/', $pieces[0]);
+			
+			$popped_uri = array_slice($this->CI->uri->segment_array(), 0, count($uri_segs));
+			
+			// Is the current link?
+			if($pieces[0] == implode('/', $popped_uri)):
+			
+				$html .= trim($this->get_param('current_class', 'current')).' ';
+			
+			endif;
+			
+			// Creat link
+			$html .= 'level_'.$tmp_level.'"><a href="';
+						
+			if(strpos($pieces[0], 'http://')!==FALSE or strpos($pieces[0], 'https://')!==FALSE):
+			
+				$html .= $pieces[0];
+			
+			else:
+			
+				$html .= site_url($pieces[0]);
+			
+			endif;
+
+			$html .= '">'.$pieces[1].'</a>';
 			
 			// Does is the next l
 			if(isset($lines[$key+1]) and trim($lines[$key+1][0]) != '-') 
@@ -100,4 +119,4 @@ class Nav extends Plugin {
 		
 }
 
-/* End of file format.php */
+/* End of file nav.php */
