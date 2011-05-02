@@ -10,8 +10,8 @@ $lang['settings_site_name_desc'] 				= 'Jméno, které se objeví v titulcích s
 $lang['settings_site_slogan'] 					= 'Slogan';
 $lang['settings_site_slogan_desc'] 				= 'Slogan se objeví v titulcích stránek a různě po webu.';
 
-$lang['settings_site_lang']						= 'Site Language'; #translate
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang']						= 'jazyk stránek';
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; 
 
 $lang['settings_contact_email'] 				= 'Kontaktní e-mail';
 $lang['settings_contact_email_desc'] 			= 'Všechny e-maily od uživatelů a hostů budou odeslány na tuto adresu.';
@@ -31,31 +31,29 @@ $lang['settings_dashboard_rss_desc'] 			= 'Odkaz na zdroj RSS zobrazovaný na N�
 $lang['settings_dashboard_rss_count'] 			= 'Počet RSS položek na Nástěnce';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Kolik položek z RSS zdroje zobrazovat na Nástěnce?';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format'] 					= 'Formát data'; 
+$lang['settings_date_format_desc']				= 'Jak mají být zobrazována data na webu a v administraci? Pomocí <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> z PHP - NEBO - Pomocí formátu <a href="http://php.net/manual/en/function.strftime.php" target="_black">řetězců formátovaných jako datum</a> z PHP.'; 
 
 $lang['settings_frontend_enabled'] 				= 'Stav webu';
 $lang['settings_frontend_enabled_desc'] 		= 'Tímto nastavení můžete vypnout obsahovou část webu (nikoliv administraci). Užitečné např. při úpravách serveru.';
 
-$lang['settings_mail_protocol'] 				= 'Mail Protocol'; #translate
-$lang['settings_mail_protocol_desc'] 			= 'Select desired email protocol.'; #translate
+$lang['settings_mail_protocol'] 				= 'Mail Protokol'; 
+$lang['settings_mail_protocol_desc'] 			= 'Vyberte emailový protokol';  
 
-$lang['settings_mail_sendmail_path'] 			= 'Sendmail Path'; #translate
-$lang['settings_mail_sendmail_path_desc']		= 'Path to server sendmail binary.'; #translate
+$lang['settings_mail_sendmail_path'] 			= 'Cesta k sendmail';
+$lang['settings_mail_sendmail_path_desc']		= 'Cesta k sendmail.';
 
-$lang['settings_mail_smtp_host'] 				= 'SMTP Host'; #translate
-$lang['settings_mail_smtp_host_desc'] 			= 'The host name of your smtp server.'; #translate
+$lang['settings_mail_smtp_host'] 				= 'Hostitel SMTP';
+$lang['settings_mail_smtp_host_desc'] 			= 'Hostitelské jméno vašeho SMTP serveru.';
 
-$lang['settings_mail_smtp_pass'] 				= 'SMTP password'; #translate
-$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP password.'; #translate
+$lang['settings_mail_smtp_pass'] 				= 'SMTP heslo';
+$lang['settings_mail_smtp_pass_desc'] 			= 'SMTP heslo.';
 
-$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; #translate
-$lang['settings_mail_smtp_port_desc'] 			= 'SMTP port number.'; #translate
+$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; 
+$lang['settings_mail_smtp_port_desc'] 			= 'Číslo SMTP portu.';
 
-$lang['settings_mail_smtp_user'] 				= 'SMTP User Name'; #translate
-$lang['settings_mail_smtp_user_desc'] 			= 'SMTP user name.'; #translate
+$lang['settings_mail_smtp_user'] 				= 'SMTP uživatelské jméno';
+$lang['settings_mail_smtp_user_desc'] 			= 'SMTP uživatelské jméno.';
 
 $lang['settings_unavailable_message']			= 'Zpráva o nedostupnosti';
 $lang['settings_unavailable_message_desc'] 		= 'Pokud je web dočasně vypnut nebo nastane nějaký velký problém, uživatelé uvidí tuto zprávu.';
@@ -78,17 +76,17 @@ $lang['settings_require_lastname_desc'] 		= 'V některých situacích může bý
 $lang['settings_enable_profiles'] 				= 'Povolit profily';
 $lang['settings_enable_profiles_desc'] 			= 'Umožnit uživatelům přidávat a spravovat své profily?';
 
-$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; #translate
-$lang['settings_ga_email_desc']					= 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; 
+$lang['settings_ga_email_desc']					= 'E-mail pro Google Analytics, pro zobrazení grafu na Nástěnce.';
 
-$lang['settings_ga_password'] 					= 'Google Analytic Password'; #translate
-$lang['settings_ga_password_desc']				= 'Google Analytics password. This is also needed this to show the graph on the dashboard.'; #translate
+$lang['settings_ga_password'] 					= 'Google Analytic heslo';
+$lang['settings_ga_password_desc']				= 'Heslo pro Google Analytics, pro zobrazení grafu na Nástěnce.';
 
-$lang['settings_ga_profile'] 					= 'Google Analytic Profile'; #translate
-$lang['settings_ga_profile_desc']				= 'Profile ID for this website in Google Analytics.'; #translate
+$lang['settings_ga_profile'] 					= 'Google Analytic profil';
+$lang['settings_ga_profile_desc']				= 'ID rpofilu pro tento web v Google Analytics.';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
-$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
+$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; 
+$lang['settings_ga_tracking_desc']				= 'Vložte svůj Google Analytic Tracking Code pro aktivaci snímání dat Google Analytics, např: UA-19483569-6';
 
 $lang['settings_twitter_username'] 				= 'Uživatelské jméno';
 $lang['settings_twitter_username_desc'] 		= 'Uživatelské jméno na Twitteru.';
@@ -111,8 +109,8 @@ $lang['settings_twitter_cache_desc'] 			= 'Kolik minut by měly být tweety doč
 $lang['settings_akismet_api_key'] 				= 'API klíč pro Akismet';
 $lang['settings_akismet_api_key_desc'] 			= 'Akismet je služba blokující spam. Blokuje ho a při tom neobtěžuje uživatele nutností vyplňovat captcha.';
 
-$lang['settings_comment_order'] 				= 'Comment Order'; #translate
-$lang['settings_comment_order_desc']			= 'Sort order in which to display comments.'; #translate
+$lang['settings_comment_order'] 				= 'Pořadí komentářů';
+$lang['settings_comment_order_desc']			= 'Způsob řazení komentářů.';
 
 $lang['settings_moderate_comments'] 			= 'Moderovat komentáře';
 $lang['settings_moderate_comments_desc']		= 'Zapnout nutnost schválení komentáře před tím, než se objeví na webu.';
@@ -123,7 +121,7 @@ $lang['settings_version_desc'] 					= '';
 #section titles
 $lang['settings_section_general']				= 'Obecné';
 $lang['settings_section_integration']			= 'Integrace';
-$lang['settings_section_comments']				= 'Comments'; #translate
+$lang['settings_section_comments']				= 'Komentáře';
 $lang['settings_section_users']					= 'Uživatelé';
 $lang['settings_section_statistics']			= 'Statistiky';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -135,8 +133,8 @@ $lang['settings_form_option_Enabled']			= 'Povoleno';
 $lang['settings_form_option_Disabled']			= 'Zakázáno';
 $lang['settings_form_option_Required']			= 'Povinné';
 $lang['settings_form_option_Optional']			= 'Volitelné';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Oldest First']		= 'Od nejstarších';
+$lang['settings_form_option_Newest First']		= 'Od nejnovějších';
 
 /* End of file settings_lang.php */
 /* Location: ./system/pyrocms/modules/settings/language/czech/settings_lang.php */

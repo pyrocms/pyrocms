@@ -61,3 +61,4 @@ $lang['uninstall_label'] 			= 'Odinstalovat';
 $lang['install_label'] 				= 'Instalovat';
 $lang['enable_label']				= 'Zapnout';
 $lang['disable_label'] 				= 'Vypnout';
+$lang['upgrade_label'] 				= 'Upgrade';
