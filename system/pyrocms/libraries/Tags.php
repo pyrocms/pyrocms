@@ -141,11 +141,11 @@ class Tags {
 		$this->_regex_all_tags		= '/' . $this->_l_delim . $this->_trigger . '[^' . $this->_l_delim . $this->_r_delim . ']*?' . $this->_r_delim . '/i';
 		$this->_tags				= array();
 
-		$orig_content = $this->parse_globals($content, $data);
+		$content = $this->parse_globals($content, $data);
 
 		if ($this->_skip_content)
 		{
-			if (preg_match_all('/{[\w\d_]*?}/i', $orig_content, $strs))
+			if (preg_match_all('/{[\w\d_]*?}/i', $content, $strs))
 			{
 				$ignore		= array('{else}');
 				$escaped	= array();
@@ -165,48 +165,48 @@ class Tags {
 
 					$escaped[($str_escaped = escape_tags($str))] = $str;
 
-					$orig_content = str_replace($str, $str_escaped, $orig_content);
+					$content = str_replace($str, $str_escaped, $content);
 				}
 
 				if ($escaped)
 				{
-					log_message('debug', "There's a probability of exists a syntax error in:" . PHP_EOL . $orig_content);
+					log_message('debug', "There's a probability of exists a syntax error in:" . PHP_EOL . $content);
 				}
 			}
 
-			foreach ($this->_skip_content as $skip_marker => $skip_content)
+			foreach ($this->_skip_content as $marker => $safe_content)
 			{
-				$orig_content = str_replace($skip_marker, $skip_content, $orig_content);
+				$content = str_replace($marker, $safe_content, $content);
 			}
 
 			$this->_skip_content = array();
 		}
 
-		$orig_content = $this->_extract_tags($orig_content);
+		$content = $this->_extract_tags($content);
 
 		if (isset($escaped) && $escaped)
 		{
-			$orig_content = str_replace(array_keys($escaped), array_values($escaped), $orig_content);
+			$content = str_replace(array_keys($escaped), array_values($escaped), $content);
 		}
 
 		if ( ! $this->_tags)
 		{
-			$orig_content = $this->parse_php($this->parse_conditionals($orig_content), $data);
+			$content = $this->parse_php($this->parse_conditionals($content), $data);
 
 			return array(
-				'content'	=> $orig_content,
+				'content'	=> $content,
 				'tags'		=> array()
 			);
 		}
 
-		$orig_content = $this->_replace_data($orig_content, $data);
+		$content = $this->_replace_data($content, $data);
 
 		// If there is a callback, call it for each tag
 		if ( ! empty($callback) AND is_callable($callback))
 		{
 			foreach ($this->_tags as $tag)
 			{
-				$orig_content = str_replace($tag['marker'], call_user_func($callback, $tag), $orig_content);
+				$content = str_replace($tag['marker'], call_user_func($callback, $tag), $content);
 			}
 		}
 
@@ -215,22 +215,20 @@ class Tags {
 		{
 			foreach ($this->_tags as $tag)
 			{
-				$orig_content = str_replace($tag['marker'], '', $orig_content);
+				$content = str_replace($tag['marker'], '', $content);
 			}
 		}
 
-		$orig_content = $this->parse_php($this->parse_conditionals($orig_content), $data);
+		$content = $this->parse_php($this->parse_conditionals($content), $data);
 
 		return array(
-			'content'	=> $orig_content,
+			'content'	=> $content,
 			'tags'		=> $this->_tags
 		);
 	}
 
-	public function _extract_tags($orig_content = '')
+	public function _extract_tags($orig_content = '', $attemp = 0)
 	{
-//		log_message('error', PHP_EOL . repeater('-', 100) . PHP_EOL . $orig_content);
-
 		$_limit = 50;
 		while (($start = strpos($orig_content, $this->_l_delim . $this->_trigger)) !== FALSE)
 		{
@@ -253,8 +251,6 @@ class Tags {
 			$full_tag	= $tag[0];
 			$start		= strpos($content, $full_tag);
 
-//			log_message('error', $full_tag);
-
 			// Trim off the left and right delimeters
 			$tag = trim($full_tag, $this->_l_delim . $this->_r_delim);
 
@@ -266,11 +262,11 @@ class Tags {
 
 			// Lets start to create the parsed tag
 			$parsed = array(
-				'full_tag'				=> $full_tag,
-				'attributes'			=> $this->_parse_attributes($attributes),
-				'full_segments'			=> str_replace($this->_trigger, '', $segments),
-				'segments'				=> $this->_parse_segments(str_replace($this->_trigger, '', $segments)),
-				'skip_content'			=> array()
+				'full_tag'		=> $full_tag,
+				'attributes'	=> $this->_parse_attributes($attributes),
+				'full_segments'	=> str_replace($this->_trigger, '', $segments),
+				'segments'		=> $this->_parse_segments(str_replace($this->_trigger, '', $segments)),
+				'skip_content'	=> array()
 			);
 
 			// Set the end tag to search for
@@ -301,27 +297,27 @@ class Tags {
 			$this->_tags[] = $parsed;
 		}
 
-		if ($start !== FALSE)
+		if ($start !== FALSE && $attemp < 1)
 		{
-			$tag_name = $this->_extract_complex_tag($orig_content, $start);
+			$tag_name = $this->_get_tag_by_pos($orig_content, $start);
 
 			$tag_replace = $this->_l_delim . escape_tags(trim($tag_name, $this->_l_delim . $this->_r_delim)) . $this->_r_delim;
 			$orig_content = str_replace($tag_name, $tag_replace, $orig_content);
 
-			$orig_content = $this->_extract_tags($orig_content);
+			$orig_content = $this->_extract_tags($orig_content, $attemp+1);
 		}
 
 		return $orig_content;
 	}
 
-	public function _extract_complex_tag($content = '', $pos_tag_start = 0)
+	public function _get_tag_by_pos($content = '', $start = 0)
 	{
 		$tag_name		= $this->_l_delim . $this->_trigger;
-		$tag_unclosed	= substr($content, $pos_tag_start + strlen($tag_name));
+		$tag_unclosed	= substr($content, $start + strlen($tag_name));
 		$tag_name_parts = explode($this->_r_delim, $tag_unclosed);
 
-		// what is the tag name ?
-		$_skip = 0;
+		// skip
+		$i = 0;
 		while (list($key, $part) = each($tag_name_parts))
 		{
 			$tag_name .= $part . $this->_r_delim;
@@ -329,14 +325,14 @@ class Tags {
 			// there may be something like: foo="{bar}" inside the tag that we need
 			if (($l_delim_total = substr_count($part, $this->_l_delim)) > 1)
 			{
-				$_skip += $l_delim_total - 1;
+				$i += $l_delim_total - 1;
 			}
 
 			// it seems that now we can close the tag
 			if (strpos($part, $this->_l_delim) === FALSE)
 			{
 				// really, we can!
-				if (($_skip--) == 0)
+				if (($i--) == 0)
 				{
 					break;
 				}
@@ -346,11 +342,11 @@ class Tags {
 		return $tag_name;
 	}
 
-	public function _skip_content($parsed = array(), $content = '')
+	public function _skip_content($tag = array(), $content = '')
 	{
 		$offset = 0;
 		$_limit = 300;
-		while (($pos_tag_start = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
+		while (($tag_start = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
 		{
 			// this is still experimental so we must prevent infinite loops
 			if ( ! (--$_limit))
@@ -361,28 +357,29 @@ class Tags {
 			}
 
 			// we need some info before think on skip content
-			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', substr($content, $pos_tag_start));
+			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', substr($content, $tag_start));
 			$tag_end		= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
 
 			// has nested double tag ?
-			if (($pos_skip_end = strpos($content, $tag_end, $pos_tag_start)) !== FALSE)
+			if (($end = strpos($content, $tag_end, $tag_start)) !== FALSE)
 			{
-				$tag_name = $this->_extract_complex_tag($content, $pos_tag_start);
+				// what is the tag name ?
+				$tag_name = $this->_get_tag_by_pos($content, $tag_start);
 
 				// ok! we have the tag name and a position to starts skip content
-				$pos_skip_start	= $pos_tag_start + strlen($tag_name);
+				$start	= $tag_start + strlen($tag_name);
 
 				// generate a marker
-				$skip_marker = 'skip_' . ($this->_tag_count++) . $this->_mark;
+				$marker = 'skip_' . ($this->_tag_count++) . $this->_mark;
 
 				// save a copy of safe content
-				$parsed['skip_content'][$skip_marker] = substr($content, $pos_skip_start, $pos_skip_end - $pos_skip_start);
+				$tag['skip_content'][$marker] = substr($content, $start, $end - $start);
 
 				// finally skip the content
-				$content = substr_replace($content, $skip_marker, $pos_skip_start, $pos_skip_end - $pos_skip_start);
+				$content = substr_replace($content, $marker, $start, $end - $start);
 
 				// increase offset position
-				$offset = strpos($content, $skip_marker) + strlen($skip_marker . $tag_end);
+				$offset = strpos($content, $marker) + strlen($marker . $tag_end);
 			}
 			else
 			{
@@ -391,19 +388,19 @@ class Tags {
 			}
 		}
 
-		$parsed['content'] = $content;
+		$tag['content'] = $content;
 
-		return $parsed;
+		return $tag;
 	}
 
-	public function _replace_data($orig_content = '', $data = array())
+	public function _replace_data($content = '', $data = array())
 	{
 		// Clean up the array
 		$data = $this->_force_array($data);
 
 		if ( ! (is_array($data) && $data))
 		{
-			return $orig_content;
+			return $content;
 		}
 
 		$oc_nok = 0;
@@ -433,7 +430,7 @@ class Tags {
 				continue;
 			}
 
-			$orig_content = str_replace($tag['marker'], $return_data, $orig_content, $count);
+			$content = str_replace($tag['marker'], $return_data, $content, $count);
 
 			// Search and set missing replacements (tags in content and/or attributes of anothers tags)
 			$i = $key;
@@ -501,13 +498,13 @@ class Tags {
 				}
 			}
 
-			log_message('debug', sprintf('%d occurrences nok', $oc_nok));
-			log_message('debug', sprintf('%d occurrences ok', $oc_ok));
+			$oc_nok && log_message('debug', sprintf('%d occurrences nok', $oc_nok));
+			$oc_ok && log_message('debug', sprintf('%d occurrences ok', $oc_ok));
 
 			unset($this->_tags[$key]);
 		}
 
-		return $orig_content;
+		return $content;
 	}
 	// --------------------------------------------------------------------
 
