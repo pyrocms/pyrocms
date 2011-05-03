@@ -17,7 +17,7 @@ $lang['pages.actions_label'] 					= 'Akce';
 $lang['pages.unknown_label'] 					= 'Neznámé';
 $lang['pages.title_label'] 						= 'Titulek';
 $lang['pages.slug_label'] 						= 'Adresa URL';
-$lang['pages.navigation_label']                  = 'Add to Navigation'; #translate
+$lang['pages.navigation_label']                  = 'Přidat do navigace';
 $lang['pages.body_label'] 						= 'Tělo stránky';
 $lang['pages.meta_title_label'] 				= 'Meta titulek';
 $lang['pages.meta_keywords_label'] 				= 'Meta klíčová slova';
@@ -28,7 +28,7 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Přístup';
 $lang['pages.rss_enabled_label'] 				= 'RSS povoleno';
 $lang['pages.comments_enabled_label']			= 'Komentáře povoleny';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      = 'Je výchozí (domovskou) stránkou?';
 
 $lang['pages.status_label'] 					= 'Stav';
 $lang['pages.draft_label'] 						= 'Koncept';
