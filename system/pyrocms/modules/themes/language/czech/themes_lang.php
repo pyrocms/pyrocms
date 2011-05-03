@@ -17,9 +17,9 @@ $lang['themes.upload_desc']				= 'Prosím vyberte soubor a klikněte na Nahrát'
 $lang['themes.theme_label'] 			= 'Motiv vzhledu';
 $lang['themes.actions_label']			= 'Akce';
 $lang['themes.make_default']			= 'Nastavit jako výchozí';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
-$lang['themes.version_label']			= 'Version'; #translate
+$lang['themes.description_label']		= 'Popis';
+$lang['themes.author_label']			= 'Autor';
+$lang['themes.version_label']			= 'Verze';
 $lang['themes.default_theme_label'] 	= 'Výchozí vzhled';
 $lang['themes.no_themes_installed'] 	= 'Nejsou nainstalovány žádné motivy.';
 
