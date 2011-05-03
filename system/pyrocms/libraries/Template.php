@@ -102,7 +102,7 @@ class Template
 		// Modular Separation / Modular Extensions has been detected
 		if (method_exists( $this->_ci->router, 'fetch_module' ))
 		{
-			$this->_module 	= $this->_ci->router->fetch_module();
+			$this->_module = $this->_ci->router->fetch_module();
 		}
 
 		// What controllers or methods are in use
@@ -113,7 +113,7 @@ class Template
 		class_exists('CI_User_agent') OR $this->_ci->load->library('user_agent');
 
 		// We'll want to know this later
-		$this->_is_mobile	= $this->_ci->agent->is_mobile();
+		$this->_is_mobile = $this->_ci->agent->is_mobile();
 	}
 
 	// --------------------------------------------------------------------
@@ -381,6 +381,17 @@ class Template
 		return $this->_theme_path;
 	}
 
+	/**
+	 * Get the current view path
+	 *
+	 * @access	public
+	 * @param	bool	Set if should be returned the view path full (with theme path) or the view relative the theme path
+	 * @return	string	The current view path
+	 */
+	public function get_views_path($relative = FALSE)
+	{
+		return $relative ? substr($this->_find_view_folder(), strlen($this->get_theme_path())) : $this->_find_view_folder();
+	}
 
 	/**
 	 * Which theme layout should we using here?
@@ -674,19 +685,17 @@ class Template
 		// Only bother looking in themes if there is a theme
 		if ( ! empty($this->_theme))
 		{
-			foreach ($this->_theme_locations as $location)
-			{
-				$theme_views = array(
-					$this->_theme . '/views/modules/' . $this->_module . '/' . $view,
-					$this->_theme . '/views/' . $view
-				);
+			$location		= $this->get_theme_path();
+			$theme_views	= array(
+				$this->get_views_path(TRUE) . 'modules/' . $this->_module . '/' . $view,
+				$this->get_views_path(TRUE) . $view
+			);
 
-				foreach ($theme_views as $theme_view)
+			foreach ($theme_views as $theme_view)
+			{
+				if (file_exists($location . $theme_view . self::_ext($theme_view)))
 				{
-					if (file_exists($location . $theme_view . self::_ext($theme_view)))
-					{
-						return self::_load_view($theme_view, $this->_data + $data, $parse_view, $location);
-					}
+					return self::_load_view($theme_view, $this->_data + $data, $parse_view, $location);
 				}
 			}
 		}
