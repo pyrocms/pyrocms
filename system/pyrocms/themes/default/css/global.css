@@ -19,6 +19,9 @@ body { background-color: #e1e1e1; background-image: url(../img/body-bg.jpg); bac
 #header #user-meta a, #header #user-meta a:link { color: #7b818c; text-shadow: 1px 1px 0px #3e444d; }
 #header #user-meta a:hover { color: #ff6900; text-shadow: 1px 1px 0px #3e444d; }
 #header #user-meta .nav-splitter { color: #060a14; text-shadow: 1px 1px 0px #3e444d; }
+#header #user-meta .avatar-name { display: inline-block; vertical-align: middle; }
+#header #user-meta .avatar-name img { display: inline-block; vertical-align: middle; margin-right: 3px; border: 1px solid #7b818c; }
+#header #user-meta .avatar-name a:hover img { border: 1px solid #ff6900; }
 
 #header #user-meta form { width: 301px; margin: 0; padding: 0; float: right; }
 #header #user-meta form ul li { margin: 0 0 0 5px; list-style: none; float: left; }
@@ -70,7 +73,7 @@ ul#head-nav ul ul { left: 156px; top:-1px; width:149px; padding-top: 0; }
 .post h1, .post h2, .post h3, .post h4, .post h5, .post h6 { padding: 0 0 25px 0; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
 .post ul { padding: 0 0 0 25px; }
 .post img { margin: 10px 0 10px 0; border: 3px solid #cfcfcf; }
-.blog_article { padding: 15px 0 15px 0; border-bottom: 1px dashed #cfcfcf; } 
+.blog_article { padding: 15px 0 15px 0; border-bottom: 1px dashed #cfcfcf; }
 p.article_date { width: 665px; background-color: #e8e8e8; font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 25px 0; float: left; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
 /* Contact form */
