@@ -21,12 +21,9 @@
 
 			<td>
 				<?php if ( ! empty($module['roles'])): ?>
-
 					<?php foreach ($module['roles'] as $role): ?>
-
-						<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) and array_key_exists($role, $edit_permissions[$module['slug']])); ?>
+						<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) AND is_object($edit_permissions[$module['slug']]) AND array_key_exists($role, $edit_permissions[$module['slug']])); ?>
 						<?php echo lang($module['slug'].'.role_'.$role); ?>
-
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</td>
