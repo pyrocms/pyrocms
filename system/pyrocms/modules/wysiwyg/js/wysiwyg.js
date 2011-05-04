@@ -66,7 +66,7 @@ var replace_html = null;
 
 			if( ! element.hasClass('pyro-image')) return false;
 
-			$('#current_document').load(BASE_URI + 'index.php/admin/wysiwyg/files/ajax_get_file', {
+			$('#current_document').load(BASE_URI + 'admin/wysiwyg/files/ajax_get_file', {
 				doc_id: element.attr('href').match(/\/download\/([0-9]+)/)[1]
 			});
 
