@@ -3,4 +3,4 @@
 // Blog Permissions
 $lang['blog.role_put_live'] = 'نشر التدوينات';
 $lang['blog.role_edit_live'] = 'تعديل التدوينات المنشورة';
-$lang['blog.role_delete_live'] 	= 'Delete live articles'; #translate
+$lang['blog.role_delete_live'] 	= 'حذف التدوينات المنشورة';
