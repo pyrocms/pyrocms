@@ -13,25 +13,14 @@
 			}
 		});
 		
-		// load create via ajax
-		$('.box header .ajax').live('click', function(){
-			// make sure we load it into the right one
-			var id = $(this).attr('rel');
-			$('.group-'+ id +' #link-list a').removeClass('selected');
-			// Load the form
-			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
-				$('div#link-details.group-'+ id +'').fadeIn();
-				// display the create/edit title in the header
-				var title = $('#title-value-'+id).html();
-				$('section.box header h3.group-title-'+id).html(title);
-			});
-			return false;			
-		});
-		
 		// load edit via ajax
 		$('a.ajax').live('click', function(){
 			// make sure we load it into the right one
 			var id = $(this).attr('rel');
+			if ($(this).hasClass('add')) {
+				// if we're creating a new one remove the selected icon from link in the tree
+				$('.group-'+ id +' #link-list a').removeClass('selected');
+			}
 			// Load the form
 			$('div#link-details.group-'+ id +'').load($(this).attr('href'), '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
