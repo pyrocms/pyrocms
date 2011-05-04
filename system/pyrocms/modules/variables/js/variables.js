@@ -101,7 +101,7 @@
 		 * Loads the list view of variables
 		 */
 		load_list: function(){
-			variables.$content.load(BASE_URL + '/admin/variables', function(){
+			variables.$content.load(BASE_URL + 'admin/variables', function(){
 				$.uniform.update('input[type=checkbox], button');
 				$(this).slideDown();
 			});

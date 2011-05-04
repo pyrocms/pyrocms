@@ -21,7 +21,7 @@
 							order.push($(this).attr('id').replace(/^instance-/, ''));
 						});
 
-						$.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order.join(',') });
+						$.post(BASE_URL + 'widgets/ajax/update_order', { order: order.join(',') });
 					}
 				}
 			});
@@ -69,7 +69,7 @@
 			// Auto-create a short-name
 			$('input[name="title"]').live('keyup', $.debounce(350, function(e){
 				var form = $(this).parents('form');
-				$.post(BASE_URL + 'index.php/ajax/url_title', { title : $(this).val() }, function(slug){
+				$.post(BASE_URL + 'ajax/url_title', { title : $(this).val() }, function(slug){
 					$('input[name="slug"]', form).val(slug);
 				});
 			}));

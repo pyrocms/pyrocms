@@ -34,7 +34,7 @@
 		// submit create form via ajax
 		$('#nav-create button:submit').live('click', function(e){
 			e.preventDefault();
-			$.post(BASE_URL + 'index.php/admin/navigation/create', $('#nav-create').serialize(), function(message){
+			$.post(BASE_URL + 'admin/navigation/create', $('#nav-create').serialize(), function(message){
 				
 				// if message is simply "success" then it's a go. Refresh!
 				if (message == 'success') {
@@ -52,7 +52,7 @@
 		// submit edit form via ajax
 		$('#nav-edit button:submit').live('click', function(e){
 			e.preventDefault();
-			$.post(BASE_URL + 'index.php/admin/navigation/edit/' + $('input[name="link_id"]').val(), $('#nav-edit').serialize(), function(message){
+			$.post(BASE_URL + 'admin/navigation/edit/' + $('input[name="link_id"]').val(), $('#nav-edit').serialize(), function(message){
 			
 				// if message is simply "success" then it's a go. Refresh!
 				if (message == 'success') {
@@ -90,7 +90,7 @@
 			$(this).addClass('selected');
 			
 			// Load the details box in
-			$('div#link-details.group-'+ id +'').load(BASE_URI + 'index.php/admin/navigation/ajax_link_details/' + link_id, '', function(){
+			$('div#link-details.group-'+ id +'').load(BASE_URL + 'admin/navigation/ajax_link_details/' + link_id, '', function(){
 				$('div#link-details.group-'+ id +'').fadeIn();
 			});
 			return false;
@@ -115,7 +115,7 @@
 			if($('#link-details #link-id').val() > 0)
 			{
 				// Load the details box in
-				$('div#link-details').load(BASE_URI + 'index.php/admin/navigation/ajax_link_details/' + $('#link-details #link-id').val());				
+				$('div#link-details').load(BASE_URL + 'admin/navigation/ajax_link_details/' + $('#link-details #link-id').val());				
 			}
 		}
 		update_tree();
@@ -166,7 +166,7 @@
 				// to remove unused elements before we check for their existence
 				setTimeout(update_tree, 5);
 			
-				$.post(BASE_URI + 'index.php/admin/navigation/order', { 'order': order, 'group': group } );
+				$.post(BASE_URL + 'admin/navigation/order', { 'order': order, 'group': group } );
 			}
 		});
 	});
