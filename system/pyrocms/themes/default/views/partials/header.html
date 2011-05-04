@@ -7,7 +7,7 @@
 
 <!-- Begin user meta -->
 <div id="user-meta">
-{if '{pyro:session:data name="user_id"}'}
+{if '{pyro:user:logged_in}'}
 
 	<div class="avatar-name">
 
@@ -30,7 +30,7 @@
 	<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 	<a href="{pyro:url:site uri='edit-settings'}">{pyro:helper:lang line="settings_label"}</a>
 
-	{if ('{pyro:user:logged_in}' == true) && ('{pyro:user:group}' == 'admin')}<?php /* pyro:user:enabled_cp */ ?>
+	{if '{pyro:user:has_cp_permissions}'}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{pyro:url:site uri='admin'}" target="_blank">{pyro:helper:lang line="cp_title"}</a>
 	{/if}
