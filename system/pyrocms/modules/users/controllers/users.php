@@ -34,10 +34,21 @@ class Users extends Public_Controller
 	 */
 	public function login()
 	{
+		$this->data->redirect_hash = $this->input->post('redirect_hash');
+
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
 		{
-			$this->session->set_userdata('redirect_to', implode('/', $args));
+			$this->data->redirect_hash = md5($url = implode('/', $args));
+
+			if ( ! (($redirect_to = $this->session->userdata('redirect_to')) && is_array($redirect_to)))
+			{
+				$redirect_to = array();
+			}
+
+			$redirect_to[$this->data->redirect_hash] = $url;
+
+			$this->session->set_userdata('redirect_to', $redirect_to);
 		}
 
 		// Get the user data
@@ -67,15 +78,24 @@ class Users extends Public_Controller
 	    {
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
-			$redirect_to = $this->session->userdata('redirect_to') ? $this->session->userdata('redirect_to') : ''; // '' = Home
+			
+			$redirect_to_uri = ''; // '' Home
 
-			// Unset the redirection
-			$this->session->unset_userdata('redirect_to');
+			if ($redirect_to = $this->session->userdata('redirect_to'))
+			{
+				if (array_key_exists($this->data->redirect_hash, $redirect_to))
+				{
+					$redirect_to_uri = $redirect_to[$this->data->redirect_hash];
+				}
+
+				// Unset the redirection
+				$this->session->unset_userdata('redirect_to');
+			}
 
 			// Call post login hook
 			$this->hooks->_call_hook('post_user_login');
 
-			redirect($redirect_to);
+			redirect($redirect_to_uri);
 	    }
 
 		// Render the view

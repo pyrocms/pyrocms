@@ -1,4 +1,7 @@
 <?php echo form_open('users/login', array('id'=>'login-small')); ?>
+<?php if (isset($redirect_hash) && $redirect_hash): ?>
+<?php echo form_hidden('redirect_hash', $redirect_hash); ?>
+<?php endif; ?>
 <ul>
 	<li class="email">
 		<label for="email"><?php echo lang('user_email'); ?></label>
