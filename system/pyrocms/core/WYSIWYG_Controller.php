@@ -48,7 +48,7 @@ class WYSIWYG_Controller extends MY_Controller
 			->append_metadata( css('jquery/uniform.default.css') )
 			->append_metadata( js('wysiwyg.js', 'wysiwyg') )
 			->append_metadata( js('jquery/jquery.uniform.min.js') )
-			->append_metadata( js('jquery/jquery-ui-1.8.4.min.js') )
+			->append_metadata( js('jquery/jquery-ui.min.js') )
 			// fail offline
 			// ->append_metadata('<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />')
 			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') ) // TODO: Merge this with default jquery-ui.css
