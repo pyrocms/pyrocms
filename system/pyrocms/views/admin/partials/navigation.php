@@ -19,7 +19,7 @@
 				{
 					foreach ($modules[$menu_item] as $module)
 					{
-						$count += in_array($module['slug'], $this->permissions) ? 1 : 0;
+						$count += array_key_exists($module['slug'], $this->permissions) ? 1 : 0;
 					}
 				}
 				
@@ -78,7 +78,7 @@
 						$class = $current ? "current " : "";
 						$class .= $count <= 1 ? "top-link no-submenu " : "";
 						
-						if (in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin')
+						if (array_key_exists($module['slug'], $this->permissions) OR $this->user->group == 'admin')
 						{
 							echo '<li>' . anchor('admin/'.$module['slug'], $module['name'], array('class'=>$class)) . '</li>';
 						}
