@@ -117,7 +117,7 @@
 							}
 							else
 							{
-								$.post(BASE_URI + 'ajax/url_title', { title: title }, function(slug){
+								$.post(SITE_URL + 'ajax/url_title', { title: title }, function(slug){
 									$slug.val(slug);
 
 									cache[title] = slug;
@@ -172,7 +172,7 @@
 								// Update title
 								data.title && $('#cboxLoadedContent h3:eq(0)').text(data.title);
 	
-								$('#folders-dropdown').load(BASE_URI + 'admin/files/folders/create #folders-dropdown', function(data){
+								$('#folders-dropdown').load(SITE_URL + 'admin/files/folders/create #folders-dropdown', function(data){
 									$(this).html($(this).children().html());
 								});
 	
@@ -237,7 +237,7 @@
 				$('#shortcuts li.files-uploader').addClass('hidden');
 			}
 
-			$.get(BASE_URI + 'admin/files/folders/' + uri, hash, function(data){
+			$.get(SITE_URL + 'admin/files/folders/' + uri, hash, function(data){
 
 				if (data.status == 'success')
 				{
