@@ -15,5 +15,5 @@ jQuery(function($){
 			$.post(BASE_URI + 'admin/settings/ajax_update_order', { order: order });
 		}
 
-	}).disableSelection();
+	});
 });
