@@ -413,7 +413,17 @@ class Ion_auth
 		$value		= $this->ci->session->userdata($identity);
 		$user		= $this->{($identity === 'email' ? 'get_user_by_email' : 'get_user')}($value);
 
-		return (bool) $user && ($user->{$identity} == $value);
+		if ( ! $user && $value)
+		{
+			// user no longer exists
+			$this->ci->session->sess_destroy();
+		}
+		elseif ($user && $value == $user->{$identity})
+		{
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	/**
