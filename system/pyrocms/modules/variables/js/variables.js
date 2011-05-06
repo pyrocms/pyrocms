@@ -76,7 +76,7 @@
 						data: $('input[name=data]').val()
 					},
 					variable_id	= $('input[name=variable_id]').val(),
-					post_url	= BASE_URI + 'admin/variables/'
+					post_url	= SITE_URL + 'admin/variables/'
 								+ ((typeof variable_id != 'undefined')
 								? 'edit/' + variable_id : 'create'),
 					callback	= ( $(this).parent('td.actions').is('td') )
@@ -101,7 +101,7 @@
 		 * Loads the list view of variables
 		 */
 		load_list: function(){
-			variables.$content.load(BASE_URI + 'admin/variables', function(){
+			variables.$content.load(SITE_URL + 'admin/variables', function(){
 				$.uniform.update('input[type=checkbox], button');
 				$(this).slideDown();
 			});

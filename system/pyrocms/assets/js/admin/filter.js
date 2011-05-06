@@ -68,7 +68,7 @@
 	
 		//launch the query based on module
 		do_filter: function(module, form_data, url){
-			post_url = BASE_URI + 'admin/' + module;
+			post_url = SITE_URL + 'admin/' + module;
 
 			if (typeof url !== 'undefined'){
 				post_url = url;

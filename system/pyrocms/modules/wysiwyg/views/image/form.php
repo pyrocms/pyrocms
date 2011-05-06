@@ -60,7 +60,7 @@ var replace_html = null;
 			// Get the unique hash from the filename
 			filename = source.match(/([a-z0-9]+\.[a-z]{3,5})$/i)[1];
 
-			$.post(BASE_URI + 'cms/wysiwyg/image/ajax_get_image', { filename: filename }, function(data){
+			$.post(SITE_URL + 'cms/wysiwyg/image/ajax_get_image', { filename: filename }, function(data){
 
 				$('#current_image').html(data.output);
 				$('#display-source').html(filename + "&nbsp;&nbsp;&nbsp;&nbsp;");
