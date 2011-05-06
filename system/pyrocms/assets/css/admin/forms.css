@@ -10,9 +10,14 @@ form.crud li {
 	padding: 15px 8px;
 	vertical-align: middle;
 }
+form.crud li.even,
+form.crud li.odd {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
 form.crud li.even {
 	background-color: #f3f3f3;
-	-moz-border-radius: 5px 5px 5px 5px;
 }
 /** group labels and input **/
 form.crud label {
