@@ -651,7 +651,7 @@ class Ion_auth_model extends CI_Model
 			$this->db->where_in($this->tables['groups'].'.name', $group);
 		}
 
-		if (isset($this->ion_auth->_extra_where))
+		if (isset($this->ion_auth, $this->ion_auth->_extra_where))
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}
