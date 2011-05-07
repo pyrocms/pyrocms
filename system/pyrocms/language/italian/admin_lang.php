@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Pannello di Controllo';
 $lang['cp_admin_home_title'] 			= 'Dashboard';
@@ -40,10 +40,15 @@ $lang['cp_nav_utilities']               = 'Accessori';
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
 $lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di prendere il controllo del tuo sito.';
-$lang['cp_upgrade_message']				= 'Stai usndo la versione %s, ma la versione del tuo database � la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
+$lang['cp_upgrade_message']				= 'Stai usando la versione %s, ma la versione del tuo database &eacute; la %s. Per favore <a href="%s" title="Upgrade">clicca qui</a> per aggiornare il database.';
+$lang['cp_google_analytics_missing'] = 'Le impostazioni di Google Analytics sono mancanti. Aggiungile in %s o contatta il tuo amministratore.';
+$lang['cp_google_analytics_no_connect'] = 'Impossibile connettersi a Google Analytics. Controlla le %s.';
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Collegamenti';
 
 $lang['required_label'] 				= 'Obbligatorio';
 $lang['sb_recent_users'] 				= 'Utenti recenti';
+
+/* End of file admin_lang.php */
+/* Location: ./system/pyrocms/language/italian/admin_lang.php */

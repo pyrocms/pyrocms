@@ -31,6 +31,7 @@ $config['supported_languages'] = array(
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array('rus', 'russian', 'ru_RU')),
 	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array('chinese-traditional', 'cht', 'zh_HK')),
 	'he'=> array('name' => 'עברית', 'folder' => 'hebrew', 'direction' => 'rtl', 'codes' => array('he', 'hebrew', 'he_IL')),
+	'lt'=> array('name' => 'Lietuvių', 'folder' => 'lithuanian', 'direction' => 'ltr', 'codes' => array('lt', 'lt_LT')),
 );
 
 /*

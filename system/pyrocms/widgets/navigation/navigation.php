@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		PyroCMS
  * @subpackage 		RSS Feed Widget
@@ -9,17 +10,23 @@
 
 class Widget_Navigation extends Widgets
 {
-	public $title = 'Navigation';
-	public $description = 'Display a navigation group with a widget.';
-	public $author = 'Phil Sturgeon';
-	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.0';
+	public $title		= array(
+		'en' => 'Navigation',
+		'pt' => 'Navegação'
+	);
+	public $description	= array(
+		'en' => 'Display a navigation group with a widget',
+		'pt' => 'Exibe um grupo de links de navegação como widget em seu site'
+	);
+	public $author		= 'Phil Sturgeon';
+	public $website		= 'http://philsturgeon.co.uk/';
+	public $version		= '1.0';
 	
 	public $fields = array(
 		array(
-			'field'   => 'group',
-			'label'   => 'Navigation group',
-			'rules'   => 'required'
+			'field' => 'group',
+			'label' => 'Navigation group',
+			'rules' => 'required'
 		)
 	);
 
@@ -42,7 +49,7 @@ class Widget_Navigation extends Widgets
 	{
 		$this->load->model('navigation/navigation_m');
 
-		$links = $this->pyrocache->model('navigation_m', 'load_group', $options['group'], $this->settings->item('navigation_cache'));
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $options['group'], $this->settings->item('navigation_cache'));
 
 		$widget		=& $options['widget'];
 		$title		= isset($widget['title_tag'])	? '<' . $widget['title_tag'] . '>' . $widget['instance_title'] . '</' . $widget['title_tag'] . '>' : '';
@@ -56,7 +63,7 @@ class Widget_Navigation extends Widgets
 			'links'				=> $links,
 			'title'				=> $title,
 			'list_open_tag'		=> '<' . $list_tag . $list_id . $list_class . '>',
-			'list_close_tag'	=> '<' . $list_tag . '>',
+			'list_close_tag'	=> '</' . $list_tag . '>',
 			'group'				=> $options['group']
 		);
 	}

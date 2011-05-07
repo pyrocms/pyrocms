@@ -61,7 +61,7 @@ class Plugin_Galleries extends Plugin
 	 * 
 	 * Check if a gallery exists
 	 * 
-	 * @return	bool
+	 * @return	int 0 or 1
 	 */
 	function exists()
 	{
@@ -69,7 +69,7 @@ class Plugin_Galleries extends Plugin
 
 		$this->load->model('galleries_m');
 
-		return $slug ? (int) $this->galleries_m->count_by('slug', $slug) > 0 : FALSE;
+		return (int) ($slug ? $this->galleries_m->count_by('slug', $slug) > 0 : FALSE);
 	}
 }
 

@@ -42,36 +42,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |--------------------------------------------------------------------------
 */
 
-// Local: localhost or local.example.com
-if ($_SERVER['SERVER_NAME'])
-{
-	if (strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
-	{
-		define('ENV', 'local');
-	}
-
-	// Development: dev.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
-	{
-		define('ENV', 'dev');
-	}
-
-	// Quality Assurance: qa.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
-	{
-		define('ENV', 'qa');
-	}
-
-	// Live: example.com
-	else
-	{
-		define('ENV', 'live');
-	}
-}
-else
-{
-	define('ENV', 'local');
-}
+# Deprecated v1.2.0-beta1 This feature was rolled into CodeIgniter so we don't need to handle it ourselves anymore.
+define('ENV', ENVIRONMENT);
 
 /*
 |--------------------------------------------------------------------------
@@ -120,7 +92,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.1.0');
+define('CMS_VERSION', '1.2.0-beta2');
 
 /*
 |--------------------------------------------------------------------------
@@ -131,7 +103,7 @@ define('CMS_VERSION', '1.1.0');
 |
 */
 
-define('CMS_DATE', '01/03/2011');
+define('CMS_DATE', '02/05/2011');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

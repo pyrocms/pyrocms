@@ -39,7 +39,7 @@ function load_page() {
 $(document).ready(function(){
 
 	//hide Table of Contents. It will be shown later if tab/menu.html loads successfully
-	//$('#menu-tab').hide();
+	$('#menu-tab').hide();
 	
 	// load page content whenever uri changes
 	$(window).hashchange( function(){

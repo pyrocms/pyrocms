@@ -1,6 +1,10 @@
 <?php if (validation_errors()): ?>
 <div class="error-box">
-	<?php echo validation_errors();?>
+	<?php echo validation_errors(); ?>
+</div>
+<?php elseif (isset($messages['error'])): ?>
+<div class="error-box">
+	<p><?php echo $messages['error']; ?></p>
 </div>
 <?php endif; ?>
 <?php echo form_open(current_url());?>

@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['blog_posted_label']                   = 'Δημοσιεύτηκε'; 
-$lang['blog_posted_label_alt']               = 'Δημοσιεύτηκε στις'; 
+$lang['blog_posted_label']                   = 'Δημοσιεύτηκε';
+$lang['blog_posted_label_alt']               = 'Δημοσιεύτηκε στις';
 $lang['blog_category_label']                 = 'Κατηγορία';
 $lang['blog_post_label']                     = 'Δημοσίευση';
 $lang['blog_date_label']                     = 'Ημερομηνία';
-$lang['blog_date_at']                        = 'στις'; 
+$lang['blog_date_at']                        = 'στις';
 $lang['blog_time_label']                     = 'Χρόνος';
 $lang['blog_status_label']                   = 'Κατάσταση';
 $lang['blog_draft_label']                    = 'Πρόχειρο';
@@ -62,4 +62,5 @@ $lang['blog_already_exist_error']            = 'Υπάρχει ήδη μια δ�
 $lang['blog_twitter_posted']                 = 'Δημοσιεύτηκε "%s" %s';
 $lang['blog_twitter_error']                  = 'Σφάλμα Twitter';
 
-?>
+// date
+$lang['blog_archive_date_format']		= "%B' %Y";

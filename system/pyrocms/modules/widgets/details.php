@@ -20,7 +20,8 @@ class Module_Widgets extends Module {
 				'ru' => 'Виджеты',
 				'ar' => 'الودجت',
 				'cs' => 'Widgety',
-				'fi' => 'Widgetit'
+				'fi' => 'Widgetit',
+				'lt' => 'Papildiniai'
 			),
 			'description' => array(
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
@@ -36,8 +37,8 @@ class Module_Widgets extends Module {
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".',
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',
 				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".',
-				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".'
-
+				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".',
+				'lt' => 'Nedidelių, savarankiškų blokų valdymas.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -79,7 +80,7 @@ class Module_Widgets extends Module {
 			CREATE TABLE `widgets` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+			  `title` text COLLATE utf8_unicode_ci NOT NULL,
 			  `description` text COLLATE utf8_unicode_ci NOT NULL,
 			  `author` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 			  `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',

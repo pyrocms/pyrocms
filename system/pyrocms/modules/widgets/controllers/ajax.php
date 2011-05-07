@@ -85,18 +85,31 @@ class Ajax extends Admin_Controller
 	 */
 	public function add_widget_instance_form()
 	{
-		if ( ! ($this->input->post('widget_slug') OR $this->input->post('area_slug')))
+		if ( ! ($this->input->post('widget_slug') && $this->input->post('area_slug')))
 		{
-			return;
+			return print( json_encode((object) array(
+				'status'	=> 'error',
+				'message'	=> ''
+			)) );
 		}
 
 		$widget			= $this->widgets->get_widget($this->input->post('widget_slug'));
 		$widget_area	= $this->widgets->get_area($this->input->post('area_slug'));
-		
-		$this->load->view('admin/ajax/instance_form', array(
+
+		$html = $this->load->view('admin/ajax/instance_form', array(
 			'widget'		=> $widget,
 			'widget_area'	=> $widget_area
-		));
+		), TRUE);
+
+		if ($this->is_ajax())
+		{
+			return print( json_encode((object) array(
+				'status'	=> 'success',
+				'html'		=> $html
+			)) );
+		}
+
+		echo $html;
 	}
 
 	/**
@@ -115,7 +128,7 @@ class Ajax extends Admin_Controller
 
 		$widget_areas = $this->widgets->list_areas();
 		$widget_areas = array_for_select($widget_areas, 'id', 'title');
-		
+
 		$this->load->view('admin/ajax/instance_form', array(
 			'widget'		=> $widget,
 			'widget_area'	=> $widget_area,

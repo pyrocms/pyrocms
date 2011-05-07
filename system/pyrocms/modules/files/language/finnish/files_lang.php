@@ -13,7 +13,7 @@
 // Titles
 $lang['files.files_title']					= 'Tiedostot';
 $lang['files.upload_title']					= 'Lähetä tiedostoja';
-$lang['files.edit_title']					= 'Edit file "%s"'; #translate
+$lang['files.edit_title']					= 'Muokkaa tiedostoa "%s"';
 
 // Labels
 $lang['files.actions_label']				= 'Toiminto';
@@ -27,7 +27,7 @@ $lang['files.file_label']					= 'Tiedosto';
 $lang['files.filename_label']				= 'Tiedostonimi';
 $lang['files.filter_label']					= 'Suodata';
 $lang['files.loading_label']				= 'Ladataan...';
-$lang['files.name_label']					= 'Name'; #translate
+$lang['files.name_label']					= 'Nimi';
 
 $lang['files.dropdown_no_subfolders']		= '-- Ei mikään --';
 $lang['files.dropdown_root']				= '-- Juuri --';
@@ -43,19 +43,19 @@ $lang['files.display_list']					= 'Lista';
 
 // Messages
 $lang['files.create_success']				= 'Tiedosto tallennettiin.';
-$lang['files.create_error']					= 'An error as occourred.'; #translate
-$lang['files.edit_success']					= 'The file was successfully saved.'; #translate
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.'; #translate
+$lang['files.create_error']					= 'Tapahtui virhe.';
+$lang['files.edit_success']					= 'Tiedosto tallennettiin onnistuneesti.';
+$lang['files.edit_error']					= 'Tiedostoa tallennetaessa tapahtui virhe.';
 $lang['files.delete_success']				= 'Tiedosto poistettiin.';
 $lang['files.delete_error']					= 'Tiedostoa ei voitu poistaa.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"'; #translate
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".'; #translate
-$lang['files.upload_error']					= 'A file must be uploaded.'; #translate
-$lang['files.invalid_extension']			= 'File must have a valid extension.'; #translate
+$lang['files.mass_delete_success']			= '%d/%d tiedostoa poistettiin onnistuneesti, ne olivat "%s ja %s"';
+$lang['files.mass_delete_error']			= 'Tapahtui virhe poistaessa %d/%d tiedostoa, ne olivat "%s ja %s".';
+$lang['files.upload_error']					= 'Tiedoston lataaminen on pakollinen.';
+$lang['files.invalid_extension']			= 'Tiedostomuoto ei kelpaa.';
 $lang['files.not_exists']					= 'Ei voitu valita tiedostoa (ei ole olemassa).';
 $lang['files.no_files']						= 'Ei tiedostoja tällä hetkellä.';
 $lang['files.no_permissions']				= 'Sinulla ei ole käyttöoikeuksia hallinnoida moduulia.';
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.'; #translate
+$lang['files.no_select_error'] 				= 'Sinun tulee ensin valita tiedosto, pyyntö keskeytettiin.';
 
 // File folders
 
@@ -64,7 +64,7 @@ $lang['file_folders.folders_title']			= 'Kansiot';
 $lang['file_folders.manage_title']			= 'Hallitse kansioita';
 $lang['file_folders.create_title']			= 'Uusi kansio';
 $lang['file_folders.delete_title']			= 'Vahvista poistaminen';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"'; #translate
+$lang['file_folders.edit_title']			= 'Muokkaa kansiota "%s"';
 
 // Labels
 $lang['file_folders.folders_label']			= 'Kansiot';
@@ -77,14 +77,14 @@ $lang['file_folders.created_label']			= 'Luotu';
 
 // Messages
 $lang['file_folders.create_success']		= 'Kansio tallennettiin.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.'; #translate
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".'; #translate
+$lang['file_folders.create_error']			= 'Kansiota luodessa tapahtui virhe.';
+$lang['file_folders.edit_success']			= 'Tiedosto tallennettiin onnistuneesti.';
+$lang['file_folders.edit_error']			= 'Muutoksia tallennettaessa tapahtui virhe.';
+$lang['file_folders.confirm_delete']		= 'Oletko varma, että haluat poistaa alla olevan kansion? Kaikki sen sisällä olevat tiedostot ja kansiot poistetaan myös.';
+$lang['file_folders.delete_mass_success']	= '%d/%d kansiota poistettiin onnistuneesti, ne olivat "%s ja %s.';
+$lang['file_folders.delete_mass_error']		= '%d/%d kansioita poistaessa tapahtui virhe, ne olivat "%s ja %s".';
 $lang['file_folders.delete_success']		= 'Kansio "%s" poistettiin.';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".'; #translate
+$lang['file_folders.delete_error']			= 'Kansion "%s" poistaessa tapahtui virhe.';
 $lang['file_folders.not_exists']			= 'Ei voitu valita kansiota (ei ole olemassa).';
 $lang['file_folders.no_subfolders']			= 'Ei yhtään';
 $lang['file_folders.no_folders']			= 'Tiedostot listataan kansioittain. Tällä hetkellä kansioita ei ole luotu.';

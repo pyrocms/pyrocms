@@ -1,17 +1,36 @@
 <h2>Change Log</h2>
 
-<h3>v1.1.1</h3>
+<h3>v1.2.0</h3>
 
 <ul>
+	<li>Pages in CP > Pages can be sorted and assigned to different parents via drag drop in an improved tree view.</li>
+	<li>Comments can be disabled for a specific blog post.</li>
+	<li>Added support for the ENVIRONMENT constant in CodeIgniter and deprecated ENV.</li>
+	<li>Live and QA sites will no longer output PHP notices, warnings or errors. Check logs if things go wrong on the live site.</li>
 	<li>Allowed the pyro: trigger to be set to whatever the developer likes in the new config/tags.php file.</li>
 	<li>Any page can now be set as the home-page.</li>
 	<li>Breadcrumbs will be automatically set for the entire trail of pages.</li>
+	<li>Upgraded to CodeIgniter 2.0.1.</li>
+	<li>Ran all png's through pngcrush to save some file-space and decrease load times.</li>
+	<li>Added Greek, Hebrew and Slovenian language support.</li>
+	<li>Inline documentation can now be multi-lingual.</li>
+	<li>iPhones and iPads should now been seen as mobile devices.</li>
+	<li>Hide the graph if the Google Analytics details are not filled in.</li>
+	<li>Renamed the Cache library to PyroCache to stop it blocking the new Cache library in CodeIgniter.</li>
+	<li>The info of the Widgets now can be muilti-lingual.</li>
 </ul>
 
 <h4>Bugs</h4>
 
 <ul>
+	<li>Fixed blog breadcrumbs.</li>
+	<li>Fixed a whole host of bugs in Files module.</li>
+	<li>Disabled the referal checking in modules admin controller as it was screwing with IE.</li>
+	<li>Fixed issue #369: Improved the current navigation class.</li>
 	<li>Fixed issue #377 - After delete installer get a PHP Error notice</li>
+	<li>Fixed issue #385 with validation field is_home added</li>
+	<li>Fixed issue #378.  Did NOT add support to change the Nav group on a page edit.</li>
+	<li>Fixed issue #404 - Typo in contact template SQL</li>
 </ul>
 
 <h3>v1.1.0</h3>

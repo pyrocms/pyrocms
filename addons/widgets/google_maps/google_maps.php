@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		PyroCMS
  * @subpackage 		Google Maps Widget
@@ -10,11 +11,14 @@
 
 class Widget_Google_maps extends Widgets
 {
-    public $title = 'Google Maps';
-    public $description = 'Display Google Maps on your site';
-    public $author = 'Gregory Athons';
-    public $website = 'http://www.gregathons.com';
-    public $version = '1.0';
+    public $title		= 'Google Maps';
+    public $description	= array(
+		'en' => 'Display Google Maps on your site',
+		'pt' => 'Mostra mapas do Google no seu site'
+	);
+    public $author		= 'Gregory Athons';
+    public $website		= 'http://www.gregathons.com';
+    public $version		= '1.0';
     
     public $fields = array(
         array(

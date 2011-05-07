@@ -8,8 +8,15 @@
  * @author			Phil Sturgeon - PyroCMS Development Team
  * 
  */
-class Navigation_m extends CI_Model
+class Navigation_m extends MY_Model
 {
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->_table = 'navigation_links';
+	}
+	
 	/**
 	 * Get a navigation link
 	 * 
@@ -20,54 +27,36 @@ class Navigation_m extends CI_Model
 	public function get_link($id = 0)
 	{
 		$query = $this->db->get_where('navigation_links', array('id'=>$id));
-		if ($query->num_rows() == 0) {
+
+		if ($query->num_rows() == 0)
+		{
 			return FALSE;
-		} else {
+		}
+		else
+		{
 			return $query->row();
 		}
 	}
-
+	
 	/**
-	 * Return an object of objects containing NavigationLink data
+	 * Get a navigation link with all the trimmings
 	 * 
-	 * @access public
-	 * @param array $params The link parameters
+	 * @access public 
+	 * @param int $id The ID of the item
 	 * @return mixed
 	 */
-	public function get_links($params = array())
+	public function get_url($id = 0)
 	{
-		if(!empty($params['group']))
-		{
-			$this->db->where('navigation_group_id', $params['group']);
-		}
-		
-		//get only links with no parent
-		if(isset($params['top']))
-		{
-			$this->db->where('parent', $params['top']);
-		}
+		$query = $this->db->get_where('navigation_links', array('id'=>$id));
 
-		if(!empty($params['order']))
+		if ($query->num_rows() == 0)
 		{
-			$this->db->order_by($params['order']);
+			return FALSE;
 		}
-		
 		else
 		{
-			$this->db->order_by('title');
+			return $this->make_url($query->result());
 		}
-
-		$result = $this->db->get('navigation_links')->result();
-
-		// If we should build the urls
-		if( ! isset($params['make_urls']) or $params['make_urls'])
-		{
-			$this->load->helper('url');
-
-			$result = $this->make_url($result);
-		}
-
-		return $result;
 	}
 	
 	/**
@@ -115,8 +104,8 @@ class Navigation_m extends CI_Model
 	public function update_link($id = 0, $input = array()) 
 	{
 		$input = $this->_format_array($input);
-		 
-		return $this->db->update('navigation_links', array(
+		
+		$insert = array(
         	'title' 				=> $input['title'],
         	'link_type' 			=> $input['link_type'],
         	'url' 					=> $input['url'] == 'http://' ? '' : $input['url'], // Do not insert if only http://
@@ -126,48 +115,130 @@ class Navigation_m extends CI_Model
 			'target'				=> $input['target'],
 			'class'					=> $input['class'],
         	'navigation_group_id' 	=> (int) $input['navigation_group_id']
-		), array('id' => $id));
-	}
-	
-	/**
-	 * Update a link's position
-	 * 
-	 * @access public
-	 * @param int $id The ID of the link item
-	 * @param int $position The current position of the link item
-	 * @return void
-	 */
-	public function update_link_position($id = 0, $position) 
-	{
-		return $this->db->update('navigation_links', array(
-        	'position' => (int) $position
-		), array('id' => $id));
-	}
-	
-	/**
-	 * Record the link's parent
-	 * 
-	 * @access public
-	 * @param int $id The ID of the link item
-	 * @param int $parent ID of the parent
-	 * @return void
-	 */
-	public function update_link_parent($id = 0, $parent = 0) 
-	{
-		if($parent == 0)
+		);
+		
+		// if it was changed to a different group we need to reset the parent > child
+		if ($input['current_group_id'] != $input['navigation_group_id'])
 		{
-			//if they're trying to clear the parent selection we need to get the parent's id
-			$existing = $this->db->get_where('navigation_links', array('id' => $id))->row();
-			
-			//mark that it has no children
-			$this->db->update('navigation_links', array('has_kids' => 0), array('id' => $existing->parent));
+			// modify the link update array to reset this link in case it's a child
+			$insert['parent'] = 0;
+		
+			// reset all of this link's children
+			$this->db->where('parent', $id)->update($this->_table, array('parent' => 0));
+		}
+
+		return $this->db->update('navigation_links', $insert, array('id' => $id));
+	}
+	
+	/**
+	 * Update links by group
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @param int $group
+	 * @param array $data
+	 * @return boolean
+	 */
+	public function update_by_group($group = 0, $data = array())
+	{
+		
+		return $this->db->where_in('navigation_group_id', $group)
+			->set($data)
+			->update($this->_table);
+	}
+	
+	/**
+	 * Build a multi-array of parent > children.
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access public
+	 * @param  string $group Either the group abbrev or the group id
+	 * @return array An array representing the link tree
+	 */
+	public function get_link_tree($group, $params = array())
+	{
+		// the plugin passes the abbreviation
+		if ( ! is_numeric($group))
+		{
+			$row = $this->get_group_by('abbrev', $group);
+			$group = $row->id;
+		}
+		
+		if ( ! empty($params['order']))
+		{
+			$this->db->order_by($params['order']);
 		}
 		else
 		{
-			$this->db->update('navigation_links', array('has_kids' => 1), array('id' => $parent));
+			$this->db->order_by('position');
 		}
+
+		$all_links = $this->db->where('navigation_group_id', $group)
+			 ->get($this->_table)
+			 ->result_array();
+
+		$this->load->helper('url');
+
+		$links = array();
 		
-		return $this->db->update('navigation_links', array('parent' => $parent), array('id' => $id));
+		// we must reindex the array first and build urls
+		$all_links = $this->make_url_array($all_links);
+		foreach ($all_links AS $row)
+		{
+			$links[$row['id']] = $row;
+		}
+
+		unset($all_links);
+
+		$link_array = array();
+
+		// build a multidimensional array of parent > children
+		foreach ($links AS $row)
+		{
+			if (array_key_exists($row['parent'], $links))
+			{
+				// add this link to the children array of the parent link
+				$links[$row['parent']]['children'][] =& $links[$row['id']];
+			}
+
+			if ( ! isset($links[$row['id']]['children']))
+			{
+				$links[$row['id']]['children'] = array();
+			}
+
+			// this is a root link
+			if ($row['parent'] == 0)
+			{
+				$link_array[] =& $links[$row['id']];
+			}
+		}
+
+		return $link_array;
+	}
+	
+	/**
+	 * Set the parent > child relations and child order
+	 *
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @param array $link
+	 * @return void
+	 */
+	public function _set_children($link)
+	{
+		if ($link['children'])
+		{
+			foreach ($link['children'] as $i => $child)
+			{
+				$this->db->where('id', str_replace('link_', '', $child['id']));
+				$this->db->update($this->_table, array('parent' => str_replace('link_', '', $link['id']), 'position' => $i));
+				
+				//repeat as long as there are children
+				if ($child['children'])
+				{
+					$this->_set_children($child);
+				}
+			}
+		}
 	}
 
 	/**
@@ -226,91 +297,6 @@ class Navigation_m extends CI_Model
 		
 		return $this->db->delete('navigation_links', $params);
 	}
-
-
-	/**
-	 * Load a group
-	 * 
-	 * @access public
-	 * @param string $abbrev The group abbrevation
-	 * @return mixed
-	 */
-	public function load_group($abbrev)
-	{
-		if ( ! $group = $this->get_group_by('abbrev', $abbrev))
-		{
-			return FALSE;
-		}
-
-		$group_links = $this->get_links(array(
-			'group'=> $group->id,
-			'order'=>'position, title',
-			'top'=> 0
-		));
-    		
-		$has_current_link = false;
-			
-		// Loop through all links and add a "current_link" property to show if it is active
-		if( ! empty($group_links) )
-		{
-			foreach($group_links as &$link)
-			{
-				$full_match 	= site_url($this->uri->uri_string()) == $link->uri;
-				$segment1_match = site_url($this->uri->rsegment(1, '')) == $link->uri;
-				
-				// Either the whole URI matches, or the first segment matches
-				if($link->current_link = $full_match || $segment1_match)
-				{
-					$has_current_link = true;
-				}
-				
-				//build a multidimensional array for submenus
-				if($link->has_kids > 0 AND $link->parent == 0)
-				{
-					$link->children = $this->get_children($link->id);
-					
-					foreach($link->children as $key => $child)
-					{
-						//what is this world coming to?
-						if($child->has_kids > 0)
-						{
-							$link->children[$key]->children = $this->get_children($child->id);
-							
-							foreach($link->children[$key]->children as $index => $item)
-							{
-								if($item->has_kids > 0)
-								{
-									$link->children[$key]->children[$index]->children = $this->get_children($item->id);
-								}
-							}
-						}
-					}
-				}
-			}
-			
-		}
-
-		// Assign it 
-	    return $group_links;
-	}
-	
-	/**
-	 * Get children
-	 *
-	 * @access public
-	 * @param integer Get links by parent id
-	 * @return mixed
-	 */
-	public function get_children($id)
-	{
-		$children = $this->db->where('parent', $id)
-							->order_by('position')
-							->order_by('title')
-							->get('navigation_links')
-							->result();
-							
-		return $this->make_url($children);
-	}
 	
 	/**
 	 * Make URL
@@ -321,7 +307,7 @@ class Navigation_m extends CI_Model
 	 */
 	public function make_url($result)
 	{
-		foreach($result as &$row)
+		foreach($result as $key => &$row)
 		{
 			// If its any other type than a URL, it needs some help becoming one
 			switch($row->link_type)
@@ -335,13 +321,65 @@ class Navigation_m extends CI_Model
 				break;
 
 				case 'page':
-					$page = $this->pages_m->get($row->page_id);
-					$row->url = $page ? site_url($page->uri) : '';
+					if ($page = $this->pages_m->get_by(array(
+						'id'		=> $row->page_id,
+						'status'	=> 'live'
+					)))
+					{
+						$row->url = site_url($page->uri);
+						$row->is_home = $page->is_home;
+					}
+					else
+					{
+						unset($result[$key]);
+					}
 				break;
 			}
 		}
 
 		return $result;
+	}
+	
+	/**
+	 * Make a URL array
+	 *
+	 * @access public
+	 * @param array $row Array of links
+	 * @return mixed Array of links with valid urls
+	 */
+	public function make_url_array($links)
+	{
+		foreach($links as $key => &$row)
+		{
+			// If its any other type than a URL, it needs some help becoming one
+			switch($row['link_type'])
+			{
+				case 'uri':
+					$row['url'] = site_url($row['uri']);
+				break;
+
+				case 'module':
+					$row['url'] = site_url($row['module_name']);
+				break;
+
+				case 'page':
+					if ($page = $this->pages_m->get_by(array(
+						'id'		=> $row['page_id'],
+						'status'	=> 'live'
+					)))
+					{
+						$row['url'] = site_url($page->uri);
+						$row['is_home'] = $page->is_home;
+					}
+					else
+					{
+						unset($links[$key]);
+					}
+				break;
+			}
+		}
+
+		return $links;
 	}
 	
 	/**

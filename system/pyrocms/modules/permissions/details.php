@@ -23,7 +23,8 @@ class Module_Permissions extends Module {
 				'cs' => 'Oprávnění',
 				'fi' => 'Käyttöoikeudet',
 				'el' => 'Δικαιώματα',
-				'he' => 'הרשאות'
+				'he' => 'הרשאות',
+				'lt' => 'Teisės'
 			),
 			'description' => array(
 				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
@@ -41,7 +42,8 @@ class Module_Permissions extends Module {
 				'cs' => 'Spravujte oprávnění pro jednotlivé typy uživatelů a ke kterým sekcím mají přístup.',
 				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
 				'el' => 'Ελέγξτε οι χρήστες ποιας ομάδας μπορούν να δούν ποιες περιοχές του ιστοτόπου.',
-				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר'
+				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר',
+				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -58,6 +60,7 @@ class Module_Permissions extends Module {
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `group_id` int(11) NOT NULL,
 			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+			  `roles` text NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contains a list of modules that a group can access.';
 		";

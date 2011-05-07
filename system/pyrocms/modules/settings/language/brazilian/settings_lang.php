@@ -10,6 +10,9 @@ $lang['settings_site_name_desc'] 				= 'O nome do website para títulos de pági
 $lang['settings_site_slogan'] 					= 'Slogan do site';
 $lang['settings_site_slogan_desc'] 				= 'O slogan do website para títulos de páginas e para usar por todo o site.';
 
+$lang['settings_site_lang']						= 'Idioma do site';
+$lang['settings_site_lang_desc']				= 'O idioma nativo do website, usado para escolher modelos de e-mail para notificações internas e recebimento de contato dos visitantes além de outras funcionalidades que não devem se flexionar ao idioma de um usuário.';
+
 $lang['settings_contact_email'] 				= 'E-mail de contato';
 $lang['settings_contact_email_desc'] 			= 'Todos os e-mails de usuários, visitantes e do site devem ir para este endereço.';
 
@@ -96,8 +99,8 @@ $lang['settings_twitter_consumer_key_desc'] 	= 'Chave de consumo do Twitter.';
 $lang['settings_twitter_consumer_key_secret'] 	= 'Chave de consumo secreta';
 $lang['settings_twitter_consumer_key_secret_desc'] = 'Chave de consumo secreta do Twitter.';
 
-$lang['settings_twitter_blog']					= 'Twitter &amp; Integração de novidades.';
-$lang['settings_twitter_blog_desc'] 			= 'Você deseja escrever no twitter links para os novos artigos de novidades?';
+$lang['settings_twitter_blog']					= 'Twitter integrado ao Blog.';
+$lang['settings_twitter_blog_desc'] 			= 'Você deseja que sejam escritos automaticamente no twitter os links para os novos artigos do blog?';
 
 $lang['settings_twitter_feed_count'] 			= 'Contador do Feed';
 $lang['settings_twitter_feed_count_desc'] 		= 'Quantos tweets devem ser retornados para o bloco de feed do Twitter?';

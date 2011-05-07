@@ -17,6 +17,9 @@ $lang['settings_site_name_desc']				= 'Sivuston nimi, jota näytetään ympäri 
 $lang['settings_site_slogan']					= 'Sivuston iskulause';
 $lang['settings_site_slogan_desc']				= 'Sivuston iskulause, jota käytetään ympäri sivustoa.';
 
+$lang['settings_site_lang']						= 'Sivuston kieli';
+$lang['settings_site_lang_desc']				= 'Sivuston natiivinen kieli, jota käytetään sähköposiviestien mallipohjissa, sisäisissä ilmoituksissa, vastaanotettujen vieraiden yhteydenottoja ja muut ominaisuudet, jotka eivät ole riippuvaisia kävijän kielivalinnasta.';
+
 $lang['settings_contact_email']					= 'Yhteydenotto sähköpostiosoite';
 $lang['settings_contact_email_desc']			= 'Kaikki yhteydenotot lähetetään tähän osoitteeseen.';
 

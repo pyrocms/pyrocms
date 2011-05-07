@@ -119,7 +119,7 @@ class MY_Parser extends CI_Parser {
 
 		$return_data = $this->_ci->plugins->locate($data);
 
-		if (is_array($return_data))
+		if (is_array($return_data) && $return_data)
 		{
 			if ( ! $this->_is_multi($return_data))
 			{
@@ -128,19 +128,22 @@ class MY_Parser extends CI_Parser {
 
 			$content = $data['content'];
 			$parsed_return = '';
+
 			$simpletags = new Tags;
 			$simpletags->set_trigger(config_item('tags_trigger').':');
+
 			foreach ($return_data as $result)
 			{
 				$parsed = $simpletags->parse($content, $result, array($this, 'parser_callback'));
 				$parsed_return .= $parsed['content'];
 			}
+
 			unset($simpletags);
 
 			$return_data = $parsed_return;
 		}
 
-		return $return_data;
+		return $return_data ? $return_data : NULL;
 	}
 
 	// ------------------------------------------------------------------------

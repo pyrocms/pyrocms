@@ -3,11 +3,11 @@
 
 		form = $('form.crud');
 		
-		$('input[name="title"]', form).keyup(function(){
+		$('input[name="title"]', form).keyup($.debounce(350, function(e){
 			$.post(BASE_URL + '/ajax/url_title', { title : $(this).val() }, function(slug){
 				$('input[name="slug"]', form).val( slug );
 			});
-		});
+		}));
 		
 		$('#blog-options-tab ol li:first a').colorbox({
 			srollable: false,

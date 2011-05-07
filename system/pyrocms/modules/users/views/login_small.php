@@ -9,7 +9,7 @@
 		<input type="password" id="password" name="password" maxlength="20" />
 	</li>
 	<li class="form-buttons">
-		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> or <?php echo anchor('register', lang('user_register_btn'));?>
+		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> | <?php echo anchor('register', lang('user_register_btn'));?>
 	</li>
 	<li class="remember-me">
 		<?php echo form_checkbox('remember', '1', FALSE); ?><span><?php echo lang('user_remember')?></span>

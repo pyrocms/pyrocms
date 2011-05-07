@@ -44,8 +44,6 @@ class Permission_m extends CI_Model
 
 		return $permissions;
 	}
-
-
 	
 	/**
 	 * Get a rule based on the ID

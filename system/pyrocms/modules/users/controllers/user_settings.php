@@ -15,7 +15,7 @@ class User_settings extends Public_Controller
 	 * @access private
 	 * @var int
 	 */
-	private $user_id 			= 0;
+	private $user_id = 0;
 
 	/**
 	 * Array containing the validation rules
@@ -173,4 +173,3 @@ class User_settings extends Public_Controller
 		$this->template->build('settings/edit', $this->data);
 	}
 }
-?>

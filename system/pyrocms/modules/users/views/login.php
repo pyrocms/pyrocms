@@ -20,10 +20,10 @@
 		<?php echo form_checkbox('remember', '1', FALSE); ?><?php echo lang('user_remember')?>
 	</li>
 	<li class="form_buttons">
-		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> or <?php echo anchor('register', lang('user_register_btn'));?>
+		<input type="submit" value="<?php echo lang('user_login_btn') ?>" name="btnLogin" /> | <?php echo anchor('register', lang('user_register_btn'));?>
 	</li>
 	<li>
-		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?> | <?php echo anchor('register', lang('user_register_btn'));?>
+		<?php echo anchor('users/reset_pass', lang('user_reset_password_link'));?>
 	</li>
 </ul>
 <?php echo form_close(); ?>

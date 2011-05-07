@@ -30,16 +30,16 @@
 
 		<ul>
 			<li class="email">
-			<input type="text" id="email" name="email" maxlength="120" value="Email Address" onblur="if (this.value == '') { this.value = 'Email Address'; }"  onfocus="if (this.value == 'Email Address') { this.value = ''; }" />
+			<input type="text" id="email" name="email" maxlength="120" value="{pyro:helper:lang line='user_email'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_email"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_email"}') { this.value = ''; }" />
 			</li>
 
 			<li class="pword">
-				<input type="password" id="password" name="password" maxlength="20" value="Enter Password" onblur="if (this.value == '') { this.value = 'Enter Password'; }"  onfocus="if (this.value == 'Enter Password') { this.value = ''; }" />
+				<input type="password" id="password" name="password" maxlength="20" value="{pyro:helper:lang line='user_password'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_password"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_password"}') { this.value = ''; }" />
 			</li>
 
 			<li class="form-buttons">
-				<input type="submit" value="Login" name="btnLogin" /> or &nbsp;<a href="{pyro:url:site}register">Signup</a>
-				<input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /><span>Remember Me</span>
+				<input type="submit" value="{pyro:helper:lang line='user_login_btn'}" name="btnLogin" /> | &nbsp;<a href="{pyro:url:site}register">{pyro:helper:lang line="user_register_btn"}</a>
+				<input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /><span>{pyro:helper:lang line="user_remember"}</span>
 			</li>
 
 		</ul>

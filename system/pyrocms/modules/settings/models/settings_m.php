@@ -59,7 +59,7 @@ class Settings_m extends MY_Model {
 	 */
 	public function get_all($where = array())
 	{
-		if(!is_array($where))
+		if ( ! is_array($where))
 		{
 			$where = array('module' => $where);
 		}
@@ -67,6 +67,7 @@ class Settings_m extends MY_Model {
 		return $this->db
 			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
 			->where($where)
+			->order_by('`order`', 'DESC')
 			->get('settings')
 			->result();
 	}

@@ -44,6 +44,12 @@ form.crud ul li div
 	cursor:		pointer;
 }
 
+.images-placeholder #gallery_images_list img:hover
+{
+	border: 	1px solid #9c9fa1;
+	cursor:		default;
+}
+
 /* JCROP */
 
 .jcrop-holder

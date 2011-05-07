@@ -39,7 +39,7 @@ $lang['blog_author_name_label']              = 'Tekijän nimi';
 $lang['blog_read_more_label']                = 'Lue lisää&nbsp;&raquo;';
 $lang['blog_created_hour']                   = 'Luotiin tunnissa'; // @todo Where this is used?
 $lang['blog_created_minute']                 = 'Luotiin minuutissa'; // @todo Where this is used?
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'Kommentit päällä';
 
 // titles
 $lang['blog_create_title']                   = 'Luo artikkeli';

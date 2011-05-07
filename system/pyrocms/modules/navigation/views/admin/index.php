@@ -1,62 +1,84 @@
 <?php if ( ! empty($groups)): ?>
 	<?php foreach ($groups as $group): ?>
 	
-		<section class="box">
+		<section rel="<?php echo $group->id; ?>" class="group-<?php echo $group->id; ?> box">
 			<header>
+				<div class="buttons buttons-small float-left">
+					<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
+				</div>
+
 				<div class="buttons buttons-small float-right">
 					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm button",  'title' => lang('nav_group_delete_confirm'))) ?>
 				</div>
 			
-				<h3 class="spacer-top-half spacer-bottom-half"><?php echo $group->title;?></h3>
+				<h3 class="spacer-bottom-half"><?php echo $group->title;?></h3>
+				<h3 class="form-title group-title-<?php echo $group->id; ?>"></h3>
 			</header>
 			
-			<?php echo form_open('admin/navigation/delete');?>
-		
-				<?php if ( ! empty($navigation[$group->abbrev])): ?>
+			<?php if ( ! empty($navigation[$group->id])): ?>
 				
-					<table border="0" class="table-list">		    
-						<thead>
-							<tr>
-								<th style="width: 3em"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-								<th style="width: 20%"><?php echo lang('nav_title_label');?></th>
-								<th style="width: 30%"><?php echo lang('nav_url_label');?></th>
-								<th style="width: 5%"></th>
-								<th style="width: 10%"><?php echo lang('nav_parent_label');?></th>
-								<th style="width: 10%"><?php echo lang('nav_target_label');?></th>
-								<th style="width: 15%"><?php echo lang('nav_class_label');?></th>
-								<th style="width: 5em">&nbsp;</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ($navigation[$group->abbrev] as $navigation_link): ?>
-							<tr class="hover-toggle">
-								<td style="padding:4px"><?php echo form_checkbox('action_to[]', $navigation_link->id); ?></td>
-								<td style="padding:4px"><?php echo $navigation_link->title;?></td>
-								<td style="padding:4px"><?php echo anchor($navigation_link->url, $navigation_link->url, 'target="_blank"');?></td>
-								<td style="padding:4px"><img class="parent-gif" style="display:none;" src="<?php echo base_url(); ?>system/pyrocms/assets/img/admin/loading.gif"/></td>
-								<td style="padding:4px"><?php echo form_dropdown('parent', $navigation_link->parents, $navigation_link->parent, 'id="'.$navigation_link->id.'"'); ?></td>
-								<td style="padding:4px"><?php echo $navigation_link->target;?></td>
-								<td style="padding:4px"><?php echo $navigation_link->class;?></td>
-								<td style="padding:4px" width="180" align="right">
-                                	<span class="toggle-item">
-									<?php echo anchor('admin/navigation/edit/' . $navigation_link->id, lang('nav_edit_label'), array('class'=>'minibutton'));?>  
-									<?php echo anchor('admin/navigation/delete/' . $navigation_link->id, lang('nav_delete_label'), array('class'=>'confirm minibutton'));?>
-                                    </span>
-								</td>
-							</tr>
-							<?php endforeach; ?>	
-						</tbody>
-					</table>
+				<div class="box-container collapsed" >
 					
-					<footer class="buttons buttons-small align-right">
-						<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
-					</footer>
+					<div id="link-list">
+						<ol class="sortable">
+					
+							<?php foreach($navigation[$group->id] as $link): ?>
+						
+									<li id="link_<?php echo $link['id']; ?>">
+										<div>
+											<a href="#" rel="<?php echo $group->id; ?>" alt="<?php echo $link['id']; ?>"><?php echo $link['title']; ?></a>
+										</div>
+
+								<?php if ($link['children']): ?>
+										<ol>
+											<?php $controller->tree_builder($link, $group->id); ?>
+										</ol>
+									</li>
+								<?php else: ?>
+									</li>
+								<?php endif; ?>
+									
+							<?php endforeach; ?>
+					
+						</ol>
+					</div>
+					
+					<div id="link-details" class="group-<?php echo $group->id; ?>">
+						
+						<p>
+							<?php echo lang('navs.tree_explanation'); ?>
+						</p>
+						
+					</div>
+						
+					<br class="clear-both" />
+						
+				</div>
 										
 				<?php else:?>
-					<p><?php echo lang('nav_group_no_links');?></p>
+
+				<div class="box-container collapsed">
+					
+					<div id="link-list" class="empty">
+						<ol class="sortable">
+					
+							<p><?php echo lang('nav_group_no_links');?></p>
+					
+						</ol>
+					</div>
+					
+					<div id="link-details" class="group-<?php echo $group->id; ?>">
+						
+						<p>
+							<?php echo lang('navs.tree_explanation'); ?>
+						</p>
+						
+					</div>
+						
+					<br class="clear-both" />
+						
+				</div>
 				<?php endif; ?>	
-	
-			<?php echo form_close(); ?>
 					
 		</section>
 		

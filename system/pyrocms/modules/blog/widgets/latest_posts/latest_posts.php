@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		PyroCMS
  * @subpackage 		Latest blog Widget
@@ -12,18 +13,24 @@
 
 class Widget_Latest_posts extends Widgets
 {
-	public $title = 'Latest posts';
-	public $description = 'Display latest blog posts with a widget.';
-	public $author = 'Erik Berman';
-	public $website = 'http://www.nukleo.fr';
-	public $version = '1.0';
+	public $title		= array(
+		'en' => 'Latest posts',
+		'pt' => 'Artigos recentes do Blog',
+	);
+	public $description	= array(
+		'en' => 'Display latest blog posts with a widget',
+		'pt' => 'Mostra uma lista de navegação para abrir os últimos artigos publicados no Blog'
+	);
+	public $author		= 'Erik Berman';
+	public $website		= 'http://www.nukleo.fr';
+	public $version		= '1.0';
 
 	// build form fields for the backend
 	// MUST match the field name declared in the form.php file
 	public $fields = array(
 		array(
-			'field'   => 'limit',
-			'label'   => 'Number of posts',
+			'field' => 'limit',
+			'label' => 'Number of posts',
 		)
 	);
 

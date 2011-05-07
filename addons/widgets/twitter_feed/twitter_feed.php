@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		MizuCMS
  * @subpackage 		Twitter Feed Widget
@@ -9,22 +10,28 @@
 
 class Widget_Twitter_feed extends Widgets
 {
-	public $title = 'Twitter Feed';
-	public $description = 'Display Twitter feeds on your websites.';
-	public $author = 'Phil Sturgeon';
-	public $website = 'http://philsturgeon.co.uk/';
-	public $version = '1.2';
+	public $title		= array(
+		'en' => 'Twitter Feed',
+		'pt' => 'Feed do Twitter',
+	);
+	public $description	= array(
+		'en' => 'Display Twitter feeds on your website',
+		'pt' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.'
+	);
+	public $author		= 'Phil Sturgeon';
+	public $website		= 'http://philsturgeon.co.uk/';
+	public $version		= '1.2';
 	
 	public $fields = array(
 		array(
-			'field'   => 'username',
-			'label'   => 'Username',
-			'rules'   => 'required'
+			'field' => 'username',
+			'label' => 'Username',
+			'rules' => 'required'
 		),
 		array(
-			'field'   => 'number',
-			'label'   => 'Number of tweets',
-			'rules'   => 'numeric'
+			'field' => 'number',
+			'label' => 'Number of tweets',
+			'rules' => 'numeric'
 		)
 	);
 
@@ -68,6 +75,5 @@ class Widget_Twitter_feed extends Widgets
 			'username'	=> $options['username'],
 			'tweets'	=> $tweets
 		);
-	}
-	
+	}	
 }

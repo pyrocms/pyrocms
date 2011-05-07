@@ -13,7 +13,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -470,6 +470,12 @@ class Installer extends CI_Controller
 
 		// also we load some generic language labels
 		$this->lang->load('global');
+		
+		// set the supported languages to be saved in Settings for emails and .etc
+		// modules > settings > details.php uses this
+		require_once(dirname(FCPATH).'/system/pyrocms/config/language.php');
+
+		define('DEFAULT_LANG', $config['default_language']);
 	}
 }
 

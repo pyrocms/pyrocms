@@ -31,10 +31,10 @@
 
 			// Widget Areas Accordion
 			$(".accordion").accordion({
-				collapsible: true,
-				header: 'header',
-				autoHeight: true,
-				clearStyle: true
+				collapsible	: true,
+				header		: 'header',
+				autoHeight	: true,
+				clearStyle	: true
 			});
 
 			//Init Sortable
@@ -67,12 +67,12 @@
 			});
 
 			// Auto-create a short-name
-			$('input[name="title"]').live('keyup', function(){
+			$('input[name="title"]').live('keyup', $.debounce(350, function(e){
 				var form = $(this).parents('form');
-				$.post(BASE_URL + '/ajax/url_title', { title : $(this).val() }, function(slug){
+				$.post(BASE_URL + 'index.php/ajax/url_title', { title : $(this).val() }, function(slug){
 					$('input[name="slug"]', form).val(slug);
 				});
-			});
+			}));
 
 			$('#add-area-box form').live('submit', function(e){
 				e.preventDefault();
@@ -98,7 +98,7 @@
 					// Re-bind the droppable areas
 					pyro.widgets.set_droppable();
 					
-				});
+				}, 'html');
 			});
 
 			$('#edit-area-box form').live('submit', function(e){
@@ -129,12 +129,9 @@
 				}, 'json')
 			});
 
-			$('a.button.delete-area').live('click', function(e){
+			$('a.button.delete-area').live('click-confirmed', function(e){
 				e.preventDefault();
-
-				if ( ! $.data(this, 'confirmed')) return;
-
-				$.data(this, { 'confirmed': false, 'stop-click': true });
+				$.data(this, 'stop-click', true);
 
 				var slug	= this.id.replace(/^delete-area-/, ''),
 					box		= $('#area-' + slug);
@@ -224,12 +221,9 @@
 				});
 			});
 
-			$('a.delete-instance').live('click', function(e){
+			$('a.delete-instance').live('click-confirmed', function(e){
 				e.preventDefault();
-
-				if ( ! $.data(this, 'confirmed')) return;
-
-				$.data(this, { 'confirmed': false, 'stop-click': true });
+				$.data(this, 'stop-click', true);
 
 				var li	= $(this).closest('li'),
 					id	= li.attr('id').replace('instance-', '');
@@ -284,7 +278,9 @@
 			$('.widget-list .empty-drop-item').css('display', 'none');
 
 			pyro.widgets.edit_instance.css('display', 'block').slideDown(function(){
-				$('#widget-areas .accordion').accordion('resize');
+				setTimeout(function(){
+					$('#widget-areas .accordion').accordion('resize');
+				}, 10);
 			});
 		},
 
@@ -347,11 +343,14 @@
 					var area_slug	= $(this).parent().attr('id').replace(/^area-/, ''),
 						widget_slug	= ui.draggable.attr('id').replace(/^widget-/, '');
 
-					$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(html){
-						$('form', pyro.widgets.add_instance).html(html);
+					$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(data){
+						if (data.status == 'success')
+						{
+							$('form', pyro.widgets.add_instance).html(data.html);
 
-						pyro.widgets.show_add_instance(area_slug);
-					});
+							pyro.widgets.show_add_instance(area_slug);
+						}
+					}, 'json');
 				}
 			});
 		},

@@ -8,8 +8,8 @@
  * @subpackage 	Pages module
  * @category	Modules
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+
 	/**
 	 * Array containing the validation rules
 	 * @access private
@@ -257,9 +257,6 @@ class Admin extends Admin_Controller
 						'page_id'				=> $id,
 						'navigation_group_id'	=> (int) $nav_group_id
 					));
-
-					// Clear navigation cache
-					$this->pyrocache->delete_all('navigation_m');
 				}
 
 				if ($this->pages_m->update($id, $input))

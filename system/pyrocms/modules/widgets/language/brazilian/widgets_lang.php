@@ -2,6 +2,8 @@
 
 // sidebar
 $lang['widgets.available_title']			= 'Widgets disponíveis';
+$lang['widgets.widget_area_wrapper']		= 'Áreas disponíveis';
+$lang['widgets.instructions']				= 'Arraste para instalar o widget';
 
 // Widgets
 $lang['widgets.widget']						= 'Widget';

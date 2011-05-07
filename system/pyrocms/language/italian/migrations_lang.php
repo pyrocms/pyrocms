@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PyroCMS
  *
@@ -12,13 +12,13 @@
  * @filesource
  */
 
-$lang['migrations.no_migrations_found']				= 'No migrations found.'; #translate
-$lang['migrations.multiple_migrations_version']		= 'Only one migration per step is permitted, there multiple migrations to step "%03d".'; #translate
-$lang['migrations.migration_not_found']				= 'Migration to step "%03d" not found.'; #translate
-$lang['migrations.multiple_migrations_name']		= 'Cannot repeat a migration at different steps, there multiple migrations named "%s".'; #translate
-$lang['migrations.migration_class_doesnt_exist']	= 'Migration class "%s" doesn\'t exist.'; #translate
-$lang['migrations.wrong_migration_interface']		= 'Wrong migration interface on class "%s".'; #translate
-$lang['migrations.invalid_migration_filename']		= 'Invalid migration filename: %s'; #translate
+$lang['migrations.no_migrations_found']				= 'Nessuna migrazione trovata.';
+$lang['migrations.multiple_migrations_version']		= 'Solo una migrazione per passo è permessa, ci sono migrazioni multiple al passo "%03d".';
+$lang['migrations.migration_not_found']				= 'La migrazione al passo "%03d" non &eacute; stata trovata.';
+$lang['migrations.multiple_migrations_name']		= 'Non è possibile ripetere la stessa migrazione a passi differenti, ci sono migrazioni multiple denominate "%s".';
+$lang['migrations.migration_class_doesnt_exist']	= 'La classe migrazione "%s" non esiste.';
+$lang['migrations.wrong_migration_interface']		= 'Interfaccia di migrazione errata per la classe "%s".';
+$lang['migrations.invalid_migration_filename']		= 'Filename di migrazione non valido: %s';
 
 /* End of file migrations_lang.php */
 /* Location: ./system/pyrocms/language/italian/migrations_lang.php */

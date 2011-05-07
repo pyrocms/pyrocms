@@ -30,10 +30,12 @@ class Plugin_Helper extends Plugin
 
 	public function date()
 	{
-		$format = $this->attribute('format');
-		$timestamp = $this->attribute('timestamp');
-		
-		return $timestamp ? date($format, $timestamp) : date($format);
+        $this->load->helper('date');
+
+		$format		= $this->attribute('format');
+		$timestamp	= $this->attribute('timestamp');
+
+		return $timestamp ? format_date($timestamp, $format) : format_date(now(), $format);
 	}
 
 	public function strip()

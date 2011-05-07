@@ -7,7 +7,7 @@ $lang['cp_admin_quick_links']			= 'Pikalinkit';
 $lang['cp_welcome_title'] 				= 'Tervetuloa';
 $lang['cp_welcome_message'] 			= 'Tervetuloa sivuston %s hallintapaneeliin. Käyttämällä yläpuolella ja vasemmalla olevia linkkejä, voit hallinnoida kattavasti koko sivustoa. Jos järjestelmän kanssa ilmenee ongelmia, pyydämme teitä ottamaan yhteyttä meidän bugi seurantaan.';
 
-$lang['cp_news_feed_title'] 			= 'Uutis-syöte';
+$lang['cp_news_feed_title'] 			= 'Uutissyöte';
 
 // Shortcuts
 $lang['cp_manage_comments']				= 'Hallitse kommentteja';
@@ -18,7 +18,7 @@ $lang['cp_manage_users']				= 'Hallitse käyttäjiä';
 // Header
 $lang['cp_to_home'] 					= 'Takaisin dashboardiin';
 $lang['cp_view_frontend'] 				= 'Selaa sivuja';
-$lang['cp_logged_in_welcome'] 			= 'Terve %s';
+$lang['cp_logged_in_welcome'] 			= 'Hei %s';
 $lang['cp_logout_label'] 				= 'Kirjaudu ulos';
 $lang['cp_edit_profile_label'] 			= 'Muokkaa profiilia';
 

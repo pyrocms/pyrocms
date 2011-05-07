@@ -83,6 +83,7 @@ $lang['file_folders.created_label']			= 'Créé le';
 // Messages
 $lang['file_folders.create_success']		= 'Le dossier a été enregistrer.';
 $lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
+$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
 $lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
 $lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
 $lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate

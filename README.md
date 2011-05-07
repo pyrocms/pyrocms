@@ -2,11 +2,11 @@
 
 * [Website](http://pyrocms.com/)
 * [Documentation](http://pyrocms.com/documentation)
-* Version: 1.1.0
+* Version: 1.2.0-beta2
 
 ## Team
 
-* [Philip Sturgeon](http://philsturgeon.co.uk/)
+* [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Eric Barnes](http://ericlbarnes.com/)
 * [Stephen Cozart](http://twitter.com/stephencozart)
 * [Jerel Unruh](http://www.unruhdesigns.com/)
@@ -34,9 +34,17 @@ You no longer need to do anything to upgrade the database. Simply update the fil
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
+## Git Structure
+
+We use the git-flow model to structure our branches. This means you won't see a lot of activity on the master branch besides releases.
+Most of the magic happens in the develop branch.
+[More about git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
+
+It's strongly recommended that you download the [git-flow client](https://github.com/nvie/gitflow) and "publish" each feature branch you would like to see merged into the core. This way all features are not version-dependant and you can make as many changes as you like without needing them all to be merged in order.
+
 ## Thanks
 
-### Major Contributors
+### Contributors
 
 * Lee Tengum
 * [BenneX](http://github.com/BenneX)
@@ -45,7 +53,7 @@ Before reporting bugs or requesting any features, please check that it does not 
 * [Dan Horrigan](http://dhorrigan.com/)
 * [Ben Edmunds](http://benedmunds.com/)
 
-Think you should be on this list? Add your name to it with your next bug pull request. We can't list everybody because there are loads of you.
+Think you should be on this list? Add yourself in the next pull request you submit.
 
 [All Contributors](https://github.com/pyrocms/pyrocms/contributors)
 

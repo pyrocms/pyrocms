@@ -1,0 +1,41 @@
+
+section.box header { float: left; width: 99%; padding: 10px 8px 0 5px !important; }
+section.box header h3 { float: left; margin: 0; padding-left: 20px; }
+section.box header h3.form-title { float: right; width: 42%; }
+
+.box { max-height: 40em; }
+.box .collapsed { display: none; border: none; }
+.hidden { display: none; }
+
+#link-details #nav-edit li { padding: 13px 8px }
+
+/* Left pane */
+#link-list { background-color:#efeff6; float:left; height: 38em; border-right: 2px dotted #ddd; overflow:auto; width: 48%; }
+
+#link-list ol { background:none; margin-left:2em !important; }
+#link-list a { text-decoration: none; font-size: 13px; color:#5c5b5b; padding: 1px 1px 1px 15px; background: url('../img/off.png') no-repeat left; }
+#link-list a:hover { text-decoration: underline; }
+#link-list a.selected { color: black; background: url('../img/on.png') no-repeat left; }
+
+/* Sortable CSS */
+.ui-nestedSortable-error { background:#fbe3e4; color:#8a1f11; }
+
+ol { margin: 0; padding: 0; }
+ol.sortable, ol.sortable ol { margin: 0 0 0 25px; padding: 0; list-style-type: none; cursor: default; }
+ol.sortable { margin: 2em; }
+
+.sortable li { margin: 5px 0; padding-left: 20px; }
+.sortable li div  { padding: 3px 1px 3px 10px; margin: 0; cursor: move; background-color: #d1d1d1; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
+.sortable li div:hover { background-color: #dbdbdb; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
+.sortable li.placeholder { background-color: #c2c0c0; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; margin-left: 20px; }
+
+.plus { background: url('../img/more.png') no-repeat 0 3px; }
+.minus { background: url('../img/less.png') no-repeat 0 10px; }
+
+/* Right pane */
+#link-details { display: none; background-color: #fbfbfc; border: none;  float:left; width: 48%; color: #666; }
+#link-details h4 { margin:0.5em 0; }
+#link-details fieldset {  border: 1px solid #ddd; border-right: none; border-left: none; background-color: #fff; padding: 0px 5px; }
+#link-details fieldset p strong { width: 35%; display: inline-block; text-align: right; padding-right: 10px; }
+#link-details fieldset legend { margin-left: 10px; font-weight: bold; }
+#details-container { height: 38em; width: 100%; padding: 20px; }

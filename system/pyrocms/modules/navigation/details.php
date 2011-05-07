@@ -2,7 +2,7 @@
 
 class Module_Navigation extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1';
 	
 	public function info()
 	{
@@ -23,7 +23,8 @@ class Module_Navigation extends Module {
 				'cs' => 'Navigace',
 				'fi' => 'Navigointi',
 				'el' => 'Πλοήγηση',
-				'he' => 'ניווט'
+				'he' => 'ניווט',
+				'lt' => 'Navigacija'
 			),
 			'description' => array(
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
@@ -41,7 +42,8 @@ class Module_Navigation extends Module {
 				'cs' => 'Správa odkazů v navigaci a všech souvisejících navigačních skupin.',
 				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.',
 				'el' => 'Διαχειριστείτε τους συνδέσμους στα μενού πλοήγησης και όλες τις ομάδες συνδέσμων πλοήγησης στις οποίες ανήκουν.',
-				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט'
+				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
+				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -68,7 +70,6 @@ class Module_Navigation extends Module {
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
 			  `parent` int(11) NOT NULL default '0',
-			  `has_kids` tinyint(1) NOT NULL default '0',
 			  `link_type` VARCHAR( 20 ) collate utf8_unicode_ci NOT NULL default 'uri',
 			  `page_id` int(11) NOT NULL default '0',
 			  `module_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',

@@ -1,4 +1,5 @@
- <?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * @package 		PyroCMS
  * @subpackage 		Category Menu Widget
@@ -9,11 +10,17 @@
 
 class Widget_Blog_categories extends Widgets
 {
-	public $title = 'Blog Categories';
-	public $description = 'Show a list of blog categories.';
-	public $author = 'Stephen Cozart';
-	public $website = 'http://github.com/clip/';
-	public $version = '1.0';
+	public $title		= array(
+		'en' => 'Blog Categories',
+		'pt' => 'Categorias do Blog'	
+	);
+	public $description	= array(
+		'en' => 'Show a list of blog categories',
+		'pt' => 'Mostra uma lista de navegação com as categorias do Blog'
+	);
+	public $author		= 'Stephen Cozart';
+	public $website		= 'http://github.com/clip/';
+	public $version		= '1.0';
 	
 	public function run()
 	{
@@ -22,6 +29,5 @@ class Widget_Blog_categories extends Widgets
 		$categories = $this->blog_categories_m->order_by('title')->get_all();
 		
 		return array('categories' => $categories);
-	}
-	
+	}	
 }

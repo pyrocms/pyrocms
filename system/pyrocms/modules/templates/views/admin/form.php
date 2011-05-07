@@ -6,37 +6,37 @@
 
 <?php echo form_open(current_url(), 'class="crud"'); ?>
 
-<ul>
-    <?php if(!$email_template->is_default): ?>
-    <li>
+<ol>
+    <?php if ( ! $email_template->is_default): ?>
+    <li class="<?php echo alternator('even', ''); ?>">
         <label for="name"><?php echo lang('templates.name_label'); ?></label>
         <?php echo form_input('name', $email_template->name); ?>
         <span class="required-icon tooltip">*</span>
     </li>
-    <li class="even">
+    <li  class="<?php echo alternator('even', ''); ?>">
         <label for="slug"><?php echo lang('templates.slug_label'); ?></label>
         <?php echo form_input('slug', $email_template->slug); ?>
         <span class="required-icon tooltip">*</span>
     </li>
-    <li>
+    <li class="<?php echo alternator('even', ''); ?>">
         <label for="lang"><?php echo lang('templates.language_label'); ?></label>
         <?php echo form_dropdown('lang', $lang_options, array($email_template->lang)); ?>
     </li>
-    <li class="even">
+    <li class="<?php echo alternator('even', ''); ?>">
         <label for="description"><?php echo lang('templates.description_label'); ?></label>
         <?php echo form_input('description', $email_template->description); ?>
         <span class="required-icon tooltip">*</span>
     </li>
     <?php endif; ?>
-    <li>
-        <h6><?php echo lang('templates.name_label'); ?></h6>
-        <?php echo form_textarea('subject', $email_template->subject, 'class="wysiwyg-simple"'); ?>
+    <li class="<?php echo alternator('even', ''); ?>">
+        <label for="subject"><?php echo lang('templates.subject_label'); ?></label>
+        <?php echo form_input('subject', $email_template->subject); ?>
     </li>
-    <li>
-        <h6><?php echo lang('templates.name_label'); ?></h6>
+    <li class="<?php echo alternator('even', ''); ?>">
+        <label for="body"><?php echo lang('templates.body_label'); ?></label><br class="clear-both" />
         <?php echo form_textarea('body', $email_template->body, 'class="wysiwyg-advanced"'); ?>
     </li>
-</ul>
+</ol>
 <div class="buttons float-right padding-top">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 </div>
