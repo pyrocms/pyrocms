@@ -33,6 +33,7 @@ $lang['files.filename_label']				= 'File Name';
 $lang['files.filter_label']					= 'Filter';
 $lang['files.loading_label']				= 'Loading...';
 $lang['files.name_label']					= 'Name';
+$lang['files.select_all']					= 'Select All';
 
 $lang['files.dropdown_no_subfolders']		= '-- None --';
 $lang['files.dropdown_root']				= '-- Root --';
@@ -70,7 +71,7 @@ $lang['file_folders.manage_title']			= 'Manage Folders';
 $lang['file_folders.create_title']			= 'New Folder';
 $lang['file_folders.delete_title']			= 'Confirm Delete';
 $lang['file_folders.edit_title']			= 'Edit folder "%s"';
-
+$lang['file_folders.select_folder_title']	= 'Select Folder';
 // Labels
 $lang['file_folders.folders_label']			= 'Folders';
 $lang['file_folders.folder_label']			= 'Folder';
