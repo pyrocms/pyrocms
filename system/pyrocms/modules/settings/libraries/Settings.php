@@ -115,26 +115,10 @@ class Settings {
 	{
 		if (is_string($name))
 		{
-			if (is_array($value) OR is_object($value))
+			if (is_scalar($value))
 			{
-				$new_value = '';
-
-				foreach ($value as $val)
-				{
-					if (is_scalar($val))
-					{
-						$new_value .= $val . ',';
-					}
-				}
-
-				$value = rtrim($new_value, ',');
+				$setting = ci()->settings_m->update($name, array('value' => $value));
 			}
-			elseif ( ! is_scalar($value))
-			{
-				return FALSE;
-			}
-
-			$setting = ci()->settings_m->update($name, array('value' => $value));
 
 			self::$cache[$name] = $value;
 
