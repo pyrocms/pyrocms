@@ -187,7 +187,6 @@ class Admin_folders extends Admin_Controller {
 
 		$this->data->files = $this->file_m
 			->order_by('date_added', 'DESC')
-			->order_by('id', 'DESC')
 			->get_many_by('folder_id', $folder->id);
 
 		// Response ajax
@@ -397,7 +396,7 @@ class Admin_folders extends Admin_Controller {
 					$first_values	= implode(', ', $values);
 
 					// Success / Error message
-					$values = sprintf(lang('file_folders.mass_delete_' . $status), $status_total, $total, $first_values, $last_value);
+					$values = sprintf(lang('file_folders.delete_mass_' . $status), $status_total, $total, $first_values, $last_value);
 				}
 
 				// Single deletion
