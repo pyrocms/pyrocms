@@ -417,11 +417,7 @@ class Admin_folders extends Admin_Controller {
 
 			if ($this->is_ajax())
 			{
-				// urg.. ¬¬
-				return print( json_encode((object) array(
-					'success'	=> isset($deleted['success']) ? $deleted['success'] : '',
-					'error'		=> isset($deleted['error']) ? $deleted['error'] : '',
-				)) );
+				return print( json_encode((object) $deleted) );
 			}
 
 			foreach ($deleted as $status => $message)
