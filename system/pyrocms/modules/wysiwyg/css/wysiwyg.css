@@ -9,17 +9,27 @@ input#insert_width {
     border: 0;
     font-weight: bold;
     font-size: 14px;
+	width: 100px;
 }
 #options-bar {
-    margin: 10px 0;
-}
-#radio-group, #options-bar {
     float: left;
+}
+#options-bar, #radio-group {
     margin-bottom: 10px;
 }
 #radio-group {
     float: right;
 	display: none;
+}
+#radio-group > label {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 110%;
+	text-align: right;
+	padding-right: 10px;
+}
+#radio-group > .set {
+	display: inline-block;
 }
 #slider {
     margin: 0 0 10px 0;
@@ -39,11 +49,11 @@ input#insert_width {
 	border: 1px solid #CCCCCC;
 }
 #files_left_pane {
-	width: 15%;
+	width: 20%;
 	display: table-cell;
 	border-right: 1px solid #CCCCCC;
 	padding: 10px 0;
-
+	vertical-align: top;
 }
 #files_left_pane ul,
 #files_left_pane ul li,
@@ -61,11 +71,11 @@ input#insert_width {
 	padding-left: 10px;
 }
 #files_right_pane {
-	width: 85%;
+	width: 80%;
 	display: table-cell;
 	padding: 10px;
 }
-#files_right_pane >* {
+#files_right_pane > * {
 	display: none;
 }
 #files_left_pane li a {
