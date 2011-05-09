@@ -125,9 +125,16 @@ class Admin_folders extends Admin_Controller {
 		{
 			if ($this->is_ajax())
 			{
+				$status		= 'error';
+				$message	= lang('file_folders.not_exists');
+
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
-					'status'	=> 'error',
-					'message'	=> lang('file_folders.not_exists')
+					'status'	=> $status,
+					'message'	=> $message
 				)) );
 			}
 
@@ -246,6 +253,10 @@ class Admin_folders extends Admin_Controller {
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print ( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message
@@ -261,9 +272,11 @@ class Admin_folders extends Admin_Controller {
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
@@ -291,9 +304,16 @@ class Admin_folders extends Admin_Controller {
 		{
 			if ($this->is_ajax())
 			{
+				$status		= 'error';
+				$message	= lang('file_folders.not_exists');
+
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
-					'status'	=> 'error',
-					'message'	=> lang('file_folders.not_exists')
+					'status'	=> $status,
+					'message'	=> $message
 				)) );
 			}
 
@@ -322,6 +342,10 @@ class Admin_folders extends Admin_Controller {
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print ( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message,
@@ -338,9 +362,11 @@ class Admin_folders extends Admin_Controller {
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
@@ -411,12 +437,23 @@ class Admin_folders extends Admin_Controller {
 			if ( ! $deleted)
 			{
 				$status		= 'error';
-				$message	= lang('file_folders.no_select_error');
+				$deleted	= array('error' => lang('file_folders.no_select_error'));
+			}
+			else
+			{
+				$status = array_key_exists('error', $deleted) ? 'error': 'success';
 			}
 
 			if ($this->is_ajax())
 			{
-				return print( json_encode((object) $deleted) );
+				$data = array();
+				$data['messages'] = $deleted;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
+				return print( json_encode((object) array(
+					'status'	=> $status,
+					'message'	=> $message,
+				)) );
 			}
 
 			foreach ($deleted as $status => $message)
@@ -446,6 +483,10 @@ class Admin_folders extends Admin_Controller {
 			{
 				$status	= 'error';
 				$html	= lang('file_folders.no_select_error');
+
+				$data = array();
+				$data['messages'][$status] = $html;
+				$html = $this->load->view('admin/partials/notices', $data, TRUE);
 			}
 
 			return print( json_encode((object) array(
@@ -488,5 +529,12 @@ class Admin_folders extends Admin_Controller {
 		}
 
 		redirect('admin/files');
+	}
+
+	public function html_dropdown($id = 0)
+	{
+		$this->data->folder = $id && isset($this->_folders[$id]) ? $this->_folders[$id] : array();
+
+		return $this->load->view('admin/folders/html_dropdown', $this->data);
 	}
 }
