@@ -89,6 +89,18 @@ class MY_Model extends CI_Model
 		$this->_fetch_table();
 	}
 
+	public function __call($method, $arguments)
+	{
+		$result = call_user_func_array(array($this->db, $method), $arguments);
+
+		if (is_object($result) && $result === $this->db)
+		{
+			return $this;
+		}
+
+		return $result;
+	}
+
 	/**
 	 * Get a single record by creating a WHERE clause with
 	 * a value for your primary key
