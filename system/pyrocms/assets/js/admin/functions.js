@@ -50,7 +50,9 @@ jQuery(function($) {
 
 		// Fade in the notifications
 		$('.notification').livequery(function(){
-			$(this).fadeIn('slow');
+			$(this).fadeIn('slow', function(){
+				$(window).trigger('notification-complete');
+			});
 		});
 
 		// Check all checkboxes in container table or grid
@@ -160,8 +162,39 @@ jQuery(function($) {
 				current: current_module + " {current} / {total}"
 			});
 		});
-		// End Fancybox modal window
-	}
+	};
+
+	pyro.clear_notifications = function()
+	{
+		$('.notification .close').click();
+
+		return pyro;
+	};
+
+	pyro.add_notification = function(notification, options, callback)
+	{
+		var defaults = {
+			clear	: true,
+			ref		: '#shortcuts',
+			method	: 'after'
+		}, opt;
+		
+		// extend options
+		opt = $.isPlainObject(options) ? $.extend(defaults, options) : defaults;
+
+		// clear old notifications
+		opt.clear && pyro.clear_notifications();
+
+		// display current notifications
+		$(opt.ref)[opt.method](notification);
+	
+		// call callback
+		$(window).one('notification-complete', function(){
+			callback && callback();
+		});
+
+		return pyro;
+	};
 
 	$(document).ready(function() {
 		pyro.init();
