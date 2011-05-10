@@ -34,18 +34,26 @@ jQuery(function($) {
 		});
 
 		// Add the close link to all boxes with the closable class
-		$(".closable").append('<a href="#" class="close">close</a>');
+		$('.closable').livequery(function(){
+			$(this).append('<a href="#" class="close">close</a>');
+		});
 
 		// Close the notifications when the close link is clicked
-		$("a.close").live('click', function () {
+		$('a.close').live('click', function(e){
+			e.preventDefault();
 			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
 			$(this).parent().fadeTo(200, 0);
-			$(this).parent().slideUp(400);
-			return false;
+			$(this).parent().slideUp(400, function(){
+				$(this).remove();
+			});
 		});
 
 		// Fade in the notifications
-		$(".notification").fadeIn("slow");
+		$('.notification').livequery(function(){
+			$(this).fadeIn('slow', function(){
+				$(window).trigger('notification-complete');
+			});
+		});
 
 		// Check all checkboxes in container table or grid
 		$(".check-all").live('click', function () {
@@ -106,7 +114,7 @@ jQuery(function($) {
 
 			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
-				$.data(this, 'confirmed', true).click();
+				$(this).data('confirmed', true).click();
 			}
 		});
 
@@ -154,8 +162,39 @@ jQuery(function($) {
 				current: current_module + " {current} / {total}"
 			});
 		});
-		// End Fancybox modal window
-	}
+	};
+
+	pyro.clear_notifications = function()
+	{
+		$('.notification .close').click();
+
+		return pyro;
+	};
+
+	pyro.add_notification = function(notification, options, callback)
+	{
+		var defaults = {
+			clear	: true,
+			ref		: '#shortcuts',
+			method	: 'after'
+		}, opt;
+		
+		// extend options
+		opt = $.isPlainObject(options) ? $.extend(defaults, options) : defaults;
+
+		// clear old notifications
+		opt.clear && pyro.clear_notifications();
+
+		// display current notifications
+		$(opt.ref)[opt.method](notification);
+	
+		// call callback
+		$(window).one('notification-complete', function(){
+			callback && callback();
+		});
+
+		return pyro;
+	};
 
 	$(document).ready(function() {
 		pyro.init();

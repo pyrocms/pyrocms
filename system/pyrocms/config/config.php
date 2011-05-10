@@ -149,7 +149,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | use segment based URLs.
 |
 */
-$config['allow_get_array']		= TRUE;
+$config['allow_get_array'] = TRUE;
 $config['enable_query_strings'] = FALSE;
 $config['directory_trigger'] = 'd';
 $config['controller_trigger'] = 'c';
@@ -233,7 +233,7 @@ $config['encryption_key'] = "Jiu348^&H%fa";
 | 'time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'pyrocms';
+$config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'live' ? '_' . ENVIRONMENT : '');;
 $config['sess_expiration']		= 0;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;

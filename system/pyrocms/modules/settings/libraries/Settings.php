@@ -113,18 +113,19 @@ class Settings {
 	 */
 	public static function set($name, $value)
 	{
-		if (is_string($name) && is_scalar($value))
+		if (is_string($name))
 		{
-			$setting = ci()->settings_m->update($name, array('value' => $value));
-		}
-		elseif ( ! is_string($name))
-		{
-			return FALSE;
+			if (is_scalar($value))
+			{
+				$setting = ci()->settings_m->update($name, array('value' => $value));
+			}
+
+			self::$cache[$name] = $value;
+
+			return TRUE;
 		}
 
-		self::$cache[$name] = $value;
-
-		return TRUE;
+		return FALSE;
 	}
 
 	/**
@@ -280,37 +281,44 @@ class Settings {
 				$form_control = form_dropdown($setting->slug, $this->_format_options($setting->options), $setting->value, 'class="width-20"');
 				break;
 
+			case 'select-multiple':
+				$options = $this->_format_options($setting->options);
+				$size = sizeof($options) > 10 ? ' size="10"' : '';
+				$form_control = form_multiselect($setting->slug . '[]', $options, explode(',', $setting->value), 'class="width-20"' . $size);
+				break;
+
 			case 'checkbox':
 
 				$form_control = '';
+				$stored_values = is_string($setting->value) ? explode(',', $setting->value) : $setting->value;
+
 				foreach ($this->_format_options($setting->options) as $value => $label)
 				{
-
-					if (is_array($setting->value)):
-						$checked = in_array($value, $setting->value);
-					else:
+					if (is_array($stored_values))
+					{
+						$checked = in_array($value, $stored_values);
+					}
+					else
+					{
 						$checked = FALSE;
-					endif;
+					}
 
-					$form_control .= $label . ' ';
+					$form_control .= '<label>';
 					$form_control .= '' . form_checkbox(array(
-						'id'		=> $setting->slug,
-						'name'		=> $setting->slug,
+						'id'		=> $setting->slug . '_' . $value,
+						'name'		=> $setting->slug . '[]',
 						'checked'	=> $checked,
 						'value'		=> $value
 					));
+					$form_control .= ' ' . $label . '</label>';
 				}
 				break;
 
 			case 'radio':
 
-				//$func = $setting->type == 'checkbox' ? 'form_checkbox' : 'form_radio';
-
 				$form_control = '';
-
 				foreach ($this->_format_options($setting->options) as $value => $label)
 				{
-
 					$form_control .= '' . form_radio(array(
 						'id'		=> $setting->slug,
 						'name'		=> $setting->slug,

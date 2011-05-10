@@ -2,8 +2,8 @@
 <script type="text/javascript">
 
 	jQuery(function($) {
-		var visits = <?php echo $analytic_visits; ?>;
-		var views = <?php echo $analytic_views; ?>;
+		var visits = <?php echo isset($analytic_visits) ? $analytic_visits : 0; ?>;
+		var views = <?php echo isset($analytic_views) ? $analytic_views : 0; ?>;
 		
 		$('#analytics').css({
 			height: '300px',
@@ -13,7 +13,7 @@
 		$.plot($('#analytics'), [{ label: 'Visits', data: visits },{ label: 'Page views', data: views }], {
 			lines: { show: true },
 			points: { show: true },
-			grid: { backgroundColor: '#fffaff' },
+			grid: { hoverable: true, backgroundColor: '#fffaff' },
 			series: {
 				lines: { show: true, lineWidth: 1 },
 				shadowSize: 0
@@ -22,6 +22,44 @@
 			yaxis: { min: 0},
 			selection: { mode: "x" }
 		});
+		
+		function showTooltip(x, y, contents) {
+			$('<div id="tooltip">' + contents + '</div>').css( {
+				position: 'absolute',
+				display: 'none',
+				top: y + 5,
+				left: x + 5,
+				border: '1px solid #fdd',
+				padding: '2px',
+				'background-color': '#fee',
+				opacity: 0.80
+			}).appendTo("body").fadeIn(200);
+		}
+	 
+		var previousPoint = null;
+		
+		$("#analytics").bind("plothover", function (event, pos, item) {
+			$("#x").text(pos.x.toFixed(2));
+			$("#y").text(pos.y.toFixed(2));
+	 
+				if (item) {
+					if (previousPoint != item.dataIndex) {
+						previousPoint = item.dataIndex;
+						
+						$("#tooltip").remove();
+						var x = item.datapoint[0],
+							y = item.datapoint[1];
+						
+						showTooltip(item.pageX, item.pageY,
+									item.series.label + " : " + y);
+					}
+				}
+				else {
+					$("#tooltip").remove();
+					previousPoint = null;            
+				}
+		});
+	
 	});
 </script>
 
@@ -34,28 +72,28 @@
 		</header>
 		
 		<ul class="quick-links">
-			<?php if(in_array('comments', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('comments', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/comments.png'); ?>
 				<a href="<?php echo site_url('admin/comments') ?>"><h4><?php echo lang('cp_manage_comments'); ?></h4></a>
 			</li>
 			<?php endif; ?>
 			
-			<?php if(in_array('pages', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('pages', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/pages.png'); ?>
 				<a href="<?php echo site_url('admin/pages') ?>"><h4><?php echo lang('cp_manage_pages'); ?></h4></a>
 			</li>
 			<?php endif; ?>
 			
-			<?php if(in_array('files', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('files', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/folder_open.png'); ?>
 				<a href="<?php echo site_url('admin/files') ?>"><h4><?php echo lang('cp_manage_files'); ?></h4></a>
 			</li>
 			<?php endif; ?>
 			
-			<?php if(in_array('users', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('users', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/user.png'); ?>
 				<a href="<?php echo site_url('admin/users') ?>"><h4><?php echo lang('cp_manage_users'); ?></h4></a>

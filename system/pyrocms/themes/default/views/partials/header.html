@@ -7,7 +7,7 @@
 
 <!-- Begin user meta -->
 <div id="user-meta">
-{if '{pyro:session:data name="user_id"}'}
+{if '{pyro:user:logged_in}'}
 
 	<div class="avatar-name">
 
@@ -30,7 +30,7 @@
 	<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 	<a href="{pyro:url:site uri='edit-settings'}">{pyro:helper:lang line="settings_label"}</a>
 
-	{if ('{pyro:user:logged_in}' == true) && ('{pyro:user:group}' == 'admin')}<?php /* pyro:user:enabled_cp */ ?>
+	{if '{pyro:user:has_cp_permissions}'}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{pyro:url:site uri='admin'}" target="_blank">{pyro:helper:lang line="cp_title"}</a>
 	{/if}
@@ -41,7 +41,9 @@
 {else}
 
 	<form action="{pyro:url:site}users/login" method="post" accept-charset="utf-8" id="login-small">
-
+<?php if (isset($redirect_hash) && $redirect_hash): ?>
+<?php echo form_hidden('redirect_hash', $redirect_hash); ?>
+<?php endif; ?>
 		<ul>
 			<li class="email">
 			<input type="text" id="email" name="email" maxlength="120" value="{pyro:helper:lang line='user_email'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_email"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_email"}') { this.value = ''; }" />

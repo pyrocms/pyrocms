@@ -19,6 +19,9 @@ $lang['select.all'] 					= '-- הכל --';
 $lang['select.any'] 					= '-- כלשהו --';
 $lang['select.pick'] 					= '-- בחר --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 				= 'שווה ל';
 $lang['operators.not_equal'] 			= 'לא שווה ל';
 $lang['operators.less_than'] 			= 'פחות מ';

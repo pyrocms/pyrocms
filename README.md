@@ -2,7 +2,7 @@
 
 * [Website](http://pyrocms.com/)
 * [Documentation](http://pyrocms.com/documentation)
-* Version: 1.2.0
+* Version: 1.2.0-beta2
 
 ## Team
 
@@ -34,15 +34,17 @@ You no longer need to do anything to upgrade the database. Simply update the fil
 
 Before reporting bugs or requesting any features, please check that it does not already exist.
 
-## Our Git Structure
+## Git Structure
 
 We use the git-flow model to structure our branches. This means you won't see a lot of activity on the master branch besides releases.
 Most of the magic happens in the develop branch.
 [More about git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
 
+It's strongly recommended that you download the [git-flow client](https://github.com/nvie/gitflow) and "publish" each feature branch you would like to see merged into the core. This way all features are not version-dependant and you can make as many changes as you like without needing them all to be merged in order.
+
 ## Thanks
 
-### Major Contributors
+### Contributors
 
 * Lee Tengum
 * [BenneX](http://github.com/BenneX)

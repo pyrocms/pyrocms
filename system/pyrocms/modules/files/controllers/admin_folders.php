@@ -125,9 +125,16 @@ class Admin_folders extends Admin_Controller {
 		{
 			if ($this->is_ajax())
 			{
+				$status		= 'error';
+				$message	= lang('file_folders.not_exists');
+
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
-					'status'	=> 'error',
-					'message'	=> lang('file_folders.not_exists')
+					'status'	=> $status,
+					'message'	=> $message
 				)) );
 			}
 
@@ -187,7 +194,6 @@ class Admin_folders extends Admin_Controller {
 
 		$this->data->files = $this->file_m
 			->order_by('date_added', 'DESC')
-			->order_by('id', 'DESC')
 			->get_many_by('folder_id', $folder->id);
 
 		// Response ajax
@@ -247,6 +253,10 @@ class Admin_folders extends Admin_Controller {
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print ( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message
@@ -262,9 +272,11 @@ class Admin_folders extends Admin_Controller {
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
@@ -292,9 +304,16 @@ class Admin_folders extends Admin_Controller {
 		{
 			if ($this->is_ajax())
 			{
+				$status		= 'error';
+				$message	= lang('file_folders.not_exists');
+
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
-					'status'	=> 'error',
-					'message'	=> lang('file_folders.not_exists')
+					'status'	=> $status,
+					'message'	=> $message
 				)) );
 			}
 
@@ -323,6 +342,10 @@ class Admin_folders extends Admin_Controller {
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print ( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message,
@@ -339,9 +362,11 @@ class Admin_folders extends Admin_Controller {
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
@@ -397,7 +422,7 @@ class Admin_folders extends Admin_Controller {
 					$first_values	= implode(', ', $values);
 
 					// Success / Error message
-					$values = sprintf(lang('file_folders.mass_delete_' . $status), $status_total, $total, $first_values, $last_value);
+					$values = sprintf(lang('file_folders.delete_mass_' . $status), $status_total, $total, $first_values, $last_value);
 				}
 
 				// Single deletion
@@ -412,15 +437,22 @@ class Admin_folders extends Admin_Controller {
 			if ( ! $deleted)
 			{
 				$status		= 'error';
-				$message	= lang('file_folders.no_select_error');
+				$deleted	= array('error' => lang('file_folders.no_select_error'));
+			}
+			else
+			{
+				$status = array_key_exists('error', $deleted) ? 'error': 'success';
 			}
 
 			if ($this->is_ajax())
 			{
-				// urg.. ¬¬
+				$data = array();
+				$data['messages'] = $deleted;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
-					'success'	=> isset($deleted['success']) ? $deleted['success'] : '',
-					'error'		=> isset($deleted['error']) ? $deleted['error'] : '',
+					'status'	=> $status,
+					'message'	=> $message,
 				)) );
 			}
 
@@ -451,6 +483,10 @@ class Admin_folders extends Admin_Controller {
 			{
 				$status	= 'error';
 				$html	= lang('file_folders.no_select_error');
+
+				$data = array();
+				$data['messages'][$status] = $html;
+				$html = $this->load->view('admin/partials/notices', $data, TRUE);
 			}
 
 			return print( json_encode((object) array(
@@ -493,5 +529,12 @@ class Admin_folders extends Admin_Controller {
 		}
 
 		redirect('admin/files');
+	}
+
+	public function html_dropdown($id = 0)
+	{
+		$this->data->folder = $id && isset($this->_folders[$id]) ? $this->_folders[$id] : array();
+
+		return $this->load->view('admin/folders/html_dropdown', $this->data);
 	}
 }

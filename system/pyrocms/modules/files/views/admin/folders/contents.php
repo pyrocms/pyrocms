@@ -10,12 +10,14 @@
 				<label for="folder"><?php echo lang('files.filter_label'); ?></label>
 				<?php echo form_dropdown('filter', array('' => lang('select.all')) + $types, $selected_filter, 'id="filter" class="folder-hash"'); ?>
 			</li>
+			<?php if (group_has_role('files', 'edit_file')): ?>
 			<li class="buttons buttons-small">
 				<?php echo form_hidden('folder_id', $folder->id); ?>
 				<a href="<?php echo site_url('admin/files/upload/'.$folder->id);?>" class="button upload open-files-uploader">
 					<?php echo lang('files.upload_title'); ?>
 				</a>
 			</li>
+			<?php endif; ?>
 		</ul>
 	</div>
 
@@ -26,19 +28,32 @@
 	</div>
 
     <div id="grid" class="list-items">
-        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?><br />
+        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?><?php echo lang('check.all'); ?><br />
         <ul class="grid clearfix">
         <?php foreach($files as $file): ?>
             <li>
                 <div class="actions">
                 <?php echo form_checkbox('action_to[]', $file->id); ?>
-                <?php echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'download_file')); ?>
-                <?php echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'edit_file')); ?>
-                <?php echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm')); ?>
+				<?php
+					if (group_has_role('files', 'download_file')) 
+					{
+						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'download_file'));
+					}
+					
+						if (group_has_role('files', 'edit_file')) 
+					{
+						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'edit_file'));
+					}
+					
+					if (group_has_role('files', 'delete_file')) 
+					{
+						echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm'));
+					}
+				?>
                 </div>
             <?php if ($file->type === 'i'): ?>
             <a title="<?php echo $file->name; ?>" href="<?php echo base_url() . 'media/image/' . $file->filename; ?>" rel="colorbox">
-                <img title="<?php echo $file->name; ?>" width="80" src="<?php echo site_url('files/thumb/' . $file->id . '/80'); ?>" alt="<?php echo $file->name; ?>" />
+                <img title="<?php echo $file->name; ?>" width="64" src="<?php echo site_url('files/thumb/' . $file->id . '/64/64'); ?>" alt="<?php echo $file->name; ?>" />
             </a>
             <?php else: ?>
                 <?php echo image($file->type . '.png', 'files'); ?>
@@ -75,9 +90,22 @@
 				<td><?php echo $file->filename; ?></td>
 				<td class="align-center"><?php echo format_date($file->date_added); ?></td>
 				<td class="align-center buttons buttons-small">
-					<?php echo anchor('files/download/' . $file->id, lang('files.download_label'), 'class="button download download_file"'); ?>
-					<?php echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), 'class="button edit edit_file"'); ?>
-					<?php echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), 'class="confirm button delete"'); ?>
+				<?php 
+					if (group_has_role('files', 'download_file')) 
+					{
+						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'button download download_file'));
+					}
+					
+						if (group_has_role('files', 'edit_file')) 
+					{
+						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'button edit edit_file'));
+					}
+					
+					if (group_has_role('files', 'delete_file')) 
+					{
+						echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm button delete'));
+					}
+				?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

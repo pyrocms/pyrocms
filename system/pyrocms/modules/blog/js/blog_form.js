@@ -4,7 +4,7 @@
 		form = $('form.crud');
 		
 		$('input[name="title"]', form).keyup($.debounce(350, function(e){
-			$.post(BASE_URL + '/ajax/url_title', { title : $(this).val() }, function(slug){
+			$.post(SITE_URL + 'ajax/url_title', { title : $(this).val() }, function(slug){
 				$('input[name="slug"]', form).val( slug );
 			});
 		}));
@@ -13,7 +13,7 @@
 			srollable: false,
 			innerWidth: 600,
 			innerHeight: 280,
-			href: BASE_URL + '/admin/blog/categories/create_ajax',
+			href: SITE_URL + 'admin/blog/categories/create_ajax',
 			onComplete: function() {
 				$.colorbox.resize();
 				$('form#categories').removeAttr('action');
@@ -22,7 +22,7 @@
 					var form_data = $(this).serialize();
 					
 					$.ajax({
-						url: BASE_URL + '/admin/blog/categories/create_ajax',
+						url: SITE_URL + 'admin/blog/categories/create_ajax',
 						type: "POST",
 					        data: form_data,
 						success: function(data) {

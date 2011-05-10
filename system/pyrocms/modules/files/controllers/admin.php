@@ -153,6 +153,10 @@ class Admin extends Admin_Controller {
 
 				if ($this->is_ajax())
 				{
+					$data = array();
+					$data['messages'][$status] = $message;
+					$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 					return print( json_encode((object) array(
 						'status'	=> $status,
 						'message'	=> $message
@@ -196,6 +200,10 @@ class Admin extends Admin_Controller {
 
 				if ($this->is_ajax())
 				{
+					$data = array();
+					$data['messages'][$status] = $message;
+					$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 					return print( json_encode((object) array(
 						'status'	=> $status,
 						'message'	=> $message,
@@ -217,20 +225,31 @@ class Admin extends Admin_Controller {
 		}
 		elseif (validation_errors())
 		{
+			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
 
 		if ($this->is_ajax())
 		{
+			// todo: debug errors here
+			$status		= 'error';
+			$message	= 'unknown';
+
+			$data = array();
+			$data['messages'][$status] = $message;
+			$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 			return print( json_encode((object) array(
-				'status'	=> 'error',
-				'message'	=> 'unknown'
+				'status'	=> $status,
+				'message'	=> $message
 			)) );
 		}
 
@@ -260,6 +279,10 @@ class Admin extends Admin_Controller {
 
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message
@@ -291,6 +314,10 @@ class Admin extends Admin_Controller {
 
 					if ($this->is_ajax())
 					{
+						$data = array();
+						$data['messages'][$status] = $message;
+						$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 						return print( json_encode((object) array(
 							'status'	=> $status,
 							'message'	=> $message
@@ -333,6 +360,10 @@ class Admin extends Admin_Controller {
 
 					if ($this->is_ajax())
 					{
+						$data = array();
+						$data['messages'][$status] = $message;
+						$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 						return print( json_encode((object) array(
 							'status'	=> $status,
 							'message'	=> $message,
@@ -371,6 +402,10 @@ class Admin extends Admin_Controller {
 
 				if ($this->is_ajax())
 				{
+					$data = array();
+					$data['messages'][$status] = $message;
+					$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 					return print( json_encode((object) array(
 						'status'	=> $status,
 						'message'	=> $message,
@@ -383,6 +418,19 @@ class Admin extends Admin_Controller {
 					$this->session->set_flashdata($status, $message);
 					redirect ('admin/files');
 				}
+			}
+		}
+		elseif (validation_errors())
+		{
+			// if request is ajax return json data, otherwise do normal stuff
+			if ($this->is_ajax())
+			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
+				return print( json_encode((object) array(
+					'status'	=> 'error',
+					'message'	=> $message
+				)) );
 			}
 		}
 

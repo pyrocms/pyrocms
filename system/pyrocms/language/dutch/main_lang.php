@@ -19,6 +19,9 @@ $lang['select.all'] 					= '-- Alles --';
 $lang['select.any'] 					= '-- Willekeurig --';
 $lang['select.pick']					= '-- Selecteer --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 				= 'Gelijk aan'; 
 $lang['operators.not_equal'] 			= 'Niet gelijk aan';
 $lang['operators.less_than'] 			= 'Kleiner dan';

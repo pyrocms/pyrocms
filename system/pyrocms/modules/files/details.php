@@ -2,7 +2,7 @@
 
 class Module_Files extends Module {
 
-	public $version = '1.1beta';
+	public $version = '1.2';
 
 	public function info()
 	{
@@ -45,7 +45,10 @@ class Module_Files extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'content'
+			'menu'	  => 'content',
+			'roles' => array(
+				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
+			),
 		);
 	}
 
