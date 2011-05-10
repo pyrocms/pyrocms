@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Admin controller for the widgets module.
  *
@@ -7,8 +8,8 @@
  * @author			Phil Sturgeon - PyroCMS Development Team
  *
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -16,14 +17,15 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		parent::__construct();
+		parent::Admin_Controller();
 
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-	    $this->template->append_metadata( js('widgets.js', 'widgets') );
-	    $this->template->append_metadata( css('widgets.css', 'widgets') );
+		$this->template
+			->set_partial('shortcuts', 'admin/partials/shortcuts')
+			->append_metadata(js('widgets.js', 'widgets'))
+			->append_metadata(css('widgets.css', 'widgets'));
 	}
 
 	/**
@@ -33,12 +35,13 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->data->available_widgets = $this->widgets->list_available_widgets();
+		$data = array();
 
-		$this->data->widget_areas = $this->widgets->list_areas();
+		$data['available_widgets']	= $this->widgets->list_available_widgets();
+		$data['widget_areas']		= $this->widgets->list_areas();
 
 		// Go through all widget areas
-		foreach ($this->data->widget_areas as &$area)
+		foreach ($data['widget_areas'] as &$area)
 		{
 			$area->widgets = $this->widgets->list_area_instances($area->slug);
 		}
@@ -46,7 +49,7 @@ class Admin extends Admin_Controller
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->build('admin/index', $data);
 	}
 
 	/**
@@ -60,9 +63,9 @@ class Admin extends Admin_Controller
 		$widget = $this->widgets->get_widget($slug);
 
 		$this->load->view('admin/about_widget', array(
-			'widget' => $widget,
-			'available' => TRUE,
-			'form_action' => 'admin/widgets/uninstall'
+			'widget'		=> $widget,
+			'available'		=> TRUE,
+			'form_action'	=> 'admin/widgets/uninstall'
 		));
 	}
 
@@ -77,9 +80,10 @@ class Admin extends Admin_Controller
 		$widget = $this->widgets->read_widget($slug);
 
 		$this->load->view('admin/about_widget', array(
-			'widget' => $widget,
-			'available' => FALSE,
-			'form_action' => 'admin/widgets/install'
+			'widget'		=> $widget,
+			'available'		=> FALSE,
+			'form_action'	=> 'admin/widgets/install'
 		));
 	}
+
 }

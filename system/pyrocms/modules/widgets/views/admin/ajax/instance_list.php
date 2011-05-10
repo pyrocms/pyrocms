@@ -18,5 +18,5 @@
 	</li>
 	
 <?php endforeach; ?>
-	<li class="empty-drop-item"></li>
+	<li class="empty-drop-item hidden"></li>
 </ol>

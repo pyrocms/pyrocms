@@ -14,6 +14,13 @@
 				edit_instance	: $('#edit-instance-box'),
 				sort_options	: {
 					cancel: '.no-sortable,:input,option',
+					placeholder: 'empty-drop-item',
+					start: function(){
+						$('#widget-areas-list').accordion('resize');
+					},
+					stop: function(){
+						$('#widget-areas-list').accordion('resize');
+					},
 					update: function(){
 						var order = [];
 
@@ -30,9 +37,9 @@
 			pyro.widgets.set_droppable();
 
 			// Widget Areas Accordion
-			$(".accordion").accordion({
+			$("#widget-areas-list").accordion({
 				collapsible	: true,
-				header		: 'header',
+				header		: '> section > header',
 				autoHeight	: true,
 				clearStyle	: true
 			});
@@ -84,7 +91,7 @@
 				
 				$.post(SITE_URL + 'widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data){
 
-					$('#widget-areas .accordion')
+					$('#widget-areas-list')
 						.append(data)
 						.accordion('destroy')
 						.accordion({ collapsible: true,	header: 'header', autoHeight: false });
@@ -118,10 +125,10 @@
 						$('a#edit-area-'+data.find).attr({'id': 'edit-area-'+data.replace, 'data-title': data.title});
 						$('a#delete-area-'+data.find).attr('id', 'delete-area-'+data.replace);
 
-						var old_tag = $('section#area-'+data.replace+' p.tag').html(),
+						var old_tag = $('section#area-'+data.replace+' code.tag').html(),
 							new_tag = old_tag.replace(data.find, data.replace);
 
-						$('section#area-'+data.replace+' p.tag').html(new_tag);
+						$('section#area-'+data.replace+' code.tag').html(new_tag);
 					}
 
 					//todo: handle errors
@@ -153,7 +160,7 @@
 
 					form = $(this),
 
-					active_id = $( "#widget-areas .accordion" ).accordion( "option", "active" );
+					active_id = $( "#widget-areas-list" ).accordion( "option", "active" );
 
 				if ( ! (title || widget_id || widget_area_id)) return false;
 		
@@ -231,7 +238,7 @@
 				$.post(SITE_URL + 'widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
 					li.slideUp(function() { 
 						$(this).remove();
-						$("#widget-areas .accordion").accordion("resize");
+						$("#widget-areas-list").accordion("resize");
 					});
 				});
 			});
@@ -261,12 +268,12 @@
 		show_add_instance: function(area_slug){
 			var my_area = '#area-' + area_slug + ' ol';
 
-			$(my_area).append(pyro.widgets.add_instance.detach());
-			$('.widget-list .empty-drop-item').css('display', 'none');
+			$('li.empty-drop-item', my_area).before(pyro.widgets.add_instance.detach()).hide();
 
-			pyro.widgets.add_instance.css('display', 'block');
+			pyro.widgets.add_instance.fadeIn();
 
-			$('#widget-areas .accordion').accordion('resize');
+			$('.widget-box').draggable('disable');
+			$('#widget-areas-list').accordion('resize');
 
 			pyro.widgets.scroll_to(pyro.widgets.add_instance);
 		},
@@ -279,7 +286,7 @@
 
 			pyro.widgets.edit_instance.css('display', 'block').slideDown(function(){
 				setTimeout(function(){
-					$('#widget-areas .accordion').accordion('resize');
+					$('#widget-areas-list').accordion('resize');
 				}, 10);
 			});
 		},
@@ -301,7 +308,8 @@
 				// Clean up
 				$('input, select, textarea', this).attr('value', '');
 				$('#'+action+'-instance-box').detach();
-				$('#widget-list .accordion').accordion('resize');
+				$('#widget-areas-list').accordion('resize');
+				$('.widget-box').draggable('enable');
 			});
 		},
 
@@ -311,13 +319,13 @@
 
 				$(this).load(SITE_URL + 'widgets/ajax/list_widgets/' + widget_area_slug, function(){
 					$('.widget-list ol').sortable('destroy').sortable(pyro.widgets.sort_options);
-					$('.accordion').accordion('resize');
+					$('#widget-areas-list').accordion('resize');
 				});
 			});
 		},
 
 		re_accordion: function(active_id){
-			$('#widget-areas .accordion').accordion('destroy').accordion({
+			$('#widget-areas-list').accordion('destroy').accordion({
 				collapsible: true,
 				header: 'header',
 				autoHeight: false,
@@ -327,17 +335,17 @@
 		},
 
 		set_droppable: function(){
-			$("#widget-areas .accordion-content").droppable({
+			$("#widget-areas-list .widget-area-content").droppable({
 				hoverClass : 'drop-hover',
 				accept : '.widget-box',
 				greedy : true,
 				over : function(event, ui){
-					$(".accordion").accordion('resize');
 					$('li.empty-drop-item').show();
+					$('#widget-areas-list').accordion('resize');
 				},
 				out : function(event, ui){
-					$("li.emptydrop-item").hide();
-					$(".accordion").accordion('resize');
+					$('li.empty-drop-item').hide();
+					$('#widget-areas-list').accordion('resize');
 				},
 				drop : function(event, ui){
 					var area_slug	= $(this).parent().attr('id').replace(/^area-/, ''),
