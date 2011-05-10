@@ -19,6 +19,9 @@ $lang['select.all'] 				= '-- Vše --';
 $lang['select.any'] 				= '-- Cokoliv --';
 $lang['select.pick'] 				= '-- Vybrat --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 			= 'Shodné s';
 $lang['operators.not_equal'] 			= 'Rozdílné od';
 $lang['operators.less_than'] 			= 'Méně než';

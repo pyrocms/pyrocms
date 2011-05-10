@@ -19,6 +19,9 @@ $lang['select.all'] 					= '-- Kaikki --';
 $lang['select.any'] 					= '-- Any --'; // @todo: Not yet sure in which context we're using this
 $lang['select.pick'] 					= '-- Valitse --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 				= 'Täsmää';
 $lang['operators.not_equal'] 			= 'Ei täsmää';
 $lang['operators.less_than'] 			= 'Vähemmän kuin';
