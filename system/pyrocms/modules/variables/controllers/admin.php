@@ -115,6 +115,10 @@ class Admin extends Admin_Controller
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print ( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message
@@ -130,9 +134,11 @@ class Admin extends Admin_Controller
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
@@ -186,6 +192,10 @@ class Admin extends Admin_Controller
 			// If request is ajax return json data, otherwise do normal stuff
 			if ($this->is_ajax())
 			{
+				$data = array();
+				$data['messages'][$status] = $message;
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
 				return print( json_encode((object) array(
 					'status'	=> $status,
 					'message'	=> $message,
@@ -201,9 +211,11 @@ class Admin extends Admin_Controller
 		{
 			if ($this->is_ajax())
 			{
-				return print( json_encode(array(
+				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+
+				return print( json_encode((object) array(
 					'status'	=> 'error',
-					'message'	=> validation_errors()
+					'message'	=> $message
 				)) );
 			}
 		}
