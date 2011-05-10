@@ -114,7 +114,7 @@ jQuery(function($) {
 
 			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
-				$.data(this, 'confirmed', true).click();
+				$(this).data('confirmed', true).click();
 			}
 		});
 
