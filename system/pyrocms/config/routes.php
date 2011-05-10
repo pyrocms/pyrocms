@@ -41,6 +41,9 @@ $route['admin/([a-zA-Z_-]+)/(:any)']	= '$1/admin/$2';
 $route['admin/(login|logout)']			= 'admin/$1';
 $route['admin/([a-zA-Z_-]+)']			= '$1/admin/index';
 
+$route['api/([a-zA-Z_-]+)/(:any)']	= '$1/api/$2';
+$route['api/([a-zA-Z_-]+)']			= '$1/api/index';
+
 $route['register'] = 'users/register';
 
 $route['user/(:any)']	= 'users/profile/view/$1';
