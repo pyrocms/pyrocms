@@ -16,11 +16,14 @@
 		</p>
 			
 		<p>
-			<?php echo lang('profile_dob') ?>
-			<?php echo lang('profile_dob_day') ?>: <?php echo form_dropdown('dob_day', $days, $profile->dob_day) ?>
-			<?php echo lang('profile_dob_month') ?>: <?php echo form_dropdown('dob_month', $months, $profile->dob_month) ?>
-			<?php echo lang('profile_dob_year') ?>: <?php echo form_dropdown('dob_year', $years, $profile->dob_year) ?>
-		
+			<label for="dob_day"><?php echo lang('profile_dob') . ' ' . lang('profile_dob_day') ?>:</label>
+			<?php echo form_dropdown('dob_day', $days, $profile->dob_day) ?>
+			
+			<label for="dob_month"><?php echo lang('profile_dob_month') ?>:</label>
+			<?php echo form_dropdown('dob_month', $months, $profile->dob_month) ?>
+			
+			<label for="dob_year"><?php echo lang('profile_dob_year') ?>:</label>
+			<?php echo form_dropdown('dob_year', $years, $profile->dob_year) ?>
 		</p>
 	
 		<p>
