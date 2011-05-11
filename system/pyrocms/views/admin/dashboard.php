@@ -66,7 +66,7 @@
 <div id="analytics" class="line" style="padding-bottom: 10px"></div>
 <?php endif; ?>
 <div class="line">
-	<section class="box unit size1of3">
+	<section class="box unit <?php echo $rss_items ? 'size1of3' : 'size10f1'; ?>">
 		<header>
 			<h3><?php echo lang('cp_admin_quick_links') ?></h3>
 		</header>
@@ -103,7 +103,7 @@
 		
 		
 	</section>
-
+	<?php if ($rss_items) : ?>
 	<!-- News Feed -->
 	<section class="box unit size2of3 lastUnit">
 		<header>
@@ -131,4 +131,5 @@
 			</ul>
 		
 	</section>
+	<?php endif; ?>
 </div>
