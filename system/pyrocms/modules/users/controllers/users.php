@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * User controller for the users module (frontend)
  *
@@ -7,8 +8,8 @@
  * @subpackage 	Users module
  * @category	Modules
  */
-class Users extends Public_Controller
-{
+class Users extends Public_Controller {
+
 	/**
 	 * Constructor method
 	 *
@@ -53,8 +54,8 @@ class Users extends Public_Controller
 
 		// Get the user data
 		$user_data = (object) array(
-			'email' => $this->input->post('email'),
-			'password' => $this->input->post('password')
+			'email'		=> $this->input->post('email'),
+			'password'	=> $this->input->post('password')
 		);
 
 		$validation = array(
@@ -73,12 +74,12 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
 
-	    // If the validation worked, or the user is already logged in
-	    if ($this->form_validation->run() or $this->ion_auth->logged_in())
-	    {
+		// If the validation worked, or the user is already logged in
+		if ($this->form_validation->run() or $this->ion_auth->logged_in())
+		{
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
-			
+
 			$redirect_to_uri = ''; // '' Home
 
 			if ($redirect_to = $this->session->userdata('redirect_to'))
@@ -96,11 +97,11 @@ class Users extends Public_Controller
 			$this->hooks->_call_hook('post_user_login');
 
 			redirect($redirect_to_uri);
-	    }
+		}
 
 		// Render the view
 		$this->data->user_data =& $user_data;
-	    $this->template->build('login', $this->data);
+		$this->template->build('login', $this->data);
 	}
 
 	/**
@@ -169,13 +170,13 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($validation);
 
-		$email 				= $this->input->post('email');
-		$password 			= $this->input->post('password');
-		$username 			= $this->input->post('username');
-		$user_data_array 	= array(
-			'first_name' => $this->input->post('first_name'),
-			'last_name'  => $this->input->post('last_name'),
-			'display_name'  => $this->input->post('display_name'),
+		$email				= $this->input->post('email');
+		$password			= $this->input->post('password');
+		$username			= $this->input->post('username');
+		$user_data_array	= array(
+			'first_name'		=> $this->input->post('first_name'),
+			'last_name'			=> $this->input->post('last_name'),
+			'display_name'		=> $this->input->post('display_name'),
 		);
 
 		// Convert the array to an object
@@ -193,7 +194,7 @@ class Users extends Public_Controller
 			// Try to create the user
 			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
-				$this->session->set_flashdata(array('notice'=> $this->ion_auth->messages()));
+				$this->session->set_flashdata(array('notice' => $this->ion_auth->messages()));
 				redirect('users/activate');
 			}
 
@@ -203,7 +204,6 @@ class Users extends Public_Controller
 				$this->data->error_string = $this->ion_auth->errors();
 			}
 		}
-
 		else
 		{
 			// Return the validation error
@@ -211,7 +211,7 @@ class Users extends Public_Controller
 		}
 
 		$this->data->user_data =& $user_data;
-		$this->template->title( lang('user_register_title') );
+		$this->template->title(lang('user_register_title'));
 		$this->template->build('register', $this->data);
 	}
 
@@ -224,7 +224,7 @@ class Users extends Public_Controller
 	public function activate($id = 0, $code = NULL)
 	{
 		// Get info from email
-		if($this->input->post('email'))
+		if ($this->input->post('email'))
 		{
 			$this->data->activate_user = $this->ion_auth->get_user_by_email($this->input->post('email'));
 			$id = $this->data->activate_user->id;
@@ -233,10 +233,10 @@ class Users extends Public_Controller
 		$code = ($this->input->post('activation_code')) ? $this->input->post('activation_code') : $code;
 
 		// If user has supplied both bits of information
-		if($id AND $code)
+		if ($id AND $code)
 		{
 			// Try to activate this user
-			if($this->ion_auth->activate($id, $code))
+			if ($this->ion_auth->activate($id, $code))
 			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
 
@@ -283,13 +283,13 @@ class Users extends Public_Controller
 	public function reset_pass($code = FALSE)
 	{
 		//if user is logged in they don't need to be here. and should use profile options
-		if($this->ion_auth->logged_in())
+		if ($this->ion_auth->logged_in())
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
 			redirect('users/profile');
 		}
 
-		if($this->input->post('btnSubmit'))
+		if ($this->input->post('btnSubmit'))
 		{
 			$uname = $this->input->post('user_name');
 			$email = $this->input->post('email');
@@ -297,11 +297,11 @@ class Users extends Public_Controller
 			$user_meta = $this->ion_auth->get_user_by_email($email);
 
 			//supplied username match the email also given?  if yes keep going..
-			if($user_meta->username == $uname)
+			if ($user_meta && $user_meta->username == $uname)
 			{
 				$new_password = $this->ion_auth->forgotten_password($email);
 
-				if($new_password)
+				if ($new_password)
 				{
 					//set success message
 					$this->data->success_string = lang('forgot_password_successful');
@@ -320,13 +320,13 @@ class Users extends Public_Controller
 		}
 
 		//code is supplied in url so lets try to reset the password
-		if($code)
+		if ($code)
 		{
 			//verify reset_code against code stored in db
 			$reset = $this->ion_auth->forgotten_password_complete($code);
 
 			//did the password reset?
-			if($reset)
+			if ($reset)
 			{
 				redirect('users/reset_complete');
 			}
@@ -350,7 +350,7 @@ class Users extends Public_Controller
 	public function reset_complete()
 	{
 		//if user is logged in they don't need to be here. and should use profile options
-		if($this->ion_auth->logged_in())
+		if ($this->ion_auth->logged_in())
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
 			redirect('users/profile');
@@ -361,7 +361,6 @@ class Users extends Public_Controller
 
 		//build and render the output
 		$this->template->build('reset_pass_complete', $this->data);
-
 	}
 
 	/**
@@ -387,14 +386,12 @@ class Users extends Public_Controller
 		return FALSE;
 	}
 
-
-
 	/**
 	 * Username check
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
-	 **/
+	 */
 	public function _username_check($username)
 	{
 	    if ($this->ion_auth->username_check($username))
@@ -413,17 +410,18 @@ class Users extends Public_Controller
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
-	 **/
+	 */
 	public function _email_check($email)
 	{
-	    if ($this->ion_auth->email_check($email))
-	    {
-	        $this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
-	        return FALSE;
-	    }
-	    else
-	    {
-	        return TRUE;
-	    }
+		if ($this->ion_auth->email_check($email))
+		{
+			$this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
+
 }
