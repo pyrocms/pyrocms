@@ -1,0 +1,2 @@
+<?php echo form_label(lang('file_folders.parent_label'), 'parent_id'); ?>
+<?php echo form_dropdown('parent_id', array(0 => lang('files.dropdown_no_subfolders')) + $folders_tree, ($folder ? $folder->parent_id : 0), 'id="parent_id" class="required"'); ?>
