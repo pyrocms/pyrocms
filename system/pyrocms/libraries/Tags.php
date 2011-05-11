@@ -184,103 +184,12 @@ class Tags {
 			$this->_skip_content = array();
 		}
 
-// currently most slow
-//		$hash = md5($content . $this->_l_delim . $this->_trigger . $this->_r_delim . $this->_regex_all_tags);
-//
-//		if ( ! $cache = ci()->pyrocache->get('parser/' . $hash))
-//		{
-//			log_message('info', 'Tag Class: Saving cache...');
-//
-//			$cache = array();
-//
-//			$content = $this->_extract_tags($content);
-//
-//			if (isset($escaped) && $escaped)
-//			{
-//				$content = str_replace(array_keys($escaped), array_values($escaped), $content);
-//			}
-//
-//			$cache['content'] = $content;
-//
-//			foreach ($this as $prop => $val)
-//			{
-//				if ( ! in_array($prop, array('_current_callback')))
-//				{
-//					$cache[$prop] = $val;
-//				}
-//			}
-//
-//			// Cache for next time
-//			ci()->pyrocache->write($cache, 'parser/' . $hash, 60 * 60 * 24); // 24 hours
-//		}
-//		else
-//		{
-//			log_message('info', 'Tag Class: Retrieving cache...');
-//
-//			$content = $cache['content'];
-//
-//			foreach ($cache as $prop => $val)
-//			{
-//				if ( ! in_array($prop, array('content')))
-//				{
-//					$this->{$prop} = $val;
-//				}
-//			}
-//		}
+		$content = $this->_extract_tags($content);
 
-// currently most fast
-		$hash = md5($content . $this->_l_delim . $this->_trigger . $this->_r_delim . $this->_regex_all_tags);
-
-		ci()->load->driver('cache');
-
-		if ( ! $cache = ci()->cache->file->get('parser-fragment-' . $hash))
+		if (isset($escaped) && $escaped)
 		{
-			log_message('info', 'Tag Class: Saving cache...');
-
-			$cache = array();
-
-			$content = $this->_extract_tags($content);
-
-			if (isset($escaped) && $escaped)
-			{
-				$content = str_replace(array_keys($escaped), array_values($escaped), $content);
-			}
-
-			$cache['content'] = $content;
-
-			foreach ($this as $prop => $val)
-			{
-				if ( ! in_array($prop, array('_current_callback')))
-				{
-					$cache[$prop] = $val;
-				}
-			}
-
-			// Cache for next time
-			ci()->cache->file->save('parser-fragment-' . $hash, $cache, 60 * 60 * 24); // 24 hours
+			$content = str_replace(array_keys($escaped), array_values($escaped), $content);
 		}
-		else
-		{
-			log_message('info', 'Tag Class: Retrieving cache...');
-
-			$content = $cache['content'];
-
-			foreach ($cache as $prop => $val)
-			{
-				if ( ! in_array($prop, array('content')))
-				{
-					$this->{$prop} = $val;
-				}
-			}
-		}
-
-// currently most fast
-//		$content = $this->_extract_tags($content);
-//
-//		if (isset($escaped) && $escaped)
-//		{
-//			$content = str_replace(array_keys($escaped), array_values($escaped), $content);
-//		}
 
 		if ( ! $this->_tags)
 		{
@@ -326,20 +235,12 @@ class Tags {
 
 	private function _extract_tags($orig_content = '', $attemp = 0)
 	{
-		$_limit = 50;
 		while (($start = strpos($orig_content, $this->_l_delim . $this->_trigger)) !== FALSE)
 		{
 			$content = $orig_content;
 
 			if ( ! preg_match($this->_regex_all_tags, $content, $tag))
 			{
-				break;
-			}
-
-			if ( ! (--$_limit))
-			{
-				log_message('error', 'Tag Class: Extract tag loop aborted');
-
 				break;
 			}
 
@@ -442,17 +343,8 @@ class Tags {
 	private function _skip_content($tag = array(), $content = '')
 	{
 		$offset = 0;
-		$_limit = 300;
 		while (($tag_start = strpos($content, $this->_l_delim . $this->_trigger, $offset)) !== FALSE)
 		{
-			// this is still experimental so we must prevent infinite loops
-			if ( ! (--$_limit))
-			{
-				log_message('error', 'Tag Class: Skip content loop aborted');
-
-				break;
-			}
-
 			// we need some info before think on skip content
 			$tag_segments	= preg_replace('/(.*?)\s+.*/', '$1', substr($content, $tag_start));
 			$tag_end		= $this->_l_delim . '/' . trim($tag_segments, $this->_l_delim . $this->_r_delim) . $this->_r_delim;
