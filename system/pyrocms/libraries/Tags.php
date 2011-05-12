@@ -465,7 +465,7 @@ class Tags
 	 * @param	int		Used for recursion
 	 * @return	array	The clean array
 	 */
-	private function _force_array($var, $level = 1)
+	private function _force_array($var, $level = 0)
 	{
 		if (is_object($var))
 		{
@@ -475,13 +475,11 @@ class Tags
 		if (is_array($var))
 		{
 			// Make sure everything else is array or single value
-			foreach ($var as $index => & $child)
+			foreach ($var as &$child)
 			{
-				$child = $this->_force_array($child, $level + 1);
-
 				if (is_object($child))
 				{
-					$child = (array) $child;
+					$child = $this->_force_array($child, $level + 1);
 				}
 			}
 		}
