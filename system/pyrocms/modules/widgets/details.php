@@ -84,7 +84,7 @@ class Module_Widgets extends Module {
 			  `description` text COLLATE utf8_unicode_ci NOT NULL,
 			  `author` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 			  `website` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `version` int(3) NOT NULL DEFAULT '0',
+			  `version` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";

@@ -146,6 +146,46 @@ class Plugin_Theme extends Plugin
 
 		return $this->asset->js_url($file, '_theme_');
 	}
+
+	/**
+	 * Theme Favicon
+	 *
+	 * Insert a link tag for favicon from your theme
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:favicon file="" [rel="foo"] [type="bar"]}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	public function favicon()
+	{
+		$base = $this->attribute('base', 'path');
+
+		if ($base === 'path')
+		{
+			$theme_path = $this->template->get_theme_path();
+			$file = BASE_URI . $theme_path . $this->attribute('file', 'favicon.ico');
+		}
+		elseif ($base === 'url')
+		{
+			$this->load->library('asset');
+			$file = $this->asset->image_url($this->attribute('file', 'favicon.ico'), '_theme_');
+		}
+
+		$rel		= $this->attribute('rel', 'shortcut icon');
+		$type		= $this->attribute('type', 'image/x-icon');
+		$is_xhtml	= in_array($this->attribute('xhtml', 'true'), array('1','y','yes','true'));
+
+		$link = '<link ';
+		$link .= 'href="' . $file . '" ';
+		$link .= 'rel="' . $rel . '" ';
+		$link .= 'type="' . $type . '" ';
+		$link .= ($is_xhtml ? '/' : '') . '>';
+
+		return $link;
+	}
 }
 
 /* End of file theme.php */

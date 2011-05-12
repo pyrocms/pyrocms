@@ -13,7 +13,7 @@ jQuery(function($){
 			});
 			order = order.join(',');
 
-			$.post(BASE_URL + 'index.php/admin/galleries/ajax_update_order', { order: order });
+			$.post(SITE_URL + 'admin/galleries/ajax_update_order', { order: order });
 		}
 
 	}).disableSelection();
@@ -22,7 +22,7 @@ jQuery(function($){
 	// update the folder images preview when folder selection changes
 	$('select#folder_id').change(function(){
 
-		$.get(BASE_URL + 'index.php/admin/galleries/ajax_select_folder/' + $(this).val(), function(data) {
+		$.get(SITE_URL + 'admin/galleries/ajax_select_folder/' + $(this).val(), function(data) {
 
 			if (data) {
 				$('input[name=title]').val(data.name);
@@ -43,7 +43,7 @@ jQuery(function($){
 					$.each(data.images, function(i, image){
 						$('#gallery_images_list').append(
 						'<li>' +
-							'<img src="' + BASE_URL + 'index.php/files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + ' -- Caption: ' + image.description + '"' +
+							'<img src="' + SITE_URL + 'files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + ' -- Caption: ' + image.description + '"' +
 						'</li>'
 						);
 						

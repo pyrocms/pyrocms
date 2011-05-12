@@ -15,23 +15,28 @@
 			}
 			else
 			{
-				foreach ($modules[$menu_item] as $module)
+				if (array_key_exists($menu_item, $modules)) 
 				{
-					$count += in_array($module['slug'], $this->permissions) ? 1 : 0;
+					foreach ($modules[$menu_item] as $module)
+					{
+						$count += array_key_exists($module['slug'], $this->permissions) ? 1 : 0;
+					}
 				}
+				
 			}
 
 			// If we are in the users menu, we have to account for the hacked link below
 			if ($menu_item == 'users')
 			{
-				$count += (in_array('users', $this->permissions) OR $this->user->group == 'admin') ? 1 : 0;
+				$count += (array_key_exists('users', $this->permissions) OR $this->user->group == 'admin') ? 1 : 0;
 			}
 
 			// If they only have access to one item in this menu, why not just have it as the main link?
 			if ($count > 0)
 			{
+
 				// They have access to more than one menu item, so create a drop menu
-				if ($count > 1)
+				if ($count > 1 )
 				{
 					echo '<li>';
 
@@ -41,30 +46,42 @@
 					echo anchor('#', $name, array('class' => $class));
 
 					echo '<ul>';
-				}
 					
-					
-				// Not a big fan of the following hack, if a module needs two navigation links, we should be able to define that
-				if ( (in_array('users', $this->permissions) OR $this->user->group == 'admin') && $menu_item == 'users')
+				// User has access to Users module only, no other users item
+				} 
+				elseif ($count == 1 AND $this->module == 'users' AND $menu_item == 'users') 
 				{
-					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'current' : '')) . '</li>';
+					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'top-link no-submenu  current' : 'top-link no-submenu ')) . '</li>';
 				}
+				
+				// Not a big fan of the following hack, if a module needs two navigation links, we should be able to define that
+				if ( (array_key_exists('users', $this->permissions) OR $this->user->group == 'admin') AND $menu_item == 'users' AND $count != 1)
+				{
+					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), 'class="' . (($this->module == 'users') ? ' current"' : '"')) . '</li>';
+				} 
 
 				//Lets get the sub-menu links, or parent link if that is the case
-				ksort($modules[$menu_item]);
-				foreach ($modules[$menu_item] as $module)
+				if (array_key_exists($menu_item, $modules)) 
 				{
-					if (lang('cp_nav_'.$module['name'])!=''&&lang('cp_nav_'.$module['name'])!=NULL)
+					if (is_array($modules[$menu_item])) 
 					{
-						$module['name'] = lang('cp_manage_'.$module['name']);
+						ksort($modules[$menu_item]);
 					}
-					$current = $this->module == $module['slug'];
-					$class = $current ? "current " : "";
-					$class .= $count <= 1 ? "top-link no-submenu " : "";
-					
-					if (in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin')
+						
+					foreach ($modules[$menu_item] as $module)
 					{
-						echo '<li>' . anchor('admin/'.$module['slug'], $module['name'], array('class'=>$class)) . '</li>';
+						if (lang('cp_nav_'.$module['name'])!=''&&lang('cp_nav_'.$module['name'])!=NULL)
+						{
+							$module['name'] = lang('cp_manage_'.$module['name']);
+						}
+						$current = $this->module == $module['slug'];
+						$class = $current ? "current " : "";
+						$class .= $count <= 1 ? "top-link no-submenu " : "";
+						
+						if (array_key_exists($module['slug'], $this->permissions) OR $this->user->group == 'admin')
+						{
+							echo '<li>' . anchor('admin/'.$module['slug'], $module['name'], array('class'=>$class)) . '</li>';
+						}
 					}
 				}
 			}
@@ -78,11 +95,11 @@
 		}
 		?>
 
-		<?php if (in_array('settings', $this->permissions) OR $this->user->group == 'admin'): ?>
+		<?php if (array_key_exists('settings', $this->permissions) OR $this->user->group == 'admin'): ?>
 		<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 
-		<?php if (in_array('modules', $this->permissions) OR $this->user->group == 'admin'): ?>
+		<?php if (array_key_exists('modules', $this->permissions) OR $this->user->group == 'admin'): ?>
 		<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="last top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 

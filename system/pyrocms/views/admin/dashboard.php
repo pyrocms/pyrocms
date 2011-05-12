@@ -66,34 +66,34 @@
 <div id="analytics" class="line" style="padding-bottom: 10px"></div>
 <?php endif; ?>
 <div class="line">
-	<section class="box unit size1of3">
+	<section class="box unit <?php echo $rss_items ? 'size1of3' : 'size10f1'; ?>">
 		<header>
 			<h3><?php echo lang('cp_admin_quick_links') ?></h3>
 		</header>
 		
 		<ul class="quick-links">
-			<?php if(in_array('comments', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('comments', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/comments.png'); ?>
 				<a href="<?php echo site_url('admin/comments') ?>"><h4><?php echo lang('cp_manage_comments'); ?></h4></a>
 			</li>
 			<?php endif; ?>
 			
-			<?php if(in_array('pages', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('pages', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/pages.png'); ?>
 				<a href="<?php echo site_url('admin/pages') ?>"><h4><?php echo lang('cp_manage_pages'); ?></h4></a>
 			</li>
 			<?php endif; ?>
 			
-			<?php if(in_array('files', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('files', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/folder_open.png'); ?>
 				<a href="<?php echo site_url('admin/files') ?>"><h4><?php echo lang('cp_manage_files'); ?></h4></a>
 			</li>
 			<?php endif; ?>
 			
-			<?php if(in_array('users', $this->permissions) OR $this->user->group == 'admin'): ?>
+			<?php if(array_key_exists('users', $this->permissions) OR $this->user->group == 'admin'): ?>
 			<li class="clearfix">
 				<?php echo image('icons/user.png'); ?>
 				<a href="<?php echo site_url('admin/users') ?>"><h4><?php echo lang('cp_manage_users'); ?></h4></a>
@@ -103,7 +103,7 @@
 		
 		
 	</section>
-
+	<?php if ($rss_items) : ?>
 	<!-- News Feed -->
 	<section class="box unit size2of3 lastUnit">
 		<header>
@@ -131,4 +131,5 @@
 			</ul>
 		
 	</section>
+	<?php endif; ?>
 </div>

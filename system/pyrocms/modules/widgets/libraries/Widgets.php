@@ -58,12 +58,37 @@ class Widgets {
 
 	function list_available_widgets()
 	{
-		return $this->widget_m->order_by('slug')->get_all();
+		// Firstly, install any uninstalled widgets
+		$uninstalled_widgets = $this->list_uninstalled_widgets();
+
+		foreach ($uninstalled_widgets as $widget)
+		{
+			$this->add_widget((array) $widget);
+		}
+
+		// Secondly, uninstall any installed widgets missed
+		$installed_widgets = $this->widget_m->order_by('slug')->get_all();
+
+		$avaliable = array();
+
+		foreach ($installed_widgets as $widget)
+		{
+			if ( ! isset($this->_widget_locations[$widget->slug]))
+			{
+				$this->delete_widget($widget->slug);
+
+				continue;
+			}
+
+			$avaliable[] = $widget;
+		}
+
+		return $avaliable;
 	}
 
 	function list_uninstalled_widgets()
 	{
-		$available = $this->list_available_widgets();
+		$available = $this->widget_m->order_by('slug')->get_all();
 		$available_slugs = array();
 
 		foreach ($available as $widget)

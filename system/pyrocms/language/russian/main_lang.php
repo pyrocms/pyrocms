@@ -27,6 +27,9 @@ $lang['select.all']							= '-- все --';
 $lang['select.any']							= '-- любой --';
 $lang['select.pick']						= '-- выберите --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal']				= 'Равно';
 $lang['operators.not_equal']		= 'Не равно';
 $lang['operators.less_than']		= 'Меньше чем';

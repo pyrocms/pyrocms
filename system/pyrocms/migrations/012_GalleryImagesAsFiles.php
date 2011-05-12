@@ -7,6 +7,10 @@ class Migration_Galleryimagesasfiles extends Migration {
 		$this->db->query("
 			ALTER TABLE `galleries`
 				ADD `folder_id` int(11) NOT NULL AFTER slug");
+		
+		$this->db->query("
+			ALTER TABLE `galleries`
+				DROP `parent`");
 
 		$this->db->query("
 			ALTER TABLE `gallery_images`

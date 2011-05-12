@@ -19,6 +19,9 @@ $lang['select.all'] 					= '-- Όλα --';
 $lang['select.any'] 					= '-- Όποιο νά \'ναι --';
 $lang['select.pick'] 					= '-- Επιλογή --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 				= 'Ίσο με';
 $lang['operators.not_equal'] 			= 'Όχι ίσο με';
 $lang['operators.less_than'] 			= 'Μικρότερο από';

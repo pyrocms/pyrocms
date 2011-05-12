@@ -33,13 +33,6 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// Firstly, install any uninstalled widgets
-		$uninstalled_widgets = $this->widgets->list_uninstalled_widgets();
-		foreach ($uninstalled_widgets as $widget)
-		{
-			$this->widgets->add_widget((array)$widget);
-		}
-
 		$this->data->available_widgets = $this->widgets->list_available_widgets();
 
 		$this->data->widget_areas = $this->widgets->list_areas();

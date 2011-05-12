@@ -187,6 +187,7 @@ class Module_m extends MY_Model
 
 		foreach ($this->db->get($this->_table)->result() as $result)
 		{
+		
 			if ( ! $descriptions = @unserialize($result->description))
 			{
 				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
@@ -218,8 +219,9 @@ class Module_m extends MY_Model
 
 			if ( ! empty($params['is_backend']))
 			{
+
 				// This user has no permissions for this module
-				if ( $this->user->group !== 'admin' AND ! empty($this->permissions[$result->slug]))
+				if ( $this->user->group !== 'admin' AND empty($this->permissions[$result->slug]))
 				{
 					continue;
 				}

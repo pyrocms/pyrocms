@@ -30,7 +30,7 @@ class Plugin_User extends Plugin
 
 		if ($this->user)
 		{
-			if($group AND $group !== $this->user->group)
+			if ($group AND $group !== $this->user->group)
 			{
 				return '';
 			}
@@ -62,6 +62,21 @@ class Plugin_User extends Plugin
 		if ( ! $this->user OR ($group AND $group !== $this->user->group))
 		{
 			return $this->content();
+		}
+
+		return '';
+	}
+
+	function has_cp_permissions()
+	{
+		if ($this->user)
+		{
+			if ( ! (($this->user->group == 'admin') OR $this->permission_m->get_group($this->user->group_id)))
+			{
+				return '';
+			}
+
+			return $this->content() ? $this->content() : TRUE;
 		}
 
 		return '';

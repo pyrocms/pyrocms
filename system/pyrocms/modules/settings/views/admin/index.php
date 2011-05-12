@@ -24,7 +24,7 @@
 					<?php $section_count = 1; foreach($settings[$section_slug] as $setting): ?>
 						<li id="<?php echo $setting->slug; ?>" class="<?php echo $section_count++ % 2 == 0 ? 'even' : ''; ?>">
 							<label for="<?php echo $setting->slug; ?>"><?php if(lang('settings_'.$setting->slug)!=''){echo lang('settings_'.$setting->slug);}else{echo $setting->title;}?></label>
-							<div class="width-40">
+							<div class="width-40 <?php echo 'type-' . $setting->type; ?>">
 								<?php echo $setting->form_control; ?><br/>
 								<div class="clear-both text-small1" style="margin-left: 160px;"><?php if(lang('settings_'.$setting->slug.'_desc')!=''){echo lang('settings_'.$setting->slug.'_desc');}else{echo $setting->description;} ?></div>
 							</div>

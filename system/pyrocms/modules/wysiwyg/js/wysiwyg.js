@@ -19,7 +19,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + BASE_URI + 'files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + SITE_URL + 'files/download/' + id + '">' + title + '</a>');
     windowClose();
 }
 
@@ -66,7 +66,7 @@ var replace_html = null;
 
 			if( ! element.hasClass('pyro-image')) return false;
 
-			$('#current_document').load(BASE_URI + 'index.php/admin/wysiwyg/files/ajax_get_file', {
+			$('#current_document').load(SITE_URL + 'admin/wysiwyg/files/ajax_get_file', {
 				doc_id: element.attr('href').match(/\/download\/([0-9]+)/)[1]
 			});
 
@@ -106,7 +106,7 @@ var replace_html = null;
 			//remove any notifications
 			$( 'div.notification' ).fadeOut('fast');
             
-			if($(this).attr('title') != 'upload')
+			if ($(this).attr('title') != 'upload')
 			{
 				$('#files_right_pane').load(href_val + ' #files-wrapper', function() {
 					$(this).children().fadeIn('slow');
@@ -171,9 +171,9 @@ var replace_html = null;
 			$( "#insert_width" ).val( $( "#slider" ).slider( "value" ) + 'px' );
         });
         
-		$( '#radio-group' ).livequery(function() {
+		$('#radio-group').livequery(function(){
+			$(this).children('.set').buttonset();
 			$(this).fadeIn('slow');
-			$('#radio-group').buttonset();
 		});
 
 		$( '#files_right_pane' ).livequery(function() {
@@ -181,9 +181,9 @@ var replace_html = null;
 			$('#upload-box').hide();
 		});
 		
-		$( 'td.image button, a.button').livequery(function() {
-			$(this).button();
-		});
+//		$( 'td.image button, a.button').livequery(function() {
+//			$(this).button();
+//		});
 		
 	});
 })(jQuery);
