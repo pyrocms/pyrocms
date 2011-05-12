@@ -52,7 +52,22 @@ class Admin_areas extends Admin_Controller {
 
 	public function index()
 	{
-		//
+		$data = array();
+
+		$this->db->order_by('`title`');
+
+		$data['widget_areas'] = $this->widgets->list_areas();
+
+		// Go through all widget areas
+		foreach ($data['widget_areas'] as &$area)
+		{
+			$area->widgets = $this->widgets->list_area_instances($area->slug);
+		}
+
+		// Create the layout
+		return $this->template
+			->title($this->module_details['name'])
+			->build('admin/areas/index', $data, $this->method !== 'index');
 	}
 
 	/**
@@ -74,8 +89,9 @@ class Admin_areas extends Admin_Controller {
 				'slug'	=> $this->input->post('slug')
 			);
 
-			if ($this->widgets->add_area($input))
+			if ($id = $this->widgets->add_area($input))
 			{
+				$area		= $this->widgets->get_area($id);
 				$status		= 'success';
 				$message	= lang('success_label');
 			}
@@ -94,7 +110,9 @@ class Admin_areas extends Admin_Controller {
 
 				return print( json_encode((object) array(
 					'status'	=> $status,
-					'message'	=> $message
+					'message'	=> $message,
+					'html'		=> ($status === 'success' ? $this->index() : NULL),
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug : FALSE)
 				)) );
 			}
 
@@ -141,7 +159,7 @@ class Admin_areas extends Admin_Controller {
 	{
 		if ( ! ($id && $area = $this->widgets->get_area($id)))
 		{
-			// todo: set errors
+			// @todo: set error
 			return FALSE;
 		}
 
@@ -153,6 +171,7 @@ class Admin_areas extends Admin_Controller {
 		if ($this->form_validation->run())
 		{
 			$input = array(
+				'id'	=> $area->id,
 				'title'	=> $this->input->post('title'),
 				'slug'	=> $this->input->post('slug')
 			);
@@ -165,7 +184,7 @@ class Admin_areas extends Admin_Controller {
 			else
 			{
 				$status		= 'error';
-				$message	= lang('error_label');
+				$message	= lang('general_error_label');
 			}
 
 			if ($this->is_ajax())
@@ -177,7 +196,9 @@ class Admin_areas extends Admin_Controller {
 
 				return print( json_encode((object) array(
 					'status'	=> $status,
-					'message'	=> $message
+					'message'	=> $message,
+					'html'		=> ($status === 'success' ? $this->index() : NULL),
+					'active'	=> (isset($area) && $area ? $area->slug : FALSE)
 				)) );
 			}
 
@@ -222,9 +243,32 @@ class Admin_areas extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
-		$slug = $this->input->post('area_slug');
+		if ($this->widgets->delete_area($id))
+		{
+			$status = 'success';
+			$message = lang('success_label');
+		}
+		else
+		{
+			$status = 'error';
+			$message = lang('general_error_label');
+		}
 
-		$this->widgets->delete_area($slug);
+		if ($this->is_ajax())
+		{
+			$data = array();
+
+			$data['messages'][$status] = $message;
+			$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
+			return print( json_encode((object) array(
+				'status'	=> $status,
+				'message'	=> $message
+			)) );
+		}
+
+		$this->session->set_flashdata($status, $message);
+		redirect('admin/widgets');
 	}
 
 }

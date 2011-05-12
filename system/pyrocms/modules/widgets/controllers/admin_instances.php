@@ -72,21 +72,27 @@ class Admin_instances extends Admin_Controller {
 	 * @access public
 	 * @return void
 	 */
-	public function create()
+	public function create($slug = '')
 	{
+		if ( ! ($slug && $widget = $this->widgets->get_widget($slug)))
+		{
+			// @todo: set error
+			return FALSE;
+		}
+
 		$data = array();
 
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules($this->_validation_rules);
-
-		if ($this->form_validation->run())
+		if ($input = $this->input->post())
 		{
-			$input = array(
-				'title'	=> $this->input->post('title'),
-				'slug'	=> $this->input->post('slug')
-			);
+			$title 			= $input['title'];
+			$widget_id 		= $input['widget_id'];
+			$widget_area_id = $input['widget_area_id'];
 
-			if ($this->widgets->add_instance($input))
+			unset($input['title'], $input['widget_id'], $input['widget_area_id']);
+
+			$result = $this->widgets->add_instance($title, $widget_id, $widget_area_id, $input);
+
+			if ($result['status'] === 'success')
 			{
 				$status		= 'success';
 				$message	= lang('success_label');
@@ -94,14 +100,14 @@ class Admin_instances extends Admin_Controller {
 			else
 			{
 				$status		= 'error';
-				$message	= lang('error_label');
+				$message	= $result['error'];
 			}
 
 			if ($this->is_ajax())
 			{
 				$data = array();
 
-				$data['messages'][$status] = $message;
+				$status === 'success' AND $data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
 				return print( json_encode((object) array(
@@ -113,35 +119,17 @@ class Admin_instances extends Admin_Controller {
 			if ($status === 'success')
 			{
 				$this->session->set_flashdata($status, $message);
-
-				redirect('admim/widgets');
+				redirect('admins/widgets');
 				return;
 			}
 
 			$data['messages'][$status] = $message;
 		}
-		elseif (validation_errors())
-		{
-			if ($this->is_ajax())
-			{
-				$status		= 'error';
-				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
-					'status'	=> $status,
-					'message'	=> $message
-				)) );
-			}
-		}
+		$data['widget']	= $widget;
+		$data['form']	= $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
 
-		foreach ($this->_validation_rules as $rule)
-		{
-			$instance->{$rule['field']} = set_value($rule['field']);
-		}
-
-		$data['instance'] = $instance;
-
-		$this->template->build('admin/areas/form', $data);
+		$this->template->build('admin/instances/form', $data);
 	}
 
 	/**
@@ -239,9 +227,32 @@ class Admin_instances extends Admin_Controller {
 	 */
 	public function delete($id = 0)
 	{
-		$instance_id = $this->input->post('instance_id');
+		if ($this->widgets->delete_instance($id))
+		{
+			$status = 'success';
+			$message = lang('success_label');
+		}
+		else
+		{
+			$status = 'error';
+			$message = lang('general_error_label');
+		}
 
-		$this->widgets->delete_instance($instance_id);
+		if ($this->is_ajax())
+		{
+			$data = array();
+
+			$data['messages'][$status] = $message;
+			$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
+			return print( json_encode((object) array(
+				'status'	=> $status,
+				'message'	=> $message
+			)) );
+		}
+
+		$this->session->set_flashdata($status, $message);
+		redirect('admin/widgets');
 	}
 
 }

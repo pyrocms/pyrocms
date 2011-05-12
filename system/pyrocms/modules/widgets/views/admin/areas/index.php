@@ -1,22 +1,24 @@
-<ol>
-<?php foreach($widgets as $widget): ?>
+<?php if ($widget_areas): ?>
+<?php foreach ($widget_areas as $widget_area): ?>
+	<section class="widget-area-box" id="area-<?php echo $widget_area->slug; ?>" data-id="<?php echo $widget_area->id; ?>">
+		<header class="clearfix">
+			<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
+		</header>
+		<div class="widget-area-content accordion-content">
+			<!-- Widget Area Actions -->
+			<div class="buttons buttons-small">
+				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('edit' => array('id' => '../areas/edit/' . $widget_area->slug), 'delete') )); ?>
+			</div>
 
-	<li id="instance-<?php echo $widget->id; ?>" class="widget-instance">
-		
-		<h4><?php echo $widget->instance_title; ?></h4>
-		
-		<div class="widget-type"><?php echo $widget->title; ?></div>
-		
-		<pre class="widget-code no-sortable"><code><?php echo sprintf('{%s:widgets:instance id="%s"}', config_item('tags_trigger'), $widget->id);?></code></pre>
-		
-		<div class="widget-actions buttons buttons-small">
-			<a href="#" class="edit-instance button edit"><?php echo lang('widgets.instance_edit'); ?></a>
-			<a href="#" class="delete-instance confirm button delete"><?php echo lang('widgets.instance_delete'); ?></a>
+			<!-- Widget Area Tag -->
+			<code class="tag"><?php echo sprintf('{%s:widgets:area slug="%s"}', config_item('tags_trigger'), $widget_area->slug); ?></code>
+
+			<!-- Widget Area Instances -->
+			<div class="widget-list">
+				<?php $this->load->view('admin/instances/index', array('widgets' => $widget_area->widgets)); ?>
+				<div style="clear:both"></div>
+			</div>
 		</div>
-		
-		<div style="clear:both"></div>
-	</li>
-	
+	</section>
 <?php endforeach; ?>
-	<li class="empty-drop-item hidden"></li>
-</ol>
+<?php endif; ?>

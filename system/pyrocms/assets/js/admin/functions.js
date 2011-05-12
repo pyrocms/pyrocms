@@ -103,8 +103,6 @@ jQuery(function($) {
 
 			if ($.data(this, 'confirmed'))
 			{
-				$.data(this, 'confirmed', false);
-
 				return true;
 			}
 
@@ -114,7 +112,7 @@ jQuery(function($) {
 
 			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
-				$(this).data('confirmed', true).click();
+				$(this).data('confirmed', true).click().data('confirmed', false);
 			}
 		});
 

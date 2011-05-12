@@ -78,7 +78,7 @@
 }
 
 /*--------------------------------------------------------------------
-// AVAILABLE WIDGETS LIST
+// WIDGETS AREAS LIST
 //-------------------------------------------------------------------*/
 
 #widget-areas .widget-area-box > header {
@@ -270,8 +270,14 @@ li.empty-drop-item {
 	border-radius: 5px;
 	height: 24px;
 }
-.drop-hover li {
-	display: block;
+li.empty-drop-item.loading {
+	background-image: url(../../../assets/img/admin/loading.gif);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	border: none;
+}
+.drop-hover li.empty-drop-item {
+	display: block !important;
 }
 
 .box-container header h3 {

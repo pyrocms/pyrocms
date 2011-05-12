@@ -148,13 +148,20 @@ class Widget_m extends MY_Model
 		));
 	}
 	
-	public function update_area($input)
+	public function update_area($input = array())
 	{		
-		$this->db
-			->where('slug', $input['area_slug'])
-			->update('widget_areas', array(
-				'title' => $input['title'],
-				'slug' => $input['slug'] 
+		if (isset($input['id']))
+		{
+			$this->db->where('id', $input['id']);
+		}
+		else
+		{
+			$this->db->where('slug', $input['area_slug']);
+		}
+
+		$this->db->update('widget_areas', array(
+				'title'	=> $input['title'],
+				'slug'	=> $input['slug'] 
 			));
 
 		$result = $this->db->affected_rows();
@@ -221,24 +228,24 @@ class Widget_m extends MY_Model
 		return $this->db->delete('widgets', array('slug' => $slug));
 	}
 	
-	public function delete_area($slug)
+	public function delete_area($id = 0)
 	{
-		// Get the id for this area
-		$area = $this->db
-			->select('id')
-			->get_where('widget_areas', array('slug' => $slug))
-			->row();
-		
-		if (isset($area->id))
+		if ( ! is_numeric($id))
 		{
-			// Delete widgets in that area
-			$this->db->delete('widget_instances', array('widget_area_id' => $area->id));
-			
-			// Delete this area
-			return $this->db->delete('widget_areas', array('id' => $area->id));
+			// Get the id for this area
+			$area = $this->db
+				->select('id')
+				->get_where('widget_areas', array('slug' => $slug))
+				->row();
+
+			return $area ? $this->delete_area($area->id) : FALSE;
 		}
-		
-		return TRUE;
+
+		// Delete widgets in that area
+		$this->db->delete('widget_instances', array('widget_area_id' => $id));
+
+		// Delete this area
+		return $this->db->delete('widget_areas', array('id' => $id));
 	}
 	
 	function delete_instance($id) 

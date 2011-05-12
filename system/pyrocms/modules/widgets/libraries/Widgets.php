@@ -307,7 +307,7 @@ class Widgets {
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $options))
+		if ($error = $this->validation_errors($slug, $data))
 		{
 			return array('status' => 'error', 'error' => $error);
 		}
@@ -360,20 +360,21 @@ class Widgets {
 
 	function validation_errors($name, $options)
 	{
+//		$_POST = $options;
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', lang('title_label'), 'trim|required|max_length[100]');
+
 		$this->_widget OR $this->_spawn_widget($name);
 
 		if (property_exists($this->_widget, 'fields'))
 		{
-			$_POST = $options;
-
-			$this->load->library('form_validation');
-			//$this->form_validation->set_rules('title', 'Title', 'required');
 			$this->form_validation->set_rules($this->_widget->fields);
+		}
 
-			if ( ! $this->form_validation->run('', FALSE))
-			{
-				return validation_errors();
-			}
+		if ( ! $this->form_validation->run('', FALSE))
+		{
+			return validation_errors();
 		}
 	}
 

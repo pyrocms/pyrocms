@@ -648,6 +648,9 @@ ul#login-footer li a:hover {
 .box p {
 	margin: 10px;
 }
+.box .notification p {
+	margin: inherit;
+}
 
 .hover-toggle .toggle-item {
 	visibility: hidden;

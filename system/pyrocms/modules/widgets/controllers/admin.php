@@ -38,6 +38,9 @@ class Admin extends Admin_Controller {
 		$data = array();
 
 		$data['available_widgets']	= $this->widgets->list_available_widgets();
+
+		$this->db->order_by('`title`');
+
 		$data['widget_areas']		= $this->widgets->list_areas();
 
 		// Go through all widget areas
