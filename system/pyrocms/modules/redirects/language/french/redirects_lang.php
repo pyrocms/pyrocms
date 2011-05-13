@@ -3,12 +3,12 @@
 // labels
 $lang['redirects.from'] 			    = 'De';
 $lang['redirects.to']					= 'Vers';
-$lang['redirects.edit']					= 'Editer';
+$lang['redirects.edit']					= 'Éditer';
 $lang['redirects.delete']				= 'Supprimer';
 
 // titles
 $lang['redirects.add_title'] 			= 'Ajouter une redirection';
-$lang['redirects.edit_title'] 			= 'Editer une redirection';
+$lang['redirects.edit_title'] 			= 'Éditer une redirection';
 $lang['redirects.list_title'] 			= 'Redirections';
 
 // messages
@@ -16,7 +16,7 @@ $lang['redirects.no_redirects']			= 'Il n\'y a aucune redirection';
 $lang['redirects.add_success'] 			= 'La nouvelle redirection a été enregistrée';
 $lang['redirects.add_error'] 			= 'La redirection n\'a pu être enregistrée.';
 $lang['redirects.edit_success'] 		= 'Les modifications ont été enregistrées.';
-$lang['redirects.edit_error'] 			= 'Changes to this redirect could not be saved, please try again later.';
+$lang['redirects.edit_error'] 			= 'Les modifications pour cette redirection n\ont pas été enregistrées, merci de réessayer ultérieurement.';
 $lang['redirects.mass_delete_error'] 	= 'Une erreur est survenue pendant la suppression de "%s".';
 $lang['redirects.mass_delete_success']	= '%s redirections sur %s ont été supprimées.';
 $lang['redirects.no_select_error'] 		= 'Vous devez sélectionner au moins une redirection à supprimer.';
