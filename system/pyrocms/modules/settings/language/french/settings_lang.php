@@ -11,7 +11,7 @@ $lang['settings_site_slogan'] 					= 'Slogan du site';
 $lang['settings_site_slogan_desc'] 				= 'Le slogan du site. Ce nom sera utilisé dans le titre des pages ainsi que dans d\'autres emplacements.';
 
 $lang['settings_site_lang']						= 'Langue du site';
-$lang['settings_site_lang_desc']				= 'Langue du site, utilisée pour choisir des templates d\'emails de notifications internes et reçus par les visiteurs et autres et qui ne doit pas dépendre de la langue de l'utilisateur.'; #Check translation
+$lang['settings_site_lang_desc']				= 'Langue du site, utilisée pour choisir des templates d\'emails de notifications internes et reçus par les visiteurs et autres et qui ne doit pas dépendre de la langue de l\'utilisateur.'; #Check translation
 
 $lang['settings_contact_email'] 				= 'E-mail de contact';
 $lang['settings_contact_email_desc'] 			= 'Tous les emails provenant des utilisateurs, des invités et du site seront adressés à cette adresse.';
@@ -34,7 +34,7 @@ $lang['settings_dashboard_rss_count_desc'] 		= 'Combien d\entrées RSS afficher 
 $lang['settings_date_format'] 					= 'Format de date';
 $lang['settings_date_format_desc']				= 'Comment doivent apparaître les dates affichées sur le site et dans le panneau d\'administration&nbsp;?' .
 													'Utiliser le <a href="http://php.net/manual/en/function.date.php" target="_black">format de</a> de PHP - OU - ' .
-													'Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaîne formatée comme date</a> from PHP.';
+													'Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaîne formatée comme date</a> de PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Statut du site';
 $lang['settings_frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
