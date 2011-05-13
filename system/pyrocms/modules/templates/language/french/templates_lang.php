@@ -29,7 +29,7 @@ $lang['templates.single_delete_success']	= 'Le template d\'email a été supprim
 $lang['templates.mass_delete_success']		= '%s templates d\'email sur %s supprimés avec succès.';
 $lang['templates.mass_delete_error'] 		= 'Une erreur à eu lieu pendant la suppression du template d\'email "%s".';
 $lang['templates.default_delete_error'] 	= 'Une erreur à eu lieu, les templates d\'email par défaut ne peuvent pas être supprimés.';
-$lang['templates.no_select_error'] 			= 'Vous devez tout d'abord sélectionner le template d\'email.';
+$lang['templates.no_select_error'] 			= 'Vous devez tout d\'abord sélectionner le template d\'email.';
 $lang['templates.already_exist_error']		= 'Un template d\email avec le nom  "%s" existe déjà.';
 
 /* End of file templates_lang.php */
