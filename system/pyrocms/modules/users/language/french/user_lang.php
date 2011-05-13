@@ -8,7 +8,7 @@ $lang['user_login_header'] 		= 'Login';
 
 // titles
 $lang['user_add_title'] = 'Créer un utilisateur';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 				= 'Lister les utilisateurs';
 $lang['user_inactive_title'] = 'Utilisateurs Inactifs';
 $lang['user_active_title'] = 'Utilisateurs Actifs';
 $lang['user_registred_title'] = 'Utilisateurs Enregistrés';
@@ -62,7 +62,7 @@ $lang['user_lang']			= 'Langue';
 
 $lang['user_activation_code'] = 'Code d\'activation';
 
-$lang['user_reset_password_link'] = 'Mot de passe oublié?';
+$lang['user_reset_password_link'] = 'Mot de passe oublié&nbsp;?';
 
 $lang['user_activation_code_sent_notice'] = 'Un e-mail vous a été envoyé avec votre code d\'activation.';
 $lang['user_activation_by_admin_notice'] = 'Votre enregistrement est en attente d\'approbation par l\'administrateur.';
@@ -111,7 +111,7 @@ $lang['user_register_reasons'] = 'Abonnez-vous pour accéder aux espaces réserv
 
 
 // Activation
-$lang['user_activation_incorrect']   = 'L\'activation s\'est mal déroulée. S\'il vous plaît revoyer vos détails et assurez vous que les MAJUSCULES (CAPS LOCK) ne sont pas actives.';
+$lang['user_activation_incorrect']   = 'L\'activation s\'est mal déroulée. S\'il vous plaît renvoyer vos détails et assurez vous que les MAJUSCULES (CAPS LOCK) ne sont pas actives.';
 $lang['user_activated_message']   = 'Votre compte a été activé, vous pouvez maintenant vous y connecter.';
 
 
