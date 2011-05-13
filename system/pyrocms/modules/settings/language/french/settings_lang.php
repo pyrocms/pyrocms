@@ -10,8 +10,8 @@ $lang['settings_site_name_desc'] 				= 'Le nom du site. Ce nom sera utilisé dan
 $lang['settings_site_slogan'] 					= 'Slogan du site';
 $lang['settings_site_slogan_desc'] 				= 'Le slogan du site. Ce nom sera utilisé dans le titre des pages ainsi que dans d\'autres emplacements.';
 
-$lang['settings_site_lang']						= 'Site Language'; #translate
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang']						= 'Langue du site';
+$lang['settings_site_lang_desc']				= 'Langue du site, utilisée pour choisir des templates d\'emails de notifications internes et reçus par les visiteurs et autres et qui ne doit pas dépendre de la langue de l'utilisateur.'; #Check translation
 
 $lang['settings_contact_email'] 				= 'E-mail de contact';
 $lang['settings_contact_email_desc'] 			= 'Tous les emails provenant des utilisateurs, des invités et du site seront adressés à cette adresse.';
