@@ -11,15 +11,15 @@
 
 	<p>
 		<label for="contact_name"><?php echo lang('contact_name_label');?></label>
-		<?php echo form_input('contact_name', $form_values->contact_name);?>
+		<?php echo form_input('contact_name', $form_values->contact_name, 'id="contact_name"');?>
 	</p>
 	<p>
 		<label for="contact_email"><?php echo lang('contact_email_label');?></label>
-		<?php echo form_input('contact_email', $form_values->contact_email);?>
+		<?php echo form_input('contact_email', $form_values->contact_email, 'id="contact_email"');?>
 	</p>
 	<p>
 		<label for="company_name"><?php echo lang('contact_company_name_label');?></label>
-		<?php echo form_input('company_name', $form_values->company_name);?>
+		<?php echo form_input('company_name', $form_values->company_name, 'id="company_name"');?>
 	</p>
 	<p>
 		<label for="subject"><?php echo lang('contact_subject_label');?></label>

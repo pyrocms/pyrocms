@@ -149,8 +149,8 @@ td.meta {
 	display: none;
 	position: absolute;
 	top: 0;
-	left: 0;
-	width: 780px;
+	left: 7px;
+	width: 96%;
 	padding: 8px;
 	z-index: 99;
 	-webkit-border-radius: 8px;
