@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['profile_of_title'] 				= '%s\'s Perfis';
+$lang['profile_of_title'] 				= 'Perfil de %s';
 
 $lang['profile_user_details_label'] 	= 'Detalhes do usuário';
-$lang['profile_role_label'] 			= 'Papel';
-$lang['profile_registred_on_label'] 	= 'Registrado em';
-$lang['profile_last_login_label'] 		= 'Última entrada';
+$lang['profile_role_label'] 			= 'Função';
+$lang['profile_registred_on_label'] 	= 'Membro desde';
+$lang['profile_last_login_label'] 		= 'Última visita';
 $lang['profile_male_label'] 			= 'Masculino';
 $lang['profile_female_label'] 			= 'Feminino';
 
@@ -36,7 +36,7 @@ $lang['profile_website']				= 'Website';
 
 $lang['profile_messenger_section'] 		= 'Mensageiros instantâneos';
 
-$lang['profile_msn_handle'] 			= 'MSN';
+$lang['profile_msn_handle'] 			= 'MSN (Live Messenger)';
 $lang['profile_aim_handle'] 			= 'AIM';
 $lang['profile_yim_handle'] 			= 'Yahoo! messenger';
 $lang['profile_gtalk_handle'] 			= 'GTalk';
@@ -52,7 +52,7 @@ $lang['profile_edit_error'] 			= 'Ocorreu um erro.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] 				= 'Salvar perfil';
+$lang['profile_save_btn'] 				= 'Salvar alterações no perfil';
 
 /* End of file profile_lang.php */
 /* Location: ./system/pyrocms/modules/users/language/brazilian/profile_lang.php */

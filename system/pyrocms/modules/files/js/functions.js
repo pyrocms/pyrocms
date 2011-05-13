@@ -26,21 +26,20 @@
 				data = 'btnAction=delete&' + form.serialize();
 
 				$.post(url, data, function(data){
-					if (data.success)
+					if (data.status == 'success')
 					{
-						// todo: show notification
-						//console.log('confirmation success');
-					}
+						var callback_adjust_and_close = function(){
+							$.colorbox.resize();
+							$(window).hashchange();
+							$.colorbox.close();
+						};
 
-					if (data.error)
-					{
-						// todo: show notification
-						//console.log('confirmation error');
+						pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, callback_adjust_and_close);
+						
 					}
-					else
+					else if (data.status == 'error')
 					{
-						$(window).hashchange();
-						$.colorbox.close();
+						pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
 					}
 				}, 'json');
 			});
@@ -67,16 +66,15 @@
 							width	: 600,
 							maxHeight	: '90%',
 							onComplete: function(){
-								$('.notification').fadeIn(function(){
+//								$('.notification').fadeIn(function(){
 									$.colorbox.resize();
-								});
+//								});
 							}
 						});
 						return;
 					}
 
-					// todo: show notification
-					//console.log('opss..');
+					pyro.add_notification(data.html);
 				}, 'json');
 			});
 		});
@@ -94,7 +92,6 @@
 
 					var form = $('form#folders_crud'),
 						$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
-						$notification,
 						btn_action;
 
 					$.colorbox.resize();
@@ -117,7 +114,7 @@
 							}
 							else
 							{
-								$.post(BASE_URL + 'index.php/ajax/url_title', { title: title }, function(slug){
+								$.post(SITE_URL + 'ajax/url_title', { title: title }, function(slug){
 									$slug.val(slug);
 
 									cache[title] = slug;
@@ -151,29 +148,17 @@
 
 							$loading.show();
 
-							if ($notification)
-							{
-								$notification.remove();
-							}
+							pyro.clear_notifications();
 	
 							$.post(form.attr('action'), form.serialize(), function(data){
 								// Prepare the html notification
-								$notification = $('<div class="closable notification ' + data.status + '">' + data.message +
-												  '<a class="close" href="#">close</a></div>').prependTo('#cboxLoadedContent');
-
-								$('.close', $notification).click(function(e){
-									e.preventDefault();
-									$notification.slideUp(function(){
-										$(this).remove();
-										$.colorbox.resize();
-									});
-								});
+								
 	
 								// Update title
 								data.title && $('#cboxLoadedContent h3:eq(0)').text(data.title);
 	
-								$('#folders-dropdown').load(BASE_URL + 'index.php/admin/files/folders/create #folders-dropdown', function(data){
-									$(this).html($(this).children().html());
+								$('#folders-dropdown').load(SITE_URL + 'admin/files/folders/html_dropdown', function(html){
+									$(this).html(html);
 								});
 	
 								if (data.status == 'success')
@@ -201,9 +186,7 @@
 								form.parent().fadeIn(function(){
 
 									// Show notification & resize colorbox
-									$notification.slideDown(function(){
-										$.colorbox.resize();
-									});
+									pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
 
 								});
 	
@@ -237,7 +220,7 @@
 				$('#shortcuts li.files-uploader').addClass('hidden');
 			}
 
-			$.get(BASE_URL + 'index.php/admin/files/folders/' + uri, hash, function(data){
+			$.get(SITE_URL + 'admin/files/folders/' + uri, hash, function(data){
 
 				if (data.status == 'success')
 				{
@@ -250,7 +233,7 @@
 				{
 					$('#shortcuts li.files-uploader').addClass('hidden');
 					parent.location.hash = null;
-//					console.log(data.message);
+					pyro.add_notification(data.message);
 				}
 
 			}, 'json');
@@ -304,8 +287,7 @@
 				height		: '480',
 				onComplete: function(){
 					var form = $('form#files_crud'),
-						$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
-						$notification;
+						$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic');
 
 					$.colorbox.resize();
 
@@ -333,24 +315,10 @@
 
 							$loading.show();
 
-							if ($notification)
-							{
-								$notification.remove();
-							}
+							pyro.clear_notifications();
 	
 							$.post(form.attr('action'), form.serialize(), function(data){
-								// Prepare the html notification
-								$notification = $('<div class="closable notification ' + data.status + '">' + data.message +
-												  '<a class="close" href="#">close</a></div>').prependTo('#cboxLoadedContent');
 
-								$('.close', $notification).click(function(e){
-									e.preventDefault();
-									$notification.slideUp(function(){
-										$(this).remove();
-										$.colorbox.resize();
-									});
-								});
-	
 								// Update title
 								data.title && $('#cboxLoadedContent h2:eq(0)').text(data.title);
 
@@ -369,9 +337,7 @@
 								form.parent().fadeIn(function(){
 
 									// Show notification & resize colorbox
-									$notification.slideDown(function(){
-										$.colorbox.resize();
-									});
+									pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
 
 								});
 	

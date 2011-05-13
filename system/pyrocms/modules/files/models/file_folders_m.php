@@ -236,7 +236,7 @@ class File_folders_m extends MY_Model {
 	{
 		$this->file_m->delete_files($id);
 
-		parent::delete($id);
+		return parent::delete($id);
 	}
 }
 

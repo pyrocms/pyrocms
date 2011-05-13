@@ -1,7 +1,8 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['nav_title_label'] 						= 'Titulek';
+$lang['nav_parent_label']						= 'Rodič';
 $lang['nav_target_label']						= 'Cíl';
 $lang['nav_class_label']						= 'Třída';
 $lang['nav_url_label'] 							= 'Adresa URL';
@@ -18,6 +19,7 @@ $lang['nav_abbrev_label'] 						= 'Zkratka';
 $lang['nav_edit_label'] 						= 'Upravit';
 $lang['nav_delete_label'] 						= 'Vymazat';
 $lang['nav_group_delete_label']					= 'Vymazat skupinu';
+$lang['nav_link_page_select_default']			= '--Vyberte stránku--';
 
 $lang['nav_link_target_self'] 					= 'Stejné okno (výchozí)';
 $lang['nav_link_target_blank'] 					= 'Nové okno (_blank)';

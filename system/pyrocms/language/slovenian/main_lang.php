@@ -19,6 +19,9 @@ $lang['select.all'] 					= '-- Vse --';
 $lang['select.any'] 					= '-- Izbrano --';
 $lang['select.pick'] 					= '-- Izberi --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 				= 'Enako kot';
 $lang['operators.not_equal'] 			= 'Ni enako kot';
 $lang['operators.less_than'] 			= 'Manj kot';

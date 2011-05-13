@@ -19,6 +19,9 @@ $lang['select.all'] 					= '-- All --'; #translate
 $lang['select.any'] 					= '-- Any --'; #translate
 $lang['select.pick']					= '-- 請選擇 --';
 
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
+
 $lang['operators.equal'] 				= 'Equal to'; #translate
 $lang['operators.not_equal'] 			= 'Not equal to'; #translate
 $lang['operators.less_than'] 			= 'Less than'; #translate

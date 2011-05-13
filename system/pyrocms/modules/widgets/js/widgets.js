@@ -21,7 +21,7 @@
 							order.push($(this).attr('id').replace(/^instance-/, ''));
 						});
 
-						$.post(BASE_URL + 'index.php/widgets/ajax/update_order', { order: order.join(',') });
+						$.post(SITE_URL + 'widgets/ajax/update_order', { order: order.join(',') });
 					}
 				}
 			});
@@ -69,7 +69,7 @@
 			// Auto-create a short-name
 			$('input[name="title"]').live('keyup', $.debounce(350, function(e){
 				var form = $(this).parents('form');
-				$.post(BASE_URL + 'index.php/ajax/url_title', { title : $(this).val() }, function(slug){
+				$.post(SITE_URL + 'ajax/url_title', { title : $(this).val() }, function(slug){
 					$('input[name="slug"]', form).val(slug);
 				});
 			}));
@@ -82,7 +82,7 @@
 				
 				if ( ! (title || slug)) return;
 				
-				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data){
+				$.post(SITE_URL + 'widgets/ajax/add_widget_area', { area_title: title, area_slug: slug }, function(data){
 
 					$('#widget-areas .accordion')
 						.append(data)
@@ -106,7 +106,7 @@
 
 				var form_data = $(this).serialize();
 
-				$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_area', form_data, function(data){
+				$.post(SITE_URL + 'widgets/ajax/edit_widget_area', form_data, function(data){
 
 					pyro.widgets.toogle_area('hide', 'edit');
 
@@ -136,7 +136,7 @@
 				var slug	= this.id.replace(/^delete-area-/, ''),
 					box		= $('#area-' + slug);
 
-				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_area', { area_slug: slug }, function(){
+				$.post(SITE_URL + 'widgets/ajax/delete_widget_area', { area_slug: slug }, function(){
 					box.slideUp(function(){
 						$(this).remove()
 					});
@@ -157,7 +157,7 @@
 
 				if ( ! (title || widget_id || widget_area_id)) return false;
 		
-				$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance', form.serialize(), function(data){
+				$.post(SITE_URL + 'widgets/ajax/add_widget_instance', form.serialize(), function(data){
 			
 					if (data.status == 'success')
 					{
@@ -185,7 +185,7 @@
 
 				if ( ! (title || widget_id || widget_area_id)) return false;
 
-				$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance', form.serialize(), function(data){
+				$.post(SITE_URL + 'widgets/ajax/edit_widget_instance', form.serialize(), function(data){
 			
 					if (data.status == 'success')
 					{
@@ -213,7 +213,7 @@
 				var id			= $(this).closest('li').attr('id').replace('instance-', ''),
 					area_slug	= $(this).closest('section').attr('id').replace('area-', '');
 
-				$.post(BASE_URI + 'index.php/widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
+				$.post(SITE_URL + 'widgets/ajax/edit_widget_instance_form', { instance_id: id }, function(html){
 					// Insert the form into the edit_instance li node
 					$('form', pyro.widgets.edit_instance).html(html);
 
@@ -228,7 +228,7 @@
 				var li	= $(this).closest('li'),
 					id	= li.attr('id').replace('instance-', '');
 
-				$.post(BASE_URI + 'index.php/widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
+				$.post(SITE_URL + 'widgets/ajax/delete_widget_instance', { instance_id: id }, function(html){
 					li.slideUp(function() { 
 						$(this).remove();
 						$("#widget-areas .accordion").accordion("resize");
@@ -309,7 +309,7 @@
 			$('.widget-list').each(function(){
 				var widget_area_slug = $(this).parent().parent().attr('id').replace(/^area-/, '');
 
-				$(this).load(BASE_URI + 'index.php/widgets/ajax/list_widgets/' + widget_area_slug, function(){
+				$(this).load(SITE_URL + 'widgets/ajax/list_widgets/' + widget_area_slug, function(){
 					$('.widget-list ol').sortable('destroy').sortable(pyro.widgets.sort_options);
 					$('.accordion').accordion('resize');
 				});
@@ -343,7 +343,7 @@
 					var area_slug	= $(this).parent().attr('id').replace(/^area-/, ''),
 						widget_slug	= ui.draggable.attr('id').replace(/^widget-/, '');
 
-					$.post(BASE_URI + 'index.php/widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(data){
+					$.post(SITE_URL + 'widgets/ajax/add_widget_instance_form', { area_slug: area_slug, widget_slug: widget_slug}, function(data){
 						if (data.status == 'success')
 						{
 							$('form', pyro.widgets.add_instance).html(data.html);

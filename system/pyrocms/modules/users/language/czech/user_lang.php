@@ -8,7 +8,7 @@ $lang['user_login_header'] 				= 'Přihlášení';
 
 // titles
 $lang['user_add_title'] 				= 'Přidat uživatele';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 				= 'Seznam uživatelů';
 $lang['user_inactive_title'] 			= 'Neaktivní uživatelé';
 $lang['user_active_title'] 				= 'Aktivní uživatelé';
 $lang['user_registred_title'] 			= 'Registrovaní uživatelé';

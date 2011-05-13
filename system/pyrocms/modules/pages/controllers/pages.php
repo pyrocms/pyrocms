@@ -171,19 +171,27 @@ class Pages extends Public_Controller
 			->set('page', $page_array)
 
 			// Most likely the other breadcrumbs are set above, set this one
-			->set_breadcrumb($page->title)
+			->set_breadcrumb($page->title);
 
-			->append_metadata('
-				<style type="text/css">
-					' . $page->layout->css . '
-					' . $page->css . '
-				</style>
-				<script type="text/javascript">
-					' . $page->layout->js . '
-					' . $page->js . '
-				</script>')
-
-        	->build('page', $this->data);
+			if ($page->layout->css OR $page->css)
+			{
+				$this->template->append_metadata('
+					<style type="text/css">
+						' . $page->layout->css . '
+						' . $page->css . '
+					</style>');
+			}
+			
+			if ($page->layout->js OR $page->js)
+			{
+				$this->template->append_metadata('
+					<script type="text/javascript">
+						' . $page->layout->js . '
+						' . $page->js . '
+					</script>');
+			}
+			
+        	$this->template->build('page', $this->data);
     }
     
 	/**

@@ -134,6 +134,11 @@ class MY_Parser extends CI_Parser {
 
 			foreach ($return_data as $result)
 			{
+				if ($data['skip_content'])
+				{
+					$simpletags->set_skip_content($data['skip_content']);
+				}
+
 				$parsed = $simpletags->parse($content, $result, array($this, 'parser_callback'));
 				$parsed_return .= $parsed['content'];
 			}

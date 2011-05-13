@@ -107,7 +107,7 @@
 	margin-bottom: 5px;
 	min-height: 35px;
 }
-.widget-instance h4 {
+.widget-instance > h4 {
 	font-size: 14px;
 	margin: 0;
 	display: inline-block;
@@ -183,6 +183,7 @@
 	padding: 0;
 	margin-bottom: 20px;
 	background-color: #fcfcfc;
+	position: static;
 }
 
 #edit-instance-box {
@@ -247,7 +248,10 @@
 	margin: 0 0 10px;
 	cursor: move;
 }
-.widget-list ol li label {
+.widget-list ol input[type=text] {
+	width: 19em;
+}
+.widget-list ol li > label {
 	text-align: right;
 	color: #666;
 }

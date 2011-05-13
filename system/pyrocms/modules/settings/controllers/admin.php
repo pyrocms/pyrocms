@@ -75,10 +75,11 @@ class Admin extends Admin_Controller
 		foreach($all_settings as $setting)
 		{
 			$this->validation_rules[] = array(
-				'field' => $setting->slug,
+				'field' => $setting->slug . (in_array($setting->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
 				'label' => 'lang:settings_' . $setting->slug,
 				'rules' => 'trim' . ($setting->is_required ? '|required' : '') . '|max_length[255]'
 			);
+
 			$settings_array[$setting->slug] = $setting->value;
 		}
 
@@ -89,12 +90,19 @@ class Admin extends Admin_Controller
 		if ($this->form_validation->run())
 		{
 			// Loop through again now we know it worked
-			foreach($settings_array as $slug => $value)
+			foreach($settings_array as $slug => $stored_value)
 			{
-				// Dont update if its the same value
-				if($this->input->post($slug, FALSE) != $slug)
+				$input_value = $this->input->post($slug, FALSE);
+
+				if (is_array($input_value))
 				{
-					$this->settings->set_item($slug, $this->input->post($slug, FALSE));
+					$input_value = implode(',', $input_value);
+				}
+
+				// Dont update if its the same value
+				if ($input_value !== $stored_value)
+				{
+					$this->settings->set_item($slug, $input_value);
 				}
 			}
 

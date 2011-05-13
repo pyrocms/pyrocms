@@ -7,27 +7,43 @@
 
 <!-- Begin user meta -->
 <div id="user-meta">
-{if '{pyro:session:data name="user_id"}'}
+{if '{pyro:user:logged_in}'}
 
-	<a href="{pyro:url:site}users/logout">{pyro:helper:lang line="logout_label"}</a>
-	<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+	<div class="avatar-name">
 
 	{if '{pyro:settings:enable_profiles}'}
-		<a href="{pyro:url:site}edit-profile">{pyro:helper:lang line="edit_profile_label"}</a>
+		<a href="{pyro:url:site uri='my-profile'}">
+			{pyro:helper:gravatar email="{pyro:user:email}" size="16"}
+			{pyro:user:display_name}
+		</a>
+	{else}
+		{pyro:helper:gravatar email="{pyro:user:email}" size="20"}
+		{pyro:user:display_name}
+	{/if}
+	</div>
+
+	{if '{pyro:settings:enable_profiles}'}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{pyro:url:site uri='edit-profile'}">{pyro:helper:lang line="edit_profile_label"}</a>
 	{/if}
 
-	<a href="{pyro:url:site}edit-settings">{pyro:helper:lang line="settings_label"}</a>
+	<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+	<a href="{pyro:url:site uri='edit-settings'}">{pyro:helper:lang line="settings_label"}</a>
 
-	{if '{pyro:user:logged_in}'}
+	{if '{pyro:user:has_cp_permissions}'}
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
-		<a href="{pyro:url:site}admin" target="_blank">{pyro:helper:lang line="cp_title"}</a>
+		<a href="{pyro:url:site uri='admin'}" target="_blank">{pyro:helper:lang line="cp_title"}</a>
 	{/if}
-	
+
+	<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+	<a href="{pyro:url:site uri='users/logout'}">{pyro:helper:lang line="logout_label"}</a>
+
 {else}
 
 	<form action="{pyro:url:site}users/login" method="post" accept-charset="utf-8" id="login-small">
-
+<?php if (isset($redirect_hash) && $redirect_hash): ?>
+<?php echo form_hidden('redirect_hash', $redirect_hash); ?>
+<?php endif; ?>
 		<ul>
 			<li class="email">
 			<input type="text" id="email" name="email" maxlength="120" value="{pyro:helper:lang line='user_email'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_email"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_email"}') { this.value = ''; }" />

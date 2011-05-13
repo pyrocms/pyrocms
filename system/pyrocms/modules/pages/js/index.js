@@ -10,7 +10,7 @@
 			$(this).addClass('selected');
 			
 			// Load the details box in
-			$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + page_id);
+			$('div#page-details').load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id);
 			return false;
 		});
 		
@@ -33,7 +33,7 @@
 			if($('#page-details #page-id').val() > 0)
 			{
 				// Load the details box in
-				$('div#page-details').load(BASE_URI + 'index.php/admin/pages/ajax_page_details/' + $('#page-details #page-id').val());				
+				$('div#page-details').load(SITE_URL + 'admin/pages/ajax_page_details/' + $('#page-details #page-id').val());				
 			}
 		}
 		update_tree();
@@ -87,7 +87,7 @@
 				// to remove unused elements before we check for their existence
 				setTimeout(update_tree, 5);
 			
-				$.post(BASE_URI + 'index.php/admin/pages/order', { 'order': order, 'root_pages': root_pages } );
+				$.post(SITE_URL + 'admin/pages/order', { 'order': order, 'root_pages': root_pages } );
 			}
 		});
 	});

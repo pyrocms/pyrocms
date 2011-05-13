@@ -624,7 +624,11 @@ class Ion_auth_model extends CI_Model
 		$this->db->select(array(
 			$this->tables['users'].'.*',
 			$this->tables['groups'].'.name AS `group`',
-			$this->tables['groups'].'.description AS group_description'
+			$this->tables['groups'].'.description AS group_description','IF('.
+			$this->tables['meta'].'.last_name = "",'.
+			$this->tables['meta'].'.first_name, CONCAT('.
+			$this->tables['meta'].'.first_name," ",'.
+			$this->tables['meta'].'.last_name)) AS full_name'
 		));
 
 		if (!empty($this->columns))
@@ -647,7 +651,7 @@ class Ion_auth_model extends CI_Model
 			$this->db->where_in($this->tables['groups'].'.name', $group);
 		}
 
-		if (isset($this->ion_auth->_extra_where))
+		if (isset($this->ion_auth, $this->ion_auth->_extra_where))
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}

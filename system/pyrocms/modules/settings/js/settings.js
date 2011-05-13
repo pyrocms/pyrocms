@@ -12,8 +12,8 @@ jQuery(function($){
 			});
 			order = order.join(',');
 
-			$.post(BASE_URL + 'admin/settings/ajax_update_order', { order: order });
+			$.post(SITE_URL + 'admin/settings/ajax_update_order', { order: order });
 		}
 
-	}).disableSelection();
+	});
 });

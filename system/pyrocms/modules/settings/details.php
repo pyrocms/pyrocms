@@ -80,7 +80,7 @@ class Module_Settings extends Module {
 		$default_settings = "
 			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
 			 ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1','','1000'),
-			 ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','Add your slogan here','','','0','1','','999'),
+			 ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','','Add your slogan here','','0','1','','999'),
 			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1','','998'),
 			 ('site_lang','Site Language','The native language of the website, used to choose templates of e-mail notifications, contact form, and other features that should not depend on the language of a user.','select','".DEFAULT_LANG."','".DEFAULT_LANG."','func:get_supported_lang','1','1','','997'),
 			 ('date_format', 'Date Format', 'How should dates be displayed across the website and control panel? Using the <a target=\"_blank\" href=\"http://php.net/manual/en/function.date.php\">date format</a> from PHP - OR - Using the format of <a target=\"_blank\" href=\"http://php.net/manual/en/function.strftime.php\">strings formatted as date</a> from PHP.', 'text', 'Y-m-d', '', '', 1, 1, '','996'),

@@ -7,7 +7,7 @@ function insertFile(id, title)
 	{
 		replace_html.remove();
 	}
-	window.parent.instance.insertHtml('<a class="pyro-file" href="' + BASE_URI + 'files/download/' + id + '">' + title + '</a>');
+	window.parent.instance.insertHtml('<a class="pyro-file" href="' + SITE_URL + 'files/download/' + id + '">' + title + '</a>');
 	windowClose();
 }
 
@@ -48,7 +48,7 @@ var replace_html = null;
 
 			if( ! element.hasClass('pyro-file')) return false;
 
-			$('#current_document').load(BASE_URI + 'admin/wysiwyg/files/ajax_get_file', {
+			$('#current_document').load(SITE_URL + 'admin/wysiwyg/files/ajax_get_file', {
 				doc_id: element.attr('href').match(/\/download\/([0-9]+)/)[1]
 			});
 

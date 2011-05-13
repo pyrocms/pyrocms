@@ -37,7 +37,7 @@
 
 			var slug = $('input[name="name"]');
 
-			$.post(BASE_URI + 'index.php/ajax/url_title', { title : $(this).val() }, function(new_slug){
+			$.post(SITE_URL + 'ajax/url_title', { title : $(this).val() }, function(new_slug){
 				slug.val( new_slug );
 			});
 		}));
