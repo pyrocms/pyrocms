@@ -233,7 +233,7 @@ $config['encryption_key'] = "Jiu348^&H%fa";
 | 'time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'live' ? '_' . ENVIRONMENT : '');;
+$config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'live' ? '_' . ENVIRONMENT : '');
 $config['sess_expiration']		= 0;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;
