@@ -20,9 +20,9 @@ $lang['templates.user_defined_title']		= 'Template défini par l\utilisateur';
 
 // Messages
 $lang['templates.tmpl_create_success']		= 'Le template d\'Email "%s" a été sauvegardé.';
-$lang['templates.tmpl_create_error']		= 'Le template d\'Email "%s" n'a pas été sauvegardé.';
+$lang['templates.tmpl_create_error']		= 'Le template d\'Email "%s" n\'a pas été sauvegardé.';
 $lang['templates.tmpl_edit_success']		= 'Les modifications apportées au template d\'email "%s" ont été sauvées.';
-$lang['templates.tmpl_edit_error']			= 'Les modifications apportées au template d\'email "%s" n'ont pas été sauvées.';
+$lang['templates.tmpl_edit_error']			= 'Les modifications apportées au template d\'email "%s" n\'ont pas été sauvées.';
 $lang['templates.tmpl_clone_success']		= '"%s" a été dupliqué. Vous pouvez maintenant éditer le template comme vous souhaitez.';
 $lang['templates.tmpl_clone_error']			= '"%s" n\'as pas pu être dupliqué.  Merci de réessayer.';
 $lang['templates.single_delete_success']	= 'Le template d\'email a été supprimé.';
