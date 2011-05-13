@@ -32,9 +32,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Nombre d\'entrées RSS à afficher s
 $lang['settings_dashboard_rss_count_desc'] 		= 'Combien d\entrées RSS afficher sur le tableau de bord ?';
 
 $lang['settings_date_format'] 					= 'Format de date';
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format_desc']				= 'Comment doivent apparaître les dates affichées sur le site et dans le panneau d\'administration&nbsp;?' .
+													'Utiliser le <a href="http://php.net/manual/en/function.date.php" target="_black">format de</a> de PHP - OU - ' .
+													'Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaîne formatée comme date</a> from PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Statut du site';
 $lang['settings_frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
@@ -72,8 +72,8 @@ $lang['settings_records_per_page_desc'] 		= 'Combien d\'enregistrements devons n
 $lang['settings_rss_feed_items'] 				= 'Nombre de flux RSS';
 $lang['settings_rss_feed_items_desc'] 			= 'Nombre d\'entrée à afficher dans les flux blog et RSS?';
 
-$lang['settings_require_lastname'] 				= 'Nom requis?';
-$lang['settings_require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom?';
+$lang['settings_require_lastname'] 				= 'Nom requis&nbsp;?';
+$lang['settings_require_lastname_desc'] 		= 'Dans certains cas le nom est obligatoire. Forcer l\'utilisateur à saisir un nom&nbsp;?';
 
 $lang['settings_enable_profiles'] 				= 'Activer les profils';
 $lang['settings_enable_profiles_desc'] 			= 'Permettre aux utilisateurs d\'ajouter et de modifier leurs profils.';
