@@ -2,4 +2,4 @@
 
 <p><?php echo anchor($page->uri, NULL, 'target="_blank"'); ?></p>
 
-<iframe src="<?php echo site_url($page->uri); ?>" width="99%" height="480"></iframe>
+<iframe src="<?php echo site_url($page->uri); ?>" width="99%" height="400"></iframe>

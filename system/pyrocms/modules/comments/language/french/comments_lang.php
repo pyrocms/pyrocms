@@ -4,7 +4,7 @@ $lang['comments.title'] 					= 'Commentaires';
 $lang['comments.your_comment'] 				= 'Envoyez un commentaire';
 $lang['comments.user_comments'] 			= 'Commentaires des utilisateurs';
 
-$lang['comments.list_comment'] 				= '%s a commenté %s :'; #translate
+$lang['comments.list_comment'] 				= '%s a commenté %s :';
 $lang['comments.recent_comments'] 			= 'Commentaires récents';
 $lang['comments.view_more'] 				= 'Voir plus...';
 
@@ -31,7 +31,7 @@ $lang['comments.send_label'] 				= 'Commentaire';
 $lang['comments.inactive_title'] 			= 'En attente d\'approbation';
 $lang['comments.active_title'] 				= 'Commentaires approuvés';
 $lang['comments.edit_title'] 				= 'Editer le commentaire';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Lister les commentaires';
 
 // messages
 $lang['comments.add_success'] 				= 'Le commentaire a été sauvegardé.';
