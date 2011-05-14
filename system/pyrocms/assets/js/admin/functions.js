@@ -99,9 +99,9 @@ jQuery(function($) {
 		});
 		
 		//use a confirm dialog on "delete many" buttons
-		$(':submit.confirm').live('click', function(e){
+		$(':submit.confirm').live('click', function(e, confirmation){
 
-			if ($.data(this, 'confirmed'))
+			if (confirmation)
 			{
 				return true;
 			}
@@ -112,7 +112,14 @@ jQuery(function($) {
 
 			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
-				$(this).data('confirmed', true).click().data('confirmed', false);
+				$(this).trigger('click-confirmed');
+
+				if ($(this).data('stop-click')){
+					$(this).data('stop-click', false);
+					return;
+				}
+
+				$(this).trigger('click', true);
 			}
 		});
 
