@@ -16,7 +16,7 @@
  */
 
 //  CI 2.0 Compatibility
-if(!class_exists('CI_Model')) { class CI_Model extends CI_Model {  } }
+if(!class_exists('CI_Model')) { class CI_Model extends Model {  } }
 
 class MY_Model extends CI_Model
 {
