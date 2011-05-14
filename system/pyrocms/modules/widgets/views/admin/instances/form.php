@@ -14,10 +14,10 @@
 			</li>
 
 			<?php if (isset($widget_areas)): ?>
-				<li>
-					<label><?php echo lang('widgets.widget_area'); ?>:</label>
-					<?php echo form_dropdown('widget_area_id', $widget_areas, $widget_area->id); ?>
-				</li>
+			<li>
+				<label><?php echo lang('widgets.widget_area'); ?>:</label>
+				<?php echo form_dropdown('widget_area_id', $widget_areas, $widget->widget_area_id); ?>
+			</li>
 			<?php endif; ?>
 		</ol>
 		<?php echo $form ? $form : NULL; ?>

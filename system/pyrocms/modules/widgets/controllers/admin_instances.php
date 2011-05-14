@@ -144,25 +144,26 @@ class Admin_instances extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-		if ( ! ($id && $instance = $this->widgets->get_instance($id)))
+		if ( ! ($id && $widget = $this->widgets->get_instance($id)))
 		{
-			// todo: set errors
+			// @todo: set error
 			return FALSE;
 		}
 
 		$data = array();
 
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules($this->_validation_rules);
-
-		if ($this->form_validation->run())
+		if ($input = $this->input->post())
 		{
-			$input = array(
-				'title'	=> $this->input->post('title'),
-				'slug'	=> $this->input->post('slug')
-			);
+			$title			= $input['title'];
+			$widget_id		= $input['widget_id'];
+			$widget_area_id	= $input['widget_area_id'];
+			$instance_id	= $input['widget_instance_id'];
 
-			if ($this->widgets->edit_instance($input))
+			unset($input['title'], $input['widget_id'], $input['widget_area_id'], $input['widget_instance_id']);
+
+			$result = $this->widgets->edit_instance($instance_id, $title, $widget_area_id, $input);
+
+			if ($result['status'] === 'success')
 			{
 				$status		= 'success';
 				$message	= lang('success_label');
@@ -170,14 +171,14 @@ class Admin_instances extends Admin_Controller {
 			else
 			{
 				$status		= 'error';
-				$message	= lang('error_label');
+				$message	= $result['error'];
 			}
 
 			if ($this->is_ajax())
 			{
 				$data = array();
 
-				$data['messages'][$status] = $message;
+				$status === 'success' AND $data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
 				return print( json_encode((object) array(
@@ -189,35 +190,20 @@ class Admin_instances extends Admin_Controller {
 			if ($status === 'success')
 			{
 				$this->session->set_flashdata($status, $message);
-
-				redirect('admim/widgets');
+				redirect('admins/widgets');
 				return;
 			}
 
 			$data['messages'][$status] = $message;
 		}
-		elseif (validation_errors())
-		{
-			if ($this->is_ajax())
-			{
-				$status		= 'error';
-				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
-					'status'	=> $status,
-					'message'	=> $message
-				)) );
-			}
-		}
+		$data['widget_areas'] = $this->widgets->list_areas();
+		$data['widget_areas'] = array_for_select($data['widget_areas'], 'id', 'title');
 
-		foreach ($this->_validation_rules as $rule)
-		{
-			$instance->{$rule['field']} = set_value($rule['field'], $instance->{$rule['field']});
-		}
+		$data['widget']	= $widget;
+		$data['form']	= $this->widgets->render_backend($widget->slug, isset($widget->options) ? $widget->options : array());
 
-		$data['area'] = $instance;
-
-		$this->template->build('admin/areas/form', $data);
+		$this->template->build('admin/instances/form', $data);
 	}
 
 	/**

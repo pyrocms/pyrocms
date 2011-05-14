@@ -9,8 +9,11 @@
 	});
 
 	pyro.cached = {
-		widget_forms: {},
-		url_titles: {}
+		url_titles		: {},
+		widget_forms	: {
+			add		:{},
+			edit	:{}
+		}
 	}
 
 	pyro.widgets = {
@@ -34,7 +37,7 @@
 			},
 			// Widget Instances List
 			sortable: {
-				cancel		: '.no-sortable, :input, option',
+				cancel		: '.no-sortable, a, :input, option',
 				placeholder	: 'empty-drop-item',
 
 				start: function(){
@@ -87,11 +90,10 @@
 					pyro.widgets.$areas.accordion('resize');
 				},
 				drop : function(e, ui){
-					//.attr('id').replace(/^widget-/, '')
 					$('li.empty-drop-item', this).show().addClass('loading');
 
 					pyro.widgets.prep_instance_form(ui.draggable, $(pyro.widgets.selector.instances, this));
-					
+
 				}
 			}
 		},
@@ -112,19 +114,14 @@
 			});
 
 			// Delete Areas
-			$('.widget-area-content > .buttons > button[value=delete]').live('click', function(e){
+			$('.widget-area-content > .buttons > button[value=delete]').live('click-confirmed', function(e){
 				e.preventDefault();
-
-				if ( ! $.data(this, 'confirmed'))
-				{
-					return;
-				}
 
 				var $area	= $(this).parents('section.widget-area-box'),
 					id		= $area.attr('data-id'),
 					url		= SITE_URL + 'admin/widgets/areas/delete/' + id;
 
-				$.post(url, {}, function(response){					
+				$.post(url, {}, function(response){
 					if (response.status == 'success')
 					{
 						$area.slideUp(function(){
@@ -135,20 +132,35 @@
 				}, 'json');
 			});
 
-			// Delete Instances
-			$('.widget-actions > button[value=delete]').live('click', function(e){
+			// Edit Instances
+			$('.widget-actions > a.button.edit').live('click', function(e){
 				e.preventDefault();
 
-				if ( ! $.data(this, 'confirmed'))
-				{
-					return;
-				}
+				var $anchor = $(this);
+
+				// hide
+				$anchor.parents('.widget-instance').slideUp(50, function(){
+					// fake loading..
+					$(this).siblings('li.empty-drop-item').clone()
+						// move
+						.insertAfter(this)
+						// show
+						.show().addClass('loading clone');
+
+						// next step
+						pyro.widgets.prep_instance_form($anchor, this, 'edit');
+				});
+			});
+
+			// Delete Instances
+			$('.widget-actions > button[value=delete]').live('click-confirmed', function(e){
+				e.preventDefault();
 
 				var $item	= $(this).parents('li.widget-instance'),
 					id		= $item.attr('id').replace(/instance-/, ''),
 					url		= SITE_URL + 'admin/widgets/instances/delete/' + id;
 
-				$.post(url, {}, function(response){					
+				$.post(url, {}, function(response){
 					if (response.status == 'success')
 					{
 						$item.slideUp(50, function(){
@@ -187,7 +199,7 @@
 			pyro.widgets.$boxes.draggable(pyro.widgets.ui_options.draggable);
 
 			// Auto-create a short-name
-			$('input[name="title"]').live('keyup blur', $.debounce(350, function(){
+			$('input[name="title"]').live('keyup', $.debounce(350, function(){
 
 				var $title	= $(this),
 					$form	= $title.parents('form'),
@@ -280,7 +292,67 @@
 			$.colorbox.resize();
 		},
 
-		handle_instance_form: function(form)
+		update_area: function(){
+			var url = SITE_URL + 'admin/widgets/areas';
+
+			pyro.widgets.$areas.load(url, function(){
+				$(this).accordion('refresh');
+			});
+		},
+
+		prep_instance_form: function(item, container, action)
+		{
+			action || (action = 'add');
+
+			var key	= (action == 'add') ? $(item).attr('id').replace(/^widget-/, '') : $(container).attr('id').replace(/^instance-/, ''),
+				url	= (action == 'add') ? SITE_URL + 'admin/widgets/instances/create/' + key : $(item).attr('href');
+
+			// known? receive the action form
+			if (key in pyro.cached.widget_forms[action])
+			{
+				// next step
+				return pyro.widgets.add_instance_form(pyro.cached.widget_forms[action][key], container, action, key);
+			}
+
+			$.get(url, function(response){
+
+				response = '<li id="' + action + '-instance-box" class="box hidden widget-instance no-sortable">' +
+							response + '</li>';
+
+				// write action form into cache
+				pyro.cached.widget_forms[action][key] = response;
+
+				pyro.widgets.add_instance_form(response, container, action, key);
+
+			}, 'html');
+		},
+
+		add_instance_form: function(item, container, action, key)
+		{
+			var widget = {
+				$item: $(item),
+				$container: $(container)
+			}, method = 'appendTo';
+
+			if (action === 'edit')
+			{
+				widget.$container.parent().children('li.empty-drop-item.clone').slideUp(50, function(){
+					$(this).remove();
+				});
+				method = 'insertAfter';
+			}
+			else
+			{
+				widget.$container.children('li.empty-drop-item').hide().removeClass('loading');
+			}
+
+			pyro.widgets.handle_instance_form(widget.$item[method](widget.$container).slideDown(200, function(){
+				pyro.widgets.$boxes.draggable('disable');
+				pyro.widgets.$areas.accordion('resize');
+			}).children('form'), action, key);
+		},
+
+		handle_instance_form: function(form, action, key)
 		{
 			var $form		= $(form),
 				$submit		= $form.find('#instance-actions button[value=save]'),
@@ -288,10 +360,23 @@
 				area_id		= $form.parents('section.widget-area-box').attr('data-id'),
 				url			= $form.attr('action');
 
+			if ($form.data('has_events'))
+			{
+				return;
+			}
+
+			$form.data('has_events', true);
+
 			$cancel.click(function(e){
 				e.preventDefault();
 
-				pyro.widgets.rm_instance_form($form);
+				var callback = action === 'edit' ? function(){
+					$('li#instance-'+key).slideDown(function(){
+						pyro.widgets.$areas.accordion('resize');
+					});
+				} : false;
+
+				pyro.widgets.rm_instance_form($form, action, key, callback);
 			});
 
 			$submit.click(function(e){
@@ -306,8 +391,7 @@
 					if (response.status == 'success')
 					{
 						callback = function(){
-							pyro.widgets.rm_instance_form($form);
-							pyro.widgets.update_area();
+							pyro.widgets.rm_instance_form($form, action, key, pyro.widgets.update_area);
 						}
 					}
 					else
@@ -323,62 +407,27 @@
 			});
 		},
 
-		update_area: function(){
-			var url = SITE_URL + 'admin/widgets/areas';
-
-			pyro.widgets.$areas.load(url, function(){
-				$(this).accordion('refresh');
-			});
-		},
-
-		prep_instance_form: function(item, container)
-		{
-			var slug = $(item).attr('id').replace(/^widget-/, '');
-
-			if (slug in pyro.cached.widget_forms)
-			{
-				return pyro.widgets.add_instance_form(pyro.cached.widget_forms[slug], container);
-			}
-
-			$.get(SITE_URL + 'admin/widgets/instances/create/' + slug, function(response){
-
-				response = '<li id="add-instance-box" class="box hidden widget-instance no-sortable">' +
-							response + '</li>';
-
-				pyro.widgets.add_instance_form(pyro.cached.widget_forms[slug] = response, container);
-
-			}, 'html');
-		},
-
-		add_instance_form: function(item, container)
-		{
-			var widget = {
-				$item: $(item),
-				$container: $(container)
-			};
-
-			widget.$container.children('li.empty-drop-item').hide().removeClass('loading');
-
-			pyro.widgets.handle_instance_form(widget.$item.appendTo(widget.$container).slideDown(200, function(){
-				pyro.widgets.$boxes.draggable('disable');
-				pyro.widgets.$areas.accordion('resize');
-			}).children('form'));
-		},
-
-		rm_instance_form: function(form)
+		rm_instance_form: function(form, action, key, callback)
 		{
 			$(form).parent().slideUp(50, function(){
-				$(this).remove();
+				action === 'add'
+					? $(this).remove()
+					: key
+						? pyro.cached.widget_forms[action][key] = $(this).detach()
+						: pyro.cached.widget_forms[action] = {};
+
 				pyro.widgets.$boxes.draggable('enable');
 				pyro.widgets.$areas.accordion('resize');
+
+				callback && callback();
 			});
 		}
 
-//		scroll_to: function(ele){
+//		,scroll_to: function(ele){
 //			$('html, body').animate({
 //				scrollTop: $(ele).offset().top
 //			}, 1000);
-//		},
+//		}
 
 	};
 

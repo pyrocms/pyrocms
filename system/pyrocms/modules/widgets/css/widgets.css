@@ -275,6 +275,7 @@ li.empty-drop-item.loading {
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	border: none;
+	padding: 15px 0;
 }
 .drop-hover li.empty-drop-item {
 	display: block !important;

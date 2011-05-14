@@ -17,5 +17,5 @@
 	</li>
 	<?php endforeach; ?>
 <?php endif; ?>
-	<li class="empty-drop-item hidden"></li>
+	<li class="empty-drop-item hidden no-sortable"></li>
 </ol>
