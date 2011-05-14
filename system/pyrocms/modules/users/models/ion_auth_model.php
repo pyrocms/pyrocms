@@ -691,19 +691,47 @@ class Ion_auth_model extends CI_Model
 	 * @return object
 	 * @author Phil Sturgeon
 	 **/
-	public function get_user($id = false)
+	public function get_user($id = NULL)
 	{
+		$_user_is_current = FALSE;
+
 		//if no id was passed use the current users id
 		if (empty($id))
 		{
-			$id = $this->session->userdata('user_id');
+			$identity	= $this->config->item('identity', 'ion_auth');
+			$id			= $this->session->userdata($identity);
+
+			// we'll use it bellow.. before returning
+			$_user_is_current = is_scalar($id) && $id
+				? array($id)	// as bool is true, as array pass the value to log
+				: ($id = NULL);	// as bool is false and $id is null
+		}
+		//if a valid id was passed set identity
+		elseif (is_scalar($id) && $id)
+		{
+			$identity = is_numeric($id) ? 'id' : 'username';
+		}
+		//avoid a syntax error
+		else
+		{
+			$identity	= $this->config->item('identity', 'ion_auth');
+			$id			= NULL;
 		}
 
-		$this->db->where(sprintf('%s.%s', $this->tables['users'], (( ! is_numeric($id) && is_string($id)) ? 'username' : 'id')), $id);
-
+		$this->db->where(sprintf('%s.%s', $this->tables['users'], $identity), $id);
 		$this->db->limit(1);
 
-		return $this->get_users();
+		$user = $this->get_users();
+
+		//the user disappeared for a moment?
+		if ($user->num_rows() === 0 && $_user_is_current)
+		{
+			log_message('error', sprintf('End user session - reason: Could not find a user identified by %s:%s', $identity, $_user_is_current[0]));
+
+			$this->session->sess_destroy();
+		}
+
+		return $user;
 	}
 
 	/**
