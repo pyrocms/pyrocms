@@ -377,7 +377,7 @@ table tbody tr.alt {
 }
 
 /** Icons **/
-a.edit {
+a.edit-icon {
 	background-image: url('../../img/admin/icons/16/pencil.png');
 	text-indent: -99999px;
 	overflow: hidden;
@@ -385,7 +385,7 @@ a.edit {
 	height: 16px;
 	width: 16px;
 }
-a.delete {
+a.delete-icon {
 	background-image: url('../../img/admin/icons/16/cross.png');
 	text-indent: -99999px;
 	overflow: hidden;
