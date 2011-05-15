@@ -16,7 +16,8 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 	$current_page = $ci->uri->segment($uri_segment, 0);
 
 	// Initialize pagination
-	$config['base_url']				= site_url($uri);
+	$config['suffix']				= $ci->config->item('url_suffix');
+	$config['base_url']				= $config['suffix'] !== FALSE ? rtrim(site_url($uri), $config['suffix']) : site_url($uri);
 	$config['total_rows']			= $total_rows; // count all records
 	$config['per_page']				= $limit === NULL ? $ci->settings->records_per_page : $limit;
 	$config['uri_segment']			= $uri_segment;
