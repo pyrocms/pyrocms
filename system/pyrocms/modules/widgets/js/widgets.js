@@ -64,6 +64,7 @@
 				cursor		: 'move',
 				helper		: 'clone',
 				cursorAt	: {left: 100},
+				refreshPositions: true,
 
 				start : function(e, ui){
 					// Grab our desired width from the widget area list
@@ -82,6 +83,7 @@
 				hoverClass	: 'drop-hover',
 				accept		: '.widget-box',
 				greedy		: true,
+				tolerance	: 'pointer',
 
 				over : function(){
 					pyro.widgets.$areas.accordion('resize');
@@ -190,6 +192,15 @@
 			// Widget Instances Droppable
 			pyro.widgets.$areas.bind('accordioncreate', function(){
 				pyro.widgets.$container = $(pyro.widgets.selector.container).droppable(pyro.widgets.ui_options.droppable);
+				pyro.widgets.$areas.find('> section > header').droppable({
+					accept: '.widget-box',
+					addClasses: false,
+					greedy: true,
+					tolerance: 'pointer',
+					over: function(){
+						pyro.widgets.$areas.accordion('option', 'active', this);
+					}
+				});
 			});
 
 			// Widget Areas Accordion

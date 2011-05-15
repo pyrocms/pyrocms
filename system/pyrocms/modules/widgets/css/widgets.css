@@ -112,7 +112,7 @@
 }
 #widget-areas .widget-area-content > code.tag {
 	display: block;
-	margin: 10px 20px;
+	margin: 10px 20px 20px;
 	text-align: center;
 	color: #999;
 }
