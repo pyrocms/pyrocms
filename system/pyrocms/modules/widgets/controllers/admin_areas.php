@@ -112,7 +112,7 @@ class Admin_areas extends Admin_Controller {
 					'status'	=> $status,
 					'message'	=> $message,
 					'html'		=> ($status === 'success' ? $this->index() : NULL),
-					'active'	=> (isset($area) && $area ? '#area-' . $area->slug : FALSE)
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
 				)) );
 			}
 
@@ -178,6 +178,7 @@ class Admin_areas extends Admin_Controller {
 
 			if ($this->widgets->edit_area($input))
 			{
+				$area = $this->widgets->get_area($id);
 				$status		= 'success';
 				$message	= lang('success_label');
 			}
@@ -198,7 +199,7 @@ class Admin_areas extends Admin_Controller {
 					'status'	=> $status,
 					'message'	=> $message,
 					'html'		=> ($status === 'success' ? $this->index() : NULL),
-					'active'	=> (isset($area) && $area ? $area->slug : FALSE)
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
 				)) );
 			}
 

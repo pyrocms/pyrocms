@@ -96,6 +96,8 @@ class Admin_instances extends Admin_Controller {
 			{
 				$status		= 'success';
 				$message	= lang('success_label');
+
+				$area = $this->widgets->get_area($widget_area_id);
 			}
 			else
 			{
@@ -112,7 +114,8 @@ class Admin_instances extends Admin_Controller {
 
 				return print( json_encode((object) array(
 					'status'	=> $status,
-					'message'	=> $message
+					'message'	=> $message,
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
 				)) );
 			}
 
@@ -167,6 +170,8 @@ class Admin_instances extends Admin_Controller {
 			{
 				$status		= 'success';
 				$message	= lang('success_label');
+
+				$area = $this->widgets->get_area($widget_area_id);
 			}
 			else
 			{
@@ -183,7 +188,8 @@ class Admin_instances extends Admin_Controller {
 
 				return print( json_encode((object) array(
 					'status'	=> $status,
-					'message'	=> $message
+					'message'	=> $message,
+					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
 				)) );
 			}
 

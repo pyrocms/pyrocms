@@ -382,7 +382,7 @@
 			$submit.click(function(e){
 				e.preventDefault();
 
-				var data = $form.serialize() + '&widget_area_id=' + area_id;
+				var data = $form.serialize() + (action === 'add' ? '&widget_area_id=' + area_id : '');
 
 				$.post(url, data, function(response){
 					var callback	= false,
@@ -391,7 +391,14 @@
 					if (response.status == 'success')
 					{
 						callback = function(){
-							pyro.widgets.rm_instance_form($form, action, key, pyro.widgets.update_area);
+							pyro.widgets.rm_instance_form($form, action, key, function(){
+								pyro.widgets.update_area();
+
+								if (response.active)
+								{
+									pyro.widgets.$areas.accordion('option', 'active', response.active);
+								}
+							});
 						}
 					}
 					else
