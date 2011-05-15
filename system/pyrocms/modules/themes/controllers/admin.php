@@ -99,7 +99,7 @@ class Admin extends Admin_Controller
 				{
 					// Now try to unzip
 					$this->load->library('unzip');
-					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php')); // TODO DEPRECATE php
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php', 'txt', 'eot', 'svg', 'ttf', 'woff')); // TODO DEPRECATE php
 
 					// Try and extract
 					$this->unzip->extract($upload_data['full_path'], ADDONPATH . 'themes/' )
