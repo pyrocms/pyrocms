@@ -11,7 +11,7 @@ class Migration_Add_widget_fields extends Migration {
 				'null'			=> FALSE,
 				'default'		=> 1
 			),
-			'order' => array(
+			'`order`' => array(
 				'type'			=> 'int',
 				'constraint'	=> 5,
 				'null'			=> FALSE,
