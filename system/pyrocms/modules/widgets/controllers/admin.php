@@ -22,6 +22,8 @@ class Admin extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
+		$this->is_ajax() AND $this->template->set_layout(FALSE);
+
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
@@ -37,11 +39,13 @@ class Admin extends Admin_Controller {
 	{
 		$data = array();
 
+		// Get Widgets
 		$data['available_widgets']	= $this->widgets->list_available_widgets();
 
+		// Get Areas
 		$this->db->order_by('`title`');
 
-		$data['widget_areas']		= $this->widgets->list_areas();
+		$data['widget_areas'] = $this->widgets->list_areas();
 
 		// Go through all widget areas
 		foreach ($data['widget_areas'] as &$area)
@@ -56,37 +60,101 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
-	 * Show info about available widgets
-	 * @access public
-	 * @param str $slug The slug of the widget
-	 * @return void
+	 * Manage method, lists all widgets to install, uninstall, etc..
+	 * 
+	 * @access	public
+	 * @return	void
 	 */
-	public function about_available($slug)
+	public function manage()
 	{
-		$widget = $this->widgets->get_widget($slug);
+		$data = array();
 
-		$this->load->view('admin/about_widget', array(
-			'widget'		=> $widget,
-			'available'		=> TRUE,
-			'form_action'	=> 'admin/widgets/uninstall'
-		));
+		$base_where = array('enabled' => 1);
+
+		//capture active
+		$base_where['enabled'] = is_int($this->session->flashdata('enabled')) ? $this->session->flashdata('enabled') : $base_where['enabled'];
+		$base_where['enabled'] = is_numeric($this->input->post('f_enabled')) ? $this->input->post('f_enabled') : $base_where['enabled'];
+
+		// Create pagination links
+		// @todo: fixes pagination and sort compatibility
+		//$total_rows = $this->widget_m->count_by($base_where);
+		//$data['pagination'] = create_pagination('admin/widgets/manage', $total_rows);
+
+		$data['widgets_active'] = $base_where['enabled'];
+
+		$data['widgets'] = $this->widget_m
+			//->limit($data['pagination']['limit'])
+			->order_by('`order`')
+			->get_many_by($base_where);
+
+
+		// Create the layout
+		$this->template
+			->title($this->module_details['name'])
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata( js('admin/filter.js') )
+			->build('admin/manage', $data);
 	}
 
 	/**
-	 * Show info about uninstalled widgets
-	 * @access public
-	 * @param str $slug The slug of the widget
-	 * @return void
+	 * Enable widget
+	 * 
+	 * @access	public
+	 * @param	string	$id			The id of the widget
+	 * @param	bool	$redirect	Optional if a redirect should be done
+	 * @return	void
 	 */
-	public function about_uninstalled($slug)
+	public function enable($id = '', $redirect = TRUE)
 	{
-		$widget = $this->widgets->read_widget($slug);
+		$id && $this->_do_action($id, 'enable');
 
-		$this->load->view('admin/about_widget', array(
-			'widget'		=> $widget,
-			'available'		=> FALSE,
-			'form_action'	=> 'admin/widgets/install'
-		));
+		if ($redirect)
+		{
+			$this->session->set_flashdata('enabled', 0);
+
+			redirect('admin/widgets/manage');
+		}
+	}
+
+	/**
+	 * Disable widget
+	 * 
+	 * @access	public
+	 * @param	string	$id			The id of the widget
+	 * @param	bool	$redirect	Optional if a redirect should be done
+	 * @return	void
+	 */
+	public function disable($id = '', $redirect = TRUE)
+	{
+		$id && $this->_do_action($id, 'disable');
+
+		$redirect AND redirect('admin/widgets/manage');
+	}
+
+	/**
+	 * Do the actual work for enable/disable
+	 * 
+	 * @access	protected
+	 * @param	int|array	$ids	Id or array of Ids to process
+	 * @param	string		$action	Action to take: maps to model
+	 * @return	void
+	 */
+	protected function _do_action($ids = array(), $action = '')
+	{
+		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
+		$multiple	= (count($ids) > 1) ? '_mass' : NULL;
+		$status		= 'success';
+
+		foreach ($ids as $id)
+		{
+			if ( ! $this->widget_m->{$action . '_widget'}($id))
+			{
+				$status = 'error';
+				break;
+			}
+		}
+
+		$this->session->set_flashdata( array($status=> lang('widgets.'.$action.'_'.$status.$multiple)));
 	}
 
 }

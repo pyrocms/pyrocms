@@ -29,15 +29,27 @@ class Ajax extends CI_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function update_order()
+	public function update_order($to = 'instance')
 	{
 		$ids = explode(',', $this->input->post('order'));
 
-		$i = 1;
+		$i = 0;
 
-		foreach ($ids as $id)
+		switch ($to)
 		{
-			$this->widgets->update_instance_order($id, ++$i);
+			case 'instance':
+				foreach ($ids as $id)
+				{
+					$this->widgets->update_instance_order($id, ++$i);
+				}
+				break;
+
+			case 'widget':
+				foreach ($ids as $id)
+				{
+					$this->widgets->update_widget_order($id, ++$i);
+				}
+				break;
 		}
 
 		$this->pyrocache->delete_all('widget_m');

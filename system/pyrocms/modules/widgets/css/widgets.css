@@ -299,3 +299,6 @@ li.empty-drop-item.loading {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+
+#widgets-list > tbody > tr { cursor: auto; }
+td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../assets/img/icons/cursor_drag_arrow.png) no-repeat; }

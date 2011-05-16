@@ -283,6 +283,11 @@ class Widgets {
 		return $this->widget_m->update_widget($input);
 	}
 
+	function update_widget_order($id, $position)
+	{
+		return $this->widget_m->update_widget_order($id, $position);
+	}
+
 	function delete_widget($slug)
 	{
 		return $this->widget_m->delete_widget($slug);

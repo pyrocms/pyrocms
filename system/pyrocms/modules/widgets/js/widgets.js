@@ -1,4 +1,4 @@
-(function($){$(function(){
+jQuery(function($){
 
 	$.extend($.ui.accordion.prototype, {
 		refresh: function(){
@@ -234,6 +234,28 @@
 
 			}));
 
+			// MANAGE ------------------------------------------------------------------------------
+
+			$('#widgets-list > tbody').livequery(function(){
+				$(this).sortable({
+					handle: 'span.move-handle',
+					stop: function(){
+						$('#widgets-list > tbody > tr').removeClass('alt');
+						$('#widgets-list > tbody > tr:nth-child(even)').addClass('alt');
+
+						var order = [];
+
+						$('#widgets-list > tbody > tr input[name="action_to\[\]"]').each(function(){
+							order.push(this.value);
+						});
+
+						order = order.join(',');
+
+						$.post(SITE_URL + 'widgets/ajax/update_order/widget', { order: order });
+					}
+				});
+			});
+
 		},
 
 		handle_area_form: function(anchor)
@@ -451,4 +473,4 @@
 
 	pyro.widgets.init();
 
-});})(jQuery);
+});
