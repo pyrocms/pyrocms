@@ -53,7 +53,7 @@ class Widgets {
 
 	function list_area_instances($slug)
 	{
-		return $this->widget_m->get_by_area($slug);
+		return is_array($slug) ? $this->widget_m->get_by_areas($slug) : $this->widget_m->get_by_area($slug);
 	}
 
 	function list_available_widgets()

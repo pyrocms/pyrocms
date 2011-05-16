@@ -40,7 +40,10 @@ class Admin extends Admin_Controller {
 		$data = array();
 
 		// Get Widgets
-		$data['available_widgets']	= $this->widgets->list_available_widgets();
+		$data['available_widgets'] = $this->widget_m
+			->where('enabled', 1)
+			->order_by('`order`')
+			->get_all();
 
 		// Get Areas
 		$this->db->order_by('`title`');
@@ -48,9 +51,22 @@ class Admin extends Admin_Controller {
 		$data['widget_areas'] = $this->widgets->list_areas();
 
 		// Go through all widget areas
-		foreach ($data['widget_areas'] as &$area)
+		$slugs = array();
+
+		foreach ($data['widget_areas'] as $key => $area)
 		{
-			$area->widgets = $this->widgets->list_area_instances($area->slug);
+			$slugs[$area->id] = $area->slug;
+
+			$data['widget_areas'][$key]->widgets = array();
+		}
+
+		$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
+
+		$instances = $this->widgets->list_area_instances($slugs);
+
+		foreach ($instances as $instance)
+		{
+			$data['widget_areas'][$instance->widget_area_id]->widgets[$instance->id] = $instance;
 		}
 
 		// Create the layout
@@ -94,6 +110,8 @@ class Admin extends Admin_Controller {
 			->set_partial('filters', 'admin/partials/filters')
 			->append_metadata( js('admin/filter.js') )
 			->build('admin/manage', $data);
+
+		$this->widgets->list_available_widgets();
 	}
 
 	/**

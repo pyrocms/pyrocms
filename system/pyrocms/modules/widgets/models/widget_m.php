@@ -48,6 +48,32 @@ class Widget_m extends MY_Model
 		return $result;
 	}
 
+	function get_by_areas($slug = array())
+	{
+
+		if ( ! (is_array($slug) && $slug))
+		{
+			return array();
+		}
+
+		$this->db
+			->select('wi.id, w.slug, wi.id as instance_id, wi.title as instance_title, w.title, wi.widget_area_id, wa.slug as widget_area_slug, wi.options')
+			->from('widget_areas wa')
+			->join('widget_instances wi', 'wa.id = wi.widget_area_id')
+			->join('widgets w', 'wi.widget_id = w.id')
+			->where_in('wa.slug', $slug)
+			->order_by('wi.order');
+
+		$result = $this->db->get()->result();
+
+		if ($result)
+		{
+			array_map(array($this, 'unserialize_fields'), $result);
+		}
+
+		return $result;
+	}
+
 	public function get_areas()
 	{
 		return $this->db->get('widget_areas')->result();
