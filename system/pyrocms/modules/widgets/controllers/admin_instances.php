@@ -203,6 +203,8 @@ class Admin_instances extends Admin_Controller {
 			$data['messages'][$status] = $message;
 		}
 
+		$this->db->order_by('`title`');
+
 		$data['widget_areas'] = $this->widgets->list_areas();
 		$data['widget_areas'] = array_for_select($data['widget_areas'], 'id', 'title');
 
