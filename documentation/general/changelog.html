@@ -3,7 +3,7 @@
 <h3>v1.2.0</h3>
 
 <ul>
-	<li>Pages in CP > Pages can be sorted and assigned to different parents via drag drop in an improved tree view.</li>
+	<li>Pages in Control Panel > Pages can be sorted and assigned to different parents via drag drop in an improved tree view.</li>
 	<li>Comments can be disabled for a specific blog post.</li>
 	<li>Added support for the ENVIRONMENT constant in CodeIgniter and deprecated ENV.</li>
 	<li>Live and QA sites will no longer output PHP notices, warnings or errors. Check logs if things go wrong on the live site.</li>
@@ -12,13 +12,29 @@
 	<li>Breadcrumbs will be automatically set for the entire trail of pages.</li>
 	<li>Upgraded to CodeIgniter 2.0.1.</li>
 	<li>Ran all png's through pngcrush to save some file-space and decrease load times.</li>
-	<li>Added Greek, Hebrew and Slovenian language support.</li>
+	<li>Added Greek, Hebrew, Finnish, Slovenian and Lithuanian language support.</li>
 	<li>Inline documentation can now be multi-lingual.</li>
 	<li>iPhones and iPads should now been seen as mobile devices.</li>
 	<li>Hide the graph if the Google Analytics details are not filled in.</li>
-	<li>Renamed the Cache library to PyroCache to stop it blocking the new Cache library in CodeIgniter.</li>
+	<li>Renamed the Cache library to PyroCache to stop it from blocking the new Cache library in CodeIgniter.</li>
 	<li>The info of the Widgets now can be multi-lingual.</li>
 	<li>Added tooltips to Google Analytics Dashboard.</li>
+	<li>When creating a gallery the images from selected folder are ajax loaded allowing you to preview and select a thumbnail immediately.</li>
+	<li>Added drag & drop sorting to the Navigation interface. It now uses the same tree view and sorting as Pages.</li>
+	<li>Navigation plugin was completely rewritten... <a href="http://pyrocms.com/documentation/#designers/tags/navigation.html">refer to documentation</a> for details.</li>
+	<li>An error is now shown when server errors occur while trying to send an email.</li>
+	<li>Added gravatar in helper plugin {pyro:helper:gravatar email="foo@bar.baz"}</li>
+	<li>Added link to view user profile in Control Panel > Manage Users.</li>
+	<li>If a page is set to Draft its navigation link and all of that link's children are hidden.</li>
+	<li>Added favicon option to theme plugin.</li>
+	<li>Added has_cp_permissions to user plugin.</li>
+	<li>Added SITE_URL javascript variable to admin and BASE_URL no longer has index.php appended.</li>
+	<li>Added admin login multi-lang labels.</li>
+	<li>Settings form control now supports type "select-multiple".</li>
+	<li>Files module updated to use roles.</li>
+	<li>RSS feed in control panel can now be left empty.</li>
+	
+	
 </ul>
 
 <h4>Bugs</h4>
@@ -32,6 +48,18 @@
 	<li>Fixed issue #385 with validation field is_home added</li>
 	<li>Fixed issue #378.  Did NOT add support to change the Nav group on a page edit.</li>
 	<li>Fixed issue #404 - Typo in contact template SQL</li>
+	<li>Script tags are only output when css or js is added from the admin panel. No more empty script tags.</li>
+	<li>Fixed issue #429: Usernames and display names had no minimum length.</li>
+	<li>Reduced number of ajax posts to retrieve slugs.</li>
+	<li>Fixed widget parsing. Now only display.php is parsed for tags.</li>
+	<li>Fixed issue #445 - Page plugin was returning revision_id instead of id.</li>
+	<li>Fixed issue #401 - Pages revision dropdown shows revision date again.</li>
+	<li>Fixed issue #452 - Users can no longer create multiple folders in the Files module with the same name.</li>
+	<li>Fixed several issues in permissions module, error when no role was selected etc.</li>
+	<li>Fixed issue #476 - Overload views for mobile browsers when separated by subfolders web/mobile folders.</li>
+	<li>Fixed unclosed anchor tag in footer of default theme.</li>
+	<li>Fixed issue #491 - Sub galleries were not displayed when file_folders' & gallery_images' ids were out of sync.</li>
+	<li>Lots of miscellaneous css corrections and tweaks.</li>
 </ul>
 
 <h3>v1.1.0</h3>

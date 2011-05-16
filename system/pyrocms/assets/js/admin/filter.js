@@ -68,7 +68,8 @@
 	
 		//launch the query based on module
 		do_filter: function(module, form_data, url){
-			post_url = SITE_URL + 'admin/' + module;
+			form_action	= pyro.filter.$filter_form.attr('action');
+			post_url	= form_action ? form_action : SITE_URL + 'admin/' + module;
 
 			if (typeof url !== 'undefined'){
 				post_url = url;
