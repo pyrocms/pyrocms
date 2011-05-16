@@ -426,8 +426,9 @@ jQuery(function($){
 						callback = function(){
 							pyro.widgets.rm_instance_form($form, action, key, function(){
 								pyro.widgets.update_area();
+								var $active = pyro.widgets.$areas.find('> section > header:eq('+pyro.widgets.$areas.accordion('option', 'active')+')').parent();
 
-								if (response.active)
+								if (response.active && response.active !== ('#' + $active.attr('id') + ' header'))
 								{
 									pyro.widgets.$areas.accordion('option', 'active', response.active);
 								}
