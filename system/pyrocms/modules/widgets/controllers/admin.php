@@ -24,6 +24,12 @@ class Admin extends Admin_Controller {
 
 		$this->is_ajax() AND $this->template->set_layout(FALSE);
 
+		if (in_array($this->method, array('index', 'manage')))
+		{
+			// requires to install and/or uninstall widgets
+			$this->widgets->list_available_widgets();
+		}
+
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
@@ -110,8 +116,6 @@ class Admin extends Admin_Controller {
 			->set_partial('filters', 'admin/partials/filters')
 			->append_metadata( js('admin/filter.js') )
 			->build('admin/manage', $data);
-
-		$this->widgets->list_available_widgets();
 	}
 
 	/**
