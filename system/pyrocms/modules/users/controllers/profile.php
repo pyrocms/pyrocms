@@ -194,7 +194,7 @@ class Profile extends Public_Controller
 		}
 
 		// Render view
-		$this->data->user = $user; //what data used, user or profile?
+		$this->data->view_user = $user; //needs to be something other than $this->data->user or it conflicts with the current user
 		$this->data->profile = $user;
 		$this->template->build('profile/view', $this->data);
 	}
