@@ -146,7 +146,7 @@ class Widget_m extends MY_Model
 			->select('`order`')
 			->order_by('`order`', 'desc')
 			->limit(1)
-			->get_where('widget', array('enabled' => $input['enabled']))
+			->get_where('widgets', array('enabled' => $input['enabled']))
 			->row();
 
 		$input['order'] = isset($last_widget->order) ? $last_widget->order + 1 : 1;
