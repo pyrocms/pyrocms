@@ -12,6 +12,23 @@
 class Plugin_Theme extends Plugin
 {
 	/**
+	 * Options
+	 *
+	 * Fetches a theme option
+	 *
+	 * Usage:
+	 * {pyro:theme:options code="layout"}
+	 *
+	 * @param	string
+	 */
+	function options()
+	{
+		$option = $this->pyrocache->model('themes_m', 'get_option', array( array('slug' => $this->attribute('option')) ));
+		
+		return $option->value;
+	}
+	
+	/**
 	 * Partial
 	 *
 	 * Loads a theme partial

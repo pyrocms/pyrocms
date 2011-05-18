@@ -7,7 +7,7 @@
  * @subpackage      Modules
  * @category            Modules
  */
-class Themes_m extends CI_Model
+class Themes_m extends MY_Model
 {
     /**
      * Default Theme
@@ -207,5 +207,51 @@ class Themes_m extends CI_Model
         // Now we need to talk to it
         return class_exists($class) ? new $class : FALSE;
     }
+	
+	/**
+	 * Get option
+	 *
+	 * @param 	string	$params	The where conditions to fetch the option by
+	 * @access	public
+	 * @return	array
+	 */
+	public function get_option($params = array())
+	{
+		return $this->db->select('value')
+					->where($params)
+					->where('theme', $this->_theme)
+					->get('theme_options')
+					->row();
+	}
+	
+	/**
+	 * Get options by slug
+	 *
+	 * @param 	string	$params	The where conditions to fetch options by
+	 * @access	public
+	 * @return	array
+	 */
+	public function get_options_by($params = array())
+	{
+		return $this->db->where($params)
+					->get('theme_options')
+					->result();
+	}
+	
+	/**
+	 * Update options
+	 *
+	 * @param	array	$input	The values to update
+	 * @param	string	$slug	The slug of the option to update
+	 * @access	public
+	 * @return	boolean
+	 */
+	public function update_options($slug, $input)
+	{
+		$this->db->where('slug', $slug)
+			->update('theme_options', $input);
+			
+		$this->pyrocache->delete_all('themes_m');
+	}
 }
 /* End of file models/themes_m.php */

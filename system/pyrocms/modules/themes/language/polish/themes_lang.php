@@ -1,5 +1,7 @@
 <?php
 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= 'Motyw "%s" jest teraz Twoim domyślnym motywem.';
 $lang['themes.set_default_error']		= 'Niemożliwe jest ustawienie motywu "%s" jako domyślnego motywu.';
 $lang['themes.already_exists_error'] 	= 'Motyw o takiej nazwie już istnieje.';
@@ -14,6 +16,7 @@ $lang['themes.upload_title']			= 'Wgraj motyw';
 $lang['themes.list_title']				= 'Lista motywów';
 $lang['themes.upload_desc']				= 'Proszę wybrać plik i nacisnąć "Upload"';
 
+$lang['themes.options']					= 'Options'; #translate 
 $lang['themes.theme_label'] 			= 'Motyw';
 $lang['themes.actions_label']			= 'Akcje';
 $lang['themes.make_default']			= 'Wybierz jako domyślny';

@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.';
+$lang['themes.no_options']				= 'This theme has no options.';
 $lang['themes.set_default_success']     = 'The theme "%s" is now your new default theme.';
 $lang['themes.set_default_error']       = 'Unable to set "%s" as your new default theme.';
 $lang['themes.already_exists_error']    = 'There is already a theme with this name.';
@@ -14,6 +16,7 @@ $lang['themes.upload_title']            = 'Upload theme';
 $lang['themes.list_title']              = 'Theme list';
 $lang['themes.upload_desc']             = 'Please select a file and click Upload button';
 
+$lang['themes.options']					= 'Options';
 $lang['themes.theme_label']             = 'Theme';
 $lang['themes.actions_label']           = 'Actions';
 $lang['themes.make_default']            = 'Make default';

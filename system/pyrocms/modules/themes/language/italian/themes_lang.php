@@ -1,5 +1,7 @@
 <?php
 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate
+$lang['themes.no_options']				= 'This theme has no options.'; #translate
 $lang['themes.set_default_success']		= 'Il tema "%s" è ora il tuo nuovo tema  predefinito.';
 $lang['themes.set_default_error']		= 'Impossibile impostare "%s" come nuovo tema predefinito.';
 $lang['themes.already_exists_error'] 	= 'Esiste già un tema con questo nome.';
@@ -14,6 +16,7 @@ $lang['themes.upload_title']			= 'Carica tema';
 $lang['themes.list_title']				= 'Lista temi';
 $lang['themes.upload_desc']				= 'Seleziona un file e clicca sul tasto Carica';
 
+$lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label'] 			= 'Tema';
 $lang['themes.actions_label']			= 'Azioni';
 $lang['themes.make_default']			= 'Rendi predefinito';

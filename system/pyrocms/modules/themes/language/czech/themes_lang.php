@@ -1,5 +1,7 @@
 <?php
 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= 'Motiv "%s" je nyní váš výchozí motiv.';
 $lang['themes.set_default_error']		= 'Nepodařilo se nastavit "%s" jako výchozí motiv.';
 $lang['themes.already_exists_error'] 	= 'Motiv s tímto jménem je již nahraný.';
@@ -14,6 +16,7 @@ $lang['themes.upload_title']			= 'Nahrát motiv';
 $lang['themes.list_title']				= 'Seznam motivů';
 $lang['themes.upload_desc']				= 'Prosím vyberte soubor a klikněte na Nahrát';
 
+$lang['themes.options']					= 'Options'; #translate 
 $lang['themes.theme_label'] 			= 'Motiv vzhledu';
 $lang['themes.actions_label']			= 'Akce';
 $lang['themes.make_default']			= 'Nastavit jako výchozí';
