@@ -22,21 +22,21 @@
 					<td><?php echo $module['is_backend'] ? anchor('admin/'  . $module['slug'], $module['name']) : $module['name']; ?></td>
 					<td><?php echo $module['description']; ?></td>
 					<td class="align-center"><?php echo $module['version']; ?></td>
-					<td class="align-center">
+					<td class="align-center buttons">
 						<?php if ($module['installed']): ?>
 							<?php if ($module['enabled']): ?>
-								<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_disable'))); ?>
+								<?php echo anchor('admin/modules/disable/' . $module['slug'], lang('disable_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_disable'))); ?>
 							<?php else: ?>
-								<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_enable'))); ?>
+								<?php echo anchor('admin/modules/enable/' . $module['slug'], lang('enable_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_enable'))); ?>
 							<?php endif; ?>
 							&nbsp;&nbsp;
 							<?php if ($module['is_current']): ?>
-								<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_uninstall'))); ?>
+								<?php echo anchor('admin/modules/uninstall/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_uninstall'))); ?>
 							<?php else: ?>
-								<?php echo anchor('admin/modules/upgrade/' . $module['slug'], lang('upgrade_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_upgrade'))); ?>
+								<?php echo anchor('admin/modules/upgrade/' . $module['slug'], lang('upgrade_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_upgrade'))); ?>
 							<?php endif; ?>
 						<?php else: ?>
-							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm minibutton', 'title'=>lang('modules.confirm_install'))); ?>
+							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_install'))); ?>
 						<?php endif; ?>
 					</td>
 				</tr>
