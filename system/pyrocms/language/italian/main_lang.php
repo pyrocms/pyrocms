@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Descrizione';
 $lang['version_label'] 					= 'Versione';
 $lang['author_label'] 					= 'Autore';
 $lang['action_label'] 					= 'Azione';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non pu&ograve; essere annullata.';
 $lang['dialog.confirm'] 				= 'Conferma';

@@ -22,15 +22,18 @@ $lang['buttons.publish']	= 'Publish';
 $lang['buttons.approve']	= 'Approve';
 $lang['buttons.unapprove']	= 'Un-approve';
 $lang['buttons.install']	= 'Install';
+$lang['buttons.uninstall']	= 'Uninstall';
+$lang['buttons.enable']		= 'Enable';
+$lang['buttons.disable']	= 'Disable';
 $lang['buttons.yes']		= 'Yes';
 $lang['buttons.no']			= 'No';
 $lang['buttons.activate']   = 'Activate';
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.re-index']	= 'Re-index'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.preview']	= 'Preview';
+$lang['buttons.close']		= 'Close';
+$lang['buttons.edit']		= 'Edit';
+$lang['buttons.clone']		= 'Clone';
+$lang['buttons.re-index']	= 'Re-index';
+$lang['buttons.copy']		= 'Copy';
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/english/buttons_lang.php */
