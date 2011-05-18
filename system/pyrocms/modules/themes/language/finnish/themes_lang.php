@@ -8,6 +8,7 @@
  */
 
 $lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
 $lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']     = 'Teema "%s" on nyt valittu oletusteemaksi.';
 $lang['themes.set_default_error']       = 'Teemaa "%s" ei voitu määrittää oletusteemaksi.';

@@ -57,6 +57,7 @@ class Module_Themes extends Module {
 
 		$theme_options = "
 			CREATE TABLE `theme_options` (
+			  `id` int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
 			  `description` text collate utf8_unicode_ci NOT NULL,
@@ -65,10 +66,7 @@ class Module_Themes extends Module {
 			  `value` varchar(255) collate utf8_unicode_ci NOT NULL,
 			  `options` varchar(255) collate utf8_unicode_ci NOT NULL,
 			  `is_required` tinyint(1) NOT NULL,
-			  `theme` varchar(50) collate utf8_unicode_ci NOT NULL,
-			PRIMARY KEY  (`slug`),
-			UNIQUE KEY `unique - slug` (`slug`),
-			KEY `index - slug` (`slug`)
+			  `theme` varchar(50) collate utf8_unicode_ci NOT NULL
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores theme options.';
 		";
 

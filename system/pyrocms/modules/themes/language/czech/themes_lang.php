@@ -1,6 +1,7 @@
 <?php
 
 $lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
 $lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= 'Motiv "%s" je nyní váš výchozí motiv.';
 $lang['themes.set_default_error']		= 'Nepodařilo se nastavit "%s" jako výchozí motiv.';

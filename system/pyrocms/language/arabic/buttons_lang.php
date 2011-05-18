@@ -29,6 +29,7 @@ $lang['buttons.preview']	= 'معاينة';
 $lang['buttons.close']		= 'إغلاق';
 $lang['buttons.edit']		= 'تحرير';
 $lang['buttons.clone']		= 'استنساخ';
+$lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'نسخ';
 
 /* End of file buttons_lang.php */

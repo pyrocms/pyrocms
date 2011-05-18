@@ -3,6 +3,7 @@
  * Admin controller for the themes module
  *
  * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @author		Jerel Unruh - PyroCMS Development Team
  * @package 	PyroCMS
  * @subpackage 	Themes module
  * @category	Modules
@@ -61,6 +62,25 @@ class Admin extends Admin_Controller
 	 */
 	public function options($slug = '')
 	{
+		if ($this->input->post('btnAction') == 're-index')
+		{
+			$this->themes_m->delete_options($this->input->post('slug'));
+			
+			// now re-index all themes that don't have saved options
+			if ($this->themes_m->get_all())
+			{
+				// Success...
+				$data = array();
+				$data['messages']['success'] = lang('themes.re-index_success');
+				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+
+				return print( json_encode((object) array(
+					'status'	=> 'success',
+					'message'	=> $message
+				)) );
+			}
+		}
+		
 		$all_options 	= $this->themes_m->get_options_by(array('theme'=> $slug));
 		$options_array 	= array();
 

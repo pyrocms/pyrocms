@@ -9,6 +9,7 @@
  */
 
 $lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
 $lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= 'Тема "%s" назначена по-умолчанию.';
 $lang['themes.set_default_error']			= 'Тему "%s" невозможно назначить по-умолчанию.';

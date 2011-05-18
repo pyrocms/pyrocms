@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
 $lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']     = 'Das Thema "%s" ist nun dein Standard-Thema.';
 $lang['themes.set_default_error']       = '"%s" konnte nicht als Standard-Thema gesetzt werden.';

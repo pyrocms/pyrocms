@@ -1,6 +1,7 @@
 <?php
 
 $lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
 $lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= 'Motyw "%s" jest teraz Twoim domyślnym motywem.';
 $lang['themes.set_default_error']		= 'Niemożliwe jest ustawienie motywu "%s" jako domyślnego motywu.';

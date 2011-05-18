@@ -1,6 +1,7 @@
 <?php
 
 $lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
 $lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= '"%s" 已經成為您新的預設佈景主題。';
 $lang['themes.set_default_error']		= '無法將 "%s" 設定為您的預設佈景主題。';
