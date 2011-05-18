@@ -38,6 +38,7 @@
 						<?php else: ?>
 							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_install'))); ?>
 						<?php endif; ?>
+						<?php echo anchor('admin/modules/delete/' . $module['slug'], lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('modules.confirm_delete'))); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
