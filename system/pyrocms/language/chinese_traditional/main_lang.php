@@ -8,6 +8,7 @@ $lang['desc_label'] 					= '說明'; 		//'Description';
 $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['author_label'] 					= '作者'; 		//'Author';
 $lang['action_label'] 					= '操作'; 		//'Action';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
 $lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
