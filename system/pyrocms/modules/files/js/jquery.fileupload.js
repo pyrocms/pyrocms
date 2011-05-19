@@ -1,32 +1,64 @@
 /*
- * jQuery File Upload Plugin 3.7.1
+ * jQuery File Upload Plugin 4.3.1
+ * https://github.com/blueimp/jQuery-File-Upload
  *
- * Copyright 2010, Sebastian Tschan, AQUANTUM
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
  * Licensed under the MIT license:
  * http://creativecommons.org/licenses/MIT/
- *
- * https://blueimp.net
- * http://www.aquantum.de
  */
 
 /*jslint browser: true */
-/*global File, FileReader, FormData, unescape, jQuery */
+/*global XMLHttpRequestUpload, File, FileReader, FormData, ProgressEvent, unescape, jQuery, upload */
 
 (function ($) {
+    'use strict';
 
     var defaultNamespace = 'file_upload',
         undef = 'undefined',
         func = 'function',
-        num = 'number',
         FileUpload,
         methods,
 
-        MultiLoader = function (callBack, numberComplete) {
-            var loaded = 0;
+        MultiLoader = function (callBack, numOrList) {
+            var loaded = 0,
+                list = [];
+            if (numOrList) {
+                if (numOrList.length) {
+                    list = numOrList;
+                } else {
+                    list[numOrList - 1] = null;
+                }
+            }
             this.complete = function () {
                 loaded += 1;
-                if (loaded === numberComplete) {
+                if (loaded === list.length) {
+                    callBack(list);
+                    loaded = 0;
+                    list = [];
+                }
+            };
+            this.push = function (item) {
+                list.push(item);
+            };
+            this.getList = function () {
+                return list;
+            };
+        },
+        
+        SequenceHandler = function () {
+            var sequence = [];
+            this.push = function (callBack) {
+                sequence.push(callBack);
+                if (sequence.length === 1) {
                     callBack();
+                }
+            };
+            this.next = function () {
+                sequence.shift();
+                if (sequence.length) {
+                    sequence[0]();
                 }
             };
         };
@@ -58,20 +90,30 @@
                 formData: function (form) {
                     return form.serializeArray();
                 },
+                requestHeaders: null,
                 multipart: true,
                 multiFileRequest: false,
                 withCredentials: false,
-                forceIframeUpload: false
+                forceIframeUpload: false,
+                sequentialUploads: false,
+                maxChunkSize: null,
+                maxFileReaderSize: 50000000
             },
+            multiLoader = new MultiLoader(function (list) {
+                if (typeof settings.onLoadAll === func) {
+                    settings.onLoadAll(list);
+                }
+            }),
+            sequenceHandler = new SequenceHandler(),
             documentListeners = {},
             dropZoneListeners = {},
             protocolRegExp = /^http(s)?:\/\//,
             optionsReference,
 
             isXHRUploadCapable = function () {
-                return typeof XMLHttpRequest !== undef && typeof File !== undef && (
-                    !settings.multipart || typeof FormData !== undef || typeof FileReader !== undef
-                );
+                return typeof XMLHttpRequest !== undef && typeof XMLHttpRequestUpload !== undef &&
+                    typeof File !== undef && (!settings.multipart || typeof FormData !== undef ||
+                    (typeof FileReader !== undef && typeof XMLHttpRequest.prototype.sendAsBinary === func));
             },
 
             initEventHandlers = function () {
@@ -116,27 +158,154 @@
                 fileInput.unbind('change.' + settings.namespace);
             },
 
-            initUploadEventHandlers = function (files, index, xhr, settings) {
-                if (typeof settings.onProgress === func) {
-                    xhr.upload.onprogress = function (e) {
-                        settings.onProgress(e, files, index, xhr, settings);
+            isChunkedUpload = function (settings) {
+                return typeof settings.uploadedBytes !== undef;
+            },
+
+            createProgressEvent = function (lengthComputable, loaded, total) {
+                var event;
+                if (typeof document.createEvent === func && typeof ProgressEvent !== undef) {
+                    event = document.createEvent('ProgressEvent');
+                    event.initProgressEvent(
+                        'progress',
+                        false,
+                        false,
+                        lengthComputable,
+                        loaded,
+                        total
+                    );
+                } else {
+                    event = {
+                        lengthComputable: true,
+                        loaded: loaded,
+                        total: total
                     };
                 }
+                return event;
+            },
+
+            getProgressTotal = function (files, index, settings) {
+                var i,
+                    total;
+                if (typeof settings.progressTotal === undef) {
+                    if (files[index]) {
+                        total = files[index].size;
+                        settings.progressTotal = total ? total : 1;
+                    } else {
+                        total = 0;
+                        for (i = 0; i < files.length; i += 1) {
+                            total += files[i].size;
+                        }
+                        settings.progressTotal = total;
+                    }
+                }
+                return settings.progressTotal;
+            },
+
+            handleGlobalProgress = function (event, files, index, xhr, settings) {
+                var progressEvent,
+                    loaderList,
+                    globalLoaded = 0,
+                    globalTotal = 0;
+                if (event.lengthComputable && typeof settings.onProgressAll === func) {
+                    settings.progressLoaded = parseInt(
+                        event.loaded / event.total * getProgressTotal(files, index, settings),
+                        10
+                    );
+                    loaderList = multiLoader.getList();
+                    $.each(loaderList, function (index, item) {
+                        // item is an array with [files, index, xhr, settings]
+                        globalLoaded += item[3].progressLoaded || 0;
+                        globalTotal += getProgressTotal(item[0], item[1], item[3]);
+                    });
+                    progressEvent = createProgressEvent(
+                        true,
+                        globalLoaded,
+                        globalTotal
+                    );
+                    settings.onProgressAll(progressEvent, loaderList);
+                }
+            },
+            
+            handleLoadEvent = function (event, files, index, xhr, settings) {
+                var progressEvent;
+                if (isChunkedUpload(settings)) {
+                    settings.uploadedBytes += settings.chunkSize;
+                    progressEvent = createProgressEvent(
+                        true,
+                        settings.uploadedBytes,
+                        files[index].size
+                    );
+                    if (typeof settings.onProgress === func) {
+                        settings.onProgress(progressEvent, files, index, xhr, settings);
+                    }
+                    handleGlobalProgress(progressEvent, files, index, xhr, settings);
+                    if (settings.uploadedBytes < files[index].size) {
+                        if (typeof settings.resumeUpload === func) {
+                            settings.resumeUpload(
+                                event,
+                                files,
+                                index,
+                                xhr,
+                                settings,
+                                function () {
+                                    upload(event, files, index, xhr, settings, true);
+                                }
+                            );
+                        } else {
+                            upload(event, files, index, xhr, settings, true);
+                        }
+                        return;
+                    }
+                }
+                settings.progressLoaded = getProgressTotal(files, index, settings);
                 if (typeof settings.onLoad === func) {
-                    xhr.onload = function (e) {
-                        settings.onLoad(e, files, index, xhr, settings);
+                    settings.onLoad(event, files, index, xhr, settings);
+                }
+                multiLoader.complete();
+                sequenceHandler.next();
+            },
+            
+            handleProgressEvent = function (event, files, index, xhr, settings) {
+                var progressEvent = event;
+                if (isChunkedUpload(settings) && event.lengthComputable) {
+                    progressEvent = createProgressEvent(
+                        true,
+                        settings.uploadedBytes + parseInt(event.loaded / event.total * settings.chunkSize, 10),
+                        files[index].size
+                    );
+                }
+                if (typeof settings.onProgress === func) {
+                    settings.onProgress(progressEvent, files, index, xhr, settings);
+                }
+                handleGlobalProgress(progressEvent, files, index, xhr, settings);
+            },
+            
+            initUploadEventHandlers = function (files, index, xhr, settings) {
+                if (xhr.upload) {
+                    xhr.upload.onprogress = function (e) {
+                        handleProgressEvent(e, files, index, xhr, settings);
                     };
                 }
-                if (typeof settings.onAbort === func) {
-                    xhr.onabort = function (e) {
+                xhr.onload = function (e) {
+                    handleLoadEvent(e, files, index, xhr, settings);
+                };
+                xhr.onabort = function (e) {
+                    settings.progressTotal = settings.progressLoaded;
+                    if (typeof settings.onAbort === func) {
                         settings.onAbort(e, files, index, xhr, settings);
-                    };
-                }
-                if (typeof settings.onError === func) {
-                    xhr.onerror = function (e) {
+                    }
+                    multiLoader.complete();
+                    sequenceHandler.next();
+                };
+                xhr.onerror = function (e) {
+                    settings.progressTotal = settings.progressLoaded;
+                    if (typeof settings.onError === func) {
                         settings.onError(e, files, index, xhr, settings);
-                    };
-                }
+                    }
+                    multiLoader.complete();
+                    sequenceHandler.next();
+                };
             },
 
             getUrl = function (settings) {
@@ -191,12 +360,35 @@
                 return true;
             },
 
-            nonMultipartUpload = function (file, xhr, sameDomain) {
+            initUploadRequest = function (files, index, xhr, settings) {
+                var file = files[index],
+                    url = getUrl(settings),
+                    sameDomain = isSameDomain(url);
+                xhr.open(getMethod(settings), url, true);
                 if (sameDomain) {
-                    xhr.setRequestHeader('X-File-Name', unescape(encodeURIComponent(file.name)));
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    if (!settings.multipart || isChunkedUpload(settings)) {
+                        xhr.setRequestHeader('X-File-Name', file.name);
+                        xhr.setRequestHeader('X-File-Type', file.type);
+                        xhr.setRequestHeader('X-File-Size', file.size);
+                        if (!isChunkedUpload(settings)) {
+                            xhr.setRequestHeader('Content-Type', file.type);
+                        } else if (!settings.multipart) {
+                            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+                        }
+                    }
+                } else if (settings.withCredentials) {
+                    xhr.withCredentials = true;
                 }
-                xhr.setRequestHeader('Content-Type', file.type);
-                xhr.send(file);
+                if ($.isArray(settings.requestHeaders)) {
+                    $.each(settings.requestHeaders, function (index, header) {
+                        xhr.setRequestHeader(header.name, header.value);
+                    });
+                } else if (settings.requestHeaders) {
+                    $.each(settings.requestHeaders, function (name, value) {
+                        xhr.setRequestHeader(name, value);
+                    });
+                }
             },
 
             formDataUpload = function (files, xhr, settings) {
@@ -212,35 +404,41 @@
             },
 
             loadFileContent = function (file, callBack) {
-                var fileReader = new FileReader();
-                fileReader.onload = function (e) {
-                    file.content = e.target.result;
-                    callBack();
-                };
-                fileReader.readAsBinaryString(file);
+                file.reader = new FileReader();
+                file.reader.onload = callBack;
+                file.reader.readAsBinaryString(file);
+            },
+
+            utf8encode = function (str) {
+                return unescape(encodeURIComponent(str));
             },
 
             buildMultiPartFormData = function (boundary, files, filesFieldName, fields) {
                 var doubleDash = '--',
                     crlf     = '\r\n',
-                    formData = '';
+                    formData = '',
+                    buffer = [];
                 $.each(fields, function (index, field) {
                     formData += doubleDash + boundary + crlf +
                         'Content-Disposition: form-data; name="' +
-                        unescape(encodeURIComponent(field.name)) +
+                        utf8encode(field.name) +
                         '"' + crlf + crlf +
-                        unescape(encodeURIComponent(field.value)) + crlf;
+                        utf8encode(field.value) + crlf;
                 });
                 $.each(files, function (index, file) {
                     formData += doubleDash + boundary + crlf +
                         'Content-Disposition: form-data; name="' +
-                        unescape(encodeURIComponent(filesFieldName)) +
-                        '"; filename="' + unescape(encodeURIComponent(file.name)) + '"' + crlf +
-                        'Content-Type: ' + file.type + crlf + crlf +
-                        file.content + crlf;
+                        utf8encode(filesFieldName) +
+                        '"; filename="' + utf8encode(file.name) + '"' + crlf +
+                        'Content-Type: ' + utf8encode(file.type) + crlf + crlf;
+                    buffer.push(formData);
+                    buffer.push(file.reader.result);
+                    delete file.reader;
+                    formData = crlf;
                 });
                 formData += doubleDash + boundary + doubleDash + crlf;
-                return formData;
+                buffer.push(formData);
+                return buffer.join('');
             },
             
             fileReaderUpload = function (files, xhr, settings) {
@@ -261,32 +459,54 @@
                 }
             },
 
-            upload = function (files, index, xhr, settings) {
-                var url = getUrl(settings),
-                    sameDomain = isSameDomain(url),
-                    filesToUpload;
-                initUploadEventHandlers(files, index, xhr, settings);
-                xhr.open(getMethod(settings), url, true);
-                if (sameDomain) {
-                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                } else if (settings.withCredentials) {
-                    xhr.withCredentials = true;
+            getBlob = function (file, settings) {
+                var blob,
+                    ub = settings.uploadedBytes,
+                    mcs = settings.maxChunkSize;
+                if (file && typeof file.slice === func && (ub || (mcs && mcs < file.size))) {
+                    settings.uploadedBytes = ub = ub || 0;
+                    blob = file.slice(ub, mcs || file.size - ub);
+                    settings.chunkSize = blob.size;
+                    return blob;
                 }
-                if (!settings.multipart) {
-                    nonMultipartUpload(files[index], xhr, sameDomain);
+                return file;
+            },
+
+            upload = function (event, files, index, xhr, settings, nextChunk) {
+                var send;
+                if (!nextChunk) {
+                    if (typeof settings.onSend === func &&
+                            settings.onSend(event, files, index, xhr, settings) === false) {
+                        return;
+                    }
+                    multiLoader.push(Array.prototype.slice.call(arguments, 1));
+                }
+                send = function () {
+                    var blob = getBlob(files[index], settings),
+                        filesToUpload;
+                    initUploadEventHandlers(files, index, xhr, settings);
+                    initUploadRequest(files, index, xhr, settings);
+                    if (!settings.multipart) {
+                        if (xhr.upload) {
+                            xhr.send(blob);
+                        } else {
+                            $.error('Browser does not support XHR file uploads');
+                        }
+                    } else {
+                        filesToUpload = (typeof index === 'number') ? [blob] : files;
+                        if (typeof FormData !== undef) {
+                            formDataUpload(filesToUpload, xhr, settings);
+                        } else if (typeof FileReader !== undef && typeof xhr.sendAsBinary === func) {
+                            fileReaderUpload(filesToUpload, xhr, settings);
+                        } else {
+                            $.error('Browser does not support multipart/form-data XHR file uploads');
+                        }
+                    }
+                };
+                if (!nextChunk && settings.sequentialUploads) {
+                    sequenceHandler.push(send);
                 } else {
-                    if (typeof index === num) {
-                        filesToUpload = [files[index]];
-                    } else {
-                        filesToUpload = files;
-                    }
-                    if (typeof FormData !== undef) {
-                        formDataUpload(filesToUpload, xhr, settings);
-                    } else if (typeof FileReader !== undef) {
-                        fileReaderUpload(filesToUpload, xhr, settings);
-                    } else {
-                        $.error('Browser does neither support FormData nor FileReader interface');
-                    }
+                    send();
                 }
             },
 
@@ -303,23 +523,27 @@
                         xhr,
                         uploadSettings,
                         function () {
-                            upload(files, index, xhr, uploadSettings);
+                            upload(event, files, index, xhr, uploadSettings);
                         }
                     );
                 } else {
-                    upload(files, index, xhr, uploadSettings);
+                    upload(event, files, index, xhr, uploadSettings);
                 }
             },
 
-            handleFiles = function (event, files, input, form) {
-                var i;
-                if (settings.multiFileRequest) {
-                    handleUpload(event, files, input, form);
+            handleLegacyGlobalProgress = function (event, files, index, iframe, settings) {
+                var total = 0,
+                    progressEvent;
+                if (typeof index === undef) {
+                    $.each(files, function (index, file) {
+                        total += file.size ? file.size : 1;
+                    });
                 } else {
-                    for (i = 0; i < files.length; i += 1) {
-                        handleUpload(event, files, input, form, i);
-                    }
+                    total = files[index].size ? files[index].size : 1;
                 }
+                progressEvent = createProgressEvent(true, total, total);
+                settings.progressLoaded = total;
+                handleGlobalProgress(progressEvent, files, index, iframe, settings);
             },
 
             legacyUploadFormDataInit = function (input, form, settings) {
@@ -347,49 +571,72 @@
                 form.find('.' + settings.namespace + '_form_data').remove();
             },
 
-            legacyUpload = function (input, form, iframe, settings) {
-                var originalAction = form.attr('action'),
-                    originalMethod = form.attr('method'),
-                    originalTarget = form.attr('target');
-                iframe
-                    .unbind('abort')
-                    .bind('abort', function (e) {
-                        iframe.readyState = 0;
-                        // javascript:false as iframe src prevents warning popups on HTTPS in IE6
-                        // concat is used here to prevent the "Script URL" JSLint error:
-                        iframe.unbind('load').attr('src', 'javascript'.concat(':false;'));
-                        if (typeof settings.onAbort === func) {
-                            settings.onAbort(e, [{name: input.val(), type: null, size: null}], 0, iframe, settings);
-                        }
-                    })
-                    .unbind('load')
-                    .bind('load', function (e) {
-                        iframe.readyState = 4;
-                        if (typeof settings.onLoad === func) {
-                            settings.onLoad(e, [{name: input.val(), type: null, size: null}], 0, iframe, settings);
-                        }
-                        // Fix for IE endless progress bar activity bug (happens on form submits to iframe targets):
-                        $('<iframe src="javascript:false;" style="display:none"></iframe>').appendTo(form).remove();
-                    });
-                form
-                    .attr('action', getUrl(settings))
-                    .attr('method', getMethod(settings))
-                    .attr('target', iframe.attr('name'));
-                legacyUploadFormDataInit(input, form, settings);
-                iframe.readyState = 2;
-                form.get(0).submit();
-                legacyUploadFormDataReset(input, form, settings);
-                form
-                    .attr('action', originalAction)
-                    .attr('method', originalMethod)
-                    .attr('target', originalTarget);
+            legacyUpload = function (event, files, input, form, iframe, settings, index) {
+                var send;
+                if (typeof settings.onSend === func && settings.onSend(event, files, index, iframe, settings) === false) {
+                    return;
+                }
+                multiLoader.push([files, index, iframe, settings]);
+                send = function () {
+                    var originalAction = form.attr('action'),
+                        originalMethod = form.attr('method'),
+                        originalTarget = form.attr('target');
+                    iframe
+                        .unbind('abort')
+                        .bind('abort', function (e) {
+                            iframe.readyState = 0;
+                            // javascript:false as iframe src prevents warning popups on HTTPS in IE6
+                            // concat is used here to prevent the "Script URL" JSLint error:
+                            iframe.unbind('load').attr('src', 'javascript'.concat(':false;'));
+                            handleLegacyGlobalProgress(e, files, index, iframe, settings);
+                            if (typeof settings.onAbort === func) {
+                                settings.onAbort(e, files, index, iframe, settings);
+                            }
+                            multiLoader.complete();
+                            sequenceHandler.next();
+                        })
+                        .unbind('load')
+                        .bind('load', function (e) {
+                            iframe.readyState = 4;
+                            handleLegacyGlobalProgress(e, files, index, iframe, settings);
+                            if (typeof settings.onLoad === func) {
+                                settings.onLoad(e, files, index, iframe, settings);
+                            }
+                            multiLoader.complete();
+                            sequenceHandler.next();
+                            // Fix for IE endless progress bar activity bug
+                            // (happens on form submits to iframe targets):
+                            $('<iframe src="javascript:false;" style="display:none;"></iframe>')
+                                .appendTo(form).remove();
+                        });
+                    form
+                        .attr('action', getUrl(settings))
+                        .attr('method', getMethod(settings))
+                        .attr('target', iframe.attr('name'));
+                    legacyUploadFormDataInit(input, form, settings);
+                    iframe.readyState = 2;
+                    form.get(0).submit();
+                    legacyUploadFormDataReset(input, form, settings);
+                    form
+                        .attr('action', originalAction)
+                        .attr('method', originalMethod)
+                        .attr('target', originalTarget);
+                };
+                if (settings.sequentialUploads) {
+                    sequenceHandler.push(send);
+                } else {
+                    send();
+                }
             },
 
-            handleLegacyUpload = function (event, input, form) {
+            handleLegacyUpload = function (event, input, form, index) {
                 // javascript:false as iframe src prevents warning popups on HTTPS in IE6:
-                var iframe = $('<iframe src="javascript:false;" style="display:none" name="iframe_' +
+                var iframe = $('<iframe src="javascript:false;" style="display:none;" name="iframe_' +
                     settings.namespace + '_' + (new Date()).getTime() + '"></iframe>'),
-                    uploadSettings = $.extend({}, settings);
+                    uploadSettings = $.extend({}, settings),
+                    files = event.target.files;
+                files = files ? Array.prototype.slice.call(files, 0) : [{name: input.val(), type: null, size: null}];
+                index = files.length === 1 ? 0 : index;
                 uploadSettings.fileInput = input;
                 uploadSettings.uploadForm = form;
                 iframe.readyState = 0;
@@ -401,18 +648,53 @@
                     if (typeof uploadSettings.initUpload === func) {
                         uploadSettings.initUpload(
                             event,
-                            [{name: input.val(), type: null, size: null}],
-                            0,
+                            files,
+                            index,
                             iframe,
                             uploadSettings,
                             function () {
-                                legacyUpload(input, form, iframe, uploadSettings);
+                                legacyUpload(event, files, input, form, iframe, uploadSettings, index);
                             }
                         );
                     } else {
-                        legacyUpload(input, form, iframe, uploadSettings);
+                        legacyUpload(event, files, input, form, iframe, uploadSettings, index);
                     }
                 }).appendTo(form);
+            },
+
+            canHandleXHRUploadSize = function (files) {
+                var bytes = 0,
+                    totalBytes = 0,
+                    i;
+                if (settings.multipart && typeof FormData === undef) {
+                    for (i = 0; i < files.length; i += 1) {
+                        bytes = files[i].size;
+                        if (bytes > settings.maxFileReaderSize) {
+                            return false;
+                        }
+                        totalBytes += bytes;
+                    }
+                    if (settings.multiFileRequest && totalBytes > settings.maxFileReaderSize) {
+                        return false;
+                    }
+                }
+                return true;
+            },
+
+            handleFiles = function (event, files, input, form) {
+                if (!canHandleXHRUploadSize(files)) {
+                    handleLegacyUpload(event, input, form);
+                    return;
+                }
+                var i;
+                files = Array.prototype.slice.call(files, 0);
+                if (settings.multiFileRequest && settings.multipart && files.length) {
+                    handleUpload(event, files, input, form);
+                } else {
+                    for (i = 0; i < files.length; i += 1) {
+                        handleUpload(event, files, input, form, i);
+                    }
+                }
             },
             
             initUploadForm = function () {
@@ -421,7 +703,7 @@
             },
             
             initFileInput = function () {
-                fileInput = uploadForm.find('input:file')
+                fileInput = (uploadForm.length ? uploadForm : container).find('input:file')
                     .filter(settings.fileInputFilter);
             },
             
@@ -454,10 +736,10 @@
                 return false;
             }
             var dataTransfer = e.originalEvent.dataTransfer;
-            if (dataTransfer) {
+            if (dataTransfer && dataTransfer.files) {
                 dataTransfer.dropEffect = dataTransfer.effectAllowed = 'copy';
+                e.preventDefault();
             }
-            e.preventDefault();
         };
 
         this.onDrop = function (e) {
@@ -580,6 +862,13 @@
                 .removeClass(settings.cssClass);
             settings.dropZone.not(container).removeClass(settings.cssClass);
         };
+        
+        this.upload = function (files) {
+            if (typeof files.length === undef) {
+                files = [files];
+            }
+            handleFiles(null, files);
+        };
     };
 
     methods = {
@@ -593,16 +882,29 @@
             namespace = namespace ? namespace : defaultNamespace;
             var fileUpload = $(this).data(namespace);
             if (fileUpload) {
-                if (typeof option === 'string') {
-                    return fileUpload.option(option, value);
+                if (!option) {
+                    return fileUpload.options();
+                } else if (typeof option === 'string' && typeof value === undef) {
+                    return fileUpload.option(option);
                 }
-                return fileUpload.options(option);
             } else {
                 $.error('No FileUpload with namespace "' + namespace + '" assigned to this element');
             }
+            return this.each(function () {
+                var fu = $(this).data(namespace);
+                if (fu) {
+                    if (typeof option === 'string') {
+                        fu.option(option, value);
+                    } else {
+                        fu.options(option);
+                    }
+                } else {
+                    $.error('No FileUpload with namespace "' + namespace + '" assigned to this element');
+                }
+            });
         },
                 
-        destroy : function (namespace) {
+        destroy: function (namespace) {
             namespace = namespace ? namespace : defaultNamespace;
             return this.each(function () {
                 var fileUpload = $(this).data(namespace);
@@ -612,7 +914,18 @@
                     $.error('No FileUpload with namespace "' + namespace + '" assigned to this element');
                 }
             });
-
+        },
+        
+        upload: function (files, namespace) {
+            namespace = namespace ? namespace : defaultNamespace;
+            return this.each(function () {
+                var fileUpload = $(this).data(namespace);
+                if (fileUpload) {
+                    fileUpload.upload(files);
+                } else {
+                    $.error('No FileUpload with namespace "' + namespace + '" assigned to this element');
+                }
+            });
         }
     };
     
@@ -622,7 +935,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.fileUpload');
+            $.error('Method "' + method + '" does not exist on jQuery.fileUpload');
         }
     };
     

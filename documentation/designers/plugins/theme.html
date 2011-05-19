@@ -8,6 +8,39 @@
 
 <h2>Functions</h2>
 
+<h3>{pyro:theme:options}</h3>
+
+<p>
+	Displays an option for the current theme. To read more about this tag
+	and its usage refer to the <a href="#designers/getting_started.html">theme documentation.</a>
+</p>
+
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">option</td>
+		<td>Required. The option slug to request from the theme.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{if '{pyro:theme:options option="layout"}' == 'full-width'}
+	&lt;div class="full-width"&gt;
+		{pyro:template:body}
+	&lt;/div&gt;
+{/if}</code></pre>
+
+<br />
+
 <h3>{pyro:theme:partial}</h3>
 
 <p>Loads partial from the current theme.</p>

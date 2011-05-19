@@ -10,6 +10,10 @@ $lang['widgets.widget'] 					= 'الودجت';
 $lang['widgets.widget_author'] 				= 'الناشر';
 $lang['widgets.widget_short_name'] 			= 'الإسم المختصر';
 $lang['widgets.widget_version'] 			= 'النسخة';
+$lang['widgets.status_label']			= 'Status'; #translate
+
+$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
+$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
 
 // Widget area titles
 $lang['widgets.add_area'] 					= 'إضافة مساحة ودجت';
