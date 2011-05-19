@@ -69,6 +69,7 @@ ul#head-nav ul ul { left: 156px; top:-1px; width:149px; padding-top: 0; }
 
 /* Content */
 #content { width: 725px; min-height: 500px; padding: 35px 0 150px 0; margin: 0; float: left; }
+#full-content { width: 100%; min-height: 500px; padding: 35px 0 150px 0; margin: 0; float: left; }
 .post { padding: 20px 35px 35px 25px; background-color: #f9f9f9; border: 1px solid #ffffff; outline: 1px solid #d1d1d1; color: #7d7d7d; font-size: 14px; text-shadow: 1px 1px #ffffff; }
 .post h1, .post h2, .post h3, .post h4, .post h5, .post h6 { padding: 0 0 25px 0; color: #7d7d7d; text-shadow: 1px 1px 0px #ffffff; }
 .post ul { padding: 0 0 0 25px; }

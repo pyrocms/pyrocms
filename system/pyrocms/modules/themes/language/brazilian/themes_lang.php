@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
+$lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success']		= 'O tema "%s" é agora o seu tema padrão.';
 $lang['themes.set_default_error']		= 'Não foi possível definir "%s" como o seu tema padrão.';
 $lang['themes.already_exists_error'] 	= 'Já existe um tema com este nome.';
@@ -14,6 +17,7 @@ $lang['themes.upload_title']			= 'Envio de tema';
 $lang['themes.list_title']				= 'Listar temas';
 $lang['themes.upload_desc']				= 'Selecione o arquivo e clique no botão Enviar';
 
+$lang['themes.options']					= 'Options'; #translate 
 $lang['themes.theme_label'] 			= 'Tema';
 $lang['themes.actions_label']			= 'Ações';
 $lang['themes.make_default']			= 'Definir como padrão';

@@ -32,6 +32,7 @@ $lang['buttons.preview']	= 'Προεπισκόπηση';
 $lang['buttons.close']		= 'Κλείσιμο';
 $lang['buttons.edit']		= 'Επεξεργασία';
 $lang['buttons.clone']		= 'Κλωνοποίηση';
+$lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'Αντιγραφή';
 
 /* End of file buttons_lang.php */

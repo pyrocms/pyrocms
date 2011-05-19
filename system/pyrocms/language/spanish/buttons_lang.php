@@ -32,6 +32,7 @@ $lang['buttons.preview']	= 'Vista previa';
 $lang['buttons.close']		= 'Cerrar';
 $lang['buttons.edit']		= 'Editar';
 $lang['buttons.clone']		= 'Clonar';
+$lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'Copiar';
 
 /* End of file buttons_lang.php */

@@ -9,7 +9,7 @@
 				<th><?php echo lang('themes.description_label'); ?></th>
 				<th width="15%"><?php echo lang('themes.author_label'); ?></th>
 				<th width="100" class="align-center"><?php echo lang('themes.version_label'); ?></th>
-				<th width="220" class="align-center"><?php echo lang('themes.actions_label'); ?></th>
+				<th width="250" class="align-center"><?php echo lang('themes.actions_label'); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -37,7 +37,8 @@
 
 				<td class="align-center"><?php echo $theme->version; ?></td>
 				<td class="align-center buttons buttons-small">
-					<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button"><?php echo lang('buttons.preview'); ?></a>
+					<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button modal"><?php echo lang('buttons.preview'); ?></a>
+					<?php echo anchor('admin/themes/options/' . $theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options options-modal"'); ?>
 					<?php echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); ?>
 				</td>
 			</tr>
@@ -50,12 +51,6 @@
 	</div>
 	
 	<?php echo form_close(); ?>
-
-	<script type="text/javascript">
-		jQuery(function($) {
-			$("a[rel='screenshots']").colorbox({width: "40%", height: "50%"});
-		});
-	</script>
 
 <?php else: ?>
 	<div class="blank-slate">
