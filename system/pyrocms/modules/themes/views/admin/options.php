@@ -1,3 +1,4 @@
+<h2><?php echo lang('themes.theme_label') . ' ' . lang('themes.options'); ?></h2>
 <?php if ($options_array): ?>
 
 	<div class="padding-top">

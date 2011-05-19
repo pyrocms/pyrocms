@@ -17,7 +17,7 @@ class Plugin_Theme extends Plugin
 	 * Fetches a theme option
 	 *
 	 * Usage:
-	 * {pyro:theme:options code="layout"}
+	 * {pyro:theme:options option="layout"}
 	 *
 	 * @param	string
 	 */
