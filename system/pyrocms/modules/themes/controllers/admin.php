@@ -45,7 +45,53 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$data['themes'] = $this->themes_m->get_all();
+		$themes = $this->themes_m->get_all();
+		
+		$data = array();
+		
+		foreach ($themes AS $theme)
+		{
+			if ( ! $theme->type OR $theme->type != 'admin')
+			{
+				if ($theme->slug == $this->settings->default_theme)
+				{
+					$theme->is_default = TRUE;
+				}
+				
+				$data['themes'][] = $theme;
+			}
+		}
+
+		// Render the view
+		$this->template
+			->title($this->module_details['name'])
+			->build('admin/index', $data);
+	}
+	
+	/**
+	 * List all admin themes
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function admin_themes()
+	{
+		$themes = $this->themes_m->get_all();
+		
+		$data = array();
+		
+		foreach ($themes AS $theme)
+		{
+			if ($theme->type AND $theme->type == 'admin')
+			{
+				if ($theme->slug == $this->settings->admin_theme)
+				{
+					$theme->is_default = TRUE;
+				}
+				
+				$data['themes'][] = $theme;
+			}
+		}
 
 		// Render the view
 		$this->template
@@ -164,7 +210,7 @@ class Admin extends Admin_Controller
 		$theme = $this->input->post('theme');
 
 		// Set the theme
-		if ($this->themes_m->set_default($theme))
+		if ($this->themes_m->set_default($this->input->post()))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}
@@ -174,6 +220,11 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme));
 		}
 
+		if ($this->input->post('method') == 'admin_themes')
+		{
+			redirect('admin/themes/admin_themes');
+		}
+		
 		redirect('admin/themes');
 	}
 

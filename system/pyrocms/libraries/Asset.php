@@ -255,17 +255,40 @@ class Asset {
 		else
 		{
 			$asset_location = $base_location;
+			$admin_path = APPPATH . 'themes/' . ADMIN_THEME . '/';
 
 			// Its in a module, ignore the current
 			if ($module_name)
 			{
 				foreach (Modules::$locations as $path => $offset)
 				{
-					if (is_dir($path . $module_name))
+					//to speed things up only check in the admin theme if we're on the admin panel
+					if ($this->theme == ADMIN_THEME)
 					{
-						// TODO: Fix this fucking mess
-						$asset_location = base_url() . $path . $module_name . '/';
-						break;
+						//check in the admin theme first for overloaded asset files
+						if(is_file($admin_path . $asset_type . '/' . $module_name . '/' . $asset_name))
+						{
+							$asset_location = BASE_URL . $admin_path . $asset_type . '/' . $module_name . '/';
+				
+							//reset $asset_type so we don't have admin_theme/css/module/css folder structure
+							$asset_type = '';
+							
+							break;
+						}
+						// nothing overloaded. The cat is on their back
+						elseif (is_dir($path . $module_name))
+						{
+							$asset_location = BASE_URL . $path . $module_name . '/';
+							break;
+						}
+					}
+					else
+					{
+						if (is_dir($path . $module_name))
+						{
+							$asset_location = BASE_URL . $path . $module_name . '/';
+							break;
+						}
 					}
 				}
 			}

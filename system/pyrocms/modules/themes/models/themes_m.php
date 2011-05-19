@@ -13,6 +13,11 @@ class Themes_m extends MY_Model
      * Default Theme
      */
     public $_theme = NULL;
+	
+    /**
+     * Default Admin Theme
+     */
+    public $_admin_theme = NULL;
 
     /**
      * Available Themes
@@ -29,6 +34,7 @@ class Themes_m extends MY_Model
     {
         parent::__construct();
         $this->_theme = $this->settings->default_theme;
+		$this->_admin_theme = $this->settings->admin_theme;
     }
 
     /**
@@ -48,7 +54,7 @@ class Themes_m extends MY_Model
             
 			foreach($themes as $theme_path)
             {
-                $this->_get_details(dirname($theme_path), basename($theme_path));
+                $this->_get_details(dirname($theme_path) . '/', basename($theme_path));
             }
         }
 
@@ -82,6 +88,32 @@ class Themes_m extends MY_Model
 
         return FALSE;
     }
+	
+    /**
+     * Get the admin theme
+     *
+     * @param <string> $slug
+     * @return <mixed array, bool>
+     */
+    public function get_admin($slug = '')
+    {
+        $slug OR $slug = $this->_admin_theme;
+
+        foreach($this->template->theme_locations() as $location)
+        {
+            if (is_dir($location.$slug))
+            {
+                $theme = $this->_get_details($location, $slug);
+
+                if ($theme !== FALSE)
+                {
+                    return $theme;
+                }
+            }
+        }
+
+        return FALSE;
+    }
 
     /**
      * Get details about a theme
@@ -99,13 +131,13 @@ class Themes_m extends MY_Model
             return $this->_themes[$slug];
         }
 
-        if (is_dir($path = $location.'/'.$slug))
+        if (is_dir($path = $location.$slug))
         {
             // Core theme or tird party?
             $is_core = trim($location, '/') === APPPATH.'themes';
 
             //path to theme
-            $web_path = $location . '/' . $slug;
+            $web_path = $location . $slug;
 
             $theme->slug			= $slug;
             $theme->is_core         = $is_core;
@@ -175,6 +207,7 @@ class Themes_m extends MY_Model
 			
 			$this->db->insert('theme_options', $insert);
 		}
+		$this->pyrocache->delete_all('themes_m');
 		return TRUE;
 	}
 
@@ -207,9 +240,16 @@ class Themes_m extends MY_Model
      * @param <string> $theme
      * @return <string>
      */
-    public function set_default($theme)
+    public function set_default($input)
     {
-        return $this->settings->set_item('default_theme', $theme);
+		if ($input['method'] == 'index')
+		{
+			return $this->settings->set_item('default_theme', $input['theme']);
+		}
+		elseif($input['method'] == 'admin_themes')
+		{
+			return $this->settings->set_item('admin_theme', $input['theme']);
+		}
     }
 
     /**

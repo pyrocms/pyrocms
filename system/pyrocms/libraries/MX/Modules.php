@@ -187,9 +187,18 @@ class Modules
 			}
 		}
 		
-		/* is the file in an application directory? */
-		if ($base == 'views/' OR $base == 'plugins/') {
+		/* is it a global plugin? */
+		if ($base == 'plugins/') {
 			if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);	
+			show_error("Unable to locate the file: {$path}{$file_ext}");
+		}
+		
+		/* is the file in the admin theme? */
+		if ($base == 'views/') {
+			if (is_file(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+			{
+				return array(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+			}
 			show_error("Unable to locate the file: {$path}{$file_ext}");
 		}
 

@@ -1,6 +1,7 @@
 <?php if ($themes): ?>
 
 	<?php echo form_open('admin/themes/set_default'); ?>
+	<?php echo form_hidden('method', $this->method); ?>
 	<table>
 		<thead>
 			<tr>
@@ -22,7 +23,9 @@
 		<tbody>
 			<?php foreach($themes as $theme): ?>
 			<tr>
-				<td class="align-center"><input type="radio" name="theme" value="<?php echo $theme->slug; ?>" <?php echo $this->settings->default_theme == $theme->slug ? 'checked="checked" ' : ''; ?>/></td>
+				<td class="align-center"><input type="radio" name="theme" value="<?php echo $theme->slug; ?>"
+				<?php echo isset($theme->is_default) ? 'checked="checked" ' : ''; ?>/>
+				</td>
 				<td><?php if (!empty($theme->website)): ?>
 								<?php echo anchor($theme->website, $theme->name, array('target'=>'_blank')); ?>
 							<?php else: ?>
@@ -39,7 +42,7 @@
 				<td class="align-center buttons buttons-small">
 					<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button modal"><?php echo lang('buttons.preview'); ?></a>
 					<?php echo anchor('admin/themes/options/' . $theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options options-modal"'); ?>
-					<?php echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); ?>
+					<?php if($theme->slug != 'admin_theme') { echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); } ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>

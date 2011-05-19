@@ -12,7 +12,7 @@
 |
 */
 
-$config['asset_dir'] = APPPATH_URI . 'assets/';
+$config['asset_dir'] = APPPATH_URI . 'themes/' . ADMIN_THEME . '/';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['asset_dir'] = APPPATH_URI . 'assets/';
 |
 */
 
-$config['asset_url'] = config_item('base_url').APPPATH . 'assets/';
+$config['asset_url'] = config_item('base_url').APPPATH . 'themes/' . ADMIN_THEME . '/';
 
 /*
 |--------------------------------------------------------------------------
