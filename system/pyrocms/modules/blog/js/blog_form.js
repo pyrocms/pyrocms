@@ -17,7 +17,7 @@
 			onComplete: function() {
 				$.colorbox.resize();
 				$('form#categories').removeAttr('action');
-				$('form#categories').submit(function(e) {
+				$('form#categories').live('submit', function(e) {
 					
 					var form_data = $(this).serialize();
 					
