@@ -95,10 +95,10 @@ class MY_Controller extends CI_Controller {
 		define('ADMIN_THEME', $this->admin_theme->slug);
 		
 		// Asset library needs to know where the admin theme directory is
-		$this->config->set_item('asset_dir', '/'.$this->admin_theme->path.'/');
+		$this->config->set_item('asset_dir', BASE_URL.$this->admin_theme->path.'/');
 		$this->config->set_item('asset_url', $this->admin_theme->web_path.'/');
 		// Set the front-end theme directory
-		$this->config->set_item('theme_asset_dir', '/'.dirname($this->theme->path).'/');
+		$this->config->set_item('theme_asset_dir', BASE_URL.dirname($this->theme->path).'/');
 		$this->config->set_item('theme_asset_url', dirname($this->theme->web_path).'/');
 
 		$this->benchmark->mark('my_controller_end');
