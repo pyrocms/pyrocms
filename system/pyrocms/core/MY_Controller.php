@@ -92,7 +92,7 @@ class MY_Controller extends CI_Controller {
 		$this->theme = $this->themes_m->get();
 
 		// make a constant as this is used in a lot of places		
-		define(ADMIN_THEME, $this->admin_theme->slug);
+		define('ADMIN_THEME', $this->admin_theme->slug);
 		
 		// Asset library needs to know where the admin theme directory is
 		$this->config->set_item('asset_dir', '/'.$this->admin_theme->path.'/');
