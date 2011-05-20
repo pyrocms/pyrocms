@@ -149,6 +149,7 @@ class Admin extends Admin_Controller
 
 		
 		$this->template
+			->enable_parser(TRUE)
 			->title(lang('cp_admin_home_title'))
 			->build('admin/dashboard', $data);
 	}
