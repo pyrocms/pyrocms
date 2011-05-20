@@ -65,7 +65,7 @@
 			<?php if(!empty($template['partials']['filters'])): ?>
 				<?php echo $template['partials']['filters']; ?>
 			<?php endif; ?>
-			
+
 			<?php $this->load->view('admin/partials/notices') ?>
 
 		<div id="content">

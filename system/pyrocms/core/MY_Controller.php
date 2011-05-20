@@ -60,7 +60,8 @@ class MY_Controller extends CI_Controller {
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
-			'pages/pages_m'
+			'pages/pages_m',
+			'themes/themes_m'
 		));
 
 		// List available module permissions for this user
@@ -84,6 +85,21 @@ class MY_Controller extends CI_Controller {
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
 		$this->load->vars($pyro);
+		
+		// Load the admin theme so things like partials and assets are available everywhere
+		$this->admin_theme = $this->themes_m->get_admin();
+		// Load the front-end theme so we can set the assets right away
+		$this->theme = $this->themes_m->get();
+
+		// make a constant as this is used in a lot of places		
+		define('ADMIN_THEME', $this->admin_theme->slug);
+		
+		// Asset library needs to know where the admin theme directory is
+		$this->config->set_item('asset_dir', BASE_URL.$this->admin_theme->path.'/');
+		$this->config->set_item('asset_url', $this->admin_theme->web_path.'/');
+		// Set the front-end theme directory
+		$this->config->set_item('theme_asset_dir', BASE_URL.dirname($this->theme->path).'/');
+		$this->config->set_item('theme_asset_url', dirname($this->theme->web_path).'/');
 
 		$this->benchmark->mark('my_controller_end');
 	}

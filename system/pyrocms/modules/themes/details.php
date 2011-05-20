@@ -2,7 +2,7 @@
 
 class Module_Themes extends Module {
 
-	public $version = '0.5';
+	public $version = '1.0';
 	
 	public function info()
 	{

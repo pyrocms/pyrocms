@@ -52,9 +52,18 @@ class Admin_Controller extends MY_Controller {
 			$this->template->menu_items = $grouped_menu;
 			$this->template->modules = $grouped_modules;
 		}
+		
+		if ( ! $this->admin_theme->slug)
+		{
+			show_error('This site has been set to use an admin theme that does not exist.');
+		}
 
+		// Prepare Asset library
+	    $this->asset->set_theme(ADMIN_THEME);
+	
 		// Template configuration
 		$this->template
+				->set_theme(ADMIN_THEME)
 				->set_layout('default', 'admin')
 				->enable_parser(FALSE)
 				->append_metadata(css('admin/style.css'))
