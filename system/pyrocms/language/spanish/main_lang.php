@@ -18,8 +18,8 @@ $lang['select.all']		= '-- Todos --';
 $lang['select.any']		= '-- Cualquiera --';
 $lang['select.pick']		= '-- Seleccionar --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 					= 'Ninguno';
+$lang['check.all']						= 'Todos';
 
 $lang['operators.equal']	= 'Igual a';
 $lang['operators.not_equal']	= 'Distinto a';

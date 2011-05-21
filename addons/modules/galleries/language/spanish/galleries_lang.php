@@ -51,7 +51,7 @@ $lang['galleries.current_label']			= 'Imágenes (arrastre y suelte para ordenar,
 # Sidebar labels
 $lang['galleries.list_label']				= 'Lista de Galerías';
 $lang['galleries.new_gallery_label']		= 'Crear Galería';
-$lang['galleries.upload_label']				= 'Subir Imagen';
+$lang['galleries.upload_label']				= 'Cargar Imagen';
 
 # Frontend labels
 $lang['galleries.sub-galleries_label']		= 'Sub Galerías';

@@ -7,11 +7,11 @@ $lang['settings_edit_title']					= 'Editar configuraciones';
 $lang['settings_site_name']						= 'Nombre del Sitio';
 $lang['settings_site_name_desc']				= 'El nombre del sitio web para los títulos de página y para su uso dentro del sitio.';
 
-$lang['settings_site_slogan']					= 'Slogan del Sitio';
-$lang['settings_site_slogan_desc']				= 'Slogan para los títulos de página y para su uso dentro del sitio.';
+$lang['settings_site_slogan']					= 'Lema del Sitio';
+$lang['settings_site_slogan_desc']				= 'Lema para los títulos de página y para su uso dentro del sitio.';
 
-$lang['settings_site_lang']						= 'Site Language'; #translate
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang']						= 'Idioma del sitio';
+$lang['settings_site_lang_desc']				= 'Idioma nativo del sitio, usado para escoger plantillas de correos para correos de notificaciones internas, recibir detalles de tus visitantes y otras características que no deberían influír con el idioma del visitante.';
 
 $lang['settings_contact_email']					= 'E-mail de contacto';
 $lang['settings_contact_email_desc']			= 'Todos los e-mails de los usuarios e invitados se dirigirán a esta dirección de e-mail.';

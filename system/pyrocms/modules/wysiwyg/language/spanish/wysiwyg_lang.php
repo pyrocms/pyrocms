@@ -5,11 +5,11 @@ $lang = array(
     'wysiwyg.meta.height'   =>  'Ancho',
     'wysiwyg.meta.size'     =>  'Tamaño',
     'wysiwyg.label.insert_width'    => 'Inserte ancho de la imágen',
-    'wysiwyg.label.float'   =>  'Float', //translate
+    'wysiwyg.label.float'   =>  'Flotar',
     'wysiwyg.label.left'    =>  'Izquierda',
     'wysiwyg.label.right'   =>  'Derecha',
     'wysiwyg.label.none'    =>  'Ninguna',
-    'wysiwyg.meta.mime'     =>  'Mime Type' //translate
+    'wysiwyg.meta.mime'     =>  'Mime Type'
     
 );
 
