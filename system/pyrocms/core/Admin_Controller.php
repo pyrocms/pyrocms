@@ -63,20 +63,10 @@ class Admin_Controller extends MY_Controller {
 	
 		// Template configuration
 		$this->template
+				->enable_parser(FALSE)
+				->set('user', $this->user)
 				->set_theme(ADMIN_THEME)
 				->set_layout('default', 'admin')
-				->enable_parser(FALSE)
-				->append_metadata(css('admin/style.css'))
-				->append_metadata(css('jquery/jquery-ui.css'))
-				->append_metadata(css('jquery/colorbox.css'))
-				->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
-				->append_metadata(js('jquery/jquery-ui.min.js'))
-				->append_metadata(js('jquery/jquery.colorbox.min.js'))
-				->append_metadata(js('jquery/jquery.livequery.min.js'))
-				->append_metadata(js('jquery/jquery.uniform.min.js'))
-				->append_metadata(js('admin/functions.js'))
-				->append_metadata('<script type="text/javascript">pyro.apppath_uri="' . APPPATH_URI . '";pyro.base_uri="' . BASE_URI . '";</script>')
-				->set('user', $this->user)
 				->set_partial('header', 'admin/partials/header')
 				->set_partial('navigation', 'admin/partials/navigation')
 				->set_partial('metadata', 'admin/partials/metadata')

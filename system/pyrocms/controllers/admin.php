@@ -141,8 +141,6 @@ class Admin extends Admin_Controller
 		$this->simplepie->set_feed_url($this->settings->dashboard_rss);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
-		
-		$this->template->append_metadata(js('jquery/jquery.flot.js'));
 
 		// Store the feed items
 		$data['rss_items'] = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
@@ -209,7 +207,9 @@ class Admin extends Admin_Controller
 	 * Display the help string from a module's
 	 * details.php file in a modal window
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
+	 * @access	public
+	 * @param	string	$slug	The module to fetch help for
+	 * @return	void
 	 */
 	
 	public function help($slug)
