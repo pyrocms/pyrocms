@@ -62,7 +62,7 @@
 			</li>
 			<?php endif; ?>
 			<li class="<?php echo alternator('even', ''); ?>">
-				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $page->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 			</li>
 		</ul>
 	</div>

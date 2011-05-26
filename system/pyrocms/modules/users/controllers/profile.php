@@ -188,7 +188,7 @@ class Profile extends Public_Controller
 			show_404();
 		}
 
-		foreach ($user as $field => &$data)
+		foreach ($user as &$data)
 		{
 			$data = escape_tags($data);
 		}
@@ -261,7 +261,7 @@ class Profile extends Public_Controller
 			}
 		}
 
-		foreach ($profile as $field => &$data)
+		foreach ($profile as &$data)
 		{
 			$data = escape_tags($data);
 		}

@@ -10,7 +10,7 @@
 		<?php endif; ?>
 	</div>
 	<div class="post_body">
-		<?php echo stripslashes($post->body); ?>
+		<?php echo $post->body; ?>
 	</div>
 </div>
 
