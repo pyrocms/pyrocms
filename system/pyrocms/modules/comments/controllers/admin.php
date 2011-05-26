@@ -1,13 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  *
  * @author 		Phil Sturgeon - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Comments
  * @category 	Module
- **/
-class Admin extends Admin_Controller
-{
+ */
+class Admin extends Admin_Controller {
+
 	/**
 	 * Array that contains the validation rules
 	 * @access private
@@ -16,23 +17,23 @@ class Admin extends Admin_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'name',
-			'label'	=> 'lang:comments.name_label',
-			'rules'	=> 'trim'
+			'label' => 'lang:comments.name_label',
+			'rules' => 'trim'
 		),
 		array(
-			'field'	=> 'email',
+			'field' => 'email',
 			'label' => 'lang:comments.email_label',
-			'rules'	=> 'trim|valid_email'
+			'rules' => 'trim|valid_email'
 		),
 		array(
-			'field'	=> 'website',
+			'field' => 'website',
 			'label' => 'lang:comments.website_label',
-			'rules'	=> 'trim'
+			'rules' => 'trim'
 		),
 		array(
-			'field'	=> 'comment',
+			'field' => 'comment',
 			'label' => 'lang:comments.send_label',
-			'rules'	=> 'trim|required'
+			'rules' => 'trim|required'
 		),
 	);
 
@@ -51,7 +52,7 @@ class Admin extends Admin_Controller
 		$this->load->model('comments_m');
 		$this->lang->load('comments');
 
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
@@ -72,7 +73,7 @@ class Admin extends Admin_Controller
 		$base_where['is_active'] = $this->input->post('f_active') ? (int) $this->input->post('f_active') : $base_where['is_active'];
 
 		//capture module slug
-		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where ;
+		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where;
 
 		// Create pagination links
 		$total_rows = $this->comments_m->count_by($base_where);
@@ -101,7 +102,6 @@ class Admin extends Admin_Controller
 			->build('admin/index');
 	}
 
-
 	/**
 	 * Action method, called whenever the user submits the form
 	 * @access public
@@ -110,7 +110,7 @@ class Admin extends Admin_Controller
 	public function action()
 	{
 		$action = strtolower($this->input->post('btnAction'));
-		
+
 		if ($action)
 		{
 			// Get the id('s)
@@ -141,19 +141,19 @@ class Admin extends Admin_Controller
 		// Validate the results
 		if ($this->form_validation->run())
 		{
-			if($comment->user_id > 0)
+			if ($comment->user_id > 0)
 			{
-				$commenter['user_id'] 	= $this->input->post('user_id');
+				$commenter['user_id'] = $this->input->post('user_id');
 			}
 			else
 			{
-				$commenter['name'] 		= $this->input->post('name');
-				$commenter['email'] 	= $this->input->post('email');
+				$commenter['name']	= $this->input->post('name');
+				$commenter['email']	= $this->input->post('email');
 			}
 
 			$comment = array_merge($commenter, array(
-				'comment'    	=> $this->input->post('comment'),
-				'website'    	=> $this->input->post('website')
+				'comment' => $this->input->post('comment'),
+				'website' => $this->input->post('website')
 			));
 
 			// Update the comment
@@ -165,9 +165,9 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== FALSE)
 			{
 				$comment->{$rule['field']} = $this->input->post($rule['field']);
 			}
@@ -175,7 +175,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('comments.edit_title'), $comment->id))
-			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
 			->set('comment', $comment)
 			->build('admin/form', $this->data);
 	}
@@ -193,7 +193,7 @@ class Admin extends Admin_Controller
 			// Get the current comment so we can grab the id too
 			if ($comment = $this->comments_m->get($id))
 			{
-				$this->comments_m->delete( (int) $id);
+				$this->comments_m->delete((int) $id);
 
 				// Wipe cache for this model, the content has changed
 				$this->pyrocache->delete('comment_m');
@@ -202,21 +202,17 @@ class Admin extends Admin_Controller
 		}
 
 		// Some comments have been deleted
-		if( ! empty($comments))
+		if ( ! empty($comments))
 		{
-			count( $comments ) == 1
-
-				// Only deleting one comment
-				? $this->session->set_flashdata( 'success', sprintf(lang('comments.delete_single_success'), $comments[0]))
-
-				// Deleting multiple comments
-				: $this->session->set_flashdata( 'success', sprintf( lang('comments.delete_multi_success'), implode( ', #', $comments ) ) );
+			(count($comments) == 1)
+				? $this->session->set_flashdata('success', sprintf(lang('comments.delete_single_success'), $comments[0]))				/* Only deleting one comment */
+				: $this->session->set_flashdata('success', sprintf(lang('comments.delete_multi_success'), implode(', #', $comments )));	/* Deleting multiple comments */
 		}
 
 		// For some reason, none of them were deleted
 		else
 		{
-			$this->session->set_flashdata( 'error', lang('comments.delete_error') );
+			$this->session->set_flashdata('error', lang('comments.delete_error'));
 		}
 
 		redirect('admin/comments');
@@ -277,7 +273,7 @@ class Admin extends Admin_Controller
 			}
 		}
 
-		$this->session->set_flashdata( array($status=> lang('comments.'.$action.'_'.$status.$multiple)));
+		$this->session->set_flashdata(array($status => lang('comments.' . $action . '_' . $status . $multiple)));
 	}
 
 	public function preview($id = 0)
@@ -286,4 +282,5 @@ class Admin extends Admin_Controller
 		$this->template->set_layout(FALSE);
 		$this->template->build('admin/preview', $this->data);
 	}
+
 }

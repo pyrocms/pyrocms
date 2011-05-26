@@ -30,7 +30,23 @@ function display_comments($ref_id = '', $reference = NULL)
 	$ci->lang->load('comments/comments');
 	$ci->load->model('comments/comments_m');
 
-	$ci->load->view('comments/comments', array('module' => $reference, 'module_id' => $ref_id));
+	$comments	= $ci->comments_m->get_by_module_item($reference, $ref_id);
+	$comment	= $ci->session->flashdata('comment');
+	$form		= $ci->load->view('comments/form', array(
+		'module'	=> $reference,
+		'id'		=> $ref_id,
+		'comment'	=> $comment
+	), TRUE);
+
+	foreach ($comments as &$comment)
+	{
+		foreach ($comment as &$data)
+		{
+			$data = escape_tags($data);
+		}
+	}
+
+	$ci->load->view('comments/comments', compact('comments', 'form'));
 }
 
 /**
