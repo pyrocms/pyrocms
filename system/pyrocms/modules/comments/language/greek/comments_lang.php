@@ -54,3 +54,8 @@ $lang['comments.delete_single_success'] 	= 'Το σχόλιο #%s έχει δι�
 $lang['comments.delete_multi_success'] 		= 'Τα σχόλια #%s έχουν διαγραφεί και δεν εμφανίζονται πλέον στον ιστότοπο.';
 
 $lang['comments.no_comments'] 				= 'Δεν υπάρχουν σχόλια';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate

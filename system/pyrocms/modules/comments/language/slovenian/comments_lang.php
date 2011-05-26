@@ -54,3 +54,8 @@ $lang['comments.delete_single_success'] 	= 'Komentar #%s je bil izbrisan in se n
 $lang['comments.delete_multi_success'] 		= 'Komentari #%s so bili izbrisani in se ne bodo več prikazovali na strani.';
 
 $lang['comments.no_comments'] 				= 'Ni komentarjev';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate

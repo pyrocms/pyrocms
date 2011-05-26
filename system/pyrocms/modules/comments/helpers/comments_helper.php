@@ -11,9 +11,9 @@
 /**
  * Function to display a comment
  *
- * @param int $ref_id The ID of the comment (I guess?)
- * @param bool $reference Whether to use a reference or not (?)
- * @return void
+ * @param	int		$ref_id		The ID of the comment (I guess?)
+ * @param	bool	$reference	Whether to use a reference or not (?)
+ * @return	void
  */
 function display_comments($ref_id = '', $reference = NULL)
 {
@@ -47,6 +47,45 @@ function display_comments($ref_id = '', $reference = NULL)
 	}
 
 	$ci->load->view('comments/comments', compact('comments', 'form'));
+}
+
+/**
+ * Function to counter comments
+ *
+ * @param	int		$ref_id			The ID of the comment (I guess?)
+ * @param	bool	$reference		Whether to use a reference or not (?)
+ * @param	bool	$return_number	True to return a number or False to return a string translated
+ * @return	void
+ */
+function counter_comments($ref_id = '', $reference = NULL, $return_number = FALSE)
+{
+	$ci =& get_instance();
+
+	// Set ref to module if none provided
+	$reference OR $reference = $ci->router->fetch_module();
+
+	$ci->lang->load('comments/comments');
+	$ci->load->model('comments/comments_m');
+
+	$total = (int) $ci->comments_m->count_by(array(
+		'module'	=> $reference,
+		'module_id'	=> ($ref_id ? $ref_id : NULL),
+		'is_active'	=> 1
+	));
+
+	if ($return_number)
+	{
+		return $total;
+	}
+
+	switch ($total)
+	{
+		case 0	: $line = 'none'; break;
+		case 1	: $line = 'singular'; break;
+		default	: $line = 'plural';
+	}
+
+	return sprintf(lang('comments.counter_' . $line . '_label'), $total);
 }
 
 /**
