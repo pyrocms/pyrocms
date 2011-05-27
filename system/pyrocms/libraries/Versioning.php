@@ -87,10 +87,6 @@ class Versioning
 			// Delete characters
 			$del_begin 		= '<del>- ';
 			$del_end		= '</del>' . PHP_EOL;
-
-			// Realce
-			$realce_begin	= '{pyro:realce}';
-			$realce_end		= '{/realce}';
 		}
 		// HTML mode
 		elseif ( $mode === 'html' )
@@ -100,8 +96,8 @@ class Versioning
 			$ins_end 	= '</ins>' . PHP_EOL;
 
 			// Delete characters
-			$del_begin 		= '<del>';
-			$del_end		= '</del>' . PHP_EOL;
+			$del_begin 	= '<del>';
+			$del_end	= '</del>' . PHP_EOL;
 		}
 		// Normal mode
 		else
@@ -111,8 +107,8 @@ class Versioning
 			$ins_end 	= PHP_EOL;
 
 			// Delete characters
-			$del_begin 		= '- ';
-			$del_end		= PHP_EOL;
+			$del_begin 	= '- ';
+			$del_end	= PHP_EOL;
 		}
 
 		// Turn the strings into an array so it's a bit easier to parse them
@@ -125,23 +121,29 @@ class Versioning
 			{
 				if ($this->_show_word_diff)
 				{
+					// Highlight
+					$highlight_begin	= '[pyro:highlight]';
+					$highlight_end		= '[/pyro:highlight]';
+
 					$linediff	= $this->diff(str_split(implode(PHP_EOL, $line['del'])), str_split(implode(PHP_EOL, $line['ins'])));
 					$ins_result	= '';
+					$del_result	= '';
 
 					foreach ($linediff as $word)
 					{
 						if (is_array($word))
 						{
-							$ins_result .= !empty($word['del']) ? $realce_begin . htmlentities(implode('', $word['del'])) . $realce_end : '';
-							$ins_result .= !empty($word['ins']) ? $realce_begin . htmlentities(implode('', $word['ins'])) . $realce_end : '';
+							$del_result .= !empty($word['del']) ? $highlight_begin . htmlentities(implode('', $word['del'])) . $highlight_end : '';
+							$ins_result .= !empty($word['ins']) ? $highlight_begin . htmlentities(implode('', $word['ins'])) . $highlight_end : '';
 						}
 						else
 						{
+							$del_result .= $word;
 							$ins_result .= $word;
 						}
 					}
 
-					$result .= !empty($line['del']) ? $del_begin . htmlentities(implode(PHP_EOL, $line['del'])) . $del_end : '';
+					$result .= !empty($line['del']) ? $del_begin . htmlentities($del_result) . $del_end : '';
 					$result .= !empty($line['ins']) ? $ins_begin . htmlentities($ins_result) . $ins_end : '';
 				}
 				else
@@ -158,7 +160,18 @@ class Versioning
 
 		if ($this->_show_word_diff)
 		{
-			$result = str_replace(array('{pyro:realce}', '{/realce}'), array('<span class="realce">', '</span>'), $result);
+			switch ($mode)
+			{
+				case 'mixed':
+				case 'html':
+					$highlight_replacement = array('<span class="highlight">', '</span>');
+					break;
+				default:
+					$highlight_replacement = array('', '');
+					break;
+			}
+
+			$result = str_replace(array($highlight_begin, $highlight_end), $highlight_replacement, $result);
 		}
 
 		return $result;

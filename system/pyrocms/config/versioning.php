@@ -3,9 +3,9 @@
 | -------------------------------------------------------------------
 | Show word diff
 | -------------------------------------------------------------------
-| Set if you like to see a realce of each word diff
 |
-|    E.g: -
+| Set as true or false if you like to see a something like a highlight
+| for each different word.
 |
 */
 

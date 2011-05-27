@@ -49,14 +49,12 @@
 	text-decoration: 	none;
 	width: 100%;
 }
-.revision_pre span.realce
-{
-	background-color: #77d76d;
-}
 .revision_pre ins *, .revision_pre del *
 {
 	display:			inline;
 }
+.revision_pre ins span.highlight { background-color: #77d76d; }
+.revision_pre del span.highlight { background-color: #d97070; }
 .revision_pre ins
 {
 	background:			#8EE884;
