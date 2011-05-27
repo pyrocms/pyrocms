@@ -38,8 +38,11 @@
 	border:				1px solid #ccc;
 	overflow: 			hidden;
 	padding:			10px;
-/*	white-space: 		normal;*/
-	max-width:			900px;
+	max-width:			95%;
+	overflow-x: auto;
+	font-size: 11px;
+	background: #eee;
+	margin: 0 auto;
 }
 .revision_pre del, .revision_pre ins
 {
