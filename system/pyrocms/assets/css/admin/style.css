@@ -38,15 +38,16 @@
 	border:				1px solid #ccc;
 	overflow: 			hidden;
 	padding:			10px;
-	white-space: 		normal;
+/*	white-space: 		normal;*/
 	max-width:			900px;
 }
 .revision_pre del, .revision_pre ins
 {
-	display:			block;
+	display:			inline-block;
 	min-height:			10px;
-	padding:			5px;
+	padding:			0;
 	text-decoration: 	none;
+	width: 100%;
 }
 .revision_pre ins *, .revision_pre del *
 {

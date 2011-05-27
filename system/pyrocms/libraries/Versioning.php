@@ -108,14 +108,14 @@ class Versioning
 
 		foreach($diff as $line)
 		{
-			if(is_array($line))
+			if (is_array($line))
 			{
 				$result .= !empty($line['del']) ? $del_begin . implode(PHP_EOL, $line['del']) . $del_end : '';
 				$result .= !empty($line['ins']) ? $ins_begin . implode(PHP_EOL, $line['ins']) . $ins_end : '';
 			}
 			else
 			{
-				$result .= $line . PHP_EOL;
+				$result .= htmlentities($line) . PHP_EOL;
 			}
 		}
 
