@@ -27,16 +27,25 @@ class Versioning
 	 * @var string
 	 */
 	private $table_name;
-	
+	private $_show_word_diff = FALSE;
+
 	/**
 	 * Constructor method
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct($config = array())
 	{
 		$this->ci =& get_instance();
+
+		foreach ($config as $key => $val)
+		{
+			if (isset($this->{'_' . $key}))
+			{
+				$this->{'_' . $key} = $val;
+			}
+		}
 	}
 	
 	/**
@@ -78,6 +87,10 @@ class Versioning
 			// Delete characters
 			$del_begin 		= '<del>- ';
 			$del_end		= '</del>' . PHP_EOL;
+
+			// Realce
+			$realce_begin	= '{pyro:realce}';
+			$realce_end		= '{/realce}';
 		}
 		// HTML mode
 		elseif ( $mode === 'html' )
@@ -110,13 +123,42 @@ class Versioning
 		{
 			if (is_array($line))
 			{
-				$result .= !empty($line['del']) ? $del_begin . implode(PHP_EOL, $line['del']) . $del_end : '';
-				$result .= !empty($line['ins']) ? $ins_begin . implode(PHP_EOL, $line['ins']) . $ins_end : '';
+				if ($this->_show_word_diff)
+				{
+					$linediff	= $this->diff(str_split(implode(PHP_EOL, $line['del'])), str_split(implode(PHP_EOL, $line['ins'])));
+					$ins_result	= '';
+
+					foreach ($linediff as $word)
+					{
+						if (is_array($word))
+						{
+							$ins_result .= !empty($word['del']) ? $realce_begin . htmlentities(implode('', $word['del'])) . $realce_end : '';
+							$ins_result .= !empty($word['ins']) ? $realce_begin . htmlentities(implode('', $word['ins'])) . $realce_end : '';
+						}
+						else
+						{
+							$ins_result .= $word;
+						}
+					}
+
+					$result .= !empty($line['del']) ? $del_begin . htmlentities(implode(PHP_EOL, $line['del'])) . $del_end : '';
+					$result .= !empty($line['ins']) ? $ins_begin . htmlentities($ins_result) . $ins_end : '';
+				}
+				else
+				{
+					$result .= !empty($line['del']) ? $del_begin . htmlentities(implode(PHP_EOL, $line['del'])) . $del_end : '';
+					$result .= !empty($line['ins']) ? $ins_begin . htmlentities(implode(PHP_EOL, $line['ins'])) . $ins_end : '';
+				}
 			}
 			else
 			{
 				$result .= htmlentities($line) . PHP_EOL;
 			}
+		}
+
+		if ($this->_show_word_diff)
+		{
+			$result = str_replace(array('{pyro:realce}', '{/realce}'), array('<span class="realce">', '</span>'), $result);
 		}
 
 		return $result;

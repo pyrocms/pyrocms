@@ -49,6 +49,10 @@
 	text-decoration: 	none;
 	width: 100%;
 }
+.revision_pre span.realce
+{
+	background-color: #77d76d;
+}
 .revision_pre ins *, .revision_pre del *
 {
 	display:			inline;
