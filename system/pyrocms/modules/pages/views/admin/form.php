@@ -158,13 +158,13 @@
 				<select id="use_revision_id" name="use_revision_id">
 					<!-- Current revision to be used -->
 					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' H:i'); ?></option>
 					</optgroup>
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
 						<?php if ($revision->id !== $page->revision_id): ?>
-						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' H:i'); ?></option>
 						<?php endif; ?>
 						<?php endforeach; ?>
 					</optgroup>
@@ -178,13 +178,13 @@
 				<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
 					<!-- Current revision to be used -->
 					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' H:i'); ?></option>
 					</optgroup>
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
 						<?php if ($revision->id !== $page->revision_id): ?>
-						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' H:i'); ?></option>
 						<?php endif; ?>
 						<?php endforeach; ?>
 					</optgroup>
