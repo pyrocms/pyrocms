@@ -163,7 +163,9 @@
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
+						<?php if ($revision->id !== $page->revision_id): ?>
 						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<?php endif; ?>
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
@@ -181,7 +183,9 @@
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
+						<?php if ($revision->id !== $page->revision_id): ?>
 						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<?php endif; ?>
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
