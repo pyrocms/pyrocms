@@ -137,7 +137,7 @@ class Versioning
 							{
 								if ( ! empty($word[$_dp]))
 								{
-									$word[$_dp] = explode(PHP_EOL, htmlentities(implode('', $word[$_dp])));
+									$word[$_dp] = explode(PHP_EOL, implode('', $word[$_dp]));
 
 									${$_dp . '_result'} .= $highlight_begin . implode($highlight_end . PHP_EOL . $highlight_begin, $word[$_dp]) . $highlight_end;
 								}
