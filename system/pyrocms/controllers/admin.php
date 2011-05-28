@@ -141,14 +141,14 @@ class Admin extends Admin_Controller
 		$this->simplepie->set_feed_url($this->settings->dashboard_rss);
 		$this->simplepie->init();
 		$this->simplepie->handle_content_type();
-		
-		$this->template->append_metadata(js('jquery/jquery.flot.js'));
 
 		// Store the feed items
 		$data['rss_items'] = $this->simplepie->get_items(0, $this->settings->dashboard_rss_count);
 
 		
 		$this->template
+			->append_metadata(js('jquery/jquery.excanvas.min.js'))
+			->append_metadata(js('jquery/jquery.flot.js'))
 			->title(lang('cp_admin_home_title'))
 			->build('admin/dashboard', $data);
 	}
