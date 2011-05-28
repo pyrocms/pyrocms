@@ -55,3 +55,8 @@ $lang['comments.delete_single_success'] 	= 'התגובה #%s נמחקה ולא �
 $lang['comments.delete_multi_success'] 		= 'התגובות #%s נמחקו ולא תוצגנה באתר.';
 
 $lang['comments.no_comments'] 				= 'אין תגובות';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate

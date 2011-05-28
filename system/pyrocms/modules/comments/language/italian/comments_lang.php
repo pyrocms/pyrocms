@@ -57,3 +57,8 @@ $lang['comments.delete_single_success'] 	= 'Il commento #%s è stato cancellato 
 $lang['comments.delete_multi_success'] 		= 'I commenti #%s sono stati cancellati e non saranno più visibili sul sito.';
 
 $lang['comments.no_comments'] 				= 'Non ci sono commenti';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate

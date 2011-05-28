@@ -55,3 +55,8 @@ $lang['comments.delete_single_success'] 	= 'Deze reactie #%s is verwijderd en za
 $lang['comments.delete_multi_success'] 		= 'De geselecteerde reacties #%s zijn verwijderd en zullen niet meer getoond worden op de live-site';
 
 $lang['comments.no_comments'] 				= 'Er zijn geen reacties';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate

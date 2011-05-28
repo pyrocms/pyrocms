@@ -53,7 +53,7 @@ class Admin extends Admin_Controller
 		
 		if (is_dir('./installer'))
 		{
-			$data['notice'] = lang('cp_delete_installer_message');
+			$data['messages']['notice'] = lang('cp_delete_installer_message');
 		}
 
 		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)

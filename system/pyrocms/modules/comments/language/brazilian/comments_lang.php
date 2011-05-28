@@ -56,5 +56,9 @@ $lang['comments.delete_multi_success'] 		= 'Os comentários #%s foram removidos 
 
 $lang['comments.no_comments'] 				= 'Não existem comentários';
 
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'Nenhum comentário';
+$lang['comments.counter_singular_label']	= '%d comentário';
+$lang['comments.counter_plural_label']		= '%d comentários';
+
 /* End of file comments_lang.php */
-/* Location: ./system/pyrocms/modules/comments/language/brazilian/comments_lang.php */

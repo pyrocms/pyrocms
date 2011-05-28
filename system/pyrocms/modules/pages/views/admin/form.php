@@ -19,147 +19,140 @@
 		<li><a href="#revision-options"><span><?php echo lang('pages.revisions_label');?></span></a></li>
 	</ul>
 
+	<?php alternator(); ?>
+
+	<!-- Content tab -->
 	<div id="page-content">
-
 		<ul>
-
-			<li>
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="title"><?php echo lang('pages.title_label');?></label>
 				<?php echo form_input('title', $page->title, 'maxlength="60"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
-
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="slug"><?php echo lang('pages.slug_label');?></label>
-
 				<?php if ( ! empty($page->parent_id)): ?>
 					<?php echo site_url($parent_page->uri); ?>/
 				<?php else: ?>
 					<?php echo site_url() . (config_item('index_page') ? '/' : ''); ?>
 				<?php endif; ?>
 
-				<?php if ($this->uri->segment(3,'') == 'edit'): ?>
+				<?php if ($this->method == 'edit'): ?>
 					<?php echo form_hidden('old_slug', $page->slug); ?>
 				<?php endif; ?>
 
-				<?php if ($page->slug == 'home' || $page->slug == '404'): ?>
+				<?php if (in_array($page->slug, array('home', '404'))): ?>
 					<?php echo form_hidden('slug', $page->slug); ?>
 					<?php echo form_input('', $page->slug, 'size="20" class="width-10" disabled="disabled"'); ?>
 				<?php else: ?>
 					<?php echo form_input('slug', $page->slug, 'size="20" class="width-10"'); ?>
-					<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+					<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 				<?php endif;?>
 
 				<?php echo config_item('url_suffix'); ?>
 			</li>
-
-			<li>
-				<label for="category_id"><?php echo lang('pages.status_label');?></label>
-				<?php echo form_dropdown('status', array('draft'=>lang('pages.draft_label'), 'live'=>lang('pages.live_label')), $page->status) ?>
+			<li class="<?php echo alternator('even', ''); ?>">
+				<label for="category_id"><?php echo lang('pages.status_label'); ?></label>
+				<?php echo form_dropdown('status', array('draft'=>lang('pages.draft_label'), 'live'=>lang('pages.live_label')), $page->status); ?>
 			</li>
-
 			<?php if ($this->method == 'create'): ?>
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="navigation_group_id"><?php echo lang('pages.navigation_label');?></label>
-				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id) ?>
+				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id); ?>
 			</li>
 			<?php endif; ?>
-
-			<li>
-				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => stripslashes($page->body), 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+			<li class="<?php echo alternator('even', ''); ?>">
+				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $page->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
 			</li>
 		</ul>
-
 	</div>
+
+	<?php alternator(); ?>
+
 
 	<!-- Meta data tab -->
 	<div id="page-meta">
-
 		<ul>
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="meta_title"><?php echo lang('pages.meta_title_label');?></label>
 				<input type="text" id="meta_title" name="meta_title" maxlength="255" value="<?php echo $page->meta_title; ?>" />
 			</li>
-			<li>
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="meta_keywords"><?php echo lang('pages.meta_keywords_label');?></label>
 				<input type="text" id="meta_keywords" name="meta_keywords" maxlength="255" value="<?php echo $page->meta_keywords; ?>" />
 			</li>
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="meta_description"><?php echo lang('pages.meta_desc_label');?></label>
 				<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
 			</li>
 		</ul>
-
 	</div>
+
+	<?php alternator(); ?>
 
 	<!-- Design tab -->
 	<div id="page-design">
-
 		<ul>
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="layout_id"><?php echo lang('pages.layout_id_label');?></label>
 				<?php echo form_dropdown('layout_id', $page_layouts, $page->layout_id); ?>
 			</li>
-
-			<li>
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="css"><?php echo lang('pages.css_label');?></label>
 				<div style="margin-left: 160px;">
 					<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
 				</div>
 			</li>
 		</ul>
-
 		<br class="clear-both" />
-
 	</div>
+
+	<?php alternator(); ?>
 
 	<!-- Script tab -->
 	<div id="page-script">
-
 		<ul>
-			<li>
-				<label for="js"><?php echo lang('pages.js_label');?></label>
+			<li class="<?php echo alternator('', 'even'); ?>">
+				<label for="js"><?php echo lang('pages.js_label'); ?></label>
 				<div style="margin-left: 160px;">
 					<?php echo form_textarea('js', $page->js, 'id="js_editor"'); ?>
 				</div>
 			</li>
 		</ul>
-
 		<br class="clear-both" />
-
 	</div>
 
-	<!-- Meta data tab -->
+	<?php alternator(); ?>
+
+	<!-- Options tab -->
 	<div id="page-options">
-
 		<ul>
-
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="restricted_to[]"><?php echo lang('pages.access_label');?></label>
-				<?php echo form_multiselect('restricted_to[]', $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
+				<?php echo form_multiselect('restricted_to[]', array(0 => lang('select.any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
 			</li>
-			<li>
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>
 				<?php echo form_checkbox('comments_enabled', 1, $page->comments_enabled == 1); ?>
 			</li>
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="rss_enabled"><?php echo lang('pages.rss_enabled_label');?></label>
 				<?php echo form_checkbox('rss_enabled', 1, $page->rss_enabled == 1); ?>
 			</li>
-
-			<li>
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="is_home"><?php echo lang('pages.is_home_label');?></label>
 				<?php echo form_checkbox('is_home', 1, $page->is_home == 1); ?>
 			</li>
 		</ul>
-
 	</div>
 
+	<?php alternator(); ?>
+	
 	<!-- Revisions -->
 	<div id="revision-options">
 		<ul>
 			<!-- Select a revision -->
-			<li>
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="use_revision_id"><?php echo lang('pages.preview_revision_title'); ?></label>
 				<select id="use_revision_id" name="use_revision_id">
 					<!-- Current revision to be used -->
@@ -176,7 +169,7 @@
 				<input type="button" name="btn_preview_revision" id="btn_preview_revision" value="<?php echo lang('pages.preview_label'); ?>" />
 			</li>
 			<!-- Compare two revisions -->
-			<li class="even">
+			<li class="<?php echo alternator('even', ''); ?>">
 				<label for="compare_revision_1"><?php echo lang('pages.compare_revisions_title'); ?></label>
 				<?php $i = 1; while ($i <= 2): ?>
 				<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
@@ -205,8 +198,7 @@
 
 <?php echo form_close(); ?>
 
-
 <script type="text/javascript">
-	css_editor('css_editor', "39em");
-	js_editor('js_editor', "39em");
+css_editor('css_editor', '100%');
+js_editor('js_editor', '100%');
 </script>

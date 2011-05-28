@@ -8,6 +8,7 @@
 <?php echo js('jquery/jquery.uniform.min.js'); ?>
 <?php echo js('admin/functions.js'); ?>
 <?php if (isset($analytic_visits) OR isset($analytic_views)): ?>
+	<?php echo js('jquery/jquery.excanvas.min.js'); ?>
 	<?php echo js('jquery/jquery.flot.js'); ?>
 <?php endif; ?>
 

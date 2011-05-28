@@ -293,6 +293,8 @@ class Themes_m extends MY_Model
 	 */
 	public function delete_options($theme)
 	{
+		$this->pyrocache->delete_all('themes_m');
+
 		return $this->db->where('theme', $theme)
 					->delete('theme_options');
 	}
