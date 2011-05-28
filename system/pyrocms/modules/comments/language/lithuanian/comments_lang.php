@@ -57,6 +57,8 @@ $lang['comments.delete_multi_success'] 		= 'Šie komentarai #%s buvo ištrinti.'
 $lang['comments.no_comments'] 				= 'Komentarų nėra';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Nėra komentarų';
+$lang['comments.counter_singular_label']	= '%d komentaras';
+$lang['comments.counter_plural_label']		= '%d komentarų';
+
+/* End of file comments_lang.php */
