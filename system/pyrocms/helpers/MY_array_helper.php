@@ -98,6 +98,8 @@ function html_to_assoc($html_array)
  */
 function assoc_array_prop(array &$arr = NULL, $prop = 'id')
 {
+	$newarr = array();
+
 	foreach ($arr as $old_index => $element)
 	{
 		if (is_array($element))
@@ -114,8 +116,7 @@ function assoc_array_prop(array &$arr = NULL, $prop = 'id')
 				$newarr[$element->{$prop}] = $element;
 			}
 		}
-		unset($arr[$old_index]);
 	}
 
-	return $arr;
+	return $arr = $newarr;
 }
