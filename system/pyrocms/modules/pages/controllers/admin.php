@@ -515,7 +515,7 @@ class Admin extends Admin_Controller {
 		// Create the diff using mixed mode
 		$rev_1 = $this->versioning->get_by_revision($id_1);
 		$rev_2 = $this->versioning->get_by_revision($id_2);
-		$diff  = $this->versioning->compare_revisions($rev_1->body, $rev_2->body, 'mixed');
+		$diff  = $this->versioning->compare_revisions($rev_2->body, $rev_1->body, 'mixed');
 
 		// Output the results
 		$data['difference'] = $diff;
