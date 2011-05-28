@@ -154,7 +154,7 @@ class Versioning
 					{
 						if ( ! empty(${$_dp . '_result'}))
 						{
-							${$_dp . '_result'} = explode(PHP_EOL, htmlentities(${$_dp . '_result'}));
+							${$_dp . '_result'} = explode(PHP_EOL, htmlentities(${$_dp . '_result'}, ENT_NOQUOTES));
 
 							$result .= ${$_dp . '_begin'} . implode(${$_dp . '_end'} . ${$_dp . '_begin'}, ${$_dp . '_result'}) . ${$_dp . '_end'};
 						}
@@ -168,7 +168,7 @@ class Versioning
 						{
 							foreach ($line[$_dp] as $_line)
 							{
-								$result .= ${$_dp . '_begin'} . htmlentities($_line) . ${$_dp . '_end'};
+								$result .= ${$_dp . '_begin'} . htmlentities($_line, ENT_NOQUOTES) . ${$_dp . '_end'};
 							}
 						}
 					}
