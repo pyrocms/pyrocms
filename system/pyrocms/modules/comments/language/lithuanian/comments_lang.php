@@ -60,3 +60,5 @@ $lang['comments.no_comments'] 				= 'Komentarų nėra';
 $lang['comments.counter_none_label']		= 'Nėra komentarų';
 $lang['comments.counter_singular_label']	= '%d komentaras';
 $lang['comments.counter_plural_label']		= '%d komentarų';
+
+/* End of file comments_lang.php */
