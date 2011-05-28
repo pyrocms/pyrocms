@@ -27,16 +27,25 @@ class Versioning
 	 * @var string
 	 */
 	private $table_name;
-	
+	private $_show_word_diff = FALSE;
+
 	/**
 	 * Constructor method
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct($config = array())
 	{
 		$this->ci =& get_instance();
+
+		foreach ($config as $key => $val)
+		{
+			if (isset($this->{'_' . $key}))
+			{
+				$this->{'_' . $key} = $val;
+			}
+		}
 	}
 	
 	/**
@@ -87,8 +96,8 @@ class Versioning
 			$ins_end 	= '</ins>' . PHP_EOL;
 
 			// Delete characters
-			$del_begin 		= '<del>';
-			$del_end		= '</del>' . PHP_EOL;
+			$del_begin 	= '<del>';
+			$del_end	= '</del>' . PHP_EOL;
 		}
 		// Normal mode
 		else
@@ -98,8 +107,8 @@ class Versioning
 			$ins_end 	= PHP_EOL;
 
 			// Delete characters
-			$del_begin 		= '- ';
-			$del_end		= PHP_EOL;
+			$del_begin 	= '- ';
+			$del_end	= PHP_EOL;
 		}
 
 		// Turn the strings into an array so it's a bit easier to parse them
@@ -108,15 +117,90 @@ class Versioning
 
 		foreach($diff as $line)
 		{
-			if(is_array($line))
+			if (is_array($line))
 			{
-				$result .= !empty($line['del']) ? $del_begin . implode(PHP_EOL, $line['del']) . $del_end : '';
-				$result .= !empty($line['ins']) ? $ins_begin . implode(PHP_EOL, $line['ins']) . $ins_end : '';
+				if ($this->_show_word_diff)
+				{
+					// Highlight
+					$highlight_begin	= '[pyro:highlight]';
+					$highlight_end		= '[/pyro:highlight]';
+
+					$words_diff	= $this->diff(str_split(implode(PHP_EOL, $line['del'])), str_split(implode(PHP_EOL, $line['ins'])));
+
+					$line['ins'] = '';
+					$line['del'] = '';
+
+					foreach ($words_diff as $word)
+					{
+						if (is_array($word))
+						{
+							foreach (array('del', 'ins') as $key)
+							{
+								if ( ! empty($word[$key]))
+								{
+									$word[$key] = explode(PHP_EOL, implode('', $word[$key]));
+
+									$line[$key] .= $highlight_begin . implode($highlight_end . PHP_EOL . $highlight_begin, $word[$key]) . $highlight_end;
+								}
+							}
+						}
+						// no word diff
+						else
+						{
+							$line['ins'] .= $word;
+							$line['del'] .= $word;
+						}
+					}
+
+					foreach (array('del', 'ins') as $key)
+					{
+						if ( ! empty($line[$key]))
+						{
+							$line[$key] = explode(PHP_EOL, $line[$key]);
+
+							foreach ($line[$key] as $_line)
+							{
+								$result .= ${$key . '_begin'} . htmlentities($_line, ENT_NOQUOTES) . ${$key . '_end'};
+							}
+						}
+					}
+				}
+				// no show word diff
+				else
+				{
+					foreach (array('del', 'ins') as $key)
+					{
+						if ( ! empty($line[$key]))
+						{
+							foreach ($line[$key] as $_line)
+							{
+								$result .= ${$key . '_begin'} . htmlentities($_line, ENT_NOQUOTES) . ${$key . '_end'};
+							}
+						}
+					}
+				}
 			}
+			// no diff
 			else
 			{
-				$result .= $line . PHP_EOL;
+				$result .= htmlentities($line, ENT_NOQUOTES) . PHP_EOL;
 			}
+		}
+
+		if ($this->_show_word_diff)
+		{
+			switch ($mode)
+			{
+				case 'mixed':
+				case 'html':
+					$highlight_replacement = array('<span class="highlight">', '</span>');
+					break;
+				default:
+					$highlight_replacement = array('', '');
+					break;
+			}
+
+			$result = str_replace(array($highlight_begin, $highlight_end), $highlight_replacement, $result);
 		}
 
 		return $result;
@@ -128,39 +212,46 @@ class Versioning
 	 * @author Paul Butler
 	 * @modified Dan Horrigan
 	 * @access private
-	 * @param string $old The old block of data
-	 * @param string $new The new block of data
+	 * @param array $old The old block of data
+	 * @param array $new The new block of data
 	 */
 	private function diff($old, $new)
 	{
 		$maxlen = 0;
+
 		// Go through each old line.
-		foreach($old as $old_line => $old_value)
+		foreach ($old as $old_line => $old_value)
 		{
 			// Get the new lines that match the old line
 			$new_lines = array_keys($new, $old_value);
 
 			// Go through each new line number
-			foreach($new_lines as $new_line)
+			foreach ($new_lines as $new_line)
 			{
-				$matrix[$old_line][$new_line] = isset($matrix[$old_line - 1][$new_line - 1]) ? $matrix[$old_line - 1][$new_line - 1] + 1 : 1;
-				if($matrix[$old_line][$new_line] > $maxlen)
+				$matrix[$old_line][$new_line] = isset($matrix[$old_line - 1][$new_line - 1])
+					? $matrix[$old_line - 1][$new_line - 1] + 1
+					: 1;
+
+				if ($matrix[$old_line][$new_line] > $maxlen)
 				{
 					$maxlen = $matrix[$old_line][$new_line];
+
 					$old_max = $old_line + 1 - $maxlen;
 					$new_max = $new_line + 1 - $maxlen;
 				}
 			}
 		}
-		if($maxlen == 0)
+
+		if ($maxlen == 0)
 		{
-			return array(array('del'=>$old, 'ins'=>$new));
+			return array(array('del' => $old, 'ins' => $new));
 		}
+
 		return array_merge(
-				$this->diff(array_slice($old, 0, $old_max), array_slice($new, 0, $new_max)),
-				array_slice($new, $new_max, $maxlen),
-				$this->diff(array_slice($old, $old_max + $maxlen), array_slice($new, $new_max + $maxlen))
-			);
+			$this->diff(array_slice($old, 0, $old_max), array_slice($new, 0, $new_max)),
+			array_slice($new, $new_max, $maxlen),
+			$this->diff(array_slice($old, $old_max + $maxlen), array_slice($new, $new_max + $maxlen))
+		);
 	}
 	
 	/**
