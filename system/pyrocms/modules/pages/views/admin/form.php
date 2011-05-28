@@ -169,7 +169,11 @@
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
-				<input type="button" name="btn_preview_revision" id="btn_preview_revision" value="<?php echo lang('pages.preview_label'); ?>" />
+				<div class="buttons buttons-small inline">
+					<button type="button" name="btn_preview_revision" id="btn_preview_revision">
+						<span><?php echo lang('pages.preview_label'); ?></span>
+					</button>
+				</div>
 			</li>
 			<!-- Compare two revisions -->
 			<li class="<?php echo alternator('even', ''); ?>">
@@ -190,7 +194,11 @@
 					</optgroup>
 				</select>
 				<?php ++$i; endwhile; ?>
-				<input type="button" name="btn_compare_revisions" id="btn_compare_revisions" value="<?php echo lang('pages.compare_label'); ?>" />
+				<div class="buttons buttons-small inline">
+					<button type="button" name="btn_compare_revisions" id="btn_compare_revisions">
+						<span><?php echo lang('pages.compare_label'); ?></span>
+					</button>
+				</div>
 			</li>
 		</ul>
 	</div>
