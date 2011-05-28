@@ -133,8 +133,15 @@ class Versioning
 					{
 						if (is_array($word))
 						{
-							$del_result .= !empty($word['del']) ? $highlight_begin . htmlentities(implode('', $word['del'])) . $highlight_end : '';
-							$ins_result .= !empty($word['ins']) ? $highlight_begin . htmlentities(implode('', $word['ins'])) . $highlight_end : '';
+							foreach (array('del', 'ins') as $_dp)
+							{
+								if ( ! empty($word[$_dp]))
+								{
+									$word[$_dp] = explode(PHP_EOL, htmlentities(implode('', $word[$_dp])));
+
+									${$_dp . '_result'} .= $highlight_begin . implode($highlight_end . PHP_EOL . $highlight_begin, $word[$_dp]) . $highlight_end;
+								}
+							}
 						}
 						else
 						{
@@ -143,13 +150,28 @@ class Versioning
 						}
 					}
 
-					$result .= !empty($line['del']) ? $del_begin . htmlentities($del_result) . $del_end : '';
-					$result .= !empty($line['ins']) ? $ins_begin . htmlentities($ins_result) . $ins_end : '';
+					foreach (array('del', 'ins') as $_dp)
+					{
+						if ( ! empty(${$_dp . '_result'}))
+						{
+							${$_dp . '_result'} = explode(PHP_EOL, htmlentities(${$_dp . '_result'}));
+
+							$result .= ${$_dp . '_begin'} . implode(${$_dp . '_end'} . ${$_dp . '_begin'}, ${$_dp . '_result'}) . ${$_dp . '_end'};
+						}
+					}
 				}
 				else
 				{
-					$result .= !empty($line['del']) ? $del_begin . htmlentities(implode(PHP_EOL, $line['del'])) . $del_end : '';
-					$result .= !empty($line['ins']) ? $ins_begin . htmlentities(implode(PHP_EOL, $line['ins'])) . $ins_end : '';
+					foreach (array('del', 'ins') as $_dp)
+					{
+						if ( ! empty($line[$_dp]))
+						{
+							foreach ($line[$_dp] as $_line)
+							{
+								$result .= ${$_dp . '_begin'} . htmlentities($_line) . ${$_dp . '_end'};
+							}
+						}
+					}
 				}
 			}
 			else
