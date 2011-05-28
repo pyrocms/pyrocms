@@ -16,7 +16,7 @@
 		<li><a href="#page-design"><span><?php echo lang('pages.design_label');?></span></a></li>
 		<li><a href="#page-script"><span><?php echo lang('pages.script_label');?></span></a></li>
 		<li><a href="#page-options"><span><?php echo lang('pages.options_label');?></span></a></li>
-		<li><a href="#revision-options"><span><?php echo lang('pages.revisions_label');?></span></a></li>
+		<?php if ($this->method !== 'create'): ?><li><a href="#revision-options"><span><?php echo lang('pages.revisions_label');?></span></a></li><?php endif; ?>
 	</ul>
 
 	<?php alternator(); ?>
@@ -146,6 +146,7 @@
 		</ul>
 	</div>
 
+	<?php if ($this->method !== 'create'): ?>
 	<?php alternator(); ?>
 	
 	<!-- Revisions -->
@@ -157,12 +158,12 @@
 				<select id="use_revision_id" name="use_revision_id">
 					<!-- Current revision to be used -->
 					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo @$page->revision_id; ?>"><?php echo format_date(@$page->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
 					</optgroup>
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
-						<option value="<?php echo @$revision->id; ?>"><?php echo format_date(@$revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
@@ -175,12 +176,12 @@
 				<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
 					<!-- Current revision to be used -->
 					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo @$page->revision_id; ?>"><?php echo format_date(@$page->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
 					</optgroup>
 					<!-- All available revisions -->
 					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
 						<?php foreach ($revisions as $revision): ?>
-						<option value="<?php echo @$revision->id; ?>"><?php echo format_date(@$revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
+						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' h:ia '); ?></option>
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
@@ -189,6 +190,7 @@
 			</li>
 		</ul>
 	</div>
+	<?php endif; ?>
 
 </div>
 

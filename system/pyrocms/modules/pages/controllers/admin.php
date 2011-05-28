@@ -519,8 +519,10 @@ class Admin extends Admin_Controller {
 
 		// Output the results
 		$data['difference'] = $diff;
-		$this->template->set_layout('modal', 'admin')
-				->build('admin/revisions/compare', $data);
+
+		$this->template
+			->set_layout('modal', 'admin')
+			->build('admin/revisions/compare', $data);
 	}
 
 	/**
