@@ -29,13 +29,13 @@ class Admin_Controller extends MY_Controller {
 	    $this->asset->set_theme(ADMIN_THEME);
 		
 		// grab the theme options if there are any
-		$theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array( array('theme' => ADMIN_THEME) ));
+		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array( array('theme' => ADMIN_THEME) ));
 	
 		// Template configuration
 		$this->template
 				->enable_parser(FALSE)
 				->set('user', $this->user)
-				->set('theme_options', $theme_options)
+				->set('theme_options', $this->theme_options)
 				->set_theme(ADMIN_THEME)
 				->set_layout('default', 'admin');
 

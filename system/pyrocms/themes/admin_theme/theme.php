@@ -46,13 +46,14 @@ class Theme_Admin_theme extends Theme {
 	public function initialize()
 	{
 		self::generate_menu();
-	
+
 		// only load these items on the dashboard
 		if ($this->module == '')
 		{
-			self::get_analytics();
-			self::get_rss_feed();
-			self::get_recent_comments();
+			// don't bother fetching the data if it's turned off in the theme
+			if ($this->theme_options->analytics_graph == 'yes')		self::get_analytics();
+			if ($this->theme_options->news_feed == 'yes')			self::get_rss_feed();
+			if ($this->theme_options->recent_comments == 'yes')		self::get_recent_comments();
 		}
 	}
 	
@@ -187,12 +188,9 @@ class Theme_Admin_theme extends Theme {
 	public function get_recent_comments()
 	{
 		$this->load->model('comments/comments_m');
-		$this->load->model('pages/pages_m');
 		$this->load->model('users/users_m');
 
 		$this->lang->load('comments/comments');
-
-		$data['recent_users'] = $this->users_m->get_recent(5);
 
 		$recent_comments = $this->comments_m->get_recent(5);
 		$data['recent_comments'] = process_comment_items($recent_comments);
