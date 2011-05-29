@@ -3,29 +3,29 @@
 
 /* ADDED PURELY TO AVOID BUG LISTED HERE:
  * http://codeigniter.com/forums/viewthread/112390/
- * 
- * Basically with $config['enable_query_strings'] enabled, we cannot stop 
- * this class from using the rubbish query string style links for pagination 
+ *
+ * Basically with $config['enable_query_strings'] enabled, we cannot stop
+ * this class from using the rubbish query string style links for pagination
  * even if $config['page_query_string'] = FALSE; is passed to pagination/
- * 
+ *
  * DELETE THIS EXTENTION AS SOON AS THIS BUG IS RESOLVED!!
  */
 
 
 class MY_Pagination extends CI_Pagination {
-	
+
 	/**
 	 * Generate the pagination links
 	 *
 	 * @access	public
 	 * @return	string
-	 */	
+	 */
 	function create_links()
 	{
 		// If our item count or per-page total is zero there is no need to continue.
 		if ($this->total_rows == 0 OR $this->per_page == 0)
 		{
-		   return '';
+			return '';
 		}
 
 		// Calculate the total number of pages
@@ -37,15 +37,15 @@ class MY_Pagination extends CI_Pagination {
 			return '';
 		}
 
-		// Determine the current page number.		
+		// Determine the current page number.
 		$CI =& get_instance();
-		
+
 		if (($CI->config->item('enable_query_strings') === TRUE AND $this->page_query_string !== FALSE) OR $this->page_query_string === TRUE)
 		{
 			if ($CI->input->get($this->query_string_segment) != 0)
 			{
 				$this->cur_page = $CI->input->get($this->query_string_segment);
-				
+
 				// Prep the current page - no funny business!
 				$this->cur_page = (int) $this->cur_page;
 			}
@@ -55,31 +55,31 @@ class MY_Pagination extends CI_Pagination {
 			if ($CI->uri->segment($this->uri_segment) != 0)
 			{
 				$this->cur_page = $CI->uri->segment($this->uri_segment);
-				
+
 				// Prep the current page - no funny business!
 				$this->cur_page = (int) $this->cur_page;
 			}
 		}
 
 		$this->num_links = (int)$this->num_links;
-		
+
 		if ($this->num_links < 1)
 		{
 			show_error('Your number of links must be a positive number.');
 		}
-				
+
 		if ( ! is_numeric($this->cur_page))
 		{
 			$this->cur_page = 0;
 		}
-		
+
 		// Is the page number beyond the result range?
 		// If so we show the last page
 		if ($this->cur_page > $this->total_rows)
 		{
 			$this->cur_page = ($num_pages - 1) * $this->per_page;
 		}
-		
+
 		$uri_page_number = $this->cur_page;
 		$this->cur_page = floor(($this->cur_page/$this->per_page) + 1);
 
@@ -99,53 +99,77 @@ class MY_Pagination extends CI_Pagination {
 			$this->base_url = rtrim($this->base_url, '/') .'/';
 		}
 
-  		// And here we go...
+		// And here we go...
 		$output = '';
 
 		// Render the "First" link
-		if  ($this->cur_page > ($this->num_links + 1))
+		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
 		{
-			$output .= $this->first_tag_open.'<a href="'.$this->base_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
+			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "previous" link
-		if  ($this->cur_page != 1)
+		if  ($this->prev_link !== FALSE AND $this->cur_page != 1)
 		{
 			$i = $uri_page_number - $this->per_page;
-			if ($i == 0) $i = '';
-			$output .= $this->prev_tag_open.'<a href="'.$this->base_url.$i.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+
+			if ($i == 0 && $this->first_url != '')
+			{
+				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+			}
+			else
+			{
+				$i = ($i == 0) ? '' : $this->prefix.$i.$this->suffix;
+				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$i.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+			}
+
 		}
 
-		// Write the digit links
-		for ($loop = $start -1; $loop <= $end; $loop++)
+		// Render the pages
+		if ($this->display_pages !== FALSE)
 		{
-			$i = ($loop * $this->per_page) - $this->per_page;
-					
-			if ($i >= 0)
+			// Write the digit links
+			for ($loop = $start -1; $loop <= $end; $loop++)
 			{
-				if ($this->cur_page == $loop)
+				$i = ($loop * $this->per_page) - $this->per_page;
+
+				if ($i >= 0)
 				{
-					$output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
-				}
-				else
-				{
-					$n = ($i == 0) ? '' : $i;
-					$output .= $this->num_tag_open.'<a href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
+					if ($this->cur_page == $loop)
+					{
+						$output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
+					}
+					else
+					{
+						$n = ($i == 0) ? '' : $i;
+
+						if ($n == '' && $this->first_url != '')
+						{
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'">'.$loop.'</a>'.$this->num_tag_close;
+						}
+						else
+						{
+							$n = ($n == '') ? '' : $this->prefix.$n.$this->suffix;
+
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
+						}
+					}
 				}
 			}
 		}
 
 		// Render the "next" link
-		if ($this->cur_page < $num_pages)
+		if ($this->next_link !== FALSE AND $this->cur_page < $num_pages)
 		{
-			$output .= $this->next_tag_open.'<a href="'.$this->base_url.($this->cur_page * $this->per_page).'">'.$this->next_link.'</a>'.$this->next_tag_close;
+			$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.($this->cur_page * $this->per_page).$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
 		// Render the "Last" link
-		if (($this->cur_page + $this->num_links) < $num_pages)
+		if ($this->last_link !== FALSE AND ($this->cur_page + $this->num_links) < $num_pages)
 		{
 			$i = (($num_pages * $this->per_page) - $this->per_page);
-			$output .= $this->last_tag_open.'<a href="'.$this->base_url.$i.'">'.$this->last_link.'</a>'.$this->last_tag_close;
+			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 
 		// Kill double slashes.  Note: Sometimes we can end up with a double slash
@@ -154,8 +178,8 @@ class MY_Pagination extends CI_Pagination {
 
 		// Add the wrapper HTML if exists
 		$output = $this->full_tag_open.$output.$this->full_tag_close;
-		
-		return $output;		
+
+		return $output;
 	}
 }
 // END Pagination Class

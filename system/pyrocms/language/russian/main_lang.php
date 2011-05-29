@@ -16,6 +16,7 @@ $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
 $lang['author_label']						= 'Автор';
 $lang['action_label']						= 'Действия';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['dialog.confirm']					= 'Подтверждение';

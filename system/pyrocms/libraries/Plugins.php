@@ -163,7 +163,7 @@ class Plugins
 			}
 		}
 
-		log_message('error', 'Unable to load: ' . $class);
+		log_message('debug', 'Unable to load: ' . $class);
 
 		return FALSE;
 	}

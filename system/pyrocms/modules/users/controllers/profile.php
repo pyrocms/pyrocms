@@ -188,13 +188,13 @@ class Profile extends Public_Controller
 			show_404();
 		}
 
-		foreach ($user as $field => &$data)
+		foreach ($user as &$data)
 		{
 			$data = escape_tags($data);
 		}
 
 		// Render view
-		$this->data->user = $user; //what data used, user or profile?
+		$this->data->view_user = $user; //needs to be something other than $this->data->user or it conflicts with the current user
 		$this->data->profile = $user;
 		$this->template->build('profile/view', $this->data);
 	}
@@ -261,7 +261,7 @@ class Profile extends Public_Controller
 			}
 		}
 
-		foreach ($profile as $field => &$data)
+		foreach ($profile as &$data)
 		{
 			$data = escape_tags($data);
 		}

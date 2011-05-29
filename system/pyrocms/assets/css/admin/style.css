@@ -15,18 +15,6 @@
 	border: 1px solid #bbb;
 }
 
-/*
-.box-container {
-	background-color:#fff; padding:10px;
-	-moz-border-radius-bottomleft:5px;
-	-moz-border-radius-bottomright:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-webkit-border-bottom-right-radius:5px;
-	display:block;
-}
-
-div.box {margin-bottom:15px; width:100%;}
-*/
 .CodeMirror-line-numbers {
 	width: 2.2em;
 	background-color: #eee;
@@ -50,20 +38,26 @@ div.box {margin-bottom:15px; width:100%;}
 	border:				1px solid #ccc;
 	overflow: 			hidden;
 	padding:			10px;
-	white-space: 		normal;
-	max-width:			900px;
+	max-width:			95%;
+	overflow-x: auto;
+	font-size: 11px;
+	background: #eee;
+	margin: 0 auto;
 }
 .revision_pre del, .revision_pre ins
 {
-	display:			block;
+	display:			inline-block;
 	min-height:			10px;
-	padding:			5px;
+	padding:			0;
 	text-decoration: 	none;
+	width: 100%;
 }
 .revision_pre ins *, .revision_pre del *
 {
 	display:			inline;
 }
+.revision_pre ins span.highlight { background-color: #77d76d; }
+.revision_pre del span.highlight { background-color: #d97070; }
 .revision_pre ins
 {
 	background:			#8EE884;
@@ -301,18 +295,15 @@ header#main h1 {
 	border-left: none;
 	border-right: none;
 	border-top: none;
-/*	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-*/	padding: 10px 10px 10px 36px;
+	padding: 10px 10px 10px 36px;
 	margin: 0;
 	background-position: 10px 11px !important;
 	background-repeat: no-repeat !important;
 	position: relative;
 	display: none;
 }
-.notification p {
+.notification p,
+.box .notification p {
 	margin: 0;
 	padding: 0;
 }
@@ -377,7 +368,7 @@ table tbody tr.alt {
 }
 
 /** Icons **/
-a.edit {
+a.edit-icon {
 	background-image: url('../../img/admin/icons/16/pencil.png');
 	text-indent: -99999px;
 	overflow: hidden;
@@ -385,7 +376,7 @@ a.edit {
 	height: 16px;
 	width: 16px;
 }
-a.delete {
+a.delete-icon {
 	background-image: url('../../img/admin/icons/16/cross.png');
 	text-indent: -99999px;
 	overflow: hidden;
@@ -675,7 +666,7 @@ div.blank-slate h2 {
 	margin-bottom: 25px;
 }
 
-noscript {
+.noscript {
 	display: block !important;
 	padding: 7px 20px 7px 50px;
 	background: #fffbcc url('../../img/admin/icons/16/exclamation.png') 10px 50% no-repeat;

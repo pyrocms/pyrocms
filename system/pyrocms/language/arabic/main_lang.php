@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['author_label'] 					= 'الناشر';
 $lang['action_label'] 					= 'الإجراء';
+$lang['actions_label']					= 'الإجراءات';
 
 $lang['dialog.delete_message'] 			= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['dialog.confirm'] 				= 'التأكيد';

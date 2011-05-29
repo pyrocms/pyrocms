@@ -210,6 +210,11 @@ class Users extends Public_Controller {
 			$this->data->error_string = $this->form_validation->error_string();
 		}
 
+		foreach ($user_data as &$data)
+		{
+			$data = escape_tags($data);
+		}
+
 		$this->data->user_data =& $user_data;
 		$this->template->title(lang('user_register_title'));
 		$this->template->build('register', $this->data);

@@ -9,6 +9,8 @@ $lang['modules.enable_error']            = 'אין אפשרות להפעיל א�
 $lang['modules.enable_success']          = 'מודול "%s" הופעל.';
 $lang['modules.install_error']           = 'אין אפשרות להתקין את המודול.';
 $lang['modules.install_success']         = 'מודול "%s" הותקן בהצלחה.';
+$lang['modules.delete_success']			 = 'The module "%s" has been deleted.'; #translate
+$lang['modules.delete_error']			 = 'Could not delete the module "%s".'; #translate
 $lang['modules.uninstall_error']         = 'אין אפשרות להסיר את מודול "%s".';
 $lang['modules.uninstall_success']       = 'מודול "%s" הוסר בהצלחה.';
 $lang['modules.upgrade_error']           = 'אין אפשרות לשדרג מודול "%s".';
@@ -24,7 +26,8 @@ $lang['modules.upload_desc']             = 'נא בחרו קובץ ולחצו ע
 $lang['modules.confirm_enable']          = 'האם הנך בטוח רוצה לאפשר את המודול?';
 $lang['modules.confirm_disable']         = 'האם הנך בטוח רוצה לבטל את המודול?';
 $lang['modules.confirm_install']         = 'האם הנך בטוח רוצה להתקין מודול זה?';
-$lang['modules.confirm_uninstall']       = 'כל קבצי מודול ורשומות מסד נתונים יוסרו! האם הנך בטוח רוצה לבטל התקנת מודול זה?';
+$lang['modules.confirm_uninstall']		 = 'All database records will be removed! Are you sure you want to uninstall this module?'; #tranlate
+$lang['modules.confirm_delete']       = 'כל קבצי מודול ורשומות מסד נתונים יוסרו! האם הנך בטוח רוצה לבטל התקנת מודול זה?';
 $lang['modules.confirm_upgrade'] 		 = 'האם הנך בטוח רוצה לשדרג את המודול?';
 
 /* End of file modules_lang.php */

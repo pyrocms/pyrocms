@@ -8,6 +8,7 @@ $lang['desc_label'] 					        = 'Description';
 $lang['version_label'] 					        = 'Version';
 $lang['author_label'] 					        = 'Auteur';
 $lang['action_label'] 					        = 'Action';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.confirm'] 				        = 'Confirmez';
 $lang['dialog.yes'] 					        = 'Oui';

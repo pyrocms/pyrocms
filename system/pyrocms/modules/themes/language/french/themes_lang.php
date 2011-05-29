@@ -1,5 +1,8 @@
 <?php
 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
+$lang['themes.no_options']				= 'This theme has no options.'; #translate 
 $lang['themes.set_default_success'] 	= 'Le thème "%s" est maintenant le thème par défaut.';
 $lang['themes.set_default_error'] 		= 'Impossibilité de mettre "%s" comme thème par défaut.';
 $lang['themes.already_exists_error'] 	= 'Il y a déjà un thème portant ce nom.';
@@ -14,6 +17,7 @@ $lang['themes.upload_title'] 			= 'Charger un thème';
 $lang['themes.list_title'] 				= 'Liste de thèmes';
 $lang['themes.upload_desc'] 			= 'Veuillez sélectionner un fichier et cliquer sur le bouton Charger';
 
+$lang['themes.options']					= 'Options'; #translate 
 $lang['themes.theme_label'] 			= 'Thème';
 $lang['themes.actions_label'] 			= 'Actions';
 $lang['themes.make_default'] 			= 'Rendre par défaut';

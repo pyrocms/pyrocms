@@ -18,6 +18,10 @@ $lang['widgets.widget'] 								= 'Виджет';
 $lang['widgets.widget_author'] 					= 'Автор';
 $lang['widgets.widget_short_name'] 			= 'Короткое имя';
 $lang['widgets.widget_version'] 				= 'Версия';
+$lang['widgets.status_label']			= 'Status'; #translate
+
+$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
+$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
 
 // Заголовки областей
 $lang['widgets.add_area'] 							= 'Создать область для виджетов';

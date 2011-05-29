@@ -80,3 +80,43 @@ function html_to_assoc($html_array)
 
 	return $array;
 }
+
+/**
+ * Associative array property
+ * 
+ * Reindexes an array using a property of your elements. The elements should be a collection of
+ * array or objects.
+ * 
+ * Obs.: To give a full result all elements must have the property defined in second param of
+ * this function.
+ * 
+ * @author Marcos Coelho - PyroCMS development team
+ * @access public
+ * @param array $arr
+ * @param string $prop Should be a commum property with value scalar, as id, slug, order..
+ * @return array
+ */
+function assoc_array_prop(array &$arr = NULL, $prop = 'id')
+{
+	$newarr = array();
+
+	foreach ($arr as $old_index => $element)
+	{
+		if (is_array($element))
+		{
+			if (isset($element[$prop]) && is_scalar($element[$prop]))
+			{
+				$newarr[$element[$prop]] = $element;
+			}
+		}
+		elseif (is_object($element))
+		{
+			if (isset($element->{$prop}) && is_scalar($element->{$prop}))
+			{
+				$newarr[$element->{$prop}] = $element;
+			}
+		}
+	}
+
+	return $arr = $newarr;
+}

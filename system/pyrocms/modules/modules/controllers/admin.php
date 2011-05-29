@@ -110,7 +110,7 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'], lang('modules.upload_title'))
 			->build('admin/upload', $this->data);
 	}
-
+	
 	/**
 	 * Uninstall
 	 *
@@ -122,6 +122,29 @@ class Admin extends Admin_Controller
 	 */
 	public function uninstall($slug = '')
 	{
+
+		if ($this->module_m->uninstall($slug))
+		{
+			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $slug));
+
+			redirect('admin/modules');
+		}
+
+		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $slug));
+		redirect('admin/modules');
+	}
+
+	/**
+	 * Delete
+	 *
+	 * Completely deletes an addon module
+	 *
+	 * @param	string	$slug	The slug of the module to delete
+	 * @access	public
+	 * @return	void
+	 */
+	public function delete($slug = '')
+	{
 		// Don't allow user to delete the entire module folder
 		if ($slug == '/' OR $slug == '*' OR empty($slug))
 		{
@@ -130,7 +153,7 @@ class Admin extends Admin_Controller
 
 		if ($this->module_m->uninstall($slug))
 		{
-			$this->session->set_flashdata('success', sprintf(lang('modules.uninstall_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('modules.delete_success'), $slug));
 
 			$path = ADDONPATH . 'modules/' . $slug;
 
@@ -142,7 +165,7 @@ class Admin extends Admin_Controller
 			redirect('admin/modules');
 		}
 
-		$this->session->set_flashdata('error', sprintf(lang('modules.uninstall_error'), $slug));
+		$this->session->set_flashdata('error', sprintf(lang('modules.delete_error'), $slug));
 		redirect('admin/modules');
 	}
 
