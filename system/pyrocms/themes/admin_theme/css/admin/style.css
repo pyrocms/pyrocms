@@ -705,6 +705,39 @@ html[xmlns] .clearfix {
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
 
 /* Dashboard */
+ul.recent-comments {
+	margin-bottom: 0px;
+}
+ul.recent-comments li {
+	list-style: none;
+	width: 17%;
+	height: 55px;
+	margin: 0;
+	overflow: hidden;
+	border-right: 1px solid #e0e0e0;
+	padding-top: 5px;
+}
+ul.recent-comments p {
+	padding: 0;
+	margin: 0;
+}
+ul.recent-comments .icon {
+	width: auto;
+}
+ul.recent-comments li:last-child {
+	border-right: none;
+}
+ul.recent-comments li img {
+	float: left;
+	margin: 0 10px;
+}
+ul.recent-comments a {
+	color: #444;
+}
+ul.recent-comments a:hover {
+	color: #ff6400;
+}
+
 ul.quick-links {
 	margin-bottom: 0px;
 }
