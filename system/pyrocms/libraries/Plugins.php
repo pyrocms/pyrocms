@@ -143,6 +143,11 @@ class Plugins
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
+			
+			if (file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.EXT))
+			{
+				return $this->_process($path, $class, $method, $data);
+			}
 
 			// Maybe it's a module
 			if (module_exists($class))

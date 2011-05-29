@@ -16,9 +16,15 @@ class Widgets {
 	function __construct()
 	{
 		$this->load->model('widgets/widget_m');
+		
+		$locations = array(APPPATH,
+						   ADDONPATH,
+						   APPPATH.'themes/'.ADMIN_THEME.'/',
+						   ADDONPATH.'themes/'.ADMIN_THEME.'/'
+						   );
 
 		// Map where all widgets are
-		foreach ($this->load->get_package_paths() as $path)
+		foreach ($locations as $path)
 		{
 			$widgets = glob($path . 'widgets/*', GLOB_ONLYDIR);
 
