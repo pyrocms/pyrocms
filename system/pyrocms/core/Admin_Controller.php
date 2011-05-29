@@ -11,46 +11,13 @@ class Admin_Controller extends MY_Controller {
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
 
+		$this->load->helper('admin_theme');
+		
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
 			show_error($this->lang->line('cp_access_denied'));
 			exit;
-		}
-
-		// Get a list of all modules available to this user / group
-		if ($this->user)
-		{
-			$modules = $this->module_m->get_all(array(
-				'is_backend' => TRUE,
-				'group' => $this->user->group,
-				'lang' => CURRENT_LANGUAGE
-			));
-
-			$grouped_modules = array();
-
-			$grouped_menu[] = 'content';
-
-			foreach ($modules as $module)
-			{
-				if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0')
-				{
-					$grouped_menu[] = $module['menu'];
-				}
-			}
-
-			array_push($grouped_menu, 'design', 'users', 'utilities');
-
-			$grouped_menu = array_unique($grouped_menu);
-
-			foreach ($modules as $module)
-			{
-
-				$grouped_modules[$module['menu']][$module['name']] = $module;
-			}
-
-			$this->template->menu_items = $grouped_menu;
-			$this->template->modules = $grouped_modules;
 		}
 		
 		if ( ! $this->admin_theme->slug)
@@ -66,11 +33,10 @@ class Admin_Controller extends MY_Controller {
 				->enable_parser(FALSE)
 				->set('user', $this->user)
 				->set_theme(ADMIN_THEME)
-				->set_layout('default', 'admin')
-				->set_partial('header', 'admin/partials/header')
-				->set_partial('navigation', 'admin/partials/navigation')
-				->set_partial('metadata', 'admin/partials/metadata')
-				->set_partial('footer', 'admin/partials/footer');
+				->set_layout('default', 'admin');
+
+		$theme_class = 'Theme_' . ucfirst($this->admin_theme->slug);
+		$theme_class::initialize();
 
 //	    $this->output->enable_profiler(TRUE);
 	}

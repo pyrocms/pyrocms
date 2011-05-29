@@ -18,7 +18,7 @@
 	
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-	<?php echo $template['partials']['metadata']; ?>
+	<?php file_partial('metadata'); ?>
 </head>
 
 <body>
@@ -27,8 +27,8 @@
 </noscript>
 <div id="page-wrapper">
 	<section id="sidebar" dir=<?php $vars = $this->load->_ci_cached_vars; echo $vars['lang']['direction']; ?>>
-<?php echo $template['partials']['header']; ?>
-<?php echo $template['partials']['navigation']; ?>
+<?php file_partial('header'); ?>
+<?php file_partial('navigation'); ?>
 		<div id="lang-select">
 		<form action="<?php echo current_url(); ?>" id="change_language" method="get">
 				<select name="lang" onchange="this.form.submit();">
@@ -58,15 +58,11 @@
 			<?php endif; ?>
 		</header>
 
-			<?php if(!empty($template['partials']['shortcuts'])): ?>
-				<?php echo $template['partials']['shortcuts']; ?>
-			<?php endif; ?>
-			
-			<?php if(!empty($template['partials']['filters'])): ?>
-				<?php echo $template['partials']['filters']; ?>
-			<?php endif; ?>
+			<?php template_partial('shortcuts'); ?>
 
-			<?php $this->load->view('admin/partials/notices') ?>
+			<?php template_partial('filters'); ?>
+
+			<?php file_partial('notices'); ?>
 
 		<div id="content">
 			<?php echo $template['body']; ?>

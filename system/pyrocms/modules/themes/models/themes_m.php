@@ -155,13 +155,14 @@ class Themes_m extends MY_Model
 
             //load the theme details.php file
             $details = $this->_spawn_class($slug, $is_core);
-
+			
+			
             //assign values
             if ($details)
             {
                 foreach(get_object_vars($details) as $key => $val)
                 {
-					if ($key == 'options')
+					if ($key == 'options' AND is_array($val))
 					{
 						// only save to the database if there are no options saved already
 						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result())
