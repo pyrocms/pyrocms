@@ -317,7 +317,7 @@ class Themes_m extends MY_Model
 	}
 	
 	/**
-	 * Get options by slug
+	 * Get options by
 	 *
 	 * @param 	string	$params	The where conditions to fetch options by
 	 * @access	public
@@ -328,6 +328,30 @@ class Themes_m extends MY_Model
 		return $this->db->where($params)
 					->get('theme_options')
 					->result();
+	}
+	
+	/**
+	 * Get values by
+	 *
+	 * @param 	string	$params	The where conditions to fetch options by
+	 * @access	public
+	 * @return	array
+	 */
+	public function get_values_by($params = array())
+	{
+		$query = $this->db->select('slug, value')
+			->where($params)
+			->get('theme_options');
+			
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() AS $option)
+			{
+				$options->{$option->slug} = $option->value;
+			}
+			return $options;
+		}
+		return FALSE;
 	}
 	
 	/**
