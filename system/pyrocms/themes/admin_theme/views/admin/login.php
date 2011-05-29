@@ -4,6 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
+	
+	<base href="<?php echo base_url(); ?>" />
+	
 	<?php echo css('admin/style.css'); ?>
 	<?php echo js('jquery/jquery.js'); ?>
 	<?php echo js('admin/login.js'); ?>
