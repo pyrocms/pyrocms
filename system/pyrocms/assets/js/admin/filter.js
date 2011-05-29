@@ -2,7 +2,6 @@
 
 	pyro.filter = {
 		$content		: $('#content'),
-		$notification	: $('.notification'),
 		// filter form object
 		$filter_form	: $('.filter form'),
 
@@ -75,26 +74,16 @@
 				post_url = url;
 			}
 
-			pyro.filter.remove_notifications();
+			pyro.clear_notifications();
 
 			pyro.filter.$content.fadeOut('fast', function(){
 				//send the request to the server
 				$.post(post_url, form_data, function(data, response, xhr) {
+
 					//success stuff here
 					$.uniform.update('select, input');
 					pyro.filter.$content.html(data).fadeIn('fast');
-
-					pyro.filter.$notification = $('.notification');
 				});
-			});
-		},
-
-		/**
-		 * Removes any existing user notifications before adding anymore
-		 */
-		remove_notifications: function(){
-			this.$notification.fadeOut(function(){
-				$(this).remove();
 			});
 		}
 	};
