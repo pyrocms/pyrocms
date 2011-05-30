@@ -59,13 +59,22 @@ class Users_m extends MY_Model
     	return $this->get_all();
   	}
 
-	function get_all()
+	function get_all($order_by = NULL, $sort = 'ASC')
     {
     	$this->db->select('profiles.*, users.*, g.description as group_name, IF(profiles.last_name = "", profiles.first_name, CONCAT(profiles.first_name, " ", profiles.last_name)) as full_name')
     			 ->join('groups g', 'g.id = users.group_id')
     			 ->join('profiles', 'profiles.user_id = users.id', 'left');
+		
 
         $this->db->group_by('users.id');
+    	
+    	if ($order_by != NULL)
+    	{
+    		if ($sort != 'ASC') {
+    			$sort == 'DESC';
+    		}
+			$this->db->order_by($order_by, $sort);
+    	}
     	return parent::get_all();
     }
 
