@@ -70,4 +70,3 @@ $lang['comments.counter_singular_label']	= '%d comment'; #translate
 $lang['comments.counter_plural_label']		= '%d comments'; #translate
 
 /* End of file comments_lang.php */
-/* Location: ./system/pyrocms/modules/comments/language/russian/comments_lang.php */

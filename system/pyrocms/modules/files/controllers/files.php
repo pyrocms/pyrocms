@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @package 		PyroCMS
- * @subpackage 		libraries
+ * @subpackage 		Files
  * @author			Phil Sturgeon
  *
  * Frontend controller for files and stuffs

@@ -2,7 +2,6 @@
 
 	pyro.filter = {
 		$content		: $('#content'),
-		$notification	: $('.notification'),
 		// filter form object
 		$filter_form	: $('.filter form'),
 
@@ -75,27 +74,62 @@
 				post_url = url;
 			}
 
-			pyro.filter.remove_notifications();
+			pyro.clear_notifications();
 
 			pyro.filter.$content.fadeOut('fast', function(){
 				//send the request to the server
 				$.post(post_url, form_data, function(data, response, xhr) {
+					
+					var ct		= xhr.getResponseHeader('content-type') || '',
+						html	= '';
+
+					if (ct.indexOf('application/json') > -1 && typeof data == 'object')
+					{
+						html = 'html' in data ? data.html : '';
+
+						pyro.filter.handler_response_json(data);
+					}
+					else {
+						html = data;
+					}
+
 					//success stuff here
 					$.uniform.update('select, input');
-					pyro.filter.$content.html(data).fadeIn('fast');
-
-					pyro.filter.$notification = $('.notification');
+					pyro.filter.$content.html(html).fadeIn('fast');
 				});
 			});
 		},
 
-		/**
-		 * Removes any existing user notifications before adding anymore
-		 */
-		remove_notifications: function(){
-			this.$notification.fadeOut(function(){
-				$(this).remove();
-			});
+		handler_response_json: function(json)
+		{
+			if ('update_filter_field' in json && typeof json.update_filter_field == 'object')
+			{
+				$.each(json.update_filter_field, pyro.filter.update_filter_field);
+			}
+		},
+
+		update_filter_field: function(field, data)
+		{
+			var $field = pyro.filter.$filter_form.find('[name='+field+']');
+
+			if ($field.is('select'))
+			{
+				if (typeof data == 'object')
+				{
+					if ('options' in data)
+					{
+						var selected, value;
+
+						selected = $field.val();
+						$field.children('option').remove();
+
+						for (value in data.options)
+						{
+							$field.append('<option value="' + value + '"' + (value == selected ? ' selected="selected"': '') + '>' + data.options[value] + '</option>');
+						}
+					}
+				}
+			}
 		}
 	};
 
