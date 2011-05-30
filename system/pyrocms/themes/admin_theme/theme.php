@@ -36,14 +36,14 @@ class Theme_Admin_theme extends Theme {
 								   );
 	
 	/**
-	 * Initialize is automatically ran when the theme is loaded for use
+	 * Run() is triggered when the theme is loaded for use
 	 *
 	 * This should contain the main logic for the theme.
 	 *
 	 * @access	public
 	 * @return	void
 	 */
-	public function initialize()
+	public function run()
 	{
 		self::generate_menu();
 
