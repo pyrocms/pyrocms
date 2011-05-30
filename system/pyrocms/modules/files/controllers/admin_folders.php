@@ -20,7 +20,7 @@
  * @author		Dan Horrigan <dan@dhorrigan.com>
  * @author		Eric Barnes <eric@pyrocms.com>
  * @package		PyroCMS
- * @subpackage	file
+ * @subpackage	Files
  */
 class Admin_folders extends Admin_Controller {
 
