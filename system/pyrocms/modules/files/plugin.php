@@ -93,6 +93,11 @@ class Plugin_Files extends Plugin
 
 	public function image($return = '')
 	{
+		if ($return && ! in_array($return, array('url', 'path')))
+		{
+			return '';
+		}
+
 		$id		= $this->attribute('id');
 		$image	= isset($this->_files[$id])
 			? $this->_files[$id]
@@ -110,19 +115,6 @@ class Plugin_Files extends Plugin
 			return $image;
 		}
 
-		if ($return === 'url')
-		{
-			$this->load->helper('url');
-
-			$method = 'site_url';
-		}
-		else
-		{
-			$this->load->helper('html');
-
-			$method = 'img';
-		}
-
 		// size="100x75"
 		if ( ! $size = strtr($this->attribute('size', ''), 'x', '/'))
 		{
@@ -137,7 +129,41 @@ class Plugin_Files extends Plugin
 			? 'files/thumb/' .  $image->id . '/' . $size
 			: 'uploads/files/' . $image->filename;
 
-		return $method($uri);
+		if ($return)
+		{
+			$this->load->helper('url');
+
+			return ($return == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI) . $uri;
+		}
+
+		$base		= $this->attribute('base');
+		$index_page	= FALSE;
+
+		$this->load->helper('html');
+
+		if ( ! file_exists(BASE_URI . $uri));
+		{
+			$index_page = TRUE;
+		}
+
+		if ($base === 'path')
+		{
+			$uri = BASE_URI . $uri;
+
+			// unset config base_url
+			$base_url = $this->config->item('base_url');
+			$this->config->set_item('base_url', '');
+
+			// generate tag
+			$tag = img($uri, $index_page);
+
+			// set config base_url
+			$base_url = $this->config->set_item('base_url', $base_url);
+
+			return $tag;
+		}
+
+		return img($uri, $index_page);
 	}
 
 	public function image_url()
@@ -145,7 +171,12 @@ class Plugin_Files extends Plugin
 		return $this->image('url');
 	}
 
-	public function file($return = '')
+	public function image_path()
+	{
+		return $this->image('path');
+	}
+
+	public function file($return = '', $type = '')
 	{
 		$id		= $this->attribute('id');
 		$file	= isset($this->_files[$id])
@@ -169,6 +200,11 @@ class Plugin_Files extends Plugin
 	}
 
 	public function file_url()
+	{
+		return $this->file('url');
+	}
+
+	public function file_path()
 	{
 		return $this->file('url');
 	}
