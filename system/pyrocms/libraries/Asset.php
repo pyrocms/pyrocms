@@ -244,11 +244,12 @@ class Asset {
 		}
 
 		// If they have just given a filename, not an asset path, and its in a theme
-		elseif ($module_name == '_theme_' && $this->theme != NULL)
+		elseif ($module_name == '_theme_' && $this->theme)
 		{
-			$asset_location = base_url() . ltrim(config_item('theme_asset_dir'), '/')
-					. $this->theme . '/'
-					. $asset_type . '/' . $asset_name;
+			$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
+			$asset_location	= $base_location . ltrim(config_item('theme_asset_dir'), '/')
+				. $this->theme . '/'
+				. $asset_type . '/' . $asset_name;
 		}
 
 		// Normal file (that might be in a module)
@@ -263,8 +264,8 @@ class Asset {
 				{
 					if (is_dir($path . $module_name))
 					{
-						// TODO: Fix this fucking mess
-						$asset_location = base_url() . $path . $module_name . '/';
+						$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
+						$asset_location = $base_location . $path . $module_name . '/';
 						break;
 					}
 				}
