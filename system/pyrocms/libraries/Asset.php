@@ -48,7 +48,7 @@ class Asset {
 	 * @param		string    optional, extra attributes
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public function css($asset_name, $module_name = NULL, $attributes = array())
+	public function css($asset_name, $module_name = NULL, $attributes = array(), $location_type = '')
 	{
 		$attribute_str = $this->_parse_asset_html($attributes);
 
@@ -57,7 +57,9 @@ class Asset {
 			$attribute_str .= ' rel="stylesheet"';
 		}
 
-		return '<link href="' . $this->css_path($asset_name, $module_name) . '" type="text/css"' . $attribute_str . ' />';
+		$location_type = 'css_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
+
+		return '<link href="' . $this->{$location_type}($asset_name, $module_name) . '" type="text/css"' . $attribute_str . ' />';
 	}
 
 	// ------------------------------------------------------------------------
@@ -107,7 +109,7 @@ class Asset {
 	 * @param		string    optional, extra attributes
 	 * @return		string    HTML code for image asset
 	 */
-	public function image($asset_name, $module_name = '', $attributes = array())
+	public function image($asset_name, $module_name = '', $attributes = array(), $location_type = '')
 	{
 		// No alternative text given? Use the filename, better than nothing!
 		if (empty($attributes['alt']))
@@ -116,8 +118,9 @@ class Asset {
 		}
 
 		$attribute_str = $this->_parse_asset_html($attributes);
+		$location_type = 'image_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
 
-		return '<img src="' . $this->image_path($asset_name, $module_name) . '"' . $attribute_str . ' />' . "\n";
+		return '<img src="' . $this->{$location_type}($asset_name, $module_name) . '"' . $attribute_str . ' />';
 	}
 
 	// ------------------------------------------------------------------------
@@ -166,9 +169,11 @@ class Asset {
 	 * @param		string    optional, module name
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public function js($asset_name, $module_name = NULL)
+	public function js($asset_name, $module_name = NULL, $location_type = '')
 	{
-		return '<script type="text/javascript" src="' . $this->js_path($asset_name, $module_name) . '"></script>';
+		$location_type = 'js_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
+
+		return '<script type="text/javascript" src="' . $this->{$location_type}($asset_name, $module_name) . '"></script>';
 	}
 
 	// ------------------------------------------------------------------------
