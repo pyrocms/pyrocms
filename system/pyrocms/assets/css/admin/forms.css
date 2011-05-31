@@ -37,6 +37,9 @@ form.crud label {
 form.crud .inline {
 	display: inline-block;
 }
+form.crud .inline.hidden {
+	display: none;
+}
 form.crud .inline label
 {
 	float: none;
