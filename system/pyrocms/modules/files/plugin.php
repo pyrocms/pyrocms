@@ -23,17 +23,17 @@ class Plugin_Files extends Plugin
 
 	/**
 	 * Files listing
-	 * 
+	 *
 	 * Creates a list of files
-	 * 
+	 *
 	 * Usage:
-	 * 
+	 *
 	 * {pyro:files:listing folder="home-slider" type="i"}
 	 * 	// your html logic
 	 * {/pyro:listing:all}
-	 * 
+	 *
 	 * The following is a list of tags that are available to use from this method
-	 * 
+	 *
 	 * {id}
 	 * {folder_id}
 	 * {user_id}
@@ -47,7 +47,7 @@ class Plugin_Files extends Plugin
 	 * {height}
 	 * {filesize}
 	 * {date_added}
-	 * 
+	 *
 	 * @return	array
 	 */
 	function listing()
@@ -124,12 +124,13 @@ class Plugin_Files extends Plugin
 		{
 			return '';
 		}
-		// return fields array
+		// return file fields array
 		elseif ( ! $return && $this->content())
 		{
 			return (array) $file;
 		}
 
+		// make uri
 		if ($type === 'i')
 		{
 			// size="100x75"
@@ -151,62 +152,58 @@ class Plugin_Files extends Plugin
 			$uri = 'uploads/files/' . $file->filename;
 		}
 
+		// return string
 		if ($return)
 		{
 			return ($return == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI) . $uri;
 		}
 
-		$index_page	= FALSE;
-		$base		= $this->attribute('base');
+		$base = $this->attribute('base', 'url');
 
+		// nothing to do
+		if ($return && ! in_array($base, array('url', 'path')))
+		{
+			return '';
+		}
+
+		$attributes	= $this->attributes();
+
+		foreach (array('base', 'size', 'id', 'title', 'type') as $key)
+		{
+			if (isset($attributes[$key]))
+			{
+				unset($attributes[$key]);
+			}
+
+			if (isset($attributes['tag_' . $key]))
+			{
+				$attributes[$key] = $attributes['tag_' . $key];
+
+				unset($attributes['tag_' . $key]);
+			}
+		}
+
+		// return an image tag html
 		if ($type === 'i')
 		{
 			$this->load->helper('html');
-		}
-		else
-		{
-			$title		= $this->attribute('title');
-			$attributes	= $this->attributes();
 
-			foreach (array('base', 'id', 'title', 'type') as $key)
+			if (($index_page = (isset($size) && $size)) && strpos($size, '/')
+				&& ! isset($attributes['width'], $attributes['height']))
 			{
-				if (isset($attributes[$key]))
-				{
-					unset($attributes[$key]);
-				}
-			}
-		}
-
-		if ( ! file_exists(BASE_URI . $uri));
-		{
-			$index_page = TRUE;
-		}
-
-		if ($base === 'path')
-		{
-			$uri = BASE_URI . $uri;
-
-			// unset config base_url
-			$base_url = $this->config->item('base_url');
-			$this->config->set_item('base_url', '');
-
-			// generate tag
-			if ($type === 'i')
-			{
-				$tag = img($uri, $index_page);
-			}
-			else
-			{
-				$tag = anchor($uri, $title, $attributes);
+				list($attributes['width'], $attributes['height']) = explode('/', $size);
 			}
 
-			// set config base_url
-			$base_url = $this->config->set_item('base_url', $base_url);
-
-			return $tag;
+			return $this->{'_build_tag_location_' . $base}($type, $uri, array(
+				'attributes' => $attributes,
+				'index_page' => isset($size) && $size
+			));
 		}
 
-		return $type === 'i' ? img($uri, $index_page) : anchor($uri, $title, $attributes);
+		// return an file anchor tag html
+		$title = $this->attribute('title');
+
+		return $this->{'_build_tag_location_' . $base}($type, $uri, compact('title', 'attributes'));
 	}
 
 	public function image()
@@ -239,6 +236,48 @@ class Plugin_Files extends Plugin
 		$id = $this->attribute('id');
 
 		return isset($this->_files[$id]) ? 1 : (int) $this->file_m->exists($id);
+	}
+
+	private function _build_tag_location_url($type = '', $uri = '', $extras = array())
+	{
+		extract($extras);
+
+		if ($type === 'i')
+		{
+			$attributes['src'] = $uri;
+
+			return img($attributes, $index_page);
+		}
+
+		return anchor($uri, $title, $attributes);
+	}
+
+	private function _build_tag_location_path($type = '', $uri = '', $extras = array())
+	{
+		extract($extras);
+
+		$uri = BASE_URI . $uri;
+
+		// unset config base_url
+		$base_url = $this->config->item('base_url');
+		$this->config->set_item('base_url', '');
+
+		// generate tag
+		if ($type === 'i')
+		{
+			$attributes['src'] = $uri;
+
+			$tag = img($attributes, $index_page);
+		}
+		else
+		{
+			$tag = anchor($uri, $title, $attributes);
+		}
+
+		// set config base_url
+		$base_url = $this->config->set_item('base_url', $base_url);
+
+		return $tag;
 	}
 }
 
