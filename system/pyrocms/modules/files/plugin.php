@@ -34,16 +34,19 @@ class Plugin_Files extends Plugin
 	 * 
 	 * The following is a list of tags that are available to use from this method
 	 * 
-	 * 	{file_id}
-	 * 	{folder_id}
-	 * 	{gallery_id}
-	 * 	{gallery_slug}
-	 * 	{title}
-	 * 	{order}
-	 * 	{name}
-	 * 	{filename}
-	 * 	{description}
-	 * 	{extension}
+	 * {id}
+	 * {folder_id}
+	 * {user_id}
+	 * {type}
+	 * {name}
+	 * {filename}
+	 * {description}
+	 * {extension}
+	 * {mimetype}
+	 * {width}
+	 * {height}
+	 * {filesize}
+	 * {date_added}
 	 * 
 	 * @return	array
 	 */
@@ -91,55 +94,88 @@ class Plugin_Files extends Plugin
 		return array_merge($this->_files, $files);
 	}
 
-	public function image($return = '')
+	public function file($return = '', $type = '')
 	{
+		// nothing to do
 		if ($return && ! in_array($return, array('url', 'path')))
 		{
 			return '';
 		}
 
+		// prepare file params
 		$id		= $this->attribute('id');
-		$image	= isset($this->_files[$id])
-			? $this->_files[$id]
-			: $this->file_m->get_by(array(
-				'id'	=> $id,
-				'type'	=> 'i'
-			));
+		$type	= $type ? $type : $this->attribute('type');
+		$type	= in_array($type, array('a','v','d','i','o')) ? $type : '';
 
-		if ( ! $image OR $image->type !== 'i')
+		// get file
+		if (isset($this->_files[$id]))
+		{
+			$file = $this->_files[$id];
+		}
+		else
+		{
+			$type AND $this->file_m->where('type', $type);
+
+			$file = $this->file_m->get($id);
+		}
+
+		// file not found
+		if ( ! $file OR ($type && $file->type !== $type))
 		{
 			return '';
 		}
-		elseif ($this->content())
+		// return fields array
+		elseif ( ! $return && $this->content())
 		{
-			return $image;
+			return (array) $file;
 		}
 
-		// size="100x75"
-		if ( ! $size = strtr($this->attribute('size', ''), 'x', '/'))
+		if ($type === 'i')
 		{
-			// width="100" height="75"
-			$size = implode('/', array_filter(array(
-				$this->attribute('width',	''),
-				$this->attribute('height',	'')
-			)));
-		}
+			// size="100x75"
+			if ( ! $size = strtr($this->attribute('size', ''), 'x', '/'))
+			{
+				// width="100" height="75"
+				$size = implode('/', array_filter(array(
+					$this->attribute('width',	''),
+					$this->attribute('height',	'')
+				)));
+			}
 
-		$uri = $size
-			? 'files/thumb/' .  $image->id . '/' . $size
-			: 'uploads/files/' . $image->filename;
+			$uri = $size
+				? 'files/thumb/' .  $file->id . '/' . $size
+				: 'uploads/files/' . $file->filename;
+		}
+		else
+		{
+			$uri = 'uploads/files/' . $file->filename;
+		}
 
 		if ($return)
 		{
-			$this->load->helper('url');
-
 			return ($return == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI) . $uri;
 		}
 
-		$base		= $this->attribute('base');
 		$index_page	= FALSE;
+		$base		= $this->attribute('base');
 
-		$this->load->helper('html');
+		if ($type === 'i')
+		{
+			$this->load->helper('html');
+		}
+		else
+		{
+			$title		= $this->attribute('title');
+			$attributes	= $this->attributes();
+
+			foreach (array('base', 'id', 'title', 'type') as $key)
+			{
+				if (isset($attributes[$key]))
+				{
+					unset($attributes[$key]);
+				}
+			}
+		}
 
 		if ( ! file_exists(BASE_URI . $uri));
 		{
@@ -155,7 +191,14 @@ class Plugin_Files extends Plugin
 			$this->config->set_item('base_url', '');
 
 			// generate tag
-			$tag = img($uri, $index_page);
+			if ($type === 'i')
+			{
+				$tag = img($uri, $index_page);
+			}
+			else
+			{
+				$tag = anchor($uri, $title, $attributes);
+			}
 
 			// set config base_url
 			$base_url = $this->config->set_item('base_url', $base_url);
@@ -163,50 +206,32 @@ class Plugin_Files extends Plugin
 			return $tag;
 		}
 
-		return img($uri, $index_page);
+		return $type === 'i' ? img($uri, $index_page) : anchor($uri, $title, $attributes);
+	}
+
+	public function image()
+	{
+		return $this->file('', 'i');
 	}
 
 	public function image_url()
 	{
-		return $this->image('url');
+		return $this->file_url('i');
 	}
 
 	public function image_path()
 	{
-		return $this->image('path');
+		return $this->file_path('i');
 	}
 
-	public function file($return = '', $type = '')
+	public function file_url($type = '')
 	{
-		$id		= $this->attribute('id');
-		$file	= isset($this->_files[$id])
-			? $this->_files[$id]
-			: $this->file_m->get($id);
-
-		if ( ! $file)
-		{
-			return '';
-		}
-		elseif ($this->content())
-		{
-			return $file;
-		}
-
-		$this->load->helper('url');
-
-		$method = $return === 'url' ? 'site_url' : 'anchor';
-
-		return $method('uploads/files/' . $image->filename);
+		return $this->file('url', $type);
 	}
 
-	public function file_url()
+	public function file_path($type = '')
 	{
-		return $this->file('url');
-	}
-
-	public function file_path()
-	{
-		return $this->file('url');
+		return $this->file('path', $type);
 	}
 
 	public function exists()
