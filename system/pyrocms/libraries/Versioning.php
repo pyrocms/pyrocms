@@ -1,4 +1,5 @@
-<?php if (! defined('BASEPATH')) exit('No direct script access');
+<?php defined('BASEPATH') OR exit('No direct script access');
+
 /**
  * I guess the description of this library is pretty obvious. For those who don't understand what this is all about, let me explain.
  * This library enables you to store data before updating it with a newer version. This means that if you ever want to go back to an older version you can, it's a bit like making a backup.
@@ -10,47 +11,46 @@
  * @category 	Libraries
  *
  */
-class Versioning
-{
+class Versioning {
 	/**
 	 * CodeIgniter instance variable
 	 *
 	 * @access private
 	 * @var mixed
 	 */
-	private $ci;
-	
+	private $_ci;
+
 	/**
 	 * Variable containing the name of the table we're working with
-	 * 
+	 *
 	 * @access private
 	 * @var string
 	 */
-	private $table_name;
-	private $_show_word_diff = FALSE;
+	private $_table_name		= NULL;
+	private $_show_word_diff	= FALSE;
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
 	public function __construct($config = array())
 	{
-		$this->ci =& get_instance();
-
 		foreach ($config as $key => $val)
 		{
-			if (isset($this->{'_' . $key}))
+			if (property_exists($this, '_' . $key))
 			{
 				$this->{'_' . $key} = $val;
 			}
 		}
+
+		$this->_ci =& get_instance();
 	}
-	
+
 	/**
 	 * Set the name of the table
-	 * 
+	 *
 	 * @access public
 	 * @param string $name The name of the table
 	 * @return void
@@ -62,9 +62,9 @@ class Versioning
 			show_error('No name for the table has been specified');
 		}
 
-		$this->table_name = $name;
+		$this->_table_name = $name;
 	}
-	
+
 	/**
 	 * Compare two strings and return the difference
 	 *
@@ -208,7 +208,7 @@ class Versioning
 
 	/**
 	 * Diff function
-	 * 
+	 *
 	 * @author Paul Butler
 	 * @modified Dan Horrigan
 	 * @access private
@@ -253,10 +253,10 @@ class Versioning
 			$this->diff(array_slice($old, $old_max + $maxlen), array_slice($new, $new_max + $maxlen))
 		);
 	}
-	
+
 	/**
 	 * Get a single item in a table along with it's latest revision
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the page to select
@@ -264,14 +264,14 @@ class Versioning
 	 */
 	public function get($id)
 	{
-		return $this->ci->db
-			->select($this->table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
-			->where($this->table_name . '.id', $id)
-			->join('revisions', $this->table_name . '.revision_id = revisions.id')
-			->get($this->table_name)
+		return $this->_ci->db
+			->select($this->_table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
+			->where($this->_table_name . '.id', $id)
+			->join('revisions', $this->_table_name . '.revision_id = revisions.id')
+			->get($this->_table_name)
 			->row();
 	}
-	
+
 	/**
 	 * Get a page and revision based on the revision's ID
 	 *
@@ -282,17 +282,17 @@ class Versioning
 	 */
 	public function get_by_revision($id)
 	{
-		return $this->ci->db
-			->select($this->table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
+		return $this->_ci->db
+			->select($this->_table_name . '.*, revisions.id as revision_table_id, revisions.owner_id, revisions.table_name, revisions.body, revisions.revision_date, revisions.author_id') // Might not be needed, added for now...
 			->where('revisions.id', $id)
-			->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
+			->join($this->_table_name, 'revisions.owner_id = ' . $this->_table_name . '.id')
 			->get('revisions')
 			->row();
 	}
-	
+
 	/**
 	 * Get all revisions for a specified page along with the name of user that created the revision
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param int $id The ID of the owner page
@@ -300,48 +300,51 @@ class Versioning
 	 */
 	public function get_revisions($owner_id)
 	{
-		return $this->ci->db
-			->select($this->table_name . '.title, revisions.*, users.username as author')
+		return $this->_ci->db
+			->select($this->_table_name . '.title, revisions.*, users.username as author')
 			->where('revisions.owner_id',$owner_id)
-			->join($this->table_name, 'revisions.owner_id = ' . $this->table_name . '.id')
+			->join($this->_table_name, 'revisions.owner_id = ' . $this->_table_name . '.id')
 			->join('users', 'revisions.author_id = users.id')
 			->order_by('revisions.revision_date', 'desc')
 			->get('revisions')
 			->result();
 	}
-	
+
 	/**
 	 * Create a new revision
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param array $input The data used to create the revision
 	 * @return bool
 	 */
-	public function create_revision($input)
+	public function create_revision($input, $prune = TRUE)
 	{
 		// Set the revision date and figure out who created it
 		$input['revision_date'] = now();
-		$input['table_name']	= $this->table_name;
-		
+		$input['table_name']	= $this->_table_name;
+
 		// Create the revision
-		if ( $this->ci->db->insert('revisions', $input) )
+		if ($this->_ci->db->insert('revisions', $input))
 		{
 			// Set the inserted ID
-			$insert_id = $this->ci->db->insert_id();
-			
-			// Now that we've created a new revision we need to check whether the data has to be cleaned up
-			$this->prune_revisions($input['owner_id']);
-			
+			$insert_id = $this->_ci->db->insert_id();
+
+			if ($prune)
+			{
+				// Now that we've created a new revision we need to check whether the data has to be cleaned up
+				$this->prune_revisions($input['owner_id']);
+			}
+
 			return $insert_id;
 		}
 
 		return FALSE;
 	}
-	
+
 	/**
 	 * Change the revision of a page/blog article/etc
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @param int $row_id The ID of the row who's revision_id has to be changed
@@ -350,14 +353,14 @@ class Versioning
 	 */
 	public function set_revision($row_id, $revision_id)
 	{
-		$this->ci->db
+		$this->_ci->db
 			->where('id', $row_id)
-			->update($this->table_name, array('revision_id' => $revision_id));
+			->update($this->_table_name, array('revision_id' => $revision_id));
 	}
-	
+
 	/**
 	 * Make sure only the latest 10 revisions are stored in the database, all others will be removed
-	 * 
+	 *
 	 * @author Yorick Peterse - PyroCMS Dev Team
 	 * @access public
 	 * @return void
@@ -365,18 +368,24 @@ class Versioning
 	public function prune_revisions($owner_id)
 	{
 		// Do we need to prune at all?
-		$this->ci->db->where('table_name', $this->table_name);
-		$this->ci->db->where('owner_id', $owner_id);
-		
+		$this->_ci->db->where(array(
+			'table_name'	=> $this->_table_name,
+			'owner_id'		=> $owner_id
+		));
+
 		// We need to prune the data
-		if ( $this->ci->db->count_all_results('revisions') > 10)
+		if ($this->_ci->db->count_all_results('revisions') > 10)
 		{
 			// Remove the oldest 5 revisions
 			// query: SELECT * FROM revisions ORDER BY revision_date ASC LIMIT 5;
-			$this->ci->db->order_by('revision_date', 'asc');
-			$this->ci->db->where('owner_id', $owner_id);
-			$this->ci->db->limit(6);
-			$this->ci->db->delete('revisions', array('table_name' => $this->table_name));
-		}		
+			$this->_ci->db
+				->order_by('revision_date', 'asc')
+				->where('owner_id', $owner_id)
+				->limit(6)
+				->delete('revisions', array('table_name' => $this->_table_name));
+		}
 	}
+
 }
+
+/* End of file Versioning.php */
