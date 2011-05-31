@@ -31,7 +31,37 @@ class Files extends Public_Controller
 		{
 			mkdir(APPPATH . 'cache/image_files/');
 		}
-		
+
+		$args = func_num_args();
+
+		switch ($args)
+		{
+			case 1:
+				$height	= NULL;
+				$width	= NULL;
+
+				break;
+			case 2:
+				$height = NULL;
+
+				if ( ! empty($width) && strpos($width, 'x') !== FALSE)
+				{
+					list($width, $height) = explode('x', $width);
+				}
+
+				if (empty($width))
+				{
+					$width = NULL;
+				}
+
+				break;
+			case 3:
+				empty($height)	&& $height = NULL;
+				empty($width)	&& $width = NULL;
+
+				break;
+		}
+
 		// Path to image thumbnail
 		$image_thumb = APPPATH . 'cache/image_files/' . $height . '_' . $width . '_' . md5($file->filename) . $file->extension;
 
@@ -58,6 +88,6 @@ class Files extends Public_Controller
 
 	public function large($id)
 	{
-		return $this->thumb($id, NULL, NULL);
+		return $this->thumb($id);
 	}
 }
