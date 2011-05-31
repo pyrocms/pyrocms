@@ -42,23 +42,35 @@ class Files extends Public_Controller
 
 				break;
 			case 2:
-				$height = NULL;
-
-				if ( ! empty($width) && strpos($width, 'x') !== FALSE)
+				$height	= NULL;
+				if ( ! empty($width))
 				{
-					list($width, $height) = explode('x', $width);
+					if (($pos = strpos($width, 'x')) !== FALSE)
+					{
+						if ($pos === 0)
+						{
+							$height = substr($width, 1);
+							$width	= NULL;
+						}
+						else
+						{
+							list($width, $height) = explode('x', $width);
+						}
+					}
 				}
-
-				if (empty($width))
-				{
-					$width = NULL;
-				}
-
-				break;
+			case 2:
 			case 3:
-				empty($height)	&& $height = NULL;
-				empty($width)	&& $width = NULL;
-
+				foreach (array('height' => 'width', 'width' => 'height') as $var1 => $var2)
+				{
+					if (${$var1} === 0 OR ${$var1} === '0')
+					{
+						${$var1} = NULL;
+					}
+					elseif (empty(${$var1}))
+					{
+						${$var1} = empty(${$var2}) ? NULL : 100000;
+					}
+				}
 				break;
 		}
 
