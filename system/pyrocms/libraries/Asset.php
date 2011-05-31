@@ -117,10 +117,17 @@ class Asset {
 			list($attributes['alt']) = explode('.', $asset_name);
 		}
 
-		$attribute_str = $this->_parse_asset_html($attributes);
-		$location_type = 'image_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
+		$attribute_str	= $this->_parse_asset_html($attributes);
+		$optional		= $location_type && (substr($location_type, -1) === '?') AND (($location_type = substr($location_type, 0, -1)) === 'path');
+		$location_type	= 'image_' . (($optional OR in_array($location_type, array('url', 'path'))) ? $location_type : 'path');
+		$location		= $this->{$location_type}($asset_name, $module_name);
 
-		return '<img src="' . $this->{$location_type}($asset_name, $module_name) . '"' . $attribute_str . ' />';
+		if ($optional && ! is_file(FCPATH . ltrim($location, '/')))
+		{
+			return '';
+		}
+
+		return '<img src="' . $location . '"' . $attribute_str . ' />';
 	}
 
 	// ------------------------------------------------------------------------
