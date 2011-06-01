@@ -210,6 +210,13 @@ class Tags {
 		{
 			foreach ($this->_tags as $tag)
 			{
+				if ($tag['full_segments'] === 'noparse')
+				{
+					$content = str_replace($tag['marker'], $tag['content'], $content);
+
+					continue;
+				}
+
 				$content = str_replace($tag['marker'], call_user_func($callback, $tag), $content);
 			}
 		}

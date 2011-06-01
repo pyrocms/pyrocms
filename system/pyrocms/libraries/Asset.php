@@ -48,7 +48,7 @@ class Asset {
 	 * @param		string    optional, extra attributes
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public function css($asset_name, $module_name = NULL, $attributes = array())
+	public function css($asset_name, $module_name = NULL, $attributes = array(), $location_type = '')
 	{
 		$attribute_str = $this->_parse_asset_html($attributes);
 
@@ -57,7 +57,9 @@ class Asset {
 			$attribute_str .= ' rel="stylesheet"';
 		}
 
-		return '<link href="' . $this->css_path($asset_name, $module_name) . '" type="text/css"' . $attribute_str . ' />';
+		$location_type = 'css_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
+
+		return '<link href="' . $this->{$location_type}($asset_name, $module_name) . '" type="text/css"' . $attribute_str . ' />';
 	}
 
 	// ------------------------------------------------------------------------
@@ -107,7 +109,7 @@ class Asset {
 	 * @param		string    optional, extra attributes
 	 * @return		string    HTML code for image asset
 	 */
-	public function image($asset_name, $module_name = '', $attributes = array())
+	public function image($asset_name, $module_name = '', $attributes = array(), $location_type = '')
 	{
 		// No alternative text given? Use the filename, better than nothing!
 		if (empty($attributes['alt']))
@@ -115,9 +117,17 @@ class Asset {
 			list($attributes['alt']) = explode('.', $asset_name);
 		}
 
-		$attribute_str = $this->_parse_asset_html($attributes);
+		$attribute_str	= $this->_parse_asset_html($attributes);
+		$optional		= $location_type && (substr($location_type, -1) === '?') AND (($location_type = substr($location_type, 0, -1)) === 'path');
+		$location_type	= 'image_' . (($optional OR in_array($location_type, array('url', 'path'))) ? $location_type : 'path');
+		$location		= $this->{$location_type}($asset_name, $module_name);
 
-		return '<img src="' . $this->image_path($asset_name, $module_name) . '"' . $attribute_str . ' />' . "\n";
+		if ($optional && ! is_file(FCPATH . ltrim($location, '/')))
+		{
+			return '';
+		}
+
+		return '<img src="' . $location . '"' . $attribute_str . ' />';
 	}
 
 	// ------------------------------------------------------------------------
@@ -166,9 +176,11 @@ class Asset {
 	 * @param		string    optional, module name
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public function js($asset_name, $module_name = NULL)
+	public function js($asset_name, $module_name = NULL, $location_type = '')
 	{
-		return '<script type="text/javascript" src="' . $this->js_path($asset_name, $module_name) . '"></script>';
+		$location_type = 'js_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
+
+		return '<script type="text/javascript" src="' . $this->{$location_type}($asset_name, $module_name) . '"></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -244,11 +256,12 @@ class Asset {
 		}
 
 		// If they have just given a filename, not an asset path, and its in a theme
-		elseif ($module_name == '_theme_' && $this->theme != NULL)
+		elseif ($module_name == '_theme_' && $this->theme)
 		{
-			$asset_location = base_url() . ltrim(config_item('theme_asset_dir'), '/')
-					. $this->theme . '/'
-					. $asset_type . '/' . $asset_name;
+			$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
+			$asset_location	= $base_location . ltrim(config_item('theme_asset_dir'), '/')
+				. $this->theme . '/'
+				. $asset_type . '/' . $asset_name;
 		}
 
 		// Normal file (that might be in a module)
@@ -286,7 +299,8 @@ class Asset {
 					{
 						if (is_dir($path . $module_name))
 						{
-							$asset_location = BASE_URL . $path . $module_name . '/';
+							$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
+							$asset_location = $base_location . $path . $module_name . '/';
 							break;
 						}
 					}
