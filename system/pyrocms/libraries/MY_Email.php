@@ -17,9 +17,9 @@ class MY_Email extends CI_Email {
      * @access public
      * @return void
      */
-    function __construct()
+    function __construct($config = array())
     {
-        parent::__construct();
+        parent::__construct($config);
         
         $this->ci =& get_instance();
         

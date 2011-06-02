@@ -40,9 +40,6 @@ class MY_Controller extends CI_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-		// Set the addons folder as a package
-		$this->load->add_package_path(ADDONPATH);
-
 		$this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
 		$this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
 
