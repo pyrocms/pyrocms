@@ -116,7 +116,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'])
 			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
 			->append_metadata( css('files.css', 'files') )
-			->append_metadata( js('jquery/jquery.cookie.js') )
+			->append_metadata( js('jquery/jquery.cooki.js') )
 			->append_metadata( js('jquery.fileupload.js', 'files') )
 			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
 			->append_metadata( js('jquery.ba-hashchange.min.js', 'files') )
