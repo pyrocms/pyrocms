@@ -80,7 +80,10 @@ Body Content Two
 
 <h3>{pyro:pages:display}</h3><br />
 
-<p>A tag that allows any one page to be displayed inside other content.</p>
+<p>
+	A tag that allows any one page to be displayed inside other content. Can be used as a double tag for
+	ultimate control or a single tag to output the page body only.
+</p>
 
 <p><strong>Parameters</strong></p>
 
@@ -106,7 +109,7 @@ Body Content Two
 
 </table>
 
-<p><strong>Example</strong></p>
+<p><strong>Examples</strong></p>
 
 <pre><code>{pyro:pages:display slug="home"}
 	&lt;h2&gt;{title}&lt;/h2&gt;
@@ -115,6 +118,13 @@ Body Content Two
 
 <pre><code>&lt;h2&gt;Page Title&lt;/h2&gt;
 &lt;p&gt;Page Body&lt;/p&gt;
+</code></pre>
+
+<br />
+
+<pre><code>{pyro:pages:display slug="home"}</code></pre>
+
+<pre><code>&lt;p&gt;Page Body&lt;/p&gt;
 </code></pre>
 
 <br />
