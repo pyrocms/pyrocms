@@ -20,6 +20,12 @@ class Theme_Default extends Theme {
 																'type'          => 'select',
 																'options'       => '2 column=Two Column|full-width=Full Width|full-width-home=Full Width Home Page',
 																'is_required'   => TRUE),
+									'cufon_enabled' => 		array('title'		=> 'Use Cufon',
+																'description' 	=> 'Would you like to use Cufon for titles?',
+																'default'       => 'yes',
+																'type'          => 'radio',
+																'options'       => 'yes=Yes|no=No',
+																'is_required'   => TRUE),
 								   );
 
 	public function __construct()

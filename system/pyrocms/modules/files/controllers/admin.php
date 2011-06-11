@@ -29,6 +29,7 @@ class Admin extends Admin_Controller {
 	private $_path 		= '';
 	private $_type 		= NULL;
 	private $_ext 		= NULL;
+	private $_filename	= NULL;
 	private $_validation_rules = array(
 		array(
 			'field' => 'userfile',
@@ -116,7 +117,7 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'])
 			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
 			->append_metadata( css('files.css', 'files') )
-			->append_metadata( js('jquery/jquery.cookie.js') )
+			->append_metadata( js('jquery/jquery.cooki.js') )
 			->append_metadata( js('jquery.fileupload.js', 'files') )
 			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
 			->append_metadata( js('jquery.ba-hashchange.min.js', 'files') )
@@ -142,7 +143,8 @@ class Admin extends Admin_Controller {
 			// Setup upload config
 			$this->load->library('upload', array(
 				'upload_path'	=> $this->_path,
-				'allowed_types'	=> $this->_ext
+				'allowed_types'	=> $this->_ext,
+				'file_name'		=> $this->_filename
 			));
 
 			// File upload error
@@ -553,7 +555,7 @@ class Admin extends Admin_Controller {
 	// ------------------------------------------------------------------------
 	
 	/**
-	 * Validate upload file name and extension.
+	 * Validate upload file name and extension and remove special characters.
 	 */
 	function _check_ext()
 	{
@@ -566,8 +568,9 @@ class Admin extends Admin_Controller {
 			{				
 				if (in_array(strtolower($ext), $ext_arr))
 				{
-					$this->_type	= $type;
-					$this->_ext		= implode('|', $ext_arr);
+					$this->_type		= $type;
+					$this->_ext			= implode('|', $ext_arr);
+					$this->_filename	= trim(url_title($_FILES['userfile']['name'], 'dash', TRUE), '-');
 
 					break;
 				}

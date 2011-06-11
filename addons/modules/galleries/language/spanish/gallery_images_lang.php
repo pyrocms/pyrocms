@@ -12,7 +12,7 @@ $lang['gallery_images.delete_error']	 	= 'La imagen no pudo ser eliminada.';
 $lang['gallery_images.changes_error']		= 'Los cambios no pudieron ser guardados.';
 
 # Labels
-$lang['gallery_images.upload_label']		= 'Subir Imagen';
+$lang['gallery_images.upload_label']		= 'Cargar Imagen';
 $lang['gallery_images.edit_image_label']	= 'Editar Imagen';
 $lang['gallery_images.thumbnail_label']		= 'Miniatura';
 $lang['gallery_images.action_label']		= 'Acción';
