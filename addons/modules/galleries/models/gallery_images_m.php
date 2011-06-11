@@ -42,7 +42,7 @@ class Gallery_images_m extends MY_Model
 
 		if (isset($options['offset']))
 		{
-			$this->db->limit($options['offset']);
+			$this->db->offset($options['offset']);
 		}
 
 		if (isset($options['limit']))
