@@ -56,8 +56,8 @@ $lang['comments.delete_multi_success'] 		= 'Τα σχόλια #%s έχουν δ�
 $lang['comments.no_comments'] 				= 'Δεν υπάρχουν σχόλια';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Δεν υπάρχουν σχόλια';
+$lang['comments.counter_singular_label']	= '%d σχόλιο';
+$lang['comments.counter_plural_label']		= '%d σχόλια';
 
 /* End of file comments_lang.php */
