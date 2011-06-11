@@ -1,0 +1,31 @@
+/* LINKS STYLE SHEET
+---------------------------------------------------------------------- */
+
+/* Content standard link styling 
+ * link-hidden           - linking without emphasis
+ * link-subtle           - linking from within a text block
+ * link-headline         - linking outside of a text block (dark text)
+ * link-headline-color   - as above with light text for a dark background
+ * link-article-headline - 
+ * when adding links you should order them :link , :visited, :hover
+ */
+
+.link-hidden:link            { color:#000066; }
+.link-hidden, .link-subtle   { text-decoration: none; }
+
+.link-hidden:visited { color:#000066; }
+
+.link-hidden:hover	 { text-decoration: underline; }
+
+.link-subtle         { border-bottom: 1px dotted #00C; }
+.link-subtle:visited { border-bottom: 1px dotted #333; }
+.link-subtle:hover   { border-bottom: 1px solid #00C; }
+
+.link-external { 
+	display: inline;
+    background: url(/assets/img/icons/external-site.gif) bottom left no-repeat;
+	padding-left: 0.95em;
+	padding-bottom: 0.079em;
+	position:relative;
+	height: 1%;
+}
