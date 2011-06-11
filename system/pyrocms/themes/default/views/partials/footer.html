@@ -22,16 +22,16 @@
 
 
 {if '{pyro:theme:options option="cufon_enabled"}' == 'yes'}
-{if '{pyro:settings:theme_default:cufon_enabled}' == true}
-{pyro:theme:js file="cufon.js"}
-{pyro:theme:js file="{pyro:settings:theme_default:cufon_font}"}
-{/if}
+	{if '{pyro:settings:theme_default:cufon_enabled}' == true}
+		{pyro:theme:js file="cufon.js"}
+		{pyro:theme:js file="{pyro:settings:theme_default:cufon_font}"}
+	{/if}
 {/if}
 
 {pyro:theme:js file="global.js"}
 <!-- End scripts -->
 {if '{pyro:theme:options option="cufon_enabled"}' == 'yes'}
 	{if '{pyro:settings:theme_default:cufon_enabled}' == true}
-<script type="text/javascript">Cufon.now();</script>
+		<script type="text/javascript">Cufon.now();</script>
 	{/if}
 {/if}
