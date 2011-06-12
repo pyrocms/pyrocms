@@ -696,7 +696,7 @@ class Ion_auth_model extends CI_Model
 		$_user_is_current = FALSE;
 
 		//if no id was passed use the current users id
-		if (empty($id))
+		if (is_null($id) OR is_bool($id))
 		{
 			$identity	= $this->config->item('identity', 'ion_auth');
 			$id			= $this->session->userdata($identity);
@@ -707,9 +707,9 @@ class Ion_auth_model extends CI_Model
 				: ($id = NULL);	// as bool is false and $id is null
 		}
 		//if a valid id was passed set identity
-		elseif (is_scalar($id) && $id)
+		elseif (is_scalar($id))
 		{
-			$identity = is_numeric($id) ? 'id' : 'username';
+			$identity = (is_numeric($id) OR empty($id)) ? 'id' : 'username';
 		}
 		//avoid a syntax error
 		else
