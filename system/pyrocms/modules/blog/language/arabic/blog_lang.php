@@ -1,12 +1,14 @@
 <?php
 
 // labels
-$lang['blog_posted_label'] 			= 'تاريخ النشر'; 
-$lang['blog_posted_label_alt']			= 'نشر في'; 
+$lang['blog_posted_label'] 			= 'تاريخ النشر';
+$lang['blog_posted_label_alt']			= 'نشر في';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label'] 			= 'التصنيف';
 $lang['blog_post_label'] 			= 'إرسال';
 $lang['blog_date_label'] 			= 'التاريخ';
-$lang['blog_date_at']				= 'عند'; 
+$lang['blog_date_at']				= 'عند';
 $lang['blog_time_label'] 			= 'الوقت';
 $lang['blog_status_label'] 			= 'الحالة';
 $lang['blog_draft_label'] 			= 'مسودّة';
