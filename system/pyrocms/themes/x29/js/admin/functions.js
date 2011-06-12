@@ -12,6 +12,20 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+		
+		$("#main-nav li a.top-link").click(function () {
+			if($(this).hasClass("no-submenu"))
+			{
+				return true;
+			}
+			$(this).parent().find('ul').toggle();
+			$(this).parent().siblings().find('ul').hide();
+			return false;
+		});
+		
+		$('#main-nav ul li').mouseleave(function(){
+			$(this).find('ul').fadeOut();
+		});
 
 		// Add the close link to all boxes with the closable class
 		$('.closable').livequery(function(){

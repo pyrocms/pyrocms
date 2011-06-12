@@ -250,7 +250,7 @@ header#main h1 {
 }
 
 #main-nav li ul {
-	visibility: hidden;
+	display: none;
 	position: absolute;
 	z-index: 999;
 }
@@ -259,14 +259,11 @@ header#main h1 {
 	float: none;
 }
 
-#main-nav li:hover ul {
-	visibility: visible;
-}
-
 #main-nav li ul a {
 	position: relative;
-	left: -20px;
-	width: 150px;
+	left: 0;
+	width: 110px;
+	font-size: 12px;
 	padding: 8px 0 8px 0;
 	background: #4d4d4d;
 	border-top: 1px solid #555555;
