@@ -3,6 +3,8 @@
 // labels
 $lang['blog_posted_label']                   = 'Δημοσιεύτηκε';
 $lang['blog_posted_label_alt']               = 'Δημοσιεύτηκε στις';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label']                 = 'Κατηγορία';
 $lang['blog_post_label']                     = 'Δημοσίευση';
 $lang['blog_date_label']                     = 'Ημερομηνία';

@@ -31,7 +31,7 @@ $lang['comments.send_label'] 				= 'Odeslat';
 $lang['comments.inactive_title'] 			= 'Komenáře čekající na schválení';
 $lang['comments.active_title'] 				= 'Schválené komentáře';
 $lang['comments.edit_title'] 				= 'Upravit komentář';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Seznam komentářů';
 
 // messages
 $lang['comments.add_success'] 				= 'Komentář byl uložen.';
@@ -55,3 +55,10 @@ $lang['comments.delete_single_success']			 = 'Komentář #%s byl smazán a už s
 $lang['comments.delete_multi_success']			 = 'Komentáře #%s byly smazány a už se neobjeví na webu.';
 
 $lang['comments.no_comments']				 = 'Nejsou zde žádné komentáře.';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate
+
+/* End of file comments_lang.php */

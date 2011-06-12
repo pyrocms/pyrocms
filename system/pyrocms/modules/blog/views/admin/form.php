@@ -35,7 +35,7 @@
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'wysiwyg-simple')); ?>
 			</li>
 			<li>
-				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => stripslashes($post->body), 'rows' => 50, 'class' => 'wysiwyg-advanced')); ?>
+				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 50, 'class' => 'wysiwyg-advanced')); ?>
 			</li>
 	
 		</ol>

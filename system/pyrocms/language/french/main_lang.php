@@ -8,6 +8,7 @@ $lang['desc_label'] 					        = 'Description';
 $lang['version_label'] 					        = 'Version';
 $lang['author_label'] 					        = 'Auteur';
 $lang['action_label'] 					        = 'Action';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.confirm'] 				        = 'Confirmez';
 $lang['dialog.yes'] 					        = 'Oui';
@@ -17,6 +18,9 @@ $lang['select.none'] 					        = '-- Aucun --';
 $lang['select.all'] 					        = '-- Tous --';
 $lang['select.any'] 					        = '-- N\'importe quel --';
 $lang['select.pick']							= '-- Selectionner --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 				        = 'Égal à';
 $lang['operators.not_equal'] 			        = 'Pas égal à';

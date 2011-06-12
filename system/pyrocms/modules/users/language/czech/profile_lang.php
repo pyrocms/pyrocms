@@ -32,7 +32,7 @@ $lang['profile_address_line1'] 			= 'Řádka #1';
 $lang['profile_address_line2'] 			= 'Řádka #2';
 $lang['profile_address_line3'] 			= 'Řádka #3';
 $lang['profile_address_postcode'] 		= 'PSČ';
-$lang['profile_website']				= 'Web'; #translate
+$lang['profile_website']				= 'Web';
 
 $lang['profile_messenger_section'] 		= 'IM';
 

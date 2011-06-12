@@ -11,9 +11,17 @@ $lang['buttons.publish']	= 'פרסם';
 $lang['buttons.approve']	= 'אשר';
 $lang['buttons.unapprove']	= 'בטל';
 $lang['buttons.install']	= 'התקן';
+$lang['buttons.uninstall']	= 'Uninstall'; #translate
+$lang['buttons.enable']		= 'הפעל';
+$lang['buttons.disable'] 	= 'כבה';
 $lang['buttons.yes']		= 'כן';
 $lang['buttons.no']			= 'לא';
 $lang['buttons.activate']   = 'הפעל';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
+$lang['buttons.edit']		= 'Edit'; #translate
+$lang['buttons.clone']		= 'Clone'; #translate
+$lang['buttons.copy']		= 'Copy'; #translate
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/hebrew/buttons_lang.php */

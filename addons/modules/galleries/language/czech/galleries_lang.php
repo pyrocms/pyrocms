@@ -14,9 +14,9 @@ $lang['galleries.folder_error']			= 'Složky galerie "%s" se nepodařilo vymazat
 $lang['galleries.delete_error']			= 'Galerii "%s" se nepodařilo vymazat.';
 $lang['galleries.no_galleries_error'] 	= 'Žádné galerie zatím nebyly vytvořeny.';
 $lang['galleries.install_error']		= 'Modul se nepodařilo nainstalovat.';
-$lang['galleries.already_exist_error']	= 'A gallery with the slug "%s" already exist.'; #translate
-$lang['galleries.folder_duplicated_error']	= 'An error occurred! The folder already belongs to a gallery.'; #translate
-$lang['galleries.no_gallery_description']	= 'No description has been added yet.'; #translate
+$lang['galleries.already_exist_error']	= 'Galerie s adresou v URL "%s" již existuje.';
+$lang['galleries.folder_duplicated_error']	= 'Objevila se chyba! Složka již patří do galerie.';
+$lang['galleries.no_gallery_description']	= 'Ještě nebyl přidán žádný podpis.';
 
 // Labels
 $lang['galleries.galleries_label']			= 'Galerie';
@@ -37,10 +37,12 @@ $lang['galleries.published_no_label']		= 'Ne';
 $lang['galleries.css_label']				= 'CSS';
 $lang['galleries.js_label']					= 'JavaScript';
 
-// General labels $lang['galleries.preview_label']			= 'Folder Images Preview'; $lang['galleries.no_thumb_label']			= 'No Thumbnail';
+// General labels
+$lang['galleries.preview_label']			= 'Náhled obrázků složky';
+$lang['galleries.no_thumb_label']			= 'Bez náhledu';
 $lang['galleries.title_label']				= 'Titulek';
 $lang['galleries.slug_label']				= 'Adresa v URL';
-$lang['galleries.folder_label']				= 'Folder'; #translate
+$lang['galleries.folder_label']				= 'Složka';
 $lang['galleries.description_label']		= 'Popis alba';
 $lang['galleries.thumbnail_label']			= 'Náhled';
 $lang['galleries.comments_label']			= 'Povolit komentáře';
@@ -56,6 +58,6 @@ $lang['galleries.upload_label']				= 'Nahrát obrázek';
 $lang['galleries.sub-galleries_label']		= 'Podgalerie';
 
 // tabs
-$lang['galleries.content_label']			= 'Gallery content'; #translate
+$lang['galleries.content_label']			= 'Obsah galerie'; #translate
 $lang['galleries.design_label']				= 'Design'; #translate
-$lang['galleries.script_label']				= 'Script'; #translate
+$lang['galleries.script_label']				= 'Skript'; #translate

@@ -2,9 +2,9 @@
 
 class MY_Form_validation extends CI_Form_validation
 {
-	function MY_Form_validation()
+	function MY_Form_validation($rules = array())
 	{
-		parent::__construct();
+		parent::__construct($rules);
 		$this->CI->load->language('extra_validation');
 	}
 

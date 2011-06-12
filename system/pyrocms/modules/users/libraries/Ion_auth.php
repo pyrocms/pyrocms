@@ -409,7 +409,7 @@ class Ion_auth
 	 **/
 	public function logged_in()
 	{
-	    $identity = $this->ci->config->item('identity', 'ion_auth');
+		$identity = $this->ci->config->item('identity', 'ion_auth');
 
 		return (bool) $this->ci->session->userdata($identity);
 	}

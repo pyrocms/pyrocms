@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Admin controller for the widgets module.
  *
@@ -7,8 +8,8 @@
  * @author			Phil Sturgeon - PyroCMS Development Team
  *
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+
 	/**
 	 * Constructor method
 	 * @access public
@@ -21,9 +22,18 @@ class Admin extends Admin_Controller
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-	    $this->template->append_metadata( js('widgets.js', 'widgets') );
-	    $this->template->append_metadata( css('widgets.css', 'widgets') );
+		$this->is_ajax() AND $this->template->set_layout(FALSE);
+
+		if (in_array($this->method, array('index', 'manage')))
+		{
+			// requires to install and/or uninstall widgets
+			$this->widgets->list_available_widgets();
+		}
+
+		$this->template
+			->set_partial('shortcuts', 'admin/partials/shortcuts')
+			->append_metadata(js('widgets.js', 'widgets'))
+			->append_metadata(css('widgets.css', 'widgets'));
 	}
 
 	/**
@@ -33,60 +43,140 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		// Firstly, install any uninstalled widgets
-		$uninstalled_widgets = $this->widgets->list_uninstalled_widgets();
-		foreach ($uninstalled_widgets as $widget)
-		{
-			$this->widgets->add_widget((array)$widget);
-		}
+		$data = array();
 
-		$this->data->available_widgets = $this->widgets->list_available_widgets();
+		// Get Widgets
+		$data['available_widgets'] = $this->widget_m
+			->where('enabled', 1)
+			->order_by('`order`')
+			->get_all();
 
-		$this->data->widget_areas = $this->widgets->list_areas();
+		// Get Areas
+		$this->db->order_by('`title`');
+
+		$data['widget_areas'] = $this->widgets->list_areas();
 
 		// Go through all widget areas
-		foreach ($this->data->widget_areas as &$area)
+		$slugs = array();
+
+		foreach ($data['widget_areas'] as $key => $area)
 		{
-			$area->widgets = $this->widgets->list_area_instances($area->slug);
+			$slugs[$area->id] = $area->slug;
+
+			$data['widget_areas'][$key]->widgets = array();
+		}
+
+		$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
+
+		$instances = $this->widgets->list_area_instances($slugs);
+
+		foreach ($instances as $instance)
+		{
+			$data['widget_areas'][$instance->widget_area_id]->widgets[$instance->id] = $instance;
 		}
 
 		// Create the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->build('admin/index', $data);
 	}
 
 	/**
-	 * Show info about available widgets
-	 * @access public
-	 * @param str $slug The slug of the widget
-	 * @return void
+	 * Manage method, lists all widgets to install, uninstall, etc..
+	 * 
+	 * @access	public
+	 * @return	void
 	 */
-	public function about_available($slug)
+	public function manage()
 	{
-		$widget = $this->widgets->get_widget($slug);
+		$data = array();
 
-		$this->load->view('admin/about_widget', array(
-			'widget' => $widget,
-			'available' => TRUE,
-			'form_action' => 'admin/widgets/uninstall'
-		));
+		$base_where = array('enabled' => 1);
+
+		//capture active
+		$base_where['enabled'] = is_int($this->session->flashdata('enabled')) ? $this->session->flashdata('enabled') : $base_where['enabled'];
+		$base_where['enabled'] = is_numeric($this->input->post('f_enabled')) ? $this->input->post('f_enabled') : $base_where['enabled'];
+
+		// Create pagination links
+		// @todo: fixes pagination and sort compatibility
+		//$total_rows = $this->widget_m->count_by($base_where);
+		//$data['pagination'] = create_pagination('admin/widgets/manage', $total_rows);
+
+		$data['widgets_active'] = $base_where['enabled'];
+
+		$data['widgets'] = $this->widget_m
+			//->limit($data['pagination']['limit'])
+			->order_by('`order`')
+			->get_many_by($base_where);
+
+
+		// Create the layout
+		$this->template
+			->title($this->module_details['name'])
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata( js('admin/filter.js') )
+			->build('admin/manage', $data);
 	}
 
 	/**
-	 * Show info about uninstalled widgets
-	 * @access public
-	 * @param str $slug The slug of the widget
-	 * @return void
+	 * Enable widget
+	 * 
+	 * @access	public
+	 * @param	string	$id			The id of the widget
+	 * @param	bool	$redirect	Optional if a redirect should be done
+	 * @return	void
 	 */
-	public function about_uninstalled($slug)
+	public function enable($id = '', $redirect = TRUE)
 	{
-		$widget = $this->widgets->read_widget($slug);
+		$id && $this->_do_action($id, 'enable');
 
-		$this->load->view('admin/about_widget', array(
-			'widget' => $widget,
-			'available' => FALSE,
-			'form_action' => 'admin/widgets/install'
-		));
+		if ($redirect)
+		{
+			$this->session->set_flashdata('enabled', 0);
+
+			redirect('admin/widgets/manage');
+		}
 	}
+
+	/**
+	 * Disable widget
+	 * 
+	 * @access	public
+	 * @param	string	$id			The id of the widget
+	 * @param	bool	$redirect	Optional if a redirect should be done
+	 * @return	void
+	 */
+	public function disable($id = '', $redirect = TRUE)
+	{
+		$id && $this->_do_action($id, 'disable');
+
+		$redirect AND redirect('admin/widgets/manage');
+	}
+
+	/**
+	 * Do the actual work for enable/disable
+	 * 
+	 * @access	protected
+	 * @param	int|array	$ids	Id or array of Ids to process
+	 * @param	string		$action	Action to take: maps to model
+	 * @return	void
+	 */
+	protected function _do_action($ids = array(), $action = '')
+	{
+		$ids		= ( ! is_array($ids)) ? array($ids) : $ids;
+		$multiple	= (count($ids) > 1) ? '_mass' : NULL;
+		$status		= 'success';
+
+		foreach ($ids as $id)
+		{
+			if ( ! $this->widget_m->{$action . '_widget'}($id))
+			{
+				$status = 'error';
+				break;
+			}
+		}
+
+		$this->session->set_flashdata( array($status=> lang('widgets.'.$action.'_'.$status.$multiple)));
+	}
+
 }

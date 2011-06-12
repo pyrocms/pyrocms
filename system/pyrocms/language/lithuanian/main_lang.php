@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Description';
 $lang['version_label'] 					= 'Version';
 $lang['author_label'] 					= 'Author';
 $lang['action_label'] 					= 'Action';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.';
 $lang['dialog.confirm'] 				= 'Confirm';
@@ -18,6 +19,9 @@ $lang['select.none'] 					= '-- None --';
 $lang['select.all'] 					= '-- All --';
 $lang['select.any'] 					= '-- Any --';
 $lang['select.pick'] 					= '-- Select --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Equal to';
 $lang['operators.not_equal'] 			= 'Not equal to';

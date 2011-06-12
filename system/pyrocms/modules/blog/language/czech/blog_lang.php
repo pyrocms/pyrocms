@@ -3,6 +3,8 @@
 // labels
 $lang['blog_posted_label'] 			= 'Odesláno';
 $lang['blog_posted_label_alt']			= 'Odesláno';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label'] 			= 'Kategorie';
 $lang['blog_post_label'] 			= 'Odeslat';
 $lang['blog_date_label'] 			= 'Datum';
@@ -30,12 +32,9 @@ $lang['blog_rss_name_suffix'] 			= ' Novinky';
 $lang['blog_rss_category_suffix'] 		= ' Novinky';
 $lang['blog_author_name_label'] 		= 'Autor';
 $lang['blog_read_more_label'] 			= 'Čtěte dále';
-$lang['blog_created_day']                       = 'Vytvořeno dne';
-$lang['blog_created_month']                     = 'Vytvořeno měsíce';
-$lang['blog_created_year']                      = 'Vytvořeno roku';
 $lang['blog_created_hour']                      = 'Vytvořeno v hodině';
 $lang['blog_created_minute']                    = 'Vytvořeno v minutě';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'Komentáře povoleny';
 
 // titles
 $lang['blog_create_title'] 			= 'Přidat článek';
@@ -66,6 +65,6 @@ $lang['blog_twitter_posted']			= 'Publikováno "%s" %s';
 $lang['blog_twitter_error'] 			= 'Chyba Twitteru';
 
 // date
-$lang['blog_archive_date_format']		= "%B' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%B %Y";
 
 ?>

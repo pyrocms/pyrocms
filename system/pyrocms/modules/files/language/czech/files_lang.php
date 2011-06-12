@@ -16,9 +16,9 @@
 // Files
 
 // Titles
-$lang['files.files_title']					= 'Souborz';
+$lang['files.files_title']					= 'Soubory';
 $lang['files.upload_title']					= 'Nahrát soubory';
-$lang['files.edit_title']					= 'Edit file "%s"'; #translate
+$lang['files.edit_title']					= 'Upravit soubor "%s"';
 
 // Labels
 $lang['files.actions_label']				= 'Akce';
@@ -30,9 +30,9 @@ $lang['files.description_label']			= 'Popis';
 $lang['files.type_label']					= 'Typ';
 $lang['files.file_label']					= 'Soubor';
 $lang['files.filename_label']				= 'Jméno souboru';
-$lang['files.filter_label']					= 'Filter'; #translate
-$lang['files.loading_label']				= 'Loading...'; #translate
-$lang['files.name_label']					= 'Name'; #translate
+$lang['files.filter_label']					= 'Filtr'; 
+$lang['files.loading_label']				= 'Nahrávám...';
+$lang['files.name_label']					= 'Jméno';
 
 $lang['files.dropdown_no_subfolders']		= '-- Nic --';
 $lang['files.dropdown_root']				= '-- Kořenový adresář --';
@@ -43,24 +43,24 @@ $lang['files.type_d']						= 'Dokument';
 $lang['files.type_i']						= 'Obrázek';
 $lang['files.type_o']						= 'Ostatní';
 
-$lang['files.display_grid']					= 'Grid'; #translate
-$lang['files.display_list']					= 'List'; #translate
+$lang['files.display_grid']					= 'Mřížka';
+$lang['files.display_list']					= 'Seznam';
 
 // Messages
 $lang['files.create_success']				= 'Soubor byl uložen';
-$lang['files.create_error']					= 'An error as occourred.'; #translate
-$lang['files.edit_success']					= 'The file was successfully saved.'; #translate
-$lang['files.edit_error']					= 'An error occurred while trying to save the file.'; #translate
+$lang['files.create_error']					= 'Vyskytl se problém.';
+$lang['files.edit_success']					= 'Soubor byl uložen.';
+$lang['files.edit_error']					= 'Vyskytl se problém při ukládání souboru.';
 $lang['files.delete_success']				= 'Soubor byl vymazán.';
 $lang['files.delete_error']					= 'Soubor se nepodařilo vymazat.';
-$lang['files.mass_delete_success']			= '%d of %d files were successfully deleted, they were "%s and %s"'; #translate
-$lang['files.mass_delete_error']			= 'An error occurred while trying to delete %d of %d files, they are "%s and %s".'; #translate
-$lang['files.upload_error']					= 'A file must be uploaded.'; #translate
-$lang['files.invalid_extension']			= 'File must have a valid extension.'; #translate
+$lang['files.mass_delete_success']			= '%d z %d souborů bylo vymazáno, byly to "%s a %s"';
+$lang['files.mass_delete_error']			= 'Vyskytl se problém při mazání %d z %d souborů, byly to "%s a %s".';
+$lang['files.upload_error']					= 'Musí být nahrán soubor.';
+$lang['files.invalid_extension']			= 'Soubor musí mít povolenou příponu.';
 $lang['files.not_exists']					= 'Byl zvolen neplatný soubor.';
 $lang['files.no_files']						= 'V tuto chvíli tu nejsou žádné soubory.';
-$lang['files.no_permissions']				= 'You do not have permissions to see the files module.'; #translate
-$lang['files.no_select_error'] 				= 'You must select a file first, his request was interrupted.'; #translate
+$lang['files.no_permissions']				= 'Nemáte oprávnění k modulu souborů.';
+$lang['files.no_select_error'] 				= 'Musíte neprve vybrat soubor, požadavek byl přerušen.';
 
 // File folders
 
@@ -69,7 +69,7 @@ $lang['file_folders.folders_title']			= 'Složky souborů';
 $lang['file_folders.manage_title']			= 'Spravovat složky';
 $lang['file_folders.create_title']			= 'Nová složka';
 $lang['file_folders.delete_title']			= 'Potvrdit vymazání';
-$lang['file_folders.edit_title']			= 'Edit folder "%s"'; #translate
+$lang['file_folders.edit_title']			= 'Upravit složku "%s"';
 
 // Labels
 $lang['file_folders.folders_label']			= 'Složky';
@@ -82,15 +82,15 @@ $lang['file_folders.created_label']			= 'Vytvořeno';
 
 // Messages
 $lang['file_folders.create_success']		= 'Složka byla uložena.';
-$lang['file_folders.create_error']			= 'An error occurred while attempting to create your folder.'; #translate
-$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
-$lang['file_folders.edit_success']			= 'The folder was successfully saved.'; #translate
-$lang['file_folders.edit_error']			= 'An error occurred while trying to save the changes.'; #translate
-$lang['file_folders.confirm_delete']		= 'Are you sure you want to delete the folders below, including all files and subfolders inside them?'; #translate
-$lang['file_folders.delete_mass_success']	= '%d of %d folders have been successfully deleted, they were "%s and %s.'; #translate
-$lang['file_folders.delete_mass_error']		= 'An error occurred while trying to delete %d of %d folders, they are "%s and %s".'; #translate
+$lang['file_folders.create_error']			= 'Vyskytl se problém při vytváření složky.';
+$lang['file_folders.duplicate_error']		= 'Složka "%s" již existuje.';
+$lang['file_folders.edit_success']			= 'Složka byla uložena.';
+$lang['file_folders.edit_error']			= 'Vyskytl se problém při ukládání změn.';
+$lang['file_folders.confirm_delete']		= 'Opravdu chcete vymazat tuto složku, včetně obsažených podsložek a souborů?';
+$lang['file_folders.delete_mass_success']	= '%d z %d složek bylo vymazáno, byly to "%s a %s"';
+$lang['file_folders.delete_mass_error']		= 'Vyskytl se problém při mazání %d z %d složek, byly to "%s a %s".';
 $lang['file_folders.delete_success']		= 'Složka "%s" byla vymazána.';
-$lang['file_folders.delete_error']			= 'An error occurred while trying to delete the folder "%s".'; #translate
+$lang['file_folders.delete_error']			= 'Vyskytl se problém při mazání složky "%s".';
 $lang['file_folders.not_exists']			= 'Byla vybrána neplatná složka.';
 $lang['file_folders.no_subfolders']			= 'Nic';
 $lang['file_folders.no_folders']			= 'Vaše soubory jsou řazeny podle složek, v tuto chvíli nemáte vytvořeny žádné složky.';

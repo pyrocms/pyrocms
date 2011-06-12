@@ -17,7 +17,7 @@ class Migration_Updatewidgettitleagain extends Migration {
 				'zh' => '小組件',
 				'it' => 'Widgets',
 				'ru' => 'Виджеты',
-				'ar' => 'الودجت'
+				'ar' => 'الودجت',
 				'sl' => 'Vtičniki'
 			)))
 
@@ -29,7 +29,7 @@ class Migration_Updatewidgettitleagain extends Migration {
 				'fr' => 'Gérer des mini application ou "Widgets".',
 				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
 				'it' => 'Gestisci piccole sezioni di logica a se stante in blocchi o "Widgets".',
-				'sl' =>	'Uredite majša področja delčke vaš spletne strani - Vtičnike'
+				'sl' =>	'Uredite majša področja delčke vaš spletne strani - Vtičnike',
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
 				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".'
 

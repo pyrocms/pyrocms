@@ -8,4 +8,4 @@
 	<?php echo anchor('admin/blog/edit/'. $post->id, lang('blog_edit_label'), ' target="_parent"'); ?>
 </p>
 
-<iframe src="<?php echo site_url('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug); ?>" width="99%" height="480"></iframe>
+<iframe src="<?php echo site_url('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug); ?>" width="99%" height="400"></iframe>

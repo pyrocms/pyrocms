@@ -53,17 +53,42 @@ class Widgets {
 
 	function list_area_instances($slug)
 	{
-		return $this->widget_m->get_by_area($slug);
+		return is_array($slug) ? $this->widget_m->get_by_areas($slug) : $this->widget_m->get_by_area($slug);
 	}
 
 	function list_available_widgets()
 	{
-		return $this->widget_m->order_by('slug')->get_all();
+		// Firstly, install any uninstalled widgets
+		$uninstalled_widgets = $this->list_uninstalled_widgets();
+
+		foreach ($uninstalled_widgets as $widget)
+		{
+			$this->add_widget((array) $widget);
+		}
+
+		// Secondly, uninstall any installed widgets missed
+		$installed_widgets = $this->widget_m->order_by('slug')->get_all();
+
+		$avaliable = array();
+
+		foreach ($installed_widgets as $widget)
+		{
+			if ( ! isset($this->_widget_locations[$widget->slug]))
+			{
+				$this->delete_widget($widget->slug);
+
+				continue;
+			}
+
+			$avaliable[] = $widget;
+		}
+
+		return $avaliable;
 	}
 
 	function list_uninstalled_widgets()
 	{
-		$available = $this->list_available_widgets();
+		$available = $this->widget_m->order_by('slug')->get_all();
 		$available_slugs = array();
 
 		foreach ($available as $widget)
@@ -258,6 +283,11 @@ class Widgets {
 		return $this->widget_m->update_widget($input);
 	}
 
+	function update_widget_order($id, $position)
+	{
+		return $this->widget_m->update_widget_order($id, $position);
+	}
+
 	function delete_widget($slug)
 	{
 		return $this->widget_m->delete_widget($slug);
@@ -282,7 +312,7 @@ class Widgets {
 	{
 		$slug = $this->get_widget($widget_id)->slug;
 
-		if ($error = $this->validation_errors($slug, $options))
+		if ($error = $this->validation_errors($slug, $data))
 		{
 			return array('status' => 'error', 'error' => $error);
 		}
@@ -335,20 +365,21 @@ class Widgets {
 
 	function validation_errors($name, $options)
 	{
+//		$_POST = $options;
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('title', lang('title_label'), 'trim|required|max_length[100]');
+
 		$this->_widget OR $this->_spawn_widget($name);
 
 		if (property_exists($this->_widget, 'fields'))
 		{
-			$_POST = $options;
-
-			$this->load->library('form_validation');
-			//$this->form_validation->set_rules('title', 'Title', 'required');
 			$this->form_validation->set_rules($this->_widget->fields);
+		}
 
-			if ( ! $this->form_validation->run('', FALSE))
-			{
-				return validation_errors();
-			}
+		if ( ! $this->form_validation->run('', FALSE))
+		{
+			return validation_errors();
 		}
 	}
 

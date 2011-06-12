@@ -55,3 +55,10 @@ $lang['comments.delete_single_success'] 	= '此回應 #%s 已經被刪除，將�
 $lang['comments.delete_multi_success'] 		= '這些回應 #%s 已經被刪除，將不會顯示在前端網站。';
 
 $lang['comments.no_comments'] 				= '目前沒有回應';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate
+
+/* End of file comments_lang.php */

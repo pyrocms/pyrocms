@@ -22,6 +22,9 @@ $lang['buttons.publish']	= 'Publikuoti';
 $lang['buttons.approve']	= 'Patvirtinti';
 $lang['buttons.unapprove']	= 'Nepatvirtinti';
 $lang['buttons.install']	= 'Instaliuoti';
+$lang['buttons.uninstall']	= 'Uninstall'; #translate
+$lang['buttons.enable']		= 'Enable'; #translate
+$lang['buttons.disable'] 	= 'Disable'; #translate
 $lang['buttons.yes']		= 'Taip';
 $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']   = 'Aktyvuoti';
@@ -29,6 +32,7 @@ $lang['buttons.preview']	= 'Peržiūra'; #translate
 $lang['buttons.close']		= 'Uždaryti'; #translate
 $lang['buttons.edit']		= 'Redaguoti'; #translate
 $lang['buttons.clone']		= 'Klonuoti'; #translate
+$lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'Kopijuoti'; #translate
 
 /* End of file buttons_lang.php */

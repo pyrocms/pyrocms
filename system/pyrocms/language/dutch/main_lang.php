@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Omschrijving';
 $lang['version_label'] 					= 'Versie';
 $lang['author_label'] 					= 'Auteur';
 $lang['action_label'] 					= 'Actie';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Weet u zeker dat u dit wilt verwijderen? Het kan niet ongedaan worden.';
 $lang['dialog.confirm'] 				= 'Bevestigen';
@@ -18,6 +19,9 @@ $lang['select.none'] 					= '-- Geen --';
 $lang['select.all'] 					= '-- Alles --';
 $lang['select.any'] 					= '-- Willekeurig --';
 $lang['select.pick']					= '-- Selecteer --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Gelijk aan'; 
 $lang['operators.not_equal'] 			= 'Niet gelijk aan';

@@ -16,7 +16,7 @@
  */
 
 //  CI 2.0 Compatibility
-if(!class_exists('CI_Model')) { class CI_Model extends CI_Model {  } }
+if(!class_exists('CI_Model')) { class CI_Model extends Model {  } }
 
 class MY_Model extends CI_Model
 {
@@ -87,6 +87,25 @@ class MY_Model extends CI_Model
 		parent::__construct();
 		$this->load->helper('inflector');
 		$this->_fetch_table();
+	}
+
+	public function __call($method, $arguments)
+	{
+		$db_method = array($this->db, $method);
+
+		if (is_callable($db_method))
+		{
+			$result = call_user_func_array($db_method, $arguments);
+
+			if (is_object($result) && $result === $this->db)
+			{
+				return $this;
+			}
+
+			return $result;
+		}
+
+		throw new Exception("class '" . get_class($this) . "' does not have a method '" . $method . "'");
 	}
 
 	/**

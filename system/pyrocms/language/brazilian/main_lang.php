@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
 $lang['author_label'] 					= 'Autor';
 $lang['action_label'] 					= 'Ação';
+$lang['actions_label'] 					= 'Ações';
 
 $lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
 $lang['dialog.confirm'] 				= 'Confirmar';
@@ -18,6 +19,9 @@ $lang['select.none'] 					= '-- Nenhum --';
 $lang['select.all'] 					= '-- Todos --';
 $lang['select.any'] 					= '-- Qualquer --';
 $lang['select.pick']					= '-- Selecione --';
+
+$lang['check.none'] 					= 'Nenhum';
+$lang['check.all']						= 'Todos';
 
 $lang['operators.equal'] 				= 'Igual a';
 $lang['operators.not_equal'] 			= 'Diferente de';
@@ -57,7 +61,7 @@ $lang['approve_label']					= 'Aprovar';
 $lang['unapprove_label']				= 'Rejeitar';
 $lang['publish_label'] 					= 'Publicar';
 $lang['upload_label'] 					= 'Enviar';
-$lang['uninstall_label'] 				= 'Remover';
+$lang['uninstall_label'] 				= 'Desinstalar';
 $lang['install_label'] 					= 'Instalar';
 $lang['enable_label']					= 'Ativar';
 $lang['disable_label'] 					= 'Desativar';

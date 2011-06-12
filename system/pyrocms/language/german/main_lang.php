@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Beschreibung';
 $lang['version_label'] 					= 'Version';
 $lang['author_label'] 					= 'Autor';
 $lang['action_label'] 					= 'Aktion';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
 $lang['dialog.confirm'] 				= 'Bestätigen';
@@ -18,6 +19,9 @@ $lang['select.none'] 					= '-- Keine --';
 $lang['select.all'] 					= '-- Alle --';
 $lang['select.any'] 					= '-- Eines --';
 $lang['select.pick']			 		= '-- Auswählen --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Gleicht';
 $lang['operators.not_equal'] 			= 'Gleicht nicht';

@@ -36,16 +36,16 @@
 		<?php echo form_open('admin/login'); ?>
 			<ul>
 				<li>
-					<input type="text" name="email" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}"  onfocus="if (this.value == 'Email Address') {this.value = '';}" />
-					<img class="input-email" src="<?php echo image_path('admin/email-icon.png');?>" alt="Email" />
+					<input type="text" name="email" value="<?php echo lang('email_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('email_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('email_label'); ?>') {this.value = '';}" />
+					<img class="input-email" src="<?php echo image_path('admin/email-icon.png');?>" alt="<?php echo lang('email_label'); ?>" />
 				</li>
 				
 				<li>
-					<input type="password" name="password" value="Enter Password" onblur="if (this.value == '') {this.value = 'Enter Password';}"  onfocus="if (this.value == 'Enter Password') {this.value = '';}"  />
-					<img class="input-password" src="<?php echo image_path('admin/lock-icon.png');?>" alt="Password" />
+					<input type="password" name="password" value="<?php echo lang('password_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('password_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('password_label'); ?>') {this.value = '';}"  />
+					<img class="input-password" src="<?php echo image_path('admin/lock-icon.png');?>" alt="<?php echo lang('password_label'); ?>" />
 				</li>
 				
-				<li><center><input class="button" type="submit" name="submit" value="Login" /></center></li>
+				<li><center><input class="button" type="submit" name="submit" value="<?php echo lang('login_label'); ?>" /></center></li>
 			</ul>
 		<?php echo form_close(); ?>
 	</div>

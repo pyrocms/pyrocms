@@ -10,6 +10,10 @@ $lang['widgets.widget'] 					= 'Widget';
 $lang['widgets.widget_author'] 				= 'Autor';
 $lang['widgets.widget_short_name'] 			= 'Krátké jméno';
 $lang['widgets.widget_version'] 			= 'Verze';
+$lang['widgets.status_label']			= 'Status'; #translate
+
+$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
+$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
 
 // Widget area titles
 $lang['widgets.add_area'] 					= 'Přidat oblast';
@@ -32,4 +36,4 @@ $lang['widgets.tag_title']					= 'Štítek';
 $lang['widgets.instance_edit'] 				= 'Upravit';
 $lang['widgets.instance_delete'] 			= 'Vymazat';
 
-$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate
+$lang['widgets.no_available_widgets']		= 'Nejsou dostupné žádné widgety.';

@@ -51,7 +51,7 @@
 	
 	<tr>
 		<td width="100">format</td>
-		<td>Required. Format for the output. This plugin uses <a href="http://php.net/manual/en/function.date.php">PHP's date formatting syntax</a>.</td>
+		<td>Required. Format for the output. This plugin uses PHP's <a href="http://php.net/manual/en/function.date.php">date</a> or <a href="http://php.net/manual/en/function.strftime.php">strftime</a> formatting syntax.</td>
 	</tr>
 	<tr>
 		<td width="100">timestamp</td>
@@ -65,3 +65,47 @@
 <pre><code>{pyro:helper:date format="Y"}</code></pre>
 
 <pre><code>2011</code></pre>
+
+<br />
+
+<h3>{pyro:helper:gravatar}</h3>
+
+<p>Displays an avatar using gravatar API.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th width="100">Parameter</th>
+		<th width="100">Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>email</td>
+		<td>None</td>
+		<td>Required. The Email address used to generate the gravatar.</td>
+	</tr>
+	<tr>
+		<td>size</td>
+		<td>50</td>
+		<td>The size of the gravatar in pixels. A size of 50 would return a gravatar with a width and height of 50px.</td>
+	</tr>
+	<tr>
+		<td>rating</td>
+		<td>g</td>
+		<td>The rating of the gravatar. Possible values are g, pg, r or x.</td>
+	</tr>
+	<tr>
+		<td>url_only</td>
+		<td>false</td>
+		<td>true or false. Set this to TRUE if you want the plugin to only return the gravatar URL instead of the HTML.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{pyro:helper:gravatar email="user@example.com" size="20"}</code></pre>
+
+<pre><code>&lt;img src='http://www.gravatar.com/avatar/b58996c504c5638798eb6b511e6f49af?s=20&amp;r=g' alt='Gravatar' class='gravatar' /&gt;</code></pre>

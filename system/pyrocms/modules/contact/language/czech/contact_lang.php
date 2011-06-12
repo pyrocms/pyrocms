@@ -36,7 +36,7 @@ $lang['contact_title']						= 'Kontakt';
 // texts
 $lang['contact_mail_text']					= 'Tato zpráva byla odeslána přes kontaktní formulář na %s s následujícími údaji:';
 $lang['contact_sent_text']					= 'Vaše zpráva byla odeslána. Budeme se snažit zareagovat co nejdříve to půjde.';
-$lang['contact_error_message']			= 'There was a problem sending this message. Please try again later..'; #translate
+$lang['contact_error_message']			= 'Vyskytl se problém při odesílání zprávy, zkuste to prosím později.';
 
 //predefined subjects list
 $lang['subject_support']  = 'Podpora';

@@ -8,6 +8,7 @@ $lang['desc_label'] 				= 'Popis';
 $lang['version_label'] 				= 'Verze';
 $lang['author_label'] 				= 'Autor';
 $lang['action_label'] 				= 'Akce';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Opravdu chcete položku vymazat? Akci nebude možno vrátit.';
 $lang['dialog.confirm'] 			= 'Potvrdit';
@@ -18,6 +19,9 @@ $lang['select.none'] 				= '-- Nic --';
 $lang['select.all'] 				= '-- Vše --';
 $lang['select.any'] 				= '-- Cokoliv --';
 $lang['select.pick'] 				= '-- Vybrat --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 			= 'Shodné s';
 $lang['operators.not_equal'] 			= 'Rozdílné od';
@@ -61,3 +65,4 @@ $lang['uninstall_label'] 			= 'Odinstalovat';
 $lang['install_label'] 				= 'Instalovat';
 $lang['enable_label']				= 'Zapnout';
 $lang['disable_label'] 				= 'Vypnout';
+$lang['upgrade_label'] 				= 'Upgrade';

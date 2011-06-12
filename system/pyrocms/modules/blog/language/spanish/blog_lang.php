@@ -3,6 +3,8 @@
 // labels
 $lang['blog_posted_label']					= 'Escrito';
 $lang['blog_category_label'] 				= 'Categoría';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_post_label'] 					= 'Post';
 $lang['blog_date_label'] 					= 'Fecha';
 $lang['blog_time_label'] 					= 'Hora';
@@ -31,7 +33,7 @@ $lang['blog_author_name_label'] 			= 'Nombre del autor';
 $lang['blog_read_more_label'] 				= 'Leer más &raquo;';
 $lang['blog_created_hour']                 	= 'Hora (Hora)';
 $lang['blog_created_minute']				= 'Hora (Minutos)';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'Comentarios Habilitados';
 
 // titles
 $lang['blog_create_title'] 					= 'Crear un artículo';

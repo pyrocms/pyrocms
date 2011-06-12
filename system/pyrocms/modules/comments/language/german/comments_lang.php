@@ -55,3 +55,10 @@ $lang['comments.delete_single_success'] 	= 'Dieser Kommentar #%s wurde gelöscht
 $lang['comments.delete_multi_success'] 		= 'Diese Kommentare #%s wurden gelöscht und werden nicht länger auf der Seite angezeigt.';
 
 $lang['comments.no_comments'] 				= 'Keine Kommentare vorhanden';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate
+
+/* End of file comments_lang.php */

@@ -8,4 +8,4 @@
 	<?php echo anchor('admin/galleries/manage/' . $gallery->id, lang('galleries.manage_label'), ' target="_parent"'); ?>
 </p>
 
-<iframe src="<?php echo site_url('galleries/' . $gallery->slug); ?>" width="99%" height="480"></iframe>
+<iframe src="<?php echo site_url('galleries/' . $gallery->slug); ?>" width="99%" height="400"></iframe>

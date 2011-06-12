@@ -221,6 +221,11 @@ class File_folders_m extends MY_Model {
 
 		$path = trim($path, '/');
 
+		if (empty($this->_folders))
+		{
+			$this->get_folders();
+		}
+
 		foreach ($this->_folders as $id => $folder)
 		{
 			if ($folder->virtual_path == $path)
@@ -236,7 +241,7 @@ class File_folders_m extends MY_Model {
 	{
 		$this->file_m->delete_files($id);
 
-		parent::delete($id);
+		return parent::delete($id);
 	}
 }
 

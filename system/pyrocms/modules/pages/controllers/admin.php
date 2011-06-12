@@ -98,7 +98,7 @@ class Admin extends Admin_Controller {
 	 * @access private
 	 * @var int
 	 */
-	private $page_id;
+	private $page_id = 0;
 
 	/**
 	 * Constructor method
@@ -142,7 +142,7 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'])
 			->append_metadata( js('jquery/jquery.ui.nestedSortable.js') )
-			->append_metadata( js('jquery/jquery.cookie.js') )
+			->append_metadata( js('jquery/jquery.cooki.js') )
 			->append_metadata( js('index.js', 'pages') )
 			->append_metadata( css('index.css', 'pages') )
 			->build('admin/index', $this->data);
@@ -280,10 +280,15 @@ class Admin extends Admin_Controller {
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$page->{$rule['field']} = $this->input->post($rule['field']);
-		}
+			if ($rule['field'] === 'restricted_to[]')
+			{
+				$page->restricted_to = set_value($rule['field']);
 
-		$page->restricted_to = $this->input->post('restricted_to');
+				continue;
+			}
+
+			$page->{$rule['field']} = set_value($rule['field']);
+		}
 
 	    // If a parent id was passed, fetch the parent details
 	    if ($parent_id > 0)
@@ -320,8 +325,6 @@ class Admin extends Admin_Controller {
 
 		role_or_die('pages', 'edit_live');
 
-	    // Set the page ID and get the current page
-	    $this->page_id 	= $id;
 	    $page 			= $this->versioning->get($id);
 		$revisions		= $this->versioning->get_revisions($id);
 
@@ -331,6 +334,9 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
 	    }
+
+	    // Set the page ID and get the current page
+	    $this->page_id = $page->id;
 
 		// It's stored as a CSV list
 		$page->restricted_to = explode(',', $page->restricted_to);
@@ -382,10 +388,19 @@ class Admin extends Admin_Controller {
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== FALSE)
+			if ($rule['field'] === 'navigation_group_id')
 			{
-				$page->{$rule['field']} = set_value($rule['field']);
+				continue;
 			}
+
+			if ($rule['field'] === 'restricted_to[]')
+			{
+				$page->restricted_to = set_value($rule['field'], $page->restricted_to);
+
+				continue;
+			}
+
+			$page->{$rule['field']} = set_value($rule['field'], $page->{$rule['field']});
 		}
 
 	    // If a parent id was passed, fetch the parent details
@@ -500,12 +515,14 @@ class Admin extends Admin_Controller {
 		// Create the diff using mixed mode
 		$rev_1 = $this->versioning->get_by_revision($id_1);
 		$rev_2 = $this->versioning->get_by_revision($id_2);
-		$diff  = $this->versioning->compare_revisions($rev_1->body, $rev_2->body, 'mixed');
+		$diff  = $this->versioning->compare_revisions($rev_2->body, $rev_1->body, 'mixed');
 
 		// Output the results
 		$data['difference'] = $diff;
-		$this->template->set_layout('modal', 'admin')
-				->build('admin/revisions/compare', $data);
+
+		$this->template
+			->set_layout('modal', 'admin')
+			->build('admin/revisions/compare', $data);
 	}
 
 	/**

@@ -25,24 +25,9 @@
 
 		<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
-
-		<!-- Begin content -->
-			<div id="content">
-
-				{pyro:theme:partial name="breadcrumbs"}
-
-				{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-
-				<div class="post">
-					{pyro:template:body}
-					<br style="clear:both;" />
-				</div>
-
-			</div>
-			<!-- End content -->
-
-			{pyro:theme:partial name="sidebar"}
-
+			
+			{pyro:theme:partial name="content"}
+			
 		</div>
 	<!-- End contentWrapper -->
 

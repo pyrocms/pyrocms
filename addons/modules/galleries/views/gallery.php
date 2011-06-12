@@ -30,7 +30,9 @@
 		<!-- Heading -->
 		<div class="gallery_heading">
 			<?php if ( ! empty($sub_gallery->filename)) : ?>
-			<?php echo img(array('src' => site_url() . 'files/thumb/' . $sub_gallery->file_id, 'alt' => $sub_gallery->title)); ?>
+			<a href="<?php echo site_url() . 'galleries/' . $sub_gallery->slug; ?>">
+				<?php echo img(array('src' => site_url() . 'files/thumb/' . $sub_gallery->file_id, 'alt' => $sub_gallery->title)); ?>
+			</a>
 			<?php endif; ?>
 			<h3><?php echo anchor('galleries/' . $sub_gallery->slug, $sub_gallery->title); ?></h3>
 		</div>

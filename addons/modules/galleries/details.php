@@ -58,7 +58,6 @@ class Module_Galleries extends Module {
 			  `folder_id` int(11) NOT NULL,
 			  `thumbnail_id` int(11) DEFAULT NULL,
 			  `description` text,
-			  `parent` int(11) DEFAULT NULL,
 			  `updated_on` int(15) NOT NULL,
 			  `preview` varchar(255) DEFAULT NULL,
 			  `enable_comments` int(1) DEFAULT NULL,

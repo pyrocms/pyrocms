@@ -8,6 +8,39 @@
 
 <h2>Functions</h2>
 
+<h3>{pyro:theme:options}</h3>
+
+<p>
+	Displays an option for the current theme. To read more about this tag
+	and its usage refer to the <a href="#designers/getting_started.html">theme documentation.</a>
+</p>
+
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th>Parameter</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td width="100">option</td>
+		<td>Required. The option slug to request from the theme.</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{if '{pyro:theme:options option="layout"}' == 'full-width'}
+	&lt;div class="full-width"&gt;
+		{pyro:template:body}
+	&lt;/div&gt;
+{/if}</code></pre>
+
+<br />
+
 <h3>{pyro:theme:partial}</h3>
 
 <p>Loads partial from the current theme.</p>
@@ -123,6 +156,60 @@
 <pre><code>{pyro:theme:js file="extra.js"}</code></pre>
 
 <pre><code>&lt;script type="text/javascript" src="themes/default/js/extra.js"&gt;</code></pre>
+
+<br />
+
+<h3>{pyro:theme:favicon}</h3>
+
+<p>Generates a &lt;link&gt; tag for a favicon file in the current theme.</p>
+
+<p><strong>Parameters</strong></p>
+
+<table cellpadding="0" cellspacing="0">
+
+	<tr>
+		<th width="100">Parameter</th>
+		<th width="100">Default</th>
+		<th>Description</th>
+	</tr>
+	
+	<tr>
+		<td>file</td>
+		<td>favicon.ico</td>
+		<td>Optional. Favicon file.</td>
+	</tr>
+	
+	<tr>
+		<td>rel</td>
+		<td>shortcut icon</td>
+		<td>Optional. Favicon rel.</td>
+	</tr>
+	
+	<tr>
+		<td>type</td>
+		<td>image/x-icon</td>
+		<td>Optional. Favicon type.</td>
+	</tr>
+	
+	<tr>
+		<td>xhtml</td>
+		<td>true</td>
+		<td>Optional. Build a W3C valid link tag xhtml? enter false if you uses html5.</td>
+	</tr>
+	
+	<tr>
+		<td>base</td>
+		<td>path</td>
+		<td>Optional. "path" or "url".</td>
+	</tr>
+
+</table>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{pyro:theme:favicon file="favicon.png"}</code></pre>
+
+<pre><code>&lt;link href="/system/pyrocms/themes/default/img/favicon.png" rel="shortcut icon" type="imagem/x-icon"&gt;</code></pre>
 
 <br />
 

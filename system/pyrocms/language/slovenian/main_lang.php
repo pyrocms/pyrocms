@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
 $lang['author_label'] 					= 'Avtor';
 $lang['action_label'] 					= 'Dejanje';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['dialog.confirm'] 				= 'Potrdi';
@@ -18,6 +19,9 @@ $lang['select.none'] 					= '-- Brez --';
 $lang['select.all'] 					= '-- Vse --';
 $lang['select.any'] 					= '-- Izbrano --';
 $lang['select.pick'] 					= '-- Izberi --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Enako kot';
 $lang['operators.not_equal'] 			= 'Ni enako kot';

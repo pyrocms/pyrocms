@@ -130,6 +130,11 @@ class User_settings extends Public_Controller
 			$this->ion_auth->set_lang( $this->input->post('settings_lang', TRUE) );
 			$set['lang'] = $this->input->post('settings_lang', TRUE);
 
+			if ($set['lang'])
+			{
+				$_SESSION['lang_code'] = $set['lang'];
+			}
+
 	    	// If password is being changed (and matches)
 	    	if($this->input->post('settings_password'))
 	    	{

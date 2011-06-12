@@ -2,7 +2,7 @@
 
 * [Website](http://pyrocms.com/)
 * [Documentation](http://pyrocms.com/documentation)
-* Version: 1.2.0-beta2
+* Version: 1.2.0
 
 ## Team
 
@@ -69,3 +69,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [Marcos Coelho](http://marcoscoelho.com/) Portuguese Brazilian
 * [imamo](http://www.imamo.si/) Slovenian
 * [Petsagourakis George](https://github.com/petsagouris) Greek
+* [Mikael Kundert](https://github.com/mikaelkundert) Finnish

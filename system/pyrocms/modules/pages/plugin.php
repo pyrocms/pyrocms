@@ -34,13 +34,15 @@ class Plugin_Pages extends Plugin
 	 */
 	function display()
 	{
-		return $this->db->select('pages.*, revisions.*')
+		$page = $this->db->select('pages.*, revisions.*')
 					->where('pages.id', $this->attribute('id'))
 					->or_where('pages.slug', $this->attribute('slug'))
 					->where('status', 'live')
 					->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
 					->get('pages')
 					->row_array();
+					
+		return $this->content() ? $page : $page['body'];
 	}
 	
 	/**

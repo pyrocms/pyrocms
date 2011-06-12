@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Kuvaus';
 $lang['version_label'] 					= 'Versio';
 $lang['author_label'] 					= 'Tekijä';
 $lang['action_label'] 					= 'Toiminto';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
 $lang['dialog.confirm'] 				= 'Vahvista';
@@ -18,6 +19,9 @@ $lang['select.none'] 					= '-- Ei mikään --';
 $lang['select.all'] 					= '-- Kaikki --';
 $lang['select.any'] 					= '-- Any --'; // @todo: Not yet sure in which context we're using this
 $lang['select.pick'] 					= '-- Valitse --';
+
+$lang['check.none'] 					= 'None'; #translate
+$lang['check.all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Täsmää';
 $lang['operators.not_equal'] 			= 'Ei täsmää';

@@ -2,12 +2,12 @@
 <div id="footerWrapper">
 	<div id="footer">
 
-	<div id="poweredby"><a href="http://pyrocms.com/">{pyro:theme:image file="logo.png" alt="Powered by PyroCMS"} Powered by PyroCMS</div>
+	<div id="poweredby"><a href="http://pyrocms.com/">{pyro:theme:image file="logo.png" alt="Powered by PyroCMS"} Powered by PyroCMS</a></div>
 
 	<ul id="foot-nav">
 		{pyro:navigation:links group="footer"}
 		<li><a class="last" href="#top" title="Back to Top">Top &uarr;</a></li>
-        <li>&copy;{pyro:helper:date format="Y"} {pyro:settings:site_name}. All Rights Reserved.</li>
+		<li>&copy;{pyro:helper:date format="Y"} {pyro:settings:site_name}. All Rights Reserved.</li>
 	</ul>
 
 	</div>
@@ -20,14 +20,18 @@
 {pyro:theme:js file="scrollto.js"}
 {pyro:theme:js file="easing.js"}
 
-{if '{pyro:settings:theme_default:cufon_enabled}' == true}
-{pyro:theme:js file="cufon.js"}
-{pyro:theme:js file="{pyro:settings:theme_default:cufon_font}"}
+
+{if '{pyro:theme:options option="cufon_enabled"}' == 'yes'}
+	{if '{pyro:settings:theme_default:cufon_enabled}' == true}
+		{pyro:theme:js file="cufon.js"}
+		{pyro:theme:js file="{pyro:settings:theme_default:cufon_font}"}
+	{/if}
 {/if}
 
 {pyro:theme:js file="global.js"}
 <!-- End scripts -->
-
-{if '{pyro:settings:theme_default:cufon_enabled}' == true}
-<script type="text/javascript">Cufon.now();</script>
+{if '{pyro:theme:options option="cufon_enabled"}' == 'yes'}
+	{if '{pyro:settings:theme_default:cufon_enabled}' == true}
+		<script type="text/javascript">Cufon.now();</script>
+	{/if}
 {/if}

@@ -72,6 +72,7 @@ class Module_Blog extends Module {
 			  `attachment` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			  `intro` text collate utf8_unicode_ci NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
+			  `author_id` int(11) NOT NULL default '0',
 			  `created_on` int(11) NOT NULL,
 			  `updated_on` int(11) NOT NULL default 0,
                           `comments_enabled` INT(1)  NOT NULL default '1',

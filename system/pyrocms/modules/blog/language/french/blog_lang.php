@@ -3,6 +3,8 @@
 // labels
 $lang['blog_posted_label'] 							= 'Envoyé vers';
 $lang['blog_posted_label_alt']						= 'Envoyé à';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label'] 						= 'Catégorie';
 $lang['blog_post_label'] 							= 'Envoi';
 $lang['blog_date_label'] 							= 'Date';
@@ -41,7 +43,7 @@ $lang['blog_archive_title'] 						= 'Archiver';
 $lang['blog_posts_title'] 						= 'Posts';
 $lang['blog_rss_posts_title'] 					= 'Post d\'actualité pour %s';
 $lang['blog_blog_title'] 							= 'Actualités';
-$lang['blog_list_title'] 							= 'Lister les posts'; 
+$lang['blog_list_title'] 							= 'Lister les posts';
 
 // messages
 $lang['blog_no_posts'] 							= 'Il n\'y a pas d\'posts.';

@@ -43,7 +43,8 @@ class Plugin_Galleries extends Plugin
 	{
 		$limit	= $this->attribute('limit');
 		$slug	= $this->attribute('slug');
-
+		$offset = $this->attribute('offset');
+		
 		$this->load->model(array(
 			'galleries_m',
 			'gallery_images_m'
@@ -52,7 +53,8 @@ class Plugin_Galleries extends Plugin
 		$gallery = $this->galleries_m->get_by('slug', $slug);
 
 		return $gallery ? $this->gallery_images_m->get_images_by_gallery($gallery->id, array(
-			'limit' => $limit
+			'limit' => $limit,
+			'offset' => $offset
 		)) : array();
 	}
 
