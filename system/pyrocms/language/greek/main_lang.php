@@ -8,7 +8,7 @@ $lang['desc_label'] 					= 'Περιγραφή';
 $lang['version_label'] 					= 'Έκδοση';
 $lang['author_label'] 					= 'Συγγραφέας';
 $lang['action_label'] 					= 'Ενέργεια';
-$lang['actions_label']					= 'Ενέργειεσ';
+$lang['actions_label']					= 'Ενέργειες';
 
 $lang['dialog.delete_message'] 			= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['dialog.confirm'] 				= 'Επιβεβαίωση';
