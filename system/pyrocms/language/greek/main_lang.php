@@ -8,7 +8,7 @@ $lang['desc_label'] 					= 'Περιγραφή';
 $lang['version_label'] 					= 'Έκδοση';
 $lang['author_label'] 					= 'Συγγραφέας';
 $lang['action_label'] 					= 'Ενέργεια';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['actions_label']					= 'Ενέργειεσ';
 
 $lang['dialog.delete_message'] 			= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['dialog.confirm'] 				= 'Επιβεβαίωση';
@@ -20,8 +20,8 @@ $lang['select.all'] 					= '-- Όλα --';
 $lang['select.any'] 					= '-- Όποιο νά \'ναι --';
 $lang['select.pick'] 					= '-- Επιλογή --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 					= 'Κανένα';
+$lang['check.all']						= 'Όλα';
 
 $lang['operators.equal'] 				= 'Ίσο με';
 $lang['operators.not_equal'] 			= 'Όχι ίσο με';

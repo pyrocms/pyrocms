@@ -3,8 +3,8 @@
 // labels
 $lang['blog_posted_label']                   = 'Δημοσιεύτηκε';
 $lang['blog_posted_label_alt']               = 'Δημοσιεύτηκε στις';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']				= 'Γράφτηκε από';
+$lang['blog_author_unknown']				= 'Άγνωστο';
 $lang['blog_category_label']                 = 'Κατηγορία';
 $lang['blog_post_label']                     = 'Δημοσίευση';
 $lang['blog_date_label']                     = 'Ημερομηνία';
@@ -34,7 +34,7 @@ $lang['blog_author_name_label']              = 'Όνομα συγγραφέα';
 $lang['blog_read_more_label']                = 'Διαβάστε περισσότερα &raquo;';
 $lang['blog_created_hour']                   = 'Ώρα δημιουργίας';
 $lang['blog_created_minute']                 = 'Λεπτό δημιουργίας';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'Σχόλια Ενεργά';
 
 // titles
 $lang['blog_create_title']                   = 'Προσθήκη δημοσίευσης';
