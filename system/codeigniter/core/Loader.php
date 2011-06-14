@@ -79,9 +79,9 @@ class CI_Loader {
 	{
 		if (is_array($library))
 		{
-			foreach($library as $read)
+			foreach ($library as $class)
 			{
-				$this->library($read);
+				$this->library($class, $params);
 			}
 
 			return;
@@ -97,17 +97,7 @@ class CI_Loader {
 			$params = NULL;
 		}
 
-		if (is_array($library))
-		{
-			foreach ($library as $class)
-			{
-				$this->_ci_load_class($class, $params, $object_name);
-			}
-		}
-		else
-		{
 			$this->_ci_load_class($library, $params, $object_name);
-		}
 	}
 
 	// --------------------------------------------------------------------
@@ -882,12 +872,12 @@ class CI_Loader {
 					// We test for both uppercase and lowercase, for servers that
 					// are case-sensitive with regard to file names. Check for environment
 					// first, global next
-					if (file_exists($path .'config/'.ENVIRONMENT.'/'.strtolower($class).EXT))
+					if (defined('ENVIRONMENT') AND file_exists($path .'config/'.ENVIRONMENT.'/'.strtolower($class).EXT))
 					{
 						include_once($path .'config/'.ENVIRONMENT.'/'.strtolower($class).EXT);
 						break;
 					}
-					elseif (file_exists($path .'config/'.ENVIRONMENT.'/'.ucfirst(strtolower($class)).EXT))
+					elseif (defined('ENVIRONMENT') AND file_exists($path .'config/'.ENVIRONMENT.'/'.ucfirst(strtolower($class)).EXT))
 					{
 						include_once($path .'config/'.ENVIRONMENT.'/'.ucfirst(strtolower($class)).EXT);
 						break;
@@ -975,7 +965,15 @@ class CI_Loader {
 	 */
 	function _ci_autoloader()
 	{
-		include_once(APPPATH.'config/autoload'.EXT);
+		if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/autoload'.EXT))
+		{
+			include_once(APPPATH.'config/'.ENVIRONMENT.'/autoload'.EXT);
+		}
+		else
+		{
+			include_once(APPPATH.'config/autoload'.EXT);
+		}
+
 
 		if ( ! isset($autoload))
 		{
