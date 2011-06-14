@@ -3,12 +3,14 @@
 /* Date 07/11/2010 */
 
 // labels
-$lang['blog_posted_label'] 			= 'Pubblicato'; 
-$lang['blog_posted_label_alt']			= 'Pubblicato alle'; 
+$lang['blog_posted_label'] 			= 'Pubblicato';
+$lang['blog_posted_label_alt']			= 'Pubblicato alle';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label'] 			= 'Categoria';
 $lang['blog_post_label'] 			= 'Articolo';
 $lang['blog_date_label'] 			= 'Data';
-$lang['blog_date_at']				= 'alle'; 
+$lang['blog_date_at']				= 'alle';
 $lang['blog_time_label'] 			= 'Ora';
 $lang['blog_status_label'] 			= 'Stato';
 $lang['blog_draft_label'] 			= 'Bozza';

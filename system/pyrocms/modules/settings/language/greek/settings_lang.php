@@ -10,8 +10,8 @@ $lang['settings_site_name_desc']				= 'Το όνομα του ιστοτόπου
 $lang['settings_site_slogan']					= 'Ατάκα Ιστοτόπου';
 $lang['settings_site_slogan_desc']				= 'Η ατάκα του ιστοτόπου σας για τίτλους σελίδων και για χρήση ανά τον ιστότοπο.';
 
-$lang['settings_site_lang']						= 'Site Language'; #translate
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang']						= 'Γλώσσα Ιστοτόπου';
+$lang['settings_site_lang_desc']				= 'Η φυσική γλώσσα του ιστοτόπου, χρησιμοποιείται στα πρότυπα των email, στα μηνύματα του συστήματος και γενικότερα όπου υπάρχει ανάγκη για κείμενο σε μια γλώσσα οικία προς τους χρήστες.';
 
 $lang['settings_contact_email']					= 'E-mail Επικοινωνίας';
 $lang['settings_contact_email_desc']			= 'Όλα τα e-mail από χρήστες, επισκέπτες και τον ιστότοπο, θα στέλνονται σε αυτήν την διεύθυνση.';
