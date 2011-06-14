@@ -74,10 +74,10 @@ class Admin extends Admin_Controller
 				$data['messages']['success'] = lang('themes.re-index_success');
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'success',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 		
@@ -126,10 +126,10 @@ class Admin extends Admin_Controller
 				$data['messages']['success'] = lang('themes.save_success');
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'success',
 					'message'	=> $message
-				)) );
+				));
 
 			}
 			elseif (validation_errors())
@@ -137,10 +137,10 @@ class Admin extends Admin_Controller
 				$data = array();
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 		
