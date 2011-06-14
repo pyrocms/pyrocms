@@ -411,10 +411,9 @@ class Admin extends Admin_Controller
 		{
 			$folder->images = $this->gallery_images_m->get_images_by_file_folder($folder->id);
 			
-			echo json_encode($folder);
-			
-			return;
+			return $this->template->build_json($folder);
 		}
+
 		echo FALSE;
 	}
 

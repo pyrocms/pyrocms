@@ -159,10 +159,10 @@ class Admin extends Admin_Controller {
 					$data['messages'][$status] = $message;
 					$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-					return print( json_encode((object) array(
+					return $this->template->build_json(array(
 						'status'	=> $status,
 						'message'	=> $message
-					)) );
+					));
 				}
 
 				$this->data->messages[$status] = $message;
@@ -206,7 +206,7 @@ class Admin extends Admin_Controller {
 					$data['messages'][$status] = $message;
 					$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-					return print( json_encode((object) array(
+					return $this->template->build_json(array(
 						'status'	=> $status,
 						'message'	=> $message,
 						'file'		=> array(
@@ -215,7 +215,7 @@ class Admin extends Admin_Controller {
 							'size'	=> $file['file_size'],
 							'thumb'	=> base_url() . 'files/thumb/' . $id . '/80'
 						)
-					)) );
+					));
 				}
 
 				if ($status === 'success')
@@ -232,10 +232,10 @@ class Admin extends Admin_Controller {
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -249,10 +249,10 @@ class Admin extends Admin_Controller {
 			$data['messages'][$status] = $message;
 			$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> $status,
 				'message'	=> $message
-			)) );
+			));
 		}
 
 		// Loop through each validation rule
@@ -285,10 +285,10 @@ class Admin extends Admin_Controller {
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 
 			$this->session->set_flashdata($status, $message);
@@ -320,10 +320,10 @@ class Admin extends Admin_Controller {
 						$data['messages'][$status] = $message;
 						$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-						return print( json_encode((object) array(
+						return $this->template->build_json(array(
 							'status'	=> $status,
 							'message'	=> $message
-						)) );
+						));
 					}
 
 					$this->data->messages[$status] = $message;
@@ -366,11 +366,11 @@ class Admin extends Admin_Controller {
 						$data['messages'][$status] = $message;
 						$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-						return print( json_encode((object) array(
+						return $this->template->build_json(array(
 							'status'	=> $status,
 							'message'	=> $message,
 							'title'		=> $status === 'success' ? sprintf(lang('files.edit_title'), $this->input->post('name')) : $file->name
-						)) );
+						));
 					}
 
 					if ($status === 'success')
@@ -408,11 +408,11 @@ class Admin extends Admin_Controller {
 					$data['messages'][$status] = $message;
 					$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-					return print( json_encode((object) array(
+					return $this->template->build_json(array(
 						'status'	=> $status,
 						'message'	=> $message,
 						'title'		=> $status === 'success' ? sprintf(lang('files.edit_title'), $this->input->post('name')) : $file->name
-					)) );
+					));
 				}
 
 				if ($status === 'success')
@@ -429,10 +429,10 @@ class Admin extends Admin_Controller {
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
