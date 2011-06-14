@@ -71,7 +71,6 @@ class MY_Controller extends CI_Controller {
 
 		if (!$this->module_details['skip_xss'])
 		{
-			$this->load->library('security');
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
