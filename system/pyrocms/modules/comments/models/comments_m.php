@@ -62,8 +62,8 @@ class Comments_m extends MY_Model
   	public function get_by_module_item($module, $module_id, $is_active = 1)
   	{
     	$this->db
-    		->where('module', $module)
-    		->where('module_id', $module_id)
+    		->where('comments.module', $module)
+    		->where('comments.module_id', $module_id)
     		->where('comments.is_active', $is_active)
     		->order_by('comments.created_on', $this->settings->comment_order);
     	
@@ -78,11 +78,12 @@ class Comments_m extends MY_Model
 	 */
   	public function get_all()
   	{
-    	$this->db->select('comments.*');
-    	$this->db->select('IF(comments.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), comments.name) as name');
-    	$this->db->select('IF(comments.user_id > 0, u.email, comments.email) as email');
+    	$this->db->select('c.*');
+		$this->db->from('comments c');
+    	$this->db->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name');
+    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email');
 
-    	$this->db->join('users u', 'comments.user_id = u.id', 'left');
+    	$this->db->join('users u', 'c.user_id = u.id', 'left');
     	$this->db->join('profiles m', 'm.user_id = u.id', 'left');
     	
     	return parent::get_all();
