@@ -84,7 +84,7 @@ class Admin_folders extends Admin_Controller {
 
 		$data->file_folders = $this->_folders;
 
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			$content	= $this->load->view('admin/folders/index', $data, TRUE);
 			$navigation	= $this->load->view('admin/partials/nav', array(
@@ -123,7 +123,7 @@ class Admin_folders extends Admin_Controller {
 
 		if ( ! (isset($folder) && $folder))
 		{
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$status		= 'error';
 				$message	= lang('file_folders.not_exists');
@@ -197,7 +197,7 @@ class Admin_folders extends Admin_Controller {
 			->get_many_by('folder_id', $folder->id);
 
 		// Response ajax
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			$content	= $this->load->view('admin/folders/contents', $this->data, TRUE);
 			$navigation	= $this->load->view('admin/partials/nav', array(
@@ -251,7 +251,7 @@ class Admin_folders extends Admin_Controller {
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
@@ -270,7 +270,7 @@ class Admin_folders extends Admin_Controller {
 		elseif (validation_errors())
 		{
 			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
@@ -288,7 +288,7 @@ class Admin_folders extends Admin_Controller {
 
 		$this->data->folder = $folder;
 
-		$this->is_ajax() && $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
 
 		$this->template
 			->title($this->module_details['name'], lang('file_folders.create_title'))
@@ -302,7 +302,7 @@ class Admin_folders extends Admin_Controller {
 		$folder = $this->file_folders_m->get($id);
 		if ( ! $folder)
 		{
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$status		= 'error';
 				$message	= lang('file_folders.not_exists');
@@ -340,7 +340,7 @@ class Admin_folders extends Admin_Controller {
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
@@ -360,7 +360,7 @@ class Admin_folders extends Admin_Controller {
 		elseif (validation_errors())
 		{
 			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
@@ -378,7 +378,7 @@ class Admin_folders extends Admin_Controller {
 
 		$this->data->folder = $folder;
 
-		$this->is_ajax() && $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('file_folders.edit_title'), $folder->name))
@@ -444,7 +444,7 @@ class Admin_folders extends Admin_Controller {
 				$status = array_key_exists('error', $deleted) ? 'error': 'success';
 			}
 
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 				$data['messages'] = $deleted;
@@ -470,7 +470,7 @@ class Admin_folders extends Admin_Controller {
 			isset($this->_folders[$id]) && $data->file_folders[$id] = $this->_folders[$id];
 		}
 
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			$this->template->set_layout(FALSE);
 

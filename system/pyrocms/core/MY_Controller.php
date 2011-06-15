@@ -99,11 +99,6 @@ class MY_Controller extends CI_Controller {
 
 		$this->benchmark->mark('my_controller_end');
 	}
-
-	protected function is_ajax()
-	{
-		return $this->input->server('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
-	}
 }
 
 /**
