@@ -37,11 +37,11 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
 -- command split --
 
 INSERT INTO `{PREFIX}users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-			(1,'{EMAIL}', '{PASSWORD}', '{SALT}', 1, '', 1, '', {NOW}, {NOW}, '{USERNAME}', NULL, NULL);
+    (1,'{EMAIL}', '{PASSWORD}', '{SALT}', 1, '', 1, '', {NOW}, {NOW}, '{USER-NAME}', NULL, NULL);
 
 -- command split --
 
-CREATE TABLE core_users SELECT * FROM users WHERE;
+CREATE TABLE core_users SELECT * FROM {PREFIX}users;
 
 -- command split --
 
@@ -81,14 +81,14 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}profiles` (
 -- command split --
 			
 INSERT INTO `{PREFIX}profiles` (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
-			(1, 1, '{FIRSTNAME}', '{LASTNAME}', '{DISPLAYNAME}', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    (1, 1, '{FIRST-NAME}', '{LAST-NAME}', '{DISPLAY-NAME}', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- command split --
 
-CREATE TABLE `{PREFIX}schema_version` (
+CREATE TABLE {PREFIX}schema_version (
   `version` int(3) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
-INSERT INTO `schema_version` VALUES ('{MIGRATION}');
+INSERT INTO {PREFIX}schema_version VALUES ('{MIGRATION}');

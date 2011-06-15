@@ -19,7 +19,7 @@ class Module_import {
 		$db['database'] = $this->ci->input->post('database');
 		$db['port'] = $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
-		$db['dbprefix'] = "";
+		$db['dbprefix'] = $this->ci->input->post('site_ref').'_';
 		$db['pconnect'] = TRUE;
 		$db['db_debug'] = TRUE;
 		$db['cache_on'] = FALSE;
@@ -82,13 +82,13 @@ class Module_import {
 
 
 	public function import_all()
-    {
+	{
 		//drop the old modules table
 		$this->ci->load->dbforge();
 		$this->ci->dbforge->drop_table('modules');
 
 		$modules = "
-			CREATE TABLE `modules` (
+			CREATE TABLE ".$this->ci->db->dbprefix('modules')." (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `name` TEXT NOT NULL,
 			  `slug` varchar(50) NOT NULL,
@@ -110,14 +110,14 @@ class Module_import {
 		//create the modules table so that we can import all modules including the modules module
 		$this->ci->db->query($modules);
 
-    	// Loop through directories that hold modules
+		// Loop through directories that hold modules
 		$is_core = TRUE;
 
 		foreach (array(PYROPATH, ADDONPATH) as $directory)
-    	{
-    		// Loop through modules
-	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
-	        {
+		{
+			// Loop through modules
+			foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+			{
 				$slug = basename($module_name);
 
 				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
@@ -130,7 +130,7 @@ class Module_import {
 
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;
-        }
+		}
 
 		return TRUE;
 	}

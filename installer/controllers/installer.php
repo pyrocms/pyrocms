@@ -354,8 +354,6 @@ class Installer extends CI_Controller
 			//define the default user email to be used in the settings module install
 			define('DEFAULT_EMAIL', $this->input->post('user_email'));
 
-			$this->db->set_dbprefix( $this->input->post('site_ref').'_');
-
 			// Import the modules
 			$this->load->library('module_import');
 			$this->module_import->import_all();

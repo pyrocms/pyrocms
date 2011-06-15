@@ -245,25 +245,26 @@ class Installer_lib {
 		if ( !mysql_select_db($database, $this->db) )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> '',
-						'code'		=> 101
-					);
+				'status'	=> FALSE,
+				'message'	=> '',
+				'code'		=> 101
+			);
 		}
 		
 		if ( ! $this->_process_schema($user_sql, FALSE) )
 		{
 			return array(
-						'status'	=> FALSE,
-						'message'	=> mysql_error($this->db),
-						'code'		=> 104
-					);
+				'status'	=> FALSE,
+				'message'	=> mysql_error($this->db),
+				'code'		=> 104
+			);
 		}
 		
-		$this->db->query("INSERT INTO core_sites (ref, domain, created_on) VALUES (?, ?, ?);", array(
+		mysql_query(sprintf(
+			"INSERT INTO core_sites (ref, domain, created_on) VALUES ('%s', '%s', '%s');",
 			$data['site_ref'],
 			preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
-			time(),
+			time()
 		));
 			
 		// If we got this far there can't have been any errors. close and bail!
