@@ -44,7 +44,7 @@ class Installer_lib {
 	 * 
 	 * Function to retrieve the MySQL version (client/server)
 	 */
-	function mysql_acceptable($type = 'server')
+	public function mysql_acceptable($type = 'server')
 	{
 		// Server version
 		if ($type == 'server')
@@ -88,7 +88,7 @@ class Installer_lib {
 	 *
 	 * Function to retrieve the GD library version
 	 */
-	function gd_acceptable()
+	public function gd_acceptable()
 	{
 		// Get if the gd_info() function exists
 		if (function_exists('gd_info'))
@@ -112,7 +112,7 @@ class Installer_lib {
 	 *
 	 * Function to check if zlib is installed
 	 */
-	function zlib_enabled()
+	public function zlib_enabled()
 	{
 		return extension_loaded('zlib');
 	}
@@ -123,7 +123,7 @@ class Installer_lib {
 	 *
 	 * Function to validate the server settings.
 	 */
-	function check_server($data)
+	public function check_server($data)
 	{
 		// Check PHP
 		if ( ! $this->php_acceptable() )
@@ -167,7 +167,7 @@ class Installer_lib {
 	 * The supported key will be set to TRUE whenever the server is supported. The non_apache server will be set to TRUE whenever the user is using a server other than Apache. 
 	 * This enables the system to determine whether mod_rewrite should be used or not.
 	 */
-	function verify_http_server($server_name)
+	public function verify_http_server($server_name)
 	{
 		// Set all the required variables
 		if ($server_name == 'other')
@@ -185,7 +185,7 @@ class Installer_lib {
 	 *
 	 * Make sure we can connect to the database 
 	 */
-	function test_db_connection()
+	public function test_db_connection()
 	{
 		$hostname = $this->ci->session->userdata('hostname');
 		$username = $this->ci->session->userdata('username');
@@ -201,7 +201,7 @@ class Installer_lib {
 	 *
 	 * Install the PyroCMS database and write the database.php file
 	 */
-	function install($data)
+	public function install($data)
 	{
 		// Retrieve the database server, username and password from the session
 		$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
@@ -218,15 +218,16 @@ class Installer_lib {
 
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
-		$user_sql = str_replace('__EMAIL__', $data['user_email'], $user_sql);
-		$user_sql = str_replace('__USERNAME__', mysql_escape_string($data['user_name']), $user_sql);
-		$user_sql = str_replace('__DISPLAYNAME__', mysql_escape_string($data['user_firstname'] . ' ' . $data['user_lastname']), $user_sql);
-		$user_sql = str_replace('__PASSWORD__', mysql_escape_string($data['user_password']), $user_sql);
-		$user_sql = str_replace('__FIRSTNAME__', mysql_escape_string($data['user_firstname']), $user_sql);
-		$user_sql = str_replace('__LASTNAME__', mysql_escape_string($data['user_lastname']) , $user_sql);
-		$user_sql = str_replace('__SALT__', $user_salt, $user_sql);
-		$user_sql = str_replace('__NOW__', time(), $user_sql);
-		$user_sql = str_replace('__MIGRATION__', $config['migrations_version'], $user_sql);
+		$user_sql = str_replace('{PREFIX}', $data['site_ref'].'_', $user_sql);
+		$user_sql = str_replace('{EMAIL}', $data['user_email'], $user_sql);
+		$user_sql = str_replace('{USER-NAME}', mysql_escape_string($data['user_name']), $user_sql);
+		$user_sql = str_replace('{DISPLAY-NAME}', mysql_escape_string($data['user_firstname'] . ' ' . $data['user_lastname']), $user_sql);
+		$user_sql = str_replace('{PASSWORD}', mysql_escape_string($data['user_password']), $user_sql);
+		$user_sql = str_replace('{FIRST-NAME}', mysql_escape_string($data['user_firstname']), $user_sql);
+		$user_sql = str_replace('{LAST-NAME}', mysql_escape_string($data['user_lastname']) , $user_sql);
+		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
+		$user_sql = str_replace('{NOW}', time(), $user_sql);
+		$user_sql = str_replace('{MIGRATION}', $config['migrations_version'], $user_sql);
 		
 		// Create a connection
 		if ( ! $this->db = mysql_connect($server, $username, $password) )
@@ -258,6 +259,12 @@ class Installer_lib {
 						'code'		=> 104
 					);
 		}
+		
+		$this->db->query("INSERT INTO core_sites (ref, domain, created_on) VALUES (?, ?, ?);", array(
+			$data['site_ref'],
+			preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
+			time(),
+		));
 			
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close($this->db);

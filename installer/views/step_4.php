@@ -19,6 +19,15 @@
 
 	<br />
 
+	<h2><?php echo lang('site_settings'); ?></h2>
+	
+	<div class="input">
+		<label for="site_ref"><?php echo lang('site_ref'); ?></label>
+		<input type="text" id="site_ref" name="site_ref" value="<?php echo set_value('site_ref'); ?>" />
+	</div>
+
+	<br />
+	
 	<h2><?php echo lang('default_user'); ?></h2>
 	
 	<div class="input">

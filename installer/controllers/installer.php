@@ -66,7 +66,6 @@ class Installer extends CI_Controller
 	 */
 	public function index()
 	{
-	
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
 		$data['page_output'] = $this->parser->parse('main', $this->lang->language, TRUE);
 		
@@ -82,7 +81,6 @@ class Installer extends CI_Controller
 	 */
 	public function step_1()
 	{
-		
 		// Save this junk for later
 		$this->session->set_userdata(array(
 			'hostname' => $this->input->post('hostname'),
@@ -295,6 +293,11 @@ class Installer extends CI_Controller
 				'rules'	=> 'trim|required'
 			),
 			array(
+				'field' => 'site_ref',
+				'label'	=> 'lang:site_ref',
+				'rules'	=> 'trim|required|alpha_dash'
+			),
+			array(
 				'field' => 'user_name',
 				'label'	=> 'lang:username',
 				'rules'	=> 'trim|required'
@@ -350,6 +353,8 @@ class Installer extends CI_Controller
 			
 			//define the default user email to be used in the settings module install
 			define('DEFAULT_EMAIL', $this->input->post('user_email'));
+
+			$this->db->set_dbprefix( $this->input->post('site_ref').'_');
 
 			// Import the modules
 			$this->load->library('module_import');
