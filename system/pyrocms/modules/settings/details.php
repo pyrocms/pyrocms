@@ -56,7 +56,7 @@ class Module_Settings extends Module {
 		$this->dbforge->drop_table('settings');
 
 		$settings = "
-			CREATE TABLE `settings` (
+			CREATE TABLE " . $this->db->dbprefix('settings') . " (
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
 			  `description` text collate utf8_unicode_ci NOT NULL,
@@ -78,7 +78,7 @@ class Module_Settings extends Module {
 		// for example if you add to the Email tab give it a value in the range of 983 to 975
 		// Third-party modules should use lower numbers or 0
 		$default_settings = "
-			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
+			INSERT INTO " . $this->db->dbprefix('settings') . " (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
 			 ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1','','1000'),
 			 ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','','Add your slogan here','','0','1','','999'),
 			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1','','998'),

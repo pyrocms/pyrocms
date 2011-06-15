@@ -63,7 +63,7 @@ class Module_Pages extends Module {
 		$this->dbforge->drop_table('revisions');
 
 		$page_layouts = "
-			CREATE TABLE `page_layouts` (
+			CREATE TABLE " . $this->db->dbprefix('page_layouts') . " (
 			`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 			`title` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 			`body` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -75,7 +75,7 @@ class Module_Pages extends Module {
 		";
 
 		$pages = "
-			CREATE TABLE `pages` (
+			CREATE TABLE " . $this->db->dbprefix('pages') . " (
 			 `id` int(11) unsigned NOT NULL auto_increment,
 			 `slug` varchar(255) collate utf8_unicode_ci NOT NULL default '',
 			 `title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
@@ -104,7 +104,7 @@ class Module_Pages extends Module {
 		";
 
 		$revisions = "
-			CREATE TABLE `revisions` (
+			CREATE TABLE " . $this->db->dbprefix('revisions') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `owner_id` int(11) NOT NULL,
 			  `table_name` varchar(100)  COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pages',
@@ -117,19 +117,19 @@ class Module_Pages extends Module {
 		";
 
 		$default_page_layouts = "
-			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
+			INSERT INTO  " . $this->db->dbprefix('page_layouts') . " (`id`, `title`, `body`, `css`, `js`, `updated_on`) VALUES
 			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', '', ".time().");
 		";
 
 		$default_pages = "
-			INSERT INTO `pages` (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, is_home) VALUES
+			INSERT INTO " . $this->db->dbprefix('pages') . " (`id`, `slug`, `title`, `uri`, `revision_id`, `parent_id`, `layout_id`, `status`, `created_on`, `updated_on`, `restricted_to`, is_home) VALUES
 			('1','home', 'Home', 'home', 1, 0, 1, 'live', ".time().", ".time().", '', 1),
 			('2', '404', 'Page missing', '404', 2, 0, '1', 'live', ".time().", ".time().", '', 0),
 			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '', 0);
 		";
 
 		$default_revisions = "
-			INSERT INTO `revisions` (`id`, `owner_id`, `body`, `revision_date`) VALUES
+			INSERT INTO " . $this->db->dbprefix('revisions') . " (`id`, `owner_id`, `body`, `revision_date`) VALUES
 			  ('1', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', ".time()."),
 			  ('2', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{pyro:pages:url id=\'1\'}\">here</a> to go to the homepage.</p>', ".time()."),
 			  ('3', '3', '<p>To contact us please fill out the form below.</p> {pyro:contact:form}', ".time().");

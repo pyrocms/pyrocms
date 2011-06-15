@@ -53,7 +53,7 @@ class Module_Widgets extends Module {
 		$this->dbforge->drop_table('widgets');
 		
 		$widget_areas = "
-			CREATE TABLE `widget_areas` (
+			CREATE TABLE " . $this->db->dbprefix('widget_areas') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `slug` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -63,7 +63,7 @@ class Module_Widgets extends Module {
 		";
 		
 		$widget_instances = "
-			CREATE TABLE `widget_instances` (
+			CREATE TABLE " . $this->db->dbprefix('widget_instances') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `widget_id` int(11) DEFAULT NULL,
@@ -77,7 +77,7 @@ class Module_Widgets extends Module {
 		";
 		
 		$widgets = "
-			CREATE TABLE `widgets` (
+			CREATE TABLE " . $this->db->dbprefix('widgets') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 			  `title` text COLLATE utf8_unicode_ci NOT NULL,
@@ -92,7 +92,7 @@ class Module_Widgets extends Module {
 		";
 		
 		$default_data = "
-			INSERT INTO widget_areas (slug, title) VALUES ('sidebar', 'Sidebar');
+			INSERT INTO " . $this->db->dbprefix('widget_areas') . " (slug, title) VALUES ('sidebar', 'Sidebar');
 		";
 		
 		if($this->db->query($widget_areas) &&

@@ -54,7 +54,7 @@ class Module_Groups extends Module {
 		$this->dbforge->drop_table('groups');
 
 		$groups = "
-			CREATE TABLE IF NOT EXISTS `groups` (
+			CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('groups') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
 			  `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -63,7 +63,7 @@ class Module_Groups extends Module {
 		";
 
 		$default_data = "
-			INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+			INSERT INTO " . $this->db->dbprefix('groups') . " (`id`, `name`, `description`) VALUES
 			(1, 'admin', 'Administrators'),
 			(2, 'user', 'Users');
 		";

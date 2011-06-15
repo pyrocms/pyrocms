@@ -57,7 +57,7 @@ class Module_Navigation extends Module {
 		$this->dbforge->drop_table('navigation_links');
 		
 		$navigation_groups = "
-			CREATE TABLE `navigation_groups` (
+			CREATE TABLE " . $this->db->dbprefix('navigation_groups') . " (
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(50) collate utf8_unicode_ci NOT NULL,
 			  `abbrev` varchar(20) collate utf8_unicode_ci NOT NULL,
@@ -66,7 +66,7 @@ class Module_Navigation extends Module {
 		";
 		
 		$navigation_links = "
-			CREATE TABLE `navigation_links` (
+			CREATE TABLE " . $this->db->dbprefix('navigation_links') . " (
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
 			  `parent` int(11) NOT NULL default '0',
@@ -85,14 +85,14 @@ class Module_Navigation extends Module {
 		";
 		
 		$default_groups = "
-			INSERT INTO `navigation_groups` VALUES
+			INSERT INTO " . $this->db->dbprefix('navigation_groups') . " VALUES
 			('1','Header','header'),
 			('2','Sidebar','sidebar'),
 			('3','Footer','footer');
 		";
 		
 		$default_links = "
-			INSERT INTO navigation_links (title, link_type, page_id, navigation_group_id, position) VALUES
+			INSERT INTO " . $this->db->dbprefix('navigation_links') . " (title, link_type, page_id, navigation_group_id, position) VALUES
 			('Home', 'page', 1, 1, 1),
 			('Contact', 'page', 3, 1, 2);
 		";

@@ -56,7 +56,7 @@ class Module_Permissions extends Module {
 		$this->dbforge->drop_table('permissions');
 		
 		$permission_rules = "
-			CREATE TABLE `permissions` (
+			CREATE TABLE " . $this->db->dbprefix('permissions') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `group_id` int(11) NOT NULL,
 			  `module` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
