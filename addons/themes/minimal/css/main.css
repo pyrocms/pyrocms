@@ -275,7 +275,8 @@ blockquote
 #footer
 {
 	border-top:		3px solid #333;
-	margin:			50px 0px 10px 0px;
+	margin-top:		50px; 
+	margin-bottom:	10px;
 	padding-top:	25px;
 	text-align:		center;
 }
