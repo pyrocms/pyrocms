@@ -58,7 +58,7 @@ class Module_Files extends Module {
 		$this->dbforge->drop_table('file_folders');
 
 		$files = "
-			CREATE TABLE `files` (
+			CREATE TABLE " . $this->db->dbprefix('files') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `folder_id` int(11) NOT NULL DEFAULT '0',
 			  `user_id` int(11) NOT NULL DEFAULT '1',
@@ -77,7 +77,7 @@ class Module_Files extends Module {
 		";
 
 		$file_folders = "
-			CREATE TABLE `file_folders` (
+			CREATE TABLE " . $this->db->dbprefix('file_folders') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `parent_id` int(11) DEFAULT '0',
 			  `slug` varchar(100) NOT NULL,

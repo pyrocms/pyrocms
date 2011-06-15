@@ -52,7 +52,7 @@ class Module_Blog extends Module {
 		$this->dbforge->drop_table('blog');
 
 		$blog_categories = "
-			CREATE TABLE `blog_categories` (
+			CREATE TABLE " . $this->db->dbprefix('blog_categories') . " (
 			  `id` int(11) NOT NULL auto_increment,
 			  `slug` varchar(20) collate utf8_unicode_ci NOT NULL default '',
 			  `title` varchar(20) collate utf8_unicode_ci NOT NULL default '',
@@ -64,7 +64,7 @@ class Module_Blog extends Module {
 		";
 
 		$blog = "
-			CREATE TABLE `blog` (
+			CREATE TABLE " . $this->db->dbprefix('blog') . " (
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL default '',
 			  `slug` varchar(100) collate utf8_unicode_ci NOT NULL default '',

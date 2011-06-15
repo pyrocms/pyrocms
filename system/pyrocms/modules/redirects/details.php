@@ -50,7 +50,7 @@ class Module_Redirects extends Module {
 		$this->dbforge->drop_table('redirects');
 		
 		$revisions = "
-			CREATE TABLE `redirects` (
+			CREATE TABLE " . $this->db->dbprefix('redirects') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `from` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `to` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
