@@ -505,11 +505,6 @@ class XML_RPC_Response
 	{
 		$CI =& get_instance();
 
-		if ($this->xss_clean && ! isset($CI->security))
-		{
-			$CI->load->library('security');
-		}
-
 		if ($array !== FALSE && is_array($array))
 		{
 			while (list($key) = each($array))
@@ -595,10 +590,8 @@ class XML_RPC_Response
 		$t = 0;
 		if (preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})/', $time, $regs))
 		{
-			if ($utc == 1)
-				$t = gmmktime($regs[4], $regs[5], $regs[6], $regs[2], $regs[3], $regs[1]);
-			else
-				$t = mktime($regs[4], $regs[5], $regs[6], $regs[2], $regs[3], $regs[1]);
+			$fnc = ($utc == 1) ? 'gmmktime' : 'mktime';
+			$t = $fnc($regs[4], $regs[5], $regs[6], $regs[2], $regs[3], $regs[1]);
 		}
 		return $t;
 	}
@@ -1123,11 +1116,6 @@ class XML_RPC_Message extends CI_Xmlrpc
 	function output_parameters($array=FALSE)
 	{
 		$CI =& get_instance();
-
-		if ($this->xss_clean && ! isset($CI->security))
-		{
-			$CI->load->library('security');
-		}
 
 		if ($array !== FALSE && is_array($array))
 		{
