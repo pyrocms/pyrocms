@@ -1,8 +1,22 @@
-DROP TABLE IF EXISTS `users`;
+CREATE TABLE `core_sites` (
+    `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+    `created_on` INT(11) NOT NULL default '0',
+    `updated_on` INT(11) NOT NULL default '0',
+    UNIQUE KEY `Unique ref` (`ref`),
+    UNIQUE KEY `Unique domain` (`domain`),
+    KEY `ref` (`ref`),
+    KEY `domain` (`domain`)
+) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `{PREFIX}users`;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -18,20 +32,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
 
 -- command split --
 
-INSERT INTO `users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-			(1,'__EMAIL__', '__PASSWORD__', '__SALT__', 1, '', 1, '', __NOW__, __NOW__, '__USERNAME__', NULL, NULL);
-			
--- command split --
-
-DROP TABLE IF EXISTS `profiles`;
+INSERT INTO `{PREFIX}users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
+			(1,'{EMAIL}', '{PASSWORD}', '{SALT}', 1, '', 1, '', {NOW}, {NOW}, '{USERNAME}', NULL, NULL);
 
 -- command split --
 
-CREATE TABLE IF NOT EXISTS `profiles` (
+CREATE TABLE core_users SELECT * FROM users WHERE;
+
+-- command split --
+
+DROP TABLE IF EXISTS `{PREFIX}profiles`;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `{PREFIX}profiles` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
   `display_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -62,15 +80,15 @@ CREATE TABLE IF NOT EXISTS `profiles` (
 
 -- command split --
 			
-INSERT INTO `profiles` (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
-			(1, 1, '__FIRSTNAME__', '__LASTNAME__', '__DISPLAYNAME__', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `{PREFIX}profiles` (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
+			(1, 1, '{FIRSTNAME}', '{LASTNAME}', '{DISPLAYNAME}', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- command split --
 
-CREATE TABLE `schema_version` (
+CREATE TABLE `{PREFIX}schema_version` (
   `version` int(3) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
-INSERT INTO `schema_version` VALUES ('__MIGRATION__');
+INSERT INTO `schema_version` VALUES ('{MIGRATION}');
