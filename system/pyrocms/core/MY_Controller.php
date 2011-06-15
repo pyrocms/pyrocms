@@ -14,9 +14,40 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
 		$this->benchmark->mark('my_controller_start');
-
-		// Migrate DB to the latest version
+		
 		$this->load->library('migrations');
+
+		// TODO: Remove all this migration check in the next major version after 1.3.0
+		// This extra check needs to be done to make the "multisite" changes run before the rest
+		// of the controller attempts to run
+		if ($this->db->get('schema_version')->row()->version == 27)
+		{
+			$this->load->library('migrations');
+			$this->migrations->latest();
+			redirect(current_url());
+		}
+		// End migration check
+		
+		// Which site are we looking at?
+		$this->site = $this->db->query('SELECT * FROM core_sites WHERE domain = ?', array(
+			preg_replace('/^www\./', '', $this->input->server('SERVER_NAME')),
+		))->row();
+
+		// No record? Probably DNS'ed but not added to multisite		
+		if ( ! $this->site)
+		{
+			show_error('This domain is not set up correctly.');
+		}
+
+		// Let's make these values super-available
+		define('SITE_REF', $this->site->ref);
+		define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+
+		// By changing the prefix we are essentially "namespacing" each pyro site
+		$this->db->set_dbprefix($this->site->ref.'_');
+
+		// Migration logic helps to make sure PyroCMS is running the latest changes
+		// $this->migrations->verbose = true;
 		$schema_version = $this->migrations->latest();
 		
 		if ($this->migrations->error)
@@ -33,6 +64,9 @@ class MY_Controller extends CI_Controller {
 		{
 			log_message('error', $this->migrations->error);
 		}
+
+		// With that done, load settings
+		$this->load->library(array('settings/settings', 'events', 'users/ion_auth'));
 
 		// Use this to define hooks with a nicer syntax
 		$this->hooks = & $GLOBALS['EXT'];
@@ -72,7 +106,6 @@ class MY_Controller extends CI_Controller {
 
 		if (!$this->module_details['skip_xss'])
 		{
-			$this->load->library('security');
 			$_POST = $this->security->xss_clean($_POST);
 		}
 

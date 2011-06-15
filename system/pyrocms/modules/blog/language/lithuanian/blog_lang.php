@@ -1,12 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['blog_posted_label']                   = 'Paskelbta'; 
-$lang['blog_posted_label_alt']               = 'Paskelbta...'; 
+$lang['blog_posted_label']                   = 'Paskelbta';
+$lang['blog_posted_label_alt']               = 'Paskelbta...';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label']                 = 'Kategorija';
 $lang['blog_post_label']                     = 'Įrašas';
 $lang['blog_date_label']                     = 'Data';
-$lang['blog_date_at']                        = 'at'; 
+$lang['blog_date_at']                        = 'at';
 $lang['blog_time_label']                     = 'Laikas';
 $lang['blog_status_label']                   = 'Statusas';
 $lang['blog_draft_label']                    = 'Projektas';

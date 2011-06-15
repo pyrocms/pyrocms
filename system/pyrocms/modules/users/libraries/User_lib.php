@@ -74,7 +74,7 @@ class User_lib
         $activation_code = random_string('alnum', 8);
 		
 		$this->user_data->email = $email;
-		$this->user_data->password = dohash($password . $salt);
+		$this->user_data->password = do_hash($password . $salt);
 		$this->user_data->salt = $salt;
 		$this->user_data->first_name = $this->CI->input->post('first_name', TRUE);
 		$this->user_data->last_name = $this->CI->input->post('last_name', TRUE);
@@ -156,7 +156,7 @@ class User_lib
         $this->user_data = $this->CI->users_m->get(array('email'=>$email));
         
         // No user, or passwords do not match
-        if( !$this->user_data or $this->user_data->password != dohash($password . $this->user_data->salt))
+        if( !$this->user_data or $this->user_data->password != do_hash($password . $this->user_data->salt))
         {
         	$this->error_code = 'user_login_incorrect';
             return FALSE;
@@ -243,7 +243,7 @@ class User_lib
 		$password = random_string('alnum', 8);
 		
 		// Update user object with new password
-		$this->user_data->password = dohash($password . $this->user_data->salt);
+		$this->user_data->password = do_hash($password . $this->user_data->salt);
 		
 		// Store the new encrypted password in the database
 		$result = $this->CI->users_m->update($this->user_data->id, array('password' => $this->user_data->password));

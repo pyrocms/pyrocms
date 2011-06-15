@@ -11,6 +11,8 @@
 // подписи
 $lang['blog_posted_label']									= 'Дата';
 $lang['blog_posted_label_alt']							= 'Дата добавления';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label']								= 'Категория';
 $lang['blog_post_label']										= 'Заголовок';
 $lang['blog_date_label']										= 'Дата';

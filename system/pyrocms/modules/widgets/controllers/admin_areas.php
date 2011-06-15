@@ -108,12 +108,12 @@ class Admin_areas extends Admin_Controller {
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'html'		=> ($status === 'success' ? $this->index() : NULL),
 					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
-				)) );
+				));
 			}
 
 			if ($status === 'success')
@@ -133,10 +133,10 @@ class Admin_areas extends Admin_Controller {
 				$status		= 'error';
 				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -195,12 +195,12 @@ class Admin_areas extends Admin_Controller {
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'html'		=> ($status === 'success' ? $this->index() : NULL),
 					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
-				)) );
+				));
 			}
 
 			if ($status === 'success')
@@ -220,10 +220,10 @@ class Admin_areas extends Admin_Controller {
 				$status		= 'error';
 				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -262,10 +262,10 @@ class Admin_areas extends Admin_Controller {
 			$data['messages'][$status] = $message;
 			$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> $status,
 				'message'	=> $message
-			)) );
+			));
 		}
 
 		$this->session->set_flashdata($status, $message);
