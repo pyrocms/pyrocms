@@ -6,7 +6,7 @@
 	</div>
 	<?php endif;?>
    
-	<?php echo form_open('edit-profile', array('id'=>'user_edit_profile'));?>
+	<?php echo form_open('edit-profile', array('id'=>'user_edit'));?>
 
 	<fieldset id="user_personal">
 		<legend><?php echo lang('profile_personal_section') ?></legend>
@@ -71,9 +71,15 @@
 			<?php echo form_input('address_line3', $profile->address_line3); ?>
 			</li>
 			<li>	
+<<<<<<< HEAD
 			<label for="postcode"><?php echo lang('profile_address_postcode') ?></label>
 			<?php echo form_input('postcode', $profile->postcode); ?>
 			<li>
+=======
+				<label for="postcode"><?php echo lang('profile_address_postcode') ?></label>
+				<?php echo form_input('postcode', $profile->postcode); ?>
+			</li>
+>>>>>>> Fixed a li close tag in views/profile/edit.php
 			<li>
 			<label for="website"><?php echo lang('profile_website'); ?></label>
 			<?php echo form_input('website', $profile->website); ?>
