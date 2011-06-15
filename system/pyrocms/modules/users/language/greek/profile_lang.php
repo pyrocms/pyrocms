@@ -21,6 +21,9 @@ $lang['profile_dob_day']              = 'Ημέρα';
 $lang['profile_dob_month']            = 'Μήνα';
 $lang['profile_dob_year']             = 'Χρόνος';
 $lang['profile_gender']               = 'Γένος';
+$lang['profile_gender_nt']            = 'Δεν λέμε';
+$lang['profile_gender_male']          = 'Άνδρας';
+$lang['profile_gender_female']        = 'Γυναίκα';
 $lang['profile_bio']                  = 'Για εμένα';
 
 $lang['profile_contact_section']      = 'Επικοινωνία';

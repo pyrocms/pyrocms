@@ -29,6 +29,9 @@ $lang['profile_dob_day']							= 'День';
 $lang['profile_dob_month']						= 'Месяц';
 $lang['profile_dob_year']							= 'Год';
 $lang['profile_gender']								= 'Пол';
+$lang['profile_gender_nt']            = 'Not Telling'; #translate
+$lang['profile_gender_male']          = 'Male'; #translate
+$lang['profile_gender_female']        = 'Female'; #translate
 $lang['profile_bio']									= 'О себе';
 
 $lang['profile_contact_section'] 			= 'Связь';

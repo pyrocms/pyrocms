@@ -28,6 +28,9 @@ $lang['profile_dob_day']              = 'Päivä';
 $lang['profile_dob_month']            = 'Kuukausi';
 $lang['profile_dob_year']             = 'Vuosi';
 $lang['profile_gender']               = 'Sukupuoli';
+$lang['profile_gender_nt']            = 'Not Telling'; #translate
+$lang['profile_gender_male']          = 'Male'; #translate
+$lang['profile_gender_female']        = 'Female'; #translate
 $lang['profile_bio']                  = 'Minä';
 
 $lang['profile_contact_section']      = 'Yhteydenotto';

@@ -136,6 +136,103 @@ class Profile extends Public_Controller
 
 		$this->load->library('form_validation');
 
+<<<<<<< HEAD
+=======
+		// Validation rules - git is really pissing me off right now
+		$this->validation_rules = array(
+			array(
+				'field' => 'display_name',
+				'label' => lang('profile_display'),
+				'rules' => 'required|trim|alphanumeric'
+			),
+			array(
+				'field' => 'gender',
+				'label' => lang('profile_gender'),
+				'rules' => 'trim|max_length[1]'
+			),
+			array(
+				'field' => 'dob_day',
+				'label' => lang('profile_dob_day'),
+				'rules' => 'trim|numeric|greater_than[0]|less_than[32]|required'
+			),
+			array(
+				'field' => 'dob_month',
+				'label' => lang('profile_dob_month'),
+				'rules' => 'trim|numeric|greater_than[0]|less_than[13]|required'
+			),
+			array(
+				'field' => 'dob_year',
+				'label' => lang('profile_dob_year'),
+				'rules' => 'trim|numeric|greater_than[1900]|less_than['.((int) date('Y') - 2).']|exact_length[4]|required'
+			),
+			array(
+				'field' => 'bio',
+				'label' => lang('profile_bio'),
+				'rules' => 'trim|max_length[1000]'
+			),
+			array(
+				'field' => 'phone',
+				'label' => lang('profile_phone'),
+				'rules' => 'trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'mobile',
+				'label' => lang('profile_mobile'),
+				'rules' => 'trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'address_line1',
+				'label' => lang('profile_address_line1'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'address_line2',
+				'label' => lang('profile_address_line2'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'address_line3',
+				'label' => lang('profile_address_line3'),
+				'rules' => 'trim'
+			),
+			array(
+				'field' => 'postcode',
+				'label' => lang('profile_postcode'),
+				'rules' => 'trim|max_length[20]'
+			),
+			array(
+				'field' => 'website',
+				'label' => lang('profile_website'),
+				'rules' => 'trim|max_length[255]'
+			 ),
+			array(
+				'field' => 'msn_handle',
+				'label' => lang('profile_msn_handle'),
+				'rules' => 'trim|valid_email'
+			),
+			array(
+				'field' => 'aim_handle',
+				'label' => lang('profile_aim_handle'),
+				'rules' => 'trim|alpha_numeric'
+			),
+			array(
+				'field' => 'yim_handle',
+				'label' => lang('profile_yim_handle'),
+				'rules' => 'trim|alpha_numeric'
+			),
+			array(
+				'field' => 'gtalk_handle',
+				'label' => lang('profile_gtalk_handle'),
+				'rules' => 'trim|valid_email'
+			),
+			array(
+				'field' => 'gravatar',
+				'label' => lang('profile_gravatar'),
+				'rules' => 'trim|valid_email'
+			)
+		);
+
+>>>>>>> Finished with the beautification of the user/profile/edit page.
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
@@ -265,9 +362,31 @@ class Profile extends Public_Controller
 		    // Date ranges for select boxes
 		$this->data->profile =& $profile;
 
+<<<<<<< HEAD
 		$this->data->days = array_combine($days = range(1, 31), $days);
 		$this->data->months = array_combine($months = range(1, 12), $months);
 		$this->data->years = array_combine($years = range(date('Y'), date('Y')-90), $years);
+=======
+		// Fix the months
+		$this->lang->load('calendar');
+		$month_names = array(
+			lang('cal_january'),
+			lang('cal_february'),
+			lang('cal_march'),
+			lang('cal_april'),
+			lang('cal_mayl'),
+			lang('cal_june'),
+			lang('cal_july'),
+			lang('cal_august'),
+			lang('cal_september'),
+			lang('cal_october'),
+			lang('cal_november'),
+			lang('cal_december'),
+		);
+	    $this->data->days 	= array_combine($days 	= range(1, 31), $days);
+		$this->data->months = array_combine($months = range(1, 12), $month_names);
+	    $this->data->years 	= array_combine($years 	= range(date('Y'), date('Y')-120), $years);
+>>>>>>> Finished with the beautification of the user/profile/edit page.
 
 		// Render the view
 		$this->template->build('profile/edit', $this->data);

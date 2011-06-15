@@ -21,6 +21,9 @@ $lang['profile_dob_day']              = 'יום';
 $lang['profile_dob_month']            = 'חודש';
 $lang['profile_dob_year']             = 'שנה';
 $lang['profile_gender']               = 'מין';
+$lang['profile_gender_nt']            = 'Not Telling'; #translate
+$lang['profile_gender_male']          = 'Male'; #translate
+$lang['profile_gender_female']        = 'Female'; #translate
 $lang['profile_bio']                  = 'קצי עלי';
 
 $lang['profile_contact_section']      = 'יצירת קשר';

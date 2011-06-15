@@ -21,6 +21,9 @@ $lang['profile_dob_day']               = 'Tag';
 $lang['profile_dob_month']             = 'Monat';
 $lang['profile_dob_year']              = 'Jahr';
 $lang['profile_gender']                = 'Geschlecht';
+$lang['profile_gender_nt']            = 'Not Telling'; #translate
+$lang['profile_gender_male']          = 'Male'; #translate
+$lang['profile_gender_female']        = 'Female'; #translate
 $lang['profile_bio']                   = 'Über mich';
 
 $lang['profile_contact_section']       = 'Kontakt';

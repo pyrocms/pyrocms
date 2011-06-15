@@ -20,6 +20,9 @@ $lang['profile_dob_day']	= 'Jour';
 $lang['profile_dob_month']	= 'Mois';
 $lang['profile_dob_year']	= 'Année';
 $lang['profile_gender']		= 'Civilité';
+$lang['profile_gender_nt']            = 'Not Telling'; #translate
+$lang['profile_gender_male']          = 'Male'; #translate
+$lang['profile_gender_female']        = 'Female'; #translate
 $lang['profile_bio']		= 'A mon sujet';
 
 $lang['profile_contact_section'] = 'Contact';

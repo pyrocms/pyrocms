@@ -21,6 +21,9 @@ $lang['profile_dob_day']              = 'Diena';
 $lang['profile_dob_month']            = 'Mėnuo';
 $lang['profile_dob_year']             = 'Metai';
 $lang['profile_gender']               = 'Lytis';
+$lang['profile_gender_nt']            = 'Not Telling'; #translate
+$lang['profile_gender_male']          = 'Male'; #translate
+$lang['profile_gender_female']        = 'Female'; #translate
 $lang['profile_bio']                  = 'Aapie mane';
 
 $lang['profile_contact_section']      = 'Kontaktai';
