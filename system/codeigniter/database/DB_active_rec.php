@@ -1622,6 +1622,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	 * @access	public
 	 * @param	string	the table
 	 * @return	string
+	 * @deprecated	v2.0.3
 	 */
 	function dbprefix($table = '')
 	{
@@ -1633,6 +1634,22 @@ class CI_DB_active_record extends CI_DB_driver {
 		return $this->dbprefix.$table;
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * Set DB Prefix
+	 *
+	 * Set's the DB Prefix to something new without needing to reconnect
+	 *
+	 * @access	public
+	 * @param	string	the prefix
+	 * @return	string
+	 */
+	function set_dbprefix($prefix = '')
+	{
+		return $this->dbprefix = $prefix;
+	}
+	
 	// --------------------------------------------------------------------
 
 	/**

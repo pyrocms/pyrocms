@@ -44,7 +44,7 @@ class MY_Controller extends CI_Controller {
 		define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
 
 		// By changing the prefix we are essentially "namespacing" each pyro site
-		$this->db->set_prefix($this->site->ref.'_');
+		$this->db->set_dbprefix($this->site->ref.'_');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
 		// $this->migrations->verbose = true;
