@@ -86,7 +86,7 @@ class Admin extends Admin_Controller {
 
 		$content_title = $base_where['is_active'] ? lang('comments.active_title') : lang('comments.inactive_title');
 
-		$this->is_ajax() && $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
 
 		$module_list = $this->comments_m->get_slugs();
 

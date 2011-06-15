@@ -135,7 +135,7 @@ class Admin extends Admin_Controller {
 		}
 
 		//do we need to unset the layout because the request is ajax?
-		$this->is_ajax() ? $this->template->set_layout(FALSE) : '';
+		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
 
 		$this->template
 				->title($this->module_details['name'])

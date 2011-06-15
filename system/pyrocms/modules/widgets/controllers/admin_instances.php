@@ -41,7 +41,7 @@ class Admin_instances extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->is_ajax() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
@@ -105,7 +105,7 @@ class Admin_instances extends Admin_Controller {
 				$message	= $result['error'];
 			}
 
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 
@@ -179,7 +179,7 @@ class Admin_instances extends Admin_Controller {
 				$message	= $result['error'];
 			}
 
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 
@@ -232,7 +232,7 @@ class Admin_instances extends Admin_Controller {
 			$message = lang('general_error_label');
 		}
 
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			$data = array();
 
