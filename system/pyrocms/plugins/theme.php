@@ -24,8 +24,8 @@ class Plugin_Theme extends Plugin
 	function options()
 	{
 		$option = $this->pyrocache->model('themes_m', 'get_option', array( array('slug' => $this->attribute('option')) ));
-		
-		return $option->value;
+
+		return is_object($option) ? $option->value : NULL;
 	}
 	
 	/**

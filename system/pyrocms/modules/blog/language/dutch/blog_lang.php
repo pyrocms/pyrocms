@@ -1,12 +1,14 @@
 <?php
 
 // labels
-$lang['blog_posted_label'] 			= 'Geplaatst'; 
-$lang['blog_posted_label_alt']			= 'Geplaatst op'; 
+$lang['blog_posted_label'] 			= 'Geplaatst';
+$lang['blog_posted_label_alt']			= 'Geplaatst op';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label'] 			= 'Categorie';
 $lang['blog_post_label'] 			= 'Post';
 $lang['blog_date_label'] 			= 'Datum';
-$lang['blog_date_at']				= 'op'; 
+$lang['blog_date_at']				= 'op';
 $lang['blog_time_label'] 			= 'Tijd';
 $lang['blog_status_label'] 			= 'Status';
 $lang['blog_draft_label'] 			= 'Concept';

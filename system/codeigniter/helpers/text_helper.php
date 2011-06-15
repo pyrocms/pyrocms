@@ -366,12 +366,14 @@ if ( ! function_exists('convert_accented_characters'))
 {
 	function convert_accented_characters($str)
 	{
-		if ( ! file_exists(APPPATH.'config/foreign_chars'.EXT))
+		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars'.EXT))
 		{
-			return $str;
+			include(APPPATH.'config/'.ENVIRONMENT.'/foreign_chars'.EXT);
 		}
-
-		include APPPATH.'config/foreign_chars'.EXT;
+		elseif (is_file(APPPATH.'config/foreign_chars'.EXT))
+		{
+			include(APPPATH.'config/foreign_chars'.EXT);
+		}
 
 		if ( ! isset($foreign_characters))
 		{

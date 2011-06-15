@@ -112,11 +112,11 @@ class Admin_instances extends Admin_Controller {
 				$status === 'success' AND $data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
-				)) );
+				));
 			}
 
 			if ($status === 'success')
@@ -186,11 +186,11 @@ class Admin_instances extends Admin_Controller {
 				$status === 'success' AND $data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
-				)) );
+				));
 			}
 
 			if ($status === 'success')
@@ -239,10 +239,10 @@ class Admin_instances extends Admin_Controller {
 			$data['messages'][$status] = $message;
 			$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> $status,
 				'message'	=> $message
-			)) );
+			));
 		}
 
 		$this->session->set_flashdata($status, $message);

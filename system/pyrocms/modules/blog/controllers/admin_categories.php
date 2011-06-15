@@ -220,32 +220,29 @@ class Admin_Categories extends Admin_Controller
 			{
 				$message = lang('cat_add_error');
 			}
-			
-			$json = array('message' => $message,
-					'title' => $this->input->post('title'),
-					'category_id' => $id,
-					'status' => 'ok'
-					);
-			echo json_encode($json);
+
+			return $this->template->build_json(array(
+				'message'		=> $message,
+				'title'			=> $this->input->post('title'),
+				'category_id'	=> $id,
+				'status'		=> 'ok'
+			));
 		}	
 		else
-		{		
+		{
 			// Render the view
-			$errors = validation_errors();
 			$form = $this->load->view('admin/categories/form', $this->data, TRUE);
-			if(empty($errors))
+
+			if ($errors = validation_errors())
 			{
-				
-				echo $form;
+				return $this->template->build_json(array(
+					'message'	=> $errors,
+					'status'	=> 'error',
+					'form'		=> $form
+				));
 			}
-			else
-			{
-				$json = array('message' => $errors,
-					      'status' => 'error',
-					      'form' => $form
-					     );
-				echo json_encode($json);
-			}
+
+			echo $form;
 		}
 	}
 }

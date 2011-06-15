@@ -3,6 +3,8 @@
 // labels
 $lang['blog_posted_label']				= 'Escrito';
 $lang['blog_posted_label_alt']			= 'Escrito em';
+$lang['blog_written_by_label']			= 'Por';
+$lang['blog_author_unknown']			= 'Desconhecido';
 $lang['blog_category_label']			= 'Categoria';
 $lang['blog_post_label'] 				= 'Artigo';
 $lang['blog_date_label'] 				= 'Data';

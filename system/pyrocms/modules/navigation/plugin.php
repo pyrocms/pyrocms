@@ -160,11 +160,16 @@ class Plugin_Navigation extends Plugin
 
 				if ($wrapper['class'] && $item['class'])
 				{
-					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7);
+					$item['class'] = implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7, -1);
 				}
 				elseif ($wrapper['class'])
 				{
-					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . '"';
+					$item['class'] = implode(' ', $wrapper['class']);
+				}
+
+				if ($item['target'])
+				{
+					$item['target'] = substr($item['target'], 8, -1);
 				}
 
 				// assign attributes to level family

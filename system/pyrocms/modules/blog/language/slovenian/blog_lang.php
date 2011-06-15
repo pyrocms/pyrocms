@@ -1,12 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['blog_posted_label']                   = 'Objavljeno'; 
-$lang['blog_posted_label_alt']               = 'Objavljeno ob'; 
+$lang['blog_posted_label']                   = 'Objavljeno';
+$lang['blog_posted_label_alt']               = 'Objavljeno ob';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label']                 = 'Kategorija';
 $lang['blog_post_label']                     = 'Objava';
 $lang['blog_date_label']                     = 'Datum';
-$lang['blog_date_at']                        = 'ob'; 
+$lang['blog_date_at']                        = 'ob';
 $lang['blog_time_label']                     = 'Čas';
 $lang['blog_status_label']                   = 'Stanje';
 $lang['blog_draft_label']                    = 'Osnutek';
