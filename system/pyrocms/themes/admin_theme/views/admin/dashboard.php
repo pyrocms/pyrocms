@@ -94,7 +94,7 @@
 	<!-- Begin Quick Links -->
 	<?php if ($theme_options->quick_links == 'yes'): ?>
 	<div class="line">
-		<section class="box unit <?php echo $rss_items ? 'size1of3' : 'size1of2'; ?>">
+		<section class="box unit <?php echo isset($rss_items) ? 'size1of3' : 'size1of2'; ?>">
 			<header>
 				<h3><?php echo lang('cp_admin_quick_links') ?></h3>
 			</header>
@@ -134,7 +134,7 @@
 
 
 		<!-- Begin RSS Feed -->
-		<?php if ($rss_items AND $theme_options->news_feed == 'yes') : ?>
+		<?php if ( isset($rss_items) AND $theme_options->news_feed == 'yes') : ?>
 		<section class="box unit size2of3 lastUnit">
 			<header>
 				<h3><?php echo lang('cp_news_feed_title'); ?></h3>
