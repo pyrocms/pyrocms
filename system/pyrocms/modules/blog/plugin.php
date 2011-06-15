@@ -29,7 +29,8 @@ class Plugin_Blog extends Plugin
 	{
 		$limit		= $this->attribute('limit', 10);
 		$category	= $this->attribute('category');
-		$order		= $this->attribute('order');
+		$order_by 	= $this->attribute('order-by', 'created_on');
+		$order_dir	= $this->attribute('order-dir', 'ASC');
 
 		if ($category)
 		{
@@ -41,7 +42,7 @@ class Plugin_Blog extends Plugin
 			->where('status', 'live')
 			->where('created_on <=', now())
 			->join('blog_categories c', 'blog.category_id = c.id', 'LEFT')
-			->order_by('blog.created_on', $order)
+			->order_by('blog.' . $order_by, $order_by)
 			->limit($limit)
 			->get('blog')
 			->result_array();

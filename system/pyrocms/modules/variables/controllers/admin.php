@@ -136,10 +136,10 @@ class Admin extends Admin_Controller
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -196,11 +196,11 @@ class Admin extends Admin_Controller
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'title'		=> sprintf(lang('variables.edit_title'), $name)
-				)) );
+				));
 			}
 
 			// Redirect
@@ -213,10 +213,10 @@ class Admin extends Admin_Controller
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
