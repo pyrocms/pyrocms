@@ -61,7 +61,11 @@
 			<?php foreach ($page->chunks AS $chunk): ?>
 				<li class="<?php echo alternator('even', ''); ?> page-chunk">
 					<?php echo form_input('chunk_slug[]', $chunk->slug); ?>
-					<?php echo form_input('chunk_type[]', $chunk->type); ?>
+					<?php echo form_dropdown('chunk_type[]', array(
+						'html' => 'html',
+						'wysiwyg-simple' => 'wysiwyg-simple',
+						'wysiwyg-advanced' => 'wysiwyg-advanced',
+					), $chunk->type); ?>
 					<?php echo form_textarea(array('id'=>$chunk->slug, 'name'=>'chunk_body[]', 'value' => $chunk->body, 'rows' => 50, 'class'=> $chunk->type)); ?>
 				</li>
 			<?php endforeach; ?>
