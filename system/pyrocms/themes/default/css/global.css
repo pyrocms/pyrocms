@@ -162,3 +162,4 @@ aside .widget ul { margin-left: 30px; }
 .notice-box { background:#fffbe2 none repeat scroll 0 0; border: 1px solid #ffe222; color: #ffe222; }
 .success-box {background: #eeffee none repeat scroll 0 0; border: 1px solid #99cc99; color: #99cc99; }
 .error-box p, .notice-box p, .success-box p { padding: 0; margin-bottom: 10px; }
+.clear-both {height:0;font-size:0px;}
