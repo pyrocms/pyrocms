@@ -82,13 +82,24 @@ class Pages_m extends MY_Model
 		// If the URI has been passed as a array, implode to create an string of uri segments
 		is_array($uri) && $uri = implode('/', $uri);
 	
-		$p = $this->db->dbprefix('pages');
-	
 		return $this->db
-			->select($p.'.*, r.owner_id, r.table_name, r.body, r.revision_date, r.author_id')
-			->where($p.'.uri', trim($uri, '/'))
-			->join('revisions r', $p.'.revision_id = r.id')
+			->where('uri', trim($uri, '/'))
 			->limit(1)
+			->get('pages')
+			->row();
+	}
+
+	/**
+	* Get the home page
+	*
+	* @access public
+	* @param string  The uri of the page
+	* @return object
+	*/
+	public function get_home()
+	{
+		return $this->db
+			->where('is_home', 1)
 			->get('pages')
 			->row();
 	}
@@ -102,7 +113,6 @@ class Pages_m extends MY_Model
 	 */
 	public function get_page_tree()
 	{
-	
 		$all_pages = $this->db
 			->select('id, parent_id, title')
 			 ->order_by('`order`')
@@ -278,10 +288,8 @@ class Pages_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return bool
 	 */
-	public function create($input = array())
+	public function insert($input = array(), $chunks = array())
 	{
-		$this->load->helper('date');
-		
 		$this->db->trans_start();
 	
 		if ( ! empty($input['is_home']))
@@ -315,6 +323,22 @@ class Pages_m extends MY_Model
 	
 		$this->build_lookup($id);
 		
+		if ($chunks)
+		{
+			// And add the new ones
+			$i = 1;
+			foreach ($chunks as $chunk)
+			{
+				$this->db->insert('page_chunks', array(
+					'page_id' => $id,
+					'sort' => $i++,
+					'slug' => $chunk->slug,
+					'body' => $chunk->body,
+					'type' => $chunk->type,
+				));
+			}
+		}	
+		
 		$this->db->trans_complete();
 		
 		return ($this->db->trans_status() === FALSE) ? FALSE : $id;
@@ -328,9 +352,9 @@ class Pages_m extends MY_Model
 	 * @param array $input The data to update
 	 * @return void
 	*/
-	public function update($id = 0, $input = array())
+	public function update($id = 0, $input = array(), $chunks = array())
 	{
-		$this->load->helper('date');
+		$this->db->trans_start();
 	
 		if ( ! empty($input['is_home']))
 		{
@@ -340,11 +364,10 @@ class Pages_m extends MY_Model
 				->update($this->_table, array('is_home' => 0));
 		}
 	
-		$return = parent::update($id, array(
+		parent::update($id, array(
 			'title'				=> $input['title'],
 			'slug'				=> $input['slug'],
 			'uri'				=> NULL,
-			'revision_id'		=> $input['revision_id'],
 			'parent_id'			=> $input['parent_id'],
 			'layout_id'			=> $input['layout_id'],
 			'css'				=> $input['css'],
@@ -361,12 +384,32 @@ class Pages_m extends MY_Model
 		));
 		
 		$this->build_lookup($id);
-	
+		
+		if ($chunks)
+		{
+			// Remove the old chunks
+			$this->db->delete('page_chunks', array('page_id' => $id));
+			
+			// And add the new ones
+			$i = 1;
+			foreach ($chunks as $chunk)
+			{
+				$this->db->insert('page_chunks', array(
+					'page_id' => $id,
+					'sort' => $i++,
+					'slug' => $chunk->slug,
+					'body' => $chunk->body,
+					'type' => $chunk->type,
+				));
+			}
+		}	
 		// Wipe cache for this model, the content has changd
 		$this->pyrocache->delete_all('pages_m');
 		$this->pyrocache->delete_all('navigation_m');
 	
-		return $return;
+		$this->db->trans_complete();
+		
+		return ($this->db->trans_status() === FALSE) ? FALSE : TRUE;
 	}
 	
 	/**
