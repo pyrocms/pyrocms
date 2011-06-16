@@ -78,7 +78,7 @@ section.blog_article { padding: 15px 0 15px 0; border-bottom: 1px dashed #cfcfcf
 p.article_date { width: 665px; background-color: #e8e8e8; font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 25px 0; float: left; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
 /* Contact form */
-section.post form input[type=text] { background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 5px 15px 5px 15px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
+section.post form input[type=text] { background-color: #e8e8e8; border: 1px solid #ccc; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 5px 15px 5px 15px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
 section.post form label { width: 725px; float: left; }
 section.post form select { float: left; }
 section.post form input { float: left; }
@@ -162,3 +162,4 @@ aside .widget ul { margin-left: 30px; }
 .notice-box { background:#fffbe2 none repeat scroll 0 0; border: 1px solid #ffe222; color: #ffe222; }
 .success-box {background: #eeffee none repeat scroll 0 0; border: 1px solid #99cc99; color: #99cc99; }
 .error-box p, .notice-box p, .success-box p { padding: 0; margin-bottom: 10px; }
+.clear-both {height:0;font-size:0px;}
