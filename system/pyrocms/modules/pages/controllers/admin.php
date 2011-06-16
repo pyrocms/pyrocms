@@ -264,7 +264,7 @@ class Admin extends Admin_Controller {
 			{
 				$this->session->set_flashdata('notice', lang('pages_create_error'));
 			}
-	    }
+		}
 
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
@@ -283,7 +283,7 @@ class Admin extends Admin_Controller {
 		if ($parent_id > 0)
 		{
 			    $page->parent_id 	= $parent_id;
-			    $parent_page 		= $this->pages_m->get($parent_id);
+			    $parent_page 	= $this->pages_m->get($parent_id);
 		}
 		
 		// Assign data for display

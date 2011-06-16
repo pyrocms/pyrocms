@@ -12,13 +12,13 @@ class Pages extends Public_Controller
 	 * @access public
 	 * @return void
 	 */
-    public function __construct() 
-    {
-    	parent::Public_Controller();
-        $this->load->model('pages_m');
-        $this->load->model('page_layouts_m');
-        
-        // This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
+	public function __construct() 
+	{
+		parent::Public_Controller();
+		$this->load->model('pages_m');
+		$this->load->model('page_layouts_m');
+		
+		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
 		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
@@ -26,8 +26,7 @@ class Pages extends Public_Controller
 		{
 			redirect('');
 		}
-    }
-    
+	}
 
 	/**
 	 * Catch all requests to this page in one mega-function
@@ -35,25 +34,25 @@ class Pages extends Public_Controller
 	 * @param string $method The method to call
 	 * @return void
 	 */
-    public function _remap($method)
-    {
-    	// This page has been routed to with pages/view/whatever
-    	if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
-    	{
-    		$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($url_segments, $this->uri->rsegment_array(), 2) : null;
-    	}
-    	
-    	// not routed, so use the actual URI segments
-    	else
-    	{
-    		$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
-    	}
-    	
-    	// If it has .rss on the end then parse the RSS feed
-        $url_segments && preg_match('/.rss$/', end($url_segments))
+	public function _remap($method)
+	{
+		// This page has been routed to with pages/view/whatever
+		if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
+		{
+			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($url_segments, $this->uri->rsegment_array(), 2) : null;
+		}
+		
+		// not routed, so use the actual URI segments
+		else
+		{
+			$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
+		}
+		
+		// If it has .rss on the end then parse the RSS feed
+		$url_segments && preg_match('/.rss$/', end($url_segments))
 			? $this->_rss($url_segments)
-        	: $this->_page($url_segments);
-    }
+			: $this->_page($url_segments);
+	}
     
 	/**
 	 * Page method
@@ -61,9 +60,9 @@ class Pages extends Public_Controller
 	 * @param array $url_segments The URL segments
 	 * @return void
 	 */
-    public function _page($url_segments)
-    {
-    	$page = $url_segments !== NULL
+	public function _page($url_segments)
+	{
+		$page = $url_segments !== NULL
 		
 			// Fetch this page from the database via cache
 			? $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments))
@@ -72,15 +71,15 @@ class Pages extends Public_Controller
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
-        {
-        	$page = $this->_404($url_segments);
-        }
+		{
+			$page = $this->_404($url_segments);
+		}
 
 		// If the page is missing, set the 404 status header
-        if ( $page->slug == '404')
-        {
-        	$this->output->set_status_header(404);
-        }
+		if ( $page->slug == '404')
+		{
+			$this->output->set_status_header(404);
+		}
 
 		// Nope, it's a page but do they have access?
 		elseif ($page->restricted_to)
@@ -121,26 +120,26 @@ class Pages extends Public_Controller
 				$this->template->set_breadcrumb($parent_page->title, $parent_page->uri);
 			}
 		}
+			
+		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
+		if ($page->meta_title == '')
+		{
+			$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
+		}
 		
-    	// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-        if ($page->meta_title == '')
-        {
-        	$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
-        }
-        
-        // If this page has an RSS feed, show it
-    	if ($page->rss_enabled)
-	    {
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string(). '.rss').'" />');
-	    }
-        
-    	// Wrap the page with a page layout, otherwise use the default 'Home' layout
-	    if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
-	    {
-	    	// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-	    	$page->layout = $this->page_layouts_m->get(1);
-	    }
-
+		// If this page has an RSS feed, show it
+		if ($page->rss_enabled)
+		{
+			    $this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string(). '.rss').'" />');
+		}
+		
+		// Wrap the page with a page layout, otherwise use the default 'Home' layout
+		if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
+		{
+		    // Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
+		    $page->layout = $this->page_layouts_m->get(1);
+		}
+	
 		// Set pages layout files in your theme folder
 		if ($this->template->layout_exists($page->uri . '.html'))
 		{
@@ -154,45 +153,50 @@ class Pages extends Public_Controller
 		{
 			$this->template->set_layout($page->layout->theme_layout);
 		}
-	    
-	    // Convert to an array for nicer Dwoo syntax
-		$page_array = (array) $page;
-		$page_array['layout'] = (array) $page_array['layout'];
 
-		// Parse it so the content is parsed
-		$page_array['body'] = $this->parser->parse_string(str_replace('&quot;', '"', $page->body), array(), TRUE);
+		// Grab all the chunks that make up the body
+		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
 		
-        // Create page output
-	    $this->template->title($page->meta_title)
-	    
-        	->set_metadata('keywords', $page->meta_keywords)
-        	->set_metadata('description', $page->meta_description)
-
-			->set('page', $page_array)
-
+		$chunk_html = '';
+		foreach ($page->chunks as $chunk)
+		{
+			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.$chunk->body.'</div>'.PHP_EOL;
+		}
+		
+		// Parse it so the content is parsed
+		$page->body = $this->parser->parse_string(str_replace('&quot;', '"', $chunk_html), array(), TRUE);
+		
+		// Create page output
+		$this->template->title($page->meta_title)
+			
+			->set_metadata('keywords', $page->meta_keywords)
+			->set_metadata('description', $page->meta_description)
+			
+			->set('page', $page)
+			
 			// Most likely the other breadcrumbs are set above, set this one
 			->set_breadcrumb($page->title);
 
-			if ($page->layout->css OR $page->css)
-			{
-				$this->template->append_metadata('
-					<style type="text/css">
-						' . $page->layout->css . '
-						' . $page->css . '
-					</style>');
-			}
-			
-			if ($page->layout->js OR $page->js)
-			{
-				$this->template->append_metadata('
-					<script type="text/javascript">
-						' . $page->layout->js . '
-						' . $page->js . '
-					</script>');
-			}
-			
+		if ($page->layout->css OR $page->css)
+		{
+			$this->template->append_metadata('
+				<style type="text/css">
+					' . $page->layout->css . '
+					' . $page->css . '
+				</style>');
+		}
+		
+		if ($page->layout->js OR $page->js)
+		{
+			$this->template->append_metadata('
+				<script type="text/javascript">
+					' . $page->layout->js . '
+					' . $page->js . '
+				</script>');
+		}
+		
         	$this->template->build('page');
-    }
+	}
     
 	/**
 	 * RSS method
@@ -200,26 +204,26 @@ class Pages extends Public_Controller
 	 * @param array $url_segments The URL segments
 	 * @return void
 	 */
-    public function _rss($url_segments)
-    {
-        // Remove the .rss suffix
-    	$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
-    	
-    	// Fetch this page from the database via cache
-    	$page = $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments));
-    	
-    	// If page is missing or not live (and not an admin) show 404
+	public function _rss($url_segments)
+	{
+		// Remove the .rss suffix
+		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
+		
+		// Fetch this page from the database via cache
+		$page = $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments));
+		
+		// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR ! $page->rss_enabled)
-        {
-        	// Will try the page then try 404 eventually
-        	$this->_page('404');
-        	return;
-        }
-    	
-    	$children = $this->pyrocache->model('pages_m', 'get_many_by', array(array(
-    		'parent_id' => $page->id,
-    		'status' => 'live'
-    	)));
+		{
+			// Will try the page then try 404 eventually
+			$this->_page('404');
+			return;
+		}
+		
+		$children = $this->pyrocache->model('pages_m', 'get_many_by', array(array(
+			'parent_id' => $page->id,
+			'status' => 'live'
+		)));
     	
 		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->site_name;
 		$data->rss->description = $page->meta_description;
@@ -249,8 +253,7 @@ class Pages extends Public_Controller
 		}
 		
 		$this->load->view('rss', $data);
-		
-    }
+	}
     
 	/**
 	 * 404 method
@@ -258,14 +261,14 @@ class Pages extends Public_Controller
 	 * @param array $url_segments The URL segments
 	 * @return void
 	 */
-    public function _404($url_segments)
-    {
-    	// Try and get an error page. If its been deleted, show nasty 404
-        if ( ! $page = $this->pyrocache->model('pages_m', 'get_by_uri', array('404')) )
-        {
+	public function _404($url_segments)
+	{
+		// Try and get an error page. If its been deleted, show nasty 404
+		if ( ! $page = $this->pyrocache->model('pages_m', 'get_by_uri', array('404')) )
+		{
 			show_404();
-        }
+		}
         
-        return $page;
-    }
+		return $page;
+	}
 }
