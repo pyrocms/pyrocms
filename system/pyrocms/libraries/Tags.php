@@ -555,7 +555,7 @@ class Tags {
 		$len_offset = 0;
 		foreach ($matches[0] as $match)
 		{
-			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9]*))#i', '$2\$$3', $match[0]);
+			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9-_]-_*))#i', '$2\$$3', $match[0]);
 			$content = substr($content, 0, $match[1] + $len_offset) . $replacement . substr($content, $match[1] + strlen($match[0]) + $len_offset);
 			$len_offset += strlen($replacement) - strlen($match[0]);
 		}
@@ -565,7 +565,7 @@ class Tags {
 		$len_offset = 0;
 		foreach ($matches[0] as $match)
 		{
-			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9]*))#i', '$2\$$3', $match[0]);
+			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9-_]*))#i', '$2\$$3', $match[0]);
 			$content = substr($content, 0, $match[1] + $len_offset) . $replacement . substr($content, $match[1] + strlen($match[0]) + $len_offset);
 			$len_offset += strlen($replacement) - strlen($match[0]);
 		}
