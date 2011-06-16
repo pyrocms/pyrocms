@@ -2,8 +2,7 @@
 /**
  * Pages controller
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @modified	Yorick Peterse
+ * @author	PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Pages module
  * @category	Modules
@@ -16,82 +15,82 @@ class Admin extends Admin_Controller {
 	 * @var array
 	 */
 	private $validation_rules = array(
-			array(
-				'field' => 'title',
-				'label'	=> 'lang:pages.title_label',
-				'rules'	=> 'trim|required|max_length[250]'
-			),
-			array(
-				'field' => 'slug',
-				'label'	=> 'lang:pages.slug_label',
-				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
-			),
-			array(
-				'field' => 'body',
-				'label'	=> 'lang:pages.body_label',
-				'rules' => 'trim|required'
-			),
-			array(
-				'field' => 'layout_id',
-				'label'	=> 'lang:pages.layout_id_label',
-				'rules'	=> 'trim|numeric|required'
-			),
-			array(
-				'field'	=> 'css',
-				'label'	=> 'lang:pages.css_label',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field'	=> 'js',
-				'label'	=> 'lang:pages.js_label',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'meta_title',
-				'label' => 'lang:pages.meta_title_label',
-				'rules' => 'trim|max_length[250]'
-			),
-			array(
-				'field'	=> 'meta_keywords',
-				'label' => 'lang:pages.meta_keywords_label',
-				'rules' => 'trim|max_length[250]'
-			),
-			array(
-				'field'	=> 'meta_description',
-				'label'	=> 'lang:pages.meta_description_label',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'restricted_to[]',
-				'label'	=> 'lang:pages.access_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'rss_enabled',
-				'label'	=> 'lang:pages.rss_enabled_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'comments_enabled',
-				'label'	=> 'lang:pages.comments_enabled_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'is_home',
-				'label'	=> 'lang:pages.is_home_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field'	=> 'status',
-				'label'	=> 'lang:pages.status_label',
-				'rules'	=> 'trim|alpha|required'
-			),
-			array(
-				'field' => 'navigation_group_id',
-				'label' => 'lang:pages.navigation_label',
-				'rules' => 'numeric'
-			)
-		);
+		array(
+			'field' => 'title',
+			'label'	=> 'lang:pages.title_label',
+			'rules'	=> 'trim|required|max_length[250]'
+		),
+		array(
+			'field' => 'slug',
+			'label'	=> 'lang:pages.slug_label',
+			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
+		),
+		array(
+			'field' => 'body',
+			'label'	=> 'lang:pages.body_label',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'layout_id',
+			'label'	=> 'lang:pages.layout_id_label',
+			'rules'	=> 'trim|numeric|required'
+		),
+		array(
+			'field'	=> 'css',
+			'label'	=> 'lang:pages.css_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'js',
+			'label'	=> 'lang:pages.js_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'meta_title',
+			'label' => 'lang:pages.meta_title_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_keywords',
+			'label' => 'lang:pages.meta_keywords_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_description',
+			'label'	=> 'lang:pages.meta_description_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'restricted_to[]',
+			'label'	=> 'lang:pages.access_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'rss_enabled',
+			'label'	=> 'lang:pages.rss_enabled_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'comments_enabled',
+			'label'	=> 'lang:pages.comments_enabled_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'is_home',
+			'label'	=> 'lang:pages.is_home_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field'	=> 'status',
+			'label'	=> 'lang:pages.status_label',
+			'rules'	=> 'trim|alpha|required'
+		),
+		array(
+			'field' => 'navigation_group_id',
+			'label' => 'lang:pages.navigation_label',
+			'rules' => 'numeric'
+		)
+	);
 
 	/**
 	 * The ID of the page, used for the validation callback
@@ -107,15 +106,10 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required classes
 		$this->load->library('form_validation');
-
-		// Versioning
-		$this->load->library('versioning');
-		$this->versioning->set_table('pages');
 
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
@@ -135,7 +129,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		// Get the page tree		
 		$this->data->pages = $this->pages_m->get_page_tree();
 		$this->data->controller =& $this;
 
@@ -223,7 +216,7 @@ class Admin extends Admin_Controller {
 	{
 		// Validate the page
 		if ($this->form_validation->run())
-	    {
+		{
 			$input = $this->input->post();
 
 			if ($input['status'] == 'live')
@@ -239,11 +232,7 @@ class Admin extends Admin_Controller {
 			
 			if ($id = $this->pages_m->create($input))
 			{
-				// Create the revision
-				$revision_id = $this->versioning->create_revision(array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $page_body));
-
-				// Update the page row
-				$input['revision_id'] = $revision_id;
+				// TODO: SAVE CHUNKS
 
 				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
@@ -289,22 +278,22 @@ class Admin extends Admin_Controller {
 
 			$page->{$rule['field']} = set_value($rule['field']);
 		}
-
-	    // If a parent id was passed, fetch the parent details
-	    if ($parent_id > 0)
-	    {
-			$page->parent_id 	= $parent_id;
-			$parent_page 		= $this->pages_m->get($parent_id);
-	    }
-
-	    // Assign data for display
+		
+		// If a parent id was passed, fetch the parent details
+		if ($parent_id > 0)
+		{
+			    $page->parent_id 	= $parent_id;
+			    $parent_page 		= $this->pages_m->get($parent_id);
+		}
+		
+		// Assign data for display
 		$data['page'] = & $page;
 		$data['parent_page'] = & $parent_page;
-
+		
 		// Set some data that both create and edit forms will need
 		self::_form_data();
-
-	    // Load WYSIWYG editor
+		
+		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
@@ -325,24 +314,23 @@ class Admin extends Admin_Controller {
 
 		role_or_die('pages', 'edit_live');
 
-	    $page 			= $this->versioning->get($id);
-		$revisions		= $this->versioning->get_revisions($id);
+		$page = $this->pages_m->get($id);
 
-	    // Got page?
-	    if ( ! $page)
-	    {
+		// Got page?
+		if ( ! $page)
+		{
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
-	    }
+		}
 
-	    // Set the page ID and get the current page
-	    $this->page_id = $page->id;
+		// Set the page ID and get the current page
+		$this->page_id = $page->id;
 
 		// It's stored as a CSV list
 		$page->restricted_to = explode(',', $page->restricted_to);
 
 		if ($this->form_validation->run())
-	    {
+		{
 			$input = $this->input->post();
 			
 			if ($page->status != 'live' and $input['status'] == 'live')
@@ -350,20 +338,8 @@ class Admin extends Admin_Controller {
 				role_or_die('pages', 'put_live');
 			}
 			
-			// Set the data for the revision
-			$revision_data = array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $input['body']);
-
-			// Did the user wanted to restore a specific revision?
-			if ($input['use_revision_id'] == $page->revision_id )
-			{
-				$input['revision_id'] 	= $this->versioning->create_revision($revision_data);
-			}
-			// Manually restore a revision
-			else
-			{
-				$input['revision_id'] = $input['use_revision_id'];
-			}
-
+			// TODO: Page Chunks
+			
 			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 
 			// Run the update code with the POST data
@@ -383,7 +359,7 @@ class Admin extends Admin_Controller {
 			$this->input->post('btnAction') == 'save_exit'
 				? redirect('admin/pages')
 				: redirect('admin/pages/edit/'.$id);
-	    }
+		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
@@ -403,20 +379,20 @@ class Admin extends Admin_Controller {
 			$page->{$rule['field']} = set_value($rule['field'], $page->{$rule['field']});
 		}
 
-	    // If a parent id was passed, fetch the parent details
-	    if ($page->parent_id > 0)
-	    {
-			$parent_page = $this->pages_m->get($page->parent_id);
-	    }
-
-	    // Assign data for display
-	    $this->data->page 			=& $page;
-		$this->data->revisions		=& $revisions;
-	    $this->data->parent_page 	=& $parent_page;
+		// If a parent id was passed, fetch the parent details
+		if ($page->parent_id > 0)
+		{
+			    $parent_page = $this->pages_m->get($page->parent_id);
+		}
+		
+		// Assign data for display
+		$this->data->page 		=& $page;
+		$this->data->parent_page 	=& $parent_page;
 
 		self::_form_data();
 
 		$this->template
+		
 			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page->title))
 
 			// Load WYSIWYG Editor
@@ -500,46 +476,6 @@ class Admin extends Admin_Controller {
 
 		redirect('admin/pages');
 	}
-
-	/**
-	 * Show a diff between two revisions
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id_1 The ID of the first revision to compare
-	 * @param int $id_2 The ID of the second revision to compare
-	 * @return void
-	 */
-	public function compare($id_1, $id_2)
-	{
-		// Create the diff using mixed mode
-		$rev_1 = $this->versioning->get_by_revision($id_1);
-		$rev_2 = $this->versioning->get_by_revision($id_2);
-		$diff  = $this->versioning->compare_revisions($rev_2->body, $rev_1->body, 'mixed');
-
-		// Output the results
-		$data['difference'] = $diff;
-
-		$this->template
-			->set_layout('modal', 'admin')
-			->build('admin/revisions/compare', $data);
-	}
-
-	/**
-	 * Show a preview of a revision
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id The ID of the revision to preview
-	 * @return void
-	 */
-	public function preview_revision($id)
-	{
-		// Easy isn't it?
-		$data['revision'] = $this->versioning->get_by_revision($id);
-		$this->template->set_layout('modal', 'admin')
-				->build('admin/revisions/preview', $data);
-	}
 	
 	/**
 	 * Build the html for the admin page tree view
@@ -548,29 +484,26 @@ class Admin extends Admin_Controller {
 	 * @access public
 	 * @param array $page Current page
 	 */
-	
 	public function tree_builder($page)
 	{
 		if(isset($page['children'])):
+	
+			foreach($page['children'] as $page): ?>
 		
-				foreach($page['children'] as $page): ?>
-			
-					<li id="page_<?php echo $page['id']; ?>">
-						<div>
-							<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
-						</div>
-					
-				<?php if(isset($page['children'])): ?>
-						<ol>
-								<?php $this->tree_builder($page); ?>
-						</ol>
-					</li>
-				<?php else: ?>
-					</li>
-				<?php endif; ?>
+				<li id="page_<?php echo $page['id']; ?>">
+					<div>
+						<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
+					</div>
 				
-			<?php endforeach; ?>
-			
-		<?php endif;
+			<?php if(isset($page['children'])): ?>
+					<ol>
+							<?php $this->tree_builder($page); ?>
+					</ol>
+				</li>
+			<?php else: ?>
+				</li>
+			<?php endif;
+			endforeach;
+		endif;
 	}
 }
