@@ -160,7 +160,7 @@ class Pages extends Public_Controller
 		$page_array['layout'] = (array) $page_array['layout'];
 
 		// Parse it so the content is parsed
-		$page_array['body'] = $this->parser->parse_string(str_replace('&quot;', '"', $page->body), $this->data, TRUE);
+		$page_array['body'] = $this->parser->parse_string(str_replace('&quot;', '"', $page->body), array(), TRUE);
 		
         // Create page output
 	    $this->template->title($page->meta_title)
@@ -191,7 +191,7 @@ class Pages extends Public_Controller
 					</script>');
 			}
 			
-        	$this->template->build('page', $this->data);
+        	$this->template->build('page');
     }
     
 	/**
