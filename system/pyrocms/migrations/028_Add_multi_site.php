@@ -49,11 +49,11 @@ class Migration_Add_multi_site extends Migration {
 		{
 			// Take all existing admins and make them "multisite admins"
 			$this->db->query("CREATE TABLE core_users SELECT * FROM users WHERE group_id='1' ");
-		}
 		
-		foreach ($existing_tables as $table)
-		{
-			$this->db->query("RENAME TABLE {$table} TO {$site_ref}_{$table}");
+			foreach ($existing_tables as $table)
+			{
+				$this->db->query("RENAME TABLE {$table} TO {$site_ref}_{$table}");
+			}
 		}
 	}
 
