@@ -58,8 +58,14 @@
 				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id); ?>
 			</li>
 			<?php endif; ?>
+			<?php foreach ($page->chunks AS $chunk): ?>
+				<li class="<?php echo alternator('even', ''); ?> page-chunk">
+					<h4><?php echo $chunk->slug; ?></h4>
+					<?php echo form_textarea(array('id'=>$chunk->slug, 'name'=>'chunk_body[]', 'value' => $chunk->body, 'rows' => 50, 'class'=> $chunk->type)); ?>
+				</li>
+			<?php endforeach; ?>
 			<li class="<?php echo alternator('even', ''); ?>">
-				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $page->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+				<a class="add-page-chunk" href="#"><?php echo lang('pages.add_page_chunk'); ?></a>
 			</li>
 		</ul>
 	</div>

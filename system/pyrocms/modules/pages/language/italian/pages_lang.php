@@ -13,6 +13,8 @@ $lang['pages.detail_label'] 					= 'Dettagli';
 
 // labels
 $lang['pages.page_label'] 						= 'Pagina';
+$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= 'Lingua';
 $lang['pages.updated_label'] 					= 'Modificato';
 $lang['pages.actions_label'] 					= 'Azioni';

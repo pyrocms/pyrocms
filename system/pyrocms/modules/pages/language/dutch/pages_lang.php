@@ -11,6 +11,8 @@ $lang['pages.detail_label'] 					= 'Details';
 
 // labels
 $lang['pages.page_label'] 						= 'Pagina';
+$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= 'Taal';
 $lang['pages.updated_label'] 					= 'Bijgewerkt';
 $lang['pages.actions_label'] 					= 'Acties';

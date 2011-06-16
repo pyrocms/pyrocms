@@ -26,7 +26,7 @@ class Admin extends Admin_Controller {
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
 		),
 		array(
-			'field' => 'body',
+			'field' => 'body[]',
 			'label'	=> 'lang:pages.body_label',
 			'rules' => 'trim|required'
 		),
@@ -315,6 +315,9 @@ class Admin extends Admin_Controller {
 		role_or_die('pages', 'edit_live');
 
 		$page = $this->pages_m->get($id);
+		
+		// Grab all the chunks that make up the body
+		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
 
 		// Got page?
 		if ( ! $page)
@@ -329,36 +332,48 @@ class Admin extends Admin_Controller {
 		// It's stored as a CSV list
 		$page->restricted_to = explode(',', $page->restricted_to);
 
-		if ($this->form_validation->run())
+		if ($_POST)
 		{
-			$input = $this->input->post();
-			
-			if ($page->status != 'live' and $input['status'] == 'live')
+			$page->chunks = array();
+			for ($i = 0; $i < count($this->input->post('chunk_body')); $i++)
 			{
-				role_or_die('pages', 'put_live');
+				$page->chunks[] = (object) array(
+					'slug' => $_POST['chunk_slug'][$i],
+					'body' => $_POST['chunk_body'][$i],
+					'type' => $_POST['chunk_type'][$i],
+				);
 			}
-			
-			// TODO: Page Chunks
-			
-			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-
-			// Run the update code with the POST data
-			$this->pages_m->update($id, $input);
-
-			// The slug has changed
-			if ($this->input->post('slug') != $this->input->post('old_slug'))
+				
+			if ($this->form_validation->run())
 			{
-				$this->pages_m->reindex_descendants($id);
+				
+				$input = $this->input->post();
+				
+				if ($page->status != 'live' and $input['status'] == 'live')
+				{
+					role_or_die('pages', 'put_live');
+				}
+				
+				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+	
+				// Run the update code with the POST data
+				$this->pages_m->update($id, $input);
+	
+				// The slug has changed
+				if ($this->input->post('slug') != $this->input->post('old_slug'))
+				{
+					$this->pages_m->reindex_descendants($id);
+				}
+	
+				// Set the flashdata message and redirect the user
+				$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
+				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
+	
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/pages')
+					: redirect('admin/pages/edit/'.$id);
 			}
-
-			// Set the flashdata message and redirect the user
-			$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
-			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
-
-			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit'
-				? redirect('admin/pages')
-				: redirect('admin/pages/edit/'.$id);
 		}
 
 		// Loop through each validation rule
@@ -375,10 +390,15 @@ class Admin extends Admin_Controller {
 
 				continue;
 			}
+			
+			if($rule['field'] === 'body[]')
+			{
+				continue;
+			}
 
 			$page->{$rule['field']} = set_value($rule['field'], $page->{$rule['field']});
 		}
-
+		
 		// If a parent id was passed, fetch the parent details
 		if ($page->parent_id > 0)
 		{
@@ -400,6 +420,7 @@ class Admin extends Admin_Controller {
 
 			// Load form specific JavaScript
 			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('admin.js', 'pages') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);
 	}

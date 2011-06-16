@@ -11,6 +11,8 @@ $lang['pages.detail_label'] 					= 'تفاصيل';
 
 // labels
 $lang['pages.page_label'] 						= 'الصفحة';
+$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= 'اللغة';
 $lang['pages.updated_label'] 					= 'آخر تحديث';
 $lang['pages.actions_label'] 					= 'إجراءات';

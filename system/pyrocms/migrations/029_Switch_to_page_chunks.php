@@ -12,7 +12,7 @@ class Migration_Switch_to_page_chunks extends Migration {
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `page_id` int(11) NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('text','html','wysiwyg','wysiwyg-compact') collate utf8_unicode_ci NOT NULL,
+			  `type` set('text','html','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  `sort` int(11) NOT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `unique - slug` (`slug`, `page_id`)
@@ -27,7 +27,7 @@ class Migration_Switch_to_page_chunks extends Migration {
 			  `type` ,
 			  `sort`
 			)
-			SELECT 'default', owner_id, body, 'wysiwyg', 12 FROM `" . $this->db->dbprefix('revisions') . "` t1 WHERE revision_date = (
+			SELECT 'default', owner_id, body, 'wysiwyg-advanced', 12 FROM `" . $this->db->dbprefix('revisions') . "` t1 WHERE revision_date = (
 				SELECT MAX(t2.revision_date) FROM `" . $this->db->dbprefix('revisions') . "` t2 WHERE t1.owner_id = t2.owner_id
 			) ORDER BY owner_id
 		";

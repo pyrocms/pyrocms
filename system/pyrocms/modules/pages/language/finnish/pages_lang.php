@@ -18,6 +18,8 @@ $lang['pages.detail_label']                = 'Details';
 
 // labels
 $lang['pages.page_label']                  = 'Sivu';
+$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'Kieli';
 $lang['pages.updated_label']               = 'Päivitetty';
 $lang['pages.actions_label']               = 'Toiminnot';
