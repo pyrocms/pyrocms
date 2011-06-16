@@ -15,12 +15,10 @@ class MY_Controller extends CI_Controller {
 
 		$this->benchmark->mark('my_controller_start');
 		
-		$this->load->library('migrations');
-
 		// TODO: Remove all this migration check in the next major version after 1.3.0
 		// This extra check needs to be done to make the "multisite" changes run before the rest
 		// of the controller attempts to run
-		if ($this->db->get('schema_version')->row()->version == 27)
+		if ($this->db->table_exists('schema_version'))
 		{
 			$this->load->library('migrations');
 			$this->migrations->latest();
@@ -47,6 +45,8 @@ class MY_Controller extends CI_Controller {
 		$this->db->set_dbprefix($this->site->ref.'_');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
+		
+		$this->load->library('migrations');
 		// $this->migrations->verbose = true;
 		$schema_version = $this->migrations->latest();
 		
