@@ -137,7 +137,7 @@ class Admin extends Admin_Controller {
 	public function upload($folder_id = '')
 	{
 		$this->data->folders = $this->_folders;
-
+				
 		if ($this->form_validation->run())
 		{
 			// Setup upload config
@@ -258,7 +258,15 @@ class Admin extends Admin_Controller {
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			$this->data->file->{$rule['field']} = set_value($rule['field']);
+			if ($rule['field'] == 'folder_id') 
+			{
+				$this->data->file->{$rule['field']} = set_value($rule['field'], $folder_id);
+			}
+			else
+			{
+				$this->data->file->{$rule['field']} = set_value($rule['field']);
+			}
+			
 		}
 
 		$this->template
