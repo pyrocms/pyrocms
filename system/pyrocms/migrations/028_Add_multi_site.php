@@ -54,6 +54,15 @@ class Migration_Add_multi_site extends Migration {
 			{
 				$this->db->query("RENAME TABLE {$table} TO {$site_ref}_{$table}");
 			}
+			
+			// since theme_options is added by a migration it is missing from $existing_tables array
+			if ( ! $this->db->table_exists('theme_options') )
+			{
+				$this->db->query("RENAME TABLE theme_options TO {$site_ref}_theme_options");
+			}
+			
+			// we need this so that the rest of the migrations have site_ref available
+			redirect(current_url());
 		}
 	}
 
