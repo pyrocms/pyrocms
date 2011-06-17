@@ -25,7 +25,7 @@
 					</div>
 					<div>
 						<label for="dob_month"><?php echo lang('profile_dob_month') ?>:</label>
-			<?php echo form_dropdown('dob_month', $months, $profile->dob_month) ?>
+						<?php echo form_dropdown('dob_month', $months, $profile->dob_month) ?>
 					</div>
 					<div>
 						<label for="dob_year"><?php echo lang('profile_dob_year') ?>:</label>
@@ -35,14 +35,13 @@
 			</li>
 	
 			<li>
-			<label for="gender"><?php echo lang('profile_gender') ?></label>
+				<label for="gender"><?php echo lang('profile_gender') ?></label>
 				<?php echo form_dropdown('gender', array(''=> lang('profile_gender_nt'), 'm'=>lang('profile_gender_male'), 'f'=>lang('profile_gender_female')), $profile->gender); ?>
 			</li>
 		
 			<li>
-			<label for="bio"><?php echo lang('profile_bio') ?></label>
-			<?php echo form_textarea(array('name'=>'bio', 'value'=>$profile->bio, 'cols'=>60, 'rows'=>8)); ?>
-		
+				<label for="bio"><?php echo lang('profile_bio') ?></label>
+				<?php echo form_textarea(array('name'=>'bio', 'value'=>$profile->bio, 'cols'=>60, 'rows'=>8)); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -51,38 +50,32 @@
 		<legend><?php echo lang('profile_contact_section') ?></legend>
 		<ul>
 			<li>
-			<label for="phone"><?php echo lang('profile_phone') ?></label>
-			<?php echo form_input('phone', $profile->phone); ?>
+				<label for="phone"><?php echo lang('profile_phone') ?></label>
+				<?php echo form_input('phone', $profile->phone); ?>
 			</li>	
 			<li>
-			<label for="mobile"><?php echo lang('profile_mobile') ?></label>
-			<?php echo form_input('mobile', $profile->mobile); ?>
+				<label for="mobile"><?php echo lang('profile_mobile') ?></label>
+				<?php echo form_input('mobile', $profile->mobile); ?>
 			</li>
 			<li>
-			<label for="address_line1"><?php echo lang('profile_address_line1') ?></label> 
-			<?php echo form_input('address_line1', $profile->address_line1); ?>
+				<label for="address_line1"><?php echo lang('profile_address_line1') ?></label> 
+				<?php echo form_input('address_line1', $profile->address_line1); ?>
 			</li>
 			<li>
-			<label for="address_line2"><?php echo lang('profile_address_line2') ?></label> 
-			<?php echo form_input('address_line2', $profile->address_line2); ?>
+				<label for="address_line2"><?php echo lang('profile_address_line2') ?></label> 
+				<?php echo form_input('address_line2', $profile->address_line2); ?>
 			</li>
 			<li>	
-			<label for="address_line3"><?php echo lang('profile_address_line3') ?></label> 
-			<?php echo form_input('address_line3', $profile->address_line3); ?>
+				<label for="address_line3"><?php echo lang('profile_address_line3') ?></label> 
+				<?php echo form_input('address_line3', $profile->address_line3); ?>
 			</li>
 			<li>	
-<<<<<<< HEAD
-			<label for="postcode"><?php echo lang('profile_address_postcode') ?></label>
-			<?php echo form_input('postcode', $profile->postcode); ?>
-			<li>
-=======
 				<label for="postcode"><?php echo lang('profile_address_postcode') ?></label>
 				<?php echo form_input('postcode', $profile->postcode); ?>
 			</li>
->>>>>>> Fixed a li close tag in views/profile/edit.php
 			<li>
-			<label for="website"><?php echo lang('profile_website'); ?></label>
-			<?php echo form_input('website', $profile->website); ?>
+				<label for="website"><?php echo lang('profile_website'); ?></label>
+				<?php echo form_input('website', $profile->website); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -90,22 +83,22 @@
 	<fieldset id="user_social">
 		<legend><?php echo lang('profile_messenger_section') ?></legend>
 		<ul>
-		<li>
-			<label for="msn_handle"><?php echo lang('profile_msn_handle') ?></label>
-			<?php echo form_input('msn_handle', $profile->msn_handle); ?>
-		</li>
-		<li>	
-			<label for="aim_handle"><?php echo lang('profile_aim_handle') ?></label>
-			<?php echo form_input('aim_handle', $profile->aim_handle); ?>
-		</li>
-		<li>
-			<label for="yim_handle"><?php echo lang('profile_yim_handle') ?></label>
-			<?php echo form_input('yim_handle', $profile->yim_handle); ?>
-		</li>
-		<li>	
-			<label for="gtalk_handle"><?php echo lang('profile_gtalk_handle') ?></label>
-			<?php echo form_input('gtalk_handle', $profile->gtalk_handle); ?>
-		</li>
+			<li>
+				<label for="msn_handle"><?php echo lang('profile_msn_handle') ?></label>
+				<?php echo form_input('msn_handle', $profile->msn_handle); ?>
+			</li>
+			<li>	
+				<label for="aim_handle"><?php echo lang('profile_aim_handle') ?></label>
+				<?php echo form_input('aim_handle', $profile->aim_handle); ?>
+			</li>
+			<li>
+				<label for="yim_handle"><?php echo lang('profile_yim_handle') ?></label>
+				<?php echo form_input('yim_handle', $profile->yim_handle); ?>
+			</li>
+			<li>	
+				<label for="gtalk_handle"><?php echo lang('profile_gtalk_handle') ?></label>
+				<?php echo form_input('gtalk_handle', $profile->gtalk_handle); ?>
+			</li>
 		</ul>
 	</fieldset>
 

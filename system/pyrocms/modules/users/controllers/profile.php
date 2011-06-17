@@ -136,8 +136,6 @@ class Profile extends Public_Controller
 
 		$this->load->library('form_validation');
 
-<<<<<<< HEAD
-=======
 		// Validation rules - git is really pissing me off right now
 		$this->validation_rules = array(
 			array(
@@ -232,7 +230,6 @@ class Profile extends Public_Controller
 			)
 		);
 
->>>>>>> Finished with the beautification of the user/profile/edit page.
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
@@ -362,11 +359,6 @@ class Profile extends Public_Controller
 		    // Date ranges for select boxes
 		$this->data->profile =& $profile;
 
-<<<<<<< HEAD
-		$this->data->days = array_combine($days = range(1, 31), $days);
-		$this->data->months = array_combine($months = range(1, 12), $months);
-		$this->data->years = array_combine($years = range(date('Y'), date('Y')-90), $years);
-=======
 		// Fix the months
 		$this->lang->load('calendar');
 		$month_names = array(
@@ -386,7 +378,6 @@ class Profile extends Public_Controller
 	    $this->data->days 	= array_combine($days 	= range(1, 31), $days);
 		$this->data->months = array_combine($months = range(1, 12), $month_names);
 	    $this->data->years 	= array_combine($years 	= range(date('Y'), date('Y')-120), $years);
->>>>>>> Finished with the beautification of the user/profile/edit page.
 
 		// Render the view
 		$this->template->build('profile/edit', $this->data);
