@@ -6,20 +6,19 @@ $lang['pages.meta_label']                  = 'Meta data';
 $lang['pages.design_label']                = 'Σχεδιασμός';
 $lang['pages.script_label']                = 'Script';
 $lang['pages.options_label']               = 'Επιλογές';
-
 $lang['pages.detail_label']                = 'Λεπτομέρειες';
 
 // labels
 $lang['pages.page_label']                  = 'Σελίδα';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']			   = 'Προσθήκη Περιοχής Σελίδας';
+$lang['pages.page_chunk']				   = 'Περιοχής Σελίδας';
 $lang['pages.language_label']              = 'Γλώσσα';
 $lang['pages.updated_label']               = 'Ενημερώθηκε';
 $lang['pages.actions_label']               = 'Ενέργειες';
 $lang['pages.unknown_label']               = 'Άγνωστο';
 $lang['pages.title_label']                 = 'Τίτλος';
 $lang['pages.slug_label']                  = 'URL';
-$lang['pages.navigation_label']                  = 'Προσθήκη στην Πλοήγηση';
+$lang['pages.navigation_label']            = 'Προσθήκη στην Πλοήγηση';
 $lang['pages.body_label']                  = 'Σώμα σελίδας';
 $lang['pages.meta_title_label']            = 'Meta title';
 $lang['pages.meta_keywords_label']         = 'Meta keywords';
@@ -30,7 +29,7 @@ $lang['pages.js_label']                    = 'JavaScript';
 $lang['pages.access_label']                = 'Πρόσβαση';
 $lang['pages.rss_enabled_label']           = 'RSS Ενεργό;';
 $lang['pages.comments_enabled_label']      = 'Σχόλια Ενεργά;';
-$lang['pages.is_home_label']      = 'Είναι η αρχική σελίδα;';
+$lang['pages.is_home_label']      		   = 'Είναι η αρχική σελίδα;';
 
 $lang['pages.status_label']                = 'Κατάσταση';
 $lang['pages.draft_label']                 = 'Πρόχειρο';
