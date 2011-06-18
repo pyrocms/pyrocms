@@ -17,9 +17,9 @@ $lang['themes.upload_desc'] 			= 'Veuillez sélectionner un fichier et cliquer s
 $lang['themes.theme_label'] 			= 'Thème';
 $lang['themes.actions_label'] 			= 'Actions';
 $lang['themes.make_default'] 			= 'Rendre par défaut';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
-$lang['themes.version_label']			= 'Version'; #translate
+$lang['themes.description_label']		= 'Description';
+$lang['themes.author_label']			= 'Auteur';
+$lang['themes.version_label']			= 'Version';
 $lang['themes.default_theme_label'] 	= 'Thème par défaut';
 $lang['themes.no_themes_installed'] 	= 'Il n\'y a aucun thème installé.';
 

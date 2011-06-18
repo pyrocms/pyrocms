@@ -2,7 +2,7 @@
 
 // sidebar
 $lang['widgets.available_title'] 			= 'Widgets disponibles';
-$lang['widgets.widget_area_wrapper']		= 'Available Areas'; #translate
+$lang['widgets.widget_area_wrapper']		= 'Zones disponibles';
 $lang['widgets.instructions']	 			= 'Glisser-déposer pour installer le widget';
 
 // Widgets
@@ -22,7 +22,7 @@ $lang['widgets.widget_area_title'] 			= 'Nome de la zone';
 $lang['widgets.widget_area_slug'] 			= 'Nom court';
 
 // Widget instance titles
-$lang['widgets.add_instance'] 				= 'Add un widget';
+$lang['widgets.add_instance'] 				= 'Ajouter un widget';
 $lang['widgets.edit_instance'] 				= 'Editer ce widget';
 $lang['widgets.delete_instance'] 			= 'Supprimer ce widget';
 
@@ -32,7 +32,7 @@ $lang['widgets.tag_title']					= 'Tag';
 $lang['widgets.instance_edit'] 				= 'Editer';
 $lang['widgets.instance_delete'] 			= 'Supprimer';
 
-$lang['widgets.no_available_widgets']		= 'There are no available widgets.'; #translate
+$lang['widgets.no_available_widgets']		= 'Il n\' y a aucun widget disponible.';
 
 /* End of file widgets_lang.php */
 /* Location: ./system/pyrocms/modules/widgets/language/french/widgets_lang.php */
