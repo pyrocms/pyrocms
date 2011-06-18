@@ -8,7 +8,7 @@ $lang['desc_label'] 					        = 'Description';
 $lang['version_label'] 					        = 'Version';
 $lang['author_label'] 					        = 'Auteur';
 $lang['action_label'] 					        = 'Action';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['actions_label']					= 'Actions';
 
 $lang['dialog.confirm'] 				        = 'Confirmez';
 $lang['dialog.yes'] 					        = 'Oui';
@@ -19,8 +19,8 @@ $lang['select.all'] 					        = '-- Tous --';
 $lang['select.any'] 					        = '-- N\'importe quel --';
 $lang['select.pick']							= '-- Selectionner --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 					= 'Aucun';
+$lang['check.all']						= 'Tous';
 
 $lang['operators.equal'] 				        = 'Égal à';
 $lang['operators.not_equal'] 			        = 'Pas égal à';
@@ -42,7 +42,7 @@ $lang['note_label'] 					        = 'Note';
 $lang['success_label'] 					        = 'Succès';
 
 $lang['login_title'] 					        = 'Connexion';
-$lang['cms_fatal_error'] 				        = 'Erreur Fatale, CMS déjà installé?';
+$lang['cms_fatal_error'] 				        = 'Erreur Fatale, CMS déjà installé ?';
 
 $lang['login_error_label'] 				        = 'Erreur de Connexion';
 $lang['forgot_password_label'] 			        = 'Mot de passe oublié ?';
