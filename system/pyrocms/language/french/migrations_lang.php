@@ -12,10 +12,10 @@
  * @filesource
  */
 
-$lang['migrations.no_migrations_found']				= 'Aucune migration trouvée.';
-$lang['migrations.multiple_migrations_version']		= 'Une seule migration par étape est permis, il y a plusieurs migrations à l\'étape "%03d".';
-$lang['migrations.migration_not_found']				= 'La migration de l\'étape "%03d" n\'as pas été trouvée.';
-$lang['migrations.multiple_migrations_name']		= 'Impossible de répéter une migration à différentes étapes, il y a plusieurs migrations nommées "%s".';
+$lang['migrations.no_migrations_found']				= 'Aucune migration trouvÃ©e.';
+$lang['migrations.multiple_migrations_version']		= 'Une seule migration par Ã©tape est permis, il y a plusieurs migrations Ã  l\'Ã©tape "%03d".';
+$lang['migrations.migration_not_found']				= 'La migration de l\'Ã©tape "%03d" n\'as pas Ã©tÃ© trouvÃ©e.';
+$lang['migrations.multiple_migrations_name']		= 'Impossible de rÃ©pÃ©ter une migration Ã  diffÃ©rentes Ã©tapes, il y a plusieurs migrations nommÃ©es "%s".';
 $lang['migrations.migration_class_doesnt_exist']	= 'La classe de migration "%s" n\'existe pas.';
 $lang['migrations.wrong_migration_interface']		= 'Mauvaise interface de migration pour la classe "%s".';
 $lang['migrations.invalid_migration_filename']		= 'Nom de migration invalide: %s';
