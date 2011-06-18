@@ -22,10 +22,17 @@
 				</tr>
 			</tfoot>
 			<tbody>
+				<?php $link_profiles = Settings::get('enable_profiles'); ?>
 				<?php foreach ($users as $member): ?>
 					<tr>
 						<td class="align-center"><?php echo form_checkbox('action_to[]', $member->id); ?></td>
-						<td><?php echo anchor('admin/users/preview/' . $member->id, $member->full_name, 'target="_blank" class="modal-large"'); ?></td>
+						<td>
+						<?php if ($link_profiles) : ?>
+							<?php echo anchor('admin/users/preview/' . $member->id, $member->full_name, 'target="_blank" class="modal-large"'); ?>
+						<?php else: ?>
+							<?php echo $member->full_name; ?>
+						<?php endif; ?>
+						</td>
 						<td><?php echo mailto($member->email); ?></td>
 						<td><?php echo $member->group_name; ?></td>
 						<td><?php echo $member->active ? lang('dialog.yes') : lang('dialog.no') ; ?></td>
