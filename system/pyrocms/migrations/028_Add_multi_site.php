@@ -39,9 +39,8 @@ class Migration_Add_multi_site extends Migration {
 				time(),
 			));
 			
-			// Move uploads
-			//mkdir('uploads/'.$site_ref);
-			//rename('uploads/*', 'uploads/'.$site_ref.'/');
+			// Move uploads			
+			$this->_move('uploads', 'uploads/' . $site_ref);
 		}
 		
 		// Core users not set?
@@ -82,5 +81,51 @@ class Migration_Add_multi_site extends Migration {
 		rename('uploads/'.$site_ref.'/', 'uploads/');
 		unlink('uploads/'.$site_ref);
 	}
+	
+	/**
+	 * Move the uploads folder
+	 */
+	private function _move( $path, $dest )
+	{
+		if ( is_dir($path) )
+		{
+			$objects = scandir($path);
+			
+			@mkdir($dest, 0777, TRUE);
+			
+			$skip = array('.', '..', 'index.html', $site_ref);
+			
+			if( sizeof($objects) > 0 )
+			{
+				foreach( $objects AS $file )
+				{
+					if( in_array($file, $skip) ) continue;
 
+					if( is_dir( $path.'/'.$file ) )
+					{
+						if ($this->_move( $path.'/'.$file, $dest.'/'.$file ))
+						{
+							rmdir($path.'/'.$file);
+						}
+					}
+					else
+					{
+						if (copy( $path.'/'.$file, $dest.'/'.$file ))
+						{
+							unlink($path.'/'.$file);
+						}
+					}
+				}
+			}
+			return TRUE;
+		}
+		elseif ( is_file($path) )
+		{
+			return copy($path, $dest);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }

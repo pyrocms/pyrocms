@@ -22,8 +22,8 @@ class Galleries_m extends MY_Model {
 	public function get_all()
 	{
 		$this->db
-			->select('galleries.*, ff.slug as folder_slug, ff.name as folder_name')
-			->join('file_folders ff', 'ff.id = galleries.folder_id', 'left');
+			->select('galleries.*, file_folders.slug as folder_slug, file_folders.name as folder_name')
+			->join('file_folders', 'file_folders.id = galleries.folder_id', 'left');
 
 		$galleries	= parent::get_all();
 		$results	= array();
@@ -32,11 +32,11 @@ class Galleries_m extends MY_Model {
 		foreach ($galleries as $gallery)
 		{
 			$count = $this->db
-				->select('f.id')
-				->join('galleries g', 'g.folder_id = f.folder_id', 'left')
-				->where('f.type', 'i')
-				->where('g.id', $gallery->id)
-				->count_all_results('files f');
+				->select('files.id')
+				->join('galleries', 'galleries.folder_id = files.folder_id', 'left')
+				->where('files.type', 'i')
+				->where('galleries.id', $gallery->id)
+				->count_all_results('files');
 
 			$gallery->photo_count = $count;
 			$results[] = $gallery;
@@ -55,12 +55,12 @@ class Galleries_m extends MY_Model {
 	public function get_all_with_filename($where = NULL, $value = NULL)
 	{
 		$this->db
-			->select('g.*, f.filename, f.extension, f.id as file_id, ff.parent_id as parent')
-			->from('galleries g')
-			->join('gallery_images gi', 'gi.file_id = g.thumbnail_id', 'left')
-			->join('files f', 'f.id = gi.file_id', 'left')
-			->join('file_folders ff', 'ff.id = g.folder_id', 'left')
-			->where('g.published', '1');
+			->select('galleries.*, files.filename, files.extension, files.id as file_id, file_folders.parent_id as parent')
+			->from('galleries')
+			->join('gallery_images', 'gallery_images.file_id = galleries.thumbnail_id', 'left')
+			->join('files', 'files.id = gallery_images.file_id', 'left')
+			->join('file_folders', 'file_folders.id = galleries.folder_id', 'left')
+			->where('galleries.published', '1');
 
 		// Where clause provided?
 		if ( ! empty($where) AND ! empty($value))

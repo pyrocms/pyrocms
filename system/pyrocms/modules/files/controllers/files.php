@@ -8,6 +8,16 @@
  */
 class Files extends Public_Controller
 {
+	private	$path = '';
+	
+	public function __construct()
+	{	
+		parent::Public_Controller();
+		
+		$this->config->load('files');
+		$this->_path = FCPATH . $this->config->item('files_folder');
+	}
+	
 	public function download($id = 0)
 	{
 		$this->load->model('file_m');
@@ -16,7 +26,7 @@ class Files extends Public_Controller
 		$file = $this->file_m->get($id) OR show_404();
 
 		// Read the file's contents
-		$data = file_get_contents('uploads/files/' . $file->filename);
+		$data = file_get_contents($this->config->item('files_folder') . $file->filename);
 
 		force_download($file->name . $file->extension , $data);
 	}
@@ -27,9 +37,9 @@ class Files extends Public_Controller
 
 		$file = $this->file_m->get($id) OR show_404();
 
-		if ( ! is_dir(APPPATH . 'cache/image_files/'))
+		if ( ! is_dir(APPPATH . 'cache/' . SITE_REF . '/image_files/'))
 		{
-			mkdir(APPPATH . 'cache/image_files/');
+			mkdir(APPPATH . 'cache/' . SITE_REF . '/image_files/');
 		}
 
 		$args = func_num_args();
@@ -75,7 +85,7 @@ class Files extends Public_Controller
 		}
 
 		// Path to image thumbnail
-		$image_thumb = APPPATH . 'cache/image_files/' . $width . '_' . $height . '_' . md5($file->filename) . $file->extension;
+		$image_thumb = APPPATH . 'cache/' . SITE_REF . '/image_files/' . $width . '_' . $height . '_' . md5($file->filename) . $file->extension;
 
 		if ( ! file_exists($image_thumb))
 		{
@@ -84,7 +94,7 @@ class Files extends Public_Controller
 
 			// CONFIGURE IMAGE LIBRARY
 			$config['image_library']    = 'gd2';
-			$config['source_image']     = 'uploads/files/' . $file->filename;
+			$config['source_image']     = $this->config->item('files_folder') . $file->filename;
 			$config['new_image']        = $image_thumb;
 			$config['maintain_ratio']   = TRUE;
 			$config['height']           = $height;
