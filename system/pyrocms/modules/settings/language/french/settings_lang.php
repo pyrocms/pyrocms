@@ -32,9 +32,9 @@ $lang['settings_dashboard_rss_count'] 			= 'Nombre d\'entrées RSS à afficher s
 $lang['settings_dashboard_rss_count_desc'] 		= 'Combien d\entrées RSS afficher sur le tableau de bord ?';
 
 $lang['settings_date_format'] 					= 'Format de date';
-$lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
-													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+$lang['settings_date_format_desc']				= 'Comment les dates doivent être affichées dans le site et panel d\'administration ?' .
+													'Utilser le<a href="http://php.net/manual/en/function.date.php" target="_black">format de date</a> de PHP - OU - ' .
+													'Utiliser le format de <a href="http://php.net/manual/en/function.strftime.php" target="_black">chaine formaté en tant que date</a> de PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Statut du site';
 $lang['settings_frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
@@ -84,8 +84,8 @@ $lang['settings_ga_email_desc']					= 'Adresse email utilisée pour Google Analy
 $lang['settings_ga_password'] 					= 'Mot de passe Google Analytics';
 $lang['settings_ga_password_desc']				= 'Le mot de passe Google Analytics. Cette information est requise pour afficher le graphique sur le tableau de bord.'; 
 
-$lang['settings_ga_profile'] 					= 'Profile Google Analytics'; 
-$lang['settings_ga_profile_desc']				= 'ID du profile pour ce site dans Google Analytics.'; 
+$lang['settings_ga_profile'] 					= 'Profil Google Analytics'; 
+$lang['settings_ga_profile_desc']				= 'ID du profil pour ce site dans Google Analytics.'; 
 
 $lang['settings_ga_tracking'] 					= 'Code Google Tracking'; 
 $lang['settings_ga_tracking_desc']				= 'Code de tracking Google Analytics pour activer la capture de données de visites. Ex. : UA-19483569-6'; 
