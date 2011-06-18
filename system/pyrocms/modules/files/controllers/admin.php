@@ -96,7 +96,7 @@ class Admin extends Admin_Controller {
 				'current_id'	=> 0
 			));
 
-		$this->_path = FCPATH . '/' . $this->config->item('files_folder') . '/';
+		$this->_path = FCPATH . $this->config->item('files_folder');
 		$this->_check_dir();
 	}
 
@@ -536,7 +536,7 @@ class Admin extends Admin_Controller {
 		}
 		elseif ( ! is_dir($this->_path))
 		{
-			if ( ! @mkdir($this->_path))
+			if ( ! @mkdir($this->_path, 0777, TRUE))
 			{
 				$this->data->messages['notice'] = lang('file_folders.mkdir_error');
 				return FALSE;

@@ -43,6 +43,7 @@ class MY_Controller extends CI_Controller {
 
 		// By changing the prefix we are essentially "namespacing" each pyro site
 		$this->db->set_dbprefix($this->site->ref.'_');
+		$this->load->library('pyrocache');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
 		

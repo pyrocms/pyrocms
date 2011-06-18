@@ -53,19 +53,19 @@ class Gallery_images_m extends MY_Model
 		// Grand finale, do what you gotta do!!
 		$images = $this->db
 				// Select fields on gallery images table
-				->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug, g.title as gallery_title')
+				->select('gallery_images.*, files.name, files.filename, files.extension, files.description, files.name as title, galleries.folder_id, galleries.slug as gallery_slug, galleries.title as gallery_title')
 				// Set my gallery by id
-				->where('g.id', $id)
+				->where('galleries.id', $id)
 				// Filter images from my gallery
-				->join('galleries g', 'g.id = gi.gallery_id', 'left')
-				// Filter files from my images
-				->join('files f', 'f.id = gi.file_id', 'left')
+				->join('galleries', 'galleries.id = gallery_images.gallery_id', 'left')
+				// Filter from my images
+				->join('files', 'files.id = gallery_images.file_id', 'left')
 				// Filter files type image
-				->where('f.type', 'i')
+				->where('files.type', 'i')
 				// Order by user order
-				->order_by('`gi`.`order`', 'asc')
+				->order_by('`order`', 'asc')
 				// Get all!
-				->get('gallery_images gi')
+				->get('gallery_images')
 				->result();
 
 		return $images;
@@ -75,16 +75,16 @@ class Gallery_images_m extends MY_Model
 	{
 		$this->db
 			// Select fields on files table
-			->select('f.id as file_id, g.id as gallery_id')
-			->from('files f')
+			->select('files.id as file_id, galleries.id as gallery_id')
+			->from('files')
 			// Set my gallery by id
-			->where('g.id', $gallery_id)
-			// Filter files from my gallery folder
-			->join('galleries g', 'g.folder_id = f.folder_id', 'left')
+			->where('galleries.id', $gallery_id)
+			// Filter from my gallery folder
+			->join('galleries', 'galleries.folder_id = files.folder_id', 'left')
 			// Filter files type image
-			->where('f.type', 'i')
-			// Not require image files from my gallery in gallery images, prevent duplication
-			->ar_where[] = "AND `f`.`id` NOT IN (SELECT file_id FROM (gallery_images) WHERE `gallery_id` = '$gallery_id')";
+			->where('files.type', 'i')
+			// Not require image from my gallery in gallery images, prevent duplication
+			->ar_where[] = "AND `" . $this->db->dbprefix('files') . "`.`id` NOT IN (SELECT file_id FROM (" . $this->db->dbprefix('gallery_images') . ") WHERE `gallery_id` = '$gallery_id')";
 
 		// Already updated, nothing to do here..
 		if ( ! $new_images = $this->db->get()->result())
@@ -117,26 +117,26 @@ class Gallery_images_m extends MY_Model
 
 	public function unset_old_image_files($gallery_id = 0)
 	{
-		// Get all image files from folder of my gallery...
+		// Get all image from folder of my gallery...
 		$this->db
-			->select('f.id')
-			->from('files f')
-			->join('galleries g', 'g.folder_id = f.folder_id')
-			->where('f.type', 'i')
-			->where('g.id', $gallery_id);
+			->select('files.id')
+			->from('files')
+			->join('galleries', 'galleries.folder_id = files.folder_id')
+			->where('files.type', 'i')
+			->where('galleries.id', $gallery_id);
 		$subquery = str_replace("\n", ' ', $this->db->_compile_select());
 		$this->db->_reset_select();
 
 		$this->db
 			// Select fields on gallery images table
-			->select('gi.id')
-			->from('gallery_images gi')
+			->select('gallery_images.id')
+			->from('gallery_images')
 			// Set my gallery by id
-			->where('g.id', $gallery_id)
+			->where('galleries.id', $gallery_id)
 			// Filter images from my gallery
-			->join('galleries g', 'g.id = gi.gallery_id')
+			->join('galleries', 'galleries.id = gallery_images.gallery_id')
 			// Not required images that exists on my files table
-			->ar_where[] = "AND `gi`.`file_id` NOT IN ($subquery)";
+			->ar_where[] = "AND `" . $this->db->dbprefix('gallery_images') . "`.`file_id` NOT IN ($subquery)";
 
 		// Already updated, nothing to do here..
 		if ( ! $old_images = $this->db->get()->result())
@@ -197,11 +197,11 @@ class Gallery_images_m extends MY_Model
 	public function get($id)
 	{
 		$query = $this->db
-			->select('gi.*, f.name, f.filename, f.extension, f.description, f.name as title, g.folder_id, g.slug as gallery_slug')
-			->join('galleries g', 'gi.gallery_id = g.id', 'left')
-			->join('files f', 'f.id = gi.file_id', 'left')
-			->where('gi.id', $id)
-			->get('gallery_images gi');
+			->select('gallery_images.*, files.name, files.filename, files.extension, files.description, files.name as title, galleries.folder_id, galleries.slug as gallery_slug')
+			->join('galleries', 'gallery_images.gallery_id = galleries.id', 'left')
+			->join('files', 'files.id = gallery_images.file_id', 'left')
+			->where('gallery_images.id', $id)
+			->get('gallery_images');
 				
 		if ( $query->num_rows() > 0 )
 		{

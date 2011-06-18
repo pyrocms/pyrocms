@@ -1,6 +1,6 @@
 <?php
 
-$config['files_folder'] = UPLOAD_PATH.'files';
+$config['files_folder'] = UPLOAD_PATH . 'files/';
 
 $config['files_allowed_file_ext'] = array(
 	'a'	=> array('mpga', 'mp2', 'mp3', 'ra', 'rv', 'wav'),
