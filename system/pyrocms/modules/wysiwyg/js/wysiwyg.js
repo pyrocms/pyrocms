@@ -141,7 +141,7 @@ var replace_html = null;
         $('select[name=parent_id]').live('change', function() {
             var folder_id = $(this).val();
 			var controller = $(this).attr('title');
-            var href_val = '/wysiwyg/' + controller + '/index/' + folder_id;
+            var href_val = SITE_URL + 'wysiwyg/' + controller + '/index/' + folder_id;
             $('#files_right_pane').load(href_val + ' #files-wrapper', function() {
 				$(this).children().fadeIn('slow');
 				var class_exists = $('#folder-id-' + folder_id).html();
