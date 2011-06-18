@@ -40,7 +40,7 @@ class Migration_Add_multi_site extends Migration {
 			));
 			
 			// Move uploads			
-			$this->_move('uploads', 'uploads/' . $site_ref);
+			$this->_move('uploads', 'uploads/' . $site_ref, $site_ref);
 		}
 		
 		// Core users not set?
@@ -85,7 +85,7 @@ class Migration_Add_multi_site extends Migration {
 	/**
 	 * Move the uploads folder
 	 */
-	private function _move( $path, $dest )
+	private function _move( $path, $dest, $site_ref )
 	{
 		if ( is_dir($path) )
 		{
@@ -103,7 +103,7 @@ class Migration_Add_multi_site extends Migration {
 
 					if( is_dir( $path.'/'.$file ) )
 					{
-						if ($this->_move( $path.'/'.$file, $dest.'/'.$file ))
+						if ($this->_move( $path.'/'.$file, $dest.'/'.$file, $site_ref ))
 						{
 							rmdir($path.'/'.$file);
 						}
