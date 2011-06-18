@@ -28,12 +28,12 @@ $lang['buttons.disable']	= 'Désactiver';
 $lang['buttons.yes']		= 'Oui';
 $lang['buttons.no']			= 'Non';
 $lang['buttons.activate']   = 'Activer';
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.re-index']	= 'Re-index'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.preview']	= 'Aperçu';
+$lang['buttons.close']		= 'Fermer';
+$lang['buttons.edit']		= 'Modifier';
+$lang['buttons.clone']		= 'Cloner';
+$lang['buttons.re-index']	= 'Ré-indexer';
+$lang['buttons.copy']		= 'Copier';
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/french/buttons_lang.php */

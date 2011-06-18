@@ -21,8 +21,8 @@ $lang['page_layouts.create_title'] 					= 'Ajouter un modèle';
 $lang['page_layouts.edit_title'] 					= 'Editer le modèle "%s"';
 
 // messages
-$lang['page_layouts.no_pages'] 						= 'Il n`\'y a pas de modèles.';
-$lang['page_layouts.create_success'] 				= 'Le modèle a étét créé';
+$lang['page_layouts.no_pages'] 						= 'Il n\'y a pas de modèle.';
+$lang['page_layouts.create_success'] 				= 'Le modèle a été créé';
 $lang['page_layouts.create_error'] 					= 'Le modèle n\'a pas été créé.';
 $lang['page_layouts.page_layout.not_found_error']	= 'Ce modèle n\'existe pas.';
 $lang['page_layouts.edit_success'] 					= 'Le modèle "%s" a été enregistré.';

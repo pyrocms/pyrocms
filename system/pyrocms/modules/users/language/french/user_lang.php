@@ -8,10 +8,10 @@ $lang['user_login_header'] 		= 'Login';
 
 // titles
 $lang['user_add_title'] = 'Créer un utilisateur';
-$lang['user_list_title'] 				= 'List users'; #translate
-$lang['user_inactive_title'] = 'Utilisateurs Inactifs';
-$lang['user_active_title'] = 'Utilisateurs Actifs';
-$lang['user_registred_title'] = 'Utilisateurs Enregistrés';
+$lang['user_list_title'] 				= 'Lister les utilisateurs';
+$lang['user_inactive_title'] = 'Utilisateurs inactifs';
+$lang['user_active_title'] = 'Utilisateurs actifs';
+$lang['user_registred_title'] = 'Utilisateurs enregistrés';
 
 // labels
 $lang['user_edit_title'] = 'Modifier l\'utilisateur "%s"';
@@ -19,10 +19,10 @@ $lang['user_details_label'] = 'Détails';
 $lang['user_first_name_label'] = 'Prénom';
 $lang['user_last_name_label'] = 'Nom';
 $lang['user_email_label'] = 'E-mail';
-$lang['user_group_label'] = 'Role';
+$lang['user_group_label'] = 'Rôle';
 $lang['user_activate_label'] = 'Activé';
 $lang['user_password_label'] = 'Mot de passe';
-$lang['user_password_confirm_label'] = 'Confirmez Mot de passe';
+$lang['user_password_confirm_label'] = 'Confirmez mot de passe';
 $lang['user_name_label'] = 'Surnom';
 $lang['user_joined_label'] = 'Inscrit';
 $lang['user_last_visit_label'] = 'Dernière visite';
@@ -62,7 +62,7 @@ $lang['user_lang']			= 'Langue';
 
 $lang['user_activation_code'] = 'Code d\'activation';
 
-$lang['user_reset_password_link'] = 'Mot de passe oublié?';
+$lang['user_reset_password_link'] = 'Mot de passe oublié ?';
 
 $lang['user_activation_code_sent_notice'] = 'Un e-mail vous a été envoyé avec votre code d\'activation.';
 $lang['user_activation_by_admin_notice'] = 'Votre enregistrement est en attente d\'approbation par l\'administrateur.';
@@ -70,8 +70,8 @@ $lang['user_activation_by_admin_notice'] = 'Votre enregistrement est en attente 
 // -- Settings ---------------------------------------------------------------------------------------------
 
 $lang['user_details_section'] = 'Nom';
-$lang['user_password_section'] = 'Changez de mot de passe';
-$lang['user_other_settings_section'] = 'Autres Paramètres';
+$lang['user_password_section'] = 'Changer de mot de passe';
+$lang['user_other_settings_section'] = 'Autres paramètres';
 
 $lang['user_settings_saved_success'] 	= 'Les paramètres de votre compte utilisateur ont été enregistrées.';
 $lang['user_settings_saved_error'] 		= 'Une erreur est survenue.';
