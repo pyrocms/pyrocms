@@ -3,7 +3,7 @@
 $lang['profile_of_title'] = 'Profil de %s';
 
 $lang['profile_user_details_label'] = 'Détails utilisateur';
-$lang['profile_role_label'] = 'Role';
+$lang['profile_role_label'] = 'Rôle';
 $lang['profile_registred_on_label'] = 'Enregistré sur';
 $lang['profile_last_login_label'] = 'Dernière connexion';
 $lang['profile_male_label'] = 'Homme';
@@ -11,7 +11,7 @@ $lang['profile_female_label'] = 'Femme';
 
 $lang['profile_not_set_up'] = 'Cet utilisateur n\'a pas de profil configuré.';
 
-$lang['profile_edit'] = 'Modifiez votre profil';
+$lang['profile_edit'] = 'Modifier votre profil';
 
 $lang['profile_personal_section'] = 'Privé';
 
@@ -32,7 +32,7 @@ $lang['profile_address_line2'] = 'Ligne 2';
 $lang['profile_address_line3'] = 'Ligne 3';
 $lang['profile_address_postcode'] = 'Code Postal';
 
-$lang['profile_messenger_section'] = 'Messageries Instantanées';
+$lang['profile_messenger_section'] = 'Messageries instantanées';
 
 $lang['profile_msn_handle'] = 'MSN';
 $lang['profile_aim_handle'] = 'AIM';
@@ -48,6 +48,6 @@ $lang['profile_edit_error'] = 'Une erreur est survenue.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 
-$lang['profile_save_btn'] = 'Enregistrez votre profil';
+$lang['profile_save_btn'] = 'Enregistrer votre profil';
 
 ?>

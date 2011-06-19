@@ -22,7 +22,7 @@ $lang['account_creation_duplicate_username'] = 'Nom d\'utilisateur déjà utilis
  
 // Password
 $lang['password_change_successful'] = 'Le mot de passe a été changé avec succès';
-$lang['password_change_unsuccessful'] = 'Impossible de changé le mot de passe';
+$lang['password_change_unsuccessful'] = 'Impossible de changer le mot de passe';
 $lang['forgot_password_successful'] = 'Mail de réinitialisation du mot de passe envoyé';
 $lang['forgot_password_unsuccessful'] = 'Impossible de réinitialiser le mot de passe';
  
@@ -37,7 +37,7 @@ $lang['activation_email_unsuccessful'] = 'Impossible d\'envoyer le mail d\'activ
 // Login / Logout
 $lang['login_successful'] = 'Connecté avec succès';
 $lang['login_unsuccessful'] = 'Erreur lors de la connexion';
-$lang['logout_successful'] = 'Déconnexion effectué avec succès';
+$lang['logout_successful'] = 'Déconnexion effectuée avec succès';
   
 // Account Changes
 $lang['update_successful'] = 'Compte utilisateur mis à jour avec succès';

@@ -5,7 +5,7 @@ $lang['header']			=	'Étape 1: Configurer la base de données et le serveur';
 $lang['intro_text']		=	'Avant de vérifier la base de données, nous devons connaître sa version et les informations de connexion.';
 
 $lang['db_settings']	=	'Paramètres de la base de données';
-$lang['db_text']		=	'Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisées lors de l\'installation de la base de données.';
+$lang['db_text']		=	'Nous devons vérifier votre version du serveur MySQL, vous devez saisir le nom d\'hôte, le nom d\'utilisateur et le mot de passe dans le formulaire ci-dessous. Ces paramètres seront également utilisés lors de l\'installation de la base de données.';
 
 $lang['server']			=	'Nom d\'hôte';
 $lang['username']		=	'Nom d\'utilisateur';

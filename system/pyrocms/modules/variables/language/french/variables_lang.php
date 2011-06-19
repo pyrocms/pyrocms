@@ -28,11 +28,11 @@ $lang['variables.add_success'] 				= 'Votre variable a été enregistrée.';
 $lang['variables.add_error'] 				= 'Une erreur est survenue.';
 $lang['variables.edit_success'] 			= 'La variable a été crée.';
 $lang['variables.edit_error'] 				= 'Une erreur est survenue.';
-$lang['variables.delete_success']			= 'The variable "%s" successfully deleted.'; #translate
-$lang['variables.delete_error'] 			= 'An error occurred while trying to delete the variable "%s".'; #translate
+$lang['variables.delete_success']			= 'La variable "%s" a été supprimée.';
+$lang['variables.delete_error'] 			= 'Une erreur est survenue lors de la suppression de la variable "%s".';
 $lang['variables.mass_delete_success']		= '%s variables sur %s ont été supprimées.';
 $lang['variables.mass_delete_error'] 		= 'Une erreur est survenue lors de la suppression de la variable "%s".';
-$lang['variables.no_select_error'] 			= 'Vous devez d\'abord sélectionnez une variable.';
+$lang['variables.no_select_error'] 			= 'Vous devez d\'abord sélectionner une variable.';
 $lang['variables.already_exist_error']		= 'Une variable nommée "%s" existe déjà.';
 
 /* End of file variables_lang.php */
