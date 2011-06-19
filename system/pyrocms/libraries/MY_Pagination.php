@@ -20,7 +20,7 @@ class MY_Pagination extends CI_Pagination {
 	 * @access	public
 	 * @return	string
 	 */
-	function create_links()
+	function create_links($full_tag_wrap = TRUE)
 	{
 		// If our item count or per-page total is zero there is no need to continue.
 		if ($this->total_rows == 0 OR $this->per_page == 0)
@@ -176,9 +176,12 @@ class MY_Pagination extends CI_Pagination {
 		// in the penultimate link so we'll kill all double slashes.
 		$output = preg_replace("#([^:])//+#", "\\1/", $output);
 
-		// Add the wrapper HTML if exists
-		$output = $this->full_tag_open.$output.$this->full_tag_close;
-
+		if($full_tag_wrap)
+		{
+			// Add the wrapper HTML if exists
+			$output = $this->full_tag_open.$output.$this->full_tag_close;
+		}
+		
 		return $output;
 	}
 }
