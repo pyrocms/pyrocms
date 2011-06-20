@@ -2,13 +2,7 @@
 .buildpath
 .project
 .settings
-system/pyrocms/cache/*/*.*
-system/pyrocms/cache/*/*_m/*
-system/pyrocms/cache/*/*_lib/*
-system/pyrocms/cache/codeigniter/*
-system/pyrocms/cache/*/image_files/*
-system/pyrocms/cache/*/simplepie/*.spc
-system/pyrocms/cache/*/twitter/*
+system/pyrocms/cache/*
 system/pyrocms/config/database.php
 system/pyrocms/logs/log-*.php
 nbproject/
