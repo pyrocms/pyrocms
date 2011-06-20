@@ -236,9 +236,12 @@ else
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
 
- 	// Path to the system folder
+ 	// Path to the addon folder
 	define('ADDONPATH', $addon_folder.'/');
-		
+	
+	// Path to the addon folder that is shared between sites
+	define('SHARED_ADDONPATH', 'shared_addons/');
+	
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));
 	
