@@ -2,7 +2,7 @@
 
 * [Website](http://pyrocms.com/)
 * [Documentation](http://pyrocms.com/documentation)
-* Version: 1.2.0
+* Version: 1.3.0-dev
 
 ## Team
 
