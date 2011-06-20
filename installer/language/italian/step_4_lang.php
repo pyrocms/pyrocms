@@ -19,13 +19,13 @@ $lang['password']		= 	'Password';
 $lang['conf_password']	=	'Conferma Password';
 $lang['finish']			=	'Installa';
 
-$lang['error_101']		=	'Il database non è stato trovato. Se hai chiesto all\' installer di crearlo, il problema potrebbero essere i permessi non corretti.';
-$lang['error_102']		=	'L\' installer non può aggiungere nessuna tabella al database.';
-$lang['error_103']		=	'L\' installer non può inserire dati nel database.';
-$lang['error_104']		=	'L\' installer non può creare l\' utente di default.';
-$lang['error_105']		=	'Il file di configurazione del database non può essere scritto, hai imbrgliato l\' installer saltando il passo 3?';
-$lang['error_106']		=	'Il file config non può essere scritto, sei sicuro che il file abbia i giusti permessi ?';
-$lang['success']		=	'PyroCMS è stato installato con successo.';
+$lang['error_101']		=	'Il database non Ã¨ stato trovato. Se hai chiesto all\' installer di crearlo, il problema potrebbero essere i permessi non corretti.';
+$lang['error_102']		=	'L\' installer non puÃ² aggiungere nessuna tabella al database.';
+$lang['error_103']		=	'L\' installer non puÃ² inserire dati nel database.';
+$lang['error_104']		=	'L\' installer non puÃ² creare l\' utente di default.';
+$lang['error_105']		=	'Il file di configurazione del database non puÃ² essere scritto, hai imbrgliato l\' installer saltando il passo 3?';
+$lang['error_106']		=	'Il file config non puÃ² essere scritto, sei sicuro che il file abbia i giusti permessi ?';
+$lang['success']		=	'PyroCMS Ã¨ stato installato con successo.';
 
 /* End of file step_4_lang.php */
 /* Location: ./installer/language/italian/step_4_lang.php */
