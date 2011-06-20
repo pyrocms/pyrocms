@@ -28,7 +28,7 @@ class MY_Controller extends CI_Controller {
 		
 		// Which site are we looking at?
 		$this->site = $this->db->query('SELECT * FROM core_sites WHERE domain = ?', array(
-			preg_replace('/^www\./', '', $this->input->server('SERVER_NAME')),
+			SITE_SLUG,
 		))->row();
 
 		// No record? Probably DNS'ed but not added to multisite		

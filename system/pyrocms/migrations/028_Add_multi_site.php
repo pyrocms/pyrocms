@@ -35,7 +35,7 @@ class Migration_Add_multi_site extends Migration {
 			
 			$this->db->query("INSERT INTO core_sites (ref, domain, created_on) VALUES (?, ?, ?);", array(
 				$site_ref,
-				preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
+				SITE_SLUG,
 				time(),
 			));
 			
@@ -99,7 +99,7 @@ class Migration_Add_multi_site extends Migration {
 			
 			@mkdir($dest, 0777, TRUE);
 			
-			$skip = array('.', '..', 'index.html', $site_ref);
+			$skip = array('.', '..', $site_ref);
 			
 			if( sizeof($objects) > 0 )
 			{
@@ -111,14 +111,14 @@ class Migration_Add_multi_site extends Migration {
 					{
 						if ($this->_move( $path.'/'.$file, $dest.'/'.$file, $site_ref ))
 						{
-							rmdir($path.'/'.$file);
+							@rmdir($path.'/'.$file);
 						}
 					}
 					else
 					{
 						if (copy( $path.'/'.$file, $dest.'/'.$file ))
 						{
-							unlink($path.'/'.$file);
+							@unlink($path.'/'.$file);
 						}
 					}
 				}

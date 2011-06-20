@@ -235,6 +235,9 @@ else
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
+	
+	// The site slug: (example.com) Used for site specific folder names
+	define('SITE_SLUG', preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
 
  	// Path to the addon folder
 	define('ADDONPATH', $addon_folder.'/');
