@@ -39,6 +39,12 @@ class Migration_Add_multi_site extends Migration {
 				time(),
 			));
 			
+			// create cache folder
+			$cache_path = APPPATH . 'cache/' . $site_ref . '/simplepie';
+			is_dir($cache_path) OR mkdir($cache_path, 0777, TRUE);
+			$fh = fopen($cache_path . '/index.html', 'w');
+			fclose($fh);
+			
 			// Move uploads			
 			$this->_move('uploads', 'uploads/' . $site_ref, $site_ref);
 		}

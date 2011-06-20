@@ -549,6 +549,12 @@ class Admin extends Admin_Controller {
 				$this->data->messages['notice'] = lang('file_folders.mkdir_error');
 				return FALSE;
 			}
+			else
+			{
+				// create a catch all html file for safety
+				$uph = fopen($this->_path . 'index.html', 'w');
+				fclose($uph);
+			}
 		}
 		else
 		{

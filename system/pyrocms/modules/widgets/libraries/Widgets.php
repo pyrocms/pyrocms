@@ -19,6 +19,7 @@ class Widgets {
 		
 		$locations = array(APPPATH,
 						   ADDONPATH,
+						   SHARED_ADDONPATH,
 						   APPPATH.'themes/'.ADMIN_THEME.'/',
 						   ADDONPATH.'themes/'.ADMIN_THEME.'/'
 						   );
