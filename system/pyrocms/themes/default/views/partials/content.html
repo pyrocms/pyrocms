@@ -7,9 +7,8 @@
 {/if}
 	{pyro:theme:partial name="breadcrumbs"}
 	{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-	<section class="post">
+	<section class="post clearfix">
 		{pyro:template:body}
-		<div class="clear-both">&nbsp;</div>
 	</section>
 </div>
 {if ('{pyro:theme:options option="layout"}' == 'full-width') or (('{pyro:theme:options option="layout"}' == 'full-width-home') and ('{pyro:page:is_home}' == TRUE))}

@@ -8,7 +8,7 @@
   * @version	1.0
  **/
 
-function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
+function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4, $full_tag_wrap = TRUE)
 {
 	$ci =& get_instance();
 	$ci->load->library('pagination');
@@ -56,6 +56,6 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4)
 		'current_page' 	=> $current_page,
 		'per_page' 		=> $config['per_page'],
 		'limit'			=> array($config['per_page'], $current_page),
-		'links' 		=> $ci->pagination->create_links()
+		'links' 		=> $ci->pagination->create_links($full_tag_wrap)
 	);
 }
