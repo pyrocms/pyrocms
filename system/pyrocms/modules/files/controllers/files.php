@@ -36,11 +36,6 @@ class Files extends Public_Controller
 
 		switch ($args)
 		{
-			case 1:
-				$height	= NULL;
-				$width	= NULL;
-
-				break;
 			case 2:
 				$height	= NULL;
 				if ( ! empty($width))
@@ -100,6 +95,6 @@ class Files extends Public_Controller
 
 	public function large($id)
 	{
-		return $this->thumb($id);
+		return $this->thumb($id, NULL, NULL);
 	}
 }
