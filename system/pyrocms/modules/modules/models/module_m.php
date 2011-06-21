@@ -438,7 +438,7 @@ class Module_m extends MY_Model
 			}
 		}
 
-		foreach (array(APPPATH, SHARED_ADDONPATH) AS $directory)
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) AS $directory)
     	{
 			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 			{
