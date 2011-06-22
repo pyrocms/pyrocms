@@ -2,8 +2,9 @@
 .buildpath
 .project
 .settings
-system/pyrocms/cache/*
-system/pyrocms/config/database.php
-system/pyrocms/logs/log-*.php
+*/system/pyrocms/cache/*
+*/system/pyrocms/cache/!index.html
+*/system/pyrocms/config/database.php
+*/system/pyrocms/logs/log-*.php
 nbproject/
 uploads/*

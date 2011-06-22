@@ -14,52 +14,47 @@ class Plugin_Session extends Plugin
 	/**
 	 * Data
 	 *
-	 * Loads a theme partial
+	 * Sets and retrieves flash data
 	 *
 	 * Usage:
-	 * {pyro:session:data name="foo"}
-	 *
-	 * @param	array
-	 * @return	array
+	 * {pyro:session:data name="foo"[ value="bar"]}
 	 */
 	public function data()
 	{
 		$name = $this->attribute('name');
 		$value = $this->attribute('value');
 
-		// Mo vaue? Just getting
+		// value provided! We are setting to the name
 		if ($value !== NULL)
 		{
 			$this->session->set_userdata($name, $value);
 			return;
 		}
-
+		// No value? Just getting
 		return $this->session->userdata($name);
 	}
 
 	/**
-	 * Data
+	 * Flash
 	 *
-	 * Loads a theme partial
+	 * Sets and retrieves flash data
 	 *
 	 * Usage:
-	 * {pyro:session:flash name="foo"}
-	 *
-	 * @param	array
-	 * @return	array
+	 * {pyro:session:flash name="(success|notice|error)"[ value="bar"]}
 	 */
 	public function flash()
 	{
 		$name = $this->attribute('name');
 		$value = $this->attribute('value');
 
-		// Mo vaue? Just getting
+		// value provided! We are setting to the name
 		if ($value !== NULL)
 		{
 			$this->session->set_flashdata($name, $value);
 			return;
 		}
 
+		// No value? Just getting
 		return $this->session->flashdata($name);
 	}
 
@@ -98,6 +93,22 @@ class Plugin_Session extends Plugin
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Redirect hash
+	 *
+	 * Hash that tells Pyro where to redirect after login
+	 *
+	 * Usage:
+	 * {pyro:session:redirect_hash hash="{pyro:redirect_hash}"}
+	 *
+	 * @return	string
+	 */
+	public function redirect_hash()
+	{
+		$redirect_hash = $this->attribute('hash');
+		return (isset($redirect_hash) && $redirect_hash) ? form_hidden('redirect_hash', $redirect_hash) : '';
 	}
 }
 
