@@ -11,6 +11,8 @@ $lang['pages.detail_label']                = 'Informacija';
 
 // labels
 $lang['pages.page_label']                  = 'Puslapis';
+$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'Kalba';
 $lang['pages.updated_label']               = 'Atnaujinta';
 $lang['pages.actions_label']               = 'Veiksmai';

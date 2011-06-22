@@ -12,7 +12,7 @@
 *
 * Created:  10.01.2009
 *
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.  Original redux license is below.
+* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
 * Original Author name has been kept but that does not mean that the method has not been modified.
 *
 * Requirements: PHP5 or above
@@ -103,6 +103,7 @@ class Ion_auth
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
+			$this->ci->ion_auth = $this;
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
 	}
@@ -167,14 +168,14 @@ class Ion_auth
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-        if ($this->ci->ion_auth_model->change_password($identity, $old, $new))
-        {
-        	$this->set_message('password_change_successful');
-        	return TRUE;
-        }
+	if ($this->ci->ion_auth_model->change_password($identity, $old, $new))
+	{
+		$this->set_message('password_change_successful');
+		return TRUE;
+	}
 
 		$this->set_error('password_change_unsuccessful');
-        return FALSE;
+	return FALSE;
 	}
 
 	/**
@@ -183,12 +184,12 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function forgotten_password($email)
+	public function forgotten_password($identity)    //changed $email to $identity
 	{
-		if ( $this->ci->ion_auth_model->forgotten_password($email) )
+		if ( $this->ci->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
-			$user = $this->get_user_by_email($email);
+			$user = $this->get_user_by_identity($identity);  //changed to get_user_by_identity from email
 
 			$data = array(
 				'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
@@ -205,10 +206,10 @@ class Ion_auth
 			$this->ci->email->to($user->email);
 			$this->ci->email->subject($this->ci->settings->get('site_name') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
-			
+
 			if ($this->ci->email->send())
 			{
-				$this->set_error('forgot_password_successful');
+				$this->set_message('forgot_password_successful');
 				return TRUE;
 			}
 			else
@@ -235,11 +236,11 @@ class Ion_auth
 	    $identity     = $this->ci->config->item('identity', 'ion_auth');
 	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 
-            if (!is_object($profile))
-            {
-                $this->set_error('password_change_unsuccessful');
-                return FALSE;
-            }
+	    if (!is_object($profile))
+	    {
+		$this->set_error('password_change_unsuccessful');
+		return FALSE;
+	    }
 
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code, $profile->salt);
 
@@ -264,7 +265,7 @@ class Ion_auth
 
 			if ($this->ci->email->send())
 			{
-				$this->set_error('password_change_successful');
+				$this->set_message('password_change_successful');
 				return TRUE;
 			}
 			else
@@ -290,7 +291,8 @@ class Ion_auth
 
 		if ( ! $email_activation)
 		{
-			if ($id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name))
+			$id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
+			if ($id !== FALSE)
 			{
 				$this->set_message('account_creation_successful');
 				return $id;
@@ -321,13 +323,13 @@ class Ion_auth
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
 			$identity        = $this->ci->config->item('identity', 'ion_auth');
-	    	$user            = $this->ci->ion_auth_model->get_user($id)->row();
+		$user            = $this->ci->ion_auth_model->get_user($id)->row();
 
 			$data = array(
 				'identity'   => $user->{$identity},
 				 'id'         => $user->id,
-        		 'email'      => $email,
-        		 'activation' => $activation_code,
+			 'email'      => $email,
+			 'activation' => $activation_code,
 			);
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
@@ -388,11 +390,11 @@ class Ion_auth
 	    //delete the remember me cookies if they exist
 	    if (get_cookie('identity'))
 	    {
-	    	delete_cookie('identity');
+		delete_cookie('identity');
 	    }
 		if (get_cookie('remember_code'))
 	    {
-	    	delete_cookie('remember_code');
+		delete_cookie('remember_code');
 	    }
 
 		$this->ci->session->sess_destroy();
@@ -409,21 +411,9 @@ class Ion_auth
 	 **/
 	public function logged_in()
 	{
-	    $identity	= $this->ci->config->item('identity', 'ion_auth');
-		$value		= $this->ci->session->userdata($identity);
-		$user		= $this->{($identity === 'email' ? 'get_user_by_email' : 'get_user')}($value);
+		$identity = $this->ci->config->item('identity', 'ion_auth');
 
-		if ( ! $user && $value)
-		{
-			// user no longer exists
-			$this->ci->session->sess_destroy();
-		}
-		elseif ($user && $value == $user->{$identity})
-		{
-			return TRUE;
-		}
-
-		return FALSE;
+		return (bool) $this->ci->session->userdata($identity);
 	}
 
 	/**
@@ -452,7 +442,7 @@ class Ion_auth
 
 	    if(is_array($check_group))
 	    {
-	    	return in_array($user_group, $check_group);
+		return in_array($user_group, $check_group);
 	    }
 
 	    return $user_group == $check_group;
@@ -478,9 +468,20 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($group_name = false)
+	public function get_users($group_name=false, $limit=NULL, $offset=NULL)
 	{
-	    return $this->ci->ion_auth_model->get_users($group_name)->result();
+		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result();
+	}
+
+	/**
+	 * Get Number of Users
+	 *
+	 * @return int Number of Users
+	 * @author Sven Lueckenbach
+	 **/
+	public function get_users_count($group_name=false)
+	{
+		return $this->ci->ion_auth_model->get_users_count($group_name);
 	}
 
 	/**
@@ -489,9 +490,9 @@ class Ion_auth
 	 * @return array Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users_array($group_name = false)
+	public function get_users_array($group_name=false, $limit=NULL, $offset=NULL)
 	{
-	    return $this->ci->ion_auth_model->get_users($group_name)->result_array();
+		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result_array();
 	}
 
 	/**
@@ -583,6 +584,50 @@ class Ion_auth
 	}
 
 	/**
+	 * Get Users by Email
+	 *
+	 * @return object Users
+	 * @author Ben Edmunds
+	 **/
+	public function get_users_by_email($email)
+	{
+		return $this->ci->ion_auth_model->get_users_by_email($email)->result();
+	}
+
+	/**
+	 * Get User by Username
+	 *
+	 * @return object User
+	 * @author Kevin Smith
+	 **/
+	public function get_user_by_username($username)
+	{
+		return $this->ci->ion_auth_model->get_user_by_username($username)->row();
+	}
+
+	/**
+	 * Get Users by Username
+	 *
+	 * @return object Users
+	 * @author Kevin Smith
+	 **/
+	public function get_users_by_username($username)
+	{
+		return $this->ci->ion_auth_model->get_users_by_username($username)->result();
+	}
+
+	/**
+	 * Get User by Identity
+	 *                              //copied from above ^
+	 * @return object User
+	 * @author jondavidjohn
+	 **/
+	public function get_user_by_identity($identity)
+	{
+		return $this->ci->ion_auth_model->get_user_by_identity($identity)->row();
+	}
+
+	/**
 	 * Get User as Array
 	 *
 	 * @return array User
@@ -604,8 +649,8 @@ class Ion_auth
 	{
 		 if ($this->ci->ion_auth_model->update_user($id, $data))
 		 {
-		 	$this->set_message('update_successful');
-		 	return TRUE;
+			$this->set_message('update_successful');
+			return TRUE;
 		 }
 
 		$this->set_error('update_unsuccessful');
@@ -623,8 +668,8 @@ class Ion_auth
 	{
 		 if ($this->ci->ion_auth_model->delete_user($id))
 		 {
-		 	$this->set_message('delete_successful');
-		 	return TRUE;
+			$this->set_message('delete_successful');
+			return TRUE;
 		 }
 
 		$this->set_error('delete_unsuccessful');

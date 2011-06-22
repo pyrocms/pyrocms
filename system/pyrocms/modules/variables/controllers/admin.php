@@ -61,7 +61,7 @@ class Admin extends Admin_Controller
 			->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Set template layout to false if request is of ajax type
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			$this->template->set_layout(FALSE);
 		}
@@ -113,7 +113,7 @@ class Admin extends Admin_Controller
 			}
 
 			// If request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
@@ -132,14 +132,14 @@ class Admin extends Admin_Controller
 		elseif (validation_errors())
 		{
 			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -190,17 +190,17 @@ class Admin extends Admin_Controller
 			}
 			
 			// If request is ajax return json data, otherwise do normal stuff
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'title'		=> sprintf(lang('variables.edit_title'), $name)
-				)) );
+				));
 			}
 
 			// Redirect
@@ -209,14 +209,14 @@ class Admin extends Admin_Controller
 		}
 		elseif (validation_errors())
 		{
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -231,7 +231,7 @@ class Admin extends Admin_Controller
 
 		$this->data->variable =& $variable;
 
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			return $this->template->build('admin/form_inline', $this->data);
 		}

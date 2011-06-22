@@ -51,7 +51,7 @@ class Module_Galleries extends Module {
 		$this->dbforge->drop_table('gallery_images');
 
 		$galleries = "
-			CREATE TABLE `galleries` (
+			CREATE TABLE ".$this->db->dbprefix('galleries')." (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `title` varchar(255) NOT NULL,
 			  `slug` varchar(255) NOT NULL,
@@ -71,7 +71,7 @@ class Module_Galleries extends Module {
 		";
 
 		$gallery_images = "
-			CREATE TABLE `gallery_images` (
+			CREATE TABLE ".$this->db->dbprefix('gallery_images')." (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `file_id` int(11) NOT NULL,
 			  `gallery_id` int(11) NOT NULL,

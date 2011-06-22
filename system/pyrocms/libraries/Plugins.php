@@ -143,6 +143,11 @@ class Plugins
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
+			
+			if (file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.EXT))
+			{
+				return $this->_process($path, $class, $method, $data);
+			}
 
 			// Maybe it's a module
 			if (module_exists($class))
@@ -163,7 +168,7 @@ class Plugins
 			}
 		}
 
-		log_message('error', 'Unable to load: ' . $class);
+		log_message('debug', 'Unable to load: ' . $class);
 
 		return FALSE;
 	}

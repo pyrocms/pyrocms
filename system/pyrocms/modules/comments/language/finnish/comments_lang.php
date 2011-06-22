@@ -62,3 +62,10 @@ $lang['comments.delete_single_success'] 	= 'Kommentti #%s poistettiin eik채 sit�
 $lang['comments.delete_multi_success'] 		= 'Kommentit #%s poistettiin eik채 niit채 n채ytet채 en채채 sivustolla.';
 
 $lang['comments.no_comments'] 				= 'Ei kommentteja';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate
+
+/* End of file comments_lang.php */

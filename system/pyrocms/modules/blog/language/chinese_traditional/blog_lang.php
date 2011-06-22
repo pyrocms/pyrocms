@@ -1,12 +1,14 @@
 <?php
 
 // labels
-$lang['blog_posted_label'] 				= '已發佈'; 
-$lang['blog_posted_label_alt']			= '發表於'; 
+$lang['blog_posted_label'] 				= '已發佈';
+$lang['blog_posted_label_alt']			= '發表於';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label'] 			= '分類';
 $lang['blog_post_label'] 				= '發表';
 $lang['blog_date_label'] 				= '日期';
-$lang['blog_date_at']					= '於'; 
+$lang['blog_date_at']					= '於';
 $lang['blog_time_label'] 				= '時間';
 $lang['blog_status_label'] 				= '狀態';
 $lang['blog_draft_label'] 				= '草稿';

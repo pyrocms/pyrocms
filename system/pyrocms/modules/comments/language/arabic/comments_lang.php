@@ -55,3 +55,10 @@ $lang['comments.delete_single_success'] 	= 'تم حذف التعليق #%s ول�
 $lang['comments.delete_multi_success'] 		= 'تم حذف التعليقات #%s ولن تظهر بعد الآن على الموقع.';
 
 $lang['comments.no_comments'] 				= 'ليست هناك أية تعليقات';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'لا يوجد تعليقات';
+$lang['comments.counter_singular_label']	= 'تعليق واحد';
+$lang['comments.counter_plural_label']		= '%d تعليقات';
+
+/* End of file comments_lang.php */

@@ -1,16 +1,16 @@
-<h2 class="page-title" id="page_title"><?php echo sprintf(lang('profile_of_title'), $user->first_name . ' ' . $user->last_name);?></h2>
+<h2 class="page-title" id="page_title"><?php echo sprintf(lang('profile_of_title'), $view_user->first_name . ' ' . $view_user->last_name);?></h2>
 <!-- Container for the user's profile -->
 <div id="user_profile_container">
-	<?php echo gravatar($user->email, 50);?>
+	<?php echo gravatar($view_user->email, 50);?>
 	
 	
 	<!-- Details about the user, such as role and when the user was registered -->
 	<fieldset id="user_details">
 		<legend><?php echo lang('profile_user_details_label');?></legend>
-		<p><strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $user->group; ?></p>
-		<p><strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo format_date($user->created_on); ?></p>
-	<?php if($user->last_login > 0): ?>
-		<p><strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo format_date($user->last_login); ?></p>
+		<p><strong><?php echo lang('profile_role_label');?>:</strong> <?php echo $view_user->group; ?></p>
+		<p><strong><?php echo lang('profile_registred_on_label');?>:</strong> <?php echo format_date($view_user->created_on); ?></p>
+	<?php if($view_user->last_login > 0): ?>
+		<p><strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo format_date($view_user->last_login); ?></p>
 	<?php endif; ?>
 	</fieldset>
 

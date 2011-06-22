@@ -19,6 +19,8 @@
 
 	<br />
 
+		<input type="hidden" id="site_ref" name="site_ref" value="default" />
+	
 	<h2><?php echo lang('default_user'); ?></h2>
 	
 	<div class="input">

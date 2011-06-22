@@ -184,7 +184,6 @@ class Template
 	 * @param	string	$view
 	 * @param	array	$data
 	 * @param	bool	$return
-
 	 * @return	string
 	 */
 	public function build($view, $data = array(), $return = FALSE)
@@ -265,6 +264,19 @@ class Template
 		}
 
 		return $this->_body;
+	}
+
+	/**
+	 * Build the entire JSON output, setting the headers for response.
+	 *
+	 * @access	public
+	 * @param	array	$data
+	 * @return	void
+	 */
+	public function build_json($data = array())
+	{
+		$this->_ci->output->set_header('Content-Type: application/json; charset=utf-8');
+		$this->_ci->output->set_output(json_encode((object) $data));
 	}
 
 	/**

@@ -116,7 +116,7 @@ class Admin extends Admin_Controller {
 						->get_many_by($base_where);
 
 		//unset the layout if we have an ajax request
-		$this->is_ajax() ? $this->template->set_layout(FALSE) : '';
+		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
 
 		// Render the view
 		$this->template

@@ -27,6 +27,7 @@ class WYSIWYG_Controller extends MY_Controller
 		$this->lang->load('wysiwyg');
 
 		$this->template
+			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
 			->append_metadata(js('jquery/jquery.js'))

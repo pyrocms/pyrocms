@@ -71,5 +71,6 @@ $config['theme'] = NULL;
 
 $config['theme_locations'] = array(
 	APPPATH.'themes/',
-	ADDONPATH . 'themes/'
+	ADDONPATH . 'themes/',
+	SHARED_ADDONPATH . 'themes/'
 );

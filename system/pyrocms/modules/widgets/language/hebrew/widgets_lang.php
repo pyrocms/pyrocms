@@ -10,6 +10,10 @@ $lang['widgets.widget']                 = 'ןיג\'ט';
 $lang['widgets.widget_author']          = 'מחבר';
 $lang['widgets.widget_short_name']      = 'שם קצר';
 $lang['widgets.widget_version']         = 'גרסה';
+$lang['widgets.status_label']			= 'Status'; #translate
+
+$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
+$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
 
 // Widget area titles
 $lang['widgets.add_area']               = 'הוסף איזור ויג\'ט';

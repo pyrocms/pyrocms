@@ -129,8 +129,13 @@ class Admin extends Admin_Controller {
 		// Using this data, get the relevant results
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
 
+		foreach ($blog as &$post)
+		{
+			$post->author = $this->ion_auth->get_user($post->author_id);
+		}
+
 		//do we need to unset the layout because the request is ajax?
-		$this->is_ajax() ? $this->template->set_layout(FALSE) : '';
+		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
 
 		$this->template
 				->title($this->module_details['name'])
@@ -178,7 +183,8 @@ class Admin extends Admin_Controller {
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
 				'created_on'		=> $created_on,
-				'comments_enabled'	=> $this->input->post('comments_enabled')
+				'comments_enabled'	=> $this->input->post('comments_enabled'),
+				'author_id'			=> $this->user->id
 			));
 
 			if ($id)
@@ -227,6 +233,7 @@ class Admin extends Admin_Controller {
 		$this->form_validation->set_rules($this->validation_rules);
 
 		$post = $this->blog_m->get($id);
+		$post->author = $this->ion_auth->get_user($post->author_id);
 
 		// If we have a useful date, use it
 		if ($this->input->post('created_on'))
@@ -249,6 +256,8 @@ class Admin extends Admin_Controller {
 				role_or_die('blog', 'put_live');
 			}
 
+			$author_id = empty($post->author) ? $this->user->id : $post->author_id;
+
 			$result = $this->blog_m->update($id, array(
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
@@ -257,7 +266,8 @@ class Admin extends Admin_Controller {
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
 				'created_on'		=> $created_on,
-				'comments_enabled'	=> $this->input->post('comments_enabled')
+				'comments_enabled'	=> $this->input->post('comments_enabled'),
+				'author_id'			=> $author_id
 			));
 			
 			if ($result)

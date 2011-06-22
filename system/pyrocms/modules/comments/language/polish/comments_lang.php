@@ -55,3 +55,10 @@ $lang['comments.delete_single_success']     = 'Komentarz #%s został skasowany i
 $lang['comments.delete_multi_success']      = 'Komentarze #%s zostały skasowane i nie będą dłużej widoczne na stronie głównej.';
 
 $lang['comments.no_comments'] 				= 'Nie ma komentarzy';
+
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate
+
+/* End of file comments_lang.php */

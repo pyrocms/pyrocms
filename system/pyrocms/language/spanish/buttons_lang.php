@@ -22,6 +22,9 @@ $lang['buttons.publish']	= 'Publicar';
 $lang['buttons.approve']	= 'Aprobar';
 $lang['buttons.unapprove']	= 'Desaprobar';
 $lang['buttons.install']	= 'Instalar';
+$lang['buttons.uninstall']	= 'Desinstalar';
+$lang['buttons.enable']		= 'Activar';
+$lang['buttons.disable']	= 'Desactivar';
 $lang['buttons.yes']		= 'Si';
 $lang['buttons.no']			= 'No';
 $lang['buttons.activate']	= 'Activar';
@@ -29,6 +32,7 @@ $lang['buttons.preview']	= 'Vista previa';
 $lang['buttons.close']		= 'Cerrar';
 $lang['buttons.edit']		= 'Editar';
 $lang['buttons.clone']		= 'Clonar';
+$lang['buttons.re-index']	= 'Re-index'; #translate
 $lang['buttons.copy']		= 'Copiar';
 
 /* End of file buttons_lang.php */

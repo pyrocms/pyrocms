@@ -20,9 +20,9 @@
 	/**
 	 * Tables.
 	 **/
-	$config['tables']['groups']  = 'groups';
-	$config['tables']['users']   = 'users';
-	$config['tables']['meta']    = 'profiles';
+	$config['tables']['groups']  = SITE_REF.'_groups';
+	$config['tables']['users']   = SITE_REF.'_users';
+	$config['tables']['meta']    = SITE_REF.'_profiles';
 
 	/**
 	 * Site Title, example.com
@@ -65,7 +65,7 @@
 	/**
 	 * Minimum Required Length of Password
 	 **/
-	$config['min_password_length'] = 8;
+	$config['min_password_length'] = 6;
 
 	/**
 	 * Maximum Allowed Length of Password

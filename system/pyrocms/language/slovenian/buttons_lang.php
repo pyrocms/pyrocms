@@ -21,10 +21,18 @@ $lang['buttons.delete']		= 'Izbriši';
 $lang['buttons.publish']	= 'Objavi';
 $lang['buttons.approve']	= 'Oddobri';
 $lang['buttons.unapprove']	= 'Prekliči oddobritev';
-$lang['buttons.install']	= 'Namesti';
+$lang['buttons.install'] 	= 'Namesti';
+$lang['buttons.uninstall'] 	= 'Odstrani';
+$lang['buttons.enable']		= 'Omogoči';
+$lang['buttons.disable'] 	= 'Onemogoči';
 $lang['buttons.yes']		= 'Da';
 $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']   = 'Aktiviraj';
+$lang['buttons.preview']	= 'Preview'; #translate
+$lang['buttons.close']		= 'Close'; #translate
+$lang['buttons.edit']		= 'Edit'; #translate
+$lang['buttons.clone']		= 'Clone'; #translate
+$lang['buttons.copy']		= 'Copy'; #translate
 
 /* End of file buttons_lang.php */
 /* Location: ./system/pyrocms/language/slovenian/buttons_lang.php */

@@ -8,6 +8,7 @@ $lang['desc_label']					= 'Opis';
 $lang['version_label']				= 'Wersja';
 $lang['author_label']				= 'Autor';
 $lang['action_label']				= 'Akcja';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 		= 'Czy na pewno usunąć? Ta operacja nie może być cofnięta.';
 $lang['dialog.confirm']				= 'Potwierdź';

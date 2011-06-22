@@ -1,19 +1,21 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
  */
 
 // labels
-$lang['blog_posted_label']                   = 'Lähetetty'; 
-$lang['blog_posted_label_alt']               = 'Lähetettiin'; 
+$lang['blog_posted_label']                   = 'Lähetetty';
+$lang['blog_posted_label_alt']               = 'Lähetettiin';
+$lang['blog_written_by_label']				= 'Written by'; #translate
+$lang['blog_author_unknown']				= 'Unknown'; #translate
 $lang['blog_category_label']                 = 'Kategoria';
 $lang['blog_post_label']                     = 'Merkintä';
 $lang['blog_date_label']                     = 'Päivä';
-$lang['blog_date_at']                        = 'klo'; // @todo 01.01.2011 at 10:00? 
+$lang['blog_date_at']                        = 'klo'; // @todo 01.01.2011 at 10:00?
 $lang['blog_time_label']                     = 'Aika';
 $lang['blog_status_label']                   = 'Status';
 $lang['blog_draft_label']                    = 'Luonnos';

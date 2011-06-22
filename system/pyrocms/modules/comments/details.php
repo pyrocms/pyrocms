@@ -56,7 +56,7 @@ class Module_Comments extends Module {
 		$this->dbforge->drop_table('comments');
 		
 		$comments = "
-			CREATE TABLE `comments` (
+			CREATE TABLE " . $this->db->dbprefix('comments') . " (
 			  `id` smallint(5) unsigned NOT NULL auto_increment,
 			  `is_active` tinyint(1) NOT NULL default '0',
 			  `user_id` int(11) NOT NULL default '0',

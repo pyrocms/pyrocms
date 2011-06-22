@@ -160,11 +160,16 @@ class Plugin_Navigation extends Plugin
 
 				if ($wrapper['class'] && $item['class'])
 				{
-					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7);
+					$item['class'] = implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7, -1);
 				}
 				elseif ($wrapper['class'])
 				{
-					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . '"';
+					$item['class'] = implode(' ', $wrapper['class']);
+				}
+
+				if ($item['target'])
+				{
+					$item['target'] = substr($item['target'], 8, -1);
 				}
 
 				// assign attributes to level family
@@ -179,7 +184,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
-					$output .= $ident_c . (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
+					$output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
 
 					if ($wrapper['children'])
 					{
@@ -196,7 +201,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
-					$output .= (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					$output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ($wrapper['children'])
 					{

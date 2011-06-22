@@ -23,8 +23,8 @@ class Installer extends CI_Controller
 	 */
 	private $writeable_directories = array(
 		'system/pyrocms/cache',
-		'system/pyrocms/cache/simplepie',
 		'system/pyrocms/config',
+		'addons/modules',
 		'uploads'
 	);
 	
@@ -66,7 +66,6 @@ class Installer extends CI_Controller
 	 */
 	public function index()
 	{
-	
 		// The index function doesn't do that much itself, it only displays a view file with 3 buttons : Install, Upgrade and Maintenance.
 		$data['page_output'] = $this->parser->parse('main', $this->lang->language, TRUE);
 		
@@ -82,7 +81,6 @@ class Installer extends CI_Controller
 	 */
 	public function step_1()
 	{
-		
 		// Save this junk for later
 		$this->session->set_userdata(array(
 			'hostname' => $this->input->post('hostname'),
@@ -293,6 +291,11 @@ class Installer extends CI_Controller
 				'field' => 'database',
 				'label'	=> 'lang:database',
 				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'site_ref',
+				'label'	=> 'lang:site_ref',
+				'rules'	=> 'trim|required|alpha_dash'
 			),
 			array(
 				'field' => 'user_name',
