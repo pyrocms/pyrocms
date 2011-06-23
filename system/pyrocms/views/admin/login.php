@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery.js'); ?>
+	<?php echo js('jquery/jquery.min.js'); ?>
 	<?php echo js('admin/login.js'); ?>
 	
 	<!-- Place CSS bug fixes for IE 7 in this comment -->

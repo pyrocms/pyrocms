@@ -7,7 +7,7 @@
 
 	<!-- Grab Google CDNs jQuery, fall back if necessary -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-	<script>!window.jQuery && document.write('<script src="<?php echo js_path('jquery/jquery.js'); ?>"><\/script>')</script>
+	<script>!window.jQuery && document.write('<script src="<?php echo js_path('jquery/jquery.min.js'); ?>"><\/script>')</script>
 
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
