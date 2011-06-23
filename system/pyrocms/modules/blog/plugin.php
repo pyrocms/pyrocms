@@ -17,7 +17,7 @@ class Plugin_Blog extends Plugin
 	 * Creates a list of blog posts
 	 *
 	 * Usage:
-	 * {pyro:blog:posts limit="5"}
+	 * {pyro:blog:posts order-by="title" limit="5"}
 	 *	<h2>{pyro:title}</h2>
 	 *	{pyro:body}
 	 * {/pyro:blog:posts}
@@ -25,7 +25,7 @@ class Plugin_Blog extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function posts($data = array())
+	function posts()
 	{
 		$limit		= $this->attribute('limit', 10);
 		$category	= $this->attribute('category');
@@ -42,7 +42,7 @@ class Plugin_Blog extends Plugin
 			->where('status', 'live')
 			->where('created_on <=', now())
 			->join('blog_categories c', 'blog.category_id = c.id', 'LEFT')
-			->order_by('blog.' . $order_by, $order_by)
+			->order_by('blog.' . $order_by, $order_dir)
 			->limit($limit)
 			->get('blog')
 			->result_array();
