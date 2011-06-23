@@ -57,6 +57,7 @@ $lang['user_first_name'] 				= '大名';
 $lang['user_last_name'] 				= '姓氏';
 $lang['user_username'] 					= '用戶名稱';
 $lang['user_display_name']				= '顯示名稱';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= '確認 E-mail';
 $lang['user_password'] 					= '密碼';

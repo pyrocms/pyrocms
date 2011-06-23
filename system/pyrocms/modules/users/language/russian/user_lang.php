@@ -64,6 +64,7 @@ $lang['user_first_name']										= 'Имя';
 $lang['user_last_name']											= 'Фамилия';
 $lang['user_username']											= 'Логин';
 $lang['user_display_name']									= 'Отображаемое имя';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email']													= 'E-mail';
 $lang['user_confirm_email']									= 'Подтверждение E-mail';
 $lang['user_password']											= 'Пароль';

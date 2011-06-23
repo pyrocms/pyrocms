@@ -57,6 +57,7 @@ $lang['user_first_name']                       = 'Vardas';
 $lang['user_last_name']                        = 'Pavardė';
 $lang['user_username']                         = 'Vartotojo vardas';
 $lang['user_display_name']                     = 'Rodomas vardas';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email']                            = 'E-paštas';
 $lang['user_confirm_email']                    = 'Patvirtinti E-paštą';
 $lang['user_password']                         = 'Slaptažodis';

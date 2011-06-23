@@ -51,6 +51,7 @@ $lang['user_password_reset_title'] = 'Mot de passe réinitialisé';
 $lang['user_full_name'] 	= 'Nom Complet';
 $lang['user_first_name'] 	= 'Prénom';
 $lang['user_last_name'] 	= 'Nom';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email'] 		= 'E-mail';
 $lang['user_confirm_email'] = 'Confirmez E-mail';
 $lang['user_password'] 		= 'Mot de passe';

@@ -64,6 +64,7 @@ $lang['user_first_name']                       = 'Etunimi';
 $lang['user_last_name']                        = 'Sukunimi';
 $lang['user_username']                         = 'Käyttäjätunnus';
 $lang['user_display_name']                     = 'Näyttönimi';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email']                            = 'Sähköposti';
 $lang['user_confirm_email']                    = 'Vahvista sähköposti';
 $lang['user_password']                         = 'Salasana';

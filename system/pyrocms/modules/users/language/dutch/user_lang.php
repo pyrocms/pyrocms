@@ -57,6 +57,7 @@ $lang['user_first_name'] 				= 'Voornaam';
 $lang['user_last_name'] 				= 'Achternaam';
 $lang['user_username'] 					= 'Gebruikersnaam'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 $lang['user_display_name']				= 'Schermnaam'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_email_use'] 				= 'om in te loggen'; #translate
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Bevestig E-mail';
 $lang['user_password'] 					= 'Wachtwoord';

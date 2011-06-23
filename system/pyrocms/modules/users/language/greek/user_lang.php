@@ -57,6 +57,7 @@ $lang['user_first_name']                       = 'Όνομα';
 $lang['user_last_name']                        = 'Επίθετο';
 $lang['user_username']                         = 'Όνομα χρήστη';
 $lang['user_display_name']                     = 'Όνομα εμφάνισης';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Επανάληψη E-mail';
 $lang['user_password']                         = 'Συνθηματικό';

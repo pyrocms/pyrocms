@@ -37,7 +37,7 @@
 	</li>
 	
 	<li>
-		<label for="email"><?php echo lang('user_email') ?> - <em>used to login</em></label>
+		<label for="email"><?php echo lang('user_email') ?> - <em><?php echo lang('user_email_use') ?></em></label>
 		<input type="text" name="email" maxlength="100" value="<?php echo $user_data->email; ?>" />
 	</li>
 	

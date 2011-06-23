@@ -57,6 +57,7 @@ $lang['user_first_name'] 				= 'Nome';
 $lang['user_last_name'] 				= 'Cognome';
 $lang['user_username'] 					= 'Username'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 $lang['user_display_name']				= 'Nome visualizzato'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email'] 					= 'Email';
 $lang['user_confirm_email'] 			= 'Conferma email';
 $lang['user_password'] 					= 'Password';

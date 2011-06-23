@@ -57,6 +57,7 @@ $lang['user_first_name']                       = 'שם';
 $lang['user_last_name']                        = 'משפחה';
 $lang['user_username']                         = 'שם משתמש';
 $lang['user_display_name']                     = 'הצג שם';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'וידוי E-mail';
 $lang['user_password']                         = 'סיסמה';

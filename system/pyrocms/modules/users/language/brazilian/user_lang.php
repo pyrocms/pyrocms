@@ -57,6 +57,7 @@ $lang['user_first_name'] 				= 'Primeiro nome';
 $lang['user_last_name'] 				= 'Último nome';
 $lang['user_username'] 					= 'Nome de usuário';
 $lang['user_display_name']				= 'Nome de exibição';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Confirmar e-mail';
 $lang['user_password'] 					= 'Senha';

@@ -57,6 +57,7 @@ $lang['user_first_name'] 				= 'Křestní jméno';
 $lang['user_last_name'] 				= 'Příjmení';
 $lang['user_username'] 					= 'Uživatelské jméno';
 $lang['user_display_name']				= 'Zobrazované jméno';
+$lang['user_email_use'] 					   = 'used to login'; #translate
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Potvrdit e-mail';
 $lang['user_password'] 					= 'Heslo';
