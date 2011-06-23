@@ -15,6 +15,7 @@
 				</button>
 				<?php break;
 			case 'activate':
+			case 'deactivate':
 			case 'approve':
 			case 'publish':
 			case 'save':
