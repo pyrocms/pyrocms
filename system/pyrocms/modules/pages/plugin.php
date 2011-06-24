@@ -235,11 +235,32 @@ class Plugin_Pages extends Plugin
 
 		if ( ! $tree)
 		{
-			if ($pages = $this->db->select('id, parent_id, slug, uri, title')
+			$this->db->select('id, parent_id, slug, uri, title')
 					->order_by($order_by, $order_dir)
-					->where_not_in('slug', $this->disable)
-					->get('pages')
-					->result())
+					->where_not_in('slug', $this->disable);
+			
+			// check if they're logged in
+			if ( isset($this->user->group) )
+			{
+				// admins can see them all
+				if ($this->user->group != 'admin')
+				{
+					// show pages for their group and all unrestricted
+					$this->db->where('status', 'live')
+						->where_in('restricted_to', array($this->user->group_id, 0, NULL));					
+				}
+			}
+			else
+			{
+				//they aren't logged in, show them all unrestricted pages
+				$this->db->where('status', 'live')
+					->where('restricted_to <=', 0);
+			}
+			
+			$pages = $this->db->get('pages')
+				->result();
+
+			if ($pages)
 			{
 				foreach($pages as $page)
 				{
