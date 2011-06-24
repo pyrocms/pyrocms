@@ -257,7 +257,8 @@ class Plugin_Pages extends Plugin
 
 		foreach ($tree[$parent_id] as $item)
 		{
-			$html .= '<li>';
+			$html .= '<li';
+			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
 			$html .= ($link === TRUE) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
 			
 			
@@ -265,7 +266,8 @@ class Plugin_Pages extends Plugin
 			$nested_list = $this->_build_tree_html(array(
 				'tree'			=> $tree,
 				'parent_id'		=> (int) $item->id,
-				'link'			=> $link
+				'link'			=> $link,
+				'list_tag'		=> $list_tag
 			));
 			
 			if ($nested_list)
