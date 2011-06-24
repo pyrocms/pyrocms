@@ -16,7 +16,7 @@ class Plugin_Navigation extends Plugin
 	 *
 	 * Usage:
 	 * {pyro:navigation:links group="header"}
-	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class=""
+	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class="", more_class=""
 	 * @param	array
 	 * @return	array
 	 */
@@ -41,6 +41,7 @@ class Plugin_Navigation extends Plugin
 		$top			= $this->attribute('top', FALSE);
 		$separator		= $this->attribute('separator', '');
 		$link_class		= $this->attribute('link_class', '');
+		$more_class		= $this->attribute('more_class', '');
 		$current_class	= $this->attribute('class', 'current');
 		$output			= $return_arr ? array() : '';
 
@@ -116,6 +117,7 @@ class Plugin_Navigation extends Plugin
 			if ($link['children'])
 			{
 				++$level;
+				$wrapper['class'][] = $more_class;
 				$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
 				--$level;
 			}
