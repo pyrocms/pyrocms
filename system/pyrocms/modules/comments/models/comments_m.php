@@ -40,7 +40,9 @@ class Comments_m extends MY_Model
 	 */
   	public function get_recent($limit = 10)
   	{
-    	$this->db->order_by('comments.created_on', 'desc');
+		$this->_get_all_setup();
+		
+    	$this->db->order_by('c.created_on', 'desc');
     	
     	if ($limit > 0)
     	{
@@ -55,17 +57,19 @@ class Comments_m extends MY_Model
 	 * 
 	 * @access public
 	 * @param string $module The name of the module
-	 * @param int $module_id The ID of the module
+	 * @param int $ref_id The ID of the module
 	 * @param int $is_active Is the module active?
 	 * @return array
 	 */
-  	public function get_by_module_item($module, $module_id, $is_active = 1)
+  	public function get_by_module_item($module, $ref_id, $is_active = 1)
   	{
+		$this->_get_all_setup();
+		
     	$this->db
-    		->where('comments.module', $module)
-    		->where('comments.module_id', $module_id)
-    		->where('comments.is_active', $is_active)
-    		->order_by('comments.created_on', $this->settings->comment_order);
+    		->where('c.module', $module)
+    		->where('c.module_id', $ref_id)
+    		->where('c.is_active', $is_active)
+    		->order_by('c.created_on', $this->settings->comment_order);
     	
 	    return $this->get_all();
   	}
@@ -78,14 +82,6 @@ class Comments_m extends MY_Model
 	 */
   	public function get_all()
   	{
-    	$this->db->select('c.*');
-		$this->db->from('comments c');
-    	$this->db->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name');
-    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email');
-
-    	$this->db->join('users u', 'c.user_id = u.id', 'left');
-    	$this->db->join('profiles m', 'm.user_id = u.id', 'left');
-    	
     	return parent::get_all();
   	}
 	
@@ -220,5 +216,20 @@ class Comments_m extends MY_Model
 		asort($options);
 
 		return $options;
+	}
+	
+	/**
+	 * Setting up the query for the get* functions
+	 */
+	private function _get_all_setup()
+	{
+		$this->_table = NULL;
+    	$this->db->select('c.*');
+		$this->db->from('comments c');
+    	$this->db->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name');
+    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email');
+
+    	$this->db->join('users u', 'c.user_id = u.id', 'left');
+    	$this->db->join('profiles m', 'm.user_id = u.id', 'left');
 	}
 }
