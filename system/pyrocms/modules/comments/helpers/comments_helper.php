@@ -10,9 +10,12 @@
 
 /**
  * Function to display a comment
+ * 
+ * Reference is a actually an object reference, a.k.a. categorization of the comments table rows.
+ * The reference id is a further categorization on this. (For example, for example for 
  *
- * @param	int		$ref_id		The ID of the comment (I guess?)
- * @param	bool	$reference	Whether to use a reference or not (?)
+ * @param	int		$ref_id		The id of the collection of the reference object of the comment (I guess?)
+ * @param	bool	$reference	A module or other reference to pick comments for
  * @return	void
  */
 function display_comments($ref_id = '', $reference = NULL)
@@ -23,7 +26,7 @@ function display_comments($ref_id = '', $reference = NULL)
 	}
 
 	$ci =& get_instance();
-
+	
 	// Set ref to module if none provided
 	$reference OR $reference = $ci->router->fetch_module();
 

@@ -49,5 +49,5 @@
 <br style="clear: both;" />
 
 <?php if ($gallery->enable_comments == 1): ?>
-	<?php echo display_comments($gallery->id, 'gallery'); ?>
+	<?php echo display_comments($gallery->id);?>
 <?php endif; ?>
