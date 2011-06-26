@@ -11,30 +11,30 @@
 		<p><strong><?php echo lang('profile_last_login_label');?>:</strong> <?php echo format_date($view_user->last_login); ?></p>
 		<?php endif; ?>
 	</div>
-<?php if($profile): ?>
-	<?php if($profile->bio): ?>
+<?php if($user_settings): ?>
+	<?php if($user_settings->bio): ?>
 	<!-- User's biography -->
 	<div id="user_bio">
 		<h3><?php echo lang('profile_bio'); ?></h3>
-		<p><?php echo $profile->bio ?></p>
+		<p><?php echo $user_settings->bio ?></p>
 	</div>
 	<?php endif; ?>
-	<?php if($profile->gender || $profile->dob): ?>
+	<?php if($user_settings->gender || $user_settings->dob): ?>
 	<!-- Personal user details -->
 	<div id="user_personal">
 		<h3><?php echo lang('profile_personal_section') ?></h3>	
-		<?php if($profile->gender): ?><p><strong><?php echo lang('profile_gender'); ?>:</strong> <?php echo $profile->gender == 'm' ? lang('profile_male_label') : lang('profile_female_label') ?></p><?php endif; ?>
-		<?php if($profile->dob): ?><p><strong><?php echo lang('profile_dob'); ?>:</strong> <?php echo format_date($profile->dob) ?></p><?php endif; ?>
+		<?php if($user_settings->gender): ?><p><strong><?php echo lang('profile_gender'); ?>:</strong> <?php echo $user_settings->gender == 'm' ? lang('profile_male_label') : lang('profile_female_label') ?></p><?php endif; ?>
+		<?php if($user_settings->dob): ?><p><strong><?php echo lang('profile_dob'); ?>:</strong> <?php echo format_date($user_settings->dob) ?></p><?php endif; ?>
 	</div>
 	<?php endif; ?>
-	<?php if($profile->msn_handle || $profile->aim_handle || $profile->yim_handle || $profile->gtalk_handle): ?>
+	<?php if($user_settings->msn_handle || $user_settings->aim_handle || $user_settings->yim_handle || $user_settings->gtalk_handle): ?>
 	<!-- Social corner -->
 	<div id="user_social">
 		<h3><?php echo lang('profile_messenger_section') ?></h3>
-		<?php if($profile->msn_handle): ?><p><strong><?php echo lang('profile_msn_handle') ?>:</strong> <?php echo $profile->msn_handle ?></p><?php endif; ?>
-		<?php if($profile->aim_handle): ?><p><strong><?php echo lang('profile_aim_handle') ?>:</strong> <?php echo $profile->aim_handle ?></p><?php endif; ?>
-		<?php if($profile->yim_handle): ?><p><strong><?php echo lang('profile_yim_handle') ?>:</strong> <?php echo $profile->yim_handle ?></p><?php endif; ?>
-		<?php if($profile->gtalk_handle): ?><p><strong><?php echo lang('profile_gtalk_handle') ?>:</strong> <?php echo $profile->gtalk_handle ?></p><?php endif; ?>
+		<?php if($user_settings->msn_handle): ?><p><strong><?php echo lang('profile_msn_handle') ?>:</strong> <?php echo $user_settings->msn_handle ?></p><?php endif; ?>
+		<?php if($user_settings->aim_handle): ?><p><strong><?php echo lang('profile_aim_handle') ?>:</strong> <?php echo $user_settings->aim_handle ?></p><?php endif; ?>
+		<?php if($user_settings->yim_handle): ?><p><strong><?php echo lang('profile_yim_handle') ?>:</strong> <?php echo $user_settings->yim_handle ?></p><?php endif; ?>
+		<?php if($user_settings->gtalk_handle): ?><p><strong><?php echo lang('profile_gtalk_handle') ?>:</strong> <?php echo $user_settings->gtalk_handle ?></p><?php endif; ?>
 	</div>
 	<?php endif; ?>
 <?php else: ?>
