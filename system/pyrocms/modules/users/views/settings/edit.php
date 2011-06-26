@@ -1,4 +1,9 @@
-<h2><?php echo lang('profile_settings') ?></h2>
+<h2><?php echo lang('profile_edit') ?></h2>
+	<?php if(validation_errors()):?>
+	<div class="error-box">
+		<?php echo validation_errors();?>
+	</div>
+	<?php endif;?>
 <?php echo form_open('edit-settings', array('id'=>'user_edit'));?>
 
 <fieldset>

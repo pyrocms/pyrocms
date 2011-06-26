@@ -1,7 +1,7 @@
 <h2 id="page_title" class="page-title"><?php echo lang('profile_edit') ?></h2>
 <div>
 	<?php if(validation_errors()):?>
-	<div class="error_box">
+	<div class="error-box">
 		<?php echo validation_errors();?>
 	</div>
 	<?php endif;?>
@@ -29,7 +29,7 @@
 					</div>
 					<div>
 						<label for="dob_year"><?php echo lang('profile_dob_year') ?>:</label>
-						<?php echo form_input('dob_year', '', $profile->dob_year) ?>
+						<?php echo form_input('dob_year', $profile->dob_year) ?>
 					</div>
 				</div>
 			</li>
