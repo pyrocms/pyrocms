@@ -11,227 +11,116 @@ class Profile extends Public_Controller
 {
 	/**
 	 * The ID of the user
-	 * @access private
 	 * @var int
 	 */
 	private $user_id = null;
 
 	/**
 	 * Array containing the validation rules
-	 * @access private
 	 * @var array
 	 */
 	private $validation_rules = array(
 		array(
 			'field' => 'display_name',
 			'label' => 'lang:profile_display',
-			'rules' => 'required|trim|alphanumeric'
+			'rules' => 'required|trim|alphanumeric|xss_clean'
 		),
 		array(
 			'field' => 'gender',
 			'label' => 'lang:profile_gender',
-			'rules' => 'trim|max_length[1]'
+			'rules' => 'trim|max_length[1]|xss_clean'
 		),
-		array(
-			'field' => 'dob_day',
+		array('
+			field' => 'dob_day',
 			'label' => 'lang:profile_dob_day',
-			'rules' => 'trim|numeric|required'
+			'rules' => 'trim|numeric|required|xss_clean'
 		),
 		array(
 			'field' => 'dob_month',
 			'label' => 'lang:profile_dob_month',
-			'rules' => 'trim|numeric|required'
+			'rules' => 'trim|numeric|required|xss_clean'
 		),
 		array(
 			'field' => 'dob_year',
 			'label' => 'lang:profile_dob_year',
-			'rules' => 'trim|numeric|required'
+			'rules' => 'trim|numeric|required|xss_clean'
 		),
 		array(
 			'field' => 'bio',
 			'label' => 'lang:profile_bio',
-			'rules' => 'trim|max_length[1000]'
+			'rules' => 'trim|max_length[1000]|xss_clean'
 		),
 		array(
 			'field' => 'phone',
 			'label' => 'lang:profile_phone',
-			'rules' => 'trim|alpha_numeric|max_length[20]'
+			'rules' => 'trim|alpha_numeric|max_length[20]|xss_clean'
 		),
 		array(
 			'field' => 'mobile',
 			'label' => 'lang:profile_mobile',
-			'rules' => 'trim|alpha_numeric|max_length[20]'
+			'rules' => 'trim|alpha_numeric|max_length[20]|xss_clean'
 		),
 		array(
 			'field' => 'address_line1',
 			'label' => 'lang:profile_address_line1',
-			'rules' => 'trim'
+			'rules' => 'trim|xss_clean'
 		),
 		array(
 			'field' => 'address_line2',
 			'label' => 'lang:profile_address_line2',
-			'rules' => 'trim'
+			'rules' => 'trim|xss_clean'
 		),
 		array(
 			'field' => 'address_line3',
 			'label' => 'lang:profile_address_line3',
-			'rules' => 'trim'
+			'rules' => 'trim|xss_clean'
 		),
 		array(
 			'field' => 'postcode',
 			'label' => 'lang:profile_postcode',
-			'rules' => 'trim|max_length[20]'
+			'rules' => 'trim|max_length[20]|xss_clean'
 		),
 		array(
 			'field' => 'website',
 			'label' => 'lang:profile_website',
-			'rules' => 'trim|max_length[255]'
-		 ),
+			'rules' => 'trim|max_length[255]|xss_clean'
+		),
 		array(
 			'field' => 'msn_handle',
 			'label' => 'lang:profile_msn_handle',
-			'rules' => 'trim|valid_email'
+			'rules' => 'trim|valid_email|xss_clean'
 		),
 		array(
 			'field' => 'aim_handle',
 			'label' => 'lang:profile_aim_handle',
-			'rules' => 'trim|alpha_numeric'
+			'rules' => 'trim|alpha_numeric|xss_clean'
 		),
 		array(
 			'field' => 'yim_handle',
 			'label' => 'lang:profile_yim_handle',
-			'rules' => 'trim|alpha_numeric'
+			'rules' => 'trim|alpha_numeric|xss_clean'
 		),
 		array(
 			'field' => 'gtalk_handle',
 			'label' => 'lang:profile_gtalk_handle',
-			'rules' => 'trim|valid_email'
+			'rules' => 'trim|valid_email|xss_clean'
 		),
 		array(
 			'field' => 'gravatar',
 			'label' => 'lang:profile_gravatar',
-			'rules' => 'trim|valid_email'
+			'rules' => 'trim|valid_email|xss_clean'
 		)
 	);
 
 	/**
 	 * Constructor method
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function __construct()
 	{
 		// Call the parent's constructor method
-		parent::Public_Controller();
-
-		// Load the required classes
-		$this->load->model('users_m');
-		$this->load->model('profile_m');
-
-		$this->load->helper('user');
-
-		$this->lang->load('user');
-		$this->lang->load('profile');
-
-		$this->load->library('form_validation');
-
-		// Validation rules - git is really pissing me off right now
-		$this->validation_rules = array(
-			array(
-				'field' => 'display_name',
-				'label' => lang('profile_display'),
-				'rules' => 'required|trim|alphanumeric'
-			),
-			array(
-				'field' => 'gender',
-				'label' => lang('profile_gender'),
-				'rules' => 'trim|max_length[1]'
-			),
-			array(
-				'field' => 'dob_day',
-				'label' => lang('profile_dob_day'),
-				'rules' => 'trim|numeric|greater_than[0]|less_than[32]|required'
-			),
-			array(
-				'field' => 'dob_month',
-				'label' => lang('profile_dob_month'),
-				'rules' => 'trim|numeric|greater_than[0]|less_than[13]|required'
-			),
-			array(
-				'field' => 'dob_year',
-				'label' => lang('profile_dob_year'),
-				'rules' => 'trim|numeric|greater_than[1900]|less_than['.((int) date('Y') - 2).']|exact_length[4]|required'
-			),
-			array(
-				'field' => 'bio',
-				'label' => lang('profile_bio'),
-				'rules' => 'trim|max_length[1000]'
-			),
-			array(
-				'field' => 'phone',
-				'label' => lang('profile_phone'),
-				'rules' => 'trim|alpha_numeric|max_length[20]'
-			),
-			array(
-				'field' => 'mobile',
-				'label' => lang('profile_mobile'),
-				'rules' => 'trim|alpha_numeric|max_length[20]'
-			),
-			array(
-				'field' => 'address_line1',
-				'label' => lang('profile_address_line1'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'address_line2',
-				'label' => lang('profile_address_line2'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'address_line3',
-				'label' => lang('profile_address_line3'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'postcode',
-				'label' => lang('profile_postcode'),
-				'rules' => 'trim|max_length[20]'
-			),
-			array(
-				'field' => 'website',
-				'label' => lang('profile_website'),
-				'rules' => 'trim|max_length[255]'
-			 ),
-			array(
-				'field' => 'msn_handle',
-				'label' => lang('profile_msn_handle'),
-				'rules' => 'trim|valid_email'
-			),
-			array(
-				'field' => 'aim_handle',
-				'label' => lang('profile_aim_handle'),
-				'rules' => 'trim|alpha_numeric'
-			),
-			array(
-				'field' => 'yim_handle',
-				'label' => lang('profile_yim_handle'),
-				'rules' => 'trim|alpha_numeric'
-			),
-			array(
-				'field' => 'gtalk_handle',
-				'label' => lang('profile_gtalk_handle'),
-				'rules' => 'trim|valid_email'
-			),
-			array(
-				'field' => 'gravatar',
-				'label' => lang('profile_gravatar'),
-				'rules' => 'trim|valid_email'
-			)
-		);
-
-		// Set the validation rules
-		$this->form_validation->set_rules($this->validation_rules);
+		parent::__construct();
 
 		// If profiles are not enabled, pretend they don't exist
 		if ( ! $this->settings->item('enable_profiles'))
@@ -246,18 +135,32 @@ class Profile extends Public_Controller
 		}
 
 		// The user is not logged in, send them to login page
-	   	if ( ! $this->ion_auth->logged_in())
+		if ( ! $this->ion_auth->logged_in())
 		{
 			redirect('users/login');
 		}
+
+		// Load the required classes
+		$this->load->model('users_m');
+		$this->load->model('profile_m');
+
+		$this->load->helper('user');
+
+		$this->lang->load('user');
+		$this->lang->load('profile');
+
+		$this->load->library('form_validation');
+
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
 	}
 
-   	/**
-   	 * Show the current user's profile
+	/**
+	 * Show the current user's profile
 	 *
 	 * @access public
 	 * @return void
-   	 */
+	 */
 	public function index()
 	{
 		$this->view($this->user_id);
@@ -266,7 +169,6 @@ class Profile extends Public_Controller
 	/**
 	 * View a user profile based on the ID
 	 *
-	 * @access	public
 	 * @param	mixed $id The Username or ID of the user
 	 * @return	void
 	 */
@@ -297,6 +199,12 @@ class Profile extends Public_Controller
 	 */
 	public function edit()
 	{
+		// Got login?
+		if(!$this->ion_auth->logged_in())
+		{
+			redirect('users/login');
+		}
+
 		// Array that will contain the POST data
 		$secure_post;
 		$profile = $this->ion_auth->get_user();
@@ -309,14 +217,11 @@ class Profile extends Public_Controller
 		    $profile->dob_year 	= date('Y', $profile->dob);
 		}
 
-	  	// Profile valid?
+		// Profile valid?
 		if ($this->form_validation->run())
 		{
 			// Loop through each POST item and add it to the secure_post array
-			foreach($_POST as $key => $value)
-			{
-				$secure_post[$key] = $this->input->post($key);
-			}
+			$secure_post = $this->input->post();
 
 			// Set the full date of birth
 			$secure_post['dob'] = mktime(0, 0, 0, $secure_post['dob_month'], $secure_post['dob_day'], $secure_post['dob_year']);
@@ -337,7 +242,7 @@ class Profile extends Public_Controller
 			}
 
 			// Redirect
-		    	redirect('edit-profile');
+			redirect('edit-profile');
 		}
 		else
 		{
@@ -356,7 +261,7 @@ class Profile extends Public_Controller
 			$data = escape_tags($data);
 		}
 
-		    // Date ranges for select boxes
+		// Date ranges for select boxes
 		$this->data->profile =& $profile;
 
 		// Fix the months
@@ -388,7 +293,6 @@ class Profile extends Public_Controller
 	 * Authenticate to Twitter with oAuth
 	 *
 	 * @author Ben Edmunds
-	 * @access public
 	 * @return boolean
 	 */
 	public function twitter()

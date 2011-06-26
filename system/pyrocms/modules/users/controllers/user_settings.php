@@ -12,14 +12,12 @@ class User_settings extends Public_Controller
 
 	/**
 	 * The ID of the user
-	 * @access private
 	 * @var int
 	 */
 	private $user_id = 0;
 
 	/**
 	 * Array containing the validation rules
-	 * @access private
 	 * @var array
 	 */
 	private $validation_rules 	= array();
@@ -27,7 +25,6 @@ class User_settings extends Public_Controller
 	/**
 	 * Constructor method
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function __construct()
@@ -41,49 +38,51 @@ class User_settings extends Public_Controller
 			$this->user_id = $user->id;
 		}
 
-		// Load the required data
+		// Load the required classes
 		$this->load->model('users_m');
-		$this->load->library('form_validation');
 
 		$this->load->helper('user');
+
 		$this->lang->load('user');
+
+		$this->load->library('form_validation');
 
 		// Validation rules
 		$this->validation_rules = array(
 			array(
 				'field' => 'settings_first_name',
 				'label' => lang('user_first_name'),
-				'rules' => 'required'
+				'rules' => 'required|xss_clean'
 			),
 			array(
 				'field' => 'settings_last_name',
 				'label' => lang('user_last_name'),
-				'rules' => ($this->settings->require_lastname ? 'required' : '')
+				'rules' => ($this->settings->require_lastname ? 'required|' : '').'xss_clean'
 			),
 			array(
 				'field' => 'settings_password',
 				'label' => lang('user_password'),
-				'rules' => 'min_length[6]|max_length[20]'
+				'rules' => 'min_length[6]|max_length[20]|xss_clean'
 			),
 			array(
 				'field' => 'settings_confirm_password',
 				'label' => lang('user_confirm_password'),
-				'rules' => ($this->input->post('settings_password') ? 'required|' : '').'matches[settings_password]'
+				'rules' => ($this->input->post('settings_password') ? 'required|' : '').'matches[settings_password]|xss_clean'
 			),
 			array(
 				'field' => 'settings_email',
 				'label' => lang('user_email'),
-				'rules' => 'valid_email'
+				'rules' => 'valid_email|xss_clean'
 			),
 			array(
 				'field' => 'settings_confirm_email',
 				'label' => lang('user_confirm_email'),
-				'rules' => 'valid_email|matches[settings_email]'
+				'rules' => 'valid_email|matches[settings_email]|xss_clean'
 			),
 			array(
 				'field' => 'settings_lang',
 				'label' => lang('user_lang'),
-				'rules' => 'alpha|max_length[2]'
+				'rules' => 'alpha|max_length[2]|xss_clean'
 			),
 		);
 
@@ -92,11 +91,10 @@ class User_settings extends Public_Controller
 	}
 
 	/**
-   	 * Show the current settings
+	 * Show the current settings
 	 *
-	 * @access public
 	 * @return void
-   	 */
+	 */
 	public function index()
 	{
 		$this->edit();
@@ -105,7 +103,6 @@ class User_settings extends Public_Controller
 	/**
 	 * Edit the current user's settings
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function edit()
@@ -116,43 +113,49 @@ class User_settings extends Public_Controller
 			redirect('users/login');
 		}
 
-	    // Get settings for this user
-	   $user_settings = $this->ion_auth->get_user();
+		// Get settings for this user
+		$user_settings = $this->ion_auth->get_user();
 
 		// Settings valid?
-	    if ($this->form_validation->run())
-	    {
+		if ($this->form_validation->run())
+		{
 			// Set the data to insert
-	    	$set['first_name'] 	= $this->input->post('settings_first_name', TRUE);
-	    	$set['last_name'] 	= $this->input->post('settings_last_name', TRUE);
+			$set = array(
+				'first_name'	=> $this->input->post('settings_first_name'),
+				'last_name' 	=> $this->input->post('settings_last_name'),
+				'lang' 		=> $this->input->post('settings_lang'),
+				'password' 	=> $this->input->post('settings_password'),
+			);
 
-	    	// Set the language for this user
-			$this->ion_auth->set_lang( $this->input->post('settings_lang', TRUE) );
-			$set['lang'] = $this->input->post('settings_lang', TRUE);
-
+			// Set the language for this user
 			if ($set['lang'])
 			{
+				$this->ion_auth->set_lang( $set['lang'] );
 				$_SESSION['lang_code'] = $set['lang'];
 			}
+			else
+			{
+				unset($set['lang']);
+			}
 
-	    	// If password is being changed (and matches)
-	    	if($this->input->post('settings_password'))
-	    	{
-				$set['password'] = $this->input->post('settings_password');
-	    	}
+			// If password is being changed (and matches)
+			if(! $set['password'])
+			{
+				unset($set['password']);
+			}
 
 			if ($this->ion_auth->update_user($this->user_id, $set))
 			{
-	    		$this->session->set_flashdata('success', $this->ion_auth->messages());
-	    	}
-	    	else
-	    	{
-	    		$this->session->set_flashdata('error', $this->ion_auth->errors());
-	    	}
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $this->ion_auth->errors());
+			}
 
 			// Redirect
-	    	redirect('edit-settings');
-	    }
+			redirect('edit-settings');
+		}
 		else
 		{
 			// Loop through each validation rule
@@ -171,7 +174,7 @@ class User_settings extends Public_Controller
 	    $this->data->languages = array();
 	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
-	    	$this->data->languages[$lang_code] = $lang['name'];
+		$this->data->languages[$lang_code] = $lang['name'];
 	    }
 
 		$this->data->user_settings =& $user_settings;
