@@ -8,7 +8,7 @@
  * @subpackage 	Users module
  * @category	Modules
  */
-class Users extends Public_Controller 
+class Users extends Public_Controller
 {
 
 	/**
@@ -16,7 +16,7 @@ class Users extends Public_Controller
 	 * @var int
 	 */
 	private $user_id = 0;
-	
+
 	/**
 	 * Constructor method
 	 *
@@ -32,14 +32,14 @@ class Users extends Public_Controller
 		{
 			$this->user_id = $user->id;
 		}
-		
+
 		// Load the required classes
 		$this->load->model('users_m');
 		$this->load->helper('user');
 		$this->lang->load('user');
 		$this->load->library('form_validation');
 	}
-	
+
 	/**
 	 * Show the current user's profile
 	 *
@@ -75,10 +75,10 @@ class Users extends Public_Controller
 		$this->data->profile = $user;
 		$this->template->build('profile/view', $this->data);
 	}
-	
+
 	/**
 	 * Let's login, shall we?
-	 * 
+	 *
 	 * @return void
 	 */
 	public function login()
@@ -154,7 +154,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Method to log the user out of the system
-	 * 
+	 *
 	 * @return void
 	 */
 	public function logout()
@@ -166,7 +166,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Method to register a new user
-	 * 
+	 *
 	 * @return void
 	 */
 	public function register()
@@ -270,7 +270,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Activate a user
-	 * 
+	 *
 	 * @param int $id The ID of the user
 	 * @param str $code The activation code
 	 * @return void
@@ -312,7 +312,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Activated page
-	 * 
+	 *
 	 * @return void
 	 */
 	public function activated()
@@ -331,7 +331,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Reset a user's password
-	 * 
+	 *
 	 * @return void
 	 */
 	public function reset_pass($code = FALSE)
@@ -397,7 +397,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Password reset is finished
-	 * 
+	 *
 	 * @param string $code Optional parameter the reset_password_code
 	 * @return void
 	 */
@@ -416,20 +416,20 @@ class Users extends Public_Controller
 		//build and render the output
 		$this->template->build('reset_pass_complete', $this->data);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public function edit()
 	{
-		
+
 
 		// Got login?
 		if(!$this->ion_auth->logged_in())
 		{
 			redirect('users/login');
 		}
-		
+
 		// Validation rules
 		$this->validation_rules = array(
 			array(
@@ -559,7 +559,7 @@ class Users extends Public_Controller
 	);
 
 
-		
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
@@ -572,7 +572,7 @@ class Users extends Public_Controller
 		{
 			$this->user_id = $user->id;
 		}
-		
+
 		// If this user already has a profile, use their data if nothing in post array
 		if ($user_settings)
 		{
@@ -580,11 +580,11 @@ class Users extends Public_Controller
 		    $user_settings->dob_month = date('n', $user_settings->dob);
 		    $user_settings->dob_year 	= date('Y', $user_settings->dob);
 		}
-		
+
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
-			
+
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
 
@@ -595,14 +595,6 @@ class Users extends Public_Controller
 			unset($secure_post['dob_month']);
 			unset($secure_post['dob_day']);
 			unset($secure_post['dob_year']);
-			
-			// Set the data to insert
-			$secure_post = array(
-				'first_name'	=> $this->input->post('first_name'),
-				'last_name' 	=> $this->input->post('last_name'),
-				'lang' 		=> $this->input->post('lang'),
-				'password' 	=> $this->input->post('password'),
-			);
 
 			// Set the language for this user
 			if ($secure_post['lang'])
@@ -620,7 +612,7 @@ class Users extends Public_Controller
 			{
 				unset($secure_post['password']);
 			}
-			
+
 			unset($secure_post['confirm_password']);
 
 			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
@@ -646,17 +638,17 @@ class Users extends Public_Controller
 				}
 			}
 		}
-		
+
 		// Take care of the {} braces in the content
 		$escape_fields = array(
-			'bio', 'address_line1', 'address_line2', 'address_line3', 'postcode', 
+			'bio', 'address_line1', 'address_line2', 'address_line3', 'postcode',
 			'website', 'msn_handle', 'gtalk_handle', 'gravatar'
 		);
 		foreach ($escape_fields as $field)
 		{
 			$user_settings->{$field} = escape_tags($user_settings->{$field});
 		}
-		
+
 		// Fix the months
 		$this->lang->load('calendar');
 		$month_names = array(
@@ -689,7 +681,7 @@ class Users extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', $this->data);
 	}
-	
+
 	/**
 	 * Authenticate to Twitter with oAuth
 	 *
@@ -729,7 +721,7 @@ class Users extends Public_Controller
 
 	/**
 	 * Callback method used during login
-	 * 
+	 *
 	 * @param str $email The Email address
 	 * @return bool
 	 */
