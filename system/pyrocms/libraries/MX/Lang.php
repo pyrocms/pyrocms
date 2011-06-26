@@ -1,6 +1,4 @@
-<?php
-
-(defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
 /**
  * Modular Extensions - HMVC
@@ -14,7 +12,7 @@
  *
  * Install this file as application/third_party/MX/Lang.php
  *
- * @copyright	Copyright (c) Wiredesignz 2010-11-12
+ * @copyright	Copyright (c) 2011 Wiredesignz
  * @version 	5.4
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -34,27 +32,22 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * */
-if (CI_VERSION < 2)
+ **/
+class MX_Lang extends CI_Lang
 {
-	class CI_Lang extends CI_Language { }
-}
-
-class MX_Lang extends CI_Lang {
-
 	public static $fall_back = 'english';
 
-	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)
-	{
-		if (is_array($langfile))
-		{
-			return $this->load_many($langfile);
+	public function load($langfile, $lang = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '', $_module = '')	{
+
+		if (is_array($langfile)) {
+			foreach($langfile as $_lang) $this->load($_lang);
+			return $this->language;
 		}
 
 		$deft_lang = CI::$APP->config->item('language');
 		$idiom = ($lang == '') ? $deft_lang : $lang;
 
-		if (in_array($langfile . '_lang', $this->is_loaded, TRUE))
+		if (in_array($langfile . '_lang'.EXT, $this->is_loaded, TRUE))
 		{
 			return $this->language;
 		}
@@ -70,7 +63,7 @@ class MX_Lang extends CI_Lang {
 
 		if ($path === FALSE)
 		{
-			if ($lang = parent::load($langfile, $lang, $return))
+			if ($lang = parent::load($langfile, $lang, $return, $add_suffix, $alt_path))
 			{
 				return $lang;
 			}
@@ -82,22 +75,16 @@ class MX_Lang extends CI_Lang {
 			if ($lang = Modules::load_file($_langfile, $path, 'lang'))
 			{
 				if ($return)
+				{
 					return $lang;
+				}
+
 				$this->language = array_merge($this->language, $lang);
-				$this->is_loaded[] = $langfile . '_lang';
+				$this->is_loaded[] = $langfile . '_lang'.EXT;
 				unset($lang);
 			}
 		}
 
 		return $this->language;
-	}
-
-	/** Load an array of language files * */
-	private function load_many($languages)
-	{
-		foreach ($languages as $_langfile)
-		{
-			$this->load($_langfile);
-		}
 	}
 }

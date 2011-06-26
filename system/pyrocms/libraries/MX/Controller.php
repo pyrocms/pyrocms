@@ -17,17 +17,17 @@ require dirname(__FILE__).'/Base.php';
  *
  * @copyright	Copyright (c) 2011 Wiredesignz
  * @version 	5.4
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -36,23 +36,23 @@ require dirname(__FILE__).'/Base.php';
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-class MX_Controller 
+class MX_Controller
 {
 	public $autoload = array();
-	
-	public function __construct() 
+
+	public function __construct()
 	{
 		$class = str_replace(CI::$APP->config->item('controller_suffix'), '', get_class($this));
-		log_message('debug', $class." MX_Controller Initialized");	
-		
+		log_message('debug', $class." MX_Controller Initialized");
+
 		/* copy a loader instance and initialize */
 		$this->load = clone load_class('Loader');
-		$this->load->_init();	
-		
+		$this->load->_init($this);
+
 		/* autoload module items */
 		$this->load->_autoloader($this->autoload);
 	}
-	
+
 	public function __get($class) {
 		return CI::$APP->$class;
 	}
