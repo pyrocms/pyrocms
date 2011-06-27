@@ -47,8 +47,8 @@ $lang['profile_social_section'] 		= 'Social';
 $lang['profile_gravatar'] 				= 'Gravatar';
 $lang['profile_twitter'] 				= 'Twitter';
 
-$lang['profile_edit_success'] 			= 'Il tuo profilo è stato salvato.';
-$lang['profile_edit_error'] 			= 'C\' è stato un errore.';
+$lang['profile_edit_success'] 			= 'Il tuo profilo Ã¨ stato salvato.';
+$lang['profile_edit_error'] 			= 'C\' Ã¨ stato un errore.';
 
 // -- Buttons ------------------------------------------------------------------------------------------------
 

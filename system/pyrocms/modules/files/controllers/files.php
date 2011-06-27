@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @package 		PyroCMS
- * @subpackage 		libraries
+ * @subpackage 		Files
  * @author			Phil Sturgeon
  *
  * Frontend controller for files and stuffs
@@ -31,9 +31,46 @@ class Files extends Public_Controller
 		{
 			mkdir(APPPATH . 'cache/image_files/');
 		}
-		
+
+		$args = func_num_args();
+
+		switch ($args)
+		{
+			case 2:
+				$height	= NULL;
+				if ( ! empty($width))
+				{
+					if (($pos = strpos($width, 'x')) !== FALSE)
+					{
+						if ($pos === 0)
+						{
+							$height = substr($width, 1);
+							$width	= NULL;
+						}
+						else
+						{
+							list($width, $height) = explode('x', $width);
+						}
+					}
+				}
+			case 2:
+			case 3:
+				foreach (array('height' => 'width', 'width' => 'height') as $var1 => $var2)
+				{
+					if (${$var1} === 0 OR ${$var1} === '0')
+					{
+						${$var1} = NULL;
+					}
+					elseif (empty(${$var1}))
+					{
+						${$var1} = empty(${$var2}) ? NULL : 100000;
+					}
+				}
+				break;
+		}
+
 		// Path to image thumbnail
-		$image_thumb = APPPATH . 'cache/image_files/' . $height . '_' . $width . '_' . md5($file->filename) . $file->extension;
+		$image_thumb = APPPATH . 'cache/image_files/' . $width . '_' . $height . '_' . md5($file->filename) . $file->extension;
 
 		if ( ! file_exists($image_thumb))
 		{

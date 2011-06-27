@@ -10,6 +10,10 @@ $lang['widgets.widget'] 					= '小組件';
 $lang['widgets.widget_author'] 				= '作者';
 $lang['widgets.widget_short_name'] 			= '簡稱';
 $lang['widgets.widget_version'] 			= '版本';
+$lang['widgets.status_label']			= 'Status'; #translate
+
+$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
+$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
 
 // Widget area titles
 $lang['widgets.add_area'] 					= '新增組件區塊';

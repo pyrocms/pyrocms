@@ -5,7 +5,6 @@
 <meta name="distribution" content="global" />
 <meta name="resource-type" content="document" />
 <meta name="language" content="{pyro:lang:code}" />
-
 {pyro:theme:favicon file="favicon.png"}
 
 <!-- Begin stylesheets -->
@@ -13,9 +12,8 @@
 <!-- End stylesheets -->
 
 <!-- Load jQuery Before Modules/Widgets -->
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">window.google && google.load('jquery', '1.4');</script>
-<script>window.jQuery || document.write("<script src='<?php echo js_path('jquery/jquery.js'); ?>'>\x3C/script>")</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script>window.jQuery || document.write("<script src='<?php echo js_path('jquery/jquery.min.js'); ?>'>\x3C/script>")</script>
 <!-- End jquery -->
 
 {pyro:template:metadata}

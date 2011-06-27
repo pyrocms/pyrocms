@@ -5,3 +5,5 @@
 .content h4.header { font-size: 1.1em; font-weight: bold; margin: 0.5em 0pt; }
 .content h4.header a { top: 0; }
 .content h4.header .from { color: #999999; font-size: 0.83em; font-weight: normal; }
+#cboxContent .buttons.float-left { position: absolute; bottom: 10px; left: 30px; }
+#cboxContent .buttons.float-right { position: absolute; bottom: 10px; right: 30px; }

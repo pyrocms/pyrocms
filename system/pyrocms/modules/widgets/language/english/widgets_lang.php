@@ -10,6 +10,10 @@ $lang['widgets.widget']                 = 'Widget';
 $lang['widgets.widget_author']          = 'Author';
 $lang['widgets.widget_short_name']      = 'Short name';
 $lang['widgets.widget_version']         = 'Version';
+$lang['widgets.status_label']			= 'Status';
+
+$lang['widgets.inactive_title'] 		= 'Widgets disabled';
+$lang['widgets.active_title'] 			= 'Widgets enabled';
 
 // Widget area titles
 $lang['widgets.add_area']               = 'Add widget area';

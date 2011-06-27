@@ -56,4 +56,9 @@ $lang['comments.delete_multi_success'] 		= 'Les commentaires #%s ont été suppr
 
 $lang['comments.no_comments'] 				= 'Il n\'y pas de commentaires';
 
-?>
+// Helper counter comments
+$lang['comments.counter_none_label']		= 'No comment'; #translate
+$lang['comments.counter_singular_label']	= '%d comment'; #translate
+$lang['comments.counter_plural_label']		= '%d comments'; #translate
+
+/* End of file comments_lang.php */

@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
 $lang['author_label'] 					= 'Avtor';
 $lang['action_label'] 					= 'Dejanje';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['dialog.confirm'] 				= 'Potrdi';

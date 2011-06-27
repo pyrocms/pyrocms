@@ -20,7 +20,7 @@
  * @author		Dan Horrigan <dan@dhorrigan.com>
  * @author		Eric Barnes <eric@pyrocms.com>
  * @package		PyroCMS
- * @subpackage	file
+ * @subpackage	Files
  */
 class Admin_folders extends Admin_Controller {
 
@@ -92,11 +92,11 @@ class Admin_folders extends Admin_Controller {
 				'current_id'	=> 0
 			), TRUE);
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> 'success',
 				'content'	=> $content,
 				'navigation'=> $navigation,
-			)) );
+			));
 		}
 
 		$this->template
@@ -132,10 +132,10 @@ class Admin_folders extends Admin_Controller {
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 
 			show_error(lang('file_folders.not_exists'));
@@ -205,11 +205,11 @@ class Admin_folders extends Admin_Controller {
 				'current_id'	=> $folder->root_id
 			), TRUE);
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> 'success',
 				'content'	=> $content,
 				'navigation'=> $navigation,
-			)) );
+			));
 		}
 
 		$this->template
@@ -274,10 +274,10 @@ class Admin_folders extends Admin_Controller {
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -311,10 +311,10 @@ class Admin_folders extends Admin_Controller {
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 
 			redirect('files/folders');
@@ -364,10 +364,10 @@ class Admin_folders extends Admin_Controller {
 			{
 				$message = $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -450,10 +450,10 @@ class Admin_folders extends Admin_Controller {
 				$data['messages'] = $deleted;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
-				)) );
+				));
 			}
 
 			foreach ($deleted as $status => $message)
@@ -489,10 +489,10 @@ class Admin_folders extends Admin_Controller {
 				$html = $this->load->view('admin/partials/notices', $data, TRUE);
 			}
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> $status,
 				'html'		=> $html
-			)) );
+			));
 		}
 
 		$this->template

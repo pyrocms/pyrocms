@@ -8,6 +8,7 @@ $lang['desc_label'] 					= 'Kuvaus';
 $lang['version_label'] 					= 'Versio';
 $lang['author_label'] 					= 'Tekijä';
 $lang['action_label'] 					= 'Toiminto';
+$lang['actions_label']					= 'Actions'; #translate
 
 $lang['dialog.delete_message'] 			= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
 $lang['dialog.confirm'] 				= 'Vahvista';

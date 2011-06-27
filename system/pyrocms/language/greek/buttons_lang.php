@@ -21,14 +21,19 @@ $lang['buttons.delete']		= 'Διαγραφή';
 $lang['buttons.publish']	= 'Δημοσίευση';
 $lang['buttons.approve']	= 'Έγκριση';
 $lang['buttons.unapprove']	= 'Απόρριψη';
-$lang['buttons.install']	= 'Εγκατάσταση';
+$lang['buttons.install'] 	= 'Εγκατάσταση';
+$lang['buttons.uninstall'] 	= 'Απεγκατάσταση';
+$lang['buttons.enable']		= 'Ενεργοποίηση';
+$lang['buttons.disable'] 	= 'Απενεργοποίηση';
 $lang['buttons.yes']		= 'Ναι';
 $lang['buttons.no']			= 'Όχι';
 $lang['buttons.activate']   = 'Ενεργοποίηση';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Προεπισκόπηση';
 $lang['buttons.close']		= 'Κλείσιμο';
 $lang['buttons.edit']		= 'Επεξεργασία';
 $lang['buttons.clone']		= 'Κλωνοποίηση';
+$lang['buttons.re-index']	= 'Επανα-καταλογογράφηση';
 $lang['buttons.copy']		= 'Αντιγραφή';
 
 /* End of file buttons_lang.php */

@@ -1,16 +1,16 @@
 // Cufon
 if (typeof(Cufon) !== 'undefined')
 {
-	Cufon.replace('#header h1', {
+	Cufon.replace('header h1', {
 		textShadow: '2px 1px 0px #000000'
 	});
-	Cufon.replace('.post h1, .post h2, .post h3, .post h4, .post h5, .post h6 #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4, #sidebar h5, #sidebar h6', {
+	Cufon.replace('.post h1, .post h2, .post h3, .post h4, .post h5, .post h6, aside h1, aside h2, aside h3, aside h4, aside h5, aside h6', {
 		textShadow: '1px 1px 0px #ffffff'
 	});
 
 	$(function(){
 		// rtl cufon hack
-		if ($('html').attr('dir') === 'rtl') // todo: select by attr dir value rtl -> find cufon -> foreach results... 
+		if ($('html').attr('dir') === 'rtl') // todo: select by attr dir value rtl -> find cufon -> foreach results...
 		{
 			var cache = {};
 			$('cufon').each(function(){
@@ -52,7 +52,7 @@ if (typeof(Cufon) !== 'undefined')
 							left	: canvas.css('right'),
 							right	: canvas.css('left')
 						});
-					});					
+					});
 				}
 			});
 		}
@@ -65,7 +65,7 @@ $(function($){
 	$.localScroll();
 
 	// Link Nudge
-	$('#sidebar #navigation li a').nudge();
+	$('#navigation li a').nudge();
 });
 
 jQuery.fn.nudge = function(params) {
@@ -91,7 +91,7 @@ jQuery.fn.nudge = function(params) {
 		go[prop] = parseInt(jQueryp.amount) + parseInt(initialValue);
 		var bk = {};
 		bk[prop] = initialValue;
-		
+
 		//Proceed to nudge on hover
 		jQueryt.hover(function() {
 			jQueryt.stop().animate(go, jQueryp.duration, '', jQueryp.toCallback);

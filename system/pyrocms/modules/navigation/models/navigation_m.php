@@ -321,10 +321,10 @@ class Navigation_m extends MY_Model
 				break;
 
 				case 'page':
-					if ($page = $this->pages_m->get_by(array(
+					if ($page = $this->pages_m->get_by(array_filter(array(
 						'id'		=> $row->page_id,
-						'status'	=> 'live'
-					)))
+						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
+					))))
 					{
 						$row->url = site_url($page->uri);
 						$row->is_home = $page->is_home;
@@ -363,10 +363,10 @@ class Navigation_m extends MY_Model
 				break;
 
 				case 'page':
-					if ($page = $this->pages_m->get_by(array(
+					if ($page = $this->pages_m->get_by(array_filter(array(
 						'id'		=> $row['page_id'],
-						'status'	=> 'live'
-					)))
+						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
+					))))
 					{
 						$row['url'] = site_url($page->uri);
 						$row['is_home'] = $page->is_home;

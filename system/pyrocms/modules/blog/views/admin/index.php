@@ -9,13 +9,14 @@
 				<th><?php echo lang('blog_post_label'); ?></th>
 				<th><?php echo lang('blog_category_label'); ?></th>
 				<th><?php echo lang('blog_date_label'); ?></th>
+				<th><?php echo lang('blog_written_by_label'); ?></th>
 				<th><?php echo lang('blog_status_label'); ?></th>
 				<th width="320" class="align-center"><span><?php echo lang('blog_actions_label'); ?></span></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 				</td>
 			</tr>
@@ -27,6 +28,13 @@
 					<td><?php echo $post->title; ?></td>
 					<td><?php echo $post->category_title; ?></td>
 					<td><?php echo format_date($post->created_on); ?></td>
+					<td>
+					<?php if ($post->author): ?>
+						<?php echo anchor('user/' . $post->author_id, $post->author->display_name, 'target="_blank"'); ?>
+					<?php else: ?>
+						<?php echo lang('blog_author_unknown'); ?>
+					<?php endif; ?>
+					</td>
 					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
 					<td class="align-center buttons buttons-small">
 						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe button preview" target="_blank"'); ?>

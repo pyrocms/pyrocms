@@ -535,7 +535,7 @@ class Module_m extends MY_Model
 
 				if ( ! empty($info['roles']))
 				{
-					$this->load->language($slug.'/permission');
+					$this->lang->load($slug . '/permission');
 					return $info['roles'];
 				}
 			}

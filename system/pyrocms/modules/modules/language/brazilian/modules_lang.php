@@ -9,6 +9,8 @@ $lang['modules.enable_error']			= 'Não foi possível ativar o módulo "%s".';
 $lang['modules.enable_success']			= 'O módulo "%s" foi ativado.';
 $lang['modules.install_error']			= 'Não foi possível instalar o módulo.';
 $lang['modules.install_success']		= 'O módulo "%s" foi instalado.';
+$lang['modules.delete_success']			= 'O módulo "%s" foi removido com êxito.';
+$lang['modules.delete_error']			= 'Não foi possível remover o módulo "%s".';
 $lang['modules.uninstall_error']		= 'Não foi possível remover o módulo "%s".';
 $lang['modules.uninstall_success']		= 'O módulo "%s" foi removido.';
 $lang['modules.already_exists_error']	= 'O módulo com nome "%s" já existe.';
@@ -22,7 +24,8 @@ $lang['modules.upload_desc']			= 'Por favor selecione o arquivo e clique no bot�
 $lang['modules.confirm_enable']         = 'Tem certeza de que deseja ativar este módulo?';
 $lang['modules.confirm_disable']        = 'Tem certeza de que deseja desativar este módulo?';
 $lang['modules.confirm_install']        = 'Tem certeza de que deseja instalar este módulo?';
-$lang['modules.confirm_uninstall']      = 'Tem certeza de que deseja desinstalar este módulo?';
+$lang['modules.confirm_uninstall']		 = 'All database records will be removed! Are you sure you want to uninstall this module?'; #tranlate
+$lang['modules.confirm_delete']      = 'Tem certeza de que deseja desinstalar este módulo?';
 
 /* End of file modules_lang.php */
 /* Location: ./system/pyrocms/modules/modules/language/brazilian/modules_lang.php */

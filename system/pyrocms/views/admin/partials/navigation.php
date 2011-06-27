@@ -5,7 +5,6 @@
 		<?php
 		foreach ($menu_items as $menu_item)
 		{
-
 			$count = 0;
 
 			//Let's see how many menu items they have access to
@@ -34,7 +33,6 @@
 			// If they only have access to one item in this menu, why not just have it as the main link?
 			if ($count > 0)
 			{
-
 				// They have access to more than one menu item, so create a drop menu
 				if ($count > 1 )
 				{
@@ -49,7 +47,7 @@
 					
 				// User has access to Users module only, no other users item
 				} 
-				elseif ($count == 1 AND $this->module == 'users' AND $menu_item == 'users') 
+				elseif ($count == 1 AND ($this->module == 'users' OR $this->module == '') AND $menu_item == 'users') 
 				{
 					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'top-link no-submenu  current' : 'top-link no-submenu ')) . '</li>';
 				}

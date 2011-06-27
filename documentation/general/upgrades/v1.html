@@ -12,15 +12,17 @@
 
 <blockquote>git pull git://github.com/pyrocms/pyrocms.git tag v1.1.0</blockquote>
 
-<p>3.) Erase the system folder and replace with the new version. Put your old application/config/config.php and application/config/database.php files back.</p>
+<p>3.) Erase the system folder and replace with the new version. Put your old system/pyrocms/config/config.php and system/pyrocms/config/database.php
+	files back. You may want to compare to make sure the files have not changed in the newer version or just copy your config information into the new files.</p>
 
-<p>4.) Erase bundled modules in addons/modules (galleries) and replace with the updated version.</p>
+<p>4.) Replace the index.php file with the newer version.</p>
 
-<p>5.) Make the following folders writable:</p>
+<p>5.) Erase bundled modules in addons/modules (galleries) and replace with the updated version.</p>
+
+<p>6.) Make the following folders writable:</p>
 
 <ul>
-	<li>system/codeigniter/cache</li>
-	<li>system/codeigniter/logs</li>
+	<li>system/pyrocms/logs</li>
 	<li>system/pyrocms/cache</li>
 	<li>system/pyrocms/cache/simplepie</li>
 	<li>system/pyrocms/config</li>

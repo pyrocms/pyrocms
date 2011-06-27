@@ -8,9 +8,27 @@ var pyro = {};
 jQuery(function($) {
 
 	/**
+	 * Overload the json converter to avoid error when json is null or empty.
+	 */
+	$.ajaxSetup({
+		//allowEmpty: true,
+		converters: {
+			'text json': function(text) {
+				var json = jQuery.parseJSON(text);
+				if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json)))
+				{
+					jQuery.error('The server is not responding correctly, please try again later.');
+				}
+				return json;
+			}
+		}
+	});
+
+	/**
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
+
 		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
@@ -99,12 +117,10 @@ jQuery(function($) {
 		});
 		
 		//use a confirm dialog on "delete many" buttons
-		$(':submit.confirm').live('click', function(e){
+		$(':submit.confirm').live('click', function(e, confirmation){
 
-			if ($.data(this, 'confirmed'))
+			if (confirmation)
 			{
-				$.data(this, 'confirmed', false);
-
 				return true;
 			}
 
@@ -114,7 +130,14 @@ jQuery(function($) {
 
 			if (confirm(removemsg || DIALOG_MESSAGE))
 			{
-				$(this).data('confirmed', true).click();
+				$(this).trigger('click-confirmed');
+
+				if ($(this).data('stop-click')){
+					$(this).data('stop-click', false);
+					return;
+				}
+
+				$(this).trigger('click', true);
 			}
 		});
 
@@ -195,6 +218,10 @@ jQuery(function($) {
 
 		return pyro;
 	};
+
+	$(document).ajaxError(function(e, jqxhr, settings, exception) {
+		pyro.add_notification($('<div class="closable notification error">'+exception+'</div>'));
+	});
 
 	$(document).ready(function() {
 		pyro.init();

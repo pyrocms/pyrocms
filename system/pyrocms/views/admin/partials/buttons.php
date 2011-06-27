@@ -14,6 +14,11 @@
 					<span><?php echo lang('buttons.delete'); ?></span>
 				</button>
 				<?php break;
+			case 're-index': ?>
+				<button type="submit" name="btnAction" value="re-index" class="button">
+					<span><?php echo lang('buttons.re-index'); ?></span>
+				</button>
+				<?php break;
 			case 'activate':
 			case 'deactivate':
 			case 'approve':

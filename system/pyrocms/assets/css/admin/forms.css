@@ -34,6 +34,23 @@ form.crud label {
 	text-align: right;
 
 }
+form.crud .inline {
+	display: inline-block;
+}
+form.crud .inline.hidden {
+	display: none;
+}
+form.crud .inline label
+{
+	float: none;
+	width: inherit;
+	min-width: inherit;
+	max-width: inherit;
+	padding: inherit;
+	font-weight: inherit;
+	color: inherit;
+	text-align: inherit;
+}
 /*
 fieldset ol li div, fieldset ul li div, form.crud ul li div {
 	width: 75%;

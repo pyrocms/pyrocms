@@ -90,7 +90,7 @@ class Pages extends Public_Controller
 			// Are they logged in and an admin or a member of the correct group?
 			if ( ! $this->user OR (isset($this->user->group) AND $this->user->group != 'admin' AND ! in_array($this->user->group_id, $page->restricted_to)))
 			{
-				redirect('users/login/' . implode('/', $url_segments));
+				redirect('users/login/' . (empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
 		}
 
