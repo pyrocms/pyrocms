@@ -466,97 +466,99 @@ class Users extends Public_Controller
 				'field' => 'lang',
 				'label' => lang('user_lang'),
 				'rules' => 'xss_clean|alpha|max_length[2]'
-			),		array(
-			'field' => 'display_name',
-			'label' => 'lang:profile_display',
-			'rules' => 'xss_clean|trim|required|alphanumeric'
-		),
-		array(
-			'field' => 'gender',
-			'label' => 'lang:profile_gender',
-			'rules' => 'xss_clean|trim|max_length[1]'
-		),
-		array('
-			field' => 'dob_day',
-			'label' => 'lang:profile_dob_day',
-			'rules' => 'xss_clean|trim|numeric|required'
-		),
-		array(
-			'field' => 'dob_month',
-			'label' => 'lang:profile_dob_month',
-			'rules' => 'xss_clean|trim|numeric|required'
-		),
-		array(
-			'field' => 'dob_year',
-			'label' => 'lang:profile_dob_year',
-			'rules' => 'xss_clean|trim|numeric|required'
-		),
-		array(
-			'field' => 'bio',
-			'label' => 'lang:profile_bio',
-			'rules' => 'xss_clean|trim|max_length[1000]'
-		),
-		array(
-			'field' => 'phone',
-			'label' => 'lang:profile_phone',
-			'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
-		),
-		array(
-			'field' => 'mobile',
-			'label' => 'lang:profile_mobile',
-			'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
-		),
-		array(
-			'field' => 'address_line1',
-			'label' => 'lang:profile_address_line1',
-			'rules' => 'xss_clean|trim'
-		),
-		array(
-			'field' => 'address_line2',
-			'label' => 'lang:profile_address_line2',
-			'rules' => 'xss_clean|trim'
-		),
-		array(
-			'field' => 'address_line3',
-			'label' => 'lang:profile_address_line3',
-			'rules' => 'xss_clean|trim'
-		),
-		array(
-			'field' => 'postcode',
-			'label' => 'lang:profile_postcode',
-			'rules' => 'xss_clean|trim|max_length[20]'
-		),
-		array(
-			'field' => 'website',
-			'label' => 'lang:profile_website',
-			'rules' => 'xss_clean|trim|max_length[255]'
-		),
-		array(
-			'field' => 'msn_handle',
-			'label' => 'lang:profile_msn_handle',
-			'rules' => 'xss_clean|trim|valid_email'
-		),
-		array(
-			'field' => 'aim_handle',
-			'label' => 'lang:profile_aim_handle',
-			'rules' => 'xss_clean|trim|alpha_numeric'
-		),
-		array(
-			'field' => 'yim_handle',
-			'label' => 'lang:profile_yim_handle',
-			'rules' => 'xss_clean|trim|alpha_numeric'
-		),
-		array(
-			'field' => 'gtalk_handle',
-			'label' => 'lang:profile_gtalk_handle',
-			'rules' => 'xss_clean|trim|valid_email'
-		),
-		array(
-			'field' => 'gravatar',
-			'label' => 'lang:profile_gravatar',
-			'rules' => 'xss_clean|trim|valid_email'
-		)
-	);
+			),
+			array(
+				'field' => 'display_name',
+				'label' => lang('profile_display'),
+				'rules' => 'xss_clean|trim|required|alphanumeric'
+			),
+			// More fields
+			array(
+				'field' => 'gender',
+				'label' => lang('profile_gender'),
+				'rules' => 'xss_clean|trim|max_length[1]'
+			),
+			array('
+				field' => 'dob_day',
+				'label' => lang('profile_dob_day'),
+				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
+			),
+			array(
+				'field' => 'dob_month',
+				'label' => lang('profile_dob_month'),
+				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
+			),
+			array(
+				'field' => 'dob_year',
+				'label' => lang('profile_dob_year'),
+				'rules' => 'xss_clean|trim|numeric|max_length[4]|required'
+			),
+			array(
+				'field' => 'bio',
+				'label' => lang('profile_bio'),
+				'rules' => 'xss_clean|trim|max_length[1000]'
+			),
+			array(
+				'field' => 'phone',
+				'label' => lang('profile_phone'),
+				'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'mobile',
+				'label' => lang('profile_mobile'),
+				'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'address_line1',
+				'label' => lang('profile_address_line1'),
+				'rules' => 'xss_clean|trim'
+			),
+			array(
+				'field' => 'address_line2',
+				'label' => lang('profile_address_line2'),
+				'rules' => 'xss_clean|trim'
+			),
+			array(
+				'field' => 'address_line3',
+				'label' => lang('profile_address_line3'),
+				'rules' => 'xss_clean|trim'
+			),
+			array(
+				'field' => 'postcode',
+				'label' => lang('profile_postcode'),
+				'rules' => 'xss_clean|trim|max_length[20]'
+			),
+			array(
+				'field' => 'website',
+				'label' => lang('profile_website'),
+				'rules' => 'xss_clean|trim|max_length[255]'
+			),
+			array(
+				'field' => 'msn_handle',
+				'label' => lang('profile_msn_handle'),
+				'rules' => 'xss_clean|trim|valid_email'
+			),
+			array(
+				'field' => 'aim_handle',
+				'label' => lang('profile_aim_handle'),
+				'rules' => 'xss_clean|trim|alpha_numeric'
+			),
+			array(
+				'field' => 'yim_handle',
+				'label' => lang('profile_yim_handle'),
+				'rules' => 'xss_clean|trim|alpha_numeric'
+			),
+			array(
+				'field' => 'gtalk_handle',
+				'label' => lang('profile_gtalk_handle'),
+				'rules' => 'xss_clean|trim|valid_email'
+			),
+			array(
+				'field' => 'gravatar',
+				'label' => lang('profile_gravatar'),
+				'rules' => 'xss_clean|trim|valid_email'
+			)
+		);
 
 
 
@@ -570,7 +572,7 @@ class Users extends Public_Controller
 		// Get the user ID, if it exists
 		if ($user_settings)
 		{
-			$this->user_id = $user->id;
+			$this->user_id = $user_settings->id;
 		}
 
 		// If this user already has a profile, use their data if nothing in post array
@@ -612,9 +614,12 @@ class Users extends Public_Controller
 			{
 				unset($secure_post['password']);
 			}
-
+			// We don't need this anymore
 			unset($secure_post['confirm_password']);
 
+			// Set the time of update
+			$secure_post['updated_on'] = now();
+			
 			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
 			{
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
