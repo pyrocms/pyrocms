@@ -241,8 +241,8 @@ function html_editor(id, width)
 	    height: "30em",
 	    width: width,
 	    parserfile: ["parsejavascript.js","parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
-	    stylesheet: [APPPATH_URI + "assets/css/codemirror/xmlcolors.css", APPPATH_URI + "assets/css/codemirror/csscolors.css"],
-	    path: APPPATH_URI + "assets/js/codemirror/",
+	    stylesheet: [pyro.admin_theme_url + "/css/codemirror/xmlcolors.css", pyro.admin_theme_url + "/css/codemirror/csscolors.css"],
+	    path: pyro.admin_theme_url,
 	    tabMode: 'spaces'
 	});
 }
@@ -253,8 +253,8 @@ function css_editor(id, width)
 	    height: "30em",
 	    width: width,
 	    parserfile: "parsecss.js",
-	    stylesheet: APPPATH_URI + "assets/css/codemirror/csscolors.css",
-	    path: APPPATH_URI + "assets/js/codemirror/"
+	    stylesheet: pyro.admin_theme_url + "/css/codemirror/csscolors.css",
+	    path: pyro.admin_theme_url
 	});
 }
 
@@ -264,8 +264,8 @@ function js_editor(id, width)
 	    height: "30em",
 	    width: width,
 	    parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
-	    stylesheet: APPPATH_URI + "assets/css/codemirror/jscolors.css",
-	    path: APPPATH_URI + "assets/js/codemirror/"
+	    stylesheet: pyro.admin_theme_url + "/css/codemirror/jscolors.css",
+	    path: pyro.admin_theme_url
 	});
 }
 
