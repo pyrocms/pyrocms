@@ -72,7 +72,7 @@ class Users extends Public_Controller
 
 		// Render view
 		$this->data->view_user = $user; //needs to be something other than $this->data->user or it conflicts with the current user
-		$this->data->profile = $user;
+		$this->data->user_settings = $user;
 		$this->template->build('profile/view', $this->data);
 	}
 
