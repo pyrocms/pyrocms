@@ -931,6 +931,7 @@ class Ion_auth_model extends CI_Model
 			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
 			return FALSE;
 	    }
+		
 		if (!empty($this->columns))
 		{
 			//filter the data passed by the columns in the config
@@ -939,7 +940,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (is_array($data) && isset($data[$field]))
 				{
-				$meta_fields[$field] = $data[$field];
+					$meta_fields[$field] = $data[$field];
 					unset($data[$field]);
 				}
 			}
@@ -950,8 +951,8 @@ class Ion_auth_model extends CI_Model
 				// 'user_id' = $id
 				$this->db->where($this->meta_join, $id);
 				$this->db->set($meta_fields);
-			$this->db->update($this->tables['meta']);
-		}
+				$this->db->update($this->tables['meta']);
+			}
 	    }
 
 		if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data) || array_key_exists('group_id', $data))
