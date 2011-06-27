@@ -19,6 +19,7 @@
 	var BASE_URI			= "<?php echo BASE_URI;?>";
 	var DEFAULT_TITLE		= "<?php echo $this->settings->site_name; ?>";
 	var DIALOG_MESSAGE		= "<?php echo lang('dialog.delete_message'); ?>";
+	pyro.admin_theme_url 	= BASE_URL + "system/pyrocms/themes/<?php echo ADMIN_THEME; ?>";
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri			= "<?php echo BASE_URI; ?>";
 	jQuery.noConflict();

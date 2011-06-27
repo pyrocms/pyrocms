@@ -87,7 +87,7 @@ var CodeMirror = (function(){
       html.push("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + file + "\"/>");
     });
     forEach(options.basefiles.concat(options.parserfile), function(file) {
-      if (!/^https?:/.test(file)) file = options.path + file;
+      if (!/^https?:/.test(file)) file = options.path + '/js/codemirror/' + file;
       html.push("<script type=\"text/javascript\" src=\"" + file + "\"><" + "/script>");
     });
     html.push("</head><body style=\"border-width: 0;\" class=\"editbox\" spellcheck=\"" +
