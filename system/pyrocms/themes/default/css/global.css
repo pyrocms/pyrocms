@@ -105,11 +105,18 @@ ul#comment_list li.comment p { width: 550px; float: left; }
 fieldset#write-comment { float:right; padding: 1em; width:45%; }
 
 /* User edit profile */
-#user_edit_profile input, #user_edit_settings input { margin: 0 500px 15px 0; }
-#user_edit_profile input[type=text], #user_edit_settings input[type=text] { background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 5px 15px 5px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
-#user_edit_profile, #user_edit_profile p, #user_edit_profile label, #user_edit_profile fieldset { width: 625px; }
-#user_personal legend, #user_personal label, #user_contact legend, #user_contact label, #user_edit_settings legend, #user_edit_settings label { padding: 0 0 15px 0; }
-#user_personal textarea { background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 25px 15px 25px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; }
+#user_edit fieldset > legend { font-size: 110%; font-weight: bold; position: relative; top: 15px;}
+#user_edit ul { padding: 20px 10px; margin: 0px;}
+#user_edit li {display:block; min-height: 60px; width: 85%; list-style: none; padding: 5px; margin: 0px; clear:both;}
+#user_edit li:hover {background-color: white;}
+#user_edit li.multiple_fields {display:block; height: 70px; width: 90%;}
+#user_edit li.multiple_fields > div.fields {width:100% padding: 10px;}
+#user_edit li.multiple_fields > div.fields > div {margin-left:10px; width: 15%; float: left;}
+#user_edit li.multiple_fields > div.fields > div input {padding: 5px; width: 50%}
+#user_edit li.multiple_fields > div.fields > div select {padding: 5px; width: 100%}
+#user_edit li.multiple_fields div {display:inline; float: left; clear:none;}
+#user_edit li label {padding: 0px; margin: 0px;}
+#user_edit li input[type=text], #user_edit li input[type=password], #user_edit li select,#user_edit li textarea { background-color: #e8e8e8; border: 1px solid #ccc; border-radius: 5px; -o-border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; padding: 5px 15px 5px 15px; font-family: Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 90%; color: #7d7d7d; text-shadow: 0px 0px 0px transparent;}
 
 /* Sidebar */
 aside { color: #7d7d7d; font-size: 14px; text-shadow: 1px 1px #ffffff; width: 23%; padding: 60px 0 150px 0; float: right; }
