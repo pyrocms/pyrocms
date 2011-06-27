@@ -43,10 +43,10 @@ $route['admin/([a-zA-Z_-]+)']			= '$1/admin/index';
 
 $route['register'] = 'users/register';
 
-$route['user/([\w]+)']	= 'users/profile/view/$1';
-$route['my-profile']	= 'users/profile/index';
-$route['edit-profile']	= 'users/profile/edit';
-$route['edit-settings']	= 'users/user_settings/edit';
+$route['user/([\w]+)']	= 'users/view/$1';
+$route['my-profile']	= 'users/index';
+$route['edit-profile']	= 'users/edit';
+$route['edit-settings']	= 'users/edit';
 
 // Just for now, map calls to /news to /blog
 $route['news']							= 'blog';
