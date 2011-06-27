@@ -24,6 +24,7 @@ $lang['buttons.disable']		= 'Отключить';
 $lang['buttons.yes']			= 'Да';
 $lang['buttons.no']				= 'Нет';
 $lang['buttons.activate']		= 'Активировать';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']		= 'Предпросмотр';
 $lang['buttons.close']			= 'Закрыть';
 $lang['buttons.edit']			= 'Редактировать';

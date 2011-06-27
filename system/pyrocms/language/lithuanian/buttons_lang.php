@@ -28,6 +28,7 @@ $lang['buttons.disable'] 	= 'Disable'; #translate
 $lang['buttons.yes']		= 'Taip';
 $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']   = 'Aktyvuoti';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Peržiūra'; #translate
 $lang['buttons.close']		= 'Uždaryti'; #translate
 $lang['buttons.edit']		= 'Redaguoti'; #translate
