@@ -148,6 +148,20 @@ or manually change the information in the database. We'll add a "re-index" featu
 
 <p>To disable simply go into the Control Panel, click on "Modules" then click "Disable" next to the module you want to disable. This will disable both on the front end (it will 404 when you try to visit it) and in the Control Panel.</p>
 
+<h3>Requiring Login for a Module</h3>
+
+<p>If you don't want anonymous access to your module and require a user to be logged in, place this code in your controller.</p>
+
+<pre>
+	<code>
+		if (!$this->ion_auth->logged_in())
+		{
+			redirect('users/login/'.$this->uri->uri_string());
+		}
+	</code>
+</pre>
+
+<p>The parameter passed along with the redirict is whatever module or controller the user is currently at.  This way after the user logs in they will be redirected back to the location they were initially trying to access.</p>
 
 <h3>Best Practices</h3>
 
