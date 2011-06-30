@@ -66,9 +66,7 @@
 							width	: 600,
 							maxHeight	: '90%',
 							onComplete: function(){
-//								$('.notification').fadeIn(function(){
-									$.colorbox.resize();
-//								});
+								$.colorbox.resize();
 							}
 						});
 						return;
@@ -253,12 +251,6 @@
 				e.preventDefault();
 
 				anchor = $(this);
-
-//				if (anchor.parent().is('li'))
-//				{
-//					anchor.parent().parent().find('li').removeClass('current');
-//					anchor.parent().addClass('current');
-//				}
 
 				parent.location.hash = '!path=' + anchor.attr('data-path');
 
