@@ -103,7 +103,7 @@ form.file_upload button,
 .file_upload_progress .ui-progressbar-value,
 .file_upload_overall_progress .ui-progressbar-value,
 .progressbar div {
-  background: url(pbar-ani.gif);
+  background: url(../img/pbar-ani.gif);
 }
 
 .file_upload_progress div {
@@ -114,6 +114,11 @@ form.file_upload button,
 .file_upload_overall_progress div {
   width: 350px;
   height: 17px;
+}
+
+.file_upload_progress div div,
+.file_upload_overall_progress div div {
+	height: 15px;
 }
 
 .file_upload .file_name {
