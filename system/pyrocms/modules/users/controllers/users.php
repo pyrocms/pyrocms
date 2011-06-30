@@ -478,8 +478,8 @@ class Users extends Public_Controller
 				'label' => lang('profile_gender'),
 				'rules' => 'xss_clean|trim|max_length[1]'
 			),
-			array('
-				field' => 'dob_day',
+			array(
+				'field' => 'dob_day',
 				'label' => lang('profile_dob_day'),
 				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
 			),
