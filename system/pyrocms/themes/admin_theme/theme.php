@@ -11,7 +11,7 @@ class Theme_Admin_theme extends Theme {
 	public $type			= 'admin';
 	public $options 		= array('recent_comments' => 	array('title' 		=> 'Recent Comments',
 																'description'   => 'Would you like to display recent comments on the dashboard?',
-																'default'       => 'yes',
+																'default'       => 'no',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
 																'is_required'   => TRUE),

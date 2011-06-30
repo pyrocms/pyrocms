@@ -81,8 +81,15 @@ class Plugin_Pages extends Plugin
 	 * Creates a nested ul of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:page_tree start_id="5"}
-	 *
+	 * {pyro:pages:page_tree start-id="5"}
+	 * optional attributes:
+	 * 
+	 * disable-levels="slug"
+	 * order-by="title"
+	 * order-dir="desc"
+	 * list-tag="ul"
+	 * link="true"
+	 * 
 	 * @param	array
 	 * @return	array
 	 */
@@ -92,15 +99,19 @@ class Plugin_Pages extends Plugin
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');
+		$list_tag		= $this->attribute('list-tab', 'ul');
+		$link			= $this->attribute('link', TRUE);
 		
 		// Disable individual pages or parent pages by submitting their slug
 		$this->disable = explode("|", $disable_levels);
 		
-		return '<ul>' . $this->_build_tree_html(array(
+		return '<'.$list_tag.'>' . $this->_build_tree_html(array(
 												'parent_id' => $start_id,
 												'order_by' => $order_by,
-												'order_dir' => $order_dir
-												)) . '</ul>';
+												'order_dir' => $order_dir,
+												'list_tag' => $list_tag,
+												'link' => $link
+												)) . '</'.$list_tag.'>';
 	}
 
 	// --------------------------------------------------------------------------
@@ -224,11 +235,32 @@ class Plugin_Pages extends Plugin
 
 		if ( ! $tree)
 		{
-			if ($pages = $this->db->select('id, parent_id, slug, uri, title')
+			$this->db->select('id, parent_id, slug, uri, title')
 					->order_by($order_by, $order_dir)
-					->where_not_in('slug', $this->disable)
-					->get('pages')
-					->result())
+					->where_not_in('slug', $this->disable);
+			
+			// check if they're logged in
+			if ( isset($this->user->group) )
+			{
+				// admins can see them all
+				if ($this->user->group != 'admin')
+				{
+					// show pages for their group and all unrestricted
+					$this->db->where('status', 'live')
+						->where_in('restricted_to', array($this->user->group_id, 0, NULL));					
+				}
+			}
+			else
+			{
+				//they aren't logged in, show them all unrestricted pages
+				$this->db->where('status', 'live')
+					->where('restricted_to <=', 0);
+			}
+			
+			$pages = $this->db->get('pages')
+				->result();
+
+			if ($pages)
 			{
 				foreach($pages as $page)
 				{
@@ -246,18 +278,22 @@ class Plugin_Pages extends Plugin
 
 		foreach ($tree[$parent_id] as $item)
 		{
-			$html .= '<li><a href="' . site_url($item->uri) . '">' . $item->title . '</a>';
+			$html .= '<li';
+			$html .= (current_url() == site_url($item->uri)) ? ' class="current">' : '>';
+			$html .= ($link === TRUE) ? '<a href="' . site_url($item->uri) . '">' . $item->title . '</a>' : $item->title;
 			
 			
 			
 			$nested_list = $this->_build_tree_html(array(
 				'tree'			=> $tree,
-				'parent_id'		=> (int) $item->id
+				'parent_id'		=> (int) $item->id,
+				'link'			=> $link,
+				'list_tag'		=> $list_tag
 			));
 			
 			if ($nested_list)
 			{
-				$html .= '<ul>' . $nested_list . '</ul>';
+				$html .= '<'.$list_tag.'>' . $nested_list . '</'.$list_tag.'>';
 			}
 			
 			$html .= '</li>';

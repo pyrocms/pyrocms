@@ -34,11 +34,11 @@ $lang['blog_author_name_label'] 					= 'Auteur';
 $lang['blog_read_more_label'] 						= 'Suite&nbsp;&raquo;';
 $lang['blog_created_hour']							= 'Heure de création';
 $lang['blog_created_minute']						= 'Minute de création';
-$lang['blog_comments_enabled_label']         = 'Comments Enabled'; #translate
+$lang['blog_comments_enabled_label']         = 'Commentaires activés';
 
 // titles
 $lang['blog_create_title'] 							= 'Créer un post';
-$lang['blog_edit_title'] 							= 'Modifier l\'post "%s"';
+$lang['blog_edit_title'] 							= 'Modifier le post "%s"';
 $lang['blog_archive_title'] 						= 'Archiver';
 $lang['blog_posts_title'] 						= 'Posts';
 $lang['blog_rss_posts_title'] 					= 'Post d\'actualité pour %s';
@@ -46,12 +46,12 @@ $lang['blog_blog_title'] 							= 'Actualités';
 $lang['blog_list_title'] 							= 'Lister les posts';
 
 // messages
-$lang['blog_no_posts'] 							= 'Il n\'y a pas d\'posts.';
-$lang['blog_subscripe_to_rss_desc'] 				= 'Obtenez les posts en temps réel en vous abonnant au flus RSS. Vous pouvez faire cela avec la plupart des logiciels de messagerie , ou essayez <a href="http://reader.google.co.uk/">Google Reader</a>.';
-$lang['blog_currently_no_posts'] 				= 'Il n\'y a pas d\'posts actuellement.';
-$lang['blog_post_add_success'] 					= 'L\'post "%s" a été ajouté.';
+$lang['blog_no_posts'] 							= 'Il n\'y a pas de posts.';
+$lang['blog_subscripe_to_rss_desc'] 				= 'Obtenez les posts en temps réel en vous abonnant au flux RSS. Vous pouvez faire cela avec la plupart des logiciels de messagerie, ou essayez <a href="http://reader.google.co.uk/">Google Reader</a>.';
+$lang['blog_currently_no_posts'] 				= 'Il n\'y a pas de posts actuellement.';
+$lang['blog_post_add_success'] 					= 'Le post "%s" a été ajouté.';
 $lang['blog_post_add_error'] 					= 'Une erreur est survenue.';
-$lang['blog_edit_success'] 							= 'L\'post "%s" a été mis à jour.';
+$lang['blog_edit_success'] 							= 'Le post "%s" a été mis à jour.';
 $lang['blog_edit_error'] 							= 'Une erreur est survenue.';
 $lang['blog_publish_success'] 						= 'Les posts "%s" ont été publiés.';
 $lang['blog_mass_publish_success'] 					= 'Les posts "%s" ont été publiés.';

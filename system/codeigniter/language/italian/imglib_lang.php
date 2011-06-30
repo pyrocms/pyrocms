@@ -5,8 +5,8 @@
 /* Date 04/11/2010 */
 
 $lang['imglib_source_image_required'] = "Occorre specificare una immagine nelle preferenze.";
-$lang['imglib_gd_required'] = "La libreria GD &egrave; necessaria per questa funzionalità.";
-$lang['imglib_gd_required_for_props'] = "Il tuo server deve supportare la libreria GD per poter determinare le proprietà dell\'immagine.";
+$lang['imglib_gd_required'] = "La libreria GD &egrave; necessaria per questa funzionalitÃ .";
+$lang['imglib_gd_required_for_props'] = "Il tuo server deve supportare la libreria GD per poter determinare le proprietÃ Â dell\'immagine.";
 $lang['imglib_unsupported_imagecreate'] = "Il tuo server non supporta la libreria GD, necessaria a elaborare questo tipo di immagine.";
 $lang['imglib_gif_not_supported'] = "Le immagini GIF sono spesso non supportate a causa delle restrizioni della licenza. E' necessario utilizzare il formato JPG o PNG.";
 $lang['imglib_jpg_not_supported'] = "Le immagini JPG non sono supportate.";

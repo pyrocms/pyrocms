@@ -28,6 +28,7 @@ $lang['buttons.disable'] 	= 'Pois päältä';
 $lang['buttons.yes']		= 'Kyllä';
 $lang['buttons.no']			= 'Ei';
 $lang['buttons.activate']   = 'Aktivoi';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Esikatsele';
 $lang['buttons.close']		= 'Sulje';
 $lang['buttons.edit']		= 'Muokkaa';

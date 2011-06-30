@@ -96,7 +96,7 @@ class Admin extends Admin_Controller {
 				'current_id'	=> 0
 			));
 
-		$this->_path = FCPATH . '/' . $this->config->item('files_folder') . '/';
+		$this->_path = FCPATH . $this->config->item('files_folder');
 		$this->_check_dir();
 	}
 
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller {
 	public function upload($folder_id = '')
 	{
 		$this->data->folders = $this->_folders;
-
+				
 		if ($this->form_validation->run())
 		{
 			// Setup upload config
@@ -258,7 +258,15 @@ class Admin extends Admin_Controller {
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			$this->data->file->{$rule['field']} = set_value($rule['field']);
+			if ($rule['field'] == 'folder_id') 
+			{
+				$this->data->file->{$rule['field']} = set_value($rule['field'], $folder_id);
+			}
+			else
+			{
+				$this->data->file->{$rule['field']} = set_value($rule['field']);
+			}
+			
 		}
 
 		$this->template
@@ -536,10 +544,16 @@ class Admin extends Admin_Controller {
 		}
 		elseif ( ! is_dir($this->_path))
 		{
-			if ( ! @mkdir($this->_path))
+			if ( ! @mkdir($this->_path, 0777, TRUE))
 			{
 				$this->data->messages['notice'] = lang('file_folders.mkdir_error');
 				return FALSE;
+			}
+			else
+			{
+				// create a catch all html file for safety
+				$uph = fopen($this->_path . 'index.html', 'w');
+				fclose($uph);
 			}
 		}
 		else

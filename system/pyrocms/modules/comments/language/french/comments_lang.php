@@ -4,7 +4,7 @@ $lang['comments.title'] 					= 'Commentaires';
 $lang['comments.your_comment'] 				= 'Envoyez un commentaire';
 $lang['comments.user_comments'] 			= 'Commentaires des utilisateurs';
 
-$lang['comments.list_comment'] 				= '%s a commenté %s :'; #translate
+$lang['comments.list_comment'] 				= '%s a commenté %s :';
 $lang['comments.recent_comments'] 			= 'Commentaires récents';
 $lang['comments.view_more'] 				= 'Voir plus...';
 
@@ -31,7 +31,7 @@ $lang['comments.send_label'] 				= 'Commentaire';
 $lang['comments.inactive_title'] 			= 'En attente d\'approbation';
 $lang['comments.active_title'] 				= 'Commentaires approuvés';
 $lang['comments.edit_title'] 				= 'Editer le commentaire';
-$lang['comments.list_title'] 				= 'List comments'; #translate
+$lang['comments.list_title'] 				= 'Lister les commentaires';
 
 // messages
 $lang['comments.add_success'] 				= 'Le commentaire a été sauvegardé.';
@@ -48,8 +48,8 @@ $lang['comments.approve_error_multiple'] 	= 'Une erreur s\'est produite lors de 
 
 $lang['comments.unapprove_success'] 		= 'Le commentaire a été refusé et n\'apparaîtra plus sur le site.';
 $lang['comments.unapprove_success_multiple'] = 'The selected comments have been unapproved and will no longer show on the live site.';
-$lang['comments.unapprove_error'] 			= 'Un problème est survenu lors du refus de ce commentaire. Essayez alors de le supprimer?';
-$lang['comments.unapprove_error_multiple']	= 'Une erreur est survenue lors de la désapprobation des commentaires sélectionnés. Les effacer pourrait-il résoudre le problème?';
+$lang['comments.unapprove_error'] 			= 'Un problème est survenu lors du refus de ce commentaire. Essayez alors de le supprimer ?';
+$lang['comments.unapprove_error_multiple']	= 'Une erreur est survenue lors de la désapprobation des commentaires sélectionnés. Les effacer pourrait-il résoudre le problème ?';
 
 $lang['comments.delete_single_success'] 	= 'Le commentaire #%s a été supprimé et n\'apparaîtra plus sur le site.';
 $lang['comments.delete_multi_success'] 		= 'Les commentaires #%s ont été supprimés et n\'apparaîtront plus sur le site.';
@@ -57,8 +57,8 @@ $lang['comments.delete_multi_success'] 		= 'Les commentaires #%s ont été suppr
 $lang['comments.no_comments'] 				= 'Il n\'y pas de commentaires';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Aucun commentaire';
+$lang['comments.counter_singular_label']	= '%d commentaire';
+$lang['comments.counter_plural_label']		= '%d commentaires';
 
 /* End of file comments_lang.php */

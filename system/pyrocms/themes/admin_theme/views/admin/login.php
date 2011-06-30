@@ -8,7 +8,7 @@
 	<base href="<?php echo base_url(); ?>" />
 	
 	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery.js'); ?>
+	<?php echo js('jquery/jquery.min.js'); ?>
 	<?php echo js('admin/login.js'); ?>
 	
 	<!-- Place CSS bug fixes for IE 7 in this comment -->

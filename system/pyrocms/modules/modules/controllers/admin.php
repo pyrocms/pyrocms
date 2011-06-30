@@ -52,7 +52,8 @@ class Admin extends Admin_Controller
 	{
 		if ($this->input->post('btnAction') == 'upload')
 		{
-			$config['upload_path'] 		= FCPATH.'uploads/';
+			
+			$config['upload_path'] 		= UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
 			$config['overwrite'] 		= TRUE;
@@ -76,15 +77,15 @@ class Admin extends Admin_Controller
 					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
 
 					// Try and extract
-					if ($this->unzip->extract($upload_data['full_path'], ADDONPATH . 'modules/'))
+					if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH . 'modules/', TRUE, TRUE)) )
 					{
-						if ($this->module_m->install($upload_data['raw_name']))
+						if ($this->module_m->install($slug, FALSE, TRUE))
 						{
-							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $upload_data['raw_name']));
+							$this->session->set_flashdata('success', sprintf(lang('modules.install_success'), $slug));
 						}
 						else
 						{
-							$this->session->set_flashdata('success', sprintf(lang('modules.install_error'), $upload_data['raw_name']));
+							$this->session->set_flashdata('success', sprintf(lang('modules.install_error'), $slug));
 						}
 					}
 					else
@@ -151,15 +152,20 @@ class Admin extends Admin_Controller
 			show_error(lang('modules.module_not_specified'));
 		}
 
-		if ($this->module_m->uninstall($slug))
+		// lets kill this thing
+		if ($this->module_m->uninstall($slug) AND $this->module_m->delete($slug))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('modules.delete_success'), $slug));
 
 			$path = ADDONPATH . 'modules/' . $slug;
-
-			if (!$this->_delete_recursive($path))
+			
+			// they can only delete it if it's in the addons folder
+			if ( is_dir($path) )
 			{
-				$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
+				if (!$this->_delete_recursive($path))
+				{
+					$this->session->set_flashdata('notice', sprintf(lang('modules.manually_remove'), $path));
+				}
 			}
 
 			redirect('admin/modules');

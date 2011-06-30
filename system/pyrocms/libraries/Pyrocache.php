@@ -39,7 +39,10 @@ class Pyrocache
 		$this->_default_expires = $this->_ci->config->item('cache_default_expires');
 		if ( ! is_dir($this->_path))
 		{
-			show_error("Cache Path not found: $this->_path");
+			if ( ! mkdir($this->_path, 0777, TRUE) )
+			{			
+				show_error('Cache Path was not found and could not be created: ' . $this->_path);
+			}
 		}
 	}
 

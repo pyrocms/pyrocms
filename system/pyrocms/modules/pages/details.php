@@ -103,17 +103,17 @@ class Module_Pages extends Module {
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='User Editable Pages';
 		";
 
-		$revisions = "
-			CREATE TABLE " . $this->db->dbprefix('revisions') . " (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `owner_id` int(11) NOT NULL,
-			  `table_name` varchar(100)  COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pages',
-			  `body` text COLLATE utf8_unicode_ci,
-			  `revision_date` int(11) NOT NULL,
-			  `author_id` int(11) NOT NULL default 0,
-			  PRIMARY KEY (`id`),
-			  KEY `Owner ID` (`owner_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+		$page_chunks = "
+			CREATE TABLE " . $this->db->dbprefix('page_chunks') . " (
+			  `id` int(11) NOT NULL auto_increment,
+			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
+			  `page_id` int(11) NOT NULL,
+			  `body` text collate utf8_unicode_ci NOT NULL,
+			  `type` set('html','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
+			  `sort` int(11) NOT NULL,
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `unique - slug` (`slug`, `page_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
 		$default_page_layouts = "
@@ -128,19 +128,19 @@ class Module_Pages extends Module {
 			('3','contact', 'Contact', 'contact', 3, 0, 1, 'live', ".time().", ".time().", '', 0);
 		";
 
-		$default_revisions = "
-			INSERT INTO " . $this->db->dbprefix('revisions') . " (`id`, `owner_id`, `body`, `revision_date`) VALUES
-			  ('1', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', ".time()."),
-			  ('2', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{pyro:pages:url id=\'1\'}\">here</a> to go to the homepage.</p>', ".time()."),
-			  ('3', '3', '<p>To contact us please fill out the form below.</p> {pyro:contact:form}', ".time().");
+		$default_chunks = "
+			INSERT INTO " . $this->db->dbprefix('page_chunks') . " (`id`, `slug`, `page_id`, `body`, `type`, `sort`) VALUES
+			  ('1', 'default', '1', '<p>Welcome to our homepage. We have not quite finished setting up our website yet, but please add us to your bookmarks and come back soon.</p>', 'wysiwyg-advanced', '0'),
+			  ('2', 'default', '2', '<p>We cannot find the page you are looking for, please click <a title=\"Home\" href=\"{pyro:pages:url id=\'1\'}\">here</a> to go to the homepage.</p>', 'wysiwyg-advanced', '0'),
+			  ('3', 'default', '3', '<p>To contact us please fill out the form below.</p> {pyro:contact:form}', 'wysiwyg-advanced', '0');
 		";
 
 		if($this->db->query($page_layouts) &&
 		   $this->db->query($pages) &&
-		   $this->db->query($revisions) &&
+		   $this->db->query($page_chunks) &&
 		   $this->db->query($default_page_layouts) &&
 		   $this->db->query($default_pages) &&
-		   $this->db->query($default_revisions))
+		   $this->db->query($default_chunks))
 		{
 			return TRUE;
 		}

@@ -28,6 +28,7 @@ $lang['buttons.disable'] 	= 'Απενεργοποίηση';
 $lang['buttons.yes']		= 'Ναι';
 $lang['buttons.no']			= 'Όχι';
 $lang['buttons.activate']   = 'Ενεργοποίηση';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Προεπισκόπηση';
 $lang['buttons.close']		= 'Κλείσιμο';
 $lang['buttons.edit']		= 'Επεξεργασία';

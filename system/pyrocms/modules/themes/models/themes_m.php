@@ -133,7 +133,7 @@ class Themes_m extends MY_Model
 
         if (is_dir($path = $location.$slug))
         {
-            // Core theme or tird party?
+            // Core theme or third party?
             $is_core = trim($location, '/') === APPPATH.'themes';
 
             //path to theme
@@ -262,28 +262,33 @@ class Themes_m extends MY_Model
      * @access	private
      * @return	array
      */
-    private function _spawn_class($slug, $is_core = FALSE)
-    {
-        $path = $is_core ? APPPATH : ADDONPATH;
+	private function _spawn_class($slug, $is_core = FALSE)
+	{
+		$path = $is_core ? APPPATH : ADDONPATH;
 
-        // Before we can install anything we need to know some details about the module
-        $details_file = $path . 'themes/' . $slug . '/theme'.EXT;
+		// Before we can install anything we need to know some details about the module
+		$details_file = $path . 'themes/' . $slug . '/theme'.EXT;
 
-        // Check the details file exists
-        if ( ! is_file($details_file))
-        {
-            return FALSE;
-        }
+		// Check the details file exists
+		if ( ! is_file($details_file))
+		{
+			$details_file = SHARED_ADDONPATH . 'themes/' . $slug . '/theme'.EXT;
+			
+			if ( ! is_file($details_file))
+			{
+				return FALSE;
+			}
+		}
 
-        // Sweet, include the file
-        include_once $details_file;
+		// Sweet, include the file
+		include_once $details_file;
 
-        // Now call the details class
-        $class = 'Theme_'.ucfirst($slug);
+		// Now call the details class
+		$class = 'Theme_'.ucfirst(strtolower($slug));
 
-        // Now we need to talk to it
-        return class_exists($class) ? new $class : FALSE;
-    }
+		// Now we need to talk to it
+		return class_exists($class) ? new $class : FALSE;
+	}
 	
 	/**
 	 * Delete Options

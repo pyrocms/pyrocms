@@ -23,8 +23,8 @@ class Installer extends CI_Controller
 	 */
 	private $writeable_directories = array(
 		'system/pyrocms/cache',
-		'system/pyrocms/cache/simplepie',
 		'system/pyrocms/config',
+		'addons/modules',
 		'uploads'
 	);
 	

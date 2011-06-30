@@ -34,6 +34,7 @@ class Unzip {
 	private $error = array();
 	private $_zip_file = '';
 	private $_target_dir = FALSE;
+	private $_return_dir = FALSE;
 	private $apply_chmod = 0777;
 	private $fh;
 	private $zip_signature = "\x50\x4b\x03\x04";
@@ -72,7 +73,7 @@ class Unzip {
 	 * @param     none
 	 * @return    none
 	 */
-	public function extract($zip_file, $target_dir = NULL, $preserve_filepath = TRUE)
+	public function extract($zip_file, $target_dir = NULL, $preserve_filepath = TRUE, $return_dir = FALSE)
 	{
 		$this->_zip_file = $zip_file;
 		$this->_target_dir = $target_dir ? $target_dir : dirname($this->_zip_file);
@@ -81,6 +82,12 @@ class Unzip {
 		{
 			$this->set_error('ZIP folder was empty.');
 			return FALSE;
+		}
+		
+		if ($return_dir)
+		{
+			$keys = array_keys($files);
+			$this->_return_dir = trim($keys['0'], '/');
 		}
 
 		foreach ($files as $file => $trash)
@@ -133,7 +140,7 @@ class Unzip {
 			$preserve_filepath ? $this->_extract_file($file, $this->_target_dir . '/' . $file) : $this->_extract_file($file, $this->_target_dir . '/' . basename($file));
 		}
 
-		return TRUE;
+		return $this->_return_dir ? $this->_return_dir : TRUE;
 	}
 
 	// --------------------------------------------------------------------

@@ -8,6 +8,16 @@
  */
 class Files extends Public_Controller
 {
+	private	$path = '';
+	
+	public function __construct()
+	{	
+		parent::Public_Controller();
+		
+		$this->config->load('files');
+		$this->_path = FCPATH . $this->config->item('files_folder') . DIRECTORY_SEPARATOR;
+	}
+	
 	public function download($id = 0)
 	{
 		$this->load->model('file_m');
@@ -16,7 +26,7 @@ class Files extends Public_Controller
 		$file = $this->file_m->get($id) OR show_404();
 
 		// Read the file's contents
-		$data = file_get_contents('uploads/files/' . $file->filename);
+		$data = file_get_contents($this->_path . $file->filename);
 
 		force_download($file->name . $file->extension , $data);
 	}
@@ -26,21 +36,17 @@ class Files extends Public_Controller
 		$this->load->model('file_m');
 
 		$file = $this->file_m->get($id) OR show_404();
+		$cache_dir = APPPATH . 'cache/' . SITE_REF . '/image_files/';
 
-		if ( ! is_dir(APPPATH . 'cache/image_files/'))
+		if ( ! is_dir($cache_dir))
 		{
-			mkdir(APPPATH . 'cache/image_files/');
+			mkdir($cache_dir, 0777, TRUE);
 		}
 
 		$args = func_num_args();
 
 		switch ($args)
 		{
-			case 1:
-				$height	= NULL;
-				$width	= NULL;
-
-				break;
 			case 2:
 				$height	= NULL;
 				if ( ! empty($width))
@@ -75,7 +81,7 @@ class Files extends Public_Controller
 		}
 
 		// Path to image thumbnail
-		$image_thumb = APPPATH . 'cache/image_files/' . $width . '_' . $height . '_' . md5($file->filename) . $file->extension;
+		$image_thumb = $cache_dir . $width . '_' . $height . '_' . md5($file->filename) . $file->extension;
 
 		if ( ! file_exists($image_thumb))
 		{
@@ -84,7 +90,7 @@ class Files extends Public_Controller
 
 			// CONFIGURE IMAGE LIBRARY
 			$config['image_library']    = 'gd2';
-			$config['source_image']     = 'uploads/files/' . $file->filename;
+			$config['source_image']     = $this->_path . $file->filename;
 			$config['new_image']        = $image_thumb;
 			$config['maintain_ratio']   = TRUE;
 			$config['height']           = $height;
@@ -100,6 +106,6 @@ class Files extends Public_Controller
 
 	public function large($id)
 	{
-		return $this->thumb($id);
+		return $this->thumb($id, NULL, NULL);
 	}
 }

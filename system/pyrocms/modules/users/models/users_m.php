@@ -10,9 +10,9 @@ class Users_m extends MY_Model
 {
     function __construct()
     {
-	parent::__construct();
-	
-	$this->profile_table = $this->db->dbprefix('profiles');
+		parent::__construct();
+		
+		$this->profile_table = $this->db->dbprefix('profiles');
     }
     
     // Get a specified (single) user

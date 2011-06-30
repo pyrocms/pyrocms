@@ -4,7 +4,7 @@
 	<div class="gallery clearfix">
 		<!-- Div containing the full sized image -->
 		<div class="gallery_image_full">
-			<img src="<?php echo base_url().'uploads/files/' . $gallery_image->filename; ?>" alt="<?php echo $gallery_image->name; ?>" />
+			<img src="<?php echo site_url() . 'files/large/' . $gallery_image->file_id; ?>" alt="<?php echo $gallery_image->name; ?>" />
 		</div>
 		<?php if ( ! empty($gallery_image->description) ):?>
 		<!-- An image needs a description.. -->

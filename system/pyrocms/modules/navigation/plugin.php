@@ -16,7 +16,7 @@ class Plugin_Navigation extends Plugin
 	 *
 	 * Usage:
 	 * {pyro:navigation:links group="header"}
-	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class=""
+	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class="", more_class=""
 	 * @param	array
 	 * @return	array
 	 */
@@ -41,6 +41,7 @@ class Plugin_Navigation extends Plugin
 		$top			= $this->attribute('top', FALSE);
 		$separator		= $this->attribute('separator', '');
 		$link_class		= $this->attribute('link_class', '');
+		$more_class		= $this->attribute('more_class', '');
 		$current_class	= $this->attribute('class', 'current');
 		$output			= $return_arr ? array() : '';
 
@@ -116,6 +117,7 @@ class Plugin_Navigation extends Plugin
 			if ($link['children'])
 			{
 				++$level;
+				$wrapper['class'][] = $more_class;
 				$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
 				--$level;
 			}
@@ -184,7 +186,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
-					$output .= $ident_c . (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
+					$output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
 
 					if ($wrapper['children'])
 					{
@@ -201,7 +203,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
-					$output .= (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					$output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ($wrapper['children'])
 					{

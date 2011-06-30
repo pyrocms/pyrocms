@@ -37,9 +37,11 @@
 | Prototype:
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
+
+|	* pyrocache is loaded by MY_Controller to allow the site_ref to be set
 */
 
-$autoload['libraries'] = array('asset', 'database', 'session', 'pyrocache', 'template', 'parser');
+$autoload['libraries'] = array('asset', 'database', 'session', 'template', 'parser');
 
 
 /*

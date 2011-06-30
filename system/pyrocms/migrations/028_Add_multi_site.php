@@ -35,13 +35,18 @@ class Migration_Add_multi_site extends Migration {
 			
 			$this->db->query("INSERT INTO core_sites (ref, domain, created_on) VALUES (?, ?, ?);", array(
 				$site_ref,
-				preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
+				SITE_SLUG,
 				time(),
 			));
 			
-			// Move uploads
-			//mkdir('uploads/'.$site_ref);
-			//rename('uploads/*', 'uploads/'.$site_ref.'/');
+			// create cache folder
+			$cache_path = APPPATH . 'cache/' . $site_ref . '/simplepie';
+			is_dir($cache_path) OR mkdir($cache_path, 0777, TRUE);
+			$fh = fopen($cache_path . '/index.html', 'w');
+			fclose($fh);
+			
+			// Move uploads			
+			$this->_move('uploads', 'uploads/' . $site_ref, $site_ref);
 		}
 		
 		// Core users not set?
@@ -49,11 +54,20 @@ class Migration_Add_multi_site extends Migration {
 		{
 			// Take all existing admins and make them "multisite admins"
 			$this->db->query("CREATE TABLE core_users SELECT * FROM users WHERE group_id='1' ");
-		}
 		
-		foreach ($existing_tables as $table)
-		{
-			$this->db->query("RENAME TABLE {$table} TO {$site_ref}_{$table}");
+			foreach ($existing_tables as $table)
+			{
+				$this->db->query("RENAME TABLE {$table} TO {$site_ref}_{$table}");
+			}
+			
+			// since theme_options is added by a migration it is missing from $existing_tables array
+			if ( ! $this->db->table_exists('theme_options') )
+			{
+				$this->db->query("RENAME TABLE theme_options TO {$site_ref}_theme_options");
+			}
+			
+			// we need this so that the rest of the migrations have site_ref available
+			redirect(current_url());
 		}
 	}
 
@@ -73,5 +87,51 @@ class Migration_Add_multi_site extends Migration {
 		rename('uploads/'.$site_ref.'/', 'uploads/');
 		unlink('uploads/'.$site_ref);
 	}
+	
+	/**
+	 * Move the uploads folder
+	 */
+	private function _move( $path, $dest, $site_ref )
+	{
+		if ( is_dir($path) )
+		{
+			$objects = scandir($path);
+			
+			@mkdir($dest, 0777, TRUE);
+			
+			$skip = array('.', '..', $site_ref);
+			
+			if( sizeof($objects) > 0 )
+			{
+				foreach( $objects AS $file )
+				{
+					if( in_array($file, $skip) ) continue;
 
+					if( is_dir( $path.'/'.$file ) )
+					{
+						if ($this->_move( $path.'/'.$file, $dest.'/'.$file, $site_ref ))
+						{
+							@rmdir($path.'/'.$file);
+						}
+					}
+					else
+					{
+						if (copy( $path.'/'.$file, $dest.'/'.$file ))
+						{
+							@unlink($path.'/'.$file);
+						}
+					}
+				}
+			}
+			return TRUE;
+		}
+		elseif ( is_file($path) )
+		{
+			return copy($path, $dest);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }

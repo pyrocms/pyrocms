@@ -17,6 +17,7 @@ $lang['buttons.disable'] 	= 'כבה';
 $lang['buttons.yes']		= 'כן';
 $lang['buttons.no']			= 'לא';
 $lang['buttons.activate']   = 'הפעל';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Preview'; #translate
 $lang['buttons.close']		= 'Close'; #translate
 $lang['buttons.edit']		= 'Edit'; #translate
