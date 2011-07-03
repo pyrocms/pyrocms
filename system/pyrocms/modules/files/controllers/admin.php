@@ -118,6 +118,8 @@ class Admin extends Admin_Controller {
 			->append_metadata( css('jquery.fileupload-ui.css', 'files') )
 			->append_metadata( css('files.css', 'files') )
 			->append_metadata( js('jquery/jquery.cooki.js') )
+			->append_metadata( js('//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js') )
+			->append_metadata( js('jquery.iframe-transport.js', 'files') )
 			->append_metadata( js('jquery.fileupload.js', 'files') )
 			->append_metadata( js('jquery.fileupload-ui.js', 'files') )
 			->append_metadata( js('jquery.ba-hashchange.min.js', 'files') )

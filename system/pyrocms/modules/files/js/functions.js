@@ -111,7 +111,7 @@ jQuery(function($){
 						}
 						else
 						{
-							$.post(SITE_URL + 'ajax/url_title', { title: title }, function(slug){
+							$.post(SITE_URL + 'ajax/url_title', {title: title}, function(slug){
 								$slug.val(slug);
 
 								cache[title] = slug;
@@ -345,11 +345,10 @@ jQuery(function($){
 		$(this).colorbox({
 			scrolling	: false,
 			inline		: true,
-			href		: '#files-uploader',
+			href		: '#fileupload',
 			width		: '800',
 			height		: '80%',
 			onComplete	: function(){
-				$('#files-uploader-queue').empty();
 				$.colorbox.resize();
 			},
 			onCleanup : function(){
@@ -358,7 +357,7 @@ jQuery(function($){
 		});
 	});
 
-	var upload_form = $('#files-uploader form'),
+	/*var upload_form = $('#files-uploader form'),
 		upload_vars	= upload_form.data('fileUpload');
 
 	upload_form.fileUploadUI({
@@ -423,7 +422,7 @@ jQuery(function($){
 		e.preventDefault();
 		$('#files-uploader-queue button.cancel').click();
 		$.colorbox.close();
-	});
+	});*/
 
 	$('a[rel="colorbox"]').livequery(function(){
 		$(this).colorbox({
@@ -471,3 +470,44 @@ jQuery(function($){
 		});            
 	});
 });
+
+jQuery(function($){
+	'use strict';
+
+	$('#fileupload').fileupload({
+		allowEmpty: true,
+		autoNotification: false,
+		// Additional form data
+		formData: function(form){
+			var data = form.serializeArray();
+				data.push({
+					name	: 'folder_id',
+					value	: $('input[name=folder_id]', '#files-toolbar').val()
+				});
+			return data;
+		},
+		// Callback for uploads start
+		start: function(){
+			$(this).find('.fileupload-progressbar')
+				.progressbar('value', 0)
+				.fadeIn($.colorbox.resize);
+		},
+		// Callback for uploads stop
+		stop: function(){
+			$(this).find('.fileupload-progressbar')
+				.fadeOut($.colorbox.resize);
+		},
+		always: function(e, data){
+			console.log(data);
+		}
+	});
+
+    // Open download dialogs via iframes,
+    // to prevent aborting current uploads:
+    $('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
+        e.preventDefault();
+        $('<iframe style="display:none;"></iframe>')
+            .prop('src', this.href)
+            .appendTo('body');
+    });
+})

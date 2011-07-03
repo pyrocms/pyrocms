@@ -4,8 +4,8 @@
 	margin-bottom: 20px;
 	background-color: #FFFFFF;
 	color: #333333;
-	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #CCCCCC;
@@ -76,74 +76,6 @@
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
-
-#files-uploader { position: relative; margin: 0 5px; }
-#files-uploader .files-uploader-browser { padding-bottom: 75px; }
-#files-uploader > .buttons { position: absolute; bottom: 0; right: 0; }
-#files-uploader form.file_upload {
-	background-color: transparent;
-	border: 2px dashed #d0d0d0;
-	margin: 20px auto 30px;
-	min-height: 100px;
-}
-#files-uploader label.upload {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    display: block;
-    width: 200px;
-    height: 30px;
-    line-height: 30px;
-    margin-left: -100px;
-    margin-top: -15px;
-}
-#files-uploader-queue {
-    list-style-type: none;
-    margin: 0 0 20px 0;
-    height: 185px;
-    overflow-y: auto;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-	padding: 0;
-}
-#files-uploader-queue li {
-    margin: -1px 10px 10px;
-    padding-top: 10px;
-    border-top: 1px dotted #ddd;
-}
-#files-uploader-queue li > div {
-    margin-right: 15px;
-    display: inline-block;
-    vertical-align: top;
-}
-#files-uploader-queue .file_upload_preview {
-    border: 1px solid #ccc;
-}
-#files-uploader-queue .file_upload_preview div {
-    width: 80px;
-    height: 30px;
-    border: 5px solid #fff;
-    overflow: hidden;
-    background: #fff;
-}
-#files-uploader-queue .file_upload_preview img {
-    width: 80px;
-}
-#files-uploader-queue .filename {
-    width: 290px;
-    color: #666666;
-    margin-top: 10px;
-}
-#files-uploader-queue .file_upload_progress {
-    margin-top: 10px;
-}
-#files-uploader-queue .file_upload_cancel {
-    margin-top: 5px;
-    float: right;
-    margin-right: 0;
-}
-
-
 
 #grid { display: none; }
 
