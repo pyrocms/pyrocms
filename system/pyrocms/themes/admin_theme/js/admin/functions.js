@@ -220,6 +220,10 @@ jQuery(function($) {
 	};
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
+		var auto = settings.autoNotification;
+		if (auto === false || (!auto && typeof settings.error === 'function')) {
+			return;
+		}
 		pyro.add_notification($('<div class="closable notification error">'+exception+'</div>'));
 	});
 
