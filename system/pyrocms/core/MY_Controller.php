@@ -25,25 +25,20 @@ class MY_Controller extends CI_Controller {
 			redirect(current_url());
 		}
 		// End migration check
-		
-		// Which site are we looking at?
-		$this->site = $this->db->query('SELECT * FROM core_sites WHERE domain = ?', array(
-			SITE_SLUG,
-		))->row();
 
-		// No record? Probably DNS'ed but not added to multisite		
-		if ( ! $this->site)
+		// No record? Probably DNS'ed but not added to multisite
+		// $this->site is set in MY_Loader
+		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly.');
 		}
 
-		// Let's make these values super-available
-		define('SITE_REF', $this->site->ref);
-		define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
-
 		// By changing the prefix we are essentially "namespacing" each pyro site
-		$this->db->set_dbprefix($this->site->ref.'_');
+		$this->db->set_dbprefix(SITE_REF.'_');
 		$this->load->library('pyrocache');
+		
+		// Add the site specific theme folder
+		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
 		
