@@ -25,6 +25,7 @@
  */
 class Admin extends Admin_Controller {
 
+	private $_paramname = 'userfile';
 	private $_folders	= array();
 	private $_path 		= '';
 	private $_type 		= NULL;
@@ -136,7 +137,94 @@ class Admin extends Admin_Controller {
 	 *
 	 * @params int	The folder id
 	 */
-	public function upload($folder_id = '')
+	public function upload()
+	{
+		if ( ! $this->input->post())
+		{
+			// todo: handler http methods
+			return;
+		}
+
+		$upload = isset($_FILES[$this->_paramname]) ?
+			$_FILES[$this->_paramname] : array(
+				'tmp_name' => null,
+				'name' => null,
+				'size' => null,
+				'type' => null,
+				'error' => null
+			);
+
+		$info = array();
+
+		if (is_array($upload['tmp_name']))
+		{
+			$names = $this->input->post('name');
+			$names = is_array($names) && (sizeof($names) === sizeof($upload['tmp_name'])) ? $names : array();
+
+			foreach ($upload['tmp_name'] as $index => $value)
+			{
+				$_FILES[$this->_paramname . $index] = array(
+					'tmp_name' => $upload['tmp_name'][$index],
+					'name' => $upload['name'][$index],
+					'size' => $upload['size'][$index],
+					'type' => $upload['type'][$index],
+					'error' => $upload['error'][$index]
+				);
+
+				$this->_filename = isset($names[$index]) ? $names[$index] : $upload['name'][$index];
+
+				$info[] = $this->_do_upload($this->_paramname . $index);
+			}
+		}
+		else
+		{
+			$name = $this->input->post('name');
+
+			$this->_filename = is_array($name) && isset($name[0]) ? $name[0] : NULL;
+
+			$info[] = $this->_do_upload($this->_paramname);
+		}
+
+		return $this->template->build_json($info);
+	}
+
+	protected function _do_upload($param_name)
+	{
+		// todo: validate
+		// todo: insert into db
+
+		// Setup upload config
+		$this->load->library('upload', array(
+			'upload_path'	=> $this->_path,
+			'allowed_types'	=> 'jpg|png|bmp|gif',
+			'file_name'		=> $this->_filename
+		));
+
+		$id = 'ID';
+
+		if ($this->upload->do_upload($param_name))
+		{
+			$result = $this->upload->data();
+			$result = array(
+				'name'			=> $result['file_name'],
+				'type'			=> $result['file_type'],
+				'size'			=> $result['file_size'],
+				'url'			=> site_url('files/download/' . $id),
+				'thumbnail_url'	=> site_url('files/thumb/' . $id . '/80'),
+				'delete_url'	=> site_url('admin/files/delete/' . $id)
+			);
+		}
+		else
+		{
+			// todo: set error result
+			$result = $this->upload->display_errors();
+		}
+
+		return $result;
+	}
+
+	// refactoring...
+	protected function _upload()
 	{
 		$this->data->folders = $this->_folders;
 				
