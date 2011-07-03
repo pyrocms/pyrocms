@@ -275,8 +275,22 @@ class Template
 	 */
 	public function build_json($data = array())
 	{
-		$this->_ci->output->set_header('Content-Type: application/json; charset=utf-8');
-		$this->_ci->output->set_output(json_encode((object) $data));
+        if (isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== FALSE))
+		{
+			$content_type = 'application/json';
+        }
+		else
+		{
+			$content_type = 'text/plain';
+        }
+
+		$this->_ci->output->set_header('Pragma: no-cache');
+		$this->_ci->output->set_header('Cache-Control: private, no-cache');
+		$this->_ci->output->set_header('Content-Disposition: inline; filename="response.json"');
+		$this->_ci->output->set_header('Vary: Accept');
+		$this->_ci->output->set_header('Content-type: ' . $content_type);
+
+		$this->_ci->output->set_output(json_encode($data));
 	}
 
 	/**
