@@ -102,10 +102,10 @@ class Migration_Add_multi_site extends Migration {
 			{
 				$this->db->query("RENAME TABLE theme_options TO default_theme_options");
 			}
-			
-			// we need this so that the rest of the migrations have site_ref available
-			redirect(current_url());
 		}
+		
+		// set the db prefix for the rest of the migrations
+		$this->db->set_dbprefix(SITE_REF.'_');
 	}
 
 	public function down()
