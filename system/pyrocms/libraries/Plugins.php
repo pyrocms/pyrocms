@@ -79,9 +79,9 @@ abstract class Plugin
 	 */
 	public function module_view($module, $view, $vars = array())
 	{
-		if (file_exists($this->template->get_views_path() . 'modules/contact/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
 		{
-			$path = $this->template->get_views_path() . 'modules/contact/';
+			$path = $this->template->get_views_path() . 'modules/' . $module . '/';
 		}
 		else
 		{

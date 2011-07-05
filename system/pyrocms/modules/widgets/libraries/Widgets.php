@@ -239,6 +239,16 @@ class Widgets {
 
 		$output = '';
 
+		$view = 'widget_wrapper';
+		$path = $this->template->get_views_path() . 'modules/widgets/';
+
+		if ( ! file_exists($path . $view . EXT))
+		{
+			list($path, $view) = Modules::find($view, 'widgets', 'views/');
+		}
+
+		$save_path = $this->load->_ci_view_path;
+
 		foreach ($widgets as $widget)
 		{
 			$widget->options = $this->_unserialize_options($widget->options);
@@ -246,7 +256,12 @@ class Widgets {
 
 			if ($widget->body !== FALSE)
 			{
-				$output .= $this->load->view('widgets/widget_wrapper', array('widget' => $widget), TRUE) . "\n";
+				$this->load->_ci_view_path = $path;
+
+				$output .= $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => array('widget' => $widget), '_ci_return' => TRUE)) . "\n";
+
+				// Put the path back
+				$this->load->_ci_view_path = $save_path;
 			}
 		}
 
