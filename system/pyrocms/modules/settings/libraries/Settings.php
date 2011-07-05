@@ -228,10 +228,27 @@ class Settings {
 	{
 		if ($setting->options)
 		{
+			// @usage func:function_name | func:helper/function_name | func:module/helper/function_name
+			// @todo: document the usage of prefix "func:" to get dynamic options
+			// @todo: document how construct functions to get here the expected data
 			if (substr($setting->options, 0, 5) == 'func:')
 			{
-				if (is_callable($func = substr($setting->options, 5)))
+				$func = substr($setting->options, 5);
+
+				if (($pos = strrpos($func, '/')) !== FALSE)
 				{
+					$helper	= substr($func, 0, $pos);
+					$func	= substr($func, $pos + 1);
+
+					if ($helper)
+					{
+						$this->ci->load->helper($helper);
+					}
+				}
+
+				if (is_callable($func))
+				{
+					// @todo: add support to use values scalar, bool and null correctly typed as params
 					$setting->options = call_user_func($func);
 				}
 				else
