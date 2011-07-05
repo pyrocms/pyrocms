@@ -97,6 +97,8 @@ class Theme_Admin_theme extends Theme {
 	
 	public function get_analytics()
 	{
+		$data = array();
+		
 		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
 		{
 			// Not FALSE? Return it
@@ -162,7 +164,11 @@ class Theme_Admin_theme extends Theme {
 		// Only mention this notice if no other notices are set
 		elseif (empty($data['messages']['notice']))
 		{
-			$data['messages']['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
+			// make sure it only shows on the dashboard and not in modals or login
+			if ($this->module == '' AND $this->controller == 'admin' AND $this->method == 'index')
+			{
+				$data['messages']['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
+			}
 		}
 		
 		// make it available in the theme

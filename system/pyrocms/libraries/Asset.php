@@ -268,7 +268,20 @@ class Asset {
 		else
 		{
 			$asset_location = $base_location;
-			$admin_path = APPPATH . 'themes/' . ADMIN_THEME . '/';
+			
+			// we need to check if they are using the default theme or a Premium theme
+			if (is_dir(APPPATH . 'themes/' . ADMIN_THEME))
+			{
+				$admin_path = APPPATH . 'themes/' . ADMIN_THEME . '/';
+			}
+			elseif (is_dir(SHARED_ADDONPATH . 'themes/' . ADMIN_THEME))
+			{
+				$admin_path = SHARED_ADDONPATH . 'themes/' . ADMIN_THEME . '/';
+			}
+			elseif (is_dir(ADDONPATH . 'themes/' . ADMIN_THEME))
+			{
+				$admin_path = ADDONPATH . 'themes/' . ADMIN_THEME . '/';
+			}
 
 			// Its in a module, ignore the current
 			if ($module_name)
@@ -279,9 +292,9 @@ class Asset {
 					if ($this->theme == ADMIN_THEME)
 					{
 						//check in the admin theme first for overloaded asset files
-						if(is_file($admin_path . $asset_type . '/' . $module_name . '/' . $asset_name))
+						if(is_file($admin_path . $asset_type . '/modules/' . $module_name . '/' . $asset_name))
 						{
-							$asset_location = BASE_URL . $admin_path . $asset_type . '/' . $module_name . '/';
+							$asset_location = BASE_URL . $admin_path . $asset_type . '/modules/' . $module_name . '/';
 				
 							//reset $asset_type so we don't have admin_theme/css/module/css folder structure
 							$asset_type = '';

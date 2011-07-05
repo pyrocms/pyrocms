@@ -1,5 +1,24 @@
+CREATE TABLE core_settings(
+`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
+`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+PRIMARY KEY ( `slug` ) ,
+UNIQUE KEY `unique - slug` ( `slug` ) ,
+KEY `index - slug` ( `slug` )
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci COMMENT = 'Stores settings for the multi-site interface'
+
+-- command split --
+
+INSERT INTO `core_settings` (`slug`, `value`) VALUES ('date_format', 'g:ia -- m/d/y');
+	
+-- command split --
+
+INSERT INTO `core_settings` (`slug`, `value`) VALUES ('lang_direction', 'ltr');
+	
+-- command split --
+
 CREATE TABLE `core_sites` (
     `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+	`name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
     `created_on` INT(11) NOT NULL default '0',

@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 define('PYROPATH', dirname(FCPATH).'/system/pyrocms/');
-define('ADDONPATH', dirname(FCPATH).'/addons/');
-define('SHARED_ADDONPATH', dirname(FCPATH).'/shared_addons/');
+define('ADDONPATH', dirname(FCPATH).'/addons/default/');
+define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
 // All modules talk to the Module class, best get that!
 include PYROPATH .'libraries/Module'.EXT;
@@ -29,6 +29,21 @@ class Module_import {
 		$db['dbcollat'] = "utf8_unicode_ci";
 
 		$this->ci->load->database($db);
+		$this->ci->load->helper('file');
+		
+		// create the site specific addon folder
+		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, TRUE);
+		is_dir(ADDONPATH.'themes') OR mkdir(ADDONPATH.'themes', DIR_READ_MODE, TRUE);
+		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, TRUE);
+		
+		// create the site specific upload folder
+		is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
+		
+		//insert empty html files
+		write_file(ADDONPATH.'modules/index.html','');
+		write_file(ADDONPATH.'themes/index.html','');
+		write_file(ADDONPATH.'widgets/index.html','');
+		write_file(FCPATH.'uploads/index.html','');
 	}
 
 
