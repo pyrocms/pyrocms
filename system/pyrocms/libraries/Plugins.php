@@ -137,7 +137,7 @@ class Plugins
 		$class	= $data['segments'][0];
 		$method	= $data['segments'][1];
 
-		foreach (array(APPPATH, ADDONPATH) as $directory)
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
 			if (file_exists($path = $directory.'plugins/'.$class.EXT))
 			{
