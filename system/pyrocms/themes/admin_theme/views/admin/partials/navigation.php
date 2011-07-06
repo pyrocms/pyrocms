@@ -68,9 +68,9 @@
 						
 					foreach ($modules[$menu_item] as $module)
 					{
-						if (lang('cp_nav_'.$module['name'])!=''&&lang('cp_nav_'.$module['name'])!=NULL)
+						if (lang('cp_nav_'.$module['slug'])!=''&&lang('cp_nav_'.$module['slug'])!=NULL)
 						{
-							$module['name'] = lang('cp_manage_'.$module['name']);
+							$module['name'] = lang('cp_nav_'.$module['slug']);
 						}
 						$current = $this->module == $module['slug'];
 						$class = $current ? "current " : "";

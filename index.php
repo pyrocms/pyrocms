@@ -236,14 +236,23 @@ else
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
 	
-	// The site slug: (example.com) Used for site specific folder names
+	// The site slug: (example.com)
 	define('SITE_SLUG', preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
 
- 	// Path to the addon folder
-	define('ADDONPATH', $addon_folder.'/');
+ 	// This only allows you to change the name. ADDONPATH should still be used in the app
+	define('ADDON_FOLDER', $addon_folder.'/');
+	
+	// The site ref. Used for building site specific paths
+	define('SITE_REF', 'default');
+					
+	// Path to uploaded files for this site
+	define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+					
+	// Path to the addon folder for this site
+	define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
 	
 	// Path to the addon folder that is shared between sites
-	define('SHARED_ADDONPATH', 'shared_addons/');
+	define('SHARED_ADDONPATH', 'addons/shared_addons/');
 	
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));

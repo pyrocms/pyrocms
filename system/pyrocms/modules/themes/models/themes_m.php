@@ -131,7 +131,7 @@ class Themes_m extends MY_Model
             return $this->_themes[$slug];
         }
 
-        if (is_dir($path = $location.$slug))
+        if (is_dir($path = $location.$slug) AND is_file($path.'/theme.php'))
         {
             // Core theme or third party?
             $is_core = trim($location, '/') === APPPATH.'themes';

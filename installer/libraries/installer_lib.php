@@ -261,7 +261,7 @@ class Installer_lib {
 		}
 		
 		mysql_query(sprintf(
-			"INSERT INTO core_sites (ref, domain, created_on) VALUES ('%s', '%s', '%s');",
+			"INSERT INTO core_sites (name, ref, domain, created_on) VALUES ('Default Site', '%s', '%s', '%s');",
 			$data['site_ref'],
 			preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
 			time()

@@ -34,11 +34,11 @@ class Plugin_Pages extends Plugin
 	 */
 	function display()
 	{
-		$page = $this->db->select('pages.*, revisions.*')
+		$page = $this->db->select('pages.*, page_chunks.*')
 					->where('pages.id', $this->attribute('id'))
 					->or_where('pages.slug', $this->attribute('slug'))
 					->where('status', 'live')
-					->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
+					->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 					->get('pages')
 					->row_array();
 					
@@ -64,10 +64,10 @@ class Plugin_Pages extends Plugin
 	{
 		$limit = $this->attribute('limit');
 		
-		return $this->db->select('pages.*, revisions.body, revisions.revision_date, revisions.author_id')
+		return $this->db->select('pages.*, page_chunks.body')
 			->where('pages.parent_id', $this->attribute('id'))
 			->where('status', 'live')
-			->join('revisions', 'pages.revision_id = revisions.id', 'LEFT')
+			->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 			->limit($limit)
 			->get('pages')
 			->result_array();

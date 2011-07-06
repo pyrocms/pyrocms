@@ -200,6 +200,11 @@ class Modules
 			{
 				return array(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
 			}
+			// check shared addons folder
+			elseif (is_file(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+			{
+				return array(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+			}
 			// check addons folder
 			elseif (is_file(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
 			{
