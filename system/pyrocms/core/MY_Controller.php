@@ -114,7 +114,7 @@ class MY_Controller extends CI_Controller {
 		
 		// Load the admin theme so things like partials and assets are available everywhere
 		$this->admin_theme = $this->themes_m->get_admin();
-		// Load the front-end theme so we can set the assets right away
+		// Load the current theme so we can set the assets right away
 		$this->theme = $this->themes_m->get();
 
 		// make a constant as this is used in a lot of places		

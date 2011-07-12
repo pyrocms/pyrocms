@@ -20,7 +20,10 @@ class WYSIWYG_Controller extends MY_Controller
 			$this->load->language('files/files');
 			show_error('files.no_permissions');
 	    }
-		
+
+		// Prepare Asset library
+	    $this->asset->set_theme(ADMIN_THEME);
+
 		$this->load->model('files/file_folders_m');
 		$this->load->model('files/file_m');
 		$this->lang->load('files/files');
