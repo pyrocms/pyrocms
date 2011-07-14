@@ -147,6 +147,11 @@ class Module_import {
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;
 		}
+		
+		// After modules are imported we need to modify the settings table
+		// This allows regular admins to upload addons on the first install but not on multi
+		$this->ci->db->where('slug', 'addons_upload')
+			->update('settings', array('value' => '1'));
 
 		return TRUE;
 	}

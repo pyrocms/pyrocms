@@ -19,6 +19,7 @@ class Migration_Add_multi_site extends Migration {
 				CREATE TABLE core_settings(
 				`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
 				`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+				`default` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
 				PRIMARY KEY ( `slug` ) ,
 				UNIQUE KEY `unique - slug` ( `slug` ) ,
 				KEY `index - slug` ( `slug` )
