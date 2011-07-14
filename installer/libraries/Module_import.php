@@ -11,7 +11,7 @@ class Module_import {
 
 	private $ci;
 
-	function Module_import()
+	public function __construct()
 	{
 		$this->ci =& get_instance();
 		$db['hostname'] = $this->ci->session->userdata('hostname');
@@ -20,7 +20,7 @@ class Module_import {
 		$db['database'] = $this->ci->input->post('database');
 		$db['port'] = $this->ci->input->post('port');
 		$db['dbdriver'] = "mysql";
-		$db['dbprefix'] = $this->ci->input->post('site_ref').'_';
+		$db['dbprefix'] = 'default_';
 		$db['pconnect'] = TRUE;
 		$db['db_debug'] = TRUE;
 		$db['cache_on'] = FALSE;
@@ -37,13 +37,13 @@ class Module_import {
 		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, TRUE);
 		
 		// create the site specific upload folder
-		is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
+		is_dir(dirname(FCPATH).'/uploads/default') OR mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, TRUE);
 		
 		//insert empty html files
 		write_file(ADDONPATH.'modules/index.html','');
 		write_file(ADDONPATH.'themes/index.html','');
 		write_file(ADDONPATH.'widgets/index.html','');
-		write_file(FCPATH.'uploads/index.html','');
+		write_file(PYROPATH.'uploads/index.html','');
 	}
 
 
