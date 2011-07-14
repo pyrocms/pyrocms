@@ -1,19 +1,21 @@
-CREATE TABLE core_settings(
-`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
-`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
-`default` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
-PRIMARY KEY ( `slug` ) ,
-UNIQUE KEY `unique - slug` ( `slug` ) ,
-KEY `index - slug` ( `slug` )
+DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}schema_version`;
+	
+-- command split --
+
+CREATE TABLE core_settings (
+	`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
+	`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+	`default` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+	PRIMARY KEY ( `slug` ) ,
+	UNIQUE KEY `unique - slug` ( `slug` ) ,
+	KEY `index - slug` ( `slug` )
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci COMMENT = 'Stores settings for the multi-site interface'
 
 -- command split --
 
-INSERT INTO `core_settings` (`slug`, `value`) VALUES ('date_format', 'g:ia -- m/d/y');
-	
--- command split --
-
-INSERT INTO `core_settings` (`slug`, `value`) VALUES ('lang_direction', 'ltr');
+INSERT INTO `core_settings` (`slug`, `value`) VALUES 
+	('date_format', 'g:ia -- m/d/y'),
+	('lang_direction', 'ltr');
 	
 -- command split --
 
@@ -58,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
 
 INSERT INTO `{PREFIX}users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
     (1,'{EMAIL}', '{PASSWORD}', '{SALT}', 1, '', 1, '', {NOW}, {NOW}, '{USER-NAME}', NULL, NULL);
-
+	
 -- command split --
 
 CREATE TABLE IF NOT EXISTS `core_users` (
