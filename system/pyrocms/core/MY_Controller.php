@@ -22,12 +22,17 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->load->library('migrations');
 			$this->migrations->latest();
+			
+			if ($this->migrations->error)
+			{
+				show_error($this->migrations->error);
+			}
+			
 			redirect(current_url());
 		}
 		// End migration check
 
 		// No record? Probably DNS'ed but not added to multisite
-		// $this->site is set in MY_Loader
 		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly.');

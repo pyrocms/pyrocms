@@ -27,11 +27,8 @@ class Migration_Add_multi_site extends Migration {
 			");
 			
 			$this->db->query("
-				INSERT INTO `core_settings` (`slug`, `value`) VALUES ('date_format', 'g:ia -- m/d/y');
-			");
-			
-			$this->db->query("
-				INSERT INTO `core_settings` (`slug`, `value`) VALUES ('lang_direction', 'ltr');
+				INSERT INTO `core_settings` (`slug`, `value`, `default`)
+				VALUES ('date_format', 'g:ia -- m/d/y', 'g:ia -- m/d/y'), ('lang_direction', 'ltr', 'ltr');
 			");
 		}
 		

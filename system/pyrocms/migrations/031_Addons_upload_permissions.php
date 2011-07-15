@@ -11,8 +11,10 @@ class Migration_Addons_upload_permissions extends Migration {
 					'type'			=> 'text',
 					'default'		=> '0',
 					'value'			=> '1',// admins can upload by default on the first site only
+					'options'		=> '',
 					'is_required'	=> '1',
-					'is_gui'		=> '0')
+					'is_gui'		=> '0',
+					'module'		=> '')
 			);
 	}
 
