@@ -26,24 +26,20 @@
 class MY_Exceptions extends CI_Exceptions {
 
 	/**
-	 * 404 Page Not Found Handler
+	 * 404 Not Found Handler
 	 *
 	 * @access	private
 	 * @param	string
 	 * @return	string
 	 */
 	function show_404($page = '')
-	{	
-		header('HTTP/1.0 404 Not Found');
-		header('HTTP/1.1 404 Not Found');
-		
-		header('Location: '.BASE_URI.'404');
-		
-		//parent::show_404();
+	{
+		// pawn them off on the pages module so it can show the pretty 404 page
+		// for all 404 errors regardless or origin
+		redirect('404');
 	}
 
 }
-// END Exceptions Class
 
 /* End of file Exceptions.php */
 /* Location: ./system/libraries/Exceptions.php */
