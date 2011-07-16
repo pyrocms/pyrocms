@@ -256,7 +256,7 @@ class Asset {
 		}
 
 		// If they have just given a filename, not an asset path, and its in a theme
-		elseif ($module_name == '_theme_' && $this->theme)
+		elseif ($module_name == '_theme_' AND $this->theme)
 		{
 			$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
 			$asset_location	= $base_location . ltrim(config_item('theme_asset_dir'), '/')
@@ -269,7 +269,7 @@ class Asset {
 		{
 			$asset_location = $base_location;
 			
-			// we need to check if they are using the default theme or a Premium theme
+			// we need to check if they are using the default admin theme or a Premium theme
 			if (is_dir(APPPATH . 'themes/' . ADMIN_THEME))
 			{
 				$admin_path = APPPATH . 'themes/' . ADMIN_THEME . '/';
@@ -283,7 +283,7 @@ class Asset {
 				$admin_path = ADDONPATH . 'themes/' . ADMIN_THEME . '/';
 			}
 
-			// Its in a module, ignore the current
+			// It's in a module, ignore the current
 			if ($module_name)
 			{
 				foreach (Modules::$locations as $path => $offset)

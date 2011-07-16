@@ -236,6 +236,11 @@ class Admin extends Admin_Controller
 	 */
 	public function upload()
 	{
+		if ( ! $this->settings->addons_upload)
+		{
+			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
+		}
+
 		if($this->input->post('btnAction') == 'upload')
 		{
 			$config['upload_path'] 		= FCPATH.'uploads/';

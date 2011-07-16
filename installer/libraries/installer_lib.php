@@ -289,12 +289,6 @@ class Installer_lib {
 						'code'		=> 106
 					);
 		}
-				
-		// create cache folder
-		$cache_path = '../system/pyrocms/cache/' . $data['site_ref'] . '/simplepie';
-		is_dir($cache_path) OR mkdir($cache_path, 0777, TRUE);
-		$fh = fopen($cache_path . '/index.html', 'w');
-		fclose($fh);
 
 		return array('status' => TRUE);
 	}

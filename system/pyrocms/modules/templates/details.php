@@ -47,6 +47,8 @@ class Module_Templates extends Module {
 
 	public function install()
 	{
+		$this->dbforge->drop_table('email_templates');
+		
 		$email_templates = "
             CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('email_templates') . " (
             `id` int(11) NOT NULL AUTO_INCREMENT,
