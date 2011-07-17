@@ -45,7 +45,7 @@ class WYSIWYG_Controller extends MY_Controller
 			->append_metadata( js('jquery/jquery.uniform.min.js') )
 			->append_metadata( js('jquery/jquery-ui.min.js') )
 			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') ) // TODO: Merge it with default jquery-ui.css
-			->append_metadata('<script type="text/javascript">var FILES_PATH = "'.base_url().'uploads/files/"</script>')
+			->append_metadata('<script type="text/javascript">var FILES_PATH = "'.base_url().UPLOAD_PATH.'files/"</script>')
 			->append_metadata( '<script type="text/javascript">var SITE_URL = "'.rtrim(site_url(), '/').'"</script>');
 	}
 }
