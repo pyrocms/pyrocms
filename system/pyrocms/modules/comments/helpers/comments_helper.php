@@ -34,22 +34,47 @@ function display_comments($ref_id = '', $reference = NULL)
 	$ci->load->model('comments/comments_m');
 
 	$comments	= $ci->comments_m->get_by_module_item($reference, $ref_id);
-	$comment	= $ci->session->flashdata('comment');
-	$form		= $ci->load->view('comments/form', array(
-		'module'	=> $reference,
-		'id'		=> $ref_id,
-		'comment'	=> $comment
-	), TRUE);
-
+	
+	// loop through the comments and escape {pyro} tags
 	foreach ($comments as &$comment)
 	{
-		foreach ($comment as &$data)
+		foreach ($comment as &$body)
 		{
-			$data = escape_tags($data);
+			$body = escape_tags($body);
 		}
 	}
 
-	$ci->load->view('comments/comments', compact('comments', 'form'));
+	// set the data to send to the view
+	$data['comments']	=	$comments;
+	$data['module']		=	$reference;
+	$data['id']			=	$ref_id;
+	$data['comment']	=	$ci->session->flashdata('comment');
+
+	/**
+	 * The following allows us to load views
+	 * without breaking theme overloading
+	 **/
+	$view = 'comments';
+	
+	if (file_exists($ci->template->get_views_path() . 'modules/comments/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+	{
+		// look in the theme for overloaded views
+		$path = $ci->template->get_views_path() . 'modules/comments/';
+	}
+	else
+	{
+		// or look in the module
+		list($path, $view) = Modules::find($view, 'comments', 'views/');
+	}
+	
+	$save_path = $ci->load->_ci_view_path;
+	$ci->load->_ci_view_path = $path;
+
+	// output the comments html
+	$comment_view = $ci->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ( $data )));
+
+	// Put the path back
+	$ci->load->_ci_view_path = $save_path;
 }
 
 /**
