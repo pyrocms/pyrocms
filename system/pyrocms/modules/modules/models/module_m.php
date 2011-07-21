@@ -357,6 +357,10 @@ class Module_m extends MY_Model
 			// the files are missing so let's clean the "modules" table
 			return $this->delete($slug);
 		}
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the uninstall method to drop the module's tables
 		if ( ! $details_class->uninstall())
@@ -406,6 +410,10 @@ class Module_m extends MY_Model
 		
 		// Get the old module version number
 		$old_version = $old_module['version'];
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 		
 		// Run the update method to get it into the database
 		if ($details_class->upgrade($old_version))
