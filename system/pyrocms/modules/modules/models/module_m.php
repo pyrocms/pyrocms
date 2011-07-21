@@ -333,6 +333,10 @@ class Module_m extends MY_Model
 
 		// TURN ME ON BABY!
 		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the install method to get it into the database
 		return $details_class->install();
