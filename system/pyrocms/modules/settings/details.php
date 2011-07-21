@@ -118,7 +118,8 @@ class Module_Settings extends Module {
 			 ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1','users','963'),
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
 			 ('admin_theme','Admin Theme','Select the theme for the admin panel.','','admin_theme','admin_theme','func:get_themes','1','0','','0'),
-			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0');
+			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
+			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
 		";
 
 		if ($this->db->query($settings) && $this->db->query($default_settings))

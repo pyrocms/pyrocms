@@ -70,7 +70,7 @@ class Admin extends Admin_Controller
 	public function login()
 	{
 	    // If the validation worked, or the user is already logged in
-	    if ($this->form_validation->run() or $this->ion_auth->logged_in())
+	    if ($this->form_validation->run() OR $this->ion_auth->logged_in())
 	    {
 	    	redirect('admin');
 		}
@@ -103,13 +103,19 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
-   		if ( ! $this->ion_auth->login($email, $this->input->post('password')))
-   		{
-	   		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
-	    	return FALSE;
-	    }
+		$remember = FALSE;
+		if ($this->input->post('remember') == 1)
+		{
+			$remember = TRUE;
+		}
 
-	    return TRUE;
+		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
+		{
+			return TRUE;
+		}
+
+		$this->form_validation->set_message('_check_login', $this->ion_auth->errors());
+		return FALSE;
 	}
 	
 	/**

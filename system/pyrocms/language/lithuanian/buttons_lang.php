@@ -13,7 +13,7 @@
  */
 
 $lang['buttons.submit']		= 'Išsaugoti';
-$lang['buttons.cancel']		= 'Atšukti';
+$lang['buttons.cancel']		= 'Atšaukti';
 $lang['buttons.upload']		= 'Įkelti';
 $lang['buttons.save']		= 'Išaugoti';
 $lang['buttons.save_exit']	= 'Išaugoti &amp; išeiti';

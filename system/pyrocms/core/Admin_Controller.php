@@ -40,8 +40,8 @@ class Admin_Controller extends MY_Controller {
 				->set_layout('default', 'admin');
 
 		// trigger the run() method in the selected admin theme
-		$theme_class = 'Theme_' . ucfirst($this->admin_theme->slug);
-		$theme_class::run();
+		$class = 'Theme_'.ucfirst($this->admin_theme->slug);
+		call_user_func(array(new $class, 'run'));
 
 //	    $this->output->enable_profiler(TRUE);
 	}

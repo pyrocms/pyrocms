@@ -2,7 +2,7 @@
 
 class Module_Pages extends Module {
 
-	public $version = '1.1';
+	public $version = '1.2';
 
 	public function info()
 	{
@@ -58,6 +58,7 @@ class Module_Pages extends Module {
 
 	public function install()
 	{
+		$this->dbforge->drop_table('page_chunks');
 		$this->dbforge->drop_table('page_layouts');
 		$this->dbforge->drop_table('pages');
 		$this->dbforge->drop_table('revisions');

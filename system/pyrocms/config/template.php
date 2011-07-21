@@ -65,7 +65,7 @@ $config['theme'] = NULL;
 |
 | Where should we expect to see themes?
 |
-|	Default: array(APPPATH.'themes/' => '../themes/')
+|	Default: array(APPPATH.'themes/')
 |
 */
 

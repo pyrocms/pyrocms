@@ -320,7 +320,7 @@ class Installer extends CI_Controller
 			array(
 				'field' => 'user_password',
 				'label'	=> 'lang:password',
-				'rules'	=> 'trim|required'
+				'rules'	=> 'trim|min_length[6]|max_length[20]|required'
 			),
 			array(
 				'field' => 'user_confirm_password',

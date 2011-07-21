@@ -145,11 +145,11 @@ class Plugin_Files extends Plugin
 
 			$uri = $size
 				? 'files/thumb/' .  $file->id . '/' . $size
-				: 'uploads/files/' . $file->filename;
+				: UPLOAD_PATH.'files/' . $file->filename;
 		}
 		else
 		{
-			$uri = 'uploads/files/' . $file->filename;
+			$uri = UPLOAD_PATH.'files/' . $file->filename;
 		}
 
 		// return string

@@ -22,12 +22,17 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->load->library('migrations');
 			$this->migrations->latest();
+			
+			if ($this->migrations->error)
+			{
+				show_error($this->migrations->error);
+			}
+			
 			redirect(current_url());
 		}
 		// End migration check
 
 		// No record? Probably DNS'ed but not added to multisite
-		// $this->site is set in MY_Loader
 		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly.');
@@ -114,7 +119,7 @@ class MY_Controller extends CI_Controller {
 		
 		// Load the admin theme so things like partials and assets are available everywhere
 		$this->admin_theme = $this->themes_m->get_admin();
-		// Load the front-end theme so we can set the assets right away
+		// Load the current theme so we can set the assets right away
 		$this->theme = $this->themes_m->get();
 
 		// make a constant as this is used in a lot of places		

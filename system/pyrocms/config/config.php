@@ -235,6 +235,7 @@ $config['encryption_key'] = "Jiu348^&H%fa";
 */
 $config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'live' ? '_' . ENVIRONMENT : '');
 $config['sess_expiration']		= 0;
+$config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';

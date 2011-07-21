@@ -19,6 +19,7 @@ class Migration_Add_multi_site extends Migration {
 				CREATE TABLE core_settings(
 				`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
 				`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+				`default` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
 				PRIMARY KEY ( `slug` ) ,
 				UNIQUE KEY `unique - slug` ( `slug` ) ,
 				KEY `index - slug` ( `slug` )
@@ -26,11 +27,8 @@ class Migration_Add_multi_site extends Migration {
 			");
 			
 			$this->db->query("
-				INSERT INTO `core_settings` (`slug`, `value`) VALUES ('date_format', 'g:ia -- m/d/y');
-			");
-			
-			$this->db->query("
-				INSERT INTO `core_settings` (`slug`, `value`) VALUES ('lang_direction', 'ltr');
+				INSERT INTO `core_settings` (`slug`, `value`, `default`)
+				VALUES ('date_format', 'g:ia -- m/d/y', 'g:ia -- m/d/y'), ('lang_direction', 'ltr', 'ltr');
 			");
 		}
 		

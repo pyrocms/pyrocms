@@ -9,7 +9,7 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + 'uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + UPLOAD_PATH + 'files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
     windowClose();
 }
 

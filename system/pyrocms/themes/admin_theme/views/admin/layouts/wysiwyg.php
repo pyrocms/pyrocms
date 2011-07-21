@@ -6,11 +6,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
 	<title><?php echo $template['title']; ?></title>
+	
+	<base href="<?php echo base_url(); ?>" />
 
 	<script type="text/javascript">
 		var APPPATH_URI = "<?php echo APPPATH_URI;?>";
 		var BASE_URL = "<?php echo rtrim(site_url(), '/').'/';?>";
 		var BASE_URI = "<?php echo BASE_URI;?>";
+		var UPLOAD_PATH	= "<?php echo UPLOAD_PATH;?>";
 	</script>
 
 	<?php echo $template['metadata']; ?>

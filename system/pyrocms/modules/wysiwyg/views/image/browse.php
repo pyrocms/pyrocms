@@ -9,7 +9,7 @@ function insertImage(file, alt)
 	}
 	var img_width = document.getElementById('insert_width').value;
 	
-	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + 'uploads/files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
+	window.parent.instance.insertHtml('<img class="pyro-image" style="float: '+get_float()+';" src="' + BASE_URI + UPLOAD_PATH + 'files/' + file + '" alt="' + alt + '" width="'+img_width+'" />');
     	windowClose();
 }
 
@@ -129,7 +129,7 @@ var replace_html = null;
 		    <p class="name"><?php echo $file->name; ?></p>
 		    <p class="type"><?php echo $file->mimetype; ?></p>
 		    <p class="image">
-			<img class="pyro-image" src="<?php echo base_url(); ?>uploads/files/<?php echo $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" />
+			<img class="pyro-image" src="<?php echo base_url() . UPLOAD_PATH . 'files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" />
 		    </p>
 		    
 	    </li>

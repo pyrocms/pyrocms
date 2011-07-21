@@ -490,6 +490,17 @@ body#login #login-box label {
 	width: 70px;
 	font-size: 14px;
 }
+body#login #login-box label.remember {
+	display: inline;
+	margin: 10px 0 0 5px;
+}
+body#login #login-box input.remember {
+	display: inline;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	margin: 0;
+}
 body#login #login-box input {
 	background-color: #eaedf2;
 	background-image: url('../../img/admin/input-bg.jpg');

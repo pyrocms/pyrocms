@@ -263,8 +263,14 @@ class Pages extends Public_Controller
 	 */
 	public function _404($url_segments)
 	{
-		// Try and get an error page. If its been deleted, show nasty 404
+		// If the actual 404 page is missing (oh the irony) we show an error message to prevent an infinite redirect.
+		// Otherwise we let show_404() handle it (which just redirects to the pretty 404 page). We use show_404() to
+		// redirect so when other modules do show_404() the visitor sees a styled page.
 		if ( ! $page = $this->pyrocache->model('pages_m', 'get_by_uri', array('404')) )
+		{
+			show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
+		}
+		else
 		{
 			show_404();
 		}

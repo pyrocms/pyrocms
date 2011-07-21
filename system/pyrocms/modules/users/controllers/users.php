@@ -141,8 +141,11 @@ class Users extends Public_Controller
 				$this->session->unset_userdata('redirect_to');
 			}
 
-			// Call post login hook
+			// Deprecated.
 			$this->hooks->_call_hook('post_user_login');
+			
+			// trigger a post login event for third party devs
+			Events::trigger('post_user_login');
 
 			redirect($redirect_to_uri);
 		}
@@ -159,6 +162,9 @@ class Users extends Public_Controller
 	 */
 	public function logout()
 	{
+		// allow third party devs to do things right before the user leaves
+		Events::trigger('pre_user_logout');
+
 		$this->ion_auth->logout();
 		$this->session->set_flashdata('success', lang('user_logged_out'));
 		redirect('');
@@ -242,6 +248,9 @@ class Users extends Public_Controller
 			// Try to create the user
 			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
+				// trigger an event for third party devs
+				Events::trigger('post_user_register', $id);
+
 				$this->session->set_flashdata(array('notice' => $this->ion_auth->messages()));
 				redirect('users/activate');
 			}
@@ -294,8 +303,11 @@ class Users extends Public_Controller
 			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
 
-				// Call post activation hook
+				// Deprecated
 				$this->hooks->_call_hook('post_user_activation');
+				
+				// trigger an event for third party devs
+				Events::trigger('post_user_activation', $id);
 
 				redirect('users/activated');
 			}
@@ -622,6 +634,8 @@ class Users extends Public_Controller
 			
 			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
 			{
+				Events::trigger('post_user_update');
+				
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
 			else
