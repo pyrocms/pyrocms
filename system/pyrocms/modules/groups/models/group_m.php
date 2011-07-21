@@ -105,17 +105,23 @@ class Group_m extends MY_Model
 	 * Delete a group
 	 *
 	 * @access public
-	 * @param int $id The ID of the role to delete
+	 * @param int $id The ID of the group to delete
 	 * @return
 	 */
-	public function delete($ids = 0)
+	public function delete($id = 0)
 	{
-		is_array($ids) OR $ids = array('id' => $ids);
+		$this->load->model('users/users_m');
+		
+		// don't delete the group if there are still users assigned to it
+		if ($this->users_m->count_by(array('group_id' => $id)) > 0)
+		{
+			return FALSE;
+		}
 
-		// Dont let them delete these.
-		// The controller should handle the error message, this is just insurance
+		// Dont let them delete the "admin" group or the "user" group.
+		// The interface does not have a delete button for these, this is just insurance
 		$this->db->where_not_in('name', array('user', 'admin'));
 
-		return parent::delete_many($ids);
+		return parent::delete($id);
 	}
 }

@@ -29,7 +29,7 @@ $lang['groups.edit_error']					= 'Во время добавления груп�
 $lang['groups.edit_success']				= 'Группа "%s" сохранена.';
 $lang['groups.edit_error']					= 'Во время сохранения группы "%s" произошла ошибка.';
 $lang['groups.delete_success']			= 'Группа удалена.';
-$lang['groups.delete_error']				= 'Во время удаления группы возникла ошибка.';
+$lang['groups.delete_error']            = 'There was an error deleting this group. You must delete all users associated with this group before deleting the group.';
 $lang['groups.already_exist_error']	= 'Группа с названием "%s" уже существует.';
 
 /* End of file group_lang.php */
