@@ -537,7 +537,7 @@ class Module_m extends MY_Model
 	 */
 	public function help($slug)
 	{
-		foreach (array(0, 1) as $is_core)
+		foreach (array(0, 1) AS $is_core)
     	{
 			$path = $is_core ? APPPATH : ADDONPATH;
 			$languages = $this->config->item('supported_languages');
@@ -546,6 +546,8 @@ class Module_m extends MY_Model
 			//first try it as a core module
 			if ($details_class = $this->_spawn_class($slug, $is_core))
 			{
+				// if the file doesn't exist then we first check the shared folder and if it
+				// still doesn't exist we show the default help text from the details.php file
 				if (file_exists($path . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
 				{
 					$this->lang->load($slug . '/help');
@@ -555,8 +557,19 @@ class Module_m extends MY_Model
 						return lang('help_body');
 					}
 				}
+				elseif (file_exists(SHARED_ADDONPATH . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
+				{
+					$this->lang->load($slug . '/help');
 
-				return $details_class->help();
+					if (lang('help_body'))
+					{
+						return lang('help_body');
+					}
+				}
+				else
+				{
+					return $details_class->help();
+				}
 			}
 		}
 
