@@ -276,8 +276,10 @@ class Admin extends Admin_Controller {
      */
     public function preview($id = FALSE)
     {
-        $id = (int) $id;
-        $dummy_data = array();
+        $email_template = $this->email_templates_m->get($id);
+		
+		$this->template->set_layout('modal')
+			->build('admin/preview', $email_template);
     }
     
     /**
