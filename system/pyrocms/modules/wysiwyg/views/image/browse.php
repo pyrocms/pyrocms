@@ -129,7 +129,7 @@ var replace_html = null;
 		    <p class="name"><?php echo $file->name; ?></p>
 		    <p class="type"><?php echo $file->mimetype; ?></p>
 		    <p class="image">
-			<img class="pyro-image" src="<?php echo base_url() . UPLOAD_PATH . 'files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" onclick="javascript:insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" />
+			<img class="pyro-image" src="<?php echo base_url() . UPLOAD_PATH . 'files/' . $file->filename; ?>" alt="<?php echo $file->name; ?>" width="200" onclick="insertImage('<?php echo $file->filename; ?>', '<?php echo htmlentities($file->name); ?>');" />
 		    </p>
 		    
 	    </li>

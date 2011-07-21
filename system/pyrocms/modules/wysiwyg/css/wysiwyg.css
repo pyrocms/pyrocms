@@ -67,6 +67,9 @@ input#insert_width {
 	margin: 0px;
 	padding: 3px 0 5px 0px;
 }
+#files_browser .table-list .pyro-image {
+	cursor:pointer;
+}
 #files_left_pane h3 {
 	padding-left: 10px;
 }
