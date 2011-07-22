@@ -44,12 +44,12 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
-			'rules' => 'required|alphanumeric|min_length[3]|max_length[20]'
+			'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]'
 		),
 		array(
 			'field' => 'display_name',
 			'label' => 'lang:user_display_name',
-			'rules' => 'alphanumeric|min_length[3]|max_length[50]'
+			'rules' => 'alpha_numeric|min_length[3]|max_length[50]'
 		),
 		array(
 			'field' => 'group_id',
