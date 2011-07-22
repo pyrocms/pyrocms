@@ -25,18 +25,10 @@
  */
 class Admin extends Admin_Controller {
 
-	private $_paramname = 'userfile';
-	private $_folders	= array();
-	private $_path 		= '';
-	private $_type 		= NULL;
-	private $_ext 		= NULL;
-	private $_filename	= NULL;
-	private $_validation_rules = array(
-		array(
-			'field' => 'userfile',
-			'label' => 'lang:files.file_label',
-			'rules' => 'callback__check_ext'
-		),
+	protected $_folders				= array();
+	protected $_upload_path 		= '';
+	protected $_upload_config		= array();
+	protected $_validation_rules	= array(
 		array(
 			'field' => 'name',
 			'label' => 'lang:files.name_label',
@@ -78,9 +70,6 @@ class Admin extends Admin_Controller {
 			'file_folders_m'
 		));
 
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules($this->_validation_rules);
-
 		$this->_folders = $this->file_folders_m->get_folders();
 
 		// Get the parent -> childs
@@ -97,9 +86,11 @@ class Admin extends Admin_Controller {
 				'current_id'	=> 0
 			));
 
-		$this->_path = FCPATH . $this->config->item('files_folder');
+		$this->_upload_path = FCPATH . $this->config->item('files_folder');
 		$this->_check_dir();
 	}
+
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Index
@@ -139,229 +130,223 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload()
 	{
-		if ( ! $this->input->post())
+		if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		{
-			// todo: handler http methods
-			return;
-		}
+			$total	= 0;
+			$field	= 'userfile';
 
-		$upload = isset($_FILES[$this->_paramname]) ?
-			$_FILES[$this->_paramname] : array(
-				'tmp_name' => null,
-				'name' => null,
-				'size' => null,
-				'type' => null,
-				'error' => null
-			);
-
-		$info = array();
-
-		if (is_array($upload['tmp_name']))
-		{
-			$names = $this->input->post('name');
-			$names = is_array($names) && (sizeof($names) === sizeof($upload['tmp_name'])) ? $names : array();
-
-			foreach ($upload['tmp_name'] as $index => $value)
-			{
-				$_FILES[$this->_paramname . $index] = array(
-					'tmp_name' => $upload['tmp_name'][$index],
-					'name' => $upload['name'][$index],
-					'size' => $upload['size'][$index],
-					'type' => $upload['type'][$index],
-					'error' => $upload['error'][$index]
+			$userfile = isset($_FILES[$field]) ?
+				$_FILES[$field] : array(
+					'name'		=> NULL,
+					'tmp_name'	=> NULL,
+					'type'		=> NULL,
+					'size'		=> NULL,
+					'error'		=> NULL
 				);
 
-				$this->_filename = isset($names[$index]) ? $names[$index] : $upload['name'][$index];
+			if (is_array($userfile['name']))
+			{
+				foreach ($userfile['name'] as $i => $name)
+				{
+					$total = $i;
 
-				$info[] = $this->_do_upload($this->_paramname . $index);
+					foreach (array('name','tmp_name','type','size','error') as $key)
+					{
+						$_FILES[$field . $total][$key] = $userfile[$key][$i];
+					}
+				}
 			}
+			else
+			{
+				$_FILES[$field . $total] = $userfile;
+			}
+
+			$this->load->library('upload');
+			$this->load->library('form_validation');
+
+			$this->_build_validation_rules($field, $total);
+			$this->form_validation->set_rules($this->_validation_rules);
+			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->run();
+
+			$files	= array();
+			$result	= $this->_get_validation_result();
+
+			foreach ($result as $field => $data)
+			{
+				$file = array(
+					'name' => isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : $_FILES[$field]['name'],
+					'size' => isset($_SERVER['HTTP_X_FILE_SIZE']) ? $_SERVER['HTTP_X_FILE_SIZE'] : $_FILES[$field]['size'],
+					'type' => isset($_SERVER['HTTP_X_FILE_TYPE']) ? $_SERVER['HTTP_X_FILE_TYPE'] : $_FILES[$field]['type']
+				);
+
+				if ($data !== TRUE)
+				{
+					if (is_array($data))
+					{
+						$files[] = array_merge($file, $data);
+					}
+
+					continue;
+				}
+
+				$files[] = array_merge($file, $this->_do_upload($field));
+			}
+
+			return $this->template->build_json($files);
 		}
-		else
-		{
-			$name = $this->input->post('name');
 
-			$this->_filename = is_array($name) && isset($name[0]) ? $name[0] : NULL;
-
-			$info[] = $this->_do_upload($this->_paramname);
-		}
-
-		return $this->template->build_json($info);
+		// todo: load form view;
 	}
 
-	protected function _do_upload($param_name)
-	{
-		// todo: validate
-		// todo: insert into db
+	// ------------------------------------------------------------------------
 
-		// Setup upload config
-		$this->load->library('upload', array(
-			'upload_path'	=> $this->_path,
-			'allowed_types'	=> 'jpg|png|bmp|gif',
-			'file_name'		=> $this->_filename
+	protected function _build_validation_rules($field = NULL, $total = 0)
+	{
+		// todo: leave each file choose your folder id
+		$rules = array(array(
+			'field' => 'folder_id',
+			'label' => 'lang:file_folders.parent_label',
+			'rules' => 'trim|is_numeric'
 		));
 
-		$id = 'ID';
-
-		if ($this->upload->do_upload($param_name))
+		for ($i = 0; $i <= $total; $i++)
 		{
-			$result = $this->upload->data();
-			$result = array(
-				'name'			=> $result['file_name'],
-				'type'			=> $result['file_type'],
-				'size'			=> $result['file_size'],
-				'url'			=> site_url('files/download/' . $id),
-				'thumbnail_url'	=> site_url('files/thumb/' . $id . '/80'),
-				'delete_url'	=> site_url('admin/files/delete/' . $id)
+			$field_prefix = $field . $i;
+
+			$rules[] = array(
+				'field' => $field_prefix,
+				'label' => 'lang:files.file_label',
+				'rules' => 'callback__check_ext['.$field_prefix.']',
+				'file'	=> $field_prefix
+			);
+
+			$rules[] = array(
+				'field' => $field_prefix . '_name',
+				'label' => 'lang:files.name_label',
+				'rules' => 'trim|required|max_length[250]',
+				'file'	=> $field_prefix
+			);
+
+			$rules[] = array(
+				'field' => $field_prefix . '_description',
+				'label' => 'lang:files.description_label',
+				'rules' => 'trim|max_length[250]',
+				'file'	=> $field_prefix
+			);
+
+			$rules[] = array(
+				'field' => $field_prefix . '_type',
+				'label' => 'lang:files.type_label',
+				'rules' => 'trim|max_length[1]',
+				'file'	=> $field_prefix
 			);
 		}
-		else
-		{
-			// todo: set error result
-			$result = $this->upload->display_errors();
-		}
 
-		return $result;
+		$this->_validation_rules = $rules;
 	}
 
-	// refactoring...
-	protected function _upload()
+	// ------------------------------------------------------------------------
+
+	protected function _get_validation_result()
 	{
-		$this->data->folders = $this->_folders;
-				
-		if ($this->form_validation->run())
-		{
-			// Setup upload config
-			$this->load->library('upload', array(
-				'upload_path'	=> $this->_path,
-				'allowed_types'	=> $this->_ext,
-				'file_name'		=> $this->_filename
-			));
+		$error	= NULL;
+		$data	= array();
+		$skip	= array();
 
-			// File upload error
-			if ( ! $this->upload->do_upload('userfile'))
-			{
-				$status		= 'error';
-				$message	= $this->upload->display_errors();
-
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message
-					));
-				}
-
-				$this->data->messages[$status] = $message;
-			}
-
-			// File upload success
-			else
-			{
-				$file = $this->upload->data();
-				$data = array(
-					'folder_id'		=> (int) $this->input->post('folder_id'),
-					'user_id'		=> (int) $this->user->id,
-					'type'			=> $this->_type,
-					'name'			=> $this->input->post('name'),
-					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',
-					'filename'		=> $file['file_name'],
-					'extension'		=> $file['file_ext'],
-					'mimetype'		=> $file['file_type'],
-					'filesize'		=> $file['file_size'],
-					'width'			=> (int) $file['image_width'],
-					'height'		=> (int) $file['image_height'],
-					'date_added'	=> now()
-				);
-
-				// Insert success
-				if ($id = $this->file_m->insert($data))
-				{
-					$status		= 'success';
-					$message	= lang('files.create_success');
-				}
-				// Insert error
-				else
-				{
-					$status		= 'error';
-					$message	= lang('files.create_error');
-				}
-
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message,
-						'file'		=> array(
-							'name'	=> $file['file_name'],
-							'type'	=> $file['file_type'],
-							'size'	=> $file['file_size'],
-							'thumb'	=> base_url() . 'files/thumb/' . $id . '/80'
-						)
-					));
-				}
-
-				if ($status === 'success')
-				{
-					$this->session->set_flashdata($status, $message);
-					redirect('admin/files');
-				}
-			}
-		}
-		elseif (validation_errors())
-		{
-			// if request is ajax return json data, otherwise do normal stuff
-			if ($this->input->is_ajax_request())
-			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
-				));
-			}
-		}
-
-		if ($this->input->is_ajax_request())
-		{
-			// todo: debug errors here
-			$status		= 'error';
-			$message	= 'unknown';
-
-			$data = array();
-			$data['messages'][$status] = $message;
-			$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-			return $this->template->build_json(array(
-				'status'	=> $status,
-				'message'	=> $message
-			));
-		}
-
-		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			if ($rule['field'] == 'folder_id') 
+			if ( ! isset($rule['file']))
 			{
-				$this->data->file->{$rule['field']} = set_value($rule['field'], $folder_id);
-			}
-			else
+				if (is_null($error) && form_error($rule['field']))
+				{
+					// general error
+					$error = form_error($rule['field']);
+				}
+
+				continue;;			}
+
+			if (in_array($rule['file'], $skip))
 			{
-				$this->data->file->{$rule['field']} = set_value($rule['field']);
+				continue;
 			}
-			
+
+			if ($error)
+			{
+				$data[$rule['file']] = array('error' => $error);
+				$skip[] = $rule['file'];
+
+				continue;
+			}
+
+			if (form_error($rule['field']))
+			{
+				$data[$rule['file']] = array('error' => form_error($rule['field']));
+				$skip[] = $rule['file'];
+
+				continue;
+			}
+
+			$data[$rule['file']] = TRUE;
 		}
 
-		$this->template
-			->title()
-			->build('admin/files/upload', $this->data);
+		return $data;
+	}
+
+	// ------------------------------------------------------------------------
+
+	protected function _do_upload($field = 'userfile')
+	{
+		// Setup upload config
+		$this->upload->initialize($this->_upload_config[$field]);
+
+		if ($this->upload->do_upload($field))
+		{
+			$file = $this->upload->data();
+			$f_id = $this->input->post($field . '_folder_id');
+			$type = $this->input->post($field . '_type');
+			$name = $this->input->post($field . '_name');
+			$desc = $this->input->post($field . '_description');
+
+			$file_id = $this->file_m->insert(array(
+				'user_id'		=> $this->user->id,
+				'folder_id'		=> $f_id,
+				'type'			=> $type,
+				'name'			=> $name,
+				'description'	=> $desc ? $desc : '',
+				'filename'		=> $file['file_name'],
+				'extension'		=> $file['file_ext'],
+				'mimetype'		=> $file['file_type'],
+				'filesize'		=> $file['file_size'],
+				'width'			=> (int) $file['image_width'],
+				'height'		=> (int) $file['image_height'],
+				'date_added'	=> now()
+			));
+
+			// Insert success
+			if ($file_id)
+			{
+				$file += array(
+					'url'			=> site_url('files/download/'. $file_id),
+					'thumbnail_url'	=> $type === 'i' ? site_url('files/thumb/' . $file_id . '/80/30') : '',
+					'delete_url'	=> site_url('admin/files/delete/' . $file_id),
+					'delete_type'	=> 'DELETE'
+				);
+			}
+			// Insert error
+			else
+			{
+				// @todo: unlink file
+
+				$file += array(
+					'error' => 'Database record error'
+				);
+			}
+
+			return $file;
+		}
+
+		return array('error' => $this->upload->display_errors());
 	}
 
 	// ------------------------------------------------------------------------
@@ -395,6 +380,9 @@ class Admin extends Admin_Controller {
 
 		$this->data->file =& $file;
 
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->_validation_rules);
+
 		if ($this->form_validation->run())
 		{
 			// We are uploading a new file
@@ -402,7 +390,7 @@ class Admin extends Admin_Controller {
 			{
 				// Setup upload config
 				$this->load->library('upload', array(
-					'upload_path'	=> $this->_path,
+					'upload_path'	=> $this->_upload_path,
 					'allowed_types'	=> $this->_ext
 				));
 
@@ -599,9 +587,16 @@ class Admin extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('files.no_select_error'));
 		}
 
+		if ($_SERVER['REQUEST_METHOD'] === 'DELETE')
+		{
+			return $this->template->build_json( isset($deleted['success']) ? 'true' : 'false' );
+		}
+
 		// Redirect
 		isset($folder) ? redirect('admin/files/#!path=' . $folder->virtual_path) : redirect('admin/files');
 	}
+
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Helper method to determine what to do with selected items from form post
@@ -626,15 +621,15 @@ class Admin extends Admin_Controller {
 	/**
 	 * Validate our upload directory.
 	 */
-	private function _check_dir()
+	protected function _check_dir()
 	{
-		if (is_dir($this->_path) && is_really_writable($this->_path))
+		if (is_dir($this->_upload_path) && is_really_writable($this->_upload_path))
 		{
 			return TRUE;
 		}
-		elseif ( ! is_dir($this->_path))
+		elseif ( ! is_dir($this->_upload_path))
 		{
-			if ( ! @mkdir($this->_path, 0777, TRUE))
+			if ( ! @mkdir($this->_upload_path, 0777, TRUE))
 			{
 				$this->data->messages['notice'] = lang('file_folders.mkdir_error');
 				return FALSE;
@@ -642,53 +637,61 @@ class Admin extends Admin_Controller {
 			else
 			{
 				// create a catch all html file for safety
-				$uph = fopen($this->_path . 'index.html', 'w');
+				$uph = fopen($this->_upload_path . 'index.html', 'w');
 				fclose($uph);
 			}
 		}
 		else
 		{
-			if ( ! chmod($this->_path, 0777))
+			if ( ! chmod($this->_upload_path, 0777))
 			{
 				$this->session->messages['notice'] = lang('file_folders.chmod_error');
 				return FALSE;
 			}
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Validate upload file name and extension and remove special characters.
 	 */
-	function _check_ext()
+	public function _check_ext($value, $index = '')
 	{
-		if ( ! empty($_FILES['userfile']['name']))
+		$name = $_FILES[$index]['name'];
+
+		if (empty($name))
 		{
-			$ext		= pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
-			$allowed	= $this->config->item('files_allowed_file_ext');
-
-			foreach ($allowed as $type => $ext_arr)
-			{				
-				if (in_array(strtolower($ext), $ext_arr))
-				{
-					$this->_type		= $type;
-					$this->_ext			= implode('|', $ext_arr);
-					$this->_filename	= trim(url_title($_FILES['userfile']['name'], 'dash', TRUE), '-');
-
-					break;
-				}
-			}
-
-			if ( ! $this->_ext)
+			if ($this->method === 'upload')
 			{
-				$this->form_validation->set_message('_check_ext', lang('files.invalid_extension'));
+				$this->form_validation->set_message('_check_ext', lang('files.upload_error'));
 				return FALSE;
 			}
-		}		
-		elseif ($this->method === 'upload')
+		}
+		$ext		= pathinfo($name, PATHINFO_EXTENSION);
+		$allowed	= $this->config->item('files_allowed_file_ext');
+
+		foreach ($allowed as $type => $ext_arr)
 		{
-			$this->form_validation->set_message('_check_ext', lang('files.upload_error'));
+			if (in_array(strtolower($ext), $ext_arr))
+			{
+				$_POST[$index . '_folder_id']	= $this->input->post('folder_id');
+				$_POST[$index . '_type']		= $type;
+
+				$this->_upload_config[$index] = array(
+					'allowed_types'	=> implode('|', $ext_arr),
+					'file_name'		=> trim(url_title($name, 'dash', TRUE), '-'),
+					'upload_path'	=> $this->_upload_path
+				);
+
+				break;
+			}
+		}
+
+		if (empty($this->_upload_config[$index]))
+		{
+			$this->form_validation->set_message('_check_ext', lang('files.invalid_extension'));
+
 			return FALSE;
 		}
 

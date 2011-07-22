@@ -479,11 +479,21 @@ jQuery(function($){
 		autoNotification: false,
 		// Additional form data
 		formData: function(form){
-			var data = form.serializeArray();
-				data.push({
+			var context = this.context,
+				data = [{
 					name	: 'folder_id',
 					value	: $('input[name=folder_id]', '#files-toolbar').val()
+				}];
+			if (context) {
+				var p, v, ps = {name:null,description:null};
+				$.each(context, function(i){
+					for (p in ps) {
+						ps[p] = $(this).find('[name="'+p+'\[\]"]');
+						v = ps[p].size() == 1 ? ps[p].val() : '';
+						data.push({name: 'userfile'+i+'_'+p,value: v});
+					}
 				});
+			}
 			return data;
 		},
 		// Callback for uploads start
@@ -496,9 +506,6 @@ jQuery(function($){
 		stop: function(){
 			$(this).find('.fileupload-progressbar')
 				.fadeOut($.colorbox.resize);
-		},
-		always: function(e, data){
-			console.log(data);
 		}
 	});
 

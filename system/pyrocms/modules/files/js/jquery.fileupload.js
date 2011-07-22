@@ -304,7 +304,6 @@
             var options = $.extend({}, this.options, data);
             this._initFormSettings(options);
             this._initDataSettings(options);
-			console.log(options);
             return options;
         },
 

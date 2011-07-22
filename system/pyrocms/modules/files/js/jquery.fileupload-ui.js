@@ -3,7 +3,6 @@
  *  - No jQuery UI button
  *  - No jQuery UI Widget classnames
  *  - Added Events: dragenter, dragleave
- *  - Added thumbnail of the file in download row even on error
  *  - Changed the selector that finds the buttons on each row of files list
  * 
  * jQuery File Upload User Interface Plugin 5.0.13
@@ -48,7 +47,7 @@
             // The maximum width of the preview images:
             previewMaxWidth: 80,
             // The maximum height of the preview images:
-            previewMaxHeight: 80,
+            previewMaxHeight: 30,
             // By default, preview images are displayed as canvas elements
             // if supported by the browser. Set the following option to false
             // to always display preview images as img elements:
@@ -445,20 +444,6 @@
                 return $();
             }
             tmpl.css('display', 'none');
-            tmpl.find('.preview:empty').each(function (index, node) {
-                that._loadImage(
-                    files[index],
-                    function (img) {
-                        $(img).hide().appendTo(node).fadeIn();
-                    },
-                    {
-                        maxWidth: options.previewMaxWidth,
-                        maxHeight: options.previewMaxHeight,
-                        fileTypes: options.previewFileTypes,
-                        canvas: options.previewAsCanvas
-                    }
-                );
-            });
             tmpl.find('a').each(this._enableDragToDesktop);
             return tmpl;
         },
@@ -636,13 +621,6 @@
             this.element.find(':button').not('.fileinput-button');
             this._disableFileInputButton();
             $.blueimp.fileupload.prototype.disable.call(this);
-        },
-        
-        _getAJAXSettings: function (data) {
-            var options = $.extend({}, this.options, data);
-            this._initFormSettings(options);
-            this._initDataSettings(options);
-            return options;
         }
 
     });
