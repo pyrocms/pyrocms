@@ -9,7 +9,7 @@
 
 <?php if(!empty($error_string)):?>
 <!-- Woops... -->
-<div class="error_box">
+<div class="error-box">
 	<?php echo $error_string;?>
 </div>
 <?php endif;?>  

@@ -212,12 +212,12 @@ class Users extends Public_Controller
 			array(
 				'field' => 'username',
 				'label' => lang('user_username'),
-				'rules' => 'required|alphanumeric|min_length[3]|max_length[20]|callback__username_check'
+				'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]|callback__username_check'
 			),
 			array(
 				'field' => 'display_name',
 				'label' => lang('user_display_name'),
-				'rules' => 'required|alphanumeric|min_length[3]|max_length[50]'
+				'rules' => 'required|alpha_numeric|min_length[3]|max_length[50]'
 			),
 		);
 
@@ -482,7 +482,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'display_name',
 				'label' => lang('profile_display'),
-				'rules' => 'xss_clean|trim|required|alphanumeric'
+				'rules' => 'xss_clean|trim|required|alpha_numeric'
 			),
 			// More fields
 			array(
