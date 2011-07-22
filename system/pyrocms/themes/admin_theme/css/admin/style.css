@@ -805,6 +805,7 @@ ul#news-feed {
 	list-style: none;
 	margin-left: 0;
 	position: relative;
+	clear: both;	
 }
 #news-feed li:first-child {
 	border-top: none;
