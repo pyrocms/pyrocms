@@ -307,18 +307,36 @@ class Module_m extends MY_Model
 	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function install($slug, $is_core = FALSE)
+	public function install($slug, $is_core = FALSE, $insert = FALSE)
 	{
 		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
 		{
 			return FALSE;
 		}
-
-		// Search for a module from upload recent
-		$this->import_unknown();
+		
+		// They've just finished uploading it so we need to make a record
+		if ($insert)
+		{
+			// Get some info for the db
+			$module = $details_class->info();
+	
+			// Now lets set some details ourselves
+			$module['slug']			= $slug;
+			$module['version']		= $details_class->version;
+			$module['enabled']		= $is_core; // enable if core
+			$module['installed']	= $is_core; // install if core
+			$module['is_core']		= $is_core; // is core if core
+	
+			// It's a valid module let's make a record of it
+			$this->add($module);
+		}
 
 		// TURN ME ON BABY!
 		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the install method to get it into the database
 		return $details_class->install();
@@ -336,16 +354,36 @@ class Module_m extends MY_Model
 	{
 		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
 		{
-			return FALSE;
+			// the files are missing so let's clean the "modules" table
+			return $this->delete($slug);
 		}
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 
-		// Run the uninstall method to get it into the database
+		// Run the uninstall method to drop the module's tables
 		if ( ! $details_class->uninstall())
 		{
 			return FALSE;
 		}
 
-		return $this->delete($slug);
+		if ($this->delete($slug))
+		{
+			// Get some info for the db
+			$module = $details_class->info();
+	
+			// Now lets set some details ourselves
+			$module['slug']			= $slug;
+			$module['version']		= $details_class->version;
+			$module['enabled']		= $is_core; // enable if core
+			$module['installed']	= $is_core; // install if core
+			$module['is_core']		= $is_core; // is core if core
+	
+			// We record it again here. If they really want to get rid of it they'll use Delete
+			return $this->add($module);
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -372,6 +410,10 @@ class Module_m extends MY_Model
 		
 		// Get the old module version number
 		$old_version = $old_module['version'];
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 		
 		// Run the update method to get it into the database
 		if ($details_class->upgrade($old_version))
@@ -408,7 +450,7 @@ class Module_m extends MY_Model
 			}
 		}
 
-		foreach (array(APPPATH, ADDONPATH) as $directory)
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) AS $directory)
     	{
 			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
 			{
@@ -467,7 +509,12 @@ class Module_m extends MY_Model
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			return FALSE;
+			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+			
+			if ( ! is_file($details_file))
+			{
+				return FALSE;
+			}
 		}
 
 		// Sweet, include the file
@@ -490,7 +537,7 @@ class Module_m extends MY_Model
 	 */
 	public function help($slug)
 	{
-		foreach (array(0, 1) as $is_core)
+		foreach (array(0, 1) AS $is_core)
     	{
 			$path = $is_core ? APPPATH : ADDONPATH;
 			$languages = $this->config->item('supported_languages');
@@ -499,6 +546,8 @@ class Module_m extends MY_Model
 			//first try it as a core module
 			if ($details_class = $this->_spawn_class($slug, $is_core))
 			{
+				// if the file doesn't exist then we first check the shared folder and if it
+				// still doesn't exist we show the default help text from the details.php file
 				if (file_exists($path . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
 				{
 					$this->lang->load($slug . '/help');
@@ -508,8 +557,19 @@ class Module_m extends MY_Model
 						return lang('help_body');
 					}
 				}
+				elseif (file_exists(SHARED_ADDONPATH . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
+				{
+					$this->lang->load($slug . '/help');
 
-				return $details_class->help();
+					if (lang('help_body'))
+					{
+						return lang('help_body');
+					}
+				}
+				else
+				{
+					return $details_class->help();
+				}
 			}
 		}
 
@@ -535,7 +595,7 @@ class Module_m extends MY_Model
 
 				if ( ! empty($info['roles']))
 				{
-					$this->load->language($slug.'/permission');
+					$this->lang->load($slug . '/permission');
 					return $info['roles'];
 				}
 			}

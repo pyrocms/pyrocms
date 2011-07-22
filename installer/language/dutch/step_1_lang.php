@@ -13,6 +13,7 @@ $lang['password']		=	'Wachtwoord';
 $lang['portnr']			=	'Poort';
 $lang['server_settings']=	'Server Instellingen';
 $lang['httpserver']		=	'HTTP Server';
+$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
 $lang['step2']			=	'Stap 2';
 
 // messages

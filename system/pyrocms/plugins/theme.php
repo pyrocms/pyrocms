@@ -24,8 +24,8 @@ class Plugin_Theme extends Plugin
 	function options()
 	{
 		$option = $this->pyrocache->model('themes_m', 'get_option', array( array('slug' => $this->attribute('option')) ));
-		
-		return $option->value;
+
+		return is_object($option) ? $option->value : NULL;
 	}
 	
 	/**
@@ -62,7 +62,7 @@ class Plugin_Theme extends Plugin
 	/**
 	 * Theme CSS
 	 *
-	 * Insert a CSS tag from the theme
+	 * Insert a CSS tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
 	 *
@@ -71,21 +71,70 @@ class Plugin_Theme extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function css()
+	function css($return = '')
 	{
 		$this->load->library('asset');
 		
-		$file = $this->attribute('file');
-		$attributes = $this->attributes();
-		unset($attributes['file']);
+		$file		= $this->attribute('file');
+		$attributes	= $this->attributes();
+		$module		= $this->attribute('module', '_theme_');
+		$method		= 'css' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
+		$base		= $this->attribute('base', '');
 
-		return $this->asset->css($file, '_theme_', $attributes);
+		foreach (array('file', 'module', 'base') as $key)
+		{
+			if (isset($attributes[$key]))
+			{
+				unset($attributes[$key]);
+			}
+			else if ($key === 'file')
+			{
+				return '';
+			}
+		}
+
+		if ( ! $return)
+		{
+			return $this->asset->{$method}($file, $module, $attributes, $base);
+		}
+
+		return $this->asset->{$method}($file, $module, $attributes);
+	}
+
+	/**
+	 * Theme CSS URL
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:css_url file=""}
+	 *
+	 * @param	array
+	 * @return	string The css location url
+	 */
+	function css_url()
+	{
+		return $this->css('url');
+	}
+
+	/**
+	 * Theme CSS PATH
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:css_path file=""}
+	 *
+	 * @param	array
+	 * @return	string The css location path
+	 */
+	function css_path()
+	{
+		return $this->css('path');
 	}
 
 	/**
 	 * Theme Image
 	 *
-	 * Insert a image tag from the theme
+	 * Insert a image tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
 	 *
@@ -94,21 +143,70 @@ class Plugin_Theme extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function image()
+	function image($return = '')
 	{
 		$this->load->library('asset');
 
-		$file = $this->attribute('file');
-		$attributes = $this->attributes();
-		unset($attributes['file']);
+		$file		= $this->attribute('file');
+		$attributes	= $this->attributes();
+		$module		= $this->attribute('module', '_theme_');
+		$method		= 'image' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
+		$base		= $this->attribute('base', '');
 
-		return $this->asset->image($file, '_theme_', $attributes);
+		foreach (array('file', 'module', 'base') as $key)
+		{
+			if (isset($attributes[$key]))
+			{
+				unset($attributes[$key]);
+			}
+			else if ($key === 'file')
+			{
+				return '';
+			}
+		}
+
+		if ( ! $return)
+		{
+			return $this->asset->{$method}($file, $module, $attributes, $base);
+		}
+
+		return $this->asset->{$method}($file, $module, $attributes);
+	}
+
+	/**
+	 * Theme Image URL
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:image_url file=""}
+	 *
+	 * @param	array
+	 * @return	string The image location url
+	 */
+	function image_url()
+	{
+		return $this->image('url');
+	}
+
+	/**
+	 * Theme Image PATH
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:image_path file=""}
+	 *
+	 * @param	array
+	 * @return	string The image location path
+	 */
+	function image_path()
+	{
+		return $this->image('path');
 	}
 
 	/**
 	 * Theme JS
 	 *
-	 * Insert a JS tag from the theme
+	 * Insert a JS tag with location based for url or path from the theme or module
 	 *
 	 * Usage:
 	 *
@@ -117,13 +215,52 @@ class Plugin_Theme extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function js()
+	function js($return = '')
 	{
 		$this->load->library('asset');
 
-		$file = $this->attribute('file');
+		$file	= $this->attribute('file');
+		$module	= $this->attribute('module', '_theme_');
+		$method	= 'js' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
+		$base	= $this->attribute('base', '');
 
-		return $this->asset->js($file, '_theme_');
+		if ( ! $return)
+		{
+			return $this->asset->{$method}($file, $module, $base);
+		}
+
+		return $this->asset->{$method}($file, $module);
+	}
+
+	/**
+	 * Theme JS URL
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:js_url file=""}
+	 *
+	 * @param	array
+	 * @return	string The js location url
+	 */
+	function js_url()
+	{
+		return $this->js('url');
+	}
+
+
+	/**
+	 * Theme JS PATH
+	 *
+	 * Usage:
+	 *
+	 * {pyro:theme:js_path file=""}
+	 *
+	 * @param	array
+	 * @return	string The js location path
+	 */
+	function js_path()
+	{
+		return $this->js('path');
 	}
 
 	/**
@@ -143,8 +280,8 @@ class Plugin_Theme extends Plugin
 			static $variables = array();
 		}
 
-		$name = $this->attribute('name');
-		$value = $this->attribute('value');
+		$name	= $this->attribute('name');
+		$value	= $this->attribute('value');
 
 		if ($value !== NULL)
 		{
@@ -153,15 +290,6 @@ class Plugin_Theme extends Plugin
 		}
 
 		return $variables[$name];
-	}
-
-	function js_url()
-	{
-		$this->load->library('asset');
-
-		$file = $this->attribute('file');
-
-		return $this->asset->js_url($file, '_theme_');
 	}
 
 	/**

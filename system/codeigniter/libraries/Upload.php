@@ -874,12 +874,6 @@ class CI_Upload {
 		}
 
 		$CI =& get_instance();
-
-		if ( ! isset($CI->security))
-		{
-			$CI->load->library('security');
-		}
-
 		return $CI->security->xss_clean($data, TRUE);
 	}
 
@@ -950,11 +944,21 @@ class CI_Upload {
 
 		if (count($this->mimes) == 0)
 		{
-			if (@require_once(APPPATH.'config/mimes'.EXT))
+			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT))
 			{
+				include(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT);
+			}
+			elseif (is_file(APPPATH.'config/mimes'.EXT))
+			{
+				include(APPPATH.'config//mimes'.EXT);
+			}
+			else
+			{
+				return FALSE;
+			}
+
 				$this->mimes = $mimes;
 				unset($mimes);
-			}
 		}
 
 		return ( ! isset($this->mimes[$mime])) ? FALSE : $this->mimes[$mime];

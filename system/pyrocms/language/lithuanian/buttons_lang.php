@@ -13,7 +13,7 @@
  */
 
 $lang['buttons.submit']		= 'Išsaugoti';
-$lang['buttons.cancel']		= 'Atšukti';
+$lang['buttons.cancel']		= 'Atšaukti';
 $lang['buttons.upload']		= 'Įkelti';
 $lang['buttons.save']		= 'Išaugoti';
 $lang['buttons.save_exit']	= 'Išaugoti &amp; išeiti';
@@ -28,6 +28,7 @@ $lang['buttons.disable'] 	= 'Disable'; #translate
 $lang['buttons.yes']		= 'Taip';
 $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']   = 'Aktyvuoti';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Peržiūra'; #translate
 $lang['buttons.close']		= 'Uždaryti'; #translate
 $lang['buttons.edit']		= 'Redaguoti'; #translate

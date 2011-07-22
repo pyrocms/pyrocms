@@ -12,8 +12,8 @@
 <?php foreach ($groups as $group): ?>
 		<tr>
 			<td><?php echo $group->description; ?></td>
-			<td>
-				<?php echo anchor('admin/permissions/group/' . $group->id, lang('permissions.edit'), array('class'=>'minibutton')); ?>
+			<td class="buttons align-right">
+				<?php echo anchor('admin/permissions/group/' . $group->id, lang('permissions.edit'), array('class'=>'button')); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

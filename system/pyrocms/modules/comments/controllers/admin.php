@@ -66,11 +66,11 @@ class Admin extends Admin_Controller {
 	public function index()
 	{
 		// Only show is_active = 0 if we are moderating comments
-		$base_where = array('is_active' => (int) ! Settings::get('moderate_comments'));
+		$base_where = array('comments.is_active' => (int) ! Settings::get('moderate_comments'));
 
 		//capture active
-		$base_where['is_active'] = is_int($this->session->flashdata('is_active')) ? $this->session->flashdata('is_active') : $base_where['is_active'];
-		$base_where['is_active'] = $this->input->post('f_active') ? (int) $this->input->post('f_active') : $base_where['is_active'];
+		$base_where['comments.is_active'] = is_int($this->session->flashdata('is_active')) ? $this->session->flashdata('is_active') : $base_where['comments.is_active'];
+		$base_where['comments.is_active'] = $this->input->post('f_active') ? (int) $this->input->post('f_active') : $base_where['comments.is_active'];
 
 		//capture module slug
 		$base_where = $this->input->post('module_slug') ? $base_where + array('module' => $this->input->post('module_slug')) : $base_where;
@@ -84,9 +84,9 @@ class Admin extends Admin_Controller {
 			->order_by('comments.created_on', 'desc')
 			->get_many_by($base_where);
 
-		$content_title = $base_where['is_active'] ? lang('comments.active_title') : lang('comments.inactive_title');
+		$content_title = $base_where['comments.is_active'] ? lang('comments.active_title') : lang('comments.inactive_title');
 
-		$this->is_ajax() && $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() && $this->template->set_layout(FALSE);
 
 		$module_list = $this->comments_m->get_slugs();
 
@@ -97,7 +97,7 @@ class Admin extends Admin_Controller {
 			->set('module_list',		$module_list)
 			->set('content_title',		$content_title)
 			->set('comments',			process_comment_items($comments))
-			->set('comments_active',	$base_where['is_active'])
+			->set('comments_active',	$base_where['comments.is_active'])
 			->set('pagination',			$pagination)
 			->build('admin/index');
 	}

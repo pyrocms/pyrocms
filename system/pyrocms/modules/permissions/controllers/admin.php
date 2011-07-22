@@ -14,44 +14,42 @@ class Admin extends Admin_Controller
 	 * @access public
 	 * @return void
 	 */
-    public function __construct()
-    {
-		// Call the parent's constructor
-        parent::__construct();
+	public function __construct()
+	{
+	    parent::__construct();
+	
+	    $this->load->model('permission_m');
+	    $this->load->model('groups/group_m');
+	    $this->lang->load('permissions');
+	    $this->lang->load('groups/group');
+	}
 
-        $this->load->model('permission_m');
-        $this->load->model('groups/group_m');
-        $this->lang->load('permissions');
-        $this->lang->load('groups/group');
-    }
-
-    /**
-     * Index methods, lists all permissions
-	 * @access public
-	 * @return void
-     */
+	/**
+	* Index methods, lists all permissions
+	* @access public
+	* @return void
+	*/
 	public function index()
-    {
-    	$this->template->groups = $this->group_m->get_all();
-    	
-		// Render the view
-        $this->template
-        	->title($this->module_details['name'])
-        	->build('admin/index', $this->data);
-    }
+	{
+		$this->template->groups = $this->group_m->get_all();
+	
+		$this->template
+			->title($this->module_details['name'])
+			->build('admin/index', $this->data);
+	}
 
 	public function group($group_id)
-    {
+	{
 		$this->load->library('form_validation');
 
 		if ($_POST)
 		{
 			// register the user
-        	$this->permission_m->save($group_id, $this->input->post('modules'), $this->input->post('module_roles'));
+			$this->permission_m->save($group_id, $this->input->post('modules'), $this->input->post('module_roles'));
 			
 			$this->session->set_flashdata('success', lang('permissions.message_group_saved'));
 
-       		redirect('admin/permissions/group/'.$group_id);
+			redirect('admin/permissions/group/'.$group_id);
 		}
 
 		$group = $this->group_m->get($group_id);
@@ -63,10 +61,10 @@ class Admin extends Admin_Controller
 			$module['roles'] = $this->module_m->roles($module['slug']);
 		}
 
-        $this->template
+		$this->template
 			->set('edit_permissions', $edit_permissions)
 			->set('permisison_modules', $permisison_modules)
 			->set('group', $group)
 			->build('admin/group', $this->data);
-    }
+	}
 }

@@ -32,7 +32,14 @@
  *  Define the CodeIgniter Version
  * ------------------------------------------------------
  */
-	define('CI_VERSION', '2.0');
+	define('CI_VERSION', '2.0.2');
+
+/*
+ * ------------------------------------------------------
+ *  Define the CodeIgniter Branch (Core = TRUE, Reactor = FALSE)
+ * ------------------------------------------------------
+ */
+	define('CI_CORE', FALSE);
 
 /*
  * ------------------------------------------------------
@@ -46,7 +53,14 @@
  *  Load the framework constants
  * ------------------------------------------------------
  */
+	if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants'.EXT))
+	{
+		require(APPPATH.'config/'.ENVIRONMENT.'/constants'.EXT);
+	}
+	else
+	{
 	require(APPPATH.'config/constants'.EXT);
+	}
 
 /*
  * ------------------------------------------------------
@@ -181,6 +195,13 @@
 			exit;
 		}
 	}
+
+/*
+ * -----------------------------------------------------
+ * Load the security class for xss and csrf support
+ * -----------------------------------------------------
+ */
+	$SEC =& load_class('Security', 'core');
 
 /*
  * ------------------------------------------------------

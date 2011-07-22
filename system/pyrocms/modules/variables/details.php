@@ -56,7 +56,7 @@ class Module_Variables extends Module {
 		$this->dbforge->drop_table('variables');
 		
 		$variables = "
-			CREATE TABLE `variables` (
+			CREATE TABLE " . $this->db->dbprefix('variables') . " (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
 			  `data` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,

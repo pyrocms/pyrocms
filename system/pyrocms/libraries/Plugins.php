@@ -79,9 +79,9 @@ abstract class Plugin
 	 */
 	public function module_view($module, $view, $vars = array())
 	{
-		if (file_exists($this->template->get_views_path() . 'modules/contact/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
 		{
-			$path = $this->template->get_views_path() . 'modules/contact/';
+			$path = $this->template->get_views_path() . 'modules/' . $module . '/';
 		}
 		else
 		{
@@ -137,9 +137,14 @@ class Plugins
 		$class	= $data['segments'][0];
 		$method	= $data['segments'][1];
 
-		foreach (array(APPPATH, ADDONPATH) as $directory)
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
 			if (file_exists($path = $directory.'plugins/'.$class.EXT))
+			{
+				return $this->_process($path, $class, $method, $data);
+			}
+			
+			if (file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.EXT))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}

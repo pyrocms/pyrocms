@@ -29,9 +29,10 @@ class Tags {
 	private $_l_delim			= '{';
 	private $_r_delim			= '}';
 	private $_mark				= 'k0dj3j4nJHDj22j';
+	private $_escape			= 'noparse';
+	private $_regex_all_tags	= '';
 	private $_tag_count			= 0;
 	private $_current_callback	= array();
-	private $_regex_all_tags	= '';
 	private $_skip_content		= array();
 	private $_tags				= array();
 
@@ -143,7 +144,7 @@ class Tags {
 		$this->_regex_all_tags		= '/' . $this->_l_delim . $this->_trigger . '[^' . $this->_l_delim . $this->_r_delim . ']*?' . $this->_r_delim . '/i';
 		$this->_tags				= array();
 
-		$content = $this->parse_globals($content, $data);
+		$content = $this->parse_globals($this->_escape_tags($content), $data);
 
 		if ($this->_skip_content)
 		{
@@ -208,9 +209,52 @@ class Tags {
 		// If there is a callback, call it for each tag
 		if ( ! empty($callback) AND is_callable($callback))
 		{
+			$remainings = array();
+
 			foreach ($this->_tags as $tag)
 			{
-				$content = str_replace($tag['marker'], call_user_func($callback, $tag), $content);
+				if ($tag['full_segments'] === $this->_escape)
+				{
+					$content = str_replace($tag['marker'], $tag['content'], $content);
+
+					continue;
+				}
+
+				if ($remainings)
+				{
+					foreach ($remainings as $marker => $remaining)
+					{
+						if (strpos($tag['full_tag'], $marker) !== FALSE)
+						{
+							list($replacements, $return_data) = $remaining;
+
+							$tag['full_tag'] = str_replace($marker, $return_data, $tag['full_tag'], $count);
+
+							foreach ($tag['attributes'] as &$attribute)
+							{
+								$attribute = str_replace($marker, $return_data, $attribute, $count2);
+
+								if ($count2 >= $count)
+								{
+									break;
+								}
+							}
+
+							if ($count >= $replacements)
+							{
+								unset($remainings[$marker]);
+							}
+						}
+					}
+				}
+
+				$return_data = call_user_func($callback, $tag);
+				$content = str_replace($tag['marker'], $return_data, $content, $count);
+
+				if ($count < $tag['replacements'])
+				{
+					$remainings[$tag['marker']] = array($tag['replacements'], $return_data);
+				}
 			}
 		}
 
@@ -231,6 +275,31 @@ class Tags {
 			'content'	=> $content,
 			'tags'		=> $this->_tags
 		);
+	}
+
+	private function _escape_tags($content = '')
+	{
+		$a = $this->_l_delim . $this->_trigger . $this->_escape . $this->_r_delim;
+		$b = substr_replace($a, '/', 1, 0);
+
+		$offset	= 0;
+
+		while (($start = strpos($content, $a, $offset)) !== FALSE && (($end = strpos($content, $b, ($start += strlen($a)))) !== FALSE))
+		{
+			$_start = $start;
+
+			while (($_start = strpos($content, $a, $_start)) !== FALSE && ($_start += strlen($a)) < $end)
+			{
+				$end = strpos($content, $b, ($end += strlen($b)));
+			}
+
+			$lenght			= $end - $start;
+			$replacement	= escape_tags(substr($content, $start, $lenght));
+			$content		= substr_replace($content, $replacement, $start, $lenght);
+			$offset			= $start + strlen($replacement . $b);
+		}
+
+		return $content;
 	}
 
 	private function _extract_tags($orig_content = '', $attemp = 0)
@@ -299,10 +368,10 @@ class Tags {
 		{
 			$tag_name = $this->_get_tag_by_pos($orig_content, $start);
 
-			$tag_replace = $this->_l_delim . escape_tags(trim($tag_name, $this->_l_delim . $this->_r_delim)) . $this->_r_delim;
-			$orig_content = str_replace($tag_name, $tag_replace, $orig_content);
+			$tag_replace	= $this->_l_delim . escape_tags(trim($tag_name, $this->_l_delim . $this->_r_delim)) . $this->_r_delim;
+			$orig_content	= str_replace($tag_name, $tag_replace, $orig_content);
 
-			$orig_content = $this->_extract_tags($orig_content, $attemp+1);
+			$orig_content	= $this->_extract_tags($orig_content, $attemp+1);
 		}
 
 		return $orig_content;
@@ -361,8 +430,21 @@ class Tags {
 				// generate a marker
 				$marker = 'skip_' . ($this->_tag_count++) . $this->_mark;
 
+				$safe_content = substr($content, $start, $end - $start);
+
+				if (strpos($safe_content, $this->_mark) !== FALSE)
+				{
+					foreach ($this->_tags as $_tag)
+					{
+						if (strpos($safe_content, $_tag['marker']) !== FALSE)
+						{
+							$safe_content = str_replace($_tag['marker'], $_tag['full_tag'], $safe_content);
+						}
+					}
+				}
+
 				// save a copy of safe content
-				$tag['skip_content'][$marker] = substr($content, $start, $end - $start);
+				$tag['skip_content'][$marker] = $safe_content;
 
 				// finally skip the content
 				$content = substr_replace($content, $marker, $start, $end - $start);
@@ -509,7 +591,7 @@ class Tags {
 		$len_offset = 0;
 		foreach ($matches[0] as $match)
 		{
-			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9]*))#i', '$2\$$3', $match[0]);
+			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9-_]-_*))#i', '$2\$$3', $match[0]);
 			$content = substr($content, 0, $match[1] + $len_offset) . $replacement . substr($content, $match[1] + strlen($match[0]) + $len_offset);
 			$len_offset += strlen($replacement) - strlen($match[0]);
 		}
@@ -519,7 +601,7 @@ class Tags {
 		$len_offset = 0;
 		foreach ($matches[0] as $match)
 		{
-			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9]*))#i', '$2\$$3', $match[0]);
+			$replacement = preg_replace('#((^|\(|\)|\s|\+|\-|\*|\/|\.|\||\&|\>|\<|\=)((?!true|false|null)[a-z][a-z0-9-_]*))#i', '$2\$$3', $match[0]);
 			$content = substr($content, 0, $match[1] + $len_offset) . $replacement . substr($content, $match[1] + strlen($match[0]) + $len_offset);
 			$len_offset += strlen($replacement) - strlen($match[0]);
 		}
@@ -572,7 +654,7 @@ class Tags {
 		{
 			if (is_scalar($value))
 			{
-				$content = str_replace('{' . $var . '}', $value, $content);
+				$content = str_replace($this->_l_delim . $var . $this->_r_delim, $value, $content);
 			}
 		}
 

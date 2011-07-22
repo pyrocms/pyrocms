@@ -6,8 +6,8 @@ class Blog_m extends MY_Model {
 
 	function get_all()
 	{
-		$this->db->select('blog.*, c.title AS category_title, c.slug AS category_slug');
-		$this->db->join('blog_categories c', 'blog.category_id = c.id', 'left');
+		$this->db->select('blog.*, blog_categories.title AS category_title, blog_categories.slug AS category_slug');
+		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left');
 
 		$this->db->order_by('created_on', 'DESC');
 
@@ -27,9 +27,9 @@ class Blog_m extends MY_Model {
 		if (!empty($params['category']))
 		{
 			if (is_numeric($params['category']))
-				$this->db->where('c.id', $params['category']);
+				$this->db->where('blog_categories.id', $params['category']);
 			else
-				$this->db->where('c.slug', $params['category']);
+				$this->db->where('blog_categories.slug', $params['category']);
 		}
 
 		if (!empty($params['month']))
@@ -76,14 +76,14 @@ class Blog_m extends MY_Model {
 
 	function count_by($params = array())
 	{
-		$this->db->join('blog_categories c', 'blog.category_id = c.id', 'left');
+		$this->db->join('blog_categories', 'blog.category_id = blog_categories.id', 'left');
 
 		if (!empty($params['category']))
 		{
 			if (is_numeric($params['category']))
-				$this->db->where('c.id', $params['category']);
+				$this->db->where('blog_categories.id', $params['category']);
 			else
-				$this->db->where('c.slug', $params['category']);
+				$this->db->where('blog_categories.slug', $params['category']);
 		}
 
 		if (!empty($params['month']))
@@ -133,8 +133,9 @@ class Blog_m extends MY_Model {
 	function get_archive_months()
 	{
 		$this->db->select('UNIX_TIMESTAMP(DATE_FORMAT(FROM_UNIXTIME(t1.created_on), "%Y-%m-02")) AS `date`', FALSE);
+		$this->db->from('blog t1');
 		$this->db->distinct();
-		$this->db->select('(SELECT count(id) FROM blog t2
+		$this->db->select('(SELECT count(id) FROM ' . $this->db->dbprefix('blog') . ' t2
 							WHERE MONTH(FROM_UNIXTIME(t1.created_on)) = MONTH(FROM_UNIXTIME(t2.created_on))
 								AND YEAR(FROM_UNIXTIME(t1.created_on)) = YEAR(FROM_UNIXTIME(t2.created_on))
 								AND status = "live"
@@ -145,7 +146,7 @@ class Blog_m extends MY_Model {
 		$this->db->where('created_on <=', now());
 		$this->db->having('post_count >', 0);
 		$this->db->order_by('t1.created_on DESC');
-		$query = $this->db->get('blog t1');
+		$query = $this->db->get();
 
 		return $query->result();
 	}

@@ -45,7 +45,22 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$data['themes'] = $this->themes_m->get_all();
+		$themes = $this->themes_m->get_all();
+		
+		$data = array();
+		
+		foreach ($themes AS $theme)
+		{
+			if ( ! isset($theme->type) OR $theme->type != 'admin')
+			{
+				if ($theme->slug == $this->settings->default_theme)
+				{
+					$theme->is_default = TRUE;
+				}
+				
+				$data['themes'][] = $theme;
+			}
+		}
 
 		// Render the view
 		$this->template
@@ -74,10 +89,10 @@ class Admin extends Admin_Controller
 				$data['messages']['success'] = lang('themes.re-index_success');
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'success',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 		
@@ -126,10 +141,10 @@ class Admin extends Admin_Controller
 				$data['messages']['success'] = lang('themes.save_success');
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'success',
 					'message'	=> $message
-				)) );
+				));
 
 			}
 			elseif (validation_errors())
@@ -137,10 +152,10 @@ class Admin extends Admin_Controller
 				$data = array();
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> 'error',
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 		
@@ -164,7 +179,7 @@ class Admin extends Admin_Controller
 		$theme = $this->input->post('theme');
 
 		// Set the theme
-		if ($this->themes_m->set_default($theme))
+		if ($this->themes_m->set_default($this->input->post()))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}
@@ -174,6 +189,11 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', sprintf( lang('themes.set_default_error'), $theme));
 		}
 
+		if ($this->input->post('method') == 'admin_themes')
+		{
+			redirect('admin/themes/admin_themes');
+		}
+		
 		redirect('admin/themes');
 	}
 
@@ -185,9 +205,14 @@ class Admin extends Admin_Controller
 	 */
 	public function upload()
 	{
+		if ( ! $this->settings->addons_upload)
+		{
+			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
+		}
+
 		if($this->input->post('btnAction') == 'upload')
 		{
-			$config['upload_path'] 		= FCPATH.'uploads/';
+			$config['upload_path'] 		= FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
 			$config['overwrite'] 		= TRUE;

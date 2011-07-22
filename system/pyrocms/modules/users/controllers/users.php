@@ -8,18 +8,30 @@
  * @subpackage 	Users module
  * @category	Modules
  */
-class Users extends Public_Controller {
+class Users extends Public_Controller
+{
+
+	/**
+	 * The ID of the user
+	 * @var int
+	 */
+	private $user_id = 0;
 
 	/**
 	 * Constructor method
 	 *
-	 * @access public
 	 * @return void
 	 */
 	function __construct()
 	{
 		// Call the parent's constructor method
 		parent::__construct();
+
+		// Get the user ID, if it exists
+		if($user = $this->ion_auth->get_user())
+		{
+			$this->user_id = $user->id;
+		}
 
 		// Load the required classes
 		$this->load->model('users_m');
@@ -29,8 +41,44 @@ class Users extends Public_Controller {
 	}
 
 	/**
-	 * Let's login, shall we?
+	 * Show the current user's profile
+	 *
 	 * @access public
+	 * @return void
+	 */
+	public function index()
+	{
+		$this->view($this->user_id);
+	}
+
+	/**
+	 * View a user profile based on the ID
+	 *
+	 * @param	mixed $id The Username or ID of the user
+	 * @return	void
+	 */
+	public function view($id = NULL)
+	{
+		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
+		if ( ! $user = $this->ion_auth->get_user($id) )
+		{
+			show_404();
+		}
+
+		foreach ($user as &$data)
+		{
+			$data = escape_tags($data);
+		}
+
+		// Render view
+		$this->data->view_user = $user; //needs to be something other than $this->data->user or it conflicts with the current user
+		$this->data->user_settings = $user;
+		$this->template->build('profile/view', $this->data);
+	}
+
+	/**
+	 * Let's login, shall we?
+	 *
 	 * @return void
 	 */
 	public function login()
@@ -93,8 +141,11 @@ class Users extends Public_Controller {
 				$this->session->unset_userdata('redirect_to');
 			}
 
-			// Call post login hook
+			// Deprecated.
 			$this->hooks->_call_hook('post_user_login');
+			
+			// trigger a post login event for third party devs
+			Events::trigger('post_user_login');
 
 			redirect($redirect_to_uri);
 		}
@@ -106,11 +157,14 @@ class Users extends Public_Controller {
 
 	/**
 	 * Method to log the user out of the system
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function logout()
 	{
+		// allow third party devs to do things right before the user leaves
+		Events::trigger('pre_user_logout');
+
 		$this->ion_auth->logout();
 		$this->session->set_flashdata('success', lang('user_logged_out'));
 		redirect('');
@@ -118,7 +172,7 @@ class Users extends Public_Controller {
 
 	/**
 	 * Method to register a new user
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function register()
@@ -194,6 +248,9 @@ class Users extends Public_Controller {
 			// Try to create the user
 			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
+				// trigger an event for third party devs
+				Events::trigger('post_user_register', $id);
+
 				$this->session->set_flashdata(array('notice' => $this->ion_auth->messages()));
 				redirect('users/activate');
 			}
@@ -222,6 +279,7 @@ class Users extends Public_Controller {
 
 	/**
 	 * Activate a user
+	 *
 	 * @param int $id The ID of the user
 	 * @param str $code The activation code
 	 * @return void
@@ -245,8 +303,11 @@ class Users extends Public_Controller {
 			{
 				$this->session->set_flashdata('activated_email', $this->ion_auth->messages());
 
-				// Call post activation hook
+				// Deprecated
 				$this->hooks->_call_hook('post_user_activation');
+				
+				// trigger an event for third party devs
+				Events::trigger('post_user_activation', $id);
 
 				redirect('users/activated');
 			}
@@ -263,7 +324,7 @@ class Users extends Public_Controller {
 
 	/**
 	 * Activated page
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function activated()
@@ -282,7 +343,7 @@ class Users extends Public_Controller {
 
 	/**
 	 * Reset a user's password
-	 * @access public
+	 *
 	 * @return void
 	 */
 	public function reset_pass($code = FALSE)
@@ -291,7 +352,7 @@ class Users extends Public_Controller {
 		if ($this->ion_auth->logged_in())
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
-			redirect('users/profile');
+			redirect('my-profile');
 		}
 
 		if ($this->input->post('btnSubmit'))
@@ -348,7 +409,7 @@ class Users extends Public_Controller {
 
 	/**
 	 * Password reset is finished
-	 * @access public
+	 *
 	 * @param string $code Optional parameter the reset_password_code
 	 * @return void
 	 */
@@ -358,7 +419,7 @@ class Users extends Public_Controller {
 		if ($this->ion_auth->logged_in())
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
-			redirect('users/profile');
+			redirect('my-profile');
 		}
 
 		//set page title
@@ -369,8 +430,317 @@ class Users extends Public_Controller {
 	}
 
 	/**
+	 *
+	 */
+	public function edit()
+	{
+
+
+		// Got login?
+		if(!$this->ion_auth->logged_in())
+		{
+			redirect('users/login');
+		}
+
+		// Validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'first_name',
+				'label' => lang('user_first_name'),
+				'rules' => 'xss_clean|required'
+			),
+			array(
+				'field' => 'last_name',
+				'label' => lang('user_last_name'),
+				'rules' => 'xss_clean'.($this->settings->require_lastname ? '|required' : '')
+			),
+			array(
+				'field' => 'password',
+				'label' => lang('user_password'),
+				'rules' => 'xss_clean|min_length[6]|max_length[20]'
+			),
+			array(
+				'field' => 'confirm_password',
+				'label' => lang('user_confirm_password'),
+				'rules' => 'xss_clean|'.($this->input->post('password') ? 'required|' : '').'matches[password]'
+			),
+			array(
+				'field' => 'email',
+				'label' => lang('user_email'),
+				'rules' => 'xss_clean|valid_email'
+			),
+			array(
+				'field' => 'confirm_email',
+				'label' => lang('user_confirm_email'),
+				'rules' => 'xss_clean|valid_email|matches[email]'
+			),
+			array(
+				'field' => 'lang',
+				'label' => lang('user_lang'),
+				'rules' => 'xss_clean|alpha|max_length[2]'
+			),
+			array(
+				'field' => 'display_name',
+				'label' => lang('profile_display'),
+				'rules' => 'xss_clean|trim|required|alphanumeric'
+			),
+			// More fields
+			array(
+				'field' => 'gender',
+				'label' => lang('profile_gender'),
+				'rules' => 'xss_clean|trim|max_length[1]'
+			),
+			array(
+				'field' => 'dob_day',
+				'label' => lang('profile_dob_day'),
+				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
+			),
+			array(
+				'field' => 'dob_month',
+				'label' => lang('profile_dob_month'),
+				'rules' => 'xss_clean|trim|numeric|max_length[2]|required'
+			),
+			array(
+				'field' => 'dob_year',
+				'label' => lang('profile_dob_year'),
+				'rules' => 'xss_clean|trim|numeric|max_length[4]|required'
+			),
+			array(
+				'field' => 'bio',
+				'label' => lang('profile_bio'),
+				'rules' => 'xss_clean|trim|max_length[1000]'
+			),
+			array(
+				'field' => 'phone',
+				'label' => lang('profile_phone'),
+				'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'mobile',
+				'label' => lang('profile_mobile'),
+				'rules' => 'xss_clean|trim|alpha_numeric|max_length[20]'
+			),
+			array(
+				'field' => 'address_line1',
+				'label' => lang('profile_address_line1'),
+				'rules' => 'xss_clean|trim'
+			),
+			array(
+				'field' => 'address_line2',
+				'label' => lang('profile_address_line2'),
+				'rules' => 'xss_clean|trim'
+			),
+			array(
+				'field' => 'address_line3',
+				'label' => lang('profile_address_line3'),
+				'rules' => 'xss_clean|trim'
+			),
+			array(
+				'field' => 'postcode',
+				'label' => lang('profile_postcode'),
+				'rules' => 'xss_clean|trim|max_length[20]'
+			),
+			array(
+				'field' => 'website',
+				'label' => lang('profile_website'),
+				'rules' => 'xss_clean|trim|max_length[255]'
+			),
+			array(
+				'field' => 'msn_handle',
+				'label' => lang('profile_msn_handle'),
+				'rules' => 'xss_clean|trim|valid_email'
+			),
+			array(
+				'field' => 'aim_handle',
+				'label' => lang('profile_aim_handle'),
+				'rules' => 'xss_clean|trim|alpha_numeric'
+			),
+			array(
+				'field' => 'yim_handle',
+				'label' => lang('profile_yim_handle'),
+				'rules' => 'xss_clean|trim|alpha_numeric'
+			),
+			array(
+				'field' => 'gtalk_handle',
+				'label' => lang('profile_gtalk_handle'),
+				'rules' => 'xss_clean|trim|valid_email'
+			),
+			array(
+				'field' => 'gravatar',
+				'label' => lang('profile_gravatar'),
+				'rules' => 'xss_clean|trim|valid_email'
+			)
+		);
+
+
+
+		// Set the validation rules
+		$this->form_validation->set_rules($this->validation_rules);
+
+		// Get settings for this user
+		$user_settings = $this->ion_auth->get_user();
+
+
+		// Get the user ID, if it exists
+		if ($user_settings)
+		{
+			$this->user_id = $user_settings->id;
+		}
+
+		// If this user already has a profile, use their data if nothing in post array
+		if ($user_settings)
+		{
+		    $user_settings->dob_day 	= date('j', $user_settings->dob);
+		    $user_settings->dob_month = date('n', $user_settings->dob);
+		    $user_settings->dob_year 	= date('Y', $user_settings->dob);
+		}
+
+		// Settings valid?
+		if ($this->form_validation->run())
+		{
+
+			// Loop through each POST item and add it to the secure_post array
+			$secure_post = $this->input->post();
+
+			// Set the full date of birth
+			$secure_post['dob'] = mktime(0, 0, 0, $secure_post['dob_month'], $secure_post['dob_day'], $secure_post['dob_year']);
+
+			// Unset the data that's no longer required
+			unset($secure_post['dob_month']);
+			unset($secure_post['dob_day']);
+			unset($secure_post['dob_year']);
+
+			// Set the language for this user
+			if ($secure_post['lang'])
+			{
+				$this->ion_auth->set_lang( $secure_post['lang'] );
+				$_SESSION['lang_code'] = $secure_post['lang'];
+			}
+			else
+			{
+				unset($secure_post['lang']);
+			}
+
+			// If password is being changed (and matches)
+			if(! $secure_post['password'])
+			{
+				unset($secure_post['password']);
+			}
+			// We don't need this anymore
+			unset($secure_post['confirm_password']);
+
+			// Set the time of update
+			$secure_post['updated_on'] = now();
+			
+			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
+			{
+				Events::trigger('post_user_update');
+				
+				$this->session->set_flashdata('success', $this->ion_auth->messages());
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $this->ion_auth->errors());
+			}
+
+			// Redirect
+			redirect('edit-settings');
+		}
+		else
+		{
+			// Loop through each validation rule
+			foreach ($this->validation_rules as $rule)
+			{
+				if ($this->input->post($rule['field']) !== FALSE)
+				{
+					$user_settings->{$fieldname} = set_value($rule['field']);
+				}
+			}
+		}
+
+		// Take care of the {} braces in the content
+		$escape_fields = array(
+			'bio', 'address_line1', 'address_line2', 'address_line3', 'postcode',
+			'website', 'msn_handle', 'gtalk_handle', 'gravatar'
+		);
+		foreach ($escape_fields as $field)
+		{
+			$user_settings->{$field} = escape_tags($user_settings->{$field});
+		}
+
+		// Fix the months
+		$this->lang->load('calendar');
+		$month_names = array(
+			lang('cal_january'),
+			lang('cal_february'),
+			lang('cal_march'),
+			lang('cal_april'),
+			lang('cal_mayl'),
+			lang('cal_june'),
+			lang('cal_july'),
+			lang('cal_august'),
+			lang('cal_september'),
+			lang('cal_october'),
+			lang('cal_november'),
+			lang('cal_december'),
+		);
+	    $this->data->days 	= array_combine($days 	= range(1, 31), $days);
+		$this->data->months = array_combine($months = range(1, 12), $month_names);
+	    $this->data->years 	= array_combine($years 	= range(date('Y'), date('Y')-120), $years);
+
+	    // Format languages for the dropdown box
+	    $this->data->languages = array();
+	    foreach($this->config->item('supported_languages') as $lang_code => $lang)
+	    {
+			$this->data->languages[$lang_code] = $lang['name'];
+	    }
+
+		$this->data->user_settings =& $user_settings;
+
+		// Render the view
+		$this->template->build('profile/edit', $this->data);
+	}
+
+	/**
+	 * Authenticate to Twitter with oAuth
+	 *
+	 * @author Ben Edmunds
+	 * @return boolean
+	 */
+	public function twitter()
+	{
+		$this->load->library('twitter/twitter');
+
+		// Try to authenticate
+		$auth = $this->twitter->oauth($this->settings->item('twitter_consumer_key'), $this->settings->item('twitter_consumer_key_secret'), $this->user->twitter_access_token, $this->user->twitter_access_token_secret);
+
+		if ($auth!=1 && $this->settings->item('twitter_consumer_key') && $this->settings->item('twitter_consumer_key_secret'))
+		{
+			if (isset($auth['access_token']) && !empty($auth['access_token']) && isset($auth['access_token_secret']) && !empty($auth['access_token_secret']))
+			{
+				// Save the access tokens to the users profile
+				$this->ion_auth->update_user($this->user->id, array(
+					'twitter_access_token' 		  => $auth['access_token'],
+					'twitter_access_token_secret' => $auth['access_token_secret'],
+				));
+
+				if (isset($_GET['oauth_token']) )
+				{
+					$parts = explode('?', $_SERVER['REQUEST_URI']);
+
+					// redirect the user since we've saved their info
+					redirect($parts[0]);
+				}
+			}
+		}
+		elseif ($auth == 1) {
+			redirect('edit-settings', 'refresh');
+		}
+	}
+
+	/**
 	 * Callback method used during login
-	 * @access public
+	 *
 	 * @param str $email The Email address
 	 * @return bool
 	 */

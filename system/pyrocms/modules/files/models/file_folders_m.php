@@ -221,6 +221,11 @@ class File_folders_m extends MY_Model {
 
 		$path = trim($path, '/');
 
+		if (empty($this->_folders))
+		{
+			$this->get_folders();
+		}
+
 		foreach ($this->_folders as $id => $folder)
 		{
 			if ($folder->virtual_path == $path)

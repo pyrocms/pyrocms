@@ -13,6 +13,11 @@ class Themes_m extends MY_Model
      * Default Theme
      */
     public $_theme = NULL;
+	
+    /**
+     * Default Admin Theme
+     */
+    public $_admin_theme = NULL;
 
     /**
      * Available Themes
@@ -29,6 +34,7 @@ class Themes_m extends MY_Model
     {
         parent::__construct();
         $this->_theme = $this->settings->default_theme;
+		$this->_admin_theme = $this->settings->admin_theme;
     }
 
     /**
@@ -48,7 +54,7 @@ class Themes_m extends MY_Model
             
 			foreach($themes as $theme_path)
             {
-                $this->_get_details(dirname($theme_path), basename($theme_path));
+                $this->_get_details(dirname($theme_path) . '/', basename($theme_path));
             }
         }
 
@@ -82,6 +88,32 @@ class Themes_m extends MY_Model
 
         return FALSE;
     }
+	
+    /**
+     * Get the admin theme
+     *
+     * @param <string> $slug
+     * @return <mixed array, bool>
+     */
+    public function get_admin($slug = '')
+    {
+        $slug OR $slug = $this->_admin_theme;
+
+        foreach($this->template->theme_locations() as $location)
+        {
+            if (is_dir($location.$slug))
+            {
+                $theme = $this->_get_details($location, $slug);
+
+                if ($theme !== FALSE)
+                {
+                    return $theme;
+                }
+            }
+        }
+
+        return FALSE;
+    }
 
     /**
      * Get details about a theme
@@ -99,13 +131,13 @@ class Themes_m extends MY_Model
             return $this->_themes[$slug];
         }
 
-        if (is_dir($path = $location.'/'.$slug))
+        if (is_dir($path = $location.$slug) AND is_file($path.'/theme.php'))
         {
-            // Core theme or tird party?
+            // Core theme or third party?
             $is_core = trim($location, '/') === APPPATH.'themes';
 
             //path to theme
-            $web_path = $location . '/' . $slug;
+            $web_path = $location . $slug;
 
             $theme->slug			= $slug;
             $theme->is_core         = $is_core;
@@ -123,13 +155,14 @@ class Themes_m extends MY_Model
 
             //load the theme details.php file
             $details = $this->_spawn_class($slug, $is_core);
-
+			
+			
             //assign values
             if ($details)
             {
                 foreach(get_object_vars($details) as $key => $val)
                 {
-					if ($key == 'options')
+					if ($key == 'options' AND is_array($val))
 					{
 						// only save to the database if there are no options saved already
 						if ( ! $this->db->where('theme', $slug)->get('theme_options')->result())
@@ -175,6 +208,7 @@ class Themes_m extends MY_Model
 			
 			$this->db->insert('theme_options', $insert);
 		}
+		$this->pyrocache->delete_all('themes_m');
 		return TRUE;
 	}
 
@@ -207,9 +241,16 @@ class Themes_m extends MY_Model
      * @param <string> $theme
      * @return <string>
      */
-    public function set_default($theme)
+    public function set_default($input)
     {
-        return $this->settings->set_item('default_theme', $theme);
+		if ($input['method'] == 'index')
+		{
+			return $this->settings->set_item('default_theme', $input['theme']);
+		}
+		elseif($input['method'] == 'admin_themes')
+		{
+			return $this->settings->set_item('admin_theme', $input['theme']);
+		}
     }
 
     /**
@@ -221,28 +262,33 @@ class Themes_m extends MY_Model
      * @access	private
      * @return	array
      */
-    private function _spawn_class($slug, $is_core = FALSE)
-    {
-        $path = $is_core ? APPPATH : ADDONPATH;
+	private function _spawn_class($slug, $is_core = FALSE)
+	{
+		$path = $is_core ? APPPATH : ADDONPATH;
 
-        // Before we can install anything we need to know some details about the module
-        $details_file = $path . 'themes/' . $slug . '/theme'.EXT;
+		// Before we can install anything we need to know some details about the module
+		$details_file = $path . 'themes/' . $slug . '/theme'.EXT;
 
-        // Check the details file exists
-        if ( ! is_file($details_file))
-        {
-            return FALSE;
-        }
+		// Check the details file exists
+		if ( ! is_file($details_file))
+		{
+			$details_file = SHARED_ADDONPATH . 'themes/' . $slug . '/theme'.EXT;
+			
+			if ( ! is_file($details_file))
+			{
+				return FALSE;
+			}
+		}
 
-        // Sweet, include the file
-        include_once $details_file;
+		// Sweet, include the file
+		include_once $details_file;
 
-        // Now call the details class
-        $class = 'Theme_'.ucfirst($slug);
+		// Now call the details class
+		$class = 'Theme_'.ucfirst(strtolower($slug));
 
-        // Now we need to talk to it
-        return class_exists($class) ? new $class : FALSE;
-    }
+		// Now we need to talk to it
+		return class_exists($class) ? new $class : FALSE;
+	}
 	
 	/**
 	 * Delete Options
@@ -276,7 +322,7 @@ class Themes_m extends MY_Model
 	}
 	
 	/**
-	 * Get options by slug
+	 * Get options by
 	 *
 	 * @param 	string	$params	The where conditions to fetch options by
 	 * @access	public
@@ -287,6 +333,30 @@ class Themes_m extends MY_Model
 		return $this->db->where($params)
 					->get('theme_options')
 					->result();
+	}
+	
+	/**
+	 * Get values by
+	 *
+	 * @param 	string	$params	The where conditions to fetch options by
+	 * @access	public
+	 * @return	array
+	 */
+	public function get_values_by($params = array())
+	{
+		$query = $this->db->select('slug, value')
+			->where($params)
+			->get('theme_options');
+			
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result() AS $option)
+			{
+				$options->{$option->slug} = $option->value;
+			}
+			return $options;
+		}
+		return FALSE;
 	}
 	
 	/**

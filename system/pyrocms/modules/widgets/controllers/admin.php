@@ -22,7 +22,7 @@ class Admin extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->is_ajax() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		if (in_array($this->method, array('index', 'manage')))
 		{

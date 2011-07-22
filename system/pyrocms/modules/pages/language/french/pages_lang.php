@@ -11,6 +11,8 @@ $lang['pages.detail_label'] 					= 'Détails';
 
 // labels
 $lang['pages.page_label'] 						= 'Page';
+$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= 'Langue';
 $lang['pages.updated_label'] 					= 'Mis à jour';
 $lang['pages.actions_label'] 					= 'Actions';
@@ -28,7 +30,7 @@ $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.access_label'] 					= 'Accès';
 $lang['pages.rss_enabled_label'] 				= 'RSS activé';
 $lang['pages.comments_enabled_label'] 			= 'Commentaires activés';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      = 'Est ce la page par défaut (accueil) ?';
 
 $lang['pages.status_label'] 					= 'Statut';
 $lang['pages.draft_label'] 						= 'Brouillon';

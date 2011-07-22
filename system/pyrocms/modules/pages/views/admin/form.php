@@ -16,10 +16,7 @@
 		<li><a href="#page-design"><span><?php echo lang('pages.design_label');?></span></a></li>
 		<li><a href="#page-script"><span><?php echo lang('pages.script_label');?></span></a></li>
 		<li><a href="#page-options"><span><?php echo lang('pages.options_label');?></span></a></li>
-		<?php if ($this->method !== 'create'): ?><li><a href="#revision-options"><span><?php echo lang('pages.revisions_label');?></span></a></li><?php endif; ?>
 	</ul>
-
-	<?php alternator(); ?>
 
 	<!-- Content tab -->
 	<div id="page-content">
@@ -61,14 +58,22 @@
 				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id); ?>
 			</li>
 			<?php endif; ?>
+			<?php foreach ($page->chunks AS $chunk): ?>
+				<li class="<?php echo alternator('even', ''); ?> page-chunk">
+					<?php echo form_input('chunk_slug[]', $chunk->slug); ?>
+					<?php echo form_dropdown('chunk_type[]', array(
+						'html' => 'html',
+						'wysiwyg-simple' => 'wysiwyg-simple',
+						'wysiwyg-advanced' => 'wysiwyg-advanced',
+					), $chunk->type); ?>
+					<?php echo form_textarea(array('id'=>$chunk->slug, 'name'=>'chunk_body[]', 'value' => $chunk->body, 'rows' => 50, 'class'=> $chunk->type)); ?>
+				</li>
+			<?php endforeach; ?>
 			<li class="<?php echo alternator('even', ''); ?>">
-				<?php echo form_textarea(array('id'=>'body', 'name'=>'body', 'value' => $page->body, 'rows' => 50, 'class'=>'wysiwyg-advanced')); ?>
+				<a class="add-page-chunk" href="#"><?php echo lang('pages.add_page_chunk'); ?></a>
 			</li>
 		</ul>
 	</div>
-
-	<?php alternator(); ?>
-
 
 	<!-- Meta data tab -->
 	<div id="page-meta">
@@ -88,8 +93,6 @@
 		</ul>
 	</div>
 
-	<?php alternator(); ?>
-
 	<!-- Design tab -->
 	<div id="page-design">
 		<ul>
@@ -107,8 +110,6 @@
 		<br class="clear-both" />
 	</div>
 
-	<?php alternator(); ?>
-
 	<!-- Script tab -->
 	<div id="page-script">
 		<ul>
@@ -121,8 +122,6 @@
 		</ul>
 		<br class="clear-both" />
 	</div>
-
-	<?php alternator(); ?>
 
 	<!-- Options tab -->
 	<div id="page-options">
@@ -146,67 +145,9 @@
 		</ul>
 	</div>
 
-	<?php if ($this->method !== 'create'): ?>
-	<?php alternator(); ?>
-	
-	<!-- Revisions -->
-	<div id="revision-options">
-		<ul>
-			<!-- Select a revision -->
-			<li class="<?php echo alternator('even', ''); ?>">
-				<label for="use_revision_id"><?php echo lang('pages.preview_revision_title'); ?></label>
-				<select id="use_revision_id" name="use_revision_id">
-					<!-- Current revision to be used -->
-					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' H:i'); ?></option>
-					</optgroup>
-					<!-- All available revisions -->
-					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
-						<?php foreach ($revisions as $revision): ?>
-						<?php if ($revision->id !== $page->revision_id): ?>
-						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' H:i'); ?></option>
-						<?php endif; ?>
-						<?php endforeach; ?>
-					</optgroup>
-				</select>
-				<div class="buttons buttons-small inline">
-					<button type="button" name="btn_preview_revision" id="btn_preview_revision">
-						<span><?php echo lang('pages.preview_label'); ?></span>
-					</button>
-				</div>
-			</li>
-			<!-- Compare two revisions -->
-			<li class="<?php echo alternator('even', ''); ?>">
-				<label for="compare_revision_1"><?php echo lang('pages.compare_revisions_title'); ?></label>
-				<?php $i = 1; while ($i <= 2): ?>
-				<select id="compare_revision_<?php echo $i; ?>" name="compare_revision_<?php echo $i; ?>">
-					<!-- Current revision to be used -->
-					<optgroup label="<?php echo lang('pages.current_label'); ?>">
-						<option value="<?php echo $page->revision_id; ?>"><?php echo format_date($page->revision_date, $this->settings->date_format . ' H:i'); ?></option>
-					</optgroup>
-					<!-- All available revisions -->
-					<optgroup label="<?php echo lang('pages.revisions_label'); ?>">
-						<?php foreach ($revisions as $revision): ?>
-						<?php if ($revision->id !== $page->revision_id): ?>
-						<option value="<?php echo $revision->id; ?>"><?php echo format_date($revision->revision_date, $this->settings->date_format . ' H:i'); ?></option>
-						<?php endif; ?>
-						<?php endforeach; ?>
-					</optgroup>
-				</select>
-				<?php ++$i; endwhile; ?>
-				<div class="buttons buttons-small inline">
-					<button type="button" name="btn_compare_revisions" id="btn_compare_revisions">
-						<span><?php echo lang('pages.compare_label'); ?></span>
-					</button>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<?php endif; ?>
-
 </div>
 
-<div class="buttons align-right padding-top">
+<div class="buttons">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 </div>
 

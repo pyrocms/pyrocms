@@ -2,8 +2,7 @@
 /**
  * Pages controller
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
- * @modified	Yorick Peterse
+ * @author	PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Pages module
  * @category	Modules
@@ -16,82 +15,82 @@ class Admin extends Admin_Controller {
 	 * @var array
 	 */
 	private $validation_rules = array(
-			array(
-				'field' => 'title',
-				'label'	=> 'lang:pages.title_label',
-				'rules'	=> 'trim|required|max_length[250]'
-			),
-			array(
-				'field' => 'slug',
-				'label'	=> 'lang:pages.slug_label',
-				'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
-			),
-			array(
-				'field' => 'body',
-				'label'	=> 'lang:pages.body_label',
-				'rules' => 'trim|required'
-			),
-			array(
-				'field' => 'layout_id',
-				'label'	=> 'lang:pages.layout_id_label',
-				'rules'	=> 'trim|numeric|required'
-			),
-			array(
-				'field'	=> 'css',
-				'label'	=> 'lang:pages.css_label',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field'	=> 'js',
-				'label'	=> 'lang:pages.js_label',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'meta_title',
-				'label' => 'lang:pages.meta_title_label',
-				'rules' => 'trim|max_length[250]'
-			),
-			array(
-				'field'	=> 'meta_keywords',
-				'label' => 'lang:pages.meta_keywords_label',
-				'rules' => 'trim|max_length[250]'
-			),
-			array(
-				'field'	=> 'meta_description',
-				'label'	=> 'lang:pages.meta_description_label',
-				'rules'	=> 'trim'
-			),
-			array(
-				'field' => 'restricted_to[]',
-				'label'	=> 'lang:pages.access_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'rss_enabled',
-				'label'	=> 'lang:pages.rss_enabled_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'comments_enabled',
-				'label'	=> 'lang:pages.comments_enabled_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field' => 'is_home',
-				'label'	=> 'lang:pages.is_home_label',
-				'rules'	=> 'trim|numeric'
-			),
-			array(
-				'field'	=> 'status',
-				'label'	=> 'lang:pages.status_label',
-				'rules'	=> 'trim|alpha|required'
-			),
-			array(
-				'field' => 'navigation_group_id',
-				'label' => 'lang:pages.navigation_label',
-				'rules' => 'numeric'
-			)
-		);
+		array(
+			'field' => 'title',
+			'label'	=> 'lang:pages.title_label',
+			'rules'	=> 'trim|required|max_length[250]'
+		),
+		array(
+			'field' => 'slug',
+			'label'	=> 'lang:pages.slug_label',
+			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
+		),
+		array(
+			'field' => 'chunk_body[]',
+			'label'	=> 'lang:pages.body_label',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'layout_id',
+			'label'	=> 'lang:pages.layout_id_label',
+			'rules'	=> 'trim|numeric|required'
+		),
+		array(
+			'field'	=> 'css',
+			'label'	=> 'lang:pages.css_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field'	=> 'js',
+			'label'	=> 'lang:pages.js_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'meta_title',
+			'label' => 'lang:pages.meta_title_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_keywords',
+			'label' => 'lang:pages.meta_keywords_label',
+			'rules' => 'trim|max_length[250]'
+		),
+		array(
+			'field'	=> 'meta_description',
+			'label'	=> 'lang:pages.meta_description_label',
+			'rules'	=> 'trim'
+		),
+		array(
+			'field' => 'restricted_to[]',
+			'label'	=> 'lang:pages.access_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'rss_enabled',
+			'label'	=> 'lang:pages.rss_enabled_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'comments_enabled',
+			'label'	=> 'lang:pages.comments_enabled_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field' => 'is_home',
+			'label'	=> 'lang:pages.is_home_label',
+			'rules'	=> 'trim|numeric'
+		),
+		array(
+			'field'	=> 'status',
+			'label'	=> 'lang:pages.status_label',
+			'rules'	=> 'trim|alpha|required'
+		),
+		array(
+			'field' => 'navigation_group_id',
+			'label' => 'lang:pages.navigation_label',
+			'rules' => 'numeric'
+		)
+	);
 
 	/**
 	 * The ID of the page, used for the validation callback
@@ -107,15 +106,10 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required classes
 		$this->load->library('form_validation');
-
-		// Versioning
-		$this->load->library('versioning');
-		$this->versioning->set_table('pages');
 
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
@@ -135,14 +129,13 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		// Get the page tree		
 		$this->data->pages = $this->pages_m->get_page_tree();
 		$this->data->controller =& $this;
 
 		$this->template
 			->title($this->module_details['name'])
 			->append_metadata( js('jquery/jquery.ui.nestedSortable.js') )
-			->append_metadata( js('jquery/jquery.cookie.js') )
+			->append_metadata( js('jquery/jquery.cooki.js') )
 			->append_metadata( js('index.js', 'pages') )
 			->append_metadata( css('index.css', 'pages') )
 			->build('admin/index', $this->data);
@@ -221,62 +214,76 @@ class Admin extends Admin_Controller {
 	 */
 	public function create($parent_id = 0)
 	{
-		// Validate the page
-		if ($this->form_validation->run())
-	    {
-			$input = $this->input->post();
-
-			if ($input['status'] == 'live')
-			{
-				role_or_die('pages', 'put_live');
+		if ($_POST)
+		{
+			$page->chunks = array();
+			for ($i = 0; $i < count($this->input->post('chunk_body')); $i++)
+			{	
+				$page->chunks[] = (object) array(
+					'slug' => ! empty($_POST['chunk_slug'][$i]) ? $_POST['chunk_slug'][$i] : '',
+					'body' => ! empty($_POST['chunk_body'][$i]) ? $_POST['chunk_body'][$i] : '',
+					'type' => ! empty($_POST['chunk_type'][$i]) ? $_POST['chunk_type'][$i] : '',
+				);
 			}
-
-			// First create the page
-			$page_body		= $input['body'];
-			$nav_group_id	= $input['navigation_group_id'];
-
-			unset($input['body'], $input['navigation_group_id']);
-			
-			if ($id = $this->pages_m->create($input))
+				
+			// Validate the page
+			if ($this->form_validation->run())
 			{
-				// Create the revision
-				$revision_id = $this->versioning->create_revision(array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $page_body));
-
-				// Update the page row
-				$input['revision_id'] = $revision_id;
-
-				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-
-				// Add a Navigation Link
-				if ($nav_group_id)
+				$input = $this->input->post();
+	
+				if ($input['status'] == 'live')
 				{
-					$this->load->model('navigation/navigation_m');
-					$this->navigation_m->insert_link(array(
-						'title'					=> $input['title'],
-						'link_type'				=> 'page',
-						'page_id'				=> $id,
-						'navigation_group_id'	=> (int) $nav_group_id
-					));
+					role_or_die('pages', 'put_live');
 				}
-
-				if ($this->pages_m->update($id, $input))
+	
+				// First create the page
+				$nav_group_id	= $input['navigation_group_id'];
+				unset($input['navigation_group_id']);
+				
+				if ($id = $this->pages_m->insert($input, $page->chunks))
 				{
-					$this->session->set_flashdata('success', lang('pages_create_success'));
-
-					// Redirect back to the form or main page
-					$this->input->post('btnAction') == 'save_exit'
-						? redirect('admin/pages')
-						: redirect('admin/pages/edit/'.$id);
+					$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+	
+					// Add a Navigation Link
+					if ($nav_group_id)
+					{
+						$this->load->model('navigation/navigation_m');
+						$this->navigation_m->insert_link(array(
+							'title'					=> $input['title'],
+							'link_type'				=> 'page',
+							'page_id'				=> $id,
+							'navigation_group_id'	=> (int) $nav_group_id
+						));
+					}
+	
+					if ($this->pages_m->update($id, $input))
+					{
+						$this->session->set_flashdata('success', lang('pages_create_success'));
+	
+						// Redirect back to the form or main page
+						$this->input->post('btnAction') == 'save_exit'
+							? redirect('admin/pages')
+							: redirect('admin/pages/edit/'.$id);
+					}
+				}
+	
+				// Fail
+				else
+				{
+					$this->session->set_flashdata('notice', lang('pages_create_error'));
 				}
 			}
-
-			// Fail
-			else
-			{
-				$this->session->set_flashdata('notice', lang('pages_create_error'));
-			}
-	    }
-
+		}
+		
+		else
+		{
+			$page->chunks = array((object) array(
+				'slug' => 'default',
+				'body' => '',
+				'type' => 'wysiwyg-advanced',
+			));
+		}
+		
 		// Loop through each rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -289,26 +296,27 @@ class Admin extends Admin_Controller {
 
 			$page->{$rule['field']} = set_value($rule['field']);
 		}
-
-	    // If a parent id was passed, fetch the parent details
-	    if ($parent_id > 0)
-	    {
+		
+		// If a parent id was passed, fetch the parent details
+		if ($parent_id > 0)
+		{
 			$page->parent_id 	= $parent_id;
-			$parent_page 		= $this->pages_m->get($parent_id);
-	    }
-
-	    // Assign data for display
+			$parent_page 	= $this->pages_m->get($parent_id);
+		}
+		
+		// Assign data for display
 		$data['page'] = & $page;
 		$data['parent_page'] = & $parent_page;
-
+		
 		// Set some data that both create and edit forms will need
 		self::_form_data();
-
-	    // Load WYSIWYG editor
+		
+		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('admin.js', 'pages') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $data);
 	}
@@ -325,65 +333,66 @@ class Admin extends Admin_Controller {
 
 		role_or_die('pages', 'edit_live');
 
-	    $page 			= $this->versioning->get($id);
-		$revisions		= $this->versioning->get_revisions($id);
+		$page = $this->pages_m->get($id);
+		
+		// Grab all the chunks that make up the body
+		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
 
-	    // Got page?
-	    if ( ! $page)
-	    {
+		// Got page?
+		if ( ! $page)
+		{
 			$this->session->set_flashdata('error', lang('pages_page_not_found_error'));
 			redirect('admin/pages/create');
-	    }
+		}
 
-	    // Set the page ID and get the current page
-	    $this->page_id = $page->id;
+		// Set the page ID and get the current page
+		$this->page_id = $page->id;
 
 		// It's stored as a CSV list
 		$page->restricted_to = explode(',', $page->restricted_to);
 
-		if ($this->form_validation->run())
-	    {
-			$input = $this->input->post();
-			
-			if ($page->status != 'live' and $input['status'] == 'live')
-			{
-				role_or_die('pages', 'put_live');
+		if ($_POST)
+		{
+			$page->chunks = array();
+			for ($i = 0; $i < count($this->input->post('chunk_body')); $i++)
+			{	
+				$page->chunks[] = (object) array(
+					'slug' => ! empty($_POST['chunk_slug'][$i]) ? $_POST['chunk_slug'][$i] : '',
+					'body' => ! empty($_POST['chunk_body'][$i]) ? $_POST['chunk_body'][$i] : '',
+					'type' => ! empty($_POST['chunk_type'][$i]) ? $_POST['chunk_type'][$i] : '',
+				);
 			}
 			
-			// Set the data for the revision
-			$revision_data = array('author_id' => $this->user->id, 'owner_id' => $id, 'body' => $input['body']);
-
-			// Did the user wanted to restore a specific revision?
-			if ($input['use_revision_id'] == $page->revision_id )
-			{
-				$input['revision_id'] 	= $this->versioning->create_revision($revision_data);
+			if ($this->form_validation->run())
+			{		
+				$input = $this->input->post();
+				
+				if ($page->status != 'live' and $input['status'] == 'live')
+				{
+					role_or_die('pages', 'put_live');
+				}
+				
+				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
+	
+				// Run the update code with the POST data
+				$this->pages_m->update($id, $input, $page->chunks);
+	
+				// The slug has changed
+				if ($this->input->post('slug') != $this->input->post('old_slug'))
+				{
+					$this->pages_m->reindex_descendants($id);
+				}
+	
+				// Set the flashdata message and redirect the user
+				$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
+				$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
+	
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') == 'save_exit'
+					? redirect('admin/pages')
+					: redirect('admin/pages/edit/'.$id);
 			}
-			// Manually restore a revision
-			else
-			{
-				$input['revision_id'] = $input['use_revision_id'];
-			}
-
-			$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
-
-			// Run the update code with the POST data
-			$this->pages_m->update($id, $input);
-
-			// The slug has changed
-			if ($this->input->post('slug') != $this->input->post('old_slug'))
-			{
-				$this->pages_m->reindex_descendants($id);
-			}
-
-			// Set the flashdata message and redirect the user
-			$link = anchor('admin/pages/preview/'.$id, $this->input->post('title'), 'class="modal-large"');
-			$this->session->set_flashdata('success', sprintf(lang('pages_edit_success'), $link));
-
-			// Redirect back to the form or main page
-			$this->input->post('btnAction') == 'save_exit'
-				? redirect('admin/pages')
-				: redirect('admin/pages/edit/'.$id);
-	    }
+		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
@@ -399,24 +408,29 @@ class Admin extends Admin_Controller {
 
 				continue;
 			}
+			
+			if($rule['field'] === 'chunk_body[]')
+			{
+				continue;
+			}
 
 			$page->{$rule['field']} = set_value($rule['field'], $page->{$rule['field']});
 		}
-
-	    // If a parent id was passed, fetch the parent details
-	    if ($page->parent_id > 0)
-	    {
+		
+		// If a parent id was passed, fetch the parent details
+		if ($page->parent_id > 0)
+		{
 			$parent_page = $this->pages_m->get($page->parent_id);
-	    }
-
-	    // Assign data for display
-	    $this->data->page 			=& $page;
-		$this->data->revisions		=& $revisions;
-	    $this->data->parent_page 	=& $parent_page;
+		}
+		
+		// Assign data for display
+		$this->data->page 		=& $page;
+		$this->data->parent_page 	=& $parent_page;
 
 		self::_form_data();
 
 		$this->template
+		
 			->title($this->module_details['name'], sprintf(lang('pages.edit_title'), $page->title))
 
 			// Load WYSIWYG Editor
@@ -424,6 +438,7 @@ class Admin extends Admin_Controller {
 
 			// Load form specific JavaScript
 			->append_metadata( js('codemirror/codemirror.js') )
+			->append_metadata( js('admin.js', 'pages') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);
 	}
@@ -500,46 +515,6 @@ class Admin extends Admin_Controller {
 
 		redirect('admin/pages');
 	}
-
-	/**
-	 * Show a diff between two revisions
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id_1 The ID of the first revision to compare
-	 * @param int $id_2 The ID of the second revision to compare
-	 * @return void
-	 */
-	public function compare($id_1, $id_2)
-	{
-		// Create the diff using mixed mode
-		$rev_1 = $this->versioning->get_by_revision($id_1);
-		$rev_2 = $this->versioning->get_by_revision($id_2);
-		$diff  = $this->versioning->compare_revisions($rev_2->body, $rev_1->body, 'mixed');
-
-		// Output the results
-		$data['difference'] = $diff;
-
-		$this->template
-			->set_layout('modal', 'admin')
-			->build('admin/revisions/compare', $data);
-	}
-
-	/**
-	 * Show a preview of a revision
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @param int $id The ID of the revision to preview
-	 * @return void
-	 */
-	public function preview_revision($id)
-	{
-		// Easy isn't it?
-		$data['revision'] = $this->versioning->get_by_revision($id);
-		$this->template->set_layout('modal', 'admin')
-				->build('admin/revisions/preview', $data);
-	}
 	
 	/**
 	 * Build the html for the admin page tree view
@@ -548,29 +523,26 @@ class Admin extends Admin_Controller {
 	 * @access public
 	 * @param array $page Current page
 	 */
-	
 	public function tree_builder($page)
 	{
 		if(isset($page['children'])):
+	
+			foreach($page['children'] as $page): ?>
 		
-				foreach($page['children'] as $page): ?>
-			
-					<li id="page_<?php echo $page['id']; ?>">
-						<div>
-							<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
-						</div>
-					
-				<?php if(isset($page['children'])): ?>
-						<ol>
-								<?php $this->tree_builder($page); ?>
-						</ol>
-					</li>
-				<?php else: ?>
-					</li>
-				<?php endif; ?>
+				<li id="page_<?php echo $page['id']; ?>">
+					<div>
+						<a href="#" rel="<?php echo $page['id'] . '">' . $page['title']; ?></a>
+					</div>
 				
-			<?php endforeach; ?>
-			
-		<?php endif;
+			<?php if(isset($page['children'])): ?>
+					<ol>
+							<?php $this->tree_builder($page); ?>
+					</ol>
+				</li>
+			<?php else: ?>
+				</li>
+			<?php endif;
+			endforeach;
+		endif;
 	}
 }

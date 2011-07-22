@@ -28,6 +28,7 @@ $lang['buttons.disable']	= 'Desactivar';
 $lang['buttons.yes']		= 'Si';
 $lang['buttons.no']			= 'No';
 $lang['buttons.activate']	= 'Activar';
+$lang['buttons.deactivate']	= 'Deactivate'; #translate
 $lang['buttons.preview']	= 'Vista previa';
 $lang['buttons.close']		= 'Cerrar';
 $lang['buttons.edit']		= 'Editar';

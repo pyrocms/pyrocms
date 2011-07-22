@@ -1,67 +1,19 @@
-{if '{pyro:theme:options option="layout"}' == 'full-width'}
+{if '{pyro:theme:options option="layout"}' == 'full-width' || (('{pyro:theme:options option="layout"}' == 'full-width-home') && ('{pyro:page:is_home}' == TRUE))}
 <!-- Begin full width content -->
-	<div id="full-content">
-
-		{pyro:theme:partial name="breadcrumbs"}
-
-		{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-
-		<div class="post">
-			{pyro:template:body}
-			<br style="clear:both;" />
-		</div>
-
-	</div>
-	<!-- End full width content -->
-{elseif '{pyro:theme:options option="layout"}' == 'full-width-home'}
-	{if '{pyro:page:is_home}' == TRUE}
-	<!-- Begin full width home page -->
-		<div id="full-content">
-	
-			{pyro:theme:partial name="breadcrumbs"}
-	
-			{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-	
-			<div class="post">
-				{pyro:template:body}
-				<br style="clear:both;" />
-			</div>
-	
-		</div>
-		<!-- End full width home page -->
-	{else}
-	<!-- Begin 2 column content -->
-		<div id="content">
-		
-			{pyro:theme:partial name="breadcrumbs"}
-		
-			{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-		
-			<div class="post">
-				{pyro:template:body}
-				<br style="clear:both;" />
-			</div>
-		
-		</div>
-		<!-- End 2 column content -->
-		
-		{pyro:theme:partial name="sidebar"}
-	{/if}
+<div id="full-content">
 {else}
 <!-- Begin 2 column content -->
-	<div id="content">
-
-		{pyro:theme:partial name="breadcrumbs"}
-
-		{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
-
-		<div class="post">
-			{pyro:template:body}
-			<br style="clear:both;" />
-		</div>
-
-	</div>
-	<!-- End 2 column content -->
-
-	{pyro:theme:partial name="sidebar"}
+<div id="content">
+{/if}
+	{pyro:theme:partial name="breadcrumbs"}
+	{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
+	<section class="post clearfix">
+		{pyro:template:body}
+	</section>
+</div>
+{if ('{pyro:theme:options option="layout"}' == 'full-width') or (('{pyro:theme:options option="layout"}' == 'full-width-home') and ('{pyro:page:is_home}' == TRUE))}
+<!-- End full width content -->
+{else}
+<!-- End 2 column content -->
+{pyro:theme:partial name="sidebar"}
 {/if}

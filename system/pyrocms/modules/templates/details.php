@@ -47,8 +47,10 @@ class Module_Templates extends Module {
 
 	public function install()
 	{
+		$this->dbforge->drop_table('email_templates');
+		
 		$email_templates = "
-            CREATE TABLE IF NOT EXISTS `email_templates` (
+            CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('email_templates') . " (
             `id` int(11) NOT NULL AUTO_INCREMENT,
 			`slug` varchar(100) NOT NULL,
 			`name` varchar(100) NOT NULL,
@@ -73,12 +75,12 @@ class Module_Templates extends Module {
 		$comment_subject = 'You have just received a comment from {pyro:name}';
 
 		$comment_template = "
-			INSERT INTO `email_templates` (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES
+			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES
 			('comments', 'Comment Notificiation', 'Email that is sent to admin when someone creates a comment', '".$comment_subject."', '".$comment_body."', 'en', 1);
 		";
 
 		$contact_template = "
-			INSERT INTO `email_templates` (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('contact', 'Contact Notification', 'Template for the contact form', '{pyro:settings:site_name} :: {pyro:subject}', 'This message was sent via the contact form on with the following details:
+			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('contact', 'Contact Notification', 'Template for the contact form', '{pyro:settings:site_name} :: {pyro:subject}', 'This message was sent via the contact form on with the following details:
 				<hr />
 				IP Address: {pyro:sender_ip}
 				OS {pyro:sender_os}

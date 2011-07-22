@@ -20,16 +20,20 @@ class WYSIWYG_Controller extends MY_Controller
 			$this->load->language('files/files');
 			show_error('files.no_permissions');
 	    }
-		
+
+		// Prepare Asset library
+	    $this->asset->set_theme(ADMIN_THEME);
+
 		$this->load->model('files/file_folders_m');
 		$this->load->model('files/file_m');
 		$this->lang->load('files/files');
 		$this->lang->load('wysiwyg');
 
 		$this->template
+			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
-			->append_metadata(js('jquery/jquery.js'))
+			->append_metadata(js('jquery/jquery.min.js'))
 	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
 	    	->append_metadata(js('jquery/jquery.livequery.min.js'))
 	    	->append_metadata(js('jquery/jquery.fancybox.js'))
@@ -41,7 +45,7 @@ class WYSIWYG_Controller extends MY_Controller
 			->append_metadata( js('jquery/jquery.uniform.min.js') )
 			->append_metadata( js('jquery/jquery-ui.min.js') )
 			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') ) // TODO: Merge it with default jquery-ui.css
-			->append_metadata('<script type="text/javascript">var FILES_PATH = "'.base_url().'uploads/files/"</script>')
+			->append_metadata('<script type="text/javascript">var FILES_PATH = "'.base_url().UPLOAD_PATH.'files/"</script>')
 			->append_metadata( '<script type="text/javascript">var SITE_URL = "'.rtrim(site_url(), '/').'"</script>');
 	}
 }

@@ -1020,11 +1020,11 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		if ($query->num_rows() == 0)
 		{
-			return '0';
+			return 0;
 		}
 
 		$row = $query->row();
-		return $row->numrows;
+		return (int) $row->numrows;
 	}
 
 	// --------------------------------------------------------------------
@@ -1156,7 +1156,7 @@ class CI_DB_active_record extends CI_DB_driver {
 				$this->ar_set[] = array();
 				return;
 			}
-		
+
 			ksort($row); // puts $row in the same order as our keys
 
 			if ($escape === FALSE)
@@ -1622,6 +1622,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	 * @access	public
 	 * @param	string	the table
 	 * @return	string
+	 * @deprecated	v2.0.3
 	 */
 	function dbprefix($table = '')
 	{
@@ -1633,6 +1634,22 @@ class CI_DB_active_record extends CI_DB_driver {
 		return $this->dbprefix.$table;
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * Set DB Prefix
+	 *
+	 * Set's the DB Prefix to something new without needing to reconnect
+	 *
+	 * @access	public
+	 * @param	string	the prefix
+	 * @return	string
+	 */
+	function set_dbprefix($prefix = '')
+	{
+		return $this->dbprefix = $prefix;
+	}
+	
 	// --------------------------------------------------------------------
 
 	/**

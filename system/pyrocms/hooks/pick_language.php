@@ -75,5 +75,5 @@ function pick_language()
 	}
 
     // Sets a constant to use throughout ALL of CI.
-    define('CURRENT_LANGUAGE', $lang);
+    define('AUTO_LANGUAGE', $lang);
 }

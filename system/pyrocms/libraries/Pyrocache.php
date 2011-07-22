@@ -39,7 +39,10 @@ class Pyrocache
 		$this->_default_expires = $this->_ci->config->item('cache_default_expires');
 		if ( ! is_dir($this->_path))
 		{
-			show_error("Cache Path not found: $this->_path");
+			if ( ! mkdir($this->_path, 0777, TRUE) )
+			{			
+				show_error('Cache Path was not found and could not be created: ' . $this->_path);
+			}
 		}
 	}
 
@@ -104,7 +107,7 @@ class Pyrocache
 		// Clean given arguments to a 0-index array
 		$arguments = array_values($arguments);
 
-		$cache_file = $property.DIRECTORY_SEPARATOR.dohash($method.serialize($arguments), 'sha1');
+		$cache_file = $property.DIRECTORY_SEPARATOR.do_hash($method.serialize($arguments), 'sha1');
 
 		// See if we have this cached or delete if $expires is negative
 		if($expires >= 0)

@@ -23,7 +23,7 @@
  * @abstract
  */
 abstract class Theme {
-
+	
 	/**
 	 * @var theme name
 	 */
@@ -53,7 +53,32 @@ abstract class Theme {
 	 * @var The version of the theme.
 	 */
 	public $version;
-
+	
+	/**
+	 * @var Front-end or back-end.
+	 */
+	public $type;
+	
+	/**
+	 * @var Designer defined options.
+	 */
+	public $options;
+	
+	/**
+	 * __get
+	 *
+	 * Allows this class and classes that extend this to use $this-> just like
+	 * you were in a controller.
+	 *
+	 * @access	public
+	 * @return	mixed
+	 */
+	public function __get($var)
+	{
+		static $ci;
+		isset($ci) OR $ci =& get_instance();
+		return $ci->{$var};
+	}
 }
 
 /* End of file Theme.php */

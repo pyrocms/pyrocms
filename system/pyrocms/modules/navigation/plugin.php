@@ -16,7 +16,7 @@ class Plugin_Navigation extends Plugin
 	 *
 	 * Usage:
 	 * {pyro:navigation:links group="header"}
-	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class=""
+	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class="", more_class=""
 	 * @param	array
 	 * @return	array
 	 */
@@ -40,7 +40,10 @@ class Plugin_Navigation extends Plugin
 
 		$top			= $this->attribute('top', FALSE);
 		$separator		= $this->attribute('separator', '');
-		$link_class		= $this->attribute('link_class', '');
+															//deprecated
+		$link_class		= $this->attribute('link-class', $this->attribute('link_class', ''));
+															//deprecated
+		$more_class		= $this->attribute('more-class', $this->attribute('more_class', ''));
 		$current_class	= $this->attribute('class', 'current');
 		$output			= $return_arr ? array() : '';
 
@@ -50,7 +53,8 @@ class Plugin_Navigation extends Plugin
 		if ( ! $return_arr)
 		{
 			$tag		= $this->attribute('tag', 'li');
-			$list_tag	= $this->attribute('list_tag', 'ul');
+														//deprecated
+			$list_tag	= $this->attribute('list-tag', $this->attribute('list_tag', 'ul'));
 
 			switch ($this->attribute('indent'))
 			{
@@ -116,6 +120,7 @@ class Plugin_Navigation extends Plugin
 			if ($link['children'])
 			{
 				++$level;
+				$wrapper['class'][] = $more_class;
 				$wrapper['children'] = $this->_build_links($link['children'], $return_arr);
 				--$level;
 			}
@@ -160,11 +165,16 @@ class Plugin_Navigation extends Plugin
 
 				if ($wrapper['class'] && $item['class'])
 				{
-					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7);
+					$item['class'] = implode(' ', $wrapper['class']) . ' ' . substr($item['class'], 7, -1);
 				}
 				elseif ($wrapper['class'])
 				{
-					$item['class'] = 'class="' . implode(' ', $wrapper['class']) . '"';
+					$item['class'] = implode(' ', $wrapper['class']);
+				}
+
+				if ($item['target'])
+				{
+					$item['target'] = substr($item['target'], 8, -1);
 				}
 
 				// assign attributes to level family
@@ -172,14 +182,15 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				$add_first_tag = $level === 0 && ! in_array($this->attribute('items_only', 'true'), array('1','y','yes','true'));
+																							//deprecated
+				$add_first_tag = $level === 0 && ! in_array($this->attribute('items-only', $this->attribute('items_only', 'true')), array('1','y','yes','true'));
 
 				// render and indent or only render inline?
 				if ($indent)
 				{
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">' . PHP_EOL;
-					$output .= $ident_c . (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes']))) . PHP_EOL;
+					$output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
 
 					if ($wrapper['children'])
 					{
@@ -196,7 +207,7 @@ class Plugin_Navigation extends Plugin
 				{
 					$output .= $add_first_tag ? "<{$list_tag}>" : '';
 					$output .= '<' . $tag . ' class="' . implode(' ', $wrapper['class']) . '">';
-					$output .= (($level == 0) AND $top == 'text') ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					$output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ($wrapper['children'])
 					{

@@ -11,67 +11,37 @@ class Admin_Controller extends MY_Controller {
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
 
+		$this->load->helper('admin_theme');
+		
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
 			show_error($this->lang->line('cp_access_denied'));
 			exit;
 		}
-
-		// Get a list of all modules available to this user / group
-		if ($this->user)
+		
+		if ( ! $this->admin_theme->slug)
 		{
-			$modules = $this->module_m->get_all(array(
-				'is_backend' => TRUE,
-				'group' => $this->user->group,
-				'lang' => CURRENT_LANGUAGE
-			));
-
-			$grouped_modules = array();
-
-			$grouped_menu[] = 'content';
-
-			foreach ($modules as $module)
-			{
-				if ($module['menu'] != 'content' && $module['menu'] != 'design' && $module['menu'] != 'users' && $module['menu'] != 'utilities' && $module['menu'] != '0')
-				{
-					$grouped_menu[] = $module['menu'];
-				}
-			}
-
-			array_push($grouped_menu, 'design', 'users', 'utilities');
-
-			$grouped_menu = array_unique($grouped_menu);
-
-			foreach ($modules as $module)
-			{
-
-				$grouped_modules[$module['menu']][$module['name']] = $module;
-			}
-
-			$this->template->menu_items = $grouped_menu;
-			$this->template->modules = $grouped_modules;
+			show_error('This site has been set to use an admin theme that does not exist.');
 		}
 
+		// Prepare Asset library
+	    $this->asset->set_theme(ADMIN_THEME);
+		
+		// grab the theme options if there are any
+		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array( array('theme' => ADMIN_THEME) ));
+	
 		// Template configuration
 		$this->template
-				->set_layout('default', 'admin')
 				->enable_parser(FALSE)
-				->append_metadata(css('admin/style.css'))
-				->append_metadata(css('jquery/jquery-ui.css'))
-				->append_metadata(css('jquery/colorbox.css'))
-				->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
-				->append_metadata(js('jquery/jquery-ui.min.js'))
-				->append_metadata(js('jquery/jquery.colorbox.min.js'))
-				->append_metadata(js('jquery/jquery.livequery.min.js'))
-				->append_metadata(js('jquery/jquery.uniform.min.js'))
-				->append_metadata(js('admin/functions.js'))
-				->append_metadata('<script type="text/javascript">pyro.apppath_uri="' . APPPATH_URI . '";pyro.base_uri="' . BASE_URI . '";</script>')
 				->set('user', $this->user)
-				->set_partial('header', 'admin/partials/header')
-				->set_partial('navigation', 'admin/partials/navigation')
-				->set_partial('metadata', 'admin/partials/metadata')
-				->set_partial('footer', 'admin/partials/footer');
+				->set('theme_options', $this->theme_options)
+				->set_theme(ADMIN_THEME)
+				->set_layout('default', 'admin');
+
+		// trigger the run() method in the selected admin theme
+		$class = 'Theme_'.ucfirst($this->admin_theme->slug);
+		call_user_func(array(new $class, 'run'));
 
 //	    $this->output->enable_profiler(TRUE);
 	}

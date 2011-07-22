@@ -2,7 +2,7 @@
 
 // labels
 $lang['header']			=	'Passo 1: Configura Database e Server';
-$lang['intro_text']		=	'Prima di verificare il database, abbiamo bisogno di sapere dov\' è e quali sono i parametri di accesso.';
+$lang['intro_text']		=	'Prima di verificare il database, abbiamo bisogno di sapere dov\' Ã¨ e quali sono i parametri di accesso.';
 
 $lang['db_settings']	=	'Impostazioni del Database';
 $lang['db_text']		=	'Per verificare la versione del tuo server MySQL devi inserire hostname, username e password nel modulo sottostante. Questi parametri saranno inoltre usati per installare il database.';
@@ -13,6 +13,7 @@ $lang['password']		=	'Password';
 $lang['portnr']			=	'Porta';
 $lang['server_settings']=	'Impostazioni Server';
 $lang['httpserver']		=	'HTTP Server';
+$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
 $lang['step2']			=	'Passo 2';
 
 // messages

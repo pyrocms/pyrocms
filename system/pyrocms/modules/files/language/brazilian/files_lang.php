@@ -94,7 +94,7 @@ $lang['file_folders.delete_error']			= 'Ocorreu um erro ao tentar remover a past
 $lang['file_folders.not_exists']			= 'Uma pasta inválida foi selecionada.';
 $lang['file_folders.no_subfolders']			= 'Vazio';
 $lang['file_folders.no_folders']			= 'Seus arquivos são organizados por pastas, atualmente você não tem nenhuma pasta criada.';
-$lang['file_folders.mkdir_error']			= 'Não foi possível criar o diretório o "uploads/files"';
+$lang['file_folders.mkdir_error']			= 'Não foi possível criar o diretório "uploads/files"';
 $lang['file_folders.chmod_error']			= 'Não foi possível aplicar chmod ao diretório "uploads/files"';
 $lang['file_folders.no_select_error'] 		= 'Você precisa selecionar uma pasta primeiro, sua solicitação foi interrompida..';
 

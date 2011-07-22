@@ -2,7 +2,7 @@
 
 class Module_Themes extends Module {
 
-	public $version = '0.5';
+	public $version = '1.0';
 	
 	public function info()
 	{
@@ -56,7 +56,7 @@ class Module_Themes extends Module {
 		$this->dbforge->drop_table('theme_options');
 
 		$theme_options = "
-			CREATE TABLE `theme_options` (
+			CREATE TABLE " . $this->db->dbprefix('theme_options') . " (
 			  `id` int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,

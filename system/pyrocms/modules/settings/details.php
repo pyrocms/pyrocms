@@ -56,7 +56,7 @@ class Module_Settings extends Module {
 		$this->dbforge->drop_table('settings');
 
 		$settings = "
-			CREATE TABLE `settings` (
+			CREATE TABLE " . $this->db->dbprefix('settings') . " (
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `title` varchar(100) collate utf8_unicode_ci NOT NULL,
 			  `description` text collate utf8_unicode_ci NOT NULL,
@@ -78,7 +78,7 @@ class Module_Settings extends Module {
 		// for example if you add to the Email tab give it a value in the range of 983 to 975
 		// Third-party modules should use lower numbers or 0
 		$default_settings = "
-			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
+			INSERT INTO " . $this->db->dbprefix('settings') . " (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`, `order`) VALUES
 			 ('site_name','Site Name','The name of the website for page titles and for use around the site.','text','Un-named Website','','','1','1','','1000'),
 			 ('site_slogan','Site Slogan','The slogan of the website for page titles and for use around the site.','text','','Add your slogan here','','0','1','','999'),
 			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1','','998'),
@@ -116,8 +116,10 @@ class Module_Settings extends Module {
 			 ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users','965'),
 			 ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1','users','964'),
 			 ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1','users','963'),
-			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','','get_themes','1','0','','0'),
-			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0');
+			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
+			 ('admin_theme','Admin Theme','Select the theme for the admin panel.','','admin_theme','admin_theme','func:get_themes','1','0','','0'),
+			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
+			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
 		";
 
 		if ($this->db->query($settings) && $this->db->query($default_settings))

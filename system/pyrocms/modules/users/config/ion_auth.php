@@ -20,9 +20,9 @@
 	/**
 	 * Tables.
 	 **/
-	$config['tables']['groups']  = 'groups';
-	$config['tables']['users']   = 'users';
-	$config['tables']['meta']    = 'profiles';
+	$config['tables']['groups']  = SITE_REF.'_groups';
+	$config['tables']['users']   = SITE_REF.'_users';
+	$config['tables']['meta']    = SITE_REF.'_profiles';
 
 	/**
 	 * Site Title, example.com
@@ -54,7 +54,7 @@
 	 * Columns in your meta table,
 	 * id not required.
 	 **/
-	$config['columns']             = array('first_name', 'last_name', 'company', 'phone', 'lang', 'bio', 'dob', 'gender', 'phone', 'mobile', 'address_line1', 'address_line2', 'address_line3', 'postcode', 'website', 'msn_handle', 'aim_handle', 'yim_handle', 'gtalk_handle', 'gravatar', 'updated_on', 'display_name', 'twitter_access_token', 'twitter_access_token_secret');
+	$config['columns']             = array('display_name', 'first_name', 'last_name', 'company', 'lang', 'bio', 'dob', 'gender', 'phone', 'mobile', 'address_line1', 'address_line2', 'address_line3', 'postcode', 'website', 'msn_handle', 'aim_handle', 'yim_handle', 'gtalk_handle', 'gravatar', 'updated_on', 'twitter_access_token', 'twitter_access_token_secret');
 
 	/**
 	 * A database column which is used to

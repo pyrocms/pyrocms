@@ -105,7 +105,7 @@ function reload_module_details($slug = '')
 	// Loop through directories that hold modules
 	$is_core = TRUE;
 
-	foreach (array(APPPATH, ADDONPATH) as $directory)
+	foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 	{
 		// Loop through modules
 		foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
@@ -120,8 +120,13 @@ function reload_module_details($slug = '')
 			// Check the details file exists
 			if ( ! is_file($details_file))
 			{
-				//$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
-				continue;
+				$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+				
+				if ( ! is_file($details_file))
+				{
+					//$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
+					continue;
+				}
 			}
 
 			// Sweet, include the file

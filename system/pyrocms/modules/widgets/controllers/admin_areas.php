@@ -42,7 +42,7 @@ class Admin_areas extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->is_ajax() AND $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
@@ -101,19 +101,19 @@ class Admin_areas extends Admin_Controller {
 				$message	= lang('error_label');
 			}
 
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'html'		=> ($status === 'success' ? $this->index() : NULL),
 					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
-				)) );
+				));
 			}
 
 			if ($status === 'success')
@@ -128,15 +128,15 @@ class Admin_areas extends Admin_Controller {
 		}
 		elseif (validation_errors())
 		{
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$status		= 'error';
 				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -188,19 +188,19 @@ class Admin_areas extends Admin_Controller {
 				$message	= lang('general_error_label');
 			}
 
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$data = array();
 
 				$data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message,
 					'html'		=> ($status === 'success' ? $this->index() : NULL),
 					'active'	=> (isset($area) && $area ? '#area-' . $area->slug . ' header' : FALSE)
-				)) );
+				));
 			}
 
 			if ($status === 'success')
@@ -215,15 +215,15 @@ class Admin_areas extends Admin_Controller {
 		}
 		elseif (validation_errors())
 		{
-			if ($this->is_ajax())
+			if ($this->input->is_ajax_request())
 			{
 				$status		= 'error';
 				$message	= $this->load->view('admin/partials/notices', array(), TRUE);
 
-				return print( json_encode((object) array(
+				return $this->template->build_json(array(
 					'status'	=> $status,
 					'message'	=> $message
-				)) );
+				));
 			}
 		}
 
@@ -255,17 +255,17 @@ class Admin_areas extends Admin_Controller {
 			$message = lang('general_error_label');
 		}
 
-		if ($this->is_ajax())
+		if ($this->input->is_ajax_request())
 		{
 			$data = array();
 
 			$data['messages'][$status] = $message;
 			$message = $this->load->view('admin/partials/notices', $data, TRUE);
 
-			return print( json_encode((object) array(
+			return $this->template->build_json(array(
 				'status'	=> $status,
 				'message'	=> $message
-			)) );
+			));
 		}
 
 		$this->session->set_flashdata($status, $message);
