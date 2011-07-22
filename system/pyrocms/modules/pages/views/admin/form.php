@@ -58,11 +58,11 @@
 				<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id); ?>
 			</li>
 			<?php endif; ?>
-			<?php foreach ($page->chunks AS $chunk): ?>
+			<?php foreach ($page->chunks as $chunk): ?>
 				<li class="<?php echo alternator('even', ''); ?> page-chunk">
 					<div class="float-left">
-					<?php echo form_input('chunk_slug[]', $chunk->slug); ?>
-					<?php echo form_dropdown('chunk_type[]', array(
+					<?php echo form_input('chunk_slug['.$chunk->id.']', $chunk->slug); ?>
+					<?php echo form_dropdown('chunk_type['.$chunk->id.']', array(
 						'html' => 'html',
 						'wysiwyg-simple' => 'wysiwyg-simple',
 						'wysiwyg-advanced' => 'wysiwyg-advanced',
@@ -72,7 +72,7 @@
 						<a href="javascript:void(0)" class="remove-chunk"><?php echo lang('cp_remove') ?></a>
 					</div>
 					<br style="clear:both" />
-					<?php echo form_textarea(array('id'=>$chunk->slug, 'name'=>'chunk_body[]', 'value' => $chunk->body, 'rows' => 50, 'class'=> $chunk->type)); ?>
+					<?php echo form_textarea(array('id' => $chunk->slug, 'name'=>'chunk_body['.$chunk->id.']', 'value' => $chunk->body, 'rows' => 50, 'class'=> $chunk->type)); ?>
 				</li>
 			<?php endforeach; ?>
 			<li class="<?php echo alternator('even', ''); ?>">

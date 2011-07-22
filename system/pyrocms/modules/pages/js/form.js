@@ -25,13 +25,13 @@
 			key = Number(new Date()).toString(16);
 			
 			$('#page-content ul li:last').before('<li class="page-chunk">' +
-				'<input type="text" name="chunk_slug[' + key + ']"/>' +
+				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
 				'<select name="chunk_type[' + key + ']" class="no-uniform">' +
 				'<option value="html">html</option>' +
 				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +
-				'<textarea class="wysiwyg-advanced" rows="50" cols="90" name="chunk_body[' + key + ']"></textarea>' +
+				'<textarea id="chunk-' + key + '" class="wysiwyg-advanced" rows="50" cols="90" name="chunk_body[' + key + ']"></textarea>' +
 			'</li>');
 			
 			// initialize the editor using the view from fragments/wysiwyg.php
@@ -43,5 +43,28 @@
 			
 			$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
 		});
+		
+		$('select[name^=chunk_type]').live('change', function() {
+			chunk = $(this).closest('li.page-chunk');
+			textarea = $('textarea', chunk);
+			
+			// Destroy existing WYSIWYG instance
+			if (textarea.hasClass('wysiwyg-simple') || textarea.hasClass('wysiwyg-advanced')) 
+			{
+				textarea.removeClass('wysiwyg-simple');
+				textarea.removeClass('wysiwyg-advanced');
+					
+				var instance = CKEDITOR.instances[textarea.attr('id')];
+			    instance && instance.destroy();
+			}
+			
+			
+			// Set up the new instance
+			textarea.addClass(this.value);
+			
+			pyro.init_ckeditor();
+			
+		});
+		
 	});
 })(jQuery);
