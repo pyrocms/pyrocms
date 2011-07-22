@@ -46,6 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Não foi possível se conectar ao Goo
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Atalhos';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Obrigatório';
 $lang['sb_recent_users'] 				= 'Usuários recentes';

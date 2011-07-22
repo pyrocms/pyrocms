@@ -44,6 +44,7 @@ $lang['cp_upgrade_message']		= 'أنت تستخدم النسخة %s حالياً
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'الاختصارات';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'مطلوب';
 $lang['sb_recent_users'] 				= 'أحديث المستخدمين';

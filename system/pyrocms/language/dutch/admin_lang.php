@@ -40,11 +40,6 @@ $lang['cp_nav_utilities']       = 'Gereedschappen';
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
 $lang['cp_upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';
-// Admin-wide text
-$lang['cp_sidebar_title'] 				= 'Menu';
-
-$lang['required_label'] 				= 'Verplicht';
-$lang['sb_recent_users'] 				= 'Recente gebruikers';
 
 $lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bekijken.';
 $lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
@@ -53,6 +48,7 @@ $lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Snelkoppelingen';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';

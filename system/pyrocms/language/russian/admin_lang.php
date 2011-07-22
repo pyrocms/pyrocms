@@ -52,6 +52,7 @@ $lang['cp_upgrade_message']						= 'Версия вашего сайта %s, н�
 
 // Глобальный текст
 $lang['cp_shortcuts_title']						= 'Ссылки';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label']								= 'Требуется';
 $lang['sb_recent_users']							= 'Последние пользователи';

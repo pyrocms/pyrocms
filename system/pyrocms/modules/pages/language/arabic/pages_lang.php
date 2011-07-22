@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 					= 'تفاصيل';
 
 // labels
 $lang['pages.page_label'] 						= 'الصفحة';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']					= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']						= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= 'اللغة';
 $lang['pages.updated_label'] 					= 'آخر تحديث';
 $lang['pages.actions_label'] 					= 'إجراءات';
@@ -71,5 +71,3 @@ $lang['pages.tree_explanation'] 				= 'القائمة التي على اليمي
 اضغط علامة "+" المقابلة للصفحة التي تريد عرض صفحاتها الفرعيّة. وعندما تضغط على أحد الصفحات ستظهر لك جميع المعلومات المفيدة في هذا المربّع.';
 
 $lang['pages.rss_explanation']					= 'تمكين خدمة RSS لهذه الصفحة سيمكّن المستخدمين من الإشتراك بتغذية RSS التي تظهر كل صفحة تابعة لهذه الصفحة.';
-
-?>

@@ -17,29 +17,31 @@
 			});
 		}));
 
-		//compare revisions
-		$('#btn_compare_revisions').click(function() {
-			//first revision
-			first = $('#compare_revision_1').val();
-			second = $('#compare_revision_2').val();
-
-			$.colorbox({
-				width: "85%",
-				height: "85%",
-				href: SITE_URL + 'admin/pages/compare/' + first + '/' + second
-			});
+		// add another page chunk
+		$('a.add-chunk').live('click', function(e){
+			e.preventDefault();
+	
+			// The date in hexdec
+			key = Number(new Date()).toString(16);
+			
+			$('#page-content ul li:last').before('<li class="page-chunk">' +
+				'<input type="text" name="chunk_slug[' + key + ']"/>' +
+				'<select name="chunk_type[' + key + ']" class="no-uniform">' +
+				'<option value="html">html</option>' +
+				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
+				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
+				'</select>' +
+				'<textarea class="wysiwyg-advanced" rows="50" cols="90" name="chunk_body[' + key + ']"></textarea>' +
+			'</li>');
+			
+			// initialize the editor using the view from fragments/wysiwyg.php
+			pyro.init_ckeditor();
 		});
-
-		//view revision
-		$('#btn_preview_revision').click(function() {
-			revision = $('#use_revision_id').val();
-
-			$.colorbox({
-				width: "85%",
-				height: "85%",
-				href: SITE_URL + 'admin/pages/preview_revision/' + revision
-			})
+		
+		$('a.remove-chunk').live('click', function(e){
+			e.preventDefault();
+			
+			$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
 		});
-
 	});
 })(jQuery);

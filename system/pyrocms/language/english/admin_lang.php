@@ -46,6 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Shortcuts';
+$lang['cp_remove']						= 'Remove';
 
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';
