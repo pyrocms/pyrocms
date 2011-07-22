@@ -28,7 +28,7 @@ class Plugin_Global extends Plugin
 			return constant(strtoupper($name));
 		}
 		// or is it a global variable ($this->controller etc)
-		elseif(isset(get_instance()->$name) AND is_string($this->$name))
+		elseif(isset(get_instance()->$name) AND is_scalar($this->$name))
 		{
 			return $this->$name;
 		}
