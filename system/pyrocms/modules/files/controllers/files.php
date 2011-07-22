@@ -36,7 +36,7 @@ class Files extends Public_Controller
 		$this->load->model('file_m');
 
 		$file = $this->file_m->get($id) OR show_404();
-		$cache_dir = APPPATH . 'cache/' . SITE_REF . '/image_files/';
+		$cache_dir = $this->config->item('cache_dir') . 'image_files/';
 
 		if ( ! is_dir($cache_dir))
 		{

@@ -21,5 +21,5 @@ $lang['groups.edit_error'] 				= '此群組 "%s" 無法被新增';
 $lang['groups.edit_success'] 			= '此群組 "%s" 已經儲存';
 $lang['groups.edit_error'] 				= '此群組 "%s" 無法被儲存';
 $lang['groups.delete_success'] 			= '此群組已成功的被刪除';
-$lang['groups.delete_error'] 			= '刪除此群組時發生了錯誤';
+$lang['groups.delete_error']            = 'There was an error deleting this group. You must delete all users associated with this group before deleting the group.';
 $lang['groups.already_exist_error']		= '一個相同名稱的群組 "%s" 已經存在。';

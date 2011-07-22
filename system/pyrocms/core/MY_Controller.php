@@ -22,12 +22,17 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->load->library('migrations');
 			$this->migrations->latest();
+			
+			if ($this->migrations->error)
+			{
+				show_error($this->migrations->error);
+			}
+			
 			redirect(current_url());
 		}
 		// End migration check
 
 		// No record? Probably DNS'ed but not added to multisite
-		// $this->site is set in MY_Loader
 		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly.');
@@ -62,7 +67,34 @@ class MY_Controller extends CI_Controller {
 		}
 
 		// With that done, load settings
-		$this->load->library(array('settings/settings', 'events', 'users/ion_auth'));
+		$this->load->library(array('settings/settings'));
+
+		if (is_a($this, 'Admin_Controller') OR ! ($site_lang = Settings::get('site_lang')))
+		{
+			$site_lang = AUTO_LANGUAGE;
+		}
+
+		// @todo: create a setting to choose supported languages in frontend,
+		// at this case, check the possibility of one of these languages be same that auto language.
+		define('CURRENT_LANGUAGE', $site_lang);
+
+		$langs = $this->config->item('supported_languages');
+
+		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
+		$pyro['lang']['code'] = CURRENT_LANGUAGE;
+
+		if (AUTO_LANGUAGE !== CURRENT_LANGUAGE)
+		{
+			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
+			$this->lang->is_loaded = array();
+			$this->lang->load(array('errors', 'main', 'users/user', 'settings/settings'));
+		}
+		else
+		{
+			$this->lang->load(array('main', 'users/user'));
+		}
+
+		$this->load->library(array('events', 'users/ion_auth'));
 
 		// Use this to define hooks with a nicer syntax
 		$this->hooks = & $GLOBALS['EXT'];
@@ -104,11 +136,6 @@ class MY_Controller extends CI_Controller {
 		{
 			$_POST = $this->security->xss_clean($_POST);
 		}
-
-		$langs = $this->config->item('supported_languages');
-
-		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
-		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
 		$this->load->vars($pyro);
 		

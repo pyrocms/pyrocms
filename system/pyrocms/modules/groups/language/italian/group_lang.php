@@ -23,5 +23,5 @@ $lang['groups.edit_error'] 				= 'Il gruppo "%s" non può essere aggiunto.';
 $lang['groups.edit_success'] 			= 'Il gruppo "%s" è stato salvato.';
 $lang['groups.edit_error'] 				= 'Il gruppo "%s" non può essere salvato.';
 $lang['groups.delete_success'] 			= 'Il gruppo è stato eliminato con successo.';
-$lang['groups.delete_error'] 			= 'C\' è stato un errore nell\' eliminare il gruppo.';
+$lang['groups.delete_error']            = 'There was an error deleting this group. You must delete all users associated with this group before deleting the group.';
 $lang['groups.already_exist_error']		= 'Esiste già un gruppo chiamato "%s".';

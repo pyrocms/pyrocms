@@ -13,9 +13,9 @@ CREATE TABLE core_settings (
 
 -- command split --
 
-INSERT INTO `core_settings` (`slug`, `value`) VALUES 
-	('date_format', 'g:ia -- m/d/y'),
-	('lang_direction', 'ltr');
+INSERT INTO `core_settings` (`slug`, `value`, `default`) VALUES 
+	('date_format', 'g:ia -- m/d/y', 'g:ia -- m/d/y'),
+	('lang_direction', 'ltr', 'ltr');
 	
 -- command split --
 

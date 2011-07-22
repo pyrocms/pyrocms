@@ -40,8 +40,10 @@ class Plugin_Navigation extends Plugin
 
 		$top			= $this->attribute('top', FALSE);
 		$separator		= $this->attribute('separator', '');
-		$link_class		= $this->attribute('link_class', '');
-		$more_class		= $this->attribute('more_class', '');
+															//deprecated
+		$link_class		= $this->attribute('link-class', $this->attribute('link_class', ''));
+															//deprecated
+		$more_class		= $this->attribute('more-class', $this->attribute('more_class', ''));
 		$current_class	= $this->attribute('class', 'current');
 		$output			= $return_arr ? array() : '';
 
@@ -51,7 +53,8 @@ class Plugin_Navigation extends Plugin
 		if ( ! $return_arr)
 		{
 			$tag		= $this->attribute('tag', 'li');
-			$list_tag	= $this->attribute('list_tag', 'ul');
+														//deprecated
+			$list_tag	= $this->attribute('list-tag', $this->attribute('list_tag', 'ul'));
 
 			switch ($this->attribute('indent'))
 			{
@@ -179,7 +182,8 @@ class Plugin_Navigation extends Plugin
 			}
 			else
 			{
-				$add_first_tag = $level === 0 && ! in_array($this->attribute('items_only', 'true'), array('1','y','yes','true'));
+																							//deprecated
+				$add_first_tag = $level === 0 && ! in_array($this->attribute('items-only', $this->attribute('items_only', 'true')), array('1','y','yes','true'));
 
 				// render and indent or only render inline?
 				if ($indent)
