@@ -44,6 +44,7 @@ $lang['cp_upgrade_message']				= 'Du benutzt aktuell Version %s, aber die Datenb
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Shortcuts';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';

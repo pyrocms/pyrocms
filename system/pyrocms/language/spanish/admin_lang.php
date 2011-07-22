@@ -44,6 +44,7 @@ $lang['cp_upgrade_message']		= 'Actualmente estas ejecutando la versión %s, per
 
 // Admin-wide text
 $lang['cp_sidebar_title']		= 'Menu lateral';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label']			= 'Obligatorio';
 $lang['sb_recent_users']		= 'Usuarios recientes';

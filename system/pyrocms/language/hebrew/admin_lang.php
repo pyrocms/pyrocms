@@ -56,6 +56,7 @@ $lang['cp_google_analytics_no_connect']= '
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'קיצורי דרך';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'דרוש';
 $lang['sb_recent_users'] 				= 'משתמשים חדשים';

@@ -43,7 +43,8 @@ $lang['cp_delete_installer_message']	= 'Proszę usunąć katalog o nazwie "insta
 $lang['cp_upgrade_message']				= 'Używasz wersji %s, ale Twoja baza danych jest w wersji %s. <a href="%s">Kliknij tutaj</a>, aby zaktualizować bazę danych.';
 
 // Admin-wide text
-$lang['cp_sidebar_title'] 				= 'Menu';
+$lang['cp_shortcuts_title'] 				= 'Shortcuts'; #translate
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Wymagane';
 $lang['sb_recent_users'] 				= 'Ostatni użytkownicy';

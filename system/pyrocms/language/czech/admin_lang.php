@@ -46,6 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google An
 
 // Admin-wide text
 $lang['cp_shortcuts_title']				= 'Rychlé odkazy';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label']					= 'Povinné';
 $lang['sb_recent_users']				= 'Nedávní uživatelé';

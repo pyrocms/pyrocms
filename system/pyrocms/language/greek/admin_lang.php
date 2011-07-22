@@ -46,6 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Δεν μπορέσαμε να συν
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Συντομέυσεις';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Απαιτείται';
 $lang['sb_recent_users'] 				= 'Πρόσφατοι χρήστες';

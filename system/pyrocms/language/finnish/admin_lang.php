@@ -46,6 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Google Analyticsiin ei saatu yhteytt�
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Pikavalinnat';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Pakollinen';
 $lang['sb_recent_users'] 				= 'Uusimmat käyttäjät';

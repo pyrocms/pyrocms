@@ -13,7 +13,7 @@ $lang['templates.slug_label']				= 'Slug';
 // Titles
 $lang['templates.create_title']				= 'Create template';
 $lang['templates.edit_title']				= 'Editing template "%s"';
-$lang['templates.clone_title']				= 'Coping template "%s"';
+$lang['templates.clone_title']				= 'Copying template "%s"';
 $lang['templates.list_title']				= 'List templates';
 $lang['templates.default_title']			= 'Default templates';
 $lang['templates.user_defined_title']		= 'User defined templates';

@@ -43,7 +43,8 @@ $lang['cp_delete_installer_message']	= 'Supprimez le répertoire "installer" de 
 $lang['cp_upgrade_message']				= 'Vous utilisez la version %s, mais votre base de données a pour version %s. Merci de <a href="%s">cliquer ici</a> pour mettre à jour votre base de données.';
 
 // Admin-wide text
-$lang['cp_sidebar_title'] 				= 'Menu';
 $lang['cp_shortcuts_title'] 			= 'Raccourci';
+$lang['cp_remove']						= 'Remove'; #translate
+
 $lang['required_label'] 				= 'Requis';
 $lang['sb_recent_users'] 				= 'Utilisateurs récents';

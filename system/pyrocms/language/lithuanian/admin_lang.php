@@ -46,6 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Negali prisijungti prie Google Analyt
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Nuoroda';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';

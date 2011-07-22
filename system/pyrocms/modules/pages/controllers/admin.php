@@ -316,7 +316,6 @@ class Admin extends Admin_Controller {
 			->title($this->module_details['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 			->append_metadata( js('codemirror/codemirror.js') )
-			->append_metadata( js('admin.js', 'pages') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $data);
 	}
@@ -353,18 +352,32 @@ class Admin extends Admin_Controller {
 
 		if ($_POST)
 		{
+			$chunk_slugs = array_values($this->input->post('chunk_slug'));
+			$chunk_bodies = array_values($this->input->post('chunk_body'));
+			$chunk_types = array_values($this->input->post('chunk_type'));
+			
 			$page->chunks = array();
-			for ($i = 0; $i < count($this->input->post('chunk_body')); $i++)
-			{	
+			for ($i = 0; $i < count($chunk_slugs); $i++)
+			{
+				// Nothing in here?
+				if (empty($chunk_slugs[$i]) and ! strip_tags($chunk_bodies[$i])) continue;
+				
+				// Strip PHP from chunks
+				$chunk_bodies[$i] = str_replace(array(
+					'<?', '?>'
+				), array(
+					'&lt;?', '?&gt;'
+				), $chunk_bodies[$i]);
+				
 				$page->chunks[] = (object) array(
-					'slug' => ! empty($_POST['chunk_slug'][$i]) ? $_POST['chunk_slug'][$i] : '',
-					'body' => ! empty($_POST['chunk_body'][$i]) ? $_POST['chunk_body'][$i] : '',
-					'type' => ! empty($_POST['chunk_type'][$i]) ? $_POST['chunk_type'][$i] : '',
-				);
+					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
+					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
+					'body' => $chunk_bodies[$i],
+				);	
 			}
 			
 			if ($this->form_validation->run())
-			{		
+			{
 				$input = $this->input->post();
 				
 				if ($page->status != 'live' and $input['status'] == 'live')
@@ -397,7 +410,7 @@ class Admin extends Admin_Controller {
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($rule['field'] === 'navigation_group_id')
+			if (in_array($rule['field'], array('navigation_group_id', 'chunk_body[]')))
 			{
 				continue;
 			}
@@ -405,12 +418,6 @@ class Admin extends Admin_Controller {
 			if ($rule['field'] === 'restricted_to[]')
 			{
 				$page->restricted_to = set_value($rule['field'], $page->restricted_to);
-
-				continue;
-			}
-			
-			if($rule['field'] === 'chunk_body[]')
-			{
 				continue;
 			}
 
@@ -424,8 +431,8 @@ class Admin extends Admin_Controller {
 		}
 		
 		// Assign data for display
-		$this->data->page 		=& $page;
-		$this->data->parent_page 	=& $parent_page;
+		$this->data->page =& $page;
+		$this->data->parent_page =& $parent_page;
 
 		self::_form_data();
 
@@ -438,7 +445,6 @@ class Admin extends Admin_Controller {
 
 			// Load form specific JavaScript
 			->append_metadata( js('codemirror/codemirror.js') )
-			->append_metadata( js('admin.js', 'pages') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);
 	}

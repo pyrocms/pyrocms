@@ -44,6 +44,7 @@ $lang['cp_upgrade_message']				= '您目前執行的版本是 %s，但是您資�
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= '捷徑'; 			//'Shortcuts';
+$lang['cp_remove']						= 'Remove'; #translate
 
 $lang['required_label'] 				= '必填'; 			//'Required';
 $lang['sb_recent_users'] 				= '最近用戶'; 		//'Recent users';
