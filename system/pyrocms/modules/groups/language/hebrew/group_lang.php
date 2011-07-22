@@ -21,7 +21,7 @@ $lang['groups.edit_error']              = 'לא ניתן להוסיף קבוצה
 $lang['groups.edit_success']            = 'הקבוצה "%s" נשמרה בהצלחה.';
 $lang['groups.edit_error']              = 'לא ניתן לשמור קבוצה "%s" .';
 $lang['groups.delete_success']          = 'הקבוצה נמחקה בהצלחה.';
-$lang['groups.delete_error']            = 'התרחשה שגיעה בזמן המחיקה.';
+$lang['groups.delete_error']            = 'There was an error deleting this group. You must delete all users associated with this group before deleting the group.';
 $lang['groups.already_exist_error']     = 'פריט קבוצה עם שם "%s" קבר קיים.';
 
 /* End of file group_lang.php */

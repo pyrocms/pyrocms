@@ -92,7 +92,12 @@ class Events {
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			return FALSE;
+			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+			
+			if ( ! is_file($details_file))
+			{
+				return FALSE;
+			}
 		}
 
 		// Sweet, include the file

@@ -68,6 +68,10 @@ class Module_import {
 		$module['enabled'] = TRUE;
 		$module['installed'] = TRUE;
 		$module['slug'] = $slug;
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= 'default';
+		$details_class->upload_path	= 'uploads/default/';
 
 		// Run the install method to get it into the database
 		if ( ! $details_class->install())

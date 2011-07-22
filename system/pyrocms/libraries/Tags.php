@@ -209,6 +209,8 @@ class Tags {
 		// If there is a callback, call it for each tag
 		if ( ! empty($callback) AND is_callable($callback))
 		{
+			$remainings = array();
+
 			foreach ($this->_tags as $tag)
 			{
 				if ($tag['full_segments'] === $this->_escape)
@@ -218,7 +220,41 @@ class Tags {
 					continue;
 				}
 
-				$content = str_replace($tag['marker'], call_user_func($callback, $tag), $content);
+				if ($remainings)
+				{
+					foreach ($remainings as $marker => $remaining)
+					{
+						if (strpos($tag['full_tag'], $marker) !== FALSE)
+						{
+							list($replacements, $return_data) = $remaining;
+
+							$tag['full_tag'] = str_replace($marker, $return_data, $tag['full_tag'], $count);
+
+							foreach ($tag['attributes'] as &$attribute)
+							{
+								$attribute = str_replace($marker, $return_data, $attribute, $count2);
+
+								if ($count2 >= $count)
+								{
+									break;
+								}
+							}
+
+							if ($count >= $replacements)
+							{
+								unset($remainings[$marker]);
+							}
+						}
+					}
+				}
+
+				$return_data = call_user_func($callback, $tag);
+				$content = str_replace($tag['marker'], $return_data, $content, $count);
+
+				if ($count < $tag['replacements'])
+				{
+					$remainings[$tag['marker']] = array($tag['replacements'], $return_data);
+				}
 			}
 		}
 

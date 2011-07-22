@@ -69,37 +69,6 @@ class Admin extends Admin_Controller
 	}
 	
 	/**
-	 * List all admin themes
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function admin_themes()
-	{
-		$themes = $this->themes_m->get_all();
-		
-		$data = array();
-		
-		foreach ($themes AS $theme)
-		{
-			if (isset($theme->type) AND $theme->type == 'admin')
-			{
-				if ($theme->slug == $this->settings->admin_theme)
-				{
-					$theme->is_default = TRUE;
-				}
-				
-				$data['themes'][] = $theme;
-			}
-		}
-
-		// Render the view
-		$this->template
-			->title($this->module_details['name'])
-			->build('admin/index', $data);
-	}
-	
-	/**
 	 * Save the option settings
 	 *
 	 * @param 	string	$slug	The theme slug
@@ -243,7 +212,7 @@ class Admin extends Admin_Controller
 
 		if($this->input->post('btnAction') == 'upload')
 		{
-			$config['upload_path'] 		= FCPATH.'uploads/';
+			$config['upload_path'] 		= FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
 			$config['overwrite'] 		= TRUE;

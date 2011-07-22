@@ -333,6 +333,10 @@ class Module_m extends MY_Model
 
 		// TURN ME ON BABY!
 		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the install method to get it into the database
 		return $details_class->install();
@@ -353,6 +357,10 @@ class Module_m extends MY_Model
 			// the files are missing so let's clean the "modules" table
 			return $this->delete($slug);
 		}
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the uninstall method to drop the module's tables
 		if ( ! $details_class->uninstall())
@@ -402,6 +410,10 @@ class Module_m extends MY_Model
 		
 		// Get the old module version number
 		$old_version = $old_module['version'];
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= SITE_REF;
+		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
 		
 		// Run the update method to get it into the database
 		if ($details_class->upgrade($old_version))
@@ -525,7 +537,7 @@ class Module_m extends MY_Model
 	 */
 	public function help($slug)
 	{
-		foreach (array(0, 1) as $is_core)
+		foreach (array(0, 1) AS $is_core)
     	{
 			$path = $is_core ? APPPATH : ADDONPATH;
 			$languages = $this->config->item('supported_languages');
@@ -534,6 +546,8 @@ class Module_m extends MY_Model
 			//first try it as a core module
 			if ($details_class = $this->_spawn_class($slug, $is_core))
 			{
+				// if the file doesn't exist then we first check the shared folder and if it
+				// still doesn't exist we show the default help text from the details.php file
 				if (file_exists($path . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
 				{
 					$this->lang->load($slug . '/help');
@@ -543,8 +557,19 @@ class Module_m extends MY_Model
 						return lang('help_body');
 					}
 				}
+				elseif (file_exists(SHARED_ADDONPATH . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
+				{
+					$this->lang->load($slug . '/help');
 
-				return $details_class->help();
+					if (lang('help_body'))
+					{
+						return lang('help_body');
+					}
+				}
+				else
+				{
+					return $details_class->help();
+				}
 			}
 		}
 

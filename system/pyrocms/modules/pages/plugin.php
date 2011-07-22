@@ -95,7 +95,7 @@ class Plugin_Pages extends Plugin
 	 */
 	public function page_tree()
 	{
-		$start_id 		= $this->attribute('start-id');
+		$start_id 		= $this->attribute('start-id', $this->attribute('start_id'));
 		$disable_levels = $this->attribute('disable-levels');
 		$order_by 		= $this->attribute('order-by', 'title');
 		$order_dir		= $this->attribute('order-dir', 'ASC');

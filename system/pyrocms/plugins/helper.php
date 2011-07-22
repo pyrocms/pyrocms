@@ -43,7 +43,8 @@ class Plugin_Helper extends Plugin
 		$email		= $this->attribute('email', '');
 		$size		= $this->attribute('size', '50');
 		$rating		= $this->attribute('rating', 'g');
-		$url_only	= (bool) in_array($this->attribute('url_only', 'false'), array('1', 'y', 'yes', 'true'));
+																	//deprecated
+		$url_only	= (bool) in_array($this->attribute('url-only', $this->attribute('url_only', 'false')), array('1', 'y', 'yes', 'true'));
 
 		return gravatar($email, $size, $rating, $url_only);
 	}
