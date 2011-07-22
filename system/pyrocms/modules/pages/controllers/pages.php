@@ -163,8 +163,8 @@ class Pages extends Public_Controller
 			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.$chunk->body.'</div>'.PHP_EOL;
 		}
 		
-		// Parse it so the content is parsed
-		$page->body = $this->parser->parse_string(str_replace('&quot;', '"', $chunk_html), array(), TRUE);
+		// Parse it so the content is parsed. We pass along $page so that {pyro:page:id} and friends work in page content
+		$page->body = $this->parser->parse_string(str_replace('&quot;', '"', $chunk_html), array('page' => $page), TRUE);
 		
 		// Create page output
 		$this->template->title($page->meta_title)
