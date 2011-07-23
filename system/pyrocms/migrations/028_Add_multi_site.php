@@ -62,10 +62,10 @@ class Migration_Add_multi_site extends Migration {
 			is_dir(APPPATH.'cache/default/simplepie') OR mkdir(APPPATH.'cache/default/simplepie', DIR_READ_MODE, TRUE);
 			
 			// Move uploads			
-			$this->_move('uploads', 'uploads/default', 'default');
+			is_dir('uploads/default') OR $this->_move('uploads', 'uploads/default', 'default');
 			
 			// Create site specific addon folder and move them
-			$this->_move('addons', 'addons/default', 'default');
+			is_dir('addons/default') OR $this->_move('addons', 'addons/default', 'default');
 			
 			// create the site specific addon folder if it didn't get created yet
 			is_dir('addons/default/modules') OR mkdir('addons/default/modules', DIR_READ_MODE, TRUE);
