@@ -22,8 +22,8 @@ class Installer extends CI_Controller
 	 * @var array
 	 */
 	private $writeable_directories = array(
-		'system/pyrocms/cache',
-		'system/pyrocms/config',
+		'system/cms/cache',
+		'system/cms/config',
 		'addons',
 		'uploads'
 	);
@@ -35,7 +35,7 @@ class Installer extends CI_Controller
 	 * @var array
 	 */
 	private $writeable_files = array(
-		'system/pyrocms/config/config.php'
+		'system/cms/config/config.php'
 	);
 	
 	/**
@@ -476,7 +476,7 @@ class Installer extends CI_Controller
 		
 		// set the supported languages to be saved in Settings for emails and .etc
 		// modules > settings > details.php uses this
-		require_once(dirname(FCPATH).'/system/pyrocms/config/language.php');
+		require_once(dirname(FCPATH).'/system/cms/config/language.php');
 
 		define('DEFAULT_LANG', $config['default_language']);
 	}
