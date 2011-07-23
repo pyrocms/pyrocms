@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-define('PYROPATH', dirname(FCPATH).'/system/pyrocms/');
+define('PYROPATH', dirname(FCPATH).'/system/cms/');
 define('ADDONPATH', dirname(FCPATH).'/addons/default/');
 define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
