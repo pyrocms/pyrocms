@@ -222,7 +222,7 @@ class Tags {
 
 				if ($remainings)
 				{
-					foreach ($remainings as $marker => $remaining)
+					foreach ($remainings as $marker => &$remaining)
 					{
 						if (strpos($tag['full_tag'], $marker) !== FALSE)
 						{
@@ -243,6 +243,10 @@ class Tags {
 							if ($count >= $replacements)
 							{
 								unset($remainings[$marker]);
+							}
+							else
+							{
+								$remaining[0] -= $count;
 							}
 						}
 					}
