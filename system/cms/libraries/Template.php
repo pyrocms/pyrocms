@@ -242,7 +242,7 @@ class Template
 		$this->_ci->output->set_header('Pragma: no-cache');
 
 		// Let CI do the caching instead of the browser
-		$this->_ci->output->cache( $this->cache_lifetime );
+		$this->cache_lifetime > 0 && $this->_ci->output->cache( $this->cache_lifetime );
 
 		// Test to see if this file
 		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
