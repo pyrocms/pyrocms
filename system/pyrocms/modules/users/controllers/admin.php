@@ -250,13 +250,13 @@ class Admin extends Admin_Controller {
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
-			$this->validation_rules[6]['rules'] .= '|callback__username_check';
+			$this->validation_rules[5]['rules'] .= '|callback__username_check';
 		}
 
 		// Check to see if we are changing emails
 		if ($member->email != $this->input->post('email'))
 		{
-			$this->validation_rules[5]['rules'] .= '|callback__email_check';
+			$this->validation_rules[2]['rules'] .= '|callback__email_check';
 		}
 
 		// Run the validation
