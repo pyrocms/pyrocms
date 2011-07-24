@@ -35,6 +35,7 @@ class Template
 
 	private $_parser_enabled = TRUE;
 	private $_parser_body_enabled = TRUE;
+	private $_minify_enabled = FALSE;
 
 	private $_theme_locations = array();
 
@@ -257,6 +258,11 @@ class Template
 			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
 		}
 
+		if ($this->_minify_enabled && function_exists('process_data_jmr1'))
+		{
+			$this->_body = process_data_jmr1($this->_body);
+		}
+
 		// Want it returned or output to browser?
 		if ( ! $return)
 		{
@@ -477,6 +483,21 @@ class Template
 	public function set_cache($seconds = 0)
 	{
 		$this->cache_lifetime = $seconds;
+		return $this;
+	}
+
+
+	/**
+	 * enable_minify
+	 * Should be minify used or the output html files just delivered normally?
+	 *
+	 * @access	public
+	 * @param	bool	$bool
+	 * @return	object	$this
+	 */
+	public function enable_minify($bool)
+	{
+		$this->_minify_enabled = $bool;
 		return $this;
 	}
 
