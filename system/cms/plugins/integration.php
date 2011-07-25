@@ -24,7 +24,7 @@ class Plugin_Integration extends Plugin
 	 */
 	function analytics()
 	{
-		return $this->load->view('partials/google_analytics', NULL, TRUE);
+		return $this->load->view('fragments/google_analytics', NULL, TRUE);
 	}
 }
 
