@@ -35,30 +35,26 @@ class Events_Templates {
 
         $this->ci->load->model('templates/email_templates_m');
 
-		/**
-		 * TODO: if we are sent an email to visitor/user/admin consider the following line...
-		 * 
-		 * //see if the template exists in the database for the current users lang
-		 * //$lang = !empty($this->ci->template->user) ? $this->ci->template->user->lang : 'en' ;
-		 * 
-		 * but if we sent an email from visitor/user to team website consider the following line...
-		 */
-		$lang = Settings::get('site_lang');
-
 		//get all email templates 
 		$templates = $this->ci->email_templates_m->get_templates($slug);
 
         //make sure we have something to work with
         if ( ! empty($templates))
         {
+			$lang	  = isset($data['lang']) ? $data['lang'] : Settings::get('site_lang');
+			$from	  = isset($data['from']) ? $data['from'] : Settings::get('server_email');
+			$reply_to = isset($data['reply-to']) ? $data['reply-to'] : $from;
+			$to		  = isset($data['to']) ? $data['to'] : Settings::get('contact_email');
+
             $subject = array_key_exists($lang, $templates) ? $templates[$lang]->subject : $templates['en']->subject ;
             $subject = $this->ci->parser->parse_string($subject, $data, TRUE);
 
             $body = array_key_exists($lang, $templates) ? $templates[$lang]->body : $templates['en']->body ;
             $body = $this->ci->parser->parse_string($body, $data, TRUE);
 
-            $this->ci->email->from($data['email'], $data['name']);
-            $this->ci->email->to(Settings::get('contact_email'));
+            $this->ci->email->from($from, $data['name']);
+            $this->ci->email->reply_to($reply_to);
+            $this->ci->email->to($to);
             $this->ci->email->subject($subject);
             $this->ci->email->message($body);
 

@@ -35,6 +35,7 @@ class Template
 
 	private $_parser_enabled = TRUE;
 	private $_parser_body_enabled = TRUE;
+	private $_minify_enabled = FALSE;
 
 	private $_theme_locations = array();
 
@@ -242,7 +243,7 @@ class Template
 		$this->_ci->output->set_header('Pragma: no-cache');
 
 		// Let CI do the caching instead of the browser
-		$this->_ci->output->cache( $this->cache_lifetime );
+		$this->cache_lifetime > 0 && $this->_ci->output->cache( $this->cache_lifetime );
 
 		// Test to see if this file
 		$this->_body = $this->_find_view( $view, array(), $this->_parser_body_enabled );
@@ -255,6 +256,11 @@ class Template
 
 			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
 			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
+		}
+
+		if ($this->_minify_enabled && function_exists('process_data_jmr1'))
+		{
+			$this->_body = process_data_jmr1($this->_body);
 		}
 
 		// Want it returned or output to browser?
@@ -477,6 +483,21 @@ class Template
 	public function set_cache($seconds = 0)
 	{
 		$this->cache_lifetime = $seconds;
+		return $this;
+	}
+
+
+	/**
+	 * enable_minify
+	 * Should be minify used or the output html files just delivered normally?
+	 *
+	 * @access	public
+	 * @param	bool	$bool
+	 * @return	object	$this
+	 */
+	public function enable_minify($bool)
+	{
+		$this->_minify_enabled = $bool;
 		return $this;
 	}
 

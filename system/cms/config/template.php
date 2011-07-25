@@ -73,3 +73,18 @@ $config['theme_locations'] = array(
 	APPPATH.'themes/',
 	SHARED_ADDONPATH . 'themes/'
 );
+
+/*
+|--------------------------------------------------------------------------
+| Minify HTML output
+|--------------------------------------------------------------------------
+|
+| You want try remove unnecessary white spaces before send the HTML to browser?
+|
+| Can be overridden with $this->template->enable_minify(TRUE/FALSE);
+|
+|   Default: FALSE
+|
+*/
+
+$config['minify_enabled'] = FALSE;

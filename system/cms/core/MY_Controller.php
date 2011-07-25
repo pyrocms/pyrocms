@@ -69,13 +69,20 @@ class MY_Controller extends CI_Controller {
 		// With that done, load settings
 		$this->load->library(array('settings/settings'));
 
-		if (is_a($this, 'Admin_Controller') OR ! ($site_lang = Settings::get('site_lang')))
+		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
 		{
-			$site_lang = AUTO_LANGUAGE;
+			$site_public_lang = explode(',', Settings::get('site_public_lang'));
+
+			if (in_array(AUTO_LANGUAGE, $site_public_lang))
+			{
+				$site_lang = AUTO_LANGUAGE;
+			}
+			else
+			{
+				$site_lang = Settings::get('site_lang');
+			}
 		}
 
-		// @todo: create a setting to choose supported languages in frontend,
-		// at this case, check the possibility of one of these languages be same that auto language.
 		define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
