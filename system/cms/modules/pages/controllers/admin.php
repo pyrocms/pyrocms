@@ -215,14 +215,19 @@ class Admin extends Admin_Controller {
 	public function create($parent_id = 0)
 	{
 		if ($_POST)
-		{
+		{	
+			$chunk_slugs = array_values($this->input->post('chunk_slug'));
+			$chunk_bodies = array_values($this->input->post('chunk_body'));
+			$chunk_types = array_values($this->input->post('chunk_type'));
+			
 			$page->chunks = array();
 			for ($i = 0; $i < count($this->input->post('chunk_body')); $i++)
 			{	
 				$page->chunks[] = (object) array(
-					'slug' => ! empty($_POST['chunk_slug'][$i]) ? $_POST['chunk_slug'][$i] : '',
-					'body' => ! empty($_POST['chunk_body'][$i]) ? $_POST['chunk_body'][$i] : '',
-					'type' => ! empty($_POST['chunk_type'][$i]) ? $_POST['chunk_type'][$i] : '',
+					'id' => $i,
+					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
+					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
+					'body' => $chunk_bodies[$i],
 				);
 			}
 				
@@ -278,6 +283,7 @@ class Admin extends Admin_Controller {
 		else
 		{
 			$page->chunks = array((object) array(
+				'id' => 'NEW',
 				'slug' => 'default',
 				'body' => '',
 				'type' => 'wysiwyg-advanced',
@@ -370,6 +376,7 @@ class Admin extends Admin_Controller {
 				), $chunk_bodies[$i]);
 				
 				$page->chunks[] = (object) array(
+					'id' => $i,
 					'slug' => ! empty($chunk_slugs[$i]) ? $chunk_slugs[$i] : '',
 					'type' => ! empty($chunk_types[$i]) ? $chunk_types[$i] : '',
 					'body' => $chunk_bodies[$i],
