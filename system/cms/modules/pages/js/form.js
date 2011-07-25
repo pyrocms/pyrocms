@@ -25,14 +25,18 @@
 			key = Number(new Date()).toString(16);
 			
 			$('#page-content ul li:last').before('<li class="page-chunk">' +
+				'<div class="float-left">'+
 				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
 				'<select name="chunk_type[' + key + ']" class="no-uniform">' +
 				'<option value="html">html</option>' +
 				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +
+				'</div><div class="float-right">' +
+				'<a href="javascript:void(0)" class="remove-chunk">Remove</a>' +
+				'</div><br style="clear:both" />' +
 				'<textarea id="chunk-' + key + '" class="wysiwyg-advanced" rows="50" cols="90" name="chunk_body[' + key + ']"></textarea>' +
-			'</li>');
+				'</li>');
 			
 			// initialize the editor using the view from fragments/wysiwyg.php
 			pyro.init_ckeditor();
