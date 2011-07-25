@@ -94,22 +94,6 @@ class Plugin_Session extends Plugin
 
 		return $output;
 	}
-
-	/**
-	 * Redirect hash
-	 *
-	 * Hash that tells Pyro where to redirect after login
-	 *
-	 * Usage:
-	 * {pyro:session:redirect_hash hash="{pyro:redirect_hash}"}
-	 *
-	 * @return	string
-	 */
-	public function redirect_hash()
-	{
-		$redirect_hash = $this->attribute('hash');
-		return (isset($redirect_hash) && $redirect_hash) ? form_hidden('redirect_hash', $redirect_hash) : '';
-	}
 }
 
-/* End of file theme.php */
+/* End of file session.php */

@@ -83,21 +83,13 @@ class Users extends Public_Controller
 	 */
 	public function login()
 	{
-		$this->data->redirect_hash = $this->input->post('redirect_hash');
-
+		// Check post and session for the redirect place
+		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $this->session->userdata('redirect_to');
+		
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
 		{
-			$this->data->redirect_hash = md5($url = implode('/', $args));
-
-			if ( ! (($redirect_to = $this->session->userdata('redirect_to')) && is_array($redirect_to)))
-			{
-				$redirect_to = array();
-			}
-
-			$redirect_to[$this->data->redirect_hash] = $url;
-
-			$this->session->set_userdata('redirect_to', $redirect_to);
+			$this->session->set_userdata('redirect_to', $redirect_to = BASE_URI.implode($args));
 		}
 
 		// Get the user data
@@ -127,19 +119,8 @@ class Users extends Public_Controller
 		{
 			$this->session->set_flashdata('success', lang('user_logged_in'));
 
-
-			$redirect_to_uri = ''; // '' Home
-
-			if ($redirect_to = $this->session->userdata('redirect_to'))
-			{
-				if (array_key_exists($this->data->redirect_hash, $redirect_to))
-				{
-					$redirect_to_uri = $redirect_to[$this->data->redirect_hash];
-				}
-
-				// Unset the redirection
-				$this->session->unset_userdata('redirect_to');
-			}
+			// Kill the session
+			$this->session->unset_userdata('redirect_to');
 
 			// Deprecated.
 			$this->hooks->_call_hook('post_user_login');
@@ -147,12 +128,13 @@ class Users extends Public_Controller
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
 
-			redirect($redirect_to_uri);
+			redirect($redirect_to ? $redirect_to : '');
 		}
-
-		// Render the view
-		$this->data->user_data =& $user_data;
-		$this->template->build('login', $this->data);
+		
+		$this->template->build('login', array(
+			'user_data' => $user_data,
+			'redirect_to' => $redirect_to,
+		));
 	}
 
 	/**

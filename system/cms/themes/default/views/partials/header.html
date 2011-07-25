@@ -34,8 +34,8 @@
 		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
 		<a href="{pyro:url:site uri='users/logout'}">{pyro:helper:lang line="logout_label"}</a>
 	{else}
-		<form action="{pyro:url:site}users/login" method="post" accept-charset="utf-8" id="login-small">
-			{pyro:session:redirect_hash hash="{pyro:redirect_hash}"}
+		<form action="{pyro:url:site uri='users/login'}" method="post" accept-charset="utf-8" id="login-small">
+			<input type="hidden" name="redirect_to" value="{pyro:url:current}" />
 			<ul>
 				<li class="email">
 					<input type="text" id="email" name="email" maxlength="120" value="{pyro:helper:lang line='user_email'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_email"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_email"}') { this.value = ''; }" />
