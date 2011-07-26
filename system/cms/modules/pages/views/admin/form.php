@@ -72,7 +72,7 @@
 						<a href="javascript:void(0)" class="remove-chunk"><?php echo lang('cp_remove') ?></a>
 					</div>
 					<br style="clear:both" />
-					<?php echo form_textarea(array('id' => $chunk->slug, 'name'=>'chunk_body['.$chunk->id.']', 'value' => $chunk->body, 'rows' => 20, 'class'=> $chunk->type)); ?>
+					<?php echo form_textarea(array('id' => $chunk->slug, 'name'=>'chunk_body['.$chunk->id.']', 'value' => $chunk->body, 'rows' => 20, 'class'=> $chunk->type, 'style' => 'width:100%')); ?>
 				</li>
 			<?php endforeach; ?>
 			<li class="<?php echo alternator('even', ''); ?>">
