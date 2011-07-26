@@ -128,7 +128,7 @@ else
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'system/pyrocms';
+	$application_folder = 'system/cms';
 
 /*
  *---------------------------------------------------------------

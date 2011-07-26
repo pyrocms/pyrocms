@@ -1,0 +1,58 @@
+<!-- Begin header -->
+<header>
+	<!-- Begin logo -->
+	<div id="logo">
+		<h1><a href="{pyro:url:site}" title="Home">{pyro:settings:site_name}</a></h1>
+		<h2 class="slogan">{pyro:settings:site_slogan}</h2>
+	</div>
+	<!-- End logo -->
+
+	<!-- Begin user meta -->
+	<div id="user-meta">
+	{if '{pyro:user:logged_in}'}
+		<div class="avatar-name">
+		{if '{pyro:settings:enable_profiles}'}
+			<a href="{pyro:url:site uri='my-profile'}">{pyro:helper:gravatar email="{pyro:user:email}" size="16"} {pyro:user:display_name}</a>
+		{else}
+			{pyro:helper:gravatar email="{pyro:user:email}" size="20"} {pyro:user:display_name}
+		{/if}
+		</div>
+
+		{if '{pyro:settings:enable_profiles}'}
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{pyro:url:site uri='edit-profile'}">{pyro:helper:lang line="edit_profile_label"}</a>
+		{/if}
+
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{pyro:url:site uri='edit-settings'}">{pyro:helper:lang line="settings_label"}</a>
+
+		{if '{pyro:user:has_cp_permissions}'}
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{pyro:url:site uri='admin'}" target="_blank">{pyro:helper:lang line="cp_title"}</a>
+		{/if}
+
+		<span class="nav-splitter">&nbsp;&bull;&nbsp;</span>
+		<a href="{pyro:url:site uri='users/logout'}">{pyro:helper:lang line="logout_label"}</a>
+	{else}
+		<form action="{pyro:url:site uri='users/login'}" method="post" accept-charset="utf-8" id="login-small">
+			<input type="hidden" name="redirect_to" value="{pyro:url:current}" />
+			<ul>
+				<li class="email">
+					<input type="text" id="email" name="email" maxlength="120" value="{pyro:helper:lang line='user_email'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_email"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_email"}') { this.value = ''; }" />
+				</li>
+
+				<li class="pword">
+					<input type="password" id="password" name="password" maxlength="20" value="{pyro:helper:lang line='user_password'}" onblur="if (this.value == '') { this.value = '{pyro:helper:lang line="user_password"}'; }"  onfocus="if (this.value == '{pyro:helper:lang line="user_password"}') { this.value = ''; }" />
+				</li>
+
+				<li class="form-buttons">
+					<input type="submit" value="{pyro:helper:lang line='user_login_btn'}" name="btnLogin" /> | &nbsp;<a href="{pyro:url:site}register">{pyro:helper:lang line="user_register_btn"}</a>
+					<input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /><span>{pyro:helper:lang line="user_remember"}</span>
+				</li>
+			</ul>
+		</form>
+	{/if}
+</div>
+<!-- End user meta -->
+</header>
+<!-- End header -->
