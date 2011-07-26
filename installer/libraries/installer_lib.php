@@ -214,7 +214,7 @@ class Installer_lib {
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
 		// Include migration config to know which migration to start from
-		include '../system/pyrocms/config/migrations.php';
+		include '../system/cms/config/migrations.php';
 
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
@@ -351,7 +351,7 @@ class Installer_lib {
 		$new_file  	= str_replace(array_keys($replace), $replace, $template);
 		
 		// Open the database.php file, show an error message in case this returns false
-		$handle 	= @fopen('../system/pyrocms/config/database.php','w+');
+		$handle 	= @fopen('../system/cms/config/database.php','w+');
 		
 		// Validate the handle results
 		if ($handle !== FALSE)
@@ -390,7 +390,7 @@ class Installer_lib {
 		$new_file = str_replace('__INDEX__', $index_page, $template);
 		
 		// Open the database.php file, show an error message in case this returns false
-		$handle = @fopen('../system/pyrocms/config/config.php','w+');
+		$handle = @fopen('../system/cms/config/config.php','w+');
 		
 		// Validate the handle results
 		if ($handle !== FALSE)
