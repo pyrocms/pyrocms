@@ -89,7 +89,7 @@ class Users extends Public_Controller
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
 		{
-			$this->session->set_userdata('redirect_to', $redirect_to = BASE_URI.implode($args));
+			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
 
 		// Get the user data
