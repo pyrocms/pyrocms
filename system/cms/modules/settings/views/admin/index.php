@@ -12,7 +12,7 @@
 		
 			<ul class="tab-menu">
 				<?php foreach($setting_sections as $section_slug => $section_name): ?>
-				<li><a href="#<?php echo $section_slug;?>" title="<?php if(lang('settings_section_'.$section_slug)!=''){echo lang('settings_section_'.$section_slug);}else{echo $section_name;}?> settings"><span><?php if(lang('settings_section_'.$section_slug)!=''){echo lang('settings_section_'.$section_slug);}else{echo $section_name;}?></span></a></li>
+				<li><a href="#<?php echo $section_slug;?>" title="<?php if(lang('settings_section_'.$section_slug)!=''){echo lang('settings_section_'.$section_slug);}else{echo $section_name;}?> settings"><span><?php if(lang('settings_section_'.$section_slug)!=''){echo lang('settings_section_'.$section_slug);}else{echo str_replace('_',' ',$section_name);}?></span></a></li>
 				<?php endforeach; ?>
 			</ul>
 			
