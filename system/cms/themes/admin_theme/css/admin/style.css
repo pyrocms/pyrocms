@@ -497,9 +497,11 @@ body#login #login-box label.remember {
 body#login #login-box input.remember {
 	display: inline;
 	width: 20px;
-	height: 20px;
+	height: 14px;
 	padding: 0;
 	margin: 0;
+	border: 0px;
+	outline: 0px;
 }
 body#login #login-box input {
 	background-color: #eaedf2;
