@@ -635,7 +635,7 @@ class Users extends Public_Controller
 			{
 				if ($this->input->post($rule['field']) !== FALSE)
 				{
-					$user_settings->{$fieldname} = set_value($rule['field']);
+					$user_settings->{$rule['field']} = set_value($rule['field']);
 				}
 			}
 		}
