@@ -77,7 +77,7 @@ function user_displayname($user)
 
 	if (ci()->settings->enable_profiles)
 	{
-		$user_name = anchor('users/profile/view/' . $user['id'], $user_name);
+		$user_name = anchor('user/' . $user['id'], $user_name);
 	}
 
 	$_users[$user['id']] = $user_name;
