@@ -77,7 +77,7 @@ class Admin extends Admin_Controller
 			$this->validation_rules[] = array(
 				'field' => $setting->slug . (in_array($setting->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
 				'label' => 'lang:settings_' . $setting->slug,
-				'rules' => 'trim' . ($setting->is_required ? '|required' : '')
+				'rules' => 'trim' . ($setting->is_required ? '|required' : '') . ($setting->type !== 'textarea' ? '|max_length[255]' : '')
 			);
 
 			$settings_array[$setting->slug] = $setting->value;
