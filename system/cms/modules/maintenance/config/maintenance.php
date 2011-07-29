@@ -10,5 +10,5 @@
  */
 
 /* for phil */
-$config['maintenance.cache protected folders'] = array('simplepie');
-$config['maintenance.cannot remove folders'] = array('codeigniter','themes_m');
+$config['maintenance.cache_protected_folders'] = array('simplepie');
+$config['maintenance.cannot_remove_folders'] = array('codeigniter','themes_m');
