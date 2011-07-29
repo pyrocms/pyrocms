@@ -83,7 +83,7 @@ $lang['file_folders.created_label']			= 'Ustvarjeno';
 
 // Messages
 $lang['file_folders.create_success']		= 'Mapa je bila shranjena.';
-$lang['file_folders.duplicate_error']		= 'A folder named "%s" already exists.'; #translate
+$lang['file_folders.duplicate_error']		= 'Mapa z imenom "%s" že obstaja.';
 $lang['file_folders.create_error']			= 'Prišlo je do napake pri ustvarjanju vaše mape.';
 $lang['file_folders.edit_success']			= 'Mapa je bila uspešno shranjena';
 $lang['file_folders.edit_error']			= 'Prišlo je do napake pri shranjevanju sprememb.';

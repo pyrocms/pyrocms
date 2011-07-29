@@ -28,12 +28,12 @@ $lang['buttons.disable'] 	= 'Onemogoči';
 $lang['buttons.yes']		= 'Da';
 $lang['buttons.no']			= 'Ne';
 $lang['buttons.activate']   = 'Aktiviraj';
-$lang['buttons.deactivate']	= 'Deactivate'; #translate
-$lang['buttons.preview']	= 'Preview'; #translate
-$lang['buttons.close']		= 'Close'; #translate
-$lang['buttons.edit']		= 'Edit'; #translate
-$lang['buttons.clone']		= 'Clone'; #translate
-$lang['buttons.copy']		= 'Copy'; #translate
+$lang['buttons.deactivate']	= 'Deaktiviraj';
+$lang['buttons.preview']	= 'Predogled';
+$lang['buttons.close']		= 'Zapri';
+$lang['buttons.edit']		= 'Uredi';
+$lang['buttons.clone']		= 'Duplikat';
+$lang['buttons.copy']		= 'Kopiraj';
 
 /* End of file buttons_lang.php */
 /* Location: ./system/cms/language/slovenian/buttons_lang.php */
