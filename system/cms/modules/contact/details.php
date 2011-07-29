@@ -2,7 +2,7 @@
 
 class Module_Contact extends Module {
 
-	public $version = '0.6';
+	public $version = 0.9;
 
 	public function info()
 	{
@@ -45,16 +45,29 @@ class Module_Contact extends Module {
 				'he' => 'מוסיף תופס יצירת קשר לאתר על מנת לא לחסוף כתובת דואר האלקטרוני של האתר למנועי פרסומות',
 				'lt' => 'Prideda jūsų puslapyje formą leidžianti lankytojams siūsti jums el. laiškus neatskleidžiant jūsų el. pašto adreso.'
 			),
-			'frontend' => TRUE,
-			'backend' => FALSE,
+			'frontend' => FALSE,
+			'backend' => TRUE,
 			'menu' => FALSE
 		);
 	}
 
 	public function install()
 	{
-		// Your Install Logic
-		return TRUE;
+		return $this->db->query("
+			CREATE TABLE ".$this->db->dbprefix('contact_log')." (
+			  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+			  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+			  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+			  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			  `message` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			  `company_name` VARCHAR( 255 ) NOT NULL,
+			  `sender_agent` int(11) DEFAULT NULL,
+			  `sender_ip` text,
+			  `sender_os` int(15) NOT NULL,
+			  `sent_at` varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8
+		");
 	}
 
 	public function uninstall()
