@@ -135,6 +135,7 @@ class Plugin_Contact extends Plugin {
 		$data['sender_os']		= $this->agent->platform();
 		$data['slug'] 			= 'contact';
 		$data['email'] 			= $data['contact_email'];
+		$data['from'] 			= $data['contact_email'];
 		$data['name']			= $data['contact_name'];
 
 		// If the email has sent with no known erros, show the message
