@@ -22,9 +22,11 @@ class Contact_m extends MY_Model {
 			'email' => $input['email'],
 			'subject' => $input['subject'],
 			'message' => $input['message'],
+			'company_name' => $input['company_name'],
 			'sender_agent' => $input['sender_agent'],
 			'sender_ip' => $input['sender_ip'],
-			'sender_os' => $input['sender_os'],
+			'sender_os' => $input['sender_os'],	
+			'sent_at' => time(),
 		));
 	}
 }

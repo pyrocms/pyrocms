@@ -60,6 +60,7 @@ class Module_Contact extends Module {
 			  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			  `message` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+			  `company_name` VARCHAR( 255 ) NOT NULL,
 			  `sender_agent` int(11) DEFAULT NULL,
 			  `sender_ip` text,
 			  `sender_os` int(15) NOT NULL,

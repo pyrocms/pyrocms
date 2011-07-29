@@ -131,6 +131,7 @@ class Plugin_Contact extends Plugin {
 		// Add in some extra details
 		$data['subject']		= $subject;
 		$data['message']		= $this->input->post('message');
+		$data['company_name']	= $this->input->post('company_name');
 		$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
 		$data['sender_ip']		= $this->input->ip_address();
 		$data['sender_os']		= $this->agent->platform();
