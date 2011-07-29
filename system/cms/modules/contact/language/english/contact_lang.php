@@ -16,7 +16,7 @@
 $lang['contact_details_label']				= 'Details';
 $lang['contact_name_label']					= 'Full Name';
 $lang['contact_email_label']				= 'E-mail Address';
-$lang['contact_company_name_label']			= 'Company or Organisation';
+$lang['contact_company_name_label']			= 'Company';
 $lang['contact_subject_label']				= 'Subject';
 $lang['contact_other_label']				= 'Other';
 $lang['contact_message_label']				= 'Message';

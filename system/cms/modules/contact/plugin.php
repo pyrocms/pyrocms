@@ -130,6 +130,7 @@ class Plugin_Contact extends Plugin {
 
 		// Add in some extra details
 		$data['subject']		= $subject;
+		$data['message']		= $this->input->post('message');
 		$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
 		$data['sender_ip']		= $this->input->ip_address();
 		$data['sender_os']		= $this->agent->platform();
@@ -140,7 +141,10 @@ class Plugin_Contact extends Plugin {
 
 		// If the email has sent with no known erros, show the message
 		$results = Events::trigger('email', $data, 'array');
-
+		
+		$this->load->model('contact/contact_m');
+		$this->contact_m->insert_log($data);
+		
 		foreach ($results as $result)
 		{
 			if ( ! $result)
