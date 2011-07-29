@@ -3,8 +3,8 @@
 // labels
 $lang['blog_posted_label']                   = 'Objavljeno';
 $lang['blog_posted_label_alt']               = 'Objavljeno ob';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']				= 'Objavil';
+$lang['blog_author_unknown']				= 'Neznan';
 $lang['blog_category_label']                 = 'Kategorija';
 $lang['blog_post_label']                     = 'Objava';
 $lang['blog_date_label']                     = 'Datum';
@@ -65,7 +65,7 @@ $lang['blog_twitter_posted']                 = 'Objavljeno "%s" %s';
 $lang['blog_twitter_error']                  = 'Twitter napaka';
 
 // date
-$lang['blog_archive_date_format']		= "%d' %m' %Y"; #translate format - see php strftime documentation
+$lang['blog_archive_date_format']		= "%d' %m' %Y";
 
 /* End of file blog_lang.php */
 /* Location: ./system/cms/modules/blog/language/slovenian/blog_lang.php */

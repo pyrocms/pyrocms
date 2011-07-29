@@ -11,8 +11,8 @@ $lang['pages.detail_label']                = 'Podrobnosti';
 
 // labels
 $lang['pages.page_label']                  = 'Stran';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']						= 'Dodaj košček strani';
+$lang['pages.page_chunk']							= 'Košček strani';
 $lang['pages.language_label']              = 'Jezik';
 $lang['pages.updated_label']               = 'Posodobljeno';
 $lang['pages.actions_label']               = 'Akcije';
