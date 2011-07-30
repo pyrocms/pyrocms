@@ -13,8 +13,8 @@ $lang['password']		=	'Geslo';
 $lang['portnr']			=	'Port';
 $lang['server_settings']=	'Podatki strežnika';
 $lang['httpserver']		=	'HTTP Strežnik';
-$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
+$lang['rewrite_fail']	=	'Izbrali ste "(Apache z mod_rewrite)" ampak ne moremo določiti če je mod_rewrite omogočen na vašem strežniku. Vprašajte vašega gostitelja če mod_rewrite deluje ali pa preposto namesite na vašo lastno odgovornost.';
+$lang['mod_rewrite']	=	'Izbrali ste "(Apache z mod_rewrite)" vendar pa ga vaš strežnik nima omogočenega.Vprašajte vašega gostitelja če ga lahko omogoči ali pa namesite PyroCMS z uporabo "Apache (brez mod_rewrite)" opcije.';
 $lang['step2']			=	'Korak 2';
 
 // messages
