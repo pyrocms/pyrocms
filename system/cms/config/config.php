@@ -208,12 +208,9 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = APPPATH . 'cache/' . SITE_REF . '/codeigniter/';
 
-if ( ! is_dir($config['cache_path']))
-{
-	mkdir($config['cache_path'], DIR_WRITE_MODE, TRUE);
-}
+// This is set in the pyrocache config so Pro can set the correct SITE_REF
+$config['cache_path'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -243,7 +240,7 @@ $config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;
-$config['sess_table_name']		= 'ci_sessions';
+$config['sess_table_name']		= 'default_ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update'] 		= 300;
