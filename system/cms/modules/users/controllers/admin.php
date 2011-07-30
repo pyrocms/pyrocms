@@ -49,7 +49,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'display_name',
 			'label' => 'lang:user_display_name',
-			'rules' => 'alpha_numeric|min_length[3]|max_length[50]'
+			'rules' => 'min_length[3]|max_length[50]'
 		),
 		array(
 			'field' => 'group_id',
