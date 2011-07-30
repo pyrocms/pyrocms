@@ -26,7 +26,7 @@ class Events_Templates {
         Events::register('email', array($this, 'send_email'));
     }
 
-    public function send_email($data)
+    public function send_email($data = array())
     {
         $this->ci =& get_instance();
 

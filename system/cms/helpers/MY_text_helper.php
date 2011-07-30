@@ -19,6 +19,8 @@ function nl2p($str)
         . '</p>');
 }
 
+// ------------------------------------------------------------------------
+
 /**
  * Returns a string with all spaces converted to underscores (by default), accented
  * characters converted to non-accented characters, and non word characters removed.
@@ -103,11 +105,14 @@ function convert_accented_characters($string, $replacement = '-')
   return preg_replace(array_keys($map), array_values($map), $string);
 }
 
+// ------------------------------------------------------------------------
 
 function escape_tags($string)
 {
 	return str_replace(array('{', '}'), array('&#123;', '&#125;'), $string);
 }
+
+// ------------------------------------------------------------------------
 
 /**
  * Proccess data JMR1
@@ -122,7 +127,7 @@ function escape_tags($string)
  */
 
 // Set PCRE recursion limit to sane value = STACKSIZE / 500 (256KB stack. Win32 Apache or  8MB stack. *nix)
-ini_set('pcre.recursion_limit', (strtolower(substr(PHP_OS, 0, 3)) === 'win') ? '524' : '16777');
+ini_set('pcre.recursion_limit', (strtolower(substr(PHP_OS, 0, 3)) === 'win' ? '524' : '16777'));
 
 function process_data_jmr1($text = '')
 {
