@@ -8,8 +8,8 @@
 					<th><?php echo lang('user_name_label');?></th>
 					<th><?php echo lang('user_email_label');?></th>
 					<th><?php echo lang('user_group_label');?></th>
-					<th><?php echo lang('user_joined_label');?></th>
 					<th><?php echo lang('user_active'); ?></th>
+					<th><?php echo lang('user_joined_label');?></th>
 					<th><?php echo lang('user_last_visit_label');?></th>
 					<th width="200" class="align-center"><?php echo lang('user_actions_label');?></th>
 				</tr>

@@ -16,25 +16,26 @@
 	<!-- Content tab -->
 	<div id="blog-content-tab">
 		<ol>
-			<li>
+			<li class="even">
 				<label for="title"><?php echo lang('blog_title_label'); ?></label>
 				<?php echo form_input('title', htmlspecialchars_decode($post->title), 'maxlength="100"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 			</li>
-			<li class="even">
+			<li>
 				<label for="slug"><?php echo lang('blog_slug_label'); ?></label>
 				<?php echo form_input('slug', $post->slug, 'maxlength="100" class="width-20"'); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 			</li>
-			<li>
+			<li class="even">
 				<label for="status"><?php echo lang('blog_status_label'); ?></label>
 				<?php echo form_dropdown('status', array('draft' => lang('blog_draft_label'), 'live' => lang('blog_live_label')), $post->status) ?>
 			</li>
-			<li class="even">
-				<label class="intro" for="intro"><?php echo lang('blog_intro_label'); ?></label>
+			<li>
+				<label for="intro"><?php echo lang('blog_intro_label'); ?></label>
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'wysiwyg-simple')); ?>
 			</li>
-			<li>
+			<li class="even">
+				<label for="body"><?php echo lang('blog_content_label'); ?></label>
 				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 50, 'class' => 'wysiwyg-advanced')); ?>
 			</li>
 	

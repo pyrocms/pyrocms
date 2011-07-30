@@ -136,3 +136,25 @@ div.filter a.cancel {
 	margin-left: 8px;
 	display: inline-block;
 }
+
+
+form.crud textarea {
+	width: 80%;
+}
+
+form.crud .cke_skin_kama {
+	float: left !important;
+    width: 80% !important;
+}
+
+form.crud .cke_skin_kama .cke_editor .cke_contents {
+	background: url("../../img/admin/uniform/bg-input.png") repeat-x scroll 0 0 #FFFFFF;
+    border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    color: #777777;
+    padding: 3px;
+	display:block;
+	padding:5px;
+}

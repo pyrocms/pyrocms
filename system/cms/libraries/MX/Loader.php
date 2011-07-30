@@ -49,6 +49,14 @@ class MX_Loader extends CI_Loader
 
 		/* add this module path to the loader variables */
 		$this->_add_module_paths($this->_module);
+		
+		// Set the addons folder as a package.
+		// If SITE_REF isn't defined then they must be
+		// running the multi-site manager
+		if (defined('SITE_REF'))
+		{
+			$this->add_package_path(ADDONPATH);
+		}
 	}
 
 	/** Initialize the module **/

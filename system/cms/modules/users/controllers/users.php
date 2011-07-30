@@ -89,7 +89,7 @@ class Users extends Public_Controller
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
 		{
-			$this->session->set_userdata('redirect_to', $redirect_to = BASE_URI.implode($args));
+			$this->session->set_userdata('redirect_to', $redirect_to = implode('/', $args));
 		}
 
 		// Get the user data
@@ -179,27 +179,27 @@ class Users extends Public_Controller
 			array(
 				'field' => 'confirm_password',
 				'label' => lang('user_confirm_password'),
-				'rules' => 'required|matches[password]'
+				'rules' => 'required|matches[password]',
 			),
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'required|valid_email|callback__email_check'
+				'rules' => 'required|valid_email|callback__email_check',
 			),
 			array(
 				'field' => 'confirm_email',
 				'label' => lang('user_confirm_email'),
-				'rules' => 'required|valid_email|matches[email]'
+				'rules' => 'required|valid_email|matches[email]',
 			),
 			array(
 				'field' => 'username',
 				'label' => lang('user_username'),
-				'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]|callback__username_check'
+				'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]|callback__username_check',
 			),
 			array(
 				'field' => 'display_name',
 				'label' => lang('user_display_name'),
-				'rules' => 'required|alpha_numeric|min_length[3]|max_length[50]'
+				'rules' => 'min_length[3]|max_length[50]',
 			),
 		);
 
@@ -464,7 +464,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'display_name',
 				'label' => lang('profile_display'),
-				'rules' => 'xss_clean|trim|required|alpha_numeric'
+				'rules' => 'xss_clean|trim|required'
 			),
 			// More fields
 			array(
@@ -625,7 +625,6 @@ class Users extends Public_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			// Redirect
 			redirect('edit-settings');
 		}
 		else
@@ -635,7 +634,7 @@ class Users extends Public_Controller
 			{
 				if ($this->input->post($rule['field']) !== FALSE)
 				{
-					$user_settings->{$fieldname} = set_value($rule['field']);
+					$user_settings->{$rule['field']} = set_value($rule['field']);
 				}
 			}
 		}

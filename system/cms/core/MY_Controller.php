@@ -14,7 +14,7 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
 		$this->benchmark->mark('my_controller_start');
-		
+
 		// TODO: Remove all this migration check in the next major version after 1.3.0
 		// This extra check needs to be done to make the "multisite" changes run before the rest
 		// of the controller attempts to run
@@ -69,6 +69,7 @@ class MY_Controller extends CI_Controller {
 		// With that done, load settings
 		$this->load->library(array('settings/settings'));
 
+		// Lock front-end language
 		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
 		{
 			$site_public_lang = explode(',', Settings::get('site_public_lang'));
@@ -90,6 +91,15 @@ class MY_Controller extends CI_Controller {
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
+		// Set php locale time
+		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
+		{
+			array_unshift($locale, LC_TIME);
+			call_user_func_array('setlocale', $locale);
+			unset($locale);
+		}
+
+		// Reload languages
 		if (AUTO_LANGUAGE !== CURRENT_LANGUAGE)
 		{
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);

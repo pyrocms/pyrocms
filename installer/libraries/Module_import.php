@@ -108,7 +108,7 @@ class Module_import {
 		$this->ci->dbforge->drop_table('modules');
 
 		$modules = "
-			CREATE TABLE ".$this->ci->db->dbprefix('modules')." (
+			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix('modules')." (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `name` TEXT NOT NULL,
 			  `slug` varchar(50) NOT NULL,
@@ -129,6 +129,20 @@ class Module_import {
 
 		//create the modules table so that we can import all modules including the modules module
 		$this->ci->db->query($modules);
+
+		$session = "
+			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
+			 `session_id` varchar(40) DEFAULT '0' NOT NULL,
+			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
+			 `user_agent` varchar(50) NOT NULL,
+			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
+			 `user_data` text NULL,
+			PRIMARY KEY (`session_id`)
+			);
+		";
+		
+		// create a session table so they can use it if they want
+		$this->ci->db->query($session);
 
 		// Loop through directories that hold modules
 		$is_core = TRUE;
