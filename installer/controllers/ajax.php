@@ -128,7 +128,7 @@ class Ajax extends CI_Controller {
 	public function check_rewrite()
 	{
 		// if it doesn't exist then warn them at least
-		if ( ! function_exists(apache_get_modules()))
+		if ( ! function_exists('apache_get_modules'))
 		{
 			return print(lang('rewrite_fail'));
 		}
