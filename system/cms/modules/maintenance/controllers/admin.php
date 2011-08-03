@@ -4,10 +4,11 @@
  * The Maintenance Module - currently only remove/empty cache folder(s)
  *
  * @author     Donald Myers
- * @package    Maintenance
+ * @package    PyroCMS
  * @subpackage Maintenance Module
  * @category   Modules
  */
+
 class Admin extends Admin_Controller 
 {
 
@@ -38,11 +39,16 @@ class Admin extends Admin_Controller
         $cannot_remove = (array)$this->config->item('maintenance.cannot_remove_folders');
 
         /* remove protected */
-        foreach ($folders as $key => $folder) {
+        foreach ($folders as $key => $folder)
+        {
             $basename = basename($folder);
-            if (in_array($basename, $protected)) {
+            
+            if (in_array($basename, $protected))
+            {
                 unset($folders[$key]);
-            } else {
+            }
+            else
+            {
                 /* we just use the filename on the front end to not expose complete paths */
                 $folder_ary[] = (object)array(
                     'name'=>$basename,
@@ -61,14 +67,21 @@ class Admin extends Admin_Controller
     public function cleanup($name = '', $andfolder = 0)
     {
 
-        if (!empty($name)) {
+        if (!empty($name))
+        {
             $apath = $this->_refind_apath($name);
-            if (!empty($apath)) { /* were did the folder go? */
+            
+            if (!empty($apath))
+            {
                 $item_count = count(glob($apath.'/*'));
                 $which = ($andfolder) ? 'remove' : 'empty'; /* just empty or empty and remove? */
-                if ($this->delete_files($apath, $andfolder)) {
+                
+                if ($this->delete_files($apath, $andfolder))
+                {
                     $this->session->set_flashdata('success', sprintf(lang('maintenance.'.$which.'_msg'), $item_count, $name));
-                } else {
+                }
+                else
+                {
                     $this->session->set_flashdata('error', sprintf(lang('maintenance.'.$which.'_msg_err'), $name));
                 }
             }
@@ -81,22 +94,26 @@ class Admin extends Admin_Controller
     {
         $this->load->helper('file');
 
-        if (!delete_files($apath, true)) return false;
+        if (!delete_files($apath, TRUE)) return FALSE;
 
-        if ($andfolder) {
-            if (!rmdir($apath)) {
-                return false;
+        if ($andfolder)
+        {
+            if (!rmdir($apath))
+            {
+                return FALSE;
             }
         }
-        return true;
+        return TRUE;
     }
 
 
     private function _refind_apath($name)
     {
         $folders = glob($this->cache_path.'*', GLOB_ONLYDIR);
-        foreach ($folders as $folder) {
-            if (basename($folder) === $name) {
+        foreach ($folders as $folder)
+        {
+            if (basename($folder) === $name)
+            {
                 return $folder;
             }
         }

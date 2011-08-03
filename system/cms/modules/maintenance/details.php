@@ -4,7 +4,7 @@
  * The Maintenance Module - currently only remove/empty cache folder(s)
  *
  * @author     Donald Myers
- * @package    Maintenance
+ * @package    PyroCMS
  * @subpackage Maintenance Module
  * @category   Modules
  */
@@ -20,10 +20,10 @@ class Module_Maintenance extends Module
                 'en' => 'Maintenance'
             ),
             'description' => array(
-                'en' => 'Pyro Maintenance Module'
+                'en' => 'Manually delete cache items via the admin interface.'
             ),
-            'frontend' => false,
-            'backend' => true,
+            'frontend' => FALSE,
+            'backend' => TRUE,
             'menu' => 'utilities'
         );
     }
@@ -31,25 +31,25 @@ class Module_Maintenance extends Module
 
     public function install()
     {
-        return true;
+        return TRUE;
     }
 
 
     public function uninstall()
     {
-        return true;
+        return TRUE;
     }
 
 
     public function upgrade($old_version)
     {
-        return true;
+        return TRUE;
     }
 
 
     public function help()
     {
-        return "This module will clean up and/or remove cache files and folders<br>Other options possible in the future.";
+        return "This module will clean up and/or remove cache files and folders.";
     }
 
 
