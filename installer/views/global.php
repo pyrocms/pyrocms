@@ -34,7 +34,7 @@
 			
 		<!-- Content -->
 		<div id="content">
-			<div class="container">
+			<div class="container clearfix">
 				
 				<!-- Message type 1 (flashdata) -->
 				<?php if($this->session->flashdata('message')): ?>
