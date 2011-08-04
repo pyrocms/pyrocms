@@ -271,7 +271,7 @@ li.empty-drop-item {
 	height: 24px;
 }
 li.empty-drop-item.loading {
-	background-image: url(../../../assets/img/admin/loading.gif);
+	background-image: url(../../../themes/admin_theme/img/admin/loading.gif);
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	border: none;
@@ -301,4 +301,4 @@ li.empty-drop-item.loading {
 }
 
 #widgets-list > tbody > tr { cursor: auto; }
-td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../assets/img/icons/cursor_drag_arrow.png) no-repeat; }
+td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/admin_theme/img/icons/cursor_drag_arrow.png) no-repeat; }
