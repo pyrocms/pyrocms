@@ -199,7 +199,6 @@ class Settings {
 		{
 			return FALSE;
 		}
-
 		return ci()->settings_m->insert($setting);
 	}
 
@@ -391,10 +390,9 @@ class Settings {
 		{
 			return FALSE;
 		}
-
-		foreach ($setting as $key)
+		foreach ($setting as $key => $value)
 		{
-			if ( ! array_key_exists($key, $this->columns))
+			if ( ! in_array($key, $this->columns))
 			{
 				return FALSE;
 			}
