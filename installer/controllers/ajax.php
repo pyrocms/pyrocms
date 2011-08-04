@@ -117,7 +117,7 @@ class Ajax extends CI_Controller {
 		$curl = new Curl;
 		$curl->simple_post($url, $data);
 	}
-	
+
 	/**
 	 * Check if apache's mod_rewrite is enabled
 	 *
@@ -132,7 +132,7 @@ class Ajax extends CI_Controller {
 		{
 			return print(lang('rewrite_fail'));
 		}
-		
+
 		$modules = apache_get_modules();
 
 		if (in_array('mod_rewrite', $modules))
