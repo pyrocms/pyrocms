@@ -24,12 +24,12 @@
 	<!-- PHP -->
 	<li>
 		<h4><?php echo lang('php_settings'); ?></h4>
-		<p><?php echo lang('php_required'); ?></p>
+		<p><?php echo sprintf(lang('php_required'), $php_min_version); ?></p>
 		
 		<p class="result <?php echo ($php_acceptable) ? 'pass' : 'fail'; ?>">
 			<?php echo lang('php_version'); ?> <strong><?php echo $php_version; ?></strong>.
 			<?php if (!$php_acceptable): ?>
-				<?php echo lang('php_fail'); ?>
+				<?php echo sprintf(lang('php_fail'), $php_min_version); ?>
 			<?php endif; ?>
 		</p>
 		

@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']				= '2ª Etapa: Verificação de requesitos';
@@ -11,9 +11,9 @@ $lang['server_version']		= 'Seu programa de Servidor:';
 $lang['server_fail']		= 'Seu programa de servidor não é suportado, mesmo assim o PyroCMS pode ( ou não ) funcionar. Se a instalação do seu PHP e MySQL estão atualizados,o PyroCMS deverá rodar perfeitamente, apenas sem URL\'s limpas.';
 
 $lang['php_settings']		= 'Configurações do PHP';
-$lang['php_required']		= 'PyroCMS necessita de PHP com versão 5.0 ou superior.';
+$lang['php_required']		= 'PyroCMS necessita de PHP com versão %s ou superior.';
 $lang['php_version']		= 'Seu servidor está rodando esta versão';
-$lang['php_fail']			= 'A versão do seu PHP não é suportada. O PyroCMS necessita de um PHP versão 5.0 ou superior para rodar corretamente.';
+$lang['php_fail']			= 'A versão do seu PHP não é suportada. O PyroCMS necessita de um PHP versão %s ou superior para rodar corretamente.';
 
 $lang['mysql_settings']		= 'Configurações do MySQL';
 $lang['mysql_required']		= 'PyroCMS necessita acesso a um banco de dados MySQL com versão 5.0 ou superior.';

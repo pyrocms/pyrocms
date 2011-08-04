@@ -28,13 +28,13 @@ class Installer_lib {
 	 *
 	 * Function to see if the PHP version is acceptable (at least version 5)
 	 */
-	function php_acceptable()
+	function php_acceptable($version = NULL)
 	{
 		// Set the PHP version
 		$this->php_version = phpversion();
 		
-		// Is this version of PHP greater than 5.0?
-		return ( version_compare(PHP_VERSION, '5.0', '>') ) ? TRUE : FALSE;
+		// Is this version of PHP greater than minimum version required?
+		return ( version_compare(PHP_VERSION, $version, '>=') ) ? TRUE : FALSE;
 	}
 	
 	

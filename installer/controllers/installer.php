@@ -191,8 +191,9 @@ class Installer extends CI_Controller
 		}
 			
 		// Check the PHP version
-		$data->php_acceptable = $this->installer_lib->php_acceptable();
-		$data->php_version = $this->installer_lib->php_version;	
+		$data->php_min_version	= '5.2';
+		$data->php_acceptable	= $this->installer_lib->php_acceptable($data->php_min_version);
+		$data->php_version		= $this->installer_lib->php_version;
 		
 		// Check the MySQL data
 		$data->mysql->server_version_acceptable = $this->installer_lib->mysql_acceptable('server');

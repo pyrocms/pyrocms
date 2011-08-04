@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']             = 'Schritt 2: Pr&uuml;ffe Anforderungen';
@@ -13,9 +13,9 @@ $lang['server_fail']        = 'Ihre HTTP-Software wird nicht unterst&uuml;tzt. D
 
 
 $lang['php_settings']       = 'PHP Einstellungen';
-$lang['php_required']       = 'PyroCMS ben&ouml;tigt PHP version 5.0 oder h&ouml;her.';
+$lang['php_required']       = 'PyroCMS ben&ouml;tigt PHP version %s oder h&ouml;her.';
 $lang['php_version']        = 'Auf Diesem Serer l&auml;uft aktuell version';
-$lang['php_fail']           = 'Ihre PHP-Version wird nicht unterst&uuml;tzt. PyroCMS ben&ouml;tigt PHP-Version 5.0 oder h&ouml;her.';
+$lang['php_fail']           = 'Ihre PHP-Version wird nicht unterst&uuml;tzt. PyroCMS ben&ouml;tigt PHP-Version %s oder h&ouml;her.';
 
 $lang['mysql_settings']     = 'MySQL-Einstellungen';
 $lang['mysql_required']     = 'PyroCMS ben&ouml;tigt Zugriff zu einer MySQL-Datenbank in der Version 5.0 oder h&ouml;her.';
