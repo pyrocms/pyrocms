@@ -19,8 +19,8 @@ $lang['pages.detail_label']							= 'Детали';
 
 // подписи
 $lang['pages.page_label']								= 'Страница';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']						= 'Добавить кусок страницы';
+$lang['pages.page_chunk']								= 'Кусок страницы';
 $lang['pages.language_label']						= 'Язык';
 $lang['pages.updated_label']						= 'Обновлено';
 $lang['pages.actions_label']						= 'Действия';
