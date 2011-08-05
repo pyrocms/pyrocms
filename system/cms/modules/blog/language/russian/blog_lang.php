@@ -11,8 +11,8 @@
 // подписи
 $lang['blog_posted_label']									= 'Дата';
 $lang['blog_posted_label_alt']							= 'Дата добавления';
-$lang['blog_written_by_label']				= 'Written by'; #translate
-$lang['blog_author_unknown']				= 'Unknown'; #translate
+$lang['blog_written_by_label']							= 'Автор';
+$lang['blog_author_unknown']								= 'Неизвестно';
 $lang['blog_category_label']								= 'Категория';
 $lang['blog_post_label']										= 'Заголовок';
 $lang['blog_date_label']										= 'Дата';
@@ -63,7 +63,7 @@ $lang['blog_edit_success']									= 'Статья "%s" сохранена.';
 $lang['blog_edit_error']										= 'Во время сохранения статьи произошла ошибка.';
 $lang['blog_publish_success']								= 'Статья "%s" опубликована.';
 $lang['blog_mass_publish_success']					= 'Статьи "%s" опубликованы.';
-$lang['blog_publish_error']									= 'Во время опубликования стати произошла ошибка.';
+$lang['blog_publish_error']									= 'Во время публикации статьи произошла ошибка.';
 $lang['blog_delete_success']								= 'Статья "%s" удалена.';
 $lang['blog_mass_delete_success']						= 'Статьи "%s" удалены.';
 $lang['blog_delete_error']									= 'Во время удаления статьи произошла ошибка.';
