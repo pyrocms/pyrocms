@@ -232,7 +232,12 @@ class Users extends Public_Controller
 			{
 				// trigger an event for third party devs
 				Events::trigger('post_user_register', $id);
-
+				
+				if ($this->settings->user_registration_email)
+				{
+					$this->_send_registration_email($user_data);
+				}
+				
 				$this->session->set_flashdata(array('notice' => $this->ion_auth->messages()));
 				redirect('users/activate');
 			}
@@ -778,6 +783,26 @@ class Users extends Public_Controller
 		{
 			return TRUE;
 		}
+	}
+	/**
+	 * Send - User has Registered Email
+	 * @return bool
+	 * @author Don Myers
+	 *
+	 */
+	public function _send_registration_email($user_data)
+	{
+		$this->load->library('user_agent');
+
+		// Add in some extra details
+		$data['name']					= $user_data->first_name.' '.$user_data->last_name;
+		$data['sender_ip']		= $this->input->ip_address();
+		$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
+		$data['sender_os']		= $this->agent->platform();
+		$data['slug'] 				= 'registration';
+		$data['email'] 				= $this->settings->contact_email;
+
+		return (bool) Events::trigger('email', $data, 'array');
 	}
 
 }
