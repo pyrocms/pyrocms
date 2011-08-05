@@ -11,10 +11,15 @@
 
 class Widget_Google_maps extends Widgets
 {
-    public $title		= 'Google Maps';
+    public $title		= array(
+			'en' => 'Google Maps',
+			'pt' => 'Google Maps',
+			'ru' => 'Карты Google',
+		);
     public $description	= array(
 		'en' => 'Display Google Maps on your site',
-		'pt' => 'Mostra mapas do Google no seu site'
+		'pt' => 'Mostra mapas do Google no seu site',
+		'ru' => 'Выводит карты Google на страницах вашего сайта',
 	);
     public $author		= 'Gregory Athons';
     public $website		= 'http://www.gregathons.com';

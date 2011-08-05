@@ -10,10 +10,15 @@
 
 class Widget_Social_bookmark extends Widgets
 {
-	public $title		= 'Social Bookmark';
+	public $title		= array(
+		'en' => 'Social Bookmark',
+		'pt' => 'Social Bookmark',
+		'ru' => 'Социальные закладки',
+		);
 	public $description	= array(
 		'en' => 'Configurable social bookmark links from AddThis',
-		'pt' => 'Adiciona links de redes sociais usando o AddThis, podendo fazer algumas configurações'
+		'pt' => 'Adiciona links de redes sociais usando o AddThis, podendo fazer algumas configurações',
+		'ru' => 'Конфигурируемые социальные закладки с сайта AddThis',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';
