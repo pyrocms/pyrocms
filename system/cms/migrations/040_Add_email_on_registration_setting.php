@@ -8,8 +8,8 @@ class Migration_Add_email_on_registration_setting extends Migration {
 
 		/* insert settings */
 		$this->db->insert('settings', array(
-			'slug'				=> 'user_registration_email',
-			'title'				=> 'User Registration Email',
+			'slug'				=> 'registered_email',
+			'title'				=> 'User Registered Email',
 			'description'	=> 'Send an email to the contact e-mail when someone registers',
 			'type'				=> 'radio',
 			'default'			=> '0',
@@ -23,7 +23,7 @@ class Migration_Add_email_on_registration_setting extends Migration {
 		
 		/* insert default email template */
 		$this->db->insert('default_email_templates',array(
-			'slug'				=> 'registration',
+			'slug'				=> 'registered',
 			'name'				=> 'User Registered',
 			'description' => 'Email Sent to contact e-mail when a user registers',
 			'subject'			=> 'You have just received a registration from {pyro:name}',
@@ -37,7 +37,7 @@ class Migration_Add_email_on_registration_setting extends Migration {
 
 	function down()
 	{
-		$this->db->delete('settings', array('slug' => 'user_registration_email'));
-		$this->db->delete('default_email_templates', array('slug' => 'registration'));
+		$this->db->delete('settings', array('slug' => 'registered_email'));
+		$this->db->delete('default_email_templates', array('slug' => 'registered'));
 	}
 }
