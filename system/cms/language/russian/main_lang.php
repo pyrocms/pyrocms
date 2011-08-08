@@ -15,8 +15,8 @@ $lang['name_label']							= 'Название';
 $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
 $lang['author_label']						= 'Автор';
-$lang['action_label']						= 'Действия';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['action_label']						= 'Действие';
+$lang['actions_label']					= 'Действия';
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['dialog.confirm']					= 'Подтверждение';
@@ -28,8 +28,8 @@ $lang['select.all']							= '-- все --';
 $lang['select.any']							= '-- любой --';
 $lang['select.pick']						= '-- выберите --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 						= 'Ни одного';
+$lang['check.all']							= 'Все';
 
 $lang['operators.equal']				= 'Равно';
 $lang['operators.not_equal']		= 'Не равно';

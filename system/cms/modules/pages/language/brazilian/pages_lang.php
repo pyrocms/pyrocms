@@ -2,7 +2,7 @@
 
 // tabs
 $lang['pages.content_label'] 				= 'Conteúdo da página';
-$lang['pages.meta_label'] 					= 'Meta dados';
+$lang['pages.meta_label'] 					= 'Metadados';
 $lang['pages.design_label'] 				= 'Design';
 $lang['pages.script_label'] 				= 'Script';
 $lang['pages.options_label'] 				= 'Opções';
@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 				= 'Detalhes';
 
 // labels
 $lang['pages.page_label'] 					= 'Página';
-$lang['pages.add_chunk']					= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']					= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']				= 'Adicionar pedaço de página';
+$lang['pages.page_chunk']					= 'Pedaço de página';
 $lang['pages.language_label'] 				= 'Idioma';
 $lang['pages.updated_label'] 				= 'Atualizada';
 $lang['pages.actions_label'] 				= 'Ações';
@@ -34,7 +34,7 @@ $lang['pages.is_home_label']				= 'Página padrão (inicial)?';
 
 $lang['pages.status_label'] 				= 'Situação';
 $lang['pages.draft_label'] 					= 'Rascunho';
-$lang['pages.live_label'] 					= 'Publica';
+$lang['pages.live_label'] 					= 'Pública';
 $lang['pages.revisions_label']				= 'Revisões';
 $lang['pages.compare_label']				= 'Comparar';
 $lang['pages.preview_label']				= 'Visualizar';
