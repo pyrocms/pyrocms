@@ -11,7 +11,7 @@ $lang['pages.detail_label'] 				= 'Detalhes';
 
 // labels
 $lang['pages.page_label'] 					= 'Página';
-$lang['pages.add_chunk']					= 'Adicionar pedaço de página';
+$lang['pages.add_page_chunk']				= 'Adicionar pedaço de página';
 $lang['pages.page_chunk']					= 'Pedaço de página';
 $lang['pages.language_label'] 				= 'Idioma';
 $lang['pages.updated_label'] 				= 'Atualizada';
