@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Шаг 2: Проверка требований';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'ПО вашего сервера:';
 $lang['server_fail']	=	'ПО вашего сервера не поддерживается, PyroCMS может работать, а может и не работать на нём. Пока с PHP и MySQL всё в порядке - PyroCMS должен работать без проблем, только без ЧПУ.';
 
 $lang['php_settings']	=	'Настройки PHP';
-$lang['php_required']	=	'PyroCMS для работы требуется PHP версии 5.0 или выше.';
+$lang['php_required']	=	'PyroCMS для работы требуется PHP версии %s или выше.';
 $lang['php_version']	=	'На вашем сервере установлена версия';
-$lang['php_fail']		=	'Версия PHP на вашем сервере не поддерживается. Для корректной работы PyroCMS требуется PHP версии 5.0 или выше.';
+$lang['php_fail']		=	'Версия PHP на вашем сервере не поддерживается. Для корректной работы PyroCMS требуется PHP версии %s или выше.';
 
 $lang['mysql_settings']	=	'Настройки MySQL';
 $lang['mysql_required']	=	'PyroCMS необходим доступ к базе данных MySQL версии 5.0 или выше.';

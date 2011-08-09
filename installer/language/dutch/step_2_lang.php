@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Stap 2: Controleer benodigdheden';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'De server software:';
 $lang['server_fail']	=	'De server software word niet ondersteund. PyroCMS werkt mogelijk als de PHP en de MySQL installatie up-to-date zijn, echter zonder clean URL\'s.';
 
 $lang['php_settings']	=	'PHP Settings';
-$lang['php_required']	=	'PyroCMS vereist PHP versie 5.0 of hoger.';
+$lang['php_required']	=	'PyroCMS vereist PHP versie %s of hoger.';
 $lang['php_version']	=	'Uw server draait momenteel verie';
-$lang['php_fail']		=	'Uw PHP versie wordt niet ondersteund. PyroCMS vereist PHP versie 5.0 of hoger om probleemloos te functioneren.';
+$lang['php_fail']		=	'Uw PHP versie wordt niet ondersteund. PyroCMS vereist PHP versie %s of hoger om probleemloos te functioneren.';
 
 $lang['mysql_settings']	=	'MySQL Settings';
 $lang['mysql_required']	=	'PyroCMS vereist toegang tot een MySQL database die versie 5.0 of hoger draait.';

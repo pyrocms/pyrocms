@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Žingsnis 2: Reikalavimų tikrinimas';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'Jūsų serverio programa:';
 $lang['server_fail']	=	'Jūsų serverio programa nepalaikoma, PyroCMS gali veikti nekorektiškai. Jeigu jūsų PHP bei MySQL versijos yra tinkančios, PyroCMS turi veikti be problemų tiesiog nenaudojant "gražių linkų".';
 
 $lang['php_settings']	=	'PHP nustatymai';
-$lang['php_required']	=	'PyroCMS reikalaja PHP versijos 5.0 arba didesnės.';
+$lang['php_required']	=	'PyroCMS reikalaja PHP versijos %s arba didesnės.';
 $lang['php_version']	=	'Jūsų serveris šiuo metu naudoja';
-$lang['php_fail']		=	'Jūsų PHP versija yra nepalaikoma. PyroCMS reikalauja PHP versijos 5.0 arba naujasnės kad veiktu korektiškai.';
+$lang['php_fail']		=	'Jūsų PHP versija yra nepalaikoma. PyroCMS reikalauja PHP versijos %s arba naujasnės kad veiktu korektiškai.';
 
 $lang['mysql_settings']	=	'MySQL nustatymai';
 $lang['mysql_required']	=	'PyroCMS reikalauja prieimo prie MySQL duomenų bazės, minimali versija 5.0.';

@@ -9,7 +9,7 @@
 		<h2>{db_settings}</h2>
 
 		<p>{db_text}</p>
-		
+
 		<div class="input">
 			<label for="hostname">{server}</label>
 			<?php
@@ -21,7 +21,7 @@
 		?>
 		</div>
 		<div class="input">
-			<?php echo lang('username','username'); ?>
+			<label for="username"><?php echo lang('username','username'); ?></label>
 			<?php
 				echo form_input(array(
 					'id' => 'username',
@@ -31,7 +31,7 @@
 			?>
 		</div>
 		<div class="input">
-			<?php echo lang('password','password'); ?>
+			<label for="password"><?php echo lang('password','password'); ?></label>
 			<?php
 				echo form_password(array(
 					'id' => 'password',
@@ -41,7 +41,7 @@
 			?>
 		</div>
 		<div class="input">
-			<?php echo lang('portnr','port'); ?>
+			<label for="port"><?php echo lang('portnr','port'); ?></label>
 			<?php
 				echo form_input(array(
 					'id' => 'port',
@@ -50,28 +50,28 @@
 				));
 			?>
 		</div>
-		
+
 	</div>
-	
+
 	<div id="notification">
 	   <p class="text" id="confirm_db"></p>
 	</div>
-	
+
 	<div class="server">
 		<h2>{server_settings}</h2>
-		
+
 			<div class="input">
-				<?php echo lang('httpserver','http_server'); ?>
+				<label for="http_server"><?php echo lang('httpserver','http_server'); ?></label>
 				<?php
 					echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"');
 				?>
 			</div>
 	</div>
-	
+
 	<input type="hidden" name="installation_step" value="step_1" />
-	
+
 	<br class="clear" />
-	
+
 	<input id="next_step" type="submit" id="submit" value="{step2}" />
-	
+
 <?php echo form_close(); ?>

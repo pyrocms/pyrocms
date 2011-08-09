@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 # labels
 $lang['header']			= 'Paso 2: Comprobar requisitos';
@@ -11,9 +11,9 @@ $lang['server_version']		= 'Su software del servidor:';
 $lang['server_fail']		= 'Su software del servidor no está soportado, por lo tanto PyroCMS puede o no puede funcionar. En la medida que su instalación de PHP y MySQL estén actualizados PyroCMS puede ejecutarse apropiadamente, solo sin URL\'s limpios.';
 
 $lang['php_settings']		= 'Configuración PHP';
-$lang['php_required']		= 'PyroCMS requiere PHP versión 5.0 o superior.';
+$lang['php_required']		= 'PyroCMS requiere PHP versión %s o superior.';
 $lang['php_version']		= 'Su servidor está actualmente ejecutando versión';
-$lang['php_fail']		= 'Su versión de PHP no está soportada. PyroCMS requiere PHP versión 5.0 o superior para ejecutarse apropiadamente.';
+$lang['php_fail']		= 'Su versión de PHP no está soportada. PyroCMS requiere PHP versión %s o superior para ejecutarse apropiadamente.';
 
 $lang['mysql_settings']		= 'Configuración MySQL';
 $lang['mysql_required']		= 'PyroCMS requiere la base de datos MySQL ejecutando versión 5.0 o superior.';

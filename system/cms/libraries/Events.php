@@ -76,7 +76,7 @@ class Events {
 	/**
 	 * Spawn Class
 	 *
-	 * Checks to see if a details.php exists and returns a class
+	 * Checks to see if a events.php exists and returns a class
 	 *
 	 * @param	string	$slug	The folder name of the module
 	 * @access	private
@@ -87,21 +87,21 @@ class Events {
 		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path . 'modules/' . $slug . '/events'.EXT;
+		$events_file = $path . 'modules/' . $slug . '/events'.EXT;
 
 		// Check the details file exists
-		if ( ! is_file($details_file))
+		if ( ! is_file($events_file))
 		{
-			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
+			$events_file = SHARED_ADDONPATH . 'modules/' . $slug . '/events'.EXT;
 			
-			if ( ! is_file($details_file))
+			if ( ! is_file($events_file))
 			{
 				return FALSE;
 			}
 		}
 
 		// Sweet, include the file
-		include_once $details_file;
+		include_once $events_file;
 
 		// Now call the details class
 		$class = 'Events_'.ucfirst(strtolower($slug));

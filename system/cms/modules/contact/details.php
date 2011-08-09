@@ -53,6 +53,8 @@ class Module_Contact extends Module {
 
 	public function install()
 	{
+		$this->dbforge->drop_table('contact_log');
+		
 		return $this->db->query("
 			CREATE TABLE ".$this->db->dbprefix('contact_log')." (
 			  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
