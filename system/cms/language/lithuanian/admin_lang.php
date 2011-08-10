@@ -52,4 +52,3 @@ $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/english/admin_lang.php */

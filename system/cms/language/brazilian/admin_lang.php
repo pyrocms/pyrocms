@@ -52,4 +52,3 @@ $lang['required_label'] 				= 'Obrigatório';
 $lang['sb_recent_users'] 				= 'Usuários recentes';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/brazilian/admin_lang.php */

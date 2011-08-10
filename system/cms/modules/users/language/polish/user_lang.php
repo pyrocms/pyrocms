@@ -214,4 +214,3 @@ $lang['profile_edit_error'] 			= 'Wystąpił błąd.';
 $lang['profile_save_btn'] 				= 'Zapisz profil';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/polish/user_lang.php */

@@ -22,4 +22,3 @@ $lang['db_success']		=	'Nastavení databáze bylo ověřeno a pracuje správně'
 $lang['db_failure']		=	'Problém s připojením k databázi: ';
 
 /* End of file step_1_lang.php */
-/* Location: ./installer/language/english/step_1_lang.php */

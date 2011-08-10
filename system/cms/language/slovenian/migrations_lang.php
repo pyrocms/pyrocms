@@ -22,4 +22,3 @@ $lang['migrations.wrong_migration_interface']		= 'Napačen izgled na prenoso pri
 $lang['migrations.invalid_migration_filename']		= 'Neveljavno ime datoteke prenosa: %s';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/slovenian/migrations_lang.php */

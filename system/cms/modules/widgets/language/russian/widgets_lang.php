@@ -47,4 +47,3 @@ $lang['widgets.instance_delete']				= 'Удалить';
 $lang['widgets.no_available_widgets']		= 'Отсутствуют доступные для установки виджеты.';
 
 /* End of file widgets_lang.php */
-/* Location: ./system/cms/modules/widgets/language/russian/widgets_lang.php */

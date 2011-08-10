@@ -33,4 +33,3 @@ $lang['groups.delete_error']            = 'There was an error deleting this grou
 $lang['groups.already_exist_error']	= 'Группа с названием "%s" уже существует.';
 
 /* End of file group_lang.php */
-/* Location: ./system/cms/modules/group/language/russian/group_lang.php */

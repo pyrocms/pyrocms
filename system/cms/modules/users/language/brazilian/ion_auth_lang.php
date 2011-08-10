@@ -48,4 +48,3 @@ $lang['delete_successful'] 		 	 = 'Utilizador removido';
 $lang['delete_unsuccessful'] 		 	 = 'Não foi possível remover o utilizador';
 
 /* End of file ion_auth_lang.php */
-/* Location: ./system/cms/modules/settings/language/brazilian/ion_auth_lang.php */

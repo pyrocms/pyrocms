@@ -70,4 +70,3 @@ $lang['galleries.design_label']								= 'Оформление';
 $lang['galleries.script_label']								= 'Скрипты';
 
 /* End of file galleries_lang.php */
-/* Location: ./addons/modules/galleries/language/russian/galleries_lang.php */

@@ -139,4 +139,3 @@ $lang['settings_form_option_Oldest First']		= 'الأقدم أولاً';
 $lang['settings_form_option_Newest First']		= 'الأحدث أولاً';
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/arabic/settings_lang.php */

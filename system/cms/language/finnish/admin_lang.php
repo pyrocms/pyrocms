@@ -52,4 +52,3 @@ $lang['required_label'] 				= 'Pakollinen';
 $lang['sb_recent_users'] 				= 'Uusimmat käyttäjät';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/finnish/admin_lang.php */

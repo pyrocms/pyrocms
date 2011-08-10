@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Musisz najpierw zaznaczyć templete ema
 $lang['templates.already_exist_error']		= 'Templeta emaila z imieniem "%s" juz istnieje.'; 
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/polish/templates_lang.php */

@@ -58,4 +58,3 @@ $lang['required_label']								= 'Требуется';
 $lang['sb_recent_users']							= 'Последние пользователи';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/russian/admin_lang.php */

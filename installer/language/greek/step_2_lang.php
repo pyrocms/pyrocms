@@ -47,4 +47,3 @@ $lang['retry']			=	'Προσπαθήστε ξανά';
 $lang['step1_failure']	=	'Παρακαλούμε συμπληρώστε τις απαιτούμενες ρυθμίσεις για την βάση δεδομένων παρακάτω..';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/greek/step_2_lang.php */

@@ -20,4 +20,3 @@ $lang['migrations.wrong_migration_interface']			= 'Неправильный ин
 $lang['migrations.invalid_migration_filename']		= 'Неправильное имя файла миграции: %s';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/russian/migrations_lang.php */

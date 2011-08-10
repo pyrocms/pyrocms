@@ -28,4 +28,3 @@ $lang['error_106']		=	'The config file could not be written, are you sure the fi
 $lang['success']		=	'PyroCMS has been installed successfully.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/english/step_4_lang.php */

@@ -98,4 +98,3 @@ $lang['file_folders.mkdir_error']			= 'No se pudo crear el directorio uploads/fi
 $lang['file_folders.chmod_error']			= 'No se pudo cambiar el permiso del directorio uploads/files';
 
 /* End of file files_lang.php */
-/* Location: ./system/cms/modules/files/language/spanish/files_lang.php */

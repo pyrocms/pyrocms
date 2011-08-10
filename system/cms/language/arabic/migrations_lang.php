@@ -21,4 +21,3 @@ $lang['migrations.wrong_migration_interface']		= 'واجهة الترحيل ال
 $lang['migrations.invalid_migration_filename']		= 'اسم ملف الترحيل %s غير صالح';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/arabic/migrations_lang.php */

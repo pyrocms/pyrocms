@@ -28,4 +28,3 @@ $lang['error_106']		=	'تعذرت كتابة ملف التهيئة، هل أنت
 $lang['success']		=	'تم تثبيت PyroCMS بنجاح.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/arabic/step_4_lang.php */

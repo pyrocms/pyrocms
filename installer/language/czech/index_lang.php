@@ -7,4 +7,3 @@ $lang['step1'] 		= 'Krok 1';
 $lang['link']		= 'Pokračovat k prvnímu kroku';
 
 /* End of file index_lang.php */
-/* Location: ./installer/language/english/index_lang.php */

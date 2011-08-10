@@ -21,4 +21,3 @@ $lang['migrations.wrong_migration_interface']		= 'Nesprávný interface pro migr
 $lang['migrations.invalid_migration_filename']		= 'Nesprávné jméno migračního souboru: %s';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/czech/migrations_lang.php */

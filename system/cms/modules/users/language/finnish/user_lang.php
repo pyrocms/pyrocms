@@ -220,4 +220,3 @@ $lang['profile_edit_error']           = 'Tapahtui virhe.';
 $lang['profile_save_btn']             = 'Tallenna profiili';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/finnish/user_lang.php */

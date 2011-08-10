@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Πρέπει να επιλέξετε τ
 $lang['templates.already_exist_error']		= 'Υπάρχει ήδη ένα πρότυπο email με το όνομα "%s".';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/greek/templates_lang.php */

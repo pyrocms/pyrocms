@@ -21,4 +21,3 @@ $lang['migrations.wrong_migration_interface']		= 'Zły interfejs migracji w klas
 $lang['migrations.invalid_migration_filename']		= 'Niewłasniwa nazwa pliku migracji: %s'; 
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/polish/migrations_lang.php */

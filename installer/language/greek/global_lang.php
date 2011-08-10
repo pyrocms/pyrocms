@@ -11,4 +11,3 @@ $lang['installer.passwords_match']		= "Τα Συνθηματικά Ταιριά�
 $lang['installer.passwords_dont_match']	= "Τα Συνθηματικά Δεν Ταιριάζουν.";
 
 /* End of file global_lang.php */
-/* Location: ./installer/language/greek/global_lang.php */

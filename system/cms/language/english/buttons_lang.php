@@ -37,4 +37,3 @@ $lang['buttons.re-index']	= 'Re-index';
 $lang['buttons.copy']		= 'Copy';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/english/buttons_lang.php */

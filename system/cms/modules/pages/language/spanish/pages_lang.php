@@ -73,4 +73,3 @@ Has click en el icono de "+" a un lado de la página para mostrar las páginas d
 $lang['pages.rss_explanation']			= 'Habilitar RSS para esta página le da a los usuarios la posibilidad de suscribirse a un feed RSS que muestra cada página hija como una nueva entrada';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/spanish/pages_lang.php */

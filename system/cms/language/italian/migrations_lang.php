@@ -21,4 +21,3 @@ $lang['migrations.wrong_migration_interface']		= 'Interfaccia di migrazione erra
 $lang['migrations.invalid_migration_filename']		= 'Filename di migrazione non valido: %s';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/italian/migrations_lang.php */
