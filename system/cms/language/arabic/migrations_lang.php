@@ -12,13 +12,13 @@
  * @filesource
  */
 
-$lang['migrations.no_migrations_found']				= 'لا يوجد أي ترحيلات.';
-$lang['migrations.multiple_migrations_version']		= 'يمكن تنفيذ ترحيل واحد فقط في كل خطوة، وهناك عدة ترحيلات إلى الخطوة "%03d".';
-$lang['migrations.migration_not_found']				= 'الترحيل إلى الخطوة "%03d" غير موجود.';
-$lang['migrations.multiple_migrations_name']		= 'لا يمكن تكرار الترحيل في خطوات مختلفة، وهناك أكثر من ترحيل مسمى "%s".';
-$lang['migrations.migration_class_doesnt_exist']	= 'صنف الترحيل "%s" غير موجود.';
-$lang['migrations.wrong_migration_interface']		= 'واجهة الترحيل المستخدمة في الصنف "%s" خطأ.';
-$lang['migrations.invalid_migration_filename']		= 'اسم ملف الترحيل %s غير صالح';
+$lang['migrations.no_migrations_found']				= 'No migrations found.';
+$lang['migrations.multiple_migrations_version']		= 'Only one migration per step is permitted, there multiple migrations to step "%03d".';
+$lang['migrations.migration_not_found']				= 'Migration to step "%03d" not found.';
+$lang['migrations.multiple_migrations_name']		= 'Cannot repeat a migration at different steps, there multiple migrations named "%s".';
+$lang['migrations.migration_class_doesnt_exist']	= 'Migration class "%s" doesn\'t exist.';
+$lang['migrations.wrong_migration_interface']		= 'Wrong migration interface on class "%s".';
+$lang['migrations.invalid_migration_filename']		= 'Invalid migration filename: %s';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/arabic/migrations_lang.php */
+/* Location: ./system/cms/language/english/migrations_lang.php */
