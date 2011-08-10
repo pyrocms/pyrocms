@@ -70,7 +70,7 @@ class Pyrocache
 	 */
 	public function library($library, $method, $arguments = array(), $expires = NULL)
 	{
-		if(!in_array(ucfirst($library), $this->_ci->load->_ci_classes))
+		if ( ! $this->_ci->load->is_loaded($library))
 		{
 			$this->_ci->load->library($library);
 		}
@@ -86,7 +86,7 @@ class Pyrocache
 	 */
 	public function model($model, $method, $arguments = array(), $expires = NULL)
 	{
-		if(!in_array(ucfirst($model), $this->_ci->load->_ci_classes))
+		if ( ! $this->_ci->load->is_loaded($model))
 		{
 			$this->_ci->load->model($model);
 		}
