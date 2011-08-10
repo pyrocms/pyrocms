@@ -30,9 +30,9 @@ class Plugin_Files extends Plugin
 	 *
 	 * {pyro:files:listing folder="home-slider" type="i"}
 	 * 	// your html logic
-	 * {/pyro:listing:all}
+	 * {/pyro:files:listing}
 	 *
-	 * The following is a list of tags that are available to use from this method
+	 * The tags that are available to use from this method are listed below
 	 *
 	 * {id}
 	 * {folder_id}
@@ -57,41 +57,38 @@ class Plugin_Files extends Plugin
 			return '';
 		}
 
-		$folder_identity	= $this->attribute('folder_id');
+		$folder_identity	= $this->attribute('folder', ''); // Id or Path
 		$limit				= $this->attribute('limit', '10');
+		$offset				= $this->attribute('offset', '');
 		$type				= $this->attribute('type', '');
 
-		if (is_numeric($folder_identity))
+		if ( ! empty($folder_identity) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
 		{
-			$folder_method = 'get';
-		}
-		elseif (is_string($folder_identity = $this->attribute('folder_path', '')) && $folder_identity)
-		{
-			$folder_method = 'get_by_path';
+			if (is_numeric($folder_identity))
+			{
+				$folder = $this->file_folders_m->get($folder_identity);
+			}
+			elseif (is_string($folder_identity))
+			{
+				$folder = $this->file_folders_m->get_by_path($folder_identity);
+			}
 		}
 
-		if ( ! isset($folder_method)													/* valid: folder identity */
-			OR ($type && ! in_array($type, array('a','v','d','i','o')))					/* valid: file type filter */
-			OR ! ($folder = $this->file_folders_m->{$folder_method}($folder_identity)))	/* valid: folder exists */
+		if (empty($folder))
 		{
 			return array();
 		}
 
 		$this->file_m->where('folder_id', $folder->id);
 
-		if ($type)
-		{
-			$this->file_m->where('type', $type);
-		}
+		$type AND $this->file_m->where('type', $type);
+		$limit AND $this->file_m->limit($limit);
+		$offset AND $this->file_m->limit($offset);
 
-		if ($limit)
-		{
-			$this->file_m->limit($limit);
-		}
+		$files = $this->file_m->get_all();
+		$files AND array_merge($this->_files, assoc_array_prop($files));
 
-		$files = assoc_array_prop($this->file_m->get_all());
-
-		return array_merge($this->_files, $files);
+		return $files;
 	}
 
 	public function file($return = '', $type = '')

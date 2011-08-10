@@ -49,7 +49,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'display_name',
 			'label' => 'lang:user_display_name',
-			'rules' => 'alpha_numeric|min_length[3]|max_length[50]'
+			'rules' => 'min_length[3]|max_length[50]'
 		),
 		array(
 			'field' => 'group_id',
@@ -304,7 +304,7 @@ class Admin extends Admin_Controller {
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
-				$member->{$rule['field']} = set_value($rule['field']);
+				$member->{$rule['field']} = set_value($ractivaule['field']);
 			}
 		}
 
@@ -336,31 +336,29 @@ class Admin extends Admin_Controller {
 	 * @param int $id The ID of the user to activate
 	 * @return void
 	 */
-	public function activate($id = 0)
+	public function activate()
 	{
-		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
+		$ids = $this->input->post('action_to');
 
 		// Activate multiple
-		if (!empty($ids))
-		{
-			$activated = 0;
-			$to_activate = 0;
-			foreach ($ids as $id)
-			{
-				if ($this->ion_auth->activate($id))
-				{
-					$activated++;
-				}
-				$to_activate++;
-			}
-			$this->session->set_flashdata('success', sprintf($this->lang->line('user_activate_success'), $activated, $to_activate));
-		}
-		else
+		if (empty($ids))
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
+			redirect('admin/users');
 		}
 
-		// Redirect the user
+		$activated = 0;
+		$to_activate = 0;
+		foreach ($ids as $id)
+		{
+			if ($this->ion_auth->activate($id))
+			{
+				$activated++;
+			}
+			$to_activate++;
+		}
+		$this->session->set_flashdata('success', sprintf($this->lang->line('user_activate_success'), $activated, $to_activate));
+
 		redirect('admin/users');
 	}
 

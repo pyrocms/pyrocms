@@ -56,8 +56,8 @@ $lang['comments.delete_multi_success'] 		= 'Komentari #%s so bili izbrisani in s
 $lang['comments.no_comments'] 				= 'Ni komentarjev';
 
 // Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+$lang['comments.counter_none_label']		= 'Brez komentarja';
+$lang['comments.counter_singular_label']	= '%d komentar';
+$lang['comments.counter_plural_label']		= '%d komentarjev';
 
-/* End of file comments_lang.php */
+/* End of file comments_lang.php slovenian */

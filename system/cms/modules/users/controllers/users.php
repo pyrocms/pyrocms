@@ -179,27 +179,27 @@ class Users extends Public_Controller
 			array(
 				'field' => 'confirm_password',
 				'label' => lang('user_confirm_password'),
-				'rules' => 'required|matches[password]'
+				'rules' => 'required|matches[password]',
 			),
 			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
-				'rules' => 'required|valid_email|callback__email_check'
+				'rules' => 'required|valid_email|callback__email_check',
 			),
 			array(
 				'field' => 'confirm_email',
 				'label' => lang('user_confirm_email'),
-				'rules' => 'required|valid_email|matches[email]'
+				'rules' => 'required|valid_email|matches[email]',
 			),
 			array(
 				'field' => 'username',
 				'label' => lang('user_username'),
-				'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]|callback__username_check'
+				'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]|callback__username_check',
 			),
 			array(
 				'field' => 'display_name',
 				'label' => lang('user_display_name'),
-				'rules' => 'required|alpha_numeric|min_length[3]|max_length[50]'
+				'rules' => 'min_length[3]|max_length[50]',
 			),
 		);
 

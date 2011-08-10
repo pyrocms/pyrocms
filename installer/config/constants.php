@@ -64,8 +64,8 @@ if(isset($_SERVER['HTTP_HOST']))
 	
 	// Base URI (It's different to base URL!)
 	$base_uri = parse_url($base_url, PHP_URL_PATH);
-	if(substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
-	if(substr($base_uri, -1, 1) != '/') $base_uri .= '/';
+	if (substr($base_uri, 0, 1) != '/') $base_uri = '/'.$base_uri;
+	if (substr($base_uri, -1, 1) != '/') $base_uri .= '/';
 }
 
 else
@@ -91,4 +91,4 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.3.0');
+define('CMS_VERSION', '1.3.1');

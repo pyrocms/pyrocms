@@ -46,7 +46,7 @@ $lang['cp_google_analytics_no_connect']	= 'Ne morem se povezati s GAnalytics. Pr
 
 // Admin-wide text
 $lang['cp_shortcuts_title'] 			= 'Bližnjice';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['cp_remove']						= 'Odstrani';
 
 $lang['required_label'] 				= 'Zahtevano';
 $lang['sb_recent_users'] 				= 'Zadnji uporabniki';

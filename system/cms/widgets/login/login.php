@@ -10,10 +10,15 @@
 
 class Widget_Login extends Widgets
 {
-	public $title		= 'Login';
+	public $title		= array(
+		'en' => 'Login',
+		'pt' => 'Login',
+		'ru' => 'Вход на сайт',
+	);
 	public $description	= array(
 		'en' => 'Display a simple login form anywhere',
-		'pt' => 'Permite colocar um formulário de login em qualquer lugar do seu site'
+		'pt' => 'Permite colocar um formulário de login em qualquer lugar do seu site',
+		'ru' => 'Выводит простую форму для входа на сайт',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';

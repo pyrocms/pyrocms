@@ -10,10 +10,12 @@
 	<base href="<?php echo base_url(); ?>" />
 
 	<script type="text/javascript">
-		var APPPATH_URI = "<?php echo APPPATH_URI;?>";
-		var BASE_URL = "<?php echo rtrim(site_url(), '/').'/';?>";
-		var BASE_URI = "<?php echo BASE_URI;?>";
-		var UPLOAD_PATH	= "<?php echo UPLOAD_PATH;?>";
+		var APPPATH_URI	= "<?php echo APPPATH_URI; ?>",
+			SITE_URL	= "<?php echo rtrim(site_url(), '/') . '/'; ?>",
+			BASE_URL	= "<?php echo BASE_URL; ?>",
+			BASE_URI	= "<?php echo BASE_URI; ?>",
+			UPLOAD_PATH	= "<?php echo UPLOAD_PATH; ?>",
+			FILES_PATH	= "<?php echo base_url() . UPLOAD_PATH . 'files/'; ?>";
 	</script>
 
 	<?php echo $template['metadata']; ?>

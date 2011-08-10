@@ -10,8 +10,8 @@ $lang['settings_site_name_desc']				= 'Nazwa strony dla tytułów stron oraz do 
 $lang['settings_site_slogan']					= 'Slogan strony';
 $lang['settings_site_slogan_desc']				= 'Slogan strony dla tytułów stron oraz do użytku na stronie.';
 
-$lang['settings_site_lang']						= 'Site Language'; #translate
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; #translate
+$lang['settings_site_lang']						= 'Język strony';
+$lang['settings_site_lang_desc']				= 'Natywny język strony, używany przy wyborze templet, e-maili wewnętrzych notyfikacji oraz przy otrzymywaniu wiadomości od użytkowników strony oraz innych opcji które nie powinny zmienić języka użytkownika.'; 
 
 $lang['settings_contact_email']					= 'E-mail kontaktowy';
 $lang['settings_contact_email_desc']			= 'Wszystkie e-maile od użytkowników, gości oraz samej strony internetowej będą kierowane na ten adres.';
@@ -31,10 +31,10 @@ $lang['settings_dashboard_rss_desc']			= 'Link do kanału RSS, który będzie wy
 $lang['settings_dashboard_rss_count']			= 'Ilość blogów RSS';
 $lang['settings_dashboard_rss_count_desc']		= 'Ile wpisów z kanału RSS ma być wyświetlane w zakładce Tablica informacyjna?';
 
-$lang['settings_date_format'] 					= 'Date Format'; #translate
+$lang['settings_date_format'] 					= 'Format daty';
 $lang['settings_date_format_desc']				= 'How should dates be displayed accross the website and control panel? ' .
 													'Using the <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> from PHP - OR - ' .
-													'Using the format of <a href="http://php.net/manual/en/function.strftime.php" target="_black">strings formated as date</a> from PHP.'; #translate
+													'Używając formatu <a href="http://php.net/manual/en/function.strftime.php" target="_black">ciągu jako daty</a> z PHP.';
 
 $lang['settings_frontend_enabled']				= 'Status strony';
 $lang['settings_frontend_enabled_desc'] 		= 'Opcja ta pozwala na włączanie i wyłączanie strony dla zwykłych użytkowników i gości. Przydatna opcja m.in. podczas prowadzenia prac konserwacyjnych lub wprowadzenia usprawnień na stronie.';
@@ -87,8 +87,8 @@ $lang['settings_ga_password_desc']				= 'Podaj hasło, które używasz do logowa
 $lang['settings_ga_profile']					= 'Klucz Google Analytic';
 $lang['settings_ga_profile_desc']				= 'Podaj klucz śledzenia dla Google Analytic aby aktywować statystyki na stronie. Przykład: UA-19483569-6';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; #translate
-$lang['settings_ga_tracking_desc']				= 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6'; #translate
+$lang['settings_ga_tracking'] 					= 'Kod śledzenia Google';
+$lang['settings_ga_tracking_desc']				= 'Podaj swój kod śledzenia Google Analytic by aktywować Google Analytics widok. E.g: UA-19483569-6';
 
 $lang['settings_twitter_username']				= 'Użytkownik';
 $lang['settings_twitter_username_desc']			= 'Twoja nazwa użytkownika w serwisie Twitter.';
@@ -136,8 +136,8 @@ $lang['settings_form_option_Enabled']			= 'Włączone';
 $lang['settings_form_option_Disabled']			= 'Wyłączone';
 $lang['settings_form_option_Required']			= 'Wymagane';
 $lang['settings_form_option_Optional']			= 'Opcjonalne';
-$lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
-$lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+$lang['settings_form_option_Oldest First']		= 'Najstarsze pierwsze'; 
+$lang['settings_form_option_Newest First']		= 'Najnowsze pierwsze'; 
 
 /* End of file settings_lang.php */
 /* Location: ./system/cms/modules/settings/language/polish/settings_lang.php */
