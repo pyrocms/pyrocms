@@ -47,7 +47,7 @@ class MY_Exceptions extends CI_Exceptions {
 		set_status_header(404);
 		
 		// set URL and other appropriate options
-		curl_setopt($ch, CURLOPT_URL, site_url('404'));
+		curl_setopt($ch, CURLOPT_URL, BASE_URL . config_item('index_page').'/404');
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 
 		// grab URL and pass it to the browser
