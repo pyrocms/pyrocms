@@ -22,4 +22,3 @@ $lang['db_success']		=	'De database instellingen zijn getest en werken.';
 $lang['db_failure']		=	'Er heeft zich een probleem voorgedaan tijdens het verbinden met de database: ';
 
 /* End of file step_1_lang.php */
-/* Location: ./installer/language/dutch/step_1_lang.php */

@@ -150,4 +150,3 @@
 	$config['error_end_delimiter'] = '</p>';
 
 /* End of file ion_auth.php */
-/* Location: ./system/application/config/ion_auth.php */

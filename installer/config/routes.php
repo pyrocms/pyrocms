@@ -36,4 +36,3 @@
 $route['default_controller'] = "installer";
 
 /* End of file routes.php */
-/* Location: ./system/application/config/routes.php */

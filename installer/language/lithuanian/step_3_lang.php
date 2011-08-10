@@ -21,4 +21,3 @@ $lang['step4']			= 'Žingsnis 4';
 $lang['retry']			= 'Bandyti dar kartą';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/english/step_3_lang.php */

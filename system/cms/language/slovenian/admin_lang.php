@@ -52,4 +52,3 @@ $lang['required_label'] 				= 'Zahtevano';
 $lang['sb_recent_users'] 				= 'Zadnji uporabniki';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/slovenian/admin_lang.php */

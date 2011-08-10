@@ -48,4 +48,3 @@ $lang['retry']				= 'Tente novamente';
 $lang['step1_failure']		= 'Por favor, preencha os campos relacionados a configuração do banco de dados no formulário abaixo..';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/brazlilian/step_2_lang.php */

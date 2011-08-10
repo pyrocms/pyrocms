@@ -72,4 +72,3 @@ $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas 
 $lang['pages.rss_explanation']				= 'Ativando o Feed RSS para esta página dará acesso aos usuários a chance de se inscreverem a este Feed e receberem uma atualização imediata quando uma nova página filho for adicionada.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/brazilian/pages_lang.php */

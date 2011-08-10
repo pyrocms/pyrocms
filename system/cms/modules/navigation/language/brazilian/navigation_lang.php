@@ -45,4 +45,3 @@ $lang['nav_link_delete_success'] 				= 'O link de navegação foi removido.';
 $lang['nav_link_type_desc'] 					= 'Por favor, selecione o tipo do link para exibir mais opções e continuar a criá-lo.';
 
 /* End of file navigation_lang.php */
-/* Location: ./system/cms/modules/navigation/language/brazilian/navigation_lang.php */

@@ -11,4 +11,3 @@ $lang['go_website']			= 'Pojdi na spletno stran';
 $lang['go_control_panel']	= 'Pojdi v administracijo strani';
 
 /* End of file complete_lang.php */
-/* Location: ./installer/language/slovenian/complete_lang.php */

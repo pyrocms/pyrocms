@@ -67,4 +67,3 @@ $lang['enable_label']					= 'Inschakelen';
 $lang['disable_label']					= 'Uitschakelen';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/dutch/main_lang.php */

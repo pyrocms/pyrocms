@@ -28,4 +28,3 @@ $lang['themes.default_theme_label']		= 'Tema predeterminado';
 $lang['themes.no_themes_installed']		= 'No hay temas instalados.';
 
 /* End of file themes_lang.php */
-/* Location: ./system/cms/modules/blog/themes/spanish/themes_lang.php */

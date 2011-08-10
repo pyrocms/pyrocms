@@ -11,4 +11,3 @@ $lang['installer.passwords_match']		= "Slaptažodžiai sutampa."; #translate
 $lang['installer.passwords_dont_match']	= "Slaptažodžiai nesutampa."; #translate
 
 /* End of file global_lang.php */
-/* Location: ./installer/language/english/global_lang.php */

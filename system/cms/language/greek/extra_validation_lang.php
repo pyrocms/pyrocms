@@ -5,4 +5,3 @@ $lang['decimal']				= "Το πεδίο %s μπορεί δέχεται μόνο �
 $lang['csrf_bad_token']			= "Μη έγκυρο CSRF Token";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/greek/extra_validation_lang.php */

@@ -80,4 +80,3 @@ $lang['pages.tree_explanation']					= 'Список слева содержит 
 $lang['pages.rss_explanation']					= 'При активировании RSS для этой страницы у пользователей появится возможность подписаться на все страницы-потомки, добавляемые к этой странице.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/russian/pages_lang.php */

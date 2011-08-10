@@ -11,4 +11,3 @@ $lang['go_website']			= 'Eiti į puslapį';
 $lang['go_control_panel']	= 'Eiti į Turinio Valdymo Panelę';
 
 /* End of file complete_lang.php */
-/* Location: ./installer/language/english/complete_lang.php */

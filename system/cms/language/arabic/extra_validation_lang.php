@@ -5,4 +5,3 @@ $lang['decimal']				= "الحقل %s يجب أن يحتوي أرقام عشري�
 $lang['csrf_bad_token']			= "رمز CSRF غير صالح";
 
 /* End of file form_validation_lang.php */
-/* Location: ./system/language/english/form_validation_lang.php */

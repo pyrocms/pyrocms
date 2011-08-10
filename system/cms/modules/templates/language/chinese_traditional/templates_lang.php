@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'You need to select email templates firs
 $lang['templates.already_exist_error']		= 'A email template with the name "%s" already exists.'; #translate
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/chinese_traditional/templates_lang.php */

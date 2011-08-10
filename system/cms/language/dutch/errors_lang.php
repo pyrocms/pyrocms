@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'Deze pagina kan helaas niet gevonden worden. Klik 
 $lang['error_invalid_db_group'] = 'De database probeert een ongeldige configuratiegroep te gebruiken "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/dutch/errors_lang.php */

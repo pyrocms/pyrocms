@@ -246,4 +246,3 @@ class File_folders_m extends MY_Model {
 }
 
 /* End of file file_folders_m.php */
-/* Location: ./system/cms/modules/files/models/file_folders_m.php */ 

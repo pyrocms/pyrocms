@@ -76,4 +76,3 @@ $lang['blog_twitter_error']									= 'Ошибка Twitter\'а';
 $lang['blog_archive_date_format']						= "%B' %Y"; #see php strftime documentation
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/russian/blog_lang.php */

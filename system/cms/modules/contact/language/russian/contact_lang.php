@@ -43,4 +43,3 @@ $lang['subject_feedback']										= 'Обратная связь/Пожелан
 $lang['subject_other']											= 'Другое';
 
 /* End of file contact_lang.php */
-/* Location: ./addons/modules/contact/language/russian/contact_lang.php */

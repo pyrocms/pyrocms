@@ -39,4 +39,3 @@ $lang['widgets.instance_delete'] 			= 'Supprimer';
 $lang['widgets.no_available_widgets']		= 'Il n\'y a aucun widget disponible.';
 
 /* End of file widgets_lang.php */
-/* Location: ./system/cms/modules/widgets/language/french/widgets_lang.php */

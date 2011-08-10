@@ -219,4 +219,3 @@ $lang['profile_edit_error'] 					= 'Во время сохранения про�
 $lang['profile_save_btn'] 						= 'Сохранить профиль';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/russian/user_lang.php */

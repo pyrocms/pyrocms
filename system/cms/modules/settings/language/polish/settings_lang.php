@@ -140,4 +140,3 @@ $lang['settings_form_option_Oldest First']		= 'Najstarsze pierwsze';
 $lang['settings_form_option_Newest First']		= 'Najnowsze pierwsze'; 
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/polish/settings_lang.php */

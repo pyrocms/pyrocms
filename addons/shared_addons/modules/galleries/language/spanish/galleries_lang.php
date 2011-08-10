@@ -62,4 +62,3 @@ $lang['galleries.design_label']				= 'Diseño';
 $lang['galleries.script_label']				= 'Script';
 
 /* End of file galleries_lang.php */
-/* Location: ./addons/modules/galleries/language/spanish/galleries_lang.php */

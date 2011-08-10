@@ -213,4 +213,3 @@ $lang['profile_edit_error']           = 'אירעה שגיאה. הפרופיל �
 $lang['profile_save_btn']             = 'שמור פרופיל';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/hebrew/user_lang.php */

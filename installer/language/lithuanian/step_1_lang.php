@@ -22,4 +22,3 @@ $lang['db_success']		=	'Duomenų bazės nustatymai buvo sėkmingai patikrinti.';
 $lang['db_failure']		=	'Problema susijungiant su duomenu baze:: ';
 
 /* End of file step_1_lang.php */
-/* Location: ./installer/language/english/step_1_lang.php */

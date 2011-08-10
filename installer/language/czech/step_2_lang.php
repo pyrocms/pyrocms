@@ -47,4 +47,3 @@ $lang['retry']			=	'Zkusit znovu';
 $lang['step1_failure']	=	'Prosím vyplňte požadovaná pole ve formuláři níže.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/english/step_2_lang.php */

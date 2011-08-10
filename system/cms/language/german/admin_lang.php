@@ -50,4 +50,3 @@ $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/german/admin_lang.php */

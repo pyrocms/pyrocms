@@ -213,4 +213,3 @@ $lang['profile_edit_error']           = 'Συνέβη κάποιο σφάλμα.
 
 $lang['profile_save_btn']             = 'Αποθήκευση προφίλ';
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/greek/user_lang.php */

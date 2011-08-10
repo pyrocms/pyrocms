@@ -23,4 +23,3 @@ $lang['redirects.no_select_error'] 		= 'Antes você precisa selecionar um redire
 $lang['redirects.request_conflict_error']	= 'Já existe um redirecionamento para "%s".';
 
 /* End of file redirects_lang.php */
-/* Location: ./system/cms/modules/redirects/language/brazilian/redirects_lang.php */

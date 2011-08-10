@@ -36,4 +36,3 @@ $lang['themes.default_theme_label']		= 'Тема по-умолчанию';
 $lang['themes.no_themes_installed']		= 'Темы оформления отсутствуют';
 
 /* End of file themes_lang.php */
-/* Location: ./system/cms/modules/themes/language/russian/themes_lang.php */

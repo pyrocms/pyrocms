@@ -28,4 +28,3 @@ $lang['themes.default_theme_label'] 	= 'Tema padrão';
 $lang['themes.no_themes_installed'] 	= 'Não existem temas instalados.';
 
 /* End of file themes_lang.php */
-/* Location: ./system/cms/modules/themes/language/brazilian/themes_lang.php */

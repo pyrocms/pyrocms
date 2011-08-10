@@ -5,4 +5,3 @@ $lang['decimal']					= "Het veld %s mag alleen decimale karakters bevatten.";
 $lang['csrf_bad_token']			= "Ongeldig CSRF Token";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/dutch/extra_validation_lang.php */

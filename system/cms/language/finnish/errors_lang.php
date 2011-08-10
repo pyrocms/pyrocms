@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'Haluamaasi sivua ei löytynyt, <a href="%s">klikka
 $lang['error_invalid_db_group'] = 'Tietokanta yrittää käyttää kelpaamatonta konfigurointi ryhmää "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/finnish/errors_lang.php */

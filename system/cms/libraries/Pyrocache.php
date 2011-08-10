@@ -431,4 +431,3 @@ class Pyrocache
 }
 
 /* End of file Pyrocache.php */
-/* Location: ./system/cms/libraries/Pyrocache.php */

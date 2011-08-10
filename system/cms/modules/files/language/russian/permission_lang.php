@@ -17,4 +17,3 @@ $lang['files.role_edit_folder']			= 'Редактировать папки';
 $lang['files.role_delete_folder'] 	= 'Удалять папки';
 
 /* End of file permission_lang.php */
-/* Location: ./system/cms/modules/files/language/russian/permission_lang.php */
