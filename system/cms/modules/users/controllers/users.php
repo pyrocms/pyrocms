@@ -227,9 +227,6 @@ class Users extends Public_Controller
 
 		if ($this->form_validation->run())
 		{
-			/* override config settings */
-			$this->config->set_item('email_activation', $this->settings->activation_email, 'ion_auth');
-
 			// Try to create the user
 			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
