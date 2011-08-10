@@ -22,7 +22,7 @@
 		<?php echo form_input('activation_code', '', 'maxlength="40"');?>
 	</li>
 
-	<li class="form_buttons">
+	<li>
 		<?php echo form_submit('btnSubmit', lang('user_activate_btn'), array('class' => 'pyro_button')) ?>
 	</li>
 </ul>
