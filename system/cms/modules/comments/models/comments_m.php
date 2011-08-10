@@ -18,7 +18,7 @@ class Comments_m extends MY_Model
   	public function get($id)
   	{
     	$this->db->select('c.*')
-    		->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name', false)
+    		->select('IF(c.user_id > 0, m.display_name, c.name) as name')
     		->select('IF(c.user_id > 0, u.email, c.email) as email')
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
