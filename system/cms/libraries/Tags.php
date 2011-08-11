@@ -349,10 +349,17 @@ class Tags {
 			// If there is an end tag, get and set the content.
 			if (($end = strpos($content, $end_tag)) !== FALSE)
 			{
-				$content = substr($content, 0, $end);
-				$parsed['full_tag']	.= $content . $end_tag;
+				if (substr_count($content, '{if', 0, $end) >= substr_count($content, '{/if', 0, $end))
+				{
+					$content = substr($content, 0, $end);
+					$parsed['full_tag']	.= $content . $end_tag;
 
-				$parsed = $this->_skip_content($parsed, $content);
+					$parsed = $this->_skip_content($parsed, $content);
+				}
+				else
+				{
+					$parsed['content'] = '';
+				}
 			}
 			else
 			{
