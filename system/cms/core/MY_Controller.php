@@ -38,7 +38,12 @@ class MY_Controller extends CI_Controller {
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
-		$this->load->library('migration');
+		$this->load->library('migration',
+			array('migration_enabled' 	=> config_item('migration_enabled'),
+				  'migration_path' 		=> config_item('migration_path'),
+				  'migration_version' 	=> config_item('migration_version')
+				  )
+			);
 		
 		if ( ! ($schema_version = $this->migration->latest()))
 		{

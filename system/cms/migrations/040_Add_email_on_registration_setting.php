@@ -1,10 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_email_on_registration_setting extends Migration {
+class Migration_Add_email_on_registration_setting extends CI_Migration {
 
 	function up()
 	{
-		$this->migrations->verbose AND print "Added setting - email on registration.";
 
 		/* insert settings */
 		$this->db->insert('settings', array(
