@@ -12,13 +12,13 @@
  * @filesource
  */
 
-$lang['migrations.no_migrations_found']				= 'No migrations found.'; #translate
-$lang['migrations.multiple_migrations_version']		= 'Only one migration per step is permitted, there multiple migrations to step "%03d".'; #translate
-$lang['migrations.migration_not_found']				= 'Migration to step "%03d" not found.'; #translate
-$lang['migrations.multiple_migrations_name']		= 'Cannot repeat a migration at different steps, there multiple migrations named "%s".'; #translate
-$lang['migrations.migration_class_doesnt_exist']	= 'Migration class "%s" doesn\'t exist.'; #translate
-$lang['migrations.wrong_migration_interface']		= 'Wrong migration interface on class "%s".'; #translate
-$lang['migrations.invalid_migration_filename']		= 'Invalid migration filename: %s'; #translate
+$lang['migrations.no_migrations_found']				= 'Nie znaleziono migracji';
+$lang['migrations.multiple_migrations_version']		= 'Tylko jedna migracja na krok jest dozwolona, znaleziono wiele migracji do kroku "%03d".';
+$lang['migrations.migration_not_found']				= 'Migracja do kroku "%03d" nie znaleziona.';
+$lang['migrations.multiple_migrations_name']		= 'Nie można powtórzyć migracji w innych krokach, znaleziono wiele migracji o nazwie "%s".';
+$lang['migrations.migration_class_doesnt_exist']	= 'Klasa migracji "%s" nie istnieje.'; 
+$lang['migrations.wrong_migration_interface']		= 'Zły interfejs migracji w klasie "%s".'; 
+$lang['migrations.invalid_migration_filename']		= 'Niewłasniwa nazwa pliku migracji: %s'; 
 
 /* End of file migrations_lang.php */
 /* Location: ./system/cms/language/polish/migrations_lang.php */

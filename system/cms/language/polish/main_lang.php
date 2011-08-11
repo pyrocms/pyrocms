@@ -8,25 +8,25 @@ $lang['desc_label']					= 'Opis';
 $lang['version_label']				= 'Wersja';
 $lang['author_label']				= 'Autor';
 $lang['action_label']				= 'Akcja';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['actions_label']				= 'Akcje';
 
 $lang['dialog.delete_message'] 		= 'Czy na pewno usunąć? Ta operacja nie może być cofnięta.';
 $lang['dialog.confirm']				= 'Potwierdź';
 $lang['dialog.yes']					= 'Tak';
 $lang['dialog.no'] 					= 'Nie';
 
-$lang['select.none'] 				= '-- None --'; #translate
-$lang['select.all'] 				= '-- All --'; #translate
-$lang['select.any'] 				= '-- Any --'; #translate
+$lang['select.none'] 				= '-- Nic --';
+$lang['select.all'] 				= '-- Wszystko --'; 
+$lang['select.any'] 				= '-- Obojętnie które --';
 $lang['select.pick']				= '-- Wybierz --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 					= 'Nic'; 
+$lang['check.all']						= 'Wszystko'; 
 
-$lang['operators.equal'] 			= 'Equal to'; #translate
-$lang['operators.not_equal'] 		= 'Not equal to'; #translate
-$lang['operators.less_than'] 		= 'Less than'; #translate
-$lang['operators.greater_than'] 	= 'Greater than'; #translate
+$lang['operators.equal'] 			= 'Równe z';
+$lang['operators.not_equal'] 		= 'Nie równe z'; 
+$lang['operators.less_than'] 		= 'Mniej niż'; 
+$lang['operators.greater_than'] 	= 'Więcej niż'; 
 
 $lang['navigation_headline'] 		= 'Nawigacja';
 $lang['breadcrumb_base_label']		= 'Strona główna';
@@ -51,7 +51,7 @@ $lang['email_label']				= 'E-mail';
 $lang['password_label']				= 'Hasło';
 $lang['login_label']				= 'Zaloguj się';
 
-$lang['help_label'] 				= 'Help';#translate
+$lang['help_label'] 				= 'Pomoc';
 $lang['save_label']					= 'Zapisz';
 $lang['cancel_label']				= 'Anuluj';
 $lang['update_label']				= 'Aktualizuj';

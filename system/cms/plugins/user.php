@@ -24,7 +24,7 @@ class Plugin_User extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function logged_in()
+	public function logged_in()
 	{
 		$group = $this->attribute('group', NULL);
 
@@ -54,20 +54,20 @@ class Plugin_User extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function not_logged_in()
+	public function not_logged_in()
 	{
 		$group = $this->attribute('group', NULL);
 
 		// Logged out or not the right user
 		if ( ! $this->user OR ($group AND $group !== $this->user->group))
 		{
-			return $this->content();
+			return $this->content() ? $this->content() : TRUE;
 		}
 
 		return '';
 	}
 
-	function has_cp_permissions()
+	public function has_cp_permissions()
 	{
 		if ($this->user)
 		{
@@ -88,4 +88,4 @@ class Plugin_User extends Plugin
 	}
 }
 
-/* End of file theme.php */
+/* End of file user.php */

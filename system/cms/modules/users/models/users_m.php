@@ -25,7 +25,7 @@ class Users_m extends MY_Model
 
     	if (isset($params['email']))
     	{
-    		$this->db->where('LOWER(users.email)', strtolower($params['email']));
+    		$this->db->where('LOWER('.$this->db->dbprefix('users.email').')', strtolower($params['email']));
     	}
 
     	if (isset($params['role']))

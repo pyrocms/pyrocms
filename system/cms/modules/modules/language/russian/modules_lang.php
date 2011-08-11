@@ -18,8 +18,8 @@ $lang['modules.enable_error']					= 'Во время включения моду
 $lang['modules.enable_success']				= 'Модуль "%s" включен.';
 $lang['modules.install_error']				= 'Невозможно установить модуль.';
 $lang['modules.install_success']			= 'Модуль "%s" установлен.';
-$lang['modules.delete_success']			 = 'The module "%s" has been deleted.'; #translate
-$lang['modules.delete_error']			 = 'Could not delete the module "%s".'; #translate
+$lang['modules.delete_success']				= 'Модуль "%s" удалён.';
+$lang['modules.delete_error']					= 'Во время удаления модуля "%s" произошла ошибка.';
 $lang['modules.uninstall_error']			= 'Во время удаления модуля "%s" произошла ошибка.';
 $lang['modules.uninstall_success']		= 'Модуль "%s" удалён.';
 $lang['modules.already_exists_error']	= 'Модуль "%s" уже установлен.';
@@ -33,8 +33,8 @@ $lang['modules.upload_desc']					= 'Выберите архив модуля и 
 $lang['modules.confirm_enable']				= 'Вы уверены, что хотите включить этот модуль?';
 $lang['modules.confirm_disable']			= 'Вы уверены, что хотите отключить этот модуль?';
 $lang['modules.confirm_install']			= 'Вы уверены, что хотите установить этот модуль?';
-$lang['modules.confirm_uninstall']		 = 'All database records will be removed! Are you sure you want to uninstall this module?'; #tranlate
-$lang['modules.confirm_delete']		= 'Вы уверены, что хотите удалить этот модуль?';
+$lang['modules.confirm_uninstall']		= 'Все записи в базе данных будут удалены! Вы уверены, что хотите удалить этот модуль?';
+$lang['modules.confirm_delete']				= 'Вы уверены, что хотите удалить этот модуль?';
 
 /* End of file modules_lang.php */
 /* Location: ./system/cms/modules/modules/language/russian/modules_lang.php */

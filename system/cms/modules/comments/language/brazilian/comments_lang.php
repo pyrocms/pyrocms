@@ -11,7 +11,7 @@ $lang['comments.view_more'] 				= 'Ver mais...';
 // labels
 $lang['comments.name_label'] 				= 'Seu Nome';
 $lang['comments.email_label'] 				= 'Endereço de Email';
-$lang['comments.website_label'] 			= 'Website';
+$lang['comments.website_label'] 			= 'Site';
 $lang['comments.message_label'] 			= 'Mensagem';
 $lang['comments.status_label'] 				= 'Situação';
 $lang['comments.activate_label'] 			= 'Aprovar';
@@ -30,7 +30,7 @@ $lang['comments.send_label'] 				= 'Comentar';
 
 $lang['comments.inactive_title'] 			= 'Comentários aguardando aprovação';
 $lang['comments.active_title'] 				= 'Comentários aprovados';
-$lang['comments.edit_title'] 				= 'Editando o comentário #%s';
+$lang['comments.edit_title'] 				= 'Editando o comentário #%d';
 $lang['comments.list_title'] 				= 'Listar comentários';
 
 // messages

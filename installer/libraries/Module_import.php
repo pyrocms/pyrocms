@@ -30,15 +30,15 @@ class Module_import {
 
 		$this->ci->load->database($db);
 		$this->ci->load->helper('file');
-		
+
 		// create the site specific addon folder
 		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, TRUE);
 		is_dir(ADDONPATH.'themes') OR mkdir(ADDONPATH.'themes', DIR_READ_MODE, TRUE);
 		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, TRUE);
-		
+
 		// create the site specific upload folder
 		is_dir(dirname(FCPATH).'/uploads/default') OR mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, TRUE);
-		
+
 		//insert empty html files
 		write_file(ADDONPATH.'modules/index.html','');
 		write_file(ADDONPATH.'themes/index.html','');
@@ -68,7 +68,7 @@ class Module_import {
 		$module['enabled'] = TRUE;
 		$module['installed'] = TRUE;
 		$module['slug'] = $slug;
-		
+
 		// set the site_ref and upload_path for third-party devs
 		$details_class->site_ref 	= 'default';
 		$details_class->upload_path	= 'uploads/default/';
@@ -140,7 +140,7 @@ class Module_import {
 			PRIMARY KEY (`session_id`)
 			);
 		";
-		
+
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
@@ -165,7 +165,7 @@ class Module_import {
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;
 		}
-		
+
 		// After modules are imported we need to modify the settings table
 		// This allows regular admins to upload addons on the first install but not on multi
 		$this->ci->db->where('slug', 'addons_upload')
@@ -194,7 +194,7 @@ class Module_import {
 		if ( ! is_file($details_file))
 		{
 			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
-			
+
 			if ( ! is_file($details_file))
 			{
 				return FALSE;

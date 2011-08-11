@@ -85,7 +85,7 @@ class Users extends Public_Controller
 	{
 		// Check post and session for the redirect place
 		$redirect_to = $this->input->post('redirect_to') ? $this->input->post('redirect_to') : $this->session->userdata('redirect_to');
-		
+
 		// Any idea where we are heading after login?
 		if ( ! $_POST AND $args = func_get_args())
 		{
@@ -124,13 +124,13 @@ class Users extends Public_Controller
 
 			// Deprecated.
 			$this->hooks->_call_hook('post_user_login');
-			
+
 			// trigger a post login event for third party devs
 			Events::trigger('post_user_login');
 
 			redirect($redirect_to ? $redirect_to : '');
 		}
-		
+
 		$this->template->build('login', array(
 			'user_data' => $user_data,
 			'redirect_to' => $redirect_to,
@@ -227,16 +227,44 @@ class Users extends Public_Controller
 
 		if ($this->form_validation->run())
 		{
+			/* override config settings */
+			$this->config->set_item('email_activation', $this->settings->activation_email, 'ion_auth');
+
 			// Try to create the user
 			if ($id = $this->ion_auth->register($username, $password, $email, $user_data_array))
 			{
 				// trigger an event for third party devs
 				Events::trigger('post_user_register', $id);
 
-				$this->session->set_flashdata(array('notice' => $this->ion_auth->messages()));
-				redirect('users/activate');
-			}
+				/* send the internal registered email if applicable */
+				if ($this->settings->registered_email)
+				{
+					$this->load->library('user_agent');
 
+					// Add in some extra details
+					$data['name']					= $user_data->first_name.' '.$user_data->last_name;
+					$data['sender_ip']		= $this->input->ip_address();
+					$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
+					$data['sender_os']		= $this->agent->platform();
+					$data['slug'] 				= 'registered';
+					$data['email'] 				= $this->settings->contact_email;
+
+					Events::trigger('email', $data, 'array');
+				}
+
+				/* show the you need to activate page while they wait for there email */
+				if ($this->settings->activation_email)
+				{
+				  $this->session->set_flashdata(array('notice' => $this->ion_auth->messages()));
+				  redirect('users/activate');
+				}
+				elseif ($this->settings->registered_email)
+				/* show the admin needs to activate you email */
+				{
+				  $this->session->set_flashdata(array('notice' => lang('user_activation_by_admin_notice')));
+				  redirect('users/register'); /* bump it to show the flash data */
+				}
+			}
 			// Can't create the user, show why
 			else
 			{
@@ -287,7 +315,7 @@ class Users extends Public_Controller
 
 				// Deprecated
 				$this->hooks->_call_hook('post_user_activation');
-				
+
 				// trigger an event for third party devs
 				Events::trigger('post_user_activation', $id);
 
@@ -613,11 +641,11 @@ class Users extends Public_Controller
 
 			// Set the time of update
 			$secure_post['updated_on'] = now();
-			
+
 			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
 			{
 				Events::trigger('post_user_update');
-				
+
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 			}
 			else

@@ -64,9 +64,9 @@ $lang['comments.delete_multi_success']				= 'Комментарии #%s удал
 
 $lang['comments.no_comments']									= 'Комментарии отсутствуют';
 
-// Helper counter comments
-$lang['comments.counter_none_label']		= 'No comment'; #translate
-$lang['comments.counter_singular_label']	= '%d comment'; #translate
-$lang['comments.counter_plural_label']		= '%d comments'; #translate
+// Количество комментариев
+$lang['comments.counter_none_label']					= 'Комментарии отсутствуют';
+$lang['comments.counter_singular_label']			= '%d комментарий';
+$lang['comments.counter_plural_label']				= '%d комменариев';
 
 /* End of file comments_lang.php */

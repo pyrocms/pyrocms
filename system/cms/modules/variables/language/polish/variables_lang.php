@@ -28,10 +28,10 @@ $lang['variables.add_success'] 				= 'Twoja zmienna została zapisana.';
 $lang['variables.add_error'] 				= 'Wystąpił błąd przy dodawaniu zmiennej.';
 $lang['variables.edit_success'] 			= 'Zmienna została utworzona.';
 $lang['variables.edit_error'] 				= 'Wystąpił błąd przy edycji zmiennej.';
-$lang['variables.delete_success']			= 'The variable "%s" successfully deleted.'; #translate
-$lang['variables.delete_error'] 			= 'An error occurred while trying to delete the variable "%s".'; #translate
+$lang['variables.delete_success']			= 'Zmienna "%s" pomyślnie usunięta.'; 
+$lang['variables.delete_error'] 			= 'Wystąpił błąd podczas próby usunięcia zmiennej "%s".';
 $lang['variables.mass_delete_success']		= '%s z %s zmiennych zostały pomyślnie usunięte.';
-$lang['variables.mass_delete_error'] 		= 'Wystąpił błąd podczas próby usunięcia zmiennej "%s".';
+$lang['variables.mass_delete_error'] 		= 'Wystąpił błąd podczas próby usunięcia zmiennych "%s".';
 $lang['variables.no_select_error'] 			= 'Musisz wybrać najpierw zmienną.';
 $lang['variables.already_exist_error']		= 'Zmienna o nazwie "%s" już istnieje.';
 
