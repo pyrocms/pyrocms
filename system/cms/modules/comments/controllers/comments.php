@@ -95,7 +95,7 @@ class Comments extends Public_Controller {
 			foreach ($comment as &$data)
 			{
 				// remove {pyro} tags and html
-				$data = escape_tags(strip_tags($data));
+				$data = escape_tags($data);
 			}
 
 			// Run Akismet or the crazy CSS bot checker
