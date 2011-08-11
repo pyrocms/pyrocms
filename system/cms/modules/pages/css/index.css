@@ -19,8 +19,8 @@ ol.sortable { margin: 2em; }
 .sortable li div:hover { background-color: #dbdbdb; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
 .sortable li.placeholder { background-color: #c2c0c0; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; margin-left: 20px; }
 
-.plus { background: url('../img/more.png') no-repeat 0 3px; }
-.minus { background: url('../img/less.png') no-repeat 0 10px; }
+.plus { background: url('../img/more.png') no-repeat 0 4px; }
+.minus { background: url('../img/less.png') no-repeat 0 4px; }
 
 /* Right pane */
 #page-details { background-color: #fff; border-top: 1px solid #ddd; border-left: none; border-right: none;  float:right; min-height: 33em; padding:1em; width: 48%; color: #666; }
