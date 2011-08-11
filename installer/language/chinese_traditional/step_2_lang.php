@@ -48,4 +48,3 @@ $lang['retry']			=	'再試一次';
 $lang['step1_failure']	=	'請在下方的表單中輸入資料庫設定的必要資訊。';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/chinese_traditional/step_2_lang.php */

@@ -117,37 +117,47 @@ class Gallery_images_m extends MY_Model
 
 	public function unset_old_image_files($gallery_id = 0)
 	{
+		$not_in = array();
+
 		// Get all image from folder of my gallery...
-		$this->db
+		$images = $this->db
 			->select('files.id')
 			->from('files')
 			->join('galleries', 'galleries.folder_id = files.folder_id')
 			->where('files.type', 'i')
-			->where('galleries.id', $gallery_id);
-		$subquery = str_replace("\n", ' ', $this->db->_compile_select());
-		$this->db->_reset_select();
-
-		$this->db
-			// Select fields on gallery images table
-			->select('gallery_images.id')
-			->from('gallery_images')
-			// Set my gallery by id
 			->where('galleries.id', $gallery_id)
-			// Filter images from my gallery
-			->join('galleries', 'galleries.id = gallery_images.gallery_id')
-			// Not required images that exists on my files table
-			->ar_where[] = "AND `" . $this->db->dbprefix('gallery_images') . "`.`file_id` NOT IN ($subquery)";
+			->get()
+			->result();
 
-		// Already updated, nothing to do here..
-		if ( ! $old_images = $this->db->get()->result())
+		if (count($images) > 0)
 		{
-			return FALSE;
-		}
+			foreach ($images AS $item)
+			{
+				$not_in[] = $item->id;
+			}
+		
+			$this->db
+				// Select fields on gallery images table
+				->select('gallery_images.id')
+				->from('gallery_images')
+				// Set my gallery by id
+				->where('galleries.id', $gallery_id)
+				// Filter images from my gallery
+				->join('galleries', 'galleries.id = gallery_images.gallery_id')
+				// Get all images that are no longer in a gallery
+				->where_not_in('file_id', $not_in);
+	
+			// Already updated, nothing to do here..
+			if ( ! $old_images = $this->db->get()->result())
+			{
+				return FALSE;
+			}
 
-		// Remove missing files images
-		foreach ($old_images as $old_image)
-		{
-			$this->gallery_images_m->delete($old_image->id);
+			// Remove missing files images
+			foreach ($old_images as $old_image)
+			{
+				$this->gallery_images_m->delete($old_image->id);
+			}
 		}
 
 		return TRUE;

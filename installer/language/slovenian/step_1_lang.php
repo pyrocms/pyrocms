@@ -22,4 +22,3 @@ $lang['db_success']		=	'Podatki za povezavo s podatkovo bazo so bili preverjeni 
 $lang['db_failure']		=	'Na podatkovno bazo se ni mogoče povezati: ';
 
 /* End of file step_1_lang.php */
-/* Location: ./installer/language/slovenian/step_1_lang.php */

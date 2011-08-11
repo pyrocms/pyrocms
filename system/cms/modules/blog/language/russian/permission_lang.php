@@ -14,4 +14,3 @@ $lang['blog.role_edit_live']		= 'Редактировать опубликова
 $lang['blog.role_delete_live'] 	= 'Удалять опубликованные статьи';
 
 /* End of file permission_lang.php */
-/* Location: ./system/cms/modules/blog/language/russian/permission_lang.php */

@@ -213,4 +213,3 @@ $lang['profile_edit_error']           = 'Įvyko klaida.';
 $lang['profile_save_btn']             = 'Išsaugoti profilį';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/english/user_lang.php */

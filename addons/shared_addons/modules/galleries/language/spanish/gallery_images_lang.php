@@ -29,4 +29,3 @@ $lang['gallery_images.options_label']		= 'Opciones:';
 $lang['gallery_images.crop.save_label']		= 'Click en Guardar para aplicar el corte';
 
 /* End of file gallery_images_lang.php */
-/* Location: ./addons/modules/galleries/language/spanish/gallery_images_lang.php */

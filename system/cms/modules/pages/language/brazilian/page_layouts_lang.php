@@ -35,4 +35,3 @@ $lang['page_layouts.variable_title']				= 'Contém o título da página.';
 $lang['page_layouts.variable_body']					= 'Contém o corpo HTML da página.';
 
 /* End of file page_layouts_lang.php */
-/* Location: ./system/cms/modules/page/language/brazilian/page_layouts_lang.php */

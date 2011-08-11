@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'Não conseguimos encontrar a página que você est
 $lang['error_invalid_db_group'] = 'O banco de dados está tentando utilizar um grupo de configurações inválido: "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/brazilian/errors_lang.php */

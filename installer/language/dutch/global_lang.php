@@ -11,4 +11,3 @@ $lang['installer.passwords_match']		= "Wachtwoorden komen overeen.";
 $lang['installer.passwords_dont_match']	= "Wachtwoorden komen niet overeen.";
 
 /* End of file global_lang.php */
-/* Location: ./installer/language/dutch/global_lang.php */

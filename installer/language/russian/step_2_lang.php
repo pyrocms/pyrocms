@@ -47,4 +47,3 @@ $lang['retry']			=	'Попробовать ещё раз';
 $lang['step1_failure']	=	'Пожалуйста, укажите данные, необходимые для подключения к базе данных в форме ниже.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/english/step_2_lang.php */

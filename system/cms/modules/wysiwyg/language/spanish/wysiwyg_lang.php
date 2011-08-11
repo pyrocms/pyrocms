@@ -14,4 +14,3 @@ $lang = array(
 );
 
 /* End of file wysiwyg_lang.php */
-/* Location: ./system/cms/modules/wysiwyg/language/spanish/wysiwyg_lang.php */

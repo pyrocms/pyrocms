@@ -136,4 +136,3 @@ $lang['settings_form_option_Oldest First']		= 'קודם ישנים'; #translate
 $lang['settings_form_option_Newest First']		= 'קודם חדשים'; #translate
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/hebrew/settings_lang.php */

@@ -52,4 +52,3 @@ $lang['required_label'] 				= 'Απαιτείται';
 $lang['sb_recent_users'] 				= 'Πρόσφατοι χρήστες';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/greek/admin_lang.php */

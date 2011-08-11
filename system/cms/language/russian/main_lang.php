@@ -75,4 +75,3 @@ $lang['enable_label']						= 'Включить';
 $lang['disable_label']					= 'Отключить';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/russian/main_lang.php */

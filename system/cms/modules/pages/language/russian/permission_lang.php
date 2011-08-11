@@ -14,4 +14,3 @@ $lang['pages.role_edit_live']			= 'Редактировать опубликов
 $lang['pages.role_delete_live']		= 'Удалять опубликованные страницы';
 
 /* End of file permission_lang.php */
-/* Location: ./system/cms/modules/pages/language/russian/permission_lang.php */

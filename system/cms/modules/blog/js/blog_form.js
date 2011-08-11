@@ -25,9 +25,8 @@
 						url: SITE_URL + 'admin/blog/categories/create_ajax',
 						type: "POST",
 					        data: form_data,
-						success: function(data) {
+						success: function(obj) {
 							
-							var obj = $.parseJSON(data);
 							if(obj.status == 'ok') {
 								
 								//succesfull db insert do this stuff

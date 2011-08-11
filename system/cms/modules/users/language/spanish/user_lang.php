@@ -208,4 +208,3 @@ $lang['profile_edit_error']				= 'Ha ocurrido un error.';
 $lang['profile_save_btn']				= 'Guardar perfil';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/spanish/user_lang.php */

@@ -21,7 +21,7 @@
 		?>
 		</div>
 		<div class="input">
-			<label for="username"><?php echo lang('username','username'); ?></label>
+			<?php echo lang('username','username'); ?>
 			<?php
 				echo form_input(array(
 					'id' => 'username',
@@ -31,7 +31,7 @@
 			?>
 		</div>
 		<div class="input">
-			<label for="password"><?php echo lang('password','password'); ?></label>
+			<?php echo lang('password','password'); ?>
 			<?php
 				echo form_password(array(
 					'id' => 'password',
@@ -41,7 +41,7 @@
 			?>
 		</div>
 		<div class="input">
-			<label for="port"><?php echo lang('portnr','port'); ?></label>
+			<?php echo lang('portnr','port'); ?>
 			<?php
 				echo form_input(array(
 					'id' => 'port',
@@ -61,7 +61,7 @@
 		<h2>{server_settings}</h2>
 
 			<div class="input">
-				<label for="http_server"><?php echo lang('httpserver','http_server'); ?></label>
+				<?php echo lang('httpserver','http_server'); ?>
 				<?php
 					echo form_dropdown('http_server', $server_options, set_value('http_server'), 'id="http_server"');
 				?>

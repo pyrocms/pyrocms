@@ -64,20 +64,5 @@ class Events_Templates {
         //return false if we can't find the necessary templates
         return FALSE;
     }
-
-    private function _module_view($module, $view, $vars = array())
-	{
-		list($path, $view) = Modules::find($view, $module, 'views/');
-
-		$save_path = $this->load->_ci_view_path;
-		$this->load->_ci_view_path = $path;
-
-		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array) $vars), '_ci_return' => TRUE));
-
-		// Put the path back
-		$this->load->_ci_view_path = $save_path;
-
-		return $content;
-	}
 }
 /* End of file events.php */

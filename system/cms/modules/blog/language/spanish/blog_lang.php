@@ -67,4 +67,3 @@ $lang['blog_twitter_error'] 				= 'Error de Twitter';
 $lang['blog_archive_date_format']			= "%B %Y";
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/spanish/blog_lang.php */

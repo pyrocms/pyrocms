@@ -130,9 +130,10 @@ class CI_URI {
 	 * @return	string
 	 */
 	function _set_uri_string($str)
-		{
+	{
 		// Filter out control characters
 		$str = remove_invisible_characters($str, FALSE);
+
 		// If the URI contains only a slash we'll kill it
 		$this->uri_string = ($str == '/') ? '' : $str;
 	}
@@ -150,7 +151,7 @@ class CI_URI {
 	 */
 	private function _detect_uri()
 	{
-		if ( ! isset($_SERVER['REQUEST_URI']))
+		if ( ! isset($_SERVER['REQUEST_URI']) OR ! isset($_SERVER['SCRIPT_NAME']))
 		{
 			return '';
 		}

@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'עליך קודם לבחור תבניו
 $lang['templates.already_exist_error']		= 'תבנית עם שם "%s" כבר קיימת.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/hebrew/templates_lang.php */

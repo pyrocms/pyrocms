@@ -11,4 +11,3 @@ $lang['go_website']			= 'Μετάβαση στον Ιστότοπο';
 $lang['go_control_panel']	= 'Μετάβαση στον Πίνακα Διαχείρισης';
 
 /* End of file complete_lang.php */
-/* Location: ./installer/language/greek/complete_lang.php */

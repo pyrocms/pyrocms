@@ -1,11 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_site_public_lang_setting extends Migration {
+class Migration_Add_site_public_lang_setting extends CI_Migration {
 
 	function up()
 	{
-		$this->migrations->verbose AND print "Added setting - site_public_lang.";
-
 		$this->db->insert('settings', array(
 			'slug'			=> 'site_public_lang',
 			'title'			=> 'Public Languages',

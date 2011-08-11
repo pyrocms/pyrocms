@@ -9,7 +9,7 @@
 | and disable it back when you're done.
 |
 */
-$config['migrations_enabled'] = TRUE;
+$config['migration_enabled'] = TRUE;
 
 
 /*
@@ -23,7 +23,7 @@ $config['migrations_enabled'] = TRUE;
 |
 */
 
-$config['migrations_version'] = 39;
+$config['migration_version'] = 40;
 
 
 /*
@@ -36,4 +36,4 @@ $config['migrations_version'] = 39;
 | Also, writing permission is required within the migrations path.
 |
 */
-$config['migrations_path'] = APPPATH . 'migrations/';
+$config['migration_path'] = APPPATH . 'migrations/';

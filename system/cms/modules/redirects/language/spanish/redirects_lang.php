@@ -23,4 +23,3 @@ $lang['redirects.no_select_error']           = 'Debes seleccionar al menos una r
 $lang['redirects.request_conflict_error']    = 'Ya existe una redireccion para "%s".';
 
 /* End of file redirects_lang.php */
-/* Location: ./system/cms/modules/redirects/language/spanish/redirects_lang.php */

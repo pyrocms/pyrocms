@@ -15,23 +15,13 @@ class MY_Controller extends CI_Controller {
 
 		$this->benchmark->mark('my_controller_start');
 
-		// TODO: Remove all this migration check in the next major version after 1.3.0
-		// This extra check needs to be done to make the "multisite" changes run before the rest
-		// of the controller attempts to run
-		if ($this->db->table_exists('schema_version'))
+		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
+		if ($this->db->table_exists(SITE_REF.'_schema_version'))
 		{
-			$this->load->library('migrations');
-			$this->migrations->latest();
-			
-			if ($this->migrations->error)
-			{
-				show_error($this->migrations->error);
-			}
-			
-			redirect(current_url());
+			$this->load->dbforge();
+			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
 		}
-		// End migration check
-
+		
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
@@ -40,30 +30,30 @@ class MY_Controller extends CI_Controller {
 
 		// By changing the prefix we are essentially "namespacing" each pyro site
 		$this->db->set_dbprefix(SITE_REF.'_');
-		$this->load->library('pyrocache');
 		
+		// Load the cache library now that we know the siteref
+		$this->load->library('pyrocache');
+
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
+		$this->load->library('migration',
+			array('migration_enabled' 	=> config_item('migration_enabled'),
+				  'migration_path' 		=> config_item('migration_path'),
+				  'migration_version' 	=> config_item('migration_version')
+				  )
+			);
 		
-		$this->load->library('migrations');
-		// $this->migrations->verbose = true;
-		$schema_version = $this->migrations->latest();
-		
-		if ($this->migrations->error)
+		if ( ! ($schema_version = $this->migration->current()))
 		{
-			show_error($this->migrations->error);
+			show_error($this->migration->error_string());
 		}
-		
+
 		// Result of schema version migration
-		if (is_numeric($schema_version))
+		else if (is_numeric($schema_version))
 		{
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
-		}
-		elseif ($schema_version === FALSE)
-		{
-			log_message('error', $this->migrations->error);
 		}
 
 		// With that done, load settings
@@ -119,8 +109,10 @@ class MY_Controller extends CI_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
+		// override ion_auth config.php settings with pyro db settings
 		$this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
 		$this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
+		$this->config->set_item('email_activation', $this->settings->activation_email, 'ion_auth');
 
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
@@ -155,15 +147,15 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->load->vars($pyro);
-		
+
 		// Load the admin theme so things like partials and assets are available everywhere
 		$this->admin_theme = $this->themes_m->get_admin();
 		// Load the current theme so we can set the assets right away
 		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
 
-		// make a constant as this is used in a lot of places		
+		// make a constant as this is used in a lot of places
 		define('ADMIN_THEME', $this->admin_theme->slug);
-		
+
 		// Asset library needs to know where the admin theme directory is
 		$this->config->set_item('asset_dir', $this->admin_theme->path.'/');
 		$this->config->set_item('asset_url', BASE_URL.$this->admin_theme->web_path.'/');

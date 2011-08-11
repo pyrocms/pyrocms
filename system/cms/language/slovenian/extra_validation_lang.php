@@ -5,4 +5,3 @@ $lang['decimal']				= "Polje %s vsebuje lahko decimalno številko.";
 $lang['csrf_bad_token']			= "Neveljaven CSRF Token";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/slovenian/extra_validation_lang.php */

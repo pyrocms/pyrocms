@@ -41,4 +41,3 @@ $lang['delete_successful']										= 'Пользователь удалён';
 $lang['delete_unsuccessful']									= 'Во время удаления пользователя произошла ошибка';
 
 /* End of file ion_auth_lang.php */
-/* Location: ./system/cms/modules/users/language/russian/ion_auth_lang.php */

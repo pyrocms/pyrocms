@@ -47,4 +47,3 @@ $lang['retry']			=	'Probeer opnieuw';
 $lang['step1_failure']	=	'U moet de benodigde databaseinstellingen in het formulier hieronder invullen.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/dutch/step_2_lang.php */

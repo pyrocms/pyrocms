@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Pirmiau pasirinkite laiško ruošinį.'
 $lang['templates.already_exist_error']		= 'Laiško ruošinys tokiu vardu "%s" jau egzistuoja.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/english/templates_lang.php */

@@ -17,4 +17,3 @@ $lang['permissions.introduction']					= 'Вы можете задавать пр
 $lang['permissions.message_group_saved']	= 'Настройки прав доступа для этой группы сохранены.';
 
 /* End of file permissions_lang.php */
-/* Location: ./system/cms/modules/permissions_lang/language/russian/permissions_lang.php */

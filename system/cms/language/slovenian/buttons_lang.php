@@ -36,4 +36,3 @@ $lang['buttons.clone']		= 'Duplikat';
 $lang['buttons.copy']		= 'Kopiraj';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/slovenian/buttons_lang.php */

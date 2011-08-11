@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'Δεν μπορέσαμε να βρούμε την
 $lang['error_invalid_db_group'] = 'Η βάση δεδομένων προσπαθεί να χρησιμοποιήσει μια μη έγκυρη ομάδα ρυθμίσεων "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/greek/errors_lang.php */

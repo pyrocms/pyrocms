@@ -213,4 +213,3 @@ $lang['profile_edit_error']           = 'Prišlo je do napake.';
 $lang['profile_save_btn']             = 'Shrani profil';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/slovenian/user_lang.php */

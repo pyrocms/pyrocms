@@ -1,11 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_session_sql extends Migration {
+class Migration_Add_session_sql extends CI_Migration {
 
 	function up()
 	{
-		$this->migrations->verbose AND print "Added database table for CI sessions.";
-
 		$session = "
 			CREATE TABLE IF NOT EXISTS ".$this->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
 			 `session_id` varchar(40) DEFAULT '0' NOT NULL,

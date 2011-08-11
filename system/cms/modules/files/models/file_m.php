@@ -124,4 +124,3 @@ class File_m extends MY_Model {
 }
 
 /* End of file file_m.php */
-/* Location: ./system/cms/modules/files/models/file_m.php */

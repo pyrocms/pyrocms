@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Vous devez sélectionner une template d
 $lang['templates.already_exist_error']		= 'Une template d\'email du nom "%s" existe déjà.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/french/templates_lang.php */
