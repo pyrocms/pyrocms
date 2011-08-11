@@ -45,7 +45,7 @@ class MY_Controller extends CI_Controller {
 				  )
 			);
 		
-		if ( ! ($schema_version = $this->migration->latest()))
+		if ( ! ($schema_version = $this->migration->current()))
 		{
 			show_error($this->migration->error_string());
 		}
