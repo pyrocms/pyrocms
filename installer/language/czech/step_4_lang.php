@@ -28,4 +28,3 @@ $lang['error_106']		=	'Konfigurační soubor nemohl být zapsán, jste si jistý
 $lang['success']		=	'PyroCMS byl úspěšně naisntalován.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/english/step_4_lang.php */

@@ -146,4 +146,3 @@ $lang['settings_form_option_Oldest First']		= 'Vanhin ensin';
 $lang['settings_form_option_Newest First']		= 'Uusin ensin';
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/finnish/settings_lang.php */

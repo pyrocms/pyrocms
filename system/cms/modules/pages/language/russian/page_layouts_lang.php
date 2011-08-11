@@ -43,4 +43,3 @@ $lang['page_layouts.variable_title']								= 'содержит заголово
 $lang['page_layouts.variable_body']									= 'содержит описание страницы.';
 
 /* End of file page_layouts_lang.php */
-/* Location: ./system/cms/modules/pages/language/russian/page_layouts_lang.php */

@@ -54,4 +54,3 @@ $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/dutch/admin_lang.php */

@@ -11,4 +11,3 @@ $lang['installer.passwords_match']		= "Hesla se shodují.";
 $lang['installer.passwords_dont_match']	= "Hesla se neshodují.";
 
 /* End of file global_lang.php */
-/* Location: ./installer/language/english/global_lang.php */

@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'U moet eerst een e-mail sjabloon select
 $lang['templates.already_exist_error']		= 'Een e-mail sjabloon met de naam "%s" bestaat al.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/dutch/templates_lang.php */

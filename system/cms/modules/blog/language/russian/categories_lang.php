@@ -32,4 +32,3 @@ $lang['cat_no_select_error'] 			= 'Сначала вам надо выбрать
 $lang['cat_already_exist_error']	= 'Категория с названием "%s" уже существует.';
 
 /* End of file categories_lang.php */
-/* Location: ./system/cms/modules/blog/language/russian/categories_lang.php */

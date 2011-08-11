@@ -11,4 +11,3 @@ $lang['permissions.introduction'] 		= 'Você pode criar permissões personalidad
 $lang['permissions.message_group_saved'] = 'As permissões para este grupo foram salvas.';
 
 /* End of file permissions_lang.php */
-/* Location: ./system/cms/modules/permissions/language/brazilian/permissions_lang.php */

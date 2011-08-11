@@ -484,4 +484,3 @@ class Installer extends CI_Controller
 }
 
 /* End of file installer.php */
-/* Location: ./installer/controllers/installer.php */

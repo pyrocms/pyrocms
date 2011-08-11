@@ -147,4 +147,3 @@ $lang['settings_form_option_Oldest First']		= 'Старые сначала';
 $lang['settings_form_option_Newest First']		= 'Новые сначала';
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/russian/settings_lang.php */

@@ -47,4 +47,3 @@ $lang['retry']			= 'Reintentar';
 $lang['step1_failure']		= 'Por favor, completa la configuración de la base de datos requerida en el formulario siguiente...';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/spanish/step_2_lang.php */

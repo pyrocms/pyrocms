@@ -14,4 +14,3 @@
 
 
 /* End of file profiler.php */
-/* Location: ./system/application/config/profiler.php */

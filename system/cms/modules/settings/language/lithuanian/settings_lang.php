@@ -136,4 +136,3 @@ $lang['settings_form_option_Oldest First']        = 'Senesni pirmiau';
 $lang['settings_form_option_Newest First']        = 'Naujesni pirmiau';
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/english/settings_lang.php */

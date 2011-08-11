@@ -28,4 +28,3 @@ $lang['error_106']		=	'Config datoteka ni zapisljiva, ali ste prepričani da ste
 $lang['success']		=	'PyroCMS je bil uspešno nameščen.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/slovenian/step_4_lang.php */

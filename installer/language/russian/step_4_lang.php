@@ -28,4 +28,3 @@ $lang['error_106']			= 'Файл конфигурации не может быт
 $lang['success']				= 'PyroCMS успешно установлена.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/russian/step_4_lang.php */

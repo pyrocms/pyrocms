@@ -408,4 +408,3 @@ class Installer_lib {
 }
 
 /* End of file installer_lib.php */
-/* Location: ./installer/libraries/installer_lib.php */

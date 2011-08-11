@@ -188,4 +188,3 @@ class MY_Pagination extends CI_Pagination {
 // END Pagination Class
 
 /* End of file Pagination.php */
-/* Location: ./system/libraries/Pagination.php */

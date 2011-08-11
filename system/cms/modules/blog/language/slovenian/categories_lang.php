@@ -24,4 +24,3 @@ $lang['cat_no_select_error']        = 'Najprej morate izbrati kategorije.';
 $lang['cat_already_exist_error']    = 'Kategorija s tem imenom "%s" že obstaja.';
 
 /* End of file categories_lang.php */
-/* Location: ./system/cms/modules/blog/language/slovenian/categories_lang.php */

@@ -47,4 +47,3 @@ $lang['retry']			=	'Spróbuj ponownie';
 $lang['step1_failure']	=	'Wypełnij wymagane pola w formularzu poniżej.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/polish/step_2_lang.php */

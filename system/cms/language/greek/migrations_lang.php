@@ -21,4 +21,3 @@ $lang['migrations.wrong_migration_interface']		= 'Λάνθασμένο migration
 $lang['migrations.invalid_migration_filename']		= 'Μη έγκυρο όνομα αρχείο μετανάστευσης: %s';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/greek/migrations_lang.php */

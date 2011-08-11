@@ -28,4 +28,3 @@ $lang['error_106']		=	'Het configuratiebestand kon niet opgeslagen worden. Heeft
 $lang['success']		=	'PyroCMS is met succes geinstalleerd.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/dutch/step_4_lang.php */

@@ -607,4 +607,3 @@ class Admin extends Admin_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./system/cms/modules/files/controllers/admin.php */

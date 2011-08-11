@@ -11,4 +11,3 @@ $lang['go_website']			= 'Ga naar de Website';
 $lang['go_control_panel']	= 'Ga naar het Controlepaneel';
 
 /* End of file complete_lang.php */
-/* Location: ./installer/language/dutch/complete_lang.php */

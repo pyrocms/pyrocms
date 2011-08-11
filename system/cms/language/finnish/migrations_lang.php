@@ -21,4 +21,3 @@ $lang['migrations.wrong_migration_interface']		= 'Väärä migraatio käyttölii
 $lang['migrations.invalid_migration_filename']		= 'Migraation tiedostonimi %s ei kelpaa.';
 
 /* End of file migrations_lang.php */
-/* Location: ./system/cms/language/finnish/migrations_lang.php */

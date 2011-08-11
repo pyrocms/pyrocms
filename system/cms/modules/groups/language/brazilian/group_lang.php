@@ -25,4 +25,3 @@ $lang['groups.delete_error']            = 'Ocorreu um erro ao tentar remover est
 $lang['groups.already_exist_error']		= 'Um grupo com o nome "%s" já existe.';
 
 /* End of file groups_lang.php */
-/* Location: ./system/cms/modules/groups/language/brazilian/groups_lang.php */

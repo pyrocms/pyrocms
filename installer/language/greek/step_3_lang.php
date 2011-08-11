@@ -21,4 +21,3 @@ $lang['step4']			= 'Βήμα 4';
 $lang['retry']			= 'Προσπαθήστε ξανά';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/greek/step_3_lang.php */

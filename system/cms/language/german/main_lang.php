@@ -67,4 +67,3 @@ $lang['enable_label']					= 'Aktivieren';
 $lang['disable_label'] 					= 'Deaktivieren';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/german/main_lang.php */
