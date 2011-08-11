@@ -40,7 +40,7 @@ function display_comments($ref_id = '', $reference = NULL)
 	{
 		foreach ($comment as &$body)
 		{
-			$body = escape_tags(htmlspecialchars($body));
+			$body = escape_tags($body);
 		}
 	}
 
