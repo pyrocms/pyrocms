@@ -22,12 +22,12 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->load->library('migrations');
 			$this->migrations->latest();
-			
+
 			if ($this->migrations->error)
 			{
 				show_error($this->migrations->error);
 			}
-			
+
 			redirect(current_url());
 		}
 		// End migration check
@@ -41,21 +41,21 @@ class MY_Controller extends CI_Controller {
 		// By changing the prefix we are essentially "namespacing" each pyro site
 		$this->db->set_dbprefix(SITE_REF.'_');
 		$this->load->library('pyrocache');
-		
+
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
-		
+
 		$this->load->library('migrations');
 		// $this->migrations->verbose = true;
 		$schema_version = $this->migrations->latest();
-		
+
 		if ($this->migrations->error)
 		{
 			show_error($this->migrations->error);
 		}
-		
+
 		// Result of schema version migration
 		if (is_numeric($schema_version))
 		{
@@ -119,8 +119,10 @@ class MY_Controller extends CI_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
+		// override ion_auth config.php settings with pyro db settings
 		$this->config->set_item('site_title', $this->settings->site_name, 'ion_auth');
 		$this->config->set_item('admin_email', $this->settings->contact_email, 'ion_auth');
+		$this->config->set_item('email_activation', $this->settings->activation_email, 'ion_auth');
 
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
@@ -155,15 +157,15 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->load->vars($pyro);
-		
+
 		// Load the admin theme so things like partials and assets are available everywhere
 		$this->admin_theme = $this->themes_m->get_admin();
 		// Load the current theme so we can set the assets right away
 		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
 
-		// make a constant as this is used in a lot of places		
+		// make a constant as this is used in a lot of places
 		define('ADMIN_THEME', $this->admin_theme->slug);
-		
+
 		// Asset library needs to know where the admin theme directory is
 		$this->config->set_item('asset_dir', $this->admin_theme->path.'/');
 		$this->config->set_item('asset_url', BASE_URL.$this->admin_theme->web_path.'/');
