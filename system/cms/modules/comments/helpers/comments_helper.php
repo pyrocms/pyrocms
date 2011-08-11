@@ -67,14 +67,17 @@ function display_comments($ref_id = '', $reference = NULL)
 		list($path, $view) = Modules::find($view, 'comments', 'views/');
 	}
 	
-	$save_path = $ci->load->_ci_view_path;
-	$ci->load->_ci_view_path = $path;
+	// save the existing view array so we can restore it
+	$save_path = $ci->load->get_view_paths();
+
+	// add this view location to the array
+	$ci->load->set_view_path($path);
 
 	// output the comments html
 	$comment_view = $ci->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ( $data )));
 
-	// Put the path back
-	$ci->load->_ci_view_path = $save_path;
+	// Put the old array back
+	$ci->load->set_view_path($save_path);
 }
 
 /**

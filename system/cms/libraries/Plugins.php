@@ -88,13 +88,16 @@ abstract class Plugin
 			list($path, $view) = Modules::find($view, $module, 'views/');
 		}
 
-		$save_path = $this->load->_ci_view_path;
-		$this->load->_ci_view_path = $path;
+		// save the existing view array so we can restore it
+		$save_path = $this->load->get_view_paths();
+
+		// add this view location to the array
+		$this->load->set_view_path($path);
 
 		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array) $vars), '_ci_return' => TRUE));
 
-		// Put the path back
-		$this->load->_ci_view_path = $save_path;
+		// Put the old array back
+		$this->load->set_view_path($save_path);
 
 		return $content;
 	}
