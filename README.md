@@ -4,14 +4,14 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 1.3.1
+* Version: 1.3.2
 
 ## Team
 
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Eric Barnes](http://ericlbarnes.com/)
 * [Stephen Cozart](http://twitter.com/stephencozart)
-* [Jerel Unruh](http://www.unruhdesigns.com/)
+* [Jerel Unruh](http://unruhdesigns.com/)
 
 ## Description
 
