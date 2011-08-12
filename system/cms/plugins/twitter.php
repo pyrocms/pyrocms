@@ -11,6 +11,8 @@
  */
 class Plugin_Twitter extends Plugin
 {
+	private $feed_url = 'http://api.twitter.com/1/statuses/user_timeline.json?trim_user=1&include_rts=1';
+	
 	/**
 	 * Load a constant
 	 *
@@ -23,11 +25,11 @@ class Plugin_Twitter extends Plugin
 	function feed()
 	{
 		$username = $this->attribute('username');
-		$limit = $this->attribute('limit');
+		$limit = $this->attribute('limit', 5);
 		
-		if ( ! $tweets = $this->pyrocache->get('twitter-' . $username))
+		if ( ! ($tweets = $this->pyrocache->get('twitter-' . $username)))
 		{
-			$tweets = json_decode(@file_get_contents('http://twitter.com/statuses/user_timeline/' . $options['username'] . '.json?count='.$limit));
+			$tweets = json_decode(@file_get_contents($this->feed_url.'&screen_name='.$username. '&count='.$limit));
 
 			$this->pyrocache->write($tweets, 'twitter-' . $username, $this->settings->twitter_cache);
 		}
@@ -43,6 +45,11 @@ class Plugin_Twitter extends Plugin
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
+		if ( ! $tweets)
+		{
+			return array();
+		}
+		
 		foreach ($tweets as &$tweet)
 		{
 			$tweet->id		= sprintf('%.0f', $tweet->id);
