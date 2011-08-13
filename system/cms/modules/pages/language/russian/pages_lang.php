@@ -52,6 +52,7 @@ $lang['pages.view_label']								= 'Просмотр';
 $lang['pages.create_label']							= 'Создать потомка';
 $lang['pages.edit_label']								= 'Редактировать';
 $lang['pages.delete_label']							= 'Удалить';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // заголовки
 $lang['pages.create_title']							= 'Создать страницу';
@@ -74,6 +75,8 @@ $lang['pages_mass_delete_success']			= '%s страницы удалены.';
 $lang['pages_delete_none_notice']				= 'Ни одной страницы не удалено.';
 $lang['pages_page_already_exist_error']	= 'Страница с адресом "%s" уже существует в %s.';
 $lang['pages_parent_not_exist_error']		= 'Выбранная родительская страница не существует.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation']					= 'Список слева содержит все страницы вашего сайта. Нажмите знак "+" для отображения потомков выбранной страницы. При нажатии на страницу - в этом блоке будет выведена полезная информация.';
 

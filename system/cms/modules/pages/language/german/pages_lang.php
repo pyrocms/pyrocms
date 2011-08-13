@@ -45,6 +45,7 @@ $lang['pages.view_label']                  = 'Ansicht';
 $lang['pages.create_label']                = 'Unterobjekt hinzufügen';//there is no german word for 'child' (in this context at least)
 $lang['pages.edit_label']                  = 'Bearbeiten';
 $lang['pages.delete_label']                = 'Löschen';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Seite erstellen';
@@ -67,6 +68,8 @@ $lang['pages_mass_delete_success']         = '%s Seiten wurden gelöscht.';
 $lang['pages_delete_none_notice']          = 'Keine Seiten wurden gelöscht.';
 $lang['pages_page_already_exist_error']    = 'Es existiert bereits eine Seite mit der URL "%s" in %s.';
 $lang['pages_parent_not_exist_error']      = 'Die ausgewählte übergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation']            = 'Die Liste zur Linken repräsentiert Seiten auf deiner Webseite.
 Wähle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch auswählen einer Seite erhältst du Informationen über die ausgewählte Seite.';

@@ -51,6 +51,7 @@ $lang['pages.view_label']                  = 'Katso';
 $lang['pages.create_label']                = 'Lisää alakohta';
 $lang['pages.edit_label']                  = 'Muokkaa';
 $lang['pages.delete_label']                = 'Poista';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Lisää sivu';
@@ -73,6 +74,8 @@ $lang['pages_mass_delete_success']         = '%s sivua poistettiin.';
 $lang['pages_delete_none_notice']          = 'Yhtään sivua ei poistettu.';
 $lang['pages_page_already_exist_error']    = 'Sivu, jolla on URL osoite "%s" on jo olemassa paikassa %s.';
 $lang['pages_parent_not_exist_error']      = 'Yläkohdan sivua ei ole olemassa.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation']            = 'Vasemmalla oleva lista näyttää sivustosi sivut. 
 Klikkaa "+" ikonia, niin näet sen alasivut. Kun klikkaat sivua, näet sivuun liittyen käteviä toimintoja.';

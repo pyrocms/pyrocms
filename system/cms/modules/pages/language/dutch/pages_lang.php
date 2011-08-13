@@ -44,6 +44,7 @@ $lang['pages.view_label']						= 'Bekijk';
 $lang['pages.create_label'] 					= 'Voeg kind toe';
 $lang['pages.edit_label']						= 'Wijzig';
 $lang['pages.delete_label'] 					= 'Verwijder';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title'] 					= 'Voeg pagina toe';
@@ -66,6 +67,8 @@ $lang['pages_mass_delete_success'] 				= '%s pagina&apos;s zijn verwijderd.';
 $lang['pages_delete_none_notice'] 				= 'Er zijn geen pagina&apos;s verwijderd.';
 $lang['pages_page_already_exist_error'] 		= 'De pagna met URL "%s" bestaat al in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'De geselecteerde bovenliggende pagina bestaat niet.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation'] 				= 'De lijst aan de linkerkant stellen de pagina&apos;s op uw website voor. 
 Klik op het "+" icoon naast de pagina om de onderliggende pagina&apos;s te zien. Als u een pagina selecteerd ziet u  de informatie over de pagina in dit veld.';

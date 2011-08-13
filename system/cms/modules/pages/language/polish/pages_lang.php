@@ -44,6 +44,7 @@ $lang['pages.view_label'] 						= 'Podgląd';
 $lang['pages.create_label'] 					= 'Dodaj potomka';
 $lang['pages.edit_label'] 						= 'Edytuj';
 $lang['pages.delete_label'] 					= 'Usuń';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title'] 					= 'Dodaj stronę';
@@ -66,6 +67,8 @@ $lang['pages_mass_delete_success'] 				= '%s strony zostały usunięte.';
 $lang['pages_delete_none_notice'] 				= 'Żadna ze stron nie została usunięta.';
 $lang['pages_page_already_exist_error']			= 'Strona o adresie URL "%s" już istnieje w %s.';
 $lang['pages_parent_not_exist_error']			= 'Strona nadrzędna, którą wybrałeś nie istnieje.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation'] 				= 'Lista po lewej stronie reprezentuje strony Twojej witryny.
 Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';
