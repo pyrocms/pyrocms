@@ -43,6 +43,7 @@ $lang['pages.view_label']                  = 'Προβολή';
 $lang['pages.create_label']                = 'Προσθήκη υποσελίδας';
 $lang['pages.edit_label']                  = 'Επεξεργασία';
 $lang['pages.delete_label']                = 'Διαγραφή';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Προσθήκη σελίδας';
@@ -65,6 +66,8 @@ $lang['pages_mass_delete_success']         = '%s σελίδες διαγράφη
 $lang['pages_delete_none_notice']          = 'Δεν διαγράφηκε καμμία σελίδα.';
 $lang['pages_page_already_exist_error']    = 'Υπάρχει ήδη μια σελίδα με URL "%s" στο %s.';
 $lang['pages_parent_not_exist_error']      = 'Η σελίδα γονέας που έχετε επιλέξει δεν υπάρχει.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation']            = 'Η λίστα στα αριστερά αναπαριστά τις σελίδες στον ιστότοπό σας.
 Κάντε κλικ στο εικονίδιο "+" δίπλα από την κάθε σελίδα για να δείξετε σελίδες κάτω από αυτήν. Όταν κάνετε κλικ σε μια σελίδα θα μπορείτε να δείτε πληροφορίες για αυτήν σε αυτήν την περιοχή.';

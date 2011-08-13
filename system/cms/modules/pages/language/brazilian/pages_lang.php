@@ -44,6 +44,7 @@ $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
 $lang['pages.edit_label'] 					= 'Editar';
 $lang['pages.delete_label'] 				= 'Remover';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title'] 				= 'Adicionar página';
@@ -66,6 +67,8 @@ $lang['pages_mass_delete_success'] 			= '%s páginas foram removidas.';
 $lang['pages_delete_none_notice'] 			= 'Nenhuma página foi removida.';
 $lang['pages_page_already_exist_error'] 	= 'Uma página com a URL "%s" já existe em %s.';
 $lang['pages_parent_not_exist_error'] 		= 'A página pai que você selecionou não existe.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas do seu site em cada item. Quando houver um indicador de mais ao lado de um item, clique sobre o indicador para exibir suas subpáginas.<br><br>Você também pode arrastar as páginas para ordená-las e/ou posiciona-las distanciando para direita horizontalmente abaixo de outra página para transforma-las em subpáginas.<br><br>Se você clicar sobre o texto do título deverá ver todo tipo de informação útil nesta caixa.';
 

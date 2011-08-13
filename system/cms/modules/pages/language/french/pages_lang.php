@@ -45,6 +45,7 @@ $lang['pages.view_label'] 						= 'Visualiser';
 $lang['pages.create_label'] 					= 'Ajouter enfant';
 $lang['pages.edit_label'] 						= 'Modifier';
 $lang['pages.delete_label'] 					= 'Supprimer';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title'] 					= 'Créer une page';
@@ -67,6 +68,8 @@ $lang['pages_mass_delete_success'] 				= '%s pages ont été supprimées.';
 $lang['pages_delete_none_notice'] 				= 'Aucune page n\'a été supprimée.';
 $lang['pages_page_already_exist_error'] 		= 'Une page avec l\'URL "%s" existe déjà dans %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La page parente que vous avez sélectionné n\'existe pas.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web. 
 Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';

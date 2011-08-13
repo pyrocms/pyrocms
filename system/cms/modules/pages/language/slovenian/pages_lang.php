@@ -43,6 +43,7 @@ $lang['pages.view_label']                  = 'Ogled';
 $lang['pages.create_label']                = 'Dodaj podstran';
 $lang['pages.edit_label']                  = 'Uredi';
 $lang['pages.delete_label']                = 'Izbriši';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Dodaj stran';
@@ -65,6 +66,8 @@ $lang['pages_mass_delete_success']         = '%s strani so bile izbrisane.';
 $lang['pages_delete_none_notice']          = 'Nobena stran ni bila izbrisana.';
 $lang['pages_page_already_exist_error']    = 'Stran s URL-jem "%s" že obstaja v %s.';
 $lang['pages_parent_not_exist_error']      = 'Glavna stran katero ste izbrali ne obstaja.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation']            = 'Seznam na levi predstavlja strani na vaši spletni strani. 
 Kliknite "+" ikono zraven strani da se prikaže seznam podstrani. Če kliknete na stran se vam bo tukaj prikazal seznam vse uporabnih informacij in možnosti.';

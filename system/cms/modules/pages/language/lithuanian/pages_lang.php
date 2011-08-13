@@ -44,6 +44,7 @@ $lang['pages.view_label']                  = 'Vaizdas';
 $lang['pages.create_label']                = 'Pridėti vaiką';
 $lang['pages.edit_label']                  = 'Redaguoti';
 $lang['pages.delete_label']                = 'Ištrinti';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Pridėti puslapį';
@@ -66,6 +67,8 @@ $lang['pages_mass_delete_success']         = '%s puslapis ištrintas.';
 $lang['pages_delete_none_notice']          = 'Nėra ištrintų puslapių.';
 $lang['pages_page_already_exist_error']    = 'Puslapis su URL "%s" jau egzistuoja %s.';
 $lang['pages_parent_not_exist_error']      = 'Tėvo puslapis, kurį pažymėjote neegzistuoja.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation']            = 'Paspauskite ant puslapio pavadimo, kad pamatyti vidinius puslapius. Taip pat galite tampydami (aukštyn/žemyn/ vertikaliai) keisti puslapio poziciją; tampydami horizontaliai - galite jį padaryti vidiniu puslapiu. Paspaudę ant puslapio pavadinimo, gausite daugiau informacijos.';
 

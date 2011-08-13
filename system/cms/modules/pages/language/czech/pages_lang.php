@@ -44,6 +44,7 @@ $lang['pages.view_label'] 						= 'Zobrazit';
 $lang['pages.create_label'] 					= 'Přidat potomka';
 $lang['pages.edit_label'] 						= 'Upravit';
 $lang['pages.delete_label'] 					= 'Vymazat';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title'] 					= 'Přidat stránku';
@@ -66,6 +67,8 @@ $lang['pages_mass_delete_success'] 				= '%s stránek bylo vymazáno.';
 $lang['pages_delete_none_notice'] 				= 'Žádné stránky nebyly vymazány.';
 $lang['pages_page_already_exist_error'] 		= 'Stránka s adresou URL "%s" již existuje v %s.';
 $lang['pages_parent_not_exist_error'] 			= 'Vybraná rodičovská stránka neexistuje.';
+$lang['pages_page_duplicated']           = 'Page "%s" duplicated'; #translate
+$lang['pages_page_duplicated_error']     = 'Page "%s" could not be duplicated'; #translate
 
 $lang['pages.tree_explanation'] 				= 'Seznam vlevo reprezentuje stránky na webu.
 Klikněte na ikonku "+" pro zobrazení stránek uvnitř. Při kliknutí na stránku tu uvidíte spoustu užitečných informací.';

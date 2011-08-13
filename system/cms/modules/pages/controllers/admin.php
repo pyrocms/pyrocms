@@ -477,6 +477,81 @@ class Admin extends Admin_Controller {
 	}
 
 	/**
+	 * Duplicate an existing page
+   *
+	 * @author Donald Myers
+	 * @access public
+	 * @param int $id The ID of the page to duplicate
+	 * @return void
+	 *
+	 */
+	public function duplicate($id = 0)
+	{
+		$id OR redirect('admin/pages');
+						
+    $page = $this->pages_m->get($id);
+    
+    // if no page returned where did it go? bail
+    if (!is_object($page))
+    {
+  		$this->session->set_flashdata('error', sprintf(lang('pages_page_duplicated_error'),'unknown'));
+      redirect('admin/pages');
+    }
+		
+		$old_title = $page->title;
+		
+		$page->title = $page->title.$this->_next_suffix($page->title,'title');
+		$page->slug = $page->slug.$this->_next_suffix($page->slug,'slug');
+		$page->uri = NULL;
+		$page->status = 'draft';
+		$page->is_home = 0;
+		
+		$page_chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
+
+    $new_id = $this->pages_m->insert((array)$page, (array)$page_chunks);
+    
+    if ($new_id === false)
+    {
+  		$this->session->set_flashdata('error', sprintf(lang('pages_page_duplicated_error'),$old_title));
+    }
+    else
+    {
+  		$this->session->set_flashdata('success', sprintf(lang('pages_page_duplicated'),$old_title));
+    }    
+    
+    redirect('admin/pages');
+	}
+	
+	/**
+	 * Find the next available suffix for duplicate
+	 * @access private
+	 * @param name
+	 * @return string
+	 */
+	private function _next_suffix($name,$field)
+	{
+		// first test try just -copy
+		$page = $this->pages_m->get_by($field,$name.'-copy');
+		if (!is_object($page))
+		{
+			return '-copy';
+		}
+		
+		// ok that failed let's add a number 9999 max so we don't loop infinitely
+		for ($num = 2;$num <= 9999;$num++)
+		{
+			$page = $this->pages_m->get_by($field,$name.'-copy-'.$num);
+			if (!is_object($page))
+			{
+			  return '-copy-'.$num;
+			}
+		}
+		
+		// fail safe
+		return '-copy-'.date('U');
+	}
+
+	/**
 	 * Delete an existing page
 	 * @access public
 	 * @param int $id The ID of the page to delete
