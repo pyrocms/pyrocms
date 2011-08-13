@@ -37,14 +37,13 @@ $lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 $lang['pages.status_label'] 					= 'Stato';
 $lang['pages.draft_label'] 						= 'Bozza';
 $lang['pages.live_label'] 						= 'Pubblicato';
-$lang['pages.revisions_label']					= 'Revisioni';
-$lang['pages.compare_label']                                    = 'Compara';
-$lang['pages.preview_label']                                    = 'Anteprima';
-$lang['pages.current_label']                                    = 'Corrente';
+$lang['pages.preview_label']                    = 'Anteprima';
+$lang['pages.current_label']                    = 'Corrente';
 
 $lang['pages.view_label'] 						= 'Visualizza';
 $lang['pages.create_label'] 					= 'Aggiungi figlio';
 $lang['pages.edit_label'] 						= 'Modifica';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= 'Elimina';
 
 // titles
@@ -53,8 +52,6 @@ $lang['pages.edit_title'] 						= 'Modifica la pagina "%s"';
 $lang['pages.list_title'] 						= 'Elenco pagine';
 $lang['pages.layouts_create_title'] 			= 'Aggiungi layout di pagina';
 $lang['pages.layouts_list_title'] 				= 'Elenco layout di pagina';
-$lang['pages.compare_revisions_title']                          = 'Compara Revisioni';
-$lang['pages.preview_revision_title']                           = 'Anteprima Revisione';
 
 // messages
 $lang['pages.no_pages'] 						= 'Non ci sono pagine.';

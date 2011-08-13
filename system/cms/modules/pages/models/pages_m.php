@@ -288,7 +288,7 @@ class Pages_m extends MY_Model
 	 * @param array $input The data to insert
 	 * @return bool
 	 */
-	public function insert($input = array(), $chunks = array())
+	public function insert(array $input = array(), $chunks = array())
 	{
 		$this->db->trans_start();
 	
@@ -316,7 +316,7 @@ class Pages_m extends MY_Model
 			'is_home'		=> (int) ! empty($input['is_home']),
 			'status'		=> $input['status'],
 			'created_on'		=> now(),
-			'`order`'		=> now()
+			'order'		=> now()
 		));
 		
 		$id = $this->db->insert_id();

@@ -30,13 +30,13 @@ $lang['pages.css_label'] 						= 'CSS';
 $lang['pages.access_label'] 					= 'Accès';
 $lang['pages.rss_enabled_label'] 				= 'RSS activé';
 $lang['pages.comments_enabled_label'] 			= 'Commentaires activés';
-$lang['pages.is_home_label']      = 'Est ce la page par défaut (accueil) ?';
+$lang['pages.is_home_label']      				= 'Est ce la page par défaut (accueil) ?';
 
 $lang['pages.status_label'] 					= 'Statut';
 $lang['pages.draft_label'] 						= 'Brouillon';
 $lang['pages.live_label'] 						= 'Publié';
 $lang['pages.revisions_label']					= 'Révisions';
-$lang['pages.compare_label']                                    = 'Comparer';
+$lang['pages.compare_label']                    = 'Comparer';
 $lang['pages.preview_label']                                    = 'Previsualiser';
 $lang['pages.current_label']                                    = 'Courant';
 
@@ -44,6 +44,7 @@ $lang['pages.current_label']                                    = 'Courant';
 $lang['pages.view_label'] 						= 'Visualiser';
 $lang['pages.create_label'] 					= 'Ajouter enfant';
 $lang['pages.edit_label'] 						= 'Modifier';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= 'Supprimer';
 
 // titles
@@ -52,8 +53,6 @@ $lang['pages.edit_title'] 						= 'Modifier la page "%s"';
 $lang['pages.list_title'] 						= 'Lister les pages'; 
 $lang['pages.layouts_create_title'] 			= 'Ajouter un modèle';
 $lang['pages.layouts_list_title'] 				= 'Lister les modèles';
-$lang['pages.compare_revisions_title']                          = 'Comparer les versions';
-$lang['pages.preview_revision_title']                           = 'Previsualiser la version';
 
 // messages
 $lang['pages.no_pages'] 						= 'Il n\'y a aucune page.';
@@ -72,5 +71,3 @@ $lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de v
 Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
 
 $lang['pages.rss_explanation']					= 'Activer RSS pour cette page permettra à un utilisateur de souscrire au flux RSS contenant chacun des pages enfant.';
-
-?>

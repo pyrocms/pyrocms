@@ -43,6 +43,7 @@ $lang['pages.current_label']                                    = 'الحالي�
 $lang['pages.view_label'] 						= 'عرض';
 $lang['pages.create_label'] 					= 'إضافة صفحة فرعيّة';
 $lang['pages.edit_label'] 						= 'تعديل';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= 'حذف';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 						= 'تعديل الصفحة "%s"';
 $lang['pages.list_title'] 						= 'سرد الصفحات';
 $lang['pages.layouts_create_title'] 			= 'إضافة تخطيط صفحة';
 $lang['pages.layouts_list_title'] 				= 'سرد تخطيطات الصفحات';
-$lang['pages.compare_revisions_title']                          = 'مقارنة التعديلات';
-$lang['pages.preview_revision_title']                           = 'معاينة التعديلات';
 
 // messages
 $lang['pages.no_pages'] 						= 'لا يوجد صفحات.';

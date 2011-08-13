@@ -43,6 +43,7 @@ $lang['pages.current_label']				= 'Atual';
 $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
 $lang['pages.edit_label'] 					= 'Editar';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 $lang['pages.delete_label'] 				= 'Remover';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 					= 'Editar página "%s"';
 $lang['pages.list_title'] 					= 'Listar páginas';
 $lang['pages.layouts_create_title'] 		= 'Adicionar página de layout';
 $lang['pages.layouts_list_title'] 			= 'Listar páginas de layout';
-$lang['pages.compare_revisions_title']		= 'Comparar revisões';
-$lang['pages.preview_revision_title']		= 'Visualizar revisão';
 
 // messages
 $lang['pages.no_pages'] 					= 'Nenhuma página encontrada.';

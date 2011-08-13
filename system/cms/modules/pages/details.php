@@ -2,7 +2,7 @@
 
 class Module_Pages extends Module {
 
-	public $version = '1.2';
+	public $version = '1.3';
 
 	public function info()
 	{
