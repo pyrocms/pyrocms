@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Korak 2: Preveritev strežnika';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'Programska oprema strežnika:';
 $lang['server_fail']	=	'Programska oprema strežnika ni podprta, zato PyroCMS bo ali pa ne bo deloval. Če sta PHP in MySQL nameščena in posodobljena naj bi PyroCMS deloval pravilno, razen brez skrajšanih URL-jev.';
 
 $lang['php_settings']	=	'PHP nastavitve';
-$lang['php_required']	=	'PyroCMS za delovanje potrebuje PHP 5.0 ali več.';
+$lang['php_required']	=	'PyroCMS za delovanje potrebuje PHP %s ali več.';
 $lang['php_version']	=	'Vaš strežnik trenutno poganja verzijo:';
-$lang['php_fail']		=	'Vaša PHP verzija ni podprta, PyroCMS potrebuje verzijo PHP 5.0 ali več za pravilno delovanje.';
+$lang['php_fail']		=	'Vaša PHP verzija ni podprta, PyroCMS potrebuje verzijo PHP %s ali več za pravilno delovanje.';
 
 $lang['mysql_settings']	=	'MySQL Nastavitev';
 $lang['mysql_required']	=	'PyroCMS potrebuje dostop do MySQL podatkovne baze verzije 5.0 ali več.';

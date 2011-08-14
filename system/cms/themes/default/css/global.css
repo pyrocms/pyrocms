@@ -143,6 +143,13 @@ form#login ul li input[type=text], form#login ul li input[type=password], form#r
 form#login ul li input[type=text], form#login ul li input[type=password], form#register ul li input[type=text], form#register ul li input[type=password] { background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 5px 15px 5px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; margin: 0 500px 0 0; }
 form#login ul li.form_buttons input { background: none; border: none; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 14px; font-weight: normal; color: #ff6900; cursor: pointer; padding: 0; }
 
+/* Form activate user */
+form#activate-user { padding: 0 0 325px 0; }
+form#activate-user ul li label { width: 650px; }
+form#activate-user ul li { list-style: none; }
+form#activate-user ul li input[type=text] { margin: 0 500px 15px 0; }
+form#activate-user ul li input[type=text] { background-color: #e8e8e8; border: 1px solid #fbfbfb; border-radius: 3px; -o-border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 5px 15px 5px 15px; font-family:  Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: 1px 1px 0px #fbfbfb; margin: 0 500px 0 0; }
+
 /* Footer */
 footer { font-size: 12px; color: #7d7d7d; letter-spacing: 0.5px; text-shadow: none; font-weight: bold; width: 1000px; margin: 0 auto; padding: 55px 0 0 0; }
 #footerWrapper { background-color: #f9f9f9; border-top: 1px solid #d1d1d1; width: 100%; height: 150px; margin: 0 auto; float: left; }

@@ -44,7 +44,7 @@
 
 <?php else: ?>
 	<div class="blank-slate">
-		<img src="<?php echo base_url().'addons/modules/galleries/img/album.png' ?>" />
+		<?php echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
 		
 		<h2><?php echo lang('galleries.no_galleries_error'); ?></h2>
 	</div>

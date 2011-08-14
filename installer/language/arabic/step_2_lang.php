@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'الخطوة الثانية: التحقق من المتطلبات';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'برامج خادمك:';
 $lang['server_fail']	=	'برامج خادمك غير مدعومة، لذا قد لا يمكن تشغيل PyroCMS. طالما أن برامج PHP وMySQL لديك حديثة فقد يعمل PyroCMS بشكل صحيح، ولكن دون عناوين URL نظيفة.';
 
 $lang['php_settings']	=	'إعدادات PHP';
-$lang['php_required']	=	'يتطلب PyroCMS وجود النسخة 5.0 أو أحدث.';
+$lang['php_required']	=	'يتطلب PyroCMS وجود النسخة %s أو أحدث.';
 $lang['php_version']	=	'النسخة الموجودة على خادمك حالياً هي';
-$lang['php_fail']		=	'نسخة PHP لديك غير مدعومة. يتطلب PyroCMS وجودة النسخة 5.0 أو أحدث كي يعمل بشكل صحيح.';
+$lang['php_fail']		=	'نسخة PHP لديك غير مدعومة. يتطلب PyroCMS وجودة النسخة %s أو أحدث كي يعمل بشكل صحيح.';
 
 $lang['mysql_settings']	=	'إعدادات MySQL';
 $lang['mysql_required']	=	'يتطلب PyroCMS الوصول إلى خادم MySQL النسخة 5.0 أو أحدث.';

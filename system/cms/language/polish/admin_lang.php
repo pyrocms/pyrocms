@@ -35,7 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgety';
 $lang['cp_nav_users']					= 'Użytkownicy';
 $lang['cp_nav_design']					= 'Wygląd';
 $lang['cp_nav_content']					= 'Zawartość';
-$lang['cp_nav_utilities']                               = 'Utilities'; #translate
+$lang['cp_nav_utilities']               = 'Narzędzia';
 
 $lang['cp_must_login']	 				= 'Musisz być zalogowany, żeby zobaczyć tę stronę.';
 $lang['cp_access_denied'] 				= 'Nie posiadasz wystarczających uprawnień, żeby zobaczyć tą stronę.';
@@ -43,8 +43,8 @@ $lang['cp_delete_installer_message']	= 'Proszę usunąć katalog o nazwie "insta
 $lang['cp_upgrade_message']				= 'Używasz wersji %s, ale Twoja baza danych jest w wersji %s. <a href="%s">Kliknij tutaj</a>, aby zaktualizować bazę danych.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 				= 'Shortcuts'; #translate
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['cp_shortcuts_title'] 			= 'Skróty klawiszowe'; 
+$lang['cp_remove']						= 'Usuń'; 
 
 $lang['required_label'] 				= 'Wymagane';
 $lang['sb_recent_users'] 				= 'Ostatni użytkownicy';

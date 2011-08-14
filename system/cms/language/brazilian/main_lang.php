@@ -33,7 +33,7 @@ $lang['breadcrumb_base_label'] 			= 'Início';
 
 $lang['logged_in_welcome']				= 'Bem vindo(a) %s, você está conectado(a).';
 $lang['logout_label'] 					= 'Sair';
-$lang['edit_profile_label'] 			= 'Editar Perfil';
+$lang['edit_profile_label'] 			= 'Editar perfil';
 $lang['settings_label'] 				= 'Configurações';
 
 $lang['close_message'] 					= 'Fechar esta mensagem';
@@ -45,7 +45,7 @@ $lang['success_label'] 					= 'Sucesso';
 $lang['login_title'] 					= 'Entrar';
 $lang['cms_fatal_error'] 				= 'Erro fatal, o CMS está instalado?';
 
-$lang['login_error_label'] 				= 'Erro de Login';
+$lang['login_error_label'] 				= 'Erro de login';
 $lang['forgot_password_label'] 			= 'Esqueceu sua senha ?';
 $lang['email_label'] 					= 'E-mail';
 $lang['password_label'] 				= 'Senha';
@@ -54,7 +54,7 @@ $lang['login_label'] 					= 'Entrar';
 $lang['help_label'] 					= 'Ajuda';
 $lang['save_label'] 					= 'Salvar';
 $lang['cancel_label'] 					= 'Cancelar';
-$lang['update_label'] 					= 'Atualizar Título';
+$lang['update_label'] 					= 'Atualizar título';
 $lang['delete_label'] 					= 'Remover';
 $lang['activate_label'] 				= 'Ativar';
 $lang['approve_label']					= 'Aprovar';

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		
+
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/reset.css" type="text/css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" />
@@ -16,7 +16,7 @@
 		<title>PyroCMS Installer</title>
 	</head>
 	<body>
-		
+
 		<!-- Header -->
 		<div id="header">
 			<div class="container">
@@ -31,18 +31,18 @@
 				</ul>
 			</div>
 		</div>
-			
+
 		<!-- Content -->
 		<div id="content">
-			<div class="container">
-				
+			<div class="container clearfix">
+
 				<!-- Message type 1 (flashdata) -->
 				<?php if($this->session->flashdata('message')): ?>
 					<ul class="<?php echo ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'success'; ?>">
 						<li><?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?></li>
 					</ul>
 				<?php endif; ?>
-				
+
 				<!-- Message type 2 (validation errors) -->
 				<?php if ( validation_errors() ): ?>
 					<div id="notification">
@@ -51,10 +51,10 @@
 						</ul>
 					</div>
 				<?php endif; ?>
-				
+
 				<?php echo $page_output . PHP_EOL; ?>
 			</div>
 		</div>
-		
+
 	</body>
 </html>

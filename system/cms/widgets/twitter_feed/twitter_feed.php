@@ -12,10 +12,12 @@ class Widget_Twitter_feed extends Widgets {
 	public $title = array(
 		'en' => 'Twitter Feed',
 		'pt' => 'Feed do Twitter',
+		'ru' => 'Лента Twitter\'а',
 	);
 	public $description	= array(
 		'en' => 'Display Twitter feeds on your website',
-		'pt' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.'
+		'pt' => 'Mostra os últimos tweets de um usuário do Twitter no seu site.',
+		'ru' => 'Выводит ленту новостей Twitter на страницах вашего сайта',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';

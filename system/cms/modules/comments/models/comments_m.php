@@ -97,12 +97,12 @@ class Comments_m extends MY_Model
 		$this->load->helper('date');
 		
 		return parent::insert(array(
-			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 						:  0,
-			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 					:  0,
-			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
-			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
-			'website'		=> isset($input['website']) 	? 	prep_url($input['website']) 			: '',
-			'comment'		=> strip_tags($input['comment']),
+			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
+			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 								:  0,
+			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
+			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
+			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
+			'comment'		=> htmlspecialchars($input['comment']),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now(),
@@ -123,10 +123,10 @@ class Comments_m extends MY_Model
   		$this->load->helper('date');
 		
 		return parent::update($id, array(
-			'name'			=> isset($input['name']) 		? 	ucwords(strtolower($input['name'])) 	: '',
-			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 			: '',
-			'website'		=> isset($input['website']) 	? 	prep_url($input['website']) 			: '',
-			'comment'		=> strip_tags($input['comment']),
+			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
+			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
+			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
+			'comment'		=> htmlspecialchars($input['comment']),
 		));
 	}
 	

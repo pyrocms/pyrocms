@@ -1,7 +1,7 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['header']		= 'Seja bem vindo(a)';
-$lang['thankyou']	= 'Obrigado por escolher PyroCMS!';
-$lang['text']		= 'Instalar o PyroCMS é muito simples, apenas siga os passos e mensagens em sua tela. Caso você tenha algum tipo de problema instalando o sistema, não se preocupe, o instalador irá explicar tudo o que você precisa fazer.';
-$lang['step1'] 		= 'Etapa 1';
-$lang['link']		= 'Siga para a primeira etapa';
+$lang['header']		= 'Seja bem-vindo(a)!';
+$lang['thankyou']	= 'Obrigado por escolher o PyroCMS.';
+$lang['text']		= 'O processo de instalação do PyroCMS é muito simples, apenas siga as instruções de cada etapa.<br>Caso você tenha receio ou alguma dificuldade para fazer a instalação, não se preocupe, o sistema de instalação irá orientá-lo a fazer as escolhas mais apropriadas.';
+$lang['step1'] 		= '1ª Etapa';
+$lang['link']		= 'Ir para a primeira etapa da instalação';

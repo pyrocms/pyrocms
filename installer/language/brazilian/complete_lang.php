@@ -2,10 +2,10 @@
 
 // labels
 $lang['congrats']			= 'Parabéns';
-$lang['intro_text']			= 'PyroCMS agora está instalado e pronto para uso! Para entrar no painel administrativo utilize as seguintes informações.';
+$lang['intro_text']			= 'Agora que o PyroCMS foi instalado e está pronto para ser usado, você pode utilizar as seguintes informações para entrar no painel de controle.';
 $lang['email']				= 'E-mail';
 $lang['password']			= 'Senha';
-$lang['outro_text']			= 'Finalmente, <strong>remova o instalador de seu servidor</strong>, caso contrário, ele poderá ser utilizado para hackear o seu website.';
+$lang['outro_text']			= 'E não se esqueça de <strong>remover o diretório de instalação (<em>./installer</em>) do seu servidor</strong>, caso contrário, algum curioso ou alguém mal intencionado pode se aproveitar dele para tentar desconfigurar o seu site.';
 
-$lang['go_website']			= 'Ver o Website';
-$lang['go_control_panel']	= 'Entrar no Painel de controle';
+$lang['go_website']			= 'Entrar no site';
+$lang['go_control_panel']	= 'Entrar no Painel de Controle';

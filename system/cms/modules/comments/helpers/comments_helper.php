@@ -35,7 +35,7 @@ function display_comments($ref_id = '', $reference = NULL)
 
 	$comments	= $ci->comments_m->get_by_module_item($reference, $ref_id);
 	
-	// loop through the comments and escape {pyro} tags
+	// loop through the comments and escape {pyro} and html tags
 	foreach ($comments as &$comment)
 	{
 		foreach ($comment as &$body)

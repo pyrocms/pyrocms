@@ -46,7 +46,7 @@ $(function() {
 		}
 
     });
-	
+
 	$('select#http_server').change(function(){
 		if ($(this).val() == 'apache_w') {
 			$.post(base_url + 'index.php/ajax/check_rewrite', '', function(data) {
