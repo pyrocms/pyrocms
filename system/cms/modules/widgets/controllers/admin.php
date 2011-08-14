@@ -4,8 +4,9 @@
  * Admin controller for the widgets module.
  *
  * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			Phil Sturgeon - PyroCMS Development Team
+ * @subpackage 		Modules
+ * @category		Widgets
+ * @author			PyroCMS Development Team
  *
  */
 class Admin extends Admin_Controller {

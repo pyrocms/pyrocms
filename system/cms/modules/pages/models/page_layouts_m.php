@@ -2,9 +2,9 @@
 /**
  * Page layout model
  * 
- * @author Phil Sturgeon - PyroCMS Dev Team
- * @package Pyrocms
- * @subpackage Pages module
+ * @author PyroCMS Dev Team
+ * @package PyroCMS
+ * @subpackage Pages
  * @category Module
  * 
  */
