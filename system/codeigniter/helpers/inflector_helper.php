@@ -43,8 +43,9 @@ if ( ! function_exists('singular'))
 	{
 		$str = trim($str);
 		$end = substr($str, -3);
-
-	$str = preg_replace('/(.*)?([s|c]h)es/i','$1$2',$str);
+        
+        $str = preg_replace('/(.*)?([s|c]h)es/i','$1$2',$str);
+        
 		if (strtolower($end) == 'ies')
 		{
 			$str = substr($str, 0, strlen($str)-3).(preg_match('/[a-z]/',$end) ? 'y' : 'Y');
@@ -82,8 +83,8 @@ if ( ! function_exists('singular'))
 if ( ! function_exists('plural'))
 {
 	function plural($str, $force = FALSE)
-	{
-	$str = trim($str);
+	{   
+        $str = trim($str);
 		$end = substr($str, -1);
 
 		if (preg_match('/y/i',$end))
@@ -94,7 +95,7 @@ if ( ! function_exists('plural'))
 		}
 		elseif (preg_match('/h/i',$end))
 		{
-	    if(preg_match('/^[c|s]h$/i',substr($str, -2)))
+            if(preg_match('/^[c|s]h$/i',substr($str, -2)))
 			{
 				$str .= 'es';
 			}

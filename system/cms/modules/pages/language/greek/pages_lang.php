@@ -34,14 +34,13 @@ $lang['pages.is_home_label']      		   = 'Είναι η αρχική σελίδ�
 $lang['pages.status_label']                = 'Κατάσταση';
 $lang['pages.draft_label']                 = 'Πρόχειρο';
 $lang['pages.live_label']                  = 'Δημοσιευμένο';
-$lang['pages.revisions_label']             = 'Εκδόσεις';
-$lang['pages.compare_label']               = 'Σύγκριση';
 $lang['pages.preview_label']               = 'Προεπισκόπηση';
 $lang['pages.current_label']               = 'Τρέχουσα';
 
 $lang['pages.view_label']                  = 'Προβολή';
 $lang['pages.create_label']                = 'Προσθήκη υποσελίδας';
 $lang['pages.edit_label']                  = 'Επεξεργασία';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label']                = 'Διαγραφή';
 
 // titles
@@ -50,8 +49,6 @@ $lang['pages.edit_title']                  = 'Επεξεργασία σελίδ�
 $lang['pages.list_title']                  = 'Λίστα σελίδων';
 $lang['pages.layouts_create_title']        = 'Προσθήκη διάταξης σελίδας';
 $lang['pages.layouts_list_title']          = 'Λίστα διατάξεων σελίδας';
-$lang['pages.compare_revisions_title']     = 'Σύγκριση Εκδόσεων';
-$lang['pages.preview_revision_title']      = 'Προεπισκόπηση Έκδοσης';
 
 // messages
 $lang['pages.no_pages']                    = 'Δεν υπάρχουν σελίδες.';

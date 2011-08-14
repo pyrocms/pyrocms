@@ -93,4 +93,3 @@ $lang['file_folders.mkdir_error']				= 'Невозможно создать па
 $lang['file_folders.chmod_error']				= 'Невозможно изменить права доступа для папки uploads/files';
 
 /* End of file files_lang.php */
-/* Location: ./system/cms/modules/files/language/russian/comments_lang.php */

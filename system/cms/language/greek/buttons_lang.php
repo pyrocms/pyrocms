@@ -37,4 +37,3 @@ $lang['buttons.re-index']	= 'Επανα-καταλογογράφηση';
 $lang['buttons.copy']		= 'Αντιγραφή';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/greek/buttons_lang.php */

@@ -137,4 +137,3 @@ $lang['settings_form_option_Oldest First']		= 'Starejši naprej';
 $lang['settings_form_option_Newest First']		= 'Novejši naprej';
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/slovenian/settings_lang.php */

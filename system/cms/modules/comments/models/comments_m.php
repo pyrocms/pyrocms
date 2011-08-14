@@ -18,8 +18,8 @@ class Comments_m extends MY_Model
   	public function get($id)
   	{
     	$this->db->select('c.*')
-    		->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name')
-    		->select('IF(c.user_id > 0, u.email, c.email) as email')
+    		->select('IF(c.user_id > 0, m.display_name, c.name) as name', false)
+    		->select('IF(c.user_id > 0, u.email, c.email) as email', false)
     		->from('comments c')
     		->join('users u', 'c.user_id = u.id', 'left')
     		->join('profiles m', 'm.user_id = u.id', 'left')
@@ -226,8 +226,8 @@ class Comments_m extends MY_Model
 		$this->_table = NULL;
     	$this->db->select('c.*');
 		$this->db->from('comments c');
-    	$this->db->select('IF(c.user_id > 0, IF(m.last_name = "", m.first_name, CONCAT(m.first_name, " ", m.last_name)), c.name) as name');
-    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email');
+    	$this->db->select('IF(c.user_id > 0, m.display_name, c.name) as name', false);
+    	$this->db->select('IF(c.user_id > 0, u.email, c.email) as email', false);
 
     	$this->db->join('users u', 'c.user_id = u.id', 'left');
     	$this->db->join('profiles m', 'm.user_id = u.id', 'left');

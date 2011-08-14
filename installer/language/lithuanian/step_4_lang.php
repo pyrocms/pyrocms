@@ -28,4 +28,3 @@ $lang['error_106']		=	'Konfiguracijos failas negali būti įrašytas, ar esate i
 $lang['success']		=	'PyroCMS buvo sėkmingai instaliuotas.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/english/step_4_lang.php */

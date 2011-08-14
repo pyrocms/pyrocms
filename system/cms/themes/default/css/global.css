@@ -110,10 +110,10 @@ fieldset#write-comment { float:right; padding: 1em; width:45%; }
 #user_edit li {display:block; min-height: 60px; width: 85%; list-style: none; padding: 5px; margin: 0px; clear:both;}
 #user_edit li:hover {background-color: white;}
 #user_edit li.multiple_fields {display:block; height: 70px; width: 90%;}
-#user_edit li.multiple_fields > div.fields {width:100% padding: 10px;}
+#user_edit li.multiple_fields > div.fields { width:100%; padding: 10px; }
 #user_edit li.multiple_fields > div.fields > div {margin-left:10px; width: 15%; float: left;}
-#user_edit li.multiple_fields > div.fields > div input {padding: 5px; width: 50%}
-#user_edit li.multiple_fields > div.fields > div select {padding: 5px; width: 100%}
+#user_edit li.multiple_fields > div.fields > div input { padding: 5px; width: 50%; }
+#user_edit li.multiple_fields > div.fields > div select { padding: 5px; width: 100%; }
 #user_edit li.multiple_fields div {display:inline; float: left; clear:none;}
 #user_edit li label {padding: 0px; margin: 0px;}
 #user_edit li input[type=text], #user_edit li input[type=password], #user_edit li select,#user_edit li textarea { background-color: #e8e8e8; border: 1px solid #ccc; border-radius: 5px; -o-border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; padding: 5px 15px 5px 15px; font-family: Tahoma, "Helvetica Neue", Helvetica, sans-serif; font-size: 90%; color: #7d7d7d; text-shadow: 0px 0px 0px transparent;}

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_blog_author_field extends Migration {
+class Migration_Add_blog_author_field extends CI_Migration {
 
 	function up()
 	{

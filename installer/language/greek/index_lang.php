@@ -7,4 +7,3 @@ $lang['step1'] 		= 'Βήμα 1';
 $lang['link']		= 'Προχωρήστε στο πρώτο βήμα';
 
 /* End of file index_lang.php */
-/* Location: ./installer/language/greek/index_lang.php */

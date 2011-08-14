@@ -35,13 +35,12 @@ $lang['pages.is_home_label']      				= 'Czy jest domyślną (home) stroną?';
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label']						= 'Robocza';
 $lang['pages.live_label'] 						= 'Opublikowana';
-$lang['pages.revisions_label']					= 'Historia';
-$lang['pages.compare_label']                    = 'Porównaj';
 $lang['pages.preview_label']                    = 'Podgląd';
 $lang['pages.current_label']                    = 'Aktualny';
 
 $lang['pages.view_label'] 						= 'Podgląd';
 $lang['pages.create_label'] 					= 'Dodaj potomka';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.edit_label'] 						= 'Edytuj';
 $lang['pages.delete_label'] 					= 'Usuń';
 
@@ -51,8 +50,6 @@ $lang['pages.edit_title'] 						= 'Edytuj stronę "%s"';
 $lang['pages.list_title'] 						= 'Lista stron';
 $lang['pages.layouts_create_title'] 			= 'Dodaj layout strony';
 $lang['pages.layouts_list_title'] 				= 'Lista layoutów stron';
-$lang['pages.compare_revisions_title']          = 'Porównaj wersje';
-$lang['pages.preview_revision_title']           = 'Podgląd wersji';
 
 // messages
 $lang['pages.no_pages'] 						= 'Nie ma żadnych stron.';
@@ -71,5 +68,3 @@ $lang['pages.tree_explanation'] 				= 'Lista po lewej stronie reprezentuje stron
 Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';
 
 $lang['pages.rss_explanation']					= 'Włączenie RSS dla tej strony, daje użytkownikom możliwość subskrybcji kanału RSS, w którym będą się pokazywały wszytskie podstrony dla tego wpisu.';
-
-?>

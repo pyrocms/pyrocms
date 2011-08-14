@@ -99,4 +99,3 @@ $lang['file_folders.chmod_error']			= 'Não foi possível aplicar chmod ao diret
 $lang['file_folders.no_select_error'] 		= 'Você precisa selecionar uma pasta primeiro, sua solicitação foi interrompida..';
 
 /* End of file files_lang.php */
-/* Location: ./system/cms/modules/files/language/brazilian/files_lang.php */

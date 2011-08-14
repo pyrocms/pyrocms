@@ -40,15 +40,18 @@ class CI_Output {
 	function __construct()
 	{
 		$this->_zlib_oc = @ini_get('zlib.output_compression');
+
 		// Get mime types for later
-		if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT))
+		if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/mimes.php'))
 		{
-		    include APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT;
+		    include APPPATH.'config/'.ENVIRONMENT.'/mimes.php';
 		}
 		else
 		{
-			include APPPATH.'config/mimes'.EXT;
+			include APPPATH.'config/mimes.php';
 		}
+
+
 		$this->mime_types = $mimes;
 
 		log_message('debug', "Output Class Initialized");
@@ -83,6 +86,7 @@ class CI_Output {
 	function set_output($output)
 	{
 		$this->final_output = $output;
+
 		return $this;
 	}
 
@@ -107,6 +111,7 @@ class CI_Output {
 		{
 			$this->final_output .= $output;
 		}
+
 		return $this;
 	}
 
@@ -137,9 +142,12 @@ class CI_Output {
 		}
 
 		$this->headers[] = array($header, $replace);
+
 		return $this;
 	}
+
 	// --------------------------------------------------------------------
+
 	/**
 	 * Set Content Type Header
 	 *
@@ -152,18 +160,23 @@ class CI_Output {
 		if (strpos($mime_type, '/') === FALSE)
 		{
 			$extension = ltrim($mime_type, '.');
+
 			// Is this extension supported?
 			if (isset($this->mime_types[$extension]))
 			{
 				$mime_type =& $this->mime_types[$extension];
+
 				if (is_array($mime_type))
 				{
 					$mime_type = current($mime_type);
 				}
 			}
 		}
+
 		$header = 'Content-Type: '.$mime_type;
+
 		$this->headers[] = array($header, TRUE);
+
 		return $this;
 	}
 
@@ -181,6 +194,7 @@ class CI_Output {
 	function set_status_header($code = 200, $text = '')
 	{
 		set_status_header($code, $text);
+
 		return $this;
 	}
 
@@ -196,6 +210,7 @@ class CI_Output {
 	function enable_profiler($val = TRUE)
 	{
 		$this->enable_profiler = (is_bool($val)) ? $val : TRUE;
+
 		return $this;
 	}
 
@@ -216,6 +231,7 @@ class CI_Output {
 		{
 			$this->_profiler_sections[$section] = ($enable !== FALSE) ? TRUE : FALSE;
 		}
+
 		return $this;
 	}
 
@@ -231,6 +247,7 @@ class CI_Output {
 	function cache($time)
 	{
 		$this->cache_expiration = ( ! is_numeric($time)) ? 0 : $time;
+
 		return $this;
 	}
 

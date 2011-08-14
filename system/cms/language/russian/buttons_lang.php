@@ -33,4 +33,3 @@ $lang['buttons.re-index']		= 'Переиндексировать';
 $lang['buttons.copy']				= 'Копировать';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/russian/buttons_lang.php */

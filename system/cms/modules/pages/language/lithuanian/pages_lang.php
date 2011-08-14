@@ -35,13 +35,12 @@ $lang['pages.is_home_label']      = 'Is default (home) page?';
 $lang['pages.status_label']                = 'Statusas';
 $lang['pages.draft_label']                 = 'Projektas';
 $lang['pages.live_label']                  = 'Gyvai';
-$lang['pages.revisions_label']             = 'Pataisos';
-$lang['pages.compare_label']               = 'Palyginti';
 $lang['pages.preview_label']               = 'Peržiūrėti';
 $lang['pages.current_label']               = 'Dabartinis';
 
 $lang['pages.view_label']                  = 'Vaizdas';
 $lang['pages.create_label']                = 'Pridėti vaiką';
+$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
 $lang['pages.edit_label']                  = 'Redaguoti';
 $lang['pages.delete_label']                = 'Ištrinti';
 
@@ -51,8 +50,6 @@ $lang['pages.edit_title']                  = 'Redaguoti puslapį "%s"';
 $lang['pages.list_title']                  = 'Puslapių sąrašas';
 $lang['pages.layouts_create_title']        = 'Pridėti puslapiui maketą';
 $lang['pages.layouts_list_title']          = 'Maketų sąrašas';
-$lang['pages.compare_revisions_title']     = 'Palyginti pataisas';
-$lang['pages.preview_revision_title']      = 'Peržiūrėti pataisas';
 
 // messages
 $lang['pages.no_pages']                    = 'Nėra puslapių.';

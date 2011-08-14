@@ -214,7 +214,7 @@ class Installer_lib {
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
 		// Include migration config to know which migration to start from
-		include '../system/cms/config/migrations.php';
+		include '../system/cms/config/migration.php';
 
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
@@ -227,7 +227,7 @@ class Installer_lib {
 		$user_sql = str_replace('{LAST-NAME}', mysql_escape_string($data['user_lastname']) , $user_sql);
 		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
-		$user_sql = str_replace('{MIGRATION}', $config['migrations_version'], $user_sql);
+		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
 
 		// Create a connection
 		if ( ! $this->db = mysql_connect($server, $username, $password) )
@@ -408,4 +408,3 @@ class Installer_lib {
 }
 
 /* End of file installer_lib.php */
-/* Location: ./installer/libraries/installer_lib.php */

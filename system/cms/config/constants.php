@@ -117,4 +117,3 @@ define('CMS_EDITION', 'Community');
 define('CMS_DATE', '11/08/2011');
 
 /* End of file constants.php */
-/* Location: ./system/cms/config/constants.php */

@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'يجب أن تختار قوالب ال�
 $lang['templates.already_exist_error']		= 'يوجد قالب بريد إلكتروني مسمى "%s".';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/arabic/templates_lang.php */

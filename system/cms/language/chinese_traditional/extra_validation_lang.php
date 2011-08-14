@@ -5,4 +5,3 @@ $lang['decimal']				= "%s 欄位只能包含十進位數字"; //"The %s field mu
 $lang['csrf_bad_token']			= "不正確的 CSRF Token"; //"Invalid CSRF Token";
 
 /* End of file form_validation_lang.php */
-/* Location: ./system/language/chinese_traditional/form_validation_lang.php */

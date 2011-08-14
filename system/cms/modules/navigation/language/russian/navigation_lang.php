@@ -52,4 +52,3 @@ $lang['nav_link_delete_success'] 					= 'Ссылка удалена.';
 $lang['nav_link_type_desc'] 							= 'Пожалуйста, выберите тип ссылки, чтобы получить больше настроек для создания ссылки.';
 
 /* End of file navigation_lang.php */
-/* Location: ./system/cms/modules/navigation/language/russian/navigation_lang.php */

@@ -139,4 +139,3 @@ $lang['settings_form_option_Oldest First']		= 'Du plus ancien au plus récent';
 $lang['settings_form_option_Newest First']		= 'Du plus récent au plus ancien'; 
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/french/settings_lang.php */

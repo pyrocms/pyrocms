@@ -247,7 +247,8 @@ class Widgets {
 			list($path, $view) = Modules::find($view, 'widgets', 'views/');
 		}
 
-		$save_path = $this->load->_ci_view_path;
+		// save the existing view array so we can restore it
+		$save_path = $this->load->get_view_paths();
 
 		foreach ($widgets as $widget)
 		{
@@ -256,12 +257,13 @@ class Widgets {
 
 			if ($widget->body !== FALSE)
 			{
-				$this->load->_ci_view_path = $path;
+				// add this view location to the array
+				$this->load->set_view_path($path);
 
 				$output .= $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => array('widget' => $widget), '_ci_return' => TRUE)) . "\n";
 
-				// Put the path back
-				$this->load->_ci_view_path = $save_path;
+				// Put the old array back
+				$this->load->set_view_path($save_path);
 			}
 		}
 

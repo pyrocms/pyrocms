@@ -148,4 +148,3 @@ class Ajax extends CI_Controller {
 }
 
 /* End of file ajax.php */
-/* Location: ./installer/controllers/ajax.php */

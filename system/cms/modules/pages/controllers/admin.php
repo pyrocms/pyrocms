@@ -200,10 +200,47 @@ class Admin extends Admin_Controller {
 	 */
 	public function preview($id = 0)
 	{
-		$data->page  = $this->pages_m->get($id);
-
 		$this->template->set_layout('modal', 'admin');
-		$this->template->build('admin/preview', $data);
+		$this->template->build('admin/preview', array(
+			'page' => $this->pages_m->get($id),
+		));
+	}
+
+	/**
+	 * Duplicate a page
+	 * @access public
+	 * @param int $id The ID of the page
+	 * @return void
+	 */
+	public function duplicate($id = 0)
+	{
+		$page  = $this->pages_m->get($id);
+		
+		$new_slug = $page->slug;
+		
+		do
+		{
+			// Turn "foo" into "foo-1"
+			$new_slug = increment_string($new_slug, '-', 2);
+			
+			// Find if this already exists in this level
+			$dupes = $this->pages_m->count_by(array(
+				'slug' => $new_slug,
+				'parent_id' => $page->parent_id,
+			));
+		}
+		while ($dupes > 0);
+		
+		// Turn "Foo" into "Foo 2"
+		$page->title = increment_string($page->title, ' ', 2);
+		$page->slug = $new_slug;
+		
+		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+		
+		$id = $this->pages_m->insert((array) $page, $chunks);
+		
+		redirect('admin/pages/edit/'.$id);
+		
 	}
 
 	/**

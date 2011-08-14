@@ -213,4 +213,3 @@ $lang['profile_edit_error'] 			= 'Ocorreu um erro.';
 $lang['profile_save_btn'] 				= 'Salvar alterações no perfil';
 
 /* End of file users_lang.php */
-/* Location: ./system/cms/modules/users/language/brazilian/users_lang.php */

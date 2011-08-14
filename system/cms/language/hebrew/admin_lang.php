@@ -62,4 +62,3 @@ $lang['required_label'] 				= 'דרוש';
 $lang['sb_recent_users'] 				= 'משתמשים חדשים';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/hebrew/admin_lang.php */

@@ -127,10 +127,10 @@ INSERT INTO `{PREFIX}profiles` (`id`, `user_id`, `first_name`, `last_name`, `dis
 
 -- command split --
 
-CREATE TABLE {PREFIX}schema_version (
+CREATE TABLE IF NOT EXISTS {PREFIX}migrations (
   `version` int(3) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
-INSERT INTO {PREFIX}schema_version VALUES ('{MIGRATION}');
+INSERT INTO {PREFIX}migrations VALUES ('{MIGRATION}');

@@ -68,4 +68,3 @@ $lang['blog_twitter_error']                  = 'Twitter napaka';
 $lang['blog_archive_date_format']		= "%d' %m' %Y";
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/slovenian/blog_lang.php */

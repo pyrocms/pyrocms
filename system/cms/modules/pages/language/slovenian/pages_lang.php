@@ -11,15 +11,15 @@ $lang['pages.detail_label']                = 'Podrobnosti';
 
 // labels
 $lang['pages.page_label']                  = 'Stran';
-$lang['pages.add_page_chunk']						= 'Dodaj košček strani';
-$lang['pages.page_chunk']							= 'Košček strani';
+$lang['pages.add_page_chunk']				= 'Dodaj košček strani';
+$lang['pages.page_chunk']					= 'Košček strani';
 $lang['pages.language_label']              = 'Jezik';
 $lang['pages.updated_label']               = 'Posodobljeno';
 $lang['pages.actions_label']               = 'Akcije';
 $lang['pages.unknown_label']               = 'Neznan';
 $lang['pages.title_label']                 = 'Naslov';
 $lang['pages.slug_label']                  = 'URL';
-$lang['pages.navigation_label']                  = 'Dodaj v meni';
+$lang['pages.navigation_label']            = 'Dodaj v meni';
 $lang['pages.body_label']                  = 'Telo strani';
 $lang['pages.meta_title_label']            = 'Meta naslov';
 $lang['pages.meta_keywords_label']         = 'Meta ključ. besed.';
@@ -34,13 +34,12 @@ $lang['pages.comments_enabled_label']      = 'Komentarji omogočeni';
 $lang['pages.status_label']                = 'Stanje';
 $lang['pages.draft_label']                 = 'Osnutek';
 $lang['pages.live_label']                  = 'Objavljeno';
-$lang['pages.revisions_label']             = 'Pregled';
-$lang['pages.compare_label']               = 'Primerjaj';
 $lang['pages.preview_label']               = 'Predogled';
 $lang['pages.current_label']               = 'Trenutno';
 
 $lang['pages.view_label']                  = 'Ogled';
 $lang['pages.create_label']                = 'Dodaj podstran';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 $lang['pages.edit_label']                  = 'Uredi';
 $lang['pages.delete_label']                = 'Izbriši';
 
@@ -50,8 +49,6 @@ $lang['pages.edit_title']                  = 'Uredi stran "%s"';
 $lang['pages.list_title']                  = 'Seznam strani';
 $lang['pages.layouts_create_title']        = 'Dodaj postavitev strani';
 $lang['pages.layouts_list_title']          = 'Seznam postavitev strani';
-$lang['pages.compare_revisions_title']     = 'Primerjaj v pregledu';
-$lang['pages.preview_revision_title']      = 'Predogled pregleda';
 
 // messages
 $lang['pages.no_pages']                    = 'Ni strani.';
