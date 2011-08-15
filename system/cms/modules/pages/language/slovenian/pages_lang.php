@@ -39,7 +39,7 @@ $lang['pages.current_label']               = 'Trenutno';
 
 $lang['pages.view_label']                  = 'Ogled';
 $lang['pages.create_label']                = 'Dodaj podstran';
-$lang['pages.duplicate_label']				= 'Duplicate'; #translate
+$lang['pages.duplicate_label']				= 'Podvoji';
 $lang['pages.edit_label']                  = 'Uredi';
 $lang['pages.delete_label']                = 'Izbriši';
 
