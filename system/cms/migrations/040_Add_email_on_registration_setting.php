@@ -21,7 +21,7 @@ class Migration_Add_email_on_registration_setting extends CI_Migration {
 		));
 		
 		/* insert default email template */
-		$this->db->insert('default_email_templates',array(
+		$this->db->insert('email_templates',array(
 			'slug'				=> 'registered',
 			'name'				=> 'User Registered',
 			'description' => 'Email Sent to contact e-mail when a user registers',
@@ -37,6 +37,6 @@ class Migration_Add_email_on_registration_setting extends CI_Migration {
 	function down()
 	{
 		$this->db->delete('settings', array('slug' => 'registered_email'));
-		$this->db->delete('default_email_templates', array('slug' => 'registered'));
+		$this->db->delete('email_templates', array('slug' => 'registered'));
 	}
 }
