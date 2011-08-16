@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		Marcos Coelho - PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Plugin_Files extends Plugin

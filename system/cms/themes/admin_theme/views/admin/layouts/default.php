@@ -44,7 +44,7 @@
 		</div>
 		
 		<footer>
-			Copyright &copy; 2010 PyroCMS<br />
+			Copyright &copy; <?php echo date('Y'); ?> PyroCMS<br />
 			Version <?php echo CMS_VERSION .' '.CMS_EDITION; ?><br />
 			Rendered in {elapsed_time} sec. using {memory_usage}.
 		</footer>
