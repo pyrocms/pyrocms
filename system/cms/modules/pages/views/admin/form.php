@@ -69,7 +69,7 @@
 					), $chunk->type); ?>
 					</div>
 					<div class="float-right">
-						<a href="javascript:void(0)" class="remove-chunk"><?php echo lang('cp_remove') ?></a>
+						<a href="javascript:void(0)" class="remove-chunk"><?php echo lang('global:remove') ?></a>
 					</div>
 					<br style="clear:both" />
 					<?php echo form_textarea(array('id' => $chunk->slug.'_'.$chunk->id, 'name'=>'chunk_body['.$chunk->id.']', 'value' => $chunk->body, 'rows' => 20, 'class'=> $chunk->type, 'style' => 'width:100%')); ?>
