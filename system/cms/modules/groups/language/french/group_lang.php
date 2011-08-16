@@ -2,11 +2,7 @@
 
 // labels
 $lang['groups.name']				    = 'Nom';
-$lang['groups.short_name']						= 'Nom court';
-$lang['groups.description'] 		    = 'Description';
-$lang['groups.actions']					= 'Actions';
-$lang['groups.edit']					= 'Editer';
-$lang['groups.delete']					= 'Supprimer';
+$lang['groups.short_name']				= 'Nom court';
 
 // titles
 $lang['groups.index_title'] 			= 'Lister les groupes';

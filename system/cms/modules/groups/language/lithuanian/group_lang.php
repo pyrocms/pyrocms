@@ -3,11 +3,7 @@
 // labels
 $lang['groups.title']					= 'Pavadinimas';
 $lang['groups.name']				    = 'Vardas';
-$lang['groups.short_name']				= 'Trumpas  vardas'; 
-$lang['groups.description'] 		    = 'Aprašymas';
-$lang['groups.actions']					= 'Veiksmai';
-$lang['groups.edit']					= 'Redaguoti';
-$lang['groups.delete']					= 'Ištrinti';
+$lang['groups.short_name']				= 'Trumpas  vardas';
 
 // titles
 $lang['groups.index_title']             = 'Grupių sąrašas';

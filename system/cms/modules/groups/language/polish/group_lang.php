@@ -4,10 +4,6 @@
 $lang['groups.title']							= 'Tytuł';
 $lang['groups.name']							= 'Nazwa';
 $lang['groups.short_name']						= 'Krótka nazwa';
-$lang['groups.description']						= 'Opis';
-$lang['groups.actions']							= 'Akcje';
-$lang['groups.edit']							= 'Edytuj';
-$lang['groups.delete']							= 'Usuń';
 
 // titles
 $lang['groups.index_title']						= 'Lista grup';

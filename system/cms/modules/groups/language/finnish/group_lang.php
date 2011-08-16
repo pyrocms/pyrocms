@@ -11,10 +11,6 @@
 $lang['groups.title']					= 'Otsikko';
 $lang['groups.name']                    = 'Nimi';
 $lang['groups.short_name']				= 'Lyhyt nimi';
-$lang['groups.description']             = 'Kuvaus';
-$lang['groups.actions']                 = 'Toiminnot';
-$lang['groups.edit']                    = 'Muokkaa';
-$lang['groups.delete']                  = 'Poista';
 
 // titles
 $lang['groups.index_title']             = 'Listaa ryhmät';

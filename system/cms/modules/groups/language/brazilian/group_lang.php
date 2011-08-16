@@ -4,10 +4,6 @@
 $lang['groups.title']					= 'Arquivos';
 $lang['groups.name']				    = 'Nome';
 $lang['groups.short_name']				= 'Nome curto';
-$lang['groups.description'] 		    = 'Descrição';
-$lang['groups.actions']					= 'Ações';
-$lang['groups.edit']					= 'Editar';
-$lang['groups.delete']					= 'Remover';
 
 // titles
 $lang['groups.index_title'] 			= 'Listar grupos';

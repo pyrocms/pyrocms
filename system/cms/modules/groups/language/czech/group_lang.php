@@ -4,10 +4,6 @@
 $lang['groups.title']					= 'Titulek';
 $lang['groups.name']				    = 'Jméno';
 $lang['groups.short_name']				= 'Krátké jméno';
-$lang['groups.description'] 		    = 'Popis';
-$lang['groups.actions']					= 'Akce';
-$lang['groups.edit']					= 'Upravit';
-$lang['groups.delete']					= 'Vymazat';
 
 // titles
 $lang['groups.index_title'] 			= 'Seznam skupin';
