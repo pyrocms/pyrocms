@@ -33,4 +33,4 @@ $lang['templates.no_select_error'] 			= 'Najprej morate izbrati email predlogo.'
 $lang['templates.already_exist_error']		= 'Email predloga z imenom "%s" že obstaja.';
 
 
-/* End of file slovenian templates_lang.php */
+/* End of file templates_lang.php */
