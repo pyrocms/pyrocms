@@ -37,7 +37,7 @@ $lang['cp_nav_design']					= 'التصميم';
 $lang['cp_nav_content']					= 'المحتوى';
 $lang['cp_nav_utilities']                               = 'الأدوات';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'كلمات البحث';
 
 $lang['cp_must_login']	 				= 'يجب أن تكون مسجّل الدخول كي تعرض هذه الصفحة.';
 $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكافية لعرض هذه الصفحة.';
