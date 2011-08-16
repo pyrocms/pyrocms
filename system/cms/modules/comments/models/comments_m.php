@@ -102,7 +102,7 @@ class Comments_m extends MY_Model
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment']),
+			'comment'		=> htmlspecialchars($input['comment'], NULL, NULL, FALSE),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now(),
@@ -126,7 +126,7 @@ class Comments_m extends MY_Model
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
-			'comment'		=> htmlspecialchars($input['comment']),
+			'comment'		=> htmlspecialchars($input['comment'], NULL, NULL, FALSE),
 		));
 	}
 	
