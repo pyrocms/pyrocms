@@ -24,6 +24,7 @@ class Keyword_m extends MY_Model {
 			->select('name')
 			->where('hash', $hash)
 			->join('keywords', 'keyword_id = keywords.id')
+			->order_by('name')
 			->get('keywords_applied')
 			->result();
 	}
