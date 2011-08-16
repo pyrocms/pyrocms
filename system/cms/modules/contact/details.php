@@ -63,9 +63,9 @@ class Module_Contact extends Module {
 			  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			  `message` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 			  `company_name` VARCHAR( 255 ) NOT NULL,
-			  `sender_agent` int(11) DEFAULT NULL,
+			  `sender_agent` varchar(11) DEFAULT NULL,
 			  `sender_ip` text,
-			  `sender_os` int(15) NOT NULL,
+			  `sender_os` varchar(15) NOT NULL,
 			  `sent_at` varchar(255) DEFAULT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8
