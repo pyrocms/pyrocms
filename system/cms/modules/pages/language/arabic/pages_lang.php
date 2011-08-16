@@ -43,7 +43,7 @@ $lang['pages.current_label']                                    = 'الحالي�
 $lang['pages.view_label'] 						= 'عرض';
 $lang['pages.create_label'] 					= 'إضافة صفحة فرعيّة';
 $lang['pages.edit_label'] 						= 'تعديل';
-$lang['pages.duplicate_label']					= 'Duplicate'; #translate
+$lang['pages.duplicate_label']					= 'مُكرّر';
 $lang['pages.delete_label'] 					= 'حذف';
 
 // titles
