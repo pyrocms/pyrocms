@@ -43,7 +43,7 @@ $lang['pages.current_label']				= 'Atual';
 $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
 $lang['pages.edit_label'] 					= 'Editar';
-$lang['pages.duplicate_label']				= 'Duplicate'; #translate
+$lang['pages.duplicate_label']				= 'Duplicar';
 $lang['pages.delete_label'] 				= 'Remover';
 
 // titles

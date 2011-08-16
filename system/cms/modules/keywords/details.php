@@ -9,19 +9,24 @@ class Module_Keywords extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Keywords',
+				'ar' => 'Keywords',
+				'pt' => 'Palavras-chave'
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
+				'ar' => 'Maintain a central list of keywords to label and organize your content.',
+				'pt' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'content'
+			'menu'     => 'content'
 		);
 	}
 
 	public function install()
 	{
 		$this->dbforge->drop_table('keywords');
+		$this->dbforge->drop_table('keywords_applied');
 
 		$keywords = "
 			CREATE TABLE " . $this->db->dbprefix('keywords') . " (
@@ -65,4 +70,5 @@ class Module_Keywords extends Module {
 		return TRUE;
 	}
 }
+
 /* End of file details.php */

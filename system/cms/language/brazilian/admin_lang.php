@@ -37,7 +37,7 @@ $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Conteúdo';
 $lang['cp_nav_utilities']				= 'Utilidades';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Palavras-chave';
 
 $lang['cp_must_login']	 				= 'Você deve estar conectado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
