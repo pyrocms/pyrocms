@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Addons_upload_permissions extends Migration {
+class Migration_Addons_upload_permissions extends CI_Migration {
 
 	function up()
 	{

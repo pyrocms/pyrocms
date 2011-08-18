@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_widget_fields extends Migration {
+class Migration_Add_widget_fields extends CI_Migration {
 
 	function up()
 	{

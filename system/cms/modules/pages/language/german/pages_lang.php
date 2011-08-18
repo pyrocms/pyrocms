@@ -35,8 +35,6 @@ $lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 $lang['pages.status_label']                = 'Status';
 $lang['pages.draft_label']                 = 'Entwurf';
 $lang['pages.live_label']                  = 'Live';
-$lang['pages.revisions_label']             = 'Änderungsübersicht';
-$lang['pages.compare_label']               = 'Vergleichen';
 $lang['pages.preview_label']               = 'Vorschau';
 $lang['pages.current_label']               = 'Aktuelle';
 
@@ -44,6 +42,7 @@ $lang['pages.current_label']               = 'Aktuelle';
 $lang['pages.view_label']                  = 'Ansicht';
 $lang['pages.create_label']                = 'Unterobjekt hinzufügen';//there is no german word for 'child' (in this context at least)
 $lang['pages.edit_label']                  = 'Bearbeiten';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label']                = 'Löschen';
 
 // titles

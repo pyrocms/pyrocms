@@ -43,6 +43,7 @@ $lang['pages.current_label']				= 'Atual';
 $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
 $lang['pages.edit_label'] 					= 'Editar';
+$lang['pages.duplicate_label']				= 'Duplicar';
 $lang['pages.delete_label'] 				= 'Remover';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 					= 'Editar página "%s"';
 $lang['pages.list_title'] 					= 'Listar páginas';
 $lang['pages.layouts_create_title'] 		= 'Adicionar página de layout';
 $lang['pages.layouts_list_title'] 			= 'Listar páginas de layout';
-$lang['pages.compare_revisions_title']		= 'Comparar revisões';
-$lang['pages.preview_revision_title']		= 'Visualizar revisão';
 
 // messages
 $lang['pages.no_pages'] 					= 'Nenhuma página encontrada.';
@@ -72,4 +71,3 @@ $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas 
 $lang['pages.rss_explanation']				= 'Ativando o Feed RSS para esta página dará acesso aos usuários a chance de se inscreverem a este Feed e receberem uma atualização imediata quando uma nova página filho for adicionada.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/brazilian/pages_lang.php */

@@ -36,4 +36,3 @@ $lang['variables.no_select_error']			= 'Necesitas seleccionar al menos una varia
 $lang['variables.already_exist_error']		= 'Ya existe una variable con el nombre "%s".';
 
 /* End of file variables_lang.php */
-/* Location: ./system/cms/modules/variables/language/spanish/variables_lang.php */

@@ -43,6 +43,7 @@ $lang['pages.current_label']					= 'Huidig';
 $lang['pages.view_label']						= 'Bekijk';
 $lang['pages.create_label'] 					= 'Voeg kind toe';
 $lang['pages.edit_label']						= 'Wijzig';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= 'Verwijder';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 						= 'Wijzig pagina "%s"';
 $lang['pages.list_title'] 						= 'Toon alle pagina&apos;s';
 $lang['pages.layouts_create_title'] 			= 'Voeg een paginalayout toe';
 $lang['pages.layouts_list_title'] 				= 'Toon alle paginalayouts';
-$lang['pages.compare_revisions_title']			= 'Vergelijk Revisies';
-$lang['pages.preview_revision_title']			= 'Preview Revisie';
 
 // messages
 $lang['pages.no_pages'] 						= 'Er zijn geen pagina&apos;s';

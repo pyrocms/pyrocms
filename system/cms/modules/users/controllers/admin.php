@@ -461,3 +461,5 @@ class Admin extends Admin_Controller {
 	}
 
 }
+
+/* End of file admin.php */

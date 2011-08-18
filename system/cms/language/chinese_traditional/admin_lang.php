@@ -37,14 +37,20 @@ $lang['cp_nav_design']					= '網站設計'; 			//'Design';
 $lang['cp_nav_content']					= '網站內容'; 			//'Content';
 $lang['cp_nav_utilities']               = '公用程式'; 		//'Utilities';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']	 				= '您必須登錄才能查看此頁面。'; 					//'You must be logged in to view this page.';
 $lang['cp_access_denied'] 				= '您沒有足夠的權限以查看此頁面'; 				//'You do not have sufficient permissions to view this page.';
 $lang['cp_delete_installer_message']	= '請將安裝程式目錄從伺服器上刪除。在線上保留這個目錄，等同於開放網站的控制權限給有心人士。'; //'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
 $lang['cp_upgrade_message']				= '您目前執行的版本是 %s，但是您資料庫的版本是 %s。請 <a href="%s" title="升級">點選這裡</a> 來升級資料庫。'; //'You are currently running version %s, but your database is version %s. Please <a href="%s" title="Upgrade">click here</a> to upgrade the database.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= '捷徑'; 			//'Shortcuts';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts'] 				= '捷徑'; 		//'Shortcuts';
+$lang['global:description'] 		    = '說明';
+$lang['global:actions']					= '操作';
+$lang['global:edit']					= '編輯';
+$lang['global:delete']					= '刪除';
+$lang['global:remove']					= '刪除';
 
 $lang['required_label'] 				= '必填'; 			//'Required';
 $lang['sb_recent_users'] 				= '最近用戶'; 		//'Recent users';

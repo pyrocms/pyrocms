@@ -4,10 +4,6 @@
 $lang['groups.title']					= 'Arquivos';
 $lang['groups.name']				    = 'Nome';
 $lang['groups.short_name']				= 'Nome curto';
-$lang['groups.description'] 		    = 'Descrição';
-$lang['groups.actions']					= 'Ações';
-$lang['groups.edit']					= 'Editar';
-$lang['groups.delete']					= 'Remover';
 
 // titles
 $lang['groups.index_title'] 			= 'Listar grupos';
@@ -25,4 +21,3 @@ $lang['groups.delete_error']            = 'Ocorreu um erro ao tentar remover est
 $lang['groups.already_exist_error']		= 'Um grupo com o nome "%s" já existe.';
 
 /* End of file groups_lang.php */
-/* Location: ./system/cms/modules/groups/language/brazilian/groups_lang.php */

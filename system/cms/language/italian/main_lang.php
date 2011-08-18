@@ -68,4 +68,3 @@ $lang['disable_label'] 					= 'Disabilita';
 $lang['upgrade_label'] 					= 'Aggiorna';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/italian/main_lang.php */

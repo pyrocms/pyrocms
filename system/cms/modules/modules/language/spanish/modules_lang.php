@@ -31,4 +31,3 @@ $lang['modules.confirm_delete']      = 'Estás seguro que quieres desinstalar es
 $lang['modules.confirm_upgrade']		= 'Estás seguro que quieres actualizar este módulo?';
 
 /* End of file modules_lang.php */
-/* Location: ./system/cms/modules/modules/language/spanish/modules_lang.php */

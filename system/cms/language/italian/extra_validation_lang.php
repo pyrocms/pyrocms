@@ -5,4 +5,3 @@ $lang['decimal']				= "Il campo %s può contenere solo numeri decimali.";
 $lang['csrf_bad_token']			= "Token CSRF non valido";
 
 /* End of file form_validation_lang.php */
-/* Location: ./system/language/italian/form_validation_lang.php */

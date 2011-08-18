@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Musíte nejprve vybrat šablony emailu.
 $lang['templates.already_exist_error']		= 'Šablona emailu jménem "%s" již existuje.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/czech/templates_lang.php */

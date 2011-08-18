@@ -50,6 +50,7 @@ $lang['pages.current_label']               = 'Nykyinen';
 $lang['pages.view_label']                  = 'Katso';
 $lang['pages.create_label']                = 'Lisää alakohta';
 $lang['pages.edit_label']                  = 'Muokkaa';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label']                = 'Poista';
 
 // titles
@@ -58,8 +59,6 @@ $lang['pages.edit_title']                  = 'Muokkaa sivua "%s"';
 $lang['pages.list_title']                  = 'Listaa sivut';
 $lang['pages.layouts_create_title']        = 'Lisää sivupohja';
 $lang['pages.layouts_list_title']          = 'Listaa sivupohjat';
-$lang['pages.compare_revisions_title']     = 'Vertaa versioita';
-$lang['pages.preview_revision_title']      = 'Esikatsele versio';
 
 // messages
 $lang['pages.no_pages']                    = 'Sivuja ei ole.';

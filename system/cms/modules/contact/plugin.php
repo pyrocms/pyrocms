@@ -7,7 +7,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
 class Plugin_Contact extends Plugin {

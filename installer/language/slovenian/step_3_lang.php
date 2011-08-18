@@ -21,4 +21,3 @@ $lang['step4']			= 'Korak 4';
 $lang['retry']			= 'Poizkusite znova';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/slovenian/step_3_lang.php */

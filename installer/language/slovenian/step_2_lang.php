@@ -47,4 +47,3 @@ $lang['retry']			=	'Poizkusite znova';
 $lang['step1_failure']	=	'Prosimo izpolnite zahtevane podatke za podatkovno bazo v obrazcu spodaj..';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/slovenian/step_2_lang.php */

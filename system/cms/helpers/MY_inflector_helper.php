@@ -76,4 +76,3 @@ if ( ! function_exists('keywords'))
 }
 
 /* End of file inflector_helper.php */
-/* Location: ./system/helpers/inflector_helper.php */

@@ -28,4 +28,3 @@ $lang['modules.confirm_uninstall']		= 'Todos os registros do banco de dados ser√
 $lang['modules.confirm_delete']			= 'Tem certeza de que deseja desinstalar este m√≥dulo?';
 
 /* End of file modules_lang.php */
-/* Location: ./system/cms/modules/modules/language/brazilian/modules_lang.php */

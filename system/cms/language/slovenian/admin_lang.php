@@ -37,6 +37,8 @@ $lang['cp_nav_design']					= 'Izgled';
 $lang['cp_nav_content']					= 'Vsebina';
 $lang['cp_nav_utilities']				= 'Pripomočki';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']	 				= 'Morate biti prijavljeni za ogled te strani.';
 $lang['cp_access_denied'] 				= 'Nimate dovolj dovoljenj za ogled te strani';
 $lang['cp_delete_installer_message']	= 'Prosimo izbrišite installer mapo. Če jo pustite lahko nekdo drug prevzame nadzor nad to vašo spletno stranjo.';
@@ -52,4 +54,3 @@ $lang['required_label'] 				= 'Zahtevano';
 $lang['sb_recent_users'] 				= 'Zadnji uporabniki';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/slovenian/admin_lang.php */

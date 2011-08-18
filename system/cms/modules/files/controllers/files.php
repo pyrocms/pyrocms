@@ -181,4 +181,3 @@ class Files extends Public_Controller
 }
 
 /* End of file files.php */
-/* Location: ./system/pyrocms/modules/files/controllers/files.php */

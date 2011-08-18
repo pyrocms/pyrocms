@@ -37,6 +37,8 @@ $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Conteúdo';
 $lang['cp_nav_utilities']				= 'Utilidades';
 
+$lang['global:keywords']				= 'Palavras-chave';
+
 $lang['cp_must_login']	 				= 'Você deve estar conectado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
 $lang['cp_delete_installer_message']	= 'Por favor, remova o diretório de instalação de seu servidor. Deixa-lo online significa permitir o controle do seu site para qualquer outra pessoa.';
@@ -45,11 +47,14 @@ $lang['cp_google_analytics_missing']	= 'Faltam as configuração para o Google A
 $lang['cp_google_analytics_no_connect']	= 'Não foi possível se conectar ao Google Analytics. Verifique suas %s.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Atalhos';
-$lang['cp_remove']						= 'Remover';
+$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:description'] 		    = 'Descrição';
+$lang['global:actions']					= 'Ações';
+$lang['global:edit']					= 'Editar';
+$lang['global:delete']					= 'Remover';
+$lang['global:remove']					= 'Remover';
 
 $lang['required_label'] 				= 'Obrigatório';
 $lang['sb_recent_users'] 				= 'Usuários recentes';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/brazilian/admin_lang.php */

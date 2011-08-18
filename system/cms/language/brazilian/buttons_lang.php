@@ -38,4 +38,3 @@ $lang['buttons.re-index']	= 'Reindexar';
 $lang['buttons.copy']		= 'Copiar';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/brazilian/buttons_lang.php */

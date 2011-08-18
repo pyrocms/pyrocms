@@ -68,4 +68,3 @@ $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/english/main_lang.php */

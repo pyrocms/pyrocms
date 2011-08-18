@@ -68,4 +68,3 @@ $lang['disable_label'] 					= 'Pois päältä';
 $lang['upgrade_label'] 					= 'Päivitä';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/finnish/main_lang.php */

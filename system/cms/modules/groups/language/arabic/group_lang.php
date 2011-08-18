@@ -4,10 +4,6 @@
 $lang['groups.title']					= 'اللقب';
 $lang['groups.name']				    = 'الإسم';
 $lang['groups.short_name']				= 'الإسم المختصر';
-$lang['groups.description'] 		    = 'الوصف';
-$lang['groups.actions']					= 'الإجراءات';
-$lang['groups.edit']					= 'تعديل';
-$lang['groups.delete']					= 'حذف';
 
 // titles
 $lang['groups.index_title'] 			= 'سرد المجموعات';

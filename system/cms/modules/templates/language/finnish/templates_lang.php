@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Sinun tulee ensin valita sähköpostivi
 $lang['templates.already_exist_error']		= 'Sähköpostiviesti malli nimeltä "%s" on jo olemassa.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/finnish/templates_lang.php */

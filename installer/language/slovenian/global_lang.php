@@ -11,4 +11,3 @@ $lang['installer.passwords_match']		= "Gesli se ujemata.";
 $lang['installer.passwords_dont_match']	= "Gesli se ne ujemata";
 
 /* End of file global_lang.php */
-/* Location: ./installer/language/slovenian/global_lang.php */

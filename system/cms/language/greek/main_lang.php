@@ -68,4 +68,3 @@ $lang['disable_label'] 					= 'Απενεργοποίηση';
 $lang['upgrade_label'] 					= 'Ενημέρωση';
 
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/greek/main_lang.php */

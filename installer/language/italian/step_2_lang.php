@@ -47,4 +47,3 @@ $lang['retry']			=	'Riprova';
 $lang['step1_failure']	        =	'Inserisci le impostazioni del database richieste nel modulo sottostante.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/italian/step_2_lang.php */

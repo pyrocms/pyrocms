@@ -3,11 +3,7 @@
 // labels
 $lang['groups.title']					= 'Τίτλος';
 $lang['groups.name']				    = 'Όνομα';
-$lang['groups.short_name']				= 'Συντομο όνομα'; 
-$lang['groups.description'] 		    = 'Περιγραφή';
-$lang['groups.actions']					= 'Ενέργειες';
-$lang['groups.edit']					= 'Επεξεργασία';
-$lang['groups.delete']					= 'Διαγραφή';
+$lang['groups.short_name']				= 'Συντομο όνομα';
 
 // titles
 $lang['groups.index_title']             = 'Λίστα Ομάδων';

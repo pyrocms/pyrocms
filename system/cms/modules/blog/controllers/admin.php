@@ -37,6 +37,11 @@ class Admin extends Admin_Controller {
 			'rules' => 'trim|numeric'
 		),
 		array(
+			'field' => 'keywords',
+			'label' => 'lang:global:keywords',
+			'rules' => 'trim'
+		),
+		array(
 			'field' => 'intro',
 			'label' => 'lang:blog_intro_label',
 			'rules' => 'trim|required'
@@ -66,10 +71,10 @@ class Admin extends Admin_Controller {
 			'label' => 'lang:blog_created_minute',
 			'rules' => 'trim|numeric|required'
 		),
-                array(
-				'field' => 'comments_enabled',
-				'label'	=> 'lang:blog_comments_enabled_label',
-				'rules'	=> 'trim|numeric'
+        array(
+			'field' => 'comments_enabled',
+			'label'	=> 'lang:blog_comments_enabled_label',
+			'rules'	=> 'trim|numeric'
 		)
 	);
 
@@ -80,12 +85,14 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 
 		$this->load->model('blog_m');
 		$this->load->model('blog_categories_m');
 		$this->lang->load('blog');
 		$this->lang->load('categories');
+		
+		$this->load->library(array('keywords/keywords', 'form_validation'));
 
 		// Date ranges for select boxes
 		$this->data->hours = array_combine($hours = range(0, 23), $hours);
@@ -138,12 +145,12 @@ class Admin extends Admin_Controller {
 		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
 
 		$this->template
-				->title($this->module_details['name'])
-				->set_partial('filters', 'admin/partials/filters')
-				->append_metadata(js('admin/filter.js'))
-				->set('pagination', $pagination)
-				->set('blog', $blog)
-				->build('admin/index', $this->data);
+			->title($this->module_details['name'])
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata(js('admin/filter.js'))
+			->set('pagination', $pagination)
+			->set('blog', $blog)
+			->build('admin/index', $this->data);
 	}
 
 	/**
@@ -153,8 +160,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function create()
 	{
-		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules($this->validation_rules);
 
 		if ($this->input->post('created_on'))
@@ -179,6 +184,7 @@ class Admin extends Admin_Controller {
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
+				'keywords'			=> Keywords::process($this->input->post('keywords')),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
@@ -211,15 +217,16 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-				->title($this->module_details['name'], lang('blog_create_title'))
-				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
-				->append_metadata(js('blog_form.js', 'blog'))
-				->set('post', $post)
-				->build('admin/form');
+			->title($this->module_details['name'], lang('blog_create_title'))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('blog_form.js', 'blog'))
+			->set('post', $post)
+			->build('admin/form');
 	}
 
 	/**
 	 * Edit blog post
+	 *
 	 * @access public
 	 * @param int $id the ID of the blog post to edit
 	 * @return void
@@ -228,12 +235,11 @@ class Admin extends Admin_Controller {
 	{
 		$id OR redirect('admin/blog');
 
-		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules($this->validation_rules);
 
 		$post = $this->blog_m->get($id);
 		$post->author = $this->ion_auth->get_user($post->author_id);
+		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
 		if ($this->input->post('created_on'))
@@ -262,6 +268,7 @@ class Admin extends Admin_Controller {
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
+				'keywords'			=> Keywords::process($this->input->post('keywords')),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),

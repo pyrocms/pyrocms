@@ -37,6 +37,8 @@ $lang['cp_nav_design']					= 'Dizainas';
 $lang['cp_nav_content']					= 'Turinys';
 $lang['cp_nav_utilities']				= 'Šiukšlinė';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';
 $lang['cp_access_denied'] 				= 'Jūs neturite leidimo peržiūrėti šį puslapį.';
 $lang['cp_delete_installer_message']	= 'Ištrinkite instaliavimo direktoriją, nes taip paliekate spragą jungtis kietiems.';
@@ -45,11 +47,14 @@ $lang['cp_google_analytics_missing']	= 'Google Analytics nustatimai nerandami. �
 $lang['cp_google_analytics_no_connect']	= 'Negali prisijungti prie Google Analytics. Patikrink %s.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Nuoroda';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts']	 			= 'Nuoroda';
+$lang['global:description'] 		    = 'Aprašymas';
+$lang['global:actions']					= 'Veiksmai';
+$lang['global:edit']					= 'Redaguoti';
+$lang['global:delete']					= 'Ištrinti';
+$lang['global:remove']					= 'Ištrinti';
 
 $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/english/admin_lang.php */

@@ -5,4 +5,3 @@ $lang['decimal']				= "%s laukelyje galima naudoti tik  dešimtainiai skaičiai.
 $lang['csrf_bad_token']			= "Negaliojantis CSRF Token";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/english/extra_validation_lang.php */

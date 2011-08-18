@@ -47,4 +47,3 @@ $lang['retry']			=	'Bandyti dar kartą';
 $lang['step1_failure']	=	'Prašome įrašyti reikiamus duomenų bazes duomenys..';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/english/step_2_lang.php */

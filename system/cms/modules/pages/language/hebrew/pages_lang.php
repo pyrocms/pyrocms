@@ -11,8 +11,8 @@ $lang['pages.detail_label']                = 'פרטים';
 
 // labels
 $lang['pages.page_label']                  = 'דף';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']				= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']					= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'שפה';
 $lang['pages.updated_label']               = 'עודכן';
 $lang['pages.actions_label']               = 'פעולות';
@@ -35,14 +35,13 @@ $lang['pages.is_home_label']      = 'האם (דף הבית) דף ברירת המ
 $lang['pages.status_label']                = 'סטטוס';
 $lang['pages.draft_label']                 = 'טיוטה';
 $lang['pages.live_label']                  = 'מופיע';
-$lang['pages.revisions_label']             = 'תיקונים';
-$lang['pages.compare_label']               = 'להשוות';
 $lang['pages.preview_label']               = 'תצוגה מוקדמת';
 $lang['pages.current_label']               = 'הנוכחי';
 
 $lang['pages.view_label']                  = 'הצג';
 $lang['pages.create_label']                = 'הוסף בן';
 $lang['pages.edit_label']                  = 'ערוך';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 $lang['pages.delete_label']                = 'מחק';
 
 // titles
@@ -51,8 +50,6 @@ $lang['pages.edit_title']                  = 'ערוך דף "%s"';
 $lang['pages.list_title']                  = 'רשימת הדפים';
 $lang['pages.layouts_create_title']        = 'הוסף page layout';
 $lang['pages.layouts_list_title']          = 'רשימת page layouts';
-$lang['pages.compare_revisions_title']     = 'השווה תיקונים';
-$lang['pages.preview_revision_title']      = 'הצג תיקון';
 
 // messages
 $lang['pages.no_pages']                    = 'אין עמודים.';

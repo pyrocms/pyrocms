@@ -77,7 +77,7 @@ if ( ! function_exists('do_hash'))
 	{
 		if ($type == 'sha1')
 		{
-				return sha1($str);
+			return sha1($str);
 		}
 		else
 		{

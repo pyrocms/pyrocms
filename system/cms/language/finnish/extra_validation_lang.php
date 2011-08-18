@@ -5,4 +5,3 @@ $lang['decimal']				= "%s kenttä tulee olla desimaalinen luku.";
 $lang['csrf_bad_token']			= "CSRF tunniste ei kelpaa";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/finnish/extra_validation_lang.php */

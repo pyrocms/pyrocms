@@ -22,4 +22,3 @@ $lang['db_success']		=	'Οι παραμέτροι της βάσης δεδομέ
 $lang['db_failure']		=	'Πρόβλημα κατά την σύνδεση με την βάση δεδομένων: ';
 
 /* End of file step_1_lang.php */
-/* Location: ./installer/language/greek/step_1_lang.php */

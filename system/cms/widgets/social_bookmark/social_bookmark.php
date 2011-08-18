@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @package 		MizuCMS
- * @subpackage 		RSS Feed Widget
- * @author			Phil Sturgeon - MizuCMS Development Team
+ * @package 		PyroCMS
+ * @subpackage 		Widgets
+ * @author			PyroCMS Development Team
  * 
  * Show RSS feeds in your site
  */

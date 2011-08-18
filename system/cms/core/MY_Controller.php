@@ -15,23 +15,13 @@ class MY_Controller extends CI_Controller {
 
 		$this->benchmark->mark('my_controller_start');
 
-		// TODO: Remove all this migration check in the next major version after 1.3.0
-		// This extra check needs to be done to make the "multisite" changes run before the rest
-		// of the controller attempts to run
-		if ($this->db->table_exists('schema_version'))
+		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
+		if ($this->db->table_exists(SITE_REF.'_schema_version'))
 		{
-			$this->load->library('migrations');
-			$this->migrations->latest();
-
-			if ($this->migrations->error)
-			{
-				show_error($this->migrations->error);
-			}
-
-			redirect(current_url());
+			$this->load->dbforge();
+			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
 		}
-		// End migration check
-
+		
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
@@ -40,30 +30,25 @@ class MY_Controller extends CI_Controller {
 
 		// By changing the prefix we are essentially "namespacing" each pyro site
 		$this->db->set_dbprefix(SITE_REF.'_');
+		
+		// Load the cache library now that we know the siteref
 		$this->load->library('pyrocache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
 
 		// Migration logic helps to make sure PyroCMS is running the latest changes
-
-		$this->load->library('migrations');
-		// $this->migrations->verbose = true;
-		$schema_version = $this->migrations->latest();
-
-		if ($this->migrations->error)
+		$this->load->library('migration');
+		
+		if ( ! ($schema_version = $this->migration->current()))
 		{
-			show_error($this->migrations->error);
+			show_error($this->migration->error_string());
 		}
 
 		// Result of schema version migration
-		if (is_numeric($schema_version))
+		else if (is_numeric($schema_version))
 		{
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
-		}
-		elseif ($schema_version === FALSE)
-		{
-			log_message('error', $this->migrations->error);
 		}
 
 		// With that done, load settings

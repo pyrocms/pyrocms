@@ -195,4 +195,3 @@ class MY_Parser extends CI_Parser {
 // END MY_Parser Class
 
 /* End of file MY_Parser.php */
-/* Location: ./application/libraries/MY_Parser.php */

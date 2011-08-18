@@ -37,6 +37,8 @@ $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Content';
 $lang['cp_nav_utilities']				= 'Utilities';
 
+$lang['global:keywords']				= 'Keywords';
+
 $lang['cp_must_login']	 				= 'You must be logged in to view this page.';
 $lang['cp_access_denied'] 				= 'You do not have sufficient permissions to view this page.';
 $lang['cp_delete_installer_message']	= 'Please delete the installer directory from your server. Leaving it online means control of this site could be granted to somebody else.';
@@ -45,11 +47,14 @@ $lang['cp_google_analytics_missing']	= 'Google Analytics settings are missing. A
 $lang['cp_google_analytics_no_connect']	= 'Could not connect to Google Analytics. Check in %s.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Shortcuts';
-$lang['cp_remove']						= 'Remove';
+$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:description']				= 'Description';
+$lang['global:actions']					= 'Actions';
+$lang['global:edit']					= 'Edit';
+$lang['global:delete']					= 'Delete';
+$lang['global:remove']					= 'Remove';
 
 $lang['required_label'] 				= 'Required';
 $lang['sb_recent_users'] 				= 'Recent users';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/english/admin_lang.php */

@@ -6,11 +6,10 @@ class Blog extends Public_Controller
 
 	public function __construct()
 	{
-		parent::Public_Controller();
+		parent::__construct();
 		$this->load->model('blog_m');
 		$this->load->model('blog_categories_m');
 		$this->load->model('comments/comments_m');
-		$this->load->helper('text');
 		$this->lang->load('blog');
 	}
 

@@ -7,4 +7,3 @@ $lang['step1'] 		= 'Žingsnis 1';
 $lang['link']		= 'Pereiti prie pirmo žingsnio';
 
 /* End of file index_lang.php */
-/* Location: ./installer/language/english/index_lang.php */

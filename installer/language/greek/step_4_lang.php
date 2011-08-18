@@ -28,4 +28,3 @@ $lang['error_106']		=	'Το αρχείο των ρυθμίσεων δεν ήτα
 $lang['success']		=	'Το PyroCMS εγκαταστάθηκε με επιτυχία.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/greek/step_4_lang.php */

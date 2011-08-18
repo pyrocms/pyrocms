@@ -44,13 +44,17 @@
 
 	<!-- Options tab -->
 	<div id="blog-options-tab">
-		<ol>
+		<ul>
 			<li>
 				<label for="category_id"><?php echo lang('blog_category_label'); ?></label>
 				<?php echo form_dropdown('category_id', array(lang('blog_no_category_select_label')) + $categories, @$post->category_id) ?>
 					[ <?php echo anchor('admin/blog/categories/create', lang('blog_new_category_label'), 'target="_blank"'); ?> ]
 			</li>
-			<li class="even date-meta">
+			<li class="even">
+				<label for="keywords"><?php echo lang('global:keywords'); ?></label>
+				<?php echo form_input('keywords', $post->keywords) ?>
+			</li>
+			<li class="date-meta">
 				<label><?php echo lang('blog_date_label'); ?></label>
 				<div style="float:left;">
 					<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"'); ?>
@@ -59,11 +63,11 @@
 				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?>
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 			</li>
-			<li>
+			<li class="even">
 				<label for="comments_enabled"><?php echo lang('blog_comments_enabled_label');?></label>
-				<?php echo form_checkbox('comments_enabled', 1, $post->comments_enabled == 1); ?>
+				<?php echo form_checkbox('comments_enabled', 1, ($this->method == 'create' && ! $_POST) or $post->comments_enabled == 1); ?>
 			</li>
-		</ol>
+		</ul>
 	</div>
 
 </div>
