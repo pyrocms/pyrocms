@@ -2,8 +2,6 @@
 
 class Blog extends Public_Controller
 {
-	public $limit = 5; // TODO: PS - Make me a settings option
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -39,7 +37,7 @@ class Blog extends Public_Controller
 
 		// Count total blog posts and work out how many pages exist
 		$pagination = create_pagination('blog/category/'.$slug, $this->blog_m->count_by(array(
-			'category'=>$slug,
+			'category'=> $slug,
 			'status' => 'live'
 		)), NULL, 4);
 
