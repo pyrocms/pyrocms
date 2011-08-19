@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
- * @subpackage 	Pages Module
- * @category 	Modules
+ * @subpackage 	Modules
+ * @category 	Pages
  */
 class Pages extends Public_Controller
 {

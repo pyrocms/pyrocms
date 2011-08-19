@@ -92,14 +92,14 @@ class Keywords {
 	 * @param	string	$group	Arbitrary string to "namespace" unique requests
 	 * @param	string	$keywords	String containing unprocessed list of keywords
 	 * @param	string	$old_hash	If running an update, provide the old hash so we can remove it
-	 * @return	bool
+	 * @return	string
 	 */
 	public function process($keywords, $old_hash = null)
 	{	
 		// No keywords? Let's not bother then
 		if ( ! ($keywords = trim($keywords)))
 		{
-			return null;
+			return '';
 		}
 		
 		// Remove the old keyword assignments if we're updating
