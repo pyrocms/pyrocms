@@ -353,10 +353,11 @@ jQuery(function($){
 		upload_vars	= upload_form.data('fileUpload');
 
 	upload_form.fileUploadUI({
-		fieldName		: 'userfile',
-		uploadTable		: $('#files-uploader-queue'),
-		downloadTable	: $('#files-uploader-queue'),
-		previewSelector	: '.file_upload_preview div',
+		fieldName       : 'userfile',
+		uploadTable     : $('#files-uploader-queue'),
+		downloadTable   : $('#files-uploader-queue'),
+		previewSelector : '.file_upload_preview div',
+        cancelSelector  : '.file_upload_cancel button.cancel',
 		buildUploadRow	: function(files, index, handler){
 			return $('<li><div class="file_upload_preview ui-corner-all"><div class="ui-corner-all"></div></div>' +
 					'<div class="filename"><label for="file-name">' + files[index].name + '</label>' +
