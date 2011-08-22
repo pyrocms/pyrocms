@@ -40,6 +40,8 @@ $lang['cp_nav_design']					= 'עיצוב';
 $lang['cp_nav_content']					= 'קונטנט';
 $lang['cp_nav_utilities']				= 'כלי עזר';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
 $lang['cp_access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
 
@@ -55,11 +57,14 @@ $lang['cp_google_analytics_no_connect']= '
 אין אפשרות להתחבר לגוגל אנליטיקס. אנא בדוק ב%s';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'קיצורי דרך';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts']	 			= 'קיצורי דרך';
+$lang['global:description'] 		    = 'תיאור';
+$lang['global:actions']					= 'פעולות';
+$lang['global:edit']					= 'ערוך';
+$lang['global:delete']					= 'מחק';
+$lang['global:remove']					= 'מחק';
 
 $lang['required_label'] 				= 'דרוש';
 $lang['sb_recent_users'] 				= 'משתמשים חדשים';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/hebrew/admin_lang.php */

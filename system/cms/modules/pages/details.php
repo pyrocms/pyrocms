@@ -1,8 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
+/**
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Modules
+ * @category 	Pages
+ */
 class Module_Pages extends Module {
 
-	public $version = '1.2';
+	public $version = '1.3';
 
 	public function info()
 	{

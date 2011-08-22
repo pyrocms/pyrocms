@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Organize_settings extends Migration {
+class Migration_Organize_settings extends CI_Migration {
 
 	function up()
 	{

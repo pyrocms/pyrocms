@@ -354,4 +354,3 @@ class Curl {
 }
 
 /* End of file Curl.php */
-/* Location: ./application/libraries/Curl.php */

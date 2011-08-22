@@ -19,8 +19,8 @@ $lang['pages.detail_label']							= 'Детали';
 
 // подписи
 $lang['pages.page_label']								= 'Страница';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']						= 'Добавить кусок страницы';
+$lang['pages.page_chunk']								= 'Кусок страницы';
 $lang['pages.language_label']						= 'Язык';
 $lang['pages.updated_label']						= 'Обновлено';
 $lang['pages.actions_label']						= 'Действия';
@@ -43,13 +43,12 @@ $lang['pages.is_home_label']						= 'Это страница по-умолчан
 $lang['pages.status_label']							= 'Статус';
 $lang['pages.draft_label']							= 'Черновик';
 $lang['pages.live_label']								= 'Опубликовано';
-$lang['pages.revisions_label']					= 'Ревизии';
-$lang['pages.compare_label']						= 'Сравнить';
 $lang['pages.preview_label']						= 'Просмотр';
 $lang['pages.current_label']						= 'Текущая версия';
 
 $lang['pages.view_label']								= 'Просмотр';
 $lang['pages.create_label']							= 'Создать потомка';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.edit_label']								= 'Редактировать';
 $lang['pages.delete_label']							= 'Удалить';
 
@@ -59,8 +58,6 @@ $lang['pages.edit_title']								= 'Редактирование страниц�
 $lang['pages.list_title']								= 'Список страниц';
 $lang['pages.layouts_create_title']			= 'Создать макет';
 $lang['pages.layouts_list_title']				= 'Список макетов';
-$lang['pages.compare_revisions_title']	= 'Сравнение ревизий';
-$lang['pages.preview_revision_title']		= 'Просмотр ревизии';
 
 // сообщения
 $lang['pages.no_pages']									= 'Страницы отсутствуют';
@@ -80,4 +77,3 @@ $lang['pages.tree_explanation']					= 'Список слева содержит 
 $lang['pages.rss_explanation']					= 'При активировании RSS для этой страницы у пользователей появится возможность подписаться на все страницы-потомки, добавляемые к этой странице.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/russian/pages_lang.php */

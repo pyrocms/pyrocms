@@ -29,7 +29,7 @@ $lang['buttons.disable'] 	= 'Desativar';
 $lang['buttons.yes']		= 'Sim';
 $lang['buttons.no']			= 'Não';
 $lang['buttons.activate']	= 'Ativar';
-$lang['buttons.deactivate']	= 'Deactivate'; #translate
+$lang['buttons.deactivate']	= 'Desativar';
 $lang['buttons.preview']	= 'Visualizar';
 $lang['buttons.close']		= 'Fechar';
 $lang['buttons.edit']		= 'Editar';
@@ -38,4 +38,3 @@ $lang['buttons.re-index']	= 'Reindexar';
 $lang['buttons.copy']		= 'Copiar';
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/brazilian/buttons_lang.php */

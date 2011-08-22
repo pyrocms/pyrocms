@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 					= 'تفاصيل';
 
 // labels
 $lang['pages.page_label'] 						= 'الصفحة';
-$lang['pages.add_page_chunk']					= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']						= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']					= 'أضف قُصاصة صفحة';
+$lang['pages.page_chunk']						= 'قُصاصة صفحة';
 $lang['pages.language_label'] 					= 'اللغة';
 $lang['pages.updated_label'] 					= 'آخر تحديث';
 $lang['pages.actions_label'] 					= 'إجراءات';
@@ -43,6 +43,7 @@ $lang['pages.current_label']                                    = 'الحالي�
 $lang['pages.view_label'] 						= 'عرض';
 $lang['pages.create_label'] 					= 'إضافة صفحة فرعيّة';
 $lang['pages.edit_label'] 						= 'تعديل';
+$lang['pages.duplicate_label']					= 'مُكرّر';
 $lang['pages.delete_label'] 					= 'حذف';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 						= 'تعديل الصفحة "%s"';
 $lang['pages.list_title'] 						= 'سرد الصفحات';
 $lang['pages.layouts_create_title'] 			= 'إضافة تخطيط صفحة';
 $lang['pages.layouts_list_title'] 				= 'سرد تخطيطات الصفحات';
-$lang['pages.compare_revisions_title']                          = 'مقارنة التعديلات';
-$lang['pages.preview_revision_title']                           = 'معاينة التعديلات';
 
 // messages
 $lang['pages.no_pages'] 						= 'لا يوجد صفحات.';

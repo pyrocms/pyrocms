@@ -4,10 +4,6 @@
 $lang['groups.title']					= 'Dateien';
 $lang['groups.name']                    = 'Name';
 $lang['groups.short_name']				= 'Short Name'; #translate
-$lang['groups.description']             = 'Beschreibung';
-$lang['groups.actions']                 = 'Aktionen';
-$lang['groups.edit']                    = 'Bearbeiten';
-$lang['groups.delete']                  = 'Löschen';
 
 // titles
 $lang['groups.index_title']             = 'Gruppen auflisten';

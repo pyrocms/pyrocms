@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['modules.core_list']				= 'Módulos embutidos';
-$lang['modules.addon_list']				= 'Módulos adicionais';
+$lang['modules.core_list']				= 'Módulos nativos';
+$lang['modules.addon_list']				= 'Módulos de terceiros';
 $lang['modules.introduction']			= 'Abaixo está a lista de módulos instalados e suas informações, incluindo a descrição e versão.';
 $lang['modules.disable_error']			= 'Não foi possível desabilitar o módulo "%s".';
 $lang['modules.disable_success']		= 'O módulo "%s" foi desativo.';
@@ -24,8 +24,7 @@ $lang['modules.upload_desc']			= 'Por favor selecione o arquivo e clique no bot�
 $lang['modules.confirm_enable']         = 'Tem certeza de que deseja ativar este módulo?';
 $lang['modules.confirm_disable']        = 'Tem certeza de que deseja desativar este módulo?';
 $lang['modules.confirm_install']        = 'Tem certeza de que deseja instalar este módulo?';
-$lang['modules.confirm_uninstall']		 = 'All database records will be removed! Are you sure you want to uninstall this module?'; #tranlate
-$lang['modules.confirm_delete']      = 'Tem certeza de que deseja desinstalar este módulo?';
+$lang['modules.confirm_uninstall']		= 'Todos os registros do banco de dados serão removidos! Tem certeza de que deseja desinstalar este módulo?';
+$lang['modules.confirm_delete']			= 'Tem certeza de que deseja desinstalar este módulo?';
 
 /* End of file modules_lang.php */
-/* Location: ./system/cms/modules/modules/language/brazilian/modules_lang.php */

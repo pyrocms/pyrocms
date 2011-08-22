@@ -9,8 +9,8 @@ $lang['db_create']		=	'Ustvari MYSQL DB';
 $lang['db_notice']		=	'<small>Lahko da jo boste morali vseeno ustvariti sami.</small>';
 $lang['default_user']	=	'Ustvarimo prvega uporabnik (admin)';
 $lang['database']		=	'Podatkovna baza';
-$lang['site_settings']		= 	'Site Settings'; #translate
-$lang['site_ref']		=	'Site Ref'; #translate
+$lang['site_settings']		= 	'Nastavitve strani'; 
+$lang['site_ref']		=	'Ref strani';
 $lang['user_name']		= 	'Uporabniško ime';
 $lang['first_name']		= 	'Ime';
 $lang['last_name']		=	'Priimek';
@@ -28,4 +28,3 @@ $lang['error_106']		=	'Config datoteka ni zapisljiva, ali ste prepričani da ste
 $lang['success']		=	'PyroCMS je bil uspešno nameščen.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/slovenian/step_4_lang.php */

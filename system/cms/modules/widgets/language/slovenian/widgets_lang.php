@@ -10,10 +10,10 @@ $lang['widgets.widget']                 = 'Vtičnik';
 $lang['widgets.widget_author']          = 'Avtor';
 $lang['widgets.widget_short_name']      = 'Kratko ime';
 $lang['widgets.widget_version']         = 'Verzija';
-$lang['widgets.status_label']			= 'Status'; #translate
+$lang['widgets.status_label']			= 'Stanje';
 
-$lang['widgets.inactive_title'] 		= 'Widgets disabled'; #translate
-$lang['widgets.active_title'] 			= 'Widgets enabled'; #translate
+$lang['widgets.inactive_title'] 		= 'Vtičnik onemogočen';
+$lang['widgets.active_title'] 			= 'Vtičnik omogočen';
 
 // Widget area titles
 $lang['widgets.add_area']               = 'Dodaj področje za vtičnike';

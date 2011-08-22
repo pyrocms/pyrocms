@@ -182,7 +182,7 @@ Content
 **********/
 
 #content {
-	margin-top: 15px;
+	margin: 15px auto;
 }
 
 /**********
@@ -443,3 +443,7 @@ em.fail {
 	text-shadow: 0px 1px 0px #992313;
 	background-color: #b02816;
 }
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }

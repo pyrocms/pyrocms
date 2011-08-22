@@ -91,15 +91,16 @@ class Comments extends Public_Controller {
 		{
 			// ALLOW ZEH COMMENTS!? >:D
 			$result = $this->_allow_comment();
+			
+			foreach ($comment as &$data)
+			{
+				// remove {pyro} tags and html
+				$data = escape_tags($data);
+			}
 
 			// Run Akismet or the crazy CSS bot checker
 			if ($result['status'] == FALSE)
 			{
-				foreach ($comment as &$data)
-				{
-					$data = escape_tags($data);
-				}
-
 				$this->session->set_flashdata('comment', $comment);
 				$this->session->set_flashdata('error', $result['message']);
 			}

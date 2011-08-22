@@ -36,13 +36,14 @@ $lang['pages.status_label'] 					= '狀態';
 $lang['pages.draft_label'] 						= '草稿';
 $lang['pages.live_label'] 						= '上線';
 $lang['pages.revisions_label']					= '版本'; #translate
-$lang['pages.compare_label']                                    = 'Compare'; #translate
-$lang['pages.preview_label']                                    = 'Preview'; #translate
-$lang['pages.current_label']                                    = 'Current'; #translate
+$lang['pages.compare_label']                    = 'Compare'; #translate
+$lang['pages.preview_label']                    = 'Preview'; #translate
+$lang['pages.current_label']                    = 'Current'; #translate
 
 $lang['pages.view_label'] 						= '查看';
 $lang['pages.create_label'] 					= '新增子頁面';
 $lang['pages.edit_label'] 						= '編輯';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= '刪除';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 						= '編輯頁面 "%s"';
 $lang['pages.list_title'] 						= '頁面列表';
 $lang['pages.layouts_create_title'] 			= '新增頁面佈局';
 $lang['pages.layouts_list_title'] 				= '頁面佈局列表';
-$lang['pages.compare_revisions_title']                          = 'Compare Revisions'; #translate
-$lang['pages.preview_revision_title']                           = 'Preview Revision'; #translate
 
 // messages
 $lang['pages.no_pages'] 						= '沒有頁面';

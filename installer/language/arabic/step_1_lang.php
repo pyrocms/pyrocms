@@ -13,7 +13,8 @@ $lang['password']		=	'كلمة السرّ';
 $lang['portnr']			=	'المنفذ';
 $lang['server_settings']=	'إعدادات الخادم';
 $lang['httpserver']		=	'خادم HTTP';
-$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
+$lang['rewrite_fail']	=	'اخترت "(Apache with mod_rewrite)" إلا أننا لم نتمكن من تحديد ما إذا كانت وحدة mod_rewrite مُفعلة على هذا الخادم. رجاءً اسأل مضيف الخادم إن كانت هذه الوحدة مفعّلة أم لا أو قم بتفعيلها على مسؤوليتك.';
+$lang['mod_rewrite']	=	'اخترت "(Apache with mod_rewrite)" إلا أن هذه الوحدة غير مفعّلة. رجاءً اطلب من مضيف الخادم تفعيلها أو قم بتثبيت PyroCMS باستخدام خيار "Apache (without mod_rewrite)".';
 $lang['step2']			=	'الخطوة الثانية';
 
 // messages

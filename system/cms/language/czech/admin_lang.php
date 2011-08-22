@@ -37,6 +37,8 @@ $lang['cp_nav_design']					= 'Vzhled';
 $lang['cp_nav_content']					= 'Obsah';
 $lang['cp_nav_utilities']				= 'Nástroje';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']					= 'Pro prohlížení této stránky musíte být přihlášen/a.';
 $lang['cp_access_denied']				= 'nemáte oprávnění k prohlížení této stránky.';
 $lang['cp_delete_installer_message']	= 'Prosím vymažte instalační složku ze serveru. Její přítomnost může být zneužita k získání kontroly nad vaším webem někým cizím.';
@@ -45,8 +47,12 @@ $lang['cp_google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapi
 $lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title']				= 'Rychlé odkazy';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts']				= 'Rychlé odkazy';
+$lang['global:description'] 		    = 'Popis';
+$lang['global:actions']					= 'Akce';
+$lang['global:edit']					= 'Upravit';
+$lang['global:delete']					= 'Vymazat';
+$lang['global:remove']					= 'Vymazat';
 
 $lang['required_label']					= 'Povinné';
 $lang['sb_recent_users']				= 'Nedávní uživatelé';

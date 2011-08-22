@@ -21,4 +21,3 @@ $lang['step4']			= 'Step 4';
 $lang['retry']			= 'Try again';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/english/step_3_lang.php */

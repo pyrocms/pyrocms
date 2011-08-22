@@ -43,7 +43,7 @@ $lang['indicates_required'] 			= 'Indica campos obrigatórios';
 
 $lang['user_register_title'] 			= 'Cadastrar';
 $lang['user_activate_account_title'] 	= 'Ativar conta';
-$lang['user_activate_label'] 			= 'Ativar';
+$lang['user_activate_label'] 			= 'Ativação';
 $lang['user_activated_account_title'] 	= 'Contas ativadas';
 $lang['user_reset_password_title'] 		= 'Redefinir senha';
 $lang['user_password_reset_title'] 		= 'Redefinicão de senha';  
@@ -57,7 +57,7 @@ $lang['user_first_name'] 				= 'Primeiro nome';
 $lang['user_last_name'] 				= 'Último nome';
 $lang['user_username'] 					= 'Nome de usuário';
 $lang['user_display_name']				= 'Nome de exibição';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use']					= 'usado para entrar';
 $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Confirmar e-mail';
 $lang['user_password'] 					= 'Senha';
@@ -158,7 +158,7 @@ $lang['user_reset_pass_email_body'] 			= 'Sua senha em %s foi redefinida. Se voc
 $lang['profile_of_title'] 				= 'Perfil de %s';
 
 $lang['profile_user_details_label'] 	= 'Detalhes do usuário';
-$lang['profile_role_label'] 			= 'Função';
+$lang['profile_role_label'] 			= 'Grupo';
 $lang['profile_registred_on_label'] 	= 'Membro desde';
 $lang['profile_last_login_label'] 		= 'Última visita';
 $lang['profile_male_label'] 			= 'Masculino';
@@ -176,9 +176,9 @@ $lang['profile_dob_day']				= 'Dia';
 $lang['profile_dob_month']				= 'Mês';
 $lang['profile_dob_year']				= 'Ano';
 $lang['profile_gender']					= 'Sexo';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']				= 'Não informado';
+$lang['profile_gender_male']			= 'Masculino';
+$lang['profile_gender_female']			= 'Feminino';
 $lang['profile_bio']					= 'Sobre mim';
 
 $lang['profile_contact_section'] 		= 'Contato';
@@ -186,11 +186,11 @@ $lang['profile_contact_section'] 		= 'Contato';
 $lang['profile_phone']					= 'Telefone';
 $lang['profile_mobile']					= 'Celular';
 $lang['profile_address']				= 'Endereço';
-$lang['profile_address_line1'] 			= 'Linha #1';
-$lang['profile_address_line2'] 			= 'Linha #2';
-$lang['profile_address_line3'] 			= 'Linha #3';
+$lang['profile_address_line1'] 			= 'Bairro';
+$lang['profile_address_line2'] 			= 'Cidade';
+$lang['profile_address_line3'] 			= 'Estado';
 $lang['profile_address_postcode'] 		= 'CEP/Código Postal';
-$lang['profile_website']				= 'Website';
+$lang['profile_website']				= 'Site';
 
 $lang['profile_messenger_section'] 		= 'Mensageiros instantâneos';
 
@@ -213,4 +213,3 @@ $lang['profile_edit_error'] 			= 'Ocorreu um erro.';
 $lang['profile_save_btn'] 				= 'Salvar alterações no perfil';
 
 /* End of file users_lang.php */
-/* Location: ./system/cms/modules/users/language/brazilian/users_lang.php */

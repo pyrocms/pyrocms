@@ -15,33 +15,33 @@ class Installer_lib {
 	public $mysql_server_version;
 	public $mysql_client_version;
 	public $gd_version;
-	
+
 	function __construct()
 	{
 		$this->ci =& get_instance();
 	}
-	
+
 	// Functions used in Step 1
-	
+
 	/**
 	 * @return bool
 	 *
 	 * Function to see if the PHP version is acceptable (at least version 5)
 	 */
-	function php_acceptable()
+	function php_acceptable($version = NULL)
 	{
 		// Set the PHP version
 		$this->php_version = phpversion();
-		
-		// Is this version of PHP greater than 5.0?
-		return ( version_compare(PHP_VERSION, '5.0', '>') ) ? TRUE : FALSE;
+
+		// Is this version of PHP greater than minimum version required?
+		return ( version_compare(PHP_VERSION, $version, '>=') ) ? TRUE : FALSE;
 	}
-	
-	
+
+
 	/**
 	 * @param 	string $type The MySQL type, client or server
 	 * @return 	string The MySQL version of either the server or the client
-	 * 
+	 *
 	 * Function to retrieve the MySQL version (client/server)
 	 */
 	public function mysql_acceptable($type = 'server')
@@ -53,15 +53,15 @@ class Installer_lib {
 			$server 	= $this->ci->session->userdata('hostname') . ':' . $this->ci->session->userdata('port');
 			$username 	= $this->ci->session->userdata('username');
 			$password 	= $this->ci->session->userdata('password');
-			
+
 			// Connect to MySQL
 			if ( $db = @mysql_connect($server,$username,$password) )
 			{
 				$this->mysql_server_version = @mysql_get_server_info($db);
-				
+
 				// Close the connection
 				@mysql_close($db);
-				
+
 				// If the MySQL server version is at least version 5 return TRUE, else FALSE
 				return ($this->mysql_server_version >= 5) ? TRUE : FALSE;
 			}
@@ -71,20 +71,20 @@ class Installer_lib {
 				return FALSE;
 			}
 		}
-		
+
 		// Client version
 		else
 		{
 			// Get the version
 			$this->mysql_client_version = preg_replace('/[^0-9\.]/','', mysql_get_client_info());
-		
+
 			// If the MySQL client version is at least version 5 return TRUE, else FALSE
 			return ($this->mysql_client_version >= 5) ? TRUE : FALSE;
-		}	
+		}
 	}
-	
+
 	/**
-	 * @return string The GD library version. 
+	 * @return string The GD library version.
 	 *
 	 * Function to retrieve the GD library version
 	 */
@@ -93,20 +93,20 @@ class Installer_lib {
 		// Get if the gd_info() function exists
 		if (function_exists('gd_info'))
 		{
-			$gd_info = gd_info();			
+			$gd_info = gd_info();
 			$this->gd_version = preg_replace('/[^0-9\.]/','',$gd_info['GD Version']);
-			
+
 			// If the GD version is at least 1.0 return TRUE, else FALSE
 			return ($this->gd_version >= 1) ? TRUE : FALSE;
 		}
-		
+
 		// Homeboy is not rockin GD at all
 		else
 		{
 			return FALSE;
 		}
-	}	
-	
+	}
+
 	/**
 	 * @return bool
 	 *
@@ -116,7 +116,7 @@ class Installer_lib {
 	{
 		return extension_loaded('zlib');
 	}
-	
+
 	/**
 	 * @param 	string $data The data that contains server related information.
 	 * @return 	bool
@@ -130,19 +130,19 @@ class Installer_lib {
 		{
 			return FALSE;
 		}
-		
+
 		// Check MySQL server
 		if ( ! $this->mysql_acceptable('server') )
 		{
 			return FALSE;
 		}
-		
+
 		// Check MySQL client
 		if ( ! $this->mysql_acceptable('client') )
 		{
 			return FALSE;
 		}
-		
+
 		if ($data->http_server->supported === FALSE)
 		{
 			return FALSE;
@@ -158,13 +158,13 @@ class Installer_lib {
 		return TRUE;
 
 	}
-	
+
 	/**
 	 * @param	string $server_name The name of the HTTP server such as Abyss, Cherokee, Apache, etc
 	 * @return	array
 	 *
-	 * Function to validate whether the specified server is a supported server. The function returns an array with two keys: supported and non_apache. 
-	 * The supported key will be set to TRUE whenever the server is supported. The non_apache server will be set to TRUE whenever the user is using a server other than Apache. 
+	 * Function to validate whether the specified server is a supported server. The function returns an array with two keys: supported and non_apache.
+	 * The supported key will be set to TRUE whenever the server is supported. The non_apache server will be set to TRUE whenever the user is using a server other than Apache.
 	 * This enables the system to determine whether mod_rewrite should be used or not.
 	 */
 	public function verify_http_server($server_name)
@@ -174,16 +174,16 @@ class Installer_lib {
 		{
 			return 'partial';
 		}
-		
+
 		$supported_servers = $this->ci->config->item('supported_servers');
 
 		return array_key_exists($server_name, $supported_servers);
 	}
-	
+
 	/**
 	 * @return 	mixed
 	 *
-	 * Make sure we can connect to the database 
+	 * Make sure we can connect to the database
 	 */
 	public function test_db_connection()
 	{
@@ -194,7 +194,7 @@ class Installer_lib {
 
 		return @mysql_connect("$hostname:$port", $username, $password);
 	}
-	
+
 	/**
 	 * @param 	string $data The data from the form
 	 * @return 	array
@@ -208,13 +208,13 @@ class Installer_lib {
 		$username 	= $this->ci->session->userdata('username');
 		$password 	= $this->ci->session->userdata('password');
 		$database 	= $data['database'];
-		
+
 		// User settings
 		$user_salt		= substr(md5(uniqid(rand(), true)), 0, 5);
 		$data['user_password'] 	= sha1($data['user_password'] . $user_salt);
 
 		// Include migration config to know which migration to start from
-		include '../system/cms/config/migrations.php';
+		include '../system/cms/config/migration.php';
 
 		// Get the SQL for the default data and parse it
 		$user_sql = file_get_contents('./sql/default.sql');
@@ -227,20 +227,20 @@ class Installer_lib {
 		$user_sql = str_replace('{LAST-NAME}', mysql_escape_string($data['user_lastname']) , $user_sql);
 		$user_sql = str_replace('{SALT}', $user_salt, $user_sql);
 		$user_sql = str_replace('{NOW}', time(), $user_sql);
-		$user_sql = str_replace('{MIGRATION}', $config['migrations_version'], $user_sql);
-		
+		$user_sql = str_replace('{MIGRATION}', $config['migration_version'], $user_sql);
+
 		// Create a connection
 		if ( ! $this->db = mysql_connect($server, $username, $password) )
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
-		
-		// Do we want to create the database using the installer ? 
+
+		// Do we want to create the database using the installer ?
 		if ( ! empty($data['create_db'] ))
 		{
 			mysql_query('CREATE DATABASE IF NOT EXISTS '.$database, $this->db);
 		}
-		
+
 		// Select the database we created before
 		if ( !mysql_select_db($database, $this->db) )
 		{
@@ -250,7 +250,7 @@ class Installer_lib {
 				'code'		=> 101
 			);
 		}
-		
+
 		if ( ! $this->_process_schema($user_sql, FALSE) )
 		{
 			return array(
@@ -259,17 +259,17 @@ class Installer_lib {
 				'code'		=> 104
 			);
 		}
-		
+
 		mysql_query(sprintf(
 			"INSERT INTO core_sites (name, ref, domain, created_on) VALUES ('Default Site', '%s', '%s', '%s');",
 			$data['site_ref'],
 			preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']),
 			time()
 		));
-			
+
 		// If we got this far there can't have been any errors. close and bail!
 		mysql_close($this->db);
-		
+
 		// Write the database file
 		if ( ! $this->write_db_file($database) )
 		{
@@ -279,7 +279,7 @@ class Installer_lib {
 						'code'		=> 105
 					);
 		}
-		
+
 		// Write the config file.
 		if ( ! $this->write_config_file() )
 		{
@@ -304,25 +304,25 @@ class Installer_lib {
 		{
 			$schema 	= $schema_file;
 		}
-		
+
 		// Parse the queries
 		$queries 	= explode('-- command split --', $schema);
-		
+
 		foreach($queries as $query)
 		{
 			$query = rtrim( trim($query), "\n;");
-			
+
 			@mysql_query($query, $this->db);
-			
+
 			if (mysql_errno($this->db) > 0)
 			{
 				return FALSE;
 			}
 		}
-		
+
 		return TRUE;
 	}
-	
+
 	/**
 	 * @param 	string $database The name of the database
 	 *
@@ -335,10 +335,10 @@ class Installer_lib {
 		$username 	= $this->ci->session->userdata('username');
 		$password 	= $this->ci->session->userdata('password');
 		$port		= $this->ci->session->userdata('port');
-		
+
 		// Open the template file
 		$template 	= file_get_contents('./assets/config/database.php');
-		
+
 		$replace = array(
 			'__HOSTNAME__' 	=> $server,
 			'__USERNAME__' 	=> $username,
@@ -346,22 +346,22 @@ class Installer_lib {
 			'__DATABASE__' 	=> $database,
 			'__PORT__' 		=> $port ? $port : 3306
 		);
-		
+
 		// Replace the __ variables with the data specified by the user
 		$new_file  	= str_replace(array_keys($replace), $replace, $template);
-		
+
 		// Open the database.php file, show an error message in case this returns false
 		$handle 	= @fopen('../system/cms/config/database.php','w+');
-		
+
 		// Validate the handle results
 		if ($handle !== FALSE)
 		{
 			return @fwrite($handle, $new_file);
 		}
-		
+
 		return FALSE;
 	}
-	
+
 	/**
 	 * @return bool
 	 *
@@ -371,7 +371,7 @@ class Installer_lib {
 	{
 		// Open the template
 		$template = file_get_contents('./assets/config/config.php');
-		
+
 		$server_name = $this->ci->session->userdata('http_server');
 		$supported_servers = $this->ci->config->item('supported_servers');
 
@@ -380,24 +380,24 @@ class Installer_lib {
 		{
 			$index_page = '';
 		}
-		
+
 		else
 		{
 			$index_page = 'index.php';
 		}
-		
+
 		// Replace the __INDEX__ with index.php or an empty string
 		$new_file = str_replace('__INDEX__', $index_page, $template);
-		
+
 		// Open the database.php file, show an error message in case this returns false
 		$handle = @fopen('../system/cms/config/config.php','w+');
-		
+
 		// Validate the handle results
 		if ($handle !== FALSE)
 		{
 			return fwrite($handle, $new_file);
 		}
-		
+
 		return FALSE;
 	}
 
@@ -408,4 +408,3 @@ class Installer_lib {
 }
 
 /* End of file installer_lib.php */
-/* Location: ./installer/libraries/installer_lib.php */

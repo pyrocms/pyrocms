@@ -13,6 +13,7 @@ $lang['password']		=	'Geslo';
 $lang['portnr']			=	'Port';
 $lang['server_settings']=	'Podatki strežnika';
 $lang['httpserver']		=	'HTTP Strežnik';
+$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
 $lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
 $lang['step2']			=	'Korak 2';
 
@@ -21,4 +22,3 @@ $lang['db_success']		=	'Podatki za povezavo s podatkovo bazo so bili preverjeni 
 $lang['db_failure']		=	'Na podatkovno bazo se ni mogoče povezati: ';
 
 /* End of file step_1_lang.php */
-/* Location: ./installer/language/slovenian/step_1_lang.php */

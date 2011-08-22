@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -36,17 +36,18 @@ class CI_Driver_Library {
 	// subsequents calls will go straight to the proper child.
 	function __get($child)
 	{
-		if (! isset($this->lib_name))
+		if ( ! isset($this->lib_name))
 		{
 			$this->lib_name = get_class($this);
 		}
 
 		// The class will be prefixed with the parent lib
 		$child_class = $this->lib_name.'_'.$child;
-
+	
 		// Remove the CI_ prefix and lowercase
-		$lib_name = strtolower(preg_replace('/^CI_/', '', $this->lib_name));
-		$driver_name = strtolower(preg_replace('/^CI_/', '', $child_class));
+		$lib_name = ucfirst(strtolower(str_replace('CI_', '', $this->lib_name)));
+		$driver_name = strtolower(str_replace('CI_', '', $child_class));
+		
 		if (in_array($driver_name, array_map('strtolower', $this->valid_drivers)))
 		{
 			// check and see if the driver is in a separate file
@@ -55,10 +56,10 @@ class CI_Driver_Library {
 				// check application path first
 				foreach (array(APPPATH, BASEPATH) as $path)
 				{
-						// loves me some nesting!
+					// loves me some nesting!
 					foreach (array(ucfirst($driver_name), $driver_name) as $class)
 					{
-						$filepath = $path.'libraries/'.$lib_name.'/drivers/'.$class.EXT;
+						$filepath = $path.'libraries/'.$lib_name.'/drivers/'.$class.'.php';
 
 						if (file_exists($filepath))
 						{
@@ -142,7 +143,7 @@ class CI_Driver {
 				}
 			}
 
-			foreach($r->getProperties() as $prop)
+			foreach ($r->getProperties() as $prop)
 			{
 				if ($prop->isPublic())
 				{

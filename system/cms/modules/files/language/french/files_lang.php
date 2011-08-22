@@ -98,4 +98,3 @@ $lang['file_folders.mkdir_error']			= 'Le répertoires n\' pas pu être créé.'
 $lang['file_folders.chmod_error']			= 'Les permissions n\'ont pas pu être modifiées';
 
 /* End of file files_lang.php */
-/* Location: ./system/cms/modules/files/language/french/files_lang.php */

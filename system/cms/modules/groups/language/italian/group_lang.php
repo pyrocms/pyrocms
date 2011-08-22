@@ -5,11 +5,7 @@
 // labels
 $lang['groups.title']					= 'Title';
 $lang['groups.name']				    = 'Nome';
-$lang['groups.short_name']						= 'Short Name'; #translate
-$lang['groups.description'] 		    = 'Descrizione';
-$lang['groups.actions']					= 'Azioni';
-$lang['groups.edit']					= 'Modifica';
-$lang['groups.delete']					= 'Elimina';
+$lang['groups.short_name']				= 'Short Name'; #translate
 
 // titles
 $lang['groups.index_title'] 			= 'Elenco dei Gruppi';

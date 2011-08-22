@@ -37,6 +37,8 @@ $lang['cp_nav_design']					= 'Grafica';
 $lang['cp_nav_content']					= 'Contenuti';
 $lang['cp_nav_utilities']               = 'Accessori';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']	 				= 'Devi effettuare il login per vedere questa pagina.';
 $lang['cp_access_denied'] 				= 'Non hai privilegi sufficienti per vedere questa pagina.';
 $lang['cp_delete_installer_message']	= 'Cancella la cartella Installer dal tuo server per favore. Non cancellarla potrebbe consentire a qualcuno di prendere il controllo del tuo sito.';
@@ -45,11 +47,14 @@ $lang['cp_google_analytics_missing'] = 'Le impostazioni di Google Analytics sono
 $lang['cp_google_analytics_no_connect'] = 'Impossibile connettersi a Google Analytics. Controlla le %s.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Collegamenti';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts'] 				= 'Collegamenti';
+$lang['global:description'] 		    = 'Descrizione';
+$lang['global:actions']					= 'Azioni';
+$lang['global:edit']					= 'Modifica';
+$lang['global:delete']					= 'Elimina';
+$lang['global:remove']					= 'Elimina';
 
 $lang['required_label'] 				= 'Obbligatorio';
 $lang['sb_recent_users'] 				= 'Utenti recenti';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/italian/admin_lang.php */

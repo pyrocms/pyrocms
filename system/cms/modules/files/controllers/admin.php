@@ -700,4 +700,3 @@ class Admin extends Admin_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./system/pyrocms/modules/files/controllers/admin.php */

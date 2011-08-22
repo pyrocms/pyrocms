@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Admin_theme extends Migration {
+class Migration_Admin_theme extends CI_Migration {
 
 	function up()
 	{

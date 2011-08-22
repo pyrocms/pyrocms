@@ -5,7 +5,7 @@ $lang['cp_admin_home_title'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Atalhos rápidos';
 
 $lang['cp_welcome_title'] 				= 'Bem vindo(a)';
-$lang['cp_welcome_message'] 			= 'Bem vindo(a) ao Painel de Controle de %s. Utilizando os links abaixo e os da esquerda você pode controlar quase todos os aspectos de seu website. Se você obter algum tipo de problema com o sistema, por favor, envie o problema para o nosso bugtracker.';
+$lang['cp_welcome_message'] 			= 'Bem vindo(a) ao Painel de Controle de %s. Utilizando os links do menu você pode controlar quase todos os aspectos de seu site. Se você encontrar alguma dificuldade com o sistema, por favor, envie uma notificação do problema para o nosso bugtracker.';
 
 $lang['cp_news_feed_title'] 			= 'Feed de notícias';
 
@@ -17,7 +17,7 @@ $lang['cp_manage_users']				= 'Gerenciar usuários';
 
 // Header
 $lang['cp_to_home'] 					= 'Voltar para o Dashboard';
-$lang['cp_view_frontend'] 				= 'Ver website';
+$lang['cp_view_frontend'] 				= 'Ver o site';
 $lang['cp_logged_in_welcome'] 			= 'Olá %s';
 $lang['cp_logout_label'] 				= 'Sair';
 $lang['cp_edit_profile_label'] 			= 'Editar perfil';
@@ -25,17 +25,19 @@ $lang['cp_edit_profile_label'] 			= 'Editar perfil';
 // Footer
 $lang['cp_change_language'] 			= 'Trocar idioma';
 $lang['cp_documentation'] 				= 'Documentação';
-$lang['cp_report_bug'] 					= 'Report a bug';
+$lang['cp_report_bug'] 					= 'Notificar um bug';
 $lang['cp_contact_support'] 			= 'Suporte';
 
 $lang['cp_nav_settings']				= 'Configurações';
-$lang['cp_nav_addons']					= 'Add-ons';
+$lang['cp_nav_addons']					= 'Complementos';
 $lang['cp_nav_modules']					= 'Módulos';
 $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Usuários';
 $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Conteúdo';
 $lang['cp_nav_utilities']				= 'Utilidades';
+
+$lang['global:keywords']				= 'Palavras-chave';
 
 $lang['cp_must_login']	 				= 'Você deve estar conectado para ver esta página.';
 $lang['cp_access_denied'] 				= 'Você não possui privilégios suficientes para ver esta página.';
@@ -45,11 +47,14 @@ $lang['cp_google_analytics_missing']	= 'Faltam as configuração para o Google A
 $lang['cp_google_analytics_no_connect']	= 'Não foi possível se conectar ao Google Analytics. Verifique suas %s.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Atalhos';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:description'] 		    = 'Descrição';
+$lang['global:actions']					= 'Ações';
+$lang['global:edit']					= 'Editar';
+$lang['global:delete']					= 'Remover';
+$lang['global:remove']					= 'Remover';
 
 $lang['required_label'] 				= 'Obrigatório';
 $lang['sb_recent_users'] 				= 'Usuários recentes';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/brazilian/admin_lang.php */

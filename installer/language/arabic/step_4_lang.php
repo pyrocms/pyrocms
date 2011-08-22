@@ -9,8 +9,8 @@ $lang['db_create']		=	'إنشاء قاعدة البيانات';
 $lang['db_notice']		=	'قد تحتاج أن تقوم بذلك بنفسك';
 $lang['default_user']	=	'إسم المستخدم الإفتراضي';
 $lang['database']		=	'قاعدة البيانات';
-$lang['site_settings']		= 	'Site Settings'; #translate
-$lang['site_ref']		=	'Site Ref'; #translate
+$lang['site_settings']		= 	'إعدادات الموقع';
+$lang['site_ref']		=	'مرجع الموقع';
 $lang['user_name']		= 	'إسم المستخدم';
 $lang['first_name']		= 	'الإسم الأول';
 $lang['last_name']		=	'الإسم الأخير';
@@ -28,4 +28,3 @@ $lang['error_106']		=	'تعذرت كتابة ملف التهيئة، هل أنت
 $lang['success']		=	'تم تثبيت PyroCMS بنجاح.';
 
 /* End of file step_4_lang.php */
-/* Location: ./installer/language/arabic/step_4_lang.php */

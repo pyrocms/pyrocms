@@ -1,8 +1,5 @@
 /* A few styles to ajust default form styles for the blog module */
-form.crud label.intro {
-    display: block;
-    float: none;
-}
+
 li.date-meta div.selector {
     float: left;
     width: 70px;

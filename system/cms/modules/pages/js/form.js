@@ -35,7 +35,7 @@
 				'</div><div class="float-right">' +
 				'<a href="javascript:void(0)" class="remove-chunk">Remove</a>' +
 				'</div><br style="clear:both" />' +
-				'<textarea id="chunk-' + key + '" class="wysiwyg-advanced" rows="50" cols="90" name="chunk_body[' + key + ']"></textarea>' +
+				'<textarea id="chunk-' + key + '" class="wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
 				'</li>');
 			
 			// initialize the editor using the view from fragments/wysiwyg.php

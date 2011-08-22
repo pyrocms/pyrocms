@@ -25,7 +25,7 @@ class Plugin_Blog extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function posts()
+	public function posts()
 	{
 		$limit		= $this->attribute('limit', 10);
 		$category	= $this->attribute('category');
@@ -38,15 +38,25 @@ class Plugin_Blog extends Plugin
 			$this->db->where('c.' . (is_numeric($category) ? 'id' : 'slug'), $category);
 		}
 
-		return $this->db
-			->select('blog.*, c.title as category_title, c.slug as category_slug')
+		$posts = $this->db
+			->select('blog.*')
+			->select('c.title as category_title, c.slug as category_slug')
+			->select('p.display_name as author_name')
 			->where('status', 'live')
 			->where('created_on <=', now())
-			->join('blog_categories c', 'blog.category_id = c.id', 'LEFT')
+			->join('blog_categories c', 'blog.category_id = c.id', 'left')
+			->join('profiles p', 'blog.author_id = p.user_id')
 			->order_by('blog.' . $order_by, $order_dir)
 			->limit($limit)
 			->get('blog')
-			->result_array();
+			->result();
+
+		foreach ($posts as &$post)
+		{
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+		}
+		
+		return $posts;
 	}
 }
 

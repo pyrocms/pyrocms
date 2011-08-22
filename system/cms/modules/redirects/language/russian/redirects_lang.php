@@ -31,4 +31,3 @@ $lang['redirects.no_select_error']				= 'Вы должны выбрать хот
 $lang['redirects.request_conflict_error']	= 'Перенаправление для "%s" уже существует.';
 
 /* End of file redirects_lang.php */
-/* Location: ./system/cms/modules/redirects/language/russian/redirects_lang.php */

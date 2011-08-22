@@ -25,4 +25,3 @@ $lang['buttons.clone']		= 'Clone'; #translate
 $lang['buttons.copy']		= 'Copy'; #translate
 
 /* End of file buttons_lang.php */
-/* Location: ./system/cms/language/hebrew/buttons_lang.php */

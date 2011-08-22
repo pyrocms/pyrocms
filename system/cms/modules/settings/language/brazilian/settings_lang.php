@@ -142,4 +142,3 @@ $lang['settings_form_option_Oldest First']		= 'Antigos primeiro';
 $lang['settings_form_option_Newest First']		= 'Novos primeiro';
 
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/brazilian/settings_lang.php */

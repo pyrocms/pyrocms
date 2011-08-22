@@ -2,7 +2,7 @@
 
 // tabs
 $lang['pages.content_label'] 				= 'Conteúdo da página';
-$lang['pages.meta_label'] 					= 'Meta dados';
+$lang['pages.meta_label'] 					= 'Metadados';
 $lang['pages.design_label'] 				= 'Design';
 $lang['pages.script_label'] 				= 'Script';
 $lang['pages.options_label'] 				= 'Opções';
@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 				= 'Detalhes';
 
 // labels
 $lang['pages.page_label'] 					= 'Página';
-$lang['pages.add_chunk']					= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']					= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']				= 'Adicionar pedaço de página';
+$lang['pages.page_chunk']					= 'Pedaço de página';
 $lang['pages.language_label'] 				= 'Idioma';
 $lang['pages.updated_label'] 				= 'Atualizada';
 $lang['pages.actions_label'] 				= 'Ações';
@@ -34,7 +34,7 @@ $lang['pages.is_home_label']				= 'Página padrão (inicial)?';
 
 $lang['pages.status_label'] 				= 'Situação';
 $lang['pages.draft_label'] 					= 'Rascunho';
-$lang['pages.live_label'] 					= 'Publica';
+$lang['pages.live_label'] 					= 'Pública';
 $lang['pages.revisions_label']				= 'Revisões';
 $lang['pages.compare_label']				= 'Comparar';
 $lang['pages.preview_label']				= 'Visualizar';
@@ -43,6 +43,7 @@ $lang['pages.current_label']				= 'Atual';
 $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
 $lang['pages.edit_label'] 					= 'Editar';
+$lang['pages.duplicate_label']				= 'Duplicar';
 $lang['pages.delete_label'] 				= 'Remover';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 					= 'Editar página "%s"';
 $lang['pages.list_title'] 					= 'Listar páginas';
 $lang['pages.layouts_create_title'] 		= 'Adicionar página de layout';
 $lang['pages.layouts_list_title'] 			= 'Listar páginas de layout';
-$lang['pages.compare_revisions_title']		= 'Comparar revisões';
-$lang['pages.preview_revision_title']		= 'Visualizar revisão';
 
 // messages
 $lang['pages.no_pages'] 					= 'Nenhuma página encontrada.';
@@ -72,4 +71,3 @@ $lang['pages.tree_explanation'] 			= 'A lista a esquerda representa as páginas 
 $lang['pages.rss_explanation']				= 'Ativando o Feed RSS para esta página dará acesso aos usuários a chance de se inscreverem a este Feed e receberem uma atualização imediata quando uma nova página filho for adicionada.';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/brazilian/pages_lang.php */

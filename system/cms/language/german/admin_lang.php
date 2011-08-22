@@ -37,17 +37,22 @@ $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Inhalt';
 $lang['cp_nav_utilities']               = 'Dienstprogramme';
 
+$lang['global:keywords']				= 'Keywords'; #translate
+
 $lang['cp_must_login']	 				= 'Du musst eingeloggt sein, um diese Seite sehen zu können.';
 $lang['cp_access_denied'] 				= 'Du hast keine ausreichenden Zugriffsberechtigungen um diese Seite anzusehen.';
 $lang['cp_delete_installer_message']	= 'Bitte lösche das Installationsverzeichnis (installer) auf deinem Server, da sich ansonsten Dritte unerlaubt administrativen Zugang verschaffen könnten.';
 $lang['cp_upgrade_message']				= 'Du benutzt aktuell Version %s, aber die Datenbank ist in der älteren Version %s. Bitte <a href="%s">aktualisiere deine Datenbank</a>.';
 
 // Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Shortcuts';
-$lang['cp_remove']						= 'Remove'; #translate
+$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:description']             = 'Beschreibung';
+$lang['global:actions']                 = 'Aktionen';
+$lang['global:edit']                    = 'Bearbeiten';
+$lang['global:delete']                  = 'Löschen';
+$lang['global:remove']                  = 'Löschen';
 
 $lang['required_label'] 				= 'Benötigt';
 $lang['sb_recent_users'] 				= 'Neue Benutzer';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/german/admin_lang.php */

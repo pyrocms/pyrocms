@@ -3,7 +3,7 @@
 // labels
 $lang['nav_title_label'] 						= 'Tytuł';
 $lang['nav_target_label']						= 'Cel';
-$lang['nav_class_label']						= 'Class'; #translate
+$lang['nav_class_label']						= 'Klasa (Class)';
 $lang['nav_url_label'] 							= 'URL';
 $lang['nav_actions_label'] 						= 'Akcja';
 $lang['nav_details_label'] 						= 'Szczegóły';

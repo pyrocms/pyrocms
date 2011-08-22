@@ -7,4 +7,3 @@ $lang['step1'] 		= 	'Stap 1';
 $lang['link']		= 	'Ga verder naar de volgende stap';
 
 /* End of file index_lang.php */
-/* Location: ./installer/language/dutch/index_lang.php */

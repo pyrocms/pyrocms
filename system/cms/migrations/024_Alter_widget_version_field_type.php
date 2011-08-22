@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Alter_widget_version_field_type extends Migration {
+class Migration_Alter_widget_version_field_type extends CI_Migration {
 
 	function up()
 	{

@@ -13,10 +13,10 @@ $lang['gallery_images.changes_error']		= 'As alterações não foram salvas.';
 // Labels
 $lang['gallery_images.upload_label']		= 'Enviar imagem';
 $lang['gallery_images.edit_image_label']	= 'Editar imagem';
-$lang['gallery_images.thumbnail_label']		= 'Mimiatura';
+$lang['gallery_images.thumbnail_label']		= 'Miniatura';
 $lang['gallery_images.action_label']		= 'Ação';
 $lang['gallery_images.crop_label']			= 'Cortar imagem';
-$lang['gallery_images.recreate_label']		= 'Re-criar mimiatura';
+$lang['gallery_images.recreate_label']		= 'Recriar miniatura';
 $lang['gallery_images.delete_label']		= 'Remover imagem';
 $lang['gallery_images.title_label']		 	= 'Título';
 $lang['gallery_images.image_label']			= 'Imagem';

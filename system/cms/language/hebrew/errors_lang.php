@@ -8,4 +8,3 @@ $lang['error_404_message'] = 'אנחנו לא יכוים למצוא עמוד א�
 $lang['error_invalid_db_group'] = 'בסיס הנתונים מנסה להשתמש קבוצת תצורה לא חוקית "%s".';
 
 /* End of file errors_lang.php */
-/* Location: ./system/cms/language/hebrew/errors_lang.php */

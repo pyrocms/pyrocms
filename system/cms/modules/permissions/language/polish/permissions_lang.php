@@ -1,7 +1,7 @@
 <?php
 
 $lang['permissions.group']		= 'Grupa';
-$lang['permissions.roles']                  = 'Roles'; #translate
+$lang['permissions.roles']      = 'Role';
 $lang['permissions.edit']		= 'Edytuj uprawnienia';
 
 $lang['permissions.introduction'] 	= 'Możesz tworzyć niestandardowe uprawnienia dla różnych użytkowników

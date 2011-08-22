@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_multi_site extends Migration {
+class Migration_Add_multi_site extends CI_Migration {
 
 	public function up()
 	{

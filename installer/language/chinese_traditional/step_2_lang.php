@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'步驟二：檢查安裝需求';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'您的伺服器軟體:';
 $lang['server_fail']	=	'您的伺服器軟體我們沒有支援，因此 PyroCMS 可能無法運作。只要您安裝的 PHP 與 MySQL 是最新的版本，PyroCMS 應該都可以正常運作。';
 
 $lang['php_settings']	=	'PHP 設定';
-$lang['php_required']	=	'PyroCMS 需要 PHP 5.0 或更新的版本。';
+$lang['php_required']	=	'PyroCMS 需要 PHP %s 或更新的版本。';
 $lang['php_version']	=	'您伺服器目前的版本';
-$lang['php_fail']		=	'您的 PHP 版本我們並沒有支援。PyroCMS 需要 PHP 版本 5.0 或是更新的版本，才能夠正常運作。';
+$lang['php_fail']		=	'您的 PHP 版本我們並沒有支援。PyroCMS 需要 PHP 版本 %s 或是更新的版本，才能夠正常運作。';
 
 $lang['mysql_settings']	=	'MySQL 設定';
 $lang['mysql_required']	=	'PyroCMS 需要存取 MySQL 資料庫版本 5.0 或更新的版本。';
@@ -48,4 +48,3 @@ $lang['retry']			=	'再試一次';
 $lang['step1_failure']	=	'請在下方的表單中輸入資料庫設定的必要資訊。';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/chinese_traditional/step_2_lang.php */

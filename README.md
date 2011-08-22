@@ -1,20 +1,24 @@
-# PyroCMS
+# PyroCMS Community Edition
 
 * [Website](http://pyrocms.com/)
-* [Documentation](http://pyrocms.com/documentation)
-* Version: 1.3.0-dev
+* [Documentation](http://pyrocms.com/docs)
+* [License](http://pyrocms.com/legal/license)
+* [Forums](http://pyrocms.com/forums)
+* Version: 1.3.2
 
 ## Team
 
 * [Phil Sturgeon](http://philsturgeon.co.uk/)
 * [Eric Barnes](http://ericlbarnes.com/)
 * [Stephen Cozart](http://twitter.com/stephencozart)
-* [Jerel Unruh](http://www.unruhdesigns.com/)
+* [Jerel Unruh](http://unruhdesigns.com/)
 
 ## Description
 
 PyroCMS is a CMS built using the CodeIgniter PHP framework. Using an MVC architecture
 it was built with modularity in mind. Lightweight, themeable and dynamic.
+
+PyroCMS Community Edition is free to use, redistribute and/or modify for any purpose whether personal or commercial however you must retain the copyright in your source code and in the footer of the administration.
 
 
 ## Installation
@@ -24,7 +28,10 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Upgrading
 
-You no longer need to do anything to upgrade the database. Simply update the files and the database will upgrade automatically.
+You no longer need to do anything to upgrade the database. To upgrade the files simply backup the following files then replace system/cms:
+
+	system/cms/config/config.php
+	system/cms/config/database.php
 
 
 ## Bugs & Feature Requests

@@ -11,15 +11,15 @@ $lang['pages.detail_label'] 					= 'Szczegóły';
 
 // labels
 $lang['pages.page_label'] 						= 'Strona';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']					= 'Dodaj porcję strony'; 
+$lang['pages.page_chunk']						= 'Porcja strony'; 
 $lang['pages.language_label'] 					= 'Język';
 $lang['pages.updated_label'] 					= 'Zaktualizowane';
 $lang['pages.actions_label'] 					= 'Akcje';
 $lang['pages.unknown_label'] 					= 'Nieznany';
 $lang['pages.title_label'] 						= 'Tytuł';
 $lang['pages.slug_label'] 						= 'URL';
-$lang['pages.navigation_label']                  = 'Add to Navigation'; #translate
+$lang['pages.navigation_label']                 = 'Dodaj do nawigacji';
 $lang['pages.body_label'] 						= 'Część body strony';
 $lang['pages.meta_title_label'] 				= 'Meta tytuł';
 $lang['pages.meta_keywords_label'] 				= 'Meta słowa kluczowe';
@@ -30,19 +30,17 @@ $lang['pages.js_label'] 						= 'JavaScript';
 $lang['pages.access_label'] 					= 'Dostęp';
 $lang['pages.rss_enabled_label'] 				= 'RSS włączony';
 $lang['pages.comments_enabled_label'] 			= 'Komentarze włączone';
-$lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
+$lang['pages.is_home_label']      				= 'Czy jest domyślną (home) stroną?';
 
 $lang['pages.status_label'] 					= 'Status';
 $lang['pages.draft_label']						= 'Robocza';
 $lang['pages.live_label'] 						= 'Opublikowana';
-$lang['pages.revisions_label']					= 'Historia';
-$lang['pages.compare_label']                                    = 'Porównaj';
-$lang['pages.preview_label']                                    = 'Podgląd';
-$lang['pages.current_label']                                    = 'Aktualny';
-
+$lang['pages.preview_label']                    = 'Podgląd';
+$lang['pages.current_label']                    = 'Aktualny';
 
 $lang['pages.view_label'] 						= 'Podgląd';
 $lang['pages.create_label'] 					= 'Dodaj potomka';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.edit_label'] 						= 'Edytuj';
 $lang['pages.delete_label'] 					= 'Usuń';
 
@@ -52,8 +50,6 @@ $lang['pages.edit_title'] 						= 'Edytuj stronę "%s"';
 $lang['pages.list_title'] 						= 'Lista stron';
 $lang['pages.layouts_create_title'] 			= 'Dodaj layout strony';
 $lang['pages.layouts_list_title'] 				= 'Lista layoutów stron';
-$lang['pages.compare_revisions_title']                          = 'Porównaj wersje';
-$lang['pages.preview_revision_title']                           = 'Podgląd wersji';
 
 // messages
 $lang['pages.no_pages'] 						= 'Nie ma żadnych stron.';
@@ -72,5 +68,3 @@ $lang['pages.tree_explanation'] 				= 'Lista po lewej stronie reprezentuje stron
 Kliknij ikonę "+" obok danej strony aby wyświetlić strony które zawiera. Jeżeli klikniesz stronę, w tym miejscu pojawi się wiele użytecznych informacji.';
 
 $lang['pages.rss_explanation']					= 'Włączenie RSS dla tej strony, daje użytkownikom możliwość subskrybcji kanału RSS, w którym będą się pokazywały wszytskie podstrony dla tego wpisu.';
-
-?>

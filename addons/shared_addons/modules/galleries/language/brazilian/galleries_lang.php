@@ -53,7 +53,7 @@ $lang['galleries.new_gallery_label']		= 'Adicionar galeria';
 $lang['galleries.upload_label']				= 'Enviar imagens';
 
 // Frontend labels
-$lang['galleries.sub-galleries_label']		= 'Sub-galerias';
+$lang['galleries.sub-galleries_label']		= 'Subgalerias';
 
 // tabs
 $lang['galleries.content_label']			= 'Conteúdo da galeria';

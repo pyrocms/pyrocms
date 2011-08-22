@@ -1,7 +1,9 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
+global $CFG;
+
 /* get module locations from config settings or use the default module location and offset */
-is_array(Modules::$locations = config_item('modules_locations')) OR Modules::$locations = array(
+is_array(Modules::$locations = $CFG->item('modules_locations')) OR Modules::$locations = array(
 	APPPATH.'modules/' => '../modules/',
 );
 
@@ -230,7 +232,7 @@ class Modules
 		/* parse module routes */
 		foreach (self::$routes[$module] as $key => $val) {						
 					
-			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+			$key = str_replace(array(':any', ':num'), array('.+', '[0-9]+'), $key);
 			
 			if (preg_match('#^'.$key.'$#', $uri)) {							
 				if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE) {

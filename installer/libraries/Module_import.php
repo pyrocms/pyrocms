@@ -30,15 +30,15 @@ class Module_import {
 
 		$this->ci->load->database($db);
 		$this->ci->load->helper('file');
-		
+
 		// create the site specific addon folder
 		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, TRUE);
 		is_dir(ADDONPATH.'themes') OR mkdir(ADDONPATH.'themes', DIR_READ_MODE, TRUE);
 		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, TRUE);
-		
+
 		// create the site specific upload folder
 		is_dir(dirname(FCPATH).'/uploads/default') OR mkdir(dirname(FCPATH).'/uploads/default', DIR_WRITE_MODE, TRUE);
-		
+
 		//insert empty html files
 		write_file(ADDONPATH.'modules/index.html','');
 		write_file(ADDONPATH.'themes/index.html','');
@@ -68,7 +68,7 @@ class Module_import {
 		$module['enabled'] = TRUE;
 		$module['installed'] = TRUE;
 		$module['slug'] = $slug;
-		
+
 		// set the site_ref and upload_path for third-party devs
 		$details_class->site_ref 	= 'default';
 		$details_class->upload_path	= 'uploads/default/';
@@ -108,7 +108,7 @@ class Module_import {
 		$this->ci->dbforge->drop_table('modules');
 
 		$modules = "
-			CREATE TABLE ".$this->ci->db->dbprefix('modules')." (
+			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix('modules')." (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
 			  `name` TEXT NOT NULL,
 			  `slug` varchar(50) NOT NULL,
@@ -129,6 +129,20 @@ class Module_import {
 
 		//create the modules table so that we can import all modules including the modules module
 		$this->ci->db->query($modules);
+
+		$session = "
+			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
+			 `session_id` varchar(40) DEFAULT '0' NOT NULL,
+			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
+			 `user_agent` varchar(50) NOT NULL,
+			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
+			 `user_data` text NULL,
+			PRIMARY KEY (`session_id`)
+			);
+		";
+
+		// create a session table so they can use it if they want
+		$this->ci->db->query($session);
 
 		// Loop through directories that hold modules
 		$is_core = TRUE;
@@ -151,7 +165,7 @@ class Module_import {
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;
 		}
-		
+
 		// After modules are imported we need to modify the settings table
 		// This allows regular admins to upload addons on the first install but not on multi
 		$this->ci->db->where('slug', 'addons_upload')
@@ -180,7 +194,7 @@ class Module_import {
 		if ( ! is_file($details_file))
 		{
 			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
-			
+
 			if ( ! is_file($details_file))
 			{
 				return FALSE;

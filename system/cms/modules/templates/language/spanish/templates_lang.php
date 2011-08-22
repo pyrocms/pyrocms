@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Necesitas seleccionar alguna plantilla.
 $lang['templates.already_exist_error']		= 'Ya existe una plantilla con el nombre "%s".';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/spanish/templates_lang.php */

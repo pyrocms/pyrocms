@@ -6,7 +6,7 @@
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
- * @license		Apache License v2.0
+ * @license		http://pyrocms.com/legal/license
  * @link		http://pyrocms.com
  * @since		Version 1.0-dev
  * @filesource
@@ -169,13 +169,7 @@ class Settings {
 			return self::$cache;
 		}
 
-		// FIXME: Put this back after 1.2.2 is released
-		// $settings = ci()->settings_m->get_all();
-		
-		$settings = ci()->db
-			->select('*, IF(`value` = "", `default`, `value`) as `value`', FALSE)
-			->get('settings')
-			->result();
+		$settings = ci()->settings_m->get_all();
 
 		foreach ($settings as $setting)
 		{
@@ -199,7 +193,6 @@ class Settings {
 		{
 			return FALSE;
 		}
-
 		return ci()->settings_m->insert($setting);
 	}
 
@@ -391,10 +384,9 @@ class Settings {
 		{
 			return FALSE;
 		}
-
-		foreach ($setting as $key)
+		foreach ($setting as $key => $value)
 		{
-			if ( ! array_key_exists($key, $this->columns))
+			if ( ! in_array($key, $this->columns))
 			{
 				return FALSE;
 			}
