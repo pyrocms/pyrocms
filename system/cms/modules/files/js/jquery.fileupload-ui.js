@@ -5,7 +5,7 @@
  *  - Added Events: dragenter, dragleave
  *  - Changed the selector that finds the buttons on each row of files list
  * 
- * jQuery File Upload User Interface Plugin 5.0.13
+ * jQuery File Upload User Interface Plugin 5.0.14
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
@@ -284,8 +284,10 @@
                     $(this).unbind('load');
                     that._revokeObjectURL(url);
                     callback(that._scaleImage(img[0], options));
-                }).prop('src', url);
-                if (!url) {
+                });
+                if (url) {
+                    img.prop('src', url);
+                } else {
                     this._loadFile(file, function (url) {
                         img.prop('src', url);
                     });
@@ -437,9 +439,7 @@
         },
         
         _renderDownload: function (files) {
-            var that = this,
-				options = this.options,
-				tmpl = this._renderDownloadTemplate(files);
+            var tmpl = this._renderDownloadTemplate(files);
             if (!(tmpl instanceof $)) {
                 return $();
             }
