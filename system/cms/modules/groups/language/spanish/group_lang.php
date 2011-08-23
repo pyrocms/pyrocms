@@ -13,7 +13,7 @@ $lang['groups.edit_title']				= 'Editando Grupo "%s"';
 // messages
 $lang['groups.no_groups']				= 'No hay grupos.';
 $lang['groups.add_success']				= 'El grupo "%s" ha sido agregado.';
-$lang['groups.edit_error']				= 'El grupo "%s" could not be agregado.';
+$lang['groups.add_error']				= 'El grupo "%s" could not be agregado.';
 $lang['groups.edit_success']			= 'El grupo "%s" ha sido guardado.';
 $lang['groups.edit_error']				= 'El grupo "%s" no pudo ser guardado.';
 $lang['groups.delete_success']			= 'El grupo fue eliminado exitosamente.';
