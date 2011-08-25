@@ -28,7 +28,7 @@
 	#RewriteRule ^index\.php(.*)$			$1 [R=301,NS,L]
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
-	RedirectMatch 403 ^/(system\/pyrocms\/cache|system\/codeigniter|\.git|\.hg).*$
+	RedirectMatch 403 ^/(system\/cms\/cache|system\/codeigniter|\.git|\.hg).*$
 
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-f

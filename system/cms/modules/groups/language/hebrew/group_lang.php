@@ -13,7 +13,7 @@ $lang['groups.edit_title']              = 'עורך קבוצה "%s"';
 // messages
 $lang['groups.no_groups']               = 'לא נמצאו קבוצות.';
 $lang['groups.add_success']             = 'הקבוצה "%s" הוספה.';
-$lang['groups.edit_error']              = 'לא ניתן להוסיף קבוצה "%s" .';
+$lang['groups.add_error']               = 'לא ניתן להוסיף קבוצה "%s" .';
 $lang['groups.edit_success']            = 'הקבוצה "%s" נשמרה בהצלחה.';
 $lang['groups.edit_error']              = 'לא ניתן לשמור קבוצה "%s" .';
 $lang['groups.delete_success']          = 'הקבוצה נמחקה בהצלחה.';
