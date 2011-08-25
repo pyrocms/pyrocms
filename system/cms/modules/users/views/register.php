@@ -5,45 +5,35 @@
 	<span><?php echo lang('user_register_step2') ?></span>
 </p>
 
-<p><?php echo lang('user_register_reasons') ?></p>
-
-<?php if(!empty($error_string)):?>
+<?php if ( ! empty($error_string)):?>
 <!-- Woops... -->
 <div class="error-box">
 	<?php echo $error_string;?>
 </div>
 <?php endif;?>  
 
-<?php echo form_open('register', array('id'=>'register')); ?>
+<?php echo form_open('register', array('id' => 'register')); ?>
 <ul>
 	<li>
 		<label for="first_name"><?php echo lang('user_first_name') ?></label>
-		<input type="text" name="first_name" maxlength="40" value="<?php echo $user_data->first_name; ?>" />
+		<input type="text" name="first_name" maxlength="40" value="<?php echo set_value('first_name'); ?>" />
 	</li>
 	
 	<li>
 		<label for="last_name"><?php echo lang('user_last_name') ?></label>
-		<input type="text" name="last_name" maxlength="40" value="<?php echo $user_data->last_name; ?>" />
+		<input type="text" name="last_name" maxlength="40" value="<?php echo set_value('last_name'); ?>" />
 	</li>
 	
+	<?php if ( ! Settings::get('auto_username')): ?>
 	<li>
 		<label for="username"><?php echo lang('user_username') ?></label>
-		<input type="text" name="username" maxlength="100" value="<?php echo $user_data->username; ?>" />
+		<input type="text" name="username" maxlength="100" value="<?php echo set_value('username'); ?>" />
 	</li>
+	<?php endif; ?>
 	
 	<li>
-		<label for="display_name"><?php echo lang('user_display_name') ?></label>
-		<input type="text"name="display_name" maxlength="100" value="<?php echo $user_data->display_name; ?>" />
-	</li>
-	
-	<li>
-		<label for="email"><?php echo lang('user_email') ?> - <em><?php echo lang('user_email_use') ?></em></label>
-		<input type="text" name="email" maxlength="100" value="<?php echo $user_data->email; ?>" />
-	</li>
-	
-	<li>
-		<label for="confirm_email"><?php echo lang('user_confirm_email') ?></label>
-		<input type="text" name="confirm_email" maxlength="100" value="<?php echo $user_data->confirm_email; ?>" />
+		<label for="email"><?php echo lang('user_email') ?></label>
+		<input type="text" name="email" maxlength="100" value="<?php echo set_value('email'); ?>" />
 	</li>
 	
 	<li>
