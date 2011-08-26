@@ -96,7 +96,7 @@ class Admin extends Admin_Controller
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module)
 		{
-			if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $modules[] = $module;
+			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
 		}
 		
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');

@@ -27,7 +27,7 @@
 		<?php echo form_hidden('redirect_to', $this->uri->uri_string()); ?>
 		<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?></noscript>
 	
-	<?php if ( ! $this->user): ?>
+	<?php if ( ! $this->current_user): ?>
 		<p>
 			<label for="name"><?php echo lang('comments.name_label'); ?>:</label><br />
 			<input type="text" name="name" id="name" maxlength="40" value="<?php echo $comment['name'] ?>" />

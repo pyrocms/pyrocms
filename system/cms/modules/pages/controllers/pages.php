@@ -14,14 +14,14 @@ class Pages extends Public_Controller
 	 */
 	public function __construct() 
 	{
-		parent::Public_Controller();
+		parent::__construct();
 		$this->load->model('pages_m');
 		$this->load->model('page_layouts_m');
 		
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
 		@include(APPPATH.'config/routes.php'); // simple hack to get the default_controller, could find another way.
 		
-		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
+		// No page is mentioned $this->current_userand we aren't using pages as default (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $route['default_controller'] != 'pages')
 		{
 			redirect('');
@@ -70,7 +70,7 @@ class Pages extends Public_Controller
 			: $this->pyrocache->model('pages_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
-		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->user->group) OR $this->user->group != 'admin') ))
+		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin') ))
 		{
 			$page = $this->_404($url_segments);
 		}
@@ -87,7 +87,7 @@ class Pages extends Public_Controller
 			$page->restricted_to = (array) explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! $this->user OR (isset($this->user->group) AND $this->user->group != 'admin' AND ! in_array($this->user->group_id, $page->restricted_to)))
+			if ( ! $this->current_user OR (isset($this->current_user->group) AND $this->current_user->group != 'admin' AND ! in_array($this->current_user->group_id, $page->restricted_to)))
 			{
 				redirect('users/login/' . (empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
@@ -213,7 +213,7 @@ class Pages extends Public_Controller
 		$page = $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments));
 		
 		// If page is missing or not live (and not an admin) show 404
-		if (empty($page) OR ($page->status == 'draft' AND $this->user->group !== 'admin') OR ! $page->rss_enabled)
+		if (empty($page) OR ($page->status == 'draft' AND $this->current_user->group !== 'admin') OR ! $page->rss_enabled)
 		{
 			// Will try the page then try 404 eventually
 			$this->_page('404');

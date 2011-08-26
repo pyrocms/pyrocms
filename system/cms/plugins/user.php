@@ -28,9 +28,9 @@ class Plugin_User extends Plugin
 	{
 		$group = $this->attribute('group', NULL);
 
-		if ($this->user)
+		if ($this->current_user)
 		{
-			if ($group AND $group !== $this->user->group)
+			if ($group AND $group !== $this->current_user->group)
 			{
 				return '';
 			}
@@ -59,7 +59,7 @@ class Plugin_User extends Plugin
 		$group = $this->attribute('group', NULL);
 
 		// Logged out or not the right user
-		if ( ! $this->user OR ($group AND $group !== $this->user->group))
+		if ( ! $this->current_user OR ($group AND $group !== $this->current_user->group))
 		{
 			return $this->content() ? $this->content() : TRUE;
 		}
@@ -69,9 +69,9 @@ class Plugin_User extends Plugin
 
 	public function has_cp_permissions()
 	{
-		if ($this->user)
+		if ($this->current_user)
 		{
-			if ( ! (($this->user->group == 'admin') OR $this->permission_m->get_group($this->user->group_id)))
+			if ( ! (($this->current_user->group == 'admin') OR $this->permission_m->get_group($this->current_user->group_id)))
 			{
 				return '';
 			}
@@ -84,7 +84,7 @@ class Plugin_User extends Plugin
 
 	function __call($foo, $arguments)
 	{
-		return isset($this->user->$foo) ? $this->user->$foo : NULL;
+		return isset($this->current_user->$foo) ? $this->current_user->$foo : NULL;
 	}
 }
 

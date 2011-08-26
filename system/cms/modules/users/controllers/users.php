@@ -11,12 +11,6 @@
 class Users extends Public_Controller
 {
 	/**
-	 * The ID of the user
-	 * @var int
-	 */
-	private $user_id = 0;
-
-	/**
 	 * Constructor method
 	 *
 	 * @return void
@@ -24,12 +18,6 @@ class Users extends Public_Controller
 	function __construct()
 	{
 		parent::__construct();
-
-		// Get the user ID, if it exists
-		if ($user = $this->ion_auth->get_user())
-		{
-			$this->user_id = $user->id;
-		}
 
 		// Load the required classes
 		$this->load->model('users_m');
@@ -46,7 +34,7 @@ class Users extends Public_Controller
 	 */
 	public function index()
 	{
-		$this->view($this->user_id);
+		$this->view($this->current_user->id);
 	}
 
 	/**
@@ -57,15 +45,15 @@ class Users extends Public_Controller
 	 */
 	public function view($id = NULL)
 	{
+		$user = ($id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
+		
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
-		if ( ! $user = $this->ion_auth->get_user($id) )
+		$user or show_404();
+		
+		// Take care of the {} braces in the content
+		foreach ($user as $field => $value)
 		{
-			show_404();
-		}
-
-		foreach ($user as &$data)
-		{
-			$data = escape_tags($data);
+			$user->{$field} = escape_tags($value);
 		}
 
 		$this->template->build('profile/view', array(
@@ -435,17 +423,15 @@ class Users extends Public_Controller
 	public function reset_complete()
 	{
 		//if user is logged in they don't need to be here. and should use profile options
-		if ($this->ion_auth->logged_in())
+		if ($this->current_user)
 		{
-			$this->session->set_flashdata('error', $this->lang->line('user_already_logged_in'));
+			$this->session->set_flashdata('error', lang('user_already_logged_in'));
 			redirect('my-profile');
 		}
 
-		//set page title
-		$this->template->title($this->lang->line('user_password_reset_title'));
-
-		//build and render the output
-		$this->template->build('reset_pass_complete', $this->data);
+		$this->template
+			->title(lang('user_password_reset_title'))
+			->build('reset_pass_complete', $this->data);
 	}
 
 	/**
@@ -453,7 +439,7 @@ class Users extends Public_Controller
 	 */
 	public function edit()
 	{
-		$this->ion_auth->logged_in() or redirect('users/login');
+		$user = $this->current_user or redirect('users/login');
 
 		$this->validation_rules = array(
 			array(
@@ -582,23 +568,6 @@ class Users extends Public_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);
 
-		// Get settings for this user
-		$user_settings = $this->ion_auth->get_user();
-
-		// Get the user ID, if it exists
-		if ($user_settings)
-		{
-			$this->user_id = $user_settings->id;
-		}
-
-		// If this user already has a profile, use their data if nothing in post array
-		if ($user_settings)
-		{
-		    $user_settings->dob_day 	= date('j', $user_settings->dob);
-		    $user_settings->dob_month = date('n', $user_settings->dob);
-		    $user_settings->dob_year 	= date('Y', $user_settings->dob);
-		}
-
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
@@ -625,7 +594,7 @@ class Users extends Public_Controller
 			}
 
 			// If password is being changed (and matches)
-			if(! $secure_post['password'])
+			if ( ! $secure_post['password'])
 			{
 				unset($secure_post['password']);
 			}
@@ -635,7 +604,7 @@ class Users extends Public_Controller
 			// Set the time of update
 			$secure_post['updated_on'] = now();
 
-			if ($this->ion_auth->update_user($this->user_id, $secure_post) !== FALSE)
+			if ($this->ion_auth->update_user($this->current_user->id, $secure_post) !== FALSE)
 			{
 				Events::trigger('post_user_update');
 
@@ -655,19 +624,23 @@ class Users extends Public_Controller
 			{
 				if ($this->input->post($rule['field']) !== FALSE)
 				{
-					$user_settings->{$rule['field']} = set_value($rule['field']);
+					$user->{$rule['field']} = set_value($rule['field']);
 				}
 			}
 		}
 
 		// Take care of the {} braces in the content
-		$escape_fields = array(
-			'bio', 'address_line1', 'address_line2', 'address_line3', 'postcode',
-			'website', 'msn_handle', 'gtalk_handle', 'gravatar'
-		);
-		foreach ($escape_fields as $field)
+		foreach ($user as $field => $value)
 		{
-			$user_settings->{$field} = escape_tags($user_settings->{$field});
+			$user->{$field} = escape_tags($value);
+		}
+		
+		// If this user already has a profile, use their data if nothing in post array
+		if ($user->dob > 0)
+		{
+		    $user->dob_day 	= date('j', $user->dob);
+		    $user->dob_month = date('n', $user->dob);
+		    $user->dob_year = date('Y', $user->dob);
 		}
 
 		// Fix the months
@@ -720,14 +693,14 @@ class Users extends Public_Controller
 		$this->load->library('twitter/twitter');
 
 		// Try to authenticate
-		$auth = $this->twitter->oauth(Settings::get('twitter_consumer_key'), Settings::get('twitter_consumer_key_secret'), $this->user->twitter_access_token, $this->user->twitter_access_token_secret);
+		$auth = $this->twitter->oauth(Settings::get('twitter_consumer_key'), Settings::get('twitter_consumer_key_secret'), $this->current_user->twitter_access_token, $this->current_user->twitter_access_token_secret);
 
 		if ($auth!=1 && Settings::get('twitter_consumer_key') && Settings::get('twitter_consumer_key_secret'))
 		{
 			if (isset($auth['access_token']) && !empty($auth['access_token']) && isset($auth['access_token_secret']) && !empty($auth['access_token_secret']))
 			{
 				// Save the access tokens to the users profile
-				$this->ion_auth->update_user($this->user->id, array(
+				$this->ion_auth->update_user($this->current_user->id, array(
 					'twitter_access_token' 		  => $auth['access_token'],
 					'twitter_access_token_secret' => $auth['access_token_secret'],
 				));
@@ -741,7 +714,9 @@ class Users extends Public_Controller
 				}
 			}
 		}
-		elseif ($auth == 1) {
+		
+		elseif ($auth == 1)
+		{
 			redirect('edit-settings', 'refresh');
 		}
 	}
@@ -782,10 +757,8 @@ class Users extends Public_Controller
 	        $this->form_validation->set_message('_username_check', $this->lang->line('user_error_username'));
 	        return FALSE;
 	    }
-	    else
-	    {
-	        return TRUE;
-	    }
+	
+        return TRUE;
 	}
 
 	/**
@@ -801,10 +774,8 @@ class Users extends Public_Controller
 			$this->form_validation->set_message('_email_check', $this->lang->line('user_error_email'));
 			return FALSE;
 		}
-		else
-		{
-			return TRUE;
-		}
+		
+		return TRUE;
 	}
 
 }
