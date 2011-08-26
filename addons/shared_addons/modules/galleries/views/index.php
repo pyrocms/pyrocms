@@ -1,7 +1,7 @@
 <h2 id="page_title"><?php echo lang('galleries.galleries_label'); ?></h2>
 <!-- Div containing all galleries -->
 <div class="galleries_container" id="gallery_index">
-	<?php if ( ! empty($galleries)): foreach ($galleries as $gallery): if (empty($gallery->parent)): ?>
+	<?php if ( ! empty($galleries)): foreach ($galleries as $gallery): /*if (empty($gallery->parent)):*/ ?>
 	<div class="gallery clearfix">
 		<!-- Heading -->
 		<div class="gallery_heading">
@@ -19,7 +19,7 @@
 			</p>
 		</div>
 	</div>
-	<?php endif; endforeach; else: ?>
+	<?php /*endif;*/ endforeach; else: ?>
 	<p><?php echo lang('galleries.no_galleries_error'); ?></p>
 	<?php endif; ?>
 </div>
