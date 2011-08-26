@@ -5,30 +5,31 @@ class MY_Controller extends CI_Controller {
 
 	// Deprecated: No longer used globally
 	protected $data;
+	
 	public $module;
 	public $controller;
 	public $method;
 
-	public function MY_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->benchmark->mark('my_controller_start');
-
-		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
-		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{
-			$this->load->dbforge();
-			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
-		}
 		
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly.');
 		}
+		
+		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
+		if ($this->db->table_exists(SITE_REF.'_schema_version'))
+		{
+			$this->load->dbforge();
+			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+		}
 
-		// By changing the prefix we are essentially "namespacing" each pyro site
+		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
 		
 		// Load the cache library now that we know the siteref
