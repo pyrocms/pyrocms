@@ -113,7 +113,7 @@ class MY_Controller extends CI_Controller {
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
 
-		$this->user = $this->ion_auth->get_user();
+		$this->template->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
 		$this->module = $this->router->fetch_module();
@@ -129,7 +129,7 @@ class MY_Controller extends CI_Controller {
 		));
 
 		// List available module permissions for this user
-		$this->permissions = $this->user ? $this->permission_m->get_group($this->user->group_id) : array();
+		$this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
 		// Get meta data for the module
 		$this->template->module_details = $this->module_details = $this->module_m->get($this->module);
@@ -155,6 +155,7 @@ class MY_Controller extends CI_Controller {
 		// Asset library needs to know where the admin theme directory is
 		$this->config->set_item('asset_dir', $this->admin_theme->path.'/');
 		$this->config->set_item('asset_url', BASE_URL.$this->admin_theme->web_path.'/');
+		
 		// Set the front-end theme directory
 		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
 		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->theme->web_path).'/');

@@ -3,7 +3,7 @@
 // Code here is run before frontend controllers
 class Public_Controller extends MY_Controller
 {
-	public function Public_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -80,7 +80,6 @@ class Public_Controller extends MY_Controller
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
-		$this->template->user = (array) $this->user;
 
 		$this->benchmark->mark('public_controller_end');
 	}
