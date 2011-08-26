@@ -66,7 +66,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 
 		$this->config->load('files');
 		$this->lang->load('files');

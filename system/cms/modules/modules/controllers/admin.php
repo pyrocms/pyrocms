@@ -18,7 +18,7 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 
 		$this->lang->load('modules');
 

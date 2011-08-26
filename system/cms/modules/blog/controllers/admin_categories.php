@@ -22,7 +22,8 @@ class Admin_Categories extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
+		
 		$this->load->model('blog_categories_m');
 		$this->lang->load('categories');
 		$this->lang->load('blog');

@@ -23,8 +23,8 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor method
-		parent::Admin_Controller();
+		parent::__construct();
+		
 		$this->load->model('settings_m');
 		$this->load->library('settings');
 		$this->load->library('form_validation');
