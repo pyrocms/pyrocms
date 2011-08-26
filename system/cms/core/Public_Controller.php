@@ -20,7 +20,7 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->user) OR $this->user->group != 'admin'))
+		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) OR $this->current_user->group != 'admin'))
 		{
 			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
 			show_error($error);

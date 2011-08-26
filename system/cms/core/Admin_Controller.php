@@ -33,7 +33,6 @@ class Admin_Controller extends MY_Controller {
 		// Template configuration
 		$this->template
 				->enable_parser(FALSE)
-				->set('user', $this->user)
 				->set('theme_options', $this->theme_options)
 				->set_theme(ADMIN_THEME)
 				->set_layout('default', 'admin');
@@ -64,7 +63,7 @@ class Admin_Controller extends MY_Controller {
 		}
 
 		// Admins can go straight in
-		else if ($this->user->group === 'admin')
+		else if ($this->current_user->group === 'admin')
 		{
 			return TRUE;
 		}

@@ -9,7 +9,6 @@
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
  * @since		Version 1.0
- * @filesource
  */
 
 /**
@@ -17,11 +16,10 @@
  *
  * Provides an admin for the file module.
  *
- * @author		Dan Horrigan <dan@dhorrigan.com>
- * @author		Eric Barnes <eric@pyrocms.com>
- * @author		Marcos Coelho <marcos@marcoscoelho.com>
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS
- * @subpackage	file
+ * @subpackage	Modules
+ * @category	Files
  */
 class Admin extends Admin_Controller {
 
@@ -174,7 +172,7 @@ class Admin extends Admin_Controller {
 				$file = $this->upload->data();
 				$data = array(
 					'folder_id'		=> (int) $this->input->post('folder_id'),
-					'user_id'		=> (int) $this->user->id,
+					'user_id'		=> (int) $this->current_user->id,
 					'type'			=> $this->_type,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',
@@ -345,7 +343,7 @@ class Admin extends Admin_Controller {
 					$file = $this->upload->data();
 					$data = array(
 						'folder_id'		=> (int) $this->input->post('folder_id'),
-						'user_id'		=> (int) $this->user->id,
+						'user_id'		=> (int) $this->current_user->id,
 						'type'			=> $this->_type,
 						'name'			=> $this->input->post('name'),
 						'description'	=> $this->input->post('description'),
@@ -394,7 +392,7 @@ class Admin extends Admin_Controller {
 			{
 				$data = array(
 					'folder_id'		=> $this->input->post('folder_id'),
-					'user_id'		=> $this->user->id,
+					'user_id'		=> $this->current_user->id,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description')
 				);

@@ -120,7 +120,7 @@ class MY_Controller extends CI_Controller {
 		$this->controller = $this->router->fetch_class();
 		$this->method = $this->router->fetch_method();
 
-		// Loaded after $this->user is set so that data can be used everywhere
+		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',

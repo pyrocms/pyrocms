@@ -13,7 +13,7 @@ abstract class Plugin
 
 	// ------------------------------------------------------------------------
 
-    function __get($var)
+    public function __get($var)
     {
 		return get_instance()->$var;
     }

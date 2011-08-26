@@ -190,7 +190,7 @@ class Admin extends Admin_Controller {
 				'status'			=> $this->input->post('status'),
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
-				'author_id'			=> $this->user->id
+				'author_id'			=> $this->current_user->id
 			));
 
 			if ($id)
@@ -262,7 +262,7 @@ class Admin extends Admin_Controller {
 				role_or_die('blog', 'put_live');
 			}
 
-			$author_id = empty($post->author) ? $this->user->id : $post->author_id;
+			$author_id = empty($post->author) ? $this->current_user->id : $post->author_id;
 
 			$result = $this->blog_m->update($id, array(
 				'title'				=> $this->input->post('title'),
@@ -279,7 +279,7 @@ class Admin extends Admin_Controller {
 			
 			if ($result)
 			{
-				$this->session->set_flashdata(array('success' => sprintf($this->lang->line('blog_edit_success'), $this->input->post('title'))));
+				$this->session->set_flashdata(array('success' => sprintf(lang('blog_edit_success'), $this->input->post('title'))));
 
 				// The twitter module is here, and enabled!
 //				if ($this->settings->item('twitter_blog') == 1 && ($post->status != 'live' && $this->input->post('status') == 'live'))
@@ -295,7 +295,7 @@ class Admin extends Admin_Controller {
 			
 			else
 			{
-				$this->session->set_flashdata(array('error' => $this->lang->line('blog_edit_error')));
+				$this->session->set_flashdata('error', $this->lang->line('blog_edit_error'));
 			}
 
 			// Redirect back to the form or main page

@@ -17,7 +17,7 @@ class Plugin_Pages extends Plugin
 	 * @param int $id The ID of the page
 	 * @return string
 	 */
-	function url()
+	public function url()
 	{
 		$id		= $this->attribute('id');
 		$page	= $this->pyrocache->model('pages_m', 'get', array($id));
@@ -32,7 +32,7 @@ class Plugin_Pages extends Plugin
 	 * @param string 	$slug The uri of the page
 	 * @return array
 	 */
-	function display()
+	public function display()
 	{
 		$page = $this->db->select('pages.*, page_chunks.*')
 					->where('pages.id', $this->attribute('id'))
@@ -56,11 +56,9 @@ class Plugin_Pages extends Plugin
 	 *	    {body}
 	 * {/pyro:pages:children}
 	 *
-	 * @param	array
 	 * @return	array
 	 */
-	
-	function children()
+	public function children()
 	{
 		$limit = $this->attribute('limit');
 		
@@ -106,12 +104,12 @@ class Plugin_Pages extends Plugin
 		$this->disable = explode("|", $disable_levels);
 		
 		return '<'.$list_tag.'>' . $this->_build_tree_html(array(
-												'parent_id' => $start_id,
-												'order_by' => $order_by,
-												'order_dir' => $order_dir,
-												'list_tag' => $list_tag,
-												'link' => $link
-												)) . '</'.$list_tag.'>';
+			'parent_id' => $start_id,
+			'order_by' => $order_by,
+			'order_dir' => $order_dir,
+			'list_tag' => $list_tag,
+			'link' => $link
+		)) . '</'.$list_tag.'>';
 	}
 
 	// --------------------------------------------------------------------------
@@ -240,14 +238,14 @@ class Plugin_Pages extends Plugin
 					->where_not_in('slug', $this->disable);
 			
 			// check if they're logged in
-			if ( isset($this->user->group) )
+			if ( isset($this->current_user->group) )
 			{
 				// admins can see them all
-				if ($this->user->group != 'admin')
+				if ($this->current_user->group != 'admin')
 				{
 					// show pages for their group and all unrestricted
 					$this->db->where('status', 'live')
-						->where_in('restricted_to', array($this->user->group_id, 0, NULL));					
+						->where_in('restricted_to', array($this->current_user->group_id, 0, NULL));					
 				}
 			}
 			else
