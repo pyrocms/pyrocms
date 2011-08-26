@@ -696,7 +696,15 @@ class Users extends Public_Controller
 	    $languages = array();
 	    foreach ($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
-			$languages[$lang_code] = $lang['name'];
+	    	// get the languages offered on the front-end
+	    	$site_public_lang = explode(',', Settings::get('site_public_lang'));
+			
+			// if the supported language is offered on the front-end
+			if (in_array($lang_code, $site_public_lang))
+			{
+				// add it to the dropdown list
+				$languages[$lang_code] = $lang['name'];
+			}
 	    }
 
 		// Render the view
