@@ -37,22 +37,12 @@ $lang['cp_nav_design']					= 'Σχεδιασμός';
 $lang['cp_nav_content']					= 'Περιεχόμενο';
 $lang['cp_nav_utilities']				= 'Utilities'; #translate
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_must_login']	 				= 'Πρέπει να είσαστε συνδεδεμένος για να δείτε αυτή την σελίδα.';
 $lang['cp_access_denied'] 				= 'Δεν έχετε αρκετά δικαιώματα για να δείτε αυτή την σελίδα.';
 $lang['cp_delete_installer_message']	= 'Παρακαλούμε διαγράψτε το φάκελο installer από τον διακομιστή σας. Η παρουσία του σημαίνει ότι ο ιστότοπος μπορεί να καταληφθεί από τον οποιονδήποτε.';
 $lang['cp_upgrade_message']				= 'Έχετε την έκδοση %s, αλλά η έκδοση της βάσης δεδομένων είναι %s. Παρακαλούμε <a href="%s" title="ενημερώστε">κάντε κλικ εδώ</a> για να ενημερώσετε την βάση δεδομένων σας.';
 $lang['cp_google_analytics_missing']	= 'Οι ρυθμίσεις για το Google Analytics λείπουν. Προσθέστε τις στο %s ή επικοινωνήστε με τον διαχειριστή σας.';
 $lang['cp_google_analytics_no_connect']	= 'Δεν μπορέσαμε να συνδεθούμε με το Google Analytics. Κοιτάξτε το %s.';
-
-// Admin-wide text	
-$lang['global:shortcuts'] 				= 'Συντομέυσεις';
-$lang['global:description'] 		    = 'Περιγραφή';
-$lang['global:actions']					= 'Ενέργειες';
-$lang['global:edit']					= 'Επεξεργασία';
-$lang['global:delete']					= 'Διαγραφή';
-$lang['global:remove']					= 'Διαγραφή';
 
 $lang['required_label'] 				= 'Απαιτείται';
 $lang['sb_recent_users'] 				= 'Πρόσφατοι χρήστες';

@@ -66,3 +66,12 @@ $lang['install_label'] 				= 'Instalovat';
 $lang['enable_label']				= 'Zapnout';
 $lang['disable_label'] 				= 'Vypnout';
 $lang['upgrade_label'] 				= 'Upgrade';
+
+$lang['global:shortcuts']				= 'Rychlé odkazy';
+$lang['global:description'] 		    = 'Popis';
+$lang['global:actions']					= 'Akce';
+$lang['global:edit']					= 'Upravit';
+$lang['global:delete']					= 'Vymazat';
+$lang['global:remove']					= 'Vymazat';
+
+$lang['global:keywords']				= 'Keywords'; #translate

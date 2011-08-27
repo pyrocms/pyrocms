@@ -65,3 +65,12 @@ $lang['uninstall_label'] 				= 'إزالة';
 $lang['install_label'] 					= 'تثبيت';
 $lang['enable_label']					= 'تمكين';
 $lang['disable_label'] 					= 'تعطيل';
+
+$lang['global:shortcuts'] 				= 'الاختصارات';
+$lang['global:description'] 		    = 'الوصف';
+$lang['global:actions']					= 'الإجراءات';
+$lang['global:edit']					= 'تعديل';
+$lang['global:delete']					= 'حذف';
+$lang['global:remove']					= 'إزالة';
+
+$lang['global:keywords']				= 'كلمات البحث';

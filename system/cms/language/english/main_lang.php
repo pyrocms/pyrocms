@@ -67,4 +67,13 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
+$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:description']				= 'Description';
+$lang['global:actions']					= 'Actions';
+$lang['global:edit']					= 'Edit';
+$lang['global:delete']					= 'Delete';
+$lang['global:remove']					= 'Remove';
+
+$lang['global:keywords']				= 'Keywords';
+
 /* End of file main_lang.php */

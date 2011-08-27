@@ -66,4 +66,13 @@ $lang['install_label'] 					= 'Installeren';
 $lang['enable_label']					= 'Inschakelen';
 $lang['disable_label']					= 'Uitschakelen';
 
+$lang['global:shortcuts'] 				= 'Snelkoppelingen';
+$lang['global:description'] 		    = 'Beschrijving';
+$lang['global:actions']					= 'Acties';
+$lang['global:edit']					= 'Wijzig';
+$lang['global:delete']					= 'Verwijder';
+$lang['global:remove']					= 'Verwijder';
+
+$lang['global:keywords']				= 'Keywords'; #translate
+
 /* End of file main_lang.php */
