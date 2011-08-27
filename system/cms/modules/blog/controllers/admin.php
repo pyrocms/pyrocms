@@ -107,9 +107,7 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		$this->template
-			->append_metadata( css('blog.css', 'blog') )
-			->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
