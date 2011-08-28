@@ -667,9 +667,17 @@ class Users extends Public_Controller
 
 	    // Format languages for the dropdown box
 	    $languages = array();
+	    // get the languages offered on the front-end
+	    $site_public_lang = explode(',', Settings::get('site_public_lang'));
+	    
 	    foreach ($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
-			$languages[$lang_code] = $lang['name'];
+	       // if the supported language is offered on the front-end
+	       if (in_array($lang_code, $site_public_lang))
+	       {
+          	// add it to the dropdown list
+        	   $languages[$lang_code] = $lang['name'];
+	       }
 	    }
 
 		// Render the view
