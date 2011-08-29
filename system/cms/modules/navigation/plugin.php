@@ -45,6 +45,8 @@ class Plugin_Navigation extends Plugin
 															//deprecated
 		$more_class		= $this->attribute('more-class', $this->attribute('more_class', ''));
 		$current_class	= $this->attribute('class', 'current');
+		$first_class	= $this->attribute('first-class', 'first');
+		$last_class		= $this->attribute('last-class', 'last');
 		$output			= $return_arr ? array() : '';
 
 		$i		= 1;
@@ -106,13 +108,13 @@ class Plugin_Navigation extends Plugin
 			// is first ?
 			elseif ($i === 1)
 			{
-				$wrapper['class'][] = 'first';
+				$wrapper['class'][] = $first_class;
 			}
 
 			// is last ?
 			elseif ($i === $total)
 			{
-				$wrapper['class'][]		= 'last';
+				$wrapper['class'][]		= $last_class;
 				$wrapper['separator']	= '';
 			}
 

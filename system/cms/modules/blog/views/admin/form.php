@@ -60,7 +60,7 @@
 					<?php echo form_input('created_on', date('Y-m-d', $post->created_on), 'maxlength="10" id="datepicker" class="text width-20"'); ?>
 				</div>
 				<label class="time-meta"><?php echo lang('blog_time_label'); ?></label>
-				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on)) ?>
+				<?php echo form_dropdown('created_on_hour', $hours, date('H', $post->created_on), 'style="width:4em;"') ?>
 				<?php echo form_dropdown('created_on_minute', $minutes, date('i', ltrim($post->created_on, '0'))) ?>
 			</li>
 			<li class="even">
@@ -77,3 +77,14 @@
 </div>
 
 <?php echo form_close(); ?>
+
+<style type="text/css">
+form.crudli.date-meta div.selector {
+    float: left;
+    width: 30px;
+}
+form.crud li.date-meta div input#datepicker { width: 8em; }
+form.crud li.date-meta div.selector { width: 5em; }
+form.crud li.date-meta div.selector span { width: 1em; }
+form.crud li.date-meta label.time-meta { min-width: 4em; width:4em; }
+</style>

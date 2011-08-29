@@ -5,12 +5,12 @@
 	<table>
 		<thead>
 			<tr>
-				<th width="150" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
+				<th width="95" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
 				<th width="15%"><?php echo lang('themes.theme_label'); ?></th>
 				<th><?php echo lang('themes.description_label'); ?></th>
 				<th width="15%"><?php echo lang('themes.author_label'); ?></th>
-				<th width="100" class="align-center"><?php echo lang('themes.version_label'); ?></th>
-				<th width="250" class="align-center"><?php echo lang('themes.actions_label'); ?></th>
+				<th width="50" class="align-center"><?php echo lang('themes.version_label'); ?></th>
+				<th width="300" class="align-center"><?php echo lang('themes.actions_label'); ?></th>
 			</tr>
 		</thead>
 		<tfoot>

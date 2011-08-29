@@ -21,7 +21,7 @@ $lang['groups.edit_title']					= 'Редактирование группы "%s"
 // сообщения
 $lang['groups.no_groups']					= 'Группы отсутствуют';
 $lang['groups.add_success']					= 'Группа "%s" добавлена.';
-$lang['groups.edit_error']					= 'Во время добавления группы "%s" произошла ошибка.';
+$lang['groups.add_error']					= 'Во время добавления группы "%s" произошла ошибка.';
 $lang['groups.edit_success']				= 'Группа "%s" сохранена.';
 $lang['groups.edit_error']					= 'Во время сохранения группы "%s" произошла ошибка.';
 $lang['groups.delete_success']				= 'Группа удалена.';

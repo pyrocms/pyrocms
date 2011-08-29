@@ -37,22 +37,12 @@ $lang['cp_nav_design']					= 'Dizainas';
 $lang['cp_nav_content']					= 'Turinys';
 $lang['cp_nav_utilities']				= 'Šiukšlinė';
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_must_login']	 				= 'Jūs turite būti prisijungęs, kad matytumėte šį puslapį.';
 $lang['cp_access_denied'] 				= 'Jūs neturite leidimo peržiūrėti šį puslapį.';
 $lang['cp_delete_installer_message']	= 'Ištrinkite instaliavimo direktoriją, nes taip paliekate spragą jungtis kietiems.';
 $lang['cp_upgrade_message']				= 'Jūs naudojama versija %s, tačiau duombazės versija %s. Prašome <a href="%s" title="Atnaujinimai">spausti čia</a> kad atnaujinti duombazę.';
 $lang['cp_google_analytics_missing']	= 'Google Analytics nustatimai nerandami. Įdėkite juos į %s arba kreipkitės į sistemos administratorių.';
 $lang['cp_google_analytics_no_connect']	= 'Negali prisijungti prie Google Analytics. Patikrink %s.';
-
-// Admin-wide text
-$lang['global:shortcuts']	 			= 'Nuoroda';
-$lang['global:description'] 		    = 'Aprašymas';
-$lang['global:actions']					= 'Veiksmai';
-$lang['global:edit']					= 'Redaguoti';
-$lang['global:delete']					= 'Ištrinti';
-$lang['global:remove']					= 'Ištrinti';
 
 $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';

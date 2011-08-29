@@ -69,7 +69,7 @@ class Upload extends WYSIWYG_Controller
 
 				$this->file_m->insert(array(
 					'folder_id'		=> $this->input->post('folder_id'),
-					'user_id'		=> $this->user->id,
+					'user_id'		=> $this->current_user->id,
 					'type'			=> $type,
 					'name'			=> $this->input->post('name'),
 					'description'	=> $this->input->post('description') ? $this->input->post('description') : '',

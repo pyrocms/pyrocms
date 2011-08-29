@@ -119,21 +119,21 @@ class Ion_auth_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function hash_password_db($identity, $password)
+	public function hash_password_db($id, $password)
 	{
-	   if (empty($identity) || empty($password))
+	   if (empty($id) || empty($password))
 	   {
 		return FALSE;
 	   }
 
 	   $query = $this->db->select('password')
 						 ->select('salt')
-						 ->where($this->identity_column, $identity)
+						 ->where('id', $id)
 						 ->where($this->ion_auth->_extra_where)
 						 ->limit(1)
 						 ->get($this->tables['users']);
 
-	$result = $query->row();
+		$hash_password_db = $query->row();
 
 		if ($query->num_rows() !== 1)
 		{
@@ -142,7 +142,7 @@ class Ion_auth_model extends CI_Model
 
 		if ($this->store_salt)
 		{
-			return sha1($password . $result->salt);
+			return sha1($password . $hash_password_db->salt);
 		}
 		else
 		{
@@ -564,13 +564,13 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function login($identity, $password, $remember=FALSE)
 	{
-		if (empty($identity) || empty($password) || !$this->identity_check($identity))
+		if (empty($identity) || empty($password))
 		{
 			return FALSE;
 		}
 
-		$this->db->select($this->identity_column.', id, password, group_id')
-			->where($this->identity_column, $identity);
+		$this->db->select('username, email, id, password, group_id')
+			->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)));
 
 		if (isset($this->ion_auth->_extra_where))
 		{
@@ -581,31 +581,32 @@ class Ion_auth_model extends CI_Model
 					   ->limit(1)
 					   ->get($this->tables['users']);
 
-		$result = $query->row();
+		$user = $query->row();
 
 		if ($query->num_rows() == 1)
 		{
-			$password = $this->hash_password_db($identity, $password);
+			$password = $this->hash_password_db($user->id, $password);
 
-			if ($result->password === $password)
+			if ($user->password === $password)
 			{
-				$this->update_last_login($result->id);
+				$this->update_last_login($user->id);
 
-				$group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
+				$group_row = $this->db->select('name')->where('id', $user->group_id)->get($this->tables['groups'])->row();
 
 				$session_data = array(
-					$this->identity_column => $result->{$this->identity_column},
-					'id'                   => $result->id, //kept for backwards compatibility
-					'user_id'              => $result->id, //everyone likes to overwrite id so we'll use user_id
-					'group_id'             => $result->group_id,
+					'username' 			   => $user->username,
+					'email' 			   => $user->email,
+					'id'                   => $user->id, //kept for backwards compatibility
+					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+					'group_id'             => $user->group_id,
 					'group'                => $group_row->name
-					 );
+				);
 
 				$this->session->set_userdata($session_data);
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth'))
 				{
-					$this->remember_user($result->id);
+					$this->remember_user($user->id);
 				}
 
 				return TRUE;

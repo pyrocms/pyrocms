@@ -64,3 +64,12 @@ $lang['uninstall_label']	= 'Desinstalar';
 $lang['install_label']		= 'Instalar';
 $lang['enable_label']		= 'Activar';
 $lang['disable_label']		= 'Desactivar';
+
+$lang['global:sidebar']			= 'Shortcuts'; #translate
+$lang['global:description']		= 'Descripción';
+$lang['global:actions']			= 'Acciones';
+$lang['global:edit']			= 'Editar';
+$lang['global:delete']			= 'Eliminar';
+$lang['global:remove']			= 'Eliminar';
+
+$lang['global:keywords']		= 'Keywords'; #translate

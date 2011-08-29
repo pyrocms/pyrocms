@@ -37,20 +37,10 @@ $lang['cp_nav_design']					= 'Wygląd';
 $lang['cp_nav_content']					= 'Zawartość';
 $lang['cp_nav_utilities']               = 'Narzędzia';
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_must_login']	 				= 'Musisz być zalogowany, żeby zobaczyć tę stronę.';
 $lang['cp_access_denied'] 				= 'Nie posiadasz wystarczających uprawnień, żeby zobaczyć tą stronę.';
 $lang['cp_delete_installer_message']	= 'Proszę usunąć katalog o nazwie "installer" z serwera. Zostawiając go w głównym katalogu, narażasz się na utratę danych!';
 $lang['cp_upgrade_message']				= 'Używasz wersji %s, ale Twoja baza danych jest w wersji %s. <a href="%s">Kliknij tutaj</a>, aby zaktualizować bazę danych.';
-
-// Admin-wide text
-$lang['global:shortcuts']	 			= 'Skróty klawiszowe'; 
-$lang['global:description']				= 'Opis';
-$lang['global:actions']					= 'Akcje';
-$lang['global:edit']					= 'Edytuj';
-$lang['global:delete']					= 'Usuń';
-$lang['global:remove']					= 'Usuń'; 
 
 $lang['required_label'] 				= 'Wymagane';
 $lang['sb_recent_users'] 				= 'Ostatni użytkownicy';

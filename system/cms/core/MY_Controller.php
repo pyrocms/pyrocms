@@ -5,30 +5,31 @@ class MY_Controller extends CI_Controller {
 
 	// Deprecated: No longer used globally
 	protected $data;
+	
 	public $module;
 	public $controller;
 	public $method;
 
-	public function MY_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->benchmark->mark('my_controller_start');
-
-		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
-		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{
-			$this->load->dbforge();
-			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
-		}
 		
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
 			show_error('This domain is not set up correctly.');
 		}
+		
+		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
+		if ($this->db->table_exists(SITE_REF.'_schema_version'))
+		{
+			$this->load->dbforge();
+			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+		}
 
-		// By changing the prefix we are essentially "namespacing" each pyro site
+		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
 		
 		// Load the cache library now that we know the siteref
@@ -112,14 +113,14 @@ class MY_Controller extends CI_Controller {
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
 
-		$this->user = $this->ion_auth->get_user();
+		$this->template->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
 		$this->module = $this->router->fetch_module();
 		$this->controller = $this->router->fetch_class();
 		$this->method = $this->router->fetch_method();
 
-		// Loaded after $this->user is set so that data can be used everywhere
+		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
@@ -128,7 +129,7 @@ class MY_Controller extends CI_Controller {
 		));
 
 		// List available module permissions for this user
-		$this->permissions = $this->user ? $this->permission_m->get_group($this->user->group_id) : array();
+		$this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
 		// Get meta data for the module
 		$this->template->module_details = $this->module_details = $this->module_m->get($this->module);
@@ -154,6 +155,7 @@ class MY_Controller extends CI_Controller {
 		// Asset library needs to know where the admin theme directory is
 		$this->config->set_item('asset_dir', $this->admin_theme->path.'/');
 		$this->config->set_item('asset_url', BASE_URL.$this->admin_theme->web_path.'/');
+		
 		// Set the front-end theme directory
 		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
 		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->theme->web_path).'/');

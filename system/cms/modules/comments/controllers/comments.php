@@ -45,7 +45,7 @@ class Comments extends Public_Controller {
 	 */
 	public function __construct()
 	{
-		parent::Public_Controller();
+		parent::__construct();
 
 		// Load the required classes
 		$this->load->library('form_validation');
@@ -68,10 +68,10 @@ class Comments extends Public_Controller {
 		// Logged in? in which case, we already know their name and email
 		if ($this->ion_auth->logged_in())
 		{
-			$comment['user_id']	= $this->user->id;
-			$comment['name']	= $this->user->display_name;
-			$comment['email']	= $this->user->email;
-			$comment['website']	= $this->user->website;
+			$comment['user_id']	= $this->current_user->id;
+			$comment['name']	= $this->current_user->display_name;
+			$comment['email']	= $this->current_user->email;
+			$comment['website']	= $this->current_user->website;
 		}
 		else
 		{
@@ -84,7 +84,7 @@ class Comments extends Public_Controller {
 
 		$comment['module']		= $module;
 		$comment['module_id']	= $id;
-		$comment['is_active']	= (bool) ((isset($this->user->group) && $this->user->group == 'admin') OR ! $this->settings->moderate_comments);
+		$comment['is_active']	= (bool) ((isset($this->current_user->group) && $this->current_user->group == 'admin') OR ! $this->settings->moderate_comments);
 
 		// Validate the results
 		if ($this->form_validation->run())
@@ -110,7 +110,7 @@ class Comments extends Public_Controller {
 				if ($comment_id = $this->comments_m->insert($comment))
 				{
 					// Approve the comment straight away
-					if ( ! $this->settings->moderate_comments OR (isset($this->user->group) && $this->user->group == 'admin'))
+					if ( ! $this->settings->moderate_comments OR (isset($this->current_user->group) && $this->current_user->group == 'admin'))
 					{
 						$this->session->set_flashdata('success', lang('comments.add_success'));
 					}
@@ -185,9 +185,9 @@ class Comments extends Public_Controller {
 			$this->load->library('akismet');
 
 			$comment = array(
-				'author'	=> $this->user ? $this->user->first_name . ' ' . $this->user->last_name : $this->input->post('name'),
-				'email'		=> $this->user ? $this->user->email : $this->input->post('email'),
-				'website'	=> $this->user ? $this->user->website : $this->input->post('website'),
+				'author'	=> $this->current_user ? $this->current_user->first_name . ' ' . $this->current_user->last_name : $this->input->post('name'),
+				'email'		=> $this->current_user ? $this->current_user->email : $this->input->post('email'),
+				'website'	=> $this->current_user ? $this->current_user->website : $this->input->post('website'),
 				'body'		=> $this->input->post('body')
 			);
 
@@ -201,7 +201,7 @@ class Comments extends Public_Controller {
 
 			if ($this->akismet->is_spam())
 			{
-				return array('status' => FALSE, 'message' => 'Looks like this is spam, sorry dude.');
+				return array('status' => FALSE, 'message' => 'Looks like this is spam. If you believe this is incorrect please contact the site administrator.');
 			}
 
 			if ($this->akismet->errors_exist())

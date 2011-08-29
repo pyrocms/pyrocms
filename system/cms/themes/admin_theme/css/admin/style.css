@@ -32,48 +32,6 @@
 	cursor:move;
 }
 
-/* Revisions */
-.revision_pre
-{
-	border:				1px solid #ccc;
-	overflow: 			hidden;
-	padding:			10px;
-	max-width:			95%;
-	overflow-x: auto;
-	font-size: 11px;
-	background: #eee;
-	margin: 0 auto;
-}
-.revision_pre del, .revision_pre ins
-{
-	display:			inline-block;
-	min-height:			10px;
-	padding:			0;
-	text-decoration: 	none;
-	width: 100%;
-}
-.revision_pre ins *, .revision_pre del *
-{
-	display:			inline;
-}
-.revision_pre ins span.highlight { background-color: #77d76d; }
-.revision_pre del span.highlight { background-color: #d97070; }
-.revision_pre ins
-{
-	background:			#8EE884;
-}
-.revision_pre del
-{
-	background:			#E88484;
-}
-#revision_preview_heading
-{
-	border-bottom:		1px solid #000;
-	margin-top:			0px;
-	padding-bottom:		5px;
-}
-/* END MOVE ME SOMEWHERE */
-
 body {
 	background: #FFFFFF url(../../img/admin/bg.png) top left repeat-y;
 	color: #444;

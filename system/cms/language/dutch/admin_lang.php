@@ -37,8 +37,6 @@ $lang['cp_nav_design']					= 'Design';
 $lang['cp_nav_content']					= 'Content';
 $lang['cp_nav_utilities']       = 'Gereedschappen';
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
 $lang['cp_upgrade_message']				= 'U gebruikt momenteel versie %s, maar uw database draait op versie %s. Klik alstublieft <a href="%s">hier</a> om de database te upgraden.';
@@ -47,14 +45,6 @@ $lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bek
 $lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
 $lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
-
-// Admin-wide text
-$lang['global:shortcuts'] 				= 'Snelkoppelingen';
-$lang['global:description'] 		    = 'Beschrijving';
-$lang['global:actions']					= 'Acties';
-$lang['global:edit']					= 'Wijzig';
-$lang['global:delete']					= 'Verwijder';
-$lang['global:remove']					= 'Verwijder';
 
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';

@@ -40,8 +40,6 @@ $lang['cp_nav_design']					= 'עיצוב';
 $lang['cp_nav_content']					= 'קונטנט';
 $lang['cp_nav_utilities']				= 'כלי עזר';
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_must_login']	 				= 'חייבים להיות מחוברים כדי לצפות בעמוד זה';
 $lang['cp_access_denied'] 				= 'אין לך הרשאות מתאימות כדי לצפות בעמוד זה.';
 
@@ -55,14 +53,6 @@ $lang['cp_google_analytics_missing']= '
 הגדרות גוגל אנליטיקס חסרות. הוסף אותם ל %s או פנה למנהל המערכת.';
 $lang['cp_google_analytics_no_connect']= '
 אין אפשרות להתחבר לגוגל אנליטיקס. אנא בדוק ב%s';
-
-// Admin-wide text
-$lang['global:shortcuts']	 			= 'קיצורי דרך';
-$lang['global:description'] 		    = 'תיאור';
-$lang['global:actions']					= 'פעולות';
-$lang['global:edit']					= 'ערוך';
-$lang['global:delete']					= 'מחק';
-$lang['global:remove']					= 'מחק';
 
 $lang['required_label'] 				= 'דרוש';
 $lang['sb_recent_users'] 				= 'משתמשים חדשים';

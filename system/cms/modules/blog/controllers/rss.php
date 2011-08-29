@@ -4,7 +4,7 @@ class Rss extends Public_Controller
 {
 	function __construct()
 	{
-		parent::Public_Controller();	
+		parent::__construct();	
 		$this->load->model('blog_m');
 		$this->load->helper('xml');
 		$this->load->helper('date');
