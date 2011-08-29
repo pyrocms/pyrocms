@@ -85,7 +85,9 @@
         {{else}}
             <td class="preview">
                 {{if thumbnail_url}}
-                    <a href="${url}" target="_blank"><img src="${thumbnail_url}"></a>
+				<div class="wrapper ui-corner-all">
+					<a href="${url}" target="_blank" class="inner ui-corner-all"><img src="${thumbnail_url}"></a>
+				</div>
                 {{/if}}
             </td>
             <td class="name">

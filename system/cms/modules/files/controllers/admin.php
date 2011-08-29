@@ -328,7 +328,7 @@ class Admin extends Admin_Controller {
 			{
 				$file += array(
 					'url'			=> site_url('files/download/'. $file_id),
-					'thumbnail_url'	=> $type === 'i' ? site_url('files/thumb/' . $file_id . '/80/30') : '',
+					'thumbnail_url'	=> $type === 'i' ? site_url('files/thumb/' . $file_id . '/80/50/fit') : '',
 					'delete_url'	=> site_url('admin/files/delete/' . $file_id),
 					'delete_type'	=> 'DELETE'
 				);

@@ -47,7 +47,7 @@
             // The maximum width of the preview images:
             previewMaxWidth: 80,
             // The maximum height of the preview images:
-            previewMaxHeight: 30,
+            previewMaxHeight: 50,
             // By default, preview images are displayed as canvas elements
             // if supported by the browser. Set the following option to false
             // to always display preview images as img elements:
@@ -409,12 +409,17 @@
             tmpl.find('.preview').each(function (index, node) {
                 that._loadImage(
                     files[index],
-                    function (img) {
-                        $(img).hide().appendTo(node).fadeIn();
+                    function (img_el) {
+						var img = $(img_el),
+							x_offset = -1*((img.prop('width')-options.previewMaxWidth)/2),
+							y_offset = -1*((img.prop('height')-options.previewMaxHeight)/2);
+                        $('<div class="wrapper ui-corner-all"/>').html(
+							$('<div class="inner ui-corner-all"/>').html(img.css({marginLeft: x_offset,marginTop: y_offset}))
+						).hide().appendTo(node).fadeIn();
                     },
                     {
                         maxWidth: options.previewMaxWidth,
-                        maxHeight: options.previewMaxHeight,
+                        maxHeight: null,//options.previewMaxHeight,
                         fileTypes: options.previewFileTypes,
                         canvas: options.previewAsCanvas
                     }

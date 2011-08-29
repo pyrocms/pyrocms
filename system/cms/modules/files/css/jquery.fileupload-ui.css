@@ -114,3 +114,15 @@
 	text-align: right;
 	white-space: nowrap;
 }
+.files .preview .wrapper {
+    border: 1px solid #ccc;
+	width: 90px;
+}
+.files .preview a.inner { display: block; }
+.files .preview .inner {
+    width: 80px;
+    height: 50px;
+    border: 5px solid #fff;
+    overflow: hidden;
+    background: #fff;
+}
