@@ -11,12 +11,12 @@ class Widget_Rss_feed extends Widgets {
 
 	public $title = array(
 		'en' => 'RSS Feed',
-		'pt' => 'Feed RSS',
+		'br' => 'Feed RSS',
 		'ru' => 'Лента новостей RSS',
 	);
 	public $description = array(
 		'en' => 'Display parsed RSS feeds on your websites',
-		'pt' => 'Interpreta e exibe qualquer feed RSS no seu site',
+		'br' => 'Interpreta e exibe qualquer feed RSS no seu site',
 		'ru' => 'Выводит обработанную ленту новостей на вашем сайте',
 	);
 	public $author	= 'Phil Sturgeon';

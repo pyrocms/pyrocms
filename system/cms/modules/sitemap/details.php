@@ -21,7 +21,7 @@ class Module_Sitemap extends Module {
 				'it' => 'Mappa del sito',
 				'ru' => 'Карта сайта',
 				'ar' => 'خريطة الموقع',
-				'pt' => 'Mapa do Site',
+				'br' => 'Mapa do Site',
 				'es' => 'Mapa del Sitio',
 				'fi' => 'Sivukartta',
 				'lt' => 'Svetainės medis'
@@ -35,7 +35,7 @@ class Module_Sitemap extends Module {
 				'it' => 'Il modulo mappa del sito crea un indice di tutte le pagine e una sitemap in XML per i motori di ricerca.',
 				'ru' => 'Карта модуль создает индекс всех страниц и карта сайта XML для поисковых систем.',
 				'ar' => 'وحدة خريطة الموقع بإنشاء فهرس لجميع الصفحات والموقع أكس لمحركات البحث.',
-				'pt' => 'O módulo de mapa do site cria um índice de todas as páginas e um sitemap XML para motores de busca.',
+				'br' => 'O módulo de mapa do site cria um índice de todas as páginas e um sitemap XML para motores de busca.',
 				'es' => 'El módulo de mapa crea un índice de todas las páginas y un mapa del sitio XML para los motores de búsqueda.',
 				'fi' => 'sivukartta moduuli luo hakemisto kaikista sivuista ja XML sivukartta hakukoneille.',
 				'lt' => 'struktūra modulis sukuria visų puslapių ir XML Sitemap paieškos sistemų indeksas.'

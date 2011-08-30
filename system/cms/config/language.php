@@ -27,7 +27,7 @@ $config['supported_languages'] = array(
 	'nl'=> array('name' => 'Nederlands', 'folder' => 'dutch', 'direction' => 'ltr', 'codes' => array('dutch', 'nld', 'nl-NL')),
 	'sl' => array('name' => 'Slovensko', 'folder' => 'slovenian', 'direction' => 'ltr', 'codes' => array('slovenian', 'sl_SI')), 
 	'pl'=> array('name' => 'Polski', 'folder' => 'polish', 'direction' => 'ltr', 'codes' => array('plk', 'polish', 'pl_PL')),
-	'pt'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('portuguese-brazil', 'ptb', 'pt_BR')),
+	'br'=> array('name' => 'Portugu&ecirc;s do Brasil', 'folder' => 'brazilian', 'direction' => 'ltr', 'codes' => array('portuguese-brazil', 'ptb', 'pt_BR')),
 	'ru'=> array('name' => 'Русский', 'folder' => 'russian', 'direction' => 'ltr', 'codes' => array('rus', 'russian', 'ru_RU')),
 	'zh'=> array('name' => '繁體中文', 'folder' => 'chinese_traditional', 'direction' => 'ltr', 'codes' => array('chinese-traditional', 'cht', 'zh_HK')),
 	'he'=> array('name' => 'עברית', 'folder' => 'hebrew', 'direction' => 'rtl', 'codes' => array('he', 'hebrew', 'he_IL')),
