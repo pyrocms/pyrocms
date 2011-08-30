@@ -12,7 +12,7 @@ class Files extends Public_Controller
 	
 	public function __construct()
 	{	
-		parent::Public_Controller();
+		parent::__construct();
 		
 		$this->config->load('files');
 		$this->_path = FCPATH . $this->config->item('files_folder') . DIRECTORY_SEPARATOR;

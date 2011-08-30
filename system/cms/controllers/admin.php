@@ -15,8 +15,8 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's controller
-  		parent::Admin_Controller();
+  		parent::__construct();
+
 		$this->load->helper('users/user');
 		$this->lang->load('main');
 
@@ -45,7 +45,6 @@ class Admin extends Admin_Controller
 	 * @access public
 	 * @return void
  	 */
- 	 
  	public function index()
 	{
 		$data = array();

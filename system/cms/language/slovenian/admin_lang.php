@@ -37,18 +37,12 @@ $lang['cp_nav_design']					= 'Izgled';
 $lang['cp_nav_content']					= 'Vsebina';
 $lang['cp_nav_utilities']				= 'Pripomočki';
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_must_login']	 				= 'Morate biti prijavljeni za ogled te strani.';
 $lang['cp_access_denied'] 				= 'Nimate dovolj dovoljenj za ogled te strani';
 $lang['cp_delete_installer_message']	= 'Prosimo izbrišite installer mapo. Če jo pustite lahko nekdo drug prevzame nadzor nad to vašo spletno stranjo.';
 $lang['cp_upgrade_message']				= 'Trenutno imate verzijo %s, vaša podatkovna baza pa je verzije %s. Prosimo <a href="%s" title="Nadgradnja">kliknite tukaj</a> Za nadgradnjo vaše podatkovne baze.';
 $lang['cp_google_analytics_missing']	= 'Nastavitve za GAnalytics manjkajo. Dodajte jih na %s ali kontaktirajte administratorja.';
 $lang['cp_google_analytics_no_connect']	= 'Ne morem se povezati s GAnalytics. Preverite v %s.';
-
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Bližnjice';
-$lang['cp_remove']						= 'Odstrani';
 
 $lang['required_label'] 				= 'Zahtevano';
 $lang['sb_recent_users'] 				= 'Zadnji uporabniki';

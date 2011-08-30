@@ -74,4 +74,13 @@ $lang['install_label']					= 'Установить';
 $lang['enable_label']						= 'Включить';
 $lang['disable_label']					= 'Отключить';
 
+$lang['global:shortcuts']						= 'Ссылки';
+$lang['global:description']						= 'Описание';
+$lang['global:actions']							= 'Действия';
+$lang['global:edit']							= 'Редактировать';
+$lang['global:delete']							= 'Удалить';
+$lang['global:remove']							= 'Убрать';
+
+$lang['global:keywords']				= 'Keywords'; #translate
+
 /* End of file main_lang.php */

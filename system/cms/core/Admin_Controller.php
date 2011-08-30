@@ -3,7 +3,7 @@
 // Code here is run before admin controllers
 class Admin_Controller extends MY_Controller {
 
-	public function Admin_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -16,8 +16,7 @@ class Admin_Controller extends MY_Controller {
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
-			show_error($this->lang->line('cp_access_denied'));
-			exit;
+			show_error(lang('cp_access_denied'));
 		}
 		
 		if ( ! $this->admin_theme->slug)
@@ -34,7 +33,6 @@ class Admin_Controller extends MY_Controller {
 		// Template configuration
 		$this->template
 				->enable_parser(FALSE)
-				->set('user', $this->user)
 				->set('theme_options', $this->theme_options)
 				->set_theme(ADMIN_THEME)
 				->set_layout('default', 'admin');
@@ -59,19 +57,19 @@ class Admin_Controller extends MY_Controller {
 		{
 			return TRUE;
 		}
-		else if ( ! $this->user)
+		else if ( ! $this->current_user)
 		{
 			redirect('admin/login');
 		}
 
 		// Admins can go straight in
-		else if ($this->user->group === 'admin')
+		else if ($this->current_user->group === 'admin')
 		{
 			return TRUE;
 		}
 
 		// Well they at least better have permissions!
-		else if ($this->user)
+		else if ($this->current_user)
 		{
 			// We are looking at the index page. Show it if they have ANY admin access at all
 			if ($current_page == 'admin/index' && $this->permissions)

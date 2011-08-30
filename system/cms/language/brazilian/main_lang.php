@@ -66,4 +66,13 @@ $lang['install_label'] 					= 'Instalar';
 $lang['enable_label']					= 'Ativar';
 $lang['disable_label'] 					= 'Desativar';
 
+$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:description'] 		    = 'Descrição';
+$lang['global:actions']					= 'Ações';
+$lang['global:edit']					= 'Editar';
+$lang['global:delete']					= 'Remover';
+$lang['global:remove']					= 'Remover';
+
+$lang['global:keywords']				= 'Palavras-chave';
+
 /* End of file main_lang.php */

@@ -70,8 +70,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor method
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required classes
 		$this->load->model('users_m');

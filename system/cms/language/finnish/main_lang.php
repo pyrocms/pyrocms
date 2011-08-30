@@ -67,4 +67,12 @@ $lang['enable_label']					= 'Pälle';
 $lang['disable_label'] 					= 'Pois päältä';
 $lang['upgrade_label'] 					= 'Päivitä';
 
+$lang['global:shortcuts']	 			= 'Pikavalinnat';
+$lang['global:description']             = 'Kuvaus';
+$lang['global:actions']                 = 'Toiminnot';
+$lang['global:edit']                    = 'Muokkaa';
+$lang['global:delete']                  = 'Poista';
+
+$lang['global:keywords']				= 'Keywords'; #translate
+
 /* End of file main_lang.php */

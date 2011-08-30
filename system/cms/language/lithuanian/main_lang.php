@@ -67,4 +67,13 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
+$lang['global:shortcuts']	 			= 'Nuoroda';
+$lang['global:description'] 		    = 'Aprašymas';
+$lang['global:actions']					= 'Veiksmai';
+$lang['global:edit']					= 'Redaguoti';
+$lang['global:delete']					= 'Ištrinti';
+$lang['global:remove']					= 'Ištrinti';
+
+$lang['global:keywords']				= 'Keywords'; #translate
+
 /* End of file main_lang.php */

@@ -221,7 +221,7 @@ class Module_m extends MY_Model
 			{
 
 				// This user has no permissions for this module
-				if ( $this->user->group !== 'admin' AND empty($this->permissions[$result->slug]))
+				if ( $this->current_user->group !== 'admin' AND empty($this->permissions[$result->slug]))
 				{
 					continue;
 				}

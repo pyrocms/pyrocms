@@ -45,20 +45,10 @@ $lang['cp_nav_design']							= 'Оформление';
 $lang['cp_nav_content']							= 'Содержимое';
 $lang['cp_nav_utilities']						= 'Утилиты';
 
-$lang['global:keywords']				= 'Keywords'; #translate
-
 $lang['cp_must_login']							= 'Вы должны войти для просмотра этой страницы.';
 $lang['cp_access_denied']						= 'У вас нет прав для просмотра этой страницы.';
 $lang['cp_delete_installer_message']			= 'Пожалуйста, удалите папку установщика с сервера. Если вы этого не сделаете - есть вероятность того, что кто-то другой получит контроль над вашим сайтом.';
 $lang['cp_upgrade_message']						= 'Версия вашего сайта %s, но версия базы данных %s. Пожалуйста <a href="%s" title="Обновление">нажмите здесь</a> для обновления базы данных.';
-
-// Глобальный текст
-$lang['global:shortcuts']						= 'Ссылки';
-$lang['global:description']						= 'Описание';
-$lang['global:actions']							= 'Действия';
-$lang['global:edit']							= 'Редактировать';
-$lang['global:delete']							= 'Удалить';
-$lang['global:remove']							= 'Убрать';
 
 $lang['required_label']							= 'Требуется';
 $lang['sb_recent_users']						= 'Последние пользователи';

@@ -3,7 +3,7 @@
 // Code here is run before frontend controllers
 class Public_Controller extends MY_Controller
 {
-	public function Public_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -20,7 +20,7 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->user) OR $this->user->group != 'admin'))
+		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) OR $this->current_user->group != 'admin'))
 		{
 			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
 			show_error($error);
@@ -80,7 +80,6 @@ class Public_Controller extends MY_Controller
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
-		$this->template->user = (array) $this->user;
 
 		$this->benchmark->mark('public_controller_end');
 	}

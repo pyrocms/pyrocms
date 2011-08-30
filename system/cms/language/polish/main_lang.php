@@ -65,3 +65,12 @@ $lang['uninstall_label']			= 'Odinstaluj';
 $lang['install_label']				= 'Instaluj';
 $lang['enable_label']				= 'Włącz';
 $lang['disable_label']				= 'Wyłącz';
+
+$lang['global:shortcuts']	 			= 'Skróty klawiszowe'; 
+$lang['global:description']				= 'Opis';
+$lang['global:actions']					= 'Akcje';
+$lang['global:edit']					= 'Edytuj';
+$lang['global:delete']					= 'Usuń';
+$lang['global:remove']					= 'Usuń'; 
+
+$lang['global:keywords']				= 'Keywords'; #translate
