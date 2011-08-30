@@ -18,7 +18,7 @@ class Module_Blog extends Module {
 			),
 			'description' => array(
 				'en' => 'Post blog entries.',
-				'nl' => 'Post nieuwsartikelen en blog op uw site.', #update translation
+				'nl' => 'Post nieuwsartikelen en blogs op uw site.',
 				'es' => 'Escribe entradas para los artículos y blog (web log).', #update translation
 				'fr' => 'Envoyez de nouveaux posts et messages de blog.', #update translation
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge', #update translation
