@@ -29,7 +29,7 @@ class Module_Navigation extends Module {
 			'description' => array(
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
-				'nl' => 'Beheer links op de navigatiemenu&apos;s en alle navigatiegroepen waar ze onder vallen.',
+				'nl' => 'Beheer koppelingen op de navigatiemenu&apos;s en alle navigatiegroepen waar ze onder vallen.',
 				'es' => 'Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.',
 				'fr' => 'Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.',
 				'de' => 'Verwalte Links in Navigationsmenüs und alle zugehörigen Navigationsgruppen',

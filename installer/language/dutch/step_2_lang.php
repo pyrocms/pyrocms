@@ -6,7 +6,7 @@ $lang['intro_text']		= 	'De eerste stap in het installatie proces is het control
 $lang['mandatory']		= 	'Verplicht';
 $lang['recommended']	= 	'Aangeraden';
 
-$lang['server_settings']= 	'HTTP Server Instellingen';
+$lang['server_settings']= 	'HTTP-Server Instellingen';
 $lang['server_version']	=	'De server software:';
 $lang['server_fail']	=	'De server software word niet ondersteund. PyroCMS werkt mogelijk als de PHP en de MySQL installatie up-to-date zijn, echter zonder clean URL\'s.';
 
@@ -30,11 +30,11 @@ $lang['summary']		=	'Overzicht';
 
 $lang['zlib']			=	'Zlib';
 $lang['zlib_required']	= 	'PyroCMS heeft Zlib nodig om thema&acute;s te kunnen uitpakken en installeren'; 
-$lang['zlib_fail']		=	'Zlib werd niet aangetroffen. Dit betekent meestal dat Zlib niet geinstalleerd is. PyroCMS kan nog steeds uitstekend functioneren, maar installatie van thema&acute;s is niet mogelijk. U wordt dringend aangeraden Zlib te installeren.'; // needs to be translated
+$lang['zlib_fail']		=	'Zlib werd niet aangetroffen. Dit betekent meestal dat Zlib niet geinstalleerd is. PyroCMS kan nog steeds uitstekend functioneren, maar installatie van thema&acute;s is niet mogelijk. U wordt sterk aangeraden Zlib te installeren.';
 
 $lang['curl']			=	'Curl';
-$lang['curl_required']	=	'PyroCMS requires Curl in order to make connections to other sites.';
-$lang['curl_fail']		=	'Curl can not be found. This usually means that Curl is not installed. PyroCMS will still run properly but some of the functions might not work. It is highly recommended to enable the Curl library.';
+$lang['curl_required']	=	'PyroCMS heeft Curl nodig om verbindingen met andere sites te kunnen maken.';
+$lang['curl_fail']		=	'Curl werd niet aangetroffen. Dit betekent meestal dat Curl niet geinstalleerd is. PyroCMS kan nog steeds uitstekend functioneren, maar sommige functies zullen niet beschikbaar zijn. U wordt sterk aangeraden om de Curl-bibliotheek in te schakelen.';
 
 $lang['summary_success']	=	'Uw server heeft alle benodigheden voor PyroCMS. Ga naar de volgende stap door op de knop hieronder te klikken.';
 $lang['summary_partial']	=	'Uw server heeft de <em>meeste</em> benodigheden voor PyroCMS. Dit betekent dat PyroCMS nog steeds zal functioneren, maar er bestaat een kans dat u problemen tegenkomt met het bewerken van afbeeldingen of miniaturen.';

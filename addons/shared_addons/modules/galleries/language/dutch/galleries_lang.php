@@ -12,9 +12,9 @@ $lang['galleries.update_error']			= 'De gallerij kon niet worden gewijzigd.';
 $lang['galleries.id_error']				= 'Er zijn geen IDs opgegeven.';
 $lang['galleries.folder_error']			= 'De "%s" gallerij folders konden niet worden verwijderd.';
 $lang['galleries.delete_error']			= 'De "%s" kon niet worden verwijderd.';
-$lang['galleries.no_galleries_error'] 	= 'Er zijn nog geen gallerijen aangemaakt.';
+$lang['galleries.no_galleries_error'] 	= 'Er zijn geen gallerijen.';
 $lang['galleries.install_error']		= 'De module kon niet worden geinstalleerd.';
-$lang['galleries.already_exist_error']	= 'Een gallerij met de slug "%s" bestaat al.';
+$lang['galleries.already_exist_error']	= 'Een gallerij met de URL "%s" bestaat al.';
 $lang['galleries.folder_duplicated_error']	= 'Er is een fout opgetreden! De map behoort al tot een galerij.';
 $lang['galleries.no_gallery_description']	= 'Er is nog geen omschrijving aanwezig.';
 
@@ -48,7 +48,7 @@ $lang['galleries.published_label']			= 'Gepubliceerd';
 $lang['galleries.current_label']			= 'Huidige Afbeeldingen (sleep om te sorteren, klik om te wijzigen)';
 
 // Sidebar labels
-$lang['galleries.list_label']				= 'Toon alle gallerijen';
+$lang['galleries.list_label']				= 'Overzicht gallerijen';
 $lang['galleries.new_gallery_label']		= 'Maak een nieuwe gallerij';
 $lang['galleries.upload_label']				= 'Upload Afbeelding';
 

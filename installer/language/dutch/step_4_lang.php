@@ -4,13 +4,13 @@
 $lang['header']			=	'Stap 4: Cre&euml;er database';
 $lang['intro_text']		=	'Vul het formulier hieronder in en kiik op "Installeren" om PyroCMS te installeren. Zorg ervoor dat PyroCMS in de juiste database geïnstalleerd wordt, aangezien alle bestaande data wordt verwijderd!';
 
-$lang['db_settings']	=	'Database Settings';
+$lang['db_settings']	=	'Databaseinstellingen';
 $lang['db_create']		=	'Creëer database';
 $lang['db_notice']		=	'Dit moet misschien handmatig';
 $lang['default_user']	=	'Standaard Gebruiker';
 $lang['database']		=	'Database';
-$lang['site_settings']		= 	'Site Settings'; #translate
-$lang['site_ref']		=	'Site Ref'; #translate
+$lang['site_settings']		= 	'Siteinstellingen';
+$lang['site_ref']		=	'Sitereferentie'; 
 $lang['user_name']		= 	'Gebruikersnaam';
 $lang['first_name']		= 	'Voornaam';
 $lang['last_name']		=	'Achternaam';
