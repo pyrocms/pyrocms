@@ -11,24 +11,24 @@
 
 // Account Creation
 $lang['account_creation_successful'] 	= 'Account is aangemaakt';
-$lang['account_creation_unsuccessful'] 	= 'Kon Account niet aanmaken';
+$lang['account_creation_unsuccessful'] 	= 'Kon account niet aanmaken';
 $lang['account_creation_duplicate_email'] 	 = 'Ongeldig of reeds bestaande email';
 $lang['account_creation_duplicate_username'] = 'Ongeldige of reeds bestaande gebruikersnaam';  
 
 
 // Password
 $lang['password_change_successful'] 	= 'Wachtwoord is gewijzigd';
-$lang['password_change_unsuccessful'] 	= 'Kon Wachtwoord niet wijzigen';
+$lang['password_change_unsuccessful'] 	= 'Kon wachtwoord niet wijzigen';
 $lang['forgot_password_successful'] 	= 'Wachtwoord reset mail verzonden';
 $lang['forgot_password_unsuccessful'] 	= 'Kon wachtwoord niet resetten';
 
 // Activation
 $lang['activate_successful'] 		= 'Account geactiveerd';
-$lang['activate_unsuccessful'] 		= 'Kon Account niet activeren';
+$lang['activate_unsuccessful'] 		= 'Kon account niet activeren';
 $lang['deactivate_successful'] 		= 'Account gedeactiveerd';
-$lang['deactivate_unsuccessful'] 	= 'Kon Account niet deactiveren';
-$lang['activation_email_successful'] 	= 'Activatie email verzonden';
-$lang['activation_email_unsuccessful'] 	= 'Kon Activatie email niet verzenden';
+$lang['deactivate_unsuccessful'] 	= 'Kon account niet deactiveren';
+$lang['activation_email_successful'] 	= 'Activatiemail verzonden';
+$lang['activation_email_unsuccessful'] 	= 'Kon Activatiemail niet verzenden';
 
 // Login / Logout
 $lang['login_successful'] 		= 'Ingelogd';

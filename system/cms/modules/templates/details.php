@@ -19,6 +19,7 @@ class Module_Templates extends Module {
 			'name' => array(
 				'sl' => 'Email predloge',
 				'en' => 'Email Templates',
+				'en' => 'Emailsjablonen',
 				'es' => 'Plantillas de email',
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'pt' => 'Modelos de e-mail',
@@ -30,6 +31,7 @@ class Module_Templates extends Module {
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'en' => 'Create, edit, and save dynamic email templates',
+				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
 				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
 				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
