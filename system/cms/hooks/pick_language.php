@@ -13,19 +13,25 @@ function pick_language()
     if ( ! empty($_GET['lang']))
     {
         // Turn en-gb into en
-        $lang = substr($_GET['lang'], 0, 2);
+        $lang = strtolower(substr($_GET['lang'], 0, 2));
+
+    	log_message('debug', 'Set language in URL via GET: '.$lang);
     }
     
     // Lang has already been set and is stored in a session
     elseif ( ! empty($_SESSION['lang_code']) )
     {
         $lang = $_SESSION['lang_code'];
+
+    	log_message('debug', 'Set language in Session: '.$lang);
     }
     
     // Lang has is picked by a user.
     elseif ( ! empty($_COOKIE['lang_code']) )
     {
-        $lang = $_COOKIE['lang_code'];
+        $lang = strtolower($_COOKIE['lang_code']);
+
+    	log_message('debug', 'Set language in Cookie: '.$lang);
     }
     
     // Still no Lang. Lets try some browser detection then
@@ -34,26 +40,46 @@ function pick_language()
     	// explode languages into array
     	$accept_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
+		$supported_langs = array_keys($config['supported_languages']);
+
     	log_message('debug', 'Checking browser languages: '.implode(', ', $accept_langs));
 
     	// Check them all, until we find a match
-    	foreach ($accept_langs as $lang)
+    	foreach ($accept_langs as $accept_lang)
     	{
+			if (strpos($accept_lang, '-') === 2)
+			{
+				// Turn pt-br into br
+				$lang = strtolower(substr($accept_lang, 3, 2));
+
+				// Check its in the array. If so, break the loop, we have one!
+				if (in_array($lang, $supported_langs))
+				{
+					log_message('debug', 'Accept browser language: '.$accept_lang);
+
+					break;
+				}
+			}
+
     		// Turn en-gb into en
-    		$lang = substr($lang, 0, 2);
+    		$lang = strtolower(substr($accept_lang, 0, 2));
 
     		// Check its in the array. If so, break the loop, we have one!
-    		if(in_array($lang, array_keys($config['supported_languages'])))
+    		if (in_array($lang, $supported_langs))
     		{
+		    	log_message('debug', 'Accept browser language: '.$accept_lang);
+
     			break;
     		}
     	}
     }
     
     // If no language has been worked out - or it is not supported - use the default
-    if (empty($lang) OR !array_key_exists($lang, $config['supported_languages']))
+    if (empty($lang) OR ! array_key_exists($lang, $config['supported_languages']))
     {
         $lang = $config['default_language'];
+
+    	log_message('debug', 'Set language default: '.$lang);
     }
     
     // Whatever we decided the lang was, save it for next time to avoid working it out again
@@ -67,4 +93,6 @@ function pick_language()
 
     // Sets a constant to use throughout ALL of CI.
     define('AUTO_LANGUAGE', $lang);
+
+    log_message('debug', 'Defined const AUTO_LANGUAGE: '.AUTO_LANGUAGE);
 }
