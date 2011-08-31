@@ -3,7 +3,7 @@
 /**
  * @package 		PyroCMS
  * @subpackage 		WYSIWYG
- * @author			Phil Sturgeon, Stephen Cozart, Marcos Coelho
+ * @author			PyroCMS Dev Team
  *
  * Manages image selection and insertion for WYSIWYG editors
  */
@@ -11,7 +11,7 @@ class Image extends WYSIWYG_Controller {
 
 	public function __construct()
 	{
-		parent::WYSIWYG_Controller();
+		parent::__construct();
 	}
 	
 	public function index($id = 0)
