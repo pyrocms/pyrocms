@@ -42,6 +42,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
+		$setting_language = array();
 		$setting_sections = array();
 		$settings = $this->settings_m->get_many_by(array('is_gui' => 1 ));
 
@@ -55,10 +56,59 @@ class Admin extends Admin_Controller {
 				$setting->module = 'general';
 			}
 
-			$setting->title = lang('settings_' . $setting->slug) != '' ? lang('settings_' . $setting->slug) : $setting->title;
-			$setting->description = lang('settings_' . $setting->slug.'_desc') !='' ? lang('settings_' . $setting->slug . '_desc') : $setting->description;
+			$setting_language[$setting->module] = array();
 
-			$setting_sections[$setting->module] = lang('settings_section_' . $setting->module) != '' ? lang('settings_section_' . $setting->module) : ucfirst($setting->module);
+			// Get Section name from native translation, third party translation or only use module name
+			if ( ! isset($setting_sections[$setting->module]))
+			{
+				$section_name = lang('settings_section_' . $setting->module);
+
+				if (module_exists($setting->module))
+				{
+					list($path, $_langfile) = Modules::find('settings_lang', $setting->module, 'language/' . config_item('language') . '/');
+
+					if ($path !== FALSE)
+					{
+						$setting_language[$setting->module] = $this->lang->load($setting->module . '/settings', '', TRUE);
+
+						if (empty($section_name) && isset($setting_language[$setting->module]['settings_section_' . $setting->module]))
+						{
+							$section_name = $setting_language[$setting->module]['settings_section_' . $setting->module];
+						}
+					}
+				}
+
+				if (empty($section_name))
+				{
+					$section_name = ucfirst(strtr($setting->module, '_', ' '));
+				}
+
+				$setting_sections[$setting->module] = $section_name;
+			}
+
+			// Get Setting title and description translations as Section name
+			foreach (array(
+				'title' => 'settings_' . $setting->slug,
+				'description' => 'settings_' . $setting->slug . '_desc'
+			) as $key => $name)
+			{
+				${$key} = lang($name);
+
+				if (empty(${$key}))
+				{
+					if (isset($setting_language[$setting->module][$name]))
+					{
+						${$key} = $setting_language[$setting->module][$name];
+					}
+					else
+					{
+						${$key} = $setting->{$key};
+					}
+				}
+
+				$setting->{$key} = ${$key};
+			}
+
 			$settings[$setting->module][] = $setting;
 
 			unset($settings[$key]);
