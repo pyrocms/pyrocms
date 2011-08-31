@@ -88,6 +88,18 @@ class Widgets {
 				continue;
 			}
 
+			// Finally, check if is need and update the widget info
+			$widget_file = FCPATH . $this->_widget_locations[$widget->slug] . $widget->slug . EXT;
+
+			if (file_exists($widget_file) &&
+				filemtime($widget_file) > $widget->updated_on)
+			{
+
+				$this->reload_widget($widget->slug);
+
+				log_message('debug', sprintf('The information of the widget "%s" has been updated', $widget->slug));
+			}
+
 			$avaliable[] = $widget;
 		}
 
@@ -423,14 +435,14 @@ class Widgets {
 	private function _spawn_widget($name)
 	{
 		$widget_path = $this->_widget_locations[$name];
+		$widget_file = FCPATH . $widget_path . $name . EXT;
 
-		if (file_exists(FCPATH . $widget_path . $name . EXT))
+		if (file_exists($widget_file))
 		{
-			require_once FCPATH . $widget_path . $name . EXT;
+			require_once $widget_file;
 			$class_name = 'Widget_' . ucfirst($name);
 
 			$this->_widget = new $class_name;
-
 			$this->_widget->path = $widget_path;
 
 			return;

@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success']                    = 'Jūsų parametrai išsaugoti!';
-$lang['settings_edit_title']                    = 'Redaguoti parametrus';
-
 #section settings
 $lang['settings_site_name']                        = 'Svetainės vardas';
 $lang['settings_site_name_desc']                = 'Svetainės pavadinimui ir kitoms reikmėms viduje.';
@@ -134,5 +131,12 @@ $lang['settings_form_option_Required']            = 'Būtina';
 $lang['settings_form_option_Optional']            = 'Nebūtina';
 $lang['settings_form_option_Oldest First']        = 'Senesni pirmiau';
 $lang['settings_form_option_Newest First']        = 'Naujesni pirmiau';
+
+// titles
+$lang['settings_edit_title']                    = 'Redaguoti parametrus';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success']                    = 'Jūsų parametrai išsaugoti!';
 
 /* End of file settings_lang.php */

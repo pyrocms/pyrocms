@@ -11,7 +11,7 @@ class Module_Widgets extends Module {
 				'sl' => 'Vtičniki',
 				'en' => 'Widgets',
 				'es' => 'Widgets',
-				'pt' => 'Widgets',
+				'br' => 'Widgets',
 				'de' => 'Widgets',
 				'nl' => 'Widgets',
 				'fr' => 'Widgets',
@@ -27,7 +27,7 @@ class Module_Widgets extends Module {
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
 				'es' => 'Manejar pequeñas secciones de lógica autocontenida en bloques o "Widgets"',
-				'pt' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
+				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',
 				'fr' => 'Gérer des mini application ou "Widgets".',
@@ -87,6 +87,7 @@ class Module_Widgets extends Module {
 			  `version` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 			  `enabled` tinyint(1) NOT NULL DEFAULT '1',
 			  `order` int(5) NOT NULL DEFAULT '0',
+			  `updated_on` int(11) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";

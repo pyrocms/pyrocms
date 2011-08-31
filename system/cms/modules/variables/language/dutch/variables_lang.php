@@ -18,9 +18,9 @@ $lang['variables.data_label'] 			    = 'Waarde';
 $lang['variables.actions_label'] 			= 'Acties';
 
 // titles
-$lang['variables.create_title'] 			= 'Voeg variabele Toe';
+$lang['variables.create_title'] 			= 'Voeg variabele toe';
 $lang['variables.edit_title'] 				= 'Bewerk variabele "%s"';
-$lang['variables.list_title'] 				= 'Toon alle variabelen';
+$lang['variables.list_title'] 				= 'Overzicht variabelen';
 
 // messages
 $lang['variables.no_variables'] 			= 'Er zijn geen variabelen.';

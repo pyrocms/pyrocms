@@ -21,7 +21,8 @@ class Module_m extends MY_Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('modules/module');
+
+		$this->load->helper(array('date', 'modules/module'));
 	}
 
 	/**
@@ -47,7 +48,9 @@ class Module_m extends MY_Model
 			'menu' => FALSE,
 			'enabled' => 1,
 			'is_core' => NULL,
-			'is_current' => NULL
+			'is_current' => NULL,
+			'current_version' => NULL,
+			'updated_on' => NULL
 		);
 
 		if (is_array($module) || empty($module))
@@ -91,7 +94,9 @@ class Module_m extends MY_Model
 				'menu' => $result->menu,
 				'enabled' => $result->enabled,
 				'is_core' => $result->is_core,
-				'is_current' => version_compare($result->version, $this->version($result->slug),  '>=')
+				'is_current' => version_compare($result->version, $this->version($result->slug),  '>='),
+				'current_version' => $this->version($result->slug),
+				'updated_on' => $result->updated_on
 			);
 		}
 
@@ -120,7 +125,8 @@ class Module_m extends MY_Model
 			'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
 			'enabled'		=> ! empty($module['enabled']),
 			'installed'		=> ! empty($module['installed']),
-			'is_core'		=> ! empty($module['is_core'])
+			'is_core'		=> ! empty($module['is_core']),
+			'updated_on'	=> now()
 		));
 	}
 
@@ -129,13 +135,15 @@ class Module_m extends MY_Model
 	 *
 	 * Updates a module in the database
 	 *
-	 * @access	public
-	 * @param	array	$slug		Module slug to update
-	 * @param	array	$module		Information about the module
-	 * @return	object
+	 * @access  public
+	 * @param   array   $slug   Module slug to update
+	 * @param   array   $module Information about the module
+	 * @return  object
 	 */
 	public function update($slug, $module)
 	{
+		$module['updated_on'] = now();
+
 		return $this->db->where('slug', $slug)->update($this->_table, $module);
 	}
 
@@ -158,10 +166,10 @@ class Module_m extends MY_Model
 	 *
 	 * Return an array of objects containing module related data
 	 *
-	 * @param	array	$params				The array containing the modules to load
-	 * @param	bool	$return_disabled	Whether to return disabled modules
-	 * @access	public
-	 * @return	array
+	 * @param   array   $params             The array containing the modules to load
+	 * @param   bool    $return_disabled    Whether to return disabled modules
+	 * @access  public
+	 * @return  array
 	 */
 	public function get_all($params = array(), $return_disabled = FALSE)
 	{
@@ -214,7 +222,8 @@ class Module_m extends MY_Model
 				'installed'			=> ! empty($result->installed),
 				'is_core'			=> $result->is_core,
 				'is_current'		=> version_compare($result->version, $this->version($result->slug),  '>='),
-				'current_version'	=> $this->version($result->slug)
+				'current_version'	=> $this->version($result->slug),
+				'updated_on'		=> $result->updated_on
 			);
 
 			if ( ! empty($params['is_backend']))
@@ -397,7 +406,7 @@ class Module_m extends MY_Model
 	public function upgrade($slug)
 	{
 		// Get info on the new module
-		if ( ! $details_class = $this->_spawn_class($slug) )
+		if ( ! ($details_class = $this->_spawn_class($slug, TRUE) OR $details_class = $this->_spawn_class($slug)))
 		{
 			return FALSE;
 		}
@@ -439,14 +448,16 @@ class Module_m extends MY_Model
 
 		$known = $this->get_all(array(), TRUE);
 		$known_array = array();
+		$known_mtime = array();
 
 		// Loop through the known array and assign it to a single dimension because
 		// in_array can not search a multi array.
 		if (is_array($known) && count($known) > 0)
 		{
-			foreach ($known AS $item)
+			foreach ($known as $item)
 			{
-				$known_array = array_merge(array($item['slug']), $known_array);
+				array_unshift($known_array, $item['slug']);
+				$known_mtime[$item['slug']] = $item;
 			}
 		}
 
@@ -456,14 +467,36 @@ class Module_m extends MY_Model
 			{
 				$slug = basename($module_name);
 
-				// This doesnt have a valid details.php file! :o
-				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				// Yeah yeah we know
+				if (in_array($slug, $known_array))
 				{
+					$details_file = $directory . 'modules/' . $slug . '/details'.EXT;
+
+					if (file_exists($details_file) &&
+						filemtime($details_file) > $known_mtime[$slug]['updated_on'] &&
+						$details_class = $this->_spawn_class($slug, $is_core))
+					{
+						// Get some basic info
+						$module = $details_class->info();
+
+						$this->update($slug, array(
+							'name'			=> serialize($module['name']),
+							'description'	=> serialize($module['description']),
+							'is_frontend'	=> ! empty($module['frontend']),
+							'is_backend'	=> ! empty($module['backend']),
+							'skip_xss'		=> ! empty($module['skip_xss']),
+							'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
+							'updated_on'	=> now()
+						));
+
+						log_message('debug', sprintf('The information of the module "%s" has been updated', $slug));
+					}
+
 					continue;
 				}
 
-				// Yeah yeah we know
-				if (in_array($slug, $known_array))
+				// This doesnt have a valid details.php file! :o
+				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
 				{
 					continue;
 				}
@@ -609,12 +642,12 @@ class Module_m extends MY_Model
 	 *
 	 * Retrieves version number from details.php
 	 *
-	 * @param	string	$slug	The module slug
-	 * @return	bool
+	 * @param   string  $slug   The module slug
+	 * @return  bool
 	 */
 	public function version($slug)
 	{
-		if ($details_class = $this->_spawn_class($slug))
+		if ($details_class = $this->_spawn_class($slug, TRUE) OR $details_class = $this->_spawn_class($slug))
 		{
 			return $details_class->version;
 		}

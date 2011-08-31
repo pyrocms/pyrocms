@@ -67,7 +67,10 @@ class Admin extends Admin_Controller {
 			$data['widget_areas'][$key]->widgets = array();
 		}
 
-		$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
+		if ($data['widget_areas'])
+		{
+			$data['widget_areas'] = array_combine(array_keys($slugs), $data['widget_areas']);
+		}
 
 		$instances = $this->widgets->list_area_instances($slugs);
 

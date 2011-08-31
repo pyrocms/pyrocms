@@ -122,6 +122,7 @@ class Module_import {
 			  `enabled` tinyint(1) NOT NULL,
 			  `installed` tinyint(1) NOT NULL,
 			  `is_core` tinyint(1) NOT NULL,
+			  `updated_on` int(11) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `slug` (`slug`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

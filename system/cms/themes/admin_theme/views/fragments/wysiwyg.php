@@ -1,6 +1,12 @@
-<?php echo js('ckeditor/ckeditor.js'); ?>
-<?php echo js('ckeditor/adapters/jquery.js'); ?>
+<?php
+echo js('ckeditor/ckeditor.js') . PHP_EOL;
+echo js('ckeditor/adapters/jquery.js');
 
+$supported_langs = config_item('supported_languages');
+$ck_default_lang = config_item('default_language');
+$ck_language = empty($supported_langs[CURRENT_LANGUAGE]['ckeditor']) ? CURRENT_LANGUAGE : $supported_langs[CURRENT_LANGUAGE]['ckeditor'];
+unset($supported_langs);
+?>
 <script type="text/javascript">
 
 	var instance;
@@ -21,8 +27,8 @@
 					width: '99%',
 					height: 100,
 					dialog_backgroundCoverColor: '#000',
-					defaultLanguage: '<?php echo config_item('default_language'); ?>',
-					language: '<?php echo CURRENT_LANGUAGE; ?>'
+					defaultLanguage: '<?php echo $ck_default_lang; ?>',
+					language: '<?php echo $ck_language; ?>'
 				});
 	
 				$('textarea.wysiwyg-advanced').ckeditor({
@@ -43,8 +49,8 @@
 					height: 400,
 					dialog_backgroundCoverColor: '#000',
 					removePlugins: 'elementspath',
-					defaultLanguage: '<?php echo config_item('default_language'); ?>',
-					language: '<?php echo CURRENT_LANGUAGE; ?>'
+					defaultLanguage: '<?php echo $ck_default_lang; ?>',
+					language: '<?php echo $ck_language; ?>'
 				});
 			};
 			pyro.init_ckeditor();

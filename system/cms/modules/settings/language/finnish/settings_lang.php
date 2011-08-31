@@ -7,9 +7,6 @@
  * @version 1.0.3
  */
 
-$lang['settings_save_success']					= 'Asetukset tallennettiin!';
-$lang['settings_edit_title']					= 'Muokkaa asetuksia';
-
 #section settings
 $lang['settings_site_name']						= 'Sivuston nimi';
 $lang['settings_site_name_desc']				= 'Sivuston nimi, jota näytetään ympäri sivustoa.';
@@ -144,5 +141,12 @@ $lang['settings_form_option_Required']			= 'Pakollinen';
 $lang['settings_form_option_Optional']			= 'Vaihtoehtoinen';
 $lang['settings_form_option_Oldest First']		= 'Vanhin ensin';
 $lang['settings_form_option_Newest First']		= 'Uusin ensin';
+
+// titles
+$lang['settings_edit_title']					= 'Muokkaa asetuksia';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success']					= 'Asetukset tallennettiin!';
 
 /* End of file settings_lang.php */

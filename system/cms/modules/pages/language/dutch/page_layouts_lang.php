@@ -14,7 +14,7 @@ $lang['page_layouts.edit_label'] 					= 'Wijzig';
 $lang['page_layouts.delete_label'] 					= 'Verwijder';
 
 // titles
-$lang['page_layouts.list_title'] 					= 'Toon alle paginalayouts';
+$lang['page_layouts.list_title'] 					= 'Overzicht paginalayouts';
 $lang['page_layouts.create_title'] 					= 'Voeg paginalayout toe';
 $lang['page_layouts.edit_title'] 					= 'Bewerk paginalayout "%s"';
 
