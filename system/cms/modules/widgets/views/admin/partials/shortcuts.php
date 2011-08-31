@@ -3,7 +3,7 @@
 	<ul>
 		<li><?php echo anchor('admin/widgets', 'List Widgets'); ?></li>
 		<?php if ($this->method == 'index'): ?>
-		<li><?php echo anchor('admin/widgets/areas/create', lang('widgets.add_area'), 'class="add create-area"') ?></li>
+		<li><?php echo anchor('admin/widgets/areas/create', lang('widgets.add_area'), 'class="add create-area"'); ?></li>
 		<?php endif; ?>
 		<li><?php echo anchor('admin/widgets/manage', 'Manage Widgets'); ?></li>
 	</ul>

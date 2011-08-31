@@ -42,7 +42,7 @@
 					<?php $this->load->view('admin/areas/index', compact('widget_areas')); ?>
 				</div>
 				<?php else: ?>
-				<p><?php echo lang('nav_no_groups'); ?></p>
+					<?php echo anchor('admin/widgets/areas/create', lang('widgets.add_area'), 'class="add create-area"'); ?>
 				<?php endif; ?>
 			</td>
 		</tr>
