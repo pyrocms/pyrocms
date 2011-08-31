@@ -25,7 +25,7 @@ class Admin extends Admin_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->load->model('settings_m');
 		$this->load->library('settings');
 		$this->load->library('form_validation');
@@ -43,7 +43,7 @@ class Admin extends Admin_Controller {
 	public function index()
 	{
 		$setting_sections = array();
-		$settings = $this->settings_m->get_settings(array('is_gui' => 1 ));
+		$settings = $this->settings_m->get_many_by(array('is_gui' => 1 ));
 
 		// Loop through each setting
 		foreach ($settings as $key => $setting)
@@ -78,7 +78,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit()
 	{
-		$all_settings 	= $this->settings_m->get_settings(array('is_gui'=>1));
+		$all_settings 	= $this->settings_m->get_many_by(array('is_gui'=>1));
 		$settings_array = array();
 
 		// Create dynamic validation rules
@@ -127,7 +127,7 @@ class Admin extends Admin_Controller {
 		// Redirect user back to index page or the module/section settings they are editing
 		redirect('admin/settings');
 	}
-	
+
 	/**
 	 * Sort settings items
 	 *
