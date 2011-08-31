@@ -55,7 +55,10 @@ class Admin extends Admin_Controller {
 				$setting->module = 'general';
 			}
 
-			$setting_sections[$setting->module] = ucfirst($setting->module);
+			$setting->title = lang('settings_' . $setting->slug) != '' ? lang('settings_' . $setting->slug) : $setting->title;
+			$setting->description = lang('settings_' . $setting->slug.'_desc') !='' ? lang('settings_' . $setting->slug . '_desc') : $setting->description;
+
+			$setting_sections[$setting->module] = lang('settings_section_' . $setting->module) != '' ? lang('settings_section_' . $setting->module) : ucfirst($setting->module);
 			$settings[$setting->module][] = $setting;
 
 			unset($settings[$key]);
