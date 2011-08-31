@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Admin controller for the settings module
  *
@@ -7,8 +8,8 @@
  * @subpackage 	Settings module
  * @category	Modules
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+
 	/**
 	 * Validation array
 	 * @access private
@@ -41,23 +42,29 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->data->settings 	= array();
-		if($settings = $this->settings_m->get_settings( array('is_gui' => 1 )) )
+		$setting_sections = array();
+		$settings = $this->settings_m->get_settings(array('is_gui' => 1 ));
+
+		// Loop through each setting
+		foreach ($settings as $key => $setting)
 		{
-			// Loop through each setting
-			foreach($settings as $setting)
+			$setting->form_control = $this->settings->form_control($setting);
+
+			if (empty($setting->module))
 			{
-				$setting->form_control 							= $this->settings->form_control($setting);
-				if($setting->module == '') $setting->module 	= 'general';
-				$this->data->settings[$setting->module][] 		= $setting;
-				$this->data->setting_sections[$setting->module] = ucfirst($setting->module);
+				$setting->module = 'general';
 			}
+
+			$setting_sections[$setting->module] = ucfirst($setting->module);
+			$settings[$setting->module][] = $setting;
+
+			unset($settings[$key]);
 		}
 
 		// Render the layout
 		$this->template
 			->title($this->module_details['name'])
-			->build('admin/index', $this->data);
+			->build('admin/index', compact('setting_sections', 'settings'));
 	}
 
 	/**
@@ -138,4 +145,5 @@ class Admin extends Admin_Controller
 		}
 	}
 }
-?>
+
+/* End of file admin.php */

@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 					= 'Nastavení bylo uloženo';
-$lang['settings_edit_title'] 					= 'Upravit nastavení';
-
 #section settings
 $lang['settings_site_name'] 					= 'Jméno webu';
 $lang['settings_site_name_desc'] 				= 'Jméno, které se objeví v titulcích stránek a různě po webu.';
@@ -135,5 +132,12 @@ $lang['settings_form_option_Required']			= 'Povinné';
 $lang['settings_form_option_Optional']			= 'Volitelné';
 $lang['settings_form_option_Oldest First']		= 'Od nejstarších';
 $lang['settings_form_option_Newest First']		= 'Od nejnovějších';
+
+// titles
+$lang['settings_edit_title'] 					= 'Upravit nastavení';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success'] 					= 'Nastavení bylo uloženo';
 
 /* End of file settings_lang.php */

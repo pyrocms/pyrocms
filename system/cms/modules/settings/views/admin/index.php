@@ -1,12 +1,7 @@
-<style type="text/css">
-	label { width: 23% !important; }
-</style>
+<?php if ($setting_sections): ?>
+	<h3><?php echo lang('settings_edit_title');?></h3>
 
-<?php echo form_open('admin/settings/edit', 'class="crud"');?>
-
-	<!-- <h3><?php echo lang('settings_edit_title');?></h3> -->
-	
-	<div class="box-container">	
+	<?php echo form_open('admin/settings/edit', 'class="crud"');?>
 	
 		<div class="tabs">
 		
@@ -43,7 +38,10 @@
 		<div class="buttons float-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
 		</div>
-		
-	</div>
 
-<?php echo form_close(); ?>
+	<?php echo form_close(); ?>
+<?php else: ?>
+	<div class="blank-slate">
+		<h2><?php echo lang('settings_no_settings');?></h2>
+	</div>
+<?php endif; ?>

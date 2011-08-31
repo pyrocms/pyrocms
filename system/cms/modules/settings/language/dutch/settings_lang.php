@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 					= 'Uw instellingen zijn opgeslagen!';
-$lang['settings_edit_title'] 					= 'Wijzig instellingen';
-
 #section settings
 $lang['settings_site_name'] 					= 'Websitenaam';
 $lang['settings_site_name_desc'] 				= 'De naam van de website voor de paginatitel en voor gebruik binnen de website.';
@@ -143,5 +140,12 @@ $lang['settings_form_option_Required']			= 'Verplicht';
 $lang['settings_form_option_Optional']			= 'Optioneel';
 $lang['settings_form_option_Oldest First']		= 'Oudste eerst';
 $lang['settings_form_option_Newest First']		= 'Nieuwste eerst';
+
+// titles
+$lang['settings_edit_title'] 					= 'Wijzig instellingen';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success'] 					= 'Uw instellingen zijn opgeslagen!';
 
 /* End of file settings_lang.php */

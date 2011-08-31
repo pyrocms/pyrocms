@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success']					= 'ההגדרות שלך נשמרו בהצלחה!';
-$lang['settings_edit_title']					= 'ערוך הגדרות';
-
 #section settings
 $lang['settings_site_name']						= 'שם האתר';
 $lang['settings_site_name_desc']				= 'השם של האתר עבור כותרות הדף לשימוש ברחבי האתר.';
@@ -134,5 +131,12 @@ $lang['settings_form_option_Required']			= 'חובה';
 $lang['settings_form_option_Optional']			= 'רשות';
 $lang['settings_form_option_Oldest First']		= 'קודם ישנים'; #translate
 $lang['settings_form_option_Newest First']		= 'קודם חדשים'; #translate
+
+// titles
+$lang['settings_edit_title']					= 'ערוך הגדרות';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success']					= 'ההגדרות שלך נשמרו בהצלחה!';
 
 /* End of file settings_lang.php */
