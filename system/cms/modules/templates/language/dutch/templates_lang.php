@@ -8,13 +8,13 @@ $lang['templates.language_label']			= 'Taal';
 $lang['templates.choose_lang_label']		= 'Kies een taal';
 $lang['templates.subject_label']			= 'Onderwerp';
 $lang['templates.body_label']				= 'Inhoud';
-$lang['templates.slug_label']				= 'Slug'; #translate
+$lang['templates.slug_label']				= 'URL';
 
 // Titles
 $lang['templates.create_title']				= 'Een sjabloon maken'; 
 $lang['templates.edit_title']				= 'Een sjabloon bewerken "%s"';
 $lang['templates.clone_title']				= 'Kopieer sjabloon "%s"';
-$lang['templates.list_title']				= 'Lijst sjablonen';
+$lang['templates.list_title']				= 'Overzicht sjablonen';
 $lang['templates.default_title']			= 'Standaard sjablonen';
 $lang['templates.user_defined_title']		= 'Door de gebruiker gedefinieerde sjablonen';
 

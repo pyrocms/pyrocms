@@ -14,6 +14,7 @@ class Widget_Html extends Widgets
 	public $description	= array(
 		'en' => 'Create blocks of custom HTML',
 		'br' => 'Permite criar blocos de HTML customizados',
+		'nl' => 'Maak blokken met maatwerk HTML',
 		'ru' => 'Создание HTML-блоков с произвольным содержимым',
 	);
 	public $author		= 'Phil Sturgeon';

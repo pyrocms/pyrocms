@@ -11,11 +11,13 @@ class Widget_Rss_feed extends Widgets {
 
 	public $title = array(
 		'en' => 'RSS Feed',
+		'nl' => 'RSS Feed',
 		'br' => 'Feed RSS',
 		'ru' => 'Лента новостей RSS',
 	);
 	public $description = array(
 		'en' => 'Display parsed RSS feeds on your websites',
+		'nl' => 'Toon RSS feeds op uw website',
 		'br' => 'Interpreta e exibe qualquer feed RSS no seu site',
 		'ru' => 'Выводит обработанную ленту новостей на вашем сайте',
 	);
