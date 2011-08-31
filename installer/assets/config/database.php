@@ -84,3 +84,5 @@ if(!array_key_exists(ENVIRONMENT, $db))
 
 // Assign the group to be used
 $active_group = ENVIRONMENT;
+
+/* End of file database.php */
