@@ -128,11 +128,11 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit()
 	{
-		$all_settings 	= $this->settings_m->get_many_by(array('is_gui'=>1));
-		$settings_array = array();
+		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
+		$settings_stored = array();
 
 		// Create dynamic validation rules
-		foreach($all_settings as $setting)
+		foreach ($settings as $setting)
 		{
 			$this->validation_rules[] = array(
 				'field' => $setting->slug . (in_array($setting->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
@@ -140,7 +140,7 @@ class Admin extends Admin_Controller {
 				'rules' => 'trim' . ($setting->is_required ? '|required' : '') . ($setting->type !== 'textarea' ? '|max_length[255]' : '')
 			);
 
-			$settings_array[$setting->slug] = $setting->value;
+			$settings_stored[$setting->slug] = $setting->value;
 		}
 
 		// Set the validation rules
@@ -150,7 +150,7 @@ class Admin extends Admin_Controller {
 		if ($this->form_validation->run())
 		{
 			// Loop through again now we know it worked
-			foreach($settings_array as $slug => $stored_value)
+			foreach ($settings_stored as $slug => $stored_value)
 			{
 				$input_value = $this->input->post($slug, FALSE);
 
