@@ -41,7 +41,7 @@ function group_has_role($module, $role)
 
 function role_or_die($module, $role)
 {
-	group_has_role($module, $role) or die(lang('cp_access_denied'));
+	group_has_role($module, $role) or show_error(lang('cp_access_denied'));
 }
 
 // ------------------------------------------------------------------------
