@@ -83,7 +83,7 @@ class Plugin_Template extends Plugin {
 
 	public function metadata()
 	{
-		return $this->template->get_metadata();
+		return $this->template->get_metadata($this->attribute('in', 'header'));
 	}
 
 	public function __call($foo, $arguments)

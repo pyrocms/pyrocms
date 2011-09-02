@@ -320,9 +320,10 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function prepend_metadata($line)
+	public function prepend_metadata($line, $place = 'header')
 	{
-		array_unshift($this->_metadata, $line);
+		array_unshift($this->_metadata[$place], $line);
+
 		return $this;
 	}
 
@@ -334,9 +335,10 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function append_metadata($line)
+	public function append_metadata($line, $place = 'header')
 	{
-		$this->_metadata[] = $line;
+		$this->_metadata[$place][] = $line;
+
 		return $this;
 	}
 
@@ -364,11 +366,11 @@ class Template
 		switch($type)
 		{
 			case 'meta':
-				$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
+				$this->_metadata['header'][$name] = '<meta name="'.$name.'" content="'.$content.'" />';
 			break;
 
 			case 'link':
-				$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
+				$this->_metadata['header'][$content] = '<link rel="'.$name.'" href="'.$content.'" />';
 			break;
 		}
 
@@ -607,9 +609,10 @@ class Template
 		return $layouts;
 	}
 
-	public function get_metadata()
+	public function get_metadata($place = 'header')
 	{
-		return implode("\n\t\t", $this->_metadata);
+		return isset($this->_metadata[$place]) && is_array($this->_metadata[$place])
+			? implode("\n\t\t", $this->_metadata[$place]) :	NULL;
 	}
 
 	/**
