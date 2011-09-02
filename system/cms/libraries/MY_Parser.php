@@ -93,6 +93,21 @@ class MY_Parser extends CI_Parser {
 			$this->_ci->tags->set_trigger(config_item('tags_trigger').':');
 		}
 
+		if (isset($data['_tags']) && is_array($data['_tags']))
+		{
+			foreach ($data['_tags'] as $method => $value)
+			{
+				$method_name = 'set_' . $method;
+
+				if (method_exists($this->_ci->tags, $method_name))
+				{
+					call_user_func(array($this->_ci->tags, $method_name), $value);
+				}
+			}
+
+			unset($data['_tags']);
+		}
+
 		$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
 		// END TAG SUPPORT
 

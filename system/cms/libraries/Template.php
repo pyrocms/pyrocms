@@ -253,6 +253,17 @@ class Template
 			// Added to $this->_data['template'] by refference
 			$template['body'] = $this->_body;
 
+			if ($this->_parser_enabled)
+			{
+				// Persistent tags is an experiment to parse some tags after
+				// parsing of all other tags, so the tag persistent should be:
+				// 
+				// a) Defined only if depends of others tags
+				// b) Plugin that is a callback, so could retrieve runtime data.
+				// c) Returned with a content parsed
+				$this->_data['_tags']['persistent_tags'][] = 'template:metadata';
+			}
+
 			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
 			$this->_body = self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
 		}
