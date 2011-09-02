@@ -211,7 +211,7 @@ class Tags {
 		{
 			$remainings = array();
 
-			foreach ($this->_tags as $tag)
+			foreach ($this->_tags as $key => $tag)
 			{
 				if ($tag['full_segments'] === $this->_escape)
 				{
@@ -259,15 +259,19 @@ class Tags {
 				{
 					$remainings[$tag['marker']] = array($tag['replacements'], $return_data);
 				}
+
+				unset($this->_tags[$key]);
 			}
 		}
 
 		// If there is no callback then lets loop through any remaining tags and just set them as ''
 		else
 		{
-			foreach ($this->_tags as $tag)
+			foreach ($this->_tags as $key => $tag)
 			{
 				$content = str_replace($tag['marker'], '', $content);
+
+				unset($this->_tags[$key]);
 			}
 		}
 

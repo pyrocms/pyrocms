@@ -87,8 +87,12 @@ class MY_Parser extends CI_Parser {
 		$data = array_merge($data, $this->_ci->load->_ci_cached_vars);
 
 		// TAG SUPPORT
-		$this->_ci->load->library('tags');
-		$this->_ci->tags->set_trigger(config_item('tags_trigger').':');
+		if ( ! isset($this->_ci->tags))
+		{
+			$this->_ci->load->library('tags');
+			$this->_ci->tags->set_trigger(config_item('tags_trigger').':');
+		}
+
 		$parsed = $this->_ci->tags->parse($string, $data, array($this, 'parser_callback'));
 		// END TAG SUPPORT
 
