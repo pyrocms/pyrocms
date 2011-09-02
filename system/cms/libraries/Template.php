@@ -206,7 +206,6 @@ class Template
 		// Output template variables to the template
 		$template['title']			= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= implode("\n\t\t", $this->_metadata);
 		$template['partials']		= array();
 
 		// Assign by reference, as all loaded views will need access to partials
@@ -597,6 +596,10 @@ class Template
 		return $layouts;
 	}
 
+	public function get_metadata()
+	{
+		return implode("\n\t\t", $this->_metadata);
+	}
 
 	/**
 	 * get_layouts
