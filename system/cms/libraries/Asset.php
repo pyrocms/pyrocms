@@ -264,6 +264,14 @@ class Asset {
 				. $asset_type . '/' . $asset_name;
 		}
 
+		// If they have just given a filename, not an asset path, and its is custom
+		elseif (strpos($module_name, '_other=') === 0 && substr(strrev($module_name), 0, 1) === '_')
+		{
+			$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
+			$asset_location	= $base_location . ltrim(substr($module_name, 7, -1), '/')
+				. $asset_type . '/' . $asset_name;
+		}
+
 		// Normal file (that might be in a module)
 		else
 		{
