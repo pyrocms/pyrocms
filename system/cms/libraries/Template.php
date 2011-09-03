@@ -206,6 +206,7 @@ class Template
 		// Output template variables to the template
 		$template['title']			= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
+		$template['metadata']		= $this->get_metadata();
 		$template['partials']		= array();
 
 		// Assign by reference, as all loaded views will need access to partials
@@ -261,6 +262,7 @@ class Template
 				// a) Defined only if depends of others tags
 				// b) Plugin that is a callback, so could retrieve runtime data.
 				// c) Returned with a content parsed
+				unset($this->_data['template']['metadata']);
 				$this->_data['_tags']['persistent_tags'][] = 'template:metadata';
 			}
 
