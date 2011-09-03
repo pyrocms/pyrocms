@@ -153,7 +153,7 @@
 
 </div>
 
-<div class="buttons">
+<div class="buttons align-right padding-top">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 </div>
 
