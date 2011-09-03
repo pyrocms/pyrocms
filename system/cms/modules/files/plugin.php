@@ -28,7 +28,7 @@ class Plugin_Files extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:files:listing folder="home-slider" type="i"}
+	 * {pyro:files:listing folder="home-slider" type="i" fetch="subfolder|root"}
 	 * 	// your html logic
 	 * {/pyro:files:listing}
 	 *
@@ -80,7 +80,18 @@ class Plugin_Files extends Plugin
 			return array();
 		}
 
-		$this->file_m->where('folder_id', $folder->id);
+		if (in_array($fetch, array('root', 'subfolder')) &&
+			$subfolders = $this->file_folders_m->folder_tree(
+				$fetch === 'root' ? $folder->root_id : $folder->id
+			))
+		{
+			$ids = array_merge(array((int) $folder->id), array_keys($subfolders));
+			$this->file_m->where_in('folder_id', $ids);
+		}
+		else
+		{
+			$this->file_m->where('folder_id', $folder->id);
+		}
 
 		$type AND $this->file_m->where('type', $type);
 		$limit AND $this->file_m->limit($limit);
