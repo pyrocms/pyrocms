@@ -109,6 +109,32 @@ class MY_Model extends CI_Model
 	}
 
 	/**
+	 * Get table name
+	 *
+	 * @access public
+	 * @param string $prefix
+	 * @return string
+	 * @author PyroCMS Development Team
+	 */
+	public function table_name($prefix = TRUE)
+	{
+		return $prefix ? $this->db->dbprefix($this->_table) : $this->_table;
+	}
+
+	/**
+	 * Set table name
+	 *
+	 * @access public
+	 * @param string $name
+	 * @return string
+	 * @author PyroCMS Development Team
+	 */
+	public function set_table_name($name = NULL)
+	{
+		return $this->_table = $name;
+	}
+
+	/**
 	 * Get a single record by creating a WHERE clause with
 	 * a value for your primary key
 	 *
