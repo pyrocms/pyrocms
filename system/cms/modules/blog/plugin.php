@@ -35,17 +35,17 @@ class Plugin_Blog extends Plugin
 
 		if ($category)
 		{
-			$this->db->where('c.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+			$this->db->where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
 		}
 
 		$posts = $this->db
 			->select('blog.*')
-			->select('c.title as category_title, c.slug as category_slug')
+			->select('blog_categories.title as category_title, blog_categories.slug as category_slug')
 			->select('p.display_name as author_name')
 			->where('status', 'live')
 			->where('created_on <=', now())
-			->join('blog_categories c', 'blog.category_id = c.id', 'left')
-			->join('profiles p', 'blog.author_id = p.user_id')
+			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
+			->join('profiles p', 'blog.author_id = p.user_id', 'left')
 			->order_by('blog.' . $order_by, $order_dir)
 			->limit($limit)
 			->get('blog')
