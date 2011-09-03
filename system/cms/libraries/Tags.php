@@ -546,8 +546,15 @@ class Tags {
 		$oc_nok = 0;
 		$oc_ok = 0;
 
+		$check_persistent_tags = ! empty($this->_persistent_tags);
+
 		foreach ($this->_tags as $key => $tag)
 		{
+			if ($check_persistent_tags && in_array($tag['full_segments'], $this->_persistent_tags))
+			{
+				continue;
+			}
+
 			// Parse the single tags
 			if (empty($tag['content']))
 			{
