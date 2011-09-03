@@ -50,27 +50,28 @@ class Plugin_Files extends Plugin
 	 *
 	 * @return	array
 	 */
-	function listing()
+	public function listing()
 	{
 		if ( ! $this->content())
 		{
 			return '';
 		}
 
-		$folder_identity	= $this->attribute('folder', ''); // Id or Path
-		$limit				= $this->attribute('limit', '10');
-		$offset				= $this->attribute('offset', '');
-		$type				= $this->attribute('type', '');
+		$folder_id	= $this->attribute('folder', ''); // Id or Path
+		$limit		= $this->attribute('limit', '10');
+		$offset		= $this->attribute('offset', '');
+		$type		= $this->attribute('type', '');
+		$fetch		= $this->attribute('fetch');
 
-		if ( ! empty($folder_identity) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
+		if ( ! empty($folder_id) && (empty($type) || in_array($type, array('a','v','d','i','o'))))
 		{
-			if (is_numeric($folder_identity))
+			if (is_numeric($folder_id))
 			{
-				$folder = $this->file_folders_m->get($folder_identity);
+				$folder = $this->file_folders_m->get($folder_id);
 			}
-			elseif (is_string($folder_identity))
+			elseif (is_string($folder_id))
 			{
-				$folder = $this->file_folders_m->get_by_path($folder_identity);
+				$folder = $this->file_folders_m->get_by_path($folder_id);
 			}
 		}
 
