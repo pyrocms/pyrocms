@@ -67,7 +67,6 @@ class Widget_Twitter_feed extends Widgets {
 
 		foreach ($tweets as &$tweet)
 		{
-			$tweet->id		= sprintf('%.0f', $tweet->id);
 			$tweet->text	= str_replace($options['username'] . ': ', '', $tweet->text);
 			$tweet->text	= preg_replace(array_keys($patterns), $patterns, $tweet->text);
 		}
