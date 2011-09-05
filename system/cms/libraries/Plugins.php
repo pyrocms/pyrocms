@@ -223,6 +223,6 @@ class Plugins
 			return FALSE;
 		}
 
-		return $class_init->{$method}();
+		return call_user_func(array($class_init, $method));
 	}
 }
