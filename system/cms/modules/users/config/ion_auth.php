@@ -119,7 +119,7 @@
 	/**
 	 * Salt Length
 	 **/
-	$config['salt_length'] = 5;
+	$config['salt_length'] = 6;
 
 	/**
 	 * Should the salt be stored in the database?
