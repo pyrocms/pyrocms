@@ -78,7 +78,7 @@ $(function($) {
 		
 		<section class="title">
 			<h4><?php echo lang('comments.recent_comments') ?></h4>
-			<span class="toggle">toggle</span>
+			<span class="toggle"></span>
 		</section>
 		
 		<section class="item">
@@ -156,7 +156,7 @@ $(function($) {
 		
 		<section class="title">
 			<h4><?php echo lang('cp_news_feed_title'); ?></h4>
-			<span class="toggle">toggle</span>
+			<span class="toggle" title="Toggle element"></span>
 		</section>
 		
 		<section class="item">

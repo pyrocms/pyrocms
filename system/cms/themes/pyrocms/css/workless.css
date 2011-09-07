@@ -1464,7 +1464,7 @@ Non-semantic helper classes
 */
 
 /* Toggle button */
-span.toggle { float: right; cursor: pointer; padding: 15px 0 0 0; }
+span.toggle { width: 21px; height: 22px; background: url(../img/toggle.png) no-repeat; float: right; cursor: pointer; margin: 13px 0 0 0; }
 
 /* Last class to remove margin and change float */
 .last { margin-right: 0; float: right; }
