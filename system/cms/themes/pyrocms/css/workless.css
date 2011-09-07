@@ -1017,7 +1017,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   right: 0;
   z-index: 10000;
   overflow: visible;
-  background: #222;
   background-color: #222222;
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(#333333), to(#222222));
@@ -1261,6 +1260,11 @@ form legend, form input, form select {
 	max-width: 230px;
 }
 
+.ui-tabs-nav { width: 1180px; float: left; }
+.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
+.ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
+.ui-tabs-hide { display: none !important; }
+
 #analyticsWrapper {
 	background: #ffffff;
 	width: 1180px;
@@ -1347,7 +1351,8 @@ section.title {
 }
 
 section.title h4 {
-  	color: #ed8e28;
+  	color: #555555;
+	font-size: 16px;
   	text-shadow: 1px 1px 0 #ffffff;
 	margin: 5px 0 5px 0;
 	padding: 0;
@@ -1374,23 +1379,63 @@ section.item {
 #feed ul li {
 	width: 1180px;
 	padding: 0 25px 15px 25px;
-	margin: 0 0 0 -25px;
+	margin: 0 0 25px -25px;
+	border-bottom: 1px solid #eeeeee;
 	float: left;
 }
 
+#feed ul li:last-child {
+	border-bottom: none;
+}
+
 #feed ul li h4 {
-	margin: 0 0 5px 0;
+	margin: -10px 0 0 0;
+	font-size: 16px;
 }
 
 #feed ul li, #feed ul li p {
-	font-size: 14px;
 	color: #333333;
 }
 
-.ui-tabs-nav { width: 1180px; float: left; }
-.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
-.ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
-.ui-tabs-hide { display: none !important; }
+#feed ul li p {
+	margin: 0;
+}
+
+.date {
+	margin: 0 10px 0 0;
+	float: left;
+}
+
+.month {
+	background: #ed8e28;
+	display: block;
+	width: 35px;
+	-moz-border-radius-topright: 2px; 	
+  	-webkit-border-top-right-radius: 2px;
+  	border-top-left-radius: 2px;
+  	-moz-border-radius-topleft: 2px; 	
+  	-webkit-border-top-left-radius: 2px;
+	padding: 3px 10px 3px 10px;
+	text-align: center;
+	color: #ffffff;
+	font-weight: bold;
+	border-bottom: 2px solid #cccccc;
+}
+
+.day {
+	background: #e0dbdb;
+	display: block;
+	width: 35px;
+	-moz-border-radius-bottomright: 2px; 	
+  	-webkit-border-bottom-right-radius: 2px;
+  	border-bottom-left-radius: 2px;
+  	-moz-border-radius-bottomleft: 2px; 	
+  	-webkit-border-bottom-left-radius: 2px;
+	padding: 8px 10px 10px 10px;
+	text-align: center;
+	color: #333333;
+}
+
 
 footer {
 	padding: 25px 0 0 0;

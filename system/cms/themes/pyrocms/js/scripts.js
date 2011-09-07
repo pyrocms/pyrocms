@@ -4,7 +4,7 @@
 
 // Title toggle
 $('span.toggle').click(function() {
-   $(this).parent().next('.item').fadeToggle(100);
+   $(this).parent().next('.item').slideToggle(500);
 });
 	
 // Drop Menu

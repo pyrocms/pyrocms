@@ -162,7 +162,6 @@ $(function($) {
 			<ul>
 				<?php foreach($rss_items as $rss_item): ?>
 				<li>
-					<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h4>
 						
 					<?php
 						$item_date	= strtotime($rss_item->get_date());
@@ -171,9 +170,15 @@ $(function($) {
 					?>
 						
 					<div class="date">
-						<span><?php echo $item_month ?></span>
-						<?php echo $item_day; ?>
+						<span class="month">
+							<?php echo $item_month ?>
+						</span>
+						<span class="day">
+							<?php echo $item_day; ?>
+						</span>
 					</div>
+					
+					<h4><?php echo anchor($rss_item->get_permalink(), $rss_item->get_title(), 'target="_blank"'); ?></h4>
 											
 					<p class='item_body'><?php echo $rss_item->get_description(); ?></p>
 				</li>
