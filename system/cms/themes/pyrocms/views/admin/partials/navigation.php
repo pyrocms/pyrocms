@@ -94,11 +94,32 @@
 		?>
 
 		<?php if (array_key_exists('settings', $this->permissions) OR $this->user->group == 'admin'): ?>
-		<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
+			<li><?php echo anchor('admin/settings', lang('cp_nav_settings'), 'class="top-link no-submenu' . (($this->module == 'settings') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
 
 		<?php if (array_key_exists('modules', $this->permissions) OR $this->user->group == 'admin'): ?>
-		<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="last top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
+			<li><?php echo anchor('admin/modules', lang('cp_nav_addons'), 'class="last top-link no-submenu' . (($this->module == 'modules') ? ' current"' : '"'));?></li>
 		<?php endif; ?>
+		
+		<?php
+		/* Do we really need to greet people?
+		<li id="user-greeting"><a href="#"><?php echo sprintf(lang('cp_logged_in_welcome'), $user->display_name); ?></a></li>
+		*/
+		?>
+		
+		<li>
+			<a href="#">Profile</a>
+			<ul>
+				<li><?php if ($this->settings->enable_profiles) echo anchor('edit-profile', lang('cp_edit_profile_label')) ?></li>
+				<li><?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?></li>
+				<li><?php echo anchor('admin/logout', lang('cp_logout_label')); ?></li>
+				
+				<?php if($module_details['slug']): ?>
+					<li id="help-link">
+						<?php echo anchor('admin/help/'.$module_details['slug'], lang('help_label'), array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?>
+					</li>
+				<?php endif; ?>
+			</ul>
+		</li>
 
 	</ul>

@@ -40,13 +40,13 @@ Base
 -------------------------------------------------------------------------------------------------------
 */
 
-html, body { width: 100%; background: #e8e4e7; }
+html, body { width: 100%; background: #e0dbdb; }
 html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 body { height: 100%; min-height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.231; text-rendering: optimizeLegibility; margin: 0;  overflow-x: hidden; }
 body, button, input, select, textarea { font-family: sans-serif; color: #333333; }
 
-::-moz-selection { background: #fe57a1; color: #ffffff; text-shadow: none; }
-::selection { background: #fe57a1; color: #ffffff; text-shadow: none; }
+::-moz-selection { background: #F2C741; color: #ffffff; text-shadow: none; }
+::selection { background: #F2C741; color: #ffffff; text-shadow: none; }
 
 /*
 -------------------------------------------------------------------------------------------------------
@@ -58,9 +58,9 @@ Links
 -------------------------------------------------------------------------------------------------------
 */
 
-a { color: #106ecc; text-decoration: none; -webkit-transition: 250ms linear all; -moz-transition: 250ms linear all; transition: 250ms linear all; }
+a { color: #ed8e28; text-decoration: none; -webkit-transition: 250ms linear all; -moz-transition: 250ms linear all; transition: 250ms linear all; }
 a:visited {}
-a:hover { color: #0050a3; }
+a:hover { color: #efa92e; }
 a:focus { outline: 0; }
 
 /* Improve readability when focused/hovered in all bgridsers */
@@ -128,7 +128,7 @@ p { font-size: 13px; font-weight: normal; line-height: 20px; margin-bottom: 12px
 p small { font-size: 11px; color: #bfbfbf; }
 
 /* Give headings some default styling. */
-h1, h2, h3, h4, h5, h6 { font-weight: bold; color: #333333; line-height: 36px; }
+h1, h2, h3, h4, h5, h6 { font-family: "Questrial", sans-serif; font-weight: normal; color: #333333; line-height: 36px; }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { color: #bfbfbf; }
 
 /* Set individual heading styles */
@@ -468,46 +468,26 @@ Scaffolding.
 
 .one_half { 
 	width: 230px; 
-	margin-right: 20px; 
+	margin-right: 15px; 
 	float: left; 
-}
-	
-.one_half:last-child { 
-	width: 230px; 
-	margin-right: 0; 
 }
 
 .one_third { 
 	width: 230px; 
-	margin-right: 20px; 
+	margin-right: 15px; 
 	float: left; 
-}
-	
-.one_third:last-child { 
-	width: 230px; 
-	margin-right: 0; 
 }
 
 .two_third { 
 	width: 230px; 
-	margin-right: 20px; 
+	margin-right: 15px; 
 	float: left; 
-}
-	
-.two_third:last-child { 
-	width: 230px; 
-	margin-right: 0; 
 }
 
 .one_quarter { 
 	width: 230px; 
-	margin-right: 20px; 
+	margin-right: 15px; 
 	float: left; 
-}
-	
-.one_quarter:last-child { 
-	width: 230px; 
-	margin-right: 0;  
 }
 
 /*
@@ -727,6 +707,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 /* Alerts */
 .alert {
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.15);
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.15)));
@@ -1066,14 +1047,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   position: relative;
 }
 
-.topbar ul.secondary-nav {
-  float: right;
-  margin-left: 10px;
-  margin-right: 0;
-}
-
 .topbar ul li {
-  display: block;
+  width: 80px;
+  display: inline;
   float: left;
   font-size: 13px;
 }
@@ -1081,7 +1057,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar ul li a {
   display: block;
   float: none;
-  padding: 15px 10px 16px 10px;
+  padding: 15px 10px 15px 10px;
   line-height: 19px;
   text-decoration: none;
   color: #bfbfbf;
@@ -1089,7 +1065,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .topbar ul li a:hover {
-  background-color: #333;
+  background-color: #333333;
   background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
   text-decoration: none;
@@ -1101,18 +1077,12 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   color: #ffffff;
   text-decoration: none;
 }
-.topbar ul.primary-nav li ul {
-  left: 0;
-}
-.topbar ul.secondary-nav li ul {
-  right: 0;
-}
 
 .topbar ul li.menu {
   position: relative;
 }
 
-.topbar ul li.menu a.menu:after {
+.topbar ul li a.menu:after {
   width: 0px;
   height: 0px;
   display: inline-block;
@@ -1130,43 +1100,12 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   opacity: 0.5;
 }
 
-.topbar ul li.menu.open a.menu, .topbar ul li.menu.open a:hover {
-  background-color: #444;
-  background-color: rgba(255, 255, 255, 0.1);
-  *background-color: #444;
-  /* IE6-7 */
-
-  color: #fff;
-}
-
-.topbar ul li.menu.open ul {
-  display: block;
-}
-
-.topbar ul li.menu.open ul li a {
-  background-color: transparent;
-  font-weight: normal;
-}
-
-.topbar ul li.menu.open ul li a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  *background-color: #444;
-  /* IE6-7 */
-
-  color: #fff;
-}
-
-.topbar ul li.menu.open ul li.active a {
-  background-color: rgba(255, 255, 255, 0.1);
-  font-weight: bold;
-}
-
 .topbar ul li ul {
   background-color: #333;
   float: left;
   display: none;
-  position: absolute;
-  top: 50px;
+  position: relative;
+  top: 0;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
@@ -1190,6 +1129,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   display: block;
   background: none;
   font-size: 12px;
+  min-width: 160px;
+  max-width: 220px;
+  _width: 160px;
 }
 
 .topbar ul li ul li a {
@@ -1198,7 +1140,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   clear: both;
   font-weight: normal;
   line-height: 19px;
-  color: #bbb;
+  color: #bbbbbb;
 }
 
 .topbar ul li ul li a:hover {
@@ -1206,60 +1148,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-color: rgba(255, 255, 255, 0.25);
   color: #fff;
 }
-
-.topbar ul li ul li.divider {
-  height: 1px;
-  overflow: hidden;
-  background: #222;
-  background: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin: 5px 0;
-}
-
-.topbar ul li ul li span {
-  clear: both;
-  display: block;
-  background: rgba(0, 0, 0, 0.2);
-  padding: 6px 15px;
-  cursor: default;
-  color: #808080;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-/* Some colors */
-.muted { color: #e6e6e6; }
-.highlight { background: #ffffe0; color: #333333; }
-
-/* Inline Stuff */
-.inline { display: inline; }
-
-/* For image replacement */
-.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
-.ir br { display: none; }
-
-/* Hide from both screenreaders and browsers. */
-.hidden, .hide { display: none !important; visibility: hidden; }
-
-/* Hide only visually, but have it available for screenreaders. */
-.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
-
-/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard. */
-.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
-
-/* Hide visually and from screenreaders, but maintain layout */
-.invisible { visibility: hidden; }
-
-/* Contain floats. */ 
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix { zoom: 1; }
-
-/* Position */
-.alignleft { float: left; }
-.alignright { float: right; }
-.textleft { text-align: left; }
-.textright { text-align: right; }
-.textcenter { text-align: center; }
 
 /*
 -------------------------------------------------------------------------------------------------------
@@ -1331,24 +1219,18 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 */
 
 .container {
-	width: 1280px;
+	width: 1220px;
 	margin: 0 auto;
-}
-	
-#main {
-	background: #ffffff;
-	width: 1180px;
-	padding: 25px 25px 100px 25px;
-	margin: 50px auto;
-	border: 1px solid #ffffff;
-	grid-shadow: 0px 0px 3px #bbbbbb;
-	-moz-grid-shadow: 0px 0px 3px #bbbbbb;
-	-webkit-grid-shadow: 0px 0px 3px #bbbbbb;
-	float: left;
+	padding: 0;
 }
 
-#main header {
-	width: 100%;
+.topbar ul li#dashboard-link {
+	margin: 8px 18px 8px 15px;
+}
+
+.topbar ul li#dashboard-link a {
+	padding: 6px 12px;
+	color: #ffffff;
 	float: left;
 }
 
@@ -1361,75 +1243,13 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: left;
 }
 
-.topbar ul li#dashboard-link {
-	margin: 8px 8px 8px 15px;
-}
-.topbar ul li#dashboard-link a {
-	padding: 6px 12px;
+#logo a {
+	font-size: 16px;
 	color: #ffffff;
-	float: left;
 }
 
 ul#user-links {
 	float: right;
-}
-
-ul#user-links li {
-	display: inline;
-}
-
-ul#user-links li a {
-	padding: 14px 10px 16px 10px;
-	margin: 0 5px 0 0;
-	font-size: 13px;
-	color: #bfbfbf;
-  	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
-ul#user-links li a:hover {
-	background-color: #333;
-  	background-color: rgba(255, 255, 255, 0.05);
-  	color: #ffffff;
-  	text-decoration: none;
-}
-
-/* Second level dropdown */
-ul#user-links li ul { 
-	background: #000000;
-	display: none; 
-	position: absolute; 
-	padding: 5px 0 3px 0; 
-	z-index: 10; 
-	-webkit-border-radius: 3px;
-  	-moz-border-radius: 3px;
-  	border-radius: 3px;
- 	box-shadow: 0 0 2px #cccccc;
-	opacity: .8;
-}
-	
-ul#user-links li ul li { 
-	background: none; 
-	margin: 0; 
-	padding: 10px 20px 10px 20px; 
-	position: relative; 
-	z-index: 99999;  
-	display: block;
-	float: none;
-	border-bottom: 1px solid #333333;
-}
-	
-ul#user-links li ul li:nth-last-child(1) { 
-	border: none; 
-}
-	
-ul#user-links li ul li a { 
-	background: none;
-	color: #ffffff;
-	padding: 0;  
-	position: relative; 
-	z-index: 102; 
-	display: block;
-	float: none;
 }
 
 ul#user-links form {
@@ -1440,6 +1260,138 @@ ul#user-links form {
 form legend, form input, form select {
 	max-width: 230px;
 }
+
+#analyticsWrapper {
+	background: #ffffff;
+	width: 1180px;
+	height: 300px;
+	padding: 25px;
+	float: left;
+	border-bottom-right-radius: 5px;
+  	-moz-border-radius-bottomright: 5px; 	
+  	-webkit-border-bottom-right-radius: 5px;
+  	border-bottom-left-radius: 5px;
+  	-moz-border-radius-bottomleft: 5px; 	
+  	-webkit-border-bottom-left-radius: 5px;
+	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+#analytics {
+	width: 100%;
+	height: 300px;
+	float: left;
+}
+
+#analytics table tr {
+	width: 125px;
+	float: left;
+	display: inline;
+}
+
+#analytics .legend {
+	display: none;
+}	
+
+section#main {
+	width: 1180px;
+	padding: 0;
+	margin: 100px 0 0 0;
+	float: left;
+}
+
+section#main header {
+	width: 100%;
+	float: left;
+}
+
+section#main img { 
+	width: 24px; 
+	height: 24px; 
+}
+
+section#main ul {
+	margin: 0;
+	padding: 0;
+}
+
+section#main ul li {
+	list-style: none;
+}
+
+section.title {
+  	width: 1198px;
+  	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	padding: 0 15px 0 15px;
+  	margin-top: 15px;
+  	border-top-right-radius: 5px;
+  	-moz-border-radius-topright: 5px; 	
+  	-webkit-border-top-right-radius: 5px;
+  	border-top-left-radius: 5px;
+  	-moz-border-radius-topleft: 5px; 	
+  	-webkit-border-top-left-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+section.title h4 {
+  	color: #ed8e28;
+  	text-shadow: 1px 1px 0 #ffffff;
+	margin: 5px 0 5px 0;
+	padding: 0;
+	float: left;
+}
+
+section.item {
+	background: #ffffff;
+	width: 1180px;
+	min-height: 200px;
+	margin: 0;
+	padding: 25px;
+	float: left;
+	border-bottom-right-radius: 5px;
+  	-moz-border-radius-bottomright: 5px; 	
+  	-webkit-border-bottom-right-radius: 5px;
+  	border-bottom-left-radius: 5px;
+  	-moz-border-radius-bottomleft: 5px; 	
+  	-webkit-border-bottom-left-radius: 5px;
+	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+#feed ul li {
+	width: 1180px;
+	padding: 0 25px 15px 25px;
+	margin: 0 0 0 -25px;
+	float: left;
+}
+
+#feed ul li h4 {
+	margin: 0 0 5px 0;
+}
+
+#feed ul li, #feed ul li p {
+	font-size: 14px;
+	color: #333333;
+}
+
+.ui-tabs-nav { width: 1180px; float: left; }
+.ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
+.ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
+.ui-tabs-hide { display: none !important; }
 
 footer {
 	padding: 25px 0 0 0;
@@ -1457,17 +1409,100 @@ Ensure your main styling comes before this!
 -------------------------------------------------------------------------------------------------------
 */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 481px) {
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1025px) {
+
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 1281px) {
+	
+	.one_full { 
+		width: 1180px; 
+		margin-right: 15px; 
+		float: left; 
+	}
+
+	.one_half { 
+		width: 555px; 
+		margin-right: 15px; 
+		float: left; 
+	}
+
+	.one_third { 
+		width: 230px; 
+		margin-right: 15px; 
+		float: left; 
+	}
+
+	.two_third { 
+		width: 230px; 
+		margin-right: 15px; 
+		float: left; 
+	}
+
+	.one_quarter { 
+		width: 230px; 
+		margin-right: 15px; 
+		float: left; 
+	}
+	
 }
+
+/*
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+
+Non-semantic helper classes
+
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+*/
+
+/* Toggle button */
+span.toggle { float: right; cursor: pointer; padding: 15px 0 0 0; }
+
+/* Last class to remove margin and change float */
+.last { margin-right: 0; float: right; }
+
+/* Some colors */
+.muted { color: #e6e6e6; }
+.highlight { background: #ffffe0; color: #333333; }
+
+/* Inline Stuff */
+.inline { display: inline; }
+
+/* For image replacement */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide from both screenreaders and browsers. */
+.hidden, .hide { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders. */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard. */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats. */ 
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+/* Position */
+.alignleft { float: left; }
+.alignright { float: right; }
+.textleft { text-align: left; }
+.textright { text-align: right; }
+.textcenter { text-align: center; }
 
 /*
 -------------------------------------------------------------------------------------------------------

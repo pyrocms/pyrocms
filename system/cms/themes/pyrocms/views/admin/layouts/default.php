@@ -27,8 +27,7 @@
   	<!-- End CSS-->
 
 	<!-- Googlelicious -->
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold" type="text/css" />
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
 
 	<!-- Load up some favicons -->
   	<link rel="shortcut icon" href="favicon.ico">
@@ -38,22 +37,44 @@
   	<link rel="apple-touch-icon" href="apple-touch-icon-72x72-precomposed.png">
   	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
 
-  	<!-- All JavaScript at the bottom, except for Modernizr / Respond. Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries -->
-  	<?php echo js('modernizr.js'); ?>
+	<!-- Grab Google CDN's jQuery, with a protocol relative URL -->
+  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 
+	<!-- fall back to local if offline -->
+  	<script>window.jQuery || document.write('<script src="<?php echo js_path('jquery/jquery.min.js'); ?>">\x3C/script>')</script>
+	
+	<!-- metadata needs to load before some stuff -->
 	<?php file_partial('metadata'); ?>
+
 </head>
 
 <body>
 	<div class="container">
 		
-		<div id="main">
-			<?php file_partial('header'); ?>
+		<?php file_partial('header'); ?>
+		
+		<section id="main">
+	
+			<?php file_partial('notices'); ?>
 			
-			<div id="content">
+			<?php /*
+			<?php template_partial('shortcuts'); ?>
+			<?php template_partial('filters'); ?>
+			*/ ?>
+			
+			<section class="title">
+				<h4><?php echo $module_details['name'] ? anchor('admin/' . $module_details['slug'], $module_details['name']) : lang('cp_admin_home_title'); ?></h4>
+				<small><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></small>	
+			</section>
+			
+			<?php if ($this->uri->segment(2) === FALSE) { ?>
 				<?php echo $template['body']; ?>
-			</div>
-		</div>
+			<?php } else { ?>
+				<section class="item">
+					<?php echo $template['body']; ?>
+				</section>
+			<?php } ?>
+		</section>
 	
 		<footer>
 			Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp;
@@ -61,25 +82,12 @@
 			Rendered in {elapsed_time} sec. using {memory_usage}.
 		</footer>
 	</div>
-	
-	<!-- JavaScript at the bottom for fast page loading -->
 
-  	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  	<script>window.jQuery || document.write('<script src="<?php echo js_path('jquery/jquery.min.js'); ?>">\x3C/script>')</script>
-
-  	<!-- Scripts -->
+	<!-- Scripts -->
+	<?php echo js('jquery/jquery-ui.min.js'); ?>
   	<?php echo js('plugins.js'); ?>
   	<?php echo js('scripts.js'); ?>
   	<!-- End Scripts -->
-
-  	<!-- Change UA-XXXXX-X to be your site's ID -->
-  	<script>
-    	window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    	Modernizr.load({
-      		load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    	});
-  	</script>
 
   	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
   	<!--[if lt IE 7 ]>

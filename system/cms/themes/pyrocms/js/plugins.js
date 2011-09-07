@@ -1111,4 +1111,3 @@ PR_NOCODE:"nocode",PR_PLAIN:"pln",PR_PUNCTUATION:"pun",PR_SOURCE:"src",PR_STRING
   };
   this.SelectParser = SelectParser;
 }).call(this);
-

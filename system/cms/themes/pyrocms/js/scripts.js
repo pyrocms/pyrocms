@@ -1,21 +1,30 @@
 /* Author: 
 
 */
-// Drop Menu
-$("nav#primary ul ul").css({display: "none"});
 
-$("nav#primary ul li").hover(function(){
+// Title toggle
+$('span.toggle').click(function() {
+   $(this).parent().next('.item').fadeToggle(100);
+});
+	
+// Drop Menu
+$(".topbar ul ul").css({display: "none"});
+
+$(".topbar ul li").hover(function(){
 	$(this).find('ul:first').css({visibility: "visible",display: "none"}).slideDown(400);
 },function(){
 	$(this).find('ul:first').css({visibility: "visible"}).slideUp(400);
 });
 
 // Disable Parent li if has child items
-$("nav#primary ul li:has(ul)").hover(function () {
+$(".topbar ul li:has(ul)").hover(function () {
 	$(this).children("a").click(function () {
-return false;
+		return false;
+	});
 });
-});
+
+// Add class to show is dropdown
+$(".topbar ul li:has(ul)").children("a").addClass("menu");
 
 // Pretty Photo
 $('#main a:has(img)').addClass('prettyPhoto');
@@ -45,6 +54,9 @@ $('.tooltip-w').tipsy({
 	fade: true,
 	html: true
 });
+
+// Tabs
+$( "#main" ).tabs();
 
 // Chosen
 $(".chzn").chosen();
