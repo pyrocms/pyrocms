@@ -82,10 +82,9 @@ $(function($) {
 		</section>
 		
 		<section class="item">
-			<ul>
-				<li>
-					<a href="<?php echo site_url('admin/comments'); ?>"></a>
-				</li>
+			<ul> 
+				<?php echo lang('comments.no_comments');?>
+				
 				<?php foreach ($recent_comments AS $rant) : ?>
 					<li>
 						<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo $rant->comment; ?></em></p>

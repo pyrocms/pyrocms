@@ -79,9 +79,5 @@
 	<?php echo form_close();?>
 
 <?php else: ?>
-	<div class="blank-slate">
-		<?php echo image('icons/comments.png'); ?>
-	
-		<h2><?php echo lang('comments.no_comments');?></h2>
-	</div>
+		<?php echo lang('comments.no_comments');?>
 <?php endif; ?>
