@@ -178,8 +178,6 @@ class Users extends Public_Controller
 	
 		if ($this->form_validation->run())
 		{	
-			/* override config settings */
-			$this->config->set_item('email_activation', Settings::get('activation_email'), 'ion_auth');
 
 			$email				= $this->input->post('email');
 			$password			= $this->input->post('password');	
