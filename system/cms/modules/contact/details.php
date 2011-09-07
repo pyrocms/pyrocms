@@ -58,17 +58,17 @@ class Module_Contact extends Module {
 		return $this->db->query("
 			CREATE TABLE ".$this->db->dbprefix('contact_log')." (
 			  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-			  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			  `message` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			  `company_name` VARCHAR( 255 ) NOT NULL,
-			  `sender_agent` varchar(11) DEFAULT NULL,
-			  `sender_ip` text,
-			  `sender_os` varchar(15) NOT NULL,
-			  `sent_at` varchar(255) DEFAULT NULL,
+			  `name` varchar(255) NOT NULL default '',
+			  `email` varchar(255) NOT NULL default '',
+			  `subject` varchar(255) NOT NULL default '',
+			  `message` text collate utf8_unicode_ci NOT NULL,
+			  `company_name` varchar(255) NOT NULL default '',
+			  `sender_agent` varchar(64) NOT NULL default '',
+			  `sender_ip` varchar(32) NOT NULL default '',
+			  `sender_os` varchar(32) NOT NULL default '',
+			  `sent_at` int(11) NOT NULL default 0,
 			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contact log'
 		");
 	}
 
