@@ -4,6 +4,8 @@
 $lang['groups.title']					= 'Naslov';
 $lang['groups.name']				    = 'Ime';
 $lang['groups.short_name']				= 'Kratko ime';
+$lang['groups.delete']             		= 'Izbriši';
+$lang['groups.edit']            		= 'Uredi';
 
 // titles
 $lang['groups.index_title']             = 'Seznam skupin';

@@ -4,6 +4,8 @@
 $lang['groups.title']					= 'Τίτλος';
 $lang['groups.name']				    = 'Όνομα';
 $lang['groups.short_name']				= 'Συντομο όνομα';
+$lang['groups.delete']             		= 'Διαγραφή';
+$lang['groups.edit']            		= 'Επεξεργασία';
 
 // titles
 $lang['groups.index_title']             = 'Λίστα Ομάδων';
