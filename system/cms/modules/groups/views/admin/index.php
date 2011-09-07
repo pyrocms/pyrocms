@@ -20,9 +20,9 @@
 				<td><?php echo $group->description; ?></td>
 				<td><?php echo $group->name; ?></td>
 				<td class="align-center buttons buttons-small">
-				<?php echo anchor('admin/groups/edit/'.$group->id, lang('groups.edit'), 'class="button edit"'); ?>
+				<?php echo anchor('admin/groups/edit/'.$group->id, lang('buttons.edit'), 'class="button edit"'); ?>
 				<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
-					<?php echo anchor('admin/groups/delete/'.$group->id, lang('groups.delete'), 'class="confirm button delete"'); ?>
+					<?php echo anchor('admin/groups/delete/'.$group->id, lang('buttons.delete'), 'class="confirm button delete"'); ?>
 				<?php endif; ?>
 				</td>
 			</tr>
