@@ -12,7 +12,7 @@
 		<?php file_partial('navigation'); ?>
 	</nav>
 	
-	<ul id="user-links" class="primary-nav">
+	<ul id="lang" class="primary-nav">
 		<form action="<?php echo current_url(); ?>" id="change_language" method="get">
 			<select class="chzn" name="lang" onchange="this.form.submit();">				
 				<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>

@@ -106,7 +106,7 @@
 		<li id="user-greeting"><a href="#"><?php echo sprintf(lang('cp_logged_in_welcome'), $user->display_name); ?></a></li>
 		*/
 		?>
-		
+			
 		<li>
 			<a href="#">Profile</a>
 			<ul>

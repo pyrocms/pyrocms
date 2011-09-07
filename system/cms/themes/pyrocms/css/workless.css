@@ -1247,11 +1247,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	color: #ffffff;
 }
 
-ul#user-links {
+ul#lang {
 	float: right;
 }
 
-ul#user-links form {
+ul#lang form {
 	margin-top: 10px;
 	float: right;
 }
@@ -1348,6 +1348,12 @@ section.title {
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+section.draggable {
+	cursor:grabbing;
+  	cursor:-moz-grabbing;
+  	cursor:-webkit-grabbing;
 }
 
 section.title h4 {
@@ -1506,6 +1512,9 @@ Non-semantic helper classes
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 */
+
+/* Sortable drop location */
+.dropzone { width: 1230px; height: 100px; background: #ffc300; border: 1px solid #C19400; float: left; opacity: 0.5; border-radius: 5px; -moz-border-radius: 5px;  -webkit-border-radius: 5px; }
 
 /* Toggle button */
 span.toggle { width: 21px; height: 22px; background: url(../img/toggle.png) no-repeat; float: right; cursor: pointer; margin: 13px 0 0 0; }

@@ -72,11 +72,14 @@ $(function($) {
 <!-- Dashboard Widgets -->
 {pyro:widgets:area slug="dashboard"}
 	
+<!-- Add an extra div to allow the elements within it to be sortable! -->
+<div class="sortable">
+	
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
 	<div class="one_full">
 		
-		<section class="title">
+		<section class="draggable title">
 			<h4><?php echo lang('comments.recent_comments') ?></h4>
 			<span class="toggle"></span>
 		</section>
@@ -153,7 +156,7 @@ $(function($) {
 	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>
 	<div id="feed" class="one_full">
 		
-		<section class="title">
+		<section class="draggable title">
 			<h4><?php echo lang('cp_news_feed_title'); ?></h4>
 			<span class="toggle" title="Toggle element"></span>
 		</section>
@@ -189,3 +192,6 @@ $(function($) {
 	<?php endif; ?>
 	</div>
 	<!-- End RSS Feed -->
+
+</div>
+<!-- End sortable div -->

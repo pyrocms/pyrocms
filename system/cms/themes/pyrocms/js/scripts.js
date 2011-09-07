@@ -6,6 +6,17 @@
 $('span.toggle').click(function() {
    $(this).parent().next('.item').slideToggle(500);
 });
+
+// Draggable / Droppable
+$(".sortable").sortable({ 
+	placeholder : 'dropzone',
+    handle : '.draggable', 
+    update : function () { 
+      var order = $('#main').sortable('serialize'); 
+    } 
+}); 
+$(".sortable").disableSelection();
+$(".sortable").forcePlaceholderSize();
 	
 // Drop Menu
 $(".topbar ul ul").css({display: "none"});
