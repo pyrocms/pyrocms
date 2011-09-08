@@ -45,7 +45,7 @@ class Users extends Public_Controller
 	 */
 	public function view($id = NULL)
 	{
-		$user = ($id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
+		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
 		
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
 		$user or show_404();
@@ -162,11 +162,6 @@ class Users extends Public_Controller
 				'rules' => 'required|min_length[6]|max_length[20]'
 			),
 			array(
-				'field' => 'confirm_password',
-				'label' => lang('user_confirm_password'),
-				'rules' => 'required|matches[password]',
-			),
-			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
 				'rules' => 'required|valid_email|callback__email_check',
@@ -183,8 +178,6 @@ class Users extends Public_Controller
 	
 		if ($this->form_validation->run())
 		{	
-			/* override config settings */
-			$this->config->set_item('email_activation', Settings::get('activation_email'), 'ion_auth');
 
 			$email				= $this->input->post('email');
 			$password			= $this->input->post('password');	
@@ -231,7 +224,6 @@ class Users extends Public_Controller
 				$user_data->display_name		= $username;
 				$user_data->email				= $email;
 				$user_data->password 			= $password;
-				$user_data->confirm_email 		= $this->input->post('confirm_email');
 				
 				// trigger an event for third party devs
 				Events::trigger('post_user_register', $id);
@@ -458,11 +450,6 @@ class Users extends Public_Controller
 				'rules' => 'xss_clean|min_length[6]|max_length[20]'
 			),
 			array(
-				'field' => 'confirm_password',
-				'label' => lang('user_confirm_password'),
-				'rules' => 'xss_clean|'.($this->input->post('password') ? 'required|' : '').'matches[password]'
-			),
-			array(
 				'field' => 'email',
 				'label' => lang('user_email'),
 				'rules' => 'xss_clean|valid_email'
@@ -598,8 +585,6 @@ class Users extends Public_Controller
 			{
 				unset($secure_post['password']);
 			}
-			// We don't need this anymore
-			unset($secure_post['confirm_password']);
 
 			// Set the time of update
 			$secure_post['updated_on'] = now();

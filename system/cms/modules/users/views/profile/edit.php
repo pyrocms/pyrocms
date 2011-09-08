@@ -32,12 +32,7 @@
 		<ul>
 			<li class="float-left spacer-right">
 				<label for="password"><?php echo lang('user_password') ?></label><br/>
-				<?php echo form_password('password'); ?>
-			</li>
-
-			<li>
-				<label for="confirm_password"><?php echo lang('user_confirm_password') ?></label><br/>
-				<?php echo form_password('confirm_password'); ?>
+				<?php echo form_password('password', '', 'autocomplete="off"'); ?>
 			</li>
 		</ul>
 	</fieldset>

@@ -13,8 +13,8 @@ $lang['password']		=	'Wachtwoord';
 $lang['portnr']			=	'Poort';
 $lang['server_settings']=	'Server Instellingen';
 $lang['httpserver']		=	'HTTP Server';
-$lang['rewrite_fail']	=	'You have selected "(Apache with mod_rewrite)" but we are unable to tell if mod_rewrite is enabled on your server. Ask your host if mod_rewrite is enabled or simply install at your own risk.';
-$lang['mod_rewrite']	=	'You have selected "(Apache with mod_rewrite)" but your server does not have the rewrite module enabled. Ask your host to enable it or install PyroCMS using the "Apache (without mod_rewrite)" option.';
+$lang['rewrite_fail']	=	' U heeft Apache (met mod_rewrite) geselecteerd, maar er kan niet gedetecteerd worden of mod_rewrite op uw HTTP-Server is ingeschakeld. Vraag de beheerder of mod_rewrite is ingeschakeld, of installeer dit (op eigen risico).';
+$lang['mod_rewrite']	=	'U heeft Apache (met mod_rewrite) geselecteerd, maar uw HTTP-Server heeft mod_rewrite niet inschakeld.Vraag uw beheerder om dit in te schakelen, of installeer PyroCMS met de optie "Apache (zonder mod_rewrite)".';
 $lang['step2']			=	'Stap 2';
 
 // messages

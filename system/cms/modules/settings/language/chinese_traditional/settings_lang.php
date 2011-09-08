@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 					= '您的設定已經儲存';
-$lang['settings_edit_title'] 					= '編輯設定';
-
 #section settings
 $lang['settings_site_name'] 					= '網站名稱';
 $lang['settings_site_name_desc'] 				= '在這裡設定的名稱會應用在 title 標籤以及整個網站。';
@@ -137,5 +134,12 @@ $lang['settings_form_option_Required']			= '必要';
 $lang['settings_form_option_Optional']			= '可選擇';
 $lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
 $lang['settings_form_option_Newest First']		= 'Newest First'; #translate
+
+// titles
+$lang['settings_edit_title'] 					= '編輯設定';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success'] 					= '您的設定已經儲存';
 
 /* End of file settings_lang.php */

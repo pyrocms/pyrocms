@@ -169,7 +169,7 @@ class Settings {
 			return self::$cache;
 		}
 
-		$settings = ci()->settings_m->get_all();
+		$settings = ci()->settings_m->get_many_by(array());
 
 		foreach ($settings as $setting)
 		{

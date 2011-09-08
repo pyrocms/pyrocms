@@ -12,12 +12,14 @@ class Widget_Navigation extends Widgets
 {
 	public $title		= array(
 		'en' => 'Navigation',
-		'pt' => 'Navegação',
+		'nl' => 'Navigatie',
+		'br' => 'Navegação',
 		'ru' => 'Навигация',
 	);
 	public $description	= array(
 		'en' => 'Display a navigation group with a widget',
-		'pt' => 'Exibe um grupo de links de navegação como widget em seu site',
+		'nl' => 'Toon een navigatiegroep met een widget',
+		'br' => 'Exibe um grupo de links de navegação como widget em seu site',
 		'ru' => 'Отображает навигационную группу внутри виджета',
 	);
 	public $author		= 'Phil Sturgeon';

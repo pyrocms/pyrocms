@@ -98,7 +98,7 @@ class Comments_m extends MY_Model
 		
 		return parent::insert(array(
 			'user_id'		=> isset($input['user_id']) 	? 	$input['user_id'] 									:  0,
-			'is_active'		=> isset($input['is_active']) 	? 	$input['is_active'] 								:  0,
+			'is_active'		=> ! empty($input['is_active']) ? 	1	 												:  0,
 			'name'			=> isset($input['name']) 		? 	ucwords(strtolower(strip_tags($input['name']))) 	: '',
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',

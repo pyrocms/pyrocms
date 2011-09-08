@@ -8,9 +8,6 @@
  * @link			http://pyrocms.com
  */
 
-$lang['settings_save_success'] 							= 'Настройки сохранены';
-$lang['settings_edit_title']								= 'Редактировать настройки';
-
 // настройки
 $lang['settings_site_name']									= 'Имя сайта';
 $lang['settings_site_name_desc']							= 'Имя сайта, используется в заголовках страниц и разных местах на сайте.';
@@ -145,5 +142,12 @@ $lang['settings_form_option_Required']				= 'Требуется';
 $lang['settings_form_option_Optional']				= 'Рекомендуется';
 $lang['settings_form_option_Oldest First']		= 'Старые сначала';
 $lang['settings_form_option_Newest First']		= 'Новые сначала';
+
+// titles
+$lang['settings_edit_title']								= 'Редактировать настройки';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success'] 							= 'Настройки сохранены';
 
 /* End of file settings_lang.php */

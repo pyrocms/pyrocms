@@ -8,9 +8,9 @@ $lang['desc_label'] 					= 'Omschrijving';
 $lang['version_label'] 					= 'Versie';
 $lang['author_label'] 					= 'Auteur';
 $lang['action_label'] 					= 'Actie';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['actions_label']					= 'Acties';
 
-$lang['dialog.delete_message'] 			= 'Weet u zeker dat u dit wilt verwijderen? Het kan niet ongedaan worden.';
+$lang['dialog.delete_message'] 			= 'Weet u zeker dat u dit wilt verwijderen? Dit kan niet ongedaan worden gemaakt.';
 $lang['dialog.confirm'] 				= 'Bevestigen';
 $lang['dialog.yes'] 					= 'Ja';
 $lang['dialog.no'] 						= 'Nee';
@@ -20,11 +20,11 @@ $lang['select.all'] 					= '-- Alles --';
 $lang['select.any'] 					= '-- Willekeurig --';
 $lang['select.pick']					= '-- Selecteer --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 					= 'Geen'; 
+$lang['check.all']						= 'Alles';
 
 $lang['operators.equal'] 				= 'Gelijk aan'; 
-$lang['operators.not_equal'] 			= 'Niet gelijk aan';
+$lang['operators.not_equal'] 			= 'Ongelijk aan';
 $lang['operators.less_than'] 			= 'Kleiner dan';
 $lang['operators.greater_than'] 		= 'Groter dan';
 
@@ -54,9 +54,9 @@ $lang['login_label'] 					= 'Log In';
 $lang['help_label'] 					= 'Help';
 $lang['save_label'] 					= 'Opslaan';
 $lang['cancel_label'] 					= 'Annuleren';
-$lang['update_label'] 					= 'Update Bijschrift';
-$lang['delete_label'] 					= 'Verwijder';
-$lang['activate_label'] 				= 'Activeer';
+$lang['update_label'] 					= 'Vernieuwen';
+$lang['delete_label'] 					= 'Verwijderen';
+$lang['activate_label'] 				= 'Activeren';
 $lang['approve_label']					= 'Goedkeuren';
 $lang['unapprove_label']				= 'Afkeuren';
 $lang['publish_label'] 					= 'Publiceren';
@@ -69,10 +69,10 @@ $lang['disable_label']					= 'Uitschakelen';
 $lang['global:shortcuts'] 				= 'Snelkoppelingen';
 $lang['global:description'] 		    = 'Beschrijving';
 $lang['global:actions']					= 'Acties';
-$lang['global:edit']					= 'Wijzig';
-$lang['global:delete']					= 'Verwijder';
-$lang['global:remove']					= 'Verwijder';
+$lang['global:edit']					= 'Wijzigen';
+$lang['global:delete']					= 'Verwijderen';
+$lang['global:remove']					= 'Verwijderen';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Sleutelwoorden';
 
 /* End of file main_lang.php */

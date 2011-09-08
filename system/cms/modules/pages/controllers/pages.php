@@ -39,12 +39,25 @@ class Pages extends Public_Controller
 		// This page has been routed to with pages/view/whatever
 		if ($this->uri->rsegment(1, '').'/'.$method == 'pages/view')
 		{
-			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($url_segments, $this->uri->rsegment_array(), 2) : null;
+			$url_segments = $this->uri->total_rsegments() > 0 ? array_slice($this->uri->rsegment_array(), 2) : null;
 		}
 		
 		// not routed, so use the actual URI segments
 		else
 		{
+			if (($url_segments = $this->uri->uri_string()) === 'favicon.ico')
+			{
+				$favicon = $this->asset->image_path('favicon.ico', '_theme_');
+
+				if (file_exists(FCPATH.$favicon) && is_file(FCPATH.$favicon))
+				{
+					header('Content-type: image/x-icon');
+					readfile(FCPATH.$favicon);
+				}
+
+				exit;
+			}
+
 			$url_segments = $this->uri->total_segments() > 0 ? $this->uri->segment_array() : null;
 		}
 		

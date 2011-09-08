@@ -1,14 +1,14 @@
 <?php
 
 $lang['user_register_header'] 			= 'Registratie';
-$lang['user_register_step1'] 			= '<strong>Stap 1:</strong> Registreren';
-$lang['user_register_step2'] 			= '<strong>Stap 2:</strong> Activeren';
+$lang['user_register_step1'] 			= '<b>Stap 1:</b> Registreren';
+$lang['user_register_step2'] 			= '<b>Stap 2:</b> Activeren';
 
 $lang['user_login_header'] 				= 'Login';
 
 // titles
 $lang['user_add_title'] 				= 'Voeg gebruiker toe';
-$lang['user_list_title'] 				= 'List users'; #translate
+$lang['user_list_title'] 				= 'Overzicht users'; 
 $lang['user_inactive_title'] 			= 'Inactieve gebruikers';
 $lang['user_active_title'] 				= 'Actieve gebruikers';
 $lang['user_registred_title'] 			= 'Geregistreerde gebruikers';
@@ -49,21 +49,21 @@ $lang['user_reset_password_title'] 		= 'Reset Wachtwoord';
 $lang['user_password_reset_title'] 		= 'Wachtwoord Resetten';  
 
 
-$lang['user_error_username'] 			= 'De gebruikersnaam die u ingevoerd heeft is reeds in gebruik'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_error_email'] 				= 'Het emailadres dat u ingevoerd heeft is reeds in gebruik'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_error_username'] 			= 'De gebruikersnaam die u ingevoerd heeft is reeds in gebruik';
+$lang['user_error_email'] 				= 'Het emailadres dat u ingevoerd heeft is reeds in gebruik'; 
 
 $lang['user_full_name'] 				= 'Volledige naam';
 $lang['user_first_name'] 				= 'Voornaam';
 $lang['user_last_name'] 				= 'Achternaam';
-$lang['user_username'] 					= 'Gebruikersnaam'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_display_name']				= 'Schermnaam'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_email_use'] 				= 'om in te loggen'; #translate
-$lang['user_email'] 					= 'E-mail';
-$lang['user_confirm_email'] 			= 'Bevestig E-mail';
+$lang['user_username'] 					= 'Gebruikersnaam';
+$lang['user_display_name']				= 'Schermnaam';
+$lang['user_email_use'] 				= 'om in te loggen';
+$lang['user_email'] 					= 'Email';
+$lang['user_confirm_email'] 			= 'Bevestig Email';
 $lang['user_password'] 					= 'Wachtwoord';
-$lang['user_remember'] 					= 'Onthoud mij'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_remember'] 					= 'Onthoud mij';
 $lang['user_confirm_password'] 			= 'Bevestig Wachtwoord';
-$lang['user_group_id_label']			= 'Groep ID'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
+$lang['user_group_id_label']			= 'Groep ID';
 
 $lang['user_level']						= 'Gebruikersrol';
 $lang['user_active']					= 'Actief';
@@ -125,7 +125,7 @@ $lang['user_activated_message']   				= 'Uw account is geactiveerd, u kunt nu op
 
 
 // Login
-$lang['user_logged_in']							= 'You have logged in successfully.'; #translate
+$lang['user_logged_in']							= 'U bent ingelogd.';
 $lang['user_already_logged_in'] 				= 'U bent al ingelogd. Log eerst uit voordat u het opnieuw probeert.';
 $lang['user_login_incorrect'] 					= 'E-mail en wachtwoord kloppen niet. Verifieer uw logingegevens en kijk of CAPS LOCK niet aanstaat.';
 $lang['user_inactive']   						= 'Het account waarop u probeer in te loggen is inactief.<br />Bekijk de e-mail met instructies hoe u uw account kunt activeren - <em>de mail kan ook in uw spamfolder zitten</em>.';
@@ -176,9 +176,9 @@ $lang['profile_dob_day']				= 'Dag';
 $lang['profile_dob_month']				= 'Maand';
 $lang['profile_dob_year']				= 'Jaar';
 $lang['profile_gender']					= 'Geslacht';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']            = 'Niet aangegeven';
+$lang['profile_gender_male']          = 'Man';
+$lang['profile_gender_female']        = 'Vrouw';
 $lang['profile_bio']					= 'Over mij';
 
 $lang['profile_contact_section'] 		= 'Contact';

@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success']					= 'Twoje ustawienia zostały zapisane!';
-$lang['settings_edit_title']					= 'Edytuj ustawienia';
-
 #section settings
 $lang['settings_site_name']						= 'Nazwa strony';
 $lang['settings_site_name_desc']				= 'Nazwa strony dla tytułów stron oraz do użytku na stronie.';
@@ -138,5 +135,12 @@ $lang['settings_form_option_Required']			= 'Wymagane';
 $lang['settings_form_option_Optional']			= 'Opcjonalne';
 $lang['settings_form_option_Oldest First']		= 'Najstarsze pierwsze'; 
 $lang['settings_form_option_Newest First']		= 'Najnowsze pierwsze'; 
+
+// titles
+$lang['settings_edit_title']					= 'Edytuj ustawienia';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success']					= 'Twoje ustawienia zostały zapisane!';
 
 /* End of file settings_lang.php */

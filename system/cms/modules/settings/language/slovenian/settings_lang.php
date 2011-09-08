@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success']					= 'Vaše nastavitve so bile shranjene!';
-$lang['settings_edit_title']					= 'Uredi nastavitve';
-
 #section settings
 $lang['settings_site_name']						= 'Ime strani';
 $lang['settings_site_name_desc']				= 'Ime strani za spletno stran in za naslove strani po strani';
@@ -135,5 +132,12 @@ $lang['settings_form_option_Required']			= 'Zahtevano';
 $lang['settings_form_option_Optional']			= 'Možnost';
 $lang['settings_form_option_Oldest First']		= 'Starejši naprej';
 $lang['settings_form_option_Newest First']		= 'Novejši naprej';
+
+// titles
+$lang['settings_edit_title']					= 'Uredi nastavitve';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_save_success']					= 'Vaše nastavitve so bile shranjene!';
 
 /* End of file settings_lang.php */

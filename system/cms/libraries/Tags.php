@@ -35,6 +35,8 @@ class Tags {
 	private $_current_callback	= array();
 	private $_skip_content		= array();
 	private $_tags				= array();
+	private $_persistent_tags	= array();
+	private $_known_tags		= array();
 
 	// --------------------------------------------------------------------
 
@@ -118,6 +120,25 @@ class Tags {
 
 	// --------------------------------------------------------------------
 
+
+	/**
+	 * Set Skip Content
+	 *
+	 * ...
+	 *
+	 * @access	public
+	 * @param	array	The skip content
+	 * @return	object	Returns $this to enable method chaining
+	 */
+	public function set_persistent_tags($segments = array())
+	{
+		$this->_persistent_tags = $segments;
+
+		return $this;
+	}
+
+	// --------------------------------------------------------------------
+
 	/**
 	 * Parse
 	 *
@@ -137,6 +158,8 @@ class Tags {
 
 			return $content;
 		}
+
+		static $func_depth = 0;
 
 		log_message('debug', 'Tag Class: Parser method Initialized');
 
@@ -206,12 +229,15 @@ class Tags {
 
 		$content = $this->_replace_data($content, $data);
 
+		$has_callback = FALSE;
+
 		// If there is a callback, call it for each tag
 		if ( ! empty($callback) AND is_callable($callback))
 		{
+			$has_callback = TRUE;
 			$remainings = array();
 
-			foreach ($this->_tags as $tag)
+			foreach ($this->_tags as $key => $tag)
 			{
 				if ($tag['full_segments'] === $this->_escape)
 				{
@@ -252,23 +278,55 @@ class Tags {
 					}
 				}
 
+				if (in_array($tag['full_segments'], $this->_persistent_tags))
+				{
+					$this->_known_tags[] = $tag;
+
+					unset($this->_tags[$key]);
+
+					continue;
+				}
+
+				++$func_depth;
 				$return_data = call_user_func($callback, $tag);
+				--$func_depth;
+
 				$content = str_replace($tag['marker'], $return_data, $content, $count);
 
 				if ($count < $tag['replacements'])
 				{
 					$remainings[$tag['marker']] = array($tag['replacements'], $return_data);
 				}
+
+				unset($this->_tags[$key]);
 			}
 		}
 
 		// If there is no callback then lets loop through any remaining tags and just set them as ''
 		else
 		{
-			foreach ($this->_tags as $tag)
+			foreach ($this->_tags as $key => $tag)
 			{
 				$content = str_replace($tag['marker'], '', $content);
+
+				unset($this->_tags[$key]);
 			}
+		}
+
+		if ($func_depth === 0 && $has_callback && ! (empty($this->_persistent_tags) && empty($this->_known_tags)))
+		{
+			foreach ($this->_known_tags as $key => $tag)
+			{
+				if (in_array($tag['full_segments'], $this->_persistent_tags))
+				{
+					$return_data = call_user_func($callback, $tag);
+
+					$content = str_replace($tag['marker'], $return_data, $content);
+				}
+			}
+
+			$this->_persistent_tags = array();
+			$this->_known_tags = array();
 		}
 
 		$content = $this->parse_php($this->parse_conditionals($content), $data);
@@ -488,8 +546,15 @@ class Tags {
 		$oc_nok = 0;
 		$oc_ok = 0;
 
+		$check_persistent_tags = ! empty($this->_persistent_tags);
+
 		foreach ($this->_tags as $key => $tag)
 		{
+			if ($check_persistent_tags && in_array($tag['full_segments'], $this->_persistent_tags))
+			{
+				continue;
+			}
+
 			// Parse the single tags
 			if (empty($tag['content']))
 			{

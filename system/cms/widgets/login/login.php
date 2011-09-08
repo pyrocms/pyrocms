@@ -18,7 +18,8 @@ class Widget_Login extends Widgets
 	 */
 	public $title		= array(
 		'en' => 'Login',
-		'pt' => 'Login',
+		'nl' => 'Login',
+		'br' => 'Login',
 		'ru' => 'Вход на сайт',
 	);
 	
@@ -27,7 +28,8 @@ class Widget_Login extends Widgets
 	 */
 	public $description	= array(
 		'en' => 'Display a simple login form anywhere',
-		'pt' => 'Permite colocar um formulário de login em qualquer lugar do seu site',
+		'br' => 'Permite colocar um formulário de login em qualquer lugar do seu site',
+		'nl' => 'Toon overal een simpele loginbox',
 		'ru' => 'Выводит простую форму для входа на сайт',
 	);
 	

@@ -22,7 +22,7 @@
 // Local: localhost or local.example.com
 if ($_SERVER['SERVER_NAME'])
 {
-	if (strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
+	if ($_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], 'local.') === 0)
 	{
 		define('ENVIRONMENT', 'local');
 	}

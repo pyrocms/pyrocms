@@ -42,11 +42,6 @@
 	</li>
 	
 	<li>
-		<label for="confirm_password"><?php echo lang('user_confirm_password') ?></label>
-		<input type="password" name="confirm_password" maxlength="100" />
-	</li>
-	
-	<li>
 		<?php echo form_submit('btnSubmit', lang('user_register_btn')) ?>
 	</li>
 </ul>
