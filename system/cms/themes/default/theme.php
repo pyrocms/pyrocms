@@ -45,6 +45,8 @@ class Theme_Default extends Theme {
 				$cufon_enabled	= FALSE;
 				break;
 			case 'ar':
+				$cufon_enabled = FALSE;
+				break;
 			case 'he':
 				$cufon_enabled	= TRUE;
 			case 'ru':
