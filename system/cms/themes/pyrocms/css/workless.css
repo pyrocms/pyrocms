@@ -1350,12 +1350,6 @@ section.title {
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
-section.draggable {
-	cursor:grabbing;
-  	cursor:-moz-grabbing;
-  	cursor:-webkit-grabbing;
-}
-
 section.title h4 {
   	color: #555555;
 	font-size: 16px;
@@ -1442,10 +1436,18 @@ section.item {
 	color: #333333;
 }
 
-
 footer {
 	padding: 25px 0 0 0;
 }
+
+/* Sortable drop location */
+.dropzone { width: 1230px; height: 100px; background: #ffc300; border: 1px solid #C19400; float: left; opacity: 0.5; border-radius: 5px; -moz-border-radius: 5px;  -webkit-border-radius: 5px; }
+
+/* Draggable element */
+section.draggable { cursor:grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbing; }
+
+/* Toggle button */
+a.toggle { width: 21px; height: 22px; background: url(../img/toggle.png) no-repeat; float: right; cursor: pointer; margin: 13px 0 0 0; }
 
 /*
 -------------------------------------------------------------------------------------------------------
@@ -1512,12 +1514,6 @@ Non-semantic helper classes
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 */
-
-/* Sortable drop location */
-.dropzone { width: 1230px; height: 100px; background: #ffc300; border: 1px solid #C19400; float: left; opacity: 0.5; border-radius: 5px; -moz-border-radius: 5px;  -webkit-border-radius: 5px; }
-
-/* Toggle button */
-span.toggle { width: 21px; height: 22px; background: url(../img/toggle.png) no-repeat; float: right; cursor: pointer; margin: 13px 0 0 0; }
 
 /* Last class to remove margin and change float */
 .last { margin-right: 0; float: right; }

@@ -24,15 +24,14 @@ $(function($) {
 				display: 'none',
 				top: y + 5,
 				left: x + 5,
-				border: '1px solid #ed8e28',
 				'border-radius': '3px',
 				'-moz-border-radius': '3px',
 				'-webkit-border-radius': '3px',
-				padding: '2px 5px 2px 5px',
+				padding: '3px 8px 3px 8px',
 				color: '#ffffff',
-				background: '#efa92e',
+				background: '#000000',
 				opacity: 0.80
-			}).appendTo("body").fadeIn(200);
+			}).appendTo("body").fadeIn(500);
 		}
 	 
 		var previousPoint = null;
@@ -54,7 +53,7 @@ $(function($) {
 					}
 				}
 				else {
-					$("#tooltip").remove();
+					$("#tooltip").fadeOut(500);
 					previousPoint = null;            
 				}
 		});
@@ -73,7 +72,7 @@ $(function($) {
 {pyro:widgets:area slug="dashboard"}
 	
 <!-- Add an extra div to allow the elements within it to be sortable! -->
-<div class="sortable">
+<div id="sortable">
 	
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
@@ -81,7 +80,7 @@ $(function($) {
 		
 		<section class="draggable title">
 			<h4><?php echo lang('comments.recent_comments') ?></h4>
-			<span class="toggle"></span>
+			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
 		<section class="item">
@@ -158,7 +157,7 @@ $(function($) {
 		
 		<section class="draggable title">
 			<h4><?php echo lang('cp_news_feed_title'); ?></h4>
-			<span class="toggle" title="Toggle element"></span>
+			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
 		<section class="item">

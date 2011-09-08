@@ -1,22 +1,22 @@
-/* Author: 
+/* 
+
+Author: PyroCMS Dev Team
 
 */
 
 // Title toggle
-$('span.toggle').click(function() {
+$('a.toggle').click(function() {
    $(this).parent().next('.item').slideToggle(500);
 });
 
 // Draggable / Droppable
-$(".sortable").sortable({ 
+$("#sortable").sortable({ 
 	placeholder : 'dropzone',
     handle : '.draggable', 
     update : function () { 
-      var order = $('#main').sortable('serialize'); 
+      var order = $('#sortable').sortable('serialize'); 
     } 
 }); 
-$(".sortable").disableSelection();
-$(".sortable").forcePlaceholderSize();
 	
 // Drop Menu
 $(".topbar ul ul").css({display: "none"});
