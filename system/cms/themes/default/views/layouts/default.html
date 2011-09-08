@@ -4,6 +4,8 @@
 	{pyro:theme:partial name="metadata"}
 </head>
 <body id="top">
+{pyro:template:metadata in="body"}
+
 	<!-- Begin pageWrapper -->
 	<div id="pageWrapper">
 		{pyro:integration:analytics}
@@ -20,17 +22,17 @@
 
 		<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
-			
+
 			{pyro:theme:partial name="content"}
-			
+
 		</div>
-	<!-- End contentWrapper -->
+		<!-- End contentWrapper -->
 
 	{pyro:theme:partial name="footer"}
 
 	</div>
 	<!-- End pageWrapper -->
 
+{pyro:template:metadata in="footer"}
 </body>
-
 </html>

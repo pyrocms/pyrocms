@@ -37,11 +37,6 @@ class Admin extends Admin_Controller {
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		array(
-			'field' => 'confirm_password',
-			'label' => 'lang:user_password_confirm_label',
-			'rules' => 'matches[password]'
-		),
-		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]'

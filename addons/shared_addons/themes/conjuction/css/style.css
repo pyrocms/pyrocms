@@ -324,6 +324,12 @@ hr { display: none; }
 	color: #FFFFFF;
 }
 
+/* Contact */
+
+#contact-form textarea.message {
+	width: 570px;
+}
+
 /* Sidebar */
 
 #sidebar {
