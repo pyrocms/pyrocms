@@ -11,13 +11,15 @@ class Module_Keywords extends Module {
 				'en' => 'Keywords',
 				'nl' => 'Sleutelwoorden',
 				'ar' => 'Keywords',
-				'br' => 'Palavras-chave'
+				'br' => 'Palavras-chave',
+				'ar' => 'الكلمات المفتاحية'
 			),
 			'description' => array(
 				'en' => 'Maintain a central list of keywords to label and organize your content.',
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'ar' => 'Maintain a central list of keywords to label and organize your content.',
-				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.'
+				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
+				'ar' => 'أنشئ مجموعة من الكلمات المفتاحية التي تستطيع من خلالها وسم وتنظيم المحتوى.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
