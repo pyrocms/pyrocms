@@ -4,6 +4,8 @@
 $lang['groups.title']					= 'כותרת';
 $lang['groups.name']				    = 'שם';
 $lang['groups.short_name']				= 'שם קצר';
+$lang['groups.delete']             		= 'Delete'; #translate
+$lang['groups.edit']            		= 'Edit'; #translate
 
 // titles
 $lang['groups.index_title']             = 'רשימת קבוצות';

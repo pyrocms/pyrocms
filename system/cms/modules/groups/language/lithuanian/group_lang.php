@@ -4,6 +4,8 @@
 $lang['groups.title']					= 'Pavadinimas';
 $lang['groups.name']				    = 'Vardas';
 $lang['groups.short_name']				= 'Trumpas  vardas';
+$lang['groups.delete']             		= 'Ištrinti';
+$lang['groups.edit']            		= 'Redaguoti';
 
 // titles
 $lang['groups.index_title']             = 'Grupių sąrašas';

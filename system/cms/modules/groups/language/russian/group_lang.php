@@ -12,6 +12,8 @@
 $lang['groups.title']						= 'Заголовок';
 $lang['groups.name']						= 'Название';
 $lang['groups.short_name']					= 'Короткое имя';
+$lang['groups.delete']             			= 'Удалить';
+$lang['groups.edit']            			= 'Редактировать';
 
 // заголовки
 $lang['groups.index_title']					= 'Список групп';

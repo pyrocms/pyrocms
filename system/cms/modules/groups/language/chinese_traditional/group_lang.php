@@ -4,6 +4,8 @@
 $lang['groups.title'] 					= '標題';
 $lang['groups.name']				    = '名稱';
 $lang['groups.short_name']				= 'Short Name'; #translate
+$lang['groups.delete']             		= '刪除';
+$lang['groups.edit']            		= '編輯';
 
 // titles
 $lang['groups.index_title'] 			= '群組列表';
