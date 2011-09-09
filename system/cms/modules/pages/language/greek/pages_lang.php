@@ -40,7 +40,7 @@ $lang['pages.current_label']               = 'Τρέχουσα';
 $lang['pages.view_label']                  = 'Προβολή';
 $lang['pages.create_label']                = 'Προσθήκη υποσελίδας';
 $lang['pages.edit_label']                  = 'Επεξεργασία';
-$lang['pages.duplicate_label']					= 'Duplicate'; #translate
+$lang['pages.duplicate_label']					= 'Αντίγραφο';
 $lang['pages.delete_label']                = 'Διαγραφή';
 
 // titles

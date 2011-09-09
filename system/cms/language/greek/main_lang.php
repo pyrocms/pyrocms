@@ -74,6 +74,6 @@ $lang['global:edit']					= 'Επεξεργασία';
 $lang['global:delete']					= 'Διαγραφή';
 $lang['global:remove']					= 'Διαγραφή';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Λέξεις Κλειδιά';
 
 /* End of file main_lang.php */
