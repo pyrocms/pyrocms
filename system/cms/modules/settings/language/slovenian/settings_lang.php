@@ -86,7 +86,7 @@ $lang['settings_ga_tracking']					= 'Google Tracking Code (koda sledenja)';
 $lang['settings_ga_tracking_desc']				= 'Vnesite Google Analytic kodo sledenja za ogled obiska strani na namizju Npr: UA-19483569-6';
 
 $lang['settings_twitter_username']				= 'Uporabnik';
-$lang['settings_twitter_username_desc']			= 'Twitter username.';
+$lang['settings_twitter_username_desc']			= 'Twitter Uporabniško ime.';
 
 $lang['settings_twitter_consumer_key']			= 'Consumer Key';
 $lang['settings_twitter_consumer_key_desc']		= 'Twitter consumer key.';
@@ -137,7 +137,7 @@ $lang['settings_form_option_Newest First']		= 'Novejši naprej';
 $lang['settings_edit_title']					= 'Uredi nastavitve';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Trenutno ni nobenih nastavitev.';
 $lang['settings_save_success']					= 'Vaše nastavitve so bile shranjene!';
 
 /* End of file settings_lang.php */
