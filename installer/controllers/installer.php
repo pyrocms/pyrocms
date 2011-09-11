@@ -385,7 +385,8 @@ class Installer extends CI_Controller
 				$this->form_validation->set_message('attempt_install', $this->lang->line('error_'.$install_results['code']) . $install_results['message']);
 				return FALSE;
 			}
-			
+
+			// If the install did not fail
 			return TRUE;
 		}
 	}
