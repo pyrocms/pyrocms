@@ -37,7 +37,7 @@
 					</td>
 					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
 					<td class="align-center buttons buttons-small">
-						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe button preview" target="_blank"'); ?>
+						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class=" button preview" target="_blank"'); ?>
 						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'), 'class="button edit"'); ?>
 						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm button delete')); ?>
 					</td>
