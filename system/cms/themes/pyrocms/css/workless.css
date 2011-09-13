@@ -1104,7 +1104,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   display: none;
   position: relative;
-  top: 0;
+  top: 1px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
@@ -1357,6 +1357,13 @@ section.title h4, section.title h4 a {
 	margin: 5px 0 5px 0;
 	padding: 0;
 	float: left;
+}
+
+section.title small {
+	color: #888888;
+	margin: 23px 0 0 10px;
+	float: left;
+	text-shadow: 0 1px 1px #ffffff;
 }
 
 section.item {
