@@ -53,21 +53,19 @@
 		
 		<?php file_partial('header'); ?>
 		
-		<section id="main">
-	
-			<?php file_partial('notices'); ?>
-			
-			<?php /*
-			<?php template_partial('shortcuts'); ?>
-			<?php template_partial('filters'); ?>
-			*/ ?>
-			
-			<section class="title">
-				<h4><?php echo $module_details['name'] ? anchor('admin/' . $module_details['slug'], $module_details['name']) : lang('cp_admin_home_title'); ?></h4>
-				<small><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></small>	
+		<section id="content">
+
+			<section class="title">	
+				<?php if ( ! $this->uri->segment(2) ) { ?>
+					<h4>Statistics</h4>
+				<?php } else { ?>		
+				<div id="filters">
+					<?php template_partial('filters'); ?>
+				</div>
+				<?php } ?>			
 			</section>
 			
-			<?php if ($this->uri->segment(2) === FALSE) { ?>
+			<?php if ( ! $this->uri->segment(2) ) { ?>
 				<?php echo $template['body']; ?>
 			<?php } else { ?>
 				<section class="item">

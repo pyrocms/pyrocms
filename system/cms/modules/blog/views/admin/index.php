@@ -36,10 +36,17 @@
 					<?php endif; ?>
 					</td>
 					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
+<<<<<<< HEAD
 					<td class="align-center buttons buttons-small">
 						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class=" button preview" target="_blank"'); ?>
 						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'), 'class="button edit"'); ?>
 						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm button delete')); ?>
+=======
+					<td>
+						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe btn green" target="_blank"'); ?>
+						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'), 'class="btn orange edit"'); ?>
+						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm btn red delete')); ?>
+>>>>>>> a757f14... W.I.P admin theme
 					</td>
 				</tr>
 			<?php endforeach; ?>

@@ -225,8 +225,9 @@ legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: 
 
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
-select{ min-width: 260px; }
+select { min-width: 260px; }
 
+.cancel,
 button,
 input[type="reset"],
 input[type="submit"],
@@ -258,6 +259,9 @@ input[type="button"] {
   width: auto;
 }
 
+.cancel { padding: 5px 10px; }
+
+.cancel:hover,
 button:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
@@ -282,8 +286,8 @@ input[type="password"],
 input[type="file"], 
 textarea {
 	padding: 5px;
-	border: 5px solid #eeeeee;
-	border: 5px solid rgba(0, 0, 0, .1);
+	border: 3px solid #eeeeee;
+	border: 3px solid rgba(0, 0, 0, .1);
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -901,11 +905,11 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border-bottom: 1px solid #eeeeee;
 }
 
-.tabs li, .pills li {
+.tabs li, .pill li {
   display: inline;
 }
 
-.tabs li a, .pills li a {
+.tabs li a, .pill li a {
   float: left;
   width: auto;
 }
@@ -936,8 +940,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 /* Pills */
-.pill a {
-  background: #106ECC;
+.pill a, .pill li a {
+  background: #aaaaaa;
   color: #ffffff;
   text-decoration: none;
   padding: 5px 15px 5px 15px;
@@ -947,14 +951,14 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border-radius: 15px;
 }
 
-.pill a:hover {
-  background: #0050a3;
+.pill a:hover, .pill li a:hover {
+  background: #bbbbbb;
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
-.pill a.active {
+.pill a.active, .pill li a:active {
   background: #0069d6;
   color: #ffffff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
@@ -1248,6 +1252,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 ul#lang {
+	margin-right: 15px;
 	float: right;
 }
 
@@ -1256,8 +1261,120 @@ ul#lang form {
 	float: right;
 }
 
-form legend, form input, form select {
+ul#lang form legend, ul#lang form input, ul#lang form select {
 	max-width: 230px;
+}
+
+.subbar {
+	position: fixed;
+	z-index: 9999;
+	top: 35px;
+	right: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	padding: 20px 15px 15px 15px;
+  	margin-top: 15px;
+  	border-top-right-radius: 5px;
+  	-moz-border-radius-topright: 5px; 	
+  	-webkit-border-top-right-radius: 5px;
+  	border-top-left-radius: 5px;
+  	-moz-border-radius-topleft: 5px; 	
+  	-webkit-border-top-left-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+.subbar h2, .subbar h2 a {
+  	color: #555555;
+  	text-shadow: 1px 1px 0 #ffffff;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
+.subbar small {
+	color: #888888;
+	margin: 12px 0 0 0;
+	float: left;
+	text-shadow: 0 1px 1px #ffffff;
+	font-size: 13px;
+}
+
+#shortcuts {
+	margin: 3px 30px 0 0;
+	float: right;
+}
+
+#shortcuts h6 {
+	display: none;
+}
+
+#shortcuts ul {
+}
+
+#shortcuts ul li {
+	margin: 0 0 0 10px;
+	float: left;
+}
+
+#shortcuts li a {
+  background: #aaaaaa;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 5px 15px 5px 15px;
+  line-height: 30px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+#shortcuts li a:hover {
+  background: #bbbbbb;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+#shortcuts li a.active {
+  background: #0069d6;
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+#filters {
+	margin: 3px 0 0 0;
+	float: right;
+}
+
+#filters ul li {
+	margin: 5px 0 5px 5px;
+	float: left;
+}
+
+#filters form ul li label {
+	margin: 6px 5px 0 0;
+	float: left;
+}
+
+#filters form ul li input[type="text"] {
+	margin: 0;
+}
+
+#filters a.cancel {
+	float: right;
 }
 
 .ui-tabs-nav { width: 1180px; float: left; }
@@ -1298,34 +1415,35 @@ form legend, form input, form select {
 	display: none;
 }	
 
-section#main {
+section#content {
 	width: 1180px;
 	padding: 0;
-	margin: 100px 0 0 0;
+	margin: 150px 0 0 0;
 	float: left;
 }
 
-section#main header {
+section#content header {
 	width: 100%;
 	float: left;
 }
 
-section#main img { 
+section#content img { 
 	width: 24px; 
 	height: 24px; 
 }
 
-section#main ul {
+section#content ul {
 	margin: 0;
 	padding: 0;
 }
 
-section#main ul li {
+section#content ul li {
 	list-style: none;
 }
 
 section.title {
   	width: 1198px;
+	min-height: 25px;
   	background: #f7f7f7;
   	background-repeat: repeat-x;
   	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
@@ -1354,16 +1472,9 @@ section.title h4, section.title h4 a {
   	color: #555555;
 	font-size: 16px;
   	text-shadow: 1px 1px 0 #ffffff;
-	margin: 5px 0 5px 0;
+	margin: 0;
 	padding: 0;
 	float: left;
-}
-
-section.title small {
-	color: #888888;
-	margin: 23px 0 0 10px;
-	float: left;
-	text-shadow: 0 1px 1px #ffffff;
 }
 
 section.item {
@@ -1409,7 +1520,7 @@ section.item {
 }
 
 .date {
-	margin: 0 10px 0 0;
+	margin: 0 15px 0 0;
 	float: left;
 }
 
@@ -1454,7 +1565,7 @@ footer {
 section.draggable { cursor:grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbing; }
 
 /* Toggle button */
-a.toggle { width: 21px; height: 22px; background: url(../img/toggle.png) no-repeat; float: right; cursor: pointer; margin: 13px 0 0 0; }
+a.toggle { width: 21px; height: 22px; background: url(../img/toggle.png) no-repeat; float: right; cursor: pointer; margin: 7px 0 0 0; }
 
 /*
 -------------------------------------------------------------------------------------------------------
