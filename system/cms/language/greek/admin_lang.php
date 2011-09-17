@@ -35,7 +35,7 @@ $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']					= 'Χρήστες';
 $lang['cp_nav_design']					= 'Σχεδιασμός';
 $lang['cp_nav_content']					= 'Περιεχόμενο';
-$lang['cp_nav_utilities']				= 'Utilities'; #translate
+$lang['cp_nav_utilities']				= 'Βοηθητικά Εργαλεία';
 
 $lang['cp_must_login']	 				= 'Πρέπει να είσαστε συνδεδεμένος για να δείτε αυτή την σελίδα.';
 $lang['cp_access_denied'] 				= 'Δεν έχετε αρκετά δικαιώματα για να δείτε αυτή την σελίδα.';
