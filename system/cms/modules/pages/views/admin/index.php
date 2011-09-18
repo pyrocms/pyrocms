@@ -1,8 +1,9 @@
-<h3><?php echo lang('pages.list_title'); ?></h3>
-
-<div class="box-container">
-
-	<div id="page-list">
+<div class="two_third">
+	<section class="title">
+		<h4><?php echo lang('pages.list_title'); ?></h4>
+	</section>
+	
+	<section class="item">
 		<ol class="sortable">
 
 			<?php foreach($pages as $page): ?>
@@ -24,16 +25,17 @@
 			<?php endforeach; ?>
 
 		</ol>
-	</div>
+	</section>
+</div>
+
+<div class="one_third_last">	
+	<section class="title">
+		<h4>Overview</h4>
+	</section>
 	
-	<div id="page-details">
-	
+	<section class="item">
 		<p>
 			<?php echo lang('pages.tree_explanation'); ?>
 		</p>
-	
-	</div>
-	
-	<br class="clear-both" />
-	
+	</section>
 </div>

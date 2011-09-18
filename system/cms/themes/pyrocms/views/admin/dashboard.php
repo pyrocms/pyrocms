@@ -61,6 +61,10 @@ $(function($) {
 	});
 </script>
 
+<section class="title">
+	<h4>Statistics</h4>
+</section>
+	
 <div id="analyticsWrapper">
 	<div id="analytics"></div>
 </div>
@@ -76,7 +80,7 @@ $(function($) {
 	
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
-	<div class="one_full">
+	<div class="one_half">
 		
 		<section class="draggable title">
 			<h4><?php echo lang('comments.recent_comments') ?></h4>
@@ -98,19 +102,14 @@ $(function($) {
 	<?php endif; ?>
 	</div>
 	<!-- End Recent Comments -->
-
-	<?php /*
-	
-	----------------------------------------------------------------------------------------------------
-	Do we really need quick links? User's are smart enough to click the top menu! This is just clutter!
-	------------------------------------------------------------
 	
 	<!-- Begin Quick Links -->
 	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
-	<div class="one_half">
+	<div class="one_half_last">
 		
-		<section class="title">
+		<section class="draggable title">
 			<h4><?php echo lang('cp_admin_quick_links') ?></h4>
+			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
 		<section class="item <?php echo isset($rss_items); ?>">
@@ -148,8 +147,6 @@ $(function($) {
 	<?php endif; ?>
 	</div>
 	<!-- End Quick Links -->
-	
-	*/ ?>
 
 	<!-- Begin RSS Feed -->
 	<?php if ( isset($rss_items) AND $theme_options->pyrocms_news_feed == 'yes') : ?>

@@ -51,27 +51,15 @@
 <body>
 	<div class="container">
 		
-		<?php file_partial('header'); ?>
-		
 		<section id="content">
-
-			<section class="title">	
-				<?php if ( ! $this->uri->segment(2) ) { ?>
-					<h4>Statistics</h4>
-				<?php } else { ?>		
-				<div id="filters">
-					<?php template_partial('filters'); ?>
-				</div>
-				<?php } ?>			
-			</section>
 			
-			<?php if ( ! $this->uri->segment(2) ) { ?>
-				<?php echo $template['body']; ?>
-			<?php } else { ?>
-				<section class="item">
-					<?php echo $template['body']; ?>
-				</section>
-			<?php } ?>
+			<?php file_partial('header'); ?>
+		
+			<div id="filters">
+				<?php template_partial('filters'); ?>
+			</div>		
+
+			<?php echo $template['body']; ?>
 		</section>
 	
 		<footer>

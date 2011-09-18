@@ -22,9 +22,9 @@ $("#sortable").sortable({
 $(".topbar ul ul").css({display: "none"});
 
 $(".topbar ul li").hover(function(){
-	$(this).find('ul:first').css({visibility: "visible",display: "none"}).slideDown(400);
+	$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true,true).slideDown(400);
 },function(){
-	$(this).find('ul:first').css({visibility: "visible"}).slideUp(400);
+	$(this).find('ul:first').css({visibility: "visible"}).stop(true,true).slideUp(400);
 });
 
 // Disable Parent li if has child items

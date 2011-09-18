@@ -1,7 +1,7 @@
 <?php if ($this->method == 'create'): ?>
-<h3><?php echo lang('page_layouts.create_title');?></h3>
+<h4><?php echo lang('page_layouts.create_title');?></h4>
 <?php else: ?>
-<h3><?php echo sprintf(lang('page_layouts.edit_title'), $page_layout->title);?></h3>
+<h4><?php echo sprintf(lang('page_layouts.edit_title'), $page_layout->title);?></h4>
 <?php endif; ?>
 
 

@@ -463,7 +463,6 @@ Scaffolding.
 */
 
 /* (As this is mobile first, all grids are the same size. All size changes are made in the @media queries at the bottom.) */
-
 .one_full { 
 	width: 230px; 
 	margin: 0; 
@@ -476,10 +475,22 @@ Scaffolding.
 	float: left; 
 }
 
+.one_half_last { 
+	width: 230px; 
+	margin-right: 0; 
+	float: right; 
+}
+
 .one_third { 
 	width: 230px; 
 	margin-right: 15px; 
 	float: left; 
+}
+
+.one_third_last { 
+	width: 230px; 
+	margin-right: 0; 
+	float: right; 
 }
 
 .two_third { 
@@ -488,10 +499,22 @@ Scaffolding.
 	float: left; 
 }
 
+.two_third_last { 
+	width: 230px; 
+	margin-right: 0; 
+	float: right; 
+}
+
 .one_quarter { 
 	width: 230px; 
 	margin-right: 15px; 
 	float: left; 
+}
+
+.one_quarter_last { 
+	width: 230px; 
+	margin-right: 0; 
+	float: right; 
 }
 
 /*
@@ -1252,12 +1275,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 ul#lang {
-	margin-right: 15px;
 	float: right;
 }
 
 ul#lang form {
-	margin-top: 10px;
+	margin: 10px 10px 0 0;
 	float: right;
 }
 
@@ -1268,7 +1290,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 .subbar {
 	position: fixed;
 	z-index: 9999;
-	top: 35px;
+	top: 30px;
 	right: 0;
 	left: 0;
 	width: 100%;
@@ -1354,18 +1376,18 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
-#filters {
-	margin: 3px 0 0 0;
+#filters ul {
+	margin: 0;
 	float: right;
 }
 
-#filters ul li {
-	margin: 5px 0 5px 5px;
+#filters form ul li {
+	margin: 8px 0 5px 5px;
 	float: left;
 }
 
 #filters form ul li label {
-	margin: 6px 5px 0 0;
+	margin: 8px 5px 0 0;
 	float: left;
 }
 
@@ -1384,7 +1406,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 
 #analyticsWrapper {
 	background: #ffffff;
-	width: 1180px;
+	width: 1162px;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1442,7 +1464,7 @@ section#content ul li {
 }
 
 section.title {
-  	width: 1198px;
+  	width: 100%;
 	min-height: 25px;
   	background: #f7f7f7;
   	background-repeat: repeat-x;
@@ -1479,9 +1501,10 @@ section.title h4, section.title h4 a {
 
 section.item {
 	background: #ffffff;
-	width: 1180px;
+	width: 100%;
+	min-height: 100px;
 	margin: 0;
-	padding: 25px;
+	padding: 16px;
 	float: left;
 	border-bottom-right-radius: 5px;
   	-moz-border-radius-bottomright: 5px; 	
@@ -1499,9 +1522,9 @@ section.box {
 }
 
 #feed ul li {
-	width: 1180px;
-	padding: 0 25px 15px 25px;
-	margin: 0 0 25px -25px;
+	width: 1160px;
+	padding: 0 25px 15px 20px;
+	margin: 0 0 25px -15px;
 	border-bottom: 1px solid #eeeeee;
 	float: left;
 }
@@ -1597,32 +1620,56 @@ Ensure your main styling comes before this!
 	
 	.one_full { 
 		width: 1180px; 
-		margin-right: 15px; 
+		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 555px; 
+		width: 565px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	.one_half_last {
+		width: 565px; 
+		margin-right: 0;
+		float: right;
 	}
 
 	.one_third { 
-		width: 230px; 
+		width: 350px; 
 		margin-right: 15px; 
 		float: left; 
 	}
+	
+	.one_third_last { 
+		width: 350px; 
+		margin-right: 0; 
+		float: right; 
+	}
 
 	.two_third { 
-		width: 230px; 
+		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	.two_third_last { 
+		width: 230px; 
+		margin-right: 0; 
+		float: right; 
 	}
 
 	.one_quarter { 
 		width: 230px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	.one_quarter_last { 
+		width: 230px; 
+		margin-right: 0; 
+		float: right; 
 	}
 	
 }
