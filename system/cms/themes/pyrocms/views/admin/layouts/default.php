@@ -49,7 +49,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div id="container">
 		
 		<section id="content">
 			
