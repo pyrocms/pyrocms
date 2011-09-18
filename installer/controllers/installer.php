@@ -387,10 +387,7 @@ class Installer extends CI_Controller
 			}
 
 			// If the install did not fail
-			else
-			{
-				return TRUE;
-			}
+			return TRUE;
 		}
 	}
 
