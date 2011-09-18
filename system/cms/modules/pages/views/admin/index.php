@@ -13,15 +13,17 @@
 							<a href="#" rel="<?php echo $page['id']; ?>"><?php echo $page['title']; ?></a>
 						</div>
 				
-				<?php if(isset($page['children'])): ?>
+					<?php if(isset($page['children'])): ?>
 						<ol>
 							<?php $controller->tree_builder($page); ?>
 						</ol>
 					</li>
-				<?php else: ?>
-					</li>
-				<?php endif; ?>
 				
+					<?php else: ?>
+					
+					</li>
+				
+				<?php endif; ?>
 			<?php endforeach; ?>
 
 		</ol>
