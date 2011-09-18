@@ -65,7 +65,7 @@
 	</div>
 	
 	<footer>
-		Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.
+		<p>Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
 	</footer>
 
 	<!-- Scripts -->

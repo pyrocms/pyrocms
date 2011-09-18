@@ -21,15 +21,17 @@ $("#sortable").sortable({
 // Drop Menu
 $(".topbar ul ul").css({display: "none"});
 
-$(".topbar ul li").click(function(){
-    $(this).find('ul:first').slideToggle(400);
-	return false;
+$(".topbar ul li").hover(function(){
+	$(this).find('ul:first').css({visibility: "visible",display: "none"}).stop(true,true).slideDown(400);
+},function(){
+	$(this).find('ul:first').css({visibility: "visible"}).stop(true,true).slideUp(400);
 });
 
-$(document).click(function(e){
-	if($('.topbar ul ul').is(':visible') && !$(e.target).is('.topbar ul li')){
-		$('.topbar ul ul').slideUp(400);
-	}
+// Disable Parent li if has child items
+$(".topbar ul li:has(ul)").hover(function () {
+	$(this).children("a").click(function () {
+		return false;
+	});
 });
 
 // Add class to show is dropdown
