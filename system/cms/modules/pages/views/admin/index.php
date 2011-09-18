@@ -1,9 +1,10 @@
-<div class="two_third">
+<div class="one_half">
 	<section class="title">
 		<h4><?php echo lang('pages.list_title'); ?></h4>
 	</section>
 	
 	<section class="item">
+		<div id="page-list">
 		<ol class="sortable">
 
 			<?php foreach($pages as $page): ?>
@@ -27,17 +28,20 @@
 			<?php endforeach; ?>
 
 		</ol>
+		</div>
 	</section>
 </div>
 
-<div class="one_third_last">	
+<div class="one_half last">	
 	<section class="title">
-		<h4>Overview</h4>
+		<h4>Explanation</h4>
 	</section>
 	
 	<section class="item">
+		<div id="page-details">
 		<p>
 			<?php echo lang('pages.tree_explanation'); ?>
 		</p>
+		</div>
 	</section>
 </div>

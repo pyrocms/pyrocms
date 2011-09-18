@@ -72,16 +72,3 @@ $( "#main" ).tabs();
 // Chosen
 $('select').addClass('chzn');
 $(".chzn").chosen();
-
-
-
-
-
-
-
-
-
-
-
-
-

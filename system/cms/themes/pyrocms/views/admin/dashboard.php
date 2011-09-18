@@ -105,7 +105,7 @@ $(function($) {
 	
 	<!-- Begin Quick Links -->
 	<?php if ($theme_options->pyrocms_quick_links == 'yes') : ?>
-	<div class="one_half_last">
+	<div class="one_half last">
 		
 		<section class="draggable title">
 			<h4><?php echo lang('cp_admin_quick_links') ?></h4>

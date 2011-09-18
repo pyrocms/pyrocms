@@ -227,6 +227,7 @@ button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: ba
 
 select { min-width: 260px; }
 
+.button,
 .cancel,
 button,
 input[type="reset"],
@@ -261,6 +262,7 @@ input[type="button"] {
 
 .cancel { padding: 4px 10px 5px 10px; }
 
+.button:hover,
 .cancel:hover,
 button:hover,
 input[type="reset"]:hover,
@@ -475,22 +477,10 @@ Scaffolding.
 	float: left; 
 }
 
-.one_half_last { 
-	width: 230px; 
-	margin-right: 0; 
-	float: right; 
-}
-
 .one_third { 
 	width: 230px; 
 	margin-right: 15px; 
 	float: left; 
-}
-
-.one_third_last { 
-	width: 230px; 
-	margin-right: 0; 
-	float: right; 
 }
 
 .two_third { 
@@ -499,22 +489,10 @@ Scaffolding.
 	float: left; 
 }
 
-.two_third_last { 
-	width: 230px; 
-	margin-right: 0; 
-	float: right; 
-}
-
 .one_quarter { 
 	width: 230px; 
 	margin-right: 15px; 
 	float: left; 
-}
-
-.one_quarter_last { 
-	width: 230px; 
-	margin-right: 0; 
-	float: right; 
 }
 
 /*
@@ -1245,7 +1223,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 */
 
 .container {
-	width: 1220px;
+	width: 1280px;
 	margin: 0 auto;
 	padding: 0;
 }
@@ -1263,7 +1241,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 #logo {
 	font-size: 16px;
 	color: #ffffff;
-	margin: 0 12px 0 15px;
+	margin: 0 12px 0 3px;
 	padding: 15px 15px 15px 0;
 	border-right: 1px solid #383838;
 	float: left;
@@ -1279,7 +1257,7 @@ ul#lang {
 }
 
 ul#lang form {
-	margin: 10px 10px 0 0;
+	margin: 10px 20px 0 0;
 	float: right;
 }
 
@@ -1306,7 +1284,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 20px 15px 15px 15px;
+  	padding: 20px 15px 15px 0;
   	margin-top: 15px;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px; 	
@@ -1406,7 +1384,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 
 #analyticsWrapper {
 	background: #ffffff;
-	width: 1162px;
+	width: 1212px;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1438,8 +1416,8 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 }	
 
 section#content {
-	width: 1180px;
-	padding: 0;
+	width: 1230px;
+	padding: 0 0 50px 0;
 	margin: 150px 0 0 0;
 	float: left;
 }
@@ -1582,11 +1560,16 @@ section.box {
 }
 
 footer {
-	padding: 25px 0 0 0;
+	background: #333333;
+	border-top: 1px solid #efefef;
+	width: 100%;
+	height: 50px;
+	float: left;
+	color: #eeeeee;
+	margin: 0 auto;
+	padding: 25px;
+	clear: both;
 }
-
-/* Sortable drop location */
-.dropzone { width: 1230px; height: 50px; margin: 15px 0 15px 0; background: #ffc300; border: 1px solid #C19400; float: left; opacity: 0.5; border-radius: 5px; -moz-border-radius: 5px;  -webkit-border-radius: 5px; }
 
 /* Draggable element */
 section.draggable { cursor:grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbing; }
@@ -1618,22 +1601,21 @@ Ensure your main styling comes before this!
 
 @media only screen and (min-width: 1281px) {
 	
+	.wrapper {
+		width: 1280px;
+		margin: 0 auto;
+	}
+	
 	.one_full { 
-		width: 1180px; 
+		width: 1230px; 
 		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 565px; 
+		width: 590px; 
 		margin-right: 15px; 
 		float: left; 
-	}
-	
-	.one_half_last {
-		width: 565px; 
-		margin-right: 0;
-		float: right;
 	}
 
 	.one_third { 
@@ -1641,35 +1623,17 @@ Ensure your main styling comes before this!
 		margin-right: 15px; 
 		float: left; 
 	}
-	
-	.one_third_last { 
-		width: 350px; 
-		margin-right: 0; 
-		float: right; 
-	}
 
 	.two_third { 
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
 	}
-	
-	.two_third_last { 
-		width: 230px; 
-		margin-right: 0; 
-		float: right; 
-	}
 
 	.one_quarter { 
 		width: 230px; 
 		margin-right: 15px; 
 		float: left; 
-	}
-	
-	.one_quarter_last { 
-		width: 230px; 
-		margin-right: 0; 
-		float: right; 
 	}
 	
 }

@@ -1,7 +1,3 @@
-
-/* Left pane */
-#page-list { background-color:#efeff6; border:1px #BBB solid; float:left; min-height: 33em; max-height: 45em; overflow:auto; width: 48%; }
-
 #page-list ol { background:none; margin-left:2em !important; }
 #page-list a { text-decoration: none; font-size: 13px; color:#5c5b5b; padding: 1px 1px 1px 15px; background: url('../img/off.png') no-repeat left; }
 #page-list a:hover { text-decoration: underline; }
@@ -12,7 +8,7 @@
 
 ol { margin: 0; padding: 0; }
 ol.sortable, ol.sortable ol { margin: 0; padding: 0; list-style-type: none; cursor: default; }
-ol.sortable { margin: 2em; }
+ol.sortable { margin: 20px; }
 
 .sortable li { margin: 5px 0; }
 .sortable li div  { padding: 5px 1px 5px 10px; margin: 0; cursor: move; background-color: #eeeeee; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
@@ -22,9 +18,4 @@ ol.sortable { margin: 2em; }
 .plus { background: url('../img/more.png') no-repeat 0 4px; }
 .minus { background: url('../img/less.png') no-repeat 0 4px; }
 
-/* Right pane */
-#page-details { background-color: #fff; border-top: 1px solid #ddd; border-left: none; border-right: none;  float:right; min-height: 33em; padding:1em; width: 48%; color: #666; }
-#page-details h4 { margin:0.5em 0; }
-#page-details fieldset {  border: 1px solid #ddd; border-right: none; border-left: none; background-color: #fcfcfc; padding: 0px 5px; }
-#page-details fieldset p strong { width: 35%; display: inline-block; text-align: right; padding-right: 10px; }
-#page-details fieldset legend { margin-left: 10px; font-weight: bold; }
+#page-details h5 { margin: 0; padding: 0; }
