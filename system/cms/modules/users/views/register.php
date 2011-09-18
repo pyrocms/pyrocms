@@ -1,7 +1,7 @@
 <h2 class="page-title" id="page_title"><?php echo lang('user_register_header') ?></h2>
 
 <p>
-	<span id="active_step"><?php echo lang('user_register_step1') ?></span> -&gt; 
+	<span id="active_step"><?php echo lang('user_register_step1') ?></span> -&gt;
 	<span><?php echo lang('user_register_step2') ?></span>
 </p>
 
@@ -10,7 +10,7 @@
 <div class="error-box">
 	<?php echo $error_string;?>
 </div>
-<?php endif;?>  
+<?php endif;?>
 
 <?php echo form_open('register', array('id' => 'register')); ?>
 <ul>

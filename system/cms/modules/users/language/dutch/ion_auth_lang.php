@@ -1,19 +1,19 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Dutch
-* 
+*
 * Author: Diederik Eijgelaar
 * 		  diederik.eijgelaar@gmail.com
-* 
+*
 * Description:  Dutch language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
 $lang['account_creation_successful'] 	= 'Account is aangemaakt';
 $lang['account_creation_unsuccessful'] 	= 'Kon account niet aanmaken';
 $lang['account_creation_duplicate_email'] 	 = 'Ongeldig of reeds bestaande email';
-$lang['account_creation_duplicate_username'] = 'Ongeldige of reeds bestaande gebruikersnaam';  
+$lang['account_creation_duplicate_username'] = 'Ongeldige of reeds bestaande gebruikersnaam';
 
 
 // Password

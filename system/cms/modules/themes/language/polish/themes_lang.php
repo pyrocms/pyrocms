@@ -1,8 +1,8 @@
 <?php
 
-$lang['themes.save_success']			= 'Motyw został zapisany pomyślnie.';  
-$lang['themes.re-index_success']		= 'Opcje motywu zostały ponownie zindeksowane pomyślnie.'; 
-$lang['themes.no_options']				= 'Ten motyw nie ma ocji.';  
+$lang['themes.save_success']			= 'Motyw został zapisany pomyślnie.';
+$lang['themes.re-index_success']		= 'Opcje motywu zostały ponownie zindeksowane pomyślnie.';
+$lang['themes.no_options']				= 'Ten motyw nie ma ocji.';
 $lang['themes.set_default_success']		= 'Motyw "%s" jest teraz Twoim domyślnym motywem.';
 $lang['themes.set_default_error']		= 'Niemożliwe jest ustawienie motywu "%s" jako domyślnego motywu.';
 $lang['themes.already_exists_error'] 	= 'Motyw o takiej nazwie już istnieje.';
@@ -17,13 +17,13 @@ $lang['themes.upload_title']			= 'Wgraj motyw';
 $lang['themes.list_title']				= 'Lista motywów';
 $lang['themes.upload_desc']				= 'Proszę wybrać plik i nacisnąć "Upload"';
 
-$lang['themes.options']					= 'Opcje'; 
+$lang['themes.options']					= 'Opcje';
 $lang['themes.theme_label'] 			= 'Motyw';
 $lang['themes.actions_label']			= 'Akcje';
 $lang['themes.make_default']			= 'Wybierz jako domyślny';
 $lang['themes.description_label']		= 'Opis';
-$lang['themes.author_label']			= 'Autor'; 
-$lang['themes.version_label']			= 'Wersja'; 
+$lang['themes.author_label']			= 'Autor';
+$lang['themes.version_label']			= 'Wersja';
 $lang['themes.default_theme_label'] 	= 'Motyw domyślny';
 $lang['themes.no_themes_installed'] 	= 'Brak zainstalowanych motywów.';
 

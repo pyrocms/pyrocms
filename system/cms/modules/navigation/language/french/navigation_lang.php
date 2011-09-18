@@ -19,13 +19,13 @@ $lang['nav_edit_label'] 						= 'Modifier';
 $lang['nav_delete_label'] 						= 'Supprimer';
 $lang['nav_group_delete_label']					= 'Supprimer le groupe';
 
-$lang['nav_link_target_self'] 					= 'Fenêtre actuelle (default)'; 
-$lang['nav_link_target_blank'] 					= 'Nouvelle fenêtre (_blank)'; 
+$lang['nav_link_target_self'] 					= 'Fenêtre actuelle (default)';
+$lang['nav_link_target_blank'] 					= 'Nouvelle fenêtre (_blank)';
 
 // titles
-$lang['nav_link_create_title'] 					= 'Ajouter un lien de navigation'; 
+$lang['nav_link_create_title'] 					= 'Ajouter un lien de navigation';
 $lang['nav_group_create_title']					= 'Ajouter un groupe';
-$lang['nav_link_edit_title'] 					= 'Editer le lien "%s"'; 
+$lang['nav_link_edit_title'] 					= 'Editer le lien "%s"';
 $lang['nav_link_list_title'] 					= 'Lister les liens';
 
 // messages

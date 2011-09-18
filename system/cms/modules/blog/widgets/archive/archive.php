@@ -4,7 +4,7 @@
  * @package 		PyroCMS
  * @subpackage 		RSS Feed Widget
  * @author			Phil Sturgeon - PyroCMS Development Team
- * 
+ *
  * Show RSS feeds in your site
  */
 

@@ -4,7 +4,7 @@
 $lang['account_creation_successful']            = 'החשבון נוצר בהצלחה';
 $lang['account_creation_unsuccessful']          = 'לא ניתן ליצור חשבון';
 $lang['account_creation_duplicate_email']       = 'כתובת דואר האלקטרוני כבר בשימוש או לא חוקית';
-$lang['account_creation_duplicate_username']    = 'שם משתמש כבר בשישוש או לא חוקי';  
+$lang['account_creation_duplicate_username']    = 'שם משתמש כבר בשישוש או לא חוקי';
 
 
 // Password

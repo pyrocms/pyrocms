@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Cms controller for the redirects module
- * 
+ *
  * @author 		Phil Sturgeon - PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Variables Module
@@ -134,7 +134,7 @@ class Admin extends Admin_Controller
 		{
 			$deleted = 0;
 			$to_delete = 0;
-			foreach ($id_array as $id) 
+			foreach ($id_array as $id)
 			{
 				if ($this->redirect_m->delete($id))
 				{

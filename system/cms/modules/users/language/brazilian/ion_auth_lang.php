@@ -2,17 +2,17 @@
 
 /**
 * Name:  Ion Auth Lang - Brazilian portuguese
-* 
+*
 * Author: Marcos Coelho
 * 		  marcos at marcoscoelho.com
-*         
-* 
+*
+*
 * Location: http://github.com/marcoscoelho/pyrocms/
-*          
-* Created:  2010-12-04 
-* 
+*
+* Created:  2010-12-04
+*
 * Description:  Brazilian portuguese language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
@@ -40,7 +40,7 @@ $lang['activation_email_unsuccessful']   	 = 'Não foi possível enviar o e-mail
 $lang['login_successful'] 		  	 = 'Sessão iniciada com sucesso';
 $lang['login_unsuccessful'] 		  	 = 'Não é possível iniciar a sessão';
 $lang['logout_successful'] 		 	 = 'Sessão finalizada com sucesso';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 = 'Informação da conta atualizada com sucesso';
 $lang['update_unsuccessful'] 		 	 = 'Não foi possível atualizar a informação da conta';

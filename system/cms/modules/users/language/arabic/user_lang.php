@@ -170,7 +170,7 @@ $lang['profile_edit'] 					= 'عدّل ملفّك الشخصيّ';
 
 $lang['profile_personal_section'] 		= 'شخصيّ';
 
-$lang['profile_display_name']			= 'اسم العرض';  
+$lang['profile_display_name']			= 'اسم العرض';
 $lang['profile_dob']					= 'تاريخ الميلاد';
 $lang['profile_dob_day']				= 'اليوم';
 $lang['profile_dob_month']				= 'الشهر';

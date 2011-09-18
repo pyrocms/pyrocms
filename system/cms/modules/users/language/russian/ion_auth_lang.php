@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -12,7 +12,7 @@
 $lang['account_creation_successful']					= 'Учётная запись создана';
 $lang['account_creation_unsuccessful']				= 'Во время создания учётной записи произошла ошибка';
 $lang['account_creation_duplicate_email']			= 'Введённый Email уже используется другим пользователем или неправильный';
-$lang['account_creation_duplicate_username']	= 'Введённый Логин уже используется другим пользователем или неправильный';  
+$lang['account_creation_duplicate_username']	= 'Введённый Логин уже используется другим пользователем или неправильный';
 
 
 // пароль

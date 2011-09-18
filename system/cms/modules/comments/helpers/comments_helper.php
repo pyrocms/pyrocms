@@ -10,9 +10,9 @@
 
 /**
  * Function to display a comment
- * 
+ *
  * Reference is a actually an object reference, a.k.a. categorization of the comments table rows.
- * The reference id is a further categorization on this. (For example, for example for 
+ * The reference id is a further categorization on this. (For example, for example for
  *
  * @param	int		$ref_id		The id of the collection of the reference object of the comment (I guess?)
  * @param	bool	$reference	A module or other reference to pick comments for
@@ -121,7 +121,7 @@ function counter_comments($ref_id = '', $reference = NULL, $return_number = FALS
 
 /**
  * Function to process the items in an X amount of comments
- * 
+ *
  * @param array $comments The comments to process
  * @return array
  */

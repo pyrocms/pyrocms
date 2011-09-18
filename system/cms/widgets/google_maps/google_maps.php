@@ -3,9 +3,9 @@
 /**
  * @package 		PyroCMS
  * @subpackage 		Google Maps Widget
- * @author			Gregory Athons 
+ * @author			Gregory Athons
  * @modified		-
- * 
+ *
  * Show a Google Map in your site
  */
 
@@ -26,7 +26,7 @@ class Widget_Google_maps extends Widgets
     public $author		= 'Gregory Athons';
     public $website		= 'http://www.gregathons.com';
     public $version		= '1.0';
-    
+
     public $fields = array(
         array(
             'field' => 'address',
@@ -53,7 +53,7 @@ class Widget_Google_maps extends Widgets
             'label' => 'Description'
         )
     );
-    
+
     public function run($options)
     {
         return $options;

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Variables model
- * 
+ *
  * @author		PyroCMS Dev Team
  * @package		PyroCMS
  * @subpackage	Variables module

@@ -12,7 +12,7 @@
 		<strong><?php echo lang('pages.status_label'); ?>:</strong> <?php echo lang('pages.' . $page->status . '_label'); ?>
 	</p>
 	<p>
-		<strong><?php echo lang('pages.slug_label');?>:</strong> 
+		<strong><?php echo lang('pages.slug_label');?>:</strong>
 		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="modal-large" target="_blank">
 			<?php echo site_url(!empty($page->uri) ? $page->uri : $page->slug); ?>
 		</a>

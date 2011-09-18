@@ -1,17 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Polish
-* 
+*
 * Author: Bart Majewski
 * 		  hello@bartoszmajewski.pl
 *         @bart_majewski
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
-* Created:  03.23.2010 
-* 
+*
+* Created:  03.23.2010
+*
 * Description:  Polish language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation

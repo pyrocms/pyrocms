@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['themes.save_success']			= 'Tema je bila uspešno shranjena';
-$lang['themes.re-index_success']		= 'Tema je bila uspešno ponovno indeksirana'; 
+$lang['themes.re-index_success']		= 'Tema je bila uspešno ponovno indeksirana';
 $lang['themes.no_options']				= 'Ta tema nima dodatnih možnosti za nastavitve';
 $lang['themes.set_default_success']     = 'Predloga "%s" je sedaj prednastavljena predloga strani.';
 $lang['themes.set_default_error']       = 'Perdlogo "%s" ni mogoče nastaviti kot prednastavljeno predlogo.';

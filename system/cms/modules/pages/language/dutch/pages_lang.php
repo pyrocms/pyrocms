@@ -66,7 +66,7 @@ $lang['pages_delete_none_notice'] 				= 'Er zijn geen pagina&apos;s verwijderd.'
 $lang['pages_page_already_exist_error'] 		= 'De pagina met URL "%s" bestaat al in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'De geselecteerde bovenliggende pagina bestaat niet.';
 
-$lang['pages.tree_explanation'] 				= 'De lijst aan de linkerkant stellen de pagina&apos;s op uw website voor. 
+$lang['pages.tree_explanation'] 				= 'De lijst aan de linkerkant stellen de pagina&apos;s op uw website voor.
 Klik op het "+" icoon naast de pagina om de onderliggende pagina&apos;s te zien. Als u een pagina selecteert ziet u de informatie over de pagina in dit veld.';
 
 $lang['pages.rss_explanation']					= 'Het inschakelen van RSS voor deze pagina laat gebruikers een abonnement op een RSS-feed nemen waarin onderliggende pagina&apos;s direct getoond worden.';

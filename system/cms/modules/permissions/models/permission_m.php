@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Permission model
- * 
+ *
  * @author Phil Sturgeon - PyroCMS Dev Team
  * @package PyroCMS
  * @subpackage Permissions module

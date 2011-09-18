@@ -32,7 +32,7 @@ class Plugin_Theme extends Plugin
 	 * Partial
 	 *
 	 * Loads a theme partial
-	 * 
+	 *
 	 * Usage:
 	 * {pyro:theme:partial file="header"}
 	 *

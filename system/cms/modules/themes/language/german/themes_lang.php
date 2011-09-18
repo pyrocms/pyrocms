@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
+$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate
 $lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
-$lang['themes.no_options']				= 'This theme has no options.'; #translate 
+$lang['themes.no_options']				= 'This theme has no options.'; #translate
 $lang['themes.set_default_success']     = 'Das Thema "%s" ist nun dein Standard-Thema.';
 $lang['themes.set_default_error']       = '"%s" konnte nicht als Standard-Thema gesetzt werden.';
 $lang['themes.already_exists_error']    = 'Es existiert bereits ein Thema mit diesem Namen.';
@@ -17,7 +17,7 @@ $lang['themes.upload_title']            = 'Thema hochladen';
 $lang['themes.list_title']              = 'Themen-Liste';
 $lang['themes.upload_desc']             = 'Bitte wähle eine Datei aus und klicke auf Hochladen';
 
-$lang['themes.options']					= 'Options'; #translate 
+$lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']             = 'Thema';
 $lang['themes.actions_label']           = 'Aktionen';
 $lang['themes.make_default']            = 'Als Standard festlegen';

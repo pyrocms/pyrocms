@@ -25,7 +25,7 @@ class Rss extends Public_Controller
 	}
 	
 	function category( $slug = '')
-	{ 
+	{
 		$this->load->model('categories/categories_m');
 		
 		if(!$category = $this->categories_m->get_by('slug', $slug))
@@ -55,7 +55,7 @@ class Rss extends Public_Controller
 		$this->data->rss->creator_email = $this->settings->item('contact_email');
 		
 		if(!empty($posts))
-		{        
+		{
 			foreach($posts as $row)
 			{
 				//$row->created_on = human_to_unix($row->created_on);
@@ -71,7 +71,7 @@ class Rss extends Public_Controller
 					'date' => $row->created_on
 				);				
 				$this->data->rss->items[] = (object) $item;
-			} 
+			}
 		}	
 	}
 }

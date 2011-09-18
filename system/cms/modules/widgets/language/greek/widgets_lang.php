@@ -10,7 +10,7 @@ $lang['widgets.widget']                 = 'Widget';
 $lang['widgets.widget_author']          = 'Συγγραφέας';
 $lang['widgets.widget_short_name']      = 'Σύντομο όνομα';
 $lang['widgets.widget_version']         = 'Έκδοση';
-$lang['widgets.status_label']			= 'Κατάσταση'; 
+$lang['widgets.status_label']			= 'Κατάσταση';
 
 $lang['widgets.inactive_title'] 		= 'Widgets ανενεργά';
 $lang['widgets.active_title'] 			= 'Widgets ενεργά';

@@ -27,13 +27,13 @@ $lang['buttons.enable']		= 'Inschakelen';
 $lang['buttons.disable']	= 'Uitschakelen';
 $lang['buttons.yes']		= 'Ja';
 $lang['buttons.no']			= 'Nee';
-$lang['buttons.activate']	= 'Activeer'; 
-$lang['buttons.deactivate']	= 'Deactiveer'; 
-$lang['buttons.preview']	= 'Voorbeeld'; 
-$lang['buttons.close']		= 'Sluiten'; 
-$lang['buttons.edit']		= 'Bewerken'; 
-$lang['buttons.clone']		= 'Dupliceren'; 
-$lang['buttons.re-index']	= 'Herindexeren'; 
-$lang['buttons.copy']		= 'Kopie&euml;ren'; 
+$lang['buttons.activate']	= 'Activeer';
+$lang['buttons.deactivate']	= 'Deactiveer';
+$lang['buttons.preview']	= 'Voorbeeld';
+$lang['buttons.close']		= 'Sluiten';
+$lang['buttons.edit']		= 'Bewerken';
+$lang['buttons.clone']		= 'Dupliceren';
+$lang['buttons.re-index']	= 'Herindexeren';
+$lang['buttons.copy']		= 'Kopie&euml;ren';
 
 /* End of file buttons_lang.php */
