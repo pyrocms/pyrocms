@@ -1568,15 +1568,14 @@ footer {
 	height: 50px;
 	color: #eeeeee;
 	margin-top: -100px;
-	padding: 25px;
+	padding: 25px 0 25px 0;
 	float: left;
-	position: relative;
-	clear: both;
 	text-shadow: 0 -1px 0 #000000;
 }
 
 footer p {
-	margin-top: 15px;
+	float: left ;
+	margin: 15px 0 0 25px;
 }
 
 /* Draggable element */

@@ -49,10 +49,10 @@
 </head>
 
 <body>
+
 	<div id="container">
 		
-		<section id="content">
-			
+		<section id="content">	
 			<?php file_partial('header'); ?>
 		
 			<div id="filters">
