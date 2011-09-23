@@ -38,7 +38,8 @@ class Module_Sitemap extends Module {
 				'br' => 'O módulo de mapa do site cria um índice de todas as páginas e um sitemap XML para motores de busca.',
 				'es' => 'El módulo de mapa crea un índice de todas las páginas y un mapa del sitio XML para los motores de búsqueda.',
 				'fi' => 'sivukartta moduuli luo hakemisto kaikista sivuista ja XML sivukartta hakukoneille.',
-				'lt' => 'struktūra modulis sukuria visų puslapių ir XML Sitemap paieškos sistemų indeksas.'
+				'lt' => 'struktūra modulis sukuria visų puslapių ir XML Sitemap paieškos sistemų indeksas.',
+				'da' => 'Sitemapmodulet opretter et indeks over alle sider og et XML sitemap til søgemaskiner.'
 			),
 			'frontend' => TRUE,
 			'backend' => FALSE,

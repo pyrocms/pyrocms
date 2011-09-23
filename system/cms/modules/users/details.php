@@ -24,7 +24,8 @@ class Module_Users extends Module {
 				'fi' => 'Käyttäjät',
 				'el' => 'Χρήστες',
 				'he' => 'משתמשים',
-				'lt' => 'Vartotojai'
+				'lt' => 'Vartotojai',
+				'da' => 'Brugere'
 			),
 			'description' => array(
 				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
@@ -43,7 +44,8 @@ class Module_Users extends Module {
 				'fi' => 'Antaa käyttäjien rekisteröityä ja kirjautua sisään sivustolle sekä mahdollistaa niiden muokkaamisen hallintapaneelista.',
 				'el' => 'Παρέχει την δυνατότητα εγγραφής λογαριασμών χρηστών και σύνδεσης τους στους επισκέπτες του ιστοτόπου. Με αυτό το πρόσθετο μπορείτε επίσης να τους διαχειριστείτε.',
 				'he' => 'ניהול משתמשים: רישום, הפעלה ומחיקה',
-				'lt' => 'Leidžia vartotojams registruotis ir prisijungti prie puslapio, ir valdyti juos per administravimo panele.'
+				'lt' => 'Leidžia vartotojams registruotis ir prisijungti prie puslapio, ir valdyti juos per administravimo panele.',
+				'da' => 'Lader brugere registrere sig og logge ind på sitet, og håndtér dem via kontrolpanelet.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

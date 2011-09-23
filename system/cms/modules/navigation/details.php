@@ -43,7 +43,8 @@ class Module_Navigation extends Module {
 				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.',
 				'el' => 'Διαχειριστείτε τους συνδέσμους στα μενού πλοήγησης και όλες τις ομάδες συνδέσμων πλοήγησης στις οποίες ανήκουν.',
 				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
-				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.'
+				'lt' => 'Tvarkyk nuorodas navigacijų menių ir visas navigacijų grupes kurioms tos nuorodos priklauso.',
+				'da' => 'Håndtér links på navigationsmenuerne og alle navigationsgrupperne de tilhører.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

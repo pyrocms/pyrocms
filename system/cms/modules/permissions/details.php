@@ -24,7 +24,8 @@ class Module_Permissions extends Module {
 				'fi' => 'Käyttöoikeudet',
 				'el' => 'Δικαιώματα',
 				'he' => 'הרשאות',
-				'lt' => 'Teisės'
+				'lt' => 'Teisės',
+				'da' => 'Adgangskontrol'
 			),
 			'description' => array(
 				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
@@ -43,7 +44,8 @@ class Module_Permissions extends Module {
 				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
 				'el' => 'Ελέγξτε οι χρήστες ποιας ομάδας μπορούν να δούν ποιες περιοχές του ιστοτόπου.',
 				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר',
-				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.'
+				'lt' => 'Kontroliuokite kokio tipo varotojai kokią dalį puslapio gali pasiekti.',
+				'da' => 'Kontroller hvilken type brugere der kan se bestemte sektioner på sitet.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
