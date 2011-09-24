@@ -4,15 +4,15 @@
 $lang['keywords:name']				    = 'Navn';
 
 // titles
-$lang['keywords:index_title']            = 'Nøgleordsliste';
-$lang['keywords:add_title']              = 'Tilføj Nøgleord';
-$lang['keywords:edit_title']             = 'Redigér Nøgleord "%s"';
+$lang['keywords:index_title']            = 'NÃ¸gleordsliste';
+$lang['keywords:add_title']              = 'TilfÃ¸j NÃ¸gleord';
+$lang['keywords:edit_title']             = 'RedigÃ©r NÃ¸gleord "%s"';
 
 // messages
-$lang['keywords:no_keywords']            = 'Ingen nøgleord fundet.';
-$lang['keywords:add_success']            = 'Nøgleordet "%s" blev tilføjet.';
-$lang['keywords:add_error']              = 'Nøgleordet "%s" kunne ikke tilføjes.';
-$lang['keywords:edit_success']           = 'Nøgleordet "%s" er blevet gemt.';
-$lang['keywords:edit_error']             = 'Nøgleordet "%s" kunne ikke gemmes.';
-$lang['keywords:delete_success']         = 'Nøgleordet blev slettet uden problemer.';
-$lang['keywords:delete_error']           = 'Der opstod et problem under sletningen af dette nøgleord.';
+$lang['keywords:no_keywords']            = 'Ingen nÃ¸gleord fundet.';
+$lang['keywords:add_success']            = 'NÃ¸gleordet "%s" blev tilfÃ¸jet.';
+$lang['keywords:add_error']              = 'NÃ¸gleordet "%s" kunne ikke tilfÃ¸jes.';
+$lang['keywords:edit_success']           = 'NÃ¸gleordet "%s" er blevet gemt.';
+$lang['keywords:edit_error']             = 'NÃ¸gleordet "%s" kunne ikke gemmes.';
+$lang['keywords:delete_success']         = 'NÃ¸gleordet blev slettet uden problemer.';
+$lang['keywords:delete_error']           = 'Der opstod et problem under sletningen af dette nÃ¸gleord.';

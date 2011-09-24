@@ -1,18 +1,18 @@
 <?php
 
-$lang['imglib_source_image_required'] = "Du skal specificere et kilde billede i dine præferencer.";
-$lang['imglib_gd_required'] = "GD billede biblioteket er påkrævet af denne funktion.";
-$lang['imglib_gd_required_for_props'] = "Din server skal understøtte GD billede library for at kunne bestemme billedets egenskaber.";
-$lang['imglib_unsupported_imagecreate'] = "Din server understøtter ikke den påkrævede GD funktion til at forarbejde denne type billede.";
-$lang['imglib_gif_not_supported'] = "GIF billedet understøttes ofte ikke pga. licens restriktioner. Du kan være nødt til at burge JPG eller PNG billeder istedet.";
-$lang['imglib_jpg_not_supported'] = "JPG billeder understøttes ikke.";
-$lang['imglib_png_not_supported'] = "PNG billeder understøttes ikke.";
-$lang['imglib_jpg_or_png_required'] = "Protokollen for ændring af billeders dimensioner der er angivet i dine præferencer virker kun med billedtyperne JPEG og PNG.";
-$lang['imglib_copy_error'] = "En fejl opstod i forsøget på at erstatte filen. Tjek venligst at din fil mappe er skrivbar.";
-$lang['imglib_rotate_unsupported'] = "Billede retation ser ikke ud til at være understøttet af din server.";
-$lang['imglib_libpath_invalid'] = "Stien til dit billede bibliotek er ikke korrekt. Angiv venligst den korrekte sti i dine billede præferencer.";
-$lang['imglib_image_process_failed'] = "Billede forarbejdelse fejlede. Tjek venligst at din server understøtter den valgte protokol og at stien til dit billede er korrekt.";
-$lang['imglib_rotation_angle_required'] = "En vinkel er påkrævet for at rotere billedet.";
+$lang['imglib_source_image_required'] = "Du skal specificere et kilde billede i dine prÃ¦ferencer.";
+$lang['imglib_gd_required'] = "GD billede biblioteket er pÃ¥krÃ¦vet af denne funktion.";
+$lang['imglib_gd_required_for_props'] = "Din server skal understÃ¸tte GD billede library for at kunne bestemme billedets egenskaber.";
+$lang['imglib_unsupported_imagecreate'] = "Din server understÃ¸tter ikke den pÃ¥krÃ¦vede GD funktion til at forarbejde denne type billede.";
+$lang['imglib_gif_not_supported'] = "GIF billedet understÃ¸ttes ofte ikke pga. licens restriktioner. Du kan vÃ¦re nÃ¸dt til at burge JPG eller PNG billeder istedet.";
+$lang['imglib_jpg_not_supported'] = "JPG billeder understÃ¸ttes ikke.";
+$lang['imglib_png_not_supported'] = "PNG billeder understÃ¸ttes ikke.";
+$lang['imglib_jpg_or_png_required'] = "Protokollen for Ã¦ndring af billeders dimensioner der er angivet i dine prÃ¦ferencer virker kun med billedtyperne JPEG og PNG.";
+$lang['imglib_copy_error'] = "En fejl opstod i forsÃ¸get pÃ¥ at erstatte filen. Tjek venligst at din fil mappe er skrivbar.";
+$lang['imglib_rotate_unsupported'] = "Billede retation ser ikke ud til at vÃ¦re understÃ¸ttet af din server.";
+$lang['imglib_libpath_invalid'] = "Stien til dit billede bibliotek er ikke korrekt. Angiv venligst den korrekte sti i dine billede prÃ¦ferencer.";
+$lang['imglib_image_process_failed'] = "Billede forarbejdelse fejlede. Tjek venligst at din server understÃ¸tter den valgte protokol og at stien til dit billede er korrekt.";
+$lang['imglib_rotation_angle_required'] = "En vinkel er pÃ¥krÃ¦vet for at rotere billedet.";
 $lang['imglib_writing_failed_gif'] = "GIF billede.";
 $lang['imglib_invalid_path'] = "Stien til billedet er ikke korrekt.";
 $lang['imglib_copy_failed'] = "Billed kopierings processen fejlede.";

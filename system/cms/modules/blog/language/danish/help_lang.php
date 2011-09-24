@@ -5,20 +5,20 @@ $lang['help_body'] = "
 
 <h4>Overview</h4>
 <p>
-	Blogmodulet er et simpelt værktøj til at udgive blogindlæg.
+	Blogmodulet er et simpelt vÃ¦rktÃ¸j til at udgive blogindlÃ¦g.
 </p>
 
 <h4>Categories</h4>
 <p>
-	Du kan oprette så mange kategorier som du vil, for at organisere dine indlæg. 
-	Hvis du vil lade besøgende sortere efter kategori, skal du blot indsætte Blog Kategori widget'en i din front-end
+	Du kan oprette sÃ¥ mange kategorier som du vil, for at organisere dine indlÃ¦g. 
+	Hvis du vil lade besÃ¸gende sortere efter kategori, skal du blot indsÃ¦tte Blog Kategori widget'en i din front-end
 </p>
 
-<h4>Indlæg</h4>
+<h4>IndlÃ¦g</h4>
 <p>
-	Vælg en god titel til dine indlæg da de vil blive vist på blog-hoved siden (sammen med introduktionen). De vil også blive brugt som titel i søgemaskineresultater.
-	Efter at du har oprettet et indlæg kan du enten gemme det, som det er og udgive det, eller du kan gemme det som kladde, hvis du vil komme tilbage og redigere det færdigt senere.
-	Du kan også gemme det til udgivelse, og angive en dato i fremtiden hvor dit indlæg vil blive udgivet, og dermed ikke kan ses før denne dato.
+	VÃ¦lg en god titel til dine indlÃ¦g da de vil blive vist pÃ¥ blog-hoved siden (sammen med introduktionen). De vil ogsÃ¥ blive brugt som titel i sÃ¸gemaskineresultater.
+	Efter at du har oprettet et indlÃ¦g kan du enten gemme det, som det er og udgive det, eller du kan gemme det som kladde, hvis du vil komme tilbage og redigere det fÃ¦rdigt senere.
+	Du kan ogsÃ¥ gemme det til udgivelse, og angive en dato i fremtiden hvor dit indlÃ¦g vil blive udgivet, og dermed ikke kan ses fÃ¸r denne dato.
 </p>
 
 ";

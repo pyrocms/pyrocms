@@ -1,46 +1,46 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
-$lang['nav_title_label']                        = 'Title';
-$lang['nav_parent_label']						= 'Parent';
-$lang['nav_target_label']                       = 'Target';
-$lang['nav_class_label']                        = 'Class';
+$lang['nav_title_label']                        = 'Titel';
+$lang['nav_parent_label']						= 'Forælder';
+$lang['nav_target_label']                       = 'Mål';
+$lang['nav_class_label']                        = 'Klasse';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Actions';
-$lang['nav_details_label']                      = 'Details';
-$lang['nav_text_label']                         = 'Text';
-$lang['nav_group_label']                        = 'Group';
-$lang['nav_location_label']                     = 'Location';
-$lang['nav_type_label']                         = 'Link type';
-$lang['nav_uri_label']                          = 'Site Link (URI)';
-$lang['nav_page_label']                         = 'Page';
-$lang['nav_module_label']                       = 'Module';
-$lang['nav_abbrev_label']                       = 'Abbreviation';
-$lang['nav_edit_label']                         = 'Edit';
-$lang['nav_delete_label']                       = 'Delete';
-$lang['nav_group_delete_label']                 = 'Delete group';
-$lang['nav_link_page_select_default']			= '--Select Page--';
+$lang['nav_actions_label']                      = 'Handlinger';
+$lang['nav_details_label']                      = 'Detaljer';
+$lang['nav_text_label']                         = 'Tekst';
+$lang['nav_group_label']                        = 'Gruppe';
+$lang['nav_location_label']                     = 'Lokation';
+$lang['nav_type_label']                         = 'Linktype';
+$lang['nav_uri_label']                          = 'Sitelink (URI)';
+$lang['nav_page_label']                         = 'Side';
+$lang['nav_module_label']                       = 'Modul';
+$lang['nav_abbrev_label']                       = 'forkortelse';
+$lang['nav_edit_label']                         = 'Redigér';
+$lang['nav_delete_label']                       = 'Slet';
+$lang['nav_group_delete_label']                 = 'Slet gruppe';
+$lang['nav_link_page_select_default']			= '--Vælg Side--';
 
-$lang['nav_link_target_self']                   = 'Current window (default)';
-$lang['nav_link_target_blank']                  = 'New window (_blank)';
+$lang['nav_link_target_self']                   = 'Nuværende vindue (default)';
+$lang['nav_link_target_blank']                  = 'Nyt vindue (_blank)';
 
 // titles
-$lang['nav_link_create_title']                  = 'Add navigation link';
-$lang['nav_group_create_title']                 = 'Add a group';
-$lang['nav_link_edit_title']                    = 'Edit navigation link "%s"';
-$lang['nav_link_list_title']                    = 'List links';
+$lang['nav_link_create_title']                  = 'Tilføj navigationslink';
+$lang['nav_group_create_title']                 = 'Tilføj en gruppe';
+$lang['nav_link_edit_title']                    = 'Redigér navigationslink "%s"';
+$lang['nav_link_list_title']                    = 'Linkliste';
 
 // messages
-$lang['nav_group_no_links']                     = 'There are no links in this group.';
-$lang['nav_no_groups']                          = 'There are no navigation groups.';
-$lang['nav_group_delete_confirm']               = 'Are you sure you would like to delete this navigation group? This will delete ALL navigation links within the group, and the layout files will need to be edited to remove refference to it.';
-$lang['nav_group_add_success']                  = 'Your navigation group has been saved.';
-$lang['nav_group_add_error']                    = 'An error occurred.';
-$lang['nav_group_mass_delete_success']          = 'The navigation group has been deleted.';
-$lang['nav_link_add_success']                   = 'The navigation link was added.';
-$lang['nav_link_add_error']                     = 'An unexpected error occurred.';
-$lang['nav_link_not_exist_error']               = 'This navigation link does not exist.';
-$lang['nav_link_edit_success']                  = 'The navigation link was saved.';
-$lang['nav_link_delete_success']                = 'The navigation link has been deleted.';
+$lang['nav_group_no_links']                     = 'Der er ingen links i denne gruppe.';
+$lang['nav_no_groups']                          = 'Der er ingen navigationsgrupper.';
+$lang['nav_group_delete_confirm']               = 'Er du sikker på at du vil slette denne navigationsgruppe Dette vil slette ALLE links i gruppen, og layoutfilerne skal redigeres for at fjerne referencer til den.';
+$lang['nav_group_add_success']                  = 'Din navigationsgruppe er blevet gemt.';
+$lang['nav_group_add_error']                    = 'Der opstod en fejl.';
+$lang['nav_group_mass_delete_success']          = 'Navigationsgruppen blev slettet.';
+$lang['nav_link_add_success']                   = 'Navigationsgruppen blev tilføjet.';
+$lang['nav_link_add_error']                     = 'Der opstod en uventet fejl.';
+$lang['nav_link_not_exist_error']               = 'Dette navigationslink eksisterer ikke.';
+$lang['nav_link_edit_success']                  = 'Navigationslinket blev gemt.';
+$lang['nav_link_delete_success']                = 'Navigationslinket blev slettet.';
 
 $lang['nav_link_type_desc']                     = 'Please select a link type to be given more options to create your link.';
