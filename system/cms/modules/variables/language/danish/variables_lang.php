@@ -6,9 +6,9 @@
  * @package		PyroCMS
  * @subpackage 	Variables Module
  * @category	Modules
+ * @date		2011-09-24
  * @link		http://pyrocms.com
- * @date		2011-03-13
- * @version		1.1.0
+ * @version		1.4
  */
 
 // labels

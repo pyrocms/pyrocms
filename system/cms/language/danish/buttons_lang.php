@@ -8,7 +8,7 @@
  * @author		PyroCMS Dev Team
  * @license		Apache License v2.0
  * @link		http://pyrocms.com
- * @since		Version 1.0
+ * @since		Version 1.4
  * @filesource
  */
 
