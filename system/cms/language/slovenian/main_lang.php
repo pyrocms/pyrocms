@@ -67,13 +67,13 @@ $lang['enable_label']					= 'Omogoči';
 $lang['disable_label'] 					= 'Onemogoči';
 $lang['upgrade_label'] 					= 'Posodobi';
 
-$lang['global:shortcuts'] 				= 'Shortcuts'; #translate
-$lang['global:description']				= 'Description'; #translate
-$lang['global:actions']					= 'Actions'; #translate
-$lang['global:edit']					= 'Edit'; #translate
-$lang['global:delete']					= 'Delete'; #translate
-$lang['global:remove']					= 'Remove'; #translate
+$lang['global:shortcuts'] 				= 'Bližnjice';
+$lang['global:description']				= 'Opis';
+$lang['global:actions']					= 'Dejanja';
+$lang['global:edit']					= 'Uredi';
+$lang['global:delete']					= 'Izbriši';
+$lang['global:remove']					= 'Odstrani';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Ključne besede';
 
 /* End of file main_lang.php */

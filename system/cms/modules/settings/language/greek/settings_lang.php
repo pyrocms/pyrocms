@@ -142,7 +142,7 @@ $lang['settings_form_option_Newest First']		= 'Τα νεότερα πρώτα';
 $lang['settings_edit_title']					= 'Επεξεργασία ρυθμίσεων';
 
 // messages
-$lang['settings_no_settings']					= 'There are currently no settings.'; #translate
+$lang['settings_no_settings']					= 'Προς το παρόν δεν υπάρχουν ρυθμίσεις.';
 $lang['settings_save_success']					= 'Οι ρυθμίσεις σας αποθηκεύτηκαν!';
 
 /* End of file settings_lang.php */
