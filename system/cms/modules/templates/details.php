@@ -19,7 +19,7 @@ class Module_Templates extends Module {
 			'name' => array(
 				'sl' => 'Email predloge',
 				'en' => 'Email Templates',
-				'en' => 'Emailsjablonen',
+				'nl' => 'Email sjablonen',
 				'es' => 'Plantillas de email',
 				'ar' => 'قوالب الرسائل الإلكترونية',
 				'br' => 'Modelos de e-mail',
