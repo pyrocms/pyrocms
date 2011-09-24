@@ -7,7 +7,7 @@ $lang['step3']	=	'Trin #3';
 $lang['step4']	=	'Trin #4';
 $lang['final']	=	'Sidste Trin';
 
-$lang['installer.passwords_match']		= "Kodeordene Matcher."; #translate
-$lang['installer.passwords_dont_match']	= "Kodeordene Matcher Ikke."; #translate
+$lang['installer.passwords_match']		= "Kodeordene Matcher.";
+$lang['installer.passwords_dont_match']	= "Kodeordene Matcher Ikke.";
 
 /* End of file global_lang.php */

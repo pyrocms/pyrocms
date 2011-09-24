@@ -133,8 +133,8 @@ $lang['settings_form_option_Enabled']			= 'Til';
 $lang['settings_form_option_Disabled']			= 'Fra';
 $lang['settings_form_option_Required']			= 'Påkrævet';
 $lang['settings_form_option_Optional']			= 'Frivilligt';
-$lang['settings_form_option_Oldest First']		= 'Ældste Først'; #translate
-$lang['settings_form_option_Newest First']		= 'Nyeste Først'; #translate
+$lang['settings_form_option_Oldest First']		= 'Ældste Først';
+$lang['settings_form_option_Newest First']		= 'Nyeste Først';
 
 /* End of file settings_lang.php */
 /* Location: ./system/cms/modules/settings/language/english/settings_lang.php */
