@@ -63,6 +63,7 @@ $lang['pages_mass_delete_success']         = '%s דפים נמחקו בהצלח�
 $lang['pages_delete_none_notice']          = 'אף דף לא נמחק.';
 $lang['pages_page_already_exist_error']    = 'דף עם  URL "%s" כבר קיים ב %s.';
 $lang['pages_parent_not_exist_error']      = 'עמוד האב שבחרתם אינו קיים.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך.
 Click the page item to show its children. אתה יכול לגרור עמודים כדי לסדר אותם; גרור אופקית כדי להפוך אותו לילד. בעת לחיצה על הטקסט בדף תוכלו לראות כל מיני מידע שימושי בתיבה זו.';

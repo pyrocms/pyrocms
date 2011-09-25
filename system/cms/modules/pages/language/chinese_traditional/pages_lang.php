@@ -65,6 +65,7 @@ $lang['pages_mass_delete_success'] 				= '%s 個頁面已經刪除。';
 $lang['pages_delete_none_notice'] 				= '沒有頁面被刪除';
 $lang['pages_page_already_exist_error'] 		= '與 "%s" 相同網址的頁面已經存在 %s 當中。';
 $lang['pages_parent_not_exist_error'] 			= '您所選擇的上級頁面不存在。';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 				= '左側表列了您網站中的自定頁面。點選頁面旁的 "+" 圖像即可顯示其下層頁面。當您點選了某頁面項目，您將會在此欄位裡看到關於該頁的有用資訊。';
 
