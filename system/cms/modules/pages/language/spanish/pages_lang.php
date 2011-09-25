@@ -63,6 +63,7 @@ $lang['pages_mass_delete_success']	 	= '%s páginas han sido eliminadas.';
 $lang['pages_delete_none_notice'] 		= 'No se ha borado ninguna página.';
 $lang['pages_page_already_exist_error'] = 'Una página con el URL "%s" ya existe en %s.';
 $lang['pages_parent_not_exist_error'] 	= 'La página padre que has seleccionado no existe.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 		= 'La lista a la izquierda representa las páginas en tu sitio.
 Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';

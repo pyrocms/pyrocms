@@ -23,7 +23,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'slug',
 			'label'	=> 'lang:pages.slug_label',
-			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
+			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
 			'field' => 'chunk_body[]',
@@ -595,4 +595,34 @@ class Admin extends Admin_Controller {
 			endforeach;
 		endif;
 	}
+	
+	/**
+	 * Callback to check uniqueness of slug + parent
+	 *
+	 * @author Donald Myers
+	 * @access public
+	 * @param $slug slug to check
+	 * @return bool
+	 */
+	 public function _check_slug($slug = '')
+	 {
+     if ($this->pages_m->check_slug($slug, $this->input->post('parent_id'), (int)$this->page_id))
+     {
+       $page_obj = $this->pages_m->get($this->page_id);
+       $url = '/'.trim(dirname($page_obj->uri),'.').$slug;
+       if ($this->input->post('parent_id') == 0)
+       {
+         $parent_folder = lang('pages_root_folder');
+       }
+       else
+       {
+         $page_obj = $this->pages_m->get($this->input->post('parent_id'));
+         $parent_folder = $page_obj->title;
+       }
+       $this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url,$parent_folder));
+       return FALSE;
+     }
+  
+     return TRUE;
+   }
 }
