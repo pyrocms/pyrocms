@@ -1,6 +1,6 @@
 <?php if(!empty($templates)): ?>
     <?php echo form_open('admin/templates/action'); ?>
-    
+
     <table border="0" class="table-list clear-both">
         <thead>
 			<tr>
@@ -14,7 +14,7 @@
                 <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
             </tr>
         </thead>
-        
+
         <tbody>
 		
     <?php foreach ($templates as $template): ?>
@@ -52,7 +52,7 @@
                 <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
             </tr>
         </thead>
-        
+
         <tbody>
 	
     <?php foreach ($templates as $template): ?>
@@ -80,7 +80,7 @@
 	<div class="buttons padding-top align-right">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
-    
+
     <?php echo form_close(); ?>
 <?php else: ?>
 

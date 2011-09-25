@@ -258,7 +258,7 @@ class Template
 			{
 				// Persistent tags is an experiment to parse some tags after
 				// parsing of all other tags, so the tag persistent should be:
-				// 
+				//
 				// a) Defined only if depends of others tags
 				// b) Plugin that is a callback, so could retrieve runtime data.
 				// c) Returned with a content parsed

@@ -157,14 +157,14 @@ class File_folders_m extends MY_Model {
 	
 	/**
 	* Breadcrumb
-	* 
+	*
 	* Generates a breadcrumb nav for folders
-	* 
+	*
 	* @param	int $node The current folder id
 	* @param	int $lev The current level
 	* @return	array
 	*/
-	public function breadcrumb($id, $separator = '&raquo;', $limit = 3) 
+	public function breadcrumb($id, $separator = '&raquo;', $limit = 3)
 	{
 		if ( ! $this->_folders)
 		{
@@ -179,7 +179,7 @@ class File_folders_m extends MY_Model {
 		));
 	}
 
-	public function _build_asc_segments($id, $options = array()) 
+	public function _build_asc_segments($id, $options = array())
 	{
 		if ( ! isset($options['segments']))
 		{

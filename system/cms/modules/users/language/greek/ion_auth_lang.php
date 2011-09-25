@@ -1,24 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - English
-* 
+*
 * Author: Ben Edmunds
 *           ben.edmunds@gmail.com
 *         @benedmunds
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
-* Created:  03.14.2010 
-* 
+*
+* Created:  03.14.2010
+*
 * Description:  English language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
 $lang['account_creation_successful']            = 'Ο Λογαριασμός Δημιουργήθηκε Με Επιτυχία';
 $lang['account_creation_unsuccessful']          = 'Δεν Ήταν Δυνατό Να Δημιουργηθεί Ο Λογαριασμός';
 $lang['account_creation_duplicate_email']       = 'Το Email Χρησιμοποιείται Ήδη ή Δεν Είναι Έγκυρο';
-$lang['account_creation_duplicate_username']    = 'Το Όνομα Χρήστη Χρησιμοποιείται Ήδη ή Δεν Είναι Έγκυρο';  
+$lang['account_creation_duplicate_username']    = 'Το Όνομα Χρήστη Χρησιμοποιείται Ήδη ή Δεν Είναι Έγκυρο';
 
 
 // Password

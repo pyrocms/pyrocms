@@ -1,24 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - English
-* 
+*
 * Author: Ben Edmunds
 *           ben.edmunds@gmail.com
 *         @benedmunds
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
-* Created:  03.14.2010 
-* 
+*
+* Created:  03.14.2010
+*
 * Description:  English language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
 $lang['account_creation_successful']            = 'Paskyra Sėkmingai Sukurta';
 $lang['account_creation_unsuccessful']          = 'Nepavyksta sukurti paskyros';
 $lang['account_creation_duplicate_email']       = 'E.pašto adresas jau naudojamas arba netinkamas';
-$lang['account_creation_duplicate_username']    = 'Vartotojo vardas jau egzistyoja arba yra netinkamas';  
+$lang['account_creation_duplicate_username']    = 'Vartotojo vardas jau egzistyoja arba yra netinkamas';
 
 
 // Password

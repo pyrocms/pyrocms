@@ -13,7 +13,7 @@ class Admin_instances extends Admin_Controller {
 
 	/**
 	 * Array that contains the validation rules
-	 * 
+	 *
 	 * @access	protected
 	 * @var		array
 	 */

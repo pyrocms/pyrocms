@@ -46,7 +46,7 @@ $lang['user_activate_account_title'] 	= '啟動帳號';
 $lang['user_activate_label'] 			= '啟動';
 $lang['user_activated_account_title'] 	= '已啟動帳號';
 $lang['user_reset_password_title'] 		= '重設密碼';
-$lang['user_password_reset_title'] 		= '密碼重設';  
+$lang['user_password_reset_title'] 		= '密碼重設';
 
 
 $lang['user_error_username'] 			= '您選擇的用戶名已經被使用了。';
@@ -171,7 +171,7 @@ $lang['profile_edit'] 					= '編輯個人簡介';
 
 $lang['profile_personal_section'] 		= '個人資訊';
 
-$lang['profile_display_name']			= '顯示名稱';  
+$lang['profile_display_name']			= '顯示名稱';
 $lang['profile_dob']					= '出生日期';
 $lang['profile_dob_day']				= '日';
 $lang['profile_dob_month']				= '月';

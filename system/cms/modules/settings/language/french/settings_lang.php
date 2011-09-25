@@ -36,19 +36,19 @@ $lang['settings_date_format_desc']				= 'Comment les dates doivent être affich�
 $lang['settings_frontend_enabled'] 				= 'Statut du site';
 $lang['settings_frontend_enabled_desc'] 		= 'Utilisez cette option pour mettre en ligne ou hors ligne le site. Utile lorsque vous voulez mettre le site en maintenance.';
 
-$lang['settings_mail_protocol'] 				= 'Protocole email'; 
+$lang['settings_mail_protocol'] 				= 'Protocole email';
 $lang['settings_mail_protocol_desc'] 			= 'Sélectionnez le protocole souhaité.';
 
-$lang['settings_mail_sendmail_path'] 			= 'Chemin du serveur Sendmail'; 
+$lang['settings_mail_sendmail_path'] 			= 'Chemin du serveur Sendmail';
 $lang['settings_mail_sendmail_path_desc']		= 'Chemin vers l\'exécutable du serveur Sendmail';
 
 $lang['settings_mail_smtp_host'] 				= 'Hôte SMTP Host';
-$lang['settings_mail_smtp_host_desc'] 			= 'Le nom d\'hôte du serveur SMTP'; 
+$lang['settings_mail_smtp_host_desc'] 			= 'Le nom d\'hôte du serveur SMTP';
 
 $lang['settings_mail_smtp_pass'] 				= 'Mot de passe SMTP';
 $lang['settings_mail_smtp_pass_desc'] 			= 'Le mot de passe SMTP.';
 
-$lang['settings_mail_smtp_port'] 				= 'Port SMTP'; 
+$lang['settings_mail_smtp_port'] 				= 'Port SMTP';
 $lang['settings_mail_smtp_port_desc'] 			= 'Le numéro du port SMTP.';
 
 $lang['settings_mail_smtp_user'] 				= 'Nom d\'utilisateur SMTP';
@@ -76,16 +76,16 @@ $lang['settings_enable_profiles'] 				= 'Activer les profils';
 $lang['settings_enable_profiles_desc'] 			= 'Permettre aux utilisateurs d\'ajouter et de modifier leurs profils.';
 
 $lang['settings_ga_email'] 						= 'Google Analytic email';
-$lang['settings_ga_email_desc']					= 'Adresse email utilisée pour Google Analytics. Cette information est requise pour afficher le graphique sur le tableau de bord.'; 
+$lang['settings_ga_email_desc']					= 'Adresse email utilisée pour Google Analytics. Cette information est requise pour afficher le graphique sur le tableau de bord.';
 
 $lang['settings_ga_password'] 					= 'Mot de passe Google Analytics';
-$lang['settings_ga_password_desc']				= 'Le mot de passe Google Analytics. Cette information est requise pour afficher le graphique sur le tableau de bord.'; 
+$lang['settings_ga_password_desc']				= 'Le mot de passe Google Analytics. Cette information est requise pour afficher le graphique sur le tableau de bord.';
 
-$lang['settings_ga_profile'] 					= 'Profil Google Analytics'; 
-$lang['settings_ga_profile_desc']				= 'ID du profil pour ce site dans Google Analytics.'; 
+$lang['settings_ga_profile'] 					= 'Profil Google Analytics';
+$lang['settings_ga_profile_desc']				= 'ID du profil pour ce site dans Google Analytics.';
 
-$lang['settings_ga_tracking'] 					= 'Code Google Tracking'; 
-$lang['settings_ga_tracking_desc']				= 'Code de tracking Google Analytics pour activer la capture de données de visites. Ex. : UA-19483569-6'; 
+$lang['settings_ga_tracking'] 					= 'Code Google Tracking';
+$lang['settings_ga_tracking_desc']				= 'Code de tracking Google Analytics pour activer la capture de données de visites. Ex. : UA-19483569-6';
 
 $lang['settings_twitter_username'] 				= 'Nom d\'utilisateur';
 $lang['settings_twitter_username_desc'] 		= 'Nom d\'utilisateur Twitter.';
@@ -108,8 +108,8 @@ $lang['settings_twitter_cache_desc'] 			= 'Combien de temps conserver les tweets
 $lang['settings_akismet_api_key'] 				= 'Clé d\'API Akismet';
 $lang['settings_akismet_api_key_desc'] 			= 'Askimet est un anti-spam crée par l\'équipe de Wordpress. Il limite les spam sans obliger les utilisateurs à valider une CAPTCHA';
 
-$lang['settings_comment_order'] 				= 'Ordre d\'affichage'; 
-$lang['settings_comment_order_desc']			= 'Ordre dans lequel afficher les commentaires.'; 
+$lang['settings_comment_order'] 				= 'Ordre d\'affichage';
+$lang['settings_comment_order_desc']			= 'Ordre dans lequel afficher les commentaires.';
 
 $lang['settings_moderate_comments'] 			= 'Modérer les commentaires';
 $lang['settings_moderate_comments_desc']		= 'Exige l\'approbation des commentaires avant leur publication sur le site.';
@@ -120,7 +120,7 @@ $lang['settings_version_desc'] 					= '';
 #section titles
 $lang['settings_section_general']				= 'Général';
 $lang['settings_section_integration']			= 'Intégration';
-$lang['settings_section_comments']				= 'Commentaires'; 
+$lang['settings_section_comments']				= 'Commentaires';
 $lang['settings_section_users']					= 'Utilisateurs';
 $lang['settings_section_statistics']			= 'Statistiques';
 $lang['settings_section_twitter']				= 'Twitter';
@@ -132,8 +132,8 @@ $lang['settings_form_option_Enabled']			= 'Activé';
 $lang['settings_form_option_Disabled']			= 'Désactivé';
 $lang['settings_form_option_Required']			= 'Requis';
 $lang['settings_form_option_Optional']			= 'Optionnel';
-$lang['settings_form_option_Oldest First']		= 'Du plus ancien au plus récent'; 
-$lang['settings_form_option_Newest First']		= 'Du plus récent au plus ancien'; 
+$lang['settings_form_option_Oldest First']		= 'Du plus ancien au plus récent';
+$lang['settings_form_option_Newest First']		= 'Du plus récent au plus ancien';
 
 // titles
 $lang['settings_edit_title'] 					= 'Modifier les paramètres';

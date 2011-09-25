@@ -107,7 +107,7 @@ $lang['settings_akismet_api_key_desc']            = 'Akismet yra anti-spamas nuo
 
 $lang['settings_comment_order']                    = 'Komentaru rušiavimas';
 $lang['settings_comment_order_desc']            = 'Rušiavimo tipas, pagal kurį rušiuojami komentarai.';
-    
+
 $lang['settings_moderate_comments']                = 'Moderuoti komentarus';
 $lang['settings_moderate_comments_desc']        = 'Priverčia komentarus būti patvirtintiems prieš parodant puslapyje';
 

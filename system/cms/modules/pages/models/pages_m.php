@@ -20,7 +20,7 @@ class Pages_m extends MY_Model
 	*/
 	/*
 	* Not in use right now but added back for a) historical purposes and b) it was f**king difficult to write and I dont want to have to do it again
-	* 
+	*
 	public function get_by_path($segments = array())
 	{
 	// If the URI has been passed as a string, explode to create an array of segments

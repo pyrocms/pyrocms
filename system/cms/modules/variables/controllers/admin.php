@@ -12,7 +12,7 @@ class Admin extends Admin_Controller
 {
 	/**
 	 * Variable's ID
-	 * 
+	 *
 	 * @access	public
 	 * @var		int
 	 */
@@ -20,7 +20,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Array containing the validation rules
-	 * 
+	 *
 	 * @access	private
 	 * @var		array
 	 */
@@ -39,7 +39,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -69,7 +69,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * List all variables
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -90,7 +90,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Create a new variable
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -158,7 +158,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Edit an existing variable
-	 * 
+	 *
 	 * @access	public
 	 * @param	int $id The ID of the variable
 	 * @return	void
@@ -243,7 +243,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Delete an existing variable
-	 * 
+	 *
 	 * @access	public
 	 * @param	int $id The ID of the variable
 	 * @return	void
@@ -298,7 +298,7 @@ class Admin extends Admin_Controller
 
 	/**
 	 * Callback method for validating the variable's name
-	 * 
+	 *
 	 * @access	public
 	 * @param	str $name The name of the variable
 	 * @return	bool

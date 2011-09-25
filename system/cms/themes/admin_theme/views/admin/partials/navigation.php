@@ -14,7 +14,7 @@
 			}
 			else
 			{
-				if (array_key_exists($menu_item, $modules)) 
+				if (array_key_exists($menu_item, $modules))
 				{
 					foreach ($modules[$menu_item] as $module)
 					{
@@ -46,8 +46,8 @@
 					echo '<ul>';
 					
 				// User has access to Users module only, no other users item
-				} 
-				elseif ($count == 1 AND ($this->module == 'users' OR $this->module == '') AND $menu_item == 'users') 
+				}
+				elseif ($count == 1 AND ($this->module == 'users' OR $this->module == '') AND $menu_item == 'users')
 				{
 					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), array('style' => 'font-weight: bold;', 'class' => $this->module == 'users' ? 'top-link no-submenu  current' : 'top-link no-submenu ')) . '</li>';
 				}
@@ -56,12 +56,12 @@
 				if ( (array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin') AND $menu_item == 'users' AND $count != 1)
 				{
 					echo '<li>' . anchor('admin/users', lang('cp_manage_users'), 'class="' . (($this->module == 'users') ? ' current"' : '"')) . '</li>';
-				} 
+				}
 
 				//Lets get the sub-menu links, or parent link if that is the case
-				if (array_key_exists($menu_item, $modules)) 
+				if (array_key_exists($menu_item, $modules))
 				{
-					if (is_array($modules[$menu_item])) 
+					if (is_array($modules[$menu_item]))
 					{
 						ksort($modules[$menu_item]);
 					}

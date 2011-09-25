@@ -46,7 +46,7 @@ $lang['user_activate_account_title'] 	= 'Attiva il profilo';
 $lang['user_activate_label'] 			= 'Attivazione';
 $lang['user_activated_account_title'] 	= 'Profilo attivato';
 $lang['user_reset_password_title'] 		= 'Reset Password';
-$lang['user_password_reset_title'] 		= 'Password Reset';  
+$lang['user_password_reset_title'] 		= 'Password Reset';
 
 
 $lang['user_error_username'] 			= 'La username scelta � gi� in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
@@ -170,7 +170,7 @@ $lang['profile_edit'] 					= 'Modifica il tuo profilo';
 
 $lang['profile_personal_section'] 		= 'Personale';
 
-$lang['profile_display_name']			= 'Nome visualizzato';  
+$lang['profile_display_name']			= 'Nome visualizzato';
 $lang['profile_dob']					= 'Data di nascita';
 $lang['profile_dob_day']				= 'Giorno';
 $lang['profile_dob_month']				= 'Mese';

@@ -1,27 +1,27 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Email Template Events Class
- * 
+ *
  * @package		PyroCMS
  * @subpackage	Email Templates
  * @category	events
  * @author		Stephen Cozart - PyroCMS Dev Team
  */
 class Events_Templates {
-    
+
     protected $ci;
-    
+
     protected $fallbacks = array();
-    
+
     public function __construct()
     {
         $this->ci =& get_instance();
-        
+
         $this->fallbacks = array(
             'comments'	=> array('comments'	=> 'email/comment'),
             'contact'	=> array('contact'	=> 'email/contact')
         );
-        
+
         //register the email event
         Events::register('email', array($this, 'send_email'));
     }
@@ -35,7 +35,7 @@ class Events_Templates {
 
         $this->ci->load->model('templates/email_templates_m');
 
-		//get all email templates 
+		//get all email templates
 		$templates = $this->ci->email_templates_m->get_templates($slug);
 
         //make sure we have something to work with

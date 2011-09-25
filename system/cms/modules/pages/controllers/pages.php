@@ -12,7 +12,7 @@ class Pages extends Public_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function __construct() 
+	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('pages_m');
@@ -66,7 +66,7 @@ class Pages extends Public_Controller
 			? $this->_rss($url_segments)
 			: $this->_page($url_segments);
 	}
-    
+
 	/**
 	 * Page method
 	 * @access public
@@ -210,7 +210,7 @@ class Pages extends Public_Controller
 		
         	$this->template->build('page');
 	}
-    
+
 	/**
 	 * RSS method
 	 * @access public
@@ -262,12 +262,12 @@ class Pages extends Public_Controller
 				);
 						
 				$data->rss->items[] = (object) $item;
-			} 
+			}
 		}
 		
 		$this->load->view('rss', $data);
 	}
-    
+
 	/**
 	 * 404 method
 	 * @access public
@@ -287,7 +287,7 @@ class Pages extends Public_Controller
 		{
 			show_404();
 		}
-        
+
 		return $page;
 	}
 }

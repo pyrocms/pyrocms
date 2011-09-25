@@ -51,10 +51,10 @@ class MY_Exceptions extends CI_Exceptions {
 
 		// set URL and other appropriate options
 		curl_setopt($ch, CURLOPT_URL, BASE_URL . config_item('index_page').'/404');
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
-			"User-Agent: {$browser['user_agent']}",  
-			"Accept-Language: {$browser['language']}"  
-		));  
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			"User-Agent: {$browser['user_agent']}",
+			"Accept-Language: {$browser['language']}"
+		));
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 
 		// grab URL and pass it to the browser

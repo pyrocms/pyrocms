@@ -35,17 +35,17 @@
                 <div class="actions">
                 <?php echo form_checkbox('action_to[]', $file->id); ?>
 				<?php
-					if (group_has_role('files', 'download_file')) 
+					if (group_has_role('files', 'download_file'))
 					{
 						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'download_file'));
 					}
 					
-						if (group_has_role('files', 'edit_file')) 
+						if (group_has_role('files', 'edit_file'))
 					{
 						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'edit_file'));
 					}
 					
-					if (group_has_role('files', 'delete_file')) 
+					if (group_has_role('files', 'delete_file'))
 					{
 						echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm'));
 					}
@@ -90,18 +90,18 @@
 				<td><?php echo strlen($file->name) > 25 ? '<span title="' . $file->name . '">' . ellipsize($file->name, 25, .8) . '</span>' : $file->name; ?></td>
 				<td class="align-center"><?php echo format_date($file->date_added); ?></td>
 				<td class="align-center buttons buttons-small">
-				<?php 
-					if (group_has_role('files', 'download_file')) 
+				<?php
+					if (group_has_role('files', 'download_file'))
 					{
 						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'button download download_file'));
 					}
 					
-						if (group_has_role('files', 'edit_file')) 
+						if (group_has_role('files', 'edit_file'))
 					{
 						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'button edit edit_file'));
 					}
 					
-					if (group_has_role('files', 'delete_file')) 
+					if (group_has_role('files', 'delete_file'))
 					{
 						echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm button delete'));
 					}

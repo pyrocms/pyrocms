@@ -31,7 +31,7 @@ $lang['files.type_label']					= 'Type';
 $lang['files.file_label']					= 'Bestand';
 $lang['files.filename_label']				= 'Bestandsnaam';
 $lang['files.filter_label']					= 'Filter';
-$lang['files.loading_label']				= 'Laden...'; 
+$lang['files.loading_label']				= 'Laden...';
 $lang['files.name_label']					= 'Naam';
 
 $lang['files.dropdown_no_subfolders']		= '-- Geen --';

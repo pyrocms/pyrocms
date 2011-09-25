@@ -143,7 +143,7 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * Order the pages and record their children
-	 * 
+	 *
 	 * @access public
 	 * @return string json message
 	 */

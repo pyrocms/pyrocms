@@ -16,17 +16,17 @@ $lang['dialog.yes']					= 'Tak';
 $lang['dialog.no'] 					= 'Nie';
 
 $lang['select.none'] 				= '-- Nic --';
-$lang['select.all'] 				= '-- Wszystko --'; 
+$lang['select.all'] 				= '-- Wszystko --';
 $lang['select.any'] 				= '-- Obojętnie które --';
 $lang['select.pick']				= '-- Wybierz --';
 
-$lang['check.none'] 					= 'Nic'; 
-$lang['check.all']						= 'Wszystko'; 
+$lang['check.none'] 					= 'Nic';
+$lang['check.all']						= 'Wszystko';
 
 $lang['operators.equal'] 			= 'Równe z';
-$lang['operators.not_equal'] 		= 'Nie równe z'; 
-$lang['operators.less_than'] 		= 'Mniej niż'; 
-$lang['operators.greater_than'] 	= 'Więcej niż'; 
+$lang['operators.not_equal'] 		= 'Nie równe z';
+$lang['operators.less_than'] 		= 'Mniej niż';
+$lang['operators.greater_than'] 	= 'Więcej niż';
 
 $lang['navigation_headline'] 		= 'Nawigacja';
 $lang['breadcrumb_base_label']		= 'Strona główna';
@@ -66,11 +66,11 @@ $lang['install_label']				= 'Instaluj';
 $lang['enable_label']				= 'Włącz';
 $lang['disable_label']				= 'Wyłącz';
 
-$lang['global:shortcuts']	 			= 'Skróty klawiszowe'; 
+$lang['global:shortcuts']	 			= 'Skróty klawiszowe';
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					= 'Akcje';
 $lang['global:edit']					= 'Edytuj';
 $lang['global:delete']					= 'Usuń';
-$lang['global:remove']					= 'Usuń'; 
+$lang['global:remove']					= 'Usuń';
 
 $lang['global:keywords']				= 'Keywords'; #translate

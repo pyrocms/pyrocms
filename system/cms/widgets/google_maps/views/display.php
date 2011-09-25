@@ -7,54 +7,54 @@
             var canvas = $('div#gmap_canvas');
             canvas.css('width',<?php echo '"' . $options['width'] . '"'; ?>);
             canvas.css('height',<?php echo '"' . $options['height'] . '"'; ?>);
-            
+
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode(
             {
-               address : <?php echo '"' . $options['address'] . '"'; ?> 
+               address : <?php echo '"' . $options['address'] . '"'; ?>
             }, function(results, status)
             {
                 if ( status == google.maps.GeocoderStatus.OK)
                 {
                     var latlng = results[0].geometry.location;
-                    var map = new google.maps.Map(canvas.get(0), 
+                    var map = new google.maps.Map(canvas.get(0),
                     {
                        zoom : <?php echo $options['zoom']; ?>,
                        center : latlng,
                        mapTypeId : google.maps.MapTypeId.ROADMAP,
                        mapTypeControl : true,
-                       mapTypeControlOptions : 
+                       mapTypeControlOptions :
                        {
                            style : google.maps.MapTypeControlStyle.DROPDOWN_MENU
                        },
                        navigationControl : true,
-                       navigationControlOptions : 
+                       navigationControlOptions :
                        {
                            style : google.maps.NavigationControlStyle.SMALL
                        },
 					   streetViewControl: true
                     });
-                    
+
                     var marker = new google.maps.Marker(
                     {
                        map : map,
                        position : latlng
                     });
-                    
+
                     <?php if ( $options['description'] != '' ) : ?>
-                    
+
                         var info = new google.maps.InfoWindow(
                         {
-                           content : <?php echo '"' . $options['description'] . '"'; ?> 
+                           content : <?php echo '"' . $options['description'] . '"'; ?>
                         });
                         google.maps.event.addListener(marker, 'click', function()
                         {
                             info.open(map, marker);
                         });
-                    
+
                     <?php endif; ?>
                 }
-            });            
+            });
         });
     })(jQuery);
 </script>

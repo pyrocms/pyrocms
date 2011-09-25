@@ -4,7 +4,7 @@
  * @package 		PyroCMS
  * @subpackage 		Widgets
  * @author			PyroCMS Development Team
- * 
+ *
  * Show RSS feeds in your site
  */
 

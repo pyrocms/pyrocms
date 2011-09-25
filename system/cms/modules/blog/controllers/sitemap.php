@@ -12,7 +12,7 @@ class Sitemap extends Public_Controller
 	 * @access public
 	 * @return void
 	 */
-	public function xml() 
+	public function xml()
 	{
 		$this->load->model('blog_m');
 

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Polish translation.
- * 
+ *
  * @author		-
  * @package		PyroCMS
  * @subpackage 	Variables Module
@@ -28,7 +28,7 @@ $lang['variables.add_success'] 				= 'Twoja zmienna została zapisana.';
 $lang['variables.add_error'] 				= 'Wystąpił błąd przy dodawaniu zmiennej.';
 $lang['variables.edit_success'] 			= 'Zmienna została utworzona.';
 $lang['variables.edit_error'] 				= 'Wystąpił błąd przy edycji zmiennej.';
-$lang['variables.delete_success']			= 'Zmienna "%s" pomyślnie usunięta.'; 
+$lang['variables.delete_success']			= 'Zmienna "%s" pomyślnie usunięta.';
 $lang['variables.delete_error'] 			= 'Wystąpił błąd podczas próby usunięcia zmiennej "%s".';
 $lang['variables.mass_delete_success']		= '%s z %s zmiennych zostały pomyślnie usunięte.';
 $lang['variables.mass_delete_error'] 		= 'Wystąpił błąd podczas próby usunięcia zmiennych "%s".';

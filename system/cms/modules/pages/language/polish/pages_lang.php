@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 					= 'Szczegóły';
 
 // labels
 $lang['pages.page_label'] 						= 'Strona';
-$lang['pages.add_page_chunk']					= 'Dodaj porcję strony'; 
-$lang['pages.page_chunk']						= 'Porcja strony'; 
+$lang['pages.add_page_chunk']					= 'Dodaj porcję strony';
+$lang['pages.page_chunk']						= 'Porcja strony';
 $lang['pages.language_label'] 					= 'Język';
 $lang['pages.updated_label'] 					= 'Zaktualizowane';
 $lang['pages.actions_label'] 					= 'Akcje';

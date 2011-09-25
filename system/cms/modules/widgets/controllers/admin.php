@@ -87,7 +87,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Manage method, lists all widgets to install, uninstall, etc..
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -124,7 +124,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Enable widget
-	 * 
+	 *
 	 * @access	public
 	 * @param	string	$id			The id of the widget
 	 * @param	bool	$redirect	Optional if a redirect should be done
@@ -144,7 +144,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Disable widget
-	 * 
+	 *
 	 * @access	public
 	 * @param	string	$id			The id of the widget
 	 * @param	bool	$redirect	Optional if a redirect should be done
@@ -159,7 +159,7 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * Do the actual work for enable/disable
-	 * 
+	 *
 	 * @access	protected
 	 * @param	int|array	$ids	Id or array of Ids to process
 	 * @param	string		$action	Action to take: maps to model

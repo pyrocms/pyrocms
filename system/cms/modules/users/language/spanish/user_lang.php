@@ -165,7 +165,7 @@ $lang['profile_edit']					= 'Editar tu perfil';
 
 $lang['profile_personal_section']		= 'Personal';
 
-$lang['profile_display_name']			= 'Nombre a mostrar';  
+$lang['profile_display_name']			= 'Nombre a mostrar';
 $lang['profile_dob']					= 'Fecha de nacimiento';
 $lang['profile_dob_day']				= 'Día';
 $lang['profile_dob_month']				= 'Mes';

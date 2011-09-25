@@ -145,7 +145,7 @@ class Admin extends Admin_Controller
 	
 	/**
 	 * Order the links and record their children
-	 * 
+	 *
 	 * @access public
 	 * @return string json message
 	 */
@@ -376,7 +376,7 @@ class Admin extends Admin_Controller
 			$html .= '<option value="' . $item->id . '"';
 			$html .= $current_parent == $item->id ? ' selected="selected">': '>';
 
-			if ($level > 0) 
+			if ($level > 0)
 			{
 				for ($i = 0; $i < ($level*2); $i++)
 				{

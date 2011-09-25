@@ -46,7 +46,7 @@ $lang['user_activate_account_title']           = 'Activate Account';
 $lang['user_activate_label']                   = 'Activate';
 $lang['user_activated_account_title']          = 'Activated Account';
 $lang['user_reset_password_title']             = 'Reset Password';
-$lang['user_password_reset_title']             = 'Password Reset';  
+$lang['user_password_reset_title']             = 'Password Reset';
 
 
 $lang['user_error_username']                   = 'The username you selected is already in use';
@@ -170,7 +170,7 @@ $lang['profile_edit']                 = 'Edit your profile';
 
 $lang['profile_personal_section']     = 'Personal';
 
-$lang['profile_display_name']         = 'Display Name';  
+$lang['profile_display_name']         = 'Display Name';
 $lang['profile_dob']                  = 'Date of Birth';
 $lang['profile_dob_day']              = 'Day';
 $lang['profile_dob_month']            = 'Month';

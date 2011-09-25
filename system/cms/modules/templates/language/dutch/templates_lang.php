@@ -11,7 +11,7 @@ $lang['templates.body_label']				= 'Inhoud';
 $lang['templates.slug_label']				= 'URL';
 
 // Titles
-$lang['templates.create_title']				= 'Een sjabloon maken'; 
+$lang['templates.create_title']				= 'Een sjabloon maken';
 $lang['templates.edit_title']				= 'Een sjabloon bewerken "%s"';
 $lang['templates.clone_title']				= 'Kopieer sjabloon "%s"';
 $lang['templates.list_title']				= 'Overzicht sjablonen';

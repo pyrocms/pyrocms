@@ -256,7 +256,7 @@ class Admin extends Admin_Controller {
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			if ($rule['field'] == 'folder_id') 
+			if ($rule['field'] == 'folder_id')
 			{
 				$this->data->file->{$rule['field']} = set_value($rule['field'], $folder_id);
 			}
