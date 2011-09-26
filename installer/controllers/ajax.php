@@ -14,7 +14,7 @@ class Ajax extends CI_Controller {
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages = array('arabic', 'english', 'dutch', 'brazilian', 'polish', 'chinese_traditional', 'french', 'slovenian', 'spanish', 'lithuanian');
+	private $languages = array('arabic', 'english', 'dutch', 'brazilian', 'polish', 'chinese_traditional', 'french', 'slovenian', 'spanish', 'lithuanian','danish');
 
 	public function __construct()
 	{

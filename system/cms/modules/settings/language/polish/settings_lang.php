@@ -8,7 +8,7 @@ $lang['settings_site_slogan']					= 'Slogan strony';
 $lang['settings_site_slogan_desc']				= 'Slogan strony dla tytułów stron oraz do użytku na stronie.';
 
 $lang['settings_site_lang']						= 'Język strony';
-$lang['settings_site_lang_desc']				= 'Natywny język strony, używany przy wyborze templet, e-maili wewnętrzych notyfikacji oraz przy otrzymywaniu wiadomości od użytkowników strony oraz innych opcji które nie powinny zmienić języka użytkownika.'; 
+$lang['settings_site_lang_desc']				= 'Natywny język strony, używany przy wyborze templet, e-maili wewnętrzych notyfikacji oraz przy otrzymywaniu wiadomości od użytkowników strony oraz innych opcji które nie powinny zmienić języka użytkownika.';
 
 $lang['settings_contact_email']					= 'E-mail kontaktowy';
 $lang['settings_contact_email_desc']			= 'Wszystkie e-maile od użytkowników, gości oraz samej strony internetowej będą kierowane na ten adres.';
@@ -133,8 +133,8 @@ $lang['settings_form_option_Enabled']			= 'Włączone';
 $lang['settings_form_option_Disabled']			= 'Wyłączone';
 $lang['settings_form_option_Required']			= 'Wymagane';
 $lang['settings_form_option_Optional']			= 'Opcjonalne';
-$lang['settings_form_option_Oldest First']		= 'Najstarsze pierwsze'; 
-$lang['settings_form_option_Newest First']		= 'Najnowsze pierwsze'; 
+$lang['settings_form_option_Oldest First']		= 'Najstarsze pierwsze';
+$lang['settings_form_option_Newest First']		= 'Najnowsze pierwsze';
 
 // titles
 $lang['settings_edit_title']					= 'Edytuj ustawienia';

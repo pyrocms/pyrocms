@@ -46,7 +46,7 @@ $lang['user_activate_account_title']           = 'הפעל חשבון';
 $lang['user_activate_label']                   = 'הפעל';
 $lang['user_activated_account_title']          = 'החשבון הופעל';
 $lang['user_reset_password_title']             = 'חדש סיסמה';
-$lang['user_password_reset_title']             = 'הסיסמה חודשה';  
+$lang['user_password_reset_title']             = 'הסיסמה חודשה';
 
 
 $lang['user_error_username']                   = 'שם משתמש שבחרתם כבר בשימוש';
@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'וידוי E-mail';
 $lang['user_password']                         = 'סיסמה';
 $lang['user_remember']                         = 'זכור אותי';
-$lang['user_confirm_password']                 = 'וידוי סיסמה';
 $lang['user_group_id_label']                   = 'ID של הקבוצה'; // #TRANSLATE #TODO: Translate this into Spanish
 
 $lang['user_level']                            = 'תפקיד המשתמש';
@@ -170,7 +169,7 @@ $lang['profile_edit']                 = 'ערוך פרופיל';
 
 $lang['profile_personal_section']     = 'אישי';
 
-$lang['profile_display_name']         = 'הצג שם';  
+$lang['profile_display_name']         = 'הצג שם';
 $lang['profile_dob']                  = 'תאריך לידה';
 $lang['profile_dob_day']              = 'יום';
 $lang['profile_dob_month']            = 'חודש';

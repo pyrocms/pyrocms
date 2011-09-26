@@ -30,7 +30,7 @@ $lang['files.description_label']			= 'Popis';
 $lang['files.type_label']					= 'Typ';
 $lang['files.file_label']					= 'Soubor';
 $lang['files.filename_label']				= 'Jméno souboru';
-$lang['files.filter_label']					= 'Filtr'; 
+$lang['files.filter_label']					= 'Filtr';
 $lang['files.loading_label']				= 'Nahrávám...';
 $lang['files.name_label']					= 'Jméno';
 

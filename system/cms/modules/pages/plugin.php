@@ -81,13 +81,13 @@ class Plugin_Pages extends Plugin
 	 * Usage:
 	 * {pyro:pages:page_tree start-id="5"}
 	 * optional attributes:
-	 * 
+	 *
 	 * disable-levels="slug"
 	 * order-by="title"
 	 * order-dir="desc"
 	 * list-tag="ul"
 	 * link="true"
-	 * 
+	 *
 	 * @param	array
 	 * @return	array
 	 */

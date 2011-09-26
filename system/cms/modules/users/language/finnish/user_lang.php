@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
@@ -53,7 +53,7 @@ $lang['user_activate_account_title']           = 'Aktivoi tili';
 $lang['user_activate_label']                   = 'Aktivoi';
 $lang['user_activated_account_title']          = 'Tili aktivointiin';
 $lang['user_reset_password_title']             = 'Nollaa salasana';
-$lang['user_password_reset_title']             = 'Salasanan nollaaminen';  
+$lang['user_password_reset_title']             = 'Salasanan nollaaminen';
 
 
 $lang['user_error_username']                   = 'Käyttäjänimi, jonka syötit on jo käytössä';
@@ -69,7 +69,6 @@ $lang['user_email']                            = 'Sähköposti';
 $lang['user_confirm_email']                    = 'Vahvista sähköposti';
 $lang['user_password']                         = 'Salasana';
 $lang['user_remember']                         = 'Muista minut';
-$lang['user_confirm_password']                 = 'Vahvista salasana';
 $lang['user_group_id_label']                   = 'Ryhmän ID';
 
 $lang['user_level']                            = 'Käyttäjärooli';
@@ -177,7 +176,7 @@ $lang['profile_edit']                 = 'Muokkaa profiilia';
 
 $lang['profile_personal_section']     = 'Henkilökohtaiset tiedot';
 
-$lang['profile_display_name']         = 'Näyttönimi';  
+$lang['profile_display_name']         = 'Näyttönimi';
 $lang['profile_dob']                  = 'Syntymäpäivä';
 $lang['profile_dob_day']              = 'Päivä';
 $lang['profile_dob_month']            = 'Kuukausi';

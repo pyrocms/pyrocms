@@ -46,7 +46,7 @@ $lang['user_activate_account_title'] 	= 'Ativar conta';
 $lang['user_activate_label'] 			= 'Ativação';
 $lang['user_activated_account_title'] 	= 'Contas ativadas';
 $lang['user_reset_password_title'] 		= 'Redefinir senha';
-$lang['user_password_reset_title'] 		= 'Redefinicão de senha';  
+$lang['user_password_reset_title'] 		= 'Redefinicão de senha';
 
 
 $lang['user_error_username'] 			= 'O nome de usuário selecionado já encontra-se em uso';
@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Confirmar e-mail';
 $lang['user_password'] 					= 'Senha';
 $lang['user_remember'] 					= 'Lembrar-me';
-$lang['user_confirm_password'] 			= 'Confirmar Senha';
 $lang['user_group_id_label']			= 'ID de Grupo';
 
 $lang['user_level']						= 'Papel de usuário';
@@ -170,7 +169,7 @@ $lang['profile_edit'] 					= 'Editar seu perfil';
 
 $lang['profile_personal_section'] 		= 'Pessoal';
 
-$lang['profile_display_name']			= 'Nome de exibição';  
+$lang['profile_display_name']			= 'Nome de exibição';
 $lang['profile_dob']					= 'Data de nascimento';
 $lang['profile_dob_day']				= 'Dia';
 $lang['profile_dob_month']				= 'Mês';

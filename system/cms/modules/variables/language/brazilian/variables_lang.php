@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Portuguese Brazilian translation.
- * 
+ *
  * @author		Marcos Coelho <the@marcoscoelho.com>
  * @package		PyroCMS
  * @subpackage 	Variables Module

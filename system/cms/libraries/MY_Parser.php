@@ -187,7 +187,7 @@ class MY_Parser extends CI_Parser {
 
 	/**
 	 * Forces a standard array in multidimensional.
-	 * 
+	 *
 	 * @param	array
 	 * @param	int		Used for recursion
 	 * @return	array	The multi array

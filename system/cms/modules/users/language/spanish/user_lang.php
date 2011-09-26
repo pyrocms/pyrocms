@@ -60,7 +60,6 @@ $lang['user_email']							= 'E-mail';
 $lang['user_confirm_email']					= 'Confirmar E-mail';
 $lang['user_password']						= 'Contraseña';
 $lang['user_remember']						= 'Recordarme';
-$lang['user_confirm_password']				= 'Confirmar contraseña';
 $lang['user_group_id_label']				= 'ID de Grupo';
 
 $lang['user_level']							= 'Rol de usuario';
@@ -165,7 +164,7 @@ $lang['profile_edit']					= 'Editar tu perfil';
 
 $lang['profile_personal_section']		= 'Personal';
 
-$lang['profile_display_name']			= 'Nombre a mostrar';  
+$lang['profile_display_name']			= 'Nombre a mostrar';
 $lang['profile_dob']					= 'Fecha de nacimiento';
 $lang['profile_dob_day']				= 'Día';
 $lang['profile_dob_month']				= 'Mes';

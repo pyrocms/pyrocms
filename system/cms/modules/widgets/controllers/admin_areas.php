@@ -13,7 +13,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Array that contains the validation rules
-	 * 
+	 *
 	 * @access	protected
 	 * @var		array
 	 */
@@ -32,7 +32,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */

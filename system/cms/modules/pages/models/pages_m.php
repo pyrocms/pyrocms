@@ -20,7 +20,7 @@ class Pages_m extends MY_Model
 	*/
 	/*
 	* Not in use right now but added back for a) historical purposes and b) it was f**king difficult to write and I dont want to have to do it again
-	* 
+	*
 	public function get_by_path($segments = array())
 	{
 	// If the URI has been passed as a string, explode to create an array of segments
@@ -434,5 +434,18 @@ class Pages_m extends MY_Model
 		$this->db->trans_complete();
 		
 		return $this->db->trans_status() !== FALSE ? $ids : FALSE;
+	}
+	
+	/**
+	 * Check Slug for Uniqueness
+	 * @access public
+   * @author Donald Myers
+	 * @param slug, parent id, this records id
+	 * @return bool
+	*/
+  public function check_slug($slug,$parent_id,$id=0) {
+  	return (int)parent::count_by(
+  	  array('id !='	=>	$id,'slug'	=>	$slug, 'parent_id' => $parent_id)
+  	) > 0;
 	}
 }

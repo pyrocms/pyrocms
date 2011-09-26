@@ -1,4 +1,4 @@
-<?php if ($variables): ?>  
+<?php if ($variables): ?>
 
 	<h3><?php echo lang('variables.list_title');?></h3>
 

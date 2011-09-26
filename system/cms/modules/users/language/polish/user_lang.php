@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Potwierdź E-mail';
 $lang['user_password'] 					= 'Hasło';
 $lang['user_remember']                  = 'Pamiętaj mnie';
-$lang['user_confirm_password'] 			= 'Potwierdź hasło';
 $lang['user_group_id_label']            = 'ID grupy';
 
 $lang['user_level']						= 'Rola użytkownika';
@@ -171,15 +170,15 @@ $lang['profile_edit'] 						= 'Edytuj swój profil';
 
 $lang['profile_personal_section'] 			= 'Osobiste';
 
-$lang['profile_display_name']         	= 'Wyświetlana nazwa'; 
+$lang['profile_display_name']         	= 'Wyświetlana nazwa';
 $lang['profile_dob']				  	= 'Data urodzenia';
 $lang['profile_dob_day']		      	= 'Dzień';
 $lang['profile_dob_month']		  	  	= 'Miesiąc';
 $lang['profile_dob_year']			  	= 'Rok';
 $lang['profile_gender']				  	= 'Płeć';
-$lang['profile_gender_nt']            	= 'Nie ujawniam'; 
-$lang['profile_gender_male']          	= 'Mężczyzna'; 
-$lang['profile_gender_female']        	= 'Kobieta'; 
+$lang['profile_gender_nt']            	= 'Nie ujawniam';
+$lang['profile_gender_male']          	= 'Mężczyzna';
+$lang['profile_gender_female']        	= 'Kobieta';
 $lang['profile_bio']				  	= 'O mnie';
 
 $lang['profile_contact_section'] 		= 'Kontakt';

@@ -8,7 +8,7 @@ $lang['user_login_header'] 				= 'Login';
 
 // titles
 $lang['user_add_title'] 				= 'Voeg gebruiker toe';
-$lang['user_list_title'] 				= 'Overzicht users'; 
+$lang['user_list_title'] 				= 'Overzicht users';
 $lang['user_inactive_title'] 			= 'Inactieve gebruikers';
 $lang['user_active_title'] 				= 'Actieve gebruikers';
 $lang['user_registred_title'] 			= 'Geregistreerde gebruikers';
@@ -46,11 +46,11 @@ $lang['user_activate_account_title'] 	= 'Activeer Account';
 $lang['user_activate_label'] 			= 'Activeer';
 $lang['user_activated_account_title'] 	= 'Geactiveerd Account';
 $lang['user_reset_password_title'] 		= 'Reset Wachtwoord';
-$lang['user_password_reset_title'] 		= 'Wachtwoord Resetten';  
+$lang['user_password_reset_title'] 		= 'Wachtwoord Resetten';
 
 
 $lang['user_error_username'] 			= 'De gebruikersnaam die u ingevoerd heeft is reeds in gebruik';
-$lang['user_error_email'] 				= 'Het emailadres dat u ingevoerd heeft is reeds in gebruik'; 
+$lang['user_error_email'] 				= 'Het emailadres dat u ingevoerd heeft is reeds in gebruik';
 
 $lang['user_full_name'] 				= 'Volledige naam';
 $lang['user_first_name'] 				= 'Voornaam';
@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'Email';
 $lang['user_confirm_email'] 			= 'Bevestig Email';
 $lang['user_password'] 					= 'Wachtwoord';
 $lang['user_remember'] 					= 'Onthoud mij';
-$lang['user_confirm_password'] 			= 'Bevestig Wachtwoord';
 $lang['user_group_id_label']			= 'Groep ID';
 
 $lang['user_level']						= 'Gebruikersrol';
@@ -170,7 +169,7 @@ $lang['profile_edit'] 					= 'Wijzig uw profiel';
 
 $lang['profile_personal_section'] 		= 'Persoonlijk';
 
-$lang['profile_display_name']			= 'Schermnaam';  
+$lang['profile_display_name']			= 'Schermnaam';
 $lang['profile_dob']					= 'Geboortedatum';
 $lang['profile_dob_day']				= 'Dag';
 $lang['profile_dob_month']				= 'Maand';

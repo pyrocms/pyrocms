@@ -85,7 +85,7 @@
 			
 			if($this->con && !$this->is_error('AKISMET_SERVER_NOT_FOUND'))
 			{
-				$request  = 
+				$request  =
 						strToUpper($type)." /{$this->akismet_version}/$path HTTP/1.0\r\n" .
 						"Host: ".((!empty($this->api_key)) ? $this->api_key."." : null)."{$this->akismet_server}\r\n" .
 						"Content-Type: application/x-www-form-urlencoded; charset=utf-8\r\n" .
@@ -130,7 +130,7 @@
 				return false;
 			}
 		}
-		 
+		
 		function get_errors()
 		{
 			return (array)$this->errors;

@@ -33,20 +33,6 @@ $(function() {
 
     });
 
-	$('input[name=user_confirm_password]').bind('keyup focus', function() {
-
-        password                = $('input[name=user_password]').val();
-        password_confirmation   = $(this).val();
-		if(password !== '') {
-			if (password == password_confirmation) {
-				$('#confirm_pass').html('<b>'+pass_match[0]+'</b>').removeClass('failure').addClass('success');
-			} else {
-				$('#confirm_pass').html('<b>'+pass_match[1]+'</b>').removeClass('success').addClass('failure');
-			}
-		}
-
-    });
-
 	$('select#http_server').change(function(){
 		if ($(this).val() == 'apache_w') {
 			$.post(base_url + 'index.php/ajax/check_rewrite', '', function(data) {

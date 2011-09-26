@@ -13,7 +13,7 @@ class Installer extends CI_Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'slovenian', 'spanish', 'russian', 'greek', 'lithuanian','danish');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -323,11 +323,6 @@ class Installer extends CI_Controller
 				'label'	=> 'lang:password',
 				'rules'	=> 'trim|min_length[6]|max_length[20]|required'
 			),
-			array(
-				'field' => 'user_confirm_password',
-				'label'	=> 'lang:conf_password',
-				'rules'	=> 'trim|required|matches[user_password]|callback_attempt_install'
-			)
 		));
 
 		// If the form validation failed (or did not run)

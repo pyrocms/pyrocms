@@ -1,7 +1,7 @@
 <div class="filter">
 <?php echo form_open(''); ?>
 <?php echo form_hidden('f_module', $module_details['slug']); ?>
-<ul>  
+<ul>
 	<li>
             <?php echo lang('user_active', 'f_active'); ?>
             <?php echo form_dropdown('f_active', array(0 => lang('select.all'), 1 => lang('dialog.yes'), 2 => lang('dialog.no') )); ?>

@@ -51,7 +51,7 @@ class Themes_m extends MY_Model
 			{
 				continue;
 			}
-            
+
 			foreach($themes as $theme_path)
             {
                 $this->_get_details(dirname($theme_path) . '/', basename($theme_path));

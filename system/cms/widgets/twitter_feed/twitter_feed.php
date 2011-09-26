@@ -4,7 +4,7 @@
  * @package 		PyroCMS
  * @subpackage 		Twitter Feed Widget
  * @author			Phil Sturgeon - PyroCMS Development Team
- * 
+ *
  * Show Twitter streams in your site
  */
 class Widget_Twitter_feed extends Widgets {

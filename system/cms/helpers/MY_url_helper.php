@@ -17,7 +17,7 @@
  * Takes a "title" string as input and creates a
  * human-friendly URL string with either a dash
  * or an underscore as the word separator.
- * 
+ *
  * Added support for Cyrillic characters.
  *
  * @access	public
@@ -30,7 +30,7 @@ if ( ! function_exists('url_title'))
 	function url_title($str, $separator = 'dash', $lowercase = FALSE)
     {
         $CI =& get_instance();
-        
+
         $foreign_characters = array(
             '/ä|æ|ǽ/' => 'ae',
             '/ö|œ/' => 'oe',
@@ -107,9 +107,9 @@ if ( ! function_exists('url_title'))
         );
 
         $str = preg_replace(array_keys($foreign_characters), array_values($foreign_characters), $str);
-        
+
         $replace = ($separator == 'dash') ? '-' : '_';
-        
+
         $trans = array(
             '&\#\d+?;'                => '',
             '&\S+?;'                => '',
@@ -127,7 +127,7 @@ if ( ! function_exists('url_title'))
         {
             $str = preg_replace("#".$key."#i", $val, $str);
         }
-        
+
         if ($lowercase === TRUE)
         {
             if( function_exists('mb_convert_case') )
@@ -141,7 +141,7 @@ if ( ! function_exists('url_title'))
         }
 
         $str = preg_replace('#[^'.$CI->config->item('permitted_uri_chars').']#i', '', $str);
-        
+
         return trim(stripslashes($str));
     }
 }
@@ -153,7 +153,7 @@ if ( ! function_exists('url_title'))
  *
  * Takes a long url and uses the TinyURL API to
  * return a shortened version.
- * 
+ *
  * Added support for Cyrillic characters.
  *
  * @access	public

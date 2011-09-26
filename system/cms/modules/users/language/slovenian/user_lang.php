@@ -46,7 +46,7 @@ $lang['user_activate_account_title']           = 'Aktiviraj račun';
 $lang['user_activate_label']                   = 'Aktiviran';
 $lang['user_activated_account_title']          = 'Aktiviran račun';
 $lang['user_reset_password_title']             = 'Ponastavi geslo';
-$lang['user_password_reset_title']             = 'Ponastavitev gesla';  
+$lang['user_password_reset_title']             = 'Ponastavitev gesla';
 
 
 $lang['user_error_username']                   = 'Uporabniško ime katerega ste vnesli je že v uporabi';
@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Potrdi E-mail';
 $lang['user_password']                         = 'Geslo';
 $lang['user_remember']                         = 'Zapomni si me';
-$lang['user_confirm_password']                 = 'Potrdi geslo';
 $lang['user_group_id_label']                   = 'ID skupine';
 
 $lang['user_level']                            = 'Vloga uporabnika';
@@ -125,7 +124,7 @@ $lang['user_activated_message']                = 'Vaš račun je bil aktiviran. 
 
 
 // Login
-$lang['user_logged_in']                        = 'Uspešno se se prijavili.'; 
+$lang['user_logged_in']                        = 'Uspešno se se prijavili.';
 $lang['user_already_logged_in']                = 'Ste že prijavljeni.Prosimo odjavite se predno ponovno poizkusite.';
 $lang['user_login_incorrect']                  = 'E-mail ali geslo se ne ujemata. Prosimo preverite vaše prijavne podatke ter da nimate vključenega CAPS LOCK-a.';
 $lang['user_inactive']                         = 'Račun do katerega želite dostopati je trenutno onemogočen.<br />Preverite vaš e-mail za navodila za aktivaicijo računa - <em>lahko da je v SPAM/JUNK mapi</em>.';
@@ -170,7 +169,7 @@ $lang['profile_edit']                 = 'Uredite svoj profil';
 
 $lang['profile_personal_section']     = 'Osebno';
 
-$lang['profile_display_name']         = 'Prikazno ime';  
+$lang['profile_display_name']         = 'Prikazno ime';
 $lang['profile_dob']                  = 'Datum rojstva';
 $lang['profile_dob_day']              = 'Dan';
 $lang['profile_dob_month']            = 'Mesec';

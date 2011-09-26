@@ -4,7 +4,7 @@
 $lang['blog_posted_label'] 			= 'Geplaatst';
 $lang['blog_posted_label_alt']			= 'Geplaatst op';
 $lang['blog_written_by_label']				= 'Geschreven door';
-$lang['blog_author_unknown']				= 'Onbekend'; 
+$lang['blog_author_unknown']				= 'Onbekend';
 $lang['blog_category_label'] 			= 'Categorie';
 $lang['blog_post_label'] 			= 'Post';
 $lang['blog_date_label'] 			= 'Datum';

@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'البريد الإلكترني';
 $lang['user_confirm_email'] 			= 'تأكيد البريد الإلكتروني';
 $lang['user_password'] 					= 'كلمة السرّ';
 $lang['user_remember'] 					= 'تذكرني';
-$lang['user_confirm_password'] 			= 'تأكيد كلمة السرّ';
 $lang['user_group_id_label']			= 'مُعرف المجموعة';
 
 $lang['user_level']						= 'دَوْر المستخدم';
@@ -170,7 +169,7 @@ $lang['profile_edit'] 					= 'عدّل ملفّك الشخصيّ';
 
 $lang['profile_personal_section'] 		= 'شخصيّ';
 
-$lang['profile_display_name']			= 'اسم العرض';  
+$lang['profile_display_name']			= 'اسم العرض';
 $lang['profile_dob']					= 'تاريخ الميلاد';
 $lang['profile_dob_day']				= 'اليوم';
 $lang['profile_dob_month']				= 'الشهر';

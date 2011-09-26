@@ -20,10 +20,10 @@ $lang['select.all'] 					= '-- Alles --';
 $lang['select.any'] 					= '-- Willekeurig --';
 $lang['select.pick']					= '-- Selecteer --';
 
-$lang['check.none'] 					= 'Geen'; 
+$lang['check.none'] 					= 'Geen';
 $lang['check.all']						= 'Alles';
 
-$lang['operators.equal'] 				= 'Gelijk aan'; 
+$lang['operators.equal'] 				= 'Gelijk aan';
 $lang['operators.not_equal'] 			= 'Ongelijk aan';
 $lang['operators.less_than'] 			= 'Kleiner dan';
 $lang['operators.greater_than'] 		= 'Groter dan';

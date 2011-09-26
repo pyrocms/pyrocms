@@ -4,7 +4,7 @@
  * @package 		PyroCMS
  * @subpackage 		Category Menu Widget
  * @author			Stephen Cozart
- * 
+ *
  * Show a list of blog categories.
  */
 

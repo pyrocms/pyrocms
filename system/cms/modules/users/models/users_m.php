@@ -14,7 +14,7 @@ class Users_m extends MY_Model
 		
 		$this->profile_table = $this->db->dbprefix('profiles');
     }
-    
+
     // Get a specified (single) user
     public function get($params)
     {
@@ -57,7 +57,7 @@ class Users_m extends MY_Model
 	    ->join('groups g', 'g.id = users.group_id')
 	    ->join('profiles', 'profiles.user_id = users.id', 'left')
 	    ->group_by('users.id');
-	    
+	
     	return parent::get_all();
     }
 

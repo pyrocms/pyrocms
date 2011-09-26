@@ -46,7 +46,7 @@ $lang['user_activate_account_title']           = 'Aktyvios paskyros';
 $lang['user_activate_label']                   = 'Aktyvinti';
 $lang['user_activated_account_title']          = 'Aktyvuotos paskyros';
 $lang['user_reset_password_title']             = 'Atstatyti slaptažodį';
-$lang['user_password_reset_title']             = 'Slaptažodis atstatytas';  
+$lang['user_password_reset_title']             = 'Slaptažodis atstatytas';
 
 
 $lang['user_error_username']                   = 'Vartotojo vardas, kurį jūs pasirinkote jau naudojamas';
@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-paštas';
 $lang['user_confirm_email']                    = 'Patvirtinti E-paštą';
 $lang['user_password']                         = 'Slaptažodis';
 $lang['user_remember']                         = 'Prisiminti mane';
-$lang['user_confirm_password']                 = 'Patvirtinti slaptažodį';
 $lang['user_group_id_label']                   = 'Grupės ID'; // #TRANSLATE #TODO: Translate this into Spanish
 
 $lang['user_level']                            = 'Vartotojo vaidmuo';
@@ -170,7 +169,7 @@ $lang['profile_edit']                 = 'Redaguoti profilį';
 
 $lang['profile_personal_section']     = 'Asmeninis';
 
-$lang['profile_display_name']         = 'Rodomas vardas';  
+$lang['profile_display_name']         = 'Rodomas vardas';
 $lang['profile_dob']                  = 'Gimimo data';
 $lang['profile_dob_day']              = 'Diena';
 $lang['profile_dob_month']            = 'Mėnuo';

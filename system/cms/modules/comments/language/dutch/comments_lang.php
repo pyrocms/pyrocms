@@ -59,6 +59,6 @@ $lang['comments.no_comments'] 				= 'Er zijn geen reacties.';
 // Helper counter comments
 $lang['comments.counter_none_label']		= 'Geen reacties';
 $lang['comments.counter_singular_label']	= '%d reactie';
-$lang['comments.counter_plural_label']		= '%d reacties'; 
+$lang['comments.counter_plural_label']		= '%d reacties';
 
 /* End of file comments_lang.php */

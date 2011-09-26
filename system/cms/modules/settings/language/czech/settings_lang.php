@@ -8,7 +8,7 @@ $lang['settings_site_slogan'] 					= 'Slogan';
 $lang['settings_site_slogan_desc'] 				= 'Slogan se objeví v titulcích stránek a různě po webu.';
 
 $lang['settings_site_lang']						= 'jazyk stránek';
-$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.'; 
+$lang['settings_site_lang_desc']				= 'The native language of the website, used to choose templates of e-mail internal notifications and receiving visitors contact and other features that should not bend the language of a user.';
 
 $lang['settings_contact_email'] 				= 'Kontaktní e-mail';
 $lang['settings_contact_email_desc'] 			= 'Všechny e-maily od uživatelů a hostů budou odeslány na tuto adresu.';
@@ -28,14 +28,14 @@ $lang['settings_dashboard_rss_desc'] 			= 'Odkaz na zdroj RSS zobrazovaný na N�
 $lang['settings_dashboard_rss_count'] 			= 'Počet RSS položek na Nástěnce';
 $lang['settings_dashboard_rss_count_desc'] 		= 'Kolik položek z RSS zdroje zobrazovat na Nástěnce?';
 
-$lang['settings_date_format'] 					= 'Formát data'; 
-$lang['settings_date_format_desc']				= 'Jak mají být zobrazována data na webu a v administraci? Pomocí <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> z PHP - NEBO - Pomocí formátu <a href="http://php.net/manual/en/function.strftime.php" target="_black">řetězců formátovaných jako datum</a> z PHP.'; 
+$lang['settings_date_format'] 					= 'Formát data';
+$lang['settings_date_format_desc']				= 'Jak mají být zobrazována data na webu a v administraci? Pomocí <a href="http://php.net/manual/en/function.date.php" target="_black">date format</a> z PHP - NEBO - Pomocí formátu <a href="http://php.net/manual/en/function.strftime.php" target="_black">řetězců formátovaných jako datum</a> z PHP.';
 
 $lang['settings_frontend_enabled'] 				= 'Stav webu';
 $lang['settings_frontend_enabled_desc'] 		= 'Tímto nastavení můžete vypnout obsahovou část webu (nikoliv administraci). Užitečné např. při úpravách serveru.';
 
-$lang['settings_mail_protocol'] 				= 'Mail Protokol'; 
-$lang['settings_mail_protocol_desc'] 			= 'Vyberte emailový protokol';  
+$lang['settings_mail_protocol'] 				= 'Mail Protokol';
+$lang['settings_mail_protocol_desc'] 			= 'Vyberte emailový protokol';
 
 $lang['settings_mail_sendmail_path'] 			= 'Cesta k sendmail';
 $lang['settings_mail_sendmail_path_desc']		= 'Cesta k sendmail.';
@@ -46,7 +46,7 @@ $lang['settings_mail_smtp_host_desc'] 			= 'Hostitelské jméno vašeho SMTP ser
 $lang['settings_mail_smtp_pass'] 				= 'SMTP heslo';
 $lang['settings_mail_smtp_pass_desc'] 			= 'SMTP heslo.';
 
-$lang['settings_mail_smtp_port'] 				= 'SMTP Port'; 
+$lang['settings_mail_smtp_port'] 				= 'SMTP Port';
 $lang['settings_mail_smtp_port_desc'] 			= 'Číslo SMTP portu.';
 
 $lang['settings_mail_smtp_user'] 				= 'SMTP uživatelské jméno';
@@ -73,7 +73,7 @@ $lang['settings_require_lastname_desc'] 		= 'V některých situacích může bý
 $lang['settings_enable_profiles'] 				= 'Povolit profily';
 $lang['settings_enable_profiles_desc'] 			= 'Umožnit uživatelům přidávat a spravovat své profily?';
 
-$lang['settings_ga_email'] 						= 'Google Analytic E-mail'; 
+$lang['settings_ga_email'] 						= 'Google Analytic E-mail';
 $lang['settings_ga_email_desc']					= 'E-mail pro Google Analytics, pro zobrazení grafu na Nástěnce.';
 
 $lang['settings_ga_password'] 					= 'Google Analytic heslo';
@@ -82,7 +82,7 @@ $lang['settings_ga_password_desc']				= 'Heslo pro Google Analytics, pro zobraze
 $lang['settings_ga_profile'] 					= 'Google Analytic profil';
 $lang['settings_ga_profile_desc']				= 'ID rpofilu pro tento web v Google Analytics.';
 
-$lang['settings_ga_tracking'] 					= 'Google Tracking Code'; 
+$lang['settings_ga_tracking'] 					= 'Google Tracking Code';
 $lang['settings_ga_tracking_desc']				= 'Vložte svůj Google Analytic Tracking Code pro aktivaci snímání dat Google Analytics, např: UA-19483569-6';
 
 $lang['settings_twitter_username'] 				= 'Uživatelské jméno';

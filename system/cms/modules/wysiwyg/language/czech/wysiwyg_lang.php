@@ -10,7 +10,7 @@ $lang = array(
     'wysiwyg.label.right'   =>  'Vpravo',
     'wysiwyg.label.none'    =>  'Nic',
     'wysiwyg.meta.mime'     =>  'Mime Type'
-    
+
 );
 
 /* end of file wysiwyg_lang.php */

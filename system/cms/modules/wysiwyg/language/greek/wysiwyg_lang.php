@@ -10,7 +10,7 @@ $lang = array(
     'wysiwyg.label.right'   =>  'Δεξιά',
     'wysiwyg.label.none'    =>  'Καμία',
     'wysiwyg.meta.mime'     =>  'Τύπος Mime'
-    
+
 );
 
 /* end of file wysiwyg_lang.php */

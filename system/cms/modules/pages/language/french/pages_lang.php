@@ -4,8 +4,8 @@
 $lang['pages.content_label'] 					= 'Contenu de la page';
 $lang['pages.meta_label'] 						= 'Méta données';
 $lang['pages.design_label'] 					= 'Design';
-$lang['pages.script_label'] 					= 'Script'; 
-$lang['pages.options_label'] 					= 'Options'; 
+$lang['pages.script_label'] 					= 'Script';
+$lang['pages.options_label'] 					= 'Options';
 
 $lang['pages.detail_label'] 					= 'Détails';
 
@@ -20,7 +20,7 @@ $lang['pages.unknown_label'] 					= 'Inconnu';
 $lang['pages.title_label'] 						= 'Titre';
 $lang['pages.slug_label'] 						= 'URL';
 $lang['pages.navigation_label']                  = 'Ajouter à la navigation';
-$lang['pages.body_label'] 						= 'Corps de la page'; 
+$lang['pages.body_label'] 						= 'Corps de la page';
 $lang['pages.meta_title_label'] 				= 'Meta title';
 $lang['pages.meta_keywords_label'] 				= 'Meta keywords';
 $lang['pages.meta_desc_label'] 					= 'Meta description';
@@ -50,7 +50,7 @@ $lang['pages.delete_label'] 					= 'Supprimer';
 // titles
 $lang['pages.create_title'] 					= 'Créer une page';
 $lang['pages.edit_title'] 						= 'Modifier la page "%s"';
-$lang['pages.list_title'] 						= 'Lister les pages'; 
+$lang['pages.list_title'] 						= 'Lister les pages';
 $lang['pages.layouts_create_title'] 			= 'Ajouter un modèle';
 $lang['pages.layouts_list_title'] 				= 'Lister les modèles';
 
@@ -66,8 +66,9 @@ $lang['pages_mass_delete_success'] 				= '%s pages ont été supprimées.';
 $lang['pages_delete_none_notice'] 				= 'Aucune page n\'a été supprimée.';
 $lang['pages_page_already_exist_error'] 		= 'Une page avec l\'URL "%s" existe déjà dans %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La page parente que vous avez sélectionné n\'existe pas.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
-$lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web. 
+$lang['pages.tree_explanation'] 				= 'La liste de gauche affiche les pages de votre site web.
 Cliquez sur l\'icône "+" à côté de la page pour afficher les pages incluses. En cliquant sur une page vous verrez toutes sortes d\'informations utiles dans cette boîte.';
 
 $lang['pages.rss_explanation']					= 'Activer RSS pour cette page permettra à un utilisateur de souscrire au flux RSS contenant chacun des pages enfant.';

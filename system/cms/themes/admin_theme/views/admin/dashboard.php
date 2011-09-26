@@ -35,13 +35,13 @@
 				opacity: 0.80
 			}).appendTo("body").fadeIn(200);
 		}
-	 
+	
 		var previousPoint = null;
 		
 		$("#analytics").bind("plothover", function (event, pos, item) {
 			$("#x").text(pos.x.toFixed(2));
 			$("#y").text(pos.y.toFixed(2));
-	 
+	
 				if (item) {
 					if (previousPoint != item.dataIndex) {
 						previousPoint = item.dataIndex;
@@ -56,7 +56,7 @@
 				}
 				else {
 					$("#tooltip").remove();
-					previousPoint = null;            
+					previousPoint = null;
 				}
 		});
 	

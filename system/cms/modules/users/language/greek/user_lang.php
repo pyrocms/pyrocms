@@ -46,7 +46,7 @@ $lang['user_activate_account_title']           = 'Ενεργοποίηση Λο�
 $lang['user_activate_label']                   = 'Ενεργοποίηση';
 $lang['user_activated_account_title']          = 'Ενεργοποιημένος Λογαριασμός';
 $lang['user_reset_password_title']             = 'Επανακαθορισμός Συνθηματικού';
-$lang['user_password_reset_title']             = 'Επανακαθορισμός Συνθηματικού';  
+$lang['user_password_reset_title']             = 'Επανακαθορισμός Συνθηματικού';
 
 
 $lang['user_error_username']                   = 'Το όνομα χρήστη που επιλέξατε χρησιμοποιείται ήδη';
@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Επανάληψη E-mail';
 $lang['user_password']                         = 'Συνθηματικό';
 $lang['user_remember']                         = 'Απομνημόνευση';
-$lang['user_confirm_password']                 = 'Επανάληψη συνθηματικού';
 $lang['user_group_id_label']                   = 'ID Ομάδας';
 
 $lang['user_level']                            = 'Ρόλος Χρήστη';
@@ -171,7 +170,7 @@ $lang['profile_edit']                 = 'Επεξεργαστείτε το πρ�
 
 $lang['profile_personal_section']     = 'Προσωπικά';
 
-$lang['profile_display_name']         = 'Όνομα Εμφάνισης';  
+$lang['profile_display_name']         = 'Όνομα Εμφάνισης';
 $lang['profile_dob']                  = 'Ημερομηνία Γέννησης';
 $lang['profile_dob_day']              = 'Ημέρα';
 $lang['profile_dob_month']            = 'Μήνα';

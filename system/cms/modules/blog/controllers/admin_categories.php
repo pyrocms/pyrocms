@@ -15,7 +15,7 @@ class Admin_Categories extends Admin_Controller
 	 */
 	protected $validation_rules;
 	
-	/** 
+	/**
 	 * The constructor
 	 * @access public
 	 * @return void
@@ -99,7 +99,7 @@ class Admin_Categories extends Admin_Controller
 	/**
 	 * Edit method, edits an existing category
 	 * @access public
-	 * @param int id The ID of the category to edit 
+	 * @param int id The ID of the category to edit
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -138,7 +138,7 @@ class Admin_Categories extends Admin_Controller
 	/**
 	 * Delete method, deletes an existing category (obvious isn't it?)
 	 * @access public
-	 * @param int id The ID of the category to edit 
+	 * @param int id The ID of the category to edit
 	 * @return void
 	 */
 	public function delete($id = 0)
@@ -150,7 +150,7 @@ class Admin_Categories extends Admin_Controller
 		{
 			$deleted = 0;
 			$to_delete = 0;
-			foreach ($id_array as $id) 
+			foreach ($id_array as $id)
 			{
 				if($this->blog_categories_m->delete($id))
 				{

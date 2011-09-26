@@ -25,7 +25,7 @@ class Blog_categories_m extends MY_Model
 		
 		return $input['title'];
 	}
-    
+
 	/**
 	 * Update an existing category
 	 * @access public
