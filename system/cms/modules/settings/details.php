@@ -24,7 +24,8 @@ class Module_Settings extends Module {
 				'fi' => 'Asetukset',
 				'el' => 'Ρυθμίσεις',
 				'he' => 'הגדרות',
-				'lt' => 'Nustatymai'
+				'lt' => 'Nustatymai',
+				'da' => 'Indstillinger'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem posodobitev nastavitev kot je Ime strani, sporočil, email naslova itd.',
@@ -43,7 +44,8 @@ class Module_Settings extends Module {
 				'fi' => 'Mahdollistaa sivuston asetusten muokkaamisen, kuten sivuston nimen, viestit ja sähköpostiosoitteet yms.',
 				'el' => 'Επιτρέπει στους διαχειριστές να τροποποιήσουν ρυθμίσεις όπως το Όνομα του Ιστοτόπου, τα μηνύματα και τις διευθύνσεις email, κ.α.',
 				'he' => 'ניהול הגדרות שונות של האתר כגון: שם האתר, הודעות, כתובות דואר וכו',
-				'lt' => 'Leidžia administratoriams keisti puslapio vavadinimą, žinutes, administratoriaus el. pašta ir kitą.'
+				'lt' => 'Leidžia administratoriams keisti puslapio vavadinimą, žinutes, administratoriaus el. pašta ir kitą.',
+				'da' => 'Lader administratorer opdatere indstillinger som sidenavn, beskeder og email adresse, etc.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

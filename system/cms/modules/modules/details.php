@@ -24,7 +24,8 @@ class Module_Modules extends Module {
 				'fi' => 'Moduulit',
 				'el' => 'Πρόσθετα',
 				'he' => 'מודולים',
-				'lt' => 'Moduliai'
+				'lt' => 'Moduliai',
+				'da' => 'Moduler'
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje administratorjem pregled trenutno nameščenih modulov.',
@@ -43,7 +44,8 @@ class Module_Modules extends Module {
 				'fi' => 'Listaa järjestelmänvalvojalle käytössä olevat moduulit.',
 				'el' => 'Επιτρέπει στους διαχειριστές να προβάλουν μια λίστα των εγκατεστημένων πρόσθετων.',
 				'he' => 'נותן אופציה למנהל לראות רשימה של המודולים אשר מותקנים כעת באתר או להתקין מודולים נוספים',
-				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.'
+				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.',
+				'da' => 'Lader administratorer se en liste over de installerede moduler.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

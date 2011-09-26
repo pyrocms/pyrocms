@@ -33,7 +33,8 @@ class Module_Blog extends Module {
 				'fi' => 'Kirjoita uutisartikkeleita tai blogi artikkeleita.', #update translation
 				'el' => 'Δημιουργήστε άρθρα και εγγραφές στο ιστολόγιο σας.',
 				'he' => 'ניהול בלוג',
-				'lt' => 'Rašykite naujienas bei blog\'o įrašus.'
+				'lt' => 'Rašykite naujienas bei blog\'o įrašus.',
+				'da' => 'Skriv blogindlæg'
 			),
 			'frontend'	=> TRUE,
 			'backend'	=> TRUE,
