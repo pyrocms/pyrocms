@@ -65,6 +65,11 @@
 			<img src="<?php echo base_url(); ?>assets/images/flags/lt.gif" alt="Lithuanian" />
 		</a>
 	</li>
+		<li>
+		<a href="<?php echo site_url('installer/change/danish'); ?>" title="Danish">
+			<img src="<?php echo base_url(); ?>assets/images/flags/dk.gif" alt="Danish" />
+		</a>
+	</li>
 </ul>
 
 <h1>{header}</h1>

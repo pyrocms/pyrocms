@@ -134,6 +134,13 @@ $config['supported_languages'] = array(
 		'direction'	=> 'ltr',
 		'codes'		=> array('fi', 'fi_FI'),
 		'ckeditor'	=> NULL
+	),
+	'da' => array(
+		'name'		=> 'Dansk',
+		'folder'	=> 'danish',
+		'direction'	=> 'ltr',
+		'codes'		=> array('da', 'da_DK'),
+		'ckeditor'	=> NULL
 	)
 );
 

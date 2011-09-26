@@ -38,7 +38,8 @@ class Module_Widgets extends Module {
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',
 				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".',
 				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".',
-				'lt' => 'Nedidelių, savarankiškų blokų valdymas.'
+				'lt' => 'Nedidelių, savarankiškų blokų valdymas.',
+				'da' => 'Håndter små sektioner af selv-opretholdt logik i blokke eller "Widgets".'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
