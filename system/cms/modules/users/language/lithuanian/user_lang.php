@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-paštas';
 $lang['user_confirm_email']                    = 'Patvirtinti E-paštą';
 $lang['user_password']                         = 'Slaptažodis';
 $lang['user_remember']                         = 'Prisiminti mane';
-$lang['user_confirm_password']                 = 'Patvirtinti slaptažodį';
 $lang['user_group_id_label']                   = 'Grupės ID'; // #TRANSLATE #TODO: Translate this into Spanish
 
 $lang['user_level']                            = 'Vartotojo vaidmuo';

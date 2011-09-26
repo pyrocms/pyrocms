@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'וידוי E-mail';
 $lang['user_password']                         = 'סיסמה';
 $lang['user_remember']                         = 'זכור אותי';
-$lang['user_confirm_password']                 = 'וידוי סיסמה';
 $lang['user_group_id_label']                   = 'ID של הקבוצה'; // #TRANSLATE #TODO: Translate this into Spanish
 
 $lang['user_level']                            = 'תפקיד המשתמש';

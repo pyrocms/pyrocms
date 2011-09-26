@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= 'Confirmar e-mail';
 $lang['user_password'] 					= 'Senha';
 $lang['user_remember'] 					= 'Lembrar-me';
-$lang['user_confirm_password'] 			= 'Confirmar Senha';
 $lang['user_group_id_label']			= 'ID de Grupo';
 
 $lang['user_level']						= 'Papel de usuário';

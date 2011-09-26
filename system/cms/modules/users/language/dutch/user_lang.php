@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'Email';
 $lang['user_confirm_email'] 			= 'Bevestig Email';
 $lang['user_password'] 					= 'Wachtwoord';
 $lang['user_remember'] 					= 'Onthoud mij';
-$lang['user_confirm_password'] 			= 'Bevestig Wachtwoord';
 $lang['user_group_id_label']			= 'Groep ID';
 
 $lang['user_level']						= 'Gebruikersrol';

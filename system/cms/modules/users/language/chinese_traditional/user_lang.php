@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'E-mail';
 $lang['user_confirm_email'] 			= '確認 E-mail';
 $lang['user_password'] 					= '密碼';
 $lang['user_remember'] 					= '記住我';
-$lang['user_confirm_password'] 			= '確認密碼';
 $lang['user_group_id_label']			= '群組 ID';
 
 $lang['user_level']						= '用戶身分(Role)';

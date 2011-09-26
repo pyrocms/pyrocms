@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Επανάληψη E-mail';
 $lang['user_password']                         = 'Συνθηματικό';
 $lang['user_remember']                         = 'Απομνημόνευση';
-$lang['user_confirm_password']                 = 'Επανάληψη συνθηματικού';
 $lang['user_group_id_label']                   = 'ID Ομάδας';
 
 $lang['user_level']                            = 'Ρόλος Χρήστη';
