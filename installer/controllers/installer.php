@@ -323,11 +323,6 @@ class Installer extends CI_Controller
 				'label'	=> 'lang:password',
 				'rules'	=> 'trim|min_length[6]|max_length[20]|required'
 			),
-			array(
-				'field' => 'user_confirm_password',
-				'label'	=> 'lang:conf_password',
-				'rules'	=> 'trim|required|matches[user_password]|callback_attempt_install'
-			)
 		));
 
 		// If the form validation failed (or did not run)

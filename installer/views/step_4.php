@@ -78,17 +78,6 @@
 		?>
 	</div>
 
-	<div class="input">
-		<label for="user_confirm_password"><?php echo lang('conf_password'); ?></label>
-		<?php
-			echo form_password(array(
-				'id' => 'user_confirm_password',
-				'name' => 'user_confirm_password',
-				'value' => set_value('user_confirm_password')
-			));
-		?>
-	</div>
-
 	<div id="notification">
 	   <p class="text" id="confirm_pass"></p>
 	</div>

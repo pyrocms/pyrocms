@@ -69,7 +69,6 @@ $lang['user_email']                            = 'Sähköposti';
 $lang['user_confirm_email']                    = 'Vahvista sähköposti';
 $lang['user_password']                         = 'Salasana';
 $lang['user_remember']                         = 'Muista minut';
-$lang['user_confirm_password']                 = 'Vahvista salasana';
 $lang['user_group_id_label']                   = 'Ryhmän ID';
 
 $lang['user_level']                            = 'Käyttäjärooli';

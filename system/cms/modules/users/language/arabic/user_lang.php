@@ -62,7 +62,6 @@ $lang['user_email'] 					= 'البريد الإلكترني';
 $lang['user_confirm_email'] 			= 'تأكيد البريد الإلكتروني';
 $lang['user_password'] 					= 'كلمة السرّ';
 $lang['user_remember'] 					= 'تذكرني';
-$lang['user_confirm_password'] 			= 'تأكيد كلمة السرّ';
 $lang['user_group_id_label']			= 'مُعرف المجموعة';
 
 $lang['user_level']						= 'دَوْر المستخدم';

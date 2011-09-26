@@ -62,7 +62,6 @@ $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Potrdi E-mail';
 $lang['user_password']                         = 'Geslo';
 $lang['user_remember']                         = 'Zapomni si me';
-$lang['user_confirm_password']                 = 'Potrdi geslo';
 $lang['user_group_id_label']                   = 'ID skupine';
 
 $lang['user_level']                            = 'Vloga uporabnika';
