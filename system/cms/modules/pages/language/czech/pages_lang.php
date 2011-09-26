@@ -65,6 +65,7 @@ $lang['pages_mass_delete_success'] 				= '%s stránek bylo vymazáno.';
 $lang['pages_delete_none_notice'] 				= 'Žádné stránky nebyly vymazány.';
 $lang['pages_page_already_exist_error'] 		= 'Stránka s adresou URL "%s" již existuje v %s.';
 $lang['pages_parent_not_exist_error'] 			= 'Vybraná rodičovská stránka neexistuje.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 				= 'Seznam vlevo reprezentuje stránky na webu.
 Klikněte na ikonku "+" pro zobrazení stránek uvnitř. Při kliknutí na stránku tu uvidíte spoustu užitečných informací.';

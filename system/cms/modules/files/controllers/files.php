@@ -174,9 +174,9 @@ class Files extends Public_Controller
 		readfile($image_thumb);
 	}
 
-	public function large($id)
+	public function large($id, $width = NULL, $height = NULL, $mode = NULL)
 	{
-		return $this->thumb($id, NULL, NULL);
+		return $this->thumb($id, $width, $height, $mode);
 	}
 }
 

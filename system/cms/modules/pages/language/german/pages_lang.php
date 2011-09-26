@@ -66,6 +66,7 @@ $lang['pages_mass_delete_success']         = '%s Seiten wurden gelöscht.';
 $lang['pages_delete_none_notice']          = 'Keine Seiten wurden gelöscht.';
 $lang['pages_page_already_exist_error']    = 'Es existiert bereits eine Seite mit der URL "%s" in %s.';
 $lang['pages_parent_not_exist_error']      = 'Die ausgewählte übergeordnete Seite existiert nicht.';//there is no german word for 'parent' (in this context at least)
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation']            = 'Die Liste zur Linken repräsentiert Seiten auf deiner Webseite.
 Wähle das "+" Icon neben der Seite um ihre untergeordneten Seiten anzuzeigen. Durch auswählen einer Seite erhältst du Informationen über die ausgewählte Seite.';
