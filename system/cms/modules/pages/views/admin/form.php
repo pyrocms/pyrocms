@@ -64,6 +64,7 @@
 					<?php echo form_input('chunk_slug['.$chunk->id.']', $chunk->slug); ?>
 					<?php echo form_dropdown('chunk_type['.$chunk->id.']', array(
 						'html' => 'html',
+						'markdown' => 'markdown',
 						'wysiwyg-simple' => 'wysiwyg-simple',
 						'wysiwyg-advanced' => 'wysiwyg-advanced',
 					), $chunk->type); ?>

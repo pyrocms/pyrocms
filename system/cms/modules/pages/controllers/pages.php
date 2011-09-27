@@ -173,7 +173,9 @@ class Pages extends Public_Controller
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= '<div class="page-chunk '.$chunk->slug.'">'.$chunk->body.'</div>'.PHP_EOL;
+			$chunk_html .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+								(($chunk->type == 'markdown') ? parse_markdown($chunk->body) : $chunk->body) .
+							'</div>'.PHP_EOL;
 		}
 		
 		// Parse it so the content is parsed. We pass along $page so that {pyro:page:id} and friends work in page content

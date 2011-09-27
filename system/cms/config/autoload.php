@@ -68,7 +68,7 @@ $autoload['libraries'] = array('asset', 'database', 'session', 'template', 'pars
 
 $autoload['helper'] = array(
 	'debug', 'url', 'form', 'text', 'string', 'language', 'asset', 'pagination', 'array', 'gravatar',
-	'comments/comments', 'modules/module', 'users/user'
+	'markdown', 'comments/comments', 'modules/module', 'users/user'
 );
 
 
