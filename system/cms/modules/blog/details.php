@@ -79,6 +79,7 @@ class Module_Blog extends Module {
 			  `updated_on` int(11) NOT NULL default 0,
               `comments_enabled` INT(1)  NOT NULL default '1',
 			  `status` enum('draft','live') collate utf8_unicode_ci NOT NULL default 'draft',
+			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY  (`id`),
 			  UNIQUE KEY `title` (`title`),
 			  KEY `category_id - normal` (`category_id`)
