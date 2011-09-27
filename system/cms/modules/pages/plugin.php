@@ -34,14 +34,23 @@ class Plugin_Pages extends Plugin
 	 */
 	public function display()
 	{
-		$page = $this->db->select('pages.*, page_chunks.*')
-					->where('pages.id', $this->attribute('id'))
+		$page = $this->db->where('pages.id', $this->attribute('id'))
 					->or_where('pages.slug', $this->attribute('slug'))
 					->where('status', 'live')
-					->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 					->get('pages')
 					->row_array();
-					
+
+		// Grab all the chunks that make up the body
+		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+		
+		$page['body'] = '';
+		foreach ($page['chunks'] as $chunk)
+		{
+			$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+									(($chunk->type == 'markdown') ? parse_markdown($chunk->body) : $chunk->body) .
+								'</div>'.PHP_EOL;
+		}
+
 		return $this->content() ? $page : $page['body'];
 	}
 	
