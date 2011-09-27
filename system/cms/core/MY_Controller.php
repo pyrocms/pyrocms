@@ -124,7 +124,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
-			'pages/pages_m',
+			'pages/page_m',
 			'themes/themes_m'
 		));
 

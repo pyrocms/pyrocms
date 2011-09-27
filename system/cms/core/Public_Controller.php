@@ -29,7 +29,7 @@ class Public_Controller extends MY_Controller
 		}
 
 		// -- Navigation menu -----------------------------------
-		$this->load->model('pages/pages_m');
+		$this->load->model('pages/page_m');
 
 		if ( ! $this->theme)
 		{

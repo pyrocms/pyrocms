@@ -321,7 +321,7 @@ class Navigation_m extends MY_Model
 				break;
 
 				case 'page':
-					if ($page = $this->pages_m->get_by(array_filter(array(
+					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row->page_id,
 						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
 					))))
@@ -363,7 +363,7 @@ class Navigation_m extends MY_Model
 				break;
 
 				case 'page':
-					if ($page = $this->pages_m->get_by(array_filter(array(
+					if ($page = $this->page_m->get_by(array_filter(array(
 						'id'		=> $row['page_id'],
 						'status'	=> (is_subclass_of(ci(), 'Public_Controller') ? 'live' : NULL)
 					))))
