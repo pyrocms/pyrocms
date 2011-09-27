@@ -31,7 +31,7 @@ class MY_Exceptions extends CI_Exceptions {
 	 * @param	string
 	 * @return	string
 	 */
-	function show_404($page = '')
+	function show_404($page = '', $log_error = TRUE)
 	{
 		// if cURL doesn't exist we just send them to the 404 page
 		if ( ! function_exists('curl_init'))
