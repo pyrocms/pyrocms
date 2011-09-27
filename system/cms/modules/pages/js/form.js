@@ -29,6 +29,7 @@
 				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
 				'<select name="chunk_type[' + key + ']" class="no-uniform">' +
 				'<option value="html">html</option>' +
+				'<option value="markdown">markdown</option>' +
 				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +

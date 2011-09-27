@@ -117,7 +117,7 @@ class Module_Pages extends Module {
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `page_id` int(11) NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('html','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
+			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  `sort` int(11) NOT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `unique - slug` (`slug`, `page_id`)

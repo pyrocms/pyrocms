@@ -15,10 +15,10 @@ class WYSIWYG_Controller extends MY_Controller
 		parent::__construct();
 
 	    // Not an admin and not allowed to see files
-	    if ($this->current_user->group !== 'admin' AND ! in_array('files', $this->permissions))
+	    if ($this->current_user->group !== 'admin' AND ! array_key_exists('files', $this->permissions))
 	    {
 			$this->load->language('files/files');
-			show_error('files.no_permissions');
+			show_error(lang('files.no_permissions'));
 	    }
 
 		// Prepare Asset library

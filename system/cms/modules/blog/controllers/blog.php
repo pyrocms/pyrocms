@@ -81,7 +81,7 @@ class Blog extends Public_Controller
 			->build('archive', $this->data);
 	}
 
-	// Public: View an post
+	// Public: View a post
 	public function view($slug = '')
 	{
 		if ( ! $slug or ! $post = $this->blog_m->get_by('slug', $slug))
@@ -92,6 +92,12 @@ class Blog extends Public_Controller
 		if ($post->status != 'live' && ! $this->ion_auth->is_admin())
 		{
 			redirect('blog');
+		}
+		
+		// if it uses markdown then parse it
+		if ($post->type == 'markdown')
+		{
+			$post->body = parse_markdown($post->body);
 		}
 
 		$post->author = $this->ion_auth->get_user($post->author_id);

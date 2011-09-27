@@ -34,9 +34,15 @@
 				<label for="intro"><?php echo lang('blog_intro_label'); ?></label>
 				<?php echo form_textarea(array('id' => 'intro', 'name' => 'intro', 'value' => $post->intro, 'rows' => 5, 'class' => 'wysiwyg-simple')); ?>
 			</li>
-			<li class="even">
+			<li class="even editor">
 				<label for="body"><?php echo lang('blog_content_label'); ?></label>
-				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 50, 'class' => 'wysiwyg-advanced')); ?>
+				<?php echo form_dropdown('type', array(
+					'html' => 'html',
+					'markdown' => 'markdown',
+					'wysiwyg-simple' => 'wysiwyg-simple',
+					'wysiwyg-advanced' => 'wysiwyg-advanced',
+				), $post->type); ?>
+				<?php echo form_textarea(array('id' => 'body', 'name' => 'body', 'value' => $post->body, 'rows' => 50, 'class' => $post->type)); ?>
 			</li>
 	
 		</ol>

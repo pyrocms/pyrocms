@@ -78,7 +78,7 @@ class Plugin_Template extends Plugin {
 		
 		$crumbs = $data['template']['breadcrumbs'];
 		
-		return empty($crumbs);
+		return ! empty($crumbs);
 	}
 
 	public function metadata()

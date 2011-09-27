@@ -1,5 +1,5 @@
 jQuery(function($){
-	var parents = '.box-container div.tabs fieldset';
+	var parents = 'div.tabs fieldset';
 	
 	$(parents +' ol').sortable({
 		handle: 'span.move-handle',

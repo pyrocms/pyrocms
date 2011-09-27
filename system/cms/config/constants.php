@@ -92,7 +92,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.3.2');
+define('CMS_VERSION', '1.4.0-dev');
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +114,6 @@ define('CMS_EDITION', 'Community');
 |
 */
 
-define('CMS_DATE', '11/08/2011');
+define('CMS_DATE', '26/09/2011');
 
 /* End of file constants.php */
