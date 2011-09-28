@@ -114,28 +114,28 @@ $(function($) {
 		
 		<section class="item <?php echo isset($rss_items); ?>">
 			<ul>
-				<?php if(array_key_exists('comments', $this->permissions) OR $this->user->group == 'admin'): ?>
+				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
 					<?php echo image('icons/comments.png'); ?>
 					<a href="<?php echo site_url('admin/comments') ?>"><?php echo lang('cp_manage_comments'); ?></a>
 				</li>
 				<?php endif; ?>
 				
-				<?php if(array_key_exists('pages', $this->permissions) OR $this->user->group == 'admin'): ?>
+				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
 					<?php echo image('icons/pages.png'); ?>
 					<a href="<?php echo site_url('admin/pages') ?>"><?php echo lang('cp_manage_pages'); ?></a>
 				</li>
 				<?php endif; ?>
 				
-				<?php if(array_key_exists('files', $this->permissions) OR $this->user->group == 'admin'): ?>
+				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
 					<?php echo image('icons/folder_open.png'); ?>
 					<a href="<?php echo site_url('admin/files') ?>"><?php echo lang('cp_manage_files'); ?></a>
 				</li>
 				<?php endif; ?>
 				
-				<?php if(array_key_exists('users', $this->permissions) OR $this->user->group == 'admin'): ?>
+				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li class="clearfix">
 					<?php echo image('icons/user.png'); ?>
 					<a href="<?php echo site_url('admin/users') ?>"><?php echo lang('cp_manage_users'); ?></a>

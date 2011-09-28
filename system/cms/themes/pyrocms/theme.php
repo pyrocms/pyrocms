@@ -63,11 +63,11 @@ class Theme_PyroCMS extends Theme {
 	private function generate_menu()
 	{
 		// Get a list of all modules available to this user/group
-		if ($this->user)
+		if ($this->current_user)
 		{
 			$modules = $this->module_m->get_all(array(
 				'is_backend' => TRUE,
-				'group' => $this->user->group,
+				'group' => $this->current_user->group,
 				'lang' => CURRENT_LANGUAGE
 			));
 
