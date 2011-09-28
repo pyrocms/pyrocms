@@ -8,7 +8,7 @@
 * @category Modules
 *
 */
-class Pages_m extends MY_Model
+class Page_m extends MY_Model
 {
 	
 	/**
@@ -404,7 +404,7 @@ class Pages_m extends MY_Model
 			}
 		}	
 		// Wipe cache for this model, the content has changd
-		$this->pyrocache->delete_all('pages_m');
+		$this->pyrocache->delete_all('page_m');
 		$this->pyrocache->delete_all('navigation_m');
 	
 		$this->db->trans_complete();

@@ -15,7 +15,7 @@ class Pages extends Public_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('pages_m');
+		$this->load->model('page_m');
 		$this->load->model('page_layouts_m');
 		
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
@@ -78,9 +78,9 @@ class Pages extends Public_Controller
 		$page = $url_segments !== NULL
 		
 			// Fetch this page from the database via cache
-			? $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments))
+			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments))
 
-			: $this->pyrocache->model('pages_m', 'get_home');
+			: $this->pyrocache->model('page_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
 		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin') ))
@@ -113,7 +113,7 @@ class Pages extends Public_Controller
 			array_pop($url_segments);
 
 			// This array of parents in the cache?
-			if ( ! $parents = $this->pyrocache->get('pages_m/'.md5(implode('/', $url_segments))))
+			if ( ! $parents = $this->pyrocache->get('page_m/'.md5(implode('/', $url_segments))))
 			{
 				$parents = $breadcrumb_segments = array();
 
@@ -121,11 +121,11 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('pages_m', 'get_by_uri', array($breadcrumb_segments));
+					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments));
 				}
 
 				// Cache for next time
-				$this->pyrocache->write($parents, 'pages_m/'.md5(implode('/', $url_segments)));
+				$this->pyrocache->write($parents, 'page_m/'.md5(implode('/', $url_segments)));
 			}
 
 			foreach ($parents as $parent_page)
@@ -225,7 +225,7 @@ class Pages extends Public_Controller
 		$url_segments += array(preg_replace('/.rss$/', '', array_pop($url_segments)));
 		
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('pages_m', 'get_by_uri', array($url_segments));
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments));
 		
 		// If page is missing or not live (and not an admin) show 404
 		if (empty($page) OR ($page->status == 'draft' AND $this->current_user->group !== 'admin') OR ! $page->rss_enabled)
@@ -235,7 +235,7 @@ class Pages extends Public_Controller
 			return;
 		}
 		
-		$children = $this->pyrocache->model('pages_m', 'get_many_by', array(array(
+		$children = $this->pyrocache->model('page_m', 'get_many_by', array(array(
 			'parent_id' => $page->id,
 			'status' => 'live'
 		)));
@@ -281,7 +281,7 @@ class Pages extends Public_Controller
 		// If the actual 404 page is missing (oh the irony) we show an error message to prevent an infinite redirect.
 		// Otherwise we let show_404() handle it (which just redirects to the pretty 404 page). We use show_404() to
 		// redirect so when other modules do show_404() the visitor sees a styled page.
-		if ( ! $page = $this->pyrocache->model('pages_m', 'get_by_uri', array('404')) )
+		if ( ! $page = $this->pyrocache->model('page_m', 'get_by_uri', array('404')) )
 		{
 			show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 		}
