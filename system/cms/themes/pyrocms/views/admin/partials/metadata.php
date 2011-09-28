@@ -3,6 +3,9 @@
 	<?php echo js('jquery/jquery.flot.js'); ?>
 <?php endif; ?>
 
+<?php echo js('jquery/jquery-ui.min.js'); ?>
+<?php echo js('plugins.js'); ?>
+
 <script type="text/javascript">
 	var pyro = {};
 	var APPPATH_URI			= "<?php echo APPPATH_URI;?>";
@@ -16,5 +19,7 @@
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri			= "<?php echo BASE_URI; ?>";
 </script>
+
+<?php echo js('scripts.js'); ?>
 
 <?php echo $template['metadata']; ?>

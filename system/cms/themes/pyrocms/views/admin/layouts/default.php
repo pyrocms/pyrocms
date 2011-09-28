@@ -15,10 +15,6 @@
 
 	<base href="<?php echo base_url(); ?>" />
 
-  	<meta name="author" content="">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-
   	<!-- Mobile viewport optimized -->
   	<meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -38,7 +34,7 @@
   	<link rel="apple-touch-icon" href="apple-touch-icon-114x114-precomposed.png">
 
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL -->
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 
 	<!-- fall back to local if offline -->
   	<script>window.jQuery || document.write('<script src="<?php echo js_path('jquery/jquery.min.js'); ?>">\x3C/script>')</script>
@@ -67,12 +63,6 @@
 	<footer>
 		<p>Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
 	</footer>
-
-	<!-- Scripts -->
-	<?php echo js('jquery/jquery-ui.min.js'); ?>
-  	<?php echo js('plugins.js'); ?>
-  	<?php echo js('scripts.js'); ?>
-  	<!-- End Scripts -->
 
   	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
   	<!--[if lt IE 7 ]>
