@@ -1,6 +1,6 @@
 <?php if ($variables): ?>
 
-	<h3><?php echo lang('variables.list_title');?></h3>
+	<h4><?php echo lang('variables.list_title');?></h4>
 
 	<?php echo form_open('admin/variables/delete'); ?>
 		<table border="0" class="table-list">
@@ -42,7 +42,8 @@
 	<?php echo form_close(); ?>
 
 <?php else: ?>
-	<div class="blank-slate">
-		<h2><?php echo lang('variables.no_variables');?></h2>
-	</div>
+	<section class="title"></section>
+	<section class="item">
+		<p><?php echo lang('variables.no_variables');?></p>
+	</section>
 <?php endif; ?>
