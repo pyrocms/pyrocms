@@ -1,7 +1,7 @@
 
-	<h2 class="template-subject">
+	<h4 class="template-subject">
 		<?php echo $subject; ?>
-	</h2>
+	</h4>
 	
 	<div class="template-body">
 		<?php echo $body; ?>
