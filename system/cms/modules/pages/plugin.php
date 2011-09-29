@@ -47,7 +47,7 @@ class Plugin_Pages extends Plugin
 		foreach ($page['chunks'] as $chunk)
 		{
 			$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
-									(($chunk->type == 'markdown') ? parse_markdown($chunk->body) : $chunk->body) .
+									(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
 								'</div>'.PHP_EOL;
 		}
 
