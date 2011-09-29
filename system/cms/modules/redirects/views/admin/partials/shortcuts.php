@@ -4,5 +4,4 @@
 		<li><?php echo anchor('admin/redirects/add', lang('redirects.add_title'), 'class="add"') ?></li>
 		<li><?php echo anchor('admin/redirects', lang('redirects.list_title')); ?></li>
 	</ul>
-	<br class="clear-both" />
 </nav>
