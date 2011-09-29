@@ -148,7 +148,6 @@ form.crud .cke_skin_kama {
 }
 
 form.crud .cke_skin_kama .cke_editor .cke_contents {
-	background: url("../../img/admin/uniform/bg-input.png") repeat-x scroll 0 0 #FFFFFF;
     border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA;
     border-radius: 3px 3px 3px 3px;
     border-style: solid;

@@ -4,6 +4,7 @@
 <?php endif; ?>
 
 <?php echo js('jquery/jquery-ui.min.js'); ?>
+<?php echo js('jquery/jquery.colorbox.min.js'); ?>
 <?php echo js('plugins.js'); ?>
 
 <script type="text/javascript">

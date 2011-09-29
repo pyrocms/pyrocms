@@ -1,10 +1,9 @@
-
 <section class="title">
-<?php if ($this->method == 'create'): ?>
-	<h3><?php echo lang('pages.create_title');?></h3>
-<?php else: ?>
-	<h3><?php echo sprintf(lang('pages.edit_title'), $page->title);?></h3>
-<?php endif; ?>
+	<?php if ($this->method == 'create'): ?>
+		<h4><?php echo lang('pages.create_title');?></h4>
+	<?php else: ?>
+		<h4><?php echo sprintf(lang('pages.edit_title'), $page->title);?></h4>
+	<?php endif; ?>
 </section>
 
 <section class="item">

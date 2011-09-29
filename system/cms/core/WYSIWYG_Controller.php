@@ -33,17 +33,8 @@ class WYSIWYG_Controller extends MY_Controller
 			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
-			->append_metadata(js('jquery/jquery.min.js'))
-	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
-	    	->append_metadata(js('jquery/jquery.livequery.min.js'))
-	    	->append_metadata(js('jquery/jquery.fancybox.js'))
-	    	->append_metadata(css('jquery/jquery.fancybox.css'))
 			->set('editor_path', $editor_path = APPPATH_URI . 'assets/js/editor/')
 			->append_metadata( css('wysiwyg.css', 'wysiwyg') )
-			->append_metadata( css('jquery/uniform.default.css') )
-			->append_metadata( js('wysiwyg.js', 'wysiwyg') )
-			->append_metadata( js('jquery/jquery.uniform.min.js') )
-			->append_metadata( js('jquery/jquery-ui.min.js') )
-			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') ); // TODO: Merge it with default jquery-ui.css
+			->append_metadata( js('wysiwyg.js', 'wysiwyg') );
 	}
 }

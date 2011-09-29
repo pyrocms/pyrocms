@@ -93,8 +93,7 @@
 						html = data;
 					}
 
-					//success stuff here
-					$.uniform.update('select, input');
+
 					pyro.filter.$content.html(html).fadeIn('fast');
 				});
 			});

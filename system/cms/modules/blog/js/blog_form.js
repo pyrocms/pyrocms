@@ -61,7 +61,7 @@
 								//append to dropdown the new option
 								$(select).append(option);
 																
-								//uniform workaround
+								// TODO work this out? //uniform workaround
 								$('#blog-options-tab li:first span').html(obj.title);
 								
 								//close the colorbox
