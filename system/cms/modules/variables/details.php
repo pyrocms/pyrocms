@@ -29,7 +29,7 @@ class Module_Variables extends Module {
 			),
 			'description' => array(
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
-				'en' => 'Manage global variables to access from everywhere.',
+				'en' => 'Manage global variables that can be accessed from anywhere.',
 				'nl' => 'Beheer globale variabelen die overal beschikbaar zijn.',
 				'pl' => 'Zarządzaj globalnymi zmiennymi do których masz dostęp z każdego miejsca aplikacji.',
 				'es' => 'Manage global variables to access from everywhere.',

@@ -22,5 +22,6 @@
 </script>
 
 <?php echo js('scripts.js'); ?>
+<?php echo css('plugins.css'); ?>
 
 <?php echo $template['metadata']; ?>

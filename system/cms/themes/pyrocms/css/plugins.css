@@ -405,6 +405,8 @@ select.chzn-select {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  text-align: left;
+  width: 100%;
 }
 .chzn-container-multi .chzn-results {
   margin: -1px 0 0;
@@ -415,6 +417,7 @@ select.chzn-select {
   padding: 7px 7px 8px;
   margin: 0;
   list-style: none;
+  float: none;
 }
 .chzn-container .chzn-results .active-result {
   cursor: pointer;

@@ -3,7 +3,7 @@
 	$(function(){
 
 	var variables = {
-		$content : $('#content'),
+		$content : $('#content-body'),
 
 		/**
 		 * Constructor

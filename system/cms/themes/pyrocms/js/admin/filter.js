@@ -1,7 +1,7 @@
 (function($){$(function(){
 
 	pyro.filter = {
-		$content		: $('#content'),
+		$content		: $('#content-body'),
 		// filter form object
 		$filter_form	: $('.filter form'),
 

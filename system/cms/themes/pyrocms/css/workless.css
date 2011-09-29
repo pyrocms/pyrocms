@@ -726,8 +726,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-color: #e6e6e6;
   margin-bottom: 18px;
   padding: 8px 15px;
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  color: #333333;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -906,16 +906,16 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border-bottom: 1px solid #eeeeee;
 }
 
-.tabs li, .pill li {
+.tab-menu ul li, .tab-menu ol li, .pill li {
   display: inline;
 }
 
-.tabs li a, .pill li a {
+.tab-menu li a, .pill li a {
   float: left;
   width: auto;
 }
 
-.tabs li a {
+.tab-menu li a {
   background: #efefef;
   margin-right: 2px;
   margin-bottom: -1px;
@@ -926,13 +926,13 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border-radius: 3px 3px 0 0;
 }
 
-.tabs li a:hover {
+.tab-menu li a:hover {
 
   background: #e6e6e6;
   border-bottom: 1px solid #bfbfbf;
 }
 
-.tabs li.active a {
+.tab-menu li.active a {
   background-color: #ffffff;
   padding: 0 14px;
   border: 1px solid #cccccc;
@@ -1361,17 +1361,17 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 	float: right;
 }
 
-#filters form ul li {
+#filters form > ul > li {
 	margin: 8px 0 5px 5px;
 	float: left;
 }
 
-#filters form ul li label {
+#filters form > ul > li label {
 	margin: 8px 5px 0 0;
 	float: left;
 }
 
-#filters form ul li input[type="text"] {
+#filters form > ul > li input[type="text"] {
 	margin: 0;
 }
 
