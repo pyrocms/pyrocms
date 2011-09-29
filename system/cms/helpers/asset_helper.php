@@ -85,16 +85,16 @@ function image_path($asset_name, $module_name = NULL)
 // ------------------------------------------------------------------------
 
 
-function js($asset_name, $module_name = NULL)
+function js($asset_name, $module_name = NULL, $attributes = array())
 {
 	$CI =& get_instance();
 	$CI->load->library('asset');
-	return $CI->asset->js($asset_name, $module_name);
+	return $CI->asset->js($asset_name, $module_name, $attributes);
 }
 
-function theme_js($asset)
+function theme_js($asset, $attributes = array())
 {
-	return js($asset, '_theme_');
+	return js($asset, '_theme_', $attributes);
 }
 
 function js_url($asset_name, $module_name = NULL)
