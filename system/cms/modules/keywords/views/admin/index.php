@@ -29,7 +29,8 @@
     </table>
 
 <?php else: ?>
-	<div class="blank-slate">
-		<h2><?php echo lang('keywords:no_keywords');?></h2>
-	</div>
+	<section class="title"></section>
+	<section class="item">
+		<p><?php echo lang('keywords:no_keywords');?></p>
+	</section>
 <?php endif;?>
