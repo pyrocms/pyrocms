@@ -1,0 +1,117 @@
+button:hover {
+	cursor: pointer;
+}
+button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+.buttons a.button {
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#E8E8E8'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#E8E8E8), to(#FFFFFF));
+	border: 1px solid #B9B9B9;
+	color: #666666;
+	display: inline-block;
+	font-size: 130%;
+	font-weight: normal;
+	line-height: 1em;
+	margin: 0 0 0 5px;
+	padding: 7px 16px 8px;
+	text-align: center;
+	text-decoration: none;
+}
+button {
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#E8E8E8'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#E8E8E8), to(#FFFFFF));
+	border: 1px solid #B9B9B9;
+	color: #666666;
+	font-family: 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+	font-size: 130%;
+	line-height: 1em;
+	margin: 0 0 0 5px;
+	padding: 0;
+	text-align: center;
+	letter-spacing: 0;
+}
+.buttons button span {
+	padding: 7px 16px 8px;
+	display: inline-block;
+	line-height: 100%;
+}
+button:hover, .buttons a.button:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8', endColorstr='#FFFFFF'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#FFFFFF), to(#E8E8E8));
+	font-weight: normal;
+}
+button:active, .buttons a.button:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8', endColorstr='#EEEEEE'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #EEEEEE, #E8E8E8) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#FFFFFF), to(#E8E8E8));
+}
+button.positive {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7FBF4D', endColorstr='#63A62F'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #63A62F, #7FBF4D) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#63A62F), to(#7FBF4D));
+	border: medium none;
+	color: #FFFFFF;
+}
+button.positive:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#72AC45', endColorstr='#5A962C'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #5A962C, #72AC45) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#5A962C), to(#72AC45));
+}
+button.positive:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#63A62F', endColorstr='#7FBF4D'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #7FBF4D, #63A62F) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#7FBF4D), to(#63A62F));
+}
+.buttons a.cancel:hover,
+.buttons a.delete:hover,
+.buttons button.unapprove:hover {
+	color: #FF6900;
+}
+.buttons a.button {
+	overflow: visible;
+	text-indent: inherit;
+	width: auto;
+	height: auto;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#E8E8E8'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #E8E8E8, #FFFFFF) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#E8E8E8), to(#FFFFFF));
+}
+.buttons a.button:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8E8E8', endColorstr='#FFFFFF'); /* for IE */
+	background: -moz-linear-gradient(0% 100% 90deg, #FFFFFF, #E8E8E8) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left bottom, left top, from(#FFFFFF), to(#E8E8E8));
+}
+.buttons-small { margin-bottom: 0 !important; }
+.buttons-small a.button, .buttons a.small {
+	font-size: 110%;
+	margin: 0 0 0 5px;
+	line-height: 1.4em;
+	padding: 4px 16px 5px;
+}
+.buttons-small button, button.small {
+	font-size: 110%;
+	margin: 0 0 0 5px;
+	padding: 0;
+}
+.buttons-small button span, button.small span {
+	padding: 4px 16px 5px;
+	display: inline-block;
+	line-height: 140%;
+}
+.buttons a img, button img {
+	margin: -2px 2px 0 0;
+	vertical-align: middle;
+}

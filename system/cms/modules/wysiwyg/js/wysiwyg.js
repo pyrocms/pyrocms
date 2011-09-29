@@ -79,11 +79,6 @@ var replace_html = null;
 		$('#images-container img').hover( function() {
 		    $(this).attr('title', 'Click to insert image');
 		});
-        
-        //cue up uniform
-        $('select, #upload-box input[type=text], input[type=file], input[type=submit]').livequery(function() {
-            $.uniform && $(this).uniform(); 
-        });
 		
         
         /**
@@ -133,7 +128,6 @@ var replace_html = null;
 			
 			$( '#upload-box' ).fadeOut( 800, function() {
 				$(this).find('input[type=text], input[type=file]').val('');
-				$.uniform.update('input[type=file]');
 			});
 			
 		});

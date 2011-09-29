@@ -1,4 +1,4 @@
-<h4><?php echo $page->title; ?></h4>
+<h5><?php echo $page->title; ?></h5>
 
 <input id="page-id" type="hidden" value="<?php echo $page->id; ?>" />
 <input id="page-uri" type="hidden" value="<?php echo !empty($page->uri) ? $page->uri : $page->slug; ?>" />

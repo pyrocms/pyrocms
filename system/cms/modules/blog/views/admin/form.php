@@ -1,9 +1,13 @@
+<section class="title">
 <?php if ($this->method == 'create'): ?>
-	<h3><?php echo lang('blog_create_title'); ?></h3>
+	<h4><?php echo lang('blog_create_title'); ?></h4>
 <?php else: ?>
-		<h3><?php echo sprintf(lang('blog_edit_title'), $post->title); ?></h3>
+	<h4><?php echo sprintf(lang('blog_edit_title'), $post->title); ?></h4>
 <?php endif; ?>
+</section>
 
+<section class="item">
+	
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 
 <div class="tabs">
@@ -83,6 +87,8 @@
 </div>
 
 <?php echo form_close(); ?>
+
+</section>
 
 <style type="text/css">
 form.crudli.date-meta div.selector {

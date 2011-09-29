@@ -1,0 +1,160 @@
+/** Global backend form.crud styles **/
+
+/** tidy up how ol, ul look inside form.crud areas **/
+form.crud ol, form.crud ul {
+	list-style-type: none;
+}
+form.crud li {
+	margin: 0;
+	overflow: hidden;
+	padding: 15px 8px;
+	vertical-align: middle;
+}
+form.crud li.even,
+form.crud li.odd {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+form.crud li.even {
+	background-color: #f3f3f3;
+}
+/** group labels and input **/
+form.crud label {
+	display: inline-block;
+	float: left;
+	font-weight: bold;
+	font-size: 11px;
+	width: 140px;
+	max-width: 140px;
+	min-width: 10em;
+	margin-right: 15px;
+	padding: .35em 0;
+	color: #545454;
+	text-align: right;
+
+}
+form.crud .inline {
+	display: inline-block;
+}
+form.crud .inline.hidden {
+	display: none;
+}
+form.crud .inline label
+{
+	float: none;
+	width: inherit;
+	min-width: inherit;
+	max-width: inherit;
+	padding: inherit;
+	font-weight: inherit;
+	color: inherit;
+	text-align: inherit;
+}
+/*
+fieldset ol li div, fieldset ul li div, form.crud ul li div {
+	width: 75%;
+	max-width: 75%;
+	min-width: 25%;
+}
+*/
+
+/** text input **/
+form.crud input[type=text] {
+	width: 20em;
+}
+/** selects **/
+form.crud select {
+	width: 20em;
+}
+/** this sits the width back to a fixed width for selects **/
+form.crud div.selector {
+	width: 200px;
+}
+/** check boxes **/
+form.crud div.checker {
+	margin-right: 0;
+}
+/** file upload element **/
+form.crud ul li div.uploader {
+	width: 190px;
+}
+/** helper text **/
+form.crud li p, .text-small1 {
+	color: #7E7E7E;
+	font-style: italic;
+}
+span.text-small1 {
+	line-height: 16px;
+	vertical-align: middle;
+}
+form.crud .ui-state-active a {
+	font-weight: bold;
+}
+form.crud span.required-icon {
+	background:url("../../img/admin/input-required.png") no-repeat scroll 0 0 transparent;
+	display:inline-block;
+	height:20px;
+	margin-left:-20px;
+	overflow:hidden;
+	position:relative;
+	text-indent:-9000px;
+	top:-4px;
+	vertical-align:top;
+	width:15px;
+}
+div.filter {
+	height: 34px;
+	padding: 0 10px;
+	border-bottom: 1px solid #C2C2C2;
+}
+div.filter form h6 {
+	float: left;
+	margin: 4px 5px 0 0;
+	font-weight: lighter;
+	font-style: italic;
+}
+div.filter form {
+	width: 100%;
+}
+div.filter form ul {
+	list-style-type: none;
+	margin-bottom: 0;
+}
+div.filter form div.button {
+	margin-top: 2px;
+}
+div.filter form li {
+	float: left;
+	margin: 4px 0 0 0;
+}
+/* this is the cancel button for the filter form */
+div.filter a.cancel {
+	padding: 1px 6px;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-left: 8px;
+	display: inline-block;
+}
+
+
+form.crud textarea {
+	width: 80%;
+}
+
+form.crud .cke_skin_kama {
+	float: left !important;
+    width: 80% !important;
+}
+
+form.crud .cke_skin_kama .cke_editor .cke_contents {
+	background: url("../../img/admin/uniform/bg-input.png") repeat-x scroll 0 0 #FFFFFF;
+    border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    color: #777777;
+    padding: 3px;
+	display:block;
+	padding:5px;
+}

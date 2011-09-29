@@ -1,9 +1,14 @@
 <?php if($this->method == 'add'): ?>
-	<h3><?php echo lang('redirects.add_title');?></h3>
+	<section class="title">
+		<h4><?php echo lang('redirects.add_title');?></h4>
+	</section>
 <?php else: ?>
-	<h3><?php echo lang('redirects.edit_title');?></h3>
+	<section class="title">
+		<h4><?php echo lang('redirects.edit_title');?></h4>
+	</section>
 <?php endif; ?>
 
+<section class="item">
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<ul>
 	<li>
@@ -15,9 +20,12 @@
 		<?php echo form_input('to', $redirect->to);?>
 	</li>
 	</ul>
-
-	<div class="buttons float-right padding-top">
+	
+	<br>
+	
+	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 	</div>
 
 <?php echo form_close(); ?>
+</section>

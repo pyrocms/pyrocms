@@ -1,10 +1,13 @@
-<?php if ($this->method == 'create'): ?>
-<h3><?php echo lang('page_layouts.create_title');?></h3>
-<?php else: ?>
-<h3><?php echo sprintf(lang('page_layouts.edit_title'), $page_layout->title);?></h3>
-<?php endif; ?>
+<section class="title">
+	<?php if ($this->method == 'create'): ?>
+	<h4><?php echo lang('page_layouts.create_title');?></h4>
+	<?php else: ?>
+	<h4><?php echo sprintf(lang('page_layouts.edit_title'), $page_layout->title);?></h4>
+	<?php endif; ?>
+</section>
 
-
+<section class="item">
+	
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 
 	<div class="tabs">
@@ -69,7 +72,7 @@
 	</div>
 
 <?php echo form_close(); ?>
-		
+</section>
 
 <script type="text/javascript">
 	html_editor('html_editor', '100%');
