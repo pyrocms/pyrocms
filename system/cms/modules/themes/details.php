@@ -29,7 +29,7 @@ class Module_Themes extends Module {
 			),
 			'description' => array(
 				'sl' => 'Dovoljuje adminom in osebju spremembo izgleda spletne strani, namestitev novega izgleda in urejanja le tega v bolj vizualnem pristopu',
-				'en' => 'Allows admins and staff to change website theme, upload new themes and manage them in a more visual approach.',
+				'en' => 'Allows admins and staff to switch themes, upload new themes, and manage theme options.',
 				'nl' => 'Maakt het voor administratoren en medewerkers mogelijk om het thema van de website te wijzigen, nieuwe thema&apos;s te uploaden en ze visueel te beheren.',
 				'es' => 'Permite a los administradores y miembros del personal cambiar el tema del sitio web, subir nuevos temas y manejar los ya existentes.',
 				'fr' => 'Permet aux administrateurs et au personnel de modifier le thème du site, de charger de nouveaux thèmes et de le gérer de façon plus visuelle',
