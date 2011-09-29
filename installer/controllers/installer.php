@@ -335,9 +335,22 @@ class Installer extends CI_Controller
 		// If the form validation passed
 		else
 		{
+			// Let's try to install the system
+			$install = $this->installer_lib->install($_POST);
+
+			// Did the install fail?
+			if ($install['status'] === FALSE)
+			{
+				// Let's tell them why the install failed
+				$this->session->set_flashdata('message', $this->lang->line('error_'.$install['code']) . $install['message']);
+				
+				$final_data['page_output'] = $this->parser->parse('step_4', $this->lang->language, TRUE);
+				$this->load->view('global', $final_data);
+			}
+			
 			// Success!
 			$this->session->set_flashdata('message', lang('success'));
-			$this->session->set_flashdata('message_type','success');
+			$this->session->set_flashdata('message_type', 'success');
 
 			// Store the default username and password in the session data
 			$this->session->set_userdata('user', array(
@@ -354,37 +367,10 @@ class Installer extends CI_Controller
 			$this->load->library('module_import');
 			$this->module_import->import_all();
 
-			// Redirect
 			redirect('installer/complete');
 		}
 	}
 
-	/**
-	 * Attempt to install PyroCMS (used for form validation)
-	 *
-	 * @access public
-	 * @return bool
-	 */
-	function attempt_install()
-	{
-		// If we do not have any validation errors so far
-		if ( ! validation_errors() )
-		{
-			// Let's try to install the system
-			$install_results = $this->installer_lib->install($_POST);
-
-			// Did the install fail?
-			if($install_results['status'] === FALSE)
-			{
-				// Let's tell them why the install failed
-				$this->form_validation->set_message('attempt_install', $this->lang->line('error_'.$install_results['code']) . $install_results['message']);
-				return FALSE;
-			}
-
-			// If the install did not fail
-			return TRUE;
-		}
-	}
 
 	/**
 	 * We're done, thank god for that
