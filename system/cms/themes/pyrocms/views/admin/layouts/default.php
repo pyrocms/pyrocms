@@ -54,8 +54,10 @@
 			<div id="filters">
 				<?php template_partial('filters'); ?>
 			</div>		
-
-			<?php echo $template['body']; ?>
+			
+			<div id="content-body">
+				<?php echo $template['body']; ?>
+			</div>
 		</section>
 	
 	</div>
