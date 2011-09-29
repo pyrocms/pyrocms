@@ -29,7 +29,7 @@ jQuery(function($) {
 	 */
 	pyro.init = function() {
 
-		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+		$("#datepicker, .datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
