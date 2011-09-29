@@ -1,9 +1,14 @@
 <?php if ($this->method == 'edit'): ?>
-    <h3><?php echo sprintf(lang('groups.edit_title'), $group->name); ?></h3>
+	<section class="title">
+    	<h4><?php echo sprintf(lang('groups.edit_title'), $group->name); ?></h4>
+	</section>
 <?php else: ?>
-    <h3><?php echo lang('groups.add_title'); ?></h3>
+	<section class="title">
+    	<h4><?php echo lang('groups.add_title'); ?></h4>
+	</section>
 <?php endif; ?>
 
+<section class="item">
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
     <ul>
 		<li>
@@ -30,6 +35,7 @@
 	</div>
 	
 <?php echo form_close();?>
+</section>
 
 <script type="text/javascript">
 	jQuery(function($) {
