@@ -225,7 +225,7 @@ class Navigation_m extends MY_Model
 	 */
 	public function _set_children($link)
 	{
-		if ($link['children'])
+		if (isset($link['children']))
 		{
 			foreach ($link['children'] as $i => $child)
 			{
@@ -233,7 +233,7 @@ class Navigation_m extends MY_Model
 				$this->db->update($this->_table, array('parent' => str_replace('link_', '', $link['id']), 'position' => $i));
 				
 				//repeat as long as there are children
-				if ($child['children'])
+				if (isset($child['children']))
 				{
 					$this->_set_children($child);
 				}
