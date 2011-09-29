@@ -1,5 +1,5 @@
 <?php if (!empty($users)): ?>
-
+<section class="item">
 	<?php echo form_open('admin/users/action'); ?>
 		<table border="0" class="table-list">
 			<thead>
@@ -52,13 +52,12 @@
 	</div>
 
 <?php echo form_close(); ?>
+</section>
 
 <?php else: ?>
-	<div class="blank-slate">
-
+	<section class="title">
 		<img src="<?php echo site_url('system/cms/modules/users/img/user.png') ?>" />
-
-		<h2><?php echo lang($this->method == 'index' ? 'user_no_registred' : 'user_no_inactives');?></h2>
-	</div>
+		<h4><?php echo lang($this->method == 'index' ? 'user_no_registred' : 'user_no_inactives');?></h4>
+	</section>
 <?php endif; ?>
 
