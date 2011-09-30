@@ -56,7 +56,7 @@ class Module_Users extends Module {
 	public function install()
 	{
 		//This is handled by the installer only so that a default user can be created.
-		return FALSE;
+		return TRUE;
 	}
 
 	public function uninstall()
