@@ -91,7 +91,7 @@ mark { background: #ff0; color: #333333; font-style: italic; font-weight: bold; 
 address { display: block; line-height: 18px; margin-bottom: 18px; }
 
 /* Redeclare monospace font family, */
-pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 13px; }
+pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 13px; float: left;}
 
 /* Improve readability of pre-formatted text in all bgridsers */
 pre, code { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
@@ -186,7 +186,7 @@ Embedded Content
 -------------------------------------------------------------------------------------------------------
 */
 
-img { width: 100%; height: 100%; border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
 
 /* Correct overflow not hidden in IE9 */
 svg:not(:root) { overflow: hidden; }
@@ -1429,11 +1429,6 @@ section#content header {
 	float: left;
 }
 
-section#content img { 
-	width: 24px; 
-	height: 24px; 
-}
-
 section#content ul {
 	margin: 0;
 	padding: 0;
@@ -1499,6 +1494,22 @@ section.item {
 
 section.box {
 	width: 100%;
+}
+
+#quick_links ul {
+	float: left;
+}
+
+#quick_links ul li {
+	width: 75px;
+	float: left;
+	margin: 3px 35px 0 35px;
+}
+
+#quick_links ul li a {
+	width: 77px;
+	height: 91px;
+	float: left;
 }
 
 #feed ul li {
@@ -1726,7 +1737,7 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 590px; 
+		width: 580px; 
 		margin-right: 15px; 
 		float: left; 
 	}
