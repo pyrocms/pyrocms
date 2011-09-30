@@ -1,4 +1,4 @@
-<h3><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h3>
+<h4><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h4>
 
 <?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 

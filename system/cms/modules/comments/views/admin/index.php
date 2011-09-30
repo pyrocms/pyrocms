@@ -1,7 +1,7 @@
 <section class="item">
 	
 	<?php if (Settings::get('moderate_comments')): ?>	
-		<h4><?php echo $content_title;?></h4>
+		<p><?php echo $content_title;?></p>
 	<?php endif; ?>
 
 	<?php if ( ! empty($comments)): ?>
