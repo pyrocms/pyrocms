@@ -330,11 +330,12 @@ class Page_m extends MY_Model
 			foreach ($chunks as $chunk)
 			{
 				$this->db->insert('page_chunks', array(
-					'page_id' => $id,
-					'sort' => $i++,
-					'slug' => $chunk->slug,
-					'body' => $chunk->body,
-					'type' => $chunk->type,
+					'page_id' 	=> $id,
+					'sort' 		=> $i++,
+					'slug' 		=> $chunk->slug,
+					'body' 		=> $chunk->body,
+					'type' 		=> $chunk->type,
+					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
 				));
 			}
 		}	
@@ -395,11 +396,12 @@ class Page_m extends MY_Model
 			foreach ($chunks as $chunk)
 			{
 				$this->db->insert('page_chunks', array(
-					'page_id' => $id,
-					'sort' => $i++,
-					'slug' => $chunk->slug,
-					'body' => $chunk->body,
-					'type' => $chunk->type,
+					'page_id' 	=> $id,
+					'sort' 		=> $i++,
+					'slug' 		=> $chunk->slug,
+					'body' 		=> $chunk->body,
+					'type' 		=> $chunk->type,
+					'parsed'	=> ($chunk->type == 'markdown') ? parse_markdown($chunk->body) : ''
 				));
 			}
 		}	

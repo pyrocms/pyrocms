@@ -94,10 +94,10 @@ class Blog extends Public_Controller
 			redirect('blog');
 		}
 		
-		// if it uses markdown then parse it
+		// if it uses markdown then display the parsed version
 		if ($post->type == 'markdown')
 		{
-			$post->body = parse_markdown($post->body);
+			$post->body = $post->parsed;
 		}
 
 		$post->author = $this->ion_auth->get_user($post->author_id);
