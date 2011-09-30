@@ -1,12 +1,14 @@
+<section class="title"></section>
+<section class="item">
 <!-- Available Widgets Area -->
 <table>
 	<tbody style="border-bottom: none">
 		<tr>
 
 			<!-- Available Widgets -->
-			<td id="available-widgets">
+			<td id="available-widgets" class="one_half">
 				<header>
-					<h2><?php echo lang('widgets.available_title') ?></h2>
+					<h4><?php echo lang('widgets.available_title') ?></h4>
 					<p><?php echo lang('widgets.instructions') ?></p>
 				</header>
 
@@ -15,7 +17,7 @@
 				<ul>
 					<?php foreach ($available_widgets as $widget): ?>
 					<li id="widget-<?php echo $widget->slug; ?>" class="widget-box">
-						<h3><?php echo $widget->title; ?></h3>
+						<p><?php echo $widget->title; ?></p>
 						<div class="widget-box-body">
 							<p class="description"><?php echo $widget->description; ?></p>
 							<p class="author"><?php echo lang('widgets.widget_author') . ': ' . ($widget->website ? anchor($widget->website, $widget->author, array('target' => '_blank')) : $widget->author); ?>
@@ -31,9 +33,9 @@
 
 
 			<!-- Widget Areas -->
-			<td id="widget-areas">
+			<td id="widget-areas" class="one_half last">
 				<header>
-					<h2><?php echo lang('widgets.widget_area_wrapper'); ?></h2>
+					<h4><?php echo lang('widgets.widget_area_wrapper'); ?></h4>
 				</header>
 
 				<?php if ($widget_areas): ?>
@@ -48,3 +50,4 @@
 		</tr>
 	</tbody>
 </table>
+</section>
