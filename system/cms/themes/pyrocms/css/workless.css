@@ -186,7 +186,7 @@ Embedded Content
 -------------------------------------------------------------------------------------------------------
 */
 
-img { width: 100%; height: 100%; border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
 
 /* Correct overflow not hidden in IE9 */
 svg:not(:root) { overflow: hidden; }
@@ -1429,11 +1429,6 @@ section#content header {
 	float: left;
 }
 
-section#content img { 
-	width: 24px; 
-	height: 24px; 
-}
-
 section#content ul {
 	margin: 0;
 	padding: 0;
@@ -1499,6 +1494,16 @@ section.item {
 
 section.box {
 	width: 100%;
+}
+
+#quick_links ul {
+	float: left;
+}
+
+#quick_links ul li {
+	width: 75px;
+	float: left;
+	margin: 3px 35px 0 35px;
 }
 
 #feed ul li {
