@@ -123,7 +123,8 @@ class Module_Settings extends Module {
 			 ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1','users','963'),
 			 ('registered_email','User Registered Email','Send a notification email to the contact e-mail when someone registers ','radio','1','','1=Enabled|0=Disabled','0','1','users','962'),
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
-			 ('admin_theme','Admin Theme','Select the theme for the admin panel.','','admin_theme','admin_theme','func:get_themes','1','0','','0'),
+			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
+			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','0','','0'),
 			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
 			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
 		";

@@ -1,0 +1,147 @@
+/**************************************/
+/*               BASIC                */
+/**************************************/
+
+body {
+	color: #333;
+	font-family: Verdana, Arial, Geneva, sans-serif;
+	font-size:70%;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/**************************************/
+/*             HEADINGS               */
+/**************************************/
+h1 {
+	font-size: 1.7em;
+	margin: 0.2em 0;
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+/** Global backend form.crud styles **/
+
+/** tidy up how ol, ul look inside form.crud areas **/
+form.crud ol, form.crud ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 10px 0;
+}
+form.crud li {
+	margin: 0;
+	vertical-align: middle;
+	padding: 6px 8px;
+}
+form.crud li.even {
+	background-color: #f3f3f3;
+	-moz-border-radius: 5px 5px 5px 5px;
+}
+/** group labels and input **/
+form.crud label {
+	display: inline-block;
+	float: left;
+	font-weight: bold;
+	font-size: 11px;
+	width: 140px;
+	max-width: 140px;
+	min-width: 10em;
+	margin-right: 15px;
+	padding: .35em 0;
+	color: #545454;
+}
+/*
+fieldset ol li div, fieldset ul li div, form.crud ul li div {
+	width: 75%;
+	max-width: 75%;
+	min-width: 25%;
+}
+*/
+
+/** text input **/
+form.crud input[type=text] {
+	width: 20em;
+}
+/** selects **/
+form.crud select {
+	width: 20em;
+}
+/** this sits the width back to a fixed width for selects **/
+form.crud div.selector {
+	width: 200px;
+}
+/** check boxes **/
+form.crud div.checker {
+	margin-right: 0;
+}
+/** file upload element **/
+form.crud ul li div.uploader {
+	width: 190px;
+}
+/** helper text **/
+form.crud li p, .text-small1 {
+	color: #7E7E7E;
+	font-style: italic;
+}
+span.text-small1 {
+	line-height: 16px;
+	vertical-align: middle;
+}
+form.crud .ui-state-active a {
+	font-weight: bold;
+}
+form.crud span.required-icon {
+	background:url("../../img/admin/input-required.png") no-repeat scroll 0 0 transparent;
+	display:inline-block;
+	height:20px;
+	margin-left:-20px;
+	overflow:hidden;
+	position:relative;
+	text-indent:-9000px;
+	top:-4px;
+	vertical-align:top;
+	width:15px;
+}
+form.crud textarea {
+	width: 22em;
+}
+div.notification {
+	border: 1px solid;
+	padding: 10px 10px 10px 36px;
+	background-repeat: no-repeat !important;
+	background-position: 10px 11px !important;
+	position: relative;
+}
+.notification p {
+	margin: 0;
+	padding: 0;
+}
+.error {
+	background: #ffcece url('../../img/admin/icons/16/cross-circle.png');
+	border-color: #df8f8f;
+	color: #665252;
+}
+.attention {
+	background: #fffbcc url('../../img/admin/icons/16/exclamation.png');
+	border-color: #e6db55;
+	color: #666452;
+}
+.success {
+	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png');
+	border-color: #9adf8f;
+	color: #556652;
+}
+.information {
+	background: #dbe3ff url('../../img/admin/icons/16/information.png');
+	border-color: #a2b4ee;
+	color: #585b66;
+}

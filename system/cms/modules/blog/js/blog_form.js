@@ -9,6 +9,29 @@
 			});
 		}));
 		
+		// editor switcher
+		$('select[name^=type]').live('change', function() {
+			chunk = $(this).closest('li.editor');
+			textarea = $('textarea', chunk);
+			
+			// Destroy existing WYSIWYG instance
+			if (textarea.hasClass('wysiwyg-simple') || textarea.hasClass('wysiwyg-advanced')) 
+			{
+				textarea.removeClass('wysiwyg-simple');
+				textarea.removeClass('wysiwyg-advanced');
+					
+				var instance = CKEDITOR.instances[textarea.attr('id')];
+			    instance && instance.destroy();
+			}
+			
+			
+			// Set up the new instance
+			textarea.addClass(this.value);
+			
+			pyro.init_ckeditor();
+			
+		});
+		
 		$('#blog-options-tab ol li:first a').colorbox({
 			srollable: false,
 			innerWidth: 600,
@@ -38,7 +61,7 @@
 								//append to dropdown the new option
 								$(select).append(option);
 																
-								//uniform workaround
+								// TODO work this out? //uniform workaround
 								$('#blog-options-tab li:first span').html(obj.title);
 								
 								//close the colorbox

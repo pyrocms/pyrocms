@@ -149,10 +149,9 @@ class Admin extends Admin_Controller
 			$variable->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$this->data->variable =& $variable;
-
 		$this->template
 			->title($this->module_details['name'], lang('variables.create_title'))
+			->set('variable', $variable)
 			->build('admin/form', $this->data);
 	}
 
@@ -221,15 +220,13 @@ class Admin extends Admin_Controller
 		}
 
 		// Loop through each validation rule
-		foreach($this->_validation_rules as $rule)
+		foreach ($this->_validation_rules as $rule)
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
 				$variable->{$rule['field']} = set_value($rule['field']);
 			}
 		}
-
-		$this->data->variable =& $variable;
 
 		if ($this->input->is_ajax_request())
 		{
@@ -238,6 +235,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $variable->name))
+			->set('variable', $variable)
 			->build('admin/form', $this->data);
 	}
 
@@ -292,7 +290,6 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('variables.no_select_error'));
 		}
 
-		// Redirect
 		redirect('admin/variables');
 	}
 
@@ -305,13 +302,9 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_name($name = '')
 	{
-		if ($this->variables_m->check_name($name, (int) $this->id))
-		{
-			$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
-			return FALSE;
-		}
-
-		return TRUE;
+		$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
+		
+		return ! $this->variables_m->check_name($name, (int) $this->id);
 	}
 }
 

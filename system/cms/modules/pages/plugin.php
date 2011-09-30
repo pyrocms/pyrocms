@@ -20,7 +20,7 @@ class Plugin_Pages extends Plugin
 	public function url()
 	{
 		$id		= $this->attribute('id');
-		$page	= $this->pyrocache->model('pages_m', 'get', array($id));
+		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
 		return site_url($page ? $page->uri : '');
 	}
@@ -34,14 +34,23 @@ class Plugin_Pages extends Plugin
 	 */
 	public function display()
 	{
-		$page = $this->db->select('pages.*, page_chunks.*')
-					->where('pages.id', $this->attribute('id'))
+		$page = $this->db->where('pages.id', $this->attribute('id'))
 					->or_where('pages.slug', $this->attribute('slug'))
 					->where('status', 'live')
-					->join('page_chunks', 'pages.id = page_chunks.page_id', 'LEFT')
 					->get('pages')
 					->row_array();
-					
+
+		// Grab all the chunks that make up the body
+		$page['chunks'] = $this->db->get_where('page_chunks', array('page_id' => $page['id']))->result();
+		
+		$page['body'] = '';
+		foreach ($page['chunks'] as $chunk)
+		{
+			$page['body'] .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+									(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
+								'</div>'.PHP_EOL;
+		}
+
 		return $this->content() ? $page : $page['body'];
 	}
 	
@@ -182,12 +191,12 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! is_numeric($child_id))
 			{
-				$child_id = ($child = $this->pages_m->get_by(array('slug' => $child_id))) ? $child->id: 0;
+				$child_id = ($child = $this->page_m->get_by(array('slug' => $child_id))) ? $child->id: 0;
 			}
 
 			if ( ! is_numeric($descendent_id))
 			{
-				$descendent_id = ($descendent = $this->pages_m->get_by(array('slug' => $descendent_id))) ? $descendent->id: 0;
+				$descendent_id = ($descendent = $this->page_m->get_by(array('slug' => $descendent_id))) ? $descendent->id: 0;
 			}
 
 			if ( ! ($child_id && $descendent_id))
@@ -195,7 +204,7 @@ class Plugin_Pages extends Plugin
 				return FALSE;
 			}
 
-			$descendent_ids	= $this->pages_m->get_descendant_ids($descendent_id);
+			$descendent_ids	= $this->page_m->get_descendant_ids($descendent_id);
 
 			return in_array($child_id, $descendent_ids);
 		}
@@ -204,10 +213,10 @@ class Plugin_Pages extends Plugin
 		{
 			if ( ! is_numeric($child_id))
 			{
-				$parent_id = ($parent = $this->pages_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
+				$parent_id = ($parent = $this->page_m->get_by(array('slug' => $parent_id))) ? $parent->id: 0;
 			}
 
-			return $parent_id ? (int) $this->pages_m->count_by(array(
+			return $parent_id ? (int) $this->page_m->count_by(array(
 				(is_numeric($child) ? 'id' : 'slug') => $child,
 				'parent_id'	=> $parent_id
 			)) > 0: FALSE;

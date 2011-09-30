@@ -59,7 +59,6 @@ jQuery(function($){
 				$('input[name=slug]').val('');
 				$('.images-placeholder').hide();
 			}
-			$.uniform.update('#gallery_thumbnail')
 
 		}, 'json');
 	});

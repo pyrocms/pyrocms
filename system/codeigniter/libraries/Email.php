@@ -138,6 +138,7 @@ class CI_Email {
 	 * Initialize the Email Data
 	 *
 	 * @access	public
+	 * @param	bool
 	 * @return	void
 	 */
 	public function clear($clear_attachments = FALSE)
@@ -395,7 +396,7 @@ class CI_Email {
 	public function attach($filename, $disposition = 'attachment')
 	{
 		$this->_attach_name[] = $filename;
-		$this->_attach_type[] = $this->_mime_types(next(explode('.', basename($filename))));
+		$this->_attach_type[] = $this->_mime_types(pathinfo($filename, PATHINFO_EXTENSION));
 		$this->_attach_disp[] = $disposition; // Can also be 'inline'  Not sure if it matters
 		return $this;
 	}
@@ -452,7 +453,7 @@ class CI_Email {
 	 */
 	public function set_alt_message($str = '')
 	{
-		$this->alt_message = ($str == '') ? '' : $str;
+		$this->alt_message = (string) $str;
 		return $this;
 	}
 
@@ -477,12 +478,12 @@ class CI_Email {
 	 * Set Wordwrap
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	bool
 	 * @return	void
 	 */
 	public function set_wordwrap($wordwrap = TRUE)
 	{
-		$this->wordwrap = ($wordwrap === FALSE) ? FALSE : TRUE;
+		$this->wordwrap = (bool) $wordwrap;
 		return $this;
 	}
 

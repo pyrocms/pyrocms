@@ -176,11 +176,13 @@ class Asset {
 	 * @param		string    optional, module name
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public function js($asset_name, $module_name = NULL, $location_type = '')
+	public function js($asset_name, $module_name = NULL, $attributes = array(), $location_type = '')
 	{
+		$attribute_str = $this->_parse_asset_html($attributes);
+				
 		$location_type = 'js_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
 
-		return '<script type="text/javascript" src="' . $this->{$location_type}($asset_name, $module_name) . '"></script>';
+		return '<script type="text/javascript" src="' . $this->{$location_type}($asset_name, $module_name) . '"'.$attribute_str.'></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -351,7 +353,7 @@ class Asset {
 
 		if (is_string($attributes))
 		{
-			$attribute_str = $attributes;
+			$attribute_str = ' '.$attributes;
 		}
 		else if (is_array($attributes) || is_object($attributes))
 		{
@@ -380,7 +382,5 @@ class Asset {
 	}
 
 }
-
-// END Asset Class
 
 /* End of file Asset.php */

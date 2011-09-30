@@ -24,9 +24,16 @@ class MY_Controller extends CI_Controller {
 		
 		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
 		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{
+		{	
 			$this->load->dbforge();
-			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+			if ($this->db->table_exists(SITE_REF.'_migrations'))
+			{
+				$this->dbforge->drop_table(SITE_REF.'_schema_version');
+			}
+			else
+			{
+				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+			}
 		}
 
 		// By changing the prefix we are essentially "namespacing" each site
@@ -124,7 +131,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
-			'pages/pages_m',
+			'pages/page_m',
 			'themes/themes_m'
 		));
 

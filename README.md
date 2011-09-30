@@ -4,7 +4,7 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 1.3.2
+* Version: 1.4.0-dev
 
 ## Team
 
@@ -32,6 +32,15 @@ You no longer need to do anything to upgrade the database. To upgrade the files 
 
 	system/cms/config/config.php
 	system/cms/config/database.php
+
+<!-- Added by IMAMO --> 
+In config.php you have to replace last lines to this (if you don't galleries wont work):
+
+$config['modules_locations'] = array(
+	APPPATH.'modules/' => '../modules/',
+	ADDON_FOLDER.'default/modules/' => '../../../addons/default/modules/',
+	SHARED_ADDONPATH.'modules/' => '../../../addons/shared_addons/modules/'
+);
 
 
 ## Bugs & Feature Requests

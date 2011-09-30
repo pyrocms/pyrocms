@@ -10,7 +10,7 @@ section.box header h3.form-title { float: right; width: 42%; }
 #link-details #nav-edit li { padding: 13px 8px }
 
 /* Left pane */
-#link-list { background-color:#efeff6; float:left; height: 38em; border-right: 2px dotted #ddd; overflow:auto; width: 48%; }
+#link-list { background-color:#efeff6; float:left; height: 38em; border-right: 2px dotted #ddd; overflow:auto; width: 50%; }
 
 #link-list ol { background:none; margin-left:2em !important; }
 #link-list a { text-decoration: none; font-size: 13px; color:#5c5b5b; padding: 1px 1px 1px 15px; background: url('../img/off.png') no-repeat left; }
@@ -33,7 +33,7 @@ ol.sortable { margin: 2em; }
 .minus { background: url('../img/less.png') no-repeat 0 10px; }
 
 /* Right pane */
-#link-details { display: none; background-color: #fbfbfc; border: none;  float:left; width: 48%; color: #666; }
+#link-details { display: none; border: none;  float:left; width: 48%; color: #666; }
 #link-details h4 { margin:0.5em 0; }
 #link-details fieldset {  border: 1px solid #ddd; border-right: none; border-left: none; background-color: #fff; padding: 0px 5px; }
 #link-details fieldset p strong { width: 35%; display: inline-block; text-align: right; padding-right: 10px; }

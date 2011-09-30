@@ -3,7 +3,7 @@
 		<div class="files-uploader-browser">
 			<?php echo form_open_multipart('admin/files/upload'); ?>
 				<label for="userfile" class="upload"><?php echo lang('files.upload_title'); ?></label>
-				<?php echo form_upload('userfile', NULL, 'class="no-uniform" multiple="multiple"'); ?>
+				<?php echo form_upload('userfile', NULL, 'multiple="multiple"'); ?>
 			<?php echo form_close(); ?>
 			<ul id="files-uploader-queue" class="ui-corner-all"></ul>
 		</div>

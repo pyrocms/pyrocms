@@ -24,6 +24,11 @@ class Admin_Controller extends MY_Controller {
 			show_error('This site has been set to use an admin theme that does not exist.');
 		}
 
+		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
+		{
+			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
+		}
+
 		// Prepare Asset library
 	    $this->asset->set_theme(ADMIN_THEME);
 		

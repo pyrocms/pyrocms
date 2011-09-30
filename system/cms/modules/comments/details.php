@@ -66,6 +66,7 @@ class Module_Comments extends Module {
 			  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
 			  `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  `comment` text collate utf8_unicode_ci NOT NULL,
+			  `parsed` text collate utf8_unicode_ci NOT NULL,
 			  `module` varchar(40) collate utf8_unicode_ci NOT NULL,
 			  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
 			  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',

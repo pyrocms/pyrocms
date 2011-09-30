@@ -1,7 +1,9 @@
-(function($){$(function(){
+(function($){
+	
+	$(function(){
 
 	var variables = {
-		$content : $('#content'),
+		$content : $('#content-body'),
 
 		/**
 		 * Constructor
@@ -20,7 +22,6 @@
 				variables.$content.slideUp(function(){
 					// Load the create form
 					$(this).load(fetch_url, function(){
-						$.uniform.update('input[type=checkbox], button');
 						$(this).slideDown();
 					});
 				});
@@ -56,9 +57,7 @@
 				}
 
 				orig_tr.fadeOut(function(){
-					orig_tr.load(load_url, function(){
-						$.uniform.update('input[type=checkbox], button');
-					});
+					orig_tr.load(load_url);
 					orig_tr.fadeIn();
 				});
 
@@ -68,7 +67,7 @@
 			/**
 			 * Form submit behavior, both create and edit trigger
 			 */
-			$('button[value=save],button[value=save_exit]').live('click', function(e){
+			$('button[value=save]').live('click', function(e){
 				e.preventDefault();
 
 				var form_data	= {
@@ -96,7 +95,6 @@
 			}
 
 			variables.$content.load(list_page, function(){
-				$.uniform.update('input[type=checkbox], button');
 				$(this).slideDown();
 			});
 		},
@@ -104,12 +102,12 @@
 		/**
 		 * Handles submits for both edit and create forms
 		 */
-		do_submit: function(form_data, post_url, callback){
+		do_submit: function(form_data, post_url, callback) {
 
 			// Remove notifications
 			pyro.clear_notifications();
 
-			$.post(post_url, form_data, function(data, status, xhr){
+			$.post(post_url, form_data, function(data, status, xhr) {
 
 				if (data.title)
 				{
@@ -130,6 +128,8 @@
 
 			}, 'json');
 		}
-	}; variables.init();
+	};
+	
+	variables.init();
 
 });})(jQuery);

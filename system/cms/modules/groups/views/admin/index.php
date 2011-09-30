@@ -31,7 +31,7 @@
     </table>
 
 <?php else: ?>
-	<div class="blank-slate">
-		<h2><?php echo lang('groups.no_groups');?></h2>
-	</div>
+	<section class="title">
+		<p><?php echo lang('groups.no_groups');?></p>
+	</section>
 <?php endif;?>
