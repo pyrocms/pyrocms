@@ -23,5 +23,6 @@
 
 <?php echo js('scripts.js'); ?>
 <?php echo css('plugins.css'); ?>
+<?php echo css('jquery/colorbox.css'); ?>
 
 <?php echo $template['metadata']; ?>

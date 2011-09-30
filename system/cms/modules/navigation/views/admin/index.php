@@ -3,17 +3,18 @@
 	
 		<section rel="<?php echo $group->id; ?>" class="group-<?php echo $group->id; ?> box">
 			<section class="title">
-				<div class="buttons buttons-small">
-					<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
-				</div>
-
-				<h4 class="spacer-bottom-half"><?php echo $group->title;?></h4>
-
-				<div class="buttons buttons-small">
-					<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm button",  'title' => lang('nav_group_delete_confirm'))) ?>
-				</div>
+				<ul>
+					<li>
+						<h4><?php echo $group->title;?></h4>
+						<?php echo anchor('admin/navigation/create/'.$group->id, lang('nav_link_create_title'), 'rel="'.$group->id.'" class="add ajax button"') ?>
+					</li>
+					
+					<li>
+						<h4 class="form-title group-title-<?php echo $group->id; ?>"></h4>
+						<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm button",  'title' => lang('nav_group_delete_confirm'))) ?>
+					</li>
+				</ul>
 			
-				<h4 class="form-title group-title-<?php echo $group->id; ?>"></h4>
 			</section>
 			
 			<?php if ( ! empty($navigation[$group->id])): ?>
@@ -73,9 +74,7 @@
 						</p>
 						
 					</div>
-						
-					<br class="clear-both" />
-						
+
 				</section>
 				<?php endif; ?>	
 					
