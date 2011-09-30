@@ -88,14 +88,16 @@ $(function($) {
 		</section>
 		
 		<section class="item">
-			<ul> 
-				<?php echo lang('comments.no_comments');?>
-				
-				<?php foreach ($recent_comments AS $rant) : ?>
-					<li>
-						<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo $rant->comment; ?></em></p>
-					</li>
-				<?php endforeach; ?>
+			<ul>
+				<?php if (isset($recent_comments)): ?>
+						<?php foreach ($recent_comments AS $rant) : ?>
+							<li>
+								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo $rant->comment; ?></em></p>
+							</li>
+						<?php endforeach; ?>
+				<?php else: ?>
+						<?php echo lang('comments.no_comments');?>
+				<?php endif; ?>
 			</ul>
 		</section>
 		
