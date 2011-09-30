@@ -1,9 +1,9 @@
 <?php if ($this->method == 'create'): ?>
-	<h3><?php echo lang('user_add_title');?></h3>
+	<h4><?php echo lang('user_add_title');?></h4>
 	<?php echo form_open(uri_string(), 'class="crud" autocomplete="off"'); ?>
 
 <?php else: ?>
-	<h3><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h3>
+	<h4><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h4>
 	<?php echo form_open(uri_string(), 'class="crud"'); ?>
 <?php endif; ?>
 
