@@ -83,6 +83,10 @@ jQuery(function($){
 					btn_action;
 
 				$.colorbox.resize();
+				
+				// Chosen
+				$('select').addClass('chzn');
+				$(".chzn").chosen();
 
 				form.find(':submit').click(function(e){
 					btn_action = $(this).val();
@@ -223,6 +227,10 @@ jQuery(function($){
 				parent.location.hash = null;
 				pyro.add_notification(data.message);
 			}
+			
+			// Chosen
+			$('select').addClass('chzn');
+			$(".chzn").chosen();
 
 		}, 'json');
 	});
@@ -272,6 +280,10 @@ jQuery(function($){
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic');
 
 				$.colorbox.resize();
+				
+				// Chosen
+				$('select').addClass('chzn');
+				$(".chzn").chosen();
 
 				form.find(':input:last').keypress(function(e){
 					if (e.keyCode == 9 && ! e.shiftKey)
