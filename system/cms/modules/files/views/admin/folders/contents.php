@@ -1,4 +1,4 @@
-<h3><?php echo $crumbs; ?></h3>
+<h4><?php echo $crumbs; ?></h4>
 <?php echo form_open('admin/files/action');?>
 	<div id="files-toolbar">
 		<ul>
@@ -118,7 +118,7 @@
 
 	<?php else: ?>
 	<div class="blank-slate files">
-		<h2><?php echo lang('files.no_files');?></h2>
+		<p><?php echo lang('files.no_files');?></p>
 	</div>
 	<?php endif; ?>
 <?php echo form_close();?>

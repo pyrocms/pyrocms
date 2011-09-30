@@ -1,6 +1,6 @@
-<h2><?php echo $this->method === 'create'
+<h4><?php echo $this->method === 'create'
 	? lang('file_folders.create_title')
-	: sprintf(lang('file_folders.edit_title'), $folder->name); ?></h2>
+	: sprintf(lang('file_folders.edit_title'), $folder->name); ?></h4>
 
 <?php echo form_open($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
 <fieldset>
