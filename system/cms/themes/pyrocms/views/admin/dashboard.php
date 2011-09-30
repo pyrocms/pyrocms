@@ -114,33 +114,29 @@ $(function($) {
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
-		<section class="item <?php echo isset($rss_items); ?>">
+		<section id="quick_links" class="item <?php echo isset($rss_items); ?>">
 			<ul>
 				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<?php echo image('icons/comments.png'); ?>
-					<a href="<?php echo site_url('admin/comments') ?>"><?php echo lang('cp_manage_comments'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments'); ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo image('icons/comments.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<?php echo image('icons/pages.png'); ?>
-					<a href="<?php echo site_url('admin/pages') ?>"><?php echo lang('cp_manage_pages'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo image('icons/pages.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<?php echo image('icons/folder_open.png'); ?>
-					<a href="<?php echo site_url('admin/files') ?>"><?php echo lang('cp_manage_files'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo image('icons/files.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li class="clearfix">
-					<?php echo image('icons/user.png'); ?>
-					<a href="<?php echo site_url('admin/users') ?>"><?php echo lang('cp_manage_users'); ?></a>
+				<li>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>"><?php echo image('icons/users.png'); ?></a>
 				</li>
 				<?php endif; ?>
 			</ul>
