@@ -1506,6 +1506,12 @@ section.box {
 	margin: 3px 35px 0 35px;
 }
 
+#quick_links ul li a {
+	width: 77px;
+	height: 91px;
+	float: left;
+}
+
 #feed ul li {
 	width: 1160px;
 	padding: 0 25px 15px 20px;

@@ -116,25 +116,25 @@ $(function($) {
 			<ul>
 				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<a class="tooltip" title="<?php echo lang('cp_manage_comments'); ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo image('icons/comments.png'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments'); ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo image('icons/comments.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<a class="tooltip" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo image('icons/pages.png'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo image('icons/pages.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<a class="tooltip" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo image('icons/files.png'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo image('icons/files.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<a class="tooltip" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>"><?php echo image('icons/users.png'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>"><?php echo image('icons/users.png'); ?></a>
 				</li>
 				<?php endif; ?>
 			</ul>
