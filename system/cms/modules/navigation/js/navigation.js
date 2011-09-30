@@ -27,6 +27,10 @@
 				// display the create/edit title in the header
 				var title = $('#title-value-'+id).html();
 				$('section.box .title h4.group-title-'+id).html(title);
+				
+				// Chosen
+				$('select').addClass('chzn');
+				$(".chzn").chosen();
 			});
 			return false;
 		});
@@ -160,7 +164,7 @@
 				order = $(this).nestedSortable('toHierarchy');
 
 				// get the group id
-				var group = $(this).parents('section').attr('rel');
+				var group = $(this).parents('section.box').attr('rel');
 
 				// refresh the tree icons - needs a timeout to allow nestedSort
 				// to remove unused elements before we check for their existence
