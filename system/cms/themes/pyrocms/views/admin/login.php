@@ -2,14 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	
 	<base href="<?php echo base_url(); ?>" />
 	
-	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery.min.js'); ?>
-	<?php echo js('admin/login.js'); ?>
+	<?php echo theme_css('admin/style.css'); ?>
+	<?php echo theme_js('jquery/jquery.min.js'); ?>
+	<?php echo theme_js('admin/login.js'); ?>
 	
 	<!-- Place CSS bug fixes for IE 7 in this comment -->
 	<!--[if IE 7]>
@@ -40,12 +39,12 @@
 			<ul>
 				<li>
 					<input type="text" name="email" value="<?php echo lang('email_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('email_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('email_label'); ?>') {this.value = '';}" />
-					<img class="input-email" src="<?php echo image_path('admin/email-icon.png');?>" alt="<?php echo lang('email_label'); ?>" />
+					<?php echo theme_image('admin/email-icon.png', array('class' => 'input-email', 'alt' => lang('email_label')));?>
 				</li>
 				
 				<li>
 					<input type="password" name="password" value="<?php echo lang('password_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('password_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('password_label'); ?>') {this.value = '';}"  />
-					<img class="input-password" src="<?php echo image_path('admin/lock-icon.png');?>" alt="<?php echo lang('password_label'); ?>" />
+					<?php echo theme_image('admin/lock-icon.png', array('class' => 'input-password', 'alt' => lang('password_label')));?>
 				</li>
 				
 				<li>

@@ -35,6 +35,22 @@ class MY_Controller extends CI_Controller {
 				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
 			}
 		}
+		
+		// Upgrading from something old? Erf, try to shoehorn them back on track
+		elseif ($this->db->table_exists('schema_version'))
+		{
+			$this->load->dbforge();
+			$this->dbforge->rename_table('schema_version', 'migrations');
+			
+			// Migration logic helps to make sure PyroCMS is running the latest changes
+			$this->load->library('migration');
+
+			if ( ! ($schema_version = $this->migration->version(28)))
+			{
+				show_error($this->migration->error_string());
+			}
+			redirect(current_url());
+		}
 
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
@@ -150,22 +166,6 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->load->vars($pyro);
-
-		// Load the admin theme so things like partials and assets are available everywhere
-		$this->admin_theme = $this->themes_m->get_admin();
-		// Load the current theme so we can set the assets right away
-		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
-
-		// make a constant as this is used in a lot of places
-		define('ADMIN_THEME', $this->admin_theme->slug);
-
-		// Asset library needs to know where the admin theme directory is
-		$this->config->set_item('asset_dir', $this->admin_theme->path.'/');
-		$this->config->set_item('asset_url', BASE_URL.$this->admin_theme->web_path.'/');
-		
-		// Set the front-end theme directory
-		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
-		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->theme->web_path).'/');
 
 		$this->benchmark->mark('my_controller_end');
 	}

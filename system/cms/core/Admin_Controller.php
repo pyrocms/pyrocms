@@ -17,7 +17,15 @@ class Admin_Controller extends MY_Controller {
 			show_error(lang('cp_access_denied'));
 		}
 
+		// If the setting is enabled redirect request to HTTPS
+		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
+		{
+			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
+		}
+
 		$this->load->helper('admin_theme');
+		
+		$this->admin_theme = $this->themes_m->get_admin();
 		
 		// Using a bad slug? Weak
 		if (empty($this->admin_theme->slug))
@@ -25,14 +33,17 @@ class Admin_Controller extends MY_Controller {
 			show_error('This site has been set to use an admin theme that does not exist.');
 		}
 
-		// If the setting is enabled redirect request to HTTPS
-		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
-		{
-			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
-		}
-
+		// make a constant as this is used in a lot of places
+		define('ADMIN_THEME', $this->admin_theme->slug);
+			
 		// Prepare Asset library
 	    $this->asset->set_theme(ADMIN_THEME);
+	
+		// Set the front-end theme directory
+		$this->config->set_item('asset_dir', dirname($this->admin_theme->web_path).'/');
+		$this->config->set_item('asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
+		$this->config->set_item('theme_asset_dir', dirname($this->admin_theme->web_path).'/');
+		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
 		
 		// grab the theme options if there are any
 		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array( array('theme' => ADMIN_THEME) ));

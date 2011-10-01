@@ -17,13 +17,20 @@ class Widgets {
 	{
 		$this->load->model('widgets/widget_m');
 		
-		$locations = array(APPPATH,
-						   ADDONPATH,
-						   SHARED_ADDONPATH,
-						   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
-						   APPPATH.'themes/'.ADMIN_THEME.'/',
-						   ADDONPATH.'themes/'.ADMIN_THEME.'/'
-						   );
+		$locations = array(
+		   APPPATH,
+		   ADDONPATH,
+		   SHARED_ADDONPATH,
+		);
+		
+		if (defined('ADMIN_THEME'))
+		{
+			$locations += array(
+			   SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/',
+			   APPPATH.'themes/'.ADMIN_THEME.'/',
+			   ADDONPATH.'themes/'.ADMIN_THEME.'/',
+			);
+		}
 
 		// Map where all widgets are
 		foreach ($locations as $path)

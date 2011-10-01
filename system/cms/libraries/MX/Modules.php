@@ -197,20 +197,25 @@ class Modules
 		
 		/* is the file in an admin theme? */
 		if ($base == 'views/') {
-			// check system folder
-			if (is_file(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
-			{
-				return array(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+			if (defined('ADMIN_THEME')) {
+				// check system folder
+				if (is_file(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
+				// check shared addons folder
+				elseif (is_file(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
+				// check addons folder
+				elseif (is_file(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
 			}
-			// check shared addons folder
-			elseif (is_file(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
-			{
-				return array(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
-			}
-			// check addons folder
-			elseif (is_file(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
-			{
-				return array(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+			else {
+				if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);
 			}
 			show_error("Unable to locate the file: {$path}{$file_ext}");
 		}

@@ -142,7 +142,7 @@ class Themes_m extends MY_Model
             $theme->slug			= $slug;
             $theme->is_core         = $is_core;
             $theme->path			= $path;
-            $theme->web_path 		= $web_path;
+            $theme->web_path 		= $web_path; // TODO Same thing as path?
             $theme->screenshot		= $web_path . '/screenshot.png';
 
             //lets make some assumptions first just in case there is a typo in details class
@@ -156,11 +156,10 @@ class Themes_m extends MY_Model
             //load the theme details.php file
             $details = $this->_spawn_class($slug, $is_core);
 			
-			
             //assign values
             if ($details)
             {
-                foreach(get_object_vars($details) as $key => $val)
+                foreach (get_object_vars($details) as $key => $val)
                 {
 					if ($key == 'options' AND is_array($val))
 					{
