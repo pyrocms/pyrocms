@@ -10,20 +10,22 @@ class Admin_Controller extends MY_Controller {
 		// Load the Language files ready for output
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
-
-		$this->load->helper('admin_theme');
 		
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
 			show_error(lang('cp_access_denied'));
 		}
+
+		$this->load->helper('admin_theme');
 		
-		if ( ! $this->admin_theme->slug)
+		// Using a bad slug? Weak
+		if (empty($this->admin_theme->slug))
 		{
 			show_error('This site has been set to use an admin theme that does not exist.');
 		}
 
+		// If the setting is enabled redirect request to HTTPS
 		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
 		{
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
