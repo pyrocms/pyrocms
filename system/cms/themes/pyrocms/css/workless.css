@@ -1254,19 +1254,6 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	color: #ffffff;
 }
 
-ul#lang {
-	float: right;
-}
-
-ul#lang form {
-	margin: 10px 20px 0 0;
-	float: right;
-}
-
-ul#lang form legend, ul#lang form input, ul#lang form select {
-	max-width: 230px;
-}
-
 .subbar {
 	position: fixed;
 	z-index: 9997;
@@ -1587,6 +1574,17 @@ footer {
 footer p {
 	float: left ;
 	margin: 15px 0 0 25px;
+}
+
+ul#lang {
+	margin-right: 25px;
+	float: right;
+	text-shadow: 0 -1px 0 #ffffff;
+	color: #333333;
+}
+
+ul#lang .highlighted {
+	text-shadow: none;
 }
 
 /* Draggable element */
