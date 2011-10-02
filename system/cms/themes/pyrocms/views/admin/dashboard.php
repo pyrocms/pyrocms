@@ -89,7 +89,7 @@ $(function($) {
 		
 		<section class="item">
 			<ul>
-				<?php if (isset($recent_comments)): ?>
+				<?php if (count($recent_comments)): ?>
 						<?php foreach ($recent_comments AS $rant) : ?>
 							<li>
 								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
