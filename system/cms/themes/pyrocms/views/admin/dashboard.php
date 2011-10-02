@@ -100,9 +100,9 @@ $(function($) {
 				<?php endif; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End Recent Comments -->
 	
 	<!-- Begin Quick Links -->
@@ -141,9 +141,9 @@ $(function($) {
 				<?php endif; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End Quick Links -->
 
 	<!-- Begin RSS Feed -->
@@ -182,9 +182,9 @@ $(function($) {
 				<?php endforeach; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End RSS Feed -->
 
 </div>
