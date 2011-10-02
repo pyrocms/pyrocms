@@ -1020,7 +1020,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10000;
+  z-index: 9998;
   overflow: visible;
   background-color: #222222;
   background-repeat: repeat-x;
@@ -1269,7 +1269,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 
 .subbar {
 	position: fixed;
-	z-index: 9999;
+	z-index: 9997;
 	top: 30px;
 	right: 0;
 	left: 0;
