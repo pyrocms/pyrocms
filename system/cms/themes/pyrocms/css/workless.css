@@ -1011,7 +1011,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .topbar ul li {
-  width: 80px;
   float: left;
   font-size: 13px;
 }
@@ -1066,8 +1065,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-color: #333;
   float: left;
   display: none;
-  position: relative;
-  top: 1px;
+  position: absolute;
+  top: 50px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
@@ -1215,7 +1214,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 .topbar ul li#dashboard-link {
-	margin: 8px 18px 8px 15px;
+	margin: 8px 10px 8px 15px;
 }
 
 .topbar ul li#dashboard-link a {

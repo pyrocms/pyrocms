@@ -21,23 +21,25 @@
 				<?php foreach ($setting_sections as $section_slug => $section_name): ?>
 				<div id="<?php echo $section_slug;?>">
 					<fieldset>
-						<ol>
+						<ul>
 						<?php $section_count = 1; foreach ($settings[$section_slug] as $setting): ?>
 							<li id="<?php echo $setting->slug; ?>" class="<?php echo $section_count++ % 2 == 0 ? 'even' : ''; ?>">
 								<label for="<?php echo $setting->slug; ?>">
 									<?php echo $setting->title; ?>
 								</label>
-								<div class="width-40 <?php echo 'type-' . $setting->type; ?>">
+
+								<div class="<?php echo 'type-' . $setting->type; ?>">
 									<?php echo $setting->form_control; ?><br/>
-									<div class="clear-both text-small1" style="margin-left: 160px;">
+									<div>
 										<?php echo $setting->description; ?>
 									</div>
+									<hr>
 								</div>
-								<br class="clear-both" />
+								<br>
 								<span class="move-handle"></span>
 							</li>
 						<?php endforeach; ?>
-						</ol>
+						</ul>
 					</fieldset>
 				</div>
 				<?php endforeach; ?>
