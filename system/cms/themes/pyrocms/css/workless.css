@@ -1625,38 +1625,38 @@ Ensure your main styling comes before this!
 	}
 	
 	section#content {
-		width: 400px;
+		width: 480px;
 		padding: 0;
 		margin: 150px 0 150px 0;
 		float: left;
 	}
 	
 	.one_full { 
-		width: 400px; 
+		width: 480px; 
 		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 400px; 
+		width: 480px; 
 		margin-right: 15px; 
 		float: left; 
 	}
 
 	.one_third { 
-		width: 350px; 
+		width: 480px; 
 		margin-right: 15px; 
 		float: left; 
 	}
 
 	.two_third { 
-		width: 786px; 
+		width: 480px; 
 		margin-right: 15px; 
 		float: left; 
 	}
 
 	.one_quarter { 
-		width: 230px; 
+		width: 480px; 
 		margin-right: 15px; 
 		float: left; 
 	}
@@ -1697,7 +1697,7 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 359px; 
+		width: 349px; 
 		margin-right: 15px; 
 		float: left; 
 	}
@@ -1756,7 +1756,7 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 475px; 
+		width: 465px; 
 		margin-right: 15px; 
 		float: left; 
 	}
@@ -1819,7 +1819,7 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 590px; 
+		width: 580px; 
 		margin-right: 15px; 
 		float: left; 
 	}
