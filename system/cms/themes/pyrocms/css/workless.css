@@ -1561,7 +1561,7 @@ footer {
 	background: #333333;
 	border-top: 1px solid #ececec;
 	width: 100%;
-	height: 50px;
+	height: 250px;
 	color: #eeeeee;
 	margin-top: -100px;
 	padding: 25px 0 25px 0;
@@ -1571,14 +1571,18 @@ footer {
 
 footer p {
 	float: left ;
-	margin: 15px 0 0 25px;
+	margin: 15px 0 0 5px;
 }
 
 ul#lang {
-	margin-right: 25px;
+	margin-right: 20px;
 	float: right;
 	text-shadow: 0 -1px 0 #ffffff;
 	color: #333333;
+}
+
+ul#lang .chzn-results {
+	width: 225px;
 }
 
 ul#lang .highlighted {
