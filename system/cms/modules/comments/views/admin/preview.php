@@ -15,5 +15,5 @@
 
 <hr class="clear-both" />
 
-<p><?php echo nl2br($comment->comment);?></p>
+<p><?php echo (Settings::get('comment_markdown') AND $comment->parsed > '') ? $comment->parsed : nl2br($comment->comment);?></p>
 </div>
