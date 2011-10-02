@@ -458,47 +458,6 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
-Scaffolding.
-
--------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------
-*/
-
-/* (As this is mobile first, all grids are the same size. All size changes are made in the @media queries at the bottom.) */
-.one_full { 
-	width: 230px; 
-	margin: 0; 
-	float: left; 
-}
-
-.one_half { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-.one_third { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-.two_third { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-.one_quarter { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-/*
--------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------
-
 Helpers.
 
 -------------------------------------------------------------------------------------------------------
@@ -1229,6 +1188,32 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	padding: 0;
 }
 
+.one_full { 
+	width: 250px; 
+	margin: 0; 
+	float: left; 
+}
+
+.one_half { 
+	width: 250px; 
+	float: left; 
+}
+
+.one_third { 
+	width: 250px; 
+	float: left; 
+}
+
+.two_third { 
+	width: 250px; 
+	float: left; 
+}
+
+.one_quarter { 
+	width: 250px; 
+	float: left; 
+}
+
 .topbar ul li#dashboard-link {
 	margin: 8px 18px 8px 15px;
 }
@@ -1404,7 +1389,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }	
 
 section#content {
-	width: 230px;
+	width: 250px;
 	padding: 0;
 	margin: 150px 0 150px 0;
 	float: left;
@@ -1625,46 +1610,42 @@ Ensure your main styling comes before this!
 	}
 	
 	section#content {
-		width: 480px;
+		width: 450px;
 		padding: 0;
 		margin: 150px 0 150px 0;
 		float: left;
 	}
 	
 	.one_full { 
-		width: 480px; 
+		width: 450px; 
 		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 480px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 
 	.one_third { 
-		width: 480px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 
 	.two_third { 
-		width: 480px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 
 	.one_quarter { 
-		width: 480px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 	
 	#quick_links ul li {
 		width: 75px;
 		float: left;
-		margin: 3px 12px 0 12px;
+		margin: 3px 15px 0 15px;
 	}
 	
 }
