@@ -1013,6 +1013,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .topbar ul li {
   float: left;
   font-size: 13px;
+  position: relative;
 }
 
 .topbar ul li a {
