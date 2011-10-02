@@ -1011,9 +1011,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .topbar ul li {
-  width: 80px;
   float: left;
   font-size: 13px;
+  position: relative;
 }
 
 .topbar ul li a {
@@ -1066,8 +1066,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-color: #333;
   float: left;
   display: none;
-  position: relative;
-  top: 1px;
+  position: absolute;
+  top: 50px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
