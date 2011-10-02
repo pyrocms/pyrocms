@@ -122,6 +122,12 @@ class Comments extends Public_Controller {
 					}
 
 					$comment['comment_id'] = $comment_id;
+					
+					// if markdown is allowed we'll parse the body for the email
+					if (Settings::get('comment_markdown'))
+					{
+						$comment['comment'] = parse_markdown($comment['comment']);
+					}
 
 					//send the notification email
 					$this->_send_email($comment);

@@ -103,6 +103,7 @@ class Comments_m extends MY_Model
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
 			'comment'		=> htmlspecialchars($input['comment'], NULL, NULL, FALSE),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, NULL, FALSE)),
 			'module'		=> $input['module'],
 			'module_id'		=> $input['module_id'],
 			'created_on' 	=> now(),
@@ -127,6 +128,7 @@ class Comments_m extends MY_Model
 			'email'			=> isset($input['email']) 		? 	strtolower($input['email']) 						: '',
 			'website'		=> isset($input['website']) 	? 	prep_url(strip_tags($input['website'])) 			: '',
 			'comment'		=> htmlspecialchars($input['comment'], NULL, NULL, FALSE),
+			'parsed'		=> parse_markdown(htmlspecialchars($input['comment'], NULL, NULL, FALSE)),
 		));
 	}
 	

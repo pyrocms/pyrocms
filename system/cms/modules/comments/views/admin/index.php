@@ -37,9 +37,9 @@
 							<td>
 								<a href="<?php echo site_url('admin/comments/preview/'. $comment->id); ?>" rel="modal" target="_blank">
 									<?php if( strlen($comment->comment) > 30 ): ?>
-										<?php echo character_limiter($comment->comment, 30); ?>
+										<?php echo character_limiter((Settings::get('comment_markdown') AND $comment->parsed > '') ? strip_tags($comment->parsed) : $comment->comment, 30); ?>
 									<?php else: ?>
-										<?php echo $comment->comment; ?>
+										<?php echo (Settings::get('comment_markdown') AND $comment->parsed > '') ? strip_tags($comment->parsed) : $comment->comment; ?>
 									<?php endif; ?>
 								</a>
 							</td>

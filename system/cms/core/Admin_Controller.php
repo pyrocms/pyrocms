@@ -65,7 +65,7 @@ class Admin_Controller extends MY_Controller {
 	private function _check_access()
 	{
 		// These pages get past permission checks
-		$ignored_pages = array('admin/login', 'admin/logout');
+		$ignored_pages = array('admin/login', 'admin/logout', 'admin/help');
 
 		// Check if the current page is to be ignored
 		$current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, 'index');

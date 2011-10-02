@@ -3,7 +3,7 @@
 	pyro.filter = {
 		$content		: $('#content-body'),
 		// filter form object
-		$filter_form	: $('.filter form'),
+		$filter_form	: $('#filters form'),
 
 		//lets get the current module,  we will need to know where to post the search criteria
 		f_module		: $('input[name="f_module"]').val(),
@@ -94,7 +94,9 @@
 					}
 
 					//success stuff here
-					$.uniform.update('select, input');
+					// Chosen
+					$('select').addClass('chzn');
+					$(".chzn").chosen();
 					pyro.filter.$content.html(html).fadeIn('fast');
 				});
 			});

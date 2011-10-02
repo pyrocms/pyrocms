@@ -25,7 +25,11 @@
 					<p><?php echo format_date($item->created_on); ?></p>
 				</div>
 				<div class="content">
-					<p><?php echo nl2br($item->comment); ?></p>
+					<?php if (Settings::get('comment_markdown') AND $item->parsed > ''): ?>
+						<?php echo $item->parsed; ?>
+					<?php else: ?>
+						<p><?php echo nl2br($item->comment); ?></p>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div><!-- close .comment -->

@@ -72,12 +72,12 @@ $(function($) {
 <?php endif; ?>
 <!-- End Analytics -->
 	
-<!-- Dashboard Widgets -->
-{pyro:widgets:area slug="dashboard"}
-	
 <!-- Add an extra div to allow the elements within it to be sortable! -->
 <div id="sortable">
-	
+
+	<!-- Dashboard Widgets -->
+	{pyro:widgets:area slug="dashboard"}
+
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
 	<div class="one_half">
@@ -89,10 +89,10 @@ $(function($) {
 		
 		<section class="item">
 			<ul>
-				<?php if (isset($recent_comments)): ?>
+				<?php if (count($recent_comments)): ?>
 						<?php foreach ($recent_comments AS $rant) : ?>
 							<li>
-								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo $rant->comment; ?></em></p>
+								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
 							</li>
 						<?php endforeach; ?>
 				<?php else: ?>
@@ -100,9 +100,9 @@ $(function($) {
 				<?php endif; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End Recent Comments -->
 	
 	<!-- Begin Quick Links -->
@@ -141,9 +141,9 @@ $(function($) {
 				<?php endif; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End Quick Links -->
 
 	<!-- Begin RSS Feed -->
@@ -182,9 +182,9 @@ $(function($) {
 				<?php endforeach; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End RSS Feed -->
 
 </div>
