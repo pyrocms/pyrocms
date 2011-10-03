@@ -1,8 +1,9 @@
 <section class="title">
-  <h4><?php echo lang('maintenance.list_label'); ?></h4>
+	<h4><?php echo lang('maintenance.list_label'); ?></h4>
 </section>
 
 <section class="item">
+
   <?php if ( ! empty($folders)): ?>
     <table border="0" class="table-list">
       <thead>
@@ -37,4 +38,5 @@
       <h2><?php echo lang('maintenance.no_items'); ?></h2>
     </div>
   <?php endif;?>
+
 </section>
