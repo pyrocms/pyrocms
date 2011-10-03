@@ -18,7 +18,6 @@ class Admin extends Admin_Controller
   		parent::__construct();
 
 		$this->load->helper('users/user');
-		$this->lang->load('main');
 
 		// Set the validation rules
 		$this->validation_rules = array(
