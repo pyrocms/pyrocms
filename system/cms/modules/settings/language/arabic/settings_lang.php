@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success'] 					= 'تم حفظ إعداداتك!';
-$lang['settings_edit_title'] 					= 'تعديل الإعدادات';
-
 #section settings
 $lang['settings_site_name'] 					= 'إسم الموقع';
 $lang['settings_site_name_desc'] 				= 'إسم الموقع المستخدم في عناوين الصفحات وفي مختلف أقسام الموقع.';
@@ -138,5 +135,11 @@ $lang['settings_form_option_Optional']			= 'اختياري';
 $lang['settings_form_option_Oldest First']		= 'الأقدم أولاً';
 $lang['settings_form_option_Newest First']		= 'الأحدث أولاً';
 
+// titles
+$lang['settings_edit_title'] 					= 'تعديل الإعدادات';
+
+// messages
+$lang['settings_no_settings']					= 'ليست هناك أية إعدادات.';
+$lang['settings_save_success'] 					= 'تم حفظ إعداداتك!';
+
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/arabic/settings_lang.php */

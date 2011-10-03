@@ -11,4 +11,3 @@ $lang['go_website']			= 'Přejít na web';
 $lang['go_control_panel']	= 'Přejít do kontrolního panelu';
 
 /* End of file complete_lang.php */
-/* Location: ./installer/language/english/complete_lang.php */

@@ -1,8 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['settings_save_success']					= 'Your settings were saved!';
-$lang['settings_edit_title']					= 'Edit settings';
-
 #section settings
 $lang['settings_site_name']						= 'Site Name';
 $lang['settings_site_name_desc']				= 'The name of the website for page titles and for use around the site.';
@@ -136,5 +133,11 @@ $lang['settings_form_option_Optional']			= 'Optional';
 $lang['settings_form_option_Oldest First']		= 'Oldest First'; #translate
 $lang['settings_form_option_Newest First']		= 'Newest First'; #translate
 
+// titles
+$lang['settings_edit_title']					= 'Edit settings';
+
+// messages
+$lang['settings_no_settings']					= 'There are currently no settings.';
+$lang['settings_save_success']					= 'Your settings were saved!';
+
 /* End of file settings_lang.php */
-/* Location: ./system/cms/modules/settings/language/english/settings_lang.php */

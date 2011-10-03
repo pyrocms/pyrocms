@@ -27,7 +27,7 @@ $lang['contact_mail_agent_label']			= 'المتصفح: %s';
 $lang['contact_mail_name_label']			= 'الإسم: %s';
 $lang['contact_mail_company_label']			= 'الشركة: %s';
 $lang['contact_mail_above_message_label']	= '-- فيما يلي الرسالة ---';
-$lang['contact_mail_below_message_label']	= '-- تفاصيل المراسلة -----------';
+$lang['contact_mail_below_message_label']	= '-- نص المراسلة -----------';
 
 // titles
 $lang['contact_sent_title']					= 'تم إرسال الرسالة';

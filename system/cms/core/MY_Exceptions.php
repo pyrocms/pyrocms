@@ -31,7 +31,7 @@ class MY_Exceptions extends CI_Exceptions {
 	 * @param	string
 	 * @return	string
 	 */
-	function show_404($page = '')
+	function show_404($page = '', $log_error = TRUE)
 	{
 		// if cURL doesn't exist we just send them to the 404 page
 		if ( ! function_exists('curl_init'))
@@ -45,9 +45,16 @@ class MY_Exceptions extends CI_Exceptions {
 		
 		// Set the HTTP Status header
 		set_status_header(404);
-		
+
+		$browser['user_agent'] = empty($_SERVER['HTTP_USER_AGENT']) ? NULL : $_SERVER['HTTP_USER_AGENT'];
+		$browser['language']   = empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? CURRENT_LANGUAGE : $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+
 		// set URL and other appropriate options
-		curl_setopt($ch, CURLOPT_URL, site_url('404'));
+		curl_setopt($ch, CURLOPT_URL, BASE_URL . config_item('index_page').'/404');
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			"User-Agent: {$browser['user_agent']}",
+			"Accept-Language: {$browser['language']}"
+		));
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 
 		// grab URL and pass it to the browser
@@ -60,4 +67,3 @@ class MY_Exceptions extends CI_Exceptions {
 }
 
 /* End of file Exceptions.php */
-/* Location: ./system/libraries/Exceptions.php */

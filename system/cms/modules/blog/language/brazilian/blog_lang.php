@@ -34,7 +34,7 @@ $lang['blog_author_name_label']			= 'Nome do autor';
 $lang['blog_read_more_label']			= 'Leia mais &raquo;';
 $lang['blog_created_hour']				= 'Horário (Hora)';
 $lang['blog_created_minute']			= 'Horário (Minuto)';
-$lang['blog_comments_enabled_label']	= 'Ativar comentários';
+$lang['blog_comments_enabled_label']	= 'Habilitar comentários';
 
 // titles
 $lang['blog_create_title']				= 'Adicionar artigo';
@@ -47,7 +47,7 @@ $lang['blog_list_title']				= 'Listar artigos';
 
 // messages
 $lang['blog_no_posts']					= 'Nenhum artigo.';
-$lang['blog_subscripe_to_rss_desc']		= 'Receba nossos artigos assinando nosso feed RSS. Você pode fazer isto pelos mais populares leitores de e-mail ou pode experimentar o <a rel="nofollow" href="http://reader.google.com/">Google Reader</a>.';
+$lang['blog_subscripe_to_rss_desc']		= 'Fique por dentro das novidades do blog assinando nosso feed RSS. Você pode fazer isto pelos mais populares leitores de e-mail ou pode experimentar o <a rel="nofollow" href="http://reader.google.com/">Google Reader</a>.';
 $lang['blog_currently_no_posts']		= 'Não existem artigos no momento.';
 $lang['blog_post_add_success']			= 'O artigo "%s" foi adicionado.';
 $lang['blog_post_add_error']			= 'Ocorreu um erro.';
@@ -68,4 +68,3 @@ $lang['blog_twitter_error']				= 'Erro do Twitter';
 $lang['blog_archive_date_format']		= "%B de %Y";
 
 /* End of file blog_lang.php */
-/* Location: ./system/cms/modules/blog/language/brazilian/blog_lang.php */

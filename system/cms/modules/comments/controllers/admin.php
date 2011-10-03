@@ -44,15 +44,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent constructor
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required libraries, models, etc
 		$this->load->library('form_validation');
 		$this->load->model('comments_m');
 		$this->lang->load('comments');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);

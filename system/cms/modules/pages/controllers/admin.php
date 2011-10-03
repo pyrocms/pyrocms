@@ -23,7 +23,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'slug',
 			'label'	=> 'lang:pages.slug_label',
-			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]'
+			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
 		),
 		array(
 			'field' => 'chunk_body[]',
@@ -111,7 +111,7 @@ class Admin extends Admin_Controller {
 		// Load the required classes
 		$this->load->library('form_validation');
 
-		$this->load->model('pages_m');
+		$this->load->model('page_m');
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
@@ -129,7 +129,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function index()
 	{
-		$this->data->pages = $this->pages_m->get_page_tree();
+		$this->data->pages = $this->page_m->get_page_tree();
 		$this->data->controller =& $this;
 
 		$this->template
@@ -143,7 +143,7 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * Order the pages and record their children
-	 * 
+	 *
 	 * @access public
 	 * @return string json message
 	 */
@@ -154,22 +154,22 @@ class Admin extends Admin_Controller {
 		if (is_array($order))
 		{
 			//reset all parent > child relations
-			$this->pages_m->update_all(array('parent_id' => 0));
+			$this->page_m->update_all(array('parent_id' => 0));
 			
 			foreach ($order as $i => $page)
 			{
 				//set the order of the root pages
-				$this->pages_m->update_by('id', str_replace('page_', '', $page['id']), array('order' => $i));
+				$this->page_m->update_by('id', str_replace('page_', '', $page['id']), array('order' => $i));
 				
 				//iterate through children and set their order and parent
-				$this->pages_m->_set_children($page);
+				$this->page_m->_set_children($page);
 			}
 			
 			// rebuild page URIs
-			$this->pages_m->update_lookup($this->input->post('root_pages'));
+			$this->page_m->update_lookup($this->input->post('root_pages'));
 			
 			$this->pyrocache->delete_all('navigation_m');
-			$this->pyrocache->delete_all('pages_m');
+			$this->pyrocache->delete_all('page_m');
 				
 			echo 'Success';
 		}
@@ -187,7 +187,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function ajax_page_details($page_id)
 	{
-		$page = $this->pages_m->get($page_id);
+		$page = $this->page_m->get($page_id);
 
 		$this->load->view('admin/ajax/page_details', array('page' => $page));
 	}
@@ -200,10 +200,47 @@ class Admin extends Admin_Controller {
 	 */
 	public function preview($id = 0)
 	{
-		$data->page  = $this->pages_m->get($id);
-
 		$this->template->set_layout('modal', 'admin');
-		$this->template->build('admin/preview', $data);
+		$this->template->build('admin/preview', array(
+			'page' => $this->page_m->get($id),
+		));
+	}
+
+	/**
+	 * Duplicate a page
+	 * @access public
+	 * @param int $id The ID of the page
+	 * @return void
+	 */
+	public function duplicate($id = 0)
+	{
+		$page  = $this->page_m->get($id);
+		
+		$new_slug = $page->slug;
+		
+		do
+		{
+			// Turn "foo" into "foo-1"
+			$new_slug = increment_string($new_slug, '-', 2);
+			
+			// Find if this already exists in this level
+			$dupes = $this->page_m->count_by(array(
+				'slug' => $new_slug,
+				'parent_id' => $page->parent_id,
+			));
+		}
+		while ($dupes > 0);
+		
+		// Turn "Foo" into "Foo 2"
+		$page->title = increment_string($page->title, ' ', 2);
+		$page->slug = $new_slug;
+		
+		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+		
+		$id = $this->page_m->insert((array) $page, $chunks);
+		
+		redirect('admin/pages/edit/'.$id);
+		
 	}
 
 	/**
@@ -245,7 +282,7 @@ class Admin extends Admin_Controller {
 				$nav_group_id	= $input['navigation_group_id'];
 				unset($input['navigation_group_id']);
 				
-				if ($id = $this->pages_m->insert($input, $page->chunks))
+				if ($id = $this->page_m->insert($input, $page->chunks))
 				{
 					$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 	
@@ -261,7 +298,7 @@ class Admin extends Admin_Controller {
 						));
 					}
 	
-					if ($this->pages_m->update($id, $input))
+					if ($this->page_m->update($id, $input))
 					{
 						$this->session->set_flashdata('success', lang('pages_create_success'));
 	
@@ -307,7 +344,7 @@ class Admin extends Admin_Controller {
 		if ($parent_id > 0)
 		{
 			$page->parent_id 	= $parent_id;
-			$parent_page 	= $this->pages_m->get($parent_id);
+			$parent_page 	= $this->page_m->get($parent_id);
 		}
 		
 		// Assign data for display
@@ -338,7 +375,7 @@ class Admin extends Admin_Controller {
 
 		role_or_die('pages', 'edit_live');
 
-		$page = $this->pages_m->get($id);
+		$page = $this->page_m->get($id);
 		
 		// Grab all the chunks that make up the body
 		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $id))->result();
@@ -395,12 +432,12 @@ class Admin extends Admin_Controller {
 				$input['restricted_to'] = isset($input['restricted_to']) ? implode(',', $input['restricted_to']) : '';
 	
 				// Run the update code with the POST data
-				$this->pages_m->update($id, $input, $page->chunks);
+				$this->page_m->update($id, $input, $page->chunks);
 	
 				// The slug has changed
 				if ($this->input->post('slug') != $this->input->post('old_slug'))
 				{
-					$this->pages_m->reindex_descendants($id);
+					$this->page_m->reindex_descendants($id);
 				}
 	
 				// Set the flashdata message and redirect the user
@@ -434,7 +471,7 @@ class Admin extends Admin_Controller {
 		// If a parent id was passed, fetch the parent details
 		if ($page->parent_id > 0)
 		{
-			$parent_page = $this->pages_m->get($page->parent_id);
+			$parent_page = $this->page_m->get($page->parent_id);
 		}
 		
 		// Assign data for display
@@ -494,10 +531,10 @@ class Admin extends Admin_Controller {
 		{
 			if ($id !== 1)
 			{
-				$deleted_ids = $this->pages_m->delete($id);
+				$deleted_ids = $this->page_m->delete($id);
 
 				// Wipe cache for this model, the content has changd
-				$this->pyrocache->delete_all('pages_m');
+				$this->pyrocache->delete_all('page_m');
 				$this->pyrocache->delete_all('navigation_m');
 			}
 
@@ -558,4 +595,34 @@ class Admin extends Admin_Controller {
 			endforeach;
 		endif;
 	}
+	
+	/**
+	 * Callback to check uniqueness of slug + parent
+	 *
+	 * @author Donald Myers
+	 * @access public
+	 * @param $slug slug to check
+	 * @return bool
+	 */
+	 public function _check_slug($slug = '')
+	 {
+     if ($this->page_m->check_slug($slug, $this->input->post('parent_id'), (int)$this->page_id))
+     {
+       $page_obj = $this->page_m->get($this->page_id);
+       $url = '/'.trim(dirname($page_obj->uri),'.').$slug;
+       if ($this->input->post('parent_id') == 0)
+       {
+         $parent_folder = lang('pages_root_folder');
+       }
+       else
+       {
+         $page_obj = $this->page_m->get($this->input->post('parent_id'));
+         $parent_folder = $page_obj->title;
+       }
+       $this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url,$parent_folder));
+       return FALSE;
+     }
+  
+     return TRUE;
+   }
 }

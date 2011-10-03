@@ -1,4 +1,4 @@
-<h3><?php echo $crumbs; ?></h3>
+<h4><?php echo $crumbs; ?></h4>
 <?php echo form_open('admin/files/action');?>
 	<div id="files-toolbar">
 		<ul>
@@ -35,17 +35,17 @@
                 <div class="actions">
                 <?php echo form_checkbox('action_to[]', $file->id); ?>
 				<?php
-					if (group_has_role('files', 'download_file')) 
+					if (group_has_role('files', 'download_file'))
 					{
 						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'download_file'));
 					}
 					
-						if (group_has_role('files', 'edit_file')) 
+						if (group_has_role('files', 'edit_file'))
 					{
 						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'edit_file'));
 					}
 					
-					if (group_has_role('files', 'delete_file')) 
+					if (group_has_role('files', 'delete_file'))
 					{
 						echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm'));
 					}
@@ -66,10 +66,10 @@
 	<table border="0" class="table-list" id="list">
 		<thead>
 			<tr>
-				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-				<th><?php echo lang('files.name_label'); ?></th>
+				<th width="20" class="align-center"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
+				<th width="20" class="align-center">#</th>
 				<th><?php echo lang('files.type_label'); ?></th>
-				<th><?php echo lang('files.filename_label'); ?></th>
+				<th><?php echo lang('files.name_label'); ?></th>
 				<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
 				<th width="300" class="align-center"><?php echo lang('files.actions_label'); ?></th>
 			</tr>
@@ -84,24 +84,24 @@
 		<tbody>
 		<?php foreach ($files as $file): ?>
 			<tr>
-				<td><?php echo form_checkbox('action_to[]', $file->id); ?></td>
-				<td><?php echo $file->name; ?></td>
+				<td class="align-center"><?php echo form_checkbox('action_to[]', $file->id); ?></td>
+				<td class="align-center"><?php echo $file->id; ?></td>
 				<td><?php echo lang('files.type_'.$file->type); ?></td>
-				<td><?php echo $file->filename; ?></td>
+				<td><?php echo strlen($file->name) > 25 ? '<span title="' . $file->name . '">' . ellipsize($file->name, 25, .8) . '</span>' : $file->name; ?></td>
 				<td class="align-center"><?php echo format_date($file->date_added); ?></td>
 				<td class="align-center buttons buttons-small">
-				<?php 
-					if (group_has_role('files', 'download_file')) 
+				<?php
+					if (group_has_role('files', 'download_file'))
 					{
 						echo anchor('files/download/' . $file->id, lang('files.download_label'), array('class' => 'button download download_file'));
 					}
 					
-						if (group_has_role('files', 'edit_file')) 
+						if (group_has_role('files', 'edit_file'))
 					{
 						echo anchor('admin/files/edit/' . $file->id, lang('buttons.edit'), array('class' => 'button edit edit_file'));
 					}
 					
-					if (group_has_role('files', 'delete_file')) 
+					if (group_has_role('files', 'delete_file'))
 					{
 						echo anchor('admin/files/delete/' . $file->id, lang('buttons.delete'), array('class'=>'confirm button delete'));
 					}
@@ -118,7 +118,7 @@
 
 	<?php else: ?>
 	<div class="blank-slate files">
-		<h2><?php echo lang('files.no_files');?></h2>
+		<p><?php echo lang('files.no_files');?></p>
 	</div>
 	<?php endif; ?>
 <?php echo form_close();?>

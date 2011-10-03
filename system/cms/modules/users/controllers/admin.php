@@ -37,11 +37,6 @@ class Admin extends Admin_Controller {
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		array(
-			'field' => 'confirm_password',
-			'label' => 'lang:user_password_confirm_label',
-			'rules' => 'matches[password]'
-		),
-		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]'
@@ -70,8 +65,7 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor method
-		parent::Admin_Controller();
+		parent::__construct();
 
 		// Load the required classes
 		$this->load->model('users_m');
@@ -120,11 +114,11 @@ class Admin extends Admin_Controller {
 
 		// Render the view
 		$this->template
+				->title($this->module_details['name'])
 				->set('pagination', $pagination)
 				->set('users', $users)
 				->set_partial('filters', 'admin/partials/filters')
 				->append_metadata(js('admin/filter.js'))
-				->title($this->module_details['name'])
 				->build('admin/index', $this->data);
 	}
 
@@ -230,13 +224,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{
-		// confirm_password is required in case the user enters a new password
-		if ($this->input->post('password') && $this->input->post('password') != '')
-		{
-			$this->validation_rules[3]['rules'] .= '|required';
-			$this->validation_rules[3]['rules'] .= '|matches[password]';
-		}
-
 		// Get the user's data
 		$member = $this->ion_auth->get_user($id);
 
@@ -273,7 +260,7 @@ class Admin extends Admin_Controller {
 			$update_data['group_id'] = $this->input->post('group_id');
 
 			// Password provided, hash it for storage
-			if ($this->input->post('password') && $this->input->post('confirm_password'))
+			if ($this->input->post('password'))
 			{
 				$update_data['password'] = $this->input->post('password');
 			}
@@ -304,15 +291,15 @@ class Admin extends Admin_Controller {
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
-				$member->{$rule['field']} = set_value($rule['field']);
+				$member->{$rule['field']} = set_value($ractivaule['field']);
 			}
 		}
 
 		// Render the view
 		$this->data->member = & $member;
 		$this->template
-				->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
-				->build('admin/form', $this->data);
+			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->full_name))
+			->build('admin/form', $this->data);
 	}
 
 	/**
@@ -336,31 +323,27 @@ class Admin extends Admin_Controller {
 	 * @param int $id The ID of the user to activate
 	 * @return void
 	 */
-	public function activate($id = 0)
+	public function activate()
 	{
-		$ids = ($id > 0) ? array($id) : $this->input->post('action_to');
-
 		// Activate multiple
-		if (!empty($ids))
-		{
-			$activated = 0;
-			$to_activate = 0;
-			foreach ($ids as $id)
-			{
-				if ($this->ion_auth->activate($id))
-				{
-					$activated++;
-				}
-				$to_activate++;
-			}
-			$this->session->set_flashdata('success', sprintf($this->lang->line('user_activate_success'), $activated, $to_activate));
-		}
-		else
+		if ( ! ($ids = $this->input->post('action_to')))
 		{
 			$this->session->set_flashdata('error', $this->lang->line('user_activate_error'));
+			redirect('admin/users');
 		}
 
-		// Redirect the user
+		$activated = 0;
+		$to_activate = 0;
+		foreach ($ids as $id)
+		{
+			if ($this->ion_auth->activate($id))
+			{
+				$activated++;
+			}
+			$to_activate++;
+		}
+		$this->session->set_flashdata('success', sprintf($this->lang->line('user_activate_success'), $activated, $to_activate));
+
 		redirect('admin/users');
 	}
 
@@ -463,3 +446,5 @@ class Admin extends Admin_Controller {
 	}
 
 }
+
+/* End of file admin.php */

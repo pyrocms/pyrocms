@@ -1,4 +1,7 @@
 <?php if ($redirects): ?>
+	
+	<section class="item">
+		
     <?php echo form_open('admin/redirects/delete'); ?>
 	<table border="0" class="table-list">
 	    <thead>
@@ -38,8 +41,11 @@
 	</div>
     <?php echo form_close(); ?>
 
+	</section>
+
 <?php else: ?>
-	<div class="blank-slate">
-		<h2><?php echo lang('redirects.no_redirects');?></h2>
-	</div>
+	<section class="title"></section>
+	<section class="item">
+		<p><?php echo lang('redirects.no_redirects');?></p>
+	</section>
 <?php endif; ?>

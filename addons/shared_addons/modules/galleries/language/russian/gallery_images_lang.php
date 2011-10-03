@@ -37,4 +37,3 @@ $lang['gallery_images.options_label']				= 'Опции:';
 $lang['gallery_images.crop.save_label']			= 'Нажмите Сохранить для применения обрезки';
 
 /* End of file gallery_images_lang.php */
-/* Location: ./addons/modules/galleries/language/russian/gallery_images_lang.php */

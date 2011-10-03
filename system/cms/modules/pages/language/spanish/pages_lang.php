@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 			= 'Detalles';
 
 # labels
 $lang['pages.page_label'] 				= 'Página';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']			= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']				= 'Page Chunk'; #translate
 $lang['pages.language_label'] 			= 'Lenguaje';
 $lang['pages.updated_label'] 			= 'Actualizado';
 $lang['pages.actions_label'] 			= 'Acciones';
@@ -35,14 +35,13 @@ $lang['pages.is_home_label']			= 'Es la página pricipal? (Homepage)';
 $lang['pages.status_label']				= 'Estado';
 $lang['pages.draft_label'] 				= 'Borrador';
 $lang['pages.live_label']				= 'En vivo';
-$lang['pages.revisions_label']			= 'Revisiones';
-$lang['pages.compare_label']			= 'Comparar';
 $lang['pages.preview_label']			= 'Previsualizar';
 $lang['pages.current_label']			= 'Actual';
 
 $lang['pages.view_label'] 				= 'Ver';
 $lang['pages.create_label'] 			= 'Añadir página hija';
 $lang['pages.edit_label'] 				= 'Editar';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 			= 'Borrar';
 
 # titles
@@ -51,8 +50,6 @@ $lang['pages.edit_title'] 				= 'Editar página "%s"';
 $lang['pages.list_title'] 				= 'Lista de páginas';
 $lang['pages.layouts_create_title'] 	= 'Agregar un diseño de página';
 $lang['pages.layouts_list_title']		= 'Lista de diseños de páginas';
-$lang['pages.compare_revisions_title']	= 'Comparar Revisiones';
-$lang['pages.preview_revision_title']	= 'Previsualizar Revisión';
 
 # messages
 $lang['pages.no_pages'] 				= 'No hay páginas creadas.';
@@ -66,6 +63,7 @@ $lang['pages_mass_delete_success']	 	= '%s páginas han sido eliminadas.';
 $lang['pages_delete_none_notice'] 		= 'No se ha borado ninguna página.';
 $lang['pages_page_already_exist_error'] = 'Una página con el URL "%s" ya existe en %s.';
 $lang['pages_parent_not_exist_error'] 	= 'La página padre que has seleccionado no existe.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 		= 'La lista a la izquierda representa las páginas en tu sitio.
 Has click en el icono de "+" a un lado de la página para mostrar las páginas dentro de ella. Al hacer click en una página verás toda clase de información útil en está caja.';
@@ -73,4 +71,3 @@ Has click en el icono de "+" a un lado de la página para mostrar las páginas d
 $lang['pages.rss_explanation']			= 'Habilitar RSS para esta página le da a los usuarios la posibilidad de suscribirse a un feed RSS que muestra cada página hija como una nueva entrada';
 
 /* End of file pages_lang.php */
-/* Location: ./system/cms/modules/pages/language/spanish/pages_lang.php */

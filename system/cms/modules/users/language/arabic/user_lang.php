@@ -57,12 +57,11 @@ $lang['user_first_name'] 				= 'الإسم الأول';
 $lang['user_last_name'] 				= 'إسم العائلة';
 $lang['user_username'] 					= 'إسم المستخدم';
 $lang['user_display_name']				= 'إسم العرض';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use'] 					   = 'يُستخدم لتسجيل الدخول';
 $lang['user_email'] 					= 'البريد الإلكترني';
 $lang['user_confirm_email'] 			= 'تأكيد البريد الإلكتروني';
 $lang['user_password'] 					= 'كلمة السرّ';
 $lang['user_remember'] 					= 'تذكرني';
-$lang['user_confirm_password'] 			= 'تأكيد كلمة السرّ';
 $lang['user_group_id_label']			= 'مُعرف المجموعة';
 
 $lang['user_level']						= 'دَوْر المستخدم';
@@ -170,15 +169,15 @@ $lang['profile_edit'] 					= 'عدّل ملفّك الشخصيّ';
 
 $lang['profile_personal_section'] 		= 'شخصيّ';
 
-$lang['profile_display_name']			= 'اسم العرض';  
+$lang['profile_display_name']			= 'اسم العرض';
 $lang['profile_dob']					= 'تاريخ الميلاد';
 $lang['profile_dob_day']				= 'اليوم';
 $lang['profile_dob_month']				= 'الشهر';
 $lang['profile_dob_year']				= 'السنة';
 $lang['profile_gender']					= 'الجنس';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']            = 'غير محدد';
+$lang['profile_gender_male']          = 'ذكر';
+$lang['profile_gender_female']        = 'أنثى';
 $lang['profile_bio']					= 'عنّي';
 
 $lang['profile_contact_section'] 		= 'معلومات الاتصال';

@@ -67,5 +67,13 @@ $lang['enable_label']					= 'Omogoči';
 $lang['disable_label'] 					= 'Onemogoči';
 $lang['upgrade_label'] 					= 'Posodobi';
 
+$lang['global:shortcuts'] 				= 'Bližnjice';
+$lang['global:description']				= 'Opis';
+$lang['global:actions']					= 'Dejanja';
+$lang['global:edit']					= 'Uredi';
+$lang['global:delete']					= 'Izbriši';
+$lang['global:remove']					= 'Odstrani';
+
+$lang['global:keywords']				= 'Ključne besede';
+
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/slovenian/main_lang.php */

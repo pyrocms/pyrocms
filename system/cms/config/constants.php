@@ -27,13 +27,13 @@ define('DIR_WRITE_MODE', 0777);
 |
 */
 
-define('FOPEN_READ', 							'rb');
+define('FOPEN_READ',							'rb');
 define('FOPEN_READ_WRITE',						'r+b');
-define('FOPEN_WRITE_CREATE_DESTRUCTIVE', 		'wb');	// truncates existing file data, use with care
-define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE', 	'w+b'); // truncates existing file data, use with care
-define('FOPEN_WRITE_CREATE', 					'ab');
-define('FOPEN_READ_WRITE_CREATE', 				'a+b');
-define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
+define('FOPEN_WRITE_CREATE_DESTRUCTIVE',		'wb'); // truncates existing file data, use with care
+define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE',	'w+b'); // truncates existing file data, use with care
+define('FOPEN_WRITE_CREATE',					'ab');
+define('FOPEN_READ_WRITE_CREATE',				'a+b');
+define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /*
@@ -92,7 +92,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.3.1');
+define('CMS_VERSION', '1.4.0-dev');
 
 /*
 |--------------------------------------------------------------------------
@@ -114,7 +114,6 @@ define('CMS_EDITION', 'Community');
 |
 */
 
-define('CMS_DATE', '29/07/2011');
+define('CMS_DATE', '26/09/2011');
 
 /* End of file constants.php */
-/* Location: ./system/cms/config/constants.php */

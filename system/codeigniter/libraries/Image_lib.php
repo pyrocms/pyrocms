@@ -749,7 +749,7 @@ class CI_Image_lib {
 
 		@chmod($this->full_dst_path, FILE_WRITE_MODE);
 
-		return true;
+		return TRUE;
 	}
 
 	// --------------------------------------------------------------------
@@ -1334,7 +1334,7 @@ class CI_Image_lib {
 			return FALSE;
 		}
 
-		$vals = @getimagesize($path);
+		$vals = getimagesize($path);
 
 		$types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
 

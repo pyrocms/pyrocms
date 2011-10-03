@@ -53,7 +53,7 @@ function array_for_select()
 		default:
 			return FALSE;
 	}
-    
+
     return $return;
 }
 
@@ -83,13 +83,13 @@ function html_to_assoc($html_array)
 
 /**
  * Associative array property
- * 
+ *
  * Reindexes an array using a property of your elements. The elements should be a collection of
  * array or objects.
- * 
+ *
  * Obs.: To give a full result all elements must have the property defined in second param of
  * this function.
- * 
+ *
  * @author Marcos Coelho - PyroCMS development team
  * @access public
  * @param array $arr

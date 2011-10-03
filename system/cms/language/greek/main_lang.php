@@ -67,5 +67,13 @@ $lang['enable_label']					= 'Ενεργοποίηση';
 $lang['disable_label'] 					= 'Απενεργοποίηση';
 $lang['upgrade_label'] 					= 'Ενημέρωση';
 
+$lang['global:shortcuts'] 				= 'Συντομέυσεις';
+$lang['global:description'] 		    = 'Περιγραφή';
+$lang['global:actions']					= 'Ενέργειες';
+$lang['global:edit']					= 'Επεξεργασία';
+$lang['global:delete']					= 'Διαγραφή';
+$lang['global:remove']					= 'Διαγραφή';
+
+$lang['global:keywords']				= 'Λέξεις Κλειδιά';
+
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/greek/main_lang.php */

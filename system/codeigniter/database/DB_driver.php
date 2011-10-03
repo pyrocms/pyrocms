@@ -218,7 +218,7 @@ class CI_DB_driver {
 
 		// Some DBs have functions that return the version, and don't run special
 		// SQL queries per se. In these instances, just return the result.
-		$driver_version_exceptions = array('oci8', 'sqlite');
+		$driver_version_exceptions = array('oci8', 'sqlite', 'cubrid');
 
 		if (in_array($this->dbdriver, $driver_version_exceptions))
 		{
@@ -251,9 +251,10 @@ class CI_DB_driver {
 	{
 		if ($sql == '')
 		{
+			log_message('error', 'Invalid query: '.$sql);
+
 			if ($this->db_debug)
 			{
-				log_message('error', 'Invalid query: '.$sql);
 				return $this->display_error('db_invalid_query');
 			}
 			return FALSE;
@@ -306,21 +307,23 @@ class CI_DB_driver {
 			// This will trigger a rollback if transactions are being used
 			$this->_trans_status = FALSE;
 
+			// Grab the error number and message now, as we might run some
+			// additional queries before displaying the error
+			$error_no = $this->_error_number();
+			$error_msg = $this->_error_message();
+
+			// Log errors
+			log_message('error', 'Query error: '.$error_msg);
+
 			if ($this->db_debug)
 			{
-				// grab the error number and message now, as we might run some
-				// additional queries before displaying the error
-				$error_no = $this->_error_number();
-				$error_msg = $this->_error_message();
-
 				// We call this function in order to roll-back queries
 				// if transactions are enabled.  If we don't call this here
 				// the error message will trigger an exit, causing the
 				// transactions to remain in limbo.
 				$this->trans_complete();
 
-				// Log and display errors
-				log_message('error', 'Query error: '.$error_msg);
+				// Display errors
 				return $this->display_error(
 										array(
 												'Error Number: '.$error_no,
@@ -424,8 +427,8 @@ class CI_DB_driver {
 
 		if ( ! class_exists($driver))
 		{
-			include_once(BASEPATH.'database/DB_result'.EXT);
-			include_once(BASEPATH.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result'.EXT);
+			include_once(BASEPATH.'database/DB_result.php');
+			include_once(BASEPATH.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result.php');
 		}
 
 		return $driver;
@@ -767,7 +770,7 @@ class CI_DB_driver {
 
 		if ($query->num_rows() > 0)
 		{
-			foreach($query->result_array() as $row)
+			foreach ($query->result_array() as $row)
 			{
 				if (isset($row['TABLE_NAME']))
 				{
@@ -834,7 +837,7 @@ class CI_DB_driver {
 		$query = $this->query($sql);
 
 		$retval = array();
-		foreach($query->result_array() as $row)
+		foreach ($query->result_array() as $row)
 		{
 			if (isset($row['COLUMN_NAME']))
 			{
@@ -904,7 +907,7 @@ class CI_DB_driver {
 		$fields = array();
 		$values = array();
 
-		foreach($data as $key => $val)
+		foreach ($data as $key => $val)
 		{
 			$fields[] = $this->_escape_identifiers($key);
 			$values[] = $this->escape($val);
@@ -932,7 +935,7 @@ class CI_DB_driver {
 		}
 
 		$fields = array();
-		foreach($data as $key => $val)
+		foreach ($data as $key => $val)
 		{
 			$fields[$this->_protect_identifiers($key)] = $this->escape($val);
 		}
@@ -947,6 +950,7 @@ class CI_DB_driver {
 			foreach ($where as $key => $val)
 			{
 				$prefix = (count($dest) == 0) ? '' : ' AND ';
+				$key = $this->_protect_identifiers($key);
 
 				if ($val !== '')
 				{
@@ -1115,7 +1119,7 @@ class CI_DB_driver {
 
 		if ( ! class_exists('CI_DB_Cache'))
 		{
-			if ( ! @include(BASEPATH.'database/DB_cache'.EXT))
+			if ( ! @include(BASEPATH.'database/DB_cache.php'))
 			{
 				return $this->cache_off();
 			}
@@ -1162,7 +1166,7 @@ class CI_DB_driver {
 
 		if ($native == TRUE)
 		{
-			$message = $error;
+			$message = (array) $error;
 		}
 		else
 		{
@@ -1175,7 +1179,7 @@ class CI_DB_driver {
 
 		$trace = debug_backtrace();
 
-		foreach($trace as $call)
+		foreach ($trace as $call)
 		{
 			if (isset($call['file']) && strpos($call['file'], BASEPATH.'database') === FALSE)
 			{
@@ -1248,7 +1252,7 @@ class CI_DB_driver {
 		{
 			$escaped_array = array();
 
-			foreach($item as $k => $v)
+			foreach ($item as $k => $v)
 			{
 				$escaped_array[$this->_protect_identifiers($k)] = $this->_protect_identifiers($v);
 			}

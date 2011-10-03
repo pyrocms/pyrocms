@@ -64,12 +64,11 @@ $lang['user_first_name']										= 'Имя';
 $lang['user_last_name']											= 'Фамилия';
 $lang['user_username']											= 'Логин';
 $lang['user_display_name']									= 'Отображаемое имя';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use']											= 'используется для входа на сайт';
 $lang['user_email']													= 'E-mail';
 $lang['user_confirm_email']									= 'Подтверждение E-mail';
 $lang['user_password']											= 'Пароль';
 $lang['user_remember']											= 'Запомнить меня';
-$lang['user_confirm_password']							= 'Подтверждение пароля';
 $lang['user_group_id_label']								= 'ID группы';
 
 $lang['user_level']													= 'Уровень пользователя';
@@ -183,9 +182,9 @@ $lang['profile_dob_day']							= 'День';
 $lang['profile_dob_month']						= 'Месяц';
 $lang['profile_dob_year']							= 'Год';
 $lang['profile_gender']								= 'Пол';
-$lang['profile_gender_nt']            = 'Not Telling'; #translate
-$lang['profile_gender_male']          = 'Male'; #translate
-$lang['profile_gender_female']        = 'Female'; #translate
+$lang['profile_gender_nt']						= 'Не скажу';
+$lang['profile_gender_male']					= 'Мужской';
+$lang['profile_gender_female']				= 'Женский';
 $lang['profile_bio']									= 'О себе';
 
 $lang['profile_contact_section'] 			= 'Связь';
@@ -219,4 +218,3 @@ $lang['profile_edit_error'] 					= 'Во время сохранения про�
 $lang['profile_save_btn'] 						= 'Сохранить профиль';
 
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/russian/user_lang.php */

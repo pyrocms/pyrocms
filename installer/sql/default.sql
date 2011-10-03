@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `salt` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
   `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `core_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `salt` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
   `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
@@ -127,10 +127,10 @@ INSERT INTO `{PREFIX}profiles` (`id`, `user_id`, `first_name`, `last_name`, `dis
 
 -- command split --
 
-CREATE TABLE {PREFIX}schema_version (
+CREATE TABLE IF NOT EXISTS {PREFIX}migrations (
   `version` int(3) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
 
-INSERT INTO {PREFIX}schema_version VALUES ('{MIGRATION}');
+INSERT INTO {PREFIX}migrations VALUES ('{MIGRATION}');

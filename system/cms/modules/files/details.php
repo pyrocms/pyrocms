@@ -10,7 +10,7 @@ class Module_Files extends Module {
 			'name' => array(
 				'sl' => 'Datoteke',
 				'en' => 'Files',
-				'pt' => 'Arquivos',
+				'br' => 'Arquivos',
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
@@ -23,14 +23,15 @@ class Module_Files extends Module {
 				'fi' => 'Tiedostot',
 				'el' => 'Αρχεία',
 				'he' => 'קבצים',
-				'lt' => 'Failai'
+				'lt' => 'Failai',
+				'da' => 'Filer'
 			),
 			'description' => array(
 				'sl' => 'Uredi datoteke in mape na vaši strani',
 				'en' => 'Manages files and folders for your site.',
-				'pt' => 'Permite gerenciar facilmente os arquivos de seu site.',
+				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
-				'nl' => 'Beheer bestanden en folders op uw website.',
+				'nl' => 'Beheer bestanden en mappen op uw website.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
 				'zh' => '管理網站中的檔案與目錄',
 				'it' => 'Gestisci file e cartelle del tuo sito.',
@@ -41,7 +42,8 @@ class Module_Files extends Module {
 				'fi' => 'Hallitse sivustosi tiedostoja ja kansioita.',
 				'el' => 'Διαχειρίζεται αρχεία και φακέλους για το ιστότοπό σας.',
 				'he' => 'ניהול תיקיות וקבצים שבאתר',
-				'lt' => 'Katalogų ir bylų valdymas.'
+				'lt' => 'Katalogų ir bylų valdymas.',
+				'da' => 'Administrer filer og mapper for dit site.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

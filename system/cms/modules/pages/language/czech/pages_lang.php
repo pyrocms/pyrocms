@@ -43,6 +43,7 @@ $lang['pages.current_label']                                    = 'Současné';
 $lang['pages.view_label'] 						= 'Zobrazit';
 $lang['pages.create_label'] 					= 'Přidat potomka';
 $lang['pages.edit_label'] 						= 'Upravit';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= 'Vymazat';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 						= 'Upravit stránku "%s"';
 $lang['pages.list_title'] 						= 'Seznam stránek';
 $lang['pages.layouts_create_title'] 			= 'Přidat šablonu stránek';
 $lang['pages.layouts_list_title'] 				= 'Seznam šablon stránek';
-$lang['pages.compare_revisions_title']                          = 'Porovnat revize';
-$lang['pages.preview_revision_title']                           = 'Náhled revize';
 
 // messages
 $lang['pages.no_pages'] 						= 'Nejsou zde žádné stránky.';
@@ -66,6 +65,7 @@ $lang['pages_mass_delete_success'] 				= '%s stránek bylo vymazáno.';
 $lang['pages_delete_none_notice'] 				= 'Žádné stránky nebyly vymazány.';
 $lang['pages_page_already_exist_error'] 		= 'Stránka s adresou URL "%s" již existuje v %s.';
 $lang['pages_parent_not_exist_error'] 			= 'Vybraná rodičovská stránka neexistuje.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
 $lang['pages.tree_explanation'] 				= 'Seznam vlevo reprezentuje stránky na webu.
 Klikněte na ikonku "+" pro zobrazení stránek uvnitř. Při kliknutí na stránku tu uvidíte spoustu užitečných informací.';

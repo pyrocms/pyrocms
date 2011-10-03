@@ -11,8 +11,8 @@ $lang['widgets.widget_short_name'] 			= 'Nazwa skrócona';
 $lang['widgets.widget_version'] 			= 'Wersja';
 $lang['widgets.status_label']				= 'Status';
 
-$lang['widgets.inactive_title'] 			= 'Widgety nie aktywne'; 
-$lang['widgets.active_title'] 				= 'Widgety aktywne'; 
+$lang['widgets.inactive_title'] 			= 'Widgety nie aktywne';
+$lang['widgets.active_title'] 				= 'Widgety aktywne';
 
 // Widget area titles
 $lang['widgets.add_area'] 					= 'Dodaj obszar widgetów';
@@ -35,4 +35,4 @@ $lang['widgets.tag_title']					= 'Tag';
 $lang['widgets.instance_edit'] 				= 'Edytuj';
 $lang['widgets.instance_delete'] 			= 'Usuń';
 
-$lang['widgets.no_available_widgets']		= 'Nie ma dostępnych widget.'; 
+$lang['widgets.no_available_widgets']		= 'Nie ma dostępnych widget.';

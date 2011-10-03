@@ -11,8 +11,8 @@ $lang['pages.detail_label'] 					= 'تفاصيل';
 
 // labels
 $lang['pages.page_label'] 						= 'الصفحة';
-$lang['pages.add_page_chunk']					= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']						= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']					= 'أضف قُصاصة صفحة';
+$lang['pages.page_chunk']						= 'قُصاصة صفحة';
 $lang['pages.language_label'] 					= 'اللغة';
 $lang['pages.updated_label'] 					= 'آخر تحديث';
 $lang['pages.actions_label'] 					= 'إجراءات';
@@ -43,6 +43,7 @@ $lang['pages.current_label']                                    = 'الحالي�
 $lang['pages.view_label'] 						= 'عرض';
 $lang['pages.create_label'] 					= 'إضافة صفحة فرعيّة';
 $lang['pages.edit_label'] 						= 'تعديل';
+$lang['pages.duplicate_label']					= 'مُكرّر';
 $lang['pages.delete_label'] 					= 'حذف';
 
 // titles
@@ -51,8 +52,6 @@ $lang['pages.edit_title'] 						= 'تعديل الصفحة "%s"';
 $lang['pages.list_title'] 						= 'سرد الصفحات';
 $lang['pages.layouts_create_title'] 			= 'إضافة تخطيط صفحة';
 $lang['pages.layouts_list_title'] 				= 'سرد تخطيطات الصفحات';
-$lang['pages.compare_revisions_title']                          = 'مقارنة التعديلات';
-$lang['pages.preview_revision_title']                           = 'معاينة التعديلات';
 
 // messages
 $lang['pages.no_pages'] 						= 'لا يوجد صفحات.';
@@ -66,6 +65,7 @@ $lang['pages_mass_delete_success'] 				= 'تم حذف %s صفحة.';
 $lang['pages_delete_none_notice'] 				= 'لم تُحذف أية صفحات.';
 $lang['pages_page_already_exist_error'] 		= 'يوجد صفحة لها عنوان "%s" موجودة في %s.';
 $lang['pages_parent_not_exist_error'] 			= 'الصفحة الحاوية التي اخترتها غير موجودة.';
+$lang['pages_root_folder']                = 'المستوى الأعلى';
 
 $lang['pages.tree_explanation'] 				= 'القائمة التي على اليمين تمثّل صفحات موقعك.
 اضغط علامة "+" المقابلة للصفحة التي تريد عرض صفحاتها الفرعيّة. وعندما تضغط على أحد الصفحات ستظهر لك جميع المعلومات المفيدة في هذا المربّع.';

@@ -7,7 +7,7 @@
 
 			slug = $('input[name="slug"]', form);
 
-			if(slug.val() == 'home' || slug.val() == '404')
+			if (slug.val() == 'home' || slug.val() == '404')
 			{
 				return;
 			}
@@ -27,8 +27,9 @@
 			$('#page-content ul li:last').before('<li class="page-chunk">' +
 				'<div class="float-left">'+
 				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
-				'<select name="chunk_type[' + key + ']" class="no-uniform">' +
+				'<select name="chunk_type[' + key + ']">' +
 				'<option value="html">html</option>' +
+				'<option value="markdown">markdown</option>' +
 				'<option value="wysiwyg-simple">wysiwyg-simple</option>' +
 				'<option selected="selected" value="wysiwyg-advanced">wysiwyg-advanced</option>' +
 				'</select>' +
@@ -42,7 +43,7 @@
 			pyro.init_ckeditor();
 		});
 		
-		$('a.remove-chunk').live('click', function(e){
+		$('a.remove-chunk').live('click', function(e) {
 			e.preventDefault();
 			
 			$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
@@ -61,14 +62,13 @@
 				var instance = CKEDITOR.instances[textarea.attr('id')];
 			    instance && instance.destroy();
 			}
-			
-			
+		
 			// Set up the new instance
 			textarea.addClass(this.value);
 			
 			pyro.init_ckeditor();
-			
 		});
 		
 	});
+	
 })(jQuery);

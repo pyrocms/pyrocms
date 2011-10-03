@@ -3,13 +3,13 @@
 	$(function() {
 
 		// show the first box with js to get around page jump
-		$('.box .box-container:first').slideDown(600).removeClass('collapsed');
+		$('.box .item:first').slideDown(600).removeClass('collapsed');
 
 		// show and hide the sections
-		$('.box header').click(function(){
-			if ($(this).next('div.box-container').hasClass('collapsed')) {
-				$('.box .box-container').slideUp(600).addClass('collapsed');
-				$(this).next('div.collapsed').slideDown(600).removeClass('collapsed');
+		$('.box .title').click(function(){
+			if ($(this).next('section.item').hasClass('collapsed')) {
+				$('.box .item').slideUp(600).addClass('collapsed');
+				$(this).next('section.collapsed').slideDown(600).removeClass('collapsed');
 			}
 		});
 
@@ -26,7 +26,11 @@
 				$('div#link-details.group-'+ id +'').fadeIn();
 				// display the create/edit title in the header
 				var title = $('#title-value-'+id).html();
-				$('section.box header h3.group-title-'+id).html(title);
+				$('section.box .title h4.group-title-'+id).html(title);
+				
+				// Chosen
+				$('select').addClass('chzn');
+				$(".chzn").chosen();
 			});
 			return false;
 		});
@@ -136,7 +140,7 @@
 			var links = [];
 
 			// get all of the open parents
-			$('.box-container').find('li.minus').each(function(){ links.push('#' + this.id) });
+			$('.item').find('li.minus').each(function(){ links.push('#' + this.id) });
 
 			// save open parents in the cookie
 			$.cookie('open_links', links.join(', '), { expires: 1 });
@@ -160,7 +164,7 @@
 				order = $(this).nestedSortable('toHierarchy');
 
 				// get the group id
-				var group = $(this).parents('section').attr('rel');
+				var group = $(this).parents('section.box').attr('rel');
 
 				// refresh the tree icons - needs a timeout to allow nestedSort
 				// to remove unused elements before we check for their existence

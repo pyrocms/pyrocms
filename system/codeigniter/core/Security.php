@@ -26,13 +26,54 @@
  */
 class CI_Security {
 
+	/**
+	 * Random Hash for protecting URLs
+	 *
+	 * @var string
+	 * @access protected
+	 */
 	protected $_xss_hash			= '';
+	
+	/**
+	 * Random Hash for Cross Site Request Forgery Protection Cookie
+	 *
+	 * @var string
+	 * @access protected
+	 */
 	protected $_csrf_hash			= '';
-	protected $_csrf_expire			= 7200;  // Two hours (in seconds)
+	
+	/**
+	 * Expiration time for Cross Site Request Forgery Protection Cookie
+	 * Defaults to two hours (in seconds)
+	 *
+	 * @var int
+	 * @access protected
+	 */
+	protected $_csrf_expire			= 7200;
+	
+	/**
+	 * Token name for Cross Site Request Forgery Protection Cookie
+	 *
+	 * @var string
+	 * @access protected
+	 */
 	protected $_csrf_token_name		= 'ci_csrf_token';
+	
+	/**
+	 * Cookie name for Cross Site Request Forgery Protection Cookie
+	 *
+	 * @var string
+	 * @access protected
+	 */
 	protected $_csrf_cookie_name	= 'ci_csrf_token';
-
-	/* never allowed, string replacement */
+	
+	/**
+	 * List of never allowed strings
+	 *
+	 * @var array
+	 * @access protected
+	 */
+	
 	protected $_never_allowed_str = array(
 					'document.cookie'	=> '[removed]',
 					'document.write'	=> '[removed]',
@@ -45,7 +86,12 @@ class CI_Security {
 					'<![CDATA['			=> '&lt;![CDATA['
 	);
 
-	/* never allowed, regex replacement */
+	/**
+	 * List of never allowed regex replacement
+	 *
+	 * @var array
+	 * @access protected
+	 */
 	protected $_never_allowed_regex = array(
 					"javascript\s*:"			=> '[removed]',
 					"expression\s*(\(|&\#40;)"	=> '[removed]', // CSS and IE
@@ -58,8 +104,20 @@ class CI_Security {
 	 */
 	public function __construct()
 	{
-		// Append application specific cookie prefix to token name
-		$this->_csrf_cookie_name = (config_item('cookie_prefix')) ? config_item('cookie_prefix').$this->_csrf_token_name : $this->_csrf_token_name;
+		// CSRF config
+		foreach(array('csrf_expire', 'csrf_token_name', 'csrf_cookie_name') as $key)
+		{
+			if (FALSE !== ($val = config_item($key)))
+			{
+				$this->{'_'.$key} = $val;
+			}
+		}
+
+		// Append application specific cookie prefix
+		if (config_item('cookie_prefix'))
+		{
+			$this->_csrf_cookie_name = config_item('cookie_prefix').$this->_csrf_cookie_name;
+		}
 
 		// Set the CSRF hash
 		$this->_csrf_set_hash();
@@ -81,6 +139,16 @@ class CI_Security {
 		{
 			return $this->csrf_set_cookie();
 		}
+		
+		// Check if URI has been whitelisted from CSRF checks
+		if ($exclude_uris = config_item('csrf_exclude_uris'))
+		{
+			$uri = load_class('URI', 'core');
+			if (in_array($uri->uri_string(), $exclude_uris))
+			{
+				return $this;
+			}
+		}
 
 		// Do the tokens exist in both the _POST and _COOKIE arrays?
 		if ( ! isset($_POST[$this->_csrf_token_name]) OR
@@ -101,11 +169,12 @@ class CI_Security {
 
 		// Nothing should last forever
 		unset($_COOKIE[$this->_csrf_cookie_name]);
+                $this->_csrf_hash = '';
 		$this->_csrf_set_hash();
 		$this->csrf_set_cookie();
-
-		log_message('debug', "CSRF token verified ");
-
+		
+		log_message('debug', "CSRF token verified");
+		
 		return $this;
 	}
 
@@ -203,6 +272,7 @@ class CI_Security {
 	 * http://ha.ckers.org/xss.html
 	 *
 	 * @param	mixed	string or array
+	 * @param 	bool
 	 * @return	string
 	 */
 	public function xss_clean($str, $is_image = FALSE)
@@ -456,9 +526,17 @@ class CI_Security {
 	 * @param	string
 	 * @return	string
 	 */
-	public function entity_decode($str, $charset='UTF-8')
+	public function entity_decode($str, $charset = NULL)
 	{
-		if (stristr($str, '&') === FALSE) return $str;
+		if (stristr($str, '&') === FALSE)
+		{
+			return $str;
+		}
+		
+		if (empty($charset))
+		{
+			$charset = config_item('charset');
+		}
 
 		// The reason we are not using html_entity_decode() by itself is because
 		// while it is not technically correct to leave out the semicolon
@@ -493,6 +571,7 @@ class CI_Security {
 	 * Filename Security
 	 *
 	 * @param	string
+	 * @param 	bool
 	 * @return	string
 	 */
 	public function sanitize_filename($str, $relative_path = FALSE)
@@ -807,14 +886,14 @@ class CI_Security {
 				return $this->_csrf_hash = $_COOKIE[$this->_csrf_cookie_name];
 			}
 
-			return $this->_csrf_hash = md5(uniqid(rand(), TRUE));
+			$this->_csrf_hash = md5(uniqid(rand(), TRUE));
+			$this->csrf_set_cookie();
 		}
 
 		return $this->_csrf_hash;
 	}
 
 }
-// END Security Class
 
 /* End of file Security.php */
 /* Location: ./system/libraries/Security.php */

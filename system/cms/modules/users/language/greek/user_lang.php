@@ -46,7 +46,7 @@ $lang['user_activate_account_title']           = 'Ενεργοποίηση Λο�
 $lang['user_activate_label']                   = 'Ενεργοποίηση';
 $lang['user_activated_account_title']          = 'Ενεργοποιημένος Λογαριασμός';
 $lang['user_reset_password_title']             = 'Επανακαθορισμός Συνθηματικού';
-$lang['user_password_reset_title']             = 'Επανακαθορισμός Συνθηματικού';  
+$lang['user_password_reset_title']             = 'Επανακαθορισμός Συνθηματικού';
 
 
 $lang['user_error_username']                   = 'Το όνομα χρήστη που επιλέξατε χρησιμοποιείται ήδη';
@@ -57,12 +57,11 @@ $lang['user_first_name']                       = 'Όνομα';
 $lang['user_last_name']                        = 'Επίθετο';
 $lang['user_username']                         = 'Όνομα χρήστη';
 $lang['user_display_name']                     = 'Όνομα εμφάνισης';
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_email_use'] 					   = 'που χρησιμοποιείται για την σύνδεση'
 $lang['user_email']                            = 'E-mail';
 $lang['user_confirm_email']                    = 'Επανάληψη E-mail';
 $lang['user_password']                         = 'Συνθηματικό';
 $lang['user_remember']                         = 'Απομνημόνευση';
-$lang['user_confirm_password']                 = 'Επανάληψη συνθηματικού';
 $lang['user_group_id_label']                   = 'ID Ομάδας';
 
 $lang['user_level']                            = 'Ρόλος Χρήστη';
@@ -171,7 +170,7 @@ $lang['profile_edit']                 = 'Επεξεργαστείτε το πρ�
 
 $lang['profile_personal_section']     = 'Προσωπικά';
 
-$lang['profile_display_name']         = 'Όνομα Εμφάνισης';  
+$lang['profile_display_name']         = 'Όνομα Εμφάνισης';
 $lang['profile_dob']                  = 'Ημερομηνία Γέννησης';
 $lang['profile_dob_day']              = 'Ημέρα';
 $lang['profile_dob_month']            = 'Μήνα';
@@ -213,4 +212,3 @@ $lang['profile_edit_error']           = 'Συνέβη κάποιο σφάλμα.
 
 $lang['profile_save_btn']             = 'Αποθήκευση προφίλ';
 /* End of file user_lang.php */
-/* Location: ./system/cms/modules/users/language/greek/user_lang.php */

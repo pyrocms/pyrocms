@@ -42,9 +42,5 @@ $lang['cp_access_denied'] 				= 'Nie posiadasz wystarczających uprawnień, żeb
 $lang['cp_delete_installer_message']	= 'Proszę usunąć katalog o nazwie "installer" z serwera. Zostawiając go w głównym katalogu, narażasz się na utratę danych!';
 $lang['cp_upgrade_message']				= 'Używasz wersji %s, ale Twoja baza danych jest w wersji %s. <a href="%s">Kliknij tutaj</a>, aby zaktualizować bazę danych.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Skróty klawiszowe'; 
-$lang['cp_remove']						= 'Usuń'; 
-
 $lang['required_label'] 				= 'Wymagane';
 $lang['sb_recent_users'] 				= 'Ostatni użytkownicy';

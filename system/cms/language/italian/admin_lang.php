@@ -44,12 +44,7 @@ $lang['cp_upgrade_message']				= 'Stai usando la versione %s, ma la versione del
 $lang['cp_google_analytics_missing'] = 'Le impostazioni di Google Analytics sono mancanti. Aggiungile in %s o contatta il tuo amministratore.';
 $lang['cp_google_analytics_no_connect'] = 'Impossibile connettersi a Google Analytics. Controlla le %s.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Collegamenti';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label'] 				= 'Obbligatorio';
 $lang['sb_recent_users'] 				= 'Utenti recenti';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/italian/admin_lang.php */

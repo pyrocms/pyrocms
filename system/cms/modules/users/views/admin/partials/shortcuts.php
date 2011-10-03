@@ -4,5 +4,4 @@
 		<li><?php echo anchor('admin/users/create', lang('user_add_title'), 'class="add"'); ?></li>
 		<li><?php echo anchor('admin/users', lang('user_list_title'), ''); ?></li>
 	</ul>
-	<br class="clear-both" />
 </nav>

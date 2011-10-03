@@ -19,24 +19,28 @@ class Module_Templates extends Module {
 			'name' => array(
 				'sl' => 'Email predloge',
 				'en' => 'Email Templates',
+				'nl' => 'Email sjablonen',
 				'es' => 'Plantillas de email',
 				'ar' => 'قوالب الرسائل الإلكترونية',
-				'pt' => 'Modelos de e-mail',
+				'br' => 'Modelos de e-mail',
 				'el' => 'Δυναμικά email',
 				'he' => 'תבניות',
 				'lt' => 'El. laiškų šablonai',
-				'ru' => 'Шаблоны почты'
+				'ru' => 'Шаблоны почты',
+				'da' => 'Email skabeloner'
 			),
 			'description' => array(
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
 				'en' => 'Create, edit, and save dynamic email templates',
+				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
 				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
 				'ar' => 'أنشئ، عدّل واحفظ قوالب البريد الإلكترني الديناميكية.',
-				'pt' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
+				'br' => 'Criar, editar e salvar modelos de e-mail dinâmicos',
 				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
 				'he' => 'ניהול של תבניות דואר אלקטרוני',
 				'lt' => 'Kurk, tvarkyk ir saugok dinaminius el. laiškų šablonus.',
-				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны'
+				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
+				'da' => 'Opret, redigér og gem dynamiske emailskabeloner.'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -91,10 +95,16 @@ class Module_Templates extends Module {
 				{pyro:contact_name},
 				{pyro:contact_company}', 'en', '1');
 		";
-
+		
+		$registered_template = "
+			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('registered', 'New User Registered', 'The email sent to the site contact e-mail when a new user registers', '{pyro:settings:site_name} :: You have just received a registration from {pyro:name}', '<h3>You have received a registration from {pyro:name}</h3><strong>IP Address: {pyro:sender_ip}</strong>
+				<strong>Operating System: {pyro:sender_os}
+				<strong>User Agent: {pyro:sender_agent}</strong>', 'en', '1');
+		";
 
 			$this->db->query($comment_template); //sent when a user posts a comment to something
 			$this->db->query($contact_template); //sent when a user uses the contact form
+			$this->db->query($registered_template); // sent to the site contact email when a new user registers
 			//$this->db->insert($activate_template); //activation_required.php - when user registers this is sent
 			//$this->db->insert($forgot_password_template); //forgot_password.tpl.php sent when user resets password
 			//$this->db->insert($new_password_template); //new_password.tpl.php sent one a password is successfuly sent

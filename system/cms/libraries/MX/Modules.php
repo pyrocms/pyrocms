@@ -1,7 +1,9 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
+global $CFG;
+
 /* get module locations from config settings or use the default module location and offset */
-is_array(Modules::$locations = config_item('modules_locations')) OR Modules::$locations = array(
+is_array(Modules::$locations = $CFG->item('modules_locations')) OR Modules::$locations = array(
 	APPPATH.'modules/' => '../modules/',
 );
 
@@ -22,17 +24,17 @@ spl_autoload_register('Modules::autoload');
  *
  * @copyright	Copyright (c) 2011 Wiredesignz
  * @version 	5.4
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -142,7 +144,7 @@ class Modules
 				return $result;
 			}	
 			include_once $location;
-		} else { 
+		} else {
 		
 			/* load config or language array */
 			include $location;
@@ -156,7 +158,7 @@ class Modules
 		return $result;
 	}
 
-	/** 
+	/**
 	* Find a file
 	* Scans for files located within modules directories.
 	* Also scans application directories for models, plugins and views.
@@ -182,7 +184,7 @@ class Modules
 				
 				if (is_file($fullpath.$file_ext)) return array($fullpath, $file);
 				
-				if ($base == 'libraries/' AND is_file($fullpath.ucfirst($file_ext))) 
+				if ($base == 'libraries/' AND is_file($fullpath.ucfirst($file_ext)))
 					return array($fullpath, ucfirst($file));
 			}
 		}
@@ -195,20 +197,25 @@ class Modules
 		
 		/* is the file in an admin theme? */
 		if ($base == 'views/') {
-			// check system folder
-			if (is_file(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
-			{
-				return array(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+			if (defined('ADMIN_THEME')) {
+				// check system folder
+				if (is_file(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(APPPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
+				// check shared addons folder
+				elseif (is_file(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
+				// check addons folder
+				elseif (is_file(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
+				{
+					return array(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+				}
 			}
-			// check shared addons folder
-			elseif (is_file(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
-			{
-				return array(SHARED_ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
-			}
-			// check addons folder
-			elseif (is_file(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path.$file_ext))
-			{
-				return array(ADDONPATH.'themes/'.ADMIN_THEME.'/'.$base.$path, $file);	
+			else {
+				if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);
 			}
 			show_error("Unable to locate the file: {$path}{$file_ext}");
 		}
@@ -230,7 +237,7 @@ class Modules
 		/* parse module routes */
 		foreach (self::$routes[$module] as $key => $val) {						
 					
-			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+			$key = str_replace(array(':any', ':num'), array('.+', '[0-9]+'), $key);
 			
 			if (preg_match('#^'.$key.'$#', $uri)) {							
 				if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE) {

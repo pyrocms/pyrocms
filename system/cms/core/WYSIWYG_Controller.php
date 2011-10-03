@@ -10,15 +10,15 @@
  */
 class WYSIWYG_Controller extends MY_Controller
 {
-	public function WYSIWYG_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 
 	    // Not an admin and not allowed to see files
-	    if ($this->user->group !== 'admin' AND ! in_array('files', $this->permissions))
+	    if ($this->current_user->group !== 'admin' AND ! array_key_exists('files', $this->permissions))
 	    {
 			$this->load->language('files/files');
-			show_error('files.no_permissions');
+			show_error(lang('files.no_permissions'));
 	    }
 
 		// Prepare Asset library
@@ -33,19 +33,8 @@ class WYSIWYG_Controller extends MY_Controller
 			->set_theme(ADMIN_THEME)
 			->set_layout('wysiwyg', 'admin')
 			->enable_parser(FALSE)
-			->append_metadata(js('jquery/jquery.min.js'))
-	    	->append_metadata('<script type="text/javascript">jQuery.noConflict();</script>')
-	    	->append_metadata(js('jquery/jquery.livequery.min.js'))
-	    	->append_metadata(js('jquery/jquery.fancybox.js'))
-	    	->append_metadata(css('jquery/jquery.fancybox.css'))
 			->set('editor_path', $editor_path = APPPATH_URI . 'assets/js/editor/')
 			->append_metadata( css('wysiwyg.css', 'wysiwyg') )
-			->append_metadata( css('jquery/uniform.default.css') )
-			->append_metadata( js('wysiwyg.js', 'wysiwyg') )
-			->append_metadata( js('jquery/jquery.uniform.min.js') )
-			->append_metadata( js('jquery/jquery-ui.min.js') )
-			->append_metadata( css('jquery/ui-lightness/jquery-ui.css') ) // TODO: Merge it with default jquery-ui.css
-			->append_metadata('<script type="text/javascript">var FILES_PATH = "'.base_url().UPLOAD_PATH.'files/"</script>')
-			->append_metadata( '<script type="text/javascript">var SITE_URL = "'.rtrim(site_url(), '/').'"</script>');
+			->append_metadata( js('wysiwyg.js', 'wysiwyg') );
 	}
 }

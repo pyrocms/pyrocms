@@ -44,9 +44,5 @@ $lang['cp_upgrade_message']				= 'Vaše verze systému je %s, ale verze vaší d
 $lang['cp_google_analytics_missing']	= 'Nastavení Google Analytics chybí. Zapište je do %s nebo kontaktujte svého administrátora.';
 $lang['cp_google_analytics_no_connect']	= 'Nepodařilo se připojit ke Google Analytics. Zkontrolujte na %s.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title']				= 'Rychlé odkazy';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label']					= 'Povinné';
 $lang['sb_recent_users']				= 'Nedávní uživatelé';

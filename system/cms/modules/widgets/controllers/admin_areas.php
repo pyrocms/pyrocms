@@ -1,18 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Admin controller for the widgets module.
+ * Admin controller for adding and managing widget areas.
  *
  * @package 		PyroCMS
- * @subpackage 		Widgets
- * @author			Marcos Coelho - PyroCMS Development Team
+ * @subpackage 		Modules
+ * @category		Widgets
+ * @author			PyroCMS Development Team
  *
  */
 class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Array that contains the validation rules
-	 * 
+	 *
 	 * @access	protected
 	 * @var		array
 	 */
@@ -31,7 +32,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @access	public
 	 * @return	void
 	 */

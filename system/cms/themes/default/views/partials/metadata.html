@@ -1,32 +1,24 @@
 <!-- Begin meta tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="author" content="iKreativ.com" />
+<meta name="author" content="HappyNinjas" />
 <meta name="copyright" content="PyroCMS.com" />
 <meta name="distribution" content="global" />
 <meta name="resource-type" content="document" />
 <meta name="language" content="{pyro:lang:code}" />
 {pyro:theme:favicon file="favicon.ico" base="url"}
 
+<base href="{pyro:url:base}" />
+
 <!-- Begin stylesheets -->
 {pyro:theme:css file="style.css"}
 <!-- End stylesheets -->
 
 <!-- Load jQuery Before Modules/Widgets -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script>window.jQuery || document.write("<script src='{pyro:theme:js_url file='jquery/jquery.min.js'}'>\x3C/script>")</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script>window.jQuery || document.write("\x3Cscript src='{pyro:theme:js_url file='jquery/jquery.min.js'}'>\x3C/script>")</script>
 <!-- End jquery -->
 
 {pyro:template:metadata}
-
-<!-- Place CSS bug fixes for IE 6 in this comment -->
-<!--[if IE 6]>
-<meta http-equiv="refresh" content="0; url=http://www.microsoft.com/windows/internet-explorer/default.aspx" />
-<script type="text/javascript">
-/* <![CDATA[ */
-window.top.location = 'http://www.microsoft.com/windows/internet-explorer/default.aspx';
-/* ]]> */
-</script>
-<![endif]-->
 
 <!-- Place CSS bug fixes for IE 7 in this comment -->
 <!--[if IE 7]>

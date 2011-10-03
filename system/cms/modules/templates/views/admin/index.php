@@ -1,6 +1,8 @@
 <?php if(!empty($templates)): ?>
+	<section class="title"></section>
+	<section class="item">
     <?php echo form_open('admin/templates/action'); ?>
-    
+
     <table border="0" class="table-list clear-both">
         <thead>
 			<tr>
@@ -14,7 +16,7 @@
                 <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
             </tr>
         </thead>
-        
+
         <tbody>
 		
     <?php foreach ($templates as $template): ?>
@@ -52,7 +54,7 @@
                 <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
             </tr>
         </thead>
-        
+
         <tbody>
 	
     <?php foreach ($templates as $template): ?>
@@ -77,15 +79,18 @@
         </tbody>
     </table>
 
-	<div class="buttons padding-top align-right">
+	<div class="buttons padding-top alignright">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
-    
+
     <?php echo form_close(); ?>
+
+	</section>
+	
 <?php else: ?>
 
-<div class="blank-slate">
-    <h2><?php echo lang('templates.currently_no_templates'); ?></h2>
-</div>
+<section class="item">
+    <p><?php echo lang('templates.currently_no_templates'); ?></p>
+</section>
 
 <?php endif; ?>

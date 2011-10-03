@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Passo 2: Verifica Requisiti';
@@ -11,9 +11,9 @@ $lang['server_version']	        =	'Il tuo software server:';
 $lang['server_fail']	        =	'Il tuo software server non è supportato, nonostante ciò PyroCMS potrebbe funzionare. Dopo l\' aggiornamento delle installazioni di PHP e MySQL PyroCMS dovrebbe funzionare correttamente, ma senza le URL pulite.';
 
 $lang['php_settings']	        =	'Impostazioni PHP';
-$lang['php_required']	        =	'PyroCMS richiede PHP versione 5.0 o superiore.';
+$lang['php_required']	        =	'PyroCMS richiede PHP versione %s o superiore.';
 $lang['php_version']	        =	'Versione di PHP installata sul tuo server';
-$lang['php_fail']		=	'La versione del tuo PHP non è supportata. PyroCMS richiede PHP versione 5.0 o superiore per funzionare correttamente.';
+$lang['php_fail']		=	'La versione del tuo PHP non è supportata. PyroCMS richiede PHP versione %s o superiore per funzionare correttamente.';
 
 $lang['mysql_settings']	        =	'Impostazioni MySQL';
 $lang['mysql_required']	        =	'PyroCMS richiede l\' accesso al database MySQL versione 5.0 o superiore.';
@@ -47,4 +47,3 @@ $lang['retry']			=	'Riprova';
 $lang['step1_failure']	        =	'Inserisci le impostazioni del database richieste nel modulo sottostante.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/italian/step_2_lang.php */

@@ -9,7 +9,7 @@
 | and its corresponding controller class/method. The segments in a
 | URL normally follow this pattern:
 |
-| 	www.your-site.com/class/method/id/
+|	example.com/class/method/id/
 |
 | In some instances, however, you may want to remap this relationship
 | so that a different class/function is called than the one
@@ -17,7 +17,7 @@
 |
 | Please see the user guide for complete details:
 |
-|	http://www.codeigniter.com/user_guide/general/routing.html
+|	http://codeigniter.com/user_guide/general/routing.html
 |
 | -------------------------------------------------------------------------
 | RESERVED ROUTES
@@ -28,18 +28,23 @@
 |	$route['default_controller'] = 'welcome';
 |
 | This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the 'welcome' class
+| URI contains no data. In the above example, the "welcome" class
 | would be loaded.
+|
+|	$route['404_override'] = 'errors/page_missing';
+|
+| This route will tell the Router what URI segments to use if those provided
+| in the URL cannot be matched to a valid route.
 |
 */
 
 $route['default_controller'] = 'pages';
 $route['404_override'] = 'pages';
 
-$route['admin/help/([a-zA-Z_-]+)']		= 'admin/help/$1';
-$route['admin/([a-zA-Z_-]+)/(:any)']	= '$1/admin/$2';
+$route['admin/help/([a-zA-Z0-9_-]+)']		= 'admin/help/$1';
+$route['admin/([a-zA-Z0-9_-]+)/(:any)']	= '$1/admin/$2';
 $route['admin/(login|logout)']			= 'admin/$1';
-$route['admin/([a-zA-Z_-]+)']			= '$1/admin/index';
+$route['admin/([a-zA-Z0-9_-]+)']			= '$1/admin/index';
 
 $route['register'] = 'users/register';
 
@@ -48,9 +53,6 @@ $route['my-profile']	= 'users/index';
 $route['edit-profile']	= 'users/edit';
 $route['edit-settings']	= 'users/edit';
 
-// Just for now, map calls to /news to /blog
-$route['news']							= 'blog';
-$route['news/(:num)/(:num)/(:any)']		= 'blog/view/$3';
-$route['news/page(/:num)?']				= 'blog/index$1';
-$route['news/rss/all.rss']				= 'blog/rss/index';
-$route['news/rss/(:any).rss']			= 'blog/rss/category/$1';
+$route['sitemap.xml'] = 'sitemap/xml';
+
+/* End of file routes.php */

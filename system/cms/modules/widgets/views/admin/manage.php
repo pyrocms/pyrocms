@@ -1,6 +1,7 @@
+<section class="item">
 <?php if ($widgets): ?>
 
-	<h3><?php echo lang($widgets_active ? 'widgets.active_title' : 'widgets.inactive_title'); ?></h3>
+	<h4><?php echo lang($widgets_active ? 'widgets.active_title' : 'widgets.inactive_title'); ?></h4>
 
 	<?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<!-- Available Widget List -->
@@ -58,3 +59,5 @@
 		<h2><?php echo lang('widgets.no_available_widgets'); ?></h2>
 	</div>
 <?php endif; ?>
+
+</section>

@@ -42,9 +42,5 @@ $lang['cp_access_denied'] 				= 'ليست لديك الصلاحيات الكاف
 $lang['cp_delete_installer_message']		= 'رجاءً حذف مجلد التثبيت من خادمك، حيث أن تركه هناك قد يعني تحكم أحد آخر به.';
 $lang['cp_upgrade_message']		= 'أنت تستخدم النسخة %s حالياً، إلا أن نسخة قاعدة بياناتك هي %s. رجاءً <a href="%s" title="الترقية">اضغط هنا</a> لترقية قاعدة البيانات.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'الاختصارات';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label'] 				= 'مطلوب';
 $lang['sb_recent_users'] 				= 'أحديث المستخدمين';

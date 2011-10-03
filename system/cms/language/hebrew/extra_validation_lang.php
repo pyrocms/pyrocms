@@ -5,4 +5,3 @@ $lang['decimal']				= "שדה %s יכול להכיל מספרים דצימליי
 $lang['csrf_bad_token']			= "תו CSRF שגוי";
 
 /* End of file extra_validation_lang.php */
-/* Location: ./system/cms/language/hebrew/extra_validation_lang.php */

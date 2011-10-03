@@ -18,17 +18,17 @@
  */
 function group_has_role($module, $role)
 {
-	if (empty(ci()->user))
+	if (empty(ci()->current_user))
 	{
 		return FALSE;
 	}
 
-	if (ci()->user->group == 'admin')
+	if (ci()->current_user->group == 'admin')
 	{
 		return TRUE;
 	}
 
-	$permissions = ci()->permission_m->get_group(ci()->user->group_id);
+	$permissions = ci()->permission_m->get_group(ci()->current_user->group_id);
 
 	if (empty($permissions[$module]) or empty($permissions[$module]->$role))
 	{
@@ -41,7 +41,7 @@ function group_has_role($module, $role)
 
 function role_or_die($module, $role)
 {
-	group_has_role($module, $role) or die(lang('cp_access_denied'));
+	group_has_role($module, $role) or show_error(lang('cp_access_denied'));
 }
 
 // ------------------------------------------------------------------------

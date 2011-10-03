@@ -1,9 +1,14 @@
 <?php if($this->method == 'edit' and ! empty($email_template)): ?>
-    <h4><?php echo sprintf(lang('templates.edit_title'), $email_template->name); ?></h4>
+	<section class="title">
+    	<h4><?php echo sprintf(lang('templates.edit_title'), $email_template->name); ?></h4>
+	</section>
 <?php else: ?>
-    <h4><?php echo lang('templates.create_title'); ?></h4>
+	<section class="title">
+    	<h4><?php echo lang('templates.create_title'); ?></h4>
+	</section>
 <?php endif; ?>
 
+<section class="item">
 <?php echo form_open(current_url(), 'class="crud"'); ?>
 
 <ol>
@@ -37,8 +42,9 @@
         <?php echo form_textarea('body', $email_template->body, 'class="wysiwyg-advanced"'); ?>
     </li>
 </ol>
-<div class="buttons float-right padding-top">
+<div class="buttons alignright">
 	<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 </div>
 
 <?php echo form_close(); ?>
+</section>

@@ -30,7 +30,7 @@
 		<?php endforeach; ?>
 		<?php if ($folders): ?>
 			<li class="upload">
-				<?php echo anchor("admin/wysiwyg/files/upload", lang('files.upload_title'), 'title="upload"'); ?>  
+				<?php echo anchor("admin/wysiwyg/files/upload", lang('files.upload_title'), 'title="upload"'); ?>
 			</li>
 		<?php endif; ?>
 		</ul>

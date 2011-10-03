@@ -21,4 +21,3 @@ $lang['step4']			= 'Krok 4';
 $lang['retry']			= 'Zkusit znovu';
 
 /* End of file step_3_lang.php */
-/* Location: ./installer/language/english/step_3_lang.php */

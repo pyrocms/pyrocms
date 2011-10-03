@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author		Mikael Kundert <mikael@kundert.fi>
  * @package		PyroCMS
  * @subpackage 	Variables Module

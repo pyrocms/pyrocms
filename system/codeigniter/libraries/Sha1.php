@@ -40,7 +40,7 @@
  * @subpackage	Libraries
  * @category	Encryption
  * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/general/encryption.html
+ * @link		http://codeigniter.com/user_guide/libraries/encryption.html
  */
 class CI_SHA1 {
 
@@ -88,7 +88,7 @@ class CI_SHA1 {
 			$oldd = $d;
 			$olde = $e;
 
-			for($j = 0; $j < 80; $j++)
+			for ($j = 0; $j < 80; $j++)
 			{
 				if ($j < 16)
 				{

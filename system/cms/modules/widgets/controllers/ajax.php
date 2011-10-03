@@ -5,9 +5,9 @@
  * @package 		PyroCMS
  * @subpackage 		Widgets
  * @category 		Modules
- * @author			Phil Sturgeon - PyroCMS Development Team
+ * @author			PyroCMS Development Team
  */
-class Ajax extends CI_Controller
+class Ajax extends MY_Controller
 {
 	/**
 	 * Constructor method

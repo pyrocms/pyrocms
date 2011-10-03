@@ -37,14 +37,13 @@ $lang['pages.is_home_label']      = 'Is default (home) page?'; #translate
 $lang['pages.status_label'] 					= 'Stato';
 $lang['pages.draft_label'] 						= 'Bozza';
 $lang['pages.live_label'] 						= 'Pubblicato';
-$lang['pages.revisions_label']					= 'Revisioni';
-$lang['pages.compare_label']                                    = 'Compara';
-$lang['pages.preview_label']                                    = 'Anteprima';
-$lang['pages.current_label']                                    = 'Corrente';
+$lang['pages.preview_label']                    = 'Anteprima';
+$lang['pages.current_label']                    = 'Corrente';
 
 $lang['pages.view_label'] 						= 'Visualizza';
 $lang['pages.create_label'] 					= 'Aggiungi figlio';
 $lang['pages.edit_label'] 						= 'Modifica';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label'] 					= 'Elimina';
 
 // titles
@@ -53,8 +52,6 @@ $lang['pages.edit_title'] 						= 'Modifica la pagina "%s"';
 $lang['pages.list_title'] 						= 'Elenco pagine';
 $lang['pages.layouts_create_title'] 			= 'Aggiungi layout di pagina';
 $lang['pages.layouts_list_title'] 				= 'Elenco layout di pagina';
-$lang['pages.compare_revisions_title']                          = 'Compara Revisioni';
-$lang['pages.preview_revision_title']                           = 'Anteprima Revisione';
 
 // messages
 $lang['pages.no_pages'] 						= 'Non ci sono pagine.';
@@ -69,7 +66,7 @@ $lang['pages_delete_none_notice'] 				= 'Nessuna pagina è stata eliminata.';
 $lang['pages_page_already_exist_error'] 		= 'Una pagina con questo URL "%s" esiste già in %s.';
 $lang['pages_parent_not_exist_error'] 			= 'La pagina di livello superiore che hai scelto non esiste.';
 
-$lang['pages.tree_explanation'] 				= 'La lista a sinistra mostra le pagine del tuo sito. 
+$lang['pages.tree_explanation'] 				= 'La lista a sinistra mostra le pagine del tuo sito.
 Clicca sull\' icona "+" vicina alla pagina per vedere le pagine dipendenti da essa. Quando cliccherai su una pagina vedrai ogni tipo di informazione utile in questo box.';
 
 $lang['pages.rss_explanation']					= 'Abilitando l\' RSS per questa pagina darai la possibilità di abbonarsi ad un feed RSS che mostrerà tutte le pagine dipendenti come un nuovo elemento.';

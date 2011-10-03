@@ -58,6 +58,21 @@ class Variables {
 
 		return NULL;
 	}
+	
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Magic set
+	 *
+	 * Used to set a variable's data
+	 *
+	 * @param	string
+	 * @return 	mixed
+	 */
+	public function __set($name, $value)
+	{
+		$this->_vars[$name] = $value;
+	}
 
 	// ------------------------------------------------------------------------
 

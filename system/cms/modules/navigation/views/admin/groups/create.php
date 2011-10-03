@@ -1,4 +1,4 @@
-<h3><?php echo lang('nav_group_create_title');?></h3> 
+<h3><?php echo lang('nav_group_create_title');?></h3>
 
 <?php echo form_open('admin/navigation/groups/create', 'class="crud"'); ?>
 

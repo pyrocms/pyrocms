@@ -9,7 +9,7 @@
 		<h2>{db_settings}</h2>
 
 		<p>{db_text}</p>
-		
+
 		<div class="input">
 			<label for="hostname">{server}</label>
 			<?php
@@ -50,16 +50,16 @@
 				));
 			?>
 		</div>
-		
+
 	</div>
-	
+
 	<div id="notification">
 	   <p class="text" id="confirm_db"></p>
 	</div>
-	
+
 	<div class="server">
 		<h2>{server_settings}</h2>
-		
+
 			<div class="input">
 				<?php echo lang('httpserver','http_server'); ?>
 				<?php
@@ -67,11 +67,11 @@
 				?>
 			</div>
 	</div>
-	
+
 	<input type="hidden" name="installation_step" value="step_1" />
-	
+
 	<br class="clear" />
-	
+
 	<input id="next_step" type="submit" id="submit" value="{step2}" />
-	
+
 <?php echo form_close(); ?>

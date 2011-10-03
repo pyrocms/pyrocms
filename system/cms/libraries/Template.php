@@ -206,7 +206,7 @@ class Template
 		// Output template variables to the template
 		$template['title']			= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= implode("\n\t\t", $this->_metadata);
+		$template['metadata']		= $this->get_metadata();
 		$template['partials']		= array();
 
 		// Assign by reference, as all loaded views will need access to partials
@@ -254,8 +254,19 @@ class Template
 			// Added to $this->_data['template'] by refference
 			$template['body'] = $this->_body;
 
+			if ($this->_parser_enabled)
+			{
+				// Persistent tags is an experiment to parse some tags after
+				// parsing of all other tags, so the tag persistent should be:
+				//
+				// a) Defined only if depends of others tags
+				// b) Plugin that is a callback, so could retrieve runtime data.
+				// c) Returned with a content parsed
+				$this->_data['_tags']['persistent_tags'][] = 'template:metadata';
+			}
+
 			// Find the main body and 3rd param means parse if its a theme view (only if parser is enabled)
-			$this->_body =  self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
+			$this->_body = self::_load_view('layouts/'.$this->_layout, $this->_data, TRUE, self::_find_view_folder());
 		}
 
 		if ($this->_minify_enabled && function_exists('process_data_jmr1'))
@@ -310,9 +321,10 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function prepend_metadata($line)
+	public function prepend_metadata($line, $place = 'header')
 	{
-		array_unshift($this->_metadata, $line);
+		array_unshift($this->_metadata[$place], $line);
+
 		return $this;
 	}
 
@@ -324,9 +336,10 @@ class Template
 	 * @param	string	$line	The line being added to head
 	 * @return	object	$this
 	 */
-	public function append_metadata($line)
+	public function append_metadata($line, $place = 'header')
 	{
-		$this->_metadata[] = $line;
+		$this->_metadata[$place][] = $line;
+
 		return $this;
 	}
 
@@ -354,11 +367,11 @@ class Template
 		switch($type)
 		{
 			case 'meta':
-				$this->_metadata[$name] = '<meta name="'.$name.'" content="'.$content.'" />';
+				$this->_metadata['header'][$name] = '<meta name="'.$name.'" content="'.$content.'" />';
 			break;
 
 			case 'link':
-				$this->_metadata[$content] = '<link rel="'.$name.'" href="'.$content.'" />';
+				$this->_metadata['header'][$content] = '<link rel="'.$name.'" href="'.$content.'" />';
 			break;
 		}
 
@@ -597,6 +610,11 @@ class Template
 		return $layouts;
 	}
 
+	public function get_metadata($place = 'header')
+	{
+		return isset($this->_metadata[$place]) && is_array($this->_metadata[$place])
+			? implode("\n\t\t", $this->_metadata[$place]) :	NULL;
+	}
 
 	/**
 	 * get_layouts

@@ -81,7 +81,7 @@ class Admin extends Admin_Controller
 		// Load the required classes
 		$this->load->library('form_validation');
 		$this->load->model('navigation_m');
-		$this->load->model('pages/pages_m');
+		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
@@ -96,7 +96,7 @@ class Admin extends Admin_Controller
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module)
 		{
-			if(in_array($module['slug'], $this->permissions) OR $this->user->group == 'admin') $modules[] = $module;
+			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
 		}
 		
 		$this->data->modules_select = array_for_select($modules, 'slug', 'name');
@@ -104,7 +104,7 @@ class Admin extends Admin_Controller
 		// Get Pages and create pages tree
 		$tree = array();
 
-		if ($pages = $this->pages_m->get_all())
+		if ($pages = $this->page_m->get_all())
 		{
 			foreach($pages AS $page)
 			{
@@ -127,7 +127,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		// Go through all the groups
-		foreach($this->data->groups as $group)
+		foreach ($this->data->groups as $group)
 		{
 			//... and get navigation links for each one
 			$this->data->navigation[$group->id] = $this->navigation_m->get_link_tree($group->id);
@@ -145,7 +145,7 @@ class Admin extends Admin_Controller
 	
 	/**
 	 * Order the links and record their children
-	 * 
+	 *
 	 * @access public
 	 * @return string json message
 	 */
@@ -376,7 +376,7 @@ class Admin extends Admin_Controller
 			$html .= '<option value="' . $item->id . '"';
 			$html .= $current_parent == $item->id ? ' selected="selected">': '>';
 
-			if ($level > 0) 
+			if ($level > 0)
 			{
 				for ($i = 0; $i < ($level*2); $i++)
 				{

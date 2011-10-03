@@ -33,4 +33,3 @@ $lang['templates.no_select_error'] 			= 'Você precisa selecionar algum modelo d
 $lang['templates.already_exist_error']		= 'Um modelo de e-mail com o nome "%s" já existe.';
 
 /* End of file templates_lang.php */
-/* Location: ./system/cms/modules/templates/language/brazilian/templates_lang.php */

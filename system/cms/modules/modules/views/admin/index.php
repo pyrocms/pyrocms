@@ -1,9 +1,8 @@
-<section class="box">
+<section class="title">
+	<h4><?php echo lang('modules.addon_list');?></h4>
+</section>
 
-	<header>
-		<h3><?php echo lang('modules.addon_list');?></h3>
-	</header>
-		
+<section class="item">		
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">
@@ -47,11 +46,11 @@
 
 </section>
 
-<section class="box">
-	<header>
-		<h3><?php echo lang('modules.core_list');?></h3>
-	</header>
+<section class="title">
+	<h4><?php echo lang('modules.core_list');?></h4>
+</section>
 
+<section class="item">
 		<p><?php echo lang('modules.introduction'); ?></p>
 
 		<table class="table-list">

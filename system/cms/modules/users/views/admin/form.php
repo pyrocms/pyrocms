@@ -1,25 +1,16 @@
-<script type="text/javascript">
-(function ($) {
-	$(function(){
+<section class="title">
+	<?php if ($this->method == 'create'): ?>
+		<h4><?php echo lang('user_add_title');?></h4>
+		<?php echo form_open(uri_string(), 'class="crud" autocomplete="off"'); ?>
+	
+	<?php else: ?>
+		<h4><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h4>
+		<?php echo form_open(uri_string(), 'class="crud"'); ?>
+	<?php endif; ?>
+</section>
 
-		// Stops Firefox from being an ass and remembering YOUR password in this box
-		//this doesn't work... I just lost an hour to this firefox you douche!
-		$('input[name="password"], input[name="confirm_password"]').val('');
-
-	});
-})(jQuery);
-</script>
-
-
-<?php if ($this->method == 'create'): ?>
-	<h3><?php echo lang('user_add_title');?></h3>
-
-<?php else: ?>
-	<h3><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h3>
-<?php endif; ?>
-
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
-
+<section class="item">
+	
 	<div class="tabs">
 
 		<ul class="tab-menu">
@@ -77,15 +68,7 @@
 				<ol>
 					<li class="even">
 						<label for="password"><?php echo lang('user_password_label');?></label>
-						<?php echo form_password('password'); ?>
-						<?php if ($this->method == 'create'): ?>
-						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
-						<?php endif; ?>
-					</li>
-
-					<li>
-						<label for="confirm_password"><?php echo lang('user_password_confirm_label');?></label>
-						<?php echo form_password('confirm_password'); ?>
+						<?php echo form_password('password', '', 'autocomplete="off"'); ?>
 						<?php if ($this->method == 'create'): ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						<?php endif; ?>
@@ -100,3 +83,5 @@
 	</div>
 
 <?php echo form_close(); ?>
+
+</section>

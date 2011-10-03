@@ -11,8 +11,8 @@ $lang['pages.detail_label']                = 'פרטים';
 
 // labels
 $lang['pages.page_label']                  = 'דף';
-$lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
-$lang['pages.page_chunk']							= 'Page Chunk'; #translate
+$lang['pages.add_page_chunk']				= 'Add Page Chunk'; #translate
+$lang['pages.page_chunk']					= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'שפה';
 $lang['pages.updated_label']               = 'עודכן';
 $lang['pages.actions_label']               = 'פעולות';
@@ -35,14 +35,13 @@ $lang['pages.is_home_label']      = 'האם (דף הבית) דף ברירת המ
 $lang['pages.status_label']                = 'סטטוס';
 $lang['pages.draft_label']                 = 'טיוטה';
 $lang['pages.live_label']                  = 'מופיע';
-$lang['pages.revisions_label']             = 'תיקונים';
-$lang['pages.compare_label']               = 'להשוות';
 $lang['pages.preview_label']               = 'תצוגה מוקדמת';
 $lang['pages.current_label']               = 'הנוכחי';
 
 $lang['pages.view_label']                  = 'הצג';
 $lang['pages.create_label']                = 'הוסף בן';
 $lang['pages.edit_label']                  = 'ערוך';
+$lang['pages.duplicate_label']				= 'Duplicate'; #translate
 $lang['pages.delete_label']                = 'מחק';
 
 // titles
@@ -51,8 +50,6 @@ $lang['pages.edit_title']                  = 'ערוך דף "%s"';
 $lang['pages.list_title']                  = 'רשימת הדפים';
 $lang['pages.layouts_create_title']        = 'הוסף page layout';
 $lang['pages.layouts_list_title']          = 'רשימת page layouts';
-$lang['pages.compare_revisions_title']     = 'השווה תיקונים';
-$lang['pages.preview_revision_title']      = 'הצג תיקון';
 
 // messages
 $lang['pages.no_pages']                    = 'אין עמודים.';
@@ -66,8 +63,9 @@ $lang['pages_mass_delete_success']         = '%s דפים נמחקו בהצלח�
 $lang['pages_delete_none_notice']          = 'אף דף לא נמחק.';
 $lang['pages_page_already_exist_error']    = 'דף עם  URL "%s" כבר קיים ב %s.';
 $lang['pages_parent_not_exist_error']      = 'עמוד האב שבחרתם אינו קיים.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
-$lang['pages.tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך. 
+$lang['pages.tree_explanation']            = 'הרשימה בצד שמאל מייצגת דפים באתר האינטרנט שלך.
 Click the page item to show its children. אתה יכול לגרור עמודים כדי לסדר אותם; גרור אופקית כדי להפוך אותו לילד. בעת לחיצה על הטקסט בדף תוכלו לראות כל מיני מידע שימושי בתיבה זו.';
 
 $lang['pages.rss_explanation']             = 'RSS הפעלת הדף זו ייתן למשתמשים הזדמנות להירשם להזנת RSS אשר מציגה כל ילד הדף המיידי כערך חדש.';

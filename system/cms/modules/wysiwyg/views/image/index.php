@@ -28,7 +28,7 @@
 		<?php endforeach; ?>
 		<?php if ($folders): ?>
 			<li class="upload">
-				<?php echo anchor("admin/wysiwyg/image/#upload", lang('files.upload_title'), 'title="upload"'); ?>  
+				<?php echo anchor("admin/wysiwyg/image/#upload", lang('files.upload_title'), 'title="upload"'); ?>
 			</li>
 		<?php endif; ?>
 		</ul>
@@ -80,7 +80,7 @@
 				<tbody>
 					<?php foreach ($current_folder->items as $image): ?>
 					<tr class="<?php echo alternator('', 'alt'); ?>">
-						<td class="image"><img class="pyro-image" src="<?php echo base_url(); ?>files/thumb/<?php echo $image->id; ?>/50/50" alt="<?php echo $image->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $image->filename; ?>', '<?php echo htmlentities($image->name); ?>');" /></td>
+						<td class="image"><img class="pyro-image" src="<?php echo base_url(); ?>files/thumb/<?php echo $image->id; ?>/50/50" alt="<?php echo $image->name; ?>" width="50" onclick="javascript:insertImage('<?php echo $image->id; ?>', '<?php echo htmlentities($image->name); ?>');" /></td>
 						<td class="name-description">
 							<p><?php echo $image->name; ?><p>
 							<p><?php echo $image->description; ?></p>

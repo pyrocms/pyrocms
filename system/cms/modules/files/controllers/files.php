@@ -12,7 +12,7 @@ class Files extends Public_Controller
 	
 	public function __construct()
 	{	
-		parent::Public_Controller();
+		parent::__construct();
 		
 		$this->config->load('files');
 		$this->_path = FCPATH . $this->config->item('files_folder') . DIRECTORY_SEPARATOR;
@@ -174,11 +174,10 @@ class Files extends Public_Controller
 		readfile($image_thumb);
 	}
 
-	public function large($id)
+	public function large($id, $width = NULL, $height = NULL, $mode = NULL)
 	{
-		return $this->thumb($id, NULL, NULL);
+		return $this->thumb($id, $width, $height, $mode);
 	}
 }
 
 /* End of file files.php */
-/* Location: ./system/pyrocms/modules/files/controllers/files.php */

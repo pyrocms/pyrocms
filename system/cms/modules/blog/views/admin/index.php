@@ -1,8 +1,9 @@
-<?php if ($blog): ?>
+<section class="item">
+<?php if ($blog) : ?>
 
 	<?php echo form_open('admin/blog/action'); ?>
 
-	<table border="0" class="table-list">
+	<table>
 		<thead>
 			<tr>
 				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
@@ -22,7 +23,7 @@
 			</tr>
 		</tfoot>
 		<tbody>
-			<?php foreach ($blog as $post): ?>
+			<?php foreach ($blog as $post) : ?>
 				<tr>
 					<td><?php echo form_checkbox('action_to[]', $post->id); ?></td>
 					<td><?php echo $post->title; ?></td>
@@ -36,24 +37,23 @@
 					<?php endif; ?>
 					</td>
 					<td><?php echo lang('blog_'.$post->status.'_label'); ?></td>
-					<td class="align-center buttons buttons-small">
-						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe button preview" target="_blank"'); ?>
-						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'), 'class="button edit"'); ?>
-						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm button delete')); ?>
+					<td>
+						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe btn green" target="_blank"'); ?>
+						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'), 'class="btn orange edit"'); ?>
+						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm btn red delete')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
 
-	<div class="buttons align-right padding-top">
+	<div>
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
 	</div>
 
 	<?php echo form_close(); ?>
 
-<?php else: ?>
-	<div class="blank-slate">
-		<h2><?php echo lang('blog_currently_no_posts'); ?></h2>
-	</div>
+<?php else : ?>
+		<p><?php echo lang('blog_currently_no_posts'); ?></p>
 <?php endif; ?>
+</section>

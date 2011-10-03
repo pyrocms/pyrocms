@@ -1,7 +1,7 @@
 <div class="blog_post">
 	<!-- Post heading -->
 	<div class="post_heading">
-		<h2><?php echo $post->title; ?></h2>
+		<h4><?php echo $post->title; ?></h4>
 		<?php if ($post->author): ?>
 		<p class="author"><?php echo lang('blog_written_by_label'); ?>: <?php echo anchor('user/' . $post->author_id, $post->author->display_name); ?></p>
 		<?php endif; ?>

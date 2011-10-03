@@ -32,7 +32,7 @@ class Plugin_Theme extends Plugin
 	 * Partial
 	 *
 	 * Loads a theme partial
-	 * 
+	 *
 	 * Usage:
 	 * {pyro:theme:partial file="header"}
 	 *
@@ -220,16 +220,26 @@ class Plugin_Theme extends Plugin
 		$this->load->library('asset');
 
 		$file	= $this->attribute('file');
+		$attributes	= $this->attributes();
 		$module	= $this->attribute('module', '_theme_');
 		$method	= 'js' . (in_array($return, array('url', 'path')) ? '_' . $return : ($return = ''));
 		$base	= $this->attribute('base', '');
+		
+
+		foreach (array('file', 'module', 'base') as $key)
+		{
+			if (isset($attributes[$key]))
+			{
+				unset($attributes[$key]);
+			}
+		}
 
 		if ( ! $return)
 		{
-			return $this->asset->{$method}($file, $module, $base);
+			return $this->asset->{$method}($file, $module, $attributes, $base);
 		}
 
-		return $this->asset->{$method}($file, $module);
+		return $this->asset->{$method}($file, $module, $attributes);
 	}
 
 	/**

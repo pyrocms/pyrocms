@@ -4,7 +4,7 @@
  * @package 		PyroCMS
  * @subpackage 		RSS Feed Widget
  * @author			Phil Sturgeon - PyroCMS Development Team
- * 
+ *
  * Show RSS feeds in your site
  */
 
@@ -12,11 +12,13 @@ class Widget_Archive extends Widgets
 {
 	public $title		= array(
 		'en' => 'Archive',
-		'pt' => 'Arquivo do Blog'
+		'br' => 'Arquivo do Blog',
+		'ru' => 'Архив',
 	);
 	public $description	= array(
 		'en' => 'Display a list of old months with links to posts in those months',
-		'pt' => 'Mostra uma lista navegação cronológica contendo o índice dos artigos publicados mensalmente'
+		'br' => 'Mostra uma lista navegação cronológica contendo o índice dos artigos publicados mensalmente',
+		'ru' => 'Выводит список по месяцам со ссылками на записи в этих месяцах',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';

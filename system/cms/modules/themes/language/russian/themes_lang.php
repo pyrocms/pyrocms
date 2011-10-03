@@ -8,9 +8,9 @@
  * @link			http://pyrocms.com
  */
 
-$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
-$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
-$lang['themes.no_options']				= 'This theme has no options.'; #translate 
+$lang['themes.save_success']					= 'Настройки темы сохранены.';
+$lang['themes.re-index_success']			= 'Настройки темы переиндексированы.';
+$lang['themes.no_options']						= 'У этой темы нет настроек.';
 $lang['themes.set_default_success']		= 'Тема "%s" назначена по-умолчанию.';
 $lang['themes.set_default_error']			= 'Тему "%s" невозможно назначить по-умолчанию.';
 $lang['themes.already_exists_error'] 	= 'Тема с таким названием уже существует.';
@@ -25,7 +25,7 @@ $lang['themes.upload_title']					= 'Загрузить тему';
 $lang['themes.list_title']						= 'Список тем';
 $lang['themes.upload_desc']						= 'Выберите архив с темой и нажмите Загрузить';
 
-$lang['themes.options']					= 'Options'; #translate 
+$lang['themes.options']								= 'Настройки';
 $lang['themes.theme_label'] 					= 'Тема';
 $lang['themes.actions_label']					= 'Действия';
 $lang['themes.make_default']					= 'Установить по-умолчанию';
@@ -36,4 +36,3 @@ $lang['themes.default_theme_label']		= 'Тема по-умолчанию';
 $lang['themes.no_themes_installed']		= 'Темы оформления отсутствуют';
 
 /* End of file themes_lang.php */
-/* Location: ./system/cms/modules/themes/language/russian/themes_lang.php */

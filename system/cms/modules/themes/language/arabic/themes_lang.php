@@ -1,8 +1,8 @@
 <?php
 
-$lang['themes.save_success']			= 'The theme options have been saved successfully.'; #translate 
-$lang['themes.re-index_success']		= 'The theme options have been re-indexed successfully'; #translate
-$lang['themes.no_options']				= 'This theme has no options.'; #translate 
+$lang['themes.save_success']			= 'تم حفظ خيارات السمة بنجاح.';
+$lang['themes.re-index_success']		= 'تم إعادة فهرسة خيارات هذه السمة بنجاح.';
+$lang['themes.no_options']				= 'هذه السمة ليس لها أية خيارات.';
 $lang['themes.set_default_success']		= 'السّمة "%s" هي السّمة الافتراضيّة الجديدة.';
 $lang['themes.set_default_error']		= 'تعذر تعيين السّمة "%s" كسِمة افتراضيّة جديدة.';
 $lang['themes.already_exists_error'] 	= 'هناك سمة لها نفس الإسم.';
@@ -17,7 +17,7 @@ $lang['themes.upload_title']			= 'رفع السّمة';
 $lang['themes.list_title']				= 'قائمة السمات';
 $lang['themes.upload_desc']				= 'رجاءً اختر ملف واضغط زر الرفع';
 
-$lang['themes.options']					= 'Options'; #translate 
+$lang['themes.options']					= 'خيارات';
 $lang['themes.theme_label'] 			= 'السّمة';
 $lang['themes.actions_label']			= 'الإجراءات';
 $lang['themes.make_default']			= 'تعيين كافتراضيّة';

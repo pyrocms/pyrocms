@@ -9,8 +9,7 @@
  * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  *
  */
-class Plugin_Template extends Plugin
-{
+class Plugin_Template extends Plugin {
 	/**
 	 * Data
 	 *
@@ -22,7 +21,7 @@ class Plugin_Template extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function partial()
+	public function partial()
 	{
 		$name = $this->attribute('name');
 
@@ -42,7 +41,7 @@ class Plugin_Template extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	function has_partial()
+	public function has_partial()
 	{
 		$name = $this->attribute('name');
 
@@ -73,19 +72,24 @@ class Plugin_Template extends Plugin
 	 * @param	none
 	 * @return	bool
 	 */
-	function has_breadcrumbs()
+	public function has_breadcrumbs()
 	{
 		$data =& $this->load->_ci_cached_vars;
 		
 		$crumbs = $data['template']['breadcrumbs'];
 		
-		return !empty($crumbs) ? TRUE : FALSE ;
+		return ! empty($crumbs);
 	}
 
-	function __call($foo, $arguments)
+	public function metadata()
+	{
+		return $this->template->get_metadata($this->attribute('in', 'header'));
+	}
+
+	public function __call($foo, $arguments)
 	{
 		$data =& $this->load->_ci_cached_vars;
-		
+
 		return isset($data['template'][$foo]) ? $data['template'][$foo] : NULL;
 	}
 }

@@ -4,7 +4,7 @@
  * Русский перевод от Dark Preacher - dark[at]darklab.ru
  *
  * @package		PyroCMS
- * @author		Dark Preacher 
+ * @author		Dark Preacher
  * @link			http://pyrocms.com
  */
 
@@ -15,8 +15,8 @@ $lang['name_label']							= 'Название';
 $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
 $lang['author_label']						= 'Автор';
-$lang['action_label']						= 'Действия';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['action_label']						= 'Действие';
+$lang['actions_label']					= 'Действия';
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['dialog.confirm']					= 'Подтверждение';
@@ -28,8 +28,8 @@ $lang['select.all']							= '-- все --';
 $lang['select.any']							= '-- любой --';
 $lang['select.pick']						= '-- выберите --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['check.none'] 						= 'Ни одного';
+$lang['check.all']							= 'Все';
 
 $lang['operators.equal']				= 'Равно';
 $lang['operators.not_equal']		= 'Не равно';
@@ -74,5 +74,13 @@ $lang['install_label']					= 'Установить';
 $lang['enable_label']						= 'Включить';
 $lang['disable_label']					= 'Отключить';
 
+$lang['global:shortcuts']						= 'Ссылки';
+$lang['global:description']						= 'Описание';
+$lang['global:actions']							= 'Действия';
+$lang['global:edit']							= 'Редактировать';
+$lang['global:delete']							= 'Удалить';
+$lang['global:remove']							= 'Убрать';
+
+$lang['global:keywords']				= 'Keywords'; #translate
+
 /* End of file main_lang.php */
-/* Location: ./system/cms/language/russian/main_lang.php */

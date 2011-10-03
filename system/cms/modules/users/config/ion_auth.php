@@ -119,7 +119,7 @@
 	/**
 	 * Salt Length
 	 **/
-	$config['salt_length'] = 5;
+	$config['salt_length'] = 6;
 
 	/**
 	 * Should the salt be stored in the database?
@@ -150,4 +150,3 @@
 	$config['error_end_delimiter'] = '</p>';
 
 /* End of file ion_auth.php */
-/* Location: ./system/application/config/ion_auth.php */

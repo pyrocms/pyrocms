@@ -10,7 +10,7 @@ class Module_Groups extends Module {
 			'name' => array(
 				'sl' => 'Skupine',
 				'en' => 'Groups',
-				'pt' => 'Grupos',
+				'br' => 'Grupos',
 				'de' => 'Gruppen',
 				'nl' => 'Groepen',
 				'fr' => 'Groupes',
@@ -23,12 +23,13 @@ class Module_Groups extends Module {
 				'fi' => 'Ryhmät',
 				'el' => 'Ομάδες',
 				'he' => 'קבוצות',
-				'lt' => 'Grupės'
+				'lt' => 'Grupės',
+				'da' => 'Grupper'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
 				'en' => 'Users can be placed into groups to manage permissions.',
-				'pt' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
+				'br' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
 				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
 				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
@@ -41,7 +42,8 @@ class Module_Groups extends Module {
 				'fi' => 'Käyttäjät voidaan liittää ryhmiin, jotta käyttöoikeuksia voidaan hallinnoida.',
 				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και να διαχειριστείτε τα δικαιώματά τους.',
 				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות',
-				'lt' => 'Vartotojai gali būti priskirti grupei tam, kad valdyti jų teises.'
+				'lt' => 'Vartotojai gali būti priskirti grupei tam, kad valdyti jų teises.',
+				'da' => 'Brugere kan inddeles i grupper for adgangskontrol'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

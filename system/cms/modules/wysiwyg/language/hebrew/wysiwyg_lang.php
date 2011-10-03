@@ -10,7 +10,7 @@ $lang = array(
     'wysiwyg.label.right'   =>  'ימין',
     'wysiwyg.label.none'    =>  'כלום',
     'wysiwyg.meta.mime'     =>  'Mime Type'
-    
+
 );
 
 /* end of file wysiwyg_lang.php */

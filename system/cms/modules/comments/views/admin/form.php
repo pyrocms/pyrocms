@@ -1,4 +1,4 @@
-<h3><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h3>
+<h4><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h4>
 
 <?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
 
@@ -29,7 +29,7 @@
 
 		<li class="even">
 			<label for="body"><?php echo lang('comments.message_label'); ?>:</label><br />
-			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
+			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5)); ?>
 		</li>
 
 		<li>

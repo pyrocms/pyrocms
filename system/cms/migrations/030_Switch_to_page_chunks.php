@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Switch_to_page_chunks extends Migration {
+class Migration_Switch_to_page_chunks extends CI_Migration {
 
 	public function up()
 	{

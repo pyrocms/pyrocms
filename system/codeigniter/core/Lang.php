@@ -26,7 +26,17 @@
  */
 class CI_Lang {
 
+	/**
+	 * List of translations
+	 *
+	 * @var array
+	 */
 	var $language	= array();
+	/**
+	 * List of loaded language files
+	 *
+	 * @var array
+	 */
 	var $is_loaded	= array();
 
 	/**
@@ -47,18 +57,21 @@ class CI_Lang {
 	 * @access	public
 	 * @param	mixed	the name of the language file to be loaded. Can be an array
 	 * @param	string	the language (english, etc.)
+	 * @param	bool	return loaded array of translations
+	 * @param 	bool	add suffix to $langfile
+	 * @param 	string	alternative path to look for language file
 	 * @return	mixed
 	 */
 	function load($langfile = '', $idiom = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '')
 	{
-		$langfile = str_replace(EXT, '', $langfile);
+		$langfile = str_replace('.php', '', $langfile);
 
 		if ($add_suffix == TRUE)
 		{
 			$langfile = str_replace('_lang.', '', $langfile).'_lang';
 		}
 
-		$langfile .= EXT;
+		$langfile .= '.php';
 
 		if (in_array($langfile, $this->is_loaded, TRUE))
 		{
@@ -99,7 +112,7 @@ class CI_Lang {
 		}
 
 
-		if ( ! isset($lang))
+		if ( ! isset($lang) OR ! is_array($lang))
 		{
 			log_message('error', 'Language file contains no data: language/'.$idiom.'/'.$langfile);
 			return;
@@ -111,7 +124,7 @@ class CI_Lang {
 		}
 
 		$this->is_loaded[] = $langfile;
-		$this->language = array_merge($this->language, $lang);
+		$this->language = $this->language + $lang;
 		unset($lang);
 
 		log_message('debug', 'Language file loaded: language/'.$idiom.'/'.$langfile);
@@ -129,15 +142,15 @@ class CI_Lang {
 	 */
 	function line($line = '')
 	{
-		$line = ($line == '' OR ! isset($this->language[$line])) ? FALSE : $this->language[$line];
+		$value = ($line == '' OR ! isset($this->language[$line])) ? FALSE : $this->language[$line];
 
 		// Because killer robots like unicorns!
-		if ($line === FALSE)
+		if ($value === FALSE)
 		{
 			log_message('error', 'Could not find the language line "'.$line.'"');
 		}
 
-		return $line;
+		return $value;
 	}
 
 }

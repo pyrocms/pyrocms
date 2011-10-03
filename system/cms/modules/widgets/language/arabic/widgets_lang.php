@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // sidebar
 $lang['widgets.available_title'] 			= 'عناصر الودجت المتوفّرة';

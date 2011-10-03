@@ -13,10 +13,10 @@ abstract class Plugin
 
 	// ------------------------------------------------------------------------
 
-    function __get($var)
-    {
+	public function __get($var)
+	{
 		return get_instance()->$var;
-    }
+	}
 
 	// ------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ abstract class Plugin
 	 */
 	public function module_view($module, $view, $vars = array())
 	{
-		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : '.php')))
 		{
 			$path = $this->template->get_views_path() . 'modules/' . $module . '/';
 		}
@@ -88,13 +88,16 @@ abstract class Plugin
 			list($path, $view) = Modules::find($view, $module, 'views/');
 		}
 
-		$save_path = $this->load->_ci_view_path;
-		$this->load->_ci_view_path = $path;
+		// save the existing view array so we can restore it
+		$save_path = $this->load->get_view_paths();
+
+		// add this view location to the array
+		$this->load->set_view_path($path);
 
 		$content = $this->load->_ci_load(array('_ci_view' => $view, '_ci_vars' => ((array) $vars), '_ci_return' => TRUE));
 
-		// Put the path back
-		$this->load->_ci_view_path = $save_path;
+		// Put the old array back
+		$this->load->set_view_path($save_path);
 
 		return $content;
 	}
@@ -139,12 +142,12 @@ class Plugins
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
-			if (file_exists($path = $directory.'plugins/'.$class.EXT))
+			if (file_exists($path = $directory.'plugins/'.$class.'.php'))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
 			
-			if (file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.EXT))
+			else if (defined('ADMIN_THEME') and file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.'.php'))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
@@ -152,7 +155,7 @@ class Plugins
 			// Maybe it's a module
 			if (module_exists($class))
 			{
-				if (file_exists($path = $directory . 'modules/' . $class . '/plugin' . EXT))
+				if (file_exists($path = $directory . 'modules/' . $class . '/plugin.php'))
 				{
 					$dirname = dirname($path).'/';
 
@@ -220,6 +223,6 @@ class Plugins
 			return FALSE;
 		}
 
-		return $class_init->{$method}();
+		return call_user_func(array($class_init, $method));
 	}
 }

@@ -1,10 +1,15 @@
 <?php if ($this->method == 'create'): ?>
-	<h3><?php echo lang('variables.create_title');?></h3>
+	<section class="title">
+		<h4><?php echo lang('variables.create_title');?></h4>
+	</section>
 
 <?php else: ?>
-	<h3><?php echo sprintf(lang('variables.edit_title'), $variable->name);?></h3>
+	<section class="title">
+		<h4><?php echo sprintf(lang('variables.edit_title'), $variable->name);?></h4>
+	</section>
 <?php endif; ?>
-	
+
+<section class="item">
 <?php echo form_open($this->uri->uri_string(), 'class="crud" id="variables"'); ?>
 <?php if ($this->method == 'edit') echo form_hidden('variable_id', $variable->id); ?>
 
@@ -22,8 +27,9 @@
 		</ul>
 
 		<div class="buttons float-right padding-top">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		</div>
 	</fieldset>
 
 <?php echo form_close(); ?>
+</section>

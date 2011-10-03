@@ -37,6 +37,11 @@ class Admin extends Admin_Controller {
 			'rules' => 'trim|numeric'
 		),
 		array(
+			'field' => 'keywords',
+			'label' => 'lang:global:keywords',
+			'rules' => 'trim'
+		),
+		array(
 			'field' => 'intro',
 			'label' => 'lang:blog_intro_label',
 			'rules' => 'trim|required'
@@ -44,6 +49,10 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'body',
 			'label' => 'lang:blog_content_label',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'type',
 			'rules' => 'trim|required'
 		),
 		array(
@@ -66,10 +75,10 @@ class Admin extends Admin_Controller {
 			'label' => 'lang:blog_created_minute',
 			'rules' => 'trim|numeric|required'
 		),
-                array(
-				'field' => 'comments_enabled',
-				'label'	=> 'lang:blog_comments_enabled_label',
-				'rules'	=> 'trim|numeric'
+        array(
+			'field' => 'comments_enabled',
+			'label'	=> 'lang:blog_comments_enabled_label',
+			'rules'	=> 'trim|numeric'
 		)
 	);
 
@@ -80,12 +89,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 
-		$this->load->model('blog_m');
-		$this->load->model('blog_categories_m');
-		$this->lang->load('blog');
-		$this->lang->load('categories');
+		$this->load->model(array('blog_m', 'blog_categories_m'));
+		$this->lang->load(array('blog', 'categories'));
+		
+		$this->load->library(array('keywords/keywords', 'form_validation'));
 
 		// Date ranges for select boxes
 		$this->data->hours = array_combine($hours = range(0, 23), $hours);
@@ -100,9 +109,7 @@ class Admin extends Admin_Controller {
 			}
 		}
 
-		$this->template
-			->append_metadata( css('blog.css', 'blog') )
-			->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
@@ -138,12 +145,12 @@ class Admin extends Admin_Controller {
 		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
 
 		$this->template
-				->title($this->module_details['name'])
-				->set_partial('filters', 'admin/partials/filters')
-				->append_metadata(js('admin/filter.js'))
-				->set('pagination', $pagination)
-				->set('blog', $blog)
-				->build('admin/index', $this->data);
+			->title($this->module_details['name'])
+			->set_partial('filters', 'admin/partials/filters')
+			->append_metadata(js('admin/filter.js'))
+			->set('pagination', $pagination)
+			->set('blog', $blog)
+			->build('admin/index', $this->data);
 	}
 
 	/**
@@ -153,8 +160,6 @@ class Admin extends Admin_Controller {
 	 */
 	public function create()
 	{
-		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules($this->validation_rules);
 
 		if ($this->input->post('created_on'))
@@ -179,12 +184,15 @@ class Admin extends Admin_Controller {
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
+				'keywords'			=> Keywords::process($this->input->post('keywords')),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
-				'author_id'			=> $this->user->id
+				'author_id'			=> $this->current_user->id,
+				'type'				=> $this->input->post('type'),
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
 			));
 
 			if ($id)
@@ -208,18 +216,21 @@ class Admin extends Admin_Controller {
 				$post->$field['field'] = set_value($field['field']);
 			}
 			$post->created_on = $created_on;
+			// if it's a fresh new article lets show them the advanced editor
+			if ($post->type == '') $post->type = 'wysiwyg-advanced';
 		}
 
 		$this->template
-				->title($this->module_details['name'], lang('blog_create_title'))
-				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
-				->append_metadata(js('blog_form.js', 'blog'))
-				->set('post', $post)
-				->build('admin/form');
+			->title($this->module_details['name'], lang('blog_create_title'))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('blog_form.js', 'blog'))
+			->set('post', $post)
+			->build('admin/form');
 	}
 
 	/**
 	 * Edit blog post
+	 *
 	 * @access public
 	 * @param int $id the ID of the blog post to edit
 	 * @return void
@@ -228,12 +239,11 @@ class Admin extends Admin_Controller {
 	{
 		$id OR redirect('admin/blog');
 
-		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules($this->validation_rules);
 
 		$post = $this->blog_m->get($id);
 		$post->author = $this->ion_auth->get_user($post->author_id);
+		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
 		if ($this->input->post('created_on'))
@@ -256,23 +266,26 @@ class Admin extends Admin_Controller {
 				role_or_die('blog', 'put_live');
 			}
 
-			$author_id = empty($post->author) ? $this->user->id : $post->author_id;
+			$author_id = empty($post->author) ? $this->current_user->id : $post->author_id;
 
 			$result = $this->blog_m->update($id, array(
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
+				'keywords'			=> Keywords::process($this->input->post('keywords')),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
-				'author_id'			=> $author_id
+				'author_id'			=> $author_id,
+				'type'				=> $this->input->post('type'),
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
 			));
 			
 			if ($result)
 			{
-				$this->session->set_flashdata(array('success' => sprintf($this->lang->line('blog_edit_success'), $this->input->post('title'))));
+				$this->session->set_flashdata(array('success' => sprintf(lang('blog_edit_success'), $this->input->post('title'))));
 
 				// The twitter module is here, and enabled!
 //				if ($this->settings->item('twitter_blog') == 1 && ($post->status != 'live' && $this->input->post('status') == 'live'))
@@ -288,7 +301,7 @@ class Admin extends Admin_Controller {
 			
 			else
 			{
-				$this->session->set_flashdata(array('error' => $this->lang->line('blog_edit_error')));
+				$this->session->set_flashdata('error', $this->lang->line('blog_edit_error'));
 			}
 
 			// Redirect back to the form or main page

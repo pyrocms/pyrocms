@@ -22,7 +22,7 @@
 // Local: localhost or local.example.com
 if ($_SERVER['SERVER_NAME'])
 {
-	if (strpos($_SERVER['SERVER_NAME'], 'local.') !== FALSE OR $_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], '.local') !== FALSE)
+	if ($_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], 'local.') === 0)
 	{
 		define('ENVIRONMENT', 'local');
 	}
@@ -258,23 +258,15 @@ else
 	define('FCPATH', str_replace(SELF, '', __FILE__));
 	
 	// Name of the "system folder"
-	define('SYSDIR', end(explode('/', trim(BASEPATH, '/'))));		
-
+	$parts = explode('/', trim(BASEPATH, '/'));
+	define('SYSDIR', end($parts));
+	unset($parts);
 
 	// The path to the "application" folder
-//	if (is_dir($application_folder))
-//	{
-		define('APPPATH', $application_folder.'/');
-//	}
-//	else
-//	{
-//		if ( ! is_dir(BASEPATH.$application_folder.'/'))
-//		{
-//			exit("Your application folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
-//		}
-//
-//		define('APPPATH', BASEPATH.$application_folder.'/');
-//	}
+	define('APPPATH', $application_folder.'/');
+	
+	// Path to the views folder
+	define ('VIEWPATH', APPPATH.'views/' );
 
 /*
  * --------------------------------------------------------------------
@@ -287,4 +279,3 @@ else
 require_once BASEPATH.'core/CodeIgniter'.EXT;
 
 /* End of file index.php */
-/* Location: ./index.php */

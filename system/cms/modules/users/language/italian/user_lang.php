@@ -46,7 +46,7 @@ $lang['user_activate_account_title'] 	= 'Attiva il profilo';
 $lang['user_activate_label'] 			= 'Attivazione';
 $lang['user_activated_account_title'] 	= 'Profilo attivato';
 $lang['user_reset_password_title'] 		= 'Reset Password';
-$lang['user_password_reset_title'] 		= 'Password Reset';  
+$lang['user_password_reset_title'] 		= 'Password Reset';
 
 
 $lang['user_error_username'] 			= 'La username scelta � gi� in uso'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
@@ -55,14 +55,12 @@ $lang['user_error_email'] 				= 'L\' indirizzo email fornito � gi� in uso'; 
 $lang['user_full_name'] 				= 'Nome completo';
 $lang['user_first_name'] 				= 'Nome';
 $lang['user_last_name'] 				= 'Cognome';
-$lang['user_username'] 					= 'Username'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_display_name']				= 'Nome visualizzato'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_email_use'] 					   = 'used to login'; #translate
+$lang['user_username'] 					= 'Username';
+$lang['user_display_name']				= 'Nome visualizzato';
+$lang['user_email_use'] 				= 'used to login'; #translate
 $lang['user_email'] 					= 'Email';
-$lang['user_confirm_email'] 			= 'Conferma email';
 $lang['user_password'] 					= 'Password';
-$lang['user_remember'] 					= 'Ricordami'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
-$lang['user_confirm_password'] 			= 'Conferma password';
+$lang['user_remember'] 					= 'Ricordami';
 $lang['user_group_id_label']			= 'ID del Gruppo'; // #TRANSLATE #TODO: Translate this into French, German, Polish and Spanish
 
 $lang['user_level']						= 'Ruolo utente';
@@ -170,7 +168,7 @@ $lang['profile_edit'] 					= 'Modifica il tuo profilo';
 
 $lang['profile_personal_section'] 		= 'Personale';
 
-$lang['profile_display_name']			= 'Nome visualizzato';  
+$lang['profile_display_name']			= 'Nome visualizzato';
 $lang['profile_dob']					= 'Data di nascita';
 $lang['profile_dob_day']				= 'Giorno';
 $lang['profile_dob_month']				= 'Mese';

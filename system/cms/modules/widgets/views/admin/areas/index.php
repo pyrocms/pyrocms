@@ -1,4 +1,3 @@
-<?php if ($widget_areas): ?>
 <?php foreach ($widget_areas as $widget_area): ?>
 	<section class="widget-area-box" id="area-<?php echo $widget_area->slug; ?>" data-id="<?php echo $widget_area->id; ?>">
 		<header class="clearfix">
@@ -21,4 +20,3 @@
 		</div>
 	</section>
 <?php endforeach; ?>
-<?php endif; ?>

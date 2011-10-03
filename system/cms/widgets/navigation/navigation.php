@@ -4,7 +4,7 @@
  * @package 		PyroCMS
  * @subpackage 		RSS Feed Widget
  * @author			Phil Sturgeon - PyroCMS Development Team
- * 
+ *
  * Show RSS feeds in your site
  */
 
@@ -12,11 +12,15 @@ class Widget_Navigation extends Widgets
 {
 	public $title		= array(
 		'en' => 'Navigation',
-		'pt' => 'Navegação'
+		'nl' => 'Navigatie',
+		'br' => 'Navegação',
+		'ru' => 'Навигация',
 	);
 	public $description	= array(
 		'en' => 'Display a navigation group with a widget',
-		'pt' => 'Exibe um grupo de links de navegação como widget em seu site'
+		'nl' => 'Toon een navigatiegroep met een widget',
+		'br' => 'Exibe um grupo de links de navegação como widget em seu site',
+		'ru' => 'Отображает навигационную группу внутри виджета',
 	);
 	public $author		= 'Phil Sturgeon';
 	public $website		= 'http://philsturgeon.co.uk/';

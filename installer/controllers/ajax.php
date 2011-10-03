@@ -14,7 +14,7 @@ class Ajax extends CI_Controller {
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages = array('arabic', 'english', 'dutch', 'brazilian', 'polish', 'chinese_traditional', 'french', 'slovenian', 'spanish', 'lithuanian');
+	private $languages = array('arabic', 'english', 'dutch', 'brazilian', 'polish', 'chinese_traditional', 'french', 'slovenian', 'spanish', 'lithuanian','danish');
 
 	public function __construct()
 	{
@@ -117,7 +117,7 @@ class Ajax extends CI_Controller {
 		$curl = new Curl;
 		$curl->simple_post($url, $data);
 	}
-	
+
 	/**
 	 * Check if apache's mod_rewrite is enabled
 	 *
@@ -132,7 +132,7 @@ class Ajax extends CI_Controller {
 		{
 			return print(lang('rewrite_fail'));
 		}
-		
+
 		$modules = apache_get_modules();
 
 		if (in_array('mod_rewrite', $modules))
@@ -148,4 +148,3 @@ class Ajax extends CI_Controller {
 }
 
 /* End of file ajax.php */
-/* Location: ./installer/controllers/ajax.php */

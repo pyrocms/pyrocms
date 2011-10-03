@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // labels
 $lang['header']			=	'Krok 2: Kontrola požadavků';
@@ -11,9 +11,9 @@ $lang['server_version']	=	'Váš server:';
 $lang['server_fail']	=	'Váš server není podporován, takže je možné, že PyroCMS nebude pracovat správně. Pokud je ale vaše instalace PHP a MySQL aktuální, PyroCMS by měl běžet v pořádku, pouze bez pěkných URL adres.';
 
 $lang['php_settings']	=	'Nastavení PHP';
-$lang['php_required']	=	'PyroCMS potřebuje PHP ve verzi 5.0 nebo vyšší.';
+$lang['php_required']	=	'PyroCMS potřebuje PHP ve verzi %s nebo vyšší.';
 $lang['php_version']	=	'Na vašem serveru je v tuto chvíli verze';
-$lang['php_fail']		=	'Vaše verze PHP není podporována. PyroCMS potřebuje PHP ve verzi 5.0 nebo vyšší, aby pracoval správně.';
+$lang['php_fail']		=	'Vaše verze PHP není podporována. PyroCMS potřebuje PHP ve verzi %s nebo vyšší, aby pracoval správně.';
 
 $lang['mysql_settings']	=	'Nastavení MySQL';
 $lang['mysql_required']	=	'PyroCMS požaduje databázi MySQL ve verzi 5.0 nebo vyšší.';
@@ -47,4 +47,3 @@ $lang['retry']			=	'Zkusit znovu';
 $lang['step1_failure']	=	'Prosím vyplňte požadovaná pole ve formuláři níže.';
 
 /* End of file step_2_lang.php */
-/* Location: ./installer/language/english/step_2_lang.php */

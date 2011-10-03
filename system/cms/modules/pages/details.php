@@ -1,8 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
+/**
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS
+ * @subpackage 	Modules
+ * @category 	Pages
+ */
 class Module_Pages extends Module {
 
-	public $version = '1.2';
+	public $version = '1.3';
 
 	public function info()
 	{
@@ -15,7 +20,7 @@ class Module_Pages extends Module {
 				'fr' => 'Pages',
 				'de' => 'Seiten',
 				'pl' => 'Strony',
-				'pt' => 'Páginas',
+				'br' => 'Páginas',
 				'zh' => '頁面',
 				'it' => 'Pagine',
 				'ru' => 'Страницы',
@@ -24,7 +29,8 @@ class Module_Pages extends Module {
 				'fi' => 'Sivut',
 				'el' => 'Σελίδες',
 				'he' => 'דפים',
-				'lt' => 'Puslapiai'
+				'lt' => 'Puslapiai',
+				'da' => 'Sider'
 			),
 			'description' => array(
 				'sl' => 'Dodaj stran s kakršno koli vsebino želite.',
@@ -34,7 +40,7 @@ class Module_Pages extends Module {
 				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
 				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
 				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
-				'pt' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
+				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
 				'zh' => '為您的網站新增自定的頁面。',
 				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
 				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
@@ -43,7 +49,8 @@ class Module_Pages extends Module {
 				'fi' => 'Lisää mitä tahansa sisältöä sivustollesi.',
 				'el' => 'Προσθέστε δικές σας σελίδες στον ιστότοπό σας με ό,τι περιεχόμενο θέλετε.',
 				'he' => 'ניהול דפי תוכן האתר',
-				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio'
+				'lt' => 'Pridėkite nuosavus puslapius betkokio turinio',
+				'da' => 'Tilføj brugerdefinerede sider til dit site med det indhold du ønsker.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
@@ -110,7 +117,8 @@ class Module_Pages extends Module {
 			  `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
 			  `page_id` int(11) NOT NULL,
 			  `body` text collate utf8_unicode_ci NOT NULL,
-			  `type` set('html','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
+			  `parsed` text collate utf8_unicode_ci NOT NULL,
+			  `type` set('html','markdown','wysiwyg-advanced','wysiwyg-simple') collate utf8_unicode_ci NOT NULL,
 			  `sort` int(11) NOT NULL,
 			PRIMARY KEY (`id`),
 			UNIQUE KEY `unique - slug` (`slug`, `page_id`)

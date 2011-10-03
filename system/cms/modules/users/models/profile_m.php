@@ -33,7 +33,7 @@ class Profile_m extends MY_Model {
 	function update_profile($input, $id) {
 		
 		$this->load->helper('date');
-            
+
 		$set = array(
 			'gender'		=> 	$input['gender'],
 			'bio'			=> 	$input['bio'],

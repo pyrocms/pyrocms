@@ -36,7 +36,7 @@ $lang['contact_title']						= 'Kontakt';
 // texts
 $lang['contact_mail_text']					= 'Twoja wiadmość została wysłana poprzez formularz kontaktowy dnia %s z następującymi szczegółami:';
 $lang['contact_sent_text']					= 'Twoja wiadomość została wysłana. Skontaktujemy się z Tobą jak najszybciej będzie to możliwe.';
-$lang['contact_error_message']			= 'Wystąpił problem poczas wysyłania tej wiadomosci. Prosimy sprobować poźniej.'; 
+$lang['contact_error_message']			= 'Wystąpił problem poczas wysyłania tej wiadomosci. Prosimy sprobować poźniej.';
 
 //predefined subjects list
 $lang['subject_support']  = 'Pomoc techniczna';

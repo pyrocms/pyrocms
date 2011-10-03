@@ -44,12 +44,7 @@ $lang['cp_upgrade_message']				= 'Jūs naudojama versija %s, tačiau duombazės 
 $lang['cp_google_analytics_missing']	= 'Google Analytics nustatimai nerandami. Įdėkite juos į %s arba kreipkitės į sistemos administratorių.';
 $lang['cp_google_analytics_no_connect']	= 'Negali prisijungti prie Google Analytics. Patikrink %s.';
 
-// Admin-wide text
-$lang['cp_shortcuts_title'] 			= 'Nuoroda';
-$lang['cp_remove']						= 'Remove'; #translate
-
 $lang['required_label'] 				= 'Reikalavimai';
 $lang['sb_recent_users'] 				= 'Naujausi vartotojai';
 
 /* End of file admin_lang.php */
-/* Location: ./system/cms/language/english/admin_lang.php */

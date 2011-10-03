@@ -47,4 +47,3 @@ $lang['subject_feedback']			= 'Feedback/Sugerencias';
 $lang['subject_other']				= 'Otros';
 
 /* End of file contact_lang.php */
-/* Location: ./system/cms/modules/contact/language/spanish/contact_lang.php */

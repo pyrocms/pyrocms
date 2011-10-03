@@ -50,7 +50,7 @@ class Admin_folders extends Admin_Controller {
 
 	public function __construct()
 	{
-		parent::Admin_Controller();
+		parent::__construct();
 
 		$this->load->models(array('file_m', 'file_folders_m'));
 		$this->lang->load('files');

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Finnish translation.
- * 
+ *
  * @author Mikael Kundert <mikael@kundert.fi>
  * @date 07.02.2011
  * @version 1.0.3
@@ -50,6 +50,7 @@ $lang['pages.current_label']               = 'Nykyinen';
 $lang['pages.view_label']                  = 'Katso';
 $lang['pages.create_label']                = 'Lisää alakohta';
 $lang['pages.edit_label']                  = 'Muokkaa';
+$lang['pages.duplicate_label']					= 'Duplicate'; #translate
 $lang['pages.delete_label']                = 'Poista';
 
 // titles
@@ -58,8 +59,6 @@ $lang['pages.edit_title']                  = 'Muokkaa sivua "%s"';
 $lang['pages.list_title']                  = 'Listaa sivut';
 $lang['pages.layouts_create_title']        = 'Lisää sivupohja';
 $lang['pages.layouts_list_title']          = 'Listaa sivupohjat';
-$lang['pages.compare_revisions_title']     = 'Vertaa versioita';
-$lang['pages.preview_revision_title']      = 'Esikatsele versio';
 
 // messages
 $lang['pages.no_pages']                    = 'Sivuja ei ole.';
@@ -73,8 +72,9 @@ $lang['pages_mass_delete_success']         = '%s sivua poistettiin.';
 $lang['pages_delete_none_notice']          = 'Yhtään sivua ei poistettu.';
 $lang['pages_page_already_exist_error']    = 'Sivu, jolla on URL osoite "%s" on jo olemassa paikassa %s.';
 $lang['pages_parent_not_exist_error']      = 'Yläkohdan sivua ei ole olemassa.';
+$lang['pages_root_folder']                = 'the top level'; #translate
 
-$lang['pages.tree_explanation']            = 'Vasemmalla oleva lista näyttää sivustosi sivut. 
+$lang['pages.tree_explanation']            = 'Vasemmalla oleva lista näyttää sivustosi sivut.
 Klikkaa "+" ikonia, niin näet sen alasivut. Kun klikkaat sivua, näet sivuun liittyen käteviä toimintoja.';
 
 $lang['pages.rss_explanation']             = 'Jos otat käyttöön RSS syötteen tälle sivulle, kävijät voivat tilata syötteen ja näkevät kaikki tämän sivun alasivut uusina artikkeleina.';
