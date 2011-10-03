@@ -13,10 +13,10 @@ abstract class Plugin
 
 	// ------------------------------------------------------------------------
 
-    public function __get($var)
-    {
+	public function __get($var)
+	{
 		return get_instance()->$var;
-    }
+	}
 
 	// ------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ abstract class Plugin
 	 */
 	public function module_view($module, $view, $vars = array())
 	{
-		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : EXT)))
+		if (file_exists($this->template->get_views_path() . 'modules/' . $module . '/' . $view . (pathinfo($view, PATHINFO_EXTENSION) ? '' : '.php')))
 		{
 			$path = $this->template->get_views_path() . 'modules/' . $module . '/';
 		}
@@ -142,12 +142,12 @@ class Plugins
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
-			if (file_exists($path = $directory.'plugins/'.$class.EXT))
+			if (file_exists($path = $directory.'plugins/'.$class.'.php'))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
 			
-			if (file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.EXT))
+			else if (defined('ADMIN_THEME') and file_exists($path = APPPATH.'themes/'.ADMIN_THEME.'/plugins/'.$class.'.php'))
 			{
 				return $this->_process($path, $class, $method, $data);
 			}
@@ -155,7 +155,7 @@ class Plugins
 			// Maybe it's a module
 			if (module_exists($class))
 			{
-				if (file_exists($path = $directory . 'modules/' . $class . '/plugin' . EXT))
+				if (file_exists($path = $directory . 'modules/' . $class . '/plugin.php'))
 				{
 					$dirname = dirname($path).'/';
 

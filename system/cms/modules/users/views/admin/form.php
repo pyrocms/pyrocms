@@ -1,12 +1,16 @@
-<?php if ($this->method == 'create'): ?>
-	<h4><?php echo lang('user_add_title');?></h4>
-	<?php echo form_open(uri_string(), 'class="crud" autocomplete="off"'); ?>
+<section class="title">
+	<?php if ($this->method == 'create'): ?>
+		<h4><?php echo lang('user_add_title');?></h4>
+		<?php echo form_open(uri_string(), 'class="crud" autocomplete="off"'); ?>
+	
+	<?php else: ?>
+		<h4><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h4>
+		<?php echo form_open(uri_string(), 'class="crud"'); ?>
+	<?php endif; ?>
+</section>
 
-<?php else: ?>
-	<h4><?php echo sprintf(lang('user_edit_title'), $member->full_name);?></h4>
-	<?php echo form_open(uri_string(), 'class="crud"'); ?>
-<?php endif; ?>
-
+<section class="item">
+	
 	<div class="tabs">
 
 		<ul class="tab-menu">
@@ -79,3 +83,5 @@
 	</div>
 
 <?php echo form_close(); ?>
+
+</section>

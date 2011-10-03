@@ -41,10 +41,10 @@
 $route['default_controller'] = 'pages';
 $route['404_override'] = 'pages';
 
-$route['admin/help/([a-zA-Z_-]+)']		= 'admin/help/$1';
-$route['admin/([a-zA-Z_-]+)/(:any)']	= '$1/admin/$2';
+$route['admin/help/([a-zA-Z0-9_-]+)']		= 'admin/help/$1';
+$route['admin/([a-zA-Z0-9_-]+)/(:any)']	= '$1/admin/$2';
 $route['admin/(login|logout)']			= 'admin/$1';
-$route['admin/([a-zA-Z_-]+)']			= '$1/admin/index';
+$route['admin/([a-zA-Z0-9_-]+)']			= '$1/admin/index';
 
 $route['register'] = 'users/register';
 

@@ -32,7 +32,7 @@
 			
 		});
 		
-		$('#blog-options-tab ol li:first a').colorbox({
+		$('#blog-options-tab ul li:first a').colorbox({
 			srollable: false,
 			innerWidth: 600,
 			innerHeight: 280,

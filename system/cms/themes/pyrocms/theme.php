@@ -51,7 +51,7 @@ class Theme_PyroCMS extends Theme {
 		self::generate_menu();
 
 		// only load these items on the dashboard
-		if ($this->module == '')
+		if ($this->module == '' && $this->method != 'login' && $this->method != 'help')
 		{
 			// don't bother fetching the data if it's turned off in the theme
 			if ($this->theme_options->pyrocms_analytics_graph == 'yes')		self::get_analytics();

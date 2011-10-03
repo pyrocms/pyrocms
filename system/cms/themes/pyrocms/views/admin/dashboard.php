@@ -72,12 +72,12 @@ $(function($) {
 <?php endif; ?>
 <!-- End Analytics -->
 	
-<!-- Dashboard Widgets -->
-{pyro:widgets:area slug="dashboard"}
-	
 <!-- Add an extra div to allow the elements within it to be sortable! -->
 <div id="sortable">
-	
+
+	<!-- Dashboard Widgets -->
+	{pyro:widgets:area slug="dashboard"}
+
 	<!-- Begin Recent Comments -->
 	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->pyrocms_recent_comments == 'yes') : ?>
 	<div class="one_half">
@@ -88,19 +88,21 @@ $(function($) {
 		</section>
 		
 		<section class="item">
-			<ul> 
-				<?php echo lang('comments.no_comments');?>
-				
-				<?php foreach ($recent_comments AS $rant) : ?>
-					<li>
-						<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo $rant->comment; ?></em></p>
-					</li>
-				<?php endforeach; ?>
+			<ul>
+				<?php if (count($recent_comments)): ?>
+						<?php foreach ($recent_comments AS $rant) : ?>
+							<li>
+								<p><?php echo sprintf(lang('comments.list_comment'), $rant->name, $rant->item); ?> <em><?php echo (Settings::get('comment_markdown') AND $rant->parsed > '') ? strip_tags($rant->parsed) : $rant->comment; ?></em></p>
+							</li>
+						<?php endforeach; ?>
+				<?php else: ?>
+						<?php echo lang('comments.no_comments');?>
+				<?php endif; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End Recent Comments -->
 	
 	<!-- Begin Quick Links -->
@@ -112,40 +114,36 @@ $(function($) {
 			<a class="tooltip-s toggle" title="Toggle this element"></a>
 		</section>
 		
-		<section class="item <?php echo isset($rss_items); ?>">
+		<section id="quick_links" class="item <?php echo isset($rss_items); ?>">
 			<ul>
 				<?php if(array_key_exists('comments', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<?php echo image('icons/comments.png'); ?>
-					<a href="<?php echo site_url('admin/comments') ?>"><?php echo lang('cp_manage_comments'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_comments'); ?>" href="<?php echo site_url('admin/comments') ?>"><?php echo image('icons/comments.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('pages', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<?php echo image('icons/pages.png'); ?>
-					<a href="<?php echo site_url('admin/pages') ?>"><?php echo lang('cp_manage_pages'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_pages'); ?>" href="<?php echo site_url('admin/pages') ?>"><?php echo image('icons/pages.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('files', $this->permissions) OR $this->current_user->group == 'admin'): ?>
 				<li>
-					<?php echo image('icons/folder_open.png'); ?>
-					<a href="<?php echo site_url('admin/files') ?>"><?php echo lang('cp_manage_files'); ?></a>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_files'); ?>" href="<?php echo site_url('admin/files') ?>"><?php echo image('icons/files.png'); ?></a>
 				</li>
 				<?php endif; ?>
 				
 				<?php if(array_key_exists('users', $this->permissions) OR $this->current_user->group == 'admin'): ?>
-				<li class="clearfix">
-					<?php echo image('icons/user.png'); ?>
-					<a href="<?php echo site_url('admin/users') ?>"><?php echo lang('cp_manage_users'); ?></a>
+				<li>
+					<a class="tooltip-s" title="<?php echo lang('cp_manage_users'); ?>" href="<?php echo site_url('admin/users') ?>"><?php echo image('icons/users.png'); ?></a>
 				</li>
 				<?php endif; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End Quick Links -->
 
 	<!-- Begin RSS Feed -->
@@ -184,9 +182,9 @@ $(function($) {
 				<?php endforeach; ?>
 			</ul>
 		</section>
-		
+
+	</div>		
 	<?php endif; ?>
-	</div>
 	<!-- End RSS Feed -->
 
 </div>

@@ -10,27 +10,40 @@ class Admin_Controller extends MY_Controller {
 		// Load the Language files ready for output
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
-
-		$this->load->helper('admin_theme');
 		
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
 			show_error(lang('cp_access_denied'));
 		}
-		
-		if ( ! $this->admin_theme->slug)
-		{
-			show_error('This site has been set to use an admin theme that does not exist.');
-		}
 
+		// If the setting is enabled redirect request to HTTPS
 		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
 		{
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
 		}
 
+		$this->load->helper('admin_theme');
+		
+		$this->admin_theme = $this->themes_m->get_admin();
+		
+		// Using a bad slug? Weak
+		if (empty($this->admin_theme->slug))
+		{
+			show_error('This site has been set to use an admin theme that does not exist.');
+		}
+
+		// make a constant as this is used in a lot of places
+		define('ADMIN_THEME', $this->admin_theme->slug);
+			
 		// Prepare Asset library
 	    $this->asset->set_theme(ADMIN_THEME);
+	
+		// Set the front-end theme directory
+		$this->config->set_item('asset_dir', dirname($this->admin_theme->web_path).'/');
+		$this->config->set_item('asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
+		$this->config->set_item('theme_asset_dir', dirname($this->admin_theme->web_path).'/');
+		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
 		
 		// grab the theme options if there are any
 		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array( array('theme' => ADMIN_THEME) ));
@@ -52,7 +65,7 @@ class Admin_Controller extends MY_Controller {
 	private function _check_access()
 	{
 		// These pages get past permission checks
-		$ignored_pages = array('admin/login', 'admin/logout');
+		$ignored_pages = array('admin/login', 'admin/logout', 'admin/help');
 
 		// Check if the current page is to be ignored
 		$current_page = $this->uri->segment(1, '') . '/' . $this->uri->segment(2, 'index');

@@ -81,7 +81,6 @@ class Migration_Add_multi_site extends CI_Migration {
 			write_file('addons/default/themes/index.html','');
 			write_file('addons/default/widgets/index.html','');
 			write_file(FCPATH.'uploads/index.html','');
-
 		}
 
 		// Core users not set?
@@ -92,8 +91,15 @@ class Migration_Add_multi_site extends CI_Migration {
 
 			foreach ($existing_tables as $table)
 			{
+				// This used to be useful, but upgrading from < 1.3.0 to 1.4 went MENTAL
+				if ($table == 'schema_version') continue;
+				
+				$this->db->query("DROP TABLE IF EXISTS default_{$table}");
 				$this->db->query("RENAME TABLE {$table} TO default_{$table}");
 			}
+			
+			// another < v1.3.0 to v1.4 hack
+			$this->db->query("RENAME TABLE migrations TO default_migrations");
 
 			// since theme_options is added by a migration it is missing from $existing_tables array
 			if ( ! $this->db->table_exists('theme_options') )
@@ -110,9 +116,12 @@ class Migration_Add_multi_site extends CI_Migration {
 	{
 		$this->db->query("DROP TABLE core_sites, core_users, core_settings");
 
+		$existing_tables = $this->db->list_tables();
+		
 		foreach ($existing_tables as $table)
 		{
-			$this->db->query("RENAME TABLE _{$table} TO {$table}");
+			$new_table = end(explode('_', $table, 1));
+			$this->db->query("RENAME TABLE {$table} TO {$new_table}");
 		}
 
 		if ($this->_move('uploads/default/', 'uploads/', NULL))

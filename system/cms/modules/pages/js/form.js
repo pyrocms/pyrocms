@@ -7,7 +7,7 @@
 
 			slug = $('input[name="slug"]', form);
 
-			if(slug.val() == 'home' || slug.val() == '404')
+			if (slug.val() == 'home' || slug.val() == '404')
 			{
 				return;
 			}
@@ -43,7 +43,7 @@
 			pyro.init_ckeditor();
 		});
 		
-		$('a.remove-chunk').live('click', function(e){
+		$('a.remove-chunk').live('click', function(e) {
 			e.preventDefault();
 			
 			$(this).closest('li.page-chunk').slideUp('slow', function(){ $(this).remove(); });
@@ -62,14 +62,13 @@
 				var instance = CKEDITOR.instances[textarea.attr('id')];
 			    instance && instance.destroy();
 			}
-			
-			
+		
 			// Set up the new instance
 			textarea.addClass(this.value);
 			
 			pyro.init_ckeditor();
-			
 		});
 		
 	});
+	
 })(jQuery);

@@ -91,7 +91,7 @@ mark { background: #ff0; color: #333333; font-style: italic; font-weight: bold; 
 address { display: block; line-height: 18px; margin-bottom: 18px; }
 
 /* Redeclare monospace font family, */
-pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 13px; }
+pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 13px; float: left;}
 
 /* Improve readability of pre-formatted text in all bgridsers */
 pre, code { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
@@ -186,7 +186,7 @@ Embedded Content
 -------------------------------------------------------------------------------------------------------
 */
 
-img { width: 100%; height: 100%; border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
 
 /* Correct overflow not hidden in IE9 */
 svg:not(:root) { overflow: hidden; }
@@ -452,47 +452,6 @@ table .purple {
 
 table .headerSortUp.purple, table .headerSortDown.purple {
   background-color: #e2d5f0;
-}
-
-/*
--------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------
-
-Scaffolding.
-
--------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------
-*/
-
-/* (As this is mobile first, all grids are the same size. All size changes are made in the @media queries at the bottom.) */
-.one_full { 
-	width: 230px; 
-	margin: 0; 
-	float: left; 
-}
-
-.one_half { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-.one_third { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-.two_third { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
-}
-
-.one_quarter { 
-	width: 230px; 
-	margin-right: 15px; 
-	float: left; 
 }
 
 /*
@@ -1020,7 +979,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10000;
+  z-index: 9998;
   overflow: visible;
   background-color: #222222;
   background-repeat: repeat-x;
@@ -1052,10 +1011,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .topbar ul li {
-  width: 80px;
-  display: inline;
   float: left;
   font-size: 13px;
+  position: relative;
 }
 
 .topbar ul li a {
@@ -1108,8 +1066,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-color: #333;
   float: left;
   display: none;
-  position: relative;
-  top: 1px;
+  position: absolute;
+  top: 50px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
@@ -1223,15 +1181,41 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 */
 
 #container {
-	width: 1280px;
+	width: 280px;
 	height: 100%;
 	min-height: 100%;
 	margin: 0 auto;
 	padding: 0;
 }
 
+.one_full { 
+	width: 250px; 
+	margin: 0; 
+	float: left; 
+}
+
+.one_half { 
+	width: 250px; 
+	float: left; 
+}
+
+.one_third { 
+	width: 250px; 
+	float: left; 
+}
+
+.two_third { 
+	width: 250px; 
+	float: left; 
+}
+
+.one_quarter { 
+	width: 250px; 
+	float: left; 
+}
+
 .topbar ul li#dashboard-link {
-	margin: 8px 18px 8px 15px;
+	margin: 8px 10px 8px 15px;
 }
 
 .topbar ul li#dashboard-link a {
@@ -1254,22 +1238,9 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	color: #ffffff;
 }
 
-ul#lang {
-	float: right;
-}
-
-ul#lang form {
-	margin: 10px 20px 0 0;
-	float: right;
-}
-
-ul#lang form legend, ul#lang form input, ul#lang form select {
-	max-width: 230px;
-}
-
 .subbar {
 	position: fixed;
-	z-index: 9999;
+	z-index: 9997;
 	top: 30px;
 	right: 0;
 	left: 0;
@@ -1386,7 +1357,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 
 #analyticsWrapper {
 	background: #ffffff;
-	width: 1212px;
+	width: 212px;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1418,7 +1389,7 @@ ul#lang form legend, ul#lang form input, ul#lang form select {
 }	
 
 section#content {
-	width: 1230px;
+	width: 250px;
 	padding: 0;
 	margin: 150px 0 150px 0;
 	float: left;
@@ -1427,11 +1398,6 @@ section#content {
 section#content header {
 	width: 100%;
 	float: left;
-}
-
-section#content img { 
-	width: 24px; 
-	height: 24px; 
 }
 
 section#content ul {
@@ -1501,8 +1467,23 @@ section.box {
 	width: 100%;
 }
 
+#quick_links ul {
+	float: left;
+}
+
+#quick_links ul li {
+	width: 75px;
+	float: left;
+	margin: 3px 15px 10px 15px;
+}
+
+#quick_links ul li a {
+	width: 77px;
+	height: 91px;
+	float: left;
+}
+
 #feed ul li {
-	width: 1160px;
 	padding: 0 25px 15px 20px;
 	margin: 0 0 25px -15px;
 	border-bottom: 1px solid #eeeeee;
@@ -1565,7 +1546,7 @@ footer {
 	background: #333333;
 	border-top: 1px solid #ececec;
 	width: 100%;
-	height: 50px;
+	height: 250px;
 	color: #eeeeee;
 	margin-top: -100px;
 	padding: 25px 0 25px 0;
@@ -1575,7 +1556,22 @@ footer {
 
 footer p {
 	float: left ;
-	margin: 15px 0 0 25px;
+	margin: 15px 0 0 5px;
+}
+
+ul#lang {
+	margin-right: 20px;
+	float: right;
+	text-shadow: 0 -1px 0 #ffffff;
+	color: #333333;
+}
+
+ul#lang .chzn-results {
+	width: 225px;
+}
+
+ul#lang .highlighted {
+	text-shadow: none;
 }
 
 /* Draggable element */
@@ -1601,56 +1597,88 @@ Ensure your main styling comes before this!
 
 @media only screen and (min-width: 481px) {
 	.wrapper {
-		width: 1280px;
+		width: 480px;
 		margin: 0 auto;
 	}
 	
+	#container {
+		width: 480px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+	
+	section#content {
+		width: 450px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+	
 	.one_full { 
-		width: 1230px; 
+		width: 450px; 
 		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 590px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 
 	.one_third { 
-		width: 350px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 
 	.two_third { 
-		width: 786px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
 	}
 
 	.one_quarter { 
-		width: 230px; 
-		margin-right: 15px; 
+		width: 450px; 
 		float: left; 
+	}
+	
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 15px 0 15px;
 	}
 	
 }
 
 @media only screen and (min-width: 769px) {	
 	.wrapper {
-		width: 1280px;
+		width: 768px;
 		margin: 0 auto;
 	}
 	
+	#container {
+		width: 768px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+	
+	section#content {
+		width: 768px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+	
 	.one_full { 
-		width: 1230px; 
+		width: 768px; 
 		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 590px; 
+		width: 349px; 
 		margin-right: 15px; 
 		float: left; 
 	}
@@ -1673,22 +1701,43 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 5px 0 5px;
+	}
+
 }
 
 @media only screen and (min-width: 1025px) {
 	.wrapper {
-		width: 1280px;
+		width: 1024px;
 		margin: 0 auto;
 	}
 	
+	#container {
+		width: 1024px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+	
+	section#content {
+		width: 1000px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+	
 	.one_full { 
-		width: 1230px; 
+		width: 1000px; 
 		margin: 0; 
 		float: left; 
 	}
 
 	.one_half { 
-		width: 590px; 
+		width: 465px; 
 		margin-right: 15px; 
 		float: left; 
 	}
@@ -1709,6 +1758,12 @@ Ensure your main styling comes before this!
 		width: 230px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 21px 0 21px;
 	}
 
 }
@@ -1719,6 +1774,25 @@ Ensure your main styling comes before this!
 		margin: 0 auto;
 	}
 	
+	#container {
+		width: 1280px;
+		height: 100%;
+		min-height: 100%;
+		margin: 0 auto;
+		padding: 0;
+	}
+	
+	.topbar nav {
+		width: 1080px;
+	}
+	
+	section#content {
+		width: 1230px;
+		padding: 0;
+		margin: 150px 0 150px 0;
+		float: left;
+	}
+	
 	.one_full { 
 		width: 1230px; 
 		margin: 0; 
@@ -1726,7 +1800,7 @@ Ensure your main styling comes before this!
 	}
 
 	.one_half { 
-		width: 590px; 
+		width: 580px; 
 		margin-right: 15px; 
 		float: left; 
 	}
@@ -1747,6 +1821,12 @@ Ensure your main styling comes before this!
 		width: 230px; 
 		margin-right: 15px; 
 		float: left; 
+	}
+	
+	#quick_links ul li {
+		width: 75px;
+		float: left;
+		margin: 3px 35px 0 35px;
 	}
 	
 }

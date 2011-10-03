@@ -8,8 +8,8 @@ class Module_Users extends Module {
 	{
 		return array(
 			'name' => array(
-				'sl' => 'Uporabniki',
 				'en' => 'Users',
+				'sl' => 'Uporabniki',
 				'nl' => 'Gebruikers',
 				'pl' => 'Użytkownicy',
 				'es' => 'Usuarios',
@@ -28,8 +28,8 @@ class Module_Users extends Module {
 				'da' => 'Brugere'
 			),
 			'description' => array(
-				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'en' => 'Let users register and log in to the site, and manage them via the control panel.',
+				'sl' => 'Dovoli uporabnikom za registracijo in prijavo na strani, urejanje le teh preko nadzorne plošče',
 				'nl' => 'Laat gebruikers registreren en inloggen op de site, en beheer ze via het controlepaneel.',
 				'pl' => 'Pozwól użytkownikom na logowanie się na stronie i zarządzaj nimi za pomocą panelu.',
 				'es' => 'Permite el registro de nuevos usuarios quienes podrán loguearse en el sitio. Estos podrán controlarse desde el panel de administración.',
@@ -56,7 +56,7 @@ class Module_Users extends Module {
 	public function install()
 	{
 		//This is handled by the installer only so that a default user can be created.
-		return FALSE;
+		return TRUE;
 	}
 
 	public function uninstall()

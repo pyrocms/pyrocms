@@ -63,7 +63,21 @@
 	</div>
 	
 	<footer>
-		<p>Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
+		<div class="wrapper">
+			<p>Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp; Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp; Rendered in {elapsed_time} sec. using {memory_usage}.</p>
+		
+			<ul id="lang">
+				<form action="<?php echo current_url(); ?>" id="change_language" method="get">
+					<select class="chzn" name="lang" onchange="this.form.submit();">				
+						<?php foreach($this->config->item('supported_languages') as $key => $lang): ?>
+		    				<option value="<?php echo $key; ?>" <?php echo CURRENT_LANGUAGE == $key ? 'selected="selected"' : ''; ?>>
+								<?php echo $lang['name']; ?>
+							</option>
+        				<?php endforeach; ?>
+	    			</select>
+				</form>
+			</ul>
+		</div>
 	</footer>
 
   	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->

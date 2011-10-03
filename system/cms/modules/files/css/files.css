@@ -11,6 +11,10 @@
 	border: 1px solid #CCCCCC;
 }
 
+#files-browser nav {
+	float: none;
+}
+
 #files-browser-nav {
 	width: 20%;
 	display: table-cell;

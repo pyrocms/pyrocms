@@ -3,15 +3,21 @@
 	$(function() {
 		
 		// show page details
-		$('#page-list li a').live('click', function()
-		{
-			page_id = $(this).attr('rel');
+		$('#page-list li a').live('click', function(e) {
+			e.preventDefault();
+			
+			$a = $(this);
+			
+			page_id = $a.attr('rel');
+			page_title = $a.text();
 			$('#page-list a').removeClass('selected');
-			$(this).addClass('selected');
+			$a.addClass('selected');
 			
 			// Load the details box in
-			$('div#page-details').load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id);
-			return false;
+			$details = $('div#page-details');
+			$details.load(SITE_URL + 'admin/pages/ajax_page_details/' + page_id);
+			
+			$details.parent().prev('section.title').html( $('<h4 />').text(page_title) );
 		});
 		
 		// collapse all ordered lists but the top level

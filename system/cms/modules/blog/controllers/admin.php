@@ -91,10 +91,8 @@ class Admin extends Admin_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('blog_m');
-		$this->load->model('blog_categories_m');
-		$this->lang->load('blog');
-		$this->lang->load('categories');
+		$this->load->model(array('blog_m', 'blog_categories_m'));
+		$this->lang->load(array('blog', 'categories'));
 		
 		$this->load->library(array('keywords/keywords', 'form_validation'));
 
