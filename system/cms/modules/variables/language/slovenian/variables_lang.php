@@ -4,9 +4,6 @@
 $lang['variables.name_label'] 			    = 'Naziv';
 $lang['variables.syntax_label']				= 'Syntax';
 $lang['variables.data_label'] 			    = 'Vrednost';
-$lang['variables.actions_label'] 			= 'Akcije';
-$lang['variables.edit_label'] 				= 'Uredi';
-$lang['variables.delete_label'] 			= 'Izbriši';
 
 // titles
 $lang['variables.create_title'] 			= 'Dodaj spremenljivko';

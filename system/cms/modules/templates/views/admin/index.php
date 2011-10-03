@@ -10,10 +10,10 @@
 			</tr>
             <tr>
                 <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-                <th><?php echo lang('templates.name_label'); ?></th>
-                <th><?php echo lang('templates.description_label'); ?></th>
+                <th><?php echo lang('global:name'); ?></th>
+                <th><?php echo lang('global:description'); ?></th>
                 <th><?php echo lang('templates.language_label'); ?></th>
-                <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
+                <th width="220"></th>
             </tr>
         </thead>
 
@@ -48,10 +48,10 @@
 			</tr>
             <tr>
                 <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-                <th><?php echo lang('templates.name_label'); ?></th>
-                <th><?php echo lang('templates.description_label'); ?></th>
+                <th><?php echo lang('global:name'); ?></th>
+                <th><?php echo lang('global:description'); ?></th>
                 <th><?php echo lang('templates.language_label'); ?></th>
-                <th width="350" class="align-center"><?php echo lang('templates.actions_label'); ?></th>
+                <th width="200"></th>
             </tr>
         </thead>
 

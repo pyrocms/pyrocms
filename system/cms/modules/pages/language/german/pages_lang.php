@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'Sprache';
 $lang['pages.updated_label']               = 'Aktualisiert';
-$lang['pages.actions_label']               = 'Aktionen';
 $lang['pages.unknown_label']               = 'Unbekannt';
 $lang['pages.title_label']                 = 'Titel';
 $lang['pages.slug_label']                  = 'URL';
@@ -38,12 +37,9 @@ $lang['pages.live_label']                  = 'Live';
 $lang['pages.preview_label']               = 'Vorschau';
 $lang['pages.current_label']               = 'Aktuelle';
 
-
 $lang['pages.view_label']                  = 'Ansicht';
-$lang['pages.create_label']                = 'Unterobjekt hinzufügen';//there is no german word for 'child' (in this context at least)
-$lang['pages.edit_label']                  = 'Bearbeiten';
-$lang['pages.duplicate_label']					= 'Duplicate'; #translate
-$lang['pages.delete_label']                = 'Löschen';
+$lang['pages.create_label']                = 'Unterobjekt hinzufügen';
+$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Seite erstellen';

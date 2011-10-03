@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Conferma Password';
 $lang['user_name_label'] 				= 'Nome';
 $lang['user_joined_label'] 				= 'Aggiunto';
 $lang['user_last_visit_label'] 			= 'Ultima visita';
-$lang['user_actions_label'] 			= 'Azioni';
 $lang['user_never_label'] 				= 'Mai';
-$lang['user_delete_label'] 				= 'Elimina';
-$lang['user_edit_label'] 				= 'Modifica';
-$lang['user_view_label'] 				= 'Visualizza';
 
 $lang['user_no_inactives'] 				= 'Non ci sono utenti disattivati.';
 $lang['user_no_registred'] 				= 'Non ci sono utenti registrati.';

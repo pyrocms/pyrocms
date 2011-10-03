@@ -340,7 +340,7 @@ class Admin extends Admin_Controller
 				}
 				else
 				{
-					$option->options = array('=' . lang('select.none'));
+					$option->options = array('=' . lang('global:select-none'));
 				}
 			}
 

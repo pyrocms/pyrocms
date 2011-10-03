@@ -6,22 +6,21 @@ $lang['title_label']				= 'Tytuł';
 $lang['name_label']					= 'Nazwa';
 $lang['desc_label']					= 'Opis';
 $lang['version_label']				= 'Wersja';
-$lang['author_label']				= 'Autor';
-$lang['action_label']				= 'Akcja';
-$lang['actions_label']				= 'Akcje';
+$lang['global:author']				= 'Autor';
+$lang['global:action']				= 'Akcja';
 
 $lang['dialog.delete_message'] 		= 'Czy na pewno usunąć? Ta operacja nie może być cofnięta.';
 $lang['dialog.confirm']				= 'Potwierdź';
 $lang['dialog.yes']					= 'Tak';
 $lang['dialog.no'] 					= 'Nie';
 
-$lang['select.none'] 				= '-- Nic --';
-$lang['select.all'] 				= '-- Wszystko --';
-$lang['select.any'] 				= '-- Obojętnie które --';
-$lang['select.pick']				= '-- Wybierz --';
+$lang['global:select-none'] 				= '-- Nic --';
+$lang['global:select-all'] 				= '-- Wszystko --';
+$lang['global:select-any'] 				= '-- Obojętnie które --';
+$lang['global:select-pick']				= '-- Wybierz --';
 
-$lang['check.none'] 					= 'Nic';
-$lang['check.all']						= 'Wszystko';
+$lang['global:check-none'] 					= 'Nic';
+$lang['global:check-all']						= 'Wszystko';
 
 $lang['operators.equal'] 			= 'Równe z';
 $lang['operators.not_equal'] 		= 'Nie równe z';
@@ -55,7 +54,7 @@ $lang['help_label'] 				= 'Pomoc';
 $lang['save_label']					= 'Zapisz';
 $lang['cancel_label']				= 'Anuluj';
 $lang['update_label']				= 'Aktualizuj';
-$lang['delete_label']				= 'Kasuj';
+$lang['global:delete']				= 'Kasuj';
 $lang['activate_label']				= 'Aktywuj';
 $lang['approve_label']				= 'Zatwierdź';
 $lang['unapprove_label']			= 'Odrzuć';
@@ -69,7 +68,10 @@ $lang['disable_label']				= 'Wyłącz';
 $lang['global:shortcuts']	 			= 'Skróty klawiszowe';
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					= 'Akcje';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Edytuj';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Usuń';
 $lang['global:remove']					= 'Usuń';
 

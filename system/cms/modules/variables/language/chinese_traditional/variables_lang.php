@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = '名稱';
 $lang['variables.syntax_label']				= '語法';
 $lang['variables.data_label'] 			    = '數值';
-$lang['variables.actions_label'] 			= '操作';
 
 // titles
 $lang['variables.create_title'] 			= '新增系統變數';

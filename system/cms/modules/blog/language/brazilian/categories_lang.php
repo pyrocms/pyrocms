@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label'] 				= 'Título';
 $lang['cat_category_label'] 			= 'Categoria';
-$lang['cat_actions_label'] 				= 'Ações';
-$lang['cat_edit_label'] 				= 'Editar';
-$lang['cat_delete_label'] 				= 'Remover';
 
 // titles
 $lang['cat_create_title'] 				= 'Adicionar categoria';

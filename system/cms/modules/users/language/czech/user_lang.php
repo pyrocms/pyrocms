@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Potvrdit heslo';
 $lang['user_name_label'] 				= 'Jméno';
 $lang['user_joined_label'] 				= 'Uživatelem od';
 $lang['user_last_visit_label'] 			= 'Poslední návštěva';
-$lang['user_actions_label'] 			= 'Akce';
 $lang['user_never_label'] 				= 'Nikdy';
-$lang['user_delete_label'] 				= 'Vymazat';
-$lang['user_edit_label'] 				= 'Upravit';
-$lang['user_view_label'] 				= 'Zobrazit';
 
 $lang['user_no_inactives'] 				= 'Nejsou zde žádní neaktivní uživatelé.';
 $lang['user_no_registred'] 				= 'Nejsou zde žádní registrovaní uživatelé.';

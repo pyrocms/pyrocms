@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Potwierdź hasło';
 $lang['user_name_label'] 				= 'Nazwa';
 $lang['user_joined_label'] 				= 'Utworzony';
 $lang['user_last_visit_label'] 			= 'Ostatnia wizyta';
-$lang['user_actions_label']				= 'Akcje';
 $lang['user_never_label'] 				= 'Nigdy';
-$lang['user_delete_label'] 				= 'Usuń';
-$lang['user_edit_label'] 				= 'Edytuj';
-$lang['user_view_label'] 				= 'Podgląd';
 
 $lang['user_no_inactives'] 				= 'Nie ma nieaktywnych użytkowników.';
 $lang['user_no_registred'] 				= 'Nie ma zarejestrowanych użytkowników.';

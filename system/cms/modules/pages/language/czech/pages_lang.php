@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= 'Jazyk';
 $lang['pages.updated_label'] 					= 'Aktualizováno';
-$lang['pages.actions_label'] 					= 'Akce';
 $lang['pages.unknown_label'] 					= 'Neznámé';
 $lang['pages.title_label'] 						= 'Titulek';
 $lang['pages.slug_label'] 						= 'Adresa URL';
@@ -42,9 +41,7 @@ $lang['pages.current_label']                                    = 'Současné';
 
 $lang['pages.view_label'] 						= 'Zobrazit';
 $lang['pages.create_label'] 					= 'Přidat potomka';
-$lang['pages.edit_label'] 						= 'Upravit';
 $lang['pages.duplicate_label']					= 'Duplicate'; #translate
-$lang['pages.delete_label'] 					= 'Vymazat';
 
 // titles
 $lang['pages.create_title'] 					= 'Přidat stránku';

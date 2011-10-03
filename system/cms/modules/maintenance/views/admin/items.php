@@ -3,13 +3,13 @@
 </section>
 
 <section class="item">
-  <?php if (!empty($folders)): ?>
+  <?php if ( ! empty($folders)): ?>
     <table border="0" class="table-list">
       <thead>
         <tr>
-          <th><?php echo lang('maintenance.name_label'); ?></th>
+          <th><?php echo lang('global:name'); ?></th>
           <th class="align-center"><?php echo lang('maintenance.count_label'); ?></th>
-          <th class="align-center"><?php echo lang('maintenance.actions_label'); ?></th>
+          <th></th>
         </tr>
       </thead>
       <tfoot>
@@ -20,16 +20,16 @@
         </tr>
       </tfoot>
       <tbody>
-        <?php foreach ($folders as $folder) { ?>
+        <?php foreach ($folders as $folder): ?>
         <tr>
           <td><?php echo $folder->name; ?></td>
           <td class="align-center"><?php echo $folder->count; ?></td>
           <td class="buttons buttons-small align-center">
-            <?php if ($folder->count > 0) echo anchor('admin/maintenance/cleanup/'.$folder->name, lang('maintenance.empty_btn'), array('class'=>'button empty')) ?>
-            <?php if (!$folder->cannot_remove) echo anchor('admin/maintenance/cleanup/'.$folder->name.'/1', lang('maintenance.remove_btn'), array('class'=>'button remove')) ?>
+            <?php if ($folder->count > 0) echo anchor('admin/maintenance/cleanup/'.$folder->name, lang('global:empty'), array('class'=>'button empty')) ?>
+            <?php if ( ! $folder->cannot_remove) echo anchor('admin/maintenance/cleanup/'.$folder->name.'/1', lang('global:remove'), array('class'=>'button remove')) ?>
           </td>
         </tr>
-        <?php } ?>
+        <?php endforeach; ?>
       </tbody>
     </table>
   <?php else: ?>

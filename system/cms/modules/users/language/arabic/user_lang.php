@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'تأكيد كلمة السرّ';
 $lang['user_name_label'] 				= 'الإسم';
 $lang['user_joined_label'] 				= 'انضم في';
 $lang['user_last_visit_label'] 			= 'آخر زيارة';
-$lang['user_actions_label'] 			= 'الإجراءات';
 $lang['user_never_label'] 				= 'لم يتم';
-$lang['user_delete_label'] 				= 'حذف';
-$lang['user_edit_label'] 				= 'تعديل';
-$lang['user_view_label'] 				= 'عرض';
 
 $lang['user_no_inactives'] 				= 'ليس هناك أي مستخدمين مُعطلين.';
 $lang['user_no_registred'] 				= 'ليس هناك أي مستخدمين مُسجلين.';

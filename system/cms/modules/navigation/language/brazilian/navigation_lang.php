@@ -6,7 +6,6 @@ $lang['nav_parent_label'] 						= 'Link Pai';
 $lang['nav_target_label']						= 'Destino';
 $lang['nav_class_label']						= 'Classe';
 $lang['nav_url_label'] 							= 'URL';
-$lang['nav_actions_label'] 						= 'Ações';
 $lang['nav_details_label'] 						= 'Detalhes';
 $lang['nav_text_label'] 						= 'Texto';
 $lang['nav_group_label'] 						= 'Grupo';
@@ -16,9 +15,6 @@ $lang['nav_uri_label'] 							= 'Link do Site (URI)';
 $lang['nav_page_label'] 						= 'Página';
 $lang['nav_module_label'] 						= 'Modulo';
 $lang['nav_abbrev_label'] 						= 'Abreviação';
-$lang['nav_edit_label'] 						= 'Editar';
-$lang['nav_delete_label'] 						= 'Remover';
-$lang['nav_group_delete_label']					= 'Remover grupo';
 
 $lang['nav_link_target_self'] 					= 'Janela atual (default)';
 $lang['nav_link_target_blank'] 					= 'Nova janela (_blank)';

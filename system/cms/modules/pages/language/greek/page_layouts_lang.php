@@ -6,12 +6,8 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Ενημερώθηκε';
-$lang['page_layouts.actions_label']                  = 'Ενέργειες';
 $lang['page_layouts.title_label']                    = 'Τίτλος';
 $lang['page_layouts.theme_layout_label']             = 'Διάταξη Θέματος';
-
-$lang['page_layouts.edit_label']                     = 'Επεξεργασία';
-$lang['page_layouts.delete_label']                   = 'Διαγραφή';
 
 // titles
 $lang['page_layouts.list_title']                     = 'Λίστα διατάξεων σελίδων';

@@ -14,12 +14,8 @@ $lang['page_layouts.css_label']											= 'CSS';
 
 // подписи
 $lang['page_layouts.updated_label']									= 'Обновлено';
-$lang['page_layouts.actions_label']									= 'Действия';
 $lang['page_layouts.title_label']										= 'Название';
 $lang['page_layouts.theme_layout_label']						= 'Макет темы';
-
-$lang['page_layouts.edit_label']										= 'Редактировать';
-$lang['page_layouts.delete_label']									= 'Удалить';
 
 // заголовки
 $lang['page_layouts.list_title']										= 'Список макетов страниц';

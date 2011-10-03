@@ -8,12 +8,8 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= 'Mis à jour';
-$lang['page_layouts.actions_label'] 				= 'Actions';
 $lang['page_layouts.title_label'] 					= 'Titre';
 $lang['page_layouts.theme_layout_label'] 			= 'Gabarit du theme';
-
-$lang['page_layouts.edit_label'] 					= 'Editer';
-$lang['page_layouts.delete_label'] 					= 'Supprimer';
 
 // titles
 $lang['page_layouts.list_title'] 					= 'Listes les gabarits';
@@ -35,5 +31,3 @@ $lang['page_layouts.already_exist_error'] 			= 'Un modèle avec le permalien "%s
 $lang['page_layouts.variable_introduction']			= 'Deux variables sont disponibles pour ce champ';
 $lang['page_layouts.variable_title']				= 'Contient le titre de la page.';
 $lang['page_layouts.variable_body']					= 'Contient le code HTML de la balise body.';
-
-?>

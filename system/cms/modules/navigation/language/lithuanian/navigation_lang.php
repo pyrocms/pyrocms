@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'Tėvas';
 $lang['nav_target_label']                       = 'Target';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Veiksmai';
 $lang['nav_details_label']                      = 'Informacija';
 $lang['nav_text_label']                         = 'Tekstas';
 $lang['nav_group_label']                        = 'Grupė';
@@ -16,9 +15,6 @@ $lang['nav_uri_label']                          = 'Site Link (URI)';
 $lang['nav_page_label']                         = 'Puslapis';
 $lang['nav_module_label']                       = 'Modulis';
 $lang['nav_abbrev_label']                       = 'Santrumpa';
-$lang['nav_edit_label']                         = 'Redaguoti';
-$lang['nav_delete_label']                       = 'Ištrinti';
-$lang['nav_group_delete_label']                 = 'Ištrinti grupę';
 
 $lang['nav_link_target_self']                   = 'Dabartinis langas (default)';
 $lang['nav_link_target_blank']                  = 'Naujas langas (_blank)';

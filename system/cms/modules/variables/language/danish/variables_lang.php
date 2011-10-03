@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Navn';
 $lang['variables.syntax_label']				= 'Syntaks';
 $lang['variables.data_label'] 			    = 'Værdi';
-$lang['variables.actions_label'] 			= 'Handlinger';
 
 // titles
 $lang['variables.create_title'] 			= 'Tilføj variabel';

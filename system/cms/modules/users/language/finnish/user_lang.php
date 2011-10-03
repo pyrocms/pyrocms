@@ -33,11 +33,7 @@ $lang['user_password_confirm_label']           = 'Vahvista salasana';
 $lang['user_name_label']                       = 'Nimi';
 $lang['user_joined_label']                     = 'Liittynyt';
 $lang['user_last_visit_label']                 = 'Viimeksi paikalla';
-$lang['user_actions_label']                    = 'Toiminnot';
 $lang['user_never_label']                      = 'Ei koskaan';
-$lang['user_delete_label']                     = 'Poista';
-$lang['user_edit_label']                       = 'Muokkaa';
-$lang['user_view_label']                       = 'Katso';
 
 $lang['user_no_inactives']                     = 'Ei-aktiivisia käyttäjiä ei löytynyt.';
 $lang['user_no_registred']                     = 'Rekisteröityneitä käyttäjiä ei löytynyt.';

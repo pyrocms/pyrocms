@@ -38,7 +38,7 @@
 	$('#files-uploader form').data('fileUpload', {
 		lang : {
 			start : 'Start',
-			cancel : '<?php echo lang('files.delete_label'); ?>'
+			cancel : '<?php echo lang('global:delete'); ?>'
 		}
 	});
 })(jQuery);

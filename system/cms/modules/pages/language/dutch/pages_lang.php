@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Voeg paginadeel toe';
 $lang['pages.page_chunk']							= 'Paginadeel';
 $lang['pages.language_label'] 					= 'Taal';
 $lang['pages.updated_label'] 					= 'Bijgewerkt';
-$lang['pages.actions_label'] 					= 'Acties';
 $lang['pages.unknown_label'] 					= 'Onbekend';
 $lang['pages.title_label'] 						= 'Titel';
 $lang['pages.slug_label'] 						= 'URL';
@@ -42,9 +41,7 @@ $lang['pages.current_label']					= 'Huidig';
 
 $lang['pages.view_label']						= 'Bekijk';
 $lang['pages.create_label'] 					= 'Voeg kind toe';
-$lang['pages.edit_label']						= 'Wijzig';
 $lang['pages.duplicate_label']					= 'Dupliceer';
-$lang['pages.delete_label'] 					= 'Verwijder';
 
 // titles
 $lang['pages.create_title'] 					= 'Voeg pagina toe';

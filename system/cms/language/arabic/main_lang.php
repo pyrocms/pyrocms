@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'العنوان';
 $lang['name_label'] 					= 'الإسم';
 $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
-$lang['author_label'] 					= 'الناشر';
-$lang['action_label'] 					= 'الإجراء';
-$lang['actions_label']					= 'الإجراءات';
+$lang['global:author'] 					= 'الناشر';
+$lang['global:action'] 					= 'الإجراء';
 
 $lang['dialog.delete_message'] 			= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['dialog.confirm'] 				= 'التأكيد';
 $lang['dialog.yes'] 					= 'نعم';
 $lang['dialog.no'] 						= 'لا';
 
-$lang['select.none'] 					= '-- لاشيء --';
-$lang['select.all'] 					= '-- الكل --';
-$lang['select.any'] 					= '-- أي --';
-$lang['select.pick'] 					= '-- اختر --';
+$lang['global:select-none'] 					= '-- لاشيء --';
+$lang['global:select-all'] 					= '-- الكل --';
+$lang['global:select-any'] 					= '-- أي --';
+$lang['global:select-pick'] 					= '-- اختر --';
 
-$lang['check.none'] 					= 'لاشيء';
-$lang['check.all']						= 'الكل';
+$lang['global:check-none'] 					= 'لاشيء';
+$lang['global:check-all']						= 'الكل';
 
 $lang['operators.equal'] 				= 'يساري';
 $lang['operators.not_equal'] 			= 'لا يساوي';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'مساعدة';
 $lang['save_label'] 					= 'حفظ';
 $lang['cancel_label'] 					= 'إلغاء';
 $lang['update_label'] 					= 'تحديث';
-$lang['delete_label'] 					= 'حذف';
+$lang['global:delete'] 					= 'حذف';
 $lang['activate_label'] 				= 'تنشيط';
 $lang['approve_label']					= 'اعتماد';
 $lang['unapprove_label']				= 'حجب';
@@ -69,7 +68,10 @@ $lang['disable_label'] 					= 'تعطيل';
 $lang['global:shortcuts'] 				= 'الاختصارات';
 $lang['global:description'] 		    = 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'تعديل';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 

@@ -5,11 +5,11 @@
 <ul>
 	<li>
             <?php echo lang('user_active', 'f_active'); ?>
-            <?php echo form_dropdown('f_active', array(0 => lang('select.all'), 1 => lang('dialog.yes'), 2 => lang('dialog.no') )); ?>
+            <?php echo form_dropdown('f_active', array(0 => lang('global:select-all'), 1 => lang('global:yes'), 2 => lang('global:no') )); ?>
         </li>
 	<li>
             <?php echo lang('user_group_label', 'f_group'); ?>
-            <?php echo form_dropdown('f_group', array(0 => lang('select.all')) + $groups_select); ?>
+            <?php echo form_dropdown('f_group', array(0 => lang('global:select-all')) + $groups_select); ?>
         </li>
 	<li><?php echo form_input('f_keywords'); ?></li>
 	<li><?php echo anchor(current_url(), lang('buttons.cancel'), 'class="cancel"'); ?></li>

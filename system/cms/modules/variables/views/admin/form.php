@@ -16,7 +16,7 @@
 	<fieldset>
 		<ul>
 			<li class="even">
-				<label for="name"><?php echo lang('variables.name_label');?></label>
+				<label for="name"><?php echo lang('global:name');?></label>
 				<?php echo  form_input('name', $variable->name); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>

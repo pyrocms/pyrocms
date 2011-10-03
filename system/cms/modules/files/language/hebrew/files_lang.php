@@ -21,10 +21,7 @@ $lang['files.upload_title']				= 'העלאת קבצים';
 $lang['files.edit_title']                               = 'עריכת קובץ "%s"';
 
 // Labels
-$lang['files.actions_label']    			= 'פעולות';
 $lang['files.download_label']				= 'הורדה';
-$lang['files.edit_label']				= 'ערוך';
-$lang['files.delete_label']				= 'מחק';
 $lang['files.upload_label']				= 'העלא';
 $lang['files.description_label']                        = 'תיאור';
 $lang['files.type_label']                               = 'סוג';

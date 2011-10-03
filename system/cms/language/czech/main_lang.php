@@ -6,22 +6,21 @@ $lang['title_label'] 				= 'Titulek';
 $lang['name_label'] 				= 'Jméno';
 $lang['desc_label'] 				= 'Popis';
 $lang['version_label'] 				= 'Verze';
-$lang['author_label'] 				= 'Autor';
-$lang['action_label'] 				= 'Akce';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author'] 				= 'Autor';
+$lang['global:action'] 				= 'Akce';
 
 $lang['dialog.delete_message'] 			= 'Opravdu chcete položku vymazat? Akci nebude možno vrátit.';
 $lang['dialog.confirm'] 			= 'Potvrdit';
 $lang['dialog.yes'] 				= 'Ano';
 $lang['dialog.no'] 				= 'Ne';
 
-$lang['select.none'] 				= '-- Nic --';
-$lang['select.all'] 				= '-- Vše --';
-$lang['select.any'] 				= '-- Cokoliv --';
-$lang['select.pick'] 				= '-- Vybrat --';
+$lang['global:select-none'] 				= '-- Nic --';
+$lang['global:select-all'] 				= '-- Vše --';
+$lang['global:select-any'] 				= '-- Cokoliv --';
+$lang['global:select-pick'] 				= '-- Vybrat --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'None'; #translate
+$lang['global:check-all']						= 'All'; #translate
 
 $lang['operators.equal'] 			= 'Shodné s';
 $lang['operators.not_equal'] 			= 'Rozdílné od';
@@ -55,7 +54,7 @@ $lang['help_label'] 				= 'Nápověda';
 $lang['save_label'] 				= 'Uložit';
 $lang['cancel_label'] 				= 'Zrušit';
 $lang['update_label'] 				= 'Aktualizovat';
-$lang['delete_label'] 				= 'Vymazat';
+$lang['global:delete'] 				= 'Vymazat';
 $lang['activate_label'] 			= 'Aktivovat';
 $lang['approve_label']				= 'Schválit';
 $lang['unapprove_label']			= 'Zamítnout';
@@ -70,7 +69,10 @@ $lang['upgrade_label'] 				= 'Upgrade';
 $lang['global:shortcuts']				= 'Rychlé odkazy';
 $lang['global:description'] 		    = 'Popis';
 $lang['global:actions']					= 'Akce';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Upravit';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Vymazat';
 $lang['global:remove']					= 'Vymazat';
 

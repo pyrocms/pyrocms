@@ -8,7 +8,7 @@
 			</li>
 			<li>
 				<label for="folder"><?php echo lang('files.filter_label'); ?></label>
-				<?php echo form_dropdown('filter', array('' => lang('select.all')) + $types, $selected_filter, 'id="filter" class="folder-hash"'); ?>
+				<?php echo form_dropdown('filter', array('' => lang('global:select-all')) + $types, $selected_filter, 'id="filter" class="folder-hash"'); ?>
 			</li>
 			<?php if (group_has_role('files', 'edit_file')): ?>
 			<li class="buttons buttons-small">
@@ -28,7 +28,7 @@
 	</div>
 
     <div id="grid" class="list-items">
-        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?><?php echo lang('check.all'); ?><br />
+        <?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all grid-check-all')); ?><?php echo lang('global:check-all'); ?><br />
         <ul class="grid clearfix">
         <?php foreach($files as $file): ?>
             <li>
@@ -71,7 +71,7 @@
 				<th><?php echo lang('files.type_label'); ?></th>
 				<th><?php echo lang('files.name_label'); ?></th>
 				<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
-				<th width="300" class="align-center"><?php echo lang('files.actions_label'); ?></th>
+				<th width="300"></th>
 			</tr>
 		</thead>
 		<tfoot>

@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Nimi';
 $lang['variables.syntax_label']				= 'Syntaksi';
 $lang['variables.data_label'] 			    = 'Arvo';
-$lang['variables.actions_label'] 			= 'Toiminnot';
 
 // titles
 $lang['variables.create_title'] 			= 'Lisää muuttuja';

@@ -26,12 +26,7 @@ $lang['themes.upload_desc']             = 'Valitse tiedosto ja paina "Lataa" nap
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']             = 'Teema';
-$lang['themes.actions_label']           = 'Toiminnot';
 $lang['themes.make_default']            = 'Aseta oletusteemaksi';
-$lang['themes.description_label']		= 'Kuvaus';
-$lang['themes.author_label']			= 'Tekijä';
 $lang['themes.version_label']			= 'Versio';
 $lang['themes.default_theme_label']     = 'Oletusteema';
 $lang['themes.no_themes_installed']     = 'Teemoja ei ole asennettu.';
-
-?>

@@ -22,7 +22,7 @@
 				<ol>
 					<li class="<?php echo alternator('', 'even'); ?>">
 						<?php echo form_label(lang('galleries.folder_label'), 'folder_id'); ?>
-						<?php echo form_dropdown('folder_id', array(lang('select.pick')) + $folders_tree, $gallery->folder_id, 'id="folder_id" class="required"'); ?>
+						<?php echo form_dropdown('folder_id', array(lang('global:select-pick')) + $folders_tree, $gallery->folder_id, 'id="folder_id" class="required"'); ?>
 					</li>
 	
 					<li class="<?php echo alternator('', 'even'); ?>">

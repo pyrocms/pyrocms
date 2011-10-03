@@ -12,7 +12,7 @@
 				<th class="width-10"><?php echo lang('blog_category_label');?></th>
 				<th class="width-10"><?php echo lang('blog_date_label');?></th>
 				<th class="width-5"><?php echo lang('blog_status_label');?></th>
-				<th class="width-10"><span><?php echo lang('blog_actions_label');?></span></th>
+				<th class="width-10"></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -31,9 +31,9 @@
 					<td><?php echo format_date($post->created_on);?></td>
 					<td><?php echo lang('blog_'.$post->status.'_label');?></td>
 					<td>
-						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'blog_view_label' : 'blog_preview_label'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
-						<?php echo anchor('admin/blog/edit/' . $post->id, lang('blog_edit_label'));?> |
-						<?php echo anchor('admin/blog/delete/' . $post->id, lang('blog_delete_label'), array('class'=>'confirm')); ?>
+						<?php echo anchor('admin/blog/preview/' . $post->id, lang($post->status == 'live' ? 'global:view' : 'global:preview'), 'rel="modal-large" class="iframe" target="_blank"') . ' | '; ?>
+						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'));?> |
+						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'confirm')); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

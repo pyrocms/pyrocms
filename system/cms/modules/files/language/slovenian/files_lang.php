@@ -22,10 +22,7 @@ $lang['files.upload_title']					= 'Naloži datoteke';
 $lang['files.edit_title']					= 'Uredi datoteko "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Akcija';
 $lang['files.download_label']				= 'Prenosi na računalnik';
-$lang['files.edit_label']					= 'Uredi';
-$lang['files.delete_label']					= 'Izbriši';
 $lang['files.upload_label']					= 'Naloži';
 $lang['files.description_label']			= 'Opis';
 $lang['files.type_label']					= 'Tip';

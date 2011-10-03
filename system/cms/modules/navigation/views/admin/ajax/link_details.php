@@ -33,7 +33,7 @@
 	</fieldset>	
 	
 	<div class="buttons">
-		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('nav_edit_label'), 'rel="'.$link->navigation_group_id.'" class="button ajax"'); ?>
-		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('nav_delete_label'), 'class="confirm button"'); ?>
+		<?php echo anchor('admin/navigation/edit/' . $link->id, lang('global:edit'), 'rel="'.$link->navigation_group_id.'" class="button ajax"'); ?>
+		<?php echo anchor('admin/navigation/delete/' . $link->id, lang('global:delete'), 'class="confirm button"'); ?>
 	</div>
 </div>

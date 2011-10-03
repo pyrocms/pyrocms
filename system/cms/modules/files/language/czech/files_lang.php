@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Nahrát soubory';
 $lang['files.edit_title']					= 'Upravit soubor "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Akce';
 $lang['files.download_label']				= 'Stáhnout';
-$lang['files.edit_label']					= 'Upravit';
-$lang['files.delete_label']					= 'Vymazat';
 $lang['files.upload_label']					= 'Nahrát';
 $lang['files.description_label']			= 'Popis';
 $lang['files.type_label']					= 'Typ';

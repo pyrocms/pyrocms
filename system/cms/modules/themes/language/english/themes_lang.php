@@ -20,12 +20,7 @@ $lang['themes.upload_desc']             = 'Please select a file and click Upload
 
 $lang['themes.options']					= 'Options';
 $lang['themes.theme_label']             = 'Theme';
-$lang['themes.actions_label']           = 'Actions';
 $lang['themes.make_default']            = 'Make default';
-$lang['themes.description_label']		= 'Description';
-$lang['themes.author_label']			= 'Author';
 $lang['themes.version_label']			= 'Version';
 $lang['themes.default_theme_label']     = 'Default theme';
 $lang['themes.no_themes_installed']     = 'There are no themes installed.';
-
-?>

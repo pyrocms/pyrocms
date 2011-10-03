@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Patvortinti spaltažodį';
 $lang['user_name_label']                       = 'Vardas';
 $lang['user_joined_label']                     = 'Prisijungę';
 $lang['user_last_visit_label']                 = 'Paskutinis vizitas';
-$lang['user_actions_label']                    = 'Veiksmai';
 $lang['user_never_label']                      = 'Nė karto';
-$lang['user_delete_label']                     = 'Ištrinti';
-$lang['user_edit_label']                       = 'Redaguoti';
-$lang['user_view_label']                       = 'Peržiūrėti';
 
 $lang['user_no_inactives']                     = 'Nėra neaktyvių vartotojų.';
 $lang['user_no_registred']                     = 'Nėra registruotų vartotojų.';
