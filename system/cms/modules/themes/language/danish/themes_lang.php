@@ -20,12 +20,7 @@ $lang['themes.upload_desc']             = 'Vælg venligst en fil og klik Upload'
 
 $lang['themes.options']					= 'Indstillinger';
 $lang['themes.theme_label']             = 'Tema';
-$lang['themes.actions_label']           = 'Handlinger';
 $lang['themes.make_default']            = 'Gør til standard';
-$lang['themes.description_label']		= 'Beskrivelse';
-$lang['themes.author_label']			= 'Forfatter';
 $lang['themes.version_label']			= 'Version';
 $lang['themes.default_theme_label']     = 'Standardtema';
 $lang['themes.no_themes_installed']     = 'Der er ingen temaer indstalleret.';
-
-?>

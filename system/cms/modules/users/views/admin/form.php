@@ -52,7 +52,7 @@
 
 					<li>
 						<label for="group_id"><?php echo lang('user_group_label');?></label>
-						<?php echo form_dropdown('group_id', array(0 => lang('select.pick')) + $groups_select, $member->group_id); ?>
+						<?php echo form_dropdown('group_id', array(0 => lang('global:select-pick')) + $groups_select, $member->group_id); ?>
 					</li>
 
 					<li class="even">

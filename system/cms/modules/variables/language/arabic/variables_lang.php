@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'الإسم';
 $lang['variables.syntax_label']				= 'الصيغة';
 $lang['variables.data_label'] 			    = 'القيمة';
-$lang['variables.actions_label'] 			= 'الإجراءات';
 
 // titles
 $lang['variables.create_title'] 			= 'إضافة متغيّر';

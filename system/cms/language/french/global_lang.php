@@ -6,21 +6,20 @@ $lang['title_label'] 					        = 'Titre';
 $lang['name_label'] 					        = 'Nom';
 $lang['desc_label'] 					        = 'Description';
 $lang['version_label'] 					        = 'Version';
-$lang['author_label'] 					        = 'Auteur';
-$lang['action_label'] 					        = 'Action';
-$lang['actions_label']					= 'Actions';
+$lang['global:author'] 					        = 'Auteur';
+$lang['global:action'] 					        = 'Action';
 
 $lang['dialog.confirm'] 				        = 'Confirmez';
 $lang['dialog.yes'] 					        = 'Oui';
 $lang['dialog.no'] 								= 'Non';
 
-$lang['select.none'] 					        = '-- Aucun --';
-$lang['select.all'] 					        = '-- Tous --';
-$lang['select.any'] 					        = '-- N\'importe quel --';
-$lang['select.pick']							= '-- Selectionner --';
+$lang['global:select-none'] 					        = '-- Aucun --';
+$lang['global:select-all'] 					        = '-- Tous --';
+$lang['global:select-any'] 					        = '-- N\'importe quel --';
+$lang['global:select-pick']							= '-- Selectionner --';
 
-$lang['check.none'] 					= 'Aucun';
-$lang['check.all']						= 'Tous';
+$lang['global:check-none'] 					= 'Aucun';
+$lang['global:check-all']						= 'Tous';
 
 $lang['operators.equal'] 				        = 'Égal à';
 $lang['operators.not_equal'] 			        = 'Pas égal à';
@@ -54,7 +53,7 @@ $lang['help_label']                             = 'Aide';
 $lang['save_label'] 					        = 'Enregistrer';
 $lang['cancel_label'] 					        = 'Annuler';
 $lang['update_label'] 					        = 'Mettre à jour la légende';
-$lang['delete_label'] 					        = 'Supprimer';
+$lang['global:delete'] 					        = 'Supprimer';
 $lang['activate_label'] 				        = 'Activer';
 $lang['publish_label'] 					        = 'Publier';
 $lang['upload_label'] 					        = 'Uploader';
@@ -66,7 +65,10 @@ $lang['disable_label'] 					        = 'Désactiver';
 $lang['global:shortcuts']	 			= 'Raccourci';
 $lang['global:description'] 		    = 'Description';
 $lang['global:actions']					= 'Actions';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Editer';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Supprimer';
 $lang['global:remove']					= 'Supprimer';
 

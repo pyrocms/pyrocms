@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Potrdi geslo';
 $lang['user_name_label']                       = 'Uporabniško Ime';
 $lang['user_joined_label']                     = 'Prijavljen';
 $lang['user_last_visit_label']                 = 'Zadnja prijava';
-$lang['user_actions_label']                    = 'Akcije';
 $lang['user_never_label']                      = 'Nikoli';
-$lang['user_delete_label']                     = 'Izbriši';
-$lang['user_edit_label']                       = 'Uredi';
-$lang['user_view_label']                       = 'Ogled';
 
 $lang['user_no_inactives']                     = 'Ni neaktivnih uporabnikov';
 $lang['user_no_registred']                     = 'Ni registriranih uporabnikov.';

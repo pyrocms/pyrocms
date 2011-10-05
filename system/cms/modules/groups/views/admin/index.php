@@ -7,7 +7,7 @@
 				<tr>
 					<th width="40%"><?php echo lang('groups.name');?></th>
 					<th><?php echo lang('groups.short_name');?></th>
-					<th width="200" class="align-center"><?php echo lang('action_label'); ?></th>
+					<th width="120"></th>
 				</tr>
 			</thead>
 			<tfoot>

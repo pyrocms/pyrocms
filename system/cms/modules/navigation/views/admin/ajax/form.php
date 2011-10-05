@@ -67,7 +67,7 @@
 				<div id="navigation-page" style="<?php echo @$navigation_link->link_type == 'page' ? '' : 'display:none'; ?>">
 					<label for="page_id"><?php echo lang('nav_page_label');?></label>
 					<select name="page_id">
-						<option value=""><?php echo lang('nav_link_page_select_default');?></option>
+						<option value=""><?php echo lang('global:select-pick');?></option>
 						<?php echo $tree_select; ?>
 					</select>
 				</div>

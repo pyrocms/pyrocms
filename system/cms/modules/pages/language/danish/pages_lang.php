@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Tilføj Page Chunk';
 $lang['pages.page_chunk']							= 'Page Chunk';
 $lang['pages.language_label']						= 'Sprog';
 $lang['pages.updated_label']						= 'Opdateret';
-$lang['pages.actions_label']						= 'Handlinger';
 $lang['pages.unknown_label']						= 'Ukendt';
 $lang['pages.title_label']							= 'Titel';
 $lang['pages.slug_label']							= 'URL';
@@ -42,8 +41,7 @@ $lang['pages.current_label']						= 'Aktuel';
 
 $lang['pages.view_label']							= 'Se';
 $lang['pages.create_label']							= 'Tilføj child';
-$lang['pages.edit_label']							= 'Redigér';
-$lang['pages.delete_label']							= 'Slet';
+$lang['pages.duplicate_label']						= 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']							= 'Tilføj side';

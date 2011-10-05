@@ -6,21 +6,20 @@ $lang['title_label']		= 'Título';
 $lang['name_label']		= 'Nombre';
 $lang['desc_label']		= 'Descripción';
 $lang['version_label']		= 'Versión';
-$lang['author_label']		= 'Autor';
-$lang['action_label']		= 'Acción';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author']		= 'Autor';
+$lang['global:action']		= 'Acción';
 
 $lang['dialog.confirm']		= 'Confirmar';
 $lang['dialog.yes']		= 'Si';
 $lang['dialog.no']		= 'No';
 
-$lang['select.none']		= '-- Ninguno --';
-$lang['select.all']		= '-- Todos --';
-$lang['select.any']		= '-- Cualquiera --';
-$lang['select.pick']		= '-- Seleccionar --';
+$lang['global:select-none']		= '-- Ninguno --';
+$lang['global:select-all']		= '-- Todos --';
+$lang['global:select-any']		= '-- Cualquiera --';
+$lang['global:select-pick']		= '-- Seleccionar --';
 
-$lang['check.none'] 					= 'Ninguno';
-$lang['check.all']						= 'Todos';
+$lang['global:check-none'] 					= 'Ninguno';
+$lang['global:check-all']						= 'Todos';
 
 $lang['operators.equal']	= 'Igual a';
 $lang['operators.not_equal']	= 'Distinto a';
@@ -54,7 +53,7 @@ $lang['help_label']		= 'Ayuda';
 $lang['save_label']		= 'Guardar';
 $lang['cancel_label']		= 'Cancelar';
 $lang['update_label']		= 'Actualizar';
-$lang['delete_label']		= 'Eliminar';
+$lang['global:delete']		= 'Eliminar';
 $lang['activate_label']		= 'Activar';
 $lang['approve_label']		= 'Aprobar';
 $lang['unapprove_label']	= 'Desaprobar';
@@ -68,7 +67,10 @@ $lang['disable_label']		= 'Desactivar';
 $lang['global:sidebar']			= 'Shortcuts'; #translate
 $lang['global:description']		= 'Descripción';
 $lang['global:actions']			= 'Acciones';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']			= 'Editar';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']			= 'Eliminar';
 $lang['global:remove']			= 'Eliminar';
 

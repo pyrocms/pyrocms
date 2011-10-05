@@ -16,10 +16,7 @@ $lang['files.upload_title']					= 'Lähetä tiedostoja';
 $lang['files.edit_title']					= 'Muokkaa tiedostoa "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Toiminto';
 $lang['files.download_label']				= 'Lataa';
-$lang['files.edit_label']					= 'Muokkaa';
-$lang['files.delete_label']					= 'Poista';
 $lang['files.upload_label']					= 'Lähetä tiedosto';
 $lang['files.description_label']			= 'Kuvaus';
 $lang['files.type_label']					= 'Tyyppi';

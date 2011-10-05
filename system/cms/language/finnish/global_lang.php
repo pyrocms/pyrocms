@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Otsikko';
 $lang['name_label'] 					= 'Nimi';
 $lang['desc_label'] 					= 'Kuvaus';
 $lang['version_label'] 					= 'Versio';
-$lang['author_label'] 					= 'Tekijä';
-$lang['action_label'] 					= 'Toiminto';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author'] 					= 'Tekijä';
+$lang['global:action'] 					= 'Toiminto';
 
 $lang['dialog.delete_message'] 			= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
 $lang['dialog.confirm'] 				= 'Vahvista';
 $lang['dialog.yes'] 					= 'Kyllä';
 $lang['dialog.no'] 						= 'Ei';
 
-$lang['select.none'] 					= '-- Ei mikään --';
-$lang['select.all'] 					= '-- Kaikki --';
-$lang['select.any'] 					= '-- Any --'; // @todo: Not yet sure in which context we're using this
-$lang['select.pick'] 					= '-- Valitse --';
+$lang['global:select-none'] 					= '-- Ei mikään --';
+$lang['global:select-all'] 					= '-- Kaikki --';
+$lang['global:select-any'] 					= '-- Any --'; // @todo: Not yet sure in which context we're using this
+$lang['global:select-pick'] 					= '-- Valitse --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'None'; #translate
+$lang['global:check-all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Täsmää';
 $lang['operators.not_equal'] 			= 'Ei täsmää';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Apua';
 $lang['save_label'] 					= 'Tallenna';
 $lang['cancel_label'] 					= 'Peruuta';
 $lang['update_label'] 					= 'Päivitä kuvateksti';
-$lang['delete_label'] 					= 'Poista';
+$lang['global:delete'] 					= 'Poista';
 $lang['activate_label'] 				= 'Aktivoi';
 $lang['approve_label']					= 'Hyväksy';
 $lang['unapprove_label']				= 'Hylkää';
@@ -70,7 +69,11 @@ $lang['upgrade_label'] 					= 'Päivitä';
 $lang['global:shortcuts']	 			= 'Pikavalinnat';
 $lang['global:description']             = 'Kuvaus';
 $lang['global:actions']                 = 'Toiminnot';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:edit']                    = 'Muokkaa';
+$lang['global:remove']                  = 'Poista';
 $lang['global:delete']                  = 'Poista';
 
 $lang['global:keywords']				= 'Keywords'; #translate

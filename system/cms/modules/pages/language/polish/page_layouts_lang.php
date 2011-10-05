@@ -6,12 +6,8 @@ $lang['page_layouts.css_label'] 				= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 			= 'Zaktualizowany';
-$lang['page_layouts.actions_label'] 			= 'Akcje';
 $lang['page_layouts.title_label'] 				= 'Tytuł';
 $lang['page_layouts.theme_layout_label'] 		= 'Layout';
-
-$lang['page_layouts.edit_label'] 				= 'Edytuj';
-$lang['page_layouts.delete_label'] 				= 'Usuń';
 
 // titles
 $lang['page_layouts.list_title'] 				= 'Zobacz layouty strony';
@@ -33,5 +29,3 @@ $lang['page_layouts.already_exist_error'] 		= 'Layout z "%s" już istnieje.';
 $lang['page_layouts.variable_introduction']		= 'W tym polu dostępne są tylko dwie wartości.';
 $lang['page_layouts.variable_title']			= 'Zawiera tytuł strony.';
 $lang['page_layouts.variable_body']				= 'Zawiera część body strony internetowej.';
-
-?>

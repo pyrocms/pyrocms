@@ -11,7 +11,7 @@
 					<th><?php echo lang('name_label');?></th>
 					<th><span><?php echo lang('desc_label');?></span></th>
 					<th><?php echo lang('version_label');?></th>
-					<th class="align-center"><?php echo lang('action_label'); ?></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,7 +37,7 @@
 						<?php else: ?>
 							<?php echo anchor('admin/modules/install/' . $module['slug'], lang('install_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_install'))); ?>
 						<?php endif; ?>
-						<?php echo anchor('admin/modules/delete/' . $module['slug'], lang('delete_label'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_delete'))); ?>
+						<?php echo anchor('admin/modules/delete/' . $module['slug'], lang('global:delete'), array('class'=>'confirm button small', 'title'=>lang('modules.confirm_delete'))); ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

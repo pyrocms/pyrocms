@@ -19,10 +19,7 @@ $lang['themes.upload_desc']				= 'Por favor, selecciona un archivo y presiona el
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']				= 'Tema';
-$lang['themes.actions_label']			= 'Acciones';
 $lang['themes.make_default']			= 'Hacer tema predeterminado';
-$lang['themes.description_label']		= 'Descripción';
-$lang['themes.author_label']			= 'Autor';
 $lang['themes.version_label']			= 'Versión';
 $lang['themes.default_theme_label']		= 'Tema predeterminado';
 $lang['themes.no_themes_installed']		= 'No hay temas instalados.';

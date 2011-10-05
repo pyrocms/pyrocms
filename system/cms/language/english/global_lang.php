@@ -1,32 +1,32 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['cp_title'] 						= 'Control Panel';
+$lang['global:control-panel'] 			= 'Control Panel';
 
 $lang['title_label'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
 $lang['desc_label'] 					= 'Description';
 $lang['version_label'] 					= 'Version';
-$lang['author_label'] 					= 'Author';
-$lang['action_label'] 					= 'Action';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author'] 					= 'Author';
+$lang['global:action'] 					= 'Action';
 
-$lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.';
-$lang['dialog.confirm'] 				= 'Confirm';
-$lang['dialog.yes'] 					= 'Yes';
-$lang['dialog.no'] 						= 'No';
+$lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
+$lang['global:dialog:confirm'] 			= 'Confirm';
 
-$lang['select.none'] 					= '-- None --';
-$lang['select.all'] 					= '-- All --';
-$lang['select.any'] 					= '-- Any --';
-$lang['select.pick'] 					= '-- Select --';
+$lang['global:yes'] 					= 'Yes';
+$lang['global:no'] 						= 'No';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['global:select-none'] 			= '-- None --';
+$lang['global:select-all'] 				= '-- All --';
+$lang['global:select-any'] 				= '-- Any --';
+$lang['global:select-pick'] 			= '-- Select --';
 
-$lang['operators.equal'] 				= 'Equal to';
-$lang['operators.not_equal'] 			= 'Not equal to';
-$lang['operators.less_than'] 			= 'Less than';
-$lang['operators.greater_than'] 		= 'Greater than';
+$lang['global:check-all']				= 'All';
+$lang['global:check-none'] 				= 'None';
+
+$lang['global:operators:equal'] 		= 'Equal to';
+$lang['global:operators:not-equal'] 	= 'Not equal to';
+$lang['global:operators:less-than'] 	= 'Less than';
+$lang['global:operators:greater-than'] 	= 'Greater than';
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';
@@ -55,7 +55,7 @@ $lang['help_label'] 					= 'Help';
 $lang['save_label'] 					= 'Save';
 $lang['cancel_label'] 					= 'Cancel';
 $lang['update_label'] 					= 'Update Caption';
-$lang['delete_label'] 					= 'Delete';
+$lang['global:delete'] 					= 'Delete';
 $lang['activate_label'] 				= 'Activate';
 $lang['approve_label']					= 'Approve';
 $lang['unapprove_label']				= 'Unapprove';
@@ -67,13 +67,16 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
-$lang['global:shortcuts']	 			= 'Nuoroda';
-$lang['global:description'] 		    = 'Aprašymas';
-$lang['global:actions']					= 'Veiksmai';
-$lang['global:edit']					= 'Redaguoti';
-$lang['global:delete']					= 'Ištrinti';
-$lang['global:remove']					= 'Ištrinti';
+$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:description']				= 'Description';
+$lang['global:actions']					= 'Actions';
+$lang['global:view']					= 'View';
+$lang['global:preview']					= 'Preview';
+$lang['global:edit']					= 'Edit';
+$lang['global:empty']					= 'Empty';
+$lang['global:delete']					= 'Delete';
+$lang['global:remove']					= 'Remove';
 
-$lang['global:keywords']				= 'Keywords'; #translate
+$lang['global:keywords']				= 'Keywords';
 
 /* End of file main_lang.php */

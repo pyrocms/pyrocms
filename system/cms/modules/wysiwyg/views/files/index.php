@@ -52,7 +52,7 @@
 			<table class="table-list" border="0">
 				<thead>
 					<tr>
-						<th><?php echo lang('files.actions_label'); ?></th>
+						<th><?php echo lang('global:actions'); ?></th>
 						<th><?php echo lang('files.name_label') . '/' . lang('files.description_label'); ?></th>
 						<th><?php echo lang('files.file_name') . '/' . lang('file_folders.created_label'); ?></th>
 						<th><?php echo lang('wysiwyg.meta.mime'); ?></th>

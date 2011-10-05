@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Title'; #translate
 $lang['name_label'] 					= 'Name'; #translate
 $lang['desc_label'] 					= 'Description'; #translate
 $lang['version_label'] 					= 'Version'; #translate
-$lang['author_label'] 					= 'Author'; #translate
-$lang['action_label'] 					= 'Action'; #translate
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author'] 					= 'Author'; #translate
+$lang['global:action'] 					= 'Action'; #translate
 
 $lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.'; #translate
 $lang['dialog.confirm'] 					= 'Confirm'; #translate
 $lang['dialog.yes'] 					= 'כן';
 $lang['dialog.no'] 					= 'לא';
 
-$lang['select.none'] 					= '-- כלום --';
-$lang['select.all'] 					= '-- הכל --';
-$lang['select.any'] 					= '-- כלשהו --';
-$lang['select.pick'] 					= '-- בחר --';
+$lang['global:select-none'] 					= '-- כלום --';
+$lang['global:select-all'] 					= '-- הכל --';
+$lang['global:select-any'] 					= '-- כלשהו --';
+$lang['global:select-pick'] 					= '-- בחר --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'None'; #translate
+$lang['global:check-all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'שווה ל';
 $lang['operators.not_equal'] 			= 'לא שווה ל';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'עזרה';
 $lang['save_label'] 					= 'שמור';
 $lang['cancel_label'] 					= 'ביטול';
 $lang['update_label'] 					= 'Update Caption'; #translate
-$lang['delete_label'] 					= 'מחק';
+$lang['global:delete'] 					= 'מחק';
 $lang['activate_label'] 					= 'Activate'; #translate
 $lang['approve_label']					= 'Approve'; #translate
 $lang['unapprove_label']				= 'Unapprove'; #translate
@@ -70,7 +69,10 @@ $lang['upgrade_label'] 					= 'Upgrade'; #translate
 $lang['global:shortcuts']	 			= 'קיצורי דרך';
 $lang['global:description'] 		    = 'תיאור';
 $lang['global:actions']					= 'פעולות';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'ערוך';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'מחק';
 $lang['global:remove']					= 'מחק';
 

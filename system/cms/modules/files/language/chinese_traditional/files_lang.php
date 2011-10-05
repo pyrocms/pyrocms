@@ -21,10 +21,7 @@ $lang['files.upload_title']					= '上傳檔案';
 $lang['files.edit_title']					= 'Edit file "%s"'; #translate
 
 // Labels
-$lang['files.actions_label']				= '操作';
 $lang['files.download_label']				= '下載';
-$lang['files.edit_label']					= '編輯';
-$lang['files.delete_label']					= '刪除';
 $lang['files.upload_label']					= '上傳';
 $lang['files.description_label']			= '說明';
 $lang['files.type_label']					= '種類';

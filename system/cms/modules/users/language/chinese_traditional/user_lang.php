@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= '再次確認密碼';
 $lang['user_name_label'] 				= '名稱';
 $lang['user_joined_label'] 				= '已加入';
 $lang['user_last_visit_label'] 			= '最後訪問';
-$lang['user_actions_label'] 			= '操作';
 $lang['user_never_label'] 				= '從不';
-$lang['user_delete_label'] 				= '刪除';
-$lang['user_edit_label'] 				= '編輯';
-$lang['user_view_label'] 				= '查看';
 
 $lang['user_no_inactives'] 				= '沒有任何已禁用的用戶';
 $lang['user_no_registred'] 				= '沒有任何已註冊的用戶';

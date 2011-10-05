@@ -19,8 +19,6 @@ $lang['themes.upload_desc']             = 'Παρακαλώ επιλέξτε έ�
 
 $lang['themes.options']					= 'Επιλογές';
 $lang['themes.theme_label']             = 'Θέμα';
-$lang['themes.actions_label']           = 'Ενέργειες';
 $lang['themes.make_default']            = 'Ως προεπιλεγμένο';
-$lang['themes.delete']                  = 'Διαγραφή';
 $lang['themes.default_theme_label']     = 'Προεπιλεγμένο θέμα';
 $lang['themes.no_themes_installed']     = 'Δεν υπάρχουν εγκατεστημένα θέματα.';

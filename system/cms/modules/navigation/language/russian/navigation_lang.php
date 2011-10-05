@@ -13,7 +13,6 @@ $lang['nav_title_label'] 									= 'Заголовок';
 $lang['nav_target_label']									= 'Цель';
 $lang['nav_class_label']									= 'Класс';
 $lang['nav_url_label'] 										= 'URL';
-$lang['nav_actions_label'] 								= 'Действия';
 $lang['nav_details_label'] 								= 'Подробности';
 $lang['nav_text_label'] 									= 'Текст';
 $lang['nav_group_label'] 									= 'Группа';
@@ -23,9 +22,6 @@ $lang['nav_uri_label'] 										= 'Ссылка на сайте (URI)';
 $lang['nav_page_label'] 									= 'Страница';
 $lang['nav_module_label'] 								= 'Модуль';
 $lang['nav_abbrev_label'] 								= 'Аббревиатура';
-$lang['nav_edit_label'] 									= 'Редактировать';
-$lang['nav_delete_label'] 								= 'Удалить';
-$lang['nav_group_delete_label']						= 'Удалить группу';
 
 $lang['nav_link_target_self'] 						= 'Текущее окно (по-умолчанию)';
 $lang['nav_link_target_blank'] 						= 'Новое окно (_blank)';

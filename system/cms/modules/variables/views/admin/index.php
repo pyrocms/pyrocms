@@ -10,10 +10,10 @@
 			<thead>
 			<tr>
 				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-				<th width="20%"><?php echo lang('variables.name_label');?></th>
+				<th width="20%"><?php echo lang('global:name');?></th>
 				<th><?php echo lang('variables.data_label');?></th>
 				<th width="20%"><?php echo lang('variables.syntax_label');?></th>
-				<th width="200" class="align-center"><span><?php echo lang('variables.actions_label');?></span></th>
+				<th width="100"></th>
 			</tr>
 			</thead>
 			<tfoot>

@@ -34,11 +34,7 @@ $lang['user_password_confirm_label']				= 'Подтверждение парол
 $lang['user_name_label']										= 'Имя';
 $lang['user_joined_label']									= 'Зарегистрировался';
 $lang['user_last_visit_label']							= 'Последний визит';
-$lang['user_actions_label']									= 'Действия';
 $lang['user_never_label']										= 'Никогда';
-$lang['user_delete_label']									= 'Удалить';
-$lang['user_edit_label']										= 'Редактировать';
-$lang['user_view_label']										= 'Просмотр';
 
 $lang['user_no_inactives']									= 'Неактивные пользователи отсутствуют.';
 $lang['user_no_registred']									= 'Зарегистрированные пользователи отсутствуют.';

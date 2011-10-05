@@ -6,12 +6,8 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Atnaujinta';
-$lang['page_layouts.actions_label']                  = 'Veiksmai';
 $lang['page_layouts.title_label']                    = 'Pavadinimas';
 $lang['page_layouts.theme_layout_label']             = 'Maketo tema';
-
-$lang['page_layouts.edit_label']                     = 'Redaguoti';
-$lang['page_layouts.delete_label']                   = 'Ištrinti';
 
 // titles
 $lang['page_layouts.list_title']                     = 'Puslapių maketų sarašas';

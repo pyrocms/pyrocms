@@ -23,7 +23,6 @@ $lang['pages.add_page_chunk']						= 'Добавить кусок страниц
 $lang['pages.page_chunk']								= 'Кусок страницы';
 $lang['pages.language_label']						= 'Язык';
 $lang['pages.updated_label']						= 'Обновлено';
-$lang['pages.actions_label']						= 'Действия';
 $lang['pages.unknown_label']						= 'Неизвестно';
 $lang['pages.title_label']							= 'Заголовок';
 $lang['pages.slug_label']								= 'URL';
@@ -49,8 +48,6 @@ $lang['pages.current_label']						= 'Текущая версия';
 $lang['pages.view_label']								= 'Просмотр';
 $lang['pages.create_label']							= 'Создать потомка';
 $lang['pages.duplicate_label']					= 'Duplicate'; #translate
-$lang['pages.edit_label']								= 'Редактировать';
-$lang['pages.delete_label']							= 'Удалить';
 
 // заголовки
 $lang['pages.create_title']							= 'Создать страницу';

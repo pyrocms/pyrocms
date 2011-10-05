@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']				= 'Adicionar pedaço de página';
 $lang['pages.page_chunk']					= 'Pedaço de página';
 $lang['pages.language_label'] 				= 'Idioma';
 $lang['pages.updated_label'] 				= 'Atualizada';
-$lang['pages.actions_label'] 				= 'Ações';
 $lang['pages.unknown_label'] 				= 'Desconhecida';
 $lang['pages.title_label']					= 'Título';
 $lang['pages.slug_label']					= 'URI';
@@ -42,9 +41,7 @@ $lang['pages.current_label']				= 'Atual';
 
 $lang['pages.view_label'] 					= 'Ver';
 $lang['pages.create_label'] 				= 'Adicionar filho';
-$lang['pages.edit_label'] 					= 'Editar';
 $lang['pages.duplicate_label']				= 'Duplicar';
-$lang['pages.delete_label'] 				= 'Remover';
 
 // titles
 $lang['pages.create_title'] 				= 'Adicionar página';

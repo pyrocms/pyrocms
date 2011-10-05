@@ -14,22 +14,21 @@ $lang['title_label']						= 'Заголовок';
 $lang['name_label']							= 'Название';
 $lang['desc_label']							= 'Описание';
 $lang['version_label']					= 'Версия';
-$lang['author_label']						= 'Автор';
-$lang['action_label']						= 'Действие';
-$lang['actions_label']					= 'Действия';
+$lang['global:author']						= 'Автор';
+$lang['global:action']						= 'Действие';
 
 $lang['dialog.delete_message']	= 'Вы уверены, что хотите удалить? Это действие нельзя отменить.';
 $lang['dialog.confirm']					= 'Подтверждение';
 $lang['dialog.yes']							= 'Да';
 $lang['dialog.no']							= 'Нет';
 
-$lang['select.none']						= '-- нет --';
-$lang['select.all']							= '-- все --';
-$lang['select.any']							= '-- любой --';
-$lang['select.pick']						= '-- выберите --';
+$lang['global:select-none']						= '-- нет --';
+$lang['global:select-all']							= '-- все --';
+$lang['global:select-any']							= '-- любой --';
+$lang['global:select-pick']						= '-- выберите --';
 
-$lang['check.none'] 						= 'Ни одного';
-$lang['check.all']							= 'Все';
+$lang['global:check-none'] 						= 'Ни одного';
+$lang['global:check-all']							= 'Все';
 
 $lang['operators.equal']				= 'Равно';
 $lang['operators.not_equal']		= 'Не равно';
@@ -63,7 +62,7 @@ $lang['help_label']							= 'Помощь';
 $lang['save_label']							= 'Сохранить';
 $lang['cancel_label']						= 'Отмена';
 $lang['update_label']						= 'Обновить';
-$lang['delete_label']						= 'Удалить';
+$lang['global:delete']						= 'Удалить';
 $lang['activate_label']					= 'Активировать';
 $lang['approve_label']					= 'Утвердить';
 $lang['unapprove_label']				= 'Отменить';
@@ -77,7 +76,10 @@ $lang['disable_label']					= 'Отключить';
 $lang['global:shortcuts']						= 'Ссылки';
 $lang['global:description']						= 'Описание';
 $lang['global:actions']							= 'Действия';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']							= 'Редактировать';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']							= 'Удалить';
 $lang['global:remove']							= 'Убрать';
 

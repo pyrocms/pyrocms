@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Ανέβασμα Αρχείων';
 $lang['files.edit_title']					= 'Επεξεργασία αρχείου "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Ενέργεια';
 $lang['files.download_label']				= 'Μεταφόρτωση';
-$lang['files.edit_label']					= 'Επεξεργασία';
-$lang['files.delete_label']					= 'Διαγραφή';
 $lang['files.upload_label']					= 'Ανέβασμα';
 $lang['files.description_label']			= 'Περιγραφή';
 $lang['files.type_label']					= 'Τύπος';

@@ -5,7 +5,6 @@ $lang['nav_title_label'] 						= 'الإسم';
 $lang['nav_target_label']						= 'الرابط';
 $lang['nav_class_label']						= 'Class';
 $lang['nav_url_label'] 							= 'URL';
-$lang['nav_actions_label'] 						= 'الإجراءات';
 $lang['nav_details_label'] 						= 'التفاصيل';
 $lang['nav_text_label'] 						= 'Text';
 $lang['nav_group_label'] 						= 'المجموعة';
@@ -15,9 +14,6 @@ $lang['nav_uri_label'] 							= 'رابط موقع (URI)';
 $lang['nav_page_label'] 						= 'صفحة';
 $lang['nav_module_label'] 						= 'وحدة';
 $lang['nav_abbrev_label'] 						= 'اختصار';
-$lang['nav_edit_label'] 						= 'تعديل';
-$lang['nav_delete_label'] 						= 'حذف';
-$lang['nav_group_delete_label']					= 'حذف المجموعة';
 
 $lang['nav_link_target_self'] 					= 'النافذة الحالية (افتراضي)';
 $lang['nav_link_target_blank'] 					= 'نافذة جديدة (_blank)';

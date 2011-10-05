@@ -16,7 +16,7 @@
   </tr>
 	<tr>
 		<td colspan="3">
-			View Comment: {<?php echo config_item('tags_trigger'); ?>:redirect_url}
+			View Comment:&nbsp;{<?php echo config_item('tags_trigger'); ?>:redirect_url}
 		</td>
 	</tr>
 </table>

@@ -17,10 +17,7 @@ $lang['files.upload_title']								= 'Загрузить файл';
 $lang['files.edit_title']									= 'Редактирование файла "%s"';
 
 // Подписи
-$lang['files.actions_label']							= 'Действие';
 $lang['files.download_label']							= 'Скачать';
-$lang['files.edit_label']									= 'Редактировать';
-$lang['files.delete_label']								= 'Удалить';
 $lang['files.upload_label']								= 'Загрузить';
 $lang['files.description_label']					= 'Описание';
 $lang['files.type_label']									= 'Тип';

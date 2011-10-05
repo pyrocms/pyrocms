@@ -246,7 +246,7 @@ class Settings {
 				}
 				else
 				{
-					$setting->options = array('=' . lang('select.none'));
+					$setting->options = array('=' . lang('global:select-none'));
 				}
 			}
 

@@ -19,12 +19,7 @@ $lang['themes.upload_desc']				= 'Selecteer een bestand en klik de Upload-knop';
 
 $lang['themes.options']					= 'Opties';
 $lang['themes.theme_label'] 			= 'Thema';
-$lang['themes.actions_label']			= 'Acties';
 $lang['themes.make_default']			= 'Maak standaard';
-$lang['themes.description_label']		= 'Omschrijving';
-$lang['themes.author_label']			= 'Auteur';
 $lang['themes.version_label']			= 'Versie';
 $lang['themes.default_theme_label'] 	= 'Standaard thema';
 $lang['themes.no_themes_installed'] 	= 'Er zijn geen thema&apos;s geinstalleerd.';
-
-?>

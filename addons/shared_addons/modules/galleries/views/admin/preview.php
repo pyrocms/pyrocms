@@ -1,4 +1,4 @@
-<h1><?php echo $gallery->title; ?></h1>
+<h3><?php echo $gallery->title; ?></h3>
 
 <p style="float:left; width: 40%;">
 	<?php echo anchor('galleries/' . $gallery->slug, NULL, 'target="_blank"'); ?>

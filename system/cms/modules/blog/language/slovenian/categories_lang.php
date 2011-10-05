@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label']            = 'Naslov';
 $lang['cat_category_label']         = 'Kategorija';
-$lang['cat_actions_label']          = 'Akcije';
-$lang['cat_edit_label']             = 'Uredi';
-$lang['cat_delete_label']           = 'Izbriši';
 
 // titles
 $lang['cat_create_title']           = 'Dodaj kategorijo';

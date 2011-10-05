@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']				= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']					= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'שפה';
 $lang['pages.updated_label']               = 'עודכן';
-$lang['pages.actions_label']               = 'פעולות';
 $lang['pages.unknown_label']               = 'לא ידוע';
 $lang['pages.title_label']                 = 'כותרת';
 $lang['pages.slug_label']                  = 'URL';
@@ -40,9 +39,7 @@ $lang['pages.current_label']               = 'הנוכחי';
 
 $lang['pages.view_label']                  = 'הצג';
 $lang['pages.create_label']                = 'הוסף בן';
-$lang['pages.edit_label']                  = 'ערוך';
-$lang['pages.duplicate_label']				= 'Duplicate'; #translate
-$lang['pages.delete_label']                = 'מחק';
+$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'הוסף דף';

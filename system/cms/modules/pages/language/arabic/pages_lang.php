@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']					= 'أضف قُصاصة صفحة';
 $lang['pages.page_chunk']						= 'قُصاصة صفحة';
 $lang['pages.language_label'] 					= 'اللغة';
 $lang['pages.updated_label'] 					= 'آخر تحديث';
-$lang['pages.actions_label'] 					= 'إجراءات';
 $lang['pages.unknown_label'] 					= 'مجهول';
 $lang['pages.title_label'] 						= 'العنوان';
 $lang['pages.slug_label'] 						= 'عنوان URL';
@@ -42,9 +41,7 @@ $lang['pages.current_label']                                    = 'الحالي�
 
 $lang['pages.view_label'] 						= 'عرض';
 $lang['pages.create_label'] 					= 'إضافة صفحة فرعيّة';
-$lang['pages.edit_label'] 						= 'تعديل';
 $lang['pages.duplicate_label']					= 'مُكرّر';
-$lang['pages.delete_label'] 					= 'حذف';
 
 // titles
 $lang['pages.create_title'] 					= 'إضافة صفحة';

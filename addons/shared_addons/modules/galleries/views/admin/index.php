@@ -12,7 +12,7 @@
 					<th><?php echo lang('galleries.gallery_label'); ?></th>
 					<th width="140"><?php echo lang('galleries.num_photos_label'); ?></th>
 					<th width="140"><?php echo lang('galleries.updated_label'); ?></th>
-					<th width="350" class="align-center"><?php echo lang('galleries.actions_label'); ?></th>
+					<th width="300"></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -31,10 +31,10 @@
 					<td><?php echo format_date($gallery->updated_on); ?></td>
 					<td class="align-center buttons buttons-small">
 						<?php if ($gallery->folder_id && isset($folders[$gallery->folder_id]) && $path = $folders[$gallery->folder_id]->virtual_path): ?>
-							<?php echo anchor('admin/files#!path='	. $path, 	lang('galleries.upload_label'), 'class="button"'); ?>
+							<?php echo anchor('admin/files#!path='.$path, lang('galleries.upload_label'), 'class="button"'); ?>
 						<?php endif; ?>
-						<?php echo anchor('admin/galleries/manage/'	. $gallery->id, 			lang('galleries.manage_label'), 'class="button"'); ?>
-						<?php echo anchor('admin/galleries/delete/'	. $gallery->id, 			lang('galleries.delete_label'), array('class'=>'confirm button delete')); ?>
+						<?php echo anchor('admin/galleries/manage/'.$gallery->id, lang('galleries.manage_label'), 'class="button"'); ?>
+						<?php echo anchor('admin/galleries/delete/'.$gallery->id, lang('global:delete'), array('class'=>'confirm button delete')); ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
@@ -47,9 +47,10 @@
 	
 	<?php else: ?>
 		<div class="blank-slate">
-			<?php echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
-			
-			<h2><?php echo lang('galleries.no_galleries_error'); ?></h2>
+			<p>
+				<?php //echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
+				<?php echo lang('galleries.no_galleries_error'); ?>
+			</p>
 		</div>
 	<?php endif;?>
 	

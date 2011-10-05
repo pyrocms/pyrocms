@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.syntax_label']				= 'Sintaxis';
 $lang['variables.name_label']				= 'Nombre';
 $lang['variables.data_label']				= 'Valor';
-$lang['variables.actions_label']			= 'Acciones';
 
 // titles
 $lang['variables.create_title']				= 'Agregar variable';

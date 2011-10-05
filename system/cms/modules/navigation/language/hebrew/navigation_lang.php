@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'אב';
 $lang['nav_target_label']                       = 'Target';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'פעולות';
 $lang['nav_details_label']                      = 'פרטים';
 $lang['nav_text_label']                         = 'Text';
 $lang['nav_group_label']                        = 'קבוצה';
@@ -16,9 +15,6 @@ $lang['nav_uri_label']                          = 'קישור באתר (URI)';
 $lang['nav_page_label']                         = 'דף';
 $lang['nav_module_label']                       = 'מודול';
 $lang['nav_abbrev_label']                       = 'קצור';
-$lang['nav_edit_label']                         = 'ערוך';
-$lang['nav_delete_label']                       = 'מחק';
-$lang['nav_group_delete_label']                 = 'מחק קבוצה';
 
 $lang['nav_link_target_self']                   = 'החלון הנוכחי (default)';
 $lang['nav_link_target_blank']                  = 'חלון חדש (_blank)';

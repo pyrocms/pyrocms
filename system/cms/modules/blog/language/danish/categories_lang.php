@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label']            = 'Titel';
 $lang['cat_category_label']         = 'Kategori';
-$lang['cat_actions_label']          = 'Handlinger';
-$lang['cat_edit_label']             = 'Redigér';
-$lang['cat_delete_label']           = 'Slet';
 
 // titles
 $lang['cat_create_title']           = 'Tilføj kategori';
@@ -22,5 +19,3 @@ $lang['cat_mass_delete_error']      = 'Der opstod en fejl ved sletningen af kate
 $lang['cat_mass_delete_success']    = '%s kategorier ud af %s blev slettet.';
 $lang['cat_no_select_error']        = 'Du skal først vælge kategorier.';
 $lang['cat_already_exist_error']    = 'En kategori med navnet "%s" findes allerede.';
-
-?>

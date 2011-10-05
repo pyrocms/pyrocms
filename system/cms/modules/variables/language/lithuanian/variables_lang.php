@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Vardas';
 $lang['variables.syntax_label']				= 'Sintaksė';
 $lang['variables.data_label'] 			    = 'Reikšmė';
-$lang['variables.actions_label'] 			= 'Veiksmai';
 
 // titles
 $lang['variables.create_title'] 			= 'Pridėti Kintamajį';

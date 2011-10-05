@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Titolo';
 $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrizione';
 $lang['version_label'] 					= 'Versione';
-$lang['author_label'] 					= 'Autore';
-$lang['action_label'] 					= 'Azione';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author'] 					= 'Autore';
+$lang['global:action'] 					= 'Azione';
 
 $lang['dialog.delete_message'] 			= 'Sei sicuro di volerlo eliminare? L\'azione non pu&ograve; essere annullata.';
 $lang['dialog.confirm'] 				= 'Conferma';
 $lang['dialog.yes'] 					= 'Si';
 $lang['dialog.no'] 						= 'No';
 
-$lang['select.none'] 					= '-- Nessuno --';
-$lang['select.all'] 					= '-- Tutti --';
-$lang['select.any'] 					= '-- Ognuno --';
-$lang['select.pick'] 					= '-- Seleziona --';
+$lang['global:select-none'] 					= '-- Nessuno --';
+$lang['global:select-all'] 					= '-- Tutti --';
+$lang['global:select-any'] 					= '-- Ognuno --';
+$lang['global:select-pick'] 					= '-- Seleziona --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'None'; #translate
+$lang['global:check-all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Uguale a';
 $lang['operators.not_equal'] 			= 'Diverso da';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Aiuto';
 $lang['save_label'] 					= 'Salva';
 $lang['cancel_label'] 					= 'Annulla';
 $lang['update_label'] 					= 'Aggiorna';
-$lang['delete_label'] 					= 'Elimina';
+$lang['global:delete'] 					= 'Elimina';
 $lang['activate_label'] 				= 'Attiva';
 $lang['approve_label']					= 'Approva';
 $lang['unapprove_label']				= 'Rifiuta';
@@ -70,7 +69,10 @@ $lang['upgrade_label'] 					= 'Aggiorna';
 $lang['global:shortcuts'] 				= 'Collegamenti';
 $lang['global:description'] 		    = 'Descrizione';
 $lang['global:actions']					= 'Azioni';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Modifica';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Elimina';
 $lang['global:remove']					= 'Elimina';
 

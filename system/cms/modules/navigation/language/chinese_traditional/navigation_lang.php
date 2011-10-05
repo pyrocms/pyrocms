@@ -5,7 +5,6 @@ $lang['nav_title_label'] 						= '標題';
 $lang['nav_target_label']						= '目的';
 $lang['nav_class_label']						= 'Class'; #translate
 $lang['nav_url_label'] 							= '網址';
-$lang['nav_actions_label'] 						= '操作';
 $lang['nav_details_label'] 						= '細節';
 $lang['nav_text_label'] 						= '文字';
 $lang['nav_group_label'] 						= '群組';
@@ -15,9 +14,6 @@ $lang['nav_uri_label'] 							= '網站連結(URI)';
 $lang['nav_page_label'] 						= '頁面';
 $lang['nav_module_label'] 						= '模組';
 $lang['nav_abbrev_label'] 						= '縮寫';
-$lang['nav_edit_label'] 						= '編輯';
-$lang['nav_delete_label'] 						= '刪除';
-$lang['nav_group_delete_label']					= '刪除群組';
 
 $lang['nav_link_target_self'] 					= '原視窗開啟 (default)';
 $lang['nav_link_target_blank'] 					= '新視窗開啟 (_blank)';

@@ -19,12 +19,9 @@ $lang['themes.upload_desc']             = 'Prosimo izberite datoteko in kliknite
 
 $lang['themes.options']					= 'Nastavitve predloge';
 $lang['themes.theme_label']             = 'Predloga';
-$lang['themes.actions_label']           = 'Akcija';
 $lang['themes.make_default']            = 'Naredi za prednastavljeno';
-$lang['themes.description_label']		= 'Opis';
-$lang['themes.author_label']			= 'Avtor';
 $lang['themes.version_label']			= 'Različica';
 $lang['themes.default_theme_label']     = 'Prednastavljena predloga';
 $lang['themes.no_themes_installed']     = 'Ni nameščenih predlog.';
-// slovenian themes_lang.php
-?>
+
+// end slovenian themes_lang.php

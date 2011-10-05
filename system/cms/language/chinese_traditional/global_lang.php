@@ -6,22 +6,21 @@ $lang['title_label'] 					= '標題'; 		//'Title';
 $lang['name_label'] 					= '名稱'; 		//'Name';
 $lang['desc_label'] 					= '說明'; 		//'Description';
 $lang['version_label'] 					= '版本'; 		//'Version';
-$lang['author_label'] 					= '作者'; 		//'Author';
-$lang['action_label'] 					= '操作'; 		//'Action';
-$lang['actions_label']					= 'Actions'; #translate
+$lang['global:author'] 					= '作者'; 		//'Author';
+$lang['global:action'] 					= '操作'; 		//'Action';
 
 $lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
 $lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
 $lang['dialog.yes'] 					= '是'; 			//'Yes';
 $lang['dialog.no'] 						= '否'; 			//'No';
 
-$lang['select.none'] 					= '-- None --'; #translate
-$lang['select.all'] 					= '-- All --'; #translate
-$lang['select.any'] 					= '-- Any --'; #translate
-$lang['select.pick']					= '-- 請選擇 --';
+$lang['global:select-none'] 					= '-- None --'; #translate
+$lang['global:select-all'] 					= '-- All --'; #translate
+$lang['global:select-any'] 					= '-- Any --'; #translate
+$lang['global:select-pick']					= '-- 請選擇 --';
 
-$lang['check.none'] 					= 'None'; #translate
-$lang['check.all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'None'; #translate
+$lang['global:check-all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Equal to'; #translate
 $lang['operators.not_equal'] 			= 'Not equal to'; #translate
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Help';#translate
 $lang['save_label'] 					= '儲存'; 			//'Save';
 $lang['cancel_label'] 					= '取消'; 			//'Cancel';
 $lang['update_label'] 					= '更新'; 			//'Update Caption';
-$lang['delete_label'] 					= '刪除'; 			//'Delete';
+$lang['global:delete'] 					= '刪除'; 			//'Delete';
 $lang['activate_label'] 				= '啟動'; 			//'Activate';
 $lang['approve_label']					= '核准'; 			//'Approve';
 $lang['unapprove_label']				= '取消核准'; 		//'Unapprove';
@@ -65,3 +64,15 @@ $lang['uninstall_label'] 				= '卸載'; 			//'Uninstall';
 $lang['install_label'] 					= '安裝'; 			//'Install';
 $lang['enable_label']					= '啟用'; 			//'Enable';
 $lang['disable_label'] 					= '禁用'; 			//'Disable';
+
+$lang['global:shortcuts'] 				= 'Shortcuts'; #translate
+$lang['global:description']				= 'Description'; #translate
+$lang['global:actions']					= '操作';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
+$lang['global:edit']					= 'Edit'; #translate
+$lang['global:empty']					= 'Empty'; #translate
+$lang['global:delete']					= 'Delete'; #translate
+$lang['global:remove']					= 'Remove'; #translate
+
+$lang['global:keywords']				= 'Keywords'; #translate

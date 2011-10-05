@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Επανάληψη Συνθη�
 $lang['user_name_label']                       = 'Όνομα';
 $lang['user_joined_label']                     = 'Ημ/νια εγγραφής';
 $lang['user_last_visit_label']                 = 'Τελευταία επίσκεψη';
-$lang['user_actions_label']                    = 'Ενέργειες';
 $lang['user_never_label']                      = 'Ποτέ';
-$lang['user_delete_label']                     = 'Διαγραφή';
-$lang['user_edit_label']                       = 'Επεξεργασία';
-$lang['user_view_label']                       = 'Προβολή';
 
 $lang['user_no_inactives']                     = 'Δεν υπάρχουν ανενεργοί χρήστες.';
 $lang['user_no_registred']                     = 'Δεν υπάρχουν εγγεγραμμένοι χρήστες.';

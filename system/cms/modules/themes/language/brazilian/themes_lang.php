@@ -19,10 +19,7 @@ $lang['themes.upload_desc']				= 'Selecione o arquivo e clique no botão Enviar'
 
 $lang['themes.options']					= 'Opções';
 $lang['themes.theme_label'] 			= 'Tema';
-$lang['themes.actions_label']			= 'Ações';
 $lang['themes.make_default']			= 'Definir como padrão';
-$lang['themes.description_label']		= 'Descrição';
-$lang['themes.author_label']			= 'Autor';
 $lang['themes.version_label']			= 'Versão';
 $lang['themes.default_theme_label'] 	= 'Tema padrão';
 $lang['themes.no_themes_installed'] 	= 'Não existem temas instalados.';

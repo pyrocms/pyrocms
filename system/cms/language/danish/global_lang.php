@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Titel';
 $lang['name_label'] 					= 'Navn';
 $lang['desc_label'] 					= 'Beskrivelse';
 $lang['version_label'] 					= 'Version';
-$lang['author_label'] 					= 'Forfatter';
-$lang['action_label'] 					= 'Handling';
-$lang['actions_label'] 					= 'Handlinger';
+$lang['global:author'] 					= 'Forfatter';
+$lang['global:action'] 					= 'Handling';
 
 $lang['dialog.delete_message'] 			= 'Er du sikker på, at du vil slette dette? Det kan ikke ændres.';
 $lang['dialog.confirm'] 				= 'Bekræft';
 $lang['dialog.yes'] 					= 'Ja';
 $lang['dialog.no'] 						= 'Nej';
 
-$lang['select.none'] 					= '-- Ingen --';
-$lang['select.all'] 					= '-- Alt --';
-$lang['select.any'] 					= '-- Enhver --';
-$lang['select.pick'] 					= '-- Vælg --';
+$lang['global:select-none'] 					= '-- Ingen --';
+$lang['global:select-all'] 					= '-- Alt --';
+$lang['global:select-any'] 					= '-- Enhver --';
+$lang['global:select-pick'] 					= '-- Vælg --';
 
-$lang['check.none'] 					= 'Ingen';
-$lang['check.all']						= 'Alt';
+$lang['global:check-none'] 					= 'Ingen';
+$lang['global:check-all']						= 'Alt';
 
 $lang['operators.equal'] 				= 'Lig med';
 $lang['operators.not_equal'] 			= 'Ikke lig med';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Hjælp';
 $lang['save_label'] 					= 'Gem';
 $lang['cancel_label'] 					= 'Annulér';
 $lang['update_label'] 					= 'Opdatér';
-$lang['delete_label'] 					= 'Slet';
+$lang['global:delete'] 					= 'Slet';
 $lang['activate_label'] 				= 'Aktivér';
 $lang['approve_label']					= 'Godkend';
 $lang['unapprove_label']				= 'Godkend ikke';
@@ -66,6 +65,18 @@ $lang['install_label'] 					= 'Installér';
 $lang['enable_label']					= 'Aktivér';
 $lang['disable_label'] 					= 'Deaktivér';
 $lang['upgrade_label'] 					= 'Opgradér';
+
+$lang['global:shortcuts'] 				= 'Shortcuts'; #translate
+$lang['global:description']				= 'Description'; #translate
+$lang['global:actions']					= 'Handlinger';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
+$lang['global:edit']					= 'Edit'; #translate
+$lang['global:empty']					= 'Empty'; #translate
+$lang['global:delete']					= 'Delete'; #translate
+$lang['global:remove']					= 'Remove'; #translate
+
+$lang['global:keywords']				= 'Keywords'; #translate
 
 /* End of file main_lang.php */
 /* Location: ./system/cms/language/english/main_lang.php */

@@ -1,6 +1,7 @@
+<section class="item">
 <?php if ($widgets): ?>
 
-	<h3><?php echo lang($widgets_active ? 'widgets.active_title' : 'widgets.inactive_title'); ?></h3>
+	<h4><?php echo lang($widgets_active ? 'widgets.active_title' : 'widgets.inactive_title'); ?></h4>
 
 	<?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<!-- Available Widget List -->
@@ -12,9 +13,9 @@
 			<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 			<th width="20%"><?php echo lang('title_label'); ?></th>
 			<th><?php echo lang('desc_label'); ?></th>
-			<th width="130"><?php echo lang('author_label'); ?></th>
+			<th width="130"><?php echo lang('global:author'); ?></th>
 			<th width="80" class="align-center"><?php echo lang('version_label'); ?></th>
-			<th width="150" class="align-center"><span><?php echo lang('actions_label');?></span></th>
+			<th width="150"></th>
 		</tr>
 		</thead>
 		<tfoot>
@@ -58,3 +59,5 @@
 		<h2><?php echo lang('widgets.no_available_widgets'); ?></h2>
 	</div>
 <?php endif; ?>
+
+</section>
