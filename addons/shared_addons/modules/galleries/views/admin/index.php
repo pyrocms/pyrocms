@@ -47,9 +47,10 @@
 	
 	<?php else: ?>
 		<div class="blank-slate">
-			<?php echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
-			
-			<h2><?php echo lang('galleries.no_galleries_error'); ?></h2>
+			<p>
+				<?php //echo image('album.png', 'galleries', array('alt' => 'No Galleries')); ?>
+				<?php echo lang('galleries.no_galleries_error'); ?>
+			</p>
 		</div>
 	<?php endif;?>
 	
