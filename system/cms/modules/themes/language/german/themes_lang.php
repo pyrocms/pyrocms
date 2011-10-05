@@ -19,12 +19,7 @@ $lang['themes.upload_desc']             = 'Bitte wähle eine Datei aus und klick
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']             = 'Thema';
-$lang['themes.actions_label']           = 'Aktionen';
 $lang['themes.make_default']            = 'Als Standard festlegen';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
 $lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label']     = 'Standard-Thema';
 $lang['themes.no_themes_installed']     = 'Es sind keine Themen installiert.';
-
-?>

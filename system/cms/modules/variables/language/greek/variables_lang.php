@@ -15,9 +15,6 @@
 $lang['variables.name_label'] 			    = 'Όνομα';
 $lang['variables.syntax_label']				= 'Σύνταξη';
 $lang['variables.data_label'] 			    = 'Τιμή';
-$lang['variables.actions_label'] 			= 'Ενέργειες';
-$lang['variables.edit_label'] 				= 'Επεξεργασία';
-$lang['variables.delete_label'] 			= 'Διαγραφή';
 
 // titles
 $lang['variables.create_title'] 			= 'Προσθήκη Μεταβλητής';

@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
-$lang['author_label'] 					= 'Autor';
-$lang['action_label'] 					= 'Ação';
-$lang['actions_label'] 					= 'Ações';
+$lang['global:author'] 					= 'Autor';
+$lang['global:action'] 					= 'Ação';
 
 $lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
 $lang['dialog.confirm'] 				= 'Confirmar';
 $lang['dialog.yes'] 					= 'Sim';
 $lang['dialog.no'] 						= 'Não';
 
-$lang['select.none'] 					= '-- Nenhum --';
-$lang['select.all'] 					= '-- Todos --';
-$lang['select.any'] 					= '-- Qualquer --';
-$lang['select.pick']					= '-- Selecione --';
+$lang['global:select-none'] 					= '-- Nenhum --';
+$lang['global:select-all'] 					= '-- Todos --';
+$lang['global:select-any'] 					= '-- Qualquer --';
+$lang['global:select-pick']					= '-- Selecione --';
 
-$lang['check.none'] 					= 'Nenhum';
-$lang['check.all']						= 'Todos';
+$lang['global:check-none'] 					= 'Nenhum';
+$lang['global:check-all']						= 'Todos';
 
 $lang['operators.equal'] 				= 'Igual a';
 $lang['operators.not_equal'] 			= 'Diferente de';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Ajuda';
 $lang['save_label'] 					= 'Salvar';
 $lang['cancel_label'] 					= 'Cancelar';
 $lang['update_label'] 					= 'Atualizar título';
-$lang['delete_label'] 					= 'Remover';
+$lang['global:delete'] 					= 'Remover';
 $lang['activate_label'] 				= 'Ativar';
 $lang['approve_label']					= 'Aprovar';
 $lang['unapprove_label']				= 'Rejeitar';
@@ -69,7 +68,10 @@ $lang['disable_label'] 					= 'Desativar';
 $lang['global:shortcuts'] 				= 'Atalhos';
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Editar';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Remover';
 $lang['global:remove']					= 'Remover';
 

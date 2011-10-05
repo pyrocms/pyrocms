@@ -22,7 +22,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'Kieli';
 $lang['pages.updated_label']               = 'Päivitetty';
-$lang['pages.actions_label']               = 'Toiminnot';
 $lang['pages.unknown_label']               = 'Tuntematon';
 $lang['pages.title_label']                 = 'Otsikko';
 $lang['pages.slug_label']                  = 'Polkutunnus';
@@ -49,9 +48,7 @@ $lang['pages.current_label']               = 'Nykyinen';
 
 $lang['pages.view_label']                  = 'Katso';
 $lang['pages.create_label']                = 'Lisää alakohta';
-$lang['pages.edit_label']                  = 'Muokkaa';
-$lang['pages.duplicate_label']					= 'Duplicate'; #translate
-$lang['pages.delete_label']                = 'Poista';
+$lang['pages.duplicate_label']			   = 'Duplicate'; #translate
 
 // titles
 $lang['pages.create_title']                = 'Lisää sivu';

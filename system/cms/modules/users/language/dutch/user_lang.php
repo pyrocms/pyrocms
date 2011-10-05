@@ -26,11 +26,7 @@ $lang['user_password_confirm_label'] 	= 'Bevestig Wachtwoord';
 $lang['user_name_label'] 				= 'Naam';
 $lang['user_joined_label'] 				= 'Lid sinds';
 $lang['user_last_visit_label'] 			= 'Laatste bezoek';
-$lang['user_actions_label'] 			= 'Acties';
 $lang['user_never_label'] 				= 'Nooit';
-$lang['user_delete_label'] 				= 'Verwijder';
-$lang['user_edit_label'] 				= 'Wijzig';
-$lang['user_view_label'] 				= 'Bekijk';
 
 $lang['user_no_inactives'] 				= 'Er zijn geen inactieve gebruikers';
 $lang['user_no_registred'] 				= 'Er zijn geen geregistreerde gebruikers';

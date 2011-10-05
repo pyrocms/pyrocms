@@ -11,9 +11,6 @@
 // подписи
 $lang['cat_title_label'] 					= 'Заголовок';
 $lang['cat_category_label'] 			= 'Категория';
-$lang['cat_actions_label'] 				= 'Действия';
-$lang['cat_edit_label'] 					= 'Редактировать';
-$lang['cat_delete_label'] 				= 'Удалить';
 
 // заголовки
 $lang['cat_create_title'] 				= 'Создать категорию';

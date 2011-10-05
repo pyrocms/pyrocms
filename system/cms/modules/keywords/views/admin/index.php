@@ -3,7 +3,7 @@
 		<thead>
 			<tr>
 				<th width="40%"><?php echo lang('keywords:name');?></th>
-				<th width="200" class="align-center"><?php echo lang('action_label'); ?></th>
+				<th width="200"></th>
 			</tr>
 		</thead>
 		<tfoot>

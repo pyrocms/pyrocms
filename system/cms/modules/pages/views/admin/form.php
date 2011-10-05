@@ -58,7 +58,7 @@
 				<?php if ($this->method == 'create'): ?>
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="navigation_group_id"><?php echo lang('pages.navigation_label');?></label>
-					<?php echo form_dropdown('navigation_group_id', array(lang('select.none')) + $navigation_groups, $page->navigation_group_id); ?>
+					<?php echo form_dropdown('navigation_group_id', array(lang('global:select-none')) + $navigation_groups, $page->navigation_group_id); ?>
 				</li>
 				<?php endif; ?>
 				<?php foreach ($page->chunks as $chunk): ?>
@@ -138,7 +138,7 @@
 			<ul>
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="restricted_to[]"><?php echo lang('pages.access_label');?></label>
-					<?php echo form_multiselect('restricted_to[]', array(0 => lang('select.any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
+					<?php echo form_multiselect('restricted_to[]', array(0 => lang('global:select-any')) + $group_options, $page->restricted_to, 'size="'.(($count = count($group_options)) > 1 ? $count : 2).'"'); ?>
 				</li>
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="comments_enabled"><?php echo lang('pages.comments_enabled_label');?></label>

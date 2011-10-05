@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Envio de arquivo';
 $lang['files.edit_title']					= 'Editando o arquivo "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Ações';
 $lang['files.download_label']				= 'Download';
-$lang['files.edit_label']					= 'Editar';
-$lang['files.delete_label']					= 'Remover';
 $lang['files.upload_label']					= 'Enviar';
 $lang['files.description_label']			= 'Descrição';
 $lang['files.type_label']					= 'Tipo';

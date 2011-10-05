@@ -14,11 +14,7 @@
 					</th>
 					<th><?php echo lang('files.name_label'); ?></th>
 					<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
-					<th width="200" class="align-center">
-						<?php if (group_has_role('files', 'edit_folder') OR group_has_role('files', 'delete_folder')): ?>
-						<?php echo lang('files.actions_label'); ?>
-						<?php endif; ?>
-					</th>
+					<th width="200"></th>
 				</tr>
 			</thead>
 			<tfoot>

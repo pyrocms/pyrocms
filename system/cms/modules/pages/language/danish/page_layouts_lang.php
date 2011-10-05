@@ -6,12 +6,8 @@ $lang['page_layouts.css_label']                      = 'CSS';
 
 // labels
 $lang['page_layouts.updated_label']                  = 'Opdateret';
-$lang['page_layouts.actions_label']                  = 'Handlinger';
 $lang['page_layouts.title_label']                    = 'Titel';
 $lang['page_layouts.theme_layout_label']             = 'Tema layout';
-
-$lang['page_layouts.edit_label']                     = 'Redigér';
-$lang['page_layouts.delete_label']                   = 'Slet';
 
 // titles
 $lang['page_layouts.list_title']                     = 'List side layouts';

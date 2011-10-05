@@ -12,10 +12,8 @@
  */
 
 // labels
-$lang['variables.name_label'] 			    = 'Jméno';
 $lang['variables.syntax_label']				= 'Syntaxe';
 $lang['variables.data_label'] 			    = 'Hodnota';
-$lang['variables.actions_label'] 			= 'Akce';
 
 // titles
 $lang['variables.create_title'] 			= 'Přidat proměnnou';

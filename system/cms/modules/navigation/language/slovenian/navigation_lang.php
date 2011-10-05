@@ -6,7 +6,6 @@ $lang['nav_parent_label']						= 'Starš';
 $lang['nav_target_label']                       = 'Cilj';
 $lang['nav_class_label']                        = 'Class';
 $lang['nav_url_label']                          = 'URL';
-$lang['nav_actions_label']                      = 'Akcija';
 $lang['nav_details_label']                      = 'Podrobnosti';
 $lang['nav_text_label']                         = 'Tekst';
 $lang['nav_group_label']                        = 'Skupina';
@@ -16,9 +15,6 @@ $lang['nav_uri_label']                          = 'Povezava strani (URI)';
 $lang['nav_page_label']                         = 'Stran';
 $lang['nav_module_label']                       = 'Modul';
 $lang['nav_abbrev_label']                       = 'Kartica'; //predpona ?
-$lang['nav_edit_label']                         = 'Uredi';
-$lang['nav_delete_label']                       = 'Izbriši';
-$lang['nav_group_delete_label']                 = 'Izbrišite skupino';
 
 $lang['nav_link_target_self']                   = 'V istem oknu (prednastavljeno)';
 $lang['nav_link_target_blank']                  = 'Novo okno(_blank)';

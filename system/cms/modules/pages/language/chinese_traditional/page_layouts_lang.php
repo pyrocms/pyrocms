@@ -6,12 +6,8 @@ $lang['page_layouts.css_label'] 					= 'CSS';
 
 // labels
 $lang['page_layouts.updated_label'] 				= '已更新';
-$lang['page_layouts.actions_label'] 				= '操作';
 $lang['page_layouts.title_label'] 					= '標題';
 $lang['page_layouts.theme_layout_label'] 			= '主題佈局';
-
-$lang['page_layouts.edit_label'] 					= '編輯';
-$lang['page_layouts.delete_label'] 					= '刪除';
 
 // titles
 $lang['page_layouts.list_title'] 					= '頁面佈局列表';

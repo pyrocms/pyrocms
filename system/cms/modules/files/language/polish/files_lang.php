@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Wgraj pliki';
 $lang['files.edit_title']					= 'Edytuj plik "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Akcja';
 $lang['files.download_label']				= 'Pobierz';
-$lang['files.edit_label']					= 'Edytuj';
-$lang['files.delete_label']					= 'Usuń';
 $lang['files.upload_label']					= 'Wgraj';
 $lang['files.description_label']			= 'Opis';
 $lang['files.type_label']					= 'Typ';

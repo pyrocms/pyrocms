@@ -40,7 +40,7 @@ class Admin extends Admin_Controller {
         $this->_validation_rules = array(
 			array(
 				'field' => 'name',
-				'label' => 'lang:templates.name_label',
+				'label' => 'lang:global:name',
 				'rules' => $base_rules
 			),
 			array(
@@ -50,7 +50,7 @@ class Admin extends Admin_Controller {
 			),
 			array(
 				'field' => 'description',
-				'label' => 'lang:templates.description_label',
+				'label' => 'lang:global:description',
 				'rules' => $base_rules
 			),
 			array(

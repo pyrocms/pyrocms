@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Naslov';
 $lang['name_label'] 					= 'Ime';
 $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
-$lang['author_label'] 					= 'Avtor';
-$lang['action_label'] 					= 'Dejanje';
-$lang['actions_label']					= 'Akcije';
+$lang['global:author'] 					= 'Avtor';
+$lang['global:action'] 					= 'Dejanje';
 
 $lang['dialog.delete_message'] 			= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['dialog.confirm'] 				= 'Potrdi';
 $lang['dialog.yes'] 					= 'Da';
 $lang['dialog.no'] 						= 'Ne';
 
-$lang['select.none'] 					= '-- Brez --';
-$lang['select.all'] 					= '-- Vse --';
-$lang['select.any'] 					= '-- Izbrano --';
-$lang['select.pick'] 					= '-- Izberi --';
+$lang['global:select-none'] 					= '-- Brez --';
+$lang['global:select-all'] 					= '-- Vse --';
+$lang['global:select-any'] 					= '-- Izbrano --';
+$lang['global:select-pick'] 					= '-- Izberi --';
 
-$lang['check.none'] 					= 'Nič';
-$lang['check.all']						= 'Vse';
+$lang['global:check-none'] 					= 'Nič';
+$lang['global:check-all']						= 'Vse';
 
 $lang['operators.equal'] 				= 'Enako kot';
 $lang['operators.not_equal'] 			= 'Ni enako kot';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Pomoč';
 $lang['save_label'] 					= 'Shrani';
 $lang['cancel_label'] 					= 'Prekliči';
 $lang['update_label'] 					= 'Posodobi izbrano';
-$lang['delete_label'] 					= 'Izbriši';
+$lang['global:delete'] 					= 'Izbriši';
 $lang['activate_label'] 				= 'Aktiviraj';
 $lang['approve_label']					= 'Oddobri';
 $lang['unapprove_label']				= 'Prekliči oddobritev';
@@ -70,7 +69,10 @@ $lang['upgrade_label'] 					= 'Posodobi';
 $lang['global:shortcuts'] 				= 'Bližnjice';
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					= 'Dejanja';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Uredi';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Izbriši';
 $lang['global:remove']					= 'Odstrani';
 

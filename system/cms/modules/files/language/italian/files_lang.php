@@ -23,10 +23,7 @@ $lang['files.upload_title']					= 'Carica File';
 $lang['files.edit_title']					= 'Edit file "%s"'; #translate
 
 // Labels
-$lang['files.actions_label']				= 'Azione';
 $lang['files.download_label']				= 'Download'; #translate
-$lang['files.edit_label']					= 'Modifica';
-$lang['files.delete_label']					= 'Elimina';
 $lang['files.upload_label']					= 'Carica';
 $lang['files.description_label']			= 'Descrizione';
 $lang['files.type_label']					= 'Tipo';

@@ -14,7 +14,6 @@ $lang['pages.add_page_chunk']			   = 'Προσθήκη Περιοχής Σελί
 $lang['pages.page_chunk']				   = 'Περιοχής Σελίδας';
 $lang['pages.language_label']              = 'Γλώσσα';
 $lang['pages.updated_label']               = 'Ενημερώθηκε';
-$lang['pages.actions_label']               = 'Ενέργειες';
 $lang['pages.unknown_label']               = 'Άγνωστο';
 $lang['pages.title_label']                 = 'Τίτλος';
 $lang['pages.slug_label']                  = 'URL';
@@ -39,9 +38,7 @@ $lang['pages.current_label']               = 'Τρέχουσα';
 
 $lang['pages.view_label']                  = 'Προβολή';
 $lang['pages.create_label']                = 'Προσθήκη υποσελίδας';
-$lang['pages.edit_label']                  = 'Επεξεργασία';
-$lang['pages.duplicate_label']					= 'Αντίγραφο';
-$lang['pages.delete_label']                = 'Διαγραφή';
+$lang['pages.duplicate_label']			   = 'Αντίγραφο';
 
 // titles
 $lang['pages.create_title']                = 'Προσθήκη σελίδας';

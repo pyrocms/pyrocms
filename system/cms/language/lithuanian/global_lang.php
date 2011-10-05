@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
 $lang['desc_label'] 					= 'Description';
 $lang['version_label'] 					= 'Version';
-$lang['author_label'] 					= 'Author';
-$lang['action_label'] 					= 'Action';
-$lang['actions_label'] 					= 'Actions';
+$lang['global:author'] 					= 'Author';
+$lang['global:action'] 					= 'Action';
 
 $lang['dialog.delete_message'] 			= 'Are you sure you want to delete this? It cannot be undone.';
 $lang['dialog.confirm'] 				= 'Confirm';
 $lang['dialog.yes'] 					= 'Yes';
 $lang['dialog.no'] 						= 'No';
 
-$lang['select.none'] 					= '-- None --';
-$lang['select.all'] 					= '-- All --';
-$lang['select.any'] 					= '-- Any --';
-$lang['select.pick'] 					= '-- Select --';
+$lang['global:select-none'] 					= '-- None --';
+$lang['global:select-all'] 					= '-- All --';
+$lang['global:select-any'] 					= '-- Any --';
+$lang['global:select-pick'] 					= '-- Select --';
 
-$lang['check.none'] 					= 'None';
-$lang['check.all']						= 'All';
+$lang['global:check-none'] 					= 'None'; #translate
+$lang['global:check-all']						= 'All'; #translate
 
 $lang['operators.equal'] 				= 'Equal to';
 $lang['operators.not_equal'] 			= 'Not equal to';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Help';
 $lang['save_label'] 					= 'Save';
 $lang['cancel_label'] 					= 'Cancel';
 $lang['update_label'] 					= 'Update Caption';
-$lang['delete_label'] 					= 'Delete';
+$lang['global:delete'] 					= 'Delete';
 $lang['activate_label'] 				= 'Activate';
 $lang['approve_label']					= 'Approve';
 $lang['unapprove_label']				= 'Unapprove';
@@ -67,13 +66,16 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
-$lang['global:shortcuts'] 				= 'Shortcuts';
-$lang['global:description']				= 'Description';
-$lang['global:actions']					= 'Actions';
-$lang['global:edit']					= 'Edit';
-$lang['global:delete']					= 'Delete';
-$lang['global:remove']					= 'Remove';
+$lang['global:shortcuts']	 			= 'Nuoroda';
+$lang['global:description'] 		    = 'Aprašymas';
+$lang['global:actions']					= 'Veiksmai';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
+$lang['global:edit']					= 'Redaguoti';
+$lang['global:empty']					= 'Empty'; #translate
+$lang['global:delete']					= 'Ištrinti';
+$lang['global:remove']					= 'Ištrinti';
 
-$lang['global:keywords']				= 'Keywords';
+$lang['global:keywords']				= 'Keywords'; #translate
 
 /* End of file main_lang.php */

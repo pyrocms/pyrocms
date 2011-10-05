@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label'] 				= 'Titel';
 $lang['cat_category_label'] 			= 'Categorie';
-$lang['cat_actions_label'] 				= 'Acties';
-$lang['cat_edit_label'] 				= 'Wijzig';
-$lang['cat_delete_label'] 				= 'Verwijderen';
 
 // titles
 $lang['cat_create_title'] 				= 'Voeg categorie toe';
@@ -22,5 +19,3 @@ $lang['cat_mass_delete_error'] 			= 'Er is een fout opgetreden bij het verwijder
 $lang['cat_mass_delete_success']		= '%s categori&euml;n van de %s zijn verwijderd.';
 $lang['cat_no_select_error'] 			= 'U moet eerst een categorie selecteren.';
 $lang['cat_already_exist_error']		= 'Een categorie met de naam "%s" bestaat al.';
-
-?>

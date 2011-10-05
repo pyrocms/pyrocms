@@ -11,9 +11,6 @@
  */
 
 // Подписи
-$lang['templates.actions_label']					= 'Действия';
-$lang['templates.name_label']							= 'Имя';
-$lang['templates.description_label']			= 'Описание';
 $lang['templates.language_label']					= 'Язык';
 $lang['templates.choose_lang_label']			= 'Выберите язык';
 $lang['templates.subject_label']					= 'Тема';

@@ -19,12 +19,7 @@ $lang['themes.upload_desc']				= 'Proszę wybrać plik i nacisnąć "Upload"';
 
 $lang['themes.options']					= 'Opcje';
 $lang['themes.theme_label'] 			= 'Motyw';
-$lang['themes.actions_label']			= 'Akcje';
 $lang['themes.make_default']			= 'Wybierz jako domyślny';
-$lang['themes.description_label']		= 'Opis';
-$lang['themes.author_label']			= 'Autor';
 $lang['themes.version_label']			= 'Wersja';
 $lang['themes.default_theme_label'] 	= 'Motyw domyślny';
 $lang['themes.no_themes_installed'] 	= 'Brak zainstalowanych motywów.';
-
-?>

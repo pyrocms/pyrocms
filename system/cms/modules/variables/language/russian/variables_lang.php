@@ -12,10 +12,8 @@
  */
 
 // Подписи
-$lang['variables.name_label']							= 'Название';
 $lang['variables.syntax_label']						= 'Синтаксис';
 $lang['variables.data_label']							= 'Значение';
-$lang['variables.actions_label']					= 'Действия';
 
 // Заголовки
 $lang['variables.create_title']						= 'Создание переменной';

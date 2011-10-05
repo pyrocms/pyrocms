@@ -27,7 +27,7 @@ class Admin extends Admin_Controller
 	private	$_validation_rules = array(
 		array(
 			'field' => 'name',
-			'label' => 'lang:variables.name_label',
+			'label' => 'lang:global:name',
 			'rules' => 'trim|required|alpha_dash|max_length[50]|callback__check_name[0]'
 		),
 		array(

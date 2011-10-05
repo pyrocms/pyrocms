@@ -19,12 +19,7 @@ $lang['themes.upload_desc']             = 'Pažymėkite failą ir spauskite mygt
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']             = 'Tema';
-$lang['themes.actions_label']           = 'Veiksmai';
 $lang['themes.make_default']            = 'Padaryti numatytaja';
-$lang['themes.description_label']		= 'Aprašymas';
-$lang['themes.author_label']			= 'Autorius';
 $lang['themes.version_label']			= 'Versija';
 $lang['themes.default_theme_label']     = 'Numatytoji tema';
 $lang['themes.no_themes_installed']     = 'Nėra instaliuotų temų.';
-
-?>

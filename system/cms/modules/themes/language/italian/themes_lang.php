@@ -19,12 +19,7 @@ $lang['themes.upload_desc']				= 'Seleziona un file e clicca sul tasto Carica';
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label'] 			= 'Tema';
-$lang['themes.actions_label']			= 'Azioni';
 $lang['themes.make_default']			= 'Rendi predefinito';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
 $lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label'] 	= 'Tema predefinito';
 $lang['themes.no_themes_installed'] 	= 'Non ci sono temi installati.';
-
-?>

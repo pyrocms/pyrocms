@@ -6,22 +6,21 @@ $lang['title_label'] 					= 'Τίτλος';
 $lang['name_label'] 					= 'Όνομα';
 $lang['desc_label'] 					= 'Περιγραφή';
 $lang['version_label'] 					= 'Έκδοση';
-$lang['author_label'] 					= 'Συγγραφέας';
-$lang['action_label'] 					= 'Ενέργεια';
-$lang['actions_label']					= 'Ενέργειες';
+$lang['global:author'] 					= 'Συγγραφέας';
+$lang['global:action'] 					= 'Ενέργεια';
 
 $lang['dialog.delete_message'] 			= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['dialog.confirm'] 				= 'Επιβεβαίωση';
 $lang['dialog.yes'] 					= 'Ναι';
 $lang['dialog.no'] 						= 'Όχι';
 
-$lang['select.none'] 					= '-- Κανένα --';
-$lang['select.all'] 					= '-- Όλα --';
-$lang['select.any'] 					= '-- Όποιο νά \'ναι --';
-$lang['select.pick'] 					= '-- Επιλογή --';
+$lang['global:select-none'] 					= '-- Κανένα --';
+$lang['global:select-all'] 					= '-- Όλα --';
+$lang['global:select-any'] 					= '-- Όποιο νά \'ναι --';
+$lang['global:select-pick'] 					= '-- Επιλογή --';
 
-$lang['check.none'] 					= 'Κανένα';
-$lang['check.all']						= 'Όλα';
+$lang['global:check-none'] 					= 'Κανένα';
+$lang['global:check-all']						= 'Όλα';
 
 $lang['operators.equal'] 				= 'Ίσο με';
 $lang['operators.not_equal'] 			= 'Όχι ίσο με';
@@ -55,7 +54,7 @@ $lang['help_label'] 					= 'Βοήθεια';
 $lang['save_label'] 					= 'Αποθήκευση';
 $lang['cancel_label'] 					= 'Άκυρο';
 $lang['update_label'] 					= 'Ενημέρωση Λεζάντας';
-$lang['delete_label'] 					= 'Διαγραφή';
+$lang['global:delete'] 					= 'Διαγραφή';
 $lang['activate_label'] 				= 'Ενεργοποίηση';
 $lang['approve_label']					= 'Έγκριση';
 $lang['unapprove_label']				= 'Απόρριψη';
@@ -70,7 +69,10 @@ $lang['upgrade_label'] 					= 'Ενημέρωση';
 $lang['global:shortcuts'] 				= 'Συντομέυσεις';
 $lang['global:description'] 		    = 'Περιγραφή';
 $lang['global:actions']					= 'Ενέργειες';
+$lang['global:view']					= 'View'; #translate
+$lang['global:preview']					= 'Preview'; #translate
 $lang['global:edit']					= 'Επεξεργασία';
+$lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Διαγραφή';
 $lang['global:remove']					= 'Διαγραφή';
 

@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']				= 'Dodaj košček strani';
 $lang['pages.page_chunk']					= 'Košček strani';
 $lang['pages.language_label']              = 'Jezik';
 $lang['pages.updated_label']               = 'Posodobljeno';
-$lang['pages.actions_label']               = 'Akcije';
 $lang['pages.unknown_label']               = 'Neznan';
 $lang['pages.title_label']                 = 'Naslov';
 $lang['pages.slug_label']                  = 'URL';
@@ -40,8 +39,6 @@ $lang['pages.current_label']               = 'Trenutno';
 $lang['pages.view_label']                  = 'Ogled';
 $lang['pages.create_label']                = 'Dodaj podstran';
 $lang['pages.duplicate_label']				= 'Podvoji';
-$lang['pages.edit_label']                  = 'Uredi';
-$lang['pages.delete_label']                = 'Izbriši';
 
 // titles
 $lang['pages.create_title']                = 'Dodaj stran';

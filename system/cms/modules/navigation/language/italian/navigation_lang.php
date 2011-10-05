@@ -6,7 +6,6 @@
 $lang['nav_title_label'] 						= 'Titolo';
 $lang['nav_target_label']						= 'Target';
 $lang['nav_url_label'] 							= 'URL';
-$lang['nav_actions_label'] 						= 'Azioni';
 $lang['nav_details_label'] 						= 'Dettagli';
 $lang['nav_text_label'] 						= 'Testo';
 $lang['nav_group_label'] 						= 'Gruppo';
@@ -16,11 +15,6 @@ $lang['nav_uri_label'] 							= 'Collegamento nel sito (URI)';
 $lang['nav_page_label'] 						= 'Pagina';
 $lang['nav_module_label'] 						= 'Modulo';
 $lang['nav_abbrev_label'] 						= 'Abbreviazione';
-$lang['nav_edit_label'] 						= 'Modifica';
-$lang['nav_delete_label'] 						= 'Elimina';
-$lang['nav_group_delete_label']					= 'Elimina gruppo';
-$lang['nav_link_module_select_default'] 		= '-- Seleziona --';
-$lang['nav_link_page_select_default'] 			= '-- Seleziona --';
 
 $lang['nav_link_target_self'] 					= 'Finestra corrente (default)';
 $lang['nav_link_target_blank'] 					= 'Nuova finestra (_blank)';

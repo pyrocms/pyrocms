@@ -26,11 +26,7 @@ $lang['user_password_confirm_label']           = 'Bekræft password';
 $lang['user_name_label']                       = 'Navn';
 $lang['user_joined_label']                     = 'Deltog';
 $lang['user_last_visit_label']                 = 'Sidste besøg';
-$lang['user_actions_label']                    = 'Handlinger';
 $lang['user_never_label']                      = 'Aldrig';
-$lang['user_delete_label']                     = 'Slet';
-$lang['user_edit_label']                       = 'Redigér';
-$lang['user_view_label']                       = 'Se';
 
 $lang['user_no_inactives']                     = 'Der er ingen inaktive brugere.';
 $lang['user_no_registred']                     = 'Der er ingen registrede brugere.';

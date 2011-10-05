@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Upload Bestanden';
 $lang['files.edit_title']					= 'Bewerk bestand "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Actie';
 $lang['files.download_label']				= 'Download';
-$lang['files.edit_label']					= 'Wijzig';
-$lang['files.delete_label']					= 'Verwijderen';
 $lang['files.upload_label']					= 'Upload';
 $lang['files.description_label']			= 'Beschrijving';
 $lang['files.type_label']					= 'Type';

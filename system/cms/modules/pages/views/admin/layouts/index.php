@@ -11,7 +11,7 @@
 					<tr>
 						<th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 						<th><?php echo lang('page_layouts.title_label');?></th>
-						<th><span><?php echo lang('page_layouts.actions_label');?></span></th>
+						<th></th>
 					</tr>
 				</thead>
 				
@@ -21,8 +21,8 @@
 							<td><?php echo form_checkbox('action_to[]', $page_layout->id); ?></td>
 							<td><?php echo $page_layout->title;?></td>
 							<td>
-								<?php echo anchor('admin/pages/layouts/edit/' . $page_layout->id, lang('page_layouts.edit_label'));?> | 
-								<?php echo anchor('admin/pages/layouts/delete/' . $page_layout->id, lang('page_layouts.delete_label'), array('class'=>'confirm'));?>
+								<?php echo anchor('admin/pages/layouts/edit/' . $page_layout->id, lang('global:edit'));?> | 
+								<?php echo anchor('admin/pages/layouts/delete/' . $page_layout->id, lang('global:delete'), array('class'=>'confirm'));?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

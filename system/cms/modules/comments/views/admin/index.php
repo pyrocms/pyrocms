@@ -15,10 +15,10 @@
 						<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 						<th width="25%"><?php echo lang('comments.message_label');?></th>
 						<th><?php echo lang('comments.item_label');?></th>
-						<th><?php echo lang('comments.author_label');?></th>
+						<th><?php echo lang('global:author');?></th>
 						<th><?php echo lang('comments.email_label');?></th>
-						<th width="80"><?php echo lang('comments.date_label');?></th>
-						<th width="<?php echo Settings::get('moderate_comments') ? '320': '220'; ?>" class="align-center"><?php echo lang('comments.actions_label');?></th>
+						<th width="80"><?php echo lang('comments_active.date_label');?></th>
+						<th width="<?php echo Settings::get('moderate_comments') ? '200': '120'; ?>"></th>
 					</tr>
 				</thead>
 			
@@ -47,7 +47,7 @@
 							<td><?php echo isset($comment->item) ? $comment->item : '???'; ?></td>
 							
 							<td>
-								<?php if($comment->user_id > 0): ?>
+								<?php if ($comment->user_id > 0): ?>
 									<?php echo anchor('admin/users/edit/' . $comment->user_id, $comment->name); ?>
 								<?php else: ?>
 									<?php echo $comment->name;?>
@@ -59,15 +59,15 @@
 						
 							<td class="align-center buttons buttons-small">
 								<?php if ($this->settings->moderate_comments): ?>
-									<?php if($comment->is_active): ?>
-										<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('comments.deactivate_label'), 'class="button deactivate"'); ?>
+									<?php if ($comment->is_active): ?>
+										<?php echo anchor('admin/comments/unapprove/' . $comment->id, lang('deactivate_label'), 'class="button deactivate"'); ?>
 									<?php else: ?>
-										<?php echo anchor('admin/comments/approve/' . $comment->id, lang('comments.activate_label'), 'class="button activate"'); ?>
+										<?php echo anchor('admin/comments/approve/' . $comment->id, lang('activate_label'), 'class="button activate"'); ?>
 									<?php endif; ?>
 								<?php endif; ?>
 							
-								<?php echo anchor('admin/comments/edit/' . $comment->id, lang('comments.edit_label'), 'class="button edit"'); ?>
-								<?php echo anchor('admin/comments/delete/' . $comment->id, lang('comments.delete_label'), array('class'=>'confirm button delete')); ?>
+								<?php echo anchor('admin/comments/edit/' . $comment->id, lang('global:edit'), 'class="button edit"'); ?>
+								<?php echo anchor('admin/comments/delete/' . $comment->id, lang('global:delete'), array('class'=>'confirm button delete')); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

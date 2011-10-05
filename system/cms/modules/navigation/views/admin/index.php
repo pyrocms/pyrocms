@@ -11,7 +11,7 @@
 					
 					<li>
 						<h4 class="form-title group-title-<?php echo $group->id; ?>"></h4>
-						<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('nav_group_delete_label'), array('class' => "confirm button",  'title' => lang('nav_group_delete_confirm'))) ?>
+						<?php echo anchor('admin/navigation/groups/delete/'.$group->id, lang('global:delete'), array('class' => "confirm button",  'title' => lang('nav_group_delete_confirm'))) ?>
 					</li>
 				</ul>
 			

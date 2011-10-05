@@ -19,12 +19,7 @@ $lang['themes.upload_desc']				= '請選擇檔案並點選上傳按鈕。';
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label'] 			= '佈景主題';
-$lang['themes.actions_label']			= '操作';
 $lang['themes.make_default']			= '設為預設';
-$lang['themes.description_label']		= 'Description'; #translate
-$lang['themes.author_label']			= 'Author'; #translate
 $lang['themes.version_label']			= 'Version'; #translate
 $lang['themes.default_theme_label'] 	= '預設佈景主題';
 $lang['themes.no_themes_installed'] 	= '目前沒有安裝任何佈景主題。';
-
-?>

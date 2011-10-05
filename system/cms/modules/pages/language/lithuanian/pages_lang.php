@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label']              = 'Kalba';
 $lang['pages.updated_label']               = 'Atnaujinta';
-$lang['pages.actions_label']               = 'Veiksmai';
 $lang['pages.unknown_label']               = 'Nežinomas';
 $lang['pages.title_label']                 = 'Pavadinimas';
 $lang['pages.slug_label']                  = 'URL';
@@ -41,8 +40,6 @@ $lang['pages.current_label']               = 'Dabartinis';
 $lang['pages.view_label']                  = 'Vaizdas';
 $lang['pages.create_label']                = 'Pridėti vaiką';
 $lang['pages.duplicate_label']			   = 'Duplicate'; #translate
-$lang['pages.edit_label']                  = 'Redaguoti';
-$lang['pages.delete_label']                = 'Ištrinti';
 
 // titles
 $lang['pages.create_title']                = 'Pridėti puslapį';

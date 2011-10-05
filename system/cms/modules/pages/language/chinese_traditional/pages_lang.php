@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk'; #translate
 $lang['pages.page_chunk']							= 'Page Chunk'; #translate
 $lang['pages.language_label'] 					= '語言';
 $lang['pages.updated_label'] 					= '已更新';
-$lang['pages.actions_label'] 					= '操作';
 $lang['pages.unknown_label'] 					= '未知';
 $lang['pages.title_label'] 						= '標題';
 $lang['pages.slug_label'] 						= '網址';
@@ -42,9 +41,7 @@ $lang['pages.current_label']                    = 'Current'; #translate
 
 $lang['pages.view_label'] 						= '查看';
 $lang['pages.create_label'] 					= '新增子頁面';
-$lang['pages.edit_label'] 						= '編輯';
 $lang['pages.duplicate_label']					= 'Duplicate'; #translate
-$lang['pages.delete_label'] 					= '刪除';
 
 // titles
 $lang['pages.create_title'] 					= '新增頁面';

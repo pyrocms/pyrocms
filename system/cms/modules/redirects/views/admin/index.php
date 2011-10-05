@@ -9,7 +9,7 @@
 				<th width="30"><?php echo form_checkbox('action_to_all');?></th>
 				<th width="25%"><?php echo lang('redirects.from');?></th>
 				<th><?php echo lang('redirects.to');?></th>
-				<th width="200" class="align-center"><?php echo lang('action_label'); ?></th>
+				<th width="200"></th>
 			</tr>
 	    </thead>
 		<tfoot>

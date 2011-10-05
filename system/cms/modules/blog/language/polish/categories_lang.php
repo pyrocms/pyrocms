@@ -3,9 +3,6 @@
 // labels
 $lang['cat_title_label'] 				= 'Tytuł';
 $lang['cat_category_label']             = 'Kategoria';
-$lang['cat_actions_label'] 				= 'Akcje';
-$lang['cat_edit_label'] 				= 'Edytuj';
-$lang['cat_delete_label'] 				= 'Kasuj';
 
 // titles
 $lang['cat_create_title'] 				= 'Dodaj kategorie';
@@ -22,5 +19,3 @@ $lang['cat_mass_delete_error']          = 'Wystąpił błąd przy usuwaniu kateg
 $lang['cat_mass_delete_success']        = '%s kategorii z %s zostało pomyślnie skasowanych.';
 $lang['cat_no_select_error']            = 'Musisz najpierw wybrać kategorię.';
 $lang['cat_already_exist_error']        = 'Kategoria "%s" już istnieje.';
-
-?>

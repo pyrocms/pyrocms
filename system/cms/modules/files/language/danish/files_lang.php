@@ -21,10 +21,7 @@ $lang['files.upload_title']					= 'Upload filer';
 $lang['files.edit_title']					= 'Redigér filen "%s"';
 
 // Labels
-$lang['files.actions_label']				= 'Handlinger';
 $lang['files.download_label']				= 'Download';
-$lang['files.edit_label']					= 'Redigér';
-$lang['files.delete_label']					= 'Slet';
 $lang['files.upload_label']					= 'Upload';
 $lang['files.description_label']			= 'Beskrivelse';
 $lang['files.type_label']					= 'Type';

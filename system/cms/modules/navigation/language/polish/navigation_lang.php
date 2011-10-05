@@ -5,7 +5,6 @@ $lang['nav_title_label'] 						= 'Tytuł';
 $lang['nav_target_label']						= 'Cel';
 $lang['nav_class_label']						= 'Klasa (Class)';
 $lang['nav_url_label'] 							= 'URL';
-$lang['nav_actions_label'] 						= 'Akcja';
 $lang['nav_details_label'] 						= 'Szczegóły';
 $lang['nav_text_label'] 						= 'Treść';
 $lang['nav_group_label'] 						= 'Grupa';
@@ -15,9 +14,6 @@ $lang['nav_uri_label'] 							= 'Link do strony (URI)';
 $lang['nav_page_label'] 						= 'Strona';
 $lang['nav_module_label'] 						= 'Moduł';
 $lang['nav_abbrev_label'] 						= 'Skrót';
-$lang['nav_edit_label'] 						= 'Edytuj';
-$lang['nav_delete_label'] 						= 'Usuń';
-$lang['nav_group_delete_label']					= 'Usuń grupę';
 
 $lang['nav_link_target_self'] 					= 'Obecne okno (domyślnie)';
 $lang['nav_link_target_blank'] 					= 'Nowe okno (_blank)';

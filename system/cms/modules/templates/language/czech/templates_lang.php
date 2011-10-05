@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Labels
-$lang['templates.actions_label']			= 'Akce';
-$lang['templates.name_label']				= 'Jméno';
-$lang['templates.description_label']		= 'Popis';
 $lang['templates.language_label']			= 'Jazyk';
 $lang['templates.choose_lang_label']		= 'Vyberte jazyk';
 $lang['templates.subject_label']			= 'Předmět';

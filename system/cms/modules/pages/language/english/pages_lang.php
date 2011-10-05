@@ -15,7 +15,6 @@ $lang['pages.add_page_chunk']						= 'Add Page Chunk';
 $lang['pages.page_chunk']							= 'Page Chunk';
 $lang['pages.language_label']						= 'Language';
 $lang['pages.updated_label']						= 'Updated';
-$lang['pages.actions_label']						= 'Actions';
 $lang['pages.unknown_label']						= 'Unknown';
 $lang['pages.title_label']							= 'Title';
 $lang['pages.slug_label']							= 'URL';
@@ -42,9 +41,7 @@ $lang['pages.current_label']						= 'Current';
 
 $lang['pages.view_label']							= 'View';
 $lang['pages.create_label']							= 'Add child';
-$lang['pages.edit_label']							= 'Edit';
 $lang['pages.duplicate_label']						= 'Duplicate';
-$lang['pages.delete_label']							= 'Delete';
 
 // titles
 $lang['pages.create_title']							= 'Add page';

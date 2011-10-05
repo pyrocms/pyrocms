@@ -19,12 +19,7 @@ $lang['themes.upload_desc']             = 'Please select a file and click Upload
 
 $lang['themes.options']					= 'Options'; #translate
 $lang['themes.theme_label']             = 'ערכת נושא';
-$lang['themes.actions_label']           = 'פעולות';
 $lang['themes.make_default']            = 'הפוך לברירת מחדל';
-$lang['themes.description_label']		= 'תיאור';
-$lang['themes.author_label']			= 'מחבר';
 $lang['themes.version_label']			= 'גרסה';
 $lang['themes.default_theme_label']     = 'ערכת נושא ברירת מחדל';
 $lang['themes.no_themes_installed']     = 'אין ערכות נושאים מותקנות.';
-
-?>
