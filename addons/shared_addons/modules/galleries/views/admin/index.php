@@ -1,4 +1,6 @@
-<section class="title"></section>
+<section class="title">
+	<h4><?php echo lang('galleries.galleries_label'); ?></h4>
+</section>
 
 <section class="item">
 	<?php echo form_open('admin/galleries/delete');?>
