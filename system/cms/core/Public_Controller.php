@@ -46,6 +46,18 @@ class Public_Controller extends MY_Controller
 		$this->config->set_item('theme_asset_dir', dirname($this->theme->path).'/');
 		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->theme->web_path).'/');
 
+		$this->admin_theme = $this->themes_m->get_admin();
+		
+		// Using a bad slug? Weak
+		if (empty($this->admin_theme->slug)){
+			show_error('This site has been set to use an admin theme that does not exist.');
+		}
+	
+		$admin_theme =  $this->admin_theme->slug;
+		$this->config->set_item('asset_dir', dirname($this->admin_theme->path).'/'.$admin_theme.'/');
+		$this->config->set_item('asset_url', BASE_URI.dirname($this->admin_theme->web_path).'/'.$admin_theme.'/');
+
+
 	    // Set the theme view folder
 	    $this->template
 			->set_theme($this->theme->slug)
