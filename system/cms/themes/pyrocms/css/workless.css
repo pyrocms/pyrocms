@@ -1413,6 +1413,10 @@ section#content ul li {
 	list-style: none;
 }
 
+#blog-content-tab {
+	width: 100%;
+}
+
 section.title {
   	width: 100%;
 	min-height: 25px;
