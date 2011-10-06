@@ -454,6 +454,10 @@ table .headerSortUp.purple, table .headerSortDown.purple {
   background-color: #e2d5f0;
 }
 
+table .actions {
+	text-align: right;
+}
+
 /*
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
@@ -1407,6 +1411,10 @@ section#content ul {
 
 section#content ul li {
 	list-style: none;
+}
+
+#blog-content-tab {
+	width: 100%;
 }
 
 section.title {

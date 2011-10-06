@@ -21,8 +21,8 @@
 				
 				<section class="item">
 					
-					<div id="link-list">
-						<ol class="sortable">
+					<div style="background:#eeeeee;padding:15px 15px 0 0;" id="link-list">
+						<ul class="sortable">
 					
 							<?php foreach($navigation[$group->id] as $link): ?>
 						
@@ -42,7 +42,7 @@
 									
 							<?php endforeach; ?>
 					
-						</ol>
+						</ul>
 					</div>
 					
 					<div id="link-details" class="group-<?php echo $group->id; ?>">
@@ -59,12 +59,12 @@
 
 				<section class="item collapsed">
 					
-					<div id="link-list" class="empty">
-						<ol class="sortable">
+					<div style="background:#eeeeee;padding:15px 15px 0 0;" id="link-list" class="empty">
+						<ul class="sortable">
 					
 							<p><?php echo lang('nav_group_no_links');?></p>
 					
-						</ol>
+						</ul>
 					</div>
 					
 					<div id="link-details" class="group-<?php echo $group->id; ?>">
@@ -84,6 +84,6 @@
 		
 <?php else: ?>
 	<div class="blank-slate">
-		<h2><?php echo lang('nav_no_groups');?></h2>
+		<p><?php echo lang('nav_no_groups');?></p>
 	</div>
 <?php endif; ?>

@@ -1,3 +1,7 @@
+<section class="title">
+	<h4><?php echo lang('redirects.list_title'); ?></h4>
+</section>
+
 <?php if ($redirects): ?>
 	
 	<section class="item">
@@ -26,7 +30,7 @@
 			<td><?php echo $redirect->from;?></td>
 			<td><?php echo $redirect->to;?></td>
 			<td class="align-center">
-			<div class="buttons buttons-small">
+			<div class="actions">
 			    <?php echo anchor('admin/redirects/edit/' . $redirect->id, lang('redirects.edit'), 'class="button edit"');?>
 				<?php echo anchor('admin/redirects/delete/' . $redirect->id, lang('redirects.delete'), array('class'=>'confirm button delete'));?>
 			</div>

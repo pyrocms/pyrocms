@@ -68,10 +68,10 @@ $lang['disable_label'] 					= 'تعطيل';
 $lang['global:shortcuts'] 				= 'الاختصارات';
 $lang['global:description'] 		    = 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
+$lang['global:view']					= 'عرض';
+$lang['global:preview']					= 'مُعاينة';
 $lang['global:edit']					= 'تعديل';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'فارغ';
 $lang['global:delete']					= 'حذف';
 $lang['global:remove']					= 'إزالة';
 
