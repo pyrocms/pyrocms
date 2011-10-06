@@ -29,4 +29,6 @@
 	</div>
 </div>
 
+<?php file_partial('sections'); ?>
+
 <?php file_partial('notices'); ?>
