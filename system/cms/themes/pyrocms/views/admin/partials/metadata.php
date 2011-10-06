@@ -15,7 +15,7 @@
 	var BASE_URI			= "<?php echo BASE_URI;?>";
 	var UPLOAD_PATH			= "<?php echo UPLOAD_PATH;?>";
 	var DEFAULT_TITLE		= "<?php echo $this->settings->site_name; ?>";
-	var DIALOG_MESSAGE		= "<?php echo lang('dialog.delete_message'); ?>";
+	var DIALOG_MESSAGE		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.admin_theme_url 	= "<?php echo BASE_URL . $this->admin_theme->path; ?>";
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri			= "<?php echo BASE_URI; ?>";
