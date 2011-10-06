@@ -2,7 +2,7 @@
 
 class Module_Widgets extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1';
 	
 	public function info()
 	{
@@ -43,7 +43,24 @@ class Module_Widgets extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'content'
+			'menu'	  => 'content',
+			
+			'sections' => array(
+			    'instances' => array(
+				    'name' => 'widgets.instances',
+				    'uri' => 'admin/widgets',
+				),
+				'areas' => array(
+				    'name' => 'widgets.areas',
+				    'uri' => 'admin/widgets/areas',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'widgets.add_area',
+						    'uri' => 'admin/widgets/areas/create',
+						),
+				    ),
+			    ),
+		    ),
 		);
 	}
 	
@@ -97,7 +114,7 @@ class Module_Widgets extends Module {
 			INSERT INTO " . $this->db->dbprefix('widget_areas') . " (slug, title) VALUES ('sidebar', 'Sidebar');
 		";
 		
-		if($this->db->query($widget_areas) &&
+		if ($this->db->query($widget_areas) &&
 		   $this->db->query($widget_instances) &&
 		   $this->db->query($widgets) &&
 		   $this->db->query($default_data))

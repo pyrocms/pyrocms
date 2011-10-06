@@ -41,9 +41,6 @@ $lang['widgets.delete_instance']				= 'Удалить копию виджета'
 $lang['widgets.instance_title']					= 'Заголовок';
 $lang['widgets.tag_title']							= 'Тэг';
 
-$lang['widgets.instance_edit']					= 'Редактировать';
-$lang['widgets.instance_delete']				= 'Удалить';
-
 $lang['widgets.no_available_widgets']		= 'Отсутствуют доступные для установки виджеты.';
 
 /* End of file widgets_lang.php */

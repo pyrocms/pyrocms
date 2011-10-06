@@ -18,7 +18,7 @@
 
 <div class="subbar">
 	<div class="wrapper">
-		<h2><?php echo $module_details['name'] ? anchor('admin/' . $module_details['slug'], $module_details['name']) : lang('global:dashboard'); ?></h2>
+		<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard'); ?></h2>
 	
 		<small>
 			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
@@ -26,11 +26,7 @@
 		</small>
 
 		<?php file_partial('shortcuts'); ?>
-		
-		<div style="border: 2px solid pink">
-			<?php template_partial('shortcuts'); ?>
-			<br style="clear:both" />
-		</div>
+
 	</div>
 </div>
 

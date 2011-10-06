@@ -12,6 +12,13 @@
 class Admin_instances extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'instances';
+	
+	/**
 	 * Array that contains the validation rules
 	 *
 	 * @access	protected

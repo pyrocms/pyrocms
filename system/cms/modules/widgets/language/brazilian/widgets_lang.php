@@ -33,9 +33,6 @@ $lang['widgets.delete_instance']			= 'Remover instância de widget';
 $lang['widgets.instance_title']				= 'Título';
 $lang['widgets.tag_title']					= 'Tag';
 
-$lang['widgets.instance_edit']				= 'Editar';
-$lang['widgets.instance_delete']			= 'Remover';
-
 $lang['widgets.no_available_widgets']		= 'Não há widgets disponíveis.';
 
 /* End of file widgets_lang.php */

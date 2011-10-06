@@ -11,7 +11,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * The current active section
 	 * @access protected
-	 * @var int
+	 * @var string
 	 */
 	protected $section = 'posts';
 

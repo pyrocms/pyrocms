@@ -33,7 +33,4 @@ $lang['widgets.delete_instance']        = 'Izbriši primer vtičnika';
 $lang['widgets.instance_title']         = 'Naslov';
 $lang['widgets.tag_title']              = 'Značka';
 
-$lang['widgets.instance_edit']          = 'Uredi';
-$lang['widgets.instance_delete']        = 'Izbriši';
-
 $lang['widgets.no_available_widgets']		= 'Trenutno ni na voljo nobenega vtičnika';

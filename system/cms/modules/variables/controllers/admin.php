@@ -2,14 +2,14 @@
 /**
  * Admin controller for the variables module
  *
- * @author		Phil Sturgeon - PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
  * @package		PyroCMS
  * @subpackage 	Variables Module
  * @category	Modules
  * @copyright	Copyright (c) 2008 - 2011, PyroCMS
  */
 class Admin extends Admin_Controller
-{
+{	
 	/**
 	 * Variable's ID
 	 *
@@ -45,7 +45,6 @@ class Admin extends Admin_Controller
 	 */
 	public function __construct()
 	{
-		// Call the parent's constructor method
 		parent::__construct();
 
 		// Load the required classes
@@ -56,9 +55,7 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->_validation_rules);
 
-		$this->template
-			->append_metadata( js('variables.js', 'variables') )
-			->set_partial('shortcuts', 'admin/partials/shortcuts');
+		$this->template->append_metadata(js('variables.js', 'variables'));
 
 		// Set template layout to false if request is of ajax type
 		if ($this->input->is_ajax_request())

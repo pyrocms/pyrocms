@@ -14,7 +14,7 @@
 <ul>
     <?php if ( ! $email_template->is_default): ?>
     <li class="<?php echo alternator('even', ''); ?>">
-        <label for="name"><?php echo lang('global:name'); ?></label><br>
+        <label for="name"><?php echo lang('name_label'); ?></label><br>
         <?php echo form_input('name', $email_template->name); ?>
         <span class="required-icon tooltip">*</span>
     </li>

@@ -73,7 +73,7 @@ class Themes_m extends MY_Model
     {
         $slug OR $slug = $this->_theme;
 
-        foreach($this->template->theme_locations() as $location)
+        foreach ($this->template->theme_locations() as $location)
         {
             if (is_dir($location.$slug))
             {

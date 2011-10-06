@@ -49,7 +49,14 @@ class Module_Users extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => FALSE
+			'menu'	  => FALSE,
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'user_add_title',
+				    'uri' => 'admin/users/create',
+				),
+		    ),
 		);
 	}
 	

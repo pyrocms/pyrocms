@@ -66,7 +66,7 @@ class Module_Blog extends Module {
 						),
 				    ),
 			    ),
-		    )
+		    ),
 		);
 	}
 

@@ -6,7 +6,7 @@ class Module_Modules extends Module {
 	
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'sl' => 'Moduli',
 				'en' => 'Modules',
@@ -50,14 +50,18 @@ class Module_Modules extends Module {
 			'frontend' => FALSE,
 			'backend'  => TRUE,
 			'menu'	  => FALSE,
-			
-			'shortcuts' => array(
-				array(
-			 	   'name' => 'upload_label',
-				   'uri' => 'admin/modules/upload',
-				),
-			),
 		);
+
+		if ($this->settings->addons_upload)
+		{
+			$info['shortcuts'][] = array(
+		 	 	'name' => 'upload_label',
+				'uri' => 'admin/modules/upload',
+				'class' => 'add',
+			);
+		}
+
+		return $info;
 	}
 	
 	public function install()
