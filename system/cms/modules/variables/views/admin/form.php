@@ -12,15 +12,20 @@
 
 		<ul>
 			<li class="even">
-				<label for="name"><?php echo lang('name_label');?></label>
+				<label for="name"><?php echo lang('name_label');?></label><br>
 				<?php echo  form_input('name', $variable->name); ?>
 				<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 			</li>
+			
+			<hr>
+			
 			<li class="">
-				<label for="data"><?php echo lang('variables.data_label');?></label>
+				<label for="data"><?php echo lang('variables.data_label');?></label><br>
 				<?php echo  form_input('data', $variable->data); ?>
 			</li>
 		</ul>
+		
+		<hr>
 
 		<div class="buttons float-right padding-top">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
