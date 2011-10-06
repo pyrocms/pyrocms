@@ -12,11 +12,13 @@
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
     <ul>
 		<li>
-			<label for="name"><?php echo lang('keywords:name');?>:</label>
+			<label for="name"><?php echo lang('keywords:name');?>:</label><br>
 			<?php echo form_input('name', $keyword->name);?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</li>
     </ul>
+
+	<hr>
 
 	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
