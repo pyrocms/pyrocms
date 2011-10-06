@@ -12,13 +12,15 @@
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
     <ul>
 		<li>
-			<label for="description"><?php echo lang('groups.name');?>:</label>
+			<label for="description"><?php echo lang('groups.name');?>:</label><br>
 			<?php echo form_input('description', $group->description);?>
 			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 		</li>
+		
+		<hr>
 
 		<li class="even">
-			<label for="name"><?php echo lang('groups.short_name');?></label>
+			<label for="name"><?php echo lang('groups.short_name');?></label><br>
 
 			<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
 			<?php echo form_input('name', $group->name);?>
@@ -29,6 +31,8 @@
 			<?php endif; ?>
 		</li>
     </ul>
+
+<hr>
 
 	<div class="buttons float-right padding-top">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
