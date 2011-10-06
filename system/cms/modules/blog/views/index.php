@@ -1,9 +1,9 @@
-<?php if (!empty($blog)): ?>
+<?php if ( ! empty($blog)): ?>
 <?php foreach ($blog as $post): ?>
 	<div class="blog_post">
 		<!-- Post heading -->
 		<div class="post_heading">
-			<h4><?php echo  anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title); ?></h4>
+			<h4><?php echo anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title); ?></h4>
 			<p class="post_date"><?php echo lang('blog_posted_label');?>: <?php echo format_date($post->created_on); ?></p>
 			<?php if ($post->category_slug): ?>
 			<p class="post_category">

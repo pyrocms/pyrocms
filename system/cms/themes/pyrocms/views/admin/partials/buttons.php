@@ -10,12 +10,12 @@
 
 		<?php switch ($button) :
 			case 'delete': ?>
-				<button type="submit" name="btnAction" value="delete" class="button confirm">
+				<button type="submit" name="btnAction" value="delete" class="btn red confirm">
 					<span><?php echo lang('buttons.delete'); ?></span>
 				</button>
 				<?php break;
 			case 're-index': ?>
-				<button type="submit" name="btnAction" value="re-index" class="button">
+				<button type="submit" name="btnAction" value="re-index" class="btn orange">
 					<span><?php echo lang('buttons.re-index'); ?></span>
 				</button>
 				<?php break;
@@ -27,14 +27,14 @@
 			case 'save_exit':
 			case 'unapprove':
 			case 'upload': ?>
-				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="button">
+				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="btn blue">
 					<span><?php echo lang('buttons.' . $button); ?></span>
 				</button>
 				<?php break;
 			case 'cancel':
 			case 'close':
 			case 'preview':
-				echo anchor('admin/' . $this->module_details['slug'], lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('admin/' . $this->module_details['slug'], lang('buttons.' . $button), 'class="btn gray ' . $button . '"');
 				break;
 
 			/**
@@ -44,7 +44,7 @@
 			case 'edit':
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
 
-				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="btn gray ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>

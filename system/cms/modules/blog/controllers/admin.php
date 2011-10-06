@@ -14,6 +14,13 @@ class Admin extends Admin_Controller {
 	 * @var int
 	 */
 	protected $id = 0;
+	
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var int
+	 */
+	protected $section = 'posts';
 
 	/**
 	 * Array that contains the validation rules

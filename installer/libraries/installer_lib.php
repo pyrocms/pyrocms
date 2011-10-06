@@ -234,6 +234,8 @@ class Installer_lib {
 		{
 			return array('status' => FALSE,'message' => 'The installer could not connect to the MySQL server or the database, be sure to enter the correct information.');
 		}
+		
+		@mysql_set_charset('utf8', $this->db);
 
 		// Do we want to create the database using the installer ?
 		if ( ! empty($data['create_db'] ))
