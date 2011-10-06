@@ -4,7 +4,7 @@
 
 <?php echo form_open($this->uri->uri_string(), array('class' => 'crud', 'id' => 'folders_crud')); ?>
 <fieldset>
-	<ol>
+	<ul>
 		<li class="even">
 			<label for="name"><?php echo lang('file_folders.name_label'); ?></label>
 			<?php echo form_input('name', $folder->name, 'class="required"'); ?>
@@ -17,7 +17,7 @@
 			<?php echo form_label(lang('file_folders.parent_label'), 'parent_id'); ?>
 			<?php echo form_dropdown('parent_id', array(0 => lang('files.dropdown_no_subfolders')) + $folders_tree, $folder->parent_id, 'id="parent_id" class="required"'); ?>
 		</li>
-	</ol>
+	</ul>
 
 	<div class="buttons align-right padding-top">
 	<?php if ($this->method === 'create'): ?>

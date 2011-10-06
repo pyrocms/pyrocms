@@ -26,7 +26,7 @@
 	</nav>
 </div>
 
-<div class="two_third last">
+<div class="two_third">
 	<?php echo $content; ?>
 </div>
 
