@@ -1,5 +1,5 @@
 <section class="title">
-	<h3><?php echo $group->description; ?></h3>
+	<h4><?php echo $group->description; ?></h4>
 </section>
 
 	<section class="item">
