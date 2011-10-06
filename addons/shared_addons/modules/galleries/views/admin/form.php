@@ -20,7 +20,7 @@
 			
 			<hr>
 	
-			<div id="content-body">
+			<div style="width:100%;" id="gallery-content">
 				<ul>
 					<li class="<?php echo alternator('', 'even'); ?>">
 						<?php echo form_dropdown('folder_id', array(lang('global:select-pick')) + $folders_tree, $gallery->folder_id, 'id="folder_id" class="required"'); ?>
@@ -129,14 +129,14 @@
 			<!-- Design tab -->
 			<div id="gallery-design">
 	
-				<ol>
+				<ul>
 					<li>
-						<label for="css"><?php echo lang('galleries.css_label'); ?></label>
-						<div style="margin-left: 160px;">
+						<label for="css"><?php echo lang('galleries.css_label'); ?></label><br>
+						<div>
 							<?php echo form_textarea('css', $gallery->css, 'id="css_editor"'); ?>
 						</div>
 					</li>
-				</ol>
+				<ul>
 	
 				<br class="clear-both" />
 	
@@ -147,8 +147,8 @@
 	
 				<ol>
 					<li>
-						<label for="js"><?php echo lang('galleries.js_label'); ?></label>
-						<div style="margin-left: 160px;">
+						<label for="js"><?php echo lang('galleries.js_label'); ?></label><br>
+						<div>
 							<?php echo form_textarea('js', $gallery->js, 'id="js_editor"'); ?>
 						</div>
 					</li>
