@@ -10,7 +10,7 @@
 
 		<?php switch ($button) :
 			case 'delete': ?>
-				<button type="submit" name="btnAction" value="delete" class="btn red">
+				<button type="submit" name="btnAction" value="delete" class="btn red confirm">
 					<span><?php echo lang('buttons.delete'); ?></span>
 				</button>
 				<?php break;
