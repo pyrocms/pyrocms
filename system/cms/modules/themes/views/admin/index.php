@@ -10,12 +10,12 @@
 		<table>
 			<thead>
 				<tr>
-					<th width="95" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
+					<th width="50px" class="align-center"><?php echo lang('themes.default_theme_label'); ?></th>
 					<th width="15%"><?php echo lang('themes.theme_label'); ?></th>
 					<th><?php echo lang('global:description'); ?></th>
 					<th width="15%"><?php echo lang('global:author'); ?></th>
-					<th width="50" class="align-center"><?php echo lang('themes.version_label'); ?></th>
-					<th width="200"></th>
+					<th width="50px" class="align-center"><?php echo lang('themes.version_label'); ?></th>
+					<th width="250px"></th>
 				</tr>
 			</thead>
 			<tfoot>
