@@ -44,7 +44,7 @@
 			case 'edit':
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
 
-				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="btn gray ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>
