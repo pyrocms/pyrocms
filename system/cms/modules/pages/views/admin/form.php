@@ -139,7 +139,7 @@
 				<li class="<?php echo alternator('even', ''); ?>">
 					<label for="css"><?php echo lang('pages.css_label');?></label><br>
 					<div>
-						<?php echo form_textarea('css', $page->css, 'id="css_editor"'); ?>
+						<?php echo form_textarea('css', $page->css, 'class="css_editor"'); ?>
 					</div>
 				</li>
 				<br>
@@ -153,7 +153,7 @@
 				<li class="<?php echo alternator('', 'even'); ?>">
 					<label for="js"><?php echo lang('pages.js_label'); ?></label>
 					<div>
-						<?php echo form_textarea('js', $page->js, 'id="js_editor"'); ?>
+						<?php echo form_textarea('js', $page->js, 'class="js_editor"'); ?>
 					</div>
 				</li>
 			</ul>
@@ -200,7 +200,3 @@
 
 	<?php echo form_close(); ?>
 </section>
-<script type="text/javascript">
-css_editor('css_editor', '100%');
-js_editor('js_editor', '100%');
-</script>

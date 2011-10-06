@@ -51,7 +51,7 @@
 		<div id="page-layout-css">
 			<ul>
 				<li>
-					<?php echo form_textarea('css', $page_layout->css, 'id="css_editor"'); ?>
+					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor"'); ?>
 				</li>
 			</ul>
 		</div>
@@ -60,7 +60,7 @@
 		<div id="page-layout-script">
 			<ul>
 				<li>
-					<?php echo form_textarea('js', $page_layout->js, 'id="js_editor"'); ?>
+					<?php echo form_textarea('js', $page_layout->js, 'class="js_editor"'); ?>
 				</li>
 			</ul>
 		</div>
@@ -73,9 +73,3 @@
 
 <?php echo form_close(); ?>
 </section>
-
-<script type="text/javascript">
-	html_editor('html_editor', '100%');
-	css_editor('css_editor', '100%');
-	js_editor('js_editor', '100%');
-</script>

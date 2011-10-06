@@ -82,7 +82,7 @@ class Module_Pages extends Module {
 						),
 				    ),
 			    ),
-		    )
+			)
 		);
 	}
 

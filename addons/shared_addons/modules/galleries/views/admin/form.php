@@ -133,7 +133,7 @@
 					<li>
 						<label for="css"><?php echo lang('galleries.css_label'); ?></label><br>
 						<div>
-							<?php echo form_textarea('css', $gallery->css, 'id="css_editor"'); ?>
+							<?php echo form_textarea('css', $gallery->css, 'class="css_editor"'); ?>
 						</div>
 					</li>
 				<ul>
@@ -149,7 +149,7 @@
 					<li>
 						<label for="js"><?php echo lang('galleries.js_label'); ?></label><br>
 						<div>
-							<?php echo form_textarea('js', $gallery->js, 'id="js_editor"'); ?>
+							<?php echo form_textarea('js', $gallery->js, 'class="js_editor"'); ?>
 						</div>
 					</li>
 				</ol>

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title']					= 'Kontrolní panel';
-$lang['cp_admin_home_title']			= 'Nástěnka';
+$lang['global:dashboard']			= 'Nástěnka';
 $lang['cp_admin_quick_links']			= 'Rychlé odkazy';
 
 $lang['cp_welcome_title']				= 'Vítejte';
