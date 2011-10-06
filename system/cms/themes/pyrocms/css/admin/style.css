@@ -346,27 +346,27 @@ header#main h1 {
 	padding: 0;
 }
 .error {
-	background: #ffcece url('../../img/admin/icons/16/cross-circle.png');
+	background: #ffcece url('../../img/admin/icons/16/cross-circle.png') no-repeat;
 	border-color: #df8f8f;
 	color: #665252;
 }
 .attention {
-	background: #fffbcc url('../../img/admin/icons/16/exclamation.png');
+	background: #fffbcc url('../../img/admin/icons/16/exclamation.png') no-repeat;
 	border-color: #e6db55;
 	color: #666452;
 }
 .success {
-	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png');
+	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png') no-repeat;
 	border-color: #9adf8f;
 	color: #556652;
 }
 .information {
-	background: #dbe3ff url('../../img/admin/icons/16/information.png');
+	background: #dbe3ff url('../../img/admin/icons/16/information.png') no-repeat;
 	border-color: #a2b4ee;
 	color: #585b66;
 }
 .close {
-	background-image: url('../../img/admin/icons/16/cross-small-grey.png');
+	background-image: url('../../img/admin/icons/16/cross-small-grey.png') no-repeat;
 	text-indent: -99999px;
 	overflow: hidden;
 	display: block;
@@ -407,7 +407,7 @@ table tbody tr.alt {
 
 /** Icons **/
 a.edit-icon {
-	background-image: url('../../img/admin/icons/16/pencil.png');
+	background-image: url('../../img/admin/icons/16/pencil.png') no-repeat;
 	text-indent: -99999px;
 	overflow: hidden;
 	display: inline-block;
@@ -415,7 +415,7 @@ a.edit-icon {
 	width: 16px;
 }
 a.delete-icon {
-	background-image: url('../../img/admin/icons/16/cross.png');
+	background-image: url('../../img/admin/icons/16/cross.png') no-repeat;
 	text-indent: -99999px;
 	overflow: hidden;
 	display: inline-block;
@@ -423,7 +423,7 @@ a.delete-icon {
 	width: 16px;
 }
 a.add-icon {
-	background-image: url('../../img/admin/icons/16/plus.png');
+	background-image: url('../../img/admin/icons/16/plus.png') no-repeat;
 	text-indent: -99999px;
 	overflow: hidden;
 	display: inline-block;
@@ -513,7 +513,7 @@ body#login #login-box header {
 	background-repeat: no-repeat;
 	width: 25px;
 	height: 40px;
-	margin: 0 auto;
+	margin: 10px 0 0 150px;
 }
 body#login #login-box ul,
 body#login #login-box li {
@@ -594,34 +594,44 @@ body#login #login-box input.button:hover {
 	color: #ff6900;
 }
 #login-box .error {
-	background: #ef8385 url('../../img/admin/icons/16/exclamation.png');
+	background: #ef8385;
 	border: 1px solid #b87173;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	font-family: "Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #9b373a;
 	text-shadow: 1px 1px 0px #f3a8aa;
 	letter-spacing: 0.2px;
 	text-transform: uppercase;
-	margin: 0 0 15px 0;
+	margin: 10px 0 15px 0;
+	position: relative;
+	z-index: 9999;
 }
 #login-box .success {
-	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png');
+	background: #d5ffce url('../../img/admin/icons/16/tick-circle.png') no-repeat top: 25px;
 	border: 1px solid #9adf8f;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
-	font-family: "Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #549f48;
 	text-shadow: 1px 1px 0px #f4fff3;
 	letter-spacing: 0.2px;
 	text-transform: uppercase;
-	margin: 0 0 15px 0;
+	margin: 10px 0 15px 0;
+	position: relative;
+	z-index: 9999;
+}
+
+#login-box .success p, #login-box .error p {
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
 }
 ul#login-footer {
 	width: 175px;
