@@ -21,7 +21,6 @@ $lang['galleries.no_gallery_description']	= 'Ještě nebyl přidán žádný pod
 // Labels
 $lang['galleries.galleries_label']			= 'Galerie';
 $lang['galleries.manage_gallery_label']		= 'Spravovat galerie';
-$lang['galleries.new_gallery_label']		= 'Nová galerie';
 
 $lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Počet obrázků';

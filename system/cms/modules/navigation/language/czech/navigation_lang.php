@@ -24,6 +24,7 @@ $lang['nav_link_create_title'] 					= 'Přidat odkaz do navigace';
 $lang['nav_group_create_title']					= 'Přidat skupinu';
 $lang['nav_link_edit_title'] 					= 'Upravit odkaz v navigaci "%s"';
 $lang['nav_link_list_title'] 					= 'Seznam odkazů';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'V této skupině nejsou žádné odkazy.';

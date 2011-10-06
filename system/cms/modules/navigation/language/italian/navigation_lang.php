@@ -24,6 +24,7 @@ $lang['nav_link_create_title'] 					= 'Aggiungi un collegamento';
 $lang['nav_group_create_title']					= 'Aggiungi un gruppo';
 $lang['nav_link_edit_title'] 					= 'Modifica il collegamento "%s"';
 $lang['nav_link_list_title'] 					= 'Elenco dei collegamenti';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Non ci sono collegamenti in questo gruppo.';

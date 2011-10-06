@@ -70,6 +70,7 @@ $lang['global:description'] 		    = 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
 $lang['global:view']					= 'عرض';
 $lang['global:preview']					= 'مُعاينة';
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']					= 'تعديل';
 $lang['global:empty']					= 'فارغ';
 $lang['global:delete']					= 'حذف';

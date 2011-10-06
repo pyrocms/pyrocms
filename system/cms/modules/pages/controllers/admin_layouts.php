@@ -8,11 +8,44 @@
 class Admin_layouts extends Admin_Controller
 {
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'layouts';
+	
+	/**
 	 * Validation rules used by the form_validation library
 	 * @access private
 	 * @var array
 	 */
-	private $validation_rules = array();
+	private $validation_rules = array(
+		array(
+			'field' => 'title',
+			'label' => 'lang:page_layouts.title_label',
+			'rules' => 'trim|required|max_length[60]'
+		),
+		array(
+			'field' => 'theme_layout',
+			'label' => 'lang:page_layouts.theme_layout_label',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'body',
+			'label' => 'lang:page_layouts.body_label',
+			'rules' => 'trim|required'
+		),
+		array(
+			'field' => 'css',
+			'label' => 'lang:page_layouts.css_label',
+			'rules' => 'trim'
+		),
+		array(
+			'field' => 'js',
+			'label' => 'lang:page.js_label',
+			'rules' => 'trim'
+		),
+	);
 
 	/**
 	 * Constructor method
@@ -28,39 +61,8 @@ class Admin_layouts extends Admin_Controller
 		$this->lang->load('pages');
 		$this->lang->load('page_layouts');
 
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-
 		// Load the validation library
 		$this->load->library('form_validation');
-
-		// Validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'title',
-				'label' => lang('page_layouts.title_label'),
-				'rules' => 'trim|required|max_length[60]'
-			),
-			array(
-				'field' => 'theme_layout',
-				'label' => lang('page_layouts.theme_layout_label'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'body',
-				'label' => lang('page_layouts.body_label'),
-				'rules' => 'trim|required'
-			),
-			array(
-				'field' => 'css',
-				'label' => lang('page_layouts.css_label'),
-				'rules' => 'trim'
-			),
-			array(
-				'field' => 'js',
-				'label' => lang('page.js_label'),
-				'rules' => 'trim'
-			),
-		);
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->validation_rules);

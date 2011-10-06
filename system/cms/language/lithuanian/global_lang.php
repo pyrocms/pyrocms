@@ -71,6 +71,7 @@ $lang['global:description'] 		    = 'Aprašymas';
 $lang['global:actions']					= 'Veiksmai';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']					= 'Redaguoti';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Ištrinti';

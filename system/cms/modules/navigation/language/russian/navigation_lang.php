@@ -31,6 +31,7 @@ $lang['nav_link_create_title'] 						= 'Создать ссылку';
 $lang['nav_group_create_title']						= 'Создать группу';
 $lang['nav_link_edit_title'] 							= 'Редактирование ссылки "%s"';
 $lang['nav_link_list_title'] 							= 'Список ссылок';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // сообщения
 $lang['nav_group_no_links'] 							= 'В данной группе ссылки отсутствуют.';

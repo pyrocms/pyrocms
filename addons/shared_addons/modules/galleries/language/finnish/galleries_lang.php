@@ -29,7 +29,6 @@ $lang['galleries.no_gallery_description']	= 'Kuvausta ei ole vielä lisätty.';
 // Labels
 $lang['galleries.galleries_label']			= 'Galleriat';
 $lang['galleries.manage_gallery_label']		= 'Hallitse galleriaa';
-$lang['galleries.new_gallery_label']		= 'Uusi galleria';
 
 $lang['galleries.gallery_label']				= 'Albumi';
 $lang['galleries.num_photos_label']			= 'Kuvia';

@@ -10,9 +10,9 @@ $lang['page_layouts.title_label']                    = 'Title';
 $lang['page_layouts.theme_layout_label']             = 'Theme Layout';
 
 // titles
-$lang['page_layouts.list_title']                     = 'List page layouts';
-$lang['page_layouts.create_title']                   = 'Add page layout';
-$lang['page_layouts.edit_title']                     = 'Edit page layout "%s"';
+$lang['page_layouts.list_title']                     = 'Page Layouts';
+$lang['page_layouts.create_title']                   = 'Add Page Layout';
+$lang['page_layouts.edit_title']                     = 'Edit Page Layout "%s"';
 
 // messages
 $lang['page_layouts.no_pages']                       = 'There are no page layouts.';

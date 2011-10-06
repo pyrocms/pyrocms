@@ -49,7 +49,14 @@ class Module_Modules extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => FALSE
+			'menu'	  => FALSE,
+			
+			'shortcuts' => array(
+				array(
+			 	   'name' => 'upload_label',
+				   'uri' => 'admin/modules/upload',
+				),
+			),
 		);
 	}
 	

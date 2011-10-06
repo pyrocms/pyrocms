@@ -71,6 +71,7 @@ $lang['global:description'] 		    = 'Popis';
 $lang['global:actions']					= 'Akce';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']					= 'Upravit';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Vymazat';

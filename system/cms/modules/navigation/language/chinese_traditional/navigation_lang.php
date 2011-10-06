@@ -23,6 +23,7 @@ $lang['nav_link_create_title'] 					= '新增導航連結';
 $lang['nav_group_create_title']					= '新增群組';
 $lang['nav_link_edit_title'] 					= '編輯導航連結 "%s"';
 $lang['nav_link_list_title'] 					= '連結列表';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= '此群組下沒有連結';

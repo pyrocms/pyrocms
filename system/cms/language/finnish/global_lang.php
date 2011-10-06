@@ -72,6 +72,7 @@ $lang['global:actions']                 = 'Toiminnot';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
 $lang['global:empty']					= 'Empty'; #translate
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']                    = 'Muokkaa';
 $lang['global:remove']                  = 'Poista';
 $lang['global:delete']                  = 'Poista';

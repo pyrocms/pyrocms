@@ -21,7 +21,6 @@ $lang['galleries.no_gallery_description']	= 'Er is nog geen omschrijving aanwezi
 // Labels
 $lang['galleries.galleries_label']			= 'Gallerijen';
 $lang['galleries.manage_gallery_label']		= 'Beheer gallerij';
-$lang['galleries.new_gallery_label']		= 'Nieuwe Gallerij';
 
 $lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Aantal Foto&apos;s';

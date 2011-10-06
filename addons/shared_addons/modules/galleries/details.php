@@ -41,7 +41,14 @@ class Module_Galleries extends Module {
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
-			'menu' => 'content'
+			'menu' => 'content',
+
+		    'shortcuts' => array(
+				array(
+			 	   'name' => 'global:add',
+				   'uri' => 'admin/galleries/create',
+				),
+			),
 		);
 	}
 

@@ -48,7 +48,14 @@ class Module_Navigation extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'design'
+			'menu'	  => 'design',
+			
+		    'shortcuts' => array(
+				array(
+				    'name' => 'nav_group_create_title',
+				    'uri' => 'admin/navigation/groups/create',
+				),
+		    ),
 		);
 	}
 	

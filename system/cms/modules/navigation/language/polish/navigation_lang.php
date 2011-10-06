@@ -23,6 +23,7 @@ $lang['nav_link_create_title'] 					= 'Dodaj link nawigacyjny';
 $lang['nav_group_create_title']					= 'Dodaj grupę';
 $lang['nav_link_edit_title'] 					= 'Edytuj link nawigacyjny "%s"';
 $lang['nav_link_list_title'] 					= 'Lista linków';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Nie ma jeszcze linków w tej grupie.';

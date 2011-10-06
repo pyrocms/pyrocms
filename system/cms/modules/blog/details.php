@@ -50,16 +50,20 @@ class Module_Blog extends Module {
 				    'name' => 'blog_posts_title',
 				    'uri' => 'admin/blog',
 				    'shortcuts' => array(
-					    'name' => 'blog_create_title',
-					    'uri' => 'admin/blog/create',
+						array(
+					 	   'name' => 'blog_create_title',
+						    'uri' => 'admin/blog/create',
+						),
 					),
 				),
 				'categories' => array(
 				    'name' => 'cat_list_title',
 				    'uri' => 'admin/blog/categories',
 				    'shortcuts' => array(
-					    'name' => 'cat_create_title',
-					    'uri' => 'admin/blog/categories/create',
+						array(
+						    'name' => 'cat_create_title',
+						    'uri' => 'admin/blog/categories/create',
+						),
 				    ),
 			    ),
 		    )

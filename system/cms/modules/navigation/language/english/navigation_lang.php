@@ -20,10 +20,11 @@ $lang['nav_link_target_self']                   = 'Current window (default)';
 $lang['nav_link_target_blank']                  = 'New window (_blank)';
 
 // titles
-$lang['nav_link_create_title']                  = 'Add navigation link';
-$lang['nav_group_create_title']                 = 'Add a group';
+$lang['nav_link_create_title']                  = 'Add Link';
+$lang['nav_group_create_title']                 = 'Add a Group';
 $lang['nav_link_edit_title']                    = 'Edit navigation link "%s"';
-$lang['nav_link_list_title']                    = 'List links';
+$lang['nav_link_list_title']                    = 'Links';
+$lang['nav_group_list_title']                   = 'Groups';
 
 // messages
 $lang['nav_group_no_links']                     = 'There are no links in this group.';

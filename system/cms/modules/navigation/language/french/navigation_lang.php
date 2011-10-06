@@ -23,6 +23,7 @@ $lang['nav_link_create_title'] 					= 'Ajouter un lien de navigation';
 $lang['nav_group_create_title']					= 'Ajouter un groupe';
 $lang['nav_link_edit_title'] 					= 'Editer le lien "%s"';
 $lang['nav_link_list_title'] 					= 'Lister les liens';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Il n\'y a pas de lien dans ce groupe.';

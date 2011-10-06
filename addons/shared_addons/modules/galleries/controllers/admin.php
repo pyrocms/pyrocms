@@ -116,8 +116,6 @@ class Admin extends Admin_Controller
 		$this->load->helper('html');
 
 		$this->load->model('files/file_folders_m');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**

@@ -25,7 +25,14 @@ class Module_Keywords extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'     => 'content'
+			'menu'     => 'content',
+			
+			'shortcuts' => array(
+				array(
+			 	   'name' => 'keywords:add_title',
+				   'uri' => 'admin/keywords/create',
+				),
+			),
 		);
 	}
 

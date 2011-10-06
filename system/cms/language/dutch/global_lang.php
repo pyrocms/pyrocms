@@ -70,6 +70,7 @@ $lang['global:description'] 		    = 'Beschrijving';
 $lang['global:actions']					= 'Acties';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']					= 'Wijzigen';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Verwijderen';

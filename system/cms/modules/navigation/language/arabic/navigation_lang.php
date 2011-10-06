@@ -23,6 +23,7 @@ $lang['nav_link_create_title'] 					= 'إضافة رابط';
 $lang['nav_group_create_title']					= 'إضافة مجموعة';
 $lang['nav_link_edit_title'] 					= 'تعديل الرابط "%s"';
 $lang['nav_link_list_title'] 					= 'سرد الروابط';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'لا توجد أية روابط في هذه المجموعة.';
