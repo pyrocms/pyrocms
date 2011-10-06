@@ -6,14 +6,27 @@
  * @category  	Module
  * @author  	Phil Sturgeon - PyroCMS Dev Team
  */
-class Admin_Categories extends Admin_Controller
-{
+class Admin_Categories extends Admin_Controller {
+		
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var int
+	 */
+	protected $section = 'categories';
+	
 	/**
 	 * Array that contains the validation rules
 	 * @access protected
 	 * @var array
 	 */
-	protected $validation_rules;
+	protected $validation_rules = array(
+		array(
+			'field' => 'title',
+			'label' => 'lang:categories.title_label',
+			'rules' => 'trim|required|max_length[20]|callback__check_title'
+		),
+	);
 	
 	/**
 	 * The constructor
@@ -29,15 +42,6 @@ class Admin_Categories extends Admin_Controller
 		$this->lang->load('blog');
 		
 	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-	
-		// Set the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'title',
-				'label' => lang('categories.title_label'),
-				'rules' => 'trim|required|max_length[20]|callback__check_title'
-			),
-		);
 		
 		// Load the validation library along with the rules
 		$this->load->library('form_validation');

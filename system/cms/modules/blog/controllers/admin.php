@@ -9,18 +9,18 @@
 class Admin extends Admin_Controller {
 
 	/**
-	 * The id of post
-	 * @access protected
-	 * @var int
-	 */
-	protected $id = 0;
-	
-	/**
 	 * The current active section
 	 * @access protected
 	 * @var int
 	 */
 	protected $section = 'posts';
+
+	/**
+	 * The id of post
+	 * @access protected
+	 * @var int
+	 */
+	protected $id = 0;
 
 	/**
 	 * Array that contains the validation rules
