@@ -2,8 +2,11 @@
 	<div class="wrapper">
 	
 		<ul>
-			<li class="current"><a href="">Current Section</a></li>
-			<li><a href="">Sample Section</a></li>
+			<?php foreach ($module_details['sections'] as $name => $section): ?>
+			<li class="<?php if ($name === $active_section) echo 'current' ?>">
+				<?php echo anchor($section['uri'], lang($section['name'])); ?>
+			</li>
+			<?php endforeach; ?>
 		</ul>
 
 	</div>

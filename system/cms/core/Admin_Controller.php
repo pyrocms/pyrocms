@@ -3,6 +3,9 @@
 // Code here is run before admin controllers
 class Admin_Controller extends MY_Controller {
 
+	// Admin controllers can have sections, normally an arbitrary string
+	protected $section = NULL;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -46,14 +49,17 @@ class Admin_Controller extends MY_Controller {
 		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
 		
 		// grab the theme options if there are any
-		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array( array('theme' => ADMIN_THEME) ));
+		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
 	
+		// Active Admin Section (might be null, but who cares)
+		$this->template->active_section = $this->section;
+		
 		// Template configuration
 		$this->template
-				->enable_parser(FALSE)
-				->set('theme_options', $this->theme_options)
-				->set_theme(ADMIN_THEME)
-				->set_layout('default', 'admin');
+			->enable_parser(FALSE)
+			->set('theme_options', $this->theme_options)
+			->set_theme(ADMIN_THEME)
+			->set_layout('default', 'admin');
 
 		// trigger the run() method in the selected admin theme
 		$class = 'Theme_'.ucfirst($this->admin_theme->slug);

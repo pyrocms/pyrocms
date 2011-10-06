@@ -25,10 +25,10 @@
 			<?php echo $module_details['description'] ? $module_details['description'] : ''; ?>
 		</small>
 
-			<?php template_partial('shortcuts'); ?>
+		<?php /* TODO: KILL IT! */ template_partial('shortcuts'); ?>
 	</div>
 </div>
 
-<?php file_partial('sections'); ?>
+<?php if ( ! empty($module_details['sections'])) file_partial('sections'); ?>
 
 <?php file_partial('notices'); ?>
