@@ -1374,7 +1374,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 .sections_bar ul li img {
 	position: absolute;
 	bottom: -12px;
-	left: 40%;
+	left: 32%;
 }
 
 .ui-tabs-nav { width: 1180px; float: left; }
