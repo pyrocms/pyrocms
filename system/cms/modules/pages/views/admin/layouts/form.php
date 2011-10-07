@@ -18,7 +18,9 @@
 			<li><a href="#page-layout-script"><span><?php echo lang('pages.js_label');?></span></a></li>
 		</ul>
 		
-		<div id="page-layout-html">
+		<hr>
+		
+		<div style="width:100%;" id="page-layout-html">
 			<fieldset>
 						
 				<p><?php echo lang('page_layouts.variable_introduction'); ?>:</p>
@@ -30,13 +32,15 @@
 				
 				<ul>
 					<li class="even">
-						<label for="title"><?php echo lang('page_layouts.title_label');?></label>
+						<label for="title"><?php echo lang('page_layouts.title_label');?></label><br>
 						<?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
+					
+					<hr>
 
 					<li>
-						<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label>
+						<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label><br>
 						<?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?>
 					</li>
 			
@@ -48,18 +52,20 @@
 		</div>
 		
 		<!-- Design tab -->
-		<div id="page-layout-css">
+		<div style="width:100%;" id="page-layout-css">
 			<ul>
 				<li>
+					<label for="css">CSS</label><br>
 					<?php echo form_textarea('css', $page_layout->css, 'class="css_editor"'); ?>
 				</li>
 			</ul>
 		</div>
 		
 		<!-- Script tab -->
-		<div id="page-layout-script">
+		<div style="width:100%;" id="page-layout-script">
 			<ul>
 				<li>
+					<label for="js">JavaScript</label><br>
 					<?php echo form_textarea('js', $page_layout->js, 'class="js_editor"'); ?>
 				</li>
 			</ul>

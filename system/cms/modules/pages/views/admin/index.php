@@ -5,7 +5,7 @@
 	
 	<section class="item">
 		<div id="page-list">
-		<ol class="sortable">
+		<ul class="sortable">
 
 			<?php foreach($pages as $page): ?>
 	
@@ -15,9 +15,9 @@
 						</div>
 				
 					<?php if(isset($page['children'])): ?>
-						<ol>
+						<ul>
 							<?php $controller->tree_builder($page); ?>
-						</ol>
+						</ul>
 					</li>
 				
 					<?php else: ?>
@@ -27,7 +27,7 @@
 				<?php endif; ?>
 			<?php endforeach; ?>
 
-		</ol>
+		</ul>
 		</div>
 	</section>
 </div>
