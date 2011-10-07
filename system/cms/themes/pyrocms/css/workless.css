@@ -290,11 +290,6 @@ textarea {
 	padding: 5px;
 	border: 3px solid #eeeeee;
 	border: 3px solid rgba(0, 0, 0, .1);
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-o-border-radius: 5px;
 }
 
 textarea {
