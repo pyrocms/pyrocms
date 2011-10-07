@@ -1418,7 +1418,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 section#content {
 	width: 250px;
 	padding: 0;
-	margin: 150px 0 150px 0;
+	margin: 135px 0 150px 0!important;
 	float: left;
 }
 
