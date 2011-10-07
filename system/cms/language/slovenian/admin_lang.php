@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Nadzorna plošča';
-$lang['cp_admin_home_title'] 			= 'Namizje';
+$lang['global:dashboard'] 			= 'Namizje';
 $lang['cp_admin_quick_links']			= 'Hitre povezave';
 
 $lang['cp_welcome_title'] 				= 'Dobrodošli';

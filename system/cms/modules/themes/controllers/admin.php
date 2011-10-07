@@ -32,7 +32,6 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(css('themes.css', 'themes'))
 			->append_metadata(js('admin.js', 'themes'));
 	}

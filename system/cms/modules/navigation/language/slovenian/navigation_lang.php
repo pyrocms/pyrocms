@@ -24,6 +24,7 @@ $lang['nav_link_create_title']                  = 'Dodaj povezavo v meni';
 $lang['nav_group_create_title']                 = 'Dodaj skupino';
 $lang['nav_link_edit_title']                    = 'Uredite povezavo menija "%s"';
 $lang['nav_link_list_title']                    = 'Seznam povezav';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'V tej skupini ni povezav.';

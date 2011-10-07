@@ -59,6 +59,29 @@ class Module_Pages extends Module {
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
+			),
+			
+			'sections' => array(
+			    'pages' => array(
+				    'name' => 'pages.list_title',
+				    'uri' => 'admin/pages',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'pages.create_title',
+						    'uri' => 'admin/pages/create',
+						),
+				    ),
+				),
+				'layouts' => array(
+				    'name' => 'pages.layouts_list_title',
+				    'uri' => 'admin/pages/layouts',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'pages.layouts_create_title',
+						    'uri' => 'admin/pages/layouts/create',
+						),
+				    ),
+			    ),
 			)
 		);
 	}

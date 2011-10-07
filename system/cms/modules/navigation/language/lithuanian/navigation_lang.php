@@ -24,6 +24,7 @@ $lang['nav_link_create_title']                  = 'Pridėti navigacijos nuorodą
 $lang['nav_group_create_title']                 = 'Pridėti grupę';
 $lang['nav_link_edit_title']                    = 'Redaguoti navigacijos nuorodą "%s"';
 $lang['nav_link_list_title']                    = 'Nuorodų sąrašas';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'Nėra nuorodų šioje grupėje.';

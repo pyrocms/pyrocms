@@ -24,6 +24,7 @@ $lang['nav_link_create_title'] 				= 'Agregar vínculo de navegación';
 $lang['nav_group_create_title']				= 'Agregar grupo';
 $lang['nav_link_edit_title'] 				= 'Editar el vínculo de navegación "%s"';
 $lang['nav_link_list_title'] 				= 'Lista de vínculos';
+$lang['nav_group_list_title']               = 'Groups'; #translate
 
 # messages
 $lang['nav_group_no_links'] 				= 'No hay vínculos en este grupo.';

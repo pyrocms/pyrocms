@@ -22,7 +22,6 @@ $lang['galleries.no_gallery_description']	= 'Todavía no se ha agregado una desc
 # Labels
 $lang['galleries.galleries_label']			= 'Galerías';
 $lang['galleries.manage_gallery_label']		= 'Administrar Galerías';
-$lang['galleries.new_gallery_label']		= 'Nueva Galería';
 
 $lang['galleries.gallery_label']			= 'Álbum';
 $lang['galleries.num_photos_label']			= 'Número de Imágenes';

@@ -33,7 +33,4 @@ $lang['widgets.delete_instance'] 			= 'Vymazat instanci widgetu';
 $lang['widgets.instance_title'] 			= 'Titulek';
 $lang['widgets.tag_title']					= 'Štítek';
 
-$lang['widgets.instance_edit'] 				= 'Upravit';
-$lang['widgets.instance_delete'] 			= 'Vymazat';
-
 $lang['widgets.no_available_widgets']		= 'Nejsou dostupné žádné widgety.';

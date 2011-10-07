@@ -21,7 +21,6 @@ $lang['galleries.no_gallery_description']	= 'No description has been added yet.'
 // Labels
 $lang['galleries.galleries_label']			= '畫廊';
 $lang['galleries.manage_gallery_label']		= '管理畫廊';
-$lang['galleries.new_gallery_label']		= '新增畫廊';
 
 $lang['galleries.gallery_label']				= '相本';
 $lang['galleries.num_photos_label']			= '照片數量';

@@ -12,6 +12,13 @@
 class Admin extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'instances';
+	
+	/**
 	 * Constructor method
 	 * @access public
 	 * @return void

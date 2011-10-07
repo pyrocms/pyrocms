@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Admin-Oberfläche';
-$lang['cp_admin_home_title'] 			= 'Admin-Oberfläche';
+$lang['global:dashboard'] 			= 'Admin-Oberfläche';
 $lang['cp_admin_quick_links']			= 'Quick Links';
 
 $lang['cp_welcome_title'] 				= 'Willkommen';

@@ -23,6 +23,7 @@ $lang['nav_link_create_title'] 					= 'Voeg navigatielink toe';
 $lang['nav_group_create_title']					= 'Voeg een groep toe';
 $lang['nav_link_edit_title'] 					= 'Wijzig navigatielink "%s"';
 $lang['nav_link_list_title'] 					= 'Overzicht koppelingen';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Er zijn geen koppelingen in deze groep.';

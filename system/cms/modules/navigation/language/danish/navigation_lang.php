@@ -24,6 +24,7 @@ $lang['nav_link_create_title']                  = 'Tilføj navigationslink';
 $lang['nav_group_create_title']                 = 'Tilføj en gruppe';
 $lang['nav_link_edit_title']                    = 'Redigér navigationslink "%s"';
 $lang['nav_link_list_title']                    = 'Linkliste';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'Der er ingen links i denne gruppe.';

@@ -33,7 +33,4 @@ $lang['widgets.delete_instance']        = 'Ištrinti papildinio pavyzdį';
 $lang['widgets.instance_title']         = 'Pavadinimas';
 $lang['widgets.tag_title']              = 'Tag';
 
-$lang['widgets.instance_edit']          = 'Redaguoti';
-$lang['widgets.instance_delete']        = 'Ištrinti';
-
 $lang['widgets.no_available_widgets']		= 'Nėra prieinamų papildinių.';

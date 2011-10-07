@@ -24,6 +24,7 @@ $lang['nav_link_create_title']                  = 'הוסף קישור הניו�
 $lang['nav_group_create_title']                 = 'הוסף קבוצה';
 $lang['nav_link_edit_title']                    = 'ערוך קישור הניווט "%s"';
 $lang['nav_link_list_title']                    = 'רשימת קישורים';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'אין קישורים בקבוצה זו.';

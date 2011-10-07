@@ -23,7 +23,8 @@ $lang['nav_link_target_blank'] 					= 'Nova janela (_blank)';
 $lang['nav_link_create_title'] 					= 'Adicionar link de navegação';
 $lang['nav_group_create_title']					= 'Adicionar um grupo';
 $lang['nav_link_edit_title'] 					= 'Editar link de navegação "%s"';
-$lang['nav_link_list_title'] 					= 'Listar links';
+$lang['nav_link_list_title'] 					= 'Links';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'Não existem links neste grupo.';

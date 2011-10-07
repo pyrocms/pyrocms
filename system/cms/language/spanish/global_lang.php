@@ -69,6 +69,7 @@ $lang['global:description']		= 'Descripción';
 $lang['global:actions']			= 'Acciones';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']			= 'Editar';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']			= 'Eliminar';

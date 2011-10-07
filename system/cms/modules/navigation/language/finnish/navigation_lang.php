@@ -30,6 +30,7 @@ $lang['nav_link_create_title']                  = 'Lisää navigointi linkki';
 $lang['nav_group_create_title']                 = 'Lisää ryhmä';
 $lang['nav_link_edit_title']                    = 'Muokkaa navigointi linkkiä "%s"';
 $lang['nav_link_list_title']                    = 'Listaa linkit';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links']                     = 'Tässä ryhmässä ei ole linkkejä.';

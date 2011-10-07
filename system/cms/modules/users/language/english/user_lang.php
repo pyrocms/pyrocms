@@ -7,14 +7,14 @@ $lang['user_register_step2']                   = '<strong>Step 2:</strong> Activ
 $lang['user_login_header']                     = 'Login';
 
 // titles
-$lang['user_add_title']                        = 'Add user';
-$lang['user_list_title'] 				= 'List users';
-$lang['user_inactive_title']                   = 'Inactive users';
-$lang['user_active_title']                     = 'Active users';
+$lang['user_add_title']                        = 'Add User';
+$lang['user_list_title'] 					   = 'Users';
+$lang['user_inactive_title']                   = 'Inactive Users';
+$lang['user_active_title']                     = 'Active Users';
 $lang['user_registred_title']                  = 'Registered Users';
 
 // labels
-$lang['user_edit_title']                       = 'Edit user "%s"';
+$lang['user_edit_title']                       = 'Edit User "%s"';
 $lang['user_details_label']                    = 'Details';
 $lang['user_first_name_label']                 = 'First Name';
 $lang['user_last_name_label']                  = 'Last Name';

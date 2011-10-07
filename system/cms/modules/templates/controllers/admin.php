@@ -26,14 +26,12 @@ class Admin extends Admin_Controller {
         $this->lang->load('templates');
         $this->load->model('email_templates_m');
 
-        foreach($this->config->item('supported_languages') as $key => $lang)
+        foreach ($this->config->item('supported_languages') as $key => $lang)
         {
             $lang_options[$key] = $lang['name'];
         }
 
-        $this->template
-			->set('lang_options', $lang_options)
-			->set_partial('shortcuts', 'admin/partials/shortcuts');
+        $this->template->set('lang_options', $lang_options);
 
         $base_rules = 'required|trim|xss_clean';
 

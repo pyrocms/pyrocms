@@ -21,7 +21,6 @@ $lang['galleries.no_gallery_description']	= 'Dar nįvedėte aprašymo.';
 // Labels
 $lang['galleries.galleries_label']			= 'Galerijos';
 $lang['galleries.manage_gallery_label']		= 'Tvarkyti galeriją';
-$lang['galleries.new_gallery_label']		= 'Nauja galerija';
 
 $lang['galleries.gallery_label']			= 'Galerija';
 $lang['galleries.num_photos_label']			= 'Nuotraukų skaičius';

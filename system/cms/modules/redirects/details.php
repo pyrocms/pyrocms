@@ -43,7 +43,14 @@ class Module_Redirects extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'utilities'
+			'menu'	  => 'utilities',
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'redirects.add_title',
+				    'uri' => 'admin/redirects/add',
+				),
+		    ),
 		);
 	}
 

@@ -18,15 +18,18 @@
 
 <div class="subbar">
 	<div class="wrapper">
-		<h2><?php echo $module_details['name'] ? anchor('admin/' . $module_details['slug'], $module_details['name']) : lang('cp_admin_home_title'); ?></h2>
+		<h2><?php echo $module_details['name'] ? anchor('admin/'.$module_details['slug'], $module_details['name']) : lang('global:dashboard'); ?></h2>
 	
 		<small>
 			<?php if ( $this->uri->segment(2) ) { echo '&nbsp; | &nbsp;'; } ?>
 			<?php echo $module_details['description'] ? $module_details['description'] : ''; ?>
 		</small>
 
-			<?php template_partial('shortcuts'); ?>
+		<?php file_partial('shortcuts'); ?>
+
 	</div>
 </div>
+
+<?php if ( ! empty($module_details['sections'])) file_partial('sections'); ?>
 
 <?php file_partial('notices'); ?>

@@ -31,10 +31,13 @@
 <div id="bottom"></div>
 
 	<div id="login-box">
+		
+		<?php $this->load->view('admin/partials/notices') ?>
+		
 		<header id="main">
 			<div id="login-logo"></div>
 		</header>
-		<?php $this->load->view('admin/partials/notices') ?>
+		
 		<?php echo form_open('admin/login'); ?>
 			<ul>
 				<li>

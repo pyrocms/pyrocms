@@ -3,10 +3,10 @@
 // labels
 $lang['nav_title_label'] 						= 'الإسم';
 $lang['nav_target_label']						= 'الرابط';
-$lang['nav_class_label']						= 'Class';
-$lang['nav_url_label'] 							= 'URL';
+$lang['nav_class_label']						= 'صنف';
+$lang['nav_url_label'] 							= 'عنوان URL';
 $lang['nav_details_label'] 						= 'التفاصيل';
-$lang['nav_text_label'] 						= 'Text';
+$lang['nav_text_label'] 						= 'نص';
 $lang['nav_group_label'] 						= 'المجموعة';
 $lang['nav_location_label'] 					= 'الموضع';
 $lang['nav_type_label'] 						= 'نوع الرابط';
@@ -23,6 +23,7 @@ $lang['nav_link_create_title'] 					= 'إضافة رابط';
 $lang['nav_group_create_title']					= 'إضافة مجموعة';
 $lang['nav_link_edit_title'] 					= 'تعديل الرابط "%s"';
 $lang['nav_link_list_title'] 					= 'سرد الروابط';
+$lang['nav_group_list_title']                   = 'Groups'; #translate
 
 // messages
 $lang['nav_group_no_links'] 					= 'لا توجد أية روابط في هذه المجموعة.';

@@ -30,7 +30,6 @@ $lang['galleries.no_gallery_description']			= 'Описание пока ещё 
 // подписи
 $lang['galleries.galleries_label']						= 'Галереи';
 $lang['galleries.manage_gallery_label']				= 'Управление галереей';
-$lang['galleries.new_gallery_label']					= 'Создать галерею';
 
 $lang['galleries.gallery_label']							= 'Альбом';
 $lang['galleries.num_photos_label']						= 'Количество фотографий';

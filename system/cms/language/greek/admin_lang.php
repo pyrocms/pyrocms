@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 				= 'Πίνακας Διαχείρισης';
-$lang['cp_admin_home_title'] 			= 'Επισκόπηση';
+$lang['global:dashboard'] 			= 'Επισκόπηση';
 $lang['cp_admin_quick_links']			= 'Γρήγοροι Σύνδεσμοι';
 
 $lang['cp_welcome_title'] 				= 'Καλωσήρθατε';

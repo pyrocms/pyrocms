@@ -21,7 +21,6 @@ $lang['galleries.no_gallery_description']	= 'Ni še bilo dodanega opisa.';
 // Labels
 $lang['galleries.galleries_label']			= 'Galerije';
 $lang['galleries.manage_gallery_label']		= 'Uredi galerijo';
-$lang['galleries.new_gallery_label']		= 'Nova galerija';
 
 $lang['galleries.gallery_label']				= 'Album';
 $lang['galleries.num_photos_label']			= 'Število slik';

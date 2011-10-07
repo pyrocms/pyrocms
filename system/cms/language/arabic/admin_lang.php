@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'لوحة التحكم';
-$lang['cp_admin_home_title'] 			= 'لوحة التحكم';
+$lang['global:dashboard'] 			= 'لوحة التحكم';
 $lang['cp_admin_quick_links']			= 'روابط سريعة';
 
 $lang['cp_welcome_title'] 				= 'أهلاً';

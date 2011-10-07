@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= 'Painel de Controle';
-$lang['cp_admin_home_title'] 			= 'Dashboard';
+$lang['global:dashboard'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Atalhos rápidos';
 
 $lang['cp_welcome_title'] 				= 'Bem vindo(a)';

@@ -33,7 +33,4 @@ $lang['widgets.delete_instance']        = 'Slet widget-eksempel';
 $lang['widgets.instance_title']         = 'Titel';
 $lang['widgets.tag_title']              = 'Tag';
 
-$lang['widgets.instance_edit']          = 'Redigér';
-$lang['widgets.instance_delete']        = 'Slet';
-
 $lang['widgets.no_available_widgets']		= 'Der er ingen tilgængelige widgets.';

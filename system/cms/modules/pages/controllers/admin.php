@@ -10,6 +10,13 @@
 class Admin extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'pages';
+	
+	/**
 	 * Array containing the validation rules
 	 * @access private
 	 * @var array
@@ -115,8 +122,6 @@ class Admin extends Admin_Controller {
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 
 		$this->form_validation->set_rules($this->validation_rules);
 	}
@@ -358,7 +363,6 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $data);
 	}
@@ -487,8 +491,6 @@ class Admin extends Admin_Controller {
 			// Load WYSIWYG Editor
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 
-			// Load form specific JavaScript
-			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);
 	}

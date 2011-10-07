@@ -19,61 +19,73 @@
 		</ul>
 
 		<!-- Content tab -->
-		<div id="user-details-tab">
+		<div style="width:100%;" id="user-details-tab">
 			<fieldset>
-				<ol>
+				<ul>
 					<li class="even">
-						<label for="first_name"><?php echo lang('user_first_name_label');?></label>
+						<label for="first_name"><?php echo lang('user_first_name_label');?></label><br>
 						<?php echo form_input('first_name', $member->first_name); ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
+					
+					<hr>
 
 					<li>
-						<label for="last_name"><?php echo lang('user_last_name_label');?></label>
+						<label for="last_name"><?php echo lang('user_last_name_label');?></label><br>
 						<?php echo form_input('last_name', $member->last_name); ?>
 					</li>
+					
+					<hr>
 
 					<li class="even">
-						<label for="email"><?php echo lang('user_email_label');?></label>
+						<label for="email"><?php echo lang('user_email_label');?></label><br>
 						<?php echo form_input('email', $member->email); ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
+					
+					<hr>
 
 					<li>
-						<label for="username"><?php echo lang('user_username');?></label>
+						<label for="username"><?php echo lang('user_username');?></label><br>
 						<?php echo form_input('username', $member->username); ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 					</li>
+					
+					<hr>
 
 					<li class="even">
-						<label for="display_name"><?php echo lang('user_display_name');?></label>
+						<label for="display_name"><?php echo lang('user_display_name');?></label><br>
 						<?php echo form_input('display_name', $member->display_name); ?>
 					</li>
+					
+					<hr>
 
 					<li>
-						<label for="group_id"><?php echo lang('user_group_label');?></label>
+						<label for="group_id"><?php echo lang('user_group_label');?></label><br>
 						<?php echo form_dropdown('group_id', array(0 => lang('global:select-pick')) + $groups_select, $member->group_id); ?>
 					</li>
+					
+					<hr>
 
 					<li class="even">
-						<label for="active"><?php echo lang('user_activate_label');?></label>
+						<label for="active"><?php echo lang('user_activate_label');?></label><br>
 						<?php echo form_checkbox('active', 1, (isset($member->active) && $member->active == 1)); ?>
 					</li>
-				</ol>
+				</ul>
 			</fieldset>
 		</div>
 
-		<div id="user-password-tab">
+		<div style="width:100%;" id="user-password-tab">
 			<fieldset>
-				<ol>
+				<ul>
 					<li class="even">
-						<label for="password"><?php echo lang('user_password_label');?></label>
+						<label for="password"><?php echo lang('user_password_label');?></label><br>
 						<?php echo form_password('password', '', 'autocomplete="off"'); ?>
 						<?php if ($this->method == 'create'): ?>
 						<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
 						<?php endif; ?>
 					</li>
-				</ol>
+				</ul>
 			</fieldset>
 		</div>
 	</div>

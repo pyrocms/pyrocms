@@ -5,6 +5,11 @@
 
 <?php echo js('jquery/jquery-ui.min.js'); ?>
 <?php echo js('jquery/jquery.colorbox.min.js'); ?>
+<?php echo js('codemirror/codemirror.js'); ?>
+<?php echo js('codemirror/mode/css/css.js'); ?>
+<?php echo js('codemirror/mode/htmlmixed/htmlmixed.js'); ?>
+<?php echo js('codemirror/mode/javascript/javascript.js'); ?>
+<?php echo js('codemirror/mode/markdown/markdown.js'); ?>
 <?php echo js('plugins.js'); ?>
 
 <script type="text/javascript">
@@ -24,5 +29,6 @@
 <?php echo js('scripts.js'); ?>
 <?php echo css('plugins.css'); ?>
 <?php echo css('jquery/colorbox.css'); ?>
+<?php echo css('codemirror.css'); ?>
 
 <?php echo $template['metadata']; ?>

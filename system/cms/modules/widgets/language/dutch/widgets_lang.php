@@ -33,7 +33,4 @@ $lang['widgets.delete_instance'] 			= 'Verwijder een widget';
 $lang['widgets.instance_title'] 			= 'Titel';
 $lang['widgets.tag_title']					= 'Tag';
 
-$lang['widgets.instance_edit'] 				= 'Wijzig';
-$lang['widgets.instance_delete'] 			= 'Verwijder';
-
 $lang['widgets.no_available_widgets']		= 'Er zijn momenteel geen beschikbare widgets.';
