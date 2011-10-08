@@ -1066,7 +1066,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   float: left;
   display: none;
   position: absolute;
-  top: 50px;
+  top: 49px;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
