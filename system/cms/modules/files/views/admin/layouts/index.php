@@ -1,4 +1,6 @@
-<section class="title"></section>
+<section class="title">
+	<h4><?php echo lang('files.files_title'); ?></h4>
+</section>
 <section class="item">
 	
 <div class="hidden">
