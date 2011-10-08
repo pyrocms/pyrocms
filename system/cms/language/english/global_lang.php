@@ -67,6 +67,7 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
+$lang['global:filters'] 				= 'Filters';
 $lang['global:shortcuts'] 				= 'Shortcuts';
 $lang['global:description']				= 'Description';
 $lang['global:actions']					= 'Actions';
