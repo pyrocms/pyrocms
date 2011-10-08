@@ -876,6 +876,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tab-menu li a {
   background: #efefef;
+  color: #636363;
   margin-right: 2px;
   margin-bottom: -1px;
   padding: 0 15px;
