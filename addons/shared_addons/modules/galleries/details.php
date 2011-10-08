@@ -24,7 +24,7 @@ class Module_Galleries extends Module {
 				'lt' => 'Galerijos'
 			),
 			'description' => array(
-				'sl' => 'Modul galerije je mogočen modul ki dovoljuje uporabnikom ustavrjanje galerije slik',
+				'sl' => 'Modul galerije vam omogoča da ustvarite albume vaših slik.',
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
 				'nl' => 'De gallerij module die gebruikers in staat stelt afbeeldingsgallerijen te maken.',
