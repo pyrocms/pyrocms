@@ -222,6 +222,7 @@ fieldset { border: 1px solid #eeeeee; margin: 5px 0 15px 0; padding: 25px; }
 /* Indicate that 'label' will shift focus to the associated form element */
 label { cursor: pointer; font-size: 12px; font-weight: bold; }
 legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: bold; }
+label.inline {margin-right: 4px; font-weight: normal!important;}
 
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 

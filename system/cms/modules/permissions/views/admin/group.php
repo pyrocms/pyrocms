@@ -17,15 +17,15 @@
 	
 		<?php foreach ($permisison_modules as $module): ?>
 			<tr>
-				<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, array_key_exists($module['slug'], $edit_permissions)); ?></td>
+				<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, array_key_exists($module['slug'], $edit_permissions), 'id="'.$module['slug'].'"'); ?></td>
 				<td>
-					<?php echo $module['name']; ?>
+					<label class="inline" for="<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
 				</td>
 				<td>
 					<?php if ( ! empty($module['roles'])): ?>
 						<?php foreach ($module['roles'] as $role): ?>
-							<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])); ?>
-							<?php echo lang($module['slug'].'.role_'.$role); ?>
+							<label class="inline"><?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])); ?>
+							 <?php echo lang($module['slug'].'.role_'.$role); ?></label>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</td>
