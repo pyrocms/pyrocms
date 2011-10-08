@@ -1,5 +1,7 @@
 <fieldset id="filters">
-	<legend>Filters</legend>
+	
+	<legend><?php echo lang('global:filters'); ?></legend>
+	
 	<?php echo form_open(); ?>
 
 	<?php echo form_hidden('f_module', $module_details['slug']); ?>
