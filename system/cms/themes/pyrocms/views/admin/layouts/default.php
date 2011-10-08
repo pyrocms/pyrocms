@@ -49,15 +49,13 @@
 	<div id="container">
 		
 		<section id="content">	
+
 			<?php file_partial('header'); ?>
-		
-			<div id="filters">
-				<?php template_partial('filters'); ?>
-			</div>		
 			
 			<div id="content-body">
 				<?php echo $template['body']; ?>
 			</div>
+
 		</section>
 	
 	</div>

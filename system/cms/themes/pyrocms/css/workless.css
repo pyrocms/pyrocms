@@ -1369,9 +1369,9 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 #filters ul {
 	margin: 0;
-	float: right;
+	float: left;
 }
-
+#filters legend {color: #888; font-size: 12px; padding: 0 6px;}
 #filters form > ul > li {
 	margin: 8px 0 5px 5px;
 	float: left;
