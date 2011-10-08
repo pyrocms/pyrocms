@@ -1,6 +1,7 @@
-<div class="one_full">
+<fieldset id="filters">
+
+	<legend><?php echo lang('global:filters'); ?></legend>
 	
-	<section class="title">
 		<?php echo form_open(''); ?>
 		<?php echo form_hidden('f_module', $module_details['slug']); ?>
 		<ul>
@@ -21,6 +22,5 @@
 		</ul>
 		
 		<?php echo form_close(); ?>
-	</section>
 	
-</div>
+</fieldset>

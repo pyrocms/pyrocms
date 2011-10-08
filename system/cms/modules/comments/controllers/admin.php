@@ -89,14 +89,14 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'])
-			->set_partial('filters', 'admin/partials/filters')
 			->append_metadata( js('admin/filter.js') )
 			->set('module_list',		$module_list)
 			->set('content_title',		$content_title)
 			->set('comments',			process_comment_items($comments))
 			->set('comments_active',	$base_where['comments.is_active'])
-			->set('pagination',			$pagination)
-			->build('admin/index');
+			->set('pagination',			$pagination);
+			
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/comments') : $this->template->build('admin/index');
 	}
 
 	/**
