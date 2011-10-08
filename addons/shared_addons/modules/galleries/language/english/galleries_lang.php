@@ -48,7 +48,7 @@ $lang['galleries.current_label']			= 'Current Images (drag and drop to sort, cli
 
 // Sidebar labels
 $lang['galleries.list_label']				= 'List Galleries';
-$lang['galleries.new_gallery_label']		= 'Create a new gallery';
+$lang['galleries.new_gallery_label']		= 'Add Gallery';
 $lang['galleries.upload_label']				= 'Upload Image';
 
 // Frontend labels

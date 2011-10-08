@@ -45,7 +45,7 @@ class Module_Galleries extends Module {
 
 		    'shortcuts' => array(
 				array(
-			 	   'name' => 'global:add',
+			 	   'name' => 'galleries.new_gallery_label',
 				   'uri' => 'admin/galleries/create',
 				),
 			),
