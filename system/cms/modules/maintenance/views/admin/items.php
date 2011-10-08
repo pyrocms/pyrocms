@@ -8,7 +8,7 @@
     <table border="0" class="table-list">
       <thead>
         <tr>
-          <th><?php echo lang('global:name'); ?></th>
+          <th><?php echo lang('name_label'); ?></th>
           <th class="align-center"><?php echo lang('maintenance.count_label'); ?></th>
           <th></th>
         </tr>
