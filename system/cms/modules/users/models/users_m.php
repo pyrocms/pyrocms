@@ -34,51 +34,51 @@ class Users_m extends MY_Model
     	}
 
     	$this->db
-	    ->select($this->profile_table.'.*, users.*')
-	    ->select('IF('.$this->profile_table.'.last_name = "", '.$this->profile_table.'.first_name, CONCAT('.$this->profile_table.'.first_name, " ", '.$this->profile_table.'.last_name)) as full_name', FALSE)
-	    ->limit(1)
-	    ->join('profiles', 'profiles.user_id = users.id', 'left');
+			->select($this->profile_table.'.*, users.*')
+			->select('IF('.$this->profile_table.'.last_name = "", '.$this->profile_table.'.first_name, CONCAT('.$this->profile_table.'.first_name, " ", '.$this->profile_table.'.last_name)) as full_name', FALSE)
+			->limit(1)
+			->join('profiles', 'profiles.user_id = users.id', 'left');
 
     	return $this->db->get('users')->row();
     }
 
     public function get_recent($limit = 10)
     {
-    	$this->db->order_by('users.created_on', 'desc');
-    	$this->db->limit($limit);
-	return $this->get_all();
+		$this->db->order_by('users.created_on', 'desc');
+		$this->db->limit($limit);
+		return $this->get_all();
     }
 
-    function get_all()
+    public function get_all()
     {
     	$this->db
-	    ->select($this->profile_table.'.*, g.description as group_name, users.*')
-	    ->select('IF('.$this->profile_table.'.last_name = "", '.$this->profile_table.'.first_name, CONCAT('.$this->profile_table.'.first_name, " ", '.$this->profile_table.'.last_name)) as full_name', FALSE)
-	    ->join('groups g', 'g.id = users.group_id')
-	    ->join('profiles', 'profiles.user_id = users.id', 'left')
-	    ->group_by('users.id');
+			->select($this->profile_table.'.*, g.description as group_name, users.*')
+			->select('IF('.$this->profile_table.'.last_name = "", '.$this->profile_table.'.first_name, CONCAT('.$this->profile_table.'.first_name, " ", '.$this->profile_table.'.last_name)) as full_name', FALSE)
+			->join('groups g', 'g.id = users.group_id')
+			->join('profiles', 'profiles.user_id = users.id', 'left')
+			->group_by('users.id');
 	
     	return parent::get_all();
     }
 
     // Create a new user
-    function add($input = array())
+    public function add($input = array())
     {
-	$this->load->helper('date');
+		$this->load->helper('date');
 
         return parent::insert(array(
-	    'email'				=> $input->email,
-	    'password'			=> $input->password,
-	    'salt'				=> $input->salt,
-	    'first_name' 		=> ucwords(strtolower($input->first_name)),
-	    'last_name' 		=> ucwords(strtolower($input->last_name)),
-	    'role' 				=> empty($input->role) ? 'user' : $input->role,
-	    'is_active' 		=> 0,
-	    'lang'				=> $this->config->item('default_language'),
-	    'activation_code' 	=> $input->activation_code,
-	    'created_on' 		=> now(),
-	    'last_login'		=> now(),
-	    'ip' 				=> $this->input->ip_address()
+			'email'				=> $input->email,
+			'password'			=> $input->password,
+			'salt'				=> $input->salt,
+			'first_name' 		=> ucwords(strtolower($input->first_name)),
+			'last_name' 		=> ucwords(strtolower($input->last_name)),
+			'role' 				=> empty($input->role) ? 'user' : $input->role,
+			'is_active' 		=> 0,
+			'lang'				=> $this->config->item('default_language'),
+			'activation_code' 	=> $input->activation_code,
+			'created_on' 		=> now(),
+			'last_login'		=> now(),
+			'ip' 				=> $this->input->ip_address()
         ));
     }
 
@@ -96,54 +96,54 @@ class Users_m extends MY_Model
 
     public function count_by($params = array())
     {
-	$this->db->from($this->_table)->join('profiles', 'users.id = profiles.user_id', 'left');
+		$this->db->from($this->_table)->join('profiles', 'users.id = profiles.user_id', 'left');
 
-	if ( ! empty($params['active']))
-	{
-	    $params['active'] = $params['active'] === 2 ? 0 : $params['active'] ;
-	    $this->db->where('users.active', $params['active']);
-	}
+		if ( ! empty($params['active']))
+		{
+		    $params['active'] = $params['active'] === 2 ? 0 : $params['active'] ;
+		    $this->db->where('users.active', $params['active']);
+		}
 
-	if ( ! empty($params['group_id']))
-	{
-	    $this->db->where('group_id', $params['group_id']);
-	}
+		if ( ! empty($params['group_id']))
+		{
+		    $this->db->where('group_id', $params['group_id']);
+		}
 
-	if ( ! empty($params['name']))
-	{
-	    $this->db
-		->like('users.username', trim($params['name']))
-	    	->or_like('users.email', trim($params['name']))
-		->or_like('profiles.first_name', trim($params['name']))
-		->or_like('profiles.last_name', trim($params['name']));
-	}
+		if ( ! empty($params['name']))
+		{
+		    $this->db
+				->like('users.username', trim($params['name']))
+				->or_like('users.email', trim($params['name']))
+				->or_like('profiles.first_name', trim($params['name']))
+				->or_like('profiles.last_name', trim($params['name']));
+		}
 
-	return $this->db->count_all_results();
+		return $this->db->count_all_results();
     }
 
     public function get_many_by($params = array())
     {
-	if ( ! empty($params['active']))
-	{
-		$params['active'] = $params['active'] === 2 ? 0 : $params['active'] ;
-		$this->db->where('active', $params['active']);
-	}
+		if ( ! empty($params['active']))
+		{
+			$params['active'] = $params['active'] === 2 ? 0 : $params['active'] ;
+			$this->db->where('active', $params['active']);
+		}
 
-	if ( ! empty($params['group_id']))
-	{
-		$this->db->where('group_id', $params['group_id']);
-	}
+		if ( ! empty($params['group_id']))
+		{
+			$this->db->where('group_id', $params['group_id']);
+		}
 
-	if(!empty($params['name']))
-	{
-	    $this->db
-		->or_like('users.username', trim($params['name']))
-		->or_like('users.email', trim($params['name']))
-		->or_like('profiles.first_name', trim($params['name']))
-		->or_like('profiles.last_name', trim($params['name']));
-	}
+		if ( ! empty($params['name']))
+		{
+		    $this->db
+			->or_like('users.username', trim($params['name']))
+			->or_like('users.email', trim($params['name']))
+			->or_like('profiles.first_name', trim($params['name']))
+			->or_like('profiles.last_name', trim($params['name']));
+		}
 
-	return $this->get_all();
+		return $this->get_all();
     }
 
 }
