@@ -141,23 +141,19 @@ class Module_m extends MY_Model
 		}
 
 		$result = $this->db->get($this->_table)->result();
-		
+
 		foreach ($result as $row)
 		{
 			// Let's get REAL
 			if ( ! $module = $this->_spawn_class($row->slug, $row->is_core))
 			{
-				return FALSE;
+				// If module is not able to spawn a class, 
+				// just forget about it and move on, man.
+				continue;
 			}
 			
 			list($class, $location) = $module;
 			$info = $class->info();
-			
-			// Return FALSE if the module is disabled
-			if ($row->enabled == 0)
-			{
-				return FALSE;
-			}
 			
 			$name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
 			$description = ! isset($info['description'][CURRENT_LANGUAGE]) ? $info['description']['en'] : $info['description'][CURRENT_LANGUAGE];
@@ -172,7 +168,7 @@ class Module_m extends MY_Model
 				'is_backend'		=> $row->is_backend,
 				'menu'				=> $row->menu,
 				'enabled'			=> $row->enabled,
-				'installed'			=> ! empty($result->installed),
+				'installed'			=> $row->installed,
 				'is_core'			=> $row->is_core,
 				'is_current'		=> version_compare($row->version, $this->version($row->slug),  '>='),
 				'current_version'	=> $this->version($row->slug),
@@ -312,7 +308,7 @@ class Module_m extends MY_Model
 	 */
 	public function disable($slug)
 	{
-		if ($this->exists($module))
+		if ($this->exists($slug))
 		{
 			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
 			return TRUE;
@@ -335,11 +331,11 @@ class Module_m extends MY_Model
 			return FALSE;
 		}
 		
+		list($class) = $module;
+		
 		// They've just finished uploading it so we need to make a record
 		if ($insert)
 		{
-			list($class) = $module;
-			
 			// Get some info for the db
 			$input = $class->info();
 	
