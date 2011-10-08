@@ -20,9 +20,9 @@
 						<tr>
 							<td><?php echo form_checkbox('action_to[]', $page_layout->id); ?></td>
 							<td><?php echo $page_layout->title;?></td>
-							<td>
-								<?php echo anchor('admin/pages/layouts/edit/' . $page_layout->id, lang('global:edit'));?> | 
-								<?php echo anchor('admin/pages/layouts/delete/' . $page_layout->id, lang('global:delete'), array('class'=>'confirm'));?>
+							<td class="actions">
+								<?php echo anchor('admin/pages/layouts/edit/' . $page_layout->id, lang('global:edit'), array('class'=>'button'));?> 
+								<?php echo anchor('admin/pages/layouts/delete/' . $page_layout->id, lang('global:delete'), array('class'=>'button confirm'));?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

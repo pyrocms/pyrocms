@@ -5,12 +5,18 @@
  * @package 		PyroCMS
  * @subpackage 		Navigation module
  * @category		Modules
- * @author			Phil Sturgeon - PyroCMS Development Team
- * @author			Jerel Unruh - PyroCMS Development Team
+ * @author			PyroCMS Development Team
  *
  */
-class Admin extends Admin_Controller
-{
+class Admin extends Admin_Controller {
+	
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var int
+	 */
+	protected $section = 'links';
+	
 	/**
 	 * The array containing the rules for the navigation items
 	 * @var array
@@ -84,7 +90,6 @@ class Admin extends Admin_Controller
 		$this->load->model('pages/page_m');
 		$this->lang->load('navigation');
 
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	    $this->template->append_metadata( js('navigation.js', 'navigation') );
 		$this->template->append_metadata( css('navigation.css', 'navigation') );
 

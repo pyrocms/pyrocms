@@ -21,7 +21,6 @@ $lang['galleries.no_gallery_description']	= 'Δεν έχει οριστεί ακ
 // Labels
 $lang['galleries.galleries_label']			= 'Γκαλερί';
 $lang['galleries.manage_gallery_label']		= 'Διαχείριση Γκαλερί';
-$lang['galleries.new_gallery_label']		= 'Νέα Γκαλερί';
 
 $lang['galleries.gallery_label']			= 'Άλμπουμ';
 $lang['galleries.num_photos_label']			= 'Αριθμός Φωτογραφιών';

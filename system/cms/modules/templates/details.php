@@ -7,7 +7,7 @@
  * @package		PyroCMS
  * @subpackage	Templates Module
  * @category	Module
- * @author		Stephen Cozart - PyroCMS Dev Team
+ * @author		PyroCMS Dev Team
  */
 class Module_Templates extends Module {
 
@@ -45,7 +45,14 @@ class Module_Templates extends Module {
 			'frontend' => FALSE,
 			'backend' => TRUE,
 			'menu' => 'design',
-			'author' => 'Stephen Cozart'
+			'author' => 'Stephen Cozart',
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'templates.create_title',
+				    'uri' => 'admin/templates/create',
+				),
+		    ),
 		);
 	}
 

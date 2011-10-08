@@ -28,7 +28,7 @@
 		<tbody>
 			<?php foreach ($widgets as $widget): ?>
 			<tr>
-				<td><span class="move-handle"></span></td>
+				<td><span class="move-handle"><?php echo image('icons/drag_handle.gif'); ?></span></td>
 				<td><?php echo form_checkbox('action_to[]', $widget->id); ?></td>
 				<td><?php echo $widget->title; ?></td>
 				<td><?php echo $widget->description; ?></td>
@@ -55,9 +55,7 @@
 	<?php echo form_close(); ?>
 
 <?php else: ?>
-	<div class="blank-slate">
-		<h2><?php echo lang('widgets.no_available_widgets'); ?></h2>
-	</div>
+	<p><?php echo lang('widgets.no_available_widgets'); ?></p>
 <?php endif; ?>
 
 </section>

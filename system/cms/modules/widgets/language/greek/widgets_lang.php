@@ -33,6 +33,4 @@ $lang['widgets.delete_instance']        = 'Διαγραφή widget instance';
 $lang['widgets.instance_title']         = 'Τίτλος';
 $lang['widgets.tag_title']              = 'Ετικέτα';
 
-$lang['widgets.instance_edit']          = 'Επεξεργασία';
-$lang['widgets.instance_delete']        = 'Διαγραφή';
 $lang['widgets.no_available_widgets']		= 'Δεν υπάρχουν διαθέσιμα widgets.';

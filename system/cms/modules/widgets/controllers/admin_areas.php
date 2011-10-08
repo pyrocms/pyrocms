@@ -12,6 +12,13 @@
 class Admin_areas extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'areas';
+	
+	/**
 	 * Array that contains the validation rules
 	 *
 	 * @access	protected

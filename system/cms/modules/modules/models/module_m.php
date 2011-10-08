@@ -34,7 +34,7 @@ class Module_m extends MY_Model
 	 * @param	string	$module		The name of the module to load
 	 * @return	array
 	 */
-	public function get($module = '')
+	public function get($slug = '')
 	{
 		// Have to return an associative array of NULL values for backwards compatibility.
 		$null_array = array(
@@ -47,41 +47,43 @@ class Module_m extends MY_Model
 			'is_backend' => NULL,
 			'menu' => FALSE,
 			'enabled' => 1,
+			'sections' => array(),
+			'shortcuts' => array(),
 			'is_core' => NULL,
 			'is_current' => NULL,
 			'current_version' => NULL,
 			'updated_on' => NULL
 		);
 
-		if (is_array($module) || empty($module))
+		if (is_array($slug) || empty($slug))
 		{
 			return $null_array;
 		}
 
 		$result = $this->db
-			->where('slug', $module)
+			->where('slug', $slug)
 			->get($this->_table)
 			->row();
 
 		if ($result)
 		{
+			
+			// Let's get REAL
+			if ( ! $details_class = $this->_spawn_class($slug, $result->is_core))
+			{
+				return FALSE;
+			}
+			
+			$info = $details_class->info();
+			
 			// Return FALSE if the module is disabled
 			if ($result->enabled == 0)
 			{
 				return FALSE;
 			}
 
-			if ( ! $descriptions = unserialize($result->description))
-			{
-				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
-			}
-			$description = !isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
-
-			if ( ! $names = unserialize($result->name))
-			{
-				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
-			}
-			$name = !isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
+			$name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
+			$description = ! isset($info['description'][CURRENT_LANGUAGE]) ? $info['description']['en'] : $info['description'][CURRENT_LANGUAGE];
 
 			return array(
 				'name' => $name,
@@ -93,6 +95,8 @@ class Module_m extends MY_Model
 				'is_backend' => $result->is_backend,
 				'menu' => $result->menu,
 				'enabled' => $result->enabled,
+				'sections' => ! empty($info['sections']) ? $info['sections'] : array(),
+				'shortcuts' => ! empty($info['shortcuts']) ? $info['shortcuts'] : array(),
 				'is_core' => $result->is_core,
 				'is_current' => version_compare($result->version, $this->version($result->slug),  '>='),
 				'current_version' => $this->version($result->slug),

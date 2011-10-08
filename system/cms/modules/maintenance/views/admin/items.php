@@ -25,7 +25,7 @@
         <tr>
           <td><?php echo $folder->name; ?></td>
           <td class="align-center"><?php echo $folder->count; ?></td>
-          <td class="buttons buttons-small align-center">
+          <td class="buttons buttons-small align-center actions">
             <?php if ($folder->count > 0) echo anchor('admin/maintenance/cleanup/'.$folder->name, lang('global:empty'), array('class'=>'button empty')) ?>
             <?php if ( ! $folder->cannot_remove) echo anchor('admin/maintenance/cleanup/'.$folder->name.'/1', lang('global:remove'), array('class'=>'button remove')) ?>
           </td>

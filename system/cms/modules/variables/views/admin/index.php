@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('variables.list_title');?></h4>
+	<h4><?php echo $module_details['name']; ?></h4>
 </section>
 
 <section class="item">
@@ -10,10 +10,10 @@
 			<thead>
 			<tr>
 				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-				<th width="20%"><?php echo lang('global:name');?></th>
+				<th width="20%"><?php echo lang('name_label');?></th>
 				<th><?php echo lang('variables.data_label');?></th>
 				<th width="20%"><?php echo lang('variables.syntax_label');?></th>
-				<th width="100"></th>
+				<th width="140"></th>
 			</tr>
 			</thead>
 			<tfoot>
@@ -30,7 +30,7 @@
 					<td><?php echo $variable->name;?></td>
 					<td><?php echo $variable->data;?></td>
 					<td><?php form_input('', printf('{%s:variables:%s}', config_item('tags_trigger'), $variable->name));?></td>
-					<td class="align-center buttons buttons-small actions">
+					<td class="actions">
 						<?php echo anchor('admin/variables/edit/' . $variable->id, lang('buttons.edit'), 'rel="ajax-eip" class="button edit"'); ?>
 						<?php echo anchor('admin/variables/delete/' . $variable->id, lang('buttons.delete'), array('class'=>'confirm button delete')); ?>
 					</td>

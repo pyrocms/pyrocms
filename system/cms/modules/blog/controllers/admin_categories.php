@@ -4,16 +4,29 @@
  * @package  	PyroCMS
  * @subpackage  Categories
  * @category  	Module
- * @author  	Phil Sturgeon - PyroCMS Dev Team
+ * @author  	PyroCMS Dev Team
  */
-class Admin_Categories extends Admin_Controller
-{
+class Admin_Categories extends Admin_Controller {
+
+	/**
+	 * The current active section
+	 * @access protected
+	 * @var int
+	 */
+	protected $section = 'categories';
+	
 	/**
 	 * Array that contains the validation rules
 	 * @access protected
 	 * @var array
 	 */
-	protected $validation_rules;
+	protected $validation_rules = array(
+		array(
+			'field' => 'title',
+			'label' => 'lang:categories.title_label',
+			'rules' => 'trim|required|max_length[20]|callback__check_title'
+		),
+	);
 	
 	/**
 	 * The constructor
@@ -28,17 +41,6 @@ class Admin_Categories extends Admin_Controller
 		$this->lang->load('categories');
 		$this->lang->load('blog');
 		
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-	
-		// Set the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'title',
-				'label' => lang('categories.title_label'),
-				'rules' => 'trim|required|max_length[20]|callback__check_title'
-			),
-		);
-		
 		// Load the validation library along with the rules
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules($this->validation_rules);
@@ -52,6 +54,7 @@ class Admin_Categories extends Admin_Controller
 	public function index()
 	{
 		$this->pyrocache->delete_all('modules_m');
+		
 		// Create pagination links
 		$total_rows = $this->blog_categories_m->count_all();
 		$pagination = create_pagination('admin/blog/categories/index', $total_rows);

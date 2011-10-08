@@ -2,7 +2,7 @@
 
 class Module_Variables extends Module {
 
-	public $version = '0.3.1';
+	public $version = '0.4';
 	
 	public function info()
 	{
@@ -49,7 +49,16 @@ class Module_Variables extends Module {
 			),
 			'frontend'	=> FALSE,
 			'backend'	=> TRUE,
-			'menu'		=> 'content'
+			'menu'		=> 'content',
+			
+			'shortcuts' => array(
+				array(
+				    'name' => 'variables.create_title',
+				    'uri' => 'admin/variables/create',
+					'class' => 'add',
+					'rel' => 'ajax',
+				),
+		    ),
 		);
 	}
 	

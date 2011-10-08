@@ -1,6 +1,6 @@
 <?php if ($file_folders): ?>
 
-	<h3><?php echo lang('file_folders.manage_title'); ?></h3>
+	<h4><?php echo lang('file_folders.manage_title'); ?></h4>
 
 	<?php echo form_open('admin/files/folders/action', 'id="folders_list"');?>
 

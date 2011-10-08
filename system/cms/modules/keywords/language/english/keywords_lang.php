@@ -4,7 +4,7 @@
 $lang['keywords:name']				    = 'Name';
 
 // titles
-$lang['keywords:index_title']            = 'List Keywords';
+$lang['keywords:index_title']            = 'Keywords';
 $lang['keywords:add_title']              = 'Add Keyword';
 $lang['keywords:edit_title']             = 'Editing Keyword "%s"';
 

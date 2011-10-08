@@ -31,9 +31,6 @@ $lang['widgets.edit_instance']          = 'ערוך ויג\'ט';
 $lang['widgets.delete_instance']        = 'מחק ויג\'ט';
 
 $lang['widgets.instance_title']         = 'כותרת';
-$lang['widgets.tag_title']              = 'Tag';
-
-$lang['widgets.instance_edit']          = 'ערוך';
-$lang['widgets.instance_delete']        = 'מחק';
+$lang['widgets.tag_title']              = 'Tag'; #translate
 
 $lang['widgets.no_available_widgets']		= 'אין ויג\'טים זמינים.';

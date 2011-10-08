@@ -1,7 +1,7 @@
 <?php
 
 $lang['cp_admin_title'] 				= '管理系統'; 		//'Control Panel';
-$lang['cp_admin_home_title'] 			= '控制台'; 			//'Dashboard';
+$lang['global:dashboard'] 			= '控制台'; 			//'Dashboard';
 $lang['cp_admin_quick_links']			= '快速連結'; 		//'Quick Links';
 
 $lang['cp_welcome_title'] 				= '歡迎';

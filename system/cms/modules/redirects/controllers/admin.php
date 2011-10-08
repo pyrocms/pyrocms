@@ -2,13 +2,30 @@
 /**
  * Cms controller for the redirects module
  *
- * @author 		Phil Sturgeon - PyroCMS Dev Team
+ * @author 		PyroCMS Dev Team
  * @package 	PyroCMS
  * @subpackage 	Variables Module
  * @category	Modules
  */
 class Admin extends Admin_Controller
 {
+	/**
+	 * Array containing the validation rules
+	 * @var array
+	 */
+	protected $validation_rules = array(
+		array(
+			'field' => 'from',
+			'label' => 'lang:redirects.from',
+			'rules' => 'trim|required|max_length[250]|callback__check_unique'
+		),
+		array(
+			'field' => 'to',
+			'label' => 'lang:redirects.to',
+			'rules' => 'trim|required|max_length[250]'
+		)
+	);
+	
 	/**
 	 * Constructor method
 	 * @access public
@@ -23,23 +40,7 @@ class Admin extends Admin_Controller
 		$this->load->model('redirect_m');
 		$this->lang->load('redirects');
 
-		// Validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'from',
-				'label' => lang('redirects.from'),
-				'rules' => 'trim|required|max_length[250]|callback__check_unique'
-			),
-			array(
-				'field' => 'to',
-				'label' => lang('redirects.to'),
-				'rules' => 'trim|required|max_length[250]'
-			)
-		);
-
 		$this->form_validation->set_rules($this->validation_rules);
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 	
 	/**

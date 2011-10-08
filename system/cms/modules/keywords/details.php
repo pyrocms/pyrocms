@@ -12,7 +12,7 @@ class Module_Keywords extends Module {
 				'nl' => 'Sleutelwoorden',
 				'ar' => 'Keywords',
 				'br' => 'Palavras-chave',
-				'ar' => 'الكلمات المفتاحية',
+				'ar' => 'كلمات البحث',
 				'da' => 'Nøgleord'
 			),
 			'description' => array(
@@ -20,12 +20,19 @@ class Module_Keywords extends Module {
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
 				'ar' => 'Maintain a central list of keywords to label and organize your content.',
 				'br' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
-				'ar' => 'أنشئ مجموعة من الكلمات المفتاحية التي تستطيع من خلالها وسم وتنظيم المحتوى.',
+				'ar' => 'أنشئ مجموعة من كلمات البحث التي تستطيع من خلالها وسم وتنظيم المحتوى.',
 				'da' => 'Vedligehold en central liste af nøgleord for at organisere dit indhold.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'     => 'content'
+			'menu'     => 'content',
+			
+			'shortcuts' => array(
+				array(
+			 	   'name' => 'keywords:add_title',
+				   'uri' => 'admin/keywords/create',
+				),
+			),
 		);
 	}
 

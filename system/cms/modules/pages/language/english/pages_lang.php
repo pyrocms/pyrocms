@@ -44,11 +44,11 @@ $lang['pages.create_label']							= 'Add child';
 $lang['pages.duplicate_label']						= 'Duplicate';
 
 // titles
-$lang['pages.create_title']							= 'Add page';
-$lang['pages.edit_title']							= 'Edit page "%s"';
-$lang['pages.list_title']							= 'List pages';
-$lang['pages.layouts_create_title']					= 'Add page layout';
-$lang['pages.layouts_list_title']					= 'List page layouts';
+$lang['pages.create_title']							= 'Add Page';
+$lang['pages.edit_title']							= 'Edit Page "%s"';
+$lang['pages.list_title']							= 'Pages';
+$lang['pages.layouts_create_title']					= 'Add Page Layout';
+$lang['pages.layouts_list_title']					= 'Layouts';
 
 // messages
 $lang['pages.no_pages']								= 'There are no pages.';

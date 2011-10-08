@@ -49,7 +49,7 @@ class Module_Permissions extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'users'
+			'menu'	  => 'users',
 		);
 	}
 	

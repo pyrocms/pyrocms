@@ -21,11 +21,6 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		$this->lang->load('modules');
-
-		if ($this->settings->addons_upload)
-		{
-			$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-		}
 	}
 
 	/**

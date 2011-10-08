@@ -8,16 +8,16 @@ $lang['templates.body_label']				= 'Body';
 $lang['templates.slug_label']				= 'Slug';
 
 // Titles
-$lang['templates.create_title']				= 'Create template';
-$lang['templates.edit_title']				= 'Editing template "%s"';
-$lang['templates.clone_title']				= 'Copying template "%s"';
-$lang['templates.list_title']				= 'List templates';
-$lang['templates.default_title']			= 'Default templates';
-$lang['templates.user_defined_title']		= 'User defined templates';
+$lang['templates.create_title']				= 'Create Template';
+$lang['templates.edit_title']				= 'Editing Template "%s"';
+$lang['templates.clone_title']				= 'Copying Template "%s"';
+$lang['templates.list_title']				= 'Templates';
+$lang['templates.default_title']			= 'Default Templates';
+$lang['templates.user_defined_title']		= 'User Defined Templates';
 
 // Messages
-$lang['templates.tmpl_create_success']		= 'Email template "%s" has been saved.';
-$lang['templates.tmpl_create_error']		= 'Email template "%s" was not saved.';
+$lang['templates.tmpl_create_success']		= 'Email Template "%s" has been saved.';
+$lang['templates.tmpl_create_error']		= 'Email Template "%s" was not saved.';
 $lang['templates.tmpl_edit_success']		= 'Changes made to email template "%s" has been saved.';
 $lang['templates.tmpl_edit_error']			= 'Changes made to email template "%s" was not saved.';
 $lang['templates.tmpl_clone_success']		= '"%s" has been cloned. You may now edit the template to your liking.';

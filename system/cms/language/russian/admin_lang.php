@@ -9,7 +9,7 @@
  */
 
 $lang['cp_admin_title']								= 'Панель администратора';
-$lang['cp_admin_home_title']					= 'Контрольная панель';
+$lang['global:dashboard']					= 'Контрольная панель';
 $lang['cp_admin_quick_links']					= 'Панель запуска';
 
 $lang['cp_welcome_title']							= 'Добро пожаловать';

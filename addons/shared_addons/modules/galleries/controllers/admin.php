@@ -116,8 +116,6 @@ class Admin extends Admin_Controller
 		$this->load->helper('html');
 
 		$this->load->model('files/file_folders_m');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
@@ -194,7 +192,6 @@ class Admin extends Admin_Controller
 			->append_metadata( css('galleries.css', 'galleries') )
 			->append_metadata( js('manage.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery',		$gallery)
 			->set('folders_tree',	$folders_tree)
@@ -268,7 +265,6 @@ class Admin extends Admin_Controller
 			->append_metadata( css('galleries.css', 'galleries') )
 		   	->append_metadata( js('manage.js', 'galleries') )
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'galleries') )
 			->set('gallery',		$gallery)
 			->set('galleries',		$galleries)

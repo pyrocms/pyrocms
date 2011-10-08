@@ -6,7 +6,7 @@ class Module_Themes extends Module {
 	
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'sl' => 'Predloge',
 				'en' => 'Themes',
@@ -51,6 +51,17 @@ class Module_Themes extends Module {
 			'backend'  => TRUE,
 			'menu'	  => 'design'
 		);
+		
+		if ($this->settings->addons_upload)
+		{
+			$info['shortcuts'][] = array(
+				'name' => 'themes.upload_title',
+				'uri' => 'admin/themes/upload',
+				'class' => 'add',
+			);
+		}
+		
+		return $info;
 	}
 	
 	public function install()

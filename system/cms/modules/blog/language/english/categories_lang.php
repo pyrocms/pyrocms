@@ -5,9 +5,9 @@ $lang['cat_title_label']            = 'Title';
 $lang['cat_category_label']         = 'Category';
 
 // titles
-$lang['cat_create_title']           = 'Add category';
+$lang['cat_create_title']           = 'Add Category';
 $lang['cat_edit_title']             = 'Edit category "%s"';
-$lang['cat_list_title']             = 'List categories';
+$lang['cat_list_title']             = 'Categories';
 
 // messages
 $lang['cat_no_categories']          = 'There are no categories.';

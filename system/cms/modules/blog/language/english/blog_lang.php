@@ -32,13 +32,12 @@ $lang['blog_created_minute']                 = 'Created on Minute';
 $lang['blog_comments_enabled_label']         = 'Comments Enabled';
 
 // titles
-$lang['blog_create_title']                   = 'Add post';
+$lang['blog_create_title']                   = 'Add Post';
 $lang['blog_edit_title']                     = 'Edit post "%s"';
 $lang['blog_archive_title']                  = 'Archive';
 $lang['blog_posts_title']                 = 'Posts';
 $lang['blog_rss_posts_title']             = 'Blog posts for %s';
 $lang['blog_blog_title']                     = 'Blog';
-$lang['blog_list_title']                     = 'List posts';
 
 // messages
 $lang['blog_no_posts']                    = 'There are no posts.';

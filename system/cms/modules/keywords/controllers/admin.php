@@ -33,8 +33,6 @@ class Admin extends Admin_Controller
 				'rules' => 'trim|required|max_length[50]|strtolower|is_unique[keywords.name]'
 			),
 		);
-
-	    $this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**

@@ -6,7 +6,10 @@
 		<div class="widget-area-content accordion-content">
 			<!-- Widget Area Actions -->
 			<div class="buttons buttons-small">
-				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('edit' => array('id' => '../areas/edit/' . $widget_area->slug), 'delete') )); ?>
+						
+				<?php echo anchor('admin/' . $this->module_details['slug'] . '../areas/edit/'.$widget_area->slug, lang('buttons.edit'), 'class="button edit"'); ?>
+				<button type="submit" name="btnAction" value="delete" class="button delete confirm"><span>Delete</span></button>
+			
 			</div>
 
 			<!-- Widget Area Tag -->

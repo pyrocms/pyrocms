@@ -43,7 +43,30 @@ class Module_Blog extends Module {
 
 			'roles' => array(
 				'put_live', 'edit_live', 'delete_live'
-			)
+			),
+			
+			'sections' => array(
+			    'posts' => array(
+				    'name' => 'blog_posts_title',
+				    'uri' => 'admin/blog',
+				    'shortcuts' => array(
+						array(
+					 	   'name' => 'blog_create_title',
+						    'uri' => 'admin/blog/create',
+						),
+					),
+				),
+				'categories' => array(
+				    'name' => 'cat_list_title',
+				    'uri' => 'admin/blog/categories',
+				    'shortcuts' => array(
+						array(
+						    'name' => 'cat_create_title',
+						    'uri' => 'admin/blog/categories/create',
+						),
+				    ),
+			    ),
+		    ),
 		);
 	}
 

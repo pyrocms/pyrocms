@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['cp_admin_title'] 			= 'לוח בקרה';
-$lang['cp_admin_home_title'] 			= 'לוח בקרה';
+$lang['global:dashboard'] 			= 'לוח בקרה';
 $lang['cp_admin_quick_links']			= 'קישורים מהירים';
 
 $lang['cp_welcome_title'] 			= 'ברוכים הבאים';

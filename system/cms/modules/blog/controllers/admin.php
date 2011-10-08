@@ -9,6 +9,13 @@
 class Admin extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'posts';
+
+	/**
 	 * The id of post
 	 * @access protected
 	 * @var int

@@ -12,16 +12,19 @@
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 	<ul>
 	<li>
-		<label for="from"><?php echo lang('redirects.from');?></label>
+		<label for="from"><?php echo lang('redirects.from');?></label><br>
 		<?php echo form_input('from', $redirect->from);?>
 	</li>
+	
+	<hr>
+	
 	<li>
-		<label for="to"><?php echo lang('redirects.to');?></label>
+		<label for="to"><?php echo lang('redirects.to');?></label><br>
 		<?php echo form_input('to', $redirect->to);?>
 	</li>
 	</ul>
 	
-	<br>
+	<hr>
 	
 	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
