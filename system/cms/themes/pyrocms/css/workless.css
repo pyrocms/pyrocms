@@ -878,7 +878,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background: #efefef;
   color: #636363;
   margin-right: 2px;
-  margin-bottom: -1px;
+  margin-bottom: -6px;
   padding: 0 15px;
   line-height: 35px;
   -webkit-border-radius: 3px 3px 0 0;
@@ -889,11 +889,10 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .tab-menu li a:hover {
 
   background: #e6e6e6;
-  border-bottom: 1px solid #bfbfbf;
 }
 
 .tab-menu li.active a {
-  background-color: #ffffff;
+  background-color: #ffffff!important;
   padding: 0 14px;
   border: 1px solid #cccccc;
   border-bottom: 0;
