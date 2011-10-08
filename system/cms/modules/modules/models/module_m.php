@@ -60,24 +60,24 @@ class Module_m extends MY_Model
 			return $null_array;
 		}
 
-		$result = $this->db
+		$row = $this->db
 			->where('slug', $slug)
 			->get($this->_table)
 			->row();
 
-		if ($result)
+		if ($row)
 		{
-			
 			// Let's get REAL
-			if ( ! $details_class = $this->_spawn_class($slug, $result->is_core))
+			if ( ! $module = $this->_spawn_class($slug, $row->is_core))
 			{
 				return FALSE;
 			}
 			
-			$info = $details_class->info();
+			list($class, $location) = $module;
+			$info = $class->info();
 			
 			// Return FALSE if the module is disabled
-			if ($result->enabled == 0)
+			if ($row->enabled == 0)
 			{
 				return FALSE;
 			}
@@ -87,24 +87,115 @@ class Module_m extends MY_Model
 
 			return array(
 				'name' => $name,
-				'slug' => $result->slug,
-				'version' => $result->version,
+				'slug' => $row->slug,
+				'version' => $row->version,
 				'description' => $description,
-				'skip_xss' => $result->skip_xss,
-				'is_frontend' => $result->is_frontend,
-				'is_backend' => $result->is_backend,
-				'menu' => $result->menu,
-				'enabled' => $result->enabled,
+				'skip_xss' => $row->skip_xss,
+				'is_frontend' => $row->is_frontend,
+				'is_backend' => $row->is_backend,
+				'menu' => $row->menu,
+				'enabled' => $row->enabled,
 				'sections' => ! empty($info['sections']) ? $info['sections'] : array(),
 				'shortcuts' => ! empty($info['shortcuts']) ? $info['shortcuts'] : array(),
-				'is_core' => $result->is_core,
-				'is_current' => version_compare($result->version, $this->version($result->slug),  '>='),
-				'current_version' => $this->version($result->slug),
-				'updated_on' => $result->updated_on
+				'is_core' => $row->is_core,
+				'is_current' => version_compare($row->version, $this->version($row->slug),  '>='),
+				'current_version' => $this->version($row->slug),
+				'path' => $location,
+				'updated_on' => $row->updated_on
 			);
 		}
 
 		return $null_array;
+	}
+	
+	/**
+	 * Get Modules
+	 *
+	 * Return an array of objects containing module related data
+	 *
+	 * @param   array   $params             The array containing the modules to load
+	 * @param   bool    $return_disabled    Whether to return disabled modules
+	 * @access  public
+	 * @return  array
+	 */
+	public function get_all($params = array(), $return_disabled = FALSE)
+	{
+		$modules = array();
+
+		// We have some parameters for the list of modules we want
+		if ($params)
+		{
+			foreach ($params as $field => $value)
+			{
+				if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core')))
+				{
+					$this->db->where($field, $value);
+				}
+			}
+		}
+
+		// Skip the disabled modules
+		if ($return_disabled === FALSE)
+		{
+			$this->db->where('enabled', 1);
+		}
+
+		$result = $this->db->get($this->_table)->result();
+		
+		foreach ($result as $row)
+		{
+			// Let's get REAL
+			if ( ! $module = $this->_spawn_class($row->slug, $row->is_core))
+			{
+				return FALSE;
+			}
+			
+			list($class, $location) = $module;
+			$info = $class->info();
+			
+			// Return FALSE if the module is disabled
+			if ($row->enabled == 0)
+			{
+				return FALSE;
+			}
+			
+			$name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
+			$description = ! isset($info['description'][CURRENT_LANGUAGE]) ? $info['description']['en'] : $info['description'][CURRENT_LANGUAGE];
+
+			$module = array(
+				'name'				=> $name,
+				'slug'				=> $row->slug,
+				'version'			=> $row->version,
+				'description'		=> $description,
+				'skip_xss'			=> $row->skip_xss,
+				'is_frontend'		=> $row->is_frontend,
+				'is_backend'		=> $row->is_backend,
+				'menu'				=> $row->menu,
+				'enabled'			=> $row->enabled,
+				'installed'			=> ! empty($result->installed),
+				'is_core'			=> $row->is_core,
+				'is_current'		=> version_compare($row->version, $this->version($row->slug),  '>='),
+				'current_version'	=> $this->version($row->slug),
+				'path' 				=> $location,
+				'updated_on'		=> $row->updated_on
+			);
+
+			if ( ! empty($params['is_backend']))
+			{
+
+				// This user has no permissions for this module
+				if ( $this->current_user->group !== 'admin' AND empty($this->permissions[$result->slug]))
+				{
+					continue;
+				}
+			}
+
+			$modules[$module['name']] = $module;
+		}
+
+		ksort($modules);
+
+		return array_values($modules);
 	}
 
 	/**
@@ -166,89 +257,6 @@ class Module_m extends MY_Model
 	}
 
 	/**
-	 * Get Modules
-	 *
-	 * Return an array of objects containing module related data
-	 *
-	 * @param   array   $params             The array containing the modules to load
-	 * @param   bool    $return_disabled    Whether to return disabled modules
-	 * @access  public
-	 * @return  array
-	 */
-	public function get_all($params = array(), $return_disabled = FALSE)
-	{
-		$modules = array();
-
-		// We have some parameters for the list of modules we want
-		if ($params)
-		{
-			foreach ($params as $field => $value)
-			{
-				if (in_array($field, array('is_frontend', 'is_backend', 'menu', 'is_core')))
-				{
-					$this->db->where($field, $value);
-				}
-			}
-		}
-
-		// Skip the disabled modules
-		if ($return_disabled === FALSE)
-		{
-			$this->db->where('enabled', 1);
-		}
-
-		foreach ($this->db->get($this->_table)->result() as $result)
-		{
-		
-			if ( ! $descriptions = @unserialize($result->description))
-			{
-				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
-			}
-			$description = ! isset($descriptions[CURRENT_LANGUAGE]) ? $descriptions['en'] : $descriptions[CURRENT_LANGUAGE];
-
-			if ( ! $names = @unserialize($result->name))
-			{
-				$this->session->set_flashdata('error', sprintf(lang('modules.details_error'), $result->slug));
-			}
-
-			$name = ! isset($names[CURRENT_LANGUAGE]) ? $names['en'] : $names[CURRENT_LANGUAGE];
-
-			$module = array(
-				'name'				=> $name,
-				'slug'				=> $result->slug,
-				'version'			=> $result->version,
-				'description'		=> $description,
-				'skip_xss'			=> $result->skip_xss,
-				'is_frontend'		=> $result->is_frontend,
-				'is_backend'		=> $result->is_backend,
-				'menu'				=> $result->menu,
-				'enabled'			=> $result->enabled,
-				'installed'			=> ! empty($result->installed),
-				'is_core'			=> $result->is_core,
-				'is_current'		=> version_compare($result->version, $this->version($result->slug),  '>='),
-				'current_version'	=> $this->version($result->slug),
-				'updated_on'		=> $result->updated_on
-			);
-
-			if ( ! empty($params['is_backend']))
-			{
-
-				// This user has no permissions for this module
-				if ( $this->current_user->group !== 'admin' AND empty($this->permissions[$result->slug]))
-				{
-					continue;
-				}
-			}
-
-			$modules[$module['name']] = $module;
-		}
-
-		ksort($modules);
-
-		return array_values($modules);
-	}
-
-	/**
 	 * Exists
 	 *
 	 * Checks if a module exists
@@ -299,14 +307,14 @@ class Module_m extends MY_Model
 	 *
 	 * Disables a module
 	 *
-	 * @param	string	$module	The module slug
+	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function disable($module)
+	public function disable($slug)
 	{
 		if ($this->exists($module))
 		{
-			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 0));
+			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
 			return TRUE;
 		}
 		return FALSE;
@@ -322,7 +330,7 @@ class Module_m extends MY_Model
 	 */
 	public function install($slug, $is_core = FALSE, $insert = FALSE)
 	{
-		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+		if ( ! $module = $this->_spawn_class($slug, $is_core))
 		{
 			return FALSE;
 		}
@@ -330,29 +338,31 @@ class Module_m extends MY_Model
 		// They've just finished uploading it so we need to make a record
 		if ($insert)
 		{
+			list($class) = $module;
+			
 			// Get some info for the db
-			$module = $details_class->info();
+			$input = $class->info();
 	
 			// Now lets set some details ourselves
-			$module['slug']			= $slug;
-			$module['version']		= $details_class->version;
-			$module['enabled']		= $is_core; // enable if core
-			$module['installed']	= $is_core; // install if core
-			$module['is_core']		= $is_core; // is core if core
+			$input['slug']			= $slug;
+			$input['version']		= $class->version;
+			$input['enabled']		= $is_core; // enable if core
+			$input['installed']	= $is_core; // install if core
+			$input['is_core']		= $is_core; // is core if core
 	
 			// It's a valid module let's make a record of it
-			$this->add($module);
+			$this->add($input);
 		}
 
 		// TURN ME ON BABY!
 		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
 		
 		// set the site_ref and upload_path for third-party devs
-		$details_class->site_ref 	= SITE_REF;
-		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
+		$class->site_ref 	= SITE_REF;
+		$class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the install method to get it into the database
-		return $details_class->install();
+		return $class->install();
 	}
 
 	/**
@@ -365,18 +375,20 @@ class Module_m extends MY_Model
 	 */
 	public function uninstall($slug, $is_core = FALSE)
 	{
-		if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+		if ( ! $module = $this->_spawn_class($slug, $is_core))
 		{
 			// the files are missing so let's clean the "modules" table
 			return $this->delete($slug);
 		}
 		
+		list($class) = $module;
+			
 		// set the site_ref and upload_path for third-party devs
-		$details_class->site_ref 	= SITE_REF;
-		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
+		$class->site_ref 	= SITE_REF;
+		$class->upload_path	= 'uploads/'.SITE_REF.'/';
 
 		// Run the uninstall method to drop the module's tables
-		if ( ! $details_class->uninstall())
+		if ( ! $class->uninstall())
 		{
 			return FALSE;
 		}
@@ -384,17 +396,17 @@ class Module_m extends MY_Model
 		if ($this->delete($slug))
 		{
 			// Get some info for the db
-			$module = $details_class->info();
+			$input = $class->info();
 	
 			// Now lets set some details ourselves
-			$module['slug']			= $slug;
-			$module['version']		= $details_class->version;
-			$module['enabled']		= $is_core; // enable if core
-			$module['installed']	= $is_core; // install if core
-			$module['is_core']		= $is_core; // is core if core
+			$input['slug']			= $slug;
+			$input['version']		= $class->version;
+			$input['enabled']		= $is_core; // enable if core
+			$input['installed']		= $is_core; // install if core
+			$input['is_core']		= $is_core; // is core if core
 	
 			// We record it again here. If they really want to get rid of it they'll use Delete
-			return $this->add($module);
+			return $this->add($input);
 		}
 		return FALSE;
 	}
@@ -410,38 +422,37 @@ class Module_m extends MY_Model
 	public function upgrade($slug)
 	{
 		// Get info on the new module
-		if ( ! ($details_class = $this->_spawn_class($slug, TRUE) OR $details_class = $this->_spawn_class($slug)))
+		if ( ! ($module = $this->_spawn_class($slug, TRUE) OR $module = $this->_spawn_class($slug, FALSE)))
 		{
 			return FALSE;
 		}
 		
 		// Get info on the old module
-		if ( ! $old_module = $this->get($slug) )
+		if ( ! $old_module = $this->get($slug))
 		{
 			return FALSE;
 		}
+		
+		list($class) = $module;
 		
 		// Get the old module version number
 		$old_version = $old_module['version'];
 		
 		// set the site_ref and upload_path for third-party devs
-		$details_class->site_ref 	= SITE_REF;
-		$details_class->upload_path	= 'uploads/'.SITE_REF.'/';
+		$class->site_ref 	= SITE_REF;
+		$class->upload_path	= 'uploads/'.SITE_REF.'/';
 		
 		// Run the update method to get it into the database
-		if ($details_class->upgrade($old_version))
+		if ($class->upgrade($old_version))
 		{
 			// Update version number
-			$this->db->where('slug', $slug)->update('modules', array('version' => $details_class->version));
+			$this->db->where('slug', $slug)->update('modules', array('version' => $class->version));
 			
 			return TRUE;
 		}
 		
 		// The upgrade failed
-		else
-		{
-			return FALSE;
-		}
+		return FALSE;
 	}
 	
 	public function import_unknown()
@@ -465,11 +476,11 @@ class Module_m extends MY_Model
 			}
 		}
 
-		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) AS $directory)
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
     	{
-			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $path)
 			{
-				$slug = basename($module_name);
+				$slug = basename($path);
 
 				// Yeah yeah we know
 				if (in_array($slug, $known_array))
@@ -478,18 +489,20 @@ class Module_m extends MY_Model
 
 					if (file_exists($details_file) &&
 						filemtime($details_file) > $known_mtime[$slug]['updated_on'] &&
-						$details_class = $this->_spawn_class($slug, $is_core))
+						$module = $this->_spawn_class($slug, $is_core))
 					{
+						list($class) = $module;
+						
 						// Get some basic info
-						$module = $details_class->info();
+						$input = $class->info();
 
 						$this->update($slug, array(
-							'name'			=> serialize($module['name']),
-							'description'	=> serialize($module['description']),
-							'is_frontend'	=> ! empty($module['frontend']),
-							'is_backend'	=> ! empty($module['backend']),
-							'skip_xss'		=> ! empty($module['skip_xss']),
-							'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
+							'name'			=> serialize($input['name']),
+							'description'	=> serialize($input['description']),
+							'is_frontend'	=> ! empty($input['frontend']),
+							'is_backend'	=> ! empty($input['backend']),
+							'skip_xss'		=> ! empty($input['skip_xss']),
+							'menu'			=> ! empty($input['menu']) ? $input['menu'] : FALSE,
 							'updated_on'	=> now()
 						));
 
@@ -500,23 +513,25 @@ class Module_m extends MY_Model
 				}
 
 				// This doesnt have a valid details.php file! :o
-				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				if ( ! $module = $this->_spawn_class($slug, $is_core))
 				{
 					continue;
 				}
+				
+				list ($class) = $module;
 
 				// Get some basic info
-				$module = $details_class->info();
+				$input = $class->info();
 
 				// Now lets set some details ourselves
-				$module['slug']			= $slug;
-				$module['version']		= $details_class->version;
-				$module['enabled']		= $is_core; // enable if core
-				$module['installed']	= $is_core; // install if core
-				$module['is_core']		= $is_core; // is core if core
+				$input['slug']			= $slug;
+				$input['version']		= $class->version;
+				$input['enabled']		= $is_core; // enable if core
+				$input['installed']		= $is_core; // install if core
+				$input['is_core']		= $is_core; // is core if core
 
 				// Looks like it installed ok, add a record
-				$this->add($module);
+				$this->add($input);
 			}
 
 			// Going back around, 2nd time is addons
@@ -561,7 +576,7 @@ class Module_m extends MY_Model
 		$class = 'Module_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : FALSE;
+		return class_exists($class) ? array(new $class, dirname($details_file)) : FALSE;
 	}
 
 	/**
@@ -574,29 +589,20 @@ class Module_m extends MY_Model
 	 */
 	public function help($slug)
 	{
-		foreach (array(0, 1) AS $is_core)
+		foreach (array(0, 1) as $is_core)
     	{
-			$path = $is_core ? APPPATH : ADDONPATH;
 			$languages = $this->config->item('supported_languages');
 			$default = $languages[$this->config->item('default_language')]['folder'];
-			
+		
 			//first try it as a core module
-			if ($details_class = $this->_spawn_class($slug, $is_core))
+			if ($module = $this->_spawn_class($slug, $is_core))
 			{
-				// if the file doesn't exist then we first check the shared folder and if it
-				// still doesn't exist we show the default help text from the details.php file
-				if (file_exists($path . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
+				list ($class, $location) = $module;
+			
+				// Check for a hep language file, if not show the default help text from the details.php file
+				if (file_exists($location.'/language/'.$default.'/help_lang.php'))
 				{
-					$this->lang->load($slug . '/help');
-
-					if (lang('help_body'))
-					{
-						return lang('help_body');
-					}
-				}
-				elseif (file_exists(SHARED_ADDONPATH . 'modules/' . $slug . '/language/' . $default . '/help_lang.php'))
-				{
-					$this->lang->load($slug . '/help');
+					$this->lang->load($slug.'/help');
 
 					if (lang('help_body'))
 					{
@@ -605,7 +611,7 @@ class Module_m extends MY_Model
 				}
 				else
 				{
-					return $details_class->help();
+					return $class->help();
 				}
 			}
 		}
@@ -626,9 +632,10 @@ class Module_m extends MY_Model
 		foreach (array(0, 1) as $is_core)
     	{
 			//first try it as a core module
-			if ($details_class = $this->_spawn_class($slug, $is_core))
+			if ($module = $this->_spawn_class($slug, $is_core))
 			{
-				$info = $details_class->info();
+				list($class) = $module;
+				$info = $class->info();
 
 				if ( ! empty($info['roles']))
 				{
@@ -651,12 +658,12 @@ class Module_m extends MY_Model
 	 */
 	public function version($slug)
 	{
-		if ($details_class = $this->_spawn_class($slug, TRUE) OR $details_class = $this->_spawn_class($slug))
+		if ($module = $this->_spawn_class($slug, TRUE) OR $module = $this->_spawn_class($slug))
 		{
-			return $details_class->version;
+			list($class) = $module;
+			return $class->version;
 		}
 
 		return FALSE;
 	}
-
 }

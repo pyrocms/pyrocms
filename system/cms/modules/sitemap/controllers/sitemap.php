@@ -7,19 +7,7 @@
  * @license 	Apache License v2.0
  * @version 	1.1
  */
-class Sitemap extends Public_Controller
-{	
-	/**
-	 * Constructor method; load the pages array
-	 * @access public
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-		
-		
-	}
+class Sitemap extends Public_Controller {
 
 	/**
 	 * XML method - output sitemap in XML format for search engines
@@ -41,10 +29,7 @@ class Sitemap extends Public_Controller
 				continue;
 			}
 
-			// TODO: Fix for shared addons. Add path like themes?
-			$path = $module['is_core'] ? APPPATH : FCPATH.ADDONPATH;
-
-			if ( ! file_exists($path.'modules/'.$module['slug'].'/controllers/sitemap.php'))
+			if ( ! file_exists($module['path'].'/controllers/sitemap.php'))
 			{
 				continue;
 			}
@@ -56,6 +41,5 @@ class Sitemap extends Public_Controller
 		$this->output
 			->set_content_type('application/xml')
 			->set_output($doc->asXML());
-	}
-	
+	}	
 }
