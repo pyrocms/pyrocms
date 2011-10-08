@@ -153,11 +153,12 @@ class Admin extends Admin_Controller {
 
 		$this->template
 			->title($this->module_details['name'])
-			->set_partial('filters', 'admin/partials/filters')
 			->append_metadata(js('admin/filter.js'))
 			->set('pagination', $pagination)
-			->set('blog', $blog)
-			->build('admin/index', $this->data);
+			->set('blog', $blog);
+
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/posts', $this->data) : $this->template->build('admin/index', $this->data);
+
 	}
 
 	/**
@@ -550,6 +551,6 @@ class Admin extends Admin_Controller {
 		$this->template
 				->set_layout(FALSE)
 				->set('blog', $results)
-				->build('admin/index');
+				->build('admin/tables/posts');
 	}
 }
