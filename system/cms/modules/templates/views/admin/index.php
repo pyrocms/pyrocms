@@ -1,16 +1,18 @@
 <?php if(!empty($templates)): ?>
-	<section class="title"></section>
-	<section class="item">
+
+<section class="title">
+	<h4><?php echo lang('templates.default_title'); ?></h4>
+</section>
+	
+<section class="item">
+
     <?php echo form_open('admin/templates/action'); ?>
 
     <table border="0" class="table-list clear-both">
         <thead>
-			<tr>
-				<th colspan="5"><?php echo lang('templates.default_title'); ?></th>
-			</tr>
             <tr>
                 <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-                <th><?php echo lang('global:name'); ?></th>
+                <th><?php echo lang('name_label'); ?></th>
                 <th><?php echo lang('global:description'); ?></th>
                 <th><?php echo lang('templates.language_label'); ?></th>
                 <th width="220"></th>
@@ -39,16 +41,26 @@
 	</tbody>
 	</table>
     <?php echo form_close(); ?>
-    <?php echo form_open('admin/templates/delete'); ?>
-	
+ 
+ 	<div class="buttons padding-top alignright">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
+	</div>
+
+</section>
+
+<section class="title">
+	<h4><?php echo lang('templates.user_defined_title'); ?></h4>
+</section>
+
+<?php echo form_open('admin/templates/delete'); ?>
+   
+<section class="item">
+
 	<table border="0" class="table-list clear-both">
         <thead>
-			<tr>
-				<th colspan="5"><?php echo lang('templates.user_defined_title'); ?></th>
-			</tr>
             <tr>
                 <th><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
-                <th><?php echo lang('global:name'); ?></th>
+                <th><?php echo lang('name_label'); ?></th>
                 <th><?php echo lang('global:description'); ?></th>
                 <th><?php echo lang('templates.language_label'); ?></th>
                 <th width="200"></th>
