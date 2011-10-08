@@ -1,3 +1,11 @@
+<section class="title">
+	<h4><?php echo lang('contact_messages'); ?></h4>
+</section>
+
+<section class="item">
+
+<?php if( !empty($contact_log) ): ?>
+
 <table class="table-list">
 	<thead>
 		<tr>
@@ -23,3 +31,11 @@
 	<?php endforeach; ?>
 	</tbody>
 </table>
+
+<?php else: ?>
+
+	<p><?php echo lang('contact_no_messages'); ?></p>
+
+<?php endif; ?>
+
+</section>
