@@ -124,13 +124,37 @@ class Module_Templates extends Module {
 			'lang'				=> 'en',
 			'is_default'		=> 1
 		);
+		
+		$forgotten_password	= array(
+			'slug'				=> 'forgotten_password',
+			'name'				=> 'Forgotten Password Email',
+			'description' 		=> 'The email that is sent containing a password reset code',
+			'subject'			=> '{pyro:settings:site_name} - Forgotten Password',
+			'body'				=> '<p>Hello {pyro:user:first_name},</p>
+									<p>It seems you have requested a password reset. Please click this link to complete the reset: <a href="{pyro:url:site}users/reset_pass/{pyro:user:forgotten_password_code}">{pyro:url:site}users/reset_pass/{pyro:user:forgotten_password_code}</a></p>
+									<p>If you did not request a password reset please disregard this message. No further action is necessary.</p>',
+			'lang'				=> 'en',
+			'is_default'		=> 1
+		);
+		
+		$new_password		= array(
+			'slug'				=> 'new_password',
+			'name'				=> 'New Password Email',
+			'description' 		=> 'After a password is reset this email is sent containing the new password',
+			'subject'			=> '{pyro:settings:site_name} - New Password',
+			'body'				=> '<p>Hello {pyro:user:first_name},</p>
+									<p>Your new password is: {pyro:new_password}</p>
+									<p>After logging in you may change your password by visiting <a href="{pyro:url:site}edit-profile">{pyro:url:site}edit-profile</a></p>',
+			'lang'				=> 'en',
+			'is_default'		=> 1
+		);
 
 			$this->db->query($comment_template); //sent when a user posts a comment to something
 			$this->db->query($contact_template); //sent when a user uses the contact form
 			$this->db->query($registered_template); // sent to the site contact email when a new user registers
 			$this->db->insert('email_templates', $activation_template); // when user registers this is used to send his activation code
-			//$this->db->insert($forgot_password_template); //forgot_password.tpl.php sent when user resets password
-			//$this->db->insert($new_password_template); //new_password.tpl.php sent one a password is successfuly sent
+			$this->db->insert('email_templates', $forgotten_password_template); // sent when user requests a password reset
+			$this->db->insert('email_templates', $new_password); // this is used to send the new password
 			return TRUE;
 	}
 
