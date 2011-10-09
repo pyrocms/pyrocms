@@ -67,6 +67,13 @@ class MY_Model extends CI_Model
 	protected $skip_validation = FALSE;
 
 	/**
+	 * Automatically instantiate result objects as the calling model class
+	 *
+	 * @var bool
+	 */
+	protected $instantiate_model = FALSE;
+
+	/**
 	* Wrapper to __construct for when loading
 	* class is a superclass to a regular controller,
 	* i.e. - extends Base not extends Controller.
@@ -146,7 +153,7 @@ class MY_Model extends CI_Model
 	{
 		return $this->db->where($this->primary_key, $primary_value)
 			->get($this->_table)
-			->row();
+			->row(0, $this->instantiate_model ? get_called_class() : 'object');
 	}
 
 	/**
@@ -164,7 +171,7 @@ class MY_Model extends CI_Model
 		$this->_set_where($where);
 
 		return $this->db->get($this->_table)
-			->row();
+			->row(0, $this->instantiate_model ? get_called_class() : 'object');
 	}
 
 	/**
@@ -208,7 +215,7 @@ class MY_Model extends CI_Model
 	 */
 	public function get_all()
 	{
-		return $this->db->get($this->_table)->result();
+		return $this->db->get($this->_table)->result($this->instantiate_model ? get_called_class() : 'object');
 	}
 
 	/**
@@ -475,7 +482,7 @@ class MY_Model extends CI_Model
 			->get($this->_table);
 
 		$options = array();
-		foreach ($query->result() as $row)
+		foreach ($query->result($this->instantiate_model ? get_called_class() : 'object') as $row)
 		{
 			$options[$row->{$key}] = $row->{$value};
 		}
