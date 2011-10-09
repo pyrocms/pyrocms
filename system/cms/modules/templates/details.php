@@ -108,11 +108,27 @@ class Module_Templates extends Module {
 				<strong>Operating System: {pyro:sender_os}
 				<strong>User Agent: {pyro:sender_agent}</strong>', 'en', '1');
 		";
+		
+		$activation_template = array(
+			'slug'				=> 'activation',
+			'name'				=> 'Activation Email',
+			'description' 		=> 'The email which contains the activation code that is sent to a new user',
+			'subject'			=> '{pyro:settings:site_name} - Account Activation',
+			'body'				=> '<p>Hello {pyro:user:first_name},</p>
+									<p>Thank you for registering at {pyro:settings:site_name}. Before we can activate your account, please complete the registration process by clicking on the following link:</p>
+									<p><a href="{pyro:url:site}users/activate/{pyro:user:id}/{pyro:activation_code}">{pyro:url:site}users/activate/{pyro:user:id}/{pyro:activation_code}</a></p>
+									<p>&nbsp;</p>
+									<p>In case your email program does not recognize the above link as, please direct your browser to the following URL and enter the activation code:</p>
+									<p><a href="{pyro:url:site}users/activate">{pyro:url:site}users/activate</a></p>
+									<p><strong>Activation Code:</strong> {pyro:activation_code}</p>',
+			'lang'				=> 'en',
+			'is_default'		=> 1
+		);
 
 			$this->db->query($comment_template); //sent when a user posts a comment to something
 			$this->db->query($contact_template); //sent when a user uses the contact form
 			$this->db->query($registered_template); // sent to the site contact email when a new user registers
-			//$this->db->insert($activate_template); //activation_required.php - when user registers this is sent
+			$this->db->insert('email_templates', $activation_template); // when user registers this is used to send his activation code
 			//$this->db->insert($forgot_password_template); //forgot_password.tpl.php sent when user resets password
 			//$this->db->insert($new_password_template); //new_password.tpl.php sent one a password is successfuly sent
 			return TRUE;

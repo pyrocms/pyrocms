@@ -321,37 +321,35 @@ class Ion_auth
 				return FALSE;
 			}
 
-			$activation_code = $this->ci->ion_auth_model->activation_code;
-			$identity        = $this->ci->config->item('identity', 'ion_auth');
-		$user            = $this->ci->ion_auth_model->get_user($id)->row();
+			$activation_code 	= $this->ci->ion_auth_model->activation_code;
+			$user				= $this->ci->ion_auth_model->get_user($id)->row();
 
-			$data = array(
-				'identity'   => $user->{$identity},
-				 'id'         => $user->id,
-			 'email'      => $email,
-			 'activation' => $activation_code,
-			);
+			// Add in some extra details
+			$data['subject']			= $this->ci->settings->get('site_name') . ' - Account Activation';
+			$data['slug'] 				= 'activation';
+			$data['to'] 				= $email;
+			$data['from'] 				= $this->ci->settings->get('server_email');
+			$data['name']				= $this->ci->settings->get('site_name');
+			$data['reply-to']			= $this->ci->settings->get('contact_email');
+			$data['activation_code']	= $activation_code;
+			$data['user']				= $user;
+			
+			// send the email using the template event found in system/cms/templates/
+			$results = Events::trigger('email', $data, 'array');
 
-			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
-
-			$this->ci->email->clear();
-			$config['mailtype'] = "html";
-			$this->ci->email->initialize($config);
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->settings->get('server_email'), $this->ci->settings->get('site_name'));
-			$this->ci->email->reply_to($this->ci->settings->get('contact_email'));
-			$this->ci->email->to($email);
-			$this->ci->email->subject($this->ci->settings->get('site_name') . ' - Account Activation');
-			$this->ci->email->message($message);
-
-			if ($this->ci->email->send() == TRUE)
+			// check for errors from the email event
+			foreach ($results as $result)
 			{
-				$this->set_message('activation_email_successful');
-				return $id;
+				if ( ! $result)
+				{
+					$this->set_error('activation_email_unsuccessful');
+					return FALSE;
+				}
 			}
-
-			$this->set_error('activation_email_unsuccessful');
-			return FALSE;
+			
+			// email send was successful, let them know
+			$this->set_message('activation_email_successful');
+			return $id;
 		}
 	}
 
