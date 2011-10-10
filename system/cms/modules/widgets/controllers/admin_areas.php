@@ -128,7 +128,7 @@ class Admin_areas extends Admin_Controller {
 			{
 				$this->session->set_flashdata($status, $message);
 
-				redirect('admim/widgets');
+				redirect('admin/widgets');
 				return;
 			}
 

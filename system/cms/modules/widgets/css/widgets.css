@@ -1,24 +1,11 @@
-#available-widgets,
-#widget-areas {
-
+#available-widgets h5,
+#widget-areas h5 {
+	margin: 0;
 }
 
 /*--------------------------------------------------------------------
 // AVAILABLE WIDGETS LIST
 //-------------------------------------------------------------------*/
-
-#available-widgets > header {
-	position: relative;
-}
-#available-widgets > header p {
-	position: absolute;
-	top: 6px;
-	right: 0.79em;
-	font-size: 15px;
-	font-style: italic;
-	color: #666;
-	margin: 0;
-}
 
 #available-widgets > ul {
 	position: relative;
@@ -27,9 +14,15 @@
 }
 #available-widgets > ul li {
 	position: relative;
-	border-top: 1px dotted #ccc;
-	padding: 10px;
+	padding: 1px 10px 10px 10px;
 	margin: 0;
+	background-color: #f2f2f2;
+	border-color: #ddd;
+	margin-bottom: 5px;
+}
+#available-widgets > ul li p span {
+	color: #484848;
+	font-weight: bold;
 }
 #available-widgets > ul li:hover {
 	background-color: #e6e6e6;
@@ -37,16 +30,6 @@
 }
 
 #available-widgets > ul h3 {
-	float: left;
-	width: 180px;
-	height: 100%;
-	margin-bottom: 0;
-	padding-right: 20px;
-	font-size: 14px;
-	text-align: right;
-}
-#available-widgets > ul .widget-box-body {
-	margin-left: 200px; /* h3 size */
 }
 #available-widgets > ul p {
 	margin-bottom: 0;
@@ -81,18 +64,33 @@
 //-------------------------------------------------------------------*/
 
 #widget-areas .widget-area-box > header {
-	background-color: #f2f2f2;
-	border-color: #ddd;
-	margin-bottom: -1px;
-	width: 99.655%;
+	display: block;
+	float: none;
+	padding: 0 0 1px 0!important;
+	background: #F1F1F1;
+	margin-bottom: 10px;
+}
+#widget-areas .widget-area-box {
+	border: 1px solid #F1F1F1;
+	width: 100%;
+	padding: 0!important;
+	margin-bottom: 15px;
 }
 #widget-areas .widget-area-box > header h3 {
 	font-size: 16px;
-	display: inline-block;
-	line-height: 2.45em;
+	display: block;
+	margin-left: 10px;
+	margin-top: 0;
+	margin-bottom: 0;
+	background: none;
+	color: #484848!important;
+}
+#widget-areas .widget-area-box > header h3 a {
+	color: #484848;
 }
 #widget-areas .widget-area-content {
-    position: relative;
+	display: block;
+		
 }
 #widget-areas .widget-area-content > div.buttons {
 	position: absolute;
@@ -105,10 +103,6 @@
 	color: #666;
 }
 
-#widget-areas .widget-area-content {
-	margin-bottom: -1px;
-	border-color: #ddd;
-}
 #widget-areas .widget-area-content > code.tag {
 	color: #999;
 }
@@ -117,13 +111,9 @@
 
 .widget-instance {
 	position: relative;
-	background-color: #e6e6e6;
-	border: 1px solid #c2c2c2;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-	padding: 5px;
+	background-color: #fafafa;
+	border: 1px solid #E6E6E6;
+	padding: 2px 10px;
 	margin-bottom: 5px;
 	min-height: 35px;
 }
@@ -134,7 +124,6 @@
 	width: 65%;
 	text-overflow: ellipsis;
 	color: #666;
-	padding-left: 10px;
 }
 .widget-type {
 	position: absolute;
@@ -143,22 +132,20 @@
 	margin: 0;
 	padding: 0;
 	font-weight: bold;
-	color: #fff;
-	text-shadow: 1px 1px 0px #aaa;
+	color: #BDBDBD;
+	text-shadow: 1px 1px 1px #fff;
 	max-width: 30%;
 	text-overflow: ellipsis;
 }
 .widget-actions {
     float: right;
-    margin-top: -30px;
+    margin-top: -15px;
 }
 .widget-actions a.button {
 	font-size: 100%;
 }
 .widget-code {
-	margin: 15px 0 10px 0;
-	padding-left: 5px;
-	color: #999;
+	background: #2c2c2c;
 }
 .no-sortable,
 .no-sortable li,
@@ -234,11 +221,13 @@
 	display: inline-block;
 	float: left;
 }
-.widget-list ol {
+.widget-list ol {	
 	list-style-type: none;
 	cursor: auto;
+	display: block;
 	padding: 0 10px;
 	margin-bottom: 0;
+	margin-top: 30px;
 }
 .widget-list fieldset ol {
 	padding: 0;
@@ -259,11 +248,7 @@
 	color: #666;
 }
 li.empty-drop-item {
-	border: 1px dotted #666;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
+	border: 3px dashed #E9E9E9;
 	height: 24px;
 }
 li.empty-drop-item.loading {
@@ -275,25 +260,21 @@ li.empty-drop-item.loading {
 }
 .drop-hover li.empty-drop-item {
 	display: block !important;
+	border-color: #ADADAD;
+}
+.box-container {
+	padding: 5px 15px;
 }
 
 .box-container header h3 {
-	font-size: 14px;
-	padding: 6px 0;
+	font-size: 16px;
+	line-height: 16px
+	padding: 0!important;
+	margin: 0!important;
 }
-.box-container h3 {
-	font-size: 14px;
-}
-.box-container fieldset h4 {
-	font-size: 13px;
-	font-style: italic;
-	margin: 10px 0 12px;
-	text-shadow: none;
-	background: #eee;
-	padding: 4px 8px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+.box-container header {
+	padding: 0!important;
+	margin: 0!important;
 }
 
 #widgets-list > tbody > tr { cursor: auto; }

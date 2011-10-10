@@ -39,7 +39,6 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
 			->append_metadata(css('widgets.css', 'widgets'));
 	}

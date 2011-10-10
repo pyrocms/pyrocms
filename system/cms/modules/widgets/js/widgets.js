@@ -349,7 +349,7 @@ jQuery(function($){
 
 			$.get(url, function(response){
 
-				response = '<li id="' + action + '-instance-box" class="box hidden widget-instance no-sortable">' +
+				response = '<li id="' + action + '-instance-box" class="box widget-instance no-sortable">' +
 							response + '</li>';
 
 				// write action form into cache
