@@ -28,7 +28,7 @@ class Files extends Public_Controller
 		// Read the file's contents
 		$data = file_get_contents($this->_path . $file->filename);
 
-		force_download($file->name . $file->extension , $data);
+		force_download($file->name, $data);
 	}
 
 	public function thumb($id, $width = 100, $height = 100, $mode = NULL)
