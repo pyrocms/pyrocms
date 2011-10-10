@@ -125,7 +125,7 @@ class Module_Templates extends Module {
 			'is_default'		=> 1
 		);
 		
-		$forgotten_password	= array(
+		$forgotten_password_template	= array(
 			'slug'				=> 'forgotten_password',
 			'name'				=> 'Forgotten Password Email',
 			'description' 		=> 'The email that is sent containing a password reset code',
