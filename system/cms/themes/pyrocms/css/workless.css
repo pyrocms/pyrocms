@@ -514,6 +514,7 @@ Helpers.
   background-image: linear-gradient(#d83a2e, #9d261d);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #5c1611;
+  color: #fff!important;
 }
 
 .btn.red:hover {
@@ -542,6 +543,7 @@ Helpers.
   background-image: linear-gradient(#f3ad55, #d89342);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #b6782c;
+  color: #fff!important;
 }
 
 .btn.orange:hover {
@@ -568,6 +570,7 @@ Helpers.
   background-image: linear-gradient(#bada55, #96b633);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #7b9b18;
+  color: #fff!important;
 }
 
 .btn.green:hover {
@@ -596,6 +599,7 @@ Helpers.
   background-image: linear-gradient(#049cdb, #0064cd);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #003f81;
+  color: #fff!important;
 }
 
 .btn.blue:hover {
