@@ -19,7 +19,7 @@
 	var BASE_URL			= "<?php echo BASE_URL;?>";
 	var BASE_URI			= "<?php echo BASE_URI;?>";
 	var UPLOAD_PATH			= "<?php echo UPLOAD_PATH;?>";
-	var DEFAULT_TITLE		= "<?php echo $this->settings->site_name; ?>";
+	var DEFAULT_TITLE		= "<?php echo addslashes($this->settings->site_name); ?>";
 	var DIALOG_MESSAGE		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.admin_theme_url 	= "<?php echo BASE_URL . $this->admin_theme->path; ?>";
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
