@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		{pyro:theme:partial name="metadata"}
+	</head>
+	<body>
+
+		{pyro:integration:analytics}
+
+		{pyro:theme:partial name="header"}
+
+		<div id="page">
+
+			{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
+
+			<div id="content">
+				{pyro:template:body}
+			</div>
+
+			<div id="sidebar">
+				<ul>
+					<li>
+						<h2>{pyro:helper:lang line="navigation_headline')}</h2>
+						<ul>
+							{pyro:navigation:links group="header"}
+						</ul>
+					</li>
+					<li>
+					{if '{pyro:session:data name="user_id"}'}
+						<h2>{pyro:user:first_name} {pyro:user:last_name}</h2>
+						<ul>
+							<li><a href="{pyro:url:site}/users/logout">{pyro:helper:lang line="logout_label"}</a></li>
+
+						{if '{pyro:settings:enable_profiles}'}
+							<li><a href="{pyro:url:site}/edit-profile" target="_blank">{pyro:helper:lang line="edit_profile_label"}</a></li>
+						{/if}
+
+						<li><a href="{pyro:url:site}/edit-settings" target="_blank">{pyro:helper:lang line="settings_label"}</a></li>
+
+						{if '{pyro:user:group}' == 'admin'}
+							<li><a href="{pyro:url:site}/admin" target="_blank">{pyro:helper:lang line="cp_title"}</a></li>
+						{/if}
+						</ul>
+					{else}
+
+						<form method="{pyro:url:site}/users/login" id="login-small">
+							<ul>
+								<li class="email">
+									<label for="email">{pyro:helper:lang line="user_email"}</label>
+									<input type="text" id="email" name="email" maxlength="120" />
+								</li>
+								<li class="pword">
+									<label for="password">{pyro:helper:lang line="user_password"}</label>
+									<input type="password" id="password" name="password" maxlength="20" />
+								</li>
+								<li class="form-buttons">
+									<input type="submit" value="{pyro:helper:lang line='user_login_btn'}" name="btnLogin" /> or 
+									<a href="{pyro:url:site}/register">{pyro:helper:lang line="user_register_btn"}</a>
+								</li>
+								<li class="remember-me">
+									<label><input type="checkbox" name="remember" value="1" /> {pyro:helper:lang line="user_remember"}</label>
+								</li>
+							</ul>
+						</form>
+
+					{/if}
+					</li>
+				</ul>
+			</div>
+
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+
+		<div id="footer">
+			{pyro:theme:partial name="footer"}
+		</div>
+
+	</body>
+</html>

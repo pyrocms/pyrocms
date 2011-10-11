@@ -1,0 +1,20 @@
+<div id="logo">
+	<h1><a href="{pyro:url:site}">{pyro:settings:site_name}</a></h1>
+	<p><em>{pyro:settings:site_slogan}</em></p>
+</div>
+<hr />
+<div id="header">
+	<div id="menu">
+		<ul>
+		{pyro:navigation:links group="header"}
+		</ul>
+	</div>
+	<div id="search">
+		<form method="get" action="">
+			<fieldset>
+				<input type="text" name="s" id="search-text" size="15" />
+				<input type="submit" id="search-submit" value="GO" />
+			</fieldset>
+		</form>
+	</div>
+</div>

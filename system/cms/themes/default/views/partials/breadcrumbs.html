@@ -1,0 +1,13 @@
+{if '{pyro:template:has_breadcrumbs}'}
+	{if '{pyro:theme:options option="show_breadcrumbs"}' == 'yes'}
+		<p id="forum_breadcrumbs">
+		{pyro:template:breadcrumbs}
+			{if '{pyro:uri}'}
+				{pyro:url:anchor segments='{pyro:uri}' title='{pyro:name}'}&nbsp;>&nbsp;
+			{else}
+				<span class="current">{pyro:name}</span>
+			{/if}
+		{/pyro:template:breadcrumbs}
+		</p>
+	{/if}
+{/if}

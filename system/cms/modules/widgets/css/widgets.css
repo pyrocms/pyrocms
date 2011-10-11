@@ -1,0 +1,300 @@
+#available-widgets,
+#widget-areas {
+
+}
+
+/*--------------------------------------------------------------------
+// AVAILABLE WIDGETS LIST
+//-------------------------------------------------------------------*/
+
+#available-widgets > header {
+	position: relative;
+}
+#available-widgets > header p {
+	position: absolute;
+	top: 6px;
+	right: 0.79em;
+	font-size: 15px;
+	font-style: italic;
+	color: #666;
+	margin: 0;
+}
+
+#available-widgets > ul {
+	position: relative;
+	margin: 0;
+	list-style: none;
+}
+#available-widgets > ul li {
+	position: relative;
+	border-top: 1px dotted #ccc;
+	padding: 10px;
+	margin: 0;
+}
+#available-widgets > ul li:hover {
+	background-color: #e6e6e6;
+	cursor: move;
+}
+
+#available-widgets > ul h3 {
+	float: left;
+	width: 180px;
+	height: 100%;
+	margin-bottom: 0;
+	padding-right: 20px;
+	font-size: 14px;
+	text-align: right;
+}
+#available-widgets > ul .widget-box-body {
+	margin-left: 200px; /* h3 size */
+}
+#available-widgets > ul p {
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+
+#available-widgets > ul a {
+	color: #999;
+}
+#available-widgets > ul a:hover {
+	color: #ff6400;
+}
+
+/* Drag State for Available Widgets */
+#available-widgets > ul li.widget-drag {
+	opacity: 0.3;
+}
+#available-widgets > ul li.ui-draggable-dragging {
+	width: 90%;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #999;
+	background: #e6e6e6;
+	cursor: move;
+	z-index: 500;
+}
+
+/*--------------------------------------------------------------------
+// WIDGETS AREAS LIST
+//-------------------------------------------------------------------*/
+
+#widget-areas .widget-area-box > header {
+	background-color: #f2f2f2;
+	border-color: #ddd;
+	margin-bottom: -1px;
+	width: 99.655%;
+}
+#widget-areas .widget-area-box > header h3 {
+	font-size: 16px;
+	display: inline-block;
+	line-height: 2.45em;
+}
+#widget-areas .widget-area-content {
+    position: relative;
+}
+#widget-areas .widget-area-content > div.buttons {
+	position: absolute;
+	right: 0;
+	top: -40px;
+	padding: 0.395em 0.395em 0 0;
+}
+#widget-areas .widget-area-content > div.buttons a.button {
+	font-size: 100%;
+	color: #666;
+}
+
+#widget-areas .widget-area-content {
+	margin-bottom: -1px;
+	border-color: #ddd;
+}
+#widget-areas .widget-area-content > code.tag {
+	color: #999;
+}
+
+/* Widget Instance */
+
+.widget-instance {
+	position: relative;
+	background-color: #e6e6e6;
+	border: 1px solid #c2c2c2;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 5px;
+	min-height: 35px;
+}
+.widget-instance > h4 {
+	font-size: 14px;
+	margin: 0;
+	display: inline-block;
+	width: 65%;
+	text-overflow: ellipsis;
+	color: #666;
+	padding-left: 10px;
+}
+.widget-type {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 1px 1px 0px #aaa;
+	max-width: 30%;
+	text-overflow: ellipsis;
+}
+.widget-actions {
+    float: right;
+    margin-top: -30px;
+}
+.widget-actions a.button {
+	font-size: 100%;
+}
+.widget-code {
+	margin: 15px 0 10px 0;
+	padding-left: 5px;
+	color: #999;
+}
+.no-sortable,
+.no-sortable li,
+.no-sortable header {
+	cursor: auto !important;
+}
+.widget-instance ol {
+	margin-bottom: 0;
+}
+.widget-list textarea.uniform {
+	width: 97% !important;
+	resize: none;
+}
+.widget-list textarea.inline {
+	width: 60% !important;
+	resize: none;
+}
+
+.widget-instance form.crud label{
+	text-align: left;
+}
+
+.widget-instance form.crud span.required-icon {
+	display: none;
+}
+
+#add-area-box,
+#edit-area-box {
+	border-bottom: 1px solid #e6e6e6;
+	padding: 0 10px 10px 10px;
+	margin-bottom: 20px;
+	-webkit-box-shadow: #DDD 0px 5px 5px;
+	-moz-box-shadow: #DDD 0px 5px 5px;
+	box-shadow: #DDD 0px 5px 5px;
+}
+#add-area-box h3,
+#edit-area-box h3 {
+	margin-bottom: 0; 
+}
+
+#add-instance-box {
+	padding: 0;
+	margin-bottom: 20px;
+	background-color: #fcfcfc;
+	position: static;
+}
+
+#edit-instance-box {
+	padding: 0;
+	margin-bottom: 20px;
+	background-color: #fcfcfc;
+	float:none;
+}
+
+#widget-options {
+	padding: 0 10px;
+}
+#widget-options ul { margin-bottom: 0; }
+
+.widget-area .tag, .widget-area .button {
+	position: absolute;
+	left: 50%;
+	color: #666666;
+	padding: 0 15px 0 15px;
+	margin-top: 7px;
+}
+
+
+#widget-wrapper {
+	width: 32%;
+	min-width: 350px;
+	margin-left: 1%;
+	display: inline-block;
+	float: left;
+}
+.widget-list ol {
+	list-style-type: none;
+	cursor: auto;
+	padding: 0 10px;
+	margin-bottom: 0;
+}
+.widget-list fieldset ol {
+	padding: 0;
+}
+.widget-list fieldset li li {
+	padding-left: 0;
+	padding-rigth: 0;
+}
+.widget-list ol li {
+	margin: 0 0 10px;
+	cursor: move;
+}
+.widget-list ol input[type=text] {
+	width: 19em;
+}
+.widget-list ol li > label {
+	text-align: right;
+	color: #666;
+}
+li.empty-drop-item {
+	border: 1px dotted #666;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	height: 24px;
+}
+li.empty-drop-item.loading {
+	background-image: url(../../../themes/admin_theme/img/admin/loading.gif);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	border: none;
+	padding: 15px 0;
+}
+.drop-hover li.empty-drop-item {
+	display: block !important;
+}
+
+.box-container header h3 {
+	font-size: 14px;
+	padding: 6px 0;
+}
+.box-container h3 {
+	font-size: 14px;
+}
+.box-container fieldset h4 {
+	font-size: 13px;
+	font-style: italic;
+	margin: 10px 0 12px;
+	text-shadow: none;
+	background: #eee;
+	padding: 4px 8px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#widgets-list > tbody > tr { cursor: auto; }
+td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/admin_theme/img/icons/cursor_drag_arrow.png) no-repeat; }

@@ -1,0 +1,286 @@
+@charset "utf-8";
+/**
+ * @author 	Yorick Peterse
+ * @link	http://www.yorickpeterse.com/
+ * @package Minimal
+ * @license	Apache License v2.0
+ *
+ */
+body
+{
+	border-top:		3px solid #333;
+	color:			#333;
+}
+/* Typography */
+h1, h2, h3, h4, h5, h6
+{
+	font-family: 	Georgia,'Times New Roman', Times, serif;
+}
+a
+{
+	border-bottom:	1px dotted #333;
+	color:			#333;
+	text-decoration:none;
+}
+a:hover
+{
+	border-bottom:	1px solid #333;
+}
+/* Forms */
+form label
+{
+	float:			left;
+	min-width:		100%;
+}
+form ul, form ul li
+{
+	list-style-type:none;
+	margin:			0px 0px 10px 0px!important;
+	padding:		0px;
+}
+form input[type=text], form input[type=password], form textarea
+{
+	border:			1px solid #858585;
+	padding:		5px 3px 5px 3px;
+	width:			300px;
+}
+form input[type=checkbox]
+{
+	margin-right:	5px;
+}
+form select
+{
+	border:			1px solid #858585;
+	margin:			0px;
+	padding:		5px 3px 5px 3px;
+}
+form button, form input[type=submit], form input[type=reset], form input[type=reset]
+{
+	border:			1px solid #858585;
+	background:		#ededed;
+	margin:			0px;
+	min-width:		50px;
+	padding:		5px 3px 5px 3px;
+}
+form button:hover, form input[type=text]:hover, form input[type=password]:hover, form input[type=submit]:hover, form input[type=reset]:hover, form select:hover, form textarea:hover
+{
+	border:			1px solid #000;
+}
+/* Fieldsets */
+fieldset
+{
+	border: 		1px solid #ccc;
+	padding:		10px;
+}
+	fieldset legend
+	{
+		font-weight:	bold;
+	}
+	fieldset p:last-child
+	{
+		margin-bottom:	0px;
+	}
+/* Other stuff */
+pre
+{
+	white-space:	normal;
+}
+.code
+{
+	background:		#333;
+	color:			#99D16F;
+	overflow:		auto;
+	padding:		10px;
+	white-space:	pre;
+}
+blockquote
+{
+	border-left:	3px solid #ccc;
+	font-style:		italic;
+	margin-bottom:	20px;
+	padding-left:	10px;
+}
+.fancy_image
+{
+	border:			1px solid #ccc;
+	float:			left;
+	margin:			0px 15px 5px 0px;
+	padding:		5px;
+}
+.gravatar
+{
+	border:			1px solid #ccc;
+	float:			left;
+	margin:			0px 10px 10px 0px;
+	padding:		3px;
+}
+/* LAYOUT */
+/* Container */
+#container
+{
+	margin-top:		25px;
+}
+/* General margins */
+#header,.blog_article, .gallery
+{
+	margin-bottom:	40px;
+}
+#header #site_info
+{
+	margin-bottom:	36px;
+}
+	#header #site_info h1
+	{
+		font-size:		32px;
+		margin-bottom:	0px;
+	}
+	#header #site_info p
+	{
+		margin:			0px;
+	}
+#header #site_navigation ul
+{
+	border-top:	3px solid #333;
+}
+	#header #site_navigation ul li
+	{
+		float:			left;
+		margin:			7px 15px 0px 0px;
+		padding:		0px;
+		list-style-type:none;
+	}
+		#header #site_navigation ul li a
+		{
+			border:			none;
+			color:			#333;
+			font-weight:	bold;
+			padding:		5px 5px 0px 5px;
+			text-align:		center;
+		}
+		#header #site_navigation ul li a:hover, #header #site_navigation ul #active a
+		{
+			border-top:		3px solid #333;
+			text-decoration:none;
+		}
+/* Sidebar */
+#sidebar
+{
+	margin-top:			3px;
+}
+	#sidebar form input
+	{
+		width:			190px;
+	}
+	#sidebar .widget:first-child h3
+	{
+		margin-bottom:	18px;
+	}
+		#sidebar .widget .reset_pass
+		{
+			margin-left:10px;
+		}
+/* == WIDGETS == */
+.widget
+{
+	margin-bottom:		35px;
+}
+	.widget h3
+	{
+		margin-bottom:	5px;
+	}
+	.widget ul, .widget ul li
+	{
+		list-style-type:none;
+		margin:			0px;
+		padding:		0px;
+	}
+/* == BLOG == */
+.blog_article .article_heading h2
+{
+	margin-bottom:	5px;
+}
+.blog_article .article_heading .article_date
+{
+	float:		left;
+}
+.blog_article .article_heading .article_category
+{
+	float:		right;
+}
+.blog_article .article_body
+{
+	clear:		both;
+}
+/* == COMMENTS == */
+#comments_container
+{
+	margin-bottom:	20px;
+}
+.comment
+{
+	list-style-type:none;
+	margin:			0px;
+	padding:		0px;
+}
+	.comment .comment_heading, .comment .comment_date
+	{
+		margin:		0px;
+	}
+	.comment .comment_body
+	{
+		clear:		both;
+	}
+/* == PROFILES == */
+#user_profile_container fieldset p
+{
+	margin-bottom:	5px;
+}
+#user_profile_container #page_title
+{
+	padding-top:	10px;
+}
+#user_profile_container .gravatar
+{
+	margin:			0px 15px 15px 0px;
+}
+#user_profile_container #user_details
+{
+	clear:			both;
+}
+/* Galleries */
+#gallery_index .gallery:last-child
+{
+	margin-bottom:		0px;
+}
+	.gallery .gallery_heading img
+	{
+		float:			left;
+		margin-right:	20px;
+	}
+	.gallery .galleries_list li
+	{
+		float:			left;
+		list-style-type:none;
+		margin:			0px 20px 20px 0px;
+	}
+	.gallery .galleries_list li a
+	{
+		border-bottom:	none;
+	}
+	.gallery .gallery_image_full
+	{
+		margin-bottom:	20px;
+	}
+/* Footer */
+#footer
+{
+	border-top:		3px solid #333;
+	margin-top:		50px; 
+	margin-bottom:	10px;
+	padding-top:	25px;
+	text-align:		center;
+}
+	#footer p
+	{
+		margin-bottom:	0px;
+	}

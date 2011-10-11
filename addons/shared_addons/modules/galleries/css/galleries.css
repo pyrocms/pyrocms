@@ -1,0 +1,103 @@
+	/***
+	 * Galleries module styling
+	 * @author Jerel Unruh - PyroCMS Dev Team
+	 ***/
+
+/*Give the js file upload a height so everything will float properly*/
+
+.uploader_file_input
+{
+	height: 28px;
+}
+
+/*make the uniform file input usable */
+
+form.crud ul li div
+{
+	width: auto;
+}
+
+/*Style the manage page thumbnails*/
+
+#gallery_images_list
+{
+	margin-left:50px;
+	list-style:none;
+}
+
+#gallery_images_list li
+{
+	float: 		left;
+	margin:		5px;
+	padding: 	5px;
+	height:		100px;
+}
+
+#gallery_images_list img
+{
+	border: 	1px solid #9c9fa1;
+}
+
+#gallery_images_list img:hover
+{
+	border: 	1px solid #3A4043;
+	cursor:		pointer;
+}
+
+.images-placeholder #gallery_images_list img:hover
+{
+	border: 	1px solid #9c9fa1;
+	cursor:		default;
+}
+
+/* JCROP */
+
+.jcrop-holder
+{
+	background: none!important;
+	text-align: left;
+}
+
+.jcrop-vline, .jcrop-hline
+{
+	font-size: 0;
+	position: absolute;
+	background: white url('../img/jcrop.gif') top left repeat;
+}
+
+.jcrop-vline
+{
+	height: 100%;
+	width: 1px !important;
+}
+
+.jcrop-hline
+{
+	width: 100%;
+	height: 1px !important;
+}
+
+.jcrop-handle
+{
+	font-size: 1px;
+	width: 7px !important;
+	height: 7px !important;
+	border: 1px #eee solid;
+	background-color: #333;
+	*width: 9px;
+	*height: 9px;
+}
+
+.jcrop-tracker
+{
+	width: 100%;
+	height: 100%;
+}
+
+.custom .jcrop-handle
+{
+	border-color: black;
+	background-color: #C7BB00;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
