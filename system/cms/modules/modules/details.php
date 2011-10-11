@@ -52,7 +52,7 @@ class Module_Modules extends Module {
 			'menu'	  => FALSE,
 		);
 
-		if (isset($this->settings) and $this->settings->addons_upload)
+		if (class_exists('Settings') AND Settings::get('addons_upload'))
 		{
 			$info['shortcuts'][] = array(
 		 	 	'name' => 'upload_label',

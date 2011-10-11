@@ -52,7 +52,7 @@ class Module_Themes extends Module {
 			'menu'	  => 'design'
 		);
 		
-		if (isset($this->settings) and $this->settings->addons_upload)
+		if (class_exists('Settings') AND Settings::get('addons_upload'))
 		{
 			$info['shortcuts'][] = array(
 				'name' => 'themes.upload_title',
