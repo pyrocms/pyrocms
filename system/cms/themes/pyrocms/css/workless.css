@@ -250,6 +250,8 @@ input[type="button"] {
   background-image: -o-linear-gradient(#ffffff, #dddddd);
   background-image: linear-gradient(#ffffff, #dddddd);
   border: 1px solid;
+  font-size: 13px;
+  line-height: 14px;
   border-color: #dddddd #bbbbbb #999999;
   cursor: pointer;
   color: #333333;
@@ -259,6 +261,10 @@ input[type="button"] {
   padding: 3px 10px;
   text-shadow: #ffffff 0 1px 1px;
   width: auto;
+}
+
+a.button {
+	padding-top: 2px;
 }
 
 .cancel { padding: 4px 10px 5px 10px; }
@@ -282,6 +288,7 @@ input[type="button"]:hover {
   -webkit-transition: 250ms linear all;
   -moz-transition: 250ms linear all;
   transition: 250ms linear all;
+  color: #000;
 }
 
 input[type="text"], 
