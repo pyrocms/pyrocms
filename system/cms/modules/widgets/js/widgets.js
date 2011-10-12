@@ -50,9 +50,9 @@ jQuery(function($){
 
 				update: function(){
 					var order = [];
-
-					$(this).children('li').each(function(){
-						order.push($(this).attr('id').replace(/^instance-/, ''));
+					
+					$(this).children('li').each(function(){					
+						order.push($(this).attr('id'));
 					});
 
 					$.post(SITE_URL + 'widgets/ajax/update_order', { order: order.join(',') });
@@ -471,7 +471,7 @@ jQuery(function($){
 //		}
 
 	};
-
+	
 	pyro.widgets.init();
 
 });
