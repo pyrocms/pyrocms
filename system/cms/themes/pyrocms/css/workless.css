@@ -1222,6 +1222,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: left; 
 }
 
+.three_quarter {
+	width: 250px;
+	float: left;
+}
+
 .topbar {
 	height: 200px;
 }
@@ -1793,6 +1798,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 450px;
+		float: left;
+	}
+	
 	#quick_links ul li {
 		width: 75px;
 		float: left;
@@ -1872,6 +1882,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 520px;
+		float: left;
+	}
+
 	#quick_links ul li {
 		width: 75px;
 		float: left;
@@ -1951,6 +1966,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 750px;
+		float: left;
+	}
+
 	#quick_links ul li {
 		width: 75px;
 		float: left;
@@ -2034,6 +2054,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 975px;
+		float: left;
+	}
+
 	#quick_links ul li {
 		width: 75px;
 		float: left;
