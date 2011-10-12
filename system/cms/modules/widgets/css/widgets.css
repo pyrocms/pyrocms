@@ -200,6 +200,15 @@
 	float:none;
 }
 
+.ui-accordion-header h3 a {
+	background: none!important;
+	padding: 0!important;
+}
+.ui-state-focus h3 a {
+	background: none!important;
+	padding: 0!important;
+}
+
 #widget-options {
 	padding: 0 10px;
 }
