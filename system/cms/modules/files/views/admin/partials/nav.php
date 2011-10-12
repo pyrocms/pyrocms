@@ -6,8 +6,6 @@
 	</li>
 	<?php endif; ?>
 	
-	<hr>
-	
 	<?php foreach ($file_folders as $folder): ?>
 	<?php if ( ! $folder->parent_id): ?>
 	<li class="<?php echo ($current_id === $folder->id) ? 'current' : NULL; ?>">

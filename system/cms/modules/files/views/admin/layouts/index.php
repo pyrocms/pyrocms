@@ -22,13 +22,13 @@
 	</div>
 </div>
 
-<div class="one_quarter" style="border-right: 1px solid #eeeeee;">
-	<nav>
+<div id="files-browser" class="one_quarter">
+	<nav id="files-browser-nav">
 		<?php echo $template['partials']['nav']; ?>
 	</nav>
 </div>
 
-<div class="two_third">
+<div id="files-browser-contents" class="three_quarter">
 	<?php echo $content; ?>
 </div>
 

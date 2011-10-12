@@ -1,27 +1,8 @@
 #files-browser {
-	display: table;
-	width: 100%;
 	margin-bottom: 20px;
-	background-color: #FFFFFF;
-	color: #333333;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid #CCCCCC;
+	border-right: 1px solid #eeeeee;
 }
 
-#files-browser nav {
-	float: none;
-}
-
-#files-browser-nav {
-	width: 20%;
-	display: table-cell;
-	border-right: 1px solid #CCCCCC;
-	padding: 10px 0;
-	vertical-align: top;
-}
 #files-browser-nav ul,
 #files-browser-nav ul li,
 #files-toolbar ul,
@@ -30,26 +11,15 @@
 	padding: 0px;
 	margin: 0px;
 }
-#files-browser h3 {
-	margin: 0;
-	padding: 3px 0 5px 0px;
-}
-#files-browser-contents h3 {
-	margin: 0px 200px 0px 0px;
+
+#files-browser-nav {
+	float: none;
 }
 
-#files-browser-contents {
-	width: 80%;
-	display: table-cell;
-	padding: 10px;
-}
 #files-browser-contents form {
 	position: relative;
 }
 
-#files-browser-nav h3 {
-	padding-left: 10px;
-}
 #files-browser-nav li a {
 	padding: 10px;
 	background: transparent;

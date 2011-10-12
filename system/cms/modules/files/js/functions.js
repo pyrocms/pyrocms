@@ -208,8 +208,6 @@ jQuery(function($){
 			uri		= 'index';
 			hash	= 'path=';
 			path	= null;
-
-			$('#shortcuts li.files-uploader').addClass('hidden');
 		}
 
 		$.get(SITE_URL + 'admin/files/folders/' + uri, hash, function(data){
@@ -218,12 +216,9 @@ jQuery(function($){
 			{
 				data.navigation && $('#files-browser-nav').html(data.navigation);
 				data.content && $('#files-browser-contents').html(data.content);
-
-				$('#shortcuts li.files-uploader')[(path ? 'remove' : 'add') + 'Class']('hidden');
 			}
 			else if (data.status == 'error')
 			{
-				$('#shortcuts li.files-uploader').addClass('hidden');
 				parent.location.hash = null;
 				pyro.add_notification(data.message);
 			}
