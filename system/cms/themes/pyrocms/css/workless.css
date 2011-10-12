@@ -1222,6 +1222,10 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: left; 
 }
 
+.topbar {
+	height: 200px;
+}
+
 .topbar ul li#dashboard-link {
 	margin: 8px 10px 8px 15px;
 }
@@ -1249,7 +1253,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 .subbar {
 	position: fixed;
 	z-index: 9997;
-	top: 30px;
+	top: 185px;
 	right: 0;
 	left: 0;
 	width: 100%;
@@ -1276,6 +1280,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+#content-body {
+	top: 135px;
+	position: relative;
 }
 
 .subbar h2, .subbar h2 a {
@@ -1401,8 +1410,8 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 .sections_bar {
 	position: fixed;
-	z-index: 9997;
-	top: 100px;
+	z-index: 9995;
+	top: 258px;
 	right: 0;
 	left: 0;
 	width: 100%;
@@ -1429,7 +1438,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 #analyticsWrapper {
 	background: #ffffff;
-	width: 212px;
+	width: 232px;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1445,7 +1454,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #analytics {
-	width: 100%;
+	width: 232px;
 	height: 300px;
 	float: left;
 }
@@ -1730,6 +1739,26 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	.topbar {
+		height: 150px;
+	}
+	
+	.subbar {
+		top: 130px;
+	}
+	
+	.sections_bar {
+		top: 200px;
+	}
+	
+	#content-body {
+		top: 75px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 432px;	
+	}
+	
 	section#content {
 		width: 450px;
 		padding: 0;
@@ -1783,6 +1812,26 @@ Ensure your main styling comes before this!
 		min-height: 100%;
 		margin: 0 auto;
 		padding: 0;
+	}
+	
+	.topbar {
+		height: 125px;
+	}
+	
+	.subbar {
+		top: 110px;
+	}
+	
+	.sections_bar {
+		top: 183px;
+	}
+	
+	#content-body {
+		top: 65px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 750px;	
 	}
 	
 	section#content {
@@ -1844,6 +1893,26 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	.topbar {
+		height: 50px;
+	}
+	
+	.subbar {
+		top: 25px;
+	}
+	
+	.sections_bar {
+		top: 95px;
+	}
+	
+	#content-body {
+		top: 0px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 982px;	
+	}
+	
 	section#content {
 		width: 1000px;
 		padding: 0;
@@ -1901,6 +1970,26 @@ Ensure your main styling comes before this!
 		min-height: 100%;
 		margin: 0 auto;
 		padding: 0;
+	}
+	
+	.topbar {
+		height: 50px;
+	}
+	
+	.subbar {
+		top: 25px;
+	}
+	
+	.sections_bar {
+		top: 95px;
+	}
+	
+	#content-body {
+		top: 0px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 1212px;	
 	}
 	
 	.topbar nav {

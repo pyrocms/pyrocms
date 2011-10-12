@@ -53,6 +53,7 @@
 			<?php file_partial('header'); ?>
 			
 			<div id="content-body">
+				<?php file_partial('notices'); ?>
 				<?php echo $template['body']; ?>
 			</div>
 
