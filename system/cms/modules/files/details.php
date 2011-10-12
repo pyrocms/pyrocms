@@ -59,7 +59,7 @@ class Module_Files extends Module {
 								 ),
 			);
 		
-			if (group_has_role('files', 'edit_file'))
+			if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
 			{
 				$info['shortcuts'][] = array(
 											 'name' => 'file_folders.create_title',
