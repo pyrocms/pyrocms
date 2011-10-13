@@ -215,7 +215,7 @@ class Ion_auth
 			
 			// email send was successful, let them know
 			$this->set_message('forgot_password_successful');
-			return $id;
+			return TRUE;
 		}
 		else
 		{
@@ -270,7 +270,7 @@ class Ion_auth
 			
 			// email send was successful, let them know
 			$this->set_message('password_change_successful');
-			return $id;
+			return TRUE;
 		}
 		else
 		{
