@@ -74,8 +74,12 @@
 			<li>
 				<label for="category_id"><?php echo lang('blog_category_label'); ?></label><br>
 				<?php echo form_dropdown('category_id', array(lang('blog_no_category_select_label')) + $categories, @$post->category_id) ?>
-					[ <?php echo anchor('admin/blog/categories/create', lang('blog_new_category_label'), 'target="_blank"'); ?> ]
-			</li>
+				<?php 
+					  if (group_has_role('blog', 'addedit_categories'))
+					  {
+						echo anchor('admin/blog/categories/create', lang('blog_new_category_label'), 'target="_blank"') ;
+					  }
+				?>			</li>
 			
 			<hr>
 			
