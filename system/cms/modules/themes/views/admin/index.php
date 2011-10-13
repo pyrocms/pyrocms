@@ -44,7 +44,7 @@
 								<?php endif; ?></td>
 	
 					<td class="align-center"><?php echo $theme->version; ?></td>
-					<td class="align-center buttons buttons-small">
+					<td class="actions">
 						<a href="<?php echo $theme->screenshot; ?>" rel="screenshots" title="<?php echo $theme->name; ?>" class="button modal"><?php echo lang('buttons.preview'); ?></a>
 						<?php echo anchor('admin/themes/options/' . $theme->slug, lang('themes.options'), 'title="'.$theme->name.'" class="button options options-modal"'); ?>
 						<?php if($theme->slug != 'admin_theme') { echo anchor('admin/themes/delete/' . $theme->slug, lang('buttons.delete'), 'class="confirm button delete"'); } ?>
@@ -54,7 +54,7 @@
 			</tbody>
 		</table>
 		
-		<div class="buttons align-right padding-top">
+		<div>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
 		</div>
 		

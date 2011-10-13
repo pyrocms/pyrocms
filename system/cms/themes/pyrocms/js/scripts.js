@@ -90,6 +90,22 @@ jQuery(function($) {
 					$(this).click();
 				}
 			});
+			
+			// Check all? 
+			$(".table_action_buttons .btn").removeAttr('disabled');
+		});
+
+		// Table action buttons start out as disabled
+		$(".table_action_buttons .btn").attr('disabled', 'disabled');
+
+		// Enable/Disable table action buttons
+		$('input[name="action_to[]"], .check-all').live('click', function () {
+		
+			if( $('input[name="action_to[]"]:checked, .check-all:checked').length >= 1 ){
+				$(".table_action_buttons .btn").removeAttr('disabled');
+			} else {
+				$(".table_action_buttons .btn").attr('disabled', 'disabled');
+			}
 		});
 
 		// Confirmation

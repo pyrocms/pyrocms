@@ -28,7 +28,7 @@
                 <td><?php echo $template->name; ?></td>
                 <td><?php echo $template->description; ?></td>
                 <td><?php echo $template->lang; ?></td>
-                <td>
+                <td class="actions">
 				<div class="buttons buttons-small align-center">
 					<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview modal"'); ?>
                     <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons.edit'), 'class="button edit"'); ?>
@@ -42,7 +42,7 @@
 	</table>
     <?php echo form_close(); ?>
  
- 	<div class="buttons padding-top alignright">
+ 	<div class="table_action_buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
 
@@ -76,7 +76,7 @@
                 <td><?php echo $template->name; ?></td>
                 <td><?php echo $template->description; ?></td>
                 <td><?php echo $template->lang; ?></td>
-                <td>
+                <td class="actions">
 				<div class="buttons buttons-small align-center">
 					<?php echo anchor('admin/templates/preview/' . $template->id, lang('buttons.preview'), 'class="button preview"'); ?>
                     <?php echo anchor('admin/templates/edit/' . $template->id, lang('buttons.edit'), 'class="button edit"'); ?>
@@ -91,7 +91,7 @@
         </tbody>
     </table>
 
-	<div class="buttons padding-top alignright">
+	<div class="table_action_buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
 

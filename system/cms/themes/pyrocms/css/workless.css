@@ -263,6 +263,20 @@ input[type="button"] {
   width: auto;
 }
 
+.btn:disabled {
+  background-color: #bbbbbb!important;
+  background-repeat: repeat-x!important;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#cccccc), to(#bbbbbb))!important;
+  background-image: -moz-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: -ms-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #bbbbbb))!important;
+  background-image: -webkit-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: -o-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: linear-gradient(#cccccc, #bbbbbb)!important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)!important;
+  border: 1px solid #aaaaaa!important;
+}
+
 a.button {
 	padding-top: 2px;
 }
