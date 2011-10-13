@@ -42,7 +42,16 @@ class Module_Blog extends Module {
 			'menu'		=> 'content',
 
 			'roles' => array(
-				'put_live', 'edit_live', 'delete_live'
+				'put_live',
+				'edit_live',
+				'delete_live',
+				'restrict_own',
+				'addedit_categories',
+				array(
+				'name' 	=>	'restrict_categories',
+				'table' => 	'blog_categories',
+				'field' => 	'title'
+				)
 			),
 			
 			'sections' => array(

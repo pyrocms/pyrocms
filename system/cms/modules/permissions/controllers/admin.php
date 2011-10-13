@@ -54,16 +54,16 @@ class Admin extends Admin_Controller
 
 		$group = $this->group_m->get($group_id);
 		$edit_permissions = $this->permission_m->get_group($group_id);
-		$permisison_modules = $this->module_m->get_all(array('is_backend' => TRUE));
+		$permission_modules = $this->module_m->get_all(array('is_backend' => TRUE));
 
-		foreach ($permisison_modules as &$module)
+		foreach ($permission_modules as &$module)
 		{
 			$module['roles'] = $this->module_m->roles($module['slug']);
 		}
 
 		$this->template
 			->set('edit_permissions', $edit_permissions)
-			->set('permisison_modules', $permisison_modules)
+			->set('permission_modules', $permission_modules)
 			->set('group', $group)
 			->build('admin/group', $this->data);
 	}

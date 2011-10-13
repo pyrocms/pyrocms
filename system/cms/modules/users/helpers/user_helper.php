@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+﻿<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * User Helpers
@@ -25,17 +25,21 @@ function group_has_role($module, $role)
 
 	if (ci()->current_user->group == 'admin')
 	{
+		//if this is a restriction then admin doesn't need it
+		if (strpos($role, 'restrict') !== FALSE) return FALSE; 
+		
+		//else admin gets all permissions by default
 		return TRUE;
 	}
-
+	
 	$permissions = ci()->permission_m->get_group(ci()->current_user->group_id);
 
-	if (empty($permissions[$module]) or empty($permissions[$module]->$role))
+	if (empty($permissions[$module]->$role))
 	{
 		return FALSE;
 	}
 
-	return TRUE;
+	return $permissions[$module]->$role;
 }
 
 
