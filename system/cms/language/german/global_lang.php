@@ -19,8 +19,8 @@ $lang['global:select-all'] 					= '-- Alle --';
 $lang['global:select-any'] 					= '-- Eines --';
 $lang['global:select-pick']			 		= '-- Auswählen --';
 
-$lang['global:check-none'] 					= 'None'; #translate
-$lang['global:check-all']						= 'All'; #translate
+$lang['global:check-none'] 					= 'Keine';
+$lang['global:check-all']						= 'Alle';
 
 $lang['operators.equal'] 				= 'Gleicht';
 $lang['operators.not_equal'] 			= 'Gleicht nicht';
@@ -65,16 +65,16 @@ $lang['install_label'] 					= 'Installieren';
 $lang['enable_label']					= 'Aktivieren';
 $lang['disable_label'] 					= 'Deaktivieren';
 
-$lang['global:shortcuts'] 				= 'Shortcuts'; #translate
-$lang['global:description']				= 'Description'; #translate
+$lang['global:shortcuts'] 				= 'Shortcuts'; #translate 
+$lang['global:description']				= 'Beschreibung'; 
 $lang['global:actions']					= 'Aktion';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
-$lang['global:edit']					= 'Edit'; #translate
-$lang['global:empty']					= 'Empty'; #translate
-$lang['global:delete']					= 'Delete'; #translate
-$lang['global:remove']					= 'Remove'; #translate
+$lang['global:view']					= 'Ansicht'; 
+$lang['global:preview']					= 'Vorschau'; 
+$lang['global:add']						= 'Hinzufügen'; 
+$lang['global:edit']					= 'Bearbeiten'; 
+$lang['global:empty']					= 'Leer'; 
+$lang['global:delete']					= 'Löschen'; 
+$lang['global:remove']					= 'Entfernen'; 
 
 $lang['global:keywords']				= 'Keywords'; #translate
 
