@@ -32,12 +32,21 @@ class File_folders_m extends MY_Model {
 	 * Checks if a given folder exists.
 	 *
 	 * @access	public
-	 * @param	int		The folder id
+	 * @param	int		The folder id or slug
 	 * @return	bool	If the folder exists
 	 */
-	public function exists($folder_id = 0)
+	public function exists($folder = 0)
 	{
-		return (bool) (parent::count_by(array('id' => $folder_id)) > 0);
+		if (is_numeric($folder))
+		{
+			$count = array('id' => $folder);
+		}
+		else
+		{
+			$count = array('slug' => $folder);
+		}
+
+		return (bool) (parent::count_by($count) > 0);
 	}
 	
 	// ------------------------------------------------------------------------
