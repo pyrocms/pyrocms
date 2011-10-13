@@ -68,11 +68,11 @@ $lang['disable_label']					= 'Uitschakelen';
 $lang['global:shortcuts'] 				= 'Snelkoppelingen';
 $lang['global:description'] 		    = 'Beschrijving';
 $lang['global:actions']					= 'Acties';
-$lang['global:view']					= 'View'; #translate
-$lang['global:preview']					= 'Preview'; #translate
-$lang['global:add']						= 'Add'; #translate
+$lang['global:view']					= 'Bekijk'; #translate
+$lang['global:preview']					= 'Voorvertoning'; #translate
+$lang['global:add']						= 'Toevoegen'; #translate
 $lang['global:edit']					= 'Wijzigen';
-$lang['global:empty']					= 'Empty'; #translate
+$lang['global:empty']					= 'Leeg'; #translate
 $lang['global:delete']					= 'Verwijderen';
 $lang['global:remove']					= 'Verwijderen';
 
