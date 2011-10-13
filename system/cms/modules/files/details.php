@@ -6,7 +6,7 @@ class Module_Files extends Module {
 
 	public function info()
 	{
-		return array(
+		$info = array(
 			'name' => array(
 				'sl' => 'Datoteke',
 				'en' => 'Files',
@@ -51,7 +51,30 @@ class Module_Files extends Module {
 			'roles' => array(
 				'download_file', 'edit_file', 'delete_file', 'edit_folder', 'delete_folder'
 			),
-		);
+			'shortcuts' => array(
+								 array(
+									   'name' => 'files.files_title',
+									   'uri' => 'admin/files',
+									   ),
+								 ),
+			);
+		
+			if (function_exists('group_has_role') AND group_has_role('files', 'edit_file'))
+			{
+				$info['shortcuts'][] = array(
+											 'name' => 'file_folders.create_title',
+											 'uri' => 'admin/files/folders/create',
+											 'class' => 'add folder-create'
+											 );
+				
+				$info['shortcuts'][] = array(
+											 'name' => 'files.upload_title',
+											 'uri' => 'admin/files/upload',
+											 'class' => 'files-uploader'
+											 );
+			}
+			
+			return $info;
 	}
 
 	public function install()

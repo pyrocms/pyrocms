@@ -31,5 +31,3 @@
 </div>
 
 <?php if ( ! empty($module_details['sections'])) file_partial('sections'); ?>
-
-<?php file_partial('notices'); ?>
