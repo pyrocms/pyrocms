@@ -1265,7 +1265,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 .subbar {
 	position: fixed;
 	z-index: 9997;
-	top: 185px;
+	top: 25px!important;
 	right: 0;
 	left: 0;
 	width: 100%;
@@ -1281,7 +1281,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 10px 15px 15px 0;
+  	padding: 15px 15px 13px 0;
   	margin-top: 15px;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px; 	
@@ -1423,7 +1423,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 .sections_bar {
 	position: fixed;
 	z-index: 9995;
-	top: 258px;
+	top: 101px!important;
 	right: 0;
 	left: 0;
 	width: 100%;
