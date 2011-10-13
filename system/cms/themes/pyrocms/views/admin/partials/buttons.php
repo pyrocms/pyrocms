@@ -25,7 +25,7 @@
 
 		<?php switch ($button) :
 			case 'delete': 
-			if($btn_class == 'btn') $btn_class .= ' gray';
+				if($btn_class == 'btn') $btn_class .= ' red';
 			
 			?>
 				<button type="submit" name="btnAction" value="delete" class="<?php echo $btn_class; ?> confirm">
