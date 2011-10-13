@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('settings_edit_title');?></h4>
+	<h4><?php echo $module_details['name']; ?></h4>
 </section>
 
 	<section class="item">
