@@ -38,7 +38,7 @@
 						<td><?php echo $member->active ? lang('global:yes') : lang('global:no') ; ?></td>
 						<td><?php echo format_date($member->created_on); ?></td>
 						<td><?php echo ($member->last_login > 0 ? format_date($member->last_login) : lang('user_never_label')); ?></td>
-						<td class="align-center buttons buttons-small">
+						<td class="actions">
 							<?php echo anchor('admin/users/edit/' . $member->id, lang('global:edit'), array('class'=>'button edit')); ?>
 							<?php echo anchor('admin/users/delete/' . $member->id, lang('global:delete'), array('class'=>'confirm button delete')); ?>
 						</td>
@@ -47,7 +47,7 @@
 			</tbody>
 		</table>
 
-	<div class="buttons float-right padding-top">
+	<div class="table_action_buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('activate', 'delete') )); ?>
 	</div>
 

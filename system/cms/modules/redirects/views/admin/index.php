@@ -10,7 +10,7 @@
 	<table border="0" class="table-list">
 	    <thead>
 			<tr>
-				<th width="30"><?php echo form_checkbox('action_to_all');?></th>
+				<th width="30"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all'));?></th>
 				<th width="25%"><?php echo lang('redirects.from');?></th>
 				<th><?php echo lang('redirects.to');?></th>
 				<th width="200"></th>
@@ -40,7 +40,7 @@
 	    </tbody>
 	</table>
 
-	<div class="buttons align-right padding-top">
+	<div class="table_action_buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 	</div>
     <?php echo form_close(); ?>

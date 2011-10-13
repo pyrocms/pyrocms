@@ -16,7 +16,7 @@
 			
 			</div>
 
-			<div class="buttons align-right padding-top">
+			<div class="table_action_buttons">
 		
 				<?php if (Settings::get('moderate_comments')): ?>
 					<?php if ( ! $comments_active): ?>

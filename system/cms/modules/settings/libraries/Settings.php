@@ -320,7 +320,7 @@ class Settings {
 						'checked'	=> $checked,
 						'value'		=> $value
 					));
-					$form_control .= ' ' . $label . '</label>';
+					$form_control .= ' ' . $label . '</label>&nbsp;&nbsp;';
 				}
 				break;
 
