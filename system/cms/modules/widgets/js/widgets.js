@@ -474,4 +474,13 @@ jQuery(function($){
 	
 	pyro.widgets.init();
 
+	// Slide toggle for widget codes
+	$(".instance-code").click(function(){
+		$('#'+$(this).attr('id')+'-wrap').toggle();
+	});
+
+	// Select code 
+	$(".widget-code").focus(function(){$(this).select()});
+	$(".widget-code").mouseup(function(e){e.preventDefault();});
+
 });

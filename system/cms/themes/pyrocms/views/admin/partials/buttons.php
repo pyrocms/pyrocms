@@ -64,7 +64,7 @@
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
 				if($btn_class == 'btn') $btn_class .= ' gray';
 
-				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="'.$btn_class.' gray ' . $button . '"');
+				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="'.$btn_class.' ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>

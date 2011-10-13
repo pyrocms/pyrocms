@@ -1,11 +1,10 @@
 <?php foreach ($widget_areas as $widget_area): ?>
 	<section class="widget-area-box" id="area-<?php echo $widget_area->slug; ?>" data-id="<?php echo $widget_area->id; ?>">
 		<header>
-			<h3><a href="#"><?php echo $widget_area->title; ?></a></h3>
+			<h3><?php echo $widget_area->title; ?></h3>
 		</header>
 		<div class="widget-area-content accordion-content">
-			<!-- Widget Area Actions -->
-			<div class="buttons buttons-small">
+			<div class="area-buttons buttons buttons-small">
 						
 				<?php echo anchor('admin/' . $this->module_details['slug'] . '../areas/edit/'.$widget_area->slug, lang('buttons.edit'), 'class="button edit"'); ?>
 				<button type="submit" name="btnAction" value="delete" class="button delete confirm"><span>Delete</span></button>
@@ -13,7 +12,7 @@
 			</div>
 
 			<!-- Widget Area Tag -->
-			<!--<code class="tag"><?php echo sprintf('{%s:widgets:area slug="%s"}', config_item('tags_trigger'), $widget_area->slug); ?></code>-->
+			<input type="text" class="widget-section-code widget-code" value='<?php echo sprintf('{%s:widgets:area slug="%s"}', config_item('tags_trigger'), $widget_area->slug); ?>' />
 
 			<!-- Widget Area Instances -->
 			<div class="widget-list">
