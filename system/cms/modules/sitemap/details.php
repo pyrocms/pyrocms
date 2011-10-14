@@ -34,7 +34,7 @@ class Module_Sitemap extends Module {
 				'zh' => '站點地圖模塊創建一個索引的所有網頁和XML網站地圖搜索引擎。',
 				'it' => 'Il modulo mappa del sito crea un indice di tutte le pagine e una sitemap in XML per i motori di ricerca.',
 				'ru' => 'Карта модуль создает индекс всех страниц и карта сайта XML для поисковых систем.',
-				'ar' => 'وحدة خريطة الموقع بإنشاء فهرس لجميع الصفحات والموقع أكس لمحركات البحث.',
+				'ar' => 'وحدة خريطة الموقع تنشئ فهرساً لجميع الصفحات وملف XML لمحركات البحث.',
 				'br' => 'O módulo de mapa do site cria um índice de todas as páginas e um sitemap XML para motores de busca.',
 				'es' => 'El módulo de mapa crea un índice de todas las páginas y un mapa del sitio XML para los motores de búsqueda.',
 				'fi' => 'sivukartta moduuli luo hakemisto kaikista sivuista ja XML sivukartta hakukoneille.',
