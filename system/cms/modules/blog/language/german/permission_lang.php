@@ -5,4 +5,4 @@ $lang['blog.role_put_live']		= 'Artikel live setzen';
 $lang['blog.role_edit_live']	= 'Live-Artikel bearbeiten';
 $lang['blog.role_delete_live'] 	= 'Live-Artikel löschen';
 
-/* End of file migrations_lang.php */
+/* End of file permission_lang.php */
