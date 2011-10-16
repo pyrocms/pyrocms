@@ -33,7 +33,7 @@
 				<p><?php echo lang('page_layouts.no_pages');?></p>
 			<?php endif; ?>		
 			
-			<div>
+			<div class="table_action_buttons">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			</div>
 	
