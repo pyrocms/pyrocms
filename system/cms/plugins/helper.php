@@ -53,6 +53,38 @@ class Plugin_Helper extends Plugin
 	{
 		return preg_replace('!\s+!', $this->attribute('replace', ' '), $this->content());
 	}
+	
+	/**
+	 * Add counting to tag loops
+	 *
+	 * Usage:
+	 * {pyro:blog:posts}
+	 * 		{pyro:helper:count} -- {title}
+	 * {/pyro:blog:posts}
+	 *
+	 * Outputs:
+	 * 1 -- This is an example title
+	 * 2 -- This is another title
+	 *
+	 * Another example:
+	 * {pyro:blog:posts}
+	 * 		{pyro:helper:count mode="subtract" start="10"} -- {title}
+	 * {/pyro:blog:posts}
+	 *
+	 * Outputs:
+	 * 10 -- This is an example title
+	 * 9  -- This is another title
+	 */
+	public function count()
+	{
+		static $i = NULL;
+		
+		// We'll use a default of 1 if they haven't specified and we're on the first iteration
+		if ($i === NULL) $i = $this->attribute('start', 1);
+
+		// let's count up unless they specify to "subtract"
+		return ($this->attribute('mode') == 'subtract') ? $i-- : $i++;
+	}
 }
 
 /* End of file theme.php */
