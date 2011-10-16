@@ -6,7 +6,7 @@
 	<?php echo form_hidden('active', $comment->is_active); ?>
 
 	<ul class="fields">
-		<?php if(!$comment->user_id > 0): ?>
+		<?php if ( ! $comment->user_id > 0): ?>
 		<li class="even">
 			<label for="name"><?php echo lang('comments.name_label'); ?>:</label>
 			<?php echo form_input('name', $comment->name, 'maxlength="100"'); ?>

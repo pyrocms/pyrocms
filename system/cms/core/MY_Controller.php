@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+require APPPATH."libraries/MX/Controller.php";
+
 // Code here is run before ALL controllers
-class MY_Controller extends CI_Controller {
+class MY_Controller extends MX_Controller {
 
 	// Deprecated: No longer used globally
 	protected $data;
@@ -93,7 +95,7 @@ class MY_Controller extends CI_Controller {
 			}
 		}
 
-		define('CURRENT_LANGUAGE', $site_lang);
+		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
 
@@ -123,7 +125,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->library(array('events', 'users/ion_auth'));
 
 		// Use this to define hooks with a nicer syntax
-		$this->hooks = & $GLOBALS['EXT'];
+		ci()->hooks =& $GLOBALS['EXT'];
 
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');

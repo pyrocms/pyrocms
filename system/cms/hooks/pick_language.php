@@ -2,7 +2,7 @@
 
 function pick_language()
 {
-	require_once(APPPATH.'/config/language.php');
+	require APPPATH.'/config/language.php';
 
     // Re-populate $_GET
 	parse_str($_SERVER['QUERY_STRING'], $_GET);

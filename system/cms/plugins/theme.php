@@ -23,7 +23,7 @@ class Plugin_Theme extends Plugin
 	 */
 	function options()
 	{
-		$option = $this->pyrocache->model('themes_m', 'get_option', array( array('slug' => $this->attribute('option')) ));
+		$option = $this->pyrocache->model('themes_m', 'get_option', array(array('slug' => $this->attribute('option'))));
 
 		return is_object($option) ? $option->value : NULL;
 	}
@@ -44,18 +44,29 @@ class Plugin_Theme extends Plugin
 		$name = $this->attribute('name');
 		$name = $this->attribute('file', $name); #deprecated
 
-		$data =& $this->load->_ci_cached_vars;
+		$path =& $this->load->get_var('template_views');
+		$data = $this->load->_ci_cached_vars;
 
 		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path' => $data['template_views'].'partials/'.$name.'.html',
+			'_ci_path' => $path.'partials/'.$name.'.html',
 			'_ci_return' => TRUE
 		)), $data, TRUE, TRUE);
 	}
-
+	
+	/**
+	 * Path
+	 *
+	 * Get the path to the theme
+	 *
+	 * Usage:
+	 * {pyro:theme:partial file="header"}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
 	function path()
 	{
-		$data =& $this->load->_ci_cached_vars;
-		$path = rtrim($data['template_views'], '/');
+		$path =& rtrim($this->load->get_var('template_views'), '/');
 		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
 	}
 

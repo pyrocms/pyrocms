@@ -50,7 +50,7 @@
 			<?php echo form_hidden('redirect_to', uri_string()); ?>
 			<noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"'); ?></noscript>
 
-			<?php if ( ! $this->current_user): ?>
+			<?php if ( ! $current_user): ?>
 
 			<div class="form_name">
 				<label for="name"><?php echo lang('comments.name_label'); ?>:</label>
