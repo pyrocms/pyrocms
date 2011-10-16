@@ -643,6 +643,35 @@ class Module_m extends MY_Model
 
 		return array();
 	}
+    
+	/**
+	 * Get Role Access
+	 *
+	 * Retrieves access role for a specific module and check user access rights
+	 *
+	 * @param	string	$slug	The module slug, int $user_group_id  User Group
+	 * @return	Object $access->access_name = value (0/1);
+	 * @if 1 accessible, 0 not accessible;
+	 */
+	public function get_access($slug, $user_group_id)
+	{
+		
+        $arAccess = $this->roles($slug);
+        $query = "select roles from ".$this->db->dbprefix('permissions')." where group_id=? and module=? ";
+        $sql = $this->db->query($query, array($user_group_id, $slug));
+        $row = $sql->row();
+        
+        $hsl = array();
+        if(isset($row->roles)){
+            $hsl = json_decode($row->roles, true);
+        }
+            
+        $arResult = array();
+        foreach($arAccess as $v){
+            $arResult[$v] = (isset($hsl[$v])) ? $hsl[$v] : 0;
+        }
+        return (object)$arResult;
+	}
 	
 	/**
 	 * Help
