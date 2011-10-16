@@ -97,7 +97,7 @@ class Template
 		// If the parse is going to be used, best make sure it's loaded
 		if ($this->_parser_enabled === TRUE)
 		{
-			class_exists('CI_Parser') OR $this->_ci->load->library('parser');
+			$this->_ci->load->library('parser');
 		}
 
 		// Modular Separation / Modular Extensions has been detected
@@ -111,7 +111,7 @@ class Template
 		$this->_method 		= $this->_ci->router->fetch_method();
 
 		// Load user agent library if not loaded
-		class_exists('CI_User_agent') OR $this->_ci->load->library('user_agent');
+		$this->_ci->load->library('user_agent');
 
 		// We'll want to know this later
 		$this->_is_mobile = $this->_ci->agent->is_mobile();
