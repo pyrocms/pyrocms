@@ -75,9 +75,7 @@ abstract class Theme {
 	 */
 	public function __get($var)
 	{
-		static $ci;
-		isset($ci) OR $ci =& get_instance();
-		return $ci->{$var};
+		return ci()->{$var};
 	}
 }
 

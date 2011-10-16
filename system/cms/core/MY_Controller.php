@@ -138,26 +138,26 @@ class MY_Controller extends MX_Controller {
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
 
-		$this->template->current_user = $this->current_user = $this->ion_auth->get_user();
+		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
-		$this->module = $this->router->fetch_module();
-		$this->controller = $this->router->fetch_class();
-		$this->method = $this->router->fetch_method();
+		ci()->module = $this->module = $this->router->fetch_module();
+		ci()->controller = $this->controller = $this->router->fetch_class();
+		ci()->method = $this->method = $this->router->fetch_method();
 
 		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
 			'pages/page_m',
-			'themes/themes_m'
+			'themes/themes_m',
 		));
 
 		// List available module permissions for this user
-		$this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
+		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
 		// Get meta data for the module
-		$this->template->module_details = $this->module_details = $this->module_m->get($this->module);
+		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();

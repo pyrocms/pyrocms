@@ -57,6 +57,11 @@ class CI
 		/* autoload module items */
 		self::$APP->load->_autoloader(array());
 	}
+	
+	public function __call($methods, $arguments)
+	{
+		return call_user_func_array($method, $arguments);
+	}
 }
 
 /* create the application object */
