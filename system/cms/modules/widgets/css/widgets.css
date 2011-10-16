@@ -284,4 +284,4 @@ li.empty-drop-item.loading {
 }
 
 #widgets-list > tbody > tr { cursor: auto; }
-td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/admin_theme/img/icons/cursor_drag_arrow.png) no-repeat; }
+td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/pyrocms/img/icons/cursor_drag_arrow.png) no-repeat; }
