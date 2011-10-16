@@ -1,5 +1,5 @@
 <?php foreach ($widget_areas as $widget_area): ?>
-	<section class="widget-area-box" id="area-<?php echo $widget_area->slug; ?>" data-id="<?php echo $widget_area->id; ?>">
+	<section class="widget-area-box one_third" id="area-<?php echo $widget_area->slug; ?>" data-id="<?php echo $widget_area->id; ?>">
 		<header>
 			<h3><?php echo $widget_area->title; ?></h3>
 		</header>
