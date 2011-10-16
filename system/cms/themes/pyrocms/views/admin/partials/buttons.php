@@ -53,7 +53,15 @@
 			case 'close':
 			case 'preview':
 				if($btn_class == 'btn') $btn_class .= ' gray';
-				echo anchor('admin/' . $this->module_details['slug'], lang('buttons.' . $button), 'class="'.$btn_class. ' ' . $button . '"');
+				$uri = 'admin/' . $this->module_details['slug'];
+				$active_section = $this->_ci_cached_vars['active_section'];
+
+				if ($active_section && isset($this->module_details['sections'][$active_section]['uri']))
+				{
+					$uri = $this->module_details['sections'][$active_section]['uri'];
+				}
+				
+				echo anchor($uri, lang('buttons.' . $button), 'class="'.$btn_class. ' ' . $button . '"');
 				break;
 
 			/**
