@@ -32,7 +32,7 @@ class Public_Controller extends MY_Controller
 		$this->load->model('pages/page_m');
 
 		// Load the current theme so we can set the assets right away
-		$this->theme = $this->themes_m->get();
+		ci()->theme = $this->themes_m->get();
 		
 		if (empty($this->theme->slug))
 		{
