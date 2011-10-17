@@ -54,7 +54,7 @@
 			case 'preview':
 				if($btn_class == 'btn') $btn_class .= ' gray';
 				$uri = 'admin/' . $this->module_details['slug'];
-				$active_section = $this->_ci_cached_vars['active_section'];
+				$active_section = $this->load->get_var('active_section');
 
 				if ($active_section && isset($this->module_details['sections'][$active_section]['uri']))
 				{
