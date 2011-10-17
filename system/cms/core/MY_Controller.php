@@ -24,7 +24,7 @@ class MY_Controller extends MX_Controller {
 			show_error('This domain is not set up correctly.');
 		}
 		
-		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
+		// TODO: Remove this in v2.1.0 as it just renames tables for v2.0.0
 		if ($this->db->table_exists(SITE_REF.'_schema_version'))
 		{	
 			$this->load->dbforge();
