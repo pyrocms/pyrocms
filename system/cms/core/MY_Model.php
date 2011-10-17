@@ -15,9 +15,6 @@
  * @copyright Copyright (c) 2009, Jamie Rumbelow <http://jamierumbelow.net>
  */
 
-//  CI 2.0 Compatibility
-if(!class_exists('CI_Model')) { class CI_Model extends Model {  } }
-
 class MY_Model extends CI_Model
 {
 	/**
@@ -407,7 +404,8 @@ class MY_Model extends CI_Model
 	 */
 	public function update_all($data)
 	{
-		return $this->db->set($data)
+		return $this->db
+			->set($data)
 			->update($this->_table);
 	}
 
