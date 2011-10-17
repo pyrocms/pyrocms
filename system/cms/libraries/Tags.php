@@ -846,11 +846,6 @@ class Tags {
 	 */
 	private function _force_array($var, $level = 0)
 	{
-		if (is_object($var))
-		{
-			$var = (array) $var;
-		}
-
 		if (is_array($var))
 		{
 			// Make sure everything else is array or single value
@@ -861,6 +856,11 @@ class Tags {
 					$child = $this->_force_array($child, $level + 1);
 				}
 			}
+		}
+		
+		if (is_object($var))
+		{
+			$var = (array) $var;
 		}
 
 		return $var;
