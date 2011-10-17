@@ -21,19 +21,19 @@
 		});
 		
 		// collapse all ordered lists but the top level
-		$('#page-list ol:not(.sortable)').children().hide();
+		$('#page-list ul:not(.sortable)').children().hide();
 		
-		//this gets ran again after drop
+		// this gets ran again after drop
 		var update_tree = function() {
 			
 			// add the minus icon to all parent items that now have visible children
-			$('#page-list ol').children('li:has(li:visible)').removeClass().addClass('minus');
+			$('#page-list ul').find('li:has(li:visible)').removeClass().addClass('minus');
 			
 			// add the plus icon to all parent items with hidden children
-			$('#page-list ol').children('li:has(li:hidden)').removeClass().addClass('plus');
+			$('#page-list ul').find('li:has(li:hidden)').removeClass().addClass('plus');
 			
 			// remove the class if the child was removed
-			$('#page-list ol').children('li:not(:has(ol))').removeClass();
+			$('#page-list ul').find('li:not(:has(ul))').removeClass();
 			
 			// refresh the page details pane if it exists
 			if($('#page-details #page-id').val() > 0)
@@ -45,17 +45,17 @@
 		update_tree();
 		
 		// set the icons properly on parents restored from cookie
-		$($.cookie('open_pages')).has('ol').toggleClass('minus plus');
+		$($.cookie('open_pages')).has('ul').toggleClass('minus plus');
 		
 		// show the parents that were open on last visit
-		$($.cookie('open_pages')).children('ol').children().show();
+		$($.cookie('open_pages')).children('ul').children().show();
 		
 		// show/hide the children when clicking on an <li>
 		$('#page-list li').live('click', function()
 		{
-			$(this).children('ol').children().slideToggle('fast');
+			$(this).children('ul').children().slideToggle('fast');
 			 
-			$(this).has('ol').toggleClass('minus plus');
+			$(this).has('ul').toggleClass('minus plus');
 			 
 			var pages = [];
 			 
@@ -68,7 +68,7 @@
 			 return false;
 		});
 		
-		$('ol.sortable').nestedSortable({
+		$('ul.sortable').nestedSortable({
 			disableNesting: 'no-nest',
 			forcePlaceholderSize: true,
 			handle: 'div',
@@ -81,11 +81,11 @@
 			toleranceElement: '> div',
 			stop: function(event, ui) {
 				// create the array using the toHierarchy method
-				order = $('ol.sortable').nestedSortable('toHierarchy');
+				order = $('ul.sortable').nestedSortable('toHierarchy');
 				
 				root_pages = [];
 				// grab an array of root page ids
-				$('ol.sortable').children('li').each(function(){
+				$('ul.sortable').children('li').each(function(){
 					root_pages.push($(this).attr('id').replace('page_', ''));
 				});
 		

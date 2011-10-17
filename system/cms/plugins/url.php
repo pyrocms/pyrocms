@@ -90,10 +90,10 @@ class Plugin_Url extends Plugin
 		$title = $this->attribute('title', '');
 		$class = $this->attribute('class', '');
 		
-		$class = !empty($class) ? 'class="' . $class . '"' : '' ;
+		$class = ! empty($class) ? 'class="' . $class . '"' : '' ;
 		
 		return anchor($segments, $title, $class);
 	}
 }
 
-/* End of file theme.php */
+/* End of file url.php */
