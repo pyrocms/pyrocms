@@ -29,7 +29,8 @@ jQuery(function($){
 				}
 				else if (response.status == 'error')
 				{
-					pyro.add_notification(response.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
+					pyro.add_notification(response.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                    $.colorbox.resize();
 				}
 			}, 'json');
 		});
@@ -178,7 +179,8 @@ jQuery(function($){
 							form.parent().fadeIn(function(){
 
 								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
+								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                                $.colorbox.resize();
 
 							});
 
@@ -326,8 +328,8 @@ jQuery(function($){
 							form.parent().fadeIn(function(){
 
 								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
-
+								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                                $.colorbox.resize();
 							});
 
 						}, 'json');
