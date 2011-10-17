@@ -53,7 +53,6 @@ class Admin_areas extends Admin_Controller {
 		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
 			->append_metadata(css('widgets.css', 'widgets'));
 	}

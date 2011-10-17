@@ -28,7 +28,7 @@ class Admin_Controller extends MY_Controller {
 
 		$this->load->helper('admin_theme');
 		
-		$this->admin_theme = $this->themes_m->get_admin();
+		ci()->admin_theme = $this->themes_m->get_admin();
 		
 		// Using a bad slug? Weak
 		if (empty($this->admin_theme->slug))
@@ -37,7 +37,7 @@ class Admin_Controller extends MY_Controller {
 		}
 
 		// make a constant as this is used in a lot of places
-		define('ADMIN_THEME', $this->admin_theme->slug);
+		defined('ADMIN_THEME') or define('ADMIN_THEME', $this->admin_theme->slug);
 			
 		// Prepare Asset library
 	    $this->asset->set_theme(ADMIN_THEME);
@@ -49,7 +49,7 @@ class Admin_Controller extends MY_Controller {
 		$this->config->set_item('theme_asset_url', BASE_URL.dirname($this->admin_theme->web_path).'/');
 		
 		// grab the theme options if there are any
-		$this->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
+		ci()->theme_options = $this->pyrocache->model('themes_m', 'get_values_by', array(array('theme' => ADMIN_THEME) ));
 	
 		// Active Admin Section (might be null, but who cares)
 		$this->template->active_section = $this->section;

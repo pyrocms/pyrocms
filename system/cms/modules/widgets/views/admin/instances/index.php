@@ -14,7 +14,7 @@
 
 		<div id="instance-code-<?php echo $widget->id; ?>-wrap" style="display: none;">
 		
-		<input type="text" class="widget-code" value='<?php echo sprintf('{%s:widgets:instance id="%s"}', config_item('tags_trigger'), $widget->id);?>' />
+		<input type="text" class="widget-code" value='{{ widgets.instance id="<?php echo $widget->id ?>"}}' />
 		
 		</div>
 		

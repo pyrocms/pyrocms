@@ -18,24 +18,6 @@ class Admin extends Admin_Controller
   		parent::__construct();
 
 		$this->load->helper('users/user');
-
-		// Set the validation rules
-		$this->validation_rules = array(
-			array(
-				'field' => 'email',
-				'label'	=> lang('email_label'),
-				'rules' => 'required|callback__check_login'
-			),
-			array(
-				'field' => 'password',
-				'label'	=> lang('password_label'),
-				'rules' => 'required'
-			)
-		);
-
-		// Call validation and set rules
-		$this->load->library('form_validation');
-	    $this->form_validation->set_rules($this->validation_rules);
  	}
 
  	/**
@@ -67,13 +49,31 @@ class Admin extends Admin_Controller
 	 */
 	public function login()
 	{
-	    // If the validation worked, or the user is already logged in
-	    if ($this->form_validation->run() OR $this->ion_auth->logged_in())
-	    {
-	    	redirect('admin');
+		// Set the validation rules
+		$this->validation_rules = array(
+			array(
+				'field' => 'email',
+				'label'	=> lang('email_label'),
+				'rules' => 'required|callback__check_login'
+			),
+			array(
+				'field' => 'password',
+				'label'	=> lang('password_label'),
+				'rules' => 'required'
+			)
+		);
+
+		// Call validation and set rules
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules($this->validation_rules);
+	
+		// If the validation worked, or the user is already logged in
+		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
+		{
+			redirect('admin');
 		}
 
-	    $this->template
+		$this->template
 			->set_layout(FALSE)
 			->build('admin/login');
 	}
@@ -101,11 +101,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_login($email)
 	{
-		$remember = FALSE;
-		if ($this->input->post('remember') == 1)
-		{
-			$remember = TRUE;
-		}
+		$remember = (bool) $this->input->post('remember');
 
 		if ($this->ion_auth->login($email, $this->input->post('password'), $remember))
 		{

@@ -27,7 +27,7 @@ class Admin extends Admin_Controller {
 			'label'	=> 'lang:pages.title_label',
 			'rules'	=> 'trim|required|max_length[250]'
 		),
-		array(
+		'slug' => array(
 			'field' => 'slug',
 			'label'	=> 'lang:pages.slug_label',
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
@@ -100,13 +100,6 @@ class Admin extends Admin_Controller {
 	);
 
 	/**
-	 * The ID of the page, used for the validation callback
-	 * @access private
-	 * @var int
-	 */
-	private $page_id = 0;
-
-	/**
 	 * Constructor method
 	 * @access public
 	 * @return void
@@ -122,8 +115,6 @@ class Admin extends Admin_Controller {
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
-
-		$this->form_validation->set_rules($this->validation_rules);
 	}
 
 
@@ -272,6 +263,8 @@ class Admin extends Admin_Controller {
 					'body' => $chunk_bodies[$i],
 				);
 			}
+			
+			$this->form_validation->set_rules($this->validation_rules);
 				
 			// Validate the page
 			if ($this->form_validation->run())
@@ -424,6 +417,14 @@ class Admin extends Admin_Controller {
 				);	
 			}
 			
+			$this->form_validation->set_rules(array_merge($this->validation_rules, array(
+				'slug' => array(
+					'field' => 'slug',
+					'label'	=> 'lang:pages.slug_label',
+					'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug['.$id.']'
+				)
+			)));
+			
 			if ($this->form_validation->run())
 			{
 				$input = $this->input->post();
@@ -508,7 +509,7 @@ class Admin extends Admin_Controller {
 
 		$this->load->model('groups/group_m');
 		$groups = $this->group_m->get_all();
-		foreach($groups as $group)
+		foreach ($groups as $group)
 		{
 			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
 		}
@@ -571,13 +572,12 @@ class Admin extends Admin_Controller {
 	/**
 	 * Build the html for the admin page tree view
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
 	 * @param array $page Current page
 	 */
 	public function tree_builder($page)
 	{
-		if(isset($page['children'])):
+		if (isset($page['children'])):
 	
 			foreach($page['children'] as $page): ?>
 		
@@ -601,30 +601,31 @@ class Admin extends Admin_Controller {
 	/**
 	 * Callback to check uniqueness of slug + parent
 	 *
-	 * @author Donald Myers
 	 * @access public
 	 * @param $slug slug to check
 	 * @return bool
 	 */
-	 public function _check_slug($slug = '')
+	 public function _check_slug($slug, $page_id = null)
 	 {
-     if ($this->page_m->check_slug($slug, $this->input->post('parent_id'), (int)$this->page_id))
-     {
-       $page_obj = $this->page_m->get($this->page_id);
-       $url = '/'.trim(dirname($page_obj->uri),'.').$slug;
-       if ($this->input->post('parent_id') == 0)
-       {
-         $parent_folder = lang('pages_root_folder');
-       }
-       else
-       {
-         $page_obj = $this->page_m->get($this->input->post('parent_id'));
-         $parent_folder = $page_obj->title;
-       }
-       $this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url,$parent_folder));
-       return FALSE;
-     }
+		if ($this->page_m->check_slug($slug, $this->input->post('parent_id'), (int) $page_id))
+		{
+			if ($this->input->post('parent_id') == 0)
+			{
+				$parent_folder = lang('pages_root_folder');
+				$url = '/'.$slug;
+			}
+			else
+			{
+				$page_obj = $this->page_m->get($page_id);
+				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
+				$page_obj = $this->page_m->get($this->input->post('parent_id'));
+				$parent_folder = $page_obj->title;
+			}
+		
+			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
+			return FALSE;
+		}
   
-     return TRUE;
-   }
+		return TRUE;
+	}
 }

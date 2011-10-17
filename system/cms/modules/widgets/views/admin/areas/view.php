@@ -11,7 +11,7 @@
 		</div>
 	</header>
 	<div class="widget-area-content accordion-content">
-		<p class="tag"><?php echo sprintf('{%s:widgets:area slug="%s"}', config_item('tags_trigger'), $widget_area->slug);?></p>
+		<p class="tag"><?php echo sprintf('{{ widgets.area slug="%s" }}', $widget_area->slug);?></p>
 
 		<div class="widget-list">
 			<ol>

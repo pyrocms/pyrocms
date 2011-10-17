@@ -13,6 +13,7 @@
 						<?php endif; ?>
 					</th>
 					<th><?php echo lang('files.name_label'); ?></th>
+					<th><?php echo lang('file_folders.slug_label'); ?>
 					<th width="100" class="align-center"><?php echo lang('file_folders.created_label'); ?></th>
 					<th width="200"></th>
 				</tr>
@@ -33,6 +34,7 @@
 						<?php endif; ?>
 					</td>
 					<td><?php echo anchor('admin/files/folders/contents/' . $folder->id, repeater('&raquo; ', $folder->depth) . $folder->name, 'title="' . $folder->name .'" data-path="' . $folder->virtual_path . '" class="folder-hash"'); ?></td>
+					<td><?php echo $folder->slug; ?></td>
 					<td class="align-center"><?php echo format_date($folder->date_added); ?></td>
 					<td class="align-center buttons buttons-small">
 						<?php if (group_has_role('files', 'edit_folder')): ?>

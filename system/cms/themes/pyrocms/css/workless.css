@@ -1347,7 +1347,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #shortcuts ul li a.add {
-	margin: 4px 0 0 10px;
+	margin: -7px 0 0 10px;
 	float: left;
 }
 

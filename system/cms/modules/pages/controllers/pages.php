@@ -19,7 +19,7 @@ class Pages extends Public_Controller
 		$this->load->model('page_layouts_m');
 		
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
-		@include(APPPATH.'config/routes.php'); // simple hack to get the default_controller, could find another way.
+		@include APPPATH.'config/routes.php'; // simple hack to get the default_controller, could find another way.
 		
 		// No page is mentioned $this->current_userand we aren't using pages as default (eg blog on homepage)
 		if ( ! $this->uri->segment(1) AND $route['default_controller'] != 'pages')
@@ -54,6 +54,11 @@ class Pages extends Public_Controller
 					header('Content-type: image/x-icon');
 					readfile(FCPATH.$favicon);
 				}
+				
+				else
+				{
+					set_status_header(404);
+				}
 
 				exit;
 			}
@@ -83,13 +88,17 @@ class Pages extends Public_Controller
 			: $this->pyrocache->model('page_m', 'get_home');
 
 		// If page is missing or not live (and not an admin) show 404
-		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin') ))
+		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
 		{
-			$page = $this->_404($url_segments);
+			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
+			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))))
+			{
+				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
+			}
 		}
 
 		// If the page is missing, set the 404 status header
-		if ( $page->slug == '404')
+		if ($page->slug == '404')
 		{
 			$this->output->set_status_header(404);
 		}
@@ -102,7 +111,7 @@ class Pages extends Public_Controller
 			// Are they logged in and an admin or a member of the correct group?
 			if ( ! $this->current_user OR (isset($this->current_user->group) AND $this->current_user->group != 'admin' AND ! in_array($this->current_user->group_id, $page->restricted_to)))
 			{
-				redirect('users/login/' . (empty($url_segments) ? '' : implode('/', $url_segments)));
+				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
 		}
 
@@ -154,9 +163,9 @@ class Pages extends Public_Controller
 		}
 	
 		// Set pages layout files in your theme folder
-		if ($this->template->layout_exists($page->uri . '.html'))
+		if ($this->template->layout_exists($page->uri.'.html'))
 		{
-			$this->template->set_layout($page->uri . '.html');
+			$this->template->set_layout($page->uri.'.html');
 		}
 
 		// If a Page Layout has a Theme Layout that exists, use it
@@ -173,7 +182,7 @@ class Pages extends Public_Controller
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
 		{
-			$chunk_html .= 	'<div class="page-chunk ' . $chunk->slug . '">' .
+			$chunk_html .= 	'<div class="page-chunk '.$chunk->slug.'">' .
 								(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
 							'</div>'.PHP_EOL;
 		}
@@ -196,8 +205,8 @@ class Pages extends Public_Controller
 		{
 			$this->template->append_metadata('
 				<style type="text/css">
-					' . $page->layout->css . '
-					' . $page->css . '
+					'.$page->layout->css.'
+					'.$page->css.'
 				</style>');
 		}
 		
@@ -205,12 +214,12 @@ class Pages extends Public_Controller
 		{
 			$this->template->append_metadata('
 				<script type="text/javascript">
-					' . $page->layout->js . '
-					' . $page->js . '
+					'.$page->layout->js.'
+					'.$page->js.'
 				</script>');
 		}
 		
-        	$this->template->build('page');
+		echo $this->template->build('pages/page', null, true);
 	}
 
 	/**
@@ -240,7 +249,7 @@ class Pages extends Public_Controller
 			'status' => 'live'
 		)));
     	
-		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title) . ' | '. $this->settings->site_name;
+		$data->rss->title = ($page->meta_title ? $page->meta_title : $page->title).' | '. $this->settings->site_name;
 		$data->rss->description = $page->meta_description;
 		$data->rss->link = site_url($url_segments);
 		$data->rss->creator_email = $this->settings->contact_email;
@@ -268,28 +277,5 @@ class Pages extends Public_Controller
 		}
 		
 		$this->load->view('rss', $data);
-	}
-
-	/**
-	 * 404 method
-	 * @access public
-	 * @param array $url_segments The URL segments
-	 * @return void
-	 */
-	public function _404($url_segments)
-	{
-		// If the actual 404 page is missing (oh the irony) we show an error message to prevent an infinite redirect.
-		// Otherwise we let show_404() handle it (which just redirects to the pretty 404 page). We use show_404() to
-		// redirect so when other modules do show_404() the visitor sees a styled page.
-		if ( ! $page = $this->pyrocache->model('page_m', 'get_by_uri', array('404')) )
-		{
-			show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
-		}
-		else
-		{
-			show_404();
-		}
-
-		return $page;
 	}
 }

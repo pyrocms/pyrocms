@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+require APPPATH."libraries/MX/Controller.php";
+
 // Code here is run before ALL controllers
-class MY_Controller extends CI_Controller {
+class MY_Controller extends MX_Controller {
 
 	// Deprecated: No longer used globally
 	protected $data;
@@ -93,7 +95,7 @@ class MY_Controller extends CI_Controller {
 			}
 		}
 
-		define('CURRENT_LANGUAGE', $site_lang);
+		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
 
@@ -123,7 +125,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->library(array('events', 'users/ion_auth'));
 
 		// Use this to define hooks with a nicer syntax
-		$this->hooks = & $GLOBALS['EXT'];
+		ci()->hooks =& $GLOBALS['EXT'];
 
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
@@ -136,26 +138,26 @@ class MY_Controller extends CI_Controller {
 		// Load the user model and get user data
 		$this->load->library('users/ion_auth');
 
-		$this->template->current_user = $this->current_user = $this->ion_auth->get_user();
+		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
-		$this->module = $this->router->fetch_module();
-		$this->controller = $this->router->fetch_class();
-		$this->method = $this->router->fetch_method();
+		ci()->module = $this->module = $this->router->fetch_module();
+		ci()->controller = $this->controller = $this->router->fetch_class();
+		ci()->method = $this->method = $this->router->fetch_method();
 
 		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
 			'pages/page_m',
-			'themes/themes_m'
+			'themes/themes_m',
 		));
 
 		// List available module permissions for this user
-		$this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
+		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
 		// Get meta data for the module
-		$this->template->module_details = $this->module_details = $this->module_m->get($this->module);
+		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();

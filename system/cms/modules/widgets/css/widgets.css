@@ -79,9 +79,6 @@
 #widget-areas .widget-area-box > header h3 {
 	font-size: 16px;
 	display: block;
-	margin-left: 10px;
-	margin-top: 0;
-	margin-bottom: 0;
 	background: none;
 	color: #484848!important;
 }
@@ -287,4 +284,4 @@ li.empty-drop-item.loading {
 }
 
 #widgets-list > tbody > tr { cursor: auto; }
-td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/admin_theme/img/icons/cursor_drag_arrow.png) no-repeat; }
+td span.move-handle { float: right; margin-right: 6px; width: 18px; height: 18px; cursor: move; background: url(../../../themes/pyrocms/img/icons/cursor_drag_arrow.png) no-repeat; }
