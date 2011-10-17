@@ -16,24 +16,17 @@ class Admin extends Admin_Controller {
 	protected $section = 'posts';
 
 	/**
-	 * The id of post
-	 * @access protected
-	 * @var int
-	 */
-	protected $id = 0;
-
-	/**
 	 * Array that contains the validation rules
 	 * @access protected
 	 * @var array
 	 */
 	protected $validation_rules = array(
-		array(
+		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:blog_title_label',
 			'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
 		),
-		array(
+		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:blog_slug_label',
 			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
@@ -247,7 +240,18 @@ class Admin extends Admin_Controller {
 	{
 		$id OR redirect('admin/blog');
 
-		$this->form_validation->set_rules($this->validation_rules);
+		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
+			'title' => array(
+				'field' => 'title',
+				'label' => 'lang:blog_title_label',
+				'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title['.$id.']'
+			),
+			'slug' => array(
+				'field' => 'slug',
+				'label' => 'lang:blog_slug_label',
+				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
+			),
+		)));
 
 		$post = $this->blog_m->get($id);
 		$post->author = $this->ion_auth->get_user($post->author_id);
@@ -489,15 +493,10 @@ class Admin extends Admin_Controller {
 	 * @param string title The Title to check
 	 * @return bool
 	 */
-	public function _check_title($title = '')
+	public function _check_title($title, $id = null)
 	{
-		if ( ! $this->blog_m->check_exists('title', $title, $this->id))
-		{
-			$this->form_validation->set_message('_check_title', sprintf(lang('blog_already_exist_error'), lang('blog_title_label')));
-			return FALSE;
-		}
-		
-		return TRUE;
+		$this->form_validation->set_message('_check_title', sprintf(lang('blog_already_exist_error'), lang('blog_title_label')));
+		return $this->blog_m->check_exists('title', $title, $id);			
 	}
 	
 	/**
@@ -506,15 +505,10 @@ class Admin extends Admin_Controller {
 	 * @param string slug The Slug to check
 	 * @return bool
 	 */
-	public function _check_slug($slug = '')
+	public function _check_slug($slug, $id = null)
 	{
-		if ( ! $this->blog_m->check_exists('slug', $slug, $this->id))
-		{
-			$this->form_validation->set_message('_check_slug', sprintf(lang('blog_already_exist_error'), lang('blog_slug_label')));
-			return FALSE;
-		}
-
-		return TRUE;
+		$this->form_validation->set_message('_check_slug', sprintf(lang('blog_already_exist_error'), lang('blog_slug_label')));
+		return $this->blog_m->check_exists('slug', $slug, $id);
 	}
 
 	/**
