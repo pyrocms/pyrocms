@@ -62,7 +62,7 @@
 	
 	<?php else: ?>
 		<div class="blank-slate">
-			<h2><?php echo lang('themes.no_themes_installed'); ?></h2>
+			<p><?php echo lang('themes.no_themes_installed'); ?></p>
 		</div>
 	<?php endif; ?>
 </section>
