@@ -240,19 +240,6 @@ class Admin extends Admin_Controller {
 	{
 		$id OR redirect('admin/blog');
 
-		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
-			'title' => array(
-				'field' => 'title',
-				'label' => 'lang:blog_title_label',
-				'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title['.$id.']'
-			),
-			'slug' => array(
-				'field' => 'slug',
-				'label' => 'lang:blog_slug_label',
-				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
-			),
-		)));
-
 		$post = $this->blog_m->get($id);
 		$post->author = $this->ion_auth->get_user($post->author_id);
 		$post->keywords = Keywords::get_string($post->keywords);
@@ -267,8 +254,19 @@ class Admin extends Admin_Controller {
 		{
 			$created_on = $post->created_on;
 		}
-
-		$this->id = $post->id;
+		
+		$this->form_validation->set_rules(array_merge($this->validation_rules, array(
+			'title' => array(
+				'field' => 'title',
+				'label' => 'lang:blog_title_label',
+				'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title['.$id.']'
+			),
+			'slug' => array(
+				'field' => 'slug',
+				'label' => 'lang:blog_slug_label',
+				'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug['.$id.']'
+			),
+		)));
 		
 		if ($this->form_validation->run())
 		{
@@ -321,23 +319,22 @@ class Admin extends Admin_Controller {
 		}
 
 		// Go through all the known fields and get the post values
-		foreach (array_keys($this->validation_rules) as $field)
+		foreach ($this->validation_rules as $key => $field)
 		{
-			if (isset($_POST[$field]))
+			if (isset($_POST[$field['field']]))
 			{
-				$post->$field = $this->form_validation->$field;
+				$post->$field['field'] = set_value($field['field']);
 			}
 		}
 
 		$post->created_on = $created_on;
 		
-		// Load WYSIWYG editor
 		$this->template
-				->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
-				->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
-				->append_metadata(js('blog_form.js', 'blog'))
-				->set('post', $post)
-				->build('admin/form');
+			->title($this->module_details['name'], sprintf(lang('blog_edit_title'), $post->title))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata(js('blog_form.js', 'blog'))
+			->set('post', $post)
+			->build('admin/form');
 	}
 
 	/**
