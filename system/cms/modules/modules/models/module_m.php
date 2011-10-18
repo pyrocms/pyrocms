@@ -656,7 +656,7 @@ class Module_m extends MY_Model
 	public function get_access($slug, $user_group_id)
 	{
 		
-        $arAccess = $this->roles($slug);
+        $ar_access = $this->roles($slug);
         
         $this->db->select('roles');
         $this->db->where('group_id', $user_group_id);
@@ -670,11 +670,11 @@ class Module_m extends MY_Model
             $hsl = json_decode($row->roles, true);
         }
             
-        $arResult = array();
-        foreach($arAccess as $v){
-            $arResult[$v] = (isset($hsl[$v])) ? $hsl[$v] : 0;
+        $ar_result = array();
+        foreach($ar_access as $v){
+            $ar_result[$v] = (isset($hsl[$v])) ? $hsl[$v] : 0;
         }
-        return (object)$arResult;
+        return (object)$ar_result;
 	}
 	
 	/**
