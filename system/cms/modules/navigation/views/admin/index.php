@@ -32,9 +32,9 @@
 										</div>
 
 								<?php if ($link['children']): ?>
-										<ol>
+										<ul>
 											<?php $controller->tree_builder($link, $group->id); ?>
-										</ol>
+										</ul>
 									</li>
 								<?php else: ?>
 									</li>

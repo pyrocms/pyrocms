@@ -101,19 +101,19 @@
 		});
 
 		// collapse all ordered lists but the top level
-		$('#link-list ol:not(.sortable)').children().hide();
+		$('#link-list ul:not(.sortable)').children().hide();
 
 		//this gets ran again after drop
 		var update_tree = function() {
 
 			// add the minus icon to all parent items that now have visible children
-			$('#link-list ol').children('li:has(li:visible)').removeClass().addClass('minus');
+			$('#link-list ul').children('li:has(li:visible)').removeClass().addClass('minus');
 
 			// add the plus icon to all parent items with hidden children
-			$('#link-list ol').children('li:has(li:hidden)').removeClass().addClass('plus');
+			$('#link-list ul').children('li:has(li:hidden)').removeClass().addClass('plus');
 
 			// remove the class if the child was removed
-			$('#link-list ol').children('li:not(:has(ol))').removeClass();
+			$('#link-list ul').children('li:not(:has(ul))').removeClass();
 
 			// refresh the link details pane if it exists
 			if($('#link-details #link-id').val() > 0)
@@ -125,17 +125,17 @@
 		update_tree();
 
 		// set the icons properly on parents restored from cookie
-		$($.cookie('open_links')).has('ol').toggleClass('minus plus');
+		$($.cookie('open_links')).has('ul').toggleClass('minus plus');
 
 		// show the parents that were open on last visit
-		$($.cookie('open_links')).children('ol').children().show();
+		$($.cookie('open_links')).children('ul').children().show();
 
 		// show/hide the children when clicking on an <li>
 		$('#link-list li').live('click', function()
 		{
-			$(this).children('ol').children().slideToggle('fast');
+			$(this).children('ul').children().slideToggle('fast');
 
-			$(this).has('ol').toggleClass('minus plus');
+			$(this).has('ul').toggleClass('minus plus');
 
 			var links = [];
 
@@ -148,7 +148,7 @@
 			 return false;
 		});
 
-		$('ol.sortable').nestedSortable({
+		$('ul.sortable').nestedSortable({
 			disableNesting: 'no-nest',
 			forcePlaceholderSize: true,
 			handle: 'div',
@@ -157,6 +157,7 @@
 			opacity: .4,
 			placeholder: 'placeholder',
 			tabSize: 25,
+			listType: 'ul',
 			tolerance: 'pointer',
 			toleranceElement: '> div',
 			stop: function(event, ui) {
