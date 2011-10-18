@@ -13,9 +13,9 @@
 <?php else: ?>
 
 	<?php echo form_open('users/reset_pass', array('id'=>'reset-pass')); ?>
-	<p class="reset-instructions">
-		<h4><?php echo lang('user_reset_instructions'); ?></h4>
-	</p>
+	
+	<h4 class="reset-instructions"><?php echo lang('user_reset_instructions'); ?></h4>
+
 	<ul>
 		<li>
 			<label for="email"><?php echo lang('user_email') ?></label>
