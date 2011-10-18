@@ -657,8 +657,12 @@ class Module_m extends MY_Model
 	{
 		
         $arAccess = $this->roles($slug);
-        $query = "select roles from ".$this->db->dbprefix('permissions')." where group_id=? and module=? ";
-        $sql = $this->db->query($query, array($user_group_id, $slug));
+        
+        $this->db->select('roles');
+        $this->db->where('group_id', $user_group_id);
+        $this->db->where('module', $slug);
+        $sql = $this->db->get($this->db->dbprefix('permissions'));
+        
         $row = $sql->row();
         
         $hsl = array();
