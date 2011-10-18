@@ -32,7 +32,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'userfile',
 			'label' => 'lang:files.file_label',
-			'rules' => 'callback__check_ext'
+			'rules' => 'trim'
 		),
 		array(
 			'field' => 'name',
@@ -134,6 +134,8 @@ class Admin extends Admin_Controller {
 	 */
 	public function upload($folder_id = '')
 	{
+		$this->_check_ext();
+		
 		$this->data->folders = $this->_folders;
 				
 		if ($this->form_validation->run())
