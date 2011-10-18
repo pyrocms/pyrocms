@@ -30,7 +30,7 @@ class Admin_groups extends Admin_Controller {
 		array(
 			'field'	=> 'abbrev',
 			'label'	=> 'lang:nav_abbrev_label',
-			'rules'	=> 'trim|required|max_length[20]'
+			'rules'	=> 'trim|required|max_length[50]'
 		)
 	);
 

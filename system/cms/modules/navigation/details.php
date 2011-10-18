@@ -68,7 +68,7 @@ class Module_Navigation extends Module {
 			CREATE TABLE " . $this->db->dbprefix('navigation_groups') . " (
 			  `id` int(11) NOT NULL auto_increment,
 			  `title` varchar(50) collate utf8_unicode_ci NOT NULL,
-			  `abbrev` varchar(20) collate utf8_unicode_ci NOT NULL,
+			  `abbrev` varchar(50) collate utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY  (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Navigation groupings. Eg, header, sidebar, footer, etc';
 		";
