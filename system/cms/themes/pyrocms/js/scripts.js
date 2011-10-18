@@ -51,8 +51,8 @@ jQuery(function($) {
 			$(this).find('ul').fadeOut();
 		});
 
-		// Add the close link to all boxes with the closable class
-		$('.closable').livequery(function(){
+		// Add the close link to all alert boxes
+		$('.alert').livequery(function(){
 			$(this).append('<a href="#" class="close">close</a>');
 		});
 
@@ -67,7 +67,7 @@ jQuery(function($) {
 		});
 
 		// Fade in the notifications
-		$('.notification').livequery(function(){
+		$('.alert').livequery(function(){
 			$(this).fadeIn('slow', function(){
 				$(window).trigger('notification-complete');
 			});
@@ -198,7 +198,7 @@ jQuery(function($) {
 
 	pyro.clear_notifications = function()
 	{
-		$('.notification .close').click();
+		$('.alert .close').click();
 
 		return pyro;
 	};
@@ -207,8 +207,8 @@ jQuery(function($) {
 	{
 		var defaults = {
 			clear	: true,
-			ref		: '#shortcuts',
-			method	: 'after'
+			ref		: '#content-body',
+			method	: 'prepend'
 		}, opt;
 		
 		// extend options
@@ -229,7 +229,7 @@ jQuery(function($) {
 	};
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
-		pyro.add_notification($('<div class="closable notification error">'+exception+'</div>'));
+		pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
 	});
 
 	$(document).ready(function() {
