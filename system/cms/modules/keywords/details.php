@@ -30,7 +30,7 @@ class Module_Keywords extends Module {
 			'shortcuts' => array(
 				array(
 			 	   'name' => 'keywords:add_title',
-				   'uri' => 'admin/keywords/create',
+				   'uri' => 'admin/keywords/add',
 				),
 			),
 		);
