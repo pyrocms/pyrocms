@@ -191,7 +191,7 @@ class Admin extends Admin_Controller {
 				if ($id = $this->file_m->insert($data))
 				{
 					$status		= 'success';
-					$message	= lang('files.create_success');
+					$message	= sprintf(lang('files.create_success'), $file['file_name']);
 				}
 				// Insert error
 				else
