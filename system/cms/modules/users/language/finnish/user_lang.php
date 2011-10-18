@@ -73,6 +73,7 @@ $lang['user_lang']                             = 'Kieli';
 
 $lang['user_activation_code']                  = 'Aktivointi koodi';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'Unohditko salasanan?';
 
 $lang['user_activation_code_sent_notice']      = 'Aktivointi koodi lähetettiin sähköpostiisi.';

@@ -66,6 +66,7 @@ $lang['user_lang']						= 'Jazyk';
 
 $lang['user_activation_code'] 			= 'Aktivační kód';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= 'Zapomněl/a jste heslo?';
 
 $lang['user_activation_code_sent_notice']	= 'E-mail s odkazem na obnovení hesla byl odeslán';

@@ -66,6 +66,7 @@ $lang['user_lang']						= 'اللغة';
 
 $lang['user_activation_code'] 			= 'رمز التفعيل';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link'] 		= 'نسيت كلمة السرّ الخاصة بك؟';
 
 $lang['user_activation_code_sent_notice']	= 'أرسلت رسالة إليك تحتوي رمز التفعيل.';

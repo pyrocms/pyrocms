@@ -66,6 +66,7 @@ $lang['user_lang']                             = 'שפה';
 
 $lang['user_activation_code']                  = 'קוד הפעלה';
 
+$lang['user_reset_instructions']			   = 'Enter your email address or username'; #translate
 $lang['user_reset_password_link']              = 'שכחת סיסמה?';
 
 $lang['user_activation_code_sent_notice']      = 'אימייל עם קוד הפעלה נשלח אליך.';
