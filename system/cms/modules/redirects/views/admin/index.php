@@ -48,7 +48,6 @@
 	</section>
 
 <?php else: ?>
-	<section class="title"></section>
 	<section class="item">
 		<p><?php echo lang('redirects.no_redirects');?></p>
 	</section>
