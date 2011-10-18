@@ -39,3 +39,12 @@
 	<?php echo $messages['success']; ?>
 </div>
 <?php endif; ?>
+
+<?php 
+
+	/**
+	 * Admin Notification Event
+	 */
+	Events::trigger('admin_notification');
+	
+?>
