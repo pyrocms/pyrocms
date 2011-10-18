@@ -11,6 +11,8 @@
  */
 class Plugin_Helper extends Plugin
 {
+	static $_counter_increment = TRUE;
+
 	/**
 	 * Data
 	 *
@@ -74,16 +76,48 @@ class Plugin_Helper extends Plugin
 	 * Outputs:
 	 * 10 -- This is an example title
 	 * 9  -- This is another title
+	 *
+	 * You can add a second counter to a page by setting a unique identifier:
+	 * {pyro:files:listing folder="foo"}
+	 * 		{pyro:helper:count identifier="files" return="false"}
+	 * 		{name} -- {slug}
+	 * 	{/pyro:files:listing}
+	 * 	You have {pyro:helper:show_count identifier="files"} files.
+	 *
+	 * 	Outputs:
+	 * 	Test -- test
+	 * 	Second -- second
+	 * 	You have 2 files.
 	 */
 	public function count()
 	{
-		static $i = NULL;
-		
-		// We'll use a default of 1 if they haven't specified and we're on the first iteration
-		if ($i === NULL) $i = $this->attribute('start', 1);
+		static $count = array();
+		$identifier = $this->attribute('identifier', 'default');
 
-		// let's count up unless they specify to "subtract"
-		return ($this->attribute('mode') == 'subtract') ? $i-- : $i++;
+		// Use a default of 1 if they haven't specified one and it's the first iteration
+		if ( ! isset($count[$identifier])) $count[$identifier] = $this->attribute('start', 1);
+
+		// lets check to see if they're only wanting to show the count
+		if (self::$_counter_increment)
+		{
+			// count up unless they specify to "subtract"
+			$value = ($this->attribute('mode') == 'subtract') ? $count[$identifier]-- : $count[$identifier]++;
+
+			// go ahead and increment but return an empty string
+			if (strtolower($this->attribute('return')) === 'false')
+			{
+				return '';
+			}
+			return $value;
+		}
+		return $count[$identifier];
+	}
+	
+	public function show_count()
+	{
+		self::$_counter_increment = FALSE;
+
+		return self::count();
 	}
 }
 

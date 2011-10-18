@@ -475,7 +475,7 @@ jQuery(function($){
 	pyro.widgets.init();
 
 	// Slide toggle for widget codes
-	$(".instance-code").click(function(){
+	$(".instance-code").livequery('click', function(){
 		$('#'+$(this).attr('id')+'-wrap').toggle();
 	});
 

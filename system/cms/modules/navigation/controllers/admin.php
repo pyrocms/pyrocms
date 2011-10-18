@@ -26,7 +26,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'title',
 			'label'	=> 'lang:nav_title_label',
-			'rules'	=> 'trim|required|max_length[40]'
+			'rules'	=> 'trim|required|max_length[100]'
 		),
 		array(
 			'field' => 'link_type',
@@ -424,9 +424,9 @@ class Admin extends Admin_Controller {
 						</div>
 					
 				<?php if ($link['children']): ?>
-						<ol>
+						<ul>
 								<?php $this->tree_builder($link, $group_id); ?>
-						</ol>
+						</ul>
 					</li>
 				<?php else: ?>
 					</li>

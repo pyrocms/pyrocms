@@ -29,7 +29,8 @@ jQuery(function($){
 				}
 				else if (response.status == 'error')
 				{
-					pyro.add_notification(response.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
+					pyro.add_notification(response.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                    $.colorbox.resize();
 				}
 			}, 'json');
 		});
@@ -74,15 +75,13 @@ jQuery(function($){
 
 		self.colorbox({
 			scrolling	: false,
-			width		:'600',
-			height		:'400',
+			width		:'650',
+			height		:'500',
 			onComplete	: function(){
 
 				var form = $('form#folders_crud'),
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
 					btn_action;
-
-				$.colorbox.resize();
 				
 				// Chosen
 				$('select').addClass('chzn');
@@ -178,7 +177,8 @@ jQuery(function($){
 							form.parent().fadeIn(function(){
 
 								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
+								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                                $.colorbox.resize();
 
 							});
 
@@ -326,8 +326,8 @@ jQuery(function($){
 							form.parent().fadeIn(function(){
 
 								// Show notification & resize colorbox
-								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'}, $.colorbox.resize);
-
+								pyro.add_notification(data.message, {ref: '#cboxLoadedContent', method: 'prepend'});
+                                $.colorbox.resize();
 							});
 
 						}, 'json');
