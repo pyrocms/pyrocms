@@ -75,15 +75,13 @@ jQuery(function($){
 
 		self.colorbox({
 			scrolling	: false,
-			width		:'600',
-			height		:'400',
+			width		:'650',
+			height		:'500',
 			onComplete	: function(){
 
 				var form = $('form#folders_crud'),
 					$loading = $('#cboxLoadingOverlay, #cboxLoadingGraphic'),
 					btn_action;
-
-				$.colorbox.resize();
 				
 				// Chosen
 				$('select').addClass('chzn');
