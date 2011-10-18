@@ -1,4 +1,9 @@
 (function($){
+
+	// Live typing for var names.
+	$('input[name=name]').live('keyup', function() {
+		$('#var_'+$(this).attr('id')).html($('input[name=name]').val()).replace(/[a-zA-Z]+[0-9]+/), '';
+	});
 	
 	$(function(){
 
@@ -55,7 +60,7 @@
 				{
 					return false;
 				}
-
+				
 				orig_tr.fadeOut(function(){
 					orig_tr.load(load_url);
 					orig_tr.fadeIn();
@@ -78,6 +83,8 @@
 				has_id		= id !== undefined,
 				post_url	= SITE_URL + 'admin/variables/' + (has_id ? 'edit/' + id : 'create'),
 				callback	= ( $(this).val() == 'save_exit' || $(this).parent('td.actions').size() > 0 ) ? variables.load_list : false;
+				
+				if(has_id){form_data.variable_id=id;}
 
 				variables.do_submit(form_data, post_url, callback);
 			});

@@ -27,7 +27,7 @@
 		
 		<hr>
 
-		<div class="buttons float-right padding-top">
+		<div>
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		</div>
 
