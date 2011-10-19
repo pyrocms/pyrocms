@@ -24,7 +24,7 @@
 			// The date in hexdec
 			key = Number(new Date()).toString(16);
 			
-			$('#page-content ul li:last').before('<li class="page-chunk">' +
+			$('#page-content > ul li:last').before('<li class="page-chunk">' +
 				'<div class="float-left">'+
 				'<input type="text" name="chunk_slug[' + key + ']" value="chunk-' + key + '"/>' +
 				'<select name="chunk_type[' + key + ']">' +
@@ -41,6 +41,10 @@
 			
 			// initialize the editor using the view from fragments/wysiwyg.php
 			pyro.init_ckeditor();
+			
+			// Update Chosen
+			$('select').addClass('chzn');
+			$(".chzn").chosen();
 		});
 		
 		$('a.remove-chunk').live('click', function(e) {
