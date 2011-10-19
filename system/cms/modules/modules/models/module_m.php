@@ -331,6 +331,39 @@ class Module_m extends MY_Model
 			return FALSE;
 		}
 		
+		/*
+		 * Dependency handling
+		 *
+		 * @author: Eymen Gunay
+		 * @date:    30 September 2011
+		 * @mail:    eymen@jiabin.net
+		 * @web:    www.egunay.com
+		 *
+		 */
+		
+		if (isset($details_class->dependency) && $details_class->dependency != '' || isset($details_class->dependency) && is_array($details_class->dependency) && count($details_class->dependency) > 0)
+		{
+			if (is_array($details_class->dependency))
+			{
+				// If array
+				foreach ($details_class->dependency as $dependency)
+				{
+					foreach (module_array() as $module)
+					{
+						if ($module['name'] == $dependency && $module['enabled'] != 1)
+						{
+							$this->install($dependency);		
+						}
+					}
+				}
+			}
+			else
+			{
+				// If string
+				$this->install($details_class->dependency);
+			}
+		}
+		
 		list($class) = $module;
 		
 		// They've just finished uploading it so we need to make a record
