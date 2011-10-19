@@ -148,7 +148,10 @@ class Admin extends Admin_Controller {
 		$order = $this->input->post('order');
 
 		if (is_array($order))
-		{	
+		{
+			//reset all parent > child relations
+			$this->page_m->update_all(array('parent_id' => 0));
+
 			foreach ($order as $i => $page)
 			{
 				//set the order of the root pages
@@ -607,9 +610,9 @@ class Admin extends Admin_Controller {
 					</div>
 				
 			<?php if(isset($page['children'])): ?>
-					<ol>
+					<ul>
 							<?php $this->tree_builder($page); ?>
-					</ol>
+					</ul>
 				</li>
 			<?php else: ?>
 				</li>

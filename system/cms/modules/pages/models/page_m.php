@@ -441,13 +441,15 @@ class Page_m extends MY_Model
 	/**
 	 * Check Slug for Uniqueness
 	 * @access public
-   * @author Donald Myers
 	 * @param slug, parent id, this records id
 	 * @return bool
 	*/
-  public function check_slug($slug,$parent_id,$id=0) {
-  	return (int)parent::count_by(
-  	  array('id !='	=>	$id,'slug'	=>	$slug, 'parent_id' => $parent_id)
-  	) > 0;
+	public function check_slug($slug, $parent_id, $id = 0)
+	{
+		return (int) parent::count_by(array('id !='	=>	$id,
+											'slug'	=>	$slug,
+											'parent_id' => $parent_id
+											)
+									  ) > 0;
 	}
 }
