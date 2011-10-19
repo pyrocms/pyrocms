@@ -77,6 +77,7 @@
 			opacity: .4,
 			placeholder: 'placeholder',
 			tabSize: 25,
+			listType: 'ul',
 			tolerance: 'pointer',
 			toleranceElement: '> div',
 			stop: function(event, ui) {
