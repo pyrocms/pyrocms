@@ -138,7 +138,7 @@ class MY_Pagination extends CI_Pagination {
 				{
 					if ($this->cur_page == $loop)
 					{
-						$output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
+						$output .= $this->cur_tag_open.'<a href="'.current_url().'">'.$loop.'</a>'.$this->cur_tag_close; // Current page
 					}
 					else
 					{

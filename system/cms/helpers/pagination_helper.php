@@ -25,30 +25,30 @@ function create_pagination($uri, $total_rows, $limit = NULL, $uri_segment = 4, $
 
 	$config['num_links'] = 4;
 
-	$config['full_tag_open'] = '<p class="pagination">';
-	$config['full_tag_close'] = '</p>';
+	$config['full_tag_open'] = '<div class="pagination"><ul>';
+	$config['full_tag_close'] = '</ul></div>';
 
 	$config['first_link'] = '&lt;&lt;';
-	$config['first_tag_open'] = '<span class="first">';
-	$config['first_tag_close'] = '</span>';
+	$config['first_tag_open'] = '<li class="first">';
+	$config['first_tag_close'] = '</li>';
 
-	$config['prev_link'] = '&lt;';
-	$config['prev_tag_open'] = '<span class="prev">';
-	$config['prev_tag_close'] = '</span>';
+	$config['prev_link'] = '&larr;';
+	$config['prev_tag_open'] = '<li class="prev">';
+	$config['prev_tag_close'] = '</li>';
 
-	$config['cur_tag_open'] = '<span class="current">';
-	$config['cur_tag_close'] = '</span>';
+	$config['cur_tag_open'] = '<li class="active">';
+	$config['cur_tag_close'] = '</li>';
 
-	$config['num_tag_open'] = '<span>';
-	$config['num_tag_close'] = '</span>';
+	$config['num_tag_open'] = '<li>';
+	$config['num_tag_close'] = '</li>';
 
-	$config['next_link'] = '&gt;';
-	$config['next_tag_open'] = '<span class="next">';
-	$config['next_tag_close'] = '</span>';
+	$config['next_link'] = '&rarr;';
+	$config['next_tag_open'] = '<li class="next">';
+	$config['next_tag_close'] = '</li>';
 
 	$config['last_link'] = '&gt;&gt;';
-	$config['last_tag_open'] = '<span class="last">';
-	$config['last_tag_close'] = '</span>';
+	$config['last_tag_open'] = '<li class="last">';
+	$config['last_tag_close'] = '</li>';
 
 	$ci->pagination->initialize($config); // initialize pagination
 

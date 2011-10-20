@@ -991,6 +991,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .pagination ul li a:hover, .pagination ul li.active a {
   background-color: #c7eefe;
+  color: #4C6169;
 }
 
 .pagination ul li.disabled a, .pagination ul li.disabled a:hover {
