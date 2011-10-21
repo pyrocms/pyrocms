@@ -11,10 +11,11 @@
 // ------------------------------------------------------------------------
 
 /**
- * Return a users display name based on settings
- *
- * @param int $user the users id
- * @return  string
+ * Return current users permission for a module role
+ * 
+ * @param string $module: module slug
+ * @param string $role: role name
+ * @return int 1/0 or array of subpermissions
  */
 function group_has_role($module, $role)
 {
@@ -25,17 +26,21 @@ function group_has_role($module, $role)
 
 	if (ci()->current_user->group == 'admin')
 	{
+		//if this is a restriction then admin doesn't need it
+		if (strpos($role, 'restrict') !== FALSE) return FALSE; 
+		
+		//else admin gets all permissions by default
 		return TRUE;
 	}
 
 	$permissions = ci()->permission_m->get_group(ci()->current_user->group_id);
 
-	if (empty($permissions[$module]) or empty($permissions[$module]->$role))
+	if (empty($permissions[$module]->$role))
 	{
 		return FALSE;
 	}
-
-	return TRUE;
+	//allow for array-type permissions return
+	return $permissions[$module]->$role;
 }
 
 

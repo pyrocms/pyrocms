@@ -64,7 +64,72 @@ class Permission_m extends CI_Model
 			->where('group_id', $group_id)
 			->count_all_results('permissions') > 0;
 	}
-
+	
+	
+	/***
+	* get all modules roles with permissions per group
+	* sort roles into binary (on/off) types and array(db table based) types
+	* @access public
+	* @param group_id
+	* @return array
+	* @author Peter Digby
+	***/
+	
+	public function get_modules($group_id) 
+	{
+		//get existing permissions for this group
+		$edit_permissions = $this->permission_m->get_group($group_id);
+		
+		//get all module roles
+		$permission_modules = $this->module_m->get_all(array('is_backend' => TRUE));
+		
+		//put them together
+		foreach ($permission_modules as &$module)
+		{
+			//is the whole module allowed ?
+			$module['checked'] = array_key_exists($module['slug'], $edit_permissions);
+			
+			//extract roles and permissions 
+			$module['binary_roles'] = array();
+			$module['array_roles'] 	= array();
+			
+			$roles = $this->module_m->roles($module['slug']);
+			
+			foreach ($roles as $role) 
+			{
+				//the on/off roles first
+				if (!is_array($role))
+				{
+					$module['binary_roles'][$role] = @$edit_permissions[$module['slug']]->$role;
+				}
+				//then the array type roles
+				else				
+				{
+					$role_permissions =  @$edit_permissions[$module['slug']]->$role['name'];
+					
+					//TODO: need to allow for recursive db query below (eg. file folder permissions)
+					//perhaps a 'recursive' param in the role means look for 'parent_id' in db and structure accordingly?
+					
+					//get db id and name fields
+					$this->db->select(array('id',$role['field']));
+					$query = $this->db->get($role['table']);
+					$subs = array();
+					foreach ($query->result() as $row) 
+					{
+						$subs[$row->id] = array(
+												'name' => $row->{$role['field']},
+												'checked' => isset($role_permissions->{$row->id}) ? TRUE: FALSE
+												);
+					}	
+					$module['array_roles'][$role['name']] = $subs;
+				}
+			}
+		}
+		
+		return $permission_modules;
+	}
+	
+	
 	/**
 	 * Get a rule based on the ID
 	 *

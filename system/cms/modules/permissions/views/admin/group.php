@@ -15,23 +15,44 @@
 		</thead>
 		<tbody>
 	
-		<?php foreach ($permisison_modules as $module): ?>
-			<tr>
-				<td style="width: 30px"><?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, array_key_exists($module['slug'], $edit_permissions), 'id="'.$module['slug'].'"'); ?></td>
-				<td>
-					<label class="inline" for="<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
-				</td>
-				<td>
-					<?php if ( ! empty($module['roles'])): ?>
-						<?php foreach ($module['roles'] as $role): ?>
-							<label class="inline"><?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$role.']', TRUE, isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])); ?>
-							 <?php echo lang($module['slug'].'.role_'.$role); ?></label>
+	<?php foreach ($permission_modules as $module): ?>
+		<tr>
+			<td style="width: 30px">
+				<?php echo form_checkbox('modules[' . $module['slug'] . ']', TRUE, $module['checked'], 'id="'.$module['slug'].'"');?>
+			</td>
+			<td>
+				<label class="inline" for="<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
+			</td>
+			<td>
+				<?php foreach ($module['binary_roles'] as $rolename => $checked): ?>
+					<label class="inline">
+					<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$rolename.']',TRUE, $checked);?> 
+					<?php echo lang($module['slug'].'.role_'.$rolename); ?>
+					</label>
+				<?php endforeach; ?>
+				
+				<?php foreach ($module['array_roles'] as $rolename => $subs): ?>
+					<?php 
+					//TODO: css input needed here
+					?>
+					<div style="border:1px solid #e4e4e4; padding:5px; margin-top:5px;">
+						<label style="margin-right:12px;">
+							<?php echo lang($module['slug'].'.role_'. $rolename)?> : 
+						</label>
+						<?php foreach ($subs as $subid => $sub): ?>
+							<label class="inline">
+							<?php echo form_checkbox('module_roles[' . $module['slug'] . ']['.$rolename .']['.$subid .']', TRUE, $sub['checked']); ?>
+							<?php echo $sub['name']; ?>
+							</label>
 						<?php endforeach; ?>
-					<?php endif; ?>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-	
+
+					</div>				
+ 				<?php endforeach; ?>
+				
+			</td>
+		</tr>
+	<?php endforeach; ?>
+
 		</tbody>
 	</table>
 	
