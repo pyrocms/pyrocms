@@ -18,10 +18,11 @@ class Admin extends Admin_Controller
 	{
 	    parent::__construct();
 	
-	    $this->load->model('permission_m');
-	    $this->load->model('groups/group_m');
+		$this->load->model('permission_m');
+		$this->load->model('groups/group_m');
 	    $this->lang->load('permissions');
 	    $this->lang->load('groups/group');
+		 
 	}
 
 	/**
@@ -37,6 +38,7 @@ class Admin extends Admin_Controller
 			->title($this->module_details['name'])
 			->build('admin/index', $this->data);
 	}
+    
 
 	public function group($group_id)
 	{
@@ -48,22 +50,15 @@ class Admin extends Admin_Controller
 			$this->permission_m->save($group_id, $this->input->post('modules'), $this->input->post('module_roles'));
 			
 			$this->session->set_flashdata('success', lang('permissions.message_group_saved'));
-
+			
 			redirect('admin/permissions/group/'.$group_id);
 		}
 
 		$group = $this->group_m->get($group_id);
-		$edit_permissions = $this->permission_m->get_group($group_id);
-		$permisison_modules = $this->module_m->get_all(array('is_backend' => TRUE));
-
-		foreach ($permisison_modules as &$module)
-		{
-			$module['roles'] = $this->module_m->roles($module['slug']);
-		}
+		$permission_modules = $this->permission_m->get_modules($group_id);
 
 		$this->template
-			->set('edit_permissions', $edit_permissions)
-			->set('permisison_modules', $permisison_modules)
+			->set('permission_modules', $permission_modules)
 			->set('group', $group)
 			->build('admin/group', $this->data);
 	}
